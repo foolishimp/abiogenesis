@@ -651,7 +651,7 @@ const RUNTIME_EVENT_CANDIDATE_REQUIRED_KEYS = Object.freeze(RUNTIME_EVENT_REQUIR
     key !== "eventId" &&
     key !== "payloadDigest"));
 function payloadInvocationRef(event) {
-    if (typeof event.payload !== "object" || event.payload === null || Array.isArray(event.payload)) {
+    if (!isRecord(event.payload)) {
         return null;
     }
     const value = event.payload.invocationRef;

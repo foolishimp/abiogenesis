@@ -113,7 +113,7 @@ export interface PublicProjectionPayloads {
 function exactObject(
   properties: Readonly<Record<string, JsonValue>>,
   required: readonly string[] = Object.keys(properties),
-): JsonValue {
+): Readonly<Record<string, JsonValue>> {
   return {
     type: "object",
     additionalProperties: false,
@@ -414,7 +414,7 @@ function admittedInvocationBranch(
       uniqueItems: true,
       items: nonblankSchema,
     },
-  }) as Readonly<Record<string, JsonValue>>;
+  });
   return authority.conditionals.length === 0
     ? schema
     : { ...schema, allOf: authority.conditionals };

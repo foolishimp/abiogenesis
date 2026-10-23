@@ -1078,7 +1078,7 @@ function projectGraphCallResult(
 function evidenceProjection(
   context: RunReadContext,
   cCalls: readonly ReplayCCallState[],
-): JsonValue {
+): Readonly<Record<string, JsonValue>> {
   const cCallRefs = new Set(cCalls.map((row) => row.cCallRef));
   const evidenceRefs = [...new Set(cCalls.flatMap((row) => row.evidenceRefs))].sort();
   const eventAtoms = context.semanticReplay.eventAtoms.filter((event) =>
@@ -1096,7 +1096,7 @@ function evidenceProjection(
     physicalCoordinates: context.semanticReplay.physicalCoordinates,
     replayRef: context.replay.replayRef,
     replayDigest: context.replay.replayDigest,
-  } as unknown as JsonValue;
+  } as unknown as Readonly<Record<string, JsonValue>>;
 }
 
 function projectRunEvidence(
@@ -1107,7 +1107,7 @@ function projectRunEvidence(
   return context === null
     ? ABSENT
     : {
-        ...evidenceProjection(context, context.replay.cCalls) as Readonly<Record<string, JsonValue>>,
+        ...evidenceProjection(context, context.replay.cCalls),
         runtimeFailures: projectRuntimeFailureEvidenceAtPrefix(context.prefix),
       };
 }

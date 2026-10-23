@@ -731,10 +731,10 @@ function selectedCCallOutcomeRoute(
     outcome.admitted.judgment.judgment !== "advance"
   ) return null;
   const value = outcome.admitted.result.value;
-  if (typeof value !== "object" || value === null || Array.isArray(value)) {
+  if (!isRecord(value)) {
     return null;
   }
-  const projection = value as Readonly<Record<string, JsonValue>>;
+  const projection = value;
   if (projection.kind === "graph_span_selection" && projection.disposition === "re_enter") {
     return "re_enter";
   }

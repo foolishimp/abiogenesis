@@ -1484,3 +1484,10 @@ test("M5 F_H-only roots produce one valid empty executable-resolution set", requ
   );
   assert.equal(validation.kind, "implementation_resolution_set_validation", JSON.stringify(validation));
 });
+
+test("TD-14: Rule.config is admitted at its parse; an unsafe integer or a lone surrogate is refused", () => {
+  const rule = (config) => gtl.ruleDeclaration({ name: "rule://td14/config", kind: "recursion_termination", config, tags: [] });
+  assert.deepEqual(rule({ mode: "evaluator_all", limit: 3 }).config, { limit: 3, mode: "evaluator_all" });
+  assert.throws(() => rule({ limit: 2 ** 60 }), { name: "TypeError", message: "Rule.config must be one JSON object" });
+  assert.throws(() => rule({ mode: "\uD800" }), { name: "TypeError", message: "Rule.config must be one JSON object" });
+});

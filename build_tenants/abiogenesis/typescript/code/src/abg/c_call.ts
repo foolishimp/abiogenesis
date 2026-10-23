@@ -1991,13 +1991,13 @@ function projectAdmittedActorTransport(
     event.aggregateId === source.actorInvocationRef ||
     event.parentAggregateId === source.actorInvocationRef
   );
-  const timeoutRows = actorRows.filter((event) =>
+  const timeoutRows = actorRows.flatMap((event) =>
     event.kind === "actor_process_timeout_observed" && isRecord(event.payload)
+      ? [event.payload]
+      : []
   );
   const timeoutRow = onlyExactMatch(timeoutRows);
-  const timeoutPayload = timeoutRow.kind === "one"
-    ? timeoutRow.value.payload as Readonly<Record<string, JsonValue>>
-    : null;
+  const timeoutPayload = timeoutRow.kind === "one" ? timeoutRow.value : null;
   const timeoutClass = timeoutPayload?.timeoutClass ?? null;
   const timeoutLimitMatchesBinding = timeoutPayload === null ||
     timeoutPayload.timeoutMs === (
@@ -2013,11 +2013,8 @@ function projectAdmittedActorTransport(
       : []
   );
   const streamBytes = (kind: RuntimeEvent["kind"]): number =>
-    actorRows.filter((event) => event.kind === kind && isRecord(event.payload))
-      .reduce((sum, event) =>
-        sum + Number(
-          (event.payload as Readonly<Record<string, JsonValue>>).byteLength,
-        ), 0);
+    actorRows.flatMap((event) => event.kind === kind && isRecord(event.payload) ? [event.payload] : [])
+      .reduce((sum, payload) => sum + Number(payload.byteLength), 0);
   const classified = classifyWorkerTransportFailure({
     // The artifact/profile join above authenticates this native disposition.
     ...(artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ? {
@@ -2310,11 +2307,12 @@ function undispatchedResultRelation(prefix: RuntimeEventPrefix, cCall: CCall, re
   const previous = events.filter(row => row.admissionOrdinal < event.admissionOrdinal).at(-1);
   if (previous === undefined) return false;
   const before = validatedRuntimeEventPrefixThroughEvent(prefix, previous.eventId);
+  if (!isRecord(p.failureValue)) return false;
   return undispatchedOwnerEvidenceMatches(before, cCall, {
     kind: "undispatched_owner_refusal_evidence_candidate", schemaVersion: "5.0.0",
     implementationRef: p.implementationRef as string, inputDigest: p.inputDigest as Sha256Digest,
     outputDigest: p.outputDigest as Sha256Digest, failureContractRef: p.failureContractRef as string,
-    failureValue: p.failureValue as Readonly<Record<string, JsonValue>>,
+    failureValue: p.failureValue,
     ownerObservation: p.ownerObservation as unknown as UndispatchedOwnerObservation,
   }, p.inputDigest as Sha256Digest);
 }
@@ -3524,9 +3522,8 @@ export function projectCCallRuntimeFailureSignal(
     failureCandidateDigest: _failureCandidateDigest,
     ...baseFailureCandidate
   } = resultValue;
-  const sourcePayload = sourceEvents[0]!.payload as Readonly<
-    Record<string, JsonValue>
-  >;
+  const sourcePayload = sourceEvents[0]!.payload;
+  if (!isRecord(sourcePayload)) return null;
   const candidateMatches = source.signal.sourceClass === "probabilistic_transport"
     ? sourcePayload.outputDigest === resultValue.failureCandidateDigest &&
       sha256Canonical(baseFailureCandidate) ===
@@ -4226,8 +4223,9 @@ export function projectWorkflowCCallInputDigestAtPrefix(
   const evidence = indexedRuntimeEvents(prefix, "related:" + opened.aggregateId).filter(event =>
     event.kind === "c_call_evidenced" && sameScope(event) && event.aggregateId === opened.aggregateId &&
     isRecord(event.payload) && event.payload.evidenceClass === "sub_traversal");
-  if (evidence.length !== 1 || !isRecord(evidence[0]!.payload)) return null;
-  const event = evidence[0]!, payload = event.payload as Readonly<Record<string, JsonValue>>;
+  const event = evidence[0];
+  if (evidence.length !== 1 || event === undefined || !isRecord(event.payload)) return null;
+  const payload = event.payload;
   const evidenceRef = payload.evidenceRef;
   if (!exactCCallEvidenceIdentity(event) || typeof payload.inputDigest !== "string" || !/^sha256:[a-f0-9]{64}$/u.test(payload.inputDigest) ||
     payload.cCallRef !== opened.aggregateId || payload.foldbackEventRef !== foldback.eventId ||

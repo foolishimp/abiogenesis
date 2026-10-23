@@ -488,7 +488,8 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
   if (current.cursorRef !== p.cursorRef || current.cursorDigest !== p.cursorDigest) return null;
   const ancestry = [current];
   for (const event of origins.reverse()) {
-    const payload = event.payload as Readonly<Record<string, JsonValue>>;
+    const payload = event.payload;
+    if (!isRecord(payload)) return null;
     let next: TraversalCursorCandidate;
     if (event.kind === "fh_interaction_resume_admitted") {
       if (!isRecord(payload.successorCursor)) return null;

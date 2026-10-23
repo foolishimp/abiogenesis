@@ -576,3 +576,342 @@ Items, in this order. The Return carries one row per item: done or stopped, with
 **Stop:** any change to a shared atom (`shared/`); any change to an event payload, a contract, a Product output or the failure classes; an (A) site with no refusal channel of its own (`stop: channel`, the cast stays, the row says so); an (I) admission at a Product boundary that the O-SCHEMA sentence forbids; a new red identity; a second bounded attempt at any item; any push.
 
 **Return contract.** One commit on `main`, no push. First line `TD-14: the casts outside repair C's census classified and discharged; the universe stated`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-14 return` below this section with: one row per item (done or stopped, lines at head); the four universe counts; the classification totals; the gap-class table; the lane results as `tests/pass/fail/skipped` with every red attributed; the stop reports with the counterexample.
+
+## TD-14 return
+
+Worker: Opus 5.5, fresh context. Base `6ec91829e`. This package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/code/src/` unless they start with `design/`, `test_env/`, `contracts/`, `scripts/` or `.ai-workspace/`. Line numbers in the tables, premises and gap rows are at head `6ec91829e`; lines after the commit are marked as such.
+
+| Item | State | Lines at head `6ec91829e` | Lines after |
+|---|---|---|---|
+| 1. Universe | done | C's census, 2,951 rows at `0c362da15`; 56 casts at head | `.ai-workspace/work/T290_DEBT_WAVE_01/td-14-census.tsv`, 2,952 rows |
+| 2. Classification | done; nine (T) held under stops (three at `shared/`, six at the C2 context pin), one (I) under `stop: channel` | the 56 sites in the table below | 25 casts remain; changed lines under Edits |
+| 3. Gaps | done | `validator/raw_admission.ts:184`, `:204`, `:209` | unchanged |
+| 4. Proof | done | `test_env/tests/m5-c-algebra-validation.test.mjs` (1,486 lines) | case `:1488-1493` |
+| 5. Records | done; no O-SCHEMA stop: the one (I) admission added is not at a Product boundary | `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:613` (O-TYPE) | `:613`, one sentence appended |
+| 6. Lanes | done | | see Lanes |
+
+**Item 1: method.** A TypeScript checker walk (`typescript` 5.9.2) visits every `AsExpression` and `TypeAssertion` in `code/src`. A cast is in the universe when its type node resolves to the `JsonValue` alias declared in `shared/canonical_json.ts` (through any import, re-export or `import()` type), or is `Readonly<Record<string, X>>` with `X` such a node. A cast through `as unknown` is its own form. Calibration: on `0c362da15` the walk reproduces all 2,951 rows of C's census by file:line, function, expression and form. It also finds one cast that C's textual matcher missed, present at `0c362da15` and at head: `abg/effectful_invocation_truth.ts:209`, `operation.payload as Readonly<Record<string, import("../shared/canonical_json.js").JsonValue>>`. The join takes file, function, expression, form and line text; all 55 head casts in C's forms join to the 55 kept rows on all five. A site has changed when the text of its enclosing named unit at head differs from that text at C's commit `99b80d6f5`. The changing commits come from the unit text at each later commit: B `d8cf6b5d9`, D `0eacd4668`, E `280f5777f`, F `195b65ddb`, G `68a5397dc`, H `46ed04895`, TD-06 `94ca67abf`, TD-07 `ea18189e3`, TD-17 `4bc5a945a`, TD-13 `50301d557`.
+
+| Universe class | Rows |
+|---|---|
+| 1. C decided, unchanged | 2,607. This includes two rows whose units C itself removed: `shared/public_function_contracts.ts` `canonicalIdentity` and `abg/default_library.ts` `asJson`. |
+| 2. C decided, site changed | 289, in 64 units |
+| 3. C kept (no sink traced) | 55, all present at head |
+| 4. New since `0c362da15` | 0 |
+| Outside C's textual matcher | 1 (`abg/effectful_invocation_truth.ts:209`) |
+
+None of C's 2,896 decided rows has a cast at head. By changing commit, class 2 has: TD-13 alone 147; B 40; D and TD-13 28; TD-07 26; D and E 17; D and F 13; D, F and H 6; F 5; D 3; D and H 3; E 1.
+
+Class 2 in full, one row per unit. Every row of every unit, with its C decision, is in `td-14-census.tsv`.
+
+| file | enclosing unit | C lines (0c362da15) | rows | unit changed by |
+| --- | --- | --- | --- | --- |
+| `abg/c_call.ts` | `admitEvidenceUsingTransport` | 6453, 6501, 6614, 6649, 6780, 6814 | 6 | TD-13 |
+| `abg/c_call.ts` | `admitJudgment` | 7033, 7068 | 2 | TD-13 |
+| `abg/c_call.ts` | `admitResult` | 6907, 6927, 6937 | 3 | TD-13 |
+| `abg/c_call.ts` | `completeRejectedCCall/admit` | 7201, 7228, 7253, 7289 | 4 | TD-13 |
+| `abg/c_call.ts` | `exactCCallEvidenceIdentity` | 2218 | 1 | TD-13 |
+| `abg/c_call.ts` | `exactEventBody` | 4567 | 1 | TD-13 |
+| `abg/c_call.ts` | `exactRuntimeFailureSource` | 2999 | 1 | TD-13 |
+| `abg/c_call.ts` | `planCCallRuntimeFailureClose` | 3101, 3102, 3169, 3213, 3216, 3217, 3223, 3243, 3285, 3325, 3337 | 11 | TD-13 |
+| `abg/c_call.ts` | `projectAdmittedActorTransport` | 1908, 1961, 1988, 1989, 1992, 1993, 2019, 2052, 2053 | 9 | TD-13 |
+| `abg/c_call.ts` | `projectAdmittedLeafCCallOutcomeFromPrefix` | 4678, 4678, 4702, 4848, 4849, 4850 | 6 | TD-13 |
+| `abg/c_call.ts` | `projectAdmittedProbabilisticTransport` | 2088, 2090 | 2 | TD-13 |
+| `abg/c_call.ts` | `projectCCallOpeningAuthority` | 1411, 1421, 1421, 1422, 1422 | 5 | TD-07 |
+| `abg/c_call.ts` | `projectCCallRuntimeFailureSignal` | 3490, 3496, 3499, 3532 | 4 | TD-13 |
+| `abg/c_call.ts` | `projectOpenedLeafCCallCarrier` | 2410 | 1 | TD-13 |
+| `abg/c_call.ts` | `projectOpenedWorkflowCCallCarrier` | 2657, 2750, 2771 | 3 | TD-13 |
+| `abg/c_call.ts` | `revalidateProbabilisticResultCarrier` | 3701, 3703, 3705, 3716 | 4 | TD-13 |
+| `abg/c_call_outcome.ts` | `projectCCallOutcomeReceiptFromTruth` | 906, 907, 908 | 3 | TD-13 |
+| `abg/c_call_outcome.ts` | `projectWorksiteBasisObservation` | 187, 223 | 2 | TD-13 |
+| `abg/c_call_outcome.ts` | `projectWorksiteFailureResultRequest` | 398 | 1 | TD-13 |
+| `abg/c_call_outcome.ts` | `projectWorksiteSelectedOccurrence` | 291, 293 | 2 | TD-13 |
+| `abg/event_calculus.ts` | `worksiteSelectedOccurrenceInputCurrent` | 348, 348 | 2 | TD-07 |
+| `abg/execution_basis.ts` | `exactC2SourceEnvironment` | 739, 750, 755, 755, 780, 782, 816, 816, 924, 925, 928, 929, 932, 933, 935, 935 | 16 | TD-13 |
+| `abg/execution_basis.ts` | `hasAdmittedImplementationResolution` | 1426 | 1 | TD-13 |
+| `abg/execution_basis.ts` | `hasAdmittedImplementationSetAtPrefix` | 1212, 1223 | 2 | TD-13 |
+| `abg/execution_basis.ts` | `hasAdmittedInteractionSetAtPrefix` | 1310, 1321 | 2 | TD-13 |
+| `abg/execution_basis.ts` | `hasExactInvocationObservationBasis` | 1030 | 1 | TD-13 |
+| `abg/execution_basis.ts` | `hasExactWorksiteCommandLeafSourceAtDurablePrefix` | 992, 992 | 2 | TD-13 |
+| `abg/graph_application.ts` | `projectApplicationChildFoldbackAtPrefix` | 502 | 1 | TD-07 |
+| `abg/graph_application.ts` | `projectApplicationChildPreparationRefusalAtPrefix` | 418 | 1 | TD-07 |
+| `abg/qualification_proof.ts` | `<module>:sameFact/sameFact` | 115, 115 | 2 | B |
+| `abg/qualification_proof.ts` | `projectQualificationRulingForConsumer` | 475 | 1 | B |
+| `abg/retry.ts` | `projectDeclaredCRetryFrontier` | 3004, 3151, 3915 | 3 | TD-07 |
+| `abg/runtime_failure.ts` | `admitRuntimeFailure` | 252 | 1 | TD-07 |
+| `abg/semantic_job.ts` | `validateWorksiteFileParentsPlanAtPrefix` | 261, 261, 274, 274 | 4 | B |
+| `abg/semantic_revision.ts` | `semanticJobRevisionInputMatchesBasis` | 568, 568, 569, 569, 569, 570, 570 | 7 | B |
+| `abg/semantic_revision.ts` | `semanticRevisionInputMatchesBasis` | 792, 792, 793, 793, 793, 793, 794, 794 | 8 | B |
+| `abg/traversal_cursor.ts` | `projectCursorAncestry` | 475 | 1 | TD-13 |
+| `abg/traversal_route.ts` | `admitRoute` | 4404, 4404, 4450, 4844, 4845, 4976, 5063, 5069, 5075 | 9 | TD-13 |
+| `abg/traversal_route.ts` | `constructionDeltaForAdvance` | 2623, 2636, 2658, 2723, 2731, 2773, 2777, 2782, 2784, 2785, 2786 | 11 | TD-13 |
+| `abg/traversal_route.ts` | `constructionIntentForAdvance` | 1655, 1724, 1751 | 3 | TD-13 |
+| `abg/traversal_route.ts` | `deriveGraphFunctionActionEvaluationBasis` | 2218, 2243, 2265, 2274 | 4 | TD-13 |
+| `abg/traversal_route.ts` | `hasBlockedRouteEvidence` | 3372, 3443, 3444 | 3 | TD-13 |
+| `abg/traversal_route.ts` | `hasGovernedConstructionClosure` | 2980 | 1 | TD-13 |
+| `abg/traversal_route.ts` | `hasGraphSpanReentryRouteEvidence` | 3961, 3971 | 2 | TD-13 |
+| `abg/traversal_route.ts` | `noActionProjectionForStopRoute` | 1942 | 1 | TD-13 |
+| `abg/traversal_route.ts` | `projectHistoricalTraversalRoute` | 660, 666, 667 | 3 | TD-13 |
+| `abg/witness_admission_operation.ts` | `prepareSemanticEvent` | 737, 811, 814, 835, 851, 854, 938, 941, 970, 1004, 1035, 1037, 1095 | 13 | TD-07 |
+| `abg/worksite_construction_recovery.ts` | `nativeWorksiteRecoverySourceAtPrefix` | 404, 408, 413, 415, 415 | 5 | B |
+| `abg/worksite_input_provenance.ts` | `projectSameRunWorksiteCommandSourceAtPrefix` | 483, 497, 497, 506, 506, 510, 510, 510, 510, 511, 511, 511, 511, 535, 535 | 15 | TD-13 |
+| `hog/recursion_lifecycle.ts` | `beginRecursionApplicationUsing` | 623, 639, 656, 677 | 4 | TD-13 |
+| `hog/recursion_lifecycle.ts` | `blockRecursion` | 497, 523, 570 | 3 | D |
+| `hog/recursion_lifecycle.ts` | `completeRecursionChildUsing` | 818, 891, 920, 943, 965, 1007, 1027, 1053, 1072 | 9 | D, TD-13 |
+| `hog/workflow_lifecycle.ts` | `completeOwnedWorkflowLocus` | 541, 602, 619, 662, 673, 727, 749, 826, 857, 877, 902, 924, 948, 963, 994, 1021, 1066, 1075, 1093 | 19 | D, TD-13 |
+| `implementation/worksite_command_execution.ts` | `realizeWorksiteCommandExecution` | 636, 649, 650 | 3 | D, E |
+| `implementation/worksite_command_execution.ts` | `realizeWorksiteCommandExecution/complete` | 688, 689, 707, 734 | 4 | D, E |
+| `implementation/worksite_command_helper.ts` | `main` | 1377, 1378, 1387, 1399, 1410, 1412, 1429, 1430, 1452, 1469 | 10 | D, E |
+| `implementation/worksite_command_helper.ts` | `predicateObservation` | 1248, 1264, 1282 | 3 | F |
+| `implementation/worksite_command_helper.ts` | `runCommand` | 765, 802, 816 | 3 | D, H |
+| `implementation/worksite_command_helper.ts` | `runHttpProbe` | 1024, 1025, 1026, 1127, 1164, 1170 | 6 | D, F, H |
+| `product/worksite_command_execution.ts` | `constructWorksiteExecutionHelperArtifact` | 1837, 1873 | 2 | D, F |
+| `product/worksite_command_execution.ts` | `renderWorksiteCommandExecutionPrompt` | 2196 | 1 | E |
+| `product/worksite_command_forward.ts` | `constructWorksiteCommandForwardRequest` | 102, 102 | 2 | F |
+| `product/worksite_command_forward.ts` | `constructWorksiteCommandForwardTask` | 120, 120, 128, 128, 134, 139, 139, 139, 139, 140, 140 | 11 | D, F |
+| `validator/self_conformance_semantics.ts` | `qualificationResultRelation` | 56, 56, 59, 59, 62, 62, 64, 64, 70, 70, 78, 78, 82 | 13 | B |
+
+Class 4 in full: none. No cast of the three forms was added to `code/src` after `0c362da15`.
+
+The universe excludes these neighbouring spellings, and this package does not decide them: at head, 16 casts to `Record<string, JsonValue>`, 8 to `JsonValue[]`, 5 to `readonly JsonValue[]`, the intersections with `JsonValue` or `Readonly<Record<string, JsonValue>>`, and the aliases `JsonRecord`, `IJsonObject`, `MutableJsonRecord` and `PublicJsonSchema`. Implicit-`any` flows from `JSON.parse` that carry no cast are also outside it. The ones met in this reading are listed under Findings.
+
+**Item 2: classification.**
+
+| Casts | (T) | (I) | (A) | (P) | Total | Cast removed | Cast stays |
+|---|---|---|---|---|---|---|---|
+| C's 55 kept | 38 | 2 | 0 | 15 | 55 | 30 | 25 |
+| Outside C's matcher | 1 | 0 | 0 | 0 | 1 | 1 | 0 |
+| New | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+
+The 25 casts that stay are the 15 (P), the nine (T) held under the `shared/` and C2-pin stops, and the one (I) under `stop: channel`. A row reading "unreachable" adds an `isRecord` test whose refusal branch cannot be taken because an upstream guard already requires a record. A row reading "identical" has the same answer for every input. In the form column, RJ is `Readonly<Record<string, JsonValue>>`, and `unknown→` marks a cast through `as unknown`.
+
+| # | Site at `6ec91829e` | Function | Expression → form | Class | Change or premise |
+|---|---|---|---|---|---|
+| 1 | `shared/public_function_contracts.ts:753` | `visit` | `value` → RJ | T | held: shared/ stop; the (T) discharge is `!isRecord(value)` in place of the `typeof`/`null` guard after the array branch (identical at runtime); the cast stays |
+| 2 | `shared/public_function_contracts.ts:773` | `neutral` | `value` → RJ | T | held: shared/ stop; the same one-line discharge; the cast stays |
+| 3 | `shared/public_function_contracts.ts:799` | `rewrite` | `value` → RJ | T | held: shared/ stop; the same one-line discharge; the cast stays |
+| 4 | `gtl/declarations.ts:49` | `cloneJsonObject` | `JSON.parse(canonicalJson(value))` → RJ | I | `admitJson` at the parse; a refusal takes the existing TypeError `Rule.config must be one JSON object` |
+| 5 | `gtl/graph_applications.ts:176` | `recursionTerminationDecision` | `current` → RJ | T | shallow guard retired into `isRecord`; the narrowed reference is read (identical) |
+| 6 | `validator/raw_admission.ts:204` | `<anon>` | `JSON.parse(canonicalJson(json))` → JsonValue | P | the value is `json`, admitted at :184 by `admitIJsonValue(value, "$")`; :204 parses its canonical bytes, so the clone writes the same canonical bytes and :209 hashes admitted bytes |
+| 7 | `public/binding/public_function_projections.ts:389` | `admittedInvocationBranch` | `exactObject({ kind: { const: "public_invo...` → RJ | T | `exactObject` returns the record it builds (module-local return type); cast removed |
+| 8 | `product/semantic_job.ts:574` | `<anon>` | `declaration` → RJ | T | shallow guard retired into `isRecord` (identical) |
+| 9 | `abg/fh_continuation_projection.ts:170` | `exactOpenedBasis` | `openedPayload.cCall` → RJ | T | the guarded reference `opened.payload.cCall` (narrowed at :161-165) is read; cast removed |
+| 10 | `abg/fh_continuation_projection.ts:171` | `exactOpenedBasis` | `openedPayload.pendingResult` → RJ | T | the guarded reference `opened.payload.pendingResult` is read |
+| 11 | `abg/fh_continuation_projection.ts:172` | `exactOpenedBasis` | `openedPayload.pendingJudgment` → RJ | T | the guarded reference `opened.payload.pendingJudgment` is read |
+| 12 | `abg/fh_continuation_projection.ts:183` | `exactOpenedBasis` | `openedPayload.openedTraversalScope` → RJ | T | the guarded reference `opened.payload.openedTraversalScope` is read |
+| 13 | `abg/effectful_invocation_truth.ts:209` | `projectEffectfulPublicInvocationTruthAtPrefix` | `operation.payload` → RJ | T | `isRecord(p)` joins the existing refusal; unreachable: the :205-207 filter admits only record payloads |
+| 14 | `abg/continuation.ts:725` | `projectHeldInteractionCCallOutcomeAtPrefix` | `resultEvent.payload` → RJ | T | `isRecord(resultEvent.payload)` joins the guard at :654; unreachable: `exactPayload` (:622) already requires it |
+| 15 | `abg/traversal_cursor.ts:491` | `projectCursorAncestry` | `event.payload` → RJ | T | `if (!isRecord(payload)) return null`; unreachable: origins are pushed only when `isRecord(event.payload)` |
+| 16 | `abg/native_work_effect.ts:91` | `projectNativeWorkUnknownEffectTask` | `actor.payload` → RJ | T | `isRecord(ap)` joins the existing refusal; unreachable: `checkExactRecord(..., PAYLOAD_RECORD)` at :88 |
+| 17 | `abg/project_read_ports.ts:1000` | `projectRunStatus` | `{ runId: targetRef, executionBasis: conte...` → unknown→JsonValue | P | typed projection of replayed truth; the read port admits it at :1560 (`admitIJsonValue`) before the digest at :1567 |
+| 18 | `abg/project_read_ports.ts:1091` | `evidenceProjection` | `{ runId: context.replay.runId, evidenceRe...` → unknown→JsonValue | P | as :1000; the cast now reads `as unknown as Readonly<Record<string, JsonValue>>` so :1110 is typed |
+| 19 | `abg/project_read_ports.ts:1110` | `projectRunEvidence` | `evidenceProjection(context, context.repla...` → RJ | T | `evidenceProjection` returns `Readonly<Record<string, JsonValue>>`; cast removed |
+| 20 | `abg/project_read_ports.ts:1155` | `projectWorkspaceReplay` | `{ workspaceRef: targetRef, eventContractP...` → unknown→JsonValue | P | as :1000 |
+| 21 | `abg/project_read_ports.ts:1170` | `projectRunReplay` | `{ ...context.semanticReplay, runtimeStatu...` → unknown→JsonValue | P | as :1000 |
+| 22 | `abg/project_read_ports.ts:1393` | `gapRows` | `deepFreeze({ kind: "abg_admitted_gap", sc...` → unknown→JsonValue | P | as :1000 |
+| 23 | `product/default_library_fulfillment.ts:160` | `governanceFulfillmentAssessmentJsonSchema` | `object({ obligations: array(object({ obli...` → RJ | P | constant schema built from literals and valibot `toJsonSchema` output (JSONSchema7 interface); no caller in code/src |
+| 24 | `abg/artifact_truth.ts:335` | `prepare` | `{ ...selectedRows[0]!, kind: "product_ins...` → unknown→JsonValue | P | members are one row of the lock body carried in the stored event and string literals; `isProductInstallCandidateInResolvedLock` (:350) checks it before the digest at :363 |
+| 25 | `abg/instruction_assembly.ts:444` | `registeredSelectionInstructionResultMatches` | `observations[0]!.payload` → RJ | T | `isRecord(observed)` joins the length refusal; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 26 | `abg/instruction_assembly.ts:448` | `registeredSelectionInstructionResultMatches` | `closes[0]!.payload` → RJ | T | `isRecord` test before the member read; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 27 | `abg/instruction_assembly.ts:1117` | `semanticInstructionResultMatches` | `rows[0]!.payload` → RJ | T | `isRecord(o)` joins the length refusal; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 28 | `abg/instruction_assembly.ts:1130` | `semanticInstructionResultMatches` | `closes[0]!.payload` → RJ | T | `isRecord` test before the member read; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 29 | `abg/instruction_assembly.ts:1139` | `semanticInstructionResultMatches` | `rows[0]!.payload` → RJ | T | `isRecord(observation)` joins the length refusal; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 30 | `abg/instruction_assembly.ts:1162` | `semanticInstructionResultMatches` | `closes[0]!.payload` → RJ | T | `isRecord` test before the member read; unreachable: runtime-event admission refuses a non-record payload (abg/event_store.ts:2735) |
+| 31 | `abg/actor_process.ts:1063` | `assessNativeResultArtifact` | `raw` → RJ | T | shallow guard retired into `isRecord(raw)`; `raw` is admitted at :1061 (`admitIJsonValue`) |
+| 32 | `abg/actor_process.ts:1110` | `<anon>` | `observation` → RJ | T | shallow guard retired into `isRecord(observation)` (identical) |
+| 33 | `product/worksite_command_execution.ts:166` | `<anon>` | `predicate.declaration` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is shallow guard retired into `isRecord` (identical) |
+| 34 | `product/worksite_command_execution.ts:170` | `<anon>` | `launch` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is shallow guard retired into `isRecord` (identical) |
+| 35 | `product/worksite_command_execution.ts:170` | `<anon>` | `request` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is shallow guard retired into `isRecord` (identical) |
+| 36 | `product/worksite_command_execution.ts:1129` | `<anon>` | `entry` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is `isRecord(entry) ? entry.name : undefined`; unreachable: :1114 requires every entry to be a record |
+| 37 | `product/worksite_command_execution.ts:1461` | `<anon>` | `row.declaration` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is `isRecord(declaration)` first; unreachable: `validPredicateDeclaration` (:1083) via `constructPredicate` (:1069) |
+| 38 | `product/worksite_command_execution.ts:1502` | `<anon>` | `rawEntry` → RJ | T | held: stop (contract): any emit change to `product/worksite_command_execution.js` moves the C2 context pin (`gtl/worksite_command_execution.ts:37-39`, `:61`) and the inventory contract `contracts/worksite/command-execution-context.inventory.json`; the build refuses a stale pin (`scripts/generate-product-manifest.mjs:101`); the cast stays; the (T) discharge is `isRecord(entry)` first; unreachable: :1114 via `constructPredicate` (:1069) |
+| 39 | `product/builtin_semantics.ts:1053` | `admitInput` | `value` → unknown→RJ | P | reached only through `semantics.admitInput` at product/semantics.ts:514, after `admitJson` at :512; the guards narrow to owner interfaces |
+| 40 | `hog/route_proposal.ts:737` | `selectedCCallOutcomeRoute` | `value` → RJ | T | shallow guard retired into `isRecord` (identical) |
+| 41 | `hog/ccall_lifecycle.ts:613` | `<anon>` | `residue` → unknown→JsonValue | P | `unadmittedPhysicalCommit` builds the residue from literals, the call ref and owner outcomes it guards (implementation/worksite_file_replace.ts:146, :154, :166) |
+| 42 | `hog/graph_execute.ts:664` | `<anon>` | `selected.value` → RJ | T | shallow guard retired into `isRecord(selected.value)` (identical) |
+| 43 | `product/public_contract_publication.ts:549` | `resolveDefinition` | `selected` → RJ | T | shallow guard retired into `isRecord` (identical) |
+| 44 | `abg/c_call.ts:1999` | `projectAdmittedActorTransport` | `timeoutRow.value.payload` → RJ | T | `filter` becomes `flatMap` carrying the `isRecord`-narrowed payload; count at :2040 unchanged |
+| 45 | `abg/c_call.ts:2019` | `<anon>` | `event.payload` → RJ | T | `flatMap` carries the narrowed payload into the sum (identical) |
+| 46 | `abg/c_call.ts:2317` | `undispatchedResultRelation` | `p.failureValue` → RJ | T | `if (!isRecord(p.failureValue)) return false` after `before`; identical: the callee returns false for a non-record (c_call.ts:6324) |
+| 47 | `abg/c_call.ts:3527` | `projectCCallRuntimeFailureSignal` | `sourceEvents[0]!.payload` → RJ | T | `if (!isRecord(sourcePayload)) return null`; unreachable: the :3505 filter requires it |
+| 48 | `abg/c_call.ts:4230` | `projectWorkflowCCallInputDigestAtPrefix` | `event.payload` → RJ | T | `evidence[0]` bound once, so the existing `isRecord` test (head `:4229`) narrows it; identical |
+| 49 | `abg/event_contract_profiles.ts:99` | `undispatchedDiagnosticMatches` | `value` → RJ | T | shallow guard retired into `isRecord(value)` (identical) |
+| 50 | `abg/event_store.ts:1468` | `payloadInvocationRef` | `event.payload` → RJ | T | shallow guard retired into `isRecord` (identical) |
+| 51 | `public/installed_public_definition_call.ts:217` | `constructInstalledPublicDefinitionCall` | `invocationAuthorityBody` → unknown→JsonValue | P | typed body of string members and installed catalog coordinates; retyping the coordinate interfaces as aliases is outside the Grant |
+| 52 | `public/installed_public_definition_call.ts:256` | `constructInstalledPublicDefinitionCall` | `invocationBody` → unknown→JsonValue | P | typed body; `request: TRequest extends Readonly<Record<string, JsonValue>>`; as :217 |
+| 53 | `implementation/consensus.ts:549` | `projectSubmitterRoleResult` | `resultCandidate` → unknown→RJ | P | typed owner construction; the C-call admission admits it by `validateValue` (abg/c_call.ts:6901, leaf product/semantics.ts:620); the digests at c_call.ts:6889 and :1691 precede that admission |
+| 54 | `implementation/native_workspace_work.ts:64` | `complete` | `value` → unknown→RJ | P | as consensus.ts:549 |
+| 55 | `implementation/worksite_command_execution.ts:791` | `complete` | `observation` → unknown→RJ | P | as consensus.ts:549 |
+| 56 | `implementation/worksite_command_helper.ts:1329` | `predicateObservation` | `JSON.parse(JSON.stringify(result))` → JsonValue | I | stop: channel; the cast stays; admission at the site would take the catch channel (`observedValue = null`) instead of the parent's `helper_artifact_contract_failure`; the parent admits at product/worksite_command_execution.ts:1786 |
+
+**Edits beyond the cast expression** (lines after the commit). The Executive rules on each. All are in the 18 source files of the commit.
+1. Shallow guards retired into `isRecord`: `typeof v === "object" && v !== null && !Array.isArray(v)` and its negation are the body of `isRecord` (`shared/admit/record.ts:9`), so runtime behavior is identical. Sites: `abg/actor_process.ts:1060`, `:1110`; `abg/event_contract_profiles.ts:99`; `abg/event_store.ts:1465`; `gtl/graph_applications.ts:169`; `hog/graph_execute.ts:652`; `hog/route_proposal.ts:734`; `product/public_contract_publication.ts:544`; `product/semantic_job.ts:574`.
+2. `isRecord` tests added where no guard was retired. `abg/c_call.ts:2310` gives the same answer, because the callee returns `false` at `:6324` (head line). The rest are unreachable: `abg/c_call.ts:3526`; `abg/continuation.ts:656`; `abg/effectful_invocation_truth.ts:219`; `abg/instruction_assembly.ts:444`, `:448`, `:1118`, `:1131`, `:1141`, `:1163`; `abg/native_work_effect.ts:92`; `abg/traversal_cursor.ts:492`. Each row of the table names the guard that makes it unreachable. `abg/c_call.ts:4226-4228` binds `evidence[0]` once, so the existing `isRecord` test narrows the payload that is read.
+3. `filter` became `flatMap` to carry the narrowed payload: `abg/c_call.ts:1994` (the count read at head `:2040` is unchanged) and `:2016`.
+4. Two module-local return types now name the record they build: `exactObject` (`public/binding/public_function_projections.ts:116`) and `evidenceProjection` (`abg/project_read_ports.ts:1081`). The (P) cast at `abg/project_read_ports.ts:1099` changes its target from `JsonValue` to `Readonly<Record<string, JsonValue>>`, so `:1110` needs no cast. Neither function is exported, and no `.d.ts` changed.
+5. `abg/fh_continuation_projection.ts:170-172`, `:183` read the guarded `opened.payload.*` members (narrowed at `:161-165`) instead of the unnarrowed alias `openedPayload`.
+6. Four import lines: `isRecord` in `abg/event_contract_profiles.ts:5`, `gtl/graph_applications.ts:3` and `product/public_contract_publication.ts:28`; `admitJson` and `isRecord` in `gtl/declarations.ts:6`.
+7. The one (I) admission call, `gtl/declarations.ts:50-54`. It refuses on the existing `TypeError("Rule.config must be one JSON object")` channel (`:48` at head).
+
+
+**Item 3: gaps.** First row, `validator/raw_admission.ts`. The activation's `:184`, `:204` and `:209` are head lines; at `0c362da15` they are `:185`, `:205` and `:210` (census file lines 102, 103 and 104). Premise from `:184`: `json = admitIJsonValue(value, "$")`, which is `admitJson` lifted to a throw (`shared/i_json.ts:63-68`). It refuses functions, accessors, non-plain prototypes, non-finite and unsafe integral numbers and lone surrogates, normalizes `-0` and returns a frozen fresh copy, and the refusal takes the existing `non_canonical_value` channel. `:204` parses `canonicalJson(json)`, the canonical bytes of that admitted value. Over the I-JSON domain, parsing canonical bytes and writing them again gives the same bytes: strings carry no lone surrogate, numbers are finite and safe, and the canonical writer is deterministic. So the hash at `:209`, `sha256Canonical(admittedJson)`, is over admitted bytes. `assertStructuralValue` at `:207` re-checks the parsed value first. The four GTL kinds take `canonicalizeAuthoredGtlCarrier` (`:199`), not the cast. Class (P); the cast stays.
+
+| Cast(s) at `6ec91829e` | Gap path | Class | Resolved by hand at |
+|---|---|---|---|
+| `validator/raw_admission.ts:204` | IIFE return into `admittedJson` | P | `:209` `sha256Canonical(admittedJson)`, after `assertStructuralValue` `:207`; premise `:184` |
+| `abg/actor_process.ts:1063` | method receiver (`owner.port.verifyProbabilisticResultContractPreimage`) | T | `implementation/leaf_invocation_port.ts:1365` (`validateContractValueByRef`), `:1391` (`sha256Canonical`); `raw` admitted at `actor_process.ts:1061` |
+| `implementation/consensus.ts:549`, `implementation/native_workspace_work.ts:64`, `implementation/worksite_command_execution.ts:791` | method receiver (prepared `complete()`), then `admitResult` | P | `abg/c_call.ts:6889` (`sha256Canonical`), `:6901` (`validateValue`), `:1691` (rejection digest) |
+| `product/builtin_semantics.ts:1053` | method receiver (`semantics.admitInput`) | P | `product/semantics.ts:512` (`admitJson`), `:514` |
+| `public/installed_public_definition_call.ts:217`, `:256` | method receiver (`product.sha256Canonical`) | P | at the site |
+| `hog/graph_execute.ts:664` | callee outside `code/src` (`Effect.succeed`) | T | `hog/graph_execute.ts:273` (`frame.input`) |
+| `implementation/worksite_command_helper.ts:1329` | callee outside `code/src` (`Array.prototype.push`), then the helper artifact | I (`stop: channel`) | helper `canonicalJson` `:1562`; parent `implementation/worksite_command_execution.ts:730`, `:734`; admission `product/worksite_command_execution.ts:1786` |
+| `abg/traversal_cursor.ts:491` | member `successorCursor` through `as unknown as TraversalCursorCandidate`, then `Array.prototype.push` (callee outside `code/src`) | T | `traversal_cursor.ts:546` (`next.cursorDigest` against the event's admission digest) before the push at `:547`; the pushed value is a member of an admitted event payload |
+| `abg/instruction_assembly.ts:444`, `:1117`, `:1139` | members through `JSON.parse` (callee outside `code/src`) | T | `instruction_assembly.ts:458`, `:1121` (`canonicalEquals`), `:1146`, `:1151` |
+| `shared/public_function_contracts.ts:753`, `:773`, `:799` | `Map` (`assigned`), sort comparator, `canonicalJson(neutral(...))` | T (held) | not resolved: held under the `shared/` stop |
+| `product/worksite_command_execution.ts:1129` | `Set` | T (held, C2 pin) | the `Set` size only; no canonical sink |
+
+Gap paths outside the three named classes, also resolved by reading:
+
+| Cast(s) | Path | Class | Resolved at |
+|---|---|---|---|
+| `abg/c_call.ts:2317` | overloaded callee `undispatchedOwnerEvidenceMatches` (`:6298`, `:6305`, `:6311`) | T | `c_call.ts:6324` (`isRecord`), `:6327` (`sha256Canonical`) |
+| `abg/fh_continuation_projection.ts:170-172`, `abg/continuation.ts:725` | overloads (`projectPendingInteractionCarrier` `:4911-4924`, `projectAdmittedCCallStateAtPrefix` `:4854-4867`) and `as unknown as` casts outside the forms | T | `c_call.ts:1527` (sinks `:1582`, `:1594`, `:1597`) |
+| `abg/artifact_truth.ts:335` | `let` reassignment, then `as unknown as ProductInstallCandidate` | P | `artifact_truth.ts:350`, `:363` |
+| `abg/project_read_ports.ts:1000`, `:1091`, `:1110`, `:1155`, `:1170`, `:1393` | return of the closure `projection()` | P (`:1110` T) | `project_read_ports.ts:1529`, `:1560` (`admitIJsonValue`), `:1567` (`sha256Canonical`) |
+| `hog/ccall_lifecycle.ts:613` | `as unknown as` inside `completePublicOutcome` (`abg/c_call_outcome.ts:1886`) | P | `hog/recursion_lifecycle.ts:768` |
+| `product/default_library_fulfillment.ts:160` | export with no caller in `code/src` (`test_env/tests/t287-native-workspace-work.test.mjs` reads it) | P | no in-tree sink |
+
+The other 24 casts reach none of these paths. Each was read forward from the cast to its last use: member reads compared by `===`, `typeof`, `Number` or `Object.hasOwn`, except `gtl/declarations.ts:49` and `public/binding/public_function_projections.ts:389`, whose values return through typed code into the rule declaration and the published schema body.
+
+**Item 4: proof.** One owner boundary changed under (I): `gtl/declarations.ts` `cloneJsonObject`, reached through `ruleDeclaration` (`:81` at head; also `gtl/consensus.ts:5245`, `:5254`). The case is `test_env/tests/m5-c-algebra-validation.test.mjs:1488-1493`. It is the only lane that calls `gtl.ruleDeclaration`. It imports `build/code/src/gtl/index.js` through `test_env/support/language-structural-gtl.mjs`, so no lane names `gtl/declarations`, and the lane is in the set by that call. A well-formed config is accepted with the same value, and an unsafe integer (`2 ** 60`) and a lone high surrogate (`"\uD800"`) are each refused with `TypeError("Rule.config must be one JSON object")`. At head the build accepts both: `{"limit":1152921504606847000}` and `{"mode":"\ud800"}` (node, against the head `build/`). The activation names a function member or a cycle in the parsed value as the case, but `JSON.parse` output can hold neither. For a caller's config, the canonical writer runs before the parse: it writes a function member as `{}` and overflows the stack on a cycle, at head and after alike. The case therefore discriminates what the admission refuses at the parse, the I-JSON domain. The (T) and (P) owners are covered by the lanes below.
+
+**Item 5: records.** The O-TYPE row (`design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:613`) gains one sentence: the three forms, resolved, in `code/src` at the TD-14 commit; the four counts and the one outside C's matcher; the (T)/(I)/(A)/(P) totals and the 25 casts that stay; and the three gap classes traced by hand. Nothing else in the design changed. O-SCHEMA (`:617`) is not a stop: the one (I) admission is in GTL construction (`gtl/declarations.ts:50`), not at a Product boundary. The Executive should still note one sentence of O-SCHEMA: "The I-JSON domain applies to Product input, response and contract values at that boundary only". After this package the same domain also applies to `Rule.config` at its parse, through `admitJson`. That is not stricter than the boundary's policy, but it is an ingress outside "that boundary".
+
+
+**Lanes.** `npm run build` exits 0 once the pinned module is reverted (Stops, item 2). It regenerated these tracked outputs, all committed: `build/code/src/abg/actor_process.js`, `build/code/src/abg/event_store.js`, `build/code/src/abg/instruction_assembly.js`, `build/code/src/product/semantic_job.js`, `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`. The regenerated JSON differs from head only in `productContentDigest` and the digests and refs derived from it: 68 fields in the manifest; 310 in the graph (`productContentDigest`, `capabilityDefinitionDigest`, `capabilityDefinitionRef`, `graphDigest`). No `contractDigest` moved, no other contract file changed, and none of the 17 tracked `.d.ts` files changed. `npx tsc --noEmit -p tsconfig.json`: clean. `npm run lint:imports`: 28 modules under `code/src/shared/` import only `code/src/shared/` and packages. `npm run lint:lifecycle`: 284 modules, 10 allow-listed sites, no offender.
+
+The lane set has 102 lanes:
+- every lane in `test_env/tests` that names a touched module path: the 18 committed source files, plus `product/worksite_command_execution`, kept in the set after its revert;
+- the four named lanes;
+- `m5-c-algebra-validation`.
+
+Every lane ran twice: at head (`6ec91829e`, rebuilt, before any edit) and after. Totals are tests/pass/fail/skipped: head 595/393/120/80, after 596/394/120/80, each with 2 cancelled. The one difference is the new case. 52 lanes are red at head and after, with the same 122 failing-test identities (file:line and test name) and the same first error lines. In `t287-worksite-construction` the assertion message differs between runs only in run timings, an inode and the digests over them. No new red identity. Attribution:
+- 14 lanes: the H log;
+- 5 lanes: TD-07's five;
+- 9 lanes: TD-13's thirteen (the other four are not in this lane set);
+- 24 lanes: red at head before any edit and in none of the three sources. Most fail on an absent fixture, territory or environment variable.
+
+| Lane | Head `6ec91829e` | After | Reds (identical at head and after) |
+|---|---|---|---|
+| `d2-acknowledgment` | 4/0/4/0 | 4/0/4/0 | `:17`, `:34`, `:51`, `:81`: red at head before any edit, in none of the three sources; `assert.ok(configuration)` in `test_env/support/d2-workflow-step-harness.mjs:20`: no workflow configuration in the environment |
+| `d2-binding-transition` | 10/0/10/0 | 10/0/10/0 | `:6`, `:148`, `:172`, `:191`, `:208`, `:232`, `:247`, `:269`, `:289`, `:303`: red at head before any edit, in none of the three sources; `h.owner.projectWorksiteRevisionBindingCover is not a function` |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 |  |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | `:82`, `:132`: TD-13 return's thirteen |
+| `m5-c-algebra-validation` | 21/18/0/3 | 22/19/0/3 | the TD-14 case `:1488` joins and passes |
+| `m5-consensus-module` | 1/0/1/0 | 1/0/1/0 | file-level: `step-8-run-postclose-h.log:255` |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | `:372`, `:1316`, `:1471`, `:1548`, `:1590`: `step-8-run-postclose-h.log:786` |
+| `m5-event-store-reopen` | 18/18/0/0 | 18/18/0/0 |  |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | `:21`, `:238`, `:281`, `:323`, `:533`: `step-8-run-postclose-h.log:919` |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | `:96`, `:218`, `:285`, `:415`: `step-8-run-postclose-h.log:1007` |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 |  |
+| `m5-worker-transport` | 21/21/0/0 | 21/21/0/0 |  |
+| `r10-projection-contracts` | 1/0/1/0 | 1/0/1/0 | file-level: `step-8-run-postclose-h.log:417` |
+| `r3-workspace-binding` | 1/0/1/0 | 1/0/1/0 | `:85`: TD-13 return's thirteen |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | `:53`, `:721`: red at head before any edit, in none of the three sources; `abg.openCall is not a function` |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | `:26`: TD-07 return's five |
+| `runtime-scope-regressions` | 2/2/0/0 | 2/2/0/0 |  |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 |  |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | `:39`: TD-13 return's thirteen |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 |  |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | `:120`, `:195`, `:212`, `:227`, `:238`, `:266`: `step-8-run-postclose-h.log:1088` |
+| `t287-calculus-fold` | 12/12/0/0 | 12/12/0/0 |  |
+| `t287-calculus-state-transfer` | 8/6/0/0, 2 cancelled | 8/6/0/0, 2 cancelled | timed out after 300000 ms; `:64`, `:70`: `step-8-run-postclose-h.log:1179` |
+| `t287-cold-record-decoder` | 3/1/1/1 | 3/1/1/1 | `:77`: red at head before any edit, in none of the three sources; "retain existing replacement-character admission, without UTF-8 hardening" |
+| `t287-common-computational-library` | 9/9/0/0 | 9/9/0/0 |  |
+| `t287-consensus-ref-shape` | 2/2/0/0 | 2/2/0/0 |  |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-cross-cut-public-read` | 5/4/1/0 | 5/4/1/0 | `:105`: `step-8-run-postclose-h.log:1191` |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 |  |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 |  |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 |  |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | `:85`, `:116`: red at head before any edit, in none of the three sources; "select the frozen S02 continuation-03 evidence carrier" |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 |  |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | file-level: `step-8-run-postclose-h.log:514` |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | file-level: TD-07 return's five |
+| `t287-generic-job-lifecycle` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-generic-job-revision` | 4/1/0/3 | 4/1/0/3 |  |
+| `t287-generic-job-worksite` | 9/9/0/0 | 9/9/0/0 |  |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | `:351`, `:386`, `:430`: TD-13 return's thirteen |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 |  |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | `:64`: red at head before any edit, in none of the three sources; "exact existing basis body is borrowed" |
+| `t287-interrupted-event-resource-recovery` | 8/6/2/0 | 8/6/2/0 | `:74`, `:136`: red at head before any edit, in none of the three sources; strict-equal assertion |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 |  |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 |  |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 |  |
+| `t287-native-assessment-evidence` | 4/1/3/0 | 4/1/3/0 | `:551`, `:559`, `:585`: red at head before any edit, in none of the three sources; "profile schedule requires the original gap-free stamped history" |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 |  |
+| `t287-native-selection-profile-scope` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | `:224`: red at head before any edit, in none of the three sources; "native failure reuses the original derivation" |
+| `t287-native-work-currentness-consumers` | 2/2/0/0 | 2/2/0/0 |  |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 |  |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 |  |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 |  |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 |  |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | `:43`: `step-8-run-postclose-h.log:129` |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 | `:22`, `:74`, `:103`, `:158`: `step-8-run-postclose-h.log:1371` |
+| `t287-owned-native-proof` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 |  |
+| `t287-pfc-f08a-product-verification-boundary` | 1/0/1/0 | 1/0/1/0 | `:393`: `step-8-run-postclose-h.log:1504` |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | `:244`: TD-07 return's five |
+| `t287-predecessor-context` | 1/0/1/0 | 1/0/1/0 | file-level: red at head before any edit, in none of the three sources; file-level "requires exact preserved original1B evidence" |
+| `t287-public-terminal-projection` | 4/0/4/0 | 4/0/4/0 | `:34`, `:50`, `:68`, `:87`: red at head before any edit, in none of the three sources; "select the exact frozen S02 episode fixture" |
+| `t287-qual056-material` | 7/7/0/0 | 7/7/0/0 |  |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/1/0 | `:18`: red at head before any edit, in none of the three sources; "explicit frozen fixture and isolated emitted-owner binding" |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/1/0 | 1/0/1/0 | file-level: TD-13 return's thirteen |
+| `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 |  |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | `:129`: TD-13 return's thirteen |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | file-level: TD-13 return's thirteen |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | file-level: TD-13 return's thirteen |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | `:59`, `:92`, `:107`: TD-13 return's thirteen |
+| `t287-route-reconstruction` | 9/7/0/2 | 9/7/0/2 |  |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-runtime-failure-diagnostic` | 14/14/0/0 | 14/14/0/0 |  |
+| `t287-stdo-environment-citation` | 2/0/1/1 | 2/0/1/1 | `:16`: red at head before any edit, in none of the three sources; `assert.ok(process.env.ABI5_ENV_PROOF_ROOT)` (unset) |
+| `t287-stdo-run-environment` | 2/0/1/1 | 2/0/1/1 | `:87`: red at head before any edit, in none of the three sources; `assert.ok(process.env.ABI5_ENV_PROOF_ROOT)` (unset) |
+| `t287-undispatched-diagnostic` | 7/5/2/0 | 7/5/2/0 | `:93`, `:222`: TD-07 return's five |
+| `t287-value-equality` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-w2-05-generator-package-reproducibility` | 2/1/1/0 | 2/1/1/0 | `:314`: `step-8-run-postclose-h.log:3146` |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 |  |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 |  |
+| `t287-worksite-construction` | 3/0/3/0 | 3/0/3/0 | `:217`, `:361`, `:688`: red at head before any edit, in none of the three sources; strict-equal on a `worksite_construction_failure` completion (only run timings and digests differ between runs) |
+| `t288-blocked-retry-entry` | 1/0/1/0 | 1/0/1/0 | `:8`: red at head before any edit, in none of the three sources; `assert.ok(roots[0])`: no root fixture |
+| `t288-initial-cursor-entry` | 1/0/1/0 | 1/0/1/0 | `:8`: red at head before any edit, in none of the three sources; `ERR_INVALID_ARG_TYPE` path `undefined` |
+| `t288-instruction-assembly-owner` | 11/4/0/7 | 11/4/0/7 |  |
+| `t288-logical-prefix-digest` | 2/0/2/0 | 2/0/2/0 | `:16`, `:35`: red at head before any edit, in none of the three sources; `ERR_INVALID_ARG_TYPE` path `undefined` |
+| `t288-prefix-structure` | 1/0/1/0 | 1/0/1/0 | file-level: red at head before any edit, in none of the three sources; file-level `ERR_INVALID_ARG_TYPE` path `undefined` |
+| `t288-scoped-retry-guard` | 1/0/1/0 | 1/0/1/0 | `:12`: red at head before any edit, in none of the three sources; `SyntaxError: Unexpected token 'export'` |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 |  |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 |  |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 |  |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | `:27`, `:36`, `:67`, `:77`, `:94`, `:102`, `:112`, `:118`, `:124`, `:129`, `:147`, `:162`, `:169`, `:205`, `:226`: red at head before any edit, in none of the three sources; `assert.ok(territory)` in `test_env/support/witness-reprice-mechanics.mjs:72`: no evidence territory |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | `:31`, `:65`, `:77`, `:89`, `:96`, `:102`, `:117`: TD-07 return's five |
+| `r10-child-proof` | 1/0/1/0 | 1/0/1/0 | file-level: red at head before any edit, in none of the three sources; file-level `ENOENT` on `20260911_D2_BOUNDED_REPAIR/installed-continuation-09/…` |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | file-level: `step-8-run-postclose-h.log:486` |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 |  |
+| `t287-native-owner-reuse` | 3/0/0/3 | 3/0/0/3 |  |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/0/2/0 | `:116`, `:737`: red at head before any edit, in none of the three sources; "inherited eventResource" |
+| `t288-composition-conservation` | 1/0/1/0 | 1/0/1/0 | file-level: red at head before any edit, in none of the three sources; file-level "exact predecessor and immutable native history required" |
+
+**Stops.** Three, each on its sites only. The casts stay and the census rows say so.
+1. `shared/` (3 casts, `shared/public_function_contracts.ts:753`, `:773`, `:799`). Class (T): after the array branch, `!isRecord(value)` in place of `typeof value !== "object" || value === null` narrows `value` to the record member, and runtime behavior is identical. Blocking rule: "any change to a shared atom (`shared/`)". The edit itself is the counterexample.
+2. The C2 context pin (6 casts, `product/worksite_command_execution.ts:166`, `:170` twice, `:1129`, `:1461`, `:1502`). Class (T); each row of the table carries its discharge. Counterexample: with the six discharges applied, `npm run build` exits 1 with `Error: C2 declared context member differs from its packaged Product source: build/code/src/product/worksite_command_execution.js` (`scripts/generate-product-manifest.mjs:101`). The pin is the byte count and digest of the built module (`gtl/worksite_command_execution.ts:37-39`) and its renderer span (`:61`). The build checks the pin and does not regenerate it. Refreshing the pin changes `contracts/worksite/command-execution-context.inventory.json`, whose member `digest` is that same digest. Blocking rule: "any change to … a contract". The file was reverted to head, and the build then exits 0.
+3. `implementation/worksite_command_helper.ts:1329`, `stop: channel`. Class (I): `JSON.parse(JSON.stringify(result))` is a parse whose result is not admitted at the parse. Counterexample: a module export returning `2 ** 60`. At head the helper writes it into the artifact, the parent's `isPredicateObservation` refuses it at `product/worksite_command_execution.ts:1786` (`admitIJsonValue`), and the completion fails with `helper_artifact_contract_failure` (`implementation/worksite_command_execution.ts:734-735`). With an admission at the site, the refusal would be caught by the site's own `catch` (`:1330-1331`, `observedValue = null`), and the predicate would then be judged on `null` in a valid artifact. That is a different failure class, so the site has no refusal channel that keeps the contract. The ingress admission already exists at the parent, at `:1786`.
+
+**Findings.**
+- Lines at head `6ec91829e`. These implicit-`any` `JSON.parse` flows reach JSON consumers without a cast, so they are outside the universe: `abg/runtime_failure.ts:103` (read by `abg/event_contract_profiles.ts:98`), `abg/instruction_assembly.ts:458`, `:1121` (`canonicalEquals`), `:1146` (`const raw: JsonValue`), and `abg/c_call.ts:6927` (`const parsedValue: JsonValue`, over a value already validated at `:6901`). None was decided here.
+- `abg/c_call.ts:6889` computes `sha256Canonical(candidate)` before `validateValue` admits the candidate at `:6901`. The rejection digest at `:1691` hashes a refused candidate. Both are over the implementation's typed construction, which is the (P) premise of the three result-candidate casts.
+- `gtl/declarations.ts` at head and after: a function member in a JS caller's `Rule.config` is written as `{}` by `canonicalJson` before the parse and is not refused. The TypeScript parameter type excludes it.

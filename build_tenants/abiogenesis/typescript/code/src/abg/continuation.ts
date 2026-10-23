@@ -653,6 +653,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     }) ||
     !exactEnvelope(resultEvent) || resultEvent.causationEventRefs.length !== 1 ||
     resultEvent.causationEventRefs[0] !== evidenceEvent.eventId ||
+    !isRecord(resultEvent.payload) ||
     !exactPayload(resultEvent, { resultRef, resultDigest, ...resultBody }) ||
     !exactEnvelope(judgmentEvent) ||
     judgmentEvent.causationEventRefs.length !== 1 ||
@@ -722,7 +723,7 @@ export function projectHeldInteractionCCallOutcomeAtPrefix(
     fibreSelectedEventRef: fibreEvent.eventId,
   }) as CCall;
   const result = deepFreeze({
-    ...(resultEvent.payload as Readonly<Record<string, JsonValue>>),
+    ...resultEvent.payload,
     kind: "admitted_c_call_result" as const,
     schemaVersion: "5.0.0" as const,
     disposition: "admitted" as const,

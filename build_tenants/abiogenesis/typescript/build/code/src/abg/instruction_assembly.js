@@ -427,13 +427,14 @@ export function registeredSelectionInstructionResultMatches(candidate, input, ou
         if (owner === null || !isNativeRegisteredSelectionTask(input))
             return false;
         const observations = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
-        if (observations.length !== 1)
+        const observed = observations[0]?.payload;
+        if (observations.length !== 1 || !isRecord(observed))
             return false;
-        const observed = observations[0].payload;
         const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observed.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observed.transportBindingRef);
         const closes = indexedRuntimeEvents(owner.prefix, "related:" + observed.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === observed.actorInvocationRef);
         if (bindings.length !== 1 || closes.length !== 1 || observed.disposition !== "success" || observed.toolCallCount !== 0 ||
-            typeof observed.finalOutput !== "string" || closes[0].payload.consumedArtifactEventRef !== observations[0].eventId)
+            typeof observed.finalOutput !== "string" || !isRecord(closes[0].payload) ||
+            closes[0].payload.consumedArtifactEventRef !== observations[0].eventId)
             return false;
         const bindingPayload = bindings[0].payload;
         if (!isRecord(bindingPayload))
@@ -1125,9 +1126,9 @@ export function semanticInstructionResultMatches(basis, input, output) {
             if (!isSemanticRevisionSelection(output))
                 return false;
             const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
-            if (rows.length !== 1)
+            const o = rows[0]?.payload;
+            if (rows.length !== 1 || !isRecord(o))
                 return false;
-            const o = rows[0].payload;
             const bindings = indexedRuntimeEvents(owner.prefix, "related:" + o.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === o.transportBindingRef);
             const closes = indexedRuntimeEvents(owner.prefix, "related:" + o.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === o.actorInvocationRef);
             if (bindings.length !== 1 || closes.length !== 1 || o.disposition !== "success" || o.toolCallCount !== 0 || typeof o.finalOutput !== "string" ||
@@ -1142,7 +1143,8 @@ export function semanticInstructionResultMatches(basis, input, output) {
             const predecessorPrefix = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
             const expected = constructNativeInstructionAssembly({ ...basis, predecessorPrefix }, input);
             return expected !== null && canonicalEquals(stored, expected) &&
-                expected.manifest.promptDigest === o.promptDigest && closes[0].payload.consumedArtifactEventRef === rows[0].eventId;
+                expected.manifest.promptDigest === o.promptDigest && isRecord(closes[0].payload) &&
+                closes[0].payload.consumedArtifactEventRef === rows[0].eventId;
         }
         if (owner?.role === null || owner === null || (!isSemanticStageEnvelope(output) && !isSemanticRevisionEnvelope(output) && !isSemanticJobEnvelope(output) && !isSemanticJobRevisionEnvelope(output)))
             return false;
@@ -1152,9 +1154,9 @@ export function semanticInstructionResultMatches(basis, input, output) {
         if (source === undefined)
             return false;
         const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);
-        if (rows.length !== 1)
+        const observation = rows[0]?.payload;
+        if (rows.length !== 1 || !isRecord(observation))
             return false;
-        const observation = rows[0].payload;
         const bindings = indexedRuntimeEvents(owner.prefix, "related:" + observation.transportBindingRef).filter(e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === observation.transportBindingRef);
         const closes = indexedRuntimeEvents(owner.prefix, "related:" + source.actorInvocationRef).filter(e => e.kind === "actor_invocation_closed" && e.aggregateId === source.actorInvocationRef);
         if (bindings.length !== 1 || closes.length !== 1 || observation.actorInvocationRef !== source.actorInvocationRef ||
@@ -1179,7 +1181,7 @@ export function semanticInstructionResultMatches(basis, input, output) {
         const previous = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, stored.envelope.predecessorPrefix);
         const expected = constructNativeInstructionAssembly({ ...basis, predecessorPrefix: previous }, input);
         return expected !== null && canonicalEquals(stored, expected) &&
-            expected.manifest.promptDigest === source.promptDigest &&
+            expected.manifest.promptDigest === source.promptDigest && isRecord(closes[0].payload) &&
             closes[0].payload.consumedArtifactEventRef === rows[0].eventId;
     }
     catch {

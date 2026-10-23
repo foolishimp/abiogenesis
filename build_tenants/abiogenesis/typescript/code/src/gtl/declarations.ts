@@ -3,6 +3,7 @@ import {
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { requireRef } from "../shared/references.js";
 import { COMPUTE_REGIME_VALUES } from "./c_algebra.js";
@@ -46,7 +47,11 @@ function cloneJsonObject(
   if (value === null || Array.isArray(value) || typeof value !== "object") {
     throw new TypeError("Rule.config must be one JSON object");
   }
-  return JSON.parse(canonicalJson(value)) as Readonly<Record<string, JsonValue>>;
+  const admitted = admitJson(JSON.parse(canonicalJson(value)));
+  if (admitted.kind !== "ok" || !isRecord(admitted.value)) {
+    throw new TypeError("Rule.config must be one JSON object");
+  }
+  return admitted.value;
 }
 
 export function evaluatorDeclaration(
