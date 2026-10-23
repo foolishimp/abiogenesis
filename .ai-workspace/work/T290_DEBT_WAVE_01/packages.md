@@ -1156,3 +1156,164 @@ Grant: `code/src/abg/worker_transport.ts` (the observer, `collectToolUses` and t
 Stop (write the counterexample and the blocking line in the Return, keep the rest moving): any change to the `StructuredObservation` shape or to any member's value at any cut; any change under `shared/`, to `actor_process.ts`, to liveness or probe policy, or to `WorkerToolInvocationEvidence`; dropping or reordering a row; a change to an event payload key or a failure class.
 
 Return contract: one commit on `main` with the first line `TD-11: the tool projection maintained incrementally; old tool rows no longer revisited per chunk` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-11 return` at the end of this record with the census (item 1), the state design and the frozen-array choice (item 2), the equivalence and counter cases with their numbers before and after (item 3), the boundary statement (item 4), the lane table (item 6), and any stops. Nothing above your section is edited.
+
+## TD-11 return
+
+Worker: Opus 5.5, fresh context. Base `d826dd0fc`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`. Head line numbers cite `d826dd0fc`; "now" cites the commit.
+
+| Item | State | Lines at head | Lines now |
+|---|---|---|---|
+| 1. Census | done | `code/src/abg/worker_transport.ts:263-352` | below |
+| 2. Incremental projection | done | `snapshot` `:313-337` | state `:271-278`, `snapshot` `:321-349`; `collectToolUses`, `countToolUses` and `observeLine` unchanged |
+| 3. Proof | done | | `test_env/tests/m5-worker-transport.test.mjs`: head reference copy `:1118-1242`, streams and helpers `:1244-1319`, equivalence case `:1321-1360`, counter case `:1362-1423` |
+| 4. Boundaries | done | | below |
+| 5. Records | done, with one finding | | `build/code/src/abg/worker_transport.js` is not tracked (`git ls-files` prints nothing), so no build output is committed. See the finding on the two regenerated digest files. |
+| 6. Lanes | done | | below |
+
+**Item 1. Census.**
+
+Universe: every expression in `code/src` and in the eleven lanes that reads one of the six members from an object that `observe`, `finish` or `observeWorkerTransportOutput` returned (traced by reading), plus a name grep of the six members in `code/src` for the readers of retained copies. Head lines.
+
+First-hop readers of a `StructuredObservation`:
+
+| Reader | Members | Cut |
+|---|---|---|
+| `abg/actor_process.ts:1252-1256` (native stdout callback; observer made at `:1073`) | `progressEventCount`, `finalOutput` | per chunk |
+| `abg/worker_transport.ts:354-358` `observeStructuredOutput` | discards the `observe` snapshot, returns the `finish` snapshot | finish |
+| `abg/worker_transport.ts:482-487` `observeWorkerTransportOutput` | returns the `finish` snapshot; callers are tests only | finish |
+| `abg/worker_transport.ts:564-577`, `:578`, `:603-605`, `:635-639` `executeWorkerTransport` | `finalOutput` (`:578`); `structuredEventCount`, `toolCallCount`, `apiRetryCount` into `classifyWorkerTransportFailure` (`:603-605`); all six into the result body (`:635-639`), canonical transport bytes (`:651`) and the deep-frozen result (`:653`) | finish, one-shot observer over the complete result-bearing stdout |
+| `abg/m03/transport.ts:3` | `export *` of the module, so the observer is public in group `abg.contract.abg.transport` | none |
+| `m5-worker-transport.test.mjs:107`; `:109-125` | `finalOutput` per chunk; `finalOutput`, `toolCallCount` at finish | per chunk; finish |
+| `t287-management-supervision.test.mjs:26-30`, `:44-51`, `:54` | `structuredEventCount`, `apiRetryCount`, `progressEventCount`, `toolCallCount`, `toolInvocations[0].toolUseRef`, `finalOutput`; `:51` deep-equals the whole finish snapshot at chunk widths 1, 7, 103 and all | finish |
+| `t287-management-supervision.test.mjs:89-93` | `progressEventCount` | per chunk |
+| `t287-management-stream-drain.test.mjs:153`, `:177-180` | `progressEventCount`, `finalOutput` | per chunk |
+| `t287-default-library.test.mjs:297` | `finalOutput` | finish |
+
+Later, from a retained snapshot: the `WorkerTransportResult` members copied at `worker_transport.ts:635-639` are read at `actor_process.ts:1127`, `:1151`, `:1163-1167` and travel into the actor process observation. Records carrying the same member names are read at `actor_process.ts:428-431`, `:473-475`, `:539-542`; `abg/c_call.ts:1824-1827`, `:1972-1975`, `:2032-2034`, `:2098-2101`, `:3856-3859`, `:6636-6642`, `:6736-6739`; `abg/instruction_assembly.ts:398`, `:447`, `:1121`, `:1146`; `abg/worksite_construction_recovery.ts:248-249`, `:282`; `abg/transport_contracts.ts:72-86`; `implementation/qualification.ts:48`; `implementation/semantic_stage.ts:67`; `implementation/default_library.ts:79`; `implementation/worksite_command_execution.ts:263`, `:276`; `implementation/semantic_revision.ts:64`, `:101`; `implementation/worksite_construction.ts:176`; `product/worksite_command_execution.ts:2123`, `:2130`, `:2153`. These are name matches on retained records. I did not trace each one back to the finish snapshot. All of them read values; none compares array identity.
+
+No production reader reads `toolCallCount` or `toolInvocations` from a per-chunk snapshot. The only per-chunk reader in production reads `progressEventCount` and `finalOutput`. At head, every chunk still paid for the full tool projection.
+
+`rawToolInvocations` and `rawToolCallCount` are closure state of the observer and have no reader outside it. They are declared at `:269-270`, written at `:292-293`, and read in `snapshot` at `:316` and `:325`. Now they are written at `:300-301`, read by the cursor fold at `:322-323`, and read for the unevidenced rule at `:339`.
+
+**Counted work at head.** The measure is the number of `find` predicate calls during each `observe`, over N complete `tool_use` rows with distinct refs, one per chunk. Measured by a scratch run of the head build (`d826dd0fc`) before any change:
+
+| N | total over the N observes | the last observe | closed form (N−1)N(N+1)/6 |
+|---|---|---|---|
+| 1 | 0 | 0 | 0 |
+| 64 | 43,680 | 2,016 | 43,680 |
+| 512 | 22,369,536 | 130,816 | 22,369,536 |
+
+The k-th observe makes k(k−1)/2 comparisons, so the life total is cubic. See the errata.
+
+**Item 2. State design.** The state lives in the same observer closure (`:271-278`):
+- `foldedToolInvocationCount` is a cursor into `rawToolInvocations`.
+- `firstSeenToolInvocations` is a `Map` from `toolUseRef` to that ref's first-seen unique row.
+- `toolInvocations` holds the unique rows in first-seen order.
+- `conflictingToolUseRef` is a sticky flag.
+- `frozenToolInvocations` holds the last frozen array.
+
+`snapshot` (`:321-349`) folds only `rawToolInvocations[folded..]`:
+- A ref not yet seen becomes `deepFreeze({ ...row, ordinal: toolInvocations.length })`. This is head's expression, with the same ordinal and key order. The row is put into the map and the list.
+- A ref already seen is compared with its first-seen row on `toolName`, `inputDigest` and `inputByteLength`, as at head. A difference sets the flag.
+
+The raw row count is `rawToolInvocations.length`. `collectToolUses` still appends to it, unchanged, so the `+ 1` expression is head's text.
+
+Why fold at the cut and not inside `observeLine`: `observeLine` returns early for a retry row (head `:281`, now `:289`) and for a non-success `result` under structured output (head `:301`, now `:309`). A cursor over the raw array admits every collected row whichever path the line took, and it leaves `collectToolUses` and `observeLine` untouched.
+
+**Frozen-array choice.** A cut forms a new array, `Object.freeze(toolInvocations.slice())`, only when the unique count grew since the previous cut. Otherwise it returns the previous frozen array. Rows are frozen when they are inserted, so the array is deeply frozen without being walked again (`isDeeplyFrozen` holds at every cut in the equivalence case).
+- A cut with no new raw tool row reads no tool state.
+- Each new raw row costs one `Map` lookup.
+- A new first-seen row also costs one copy of U references, and no row field is read.
+- With one new tool row per chunk, those reference copies still total N(N+1)/2 over a life. This is the "one new frozen array per snapshot" the activation accepts. Successive snapshots may now share one array. At head they never did. Values are equal; no reader compares identity.
+- The returned `StructuredObservation` object itself stays unfrozen, as at head (`:326`). See the errata.
+
+**Item 3. Proof** (`m5-worker-transport.test.mjs`).
+
+(a) Equivalence (`:1321`).
+- `headWorkerTransportOutputObserver` (`:1165`) is head's observer transcribed from `d826dd0fc` (`:154-210`, `:239-352`) over the built shared helpers.
+- Three streams of 20 to 23 lines share 18 common rows:
+  - retries, one carrying a nested `tool_use` (excluded);
+  - thinking progress;
+  - `stream_event` partial tool blocks (excluded);
+  - two `tool_use` blocks in one line;
+  - a non-BMP character;
+  - an equal duplicate;
+  - a Bash duplicate differing only in `description` (no conflict);
+  - `StructuredOutput`;
+  - malformed, blank, array and string rows;
+  - a failed `result` carrying a nested `tool_use` (collected);
+  - a successful `result` with `structured_output`.
+- `conflict` adds a differing input and a differing name under one ref, and ends with a newline.
+- `unevidenced` adds a `tool_use` without an id, a Bash input without `command`, and a `tool_use` without `input`. It ends in a partial final success line with `structured_output`, which `finish` drains.
+- `plain` ends in a partial final success line without `structured_output`.
+- Each stream runs under `structuredOutputExpected` true and false, split at every width from 1 to its full length and at 16 seeded random splits. The random splits mix chunks of 1 to 7 and 1 to 300 characters. Width 1 splits inside the surrogate pair.
+- That is 12,394 splittings and 145,530 cuts (each `observe` and each `finish`).
+- At every cut the case asserts:
+  - `JSON.stringify` equality (key order);
+  - `deepStrictEqual`;
+  - equal `Object.isFrozen` of the outer object;
+  - `isDeeplyFrozen(toolInvocations)` for both.
+- After `finish`, every retained snapshot is compared again with its reference, and the finish snapshot with a one-chunk run.
+- Literal checks:
+  - ordinals 0..U−1;
+  - no `toolu_retry`;
+  - `toolu_so` present only when structured output is not expected;
+  - `toolu_failed` present;
+  - `apiRetryCount` 2;
+  - `toolCallCount` = U + 1 for `conflict` and `unevidenced` and U for `plain`;
+  - the conflict refs in order;
+  - the three `finalOutput` selections.
+- Mutation check on the build, in scratch and then restored. With `conflictingToolUseRef` never set, or the frozen array refreshed only once, or the raw ordinal and key order kept, the case fails. A no-op edit passes.
+- Run time is about 2.7 s.
+
+(b) Counter (`:1365`).
+- During each `observe` the case spies on `Array.prototype` `find`, `findIndex`, `findLast`, `findLastIndex`, `some`, `every` and `filter`, counting callback calls on tool-evidence rows. It also spies on `Map.prototype` `get` and `has`, counting lookups of the case's tool refs. All spies are restored in `finally`.
+- The in-lane reference copy gives the head figures. They equal the scratch run on the real head build above.
+
+| N | head total | head, last observe | now total | now, max per observe |
+|---|---|---|---|---|
+| 1 | 0 | 0 | 1 | 1 |
+| 64 | 43,680 | 2,016 | 64 | 1 |
+| 512 | 22,369,536 | 130,816 | 512 | 1 |
+
+Now every observe makes exactly one lookup: the first-seen check of its one new row. A `stream_event` chunk after 64 tool rows makes zero visits. The lane asserts the closed forms for head and the per-observe value 1 for now.
+
+**Item 4. Boundaries**, read on the diff (`worker_transport.ts`, 26 lines, all inside `createWorkerTransportOutputObserver`) and checked by the lanes:
+- No admitted progress or tool row is dropped or reordered. `observeLine`, the framing loop, `progressEventCount` and the raw append are unchanged, and the unique list is head's first-seen order with head's ordinals.
+- `toolCallCount`'s `+ 1` rule is head's expression over the same flag and the same raw count.
+- `countToolUses` (`:239`), `collectToolUses` (`:171`) and the partial-block rule (head `:289-294`, now `:297-302`) are byte-identical.
+- `actor_process.ts`, the probe policy, `shared/`, `WorkerToolInvocationEvidence`, the `StructuredObservation` shape, event payload keys and failure classes are untouched.
+
+**Item 6. Lanes.** Results are tests/pass/fail/skipped. Logs are in the Worker's scratch, `td11/before` and `td11/after`.
+
+| Check or lane | Before (`d826dd0fc`) | After |
+|---|---|---|
+| `npm run build` | exit 0; no tracked file regenerated | exit 0; two digest files regenerated (finding below) |
+| `npx tsc --noEmit -p tsconfig.json` | exit 0 | exit 0 |
+| `npm run lint:imports` | exit 0, 28 modules | exit 0, 28 modules |
+| `npm run lint:lifecycle` | exit 0, 284 modules, 10 allow-listed, no offender | the same |
+| `m5-worker-transport` | 21/21/0/0 | 23/23/0/0 — the two TD-11 cases added; both pass |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 |
+| `t287-declared-testing-capability` | 7/5/1/1 | 7/5/1/1 — same red: `:174` "exact selected RC7 companion release-record directory is required" (`:177`); same skip |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 — same red: `:356`, `'World'` against `'Hello Ada'` at `:710` |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 |
+| `t287-management-supervision` | 5/4/1/0 | 5/4/1/0 — same red: `:105`, `product_install_refusal` / `dependency_lock_mismatch` at `:106` |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 |
+| `t288-instruction-assembly-owner` | 11/4/0/7 | 11/4/0/7 |
+
+No lane reported a cancelled test. The failing and skipped test names, compared line by line, are the same before and after (21 lines). Each of the three red lanes fails at head with the same assertion.
+
+**Item 5 finding: build digests.**
+- `npm run build` regenerated `contracts/capabilities/capability-definition-graph.json` (`graphDigest`) and `product-toolchain-manifest.json` (its `contentDigest`). At head it regenerated nothing.
+- The Grant names only `worker_transport.js` among build outputs, and says "No other file". Earlier grants added "build outputs `npm run build` regenerates".
+- I left both files modified and unstaged in the working tree, not committed. They are the Executive's to commit.
+
+**Errata.**
+1. The activation and the register say a worker with N tool rows pays "about N²/2 old-row visits over its life". Counted as `find` comparisons, which is item 1's measure, the life total is (N−1)N(N+1)/6, which is cubic: 22,369,536 at N = 512. N²/2 is the count of raw rows revisited, N(N+1)/2, or the last observe's comparisons, N(N−1)/2.
+2. Item 2 says "the returned `StructuredObservation` is deeply frozen as today". At head only `toolInvocations` and its rows are frozen; the outer object is a fresh plain object (`:326`). I kept head's behaviour, and the equivalence case asserts outer frozenness equal to head's at every cut.
+3. Line drift in the activation: at head, `createWorkerTransportOutputObserver` is declared at `:264` (its doc comment is at `:262-263`), and `observe` spans `:338-346`.
+
+**Stops.** None.
