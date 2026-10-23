@@ -195,7 +195,7 @@ const helperFailureEnvironment = (paths, facts, unconfirmed) => ({ ...process.en
 // acknowledgment, its one stdout line, unchanged.
 async function helperFailureTransport(scratch, mode) {
   const paths = helperFailurePaths(scratch);
-  await mkdir(paths.facts, { recursive: true }); await mkdir(paths.exchangeFacts);
+  await mkdir(paths.facts, { recursive: true }); await mkdir(paths.exchangeFacts); await helperFailureMode(mode).prepare?.(paths);
   await writeFile(join(paths.root, "loader.mjs"), [
     "export async function load(url, context, next) {",
     "  if (!url.endsWith('/build/code/src/shared/owned_process_lifetime.js')) return next(url, context);",
@@ -228,7 +228,7 @@ async function helperFailureTransport(scratch, mode) {
     "console.log(JSON.stringify({type:'assistant',message:{content:[{type:'tool_use',id:'toolu_c2_failure',name:'Bash',input}]}}));",
     `const helper=spawnSync('/bin/sh',['-c',input.command],{encoding:'utf8',maxBuffer:4*1024*1024,env:${helperEnvironment}});`,
     `fs.writeFileSync(${JSON.stringify(paths.record)},JSON.stringify({status:helper.status,signal:helper.signal,stdout:helper.stdout,stderr:helper.stderr}),{flag:'wx'});`,
-    "if(helper.status===0)throw Error('the helper was expected to fail after launch');",
+    helperFailureMode(mode).launchFailure ? "if(helper.status!==0)throw Error('the helper was expected to publish the launch failure and exit 0');" : "if(helper.status===0)throw Error('the helper was expected to fail after launch');",
     "const lines=helper.stdout.split('\\n');",
     "if(lines.length!==2||lines[1]!=='')throw Error('expected exactly one acknowledgment line from the helper');",
     "console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,structured_output:JSON.parse(lines[0])}));",
@@ -770,7 +770,7 @@ async function installedC2Case(context, helperFailure = null) {
       subject: sourceTask.targets[ordinal].subject,
       observation: member.successorObservation,
     })),
-    ...(helperFailure !== null ? helperFailureMode(helperFailure).configuration(c2) : installedCommandConfiguration(c2)),
+    ...(helperFailure !== null ? helperFailureMode(helperFailure).configuration(c2, helperFailurePaths(environment.scratch)) : installedCommandConfiguration(c2)),
   });
   if (proof !== null) {
     await proof.write("task.json", task);
@@ -929,7 +929,7 @@ async function installedC2Case(context, helperFailure = null) {
   }
   if (helperFailure !== null) {
     phase = "helper failure handoff";
-    await assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome, mode: helperFailure });
+    await (helperFailureMode(helperFailure).launchFailure ? assertLaunchFailureAdmitted : assertHelperFailureAdmitted)(context, { environment, product, abg, task, outcome, mode: helperFailure });
     phase = "helper failure owner-local exchanges";
     if (helperFailure === "command_cleanup_unresolved") await assertHelperFailureExchanges(context, { environment, product, task, nodeRef: c2.nodeRef });
     return;
@@ -1330,7 +1330,7 @@ function helperFailureMode(name) {
       stderr: /worksite HTTP cleanup unresolved; dependent work stopped: /u,
       diagnostic: /ABI owned process cleanup unresolved/u },
   };
-  assert.ok(Object.hasOwn(modes, name), name);
+  if (!Object.hasOwn(modes, name)) return launchFailureMode(name);
   return modes[name];
 }
 
@@ -1409,3 +1409,188 @@ test("T-287 C2 helper failure http_probe_failed through the installed helper rea
 test("T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline", {
   timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
 }, (context) => installedC2Case(context, "http_cleanup_unresolved"));
+
+// A launch that establishes no child, through the installed helper. The declared
+// executable is a mode-755 file of bytes in no executable format and with no
+// shebang, so `spawn` throws ENOEXEC synchronously, before any child or
+// lifetime exists. The helper publishes that launch as the no-child launch
+// failure the lifetime's asynchronous `launchFailure` gives (design §10.5): exit
+// 127, termination confirmed, the error's message in stderr, the artifact's
+// disposition `success`. The hook of `helperFailureTransport` targets no lifetime
+// and records each lifetime the helper creates: none on the command route, and
+// on the HTTP route only the validation command's. `command_spawn_enoexec`: the
+// one declared command is the file, and its `process_exit` predicate expects 0.
+// `http_spawn_enoexec`: a validation command and its `process_exit` predicate
+// complete, then the `http_response_exact` predicate launches the file.
+const NOT_A_PROGRAM_BYTES = Buffer.from([0x00, 0xff, 0x00, 0xff, 0x41, 0x42, 0x0a]);
+const notAProgramPath = (paths) => join(paths.root, "not-a-program");
+function launchFailureMode(name) {
+  const prepare = async (paths) => {
+    await writeFile(notAProgramPath(paths), NOT_A_PROGRAM_BYTES, { flag: "wx" });
+    await chmod(notAProgramPath(paths), 0o755);
+  };
+  const declared = (commandId, executable, args) => ({ commandId, executable, args, relativeCwd: ".", environment: {},
+    timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] });
+  const exit = (predicateId, commandId) => ({ predicateId, predicateKind: "process_exit",
+    declaration: { validationCommandId: commandId, equals: 0 } });
+  const modes = {
+    command_spawn_enoexec: { prepare, launchFailure: true, unconfirmed: "none", lifetimes: 0,
+      configuration: (_c2, paths) => ({
+        commands: [declared("command://c2-ack/spawn-enoexec", notAProgramPath(paths), [])],
+        outcomePredicates: [exit("predicate://c2-ack/spawn-enoexec-exit", "command://c2-ack/spawn-enoexec")],
+        allowedWriteTerritories: [],
+      }) },
+    http_spawn_enoexec: { prepare, launchFailure: true, unconfirmed: "none", lifetimes: 1,
+      configuration: (c2, paths) => ({
+        commands: [declared("command://c2-ack/http-validation", process.execPath, ["-e", ""])],
+        outcomePredicates: [
+          exit("predicate://c2-ack/http-validation-exit", "command://c2-ack/http-validation"),
+          { predicateId: "predicate://c2-ack/http-spawn-enoexec", predicateKind: "http_response_exact", declaration: {
+            validationCommandId: "command://c2-ack/http-validation", status: 201, body: "abi-ok",
+            launch: { executable: notAProgramPath(paths), args: [c2.httpPortFileArgumentPlaceholder],
+              environment: {}, relativeCwd: ".", portFile: { relativePath: "c2-source/evidence-http-port.txt" },
+              timeoutMs: 5_000, terminationGraceMs: 1_000 },
+            request: { hostname: "127.0.0.1", method: "GET", path: "/", timeoutMs: 1_000 },
+          } },
+        ],
+        allowedWriteTerritories: [{ pathKind: "file", relativePath: "c2-source/evidence-http-port.txt" }],
+      }) },
+  };
+  assert.ok(Object.hasOwn(modes, name), name);
+  return modes[name];
+}
+
+// The no-child launch failure's whole path: the helper prints its one
+// acknowledgment line and exits 0, the controlled worker relays the line, and
+// the parent admits the observation. The acknowledgment is bound to the
+// published artifact as `assertHelperFailureAdmitted` binds it, on the `success`
+// disposition. The helper's exit and streams, the artifacts published for the
+// task, the hook's lifetimes and the admitted results are recorded before any
+// assertion.
+async function assertLaunchFailureAdmitted(context, { environment, product, abg, task, outcome, mode }) {
+  const paths = helperFailurePaths(environment.scratch), launchMode = launchFailureMode(mode);
+  const helperRecord = JSON.parse(await readFile(paths.record, "utf8"));
+  const attempts = join(task.workspaceBinding.roots.archiveRoot, "worksite-command-execution", task.taskDigest.slice("sha256:".length));
+  const published = [];
+  for (const name of (await readdir(attempts).catch((error) => { if (error.code === "ENOENT") return []; throw error; })).sort()) {
+    try { published.push({ attempt: name, disposition: JSON.parse(await readFile(join(attempts, name, "result.json"), "utf8")).disposition }); }
+    catch (error) { if (error.code !== "ENOENT") throw error; published.push({ attempt: name, artifact: "absent" }); }
+  }
+  const lifetimes = (await readdir(paths.facts)).filter((name) => /^lifetime-\d+\.json$/u.test(name)).sort();
+  const close = outcome.receipt?.resources?.eventResource?.closeHandoff;
+  // Cold: the events are read back from the durable log through a JSON copy of the coordinate.
+  const events = close ? abg.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(close.prefix))) : [];
+  const results = events.filter((event) => event.kind === "c_call_result_admitted").map((event) => ({
+    resultClass: event.payload.resultClass, kind: event.payload.value?.kind ?? null, failureClass: event.payload.value?.failureClass ?? null }));
+  context.diagnostic(JSON.stringify({ launchFailureCase: mode, helperExit: helperRecord.status, helperSignal: helperRecord.signal,
+    helperStderr: helperRecord.stderr, helperStdout: helperRecord.stdout, published, lifetimes, outcomeKind: outcome.kind, admittedResults: results }));
+  assert.equal(helperRecord.status, 0, JSON.stringify(helperRecord));
+  const ackLines = helperRecord.stdout.split("\n");
+  assert.equal(ackLines.length, 2, JSON.stringify(helperRecord.stdout));
+  assert.equal(ackLines[1], "");
+  const ack = JSON.parse(ackLines[0]);
+  assert.equal(helperRecord.stdout, `${product.canonicalJson(ack)}\n`);
+  assert.equal(ack.taskRef, task.taskRef);
+  assert.equal(ack.taskDigest, task.taskDigest);
+  assert.equal(outcome.kind, "installed_definition_call_transport_result", JSON.stringify(outcome));
+  assert.equal(outcome.receipt.exitCode, 0, JSON.stringify(outcome));
+  const admitted = events.filter((event) => event.kind === "c_call_result_admitted" &&
+    event.payload.value?.kind === "worksite_command_execution_observation");
+  assert.equal(admitted.length, 1, JSON.stringify(results));
+  assert.deepEqual(results.filter((row) => row.kind === "worksite_command_execution_failure"), []);
+  // The worker relayed the helper's acknowledgment unchanged.
+  const actorResult = events.filter((event) => event.kind === "actor_result_artifact_observed" &&
+    event.payload.inputDigest === product.sha256Canonical(task));
+  assert.equal(actorResult.length, 1);
+  assert.equal(actorResult[0].payload.finalOutput, ackLines[0]);
+  const observation = admitted[0].payload.value;
+  assert.equal(product.isWorksiteCommandExecutionObservation(observation), true);
+  // The acknowledgment names the published artifact: its ref and its recomputed digest.
+  const plan = product.worksiteCommandExecutionHelperPlan(task, ack.attemptRef);
+  const artifactBytes = await readFile(plan.artifactPath);
+  const artifact = JSON.parse(artifactBytes.toString("utf8"));
+  assert.equal(artifactBytes.toString("utf8"), `${product.canonicalJson(artifact)}\n`);
+  const { kind: _kind, schemaVersion: _schemaVersion, artifactRef, artifactDigest, ...artifactBody } = artifact;
+  const recomputedArtifactDigest = product.sha256Canonical(artifactBody);
+  assert.equal(artifactDigest, recomputedArtifactDigest);
+  assert.equal(artifactRef, `worksite-command-helper-artifact://abiogenesis/${recomputedArtifactDigest.slice("sha256:".length)}`);
+  assert.equal(ack.helperArtifactDigest, recomputedArtifactDigest);
+  assert.equal(ack.helperArtifactRef, artifactRef);
+  assert.equal(observation.provenance.helperArtifactPath, plan.artifactPath);
+  assert.equal(artifact.disposition, "success");
+  assert.equal(Object.hasOwn(artifact, "failure"), false);
+  assert.equal(published.length, 1, JSON.stringify(published));
+  assert.equal(published[0].disposition, "success");
+  assert.deepEqual(observation.commandResults, artifact.commandResults);
+  assert.deepEqual(observation.predicateObservations, artifact.predicateObservations);
+  // The launch that established no child created no lifetime.
+  assert.deepEqual(lifetimes, Array.from({ length: launchMode.lifetimes }, (_, ordinal) => `lifetime-${ordinal}.json`));
+  const stderrOf = (row) => Buffer.from(row.stderr.payload, "base64").toString("utf8");
+  const noChild = (row) => {
+    assert.equal(row.exitStatus, 127);
+    assert.equal(row.terminationConfirmed, true);
+    assert.equal(row.timedOut, false);
+    assert.equal(row.processSignal, null);
+    assert.deepEqual(row.signalSequence, []);
+    assert.equal(row.stdout.byteLength, 0);
+    // Node's own rendering of the synchronous error; an asynchronous one names the path.
+    assert.equal(stderrOf(row), "spawn ENOEXEC");
+    return { exitStatus: row.exitStatus, terminationConfirmed: row.terminationConfirmed, timedOut: row.timedOut,
+      processSignal: row.processSignal, signalSequence: row.signalSequence, stdoutBytes: row.stdout.byteLength, stderr: stderrOf(row) };
+  };
+  let identified;
+  if (mode === "command_spawn_enoexec") {
+    assert.deepEqual([artifact.commandResults.length, artifact.predicateObservations.length], [1, 1]);
+    const [result] = artifact.commandResults, [exitObservation] = artifact.predicateObservations;
+    assert.equal(result.commandId, task.commands[0].commandId);
+    assert.equal(result.executable, notAProgramPath(paths));
+    const facts = noChild(result);
+    assert.equal(exitObservation.predicateKind, "process_exit");
+    assert.deepEqual(exitObservation.evidenceRefs, [result.observationRef]);
+    assert.equal(exitObservation.observedValue, 127);
+    const expected = task.outcomePredicates[0].declaration.equals;
+    assert.equal(expected, 0);
+    assert.notEqual(exitObservation.observedValue, expected, "the process_exit predicate observes false");
+    identified = { commandResult: facts, predicate: { predicateId: exitObservation.predicateId, observedValue: exitObservation.observedValue,
+      expected, holds: exitObservation.observedValue === expected } };
+  } else {
+    assert.deepEqual([artifact.commandResults.length, artifact.predicateObservations.length], [1, 2]);
+    assert.equal(artifact.commandResults[0].commandId, task.commands[0].commandId);
+    assert.equal(artifact.commandResults[0].exitStatus, 0);
+    assert.equal(artifact.commandResults[0].terminationConfirmed, true);
+    assert.equal(artifact.predicateObservations[0].predicateKind, "process_exit");
+    assert.equal(artifact.predicateObservations[0].observedValue, 0);
+    const httpObservation = artifact.predicateObservations[1], declaration = task.outcomePredicates[1].declaration;
+    assert.equal(httpObservation.predicateKind, "http_response_exact");
+    assert.equal(declaration.launch.executable, notAProgramPath(paths));
+    const probe = httpObservation.observedValue;
+    assert.deepEqual(Object.keys(probe).sort(), ["portFile", "process", "request", "response"]);
+    assert.equal(probe.request, null);
+    assert.deepEqual(probe.portFile, { relativePath: declaration.launch.portFile.relativePath, port: null, state: "absent",
+      issue: "process_exited_before_port", byteLength: null, digest: null });
+    assert.equal(probe.response, null);
+    const facts = noChild(probe.process);
+    const holds = probe.response !== null && probe.response.status === declaration.status && probe.response.body === declaration.body;
+    assert.equal(holds, false, "the http_response_exact predicate observes false");
+    // The one lifetime is the validation command's.
+    const commandProcess = JSON.parse(await readFile(join(paths.facts, "lifetime-0.process.json"), "utf8"));
+    assert.deepEqual(commandProcess.spawnargs, [task.commands[0].executable, ...task.commands[0].args]);
+    assert.equal(commandProcess.target, false);
+    identified = { process: facts, portFile: probe.portFile, request: probe.request, response: probe.response,
+      predicate: { predicateId: httpObservation.predicateId, expected: { status: declaration.status, body: declaration.body }, holds } };
+  }
+  context.diagnostic(JSON.stringify({ launchFailureCase: mode, ...identified, disposition: artifact.disposition,
+    resultEvent: admitted[0].eventId, resultClass: admitted[0].payload.resultClass,
+    acknowledgmentLineSha256: product.sha256Bytes(Buffer.from(helperRecord.stdout, "utf8")),
+    acknowledgmentHelperArtifactDigest: ack.helperArtifactDigest, recomputedArtifactDigest,
+    artifactFileSha256: product.sha256Bytes(artifactBytes), artifactFileBytes: artifactBytes.byteLength }));
+}
+
+// Each launch-failure case has its own installed setup and C1, as the cleanup case does.
+test("T-287 C2 command launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission", {
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+}, (context) => installedC2Case(context, "command_spawn_enoexec"));
+
+test("T-287 C2 HTTP launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission", {
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+}, (context) => installedC2Case(context, "http_spawn_enoexec"));
