@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { execFile } from "node:child_process";
 import { createHash } from "node:crypto";
-import { chmod, mkdir, readFile, realpath, rename, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdir, readdir, readFile, realpath, rename, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -174,10 +174,10 @@ function installedCommandConfiguration(c2) {
   };
 }
 
-// D15 whole path. The helper's one command exits 0 with its process scope
-// unresolved: a module hook, loaded in the helper process only, binds the
-// installed lifetime module to a host whose group probe answers 'unknown' and
-// records the final facts of that command process.
+// D15 whole path. A module hook, loaded in the helper process only, records the
+// final facts of every lifetime the installed lifetime module creates, one file
+// per process beside its spawn arguments, and binds the one lifetime the mode
+// names to a host whose group probe answers 'unknown' (`helperFailureMode`).
 const helperFailureConfiguration = () => ({
   commands: [{ commandId: "command://c2-ack/helper-failure", executable: process.execPath, args: ["-e", ""],
     relativeCwd: ".", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],
@@ -185,37 +185,37 @@ const helperFailureConfiguration = () => ({
   allowedWriteTerritories: [],
 });
 const helperFailurePaths = (scratch) => ({ root: join(scratch, "c2-helper-failure"),
-  facts: join(scratch, "c2-helper-failure/helper-command-facts.json"), record: join(scratch, "c2-helper-failure/helper.json"),
-  exchangeFacts: join(scratch, "c2-helper-failure/helper-exchange-facts.json") });
-const helperFailureEnvironment = (paths, facts) => ({ ...process.env,
+  facts: join(scratch, "c2-helper-failure/helper-facts"), record: join(scratch, "c2-helper-failure/helper.json"),
+  exchangeFacts: join(scratch, "c2-helper-failure/helper-exchange-facts") });
+const helperFailureEnvironment = (paths, facts, unconfirmed) => ({ ...process.env, ABG_T287_HELPER_UNCONFIRMED: unconfirmed,
   NODE_OPTIONS: `--import=${pathToFileURL(join(paths.root, "register.mjs")).href}`, ABG_T287_HELPER_FACTS: facts });
 
 // The controlled worker runs the helper once under the hook, records its exit
 // and streams, refuses a helper exit of 0, and relays the helper's own
 // acknowledgment, its one stdout line, unchanged.
-async function helperFailureTransport(scratch) {
+async function helperFailureTransport(scratch, mode) {
   const paths = helperFailurePaths(scratch);
-  await mkdir(paths.root);
+  await mkdir(paths.facts, { recursive: true }); await mkdir(paths.exchangeFacts);
   await writeFile(join(paths.root, "loader.mjs"), [
     "export async function load(url, context, next) {",
     "  if (!url.endsWith('/build/code/src/shared/owned_process_lifetime.js')) return next(url, context);",
     "  const real = JSON.stringify(url + '?real'), facts = JSON.stringify(new URL('./process/index.js', url).href);",
     "  return { format: 'module', shortCircuit: true, source: [",
     "    `import * as real from ${real};`, `import { encodeOwnedProcessFacts } from ${facts};`,",
-    "    `import { writeFileSync } from 'node:fs';`, `export * from ${real};`,",
-    "    'export function createOwnedProcessLifetime(child, bounds, observers) {',",
-    "    '  const lifetime = real.createOwnedProcessLifetime(child, { ...bounds, terminationGraceMs: 5, host: {',",
+    "    `import { writeFileSync } from 'node:fs';`, `export * from ${real};`, 'let created = 0;',",
+    "    'export function createOwnedProcessLifetime(child, bounds, observers) {', '  const ordinal = created++, root = process.env.ABG_T287_HELPER_FACTS, target = String(ordinal) === process.env.ABG_T287_HELPER_UNCONFIRMED;',",
+    "    '  const lifetime = real.createOwnedProcessLifetime(child, !target ? bounds : { ...bounds, terminationGraceMs: 5, host: {',",
     "    '    clock: { nowNs: () => process.hrtime.bigint(), arm: (f, ms) => setTimeout(f, ms), cancel: clearTimeout },',",
     "    `    platform: 'posix', signal: () => {}, probeGroup: () => 'unknown' } }, observers);`,",
-    "    `  lifetime.completion.then((value) => writeFileSync(process.env.ABG_T287_HELPER_FACTS,`,",
-    "    `    JSON.stringify(encodeOwnedProcessFacts(value)), { flag: 'wx' }), () => {});`,",
+    "    `  writeFileSync(root + '/lifetime-' + ordinal + '.process.json', JSON.stringify({ ordinal, pid: child.pid ?? null, spawnargs: child.spawnargs, target }), { flag: 'wx' });`,",
+    "    `  lifetime.completion.then((value) => writeFileSync(root + '/lifetime-' + ordinal + '.json', JSON.stringify(encodeOwnedProcessFacts(value)), { flag: 'wx' }), () => {});`,",
     "    '  return lifetime;', '}', ''].join('\\n') };",
     "}", "",
   ].join("\n"), "utf8");
   await writeFile(join(paths.root, "register.mjs"),
     "import { register } from 'node:module';\nregister(new URL('./loader.mjs', import.meta.url));\n", "utf8");
   const helperEnvironment = `{...process.env,NODE_OPTIONS:${JSON.stringify(`--import=${pathToFileURL(join(paths.root, "register.mjs")).href}`)},` +
-    `ABG_T287_HELPER_FACTS:${JSON.stringify(paths.facts)}}`;
+    `ABG_T287_HELPER_FACTS:${JSON.stringify(paths.facts)},ABG_T287_HELPER_UNCONFIRMED:${JSON.stringify(helperFailureMode(mode).unconfirmed)}}`;
   return [
     "#!/usr/bin/env node",
     "const {spawnSync}=require('node:child_process');const fs=require('node:fs');let prompt='';",
@@ -236,11 +236,11 @@ async function helperFailureTransport(scratch) {
   ].join("\n");
 }
 
-async function assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome }) {
-  const paths = helperFailurePaths(environment.scratch);
+async function assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome, mode }) {
+  const paths = helperFailurePaths(environment.scratch), failureMode = helperFailureMode(mode);
   const helperRecord = JSON.parse(await readFile(paths.record, "utf8"));
   assert.notEqual(helperRecord.status, 0, JSON.stringify(helperRecord));
-  assert.match(helperRecord.stderr, /worksite command cleanup unresolved; dependent work stopped: /u);
+  assert.match(helperRecord.stderr, failureMode.stderr);
   // The helper prints its acknowledgment before its non-zero exit: one canonical line.
   const ackLines = helperRecord.stdout.split("\n");
   assert.equal(ackLines.length, 2, JSON.stringify(helperRecord.stdout));
@@ -269,17 +269,17 @@ async function assertHelperFailureAdmitted(context, { environment, product, abg,
     join(environment.installedRoot, "build/code/src/abg/runtime_failure.js")).href);
   const subject = readRuntimeFailureDiagnosticSubject(value.diagnosticRef);
   assert.ok(subject, value.diagnosticRef);
-  assert.equal(subject.failureClass, "command_cleanup_unresolved");
+  assert.equal(subject.failureClass, mode);
   assert.equal(subject.taskRef, task.taskRef);
   assert.equal(subject.taskDigest, task.taskDigest);
-  assert.equal(subject.command.commandId, "command://c2-ack/helper-failure");
-  assert.equal(subject.command.terminationConfirmed, false);
+  const lifetimes = (await readdir(paths.facts)).filter((name) => /^lifetime-\d+\.json$/u.test(name)).sort();
+  assert.deepEqual(lifetimes, Array.from({ length: failureMode.lifetimes }, (_, ordinal) => `lifetime-${ordinal}.json`));
   assert.equal(subject.diagnostic.name, "TypeError");
-  assert.match(subject.diagnostic.message, /ABI owned process cleanup unresolved/u);
-  const helperFacts = JSON.parse(await readFile(paths.facts, "utf8"));
-  assert.deepEqual(subject.processFacts, helperFacts, "the helper's own command process facts");
-  assert.equal(subject.processFacts.scopeAbsence, "unknown");
-  assert.deepEqual(subject.processFacts.directExit, { status: 0, signal: null });
+  assert.match(subject.diagnostic.message, failureMode.diagnostic);
+  const helperFacts = JSON.parse(await readFile(join(paths.facts, `lifetime-${failureMode.failed}.json`), "utf8"));
+  assert.deepEqual(subject.processFacts, helperFacts, "the failed process's own facts, as the hook recorded them");
+  for (const name of lifetimes.filter((name) => name !== `lifetime-${failureMode.failed}.json`))
+    assert.notDeepEqual(subject.processFacts, JSON.parse(await readFile(join(paths.facts, name), "utf8")), name);
   // The acknowledgment names the admitted subject's attempt and the published artifact.
   assert.equal(ack.attemptRef, subject.attemptRef);
   const artifactBytes = await readFile(product.worksiteCommandExecutionHelperPlan(task, ack.attemptRef).artifactPath);
@@ -293,9 +293,9 @@ async function assertHelperFailureAdmitted(context, { environment, product, abg,
   assert.equal(ack.helperArtifactRef, artifactRef);
   assert.equal(artifact.disposition, "failure");
   assert.deepEqual(artifact.failure, subject);
-  context.diagnostic(JSON.stringify({ helperFailureSubjectBytes: Buffer.byteLength(product.canonicalJson(subject)),
-    diagnosticRefBytes: Buffer.byteLength(value.diagnosticRef), resultEvent: admitted[0].eventId,
-    acknowledgmentLineSha256: product.sha256Bytes(Buffer.from(helperRecord.stdout, "utf8")),
+  const identified = await assertHelperFailureMode(mode, { task, subject, artifact, paths });
+  context.diagnostic(JSON.stringify({ helperFailureClass: mode, ...identified, helperFailureSubjectBytes: Buffer.byteLength(product.canonicalJson(subject)),
+    diagnosticRefBytes: Buffer.byteLength(value.diagnosticRef), resultEvent: admitted[0].eventId, acknowledgmentLineSha256: product.sha256Bytes(Buffer.from(helperRecord.stdout, "utf8")),
     acknowledgmentHelperArtifactDigest: ack.helperArtifactDigest, recomputedArtifactDigest,
     artifactFileSha256: product.sha256Bytes(artifactBytes), artifactFileBytes: artifactBytes.byteLength }));
 }
@@ -316,7 +316,7 @@ async function assertHelperFailureExchanges(context, { environment, product, tas
   context.signal.throwIfAborted();
   const prepared = await implementation.realizeWorksiteCommandExecution(task, occurrence);
   const helper = await new Promise((resolveRun) => execFile("/bin/sh", ["-c", plan.toolCommand], {
-    encoding: "utf8", maxBuffer: 4 * 1024 * 1024, env: helperFailureEnvironment(paths, paths.exchangeFacts),
+    encoding: "utf8", maxBuffer: 4 * 1024 * 1024, env: helperFailureEnvironment(paths, paths.exchangeFacts, "0"),
   }, (error, stdout, stderr) => resolveRun({ code: error === null ? 0 : error.code, stdout, stderr })));
   assert.notEqual(helper.code, 0, JSON.stringify(helper));
   assert.match(helper.stderr, /worksite command cleanup unresolved; dependent work stopped: /u);
@@ -583,7 +583,7 @@ async function executeHelper(plan, proof = null) {
   return result;
 }
 
-async function installedC2Case(context, helperFailure = false) {
+async function installedC2Case(context, helperFailure = null) {
   const proof = await selectedInstalledProof();
   let environment;
   let replayStore;
@@ -770,7 +770,7 @@ async function installedC2Case(context, helperFailure = false) {
       subject: sourceTask.targets[ordinal].subject,
       observation: member.successorObservation,
     })),
-    ...(helperFailure ? helperFailureConfiguration() : installedCommandConfiguration(c2)),
+    ...(helperFailure !== null ? helperFailureMode(helperFailure).configuration(c2) : installedCommandConfiguration(c2)),
   });
   if (proof !== null) {
     await proof.write("task.json", task);
@@ -881,7 +881,7 @@ async function installedC2Case(context, helperFailure = false) {
   const command = join(environment.scratch, "c2-bin/claude-compact-command");
   const stdoutPath = join(environment.scratch, "actual-helper-stdout.txt");
   context.signal.throwIfAborted();
-  await writeFile(command, helperFailure ? await helperFailureTransport(environment.scratch) : [
+  await writeFile(command, helperFailure !== null ? await helperFailureTransport(environment.scratch, helperFailure) : [
     "#!/usr/bin/env node",
     "const {spawnSync}=require('node:child_process');const fs=require('node:fs');let prompt='';",
     "process.stdin.setEncoding('utf8');process.stdin.on('data',chunk=>prompt+=chunk);",
@@ -927,11 +927,11 @@ async function installedC2Case(context, helperFailure = false) {
     const helperRow = await retainedTransportRecord(proof, "transport-helper.json");
     if (helperRow?.pid > 0) await retainProcessAbsence(proof, "helper-shell", helperRow.pid, false);
   }
-  if (helperFailure) {
+  if (helperFailure !== null) {
     phase = "helper failure handoff";
-    await assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome });
+    await assertHelperFailureAdmitted(context, { environment, product, abg, task, outcome, mode: helperFailure });
     phase = "helper failure owner-local exchanges";
-    await assertHelperFailureExchanges(context, { environment, product, task, nodeRef: c2.nodeRef });
+    if (helperFailure === "command_cleanup_unresolved") await assertHelperFailureExchanges(context, { environment, product, task, nodeRef: c2.nodeRef });
     return;
   }
   assert.equal(outcome.kind, "installed_definition_call_transport_result", JSON.stringify(outcome));
@@ -1150,7 +1150,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
 // differ. The helper-failure run therefore has its own installed setup and C1.
 test("T-287 C2 helper failure after launch reaches result admission with its subject inline", {
   timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
-}, (context) => installedC2Case(context, true));
+}, (context) => installedC2Case(context, "command_cleanup_unresolved"));
 
 test('C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries', async () => {
   const { projectWorksiteCommandExecutionBudget: project, worksiteCommandExecutionBudgetFits: fits } =
@@ -1287,3 +1287,125 @@ test("C2 helper failure subject is bound to the next undone operation of the com
     }
   }
 });
+
+// The helper failure classes driven through the installed helper, each by its
+// declared task. `unconfirmed` names the lifetime, in creation order, that the
+// hook binds to its host with no signal and a group probe answering 'unknown'
+// ("none": every lifetime keeps the real host); `failed` names the lifetime
+// whose facts the subject carries; `lifetimes` counts the lifetimes the helper
+// creates. `command_cleanup_unresolved`: the one command exits 0 and its scope
+// stays unresolved. `http_probe_failed`: the validation command and its
+// `process_exit` predicate complete, the launch publishes its port, and the
+// declared method is no HTTP token, so the probe's request raises an owner error
+// after the port that the probe hands to the launch's lifetime as its first
+// error. `http_cleanup_unresolved`: the same task with method GET; the launch
+// answers once and exits 0, and the hook leaves the launch's scope, and only
+// the launch's, unresolved. `command_failed` has no case: no declaration makes
+// a command's lifetime record a first error (post-close repair G).
+function helperFailureMode(name) {
+  const http = (c2, method) => ({
+    commands: [{ commandId: "command://c2-ack/http-validation", executable: process.execPath, args: ["-e", ""],
+      relativeCwd: ".", environment: {}, timeoutMs: 5_000, terminationGraceMs: 1_000, expectedReports: [] }],
+    outcomePredicates: [
+      { predicateId: "predicate://c2-ack/http-validation-exit", predicateKind: "process_exit",
+        declaration: { validationCommandId: "command://c2-ack/http-validation", equals: 0 } },
+      { predicateId: "predicate://c2-ack/http-failure", predicateKind: "http_response_exact", declaration: {
+        validationCommandId: "command://c2-ack/http-validation", status: 201, body: "abi-ok",
+        launch: { executable: process.execPath, args: [SOURCE_RELATIVE_PATH, c2.httpPortFileArgumentPlaceholder],
+          environment: {}, relativeCwd: ".", portFile: { relativePath: "c2-source/evidence-http-port.txt" },
+          timeoutMs: 5_000, terminationGraceMs: 1_000 },
+        request: { hostname: "127.0.0.1", method, path: "/", timeoutMs: 1_000 },
+      } },
+    ],
+    allowedWriteTerritories: [{ pathKind: "file", relativePath: "c2-source/evidence-http-port.txt" }],
+  });
+  const modes = {
+    command_cleanup_unresolved: { configuration: helperFailureConfiguration, unconfirmed: "0", failed: 0, lifetimes: 1,
+      stderr: /worksite command cleanup unresolved; dependent work stopped: /u,
+      diagnostic: /ABI owned process cleanup unresolved/u },
+    http_probe_failed: { configuration: (c2) => http(c2, "G ET"), unconfirmed: "none", failed: 1, lifetimes: 2,
+      stderr: /worksite HTTP probe failed; dependent work stopped: /u,
+      diagnostic: /^Method must be a valid HTTP token \["G ET"\]$/u },
+    http_cleanup_unresolved: { configuration: (c2) => http(c2, "GET"), unconfirmed: "1", failed: 1, lifetimes: 2,
+      stderr: /worksite HTTP cleanup unresolved; dependent work stopped: /u,
+      diagnostic: /ABI owned process cleanup unresolved/u },
+  };
+  assert.ok(Object.hasOwn(modes, name), name);
+  return modes[name];
+}
+
+// Per class: the subject's keys and the operation it is bound to, the completed
+// prefix the artifact carries, and the failed process identified by the hook's
+// record of its spawn arguments beside the facts the subject carries.
+async function assertHelperFailureMode(mode, { task, subject, artifact, paths }) {
+  const failureMode = helperFailureMode(mode);
+  const spawned = async (ordinal) => JSON.parse(await readFile(join(paths.facts, `lifetime-${ordinal}.process.json`), "utf8"));
+  const failedProcess = await spawned(failureMode.failed);
+  assert.equal(failedProcess.target, failureMode.unconfirmed === String(failureMode.failed));
+  const prefix = [artifact.commandResults.length, artifact.predicateObservations.length];
+  if (mode === "command_cleanup_unresolved") {
+    assert.deepEqual(Object.keys(subject).sort(), ["attemptRef", "command", "diagnostic", "failureClass", "processFacts", "taskDigest", "taskRef"]);
+    assert.deepEqual(prefix, [0, 0]);
+    assert.equal(subject.command.ordinal, 0);
+    assert.equal(subject.command.commandId, "command://c2-ack/helper-failure");
+    assert.equal(subject.command.terminationConfirmed, false);
+    assert.equal(subject.processFacts.scopeAbsence, "unknown");
+    assert.deepEqual(subject.processFacts.directExit, { status: 0, signal: null });
+    assert.deepEqual(failedProcess.spawnargs, [task.commands[0].executable, ...task.commands[0].args]);
+    return { prefix, boundOperation: subject.command.commandId, failedProcess, processFacts: subject.processFacts };
+  }
+  const predicate = task.outcomePredicates[1];
+  assert.deepEqual(Object.keys(subject).sort(), ["attemptRef", "diagnostic", "failureClass",
+    mode === "http_probe_failed" ? "request" : "observation", "predicate", "processFacts", "taskDigest", "taskRef"].sort());
+  // Every command complete, the predicates before the HTTP one observed.
+  assert.deepEqual(prefix, [task.commands.length, 1]);
+  assert.equal(artifact.commandResults[0].commandId, task.commands[0].commandId);
+  assert.equal(artifact.commandResults[0].exitStatus, 0);
+  assert.equal(artifact.commandResults[0].terminationConfirmed, true);
+  assert.equal(artifact.predicateObservations[0].predicateKind, "process_exit");
+  assert.equal(artifact.predicateObservations[0].observedValue, 0);
+  assert.equal(predicate.predicateKind, "http_response_exact");
+  assert.deepEqual(subject.predicate, { ordinal: predicate.ordinal, predicateId: predicate.predicateId });
+  assert.deepEqual(subject.predicate, { ordinal: 1, predicateId: "predicate://c2-ack/http-failure" });
+  // The failed process is the launch: its arguments carry the declared port file in the snapshot.
+  assert.equal(failedProcess.spawnargs[1], SOURCE_RELATIVE_PATH);
+  assert.equal(failedProcess.spawnargs[2].endsWith("/c2-source/evidence-http-port.txt"), true, failedProcess.spawnargs[2]);
+  const commandProcess = await spawned(0);
+  assert.deepEqual(commandProcess.spawnargs, [task.commands[0].executable, ...task.commands[0].args]);
+  assert.equal(commandProcess.target, false);
+  const commandFacts = JSON.parse(await readFile(join(paths.facts, "lifetime-0.json"), "utf8"));
+  assert.equal(commandFacts.scopeAbsence, "absent");
+  assert.equal(commandFacts.firstError, null);
+  const declared = predicate.declaration.request;
+  if (mode === "http_probe_failed") {
+    assert.deepEqual(subject.request, declared);
+    assert.equal(subject.request.method, "G ET");
+    assert.equal(subject.processFacts.firstError.name, "TypeError");
+    assert.equal(subject.processFacts.firstError.code, "ERR_INVALID_HTTP_TOKEN");
+    assert.equal(subject.processFacts.launchFailure, null);
+    assert.equal(subject.processFacts.scopeAbsence, "absent");
+    assert.deepEqual(subject.processFacts.directExit, { status: null, signal: "SIGKILL" });
+    return { prefix, boundOperation: subject.predicate, failedProcess, processFacts: subject.processFacts };
+  }
+  const observation = subject.observation;
+  assert.equal(observation.portFile.state, "observed");
+  assert.deepEqual(observation.request, { hostname: declared.hostname, port: observation.portFile.port,
+    method: declared.method, path: declared.path, timeoutMs: declared.timeoutMs });
+  assert.equal(observation.response.status, 201);
+  assert.equal(observation.response.body, "abi-ok");
+  assert.equal(observation.process.exitStatus, 0);
+  assert.equal(observation.process.terminationConfirmed, false);
+  assert.equal(subject.processFacts.firstError, null);
+  assert.equal(subject.processFacts.scopeAbsence, "unknown");
+  assert.deepEqual(subject.processFacts.directExit, { status: 0, signal: null });
+  return { prefix, boundOperation: subject.predicate, failedProcess, processFacts: subject.processFacts };
+}
+
+// Each HTTP class has its own installed setup and C1, as the cleanup case does.
+test("T-287 C2 helper failure http_probe_failed through the installed helper reaches result admission with its subject inline", {
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+}, (context) => installedC2Case(context, "http_probe_failed"));
+
+test("T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline", {
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+}, (context) => installedC2Case(context, "http_cleanup_unresolved"));
