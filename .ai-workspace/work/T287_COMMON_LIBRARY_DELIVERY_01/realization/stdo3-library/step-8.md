@@ -2070,3 +2070,75 @@ Accepted at `0eacd4668`. Read: the Return against the activation's nine items; t
 | 9, records | accepted |
 
 The library closes here: the plan's completion condition is met (no O-* open), the design's proofs hold on their whole paths as the closing post restates, and the claim is restated in `20261022T060245Z_CLOSE_library_consolidation.md`. Next: the independent review.
+
+## Fifth review (pasted by Jim, 2026-10-24; read-only, frozen-source inspection, in-memory probes and log comparison; subject `b5b8d0e24`, range `837781a1a..b5b8d0e24`)
+
+Verbatim.
+
+> Changes required at b5b8d0e24: one S2 and one S3. No S0, S1 or S4 findings. All locations below refer to that frozen cut. The requested range contains both repair B (d8cf6b5d9) and repair D (0eacd4668).
+>
+> 1. S2 — D15’s declared failure path still cannot supply the acknowledgment required to reach the retained facts.
+>
+>    The helper publishes its failure artifact, then throws at worksite_command_helper.ts:1492, before acknowledgment construction and output.
+>
+>    The worker’s instruction requires it to return that acknowledgment unchanged, and forbids another tool call. product/worksite_command_execution.ts:2263
+>
+>    Parent completion requires successful transport before reading the artifact. With absent or rejected worker output, it returns transport_identity_mismatch at implementation/worksite_command_execution.ts:708; the failure subject at lines 744–749 is never consumed.
+>
+>    The new test supplies the missing prerequisite: it manufactures an acknowledgment with zero-filled artifact coordinates and reports success at t287-worksite-command-execution.test.mjs:229, while line 243 explicitly verifies that the helper emitted no acknowledgment.
+>
+>    Consequently, the test proves the downstream admission and cold-read path under a supplied successful exchange. It does not discharge the declared helper→worker→parent failure handoff. This is distinct from the known unread acknowledgment digest.
+>
+>    Bounded repair: emit the truthful artifact acknowledgment before rethrowing, retain the non-zero exit, and make the controlled worker relay actual helper stdout unchanged. Alternatively, explicitly design authenticated artifact consumption on failed transport.
+> 2. S3 — Current-status records disagree at the frozen cut.
+>
+>    GOALS.md:79 still describes lifecycle implementation and helper failure retention as unimplemented, contradicting its updated Current Selection. T-287:5371 still calls the retained casts the “O-TYPE open list,” despite the later closure statements.
+>
+>    This condition is not discharged at b5b8d0e24. The later documentation commit bd336a99b addresses these stale passages; it is outside the reviewed cut.
+>
+> The fourth-review conditions resolve as follows:
+>
+> | Condition | Verdict | Evidence |
+> |---|---|---|
+> | Forward-task sparse regression | Discharged | Independent probes of the exported constructor accept dense and foreign-realm dense controls; sparse, undefined and mismatching references throw TypeError. Returned controls pass their guard and JSON round trip. |
+> | Comparison census | Supported by sampling | Exactly 867 rows: 846 retyped, 20 merged, one structural. Sixteen source-pair samples agree with their classifications. This is not exhaustive behavioral verification. |
+> | Fold claim | Discharged | B removes the per-advance state copy, and the design now makes that bounded claim. The recorded clip-scan cost is excluded from findings. |
+> | D12 realm rule | Discharged | Code and decision agree. Independent probes accept foreign records/arrays and refuse the fourth-review prototype counterexamples and the named-Object instance. |
+> | D14 representation | Discharged | All five sites project through the failure owner. The outcome’s own coordinate, Run selection, digest, count and ordinal survive; nested outcomes retain their earlier cut. Event construction is unchanged and no retention is introduced. Tests use controlled upstream receipts and real failure-admission paths. |
+> | D15 whole-path handoff | Partially discharged | Artifact publication, downstream inline diagnostic admission and cold retrieval work under the supplied exchange. The actual acknowledgment handoff remains broken as described above. |
+> | Final-run attribution | Discharged within its stated scope | All 46 B files remain, with two additions. No new failing identity appears. Shared errors match; identity_end’s changed cancellation matches B’s recorded standalone current/baseline reruns. Load failures remain coverage limitations. |
+> | Records | Not fully discharged at this cut | S3 above, plus the D15 closure claim needs narrowing until its protocol repair holds. |
+>
+> The artifact contract expansion is explicitly selected by D15 and the design. It preserves success rules; isWorksiteCommandExecutionFailure remains unchanged. I found no separate unauthorized Product failure-value change.
+>
+> Review used frozen-source inspection, in-memory probes and log comparison. No builds, suite reruns, edits, commits or pushes.
+
+## Disposition of the fifth review (Executive, 2026-10-24)
+
+Verified by reading at `bd336a99b`: `implementation/worksite_command_helper.ts:1486-1504`, where `main` publishes the artifact, checks it under the archive root, and then `if (failed !== null) throw failed;` precedes the construction and `process.stdout.write` of `workerReturnProjection`, so a failed helper prints no acknowledgment; `implementation/worksite_command_execution.ts:708`, where `exactExchange` (`:255-281`) requires `observation.disposition === "success"`, one Bash invocation and the planned tool-input digest before the artifact is read, so a worker that returns nothing never reaches the `disposition === "failure"` branch at `:744-749`; `product/worksite_command_execution.ts:2263-2266`, where the worker must return the acknowledgment unchanged and may make no other tool call; the test's controlled worker, which manufactures the acknowledgment with zero-filled artifact coordinates (`:229-231`) and asserts the helper's stdout empty (`:243`). The Executive's disposition of repair D recorded the fake worker and the placeholder digest and took the proof as whole-path; that was wrong: the proved path begins at the artifact, not at the helper's exit.
+
+| Finding | Severity (Reviewer) | Priority (Executive) | Disposition |
+|---|---|---|---|
+| 1: the helper prints no acknowledgment on failure; the parent refuses the exchange before the artifact; the case supplies the acknowledgment the helper never emitted | S2 | P1 | Repair E, items 1 to 4: the helper prints its acknowledgment for every disposition before its non-zero exit; the worker instruction says a non-zero helper exit after its acknowledgment is an observation; the parent binds the acknowledgment to the artifact on every disposition (the unread-digest item for Jim, discharged with it); the controlled worker relays the helper's stdout unchanged. D15's row restated when E lands; until then the claim is narrowed in place (ledger, closing post, GOALS, ticket). |
+| 2: GOALS `:79` and T-287 "O-TYPE open list" | S3 | P2 | GOALS and T-287's current surfaces restated at `bd336a99b`; the "O-TYPE open list" wording fixed with this disposition; the D15 sentences narrowed with this disposition and restated by E item 7. |
+| Fourth-review conditions | — | — | Six discharged or supported as the table says; D15 partially, E; records, this row. |
+
+## Post-close repair activation E (Executive, 2026-10-24; D15 route)
+
+Worker: Opus 5.5, xhigh, fresh context, Writer grant. Head is the Executive's bookkeeping commit after the fifth review (this section). Read this section, `## Fifth review` and `## Disposition of the fifth review` above, `## Post-close repair activation D` item 4 and `## Post-close repair return D` item 4, design §9.3 items 3 and 4 and §10.6 row 6, and the files named below. Do not read other agents' comment directories.
+
+Items, in this order. The Return carries one row per item: done or stopped, with lines at head.
+
+1. **The helper prints its acknowledgment for every disposition.** `implementation/worksite_command_helper.ts` `main`, `:1486-1504`: after `publishCreateOnly` and the archive-root check, construct `workerReturnProjection` from the published artifact and write it to stdout exactly as the success path does, for every disposition; await the write's completion (`process.stdout.write(line, callback)` wrapped in a promise; a pipe is asynchronous on macOS, and an uncaught rejection does not drain it) and only then `if (failed !== null) throw failed;`. The exit stays non-zero on failure and the stderr message the installed case asserts stays. No other change to `main`.
+2. **The worker instruction.** `product/worksite_command_execution.ts` `renderWorksiteCommandExecutionPrompt`, after "A nonzero subject-command exit is an observation, not a transport failure." (`:2264`): add the one sentence "A nonzero helper exit after it has printed its acknowledgment is also an observation; return that acknowledgment unchanged." Nothing else in the prompt. Regenerate the C2 pin in `gtl/worksite_command_execution.ts:37-61` (source digest, byte count, span bytes, span digest) the way repair D did; `npm run build` regenerates the manifest and contract digests. This is the Executive's decision under D15; reversal for Jim: delete the sentence and refresh the pin.
+3. **The parent binds the acknowledgment to the artifact on every disposition.** `implementation/worksite_command_execution.ts` completion, `:736-770`: after the artifact is read, validated and byte-checked (`:736-742`) and before the disposition branch (`:744`), parse `exchange.observation.finalOutput` and construct the worker result as the success path does (`:753-765`), and require `helperArtifactRef` and `helperArtifactDigest` of the acknowledgment to equal the artifact's `artifactRef` and `artifactDigest` (read `constructWorksiteCommandExecutionWorkerResult` first: if it already binds them, say so and add nothing). A malformed or non-binding acknowledgment returns `result_contract_failure` as today; no new failure class. The success path keeps its order after that point. Report which existing lanes, if any, change an expected failure class under this ordering; if one does, stop item 3 and report it, do not edit the expectation, and let items 1, 2 and 4 land.
+4. **The controlled worker relays the helper's stdout.** `test_env/tests/t287-worksite-command-execution.test.mjs` `helperFailureTransport` (`:193-235`): replace the zero-filled acknowledgment (`:229-231`) with the helper's own stdout: exactly one JSON line, parsed and emitted unchanged as `structured_output`; the worker still refuses a helper exit of 0. `assertHelperFailureAdmitted` (`:238-`): replace the empty-stdout assertion (`:243`) with: stdout is exactly one line, it parses to the acknowledgment, its `attemptRef` is the admitted subject's, and its `helperArtifactRef` and `helperArtifactDigest` equal the published artifact file's (locate the artifact from the acknowledgment or the helper plan, read its bytes, digest them); the exit is non-zero; the admitted failure, its class, the Product guard and the cold read of the subject are asserted as before. Add two component cases beside the suite's existing harness (`exactHelperExchange`, `:345`): (a) an acknowledgment whose `helperArtifactDigest` is not the artifact's, with a failed artifact, returns the class item 3 settles; (b) an exchange whose observation disposition is not success, with a failed artifact, returns `transport_identity_mismatch` (the fifth review's trace, as a pinned refusal). If the harness cannot supply a failed artifact in one bounded attempt, land (b) only and say so.
+5. **Design records.** §9.3 item 4 and §10.6 row 6: the helper prints its acknowledgment for every disposition before its exit; the worker returns it regardless of the helper's exit; the parent binds the acknowledgment to the artifact before it reads the disposition. §10.5 P-LIFECYCLE if it names the helper route. State what is realized, nothing prospective.
+6. **Final run.** `npm run build`, `npm run lint:imports`, `npm run lint:lifecycle`, `npx tsc --noEmit -p tsconfig.json`; the lanes `t287-worksite-command-execution`, `t287-observed-worksite-command`, `forward-command-contracts`, `forward-command-owners`, `t287-runtime-failure-diagnostic`, `t287-lifecycle-failure-carrier`, `m5-worker-transport`, `t287-reacquisition-root-contract`; then the same 48-file run as repair D (`step-8-run-postclose-d.log` lists the files and the command shape) into `step-8-run-postclose-e.log`, attributed file by file against D's log: no failing identity that D's log does not carry, each difference explained.
+7. **Records.** GOALS Current Selection (the D15 sentence) and the ticket's `### Library delivery close (2026-10-23)` D15 sentence: the realized route from the helper's exit through the worker's acknowledgment to the admitted failure, or the stop. The ticket subsection's test-reality line for the final run.
+
+**Grant.** `implementation/worksite_command_helper.ts` (`main`'s tail, item 1); `product/worksite_command_execution.ts` (the one sentence, item 2); `gtl/worksite_command_execution.ts` (the pin, item 2); `implementation/worksite_command_execution.ts` (the completion's acknowledgment binding, item 3); `test_env/tests/t287-worksite-command-execution.test.mjs`; the design §9.3, §10.5, §10.6; `specification/GOALS.md` Current Selection and the ticket's close subsection; `step-8.md` below this section only; `step-8-run-postclose-e.log`; build outputs `npm run build` regenerates.
+
+**Stop:** a new failure class; any change to `isWorksiteCommandExecutionFailure`, to an event contract or payload key list, or to the helper's exit semantics (non-zero on failure); prompt text beyond the one sentence; an existing lane whose expected class changes under item 3 (stop item 3 only); a second bounded attempt at any item; any push.
+
+**Return contract.** One commit on `main`, no push. First line `Post-close repair E: helper acknowledgment on failure (D15); acknowledgment bound to the artifact; final run`, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Append `## Post-close repair return E` with: one row per item (done or stopped, lines at head); the whole-path case's acknowledgment and artifact digests as printed; the lane results as `tests/pass/fail/skipped`; the final-run table (files, tests, pass, fail, cancelled, skipped) and the attribution against D's log; the stop reports, if any, with the counterexample.

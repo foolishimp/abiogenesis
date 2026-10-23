@@ -5294,7 +5294,9 @@ and the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolid
 Ledger. The step records are in
 [stdo3-library](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/).
 This is not a release. O-TYPE is closed at every census site (D11, D12, D13,
-D14). The helper's failure after launch reaches the admitted failure (D15).
+D14). The helper's failure after launch reaches the admitted failure (D15)
+from the artifact on; the handoff from the helper's exit through the worker's
+acknowledgment is under repair E (fifth review, 2026-10-24).
 The items for the owner below stay open.
 The [technical debt register](../../TECHNICAL_DEBT_REGISTER.md) (Codex, snapshot
 `2f1393061`) is reconciled at this cut: TD-01, TD-02 and TD-03 are closed by
@@ -5355,7 +5357,7 @@ repairs B and D; its other 21 packages are unselected.
 **Remainders migrated as touched.**
 
 - Step 3: `isRecordEvidence` (`product/release_snapshot_definition_bindings.ts:91`); seven local `isJsonRecord` (`abg/c_call_outcome.ts:139`, `abg/traversal_route.ts:944`, `abg/c_call.ts:1558`, `abg/execution_basis.ts:949`, `abg/traversal_cursor.ts:110`, `hog/recursion_lifecycle.ts:139`, `hog/workflow_lifecycle.ts:135`); the local `record` guard of `abg/worksite_construction_recovery.ts:49`. The `jsonRecord` schema still claims `JsonValue` members.
-- Step 4: the `JsonValue` casts of the O-TYPE open list; the three record writers that produce persisted plan digests (`abg/retry.ts:6665`, `abg/c_call.ts:7338`, `abg/replay.ts:2313`), kept for digest stability; the installed-codec pair, which runs on the installed Product's encoder; four fast-path equality wrappers and 41 single-parameter digest aliases (step 4 Return).
+- Step 4: the `JsonValue` casts the step 4 record listed as the O-TYPE open list (closed since, D11 to D14); the three record writers that produce persisted plan digests (`abg/retry.ts:6665`, `abg/c_call.ts:7338`, `abg/replay.ts:2313`), kept for digest stability; the installed-codec pair, which runs on the installed Product's encoder; four fast-path equality wrappers and 41 single-parameter digest aliases (step 4 Return).
 - Step 5: eight checked-record readers keep their own code, in `abg/c_call_outcome.ts`, `abg/worksite_revision.ts`, `abg/retry.ts`, `abg/invocation_execution_truth.ts` (two), `abg/c_call.ts`, `abg/traversal_cursor.ts` and `abg/project_read_ports.ts` (step 5 Return, per reader). The constraint is the atom's static `RecordCheck` (design §4.2, §6): `project` and `digest` are a module constant per reader, so an expected digest or a projection input that comes from the call has no parameter to flow through. Runtime data is lawful ("A runtime call supplies data only", constitution line 1861); extending the check with typed context is a design change to the atom, deferred. The double hash in the two admitted-set readers and the first-match census (212 sites in 31 files) stay recorded.
 - Review F5: 13 owner `safeParse` sites remain outside the binders; the review named eight, and five more are at head: `owner_bindings/run_invocation.ts:1127`, `validator/raw_admission.ts:132`, `shared/public_function_contracts.ts:685`, `shared/capability_contracts.ts:217`, `:401`, `:410`, `product/public_contract_publication.ts:517`, `product/verify_product.ts:815`, `:1805`, `abg/terminal_result_contracts.ts:35`, `:55`, `:68` and `implementation/release_publication.ts:149`.
 

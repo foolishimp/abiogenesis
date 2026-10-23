@@ -47,7 +47,10 @@ remains. The post-close review's helper-route finding is repaired (D15): the
 helper publishes a failure after launch as its artifact's `failure`
 disposition, and the parent carries the admitted subject inline as the leaf
 failure's diagnostic reference, with the Product failure value unchanged; an
-installed C1 to C2 case reads the subject cold from the admitted result. The
+installed C1 to C2 case reads the subject cold from the admitted result,
+under a supplied exchange: the helper prints no acknowledgment when it fails,
+so the handoff from its exit through the worker is under repair E (fifth
+review, S2). The
 streaming-fold finding is repaired: the derivation advances one owned working
 state in place, with no per-call copy of the fold state. The C2 suite's
 prompt-digest fixture and the reacquisition seam lane are repaired. The

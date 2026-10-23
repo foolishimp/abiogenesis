@@ -10,6 +10,14 @@ this text; their history is the commit chain below and `step-8.md`.
 
 ## Result
 
+Reopened 2026-10-24 by the fifth review (S2): the helper prints no
+acknowledgment when it fails after launch, and the parent refuses the
+exchange before it reads the artifact, so the D15 claim below is narrowed to
+artifact publication, downstream admission and cold retrieval under a
+supplied exchange. Repair E (`step-8.md`) carries the helper's
+acknowledgment through the worker to the parent; this post is restated when
+it lands.
+
 The library is on `main` at `0eacd4668` plus the bookkeeping commit that
 carries this restatement (not pushed, not a release). Steps 2 to 8 landed as
 twelve code commits; four post-close repairs (A, C, B, D) landed as four more
