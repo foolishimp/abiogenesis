@@ -46,7 +46,7 @@ All proposed repairs use realization_refactor unless the entry names design_refr
 | [TD-17](#td-17) | Open | F_P completion loses the original failure cause | M | Selected diagnostics repair after TD-02 |
 | [TD-18](#td-18) | Investigate | Held-return cold recovery contract | M/L | Selected suspension/resumption proof |
 | [TD-19](#td-19) | Open | Recursive proof/evidence copying | M/L | Next proof packaging; historical cleanup separately |
-| [TD-20](#td-20) | Open | Conflicting current-status narratives | S/M | B/D checkpoint |
+| [TD-20](#td-20) | Open | Conflicting current-status narratives | S/M | Status reconciled 2026-10-23 (Completion record); compaction of T-287 remains |
 | [TD-21](#td-21) | Revalidate | Historical reporting/observation gaps | S/M | Next affected caller/report path |
 | [TD-22](#td-22) | Revalidate | Caller/install/capacity cost observations | M | Controlled present-day attribution |
 | [TD-23](#td-23) | Investigate | Repeated line-boundary mechanics | M | Start with the two event-store loops |
@@ -397,3 +397,14 @@ Repairs B (`d8cf6b5d9`, accepted at `3dbd3cd2f`) and D (`0eacd4668`, accepted at
 | TD-03 | `0eacd4668` | the missing `canonicalEquals` binding in the extracted-code seam | `t287-reacquisition-root-contract` 1 pass, 1 skip, the baseline's shape | step-8.md `## Disposition of repair D` |
 
 Triggers now met: TD-06 and TD-07 (B's accumulator is accepted); TD-14 (the nine stopped rows are resolved, four by D12 at B and five by D14 at D; the 55 outside-census casts and the tracer gaps remain); TD-20 (the B/D checkpoint: the closing post is restated in place, and GOALS, T-287, the plan Ledger and step-8 agree at head; the compaction of T-287 remains open). TD-17's "existing failure/diagnostic route" has a realized precedent in D15: `constructRuntimeFailureDiagnosticRef` carries an admitted subject inline and the cold projection reads it. TD-21's helper coordinates (`worksite_command_helper.ts:865–898`) shifted under repair D; the count derivation is `nodeTestPassCount`. The claims in TD-06, TD-07, TD-12 (18 literal calls in seven files), TD-13, TD-14, TD-15 and TD-17 were re-read at head and hold as written. No other package is selected by this reconciliation.
+
+The Reviewer (Codex, 2026-10-23) confirmed the reconciliation, the freeze of `b5b8d0e24` for the independent review and the order TD-06, TD-07, TD-17, TD-13, TD-14, and named one correction: GOALS still described the lifecycle law and the helper’s retention as unimplemented. Discharged the same day (TD-20, status part): GOALS Current Selection and T-287’s Current Delivery Plan (intro, L3 and L5 rows, Current operation boundary) now state the realized rule `actor_process_lifecycle`, the helper’s `processFacts` and D15 route, the withdrawn handoff (D0) and the local commit chain. The compaction of T-287 remains open under TD-20.
+
+Reviewer recommendations on the packages reserved for the owner, recorded for the owner’s decision, not adopted here:
+
+| Package | Reviewer recommendation |
+|---|---|
+| TD-12 | A bounded design reframe after the review: establish the shared contextual-reader contract from two materially different readers, name the bodies it deletes, then migrate the rest; admission policy stays with its owners. |
+| TD-10 | The consumer census first: which callers need only a fact or a cut; complete replay-witness semantics preserved wherever the witness is the contract; no persisted-contract change yet. |
+| TD-18 | The recovery trace: for each held field, recoverable from admitted history or legitimately warm; a demonstrated cold-recovery gap is resolved before the recovery path is claimed. |
+| TD-19 | Stop recursive copying into future proof packages now; historical deletion waits for an exact retention/deletion manifest of references, required evidence and recoverability. |

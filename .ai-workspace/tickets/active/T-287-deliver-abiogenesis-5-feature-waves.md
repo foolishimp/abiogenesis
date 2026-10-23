@@ -33,14 +33,16 @@ The coverage critique is substantially upheld; the owning common HOW now
 binds the finite callable/consumer/deletion/proof maps rather than leaving
 selected duplication under automatic retention or 5.1 allocation.
 
-Five source cuts retain static/syntax readiness only. Lifecycle and helper
-implementation/proof remain open; combined candidate/build/P1/P5/P4 are HELD
-until the required source conjunction. L4 is partial on older subjects, L5
+The library is delivered and closed on `main` at the cut the
+[delivery close](#library-delivery-close-2026-10-23) records, frozen there for
+the independent review (L5). The lifecycle rule and the helper’s final-facts
+and failure handoff are realized (D0, D8, D15 there). The five source cuts are
+historical; their content is in that commit chain. Combined candidate/build/
+P1/P5/P4 remain HELD until L5 acceptance. L4 is partial on older subjects, L5
 acceptance absent and release resumption closed. The [checkpoint handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
-owns current transport identity/parity. At this design conjunction, before the
-authorized WIP checkpoint, the successor is uncommitted; known prior checkpoint
-`400d763d1d4c3d9e84cf30d6b830d7b975ef7089` was pushed, remote-equal, tracking 0/0
-and clean at its historical cut. The asset remains reusable computations and
+is historical; the delivery close owns the commit chain, which is local: the
+remote head is `93a4b08df`, two commits after `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`,
+and nothing later is pushed. The asset remains reusable computations and
 lawful compositions that remove independent duplicate solutions while
 preserving supported distinctions.
 [Goals](../../../specification/GOALS.md#current-selection) selects that work;
@@ -105,12 +107,14 @@ Historical cohort-bound Runs and evidence keep their original dependencies.
 
 ### Common computational library deliverable
 
-**Owner:** ABIogenesis/T-287. **Status:** open. The bounded design conjunction
-is ratified. Six value owner obligations and two native composite classifications
-remain OPEN; full migration is not source-ready. Five source cuts retain
-static/syntax evidence, with implementation and proof of the lifecycle/helper
-successors still open. L4 remains partial on older subjects; L5 acceptance is
-absent. Current transport status belongs to the checkpoint handoff.
+**Owner:** ABIogenesis/T-287. **Status:** open; the library is closed and
+awaits L5. It is on `main` at the [delivery close](#library-delivery-close-2026-10-23)
+cut. The six value owner obligations are closed with their sites (O-TYPE at
+every census site, O-SCHEMA at the raw owner boundary), and the two native
+composite comparisons are decided per site as ingress questions (D3). The
+lifecycle rule and the helper handoff are realized (D0, D8, D15). This is not
+full migration or source-readiness acceptance. L4 remains partial on older
+subjects; L5 acceptance is absent. The commit chain is local and unpushed.
 
 **Release-resumption gate:** closed until L5 acceptance on the exact delivered
 subject. All C1–C5 obligations are selected library scope; no automatic 5.1 deferral.
@@ -186,7 +190,8 @@ and supply no current operation grant.
 
 The [delivery assessment](../../work/T287_STDO3_RECONCILIATION_01/delivery-assessment.md)
 contains the exact source routes and limits. Source44 is a preserved candidate;
-current dirty source still needs an exact affected-delta comparison.
+the D1/D4 affected-delta comparison of the closed source to it waits for L5
+acceptance.
 
 ### Dependency order and exits
 
@@ -200,10 +205,10 @@ library work package; L5 acceptance opens the remaining release sequence.
 | L1 baseline — historical acceptance retained | Preserve the exact historical common HOW `cb8dae9f…` and its accepted claims; current owning HOW carries §1.1’s bounded conjunction. | [Historical acceptance](../../work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/disposition.md) plus [current decision](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md). | C1/C3/cross-consumer DESIGN accepted; value core accepted with six owner obligations/two composite classifications OPEN. |
 | L2 — bounded conjunction ratified | [L2 §11](../../work/T287_COMMON_LIBRARY_DELIVERY_01/L2-execution-contract.md#11-root-conjoined-bounded-designs-and-source-boundary--2026-10-21) refines selected C1–C5 callable/consumer/retirement scope. | Closed reviews and literal corrections incorporated in owning HOWs. | Close finite value decisions; Root may grant dependency-ready C1/cross-consumer source separately. C3 requires truthful C5 wrappers. |
 | Prior design checkpoint — completed | Preserve its exact full-tree design/commentary/evidence subject and transport. | Remote design checkpoint `67c3337` retains its original scope. | That prior checkpoint remains historical; the unfinished refactor is retained in checkpoint `400d763…`, without delivery acceptance. |
-| Review checkpoint — historical completed cut | Preserve `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`; [handoff](../../work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns successor transport status. | Pushed, direct remote equal, tracking 0/0 and clean at that historical cut. | Corrected design/source custody ready for the authorized full-visible-tree WIP checkpoint; transport grants no delivery/runtime/release acceptance. |
-| L3 bounded source — five cuts frozen; successor completion open | Retain lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 `d24b8d7d…`, exact-key `ed4ca1b…`. | Actual bounded retirement/adoption and syntax/static readiness; 39-file custody check adds no execution. | Separately grant dependency-ready source. Unresolved value owner boundaries hold their migration; complete required conjunction precedes one combined isolated candidate. |
+| Review checkpoint — historical completed cut | Preserve `400d763d1d4c3d9e84cf30d6b830d7b975ef7089`; the [delivery close](#library-delivery-close-2026-10-23) owns the later commit chain. | Pushed, direct remote equal, tracking 0/0 and clean at that historical cut. | Superseded by the library delivery’s local commit chain; nothing after remote `93a4b08df` is pushed; transport grants no delivery/runtime/release acceptance. |
+| L3 bounded source — completed by the library delivery | Retain lifetime `4bfdf7e…`, role `17b1b6d…`, fixture `1bbc47ac…`, P5 `d24b8d7d…`, exact-key `ed4ca1b…` as historical cuts; the delivered source is the plan’s commit chain. | The eight plan steps and post-close repairs A to D are accepted in the [delivery close](#library-delivery-close-2026-10-23) with their lanes. | Closed. The remaining sites are the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md), selected after L5. |
 | L4 — partial historical subjects; all candidate lanes held | Preserve P1 pass, P5 successor08 timeout and finite04/07/08/09 evidence. | Original subjects/exclusions remain. | Candidate/P1/P5/P4 and owner-resolution/P2/P3/HoG held for design/source conjunction and later effect grant. No timeout-cause/performance inference. |
-| L5 delivery acceptance — blocked | Complete C1–C5 source/consumer retirement and affected evidence, including the lifecycle S2/Root P1 blocker. | Independent assessment and Root disposition on the delivered exact subject. | Bounded design acceptance and prior narrow source reviews do not close implementation/outcomes. Delivery acceptance absent; release gate closed. |
+| L5 delivery acceptance — pending independent review | Review the closed library at the delivery-close cut; the lifecycle S2/Root P1 blocker is realized as the rule `actor_process_lifecycle` with the helper handoff (D0, D8, D15). | Independent assessment and owner disposition on the delivered exact subject. | The Executive’s acceptance and the post-close reviews do not close delivery; acceptance absent until that review; release gate closed. |
 | D1/D4 remaining release integration — waiting for L5 | After library acceptance, compare current source to the accepted design and frozen Source44; reuse valid library evidence and implement only remaining admitted release deltas. | Focused checks plus exact installed producer/consumer composition establish the changed release relations. Source/package correspondence and authentic setup evidence are retained or renewed only where invalidated. | Return a failed join to its owning boundary; no blind clean restart or extra controller. |
 | D2 controlled correction/restart | Reconcile17's completed physical install with admitted16 facts; select lawful reuse or an owner-supported changed pair. Bind the actual Source, Program, current input and reviewed fixture. | Actual helper execution gives a failing C2 result with original diagnostics/citations; parent retains it; selected native repair changes the candidate; the same checker passes; close/reopen and fresh Public reads conserve producer, state and effects. | A refusal or uncertain effect stops and is explained. This finite controlled proof does not establish genuine semantic work. |
 | D3 genuine selected lifecycle | Select the exact installed candidate, original source, full selected obligations, independent oracle and actual worker/assessment configuration prospectively. | The supported ordinary interface produces and corrects a working application, receives independent assessment and reaches admitted closure/fresh readback. Required ambiguity, refusal and recovery cases retain their outcomes. | No hidden assistance or shrinking of the oracle. Apply remaining D4 generic-composition obligations and D5 coverage; reuse valid prior evidence. |
@@ -279,57 +284,36 @@ quota, method requalification campaign, per-helper review or all-profile gate.
 
 ### Current operation boundary
 
+The library is closed on `main` at the cut the
+[delivery close](#library-delivery-close-2026-10-23) records, under the
+[library design](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
+and the [plan post](../../comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md)
+Ledger; the review subject is frozen there for the independent review (L5).
 Root’s [bounded design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
-is ratified in the common, terminal-quiescence and C2 owning HOWs. C1 lifecycle,
-C3 checked records and cross-consumer cause/facts/inspection contracts are
-accepted DESIGN. C2/C4/C5 core callable contracts and finite retirement directions
-are accepted with O-TYPE/O-RESOURCE/O-SHAPE/O-CODEC/O-SCHEMA/O-KEY and two native
-composite classifications OPEN. This does not accept full migration or prove
-runtime behavior. Closed independent reviews and their literal corrections are
-retained without another broad design-review campaign.
+and its C1 to C5 contracts are superseded by that design; its bounded
+corrections (C3 null-digest refusal, installed equality through the Product
+codec, the default-library key form) are owned by the design and its step
+records. The decisions D0 to D15 and the items the owner decides are in the
+delivery close. The lifecycle law is realized as the rule
+`actor_process_lifecycle` in the one fold; the helper’s final facts and
+post-launch failure reach the parent (D8, D15); the cross-consumer handoff is
+withdrawn (D0). Post-Run Process start remains prohibited; a physical child
+without admitted start retains unresolved cleanup.
 
-The finite scope is 24 simple equality bodies, 13 local exactly-one helpers,
-three stream framers, five shared plus 38 local guards and five shared plus one
-private NUL key body. Default to a canonical implementation. Retention requires
-a concrete supported input/caller/outcome distinction, owner and falsifier;
-missing proof remains open. Preserve failure/equality/admission domains except
-the exact selected owner corrections. Direct typed imports are callable
-surfaces; no new facade/runtime/schema/registry is selected.
+Historical P1 on archive `fadd07e…` passed in 954.636 s without
+native/provider calls; P5 successor08 `c54099…` timed out at 600 s/630 s with
+late C1 completion and C2 admission/opening but no C2 actor/helper/HTTP
+result, fresh N2 equality or terminal closure; concurrency was observed, not
+established as a cause; exact finite passes keep their original scope.
+Combined build, P1/P5/P4 and dependents remain HELD until L5 acceptance and a
+later exact grant.
 
-The lifecycle law uses the exact pre-event matching-Run Actor census and one
-Run-initiated token until Actor consumption. Only redundant b058 R3.3 payload
-census serialization is superseded; post-Run Process start remains prohibited.
-A physical child without admitted start retains unresolved cleanup. Both C3
-malformed null-digest cases now select owner null/refusal; the common checker
-retains exceptions. Installed equality uses `(value) => product.canonicalJson(value)`.
-The default-library collided/inherited key form selects false. These bounded
-corrections require implementation and proof, not another unqualified equivalence
-claim. The source-established lifecycle S2/Root P1 blocker remains operationally
-open; no incorrectly closed real Run is claimed.
-
-The [five source cuts](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
-retain static/syntax readiness only. At this design conjunction, before the
-authorized checkpoint, they are uncommitted. Root matched all 39 distinct
-source/proof/contract files and both selected deletions; that is custody only.
-The checkpoint handoff owns later transport identity/parity. Historical P1 on
-archive `fadd07e…` passed in 954.636 s without native/provider calls; P5
-successor08 `c54099…` timed out at 600 s/630 s, with late C1 completion and C2
-admission/opening but no C2 actor/helper/HTTP result, fresh N2 equality or terminal
-closure. Its setup/C1 phases were 323.088 s/293.475 s. Concurrency was observed,
-not established as a cause. A second live lazy-view bug, timeout cause and
-performance benefit remain unproved. Exact finite passes keep their original scope.
-
-Next: authorized WIP checkpoint; finite value owner/type decisions plus
-separately granted dependency-ready C1/cross-consumer source; C3 with truthful
-C5 wrappers; complete required source conjunction; one combined isolated
-candidate; proportionate affected/installed proof and unchanged P4; independent
-L5; then release work. Source edits need not all wait for every value decision,
-but unresolved owner boundaries hold their affected migration. Combined build,
-P1/P5/P4 and dependents remain HELD until conjunction and a later exact grant.
-No source/test/build/import/process/provider/Git or Reviewer effect follows
-from this documentation. Preserve old freezes, failed cuts and main generated936;
-no cleanup, old Run migration or restarted historical attempt is selected.
-
+Next: the independent review; then the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md)
+in the order TD-06, TD-07, TD-17, TD-13, TD-14, each a realization refactor
+under the plan’s Worker/Reviewer shape, with TD-10, TD-12, TD-18 and TD-19
+held for the owner; then release work. Preserve old freezes, failed cuts and
+main generated936; no cleanup, old Run migration or restarted historical
+attempt is selected.
 
 ## Historical Routing Snapshot
 

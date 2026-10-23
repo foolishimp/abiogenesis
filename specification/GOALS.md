@@ -57,50 +57,36 @@ owner decides. This is not full migration, source-readiness acceptance or a
 release. The coverage critique remains substantially upheld; real completed
 contractions are retained.
 
-The finite selected scope is 24 simple equality bodies, 13 local exactly-one
-helpers, three stream framers, five shared plus 38 local shallow guards and five
-shared plus one private NUL key body. Every selected row needs a callable,
-consumer, deleted body/route, justified variant and proof. Default to the common
-implementation; retention needs a concrete supported distinguishing input/outcome,
-owner and falsifier. Missing proof stays open. All C1–C5 are library obligations;
-none is automatically deferred to 5.1. Direct typed imports are valid callables.
-
 The owner’s purpose remains **“the purpose of the calculus is to strip out old
-fixtures, to remove massive tech debt”**. The five [source freezes](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
-retain bounded static/syntax readiness: lifetime `4bfdf7e…`, role/source
-`17b1b6d…`, fixture `1bbc47ac…`, P5 guard `d24b8d7d…` and exact-key `ed4ca1b…`.
-At this design conjunction, before the authorized checkpoint, those source
-increments are uncommitted. Root’s fresh custody check matched all 39 distinct
-source/proof/contract files and confirmed both selected deletions absent; that
-is custody evidence, not new execution. The old ordinary companion helper,
-packaged STDO2.5 member and selected fixture/key duplicates are retired in source.
-Distinct owner/renderer/companion duties and historical proof remain.
+fixtures, to remove massive tech debt”**. The conjunction’s finite scope (24
+simple equality bodies, 13 local exactly-one helpers, three stream framers,
+five shared plus 38 local shallow guards, five shared plus one private NUL key
+body) and its five [source freezes](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-reentry-01/decision.md#completed-bounded-source-and-design-cuts-retained)
+are historical. The operator-family design disposed each row in its step
+records, and their content is on `main` in the commit chain the
+[T-287 delivery close](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#library-delivery-close-2026-10-23)
+records. What the delivery left is in the
+[technical debt register](../.ai-workspace/TECHNICAL_DEBT_REGISTER.md): seven
+local record guards and two private key-set bodies (TD-13), the line framers
+(TD-23) and 55 casts outside the census (TD-14).
 
-The lifecycle S2/Root P1 delivery blocker is resolved in bounded DESIGN only.
-The accepted law requires the pre-event matching-Run Actor census and one
-Run-initiated cleanup token until Actor consumption, distinct from pre-Run
-physical uncertainty. Source implementation and affected proof remain open;
-no incorrectly closed real Run is claimed. Command/HTTP final-facts retention,
-fixed failure diagnostic and stateless inspection are likewise accepted DESIGN
-and unimplemented in the helper.
+The lifecycle law, the pre-event matching-Run Actor census and one
+Run-initiated cleanup token until Actor consumption, is realized as the rule
+`actor_process_lifecycle` in the one fold (design §4.4, which also records the
+one term the realization omits as vacuous on admitted prefixes); its step 6
+and 7 lanes and repair A’s liveness cut are green. The helper’s command and
+HTTP final facts reach the parent as its artifact’s `processFacts` member
+(D8 reads an older artifact as facts not recorded), and a failure after launch
+reaches the admitted failure as its inline diagnostic subject (D15). The
+conjunction’s cross-consumer handoff, with its `process-failure.json` and
+stateless inspection, is withdrawn (D0).
 
-The [current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md)
-owns current commit/remote/parity status. The known preceding checkpoint is
-`400d763d1d4c3d9e84cf30d6b830d7b975ef7089`, remote-equal, tracking 0/0 and clean
-at that historical cut. This corrected design and source custody are ready for
-the separately authorized full-visible-tree WIP checkpoint; no later push is
-claimed by this conjunction.
-
-Next, close the finite value owner/type decisions and separately grant
-dependency-ready source completion. C1/cross-consumer source can proceed under
-a separate Root grant while those decisions continue; C3 requires the truthful
-C5 wrapper contract. Whole value migration at an unresolved owner boundary and
-the combined candidate/build/P1/P5/P4 remain held until the required source
-conjunction. Then run proportionate affected and installed proof, independently
-assess L5 and only after acceptance resume release work. L4 remains partial on
-older subjects, including P1 pass/P5 timeout; L5 acceptance is absent. No new
-broad design-review campaign is selected. Old failed cuts and main generated936
-remain protected.
+Next: the independent review of the closed library (L5 delivery acceptance);
+then the register’s order TD-06, TD-07, TD-17, TD-13, TD-14, with TD-10,
+TD-12, TD-18 and TD-19 held for the owner’s decision; release work resumes
+after acceptance. L4 remains partial on older subjects, including P1 pass/P5
+timeout; L5 acceptance is absent. No new broad design-review campaign is
+selected. Old failed cuts and main generated936 remain protected.
 
 The owner's Executive correction applies [proportionality and steel-thread
 controls](../.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#design-and-proof-controls):
