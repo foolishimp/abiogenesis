@@ -28,10 +28,12 @@ import {
   readHeldRuntimeEventsAtDurablePrefix,
   reidentifyHistoricalDurablePrefixCoordinate,
   createNewEmptyAppendSink,
+  DurablePrefixReadError,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
   reopenEventStore,
+  ROOT_EVENT_CONTRACT_DIGEST,
   selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   validateHistoricalEvents,
@@ -53,7 +55,10 @@ import {
 import {
   acquireNewEmptyAppendSinkFixture,
   cloneEventPrefixFixture,
+  td23HistoryStreams,
+  td23Partitions,
 } from "../support/new-empty-append-sink.mjs";
+import { privateOwner } from "../support/r10-private-owner-harness.mjs";
 import {
   publicOperationBasis,
   setupInstalledRootInvocation,
@@ -1499,4 +1504,294 @@ test("owned append I/O failures restore committed bytes and hash or poison admis
     assert.equal(reopened.kind, "reopened_event_store_context");
     assert.deepEqual(reopened.store.readAll(), store.readAll()); reopened.store.closeDurableLog();
   }
+});
+
+// TD-23: one line-boundary mechanism for the two durable history readers.
+// Head is c3f308c06. Partitions are applied by capping each read of the
+// private fold at the next cut; the head transcriptions read the same way.
+let td23Cuts = [], td23ZeroAt = -1, td23Owner;
+function td23ReadSync(descriptor, buffer, offset, length, position) {
+  if (position === td23ZeroAt) return 0;
+  const next = td23Cuts.find(cut => cut > position);
+  return fs.readSync(descriptor, buffer, offset, next === undefined ? length : Math.min(length, next - position), position);
+}
+const td23Private = () => td23Owner ??= privateOwner("abg/event_store.js",
+  ["DurableHistoryLines", "foldRuntimeHistoryDescriptor", "decodeRuntimeHistoryDescriptor"],
+  { "node:fs": { readSync: td23ReadSync } });
+let td23StreamsPromise;
+const td23Streams = () => td23StreamsPromise ??= td23HistoryStreams({ createNewEmptyAppendSink, admitRuntimeEvent, sha256Canonical });
+const td23Sha = bytes => createHash("sha256").update(bytes).digest("hex");
+const td23Error = error => [error?.constructor?.name, error?.code, error?.message];
+const td23Lfs = bytes => { const lfs = []; for (let at = bytes.indexOf(10); at !== -1; at = bytes.indexOf(10, at + 1)) lfs.push(at); return lfs; };
+
+// The head build's outcome of validateHistoricalEvents on each stream, and the
+// errors they name (read from the head build over these streams).
+const TD23_ERRORS = {
+  incomplete: ["TypeError", undefined, "durable ABG event log has an incomplete trailing row"],
+  blank: ["TypeError", undefined, "durable ABG event log contains a blank record"],
+  json: ["TypeError", undefined, "durable ABG event log contains invalid JSON"],
+  noncanonical: ["TypeError", undefined, "durable ABG event log contains a noncanonical event"],
+  ordinal: ["DurablePrefixReadError", "admission_ordinal_invalid", "durable ABG event log contains an invalid admission ordinal"],
+};
+const TD23_HEAD_OUTCOME = {
+  "well-formed": "ok", "cr-inside-row": "incomplete", "cr-at-end": "incomplete", "crlf-endings": "incomplete",
+  "blank-at-start": "blank", "blank-in-middle": "blank", "blank-at-end": "blank",
+  "utf8-lone-continuation": "noncanonical", "utf8-truncated-multibyte": "noncanonical", "utf8-overlong": "noncanonical",
+  "utf8-outside-string": "json", "noncanonical-json": "noncanonical", "not-json": "json", "missing-final-lf": "incomplete",
+  "empty": "ok", "one-lf": "blank", "ordinal-gap": "ordinal", "logical-then-blank": "blank", "blank-then-logical": "blank",
+  "logical-then-cr": "incomplete", "cr-then-logical": "incomplete", "logical-then-missing-lf": "incomplete",
+  "two-logical": "json", "two-logical-reversed": "noncanonical",
+  "big-straddle-multibyte": "ok", "big-bad-then-cr": "incomplete", "big-bad-then-blank": "blank",
+  "big-bad-then-missing-lf": "incomplete", "big-bad-only": "json", "big-bad-straddling": "json",
+  "big-two-bad-second-after-cut": "json", "big-valid-then-bad-after-cut": "json", "big-valid-then-cr-after-cut": "incomplete",
+  "big-valid-then-blank-after-cut": "blank", "big-lf-first-of-second-read": "ok", "big-lf-last-of-first-read": "ok",
+  "big-lf-last-then-blank": "blank", "big-row-longer-than-read": "ok",
+};
+
+// Head `event_store.ts:3313-3328`, `:3338`: the framing pre-scan and the row
+// walk of decodeHistoricalEvents. Each row goes to `row` as its text, its
+// bytes with the LF, and its offset.
+function td23HeadHistoricalFraming(bytes, row) {
+  const encoded = Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  if (
+    encoded.includes(13) ||
+    (encoded.length !== 0 && encoded[encoded.length - 1] !== 10)
+  ) {
+      throw new TypeError("durable ABG event log has an incomplete trailing row");
+  }
+  if (encoded[0] === 10 || encoded.includes("\n\n")) {
+    throw new TypeError("durable ABG event log contains a blank record");
+  }
+  for (let start = 0, end = encoded.indexOf(10); end !== -1;
+    start = end + 1, end = encoded.indexOf(10, start)) {
+    row(encoded.toString("utf8", start, end), encoded.subarray(start, end + 1), start);
+  }
+}
+
+// Head `event_store.ts:3564-3600`: foldRuntimeHistoryDescriptor.
+function td23HeadFold(descriptor, byteLength, consume, expectedDigest) {
+  const hash = createHash("sha256"), chunk = Buffer.alloc(64 * 1024);
+  let position = 0, rowOffset = 0, pending = [], pendingLength = 0;
+  let primary, hasPrimary = false, framing = null;
+  let last = -1;
+  while (position < byteLength) {
+    const count = td23ReadSync(descriptor, chunk, 0, Math.min(chunk.length, byteLength - position), position);
+    if (count <= 0) throw new TypeError("durable history read made no progress");
+    const current = chunk.subarray(0, count);
+    hash.update(current);
+    if (current.includes(13)) framing = "incomplete";
+    let start = 0;
+    for (let end = current.indexOf(10); end !== -1; end = current.indexOf(10, start)) {
+      const piece = current.subarray(start, end + 1);
+      const size = pendingLength + piece.length;
+      if (size === 1 && framing === null) framing = "blank";
+      if (!hasPrimary && framing === null) {
+        const row = pendingLength === 0 ? Buffer.from(piece) : Buffer.concat([...pending, piece], size);
+        try { consume(row, rowOffset); } catch (error) { primary = error; hasPrimary = true; }
+      }
+      rowOffset += size; pending = []; pendingLength = 0; start = end + 1;
+    }
+    if (start < count) {
+      if (!hasPrimary && framing === null) pending.push(Buffer.from(current.subarray(start)));
+      pendingLength += count - start;
+    }
+    last = current[count - 1]; position += count;
+  }
+  if (expectedDigest !== undefined && `sha256:${hash.copy().digest("hex")}` !== expectedDigest)
+    throw new DurablePrefixReadError("prefix_digest_mismatch", "ABG durable prefix bytes differ from coordinate");
+  if (framing === "incomplete" || byteLength !== 0 && last !== 10)
+    throw new TypeError("durable ABG event log has an incomplete trailing row");
+  if (framing === "blank") throw new TypeError("durable ABG event log contains a blank record");
+  if (hasPrimary) throw primary;
+  return hash;
+}
+
+// The shared callee of both folds: it records each row (offset, length,
+// digest) when it is handed over and refuses the first row that is not JSON,
+// not canonical, or out of ordinal.
+function td23Fold(fold, descriptor, byteLength, expectedDigest) {
+  const calls = []; let ordinal = 0;
+  const consume = (row, offset) => {
+    calls.push([offset, row.length, td23Sha(row)]);
+    let value;
+    try { value = JSON.parse(row.toString("utf8", 0, row.length - 1)); } catch { throw new TypeError("td23 consume: invalid JSON"); }
+    if (typeof value !== "object" || value === null || Array.isArray(value) || !Buffer.from(canonicalJson(value) + "\n").equals(row))
+      throw new TypeError("td23 consume: noncanonical");
+    if (value.admissionOrdinal !== ++ordinal) throw new RangeError("td23 consume: ordinal");
+  };
+  try { return { calls, digest: fold(descriptor, byteLength, consume, expectedDigest).copy().digest("hex") }; }
+  catch (error) { return { calls, error: td23Error(error) }; }
+}
+
+test("TD-23 (a) both durable history readers keep head's errors, rows, offsets and digests", async () => {
+  const owner = await td23Private(), streams = await td23Streams();
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-td23-"));
+  const counts = { streams: 0, partitions: 0, folds: 0, decodes: 0 };
+  try {
+    for (const [index, stream] of streams.entries()) {
+      const { name, bytes } = stream, expected = TD23_HEAD_OUTCOME[name];
+      assert.ok(expected, name);
+      counts.streams += 1;
+      // decodeHistoricalEvents, through validateHistoricalEvents: the head
+      // framing decides; the rows decoded are head's walk, in order.
+      let headFraming = null; const headLines = [];
+      try { td23HeadHistoricalFraming(bytes, line => headLines.push(line)); } catch (error) { headFraming = error; }
+      const parse = JSON.parse, parsed = [];
+      JSON.parse = function (text, ...rest) {
+        if (new Error().stack.includes("decodeHistoricalEvents")) parsed.push(text);
+        return parse.call(this, text, ...rest);
+      };
+      let decoded;
+      try { decoded = { events: validateHistoricalEvents(bytes) }; } catch (error) { decoded = { error }; } finally { JSON.parse = parse; }
+      if (expected === "ok") {
+        assert.equal(decoded.error, undefined, `${name}: ${decoded.error}`);
+        assert.deepEqual(decoded.events, stream.events, name);
+        assert.deepEqual(parsed, headLines, name);
+      } else assert.deepEqual(td23Error(decoded.error), TD23_ERRORS[expected], name);
+      if (headFraming !== null) {
+        assert.deepEqual(td23Error(decoded.error), td23Error(headFraming), name);
+        assert.equal(parsed.length, 0, `${name}: no row is decoded before framing is refused`);
+      } else assert.deepEqual(parsed, headLines.slice(0, parsed.length), name);
+      assert.deepEqual(td23Error((() => { try { validateHistoricalEvents(bytes, LEGACY_ROOT_EVENT_CONTRACT_DIGEST); } catch (error) { return error; } })()),
+        expected === "ok" ? (bytes.length === 0 ? [undefined, undefined, undefined]
+          : ["TypeError", undefined, "durable coordinate profile differs from authenticated history"]) : TD23_ERRORS[expected], name);
+      // The descriptor reader through the store owner's reopen.
+      const file = join(scratch, `${index}.jsonl`);
+      await writeFile(file, bytes);
+      const identity = await stat(file);
+      for (const [label, digest] of [["own", `sha256:${td23Sha(bytes)}`], ["wrong", `sha256:${td23Sha(Buffer.from("other"))}`]]) {
+        const body = { kind: "event_store_reopen_authority", schemaVersion: "5.0.0", eventLogPath: file, device: identity.dev,
+          inode: identity.ino, eventLogDigest: digest, durableByteLength: bytes.length, eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST };
+        const opened = reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
+        if (label === "wrong") {
+          assert.deepEqual([opened.code, opened.message], ["durable_log_mismatch", "TypeError: ABG durable prefix bytes differ from coordinate"], name);
+        } else if (expected === "ok") {
+          assert.equal(opened.kind, "reopened_event_store_context", `${name}: ${JSON.stringify(opened)}`);
+          assert.deepEqual(opened.store.readAll(), stream.events, name);
+          opened.store.closeDurableLog();
+        } else assert.deepEqual([opened.code, opened.message], ["invalid_event_history", `TypeError: ${TD23_ERRORS[expected][2]}`], name);
+      }
+      // The fold, head transcription and new, with one shared callee, over
+      // every partition; the real decoder gives one outcome over all of them.
+      const descriptor = fs.openSync(file, "r");
+      try {
+        const source = { eventLogPath: file, identity: { device: identity.dev, inode: identity.ino }, descriptor };
+        const decode = expectedDigest => {
+          try {
+            const result = owner.decodeRuntimeHistoryDescriptor(source, bytes.length, ROOT_EVENT_CONTRACT_DIGEST, expectedDigest);
+            return { count: result.history.length, digest: result.durableHash.copy().digest("hex"),
+              rows: [...result.history.select().rows()].map(row => [row.body.offset, row.body.byteLength, row.body.physicalDigest,
+                row.body.prefixByteLength, row.body.prefixDigest]) };
+          } catch (error) { return { error: td23Error(error) }; }
+        };
+        let natural;
+        for (const { name: partition, cuts } of td23Partitions(bytes.length, td23Lfs(bytes))) {
+          td23Cuts = cuts; counts.partitions += 1;
+          const digests = partition === "natural" ? [undefined, `sha256:${td23Sha(bytes)}`, `sha256:${td23Sha(Buffer.from("other"))}`] : [undefined];
+          for (const digest of digests) {
+            const head = td23Fold(td23HeadFold, descriptor, bytes.length, digest), now = td23Fold(owner.foldRuntimeHistoryDescriptor, descriptor, bytes.length, digest);
+            assert.deepEqual(now, head, `${name} ${partition} ${digest}`); counts.folds += 1;
+          }
+          const outcome = decode(undefined); counts.decodes += 1;
+          if (partition === "natural") {
+            natural = outcome;
+            if (expected === "ok") assert.equal(outcome.count, stream.events.length, name);
+            else assert.deepEqual(outcome.error, TD23_ERRORS[expected], name);
+            assert.deepEqual(decode(`sha256:${td23Sha(Buffer.from("other"))}`).error,
+              ["DurablePrefixReadError", "prefix_digest_mismatch", "ABG durable prefix bytes differ from coordinate"], name);
+          } else assert.deepEqual(outcome, natural, `${name} ${partition}`);
+        }
+        if (bytes.length !== 0) {
+          td23Cuts = [Math.max(1, Math.floor(bytes.length / 2))]; td23ZeroAt = td23Cuts[0] === bytes.length ? 0 : td23Cuts[0];
+          assert.deepEqual(td23Fold(owner.foldRuntimeHistoryDescriptor, descriptor, bytes.length), td23Fold(td23HeadFold, descriptor, bytes.length), name);
+          assert.deepEqual(decode(undefined).error, ["TypeError", undefined, "durable history read made no progress"], name);
+          td23ZeroAt = -1;
+        }
+      } finally { td23Cuts = []; td23ZeroAt = -1; fs.closeSync(descriptor); }
+    }
+    assert.deepEqual(counts, { streams: 38, partitions: 66159, folds: 66235, decodes: 66159 });
+  } finally { await rm(scratch, { force: true, recursive: true }); }
+});
+
+test("TD-23 (b) the line mechanism yields the same rows, offsets and framing facts over every chunk partition", async () => {
+  const { DurableHistoryLines } = await td23Private();
+  const short = ["", "\n", "\n\n", "a\n", "\r", "\r\n", "ab", "ab\ncd", "x\ny\nz\n", "\r\n\r\n", "\n\nab\n", "a\r\nb\n",
+    "ab\rc\nd\n", "abc\n\nde\n", "é\n\u{1d11e}\n", "\nab\n\ncd\r\n", "abcdefghijk\n"].map(text => ({ name: JSON.stringify(text), bytes: Buffer.from(text) }));
+  const streams = [...short, ...await td23Streams()];
+  // One reused buffer per run, refilled after each read, as the fold reuses
+  // its 64 KiB chunk: a carried partial row must not alias it.
+  const run = (bytes, cuts, wanted) => {
+    const lines = new DurableHistoryLines(), rows = [], reused = Buffer.alloc(Math.max(bytes.length, 1));
+    const bounds = [0, ...cuts, bytes.length];
+    for (let i = 0; i + 1 < bounds.length; i++) {
+      const length = bounds[i + 1] - bounds[i];
+      bytes.copy(reused, 0, bounds[i], bounds[i + 1]);
+      for (const [row, offset] of lines.read(reused.subarray(0, length), wanted)) rows.push([offset, Buffer.from(row)]);
+      reused.fill(0xa5);
+    }
+    return { rows, facts: [lines.carriageReturn, lines.blankRecord, lines.lastByte, lines.byteLength] };
+  };
+  let partitions = 0;
+  for (const { name, bytes } of streams) {
+    const whole = run(bytes, []), headRows = [];
+    // Whole-stream rows are head's walk (`event_store.ts:3326-3327`); the facts
+    // are head's pre-scan predicates (`:3314-3320`).
+    for (let start = 0, end = bytes.indexOf(10); end !== -1; start = end + 1, end = bytes.indexOf(10, start))
+      headRows.push([start, bytes.subarray(start, end + 1)]);
+    assert.deepEqual(whole.rows, headRows, name);
+    assert.deepEqual(whole.facts, [bytes.includes(13), bytes[0] === 10 || bytes.includes("\n\n"),
+      bytes.length === 0 ? -1 : bytes[bytes.length - 1], bytes.length], name);
+    for (const { name: partition, cuts } of td23Partitions(bytes.length, td23Lfs(bytes))) {
+      assert.deepEqual(run(bytes, cuts), whole, `${name} ${partition}`); partitions += 1;
+    }
+    // Rows stop at the first unwanted row, also when the predicate would turn
+    // true again; the facts are still the whole stream's. The predicate is
+    // also asked before a partial row is carried, so over cuts the rows
+    // yielded are a prefix of at most k rows.
+    const cuts = td23Partitions(bytes.length, td23Lfs(bytes)).at(-1).cuts;
+    for (let k = 0; k <= whole.rows.length; k++) {
+      let asked = 0; const partial = run(bytes, [], () => asked++ < k);
+      assert.deepEqual(partial, { rows: whole.rows.slice(0, k), facts: whole.facts }, `${name} wanted ${k}`);
+      asked = 0; const once = run(bytes, [], () => asked++ !== k);
+      assert.deepEqual(once, { rows: whole.rows.slice(0, k), facts: whole.facts }, `${name} unwanted once at ${k}`);
+      asked = 0; const cut = run(bytes, cuts, () => asked++ !== k);
+      assert.ok(cut.rows.length <= k, `${name} unwanted once at ${k} over cuts`);
+      assert.deepEqual(cut, { rows: whole.rows.slice(0, cut.rows.length), facts: whole.facts }, `${name} unwanted once at ${k} over cuts`);
+    }
+  }
+  assert.equal(partitions, 68882);
+});
+
+test("TD-23 (c) the packaged S01 store keeps its historical prefix through rows that straddle 64 KiB reads", async () => {
+  const { DurableHistoryLines, foldRuntimeHistoryDescriptor } = await td23Private();
+  // Loaded here, so that only this case depends on the packaged S01 fixture.
+  const { eventLogPath: s01EventLogPath, historical: s01Historical, reopenPackagedS01Store } =
+    await import("../fixtures/r10-projection-family/s01-store.mjs");
+  const bytes = await readFile(s01EventLogPath), read = 64 * 1024;
+  assert.equal(bytes.length, 2_797_774);
+  const whole = [];
+  for (const [row, offset] of new DurableHistoryLines().read(bytes)) whole.push([offset, row.length, td23Sha(row)]);
+  // Row 1 (2,737,643 bytes) spans 42 of the 43 reads; row 4 crosses one cut.
+  const crossings = whole.map(([offset, length]) => Math.floor((offset + length - 1) / read) - Math.floor(offset / read));
+  assert.deepEqual([whole.length, crossings.flatMap((count, i) => count === 0 ? [] : [[i + 1, count]])], [20, [[1, 41], [4, 1]]]);
+  const chunked = [], lines = new DurableHistoryLines();
+  for (let at = 0; at < bytes.length; at += read)
+    for (const [row, offset] of lines.read(bytes.subarray(at, at + read))) chunked.push([offset, row.length, td23Sha(row)]);
+  assert.deepEqual(chunked, whole);
+  // Head's fold and the new one over the packaged file, in 64 KiB reads.
+  const descriptor = fs.openSync(s01EventLogPath, "r");
+  try {
+    const record = fold => { const calls = []; const hash = fold(descriptor, bytes.length, (row, offset) => calls.push([offset, row.length, td23Sha(row)]),
+      s01Historical.prefix.prefixDigest); return { calls, digest: `sha256:${hash.copy().digest("hex")}` }; };
+    const head = record(td23HeadFold), now = record(foldRuntimeHistoryDescriptor);
+    assert.deepEqual(now, head);
+    assert.deepEqual(now, { calls: whole, digest: s01Historical.prefix.prefixDigest });
+  } finally { fs.closeSync(descriptor); }
+  // The store owner's reopen, as `r10-projection-contracts.test.mjs:38-42`
+  // asserts, then the cold whole-history read of the same bytes.
+  const reopened = reopenPackagedS01Store(s01Historical.reopenAuthority.eventContractDigest);
+  assert.ok(reopened.prefix, JSON.stringify(reopened));
+  assert.equal(reopened.prefix.prefixDigest, s01Historical.prefix.prefixDigest);
+  assert.equal(reopened.prefix.prefixLength, s01Historical.prefix.prefixLength);
+  assert.equal(readRuntimeEventsAtDurablePrefix(reopened.prefix).length, whole.length);
 });
