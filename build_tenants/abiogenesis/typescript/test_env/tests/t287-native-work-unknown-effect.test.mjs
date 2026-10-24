@@ -45,7 +45,7 @@ test('U1 scope, currentness and cleanup agree at full, indexed, incremental and 
     for (const r of all) assert.equal(current(before, r.predecessorObservation), true);
     const cause = f.cause(), owned = selectOwnedRuntimeEventPrefix(f.store), rows = f.store.readAll();
     assert.deepEqual(projectNativeWorkUnknownEffectTask(cause, f.beforeRows), f.task);
-    const dependencies = eventCalculusDependencies(owned, cause, []);
+    const dependencies = eventCalculusDependencies(owned, cause);
     assert.deepEqual(projectNativeWorkUnknownEffectTask(cause, dependencies, f.before), f.task);
     const expected = [...f.requests, f.successor].filter(r => scenario.affected.includes(r.subject.relativePath))
       .map(r => r.predecessorObservation.observationRef);
@@ -126,7 +126,7 @@ test('U1 rejects absent, ambiguous, foreign, changed or causally late prerequisi
   for (const forged of [{ ...cause, eventId: 'event://foreign' }, { ...cause, runId: 'run://foreign' },
     { ...cause, payload: { ...cause.payload, processRef: 'process://foreign' } }, { ...cause, payloadDigest: hash('foreign') }]) {
     assert.deepEqual(nativeWorkUnknownEffectDependencies(prefix, forged), []);
-    assert.deepEqual(eventCalculusDependencies(prefix, forged, f.beforeRows), []);
+    assert.deepEqual(eventCalculusDependencies(prefix, forged), []);
   }
   assert.equal(projectNativeWorkUnknownEffectTask(cause, f.beforeRows, prefix), null, 'the optional prerequisite cut must precede the cause');
   assert.equal(worksiteCommandSourcesInvalidatedAfter(f.before, 0, f.canonicalRoot, ['target.txt']), false, 'an unselected cause has no effect');

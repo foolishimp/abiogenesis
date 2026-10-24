@@ -86,27 +86,29 @@ const EVENT_CALCULUS_DERIVATION = Symbol("ordered_event_calculus_derivation");
 interface RuntimeEffectFact extends EventCalculusEffect {
   readonly eventKind: RuntimeEvent["kind"]; readonly sourceEventRef: string; readonly ordinal: number;
 }
-/** @internal The same exact transition dependencies serve the fold and replay. */
-export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: RuntimeEvent, prior: readonly RuntimeEvent[]): readonly RuntimeEvent[] {
+/** @internal The same exact transition dependencies serve the fold and replay,
+ * for every prefix kind: the rows the event's transition reads, selected from
+ * the cut before the event. The cut is taken only when a selector is read. */
+export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: RuntimeEvent): readonly RuntimeEvent[] {
   const unknownEffect = event.kind === "actor_process_termination_unconfirmed" ||
     (event.kind === "actor_invocation_failed" && isRecord(event.payload) && event.payload.failureClass === "transport_exception");
   const unknownDependencies = unknownEffect ? nativeWorkUnknownEffectDependencies(prefix, event) : [];
   if (unknownEffect && unknownDependencies.length === 0) return [];
-  if (prefix.kind === "validated_runtime_event_prefix") return prior;
-  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
+  let cut: RuntimeEventPrefix | undefined;
+  const before = () => cut ??= validatedRuntimeEventPrefixBeforeEvent(prefix, event.eventId);
   const selected = new Map<string, RuntimeEvent>();
-  const add = (key: string) => { for (const row of indexedRuntimeEvents(before, key)) selected.set(row.eventId, row); };
+  const add = (key: string) => { for (const row of indexedRuntimeEvents(before(), key)) selected.set(row.eventId, row); };
   const addPhysicalDependencies = () => {
     add("worksite-observation-dependency");
-    for (const cause of indexedRuntimeEvents(before, "worksite-observation-dependency")) {
+    for (const cause of indexedRuntimeEvents(before(), "worksite-observation-dependency")) {
       if (cause.kind === "c_call_fibre_selected")
-        for (const row of worksiteSelectedOccurrenceDependencies(before, cause)) selected.set(row.eventId, row);
+        for (const row of worksiteSelectedOccurrenceDependencies(before(), cause)) selected.set(row.eventId, row);
       if (cause.kind === "c_call_result_admitted") {
         add("aggregate:c_call:" + cause.aggregateId);
-        for (const row of worksiteFailureResultDependencies(before, cause)) selected.set(row.eventId, row);
+        for (const row of worksiteFailureResultDependencies(before(), cause)) selected.set(row.eventId, row);
       }
       if (cause.kind === "actor_invocation_failed" || cause.kind === "actor_process_termination_unconfirmed")
-        for (const row of nativeWorkUnknownEffectDependencies(before, cause)) selected.set(row.eventId, row);
+        for (const row of nativeWorkUnknownEffectDependencies(before(), cause)) selected.set(row.eventId, row);
     }
   };
   const payload = isRecord(event.payload) ? event.payload : null;
@@ -140,14 +142,15 @@ export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: Run
 /** The memoized realization of foldStep: it owns one working fold state,
  * advanced in place, and records every step's transition for historical cuts
  * and forks. The empty state shares module constants, so the owned state
- * starts from its own copy; forkAt is the only other copy. */
+ * starts from its own copy; forkAt is the only other copy. Each step reads its
+ * dependencies from the prefix (eventCalculusDependencies), and nothing else
+ * is carried beside it, so a fork advanced from a cut folds as its base did. */
 class RuntimeEventCalculusDerivation {
   state: WorkingFoldState = workingFoldState(emptyFoldState(null));
   readonly effectRows: RuntimeEffectFact[] = [];
   readonly effectByEvent = new Map<string, RuntimeEffectFact>();
   readonly clippedFluentRefs: string[] = [];
   readonly declippedPatternRefs: string[] = [];
-  readonly priorEvents: RuntimeEvent[] = [];
   private base: RuntimeEventCalculusDerivation | undefined;
   private baseCount = 0;
   private baseOrdinal = 0;
@@ -243,11 +246,11 @@ class RuntimeEventCalculusDerivation {
     this.state.source = prefix;
     for (let index = this.effectCount; index < count; index++) {
       const event = runtimeEventAtPrefixIndex(prefix, index)!;
-      const dependencies = eventCalculusDependencies(prefix, event, this.priorEvents);
-      this.memoize(applyStep(this.state, event, dependencies), event, prefix);
+      const dependencies = eventCalculusDependencies(prefix, event);
+      this.memoize(applyStep(this.state, event, dependencies), event);
     }
   }
-  private memoize(transition: FoldTransition, event: RuntimeEvent, prefix: RuntimeEventPrefix): void {
+  private memoize(transition: FoldTransition, event: RuntimeEvent): void {
     for (const row of transition.fluents) this.recordFluent(row.fluent, transition.ordinal, row.held, row.runId);
     this.clippedFluentRefs.push(...transition.clipped);
     this.declippedPatternRefs.push(...transition.declipped);
@@ -256,7 +259,6 @@ class RuntimeEventCalculusDerivation {
     this.effectByEvent.set(event.eventId, this.effectRows.at(-1)!);
     this.clipCounts.push(this.clipCounts[0]! + this.clippedFluentRefs.length);
     this.declipCounts.push(this.declipCounts[0]! + this.declippedPatternRefs.length);
-    if (prefix.kind === "validated_runtime_event_prefix") this.priorEvents.push(event);
     if (transition.probe !== null) this.probeFacts.push(transition.probe);
     if (transition.interruption !== null) this.interruptionFacts.push(transition.interruption);
   }
