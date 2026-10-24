@@ -1,5 +1,9 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test,{after} from 'node:test';
+import {mkdtempSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {admitRuntimeEvent,createNewEmptyAppendSink} from '../../build/code/src/abg/event_store.js';
 import {projectCCallRuntimeFailureSignal} from '../../build/code/src/abg/c_call.js';
 import {selectValidatedRuntimeEventPrefix} from '../../build/code/src/abg/event_prefix.js';
 import {classifyWorkerTransportFailure} from '../../build/code/src/abg/transport_contracts.js';
@@ -542,8 +546,26 @@ const rows = [
   }
 ];
 
+// The records above keep the identities they were retained with, stamped with
+// the intermediate root event contract the current reader refuses. They are
+// admitted here through the store owner into a per-run scratch store under the
+// current profile, in order, with the references among them rebound to the
+// admitted event identities; the cases read the admitted events.
+const admitted=(()=>{
+  const directory=mkdtempSync(join(tmpdir(),'native-assessment-evidence-'));
+  const acquired=createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(directory,'events.jsonl')});
+  assert('store' in acquired,JSON.stringify(acquired));
+  after(()=>{acquired.store.closeDurableLog();rmSync(directory,{recursive:true,force:true});});
+  const identities=new Map(),rebind=value=>typeof value==='string'?identities.get(value)??value:
+    Array.isArray(value)?value.map(rebind):value!==null&&typeof value==='object'?Object.fromEntries(Object.entries(value).map(([key,item])=>[key,rebind(item)])):value;
+  return rows.map(row=>{
+    const {eventId,admissionOrdinal:_ordinal,payloadDigest:_payload,eventContractDigest:_profile,...candidate}={...structuredClone(scope),...structuredClone(row)};
+    const event=admitRuntimeEvent(acquired.store,rebind(candidate));identities.set(eventId,event.eventId);return event;
+  });
+})();
+
 function project(change=()=>{}) {
-  const events=rows.map(row=>({...structuredClone(scope),...structuredClone(row)}));
+  const events=admitted.map(event=>structuredClone(event));
   change(events);
   return projectCCallRuntimeFailureSignal(selectValidatedRuntimeEventPrefix(deepFreeze(events)),expected.cCallRef,expected.resultRef,expected.judgmentRef);
 }
@@ -585,7 +607,7 @@ test('historical absent-assessment classification and ordinary failure classes r
 test('actor transport authentication is available before candidate association and refuses crossed facts',async()=>{
   const {projectActorTransportForResult}=await import('../../build/code/src/abg/c_call.js');
   const {sha256Canonical:hash,sha256Bytes}=await import('../../build/code/src/shared/digests.js');
-  const events=rows.slice(0,10).map(row=>({...structuredClone(scope),...structuredClone(row)}));
+  const events=admitted.slice(0,10).map(event=>structuredClone(event));
   const artifact=events.find(e=>e.kind==='actor_result_artifact_observed'),started=events.find(e=>e.kind==='actor_invocation_started');
   const p=artifact.payload;
   // Original raw malformed-output/terminal relation; only the absent full

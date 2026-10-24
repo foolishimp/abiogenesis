@@ -10,7 +10,7 @@ import { isStdoEnvironmentEvidence, projectStdoRoleEvidence } from "../../build/
 import { ROOT_EVENT_CONTRACTS, ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DESCRIPTOR, LEGACY_ROOT_EVENT_CONTRACTS,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST, isKnownRootEventContractDigest } from "../../build/code/src/abg/event_store.js";
 import { validStdoEnvironmentPublication, validStdoEnvironmentProgram } from "../../build/code/src/gtl/stdo_run_environment.js";
-import { prepareStdoNoteProduct, pilotResources } from "../support/stdo-environment-pilot.mjs";
+import { prepareStdoNoteProduct, pilotResources, pilotInputSkip } from "../support/stdo-environment-pilot.mjs";
 const packageRoot=resolve(dirname(fileURLToPath(import.meta.url)),"../..");
 test("construction readiness rederives the exact retained native request and preserves unknown refusal", { timeout: 180_000 }, async t => {
   if (!process.env.ABI5_DESIGN_CONTEXT_OBSERVATIONS || !process.env.ABI5_DESIGN_CONTEXT_PREDECESSOR) {
@@ -84,8 +84,7 @@ test("construction readiness rederives the exact retained native request and pre
     unknownRefused: true, staleInputRefused: true, newNativeExecution: false }));
 });
 
-test("STDO declaration, exact actual access, bounded refusals and immutable profiles",async()=>{
-  assert.ok(process.env.ABI5_ENV_PROOF_ROOT);assert.ok(process.env.ABI5_ENV_INPUT_ROOT);
+test("STDO declaration, exact actual access, bounded refusals and immutable profiles",{skip:pilotInputSkip()},async()=>{
   await mkdir(process.env.ABI5_ENV_PROOF_ROOT,{recursive:true});
   const scratch=await mkdtemp(join(process.env.ABI5_ENV_PROOF_ROOT,"component-"));
   const manifest=JSON.parse(await readFile(join(packageRoot,"product-toolchain-manifest.json"),"utf8"));

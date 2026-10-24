@@ -1,4 +1,4 @@
-import { prepareStdoNoteProduct, pilotResources, proveFreshSdkReplay, pilotEnvironmentDeclaration, PILOT_IDS, selectPreservedCatalogReceipt, resolveFreshSdkReplayModule, readRetainedStdoSourceEvidence } from "../support/stdo-environment-pilot.mjs";
+import { prepareStdoNoteProduct, pilotResources, proveFreshSdkReplay, pilotEnvironmentDeclaration, stdoInstallsSkip, PILOT_IDS, selectPreservedCatalogReceipt, resolveFreshSdkReplayModule, readRetainedStdoSourceEvidence } from "../support/stdo-environment-pilot.mjs";
 import { mkdtemp } from "node:fs/promises";
 import { basename } from "node:path";
 import assert from "node:assert/strict";
@@ -279,6 +279,8 @@ test("STDO environment installed public invocation and fresh replay", async t =>
   if (!evidenceRoot || !scratch || !process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH) {
     t.skip("requires exact frozen artifact, isolated run root and retained evidence path"); return;
   }
+  const installsSkip = stdoInstallsSkip(process.env.ABI5_ENV_INPUT_ROOT);
+  if (installsSkip) { t.skip(installsSkip); return; }
   await mkdir(evidenceRoot, { recursive: true });
   const attempt = process.env.ABI5_ENV_ATTEMPT ?? "01";
   const setupAttempt = process.env.ABI5_STAGE_SETUP_ATTEMPT ?? "01";

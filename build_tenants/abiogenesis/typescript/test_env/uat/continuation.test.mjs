@@ -12,10 +12,13 @@ const nativeAcquisition=process.env.ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION;
 const consumerAcquisition=process.env.ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION;
 const scratch=process.env.ABI5_UAT_UNIT_ROOT;
 const selected=Boolean(installedRoot&&nativeAcquisition&&consumerAcquisition&&scratch);
+const unset=Object.entries({ABI5_UAT_CONTINUATION_INSTALLED_ROOT:installedRoot,ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION:nativeAcquisition,
+  ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION:consumerAcquisition,ABI5_UAT_UNIT_ROOT:scratch}).filter(([,value])=>!value).map(([name])=>name);
+const skip=selected?false:unset.join(', ')+' unset; requires the installed root, both retained acquisitions and a unit-run root';
 const runtime=selected?await installedModules(installedRoot):null;
 const pin=async path=>{const bytes=await readFile(path);return {path,sha256:createHash('sha256').update(bytes).digest('hex'),byteCount:bytes.length};};
 
-test('CLI request framing preserves literal bodies, authority and producer coordinates in one line', {skip:!selected},()=>{
+test('CLI request framing preserves literal bodies, authority and producer coordinates in one line', {skip},()=>{
   const p=runtime.product,call={invocation:{invocationRef:'invocation://fixture/request',invocationDigest:p.sha256Canonical('authority'),
     request:{input:{value:'\uFEFFΩ😀\nline two',valueDigest:p.sha256Canonical('\uFEFFΩ😀\nline two')},
       sourceBasis:{kind:'admitted_source_result',sourceResult:{ref:'result://fixture/old',digest:p.sha256Canonical('old')}}}},
@@ -27,7 +30,7 @@ test('CLI request framing preserves literal bodies, authority and producer coord
   assert.throws(()=>cliTransportJsonl(p,{bad:undefined},acquisition));
 });
 
-for(const reuseInstalledPair of [false,true])test(`Actual ${reuseInstalledPair?'unchanged-pair':'changed-pair'} owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged`, {skip:!selected},async()=>{
+for(const reuseInstalledPair of [false,true])test(`Actual ${reuseInstalledPair?'unchanged-pair':'changed-pair'} owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged`, {skip},async()=>{
   await mkdir(scratch,{recursive:true});const root=await mkdtemp(join(scratch,'continuation-'));
   const {product:p,abg:a}=runtime;
   const definitions=await import(pathToFileURL(join(installedRoot,'build/code/src/abg/definition_event_resource.js')).href);
@@ -78,7 +81,7 @@ for(const reuseInstalledPair of [false,true])test(`Actual ${reuseInstalledPair?'
   await assert.rejects(access(join(again,'final-close-handoff.json')),error=>error.code==='ENOENT');
 });
 
-test('Physical input tampering refuses before verifier, acquisition or dispatch', {skip:!selected},async()=>{
+test('Physical input tampering refuses before verifier, acquisition or dispatch', {skip},async()=>{
   const root=await mkdtemp(join(scratch,'physical-tamper-')),worksite=join(root,'worksite');await mkdir(worksite);
   const path=join(worksite,'original.txt');await writeFile(path,'changed');const facts=await stat(path);
   const instance={root,installedRoot,resource:{physical:{workspaceRoot:worksite,physicalRows:[{relativePath:'original.txt',state:'present',

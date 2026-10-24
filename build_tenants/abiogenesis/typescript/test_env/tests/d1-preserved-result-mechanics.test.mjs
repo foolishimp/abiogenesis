@@ -1,15 +1,12 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
 import test from 'node:test';
 import {constructWorksiteObservation} from '../../build/code/src/product/worksite_effect.js';
 import {ABI5_PRODUCT_SEMANTICS} from '../../build/code/src/product/builtin_semantics.js';
-import {packageRoot,product,gtl,validator,recovery,selector,sourceObservation,readRetained,staticDeclarations,rebindRetained,nativeHarness} from '../support/d1-preserved-result-harness.mjs';
+import {product,gtl,validator,recovery,selector,sourceObservation,sourceObservationSkip,nativeStoreSkip,readRetained,staticDeclarations,rebindRetained,nativeHarness} from '../support/d1-preserved-result-harness.mjs';
 const ids=product.WORKSITE_PRESERVED_RESULT_IDS,old=product.WORKSITE_CONSTRUCTION_IDS;
 const clone=structuredClone,hash=product.sha256Canonical;
 
-test('closed recovery constructor validates as a whole Program and borrowed native closure (unadmitted readiness assumptions)',()=>{
+test('closed recovery constructor validates as a whole Program and borrowed native closure (unadmitted readiness assumptions)',{skip:sourceObservationSkip},()=>{
   const d=staticDeclarations();
   assert.equal(d.validate().kind,'program_validation',JSON.stringify(d.validate()));
   assert.equal(d.closure().kind,'resolved_program_declaration_closure',JSON.stringify(d.closure()));
@@ -29,20 +26,19 @@ test('closed recovery constructor validates as a whole Program and borrowed nati
   }
 });
 
-test('C0/C1/C3 algorithms, closed identities and old publication rows are conserved',async()=>{
-  const d=staticDeclarations();
-  const base='/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/work';
-  const previous=await import(pathToFileURL(resolve(base,'build/code/src/gtl/worksite_construction.js')).href);
-  const before=previous.constructWorksiteConstructionModulePublication(d.artifact);
-  for(const key of ['graphFunctions','programs','closureContracts','contributions','productSemanticsBinding'])assert.deepEqual(d.native[key],before[key],key);
-  assert.deepEqual(d.native.contracts.filter(c=>c.contractRef!==ids.artifactContractRef),before.contracts);
-  assert.deepEqual(d.native.implementationBindings.filter(b=>![ids.authenticateBindingRef,ids.deriveBindingRef].includes(b.bindingRef)),before.implementationBindings);
-  for(const path of ['code/src/product/worksite_construction.ts','code/src/product/worksite_effect.ts','code/src/implementation/worksite_file_replace.ts',
-    'code/src/product/worksite_branch_construction.ts','code/src/abg/semantic_revision.ts','code/src/abg/worksite_revision.ts',
-    'code/src/product/semantic_stage.ts','code/src/abg/semantic_stage.ts','code/src/validator/self_conformance.ts']){
-    assert.ok(readFileSync(resolve(packageRoot,path)).equals(readFileSync(resolve(packageRoot,'../preimages/source',path))),path);
-  }
-});
+// Retired (T-290 C-5): 'C0/C1/C3 algorithms, closed identities and old
+// publication rows are conserved'. Its inputs are the D2 implementation-04
+// predecessor build (comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/
+// work/build/code/src/gtl/worksite_construction.js, sha256:bc1891c25cdf…, 23816
+// bytes) and the nine D1 source preimages under
+// comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/
+// preserved-result-implementation-01/preimages/source/ (worksite_construction.ts
+// sha256:4a81e0d6a5d3…, worksite_effect.ts sha256:efc956ddde88…). The claim is
+// false today: all nine current sources differ from their preimages, and the
+// current publication's graphFunctions, programs, closureContracts,
+// contributions, contracts and implementationBindings differ from the
+// predecessor's. A conservation claim against a superseded cut cannot be met
+// without weakening it.
 
 test('complete protocol records select one acknowledged proposal and reject ambiguity without normalizing bytes',()=>{
   const input={kind:'worksite_construction_worker_result',schemaVersion:'5.0.0',files:[]};
@@ -66,7 +62,7 @@ test('complete protocol records select one acknowledged proposal and reject ambi
   assert.throws(()=>recovery.projectPreservedStructuredProposal(Buffer.from([0xff,10])),'invalid UTF8');
 });
 
-test('actual proposal rebinds through real Product identities, preserves all bytes and refuses changed/missing/ambiguous physical targets',()=>{
+test('actual proposal rebinds through real Product identities, preserves all bytes and refuses changed/missing/ambiguous physical targets',{skip:nativeStoreSkip},()=>{
   const {projected}=readRetained(),rebased=rebindRetained(),task=rebased.task;
   assert.notEqual(task.workspaceBinding.bindingId,projected.originalTask.workspaceBinding.bindingId);
   assert.ok(task.targets.every((target,i)=>target.targetRef!==projected.originalTask.targets[i].targetRef));
@@ -97,7 +93,7 @@ test('actual proposal rebinds through real Product identities, preserves all byt
   assert.throws(()=>product.constructWorksiteConstructionWorkerResult(projected.originalTask,{...raw,files:[...raw.files].reverse()}),'original order remains exact');
 });
 
-test('current-call, admitted predecessor, independent regeneration and replay owner joins (explicit lookup assumptions; zero admission/effects)',async()=>{
+test('current-call, admitted predecessor, independent regeneration and replay owner joins (explicit lookup assumptions; zero admission/effects)',{skip:nativeStoreSkip},async()=>{
   const h=await nativeHarness(),n=h.native,b=h.authBasis;
   assert.ok(n.authenticateWorksitePreservedResultBasis(b),'genuine typed bridge/task and current-owner lookup assumptions compose');
   const artifact=n.projectWorksitePreservedResultArtifact(b,h.task);assert.ok(artifact);
@@ -147,7 +143,7 @@ test('current-call, admitted predecessor, independent regeneration and replay ow
     replacementBytes:bundle.files.reduce((sum,row)=>sum+Buffer.from(row.replacementBase64,'base64').length,0),reads:h.count}));
 });
 
-test('historical proof rejects missing chunks, crossed dispatch/prompt/attempt and late bytes (unadmitted read mutations)',async()=>{
+test('historical proof rejects missing chunks, crossed dispatch/prompt/attempt and late bytes (unadmitted read mutations)',{skip:nativeStoreSkip},async()=>{
   const h=await nativeHarness(),n=h.native,rows=h.original.events;
   const chunk=rows.find(e=>e.kind==='actor_process_stdout_observed'&&e.payload.actorInvocationRef===selector.actorInvocationRef);
   h.mutateHistory(events=>events.filter(e=>e.eventId!==chunk.eventId));

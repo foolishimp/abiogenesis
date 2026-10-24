@@ -3,16 +3,30 @@ import {readFileSync} from "node:fs";
 import {resolve,dirname} from "node:path";
 import {pathToFileURL} from "node:url";
 import {SourceTextModule,SyntheticModule} from "node:vm";
-import {createHash} from "node:crypto";
+import {evidenceInput} from "./evidence-root.mjs";
 
 export const packageRoot=resolve(import.meta.dirname,"../..");
-export const predecessorRoot="/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260910_D2_FRAME_REPAIR/implementation-01";
 export const load=path=>import(pathToFileURL(resolve(packageRoot,path)).href);
-export const capturedEnvelopePath="/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json";
+const skipOf=input=>input.kind==="absent"&&input.reason;
+// Historical evidence under ABI5_EVIDENCE_ROOT: the D1 live-04 bridge input
+// (the captured stage envelope) and the D2 frame-repair implementation-01
+// predecessor, named by each file a lane reads or imports from it.
+export const capturedEnvelopeInput=evidenceInput({path:"comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json",
+  sha256:"6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16",bytes:983713});
+export const capturedEnvelopeSkip=skipOf(capturedEnvelopeInput);
+const PREDECESSOR="comments/codex/20260910_D2_FRAME_REPAIR/implementation-01/";
+export const predecessorInputs=Object.fromEntries([
+  ["productIndex","work/build/code/src/product/index.js","db068a67ff99a137b7bc52fb5dcf3729b4b9414b3cfa06526d6e34fe5c8d042a",9920],
+  ["commandExecution","work/build/code/src/gtl/worksite_command_execution.js","9e0bbd55fdbd4d3dbfc2c4cf0d80276981aff1bfcb03de424bcaf70e78d6a059",15716],
+  ["semanticStage","work/build/code/src/product/semantic_stage.js","46b06546b994f5977e59aec334de948a210ed51fba14a94bc922316ac9189b21",26525],
+  ["frozenWorksiteRevision","source-freeze-01/source/code/src/abg/worksite_revision.ts","771808d262f84730a5f911c67e790bd644b16a7ac85fa8da8e2651c6b06098e5",10022],
+  ["workWorksiteRevision","work/code/src/abg/worksite_revision.ts","771808d262f84730a5f911c67e790bd644b16a7ac85fa8da8e2651c6b06098e5",10022],
+].map(([name,path,sha256,bytes])=>[name,evidenceInput({path:PREDECESSOR+path,sha256,bytes})]));
+export const predecessorSkip=Object.values(predecessorInputs).map(skipOf).find(Boolean)||false;
+export const predecessorRoot=predecessorSkip?null:resolve(dirname(predecessorInputs.productIndex.path),"../../../../..");
 export function capturedEnvelope(){
-  const bytes=readFileSync(capturedEnvelopePath);
-  assert.equal(createHash("sha256").update(bytes).digest("hex"),"6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16");
-  return JSON.parse(bytes);
+  if(capturedEnvelopeInput.kind!=="present")throw new Error(capturedEnvelopeSkip);
+  return JSON.parse(capturedEnvelopeInput.bytes);
 }
 
 // These are lookup stubs, not RuntimeEvents or calls to ABG admission. They

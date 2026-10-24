@@ -6,7 +6,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
-import { checkerRef, installTestingTransport, isTestingCommandExecutionSchema, LIVE_TESTING_TRANSPORT, observeTestingToolchain, prepareTestingProduct, setupTestingInvocation, TESTING_CHECKER_SUCCESS_CRITERION, TESTING_ROLE_POLICY, testingExecutionConfig, testingStageMeaning, testingWorksite } from "../support/declared-testing-capability.mjs";
+import { checkerRef, installTestingTransport, isTestingCommandExecutionSchema, LIVE_TESTING_TRANSPORT, liveTransportSkip, observeTestingToolchain, stdoInstallsSkip, prepareTestingProduct, setupTestingInvocation, TESTING_CHECKER_SUCCESS_CRITERION, TESTING_ROLE_POLICY, testingExecutionConfig, testingStageMeaning, testingWorksite } from "../support/declared-testing-capability.mjs";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 
 const exec = promisify(execFile);
@@ -22,7 +22,7 @@ test("declared testing transport routing uses the current response contract, not
   assert.equal(isTestingCommandExecutionSchema({}), false);
 });
 
-test("declared testing preparation keeps prospective criteria and explicit transport modes", async () => {
+test("declared testing preparation keeps prospective criteria and explicit transport modes", { skip: liveTransportSkip }, async () => {
   assert.equal(testingExecutionConfig({}).mode, "mechanical");
   assert.throws(() => testingExecutionConfig({ ABI5_TESTING_MODE: "live" }), /separate runtime activation/u);
   assert.throws(() => testingExecutionConfig({ ABI5_TESTING_MODE: "other" }), /mechanical or live/u);
@@ -64,7 +64,7 @@ test("declared testing preparation keeps prospective criteria and explicit trans
   assert.match(TESTING_ROLE_POLICY, /Empty report declarations or process outcome predicates do not remove/u);
 });
 
-test("declared testing live actor allowance preserves defaults and existing transport policy", async () => {
+test("declared testing live actor allowance preserves defaults and existing transport policy", { skip: liveTransportSkip }, async () => {
   const live = { ABI5_TESTING_MODE: "live", ABI5_TESTING_ALLOW_LIVE: "1" };
   const baseline = testingExecutionConfig(live), mechanical = testingExecutionConfig({});
   assert.equal(baseline.environment.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS, "240000");
@@ -124,6 +124,8 @@ test("declared testing context records current toolchain facts without checker o
 
 test("declared testing context is bound into the actual consumer lifecycle and shared role policies", { timeout: 180_000 }, async t => {
   if (!process.env.ABI5_TESTING_INPUT_ROOT) { t.skip("requires exact selected RC7 companion release-record directory"); return; }
+  const installsSkip = stdoInstallsSkip(process.env.ABI5_TESTING_INPUT_ROOT, "ABI5_TESTING_INPUT_ROOT");
+  if (installsSkip) { t.skip(installsSkip); return; }
   const [product, gtl] = await Promise.all(["product", "gtl"].map(name => import(pathToFileURL(join(packageRoot, "build/code/src", name, "index.js")).href)));
   const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi-testing-context-")));
   const manifest = JSON.parse(await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"));
@@ -174,7 +176,9 @@ test("declared testing fixture aligns with current authority, observation, const
 test("declared checker composition uses native owners and independently rederives saved C1/C2 requests", { timeout: testingExecutionConfig().outerBudgetMs }, async t => {
   const executionConfig = testingExecutionConfig(), live = executionConfig.live;
   const inputRoot = process.env.ABI5_TESTING_INPUT_ROOT;
-  assert.ok(inputRoot, "exact selected RC7 companion release-record directory is required");
+  if (!inputRoot) { t.skip("ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory"); return; }
+  const installsSkip = stdoInstallsSkip(inputRoot, "ABI5_TESTING_INPUT_ROOT");
+  if (installsSkip) { t.skip(installsSkip); return; }
   const deadline = process.env.ABI5_TESTING_DEADLINE;
   assert.ok(deadline && Date.parse(deadline) > Date.now(), "bounded proof deadline is required");
   const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi-testing-reuse-proof-")));

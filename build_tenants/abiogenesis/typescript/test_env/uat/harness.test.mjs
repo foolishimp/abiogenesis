@@ -17,7 +17,9 @@ import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, diges
 import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandObservationOwner, commandObservationSourceUse, commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
 
 const fixtures=fileURLToPath(new URL('../fixtures/sandbox-uat/',import.meta.url));
-const archives=fileURLToPath(new URL('../../../../../.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/',import.meta.url));
+// Unit-run archives are this harness's own output, kept under the ignored
+// test_env/test_runs/; ABI5_UAT_UNIT_ROOT overrides the policy-unit root.
+const archives=fileURLToPath(new URL('../test_runs/sandbox-uat-units/',import.meta.url));
 const policyUnits=process.env.ABI5_UAT_UNIT_ROOT??archives;
 async function oracleEventFixture(t) {
   const scratch=await newArchive(policyUnits,'oracle-event-prefix'),eventLogPath=join(scratch.path,'events.jsonl');

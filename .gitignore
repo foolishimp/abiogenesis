@@ -52,6 +52,19 @@ build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decisio
 
 # Local AI-work installations, compilation scratch and copied Product trees.
 # Authored work records, reviews, drivers and patches remain visible.
+# A tree copied into a work record (repository, tenant, specification, install, build output or prior proof) stays local; the record names its cut by commit hash and its inputs by path and digest.
+.ai-workspace/**/build_tenants/**
+.ai-workspace/**/specification/**
+.ai-workspace/**/code/src/**
+.ai-workspace/**/test_env/**
+.ai-workspace/**/.ai-workspace/**
+!.ai-workspace/**/build_tenants/**/
+!.ai-workspace/**/specification/**/
+!.ai-workspace/**/code/src/**/
+!.ai-workspace/**/test_env/**/
+!.ai-workspace/**/.ai-workspace/**/
+!.ai-workspace/**/*.diff
+!.ai-workspace/**/*.patch
 .ai-workspace/**/node_modules/
 .ai-workspace/**/packs/
 .ai-workspace/**/*.tgz
@@ -70,11 +83,6 @@ build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decisio
 .ai-workspace/**/final-stage/
 .ai-workspace/**/final-source/
 .ai-workspace/**/toolchain/npm/
-.ai-workspace/**/build_tenants/
-.ai-workspace/**/specification/
-.ai-workspace/**/code/src/
-.ai-workspace/**/test_env/
-.ai-workspace/**/.ai-workspace/
 
 # Complete local histories and by-value forensic bodies stay on disk.
 .ai-workspace/**/events.jsonl

@@ -3,11 +3,11 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {resolve} from "node:path";
 import {pathToFileURL} from "node:url";
-import {packageRoot,predecessorRoot,load,capturedEnvelope,projectionHarness} from "../support/d2-bounded-harness.mjs";
+import {packageRoot,predecessorRoot,load,capturedEnvelope,projectionHarness,capturedEnvelopeSkip,predecessorSkip} from "../support/d2-bounded-harness.mjs";
 import {nativePublications,constructD2FrameDeclarations} from "../support/d2-frame-fixture.mjs";
 import {runStaticD2} from "../support/d2-static-smoke.mjs";
 
-test("revision-C2 adds exactly its contribution and closed raw contract; old publication members are conserved",async()=>{
+test("revision-C2 adds exactly its contribution and closed raw contract; old publication members are conserved",{skip:predecessorSkip},async()=>{
   const [gtl,product,previous]=await Promise.all([load("build/code/src/gtl/index.js"),load("build/code/src/product/index.js"),
     import(pathToFileURL(resolve(predecessorRoot,"work/build/code/src/gtl/worksite_command_execution.js")).href)]);
   const h=n=>`sha256:${String(n).repeat(64)}`,artifact={productId:product.ABI5_PRODUCT_ID,artifactDigest:h(1),productContentDigest:h(2),productManifestDigest:h(3),packageName:product.ABI5_PACKAGE_NAME,packageVersion:product.ABI5_PACKAGE_VERSION};
@@ -53,7 +53,7 @@ test("actual four-Program fixture and prior five raw/closure discriminators rema
   const smoke=await runStaticD2({packageRoot,sourcePublication:bundle.sourcePublication,lifecyclePublication:bundle.consumerPublication});assert.equal(smoke.results.length,5);
 });
 
-test("selection accepts the new C2 success/advance observation cause and conserves the old arm (guard/lookup stubs)",async()=>{
+test("selection accepts the new C2 success/advance observation cause and conserves the old arm (guard/lookup stubs)",{skip:capturedEnvelopeSkip},async()=>{
   const h=await projectionHarness(),next=h.state("new-command",h.newCommand,{ordinal:51,invocation:h.first.execution.invocationAdmissionRef});
   assert.ok(h.select(h.first,next),"new C2 failed command can reach selection despite native success/advance");
   assert.ok(h.select(h.root,h.oldCause),"old C2 cause unchanged");
@@ -63,7 +63,7 @@ test("selection accepts the new C2 success/advance observation cause and conserv
   assert.equal(h.select(h.first,notObservation),null);
 });
 
-test("the two recorded continuation counterexamples still fail on exact predecessor code (same lookup assumptions)",async()=>{
+test("the two recorded continuation counterexamples still fail on exact predecessor code (same lookup assumptions)",{skip:capturedEnvelopeSkip||predecessorSkip},async()=>{
   const h=await projectionHarness({sourceRoot:resolve(predecessorRoot,"work"),selectionInputProfile:"pre-context-counterexample"});
   const next=h.state("new-command",h.newCommand,{ordinal:51,invocation:h.first.execution.invocationAdmissionRef});
   assert.equal(h.select(h.first,next),null,"predecessor selection omits the new observation guard");
@@ -74,7 +74,7 @@ test("the two recorded continuation counterexamples still fail on exact predeces
   assert.equal(h.originCalls[0][1].rawInputValue.kind,"semantic_revision_request");
 });
 
-test("revision-projection parent recovers the native ancestor seed after later C1 failure (lookup stubs)",async()=>{
+test("revision-projection parent recovers the native ancestor seed after later C1 failure (lookup stubs)",{skip:capturedEnvelopeSkip},async()=>{
   const h=await projectionHarness();
   assert.equal(h.first.execution.rawInputValue.kind,"semantic_revision_request","recorded seed counterexample");
   const result=h.project(h.second.request);assert.ok(result);
@@ -88,7 +88,7 @@ test("revision-projection parent recovers the native ancestor seed after later C
 });
 
 for(const mutation of ["missing-parent","crossed-coordinate","non-advancing-parent","future-parent","foreign-seed","request-not-seed"]){
-  test(`ancestor seed refuses ${mutation} (lookup stubs)`,async()=>{
+  test(`ancestor seed refuses ${mutation} (lookup stubs)`,{skip:capturedEnvelopeSkip},async()=>{
     const h=await projectionHarness();
     if(mutation==="missing-parent")h.states.delete(h.root.coordinate.cCallRef);
     if(mutation==="crossed-coordinate")h.root.call.result.resultDigest=h.product.sha256Canonical("crossed-result");
@@ -100,7 +100,7 @@ for(const mutation of ["missing-parent","crossed-coordinate","non-advancing-pare
   });
 }
 
-test("root input reuse, historical C0 byte conservation and current physical guard are retained",async()=>{
+test("root input reuse, historical C0 byte conservation and current physical guard are retained",{skip:capturedEnvelopeSkip||predecessorSkip},async()=>{
   const h=await projectionHarness();assert.ok(h.project(h.first.request));assert.equal(h.originCalls[0][1],h.root.execution);
   const relative="code/src/abg/worksite_revision.ts",before=readFileSync(resolve(predecessorRoot,"source-freeze-01/source",relative),"utf8"),after=readFileSync(resolve(packageRoot,relative),"utf8");
   // This original byte-conservation claim belongs to that historical candidate

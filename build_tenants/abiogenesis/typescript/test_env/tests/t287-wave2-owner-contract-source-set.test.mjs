@@ -26,6 +26,9 @@ import {
   isDeeplyFrozen,
 } from "../../build/code/src/shared/immutable.js";
 import {
+  constructQualificationIdentity,
+} from "../../build/code/src/validator/qualification_contracts.js";
+import {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
   derivePublicOperationContractProjections,
@@ -52,42 +55,41 @@ const rd = (ref = "ref://accepted") => ({ ref, digest });
 const evidence = [rd("evidence://accepted")];
 const root = dirname(dirname(dirname(fileURLToPath(import.meta.url))));
 
+// D15's representative is the request its owner admits today: the release
+// identity and the exact candidate qualification basis that
+// RELEASE_OPERATION_CONTRACTS.snapshot.published_rc declares, the basis
+// identified by the qualification owner's own constructor.
 const releaseIdentity = Object.freeze({
-  identityRef: "release://abiogenesis/5.0.0-rc.1",
-  identityDigest: sha256Canonical({ version: "5.0.0-rc.1" }),
   productId: "product://abiogenesis/typescript-tenant@5",
+  namespace: "abiogenesis",
+  profile: "one_project_unqualified",
+  projectSubtree: ".",
+  versionLine: "5.0.0",
+  ordinal: 1,
   version: "5.0.0-rc.1",
+  releaseClaim: rd("release-claim://abiogenesis/5.0.0-rc.1"),
 });
-const releaseBasisValue = Object.freeze({ candidate: "wave5-absent" });
-const releaseBasis = Object.freeze({
-  kind: "release_qualification_basis",
+const releaseLawBasis = Object.freeze(rd("qualification-law://abiogenesis/5"));
+const releaseBasis = constructQualificationIdentity({
+  kind: "exact_candidate_qualification",
+  projection: "basis",
+  schemaVersion: "5.0.0",
   subjectKind: "pre_rc_candidate",
-  basisRef: "qualification-basis://wave5/absent",
-  basisDigest: sha256Canonical(releaseBasisValue),
-  prospectiveIdentity: releaseIdentity,
-  basis: releaseBasisValue,
-});
-const releaseLawValue = Object.freeze({ law: "qualification://abiogenesis/5" });
-const releaseLawBasis = Object.freeze({
-  kind: "release_law_basis",
-  lawBasisRef: "qualification-law://abiogenesis/5",
-  lawBasisDigest: sha256Canonical(releaseLawValue),
-  law: releaseLawValue,
-});
-const releaseVerdictBody = Object.freeze({
-  qualificationBasisRef: releaseBasis.basisRef,
-  qualificationBasisDigest: releaseBasis.basisDigest,
-  lawBasisRef: releaseLawBasis.lawBasisRef,
-  lawBasisDigest: releaseLawBasis.lawBasisDigest,
-  disposition: "green",
-  bypassRefs: [],
-});
-const releaseVerdict = Object.freeze({
-  kind: "release_qualification_verdict",
-  verdictRef: "qualification-verdict://wave5/absent",
-  verdictDigest: sha256Canonical(releaseVerdictBody),
-  ...releaseVerdictBody,
-});
+  productId: releaseIdentity.productId,
+  productVersion: releaseIdentity.version,
+  sourceInventory: rd("qualification-inventory://accepted"),
+  artifact: rd("artifact://accepted"),
+  productManifest: rd("product-manifest://accepted"),
+  productContentDigest: digest,
+  toolchain: rd("toolchain://accepted"),
+  installedProduct: null,
+  workspaceBinding: null,
+  prospectiveRelease: releaseIdentity,
+  tenantManifest: null,
+  coverageCatalog: null,
+  lawBasis: releaseLawBasis,
+}, "basisRef", "basisDigest", "qualification-basis://abiogenesis/");
+const releaseVerdict = Object.freeze(rd("qualification-verdict://accepted"));
 
 function packet(operationId, memberKey) {
   const selected = OWNER_CONTRACT_SOURCE_MAP[operationId]?.[memberKey];
@@ -606,9 +608,27 @@ function familyDigestProjection(definitions) {
   };
 }
 
+// The family carries the validation library's schema objects, whose
+// accessors and prototypes are not plain data. The schema-free projection that
+// its digests are computed over is deeply frozen; each schema is, by identity,
+// the object its owner declared.
+function frozenSchemaFreeProjection(definition) {
+  const projection = definitionDigestProjection(definition);
+  for (const slot of ["requestContract", "resultContract", "refusalContract", "nonTerminalContract"]) {
+    if (projection[slot] !== null) Object.freeze(projection[slot]);
+  }
+  return Object.freeze(projection);
+}
+
 test("the deeply frozen intrinsic family closes exact schemas and schema-free digests", () => {
   const family = PUBLIC_FUNCTION_DEFINITION_FAMILY;
-  assert.equal(isDeeplyFrozen(family), true);
+  assert.equal(Object.isFrozen(family), true);
+  assert.equal(Object.isFrozen(family.definitions), true);
+  assert.equal(family.definitions.every((definition) => Object.isFrozen(definition)), true);
+  assert.equal(isDeeplyFrozen(Object.freeze({
+    ...family,
+    definitions: Object.freeze(family.definitions.map(frozenSchemaFreeProjection)),
+  })), true);
   assert.equal(family.definitions.length, 56);
   assert.equal(
     new Set(family.definitions.map(({ definitionKey }) =>
@@ -666,10 +686,12 @@ test("the deeply frozen intrinsic family closes exact schemas and schema-free di
     for (const [slot, binding, resolved] of slots) {
       assert.equal(binding, resolved, `${definition.definitionRef}/${slot}`);
       if (binding === null) continue;
-      assert.equal(isDeeplyFrozen(binding), true);
-      assert.equal(isDeeplyFrozen(binding.schema), true);
+      assert.equal(Object.isFrozen(binding), true);
+      assert.equal(isDeeplyFrozen(Object.freeze(bindingIdentity(binding))), true);
+      assert.equal(binding.schema, source.declaration[`${slot}Schema`], `${definition.definitionRef}/${slot} schema`);
+      assert.equal(Object.isFrozen(binding.schema), true);
       if (binding.schema.entries !== undefined) {
-        assert.equal(isDeeplyFrozen(binding.schema.entries), true);
+        assert.equal(Object.isFrozen(binding.schema.entries), true);
       }
       assert.doesNotThrow(() => projectStrictJsonSchema(binding.schema));
       const identity = bindingIdentity(binding);

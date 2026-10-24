@@ -1,18 +1,35 @@
 import assert from 'node:assert/strict';
 import {readFileSync,lstatSync,realpathSync} from 'node:fs';
 import {createHash} from 'node:crypto';
-import {resolve,join,relative,isAbsolute} from 'node:path';
+import {resolve,join,relative,isAbsolute,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {runInNewContext} from 'node:vm';
 import {workflowStepHarness} from './d2-workflow-step-harness.mjs';
+import {evidenceInput} from './evidence-root.mjs';
 export const packageRoot=resolve(import.meta.dirname,'../..');
-export const priorRoot=resolve(packageRoot,'../../implementation-03/work');
-export const runRoot=resolve(packageRoot,'../../installed-continuation-07/installed-frame-01');
+const skipOf=input=>input.kind==='absent'&&input.reason;
+// Historical evidence under ABI5_EVIDENCE_ROOT: the D2 installed-continuation-07
+// native store and its ready record, and the implementation-03 predecessor
+// build, named by its two compiled collectors and the first module the lane
+// imports from it.
+const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/';
+export const retainedStoreInput=evidenceInput({path:D2+'installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl',
+  sha256:'25dd49061c9046436469f07cdafad592840ea9ebfdf824ec091042c02859dc96',bytes:12040406});
+export const readyRecordInput=evidenceInput({path:D2+'installed-continuation-07/installed-frame-01/attempt-01/program-ready-16.json',
+  sha256:'99cd271bc49df83ff716c1e8c7fad5fb99753fb64577098d99b9cc70ba1806a4',bytes:12781893});
+export const priorInputs=Object.fromEntries([
+  ['digests','build/code/src/shared/digests.js','bcfca50154c00df17ac3eacbd49323180f7645b2b0d779554dc9aa7c7c34212a',838],
+  ['compiledStage','build/code/src/abg/semantic_stage.js','b7c408d39f6ee8f6c57e6c68fa43da624ed9226c0dba59c2a0c744cf28d8b2d3',27249],
+  ['compiledRevision','build/code/src/abg/semantic_revision.js','fe7fe9bfa94191137c5557cc3e8b443ebd27e0d777b658bab6f4d331b854e6f2',30666],
+].map(([name,path,sha256,bytes])=>[name,evidenceInput({path:D2+'implementation-03/work/'+path,sha256,bytes})]));
+export const retainedSkip=skipOf(retainedStoreInput)||skipOf(readyRecordInput)||false;
+export const priorSkip=retainedSkip||Object.values(priorInputs).map(skipOf).find(Boolean)||false;
+export const priorRoot=priorSkip?null:resolve(dirname(priorInputs.digests.path),'../../../..');
 export const load=(root,path)=>import(pathToFileURL(join(root,'build/code/src',path+'.js')).href);
 const rawSha=b=>createHash('sha256').update(b).digest('hex');
 export function retainedRows() {
-  const bytes=readFileSync(join(runRoot,'events-01/runtime.events.jsonl'));
-  assert.equal(rawSha(bytes),'25dd49061c9046436469f07cdafad592840ea9ebfdf824ec091042c02859dc96');
+  if(retainedStoreInput.kind!=='present')throw new Error(retainedSkip);
+  const bytes=retainedStoreInput.bytes;
   const lines=bytes.toString('utf8').trimEnd().split('\n'),events=lines.map(JSON.parse);
   assert.equal(events.length,800);
   return {bytes,events,lines};
@@ -28,8 +45,7 @@ export async function retainedNativeBasis(root=packageRoot) {
   const {constructTraversalCursorCandidate}=await load(root,'abg/traversal_cursor');
   const {materializeGraph}=await load(root,'gtl/materialize');
   const stage=await load(root,'abg/semantic_stage'),product=await load(root,'product/semantic_stage');
-  const captured=retainedRows(),readyPath=join(runRoot,'attempt-01/program-ready-16.json'),readyBytes=readFileSync(readyPath);
-  assert.equal(rawSha(readyBytes),'99cd271bc49df83ff716c1e8c7fad5fb99753fb64577098d99b9cc70ba1806a4');
+  const captured=retainedRows(),readyBytes=readyRecordInput.bytes;
   const ready=deepFreeze(JSON.parse(readyBytes));
   const prefixBytes=Buffer.from(captured.lines.slice(0,795).join('\n')+'\n');
   assert.equal(rawSha(prefixBytes),'bee0eb307565ad2328d30c2629517bd53db003b0094b5377faaacc7e069b642a');

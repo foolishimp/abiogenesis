@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
-import {load,packageRoot} from './d2-bounded-harness.mjs';
+import {load} from './d2-bounded-harness.mjs';
 import {historicalDesignHarness} from './d2-historical-design-harness.mjs';
+import {evidenceInput} from './evidence-root.mjs';
 
 // Pure carrier fixtures only. Synthetic C0 receipts, helper bytes, actor and
 // result coordinates below are NOT RuntimeEvents or native admitted history.
@@ -101,9 +100,14 @@ export async function workflowStepHarness() {
   return {...h,product,D,R,semantics,hash,identity,cut,entry,construction,task,observation,example,observationFor,foldback,step};
 }
 
+// The D2 installed-continuation-04 native store, historical evidence under
+// ABI5_EVIDENCE_ROOT.
+export const retainedIntentInput=evidenceInput({path:'comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-04/installed-frame-01/events-01/runtime.events.jsonl',
+  sha256:'42c1bfd29619425dab0bedb270f2bcce0111cb6cb3ebee274db9438fcc4644cc',bytes:5082898});
+export const retainedIntentSkip=retainedIntentInput.kind==='absent'&&retainedIntentInput.reason;
 export function retainedIntentWitness() {
-  const path=resolve(packageRoot,'../../installed-continuation-04/installed-frame-01/events-01/runtime.events.jsonl');
-  const bytes=readFileSync(path),rows=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
+  if(retainedIntentInput.kind!=='present')throw new Error(retainedIntentSkip);
+  const path=retainedIntentInput.path,bytes=retainedIntentInput.bytes,rows=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
   assert.equal(rows.length,73);
   return {path,bytes,input:rows.find(row=>row.admissionOrdinal===25).payload.rawInputValue,
     output:rows.find(row=>row.admissionOrdinal===70).payload.value,
