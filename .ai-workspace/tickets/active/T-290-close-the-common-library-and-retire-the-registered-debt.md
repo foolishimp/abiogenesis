@@ -138,7 +138,9 @@ The Reviewer's recommendations on the first four are recorded in the register's 
 
 After L5, under T-287's dependency order: the D1 and D4 comparison of the
 closed source to the accepted design and Source44; D2 and D3 lifecycle work;
-D5 qualification; D6 publication. This ticket does not schedule them.
+D5 qualification; D6 publication. This ticket does not schedule them. The Executive's plan proposal for the owner's order is the post
+[20261024T064557Z_PLAN_t287_phase_d_release_resumption](../../comments/claude/20261024T064557Z_PLAN_t287_phase_d_release_resumption.md)
+(commentary: eight packages under T-287's dependency order and six owner decisions).
 
 ## Ledger
 
