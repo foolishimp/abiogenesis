@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is delivered on `main` at `562d4515a` by the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md): O-RESOURCE, O-SHAPE, O-CODEC, O-SCHEMA and O-KEY are closed, O-TYPE is closed by post-close repair C (D11) and the design's proofs hold; this is not a release. Lifecycle implementation, complete source conjunction, combined candidate/P1/P5/P4 and independent L5 remain open or held; release resumption is closed. [Current checkpoint handoff](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md) owns transport status. Fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.0 RC1. The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is closed on `main` at `46ed04895` ([T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md) Phase A, after the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md) and eight post-close repairs): every owner obligation O-RESOURCE to O-TYPE is closed with its sites and the design's proofs hold; the lifecycle law is realized as the rule `actor_process_lifecycle` in the one fold. The registered debt wave (T-290 Phase B, twelve packages, each accepted with its record and closed in the register) is closed at `a8937b837`. This is not a release: L5 delivery acceptance is recorded (the owner, 2026-10-24, on an independent review with no S0 to S2); the Phase C packages ruled by the log principle, the complete source conjunction, the combined candidate/P1/P5/P4, the fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
 
@@ -87,11 +87,13 @@ conjunction’s cross-consumer handoff, with its `process-failure.json` and
 stateless inspection, is withdrawn (D0).
 
 Next, under [T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md):
-the Phase B debt wave from TD-06, with the independent review of
-the closed library (L5 delivery acceptance); then the register’s order TD-06,
-TD-07, TD-17, TD-13, TD-14 and the rest, with TD-10, TD-12, TD-18 and TD-19
-held for the owner’s decision; release work resumes after acceptance. L4 remains partial on older subjects, including P1 pass/P5
-timeout; L5 acceptance is absent. No new broad design-review campaign is
+Phase B, the registered debt wave, is closed at `a8937b837` (twelve packages
+in the ticket's order, each with its record, proof and register closure). Next
+is Phase C, the packages the owner agreed on 2026-10-24 are ruled by the log
+principle, in the ticket's recorded order, with TD-12 last; L5 delivery
+acceptance is recorded (2026-10-24); release work (Phase D) follows Phase C
+on the owner's order. L4 remains partial on older subjects, including P1 pass/P5
+timeout; L5 delivery acceptance is recorded (2026-10-24). No new broad design-review campaign is
 selected. Old failed cuts and main generated936 remain protected.
 
 The owner's Executive correction applies [proportionality and steel-thread
@@ -100,7 +102,7 @@ reuse exact applicable evidence, repair and reprove only affected relations,
 and widen the earliest real entry-to-outcome path by material uncertainty.
 Review findings inform Executive priority and boundary decisions; they do not
 activate a new review campaign. Product/authority and supported-path blockers,
-required independent L5 and the closed release-resumption gate remain.
+the release-resumption gate is open after L5 (2026-10-24); release work follows the Phase C packages.
 
 The intended asset is a reusable computational basis from which feature
 behaviour is composed. The calculus identifies common structure, contracts
@@ -984,13 +986,14 @@ capabilities and outstanding qualification; wave acceptance is not complete
 
 ## Work And Milestones
 
-T-287 owns generic ABG delivery; [T-043](../../odd_glc/.ai-workspace/tickets/active/T-043-deliver-generic-live-llm-scenario-mvp.md)
-owns the dependent GLC lifecycle and application outcomes. Reuse the retained
+T-287 owns generic ABG delivery, the native runtime, the default library,
+the lifecycle proof and the RC1 candidate work; odd_glc and its T-043
+campaign are deselected from ABG delivery (owner selection, 2026-10-06, above). Reuse the retained
 instance and accepted evidence; reopen only materially affected relations.
 
 | Milestone | Exit | State |
 |---|---|---|
-| `M5` | T-287 D1-D4 place the required lifecycle witness, complete pre-qualification features, applicable negatives and conservation evidence on one integrated candidate. | Open; accepted source ancestry is integrated and canonically applied, not jointly qualified. Recovery13 is closed failed with22 C0/C1 and prepared C2 banked; forward Worker20, D2 continuation and native F11/D5 work remain open. Full D1-D4 and original mandatory application outcomes are required; accepted Waves1/2 remain banked. |
+| `M5` | T-287 D1-D4 place the required lifecycle witness, complete pre-qualification features, applicable negatives and conservation evidence on one integrated candidate. | Open; accepted source ancestry is integrated and canonically applied, not jointly qualified. The common computational library and its debt wave are closed (T-290 Phases A and B, `46ed04895` and `a8937b837`); the lifecycle witness on one integrated candidate, native F11/D5 work and the D2 continuation remain open. Full D1-D4 and original mandatory application outcomes are required; accepted Waves 1/2 remain banked. |
 | `M6` | D5 qualifies that exact pre-RC candidate through self-conformance, the complete required scenario/gate set and the sole qualification reducer. | Acceptance waits for M5; prerequisite qualification-tooling implementation may proceed in parallel under its own sufficient authority. |
 | `M7` | D6 publishes the immutable RC, qualifies its fresh install, records actual human acceptance of that same unchanged RC, and verifies it after publication. | Publication waits for the appropriate exact verdict; release-mechanics preparation need not wait for M6 closure. |
 
