@@ -40,11 +40,12 @@ Delivered and closed:
   links each closure.
 
 Remaining obligations:
-- L5 delivery acceptance is absent: the owner's review pass on `46ed04895`
-  and the owner's record (T-290 Phase A, rows Review pass and L5). The
-  release-resumption gate stays closed until L5.
+- L5 delivery acceptance is recorded: the owner's independent review pass on
+  `46ed04895` (PASS, no S0 to S2) and the owner's record of 2026-10-24 (T-290
+  Phase A, rows Review pass and L5). The release-resumption gate is open;
+  release work follows the Phase C packages on the owner's order.
 - The combined candidate, build, P1, P5, P4 and their dependents are HELD
-  until L5 acceptance and a later exact grant.
+  until a later exact grant (L5 is accepted).
 - L4 is partial on older subjects, and release work D1 to D6 follows L5,
   both as the [dependency order](#dependency-order-and-exits) states.
 - The owner's rulings and the Phase C packages that follow the Phase B close

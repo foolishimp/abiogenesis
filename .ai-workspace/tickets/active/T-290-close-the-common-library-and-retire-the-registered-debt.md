@@ -10,9 +10,9 @@
 - current_method_basis: stdo://releases/v3.0.0-rc.1/
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
-- current_phase: B, the debt wave (the Phase A work closed at `46ed04895`; its L5 exit is the owner's and open)
+- current_phase: B, the debt wave (Phase A closed at `46ed04895`; L5 delivery acceptance recorded by the owner on 2026-10-24)
 - current_package: Phase B close (broad run, GOALS and closing post restated once, one review); TD-21 + TD-22 + TD-24 accepted at `a8937b837`
-- current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+- current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D is not scheduled by this ticket and follows the Phase C packages on the owner's order
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
 - re_entry_point: specification/GOALS.md#current-selection
@@ -64,8 +64,8 @@ row, a passing type check or a baseline attribution alone does not close it.
 ## Phase A: close the library
 
 The Phase A work closed at `46ed04895` (Ledger). Its exit, L5 delivery
-acceptance, is the owner's record on that exact subject after an independent
-review with no open S0 to S2, and remains open.
+acceptance, was recorded by the owner on 2026-10-24 on an independent review
+with no S0 to S2 findings (Ledger row "Review pass + L5").
 
 | Package | Source | What lands | Size | State |
 |---|---|---|---|---|
@@ -74,8 +74,8 @@ review with no open S0 to S2, and remains open.
 | G | closing post, items for the owner | The three helper failure classes without a lane, `command_failed`, `http_probe_failed` and `http_cleanup_unresolved`, each driven through the installed helper into a failure artifact and an admitted failure, on E's route | M | accepted at `68a5397dc` for the two HTTP classes (step-8.md, `## Disposition of repair G`); `command_failed` is reachable by no declaration, Phase C |
 | H | repair G's finding | A synchronous spawn error (`ENOEXEC`) at either launch becomes the no-child launch failure the design states: exit 127, termination confirmed, the artifact published and acknowledged; two installed cases; the §9.3 and §9.2 record fixes | S | accepted at `46ed04895` (step-8.md, `## Disposition of repair H`); Phase A closed |
 | Restatement | sixth review S4; D15 | The closing post, the plan post's D15 row and the Ledger restated to the realized route; the reacquisition seam classified as a lane the plan broke at step 4, not baseline-red | S | Executive, with each acceptance |
-| Review pass | | The owner's independent pass on `46ed04895`, disposed as the six before it; repairs only for S0 to S2, as further lettered packages | | the owner runs it; Phase B started before it on the owner's instruction of 2026-10-24 ("keep working through") |
-| L5 | T-287 dependency order | Delivery acceptance recorded by the owner; the release-resumption gate opens | | the owner |
+| Review pass | | The owner's independent pass on `46ed04895`, disposed as the six before it; repairs only for S0 to S2, as further lettered packages | | run by the owner on 2026-10-24: the owner's independent review (Codex, [posted](../../comments/codex/20261024T052051Z_REVIEW_t290_phase_a_l5_46ed04895.md)): PASS, no S0 to S2; fresh build, both lints and tsc pass; 1,174 source, test, design and contract files match the commit after building; 14 lanes 111 pass, four inherited forward-owner reds, two skipped; the 11 installed-path cases pass, including the cold failure diagnostics, the acknowledgment and artifact rejection controls and both `ENOEXEC` cases; H's broad-run failure set equals F's (54 failed and 2 cancelled, identities and first errors); no repair package follows |
+| L5 | T-287 dependency order | Delivery acceptance recorded by the owner; the release-resumption gate opens | | recorded by the owner on 2026-10-24 ("ok phase A closed with this review"); the gate is open; Phase D follows the Phase C packages on the owner's order |
 
 ## Phase B: the debt wave
 
@@ -147,6 +147,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | F | `195b65ddb` | `tsc --noEmit` rc 0; `lint:imports` 28 modules rc 0; `lint:lifecycle` 284 modules, 10 allow-listed, no offender, rc 0; `forward-command-contracts` 10/10; `t287-worksite-command-execution` 6/6; `t287-runtime-failure-diagnostic` 12/12; `t287-lifecycle-failure-carrier` 5/5; `m5-worker-transport` 21/21; `t287-reacquisition-root-contract` 1 pass, 1 skip; `t287-calculus-fold` 7/7; `t287-common-computational-library` 9/9; `t287-owned-process-lifetime` 18/18; tree clean | accepted |
 | 2026-10-24 | G | `68a5397dc` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 8/8; `forward-command-contracts` 10/10; `m5-worker-transport` 21/21; `t287-owned-process-lifetime` 18/18; `t287-lifecycle-failure-carrier` 5/5 (`exec_check_G.log`, 2026-10-24); the activation's premise confirmed by a direct probe on this host (Node 24.7.0): a mode-755 file of non-program bytes, and a shebang-less text file, each make `spawn` throw `ENOEXEC` synchronously; `ENOTDIR` likewise; `ENOENT` arrives as the asynchronous error | accepted; `command_failed` stopped, Phase C |
 | 2026-10-24 | H | `46ed04895` | `tsc --noEmit` clean; `lint:imports` 28 modules; `lint:lifecycle` 284 modules, 10 allow-listed; `t287-worksite-command-execution` 10/10; `t287-owned-process-lifetime` 18/18; `m5-worker-transport` 21/21 (`exec_check_H.log`, 2026-10-24) | accepted; Phase A closed |
+| 2026-10-24 | Review pass + L5 | `46ed04895` | the owner's independent review (Codex, [posted](../../comments/codex/20261024T052051Z_REVIEW_t290_phase_a_l5_46ed04895.md)): PASS, no S0 to S2; fresh build, both lints and tsc pass; 1,174 source, test, design and contract files match the commit after building; 14 lanes 111 pass, four inherited forward-owner reds, two skipped; the 11 installed-path cases pass, including the cold failure diagnostics, the acknowledgment and artifact rejection controls and both `ENOEXEC` cases; H's broad-run failure set equals F's (54 failed and 2 cancelled, identities and first errors) | PASS; L5 delivery acceptance recorded by the owner ("ok phase A closed with this review"); Phase A closed; the release-resumption gate open |
 | 2026-10-24 | TD-06 | `94ca67abf` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 10/10; `t287-native-runtime-gate` 7/6/0/1 (`exec_check_TD06.log`) | accepted; register row closed |
 | 2026-10-24 | TD-07 | `ea18189e3` | `tsc --noEmit` clean; both lints; `t287-calculus-fold` 12/12; `t287-native-workspace-work` 38/37/0/1; `t287-route-reconstruction` 9/7/0/2; `t287-native-work-unknown-effect` 10/10 (`exec_check_TD07.log`) | accepted for 30 routed calls; lifecycle reader to Phase C |
 | 2026-10-24 | TD-17 | `4bc5a945a` | `tsc --noEmit` clean; both lints; `t287-runtime-failure-diagnostic` 14/14; `t287-c2a-fp-source-contract` 4/4 (`exec_check_TD17.log`) | accepted; register row closed; §9.3 paragraph placed |
