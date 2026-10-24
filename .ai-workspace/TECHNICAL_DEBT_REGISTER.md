@@ -2,6 +2,8 @@
 
 Snapshot: 2026-10-23 Australia/Sydney; committed head 2f1393061e4525a55b813c5406ad3cdaed3620d6, with Worker B's unaccepted working tree present.
 
+State at the T-290 Phase B close (2026-10-24, `a8937b837`): 16 of the 24 rows are Closed with their commits in the Completion record; TD-07 is Conditional on the Phase C lifecycle reader; TD-04 and TD-05 hold fixture increments for the Phase C evidence-root package; TD-09, TD-10, TD-12, TD-18 and TD-19 are Phase C packages ruled in [T-290](tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-c-the-owners-decisions). Inherited rows carry their triage dispositions in the crosswalk.
+
 Read the [analysis](comments/codex/20261022T145146Z_ANALYSIS_technical_debt.md) for the Product Frame, evidence limits and rationale. The fixed 5.0 scope, GTL/HoG/ABG authority split and common-library prerequisite remain unchanged. This is a work-through index over the existing debt, not another execution plan. The [T-287 management debt](tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#current-management-debt) is the historical source of these rows and keeps its accepted decisions; the packages, their grants and their closures are owned by [T-290](tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md). New entries are analysis proposals; registration does not activate a repair or decide release disposition.
 
 Writer grant: the user's request authorizes this file and the linked analysis only. No runtime, ticket, GOALS, design or proof files are changed by this delivery. Functional owners below name the boundary responsible for a repair, not a newly assigned person.
@@ -35,7 +37,7 @@ All proposed repairs use realization_refactor unless the entry names design_refr
 | [TD-06](#td-06) | Closed | Full held-set scan for an exact clip | S | Closed at `94ca67abf`; see the Completion record |
 | [TD-07](#td-07) | Conditional | Full held-set sort for one process-live fact | M | 30 point queries routed at `ea18189e3`; the seven lifecycle sites wait on the owner's reader decision (T-290 Phase C); see the Completion record |
 | [TD-08](#td-08) | Closed | Repeated causal-support history scans | M | Closed at `f6bdf13bd`; see the Completion record |
-| [TD-09](#td-09) | Open | Repeated C2 full-prefix correspondence work | M | Genuine C1/C2 proof inputs; owner reuse design |
+| [TD-09](#td-09) | Open | Repeated C2 full-prefix correspondence work | M | Phase C package (T-290, before TD-12): correspondence acquired once per immutable prefix, the TD-08 pattern |
 | [TD-10](#td-10) | Conditional | Full replay witnesses built for narrower needs | M/L | Consumer requirement census first |
 | [TD-11](#td-11) | Closed | Rebuild/deduplicate tool projection every chunk | M | Closed at `3c91f5200`; see the Completion record |
 | [TD-12](#td-12) | Open | Eight contextual record readers and repeated hashes | L | Accepted contextual reader design |

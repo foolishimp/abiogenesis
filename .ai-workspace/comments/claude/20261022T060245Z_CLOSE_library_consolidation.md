@@ -4,34 +4,46 @@ Commentary, not law. Executive: Claude Fable 5.1. Plan post:
 `20261021T162409Z_PLAN_library_consolidation_pen.md`. Design authority:
 `build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`.
 
-Restated 2026-10-24 after eight post-close repairs; Phase A of T-290 is closed. The first statement of
-this post (2026-10-22, at `562d4515a`) and its addendum are superseded by
-this text; their history is the commit chain below and `step-8.md`.
+Restated 2026-10-24 at the Phase B close of T-290, the registered debt
+wave, at `a8937b837`. The restatement after the post-close repairs, the first
+statement of this post (2026-10-22, at `562d4515a`) and its addendum are
+superseded by this text; their history is the commit chain below,
+`step-8.md` and `work/T290_DEBT_WAVE_01/packages.md`.
 
 ## Result
 
-Reopened 2026-10-24 by the fifth and sixth reviews. Repair E landed
-(`280f5777f`): the helper prints its acknowledgment of the published artifact
-before its non-zero exit, the worker returns it unchanged, and the parent
-binds it to the artifact before it reads the disposition; the D15 claim below
-holds from the helper's exit on. Repair F landed (`195b65ddb`): the forward
-constructors admit their three array inputs at ingress, and the failure
-artifact's subject is bound to the next undone operation of its completed
-prefix, the two HTTP subjects naming their predicate. Repair G landed
-(`68a5397dc`): `http_probe_failed` and `http_cleanup_unresolved` are driven
-through the installed helper by their declared tasks; `command_failed` is
-reachable by no declaration (a lifetime error after spawn), and whether it
-stays is yours (T-290 Phase C). Repair H landed (`46ed04895`): a
-synchronous spawn error (`ENOEXEC` and every errno Node throws before a
-child exists) is the no-child launch failure the design states, exit 127
-with termination confirmed, at both the command and the HTTP launch, the
-artifact published and acknowledged. Phase A of T-290 is closed at that
-commit; the Phase B debt wave runs from TD-06 on your instruction, and this
-post is next restated at the Phase B close. The plan for the close and the debt wave is
+Phase A closed at `46ed04895` after repairs E to H (`280f5777f`,
+`195b65ddb`, `68a5397dc`, `46ed04895`: the helper's acknowledgment bound
+before the disposition is read; the forward constructors admitting at
+ingress and the failure subject bound to the next undone operation; the two
+HTTP failure classes driven by declared tasks; the synchronous spawn error as
+the no-child launch failure). Its L5 exit was recorded on 2026-10-24 on your
+independent review (PASS, no S0 to S2).
+
+Phase B, the registered debt wave, is closed at `a8937b837`. Twelve packages
+ran in the ticket's order on your instruction of 2026-10-24, each with an
+activation, a Worker Return and a disposition in
+`work/T290_DEBT_WAVE_01/packages.md`, and each closed in the technical debt
+register with its commit: TD-06 (`94ca67abf`, an exact clip reads its one
+held fluent), TD-07 (`ea18189e3`, the exact liveness read at 30 sites),
+TD-17 (`4bc5a945a`, F_P completion causes kept), TD-13 (`50301d557`,
+key-set bodies, guards and ingresses), TD-14 (`8387f70b3`, 31 of 56 casts
+removed, nine carried), TD-04 + TD-05 (`bf117cf92`, the R10 proof family's
+inputs packaged), TD-11 (`3c91f5200`, the tool projection incremental),
+TD-08 (`f6bdf13bd`, worksite currentness support once per basis), TD-15 +
+TD-16 (`a692fb4b9`, three envelopes through one writer byte-for-byte, 13 of
+22 lifts migrated, the nine casts, the C2 pin refreshed), TD-23
+(`bc7135549`, one reader class for both event-store readers), TD-20
+(`602eca3f3`, T-287 compacted to one current disposition), TD-21 + TD-22 +
+TD-24 (`a8937b837`, the 31 inherited rows revalidated: 10 closed, 5 open
+defects routed to Phase C packages, 5 out of scope, 11 not reproducible with
+their reopen conditions). What the wave stopped on went to Phase C as
+packages ruled by the log principle, in the ticket's recorded order; the
+ticket is
 `.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md`.
 
-The library is on `main` at `46ed04895` plus the bookkeeping commit that
-carries this restatement (not pushed, not a release). Steps 2 to 8 landed as
+The library is on `main` at `46ed04895`; the debt wave's packages follow
+it, closed at `a8937b837` (not pushed, not a release). Steps 2 to 8 landed as
 twelve code commits; eight post-close repairs (A, C, B, D, E, F, G, H) landed as eight
 more after six external reviews that Jim pasted and one same-family
 whole-diff review. Every owner obligation the design names is closed with its sites:
@@ -139,7 +151,28 @@ and repair D proved it on an installed C1 to C2 path. One Executive row
 
 ## Test reality
 
-Final run at `46ed04895` (`step-8-run-postclose-h.log`): 48 files in one
+Phase B close run at `23bd79b7e` (code identical to `a8937b837`;
+`work/T290_DEBT_WAVE_01/phase-b-close-run.log`, attribution in
+`phase-b-close-attribution.md` beside it): build, both lints and tsc clean, no
+regenerated diff; repair H's 48 files in one invocation, 1497 s: 405 tests,
+323 pass, 61 fail, 2 cancelled, 19 skipped. The 63 failing identities are
+repair H's 53 test-level identities with the same first errors plus 10 from
+the three files that failed at load in H and load since TD-04 + TD-05
+(`bf117cf92`): seven consensus cases, two source-set cases and the Run-read
+expectation ruled in Phase C, each matching the TD-15 + TD-16 or TD-23
+after-run. The uat harness is 30 pass, 1 fail, 3 skipped, the same budget
+assertion. The 130 further lanes the package Returns measured ran one
+invocation each: 223 red identities over 99 red lanes, each matched on file,
+line, test name and first error to the latest Worker log (212), to the TD-13
+Return's recorded identities (6), or the same identity with only
+run-generated digests differing (5); no identity lost. Your Codex review of
+the wave (`46ed04895..91a2caa62`) passed the committed code with no S0 to S2
+and found one S2 in the attribution helper I had prepared, which compared
+line numbers only; the attribution above was redone on full identities
+before this claim.
+
+At Phase A's close, repair H's final run at `46ed04895`
+(`step-8-run-postclose-h.log`): 48 files in one
 invocation, 1491 s; 351 tests, 276 pass, 54 fail, 2 cancelled, 19 skipped;
 25 files red. Every failing test is one of `step-8-run-postclose.log`'s,
 and that log's set is the first final run's (`step-8-run-final.log`) or the
@@ -184,35 +217,47 @@ failure classes driven through the installed helper by their declared tasks,
 each subject bound to its predicate and carrying the failed process's facts;
 the two `ENOEXEC` launches admitted as observations with exit 127.
 
-## Items for Jim
+## Items for Jim (each with its state at the Phase B close)
 
 - D6 to D10 and D12 to D15 reversals (plan post). D14 and D15 were taken
   without you: D14 on the fourth review's recommendation, D15 on the design's
   step 7 text.
 - `sameQualificationValue` removed from the `validator` barrel (step 4).
+  Ruled: restored to the barrel; Phase C package.
 - 40 tracked `build/` files (historical force-add); the post-close commits
-  keep regenerating them.
+  keep regenerating them. Ruled: untracked; the build regenerates them;
+  Phase C package.
 - O-SCHEMA: closed at the raw owner boundary (D10); `admitJson` inside the
-  schema if refusal there is wanted.
+  schema if refusal there is wanted. Ruled: no admission inside the schema;
+  closed.
 - The `abg/calculus` to `runtime_liveness` function-level cycle (F2).
+  Ruled: the function that derives a fluent from events belongs to the
+  calculus; Phase C package.
 - Held-fluent clipping copies and scans the held entries per clip pattern
   (`abg/calculus/fold.ts:222`), so a long stream's cost stays quadratic in
   held fluents and probes. A retained cost, not a regression; outside the
-  plan's claim.
+  plan's claim. Closed by TD-06 (`94ca67abf`): an exact clip reads its one
+  held fluent.
 - The module-test fork from a middle cut to the end of a validated prefix
   differs from the warm projection of the end; it did so before repair B;
-  module-test path only.
+  module-test path only. Ruled: a cold fold at any cut equals the warm
+  projection by the fold law, so the difference is a defect; the trace is a
+  Phase C package.
 - `command_failed`: no declared task reaches it (a spawn error with no child
   is the lifetime's launch failure, not a first error; repair G's trace).
   Keep it as the command route's lifetime-error channel, or remove it, which
-  changes D15's artifact arm. T-290 Phase C.
-- 1263 untracked files under
-  `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/` from the uat
-  harness runs of this cycle (the repo tracks 120 files of an earlier run);
-  left untracked.
-- Two untracked files not mine: `.ai-workspace/TECHNICAL_DEBT_REGISTER.md`
-  and `.ai-workspace/comments/codex/20261022T145146Z_ANALYSIS_technical_debt.md`.
+  changes D15's artifact arm. Ruled: kept; one §9.3 sentence states its reach;
+  Phase C package.
+- The untracked uat harness run files under
+  `.ai-workspace/work/T287_SANDBOX_UAT_01` (2,947 at the time) and 38
+  `test_env` scratch directories: deleted on your instruction of 2026-10-24;
+  the tracked earlier run is untouched.
+- The technical debt register and the Codex debt analysis, untracked at the
+  first statement, are tracked; the register's queue rows carry their
+  closures and the Completion record carries each package's commit.
 - Pushing: nothing pushed, in this repository or in `specification_methodology`.
+- Open on your side: push authorization. The Phase C packages run without you in the recorded order, TD-12 last;
+  stops that need a contract decision are named in the ticket when reached.
 
 ## Residue the design records
 
