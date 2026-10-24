@@ -85,9 +85,6 @@ import { runtimeEventPrefixDigest, extendRuntimeEventPlanPrefixForValidation, wr
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,
-  constructRuntimeFluentPattern,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
   runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
@@ -2025,8 +2022,8 @@ function projectAdmittedActorTransport(
     processStatus: source.processStatus as number | null,
     timedOut: source.timedOut,
     // The lifecycle fluent at this prefix, not the recorded copy (D5).
-    terminationConfirmed: holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({
-      name: "actor_process_terminated", identity: source.processRef as string })).length !== 0,
+    terminationConfirmed: runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
+      name: "actor_process_terminated", identity: source.processRef as string })),
     processSpawnFailed:
       lifecycle.processTerminalKind === "actor_process_spawn_failed",
     structuredEventCount: Number(source.structuredEventCount),
@@ -6629,8 +6626,8 @@ function admitEvidenceUsingTransport(
     typeof candidate.exitObserved === "boolean" &&
     typeof candidate.terminationConfirmed === "boolean" &&
     // The recorded copy stays typed; the exit is checked against the fluent (D5).
-    candidate.exitObserved === (holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({
-      name: "actor_process_terminated", identity: candidate.processRef })).length !== 0) &&
+    candidate.exitObserved === runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
+      name: "actor_process_terminated", identity: candidate.processRef })) &&
     Array.isArray(candidate.signalSequence) &&
     candidate.signalSequence.every((signal) => typeof signal === "string" && signal.length > 0) &&
     Number.isSafeInteger(candidate.structuredEventCount) && candidate.structuredEventCount >= 0 &&

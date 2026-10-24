@@ -1,11 +1,17 @@
 // Lifecycle boundary (design §9.1). Lifecycle questions about actor processes
-// are answered from the fold through `holdsAt`, and only the process owners
-// read the physical facts. Outside code/src/abg/calculus/, a `.ts` file under
-// code/src fails this check when it
-//   - writes a lifecycle fluent name in any position other than the `name` of
-//     a pattern passed to `holdsAt`
+// are answered from the fold through `holdsAt` or through
+// `runtimeFluentHoldsAtPrefix`, the exact read of the same fold's recorded
+// transitions at a prefix, and only the process owners read the physical
+// facts. Outside code/src/abg/calculus/, a `.ts` file under code/src fails this
+// check when it
+//   - writes a lifecycle fluent name in any position other than these two:
+//     the `name` of a pattern passed to `holdsAt`
 //     (`holdsAt(state, constructRuntimeFluentPattern({ name: "<fluent>", ... }))`
-//     or `holdsAt(state, { name: "<fluent>", ... })`), or
+//     or `holdsAt(state, { name: "<fluent>", ... })`), or the `name` of a
+//     fluent passed to `runtimeFluentHoldsAtPrefix`
+//     (`runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "<fluent>", ... }))`
+//     or `runtimeFluentHoldsAtPrefix(prefix, { name: "<fluent>", ... })`); each
+//     constructor admits the name only under its own reader, or
 //   - reads `scopeAbsence` or `directExit` (property access, element access or
 //     destructuring) outside the process owners listed below.
 // `actor_process_termination_unconfirmed` is also a process terminal event
@@ -45,14 +51,6 @@ const PROCESS_FACT_OWNERS = [
 // commit that added it, and the reason it is not an offender.
 const ALLOWED = [
   ...[
-    [638, 'const processLive = lifecycle("actor_process_live");'],
-    [639, 'const terminationUnconfirmed = lifecycle("actor_process_termination_unconfirmed");'],
-    [640, 'const cleanupPending = lifecycle("actor_cleanup_pending");'],
-  ].map(([line, text]) => ({
-    path: "code/src/abg/actor_process.ts", line, text,
-    reason: "argument of the local `lifecycle` reader (:636-637), whose only use of it is the `name` of the holdsAt pattern",
-  })),
-  ...[
     [322, '"actor_cleanup_pending",'],
     [329, '"actor_process_live",'],
     [349, '"actor_process_terminated",'],
@@ -89,17 +87,26 @@ const isKindAccess = (node) => ts.isPropertyAccessExpression(node) && node.name.
 const propertyNamed = (node, name) =>
   ts.isPropertyAssignment(node) && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === name;
 
-// The literal is the `name` of a fluent pattern that is itself an argument of
-// holdsAt, directly or through constructRuntimeFluentPattern.
-function isHoldsAtPatternName(literal) {
+// The two admitted lifecycle readers, each with the one constructor whose
+// object-literal argument may carry the fluent's `name` under it.
+const LIFECYCLE_READERS = [
+  ["holdsAt", "constructRuntimeFluentPattern"],
+  ["runtimeFluentHoldsAtPrefix", "constructRuntimeFluent"],
+];
+
+// The literal is the `name` of an object literal that is itself an argument of
+// an admitted reader, directly or through that reader's constructor.
+function isLifecycleReaderName(literal) {
   const member = literal.parent;
   if (!propertyNamed(member, "name") || member.initializer !== literal) return false;
   const object = member.parent;
-  let argument = object;
-  if (isCallTo(object.parent, "constructRuntimeFluentPattern") && object.parent.arguments.includes(object)) {
-    argument = object.parent;
-  }
-  return isCallTo(argument.parent, "holdsAt") && argument.parent.arguments.includes(argument);
+  return LIFECYCLE_READERS.some(([reader, constructor]) => {
+    let argument = object;
+    if (isCallTo(object.parent, constructor) && object.parent.arguments.includes(object)) {
+      argument = object.parent;
+    }
+    return isCallTo(argument.parent, reader) && argument.parent.arguments.includes(argument);
+  });
 }
 
 // The same-file function bound to `name`, if any.
@@ -166,7 +173,7 @@ for (const file of files) {
     findings.push({ path, line, text: lines[line - 1].trim() });
   };
   const visit = (node) => {
-    if (ts.isStringLiteralLike(node) && LIFECYCLE_FLUENTS.has(node.text) && !isHoldsAtPatternName(node) &&
+    if (ts.isStringLiteralLike(node) && LIFECYCLE_FLUENTS.has(node.text) && !isLifecycleReaderName(node) &&
       !(ALSO_EVENT_KINDS.has(node.text) && isEventKindPosition(node, sourceFile))) record(node);
     else if (!factOwner && factMemberRead(node)) record(node);
     ts.forEachChild(node, visit);

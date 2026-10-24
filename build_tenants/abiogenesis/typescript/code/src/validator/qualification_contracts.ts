@@ -475,7 +475,7 @@ export function qualificationIdentityDigest(value: object, refKey: string, diges
   return sha256Canonical(Object.fromEntries(Object.entries(value).filter(([key]) => key !== refKey && key !== digestKey)));
 }
 export const qualificationHash = (value: JsonValue): Sha256Digest => sha256Canonical(value);
-export const sameQualificationValue = (a: unknown, b: unknown): boolean => canonicalEquals(a as JsonValue, b as JsonValue);
+export const sameQualificationValue = (a: JsonValue, b: JsonValue): boolean => canonicalEquals(a, b);
 export const uniqueQualificationRefs = (refs: readonly string[]): boolean => new Set(refs).size === refs.length;
 export function qualificationIdentity(value: object, refKey: string, digestKey: string, prefix: string): boolean {
   const row = value as Record<string, unknown>, d = qualificationIdentityDigest(value, refKey, digestKey);
