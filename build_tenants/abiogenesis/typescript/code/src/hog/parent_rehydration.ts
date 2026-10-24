@@ -125,6 +125,8 @@ function exactParentTraversal(
     executionBasis.graphDigest !== suspension.parentGraph.materializationDigest ||
     executionBasis.closureContractRef !==
       suspension.parentClosureContract.closureContractRef ||
+    executionBasis.closureContractDigest !==
+      sha256Canonical(suspension.parentClosureContract) ||
     scope.executionBasisRef !== executionBasis.basisRef ||
     suspension.parentGraphInputDigest !==
       suspension.parentGraph.admittedInputDigest ||

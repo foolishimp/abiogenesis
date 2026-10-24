@@ -325,6 +325,14 @@ test('CCall refusal completion keeps full authority across sparse multi-Run scop
   assert.equal(rows.at(-1).payload.judgment,'blocked');
   assert.equal(rows.at(-1).payload.reasonRef,rejection.diagnosticRef);
   assert(!result.runtimePrefix.events.some(e=>e.runId==='run://other'));
+  // The Public prefix is the owned Run selection at the same cut: same events,
+  // extent, digest and profile.
+  const owned=prefixes.selectRuntimeEventPrefixFromAuthority(prefixes.selectValidatedRuntimeEventPrefix(rows),{runId:call.runId});
+  assert.deepEqual(result.runtimePrefix.events.map(e=>e.eventId),owned.events.map(e=>e.eventId));
+  assert.deepEqual(prefixes.runtimeEventPrefixExtent(result.runtimePrefix),prefixes.runtimeEventPrefixExtent(owned));
+  assert.equal(prefixes.runtimeEventPrefixDigest(result.runtimePrefix),prefixes.runtimeEventPrefixDigest(owned));
+  assert.deepEqual(prefixes.runtimeEventProfileScheduleFromValidatedPrefix(result.runtimePrefix),
+   prefixes.runtimeEventProfileScheduleFromValidatedPrefix(owned));
   authority=result.successorPrefix;
   assert.throws(()=>outcome.admitCCallRejection({...input,store,predecessorPrefix:result.successorPrefix}),/authentic open-call admission rejection/);
   assert.equal(held(store).coordinateDigest,result.successorPrefix.coordinateDigest,'duplicate completion is refused without changing prior events');

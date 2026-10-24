@@ -95,6 +95,9 @@ import {
   selectOwnedRuntimeEventPrefix,
   runtimeEventPrefixExtent, selectRuntimeEventPrefixFromStore,
   selectRuntimeEventPrefixFromAuthority,
+  indexedRuntimeEventEnvelopes,
+  runtimeEventProfileScheduleFromValidatedPrefix,
+  unscopedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import {
@@ -1880,6 +1883,26 @@ export function admitOwnedCCallCompletion(
   }
 }
 
+/** The owned prefix's own selection over the complete admitted history at its
+ * cut, materialized: a Run-scoped selection keeps its scope, so the store-wide
+ * admission ordinals of a multi-Run store are never re-selected as one gap-free
+ * vector. The result is the same prefix (length, last ordinal, digest, profile). */
+function materializeOwnedRuntimePrefix(prefix: RuntimeEventPrefix): ValidatedRuntimeEventPrefix {
+  const authority = selectValidatedRuntimeEventPrefix(
+    runtimeEventBodiesAtPrefix(unscopedRuntimeEventPrefix(prefix)).materialize());
+  const extent = runtimeEventPrefixExtent(prefix);
+  const runId = indexedRuntimeEventEnvelopes(prefix, "kind:run_segment_opened")[0]?.runId;
+  const selected = extent.count === runtimeEventPrefixExtent(authority).count || typeof runId !== "string"
+    ? authority : selectRuntimeEventPrefixFromAuthority(authority, { runId });
+  const selectedExtent = runtimeEventPrefixExtent(selected);
+  if (selectedExtent.count !== extent.count || selectedExtent.lastOrdinal !== extent.lastOrdinal ||
+    runtimeEventPrefixDigest(selected) !== runtimeEventPrefixDigest(prefix) ||
+    !canonicalEquals(runtimeEventProfileScheduleFromValidatedPrefix(selected),
+      runtimeEventProfileScheduleFromValidatedPrefix(prefix)))
+    throw new TypeError("Public outcome prefix differs from its owned selection");
+  return selected;
+}
+
 /** Complete Public output is explicitly materialized; the ordinary owner never
  * retains this returned history in its private computation territory. */
 /** @internal Explicit legacy-output boundary for the same named owner receipts. */
@@ -1887,8 +1910,7 @@ export function completePublicOutcome<T>(value: OwnedOutcomeValue<T>): T {
   if (value === null || typeof value !== "object") return value as T;
   const copy: Record<string, unknown> = { ...(value as object) };
   if ("replayState" in copy) copy.replayState = materializeRuntimeReplayGuard(copy.replayState as RuntimeReplayGuard);
-  if ("runtimePrefix" in copy) copy.runtimePrefix = selectValidatedRuntimeEventPrefix(
-    runtimeEventBodiesAtPrefix(copy.runtimePrefix as RuntimeEventPrefix).materialize());
+  if ("runtimePrefix" in copy) copy.runtimePrefix = materializeOwnedRuntimePrefix(copy.runtimePrefix as RuntimeEventPrefix);
   for (const key of ["outcome", "transition", "closure", "completion", "restored", "parentOutcome", "evaluation", "frame"]) if (typeof copy[key] === "object" && copy[key] !== null)
     copy[key] = completePublicOutcome(copy[key]);
   return deepFreeze(copy) as T;
