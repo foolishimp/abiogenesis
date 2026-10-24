@@ -555,13 +555,17 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       failureValueKind,
       failureClass,
     }) as Readonly<LeafRealizationFailureCandidate>;
-  // The F_D boundary's failures and the F_P completion's; the regime is the resolution's.
+  // The F_D boundary's failures, the F_P completion's, and both regimes'
+  // malformed returns; the regime is the resolution's. A refused return's cause
+  // is the refusal's `at` (bounded as a caught message is) and `reason`.
   const deterministicFailure = (
+    failureClass: "implementation_exception" | "malformed_return",
     stage: "authority_verification" | "implementation_load" | "implementation_invocation" | "implementation_completion",
     reason: "refused" | "thrown" | "rejected" | "missing_export",
     error?: unknown,
+    refusal?: Readonly<{ at: string; reason: string }>,
   ): Readonly<LeafRealizationFailureCandidate> => {
-    const original = totalizedFailure("implementation_exception");
+    const original = totalizedFailure(failureClass);
     const caught = (reason === "thrown" || reason === "rejected") && !types.isProxy(error) ? error : null;
     const safe = sanitizeUndispatchedOwnerError(caught);
     let message: string | null = null;
@@ -581,7 +585,9 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       inputDigest,
       stage,
       reason,
-      cause: { ...safe, message, messageTruncated },
+      cause: refusal === undefined
+        ? { ...safe, message, messageTruncated }
+        : { at: refusal.at.slice(0, 8192), atTruncated: refusal.at.length > 8192, reason: refusal.reason },
     });
     const resultCandidate = { ...original.resultCandidate, diagnosticRef };
     return deepFreeze({
@@ -593,6 +599,29 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         outputDigest: sha256Canonical(resultCandidate),
       })),
     });
+  };
+  // A returned candidate is admitted, then validated; a refusal, a rejection or
+  // a validator throw is the `malformed_return` failure carrying its cause.
+  const malformedOrAdmitted = (
+    output: unknown,
+    regime: "F_D" | "F_P",
+    stage: "implementation_invocation" | "implementation_completion",
+  ): Readonly<LeafRealizationCandidate> => {
+    const admitted = admitJson(output);
+    if (admitted.kind !== "ok") {
+      const { at, reason } = admitted.evidence;
+      return deterministicFailure("malformed_return", stage, "refused", undefined,
+        { at: String(at), reason: String(reason) });
+    }
+    let candidate: Readonly<LeafRealizationCandidate> | null;
+    try {
+      candidate = isLeafRealizationCandidate(admitted.value, regime, input.validateSuccess, failureValueKind)
+        ? admitted.value : null;
+    } catch (error) {
+      return deterministicFailure("malformed_return", stage, "thrown", error);
+    }
+    return candidate ?? deterministicFailure("malformed_return", stage, "refused", undefined,
+      { at: "", reason: `the admitted output is not an ${regime} leaf realization candidate` });
   };
   const undispatched = (
     failureClass: "implementation_exception" | "malformed_return",
@@ -650,7 +679,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   if (!authorityValid) {
     return resolution.computeRegime === "F_D"
       ? closedDeterministicOwnerReceipt(
-          deterministicFailure("authority_verification",
+          deterministicFailure("implementation_exception", "authority_verification",
             authorityThrew ? "thrown" : "refused", authorityError),
           false,
         )
@@ -664,13 +693,13 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       implementation = await input.loadImplementation();
     } catch (error) {
       return closedDeterministicOwnerReceipt(
-        deterministicFailure("implementation_load", "thrown", error),
+        deterministicFailure("implementation_exception", "implementation_load", "thrown", error),
         false,
       );
     }
     if (typeof implementation !== "function") {
       return closedDeterministicOwnerReceipt(
-        deterministicFailure("implementation_load", "missing_export"),
+        deterministicFailure("implementation_exception", "implementation_load", "missing_export"),
         false,
       );
     }
@@ -685,32 +714,12 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       );
     } catch (error) {
       return closedDeterministicOwnerReceipt(
-        deterministicFailure("implementation_invocation", "thrown", error),
+        deterministicFailure("implementation_exception", "implementation_invocation", "thrown", error),
         false,
       );
     }
-    let admittedCandidate: unknown;
-    try {
-      const admitted = admitJson(implementationOutput);
-      admittedCandidate = admitted.kind === "ok" ? admitted.value : null;
-    } catch {
-      admittedCandidate = null;
-    }
-    let valid = false;
-    try {
-      valid = isLeafRealizationCandidate(
-        admittedCandidate,
-        "F_D",
-        input.validateSuccess,
-        failureValueKind,
-      );
-    } catch {
-      valid = false;
-    }
     return closedDeterministicOwnerReceipt(
-      valid
-        ? admittedCandidate as Readonly<LeafRealizationCandidate>
-        : totalizedFailure("malformed_return"),
+      malformedOrAdmitted(implementationOutput, "F_D", "implementation_invocation"),
       true,
     );
   }
@@ -763,39 +772,21 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
         completedOutput = prepared.complete(exchange);
       } catch (error) {
         return closedProbabilisticOwnerReceipt(
-          deterministicFailure("implementation_completion", "thrown", error),
+          deterministicFailure("implementation_exception", "implementation_completion", "thrown", error),
           workerContracts,
           exchange,
         );
       }
-      const finalize = (candidateOutput: unknown) => {
-        try {
-          const admitted = admitJson(candidateOutput);
-          const valid = admitted.kind === "ok" && isLeafRealizationCandidate(
-            admitted.value,
-            "F_P",
-            input.validateSuccess,
-            failureValueKind,
-          );
-          return closedProbabilisticOwnerReceipt(
-            valid
-              ? admitted.value as Readonly<LeafRealizationCandidate>
-              : totalizedFailure("malformed_return"),
-            workerContracts,
-            exchange,
-          );
-        } catch {
-          return closedProbabilisticOwnerReceipt(
-            totalizedFailure("malformed_return"),
-            workerContracts,
-            exchange,
-          );
-        }
-      };
+      const finalize = (candidateOutput: unknown) =>
+        closedProbabilisticOwnerReceipt(
+          malformedOrAdmitted(candidateOutput, "F_P", "implementation_completion"),
+          workerContracts,
+          exchange,
+        );
       if (completedOutput instanceof Promise) {
         return completedOutput.then(finalize, (error: unknown) =>
           closedProbabilisticOwnerReceipt(
-            deterministicFailure("implementation_completion", "rejected", error),
+            deterministicFailure("implementation_exception", "implementation_completion", "rejected", error),
             workerContracts,
             exchange,
           ));

@@ -1,3 +1,5 @@
+import { types } from "node:util";
+
 import type { JsonValue } from "../canonical_json.js";
 import { deepFreeze } from "../immutable.js";
 import { ok, type Outcome, type StructuralRefusal } from "../refusal.js";
@@ -112,40 +114,91 @@ function defineMember(
   });
 }
 
+// The nesting bound: a container more than this many containers deep (the
+// root container is 1) is refused. See `admitJson`.
+const NESTING_BOUND = 512;
+
+// This realm's native error prototypes, for naming a value thrown while a
+// container is inspected.
+const NATIVE_ERRORS: readonly (readonly [object, string])[] = Object.freeze([
+  [Error.prototype, "Error"],
+  [AggregateError.prototype, "AggregateError"],
+  [EvalError.prototype, "EvalError"],
+  [RangeError.prototype, "RangeError"],
+  [ReferenceError.prototype, "ReferenceError"],
+  [SyntaxError.prototype, "SyntaxError"],
+  [TypeError.prototype, "TypeError"],
+  [URIError.prototype, "URIError"],
+] as const);
+
+// The class of a thrown value, read without running user code: its prototype
+// chain is walked to the nearest of this realm's native error prototypes, so a
+// subclass is named by its native ancestor. A proxy on the chain is not
+// inspected, and no member of the thrown value is read.
+function thrownClass(thrown: unknown): string {
+  let link: unknown = thrown;
+  while (typeof link === "object" && link !== null && !types.isProxy(link)) {
+    const prototype: unknown = Object.getPrototypeOf(link);
+    const native = NATIVE_ERRORS.find(([candidate]) => candidate === prototype);
+    if (native !== undefined) return native[1];
+    link = prototype;
+  }
+  return "a value that is not a native error";
+}
+
+// An inspection read (`Array.isArray`, `Object.getPrototypeOf`,
+// `Reflect.ownKeys`, `Object.getOwnPropertyDescriptor`, and the prototype
+// reads of D12) runs a proxy's trap; a throw from it refuses the value being
+// inspected, at that value's own location.
+function trapped(path: readonly string[], at: string, thrown: unknown): StructuralRefusal {
+  return refuse("non_ijson_value", path, at, `inspecting the value threw ${thrownClass(thrown)}`);
+}
+
 function admitArray(
   input: unknown[],
   path: readonly string[],
   at: string,
+  open: Set<object>,
 ): Outcome<JsonValue> {
-  // D12: an array of any realm (see `isRealmArrayPrototype`).
-  if (!isRealmArrayPrototype(Object.getPrototypeOf(input) as object | null)) {
-    return refuse("non_ijson_value", path, at, "custom-prototype arrays are not I-JSON");
-  }
-  const ownKeys = Reflect.ownKeys(input);
-  if (ownKeys.some((key) => typeof key === "symbol")) {
-    return refuse("non_ijson_value", path, at, "symbol array members are not I-JSON");
-  }
-  const lengthDescriptor = Object.getOwnPropertyDescriptor(input, "length");
-  if (
-    !isDataDescriptor(lengthDescriptor) ||
-    lengthDescriptor.enumerable !== false ||
-    lengthDescriptor.configurable !== false ||
-    typeof lengthDescriptor.value !== "number" ||
-    !Number.isInteger(lengthDescriptor.value) ||
-    lengthDescriptor.value < 0 ||
-    lengthDescriptor.value > 0xffff_ffff
-  ) {
-    return refuse("non_ijson_value", path, at, "array length is not an ordinary data member");
-  }
-  const length = lengthDescriptor.value;
-  if (ownKeys.length !== length + 1) {
-    return refuse("non_ijson_value", path, at, "arrays must contain exactly dense indices and length");
+  let length: number;
+  try {
+    // D12: an array of any realm (see `isRealmArrayPrototype`).
+    if (!isRealmArrayPrototype(Object.getPrototypeOf(input) as object | null)) {
+      return refuse("non_ijson_value", path, at, "custom-prototype arrays are not I-JSON");
+    }
+    const ownKeys = Reflect.ownKeys(input);
+    if (ownKeys.some((key) => typeof key === "symbol")) {
+      return refuse("non_ijson_value", path, at, "symbol array members are not I-JSON");
+    }
+    const lengthDescriptor = Object.getOwnPropertyDescriptor(input, "length");
+    if (
+      !isDataDescriptor(lengthDescriptor) ||
+      lengthDescriptor.enumerable !== false ||
+      lengthDescriptor.configurable !== false ||
+      typeof lengthDescriptor.value !== "number" ||
+      !Number.isInteger(lengthDescriptor.value) ||
+      lengthDescriptor.value < 0 ||
+      lengthDescriptor.value > 0xffff_ffff
+    ) {
+      return refuse("non_ijson_value", path, at, "array length is not an ordinary data member");
+    }
+    length = lengthDescriptor.value;
+    if (ownKeys.length !== length + 1) {
+      return refuse("non_ijson_value", path, at, "arrays must contain exactly dense indices and length");
+    }
+  } catch (thrown) {
+    return trapped(path, at, thrown);
   }
   const admitted: JsonValue[] = [];
   for (let index = 0; index < length; index += 1) {
     const memberPath = [...path, String(index)];
     const memberAt = `${at}[${String(index)}]`;
-    const descriptor = Object.getOwnPropertyDescriptor(input, String(index));
+    let descriptor: PropertyDescriptor | undefined;
+    try {
+      descriptor = Object.getOwnPropertyDescriptor(input, String(index));
+    } catch (thrown) {
+      return trapped(path, at, thrown);
+    }
     if (!isDataDescriptor(descriptor) || descriptor.enumerable !== true) {
       return refuse(
         "non_ijson_value",
@@ -154,17 +207,65 @@ function admitArray(
         "array indices must be enumerable data members",
       );
     }
-    const member = admitAt(descriptor.value, memberPath, memberAt);
+    const member = admitAt(descriptor.value, memberPath, memberAt, open);
     if (member.kind !== "ok") return member;
     admitted.push(member.value);
   }
   return ok(deepFreeze(admitted));
 }
 
+function admitRecord(
+  input: object,
+  path: readonly string[],
+  at: string,
+  open: Set<object>,
+): Outcome<JsonValue> {
+  let keys: (string | symbol)[];
+  try {
+    if (!isJsonObject(input)) {
+      return refuse("non_ijson_value", path, at, "expected an I-JSON value");
+    }
+    keys = Reflect.ownKeys(input);
+  } catch (thrown) {
+    return trapped(path, at, thrown);
+  }
+  const admitted: Record<string, JsonValue> = {};
+  for (const key of keys) {
+    if (typeof key !== "string") {
+      return refuse("non_ijson_value", path, at, "symbol object members are not I-JSON");
+    }
+    const admittedKey = admitScalarString(key, path, `${at} key`);
+    if (admittedKey.kind !== "ok") return admittedKey;
+    const memberPath = [...path, key];
+    const memberAt = `${at}.${key}`;
+    let descriptor: PropertyDescriptor | undefined;
+    try {
+      descriptor = Object.getOwnPropertyDescriptor(input, key);
+    } catch (thrown) {
+      return trapped(path, at, thrown);
+    }
+    if (!isDataDescriptor(descriptor) || descriptor.enumerable !== true) {
+      return refuse(
+        "non_ijson_value",
+        memberPath,
+        memberAt,
+        "object members must be enumerable data properties",
+      );
+    }
+    const member = admitAt(descriptor.value, memberPath, memberAt, open);
+    if (member.kind !== "ok") return member;
+    defineMember(admitted, key, member.value);
+  }
+  return ok(deepFreeze(admitted));
+}
+
+// `open` holds the containers on the path from the root to `input`, not every
+// container seen: a container shared by two members (a DAG) is admitted at each.
 function admitAt(
   input: unknown,
   path: readonly string[],
   at: string,
+  open: Set<object>,
 ): Outcome<JsonValue> {
   if (input === null || typeof input === "boolean") return ok(input);
   if (typeof input === "string") return admitScalarString(input, path, at);
@@ -177,40 +278,49 @@ function admitAt(
     }
     return ok(Object.is(input, -0) ? 0 : input);
   }
-  if (Array.isArray(input)) return admitArray(input, path, at);
-  if (typeof input !== "object" || !isJsonObject(input)) {
+  if (typeof input !== "object") {
     return refuse("non_ijson_value", path, at, "expected an I-JSON value");
   }
-  const admitted: Record<string, JsonValue> = {};
-  for (const key of Reflect.ownKeys(input)) {
-    if (typeof key !== "string") {
-      return refuse("non_ijson_value", path, at, "symbol object members are not I-JSON");
-    }
-    const admittedKey = admitScalarString(key, path, `${at} key`);
-    if (admittedKey.kind !== "ok") return admittedKey;
-    const memberPath = [...path, key];
-    const memberAt = `${at}.${key}`;
-    const descriptor = Object.getOwnPropertyDescriptor(input, key);
-    if (!isDataDescriptor(descriptor) || descriptor.enumerable !== true) {
-      return refuse(
-        "non_ijson_value",
-        memberPath,
-        memberAt,
-        "object members must be enumerable data properties",
-      );
-    }
-    const member = admitAt(descriptor.value, memberPath, memberAt);
-    if (member.kind !== "ok") return member;
-    defineMember(admitted, key, member.value);
+  if (open.has(input)) {
+    return refuse("non_ijson_value", path, at, "a container that encloses itself (a cycle) is not I-JSON");
   }
-  return ok(deepFreeze(admitted));
+  if (open.size >= NESTING_BOUND) {
+    return refuse(
+      "non_ijson_value",
+      path,
+      at,
+      `containers nested more than ${String(NESTING_BOUND)} deep exceed the admission bound`,
+    );
+  }
+  let array: unknown[] | null;
+  try {
+    array = Array.isArray(input) ? input : null;
+  } catch (thrown) {
+    return trapped(path, at, thrown);
+  }
+  open.add(input);
+  try {
+    return array !== null ? admitArray(array, path, at, open) : admitRecord(input, path, at, open);
+  } finally {
+    open.delete(input);
+  }
 }
 
 /**
  * I-JSON value admission: returns a detached, deeply frozen `JsonValue` with
- * `-0` as `0`, or the first refusal in member order. Defects (a throwing proxy
- * trap) still throw.
+ * `-0` as `0`, or the first refusal in member order. It returns an outcome for
+ * every input and throws for none. Three refusals make it total, each
+ * `non_ijson_value` at the member where it occurs: a container already on the
+ * path from the root (a cycle); a container nested more than 512 deep (the
+ * root container is 1); and a throw from an inspection read of a proxy, at
+ * the proxy, naming the thrown class. No getter runs. The bound keeps the
+ * recursion, and the recursive writers that read an admitted value, inside
+ * the stack with room for the caller: called from 2,000 frames deep in
+ * `node:test` and a VM module, before the engine optimizes it, this recursion
+ * overflows past 1,476 nested records and `canonicalJson` past 3,220. The
+ * deepest value the test lanes admit is 17 containers, and the deepest
+ * fixture value 40.
  */
 export function admitJson(raw: unknown): Outcome<JsonValue> {
-  return admitAt(raw, [], "");
+  return admitAt(raw, [], "", new Set());
 }

@@ -1,8 +1,5 @@
 import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
-import {
-  compareUnicodeCodeUnits,
-  type JsonValue,
-} from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Canonical,
@@ -494,18 +491,15 @@ export function assessResult(
   supplied: ResultAssessPacket,
   suppliedContext?: ResultAssessmentOperationContext,
 ): ResultAssessmentOperationResult {
-  let admitted: JsonValue | undefined;
-  try {
-    const outcome = admitJson(supplied);
-    if (outcome.kind === "ok") admitted = outcome.value;
-  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
-  if (admitted === undefined) {
+  const outcome = admitJson(supplied);
+  if (outcome.kind !== "ok") {
     return refusal(
       "value_mismatch",
       "result assessment requires one exact canonical I-JSON request",
       ["/"],
     );
   }
+  const admitted = outcome.value;
   if (!validPacket(admitted)) {
     return refusal(
       "value_mismatch",

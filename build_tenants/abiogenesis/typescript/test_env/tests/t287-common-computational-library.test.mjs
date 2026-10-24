@@ -4,6 +4,7 @@ import { sameCoordinate, sameJson } from '../../build/code/src/public/binding/de
 import { resolveExactMatch } from '../../build/code/src/shared/select/exact_match.js';
 import { admitJson, hasExactKeys } from '../../build/code/src/shared/admit/index.js';
 import { canonicalEquals } from '../../build/code/src/shared/value/index.js';
+import { canonicalJson } from '../../build/code/src/shared/canonical_json.js';
 import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
 import { readFile } from 'node:fs/promises';
 import { runInNewContext, SourceTextModule, SyntheticModule } from 'node:vm';
@@ -60,6 +61,59 @@ test('D12: a plain record or array of another realm is admitted by structure; a 
   synthetic.constructor = function Object() {};
   assert.equal(admitJson(Object.setPrototypeOf({ x: 1 }, synthetic)).code, 'non_ijson_value',
     'a null-prototype object with an own constructor named Object');
+});
+
+// C-3. admitJson is total: a cycle, nesting past the bound and a throw from an
+// inspection read are refused non_ijson_value where they occur; a value it
+// admitted before is admitted byte for byte. The bound is 512 containers, the
+// root container being 1 (stated at admitJson).
+test('C-3: admitJson refuses a cycle, nesting past 512 and a throwing proxy trap at the member, and throws for none', () => {
+  const refusal = (path, at, reason) => ({ kind: 'structural_refusal', stage: 'validate', code: 'non_ijson_value', path, evidence: { at, reason } });
+  const cycle = 'a container that encloses itself (a cycle) is not I-JSON';
+  const record = { a: 1 };record.self = record;
+  assert.deepEqual(admitJson(record), refusal(['self'], '.self', cycle));
+  const array = [1];array.push(array);
+  assert.deepEqual(admitJson(array), refusal(['1'], '[1]', cycle));
+  const outer = { inner: { items: [0] } };outer.inner.items.push(outer);
+  assert.deepEqual(admitJson(outer), refusal(['inner', 'items', '1'], '.inner.items[1]', cycle));
+  const shared = { s: [1] };
+  assert.equal(canonicalJson(admitJson({ a: shared, b: shared, c: [shared, shared] }).value),
+    '{"a":{"s":[1]},"b":{"s":[1]},"c":[{"s":[1]},{"s":[1]}]}', 'a container shared by two members is not a cycle');
+  const nest = (depth, wrap) => { let value = 1; for (let index = 0; index < depth; index += 1) value = wrap(value); return value; };
+  const bound = 'containers nested more than 512 deep exceed the admission bound';
+  for (const [wrap, segment, at] of [[value => [value], '0', '[0]'], [value => ({ k: value }), 'k', '.k']]) {
+    const admitted = admitJson(nest(512, wrap));
+    assert.equal(admitted.kind, 'ok', 'nested 512 containers deep is admitted');
+    assert.equal(canonicalJson(admitted.value), JSON.stringify(nest(512, wrap)));
+    assert.deepEqual(admitJson(nest(513, wrap)), refusal(Array(512).fill(segment), at.repeat(512), bound), 'one past the bound');
+  }
+  assert.deepEqual(admitJson(JSON.parse('['.repeat(200000) + ']'.repeat(200000))), refusal(Array(512).fill('0'), '[0]'.repeat(512), bound));
+  for (const trap of ['ownKeys', 'getOwnPropertyDescriptor', 'getPrototypeOf']) {
+    const proxied = new Proxy({ a: 1 }, { [trap]() { throw new TypeError(`${trap} trap`); } });
+    assert.deepEqual(admitJson({ member: proxied }), refusal(['member'], '.member', 'inspecting the value threw TypeError'), trap);
+    const proxiedArray = new Proxy([1], { [trap]() { throw new RangeError(`${trap} trap`); } });
+    assert.deepEqual(admitJson([proxiedArray]), refusal(['0'], '[0]', 'inspecting the value threw RangeError'), trap);
+  }
+  const { proxy: revoked, revoke } = Proxy.revocable([], {});revoke();
+  assert.deepEqual(admitJson({ member: revoked }), refusal(['member'], '.member', 'inspecting the value threw TypeError'), 'Array.isArray of a revoked proxy');
+  let reads = 0;
+  const thrownProxy = new Proxy({}, { get() { reads++; }, getPrototypeOf() { reads++;return null; }, getOwnPropertyDescriptor() { reads++; } });
+  for (const thrown of ['a string', thrownProxy, { message: 'plain' }]) {
+    const proxied = new Proxy({}, { ownKeys() { throw thrown; } });
+    assert.deepEqual(admitJson({ member: proxied }), refusal(['member'], '.member', 'inspecting the value threw a value that is not a native error'));
+  }
+  assert.equal(reads, 0, 'the thrown value is not inspected');
+  class SubclassError extends RangeError {}
+  const subclassed = new Proxy({}, { ownKeys() { throw new SubclassError('subclass'); } });
+  assert.deepEqual(admitJson({ member: subclassed }), refusal(['member'], '.member', 'inspecting the value threw RangeError'),
+    'a subclass is named by its native ancestor');
+  const foreign = new Proxy({}, { ownKeys() { throw runInNewContext('new TypeError("other realm")'); } });
+  assert.deepEqual(admitJson({ member: foreign }), refusal(['member'], '.member', 'inspecting the value threw a value that is not a native error'),
+    'another realm\'s error is not this realm\'s native error');
+  const today = { z: [-0, 1.5, 'é\u{1F600}', null, true, { b: [], a: {} }], a: runInNewContext('({ k: [1, { j: "x" }] })'),
+    n: Object.assign(Object.create(null), { y: 2 }), s: 'line\nbreak\u0000' };
+  assert.equal(canonicalJson(admitJson(today).value), '{"a":{"k":[1,{"j":"x"}]},"n":{"y":2},"s":"line\\nbreak\\u0000","z":[0,1.5,"é\u{1F600}",null,true,{"a":{},"b":[]}]}',
+    'the canonical text admitJson gave this value before C-3');
 });
 
 // A built owner linked in a VM with named lower premises replaced; the owner

@@ -10,7 +10,6 @@ import type {
   ImplementationBinding,
   ModulePublication,
 } from "../gtl/contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -243,18 +242,15 @@ function evaluateWithValidationInput(
   declarationBasis: Pick<ConformanceDeclarationBasis, "declarationClosure"> | undefined,
   inputForPacket: (packet: ConformanceEvaluatePacket) => ProgramValidationInput | RawAdmissionRefusal,
 ): GtlProgramConformanceOperationResult {
-  let admitted: JsonValue | undefined;
-  try {
-    const outcome = admitJson(supplied);
-    if (outcome.kind === "ok") admitted = outcome.value;
-  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
-  if (admitted === undefined) {
+  const outcome = admitJson(supplied);
+  if (outcome.kind !== "ok") {
     return refusal("invalid_packet", null, null, [{
       code: "invalid_packet",
       path: "$",
       message: "GTL Program conformance requires one exact I-JSON packet",
     }]);
   }
+  const admitted = outcome.value;
   if (
     !isRecord(admitted) ||
     !hasExactDataFields(admitted, [

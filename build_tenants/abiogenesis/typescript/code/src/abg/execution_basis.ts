@@ -245,8 +245,10 @@ export function authenticateOwnedNativeInstructionAssemblyBasis(basis: NativeIns
 export function constructNativeInstructionAssemblyBasis<T extends NativeInstructionAssemblyBasis>(basis: T): Readonly<T> | null {
   try {
     if (NativeAssemblyBasisDerivation.value(basis) !== undefined) return basis;
-    const admitted = admitJson(basis);
-    if (admitted.kind !== "ok") return null;
+  } catch { return null; }
+  const admitted = admitJson(basis);
+  if (admitted.kind !== "ok") return null;
+  try {
     const captured = { ...(admitted.value as unknown as T),
       predecessorPrefix: captureDurablePrefixCoordinate(basis.predecessorPrefix) };
     const value = deriveOwnedNativeInstructionAssemblyBasis(captured);

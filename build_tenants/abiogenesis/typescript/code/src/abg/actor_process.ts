@@ -364,17 +364,14 @@ export function validateActorProcessCarrierPair(
       "actor process request must be one exact ordinary closed data object",
     );
   }
-  let request: Readonly<ActorProcessRequest> | undefined;
-  try {
-    const outcome = admitJson(requestRecord);
-    if (outcome.kind === "ok") request = outcome.value as unknown as Readonly<ActorProcessRequest>;
-  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
-  if (request === undefined) {
+  const admittedRequest = admitJson(requestRecord);
+  if (admittedRequest.kind !== "ok") {
     return carrierRefusal(
       "invalid_actor_process_request",
       "actor process request must contain only exact I-JSON data",
     );
   }
+  const request = admittedRequest.value as unknown as Readonly<ActorProcessRequest>;
   if (
     !carrierRef(request.actorRef) ||
     !carrierRef(request.workerBindingRef) ||
@@ -410,17 +407,14 @@ export function validateActorProcessCarrierPair(
       "actor process observation must be one exact ordinary closed data object",
     );
   }
-  let observation: Readonly<ActorProcessObservation> | undefined;
-  try {
-    const outcome = admitJson(observationRecord);
-    if (outcome.kind === "ok") observation = outcome.value as unknown as Readonly<ActorProcessObservation>;
-  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
-  if (observation === undefined) {
+  const admittedObservation = admitJson(observationRecord);
+  if (admittedObservation.kind !== "ok") {
     return carrierRefusal(
       "invalid_actor_process_observation",
       "actor process observation must contain only exact I-JSON data",
     );
   }
+  const observation = admittedObservation.value as unknown as Readonly<ActorProcessObservation>;
   const artifacts = exactOrdinaryDataRecord(
     observation.artifactDigests,
     ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS,
@@ -1057,16 +1051,18 @@ async function invokeActorProcessWithAssembly(
         sha256Canonical(owner.input) !== input.expectedInputDigest) throw new TypeError("native artifact assessment lacks its exact admitted leaf owner");
     let verification = null, disposition: NativeWorkerResultAssessment["disposition"] = output.trim().length === 0 ? "absent" : "rejected";
     if (disposition !== "absent") {
-      try {
-        const admitted = admitJson(JSON.parse(output));
-        const raw = admitted.kind === "ok" ? admitted.value : null;
-        if (isRecord(raw)) {
+      let parsed: Readonly<{ value: unknown }> | null = null;
+      try { parsed = { value: JSON.parse(output) }; } catch { /* malformed output stays rejected, never repaired */ }
+      const admitted = parsed === null ? null : admitJson(parsed.value);
+      const raw = admitted?.kind === "ok" ? admitted.value : null;
+      if (isRecord(raw)) {
+        try {
           const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
             inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,
             rawResultContractRef: input.request.resultContractRef, rawResult: raw });
           if (result.kind === "verified_probabilistic_result_contract_preimage") { verification = result; disposition = "admitted"; }
-        }
-      } catch { /* exact malformed/owner-refused output stays rejected, never repaired */ }
+        } catch { /* owner-refused output stays rejected, never repaired */ }
+      }
     }
     return deepFreeze({ kind: "native_worker_result_assessment", schemaVersion: "5.0.0", resultContractRef: input.request.resultContractRef,
       inputDigest: input.expectedInputDigest, rawOutputDigest: sha256Bytes(output), disposition, verification });

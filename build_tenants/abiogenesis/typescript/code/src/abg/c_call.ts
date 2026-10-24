@@ -2023,7 +2023,7 @@ function projectAdmittedActorTransport(
     timedOut: source.timedOut,
     // The lifecycle fluent at this prefix, not the recorded copy (D5).
     terminationConfirmed: runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
-      name: "actor_process_terminated", identity: source.processRef as string })),
+      name: "actor_process_terminated", identity: source.processRef })),
     processSpawnFailed:
       lifecycle.processTerminalKind === "actor_process_spawn_failed",
     structuredEventCount: Number(source.structuredEventCount),
