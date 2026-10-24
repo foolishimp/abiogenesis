@@ -1,6 +1,6 @@
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { createHash } from "node:crypto";
-import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+import { writeCanonicalJson } from "../shared/canonical_json.js";
 import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
@@ -137,7 +137,7 @@ import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
-import { canonicalEquals, presentMember } from "../shared/value/index.js";
+import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { admitJson } from "../shared/admit/index.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
@@ -6656,16 +6656,12 @@ export function admitOwnedPlannedCompletedRetryProgressInActiveTransaction(
 
 function completedRetryProgressPlanDigest(plan: OwnedCompletedRetryProgressPlan): Sha256Digest {
   const digest = createHash("sha256");
-  const write = (part: string): void => { digest.update(part, "utf8"); };
-  write("{"); let comma = false;
-  for (const key of Object.keys(plan).sort(compareUnicodeCodeUnits)) {
-    if (comma) write(","); comma = true;
-    writeCanonicalJson(key, write); write(":");
+  writeCanonicalRecord(Object.entries(plan as unknown as Record<string, JsonValue>), (member, key, write) => {
     if (key === "projectedPrefix") writeRuntimeEventPrefixValue(plan.projectedPrefix, write);
     else if (key === "replayState") writeRuntimeReplayGuardValue(plan.replayState, write);
-    else writeCanonicalJson((plan as unknown as Record<string, JsonValue>)[key]!, write);
-  }
-  write("}"); return `sha256:${digest.digest("hex")}`;
+    else writeCanonicalJson(member, write);
+  }, (part) => { digest.update(part, "utf8"); });
+  return `sha256:${digest.digest("hex")}`;
 }
 
 function ownedCompletedRetryProgressPlansCorrespond(left: OwnedCompletedRetryProgressPlan, right: OwnedCompletedRetryProgressPlan): boolean {

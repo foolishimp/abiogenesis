@@ -560,3 +560,171 @@ test('drop complete output then selected route does not retain decoded historica
  t.diagnostic(JSON.stringify({operationalHeap,snapshotHeap,afterDropHeap:process.memoryUsage().heapUsed,collectionBytes,collector:'V8 full snapshot stream discarded; no debugger handle',selectedWork:diff(before,work),selectedBytes:observed.bytes,
   selectedValueStillRetained:weak.deref()!==undefined,limit:'Dropped complete output is collectible while the same ordinary owner stays open. Controlled finite history; heap records are evidence, not a quota or campaign-capacity proof.'}));
 });
+
+// TD-15. The three canonical record writers route their envelope through
+// writeCanonicalRecord. Head's writers, transcribed from cf630b55c with each
+// writer's hash replaced by its sink (abg/retry.ts:6657-6668; abg/c_call.ts
+// :5948-5961 and :7340-7355; abg/replay.ts:2317-2328), are the reference. The
+// built private writers run in module copies over the genuine owners: the
+// copy's node:crypto hash records each part and, with a limit k, refuses part
+// k+1; the replay copy also records each (body, selected) its owner passes.
+const td15={parts:null,limit:Infinity,failure:new Error('TD-15 sink refused a part')};
+const td15Sink=(parts,limit)=>part=>{if(parts.length>=limit)throw td15.failure;parts.push(part);};
+async function td15Copy(name,names,suffix=''){
+ const built=resolve(import.meta.dirname,'../../build/code/src/abg/'+name+'.js'),crypto=await import('node:crypto');
+ const module=new SourceTextModule(fs.readFileSync(built,'utf8')+'\nexport {'+names.join(',')+'};'+suffix,{identifier:built});
+ await module.link(async spec=>{
+  const values={...await import(spec.startsWith('.')?pathToFileURL(resolve(dirname(built),spec)).href:spec)};
+  if(spec==='node:crypto')values.createHash=(...args)=>{
+   const real=crypto.createHash(...args);if(td15.parts===null)return real;
+   const sink=td15Sink(td15.parts,td15.limit);td15.parts=null;
+   return {update(part,encoding){sink(part);real.update(part,encoding);return this;},digest:format=>real.digest(format)};
+  };
+  return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});
+ });await module.evaluate();return module.namespace;
+}
+// The private writer under a recording or refusing hash: the parts before the
+// refusal, whether the refusal propagated, and the digest when none was refused.
+function td15Probe(run){
+ return (parts,limit)=>{td15.parts=parts;td15.limit=limit;
+  try{return {digest:run(),threw:false};}catch(error){if(error!==td15.failure)throw error;return {digest:null,threw:true};}
+  finally{td15.parts=null;td15.limit=Infinity;}};
+}
+// Head's bytes and digest equal the new writer's, and for every k from 0 to the
+// part count a sink refusing part k+1 leaves the same k parts from both.
+function td15Parity(label,head,probe,{every=true}={}){
+ const expected=[];head(td15Sink(expected,Infinity));
+ const hash=createHashForTd15('sha256');for(const part of expected)hash.update(part,'utf8');const digest='sha256:'+hash.digest('hex');
+ const actual=[],observed=probe(actual,Infinity);
+ assert.deepEqual(actual,expected,label+': parts');assert.equal(observed.threw,false);
+ if(observed.digest!==undefined)assert.equal(observed.digest,digest,label+': digest');
+ const ks=every?[...Array(expected.length+1).keys()]:[...new Set([0,1,2,3,Math.floor(expected.length/2),expected.length-1,expected.length])];
+ for(const k of ks){
+  const left=[];let leftThrew=false;try{head(td15Sink(left,k));}catch(error){if(error!==td15.failure)throw error;leftThrew=true;}
+  const right=[],result=probe(right,k);
+  assert.deepEqual(right,left,label+': k='+k);assert.equal(result.threw,leftThrew,label+': k='+k);assert.equal(leftThrew,k<expected.length);
+ }
+ return {parts:expected.length,bytes:Buffer.byteLength(expected.join('')),digest,ks:ks.length};
+}
+let createHashForTd15;
+test('TD-15: the three record writers through writeCanonicalRecord keep head bytes, digests and partial-sink parts',async t=>{
+ ({createHash:createHashForTd15}=await import('node:crypto'));
+ const {compareUnicodeCodeUnits,writeCanonicalJson}=await import('../../build/code/src/shared/canonical_json.js');
+ const head={
+  retry(plan,write){
+   write('{');let comma=false;
+   for(const key of Object.keys(plan).sort(compareUnicodeCodeUnits)){
+    if(comma)write(',');comma=true;
+    writeCanonicalJson(key,write);write(':');
+    if(key==='projectedPrefix')prefix.writeRuntimeEventPrefixValue(plan.projectedPrefix,write);
+    else if(key==='replayState')replay.writeRuntimeReplayGuardValue(plan.replayState,write);
+    else writeCanonicalJson(plan[key],write);
+   }
+   write('}');
+  },
+  pending(plan,write){
+   let finite;
+   if('planRef' in plan){const {kind:_k,schemaVersion:_s,planRef:_r,planDigest:_d,projectedPrefix:_p,replayState:_g,...body}=plan;finite=body;}
+   else{const {projectedPrefix:_p,replayState:_g,...rest}=plan;finite=rest;}
+   write('{');let comma=false;
+   for(const key of [...Object.keys(finite),'projectedPrefix','replayState'].sort(compareUnicodeCodeUnits)){
+    if(comma)write(',');comma=true;writeCanonicalJson(key,write);write(':');
+    if(key==='projectedPrefix'){if(plan.projectedPrefix.kind==='validated_runtime_event_prefix')writeCanonicalJson(plan.projectedPrefix,write);else prefix.writeRuntimeEventPrefixValue(plan.projectedPrefix,write);}
+    else if(key==='replayState'){if('kind' in plan.replayState&&plan.replayState.kind==='replay_state')writeCanonicalJson(plan.replayState,write);else replay.writeRuntimeReplayGuardValue(plan.replayState,write);}
+    else writeCanonicalJson(finite[key],write);
+   }
+   write('}');
+  },
+  replay(body,selected,write){
+   write('{');let comma=false;
+   for(const key of Object.keys(body).sort(compareUnicodeCodeUnits)){
+    if(comma)write(',');comma=true;writeCanonicalJson(key,write);write(':');
+    const rows=selected?.[key];
+    if(rows===undefined)writeCanonicalJson(body[key],write);
+    else{write('[');let rowComma=false;for(const row of rows()){
+     if(rowComma)write(',');rowComma=true;writeCanonicalJson(row,write);
+    }write(']');}
+   }
+   write('}');
+  },
+ };
+ const f=terminalOwner(t),o=ownedTerminal(t,f),full=replay.replayValidatedRuntimeEventPrefix(f.run,f.authority);
+ const guard=replay.projectRuntimeReplayGuard(o.run,o.authority);assert.equal(guard.replayDigest,full.replayDigest);
+ const envelope=({eventId:_i,admissionOrdinal:_o,payloadDigest:_p,eventContractDigest:_c,...candidate})=>candidate;
+ const unusual={kind:'td15_member',text:'é \u{1F600} "quoted" \\   \uD800',zero:-0,rows:[1,2.5,null,true,{b:[],a:{}}],'key with space':'','\u{1F600}':'astral key'};
+ const measured={};
+
+ // Retry: Object.keys(plan); an owned and a materialized projectedPrefix and replayState.
+ const retry=await td15Copy('retry',['completedRetryProgressPlanDigest']);
+ const retryFinite={kind:'completed_retry_progress_plan',schemaVersion:'5.0.0',predecessorEventDigest:prefix.runtimeEventPrefixDigest(o.authority),
+  eventCandidates:f.rows.slice(-3).map(envelope),projectedEvents:f.rows.slice(-3),progresses:[unusual]};
+ const retryPlans={owned:{...retryFinite,projectedPrefix:o.authority,replayState:guard},materialized:{...retryFinite,projectedPrefix:f.authority,replayState:full}};
+ for(const [name,plan] of Object.entries(retryPlans))
+  measured['retry '+name]=td15Parity('retry '+name,write=>head.retry(plan,write),td15Probe(()=>retry.completedRetryProgressPlanDigest(plan)));
+ assert.equal(measured['retry owned'].digest,measured['retry materialized'].digest);assert.equal(measured['retry owned'].digest,sha256Canonical(retryPlans.materialized));
+
+ // C_Call: the finite keys plus projectedPrefix and replayState; the body (destructure) path and the
+ // plan (planRef) path; both sides of the projectedPrefix and replayState branches. Finite members are controlled.
+ const calls=await td15Copy('c_call',['pendingInteractionBodyDigest']);
+ const pendingValue={kind:'fh_pending_result',schemaVersion:'5.0.0',interactionKind:'review',requestRef:'request://td15',
+  requestDigest:sha256Canonical('request'),responseContractRef:'contract://td15/response',continuationContractRef:'contract://td15/continuation'};
+ const pendingFinite={expectedPrefixDigest:prefix.runtimeEventPrefixDigest(o.authority),admissionBasisDigest:sha256Canonical('basis'),
+  cCallRef:'c-call:'+sha256Canonical('td15'),requestRef:'request://td15',requestDigest:sha256Canonical('request'),retryAttemptRef:null,
+  pendingValue,pendingValueDigest:sha256Canonical(pendingValue),evidenceRef:'evidence://td15',evidenceDigest:sha256Canonical('evidence'),
+  resultRef:'result://td15',resultDigest:sha256Canonical('result'),judgmentReasonRef:'reason://td15',
+  eventCandidates:f.rows.slice(-2).map(envelope),projectedEvents:f.rows.slice(-2),pending:{cCall:{cCallRef:'c-call:td15'},result:unusual,judgment:{judgment:'pending'}}};
+ const planHeader={kind:'pending_interaction_admission_plan',schemaVersion:'5.0.0',planRef:'pending-interaction-plan://abiogenesis/td15',planDigest:sha256Canonical('td15')};
+ const pendingPlans={};
+ for(const [cut,members] of Object.entries({owned:{projectedPrefix:o.authority,replayState:guard},materialized:{projectedPrefix:f.authority,replayState:full},
+  'validated prefix, owned guard':{projectedPrefix:f.authority,replayState:guard},'owned prefix, complete state':{projectedPrefix:o.authority,replayState:full}})){
+  pendingPlans['body '+cut]={...pendingFinite,...members};pendingPlans['plan '+cut]={...planHeader,...pendingFinite,...members};
+ }
+ for(const [name,plan] of Object.entries(pendingPlans))
+  measured['pending '+name]=td15Parity('pending '+name,write=>head.pending(plan,write),td15Probe(()=>calls.pendingInteractionBodyDigest(plan)));
+ assert.equal(new Set(Object.keys(pendingPlans).map(name=>measured['pending '+name].digest)).size,1,'one body digest on every path and branch');
+
+ // Replay: Object.keys(body); without selected (complete replay) and with selected (guard), through
+ // digestReplayBody and through the streaming path of writeRuntimeReplayGuardValue.
+ const owner=await td15Copy('replay',['digestReplayBody'],'\nexport const td15Calls=[];const td15WriteReplayBody=writeReplayBody;'+
+  '\nwriteReplayBody=function(body,selected,write){td15Calls.push({body,selected});return td15WriteReplayBody(body,selected,write);};\nexport {td15WriteReplayBody};');
+ const captured=(run)=>{owner.td15Calls.length=0;const value=run();return {value,calls:[...owner.td15Calls]};};
+ const complete=captured(()=>owner.replayValidatedRuntimeEventPrefix(f.run,f.authority));
+ assert.deepEqual(complete.value,full);assert.equal(complete.calls.length,1);assert.equal(complete.calls[0].selected,undefined);
+ const selectedGuard=captured(()=>owner.projectRuntimeReplayGuard(o.run,o.authority));
+ assert.equal(selectedGuard.value.replayDigest,full.replayDigest);assert.equal(selectedGuard.calls.length,1);assert.notEqual(selectedGuard.calls[0].selected,undefined);
+ const {kind:_kind,schemaVersion:_version,replayRef:_ref,replayDigest:_digest,...fullBody}=full;
+ for(const [name,{body,selected}] of [['without selected',complete.calls[0]],['with selected',selectedGuard.calls[0]]]){
+  measured['replay digest '+name]=td15Parity('replay digest '+name,write=>head.replay(body,selected,write),td15Probe(()=>owner.digestReplayBody(body,selected)));
+  assert.equal(measured['replay digest '+name].digest,full.replayDigest);
+  // Rows are pulled from the selected iterables at the same parts on both writers.
+  if(selected!==undefined)for(const k of [0,7,measured['replay digest '+name].parts>>1]){
+   const pulls=writer=>{let count=0;const counted=Object.fromEntries(Object.entries(selected).map(([key,rows])=>[key,function*(){for(const row of rows()){count++;yield row;}}]));
+    try{writer(counted,td15Sink([],k));}catch(error){if(error!==td15.failure)throw error;}return count;};
+   assert.equal(pulls((rows,sink)=>owner.td15WriteReplayBody(body,rows,sink)),pulls((rows,sink)=>head.replay(body,rows,sink)),'row pulls at k='+k);
+  }
+ }
+ assert.deepEqual(Object.keys(complete.calls[0].body).sort(),Object.keys(fullBody).sort());
+ const streamed=captured(()=>{const chunks=[];owner.writeRuntimeReplayGuardValue(selectedGuard.value,s=>chunks.push(s));return chunks;});
+ assert.equal(streamed.calls.length,1);assert.equal(streamed.value.join(''),canonicalJson(full));
+ const streamInput=streamed.calls[0];
+ measured['replay stream']=td15Parity('replay stream',write=>head.replay(streamInput.body,streamInput.selected,write),
+  (parts,limit)=>{try{owner.writeRuntimeReplayGuardValue(selectedGuard.value,td15Sink(parts,limit));return {threw:false};}
+   catch(error){if(error!==td15.failure)throw error;return {threw:true};}});
+ const oracle=[];head.replay(full,undefined,td15Sink(oracle,Infinity));assert.deepEqual(streamed.value,oracle,'the complete ReplayState written without selected is the streamed part sequence');
+
+ // Persisted: the two replayStateDigest values of the packaged S01 store (ordinals 15 and 16) are the
+ // complete replay digests at cuts 14 and 15; the transcription and the new writer recompute both.
+ const s01=deepFreeze(fs.readFileSync(join(import.meta.dirname,'../fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl'),'utf8')
+  .trim().split('\n').map(line=>JSON.parse(line)));
+ const persisted=s01.filter(event=>typeof event.payload?.replayStateDigest==='string');
+ assert.deepEqual(persisted.map(event=>[event.admissionOrdinal,event.kind]),[[15,'c_call_judged'],[16,'traversal_route_admitted']]);
+ for(const event of persisted){
+  const cut=prefix.selectValidatedRuntimeEventPrefix(Object.freeze(s01.slice(0,event.admissionOrdinal-1)));
+  const recomputed=captured(()=>owner.replayValidatedRuntimeEventPrefix(prefix.selectRuntimeEventPrefixFromAuthority(cut,{runId:event.runId}),cut));
+  assert.equal(recomputed.value.replayDigest,event.payload.replayStateDigest);
+  const {body}=recomputed.calls.at(-1),bytes=[];head.replay(body,undefined,td15Sink(bytes,Infinity));
+  assert.equal('sha256:'+createHashForTd15('sha256').update(bytes.join(''),'utf8').digest('hex'),event.payload.replayStateDigest);
+  measured['persisted ordinal '+event.admissionOrdinal]={digest:event.payload.replayStateDigest,cut:event.admissionOrdinal-1};
+ }
+ t.diagnostic(JSON.stringify(measured));
+});

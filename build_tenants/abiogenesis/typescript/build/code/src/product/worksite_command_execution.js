@@ -37,16 +37,13 @@ export function projectWorksiteCommandExecutionBudget(task) {
     const commandBudgetMs = task.commands.reduce((sum, command) => commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum) +
         Math.min(command[commandExecutionBudgetRule.perOperationDrain.field], commandExecutionBudgetRule.perOperationDrain.maximumMs), 0);
     const httpProbeBudgetMs = task.outcomePredicates.reduce((sum, predicate) => {
-        if (predicate.predicateKind !== "http_response_exact" ||
-            typeof predicate.declaration !== "object" || predicate.declaration === null ||
-            Array.isArray(predicate.declaration))
+        if (predicate.predicateKind !== "http_response_exact" || !isRecord(predicate.declaration))
             return sum;
         const declaration = predicate.declaration;
         const launch = declaration.launch, request = declaration.request;
-        if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
-            typeof request !== "object" || request === null || Array.isArray(request))
+        if (!isRecord(launch) || !isRecord(request))
             return sum;
-        const parts = { launch: launch, request: request };
+        const parts = { launch, request };
         return Object.keys(commandExecutionBudgetRule.httpResponseFields).reduce((subtotal, part) => commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum) +
             Math.min(Number(parts.launch[commandExecutionBudgetRule.perOperationDrain.field]), commandExecutionBudgetRule.perOperationDrain.maximumMs);
     }, 0);
@@ -634,7 +631,7 @@ function validPredicateDeclaration(kind, value) {
             !Number.isSafeInteger(value.request.timeoutMs) ||
             Number(value.request.timeoutMs) <= 0)
             return false;
-        return new Set(value.launch.environment.map((entry) => entry.name)).size === value.launch.environment.length;
+        return new Set(value.launch.environment.map((entry) => isRecord(entry) ? entry.name : undefined)).size === value.launch.environment.length;
     }
     if (kind === "module_set_exact") {
         return keys(["equals", "selector"]) && Array.isArray(value.equals) && value.equals.every(nonempty) &&
@@ -897,7 +894,7 @@ export function constructWorksiteCommandConfiguration(input) {
         reportSetPredicates.length === 1);
     const declaredReportPathsAreObserved = reportSetPredicates.every((row) => {
         const declaration = row.declaration;
-        return typeof declaration.base === "string" && Array.isArray(declaration.equals) &&
+        return isRecord(declaration) && typeof declaration.base === "string" && Array.isArray(declaration.equals) &&
             declaration.equals.every((path) => typeof path === "string" && reportRows.some((report) => report.relativePath === posix.join(declaration.base, path)));
     });
     const modulePredicatesAreProtected = predicates.every((row) => {
@@ -918,9 +915,8 @@ export function constructWorksiteCommandConfiguration(input) {
             return typeof launch.executable === "string" &&
                 unsafeChildValue(launch.executable, input.workspaceAuthorityBasis, input.workspaceBinding) ||
                 launch.args.some((arg) => typeof arg === "string" && unsafeChildValue(arg, input.workspaceAuthorityBasis, input.workspaceBinding)) ||
-                launch.environment.some((rawEntry) => {
-                    const entry = rawEntry;
-                    return typeof entry.value === "string" && unsafeChildValue(entry.value, input.workspaceAuthorityBasis, input.workspaceBinding);
+                launch.environment.some((entry) => {
+                    return isRecord(entry) && typeof entry.value === "string" && unsafeChildValue(entry.value, input.workspaceAuthorityBasis, input.workspaceBinding);
                 });
         });
     const httpPortFilesAreAuthorized = predicates.every((predicate) => {
@@ -1168,9 +1164,7 @@ function isPredicateObservation(value, ordinal) {
         !value.evidenceRefs.every(nonempty))
         return false;
     try {
-        admitIJsonValue(value.observedValue, "predicate observation");
-        admitIJsonValue(value.evidence, "predicate evidence");
-        return true;
+        return admitJson(value.observedValue).kind === "ok" && admitJson(value.evidence).kind === "ok";
     }
     catch {
         return false;

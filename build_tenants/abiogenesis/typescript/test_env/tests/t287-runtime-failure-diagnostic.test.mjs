@@ -582,3 +582,132 @@ test('lifecycle failure subjects carry each outcome receipt\'s own cut through b
   assert.equal(evidence[0].availability, 'not_retained');
   assert.equal(evidence[0].subjectDigest, recursionRow.payload.subjectDigest);
 });
+
+// TD-16. Each caller of the I-JSON lift that consumed only its refusal now reads
+// admitJson's outcome; the refusal it returns is the one head returned. The
+// inputs are the I-JSON refusals (a function member, an unsafe integer, a lone
+// surrogate) and the three values admitJson throws on (a cycle; nesting past
+// the stack bound; a proxy trap), which head's catch also absorbed. Each value
+// sits one member below the site's input; the control is the same input with
+// the member 1. td16Head is each site's result at cf630b55c, read from that
+// build and source.
+const td16Head = {
+  "conformance": {"kind":"gtl_program_conformance_refusal","schemaVersion":"5.0.0","disposition":"failed","programRef":null,"programDigest":null,"code":"invalid_packet","diagnosticRef":"diagnostic://abiogenesis/conformance/invalid_packet@5","diagnostics":[{"code":"invalid_packet","path":"$","message":"GTL Program conformance requires one exact I-JSON packet"}],"violatedContractRefs":[],"evidenceRefs":[],"repairAffordances":[]},
+  "result assessment": {"kind":"result_assessment_refusal","schemaVersion":"5.0.0","disposition":"refused","memberKey":"assess","code":"value_mismatch","message":"result assessment requires one exact canonical I-JSON request","issuePaths":["/"],"evidenceRefs":[]},
+  "witness admission": {"kind":"witness_admission_refusal","schemaVersion":"5.0.0","disposition":"refused","memberKey":"attest","subjectRef":null,"code":"content_invalid","message":"witness admission requires one exact canonical I-JSON packet","successorPrefix":null},
+  "project read": {"kind":"abg_project_read_refusal","schemaVersion":"5.0.0","disposition":"refused","memberKey":"run_replay","targetRef":null,"code":"invalid_packet","message":"ABG project read requires one exact I-JSON packet"},
+  "canonicalObject": null,
+  "isPredicateObservation observedValue": false,
+  "isPredicateObservation evidence": false,
+  "execution basis": null,
+  "actor request": {"kind":"actor_process_carrier_validation_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_actor_process_request","message":"actor process request must contain only exact I-JSON data"},
+  "actor observation": {"kind":"actor_process_carrier_validation_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_actor_process_observation","message":"actor process observation must contain only exact I-JSON data"},
+  "F_D output": {"kind":"leaf_realization_candidate","schemaVersion":"5.0.0","disposition":"failure","evidenceCandidates":[{"kind":"deterministic_evidence_candidate","schemaVersion":"5.0.0","implementationRef":"implementation://diagnostic/deterministic","inputDigest":"sha256:f40505b2780f9fded56ccbfb5ae4e97ab7cb3a2020ab82c728e768bad10de653","outputDigest":"sha256:c5c00d4bbd6fb309351198b91e964bbe3dced6665b474c63889101abe589dea2"}],"resultCandidate":{"kind":"diagnostic_failure","schemaVersion":"5.0.0","failureClass":"malformed_return","diagnosticRef":"diagnostic://abiogenesis/implementation/malformed-return@5"},"diagnosticRef":"diagnostic://abiogenesis/implementation/malformed-return@5"},
+  "F_P completion": {"kind":"leaf_realization_candidate","schemaVersion":"5.0.0","disposition":"failure","evidenceCandidates":[],"resultCandidate":{"kind":"diagnostic_failure","schemaVersion":"5.0.0","failureClass":"malformed_return","diagnosticRef":"diagnostic://abiogenesis/implementation/malformed-return@5"},"diagnosticRef":"diagnostic://abiogenesis/implementation/malformed-return@5"},
+};
+function td16Values() {
+  const cycle = { member: 1 };cycle.self = cycle;
+  const deep = JSON.parse('['.repeat(200000) + ']'.repeat(200000));
+  const proxy = new Proxy({}, { ownKeys() { throw new TypeError('TD-16 proxy trap'); } });
+  return { functionMember: { f() { return 1; } }, unsafeInteger: 2 ** 60, loneSurrogate: '\uD800', cycle, deep, proxy };
+}
+function td16Carrier(responseJsonSchema = {}, toolInvocations = []) {
+  const digest = `sha256:${'a'.repeat(64)}`, bytes = text => `sha256:${createHash('sha256').update(text).digest('hex')}`;
+  const prompt = 'Return one diagnostic result.', rawOutput = JSON.stringify({ kind: 'raw_output', schemaVersion: '5.0.0' });
+  const value = deepFreeze({ kind: 'diagnostic_input', privateBody: 'input-body-not-diagnostic' }), inputDigest = hash(value);
+  const resolution = deepFreeze({ computeRegime: 'F_P', implementationRef: 'implementation://diagnostic/probabilistic@5',
+    inputContractRef: 'contract://diagnostic/input@5', outputContractRef: 'contract://diagnostic/output@5',
+    modulePath: 'controlled-fixture-module', namedSymbol: 'controlledProbabilistic' });
+  const workerContracts = deepFreeze({ instructionContractRef: 'contract://diagnostic/instruction@5', resultContractRef: 'contract://diagnostic/raw-result@5' });
+  const request = { actorRef: 'actor://diagnostic/probabilistic@5', workerBindingRef: 'worker-binding://diagnostic/probabilistic@5',
+    implementationRef: resolution.implementationRef, inputDigest, materializationPlanRef: 'materialization-plan://diagnostic/probabilistic@5',
+    rendererRef: 'renderer://diagnostic/probabilistic@5', ...workerContracts, transportLane: 'closed_prompt_proof', prompt, responseJsonSchema };
+  const { transportLane, prompt: _prompt, responseJsonSchema: _schema, ...requested } = request;
+  const observation = { ...requested, transportLane,
+    actorInvocationRef: 'actor-invocation://diagnostic/probabilistic/1', processRef: 'process://diagnostic/probabilistic/1',
+    transportBindingRef: 'transport-binding://diagnostic/probabilistic/1', transportBindingDigest: digest,
+    observedOutputDigest: hash(JSON.parse(rawOutput)), promptDigest: hash(prompt), transportDigest: digest,
+    disposition: 'success', failureClass: null, finalOutput: rawOutput, processStatus: 0, processSignal: null, timeoutClass: null,
+    timedOut: false, exitObserved: true, terminationConfirmed: true, signalSequence: [], structuredEventCount: 1, progressEventCount: 0,
+    toolCallCount: 0, toolInvocations, apiRetryCount: 0, stdoutByteLength: 0, stderrByteLength: 0,
+    artifactDigests: { output: bytes(rawOutput), prompt: bytes(prompt), stderr: bytes(''), stdout: bytes(''), transport: digest } };
+  return { value, inputDigest, resolution, workerContracts, request, observation };
+}
+test('TD-16: the lift\'s refusal-only callers keep head\'s refusal for every malformed value', async t => {
+  const values = td16Values(), names = Object.keys(values), sites = {};
+  const fixed = (label, run, control) => {
+    for (const name of names) assert.deepEqual(run(values[name]), td16Head[label], `${label}: ${name}`);
+    if (control !== undefined) assert.notDeepEqual(run(1), td16Head[label], `${label}: control`);
+    sites[label] = td16Head[label];
+    return td16Head[label];
+  };
+  // validator/conformance_operation.ts evaluateWithValidationInput
+  const { evaluateGtlProgramConformance } = await import('../../build/code/src/validator/conformance_operation.js');
+  fixed('conformance', bad => evaluateGtlProgramConformance({ kind: 'gtl_program_conformance_evaluate_packet', member: bad }), true);
+  // product/result_assessment_operation.ts assessResult
+  const { assessResult } = await import('../../build/code/src/product/result_assessment_operation.js');
+  fixed('result assessment', bad => assessResult({ kind: 'result_assess_packet', member: bad }), true);
+  // abg/witness_admission_operation.ts validatePacket via admitWitnessedAct
+  const { admitWitnessedAct } = await import('../../build/code/src/abg/witness_admission_operation.js');
+  fixed('witness admission', bad => admitWitnessedAct({ memberKey: 'attest', member: bad }, {}, {}), true);
+  // abg/project_read_ports.ts admitReadPacket
+  const reads = await sourceOwner('abg/project_read_ports', {}, ['admitReadPacket']);
+  fixed('project read', bad => reads.admitReadPacket('run_replay', { kind: 'abg_project_read_packet', member: bad }), true);
+  // abg/probabilistic_result.ts canonicalObject
+  const probabilistic = await sourceOwner('abg/probabilistic_result', {}, ['canonicalObject']);
+  assert.equal(fixed('canonicalObject', bad => probabilistic.canonicalObject({ member: bad }), true), null);
+  assert.deepEqual(probabilistic.canonicalObject({ member: 1 }), { member: 1 });
+  // product/worksite_command_execution.ts isPredicateObservation (observedValue, then evidence)
+  const worksite = await sourceOwner('product/worksite_command_execution', {}, ['isPredicateObservation']);
+  const observation = (observedValue, evidence) => ({ kind: 'worksite_predicate_observation', schemaVersion: '5.0.0', ordinal: 0,
+    predicateId: 'predicate://diagnostic', predicateKind: 'file_exists', observedValue, evidence, evidenceRefs: [] });
+  assert.equal(fixed('isPredicateObservation observedValue', bad => worksite.isPredicateObservation(observation({ member: bad }, []), 0), true), false);
+  assert.equal(fixed('isPredicateObservation evidence', bad => worksite.isPredicateObservation(observation(1, [{ member: bad }]), 0), true), false);
+  assert.equal(worksite.isPredicateObservation(observation(1, [1]), 0), true);
+  // abg/execution_basis.ts constructNativeInstructionAssemblyBasis: a refused basis never reaches the prefix capture
+  let captures = 0;
+  const basis = await sourceOwner('abg/execution_basis', { './event_store.js': { captureDurablePrefixCoordinate: () => { captures += 1; throw new TypeError('TD-16 capture'); } } });
+  assert.equal(fixed('execution basis', bad => basis.constructNativeInstructionAssemblyBasis({ predecessorPrefix: {}, member: bad })), null);
+  assert.equal(captures, 0);
+  assert.equal(basis.constructNativeInstructionAssemblyBasis({ predecessorPrefix: {}, member: 1 }), null);
+  assert.equal(captures, 1);
+  // abg/actor_process.ts validateActorProcessCarrierPair, request then observation
+  const carrier = td16Carrier();
+  assert.equal(validateActorProcessCarrierPair(carrier.request, carrier.observation).kind, 'actor_process_carrier_validation');
+  fixed('actor request', bad => { const c = td16Carrier({ member: bad });
+    return validateActorProcessCarrierPair(c.request, c.observation); }, true);
+  fixed('actor observation', bad => { const c = td16Carrier({}, [{ member: bad }]);
+    return validateActorProcessCarrierPair(c.request, c.observation); }, true);
+  // implementation/leaf_invocation_port.ts F_D output: the refused output is the null output
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']);
+  const input = deterministicBoundaryInput();
+  const success = answer => ({ kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success',
+    resultCandidate: { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer },
+    evidenceCandidates: [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0', implementationRef: input.resolution.implementationRef,
+      inputDigest: input.inputDigest, outputDigest: `sha256:${'b'.repeat(64)}` }] });
+  const deterministic = async output => owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => output });
+  const nullOutput = await deterministic(null);
+  assert.deepEqual(nullOutput.candidate, td16Head['F_D output']);
+  assert.deepEqual((await deterministic(success(1))).candidate, success(1));
+  for (const name of names) assert.deepEqual(await deterministic(success(values[name])), nullOutput, `F_D output: ${name}`);
+  // implementation/leaf_invocation_port.ts F_P finalize: the refused completion is the null completion
+  const pair = validateActorProcessCarrierPair(carrier.request, carrier.observation);
+  const probabilisticClosed = async output => {
+    const prepared = await owner.invokeLeafOwnerBoundary({ resolution: carrier.resolution, value: carrier.value, inputDigest: carrier.inputDigest,
+      failureValueKind: 'diagnostic_failure', verifyAuthority: () => true, validateSuccess: () => true,
+      resolveWorkerContracts: () => carrier.workerContracts, occurrence: input.occurrence,
+      loadImplementation: async () => () => deepFreeze({ kind: 'prepared_probabilistic_leaf_invocation', schemaVersion: '5.0.0',
+        workerRequest: deepFreeze(carrier.request), complete: () => output }) });
+    assert.equal(prepared.kind, 'prepared_probabilistic_leaf_owner_invocation');
+    return prepared.complete(pair);
+  };
+  const fpSuccess = answer => ({ kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success',
+    resultCandidate: { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer }, evidenceCandidates: [] });
+  const fpNull = await probabilisticClosed(null);
+  assert.deepEqual(fpNull.candidate, td16Head['F_P completion']);
+  assert.deepEqual((await probabilisticClosed(fpSuccess(1))).candidate, fpSuccess(1));
+  for (const name of names) assert.deepEqual(await probabilisticClosed(fpSuccess(values[name])), fpNull, `F_P completion: ${name}`);
+  sites['F_D output'] = nullOutput.candidate; sites['F_P completion'] = fpNull.candidate;
+  t.diagnostic(JSON.stringify({ values: names, sites: Object.keys(sites).length,
+    limit: 'abg/actor_process.ts assessNativeResultArtifact is reached only through a native worker exchange; its admission is read, not run.' }));
+});

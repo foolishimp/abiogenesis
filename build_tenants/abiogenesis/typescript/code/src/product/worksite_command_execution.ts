@@ -160,14 +160,11 @@ export function projectWorksiteCommandExecutionBudget(task: Readonly<{
     commandExecutionBudgetRule.commandFields.reduce((subtotal, field) => subtotal + command[field], sum) +
       Math.min(command[commandExecutionBudgetRule.perOperationDrain.field], commandExecutionBudgetRule.perOperationDrain.maximumMs), 0);
   const httpProbeBudgetMs = task.outcomePredicates.reduce((sum, predicate) => {
-    if (predicate.predicateKind !== "http_response_exact" ||
-      typeof predicate.declaration !== "object" || predicate.declaration === null ||
-      Array.isArray(predicate.declaration)) return sum;
-    const declaration = predicate.declaration as Readonly<Record<string, JsonValue>>;
+    if (predicate.predicateKind !== "http_response_exact" || !isRecord(predicate.declaration)) return sum;
+    const declaration = predicate.declaration;
     const launch = declaration.launch, request = declaration.request;
-    if (typeof launch !== "object" || launch === null || Array.isArray(launch) ||
-      typeof request !== "object" || request === null || Array.isArray(request)) return sum;
-    const parts = { launch: launch as Readonly<Record<string, JsonValue>>, request: request as Readonly<Record<string, JsonValue>> };
+    if (!isRecord(launch) || !isRecord(request)) return sum;
+    const parts = { launch, request };
     return (Object.keys(commandExecutionBudgetRule.httpResponseFields) as (keyof typeof parts)[]).reduce((subtotal, part) =>
       commandExecutionBudgetRule.httpResponseFields[part].reduce((total, field) => total + Number(parts[part][field]), subtotal), sum) +
       Math.min(Number(parts.launch[commandExecutionBudgetRule.perOperationDrain.field]), commandExecutionBudgetRule.perOperationDrain.maximumMs);
@@ -1126,7 +1123,7 @@ function validPredicateDeclaration(kind: string, value: JsonValue): boolean {
       !Number.isSafeInteger(value.request.timeoutMs) ||
       Number(value.request.timeoutMs) <= 0) return false;
     return new Set(value.launch.environment.map((entry) =>
-      (entry as Readonly<Record<string, JsonValue>>).name
+      isRecord(entry) ? entry.name : undefined
     )).size === value.launch.environment.length;
   }
   if (kind === "module_set_exact") {
@@ -1458,8 +1455,8 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     reportSetPredicates.length === 1
   );
   const declaredReportPathsAreObserved = reportSetPredicates.every((row) => {
-    const declaration = row.declaration as Readonly<Record<string, JsonValue>>;
-    return typeof declaration.base === "string" && Array.isArray(declaration.equals) &&
+    const declaration = row.declaration;
+    return isRecord(declaration) && typeof declaration.base === "string" && Array.isArray(declaration.equals) &&
       declaration.equals.every((path) => typeof path === "string" && reportRows.some((report) =>
         report.relativePath === posix.join(declaration.base as string, path)
       ));
@@ -1498,9 +1495,8 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
           input.workspaceAuthorityBasis,
           input.workspaceBinding,
         )) ||
-        (launch.environment as readonly JsonValue[]).some((rawEntry) => {
-          const entry = rawEntry as Readonly<Record<string, JsonValue>>;
-          return typeof entry.value === "string" && unsafeChildValue(
+        (launch.environment as readonly JsonValue[]).some((entry) => {
+          return isRecord(entry) && typeof entry.value === "string" && unsafeChildValue(
             entry.value,
             input.workspaceAuthorityBasis,
             input.workspaceBinding,
@@ -1783,9 +1779,7 @@ function isPredicateObservation(value: unknown, ordinal: number): value is Works
     !Array.isArray(value.evidence) || !Array.isArray(value.evidenceRefs) ||
     !value.evidenceRefs.every(nonempty)) return false;
   try {
-    admitIJsonValue(value.observedValue, "predicate observation");
-    admitIJsonValue(value.evidence, "predicate evidence");
-    return true;
+    return admitJson(value.observedValue).kind === "ok" && admitJson(value.evidence).kind === "ok";
   } catch {
     return false;
   }

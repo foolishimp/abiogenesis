@@ -12,9 +12,8 @@ import { sampleNativeEventTime } from "./native_event_time.js";
 import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
 import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import { isSha256Digest, sha256Canonical, } from "../shared/digests.js";
-import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { isNonBlankRef } from "../shared/references.js";
 import { hasAdmittedWorkspaceBinding } from "./environment_admission.js";
@@ -169,9 +168,12 @@ export function validateActorProcessCarrierPair(requestCandidate, observationCan
     }
     let request;
     try {
-        request = admitIJsonValue(requestRecord);
+        const outcome = admitJson(requestRecord);
+        if (outcome.kind === "ok")
+            request = outcome.value;
     }
-    catch {
+    catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+    if (request === undefined) {
         return carrierRefusal("invalid_actor_process_request", "actor process request must contain only exact I-JSON data");
     }
     if (!carrierRef(request.actorRef) ||
@@ -199,9 +201,12 @@ export function validateActorProcessCarrierPair(requestCandidate, observationCan
     }
     let observation;
     try {
-        observation = admitIJsonValue(observationRecord);
+        const outcome = admitJson(observationRecord);
+        if (outcome.kind === "ok")
+            observation = outcome.value;
     }
-    catch {
+    catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+    if (observation === undefined) {
         return carrierRefusal("invalid_actor_process_observation", "actor process observation must contain only exact I-JSON data");
     }
     const artifacts = exactOrdinaryDataRecord(observation.artifactDigests, ACTOR_PROCESS_ARTIFACT_DIGEST_FIELDS);
@@ -677,7 +682,8 @@ async function invokeActorProcessWithAssembly(input, preparedAssembly, contractB
             let verification = null, disposition = output.trim().length === 0 ? "absent" : "rejected";
             if (disposition !== "absent") {
                 try {
-                    const raw = admitIJsonValue(JSON.parse(output), "native worker result artifact");
+                    const admitted = admitJson(JSON.parse(output));
+                    const raw = admitted.kind === "ok" ? admitted.value : null;
                     if (isRecord(raw)) {
                         const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
                             inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,

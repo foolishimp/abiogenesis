@@ -83,7 +83,6 @@ import { sha256Canonical } from "../shared/digests.js";
 import { sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
-import { admitIJsonValue } from "../shared/i_json.js";
 import { admitJson } from "../shared/admit/index.js";
 import {
   validateActorProcessCarrierPair,
@@ -692,10 +691,8 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     }
     let admittedCandidate: unknown;
     try {
-      admittedCandidate = admitIJsonValue(
-        implementationOutput,
-        "deterministic leaf owner output",
-      );
+      const admitted = admitJson(implementationOutput);
+      admittedCandidate = admitted.kind === "ok" ? admitted.value : null;
     } catch {
       admittedCandidate = null;
     }
@@ -773,19 +770,16 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       }
       const finalize = (candidateOutput: unknown) => {
         try {
-          const admittedCandidate = admitIJsonValue(
-            candidateOutput,
-            "probabilistic leaf completion output",
-          );
-          const valid = isLeafRealizationCandidate(
-            admittedCandidate,
+          const admitted = admitJson(candidateOutput);
+          const valid = admitted.kind === "ok" && isLeafRealizationCandidate(
+            admitted.value,
             "F_P",
             input.validateSuccess,
             failureValueKind,
           );
           return closedProbabilisticOwnerReceipt(
             valid
-              ? admittedCandidate as Readonly<LeafRealizationCandidate>
+              ? admitted.value as Readonly<LeafRealizationCandidate>
               : totalizedFailure("malformed_return"),
             workerContracts,
             exchange,

@@ -9,7 +9,6 @@ import { types } from "node:util";
 import { hasOwnedDeclarationLookups } from "../implementation/leaf_invocation_port.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
-import { admitIJsonValue } from "../shared/i_json.js";
 import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth } from "./artifact_truth.js";
 import { WORKSITE_REVISION_IDS, isWorksiteExecutionTask, worksiteExecutionImplementationRef } from "../product/worksite_revision.js";
 import { runtimeEventPrefixDigest, validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
@@ -246,7 +245,9 @@ export function authenticateOwnedNativeInstructionAssemblyBasis(basis: NativeIns
 export function constructNativeInstructionAssemblyBasis<T extends NativeInstructionAssemblyBasis>(basis: T): Readonly<T> | null {
   try {
     if (NativeAssemblyBasisDerivation.value(basis) !== undefined) return basis;
-    const captured = { ...(admitIJsonValue(basis) as unknown as T),
+    const admitted = admitJson(basis);
+    if (admitted.kind !== "ok") return null;
+    const captured = { ...(admitted.value as unknown as T),
       predecessorPrefix: captureDurablePrefixCoordinate(basis.predecessorPrefix) };
     const value = deriveOwnedNativeInstructionAssemblyBasis(captured);
     if (value === null) return null;
