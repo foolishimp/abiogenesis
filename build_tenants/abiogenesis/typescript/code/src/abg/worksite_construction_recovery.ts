@@ -34,7 +34,7 @@ import { onlyExactMatch, resolveExactMatch, type ExactMatch } from "../shared/se
 import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { classifyOwnedProcessTerminal, type OwnedProcessFacts } from "../shared/process/index.js";
 import { OWNED_PROCESS_FACT_MEMBERS } from "../shared/process/facts.js";
-import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
+import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
 
 export interface WorksitePreservedResultNativeBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -53,8 +53,8 @@ function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** The lifecycle fluent at the prefix in hand, not a recorded copy (D5). */
 function actorProcessTerminated(prefix: RuntimeEventPrefix, processRef: string): boolean {
-  return processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix),
-    constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: processRef })).length !== 0;
+  return processRef.length !== 0 && runtimeFluentHoldsAtPrefix(prefix,
+    constructRuntimeFluent({ name: "actor_process_terminated", identity: processRef }));
 }
 /** The digest-bound transport artifact's encoded facts report its exit. The
  * encoding keeps every member the classifier reads under its own name and

@@ -12,7 +12,7 @@ import { resolve } from "node:path";
 import type { WorkspaceBinding } from "../product/environment.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sampleNativeEventTime } from "./native_event_time.js";
-import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
+import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
 import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   isSha256Digest,
@@ -631,14 +631,15 @@ export function projectActorProcessLifecycle(
     throw new TypeError("ActorInvocation cleanup terminal requires confirmed Process terminality");
   }
   // The lifecycle facts are decided once, by the actor_process_lifecycle rule
-  // of the Event Calculus fold; this projection reads them through holdsAt.
+  // of the Event Calculus fold; this projection reads each as the exact
+  // fluent at the prefix (runtimeFluentHoldsAtPrefix).
   const processRef = rows.find((event) => event.aggregateType === "process")?.aggregateId ?? null;
-  const held = processRef === null ? null : deriveRuntimeHeldFluentProjection(prefix);
-  const lifecycle = (name: string) => processRef !== null && held !== null &&
-    holdsAt(held, constructRuntimeFluentPattern({ name, identity: processRef })).length !== 0;
-  const processLive = lifecycle("actor_process_live");
-  const terminationUnconfirmed = lifecycle("actor_process_termination_unconfirmed");
-  const cleanupPending = lifecycle("actor_cleanup_pending");
+  const processLive = processRef !== null && runtimeFluentHoldsAtPrefix(prefix,
+    constructRuntimeFluent({ name: "actor_process_live", identity: processRef }));
+  const terminationUnconfirmed = processRef !== null && runtimeFluentHoldsAtPrefix(prefix,
+    constructRuntimeFluent({ name: "actor_process_termination_unconfirmed", identity: processRef }));
+  const cleanupPending = processRef !== null && runtimeFluentHoldsAtPrefix(prefix,
+    constructRuntimeFluent({ name: "actor_cleanup_pending", identity: processRef }));
   return deepFreeze({
     kind: "actor_process_lifecycle_projection" as const,
     actorInvocationRef,

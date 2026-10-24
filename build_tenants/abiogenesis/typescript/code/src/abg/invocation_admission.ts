@@ -112,7 +112,7 @@ import type { GovernanceCoveredSourceUse } from "../product/semantics.js";
 import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import { projectGovernanceCoveredSourceUse, hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
+import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
 
 export interface InvocationAdmissionInput {
   readonly runEnvironment?: RunEnvironmentEvidence;
@@ -518,9 +518,8 @@ function deriveSourceResultBasisAtPrefix(
   const relatedBases = new Set(indexedRuntimeEvents(prefix,"kind:basis_admitted").flatMap(e => isRecord(e.payload) &&
     typeof e.payload.invocationAdmissionRef === "string" && relatedInvocations.has(e.payload.invocationAdmissionRef) ? [e.payload.basisRef] : []));
   // Each actor process is gone by its lifecycle fluent at the Run prefix (D5).
-  const runCalculus = deriveRuntimeHeldFluentProjection(runPrefix);
   return projectRuntimeActorProcessFactsAtPrefix(runPrefix).every(actor => actor.status !== "active" && actor.processRef !== null && actor.processRef.length !== 0 &&
-      holdsAt(runCalculus, constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: actor.processRef })).length !== 0) &&
+      runtimeFluentHoldsAtPrefix(runPrefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: actor.processRef }))) &&
     !indexedRuntimeEventEnvelopes(prefix,"kind:c_call_result_admitted").some(envelope => {
       if (resultEvent === undefined || envelope.admissionOrdinal <= resultEvent.admissionOrdinal || !relatedBases.has(envelope.basisId)) return false;
       const e=runtimeEventAtPrefix(prefix,envelope.eventId)!;

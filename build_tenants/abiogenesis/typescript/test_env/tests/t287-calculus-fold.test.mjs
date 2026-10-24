@@ -419,3 +419,45 @@ test('TD-07: the exact read equals the held-projection point query at every cut 
     ['start, termination unconfirmed, exit, actor terminal, Run stop', ['S', 'U', 'exit', 'A', 'R']]])
     exactReadAgreement(t, name, steps.map((step, index) => STEP[step](index + 1)));
 });
+
+// C-2: the seven lifecycle point queries outside abg/calculus/ read
+// runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name, identity })).
+// Over TD-07's lifecycle row lists, at every at-prefix cut and at the
+// before-event cut runtime_liveness builds from it, cold (a fresh prefix per
+// row, its before-event cut asked first) and warm (cuts of one prefix already
+// advanced to its end), for each
+// §4.4 lifecycle name with the fixture's processRef and with an absent
+// identity, the exact read equals the holdsAt pattern read. Every held
+// lifecycle fluent is an asked key, and each of the five holds at some cut.
+test('C-2: the lifecycle exact read equals the holdsAt pattern read at every at-prefix and before-event cut', t => {
+  const heldNames = new Set(), tally = { cuts: 0, reads: 0, held: 0 };
+  const agree = (prefix, label) => {
+    for (const name of LIFECYCLE) for (const identity of [processRef, ABSENT_IDENTITY]) {
+      const exact = runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name, identity }));
+      const pattern = holdsAt(deriveRuntimeHeldFluentProjection(prefix),
+        constructRuntimeFluentPattern({ name, identity })).length !== 0;
+      assert.equal(exact, pattern, `${label}: ${name}(${identity})`);
+      tally.reads += 1;
+      if (exact) { tally.held += 1; heldNames.add(name); }
+    }
+    assert.ok(deriveRuntimeHeldFluentProjection(prefix).holds.every(fluent =>
+      !LIFECYCLE.includes(fluent.name) || fluent.identity === processRef), `${label}: every held lifecycle fluent is an asked key`);
+    tally.cuts += 1;
+  };
+  for (const steps of [...CASES.map(scenario => scenario.steps.map(([step]) => step)), ['S', 'U', 'exit', 'A', 'R']]) {
+    const rows = steps.map((step, index) => STEP[step](index + 1)), source = prefixOf(rows);
+    rows.forEach((row, index) => {
+      const at = prefixOf(rows.slice(0, index + 1));
+      agree(beforeRow(at, row), `${steps} cold before-event ${row.admissionOrdinal}`);
+      agree(at, `${steps} cold at-prefix ${row.admissionOrdinal}`);
+    });
+    deriveRuntimeEventCalculusProjection(source);
+    for (const row of rows) {
+      const at = throughRow(source, row);
+      agree(at, `${steps} warm at-prefix ${row.admissionOrdinal}`);
+      agree(beforeRow(at, row), `${steps} warm before-event ${row.admissionOrdinal}`);
+    }
+  }
+  assert.deepEqual([...heldNames].sort(), [...LIFECYCLE].sort(), 'each §4.4 lifecycle fluent holds at some cut');
+  t.diagnostic(JSON.stringify(tally));
+});

@@ -26,7 +26,6 @@ import {
 } from "../product/worksite_effect.js";
 import {
   constructRuntimeFluent,
-  constructRuntimeFluentPattern,
   constructRunActiveFluent,
   constructRunClosedFluent,
   constructRunTerminalFluent,
@@ -35,6 +34,7 @@ import {
   type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
   holdsAt,
   projectWorksiteTransitionForResult,
+  runtimeFluentHoldsAtPrefix,
   runtimeFluentKey,
   eventCalculusDependencies,
 } from "./event_calculus.js";
@@ -2455,8 +2455,8 @@ function projectRuntimeActorProcessFields(prefix: RuntimeEventPrefix,actorInvoca
         exitStatus: Number.isSafeInteger(exitStatus) ? exitStatus as number : null,
         exitSignal: processExited === undefined ? null : stringField(processExited, "signal"),
         // The lifecycle fluent, not the presence of a process exit.
-        terminationConfirmed: processRef !== null && processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix),
-          constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: processRef })).length !== 0,
+        terminationConfirmed: processRef !== null && processRef.length !== 0 && runtimeFluentHoldsAtPrefix(prefix,
+          constructRuntimeFluent({ name: "actor_process_terminated", identity: processRef })),
         transportDigest: artifact === undefined
           ? null
           : stringField(artifact, "transportDigest") as Sha256Digest | null,

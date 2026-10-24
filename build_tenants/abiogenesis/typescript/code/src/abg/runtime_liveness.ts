@@ -9,7 +9,7 @@ import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/diges
 import { deepFreeze } from "../shared/immutable.js";
 import { runtimePrefixComputation, runtimeEventBodiesAtPrefix, runtimeEventProfileScheduleFromValidatedPrefix, unscopedRuntimeEventPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
-import { constructRuntimeFluentPattern, deriveRuntimeHeldFluentProjection, holdsAt } from "./event_calculus.js";
+import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix, admitNativeRuntimeLivenessEvent,
@@ -825,11 +825,12 @@ function deriveRuntimeLivenessSemantics(
     const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
-    // Process liveness is the fold's actor_process_live, read through holdsAt
-    // at `cut`: in the validator path at the cut before the event at `ordinal`,
-    // so this relation, which the fold's liveness rule evaluates, never re-enters
-    // the fold at its own event; in the public path at the prefix itself. The
-    // start event only binds processRef.
+    // Process liveness is the fold's actor_process_live, read as that exact
+    // fluent (runtimeFluentHoldsAtPrefix) at `cut`: in the validator path at
+    // the cut before the event at `ordinal`, so this relation, which the fold's
+    // liveness rule evaluates, never re-enters the fold at its own event; in
+    // the public path at the prefix itself. The start event only binds
+    // processRef.
     const started = { processRef: null as string | null };
     const boundary = events.at(-1);
     const processLive = actorRef !== null && any(["actor_process_started"], e => {
@@ -837,9 +838,9 @@ function deriveRuntimeLivenessSemantics(
       started.processRef = e.aggregateId; return true;
     }) && !actorDone && started.processRef !== null &&
       (cut === "at_prefix" || boundary !== undefined) &&
-      holdsAt(deriveRuntimeHeldFluentProjection(cut === "at_prefix" ? prefix
-          : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId)),
-        constructRuntimeFluentPattern({ name: "actor_process_live", identity: started.processRef })).length !== 0;
+      runtimeFluentHoldsAtPrefix(cut === "at_prefix" ? prefix
+          : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId),
+        constructRuntimeFluent({ name: "actor_process_live", identity: started.processRef }));
     let disposition: RuntimeLivenessObserverProjection["disposition"]["disposition"] = "continue_waiting";
     let reason = "within_bound_lease";
     if (hardCapReached && processLive) { disposition = "controlled_terminate"; reason = "absolute_safety_cap"; }

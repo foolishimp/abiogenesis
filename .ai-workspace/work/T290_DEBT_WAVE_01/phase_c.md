@@ -195,3 +195,424 @@ Grant: `code/src/validator/qualification_contracts.ts` (the one export of item 0
 Stop (write it in the Return, keep the rest moving): a site whose pattern leaves `identity` null (a wildcard is not an exact read; it stays on `holdsAt`); a site whose prefix or cut would have to change to route it; a lifecycle answer that differs between the two readers at any cut in item 4(b); any lane whose red identities change.
 
 Return contract: one commit on `main` with the first line `C-2: the seven lifecycle point queries read the fold's exact transition; the lint admits the prefix-level reader; sameQualificationValue typed` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`. Append `## C-2 return` at the end of this record with the equivalence statement (item 1), the lint diff and the negative check output (item 2), the seven sites before and after (item 3), the proof (item 4), the design sentences and proposed wording (item 5), the lane table (item 6), and any stops. Nothing above your section is edited.
+
+## C-2 return
+
+Worker: Opus 5.5, fresh context. Code base `638819314`. The commit's parent is `1d64e2651`, an Executive commit that landed during the package; it changes only the T-287 and T-290 ticket files and touches no C-2 file, grant or contract. This package's single commit follows it on `main` and is not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`, and `abg/` means `code/src/abg/`. Lines "before" are at `638819314`; lines "after" are in the commit. No stops.
+
+| Item | State | After |
+|---|---|---|
+| 0. `sameQualificationValue` typed | done | `code/src/validator/qualification_contracts.ts:478` |
+| 1. The reader: equivalence by reading | done | below |
+| 2. The lint | done; 10 → 7 allow-listed; negative check fails as required | `scripts/check-lifecycle-boundary.mjs:1-15`, `:92-111`, `:176` |
+| 3. Route the seven | done, all seven; no stop | table below |
+| 4. Proof | done: (a) census of 77 lanes, before and after; (b) one case, `t287-calculus-fold.test.mjs:432`; (c) lint exit 0 with 7 | below |
+| 5. Records | design sentences quoted, wording proposed; no design edit | below |
+| 6. Lanes | done; no red identity changed | below |
+
+**Item 0.** `:478` now reads `export const sameQualificationValue = (a: JsonValue, b: JsonValue): boolean => canonicalEquals(a, b);`. It has no cast, and its body is the same call with the same operands, so it decides identically for every JSON operand. `canonicalEquals` takes `(left: JsonValue, right: JsonValue)` (`shared/value/equality.ts:16`). The `JsonValue` type import (`:3`) was already in use by `qualificationHash` (`:477`). The definition is the only occurrence of the name in `code/src`, and `npx tsc --noEmit -p tsconfig.json` exits 0. `tsc` covers `code/src` only. The one other caller is `test_env/tests/t287-value-equality.test.mjs:216-238`, an untyped `.mjs` file, so no static type reaches the function from `test_env`. That case is unchanged, keeps its oracle and its rows (including the class-instance and `NaN` rows, which run as JS calls), and passes 5/5.
+
+**Item 1: equivalence, by reading.** Take a lifecycle name `n` and an identity `i`. At each of the seven sites, `i` is guarded non-empty (item 3). Let `f = constructRuntimeFluent({ name: n, identity: i })` (`abg/calculus/axioms.ts:1654-1668`). Then `f.fluentRef` is `` `${n}(${i})` `` (`:1666`), and `n` contains no parenthesis (`assertFluentName`, `:1648`). `P` is the prefix the site reads, and the ordinal is the default, `lastOrdinal(P)`.
+
+- **The exact read.** `runtimeFluentHoldsAtPrefix(P, f)` (`abg/event_calculus.ts:332-339`) returns `eventCalculusDerivation(P).fluentAt(runtimeFluentKey(f), lastOrdinal(P)) !== null`. `runtimeFluentKey` validates `f` and returns `n(i)` (`axioms.ts:1712`).
+- **The pattern read.** The site's old query was `holdsAt(deriveRuntimeHeldFluentProjection(P), constructRuntimeFluentPattern({ name: n, identity: i })).length !== 0`.
+  - `deriveRuntimeHeldFluentProjection` (`:317`) is `{ holds: derivation.held(P) }`.
+  - `holdsAt` with a pattern over a held projection (`abg/calculus/fold.ts:293-307`) validates every held fluent (`:306`). It keeps each held `g` for which `ownedRuntimeFluentMatchesPattern(g, pattern)` holds (`axioms.ts:1745-1748`). With both members set, that is `g.name === n && g.identity === i`.
+  - A held fluent is canonical: `g.fluentRef` is `g.name(g.identity)`, and names carry no parenthesis. So `n(i)` decodes to exactly one (name, identity) pair, and `g` matches if and only if `g.fluentRef === n(i)`. This is the reading the activation names: a pattern with both members set matches exactly that key.
+  - `held` holds one fluent per key, so the list has length 0 or 1. Its length is non-zero exactly when the key `n(i)` is in `held(P)`.
+- **`held(P)`** (`event_calculus.ts:279-284`) takes one of two paths.
+  - Slow path, when `P`'s count is below the folded count: `held` collects every key whose `fluentAt(key, lastOrdinal(P))` is non-null, so membership of `n(i)` is that call itself. A key with no recorded transition is absent from `fluentKeys()`, and `fluentAt` returns null for it through the base chain (`:228-233`).
+  - Fast path, at the folded count: `held` returns the owned state's `holds`. That map equals the set of keys whose `fluentAt` is non-null at `lastOrdinal(P)`, because the fold records every change to it:
+    - `applyStep` pushes every change to `holds` onto `transition.fluents`, in the order it applies them: terminations at `fold.ts:238-241`, clips at `applyClip` `:202-203`, initiations at `:245-247`;
+    - `memoize` records each change at the step's ordinal (`event_calculus.ts:251`, `recordFluent` `:224`);
+    - `fluentAt` binary-searches for the last record at or before the cut (`:228-233`), which is the key's state at the end of that step;
+    - a fork seeds `holds` from its base's `held` at the cut (`:194`), and its `fluentAt` falls through to the base, capped at `baseOrdinal`.
+
+So the two answers are equal at every prefix and cut, from the same fold's recorded transitions. The exact read uses no copied payload field, no event-kind presence and no second store; nothing in `event_calculus.ts` or `abg/calculus/` changed.
+
+The tests that check the equality:
+- TD-07's case (`t287-calculus-fold.test.mjs:365`, tests `:409` and `:417`) covers exact fluents and exact patterns at cold, warm, streaming, fork and before-event cuts, including the lifecycle row lists.
+- Item 4(b) adds the lifecycle case.
+
+**Item 2: the lint.** Three changes; the full diff follows the list:
+- the header (`:1-15`) states both admitted forms;
+- `isHoldsAtPatternName` becomes `isLifecycleReaderName` (`:92-111`), over two exact (reader, constructor) pairs: `holdsAt` with `constructRuntimeFluentPattern`, and `runtimeFluentHoldsAtPrefix` with `constructRuntimeFluent`. Each pair admits the object literal passed directly to its reader, or passed as the argument of its own constructor, which is itself passed to that reader;
+- the visit (`:176`) calls the new predicate.
+
+```diff
+@@ -1,11 +1,17 @@
+ // Lifecycle boundary (design §9.1). Lifecycle questions about actor processes
+-// are answered from the fold through `holdsAt`, and only the process owners
+-// read the physical facts. Outside code/src/abg/calculus/, a `.ts` file under
+-// code/src fails this check when it
+-//   - writes a lifecycle fluent name in any position other than the `name` of
+-//     a pattern passed to `holdsAt`
++// are answered from the fold through `holdsAt` or through
++// `runtimeFluentHoldsAtPrefix`, the exact read of the same fold's recorded
++// transitions at a prefix, and only the process owners read the physical
++// facts. Outside code/src/abg/calculus/, a `.ts` file under code/src fails this
++// check when it
++//   - writes a lifecycle fluent name in any position other than these two:
++//     the `name` of a pattern passed to `holdsAt`
+ //     (`holdsAt(state, constructRuntimeFluentPattern({ name: "<fluent>", ... }))`
+-//     or `holdsAt(state, { name: "<fluent>", ... })`), or
++//     or `holdsAt(state, { name: "<fluent>", ... })`), or the `name` of a
++//     fluent passed to `runtimeFluentHoldsAtPrefix`
++//     (`runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "<fluent>", ... }))`
++//     or `runtimeFluentHoldsAtPrefix(prefix, { name: "<fluent>", ... })`); each
++//     constructor admits the name only under its own reader, or
+ //   - reads `scopeAbsence` or `directExit` (property access, element access or
+ //     destructuring) outside the process owners listed below.
+ // `actor_process_termination_unconfirmed` is also a process terminal event
+@@ -44,14 +50,6 @@ const PROCESS_FACT_OWNERS = [
+ // Each entry names the file, the exact trimmed line text, its line at the
+ // commit that added it, and the reason it is not an offender.
+ const ALLOWED = [
+-  ...[
+-    [638, 'const processLive = lifecycle("actor_process_live");'],
+-    [639, 'const terminationUnconfirmed = lifecycle("actor_process_termination_unconfirmed");'],
+-    [640, 'const cleanupPending = lifecycle("actor_cleanup_pending");'],
+-  ].map(([line, text]) => ({
+-    path: "code/src/abg/actor_process.ts", line, text,
+-    reason: "argument of the local `lifecycle` reader (:636-637), whose only use of it is the `name` of the holdsAt pattern",
+-  })),
+   ...[
+     [322, '"actor_cleanup_pending",'],
+     [329, '"actor_process_live",'],
+@@ -89,17 +87,26 @@ const isKindAccess = (node) => ts.isPropertyAccessExpression(node) && node.name.
+ const propertyNamed = (node, name) =>
+   ts.isPropertyAssignment(node) && (ts.isIdentifier(node.name) || ts.isStringLiteral(node.name)) && node.name.text === name;
+ 
+-// The literal is the `name` of a fluent pattern that is itself an argument of
+-// holdsAt, directly or through constructRuntimeFluentPattern.
+-function isHoldsAtPatternName(literal) {
++// The two admitted lifecycle readers, each with the one constructor whose
++// object-literal argument may carry the fluent's `name` under it.
++const LIFECYCLE_READERS = [
++  ["holdsAt", "constructRuntimeFluentPattern"],
++  ["runtimeFluentHoldsAtPrefix", "constructRuntimeFluent"],
++];
++
++// The literal is the `name` of an object literal that is itself an argument of
++// an admitted reader, directly or through that reader's constructor.
++function isLifecycleReaderName(literal) {
+   const member = literal.parent;
+   if (!propertyNamed(member, "name") || member.initializer !== literal) return false;
+   const object = member.parent;
+-  let argument = object;
+-  if (isCallTo(object.parent, "constructRuntimeFluentPattern") && object.parent.arguments.includes(object)) {
+-    argument = object.parent;
+-  }
+-  return isCallTo(argument.parent, "holdsAt") && argument.parent.arguments.includes(argument);
++  return LIFECYCLE_READERS.some(([reader, constructor]) => {
++    let argument = object;
++    if (isCallTo(object.parent, constructor) && object.parent.arguments.includes(object)) {
++      argument = object.parent;
++    }
++    return isCallTo(argument.parent, reader) && argument.parent.arguments.includes(argument);
++  });
+ }
+ 
+ // The same-file function bound to `name`, if any.
+@@ -166,7 +173,7 @@ for (const file of files) {
+     findings.push({ path, line, text: lines[line - 1].trim() });
+   };
+   const visit = (node) => {
+-    if (ts.isStringLiteralLike(node) && LIFECYCLE_FLUENTS.has(node.text) && !isHoldsAtPatternName(node) &&
++    if (ts.isStringLiteralLike(node) && LIFECYCLE_FLUENTS.has(node.text) && !isLifecycleReaderName(node) &&
+       !(ALSO_EVENT_KINDS.has(node.text) && isEventKindPosition(node, sourceFile))) record(node);
+     else if (!factOwner && factMemberRead(node)) record(node);
+     ts.forEachChild(node, visit);
+```
+
+Nothing else widens:
+- A constructor admits the name only under its own reader.
+- A lifecycle name anywhere else still fails.
+- The event-kind exemption, `scopeAbsence` and `directExit`, and the process-owner list are unchanged.
+- The three `actor_process.ts` allow-list entries are deleted, and the replay name table (5) and recovery (2) entries remain.
+
+Applied to unrouted head source, the extended lint printed the three `lifecycle("…")` lines as offenders (`actor_process.ts:639-641`, exit 1). That is why item 3 realizes that site as direct reads (see the site table). After routing: `check-lifecycle-boundary: 284 modules under code/src; 7 allow-listed site(s), no offender`, exit 0.
+
+The negative check used a scratch file, `code/src/abg/zz_c2_lint_negative.ts`:
+- `:3` binds `constructRuntimeFluent({ name: "actor_process_live", identity: x })` to a variable;
+- `:4` compares its `fluentRef` without passing it to the reader;
+- `:5` passes `constructRuntimeFluent` to `holdsAt`, a cross-pair negative;
+- `:6` passes `constructRuntimeFluentPattern` to `runtimeFluentHoldsAtPrefix`, a cross-pair negative;
+- `:7` is the admitted form, `runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_termination_unconfirmed", identity: x }))`.
+
+`npm run -s lint:lifecycle` printed this and exited 1:
+
+```
+code/src/abg/zz_c2_lint_negative.ts:3: const bound = constructRuntimeFluent({ name: "actor_process_live", identity: x });
+code/src/abg/zz_c2_lint_negative.ts:5: const crossA = holdsAt(projection, constructRuntimeFluent({ name: "actor_process_terminated", identity: x }));
+code/src/abg/zz_c2_lint_negative.ts:6: const crossB = runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluentPattern({ name: "actor_cleanup_pending", identity: x }));
+check-lifecycle-boundary: 3 offender(s), 0 stale allow-list entries
+```
+
+The admitted `:7` is not printed. The file was deleted before any `tsc` or build; after deletion the lint exits 0 with 7, and `build/` holds no `zz_*` output.
+
+**Item 3: the seven sites.** Each site keeps its prefix, its cut and its guards. Imports of `holdsAt`, `deriveRuntimeHeldFluentProjection` and `constructRuntimeFluentPattern` were removed wherever no use remained. Five files now import exactly `{ constructRuntimeFluent, runtimeFluentHoldsAtPrefix }`. `c_call.ts` (`:87-88`) and `replay.ts` (`:28`, `:37`) keep their other imports: `replay.ts` keeps 13 `holdsAt` and 5 `deriveRuntimeHeldFluentProjection` list and carrier uses, and loses `constructRuntimeFluentPattern`.
+
+| Site | Before | After | Prefix, cut, guards, identity |
+|---|---|---|---|
+| `runtime_liveness.ts`, `actor_process_live` | `:840-842` `holdsAt(deriveRuntimeHeldFluentProjection(cut === "at_prefix" ? prefix : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId)), constructRuntimeFluentPattern({ name, identity: started.processRef })).length !== 0` | `:841-843` `runtimeFluentHoldsAtPrefix(cut === "at_prefix" ? prefix : validatedRuntimeEventPrefixBeforeEvent(prefix, boundary!.eventId), constructRuntimeFluent({ name: "actor_process_live", identity: started.processRef }))` | The at-prefix cut reads `prefix`. The before-event cut reads the same `validatedRuntimeEventPrefixBeforeEvent(prefix, boundary.eventId)` it builds today, which is TD-07's routed shape at `worksiteSelectedOccurrenceInputCurrent` (`event_calculus.ts:352-359`). The guard chain `actorRef !== null && any(…) && !actorDone && started.processRef !== null && (cut === "at_prefix" \|\| boundary !== undefined)` is unchanged. The comment `:828-833` now names the exact read. |
+| `actor_process.ts`, three names | `:636-640` `held = processRef === null ? null : deriveRuntimeHeldFluentProjection(prefix)`; `lifecycle(name)` over `held`; three `lifecycle("…")` calls | `:637-642` three direct reads, `processRef !== null && runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "<fluent>", identity: processRef }))`, for `actor_process_live`, `actor_process_termination_unconfirmed` and `actor_cleanup_pending` | Same `prefix`. With `processRef === null`, each read is `false` without a fold, as before. `held` and the local reader are gone. A local `lifecycle(name)` would leave the names as call arguments, which the lint still flags, so its three allow-list entries would stay live. Item 2's 10 → 7, with no widening, therefore requires the names in the constructor's `name`. The comment `:633-635` is updated. |
+| `c_call.ts` `projectAdmittedActorTransport` | `:2028-2029` `holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({ name: "actor_process_terminated", identity: source.processRef as string })).length !== 0` | `:2025-2026` `runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: source.processRef as string }))` | Same `prefix`. The identity is a string (`typeof` guard `:1796`) equal to the admitted process terminal's `aggregateId` (`:1930`). |
+| `c_call.ts` `admitEvidenceUsingTransport` | `:6632-6633` `candidate.exitObserved === (holdsAt(…(prefix), constructRuntimeFluentPattern({ …, identity: candidate.processRef })).length !== 0)` | `:6629-6630` `candidate.exitObserved === runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: candidate.processRef }))` | Same `prefix`. The identity is guarded earlier in the same `&&` chain by `typeof candidate.processRef === "string" && candidate.processRef.length > 0` (`:6591`). |
+| `invocation_admission.ts` `deriveSourceResultBasisAtPrefix` | `:521-523` `runCalculus = deriveRuntimeHeldFluentProjection(runPrefix)`, then per actor `holdsAt(runCalculus, constructRuntimeFluentPattern({ …, identity: actor.processRef })).length !== 0` | `:521-522` per actor `runtimeFluentHoldsAtPrefix(runPrefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: actor.processRef }))` | Same `runPrefix`. Per-actor guards `status !== "active" && processRef !== null && processRef.length !== 0` are unchanged, and `runCalculus` is gone. This is the one site where the fold moves from eager to lazy, and no refusal is dropped: `projectRuntimeReplayGuard(runPrefix, prefix)` at `:442` (`replay.ts:188-190`, then `deriveReplayPrefixFacts(…, guardOnly = true)`) folds `runPrefix` at `replay.ts:960`, or returns its cached guard (`:955-958`), which was produced through `:960` at the same end. Either way the fold of `runPrefix` has run before `:521`. |
+| `replay.ts` `projectRuntimeActorProcessFields` | `:2458-2459` `processRef !== null && processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({ …, identity: processRef })).length !== 0` | `:2458-2459` `processRef !== null && processRef.length !== 0 && runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: processRef }))` | Same `prefix`, same guards. |
+| `worksite_construction_recovery.ts` `actorProcessTerminated` | `:56-57` `processRef.length !== 0 && holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({ …, identity: processRef })).length !== 0` | `:56-57` `processRef.length !== 0 && runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: processRef }))` | Same `prefix`; used at `:248` and `:283`. |
+
+Evaluation order. At three sites the old code built the projection before the pattern, and the new code builds the fluent before the fold: `runtime_liveness`, `actor_process` and `c_call:2025`. The two orders differ only if the identity is the empty string, and then both throw `TypeError` with different messages. At `runtime_liveness` both throws reach the same `catch { return null; }` (`:886`). The other four sites guard the identity non-empty, so their order difference cannot be observed. No event payload key, fluent name, failure class or axiom effect changed, and no file under `abg/calculus/` or `event_calculus.ts` changed.
+
+**Item 4: proof.**
+
+(a) The census. I grepped `test_env/tests/*.test.mjs` for three things:
+- each site module (`abg/<module>.js`, or the module name as a quoted string);
+- the `test_env/support` helpers that import a site module, resolved to the lanes that import them;
+- the lifecycle fluent names each site reads.
+
+The union with item 6 is 77 lanes. Each ran once at the head build and once after, one lane at a time, with the plain command. Lanes per site:
+
+| Site | Lanes |
+|---|---|
+| `runtime_liveness.ts:841` | `m5-event-calculus-runtime`, `m5-terminal-quiescence-owner`, `t287-authenticated-owner-family`, `t287-authenticated-owner-values`, `t287-calculus-fold`, `t287-event-calculus-owner-continuation`, `t287-lifecycle-failure-carrier`, `t287-management-stream-drain`, `t287-native-frame-observation`, `t287-native-work-unknown-effect`, `t287-native-workspace-work`, `t287-ordered-reconstruction` |
+| `actor_process.ts:637-642` | `d1-preserved-result-mechanics`, `integration-shared-seams` (both through `d1-preserved-result-harness.mjs`), `m5-terminal-quiescence-owner`, `t287-calculus-fold`, `t287-f04a-probabilistic-result-candidate`, `t287-lifecycle-failure-carrier`, `t287-native-frame-observation`, `t287-native-work-currentness-consumers`, `t287-native-work-unknown-effect`, `t287-native-workspace-work`, `t287-runtime-failure-diagnostic`, `t288-instruction-assembly-owner` |
+| `c_call.ts:2025`, `:6629` | the 54 lanes that import `abg/c_call.js`, directly or through `d1-preserved-result-harness`, `malformed-gtl-native-fixture`, `multi-candidate-admission-owner`, `t287-generic-job-worksite` or `t287-native-work-currentness-consumers`, or that name `actor_process_terminated`. All 54 are rows of the lane table below. |
+| `invocation_admission.ts:522` | `t287-native-event-time` (through its support module), `t287-native-work-reacquisition`, `t287-native-worksite-execution`, `t287-reacquisition-root-contract`, `w2-steel-single-start-closure`, plus the three `actor_process_terminated` lanes |
+| `replay.ts:2458` | `m5-event-calculus-runtime`, `m5-fresh-process-reconstruction`, `m5-terminal-quiescence-owner`, `retained-route-cursor-transition`, `steel-basic-cli-source-replay`, `t287-c2-owner-coordinate-reuse`, `t287-calculus-fold`, `t287-deferred-application-restoration`, `t287-event-body-encoding`, `t287-fh-hold-open`, `t287-held-prefix`, `t287-lifecycle-failure-carrier`, `t287-ordered-reconstruction`, `t287-reconstruction-conservation`, `t287-retry-run-prefix`, `t287-route-reconstruction`, `t287-runtime-activity-quiescence`, `t287-runtime-failure-diagnostic`, `t287-undispatched-diagnostic`, `w2-steel-single-start-closure`, plus `witness-reprice-definition-binding` and `witness-run-stopped-definition-binding` (through `witness-reprice-mechanics.mjs`) |
+| `worksite_construction_recovery.ts:56` | `d1-preserved-result`, `d1-preserved-result-mechanics`, `integration-shared-seams`, plus the three `actor_process_terminated` lanes. `test_env/tests/integration-d1-readonly-discriminator.mjs` is a helper that no lane imports. |
+
+The census is by grep, as the activation specifies. A lane that imports a site module does not necessarily execute the site.
+
+(b) The new case is `t287-calculus-fold.test.mjs:432`: "C-2: the lifecycle exact read equals the holdsAt pattern read at every at-prefix and before-event cut".
+- **Fixtures.** It uses TD-07's lifecycle row lists: the four `CASES` (counterexamples A and B, spawn failure then the actor terminal, late confirmation) and `S, U, exit, A, R`. No single list holds all five lifecycle fluents; together they do.
+- **Cuts.** For every row there are two cold cuts and two warm cuts:
+  - cold: a fresh prefix through the row, whose before-event cut `validatedRuntimeEventPrefixBeforeEvent(prefix, row.eventId)` is asked first; then the at-prefix cut itself. A scratch copy of the case asserted, after each cold read, that the fold state serving the cut stands at that cut's last ordinal; it passed at all 15 rows, and its file was deleted. So both cold cuts read `held`'s fast path, the owned `holds` at the folded count, against `fluentAt`;
+  - warm: cuts of one prefix already advanced to its end, which is the slow path of `held`.
+- **Reads.** At each cut, for each of the five §4.4 names (the file's `LIFECYCLE`: `actor_cleanup_pending`, `actor_process_live`, `actor_process_spawn_failed`, `actor_process_terminated`, `actor_process_termination_unconfirmed`) with the fixture's `processRef` and one absent identity, it asserts that `runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name, identity }))` equals `holdsAt(deriveRuntimeHeldFluentProjection(prefix), constructRuntimeFluentPattern({ name, identity })).length !== 0`.
+- **Extra assertions.** Every held lifecycle fluent at the cut is an asked key. Each of the five names holds at some cut, so the case is not vacuous.
+
+Diagnostic `{"cuts":60,"reads":600,"held":84}`. All 600 reads agree. A scratch mutant reading at `lastOrdinal - 1` failed at the first at-prefix cut (`S,exit,R cold at-prefix 1: actor_process_live(process://t287/fold)`, actual `false`); its file was deleted.
+
+The lane goes from 12/12 to 13/13, which is the named difference. The case asks the §4.4 five, as design `:285` lists them. The lint's set (`check-lifecycle-boundary.mjs:33-39`) has `terminationConfirmed_copy_disagrees` in place of `actor_process_spawn_failed`. None of the seven sites reads either of those two names.
+
+(c) `npm run lint:lifecycle` exits 0: "284 modules under code/src; 7 allow-listed site(s), no offender". The negative scratch of item 2 fails with 3 offenders.
+
+**Item 5: design sentences the routing contradicts, with proposed wording.** All are in `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`, which is not edited. The activation's four are `:285`, `:290`, `:536` and `:641`. The activation calls `:641` P-LAYER: it is the last sentence of P-LIFECYCLE, and P-LAYER is `:643`, which restates the lint rule and the allow-list classes. Eight more lines state the old rule: `:191`, `:203`, `:209`, `:461-462`, `:554`, `:560`, `:576` and `:643`.
+
+1. `:285` (§6 table, the `holdsAt` row, "replaces" column). Current: "… from its own recomputation over the log or from a second store, instead of calling `holdsAt` with a pattern naming that fluent; …". Proposed: "… from its own recomputation over the log or from a second store, instead of calling `holdsAt` with a pattern naming that fluent or `runtimeFluentHoldsAtPrefix` with that exact fluent (`constructRuntimeFluent({ name, identity })`), which reads the same fold's recorded transitions at the prefix; …".
+2. `:290`. Current: "`holdsAt` is the only admitted reader of "is this actor process gone"; …". Proposed: "The fold is the only admitted source of "is this actor process gone": a reader asks `holdsAt` with a pattern, or asks `runtimeFluentHoldsAtPrefix` for one exact fluent at a prefix, which answers from the same fold's recorded transitions (`fluentAt`) without materializing the held set; …".
+3. `:536` (§9.1 item 3). Current: "… are answered from the fold of `L` through `holdsAt`. … `holdsAt` answers admitted questions only; it does not replace the physical observation of layer 1." Proposed: "… are answered from the fold of `L` through `holdsAt` or, for one exact fluent at a prefix, through `runtimeFluentHoldsAtPrefix`, which reads the same fold's recorded transitions. … Both readers answer admitted questions only; neither replaces the physical observation of layer 1."
+4. `:641` (P-LIFECYCLE, last sentence). Current: "No module outside `abg/calculus/` decides a lifecycle fluent except through `holdsAt`." Proposed: "No module outside `abg/calculus/` decides a lifecycle fluent except through `holdsAt` or `runtimeFluentHoldsAtPrefix`, the two readers of the one fold."
+5. `:643` (P-LAYER). Current: "… outside `abg/calculus/` a lifecycle fluent name appears only as the `name` of a pattern passed to `holdsAt`, and only the process owners read `scopeAbsence` or `directExit`. Its allow-list names exact lines in three classes: the arguments of the actor projection's local `holdsAt` reader (`abg/actor_process.ts`), the Run quiescence name table (`abg/replay.ts`) and …". Proposed: "… outside `abg/calculus/` a lifecycle fluent name appears only as the `name` of a pattern passed to `holdsAt` or of an exact fluent passed to `runtimeFluentHoldsAtPrefix`, each constructor only under its own reader, and only the process owners read `scopeAbsence` or `directExit`. Its allow-list names exact lines in two classes: the Run quiescence name table (`abg/replay.ts`) and the check of the digest-bound transport artifact's encoded facts (`abg/worksite_construction_recovery.ts`)."
+6. `:191`. Current: "…; a list consumer reads the held projection (`held`, `:279`), a reader of a §4.4 lifecycle fluent asks `holdsAt` over it, and `t287-calculus-fold` (`:365`) holds the exact read equal to the projection's point query at every cut." Proposed: "…; a list consumer reads the held projection (`held`, `:279`) and asks `holdsAt` over it; an exact point query, including every reader of one §4.4 lifecycle fluent of one process, reads `runtimeFluentHoldsAtPrefix`; `t287-calculus-fold` (`:365`, and `:432` for the lifecycle names) holds the exact read equal to the projection's point query at every cut."
+7. `:203`. Current: "counterexample A, the cleanup reading of the actor projection, which reads the rule's fluents through `holdsAt` (`abg/actor_process.ts:636-640`)". Proposed: "…, which reads the rule's fluents through `runtimeFluentHoldsAtPrefix` (`abg/actor_process.ts:637-642`)".
+8. `:209`. Current: "`actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them through `holdsAt`, with a pattern `{ kind: "runtime_fluent_pattern", name, identity }` that names one lifecycle fluent." Proposed: "`actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them from the fold: a point query through `runtimeFluentHoldsAtPrefix` with the exact fluent `constructRuntimeFluent({ name, identity })`, a pattern query through `holdsAt` with `{ kind: "runtime_fluent_pattern", name, identity }`."
+9. `:461-462` (sequence view). Current: "R->>C: holdsAt with the RuntimeFluentPattern actor_process_terminated and processRef" and "C-->>R: RuntimeFluent rows of the RuntimeEventCalculusProjection". Proposed: "R->>C: runtimeFluentHoldsAtPrefix with the RuntimeFluent actor_process_terminated(processRef) at the prefix" and "C-->>R: whether it holds, from fluentAt over the recorded transitions".
+10. `:554` (§9.2). Current: "Every reader calls `holdsAt(state, { kind: "runtime_fluent_pattern", name: "actor_process_terminated", identity: processRef })`." Proposed: "Every reader calls `runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({ name: "actor_process_terminated", identity: processRef }))` on the prefix in hand."
+11. `:560` (§9.2 item 3). Current: "Read through `holdsAt` with a pattern naming `actor_process_terminated`: `abg/c_call.ts:2036` and `:6635`, `abg/replay.ts:2457`, `abg/invocation_admission.ts:514-516`, and `abg/worksite_construction_recovery.ts:55-57`, used at `:248` and `:283`." Proposed: "Read through `runtimeFluentHoldsAtPrefix` with the exact fluent `actor_process_terminated(processRef)`: `abg/c_call.ts:2025` and `:6629`, `abg/replay.ts:2458`, `abg/invocation_admission.ts:521-522`, and `abg/worksite_construction_recovery.ts:55-57`, used at `:248` and `:283`." The current line citations were already stale at head.
+12. `:576` (§9.3 item 6). Current: "For an actor process it is `holdsAt` over the prefix for its lifecycle fluents, …". Proposed: "For an actor process it is the exact read `runtimeFluentHoldsAtPrefix` of each of its lifecycle fluents at the prefix, …".
+
+**Item 6: lanes.** Gates, before and after:
+- `npx tsc --noEmit -p tsconfig.json`: exit 0 both times.
+- `npm run lint:imports`: exit 0 both times, 28 modules.
+- `npm run lint:lifecycle`: before, 284 modules, 10 allow-listed; after, 284 modules, 7 allow-listed; no offender either time.
+- `npm run build`: exit 0 both times. Before, it regenerated nothing. After, it regenerated the two tracked files, which are in the commit:
+  - `product-toolchain-manifest.json`: `7e12b452…7c5279` → `f0dc3964…2c9aa7`, 138 changed leaves;
+  - `contracts/capabilities/capability-definition-graph.json`: `d33d50e1…5bff90` → `01bccfd7…da29cc`, 551 changed leaves.
+  
+  Every changed leaf is a `sha256:` digest or a ref that embeds one, following the product content digest.
+
+Each lane ran one at a time from the tenant root with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000 test_env/tests/<lane>.test.mjs`: before, on the head build; after, on the rebuilt tree. Counts are tests/pass/fail/skipped, and no lane had a cancelled or todo test.
+
+For red identities I compared each lane's whole failing-tests section, before and after, after normalizing per-run values: `sha256` and hex digests, UUIDs, timestamps, temporary paths, durations, and `build/…js` stack line numbers, which move because the built files changed. The sections are identical in every lane except `t287-worksite-construction` (`:688`) and `t287-worksite-branch-construction` (`:584`, `:669`). In those two, the only differing tokens are per-run measurements inside the asserted completion JSON: `elapsedMs`, `lastActivityElapsedMs`, `leaseDeadlineElapsedMs`, the store `inode`, and `prefixLength`. `prefixLength` differs by 7, 24 and 13 bytes, and tracks the lengths of the recorded elapsed numbers. The test names, locations and first error lines are the same.
+
+Item 6 lanes:
+
+| Lane | Before | After | Reds |
+|---|---|---|---|
+| `t287-calculus-fold` | 12/12/0/0 | 13/13/0/0 | none |
+| `m5-worker-transport` | 23/23/0/0 | 23/23/0/0 | none |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | none |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | none |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 | none |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | none |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-route-reconstruction` | 10/8/0/2 | 10/8/0/2 | none |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 5, same |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 5, same |
+| `t287-worksite-construction` | 3/0/3/0 | 3/0/3/0 | 3, same |
+| `t287-worksite-branch-construction` | 2/0/2/0 | 2/0/2/0 | 2, same |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-value-equality` | 5/5/0/0 | 5/5/0/0 | none |
+
+The census lanes item 4(a) adds:
+
+| Lane | Before | After | Reds |
+|---|---|---|---|
+| `d1-preserved-result` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `d1-preserved-result-mechanics` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 2, same |
+| `integration-shared-seams` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `m5-event-store-reopen` | 21/21/0/0 | 21/21/0/0 | none |
+| `m5-fresh-process-reconstruction` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | 4, same |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | none |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 | none |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | none |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 1, same |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 | none |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 6, same |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 | none |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 | none |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | none |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | none |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | 2, same |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | none |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 1, same |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | 2/1/0/1 | none |
+| `t287-generic-job-worksite` | 9/9/0/0 | 9/9/0/0 | none |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | 3, same |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | none |
+| `t287-malformed-gtl-gate` | 6/5/1/0 | 6/5/1/0 | 1, same |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 | none |
+| `t287-multi-candidate-admission` | 75/75/0/0 | 75/75/0/0 | none |
+| `t287-native-assessment-evidence` | 4/1/3/0 | 4/1/3/0 | 3, same |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 | none |
+| `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 4, same |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 3, same |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 | none |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | 1, same |
+| `t287-native-semantic-revision` | 9/4/4/1 | 9/4/4/1 | 4, same |
+| `t287-native-structural-gates` | 9/9/0/0 | 9/9/0/0 | none |
+| `t287-native-work-currentness-consumers` | 4/4/0/0 | 4/4/0/0 | none |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | none |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | none |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | none |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | 1, same |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 | 4, same |
+| `t287-qual056-material` | 7/7/0/0 | 7/7/0/0 | none |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 | none |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t287-qualification-producer-context` | 4/4/0/0 | 4/4/0/0 | none |
+| `t287-reacquisition-root-contract` | 2/1/0/1 | 2/1/0/1 | none |
+| `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 | none |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 | 1/1/0/0 | none |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 3, same |
+| `t287-runtime-failure-diagnostic` | 15/15/0/0 | 15/15/0/0 | none |
+| `t287-undispatched-diagnostic` | 7/5/2/0 | 7/5/2/0 | 2, same |
+| `t287-worksite-file-replace-owner` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t288-composition-conservation` | 1/0/1/0 | 1/0/1/0 | 1, same |
+| `t288-instruction-assembly-owner` | 11/4/0/7 | 11/4/0/7 | none |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | none |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 15, same |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 7, same |
+
+Red identities. There are 94, the same before and after; each is `file:line`, the test name, and the first error line. An entry at `:1:1` named "'test failed'" is a module-level failure.
+
+- `m5-retry-lifecycle-authority.test.mjs:21:1` declared C.retry frontier is the sole retry-attempt lifecycle owner: AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculus = deriveRuntimeEventCalculusProjection(prefix);
+- `m5-retry-lifecycle-authority.test.mjs:238:1` CCall retry writes require the exact current declared retry frontier: AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCCall(
+- `m5-retry-lifecycle-authority.test.mjs:281:1` production judgment writers remain closed behind the CCall owner: AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+- `m5-retry-lifecycle-authority.test.mjs:323:1` raw executor resume remains closed to every retry cursor: AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !== undefined)
+- `m5-retry-lifecycle-authority.test.mjs:533:1` F04 payload refusal composes one pure result rejection while authority refusal cannot retry: AssertionError [ERR_ASSERTION]: missing source boundary: /**
+- `m5-event-calculus-runtime.test.mjs:372:1` A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append: TypeError [Error]: abg.openCall is not a function
+- `m5-event-calculus-runtime.test.mjs:1316:1` terminal projection rows realize static locus law for the exact Run and preserve unrelated loci: AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active
+- `m5-event-calculus-runtime.test.mjs:1471:1` run HoldsAt truth survives durable reopen and a lawful closure: TypeError [Error]: abg.openCall is not a function
+- `m5-event-calculus-runtime.test.mjs:1548:1` runtime_failure_observed terminates the exact active Run: TypeError [Error]: abg.openCall is not a function
+- `m5-event-calculus-runtime.test.mjs:1590:1` run_stopped makes runtime failure throw before memory or durable append: TypeError [Error]: abg.openCall is not a function
+- `t287-worksite-construction.test.mjs:217:1` T-287 C1 remains singular inside the C3 composite publication: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-worksite-construction.test.mjs:361:1` T-287 C1 traverses one installed fake-Claude candidate through C0 and fresh replay: TypeError [Error]: Cannot read properties of null (reading 'nativeInstructionAssemblyBasis')
+- `t287-worksite-construction.test.mjs:688:1` T-287 C1 retains an exact partial prefix when a later C0 member refuses: AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion":"5.0.0","disposition":"failed","cCallRef":"c-call:sha256:<H>…
+- `t287-worksite-branch-construction.test.mjs:584:1` T-287 C3 Parallel topology constructs canonically and closes installed C1 children: AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion":"5.0.0","disposition":"blocked","cCallRef":"c-call:sha256:<H…
+- `t287-worksite-branch-construction.test.mjs:669:1` T-287 C3 preserves outer and nested partial prefixes and never opens fan-in: AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion":"5.0.0","disposition":"blocked","cCallRef":"c-call:sha256:<H…
+- `d1-preserved-result.test.mjs:1:1` test_env/tests/d1-preserved-result.test.mjs: 'test failed'
+- `d1-preserved-result-mechanics.test.mjs:1:1` test_env/tests/d1-preserved-result-mechanics.test.mjs: 'test failed'
+- `generic-input-retention.test.mjs:82:1` real warm derivation and serialized cold projector agree; crossed/missing/duplicate lineage refuses: TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix
+- `generic-input-retention.test.mjs:132:1` indexed immutable route membership avoids serialization and preserves detached-copy provenance: TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix
+- `integration-shared-seams.test.mjs:1:1` test_env/tests/integration-shared-seams.test.mjs: 'test failed'
+- `m5-fresh-process-reconstruction.test.mjs:13:1` M5 exact catalog basis and retained runtime truth reconstruct equally in two fresh processes: TypeError [Error]: abg.openCall is not a function
+- `m5-s03-authority.test.mjs:96:1` S03 capability policy is exact over admitted Program interaction requirements: TypeError [Error]: capability grant requires exact workspace, policy, actor, and definition authority
+- `m5-s03-authority.test.mjs:218:1` S03 continuation operation authority requires the exact admitted grant and lifecycle state: TypeError [Error]: capability grant requires exact workspace, policy, actor, and definition authority
+- `m5-s03-authority.test.mjs:285:1` S03 HoG accepts one Product-sealed projection and rejects its forged twin: AssertionError [ERR_ASSERTION]: The input did not match the regular expression /exact admitted install/u. Input:
+- `m5-s03-authority.test.mjs:415:1` S03 Run semantic projection maps only typed R references and preserves opaque event-shaped domain strings: TypeError [Error]: runtime event candidate has an invalid envelope
+- `retained-route-cursor-transition.test.mjs:26:1` route-origin workflow cursor stages, replays, commits and cold-projects exact retained input: TypeError [Error]: traversal transition differs from its staged successor projection
+- `t287-authenticated-owner-values.test.mjs:39:1` pure artifact values do not reacquire; fresh bytes, currentness and held effect checks still refuse drift: AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+- `t287-c2-owner-coordinate-reuse.test.mjs:120:1` post-stop Run and Workspace replay retain the JSON-cloned preparation owner and identical cold semantics: TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut
+- `t287-c2-owner-coordinate-reuse.test.mjs:195:1` C2 consumer reidentifies its copied preparation cut while preserving source/output and cold fallback: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-c2-owner-coordinate-reuse.test.mjs:212:1` reopened C2 consumer retains the original native and preparation cuts without another physical read: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-c2-owner-coordinate-reuse.test.mjs:227:1` a later duplicate producer invalidates current C2 consumption while its historical cut remains valid: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-c2-owner-coordinate-reuse.test.mjs:238:1` C2 coordinate reuse preserves wrong/foreign cut, absent advancing producer, binding-cover and latest failed-mutation refusal: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-c2-owner-coordinate-reuse.test.mjs:266:1` separate installed reacquisition realization and judgment use exact original owner; C2 occurrence stays owner-bound: TypeError [Error]: operations.nativeWorkReacquisition is not a function
+- `t287-deferred-application-restoration.test.mjs:85:1` deferred restoration preserves the exact native completion prefix including observations after judgment: AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier
+- `t287-deferred-application-restoration.test.mjs:116:1` deferred restoration refuses another producer and the later failed native scope: AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier
+- `t287-event-calculus-owner-continuation.test.mjs:1:1` test_env/tests/t287-event-calculus-owner-continuation.test.mjs: 'test failed'
+- `t287-f04a-probabilistic-result-candidate.test.mjs:356:1` F04-A exact request-bound raw result admission is pure and decision-exact: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-fh-hold-open.test.mjs:1:1` test_env/tests/t287-fh-hold-open.test.mjs: 'test failed'
+- `t287-governance-covered-source-use.test.mjs:351:1` covered use binds exact original state, complete canonical Catalog and cold admitted coordinates: AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+- `t287-governance-covered-source-use.test.mjs:386:1` later completed work follows actual admitted covered-source ancestry without root or value guesses: AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+- `t287-governance-covered-source-use.test.mjs:430:1` built-in ingress preserves the whole captured34 state and independent assessment subject: AssertionError [ERR_ASSERTION]: select the frozen bounded fixture
+- `t287-malformed-gtl-gate.test.mjs:60:1` Public conformance conserves dual-kind closure authorities and rejects missing or conflicting ownership: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-native-assessment-evidence.test.mjs:551:1` CCall failure projection conserves the authenticated malformed-result assessment: TypeError [Error]: profile schedule requires the original gap-free stamped history
+- `t287-native-assessment-evidence.test.mjs:559:1` CCall failure projection refuses foreign producer, assessment and artifact correspondence: TypeError [Error]: profile schedule requires the original gap-free stamped history
+- `t287-native-assessment-evidence.test.mjs:585:1` actor transport authentication is available before candidate association and refuses crossed facts: TypeError [Error]: profile schedule requires the original gap-free stamped history
+- `t287-native-event-time.test.mjs:30:1` native HoG phase samples ignore caller seed; prepared candidate identity survives later admission and replay: AssertionError [ERR_ASSERTION]: explicit absolute proof territory required
+- `t287-native-event-time.test.mjs:66:1` wall-clock rollback does not change store ordinal ordering or restamp historical bytes on lawful fresh-fixture reopen: AssertionError [ERR_ASSERTION]: explicit absolute proof territory required
+- `t287-native-event-time.test.mjs:86:1` complete selected native producer field coverage samples each phase; planned candidates and probe aliases retain their sample: AssertionError [ERR_ASSERTION]: explicit proof territory required
+- `t287-native-event-time.test.mjs:108:1` exact paired admission producer preserves recognition across forced clock movement; unequal-time baseline remains rejected: AssertionError [ERR_ASSERTION]: exact rejected paired producer required
+- `t287-native-frame-observation.test.mjs:189:1` native controlled process preserves frame observations and owner causes: AssertionError [ERR_ASSERTION]: explicit proof-local territory
+- `t287-native-frame-observation.test.mjs:209:1` frame declaration and observation-join falsifiers over an authentic read-only historical opening: TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. Received undefined
+- `t287-native-frame-observation.test.mjs:237:1` exact current D4 descriptor and retained historical EC rows/projections are conserved: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-native-semantic-job.test.mjs:224:1` native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain: AssertionError [ERR_ASSERTION]: native failure reuses the original derivation
+- `t287-native-semantic-revision.test.mjs:122:1` native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-native-semantic-revision.test.mjs:270:1` native D2 root-backed binding cover authenticates source ancestry and preserves first refusals: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-native-semantic-revision.test.mjs:332:1` native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings: AssertionError [ERR_ASSERTION]: exact ancestry gets as far as the new cover
+- `t287-native-semantic-revision.test.mjs:531:1` native Evidence preparation recovery conserves its exact folded producer through intake and the declared Evidence-only suffix: TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix
+- `t287-observed-worksite-command.test.mjs:43:1` extended original C2 plan preserves all 26 sources through native and observed owners: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-ordered-reconstruction.test.mjs:22:1` snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `t287-ordered-reconstruction.test.mjs:74:1` cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions: AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+- `t287-ordered-reconstruction.test.mjs:103:1` historical durable cuts reidentify only exact owner history after physical authentication: AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:
+- `t287-ordered-reconstruction.test.mjs:158:1` held derivation preserves physical authentication and discards staged facts on rollback: AssertionError [ERR_ASSERTION]: exact held object, after physical byte authentication
+- `t287-qualification-parent-alias.test.mjs:18:1` native parent alias conserves the original child/J and rejects crossed provenance and competing producers: AssertionError [ERR_ASSERTION]: explicit frozen fixture and isolated emitted-owner binding required
+- `t287-qualification-producer-acquisition-reuse.test.mjs:1:1` test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs: 'test failed'
+- `t287-release-acceptance.test.mjs:1:1` test_env/tests/t287-release-acceptance.test.mjs: 'test failed'
+- `t287-retry-run-prefix.test.mjs:59:1` retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs: AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier
+- `t287-retry-run-prefix.test.mjs:92:1` retry entry refuses foreign scope and stale source without committing a partial transition: AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier
+- `t287-retry-run-prefix.test.mjs:107:1` retry entry retains the failed native scope refusal and refuses an unrelated authority prefix: AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier
+- `t287-undispatched-diagnostic.test.mjs:93:1` undispatched refusal retains entered, routed and resumed cursor ownership at raw and cold boundaries: AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+- `t287-undispatched-diagnostic.test.mjs:222:1` CCall refusal completion keeps full authority across sparse multi-Run scope and cold raw admission: AssertionError [ERR_ASSERTION]: The input did not match the regular expression /authentic open-call|stage does not match/. Input:
+- `t287-worksite-file-replace-owner.test.mjs:371:1` T-287 C0 Product owner atomically replaces one W-bound worksite file and fails closed: AssertionError [ERR_ASSERTION]: {"kind":"worksite_effect_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"invalid_coordinate","message…
+- `t288-composition-conservation.test.mjs:1:1` test_env/tests/t288-composition-conservation.test.mjs: 'test failed'
+- `witness-reprice-definition-binding.test.mjs:27:1` declared ABG constructors remain unchanged and source binding exposes only selected callables: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:36:1` exact DefinitionCall admits one native witness pair and fresh-process reads/replay agree (stubbed Product environment): AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:67:1` external approval remains exact-member only; unselected witness members remain unsupported: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:77:1` crossed or missing authority, request, resource and grant refuse before native owner: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:94:1` installed catalog coordinate cannot be substituted with internally consistent caller coordinates: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:102:1` native semantic content/context refusals return owner close handoff and no witness event: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:112:1` generic witness reprice does not implement D2 cover-selection meaning: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:118:1` native second-event transaction failure leaves neither event and preserves first cause: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:124:1` duplicate native outcome projects a typed basis refusal without forging success: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:129:1` raw Public witness with material history decodes only on acquisition and retains cold correspondence: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:147:1` copied witness packets keep I-JSON, wrong-prefix and foreign-store refusals: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:162:1` raw witness acquisition still refuses changed current physical bytes before native admission: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:169:1` all six native witness members consume the admitted held history after raw packet validation: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:205:1` Public profile reprice retains the exact L-to-P boundary and standalone cold content checks: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-reprice-definition-binding.test.mjs:226:1` successful append still requires successful physical close before any receipt: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:31:1` current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:65:1` wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:77:1` approved but false stop content or Run/basis context returns a semantic refusal and unchanged close: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:89:1` a closed Run with the authentic Public identity and basis refuses stop without appending: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:96:1` changed cold physical bytes refuse before stop admission: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:102:1` live owner stop borrows its admitted state without decoding history or releasing the enclosing owner: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+- `witness-run-stopped-definition-binding.test.mjs:117:1` failed native stop transaction keeps both events absent and returns the first cause: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+
+**Findings.**
+- **The activation's site-and-section citations.** The `:285` row is in §6 (Prime atoms), not §5. `:641` is P-LIFECYCLE and `:643` is P-LAYER, as item 5 says. The allow-list's recorded lines for `actor_process.ts` (`638-640`) were one line off at head (`639-641`); matching is by text, so this had no effect, and those entries are now gone.
+- **Cast left in place.** `c_call.ts:2026` keeps `identity: source.processRef as string`. The item 3 substitution leaves it in place. The `typeof` guard at `:1796` may make the cast unnecessary, but this was not tested.
+- **Untracked residue.** The two runs of `t287-management-stream-drain` left 12 more `stream-drain-*` directories at the tenant root; there were 6 at head, and there are 18 now. The two `test_env/context-component-*` directories were there at head. None of it is staged or deleted.
