@@ -10,8 +10,8 @@
 - current_method_basis: stdo://releases/v3.0.0-rc.1/
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
-- current_phase: A, close the library
-- current_package: TD-20 (activated 2026-10-24); TD-23 accepted at `bc7135549`
+- current_phase: B, the debt wave (the Phase A work closed at `46ed04895`; its L5 exit is the owner's and open)
+- current_package: TD-21 + TD-22 + TD-24 (activated 2026-10-24); TD-20 accepted at `602eca3f3`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -63,8 +63,9 @@ row, a passing type check or a baseline attribution alone does not close it.
 
 ## Phase A: close the library
 
-Ends with L5 delivery acceptance, the owner's record on the delivered exact
-subject after an independent review with no open S0 to S2.
+The Phase A work closed at `46ed04895` (Ledger). Its exit, L5 delivery
+acceptance, is the owner's record on that exact subject after an independent
+review with no open S0 to S2, and remains open.
 
 | Package | Source | What lands | Size | State |
 |---|---|---|---|---|
@@ -152,6 +153,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | TD-08 | `f6bdf13bd` | `tsc --noEmit` clean; both lints; `npm run build` rc 0; `t287-native-work-currentness-consumers` 4/4; `t287-native-workspace-work` 38/37/0/1; `t287-native-work-reacquisition` 9/6/0/3; `t287-native-work-unknown-effect` 10/10; `t287-native-worksite-execution` 6/3/0/3; `t287-calculus-fold` 12/12; `t287-exact-prefix-projection-reuse` 2/0/1/1; `forward-command-contracts` 10/10; `m5-event-calculus-runtime` 19/13/5/1; `t287-ordered-reconstruction` 7/0/4/3; `t287-c2-owner-coordinate-reuse` 6/0/6/0; the four red lanes with the same identities as the Return and the head (`exec_check_TD08.log`) | accepted; register row closed; stop 3(b) ruled met; two design line pointers corrected |
 | 2026-10-24 | TD-15 + TD-16 | `a692fb4b9` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 with the refreshed pin and no regenerated diff; `t287-value-equality` 4/4; `m5-c-algebra-validation` 22/19/0/3; `t287-worksite-command-execution` 10/10; `forward-command-contracts` 10/10; `t287-route-reconstruction` 10/8/0/2; `t287-runtime-failure-diagnostic` 15/15; `t287-management-supervision` 5/4/1/0; `r10-projection-contracts` 10/9/1/0; the two red lanes with their head identities (`exec_check_TD1516.log`) | accepted; both register rows closed; TD-14's nine recorded as discharged; D4, the value-family rows and the O-TYPE clause restated |
 | 2026-10-24 | TD-23 | `bc7135549` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 and no regenerated diff; `m5-event-store-reopen` 21/21; `t287-event-body-encoding` 14/14; `r10-projection-contracts` 10/9/1/0; `t287-calculus-fold` 12/12; `t287-cold-record-decoder` 3/1/1/1; `m5-event-calculus-runtime` 19/13/5/1; the three red lanes with their head identities; the S01 fixture tree unchanged after the lanes (`exec_check_TD23.log`) | accepted; register row closed; the worker and recovery loops retained with reasons, no extension |
-| 2026-10-24 | TD-20 | | | activated (T-287 compaction; documentation Worker) |
+| 2026-10-24 | TD-20 | `602eca3f3` | the Worker's `check.py` re-run on `git show` inputs (`962d98a70` and `602eca3f3`): ALL CHECKS PASS, 4,623 of 4,629 body lines unchanged in order, the 6 frontmatter values, 0 removed, 111 headings unchanged and 12 in historical form, 42 of 42 inbound anchors resolve to the same text; an independent set check agrees; the committed file equals the worktree; the commit touches the two granted files only | accepted; register row closed; T-290 phase and Phase A exit sentence and the register's owning clause fixed; GOALS disagreements held for the Phase B close |
+| 2026-10-24 | TD-21 + TD-22 + TD-24 | | | activated (triage of the 28 inherited rows; no code edit) |
 
-Next: TD-20 (Worker running); then TD-21/22/24, the Phase B close; the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-21 + TD-22 + TD-24 (Worker running); then the Phase B close (broad run, GOALS restated once, closing post, review); then the Phase C packages in the recorded order; the owner's review pass on `46ed04895` whenever it comes.
