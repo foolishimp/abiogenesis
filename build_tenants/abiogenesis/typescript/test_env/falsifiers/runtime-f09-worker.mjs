@@ -876,19 +876,25 @@ async function installAttemptWorker(root) {
       "  const prior = existsSync(counterPath) ? Number(readFileSync(counterPath, 'utf8')) : 0;",
       "  const attempt = prior + 1;",
       "  writeFileSync(counterPath, String(attempt));",
-      "  const mode = process.env.ABG_AX_F09_MODE;",
+      "  const mode = process.env.ABG_AX_F09_ATTEMPT_MODE;",
       "  const inputLine = prompt.split(/\\r?\\n/).find((line) => line.startsWith('{'));",
       "  const input = inputLine === undefined ? null : JSON.parse(inputLine);",
       "  console.log(JSON.stringify({ type: 'system', subtype: 'init' }));",
-      "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: `attempt ${attempt}` }] } }));",
+      // The transport failure signal digests stdout, so the two A attempts
+      // print the same bytes.
+      "  const label = mode === 'aba' && attempt <= 3 ? (attempt === 2 ? 'b' : 'a') : String(attempt);",
+      "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: `attempt ${label}` }] } }));",
       "  if (mode !== 'aba' && attempt === 1) return;",
       "  const result = {",
       "    kind: 'developer_greeting_output',",
       "    schemaVersion: '5.0.0',",
       "    message: input?.message ?? 'unavailable'",
       "  };",
-      "  const rendered = mode === 'aba' && attempt <= 3 ? (attempt === 2 ? '{not-json-b' : '{not-json-a') : mode !== 'aba' && attempt === 2 ? '{not-json' : JSON.stringify(result);",
-      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: rendered }));",
+      // A structured request reads only the successful host carrier's
+      // structured_output; the native result assessment rejects a string
+      // there, so the transport fails with contract_failure.
+      "  const rendered = mode === 'aba' && attempt <= 3 ? (attempt === 2 ? '{not-json-b' : '{not-json-a') : mode !== 'aba' && attempt === 2 ? '{not-json' : result;",
+      "  console.log(JSON.stringify({ type: 'result', subtype: 'success', is_error: false, structured_output: rendered }));",
       "});",
       "",
     ].join("\n"),
@@ -900,10 +906,67 @@ async function installAttemptWorker(root) {
 
 async function constructP1Environment(input) {
   const support = await import(pathToFileURL(input.supportPath).href);
-  const environment = await support.setupInstalledRootCatalog(
+  const ids = retryProduct.AX_F09_RETRY_IDS;
+  // The support's installed environment is the current form of every step
+  // this worker used to construct privately: Product verification, the
+  // resolved lock, both installs, the workspace binding, the ready Catalog,
+  // Program validation, the Product execution resolution, the one run.invoke
+  // grant and its authority, invocation admission, the execution basis and
+  // the leaf port (root-installed-environment.mjs, setupInstalledRootCatalog
+  // through setupInstalledRootExecutionBasis). The AX-F09 fixture enters as
+  // the one additional installed Product.
+  const catalogEnvironment = await support.setupInstalledRootCatalog(
     { after() {} },
     input.packageRoot,
-    { frozenArtifact: input.frozenArtifact },
+    {
+      frozenArtifact: input.frozenArtifact,
+      authorizedActorRef: "actor://developer.example/trusted-developer",
+      programRef: ids.programRef,
+      graphFunctionRef: ids.graphFunctionRef,
+      prepareAdditionalProducts: async () => [{
+        artifactPath: input.fixtureArtifactPath,
+        artifactRef: input.fixtureArtifactRef,
+        basis: input.fixtureBasis,
+        ids,
+        loadInstalledPublication: async ({ verified }) =>
+          retryProduct.constructAxF09Publication({
+            productId: verified.productId,
+            artifactDigest: verified.artifactDigest,
+            productContentDigest: verified.productContentDigest,
+            productManifestDigest: verified.manifestDigest,
+            packageName: verified.packageName,
+            packageVersion: verified.packageVersion,
+          }),
+      }],
+    },
+  );
+  // The Run reaches the child workflow's GraphFunction, so the view admits
+  // both declared GraphFunctions, as this worker's view did.
+  const catalogView = catalogEnvironment.product.narrowGraphFunctionCatalog(
+    catalogEnvironment.catalog,
+    [ids.graphFunctionRef, ids.childGraphFunctionRef],
+  );
+  assert.equal(
+    catalogView.kind,
+    "graph_function_catalog_view",
+    JSON.stringify(catalogView),
+  );
+  const nonceSubject = `restart-private-${randomUUID()}`;
+  const invocationInput = {
+    kind: "developer_greeting_output",
+    schemaVersion: "5.0.0",
+    message: nonceSubject,
+  };
+  const environment = await support.setupInstalledRootExecutionBasis(
+    { after() {} },
+    input.packageRoot,
+    {
+      existingEnvironment: { ...catalogEnvironment, catalogView },
+      programRef: ids.programRef,
+      graphFunctionRef: ids.graphFunctionRef,
+      input: invocationInput,
+      publicInvocationRef: "invocation://s06/ax-f09/run-invoke",
+    },
   );
   // Fixture-only access to the same installed owner-internal module imported
   // by this environment's HoG. The package barrel intentionally exposes no
@@ -930,462 +993,28 @@ async function constructP1Environment(input) {
   )).href);
   const {
     abg,
-    gtl,
-    hog,
-    implementationLeafPort,
-    product,
-    validator,
-    verified: rootVerified,
-    artifactPath: rootArtifactPath,
-    scratch,
+    store,
+    graph,
+    graphFunction,
+    publication,
+    workspaceBinding,
+    programValidation,
+    graphValidation,
   } = environment;
-  const fixtureVerified = await product.verifyProduct({
-    artifactPath: input.fixtureArtifactPath,
-    artifactRef: input.fixtureArtifactRef,
-    expectedArtifactDigest: input.fixtureBasis.artifactDigest,
-    expectedProductContentDigest: input.fixtureBasis.productContentDigest,
-    expectedManifestDigest: input.fixtureBasis.manifestDigest,
-    expectedProductId: input.fixtureBasis.productId,
-    expectedPackageName: input.fixtureBasis.packageName,
-    expectedPackageVersion: input.fixtureBasis.packageVersion,
-  });
-  assert.equal(
-    fixtureVerified.disposition,
-    "verified",
-    JSON.stringify(fixtureVerified),
-  );
-  const lock = product.constructResolvedProductLock([
-    rootVerified,
-    fixtureVerified,
-  ]);
-  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
-  const rootConsumer = join(scratch, "ax-f09-root-consumer");
-  const fixtureConsumer = join(scratch, "ax-f09-fixture-consumer");
-  const [rootInstallCandidate, fixtureInstallCandidate] = await Promise.all([
-    product.installProduct({
-      artifactPath: rootArtifactPath,
-      targetRoot: rootConsumer,
-      verifiedArtifact: rootVerified,
-      resolvedLock: lock,
-    }),
-    product.installProduct({
-      artifactPath: input.fixtureArtifactPath,
-      targetRoot: fixtureConsumer,
-      verifiedArtifact: fixtureVerified,
-      resolvedLock: lock,
-    }),
-  ]);
-  assert.equal(
-    rootInstallCandidate.disposition,
-    "materialized",
-    JSON.stringify(rootInstallCandidate),
-  );
-  assert.equal(
-    fixtureInstallCandidate.disposition,
-    "materialized",
-    JSON.stringify(fixtureInstallCandidate),
-  );
-  const eventLogPath = join(scratch, "ax-f09.events.jsonl");
-  const acquiredStore = abg.createNewEmptyAppendSink({
-    kind: "new_empty_append_sink_request",
-    schemaVersion: "5.0.0",
-    eventLogPath,
-  });
-  assert.equal("store" in acquiredStore, true, JSON.stringify(acquiredStore));
-  const store = acquiredStore.store;
-  const admittedRootInstallResult = abg.admitProductInstall(
-    store,
-    rootInstallCandidate,
-    {
-      ...support.publicOperationBasis(
-        product,
-        "abg.operation.product.install",
-        rootInstallCandidate.installId,
-        rootInstallCandidate.productContentDigest,
-        "invocation://s06/ax-f09/root-install",
-      ),
-      predecessorPrefix: acquiredStore.prefix,
-    },
-    lock,
-  );
-  const admittedInstallResult = abg.admitProductInstall(
-    store,
-    fixtureInstallCandidate,
-    {
-      ...support.publicOperationBasis(
-        product,
-        "abg.operation.product.install",
-        fixtureInstallCandidate.installId,
-        fixtureInstallCandidate.productContentDigest,
-        "invocation://s06/ax-f09/fixture-install",
-      ),
-      predecessorPrefix: admittedRootInstallResult.successorPrefix,
-    },
-    lock,
-  );
-  assert.equal(
-    admittedRootInstallResult.kind,
-    "artifact_owner_result",
-    JSON.stringify(admittedRootInstallResult),
-  );
-  assert.equal(
-    admittedInstallResult.kind,
-    "artifact_owner_result",
-    JSON.stringify(admittedInstallResult),
-  );
-  const admittedRootInstall = admittedRootInstallResult.value;
-  const admittedInstall = admittedInstallResult.value;
-  const productSet = product.constructProductSet(
-    [admittedRootInstall, admittedInstall],
-    lock,
-  );
-  assert.equal(productSet.kind, "product_set", JSON.stringify(productSet));
-  const workspaceRoot = join(scratch, "ax-f09-workspace");
-  await mkdir(workspaceRoot, { recursive: true });
-  const authorityManifest = {
-    workspaceId: "workspace://s06/ax-f09",
-    canonicalRoot: workspaceRoot,
-    authorityMode: "trusted_developer",
-    authorizedActorRef: "actor://developer.example/trusted-developer",
-  };
-  const workspaceAuthority = product.constructWorkspaceAuthorityBasis({
-    ...authorityManifest,
-    authorityManifestRef: "manifest://s06/ax-f09/workspace-authority",
-    authorityManifestDigest: product.sha256Canonical(authorityManifest),
-  });
-  assert.equal(
-    workspaceAuthority.kind,
-    "workspace_authority_basis",
-    JSON.stringify(workspaceAuthority),
-  );
-  const workspaceCandidate = product.constructWorkspaceBinding(
-    workspaceAuthority,
-    productSet,
-    lock,
-    {
-      toolchainRoot: rootConsumer,
-      productRoot: fixtureInstallCandidate.installedRoot,
-      eventLogRoot: join(workspaceRoot, ".ai-workspace/events"),
-      runtimeStateRoot: join(workspaceRoot, ".ai-workspace/runtime"),
-      projectionRoot: join(workspaceRoot, ".ai-workspace/projections"),
-      archiveRoot: join(workspaceRoot, ".ai-workspace/archive"),
-    },
-  );
-  assert.equal(
-    workspaceCandidate.kind,
-    "workspace_binding_candidate",
-    JSON.stringify(workspaceCandidate),
-  );
-  const workspaceBindingResult = abg.admitWorkspaceBinding(
-    store,
-    workspaceCandidate,
-    {
-      ...support.publicOperationBasis(
-        product,
-        "abg.operation.workspace.bind",
-        workspaceCandidate.bindingId,
-        workspaceCandidate.bindingDigest,
-        "invocation://s06/ax-f09/workspace-bind",
-        [
-          admittedRootInstall.admissionEventRef,
-          admittedInstall.admissionEventRef,
-        ],
-      ),
-      predecessorPrefix: admittedInstallResult.successorPrefix,
-    },
-    workspaceAuthority,
-  );
-  assert.equal(
-    workspaceBindingResult.kind,
-    "artifact_owner_result",
-    JSON.stringify(workspaceBindingResult),
-  );
-  const workspaceBinding = workspaceBindingResult.value;
-  const installedRoot = fixtureInstallCandidate.installedRoot;
-  const authoredPublication = retryProduct.constructAxF09Publication({
-    productId: fixtureVerified.productId,
-    artifactDigest: fixtureVerified.artifactDigest,
-    productContentDigest: fixtureVerified.productContentDigest,
-    productManifestDigest: fixtureVerified.manifestDigest,
-    packageName: fixtureVerified.packageName,
-    packageVersion: fixtureVerified.packageVersion,
-  });
-  const publicationAdmission = requireRawAdmission(
-    validator,
-    authoredPublication,
-    "module_publication",
-    "contract://abiogenesis/gtl/module-publication@5",
-  );
-  const publication = publicationAdmission.value;
-  const contributionAdmissions = publication.contributions.map((value) =>
-    requireRawAdmission(
-      validator,
-      value,
-      "catalog_contribution",
-      "contract://abiogenesis/gtl/catalog-contribution@5",
-    ));
-  const publicationValidation = validator.validatePublication(
-    publicationAdmission,
-    contributionAdmissions,
-  );
-  assert.equal(
-    publicationValidation.kind,
-    "publication_validation",
-    JSON.stringify(publicationValidation),
-  );
-  const programValidations = publication.programs.map((program) =>
-    validator.validateProgram(rawProgramInput(validator, publicationAdmission, program)));
-  assert.equal(
-    programValidations.every((value) => value.kind === "program_validation"),
-    true,
-    JSON.stringify(programValidations.filter((value) => value.kind !== "program_validation")),
-  );
-  const catalog = product.buildGraphFunctionCatalog([publication]);
-  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
-  const program = publication.programs.find(
-    (candidate) =>
-      candidate.programRef === retryProduct.AX_F09_RETRY_IDS.programRef,
-  );
-  const graphFunction = publication.graphFunctions.find(
-    (candidate) =>
-      candidate.name === retryProduct.AX_F09_RETRY_IDS.graphFunctionRef,
-  );
+  const admittedInstall = environment.additionalAdmittedInstalls[0];
+  const installedRoot = environment.additionalInstallCandidates[0].installedRoot;
   const childGraphFunction = publication.graphFunctions.find(
-    (candidate) =>
-      candidate.name === retryProduct.AX_F09_RETRY_IDS.childGraphFunctionRef,
+    (candidate) => candidate.name === ids.childGraphFunctionRef,
   );
-  assert.notEqual(program, undefined);
-  assert.notEqual(graphFunction, undefined);
   assert.notEqual(childGraphFunction, undefined);
-  const programValidation = programValidations.find(
-    (candidate) => candidate.programRef === program.programRef,
-  );
-  assert.notEqual(programValidation, undefined);
   const terms = axF09Terms(graphFunction);
   assert.equal(
     terms.retry.budget,
     input.retryBudget ?? RETRY_BUDGET,
   );
-  const catalogView = product.narrowGraphFunctionCatalog(catalog, [
-    graphFunction.name,
-    childGraphFunction.name,
-  ]);
-  assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
-  const nonceSubject = `restart-private-${randomUUID()}`;
-  const invocationInput = {
-    kind: "developer_greeting_output",
-    schemaVersion: "5.0.0",
-    message: nonceSubject,
-  };
-  const rawInput = requireRawAdmission(
-    validator,
-    invocationInput,
-    "invocation_input",
-    graphFunction.inputs[0],
-  );
-  const rawRequest = requireRawAdmission(
-    validator,
-    {
-      kind: "public_invocation",
-      schemaVersion: "5.0.0",
-      operationId: "abg.operation.run.invoke",
-      variant: "direct",
-      invocationRef: "invocation://s06/ax-f09/run-invoke",
-      eventTime: EVENT_TIME,
-      correlationId: "correlation://s06/ax-f09/run-invoke",
-      payload: {
-        programRef: program.programRef,
-        catalogHandle: graphFunction.name,
-      },
-    },
-    "public_operation_request",
-    "contract://abiogenesis/public/run-invoke-request@5",
-  );
-  const interactionCapabilities = programValidation.interactionLeafRows.map(
-    (row) => ({
-      requirementKey: row.requirementKey,
-      requirementKeyDigest: row.requirementKeyDigest,
-      actorCapabilityRef: row.requirement.actorCapabilityRef,
-    }),
-  );
-  const policy = product.constructRootInvocationPolicy(
-    workspaceBinding,
-    program,
-    interactionCapabilities,
-    ["F_D", "F_P", "F_H"],
-  );
-  const actorRef = workspaceBinding.authorizedActorRef;
-  const interactionCapabilityRefs = [
-    ...new Set(interactionCapabilities.map((row) => row.actorCapabilityRef)),
-  ];
-  const capabilityGrants = [
-    product.constructCapabilityGrant(policy, actorRef),
-    ...interactionCapabilityRefs.flatMap((capabilityRef) => [
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.interaction.respond",
-        capabilityRef,
-      ),
-      product.constructCapabilityGrant(
-        policy,
-        actorRef,
-        "abg.operation.run.continue",
-        capabilityRef,
-      ),
-    ]),
-  ];
-  const selectedRow = product.lookupGraphFunction(
-    catalogView,
-    graphFunction.name,
-  );
-  assert.ok(selectedRow);
-  const invocationAuthority = product.constructInvocationAuthority(
-    actorRef,
-    workspaceBinding,
-    catalogView,
-    program.programRef,
-    selectedRow,
-    policy,
-    capabilityGrants,
-  );
-  assert.equal(
-    invocationAuthority.kind,
-    "invocation_authority",
-    JSON.stringify(invocationAuthority),
-  );
-  const invocation = product.constructDirectInvocation(
-    workspaceBinding,
-    catalogView,
-    program,
-    selectedRow,
-    rawRequest,
-    rawInput,
-    policy,
-    capabilityGrants,
-    invocationAuthority,
-  );
-  assert.equal(
-    invocation.kind,
-    "public_invocation_candidate",
-    JSON.stringify(invocation),
-  );
-  const invocationAdmissionReceipt = abg.admitInvocation(
-    store,
-    {
-      invocation,
-      rawRequest,
-      rawInput,
-      modulePublication: publication,
-      program,
-      graphFunction,
-      programValidation,
-      workspaceBinding,
-      artifactTruth: workspaceBindingResult.artifactTruth,
-      catalogView,
-      policy,
-      capabilityGrants,
-      authority: invocationAuthority,
-    },
-    support.publicOperationBasis(
-      product,
-      "abg.operation.run.invoke",
-      workspaceBinding.bindingId,
-      workspaceBinding.bindingDigest,
-      invocation.publicRequestInvocationRef,
-      [workspaceBinding.admissionEventRef],
-    ),
-  );
-  assert.equal(
-    invocationAdmissionReceipt.kind,
-    "invocation_admission_receipt",
-    JSON.stringify(invocationAdmissionReceipt),
-  );
-  const invocationAdmission = invocationAdmissionReceipt.admission;
-  const graph = gtl.materializeGraph(graphFunction, {
-    invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
-    admittedInputRef: rawInput.admissionRef,
-    admittedInputDigest: rawInput.subjectDigest,
-    admittedInput: invocationInput,
-  });
-  const graphValidation = validator.validateGraph(
-    graph,
-    programValidation,
-    graphFunction,
-    {
-      invocationAdmissionRef: invocationAdmission.invocationAdmissionRef,
-      admittedInputRef: rawInput.admissionRef,
-      admittedInputDigest: rawInput.subjectDigest,
-      admittedInput: invocationInput,
-    },
-  );
-  assert.equal(
-    graphValidation.kind,
-    "graph_validation",
-    JSON.stringify(graphValidation),
-  );
-  const implementationModules = await Promise.all(
-    [...new Set(
-      publication.implementationBindings.map((binding) => binding.modulePath),
-    )].map((modulePath, index) =>
-      import(
-        `${pathToFileURL(join(installedRoot, modulePath)).href}?ax-f09=${Date.now()}-${index}`
-      )),
-  );
-  const packagedImplementations = implementationModules.flatMap((module) =>
-    Object.values(module).filter(product.isPackagedLeafImplementationDescriptor));
-  const resolutionSetCandidate = product.resolveImplementationSet(
-    catalogView,
-    publication,
-    programValidation,
-    packagedImplementations,
-  );
-  assert.equal(
-    resolutionSetCandidate.kind,
-    "implementation_resolution_set_candidate",
-    JSON.stringify(resolutionSetCandidate),
-  );
-  const resolutionSetValidation =
-    validator.validateImplementationResolutionSet(
-      resolutionSetCandidate,
-      catalogView,
-      publication,
-      programValidation,
-      packagedImplementations,
-    );
-  assert.equal(
-    resolutionSetValidation.kind,
-    "implementation_resolution_set_validation",
-    JSON.stringify(resolutionSetValidation),
-  );
-  const closureContract = publication.closureContracts.find(
-    (candidate) => candidate.closureContractRef === program.closureContractRef,
-  );
-  assert.notEqual(closureContract, undefined);
-  const executionBasisAdmission = abg.admitExecutionBasis(
-    store,
-    invocationAdmissionReceipt.successorPrefix,
-    {
-      invocationAdmission,
-      rawInputValue: invocationInput,
-      program,
-      programValidation,
-      graph,
-      graphValidation,
-      resolutionSetCandidate,
-      resolutionSetValidation,
-      closureContract,
-    },
-    basis("execution-basis"),
-  );
-  assert.equal(
-    executionBasisAdmission.kind,
-    "execution_basis_admission",
-    JSON.stringify(executionBasisAdmission),
-  );
   const transformResolution =
     abg.selectAdmittedImplementationResolution(
-      executionBasisAdmission.implementationSet,
+      environment.implementationSet,
       {
         graphFunctionRef: graph.graphFunctionRef,
         nodeRef: graph.template.startNodeRef,
@@ -1397,7 +1026,7 @@ async function constructP1Environment(input) {
   assert.notEqual(transformResolution, null);
   const implementationResolution =
     abg.selectAdmittedImplementationResolution(
-      executionBasisAdmission.implementationSet,
+      environment.implementationSet,
       {
         graphFunctionRef: graph.graphFunctionRef,
         nodeRef: graph.template.startNodeRef,
@@ -1407,66 +1036,23 @@ async function constructP1Environment(input) {
       },
     );
   assert.notEqual(implementationResolution, null);
-  const installedAuthorityPrefix =
-    eventStoreOwner.selectHeldEventStoreDurablePrefix(store);
-  const installedAuthorityEvents = abg.selectValidatedRuntimeEventPrefix(
-    store.readAll(),
-  );
-  const artifactTruth = abg.projectExactPrefixArtifactTruth(
-    installedAuthorityPrefix,
-  );
-  assert.equal(
-    artifactTruth.kind,
-    "exact_prefix_artifact_truth_projection",
-    JSON.stringify(artifactTruth),
-  );
-  const semantics = await product.loadInstalledProductSemantics({
-    install: admittedInstall,
-    publication,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(artifactTruth, install),
-  });
-  const semanticsProjection = product.projectInstalledLeafSemantics(semantics);
-  const leafPort = await implementationLeafPort.constructAdmittedLeafInvocationPort({
-    prefix: installedAuthorityEvents,
-    artifactTruth,
-    install: admittedInstall,
-    implementationSet: executionBasisAdmission.implementationSet,
-    publication,
-    semanticsProjection,
-  });
+  const artifactTruth = environment.artifactTruth;
   return {
     ...environment,
-    store,
-    verified: fixtureVerified,
+    tenantRoot: environment.installedRoot,
+    verified: environment.additionalVerified[0],
     admittedInstall,
-    workspaceBinding,
-    lock,
     installedRoot,
-    publication,
-    program,
-    graphFunction,
     childGraphFunction,
-    programValidation,
-    catalog,
-    catalogView,
     invocationInput,
-    rawInput,
-    invocationAdmission,
-    graph,
-    graphValidation,
-    closureContract,
-    executionBasis: executionBasisAdmission.executionBasis,
-    implementationSet: executionBasisAdmission.implementationSet,
-    interactionSet: executionBasisAdmission.interactionSet,
+    interactionSet: environment.executionBasisAdmission.interactionSet,
     implementationResolution,
     transformResolution,
-    leafPort,
     continuationProductBasis: {
       artifactTruth,
       install: admittedInstall,
       workspaceBinding,
-      catalogView,
+      catalogView: environment.catalogView,
       programValidation,
       graphValidation,
     },
@@ -1477,7 +1063,7 @@ async function constructP1Environment(input) {
     eventCalculusOwner,
     actorRuntimeBinding: { workspaceBinding, artifactTruth },
     nonceSubject,
-    eventLogPath,
+    eventLogPath: join(environment.scratch, "runtime", "events.jsonl"),
   };
 }
 
@@ -2911,7 +2497,10 @@ async function produceAba(input) {
   const worker = await installAttemptWorker(environment.scratch);
   process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
   process.env.ABG_AX_F09_COUNTER = worker.counterPath;
-  process.env.ABG_AX_F09_MODE = "aba";
+  // The command's A-B-A mode only. A refused structured value is a transport
+  // contract_failure, which the fixture's failure candidate carries; under
+  // ABG_AX_F09_MODE the fixture claims success for it and ABG blocks the call.
+  process.env.ABG_AX_F09_ATTEMPT_MODE = "aba";
   process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
   const opened = environment.abg.openTraversalScope(
     environment.store,
@@ -3354,6 +2943,247 @@ async function produceAba(input) {
   });
   assert.equal(heldReplay.runtimeStatus, "held");
   assert.deepEqual(completion.replayState, heldReplay);
+  // C-6 (TD-18) held-return steel thread over the genuine A-B-A hold: the
+  // store owner closes and reopens the log; the parent's held suspension is
+  // derived cold from admitted events and definition inputs only, starting
+  // from the continuation ref the held output names; it and the return frames
+  // rebuilt from it equal the warm suspension and its frames. No production
+  // operation resumes an F_H-held Run, so this is a derivability witness at
+  // the cold cut, not a Run resume.
+  const loadOwner = (path) => import(pathToFileURL(join(
+    environment.tenantRoot,
+    `build/code/src/${path}.js`,
+  )).href);
+  const [
+    basisOwner,
+    cursorOwner,
+    callOwner,
+    scopeOwner,
+    graphMaterializer,
+    rehydrationOwner,
+    valueOwner,
+  ] = await Promise.all([
+    loadOwner("abg/execution_basis"),
+    loadOwner("abg/traversal_cursor"),
+    loadOwner("abg/c_call"),
+    loadOwner("abg/open_call"),
+    loadOwner("gtl/materialize"),
+    loadOwner("hog/parent_rehydration"),
+    loadOwner("shared/value/index"),
+  ]);
+  const { canonicalEquals } = valueOwner;
+  const sha256Canonical = environment.product.sha256Canonical;
+  const fieldDifferences = (left, right) =>
+    [...new Set([...Object.keys(left), ...Object.keys(right)])].filter(
+      (key) => !(key in left) || !(key in right) ||
+        !canonicalEquals(left[key], right[key]),
+    );
+  const abaClose = environment.store.projectReopenAuthorityAndClose();
+  // The owners above are the environment tenant's; read the log through the
+  // same instance, since validated prefixes are nominal per owner module.
+  const abaReopened = environment.abg.reopenEventStore(abaClose.reopenAuthority);
+  assert.equal(
+    abaReopened.kind,
+    "reopened_event_store_context",
+    JSON.stringify(abaReopened),
+  );
+  let coldReturn;
+  try {
+    assert.deepEqual(abaReopened.prefix, abaClose.prefix);
+    const coldPrefix = environment.abg.selectValidatedRuntimeEventPrefix(
+      environment.abg.readRuntimeEventsAtDurablePrefix(abaReopened.prefix),
+    );
+    const coldEvents = abaReopened.store.readAll();
+    const coldHold = exactOne(
+      coldEvents,
+      (event) =>
+        event.kind === "fh_interaction_opened" &&
+        event.payload.continuationRef === completion.continuationRef,
+      "C-6 cold F_H hold",
+    );
+    const coldHeldCall = exactOne(
+      coldEvents,
+      (event) =>
+        event.kind === "c_call_opened" &&
+        event.aggregateId === coldHold.payload.cCallRef,
+      "C-6 cold held CCall",
+    );
+    const coldChildBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
+      coldPrefix,
+      coldHeldCall.basisId,
+    );
+    assert.notEqual(coldChildBasis, null);
+    const coldParentBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
+      coldPrefix,
+      coldChildBasis.parentExecutionBasisRef,
+    );
+    assert.notEqual(coldParentBasis, null);
+    const parentFunction = environment.leafPort.graphFunctionByRef(
+      coldParentBasis.graphFunctionRef,
+    );
+    const childFunction = environment.leafPort.graphFunctionByRef(
+      coldChildBasis.graphFunctionRef,
+    );
+    assert.equal(sha256Canonical(parentFunction), coldParentBasis.graphFunctionDigest);
+    assert.equal(sha256Canonical(childFunction), coldChildBasis.graphFunctionDigest);
+    const coldParentGraph = graphMaterializer.materializeGraph(parentFunction, {
+      invocationAdmissionRef: coldParentBasis.invocationAdmissionRef,
+      admittedInputRef: coldParentBasis.rawInputAdmissionRef,
+      admittedInputDigest: coldParentBasis.rawInputDigest,
+      admittedInput: coldParentBasis.rawInputValue,
+    });
+    assert.equal(coldParentGraph.materializationRef, coldParentBasis.graphRef);
+    assert.equal(
+      coldParentGraph.materializationDigest,
+      coldParentBasis.graphDigest,
+    );
+    const coldParentPosition =
+      cursorOwner.projectOpenedCCallTraversalInputAtPrefix(
+        coldPrefix,
+        coldParentGraph,
+        coldChildBasis.parentCCallRef,
+      );
+    assert.notEqual(coldParentPosition, null);
+    assert.equal(coldParentPosition.execution.basisRef, coldParentBasis.basisRef);
+    const coldParentCCall = callOwner.projectOpenedCCallCarrierAtPrefix(
+      coldPrefix,
+      coldParentGraph,
+      coldChildBasis.parentCCallRef,
+      coldParentPosition.cursor,
+      parentFunction,
+      childFunction,
+      environment.programValidation,
+    );
+    assert.notEqual(coldParentCCall, null);
+    const coldParentScope =
+      scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
+        coldPrefix,
+        coldParentPosition.cursor.frameId,
+      );
+    const coldChildScope =
+      scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
+        coldPrefix,
+        coldHeldCall.frameId,
+      );
+    assert.notEqual(coldParentScope, null);
+    assert.notEqual(coldChildScope, null);
+    const coldParentClosure = environment.leafPort.closureContractByRef(
+      coldParentBasis.closureContractRef,
+    );
+    assert.equal(
+      sha256Canonical(coldParentClosure),
+      coldParentBasis.closureContractDigest,
+    );
+    const coldApplication = coldParentCCall.batchRef === null
+      ? null
+      : coldParentGraph.template.applications.find((candidate) =>
+          candidate.relationKind === "fan_out" &&
+          candidate.batchRef === coldParentCCall.batchRef) ?? null;
+    const coldScopeClass = scopeOwner.projectOpenedTraversalScopeClassAtPrefix(
+      coldPrefix,
+      coldParentScope,
+    );
+    const derivedSuspension = {
+      kind: "held_workflow_suspension",
+      schemaVersion: "5.0.0",
+      parentExecutionBasisRef: coldParentBasis.basisRef,
+      parentTraversalScope: coldParentScope,
+      parentGraph: coldParentGraph,
+      parentClosureContract: coldParentClosure,
+      parentCCall: coldParentCCall,
+      application: coldApplication,
+      sourceCursor: coldParentPosition.cursor,
+      parentGraphInput: coldParentBasis.rawInputValue,
+      parentGraphInputDigest: coldParentBasis.rawInputDigest,
+      parentInput: coldParentPosition.input.value,
+      parentInputDigest: coldParentPosition.input.inputDigest,
+      childExecutionBasisRef: coldChildBasis.basisRef,
+      childTraversalScopeRef: coldChildScope.scopeRef,
+      childInput: coldChildBasis.rawInputValue,
+      childInputDigest: coldChildBasis.rawInputDigest,
+      terminalMode: coldScopeClass === "root" ? "close_run" : "return_to_parent",
+    };
+    assert.deepEqual(
+      fieldDifferences(derivedSuspension, parentSuspension),
+      [],
+      "cold log derivation differs from the warm held suspension",
+    );
+    assert.equal(canonicalEquals(derivedSuspension, parentSuspension), true);
+    const coldImplementationSet =
+      basisOwner.rehydrateAdmittedImplementationSetAtPrefix(
+        coldPrefix,
+        coldParentBasis.rootImplementationSetRef,
+      );
+    assert.notEqual(coldImplementationSet, null);
+    const rehydrate = (suspensions) =>
+      rehydrationOwner.rehydrateParentReturnFrames({
+        predecessorPrefix: abaReopened.prefix,
+        program: environment.program,
+        programValidation: environment.programValidation,
+        implementationSet: coldImplementationSet,
+        leafPort: environment.leafPort,
+        currentChildExecutionBasis: coldChildBasis,
+        currentChildTraversalScope: coldChildScope,
+        suspensions,
+      });
+    const warmFrames = rehydrate(completion.parentSuspensions);
+    const coldFrames = rehydrate([derivedSuspension]);
+    assert.equal(
+      warmFrames.kind,
+      "rehydrated_parent_return_frames",
+      JSON.stringify(warmFrames),
+    );
+    assert.equal(
+      coldFrames.kind,
+      "rehydrated_parent_return_frames",
+      JSON.stringify(coldFrames),
+    );
+    assert.equal(coldFrames.frames.length, 1);
+    assert.deepEqual(
+      fieldDifferences(coldFrames.frames[0].parent, warmFrames.frames[0].parent),
+      [],
+    );
+    assert.deepEqual(
+      fieldDifferences(coldFrames.frames[0], warmFrames.frames[0]),
+      [],
+    );
+    assert.equal(canonicalEquals(coldFrames.frames, warmFrames.frames), true);
+    const closureField = Object.keys(coldParentClosure).find((key) =>
+      key !== "closureContractRef" &&
+      typeof coldParentClosure[key] === "string");
+    assert.notEqual(closureField, undefined);
+    const mutatedClosure = rehydrate([{
+      ...derivedSuspension,
+      parentClosureContract: {
+        ...coldParentClosure,
+        [closureField]: `${coldParentClosure[closureField]}#c6-mutated`,
+      },
+    }]);
+    assert.equal(mutatedClosure.stage, "parent-runtime", JSON.stringify(mutatedClosure));
+    const mutatedInput = { ...derivedSuspension.parentInput, c6Mutated: true };
+    const unsealedInput = rehydrate([{
+      ...derivedSuspension,
+      parentInput: mutatedInput,
+    }]);
+    assert.equal(unsealedInput.stage, "workflow-relation", JSON.stringify(unsealedInput));
+    const resealedInput = rehydrate([{
+      ...derivedSuspension,
+      parentInput: mutatedInput,
+      parentInputDigest: sha256Canonical(mutatedInput),
+    }]);
+    assert.equal(resealedInput.stage, "workflow-relation", JSON.stringify(resealedInput));
+    coldReturn = {
+      coldSuspensionEqualsWarm: true,
+      coldFramesEqualWarm: true,
+      coldFrameCount: coldFrames.frames.length,
+      coldMutatedClosureStage: mutatedClosure.stage,
+      coldMutatedClosureField: closureField,
+      coldUnsealedInputStage: unsealedInput.stage,
+      coldResealedInputStage: resealedInput.stage,
+    };
+  } finally {
+    abaReopened.store.closeDurableLog();
+  }
   return {
     action: "produce_aba",
     cleanupRoot: environment.scratch,
@@ -3401,6 +3231,7 @@ async function produceAba(input) {
       parentWorkflowRouteCount: workflowRoutes.length,
       heldReplayStatus: heldReplay.runtimeStatus,
       heldReplayExact: true,
+      ...coldReturn,
     },
   };
 }

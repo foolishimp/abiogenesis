@@ -3279,3 +3279,286 @@ Grant: `test_env/falsifiers/runtime-f09-worker.mjs`; `code/src/abg/replay.ts` at
 Stop (write it in the Return, keep the rest moving): any event kind, payload key, failure class, Public export or Product contract change; a new member on `RetryAdmissionRefusal` or `ProjectedRetryResumeRefusal`; a change to any nullable projection's result at any prefix; item 0's lane red on a `code/src` defect; item 0(c) moving any replay lane.
 
 Return contract: one commit on `main` with the first line `C-8: the retry route cause: a route_mismatch refusal's replay cause rides cold in the recorded failure's existing diagnostic reference, the projection nullable and the refusal unchanged; the F09 worker restated and the cold held-return witness runs`; if item 0 does not close, keep that text through "unchanged" and state the gap after it, as C-7's deviation 1 did; the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend an earlier commit. Append `## C-8 return` at the end of this record: the first sentence says closed, or names the gap; item 0 (a) each restated call with the lane's first error after it, (b) the witness's lane count and assertion lines, (c) the replay lanes; the trace table (a); the run (b) with the sites, the reader and the subject's keys; the proof (c) and the mutant's first error; the reach (d); item 2's proposals; item 3's tables; deviations from this wording; findings outside the grant; stops. Nothing above your section is edited.
+
+## C-8 return
+
+Base `36b007242`. Worker: Opus 5.5 at xhigh. The commit carrying this section is the C-8 commit. Scratch root: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/c8/`, written `scratch/c8/` below.
+
+Not closed: item 1 stops at (b). The `route_mismatch` cause exists only over the staged prefix that the transition's transaction rolls back before the hog records the failure. It can reach the recorded failure's diagnostic reference only through a new member on `RetryAdmissionRefusal`, a named stop. No `code/src` edit was made for item 1, so there is no item 1(c) case. Item 0 is closed:
+
+- the F09 worker is restated to the support's producers and to the current transport carrier;
+- the cold held-return witness runs, and `t287-r4-aba-retry` goes from 1/0/1/0 to 1/1/0/0;
+- `replay.ts:1217` reads the one call, and every replay lane is unchanged.
+
+The commit's first line keeps the activation's structure and names the item 1 gap in place of the claim it could not make (deviation 1).
+
+### Item 0: the C-7 residuals
+
+**(a) The F09 worker, one restated call at a time.** The lane is `t287-r4-aba-retry`. Every step ran the whole lane; logs are `scratch/c8/item0/step-NN.log`. Counts are tests/pass/fail/skipped.
+
+| Step | Restated call (head line → current form) | Lane after | First error after |
+|---|---|---|---|
+| head | none | 1/0/1/0 | `static_validation_refusal` `raw_subject_mismatch` at the worker's program validation (`:1138`) |
+| 1 | `:1137` `validateProgram(rawProgramInput(...))` over the private copy → the support's `rawProgramInput` (`root-installed-environment.mjs:140-167`) | 1/0/1/0 | `TypeError: capability grant requires exact workspace, policy, actor, and definition authority` (`product/invocation.js:577`), from the worker's `constructCapabilityGrant(policy, actorRef)` (`:1222`) |
+| 2 | `:1222-1243`, the grants and the authority → one `abg.operation.run.invoke` grant with `capabilityGrantBasis` `{ admittedInstalls, workspaceBinding, fixedPacket }`, passed to `constructCapabilityGrant` and `constructInvocationAuthority` (`product/invocation.ts:853-884`, `:1072-1145`) | 1/0/1/0 | `TypeError: Cannot convert undefined or null to object` in `sha256Canonical`, inside `admitInvocationWithRequest` (`invocation_admission.js:481`), from the worker's `abg.admitInvocation` (`:1273`): the call carries no `programPublication` |
+| 3 | the whole private construction in `constructP1Environment` → the support's producers (detail below) | 1/0/1/0 | `AssertionError: ... 'blocked' !== 'held'` at `produceAba` (`assert.equal(completion.disposition, "held")`); the run stopped with `diagnostic://abiogenesis/c-call/result-contract-mismatch@5` |
+| 4 | the attempt command's host carrier `{ type: 'result', subtype: 'success', result }` → `{ type: 'result', subtype: 'success', is_error: false, structured_output }` | 1/0/1/0 | the same assertion; blocked again, now on a transport `contract_failure` |
+| 5 | the command's mode variable: the command reads `ABG_AX_F09_ATTEMPT_MODE`, and the worker no longer sets `ABG_AX_F09_MODE` | 1/0/1/0 | `assert.equal(signals[0], signals[2])` (`:2689` as committed): the two A signals differ |
+| 6 | the command prints `attempt a`, `attempt b`, `attempt a`, `attempt 4` instead of the attempt number | 1/1/0/0 | none |
+
+In step 3 the private construction is fixture verify and install (`:942-971`), catalog, program validation, grants, authority, invocation, resolution and execution basis. It is replaced by:
+
+- `setupInstalledRootCatalog`, with `prepareAdditionalProducts` for the F09 fixture;
+- then `setupInstalledRootExecutionBasis`, which runs `setupInstalledRootInvocation` and `setupInstalledRootResolution` (`root-installed-environment.mjs:168-1200`; committed at `:918` and `:960`).
+
+Steps 3 to 6 supersede steps 1 and 2, and the text of steps 1 and 2 is not in the commit. The step 2 copy is `scratch/c8/item0/worker-after-step02.mjs`.
+
+**The cause of the red in steps 3 to 5.** It was verified on kept event-log excerpts (`scratch/c8/item0/evidence/step03-events.json`, `step04-events.json`, `probe06-events.json`) and by reading the sites below. It is stale test input; it is not `code/src`.
+
+1. Since `c7988f937` (2026-09-28), a structured request reads only the successful host carrier's `structured_output` (`abg/worker_transport.ts:303-318`). The command was last edited at `e4a9be06b` (2026-08-17) and printed `result:` only, so every attempt was `no_output`: `finalOutput` was `""` (`transport_contracts.ts:88`).
+2. With the carrier restated (step 4), the native result assessment rejects the string value. The transport therefore fails with `contract_failure` (`transport_contracts.ts:66-75`).
+3. The fixture's A-B-A branch (`test_env/falsifiers/runtime-f09-product.mjs:118-150`, outside the grant) turns any non-success into disposition `success` with a `developer_greeting_failure` candidate, a failed transport included.
+4. Neither retry route takes that combination:
+   - the transport-failure retry needs leaf disposition `failure` (`abg/c_call_outcome.ts:1191-1208`);
+   - the payload-rejection retry needs a transport `success` (`:1438-1471`).
+5. `admitResult` then rejects the success-class candidate (`c_call.ts:6880-6921`), and `stageBlockedOutcome` (`c_call_outcome.ts:1029-1050`) blocks. This is ABG refusing a Product that claims success on a failed transport.
+
+One probe (`scratch/c8/f09/worker-probe06.mjs`) tested whether the old payload-rejection route is still reachable. It used a structured greeting with a wrong message. That passes the native assessment, so the transport succeeds, and the run still blocks the same way. The route is therefore not reachable through the transport for this fixture.
+
+**What the restatement moves, named.**
+
+- **The source class of the A-B-A signals.** It moves from `deterministic_output_rejection`, keyed on candidate digest, contract and diagnostic, to `probabilistic_transport`. The new stable source digests the request, the raw output, stdout and the artifacts (`c_call.ts:2077-2106`). The two A attempts therefore print identical bytes (step 6).
+- **The assertions.** The A-B-A comparison (`:2689-2690`) is kept and exercised. The harness's `failureClasses` (three `contract_failure`, `runtime-f09.mjs:150`) is unchanged and passes.
+- **The fixture's branch.** The fixture's `ABG_AX_F09_MODE` branch is no longer reached by this lane (findings outside the grant).
+
+**The diagnostic-reference assertions the activation names** are `:1718`, `:1731`, `:1790`, `:1971` and `:2645-2683` at head. As committed they are `:1304`, `:1317`, `:1376`, `:1557` and `:2231-2280`.
+
+- They sit in `advanceRetry`, `produceFrontier` and `inspectHandoff`, which only the `produce_frontier` and `inspect_frontier` actions reach.
+- No lane runs those actions: `runAxF09` has no test.
+- They are kept, unchanged and unexercised.
+
+**Residual.** The private `rawProgramInput` (`:87-128`, with `requireRawAdmission` `:81`) remains. Its only caller is `loadInstalledRetryDependencies` (`:560`) on the `inspect_frontier` path.
+
+- That consumer process gets `{ action, handoff }` only (`runtime-f09.mjs:266-269`, outside the grant). The handoff is strict by design: the worker checks its keys (`:1982-1995`), and the harness requires it closed (`runtime-f09.mjs:325-328`). The consumer therefore cannot locate the support module.
+- Importing the support's producer there needs the harness to pass `supportPath` in the consumer input.
+- The copy is the stale shape C-7 found. `inspect_frontier` would fail there if it were run.
+
+**(b) The witness.** The 239 lines of `scratch/c7/witness.diff` (sha256 `bfca1b23bd046d0d7e4f56a088b5d1e08e37da28d61b94fb1061a61702bc16ee`) are applied after the held-replay assertion (`:2945`), with `...coldReturn` in the audit (`:3234`). The C-6 text `scratch/c6/runtime-f09-worker.witness.mjs` and the C-7 applied copy have the same digest, `b664ac7a2f2a600f0dc5dc8d8917ab21c485df3641127d6a8045b8fe07714639`.
+
+Two restatements of the witness were each forced by a lane error:
+
+1. **The owner root.** `environment.installedRoot` is the F09 fixture's install, at head (`:1104`) and now. The witness's owners (`abg/execution_basis`, `abg/traversal_cursor`, `abg/c_call`, `abg/open_call`, `gtl/materialize`, `hog/parent_rehydration`, `shared/value/index`) live in the tenant. `loadOwner` therefore reads `environment.tenantRoot` (`:2954`): the support's tenant install, returned at `:1042`.
+2. **The log read** (step 07b, 1/0/1/0). It failed with `TypeError: Event Calculus requires a nominal validated immutable event prefix` at `rehydrateExecutionBasisAtPrefix`. The cold prefix was selected by the cliHost tenant (`installedAbg`) and read by the environment tenant's owners, and validated prefixes are nominal per owner module. The reopen, select and read now use `environment.abg` (`:2984-2994`).
+
+Lane after: 1/1/0/0 (step 08b, 151 s). The after-run below repeats it. Two comment-only edits to the worker followed, and the lane ran once more on the committed file (sha256 `f8c44362e29580a0ff2076d97939d4f728401d400cb2ca18b5187d67e5579927`): 1/1/0/0, 150 s (`scratch/c8/item0/step-09-final.log`). The audit (`scratch/c8/f09/out-w08.json`) reports:
+
+- `coldSuspensionEqualsWarm` true;
+- `coldFramesEqualWarm` true, with 1 frame;
+- closure field `closureScope` changed: refused at `parent-runtime`;
+- changed `parentInput`: refused at `workflow-relation`;
+- the same input re-sealed with its own digest: refused at `workflow-relation`.
+
+Assertion lines as committed:
+
+- the suspension: `:3107` and `:3111`;
+- the frames: `:3129-3150`;
+- the three negatives: `:3162`, `:3168` and `:3174`;
+- the close: `:3185`.
+
+The suspension equality holds with the carried member as it stands; C-6 stop 1 is still pending.
+
+**(c) `abg/replay.ts:1217`** now reads `const priorRows = eventCalculusDependencies(prefix, event);`. The `owned` distinction stays, because other code reads it: `:936`, `:959`, `:1148`, `:1229`, `:1234` and `:1473`. `events` stays (`:1374`). Proof (item 3's table): every replay lane is unchanged. The replay lanes are the 17 that `git grep` finds importing `abg/replay` by module path, plus `t287-runtime-failure-diagnostic` (named by the activation), plus 10 lanes that load `replay.js` by a path join or through a support owner loader (marked "indirect" in the table). All 28 have the same counts, the same red and skip names, and the same first errors before and after. The three lanes the activation names are among them: `t287-route-reconstruction` 10/8/0/2, `t287-runtime-failure-diagnostic` 17/17/0/0, and `m5-event-calculus-runtime` 19/13/5/1 (head reds: four times `abg.openCall is not a function`, and `runtime_failure_observed/runtime_invocation_active`). (c) stays.
+
+### Item 1(a): the trace
+
+**Surfaces of a `route_mismatch` refusal at head.**
+
+| Surface | Site | What it carries about the replay cause | Lane |
+|---|---|---|---|
+| ABG refusal | `RetryAdmissionRefusal` (`retry.ts:341-353`), built in `admitRetryAttempt` at `:4958-4970`. It is computed over `routeSuccessorPrefix`, the staged prefix holding the just-staged retry route (`traversal_route.ts:5391-5410`) | `code: "route_mismatch"` and a fixed message. No cause and no diagnostic member | none |
+| Owned transition result | `admitTraversalTransitionUsing` (`traversal_route.ts:5479-5530`). The refusal returns at `:5410`, leaves the transaction as `RouteTransitionAbort` (`:5501-5503`) after the staged events roll back (`event_store.ts:4244-4265`), and is returned whole (`:5520`) | The same refusal. The staged route and its prefix are gone | none |
+| Hog Public-returned refusal | `resumeProjectedRetry` → `projectedRetryRefusal` (`hog/retry_lifecycle.ts:195-221`, `:501-507`): `code: "retry_attempt_refused"`, with the ABG refusal whole as `lowerCause` | The class, and `route_mismatch` in `lowerCause.code`. No cause. The recorded failure's reference is not returned here | none |
+| Hog recorded failure | `advanceOwnedRetryLifecycle` `:734-740` → `failRetry` (`:174-193`) → `failTraversal` (`hog/traversal_failure.ts:70-96`) → `admitRuntimeFailure` (`runtime_failure.ts:263`). This records `runtime_failure_observed` with payload `stage` `hog_traversal`, `subjectDigest` over `{ stage: "retry-resume", candidate: <the Public-returned refusal> }`, and `diagnosticRef` `diagnostic://abiogenesis/hog/retry_attempt_refused@5`, then throws `GraphTraversalFailure(diagnosticRef, receipt)` | Cold: the class `retry_attempt_refused` only. `route_mismatch` and everything else sit inside the digested subject, which is not readable | none |
+
+`git grep route_mismatch -- test_env` finds nothing. No lane drives the refusal.
+
+**Why `projectDeclaredCRetryFrontier` returns `null` (`retry.ts`, from `:2974`).**
+
+| Lines | Reason |
+|---|---|
+| `:2982-2992` | Any of: the graph is not materialized; the cursor is not a candidate or is not admitted at the prefix; the graph or graph function differs; the retry depth is out of range |
+| `:2998`, `:3000` | No enclosing `C.retry` context at the depth |
+| `:3035-3053` | The attempt history fails: more attempts than budget; an attempt that does not project or derive its cursor; a mismatch in ordinal, boundary, budget, term path, task ordinal, input contract, retry path or coordinate; or a duplicate manifest |
+| `:3062-3069` | A progress does not project, or there are more progresses than attempts |
+| `:3070-3077` | The Run's historical route projections are `null`. This happens when any route projects `null`, which includes the swallowed replay failure (`traversal_route.ts:605-647`) |
+| `:3105` | First attempt: no exact entry route to the cursor, a progress already present, or the Run or the locus not active |
+| `:3156-3176` | A later attempt: the origin route or the progress does not match |
+| `:3208-3309` | Per-attempt lineage fails: opened call, source lineage, CCall phase, judgment, continuation routes, target cursor, or a progress against an active attempt |
+| `:3335-3451` | Retry history fails: a completed or prospective attempt's judgment, consumers, retry path or final lineage |
+| `:3496-3515` | Inner-source lineage fails |
+
+`admitRetryAttempt` also refuses `route_mismatch` on a frontier that is not `null`, in two cases (`:4958-4965`):
+
+- the frontier is not `eligible`;
+- its `nextAttempt`, current cursor or eligibility route (`admissionEventRef`, target cursor) differ.
+
+**Hog sites that record a retry refusal** (`hog/retry_lifecycle.ts`). There are six sites, not the four the activation names. Its `:644-650` is now `:645-651`. The other cited lines hold.
+
+| Site | Stage | Candidate | Can carry `route_mismatch` |
+|---|---|---|---|
+| `:567-573` | `retry-failure-plan` | `planRetryRuntimeFailureTransition` refusal | no |
+| `:587-593` | `retry-blocked-route` | `proposeBlockedRoute` refusal | no |
+| `:645-651` | `retry-blocked-transition` | refusal of the blocked route-class transition (no retry attempt is admitted) | no |
+| `:686-692` | `retry-failure-transition` | `admitRetryRuntimeFailureTransition` refusal | no |
+| `:710-716` | `retry-input-projection` | `projectOwnedExecutableRetryInput` refusal | no |
+| `:734-740` | `retry-resume` | `ProjectedRetryResumeRefusal` `retry_attempt_refused`, with `lowerCause.code` `route_mismatch` | yes, nested |
+
+The sole producer is `retry.ts:4968`, inside `admitRetryAttempt`. Its sole caller is `traversal_route.ts:5396`, on the retry-class branch. Two places build retry-class candidates: `hog/retry_lifecycle.ts:422`, recorded at `:734-740`, and `hog/structural_transition.ts:221`, recorded at `:270-276`. That second recording site is outside the grant (findings outside the grant).
+
+### Item 1(b): the run: stopped
+
+**The Executive's reading, confirmed.** The "refusal's existing diagnostic reference" is the recorded failure's `diagnosticRef`. That member exists, and the ABG refusal has no diagnostic member.
+
+**The Executive's reading, corrected: the realization cannot be faithful at the hog.** The proposed reader re-derives the cause "over the same prefix and authority". The prefix the refusal was computed over is `routeSuccessorPrefix` (`traversal_route.ts:5392-5395`), which holds the staged retry route. The transaction rolls it back before the refusal leaves ABG (`:5501-5520`; `event_store.ts:4244-4265`). The hog site has only `retryTransition.successorPrefix`, which is durable and has no staged route. Over that prefix:
+
+1. A replay failure on the staged route cannot be observed.
+2. The frontier's eligibility test compares against the staged route's `admissionEventRef` (`retry.ts:4963`). The durable prefix lacks that route, so a frontier re-derived there names a reason that is not the refusal's.
+3. Re-staging the route in a throwaway transaction does not give the same prefix either. The route event's `eventTime` is sampled natively at admission (`traversal_route.ts:4986-4988`).
+
+The cause therefore exists only inside ABG's transaction. It can leave in one of two ways:
+
+- on the refusal: a new member on `RetryAdmissionRefusal`;
+- on a changed result of `admitOwnedTraversalTransition`, an existing function's result, which the grant excludes.
+
+The ruling's own clause applies: "if the refusal has no diagnostic member, adding one is a payload key change and stops for the owner". Stop 1. No `code/src` was edited for item 1. `projectHistoricalTraversalRouteAtPrefix`, the plural, `projectDeclaredCRetryFrontier`, `admitRetryAttempt`, both refusal types, the payload keys, the failure class and every Public export are unchanged.
+
+**What the owner would rule on.**
+
+- **Option A.** A `diagnosticRef` member on `RetryAdmissionRefusal`, built at `retry.ts:4958-4970` inside the transaction. It would hold `constructRuntimeFailureDiagnosticRef` over a subject naming:
+  - the class;
+  - the sanitized replay cause, thrown by an `@internal` frontier reader with `propagateReplayFailure` true over the same staged prefix;
+  - or the frontier's `null` reason from the table above.
+
+  The hog site `:734-740` then builds its inline reference from the `{ stage, candidate }` that `failTraversal` digests. The candidate already holds the refusal whole as `lowerCause`, so the cause reads cold.
+- **Option B.** A log-only reader at the hog over the durable prefix. It is exact for a replay failure of an earlier durable route. It is wrong for the staged route and for every eligibility reason. Not recommended.
+
+### Item 1(c): the proof
+
+Not done: there is no (b) to prove, and `t287-runtime-failure-diagnostic.test.mjs` is unchanged. The `:208` case still passes (17/17 after).
+
+### Item 1(d): reach
+
+The reach lanes are the lanes importing `hog/retry_lifecycle`, `hog/traversal_failure`, `abg/retry`, `abg/traversal_route` or `abg/runtime_failure` (`git grep`):
+
+`generic-input-retention`, `m5-event-calculus-runtime`, `m5-retry-lifecycle-authority`, `r9-causal-result-closure`, `retained-route-cursor-transition`, `t287-fh-hold-open`, `t287-lifecycle-failure-carrier`, `t287-native-work-reacquisition`, `t287-public-terminal-projection`, `t287-qualification-fp-proof-delivery`, `t287-r6-retry-success-exit`, `t287-recursive-registered-selection`, `t287-retry-run-prefix`, `t287-route-reconstruction`, `t287-runtime-failure-diagnostic`, `t287-undispatched-diagnostic`, `t287-worksite-command-execution`, `t288-blocked-retry-entry`, `t288-scoped-retry-guard`, `t288-workflow-scope-conservation` and `w2-steel-single-start-closure` (21). `t287-r4-aba-retry` is also named by the activation and was run.
+
+They ran before and after (item 3). Item 1 changed no code, so only item 0 could move them, and only `t287-r4-aba-retry` moved.
+
+Every assertion in `test_env` on a `diagnostic://abiogenesis/hog/` literal is kept unchanged:
+
+- `runtime-f09-worker.mjs:1304`, `:1317`, `:1376`, `:1557`, `:2231-2280` (unexercised, as above);
+- `m5-retry-lifecycle-authority:523`;
+- `t287-held-prefix:138`;
+- `t287-recursive-registered-selection:133`;
+- `t287-runtime-failure-diagnostic:44`, `:568`, `:616`, `:637`;
+- `w2-steel-single-start-closure:92`, `:260`.
+
+None of them keys on `retry_attempt_refused` or `route_mismatch`.
+
+### Item 2: records (proposals; the Executive places them)
+
+- **Ticket, Phase C decisions row "Retry route cause (P2, NW-DEBT-ADMISSION-DIAGNOSTIC-01)".** Proposed outcome: "C-8: stopped for the owner. The `route_mismatch` refusal (`retry.ts:4958-4970`) is computed over the staged prefix the route transition rolls back (`traversal_route.ts:5391-5410`, `:5501-5520`), so its cause can ride the recorded failure's reference (`hog/retry_lifecycle.ts:734-740`) only through a member on `RetryAdmissionRefusal`, which is the ruling's own stop. Options A and B are in the C-8 return. The nullable projections and the refusal are unchanged."
+- **Register `TECHNICAL_DEBT_REGISTER.md:344`** (NW-DEBT-ADMISSION-DIAGNOSTIC-01). Proposed replacement for its last clause: "the retry route cause stopped at C-8: it exists only over the staged prefix, so carrying it needs a `RetryAdmissionRefusal` member (owner decision)".
+- **Register `:309`** (LEAF-FAILURE-DIAGNOSTIC-01). No change from C-8: the leaf path is closed. Optionally add that the retry clause stays under NW-DEBT-ADMISSION-DIAGNOSTIC-01.
+- **Design** (`design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`):
+  - §9.3 (`:567-579`) and §10.6 row 6 (`:656`) state the inline diagnostic reference for process facts and leaf owner failures only.
+  - No design sentence states the retry refusal, `route_mismatch`, the class-only `diagnostic://abiogenesis/hog/${code}@5` reference at the retry sites, or the nullable historical route projection.
+  - Nothing there needs restating for C-8. If the owner takes option A, §9.3 gains one item: the retry attempt refusal's inline subject and its hog site.
+
+### Item 3: gates and lanes
+
+**Gates**, run on the final tree after `npm run build`:
+
+| Gate | Result |
+|---|---|
+| `npm run build` | rc 0 (`scratch/c8/build-after.log`) |
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | rc 0: "28 modules under code/src/shared/ import only code/src/shared/ and packages" |
+| `npm run lint:lifecycle` | rc 0: "284 modules under code/src; 7 allow-listed site(s), no offender" |
+| `npm run lint:evidence` | rc 0: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy" |
+| `git status --short` | The build regenerated `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json` (one line each, from the `replay.ts` change); both are committed. No other diff. Neither file digests the worker, so the later comment-only worker edits regenerate nothing. Two untracked Codex comment files under `.ai-workspace/comments/codex/` were present before this package; they are not staged |
+
+**Lanes.** Each lane ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. "Before" is head `36b007242` after `npm run build` (`scratch/c8/before/`, `before2/`). "After" is the final tree (`scratch/c8/after/`, `after2/`). Columns: Item, lane, before, after, reds and skips with first error, attribution.
+
+| Item | Lane | Before | After | Reds and skips (first error) | Attribution |
+|---|---|---|---|---|---|
+| 0(a)(b), 1(d) | `t287-r4-aba-retry` | 1/0/1/0 | 1/1/0/0 | before: 1 red, the F09 worker exits 1 at its program validation (`static_validation_refusal` `raw_subject_mismatch`); after: none | moved: item 0(a)(b), intended |
+| 0(c), 1(d) | `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/17/0/0 | none | unchanged, green |
+| 0(c), 1(d) | `t287-route-reconstruction` | 10/8/0/2 | 10/8/0/2 | 2 skip, same | unchanged |
+| 0(c), 1(d) | `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 5 red, same names and first errors before and after: `TypeError [Error]: abg.openCall is not a function`; `AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active`; 1 skip, same | unchanged |
+| 1(d) | `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | none | unchanged, green |
+| 1(d) | `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 5 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculus = deriveRuntimeEve`; `AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCCall(`; `AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:`; `AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !== undefined)`; `AssertionError [ERR_ASSERTION]: missing source boundary: /**` | unchanged |
+| 0(c) | `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | none | unchanged, green |
+| 0(c), 1(d) | `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `TypeError [Error]: traversal transition differs from its staged successor projection` | unchanged |
+| 0(c) | `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 | 2 skip, same | unchanged |
+| 0(c) | `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 6 red, same names and first errors before and after: `TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut`; `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:`; `TypeError [Error]: operations.nativeWorkReacquisition is not a function` | unchanged |
+| 0(c) | `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | 2 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier` | unchanged |
+| 0(c) | `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | none | unchanged, green |
+| 0(c), 1(d) | `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `'test failed'` | unchanged |
+| 0(c) | `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | 6 skip, same | unchanged |
+| 0(c) | `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 | 4 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:`; `AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:`; `AssertionError [ERR_ASSERTION]: exact held object, after physical byte authentication`; 3 skip, same | unchanged |
+| 0(c) | `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 | 2 skip, same | unchanged |
+| 0(c), 1(d) | `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 3 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier` | unchanged |
+| 0(c) | `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 | none | unchanged, green |
+| 0(c) | `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `'test failed'` | unchanged |
+| 0(c), 1(d) | `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 8 skip, same | unchanged |
+| 0(c) | `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 7 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:` | unchanged |
+| 0(c) indirect | `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 4 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: explicit absolute proof territory required`; `AssertionError [ERR_ASSERTION]: explicit proof territory required`; `AssertionError [ERR_ASSERTION]: exact rejected paired producer required`; 2 skip, same | unchanged |
+| 0(c) indirect | `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 3 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: explicit proof-local territory`; `TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. `; `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:`; 4 skip, same | unchanged |
+| 0(c) indirect | `t287-native-frame-route-conservation` | 3/0/3/0 | 3/0/3/0 | 3 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:`; `TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instance of Buffer or URL. ` | unchanged |
+| 0(c) indirect | `t287-s03-automatic` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `'test failed'` | unchanged |
+| 0(c) indirect | `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 15 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:` | unchanged |
+| 1(d) | `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 2 red, same names and first errors before and after: `TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix` | unchanged |
+| 1(d) | `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 2 red, same names and first errors before and after: `TypeError [Error]: abg.openCall is not a function` | unchanged |
+| 1(d) | `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | none | unchanged, green |
+| 1(d) | `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | 3 skip, same | unchanged |
+| 1(d) | `t287-public-terminal-projection` | 4/0/4/0 | 4/0/4/0 | 4 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture` | unchanged |
+| 1(d) | `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 | 1 skip, same | unchanged |
+| 1(d) | `t287-r6-retry-success-exit` | 1/1/0/0 | 1/1/0/0 | none | unchanged, green |
+| 1(d) | `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 1 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:`; 1 skip, same | unchanged |
+| 1(d) | `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | none | unchanged, green |
+| 1(d) | `t288-blocked-retry-entry` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:` | unchanged |
+| 1(d) | `t288-scoped-retry-guard` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `SyntaxError [Error]: Unexpected token 'export'` | unchanged |
+| 1(d) | `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `'test failed'` | unchanged |
+| 0(c) indirect | `t287-multi-candidate-admission` | 75/75/0/0 | 75/75/0/0 | none | unchanged, green |
+| 0(c) indirect | `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | 3 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: select the frozen bounded fixture`; 3 skip, same | unchanged |
+| 0(c) indirect | `t287-native-semantic-revision` | 7/4/1/2 | 7/4/1/2 | 1 red, same names and first errors before and after: `AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:`; 2 skip, same | unchanged |
+| 0(c) indirect | `t287-native-work-currentness-consumers` | 4/4/0/0 | 4/4/0/0 | none | unchanged, green |
+| 0(c) indirect | `t287-result-evidence-lineage-projection` | 1/0/1/0 | 1/0/1/0 | 1 red, same names and first errors before and after: `TypeError [Error]: event store was not constructed by this ABG module` | unchanged |
+
+### Deviations from the activation's wording
+
+1. **The commit's first line.** The mandated text claims the cause rides cold, which is false (item 1 stop). The line keeps the structure and names the gap in place of the claim. Item 0's tail ("the F09 worker restated and the cold held-return witness runs") holds and is kept.
+2. **The Executive's reading of item 1(b) is corrected** (item 1(b)). The cause cannot be re-derived at the hog "over the same prefix", because that prefix is rolled back.
+3. **There are six hog recording sites, not four** (item 1(a)). `:644-650` is now `:645-651`. Only `:734-740` can carry `route_mismatch`.
+4. **Item 0(a) restated three things beyond program validation and the grant.**
+   - The invocation admission and the whole construction now come from the support's producers.
+   - The attempt command's host carrier.
+   - The A-B-A route. The fixture's stale branch is bypassed from the worker by not setting `ABG_AX_F09_MODE`, and the A signals' source class moves to `probabilistic_transport`. Each move was forced by the lane error named in the step table.
+5. **Item 0(b): the witness was restated in two places** (owner root, log read), each forced by a lane error.
+
+### Findings outside the grant
+
+- **`hog/structural_transition.ts:270-276`** records a structural `C.retry` transition's refusal (`transitionClass: "retry"`, `:217-226`) as `diagnostic://abiogenesis/hog/${committed.code}@5`. Here a `route_mismatch` is the top-level class, and the same staged-prefix limit applies. Option A would serve it through the same member.
+- **`test_env/falsifiers/runtime-f09-product.mjs:118-150`**: the fixture's `ABG_AX_F09_MODE` branch declares disposition `success` with a failure-kind candidate on any non-success. ABG blocks that by design. No lane reaches the branch now. Proposal: retire it.
+- **`test_env/falsifiers/runtime-f09.mjs:266-269`**: the inspect consumer's fixed input `{ action, handoff }` keeps it on the worker's stale private `rawProgramInput` (`:87-128`, `:560`). Passing `supportPath` in that input would let it import the support's producer. `runAxF09` (`produce_frontier`/`inspect_frontier`) has no lane, so the cited diagnostic assertions and that path are unexercised.
+
+### Stops
+
+1. **Item 1(b), member `RetryAdmissionRefusal.diagnosticRef`** (or an equivalent cause member). Equally, a changed result of `admitOwnedTraversalTransition`. The `route_mismatch` cause is derivable only over the rolled-back staged prefix (`retry.ts:4958-4970`, `traversal_route.ts:5391-5410`, `:5501-5520`). Nothing was implemented for it. Item 1(c) follows it.
+
+### What could not be verified
+
+- **The staged-prefix limit** in item 1(b) is shown by reading the sites, not by a run. No lane or fixture drives `route_mismatch` (`git grep` finds no literal in `test_env`), and building such a fixture was outside the package.
+- **The `produce_frontier` and `inspect_frontier` actions** of the restated worker were not run. No lane exists.
+- **The witness's suspension equality** is proved against the carried member as it stands. If the owner retires that member (C-6 stop 1), the equality is restated.
