@@ -62,6 +62,8 @@ Next selected work: the `Next:` line that closes
 
 ## Current Delivery Plan
 
+*Delivery schedule at its cut (2026-10-21). Its statements of status, of repairs accepted and of `Next:` work are superseded by [Current disposition](#current-disposition); the schedule, controls and boundaries stand.*
+
 The owner selects **common computational library delivery before remaining 5.0
 release work**. Historical L1/L2 acceptance and actual contractions are retained.
 Root’s [current design conjunction](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md)
@@ -3737,6 +3739,7 @@ native route or generated context:
 - historical program identity: `e325e4399560b0be5562d345005818e4f925f72ecbfd9a234207f8c77b095cc5`;
 - historical map identity: `2df34cb85bf6fbad2436e468e14cb5c26ff8d0aa721f8de10bb7e948b0d21b78`.
 
+<a id="current-baseline-selection-and-documentation-grant"></a>
 ## Retained Baseline Selection And Completed Documentation Grant
 
 The user accepted the recommendation to hold Wave 2 for bounded baseline
