@@ -1934,3 +1934,132 @@ Grant: `code/src/abg/event_store.ts` (`decodeHistoricalEvents`, `foldRuntimeHist
 Stop (write the counterexample and the blocking line in the Return, keep the rest moving): a change to an error class or message text either reader throws; a change to a digest, an offset or the bytes a reader reports; a change in which error wins; an edit to `worker_transport.ts` or `worksite_construction_recovery.ts`; a new export from `event_store.ts` or any change under `shared/`; a change to a Product contract, an event payload key or a failure class; a lane whose red identities change.
 
 Return contract: one commit on `main` with the first line `TD-23: one line-boundary mechanism for the two durable history readers; framing policies kept at their owners` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-23 return` at the end of this record with the census (item 1), the mechanism and what each reader deleted and kept (item 2), the equivalence, partition and S01 results with their numbers (item 3), the extension evidence (item 4), the boundary statement (item 5), the records statement (item 6), the lane table (item 7), and any stops. Nothing above your section is edited.
+
+## TD-23 return
+
+Worker: Opus 5.5, fresh context. Base `c3f308c06`; this package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/`. Head line numbers cite `c3f308c06`; "now" cites the commit. Scratch: the Worker's `td23/` (driver, outcome JSON, lane logs).
+
+| Item | State | Lines at head | Lines now |
+|---|---|---|---|
+| 1. Census | done | `abg/event_store.ts:3302-3416`, `:3561-3600`; `abg/worker_transport.ts:352-364`; `abg/worksite_construction_recovery.ts:160-173` | below |
+| 2. One mechanism | done; a private class, not a bare function (Deviation) | | `DurableHistoryLines` `event_store.ts:3302-3350`; `decodeHistoricalEvents` `:3352`, framing `:3363-3371`, row walk `:3375-3376`, `:3386`; `foldRuntimeHistoryDescriptor` `:3609-3636` |
+| 3. Proof | done, in `m5-event-store-reopen` | | `test_env/tests/m5-event-store-reopen.test.mjs:1509-1797`: head transcriptions `:1554`, `:1572`; cases (a) `:1626`, (b) `:1716`, (c) `:1765`; streams and partitions `test_env/support/new-empty-append-sink.mjs:153-275` |
+| 4. Extension evidence | done, no edit | | below |
+| 5. Boundaries | kept | | below |
+| 6. Records | statement below; no design sentence on durable history framing | | |
+| 7. Lanes | done; red identities identical | | below |
+
+**Item 1. Census** (head lines; `worker_transport.ts` and `worksite_construction_recovery.ts` are unchanged).
+
+| | `decodeHistoricalEvents` (`event_store.ts:3302`) | `foldRuntimeHistoryDescriptor` (`:3564`) | worker observer (`worker_transport.ts:352-364`, `observeLine` `:280`) | `projectPreservedStructuredProposal` (`worksite_construction_recovery.ts:160-173`) |
+|---|---|---|---|---|
+| Input | one `Uint8Array`, the whole history | descriptor and byte length; 64 KiB `readSync` reads into one reused buffer | string chunks decoded by the child's stream (`setEncoding("utf8")` at `:466`; `runProcess`'s `onStdout` `:449-454` hands them to `onStdoutObserved`, which `actor_process.ts:1232-1254` feeds to the observer) | one `Uint8Array`, the whole preserved stdout |
+| CR | any byte 13 refuses before any row: "incomplete trailing row" (`:3314-3319`) | byte 13 in a read sets `framing = "incomplete"` before that read's rows (`:3575`); thrown after the extent | stays in the line; `JSON.parse` takes it as whitespace | stays in the record; `admitIJsonText` takes it as whitespace |
+| Blank record | leading LF or `\n\n` refuses before any row (`:3320-3322`) | a row of size 1 sets `framing = "blank"` unless set (`:3580`); thrown after the extent | `line.trim()` empty: skipped, not counted (`:281`) | reaches `admitIJsonText`: `IJsonAdmissionError` "preserved protocol record: ValueExpected at offset 1" |
+| Invalid UTF-8 | per row `toString("utf8")` with U+FFFD: inside a JSON string "noncanonical event", outside "invalid JSON" | the same, in `consume` (`:3611-3617`) | not seen: strings | whole buffer decoded `fatal: true` first (`:161`): TypeError "The encoded data was not valid for encoding utf-8"; then a byte round trip (`:162`, e.g. a BOM): "preserved stdout changes Unicode bytes" |
+| Trailing partial line | last byte not LF refuses (`:3315-3316`) | `last !== 10` after the extent (`:3595`) | carried in `pending`; `finish()` observes it as a line (`:362`) | ignored (`:168`), "remains failure evidence" |
+| Which error wins | incomplete > blank > first failing row > profile (`:3411-3414`) | a no-progress read (thrown at once) > digest mismatch > incomplete > blank > first retained logical error (`:3593-3598`) > profile (in `decodeRuntimeHistoryDescriptor`) | none: a malformed row is skipped, nothing is thrown | UTF-8 decode > round trip > first failing record |
+| Offsets and bytes | the row with its LF for the canonical check (`:3338`), no offset; per event a prefix receipt with the cumulative length and sha256 of `line + "\n"` (`:3399-3402`) | `consume(row with its LF, byte offset)`, the row a fresh `Buffer.from` or `Buffer.concat`; returns the hash of all bytes | the line without its LF; no offset | `{line (1-based), startByte, endByte (after the LF), digest of the row with its LF}` (`:172`) |
+
+Callers of the two event-store readers and the channel each failure takes:
+
+| Reader | Caller (head line) | Failure becomes |
+|---|---|---|
+| `decodeHistoricalEvents` | `validateHistoricalEvents` `:3295-3300`, its only caller | thrown as is |
+| `validateHistoricalEvents` | `readRuntimeEventsAtDurablePrefix` `:2074` | a `DurablePrefixReadError` passes; anything else becomes `DurablePrefixReadError("event_envelope_invalid", String(error))` (`:2075-2078`) |
+| | `persistEventLog`, `event_log.ts:37` | thrown as is |
+| `foldRuntimeHistoryDescriptor` | `decodeRuntimeHistoryDescriptor` `:3610`, its only caller | thrown as is |
+| `decodeRuntimeHistoryDescriptor` | `readOwnedRuntimeHistoryAtDurablePrefix` `:3475` | as at `:2074` (`:3485-3487`) |
+| | `recoverInterruptedEventStore` `:3917`, stage `history_validation` | `refused_no_recovery` with `code: "history_validation"`, `message: String(error)`, or `recovery_fault` (`:3939-3959`) |
+| | `reopenEventStore` `:4017` | `reopenRefusal("durable_log_mismatch")` for `prefix_digest_mismatch`, else `"invalid_event_history"`, message `String(error)` (`:4025-4026`) |
+
+Framing errors: TypeError "durable ABG event log has an incomplete trailing row" and TypeError "durable ABG event log contains a blank record" (both readers); the fold also throws TypeError "durable history read made no progress" and `DurablePrefixReadError` `prefix_digest_mismatch` "ABG durable prefix bytes differ from coordinate". Row errors, the same in `decodeHistoricalEvents`' loop body and the `consume` closure: TypeError "… contains invalid JSON", "… a noncanonical event", "… an invalid logical event", `DurablePrefixReadError` `admission_ordinal_invalid` "… an invalid admission ordinal", TypeError "… an invalid envelope", "event stamp differs from the exact native profile schedule", "… restamped or inconsistent history", "native profile boundary cannot repeat or reverse", and the throws of `decodeEventBody`, `projectRuntimeEventAtContract` and `assertRootEventProfileBoundary`; after the rows TypeError "durable coordinate profile differs from authenticated history".
+
+**Item 2. The mechanism and what each reader deleted and kept.**
+
+`DurableHistoryLines` (`event_store.ts:3302-3350`, private, not exported). One `read(chunk, wanted)` per chunk; a whole history is one chunk.
+- It yields each complete row with its LF and its byte offset, in order. A row inside one chunk is a view of that chunk; a row that straddles chunks is `Buffer.concat` of the carried pieces and the last piece, as at head.
+- It carries the partial row (`Buffer.from` of the chunk's tail, as at head) and records the facts `carriageReturn`, `blankRecord`, `lastByte`, `byteLength`: a CR before any row of its chunk is yielded, a blank record before that row is offered, as head's fold set `framing`.
+- `wanted` is the reader's predicate. Rows are yielded, and a partial row carried, until it first returns false; later rows are framed and not yielded, and no view or copy is made for them. The latch holds the delivery off even if the predicate turns true again; a row after a skipped carry would otherwise be missing its first pieces.
+
+`decodeHistoricalEvents` deleted its pre-scan (`includes(13)`, the last byte, `encoded[0]`, `includes("\n\n")`, head `:3313-3317`, `:3320`) and its `indexOf` walk (`:3326-3328`, `:3338`). It keeps its policy: a first `read` that wants no row yields the facts, and the two refusals are thrown from them in head's order with head's text before any row is decoded (`:3363-3371`); then a second `read` of the same bytes walks the rows (`:3375`), the row body unchanged except that it takes `row` for `encoded.subarray(start, end + 1)` and decodes `row` minus its LF for `encoded.toString("utf8", start, end)`.
+
+`foldRuntimeHistoryDescriptor` deleted its framing state (`rowOffset`, `pending`, `pendingLength`, `framing`, `last`, head `:3566-3569`), its CR check, LF loop and carry (`:3575-3590`) and its `last` update (`:3591`). It keeps its policy: the 64 KiB reads into one reused buffer, the no-progress refusal, `hash.update` of every read, the `consume` call guarded by `wanted = !hasPrimary && !carriageReturn && !blankRecord` (head's `!hasPrimary && framing === null`), the retained first logical error, and the order digest mismatch, incomplete, blank, retained error (`:3629-3634`).
+
+Copies: none added. One removed and named: head handed `consume` a `Buffer.from(piece)` copy of a row inside one read; it now receives a view of the reused 64 KiB buffer, valid until `consume` returns (stated in the fold's doc comment). The `consume` closure of `decodeRuntimeHistoryDescriptor` (unchanged) reads `bytes` by `toString` (head `:3611`), `equals` (`:3616`), `physicalHash.update` (`:3641`), `sha256Bytes` and `.length` (`:3642-3643`); none retains it. Its inline-body callback (`:3619-3620`) reads an earlier row through `readRuntimeHistoryRowBytes`, which reads at the row's own position into its own `Buffer.alloc` (`:3501-3504`), never into the fold's buffer. A row that straddles reads is a fresh `Buffer.concat`, as at head.
+
+Lines. `event_store.ts` is +69/−33, net +36. The 33 removed lines are the two readers' framing mechanics (32 code, 1 comment). The 69 added are the mechanism block (`:3302-3350`, 49 lines: 32 code, 15 comment, 2 blank) and 20 lines in the two readers (15 code, 4 comment, 1 blank). Net code is +15 lines. There is now one implementation of the line-boundary mechanics with two call sites in place of two implementations, at more lines, not fewer. The extensions of item 4 would delete about five lines (recovery) and six (worker) and add their call sites, so the total stays above head's.
+
+Cost. `decodeHistoricalEvents` now makes two CR scans and two LF walks where head made one CR scan, one `\n\n` search and one walk: one more O(n) pass, no copy, no row view in the framing pass. The fold makes the same scans as head and creates no row view after it stops consuming (head created one per row).
+
+Deviation. Item 2 asks for "a private function … given the bytes as a sequence of chunks". It is a private class with one generator method fed one chunk per call. The carried row, the offset and the facts are state across reads that the fold interleaves with its own `readSync` and `hash.update`, and that `wanted` reads during iteration; the class holds them in one declaration. A generator over a chunk iterable would need a facts record declared beside it and initialized by each reader (three initializers).
+
+**Item 3. Proof.** The lane is `m5-event-store-reopen`: its support `test_env/support/new-empty-append-sink.mjs` builds durable logs through `createNewEmptyAppendSink`; `t287-event-body-encoding` imports no support module. The streams are built there (`td23HistoryStreams`, `:178`): seven logs written by the store owner (one of four rows of about 840 bytes; the others with rows sized to put boundaries at exact positions around the first 64 KiB read), recombined into 38 streams:
+- well-formed (4 rows); CR inside a row, CR at the end, CRLF endings; a blank record at the start, in the middle, at the end; a lone continuation byte, a truncated 3-byte sequence and an overlong form inside a string, and a lone continuation byte outside one; a row valid JSON but not canonical; a row not JSON; a missing final LF; the empty log; a log of one LF; an ordinal gap (`DurablePrefixReadError`); a logical error then a blank, a CR or a missing LF, and a blank or a CR then a logical error; two logical errors in both orders;
+- over 64 KiB (67,536 to 142,000 bytes): a row straddling the first cut with a 4-byte character split 2|2 by it; a bad row in the first read followed in the second by a CR, a blank, a missing final LF, or nothing (and each with a wrong digest); a bad row that straddles the cut; two bad rows, the second after the cut; valid rows across the cut then a bad row, a CR or a blank after it; an LF as byte 0 of the second read; an LF as the last byte of the first read, then a row or a blank; a row of 140,000 bytes carried in two pieces.
+
+Partitions (`td23Partitions`, `:252`): the natural 64 KiB reads; every cut set up to 12 bytes; below 64 KiB every single cut; above it the cuts at 65,534 to 65,537 and at each LF and the two bytes after it; and sixteen seeded random multi-cut partitions. The fold's partitions are applied by capping each `readSync` at the next cut: the private build is loaded through `privateOwner` (`test_env/support/r10-private-owner-harness.mjs`) with `node:fs` `readSync` overridden; the head transcription reads through the same function.
+
+(a) Equivalence, `:1626`, 38 streams, 66,159 partitions, about 8 s:
+- `decodeHistoricalEvents`, through `validateHistoricalEvents`: the error (class, code, message) equals the head build's outcome on that stream (`TD23_HEAD_OUTCOME`, `:1536`, read from the head build) and, where head's framing transcription (head `:3313-3328`) refuses, equals that refusal with no row decoded (`JSON.parse` calls under `decodeHistoricalEvents` counted: 0); otherwise the lines decoded are a prefix of head's walk, all of it on success, and the events equal the events the store admitted. Under the legacy profile: head's profile refusal or the same framing or row error.
+- `reopenEventStore` over each stream as a file: `invalid_event_history` with `TypeError: <head message>`, or the admitted events; with a wrong digest `durable_log_mismatch` for every stream.
+- The fold: head's transcription (head `:3564-3600`) and the new one, with one shared callee that records each row (offset, length, sha256) when handed over and refuses the first row that is not JSON, not canonical or out of ordinal, agree on the calls, the error (class, code, message) or the digest: 66,235 comparisons (every partition; the natural reads also with the right and a wrong expected digest), and a read that makes no progress.
+- The real decoder (`decodeRuntimeHistoryDescriptor`, private) gives one outcome over all 66,159 partitions (rows with offset, length, physical digest, prefix length and prefix digest, and the durable hash; or the error), which is head's, and the digest refusal under a wrong digest.
+
+What the fold's consumed set depends on: CR detection works per read, at head and now, so which rows reach `consume` before a CR depends on where the cuts fall (5 of 38 streams have partition-dependent call lists, identical between head and new on every partition). The thrown error does not: framing outranks the retained error.
+
+Head build check, outside the lane: a scratch driver ran the exported `validateHistoricalEvents`, `reopenEventStore` and the private fold and decoder of the head build (`c3f308c06`, copied before the rebuild) and of the new build over the same streams and partitions: 132,696 outcomes, byte-identical JSON (`td23/head_outcomes2.json`, `new_outcomes3.json`). This also checks `TD23_HEAD_OUTCOME` and the transcriptions.
+
+(b) Partition invariance, `:1716`: the built `DurableHistoryLines` with every row wanted, over the 38 streams and 17 short streams (0 to 12 bytes: `""`, `"\n"`, `"\n\n"`, CR alone, CRLF, a row with no LF, `"é\n𝄞\n"`, a 12-byte row across every cut, …), 68,882 partitions, each read copied into one reused buffer that is overwritten after the read: rows (offset and bytes) and facts equal the whole-stream run, which equals head's walk and head's pre-scan predicates. Over every stream, a predicate false from row k yields the first k rows, also when it turns true again, and the facts are unchanged; over cuts the rows are a prefix of at most k rows.
+
+(c) The 64 KiB path, `:1765`: the packaged S01 log (2,797,774 bytes, 43 reads, 20 rows; row 1 is 2,737,643 bytes and spans 42 reads, row 4 crosses one cut, the rest lie inside one read). The mechanism over 64 KiB chunks equals the whole run; head's fold and the new one over the packaged file give the same 20 calls and the historical `prefixDigest`; `reopenPackagedS01Store` under the historical profile gives the historical `prefixDigest` and `prefixLength`, and the cold read of that coordinate (`readRuntimeEventsAtDurablePrefix`, through `decodeHistoricalEvents` on 2.8 MB as one chunk) returns 20 events. The named assertion is `r10-projection-contracts.test.mjs:38`, "the packaged log is the historical S01 prefix…", `:40-41`; its module-level reopen (`:26`) runs the fold on S01 and passes after the change.
+
+Lane coupling. Case (c) loads `test_env/fixtures/r10-projection-family/s01-store.mjs` inside the case, so a moved fixture fails only (c). It reopens the tracked S01 log read-write and takes its lock under `tmpdir()`, so the `m5-event-store-reopen` lane now has the write-permission requirement and the stale-lock hazard that TD-04+05 recorded for `r10-projection-contracts`, and the two lanes would contend for that lock if run concurrently. No lock remained after the runs.
+
+Mutation check, on the new build in scratch, then restored: dropping the blank flag fails (a) and (b); not carrying the partial row fails (a), (b), (c); carrying a view of the reused buffer instead of a copy fails (a), (b), (c); recording the CR after the read's rows instead of before fails (a) (the fold's calls differ from head's); removing the latch fails (b) only, since both readers' predicates never turn true again; a no-op edit passes.
+
+**Item 4. Extension evidence** (no edit to either file).
+
+- `worksite_construction_recovery.ts:166-173`: yes for the mechanics, with the policy kept at its owner, once the mechanism has a home it can be imported from. The stdout is one read; the rows with their LF and offsets are what the loop computes (`raw`, `startByte`, `endByte`; `line` is a counter); the incomplete trailing record it leaves as failure evidence is the carried row the mechanism never yields (design `T287_C1_PRESERVED_RESULT_ARTIFACT_DESIGN.md:137-138`). Its policies stay with it: the fatal UTF-8 decode and byte round trip before framing (`:161-162`), a blank row to `admitIJsonText`, CR as JSON whitespace, the first failing record wins. About five lines would go (`:165-170`, `:173`). What would change: the mechanism must be exported from `event_store.ts` (a Stop here) or moved to a module both can import (outside this Grant; under `shared/` a Stop); and the mechanism copies the incomplete trailing record at the end of the read (`Buffer.from` of the tail) where the loop copies nothing, so it needs a final-read mode that does not carry, or that copy is named. It also makes one CR scan the loop does not use.
+- `worker_transport.ts:352-364`: no, as written. Its input is strings, decoded by the stream; the mechanism reads `Buffer`s, so the worker would need byte chunks with per-row decoding, or a string variant of the mechanism. Its policy observes the trailing partial line at `finish()` (`:362`); the mechanism keeps the carried row private, so it would need an accessor that yields it. Blank lines (skipped by `trim`) and CR (whitespace) stay with the worker; the facts go unused. It needs the same export or move. The mechanics that would go are six lines (`:353-358`, `:362`). One fact on its cost: it slices `pending` once per line (`:357`), so a chunk of n lines costs O(n × chunk length).
+
+**Item 5. Boundaries.** By reading the diff: no throw site's class or text changed (the one `-`/`+` pair on a throw line, the fold's blank refusal, changes only its condition); the order of each reader's checks is head's; the row body of `decodeHistoricalEvents` and the `consume` closure are unchanged except the two expressions named in item 2. No export was added to `event_store.ts`; nothing under `shared/`, `worker_transport.ts` or `worksite_construction_recovery.ts` changed; no Product contract, event payload key or failure class changed. By the proof: errors, offsets, row bytes and digests equal head's on every compared input; the lanes keep their red identities.
+
+**Item 6. Records.** The register row TD-23 is the Executive's. It should record: the mechanism `DurableHistoryLines` (`event_store.ts:3302-3350`); the two event-store loops deleted (`decodeHistoricalEvents`' pre-scan and walk, the fold's framing state, LF loop and carry), each reader's framing policy kept; the proof (`m5-event-store-reopen.test.mjs:1626`, `:1716`, `:1765`); the extension evidence above (the recovery loop deletable given a home for the mechanism and a no-carry final read; the worker needs bytes or a string variant, a tail accessor and the home). Its evidence line for the worker, `worker_transport.ts:338–349`, is stale: the loop is at `:352-364`. No design sentence names durable history framing (searched `design/*.md` and `build_tenants/abiogenesis/design/`). The nearest is `T287_C1_PRESERVED_RESULT_ARTIFACT_DESIGN.md:136-138` on the recovery loop ("Retain an incomplete trailing record as failure evidence without parsing, repairing or using it"); it holds and would hold under the extension, since the mechanism never yields the carried row.
+
+**Item 7. Lanes.** `npm run build` rc 0 before and after; before it regenerated nothing; after it regenerates `build/code/src/abg/event_store.js`, `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json` (digests), committed. `tsc --noEmit` rc 0; `lint:imports` rc 0 (28 modules); `lint:lifecycle` rc 0 (284 modules, 10 allow-listed, no offender), before and after. Tests/pass/fail/skipped:
+
+| Lane | Before (`c3f308c06`) | After |
+|---|---|---|
+| `m5-event-store-reopen` | 18/18/0/0 | 21/21/0/0 (the three TD-23 cases added; about 9 s of the lane's 64 s) |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 |
+| `r10-projection-contracts` | 10/9/1/0 | 10/9/1/0 |
+| `r10-child-proof` | 1/0/1/0 | 1/0/1/0 |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 |
+| `t287-calculus-fold` | 12/12/0/0 | 12/12/0/0 |
+| `t287-native-work-currentness-consumers` | 4/4/0/0 | 4/4/0/0 |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 |
+| outside item 7: `witness-run-stopped-definition-binding` (counts decoder `JSON.parse` calls and `readSync` reads) | 7/0/7/0 | 7/0/7/0 |
+| outside item 7: `witness-reprice-definition-binding` (the same probe) | 15/0/15/0 | 15/0/15/0 |
+| outside item 7: `t287-cold-record-decoder` | 3/1/1/1 | 3/1/1/1 |
+
+No lane reported a cancelled test. The 20 red and 10 skipped identities of the eleven lanes, and the first error line of each red test, are the same before and after (compared line by line):
+- `r10-projection-contracts` 8 ("Run reads validate selected liveness…", `terminalResult` of undefined), the Run-read validity ruling;
+- `r10-child-proof`, the file (the D2 store, `ENOENT`);
+- `m5-event-calculus-runtime` 2, 13, 14, 15 (`abg.openCall is not a function`) and 12 (`runtime_failure_observed/runtime_invocation_active`); 1 skipped;
+- `t287-ordered-reconstruction` 1, 2, 3, 5; 4, 6, 7 skipped;
+- `t287-c2-owner-coordinate-reuse` 1 to 6;
+- `t287-retry-run-prefix` 1 to 3 ("select the immutable s02-installed-continuation-04 carrier");
+- `t287-held-prefix` 1 to 6 skipped.
+
+The three lanes outside item 7 were run on the head build (its `event_store.js` copied back, then restored) and the new one: the same red identities and messages (`t287-cold-record-decoder` 2 is red at head, "retain existing replacement-character admission, without UTF-8 hardening").
+
+**Stops.** None met.
+
+**Errata.**
+1. The register's evidence lines for the worker loop (`worker_transport.ts:338–349`) predate TD-11; the loop is at `:352-364`. The activation's `:353` is right.
+2. Item 3(c) says the S01 log has "rows straddling chunk boundaries": two of its 20 rows do; row 1 alone spans 42 of the 43 reads.
+3. Item 7 lists `t287-held-prefix` without a red count: at head it is 6/0/0/6, all six skipped.

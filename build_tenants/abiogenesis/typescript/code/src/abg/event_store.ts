@@ -3299,6 +3299,56 @@ export function validateHistoricalEvents(
   return decodeHistoricalEvents(bytes, expectedProfileDigest).events;
 }
 
+/** The line-boundary mechanics of the two durable history readers. The bytes
+ * arrive as a sequence of chunks, one `read` per chunk; a whole history is one
+ * chunk. Each complete row is yielded with its LF and its byte offset, in
+ * order: a row inside one chunk is a view of that chunk, valid until the next
+ * chunk is read, and a row that straddles chunks is their concatenation. The
+ * framing facts are recorded as bytes are read: a CR before any row of its
+ * chunk is yielded, a blank record before that row is offered. Each reader
+ * keeps its framing policy, row decoding and error precedence. */
+class DurableHistoryLines {
+  /** A CR byte has been read. */
+  carriageReturn = false;
+  /** A record of its LF alone has been read. */
+  blankRecord = false;
+  /** The last byte read, or -1 before any byte. */
+  lastByte = -1;
+  byteLength = 0;
+  #pending: Buffer[] = [];
+  #pendingLength = 0;
+  #offset = 0;
+  #delivering = true;
+
+  /** Reads `chunk` and yields each row it completes. Rows are yielded, and a
+   * partial row carried, until `wanted` first returns false; later rows are
+   * framed and not yielded. */
+  *read(chunk: Buffer, wanted: () => boolean = () => true): Generator<readonly [row: Buffer, offset: number]> {
+    if (chunk.includes(13)) this.carriageReturn = true;
+    let start = 0;
+    for (let end = chunk.indexOf(10); end !== -1; end = chunk.indexOf(10, start)) {
+      const size = this.#pendingLength + end + 1 - start;
+      if (size === 1) this.blankRecord = true;
+      if (this.#deliver(wanted)) {
+        const piece = chunk.subarray(start, end + 1);
+        yield [this.#pendingLength === 0 ? piece : Buffer.concat([...this.#pending, piece], size), this.#offset];
+      }
+      this.#offset += size; this.#pending = []; this.#pendingLength = 0; start = end + 1;
+    }
+    if (start < chunk.length) {
+      if (this.#deliver(wanted)) this.#pending.push(Buffer.from(chunk.subarray(start)));
+      this.#pendingLength += chunk.length - start;
+    }
+    if (chunk.length !== 0) this.lastByte = chunk[chunk.length - 1]!;
+    this.byteLength += chunk.length;
+  }
+
+  #deliver(wanted: () => boolean): boolean {
+    if (this.#delivering && !wanted()) this.#delivering = false;
+    return this.#delivering;
+  }
+}
+
 function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha256Digest): {
   events: readonly RuntimeEvent[]; eventsById: Map<string, RuntimeEvent>;
   inlineBodies: InlineEventBodies; physicalSource: object;
@@ -3310,22 +3360,20 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
   // Keep the existing whole-history framing precedence, but decode text only
   // within each LF-delimited record. ASCII CR/LF cannot occur inside a UTF-8
   // multibyte sequence; Buffer's replacement behavior is unchanged at cuts.
-  const encoded = Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  if (
-    encoded.includes(13) ||
-    (encoded.length !== 0 && encoded[encoded.length - 1] !== 10)
-  ) {
+  // Framing is refused before any row is decoded: a first read wants no row.
+  const encoded = Buffer.from(bytes.buffer, bytes.byteOffset, bytes.byteLength), framing = new DurableHistoryLines();
+  for (const _row of framing.read(encoded, () => false)) { /* framing facts only */ }
+  if (framing.carriageReturn || (framing.byteLength !== 0 && framing.lastByte !== 10)) {
       throw new TypeError("durable ABG event log has an incomplete trailing row");
   }
-  if (encoded[0] === 10 || encoded.includes("\n\n")) {
+  if (framing.blankRecord) {
     throw new TypeError("durable ABG event log contains a blank record");
   }
   const admitted: RuntimeEvent[] = [];
   const eventsById = new Map<string, RuntimeEvent>();
   let profile: Sha256Digest | null = null;
-  for (let start = 0, end = encoded.indexOf(10); end !== -1;
-    start = end + 1, end = encoded.indexOf(10, start)) {
-    const line = encoded.toString("utf8", start, end);
+  for (const [row] of new DurableHistoryLines().read(encoded)) {
+    const line = row.toString("utf8", 0, row.length - 1);
     // JSON.parse yields only JSON values; the canonical byte check below
     // refuses any row that is not this value's canonical text.
     let physical: JsonValue;
@@ -3335,7 +3383,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
       throw new TypeError("durable ABG event log contains invalid JSON");
     }
     if (
-      !isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(encoded.subarray(start, end + 1))
+      !isRecord(physical) || !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(row)
     ) {
       throw new TypeError("durable ABG event log contains a noncanonical event");
     }
@@ -3560,41 +3608,29 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
 
 /** Bounded row decoding, including whole-extent framing precedence. An earlier
  * logical error is retained while the remaining bytes establish framing and the
- * physical digest; no partial history is published. */
+ * physical digest; no partial history is published. `consume` receives a row
+ * that is valid until it returns. */
 function foldRuntimeHistoryDescriptor(descriptor: number, byteLength: number,
   consume: (row: Buffer, offset: number) => void, expectedDigest?: Sha256Digest): Hash {
-  const hash = createHash("sha256"), chunk = Buffer.alloc(64 * 1024);
-  let position = 0, rowOffset = 0, pending: Buffer[] = [], pendingLength = 0;
-  let primary: unknown, hasPrimary = false, framing: "incomplete" | "blank" | null = null;
-  let last = -1;
+  const hash = createHash("sha256"), chunk = Buffer.alloc(64 * 1024), lines = new DurableHistoryLines();
+  let position = 0, primary: unknown, hasPrimary = false;
+  // Rows are consumed until the first logical error, CR or blank record.
+  const wanted = (): boolean => !hasPrimary && !lines.carriageReturn && !lines.blankRecord;
   while (position < byteLength) {
     const count = readSync(descriptor, chunk, 0, Math.min(chunk.length, byteLength - position), position);
     if (count <= 0) throw new TypeError("durable history read made no progress");
     const current = chunk.subarray(0, count);
     hash.update(current);
-    if (current.includes(13)) framing = "incomplete";
-    let start = 0;
-    for (let end = current.indexOf(10); end !== -1; end = current.indexOf(10, start)) {
-      const piece = current.subarray(start, end + 1);
-      const size = pendingLength + piece.length;
-      if (size === 1 && framing === null) framing = "blank";
-      if (!hasPrimary && framing === null) {
-        const row = pendingLength === 0 ? Buffer.from(piece) : Buffer.concat([...pending, piece], size);
-        try { consume(row, rowOffset); } catch (error) { primary = error; hasPrimary = true; }
-      }
-      rowOffset += size; pending = []; pendingLength = 0; start = end + 1;
+    for (const [row, offset] of lines.read(current, wanted)) {
+      try { consume(row, offset); } catch (error) { primary = error; hasPrimary = true; }
     }
-    if (start < count) {
-      if (!hasPrimary && framing === null) pending.push(Buffer.from(current.subarray(start)));
-      pendingLength += count - start;
-    }
-    last = current[count - 1]!; position += count;
+    position += count;
   }
   if (expectedDigest !== undefined && `sha256:${hash.copy().digest("hex")}` !== expectedDigest)
     throw new DurablePrefixReadError("prefix_digest_mismatch", "ABG durable prefix bytes differ from coordinate");
-  if (framing === "incomplete" || byteLength !== 0 && last !== 10)
+  if (lines.carriageReturn || lines.byteLength !== 0 && lines.lastByte !== 10)
     throw new TypeError("durable ABG event log has an incomplete trailing row");
-  if (framing === "blank") throw new TypeError("durable ABG event log contains a blank record");
+  if (lines.blankRecord) throw new TypeError("durable ABG event log contains a blank record");
   if (hasPrimary) throw primary;
   return hash;
 }
