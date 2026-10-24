@@ -266,6 +266,10 @@ export async function runAxF09({ harness, packageRoot }) {
     const consumer = await runJsonWorker(workerPath, harness.cliHost, {
       action: "inspect_frontier",
       handoff: producer.handoff,
+      supportPath: join(
+        packageRoot,
+        "test_env/support/root-installed-environment.mjs",
+      ),
     });
     assert.equal(consumer.action, "inspect_frontier");
 

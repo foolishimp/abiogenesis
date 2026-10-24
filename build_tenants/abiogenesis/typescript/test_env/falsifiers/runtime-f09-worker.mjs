@@ -84,49 +84,6 @@ function requireRawAdmission(validator, value, subjectKind, contractRef) {
   return admitted;
 }
 
-function rawProgramInput(validator, publicationAdmission, program) {
-  const publication = publicationAdmission.value;
-  return {
-    publication: publicationAdmission,
-    program: requireRawAdmission(
-      validator,
-      program,
-      "gtl_program",
-      "contract://abiogenesis/gtl/program@5",
-    ),
-    graphFunctions: publication.graphFunctions
-      .filter((value) => program.callableMembership.includes(value.name))
-      .map((value) =>
-        requireRawAdmission(
-          validator,
-          value,
-          "graph_function",
-          "contract://abiogenesis/gtl/graph-function@5",
-        )),
-    contracts: publication.contracts.map((value) =>
-      requireRawAdmission(
-        validator,
-        value,
-        "contract_declaration",
-        "contract://abiogenesis/gtl/contract-declaration@5",
-      )),
-    implementationBindings: publication.implementationBindings.map((value) =>
-      requireRawAdmission(
-        validator,
-        value,
-        "implementation_binding",
-        "contract://abiogenesis/gtl/implementation-binding@5",
-      )),
-    closureContracts: publication.closureContracts.map((value) =>
-      requireRawAdmission(
-        validator,
-        value,
-        "closure_contract",
-        "contract://abiogenesis/gtl/closure-contract@5",
-      )),
-  };
-}
-
 function hasForbiddenCarrierField(value) {
   if (value === null || typeof value !== "object") return false;
   if (Array.isArray(value)) return value.some(hasForbiddenCarrierField);
@@ -421,7 +378,9 @@ async function loadInstalledRetryDependencies(
   selector,
   basisEvent,
   invocation,
+  supportPath,
 ) {
+  const support = await import(pathToFileURL(supportPath).href);
   const packageEntryPath = fileURLToPath(
     import.meta.resolve("@abiogenesis-fixtures/developer-mini-product"),
   );
@@ -443,16 +402,15 @@ async function loadInstalledRetryDependencies(
     "exact_prefix_artifact_truth_projection",
     JSON.stringify(artifactTruth),
   );
-  const fixtureInstallEvent = exactOne(
-    events,
-    (event) =>
-      event.kind === "public_operation_artifact_admitted" &&
-      event.payload.operationId === "abg.operation.product.install" &&
-      isRecord(event.payload.artifact) &&
-      event.payload.artifact.packageName === packageJson.name,
+  const fixtureInstallRow = exactOne(
+    artifactTruth.rows,
+    (row) =>
+      row.operationId === "abg.operation.product.install" &&
+      isRecord(row.artifact) &&
+      row.artifact.packageName === packageJson.name,
     "AX-F09 installed fixture Product",
   );
-  const fixtureInstallCandidate = fixtureInstallEvent.payload.artifact;
+  const fixtureInstallCandidate = fixtureInstallRow.artifact;
   const admittedInstall = installedAbg.projectAdmittedProductInstall(
     artifactTruth,
     fixtureInstallCandidate,
@@ -557,7 +515,7 @@ async function loadInstalledRetryDependencies(
     installedProduct.sha256Canonical(childGraphFunction) ===
       installedProduct.sha256Canonical(admittedExportedChildGraphFunction);
   const programValidation = installedValidator.validateProgram(
-    rawProgramInput(installedValidator, publicationAdmission, program),
+    support.rawProgramInput(installedValidator, publicationAdmission, program),
   );
   assert.equal(
     programValidation.kind,
@@ -1208,14 +1166,18 @@ async function advanceRetry(environment, attemptResult) {
   assert.equal(malformedTime.kind, "projected_retry_resume_refusal");
   assert.equal(malformedTime.code, "runtime_basis_mismatch");
   assert.equal(store.readAll().length, prefixCount);
-  const originalReadAll = store.readAll;
+  // A Public outcome that carries the store deep-freezes it, so the faults
+  // below intercept reads on its class, for this store only.
+  const storePrototype = Object.getPrototypeOf(store);
+  const originalReadAll = storePrototype.readAll;
   const beforeFailureEvents = originalReadAll.call(store);
   const beforeFailureDigest = store.digest();
   const beforeFailureBytes = await readFile(environment.eventLogPath, "utf8");
-  let routeReadCount = 0;
-  store.readAll = function routeFailureRead() {
-    routeReadCount += 1;
-    if (routeReadCount === 3) return Object.freeze([]);
+  // The route admission reads the store once (its frame liveness); that read
+  // sees no events, so the route is refused inside its transaction.
+  storePrototype.readAll = function routeFailureRead() {
+    if (this !== store) return originalReadAll.call(this);
+    if (new Error().stack?.includes("admitRoute")) return Object.freeze([]);
     return originalReadAll.call(this);
   };
   const routeFailure = hog.resumeProjectedRetry({
@@ -1224,23 +1186,22 @@ async function advanceRetry(environment, attemptResult) {
     retry,
     runtime,
   });
-  store.readAll = originalReadAll;
+  storePrototype.readAll = originalReadAll;
   assert.equal(routeFailure.kind, "projected_retry_resume_refusal");
   assert.equal(routeFailure.code, "retry_route_refused");
   assert.deepEqual(store.readAll(), beforeFailureEvents);
   assert.equal(store.digest(), beforeFailureDigest);
   assert.equal(await readFile(environment.eventLogPath, "utf8"),
     beforeFailureBytes);
-  store.readAll = function attemptFailureRead() {
-    const rows = originalReadAll.call(this);
-    if (
-      new Error().stack?.includes("admitRetryAttempt") &&
-      rows.length === prefixCount + 1 &&
-      rows.at(-1)?.kind === "traversal_route_admitted"
-    ) {
-      return Object.freeze(rows.slice(0, -1));
+  // The attempt admission reads the store only through its expected-prefix
+  // digest, after the route is staged; that digest differs, so the attempt
+  // is refused and the staged route rolls back with it.
+  const originalDigest = storePrototype.digest;
+  storePrototype.digest = function attemptFailureDigest(...args) {
+    if (this === store && new Error().stack?.includes("admitRetryAttempt")) {
+      return `sha256:${"0".repeat(64)}`;
     }
-    return rows;
+    return originalDigest.apply(this, args);
   };
   const attemptFailure = hog.resumeProjectedRetry({
     store,
@@ -1248,7 +1209,7 @@ async function advanceRetry(environment, attemptResult) {
     retry,
     runtime,
   });
-  store.readAll = originalReadAll;
+  storePrototype.digest = originalDigest;
   assert.equal(attemptFailure.kind, "projected_retry_resume_refusal");
   assert.equal(attemptFailure.code, "retry_attempt_refused");
   assert.deepEqual(store.readAll(), beforeFailureEvents);
@@ -1339,6 +1300,7 @@ async function advanceRetry(environment, attemptResult) {
     eventId: _runEventId,
     admissionOrdinal: _runAdmissionOrdinal,
     payloadDigest: _runPayloadDigest,
+    eventContractDigest: _runEventContractDigest,
     ...runCandidate
   } = runEvent;
   const [unrelatedRunEvent] = environment.eventStoreOwner.admitRuntimeEventBatch(
@@ -1813,7 +1775,12 @@ async function produceFrontier(input) {
   );
   assert.deepEqual(heldRetryProgressRefs, [second.progress.progressRef]);
   assert.equal(actorStarts.length, 2);
-  assert.equal(beforeCloseEvents.at(-1).eventId, second.progress.admissionEventRef);
+  // Activity probe observations follow an attempt; the tail that advances the
+  // retry is the last event that is not one.
+  const durableRetryTail = beforeCloseEvents
+    .filter((event) => event.kind !== "runtime_activity_probe_observed")
+    .at(-1);
+  assert.equal(durableRetryTail.eventId, second.progress.admissionEventRef);
   assert.equal(
     beforeCloseEvents.some(
       (event) =>
@@ -1953,7 +1920,7 @@ async function produceFrontier(input) {
       effectCount: actorStarts.length,
       workerCount: Number(await readFile(worker.counterPath, "utf8")),
       secondProgressIsDurableTail:
-        beforeCloseEvents.at(-1).eventId === second.progress.admissionEventRef,
+        durableRetryTail.eventId === second.progress.admissionEventRef,
       attemptThreeAbsent: !beforeCloseEvents.some(
         (event) =>
           event.kind === "retry_attempt_opened" && event.payload.attempt === 3,
@@ -1980,7 +1947,7 @@ async function produceFrontier(input) {
   };
 }
 
-async function inspectHandoff(handoff) {
+async function inspectHandoff(handoff, supportPath) {
   assert.deepEqual(Object.keys(handoff).sort(), [
     "expectedExecutableRetryInputDigest",
     "expectedExecutableRetryInputRef",
@@ -2060,6 +2027,7 @@ async function inspectHandoff(handoff) {
       selector,
       basisEvent,
       invocation,
+      supportPath,
     );
     const projectedRetry = installedAbg.projectExecutableRetryInput({
       prefix: handoff.prefix,
@@ -2471,11 +2439,15 @@ async function inspectHandoff(handoff) {
 }
 
 async function inspectFrontier(input) {
-  assert.deepEqual(Object.keys(input).sort(), ["action", "handoff"]);
+  assert.deepEqual(Object.keys(input).sort(), [
+    "action",
+    "handoff",
+    "supportPath",
+  ]);
   return {
     action: "inspect_frontier",
     pid: process.pid,
-    audit: await inspectHandoff(input.handoff),
+    audit: await inspectHandoff(input.handoff, input.supportPath),
   };
 }
 
@@ -2497,9 +2469,8 @@ async function produceAba(input) {
   const worker = await installAttemptWorker(environment.scratch);
   process.env.ABG_TS_CLAUDE_COMMAND = worker.command;
   process.env.ABG_AX_F09_COUNTER = worker.counterPath;
-  // The command's A-B-A mode only. A refused structured value is a transport
-  // contract_failure, which the fixture's failure candidate carries; under
-  // ABG_AX_F09_MODE the fixture claims success for it and ABG blocks the call.
+  // The command's A-B-A mode. A refused structured value is a transport
+  // contract_failure, which the fixture's failure candidate carries.
   process.env.ABG_AX_F09_ATTEMPT_MODE = "aba";
   process.env.ABG_TS_FP_TIMEOUT_MS = "10000";
   const opened = environment.abg.openTraversalScope(

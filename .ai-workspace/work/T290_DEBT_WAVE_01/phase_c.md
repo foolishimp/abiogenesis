@@ -3608,3 +3608,163 @@ Grant: `code/src/product/declaration_exports.ts` inside `exportedSymbolPhysicalR
 Stop (write it in the Return, keep the rest moving): any difference in a per-root map (a key, a ref, an order) at any fixture, root or scenario; any change to a verification result or to a regenerated file beyond the source digest; any event kind, payload key, failure class, Public export or Product contract change; item 0's `runAxF09` red on a `code/src` defect.
 
 Return contract: one commit on `main` with the first line `C-9: the declaration closure condensation: exportedSymbolPhysicalRelationRefs computes each strongly connected component's refs once per call and the per-root maps are unchanged; the F09 fixture's dead branch retired and the frontier handoff falsifier runs` (if a clause does not hold, keep the structure and state the gap in its place, as C-7 and C-8 did) and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## C-9 return` at the end of this record: the first sentence says closed, or names the gap; item 0's two repairs with the lane counts and the frontier run's result; the realization (a); the proof (b) with its four parts and the measurement table; the reach (c); item 2's proposals; item 3's tables; deviations from this wording; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
+
+## C-9 return
+
+Base `db00a06fe`. Worker: Opus 5.5 at xhigh. The commit carrying this section is the C-9 commit. Scratch root: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/c9/`, written `scratch/c9/` below.
+
+Not closed: the frontier handoff falsifier does not run green. Item 1 is closed: `exportedSymbolPhysicalRelationRefs` condenses the dependency graph into strongly connected components once per call, and every per-root map is unchanged (15 of 15 in the TD-22 scenario, 15 of 15 at the build, 11 of 11 focused cases against the base build). Item 0(a) is closed. Item 0(b)'s two repairs are made and exercised, and the `runAxF09` run is restated in six steps through the whole producer; it stops in the consumer, at the leaf port's execution resolution (`TypeError: Cannot read properties of undefined (reading 'declarationClosure')`). The new test is not committed; it is `scratch/c9/item0/t287-f09-frontier-handoff.test.mjs`. The commit's first line keeps the activation's structure and names the gap in place of the frontier claim (deviation 1).
+
+### Item 0: the C-8 residuals
+
+**(a) The fixture's dead branch.** `runtime-f09-product.mjs` base `:118-128` (`abaContractFailure` and `selectedCandidate`) is removed. `complete` (`:111-137`) now reads: disposition `success` when the transport succeeded and the parsed greeting matches, else `failure`; `diagnosticRef` only on failure; `resultCandidate` the parsed greeting on success, else the failure candidate. `sha256Canonical` stays imported for `:69`, `:70` and `:86`. The worker's comment at `:2500-2502` is restated without `ABG_AX_F09_MODE` (now `:2472-2473`).
+
+- `git grep ABG_AX_F09_MODE -- test_env code`: empty.
+- `t287-r4-aba-retry`: 1/1/0/0 before (150 s), 1/1/0/0 after (148 s).
+
+**(b) The consumer's input and the private copy.**
+
+- `runtime-f09.mjs:266-273`: the consumer input is `{ action, handoff, supportPath }`, `supportPath` joined as the producer's (`:256-259`). The handoff's keys (`runtime-f09-worker.mjs:1951-1957`) and the harness's closed-handoff check (`runtime-f09.mjs:329-332`) are unchanged.
+- Worker: `inspectFrontier` (`:2442-2452`) requires the keys `action`, `handoff`, `supportPath` and passes `supportPath` to `inspectHandoff(handoff, supportPath)` (`:1950`), which passes it to `loadInstalledRetryDependencies` (`:375-383`, `:2024-2031`). That function imports the support (`:383`) and calls its `rawProgramInput` (`:518`). The private `rawProgramInput` (base `:87-128`) is removed; `requireRawAdmission` (`:81`) stays for its callers (`:452`, `:492`, `:498`, `:504`).
+- The run below reaches the consumer's program validation through the support's `rawProgramInput` and passes it (the consumer's first error is later, at `:657`).
+
+**The `runAxF09` run.** The scratch test is written as `t287-r4-aba-retry.test.mjs` is, with `runAxF09` (`setupInstalledCliHarness`, then `runAxF09({ harness, packageRoot })`). It ran from `test_env/tests/t287-f09-frontier-handoff.test.mjs` (untracked, for its relative imports) and was moved back to scratch before staging. Every step ran the whole lane over the final `code/src` build; logs are `scratch/c9/item0/frontier-NN/`. Counts are tests/pass/fail/skipped.
+
+| Step | Restated call (as found → current form) | Lane after | First error after |
+|---|---|---|---|
+| head | none (item 0(a) and 0(b) applied) | 1/0/1/0 (47 s) | `TypeError: Cannot add property readAll, object is not extensible` at the route fault (`advanceRetry`, base `:1216`) |
+| 1 | the two read faults set an own `readAll` on the store (base `:1216`, `:1234`) → they replace the method on the store's class, for this store only, and restore it (`:1169-1189`) | 1/0/1/0 (48 s) | route fault: `'projected_retry_resume' !== 'projected_retry_resume_refusal'` (now `:1190`): the resume succeeded |
+| 2 | the route fault returned no events on the third read → on the read made inside `admitRoute` (`:1176-1182`) | 1/0/1/0 (50 s) | attempt fault: `'projected_retry_resume' !== 'projected_retry_resume_refusal'` (now `:1213`) |
+| 3 | the attempt fault dropped the staged route row from a `readAll` inside `admitRetryAttempt` → the store's `digest` inside `admitRetryAttempt` returns a digest that differs (`:1196-1212`) | 1/0/1/0 (54 s) | `TypeError: runtime event candidate has an invalid envelope` at the unrelated run tail's `admitRuntimeEventBatch` (now `:1306`, base `:1344`) |
+| 4 | the forged run candidate drops `eventContractDigest` with the other stamped fields (`:1299-1304`) | 1/0/1/0 (58 s) | `assert.equal(beforeCloseEvents.at(-1).eventId, second.progress.admissionEventRef)` (base `:1816`): `…7e4e6df6…` vs `…fa387a91…` |
+| 5 | the durable tail is the last event that is not `runtime_activity_probe_observed`, at the assertion and in the audit's `secondProgressIsDurableTail` (`:1778-1783`, `:1922-1923`) | 1/0/1/0 (59 s) | the producer completes; the consumer: `AX-F09 installed fixture Product: [] 0 !== 1` (base `:446`) |
+| 6 | the fixture install read from `public_operation_artifact_admitted` events → from the artifact truth rows, `operationId` `abg.operation.product.install` and `row.artifact.packageName` (`:405-413`) | 1/0/1/0 (59 s) | `TypeError: Cannot read properties of undefined (reading 'declarationClosure')` in `constructAdmittedLeafInvocationPort` (`implementation/leaf_invocation_port.ts:927-928`), from the worker's `:657` |
+
+What each step rests on (scratch probes in `scratch/c9/item0/probe-*`, each a one-run instrumented copy of the worker, restored after):
+
+1. **Head.** `completePublicOutcome` (`abg/c_call_outcome.ts:1909-1916`, since `67c333799`, 2026-10-21) deep-freezes its value. A `CCallRetryRequest` carries its `context` (`hog/ccall_lifecycle.ts:102-108`), and the context holds the caller's live store, so `evaluateExecutableCCall` (`:847`) freezes the store (probe: the freeze's stack runs `deepFreeze` ← `completePublicOutcome` ← `ccall_lifecycle.js:553`). A fresh store is extensible (probe). The faults were written at `39a714d43` (2026-08-13), before the freeze. The store keeps its state in a module `WeakMap` (`event_store.ts:2453-2478`), so the freeze changes nothing ABG reads. Stale test input; the freeze itself is a finding outside the grant.
+2. **Step 1.** During the resume the store's `readAll` runs once, inside `observeNativeFrameLiveness` ← `admitRuntimeEventBatch` ← `admitRoute` (probe). The third read the fault waited for never happens. With step 2 the route refusal's lower cause is `TypeError: frame sample needs its admitted producer` (probe, `scratch/c9/item0/probe-08-refusals.json`).
+3. **Step 2.** `admitRetryAttempt` reads the staged prefix without `readAll` (`selectOwnedTransactionStagedPrefix`, C-8). The store methods it calls are `digest` and `configuredDurableLogPath`, from `compareAndAppendExpectedPrefix` (`retry.ts:5026`) (probe).
+4. **Step 3.** The attempt refusal now passes the harness's reading: the hog class `retry_attempt_refused`, the store's events, digest and log bytes unchanged. Its `lowerCause` is `retry_admission_refusal` `attempt_mismatch`, "retry attempt authority changed after immutable-prefix validation" (probe, same file), not `route_mismatch`.
+5. **Step 4.** `validateRuntimeHistoryCandidate` strips `eventContractDigest` with `eventId`, `admissionOrdinal` and `payloadDigest` (`event_store.ts:2363-2366`); the envelope check (`:2384-2390`) refuses it on a candidate.
+6. **Step 5.** Two `runtime_activity_probe_observed` events of the same Run follow the second progress (probe). They observe process activity; no attempt, route or progress follows the progress.
+7. **Step 6.** The install candidate is carried on the artifact truth row (`artifact_truth.ts:68-84`, `artifact`). The workspace binding lookup that follows still finds its event and passes.
+
+**Stage and first error.** The consumer constructs its leaf port with `{ prefix, artifactTruth, install, implementationSet, publication, semanticsProjection }`. The owner now takes `{ prefix, artifactTruth, implementationSet, executionResolution, semanticsProjection }` (`leaf_invocation_port.ts:914-923`). The support gets `executionResolution` from `product.ProductExecutionResolutionPort.resolve` over the catalog, its view and the admitted installs (`root-installed-environment.mjs:650-661`); the catalog is admitted from the verified Products, the installed candidates and every publication (`:504-549`). The consumer process holds none of them. The next restatement therefore reconstructs the catalog and the execution resolution cold in the consumer, a multi-call construction like C-8 item 0(a) step 3. It is not a `code/src` defect. Item 0 edits no `code/src`; the restatement so far is committed (the worker diff is item 0(b) plus steps 1 to 6), and the test stays in scratch.
+
+The diagnostic-reference assertions the activation names (`:1304`, `:1317`, `:1376`, `:1557`, `:2231-2280` at C-8; now `:1265`, `:1278`, `:1338`, `:1519`, `:2199-2248`): the run passes the four in the producer, `:1265` and `:1278` (cyclic carrier and raw ingress, `projected-retry-carrier-mismatch@5`), `:1338` (unrelated run tail, `projected-retry-projection-mismatch@5`) and `:1519` (forged entry, `execution-basis-input-mismatch@5`). `:2199-2248` are in the consumer after its stage and did not run.
+
+### Item 1(a): the realization
+
+`realization_refactor` inside `exportedSymbolPhysicalRelationRefs` (`declaration_exports.ts:1263-1442`), one hunk at `:1360-1441` (79 insertions, 13 deletions). `direct`, `directBySymbol` and the comment at `:1284-1285` are unchanged; the signature is unchanged; nothing is held on the module or across calls.
+
+- From the exported symbols in `checker.getExportsOfModule(moduleSymbol)` order, an iterative Tarjan search (an explicit frame stack, `:1364-1381`, `:1382-1434`; no recursion over the symbol graph) reaches every symbol through `direct(symbol).dependencies` once.
+- A component closes when its root's low link equals its index. Its members leave the component stack and share one `Set` of refs (`:1403-1412`). Every dependency of a member is then either in the component or in a component that closed earlier, so the refs are the members' direct refs and the refs of each distinct successor component (`:1413-1424`), computed once per component, in reverse topological order. A child's low link passes to its parent when the child's frame closes (`:1426-1432`).
+- `result` keeps its keys, `exportedSymbol.getName()` in export order, and each entry is a fresh array of its component's refs sorted by `compareText` (`:1435-1440`). The undefined module still returns `{}` (`:1271`).
+- A comment at `:1360-1363` states that a component's refs are complete when it closes.
+
+### Item 1(b): the proof
+
+**(1) The focused cases.** `npm run build` at the base, then the whole `build/` copied to `scratch/c9/baseline-build/` (`declaration_exports.js` sha256 `0d63b224…`). With `ABI5_DECLARATION_BASELINE_MODULE` set to its `code/src/product/declaration_exports.js` and `ABI5_DECLARATION_PROOF_ROOT` under `scratch/c9/proof/`:
+
+- at the base: 1/1/0/0 (baseline equals the base build; the scratch layout loads);
+- after: 1/1/0/0. All 11 cases deep-equal and byte-equal (7 closures, 4 refusals); the per-case digests in `focused.json` are identical before and after;
+- the shape guard (`t287-declaration-closure-symbol-reuse.test.mjs:24-28`) holds: `const directBySymbol =` is inside the function (`:1286`), before `resolveNativeDeclarationClosures`. The cache is not renamed and the test is unchanged.
+
+**(2) The TD-22 scenario.** Scratch instrumentation (every line tagged and stripped; `scratch/c9/src/instrument.cjs` checks that the stripped text equals the source) wrote each call's result as JSON and a stats row, to `scratch/c9/maps-before/` and `maps-after/`. It ran during `t287-calculus-state-transfer` with `ABI5_CALCULUS_CASES=compose`, and also during `npm run build` (the manifest generator's call over the same package, `scripts/generate-product-manifest.mjs:523`).
+
+- Compose: 15 calls, all inside the first `resolveNativeDeclarationClosures` of the run (the tenant's verification); no later call reached the function. 15 maps, 0 differences, raw JSON byte-equal (key order included) and key-sorted canonical JSON equal.
+- Build: 15 maps, 0 differences, the same comparison.
+- The largest map is the root `.` (`build/code/src/index`): 1,868 exports. The 15 maps hold 4,909 exports.
+- Every root of this package has 0 physical relations, so every entry in these 30 maps is `[]`. The scenario proves keys and order and carries the cost; it proves no ref. The refs rest on (1), on `m5-s06-prime` (`:474-478`), and on one scratch check: five generated packages with random cross-file type references and external imports (two roots each, up to 82 files, 6,598 exports, 4,653 non-empty entries and 1,020,698 ref entries), baseline against candidate `resolveNativeDeclarationClosures`, byte-equal on all five (`scratch/c9/extra/generated.out`).
+
+**(3) The measurement.** Same instrumentation, before (the base walk) and after (the condensation). The times are `performance.now()` around each call, summed, with the counters running; the per-pop counter adds to the before arm and is not separated. The verification wall time is the lane's `provisioning_verify_artifact` (both `verifyProduct` calls).
+
+| Measure | Before (base walk) | After (condensation) |
+|---|---|---|
+| `exportedSymbolPhysicalRelationRefs` calls | 15 | 15 |
+| `direct` calls | 24,951,715 | 1,286,972 |
+| `direct` analyses (cache misses) | 643,486 | 643,486 |
+| Worklist pops | 351,600,037 | none |
+| Components | none | 572,642 |
+| Component-edge visits (distinct successor components unioned, summed over components) | none | 2,216,026 |
+| Dependency edges traversed (Tarjan; the union pass traverses the same number again) | none | 6,277,338 |
+| Inclusive time, compose, instrumented | 13,009.04 ms | 9,527.96 ms |
+| Inclusive time, build, instrumented | 13,309.82 ms | 9,863.80 ms |
+| `provisioning_verify_artifact`, compose, instrumented | 23,764.59 ms | 20,741.59 ms |
+| `provisioning_verify_artifact`, compose, uninstrumented lane | 25,209.24 ms | 20,728.10 ms |
+| `provisioning_verify_artifact`, all shapes, uninstrumented lane | 23,500.70 to 25,209.24 ms (6 shapes; `identity_end` cancelled) | 20,177.32 to 20,728.10 ms (7 shapes) |
+
+The before counts are within 17 `direct` calls and 8 analyses of TD-22's (24,951,698 and 643,478 at `a8937b837`): the package's declarations changed since. The remaining 9.5 s is the 643,486 analyses (`direct`'s AST visit and checker reads), which the condensation does not change.
+
+**(4) The mutant.** In the built `declaration_exports.js`, the loop that unions the successor components' refs was replaced by a comment (`scratch/c9/proof/mutant/declaration_exports.mutant.js`); then `npm run build` restored it. (1) is red, 1/0/1/0. First error: `AssertionError [ERR_ASSERTION]: cycle retains complete refs from either entry and aliases`; `A`, `Alias`, `Also` and `B` all `[]` where the baseline has `ts-relation://eca2fac7…` (`scratch/c9/proof/mutant/`).
+
+### Item 1(c): the reach
+
+Item 3's table. Nine of the ten lanes have the same counts, red and skip names and first errors before and after. `t287-calculus-state-transfer` moves from 8/6/0/0 with 2 cancelled to 8/8/0/0: at the base its seventh shape (`identity_end`) is cancelled by the parent's 300 s timeout; after, every shape's verification is 2.9 to 4.5 s shorter and the seven finish in 288 s. The move is timing: its margin is 12 s.
+
+### Item 2: records (proposals; the Executive places them)
+
+- **Ticket, Phase C decisions row "Declaration closure condensation (O-2, INSTALL-VERIFY-COMPUTE-01)".** Proposed outcome: "C-9: run. `exportedSymbolPhysicalRelationRefs` condenses the dependency graph into strongly connected components per call (iterative Tarjan inside the function) and computes each component's refs once; the per-root maps are unchanged (15/15 in the TD-22 compose scenario and 15/15 at the build, raw JSON; 11/11 focused cases against the base build); `direct` calls 24,951,715 → 1,286,972 with 643,486 analyses unchanged, the 351.6 M pops gone, 13.0 s → 9.5 s under the function and 23.8 s → 20.7 s of verification (instrumented). P3 not taken; nothing survives the call."
+- **Register `TECHNICAL_DEBT_REGISTER.md:301`** (INSTALL-VERIFY-COMPUTE-01). Proposed: "Closed at C-9: one strongly-connected-component condensation per call replaces the per-export walk; maps unchanged; 13.0 s → 9.5 s under the function, the rest being the 643,486 per-symbol analyses."
+- **Register `:360`** ("Fresh sandbox setup cost"). Proposed replacement for "the repeat is O-2": "the repeat was O-2, discharged at C-9 (verification 20.7 s instrumented in the compose scenario)". The row stays U for its other measures.
+- **Design.** No sentence states how the per-symbol refs are computed. `git grep exportedSymbolPhysicalRelationRefs -- design` in the tenant finds none. `T287_PACKAGE_OWNED_NATIVE_DECLARATIONS_DESIGN.md:142-150` names the production territory and adds no algorithm. `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:625` ("No generic graph or dependency algorithm is added") is the `declaration_closure.ts::locateRequired` row; the condensation is local to this function and adds no library operator, so that sentence stands. No design change.
+- **The comment at `:1284-1285`.** Unchanged. A component's refs are a complete transitive result when they are cached, which is what "never an incomplete transitive result in a cycle" protects; the comment at `:1360-1363` says so.
+
+### Item 3: gates and lanes
+
+**Gates**, on the final tree after `npm run build`:
+
+| Gate | Result |
+|---|---|
+| `npm run build` | rc 0 (`scratch/c9/gates/build.log`); the two regenerated files byte-identical to the build before the lanes |
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | rc 0: "28 modules under code/src/shared/ import only code/src/shared/ and packages" |
+| `npm run lint:lifecycle` | rc 0: "284 modules under code/src; 7 allow-listed site(s), no offender" |
+| `npm run lint:evidence` | rc 0: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other" |
+| `git status --short` | `declaration_exports.ts`, the three F09 falsifier files, `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json` modified, all six staged by path and committed; the two Codex comment files under `.ai-workspace/comments/codex/` untracked as before the package, not staged; no other entry. `grep -c C9` over `declaration_exports.ts` and the built module: 0 |
+
+**The regenerated files.** `product-toolchain-manifest.json` moves 68 JSON leaves and `contracts/capabilities/capability-definition-graph.json` 310. Every moved value is a digest or a digest-derived ref, and the leaf paths are the same sets C-8's one-line `replay.ts` change moved (`8282938dc^` → `8282938dc`, compared path by path). No closure, export or ref value moved.
+
+**Lanes.** Each lane ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. "Before" is `db00a06fe` after `npm run build` (`scratch/c9/before/`); "after" is the final tree after `npm run build` (`scratch/c9/after/`). The symbol-reuse lane ran with the inputs of 1(b)(1) both times.
+
+| Item | Lane | Before | After | Reds and skips (first error) | Attribution |
+|---|---|---|---|---|---|
+| 1(c) | `m5-s06-prime` | 49/48/1/0 | 49/48/1/0 | 1 red, same name and first error before and after: `S06 installed module loading binds content, confinement, and import once`: `AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:` (`'refused'` for `'loaded'`, `:1846`). The per-symbol refs case (`:474-478`) passes both times | unchanged |
+| 1(c) | `t287-static-declaration-closure` | 11/10/0/1 | 11/10/0/1 | 1 skip, same: `frozen81 unchanged ready basis resolves where its predecessor refused` ("requires the exact frozen81 input") | unchanged |
+| 1(b)(1), 1(c) | `t287-declaration-closure-symbol-reuse` (inputs of 1(b)(1)) | 1/1/0/0 | 1/1/0/0 | none | unchanged, green; the proof |
+| 1(c) | `t287-gtl-serialization-publication` | 1/0/1/0 | 1/0/1/0 | 1 red at import, same: `AssertionError [ERR_ASSERTION]: proof requires the explicit extracted package` (`:15`; `ABI5_GTL_CORE_PACKAGE_ROOT` unset) | unchanged; input-gated |
+| 1(c) | `t287-pfc-f08a-product-verification-boundary` | 1/0/1/0 | 1/0/1/0 | 1 red, same: `PFC-F08A is minted only by verifyProduct over exact artifact bytes`: `AssertionError [ERR_ASSERTION]: {"kind":"product_verification_refusal",...,"code":"manifest_malformed",...}` | unchanged |
+| 1(c) | `t287-public-groups` | 1/0/1/0 | 1/0/1/0 | 1 red at import, same: `TypeError [ERR_INVALID_ARG_TYPE]: The "paths[0]" argument must be of type string. Received undefined` (`:21`; `ABI5_PUBLIC_GROUPS_PACKAGE_ROOT` unset) | unchanged; input-gated |
+| 1(c) | `t287-w2-05-generator-package-reproducibility` | 2/1/1/0 | 2/1/1/0 | 1 red, same: `W2-05 generator is reproducible and the real pack verifies 18/56`: `AssertionError [ERR_ASSERTION]: generated declarations must form exact export closures` (`:99`, the closure is `null`) | unchanged |
+| 1(c) | `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 | 2 skips, same: `preparation resolution retains its established native link and raw lock refusals`; `native detachment retains only actual immutable verifier bodies and detaches raw copies` | unchanged |
+| 1(b)(2), 1(c) | `t287-calculus-state-transfer` | 8/6/0/0, 2 cancelled (301 s) | 8/8/0/0 (288 s) | before: `identity_end` cancelled, 'test did not finish before its parent and was cancelled'; the parent 'test timed out after 300000ms'. After: none | moved: item 1, by time; each shape's verification 2.9 to 4.5 s shorter, 12 s inside the parent's timeout |
+| 0(a), 0(b), 1(c) | `t287-r4-aba-retry` | 1/1/0/0 (150 s) | 1/1/0/0 (148 s) | none | unchanged, green |
+| 0(b) | `t287-f09-frontier-handoff` (scratch, uncommitted) | not in the tree | 1/0/1/0 (59 s) | the stage of item 0(b): `TypeError: Cannot read properties of undefined (reading 'declarationClosure')` | item 0(b), stopped at the consumer's leaf port |
+
+### Deviations from the activation's wording
+
+1. **The commit's first line.** The frontier clause does not hold; the line keeps the structure and states the stage in its place.
+2. **The frontier restatement stopped at step 6 before the rest of the package was done**, not after it: the next step reconstructs the catalog and the execution resolution in the consumer, which is a construction, not one call.
+3. **Step 3 changes the fault's ABG cause.** The old attempt fault hid the staged route row from a read inside `admitRetryAttempt`; no store read reaches that check now. The restated fault makes the compare-and-append's expected-prefix digest differ, and ABG refuses with `attempt_mismatch` (read from the refusal's `lowerCause`). The harness's reading (the class `retry_attempt_refused`, the store rolled back) is unchanged.
+4. **Instrumentation outside the function.** One tagged line in `resolveNativeDeclarationClosures` counted its calls, to group the stats by verification. All instrumentation was stripped: `grep -c C9` over the source and the built module is 0, and the committed hunk is the condensation only.
+5. **Listing under `.ai-workspace/`.** Looking for the library design, one `git ls-files '*ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md'` printed 31 tracked paths, 30 of them under `.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/`, and one `git grep` ran over one of those directories. Nothing was opened there; the design was then read at its tenant path.
+
+### Findings outside the grant
+
+- **`completePublicOutcome` freezes caller-owned objects.** `abg/c_call_outcome.ts:1909-1916` deep-freezes a `CCallRetryRequest`, whose `context` (`hog/ccall_lifecycle.ts:102-108`) holds the caller's live `AbgEventStore`, leaf port, implementation set and actor binding. After `evaluateExecutableCCall` returns a retry request, the caller's store is frozen. ABG keeps the store's state outside the instance, so nothing ABG reads changes; a caller that extends or patches any of those objects fails. The owner may rule whether a Public outcome may freeze resources it only references.
+- **No test drives `route_mismatch` (C-8 option A).** The old attempt fault, which hid the staged route row from a read inside `admitRetryAttempt`, is the shape a `route_mismatch` driver would take, but at head no store read reaches that check, and the restated fault drives `attempt_mismatch`. Option A's proof case still needs its own fixture (C-8 disposition).
+- **The TD-22 scenario carries no refs.** All 15 roots of the tenant have 0 physical relations, so the scenario's maps are all `[]`. A measurement or proof that needs refs at scale needs another package; none in the checkout's verification lanes has them.
+- **`t287-w2-05-generator-package-reproducibility:99`** is red at the base: `resolveNativeDeclarationClosures` returns `null` for the generated snapshot. `exportedSymbolPhysicalRelationRefs` never returns `null`, so the refusal is earlier; the lane exercises none of the condensation. Not traced.
+- **`t287-calculus-state-transfer`'s outer timeout** (300 s over seven shapes) cancels `identity_end` at the base.
+
+### Stops
+
+None. No per-root map differs at any fixture, root or scenario; no verification result changed; the regenerated files move only digests; no event kind, payload key, failure class, Public export or Product contract changed; the frontier red is stale test input, not a `code/src` defect.
+
+### What could not be verified
+
+- **The frontier handoff end to end.** The consumer's construction past `:657` and everything after it did not run: the worker's `:2199-2248`, and the harness's consumer audit and its assertions (`runtime-f09.mjs:338-412`, from `:413`).
+- **Refs at the scale of a real Product.** The checkout's Product has no physical relations; refs are proved on the 11 focused cases, `m5-s06-prime`, and the scratch generated packages.
+- **Uninstrumented timing of the function itself.** Inclusive times are from instrumented runs; the uninstrumented lane gives only the verification wall time.
+- **The input-gated lanes** (`t287-gtl-serialization-publication`, `t287-public-groups`) red at import without their package roots; they exercise none of the change in this checkout.

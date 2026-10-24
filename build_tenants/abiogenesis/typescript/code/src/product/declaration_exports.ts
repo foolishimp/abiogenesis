@@ -1357,20 +1357,86 @@ function exportedSymbolPhysicalRelationRefs(
     directBySymbol.set(symbol, analysis);
     return analysis;
   };
-  const result: Record<string, readonly string[]> = {};
-  for (const exportedSymbol of checker.getExportsOfModule(moduleSymbol)) {
-    const refs = new Set<string>();
-    const pending: TypeScript.Symbol[] = [exportedSymbol];
-    const visited = new Set<TypeScript.Symbol>();
-    while (pending.length > 0) {
-      const symbol = pending.pop()!;
-      if (visited.has(symbol)) continue;
-      visited.add(symbol);
-      const analysis = direct(symbol);
-      for (const ref of analysis.refs) refs.add(ref);
-      for (const dependency of analysis.dependencies) pending.push(dependency);
+  // Condense the dependency graph into strongly connected components once per
+  // call (iterative Tarjan, no recursion over the symbol graph). A component
+  // closes after every component it reaches, so its refs (its members' direct
+  // refs and its successor components' refs) are complete when it closes.
+  const indexBySymbol = new Map<TypeScript.Symbol, number>();
+  const lowLinkBySymbol = new Map<TypeScript.Symbol, number>();
+  const componentRefsBySymbol = new Map<TypeScript.Symbol, Set<string>>();
+  const componentStack: TypeScript.Symbol[] = [];
+  const onComponentStack = new Set<TypeScript.Symbol>();
+  const frames: {
+    readonly symbol: TypeScript.Symbol;
+    readonly dependencies: readonly TypeScript.Symbol[];
+    next: number;
+  }[] = [];
+  const open = (symbol: TypeScript.Symbol): void => {
+    const index = indexBySymbol.size;
+    indexBySymbol.set(symbol, index);
+    lowLinkBySymbol.set(symbol, index);
+    componentStack.push(symbol);
+    onComponentStack.add(symbol);
+    frames.push({ symbol, dependencies: direct(symbol).dependencies, next: 0 });
+  };
+  const exportedSymbols = checker.getExportsOfModule(moduleSymbol);
+  for (const exportedSymbol of exportedSymbols) {
+    if (indexBySymbol.has(exportedSymbol)) continue;
+    open(exportedSymbol);
+    while (frames.length > 0) {
+      const frame = frames[frames.length - 1]!;
+      if (frame.next < frame.dependencies.length) {
+        const dependency = frame.dependencies[frame.next++]!;
+        const index = indexBySymbol.get(dependency);
+        if (index === undefined) {
+          open(dependency);
+        } else if (onComponentStack.has(dependency)) {
+          lowLinkBySymbol.set(
+            frame.symbol,
+            Math.min(lowLinkBySymbol.get(frame.symbol)!, index),
+          );
+        }
+        continue;
+      }
+      frames.pop();
+      const lowLink = lowLinkBySymbol.get(frame.symbol)!;
+      if (lowLink === indexBySymbol.get(frame.symbol)) {
+        const refs = new Set<string>();
+        const members: TypeScript.Symbol[] = [];
+        let popped: TypeScript.Symbol;
+        do {
+          popped = componentStack.pop()!;
+          onComponentStack.delete(popped);
+          componentRefsBySymbol.set(popped, refs);
+          members.push(popped);
+        } while (popped !== frame.symbol);
+        const successors = new Set<ReadonlySet<string>>();
+        for (const member of members) {
+          const analysis = direct(member);
+          for (const ref of analysis.refs) refs.add(ref);
+          for (const dependency of analysis.dependencies) {
+            const successor = componentRefsBySymbol.get(dependency)!;
+            if (successor !== refs) successors.add(successor);
+          }
+        }
+        for (const successor of successors) {
+          for (const ref of successor) refs.add(ref);
+        }
+      }
+      const parent = frames[frames.length - 1];
+      if (parent !== undefined) {
+        lowLinkBySymbol.set(
+          parent.symbol,
+          Math.min(lowLinkBySymbol.get(parent.symbol)!, lowLink),
+        );
+      }
     }
-    result[exportedSymbol.getName()] = [...refs].sort(compareText);
+  }
+  const result: Record<string, readonly string[]> = {};
+  for (const exportedSymbol of exportedSymbols) {
+    result[exportedSymbol.getName()] = [
+      ...componentRefsBySymbol.get(exportedSymbol)!,
+    ].sort(compareText);
   }
   return result;
 }
