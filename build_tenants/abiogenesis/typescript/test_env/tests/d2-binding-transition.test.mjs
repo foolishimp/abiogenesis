@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {bindingHarness} from '../support/d2-binding-harness.mjs';
+import {capturedEnvelopeSkip} from '../support/d2-bounded-harness.mjs';
 import {workflowStepHarness} from '../support/d2-workflow-step-harness.mjs';
 
-test('native acquisition child uses its exact admitted input when another Run acquired equal content',async t=>{
+test('native acquisition child uses its exact admitted input when another Run acquired equal content',{skip:capturedEnvelopeSkip},async t=>{
   const h=await bindingHarness(),current=h.stage.worksite;
   // Pure admitted-context/source premises. The existing harness supplies basis,
   // install and final CCall-outcome lookups; this is not a physical acquisition.
@@ -145,7 +146,7 @@ test('native acquisition child uses its exact admitted input when another Run ac
   t.diagnostic('Real binding/native-leaf projection with explicit upstream lookup premises; no journal, actor, physical observation or installed qualification.');
 });
 
-test('mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates',async()=>{
+test('mechanical exact cover; unchanged initial observation crosses W only with its actual native coordinates',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'current'),input={kind:'semantic_revision_selection_input',schemaVersion:'5.0.0',parent:h.parent.coordinate,causes:[h.cause.coordinate],currentWorksite:current};
   assert.ok(h.product.isSemanticRevisionSelectionInput(input));
   const {currentWorksite:_current,...missingWorksite}=input;
@@ -169,7 +170,7 @@ test('mechanical exact cover; unchanged initial observation crosses W only with 
   assert.equal(h.physicalReads,0,'all provenance replay is independent of original files');
 });
 
-test('mechanical repeated repair and partially successful C0 preserve S2/V22/R20 and earlier successful origins',async()=>{
+test('mechanical repeated repair and partially successful C0 preserve S2/V22/R20 and earlier successful origins',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,w1=h.operating(old,'partial-w1');h.cover(old,w1,h.parent.basis);
   const first=h.revision(h.parent,h.cause,w1,'first');
   const selected=['implementation','verifier'].map(role=>w1.targets.findIndex(row=>row.role===role));
@@ -188,7 +189,7 @@ test('mechanical repeated repair and partially successful C0 preserve S2/V22/R20
   assert.equal(h.physicalReads,0);
 });
 
-test('mechanical cover cardinality, malformed inventory, broad writes and foreign branches fail closed',async()=>{
+test('mechanical cover cardinality, malformed inventory, broad writes and foreign branches fail closed',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'guards');
   const a=h.cover(old,current,h.parent.basis,{name:'cover-a'}),b=h.cover(old,current,h.parent.basis,{name:'cover-b'});
   assert.deepEqual([...h.owner.projectWorksiteRevisionBindingCover(h.snapshot(),old.workspaceBinding,current.workspaceBinding,[h.parent.basis])],[a.eventId,b.eventId],'all qualifying native occurrences retained');
@@ -205,7 +206,7 @@ test('mechanical cover cardinality, malformed inventory, broad writes and foreig
   assert.equal(h.physicalReads,1);
 });
 
-test('mechanical later revised Design retains its own authenticated historical coordinates across another W',async()=>{
+test('mechanical later revised Design retains its own authenticated historical coordinates across another W',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,w1=h.operating(old,'design-w1');h.cover(old,w1,h.parent.basis);
   const cut=h.revision(h.parent,h.cause,w1,'design-revision',{mode:'stage_revision'}),asset=h.stage.assets.at(-1),raw=structuredClone(asset.candidate);
   const refs=new Map(old.targets.map((row,i)=>[row.target.targetRef,w1.targets[i].target.targetRef]));
@@ -229,7 +230,7 @@ test('mechanical later revised Design retains its own authenticated historical c
   const prepared=await h.semantic(next.value);assert.ok(prepared);assert.equal(prepared.constructionTask.targets.length,2);assert.equal(prepared.dependencyObservations.length,20);
 });
 
-test('mechanical C0 same-byte/new-inode survives binding translation; residue and unexplained identity refuse',async()=>{
+test('mechanical C0 same-byte/new-inode survives binding translation; residue and unexplained identity refuse',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,changed=h.replace(old,0,'old-success'),current=h.operating(changed.next,'current');
   h.cover(old,current,h.parent.basis);
   const origins=h.owner.projectWorksiteRevisionOrigins(h.snapshot(),h.parent.basis,old,current,[h.parent.basis.invocationAdmissionRef]);
@@ -244,7 +245,7 @@ test('mechanical C0 same-byte/new-inode survives binding translation; residue an
   assert.equal(h.owner.projectWorksiteRevisionOrigins(h.snapshot(),h.parent.basis,old,residueCurrent,[h.parent.basis.invocationAdmissionRef]),null);
 });
 
-test('mechanical multiple binding projections retain actual origins and refuse old-W resurrection after new-W C0',async()=>{
+test('mechanical multiple binding projections retain actual origins and refuse old-W resurrection after new-W C0',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,w1=h.operating(old,'w1');h.cover(old,w1,h.parent.basis);
   const first=h.revision(h.parent,h.cause,w1,'first'),command=h.addCall('new-command',{assumption:'new closed C2 exit1 lookup'},
     {worksite:w1,invocation:first.basis.invocationAdmissionRef,input:first.value,sourceResultRef:h.parent.coordinate.resultRef});
@@ -266,7 +267,7 @@ test('mechanical multiple binding projections retain actual origins and refuse o
   assert.equal(h.physicalReads,0);
 });
 
-test('mechanical exact cover rejects wrong direction, scope, historical basis and unadmitted or self projection',async()=>{
+test('mechanical exact cover rejects wrong direction, scope, historical basis and unadmitted or self projection',{skip:capturedEnvelopeSkip},async()=>{
   for(const [name,mutate]of [
     ['wrong-before',row=>row.payload.beforeDigest='sha256:'+'0'.repeat(64)],
     ['reversed',row=>{const p=row.payload;[p.beforeDigest,p.afterDigest]=[p.afterDigest,p.beforeDigest];}],
@@ -286,7 +287,7 @@ test('mechanical exact cover rejects wrong direction, scope, historical basis an
   assert.equal(h.owner.projectWorksiteRevisionBindingOrigin(h.snapshot(),first.value),null,'wrapper is not projection producer');
 });
 
-test('mechanical distinct projection branches are ambiguity, never equal-value or latest-origin selection',async()=>{
+test('mechanical distinct projection branches are ambiguity, never equal-value or latest-origin selection',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),old=h.stage.worksite,current=h.operating(old,'fork');h.cover(old,current,h.parent.basis);
   const first=h.revision(h.parent,h.cause,current,'branch-a',{invocation:'invocation://mechanical/fork'});
   const cause=h.addCall('fork-command',{assumption:'linked command failure lookup'},{worksite:current,input:first.value,
@@ -300,7 +301,7 @@ test('mechanical distinct projection branches are ambiguity, never equal-value o
     [{...h.parent.basis,rawInputDigest:h.hash('foreign basis')}]),null);
 });
 
-test('mechanical evidence-input gate resolves a real Product new-C2 carrier through its exact earlier projection',async()=>{
+test('mechanical evidence-input gate resolves a real Product new-C2 carrier through its exact earlier projection',{skip:capturedEnvelopeSkip},async()=>{
   const h=await bindingHarness(),current=h.operating(h.stage.worksite,'evidence-current');h.cover(h.stage.worksite,current,h.parent.basis);
   const first=h.revision(h.parent,h.cause,current,'first'),entry=await h.semantic(first.value);assert.ok(entry);
   const template=await workflowStepHarness(),p=template.product;

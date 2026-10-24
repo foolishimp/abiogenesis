@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { readFile, mkdir, writeFile, realpath, lstat } from "node:fs/promises";
-import { dirname, join, basename, resolve } from "node:path";
+import { existsSync } from "node:fs";
+import { dirname, join, basename, resolve, isAbsolute } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { resolveInstalledPackageExport } from "./root-cli-environment.mjs";
@@ -149,11 +150,33 @@ function exactHeading(bytes, heading) {
   const endByte=next<0?bytes.length:next+1;
   return {startByte,endByte,text:bytes.subarray(startByte,endByte).toString("utf8")};
 }
+// The three installed STDO v2.5.0-rc.7 releases and python3 are installs, not
+// evidence. One declared input under ABI5_ENV_INPUT_ROOT names them:
+// stdo-installs.json, {"stdo","representation","axiomIndexer","python3"}, each
+// an absolute path. A lane skips with the reason when it is absent.
+export const STDO_INSTALLS="stdo-installs.json";
+export function stdoInstallsSkip(inputRoot,name="ABI5_ENV_INPUT_ROOT") {
+  if(!inputRoot)return name+" unset; requires the input root holding "+STDO_INSTALLS;
+  if(!existsSync(join(inputRoot,STDO_INSTALLS)))
+    return STDO_INSTALLS+" absent from "+name+"; requires the three installed STDO releases and python3 by path";
+  return false;
+}
+export function pilotInputSkip(environment=process.env) {
+  if(!environment.ABI5_ENV_PROOF_ROOT)return "ABI5_ENV_PROOF_ROOT unset; requires the proof root and the input root holding "+STDO_INSTALLS;
+  return stdoInstallsSkip(environment.ABI5_ENV_INPUT_ROOT);
+}
+async function stdoInstalls(inputRoot) {
+  const installs=JSON.parse(await readFile(join(inputRoot,STDO_INSTALLS),"utf8"));
+  for(const key of ["stdo","representation","axiomIndexer","python3"])
+    assert.ok(typeof installs[key]==="string"&&isAbsolute(installs[key]),STDO_INSTALLS+" names "+key+" by absolute path");
+  return installs;
+}
 export async function pilotEnvironmentDeclaration({gtl,product,inputRoot}) {
-  const sourceRoot=await realpath("/Users/jim/Library/Application Support/STDO/releases/v2.5.0-rc.7");
-  const representationRoot=await realpath("/Users/jim/Library/Application Support/STDO Representation/releases/v2.5.0-rc.7");
-  const axiomRoot=await realpath("/Users/jim/Library/Application Support/Axiom Indexer/releases/v2.5.0-rc.7");
-  const pythonPath=await realpath("/usr/local/bin/python3");
+  const installs=await stdoInstalls(inputRoot);
+  const sourceRoot=await realpath(installs.stdo);
+  const representationRoot=await realpath(installs.representation);
+  const axiomRoot=await realpath(installs.axiomIndexer);
+  const pythonPath=await realpath(installs.python3);
   const representationRecordPath=await realpath(join(inputRoot,"representation-release-record.md"));
   const axiomRecordPath=await realpath(join(inputRoot,"axiom-release-record.md"));
   const recordUri=child=>"https://raw.githubusercontent.com/foolishimp/specification_methodology/4824d5a05619e6957110b7ac97464b42ac84c096/"+child+"/releases/v2.5.0.md";

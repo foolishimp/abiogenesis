@@ -1766,3 +1766,812 @@ Grant: `.gitignore`; `scripts/check-evidence-mirrors.mjs`; `.ai-workspace/eviden
 Stop (write it in the Return, keep the rest moving): any change that widens the profile admission set or touches an event contract, a payload key, a failure class or a Product contract; a case whose claim cannot be met without weakening authority or restoring a retired API (retire it instead and say so); a regeneration that needs a live native run (retire per item 2 and say so); a tracked historical path that would need to move or go; a `.gitignore` re-include that would make a previously ignored path visible (keep the C-4 form for that pattern and say so).
 
 Return contract: one commit on `main` with the first line `C-5: the evidence root: one root, one variable, lanes skip with their reason; nothing over 6 MB enters; the intermediate-profile stores regenerated or retired; TD-04 and TD-05 discharged` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push. Append `## C-5 return` at the end of this record with: item 0's three proofs (classification change with the `contracts-tree` roots found, the `.gitignore` proof counts, the harness default and the deletion list); item 1's per-site before and after with each input's path, digest and bytes, the absolute-path grep, and the variable census; item 2's outcome and why; item 3's per-case disposition with the claim stated; item 4's two rows; item 5's proposed sentences; item 6's tables; deviations from this wording; findings outside the grant; stops. Nothing above your section is edited.
+
+## C-5 return
+
+Base `a393c9ca2`. Worker: Opus 5.5 at xhigh. The commit carrying this section is the C-5 commit.
+
+The answer is no, not everything is discharged. The increments the activation lists are discharged: each case was regenerated, restated or retired with its reason. Six things remain:
+
+- `t287-undispatched-diagnostic:233` stays red on a Product defect in `abg/c_call_outcome.ts:1889-1891`, which the grant does not reach.
+- With the root set, two lanes cannot load their predecessor builds: the builds kept under the root hold no package closure. This is a stop.
+- The d2 lanes reach their branches with the root set, and 34 historical-fixture assertion reds appear there. No register row owns them.
+- `t287-native-semantic-revision` keeps 3 reds identical to head. No register row owns them either.
+- TD-04 sites remain outside the grant. Item 5(a) lists them.
+- In `d1-preserved-result-mechanics`, three cases skip even with the root set. The native store their source observation names lives outside the root.
+
+### Item 0: the C-4 residuals
+
+**0a. The check script and the inventory.**
+
+- **Classification of `contracts/` directories.** A `contracts/` directory under `.ai-workspace/` is classified by content, as ruled: it becomes a mirror root of kind `contracts-tree` only when, at the same index, a tracked path below it names, by its position below that directory, a tracked path below `build_tenants/abiogenesis/typescript/contracts/`.
+  - 87 `contracts-tree` roots qualify: 1,934 paths, 114,384,254 bytes. Examples:
+    - `20260928_FRAMED_GOVERNANCE/f11-carrier-installed-execution-01/fixture-source` (35 references);
+    - the 20 `current-installed-dependency-lock-repair-207/fixtures/*/source` roots;
+    - the `*/setup/consumer-source` roots.
+  - A `contracts/` directory that names none of them is a run's own output and is not classified.
+  - `.gitignore` gains no `contracts/` pattern.
+- **References.** References are now searched over every tracked text file of the twelve named extensions, under `.ai-workspace/` and the tenant, in one pass.
+  - Roots with zero references: 5 at head, 0 now.
+  - The roots Finding 1 named now show their references: `T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/root-preimages` has 2, and the two `library-runtime-state-233/*-diagnostic-33` roots have 1 each.
+  - The inventory itself and `.ai-workspace/work/T290_DEBT_WAVE_01/` are excluded from the search, so neither this record nor the inventory references itself.
+- **The 6 MB rule.** A tracked path whose blob exceeds 6,000,000 bytes is refused unless the inventory's `oversize` table lists it, with its bytes and its readers.
+  - The table holds 1,739 paths, 40,396,699,215 bytes in all. Two are outside `.ai-workspace/`: the two proof files of item 4. The other 1,737 are historical records under `.ai-workspace/`.
+  - The rule reads "anywhere in the repository", so they are listed. See Deviations.
+  - At `--size-bound 2000000`, the lint exits 1 with: "683 tracked path(s) exceed the 2000000-byte bound and are not listed under oversize". The named files include:
+    - `contracts/schemas/public-operation.schema.json`, 2,867,688 bytes;
+    - `product-toolchain-manifest.json`, 3,254,049 bytes;
+    - `test_env/proof/abi5-root-r10.outcomes.json`, 4,259,486 bytes.
+  - That run writes no object to `.git`.
+- **Inventory.** Regenerated with `--write` after (i) to (iii) and 0b, with every grant file staged. The first and second runs gave byte-identical files, sha256 `6b1685f0863ae8f4fcbbb6621ce39fb3a07db01e907a1399359c268f139b3772`.
+  - Totals: 691 roots (head 607: 87 `contracts-tree` added, 3 `patch-layout` removed), 80,368 paths, 3,355,594,208 bytes.
+  - A third `--write`, run after the last test edits, gave the same digest.
+- **Checks.**
+  - Plain `npm run lint:evidence`: rc 0, "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other".
+  - Mirror negative: a scratch index (a copy of `.git/index` used through `GIT_INDEX_FILE`) gets the empty blob at `.ai-workspace/work/T290_DEBT_WAVE_01/scratch-mirror/build_tenants/x.txt`. Result: rc 1, "1 mirror root(s) under .ai-workspace hold tracked paths the inventory does not list, a new copy". The scratch index was then deleted.
+- **`.gitignore` comment.** The block comment gains the C-4 Return's third line, verbatim.
+
+**0b. `.gitignore` uses the `/**` forms.**
+
+- The five directory patterns became their `/**` forms, followed by the five scoped directory re-includes and the `*.diff` and `*.patch` file re-includes, exactly as given.
+- The lint skips `.diff` and `.patch` paths in classification, so the three `patch-layout` roots left the inventory.
+- Proof, using `git check-ignore --no-index -v` over `git ls-files -z .ai-workspace` (127,233 tracked paths) and a synthetic list:
+  - The 11 tracked `.diff` files under `result-lineage-typed-contract-realization-01/deltas` are not ignored.
+  - The newly matched set is 75,607, which is C-4's 75,618 minus exactly those 11. Nothing is added.
+  - The 447 paths that head's rules ignored before C-4 are all still ignored.
+  - Each of the six synthetic paths the activation lists is still ignored. `<root>/deltas/build_tenants/a/b/code/src/x.diff` is not ignored.
+  - Ten more synthetic paths are still ignored, each by its own later pattern: `node_modules/` under the trees and a `.diff` under `node_modules/`, `installed/`, `scratch/`, `tmp/`, `packs/`, `events.jsonl` and `runtime.events.jsonl`.
+- `git status --short` lists no newly visible path.
+- Placement: the block sits above the existing exclusions (`node_modules/`, `packs/`, `installed/`, `scratch/`, `tmp/` and the rest), not at the old `:73-77`. A later exclusion overrides an earlier `!…/**/` re-include. At the old position the re-includes would come last and expose, for example, `build_tenants/a/node_modules/`. Placing the block first is the form that exposes nothing.
+
+**0c. The unit-run root.**
+
+- `test_env/uat/harness.test.mjs:20-23`: the default unit-run root is `test_env/test_runs/sandbox-uat-units/`, ignored at `.gitignore:38`. `ABI5_UAT_UNIT_ROOT` stays the override.
+- `test_env/uat/continuation.test.mjs:15-17`: every case skips with the named reason, "ABI5_UAT_CONTINUATION_INSTALLED_ROOT, ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION, ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION, ABI5_UAT_UNIT_ROOT unset; requires the installed root, both retained acquisitions and a unit-run root".
+- Deleted with `rm -r`, all untracked, under `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/`:
+  - the twelve directories:
+    - `archive-negative/2026-10-24T05-21-02-568Z-c5a280ba-05e6-4e12-887b-02d59c5b043c`;
+    - `controlled-basic-cli`, `controlled-js-sdlc-bootstrap`, `controlled-js-tenant-test`, `controlled-parallel-js`, `controlled-report-consumer`, `controlled-rust-cli`, `controlled-rust-service`;
+    - `optional-actor-bounds`;
+    - `oracle-drift/2026-10-24T05-21-02-595Z-4e346fa5-7029-4a5d-9f3c-0ac64cf988e2`;
+    - `oracle-event-prefix`, `supplied-work`;
+  - two more, `archive-negative/2026-10-24T14-03-24-034Z-a0edcf11-…` and `oracle-drift/2026-10-24T14-03-24-060Z-480b4582-…`. My own head-baseline run of `uat/harness` wrote them on the old default before the change. See Deviations.
+- The 120 tracked paths there are untouched.
+- After the change, two harness runs wrote nothing under `.ai-workspace/`. `git status --short` lists the two codex strategy posts as the only untracked entries.
+
+### Item 1: the evidence root
+
+`test_env/support/evidence-root.mjs` exports `evidenceInput({path, sha256, bytes})`, as specified.
+
+- No default root and no second variable.
+- When the variable is unset, it returns `{kind: 'absent', reason}` with reason "ABI5_EVIDENCE_ROOT unset; requires <path> (sha256:<first 12>)".
+- When the variable is set, it reads the file and checks the bytes and the digest. It returns `{kind: 'present', path, bytes}`, or throws, naming the root, the path, and the expected and actual digest and bytes.
+- It writes nothing.
+- At head nothing reads `ABI5_EVIDENCE_ROOT` (`git grep -c ABI5_EVIDENCE_ROOT HEAD` over the tenant counts 0), so one head run stands for both head columns of item 6.
+
+Sites, before (head), then inputs under the root (path relative to it, sha256, bytes):
+
+| Site | Head | Inputs | After |
+|---|---|---|---|
+| `r10-child-proof:14-19`, `:119` | module load `ENOENT` (displaced D2 path) | `comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl` `f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82` 19,058,361; `…/attempt-01/program-ready-16.json` `2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02` 12,781,893; `comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-9.jsonl` `b41e2253b63acb7fd9d2505544272c1ef887c2430d11ec3027d11759a8d32d65` 20,426,253 (measured) | unset: one file-level skip with the reason; set: 10/10. The proof's 846-line prefix (13,540,472 bytes, `4f561cea…`) is asserted on the slice. The store owner reopens a byte copy in per-run scratch and closes it with no append. That truthful coordinate replaces the retained close handoff's device and inode (16777230 to 16777231 drift), which the cuts no longer compare. The S01 prefix is read from the packaged byte copy under its owner's reopen coordinate. Physical identity of the root files is asserted unchanged across the lane. |
+| `r10-retained-child-projection.mjs:7-10`, `:45` | `ENOENT` at `:10` (path resolves to `/Users/jim/src/apps/abiogenesis/20260911_D2_BOUNDED_REPAIR/…`, absent) | the same two D2 files | unset: prints `disposition: skipped` with the reason and exits 0; set: `passed`, three summaries over a scratch copy |
+| `support/d1-preserved-result-harness.mjs:20` | `ENOENT` `build_tenants/abiogenesis/preimages/source-observation.json` | `git ls-files`: no hit. The bounded `find` under the two named directories found three copies, all `c03f587f…`. The harness names `comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/preserved-result-implementation-01/preimages/source-observation.json` `c03f587f370f8ce9b34a2fc9f0b275493926eac78e21114c3de350c40b6b6c85` 9,988 | test 1 needs only it. Tests 3 to 5 also need the native event store it names, which is `/Users/jim/src/apps/odd_glc/…`, outside the root. With the root set they skip with that reason (see Deviations). |
+| `d1-preserved-result-mechanics:34` | not reached | `comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/work/build/code/src/gtl/worksite_construction.js` `bc1891c25cdf…` 23,816 | retired: the claim is false today (item 3) |
+| `support/d2-bounded-harness.mjs:9,11` | absolute `/Users/` paths (resolved on this machine) | `comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json` `6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16` 983,713. Under `comments/codex/20260910_D2_FRAME_REPAIR/implementation-01/`: `work/build/code/src/product/index.js` `db068a67…` 9,920, `work/build/code/src/gtl/worksite_command_execution.js` `9e0bbd55…` 15,716, `work/build/code/src/product/semantic_stage.js` `46b06546…` 26,525, `source-freeze-01/source/code/src/abg/worksite_revision.ts` and `work/code/src/abg/worksite_revision.ts` `771808d2…` 10,022 | the importing lanes skip with the reason; set: head's identities (item 6) |
+| `support/d2-evidence-owner-harness.mjs:9-10` | displaced (`build_tenants/implementation-03/…`, absent) | under `comments/codex/20260911_D2_BOUNDED_REPAIR/`: `installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl` `25dd49061c90…` 12,040,406; `…/attempt-01/program-ready-16.json` `99cd271bc49d…` 12,781,893; `implementation-03/work/build/code/src/shared/digests.js` `bcfca501…` 838, `…/abg/semantic_stage.js` `b7c408d3…` 27,249, `…/abg/semantic_revision.js` `fe7fe9bf…` 30,666 | skips with the reason; set: item 6 |
+| `support/d2-workflow-step-harness.mjs` (a support file the named lanes need) | displaced store path (`ENOENT`) | `comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-04/installed-frame-01/events-01/runtime.events.jsonl` `42c1bfd29619…` 5,082,898 | the case passes with the root set |
+| `d2-workflow-step:118` | `ERR_MODULE_NOT_FOUND` (displaced fixture) | `comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/fixture-preparation/work/test_env/support/d2-continuation-fixture.mjs` `3405f1595000…` 35,798 | set: reached; red inside the retained fixture (item 6) |
+| `t288-composition-conservation:12`, `:62` | file-level assert | the variables stay (they name a predecessor build and a scratch history). `:62`'s absolute S01 path is now `comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl` `3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845` 9,304 | skips naming the unset variables, or the absent input |
+| `t287-qualification-producer-acquisition-reuse:22` | file-level assert | the four variables stay | skips naming the unset variables |
+| `support/declared-testing-capability.mjs:18` | absolute command path (`/Users/jim/.local/share/claude/versions/2.1.263`, absent on disk today) | `ABG_TS_CLAUDE_COMMAND`, which the runtime already reads; `model` and `effort` unchanged | the two transport cases skip with "ABG_TS_CLAUDE_COMMAND unset; requires the live claude command". With the variable set the lane is 7/5/0/2, head's five passes. The head red `:174` skips with its reason. Live mode also requires the command. |
+| `support/stdo-environment-pilot.mjs:153-156` | absolute install paths | Mechanism: one declared input under `ABI5_ENV_INPUT_ROOT`, `stdo-installs.json`, `{"stdo","representation","axiomIndexer","python3"}`, each an absolute path. `stdoInstallsSkip` and `pilotInputSkip` name the absent variable or file. | the citation, run-environment and installed lanes skip with the reason |
+| `t288-instruction-assembly-owner`, `t287-native-semantic-revision` retained-material variables | the cases read `ABI5_NATIVE_D2_DESIGN_DIRECTORY`, `ABI5_NATIVE37_DIRECTORY`, `ABI5_NATIVE38_DIRECTORY`, `ABI5_EVIDENCE_CONTEXT_DIRECTORY` | Every case that read them is retired under item 2, with its input named by path and digest. `ABI5_NATIVE_D2_SELECTOR_PROMPT` names a retained prompt file under the root (the census word is evidence) and stays a variable under the prompt exception. `ABI5_D07_PREDECESSOR_SCRATCH` names retained material (a call and its event log, read only), but no tracked record names its location, so there is no path and digest to declare; it stays a variable (census word: evidence). | the two remaining cases skip as before, without a printed reason (finding 5) |
+
+Custody with the root set:
+
+- Every lane of item 6 ran with a scratch preload in `NODE_OPTIONS` that logs each node `fs` call whose path resolves under `/Users/jim/src/apps/abiogenesis/.ai-workspace`.
+- Unset run: no access under it.
+- Set run: 920 reads of 388 files and no write call.
+- The 388 files:
+  - the declared inputs above;
+  - 178 and 177 modules of the two predecessor builds that the lanes import;
+  - 22 worksite command archives under `installed-continuation-07/installed-frame-01/workspace/archives/`, which the current owner reads because the retained events name them.
+- Digest, bytes, device, inode, mtime and ctime of all 388 are identical before and after a second set run, and after two untraced runs. Every ctime is from 2026-09-11, before the runs.
+- Limit: writes by processes that are not node are not traced, and the ctime check covers only the 388 files read.
+
+**Absolute-path grep.** `git grep -n -E '/Users/|/private/var/|/var/folders/' -- test_env/tests test_env/support test_env/uat scripts` gives 15 lines:
+
+- **Data, not reads (12):**
+  - `t287-native-assessment-evidence:122`, `:140`, `:141`, `:177-181`: recorded event payload fields inside inline rows.
+  - `test_env/uat/config.example.json:17`, `:18`, `:25`: example configuration values.
+- **Machine-identity assertions in lanes outside the grant (3; finding 2):**
+  - `t287-installed-qualification-conservation:32` (`HOME`);
+  - `w2-steel-serial-branch-installed:597`;
+  - `w2-steel-single-start-installed:547` (`ABG_TS_CLAUDE_COMMAND`).
+
+**Variable census.** These are all `process.env.*` names read under `test_env/` and `scripts/` at this commit: 368 rows.
+
+- 355 are read directly.
+- 12 are read indirectly, through a passed environment or a helper:
+  - `testingExecutionConfig`: `ABI5_TESTING_ALLOW_LIVE`, `ABI5_TESTING_LIVE_ACTOR_ABSOLUTE_MS`, `ABI5_TESTING_MODE`, `ABI5_TESTING_NATIVE_BUDGET_MS`;
+  - the live worksite lane: `ABG_TS_LIVE_CLAUDE_COMMAND`, `ABI5_T287_C1_LIVE`;
+  - supervision: `ABG_TS_FP_TERMINATION_GRACE_MS`;
+  - the UAT runner's pass-through: `LANG`, `LC_ALL`, `ANTHROPIC_API_KEY`, `CLAUDE_CONFIG_DIR`, `CLAUDE_CODE_OAUTH_TOKEN`.
+- 1 is new: `ABI5_EVIDENCE_ROOT`.
+
+Counts by what each names:
+
+| Names | Count |
+|---|---|
+| evidence | 199 |
+| predecessor build | 66 |
+| mode | 43 |
+| install | 20 |
+| output | 14 |
+| scratch | 13 |
+| command | 13 |
+
+"Read by" names the lane file without `.test.mjs`, or the support or fixture file that reads the variable.
+
+| Variable | Names | Read by |
+|---|---|---|
+| `ABG_AX_F09_COUNTER` | mode | `falsifiers/runtime-f09-worker` |
+| `ABG_AX_F09_MODE` | mode | `falsifiers/runtime-f09-product`, `falsifiers/runtime-f09-worker` |
+| `ABG_C0_POTENTIAL_PROOF` | evidence | `t287-c0-post-publication-failure` |
+| `ABG_C0_PROOF_ROOT` | evidence | `t287-c0-correction-regressions`, `t287-c0-post-publication-failure` |
+| `ABG_GOVERNANCE_COVERED_BUILD_ROOT` | predecessor build | `t287-governance-covered-source-use`, `t287-native-work-reacquisition` |
+| `ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS` | mode | `t287-governance-covered-source-use` |
+| `ABG_GOVERNANCE_COVERED_DECLARATION_PAIR` | evidence | `t287-governance-covered-source-use` |
+| `ABG_GOVERNANCE_COVERED_FIXTURE` | evidence | `t287-governance-covered-source-use` |
+| `ABG_GOVERNANCE_COVERED_PROOF_ROOT` | evidence | `t287-governance-covered-source-use` |
+| `ABG_MULTI_CANDIDATE_BUILD_ROOT` | predecessor build | `support/multi-candidate-admission-owner` |
+| `ABG_MULTI_CANDIDATE_DEPENDENCIES_ROOT` | predecessor build | `support/multi-candidate-admission-owner` |
+| `ABG_NATIVE_EXECUTION_RETAINED_LOG` | evidence | `t287-native-worksite-execution` |
+| `ABG_NATIVE_REACQUISITION_RETAINED_ROOT` | evidence | `t287-native-work-reacquisition` |
+| `ABG_OWNER_REUSE_EVIDENCE` | evidence | `t287-native-owner-reuse` |
+| `ABG_OWNER_REUSE_PREDECESSOR` | predecessor build | `t287-native-owner-reuse` |
+| `ABG_OWNER_REUSE_TASK` | evidence | `t287-native-owner-reuse` |
+| `ABG_QUALIFICATION_RELEASE_ROOT` | evidence | `t287-qualification-law` |
+| `ABG_QUALIFICATION_RETAIN_TEST_SCRATCH` | mode | `t287-qualification-law` |
+| `ABG_QUALIFICATION_SOURCE_ROOT` | predecessor build | `t287-qualification-law` |
+| `ABG_QUALIFICATION_STAGE_FIXTURES` | evidence | `t287-qualification-law` |
+| `ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT` | evidence | `t287-native-work-reacquisition-normalization` |
+| `ABG_REACQUISITION_ROOT_ACTUAL_REQUEST` | evidence | `t287-reacquisition-root-contract` |
+| `ABG_REACQUISITION_ROOT_BASELINE` | predecessor build | `t287-reacquisition-root-contract` |
+| `ABG_RESULT_LINEAGE_TYPE_PROOF_DIR` | output | `t287-result-evidence-lineage-type-contract` |
+| `ABG_RESULT_LINEAGE_TYPE_TENANT_ROOT` | predecessor build | `t287-result-evidence-lineage-type-contract` |
+| `ABG_T287_C2_PROOF_CONFIG` | evidence | `t287-worksite-command-execution` |
+| `ABG_T287_HELPER_FACTS` | evidence | `t287-worksite-command-execution` |
+| `ABG_T287_HELPER_UNCONFIRMED` | evidence | `t287-worksite-command-execution` |
+| `ABG_TS_CLAUDE_APPEND_ARGS` | command | `d2-frame-installed`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABG_TS_CLAUDE_COMMAND` | command | `d2-frame-installed`, `falsifiers/runtime-f09-worker`, `support/declared-testing-capability`, `t287-generic-job-lifecycle`, `t287-generic-job-revision`, `t287-installed-qualification-conservation`, `t287-live-worksite-construction`, `t287-native-workspace-work`, `t287-worksite-branch-construction`, `t287-worksite-command-execution`, `t287-worksite-construction`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABG_TS_FP_ABSOLUTE_TIMEOUT_MS` | mode | `d2-frame-installed`, `t287-installed-qualification-conservation`, `t287-native-semantic-job`, `t287-worksite-command-execution`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABG_TS_FP_TERMINATION_GRACE_MS` | mode | `t287-management-supervision` |
+| `ABG_TS_FP_TIMEOUT_MS` | mode | `d2-frame-installed`, `falsifiers/runtime-f09-worker`, `t287-installed-qualification-conservation`, `t287-native-semantic-job`, `t287-worksite-command-execution`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABG_TS_LIVE_CLAUDE_COMMAND` | command | `t287-live-worksite-construction` |
+| `ABG_U1_EVIDENCE_DIR` | output | `t287-native-work-currentness-consumers` |
+| `ABG_U1_FIRST_CASE` | mode | `t287-native-work-currentness-consumers` |
+| `ABG_WORKSITE_BUILD_ROOT` | predecessor build | `support/t287-generic-job-worksite` |
+| `ABI207_COMPILED_ROOT` | predecessor build | `t287-installed-dependency-lock` |
+| `ABI207_NATIVE_IDENTITY` | evidence | `t287-installed-dependency-lock` |
+| `ABI207_PROOF_ROOT` | scratch | `t287-installed-dependency-lock` |
+| `ABI232_ISOLATED_MANIFEST` | evidence | `t287-installed-dependency-lock` |
+| `ABI232_NATIVE_IDENTITY` | evidence | `t287-installed-dependency-lock` |
+| `ABI5_ARTIFACT_DIGEST` | install | `r2-clean-install` |
+| `ABI5_ARTIFACT_PATH` | install | `r2-clean-install` |
+| `ABI5_ARTIFACT_REF` | install | `r2-clean-install` |
+| `ABI5_AUTHENTIC_C2_EVENT` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_C2_EVENT_DIGEST` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_C2_PROVENANCE` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_READ_HISTORY` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_READ_HISTORY_DIGEST` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_XML_BYTES` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_XML_DIGEST` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_XML_OFFSET` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_XML_STORE` | evidence | `uat/harness` |
+| `ABI5_AUTHENTIC_XML_WORKSITE` | evidence | `uat/harness` |
+| `ABI5_C10_MATERIAL` | evidence | `t287-c2-owner-coordinate-reuse` |
+| `ABI5_C2_CARRIER_FIXTURE_PATH` | evidence | `steel-basic-cli-c2` |
+| `ABI5_C2_PRODUCT_MODULE` | predecessor build | `steel-basic-cli-c2` |
+| `ABI5_CALCULUS_CASES` | mode | `t287-calculus-state-transfer` |
+| `ABI5_CAUSATION_EVIDENCE_ROOT` | evidence | `t287-continuation-causation` |
+| `ABI5_COLD_RECORD_MATERIAL` | evidence | `t287-cold-record-decoder` |
+| `ABI5_COLD_RECORD_PREIMAGE` | evidence | `t287-cold-record-decoder` |
+| `ABI5_COMPOSITION_PREDECESSOR` | predecessor build | `t288-blocked-retry-entry`, `t288-composition-conservation` |
+| `ABI5_COMPOSITION_SCRATCH` | scratch | `t288-composition-conservation` |
+| `ABI5_CONFORMANCE_METADATA` | evidence | `t287-conformance-owner-reuse` |
+| `ABI5_CONFORMANCE_PREDECESSOR_ROOT` | predecessor build | `t287-conformance-owner-reuse` |
+| `ABI5_CONFORMANCE_PROOF_ROOT` | evidence | `t287-conformance-owner-reuse` |
+| `ABI5_CONFORMANCE_SOURCE_ONLY` | mode | `t287-conformance-owner-reuse` |
+| `ABI5_CONTEXT_ODD_DECLARATIONS` | evidence | `t287-management-context` |
+| `ABI5_CONTEXT_PROOF_ROOT` | output | `t287-management-context` |
+| `ABI5_CONTEXT_PUBLIC_PROOF` | evidence | `t287-management-context` |
+| `ABI5_CONTEXT_STDO_CONFIGURATION` | evidence | `t287-management-context` |
+| `ABI5_CURSOR_BASELINE_PROVENANCE` | predecessor build | `retained-route-cursor-transition` |
+| `ABI5_D07_PREDECESSOR_SCRATCH` | evidence | `t288-instruction-assembly-owner` |
+| `ABI5_D16_HISTORY` | evidence | `t288-native-producer-membership` |
+| `ABI5_D16_PREDECESSOR` | predecessor build | `t288-native-producer-membership` |
+| `ABI5_D17_PREDECESSOR` | predecessor build | `t288-environment-context-reuse`, `t288-environment-guard-contraction` |
+| `ABI5_D17_SCRATCH` | scratch | `t288-environment-context-reuse`, `t288-environment-guard-contraction` |
+| `ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE` | evidence | `t287-d1-semantic-stage` |
+| `ABI5_D1_ASSESSOR_PREDECESSOR_ROOT` | predecessor build | `t287-d1-semantic-stage` |
+| `ABI5_D1_ATTEMPT` | mode | `t287-d1-requirement-handoff` |
+| `ABI5_D1_BUILD_ROOT` | predecessor build | `t287-d1-requirement-handoff`, `t287-d1-semantic-stage` |
+| `ABI5_D1_CONTINUATION_ATTEMPT` | mode | `t287-d1-requirement-handoff` |
+| `ABI5_D1_CONTINUE` | mode | `t287-d1-requirement-handoff` |
+| `ABI5_D1_EVIDENCE_ROOT` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_NATIVE_PROJECTION_EVIDENCE` | evidence | `t287-d1-semantic-stage` |
+| `ABI5_D1_NEGATIVE_ROOT` | scratch | `t287-d1-requirement-handoff` |
+| `ABI5_D1_POSITIVE_PROOF` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_PREFLIGHT_ONLY` | mode | `t287-d1-requirement-handoff` |
+| `ABI5_D1_RETAINED_EPOCH` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_RETAINED_NATIVE_BASIS` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_RETAINED_NATIVE_PROOF` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_RUN_ROOT` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D1_SOURCE_FIXTURE` | evidence | `t287-d1-requirement-handoff` |
+| `ABI5_D2_FRAME_BUILD_ROOT` | predecessor build | `d2-frame-installed` |
+| `ABI5_D2_FRAME_RUN` | evidence | `d2-frame-installed` |
+| `ABI5_D2_FRAME_RUN_ROOT` | evidence | `d2-frame-installed` |
+| `ABI5_DECLARATION_BASELINE_MODULE` | predecessor build | `t287-declaration-closure-symbol-reuse` |
+| `ABI5_DECLARATION_PROOF_ROOT` | output | `t287-declaration-closure-symbol-reuse` |
+| `ABI5_DEFAULT_LIBRARY_BUILD_ROOT` | predecessor build | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_CANDIDATE_EVENTS` | evidence | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT` | evidence | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_FROZEN_ARTIFACT` | install | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_LIVE` | mode | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_SUPPLIED_VALID` | evidence | `t287-default-library` |
+| `ABI5_DEFAULT_LIBRARY_VALID_CANDIDATE` | evidence | `t287-default-library` |
+| `ABI5_DESIGN_CONTEXT_OBSERVATIONS` | evidence | `t287-stdo-run-environment` |
+| `ABI5_DESIGN_CONTEXT_PREDECESSOR` | predecessor build | `t287-stdo-run-environment` |
+| `ABI5_EC_OWNER_CLOSED_HISTORY` | evidence | `t287-event-calculus-owner-continuation` |
+| `ABI5_EC_OWNER_CLOSED_SHA256` | evidence | `t287-event-calculus-owner-continuation` |
+| `ABI5_EC_OWNER_EVIDENCE` | evidence | `t287-event-calculus-owner-continuation` |
+| `ABI5_ENV_ATTEMPT` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_BUILD_ROOT` | predecessor build | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_DEADLINE` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_EVIDENCE_ROOT` | evidence | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_INPUT_ROOT` | install | `t287-stdo-environment-citation`, `t287-stdo-run-environment`, `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_NATIVE_BUDGET_MS` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_OUTPUT_ROOT` | output | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_PRIOR_EVENTS` | evidence | `t287-stdo-environment-citation` |
+| `ABI5_ENV_PROOF_ENTRY_ONLY` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_PROOF_ROOT` | evidence | `t287-stdo-environment-citation`, `t287-stdo-run-environment` |
+| `ABI5_ENV_RESUME_PREPARATION` | evidence | `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_RUN_ROOT` | evidence | `t287-stdo-proof-entry`, `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_SOURCE_EVIDENCE` | evidence | `t287-stdo-proof-entry`, `t287-stdo-run-environment-installed` |
+| `ABI5_ENV_TEST_PACKAGE_ROOT` | predecessor build | `t287-stdo-environment-citation` |
+| `ABI5_EVENT_TIME_BASELINE_ROOT` | predecessor build | `t287-native-event-time` |
+| `ABI5_EVENT_TIME_HISTORY_PATH` | evidence | `t287-native-event-time` |
+| `ABI5_EVENT_TIME_HISTORY_SHA256` | evidence | `t287-native-event-time` |
+| `ABI5_EVENT_TIME_PACKAGE_ROOT` | predecessor build | `t287-native-event-time` |
+| `ABI5_EVENT_TIME_PAIRED_BASELINE_ROOT` | predecessor build | `t287-native-event-time` |
+| `ABI5_EVENT_TIME_PROOF_ROOT` | evidence | `t287-native-event-time` |
+| `ABI5_EVIDENCE_ROOT` | evidence | `support/evidence-root` (through it: `d1-preserved-result-mechanics`, `integration-shared-seams`, `integration-d1-readonly-discriminator`, `d2-acknowledgment`, `d2-binding-transition`, `d2-bounded-repair`, `d2-evidence-owner`, `d2-evidence-owner-lookup`, `d2-historical-design`, `d2-workflow-step`, `t287-native-semantic-revision`, `r10-child-proof`, `r10-retained-child-projection`) |
+| `ABI5_EXACT_INTENT_EVIDENCE_ROOT` | evidence | `t287-exact-construction-intent` |
+| `ABI5_F11_CARRIER_FULL_FIXTURE` | evidence | `t287-qualification-carrier-resource` |
+| `ABI5_F11_CARRIER_REPORT` | output | `t287-qualification-carrier-resource` |
+| `ABI5_F11_FP_ASSESSMENT_PACKET` | evidence | `t287-qualification-fp-proof-delivery` |
+| `ABI5_F11_FP_BASELINE_TENANT` | predecessor build | `t287-qualification-fp-proof-delivery` |
+| `ABI5_F11_FP_PROOF_REPORT` | output | `t287-qualification-fp-proof-delivery` |
+| `ABI5_F16_PROOF_ROOT` | scratch | `t287-release-acceptance` |
+| `ABI5_FH_HOLD_EVIDENCE` | evidence | `t287-fh-hold-open` |
+| `ABI5_FRAME_ATTEMPT` | mode | `support/t287-native-frame-observation`, `t287-native-frame-observation` |
+| `ABI5_FRAME_BASELINE_ROOT` | predecessor build | `t287-native-frame-observation` |
+| `ABI5_FRAME_ENTRY_ROOT` | predecessor build | `support/t287-native-frame-observation`, `t287-native-frame-observation` |
+| `ABI5_FRAME_EXECUTION_GRANT` | evidence | `support/t287-native-frame-observation` |
+| `ABI5_FRAME_HISTORY_PATH` | evidence | `t287-native-frame-observation`, `t287-native-frame-route-conservation` |
+| `ABI5_FRAME_HISTORY_SHA256` | evidence | `t287-native-frame-observation`, `t287-native-frame-route-conservation` |
+| `ABI5_FRAME_PACKAGE_ROOT` | predecessor build | `t287-native-frame-observation` |
+| `ABI5_FRAME_PROOF_ROOT` | evidence | `t287-native-frame-observation` |
+| `ABI5_FULFILLMENT_RECORDS_ROOT` | evidence | `t287-default-library-fulfillment` |
+| `ABI5_GENERIC_JOB_BUILD_ROOT` | predecessor build | `t287-generic-job-intake`, `t287-generic-job-lifecycle`, `t287-generic-job-meaning`, `t287-generic-job-parent-audit`, `t287-generic-job-parent-foldback`, `t287-generic-job-read-dependency`, `t287-generic-job-revision`, `t287-native-assembly-retained-input`, `t287-native-semantic-evidence`, `t287-native-semantic-job`, `t287-native-semantic-revision` |
+| `ABI5_GENERIC_JOB_COMPLETED_ROOT` | evidence | `t287-generic-job-read-dependency` |
+| `ABI5_GENERIC_JOB_CORRECTION_NATIVE` | evidence | `t287-generic-job-revision` |
+| `ABI5_GENERIC_JOB_EVIDENCE_ROOT` | evidence | `t287-generic-job-intake` |
+| `ABI5_GENERIC_JOB_FAILED_FULL_ROOT` | evidence | `t287-generic-job-meaning` |
+| `ABI5_GENERIC_JOB_FAILED_PARENT_ROOT` | evidence | `t287-generic-job-meaning` |
+| `ABI5_GENERIC_JOB_FULL_NATIVE` | evidence | `t287-generic-job-lifecycle` |
+| `ABI5_GENERIC_JOB_ORIGIN_PREDECESSOR_ROOT` | predecessor build | `t287-generic-job-read-dependency` |
+| `ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT` | evidence | `t287-generic-job-parent-foldback` |
+| `ABI5_GENERIC_JOB_PARENT_GATE_ROOT` | evidence | `t287-generic-job-parent-audit` |
+| `ABI5_GENERIC_JOB_RETAINED_PROOF` | evidence | `t287-generic-job-intake` |
+| `ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT` | evidence | `t287-generic-job-revision` |
+| `ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT` | evidence | `t287-generic-job-revision` |
+| `ABI5_GTL_CORE_BASELINE` | predecessor build | `t287-gtl-serialization-publication` |
+| `ABI5_GTL_CORE_PACKAGE_ROOT` | predecessor build | `t287-gtl-language-corpus`, `t287-gtl-serialization-publication` |
+| `ABI5_GTL_GRAPH_BASELINE_CORE` | predecessor build | `t287-gtl-graph-law` |
+| `ABI5_GTL_GRAPH_OWNER_CORE` | predecessor build | `t287-gtl-graph-law` |
+| `ABI5_HELD_PREFIX_NATIVE_FIXTURE` | evidence | `t287-held-prefix` |
+| `ABI5_HISTORICAL_LIVENESS_DIGEST` | evidence | `t287-ordered-reconstruction` |
+| `ABI5_HISTORICAL_LIVENESS_LOG` | evidence | `t287-ordered-reconstruction` |
+| `ABI5_HISTORICAL_LIVENESS_PREDECESSOR` | predecessor build | `t287-ordered-reconstruction` |
+| `ABI5_HISTORICAL_SOURCE_EVIDENCE` | evidence | `t287-historical-source-resource` |
+| `ABI5_INSTALLED_CONSERVATION_ARCHIVE` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_ARCHIVE_DIGEST` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_EVIDENCE_ROOT` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_FIXTURE_ROOT` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_HANDOFF` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_INPUT_ROOT` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_MODE` | mode | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_NODE` | command | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_ORIGINAL_ROOT` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT` | predecessor build | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALLED_CONSERVATION_ROOT` | evidence | `t287-installed-qualification-conservation` |
+| `ABI5_INSTALL_BODY_HISTORY` | evidence | `t289-install-event-bodies` |
+| `ABI5_INSTALL_BODY_HISTORY_SHA256` | evidence | `t289-install-event-bodies` |
+| `ABI5_INSTALL_BODY_PREDECESSOR_ROOT` | predecessor build | `t289-install-event-bodies` |
+| `ABI5_INSTALL_BODY_PROOF_ROOT` | evidence | `t289-install-event-bodies` |
+| `ABI5_LIVENESS_CUT_HISTORY` | evidence | `t287-ordered-reconstruction` |
+| `ABI5_LIVENESS_CUT_PREDECESSOR` | predecessor build | `t287-ordered-reconstruction` |
+| `ABI5_LIVENESS_CUT_SHA256` | evidence | `t287-ordered-reconstruction` |
+| `ABI5_LOCK_REUSE_EXPECTED_EVENTS` | evidence | `t289-install-event-bodies` |
+| `ABI5_MANIFEST_DIGEST` | install | `r2-clean-install` |
+| `ABI5_MEMORY_SEED_PATH` | evidence | `t287-event-body-encoding` |
+| `ABI5_NATIVE_BASIS_PREDECESSOR` | predecessor build | `t287-authenticated-owner-values` |
+| `ABI5_NATIVE_BASIS_SAMPLE` | evidence | `t287-authenticated-owner-values` |
+| `ABI5_NATIVE_D2_SELECTOR_PROMPT` | evidence | `t288-instruction-assembly-owner` |
+| `ABI5_NATIVE_EVIDENCE_EXTRACT` | evidence | `t287-native-semantic-evidence` |
+| `ABI5_NATIVE_MATERIAL_PREIMAGE` | evidence | `t287-native-c2-instruction-assembly` |
+| `ABI5_NATIVE_MATERIAL_SCRATCH` | scratch | `m5-terminal-quiescence-owner` |
+| `ABI5_NATIVE_OBSERVATION_CAPTURE` | output | `t287-default-library` |
+| `ABI5_NATIVE_RETAINED_JOB` | evidence | `t287-native-assembly-retained-input` |
+| `ABI5_NATIVE_SELECTION_EVIDENCE_ROOT` | evidence | `t287-native-registered-selection` |
+| `ABI5_NATIVE_SELECTION_LIVE` | mode | `t287-native-registered-selection` |
+| `ABI5_NATIVE_SELECTION_PROVIDER` | command | `t287-default-library`, `t287-native-registered-selection`, `t287-recursive-registered-selection` |
+| `ABI5_NATIVE_SOURCE_READY_CATALOG` | evidence | `t287-native-worksite-execution` |
+| `ABI5_NATIVE_WORK_CHECK_CHILD` | evidence | `t287-native-workspace-work` |
+| `ABI5_NATIVE_WORK_OWNER_PROOF_PATH` | evidence | `t287-native-workspace-work` |
+| `ABI5_NATIVE_WORK_RETAINED_ROOT` | evidence | `t287-native-workspace-work` |
+| `ABI5_OPERATOR_STOP_EVIDENCE` | evidence | `t287-fh-hold-open` |
+| `ABI5_ORACLE_SOURCE_OWNER_ROOT` | predecessor build | `uat/harness` |
+| `ABI5_OWNED_ADMISSION_PREIMAGE` | evidence | `t287-w2-05-static-binding-algebra` |
+| `ABI5_OWNED_JUDGMENT_FIXTURE` | evidence | `t287-held-prefix` |
+| `ABI5_OWNED_OUTCOME_PREIMAGE` | evidence | `t287-held-prefix` |
+| `ABI5_OWNED_PROCESS_PACKAGE_ROOT` | predecessor build | `t287-owned-process-lifetime` |
+| `ABI5_OWNED_PROOF_DECLARATION` | evidence | `t287-native-runtime-gate` |
+| `ABI5_OWNED_PROOF_NATIVE_REQUEST` | evidence | `t287-owned-native-proof` |
+| `ABI5_OWNER_HISTORY` | evidence | `t287-authenticated-owner-family`, `t288-blocked-retry-entry`, `t288-initial-cursor-entry`, `t288-logical-prefix-digest`, `t288-prefix-structure`, `t288-scoped-retry-guard` |
+| `ABI5_OWNER_PREDECESSOR` | predecessor build | `t287-authenticated-owner-family` |
+| `ABI5_PACKAGE_NAME` | install | `r2-clean-install` |
+| `ABI5_PACKAGE_VERSION` | install | `r2-clean-install` |
+| `ABI5_PARENT_ALIAS_BINDINGS` | evidence | `t287-qualification-parent-alias` |
+| `ABI5_PARENT_ALIAS_REPORT` | output | `t287-qualification-parent-alias` |
+| `ABI5_PHYSICAL_PREDECESSOR` | predecessor build | `t288-physical-return-conservation`, `t288-workflow-scope-conservation` |
+| `ABI5_PHYSICAL_SCRATCH` | scratch | `t288-physical-return-conservation`, `t288-workflow-scope-conservation` |
+| `ABI5_PLANNING_PROJECTION_CAPTURE` | output | `t287-default-library` |
+| `ABI5_PREDECESSOR_OLD_PACKAGE_ROOT` | predecessor build | `t287-predecessor-context` |
+| `ABI5_PREDECESSOR_PACKAGE_ROOT` | predecessor build | `support/t287-predecessor-context` |
+| `ABI5_PREDECESSOR_PRIOR_ROOT` | predecessor build | `support/t287-predecessor-context` |
+| `ABI5_PREDECESSOR_PROOF_ROOT` | predecessor build | `t287-predecessor-context` |
+| `ABI5_PREFIX_EVENT_PATH` | evidence | `t287-exact-prefix-projection-reuse` |
+| `ABI5_PREFIX_EXPECTED_SHA256` | evidence | `t287-exact-prefix-projection-reuse` |
+| `ABI5_PREFIX_PACKAGE_ROOT` | predecessor build | `t287-exact-prefix-projection-reuse` |
+| `ABI5_PREFIX_PREDECESSOR_ROOT` | predecessor build | `t288-prefix-structure` |
+| `ABI5_PREFIX_PROOF_ROOT` | evidence | `t287-exact-prefix-projection-reuse` |
+| `ABI5_PREFIX_REUSE_BASELINE_ROOT` | predecessor build | `m5-event-calculus-runtime`, `t287-native-frame-observation` |
+| `ABI5_PREFIX_REUSE_CUTS` | evidence | `m5-event-calculus-runtime`, `t287-native-frame-observation` |
+| `ABI5_PREFIX_REUSE_OBSERVATIONS` | evidence | `m5-event-calculus-runtime`, `t287-native-frame-observation`, `t287-ordered-reconstruction`, `t287-reconstruction-conservation` |
+| `ABI5_PREPARATION_RESOLVE_CALL` | evidence | `t287-w2-05-static-binding-algebra` |
+| `ABI5_PRODUCER_CONTEXT_FIXTURE` | evidence | `t287-qualification-producer-acquisition-reuse` |
+| `ABI5_PRODUCER_HISTORY_FIXTURE` | evidence | `t287-qualification-producer-acquisition-reuse` |
+| `ABI5_PRODUCER_OWNER_FIXTURE` | evidence | `t287-qualification-producer-acquisition-reuse` |
+| `ABI5_PRODUCER_OWNER_SOURCE_FIXTURE` | evidence | `t287-qualification-producer-acquisition-reuse` |
+| `ABI5_PRODUCT_CONTENT_DIGEST` | install | `r2-clean-install` |
+| `ABI5_PRODUCT_ID` | install | `r2-clean-install` |
+| `ABI5_PUBLIC_GROUPS_BASELINE` | predecessor build | `t287-public-groups` |
+| `ABI5_PUBLIC_GROUPS_PACKAGE_ROOT` | predecessor build | `t287-public-groups` |
+| `ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT` | predecessor build | `t287-public-preparation` |
+| `ABI5_QUAL_RAW_BASELINE_TENANT` | predecessor build | `t287-qualification-raw-contract-preimage` |
+| `ABI5_QUAL_RAW_BODY` | evidence | `t287-qualification-raw-contract-preimage` |
+| `ABI5_QUAL_RAW_COORDINATES` | evidence | `t287-qualification-raw-contract-preimage` |
+| `ABI5_QUAL_RAW_INPUT_PACKET` | evidence | `t287-qualification-raw-contract-preimage` |
+| `ABI5_QUAL_RAW_REPORT` | output | `t287-qualification-raw-contract-preimage` |
+| `ABI5_QUAL_RAW_REQUEST` | evidence | `t287-qualification-raw-contract-preimage` |
+| `ABI5_RECURSIVE_SELECTION_EVIDENCE_ROOT` | evidence | `t287-recursive-registered-selection` |
+| `ABI5_RECURSIVE_SELECTION_LIVE` | mode | `t287-recursive-registered-selection` |
+| `ABI5_RELEASE_PROOF_ROOT` | scratch | `t287-release-publication` |
+| `ABI5_RELEASE_RETAINED_INSTALL_COORDINATE` | install | `t287-release-publication` |
+| `ABI5_REPLAY_PREIMAGE` | evidence | `retained-route-cursor-transition` |
+| `ABI5_RESULT_LINEAGE_BASELINE` | predecessor build | `t287-result-evidence-lineage-projection` |
+| `ABI5_RESULT_LINEAGE_REPORT` | output | `t287-result-evidence-lineage-projection` |
+| `ABI5_RETAINED_CONSUMER_CONFIG` | evidence | `t287-retained-installed-consumer` |
+| `ABI5_RETAINED_CONSUMER_PHASE` | mode | `t287-retained-installed-consumer` |
+| `ABI5_RETAINED_MATERIAL` | evidence | `retained-route-cursor-transition` |
+| `ABI5_ROUTE_BASELINE_ROOT` | predecessor build | `support/t287-native-frame-route-conservation`, `t287-native-frame-route-conservation` |
+| `ABI5_ROUTE_PROJECTION_SCRATCH` | scratch | `t287-route-reconstruction` |
+| `ABI5_ROUTE_PROOF_ROOT` | evidence | `t287-native-frame-route-conservation` |
+| `ABI5_ROUTE_REPLAY_PREIMAGE` | evidence | `t287-route-reconstruction` |
+| `ABI5_S02_PROJECTION_FIXTURE` | evidence | `t287-public-terminal-projection` |
+| `ABI5_S02_RECURSION_FIXTURE` | evidence | `t287-deferred-application-restoration` |
+| `ABI5_S02_RETRY_FIXTURE` | evidence | `t287-retry-run-prefix` |
+| `ABI5_S03_EVIDENCE_ROOT` | evidence | `t287-s03-automatic` |
+| `ABI5_S03_PHASE_B_RELEASE` | evidence | `t287-s03-automatic` |
+| `ABI5_SELECTED_ACTION_EVIDENCE_ROOT` | evidence | `support/t287-selected-action-host`, `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_FROZEN_FIXTURE_ENV` | evidence | `support/t287-selected-action-host` |
+| `ABI5_SELECTED_ACTION_OBSERVER_PREFLIGHT` | mode | `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_OWNER_SUBJECT` | evidence | `t287-selected-action-authority` |
+| `ABI5_SELECTED_ACTION_PREFLIGHT` | mode | `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_PUBLIC_START` | evidence | `support/t287-selected-action-host` |
+| `ABI5_SELECTED_ACTION_RECOVER_FROM` | mode | `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_RESUME_FROM` | mode | `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_RESUME_PREFLIGHT` | mode | `t287-selected-action` |
+| `ABI5_SELECTED_ACTION_SOURCE_BOUND` | mode | `t287-selected-action-authority` |
+| `ABI5_SELECTED_CLOSURE_EVIDENCE` | evidence | `t287-selected-execution-closure` |
+| `ABI5_SELECTED_CLOSURE_HISTORY_FIXTURE` | evidence | `t287-selected-execution-closure` |
+| `ABI5_SELECTED_CLOSURE_INSTALLED_ROOT` | install | `t287-selected-execution-closure` |
+| `ABI5_SELECTED_CLOSURE_PREIMAGE` | evidence | `t287-selected-execution-closure` |
+| `ABI5_SELECTION_EVIDENCE_ROOT` | evidence | `t287-registered-graph-selection` |
+| `ABI5_SELECTION_REPEAT_ONLY` | mode | `t287-registered-graph-selection` |
+| `ABI5_SNAPSHOT_PREDECESSOR` | predecessor build | `t287-ordered-reconstruction` |
+| `ABI5_STAGE_MODE` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_STAGE_SETUP_ATTEMPT` | mode | `t287-stdo-run-environment-installed` |
+| `ABI5_STATIC_CLOSURE_BASELINE_MODULE` | predecessor build | `t287-static-declaration-closure` |
+| `ABI5_STATIC_CLOSURE_CAPTURED_INPUT` | evidence | `t287-static-declaration-closure` |
+| `ABI5_STATIC_CLOSURE_OWNER_ROOT` | predecessor build | `t287-static-declaration-closure` |
+| `ABI5_STDO3_SOURCE_ROOT` | predecessor build | `t287-native-registered-selection`, `t287-recursive-registered-selection` |
+| `ABI5_STEEL02_AUTHORITY_CALL_PATH` | evidence | `steel-consumer-authority` |
+| `ABI5_STEEL02_AUTHORITY_INSTALL_HOST` | install | `steel-consumer-authority` |
+| `ABI5_STEEL02_EVIDENCE_PATH` | evidence | `steel-consumer-declaration` |
+| `ABI5_STEEL02_RESOLVER_PROOF_PATH` | evidence | `m5-c-algebra-validation` |
+| `ABI5_STEEL03_C0_WITNESS_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_CLOSURE_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_CONTINUATION_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_EVIDENCE_PATH` | evidence | `w2-steel-single-start-installed` |
+| `ABI5_STEEL03_FANOUT_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_OUTPUT_PROOF_PATH` | output | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_OWNER_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RESOURCE_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_C0_ROOT` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_C2_ROOT` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_CALL_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_CONTINUATION_ROOT` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_FANOUT_ROOT` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_LEAF_ROOT` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_PREFLIGHT_PATH` | mode | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RETAINED_START_CALL_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL03_RUN_LIVE` | mode | `w2-steel-single-start-installed` |
+| `ABI5_STEEL03_RUN_ROOT` | evidence | `w2-steel-single-start-installed` |
+| `ABI5_STEEL03_SOURCE_REPLAY_PROOF_PATH` | evidence | `w2-steel-single-start-closure` |
+| `ABI5_STEEL04_EVIDENCE_PATH` | evidence | `w2-steel-serial-branch-installed` |
+| `ABI5_STEEL04_RUN_LIVE` | mode | `w2-steel-serial-branch-installed` |
+| `ABI5_STEEL04_RUN_ROOT` | evidence | `w2-steel-serial-branch-installed` |
+| `ABI5_STEEL04_SUCCESS_ROOT` | evidence | `w2-steel-serial-branch-installed` |
+| `ABI5_STEEL_C1_ATTEMPT_PATH` | evidence | `steel-basic-cli-projection` |
+| `ABI5_STEEL_C2_ATTEMPT_PATH` | evidence | `steel-basic-cli-source-replay` |
+| `ABI5_STEEL_PROJECTION_EVIDENCE_PATH` | evidence | `steel-basic-cli-projection` |
+| `ABI5_STEEL_PUBLIC_EVIDENCE_PATH` | evidence | `steel-basic-cli-public` |
+| `ABI5_STEEL_READER_INSTALL_ROOT` | install | `steel-basic-cli-projection` |
+| `ABI5_STEEL_REPLAY_CANDIDATE_SOURCE` | predecessor build | `steel-basic-cli-source-replay` |
+| `ABI5_STEEL_REPLAY_EVIDENCE_PATH` | evidence | `steel-basic-cli-source-replay` |
+| `ABI5_STEEL_REPLAY_READER_ROOT` | predecessor build | `steel-basic-cli-source-replay` |
+| `ABI5_STEEL_SOURCE_REPLAY_STATE` | evidence | `steel-basic-cli-source-replay` |
+| `ABI5_T287_C1_LIVE` | mode | `t287-live-worksite-construction` |
+| `ABI5_TESTING_ALLOW_LIVE` | mode | `support/declared-testing-capability` |
+| `ABI5_TESTING_BUILD_ROOT` | predecessor build | `t287-declared-testing-capability` |
+| `ABI5_TESTING_DEADLINE` | mode | `t287-declared-testing-capability` |
+| `ABI5_TESTING_INPUT_ROOT` | install | `t287-declared-testing-capability` |
+| `ABI5_TESTING_LIVE_ACTOR_ABSOLUTE_MS` | mode | `support/declared-testing-capability` |
+| `ABI5_TESTING_MODE` | mode | `support/declared-testing-capability` |
+| `ABI5_TESTING_NATIVE_BUDGET_MS` | mode | `support/declared-testing-capability` |
+| `ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION` | evidence | `uat/continuation` |
+| `ABI5_UAT_CONTINUATION_INSTALLED_ROOT` | install | `uat/continuation` |
+| `ABI5_UAT_CONTINUATION_LOCK_DIGEST` | evidence | `uat/continuation` |
+| `ABI5_UAT_CONTINUATION_LOCK_REF` | evidence | `uat/continuation` |
+| `ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION` | evidence | `uat/continuation` |
+| `ABI5_UAT_UNIT_ROOT` | evidence | `uat/continuation`, `uat/harness` |
+| `ABI5_WAVE1_FROZEN_ARTIFACT_PATH` | install | `hello-product-boundary`, `steel-consumer-declaration`, `support/root-cli-environment`, `support/root-installed-environment`, `t287-d1-requirement-handoff`, `t287-recursive-registered-selection`, `t287-stdo-run-environment-installed`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABI5_WAVE1_FROZEN_ARTIFACT_SHA256` | install | `steel-consumer-declaration`, `support/root-cli-environment`, `support/root-installed-environment`, `t287-stdo-environment-citation`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed` |
+| `ABI5_WAVE1_FROZEN_INSTALL_HOST` | install | `d2-frame-installed`, `support/root-cli-environment`, `support/root-installed-environment`, `t287-d1-requirement-handoff`, `t287-stdo-proof-entry` |
+| `ABI5_WITNESS_TEST_ROOT` | scratch | `support/witness-reprice-mechanics` |
+| `ANTHROPIC_API_KEY` | command | `uat/runner` |
+| `CLAUDE_CODE_OAUTH_TOKEN` | command | `uat/runner` |
+| `CLAUDE_CONFIG_DIR` | command | `uat/runner` |
+| `FIXTURE_TOOL_USES_JSON` | evidence | `m5-worker-transport` |
+| `HOME` | command | `t287-installed-qualification-conservation` |
+| `LANG` | command | `uat/runner` |
+| `LC_ALL` | command | `uat/runner` |
+| `NODE_OPTIONS` | command | `t287-installed-qualification-conservation`, `t287-worksite-command-execution` |
+| `P0_ENVIRONMENT_FINAL_ROOT` | evidence | `t287-environment-projection-conservation` |
+| `P0_ENVIRONMENT_NATIVE_SCRATCH` | scratch | `t287-environment-projection-conservation` |
+| `P0_ENVIRONMENT_PREDECESSOR_ROOT` | predecessor build | `t287-environment-projection-conservation` |
+| `P0_PREDECESSOR_INSTALLED_ROOT` | install | `t287-route-reconstruction` |
+| `P0_RETAINED_NATIVE_SCRATCH` | scratch | `t287-route-reconstruction` |
+| `P0_SAVED_OUTPUTS` | output | `t287-ordered-reconstruction` |
+| `PATH` | command | `t287-native-semantic-evidence`, `t287-qual056-material`, `uat/harness` |
+| `T287_STREAM_HELD_EVENT_LOG` | evidence | `t287-management-stream-drain` |
+| `T287_STREAM_RETAINED_EVENT_LOG` | evidence | `t287-management-stream-drain` |
+| `T287_SUPERVISION_MODE` | mode | `test_env/fixtures/t287-management-supervision/process-worker.mjs`, `test_env/fixtures/t287-management-supervision/semantic-worker.mjs` |
+| `TMPDIR` | scratch | `support/installed-qualification-conservation`, `support/t287-s03-automatic`, `t287-selected-action`, `t287-worksite-command-execution` |
+| `W2_STEEL_RETAINED_EVENT_PATH` | evidence | `w2-steel-single-start` |
+
+### Item 2: the intermediate-profile stores (P8, F1)
+
+**`t288-instruction-assembly-owner`: retired, with four sibling cases.** Five cases are retired:
+
+- `:499` "actual derived revision successor shares complete typed assets under the unchanged Design bound";
+- "semantic result matcher follows the exact native compact Design materialization and preserves other roles";
+- "assessment-first actual successor preserves typed retained terms and full pending candidate under the unchanged bound";
+- the two "native42" context cases.
+
+Each retained input carries a native revision intake whose durable prefix coordinate is stamped `sha256:4196aaeb…`:
+
+- `design-input.json` `49b8be73c463…`, 1,545,750 bytes;
+- `intake-terminal-request.json` `3494d102d333…`, 296,449 bytes;
+- `87788-c_call_result_admitted.jsonl` `359b374ef0f0…`, 1,513,991 bytes;
+- `native42-selector-component-fixture.json` `1bd71a0947d9…`, 13,904,702 bytes;
+- `native42-selected-events.json` `733701942d27…`, 6,413,207 bytes.
+
+The coordinates name prefixes of 104,482,827 to 531,792,783 bytes of an `odd_glc` native store outside the root, and no retained record holds those events. So no case can be regenerated from retained events, and a truthful current-profile coordinate needs a new native run, which is the owner's. Each body is deleted, with one comment naming the inputs, digests and reason (`:476-508`). The admission set at `abg/event_store.ts:1189` is unchanged. The register's DESIGN-REFERENCE-DR01 row can stay U with this reason.
+
+**`git grep -n 4196aaeb -- test_env`, the other sites:**
+
+- `t287-native-semantic-revision`:
+  - the assessor-successor branch inside `:485` over the same `87788-…` input is retired (comment `:490-500`);
+  - the case "native D2 retained empty-obligation selector composes with all fifteen unchanged obligations" is retired (`:545-556`): `design-input.json` and `forensic-diagnostic-events.json` `367666219f2f…`, a coordinate over a 104,482,827-byte `odd_glc` prefix. Same reason.
+- `t287-native-assessment-evidence:37`: its inline rows are stamped `4196aaeb…` and were refused by the current reader at head (red `:551`, `:559`, `:585`). They are regenerated, as recorded under item 3.
+- `t287-qualification-producer-acquisition-reuse:58` (head `:52`): it asserts the `ROOT_EVENT_CONTRACT_DIGEST` of the historical owner module it loads from `ownerPins.ownerRoot`, not anything the current reader admits. The current reader never sees it. Not refused; the lane skips with its unset variables.
+
+### Item 3: the TD-05 fixture increments
+
+The closure rule held throughout: the setup comes from the owner, negatives fail at their boundary, obsolete bodies are deleted, and controlled component tests say so. No retired API was restored and no authority was weakened.
+
+**F2, `t287-native-semantic-revision:531`: retired.**
+
+- Its prefix is the component's hand-built event list.
+- The store owner cannot build it. The binding cover it joins needs `workspace-bind` artifact events, which only the Public owner's ingress admits. The other rows are lookup premises without complete envelopes, so admitting them would fabricate native history.
+- Over the event-prefix owner's selection of the component's immutable snapshot, the case gets past the former refusal. It then needs every premise completed into an envelope.
+- A corrected mock prefix would keep the case only under the weaker authority it was meant to leave.
+- Its input, the D1 `bridge-input.json`, stays a root input of the other cases (comment `:528-543`).
+
+**F3, `t287-undispatched-diagnostic:96` (head `:93`): restated, now green.**
+
+- The mock `prefixOps` is replaced by the real `abg/event_prefix` owner (`selectValidatedRuntimeEventPrefix` over owner-complete rows) and the real cursor owner.
+- Physical append custody and native frame liveness sampling are substituted. The case prints "controlled component test: physical append custody and native frame liveness sampling substituted" in its own output.
+- Restated claim: entered, routed and resumed cursor ownership holds at raw and cold boundaries over the owner's prefix.
+- Two negatives now fail at the earlier boundary, the prefix owner, with `assert.throws`:
+  - cross-Run route: "cannot cross a run causation boundary";
+  - dangling cause: "unknown causal predecessor".
+- The ordinal-6 negative is now "route admitted after the open". The duplicate negative is now "a second route admitted before the open". Under the real owner each original form is refused before the predicate.
+- A probe confirmed that each negative differs from the positive in exactly one fact.
+
+**F3, `t287-undispatched-diagnostic:233` (head `:222`): the claim is unchanged; red on a Product defect (stop 1).**
+
+- Warm and cold stores are now built by the store owner: `createNewEmptyAppendSink`, `admitRuntimeEvent` with complete payloads, and for the cold store `projectReopenAuthorityAndClose` then `reopenEventStore`. Each is opened in the system temporary directory and removed.
+- Native frame liveness is the one substitution, printed as a controlled component test.
+- The head red was "event store was not constructed by this ABG module". The red now is `completePublicOutcome` refusing with "runtime event-prefix selection requires a total, gap-free admission-ordinal order".
+- Cause: `abg/c_call_outcome.ts:1889-1891` passes `runtimeEventBodiesAtPrefix(copy.runtimePrefix).materialize()` to `selectValidatedRuntimeEventPrefix`. For a Run-scoped owned prefix of a multi-Run store, the materialized ordinals are sparse (`[1,3,4,6,7,8]` here).
+- Probe: passing the view instead of `.materialize()` admits. The owned path, `admitOwnedCCallRejection`, passes every assertion of the case.
+
+**`m5-consensus-module:385` (five cases): claims unchanged.**
+
+- No exported observation constructor exists: the owner builds the observation inline at `abg/actor_process.ts:1133`.
+- The fixture is completed to `ACTOR_PROCESS_OBSERVATION_FIELDS` (`:225`) by adding `toolInvocations: []` beside each `toolCallCount: 0`.
+- All five are green.
+
+**`m5-consensus-module:1546` "S05 ABG binds each durable Run to its exact admitted invocation": retired.**
+
+- The activation's diagnosis, a reopen-authority shape, does not hold. Naming either profile in the authority still fails, because the history itself matches neither contract:
+  - `test_env/proof/abi5-root-r10.events.jsonl` holds 504,306 bytes in 20 unstamped rows;
+  - rows 1-2 carry `definitionKey`, and rows 3-4 carry `hogEntryCoordinate` and `hogEntryStep`;
+  - the contracts admit `memberKey`, `gtlEntryCoordinate` and `gtlEntryTerm`.
+- The tracked file stays as it is.
+- The claim returns only over a root Run that the installed root admits and closes in per-run scratch. That is the regeneration option. `m5-event-calculus-runtime`'s installed closure path fails today with `abg.openCall is not a function`.
+
+**`m5-consensus-module:2151` (head `:2251`) "S05 generic Public and ABG invocation basis contain no Consensus branch": restated over the current sources.**
+
+- The files read are:
+  - every `.ts` under `code/src/public/`;
+  - `product/run_invocation_operation.ts`;
+  - `abg/execution_basis.ts`;
+  - the generic CCall result admission in `abg/c_call_outcome.ts`, sliced from `const result = payloadRejection ?? admitResult(`.
+- These replace `public/operations.ts` (deleted in `adaeede02`) and `hog/leaf_admission.ts` (deleted in `f162e5531`). The message names the new reach.
+
+**`t287-wave2-owner-contract-source-set:611`: restated per the ruling.**
+
+- The test asserts:
+  - the family, its definitions array and each definition are frozen;
+  - the schema-free projection (the preimage its digests are computed over) is deeply frozen;
+  - for each slot, the binding is frozen and its identity is deeply frozen;
+  - `binding.schema` is the exact object of the owner declaration's `<slot>Schema`, an identity check (all 178 are);
+  - each schema and its entries are frozen.
+- No shared atom changed.
+
+**`t287-wave2-owner-contract-source-set:798`: the D15 representative is built by the owner.**
+
+- `constructQualificationIdentity` (`validator/qualification_contracts.js`) builds it over the request schema `RELEASE_OPERATION_CONTRACTS.snapshot.published_rc` (`qualificationBasis`, `lawBasis`, `verdict`, `requestedIdentity`), with the identity in `RELEASE_IDENTITY_SCHEMA` form.
+- The claim is unchanged. The lane is 15/15.
+
+**`t287-native-assessment-evidence:548`: regenerated; claim unchanged.**
+
+- The red was "profile schedule requires the original gap-free stamped history": rows stamped `4196aaeb…` without ordinals.
+- The retained rows are admitted in order through the store owner into a per-run scratch store under the current profile. References among them are rebound to the admitted identities, and the cases read the admitted events. The lane is 4/4.
+
+**Byte or source conservation claims against superseded cuts: retired (stop 4).**
+
+- `d1-preserved-result-mechanics` "C0/C1/C3 algorithms, closed identities and old publication rows are conserved": all nine current sources differ from the preimages, and six publication members differ.
+- `d2-acknowledgment:81` "legacy schema, task and predicates remain exact; generic native owners and helper are byte-exact": six of seven generic owners differ from the `pre-ack-01` freeze.
+- `d2-historical-design:89` "the correction stays on the shared preparation path and preserves prior mechanisms byte-exact": `semantic_revision.ts` differs from the `implementation-04` preimage outside the corrected span.
+- `d2-evidence-owner:27` "08 source delta is only the two candidate guards and revision immutable-prefix allocation": `semantic_stage.ts` differs beyond the 08 delta.
+
+Each comment names the inputs by path and digest.
+
+### Item 4: the two tracked proof files over 6 MB
+
+| Path | Bytes | Readers (inventory `oversize`) |
+|---|---|---|
+| `build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.json` | 18,642,450 | 605 tracked files, all under `.ai-workspace/` (596 under `comments/codex/`, 9 under `evidence/`); no tenant file reads it |
+| `build_tenants/abiogenesis/typescript/test_env/proof/abi5-root-r10.transcript.json` | 9,801,195 | 605 tracked files, same areas, a different list; no tenant file reads it |
+
+The Executive's census holds: no reader outside `.ai-workspace/` and `test_env/proof/`. A sampled reader names the file, for example `f11-bound-packet.json` naming `repo://…/test_env/proof/abi5-root-r10.json`. Both files stay where they are.
+
+No lane reads `abi5-root-r10.events.jsonl` (504,306 bytes) any more: its one `m5` case is retired, and only that comment names it.
+
+### Item 5: records (proposals; the Executive places them)
+
+**(a) Register rows.**
+
+TD-05 proposed text:
+
+> R10 increment at `bf117cf92`. C-5 increment:
+> - F2 retired (store-owner construction would fabricate native history);
+> - F3 `undispatched:96` restated over the event-prefix owner;
+> - `:233` stores built by the store owner;
+> - `m5:385` (5) completed to the owner's field set;
+> - `m5:1546` retired (history matches neither contract);
+> - `m5:2151` restated over current sources;
+> - wave2 `:611` and `:798` restated;
+> - `native-assessment:548` regenerated through the store owner;
+> - four conservation claims against superseded cuts retired.
+>
+> Remaining:
+> 1. `t287-undispatched-diagnostic:233`, red on the Product defect in the new row below.
+> 2. The d2 lanes reached with the root set hold 34 historical-fixture assertion reds that no row owns:
+>    - `d2-acknowledgment` 3;
+>    - `d2-binding-transition` 10;
+>    - `d2-bounded-repair` `:56`, `:77`, `:103`;
+>    - `d2-historical-design` 3;
+>    - `d2-workflow-step` 8;
+>    - `d2-evidence-owner-lookup` 7.
+>
+>    Head shows the same identities wherever its absolute paths resolved. `d2-workflow-step:123` and the lookup reds are new only because the inputs now resolve.
+> 3. `t287-native-semantic-revision:118`, `:266`, `:328`: identical to head, unowned.
+
+New row proposed:
+
+> CCall Public outcome reselects a materialized Run-scoped prefix. `completePublicOutcome` (`abg/c_call_outcome.ts:1889-1891`) calls `selectValidatedRuntimeEventPrefix(runtimeEventBodiesAtPrefix(copy.runtimePrefix).materialize())`. For a Run-scoped prefix of a multi-Run store the ordinals are sparse, and the selector refuses. Probe: the view admits; the owned path passes. Red: `t287-undispatched-diagnostic:233`. Change class: `realization_refactor` under `code/src/abg`.
+
+TD-04 proposed text:
+
+> Discharged:
+> - the R10 pair and S01;
+> - `d1-preserved-result-harness:20` and `d1-preserved-result-mechanics:34`;
+> - `d2-bounded-harness:9,11`, `d2-evidence-owner-harness:9-10`, `d2-workflow-step-harness`;
+> - `t288-composition-conservation:12`, `:62`; `t287-qualification-producer-acquisition-reuse:22`;
+> - `declared-testing-capability:18`; `stdo-environment-pilot:153-156`.
+>
+> Remaining, by site:
+> 1. `support/d2-historical-owner-harness.mjs:6`, `:11`, `:63`: displaced `build_tenants/abiogenesis/evidence/d2-program-ready.json` and `installed-continuation-09/…`, read at module load by `d2-historical-owner` and `integration-shared-seams`. Also `integration-shared-seams:63` and `integration-d1-readonly-discriminator:7-8`, the `origins.json` layout of a former integration directory.
+> 2. Relative `.ai-workspace/` evidence reads:
+>    - `t287-common-computational-library:223`;
+>    - `t287-cross-cut-public-read:20`;
+>    - `t287-default-library-fulfillment:16` (the default of `ABI5_FULFILLMENT_RECORDS_ROOT`);
+>    - `t287-default-library:24`;
+>    - `t287-fh-hold-open:13`, `:14`, `:143`;
+>    - `t287-historical-source-resource:38`;
+>    - `t287-selected-action-authority:13` (a default);
+>    - `t287-selected-action:187`.
+> 3. Machine-identity assertions: `t287-installed-qualification-conservation:32`, `w2-steel-serial-branch-installed:597`, `w2-steel-single-start-installed:547`.
+> 4. Predecessor builds under the root without their package closure: `d2-bounded-repair:10`, `:66`, `d2-evidence-owner:5`. The owner decides: keep the closure beside each retained build under the root, or retire.
+> 5. `w2-steel-*-installed`: these already skip with named reasons. Their variables are in the C-5 census and stay, per the activation.
+
+**(b) T-290 Rules clause, added to the C-4 bullet:**
+
+> nothing over 6 MB enters the repository; historical evidence lives under the root `ABI5_EVIDENCE_ROOT` names, by path and digest, and a lane skips with its reason when the root is absent
+
+**(c) TD-19:**
+
+> S done. The stop is mechanical: the lint refuses a tracked mirror root the inventory does not list, and any tracked path over 6,000,000 bytes that its `oversize` table does not list. `contracts/` directories are classified by content. Authored patches are visible. 691 roots are inventoried, none with zero references. A work record names its cut by commit hash and its inputs by path and digest (`.gitignore` comment).
+>
+> L open: historical deletion after a retention and deletion manifest. `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json` (roots, paths, bytes, references, and 1,739 oversize paths with readers) is its input.
+
+**(d) `design/` check: hits only; nothing edited.**
+
+- No sentence governs how a lane obtains its evidence. Searched for "evidence root", `ABI5_EVIDENCE_ROOT`, `test_env/proof`, lane, skip and retained-evidence wording.
+  - The hits name retained records as historical evidence: `A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md:17`, `M02_M05_PACKED_INSTALLED_VERTICAL_BEHAVIOR_DESIGN.md:63`, `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md:27`, `M01_M03_CONSENSUS_GTL_FREE_CONSTRUCTION_BEHAVIOR_DESIGN.md:570`.
+  - Or they are proof-lane tables that state assertions, not acquisition: `M03_ABG_FN_COMPOSITION_DERIVATION.md:258` and its siblings.
+- Frozen family:
+  - `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:167` lists `deepFreeze` and `isDeeplyFrozen` as existing atoms.
+  - `:664` lists them as `catalog_reuse` (immutable carrier construction, `N01`, `N02`, `N04`).
+  - `M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:162-167`: "Each definition is one frozen runtime value … Family construction … then freezes the definition."
+  - The restated `:611` asserts exactly that. No design sentence requires validation-library schema objects to be deeply frozen.
+
+### Item 6: gates and lanes
+
+| Gate | Result |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | rc 0, "28 modules under code/src/shared/ import only code/src/shared/ and packages" |
+| `npm run lint:lifecycle` | rc 0, "284 modules under code/src; 7 allow-listed site(s), no offender" |
+| `npm run lint:evidence` | rc 0; mirror negative rc 1; size negative rc 1 (item 0a) |
+| `npm run build` with every grant file staged | rc 0; `git status --short` afterwards shows no regenerated diff |
+| `.gitignore` proof | item 0b |
+
+**How the lanes ran.**
+
+- Each lane ran on its own with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000 --test-reporter=tap`.
+- Head ran once. At head nothing reads the variable, so the one run is both of head's states.
+- After-change runs:
+  - unset, with `ABI5_EVIDENCE_ROOT` removed from the environment;
+  - set, with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`;
+  - each state once untraced, which is the table below, and once traced, which is the custody record under item 1. Counts were identical.
+- Lanes:
+  - those the activation names;
+  - every file `git grep` finds importing a changed support file, directly or through `d2-binding-harness` and `d2-historical-design-harness`;
+  - `integration-d1-readonly-discriminator`, which `git grep` names because it reads the donor's copy of the d1 harness as text.
+- Counts are tests/pass/fail/skipped.
+
+| Lane | Item | Head | Unset | Set | Red identities and changes |
+|---|---|---|---|---|---|
+| `uat/continuation` | 0c | 4/0/0/4 | 4/0/0/4 | 4/0/0/4 | none. The skips now print the four variable names. |
+| `uat/harness` | 0c | 34/30/1/3 | 34/30/1/3 | 34/30/1/3 | `:473` (head `:471`, a 2-line shift from the default-root comment): same, expected 18015000, actual 18025250. |
+| `r10-child-proof` | 1 | 1/0/1/0 | 1/0/0/1 | 10/10/0/0 | Head file-level `ENOENT` is gone. |
+| `r10-retained-child-projection.mjs` | 1 | `ENOENT` `:10` (not run; the head path resolves to an absent directory) | 1/1/0/0 (prints skipped) | 1/1/0/0 (prints passed) | Gone. |
+| `r10-projection-contracts` | loader | 10/10/0/0 | 10/10/0/0 | 10/10/0/0 | none |
+| `d1-preserved-result-mechanics` | 1 | 1/0/1/0 | 5/1/0/4 | 5/2/0/3 | Head file-level `ENOENT` is gone. One case is retired (6 to 5). Three cases skip with the root set: their store is outside the root. |
+| `integration-shared-seams` | d1 importer | 1/0/1/0 | 1/0/1/0 | 1/0/1/0 | Changed: head `ENOENT` `build_tenants/abiogenesis/preimages/source-observation.json` (d1 harness), now `ENOENT` `build_tenants/abiogenesis/evidence/d2-program-ready.json` at `d2-historical-owner-harness.mjs:11`. The d1 harness no longer reads at load, so the next displaced read surfaces in an unchanged file outside the grant (finding 1). |
+| `integration-d1-readonly-discriminator.mjs` | grep | not run (file unchanged) | 1/0/1/0 | 1/0/1/0 | `ENOENT` `build_tenants/abiogenesis/origins.json` at `:8`, before any harness read; independent of this package. |
+| `t288-composition-conservation` | 1 | 1/0/1/0 | 1/0/0/1 | 1/0/0/1 | Head assert `:12` is gone; skips naming the two variables. |
+| `t287-qualification-producer-acquisition-reuse` | 1, 2 | 1/0/1/0 | 1/0/0/1 | 1/0/0/1 | Head assert `:22` is gone; skips naming the four variables. |
+| `t287-declared-testing-capability` | 1 | 7/5/1/1 | 7/3/0/4 | 7/3/0/4 | Head `:174` assert is now a skip with its reason. Cases 2 and 3 skip on `ABG_TS_CLAUDE_COMMAND`; with it set the lane is 7/5/0/2. |
+| `t287-stdo-run-environment` | 1 | 2/0/1/1 | 2/0/0/2 | 2/0/0/2 | Head `:87` assert is now a skip naming `ABI5_ENV_PROOF_ROOT` and `stdo-installs.json`. |
+| `t287-stdo-environment-citation` | 1 | 2/0/1/1 | 2/0/0/2 | 2/0/0/2 | Head `:16` assert is now a skip with its reason. |
+| `t287-stdo-proof-entry` | pilot importer | 5/0/0/5 | 5/0/0/5 | 5/0/0/5 | none (unchanged file; boolean skips) |
+| `t287-stdo-run-environment-installed.mjs` | 1 | 1/0/0/1 | 1/0/0/1 | 1/0/0/1 | none |
+| `t288-instruction-assembly-owner` | 1, 2 | 11/4/0/7 | 6/4/0/2 | 6/4/0/2 | Five cases retired (item 2). |
+| `t287-native-semantic-revision` | 2, 3 | 9/4/4/1 | 7/4/1/2 | 7/4/3/0 | `:118` (head `:122`, shift): same in both states, expected `native_revision_cause_absent`, actual `native_revision_intake_basis_mismatch`. `:266`, `:328` (head `:270`, `:332`): skip unset, and with the root set the same as head ("expected `native_revision_binding_cover_absent`", "exact ancestry gets as far as the new cover"). F2 `:531` and `:545` retired. |
+| `t287-undispatched-diagnostic` | 3 | 7/5/2/0 | 7/6/1/0 | 7/6/1/0 | `:93` is green. `:233` changed: head "event store was not constructed by this ABG module", now "runtime event-prefix selection requires a total, gap-free admission-ordinal order" (stop 1). |
+| `m5-consensus-module` | 3 | 18/11/7/0 | 17/17/0/0 | 17/17/0/0 | All seven head reds are gone (five completed, one restated, one retired). |
+| `t287-wave2-owner-contract-source-set` | 3 | 15/13/2/0 | 15/15/0/0 | 15/15/0/0 | Both head reds are gone. |
+| `t287-native-assessment-evidence` | 2, 3 | 4/1/3/0 | 4/4/0/0 | 4/4/0/0 | All three head reds are gone. |
+| `d2-acknowledgment` | 1 | 4/0/4/0 | 3/0/0/3 | 3/0/3/0 | `:14`, `:31`, `:48` = head `:17`, `:34`, `:51`, same falsy asserts; `:81` retired. |
+| `d2-binding-transition` | 1 | 10/0/10/0 | 10/0/0/10 | 10/0/10/0 | Set: all ten = head (+1 line), same first errors. |
+| `d2-bounded-repair` | 1 | 12/7/5/0 | 12/1/0/11 | 12/7/5/0 | Set = head: `:10` (`jsonc-parser`) and `:66` (`valibot`) not found from the root's predecessor build (stop 2); `:56`, `:77`, `:103` asserts. |
+| `d2-historical-design` | 1 | 14/10/4/0 | 13/0/0/13 | 13/10/3/0 | `:6`, `:25`, `:33` = head `:8`, `:27`, `:35`; `:89` retired. |
+| `d2-workflow-step` | 1 | 9/0/9/0 | 9/0/0/9 | 9/1/8/0 | Head `:9` `ENOENT` now passes. `:23` to `:109` = head `:22` to `:108`, same. `:123` changed: head `ERR_MODULE_NOT_FOUND` (displaced fixture), now "fn is not a function" inside the retained `d2-continuation-fixture.mjs:60` against the current build. |
+| `d2-evidence-owner-lookup` | 1 | 9/0/9/0 | 9/0/0/9 | 9/2/7/0 | Changed: head 9 `ENOENT` (displaced store). With the root set, 2 pass (initial collector: ambiguity and refusals) and 7 fail on falsy asserts. The current collector does not project the retained store under the lane's lookup assumptions. |
+| `d2-evidence-owner` | 1 | 2/0/2/0 | 1/0/0/1 | 1/0/1/0 | Changed: head `ERR_MODULE_NOT_FOUND` `build_tenants/implementation-03/…/digests.js`, now `valibot` not found from the root's `implementation-03/work/build` (stop 2). `:27` retired. |
+
+`git status --short` at the end shows nothing tracked modified and only the two codex strategy posts untracked.
+
+### Deviations from the activation's wording
+
+1. **The `oversize` table lists 1,739 paths, not two.** The rule covers every tracked blob over 6,000,000 bytes "anywhere in the repository", and 1,737 such historical records lie under `.ai-workspace/`. Listing only the two proof files would make the lint fail at head.
+2. **The D2 store input is named by the whole file.** The activation's `4f561cea…` is the digest of the proof's first 846 lines, 13,540,472 bytes. The input is named by the whole file, `f841bba9…`, 19,058,361 bytes, and the lane asserts the prefix digest on the slice.
+3. **The `.gitignore` block sits above the existing exclusions**, not at `:73-77`. At the old place, the directory re-includes would override the earlier exclusions and expose ignored paths (item 0b).
+4. **Fourteen unit-run directories were deleted, not twelve.** The two extra, dated 2026-10-24T14-03Z, were written by my own head-baseline run of `uat/harness` on the old default before the change.
+5. **`d2-workflow-step-harness.mjs` and `d2-workflow-step:118`** were migrated as support files the named lanes need. The activation did not name them.
+6. **`t287-declared-testing-capability` cases 2 and 3** now skip when `ABG_TS_CLAUDE_COMMAND` is unset. With it set they pass as at head.
+7. **`d1-preserved-result-mechanics` with the root set**: three cases skip, because the native store they need is outside the root (`odd_glc`). They do not reach their branches.
+8. **The `m5:1572` diagnosis does not hold.** The reopen authority was never the cause, and the case is retired (item 3).
+9. **Restated rather than unchanged:** F3 `:96`'s negatives (item 3), and `r10-child-proof`'s historical cuts, which use a truthful store coordinate in place of the retained device and inode.
+
+### Findings outside the grant
+
+1. `d2-historical-owner-harness.mjs` (unchanged) holds displaced paths at `:6`, `:11` and `:63`. Since the d1 harness migration it is the first failure of `integration-shared-seams`. It also blocks `d2-historical-owner`. A TD-04 site, item 5(a).
+2. Three machine-identity assertions and nine relative `.ai-workspace/` evidence reads in lanes outside the grant. Item 5(a).
+3. The predecessor builds under the root have no `node_modules`; `.ai-workspace/**/node_modules/` keeps them local. Stop 2.
+4. A pre-existing worktree, `scratchpad/wt-base-97b1200bc` at `97b1200bc`, was created 2026-10-22, before C-5. It is left in place: the grant's only deletion is item 0c's. C-5 created no worktree.
+5. Boolean skips without a printed reason remain for variables that are not migrated: `t288-instruction-assembly-owner:17`, `:389`; `uat/harness:99`, `:128`, `:165`; `t287-stdo-proof-entry` ×5. The census is the base for the Executive's Phase C close decision.
+
+### Stops
+
+1. **Product defect.** `abg/c_call_outcome.ts:1889-1891` keeps `t287-undispatched-diagnostic:233` red, and no edit under `code/src` is granted. New row proposed (item 5(a)).
+2. **Predecessor package closure.** Three cases cannot load their predecessor build from the root: `d2-bounded-repair:10`, `:66` and `d2-evidence-owner:5` (`jsonc-parser`, `valibot`). Resolving the packages from the tenant would run "exact predecessor code" against other package versions, which weakens the claim. No resolver hook was added. The owner's decision: keep each build's closure under the root, or retire.
+3. **Regenerations that need a live native run, retired (item 2):**
+   - `t288-instruction-assembly-owner`: five cases;
+   - `t287-native-semantic-revision`: the `:485` retained branch and the `:545` case.
+4. **Claims that cannot be met without weakening, retired (item 3):**
+   - F2;
+   - `m5:1546`;
+   - the four conservation claims against superseded cuts.
+5. **Did not arise:** no tracked historical path needed to move, and no re-include exposes a previously ignored path. The admission set, event contracts, payload keys, failure classes and Product contracts are untouched.

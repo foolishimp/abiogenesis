@@ -4,7 +4,8 @@ import { chmod, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
-import { prepareStdoNoteProduct, pilotResources } from "./stdo-environment-pilot.mjs";
+import { prepareStdoNoteProduct, pilotResources, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
+export { stdoInstallsSkip };
 import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
 import { expectedVerificationIdentity } from "./candidate-basis.mjs";
 import { importInstalledPackageExport, setupInstalledCliHarness } from "./root-cli-environment.mjs";
@@ -14,14 +15,18 @@ const schemaVersion = "5.0.0";
 const actorRef = "actor://declared-testing.example/proof";
 const zeros = "sha256:" + "0".repeat(64);
 export const checkerRef = letter => "command://declared-testing.example/check-" + letter;
+// The live command is the one the runtime reads, ABG_TS_CLAUDE_COMMAND; the
+// model and effort are this capability's own.
 export const LIVE_TESTING_TRANSPORT = Object.freeze({
-  command: "/Users/jim/.local/share/claude/versions/2.1.263", model: "claude-fable-5-1", effort: "xhigh",
+  command: process.env.ABG_TS_CLAUDE_COMMAND || null, model: "claude-fable-5-1", effort: "xhigh",
 });
+export const liveTransportSkip = LIVE_TESTING_TRANSPORT.command === null && "ABG_TS_CLAUDE_COMMAND unset; requires the live claude command";
 export function testingExecutionConfig(environment = process.env) {
   const mode = environment.ABI5_TESTING_MODE ?? "mechanical";
   assert.ok(["mechanical", "live"].includes(mode), "testing mode must be mechanical or live");
   const live = mode === "live";
   if (live) assert.equal(environment.ABI5_TESTING_ALLOW_LIVE, "1", "live mode requires explicit separate runtime activation");
+  if (live) assert.ok(LIVE_TESTING_TRANSPORT.command, "live mode requires ABG_TS_CLAUDE_COMMAND");
   const requestedBudget = environment.ABI5_TESTING_NATIVE_BUDGET_MS;
   const nativeBudgetMs = requestedBudget === undefined ? (live ? 2_400_000 : 1_200_000) : Number(requestedBudget);
   if (requestedBudget !== undefined) {

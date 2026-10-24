@@ -6,10 +6,20 @@ import { tmpdir } from 'node:os';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import * as Effect from 'effect/Effect';
+import { evidenceInput } from '../support/evidence-root.mjs';
 
+// The predecessor build and the retained native history are named by their
+// variables; the lane skips with the unset names when either is absent.
+// The S01 selection record is an evidence-root input by path and digest.
+const unset=['ABI5_COMPOSITION_PREDECESSOR','ABI5_COMPOSITION_SCRATCH'].filter(name=>!process.env[name]);
+const simpleInput=evidenceInput({path:'comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-11.jsonl',
+  sha256:'3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845',bytes:9304});
+const skip=unset.length>0?unset.join(', ')+' unset; requires the exact predecessor build and the immutable native history':
+  simpleInput.kind==='absent'&&simpleInput.reason;
+if(skip)test('T-288 composition conservation over the exact predecessor and the retained native history',{skip},()=>{});
+else await (async()=>{
 const predecessor = process.env.ABI5_COMPOSITION_PREDECESSOR;
 const retained = process.env.ABI5_COMPOSITION_SCRATCH;
-assert.ok(predecessor && retained, 'exact predecessor and immutable native history required');
 const roots = [predecessor, resolve(import.meta.dirname, '../..')];
 const load = (root, name) => import(pathToFileURL(join(root, 'build/code/src', name + '.js')));
 const modules = await Promise.all(roots.map(async root => Object.fromEntries(await Promise.all(
@@ -59,8 +69,7 @@ const readPrefix=sign({...prefix,eventLogRef:pathToFileURL(readPath).href,prefix
   prefixDigest:modules[1].digests.sha256Bytes(readBytes),storeIdentity:{...prefix.storeIdentity,device:readInode.dev,inode:readInode.ino}},'coordinateDigest');
 const readHandoff={prefix:readPrefix,reopenAuthority:sign({...handoff.reopenAuthority,eventLogPath:readPath,
   device:readInode.dev,inode:readInode.ino,durableByteLength:readBytes.length,eventLogDigest:readPrefix.prefixDigest},'authorityDigest')};
-const simpleRoot='/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01';
-const simpleCall=JSON.parse(await readFile(join(simpleRoot,'call-11.jsonl')));
+const simpleCall=JSON.parse(simpleInput.bytes);
 const simplePrefix=simpleCall.acquisition.closeHandoff.prefix;
 const simpleEvents=modules[1].event_store.readRuntimeEventsAtDurablePrefix(simplePrefix);
 const simpleRun=simpleEvents.find(e=>e.kind==='run_segment_opened').runId;
@@ -205,3 +214,4 @@ test('Run read kernel preserves complete source, catalog and resource refusals w
   await writeFile(join(scratch,'proof.json'),JSON.stringify(report,null,2)+'\n');
   console.log(JSON.stringify({kind:'composition_conservation',scratch,cases:report.cases.length,measurements:report.measurements}));
 });
+})();

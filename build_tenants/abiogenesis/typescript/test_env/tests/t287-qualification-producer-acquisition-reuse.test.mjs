@@ -15,11 +15,17 @@ import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {SELF_CONFORMANCE_IDS as self} from '../../build/code/src/gtl/self_conformance.js';
 import {QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
+// The copied producer history, its retained context and the historical owner
+// fixtures are named by their variables; the lane skips with the unset names
+// when any is absent.
+const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE'].filter(name=>!process.env[name]);
+const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context and the exact historical owner fixtures';
+if(skip)test('T-287 qualification producer acquisition reuse over the copied producer history and the historical owner',{skip},()=>{});
+else await (async()=>{
 const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
 const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 const evidence=process.env.ABI5_PRODUCER_HISTORY_FIXTURE,contextPath=process.env.ABI5_PRODUCER_CONTEXT_FIXTURE;
 const ownerFixture=process.env.ABI5_PRODUCER_OWNER_FIXTURE,ownerSourceFixture=process.env.ABI5_PRODUCER_OWNER_SOURCE_FIXTURE;
-assert(evidence&&contextPath&&ownerFixture&&ownerSourceFixture,'explicit finite copied-history, retained context and exact historical owner fixtures required');
 const allBytes=fs.readFileSync(evidence);
 assert.equal(digest(allBytes),'sha256:e8147dd35d207590170bea4f4f2018935c6a5c7fc9893cc3f56585e332692667');
 const contextBytes=fs.readFileSync(contextPath);assert.equal(digest(contextBytes),'sha256:831889537928213cf34909ae2e7d500d4fcbb521b790fa7b0d018e2b7f874058');
@@ -169,3 +175,4 @@ test('copied and foreign ingress cannot supply the retained acquisition or skip 
  const cold=await countPhysicalReads(copy,()=>f.check(f.prepare(copied)));assert(cold.value);assert.equal(cold.readBytes,bytes.length,'new actual resource authenticates independently');
  fs.writeFileSync(copy,Buffer.alloc(bytes.length,32));assert.equal(f.check(f.prepare(copied)),null,'new consumer/cold relation cannot reuse a raw copied coordinate');
 });
+})();

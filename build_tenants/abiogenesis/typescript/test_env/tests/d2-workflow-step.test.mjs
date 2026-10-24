@@ -3,10 +3,11 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
-import {load,packageRoot} from '../support/d2-bounded-harness.mjs';
-import {workflowStepHarness,retainedIntentWitness} from '../support/d2-workflow-step-harness.mjs';
+import {load,packageRoot,capturedEnvelopeSkip} from '../support/d2-bounded-harness.mjs';
+import {workflowStepHarness,retainedIntentWitness,retainedIntentSkip} from '../support/d2-workflow-step-harness.mjs';
+import {evidenceInput} from '../support/evidence-root.mjs';
 
-test('retained stopped Intent foldback satisfies existing D1 step, not premature lifecycle closure',async()=>{
+test('retained stopped Intent foldback satisfies existing D1 step, not premature lifecycle closure',{skip:retainedIntentSkip},async()=>{
   const product=await load('build/code/src/product/index.js'),{SEMANTIC_STAGE_IDS:D}=await load('build/code/src/gtl/semantic_stage_identity.js');
   const {ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS:semantics}=await load('build/code/src/product/builtin_semantics.js'),w=retainedIntentWitness();
   assert.equal(product.sha256Bytes(w.bytes),'sha256:42c1bfd29619425dab0bedb270f2bcce0111cb6cb3ebee274db9438fcc4644cc');
@@ -19,14 +20,14 @@ test('retained stopped Intent foldback satisfies existing D1 step, not premature
   assert.equal(semantics.resolveJudgmentRelation(D.lifecycleStepPredicateRef).evaluate(w.output,w.output),false,'incomplete equal carrier is not terminal');
 });
 
-test('new relation accepts exact revision projection and refuses unknown or crossed request coordinates',async()=>{
+test('new relation accepts exact revision projection and refuses unknown or crossed request coordinates',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness();
   assert.equal(h.step(h.cut.request,h.cut.value),true);
   assert.equal(h.step({...h.cut.request,parent:{...h.cut.request.parent,resultRef:'synthetic-unadmitted:foreign'}},h.cut.value),false);
   assert.equal(h.step(h.stage,h.cut.value),false);assert.equal(h.step(null,null),false);
 });
 
-test('stage author, assessment and combined stage foldback conserve revision basis and exact role',async()=>{
+test('stage author, assessment and combined stage foldback conserve revision basis and exact role',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness(),cut=h.project(h.original,h.stage.worksite,{mode:'stage_revision'}),asset=h.stage.assets.at(-1);
   const source={...asset.source,cCallRef:'synthetic-unadmitted:revision-author',inputDigest:h.hash(cut.value)};
   const authored=h.revision.deriveRevisionAsset(cut.value,asset.stageRef,asset.candidate,source);assert.ok(authored);
@@ -39,7 +40,7 @@ test('stage author, assessment and combined stage foldback conserve revision bas
   assert.equal(h.step(authored,wrong),false);
 });
 
-test('bridge requires matching revision/A/W coordinates while retaining the actual historical Design',async()=>{
+test('bridge requires matching revision/A/W coordinates while retaining the actual historical Design',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness();
   assert.deepEqual(h.cut.value.current.assets,h.stage.assets);
   assert.equal(h.step(h.cut.value,h.entry),true);assert.equal(h.entry.constructionTask.targets.length,2);
@@ -49,7 +50,7 @@ test('bridge requires matching revision/A/W coordinates while retaining the actu
   assert.equal(h.step(h.foldback(h.observation),h.entry),false,'evidence-bearing envelope does not restart bridge');
 });
 
-test('E_D to new C2 reconstructs exact task, selected construction and retained sources; command failure remains evidence',async()=>{
+test('E_D to new C2 reconstructs exact task, selected construction and retained sources; command failure remains evidence',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness();
   assert.equal(h.step(h.entry,h.observation),true);
   assert.ok(h.observation.commandResults.every(row=>row.exitStatus===1));
@@ -62,7 +63,7 @@ test('E_D to new C2 reconstructs exact task, selected construction and retained 
   assert.equal(h.step(h.entry,corrupted),false);
 });
 
-test('evidence foldback and complete terminal preserve failed command and reject missing or crossed evidence',async()=>{
+test('evidence foldback and complete terminal preserve failed command and reject missing or crossed evidence',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness(),failed=h.foldback(h.observation);
   assert.equal(h.step(h.observation,failed),true);
   assert.equal(h.step(failed,failed),false,'retained five-stage lifecycle still requires its fifth assessment');
@@ -95,7 +96,7 @@ test('evidence foldback and complete terminal preserve failed command and reject
   assert.equal(h.step(success,completed),true);assert.equal(h.step(complete(completed),complete(completed)),true);
 });
 
-test('old C2 carrier/observation constructor and predicates stay unchanged; new chain will not accept the old arm',async()=>{
+test('old C2 carrier/observation constructor and predicates stay unchanged; new chain will not accept the old arm',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness(),input=h.product.constructWorksiteCommandPreparationInput({constructionTask:h.entry.constructionTask,
     commands:h.entry.commands,outcomePredicates:h.entry.outcomePredicates,allowedWriteTerritories:h.entry.allowedWriteTerritories});
   const oldTask=h.product.prepareWorksiteCommandTask({kind:'worksite_command_preparation_bound_input',schemaVersion:'5.0.0',entry:input,source:h.construction});
@@ -105,7 +106,7 @@ test('old C2 carrier/observation constructor and predicates stay unchanged; new 
   assert.equal(h.step(input,actual),false);assert.equal(h.step(h.entry,actual),false);
 });
 
-test('revision acknowledgment now constructs its honest nonzero-command observation while old guard stays closed',async()=>{
+test('revision acknowledgment now constructs its honest nonzero-command observation while old guard stays closed',{skip:capturedEnvelopeSkip},async()=>{
   const h=await workflowStepHarness(),{acknowledgment,actor,artifact,plan}=h.example;
   assert.match(artifact.artifactRef,/^worksite-revision-command-helper-artifact:\/\/abiogenesis\//);
   assert.equal(h.product.isWorksiteCommandExecutionWorkerResult(acknowledgment),false);
@@ -115,9 +116,13 @@ test('revision acknowledgment now constructs its honest nonzero-command observat
   // Pre-ack failure and exact inputs remain frozen separately; no runtime runs.
 });
 
-test('exact four corrected Programs validate; root step differs from run closure and nested E_D is unchanged',async()=>{
+// The D2 implementation-04 fixture-preparation continuation fixture,
+// historical evidence under ABI5_EVIDENCE_ROOT.
+const continuationFixture=evidenceInput({path:'comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/fixture-preparation/work/test_env/support/d2-continuation-fixture.mjs',
+  sha256:'3405f1595000e422416561011017c843b56e23703cd229913df2a383fea61ded',bytes:35798});
+test('exact four corrected Programs validate; root step differs from run closure and nested E_D is unchanged',{skip:continuationFixture.kind==='absent'&&continuationFixture.reason},async()=>{
   const [product,gtl,validator]=await Promise.all(['product','gtl','validator'].map(name=>load(`build/code/src/${name}/index.js`)));
-  const fixturePath=resolve(packageRoot,'../fixture-preparation/work/test_env/support/d2-continuation-fixture.mjs');
+  const fixturePath=continuationFixture.path;
   const {nativePublications,constructD2FrameDeclarations}=await import(pathToFileURL(fixturePath).href);
   const hash=n=>`sha256:${String(n).repeat(64)}`,abiArtifact={productId:product.ABI5_PRODUCT_ID,packageName:product.ABI5_PACKAGE_NAME,
     packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:hash(1),productContentDigest:hash(2),manifestDigest:hash(3)};

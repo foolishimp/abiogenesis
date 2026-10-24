@@ -1,14 +1,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import {
-  copyFile,
-  mkdtemp,
+  readdir,
   readFile,
-  rm,
-  stat,
 } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join, resolve } from "node:path";
+import { resolve } from "node:path";
 import test from "node:test";
 import { pathToFileURL } from "node:url";
 
@@ -334,6 +330,7 @@ function workerObservation(finalOutput, suffix) {
     terminationConfirmed: true,
     progressEventCount: 0,
     toolCallCount: 0,
+    toolInvocations: [],
     artifactDigests: {
       output: DIGEST,
       prompt: DIGEST,
@@ -1543,119 +1540,17 @@ test("S05 Product semantics own invocation-basis validation and replay projectio
   );
 });
 
-test("S05 ABG binds each durable Run to its exact admitted invocation", async () => {
-  const scratch = await mkdtemp(join(tmpdir(), "abi5-s05-run-binding-"));
-  const sourcePath = resolve(
-    packageRoot,
-    "test_env/proof/abi5-root-r10.events.jsonl",
-  );
-  const eventLogPath = join(scratch, "abi5-root-r10.events.jsonl");
-  try {
-    await copyFile(sourcePath, eventLogPath);
-    const bytes = await readFile(eventLogPath);
-    const status = await stat(eventLogPath);
-    const authorityBody = {
-      kind: "event_store_reopen_authority",
-      schemaVersion: "5.0.0",
-      eventLogPath,
-      device: status.dev,
-      inode: status.ino,
-      eventLogDigest:
-        `sha256:${createHash("sha256").update(bytes).digest("hex")}`,
-      durableByteLength: bytes.byteLength,
-      eventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
-    };
-    const reopened = abg.reopenEventStore({
-      ...authorityBody,
-      authorityDigest: product.sha256Canonical(authorityBody),
-    });
-    assert.equal(
-      reopened.kind,
-      "reopened_event_store_context",
-      JSON.stringify(reopened),
-    );
-    if (reopened.kind !== "reopened_event_store_context") return;
-    try {
-      const exactPrefix = abg.selectValidatedRuntimeEventPrefix(
-        abg.readRuntimeEventsAtDurablePrefix(reopened.prefix),
-      );
-      const exactEvents = abg.readRuntimeEventsAtDurablePrefix(reopened.prefix);
-      const runOpens = exactEvents.filter(
-        (event) => event.kind === "run_segment_opened",
-      );
-      assert.equal(
-        runOpens.length,
-        1,
-        "one installed invocation opens one durable Run; replay folds do not open Runs",
-      );
-      const runOpen = runOpens[0];
-      const admission = abg.rehydrateInvocationAdmissionAtPrefix(
-        exactPrefix,
-        runOpen.payload.invocationAdmissionRef,
-      );
-      assert.ok(admission);
-      assert.equal(
-        abg.hasInvocationRunBindingAtPrefix(
-          exactPrefix,
-          admission,
-          runOpen.runId,
-        ),
-        true,
-      );
-      const unrelatedRunId = `run://abiogenesis/${"0".repeat(64)}`;
-      assert.equal(
-        abg.hasInvocationRunBindingAtPrefix(
-          exactPrefix,
-          admission,
-          unrelatedRunId,
-        ),
-        false,
-      );
-      const replayFirst = abg.replay(reopened.store, { runId: runOpen.runId });
-      const replaySecond = abg.replay(reopened.store, { runId: runOpen.runId });
-      assert.deepEqual(
-        replaySecond,
-        replayFirst,
-        "repeating the replay fold must not be mistaken for a second execution attempt",
-      );
-      const resultRef = replayFirst.cCalls.find(
-        (cCall) => cCall.resultRef !== null,
-      )?.resultRef;
-      assert.equal(typeof resultRef, "string");
-      const ownRunBasis = abg.deriveInvocationSourceResultBasisAtPrefix(
-        exactPrefix,
-        {
-          publicAuthorityDigest: DIGEST,
-          runtimeInvocationRef: admission.invocationRef,
-          invocationAdmissionRef: runOpen.payload.invocationAdmissionRef,
-          runId: runOpen.runId,
-          resultRef,
-        },
-      );
-      assert.ok(ownRunBasis);
-      assert.equal(ownRunBasis.sourceRunId, runOpen.runId);
-      const crossPairedRunBasis = abg.deriveInvocationSourceResultBasisAtPrefix(
-        exactPrefix,
-        {
-          publicAuthorityDigest: DIGEST,
-          runtimeInvocationRef: admission.invocationRef,
-          invocationAdmissionRef: runOpen.payload.invocationAdmissionRef,
-          runId: unrelatedRunId,
-          resultRef,
-        },
-      );
-      assert.equal(
-        crossPairedRunBasis,
-        null,
-        "a source-result basis must not cross-pair one admitted invocation with another Run",
-      );
-    } finally {
-      reopened.store.closeDurableLog();
-    }
-  } finally {
-    await rm(scratch, { recursive: true, force: true });
-  }
-});
+// Retired (T-290 C-5): "S05 ABG binds each durable Run to its exact admitted invocation".
+// Its input is the retained root Run test_env/proof/abi5-root-r10.events.jsonl
+// (504,306 bytes, 20 unstamped rows). The current store owner refuses that
+// history under both known event contracts: the two
+// public_operation_artifact_admitted rows carry definitionKey, and the
+// public_operation_admitted and invocation_admitted rows carry
+// hogEntryCoordinate and hogEntryStep, none of which the contracts admit
+// (memberKey, gtlEntryCoordinate and gtlEntryTerm). The reopen authority was
+// never the cause. The file is tracked proof and stays as it is; the claim
+// returns only over a root Run of the conformance hello-world graph that the
+// installed root admits and closes in per-run scratch.
 
 test("S05 reviewer realization carries the Product-declared instruction contract", async () => {
   const invocation = invocationFor();
@@ -1696,6 +1591,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
         terminationConfirmed: true,
         progressEventCount: 0,
         toolCallCount: 0,
+        toolInvocations: [],
         artifactDigests: {
           output: DIGEST,
           prompt: DIGEST,
@@ -1779,6 +1675,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
         terminationConfirmed: true,
         progressEventCount: 0,
         toolCallCount: 0,
+        toolInvocations: [],
         artifactDigests: {
           output: DIGEST,
           prompt: DIGEST,
@@ -1821,6 +1718,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
           terminationConfirmed: true,
           progressEventCount: 0,
           toolCallCount: 0,
+          toolInvocations: [],
           artifactDigests: {
             output: DIGEST,
             prompt: DIGEST,
@@ -1875,6 +1773,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
         terminationConfirmed: true,
         progressEventCount: 0,
         toolCallCount: 0,
+        toolInvocations: [],
         artifactDigests: {
           output: DIGEST,
           prompt: DIGEST,
@@ -1915,6 +1814,7 @@ test("S05 reviewer realization carries the Product-declared instruction contract
         terminationConfirmed: true,
         progressEventCount: 0,
         toolCallCount: 0,
+        toolInvocations: [],
         artifactDigests: {
           output: DIGEST,
           prompt: DIGEST,
@@ -2249,40 +2149,50 @@ test("S05 public result binds real replay while its authority rejects digest tam
 });
 
 test("S05 generic Public and ABG invocation basis contain no Consensus branch", async () => {
-  const publicSource = await readFile(
-    resolve(packageRoot, "code/src/public/operations.ts"),
-    "utf8",
+  // The generic Public operations live in every source under code/src/public
+  // and, for run invocation, in the Product's run-invocation operation owner;
+  // the single public/operations.ts that held them is gone.
+  const publicRoot = resolve(packageRoot, "code/src/public");
+  const publicFiles = (await readdir(publicRoot, { recursive: true }))
+    .filter((file) => file.endsWith(".ts")).sort()
+    .map((file) => resolve(publicRoot, file))
+    .concat(resolve(packageRoot, "code/src/product/run_invocation_operation.ts"));
+  assert.ok(publicFiles.length > 1);
+  const publicSources = await Promise.all(
+    publicFiles.map((file) => readFile(file, "utf8")),
   );
   const executionBasisSource = await readFile(
     resolve(packageRoot, "code/src/abg/execution_basis.ts"),
     "utf8",
   );
-  const hogExecutionSource = await readFile(
-    resolve(packageRoot, "code/src/hog/leaf_admission.ts"),
+  // The generic leaf result admission is the CCall outcome owner's; the HoG
+  // leaf_admission.ts coordinator that held it is gone.
+  const resultAdmissionSource = await readFile(
+    resolve(packageRoot, "code/src/abg/c_call_outcome.ts"),
     "utf8",
   );
-  for (const source of [publicSource, executionBasisSource]) {
+  for (const source of [...publicSources, executionBasisSource]) {
     assert.doesNotMatch(
       source,
       /\b(?:Consensus|consensus|isConsensus|bindConsensus)\b/,
     );
   }
-  const resultAdmissionStart = hogExecutionSource.indexOf(
-    "const result = admitResult(",
+  const resultAdmissionStart = resultAdmissionSource.indexOf(
+    "const result = payloadRejection ?? admitResult(",
   );
-  const resultAdmissionEnd = hogExecutionSource.indexOf(
+  const resultAdmissionEnd = resultAdmissionSource.indexOf(
     "if (result.kind === \"c_call_admission_rejection\")",
     resultAdmissionStart,
   );
   assert.ok(resultAdmissionStart >= 0 && resultAdmissionEnd > resultAdmissionStart);
-  const resultAdmission = hogExecutionSource.slice(
+  const resultAdmission = resultAdmissionSource.slice(
     resultAdmissionStart,
     resultAdmissionEnd,
   );
   assert.match(
     resultAdmission,
     /input\.leafPort\.validateResultEvidenceLineage\(/u,
-    "generic HoG result admission must invoke the Product evidence-lineage relation",
+    "generic CCall result admission must invoke the Product evidence-lineage relation",
   );
   assert.match(
     resultAdmission,

@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
-import test from 'node:test';
+import test,{after} from 'node:test';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {syncBuiltinESMExports} from 'node:module';
@@ -11,16 +12,42 @@ import {projectExactExecutionBasisAtPrefix} from '../../build/code/src/abg/invoc
 import {projectExactPrefixWorkspaceEnvironment} from '../../build/code/src/abg/environment_admission.js';
 import {resolveExecutionDeclarationClosure,selectExactClosureContract} from '../../build/code/src/product/declaration_closure.js';
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
-const base=path.resolve(import.meta.dirname,'../../../../../20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01');
-const log=path.join(base,'events-01/runtime.events.jsonl'),readyPath=path.join(base,'attempt-01/program-ready-16.json');
+import {reopenEventStore,closeHeldEventStoreAtDurablePrefix} from '../../build/code/src/abg/event_store.js';
+import {evidenceInput} from '../support/evidence-root.mjs';
+import {reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
+// The retained D2 store with its program-ready record, and the S01 call-9
+// record, are historical evidence under the evidence root, named by path,
+// digest and bytes. Without the root every case skips with the reason. The
+// store was appended after this proof's capture (913 lines); the proof is over
+// its first 846 lines, 13,540,472 bytes, sha256 4f561cea….
+const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/';
+const logInput=evidenceInput({path:D2+'events-01/runtime.events.jsonl',sha256:'f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82',bytes:19058361});
+const readyInput=evidenceInput({path:D2+'attempt-01/program-ready-16.json',sha256:'2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02',bytes:12781893});
+const s01Input=evidenceInput({path:'comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-9.jsonl',
+  sha256:'b41e2253b63acb7fd9d2505544272c1ef887c2430d11ec3027d11759a8d32d65',bytes:20426253});
+const absent=[logInput,readyInput,s01Input].find(input=>input.kind==='absent');
+if(absent)test('R10 child proof over the retained D2 store and the S01 call-9 record',{skip:absent.reason},()=>{});
+else await (async()=>{
 const hash=x=>createHash('sha256').update(x).digest('hex');
-const logBytes=fs.readFileSync(log),readyBytes=fs.readFileSync(readyPath);
+const logBytes=logInput.bytes.subarray(0,13540472),readyBytes=readyInput.bytes,retainedStats=[logInput.path,readyInput.path].map(file=>fs.statSync(file));
 assert.equal(hash(logBytes),'4f561ceacf40fd13db82132d93890cb67750453dfa81a75c0401f04bd9345649');
-assert.equal(hash(readyBytes),'2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02');
 const lines=logBytes.toString('utf8').trimEnd().split('\n'),events=lines.map(JSON.parse),ready=JSON.parse(readyBytes);
 const proof={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:ready.call.resources.catalog,catalogView:ready.call.resources.catalogView};
-function prefixAt(ordinal){const selected=Buffer.from(lines.slice(0,ordinal).join('\n')+'\n');const {coordinateDigest:_,...old}=ready.closeHandoff.prefix;
-  const body={...old,prefixLength:selected.length,prefixDigest:'sha256:'+hash(selected)};return {...body,coordinateDigest:sha256Canonical(body)};}
+// The retained close handoff names the original file and a device number that
+// no longer holds; it is historical evidence and is never compared. The store
+// owner reopens a byte copy in per-run scratch under the retained profile and
+// closes it with no append; that truthful coordinate is the base of every
+// historical cut below. Nothing is written under the evidence root.
+const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'r10-child-proof-')),log=path.join(scratch,'runtime.events.jsonl');
+fs.writeFileSync(log,logBytes);after(()=>fs.rmSync(scratch,{recursive:true,force:true}));
+const copy=fs.statSync(log),authority={kind:'event_store_reopen_authority',schemaVersion:'5.0.0',eventLogPath:log,device:copy.dev,inode:copy.ino,
+  eventLogDigest:'sha256:'+hash(logBytes),durableByteLength:logBytes.length,eventContractDigest:ready.closeHandoff.prefix.storeIdentity.eventContractDigest};
+const reopened=reopenEventStore({...authority,authorityDigest:sha256Canonical(authority)});
+assert.equal(reopened.kind,'reopened_event_store_context',JSON.stringify(reopened));
+const {prefix:current}=closeHeldEventStoreAtDurablePrefix(reopened.store,reopened.prefix);
+assert.equal(current.prefixLength,logBytes.length);assert.equal(current.storeIdentity.eventContractDigest,ready.closeHandoff.prefix.storeIdentity.eventContractDigest);
+function prefixAt(ordinal){const selected=Buffer.from(lines.slice(0,ordinal).join('\n')+'\n');const {coordinateDigest:_,...base}=structuredClone(current);
+  const body={...base,prefixLength:selected.length,prefixDigest:'sha256:'+hash(selected)};return {...body,coordinateDigest:sha256Canonical(body)};}
 const close=events.find(e=>e.admissionOrdinal===67),prefix=prefixAt(67);
 const packet={kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'graph_call_result',prefix,targetRef:close.graphCallId,declarationProof:proof};
 const owner=await privateOwner('abg/project_read_ports.js',['prepareRead','scopeForBasis','terminalContract','graphCallContext','typedTerminalResult']);
@@ -115,18 +142,30 @@ test('fresh-process child projection reads only the retained log once proof is s
 });
 
 test('conformance keeps the complete artifact-truth, inventory and Program joins around the shared verifier',async()=>{
-  const s01=path.resolve(import.meta.dirname,'../../../../fixture-program-selection-01/attempt-01');
-  const call=JSON.parse(fs.readFileSync(path.join(s01,'call-9.jsonl'),'utf8')).invocation;
+  const call=JSON.parse(s01Input.bytes.toString('utf8')).invocation;
   const resources=call.resources,catalog=resources.declarationCatalog.catalog;
   const workspace={ref:catalog.workspaceBindingId,digest:catalog.workspaceBindingDigest};
-  const environment=projectExactPrefixWorkspaceEnvironment(resources.artifactTruth.prefix,workspace);
+  // The record's artifact-truth prefix names the original S01 file and a device
+  // that no longer holds. The same prefix (length and digest) is read from the
+  // packaged byte copy of the S01 store, under the coordinate its owner gives
+  // on reopen with no append.
+  const historical=resources.artifactTruth.prefix,packaged=reopenPackagedS01Store(historical.storeIdentity.eventContractDigest);
+  assert.ok(packaged.prefix,JSON.stringify(packaged));
+  const {coordinateDigest:_,...base}=structuredClone(packaged.prefix);
+  const body={...base,prefixLength:historical.prefixLength,prefixDigest:historical.prefixDigest};
+  const environment=projectExactPrefixWorkspaceEnvironment({...body,coordinateDigest:sha256Canonical(body)},workspace);
+  assert.equal(environment.kind,'exact_prefix_workspace_environment',JSON.stringify(environment).slice(0,400));
   const conformance=await privateOwner('validator/conformance_definition_bindings.js',['reconstructDeclarationBasis']);
   assert.equal(conformance.reconstructDeclarationBasis(resources,environment).declarationClosure.kind,'resolved_program_declaration_closure');
   const incomplete={...resources,declaredInventory:resources.declaredInventory.slice(1)};
   assert.throws(()=>conformance.reconstructDeclarationBasis(incomplete,environment),/inventory differs/);
-  const changed=structuredClone(resources);changed.artifactTruth.projectionDigest=sha256Canonical('foreign');
-  assert.throws(()=>conformance.reconstructDeclarationBasis(changed,environment),/artifact truth differs/);
-  const read=JSON.parse(fs.readFileSync(path.join(s01,'call-11.jsonl'),'utf8')).invocation.resources;
+  // The artifact truth the join reads is the admitted environment's, not a supplied copy.
+  const foreign={...environment,artifactTruth:{...environment.artifactTruth,projectionDigest:sha256Canonical('foreign')}};
+  assert.throws(()=>conformance.reconstructDeclarationBasis(resources,foreign),/artifact truth differs/);
+  // The packaged byte copy of the S01 call-11 record (TD-04 R10 increment).
+  const readBytes=fs.readFileSync(path.join(import.meta.dirname,'../fixtures/r10-projection-family/s01-attempt-01/call-11.jsonl'));
+  assert.equal(hash(readBytes),'3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845');
+  const read=JSON.parse(readBytes.toString('utf8')).invocation.resources;
   const schemas=await privateOwner('abg/project_read_definition_bindings.js',['PROJECT_READ_RESOURCE_ASSERTION_SCHEMA','GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA']);
   assert.equal(v.safeParse(schemas.PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,read).success,true);
   assert.equal(v.safeParse(schemas.PROJECT_READ_RESOURCE_ASSERTION_SCHEMA,{...read,declarationProof:proof}).success,false);
@@ -135,6 +174,11 @@ test('conformance keeps the complete artifact-truth, inventory and Program joins
 });
 
 test('the retained native log and proof bytes remain unchanged',()=>{
-  assert.equal(hash(fs.readFileSync(log)),hash(logBytes));assert.equal(hash(fs.readFileSync(readyPath)),hash(readyBytes));
-  assert.equal(fs.statSync(log).dev,16777230);assert.equal(fs.statSync(log).ino,449590349);
+  // The retained files under the evidence root keep their bytes and their
+  // physical identity across the lane; the scratch copy the owner read keeps its bytes.
+  assert.equal(hash(fs.readFileSync(logInput.path)),hash(logInput.bytes));assert.equal(hash(fs.readFileSync(readyInput.path)),hash(readyBytes));
+  [logInput.path,readyInput.path].forEach((file,index)=>{const now=fs.statSync(file),before=retainedStats[index];
+    assert.deepEqual([now.dev,now.ino,now.size,now.mtimeMs],[before.dev,before.ino,before.size,before.mtimeMs],file);});
+  assert.equal(hash(fs.readFileSync(log)),hash(logBytes));
 });
+})();

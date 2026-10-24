@@ -4,7 +4,7 @@ import {readFile, mkdir, mkdtemp, writeFile} from 'node:fs/promises';
 import {resolve, dirname, join} from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import {SourceTextModule, SyntheticModule} from 'node:vm';
-import {prepareStdoNoteProduct, pilotResources} from '../support/stdo-environment-pilot.mjs';
+import {prepareStdoNoteProduct, pilotResources, pilotInputSkip} from '../support/stdo-environment-pilot.mjs';
 
 const packageRoot=process.env.ABI5_ENV_TEST_PACKAGE_ROOT??resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const load=path=>import(pathToFileURL(join(packageRoot,'build/code/src',path+'.js')).href);
@@ -13,8 +13,7 @@ const semantic=await load('product/semantic_stage'),handoff=await load('product/
 const {observeStdoEnvironment}=await load('product/stdo_environment');
 const {projectStdoRoleEvidence}=await load('abg/stdo_environment');
 
-test('RC7 source citation boundary: real corpus access, both compiled role assemblies and unchanged grounding',async()=>{
-  assert.ok(process.env.ABI5_ENV_PROOF_ROOT);assert.ok(process.env.ABI5_ENV_INPUT_ROOT);
+test('RC7 source citation boundary: real corpus access, both compiled role assemblies and unchanged grounding',{skip:pilotInputSkip()},async()=>{
   await mkdir(process.env.ABI5_ENV_PROOF_ROOT,{recursive:true});
   const scratch=await mkdtemp(join(process.env.ABI5_ENV_PROOF_ROOT,'citation-'));
   const manifest=JSON.parse(await readFile(join(packageRoot,'product-toolchain-manifest.json'),'utf8'));
