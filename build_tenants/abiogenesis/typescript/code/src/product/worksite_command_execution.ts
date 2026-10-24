@@ -1778,11 +1778,9 @@ function isPredicateObservation(value: unknown, ordinal: number): value is Works
     value.ordinal !== ordinal || !nonempty(value.predicateId) || !nonempty(value.predicateKind) ||
     !Array.isArray(value.evidence) || !Array.isArray(value.evidenceRefs) ||
     !value.evidenceRefs.every(nonempty)) return false;
-  try {
-    return admitJson(value.observedValue).kind === "ok" && admitJson(value.evidence).kind === "ok";
-  } catch {
-    return false;
-  }
+  let observed: unknown, evidence: unknown;
+  try { observed = value.observedValue; evidence = value.evidence; } catch { return false; }
+  return admitJson(observed).kind === "ok" && admitJson(evidence).kind === "ok";
 }
 
 function isPathObservation(value: unknown): value is WorksitePathObservation {

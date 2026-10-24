@@ -209,13 +209,9 @@ function refusal(
   });
 }
 
-/** The value is I-JSON: `admitJson` admits it. A cyclic value or a throwing proxy trap is not. */
+/** A value is I-JSON when `admitJson` admits it. */
 function exactIJson(value: unknown): boolean {
-  try {
-    return admitJson(value).kind === "ok";
-  } catch {
-    return false;
-  }
+  return admitJson(value).kind === "ok";
 }
 
 /** Pure structural admission for an ABG event-resource assertion. */

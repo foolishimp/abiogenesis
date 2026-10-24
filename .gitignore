@@ -70,6 +70,11 @@ build_tenants/abiogenesis/typescript/contracts/vocabularies/consensus-fh-decisio
 .ai-workspace/**/final-stage/
 .ai-workspace/**/final-source/
 .ai-workspace/**/toolchain/npm/
+.ai-workspace/**/build_tenants/
+.ai-workspace/**/specification/
+.ai-workspace/**/code/src/
+.ai-workspace/**/test_env/
+.ai-workspace/**/.ai-workspace/
 
 # Complete local histories and by-value forensic bodies stay on disk.
 .ai-workspace/**/events.jsonl

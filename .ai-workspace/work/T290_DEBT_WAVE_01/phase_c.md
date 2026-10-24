@@ -1393,3 +1393,298 @@ Grant: for item 0, `code/src/product/worksite_command_execution.ts` (the one fun
 Stop (write it in the Return, keep the rest moving): any deletion or relocation of a tracked historical path; an ignore pattern that would hide an authored record; a UAT consumer that asserts the copied tree; a run record format a test reads that item 4 would change; a mirror whose classification is ambiguous (name it in the inventory with `kind: "unclassified"` and leave it counted).
 
 Return contract: one commit on `main` with the first line `C-4: TD-19's stop: no new tree mirror under .ai-workspace; lint:evidence pins the inventoried historical roots; the inventory lists each root's size, cut and references` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`. Append `## C-4 return` at the end of this record with the pattern proof (item 1), the lint's summary line and its negative (item 2), the inventory totals and the rows with zero references and with a known cut (item 3), the writer finding and its before and after or the evidence that nothing writes a copy (item 4), the proposed sentences (item 5), the lane table (item 6), the before and after of the four item 0 sites with the pin values (item 0), and any stops. Nothing above your section is edited.
+
+## C-4 return
+
+Worker: Opus 5.5, fresh context. Base `a9f336ead`; this package's single commit is the next one on `main`, not pushed. Paths are relative to the repository root unless they start with `scripts/`, `test_env/`, `code/`, `design/` or `build/`, which are under `build_tenants/abiogenesis/typescript/`. Lines are at head `a9f336ead` unless marked "after". Every count under `.ai-workspace/` comes from the index (`git ls-files`, `git cat-file`, `git grep --cached`, `git check-ignore --no-index`); nothing under `.ai-workspace/` was walked on disk, and no tracked path there was deleted, moved or rewritten.
+
+| Item | State | Evidence |
+|---|---|---|
+| 0a. `isPredicateObservation` | done; pin refreshed; span text and `spanDigest` unchanged | item 0 below |
+| 0b. `sameJson`, `exactIJson` | done | item 0 below |
+| 1. `.gitignore` | done; five patterns; `contracts/` stopped; patch layouts and sandbox worksites are stops | pattern proof |
+| 2. `lint:evidence` | done; negative exits 1 naming `scratch-mirror` | summary line and two negatives |
+| 3. Inventory | done; 607 roots; second `--write` byte-identical | totals, rows |
+| 4. UAT writer | nothing at head writes a copy; no change | item 4 below |
+| 5. Records | proposed; no design sentence touched | item 5 below |
+| 6. Lanes and gates | done; no red identity changed | lane table |
+
+**Item 0a** (`code/src/product/worksite_command_execution.ts`, `isPredicateObservation`). Head `:1781-1785`: a `try` returned `admitJson(value.observedValue).kind === "ok" && admitJson(value.evidence).kind === "ok"`, and `catch` returned `false`. After `:1781-1783`, the C-3 Return's text:
+```ts
+let observed: unknown, evidence: unknown;
+try { observed = value.observedValue; evidence = value.evidence; } catch { return false; }
+return admitJson(observed).kind === "ok" && admitJson(evidence).kind === "ok";
+```
+The guard now encloses only the two member reads, which can run a getter. The admissions follow it.
+
+The C2 context pin (`code/src/gtl/worksite_command_execution.ts`). Measured on the built `build/code/src/product/worksite_command_execution.js`:
+
+| Pin value | Line | Head | After |
+|---|---|---|---|
+| `digest` | `:37` | `sha256:a8d7035f451e9f8459e5ff696ef520d440efc7a32bce2481374cae577e693182` | `sha256:5a9e5414090bd2e2b521551b9a28d98917cefa6edd1d252c2d26fbfd9997aba5` |
+| `byteCount` | `:39` | 115,562 | 115,644 |
+| `startByte` | `:61` | 105,477 | 105,559 |
+| `endByte` | `:61` | 107,909 | 107,991 |
+| `spanDigest` | `:61` | `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` | unchanged |
+
+The span's 2,432 bytes occur once in the new member and equal head's span byte for byte. They sit 82 bytes later because the function precedes them. The renderer's text is unchanged.
+
+`npm run build` regenerates three tracked files, not two. `a692fb4b9` carried the same three.
+
+| File | Head sha256 | After sha256 | Changed leaves |
+|---|---|---|---|
+| `build_tenants/abiogenesis/typescript/product-toolchain-manifest.json` | `bd694e0e98ae…` | `a6c99b87f2ac…` | 68 |
+| `build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json` | `c2438278693d…` | `dbca026ed932…` | 310 |
+| `build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json` | `5f1e603756ab…` | `6e72f8a15368…` | 1 (the member digest) |
+
+With every hex run of 32 or more characters masked, no leaf of the three files differs between head and after. Each change is a digest. `package.json` is packaged content (`files` holds `build/**`, `contracts/**` and the manifest, and the manifest digests `package.json`), so the `lint:evidence` line also moves the product content digest. The after lanes ran on the build that holds that line.
+
+**Item 0b.** Both dead `catch` blocks and the stale comment sentences are deleted.
+- `sameJson` (`code/src/public/binding/definition_binding_mechanics.ts`). Head `:42-57`; after `:42-51`. The two admissions are plain `const` reads, and the conjunction with `canonicalEquals` is unchanged. Head's comment (`:45-47`) said that `admitJson` throws on a cycle and on a proxy trap, and that the `catch` keeps those answers `false`. Those sentences are gone. The comment is now one sentence: "The binding lift of `canonicalEquals` over unchecked call values: both sides are admitted through `admitJson`, and a refusal on either side is inequality."
+- `exactIJson` (`code/src/abg/definition_event_resource.ts`). Head `:212-219`; after `:212-215`. The body is `return admitJson(value).kind === "ok";`. The comment is "A value is I-JSON when `admitJson` admits it." It replaces "… A cyclic value or a throwing proxy trap is not."
+
+A probe on the built module gave `sameJson`: a cyclic record `false`, a proxy whose `ownKeys` trap throws `false`, 513 nested arrays `false`, equal values `true`, unequal values `false`; each refused value answers `false` without a throw. The lane case `O-TYPE: sameJson` (`test_env/tests/t287-common-computational-library.test.mjs:238`) passes before and after.
+
+**Item 1: `.gitignore`.** I added five lines at `.gitignore:73-77`, after `.ai-workspace/**/toolchain/npm/` and inside the block "Local AI-work installations, compilation scratch and copied Product trees":
+```
+.ai-workspace/**/build_tenants/
+.ai-workspace/**/specification/
+.ai-workspace/**/code/src/
+.ai-workspace/**/test_env/
+.ai-workspace/**/.ai-workspace/
+```
+Three of them come from the item 3 census. The two mandated patterns catch 47,265 tracked paths. The other three catch 28,531 that hold neither a `build_tenants/` nor a `specification/` directory:
+- 18,665 with a `code/src/` directory;
+- 9,664 with `test_env/` and no `code/src/`;
+- 202 with only a nested `.ai-workspace/`.
+
+`node_modules/` is already ignored (`:55`).
+
+Proof. I ran `git ls-files -z .ai-workspace | git check-ignore --no-index -z --stdin -v` with head's `.gitignore` and again with the new one, then compared the results with the inventory:
+
+| Measure | Count |
+|---|---|
+| tracked paths under `.ai-workspace/` (with the new inventory) | 127,233 |
+| ignored by head's rules | 447 |
+| ignored by the new rules | 76,065 |
+| newly matched | 75,618 |
+| newly matched inside an inventoried root | 75,618 |
+| newly matched outside every inventoried root | 0 (so 0 authored `.md`, `.json`, `.mjs`, `.diff` or `.txt` outside them) |
+| deciding pattern of the newly matched (the one that excludes the outermost directory) | `build_tenants/` 43,621; `code/src/` 18,492; `test_env/` 9,683; `specification/` 3,620; `.ai-workspace/` 202 |
+| previously ignored, now decided by a new pattern | 28 |
+| classified (inventoried) paths | 75,801; all ignored after; 183 ignored before |
+| classified paths whose root is not in the inventory | 0 |
+
+The rules untrack nothing. They refuse a new copy at `git add`. The untracked set is unchanged: before and after, `git status --short` lists the same 14 untracked entries, none of them this package's. Two are codex strategy posts; twelve are harness unit-run directories dated 2026-10-24T05:21 under `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/`. The new rules now hide 216 of the 421 untracked files in those unit-run directories (160 under `build_tenants/`, 56 under `specification/`). They are a sandbox's worksite trees written by `test_env/uat/harness.test.mjs`; see Findings. Three stops follow (Stops 1 to 3).
+
+**Item 2: the lint.** `scripts/check-evidence-mirrors.mjs` (new) is wired as `"lint:evidence": "node scripts/check-evidence-mirrors.mjs"` (`package.json:102`, after `lint:lifecycle`).
+- It runs `git -C <repository root> ls-files -z .ai-workspace` with no disk walk, no network and Node built-ins only.
+- It classifies each path by its first marker segment below `.ai-workspace/`: `build_tenants`, `specification`, a nested `.ai-workspace`, `code/src`, `test_env` or `node_modules`. The root is the path above that segment.
+- It compares each root and its path count with the inventory. An unlisted root, or one with more paths than listed, prints one line and the lint exits 1. Fewer paths is lawful.
+- `--write` regenerates the inventory from the same classification.
+
+At the commit:
+```
+check-evidence-mirrors: 607 tracked mirror roots under .ai-workspace, all inventoried; no new copy
+```
+(rc 0). Negatives in scratch indexes (`GIT_INDEX_FILE` copies of the real index, one `git update-index --add --info-only --cacheinfo` entry each, the empty blob `e69de29bb2d1…`, nothing on disk):
+```
+$ GIT_INDEX_FILE=…/index.neg   # + .ai-workspace/work/T290_DEBT_WAVE_01/scratch-mirror/build_tenants/x.txt
+.ai-workspace/work/T290_DEBT_WAVE_01/scratch-mirror: 1 tracked path(s), not inventoried
+check-evidence-mirrors: 1 mirror root(s) under .ai-workspace hold tracked paths the inventory does not list, a new copy; name the cut by commit hash and each input by path and digest instead
+rc=1
+$ GIT_INDEX_FILE=…/index.neg2  # + …/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source/build_tenants/negative-probe.txt
+.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline/source: 1307 tracked path(s), 1306 inventoried
+check-evidence-mirrors: 1 mirror root(s) under .ai-workspace hold tracked paths the inventory does not list, a new copy; name the cut by commit hash and each input by path and digest instead
+rc=1
+```
+`git check-ignore --no-index -v` decides both probe paths by `.gitignore:73:.ai-workspace/**/build_tenants/`. Afterwards the real index holds 5 paths under `work/T290_DEBT_WAVE_01`, none of them a probe path, and `scratch-mirror/` does not exist on disk.
+
+**Item 3: the inventory** (`.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json`, 1,616,337 bytes, sha256 `f2dec8874073a4907eda405c20154892562dd5a8f0318406c98e6a6cd1b11966`). Generation:
+1. Every grant file was staged first.
+2. `node scripts/check-evidence-mirrors.mjs --write` ran (3 min 6 s), and its output was copied to scratch.
+3. A second `--write` ran, and `cmp` reported the two outputs byte-identical (`IDENTICAL`, same sha256).
+
+The file holds `kind`, `schemaVersion`, `standing` (a derived read model pinned by the lint, not authority), `rules` (the classification and each field's definition, in words), `roots` and `totals`. Each row records:
+- `root`, `owner` (`work/<record>`, `evidence/<record>`, `comments/<agent>/<post>` or `context/<area>/<kind>/<entry>`) and `kind`;
+- `markers`, `paths` and `bytes` (from `git cat-file --batch-check`, duplicates counted);
+- `pathsAtHead`: paths whose position below the root names a tracked path at this index;
+- `pathsDuplicated`: paths whose blob is also tracked outside the root;
+- `cut`: `{ commit, file, line, pathsMatching }` or `null`; `pathsMatching` counts paths whose blob equals the blob at the same position in that commit;
+- `cutLookedIn`, the files examined when `cut` is `null`;
+- `references` and `referencesOutsideMirrors`.
+
+| Total | Value |
+|---|---|
+| roots | 607 |
+| paths | 75,801 |
+| bytes | 3,128,437,550 |
+| roots with zero references | 5 (the same 5 counting only references outside mirrors) |
+| roots with a known cut | 266 |
+| roots whose known cut matches at least one path's blob | 121 |
+
+| Area | Roots | Paths | Bytes |
+|---|---|---|---|
+| `work/` | 240 | 61,792 | 2,701,942,527 |
+| `comments/` | 346 | 13,909 | 422,494,143 |
+| `evidence/` | 20 | 89 | 3,784,527 |
+| `context/` | 1 | 11 | 216,353 |
+
+| Kind (decided in this order) | Roots | Paths | Bytes |
+|---|---|---|---|
+| `uat-run-source` (`work/T287_SANDBOX_UAT_RUN_02/operator/<run>/source`) | 2 | 527 | 14,409,143 |
+| `patch-layout` (only `.diff`/`.patch`; authored, not a copy) | 3 | 11 | 38,116 |
+| `ignore-skeleton` (only `.gitignore`) | 162 | 3,938 | 2,876,017 |
+| `sandbox-worksite` | 27 | 661 | 47,390,071 |
+| `install` | 5 | 5 | 650 |
+| `build-output` | 21 | 7,675 | 208,699,902 |
+| `repository-tree` | 190 | 45,881 | 2,216,839,550 |
+| `tenant-tree` | 197 | 17,103 | 638,184,101 |
+| `unclassified` | 0 | 0 | 0 |
+
+The `ignore-skeleton` roots hold only per-directory `.gitignore` files of a copied tree. The tree's other files stayed untracked, and the 20260923 WIP checkpoint transport alone left 5,511 tracked `.gitignore` files.
+
+Census reconciliation. The activation's census counts the roots of tracked paths holding a `build_tenants/` segment. On this index that census gives 89 roots and 41,900 paths under `work/`, 83 roots and 1,737 paths under `comments/`, and 1 root of 1 path under `context/` (43,638 paths, 173 roots), which matches the activation's figures. The context root is one the activation did not list. 172 of the 173 roots are inventory roots unchanged. The 173rd, `comments/codex/20260928_FRAMED_GOVERNANCE/f11-carrier-realization-01/copied-tenant/test_env/…/docs/standards/templates` (12 paths), falls inside the inventory root `…/f11-carrier-realization-01/copied-tenant`, because `test_env` opens the tree first. The inventory adds 434 roots that the `build_tenants` census does not see: `specification/`, `code/src/`, `test_env/`, nested `.ai-workspace/` and `node_modules/` copies, plus the UAT source and sandbox worksite roots the activation names. Of the activation's 657 tracked paths under `T287_SANDBOX_UAT_RUN_02/…/source/`, 527 lie in the two `uat-run-source` roots. The other 130 lie in fixture `source/` directories (`crosscut-installed-source-context-proof-82/…/fixture/source/`, `current-installed-dependency-lock-repair-207/fixtures/…`), authored fixture files that no marker classifies.
+
+Rows checked by hand. Each is a row where no path, or one, names a tracked path at this index. Each keeps the kind its rule gives, and none is `unclassified`.
+- **7 `odd_glc` roots**: `comments/codex/20260924_EXECUTIVE_CHECKPOINT/tracking-0{3,4}/{preimages,postimages}/odd_glc`, `20260924_WORKSPACE_RESOURCE_LIFETIME/command-budget-contract-01/{preimages,postimages}/odd_glc` and `…/native-d2-01/source-basis-repair-01/tracking-preimage/odd_glc`. They hold the sibling repository's files laid out by its own paths. Their `build_tenants` or nested `.ai-workspace` marker makes them `repository-tree`.
+- **9 `standards/templates` roots**: the 8 `final-law/standards/templates` roots under `20260928_FRAMED_GOVERNANCE/final-candidate-construction-03` to `-10` (13 paths each), and `work/T287_COMMON_LIBRARY_DELIVERY_01/realization/k11-role-source-successor-01/resources/counterexample-stdo-source/standards/templates`. They are copies of STDO standard templates: blob `6feb61a0…` exists in the `specification_methodology` `a_c` source. They are `repository-tree` by `build_tenants`.
+- **`comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/seed`** (1 path): its blob is the one tracked under `default-library-implementation/attempt-0{3,4}/worksite-result`. It is `repository-tree` by `specification`, and `pathsDuplicated` 1 keeps it out of `unclassified`.
+
+Rows with zero references. No tracked `.md` or `.json` outside the root names a path inside it:
+
+| Root (under `.ai-workspace/`) | Paths | Bytes | Kind | Cut | What does name it |
+|---|---|---|---|---|---|
+| `work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/root-preimages` | 4 | 690,922 | repository-tree | `727f1dbcab3c` | `verify_documents.py` (a `.py`) |
+| `work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/finite-membership-diagnostic-33` | 1 | 38,128 | tenant-tree | `0b1187c40cca` | a `.jsonl` checkpoint |
+| `work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/finite-retainer-diagnostic-33` | 1 | 37,472 | tenant-tree | `0b1187c40cca` | a `.jsonl` checkpoint |
+| `work/T287_STDO3_RECONCILIATION_01/product-writer/preimages` | 11 | 223,782 | repository-tree | `727f1dbcab3c` | the activation names `preimages.json` only |
+| `work/T287_STDO3_RECONCILIATION_01/root-preimages` | 4 | 645,800 | repository-tree | `727f1dbcab3c` | none found |
+
+Rows with a known cut: 266 roots in 17 groups, by owner and named commit. The cut is the commit the record names, found in `return.md` (173 roots), `basis.json` (68), `freeze.json` (24) and `source-manifest.json` (1). It is not proved to be the copied tree. `pathsMatching` measures the tie: a path matches when its blob equals the blob at the same position in that commit. A post-image root matches 0 by construction. Each root's own row is in the inventory.
+
+| Owner (under `.ai-workspace/`) | Cut | Roots | Paths | Paths matching | Named at |
+|---|---|---|---|---|---|
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `5c4245ea900f` | 6 | 26 | 12 | `native-d2-01/return.md:9` |
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `701026970da5` | 5 | 28 | 7 | `command-budget-contract-01/return.md:5`, `native-contract-diagnostics-01/return.md:5` |
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `88cd8b66f901` | 2 | 16 | 8 | `native-d2-01/admission-boundary-refactor-01/selector-presentation-01/author-context-policy-01/design-presentation-continuation-02/owner-continuation-repair-01/lock-graph-reuse-01/return.md:3` |
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `c080e5f85de0` | 1 | 3 | 2 | `event-causation-lookup-01/return.md:5` |
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `faf44bfb5904` | 7 | 28 | 13 | `native-d2-01/admission-boundary-refactor-01/selector-presentation-01/return.md:3` |
+| `comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME` | `ff29a8bab8f8` | 3 | 16 | 16 | `native-d2-01/admission-boundary-refactor-01/step3/return.md:3`, `native-d2-01/admission-boundary-refactor-01/return.md:26` |
+| `comments/codex/20260928_FRAMED_GOVERNANCE` | `1535e001baf4` | 2 | 11 | 8 | `registered-selection-native/return.md:7` |
+| `comments/codex/20260928_FRAMED_GOVERNANCE` | `1aec3999f5c9` | 2 | 28 | 17 | `s7-pending-consumer-01/selected-action-01/return.md:3` |
+| `comments/codex/20260928_FRAMED_GOVERNANCE` | `55a8a452141c` | 13 | 55 | 1 | 7 files (return.md) |
+| `comments/codex/20260928_FRAMED_GOVERNANCE` | `b8bffae0654b` | 2 | 21 | 10 | `s6-fulfillment-implementation/return.md:5` |
+| `comments/codex/20260928_FRAMED_GOVERNANCE` | `b90249e0d18a` | 3 | 29 | 9 | `s7-pending-consumer-01/source-use-01/return.md:5` |
+| `work/T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01` | `727f1dbcab3c` | 1 | 4 | 0 | `basis.json:3` |
+| `work/T287_COMMON_LIBRARY_DELIVERY_01` | `67c33379992b` | 26 | 8,836 | 8,334 | 6 files (freeze.json, basis.json) |
+| `work/T287_COMMON_LIBRARY_DELIVERY_01` | `727f1dbcab3c` | 63 | 26,589 | 21,746 | `basis.json:3`, `proof/baseline/source-manifest.json:6` |
+| `work/T287_COMMON_LIBRARY_DELIVERY_PLAN_01` | `727f1dbcab3c` | 1 | 3 | 0 | `basis.json:3` |
+| `work/T287_SANDBOX_UAT_RUN_02` | `0b1187c40cca` | 127 | 15,665 | 5,535 | `operator/return.md:3`, `return.md:38` |
+| `work/T287_STDO3_RECONCILIATION_01` | `727f1dbcab3c` | 2 | 15 | 8 | `basis.json:3` |
+
+**Item 4: the UAT writer.** Nothing at head writes `.ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/<run>/source/`. The writer is unchanged.
+- **The entry.** `scripts/sandbox-uat.mjs` (4 lines) calls `main` of `test_env/uat/runner.mjs`. The runner archives each run under `config.archiveRoot`, whose default is `test_env/test_runs/sandbox-uat` (`runner.mjs:79`). `.gitignore:38` (`build_tenants/*/*/test_env/test_runs/`) ignores that directory, and `:80` refuses an archive inside `build/` or `artifacts/`. A run writes its own records, a `bootstrap/node_modules` install and the sandbox's `sandbox/worksite` tree.
+- **No copy step.** None of `test_env/uat/{runner,public-setup,consumer,continuation}.mjs` holds a `cp`, `cpSync`, `copyFile` or `rename` call, or any copy of tenant source.
+- **No tracked naming.** Outside `.ai-workspace/`, only two tracked files name `T287_SANDBOX_UAT_RUN_02` (`git grep --cached`): `design/ABI5_STDO3_COMPUTATIONAL_BINDING.md` (prose) and this package's lint.
+- **The two copied trees** are `operator/library-definition-reuse-232/source` (263 classified paths) and `operator/library-runtime-state-233/source` (264). Drivers inside the record wrote them. For example, `operator/library-runtime-state-233/stage-owned-overlay.py:5-13` writes tenant `code/src` files and Worker 235 post-images into `phase/'source/code/src'`. They are history, and the item 1 rules and the lint refuse a repeat.
+
+So a UAT run at head adds no tracked copied tree to a work record. Item 6 runs the harness lane only when the writer changes, so it was not run.
+
+**Item 5: records (proposed; the Executive places them).**
+- **`.gitignore` block comment**, a third line under the two at `:53-54`:
+  `# A tree copied into a work record (repository, tenant, specification, install, build output or prior proof) stays local; the record names its cut by commit hash and its inputs by path and digest.`
+- **T-290 Rules bullet:**
+  "A package record names its cut by commit hash and its inputs by path and digest; it holds no copy of a repository tree, an install, a build output or a prior proof tree; `npm run lint:evidence` refuses one."
+- **TD-19 register state.**
+  - The stop is closed at the C-4 commit. `.gitignore:73-77` refuses, at `git add`, a copied repository, tenant, specification or workspace tree under `.ai-workspace/`. `npm run lint:evidence` refuses a tracked one that `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json` does not list.
+  - The historical rows are held for the owner's deletion decision: 607 mirror roots, 75,801 paths and 3,128,437,550 bytes, each with its size, its named cut and its references.
+  - The inventory does not cover two things. The first is 43,039,901,551 bytes in 51,432 tracked paths outside the mirror roots: run outputs, mostly `.json` (21.58 GB), `.jsonl` (10.69 GB) and `.part*` chunks. The second is a copy holding only a `contracts/` tree (Stop 1).
+  - Open for a ruling: Stops 2 and 3 (patch layouts, sandbox worksites).
+- **Design check.** `design/` holds no "proof package" or "evidence packaging" (0 hits each). "mirror" has 12 hits in 9 files, and all of them concern runtime or code structure. Examples: the sandbox snapshot mirror (`design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:302`, `:453`, `:592`), "does not port by file mirroring" (`design/PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION.md:20`) and carrier mirroring (`design/TYPESCRIPT_REALIZATION_GUARDRAILS.md:57`). None of them governs how a package record holds evidence, so no design sentence is touched. The repository has no root `design/`.
+
+**Item 6: lanes and gates.**
+
+| Gate | Result after |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | `check-import-direction: 28 modules under code/src/shared/ import only code/src/shared/ and packages` |
+| `npm run lint:lifecycle` | `check-lifecycle-boundary: 284 modules under code/src; 7 allow-listed site(s), no offender` |
+| `npm run lint:evidence` | `check-evidence-mirrors: 607 tracked mirror roots under .ai-workspace, all inventoried; no new copy` (rc 0) |
+| `npm run build` | rc 0 (33 s), run with every grant file staged; `git diff` afterwards is empty, so the build regenerates exactly the three staged files |
+| `npm run build` at head, before any edit | rc 0, no diff |
+| `git status --short` before the commit | the 11 grant files and this record, staged; untracked: the same 14 entries as at the start (item 1) |
+
+Lanes ran one at a time with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. Before means head's build. After means the final build, with the `lint:evidence` line. A middle run, on the edited code before that line was added, gave the same counts and red identities. A script compared each red's test identity and first error, before against after, and found both the same in every lane.
+
+| Lane | Item | Why in the set | Before (t/p/f/s) | After | Reds |
+|---|---|---|---|---|---|
+| `t287-worksite-command-execution` | 0a | activation; installed cases (8 min 52 s before, 8 min 18 s after) | 10/10/0/0 | 10/10/0/0 | none |
+| `forward-command-contracts` | 0a | activation | 10/10/0/0 | 10/10/0/0 | none |
+| `m5-c-algebra-validation` | 0a | activation | 22/19/0/3 | 22/19/0/3 | none |
+| `t287-common-computational-library` | 0b | `O-TYPE: sameJson` `:238`; imports `definition_binding_mechanics` | 10/10/0/0 | 10/10/0/0 | none |
+| `t287-conformance-owner-reuse` | 0b | imports both | 1/0/1/0 | 1/0/1/0 | file level: `ABI5_CONFORMANCE_METADATA` not set |
+| `t287-cross-cut-public-read` | 0b | `definition_binding_mechanics` | 5/4/1/0 | 5/4/1/0 | `:105` |
+| `t287-installed-product-coordinate` | 0b | `definition_event_resource` | 11/11/0/0 | 11/11/0/0 | none |
+| `t287-interrupted-event-resource-recovery` | 0b | `definition_event_resource` | 8/6/2/0 | 8/6/2/0 | `:74`, `:136` |
+| `t287-malformed-gtl-gate` | 0b | `definition_binding_mechanics` | 6/5/1/0 | 6/5/1/0 | `:60` |
+| `t287-release-acceptance` | 0b | `definition_event_resource` | 1/0/1/0 | 1/0/1/0 | file level: "explicit disposable F16 proof territory required" |
+| `t287-w2-05-install-catalog-owner-chain` | 0b | `definition_binding_mechanics` | 1/0/1/0 | 1/0/1/0 | `:286` |
+| `t287-w2-05-static-binding-algebra` | 0b | imports both | 5/3/0/2 | 5/3/0/2 | none |
+| `witness-reprice-definition-binding` | 0b | `definition_event_resource`, `test_env/support/witness-reprice-mechanics.mjs` | 15/0/15/0 | 15/0/15/0 | all 15 (`:27` to `:226`) |
+| `witness-run-stopped-definition-binding` | 0b | the same two | 7/0/7/0 | 7/0/7/0 | all 7 (`:31` to `:117`) |
+| `t287-fh-hold-open` | 0b | `witness-reprice-mechanics.mjs`, which imports `definition_event_resource` | 1/0/1/0 | 1/0/1/0 | file level: `ERR_MODULE_NOT_FOUND`, a module under `.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/` |
+| `t288-workflow-scope-conservation` | 0b | `definition_event_resource` | 1/0/1/0 | 1/0/1/0 | file level: `assert.ok(prior)` |
+| `t288-physical-return-conservation` | 0b | `definition_event_resource` | 1/0/1/0 | 1/0/1/0 | file level: `assert.ok(prior)` |
+| `t287-governance-covered-source-use` | 0b | `definition_event_resource` | 8/2/3/3 | 8/2/3/3 | `:351`, `:386`, `:430` ("select the frozen bounded fixture") |
+| `test_env/uat/continuation` | 0b | `definition_event_resource` | 4/0/0/4 | 4/0/0/4 | none |
+
+Totals: 19 lanes, 127 tests, 80 pass in both runs (before and after), 35 reds with the same identities and first errors in both runs, and 12 skipped. The reds depend on the environment or on records: unset variables, record-held modules and fixtures. None of them involves `sameJson`, `exactIJson` or `isPredicateObservation`.
+
+**Stops.**
+1. **`contracts/` is not a marker and has no pattern.** `.ai-workspace/**/contracts/` would hide authored records: the 36 run outputs of `.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/e03-r1-identity-boundary-01/contracts/` (`explicit-design-*-actual.json`, `-comparison.json`, `-input.json`), which are that run's own results, not a copy. A `contracts` marker would add 4,958 tracked paths in 227 roots, 103 of them not existing roots. Those 4,958 paths are neither inventoried nor checked by the lint, and a new copy holding only a `contracts/` tree is not refused.
+2. **The patterns match authored patches laid out by repository path.** The three `patch-layout` roots hold 11 tracked `.diff` files:
+   - `comments/codex/20260928_FRAMED_GOVERNANCE/result-lineage-typed-contract-realization-01/deltas` (7, decided by `build_tenants/`);
+   - `evidence/T287_G2_CLOSED_TUPLE_PROOF_CONSUMER_REPAIR_01/Source/diffs` (2, decided by `code/src/` and `test_env/`);
+   - `evidence/T287_G2_SEMANTIC_ASSEMBLY_TUPLE_REPAIR_01/Source/diffs` (2, the same).
+
+   They are inside inventoried roots, so the item 1 proof holds, and they stay tracked. But a future record that lays its diffs out this way is refused at `git add` and by the lint. That contradicts the block's own line "… drivers and patches remain visible" (`.gitignore:54`). A possible refinement, for the Executive to rule on:
+   - use the forms `.ai-workspace/**/build_tenants/**` (and the like) in place of the directory forms, because git cannot re-include a file below an excluded directory;
+   - add `!.ai-workspace/**/*.diff` and `!.ai-workspace/**/*.patch`;
+   - have the lint skip `.diff`/`.patch` paths.
+
+   The mandated pattern form is kept.
+3. **The patterns also refuse a sandbox's own worksite records.** The activation calls `supplied-work/<run>/{old,fresh}/sandbox/worksite/specification/` the sandbox's own worksite records, and item 4 keeps a run's own outputs.
+   - The 27 `sandbox-worksite` roots hold 661 paths. 14 are under `comments/codex/20260928_FRAMED_GOVERNANCE`, 8 under `work/T287_SANDBOX_UAT_RUN_02`, 4 under `work/T287_COMMON_LIBRARY_DELIVERY_01` and 1 under `comments/codex/20260926_CALCULUS_CROSSCUT`.
+   - They are inventoried, so the item 1 proof holds, and they stay tracked.
+   - A future run record that holds a sandbox worksite's `specification/` or `build_tenants/` tree is refused at `git add` (`.gitignore:73-74`), and the lint refuses it as a new root.
+   - Finding 2 shows the effect today: 216 of the 421 untracked harness unit-run files are hidden.
+
+   For the Executive to rule, one of two:
+   - a sandbox worksite is a run output that stays visible: then the same `/**` forms with a re-include scoped to the worksite segments (`!.ai-workspace/**/sandbox/worksite/**` and the like), and the lint skips the `sandbox-worksite` kind;
+   - a run record names its worksite by digest, as it names any other input.
+
+**Deviations from the activation's wording.**
+- `npm run build` regenerates three tracked files, not two. `product-toolchain-manifest.json` is the third, as at `a692fb4b9`.
+- The marker set is `build_tenants`, `specification`, a nested `.ai-workspace`, `code/src`, `test_env` and `node_modules`. The census added `.ai-workspace` and `test_env`; `contracts` is out (Stop 1).
+- Owners include `evidence/<record>` and `context/<area>/<kind>/<entry>` as well as `work/` and `comments/`. The inventory has 20 roots under `evidence/` and 1 under `context/`.
+- References are found differently. The activation names a per-root `git grep -l -F`. A single fixed-string pattern over all tracked `.md`/`.json` takes about 5.5 s, and the time grows with the pattern count: 1,000 patterns ran past 11 minutes before I stopped them. So `git grep --cached -l -F` runs once over the 54 owner directory names, and a resolver attributes each path-like token to the deepest root containing it. The candidate set adds the `.md`/`.json` files outside mirrors below each root's parent, where relative mentions are written. Two kinds of file are excluded from references: the inventory itself, and `.ai-workspace/work/T290_DEBT_WAVE_01/`, whose records name roots in order to discuss them.
+- The cut is looked up in `freeze.json`, `source-manifest.json`, `basis.json`, `L2-candidate-freeze*.json`, `report.md` and `return.md`, from the root's parent directory up to the owner. It is the commit the record names, not a proved tie to the copied tree, and `pathsMatching` measures the tie. For 225 cut-less roots, `cutLookedIn` is empty because no such file exists between the root and its owner. For the other 116, it lists the files examined.
+- Kinds are decided by an ordered rule, and the rule is written into the inventory. Seventeen rows were checked by hand (item 3), and none is `unclassified`.
+- The lint's offender line reads `<root>: <n> tracked path(s), not inventoried` or `<root>: <n> tracked path(s), <m> inventoried`. It is followed by one closing line naming the remedy.
+
+**Findings outside the grant.**
+1. **References cover `.md` and `.json` only.** Consumers in other formats exist: `t287-fh-hold-open` imports a module from `.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/`, `verify_documents.py` names `T287_COMMON_COMPUTATIONAL_LIBRARY_DESIGN_01/root-preimages`, and a `.jsonl` checkpoint names the two `*-diagnostic-33` roots. One tenant `.mjs` (`test_env/`, `scripts/`) names a path inside a root: `.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/work`. A deletion decision should first grep every tracked format.
+2. **The harness writes into a tracked work record by default.** `test_env/uat/harness.test.mjs:20` sets the default unit-run root to `.ai-workspace/work/T287_SANDBOX_UAT_01/harness/unit-runs/`, where 120 historical paths are tracked. The 12 untracked unit-run directories at the start of this package came from it. The new rules hide 216 of their 421 files, the `build_tenants/` and `specification/` trees of the sandbox worksite. The other files stay visible to `git status`.
+3. **Mirror roots hold a small share of the bytes.** Of the 46,168,339,101 tracked bytes under `.ai-workspace/` at this index, mirror roots hold 3,128,437,550 (6.8 %). The other 43,039,901,551 bytes, in 51,432 paths, are run outputs. By owner:
+
+   | Owner | Bytes |
+   |---|---|
+   | `comments/codex/20260928_FRAMED_GOVERNANCE` | 16.50 GB |
+   | `20260923_WIP_CHECKPOINT` | 8.25 GB |
+   | `20260924_WORKSPACE_RESOURCE_LIFETIME` | 6.82 GB |
+   | `work/T287_SANDBOX_UAT_RUN_02` | 4.08 GB |
+   | `work/T287_COMMON_LIBRARY_DELIVERY_01` | 3.67 GB |
+   | `20260926_CALCULUS_CROSSCUT` | 2.33 GB |
+
+   The largest single names are `intake-start.jsonl` (1.00 GB in total), `08-intake-conformance.json` (0.59 GB) and `live-start.jsonl` (0.57 GB). All 30 tracked `abg-acquisition.json` copies lie inside mirror roots. TD-19's retention manifest needs this second inventory before the 40 GB figure shrinks materially. This package's rule does not reach it.
