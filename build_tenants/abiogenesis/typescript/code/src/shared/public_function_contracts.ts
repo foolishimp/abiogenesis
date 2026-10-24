@@ -749,8 +749,8 @@ function normalizeGeneratedDefinitionRefs(
       for (const entry of value) visit(entry);
       return;
     }
-    if (typeof value !== "object" || value === null) return;
-    const record = value as Readonly<Record<string, JsonValue>>;
+    if (!isRecord(value)) return;
+    const record = value;
     const reference = record.$ref;
     if (typeof reference === "string") {
       const match = /^#\/\$defs\/([^/]+)$/u.exec(reference);
@@ -769,8 +769,8 @@ function normalizeGeneratedDefinitionRefs(
   }
   const neutral = (value: JsonValue): JsonValue => {
     if (Array.isArray(value)) return value.map(neutral);
-    if (typeof value !== "object" || value === null) return value;
-    const record = value as Readonly<Record<string, JsonValue>>;
+    if (!isRecord(value)) return value;
+    const record = value;
     return Object.fromEntries(Object.keys(record).sort().map((key) => [
       key,
       key === "$ref" &&
@@ -795,8 +795,8 @@ function normalizeGeneratedDefinitionRefs(
 
   const rewrite = (value: JsonValue): JsonValue => {
     if (Array.isArray(value)) return value.map(rewrite);
-    if (typeof value !== "object" || value === null) return value;
-    const record = value as Readonly<Record<string, JsonValue>>;
+    if (!isRecord(value)) return value;
+    const record = value;
     return Object.fromEntries(Object.entries(record).map(([key, child]) => {
       if (key === "$ref" && typeof child === "string") {
         const match = /^#\/\$defs\/([^/]+)$/u.exec(child);

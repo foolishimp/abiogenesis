@@ -8,7 +8,7 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
-import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   assertHeldEventStoreAtDurablePrefix,
@@ -494,10 +494,12 @@ export function assessResult(
   supplied: ResultAssessPacket,
   suppliedContext?: ResultAssessmentOperationContext,
 ): ResultAssessmentOperationResult {
-  let admitted: JsonValue;
+  let admitted: JsonValue | undefined;
   try {
-    admitted = admitIJsonValue(supplied, "result assessment packet");
-  } catch {
+    const outcome = admitJson(supplied);
+    if (outcome.kind === "ok") admitted = outcome.value;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (admitted === undefined) {
     return refusal(
       "value_mismatch",
       "result assessment requires one exact canonical I-JSON request",

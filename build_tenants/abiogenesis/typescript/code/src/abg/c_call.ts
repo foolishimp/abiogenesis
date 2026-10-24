@@ -21,7 +21,7 @@ import {
   resolveEnclosingCBatchRef,
 } from "../gtl/source_path.js";
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
-import { canonicalJson, writeCanonicalJson, compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Bytes,
@@ -143,7 +143,7 @@ import {
   type WorksiteFileReplaceRequest,
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
-import { canonicalEquals, presentMember } from "../shared/value/index.js";
+import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
@@ -7343,14 +7343,13 @@ function pendingInteractionBodyDigest(
   let finite: Readonly<Record<string, JsonValue>>;
   if ("planRef" in plan) finite = pendingInteractionPlanBody(plan);
   else { const { projectedPrefix: _projectedPrefix, replayState: _replayState, ...rest } = plan; finite = rest; }
-  const hash=createHash("sha256");const write=(part:string)=>{hash.update(part);};write("{");let comma=false;
-  for(const key of [...Object.keys(finite), "projectedPrefix", "replayState"].sort(compareUnicodeCodeUnits)) {
-    if(comma)write(",");comma=true;writeCanonicalJson(key,write);write(":");
+  const hash = createHash("sha256");
+  writeCanonicalRecord<JsonValue | undefined>([...Object.entries(finite), ["projectedPrefix", undefined], ["replayState", undefined]], (member, key, write) => {
     if(key==="projectedPrefix") { if(plan.projectedPrefix.kind === "validated_runtime_event_prefix")writeCanonicalJson(plan.projectedPrefix,write);else writeRuntimeEventPrefixValue(plan.projectedPrefix,write); }
     else if(key==="replayState") { if("kind" in plan.replayState && plan.replayState.kind === "replay_state")writeCanonicalJson(plan.replayState,write);else writeRuntimeReplayGuardValue(plan.replayState,write); }
-    else writeCanonicalJson(finite[key]!,write);
-  }
-  write("}");return `sha256:${hash.digest("hex")}`;
+    else writeCanonicalJson(member!,write);
+  }, (part) => { hash.update(part); });
+  return `sha256:${hash.digest("hex")}`;
 }
 export function planPendingInteractionAdmission(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,

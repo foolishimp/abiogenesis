@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { writeCanonicalJson, compareUnicodeCodeUnits } from "../shared/canonical_json.js";
+import { writeCanonicalJson } from "../shared/canonical_json.js";
 import type { RuntimeEventScan, RuntimeHistorySelection } from "./runtime_history.js";
 import { isOwnedRuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
@@ -90,7 +90,7 @@ import type {
   NextActionProjection,
   TraversalRouteKind,
 } from "./traversal_route.js";
-import { canonicalEquals } from "../shared/value/index.js";
+import { canonicalEquals, writeCanonicalRecord } from "../shared/value/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 
 export type ReplayCCallState = {
@@ -2316,16 +2316,13 @@ function digestReplayBody(body: Readonly<Record<string, JsonValue>>,
 }
 function writeReplayBody(body: Readonly<Record<string, JsonValue>>,
   selected: Readonly<Record<string, () => Iterable<JsonValue>>> | undefined, write: (part: string) => void): void {
-  write("{"); let comma = false;
-  for (const key of Object.keys(body).sort(compareUnicodeCodeUnits)) {
-    if (comma) write(","); comma = true; writeCanonicalJson(key, write); write(":");
+  writeCanonicalRecord(Object.entries(body), (member, key, sink) => {
     const rows = selected?.[key];
-    if (rows === undefined) writeCanonicalJson(body[key]!, write);
-    else { write("["); let rowComma = false; for (const row of rows()) {
-      if (rowComma) write(","); rowComma = true; writeCanonicalJson(row, write);
-    } write("]"); }
-  }
-  write("}");
+    if (rows === undefined) writeCanonicalJson(member, sink);
+    else { sink("["); let rowComma = false; for (const row of rows()) {
+      if (rowComma) sink(","); rowComma = true; writeCanonicalJson(row, sink);
+    } sink("]"); }
+  }, write);
 }
 
 /** @internal The same canonical selected C_Call fields without its historical value. */

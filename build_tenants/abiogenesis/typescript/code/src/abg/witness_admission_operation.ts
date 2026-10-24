@@ -5,7 +5,7 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
-import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   validatePublicOperationBasis,
@@ -430,10 +430,12 @@ function validatePacket(
   const memberKey = expectedMemberKey(
     isRecord(supplied) ? supplied.memberKey : undefined,
   );
-  let admitted: JsonValue;
+  let admitted: JsonValue | undefined;
   try {
-    admitted = admitIJsonValue(supplied, "witness admission packet");
-  } catch {
+    const outcome = admitJson(supplied);
+    if (outcome.kind === "ok") admitted = outcome.value;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (admitted === undefined) {
     return refusal(
       memberKey,
       null,

@@ -18,9 +18,9 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
+import { admitJson } from "../shared/admit/index.js";
 import {
   admitIJsonText,
-  admitIJsonValue,
   IJsonAdmissionError,
   type IJsonAdmissionFailureCode,
   type IJsonObject,
@@ -282,9 +282,12 @@ function canonicalObject(
   value: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
   try {
-    return asIJsonObject(admitIJsonValue(value)) as
-      | Readonly<Record<string, JsonValue>>
-      | null;
+    const admitted = admitJson(value);
+    return admitted.kind === "ok"
+      ? asIJsonObject(admitted.value) as
+        | Readonly<Record<string, JsonValue>>
+        | null
+      : null;
   } catch {
     return null;
   }

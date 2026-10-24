@@ -12,7 +12,7 @@ import type {
 } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
-import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { GTL_PROGRAM_CONFORMANCE_INPUT_SCHEMA, nativeStructuralSchema, type ContractValue } from "../gtl/serialization_contracts.js";
 import {
@@ -243,10 +243,12 @@ function evaluateWithValidationInput(
   declarationBasis: Pick<ConformanceDeclarationBasis, "declarationClosure"> | undefined,
   inputForPacket: (packet: ConformanceEvaluatePacket) => ProgramValidationInput | RawAdmissionRefusal,
 ): GtlProgramConformanceOperationResult {
-  let admitted: JsonValue;
+  let admitted: JsonValue | undefined;
   try {
-    admitted = admitIJsonValue(supplied, "GTL Program conformance packet");
-  } catch {
+    const outcome = admitJson(supplied);
+    if (outcome.kind === "ok") admitted = outcome.value;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (admitted === undefined) {
     return refusal("invalid_packet", null, null, [{
       code: "invalid_packet",
       path: "$",

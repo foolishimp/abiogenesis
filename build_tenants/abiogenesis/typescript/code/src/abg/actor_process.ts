@@ -19,9 +19,8 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
-import { admitIJsonValue } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { hasExactKeys, isRecord } from "../shared/admit/index.js";
+import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { isNonBlankRef } from "../shared/references.js";
@@ -365,11 +364,12 @@ export function validateActorProcessCarrierPair(
       "actor process request must be one exact ordinary closed data object",
     );
   }
-  let request: Readonly<ActorProcessRequest>;
+  let request: Readonly<ActorProcessRequest> | undefined;
   try {
-    request = admitIJsonValue(requestRecord) as unknown as
-      Readonly<ActorProcessRequest>;
-  } catch {
+    const outcome = admitJson(requestRecord);
+    if (outcome.kind === "ok") request = outcome.value as unknown as Readonly<ActorProcessRequest>;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (request === undefined) {
     return carrierRefusal(
       "invalid_actor_process_request",
       "actor process request must contain only exact I-JSON data",
@@ -410,11 +410,12 @@ export function validateActorProcessCarrierPair(
       "actor process observation must be one exact ordinary closed data object",
     );
   }
-  let observation: Readonly<ActorProcessObservation>;
+  let observation: Readonly<ActorProcessObservation> | undefined;
   try {
-    observation = admitIJsonValue(observationRecord) as unknown as
-      Readonly<ActorProcessObservation>;
-  } catch {
+    const outcome = admitJson(observationRecord);
+    if (outcome.kind === "ok") observation = outcome.value as unknown as Readonly<ActorProcessObservation>;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (observation === undefined) {
     return carrierRefusal(
       "invalid_actor_process_observation",
       "actor process observation must contain only exact I-JSON data",
@@ -1056,7 +1057,8 @@ async function invokeActorProcessWithAssembly(
     let verification = null, disposition: NativeWorkerResultAssessment["disposition"] = output.trim().length === 0 ? "absent" : "rejected";
     if (disposition !== "absent") {
       try {
-        const raw = admitIJsonValue(JSON.parse(output), "native worker result artifact");
+        const admitted = admitJson(JSON.parse(output));
+        const raw = admitted.kind === "ok" ? admitted.value : null;
         if (isRecord(raw)) {
           const result = owner.port.verifyProbabilisticResultContractPreimage({ resolution: owner.resolution, input: owner.input,
             inputDigest: input.expectedInputDigest, instructionContractRef: input.request.instructionContractRef,

@@ -18,6 +18,7 @@ import { hasJudgedTerminalRouteCausation } from "./retry.js";
 import { isAbgTypedTerminalResult, isAbgHistoricalDeclarationProof, hasUniqueHistoricalDeclarationDependencies, type AbgTypedTerminalResult, type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource, type AbgHistoricalGraphCallSource } from "./terminal_result_contracts.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
+import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   constructRuntimeFluent,
@@ -594,10 +595,12 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   supplied: AbgProjectReadPacket<K>,
 ): AbgProjectReadPacket<K> | AbgProjectReadRefusal<K> {
-  let admitted: JsonValue;
+  let admitted: JsonValue | undefined;
   try {
-    admitted = admitIJsonValue(supplied, "ABG project read packet");
-  } catch {
+    const outcome = admitJson(supplied);
+    if (outcome.kind === "ok") admitted = outcome.value;
+  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+  if (admitted === undefined) {
     return refusal(
       expectedMemberKey,
       null,

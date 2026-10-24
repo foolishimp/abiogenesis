@@ -1589,3 +1589,318 @@ Grant: `code/src/abg/retry.ts` (`completedRetryProgressPlanDigest` and its impor
 Stop (write the counterexample and the blocking line in the Return, keep the rest moving): a byte or digest of one of the three writers differing from head on any input; a change to a Product contract member, an event payload key, a fluent name or a failure class; a refusal observable at a Product boundary changing class or text; a change to the renderer's source or the policy text; a change under `shared/` beyond item 4's three guards and item 3's deletion; a kept site whose discharge needs a function's throw contract to become a refusal return (name it; that is an Executive decision, not this package's); a lane whose red identities change.
 
 Return contract: one commit on `main` with the first line `TD-15 + TD-16: three record envelopes through the shared writer; the I-JSON lift migrated per caller; TD-14's nine casts discharged` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-15 + TD-16 return` at the end of this record with the writer equivalence (item 1), the census (item 2), the per-site decisions and proofs (item 3), the nine decisions and the pin values (item 4), the boundary statement (item 5), the records statement (item 6), the lane table (item 7), and any stops. Nothing above your section is edited.
+
+## TD-15 + TD-16 return
+
+Worker: Opus 5.5, fresh context. Base `cf630b55c`. This package's single commit is the next one on `main`, not pushed. Paths are relative to `build_tenants/abiogenesis/typescript/code/src/` unless they start with `test_env/`, `contracts/`, `scripts/`, `build/`, `design/` or `.ai-workspace/`. Line numbers are at head `cf630b55c` unless marked "after".
+
+| Item | State | Evidence |
+|---|---|---|
+| 1. TD-15 writers | done; same parts, bytes and digest on every input, same parts for every k | case `TD-15: …` in `test_env/tests/t287-route-reconstruction.test.mjs` (after `:564-730`, test `:610`) |
+| 2. TD-16 census | done; 22 sites | census table |
+| 3. TD-16 migration | done; 13 sites migrated, 9 kept; `admitIJsonValue` stays (`shared/i_json.ts:112` and the 9 kept sites call it) | case `TD-16: …` in `test_env/tests/t287-runtime-failure-diagnostic.test.mjs` (after `:586-713`, test `:636`) |
+| 4. Nine casts | done; all nine (T), all nine removed; pin refreshed | `td-14-census.tsv` lines 9, 11, 13, 1908, 1909, 1910, 1925, 1927, 1928 |
+| 5. Boundaries | kept | Boundaries |
+| 6. Records | stated | Records |
+| 7. Lanes | done; same red identities before and after | Lanes |
+
+**Item 1: writers.** Each writer hands its entries to `writeCanonicalRecord` (`shared/value/record.ts:22-38`) and keeps its own member writing in `writeMember`.
+
+| Writer | Entries (head key set) | `writeMember` | Sink |
+|---|---|---|---|
+| `abg/retry.ts` `completedRetryProgressPlanDigest` (`:6657-6668`; after `:6657-6665`) | `Object.entries(plan)` (`Object.keys(plan)`) | `projectedPrefix` through `writeRuntimeEventPrefixValue`, `replayState` through `writeRuntimeReplayGuardValue`, the rest through `writeCanonicalJson` | `digest.update(part, "utf8")` |
+| `abg/c_call.ts` `pendingInteractionBodyDigest` (`:7340-7355`; after `:7340-7353`) | `Object.entries(finite)` plus `["projectedPrefix", undefined]` and `["replayState", undefined]` (the finite keys plus the two names) | the two branches of `:7349-7350`, unchanged; the rest through `writeCanonicalJson` | `hash.update(part)` |
+| `abg/replay.ts` `writeReplayBody` (`:2317-2328`; after `:2317-2326`); `digestReplayBody` (`:2312-2316`) unchanged and still writes through it | `Object.entries(body)` (`Object.keys(body)`) | a key in `selected`: `[`, its rows from the iterable, `,` between, `]`; the rest through `writeCanonicalJson` | the caller's `write` |
+
+Key bytes. Head writes each key with `writeCanonicalJson(key, write)`. For a string that is one call, `write(JSON.stringify(value))` (`shared/canonical_json.ts:21-23`). `writeCanonicalRecord` writes `sink(JSON.stringify(key))` (`record.ts:34`). Both sort the keys with `compareUnicodeCodeUnits` and both write `{`, `,`, `:` and `}` as single parts at the same places. The part sequence is therefore identical for every string key, and no key the three writers can see differs. `Object.entries` takes the same own enumerable string keys as `Object.keys`. It reads each member value before the walk, where head read it during the walk. Every plan and body these writers receive is a plain data record (`deepFreeze` literals and object spreads), so no getter runs. Selected rows are still pulled lazily, inside `writeMember`.
+
+Proof: the case is in `t287-route-reconstruction`, the owner lane whose terminal-route fixture builds the owned and materialized prefixes and replay states. `t287-value-equality` has no such fixture. The case keeps a transcription of each head writer as the reference. The built private writers run in module copies over the genuine owners, as `ownedRetryPlanDigest` (`:132-140`) does. Each copy's `node:crypto` hash records every part; with a limit k, it refuses part k+1.
+
+| Input | Parts | Bytes | Digest (head = after) | k checked |
+|---|---|---|---|---|
+| retry plan, owned `projectedPrefix` + owned guard `replayState` | 2,492 | 39,150 | `sha256:58da7f22680bd531c4738eeaaffa74088f15abb7a6f45f07eb518c34de1505c3` | 0..2,492 |
+| retry plan, materialized `projectedPrefix` + complete `replayState` | 2,492 | 39,150 | the same; equals `sha256Canonical` of the materialized plan | 0..2,492 |
+| pending plan, 8 inputs: body path (destructure) and plan path (`planRef`), each with owned/owned, validated/complete, validated/owned guard and owned/complete (both sides of `:7349` and of `:7350`) | 2,410 or 2,418 | 37,299 | `sha256:c5cacbc99963cde40d27f651e8587b6b200eb3b5fd64c18241c33cd9ac4cc632` on all 8 | 0..N on each |
+| replay body without `selected` (`digestReplayBody`, complete replay) | 331 | 4,387 | `sha256:808ec2fe21730774c15d498eb26f49d3082da52c0eba7036644a6b8f3d1a0b48`, the `replayDigest` | 0..331 |
+| replay body with `selected` (the guard) | 331 | 4,387 | the same | 0..331; row pulls equal at k = 0, 7, 165 |
+| streaming path of `:1453` (`writeRuntimeReplayGuardValue`) | 347 | 4,622 | `sha256:ccfddc296b9de0f95001ba4c58c2d2e3031036b3621226ad0379aaf1673abed9`; the streamed text is `canonicalJson` of the complete ReplayState | 0..347 |
+
+For every k, both writers emitted the same k parts and both threw. The case passes on the head build and on the build after.
+
+Persisted digests. `test_env/fixtures` and the tracked `test_env/uat` inputs hold no `planDigest` or `replayDigest` key that these writers produced. The retry plan digest is never persisted; it is compared at `:6711` only. No fixture holds a pending `planDigest`. Two persisted `replayStateDigest` values are this writer's output. Both are in the packaged S01 store, `test_env/fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl`: ordinal 15 (`c_call_judged`, `sha256:cc5e176935fba897efe2a3bda46ea1d2fee1d03d56f60d2c1b08aea5539458fb`) and ordinal 16 (`traversal_route_admitted`, `sha256:1357e02a6dbc68630103728c48b38560a0fa5c84ae130f59a346dc41ae27cd17`). They are the complete replay digests at cuts 14 and 15. The case recomputes both through the new writer and through the transcription, and both are equal. `test_env/fixtures/continuation-causation.json` holds a third value, `sha256:f3f89ff4…` at ordinal 64, but the fixture keeps only 8 rows (ordinals 4-10, 64, 66), so its prefix cannot be replayed.
+
+**Item 2: census.** "Observable" means the error's class or message is read past the site. The refusals below are fixed literals: none carries the lift's label or the refusal's `at`/`reason`. No caller reads `instanceof IJsonAdmissionError` or `.code` on these paths. The one such read, `abg/probabilistic_result.ts:513`, is on the `admitIJsonText` path.
+
+| # | Site | Function | What the `catch` does at head | Observable past the site | Decision |
+|---|---|---|---|---|---|
+| 1 | `validator/conformance_operation.ts:248` | `evaluateWithValidationInput` (via `evaluateGtlProgramConformance` `:201`, `…FromResolvedClosure` `:233`; `ConformancePort` `:344`) | `:249` returns `refusal("invalid_packet", …, "GTL Program conformance requires one exact I-JSON packet")` | no | migrated |
+| 2 | `product/result_assessment_operation.ts:499` | `assessResult` | `:500` returns `refusal("value_mismatch", "result assessment requires one exact canonical I-JSON request", ["/"])` | no | migrated |
+| 3 | `abg/witness_admission_operation.ts:435` | `validatePacket` (via `admitWitnessedAct` `:1112`) | `:436` returns `refusal(memberKey, null, "content_invalid", "witness admission requires one exact canonical I-JSON packet")` | no | migrated |
+| 4 | `abg/project_read_ports.ts:599` | `admitReadPacket` (via `prepareRead` `:640`) | `:600` returns `refusal(key, null, "invalid_packet", "ABG project read requires one exact I-JSON packet")` | no | migrated |
+| 5 | `abg/probabilistic_result.ts:285` | `canonicalObject` (callers `:422`, `:429`) | `:288` returns `null` | no | migrated; the `try` also encloses `asIJsonObject` |
+| 6 | `abg/actor_process.ts:370` | `validateActorProcessCarrierPair` | `:372` returns `carrierRefusal("invalid_actor_process_request", "actor process request must contain only exact I-JSON data")` | no: `probabilistic_result.ts:415-417` copies the message, which is the fixed literal | migrated |
+| 7 | `abg/actor_process.ts:415` | `validateActorProcessCarrierPair` | `:417` returns `carrierRefusal("invalid_actor_process_observation", "… must contain only exact I-JSON data")` | no (as 6) | migrated |
+| 8 | `abg/actor_process.ts:1059` | `assessNativeResultArtifact`, a closure in `invokeActorProcessWithAssembly` (`:773`) | `:1066` leaves `disposition` `rejected` | no | migrated; the `try` also encloses `JSON.parse` and the verifier |
+| 9 | `product/worksite_command_execution.ts:1786` | `isPredicateObservation` | `:1789` returns `false` | no | migrated |
+| 10 | `product/worksite_command_execution.ts:1787` | `isPredicateObservation` | `:1789` returns `false` | no | migrated |
+| 11 | `abg/execution_basis.ts:249` | `constructNativeInstructionAssemblyBasis` | `:255` returns `null` | no | migrated; the `try` also encloses the capture and the derivation |
+| 12 | `implementation/leaf_invocation_port.ts:695` | `invokeLeafOwnerBoundary` (`:531`), F_D branch | `:699` sets `admittedCandidate = null`; the receipt is then `malformed_return` | no | migrated |
+| 13 | `implementation/leaf_invocation_port.ts:776` | `invokeLeafOwnerBoundary`, F_P `finalize` | `:793` returns the `malformed_return` receipt | no | migrated; the `try` also encloses validation and the receipt |
+| 14 | `validator/raw_admission.ts:184` | `rawAdmitValue` | the outer `catch` `:226` copies `error.message` into the `non_canonical_value` refusal (`:232`) | yes: the message (`$<at>: <reason>`) | kept: the message is the refusal text |
+| 15 | `product/worksite_command_execution.ts:1055` | `constructPredicate` | none; the throw propagates. Callers: `isPredicate` `:1172` (catch `:1177`, `false`); `constructWorksiteCommandConfiguration` `:1440`, then `worksite_preparation.ts:76` (catch `:85`, `false`), `worksite_revision.ts:143` (guard `:163-164`), `worksite_command_forward.ts:150` (guard `:165`) and the task constructors `:375`, `:434`, `:481` | yes, inside leaf implementations: `deterministicFailure` records class and message (`leaf_invocation_port.ts:560-590`) | kept: constructor throw contract; the value is used |
+| 16 | `product/worksite_command_execution.ts:1058` | `constructPredicate` | as 15 | as 15 | kept (as 15) |
+| 17 | `product/worksite_command_execution.ts:2059` | `constructWorksiteCommandExecutionWorkerResult` (exported from `product/index`) | none; caller `implementation/worksite_command_execution.ts:753`, catch `:754`, `result_contract_failure`; also `:2122` `constructWorksiteExecutionObservation` | inside the leaf, as 15 | kept: constructor throw contract; the value is returned |
+| 18 | `product/worksite_command_execution.ts:2112` | `assertWorksiteCommandVectors` | none; callers `:1956` (`constructWorksiteExecutionHelperArtifact`) and `:2258` (`isWorksiteExecutionObservation`, inside its `try`) | inside the leaf, as 15 | kept: an assertion throws by contract |
+| 19 | `abg/event_store.ts:1736` | `DurableHistoryDerivation.capture`, via `captureDurablePrefixCoordinate` `:1828` | none. Nine callers: four inside a `try` (`artifact_truth.ts:751`, `project_read_ports.ts:526`, `:568`, `execution_basis.ts:250`, catch `:255`, `null`); five uncaught (`admission_authority.ts:88`, `event_store.ts:1838`, `:2215`, `project_read_ports.ts:901`, `:952`) | yes, on the uncaught paths | kept: capture throws by contract; the value is the captured coordinate |
+| 20 | `abg/event_store.ts:2553` | `closeHeldEventStoreAtDurablePrefix` (`:2523`) | none; throws | yes | kept: the value is the detached handoff prefix |
+| 21 | `abg/project_read_ports.ts:1560` | `projectPreparedRead` | outside its `try`; callers `:973` (project closure), `:1439` (inside a `try`, catch `:1440`, `invalid_history`), `:1517` `project`, then the ports `:1579-1641` | yes, through the port consumers | kept: the value is the projection; the throw leaves through the ports |
+| 22 | `implementation/worksite_command_execution.ts:169` | `exactAuthorityFreeOccurrence` | none; throws | inside the leaf, as 15 | kept: throw contract; the value is returned |
+
+The 22 sites leave out one `code/src` caller, `shared/i_json.ts:112` (`reconstructIJsonNode`). It serves `admitIJsonText`, which is not this package's.
+
+**Item 3: migration.** 13 sites migrated (1-13), 9 kept (14-22). `admitIJsonValue` stays; its remaining `code/src` callers are sites 14-22 and `shared/i_json.ts:112`. Tests call it too: `test_env/tests/t287-ordered-reconstruction.test.mjs:14` and `t287-f04a-probabilistic-result-candidate.test.mjs:1094`.
+
+Form. The activation assumes `admitJson` returns a refusal for every value the lift refused. It does not. `admitJson` throws on a cycle (`RangeError`, the stack bound), on nesting past the stack bound (`RangeError`), and from a proxy trap. Head's bare `catch` turned each of these into the site's fixed refusal. Deleting the `try`, as the activation words it, would let them escape: at sites 1-4 and 6-7 a Product or owner boundary would throw where it now refuses. That would meet the stop "a refusal observable at a Product boundary changing class or text". Counterexample: `evaluateGtlProgramConformance({ member: JSON.parse("[".repeat(200000) + "]".repeat(200000)) })` returns the `invalid_packet` refusal at head and throws `RangeError: Maximum call stack size exceeded` with the `try` deleted. The migrated form keeps a `try` around `admitJson` alone. That is the design's (A) rule (O-TYPE, `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:613`): "an `unknown` value passes `admitJson` at the site, and a refusal or a throw takes the site's own channel".
+
+```ts
+let admitted: JsonValue | undefined;
+try {
+  const outcome = admitJson(supplied);
+  if (outcome.kind === "ok") admitted = outcome.value;
+} catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
+if (admitted === undefined) return <the same refusal>;
+```
+
+`admitJson` never answers `ok` with `undefined` (`admitJson(undefined)` is the `non_ijson_value` refusal), so the sentinel is exact. Where head's `try` also enclosed other work (sites 5, 8, 11, 12, 13), only the lift left it: the outcome is read in place, inside the existing `try`. Sites 9 and 10 read `admitJson(observedValue).kind === "ok" && admitJson(evidence).kind === "ok"` inside the existing `try`. `liftIJson`'s other throw, a `TypeError` for a refusal code outside its closed set (`i_json.ts:44-45`), was also absorbed by each bare `catch`; the migrated form maps every refusal to the same return.
+
+Proof: one case, `TD-16: the lift's refusal-only callers keep head's refusal for every malformed value`, in `t287-runtime-failure-diagnostic`. That lane already carries the in-memory source owner (`sourceOwner`, with exposure of private functions and import overrides), the leaf boundary harness and the actual carrier pair. Inputs at every site: a function member, `2 ** 60`, `"\uD800"`, a cycle, 200,000-deep nesting from `JSON.parse` and a proxy whose `ownKeys` trap throws, each one member below the site's input. Each control is the same input with that member `1`. The expected results are literals in the case (`td16Head`), read from the head build and source at `cf630b55c`: the whole refusal object (kind, code, message, paths), or `null`/`false`, and for the leaf the whole `malformed_return` candidate. At head the case passes (scratch run against the head build, before any edit); after, it passes in the lane run (Lanes).
+
+| # | Driven through | All six inputs give | Control |
+|---|---|---|---|
+| 1 | `evaluateGtlProgramConformance` (build) | one refusal, carrying "GTL Program conformance requires one exact I-JSON packet" | differs (shape refusal) |
+| 2 | `assessResult` (build) | one refusal, carrying "result assessment requires one exact canonical I-JSON request" | differs |
+| 3 | `admitWitnessedAct(packet, {}, {})` (build) | `content_invalid`, "witness admission requires one exact canonical I-JSON packet" | differs |
+| 4 | `admitReadPacket` (source, exposed) | `invalid_packet`, "ABG project read requires one exact I-JSON packet" | differs |
+| 5 | `canonicalObject` (source, exposed) | `null` | `{ member: 1 }` |
+| 6 | `validateActorProcessCarrierPair`, `responseJsonSchema` member (build) | `invalid_actor_process_request`, "… must contain only exact I-JSON data" | differs |
+| 7 | the same, `toolInvocations` row (build) | `invalid_actor_process_observation`, "… must contain only exact I-JSON data" | differs |
+| 8 | by reading | — | — |
+| 9 | `isPredicateObservation`, `observedValue` (source, exposed) | `false` | `true` |
+| 10 | the same, `evidence` row | `false` | `true` |
+| 11 | `constructNativeInstructionAssemblyBasis` (source; `captureDurablePrefixCoordinate` overridden to count) | `null`, and no capture ran | `null` after one capture |
+| 12 | `invokeLeafOwnerBoundary`, F_D, a success candidate whose `resultCandidate.answer` is the input | the receipt of a `null` output (`malformed_return`) | the success candidate |
+| 13 | the same, F_P completion | the closed receipt of a `null` completion (`malformed_return`) | the success candidate |
+
+Site 8 is proved by reading, because only a native worker exchange reaches it. Inside the existing `try`, `admitJson(JSON.parse(output))` is read as `raw` when it is `ok` and as `null` otherwise; `isRecord(null)` is false, so a refused artifact keeps `disposition` `rejected`, and a throw still reaches `:1066`. `JSON.parse` output cannot hold a function member or a cycle. An unsafe integer, a lone surrogate or deep nesting in the text takes the same `rejected` as at head.
+
+**Item 4: the nine casts.** All nine are (T), discharged as TD-14 recorded; nine casts removed. Runtime behavior is identical at each.
+
+| `td-14-census.tsv` line | Site | Change |
+|---|---|---|
+| 9 | `shared/public_function_contracts.ts:753` (`visit`) | `!isRecord(value)` in place of `typeof value !== "object" \|\| value === null`, after the array branch; `const record = value` |
+| 11 | `shared/public_function_contracts.ts:773` (`neutral`) | the same |
+| 13 | `shared/public_function_contracts.ts:799` (`rewrite`) | the same |
+| 1908 | `product/worksite_command_execution.ts:166` | `!isRecord(predicate.declaration)` in place of the three-part guard; `const declaration = predicate.declaration` |
+| 1909 | `:170` (`launch`) | `!isRecord(launch) \|\| !isRecord(request)` in place of the six-part guard; `parts = { launch, request }` |
+| 1910 | `:170` (`request`) | the same edit |
+| 1925 | `:1129` | `isRecord(entry) ? entry.name : undefined`; the `undefined` arm is unreachable, since `:1114` requires every entry to be a record |
+| 1927 | `:1461` | `isRecord(declaration) &&` first; unreachable refusal (`validPredicateDeclaration` `:1083` via `constructPredicate` `:1069`) |
+| 1928 | `:1502` | `isRecord(entry) &&` first; unreachable refusal (`:1114` via `constructPredicate` `:1069`) |
+
+`isRecord` is `typeof value === "object" && value !== null && !Array.isArray(value)` (`shared/admit/record.ts:6-10`). Each guard it replaces is the same test, or that test after the array branch has already returned. The nine rows now read "TD-15 + TD-16: … cast removed" in column 11 and `removed` in column 14. The two "not resolved" gap entries (lines 9-13: held under the `shared/` stop; line 1925: Set size only) now read "moot: cast removed at TD-15 + TD-16".
+
+The C2 context pin (`gtl/worksite_command_execution.ts`) after the product edits (6 casts and the two lift sites 9-10):
+
+| Constant | Line | Before | After |
+|---|---|---|---|
+| `byteCount` | `:39` | 115830 | 115562 |
+| `digest` | `:37` (`commandSource` reads it at `:39`) | `sha256:3ec989dcea8228026258ea700f9646b0ab8875445ee1d157db6ba0573de234b7` | `sha256:a8d7035f451e9f8459e5ff696ef520d440efc7a32bce2481374cae577e693182` |
+| `startByte` | `:61` | 105745 | 105477 |
+| `endByte` | `:61` | 108177 | 107909 |
+| `spanDigest` | `:61` | `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` | unchanged |
+
+The offsets are those of `renderWorksiteCommandExecutionPrompt.toString()` in `build/code/src/product/worksite_command_execution.js`, found with `Buffer.indexOf`, as the generator reads them. The span occurs once. It is 2,432 bytes before and after and shifts by -268, the module's size change. The renderer (`:2289`) is below every edit, and its source is unchanged.
+
+`npm run build` exits 0 with the new pin; the generator's check (`scripts/generate-product-manifest.mjs:98-107`: member bytes and digest at `:100-101`, span at `:102-105`) passes. The built module is byte-identical to a scratch emit of the same source made before the build. The build regenerated these tracked files, all committed: `build/code/src/abg/actor_process.js`, `build/code/src/gtl/worksite_command_execution.js` (the three pin lines only), `build/code/src/product/worksite_command_execution.js`, `contracts/worksite/command-execution-context.inventory.json` (the member `digest` only, `3ec989dc…` to `a8d7035f…`), `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`. The other changed modules have no tracked build output. The JSON files differ from head only in `productContentDigest` and the digests and refs derived from it: 68 fields in the manifest and 310 in the graph (`productContentDigest` 241, `capabilityDefinitionDigest` 34, `capabilityDefinitionRef` 34, `graphDigest` 1), the counts TD-14 recorded. `npx tsc --noEmit -p tsconfig.json`: clean. `npm run lint:imports`: 28 modules under `code/src/shared/` import only `code/src/shared/` and packages. `npm run lint:lifecycle`: 284 modules, 10 allow-listed sites, no offender. All four gave the same output at head before any edit.
+
+**Item 5: boundaries.** Read on the diff and checked by the lanes:
+- No Product contract member, event payload key, fluent name or failure class changes. No `contractDigest` moved, and none of the 17 tracked `.d.ts` files changed.
+- The three writers' bytes and digests are identical on every input of item 1, and so are the persisted S01 digests.
+- No refusal observable at a Product boundary changes class or text. Each migrated site returns its head literal for every value head refused, including the values `admitJson` throws on (item 3).
+- `admitIJsonText` and `IJsonAdmissionError` are unchanged. `shared/i_json.ts` is unchanged.
+- `shared/` changes only at the three guards of `shared/public_function_contracts.ts`.
+
+**Item 6: records.** Proposed text for the Executive; the Worker made no design edit.
+- `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:165` (`writeCanonicalRecord` row, third column): "none: it is the record walk of `canonicalRecordDigest` and of the three record writers that produce plan and replay digests (`abg/retry.ts` `completedRetryProgressPlanDigest`, `abg/c_call.ts` `pendingInteractionBodyDigest`, `abg/replay.ts` `writeReplayBody`); each keeps its member writing in `writeMember`, and their bytes and digests are unchanged."
+- `:593` (row 3, second column): replace "the 3 record writers that produce persisted plan digests stay (digest stability)" with "the 3 record writers that produce plan and replay digests route their envelope through `writeCanonicalRecord`, byte for byte".
+- `:606` (D4): "The throwing entry of `i_json.ts` is a lift over `admitJson` (admit, then throw on refusal). It remains only where the throw is the caller's contract (nine sites: `validator/raw_admission.ts`, `product/worksite_command_execution.ts` ×4, `abg/event_store.ts` ×2, `abg/project_read_ports.ts`, `implementation/worksite_command_execution.ts`) and inside `admitIJsonText`. A caller that consumed only the refusal reads `admitJson`'s outcome and keeps one `catch` for the throws of `admitJson` itself (cycle, stack bound, proxy trap). New callers use `admitJson`."
+- `:132` (last sentence): "The throwing entry of `i_json.ts` is a lift over `admitJson`, kept for callers whose contract is the throw (§10.2, D4)."
+- `:613` (O-TYPE), the clause "nine (T) held at `shared/` and at the C2 context pin": the nine are discharged at TD-15 + TD-16, so 16 casts remain (the 15 (P) and the one (I) under `stop: channel`).
+
+**Item 7: lanes.** `tsc --noEmit`, `lint:imports`, `lint:lifecycle` and `npm run build` are under item 4.
+
+The set has 148 lanes: 146 by the rule below, plus `t287-value-equality` and `m5-c-algebra-validation`, which are named but match no changed basename (`t287-worksite-command-execution` and `forward-command-contracts` match it). A lane is in it by the rule when its test file, or a `test_env/support` file it imports (two levels), names one of the 13 changed module basenames followed by `.js`, `.ts`, `.mjs` or a quote: `retry`, `c_call`, `replay`, `conformance_operation`, `result_assessment_operation`, `witness_admission_operation`, `project_read_ports`, `probabilistic_result`, `actor_process`, `worksite_command_execution` (the product module and the pinned `gtl` module), `execution_basis`, `leaf_invocation_port`, `public_function_contracts`. Three lanes of a wider first candidate set ran at head only and are outside the set: `r3-workspace-binding`, `steel-consumer-declaration`, `t287-authenticated-owner-family`.
+
+Every lane ran twice: at head (`cf630b55c`, its build, before any edit) and after (the change, built). Totals are tests/pass/fail/skipped: head 880/588/195/95, after 882/590/195/95. Each run also has 2 cancelled, both in `t287-calculus-state-transfer`. The difference is the two new cases. 81 lanes are red at head and after, with the same 197 failing-test identities (file:line and test name) and the same first error class. No new red identity. Attribution:
+- 15 lanes: H's log, at the line of the test's first `✖` there;
+- 66 lanes: the head run; red at `cf630b55c` before any edit, and not in H's log.
+
+| Lane | Head `cf630b55c` | After | Reds (identical at head and after) |
+|---|---|---|---|
+| `d1-preserved-result-mechanics` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `d2-acknowledgment` | 4/0/4/0 | 4/0/4/0 | 4: `:17`, `:34`, `:51`, `:81`; head run |
+| `d2-binding-transition` | 10/0/10/0 | 10/0/10/0 | 10: `:6`, `:148`, `:172`, `:191`, `:208`, `:232`, `:247`, `:269`, `:289`, `:303`; head run |
+| `d2-bounded-repair` | 12/7/5/0 | 12/7/5/0 | 5: `:10`, `:56`, `:66`, `:77`, `:103`; head run |
+| `d2-evidence-owner` | 2/0/2/0 | 2/0/2/0 | 2: `:7`, `:27`; head run |
+| `d2-evidence-owner-lookup` | 9/0/9/0 | 9/0/9/0 | 9: `:8`, `:8`, `:19`, `:19`, `:22`, `:22`, `:27`, `:27`, `:39`; head run |
+| `d2-historical-design` | 14/10/4/0 | 14/10/4/0 | 4: `:8`, `:27`, `:35`, `:89`; head run |
+| `d2-historical-owner` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `d2-workflow-step` | 9/0/9/0 | 9/0/9/0 | 9: `:9`, `:22`, `:29`, `:42`, `:52`, `:65`, `:98`, `:108`, `:118`; head run |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 |  |
+| `forward-command-owners` | 6/2/4/0 | 6/2/4/0 | 4: `:7`, `:22`, `:37`, `:45`; H log :217, :218, :219, :220 |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 2: `:82`, `:132`; head run |
+| `installed-language-smoke` | 1/1/0/0 | 1/1/0/0 |  |
+| `integration-shared-seams` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `m5-c-algebra-validation` | 22/19/0/3 | 22/19/0/3 |  |
+| `m5-consensus-module` | 18/11/7/0 | 18/11/7/0 | 7: `:1108`, `:1314`, `:1546`, `:1660`, `:1935`, `:2115`, `:2251`; head run |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 5: `:372`, `:1316`, `:1471`, `:1548`, `:1590`; H log :257, :268, :269, :270, :271 |
+| `m5-event-store-reopen` | 18/18/0/0 | 18/18/0/0 |  |
+| `m5-fresh-process-reconstruction` | 1/0/1/0 | 1/0/1/0 | 1: `:13`; H log :296 |
+| `m5-installed-graph-edge` | 1/0/1/0 | 1/0/1/0 | 1: `:9`; H log :297 |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 5: `:21`, `:238`, `:281`, `:323`, `:533`; H log :306, :308, :309, :311, :314 |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | 4: `:96`, `:218`, `:285`, `:415`; H log :315, :316, :317, :319 |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 |  |
+| `m5-worker-transport` | 23/23/0/0 | 23/23/0/0 |  |
+| `r10-child-proof` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `r10-projection-contracts` | 10/9/1/0 | 10/9/1/0 | 1: `:109`; head run |
+| `r5-invocation-admission` | 3/0/3/0 | 3/0/3/0 | 3: `:15`, `:100`, `:598`; head run |
+| `r6-implementation-resolution` | 1/0/1/0 | 1/0/1/0 | 1: `:14`; head run |
+| `r7-graph-validation-basis` | 1/1/0/0 | 1/1/0/0 |  |
+| `r8-direct-hog-entry` | 1/0/1/0 | 1/0/1/0 | 1: `:19`; head run |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 2: `:53`, `:721`; head run |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 1: `:26`; head run |
+| `rival-authority-mutations` | 3/1/2/0 | 3/1/2/0 | 2: `:54`, `:78`; head run |
+| `runtime-scope-regressions` | 2/2/0/0 | 2/2/0/0 |  |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 |  |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 |  |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 1: `:39`; head run |
+| `t287-c0-correction-regressions` | 4/3/1/0 | 4/3/1/0 | 1: `:42`; head run |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 |  |
+| `t287-c2-child-program` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 |  |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 6: `:120`, `:195`, `:212`, `:227`, `:238`, `:266`; H log :420, :421, :422, :423, :424, :425 |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-calculus-fold` | 12/12/0/0 | 12/12/0/0 |  |
+| `t287-calculus-state-transfer` | 8/6/0/0 | 8/6/0/0 | 2 cancelled: `:64`, `:70`; H log :453, :1180 |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; H log :486 |
+| `t287-cross-cut-public-read` | 5/4/1/0 | 5/4/1/0 | 1: `:105`; H log :491 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 |  |
+| `t287-d1-semantic-stage` | 3/1/0/2 | 3/1/0/2 |  |
+| `t287-declared-testing-capability` | 7/5/1/1 | 7/5/1/1 | 1: `:174`; head run |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 |  |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 |  |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | 2: `:85`, `:116`; head run |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 |  |
+| `t287-exact-construction-intent` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 1: `:356`; head run |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-generic-job-intake` | 2/0/1/1 | 2/0/1/1 | 1: `:12`; head run |
+| `t287-generic-job-lifecycle` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-generic-job-meaning` | 5/3/0/2 | 5/3/0/2 |  |
+| `t287-generic-job-parent-audit` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | 2/1/0/1 |  |
+| `t287-generic-job-revision` | 4/1/0/3 | 4/1/0/3 |  |
+| `t287-generic-job-worksite` | 9/9/0/0 | 9/9/0/0 |  |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | 3: `:351`, `:386`, `:430`; head run |
+| `t287-gtl-language-corpus` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 |  |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | 1: `:64`; head run |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 |  |
+| `t287-installed-qualification-conservation` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-json-value-definition` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 |  |
+| `t287-live-worksite-construction` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-malformed-gtl-gate` | 6/5/1/0 | 6/5/1/0 | 1: `:60`; H log :530 |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 |  |
+| `t287-management-supervision` | 5/4/1/0 | 5/4/1/0 | 1: `:105`; head run |
+| `t287-multi-candidate-admission` | 75/75/0/0 | 75/75/0/0 |  |
+| `t287-native-assembly-retained-input` | 1/0/1/0 | 1/0/1/0 | 1: `:12`; head run |
+| `t287-native-assessment-evidence` | 4/1/3/0 | 4/1/3/0 | 3: `:551`, `:559`, `:585`; head run |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 4: `:30`, `:66`, `:86`, `:108`; head run |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 3: `:189`, `:209`, `:237`; H log :535, :536, :537 |
+| `t287-native-frame-route-conservation` | 3/0/3/0 | 3/0/3/0 | 3: `:5`, `:10`, `:14`; head run |
+| `t287-native-owner-reuse` | 3/0/0/3 | 3/0/0/3 |  |
+| `t287-native-registered-selection` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 |  |
+| `t287-native-semantic-evidence` | 1/0/1/0 | 1/0/1/0 | 1: `:11`; head run |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | 1: `:224`; head run |
+| `t287-native-semantic-revision` | 9/4/4/1 | 9/4/4/1 | 4: `:122`, `:270`, `:332`, `:531`; H log :553, :556, :557, :562 |
+| `t287-native-structural-gates` | 9/9/0/0 | 9/9/0/0 |  |
+| `t287-native-work-currentness-consumers` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 |  |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 |  |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 |  |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 |  |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | 1: `:43`; H log :106 |
+| `t287-ordered-reconstruction` | 7/0/4/3 | 7/0/4/3 | 4: `:22`, `:74`, `:103`, `:158`; H log :587, :588, :589, :591 |
+| `t287-owned-native-proof` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 |  |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | 1: `:244`; head run |
+| `t287-predecessor-context` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-public-terminal-projection` | 4/0/4/0 | 4/0/4/0 | 4: `:34`, `:50`, `:68`, `:87`; head run |
+| `t287-qual056-material` | 7/7/0/0 | 7/7/0/0 |  |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/1/0 | 1: `:18`; head run |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-qualification-producer-context` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | 1/0/0/1 |  |
+| `t287-r6-retry-success-exit` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 |  |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 1: `:129`; head run |
+| `t287-registered-graph-selection` | 1/0/1/0 | 1/0/1/0 | 1: `:15`; head run |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-result-evidence-lineage-projection` | 1/0/1/0 | 1/0/1/0 | 1: `:215`; head run |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 3: `:59`, `:92`, `:107`; head run |
+| `t287-route-reconstruction` | 9/7/0/2 | 10/8/0/2 | the TD-15 case `:610` joins and passes |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-runtime-failure-diagnostic` | 14/14/0/0 | 15/15/0/0 | the TD-16 case `:636` joins and passes |
+| `t287-s03-automatic` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-selected-execution-closure` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/0/2/0 | 2: `:116`, `:737`; head run |
+| `t287-st2a-e-exact-prefix-workspace-environment` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-stdo-run-environment` | 2/0/1/1 | 2/0/1/1 | 1: `:87`; head run |
+| `t287-undispatched-diagnostic` | 7/5/2/0 | 7/5/2/0 | 2: `:93`, `:222`; head run |
+| `t287-value-equality` | 4/4/0/0 | 4/4/0/0 |  |
+| `t287-wave2-installed-product-verification` | 1/1/0/0 | 1/1/0/0 |  |
+| `t287-wave2-owner-contract-source-set` | 15/13/2/0 | 15/13/2/0 | 2: `:609`, `:796`; head run |
+| `t287-worksite-branch-construction` | 2/0/2/0 | 2/0/2/0 | 2: `:584`, `:669`; head run |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 |  |
+| `t287-worksite-construction` | 3/0/3/0 | 3/0/3/0 | 3: `:217`, `:361`, `:688`; head run |
+| `t287-worksite-file-replace-owner` | 1/0/1/0 | 1/0/1/0 | 1: `:371`; head run |
+| `t288-composition-conservation` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t288-instruction-assembly-owner` | 11/4/0/7 | 11/4/0/7 |  |
+| `t288-physical-return-conservation` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `t288-scoped-retry-guard` | 1/0/1/0 | 1/0/1/0 | 1: `:12`; head run |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 1: `:1`; head run |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 |  |
+| `w2-steel-single-start` | 8/6/1/1 | 8/6/1/1 | 1: `:118`; head run |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 |  |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 |  |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 15: `:27`, `:36`, `:67`, `:77`, `:94`, `:102`, `:112`, `:118`, `:124`, `:129`, `:147`, `:162`, `:169`, `:205`, `:226`; head run |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 7: `:31`, `:65`, `:77`, `:89`, `:96`, `:102`, `:117`; head run |
+
+**Errata.**
+1. Item 3's form, "the `try`/`catch` is deleted", rests on `admitJson` never throwing. It throws on a cycle, at the stack bound and from a proxy trap (item 3). The `try` stays around `admitJson` alone: a throw takes the site's own channel, as O-TYPE (A) states (`:613`).
+2. The 22 sites leave out `shared/i_json.ts:112`, a `code/src` caller of `admitIJsonValue`. With it, and with the nine kept sites, the deletion condition is not met.
+3. The pin constants are at `gtl/worksite_command_execution.ts:37` (`digest`), `:39` (`byteCount`) and `:61` (`startByte`, `endByte`, `spanDigest`), as TD-14 cited them, not `:37-40` and `:59`. `:38` is `const commandSource = {`, `:40` is `commandContextRef` and `:59` is the `contextPolicy` selectors.
+
+**Deviation.** Item 3 asks for an existing case per site or one new case in the owner's lane. The proof is one case in one lane, `t287-runtime-failure-diagnostic`, for all 12 driven sites. That lane already holds the source-owner loader, the leaf boundary and the carrier pair the sites need.
+
+**Stops.** None met. Item 3's literal form would have met "a refusal observable at a Product boundary changing class or text". The counterexample and the conserving form are under item 3.
