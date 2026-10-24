@@ -45,7 +45,8 @@ Remaining obligations:
   Phase A, rows Review pass and L5). The release-resumption gate is open;
   release work follows the Phase C packages on the owner's order.
 - The combined candidate, build, P1, P5, P4 and their dependents are HELD
-  until a later exact grant (L5 is accepted).
+  until the Phase C close cut, which the owner's [Phase D order](#phase-d-order-2026-10-24)
+  of 2026-10-24 grants (decision 2); the hash is instantiated at the D1/D4-c activation.
 - L4 is partial on older subjects, and release work D1 to D6 follows L5,
   both as the [dependency order](#dependency-order-and-exits) states.
 - The owner's rulings and the Phase C packages that follow the Phase B close
@@ -263,6 +264,35 @@ lifecycle. Once its declared observation is obtained, that prerequisite is
 exhausted. Further repetitions supply preservation evidence unless a named
 material invalidator or new admitted obligation requires them.
 
+### Phase D order (2026-10-24)
+
+The owner approved the Executive's [plan proposal](../../comments/claude/20261024T064557Z_PLAN_t287_phase_d_release_resumption.md)
+on 2026-10-24: the eight packages, their order and the six decisions as
+recommended, with the instruction "after C lands continue with this plan".
+Phase D starts when T-290 Phase C closes; no interleaving. Package records go
+under `work/T287_RELEASE_RESUMPTION_01/`; each package takes one activation,
+one Worker Return and one ledger line here, as T-290's packages did.
+
+| Package | Scope | Exit |
+|---|---|---|
+| D1/D4-a | The red census and discharge: every red lane of the Phase B close that the Phase C evidence-root package did not resolve is repaired at its cause, or its stale expectation retired by the law it contradicts, or the lane retired with its reason; nothing recorded for later. | The integrated invocation and the single-invocation lanes are green or skip with a named reason under the evidence root; the uat harness lane is green. |
+| D1/D4-b | The comparison: the library design's completion condition and proofs re-read at the cut; the Source44 procedure (build, pack, clean install, Source/output and archive/installed correspondence, the twelve Public setup outcomes) rerun on the candidate; the delta to the release relations named. | The D1/D4 exit of the table above. |
+| D1/D4-c | The combined build with P1, P2/P3, P4 and P5 on the granted cut. P5's duration is a measurement, not an inference. | Each proof passes on its original subject or its exact failure returns to its owning boundary; a P5 timeout with no cause stops for the owner with the measurement. |
+| D2 | A changed pair on the new candidate with a fresh target root: the failing C2 with its cold diagnostic subject, retained by the parent; one native repair; the same checker green; close, reopen and fresh Public reads conserve (TD-18's trace is the check). Admitted16 and Continuation17 stay historical evidence; no Run migration. | The D2 exit of the table above. |
+| D3 | One prospectively recorded witness: candidate, specification, obligations, oracle, worker and assessor, execution context. | The D3 exit of the table above. |
+| D5-a | The gate roster: the fifteen families, the 4.6 conservation rows and S01/S02/S03/S06 mapped to lanes and native assessments; 5.1-reserved portions take their scoped disposition; proof packaging under TD-19; witnesses under TD-10. | Every family and conservation row has an explicit disposition; no vector lane is red or skipped. |
+| D5-b | F11 self-conformance under `stdo://releases/v3.0.0-rc.1/`, the actual native assessments, the sole AF22 verdict over the complete gate vector. | The D5 exit of the table above. |
+| D6 | The push, the annotated `v5.0.0-rc.1` tag and the `v5.0.0` selector, AF25 publication, fresh install and qualification of the installed RC, the owner's acceptance, a source-blind post-publication install. | The D6 exit of the table above. |
+
+Decisions as ruled by the owner, 2026-10-24.
+
+1. Order: Phase D after the Phase C close, no interleaving.
+2. The exact grant: the candidate cut is the Phase C close commit; the grant covers the combined build, P1, P5, P4 and their dependents on that cut. The HOLD in the current disposition lifts for that cut only; a later code change makes a new cut and needs a new grant. The Executive instantiates the hash in the D1/D4-c activation.
+3. Reconcile17: a changed pair on the new candidate with a fresh target root; the completed 16 and 17 installs stay historical evidence.
+4. D3's witness and context: the owner supplies, before D3 activates, the specification (a bounded real one for `A5-F17`), the independent oracle, the assessor, the network-enabled execution context and the provider budget. The Executive asks for them at the D2 close; D3 does not activate without the prospective record.
+5. Publication: the push of both repositories, the `abiogenesis` namespace with `v5.0.0-rc.1` and the owner as the human Product authority are authorized as D6's publication step. Nothing is pushed before D6 publishes the qualified cut; the Executive reads this authorization as bound to that step and that cut.
+6. Assessment cadence: the owner's Codex pass is the independent assessment inside D3, D5 and D6; D1/D4 and D2 take the pass at their close.
+
 ### Design and proof controls
 
 Executive applies [STDO proportionality](stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md#6-cost-and-proportionality)
@@ -355,7 +385,8 @@ Next: [T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md),
 Phase A (repairs F and G, the review pass, L5), Phase B (the
 [technical debt register](../../TECHNICAL_DEBT_REGISTER.md) in the order
 TD-06, TD-07, TD-17, TD-13, TD-14, then the rest), Phase C (the owner's
-decisions), Phase D (release work under this ticket). Preserve old freezes, failed cuts and
+decisions), then Phase D under the [Phase D order](#phase-d-order-2026-10-24)
+(approved 2026-10-24: D1/D4-a, D1/D4-b, D1/D4-c, D2, D3, D5-a, D5-b, D6). Preserve old freezes, failed cuts and
 main generated936; no cleanup, old Run migration or restarted historical
 attempt is selected.
 

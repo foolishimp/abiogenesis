@@ -12,7 +12,7 @@
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: C, the ruled packages (Phase A closed at `46ed04895`, L5 accepted 2026-10-24; Phase B closed at `a8937b837`, run and review at the close)
 - current_package: C-2 (activated 2026-10-24; the lifecycle reader, with C-1's residual retyping as item 0); C-1 accepted at `2c9878c3b`
-- current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D is not scheduled by this ticket and follows the Phase C packages on the owner's order
+- current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D is scheduled by T-287 (the owner's order of 2026-10-24) and starts at this ticket's Phase C close
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
 - re_entry_point: specification/GOALS.md#current-selection
@@ -140,7 +140,7 @@ After L5, under T-287's dependency order: the D1 and D4 comparison of the
 closed source to the accepted design and Source44; D2 and D3 lifecycle work;
 D5 qualification; D6 publication. This ticket does not schedule them. The Executive's plan proposal for the owner's order is the post
 [20261024T064557Z_PLAN_t287_phase_d_release_resumption](../../comments/claude/20261024T064557Z_PLAN_t287_phase_d_release_resumption.md)
-(commentary: eight packages under T-287's dependency order and six owner decisions).
+(commentary: eight packages under T-287's dependency order and six owner decisions). The owner approved the packages, the order and the six decisions on 2026-10-24 ("after C lands continue with this plan"); T-287's `### Phase D order (2026-10-24)` records them. Phase D starts at this ticket's Phase C close.
 
 ## Ledger
 
