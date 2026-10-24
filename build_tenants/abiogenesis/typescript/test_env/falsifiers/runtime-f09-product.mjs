@@ -115,17 +115,6 @@ export function realizeAxF09ProbabilisticPass(input, occurrence) {
         transport.disposition === "success" &&
         isGreetingOutput(resultCandidate) &&
         resultCandidate.message === input.message;
-      const abaContractFailure =
-        process.env.ABG_AX_F09_MODE === "aba" && !success;
-      const selectedCandidate = abaContractFailure
-        ? {
-            kind: "developer_greeting_failure",
-            schemaVersion: "5.0.0",
-            diagnosticRef:
-              "diagnostic://developer.example/greeting/aba/" +
-              sha256Canonical(transport.finalOutput),
-          }
-        : resultCandidate;
       const failureDiagnosticRef = transport.failureClass === null
         ? "diagnostic://developer.example/greeting/worker-output-refused@5"
         : "diagnostic://developer.example/greeting/" +
@@ -133,13 +122,11 @@ export function realizeAxF09ProbabilisticPass(input, occurrence) {
       return deepFreeze({
         kind: "leaf_realization_candidate",
         schemaVersion: "5.0.0",
-        disposition: success || abaContractFailure ? "success" : "failure",
+        disposition: success ? "success" : "failure",
         evidenceCandidates: [],
-        ...(success || abaContractFailure
-          ? {}
-          : { diagnosticRef: failureDiagnosticRef }),
-        resultCandidate: success || abaContractFailure
-          ? selectedCandidate
+        ...(success ? {} : { diagnosticRef: failureDiagnosticRef }),
+        resultCandidate: success
+          ? resultCandidate
           : {
               kind: "developer_greeting_failure",
               schemaVersion: "5.0.0",
