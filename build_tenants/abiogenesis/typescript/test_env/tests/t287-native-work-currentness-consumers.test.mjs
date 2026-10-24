@@ -669,7 +669,7 @@ test('U1 physical target scope successor across bindings and native Result scope
       coldLazy: nativeOwner.worksiteCommandSourcesInvalidatedAfter(cold, afterOrdinal, o.root, [o.path]) }));
   };
   const causeAfter = async (f, label, selected, expected, before, expectedGates = expected.map(value => !value)) => {
-    const event = f.cause(), dependencies = calculus.eventCalculusDependencies(f.prefix(), event, []);
+    const event = f.cause(), dependencies = calculus.eventCalculusDependencies(f.prefix(), event);
     const task = projectNativeWorkUnknownEffectTask(event, dependencies, before.prefix);
     const after = await views(f, label, selected);
     const gates = selected.map(o => ({ label: o.label, invalidated: nativeOwner.worksiteCommandSourcesInvalidatedAfter(
@@ -746,7 +746,7 @@ test('U1 physical target scope successor across bindings and native Result scope
     assert.deepEqual(after.facts.map(row => row.indexed), [true, false, true, true]);
     assert.deepEqual(gates, [true, false, false]);
     assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(prior.prefix), prior.projection);
-    const dependencies = calculus.eventCalculusDependencies(f.prefix(), admitted.event, []);
+    const dependencies = calculus.eventCalculusDependencies(f.prefix(), admitted.event);
     const priorResultRows = f.rows().filter(row => row.admissionOrdinal < admitted.event.admissionOrdinal);
     assert.ok(dependencies.every(row => row.admissionOrdinal < admitted.event.admissionOrdinal));
     assert.ok(dependencies.some(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.predecessorObservation?.observationRef === controls(f)[0].value.observationRef));
@@ -918,7 +918,7 @@ test('U1 physical target scope successor across bindings and native Result scope
     assert.deepEqual(event.payload.value, physical);
     assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
     assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(evidenced.prefix), evidenced.projection);
-    const dependencies = calculus.eventCalculusDependencies(f.prefix(), event, []);
+    const dependencies = calculus.eventCalculusDependencies(f.prefix(), event);
     assert.ok(dependencies.every(row => row.admissionOrdinal < event.admissionOrdinal));
     for (const required of [bindingAppend.event, implementationEvent, evidence]) assert.ok(dependencies.some(row => row.eventId === required.eventId));
     assert.ok(dependencies.some(row => row.kind === 'basis_admitted' && row.payload.rawInputValue?.predecessorObservation?.observationRef === controls(f)[0].value.observationRef));
@@ -1034,7 +1034,7 @@ test('U1 physical target scope successor across bindings and native Result scope
       } });
       const selected = controls(f), before = await views(f, label + ' before', selected);
       const basis = projectExactExecutionBasisAtPrefix(before.prefix, f.basis.basisRef), invocation = projectExactInvocationAdmissionAtPrefix(before.prefix, f.inv.invocationAdmissionRef);
-      const event = f.cause(), dependencies = calculus.eventCalculusDependencies(f.prefix(), event, []);
+      const event = f.cause(), dependencies = calculus.eventCalculusDependencies(f.prefix(), event);
       const task = projectNativeWorkUnknownEffectTask(event, dependencies, before.prefix), after = await views(f, label + ' after', selected);
       const gates = selected.map(o => nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), before.rows.at(-1).admissionOrdinal, o.root, [o.path]));
       const { transportBindingRef, transportBindingDigest, ...transportBody } = f.binding.payload;
@@ -1167,8 +1167,8 @@ test('TD-08 (a): basis-admission worksite currentness equals the head reference 
         ['causes absent from owned', prior, prefixes.validatedRuntimeEventPrefixBeforeEvent(full, firstCause.eventId)]];
       if (located !== null) {
         const before = prefixes.validatedRuntimeEventPrefixBeforeEvent(located, event.eventId);
-        variants.push(['located dependencies', calculus.eventCalculusDependencies(located, check.event, []), before],
-          ['located, causes absent', calculus.eventCalculusDependencies(located, check.event, []),
+        variants.push(['located dependencies', calculus.eventCalculusDependencies(located, check.event), before],
+          ['located, causes absent', calculus.eventCalculusDependencies(located, check.event),
             prefixes.validatedRuntimeEventPrefixBeforeEvent(located, firstCause.eventId)]);
         seen.located += 1;
       }

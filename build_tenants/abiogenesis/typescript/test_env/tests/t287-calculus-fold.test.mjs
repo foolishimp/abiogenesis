@@ -23,21 +23,33 @@ function events(prefix) {
 }
 
 // The cold fold: from the empty state, foldStep over every event of the cut,
-// with the dependencies the class supplies.
+// with the exact dependencies the class reads from the cut before the event.
 function coldFold(cut) {
   let state = emptyFoldState(cut);
-  const prior = [];
-  for (const event of events(cut)) {
-    state = foldStep(state, event, eventCalculusDependencies(cut, event, prior));
-    if (cut.kind === 'validated_runtime_event_prefix') prior.push(event);
-  }
+  for (const event of events(cut)) state = foldStep(state, event, eventCalculusDependencies(cut, event));
   return state;
+}
+
+// The reference fold: foldStep over every event of the cut with every prior
+// event as its dependencies, and the effect of each step. The exact selection
+// must give the same transitions: holds, clipped, declipped and effect rows.
+function referenceFold(cut) {
+  const rows = events(cut), effects = [];
+  let state = emptyFoldState(cut);
+  rows.forEach((event, index) => {
+    state = foldStep(state, event, rows.slice(0, index));
+    effects.push(state.transition.effect);
+  });
+  return { state, effects };
 }
 
 const stateView = state => ({ holds: [...state.holds.keys()].sort(),
   clippedFluentRefs: [...state.clippedFluentRefs], declippedPatternRefs: [...state.declippedPatternRefs] });
 const projectionView = projection => ({ holds: projection.holds.map(fluent => fluent.fluentRef).sort(),
   clippedFluentRefs: [...projection.clippedFluentRefs], declippedPatternRefs: [...projection.declippedPatternRefs] });
+// The fork law compares the whole projection: the view and every effect row.
+const forkView = projection => ({ ...projectionView(projection), effectRows: projection.effectRows });
+const rowEffect = ({ kind: _kind, eventKind: _eventKind, sourceEvent: _sourceEvent, ...effect }) => effect;
 
 // P-FOLD at every cut: cold fold, the class's project and the warm fork agree.
 function assertFoldAgreement(source, label) {
@@ -45,8 +57,12 @@ function assertFoldAgreement(source, label) {
   for (const row of rows) {
     const cut = validatedRuntimeEventPrefixThroughEvent(source, row.eventId);
     assert.equal(cut.kind, source.kind, `${label}: the cut keeps the prefix kind`);
-    const warm = projectionView(deriveRuntimeEventCalculusProjection(cut));
+    const projection = deriveRuntimeEventCalculusProjection(cut), warm = projectionView(projection);
     assert.deepEqual(stateView(coldFold(cut)), warm, `${label}: cold fold equals project at ${row.admissionOrdinal} ${row.kind}`);
+    const reference = referenceFold(cut);
+    assert.deepEqual(stateView(reference.state), warm, `${label}: the fold over every prior event equals project at ${row.admissionOrdinal} ${row.kind}`);
+    assert.deepEqual(reference.effects, projection.effectRows.map(rowEffect),
+      `${label}: the exact dependencies give the effect rows of every prior event at ${row.admissionOrdinal} ${row.kind}`);
     assert.deepEqual(projectionView(forkRuntimeEventCalculusAtForModuleTest(source, cut)), warm,
       `${label}: forkAt equals project at ${row.admissionOrdinal} ${row.kind}`);
   }
@@ -63,10 +79,19 @@ test('P-FOLD: the U1 recorded store folds cold, warm and forked to the same hold
   const owned = selectOwnedRuntimeEventPrefix(f.store), validated = prefixOf(f.store.readAll());
   const count = assertFoldAgreement(validated, 'validated');
   assert.equal(assertFoldAgreement(owned, 'owned'), count);
-  for (const row of events(owned)) {
-    const cut = validatedRuntimeEventPrefixThroughEvent(owned, row.eventId);
-    assert.deepEqual(projectionView(forkRuntimeEventCalculusAtForModuleTest(owned, cut, owned)),
-      projectionView(deriveRuntimeEventCalculusProjection(owned)), `fork at ${row.admissionOrdinal} advanced to the end equals warm`);
+  // The fork law: a fork at any cut, advanced to the end or to any later
+  // middle cut, equals the warm projection there, effect rows included.
+  for (const [label, source] of [['validated', validated], ['owned', owned]]) {
+    const rows = events(source), cuts = rows.map(row => validatedRuntimeEventPrefixThroughEvent(source, row.eventId));
+    const end = forkView(deriveRuntimeEventCalculusProjection(source));
+    cuts.forEach((cut, index) => {
+      assert.deepEqual(forkView(forkRuntimeEventCalculusAtForModuleTest(source, cut, source)), end,
+        `${label}: fork at ${rows[index].admissionOrdinal} advanced to the end equals warm`);
+      for (const [later, through] of cuts.entries()) if (later > index && later < cuts.length - 1)
+        assert.deepEqual(forkView(forkRuntimeEventCalculusAtForModuleTest(source, cut, through)),
+          forkView(deriveRuntimeEventCalculusProjection(through)),
+          `${label}: fork at ${rows[index].admissionOrdinal} advanced to ${rows[later].admissionOrdinal} equals warm there`);
+    });
   }
   // The store carries an exit after termination unconfirmed for the same
   // process: the exit initiates terminated given the start, unguarded.
@@ -110,6 +135,11 @@ test('P-FOLD streaming: single-event advances agree with one batched advance and
   const middle = validatedRuntimeEventPrefixThroughEvent(streaming, events(streaming)[1].eventId);
   assert.deepEqual(projectionView(forkRuntimeEventCalculusAtForModuleTest(streaming, middle)),
     projectionView(deriveRuntimeEventCalculusProjection(middle)), 'forkAt equals project at the cut');
+  const end = forkView(deriveRuntimeEventCalculusProjection(streaming));
+  for (const row of events(streaming))
+    assert.deepEqual(forkView(forkRuntimeEventCalculusAtForModuleTest(streaming,
+      validatedRuntimeEventPrefixThroughEvent(streaming, row.eventId), streaming)), end,
+    `streaming: fork at ${row.admissionOrdinal} advanced to the end equals warm`);
   assert.equal(runtimeEventCalculusStateForModuleTest(streaming), states[0], 'forking does not replace the source state');
   t.diagnostic(JSON.stringify({ cuts: states.length, ownedStates: new Set(states).size }));
 });

@@ -2980,3 +2980,248 @@ Grant: `code/src/abg/event_calculus.ts`; `code/src/abg/replay.ts` at the `:1217`
 Stop (write it in the Return, keep the rest moving): any event kind, payload key, failure class, Public export or Product contract change; a change to any recorded effect row at any cut of any fixture; a selector dependency missing (form 1 fails); item 0's lane red past fixture verification on a `code/src` defect.
 
 Return contract: one commit on `main` with the first line `C-7: the fork trace: a fork of the calculus derivation at any cut, advanced to any later cut, equals the warm projection there; the mini product fixture verifies and the cold held-return witness runs` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push. Append `## C-7 return` at the end of this record: the first sentence says closed, or names the gap; item 0's fixture repair and the witness's lane, count and assertion lines; the trace table (a); the repair (b), its form and its proof; the restored assertions (c) and the mutant's first error; the reach (d); item 2's proposals; item 3's tables; deviations from this wording; findings outside the grant; stops. Nothing above your section is edited.
+
+## C-7 return
+
+Base `e08d7db74`. Worker: Opus 5.5 at xhigh. The commit carrying this section is the C-7 commit. Scratch root: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/c7/`, written `scratch/c7/` below.
+
+Not closed: the cold held-return witness does not run, because the F09 worker's own program-validation and capability-grant calls are stale (not `code/src`); item 1 is closed. The fork law holds: a fork of the calculus derivation at any cut, advanced to any later cut, equals the warm projection there for validated, streaming and owned sources, effect rows included. Form 1 was taken and proved by a dual run over the 16 reach lanes that fold a validated prefix: 21,013 validated fold steps, 0 mismatches. In item 0 the mini product now verifies and installs, but `t287-r4-aba-retry` is still red past both, at program validation inside the F09 worker, so the witness stays in scratch. The commit's first line keeps the activation's text up to "the mini product fixture verifies" and states that the witness does not run (deviation 1).
+
+### Item 0: the C-6 steel thread
+
+**(a) The fixture repair** (`test_env/support/developer-mini-product.mjs`). Three changes, each forced by a Product rule.
+
+1. **The capability definition graph.** The support writes the graph asset at `CAPABILITY_DEFINITION_GRAPH_ASSET_PATH`. It writes the graph's coordinate into the manifest (`capabilityDefinitionGraph`, with the asset locator) and into the contribution manifest, as `registered-graph-selection.mjs:55-64`, `:130` and `:179` do. The variant products (`materializePublicationVariant`) spread both manifests and copy the source tree with the asset, so they carry the same coordinate and asset.
+2. **No declared capability** (deviation 2). The activation asked for a graph that covers `developer.example.capability.greeting@5`. No graph can, for two reasons:
+   - Verification builds the expected graph from ABG's own register, over the catalog's flat coordinates (`product/verify_product.ts:2616`). The register projects no capability for a developer contract (`capabilityRefsForContract`, `shared/capability_contracts.ts:107`).
+   - Verification then requires each catalog row's `capabilityIdentities` to equal that projection (`:2620-2636`; this is the `catalog_mismatch` C-6 hit). It also requires the graph's ids to equal `declaredCapabilityRefs` (`:2638-2650`, and `:866-907` for the verified artifact).
+
+   So the mini product's graph is the empty graph, its catalog row carries `capabilityIdentities: []`, and its manifest carries `declaredCapabilityRefs: []`. Nothing reads the removed identity: `git grep` finds it only in this support.
+3. **The managed ABG dependency** (deviation 3). Once verification passed, installation refused with `dependency_lock_mismatch` ("materialized managed Product dependencies differ from the selected resolved lock", worker `:983`).
+   - The manifest declares a `requires` dependency on ABG. `installProduct` checks that this dependency is materialized under the target root and matches its lock row (`product/install_product.ts:256-296`). The mini package carried no npm dependency.
+   - The support now packs ABG from `packageRoot` and writes `dependencies: { "@abiogenesis/typescript-tenant": "file:<archive>" }` into the mini package. The registered-selection, language-smoke and language-structural supports do the same.
+   - The pack is deterministic (two packs gave the same sha256) and costs about 3 s.
+
+**Result on the head build** (support repaired, no `code/src` change).
+- `manifest_malformed` is gone, fixture verification passes, and both installs materialize.
+- The lane is red at program validation in `constructP1Environment` (`runtime-f09-worker.mjs:1138`). First error: `static_validation_refusal` `raw_subject_mismatch`, "Program validation accepts package-admitted raw values only".
+- Count: 1/0/1/0 before and after. Logs: `scratch/c7/before/`, `scratch/c7/item0b/`, `scratch/c7/after/`.
+
+**Why this is not `code/src`, and where it stops.** The worker keeps a private `rawProgramInput` (`:87-128`) in a superseded shape:
+- it passes `publication` where `ProgramValidationInput` (`validator/validation.ts:502-514`) takes `programPublication` and `declarationBasisDigest`;
+- it omits `evaluators` and `rules`.
+
+The current form is the support's `rawProgramInput` (`root-installed-environment.mjs:140-167`). I ran two scratch probes, each a temporary edit of the worker that I reverted at once (logs `scratch/c7/probe_f09_1/`, `scratch/c7/probe_f09_2/`):
+1. With `programPublication` and `declarationBasisDigest`, the error becomes `invalid_reference`, "GTL Program declarations do not satisfy the declared static contracts". This is the validator's catch-all; `evaluators` and `rules` are still absent.
+2. With the support's full shape, the worker throws at `product/invocation.js:577`, "capability grant requires exact workspace, policy, actor, and definition authority". The call is the worker's `product.constructCapabilityGrant(policy, actorRef)` (`:1221-1222`), which omits the operation and the definition authority the current constructor requires (compare `constructInstalledStartCall` in `registered-graph-selection.mjs`).
+
+Each layer is stale test code in the worker, and the worker is outside the grant except for (b). How many layers lie past the third is unknown. **Stop 1**, below.
+
+**(b) The witness: not committed.**
+- The C-6 text applies cleanly. `diff` against the committed falsifier shows additions only (`scratch/c7/witness.diff`: 239 lines after `:3356`, plus `...coldReturn` at `:3643`), and `patch` reproduces the C-6 file byte for byte.
+- It cannot run, because the worker fails at `:1138`, before the hold. The falsifier is committed unchanged.
+- In the applied copy its assertions sit at `:3394-3583`; `coldReturn` is built at `:3584` and spread into the worker's result at `:3643`.
+- The witness text stays at `scratchpad/c6/runtime-f09-worker.witness.mjs`, with the applied copy at `scratch/c7/runtime-f09-worker.witness-applied.mjs`.
+
+### Item 1(a): the trace
+
+**Cause verified.** Three pieces at head combine:
+- `eventCalculusDependencies` (head `abg/event_calculus.ts:90-139`) returned the carried list whole for a `validated_runtime_event_prefix` (`:96`). For a located prefix it returned the exact selection from the before-event cut.
+- The derivation carried `priorEvents` (`:151`). `memoize` extended it for validated prefixes only (`:259`), and `advance` passed it (`:246`).
+- `forkAt` (`:188-212`) builds the fork with an empty list.
+
+So step k of a fork of a validated source read only the events from the cut to k-1.
+
+**No other member was missing.**
+- `forkAt` carries the holds, run ids, clipped and declipped refs, probe and interruption scopes and the ordinal through the cut, and `advance` sets the source.
+- The repair removes only the list. After it, the fork equals the warm projection at every pair of cuts of U1, for validated, streaming and owned sources (item 1(c)).
+- U1 has no probe or interruption event, so the carry of those scopes rests on reading.
+
+**Reach.**
+- `forkAt` has two callers: `eventCalculusDerivation` (head `:290`, now `:292`) and the module-test function (`:299`).
+- In production it forks only a validation prefix. The fork's base comes from `runtimeEventValidationBase` through `selectLocatedSubset` (`event_prefix.ts:102-107`, `:139-147`), which returns an owned or a validation prefix, and `isValidationRuntimeEventPrefix` requires an owned base (`:95-100`).
+- So both the base derivation and the fork advance only over located prefixes, which already took the exact path. The step-8 record's "module-test only" is confirmed.
+- `abg/replay.ts:1217` is the other consumer of `eventCalculusDependencies`. Its non-owned branch passes every event, as before.
+
+**Table.** Source: the U1 store, 22 events (`scratch/c7/trace_probe.test.mjs`, log `trace_probe.log`). The probe found 20 differing cuts, ordinals 2 to 21. Column meanings:
+- "Warm gave": the validated derivation at head, which passes every prior event.
+- "Fork gave": `forkRuntimeEventCalculusAtForModuleTest(source, cut, source)` at head.
+- "Needed": the exact selection `eventCalculusDependencies` gives the same event over the owned prefix.
+
+| Cut | Step whose transition differs | Warm gave | Fork gave | Needed (exact) | Missing from the fork | Effect-row difference | Holds, clipped, declipped |
+|---|---|---|---|---|---|---|---|
+| 2 `invocation_admitted` (first) | 5 to 11, each a `basis_admitted` with a worksite request | ordinals 1..k-1 | 3..k-1 | `2:invocation_admitted`; for 6..11 also the earlier bases 5..k-1 | `2:invocation_admitted` | warm initiates `basis_admitted(...)` and `worksite_observation_current(...)`; the fork initiates `basis_admitted(...)` only | holds differ from event 5 on (five `worksite_observation_current` fluents missing at the end); clipped and declipped equal |
+| 12 `basis_admitted` (middle) | 20 `actor_process_termination_unconfirmed`; 22 `actor_invocation_failed` | 1..19; 1..21 | 13..19; 13..21 | 1, 2, 5..19; for 22 also 20, 21 | 1, 2, 5..12 | warm terminates one `worksite_observation_current(...)` at 20 and at 22; the fork terminates none | holds differ from event 20 on (the fork keeps that fluent); clipped and declipped equal |
+| 21 `actor_process_exited` (last) | 22 `actor_invocation_failed` | 1..21 | none | 1, 2, 5..21 | all of them | warm terminates `worksite_observation_current(...)`; the fork does not | holds equal (the fluent ended at 20); clipped and declipped equal; only effect row 22 differs |
+
+**What the steps needed.**
+- The `basis_admitted` initiation of `worksite_observation_current` reads the `invocation_admitted` row named by the basis's `invocationAdmissionRef` (`projectWorksiteBasisObservation`, `c_call_outcome.ts:166-236`). Through `worksiteBasisMayEstablish` (`calculus/axioms.ts:688`) it also reads the earlier worksite causes.
+- The unknown-effect terminations read the native task's support rows and the worksite requests of earlier bases (`projectNativeWorkRetiredObservations`, `axioms.ts:508`).
+
+The member that did not carry across the fork is `priorEvents`, and only it.
+
+### Item 1(b): the repair, form 1
+
+`realization_refactor` in `abg/event_calculus.ts`:
+- **Exact selection for every prefix kind.** `eventCalculusDependencies(prefix, event)` (`:92`) reads the exact selection from the before-event cut whatever the prefix kind. The validated early return is gone and the third parameter is removed. Callers restated: `abg/replay.ts:1217`; `t287-calculus-fold:29`; `t287-native-work-unknown-effect:48`, `:129`; `t287-native-work-currentness-consumers:672`, `:749`, `:921`, `:1037`, `:1170-1171`.
+- **No carried list.** The derivation drops `priorEvents`, its push in `memoize` and the argument in `advance`, and `memoize` no longer takes the prefix. Nothing is carried beside the prefix, so a fork inherits nothing.
+- **Lazy cut.** The before-event cut is taken only when a selector is read (`:97-98`). This is deviation 4.
+- **Comment.** The class comment (`:142-147`) gains one sentence: each step reads its dependencies from the prefix, and nothing else is carried beside it.
+
+Invariants kept:
+- `forkAt` leaves the source state unchanged (`t287-calculus-fold:143`, green).
+- The derivation keeps one owned state (`:132`, green).
+- No event kind, payload key, failure class, Public export or Product contract changes. `eventCalculusDependencies` is `@internal`, and no barrel exports it.
+
+**The proof: a dual run over the reach lanes.**
+- *The patch* (`scratch/c7/apply_dual.py`, scratch only, stripped before the clean build). It instrumented the repaired derivation. At every step of every validated-prefix fold it computed `effectOf` on the same state twice, once with the exact dependencies and once with every prior event of the prefix, and logged any difference per process.
+- *What it covers.* Equal effects at every step make every state, holds, clipped and declipped list and effect row equal. That is the recorded calculus effect under D1.
+- *Totals.* 21,013 steps compared, **0 mismatches**, over 16 lanes whose processes fold a validated prefix. The longest prefix had 131 prior events. Logs: `scratch/c7/dual/dual-*.jsonl`.
+
+| Lane | Steps compared | Mismatches |
+|---|---|---|
+| `t287-native-work-currentness-consumers` | 9,129 | 0 |
+| `t287-c0-post-publication-failure` (with its `runtime-retained-projections-worker` children) | 7,025 | 0 |
+| `t287-calculus-fold` (U1, lifecycle fixtures, counterexamples A and B, forks) | 2,772 | 0 |
+| `t287-route-reconstruction` | 1,191 | 0 |
+| `t287-native-work-unknown-effect` | 231 | 0 |
+| `m5-event-calculus-runtime` (with `runtime-preparation-refusal-worker`) | 164 | 0 |
+| `t287-runtime-failure-diagnostic` | 157 | 0 |
+| `m5-terminal-quiescence-owner` | 155 | 0 |
+| `t287-lifecycle-failure-carrier` | 86 | 0 |
+| `t287-native-frame-observation` | 27 | 0 |
+| `t287-native-workspace-work` | 24 | 0 |
+| `t287-r4-aba-retry` (the installed worker process; `C7_DUAL_LOG` reached it) | 16 | 0 |
+| `t287-f04a-probabilistic-result-candidate`, `t287-runtime-activity-quiescence` | 14 each | 0 |
+| `t287-authenticated-owner-values`, `t287-ordered-reconstruction` | 4 each | 0 |
+| `t287-event-calculus-owner-continuation`, `t287-exact-prefix-projection-reuse`, `t287-native-event-time`, `t287-native-frame-route-conservation`, `t289-install-event-bodies`, `witness-run-stopped-definition-binding` | 0 (each is red at head before folding: required territory or fixture absent) | n/a |
+| `t287-fh-hold-open` | no process (red at module load, head state) | n/a |
+
+No selector dependency is missing, so form 1 holds and form 2 was not needed. The lane counts and first errors on the instrumented build equal head's (`scratch/c7/dual/summary.txt`).
+
+### Item 1(c): the restored assertions
+
+All in `test_env/tests/t287-calculus-fold.test.mjs`; the lane stays at 13 tests.
+
+- **P-FOLD case, end to end** (`:82-95`). For `validated` and for `owned`, a fork at every cut advanced to the end equals `deriveRuntimeEventCalculusProjection(source)` in holds, clipped, declipped and every effect row (`forkView`, `:51`). The old owned-only assertion compared the view without effect rows; it is now this loop.
+- **The one more case** (`:90-93`). A fork at every cut, advanced to every later middle cut, equals the warm projection there: 210 pairs per source. It sits inside the P-FOLD case, not in a new test.
+- **Streaming case** (`:138-142`). A fork at every cut of `streaming`, advanced to its end, equals the warm end. The at-cut assertion (`:135-137`) stays.
+- **The reference fold** (`:36-46`, used at `:62-65`; deviation 5). At every cut of both sources, `foldStep` over every prior event equals the warm projection, and its step effects equal the projection's effect rows. This makes the form-1 proof durable in the lane for U1.
+- **The cold fold** (`:27-31`) now uses the exact dependencies, as the class does.
+- Titles and test count are unchanged, and so are the diagnostics of the P-FOLD, streaming and TD-07 cases.
+
+**The mutant** (`scratch/c7/mutant.diff`, built and run, then reverted and rebuilt). It is the repaired file with the carried list restored for validated prefixes in `advance` (`priorEvents` member, the push, the validated branch). The lane went to 13/11/2/0:
+- The cold and reference folds still agree at every cut.
+- First error: `validated: fork at 2 advanced to the end equals warm`; the diff lists the `worksite_observation_current` fluents missing from the fork's holds.
+- The streaming case fails at `streaming: fork at 2 advanced to the end equals warm`.
+
+Log: `scratch/c7/mutant/t287-calculus-fold.log`.
+
+### Item 1(d): reach
+
+**Lanes in the reach.**
+- `git grep -l -E "abg/event_calculus|abg/calculus" -- test_env/` gives 19 tests: `m5-event-calculus-runtime`, `m5-terminal-quiescence-owner`, `t287-authenticated-owner-values`, `t287-c0-post-publication-failure`, `t287-calculus-fold`, `t287-event-calculus-owner-continuation`, `t287-f04a-probabilistic-result-candidate`, `t287-fh-hold-open`, `t287-lifecycle-failure-carrier`, `t287-native-frame-observation`, `t287-native-work-currentness-consumers`, `t287-native-work-unknown-effect`, `t287-native-workspace-work`, `t287-ordered-reconstruction`, `t287-route-reconstruction`, `t287-runtime-activity-quiescence`, `t287-runtime-failure-diagnostic`, `t289-install-event-bodies`, `witness-run-stopped-definition-binding`.
+- It also gives 5 supports: `t287-exact-prefix-projection-reuse`, `t287-native-event-time`, `t287-native-frame-observation`, `t287-native-frame-route-conservation`, `t287-native-work-currentness-consumers`.
+- It also gives the falsifier `runtime-f09-worker.mjs`, which imports the installed `event_calculus.js`.
+- Three tests reach the calculus only through those supports, and I added them: `t287-exact-prefix-projection-reuse`, `t287-native-event-time` and `t287-native-frame-route-conservation` (deviation 6).
+
+**Results.**
+- Every lane has the same counts, red identities, first errors and skip identities before and after. The comparison is in `scratch/c7/compare.py`.
+- The four named lanes: `m5-event-calculus-runtime` 19/13/5/1 both runs, with the same five reds; `t287-ordered-reconstruction` 7/0/4/3 both; `t287-native-work-unknown-effect` 10/10 both; `t287-native-work-currentness-consumers` 4/4 both.
+- `t287-c0-post-publication-failure` ran once, on the instrumented build: 31/31, against C-6's before count of 31/31 (deviation 7).
+
+**Wall time.** It is unchanged except in two lanes:
+- `t287-calculus-fold` went from 1 s to 5 s, because of the 486 added fork assertions.
+- `t287-native-work-currentness-consumers` went from 36 s to 38 s.
+
+### Item 2: records (proposals; the Executive places them)
+
+- **(a) Ticket, Phase C decisions row "Module-test fork from a middle cut", outcome.** "Done at `<commit>` (C-7). Cause: the derivation carried a prior-event list for validated prefixes, and `forkAt` did not inherit it. Form 1: every prefix kind reads its exact dependencies from the before-event cut, and nothing is carried beside the prefix. A fork at any cut, advanced to any later cut, equals the warm projection there, effect rows included (`t287-calculus-fold`: validated, streaming, owned). The exact selection equals the fold over every prior event at every validated fold step of the 16 reach lanes that fold a validated prefix (21,013 steps, 0 mismatches; 7 reach lanes fold nothing before their head red). The defect reached module tests only."
+- **(b) Design §4.4** (`design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:191`).
+  - After "and copies no fold state;" add: "each step reads its dependencies from the cut before the event by the exact selection (`eventCalculusDependencies`, `abg/event_calculus.ts:92`), for every prefix kind, and the derivation carries nothing beside the prefix, so a fork advanced from a cut folds as its base did;".
+  - Restate the line cites: `abg/event_calculus.ts:240` becomes `:243`; `:332` becomes `:334`; `:279` becomes `:281`.
+  - Restate the `t287-calculus-fold` cites: `:267` and `:284` become `:299` and `:316` (the TD-06 tests, already two lines off at head, at `:269` and `:286`); `:365` becomes `:395`; `:432` becomes `:462`.
+- **(c) P-FOLD** (`:640`). Replace "cold replay equals warm fork at every cut" with: "the cold fold equals the warm projection at every cut, and a fork at any cut, advanced to any later cut, equals the warm projection there in `holds`, `clippedFluentRefs`, `declippedPatternRefs` and effect rows, for validated, streaming and owned sources; the exact dependency selection gives the same transitions as every prior event".
+- **(d) The fold-row falsifiers** (`:270`, `:284`). "a cut where cold replay and the warm fork differ" may read "a cut, or a fork at a cut advanced to a later cut, where cold replay and the warm projection differ". This is optional, since the current wording is not false.
+- **(e) No change needed** at `:114` ("`forkAt` copies it at a cut") or `:524`.
+- **(f) The code comment** at `event_calculus.ts:140-143` is restated in this commit (`:142-147`), inside the grant.
+
+### Item 3: gates and lanes
+
+**Gates**, run on the final tree:
+
+| Gate | Result |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | rc 0 (28 shared modules) |
+| `npm run lint:lifecycle` | rc 0 (284 modules, 7 allow-listed sites, no offender) |
+| `npm run lint:evidence` | rc 0 (691 mirror roots inventoried, no new copy; 1,739 listed paths over 6,000,000 bytes, no other) |
+| `npm run build` | rc 0. It regenerates `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`, because the `code/src` edits change the product content digest; both are committed. A rebuild after staging leaves no tenant diff. |
+
+**Lanes.** Each lane ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. "Before" is head `e08d7db74` after `npm run build`; "after" is the final tree. Counts are tests/pass/fail/skipped. Logs: `scratch/c7/before/`, `scratch/c7/after/`, and `scratch/c7/dual/` for the instrumented build.
+
+| Lane | Item | Before | After | Reds or skips, first error | Attribution |
+|---|---|---|---|---|---|
+| `t287-calculus-fold` | 1 | 13/13/0/0 | 13/13/0/0 | none | fork assertions restored |
+| `t287-r4-aba-retry` | 0 | 1/0/1/0 | 1/0/1/0 | before: worker `:952` `product_verification_refusal` `manifest_malformed`; after: worker `:1138` `static_validation_refusal` `raw_subject_mismatch` | item 0 moves the red past verification and installation; the rest is the stale worker (stop 1) |
+| `m5-event-calculus-runtime` | 1(d) | 19/13/5/1 | 19/13/5/1 | four tests (A5-F10 CCall opening, Run HoldsAt reopen, `runtime_failure_observed` terminates, `run_stopped` throws): `abg.openCall is not a function`; terminal projection rows: `runtime_failure_observed/runtime_invocation_active` `false !== true`; skip: nominal prefix reuse | head state, unchanged |
+| `m5-terminal-quiescence-owner` | 1(d) | 7/7/0/0 | 7/7/0/0 | none | |
+| `t287-authenticated-owner-values` | 1(d) | 3/1/1/1 | 3/1/1/1 | "Values have same structure but are not reference-equal"; one environment-gated skip | head state, unchanged |
+| `t287-c0-post-publication-failure` | 1(d) | 31/31/0/0 (C-6) | 31/31/0/0 (instrumented build, 1,376 s) | none | deviation 7 |
+| `t287-event-calculus-owner-continuation` | 1(d) | 1/0/1/0 | 1/0/1/0 | file load: "exact preimage territory and a digest-bound CLOSED JSONL fixture are required" | head state, unchanged |
+| `t287-f04a-probabilistic-result-candidate` | 1(d) | 2/1/1/0 | 2/1/1/0 | `'World' !== 'Hello Ada'` (strict equal) | head state, unchanged |
+| `t287-fh-hold-open` | 1(d) | 1/0/1/0 | 1/0/1/0 | `ERR_MODULE_NOT_FOUND`, the installed bootstrap under `.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/s02-installed-continuation-17/` | head state, unchanged |
+| `t287-lifecycle-failure-carrier` | 1(d) | 5/5/0/0 | 5/5/0/0 | none | |
+| `t287-native-frame-observation` | 1(d) | 8/1/3/4 | 8/1/3/4 | "explicit proof-local territory"; `ERR_INVALID_ARG_TYPE` (path undefined); third red "The expression evaluated to a falsy value"; four environment-gated skips | head state, unchanged |
+| `t287-native-work-currentness-consumers` | 1(d) | 4/4/0/0 | 4/4/0/0 | none | call sites restated |
+| `t287-native-work-unknown-effect` | 1(d) | 10/10/0/0 | 10/10/0/0 | none | call sites restated |
+| `t287-native-workspace-work` | 1(d) | 38/37/0/1 | 38/37/0/1 | one environment-gated skip | |
+| `t287-ordered-reconstruction` | 1(d) | 7/0/4/3 | 7/0/4/3 | falsy `assert.ok`; two "not reference-equal"; "exact held object, after physical byte authentication"; three environment-gated skips | head state, unchanged |
+| `t287-route-reconstruction` | 1(d) | 10/8/0/2 | 10/8/0/2 | skips `P0_RETAINED_NATIVE_SCRATCH` unset | |
+| `t287-runtime-activity-quiescence` | 1(d) | 1/1/0/0 | 1/1/0/0 | none | |
+| `t287-runtime-failure-diagnostic` | 1(d) | 17/17/0/0 | 17/17/0/0 | none | |
+| `t289-install-event-bodies` | 1(d) | 4/0/4/0 | 4/0/4/0 | "explicit isolated proof territory and digest-bound retained history required"; two `ERR_INVALID_ARG_TYPE`; "explicit predecessor package and digest-bound retained history required" | head state, unchanged |
+| `witness-run-stopped-definition-binding` | 1(d) | 7/0/7/0 | 7/0/7/0 | falsy `assert.ok(territory)` (all seven) | head state, unchanged |
+| `t287-exact-prefix-projection-reuse` | 1(d), support | 2/0/1/1 | 2/0/1/1 | "explicit fresh proof territory required"; one skip | head state, unchanged |
+| `t287-native-event-time` | 1(d), support | 6/0/4/2 | 6/0/4/2 | "explicit absolute proof territory required" (two), "explicit proof territory required", "exact rejected paired producer required"; two skips | head state, unchanged |
+| `t287-native-frame-route-conservation` | 1(d), support | 3/0/3/0 | 3/0/3/0 | falsy assertion; `ERR_INVALID_ARG_TYPE`; falsy assertion | head state, unchanged |
+
+### Deviations from the activation's wording
+
+1. **The commit's first line.** The activation fixes it as ending "the mini product fixture verifies and the cold held-return witness runs". The witness does not run (item 0), so the commit keeps the fixed text through "the mini product fixture verifies" and ends "; the cold held-return witness does not run (stale F09 worker, stop 1)". The `C-7: the fork trace:` prefix is unchanged. The commit body states the item 0 gap.
+2. **No declared capability.** The mini product declares no capability, so its graph is empty and covers nothing; the reason is in item 0 (a)2. The activation asked for a graph covering `developer.example.capability.greeting@5`, which the verification law does not admit for a developer contract.
+3. **The managed ABG dependency.** Item 0 also repairs installation, not only verification, inside the granted support.
+4. **The lazy before-event cut.** For an event absent from the prefix whose kind reads no selector, `eventCalculusDependencies` now returns `[]`. At head the located path refused at the eager cut, and the validated path returned the carried list. The fold never passes an absent event. An absent event whose kind reads a selector is still refused at the cut.
+5. **Test additions.** The test adds the reference fold (every prior event, effect rows included) as the durable form-1 proof. It realizes the "one more case" as every (cut, later middle cut) pair inside the P-FOLD case, not as a new test, so the count stays at 13. The owned end-to-end assertion now also compares effect rows.
+6. **Extra lanes.** The reach adds the three tests that reach the calculus through the supports, and `t287-r4-aba-retry`.
+7. **`t287-c0-post-publication-failure` ran on the instrumented build.** Its after count comes from that build, which differs from the final build by the logger only (stripped; `git diff` shows no `c7`, `effectOf` or `appendFileSync`). The run also gave its dual-run coverage. I did not run the lane a second time.
+8. **Temporary worker edits.** Two scratch probes edited the granted worker and were reverted at once. The worker is committed unchanged.
+
+### Findings outside the grant
+
+- **The F09 worker is stale** against the current validator and product APIs: `rawProgramInput` (`:87-128`) and `constructCapabilityGrant(policy, actorRef)` (`:1221-1222`). Stop 1.
+- **`abg/replay.ts:1217`'s non-owned branch** still passes every event. With form 1, `eventCalculusDependencies(prefix, event)` serves every prefix kind, so the ternary and the all-events list could go. I left them: this is a replay behaviour change with no proof run here.
+- **Two design cites were already off at head.** §4.4's `t287-calculus-fold` cites `:267` and `:284` pointed two lines before the TD-06 tests (`:269`, `:286`).
+- **Head reds.** All are unchanged and attributed in the lane table.
+
+### Stops
+
+1. **Item 0 past verification.** `t287-r4-aba-retry` is red in the F09 worker's own stale calls (test code, outside the grant except for (b)). The first is `rawProgramInput`; with that restated in scratch, the next is `constructCapabilityGrant` without its definition authority. The depth past that is unknown.
+   - **Recommendation.** Grant one bounded package for `runtime-f09-worker.mjs`, stopping on the first `code/src` defect. It should:
+     - use the support's `rawProgramInput` (`root-installed-environment.mjs:140`);
+     - pass `constructCapabilityGrant` the operation, capability and definition authority, as `registered-graph-selection.mjs` does;
+     - peel each further stale call up to the A-B-A hold;
+     - then apply and commit the C-6 witness.
+   - **Reversal.** Revert the worker. The support repair here stands either way.
+
+No other stop:
+- No event kind, payload key, failure class, Public export or Product contract changes.
+- No recorded effect row changes at any cut of any fixture: 0 mismatches over 21,013 steps.
+- No selector dependency is missing.
+
+### What could not be verified
+
+- **The probe and interruption scopes.** The fork's carry of probe and interruption scopes across a cut is shown by reading only, because U1 has no probe or interruption event.
+- **Lanes red before any fold.** Seven reach lanes fold nothing before their head red, so the dual run covers no step there: `t287-fh-hold-open`, `t287-event-calculus-owner-continuation`, `t287-exact-prefix-projection-reuse`, `t287-native-event-time`, `t287-native-frame-route-conservation`, `t289-install-event-bodies`, `witness-run-stopped-definition-binding`.
+- **Cost on long prefixes.** I measured no cost on validated prefixes longer than the lanes' (at most 131 prior events) beyond lane wall times. The lazy cut avoids the O(n) before-event cut on events that read no selector.
+- **The witness.** It has not run.

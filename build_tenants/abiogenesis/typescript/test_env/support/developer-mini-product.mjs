@@ -38,6 +38,34 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     ],
     { cwd: sourceRoot, maxBuffer: 10 * 1024 * 1024 },
   );
+  // The manifest declares a dependency on ABG; the package carries it as a
+  // managed Product dependency on the ABG archive, so an install materializes
+  // it under the target root (product/install_product.ts), as the registered
+  // selection product's package does.
+  const dependencyArtifacts = join(scratch, "developer-mini-product-dependencies");
+  await mkdir(dependencyArtifacts, { recursive: true });
+  const { stdout: abiPackStdout } = await execFileAsync(
+    "npm",
+    ["pack", "--ignore-scripts", "--json", "--pack-destination", dependencyArtifacts],
+    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 },
+  );
+  const [abiPackResult] = JSON.parse(abiPackStdout);
+  const abiPackageName = JSON.parse(
+    await readFile(join(packageRoot, "package.json"), "utf8"),
+  ).name;
+  const fixturePackageJson = JSON.parse(
+    await readFile(join(sourceRoot, "package.json"), "utf8"),
+  );
+  await writeFile(
+    join(sourceRoot, "package.json"),
+    `${JSON.stringify({
+      ...fixturePackageJson,
+      dependencies: {
+        [abiPackageName]: `file:${join(dependencyArtifacts, abiPackResult.filename)}`,
+      },
+    }, null, 2)}\n`,
+    "utf8",
+  );
 
   const product = await import(
     `${pathToFileURL(join(packageRoot, "build/code/src/product/index.js")).href}?mini=${Date.now()}`
@@ -76,6 +104,24 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
   const greetingSchemaDigest = await product.sha256File(
     join(sourceRoot, greetingSchemaPath),
   );
+  // The capability definition graph is constructed from ABG's register
+  // projection of the catalog's contracts (product/verify_product.ts), which
+  // projects no capability for a developer contract: the mini product's graph
+  // is the empty graph, and it declares no capability.
+  const capabilityDefinitionGraph =
+    product.constructCapabilityDefinitionGraph([]);
+  const capabilityDefinitionGraphBytes =
+    product.capabilityDefinitionGraphAssetBytes(capabilityDefinitionGraph);
+  await mkdir(
+    join(sourceRoot, product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH, ".."),
+    { recursive: true },
+  );
+  await writeFile(
+    join(sourceRoot, product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),
+    capabilityDefinitionGraphBytes,
+  );
+  const capabilityDefinitionGraphCoordinate =
+    product.capabilityDefinitionGraphCoordinate(capabilityDefinitionGraph);
   const descriptorRef = "descriptor://developer.example/greeting@5";
   const contributionManifestRef =
     "contribution-manifest://developer.example/greeting@5";
@@ -95,9 +141,7 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
       requirementAuthorityRefs: [
         "requirement://developer.example/greeting/render@5",
       ],
-      capabilityIdentities: [
-        "developer.example.capability.greeting@5",
-      ],
+      capabilityIdentities: [],
       assetLocator: {
         path: greetingSchemaPath,
         mediaType: "application/schema+json",
@@ -129,6 +173,7 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
     productContentDigest,
     publicContractCatalogId: publicContractCatalog.catalogId,
     publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    capabilityDefinitionGraph: capabilityDefinitionGraphCoordinate,
     publicationBindings: [{
       moduleRef: draftPublication.moduleRef,
       publicationDigest:
@@ -177,7 +222,16 @@ export async function prepareDeveloperMiniProduct(packageRoot, scratch) {
       ],
     }],
     provenanceRef,
-    declaredCapabilityRefs: ["developer.example.capability.greeting@5"],
+    declaredCapabilityRefs: [],
+    capabilityDefinitionGraph: {
+      ...capabilityDefinitionGraphCoordinate,
+      assetLocator: {
+        path: product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+        mediaType: "application/json",
+        schemaVersion: "5.0.0",
+        contentDigest: product.sha256Bytes(capabilityDefinitionGraphBytes),
+      },
+    },
     publicContractCatalog,
   };
   await writeFile(
