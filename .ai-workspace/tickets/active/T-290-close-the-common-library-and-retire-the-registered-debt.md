@@ -11,7 +11,7 @@
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: A, close the library
-- current_package: TD-23 (activated 2026-10-24); TD-15 + TD-16 accepted at `a692fb4b9`
+- current_package: TD-20 (activated 2026-10-24); TD-23 accepted at `bc7135549`
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - change_class: realization_refactor
 - derived_change_classes: design_reframe, only for a Phase C package the owner selects
@@ -151,6 +151,7 @@ D5 qualification; D6 publication. This ticket does not schedule them.
 | 2026-10-24 | TD-11 | `3c91f5200` | `tsc --noEmit` clean; both lints; `npm run build` rc 0; `m5-worker-transport` 23/23; `t287-owned-process-lifetime` 18/18; `t287-native-workspace-work` 38/37/0/1; `t287-management-context` 14/12/0/2; `t287-lifecycle-failure-carrier` 5/5 (`exec_check_TD11.log`) | accepted; register row closed; the two regenerated digest files committed with the bookkeeping |
 | 2026-10-24 | TD-08 | `f6bdf13bd` | `tsc --noEmit` clean; both lints; `npm run build` rc 0; `t287-native-work-currentness-consumers` 4/4; `t287-native-workspace-work` 38/37/0/1; `t287-native-work-reacquisition` 9/6/0/3; `t287-native-work-unknown-effect` 10/10; `t287-native-worksite-execution` 6/3/0/3; `t287-calculus-fold` 12/12; `t287-exact-prefix-projection-reuse` 2/0/1/1; `forward-command-contracts` 10/10; `m5-event-calculus-runtime` 19/13/5/1; `t287-ordered-reconstruction` 7/0/4/3; `t287-c2-owner-coordinate-reuse` 6/0/6/0; the four red lanes with the same identities as the Return and the head (`exec_check_TD08.log`) | accepted; register row closed; stop 3(b) ruled met; two design line pointers corrected |
 | 2026-10-24 | TD-15 + TD-16 | `a692fb4b9` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 with the refreshed pin and no regenerated diff; `t287-value-equality` 4/4; `m5-c-algebra-validation` 22/19/0/3; `t287-worksite-command-execution` 10/10; `forward-command-contracts` 10/10; `t287-route-reconstruction` 10/8/0/2; `t287-runtime-failure-diagnostic` 15/15; `t287-management-supervision` 5/4/1/0; `r10-projection-contracts` 10/9/1/0; the two red lanes with their head identities (`exec_check_TD1516.log`) | accepted; both register rows closed; TD-14's nine recorded as discharged; D4, the value-family rows and the O-TYPE clause restated |
-| 2026-10-24 | TD-23 | | | activated (the two event-store readers; the other two loops are extension evidence only) |
+| 2026-10-24 | TD-23 | `bc7135549` | `tsc --noEmit` clean; both lints; `npm run build` rc 0 and no regenerated diff; `m5-event-store-reopen` 21/21; `t287-event-body-encoding` 14/14; `r10-projection-contracts` 10/9/1/0; `t287-calculus-fold` 12/12; `t287-cold-record-decoder` 3/1/1/1; `m5-event-calculus-runtime` 19/13/5/1; the three red lanes with their head identities; the S01 fixture tree unchanged after the lanes (`exec_check_TD23.log`) | accepted; register row closed; the worker and recovery loops retained with reasons, no extension |
+| 2026-10-24 | TD-20 | | | activated (T-287 compaction; documentation Worker) |
 
-Next: TD-23 (Worker running); then TD-20, TD-21/22/24, the Phase B close; the owner's review pass on `46ed04895` whenever it comes.
+Next: TD-20 (Worker running); then TD-21/22/24, the Phase B close; the owner's review pass on `46ed04895` whenever it comes.
