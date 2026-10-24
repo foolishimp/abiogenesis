@@ -2384,3 +2384,392 @@ Grant: this record (append only, your section). No other file.
 Stop (write it in the Return, keep the rest moving): a row whose disposition needs an owner's contract or design decision (name the decision; it is a Phase C row, not yours); a row whose reproduction would need an absent input you would have to fabricate (dispose (U)); any edit outside the Grant.
 
 Return contract: one commit on `main` with the first line `TD-21 + TD-22 + TD-24: the twenty-eight inherited rows revalidated at head; dispositions with evidence` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only this record; no `git add -A`. Append `## TD-21 + TD-22 + TD-24 return` at the end of this record with the census (item 1), the disposition table with evidence per row and the (O) proposals (item 2), the shared-row statements (item 3), the records statements (item 4), the lanes you ran (item 5), and any stops. Nothing above your section is edited.
+
+## TD-21 + TD-22 + TD-24 return
+
+Worker, 2026-10-24.
+- Base and head: `c21a758fef1347a12c85919e53280f13b848f25f`. The working tree had no tracked change before this append.
+- No file outside this section was edited.
+- Scratch cases, lane logs, V8 coverage and CPU profiles live under `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/td212224/`, in `cases/`, `lanes/`, `cov-compose/` and `prof-compose/`.
+- The outputs this Return relies on are quoted below.
+
+### Errata to the activation
+
+1. **Count.** The activation names 31 rows:
+   - TD-21: 8.
+   - TD-22: 13 (ten, plus three conditional).
+   - TD-24: 10 (eight, plus two conditional).
+
+   The activation's twenty-eight does not match its own list of 31. This Return disposes of all 31. The commit subject keeps the activation's wording.
+2. **TD-17.** The activation says TD-17's "F_D cause capture is closed; the F_P remainder is this row's". The record says otherwise:
+   - F_D already kept its cause before TD-17.
+   - TD-17 (`4bc5a945a`) gave the F_P synchronous throw and the F_P rejection their cause, through `deterministicFailure`.
+   - TD-17 left the F_P `finalize` site as a retained exception (this record :399, :412).
+   - TD-15 + TD-16 then moved that site onto `admitJson` (this record :1648).
+
+   The remainder is that one site, which now has two paths (O-1).
+3. **Candidates.** None of the four candidate scenarios runs an installed or traversal phase in this checkout; the table is in the TD-22 section. The measured scenario is `t287-calculus-state-transfer` with `ABI5_CALCULUS_CASES=compose`, which is outside the list. It is CALCULUS-SETUP-VOLUME-01's own scenario and carries the owner's phase accounting.
+
+### 1. Census
+
+- Source lines are T-287 lines at this head. Rows marked "table" are under `### Current Management Debt` (T-287:2042); the other headings are named.
+- The cut is the evidence the row was written against.
+- "Path" is the code or surface the row concerns at head. Paths are under `build_tenants/abiogenesis/typescript/code/src/` unless named otherwise.
+
+| # | Row | Source | Cut | Obligation (one sentence) | Path at head |
+|---|---|---|---|---|---|
+| 1 | NW-DEBT-REPORT-COUNT-01 | table :2121; register TD-21 | failed C2 diagnosis (cut not named in the row) | Report counts agree with supported suite-abort evidence and with ordinary passing reports. | `implementation/worksite_command_helper.ts:936-965` (`reportCounts`), `:1398-1412` (report predicates) |
+| 2 | CALLER-PUBLIC-DIAGNOSTIC-01 | table :2090 | successor02 caller (cut not named) | The caller decodes a retained Public `data:application/json;charset=utf-8` diagnostic with the existing complete decoder when it next changes. | ABG decoder `abg/runtime_failure.ts:91-109`; the caller is downstream |
+| 3 | NW-PREPARATION-OBSERVABILITY-01 | table :2119 | native-preparation-repair-01 (2026-09-24) | The existing diagnostic URI keeps the bounded native preparation cause, readable cold, with Public `run_evidence` digest checks. | `abg/runtime_failure.ts:94-109` |
+| 4 | NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 | table :2134 | Opus04 review, odd_glc fresh-native-01 (2026-09-24) | The native assessor context carries the existing path, digest and snapshot joins, requirement and binding meaning links, and C2 provenance as compact owner facts. | `abg/instruction_assembly.ts:1094-1095` |
+| 5 | READBACK-ABSENCE helper false failure | table :2137 | LIVE07 (2026-09-21) | The qualification helper accepts a lawful `not_found` for a failed or no-result Run and still requires replay, the same prefix and refusal fidelity. | odd_glc `build_tenants/odd_glc/typescript/test/full-sandbox-support.mjs:855-871`; ABG `abg/project_read_ports.ts:1041-1058` |
+| 6 | GJ-D2-UNDISPATCHED-CURSOR-REPORTING | :2341, under `## Current Generic Job Binding Repair (historical, 2026-09-18)` (:2245) | Generic Job binding repair (2026-09-18) | The undispatched-evidence matcher accepts the actual cursor origin when the entered cursor advances through an admitted route. | `abg/c_call.ts:6303-6362` (origins `:6341-6348`), `abg/traversal_cursor.ts:176-212`, `abg/runtime_history.ts:571-574` |
+| 7 | D2-UNDISPATCHED-REFUSAL-01 | :5036-5050, under `## Deferred Assurance`; debt record `comments/codex/20260911_D2_BOUNDED_REPAIR/deferred-assurance/D2-UNDISPATCHED-REFUSAL-01.md` | Review18 (2026-09-11) | An undispatched refusal keeps its first cause, with zero actors and effects, through fresh result and replay. | `abg/c_call.ts:6303-6362`, `:6459-6470` |
+| 8 | NW-DEBT-ADMISSION-DIAGNOSTIC-01 | table :2116 | c0-diagnosis-03, S02 retry implementation-01 (2026-09-23) | Preserve the real cause and its stage or refusal distinction when shared admission fails. | `implementation/leaf_invocation_port.ts:771-793`; `abg/traversal_route.ts:597-603`, `:633-647`; `abg/retry.ts:3070-3077`, `:4958-4970` |
+| 9 | INSTALL-VERIFY-COMPUTE-01 | table :2073 | compiled-40 (2026-09-23) | Attribute Product verification compute, or accept a contraction that preserves Product admission. | `product/declaration_exports.ts:1263-1376`, `:1378` |
+| 10 | CALCULUS-SETUP-VOLUME-01 | table :2074 | state-transfer-02 (2026-09-26) | Keep the owner's phase-level accounting that separates scenario fixture, Product provisioning and execution. | `test_env/support/root-installed-environment.mjs:25-28`, `:168-520` |
+| 11 | CALLER-DURABLE-CONTEXT-01 / LIFE-01 | table :2080 | native44; program-construction installed04 and PC02 (2026-09-26/27) | The caller, runtime and readback path owns its cost; the cost of fresh Public result and replay is attributed. | `abg/project_read_definition_bindings.ts:579-700`, `abg/project_read_ports.ts:695-699` |
+| 12 | CALLER-EVIDENCE-VOLUME-01 | table :2097 (sample :2046) | checkpoint29, S2 caller volume (2026-09-28) | Distinguish retained caller output from event history, and keep the necessary facts through existing identities. | evidence packaging (TD-19) |
+| 13 | NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | table :2104 | core30/dev15, compiled10 (2026-09-24) | Trace repeated work in the actual install owner and over the preparation lifetime. | `product/install_product.ts:229-254`, `:412`; `abg/runtime_history.ts:486-491` |
+| 14 | NW-DEBT-CONFORMANCE-COST-01 | table :2115 | finite05, installed07 (2026-09-23) | Retain conformance costs as observations, with no unchanged large preparation, heap or time increase, or cache. | `validator/conformance_operation.ts:201-260` |
+| 15 | NW-DEBT-INVOKE-COST-01 | table :2117 | C9/C10, CW-C01 (2026-09-21) | Measure the removable extent of repeated installed payload verification in execution setup. | `implementation/leaf_invocation_port.ts:968`, `:1599-1600`; `product/semantics.ts:650`; `product/install_product.ts:123-200` |
+| 16 | Design execution cost | table :2123 | DESIGN10 (2026-09-21) | Account the actor-facing Design lifecycle's timeout as framework cost; further paid calls are held. | the actor Design lifecycle; `product/semantic_job.ts:197-205` |
+| 17 | Mechanical context repetition (input side) | table :2124 | DESIGN08, DESIGN09, DESIGN12 (2026-09-21) | Explicit index display and source-equivalent input contraction; both unselected. | `abg/instruction_assembly.ts` rendering; `product/semantic_job.ts` actor contract |
+| 18 | Fresh sandbox setup cost | table :2132 | LIVE05/06 (2026-09-21), fresh-native-01 (2026-09-24) | Attribute fresh-sandbox setup cost; request sizes are not read counters. | the ABG setup path (measured in the TD-22 scenario) |
+| 19 | CALCULUS-BODY-01 | table :2079 | body-01, core41 (2026-09-26) | Partial-envelope persistence only on an affected storage path with attributed material cost. | `abg/event_store.ts:2267` (`appendDurablyBatch`) |
+| 20 | NW-F11-SCOPE-COST-01 | table :2091 | compiled-01 (2026-09-23) | Independent J, complete applicable coverage and sole AF22 remain open qualification. | qualification, not a code path |
+| 21 | NW-PRODUCT-VERIFICATION-REUSE-01 | table :2107 | core03/compiled08 | Keep bounded verifier reuse and per-operation physical checks; broader capacity is a separate question. | `product/declaration_exports.ts:1378` |
+| 22 | NATIVE-EVIDENCE-RECOVERY-01 | table :2088; later dispositions :1064-1066 | evidence-context-01, native42/44 (2026-09-26) | Evidence-only recovery is reachable from the operational preparation failure and conserves completed work. | `product/semantic_revision.ts:276-279`, `:312-313` |
+| 23 | CALCULUS-PROOF-01 | table :2082 | calculus crosscut rank 1 (2026-09-26) | Full native intake proof, owned by the installed continuation. | qualification, not a code path |
+| 24 | DESIGN-REFERENCE-DR01 | table :2099 | core31, native-d2-01 (2026-09-24) | Revision Design rendering and expansion share the exact 29-entry revision domain. | `product/semantic_job.ts:197-205`; `implementation/semantic_revision.ts:68-69`; `abg/instruction_assembly.ts:1150-1153` |
+| 25 | NW-CATALOG-ORDER-01 | table :2112 | D5-A01-CASE01 (2026-09-21) | Accepted lock, install and catalog order agree, and a malformed order is refused. | `product/catalog.ts:428` |
+| 26 | C2 context coordinate maintenance | table :2105 | compiled-19 (2026-09-23) | On any change to the packaged member, refresh the pinned member and span coordinates and keep the correspondence guard. | `gtl/worksite_command_execution.ts:36-39`, `:61`; `scripts/generate-product-manifest.mjs:94-107` |
+| 27 | Canonical development dependencies | table :2130 | TRUST01 (2026-09-21) | The declared ajv and ajv-formats are present in the canonical `node_modules`. | `package.json:87-88`, `:90-96` |
+| 28 | TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | :3088-3112, under `##### MVP bug register` (:2777) | LIVE06 (2026-09-17) | A recorded assessor interpretation error; it reopens on role-context tuning or an outcome impact. | assessor role context |
+| 29 | FRAMED-RECOVERY-01 | table :2071 | FRAMED_GOVERNANCE source acceptance (2026-09-28) | Select one installed fresh-work discriminator; exact resumption is separate. | the installed retained-work scenario |
+| 30 | C2 fixed-command LLM relay | table :2129 | TRUST01 (2026-09-21) | An owner re-ruling comes before any replacement of the relay. | the C2 `worker_executes` route |
+| 31 | Preconstruction correction/reuse | table :2138 | design05, LIVE07 (2026-09-21) | A declared early correction in the downstream declaration, selected when needed. | the odd_glc declaration |
+
+### 2. Dispositions
+
+**Totals:** C 10, O 5, S 5, U 11, which makes 31.
+
+| Package | C | O | S | U |
+|---|---|---|---|---|
+| TD-21 | 4 | 1 | 1 | 2 |
+| TD-22 | 3 | 4 | 2 | 4 |
+| TD-24 | 3 | 0 | 2 | 5 |
+
+The Phase C column names an owner decision, listed again under Stops.
+
+| # | Row | Class | Evidence at head | Phase C |
+|---|---|---|---|---|
+| 1 | NW-DEBT-REPORT-COUNT-01 | U | **Absent input:** the retained C2 abort reports. A search of the evidence tree found no suite report with `errors="1"`.<br>**Reading:** `reportCounts` counts testcase children only (`:944`: "aggregate attributes are never trusted, and testcase children alone count"). The T-287 shape, a suite `errors="1"` with no testcase child, therefore still counts 0 errors, by design.<br>**Scratch:** `junit-report-counts.mjs` runs the helper's own `reportCounts` over Node v24.7.0 reports:<br>- A load abort, a describe-body throw, a before-hook abort and a late uncaught error each arrive as testcase failures (1, 1, 2 and 1), exit 1.<br>- An after-hook failure arrives as one passing testcase, exit 0.<br>- The passing report reads 3 tests, 2 pass, 1 skipped.<br>- The synthetic suite-only shape reads `errors: 0`.<br>**Reopens:** when a retained or new report carries a suite-level error with no testcase child. | P1 |
+| 2 | CALLER-PUBLIC-DIAGNOSTIC-01 | S | The caller is the downstream successor02 helper. ABG's decoder is `readRuntimeFailureDiagnosticSubject` (`abg/runtime_failure.ts:99-109`), which checks a canonical round trip. The row itself reads "Caller-only diagnostic debt".<br>**Boundary (TD-24):** "Ordinary unfinished feature qualification, downstream-domain work and explicitly excluded sandbox/security scope are not imported as ABG library debt." | |
+| 3 | NW-PREPARATION-OBSERVABILITY-01 | C | - `t287-runtime-failure-diagnostic` 15/15/0/0.<br>- Three `t287-undispatched-diagnostic` cases pass: "first preparation exception remains retrievable through the unchanged typed refusal and cold JSON"; "other pre-dispatch catches keep exact stage and native stack"; "existing run_evidence exposes digest-bound undispatched diagnostics and refuses cold substitution".<br>- The row's installed diagnosis is qualification. | |
+| 4 | NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 | U | **Absent input:** a native assessor run on an admitted store, as in the Opus04 run; that is a paid actor call.<br>**Reading:** since `e9402b813` (2026-09-25, after the review), the native assembly's included rows carry `relativePath`, `digest` and `byteLength`, plus the native context ref and digest (`abg/instruction_assembly.ts:1094-1095`).<br>**Not traced:** the requirement and binding meaning links, and C2 provenance.<br>**Reopens:** on the row's own trigger, the next affected assessor-context change or a material recurrence. | |
+| 5 | READBACK-ABSENCE helper false failure | C | - **odd_glc** (commit `6d6ce92`, 2026-09-24; odd_glc head `36d40d5`): `full-sandbox-support.mjs:855-871` treats `run_result` `not_found` with exit 1 as the expected absence for `blocked` and `runtime_failed`, and still checks replay.<br>- **ABG at head:** scratch `cross-cut-read-acquisitions` on one store returns `run_result` as refusal `not_found` and `run_replay` as a result (`abg/project_read_ports.ts:1041-1058`). | |
+| 6 | GJ-D2-UNDISPATCHED-CURSOR-REPORTING | C | - The matcher resolves origins at `c_call.ts:6341-6348` through `traversalCursorAdmissionEventsAtPrefix` (`traversal_cursor.ts:176-212`).<br>- It admits `traversal_cursor_entered`, `traversal_route_admitted` (target cursor) and `fh_interaction_resume_admitted`, under the `cursor-origin:` key (`runtime_history.ts:571-574`, `2a4dee94c`, 2026-09-26).<br>- The lane case `t287-undispatched-diagnostic:93` is red at head on its fixture (F3).<br>- Scratch `undispatched-cursor-origins.test.mjs` passes 1/1. It is that case with two fixture corrections: the mock index answers the head key families, and it answers the matcher's `runtimeEventBodiesAtPrefix`. | |
+| 7 | D2-UNDISPATCHED-REFUSAL-01 | C | - The cause-retention cases pass (row 3).<br>- The matcher accepts the actual origin (row 6).<br>- The closure's "actual undispatched negative" is its own trigger, "before D5 failure/refusal qualification" (T-287:5036-5050). That is qualification, not library debt. | |
+| 8 | NW-DEBT-ADMISSION-DIAGNOSTIC-01 | O | O-1. F_D cause retention is closed (TD-17 return). | P2 |
+| 9 | INSTALL-VERIFY-COMPUTE-01 | O | O-2 (R1). | P3 |
+| 10 | CALCULUS-SETUP-VOLUME-01 | C | - The owner's accounting (`accountSetupPhase`, `root-installed-environment.mjs:25-28`) produced the phase split in the TD-22 section.<br>- T-287:2074 reads: "Current accounting answers that conflation". | |
+| 11 | CALLER-DURABLE-CONTEXT-01 / LIFE-01 | O | O-3 (R4). | |
+| 12 | CALLER-EVIDENCE-VOLUME-01 | S | - The checkpoint29 volume is a historical observation.<br>- The current mechanism is TD-19 (open; Phase C "stop copying now").<br>- **Crosswalk:** "current tree census is separate from historical caller traffic".<br>- **Boundary (TD-22):** "no heap/timeout increase, arbitrary universal quota, speculative redesign or blanket performance claim follows from old observations." | |
+| 13 | NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | O | O-4 (R3). R2, the repeated install-time hashing, is necessary work; see the R table. | P4 |
+| 14 | NW-DEBT-CONFORMANCE-COST-01 | U | **Absent input:** the finite05/installed07 installed S02 continuation (odd_glc).<br>The measured scenario reaches no conformance owner; coverage finds zero calls to `evaluateGtlProgramConformance*`.<br>**Reading:** `validator/conformance_operation.ts:201-260` admits the packet once and builds the validation input once from the resolved closure.<br>**Reopens:** when an installed conformance scenario runs in this checkout. | |
+| 15 | NW-DEBT-INVOKE-COST-01 | O | O-5 (R5). | P5 |
+| 16 | Design execution cost | U | **Absent input:** a paid Design actor run; T-287:2123 holds further paid calls.<br>**Reading:** the typed Design response covers both ordinary and revision Design (`product/semantic_job.ts:197-205`).<br>**Reopens:** when a selected Design run times out again. | |
+| 17 | Mechanical context repetition (input side) | U | **Absent input:** a rendering of the retained DESIGN09/DR01 inputs at head. The revision request is refused before rendering (P8; scratch `dr01-probe*.mjs`).<br>The DESIGN09 output contraction stands; the input contraction is unselected (T-287:2124).<br>**Reopens:** when the input contraction is selected, or when a rendered input under an admitted profile shows the repetition. | P6 |
+| 18 | Fresh sandbox setup cost | U | **Absent input:** the LIVE05/06 fresh sandbox (odd_glc).<br>ABG's own setup in the measured scenario is 33,991.51 ms of initialization. The repeated acquisition found there is R1; R2 is necessary per-tree hashing plus the harness check.<br>**Reopens:** when a fresh-sandbox scenario runs in this checkout. | |
+| 19 | CALCULUS-BODY-01 | C | Persistence in the scenario: 24 `appendDurablyBatch` calls, 0.189 s CPU (profile run); the log grows from 3,223,224 to 3,472,400 B (7 to 87 events). Cold-body reuse is closed (T-287:2079). The partial-envelope trigger, a material storage cost, is not met. | |
+| 20 | NW-F11-SCOPE-COST-01 | S | The open items are qualification: "Actual independent J, complete applicable coverage and sole AF22 remain open; no native qualification is inferred."<br>**Boundary:** TD-24's sentence (row 2); the crosswalk reads "TD-22 only if new cost selected". | |
+| 21 | NW-PRODUCT-VERIFICATION-REUSE-01 | C | The scenario verifies once per artifact: coverage finds 1 call to `resolveNativeDeclarationClosures`. Per-operation checks are kept (R5). No broader capacity claim is made. | |
+| 22 | NATIVE-EVIDENCE-RECOVERY-01 | U | **Absent input:** both pieces of evidence that would show the relation.<br>- The component case `t287-native-semantic-revision:531` is red at `:588`, before its subject: "Event Calculus requires a nominal validated immutable event prefix" on a hand-built prefix. It is a recorded baseline red (this record :1840), in the TD-05 class.<br>- The native44 territory is absent.<br>**Reading:** `product/semantic_revision.ts:276-279` and `:312-313` keep the operational producer's evidence on the Evidence-only suffix, with its construction coordinate checked. The Product-value cases `:472` and `:489` pass but do not exercise that suffix.<br>**Reopens:** when TD-05 retires the hand-built prefix and `:531` reaches its subject, or when an installed Evidence-recovery continuation is reacquired. | |
+| 23 | CALCULUS-PROOF-01 | S | "Full native intake is still unproved and belongs to the preserved installed continuation" is qualification.<br>**Boundary:** TD-24's sentence (row 2). | |
+| 24 | DESIGN-REFERENCE-DR01 | U | **Reading:** the correction is in place at all three call sites: `product/semantic_job.ts:197-205` takes the revision envelope, and `implementation/semantic_revision.ts:68-69` and `abg/instruction_assembly.ts:1150-1153` expand through it. `t287-management-context` passes 14/12/0/2.<br>**Absent input:** the proving case `t288-instruction-assembly-owner:499`, run with its retained directory, fails at `:516`. Its first refusal is the retained intake's prefix coordinate, stamped `eventContractDigest sha256:4196aaeb…`. Head admits only the legacy `fc3a6350…` and the current `6c8a9852…` (`abg/event_store.ts:1189-1190`).<br>Re-stamping that coordinate would fabricate the input.<br>**Reopens:** when a retained input exists under an admitted profile (P8). | P8 |
+| 25 | NW-CATALOG-ORDER-01 | C | **Commit:** closed at `ae57b16bd` (2026-09-27).<br>**Scratch:** `catalog-order-head.mjs` runs the review's actual `catalog.admit` input against the head build:<br>- 5 checks pass: lock-ordered input accepted; install order conserved; reordered installs refused `binding_lock_mismatch`; verified and publication order canonical; missing install refused `installed_product_mismatch`.<br>- The input `sha256:49f803a2…` is unchanged.<br>- `catalog.ts` moved from the reviewed `bd2a160d…` to `69f3462c…`, with the behaviour kept. | |
+| 26 | C2 context coordinate maintenance | C | Scratch `c2-pin-check.mjs` transcribes `generate-product-manifest.mjs:94-107` and finds the pin exact at head:<br>- 115,562 B<br>- `sha256:a8d7035f…`<br>- span 105,477-107,909, `sha256:1fcd7184…`, equal to the renderer text at one occurrence<br>The trigger stands for any later change to the member. | |
+| 27 | Canonical development dependencies | C | The canonical `node_modules` holds `ajv` 8.20.0 and `ajv-formats` 3.0.1 (`npm ls`), matching `package.json:87-88` and the bundled list `:90-96`. | |
+| 28 | TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | U | **Absent input:** the LIVE06 assessor run (a paid actor call). The capsule makes no outcome-loss claim.<br>**Reopens:** on its own trigger, role-context tuning or a demonstrated outcome impact. | |
+| 29 | FRAMED-RECOVERY-01 (this share) | U | **Absent input:** the installed retained-work territory (`/private/tmp/abi5-s7-retained-work-s5CZt2` is absent).<br>**Last evidence:** `comments/codex/20260928_FRAMED_GOVERNANCE/execution.md:3144-3154` accepts the bounded installed fresh case: source acquisition from the stopped Run, original producer use, fresh F_P selection, independent assessment and both cold Public reads.<br>The fresh-use code was not traced at head.<br>**Reopens:** when an installed retained-work scenario is reacquired. Exact resumption stays with TD-18. | |
+| 30 | C2 fixed-command LLM relay | U | **Absent input:** `ABI5_C2_CARRIER_FIXTURE_PATH` (`steel-basic-cli-c2` 6/0/0/6). A live C2 run is a paid actor call. The relay's cost is unmeasured.<br>**Reopens:** on an owner re-ruling. | P7 |
+| 31 | Preconstruction correction/reuse | S | The missing backward edge is in the odd_glc declaration (T-287:2138), and the row calls itself an "Unselected design/composition opportunity".<br>**Boundary:** TD-24's sentence (row 2). | |
+
+#### (O) proposals
+
+No edit is made. Each proposal lives in this Return only.
+
+**O-1. NW-DEBT-ADMISSION-DIAGNOSTIC-01: F_P `finalize` loses its cause.**
+- **Owner:** the leaf invocation owner, `implementation/leaf_invocation_port.ts:771-793`.
+- **Reproduction:** scratch `fp-finalize-paths.test.mjs` takes the lane's `sourceOwner` pattern and the F_P fixture of `t287-runtime-failure-diagnostic` (`:376-416`), and changes only the value `complete` returns. It covers two paths:
+  - A non-I-JSON value (`value: NaN`): `admitJson` refuses at `:773`, and `:783` totalizes the result.
+  - A cyclic value: `admitJson` throws `RangeError`, and the catch at `:787` totalizes it.
+- **Result:** both give `failureClass: "malformed_return"`, `diagnosticRef: "diagnostic://abiogenesis/implementation/malformed-return@5"` and `coldSubject: null`.
+- **Change:** give TD-17's producer (`deterministicFailure`, `:559`) a failure-class parameter. Then `finalize` builds `malformed_return` with a diagnostic subject through `constructRuntimeFailureDiagnosticRef`:
+  - on a refusal, the subject carries the admission refusal's `at` and `reason`;
+  - on a throw, it carries the error's class and message.
+
+  A shape-guard refusal (`isLeafRealizationCandidate` false) keeps the class-only reference, because the class is its cause.
+- **Sequence:** run after the Phase C `admitJson` totality package, which deletes this catch (site 13, this record :1648). After it, a cyclic value takes the refusal path. The same `try` also encloses the success validator and the receipt builder, so how a throw from either is routed is that package's decision, and O-1 follows it.
+- **Proof:** both scratch inputs read back a cold subject that names their cause; `t287-runtime-failure-diagnostic` reads 15/15 plus one case; the failure class and the receipt shape are unchanged.
+- **Stop risks:** the subject must not carry the private body (TD-17's conventions); any change to the failure class or the receipt shape is a contract change.
+
+**O-2. INSTALL-VERIFY-COMPUTE-01 (R1): the declaration closure is re-walked per exported symbol.**
+- **Owner:** Product verification, `product/declaration_exports.ts:1360-1374`.
+- **Reproduction, coverage run:**
+  - `exportedSymbolPhysicalRelationRefs`: 15 calls.
+  - `direct`: 24,951,698 calls, of which 643,478 are analyses (cache misses).
+  - Worklist pops: 351.6 M, of which 92.9 % are revisits.
+- **Reproduction, profile run:**
+  - 12.528 s inclusive and 3.593 s self (the walk) under that function.
+  - This sits inside `resolveNativeDeclarationClosures` at 19.023 s, which is inside `provisioning_verify_artifact` at 23,934.78 ms wall (timing run).
+- **Change:** delete the per-export `pending`/`visited` walk. Per call, condense the `direct(symbol).dependencies` graph into strongly connected components and compute each component's refs once, in reverse topological order. Each exported symbol then reads its component's sorted refs.
+- **Proof:**
+  - For the 15 calls of this scenario, the per-root result maps are canonical-JSON equal before and after (scratch harness).
+  - The verification lanes are unchanged.
+  - The pop count and `provisioning_verify_artifact` drop in the same scenario.
+- **Stop risks:**
+  - Cycles: the comment at `:1284` forbids caching an incomplete transitive result. A component's union is complete by construction; a memo filled during the DFS would not be.
+  - Alias symbol identity: `direct` already follows alias targets.
+  - The cache scope stays per call (P3).
+
+**O-3. CALLER-DURABLE-CONTEXT-01 / LIFE-01 (R4): one cold Public read folds the whole history 3 or 4 times.**
+- **Owner:** the project-read owner, `abg/project_read_definition_bindings.ts:579-700`.
+- **Reproduction:** scratch `cross-cut-read-acquisitions`, `-owners` and `-passes` run over the lane's retained D2 store (13,540,472-byte log) and count `fs.readSync` calls and whole-history passes.
+  - A Run read (`run_status`, `run_result`, `run_replay`) reads the history 3 times: 1,899 calls, 40,621,416 B, 1.27-1.30 s each.
+  - A GraphCall read reads it 4 times: 2,745 calls, 54,161,888 B, 3.38 s each.
+- **The passes:**
+  1. The reopen descriptor fold (`reopenEventStore` → `decodeRuntimeHistoryDescriptor`, under `acquireAbgEventResource`, `:579`).
+  2. `DurableHistoryDerivation.activeEvents` under `projectExactPrefixWorkspaceEnvironment` (`:605`, artifact truth).
+  3. `activeEvents` under `prepareRunReadAtDurablePrefix` (`:694`).
+  4. GraphCall reads only: a further materialization in the GraphCall projection (`abg/project_read_ports.ts:695-699`).
+- **Change:** one materialization of the acquired prefix per Public read, consumed by the environment projection, the Run-read preparation and the GraphCall projection. The reopen fold stays.
+- **Proof:** `t287-cross-cut-public-read` unchanged (5/4/1/0, with `:105` a baseline red), and the scratch counter showing 2 passes per read with identical outcomes and codes.
+- **Stop risks:**
+  - The shared materialization lives for one read only; there is no side store (the log principle).
+  - The environment and the Run read must be checked to be on the same prefix.
+  - Phase C's Run-read validity ruling (whole-prefix refusal) holds.
+  - If TD-12's ruled "one acquisition per admitted prefix" covers project reads, this rides with TD-12.
+
+**O-4. NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 (R3): held history is re-verified on every materialization.** Conditional on P4.
+
+*R2: not a repeat.*
+- **Coverage run:** the bootstrap runs `installedPayloadMatchesGraphCarrier` 5 times, with 15,937 `sha256File` calls:
+  - the core payload (archive of 5,309 members) three times: at its install (`install_product.ts:412`), by the harness (`root-installed-environment.mjs:311`), and by the dependent Product's dependency check (`installedDependencyMatchesLockRow`, `:229-254`, hash at `:247`);
+  - the additional Product twice: at its install and by the harness (`:331`).
+- **Reading:** `managedDependencyRoot` (`:207-228`) accepts only a dependency root inside the dependent's own `targetRoot` (`:219-224`). Each install runs its own `npm install` into an empty target (`:351-371`). So the `:247` hash covers the dependent's own physical copy, not the tree `:412` already checked. It is a required physical check of different bytes.
+- The only same-tree second hash is the harness's, which is test support. No library change is proposed.
+
+*R3.*
+- **Reproduction:**
+  - Coverage run: the installed process makes 1,068 `RuntimeHistorySelection.materialize` calls and reads 9,389 rows, for a log of 7 to 87 events.
+  - Profile run: 3.622 s CPU under `materialize`. Most of it is re-verification: `hash.update` 1.291 s and `writeCanonicalJson` 1.260 s.
+  - First callers: `indexedRuntimeEvents` (`abg/event_prefix.ts:737-738`, a `select(key).materialize()` per call) 1.174 s, `observeNativeFrameLiveness` (`abg/runtime_liveness.ts:255`) 0.961 s, `observeNativeCCallLiveness` (`:313`) 0.659 s.
+  - Traversal is 4,373.79 ms wall (timing run). The profile does not split `materialize` by phase.
+- **Change, if P4 allows it:** the held store keeps the verified bodies of its current generation and reads them by row location and digest, in place of re-reading and re-hashing.
+
+- **Proof:** the same scenario's materialization and row-read counters drop; the existing lanes are unchanged.
+- **Stop risks:** `runtime_history.ts:486` ("Complete historical materialization is explicit and never retained here") and the log principle.
+
+**O-5. NW-DEBT-INVOKE-COST-01 (R5): the installed payload is re-verified on every leaf invocation.** Conditional on P5.
+- **Owner:** the leaf invocation owner, `implementation/leaf_invocation_port.ts:968` (port construction) and `:1599-1600` (each invocation's `verifyAuthority`). The call chain is `product/semantics.ts:650` → `installedProductContentMatches` → a full locator hash (`install_product.ts:154-158`).
+- **Reproduction:**
+  - Coverage run: 5 `verifyInstalledContent` calls in one Run, one per port and four per leaf invocation.
+  - The invoked fixture Product has 4 locators: 24 `sha256File` calls in the installed process.
+  - Profile run: 0.024 s CPU, negligible here. The cost is linear in the invoked Product's inventory.
+- **Change, if P5 allows it:** verify at port construction, and bind each invocation to that verified install identity with a currentness check that does not re-hash.
+- **Proof:** the same counter shows 1 full verification per port; the leaf invocation lanes are unchanged.
+- **Stop risk:** T-287:2107 keeps "per-operation authorization/currentness and physical checks", so the contract decides.
+
+### TD-22 measured scenario
+
+**Candidates.**
+
+| Candidate | At head | Why it is not the scenario |
+|---|---|---|
+| `w2-steel-single-start` | 8/6/1/1 | Validation only, with no installed or traversal phase. The `:118` red is attributed (`work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-library/step-8-run-postclose-attribution.md:78`; this record :1893). The skip has `W2_STEEL_RETAINED_EVENT_PATH` unset. |
+| `t287-installed-product-coordinate` | 11/11/0/0 | Coordinates over `fixture://lock`; nothing is installed or run. |
+| `steel-basic-cli-c2` | 6/0/0/6 | All six skipped: `ABI5_C2_CARRIER_FIXTURE_PATH` is unset. |
+| `t287-management-supervision` | 5/4/1/0 | The installed case refuses at setup with `dependency_lock_mismatch` (`product/install_product.ts:431-434`). This is the recorded `:105` baseline red (this record :1827). |
+
+**Scenario:** `t287-calculus-state-transfer` with `ABI5_CALCULUS_CASES=compose`. It is outside the candidate list.
+- It installs a real core (archive 10,795,452 B, 71,207,399 B unpacked, 5,309 members) plus one additional Product.
+- It admits the workspace, runs a deterministic traversal with no actor, and returns `seed!!`.
+
+**Runs.** The lane ran unchanged three times, each 2/2/0/0:
+- timing, uninstrumented: 43,841.67 ms lane duration;
+- V8 coverage (`NODE_V8_COVERAGE`): call and block counts, with distorted timing;
+- CPU profile (`--cpu-prof`): 45,239.41 ms.
+
+Each number below names its run.
+
+**Phase split (timing run).** The source is the owner's `accounting.wallMs` from the test's diagnostic line. Wall intervals include I/O; the owner records `cpuAttribution` as "unmeasured".
+
+| Class | Owner phases (ms) | Total ms |
+|---|---|---|
+| Initialization | pack 3,373.26; extract 529.96; bootstrap owner loading 461.69; artifact verification 23,934.78; install 2,731.17; installed content check (harness) 587.55; additional Products 2,098.01; installed owner loading 275.09 | 33,991.51 |
+| Selection | publication, program and catalog 460.21; resolution and program validation 811.92; graph and implementation resolution 214.43; basis and leaf port 59.92 | 1,546.48 |
+| Admission | environment install and workspace admission 2,282.27; invocation admission 795.92 | 3,078.19 |
+| Native work | open scope 157.04; traversal 4,373.79 | 4,530.83 |
+| Persistence | Not separable by wall time; it is inside admission and traversal. Profile run: 24 `appendDurablyBatch` calls, 0.189 s CPU. The log grows from 7 to 87 events (3,223,224 to 3,472,400 B). | (no separate wall interval) |
+| Recovery | Not exercised. The compose case has no failure, hold or resume. | 0 |
+
+- `setupMs` is 38,618.07: initialization, selection and admission, with 1.9 ms unaccounted.
+- The test took 43,755.15 ms.
+- `/usr/bin/time` for the lane: 43.87 s real, 48.11 s user, 8.18 s sys, 2,983,346,176 B maximum resident set.
+
+**Repeated acquisitions by owner.**
+
+| | Owner, file:line | Count (run) | Cost (run) | Row, class |
+|---|---|---|---|---|
+| R1 | Product verification, `product/declaration_exports.ts:1360-1374` | 15 calls; 24,951,698 `direct` calls, 643,478 of them analyses; 351.6 M pops, 92.9 % revisits (coverage) | 12.528 s inclusive, 3.593 s self (profile), within 23,934.78 ms of verification (timing) | INSTALL-VERIFY-COMPUTE-01, O |
+| R2 | install owner, `product/install_product.ts:412` and `:247` | core payload hashed three times; 15,937 bootstrap `sha256File` calls (coverage). `:412` and `:247` hash different physical trees (the `:247` root must lie inside the dependent's own target, `:219-224`). The second hash of the same tree is the harness's (`:311`). | install 2,731.17 ms; additional Products 2,098.01 ms; harness check 587.55 ms (timing) | NW-CALLER-PREPARATION-LIFETIME-01; necessary work, not a library repeat |
+| R3 | runtime history, `abg/runtime_history.ts:486-491` | 1,068 materializations and 9,389 row reads, over at most 87 events (coverage) | 3.622 s CPU (profile) | NW-CALLER-PREPARATION-LIFETIME-01, O (P4) |
+| R4 | project read, `abg/project_read_definition_bindings.ts:579`, `:605`, `:694`; `abg/project_read_ports.ts:695-699` | 3 whole-history reads per Run read, 4 per GraphCall read (scratch over the lane's D2 store) | 1.27-1.30 s per Run read, 3.38 s per GraphCall read (scratch, counters on) | CALLER-DURABLE-CONTEXT-01, O |
+| R5 | leaf invocation, `implementation/leaf_invocation_port.ts:968`, `:1599-1600` | 5 `verifyInstalledContent` calls per Run (coverage) | 0.024 s CPU (profile) | NW-DEBT-INVOKE-COST-01, O (P5) |
+
+Limits:
+- No capacity claim follows. This is one fixture scenario: one core and one small Product, deterministic, with no actor.
+- Old T-287 times are not compared with these. Artifact verification measured 12.068 s at state-transfer-02 and 23,934.78 ms here; different cuts and archives make that difference unattributed.
+- R4 was measured on a separate lane's store, not this scenario's.
+
+### 3. Shared rows
+
+**NW-DEBT-ADMISSION-DIAGNOSTIC-01 with TD-17 (closed).**
+- **What TD-17 left:** the F_P `finalize` site (this record :399, :412). TD-15 + TD-16 then moved that site onto `admitJson` (this record :1648).
+- **Remainder:** that site, disposed (O) as O-1.
+- **The retry half of the T-287 row:** "a replay exception collapsed into null/route_mismatch" is the retained historical-route contract:
+  - `abg/traversal_route.ts:597-603` sets `propagateReplayFailure` false, and the catch at `:633-647` returns null.
+  - `abg/retry.ts:3070-3077` reads that null, and `:4958-4970` refuses with `route_mismatch`.
+  - The lane asserts this contract: `t287-runtime-failure-diagnostic:208`, "historical route projection stays nullable while staged projection conserves its replay cause".
+  - Carrying the cause there is an owner contract decision (P2), not this package's.
+- **F_D:** cause retention is closed, which contradicts T-287:2116's F_D clause.
+
+**C2 context coordinate maintenance with TD-04 + TD-05 (closed).** TD-04 + TD-05 left nothing for this row (this record :1124-1140; the register's TD-04 remaining increments do not name it). TD-15 + TD-16 refreshed the pin at `a692fb4b9` (this record :1910). The remainder is the standing trigger. At head the pin matches (row 26): (C).
+
+**FRAMED-RECOVERY-01 with TD-18 (open).**
+- **This package's share:** the installed fresh-work discriminator in T-287:2071. It is disposed (U) as row 29; its last evidence is the accepted bounded installed fresh case in `execution.md:3144-3154`.
+- **What stays with TD-18:** exact execution resumption. "Fresh success does not close exact resumption" (T-287:2071). Phase C has ruled TD-18's recovery trace: "a resumption fact that is not an event in the log is a defect and is repaired; none found means closed".
+
+### 4. Records
+
+**Register rows.**
+
+| Register row | One-line disposition to record |
+|---|---|
+| TD-21 | Revalidated at head. C: NW-PREPARATION-OBSERVABILITY-01, READBACK-ABSENCE, GJ-D2-UNDISPATCHED-CURSOR-REPORTING, D2-UNDISPATCHED-REFUSAL-01. O: NW-DEBT-ADMISSION-DIAGNOSTIC-01 (F_P `finalize` cause; package O-1, after `admitJson` totality). S: CALLER-PUBLIC-DIAGNOSTIC-01 (downstream caller). U: NW-DEBT-REPORT-COUNT-01 (report-contract decision P1), NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01. |
+| TD-22 | One scenario measured, `t287-calculus-state-transfer` compose, with no capacity claim. O: R1 INSTALL-VERIFY-COMPUTE-01 (package O-2); R4 CALLER-DURABLE-CONTEXT-01 (O-3); R3 NW-CALLER-PREPARATION-LIFETIME-01 (O-4, after P4; R2 measured as necessary per-tree hashing); R5 NW-DEBT-INVOKE-COST-01 (O-5, after P5). C: CALCULUS-SETUP-VOLUME-01, CALCULUS-BODY-01, NW-PRODUCT-VERIFICATION-REUSE-01. S: CALLER-EVIDENCE-VOLUME-01 (TD-19), NW-F11-SCOPE-COST-01 (qualification). U: NW-DEBT-CONFORMANCE-COST-01, Design execution cost, Mechanical context repetition (P6), Fresh sandbox setup cost. |
+| TD-24 | Triage done. C: NW-CATALOG-ORDER-01 (`ae57b16bd`), C2 context coordinate maintenance, Canonical development dependencies. S: CALCULUS-PROOF-01, Preconstruction correction/reuse. U: NATIVE-EVIDENCE-RECOVERY-01 (its proof waits on TD-05), DESIGN-REFERENCE-DR01 (P8), TR-ASSESSOR-ROLE-VIEW-INTERPRETATION, FRAMED-RECOVERY-01 (TD-18 keeps exact resumption), C2 fixed-command LLM relay (P7). No new package. |
+
+**Crosswalk route column.**
+
+| Row | Route to record |
+|---|---|
+| NW-DEBT-REPORT-COUNT-01 | U at TD-21; Phase C report contract (P1). |
+| CALLER-PUBLIC-DIAGNOSTIC-01 | S: downstream caller; the ABG decoder exists. |
+| NW-PREPARATION-OBSERVABILITY-01 | C at TD-21. |
+| NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 | U at TD-21; the row's own trigger. |
+| READBACK-ABSENCE helper false failure | C (odd_glc `6d6ce92`). |
+| GJ-D2-UNDISPATCHED-CURSOR-REPORTING | C at TD-21; lane `:93` fixture to TD-05. |
+| D2-UNDISPATCHED-REFUSAL-01 | C at TD-21; the actual negative is D5 qualification. |
+| NW-DEBT-ADMISSION-DIAGNOSTIC-01 | TD-17 closed F_D/F_P completion; `finalize` is O-1 at TD-21; retry route is P2. |
+| INSTALL-VERIFY-COMPUTE-01 | O-2 (R1); P3 for cross-call reuse. |
+| CALCULUS-SETUP-VOLUME-01 | C; phase accounting preserved and used. |
+| CALLER-DURABLE-CONTEXT-01 / LIFE-01 | O-3 (R4), or TD-12 if its acquisition covers project reads. |
+| CALLER-EVIDENCE-VOLUME-01 | S here; current mechanism TD-19. |
+| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | O-4 (R3) after P4; R2 is necessary per-tree hashing. |
+| NW-DEBT-CONFORMANCE-COST-01 | U at TD-22; reopens with an installed conformance scenario. |
+| NW-DEBT-INVOKE-COST-01 | O-5 (R5) after P5. |
+| Design execution cost | U at TD-22; paid calls held. |
+| Mechanical context repetition | U at TD-22; input contraction selection P6. |
+| Fresh sandbox setup cost | U at TD-22; ABG setup measured (R1). |
+| CALCULUS-BODY-01 | C; partial-envelope trigger not met (measured). |
+| NW-F11-SCOPE-COST-01 | S: qualification. |
+| NW-PRODUCT-VERIFICATION-REUSE-01 | C; per-operation checks retained (see P5). |
+| NATIVE-EVIDENCE-RECOVERY-01 | U at TD-24; its component proof waits on TD-05's prefix fixture. |
+| CALCULUS-PROOF-01 | S: qualification. |
+| DESIGN-REFERENCE-DR01 | U at TD-24; correction present by reading; proof needs P8. |
+| NW-CATALOG-ORDER-01 | C (`ae57b16bd`; head scratch). |
+| C2 context coordinate maintenance | C; standing trigger; TD-04 left no remainder. |
+| Canonical development dependencies | C (`ajv` 8.20.0, `ajv-formats` 3.0.1 installed). |
+| TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | U at TD-24; the capsule's own trigger. |
+| FRAMED-RECOVERY-01 | TD-24 share U (installed fresh case accepted at `execution.md:3144`); exact resumption TD-18. |
+| C2 fixed-command LLM relay | U at TD-24; owner re-ruling P7. |
+| Preconstruction correction/reuse | S: downstream declaration. |
+
+**T-287 statements contradicted at head.** T-287 is not edited; each statement keeps its cut.
+
+| T-287 line | Statement | Disposition |
+|---|---|---|
+| :2112 | NW-CATALOG-ORDER-01 "OPEN catalog/environment consistency" | Closed at `ae57b16bd`; row 25. |
+| :2130 | "declared ajv/ajv-formats absent from canonical node_modules" | Present at head; row 27. |
+| :2137 | "full-sandbox-support.mjs asserts result before its no-result branch" | Corrected at odd_glc `6d6ce92`; row 5. |
+| :2341 | "matcher seeks only an equal entered cursor" | Origins via routed and resumed cursors are admitted (`2a4dee94c`); row 6. |
+| :2116 | "F_D authority refusal/loading/throw collapse into implementation_exception" | F_D keeps its cause; only F_P `finalize` remains; row 8. |
+| :2071 | "OPEN … Prepare and select one installed fresh-work discriminator" | The same ticket's execution record accepts the bounded installed fresh case (`execution.md:3144-3154`); row 29. |
+| :2088 | NATIVE-EVIDENCE-RECOVERY-01 "OPEN selected" | Superseded within T-287 by :1064-1066 (Native44 acceptance); U at head, row 22. |
+
+Line drift, not a contradiction: register TD-21 "Known current limit" cites `worksite_command_helper.ts:865–898`; at head that is `:936-965`.
+
+### 5. Lanes and scratch cases
+
+Lanes ran from `build_tenants/abiogenesis/typescript` with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. The lane files are unchanged. The added flags and environment variables are named.
+
+| Lane | tests/pass/fail/skipped | Used for |
+|---|---|---|
+| `w2-steel-single-start` | 8/6/1/1 | candidate |
+| `t287-installed-product-coordinate` | 11/11/0/0 | candidate |
+| `steel-basic-cli-c2` | 6/0/0/6 | candidate; row 30 |
+| `t287-management-supervision` | 5/4/1/0 | candidate |
+| `t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`, three runs (plain; `NODE_V8_COVERAGE`; `NODE_OPTIONS=--cpu-prof`) | 2/2/0/0 each | TD-22 scenario |
+| `t287-undispatched-diagnostic` | 7/5/2/0 (`:93`, `:222`, baseline) | rows 3, 6, 7 |
+| `t287-runtime-failure-diagnostic` | 15/15/0/0 | rows 3, 8 |
+| `t287-cross-cut-public-read` | 5/4/1/0 (`:105`, baseline) | rows 5, 11 |
+| `t287-native-semantic-revision` | 9/4/4/1 (`:122`, `:270`, `:332`, `:531`, baseline) | row 22 |
+| `t287-management-context` | 14/12/0/2 | row 24 |
+| `t288-instruction-assembly-owner`, `--test-name-pattern 'actual derived revision successor shares complete typed assets'`, `ABI5_NATIVE_D2_DESIGN_DIRECTORY=…/author-context-policy-01` | 1/0/1/0; unset, 1/0/0/1 | row 24, F1 |
+
+Scratch cases are in `cases/`. Each reads the head build or source and writes nothing into the repository.
+
+| Case | Result |
+|---|---|
+| `c2-pin-check.mjs` | `"pass": true`; bytes 115,562; digest `sha256:a8d7035f…`; span 105,477-107,909, `sha256:1fcd7184…` |
+| `catalog-order-head.mjs` | `{"status":"passed","checks":[5],"inputSha256":"sha256:49f803a2…","sourceSha256":"sha256:69f3462c…"}` |
+| `undispatched-cursor-origins.test.mjs` | 1/1 pass: "undispatched refusal retains entered, routed and resumed cursor ownership at raw and cold boundaries" |
+| `fp-finalize-paths.test.mjs` | both paths `{"failureClass":"malformed_return","diagnosticRef":"diagnostic://abiogenesis/implementation/malformed-return@5","coldSubject":null}` |
+| `cross-cut-read-acquisitions.test.mjs`, `-owners`, `-passes` | the R4 counts and the owners of the passes |
+| `junit-report-counts.mjs` and `junit/suites/*.test.mjs` | the row 1 counts; exit codes in `junit/exit-codes.out` |
+| `dr01-probe.mjs`, `dr01-probe2.mjs`, `dr01-probe3.mjs` | head: `requestOk:false`, `intake:false`, `knownContract:false`, `digestMatch:true`; the library-delivery baseline build gives the same `requestOk:false` |
+| `cov-counts.mjs`, `cov-ranges.mjs`, `prof-attr.mjs`, `prof-callers.mjs`, `prof-chain.mjs` | readers over `cov-compose/` and `prof-compose/` |
+
+### Stops
+
+These rows need an owner's contract or design decision. They are Phase C rows, not this package's.
+
+- **P1, NW-DEBT-REPORT-COUNT-01.** Does a suite-level aggregate error with no testcase child count as an error? Head ignores aggregates by design (`worksite_command_helper.ts:944`).
+- **P2, NW-DEBT-ADMISSION-DIAGNOSTIC-01 (retry).** Should the nullable historical route projection (`traversal_route.ts:633-647`, asserted at `t287-runtime-failure-diagnostic:208`) carry its replay cause to `route_mismatch` (`retry.ts:4958-4970`)?
+- **P3, INSTALL-VERIFY-COMPUTE-01.** May direct analyses be reused across the 15 calls of one verification? The cache scope comment at `declaration_exports.ts:1284` limits it to "this checker and exact root/relation basis".
+- **P4, NW-CALLER-PREPARATION-LIFETIME-01.** May a held store retain the verified row bodies of its current generation? `runtime_history.ts:486` says "never retained here", and the log principle applies.
+- **P5, NW-DEBT-INVOKE-COST-01.** Does "per-operation physical checks" (T-287:2107) mean per leaf invocation, as at head (`leaf_invocation_port.ts:1599-1600`), or per port (`:968`)?
+- **P6, Mechanical context repetition.** Selection of the input contraction (T-287:2124, unselected).
+- **P7, C2 fixed-command LLM relay.** The owner re-ruling that T-287:2129 requires.
+- **P8, DESIGN-REFERENCE-DR01 and retained stores.** Does event-profile admission cover the intermediate current profiles that retained stores were written under? An example is `sha256:4196aaeb…`, which stamps the 1,390,576,361-byte odd_glc core18 store that DR01's input and native34 coordinates name. `isKnownRootEventContractDigest` (`event_store.ts:1189-1190`) admits only legacy and current.
+  - The profile name `p5-run-environment-role-context@1` is unchanged since `ad2a39f40`. Its digest moved between 2026-09-28 and 2026-10-06. The event-kind set changed at `1535e001b` (2026-09-28), `1aec3999f` (2026-09-29) and `0b1187c40` (2026-10-06); the move was not bisected.
+  - The alternative is to retire the lanes that depend on those stores.
+  - This bears on Phase C's evidence-root ruling: a store present under that root can still be refused at head.
+
+### Findings outside the 31 rows
+
+- **F1.** `t288-instruction-assembly-owner:499` is red at head when its retained directory is set: it fails at `:516` on P8's refusal.
+  - The wave's lane tables ran it with the directory unset (11/4/0/7, this record :893, :1305, :1888), so the red is in no record.
+  - The library-delivery baseline build (`work/T287_COMMON_LIBRARY_DELIVERY_01/proof/baseline-build/`) refuses the same input (`dr01-probe.baseline.out`), so the red predates this wave.
+- **F2.** `t287-native-semantic-revision:531` fails on a hand-built prefix at `:588`. It is in the TD-05 class and is recorded as baseline (this record :1840).
+- **F3.** `t287-undispatched-diagnostic:93` fails at `:135` on fixture drift: its mock index lacks the head key families (the `cursor-origin:` key since `2a4dee94c`) and the matcher's `runtimeEventBodiesAtPrefix`. The scratch copy with both corrections passes. This is a TD-05 increment.
+  - `:222` fails with "event store was not constructed by this ABG module", also a fixture. It was not traced further.
+- **F4.** `w2-steel-single-start:118` is already attributed (`step-8-run-postclose-attribution.md:78`; this record :1893).
+
+Not done:
+- No reproduction was fabricated; the U rows name their absent inputs.
+- Rows 4 and 29 rest partly on unread paths, as stated in their cells.
+- The 351.6 M and 92.9 % figures in R1 come from block counts in the coverage run. The other R1 figures are function counts.
