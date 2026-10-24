@@ -207,3 +207,35 @@ test('P-EQUAL C2 positive and negative over one recorded prefix', async (context
   assert.equal(refused.current, false);
   assert.equal(refused.stage, 'admit_view');
 });
+
+// The validator barrel's `sameQualificationValue` (removed at 5f4a1d4c9,
+// restored by owner ruling) is canonical equality. The deleted body was
+// `qualificationHash(a) === qualificationHash(b)`, and `qualificationHash` is
+// still `sha256Canonical`, so that comparison is the oracle: the same outcome
+// for every operand, I-JSON or not, value or thrown TypeError.
+test('sameQualificationValue is exported by both package entries and decides as the deleted digest comparison did', async () => {
+  const validator = await import('@abiogenesis/typescript-tenant/validator');
+  const root = await import('@abiogenesis/typescript-tenant');
+  const { sameQualificationValue, qualificationHash } = validator;
+  assert.equal(typeof sameQualificationValue, 'function');
+  assert.equal(root.sameQualificationValue, sameQualificationValue);
+  const deleted = (a, b) => qualificationHash(a) === qualificationHash(b);
+  const outcome = (compare, a, b) => {
+    try { return { value: compare(a, b) }; } catch (error) { return { error: error.name, message: error.message }; }
+  };
+  const left = JSON.parse('{"b":[1.0,-0,1e2],"a":{"y":2.50,"x":"é"}}');
+  const right = JSON.parse('{"a":{"x":"\\u00e9","y":25e-1},"b":[1,0,100]}');
+  const oneLeaf = JSON.parse('{"a":{"x":"é","y":2.5},"b":[1,0,101]}');
+  class Row { constructor() { this.a = 1; } }
+  assert.equal(admitJson(new Row()).kind, 'structural_refusal', 'an admitting body would refuse what the deleted body compared');
+  for (const [a, b, expected] of [
+    [left, right, { value: true }],
+    [left, oneLeaf, { value: false }],
+    [new Row(), { a: 1 }, { value: true }],
+    [NaN, NaN, { error: 'TypeError', message: 'canonical JSON does not admit non-finite numbers' }],
+    [{ a: 1 }, { a: undefined }, { error: 'TypeError', message: 'Cannot convert undefined or null to object' }],
+  ]) {
+    assert.deepEqual(outcome(sameQualificationValue, a, b), expected);
+    assert.deepEqual(outcome(deleted, a, b), expected);
+  }
+});
