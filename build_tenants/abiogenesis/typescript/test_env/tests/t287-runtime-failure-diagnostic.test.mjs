@@ -364,8 +364,10 @@ test('successful deterministic returns and legacy opaque failure totalization re
   const old = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => legacy });
   assert.deepEqual(old.candidate, legacy);assert.ok(old.receipt);
   const malformed = await owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => null });
-  assert.equal(malformed.candidate.resultCandidate.failureClass, 'malformed_return');
-  assert.equal(malformed.candidate.diagnosticRef, 'diagnostic://abiogenesis/implementation/malformed-return@5');assert.ok(malformed.receipt);
+  assert.equal(malformed.candidate.resultCandidate.failureClass, 'malformed_return');assert.ok(malformed.receipt);
+  // C-3 (O-1): the malformed return carries its cause inline, as the F_D failures above do.
+  assert.deepEqual(failureOwner.readRuntimeFailureDiagnosticSubject(malformed.candidate.diagnosticRef).cause,
+    { at: '', atTruncated: false, reason: 'the admitted output is not an F_D leaf realization candidate' });
 });
 
 // TD-17. The actual F_P owner boundary after its effect: the prepared completion
@@ -373,8 +375,8 @@ test('successful deterministic returns and legacy opaque failure totalization re
 // carrier pair. Admission and cold/Public readback are the deterministic case's:
 // the fixture's controlled basis/frame/replay premises, not the installed C-call
 // result route (c_call_result_admitted).
-async function probabilisticCompletionFailure(complete) {
-  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']);
+async function probabilisticCompletionFailure(complete, failureClass = 'implementation_exception', overrides = {}) {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', overrides, ['isLeafRealizationCandidate']);
   const value = deepFreeze({ kind: 'diagnostic_input', privateBody: 'input-body-not-diagnostic' }), inputDigest = hash(value);
   const resolution = deepFreeze({ computeRegime: 'F_P', implementationRef: 'implementation://diagnostic/probabilistic@5',
     inputContractRef: 'contract://diagnostic/input@5', outputContractRef: 'contract://diagnostic/output@5',
@@ -410,17 +412,21 @@ async function probabilisticCompletionFailure(complete) {
   const candidate = closed.candidate;
   assert.equal(candidate.disposition, 'failure');assert.deepEqual(candidate.evidenceCandidates, []);
   assert.deepEqual(Object.keys(candidate.resultCandidate).sort(), ['diagnosticRef', 'failureClass', 'kind', 'schemaVersion']);
-  assert.equal(candidate.resultCandidate.failureClass, 'implementation_exception');
+  assert.equal(candidate.resultCandidate.failureClass, failureClass);
   assert.equal(candidate.resultCandidate.diagnosticRef, candidate.diagnosticRef);
   assert.equal(owner.isLeafRealizationCandidate(candidate, 'F_P', () => false, input.failureValueKind), true);
   return { input, candidate };
 }
 async function probabilisticCompletionCauseSurvivesAdmission(t, reason, error, complete) {
-  const failureOwner = await sourceOwner('abg/runtime_failure');
   const { input, candidate } = await probabilisticCompletionFailure(complete);
   const expected = { diagnosticClassRef: 'diagnostic://abiogenesis/implementation/implementation-exception@5', computeRegime: 'F_P',
     implementationRef: input.resolution.implementationRef, inputDigest: input.inputDigest, stage: 'implementation_completion', reason,
     cause: { errorClass: error.constructor.name, errorCode: error.code ?? null, message: error.message, messageTruncated: false } };
+  await retainedCauseSurvivesAdmission(t, input, candidate, expected, reason === 'thrown' ? 'rejected' : 'thrown',
+    'Actual F_P boundary and completion with a validated carrier pair; controlled basis/frame/replay premises for failure admission and cold/Public readback, as the F_D case. Not the installed C-call result route.');
+}
+async function retainedCauseSurvivesAdmission(t, input, candidate, expected, substitutedReason, disclosure) {
+  const failureOwner = await sourceOwner('abg/runtime_failure');
   const subject = failureOwner.readRuntimeFailureDiagnosticSubject(candidate.diagnosticRef);
   // The cold read decides: the first cause, stage, reason and invocation are in
   // the admitted runtime_failure_observed, read back from a JSON-cloned prefix.
@@ -441,10 +447,10 @@ async function probabilisticCompletionCauseSurvivesAdmission(t, reason, error, c
   assert.deepEqual(decoded.subject, expected);assert.equal(projected.evidence[0].digest, hash(decoded));
   // A substituted subject refuses before append.
   const g = await fixture(t), count = g.store.readAll().length;
-  assert.throws(() => g.owner.admitRuntimeFailure({ ...g.input(), subject: { ...subject, reason: reason === 'thrown' ? 'rejected' : 'thrown' },
+  assert.throws(() => g.owner.admitRuntimeFailure({ ...g.input(), subject: { ...subject, reason: substitutedReason },
     diagnosticRef: candidate.diagnosticRef }), /retained subject digest/);
   assert.equal(g.store.readAll().length, count);
-  t.diagnostic('Actual F_P boundary and completion with a validated carrier pair; controlled basis/frame/replay premises for failure admission and cold/Public readback, as the F_D case. Not the installed C-call result route.');
+  t.diagnostic(disclosure);
 }
 
 test('probabilistic completion that throws keeps its first cause through failure admission and cold/Public projection', async t => {
@@ -455,6 +461,63 @@ test('probabilistic completion that throws keeps its first cause through failure
 test('probabilistic completion that rejects keeps its first cause through failure admission and cold/Public projection', async t => {
   const error = Object.assign(new Error('selected probabilistic rejection cause'), { code: 'ENOENT' });
   await probabilisticCompletionCauseSurvivesAdmission(t, 'rejected', error, () => Promise.reject(error));
+});
+
+// C-3 (O-1). A returned candidate that admission refuses (a cycle), that the
+// validator rejects (a non-candidate), or whose validation throws is
+// malformed_return carrying its cause: the refusal's at and reason, the
+// rejection, or the error's class and message. The admission and cold/Public
+// readback are TD-17's.
+const malformedClassRef = 'diagnostic://abiogenesis/implementation/malformed-return@5';
+const validatorError = new RangeError('selected validator cause');
+function malformedCases(regime, evidenceCandidates) {
+  const answer = { member: 1 };answer.self = answer;
+  const success = value => ({ kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success',
+    resultCandidate: { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer: value }, evidenceCandidates });
+  return [
+    { name: 'cyclic', output: success(answer), reason: 'refused', other: 'thrown',
+      cause: { at: '.resultCandidate.answer.self', atTruncated: false, reason: 'a container that encloses itself (a cycle) is not I-JSON' } },
+    { name: 'non-candidate', output: { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer: 1 }, reason: 'refused', other: 'thrown',
+      cause: { at: '', atTruncated: false, reason: `the admitted output is not an ${regime} leaf realization candidate` } },
+    { name: 'validator throws', output: regime === 'F_P' ? { kind: 'validator_throw_probe' } : success(1), reason: 'thrown', other: 'refused',
+      cause: { errorClass: 'RangeError', errorCode: null, message: validatorError.message, messageTruncated: false } },
+  ];
+}
+test('probabilistic completion malformed returns keep their cause through failure admission and cold/Public projection', async t => {
+  // F_P validation never calls validateSuccess, so an admitted value cannot make it throw: the
+  // shape predicate is replaced to throw on one marked value (a controlled premise).
+  const { isRecord } = await import('../../build/code/src/shared/admission_predicates.js');
+  const overrides = { '../shared/admission_predicates.js': { isRecord: value => {
+    if (isRecord(value) && value.kind === 'validator_throw_probe') throw validatorError;
+    return isRecord(value);
+  } } };
+  for (const c of malformedCases('F_P', [])) {
+    const { input, candidate } = await probabilisticCompletionFailure(() => c.output, 'malformed_return', overrides);
+    const expected = { diagnosticClassRef: malformedClassRef, computeRegime: 'F_P', implementationRef: input.resolution.implementationRef,
+      inputDigest: input.inputDigest, stage: 'implementation_completion', reason: c.reason, cause: c.cause };
+    await retainedCauseSurvivesAdmission(t, input, candidate, expected, c.other,
+      `C-3 F_P ${c.name}: actual F_P boundary and finalize with a validated carrier pair; controlled basis/frame/replay premises, as TD-17.`);
+  }
+});
+test('deterministic malformed returns keep their cause through failure admission and cold/Public projection', async t => {
+  const owner = await sourceOwner('implementation/leaf_invocation_port', {}, ['isLeafRealizationCandidate']);
+  const base = deterministicBoundaryInput();
+  const evidence = [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0', implementationRef: base.resolution.implementationRef,
+    inputDigest: base.inputDigest, outputDigest: hash({ kind: 'diagnostic_success', schemaVersion: '5.0.0', answer: 1 }) }];
+  for (const c of malformedCases('F_D', evidence)) {
+    const input = deterministicBoundaryInput({ loadImplementation: async () => () => c.output,
+      validateSuccess: value => { if (c.reason === 'thrown') throw validatorError; return value.kind === 'diagnostic_success'; } });
+    const closed = await owner.invokeLeafOwnerBoundary(input), candidate = closed.candidate;
+    assert.equal(closed.computeRegime, 'F_D');assert.equal(closed.receipt.candidate, candidate);
+    assert.equal(candidate.disposition, 'failure');assert.equal(candidate.resultCandidate.failureClass, 'malformed_return');
+    assert.equal(candidate.resultCandidate.diagnosticRef, candidate.diagnosticRef);
+    assert.deepEqual(candidate.evidenceCandidates, [{ ...evidence[0], outputDigest: hash(candidate.resultCandidate) }]);
+    assert.equal(owner.isLeafRealizationCandidate(candidate, 'F_D', () => false, input.failureValueKind), true);
+    const expected = { diagnosticClassRef: malformedClassRef, computeRegime: 'F_D', implementationRef: input.resolution.implementationRef,
+      inputDigest: input.inputDigest, stage: 'implementation_invocation', reason: c.reason, cause: c.cause };
+    await retainedCauseSurvivesAdmission(t, input, candidate, expected, c.other,
+      `C-3 F_D ${c.name}: actual F_D boundary; controlled basis/frame/replay premises, as the F_D case.`);
+  }
 });
 
 // D14. An outcome receipt's owned runtime prefix is a selection object the
@@ -586,11 +649,13 @@ test('lifecycle failure subjects carry each outcome receipt\'s own cut through b
 // TD-16. Each caller of the I-JSON lift that consumed only its refusal now reads
 // admitJson's outcome; the refusal it returns is the one head returned. The
 // inputs are the I-JSON refusals (a function member, an unsafe integer, a lone
-// surrogate) and the three values admitJson throws on (a cycle; nesting past
-// the stack bound; a proxy trap), which head's catch also absorbed. Each value
-// sits one member below the site's input; the control is the same input with
-// the member 1. td16Head is each site's result at cf630b55c, read from that
-// build and source.
+// surrogate) and the three values admitJson threw on at cf630b55c (a cycle;
+// nesting past the stack bound; a proxy trap), which head's catch absorbed and
+// admitJson now refuses (C-3). Each value sits one member below the site's
+// input; the control is the same input with the member 1. td16Head is each
+// site's result at cf630b55c, read from that build and source. Since C-3 (O-1)
+// the two leaf sites return that malformed_return with its class reference
+// replaced by the inline reference naming the cause.
 const td16Head = {
   "conformance": {"kind":"gtl_program_conformance_refusal","schemaVersion":"5.0.0","disposition":"failed","programRef":null,"programDigest":null,"code":"invalid_packet","diagnosticRef":"diagnostic://abiogenesis/conformance/invalid_packet@5","diagnostics":[{"code":"invalid_packet","path":"$","message":"GTL Program conformance requires one exact I-JSON packet"}],"violatedContractRefs":[],"evidenceRefs":[],"repairAffordances":[]},
   "result assessment": {"kind":"result_assessment_refusal","schemaVersion":"5.0.0","disposition":"refused","memberKey":"assess","code":"value_mismatch","message":"result assessment requires one exact canonical I-JSON request","issuePaths":["/"],"evidenceRefs":[]},
@@ -686,10 +751,26 @@ test('TD-16: the lift\'s refusal-only callers keep head\'s refusal for every mal
     evidenceCandidates: [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0', implementationRef: input.resolution.implementationRef,
       inputDigest: input.inputDigest, outputDigest: `sha256:${'b'.repeat(64)}` }] });
   const deterministic = async output => owner.invokeLeafOwnerBoundary({ ...input, loadImplementation: async () => () => output });
+  const failureOwner = await sourceOwner('abg/runtime_failure');
+  const td16Causes = { functionMember: ['.f', 'expected an I-JSON value'], unsafeInteger: ['', 'unsafe integral numbers are not I-JSON'],
+    loneSurrogate: ['', 'lone high surrogate is not I-JSON'], cycle: ['.self', 'a container that encloses itself (a cycle) is not I-JSON'],
+    deep: ['[0]'.repeat(510), 'containers nested more than 512 deep exceed the admission bound'], proxy: ['', 'inspecting the value threw TypeError'] };
+  const refusedAt = name => ({ at: '.resultCandidate.answer' + td16Causes[name][0], atTruncated: false, reason: td16Causes[name][1] });
+  const rejected = regime => ({ at: '', atTruncated: false, reason: `the admitted output is not an ${regime} leaf realization candidate` });
+  const headWithCause = (label, closed, invocation, stage, cause, message) => {
+    const head = td16Head[label], ref = closed.candidate.diagnosticRef;
+    assert.deepEqual(failureOwner.readRuntimeFailureDiagnosticSubject(ref), { diagnosticClassRef: head.diagnosticRef,
+      computeRegime: invocation.resolution.computeRegime, implementationRef: invocation.resolution.implementationRef,
+      inputDigest: invocation.inputDigest, stage, reason: 'refused', cause }, message);
+    const resultCandidate = { ...head.resultCandidate, diagnosticRef: ref };
+    assert.deepEqual(closed.candidate, { ...head, diagnosticRef: ref, resultCandidate,
+      evidenceCandidates: head.evidenceCandidates.map(evidence => ({ ...evidence, outputDigest: hash(resultCandidate) })) }, message);
+  };
   const nullOutput = await deterministic(null);
-  assert.deepEqual(nullOutput.candidate, td16Head['F_D output']);
+  headWithCause('F_D output', nullOutput, input, 'implementation_invocation', rejected('F_D'), 'F_D output: null');
   assert.deepEqual((await deterministic(success(1))).candidate, success(1));
-  for (const name of names) assert.deepEqual(await deterministic(success(values[name])), nullOutput, `F_D output: ${name}`);
+  for (const name of names) headWithCause('F_D output', await deterministic(success(values[name])), input, 'implementation_invocation',
+    refusedAt(name), `F_D output: ${name}`);
   // implementation/leaf_invocation_port.ts F_P finalize: the refused completion is the null completion
   const pair = validateActorProcessCarrierPair(carrier.request, carrier.observation);
   const probabilisticClosed = async output => {
@@ -704,9 +785,10 @@ test('TD-16: the lift\'s refusal-only callers keep head\'s refusal for every mal
   const fpSuccess = answer => ({ kind: 'leaf_realization_candidate', schemaVersion: '5.0.0', disposition: 'success',
     resultCandidate: { kind: 'diagnostic_success', schemaVersion: '5.0.0', answer }, evidenceCandidates: [] });
   const fpNull = await probabilisticClosed(null);
-  assert.deepEqual(fpNull.candidate, td16Head['F_P completion']);
+  headWithCause('F_P completion', fpNull, carrier, 'implementation_completion', rejected('F_P'), 'F_P completion: null');
   assert.deepEqual((await probabilisticClosed(fpSuccess(1))).candidate, fpSuccess(1));
-  for (const name of names) assert.deepEqual(await probabilisticClosed(fpSuccess(values[name])), fpNull, `F_P completion: ${name}`);
+  for (const name of names) headWithCause('F_P completion', await probabilisticClosed(fpSuccess(values[name])), carrier,
+    'implementation_completion', refusedAt(name), `F_P completion: ${name}`);
   sites['F_D output'] = nullOutput.candidate; sites['F_P completion'] = fpNull.candidate;
   t.diagnostic(JSON.stringify({ values: names, sites: Object.keys(sites).length,
     limit: 'abg/actor_process.ts assessNativeResultArtifact is reached only through a native worker exchange; its admission is read, not run.' }));

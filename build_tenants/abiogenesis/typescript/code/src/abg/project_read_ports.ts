@@ -595,12 +595,8 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   supplied: AbgProjectReadPacket<K>,
 ): AbgProjectReadPacket<K> | AbgProjectReadRefusal<K> {
-  let admitted: JsonValue | undefined;
-  try {
-    const outcome = admitJson(supplied);
-    if (outcome.kind === "ok") admitted = outcome.value;
-  } catch { /* admitJson throws on a cycle, at the stack bound and from a proxy trap; these take the same refusal. */ }
-  if (admitted === undefined) {
+  const outcome = admitJson(supplied);
+  if (outcome.kind !== "ok") {
     return refusal(
       expectedMemberKey,
       null,
@@ -608,6 +604,7 @@ function admitReadPacket<K extends AbgProjectReadMemberKey>(
       "ABG project read requires one exact I-JSON packet",
     );
   }
+  const admitted = outcome.value;
   if (
     !isRecord(admitted) ||
     !hasExactDataFields(admitted, [

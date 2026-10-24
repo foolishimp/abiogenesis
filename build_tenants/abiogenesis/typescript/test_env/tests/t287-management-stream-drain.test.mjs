@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, readFile, writeFile } from "node:fs/promises";
+import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { readFileSync, statSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
@@ -16,9 +16,14 @@ import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digest
 const root = resolve(import.meta.dirname, "../..");
 const delay = ms => Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms);
 
-async function exercise({ bytes = 512 * 1024, letter = "a", slowMs = 0, mode = "complete",
-  producerDrainMs = 150, observe = () => {} } = {}) {
+// The exchange's scratch is under the tenant root; it is removed when the exchange closes.
+async function exercise(options) {
   const archiveRoot = await mkdtemp(join(root, "stream-drain-"));
+  try { return await exerciseAt(archiveRoot, options); } finally { await rm(archiveRoot, { recursive: true, force: true }); }
+}
+
+async function exerciseAt(archiveRoot, { bytes = 512 * 1024, letter = "a", slowMs = 0, mode = "complete",
+  producerDrainMs = 150, observe = () => {} } = {}) {
   const count = bytes / Buffer.byteLength(letter);
   const expected = JSON.stringify({ message: letter.repeat(count) });
   const code = `const fs=require("node:fs");
@@ -139,14 +144,17 @@ async function heldObservation(context, selected) {
   const bytes = Buffer.from(lines.slice(0, selected.count).join("\n") + "\n");
   assert.equal(bytes.length, selected.bytes); assert.equal(sha256Bytes(bytes), selected.digest);
   const scratch = await mkdtemp(join(root, "held-drain-")), eventLogPath = join(scratch, "events.jsonl");
+  // The held store closes before its scratch under the tenant root is removed.
+  let opened = null;
+  context.after(async () => { try { opened?.store?.closeDurableLog(); } finally { await rm(scratch, { recursive: true, force: true }); } });
   await writeFile(eventLogPath, bytes, { flag: "wx" });
   const stat = statSync(eventLogPath);
   const body = { kind: "event_store_reopen_authority", schemaVersion: "5.0.0", eventLogPath,
     device: stat.dev, inode: stat.ino, eventLogDigest: sha256Bytes(bytes), durableByteLength: bytes.length,
     eventContractDigest: template.eventContractDigest };
-  const opened = reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
+  opened = reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
   assert.equal(opened.kind, "reopened_event_store_context", JSON.stringify(opened));
-  const store = opened.store; context.after(() => store.closeDurableLog());
+  const store = opened.store;
   let predecessorPrefix = opened.prefix;
   let previousEventRef = all[selected.count - 1].eventId;
   let ordinal = selected.beforeStreamOrdinal - 1;

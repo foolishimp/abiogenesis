@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { mkdtemp, mkdir, writeFile, rename, readFile, chmod, symlink } from "node:fs/promises";
+import { mkdtemp, mkdir, writeFile, rename, readFile, chmod, symlink, rm } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import * as product from "../../build/code/src/product/index.js";
@@ -323,8 +323,11 @@ test("prompt sharing retains full bodies when the visible source is absent, ambi
   assert.deepEqual(ambiguous.predecessors.at(-1).groundedTerms, original.predecessors.at(-1).groundedTerms);
 });
 
-async function genericEnvironment() {
-  const root = await mkdtemp(join(process.env.ABI5_CONTEXT_PROOF_ROOT ?? resolve(import.meta.dirname, "../../test_env"), "context-component-"));
+async function genericEnvironment(context) {
+  const chosen = process.env.ABI5_CONTEXT_PROOF_ROOT;
+  const root = await mkdtemp(join(chosen ?? resolve(import.meta.dirname, "../../test_env"), "context-component-"));
+  // Under the default location the lane removes its scratch; a root the owner chose keeps it.
+  if (chosen === undefined) context.after(() => rm(root, { recursive: true, force: true }));
   const sourceRoot = join(root, "source"), temporaryRoot = join(root, "temporary"); await mkdir(sourceRoot); await mkdir(temporaryRoot);
   const body = Buffer.from("Generic governance source. No STDO or Python dependency.\n"), member = { path: "policy.txt", type: "file", digest: bytes(body), target: null };
   await writeFile(join(sourceRoot, member.path), body);
@@ -351,8 +354,8 @@ async function genericEnvironment() {
     permission: { ...authority, programRef: program.programRef, environmentRef: environment.declarationRef, environmentDigest: hash(environment), operations: ["read_context"], ...coordinates } });
   return { root, sourceRoot, body, environment, publication, program, authority, resources, input: { publication, program, authority, graphFunctions: base.graphFunctions, archiveRoot: root, resources } };
 }
-test("generic environment selects published members despite co-located unselected files", async () => {
-  const fixture = await genericEnvironment(), original = await product.observeRunEnvironment(fixture.input);
+test("generic environment selects published members despite co-located unselected files", async t => {
+  const fixture = await genericEnvironment(t), original = await product.observeRunEnvironment(fixture.input);
   assert.equal(original.kind, "run_environment_observed");
   const extra = join(fixture.sourceRoot, "unselected.txt"), missing = join(fixture.sourceRoot, "policy.txt");
   await mkdir(join(fixture.sourceRoot, "external-evidence"));
@@ -375,8 +378,8 @@ test("generic environment selects published members despite co-located unselecte
     assert.deepEqual(await product.observeRunEnvironment(fixture.input), original);
   } finally { await chmod(extra, 0o600); }
 });
-test("generic exact-byte ingress, crossed Public coordinates, source mismatch and source-unavailable evidence replay", async () => {
-  const fixture = await genericEnvironment(); assert.equal(relation.validRunEnvironmentProgram(fixture.publication, fixture.program, base.graphFunctions), true);
+test("generic exact-byte ingress, crossed Public coordinates, source mismatch and source-unavailable evidence replay", async t => {
+  const fixture = await genericEnvironment(t); assert.equal(relation.validRunEnvironmentProgram(fixture.publication, fixture.program, base.graphFunctions), true);
   const observed = await product.observeRunEnvironment(fixture.input); assert.equal(observed.kind, "run_environment_observed", JSON.stringify(observed));
   assert.equal(evidence.isRunEnvironmentEvidence(observed.evidence), true); assert.equal(observed.evidence.corpusDocuments, null); assert.deepEqual(observed.evidence.accesses, []);
   await writeFile(join(fixture.sourceRoot, "policy.txt"), "changed source bytes");

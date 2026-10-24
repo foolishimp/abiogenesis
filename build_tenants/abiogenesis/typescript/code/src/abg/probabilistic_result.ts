@@ -281,16 +281,12 @@ function asIJsonObject(value: JsonValue): IJsonObject | null {
 function canonicalObject(
   value: unknown,
 ): Readonly<Record<string, JsonValue>> | null {
-  try {
-    const admitted = admitJson(value);
-    return admitted.kind === "ok"
-      ? asIJsonObject(admitted.value) as
-        | Readonly<Record<string, JsonValue>>
-        | null
-      : null;
-  } catch {
-    return null;
-  }
+  const admitted = admitJson(value);
+  return admitted.kind === "ok"
+    ? asIJsonObject(admitted.value) as
+      | Readonly<Record<string, JsonValue>>
+      | null
+    : null;
 }
 
 function transportBasisMatches(
