@@ -1214,7 +1214,7 @@ function deriveReplayPrefixFacts(
       if (event.kind !== "c_call_result_admitted") return [];
       // This is the same Event Calculus dependency relation, including C0's
       // exact failure basis/authority and native currentness observations.
-      const priorRows = owned ? eventCalculusDependencies(prefix, event) : events;
+      const priorRows = eventCalculusDependencies(prefix, event);
       const transition = projectWorksiteTransitionForResult(
         event,
         priorRows.filter(candidate => candidate.admissionOrdinal < event.admissionOrdinal),
