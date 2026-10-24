@@ -106,7 +106,7 @@ test('scope and packet crossings refuse; root does not accept a caller declarati
   assert.equal(RunProjectionPort.run_result(packet('run_result',graph)).kind,'abg_project_read_refusal');
 });
 
-test('Run reads validate selected liveness while workspace replay retains the complete calculus',async()=>{
+test('a prefix holding a malformed liveness event is not admitted history: Run and workspace reads over it refuse',async()=>{
   // Component boundary: supply the authenticated immutable-event premise to
   // the read owner. These current-profile variants are unadmitted test data;
   // physical decoding/stamps are exercised by the decoder and body-codec tests.
@@ -138,8 +138,12 @@ test('Run reads validate selected liveness while workspace replay retains the co
       graphFunctionRef:scope.graphFunctionRef,graphCallId:scope.graphCallId,frameId:scope.frameId,payload:{probeContract,observation}});
     return deepFreeze([...nativeEvents,event]);
   };
+  // Whole-prefix law: every read replays the complete prefix, so the calculus
+  // fold refuses the malformed event whichever Run's scope holds it, and the
+  // projector catch of projectPreparedRead (abg/project_read_ports.ts) answers
+  // invalid_history for the Run reads and the workspace replay alike.
   const unrelated=await reader(malformed('run://unrelated-scope-control'));
-  assert.deepEqual(unrelated.RunProjectionPort.run_result(packet('run_result')).value.terminalResult,expected.value.terminalResult);
+  assert.equal(unrelated.RunProjectionPort.run_result(packet('run_result')).code,'invalid_history');
   assert.equal(unrelated.WorkspaceProjectionPort.workspace_replay(packet('workspace_replay',workspace)).code,'invalid_history');
   const target=await reader(malformed(run));
   assert.equal(target.RunProjectionPort.run_result(packet('run_result')).code,'invalid_history');

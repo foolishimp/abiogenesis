@@ -1,6 +1,7 @@
 import * as v from "valibot";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
+import { canonicalEquals } from "../shared/value/index.js";
 import { CONTEXT_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA } from "../abg/terminal_result_contracts.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -474,6 +475,7 @@ export function qualificationIdentityDigest(value: object, refKey: string, diges
   return sha256Canonical(Object.fromEntries(Object.entries(value).filter(([key]) => key !== refKey && key !== digestKey)));
 }
 export const qualificationHash = (value: JsonValue): Sha256Digest => sha256Canonical(value);
+export const sameQualificationValue = (a: unknown, b: unknown): boolean => canonicalEquals(a as JsonValue, b as JsonValue);
 export const uniqueQualificationRefs = (refs: readonly string[]): boolean => new Set(refs).size === refs.length;
 export function qualificationIdentity(value: object, refKey: string, digestKey: string, prefix: string): boolean {
   const row = value as Record<string, unknown>, d = qualificationIdentityDigest(value, refKey, digestKey);
