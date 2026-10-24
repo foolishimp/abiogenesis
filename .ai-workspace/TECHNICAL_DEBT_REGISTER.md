@@ -31,7 +31,7 @@ All proposed repairs use realization_refactor unless the entry names design_refr
 | [TD-02](#td-02) | Closed | Complete B/D and reconcile their claims | M | Closed at `0eacd4668`, accepted `b5b8d0e24`; see the Completion record |
 | [TD-03](#td-03) | Closed | Stale binding in extracted-JavaScript test | S | Closed at `0eacd4668`; see the Completion record |
 | [TD-04](#td-04) | Open (R10 increment closed) | Missing/machine-bound proof inputs | M | The R10 projection family runs from a clean checkout at `bf117cf92` (S01 inputs packaged, 2.8 MB; see the Completion record). Remaining increments: the D2 store and S01 `call-9.jsonl` (38 MB, above the packaging stop; the owner's evidence-root decision, T-290 Phase C); `m5-consensus-module:2252`; `d1-preserved-result-harness.mjs:20`; `t288-composition-conservation:12` and the two `w2-steel-*-installed` lanes (variables unset); support machine paths in `d2-bounded-harness:9,11`, `declared-testing-capability:18`, `stdo-environment-pilot:153-155`, `d2-evidence-owner-harness:9-10` |
-| [TD-05](#td-05) | Open (R10 increment closed) | Obsolete API, copied-prefix and loader fixtures | M | Two obsolete-import lanes and the R10 private name retired at `bf117cf92` (`m5-consensus-module:26`, `t287-wave2-owner-contract-source-set:47`, `outputFor`); `r10-private-owner-harness` kept, no equivalent loader. Remaining increments: `m5-consensus-module` `:385` ×5 (`invalid_actor_process_observation`), `:1572` (reopen payload variant), `:2252` (deleted `public/operations.ts`); wave2 `:611` (deep-freeze reach over schema functions), `:798` (D15 request schema); `t287-native-assessment-evidence:548` |
+| [TD-05](#td-05) | Open (R10 increment closed) | Obsolete API, copied-prefix and loader fixtures | M | Two obsolete-import lanes and the R10 private name retired at `bf117cf92` (`m5-consensus-module:26`, `t287-wave2-owner-contract-source-set:47`, `outputFor`); `r10-private-owner-harness` kept, no equivalent loader. Remaining increments: `m5-consensus-module` `:385` ×5 (`invalid_actor_process_observation`), `:1572` (reopen payload variant), `:2252` (deleted `public/operations.ts`); wave2 `:611` (deep-freeze reach over schema functions), `:798` (D15 request schema); `t287-native-assessment-evidence:548`; from the triage (`a8937b837`): `t287-native-semantic-revision:531` (hand-built prefix refused at `:588`), `t287-undispatched-diagnostic:93` (mock index lacks the `cursor-origin:` key family and `runtimeEventBodiesAtPrefix`; a corrected scratch copy passes) and `:222` (store not constructed by this module); discharged with the Phase C evidence-root package |
 | [TD-06](#td-06) | Closed | Full held-set scan for an exact clip | S | Closed at `94ca67abf`; see the Completion record |
 | [TD-07](#td-07) | Conditional | Full held-set sort for one process-live fact | M | 30 point queries routed at `ea18189e3`; the seven lifecycle sites wait on the owner's reader decision (T-290 Phase C); see the Completion record |
 | [TD-08](#td-08) | Closed | Repeated causal-support history scans | M | Closed at `f6bdf13bd`; see the Completion record |
@@ -47,10 +47,10 @@ All proposed repairs use realization_refactor unless the entry names design_refr
 | [TD-18](#td-18) | Investigate | Held-return cold recovery contract | M/L | Selected suspension/resumption proof |
 | [TD-19](#td-19) | Open | Recursive proof/evidence copying | M/L | Next proof packaging; historical cleanup separately |
 | [TD-20](#td-20) | Closed | Conflicting current-status narratives | S/M | Closed at `602eca3f3`; see the Completion record |
-| [TD-21](#td-21) | Revalidate | Historical reporting/observation gaps | S/M | Next affected caller/report path |
-| [TD-22](#td-22) | Revalidate | Caller/install/capacity cost observations | M | Controlled present-day attribution |
+| [TD-21](#td-21) | Closed | Historical reporting/observation gaps | S/M | Closed at `a8937b837`: C NW-PREPARATION-OBSERVABILITY-01, READBACK-ABSENCE, GJ-D2-UNDISPATCHED-CURSOR-REPORTING, D2-UNDISPATCHED-REFUSAL-01; S CALLER-PUBLIC-DIAGNOSTIC-01; U NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 (its own trigger), NW-DEBT-REPORT-COUNT-01 (ruled: testcase children are the facts); the F_P `finalize` cause (O-1) rides with the Phase C `admitJson` totality package; see the Completion record |
+| [TD-22](#td-22) | Closed | Caller/install/capacity cost observations | M | Closed at `a8937b837`: one scenario measured, no capacity claim; C CALCULUS-SETUP-VOLUME-01, CALCULUS-BODY-01, NW-PRODUCT-VERIFICATION-REUSE-01, NW-DEBT-INVOKE-COST-01 (per-invocation check kept at 0.024 s CPU per Run); S CALLER-EVIDENCE-VOLUME-01 (TD-19), NW-F11-SCOPE-COST-01; U NW-DEBT-CONFORMANCE-COST-01, Design execution cost, Mechanical context repetition, Fresh sandbox setup cost; the repeated acquisitions found are Phase C packages: INSTALL-VERIFY-COMPUTE-01 (O-2), NW-CALLER-PREPARATION-LIFETIME-01 (O-4), CALLER-DURABLE-CONTEXT-01 (O-3, with TD-12); see the Completion record |
 | [TD-23](#td-23) | Closed | Repeated line-boundary mechanics | M | Closed at `bc7135549` for the two event-store readers; the worker and recovery loops retained with reasons; see the Completion record |
-| [TD-24](#td-24) | Revalidate | Remaining inherited assurance/contract questions | S to triage | Exact owning scenario selected |
+| [TD-24](#td-24) | Closed | Remaining inherited assurance/contract questions | S to triage | Closed at `a8937b837`: C NW-CATALOG-ORDER-01 (`ae57b16bd`), C2 context coordinate maintenance (pin exact), Canonical development dependencies; S CALCULUS-PROOF-01, Preconstruction correction/reuse; U NATIVE-EVIDENCE-RECOVERY-01 (proof waits on the TD-05 fixture), DESIGN-REFERENCE-DR01 (proof waits on the evidence-root package, P8), TR-ASSESSOR-ROLE-VIEW-INTERPRETATION, FRAMED-RECOVERY-01 (exact resumption stays with TD-18), C2 fixed-command LLM relay (unselected); see the Completion record |
 
 There are 24 packages: at the snapshot 15 open, one in flight, three conditional, two investigations and three historical revalidation packages; at `b5b8d0e24` three are closed (TD-01, TD-02, TD-03) and 13 open. This is not a count of defects. The 73-row crosswalk below preserves inherited items without counting each historical observation as a new task.
 
@@ -246,7 +246,7 @@ Recommended first sequence: TD-02 plus dispositions for TD-01/03; TD-04/05 for o
 ### TD-21 — Revalidate historical reporting and observation debt
 
 - **Existing items:** NW-DEBT-REPORT-COUNT-01, CALLER-PUBLIC-DIAGNOSTIC-01, NW-PREPARATION-OBSERVABILITY-01, NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01, READBACK-ABSENCE helper false failure, GJ-D2-UNDISPATCHED-CURSOR-REPORTING and D2-UNDISPATCHED-REFUSAL-01. Source: [T-287](tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md), management rows and named later capsules.
-- **Known current limit:** [worksite_command_helper.ts](../build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts):865–898 intentionally derives accepted testcase counts rather than trusting aggregate XML attributes. An old aborted-suite report cannot justify blindly accepting those aggregate counts.
+- **Known current limit:** [worksite_command_helper.ts](../build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts):936–965 intentionally derives accepted testcase counts rather than trusting aggregate XML attributes. An old aborted-suite report cannot justify blindly accepting those aggregate counts.
 - **First action / retirement:** reproduce one present owner path, classify its supported report/diagnostic contract, then remove the surviving ambiguity or record the accepted closure. Check whether current undispatched diagnostics already satisfy the older capsule before changing them.
 - **Owner / trigger:** report, caller projection or leaf-failure owner as applicable; next selected affected path. Reporting-contract changes require owner design/contract re-entry.
 - **Closure:** actual reported input and admitted output agree under the current contract, including supported aborted-suite/absence/cause cases; cold consumers can interpret the result. Link closures for rows no longer applicable.
@@ -292,85 +292,85 @@ Source: [T-287 Current Management Debt](tickets/active/T-287-deliver-abiogenesis
 | FRAMED-UAT-DEPENDENCIES-01 | Bounded closed; preserve installed producer-dependency evidence. |
 | FRAMED-RAW-CONTRACT-01 | Bounded closed for demonstrated supported-row path. |
 | FRAMED-NATIVE-SCOPE-01 | Preserve scope note; no new security/sandbox program selected. |
-| FRAMED-RECOVERY-01 | TD-18 / TD-24; remaining installed recovery scope requires exact trace. |
+| FRAMED-RECOVERY-01 | TD-24 share U at `a8937b837` (the bounded installed fresh case accepted at `execution.md:3144-3154`; the territory is absent); exact resumption TD-18 (Phase C trace). |
 | TEST-PUBLIC-LEGACY-01 | TD-05. |
-| INSTALL-VERIFY-COMPUTE-01 | TD-22; redundancy not proved by historical cost alone. |
-| CALCULUS-SETUP-VOLUME-01 | TD-22; preserve existing phase accounting. |
+| INSTALL-VERIFY-COMPUTE-01 | O-2 at `a8937b837`: the closure re-walked per exported symbol; Phase C package (declaration closure condensation). |
+| CALCULUS-SETUP-VOLUME-01 | C at `a8937b837`; the owner's phase accounting preserved and used for the measured scenario. |
 | CALCULUS-RUN-WORDING-01 | Bounded closed. |
 | CALCULUS-BATCH-01 / CALCULUS-INPUT-01 | Bounded closed; do not recreate removed carriers. |
 | CALCULUS-BASIS-01 | TD-06/07/08/12/18; distinct remaining mechanisms. |
 | CALCULUS-ASSEMBLY-01 | Bounded closed. |
-| CALCULUS-BODY-01 | Exact cold-body reuse closed; partial-envelope opportunity remains conditional under TD-22. |
-| CALLER-DURABLE-CONTEXT-01 / LIFE-01 | TD-06–11 / TD-19 / TD-22; preserve exact historical observations. |
-| LEAF-FAILURE-DIAGNOSTIC-01 | TD-17; F_D cause capture now present, precise F_P remainder open. |
-| CALCULUS-PROOF-01 | TD-24; narrowed claim preserved, actual native-intake proof not inferred. |
+| CALCULUS-BODY-01 | C at `a8937b837`; the partial-envelope trigger is not met (24 batch appends, 0.189 s CPU in the measured scenario). |
+| CALLER-DURABLE-CONTEXT-01 / LIFE-01 | O-3 at `a8937b837`: 3 or 4 whole-history passes per cold Public read; rides with TD-12 (Phase C, last). |
+| LEAF-FAILURE-DIAGNOSTIC-01 | TD-17 closed (`4bc5a945a`); the F_P `finalize` site is O-1 and rides with the Phase C `admitJson` totality package. |
+| CALCULUS-PROOF-01 | S at `a8937b837`: qualification, not library debt. |
 | D2-ACQUISITION-PROVENANCE-01 | Bounded closed. |
 | NATIVE-D2-RESULT-ENVELOPE-01 | Bounded closed. |
 | NATIVE-D2-ASSESSOR-PREPARATION-01 | Bounded closed. |
 | NATIVE-D2-ANCESTRY-01 | Bounded closed. |
 | NATIVE-EVIDENCE-CONTEXT-01 | Bounded prompt/refusal correction closed. |
-| NATIVE-EVIDENCE-RECOVERY-01 | TD-24; refresh the historical Evidence-only recovery case. |
+| NATIVE-EVIDENCE-RECOVERY-01 | U at `a8937b837`; the component proof waits on the TD-05 fixture increment (`t287-native-semantic-revision:531`); the Evidence-only suffix read as conserving the producer's evidence. |
 | RUN-SCOPE-REFUSAL-01 | Bounded closed. |
-| CALLER-PUBLIC-DIAGNOSTIC-01 | TD-21; refresh current caller decoding. |
-| NW-F11-SCOPE-COST-01 | Preserve bounded proof/context scope; TD-22 only if new cost selected. |
+| CALLER-PUBLIC-DIAGNOSTIC-01 | S at `a8937b837`: downstream caller; the ABG decoder exists (`runtime_failure.ts:99-109`). |
+| NW-F11-SCOPE-COST-01 | S at `a8937b837`: qualification. |
 | S02-RECURSION-RESTORATION-01 | Bounded accepted. |
 | S02-RETRY-RUN-PREFIX-01 | Bounded accepted. |
 | NW-C0-FIXTURE-APPEND-01 | TD-05; held copied-prefix negative fixtures. |
 | INSTALL-LOCK-REUSE-01 | Accepted correction preserved. |
 | EC-RECOVERY-COST-03 | Accepted cold-replay reuse preserved. |
-| CALLER-EVIDENCE-VOLUME-01 | TD-19/22; current tree census is separate from historical caller traffic. |
+| CALLER-EVIDENCE-VOLUME-01 | S at `a8937b837`; the current mechanism is TD-19 (Phase C). |
 | TEST-EC-LEGACY-ASSERTIONS-01 | TD-05. |
-| DESIGN-REFERENCE-DR01 | TD-24; refresh selected HOW/materializer relation. |
+| DESIGN-REFERENCE-DR01 | U at `a8937b837`; the correction is present at all three sites by reading; its proving case needs a store under an admitted profile (evidence-root package, P8). |
 | TEST-GRAPH-ASSERTIONS-01 | TD-05. |
 | TEST-DESCRIPTOR-LOADER-01 | TD-04/05. |
 | F11-PRODUCER-CONTEXT-01 | Bounded acquisition-reuse correction closed. |
 | F11-APPLICATION-DOMAIN-01 | Preserve qualification scope; unfinished release evidence is not automatically new debt. |
-| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | TD-22; historical costs are not current attribution. |
-| C2 context coordinate maintenance | TD-04/24; preserve exact packaged identity, never rewrite old coordinates. |
+| NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01 | O-4 at `a8937b837`: held history re-verified on every materialization; Phase C package (held history generation projection); the install-time hashing is necessary per-tree work. |
+| C2 context coordinate maintenance | C at `a8937b837`: the pin is exact at head; the trigger stands for any later change to the member. |
 | NW-OPERATOR-STOP-BINDING-01 | Accepted source/installed correction preserved. |
-| NW-PRODUCT-VERIFICATION-REUSE-01 | Bounded reuse accepted; broader capacity under TD-22. |
+| NW-PRODUCT-VERIFICATION-REUSE-01 | C at `a8937b837`: one verification per artifact; per-operation checks kept (P5 ruling). |
 | NW-QUALIFICATION-CONTRACTION-01 | Closed removal; do not restore roster/adapters/wrappers. |
 | ODD-DOM-01 / NW-RETENTION-01 | Downstream T-043 ownership retained; no ABG domain repair activated. |
 | NW-CODEWIDE-REVIEW-01 | Audit closed, findings routed; not another codewide gate. |
 | NW-REACQUISITION-ROOT-01 | Preserve prior root correction; new proof seam is TD-03. |
-| NW-CATALOG-ORDER-01 | TD-24; refresh old ordering question. |
+| NW-CATALOG-ORDER-01 | C (`ae57b16bd`; the review's input re-run against the head build at `a8937b837`, 5 checks pass). |
 | NW-CURRENTNESS-01 | Preserve accepted semantics; remaining acquisition cost TD-08. |
 | NW-DEBT-AJV-01 | Selected schema correction closed. |
-| NW-DEBT-CONFORMANCE-COST-01 | TD-22; finite positive proof retained, original capacity question not generalized. |
-| NW-DEBT-ADMISSION-DIAGNOSTIC-01 | TD-17/21; distinguish repaired deterministic and remaining paths. |
-| NW-DEBT-INVOKE-COST-01 | TD-22; refresh historical heap/cost evidence. |
+| NW-DEBT-CONFORMANCE-COST-01 | U at `a8937b837`; reopens when an installed conformance scenario runs in this checkout. |
+| NW-DEBT-ADMISSION-DIAGNOSTIC-01 | TD-17 closed the F_P throw and rejection (F_D kept its cause before); `finalize` is O-1 (with `admitJson` totality); the retry route cause is a Phase C package (P2). |
+| NW-DEBT-INVOKE-COST-01 | C at `a8937b837` by measurement: 5 verifications per Run, 0.024 s CPU; the per-operation check stays as the contract reads; reopens on a measured material cost. |
 | NW-C2-CONTEXT-CONFORMANCE-01 | Bounded producer-selector correction accepted. |
-| NW-PREPARATION-OBSERVABILITY-01 | TD-21; refresh source-ready/independence status. |
+| NW-PREPARATION-OBSERVABILITY-01 | C at `a8937b837` (`t287-runtime-failure-diagnostic` 15/15; the three undispatched cause cases pass). |
 | NW-DEBT-CHILD-READ-COST-01 | Demonstrated duplicate boundary closed. |
-| NW-DEBT-REPORT-COUNT-01 | TD-21; owner report contract before count changes. |
+| NW-DEBT-REPORT-COUNT-01 | Closed at `a8937b837` by ruling: testcase children are the facts, the aggregate is derived, the exit status carries an abort; reopens on a report carrying an error fact the helper misses. |
 | NW-DEBT-QUAL-COST-01 | Preserve bounded AF22 acceptance; F11 is a separate qualification scope. |
-| Design execution cost | TD-22; historical timeout is not current causal evidence. |
-| Mechanical context repetition | Accepted output contraction preserved; input opportunity conditional TD-22. |
+| Design execution cost | U at `a8937b837`; paid calls held; reopens when a selected Design run times out. |
+| Mechanical context repetition | U at `a8937b837`; the output contraction stands; the input contraction is unselected work, not debt. |
 | Native output/budget continuation | Preserve observation and CLI ownership; not proof of a billing cap or ABG defect. |
 | Causal lookup scans | TD-08/12; earlier loops require revalidation before re-reporting. |
 | Snapshot copies/ancestor walks / CALCULUS-PREFIX-01 / CALCULUS-APPEND-01 | TD-09; isolated forks remain legitimate unless redundant copying is shown. |
 | Stale rival-authority / proof-suite basis | TD-04/05; existing CW-P01/CW-P02 identities retained. |
-| C2 fixed-command LLM relay | Conditional TD-24; current worker-executes ownership is not automatically duplicate computation. |
-| Canonical development dependencies | TD-24; current install issue unverified, do not replay old missing-dependency claims as current. |
+| C2 fixed-command LLM relay | U at `a8937b837`; unmeasured (the C2 carrier fixture is unset); unselected, opens on the owner's re-ruling. |
+| Canonical development dependencies | C at `a8937b837`: `ajv` 8.20.0 and `ajv-formats` 3.0.1 present. |
 | Public read provenance (TRUST01-R1, S3) | Accepted source / OWNER-REUSE-01 relation preserved. |
-| Fresh sandbox setup cost | TD-22; historical observation needs attribution. |
+| Fresh sandbox setup cost | U at `a8937b837`; ABG's own setup measured (initialization 33,992 ms, artifact verification 23,935 ms; the repeat is O-2). |
 | Native assembly retained-input resolution | Bounded source/installed correction accepted. |
-| NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 | TD-21; refresh missing path/digest join claim. |
+| NW-NATIVE-ASSESSOR-PROVENANCE-CONTEXT-01 | U at `a8937b837`; the included rows carry path, digest and byte length since `e9402b813`; the meaning links and C2 provenance untraced; reopens on the row's trigger. |
 | Product versus install inventory (ENV01) | Closed. |
 | Native stream-observation volume | TD-11 / CW-R02; current per-chunk reprojection mechanism confirmed. |
-| READBACK-ABSENCE helper false failure | TD-21; refresh affected caller. |
-| Preconstruction correction/reuse | Conditional TD-24; unselected composition opportunity. |
+| READBACK-ABSENCE helper false failure | C (odd_glc `6d6ce92`; ABG returns `not_found` for `run_result` and a result for `run_replay`). |
+| Preconstruction correction/reuse | S at `a8937b837`: downstream declaration. |
 | Execution-ticket context growth | TD-20; current source supports maintenance concern. |
 
 Later capsules outside that table remain visible:
 
 | Existing capsule | Route |
 |---|---|
-| TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | TD-24; old role-local null interpretation, no current outcome-loss claim. |
+| TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | U at `a8937b837`; the capsule's own trigger. |
 | TR-C1-BINDING-COUNT | TD-05; derive the actual current contract inventory. |
 | TR-DOC-RC6-LINK | Requirements README now routes through the selected Product Definition. Preserve that correction; any remaining old ticket-navigation links belong to TD-20. |
-| GJ-D2-UNDISPATCHED-CURSOR-REPORTING | TD-21; refresh exact reporting boundary. |
-| D2-UNDISPATCHED-REFUSAL-01 | TD-21; inspect current cause handling before reactivating old finding. |
+| GJ-D2-UNDISPATCHED-CURSOR-REPORTING | C at `a8937b837` (origins admitted via routed and resumed cursors, `2a4dee94c`); the lane's `:93` fixture is a TD-05 increment. |
+| D2-UNDISPATCHED-REFUSAL-01 | C at `a8937b837`; the actual negative is D5 qualification. |
 
 ## Closures and intentional retention that must not become new debt
 
@@ -406,6 +406,7 @@ Repairs B (`d8cf6b5d9`, accepted at `3dbd3cd2f`) and D (`0eacd4668`, accepted at
 | TD-15 + TD-16 | `a692fb4b9` | TD-15: the three hand-rolled record envelopes (`retry.ts` `completedRetryProgressPlanDigest`, `c_call.ts` `pendingInteractionBodyDigest`, `replay.ts` `writeReplayBody`) now write through `writeCanonicalRecord` and keep their member streaming; TD-16: 13 of 22 `admitIJsonValue` callers read `admitJson`'s outcome and return their head literal (one `catch` kept for the throws `admitJson` documents), 9 kept where the throw is the contract; TD-14's nine held casts removed through `isRecord`; the C2 pin refreshed (115830 to 115562 bytes; span 105477-107909; span digest unchanged) | `t287-route-reconstruction` 10/8/0/2: transcriptions of the three head writers equal the new ones in parts, bytes and digest on every owner-built input and in the parts emitted before a refusing sink for every k; the two persisted S01 `replayStateDigest` values recompute equal; `t287-runtime-failure-diagnostic` 15/15: 12 migrated sites give their head refusal on six malformed inputs each; 148 lanes identical at head and after (81 red, the same 197 identities) | [packages.md](work/T290_DEBT_WAVE_01/packages.md) `## TD-15 + TD-16 disposition`; D4 and the value-family rows restated; `admitJson` totality sent to Phase C; no stops |
 | TD-23 | `bc7135549` | the two durable history readers' line-boundary mechanics (`decodeHistoricalEvents`' pre-scan and `indexOf` walk; `foldRuntimeHistoryDescriptor`'s framing state, CR check, LF loop and carry); one private mechanism `DurableHistoryLines` (`event_store.ts:3302-3350`) now yields rows with their LF and offset, carries the partial row and records the framing facts, and each reader keeps its policy, error texts and precedence | `m5-event-store-reopen` 21/21: transcriptions of both head readers equal the new ones over 38 streams and 66,159 partitions (66,235 comparisons); the mechanism's rows, offsets and facts are partition-invariant over 68,882 partitions; 132,696 head-build versus new-build outcomes byte-identical; the packaged S01 log reopens with its historical digest and length; thirteen other lanes identical | [packages.md](work/T290_DEBT_WAVE_01/packages.md) `## TD-23 disposition`; retained with reasons: the recovery loop (`worksite_construction_recovery.ts:166-173`, about five lines, needs an importable home and a no-carry final read) and the worker observer (`worker_transport.ts:352-364`, strings, needs the trailing line at `finish()`); no extension, no reframe; the lane now takes the S01 lock as `r10-projection-contracts` does |
 | TD-20 | `602eca3f3` | T-287's competing current-status narratives: one `## Current disposition` (38 lines, facts stated once and linked) now opens the ticket; twelve superseded `Current` sections carry their cut in the heading and twenty-one link-target sections an italic cut line; six frontmatter values follow the current surfaces; `## Current Delivery Plan` carries one cut line; the live broken inbound anchor restored | the Worker's history check: 4,623 of 4,629 body lines unchanged in order, 0 removed, 12 headings in historical form, 42 of 42 inbound anchors resolve; five mutations each fail it; the agreement table names seven disagreements outside T-287, three fixed by the Executive (T-290 phase, Phase A exit sentence, this register's owning clause), three on GOALS held for the Phase B close restatement, the two frozen preimage anchors left | [packages.md](work/T290_DEBT_WAVE_01/packages.md) `## TD-20 disposition`; the ticket is 5,505 lines (from 5,400); no stops |
+| TD-21 + TD-22 + TD-24 | `a8937b837` | the thirty-one inherited rows revalidated at head: C 10, O 5, S 5, U 11; one measured scenario (`t287-calculus-state-transfer` compose: initialization 33,992 ms of which artifact verification 23,935, selection 1,546, admission 3,078, native work 4,531; no capacity claim) with five acquisition counts by owner | each row's evidence in the Return; the five (O) rows carry reproductions and package proposals and are routed: O-1 into the `admitJson` totality package, O-2 and O-4 as Phase C packages, O-3 into TD-12, O-5 closed by measurement under the contract; P1 to P8 ruled in the disposition | [packages.md](work/T290_DEBT_WAVE_01/packages.md) `## TD-21 + TD-22 + TD-24 disposition`; no code edit |
 
 Triggers now met: TD-06 and TD-07 (B's accumulator is accepted); TD-14 (the nine stopped rows are resolved, four by D12 at B and five by D14 at D; the 55 outside-census casts and the tracer gaps remain); TD-20 (the B/D checkpoint: the closing post is restated in place, and GOALS, T-287, the plan Ledger and step-8 agree at head; the compaction of T-287 remains open). TD-17's "existing failure/diagnostic route" has a realized precedent in D15: `constructRuntimeFailureDiagnosticRef` carries an admitted subject inline and the cold projection reads it. TD-21's helper coordinates (`worksite_command_helper.ts:865–898`) shifted under repair D; the count derivation is `nodeTestPassCount`. The claims in TD-06, TD-07, TD-12 (18 literal calls in seven files), TD-13, TD-14, TD-15 and TD-17 were re-read at head and hold as written. No other package is selected by this reconciliation.
 
