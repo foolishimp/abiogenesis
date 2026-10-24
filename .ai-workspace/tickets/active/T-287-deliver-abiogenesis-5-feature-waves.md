@@ -5,21 +5,60 @@
 - goal: GOAL-035
 - owner: abiogenesis
 - build_tenant: typescript
-- updated_at: 2026-10-21
+- updated_at: 2026-10-24
 - current_method_basis: stdo://releases/v3.0.0-rc.1/
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
-- current_activation: T287_COMMON_LIBRARY_DELIVERY_01
-- current_activation_status: BOUNDED_DESIGN_CONJUNCTION_ACCEPTED_VALUE_OWNER_OBLIGATIONS_OPEN_SOURCE_COMPLETION_L4_L5_HELD
-- current_handoff: .ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md
-- current_next_work: authorized_WIP_checkpoint_then_finite_value_owner_decisions_and_separately_granted_dependency_ready_source
+- current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
+- current_activation_status: library delivered and closed (delivery close); T-290 Phase A closed at 46ed04895; L5 acceptance absent; T-290 Phase B in progress
+- current_handoff: .ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md
+- current_next_work: the Next line of T-290 (Phase B packages to the Phase B close; the owner's review pass on 46ed04895; L5)
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
-- current_runtime_frontier: historical_P1_PASS_P5_TIMEOUT_candidate_P1_P5_P4_and_dependents_HELD_pending_design_source_conjunction
+- current_runtime_frontier: historical_P1_PASS_P5_TIMEOUT_candidate_P1_P5_P4_and_dependents_HELD_until_L5_acceptance_and_a_later_exact_grant
 - current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
 - change_class: goal_reprice
 - derived_change_classes: product_reprice
 - re_entry_point: specification/GOALS.md#current-selection
+
+## Current disposition
+
+Status: active, at `aa9f5ac86` (2026-10-24). This section is the ticket's one
+current status; the [Current Delivery Plan](#current-delivery-plan) is the
+delivery schedule. Every later section is a record at its own cut and supplies
+no current status or grant.
+
+Delivered and closed:
+- The common computational library, on local `main` at the cut the
+  [library delivery close](#library-delivery-close-2026-10-23) records.
+- The post-close repairs E to H of
+  [T-290 Phase A](T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-a-close-the-library),
+  the last accepted at `46ed04895`, where T-290's Ledger records Phase A closed.
+- The debt packages accepted since, each at its commit, in
+  [T-290's Ledger](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger);
+  the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md#work-queue)
+  links each closure.
+
+Remaining obligations:
+- L5 delivery acceptance is absent: the owner's review pass on `46ed04895`
+  and the owner's record (T-290 Phase A, rows Review pass and L5). The
+  release-resumption gate stays closed until L5.
+- The combined candidate, build, P1, P5, P4 and their dependents are HELD
+  until L5 acceptance and a later exact grant.
+- L4 is partial on older subjects, and release work D1 to D6 follows L5,
+  both as the [dependency order](#dependency-order-and-exits) states.
+- The owner's rulings and the Phase C packages that follow the Phase B close
+  are in [T-290 Phase C](T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-c-the-owners-decisions).
+
+Test limits: the last broad run is at `46ed04895`, attributed against the
+earlier runs and the pre-plan baseline
+([close post, Test reality](../../comments/claude/20261022T060245Z_CLOSE_library_consolidation.md#test-reality)).
+Each package since ran its touched owners' lanes only, red lanes compared with
+their head identities ([T-290 Ledger](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger));
+the next broad run is at the Phase B close.
+
+Next selected work: the `Next:` line that closes
+[T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger).
 
 ## Current Delivery Plan
 
@@ -725,7 +764,9 @@ The records below preserve original subjects, accepted semantics and failed
 attempts. Their time-relative status and launch instructions are historical.
 Current Product/requirements and the current plan above decide applicability.
 
-## Current integration design constraint
+## Current integration design constraint (historical, 2026-09-28)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Owner selects a compact six-field path scaffold, not exhaustive documentation:
 path, typed handoffs, computations, invariants, effects and end-to-end proof.
@@ -740,6 +781,8 @@ These current constraint amendments are not retroactively included in frozen
 C09; final qualification must bind its actual applicable Source/Design.
 
 ## Recursive Executive and default graph library
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Current outcome: composable governance through ordinary GTL/HoG/ABG, with
 reference frames governing attention, evaluation and selection of preregistered
@@ -759,6 +802,8 @@ retirement records retain historical evidence; no new odd_glc work is selected.
 T-287 owns the native default-library increment, with no replacement planner.
 
 ## Framed-governance definition re-entry
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Owner instruction: capture the calculus first in Intent, Product and
 specification, then independently review consistency before implementation.
@@ -818,7 +863,9 @@ Preserve valid historical results at their supported scope; require affected
 proof before claiming the new relation. Definition review closes no execution
 or qualification obligation and does not trigger a blanket UAT rerun.
 
-## Owner rejection of Program-construction revisions
+## Owner rejection of Program-construction revisions (historical, 2026-09-28)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Owner ruling, 2026-09-28: "the product revisions are wrong"; HoG is the unit of
 computation. The Program-construction Product amendment and dependent -008–015
@@ -834,6 +881,8 @@ Implementation, recovery and native attempts remain held. No new planner,
 Product capability, code deletion or release claim is selected by this update.
 
 ## Current Checkpoint And Installed Continuation
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Current selection is the owner-authorized [forced-ranked calculus repairs](#forced-ranked-calculus-repairs), beginning with coherent input transfer and recovery under the existing calculus. The [cross-cutting calculus review](#cross-cutting-calculus-review) is closed evidence; its implementation HOLD is superseded only for this selected repair sequence. Native39 remains closed-failed before actor dispatch. Real deterministic composition follows rank 1; qualified role/context correction precedes selection of the preserved live continuation. The following core30 selection and subsequent records are historical: core30 intake closed-failed after one selector; accepted Requirements and original work remain. [Root's two-owner repair selection](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#established-results-and-operational-scope-repair) removes repeated internal artifact-projection validation and reconciles operational continuation with unchanged obligations. Source/component review precedes a new candidate/run. Original ancestry, failed outcomes, guards at actual admission/effect boundaries and existing controls remain. Following records retain their historical scopes.
 
@@ -884,6 +933,8 @@ The [Product execution calculus](../../../specification/PRODUCT.md#execution-and
 Predecessor readiness ABI `2b9e540…` / GLC `8fd1de6…` and the paired successor10 selection remain historical. The earlier one-launch selection under [Root disposition](../../comments/codex/20260923_WIP_CHECKPOINT/successor-11/root-disposition.json) is consumed by the closed Design-assessment refusal above; The current full-sandbox source implementation selection owns next work; no paid execution is selected.
 
 ### Forced-ranked calculus repairs
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Owner selection, 2026-09-26: “capture the force ranking work, and start doing it”.
 `T287_CALCULUS_REPAIR_01` selects the existing review findings in this order;
@@ -1158,6 +1209,8 @@ historical journal or repeat a valid author merely to expand local qualification
 
 ### Cross-cutting calculus review
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 - Subsequent owner ruling, 2026-09-26: distribution/risk proportionality is a
   build-tenant design principle; the ABG calculus remains technology-independent.
   Direct Writer `/root` records this bounded `design_reframe` in
@@ -1211,6 +1264,8 @@ historical journal or repeat a valid author merely to expand local qualification
   and all prior evidence identities remain.
 
 ### Current framework-cost correction
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Core52 archive `df47a7a2…` is accepted after the [closed shared-encoder review](../../comments/codex/20260928_DECLARATION_RESOURCE/pc05-canonical-construction-repair-review.md)
 and exact 5,233-member correspondence. The shared accumulator preserves admitted
@@ -1562,6 +1617,8 @@ selection and bounded evidence, not current Product authority.
 
 ### Execution-calculus Product re-entry
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 - Activation: `T287_EXECUTION_CALCULUS_SPEC_01`; documentation complete; Writer grant consumed.
 - Authority: direct owner instruction, 2026-09-26, to place the discussed
   execution/context calculus in the core specification and Product definition.
@@ -1615,6 +1672,8 @@ qualification remain open. No new native evidence is created here.
 
 ### Admission-boundary execution checklist
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 The progression below preserves named predecessor subjects. Current execution is owned by the ticket fields above and the [current Root selection](../../comments/codex/20260924_WORKSPACE_RESOURCE_LIFETIME/native-d2-01/admission-boundary-refactor-01/selector-presentation-01/root-disposition.md#accepted-core33-preserved-continuation); earlier relative-time wording does not select another attempt.
 
 The user selects `design_reframe` and contained `realization_refactor` increments
@@ -1667,6 +1726,8 @@ or native retry. LIFE-01, native correction and qualification remain open.
 
 ## Hello Test-Boundary Repair
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 Owner instruction, 2026-10-06: delete and expunge the built-in Hello code.
 Hello World is the minimal test program for learning a language's mechanics;
 it has never been an ABG Product or feature. The live built-in grant is withdrawn
@@ -1687,6 +1748,8 @@ campaign is selected.
 
 ## Current Management Prerequisite Plan
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 Owner selection, 2026-10-06: "i dont need odd glc anymore". This is a goal_reprice
 of execution selection under the existing Product boundary. No new odd_glc,
 T-043 PC05/PC06, Data Mapper, downstream publication or retirement work gates
@@ -1705,6 +1768,8 @@ work authority. Frozen candidates and evidence retain their original identities;
 this selection neither retargets them nor claims wider qualification.
 
 ### Current graph-context re-entry
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 The [owner correction](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/design13-selection.md#closed-return-and-owner-correction) supersedes the earlier management sequence as next work. HoG readiness is established by small functional proofs of declared work, evaluation, consequence and carried runtime state; the failed full Hello lifecycle is not a prerequisite for accepting those exercised capabilities. Reuse valid installed evidence and identify only missing functional proofs. Release naming supplies no extra dependency; remaining Product and release obligations retain their own status.
 
@@ -1741,6 +1806,8 @@ no paid execution.
 
 ### Current RC1 Owner Re-entry
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 The owner's requested [STDO adoption](../../comments/codex/20260921_STDO_251_RC1_ADOPTION/README.md)
 is complete. `stdo_abiogenesis.json` alone selects the exact operative basis and
 matched companions; historical RC7 activations below retain their original
@@ -1759,6 +1826,8 @@ failures, or cold-open/replay validation.
 The [fresh Design discriminator](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/design02.json) closed failed at the unchanged600s absolute timeout, with only80.806ms native parser work and no admitted output. [CONTEXT03](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/context03/design03-return-and-live06.md) is accepted/applied; its fixed-input Design probe also timed out. LIVE06 then refused before any Run or actor. [ENV01](../../comments/codex/20260921_TRUSTED_DESKTOP_STEEL_THREAD/env01-selection.md) corrects dependency observation before the same Hello objective. Actual live Hello and release remain open; old attempts keep their exact identities. No database implementation, default-install migration or Git effect is selected.
 
 ### Immediate P0 Reconstruction Repair
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Executive accepts `T287-MGMT02-P0-REPAIR-03` for the demonstrated
 ordinary-source/native handoffs and historical reconstruction after the one
@@ -1791,6 +1860,8 @@ delta. The next concrete blocker is Design context/execution-budget intake;
 further paid runs remain held, with no policy change or launch grant here.
 
 ### First Sunny-Day Increment
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Jim's “i want to get to a steel thread ASAP that means give me the new features
 sunny day”, followed by “start” on 2026-09-19, selects the earliest full generic
@@ -1967,6 +2038,8 @@ observations. Removing C2's selected `worker_executes` relay requires an explici
 owner re-ruling; the generic pruning direction supplies neither permission.
 
 ### Current Management Debt
+
+*Superseded as debt status by the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md#work-queue), whose crosswalk names every row here, worked through in [T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-b-the-debt-wave).*
 
 Latest `CALLER-EVIDENCE-VOLUME-01` sample: the [S2 caller-volume observation](../../comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#s2-caller-volume-observation)
 measures 16.37 MB per CLI request, chiefly 15.99 MB of catalogue readiness data.
@@ -2167,7 +2240,9 @@ Executive-owned MGMT03 activation above; their accepted evidence is unchanged.
   Return to Executive; the write grant is exhausted. The stale local ABI
   axiomatic index supplies no current status; use these owning sources.
 
-## Current Generic Job Binding Repair
+## Current Generic Job Binding Repair (historical, 2026-09-18)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 This section retains the closed increment and its evidence. The
 [management plan](#current-management-prerequisite-plan) owns subsequent work;
@@ -2494,7 +2569,9 @@ frozen review; dependent acceptance waits for the required closed results.
   within its task envelope. HoG's Worker -> Evaluator -> Consequence and actual
   application assessment are not removed by development review scheduling.
 
-#### Selected tasks
+#### Selected tasks (historical, 2026-09-16)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Each row has the same one-hour envelope. `Ready` means dependency-ready for a
 separate activation, not running. `Waiting` names unfinished predecessors, not
@@ -3261,6 +3338,8 @@ before their dependent use, without running the full later campaign early.
 
 ### Next Dependency-Ready Work
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 The current fields and [admission-boundary checklist](#admission-boundary-execution-checklist)
 own current activation, status and next dependency-ready work. The earlier
 management-milestones register is historical.
@@ -3400,6 +3479,8 @@ claimed. Reacquire relevant interfaces at implementation entry.
 
 ### Readiness And Next Re-entry
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 This section retains implementation evidence from the earlier checkpoint.
 [Next Dependency-Ready Work](#next-dependency-ready-work) owns the current
 selection; the descriptions below grant no recovery, execution or mutation.
@@ -3486,7 +3567,9 @@ retain their exact subjects and limits. The 58-test Data Mapper result is
 construction/execution proof over reduced contracts, not full-source
 application or ABG release qualification.
 
-### Current D2 Frame-Bound Repair Activation
+### Current D2 Frame-Bound Repair Activation (historical, 2026-09-11)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Historical activation record; no current effects are granted by this section.
 The current plan and Product allocation govern future use of its preserved work.
@@ -3497,7 +3580,9 @@ Owner direction preserves working solutions and accepted cuts inside their desig
 
 Every increment uses applicable LLM-selected/evaluated role/context frames and typed native projections of already-admitted scope/evidence; no frame engine, authority or closure ledger is introduced. Applicable review remains independent, valid evidence is reused, and runtime facts outrank tracking summaries. The accepted release-identity HOW resolves that process-law re-entry; native D5/AF25 and actual same-RC human acceptance remain independent D6 qualification/publication gates, not beta blockers. D1–D6, M5–M7 and the full Product outcome remain open.
 
-### Current D1 Native Design Activation
+### Current D1 Native Design Activation (historical, 2026-09-09)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Executive accepted this HOW after independent D1-REVIEW-NATIVE-HOW returned
 satisfied, with the non-blocking F07/F05/F06 attribution correction. The separate
@@ -3533,7 +3618,9 @@ release, sibling or Reviewer-activation effect was exercised. The design Writer
 grant is exhausted at the exact frozen return. Independent source/HOW results must be conjoined before
 coding authority; no installed lifecycle or qualification result is claimed.
 
-### Current D1 Authority Activation
+### Current D1 Authority Activation (historical, 2026-09-09)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 The owner directs on 2026-09-09: "ok now give me the immediate execution plan,
 following stdo governance as executive you can begin". Executive `/root`
@@ -3720,6 +3807,8 @@ This bounded finalization records that acceptance and grant exhaustion. It
 changes no finding or repair scope and opens no new review cycle or activation.
 
 ### Current Status And Supersession
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 The [current delivery plan](#current-delivery-plan) owns remaining work.
 C1 text output, C2 compact acknowledgment and Wave 2's four threads/B06 are
@@ -4340,6 +4429,8 @@ and T-287 closure remain open pending odd consumption.
 
 ## Lawful Re-entry
 
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
+
 [GOALS Current Selection](../../../specification/GOALS.md#current-selection) and
 [this ticket's D1-D6 delivery plan](#current-delivery-plan) own current work.
 The current `D1-TAIL-LIVE` activation within the retained D1 grant and [readiness record](#readiness-and-next-re-entry) own the full retained live thread and bounded repairs from its preserved prefixes. The first source-only checkpoint and exhausted predecessor grants remain historical. Full HOW/D1, M5, S06 and release remain open; existing source/HOW prerequisites, Wave 1/Wave 2 and campaign evidence retain their exact accepted subjects and limits.
@@ -4670,7 +4761,9 @@ the required C1 root GraphFunction and containing-publication digest change.
 C3 implementation/evidence is completed and independently qualified. Product
 goal closure remains unselected pending downstream odd consumption evidence.
 
-## Explicit Residual
+## Explicit Residual (historical, undated)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Broad R2/R3 audit questions 12-16 are closed only for the C0 atom. Questions
 1-11 remain open for the larger typed-workspace/functional-traversal program.
@@ -4739,7 +4832,9 @@ and [`W2-BL-C0`](#w2-bl-c0) above own current disposition; this list grants no w
 Selecting this `A5-F10` repair in the Wave 2 schedule neither reopens all of
 Wave 1 nor closes its remaining integrated qualification.
 
-## Downstream Reacquisition Gate And odd_glc Boundary
+## Downstream Reacquisition Gate And odd_glc Boundary (historical, undated)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Accepted STEEL-BASIC-CLI-01 and the one `js-tenant-test` case on the same e51 artifact remain banked. The [completed W2-STEEL-SEQUENCE](#w2-steel-sequence-current-activation) accepts all four exact threads and applicable inspection proof. Acceptance remains scoped to each subject. The later seven-case campaign is banked at its declared bounds; T-043 now owns the full lifecycle witness under the current delivery plan.
 
@@ -4763,7 +4858,9 @@ return, and Executive disposition. Its result supplies scenario evidence only. T
 contract decides its use in an exact verdict; it cannot allocate an ABG
 version or make odd_glc publication an ABG release dependency.
 
-## Governing Order
+## Governing Order (historical, undated)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 1. `specification/GOALS.md`
 2. `specification/INTENT.md`
@@ -4935,6 +5032,8 @@ evidence coordinates, remaining counterexamples, and first refusing owner.
 
 ## Deferred Assurance
 
+*Superseded as debt status by the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md#td-21), which carries D2-UNDISPATCHED-REFUSAL-01 under TD-21.*
+
 - id: D2-UNDISPATCHED-REFUSAL-01
 - status: registered_open_deferred
 - severity: S3 (closed independent Review18; unchanged)
@@ -4948,7 +5047,9 @@ evidence coordinates, remaining counterexamples, and first refusing owner.
 - closure_falsifiers: lost actual cause, manufactured actor evidence, or weakened success admission
 
 
-## Current native applicability repair and bounded S03 acceptance
+## Current native applicability repair and bounded S03 acceptance (historical, 2026-10-02)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 C03 archive f779058d1cc3c1867f8d53c1dda9100a136d7fa460772b6084e2f67c0cd982c6 remains immutable and construction-accepted. The installed S03a correction/no-action pair is independently accepted for two actual Runs and eight original fresh CLI reads. Full S03 remains open. Ambient926 generated/5258 payload correspondence to C03 is separately accepted.
 
@@ -5087,7 +5188,9 @@ accepted Hello and failed Runtime08; F11/QUAL056/scenarios/AF22/release remain o
   Re-entry design_reframe at the owning stop/finalization HOW, followed by affected realization and proof. Activation triggers: owner selection, any interrupted active-provider path, post-stop mutation/spend, false terminal/readback, or sunny-path recurrence. Dependent boundary: affected UAT interruption proof and candidate-owner P1 triage. Closure falsifier: an orphan, lost causality or fabricated current handoff. Closure evidence: a bounded exact timeout/interruption test closes owned providers, retains true cause/effects, and observes supported fresh current Result/replay while preserving all original bytes. No repair, retry, recovery, rename, budget, tag, Git or application effects are selected.
 
 
-## T287-TESTING-PREREQUISITE-20 — selected partial-work Testing boundary
+## T287-TESTING-PREREQUISITE-20 — selected partial-work Testing boundary (historical, undated)
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Executive conjoins CLOSED Source19 and Proof19 mailbox intakes under the fixed fifteen-family ABI5.0 / GOAL035 / T-287 and STDO2.5.1-rc.2 integration frame. Exact subject is [Operator18 return](../work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/return.md) SHA e9a1edd3b7922f06c6c2a139c5ac9a063b85172b00f0eb0c75b3e74533ddc40f and [freeze](../work/T287_SANDBOX_UAT_RUN_02/operator/extended-execution-18/execution-freeze.json) SHA c3abd48b4b39ac529c5ae299985de526b83417244a69ebe0f63802dd23a72618; old cuts remain immutable.
 
@@ -5119,6 +5222,8 @@ Re-entry: existing install/owner-module HOW plus bounded realization/proof after
 Closure falsifier: authenticated supported module-origin mismatch after install success. Closure evidence: exact owner-module/dependency/lock proof including a nearest-shadow discriminator under canonical verification. Product remains unchanged; old cuts remain immutable. This capsule grants no Source repair or retry authority.
 
 ## Final Review Dispositions 01
+
+*Superseded by the [Current Delivery Plan](#current-delivery-plan); the current status is the [Current disposition](#current-disposition).*
 
 Executive `/root`, activation `FINAL-REVIEW-DISPOSITION-RECORDS-01`, registers
 the [portable public review summaries and dispositions](../../work/T287_COMMON_LIBRARY_DELIVERY_01/realization/final-review-dispositions-01/README.md).
