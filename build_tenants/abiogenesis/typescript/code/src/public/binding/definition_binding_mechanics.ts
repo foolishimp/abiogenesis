@@ -42,19 +42,11 @@ import type {
 /**
  * The binding lift of `canonicalEquals` over unchecked call values: both
  * sides are admitted through `admitJson`, and a refusal on either side is
- * inequality. `admitJson` throws on a cyclic value (stack exhaustion) and on
- * a throwing proxy trap; the catch around the two admissions keeps those
- * answers `false`. `canonicalEquals` over two admitted values does not throw.
+ * inequality.
  */
 export function sameJson(left: unknown, right: unknown): boolean {
-  let admittedLeft: ReturnType<typeof admitJson>;
-  let admittedRight: ReturnType<typeof admitJson>;
-  try {
-    admittedLeft = admitJson(left);
-    admittedRight = admitJson(right);
-  } catch {
-    return false;
-  }
+  const admittedLeft = admitJson(left);
+  const admittedRight = admitJson(right);
   return admittedLeft.kind === "ok" && admittedRight.kind === "ok" &&
     canonicalEquals(admittedLeft.value, admittedRight.value);
 }

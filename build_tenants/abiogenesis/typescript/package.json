@@ -99,6 +99,7 @@
     "lint": "node scripts/lint-verification.mjs",
     "lint:imports": "node scripts/check-import-direction.mjs",
     "lint:lifecycle": "node scripts/check-lifecycle-boundary.mjs",
+    "lint:evidence": "node scripts/check-evidence-mirrors.mjs",
     "clean": "node scripts/clean.mjs",
     "build": "npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs",
     "prepack": "npm run build",
