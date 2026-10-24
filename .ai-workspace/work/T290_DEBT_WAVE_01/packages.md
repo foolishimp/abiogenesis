@@ -2092,3 +2092,267 @@ Grant: `.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.m
 Stop (write the counterexample and the blocking line in the Return, keep the rest moving): an inbound anchor that cannot be kept (name the heading and the linking file; the Executive updates the link); a fact whose only carrier is a section you would remove, where the surfaces disagree about it (keep the section; name the fact); any edit to GOALS, T-290, the register, a design file, a post or code; a reworded historical sentence.
 
 Return contract: one commit on `main` with the first line `TD-20: T-287 compacted to one current disposition; history retained under its cuts` and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Add only the files you changed; no `git add -A`. Append `## TD-20 return` at the end of this record with the census (item 1), the disposition text and the frontmatter changes (item 2), the retitled, kept and pointer-replaced sections (item 3), the agreement table (item 4), the script's counts (item 5), and any stops. Nothing above your section is edited.
+
+## TD-20 return
+
+Worker: Opus 5.5, fresh context. Activation head `962d98a70`; `main` advanced to `aa9f5ac86` during the package (two Executive commits, T-290 Phase C rulings only); T-287, GOALS, the register and this record are identical at both. This package's single commit follows `aa9f5ac86`, not pushed. Line numbers in `T-287` cite `962d98a70`. Scratch: the Worker's `td20/` (`plan.py` holds every decision and generates the edit and the census; `check.py` is item 5).
+
+| Item | State |
+|---|---|
+| 1. Census | done: 122 headings (H2 to H6), 45 inbound anchors, 20 frontmatter fields |
+| 2. One current disposition | done: `## Current disposition`, 38 lines, `:24-61` now; six frontmatter values updated |
+| 3. History under its cuts | done: 12 retitled, 21 italic line only, 89 kept verbatim (7 of them the plan), 0 replaced by a pointer |
+| 4. Agreement | done: table below; seven disagreements outside T-287 listed, four inside T-287's plan named |
+| 5. Checks | done: all pass; counts below |
+| 6. Lanes | none; `git diff --stat` shows T-287 and this record |
+
+**Item 1. Census.** Cut: the date a heading names; else the latest date the section's text names, its subsections included (an ISO date, a subsection heading, or the `YYYYMMDD` stamp of a linked record, which is a lower bound); else a commit named; else undated (the last-edit commit from `git blame` is given as a locator only). Claims currency: a `Current`, `Next`, `Immediate` or `Selected` title, or a present-tense status, grant or next-work statement that neither its heading, an enclosing heading nor its opening line disclaims. "plan `:59-64`" is the Current Delivery Plan's statement that it supersedes earlier current-status fields, launch/retry instructions, management ordering and T-043 ownership. GOALS CS is GOALS `## Current Selection`. Inbound counts files of any type (tracked, plus untracked markdown) and links inside T-287.
+
+| Lines | Heading | Cut (source) | Claims currency | Superseded by | Also carried by | Inbound | Action |
+|---|---|---|---|---|---|---|---|
+| 24-319 | H2 Current Delivery Plan | 2026-10-23 (text) | yes: title | - | GOALS CS; T-290 | 201 files; intra `:2055`, `:3579`, `:3724`, `:3755`, `:3902`, `:3927`, `:4344`, `:4777` | plan, unchanged; states it supersedes earlier current-status fields (`:59-64`) |
+| 66-108 | H3 Selected outcome and evidence boundary | 2026-10-21 (text) | yes: present-tense status | - | GOALS CS (L1/L2 acceptance) | - | plan, unchanged; disagrees: `:99-100` "Implementation ... remain open"; `:84` "still requires L3-L5" |
+| 109-165 | H3 Common computational library deliverable | 2026-10-23 (text) | yes: present-tense status | - | GOALS CS | 77 files | plan, unchanged; agrees |
+| 166-196 | H3 Current state to preserve | undated (last edit `bd336a99b`) | yes: title | - | - | - | plan, unchanged; self-states historical results; agrees |
+| 197-223 | H3 Dependency order and exits | 2026-10-23 (text) | yes: present-tense status | - | T-290 Phase D; GOALS CS (L4, L5) | - | plan, unchanged; disagrees: `:210` L3 row "post-close repairs A to D" and "selected after L5" vs the delivery close (A to H) and T-290 Phase B |
+| 224-285 | H3 Design and proof controls | undated (last edit `400d763d1`) | yes: present-tense status | - | GOALS CS (controls) | 8 files | plan, unchanged; agrees |
+| 286-319 | H3 Current operation boundary | 2026-10-23 (text) | yes: title | - | GOALS CS; T-290 | 11 files | plan, unchanged; disagrees: `:312-317` Next (repairs F and G, TD-06 order) vs T-290 `Next:` |
+| 320-721 | H2 Historical Routing Snapshot | 2026-10-06 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 722-727 | H2 Prior Execution And Design Records | undated (last edit `67c333799`) | no: states the records below are historical | plan `:59-64` | - | - | kept |
+| 728-741 | H2 Current integration design constraint | 2026-09-28 (path stamp) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-09-28)`, italic line |
+| 742-760 | H2 Recursive Executive and default graph library | 2026-09-20 (path stamp) | yes: "Current outcome:", "T-287 owns the native default-library increment" | plan `:59-64` | - | 1 file | italic line |
+| 761-820 | H2 Framed-governance definition re-entry | 2026-09-28 (path stamp) | yes: "Current grant" row; open checklist items | plan `:59-64` | - | 285 files | italic line |
+| 821-835 | H2 Owner rejection of Program-construction revisions | 2026-09-28 (text) | yes: "Implementation, recovery and native attempts remain held" | plan `:59-64` | - | - | retitled `(historical, 2026-09-28)`, italic line |
+| 836-1667 | H2 Current Checkpoint And Installed Continuation | 2026-09-28 (text) | yes: title | plan `:59-64` | - | 94 files; intra `:1717` | italic line |
+| 886-1158 | H3 Forced-ranked calculus repairs | 2026-09-26 (text) | yes: owner selection of the ranked repair order | plan `:59-64` | - | 1 file; intra `:838` | italic line |
+| 1159-1212 | H3 Cross-cutting calculus review | 2026-09-26 (text) | yes: "implementation/live HOLD" | plan `:59-64` | - | 1 file; intra `:838` | italic line |
+| 1213-1244 | H3 Current framework-cost correction | 2026-09-28 (path stamp) | yes: title | plan `:59-64` | - | intra `:2005` | italic line |
+| 1245-1408 | H3 Historical dispositions — prior selections, not current launch grants | 2026-09-28 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 1409-1562 | H3 Program-construction calculus definition | 2026-09-28 (path stamp) | no: opens "Withdrawn selection" | `:821` owner rejection | - | - | kept |
+| 1563-1615 | H3 Execution-calculus Product re-entry | 2026-09-26 (text) | yes: "remain held", "remains open" | plan `:59-64` | - | 121 files | italic line |
+| 1616-1667 | H3 Admission-boundary execution checklist | 2026-09-24 (path stamp) | yes: "Current execution is owned by the ticket fields above" | plan `:59-64` | - | 39 files; intra `:842`, `:1823`, `:2029`, `:3264` | italic line |
+| 1668-1687 | H2 Hello Test-Boundary Repair | 2026-10-06 (text) | yes: present-tense plan steps | plan `:59-64` | GOALS CS (owner correction 2026-10-06, in part) | 74 files | italic line |
+| 1688-2169 | H2 Current Management Prerequisite Plan | 2026-10-06 (text) | yes: title | plan `:59-64` | GOALS CS (odd_glc deselection 2026-10-06, in part) | 81 files; intra `:2173`, `:2299`, `:2837` | italic line |
+| 1707-1718 | H3 Current graph-context re-entry | 2026-09-21 (path stamp) | yes: title | plan `:59-64` | - | 2 files; intra `:2048` | italic line |
+| 1719-1741 | H3 Retained management repair evidence | 2026-09-19 (path stamp) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 1742-1760 | H3 Current RC1 Owner Re-entry | 2026-09-21 (path stamp) | yes: title | plan `:59-64` | - | 80 files | italic line |
+| 1761-1792 | H3 Immediate P0 Reconstruction Repair | 2026-09-19 (path stamp) | yes: title ("Immediate") | plan `:59-64` | - | intra `:1835`, `:1837`, `:2100` | italic line |
+| 1793-1819 | H3 First Sunny-Day Increment | 2026-09-19 (text) | yes: "selects the earliest full generic Hello lifecycle" | plan `:59-64` | - | 80 files | italic line |
+| 1820-1847 | H3 Management Milestones | 2026-09-19 (path stamp) | no: opens "Historical September19 schedule" | plan `:59-64` | - | 80 files; intra `:2380`, `:2584`, `:3246` | kept |
+| 1848-1909 | H3 Management Acceptance Boundaries | 2026-09-13 (path stamp) | no: acceptance rules | - | - | - | kept |
+| 1910-1940 | H3 Ingress Handoff And Discriminators | undated (last edit `ad2a39f40`) | no: handoff rules | - | - | intra `:1836` | kept |
+| 1941-1968 | H3 Competing-Path Checks | undated (last edit `ad2a39f40`) | no: pruning rules | - | - | intra `:2054` | kept |
+| 1969-2114 | H3 Current Management Debt | 2026-09-28 (path stamp) | yes: title | register work queue and crosswalk; T-290 Phase B | register crosswalk (58 of 58 rows named) | 11 files; intra `:872` | italic line |
+| 2115-2169 | H3 Management Plan Authority And Recording | 2026-09-19 (text) | no: opens "plan-recording grants are historical" | plan `:59-64` | - | - | kept |
+| 2170-2288 | H2 Current Generic Job Binding Repair | 2026-09-18 (path stamp) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-09-18)`, italic line |
+| 2289-3573 | H2 Historical Delivery Plan Of 2026-09-13 | 2026-09-13 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 2377-3163 | H3 RC7 One-Hour Task Commitment | 2026-09-19 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | intra `:3187` | kept |
+| 2415-2445 | H4 1B waste and observation repair | 2026-09-16 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2446-2496 | H4 Task execution contract | undated (last edit `ad2a39f40`) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2497-2536 | H4 Selected tasks | 2026-09-16 (path stamp) | yes: title ("Selected"; under `:2289`) | plan `:59-64` | - | - | retitled `(historical, 2026-09-16)`, italic line |
+| 2537-3163 | H4 Declared testing-capability reuse | 2026-09-19 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | 80 files | kept |
+| 2582-2697 | H5 MVP continuation and readiness | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2698-3163 | H5 MVP bug register | 2026-09-19 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2710-2736 | H6 TR-PROOF-FIXTURE | 2026-09-16 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2737-2769 | H6 TR-NATIVE-BASIS-PROJECTION | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2770-2798 | H6 TR-UAT-DECLARATION-CONTEXT | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2799-2914 | H6 TR-NATIVE-EXECUTION-OVERHEAD | 2026-09-19 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | intra `:1835`, `:2097` | kept |
+| 2915-2970 | H6 TR-LIVE-ACTOR-TRANSPORT | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 2971-3008 | H6 TR-NATIVE-ASSESSOR-STATEMENT-DOMAIN | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3009-3034 | H6 TR-ASSESSOR-ROLE-VIEW-INTERPRETATION | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3035-3072 | H6 TR-PROOF-DOUBLE-ROUTING | 2026-09-16 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3073-3114 | H6 TR-NATIVE-DESIGN-CONTEXT | 2026-09-17 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3115-3142 | H6 TR-C1-BINDING-COUNT | 2026-09-16 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3143-3163 | H6 TR-DOC-RC6-LINK | undated (last edit `ad2a39f40`) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3164-3243 | H3 STDO Run-Environment Course Correction | 2026-09-15 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | 124 files | kept |
+| 3244-3261 | H3 Delivery Order And Exit Conditions | 2026-09-18 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | intra `:2302` | kept |
+| 3262-3327 | H3 Next Dependency-Ready Work | 2026-09-13 (path stamp) | yes: title ("Next") | plan `:59-64` | - | intra `:3404` | italic line |
+| 3328-3346 | H3 D4 Architecture Correction Status (2026-09-13) | 2026-09-13 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3347-3380 | H3 Deferred 5.1 Boundary Work | 2026-09-13 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | 1 file | kept |
+| 3381-3400 | H3 Feature Assessment And Source Routes | 2026-09-13 (text) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3401-3432 | H3 Readiness And Next Re-entry | 2026-09-11 (path stamp) | yes: title ("Next") | plan `:59-64` | - | 118 files; intra `:3457`, `:4345` | italic line |
+| 3433-3451 | H3 Execution And Evidence Discipline | undated (last edit `ad2a39f40`) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | - | kept |
+| 3452-3488 | H3 Deferred Assurance Register | 2026-09-11 (path stamp) | no: under `:2289` (heading dated 2026-09-13) | plan `:59-64` | - | intra `:2705` | kept |
+| 3489-3499 | H3 Current D2 Frame-Bound Repair Activation | 2026-09-11 (path stamp) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-09-11)`, italic line |
+| 3500-3535 | H3 Current D1 Native Design Activation | 2026-09-09 (path stamp) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-09-09)`, italic line |
+| 3536-3561 | H3 Current D1 Authority Activation | 2026-09-09 (text) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-09-09)`, italic line |
+| 3562-3573 | H3 Completed Documentation Activation | undated (last edit `adaeede02`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3574-3652 | H2 STDO RC6 Migration | 2026-09-06 (path stamp) | no: opens "Completed and Executive-accepted" | plan `:59-64` | - | 12 files | kept |
+| 3630-3652 | H3 Superseded Method And Companion Evidence (Historical; Non-Operative) | 2026-09-02 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3653-4111 | H2 Retained Baseline Selection And Completed Documentation Grant | 2026-09-09 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3722-3756 | H3 Current Status And Supersession | 2026-09-04 (path stamp) | yes: title | plan `:59-64` | - | 3 files | italic line |
+| 3757-3776 | H3 Baseline Workstream Register | undated (last edit `adaeede02`) | no: under `:3653` | plan `:59-64` | - | - | kept |
+| 3777-3833 | H3 Completed C2 Helper Acknowledgment | 2026-09-09 (path stamp) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3834-3898 | H3 Completed C1 Text Output | 2026-09-09 (path stamp) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3899-3907 | H3 Former Wave 3 Selection (Historical) | 2026-09-09 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3908-3924 | H3 W2-STEEL-SEQUENCE completed activation | 2026-09-08 (path stamp) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3925-4111 | H3 Completed STEEL-BASIC-CLI-01 | 2026-09-07 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 3931-3967 | H4 W2-BL-PUBLIC | undated (last edit `29846fc36`) | no: under `:3925` and `:3653` | plan `:59-64` | - | - | kept |
+| 3968-3997 | H4 W2-BL-C0 | 2026-09-07 (text) | no: under `:3925` and `:3653` | plan `:59-64` | - | 77 files; intra `:3580`, `:3660`, `:4719` | kept |
+| 3998-4027 | H4 W2-BL-C2 | undated (last edit `29846fc36`) | no: under `:3925` and `:3653` | plan `:59-64` | - | - | kept |
+| 4028-4068 | H4 W2-BL-PROOF | undated (last edit `29846fc36`) | no: under `:3925` and `:3653` | plan `:59-64` | - | - | kept |
+| 4069-4111 | H4 W2-BL-C1-P3: Deferred Assurance Capsule | undated (last edit `adaeede02`) | no: under `:3925` and `:3653` | plan `:59-64` | - | - | kept |
+| 4112-4251 | H2 Pre-Baseline Frozen C0 Reframe And Retained I/E (Historical) | undated (last edit `29846fc36`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4252-4340 | H2 Retained C2 Two-Manifest Outcome (Historical) | undated (last edit `29846fc36`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4341-4412 | H2 Lawful Re-entry | undated (last edit `adaeede02`) | yes: "The current D1-TAIL-LIVE activation ... own" | plan `:59-64` | - | 125 files | italic line |
+| 4413-4451 | H2 Accepted C3 Aggregate | undated (last edit `29846fc36`) | no: accepted relation record | - | - | - | kept |
+| 4452-4495 | H2 Retained C0 Causal Atom | undated (last edit `29846fc36`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4496-4522 | H2 Predecessor Record And Historical Unaccepted C0 Candidate | undated (last edit `adaeede02`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4523-4672 | H2 Pre-Baseline Evidence Obligations (Retained; Not Activated) | undated (last edit `29846fc36`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4673-4741 | H2 Explicit Residual | undated (last edit `adaeede02`) | yes: "Questions 1-11 remain open"; "W2-BL-C0 above own current disposition" | plan `:59-64` | - | - | retitled `(historical, undated)`, italic line |
+| 4742-4765 | H2 Downstream Reacquisition Gate And odd_glc Boundary | undated (last edit `adaeede02`) | yes: contradicts: `:4744` "T-043 now owns the full lifecycle witness" | plan `:59-64` | - | - | retitled `(historical, undated)`, italic line; contradicts: `:4744` "T-043 now owns the full lifecycle witness" |
+| 4766-4805 | H2 Governing Order | undated (last edit `adaeede02`) | yes: "Current B04 HOW and runtime/proof disposition are owned above" | plan `:59-64` | - | - | retitled `(historical, undated)`, italic line |
+| 4806-4820 | H2 Retained Historical Evidence | 2026-08-23 (text) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4821-4842 | H2 Prior Accepted Design Review Record | undated (last edit `29846fc36`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4843-4935 | H2 Pre-Baseline I/E Review Frames (Non-Authorizing) | undated (last edit `adaeede02`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4861-4935 | H3 Retained Historical Review Frames (Non-Authorizing) | undated (last edit `adaeede02`) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4936-4950 | H2 Deferred Assurance | 2026-09-11 (path stamp) | yes: status registered_open_deferred | register TD-21 | register TD-21 | intra `:2706` | italic line |
+| 4951-5039 | H2 Current native applicability repair and bounded S03 acceptance | 2026-10-02 (subsection heading) | yes: title | plan `:59-64` | - | - | retitled `(historical, 2026-10-02)`, italic line |
+| 4958-4964 | H3 C05 actual installed setup acceptance — 2026-10-02 | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4965-4971 | H3 Q06 independent acceptance and actual F11 release — 2026-10-02 | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4972-4975 | H3 Execution06 triangulation and bounded F_P/caller repair selection — 2026-10-02 | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4976-4984 | H3 F11 dispatch and external caller repairs accepted; successor C06 selected | 2026-09-28 (path stamp) | no: under `:4951`, in the 2026-10-02 sequence | plan `:59-64` | - | - | kept |
+| 4985-4989 | H3 2026-10-02 — C06 accepted; installed continuation selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4990-4994 | H3 2026-10-02 — Authentic Setup06 accepted; Q07 selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 4995-4999 | H3 2026-10-02 — Q07 exact selector refusal; bounded continuation | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5000-5004 | H3 2026-10-02 — Input08 pure owner-bound delivery; independent review selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5005-5011 | H3 2026-10-02 — Q08 independently accepted; actual C06 carrier released | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5012-5018 | H3 2026-10-02 — Runtime07 failure localized; canonical raw-contract producer repair selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5019-5025 | H3 2026-10-02 — accepted qualification raw producer; C07 selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5026-5032 | H3 2026-10-02 — C07 construction accepted; actual Setup07 selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5033-5039 | H3 2026-10-02 — actual Setup07 and generated correspondence accepted; Q09 selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5040-5044 | H2 2026-10-02 — Q09 accepted; whole installed Runtime08 released | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5045-5049 | H2 2026-10-02 — Actual Runtime08 stopped; result-admission triangulation selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5050-5054 | H2 2026-10-02 — Runtime08 lineage triage CLOSED; realization repair selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5055-5059 | H2 2026-10-02 — Result lineage Source/component ACCEPTED; C08 selected | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5060-5089 | H2 2026-10-02 — End-to-end lineage Design frame correction | 2026-10-02 (heading) | no: heading names its cut or status | plan `:59-64` | - | - | kept |
+| 5090-5120 | H2 T287-TESTING-PREREQUISITE-20 — selected partial-work Testing boundary | undated (last edit `400d763d1`) | yes: "Selected owning HOW/realization correction"; Writer20 grant | plan `:59-64` | - | - | retitled `(historical, undated)`, italic line |
+| 5101-5108 | H3 T287-C2-HOST-TIMER-22 — bounded command-domain realization | undated (last edit `67c333799`) | no: under `:5090` | plan `:59-64` | - | - | kept |
+| 5109-5120 | H3 T287-ASSURANCE-MODULE-ORIGIN-01 | undated (last edit `400d763d1`) | no: under `:5090` | plan `:59-64` | - | - | kept |
+| 5121-5173 | H2 Final Review Dispositions 01 | undated (last edit `44be3cbce`) | yes: "independent final review and full aggregate remain pending" | plan `:59-64` | - | 4 files | italic line |
+| 5174-5400 | H2 STDO 3 Library Re-entry (2026-10-22) | 2026-10-22 (heading) | no: heading names its cut or status | - | close post (D6 to D15 only) | - | kept |
+| 5289-5400 | H3 Library delivery close (2026-10-23) | 2026-10-23 (heading) | no: heading names its cut or status | T-290 Ledger and Phase C (status claims) | close post; GOALS CS | 1 file; intra `:37`, `:112`, `:209`, `:210`, `:289` | kept |
+
+Inbound anchors: 45 distinct anchors link into T-287. 42 resolve at head (38 headings; 4 `<a id>` tags at `:3775`, `:3832`, `:3897`, `:3906`) and resolve to the same text after the edit. 3 do not resolve at head and are not caused by this edit: `#current-baseline-selection-and-documentation-grant` (`.ai-workspace/comments/codex/20260905T042941Z_REVIEW_abiogenesis_wave2_stdo_baseline.md`; the heading is now `## Retained Baseline Selection And Completed Documentation Grant` `:3653`), `#re-entry-disposition` and `#accepted-wave-2-goal-reprice-and-design-roadmap` (the two pre-RC4 preimage JSON files under `.ai-workspace/context/axiomatic/history/20260905T025248Z-pre-rc4-adoption/`). They are the "remaining old ticket-navigation links" the register's TR-DOC-RC6-LINK row (`TECHNICAL_DEBT_REGISTER.md:371`) assigns to TD-20; both linking files are outside the grant. The live one could be restored without editing the post by an `<a id="current-baseline-selection-and-documentation-grant"></a>` before `:3653`; not done, item 3 permits no such addition.
+
+Frontmatter (20 fields at `:3-22`; 11 `current_*` at `:9-19`):
+
+| Field | Head | Current surfaces establish | Action |
+|---|---|---|---|
+| `id`, `status`, `goal`, `owner`, `build_tenant` | `T-287`, `active`, `GOAL-035`, `abiogenesis`, `typescript` | T-290 `:3-8` (parent T-287, GOAL-035); GOALS `:18` active | kept |
+| `updated_at` | `2026-10-21` | item 2 | `2026-10-24` |
+| `current_method_basis`, `current_method_manifest_sha256` | `stdo://releases/v3.0.0-rc.1/`, `069285ad…` | T-290 `:10-11`, equal | kept |
+| `current_activation` | `T287_COMMON_LIBRARY_DELIVERY_01` | T-290 `:12` | `T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register` (T-290's value) |
+| `current_activation_status` | `BOUNDED_DESIGN_CONJUNCTION_ACCEPTED_VALUE_OWNER_OBLIGATIONS_OPEN_SOURCE_COMPLETION_L4_L5_HELD` | the conjunction is superseded by the design (plan `:293-294`); the value obligations are closed (`:110-113`); delivery close `:5289`; T-290 Ledger `:144` (H: "Phase A closed"); T-290 `:76-77` (review pass and L5: the owner); T-290 `:81` (Phase B started before L5) | `library delivered and closed (delivery close); T-290 Phase A closed at 46ed04895; L5 acceptance absent; T-290 Phase B in progress` |
+| `current_handoff` | `.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/CHECKPOINT_HANDOFF.md` | plan `:43-44` ("The checkpoint handoff is historical"); T-290 Scope `:22-31` | `.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md` |
+| `current_next_work` | `authorized_WIP_checkpoint_then_finite_value_owner_decisions_and_separately_granted_dependency_ready_source` | T-290 `Next:` `:157` | `the Next line of T-290 (Phase B packages to the Phase B close; the owner's review pass on 46ed04895; L5)` |
+| `current_prerequisite_deliverable` | `common_computational_capability_library` | GOALS `:22-30`; L5 absent (GOALS `:94`) | kept |
+| `current_release_resumption_gate` | `CLOSED_until_L5_library_delivery_acceptance` | T-290 `:15`, equal | kept |
+| `current_product_target` | `ABIogenesis_5.0.0_fixed_fifteen_families` | GOALS `:18`; plan `:50-51` | kept |
+| `current_runtime_frontier` | `…_HELD_pending_design_source_conjunction` | plan `:41-42`, `:309-310` (HELD until L5 acceptance and a later exact grant) | `…_HELD_until_L5_acceptance_and_a_later_exact_grant` (prefix `historical_P1_PASS_P5_TIMEOUT_candidate_P1_P5_P4_and_dependents` kept) |
+| `current_qualification` | `OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance` | GOALS `:18` | kept |
+| `change_class`, `derived_change_classes`, `re_entry_point` | `goal_reprice`, `product_reprice`, `specification/GOALS.md#current-selection` | the ticket's own triage | kept |
+
+The method's required `type`, `ticket_category` and `change_intent` (TICKET_METHOD `:443-456`) appear only inside the Historical Routing Snapshot (`:329-337`); `triaged_at` and `created_at` appear nowhere. Not added: item 2 keeps the fields and updates the values that disagree.
+
+**Item 2. The disposition** (T-287 `:24-61` now):
+
+```markdown
+## Current disposition
+
+Status: active, at `aa9f5ac86` (2026-10-24). This section is the ticket's one
+current status; the [Current Delivery Plan](#current-delivery-plan) is the
+delivery schedule. Every later section is a record at its own cut and supplies
+no current status or grant.
+
+Delivered and closed:
+- The common computational library, on local `main` at the cut the
+  [library delivery close](#library-delivery-close-2026-10-23) records.
+- The post-close repairs E to H of
+  [T-290 Phase A](T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-a-close-the-library),
+  the last accepted at `46ed04895`, where T-290's Ledger records Phase A closed.
+- The debt packages accepted since, each at its commit, in
+  [T-290's Ledger](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger);
+  the [technical debt register](../../TECHNICAL_DEBT_REGISTER.md#work-queue)
+  links each closure.
+
+Remaining obligations:
+- L5 delivery acceptance is absent: the owner's review pass on `46ed04895`
+  and the owner's record (T-290 Phase A, rows Review pass and L5). The
+  release-resumption gate stays closed until L5.
+- The combined candidate, build, P1, P5, P4 and their dependents are HELD
+  until L5 acceptance and a later exact grant.
+- L4 is partial on older subjects, and release work D1 to D6 follows L5,
+  both as the [dependency order](#dependency-order-and-exits) states.
+- The owner's rulings and the Phase C packages that follow the Phase B close
+  are in [T-290 Phase C](T-290-close-the-common-library-and-retire-the-registered-debt.md#phase-c-the-owners-decisions).
+
+Test limits: the last broad run is at `46ed04895`, attributed against the
+earlier runs and the pre-plan baseline
+([close post, Test reality](../../comments/claude/20261022T060245Z_CLOSE_library_consolidation.md#test-reality)).
+Each package since ran its touched owners' lanes only, red lanes compared with
+their head identities ([T-290 Ledger](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger));
+the next broad run is at the Phase B close.
+
+Next selected work: the `Next:` line that closes
+[T-290](T-290-close-the-common-library-and-retire-the-registered-debt.md#ledger).
+```
+
+**Item 3. Sections.**
+
+- Retitled `(historical, <cut>)` with the italic line (12): `:728-741`, `:821-835`, `:2170-2288`, `:2497-2536`, `:3489-3499`, `:3500-3535`, `:3536-3561`, `:4673-4741`, `:4742-4765`, `:4766-4805`, `:4951-5039`, `:5090-5120` (headings in the census). Four are `undated`: their text names no date or commit.
+- Inbound targets that keep their heading text and get the italic line only (21): `:742` Recursive Executive and default graph library, `:761` Framed-governance definition re-entry, `:836` Current Checkpoint And Installed Continuation, `:886` Forced-ranked calculus repairs, `:1159` Cross-cutting calculus review, `:1213` Current framework-cost correction, `:1563` Execution-calculus Product re-entry, `:1616` Admission-boundary execution checklist, `:1668` Hello Test-Boundary Repair, `:1688` Current Management Prerequisite Plan, `:1707` Current graph-context re-entry, `:1742` Current RC1 Owner Re-entry, `:1761` Immediate P0 Reconstruction Repair, `:1793` First Sunny-Day Increment, `:1969` Current Management Debt, `:3262` Next Dependency-Ready Work, `:3401` Readiness And Next Re-entry, `:3722` Current Status And Supersession, `:4341` Lawful Re-entry, `:4936` Deferred Assurance, `:5121` Final Review Dispositions 01. The italic line names the plan and the disposition, except `:1969` and `:4936`, which name the register (all 58 of `:1969`'s rows and D2-UNDISPATCHED-REFUSAL-01 are in its crosswalk).
+- Kept verbatim (89): the plan `:24-319` with its six subsections (item 2 freezes it); 82 others whose heading, enclosing heading or opening line already states the cut or historical status, or that state rules or records without a current claim.
+- Replaced by a pointer: none. No section lacking inbound links has every fact on a current surface: `:5174-5288` (no inbound) carries the owner's D0 to D5 and their bases, which the close post does not (it lists D6 to D15); `:1969-2114` has every row in the register's crosswalk but 11 files link it.
+- Contradictions kept unchanged under their cut: `:4744` "T-043 now owns the full lifecycle witness under the current delivery plan" against plan `:59-64` and GOALS `:159-169` (odd_glc and T-043 deselected; T-287 owns lifecycle proof); `:5311-5313` "its other 21 packages are unselected" against T-290's Ledger, which accepts work on 12 register packages in ten rows and activates TD-20. Both sit under headings that name their cut.
+
+**Item 4. Agreement** (at `aa9f5ac86`; "plan" is T-287 `:24-319`).
+
+| Fact | T-287 at head | GOALS | T-290 | Register queue | Current disposition |
+|---|---|---|---|---|---|
+| Status | `status: active` agrees; `current_activation_status` (conjunction accepted, value obligations open) disagrees; plan `:36-37` (delivered and closed) agrees | Current Goal `:18` "Active ... delivered on `main` at `562d4515a`", lifecycle implementation open: disagrees; CS `:36-38` (on `main` at repair H's commit) agrees | `status: active` agrees; `current_phase: A, close the library` (`:13`) disagrees with Ledger `:144` "Phase A closed" | TD-20 Open (`:49`) agrees | active; library delivered; Phase A closed; agrees |
+| Cut | `updated_at: 2026-10-21` disagrees; plan cites the delivery close agrees | `:36-38` agrees; `:18` `562d4515a` disagrees | `updated_at: 2026-10-24`, Ledger to `bc7135549` agrees | dated snapshot `2f1393061` (`:3`) with Completion record to `bc7135549` agrees | `aa9f5ac86` agrees |
+| Delivered and closed | delivery close `:5289` (A to H) agrees; plan `:210` L3 "post-close repairs A to D are accepted" disagrees; `:99-100` "Implementation ... remain open" disagrees | CS `:36-87` agrees; `:18` "Lifecycle implementation ... remain open" disagrees | Phase A rows E to H and Ledger agree | closed rows TD-01 to 03, 06, 08, 11, 13 to 17, 23; TD-04/05 increment; TD-07 partial: agrees with T-290's Ledger | links the delivery close, Phase A and the Ledger: agrees |
+| Remaining obligations | plan `:41-43`, `:309-310` (HELD, L4 partial, L5 absent, gate closed) agree; `current_runtime_frontier` (pending conjunction) disagrees | CS `:93-95` agrees; Work And Milestones `:987-988` "T-043 owns the dependent GLC lifecycle" and M5 `:993` (Recovery13, forward Worker20) disagree | `:76-77`, Phase C, gate `:15` agree | Conditional, Investigate and Open rows; Phase C cited: agrees | L5, gate, HELD, L4, D1 to D6, Phase C: agrees |
+| Test limits | delivery close baseline attribution at `562d4515a` (dated) agrees | no statement beyond L4/L5 | Rules `:50-52`, Ledger checks agree | Completion record proof returns agree | links the close post and the Ledger: agrees |
+| Next selected work | `current_next_work` disagrees; plan `:312-317` (repairs F and G, order from TD-06) disagrees; `:210` "selected after L5" disagrees with T-290 `:81` | CS `:89-95` "the Phase B debt wave from TD-06" names the start, not the position: disagrees | `Next:` `:157` (TD-20; then TD-21/22/24, the Phase B close; the owner's review pass) | TD-20 row "compaction of T-287 remains" agrees | links T-290's `Next:`: agrees |
+
+Disagreements outside T-287, listed and not fixed:
+
+1. GOALS `:18` Current Goal row: delivery at `562d4515a`; "Lifecycle implementation, complete source conjunction ... remain open or held" (the rule `actor_process_lifecycle` is realized, CS `:78-87`); "Current checkpoint handoff owns transport status" (plan `:43-44`: historical).
+2. GOALS `:89-90`: "Next ... the Phase B debt wave from TD-06" states the start of Phase B; at head the Ledger accepts ten Phase B rows (12 register packages) and TD-20 is active.
+3. GOALS `:987-988` Work And Milestones: "T-043 owns the dependent GLC lifecycle and application outcomes" against GOALS `:159-169` and plan `:59-64`; M5 `:993` describes Recovery13 and forward Worker20, before the library selection.
+4. T-290 `:13` `current_phase: A, close the library` against its Ledger `:144` ("Phase A closed") and Phase B `:81`.
+5. T-290 `:66` "Ends with L5 delivery acceptance" against the Ledger and the close post, which record Phase A closed at `46ed04895` with the review pass and L5 open; the plan `:38-39` ("whose Phase A exit is L5") follows `:66`. The disposition states what the Ledger records.
+6. The register `:5` names `#current-management-debt` "the owning T-287 register" whose decisions and grants "retain authority"; T-290 `:27` owns the packages and their grants, and the section now carries the italic line naming the register.
+7. The three unresolved inbound anchors above (register `:371`).
+
+Inside T-287's plan, unchanged under item 2: `:84` and `:99-100` (2026-10-21: L3 to L5 required, implementation open), `:210` (A to D; register selected after L5), `:312-317` (`Next:` before repair F).
+
+**Item 5. Checks** (`check.py`, run on `git show 962d98a70:<T-287>` and the edited file; identical result against `aa9f5ac86`, where T-287 is unchanged): an ordered walk of head against new admits only equal lines, the six listed frontmatter replacements, a heading replaced by itself plus ` (historical, <cut>)` with the planned cut, the disposition block after `:23`, and an italic line with its blank lines under a heading; anything else fails. Five mutations each fail it (a one-character change in a historical line, a wrong cut, a deleted line, a retitled inbound heading, a frontmatter value outside the list).
+
+| Count | Value |
+|---|---|
+| Lines before / after | 5,400 / 5,505 |
+| Bytes before / after | 584,815 / 592,212 |
+| Non-blank, non-heading lines at head | 4,629: 4,623 unchanged in order, 6 frontmatter values (item 2), 0 in removed ranges |
+| Headings at head (with H1) | 123: 111 unchanged, 12 in `(historical, <cut>)` form |
+| Added | 38 disposition lines, 33 italic lines, 34 blank lines |
+| Sections retitled / italic only / kept verbatim / pointer-replaced | 12 / 21 / 89 / 0 |
+| Inbound anchors resolving to the same text | 42 of 42 (3 unresolved at head, unchanged) |
+| Links in the disposition and italic lines resolving (file and anchor) | 11 of 11 |
+| Duplicate heading anchors after the edit | 0 |
+
+**Item 6.** No lanes. `git diff --stat` of the commit: T-287 and this record.
+
+**Stops.** None met: every inbound anchor keeps its heading text; nothing is removed; no historical sentence is reworded; no file outside the grant is edited.
+
+**Errata.**
+
+1. The activation gives `## Current Delivery Plan` as `:24-66`; the H2 runs `:24-319` with six H3s, and its schedule is the table at `:203-217`. Item 2 freezes its text, so `:166` and `:286`, which the activation lists among the currency-claiming headings, stay unchanged; `:286`'s stale `Next:` is reported above.
+2. "ten more headings that claim currency": there are 15 `Current` titles besides the plan (the ten plus `:3489`, `:3500`, `:3536`, `:3722`, `:4951`), and `Next`, `Immediate` or `Selected` titles at `:1761`, `:2497`, `:3262`, `:3401`.
+3. "nineteen `current_*` frontmatter fields (`:10-21`)": the frontmatter has 20 fields at `:3-22`, 11 of them `current_*` at `:9-19`.
+4. TICKET_METHOD `:184` is the sprint-record rule (`:182-184`); the ticket rule is `:347-350`.
+5. Item 1 names H2 to H4; T-287 also has two H5 and eleven H6 headings (`:2582`, `:2698`, `:2710-3143`). The census includes them.
+6. The activation's `grep -rn "T-287-deliver" --include=*.md` misses links from other file types: 125 non-markdown files link `#lawful-re-entry` and three JSON files link `#current-status-and-supersession`. The census counts them.
+7. `main` moved from `962d98a70` to `aa9f5ac86` during the package. The disposition names `aa9f5ac86` as its cut and its Phase C bullet reflects the owner's rulings recorded there.
