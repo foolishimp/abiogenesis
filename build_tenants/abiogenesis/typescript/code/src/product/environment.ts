@@ -413,9 +413,14 @@ const resolvedProductEnvironments = new WeakMap<object, Readonly<{
 }>>();
 
 /** Internal owner result: preserve the link already established for this lock.
- * It is not a new serialized lock or runtime admission. */
+ * It is not a new serialized lock or runtime admission. The executing
+ * toolchain's identity is an input, read once by the Product operation
+ * boundary; a caller with no source for it (a component test of this module)
+ * keeps the read. */
 export function resolveProductArtifacts(
   artifacts: readonly VerifiedProductArtifact[],
+  executingToolchainProductContentDigest: Sha256Digest | null =
+    installedToolchainProductContentDigest(),
 ): EnvironmentRefusal | ResolvedProductEnvironment {
   if (artifacts.length === 0) {
     return refusal(
@@ -431,7 +436,7 @@ export function resolveProductArtifacts(
   if (retained !== undefined &&
       retained.artifacts.length === artifacts.length &&
       retained.artifacts.every((artifact, index) => artifact === artifacts[index]) &&
-      installedToolchainProductContentDigest() ===
+      executingToolchainProductContentDigest ===
         artifacts.find((artifact) => artifact.productId === ABI5_PRODUCT_ID)?.productContentDigest) {
     return retained.result;
   }
@@ -501,6 +506,7 @@ export function resolveProductArtifacts(
   const linked = linkNativeContractSet(
     linkProducts,
     toolchainArtifacts[0]!.productContentDigest,
+    executingToolchainProductContentDigest,
   );
   if (linked.kind === "refused") {
     return refusal(linked.code, linked.message);
@@ -530,7 +536,10 @@ export function resolveProductArtifacts(
 export function constructResolvedProductLock(
   artifacts: readonly VerifiedProductArtifact[],
 ): EnvironmentRefusal | ResolvedProductLock {
-  const resolved = resolveProductArtifacts(artifacts);
+  const resolved = resolveProductArtifacts(
+    artifacts,
+    installedToolchainProductContentDigest(),
+  );
   return resolved.kind === "environment_refusal" ? resolved : resolved.lock;
 }
 

@@ -1,9 +1,8 @@
 import { hasExactKeys, isRecord } from "../shared/admission_predicates.js";
-import { execFile } from "node:child_process";
-import { createReadStream } from "node:fs";
 import { readFile } from "node:fs/promises";
 import { isAbsolute, posix } from "node:path";
-import { createGunzip } from "node:zlib";
+import { promisify } from "node:util";
+import { gunzip } from "node:zlib";
 import { safeParse } from "valibot";
 
 import {
@@ -119,8 +118,6 @@ interface PackageJsonView {
   readonly packageType: "commonjs" | "module";
   readonly exports: Readonly<Record<string, JsonValue>>;
 }
-
-const TAR_MAX_BUFFER = 64 * 1024 * 1024;
 
 // Disposable provenance for the actual immutable result of this verifier.
 // It is not keyed by a caller digest, and copied/foreign values cannot reuse it.
@@ -1806,43 +1803,7 @@ function bindDefinitionContractCoordinates(
     : bindingFailure("the complete definition-contract coordinate map is malformed");
 }
 
-function listArchiveEntries(artifactPath: string): Promise<readonly string[]> {
-  return new Promise((resolve, reject) => {
-    execFile(
-      "tar",
-      ["-tzf", artifactPath],
-      { encoding: "utf8", maxBuffer: TAR_MAX_BUFFER },
-      (error, stdout, stderr) => {
-        if (error !== null) {
-          reject(new Error(stderr || error.message));
-          return;
-        }
-        resolve(stdout.split("\n").filter((entry) => entry.length > 0));
-      },
-    );
-  });
-}
-
-function readArchiveEntry(artifactPath: string, entry: string): Promise<Uint8Array> {
-  return new Promise((resolve, reject) => {
-    execFile(
-      "tar",
-      ["-xOzf", artifactPath, entry],
-      { encoding: "buffer", maxBuffer: TAR_MAX_BUFFER },
-      (error, stdout, stderr) => {
-        if (error !== null) {
-          reject(new Error(Buffer.isBuffer(stderr) ? stderr.toString("utf8") : error.message));
-          return;
-        }
-        resolve(Buffer.isBuffer(stdout) ? stdout : Buffer.from(stdout));
-      },
-    );
-  });
-}
-
-interface ArchiveEntryReader {
-  readonly read: (entry: string) => Promise<Uint8Array>;
-}
+const gunzipArchive = promisify(gunzip);
 
 const TAR_BLOCK_BYTES = 512;
 const TAR_CHECKSUM_OFFSET = 148;
@@ -1852,15 +1813,18 @@ const TAR_PATH_DECODER = new TextDecoder("utf-8", {
   ignoreBOM: true,
 });
 
-interface RegularUstarHeader {
+interface UstarHeader {
   readonly path: string;
   readonly size: number;
+  readonly directory: boolean;
 }
 
-interface PendingRegularUstarEntry extends RegularUstarHeader {
-  readonly chunks: Buffer[] | null;
-  remaining: number;
-  padding: number;
+/** One walk of the artifact bytes already read. `entries` lists the members in
+ * archive order as a tar listing names them (a directory keeps its trailing
+ * `/`); `files` holds each regular file's bytes. */
+interface ArchiveMembers {
+  readonly entries: readonly string[];
+  readonly files: ReadonlyMap<string, Uint8Array>;
 }
 
 function isZeroTarBlock(block: Buffer): boolean {
@@ -1900,12 +1864,13 @@ function decodeTarPathField(field: Buffer): string | null {
   }
 }
 
-function parseRegularUstarHeader(header: Buffer): RegularUstarHeader | null {
+function parseUstarHeader(header: Buffer): UstarHeader | null {
+  const directory = header[156] === "5".charCodeAt(0);
   if (
     header.length !== TAR_BLOCK_BYTES ||
     header.toString("ascii", 257, 263) !== "ustar\0" ||
     header.toString("ascii", 263, 265) !== "00" ||
-    (header[156] !== 0 && header[156] !== "0".charCodeAt(0)) ||
+    (header[156] !== 0 && header[156] !== "0".charCodeAt(0) && !directory) ||
     header.subarray(157, 257).some((byte) => byte !== 0)
   ) {
     return null;
@@ -1930,129 +1895,66 @@ function parseRegularUstarHeader(header: Buffer): RegularUstarHeader | null {
     storedChecksum === null ||
     storedChecksum !== computedChecksum ||
     size === null ||
-    size > TAR_MAX_BUFFER ||
     name === null ||
     name.length === 0 ||
     prefix === null
   ) {
     return null;
   }
-  return {
-    path: prefix.length === 0 ? name : `${prefix}/${name}`,
-    size,
-  };
+  const path = prefix.length === 0 ? name : `${prefix}/${name}`;
+  if (directory && (size !== 0 || !path.endsWith("/"))) return null;
+  return { path, size, directory };
 }
 
-async function bufferValidatedArchiveEntries(
-  artifactPath: string,
-  recognizedEntries: readonly string[],
-  bufferedEntries: readonly string[],
-): Promise<ArchiveEntryReader> {
-  const required = new Set(bufferedEntries);
-  const expectedRegularEntries = new Set([
-    "package/product-toolchain-manifest.json",
-    ...recognizedEntries,
-  ]);
-  const buffered = new Map<string, Uint8Array>();
+/** Decompress the bytes once in process and walk their USTAR blocks once. The
+ * walk stops with its reason at a member that is neither a regular file nor an
+ * empty directory, a header that fails its checksum or path decoding, a
+ * duplicated or truncated member, or a missing end-of-archive block. */
+async function readArchiveMembers(
+  artifactBytes: Uint8Array,
+): Promise<ArchiveMembers> {
+  const archive = await gunzipArchive(artifactBytes);
+  const entries: string[] = [];
+  const files = new Map<string, Uint8Array>();
   const seen = new Set<string>();
-  const compressed = createReadStream(artifactPath);
-  const decompressed = createGunzip();
-  compressed.on("error", (error) => decompressed.destroy(error));
-  compressed.pipe(decompressed);
-  let pending: Buffer<ArrayBufferLike> = Buffer.alloc(0);
-  let current: PendingRegularUstarEntry | null = null;
-  let finished = false;
-  try {
-    archive: for await (const value of decompressed) {
-      const chunk = Buffer.isBuffer(value)
-        ? value
-        : Buffer.from(value as Uint8Array);
-      pending = pending.length === 0
-        ? chunk
-        : Buffer.concat([pending, chunk]);
-      while (true) {
-        if (current === null) {
-          if (pending.length < TAR_BLOCK_BYTES) break;
-          const header = pending.subarray(0, TAR_BLOCK_BYTES);
-          pending = pending.subarray(TAR_BLOCK_BYTES);
-          if (isZeroTarBlock(header)) {
-            finished = true;
-            break archive;
-          }
-          const parsed = parseRegularUstarHeader(header);
-          if (
-            parsed === null ||
-            !expectedRegularEntries.has(parsed.path) ||
-            seen.has(parsed.path)
-          ) {
-            throw new TypeError("archive is not unique regular USTAR");
-          }
-          seen.add(parsed.path);
-          current = {
-            ...parsed,
-            chunks: required.has(parsed.path) ? [] : null,
-            remaining: parsed.size,
-            padding:
-              (TAR_BLOCK_BYTES - (parsed.size % TAR_BLOCK_BYTES)) %
-              TAR_BLOCK_BYTES,
-          };
-        }
-
-        if (current.remaining > 0) {
-          if (pending.length === 0) break;
-          const count = Math.min(current.remaining, pending.length);
-          if (current.chunks !== null) {
-            current.chunks.push(pending.subarray(0, count));
-          }
-          pending = pending.subarray(count);
-          current.remaining -= count;
-          if (current.remaining > 0) break;
-        }
-
-        if (current.padding > 0) {
-          if (pending.length === 0) break;
-          const count = Math.min(current.padding, pending.length);
-          pending = pending.subarray(count);
-          current.padding -= count;
-          if (current.padding > 0) break;
-        }
-
-        if (current.chunks !== null) {
-          buffered.set(
-            current.path,
-            Buffer.concat(current.chunks, current.size),
-          );
-        }
-        current = null;
-      }
+  let offset = 0;
+  while (true) {
+    if (offset + TAR_BLOCK_BYTES > archive.length) {
+      throw new TypeError("archive ends before its end-of-archive block");
     }
-    if (
-      !finished ||
-      current !== null ||
-      seen.size !== expectedRegularEntries.size ||
-      buffered.size !== required.size ||
-      [...required].some((entry) => !buffered.has(entry))
-    ) {
-      throw new TypeError("archive regular USTAR inventory is incomplete");
+    const header = archive.subarray(offset, offset + TAR_BLOCK_BYTES);
+    offset += TAR_BLOCK_BYTES;
+    if (isZeroTarBlock(header)) break;
+    const parsed = parseUstarHeader(header);
+    if (parsed === null) {
+      throw new TypeError(
+        `archive member at block ${offset / TAR_BLOCK_BYTES - 1} is not a regular USTAR file or directory`,
+      );
     }
-  } catch {
-    return {
-      read: (entry) => readArchiveEntry(artifactPath, entry),
-    };
-  } finally {
-    compressed.destroy();
-    decompressed.destroy();
+    if (seen.has(parsed.path)) {
+      throw new TypeError(`archive member is not unique: ${parsed.path}`);
+    }
+    const end = offset + parsed.size;
+    if (end > archive.length) {
+      throw new TypeError(`archive member is truncated: ${parsed.path}`);
+    }
+    seen.add(parsed.path);
+    entries.push(parsed.path);
+    if (!parsed.directory) {
+      files.set(parsed.path, Buffer.from(archive.subarray(offset, end)));
+    }
+    offset = end +
+      (TAR_BLOCK_BYTES - (parsed.size % TAR_BLOCK_BYTES)) % TAR_BLOCK_BYTES;
   }
+  return { entries, files };
+}
 
-  return {
-    read: async (entry) => {
-      const bytes = buffered.get(entry);
-      if (bytes === undefined) {
-        return readArchiveEntry(artifactPath, entry);
-      }
-      return bytes;
-    },
-  };
+function archiveFile(members: ArchiveMembers, entry: string): Uint8Array {
+  const bytes = members.files.get(entry);
+  if (bytes === undefined) {
+    throw new TypeError(`archive has no regular file member ${entry}`);
+  }
+  return bytes;
 }
 
 function parseJsonBytes(bytes: Uint8Array): JsonValue {
@@ -2111,13 +2013,14 @@ export async function verifyProduct(
 ): Promise<ProductVerificationResult> {
   request = deepFreeze({ ...request });
   let artifactBytes: Uint8Array;
-  let archiveEntries: readonly string[];
+  let members: ArchiveMembers;
   try {
     artifactBytes = await readFile(request.artifactPath);
-    archiveEntries = await listArchiveEntries(request.artifactPath);
+    members = await readArchiveMembers(artifactBytes);
   } catch (error) {
     return refusal(request, "artifact_unreadable", String(error));
   }
+  const archiveEntries = members.entries;
   const artifactDigest = sha256Bytes(artifactBytes);
   if (
     !isSha256Digest(request.expectedArtifactDigest) ||
@@ -2145,7 +2048,7 @@ export async function verifyProduct(
   let manifestUnknown: unknown;
   try {
     manifestUnknown = parseJsonBytes(
-      await readArchiveEntry(request.artifactPath, "package/product-toolchain-manifest.json"),
+      archiveFile(members, "package/product-toolchain-manifest.json"),
     );
   } catch (error) {
     return refusal(request, "manifest_unreadable", String(error));
@@ -2207,7 +2110,7 @@ export async function verifyProduct(
   let packageJson: PackageJsonView | null;
   try {
     packageJson = parsePackageJson(
-      parseJsonBytes(await readArchiveEntry(request.artifactPath, "package/package.json")),
+      parseJsonBytes(archiveFile(members, "package/package.json")),
     );
   } catch (error) {
     return refusal(request, "manifest_malformed", String(error));
@@ -2220,20 +2123,11 @@ export async function verifyProduct(
     return refusal(request, "identity_mismatch", "package metadata and product manifest disagree");
   }
 
-  const archive = await bufferValidatedArchiveEntries(
-    request.artifactPath,
-    [
-      `package/${CAPABILITY_DEFINITION_GRAPH_ASSET_PATH}`,
-      ...locators.map((locator) => `package/${locator}`),
-    ],
-    locators.map((locator) => `package/${locator}`),
-  );
-
   const inventory: PayloadInventoryRow[] = [];
   const payloadFiles = new Map<string, Uint8Array>();
   try {
     for (const locator of [...locators].sort()) {
-      const bytes = await archive.read(`package/${locator}`);
+      const bytes = archiveFile(members, `package/${locator}`);
       payloadFiles.set(locator, bytes);
       inventory.push({
         path: locator,
@@ -2542,7 +2436,7 @@ export async function verifyProduct(
     if (!isSafeProductPath(graphAssetLocator.path)) {
       return refusal(request, "unsafe_locator", "capability graph path is unsafe");
     }
-    const graphBytes = await archive.read(`package/${graphAssetLocator.path}`);
+    const graphBytes = archiveFile(members, `package/${graphAssetLocator.path}`);
     if (
       sha256Bytes(graphBytes) !== graphAssetLocator.contentDigest
     ) {

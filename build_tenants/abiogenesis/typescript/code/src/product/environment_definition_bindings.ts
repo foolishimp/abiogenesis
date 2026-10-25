@@ -67,6 +67,7 @@ import {
   type WorkspaceBindingPacket,
 } from "./environment_operations.js";
 import { PRODUCT_VERIFICATION_CONTRACTS } from "./verification_operation_contracts.js";
+import { installedToolchainProductContentDigest } from "./declaration_exports.js";
 import { isVerifiedProductArtifact, productVerificationCoordinates } from "./verify_product.js";
 
 type ResolvePacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.resolve;
@@ -460,7 +461,7 @@ const resolve: ExactDefinitionCallable<
     try: (): DefinitionReturn<ResolvePacket, ProductResolutionResourceReceipt> => {
       const native = resolveProductArtifacts(call.resources.verifiedPreimages.map(
         ({ verifiedArtifact }) => verifiedArtifact,
-      ));
+      ), installedToolchainProductContentDigest());
       if (native.kind === "environment_refusal") {
         return deepFreeze({
           ownerOutput: validateResolveOutput({

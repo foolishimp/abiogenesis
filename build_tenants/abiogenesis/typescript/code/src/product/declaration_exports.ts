@@ -503,7 +503,8 @@ function loadTypeScript(): typeof TypeScript {
   return (compilerModule.default ?? compilerModule) as typeof TypeScript;
 }
 
-/** @internal Current linker basis; reused resolutions retain this check. */
+/** @internal The executing toolchain's identity. A Product operation boundary
+ * reads it once and passes it to the resolution and the link as an input. */
 export function installedToolchainProductContentDigest(): Sha256Digest | null {
   try {
     const manifest = JSON.parse(
@@ -530,6 +531,19 @@ interface CompilerBasis {
   readonly compilerDependencyRoots: readonly string[];
 }
 
+// Both type-checks (`resolveNativeDeclarationClosures`, `linkNativeContractSet`)
+// terminate over a finite file set. The roots are the declaration files the
+// artifact's package exports name, held in memory. These options do not confine
+// reach (no `noResolve`, no `lib`, `types: ["node"]`): `createClosedHost` and
+// the resolution hooks do, so every file the program loads is one of those
+// texts or a file under `compilerDependencyRoots` (the toolchain's
+// `build/toolchain` libraries, `@types/node`, `undici-types`), all payload of
+// the toolchain Product. The checker is that Product's bundled `typescript.cjs`
+// (`loadTypeScript`), which bounds the work per checked node: instantiation
+// depth 100 and count 5e6, a conditional-type tail of 1e3, unions of 1e5, and
+// relation depth 100 and complexity. The link refuses `incompatible_dependency`
+// when the executing toolchain is not the selected one; the check inside
+// `verifyProduct` runs under whichever toolchain executes.
 function compilerBasis(ts: typeof TypeScript): CompilerBasis {
   const options: TypeScript.CompilerOptions = {
     module: ts.ModuleKind.NodeNext,
@@ -2022,12 +2036,16 @@ function nativeProductApplicability(
   return "native";
 }
 
+/** `executingToolchainProductContentDigest` is the caller's input; a caller
+ * with no source for it (a component test of this module) keeps the read. */
 export function linkNativeContractSet(
   products: readonly NativeLinkProduct[],
   toolchainProductContentDigest: Sha256Digest,
+  executingToolchainProductContentDigest: Sha256Digest | null =
+    installedToolchainProductContentDigest(),
 ): NativeContractLinkResult {
   if (
-    installedToolchainProductContentDigest() !==
+    executingToolchainProductContentDigest !==
       toolchainProductContentDigest
   ) {
     return linkedRefusal(
