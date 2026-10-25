@@ -9,7 +9,8 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolveQualificationExecutionMaterial } from "../abg/qualification_proof.js";
 import { canonicalJson } from "../shared/canonical_json.js";
-import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificationScopeCorrespondence, qualificationRuleSurfaces } from "./qualification.js";
+import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificationScopeCorrespondence, qualificationRuleSurfaces,
+  type AdmittedQualificationCatalogs } from "./qualification.js";
 import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
   type SelfConformanceInput, type SelfConformanceResult, type SelfConformanceOwner,
   type SelfConformanceFinding, type QualificationRuleCatalog } from "./self_conformance_contracts.js";
@@ -25,7 +26,8 @@ export function readSelfConformanceCatalog(): { catalog: QualificationRuleCatalo
 }
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 /** Finite native relation. Citations remain unadmitted; no caller flag can establish J/O truth. */
-export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: SelfConformanceOwner, resources?: QualificationResources): Readonly<SelfConformanceResult> {
+export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: SelfConformanceOwner, resources?: QualificationResources,
+  catalogs?: AdmittedQualificationCatalogs): Readonly<SelfConformanceResult> {
   const resolvedInput = resolveSelfConformanceInput(rawInput, resources), input = resolvedInput.input;
   const findings: SelfConformanceFinding[] = [];
   const add = (diagnostic: string, disposition: SelfConformanceFinding["disposition"], detail: string,
@@ -66,7 +68,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources);
   const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
   const coverage = input.qualification?.coverageCatalog;
-  const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage) &&
+  const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage, catalogs) &&
     canonicalEquals(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && canonicalEquals(basis.lawBasis, coverage.lawBasis);
   if (coverageBound) declarationMaterials.push(typedMaterial(coverage!.catalogRef, coverage));
   const resolved = input.qualification === undefined ? null : resolveQualificationAssessments(input.qualification.proof,

@@ -1,4 +1,5 @@
-import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment } from "../validator/qualification.js";
+import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment,
+  parseQualificationCatalogs, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH, type AdmittedQualificationCatalogs } from "../validator/qualification.js";
 import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
 import type { QualificationResources } from "../validator/qualification_resources.js";
 import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
@@ -19,7 +20,7 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
 import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
-import { evaluateSelfConformance } from "../validator/self_conformance.js";
+import { evaluateSelfConformance, SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "../validator/self_conformance.js";
 import { resolveSelfConformanceOwner } from "../validator/self_conformance_basis.js";
 import { isSelfConformanceInput, isSelfConformanceResult } from "../validator/self_conformance_contracts.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
@@ -36,7 +37,8 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
-import { isAbsolute, relative, resolve } from "node:path";
+import { isAbsolute, join, relative, resolve } from "node:path";
+import { readFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
@@ -79,7 +81,7 @@ import {
   WORKSITE_FILE_REPLACE_HANDLER_REF,
 } from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { payloadInventoryDigest, sha256Bytes, sha256Canonical, sha256File, type PayloadInventoryRow } from "../shared/digests.js";
 import { retainCaughtCause, sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
@@ -127,6 +129,39 @@ type LoadedLeafExecutionAuthority = Pick<
   | "declarationPublications"
   | "ownerInstalls"
 >;
+
+/** A qualification leaf's occurrence carries the catalogs its admission read. */
+type CatalogOccurrence = LeafExecutionOccurrence & { readonly qualificationCatalogs?: Readonly<AdmittedQualificationCatalogs> };
+
+/** One read of the two qualification catalogs from the owner install's root,
+ * each admitted against what that verified install records: the rule catalog
+ * against its public contract asset digest; the coverage catalog, which has no
+ * row of its own, against the install's product content digest, recomputed
+ * over the digest-bound manifest's payload inventory with the bytes in hand.
+ * A mismatch throws, naming the catalog and both digests. */
+async function admitInstalledQualificationCatalogs(install: LeafInvocationInstall): Promise<Readonly<AdmittedQualificationCatalogs>> {
+  const root = install.installedRoot, coveragePath = QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH;
+  const rows = install.publicContracts.filter(row => row.contractId === SELF_CONFORMANCE_CATALOG_CONTRACT_ID);
+  const asset = rows.length === 1 ? rows[0]!.assetLocator : undefined;
+  if (asset === undefined || asset.path !== SELF_CONFORMANCE_CATALOG_ASSET_PATH)
+    throw new TypeError(`qualification catalog ${SELF_CONFORMANCE_CATALOG_ASSET_PATH} has no single recorded asset row in install ${install.installId}`);
+  const rules = await readFile(join(root, asset.path)), rulesDigest = sha256Bytes(rules);
+  if (rulesDigest !== asset.contentDigest)
+    throw new TypeError(`qualification catalog ${asset.path} is ${rulesDigest}; the verified install records ${asset.contentDigest}`);
+  const manifest: unknown = JSON.parse(await readFile(join(root, "product-toolchain-manifest.json"), "utf8"));
+  const locators = isRecord(manifest) ? manifest.productRelativeLocators : undefined;
+  if (sha256Canonical(manifest as JsonValue) !== install.manifestDigest || !Array.isArray(locators) ||
+      !locators.every(path => typeof path === "string") || !locators.includes(coveragePath))
+    throw new TypeError(`qualification catalog ${coveragePath} is not a payload locator of the manifest install ${install.installId} records`);
+  const coverage = await readFile(join(root, coveragePath)), coverageDigest = sha256Bytes(coverage);
+  const inventory: PayloadInventoryRow[] = [];
+  for (const path of locators as string[]) inventory.push({ path, sha256: path === coveragePath ? coverageDigest
+    : path === asset.path ? rulesDigest : await sha256File(join(root, path)) });
+  const content = payloadInventoryDigest(inventory);
+  if (content !== install.productContentDigest)
+    throw new TypeError(`qualification catalog ${coveragePath} is ${coverageDigest}; the payload inventory over it is ${content}, and the verified install records product content ${install.productContentDigest}`);
+  return parseQualificationCatalogs(coverage, rules);
+}
 
 export function isClosedProbabilisticLeafInvocation(
   value: unknown,
@@ -431,7 +466,7 @@ function preimageRefusal(
 // These closures stay at the invoking owner. Installed modules execute their
 // declared realization/relation without acquiring a second copy of its history.
 function nativeLeafProofOperations(
-  implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
+  implementationRef: string, value: unknown, occurrence: CatalogOccurrence,
   historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
 ): Readonly<NativeLeafProofOperations> {
   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -453,7 +488,7 @@ function nativeLeafProofOperations(
           exact(input, supplied);
           if (!isSelfConformanceInput(value)) return null;
           const owner = resolveSelfConformanceOwner(basis, value, true, resources);
-          return owner === null ? null : evaluateSelfConformance(value, owner, resources);
+          return owner === null ? null : evaluateSelfConformance(value, owner, resources, occurrence.qualificationCatalogs);
         } } : {}),
     ...(implementationRef === qualificationIds.verdictImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationVerdict: (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -953,6 +988,17 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   }
   const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
+  // Admitted once per owner install; a refused admission is not retained.
+  const admittedCatalogs = new Map<string, Promise<Readonly<AdmittedQualificationCatalogs>>>();
+  function qualificationCatalogsOf(install: LeafInvocationInstall) {
+    let admitted = admittedCatalogs.get(install.installId);
+    if (admitted === undefined) {
+      admitted = admitInstalledQualificationCatalogs(install);
+      admittedCatalogs.set(install.installId, admitted);
+      admitted.catch(() => admittedCatalogs.delete(install.installId));
+    }
+    return admitted.then(catalogs => ({ catalogs }), (error: unknown) => ({ error }));
+  }
 
   function uniqueContractByRef(contractRef: string) {
     const ownerMatches = authority.executionResolution.declarationClosure
@@ -1557,10 +1603,16 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true, authority.qualificationResources)
           : projectQualificationConsumer(qualificationOwnerBasis, call.input, true, authority.qualificationResources);
         if (isQualification && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
-        const qualificationPreparation = admittedResolution.implementationRef === qualificationIds.assessImplementation && isQualificationAssessmentInput(call.input)
-          ? prepareQualificationAssessment(call.input, authority.qualificationResources) : undefined;
+        // The catalogs' admission is read here and decided at the authority stage.
+        const catalogOwner = isQualification ? implementationOwner(admittedResolution) : null;
+        const catalogAdmission = catalogOwner === null ? null : await qualificationCatalogsOf(catalogOwner.install);
+        const qualificationCatalogs = catalogAdmission !== null && "catalogs" in catalogAdmission ? catalogAdmission.catalogs : undefined;
+        const qualificationPreparation = admittedResolution.implementationRef === qualificationIds.assessImplementation &&
+            (catalogAdmission === null || qualificationCatalogs !== undefined) && isQualificationAssessmentInput(call.input, qualificationCatalogs)
+          ? prepareQualificationAssessment(call.input, authority.qualificationResources, qualificationCatalogs) : undefined;
         if (qualificationPreparation !== undefined) qualificationPreparations.set(call.occurrence.cCallRef, qualificationPreparation);
-        const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis });
+        const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis,
+          ...(qualificationCatalogs === undefined ? {} : { qualificationCatalogs }) });
         const occurrence = admittedResolution.implementationRef !== reacquireIds.implementationRef || call.predecessorPrefix === undefined ? qualifiedOccurrence
           : deepFreeze({ ...qualifiedOccurrence, nativeWorkReacquisitionBasis: { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } });
         // A native task may also be ordinary data for a pure consumer leaf.
@@ -1576,6 +1628,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           inputDigest: call.inputDigest,
           failureValueKind,
           verifyAuthority: async () => {
+            if (catalogAdmission !== null && "error" in catalogAdmission) throw catalogAdmission.error;
             const installedContentValid =
               await semantics.verifyInstalledContent();
             return isAdmittedLeafInvocationPort(port) &&

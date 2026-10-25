@@ -7,9 +7,14 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { qualificationHash as hash, type QualificationJudgment } from "../validator/qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment, prepareQualificationAssessment,
-  isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment } from "../validator/qualification.js";
+  isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment,
+  type AdmittedQualificationCatalogs } from "../validator/qualification.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+/** The port admits both catalogs from the owner install at its authority stage
+ * and passes them on the occurrence; an occurrence without them reads the
+ * module-relative catalogs. */
+type CatalogOccurrence = LeafExecutionOccurrence & { readonly qualificationCatalogs?: Readonly<AdmittedQualificationCatalogs> };
 function descriptor(implementationRef: string, namedSymbol: string, inputContractRef: string, outputContractRef: string, computeRegime: "F_D" | "F_P") {
   const body = { implementationRef, namedSymbol, inputContractRef, outputContractRef, computeRegime,
     packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION, modulePath: "build/code/src/implementation/qualification.js",
@@ -32,14 +37,15 @@ function success(input: JsonValue, value: Readonly<Record<string, JsonValue>>, i
     resultCandidate: value, evidenceCandidates: [{ kind: "deterministic_evidence_candidate",
       schemaVersion: "5.0.0", implementationRef, inputDigest: hash(input), outputDigest: hash(value) }] });
 }
-export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+export function realizeQualificationAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: CatalogOccurrence,
   _resolution?: unknown, _inputDigest?: unknown, nativeProof?: NativeLeafProofOperations):
   Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
-  if (!isQualificationAssessmentInput(input) || occurrence.qualificationOwnerBasis === undefined ||
+  const catalogs = occurrence.qualificationCatalogs;
+  if (!isQualificationAssessmentInput(input, catalogs) || occurrence.qualificationOwnerBasis === undefined ||
       (nativeProof?.qualificationPreparation === undefined && projectQualificationConsumer(occurrence.qualificationOwnerBasis, input, true) === null)) {
     throw new TypeError("qualification assessment lacks an exact current owner and admitted task");
   }
-  const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input), workerRequest = preparation.request;
+  const nativeBasis = occurrence.qualificationOwnerBasis, preparation = nativeProof?.qualificationPreparation?.(input, occurrence) ?? prepareQualificationAssessment(input, undefined, catalogs), workerRequest = preparation.request;
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest,
     complete(exchange: Readonly<ActorProcessCarrierValidation>) {
       if (!canonicalEquals(exchange.request, workerRequest) || exchange.observation.disposition !== "success" ||
@@ -73,11 +79,11 @@ export function realizeQualificationRuling(input: Readonly<Record<string, JsonVa
   const ruling = basis === undefined ? null : projectQualificationRulingForConsumer(basis, input, true);
   return ruling === null ? failure("owner_ruling_unadmitted") : success(input, ruling, q.rulingImplementation);
 }
-export function realizeMalformedGtlAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence): Readonly<LeafRealizationCandidate> {
-  const basis = occurrence.qualificationOwnerBasis;
-  if (basis === undefined || !isMalformedGtlAssessmentInput(input) || projectQualificationConsumer(basis, input, true) === null)
+export function realizeMalformedGtlAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: CatalogOccurrence): Readonly<LeafRealizationCandidate> {
+  const basis = occurrence.qualificationOwnerBasis, catalogs = occurrence.qualificationCatalogs;
+  if (basis === undefined || !isMalformedGtlAssessmentInput(input, catalogs) || projectQualificationConsumer(basis, input, true) === null)
     return failure("malformed_gtl_task_unadmitted");
-  return success(input, evaluateMalformedGtlAssessment(input, basis), q.malformedAssessImplementation);
+  return success(input, evaluateMalformedGtlAssessment(input, basis, catalogs), q.malformedAssessImplementation);
 }
 export const NATIVE_RUNTIME_ASSESSMENT_IMPLEMENTATION_DESCRIPTOR = descriptor(q.runtimeAssessImplementation, "realizeNativeRuntimeAssessment", q.runtimeInput, q.runtimeAssessment, "F_D");
 export function realizeNativeRuntimeAssessment(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
