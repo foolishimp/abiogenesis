@@ -8,6 +8,7 @@
 // outside this set:
 //   code/src/shared/admit/, code/src/shared/canonical_json.ts,
 //   code/src/shared/digests.ts, code/src/shared/immutable.ts,
+//   code/src/shared/refusal.ts, code/src/shared/select/, code/src/shared/value/,
 //   code/src/product/worksite_effect.ts, code/src/product/native_workspace_work.ts,
 //   code/src/abg/event_prefix.ts, code/src/abg/event_store.ts,
 //   code/src/abg/runtime_liveness_contracts.ts, code/src/abg/c_call_outcome.ts,
@@ -28,6 +29,9 @@ const ADMITTED = [
   "code/src/shared/canonical_json.ts",
   "code/src/shared/digests.ts",
   "code/src/shared/immutable.ts",
+  "code/src/shared/refusal.ts",
+  "code/src/shared/select/",
+  "code/src/shared/value/",
   "code/src/product/worksite_effect.ts",
   "code/src/product/native_workspace_work.ts",
   "code/src/abg/event_prefix.ts",

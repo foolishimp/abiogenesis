@@ -97,6 +97,15 @@ export type RuntimeThresholdObservation = {
   readonly evaluatedPrefixDigest: Sha256Digest;
   readonly projectionDigest: Sha256Digest;
 };
+/** Retry budget facts the liveness relation derives from the retry records. */
+export interface RuntimeLivenessBudgetFacts {
+  readonly remaining: number | null;
+  readonly retryEligible: boolean;
+  readonly continuationRef: string | null;
+  readonly terminalPolicy: "block" | "escalate" | "reprice_policy";
+  /** Existing CCall owner failure signal, not a worker-authored rejection. */
+  readonly resultRejectionRef?: string | null;
+}
 export type RuntimeInvocationDisposition = {
   readonly kind: "runtime_invocation_disposition";
   readonly schemaVersion: "5.0.0";
