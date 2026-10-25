@@ -635,14 +635,43 @@ async function loadInstalledRetryDependencies(
       installedProduct.sha256Canonical(admittedExportedGraphFunction) &&
     installedProduct.sha256Canonical(childGraphFunction) ===
       installedProduct.sha256Canonical(admittedExportedChildGraphFunction);
-  const programValidation = installedValidator.validateProgram(
-    support.rawProgramInput(installedValidator, publicationAdmission, program),
-  );
+  // The Program validation is the reconstructed execution resolution's own,
+  // as the producer's graph validation took it
+  // (root-installed-environment.mjs:669); the graph validation's identity
+  // includes that validation's reference.
+  const { catalog, catalogView, executionResolution } =
+    await reconstructExecutionResolution({
+      artifactTruth,
+      workspaceBinding,
+      publication,
+      program,
+      graphFunction,
+      childGraphFunction,
+    });
+  const programValidation = executionResolution.programValidation;
   assert.equal(
     programValidation.kind,
     "program_validation",
     JSON.stringify(programValidation),
   );
+  // The publication's own Program validation is a consistency check only: the
+  // same Program and digest; the resolution validates over its narrowed
+  // Catalog view, so its GraphFunction digests are a subset of the
+  // publication's, and its reference differs.
+  const publicationProgramValidation = installedValidator.validateProgram(
+    support.rawProgramInput(installedValidator, publicationAdmission, program),
+  );
+  assert.equal(
+    publicationProgramValidation.kind,
+    "program_validation",
+    JSON.stringify(publicationProgramValidation),
+  );
+  assert.equal(publicationProgramValidation.programRef,
+    programValidation.programRef);
+  assert.equal(publicationProgramValidation.programDigest,
+    programValidation.programDigest);
+  assert.equal(programValidation.graphFunctionDigests.every((digest) =>
+    publicationProgramValidation.graphFunctionDigests.includes(digest)), true);
   const executionBasis = installedAbg.rehydrateExecutionBasis(
     reopened.store,
     basisEvent.payload.basisRef,
@@ -652,6 +681,8 @@ async function loadInstalledRetryDependencies(
     installedProduct.sha256Canonical(executionBasis.rawInputValue),
     executionBasis.rawInputDigest,
   );
+  assert.equal(programValidation.programRef, executionBasis.programRef);
+  assert.equal(programValidation.programDigest, executionBasis.programDigest);
   assert.equal(executionBasis.rawInputAdmissionRef,
     invocation.rawInputAdmissionRef);
   assert.equal(executionBasis.rawInputDigest, invocation.rawInputDigest);
@@ -769,15 +800,6 @@ async function loadInstalledRetryDependencies(
       candidate.closureContractRef === executionBasis.closureContractRef,
     "AX-F09 installed closure contract",
   );
-  const { catalog, catalogView, executionResolution } =
-    await reconstructExecutionResolution({
-      artifactTruth,
-      workspaceBinding,
-      publication,
-      program,
-      graphFunction,
-      childGraphFunction,
-    });
   // The leaf semantics are the execution resolution's own, as the support
   // takes them (root-installed-environment.mjs:1090-1092).
   const semantics = executionResolution.productSemantics;
