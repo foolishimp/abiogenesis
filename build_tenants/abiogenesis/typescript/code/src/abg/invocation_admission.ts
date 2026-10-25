@@ -106,7 +106,6 @@ import {
   hasExactInvocationRunBindingAtPrefix,
   projectExactInvocationAdmissionAtPrefix,
 } from "./invocation_execution_truth.js";
-import { replayValidatedRuntimeEventPrefix } from "./replay.js";
 import { runEnvironmentEvidenceMatchesInvocation, type RunEnvironmentEvidence } from "./stdo_environment.js";
 import type { GovernanceCoveredSourceUse } from "../product/semantics.js";
 import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";

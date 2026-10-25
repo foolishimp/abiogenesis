@@ -828,3 +828,68 @@ test('TD-15: the three record writers through writeCanonicalRecord keep head byt
  }
  t.diagnostic(JSON.stringify(measured));
 });
+
+// C-15. The status projection and the route-and-CCall projection are the
+// complete replay's members at the same cut, owned and validated, cold and
+// after the complete state and the guard filled the cut's caches, and carry no
+// witness digest; over a malformed history they refuse as the complete state.
+test('C-15: the status and route-and-CCall projections equal the complete replay at every cut',async t=>{
+ const f=terminalOwner(t,2),o=ownedTerminal(t,f),runId=f.route.runId,cuts={};
+ const members=(run,authority)=>{
+  const status=outcome(()=>replay.projectRuntimeReplayStatus(run,authority)),rows=outcome(()=>replay.projectRuntimeReplayRouteRefsAndCCalls(run,authority));
+  const full=outcome(()=>replay.replayValidatedRuntimeEventPrefix(run,authority)),guard=outcome(()=>replay.projectRuntimeReplayGuard(run,authority));
+  return {status,rows,full,guard};
+ };
+ for(const [index,event] of f.rows.entries()){
+  const coldAuthority=cold(f.rows.slice(0,index+1));
+  for(const [label,authority] of [['cold validated',coldAuthority],['validated',prefix.validatedRuntimeEventPrefixThroughEvent(f.authority,event.eventId)],
+   ['owned',prefix.validatedRuntimeEventPrefixThroughEvent(o.authority,event.eventId)]]){
+   const at=label+' cut '+event.admissionOrdinal,run=outcome(()=>prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId}));
+   if(run.error!==undefined){cuts[label+' no run prefix']=(cuts[label+' no run prefix']??0)+1;continue;}
+   const {status,rows,full,guard}=members(run.value,authority);
+   if(full.error!==undefined){
+    for(const value of [status,rows,guard])assert.deepEqual(value,full,at+': the same refusal');
+    cuts[label+' refused']=(cuts[label+' refused']??0)+1;continue;
+   }
+   const {replayRef:_ref,replayDigest:_digest,...guardMembers}=guard.value;
+   const fromFull=Object.fromEntries(Object.keys(guardMembers).map(key=>[key,full.value[key]]));
+   assert.deepEqual(status.value,fromFull,at+': status');assert.deepEqual(status.value,guardMembers,at+': status is the guard without its witness');
+   assert.deepEqual(rows.value,{...fromFull,routeRefs:full.value.routes.map(route=>route.routeRef),cCalls:full.value.cCalls},at+': route refs and CCall rows');
+   for(const value of [status.value,rows.value]){
+    assert.equal(Object.isFrozen(value),true);for(const key of ['replayRef','replayDigest'])assert.equal(Object.hasOwn(value,key),false,at+': '+key);
+   }
+   const again=members(run.value,authority);
+   assert.deepEqual(again.status,status,at+': status after the cut is cached');assert.deepEqual(again.rows,rows,at+': rows after the cut is cached');
+   cuts[label]=(cuts[label]??0)+1;
+  }
+ }
+ assert.equal(cuts['cold validated'],cuts.validated);assert.equal(cuts.validated,cuts.owned);
+ const last=members(f.run,f.authority);
+ assert.ok(last.rows.value.routeRefs.length>0&&last.rows.value.cCalls.length>0,'the terminal history has a route and a CCall');
+ // The malformed histories of 'terminal route-only retains cold and hot malformed-history refusals'.
+ const opened=f.rows.find(e=>e.kind==='c_call_opened'&&e.runId===runId),fibre=f.rows.find(e=>e.kind==='c_call_fibre_selected'&&e.aggregateId===opened.aggregateId);
+ const runClosed=f.rows.find(e=>e.kind==='run_closed'&&e.runId===runId),refusals={};
+ for(const [name,change] of [
+  ['unrelated malformed CCall',rows=>{
+   const cCallRef='c-call:sha256:'+sha256Canonical('unrelated terminal test').slice('sha256:'.length);
+   const open=appendControl(rows,opened,{aggregateId:cCallRef,payload:{...opened.payload,cCallRef,attempt:0}});
+   appendControl(rows,fibre,{aggregateId:cCallRef,causationEventRefs:[open.eventId],payload:{...fibre.payload,cCallRef}});
+  }],
+  ['foreign retained provenance',rows=>{
+   const at=rows.findIndex(e=>e.eventId===f.route.eventId),original=rows[at];
+   rows[at]=deepFreeze({...original,payload:{...original.payload,boundInput:{contractRef:'contract://foreign',value:{kind:'retained_graph_input'}}}});
+  }],
+  ['unrelated malformed fan-out',rows=>appendControl(rows,f.route,{kind:'fan_out_completion_admitted',payload:{
+   completionRef:'fan-out-completion://foreign',completionDigest:sha256Canonical('foreign'),completionKind:'complete_vector',
+   outputVector:[],outputVectorRef:'output-vector://foreign',outputVectorDigest:sha256Canonical([]),taskRows:[]}})],
+  ['contradictory Run stop',rows=>appendControl(rows,runClosed,{kind:'run_stopped',payload:{
+   disposition:'blocked',routeRef:f.route.payload.routeRef,reasonRef:'reason://contradictory-stop'}})],
+ ]){
+  const rows=[...f.rows];change(rows);
+  const authority=cold(rows),{status,rows:vectors,full,guard}=members(prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId}),authority);
+  assert.ok(full.error,name+': the complete state refuses');
+  for(const value of [status,vectors,guard])assert.deepEqual(value,full,name+': the same refusal');
+  refusals[name]=full.error;
+ }
+ t.diagnostic(JSON.stringify({rows:f.rows.length,cuts,refusals}));
+});

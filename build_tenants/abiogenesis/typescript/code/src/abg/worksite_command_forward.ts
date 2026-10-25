@@ -24,7 +24,7 @@ import { projectSameRunWorksiteCommandSourceAtPrefix } from "./worksite_input_pr
 import { projectClosedConstructionRetainedVector, retainedWorksitePhysicalMatches } from "./worksite_revision.js";
 import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
-import { projectRuntimeReplayGuard, replayValidatedRuntimeEventPrefix } from "./replay.js";
+import { projectRuntimeReplayRouteRefsAndCCalls, projectRuntimeReplayStatus } from "./replay.js";
 import { constructRunActiveFluent, runtimeFluentKey } from "./event_calculus.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -98,7 +98,7 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
       !failed.result.evidenceRefs.includes(String(failure.payload.evidenceRef))||!failed.resultEvent.causationEventRefs.includes(failure.eventId)||
       runFailure===null||runFailure.kind!=="runtime_failure_observed"||runFailure.runId!==s.runId||
       runFailure.admissionOrdinal<=failed.judgmentEvent.admissionOrdinal||
-      projectRuntimeReplayGuard(selectValidatedRuntimeEventPrefix(events,{runId:s.runId}),prefix).runtimeStatus!=="failed"||
+      projectRuntimeReplayStatus(selectValidatedRuntimeEventPrefix(events,{runId:s.runId}),prefix).runtimeStatus!=="failed"||
       hasWorksiteCommandForwardDispatchAtPrefix(prefix,s.failedCCallRef))return null;
     const parent=projectExactExecutionBasisAtPrefix(prefix,sourceBasis.parentExecutionBasisRef);
     const retained=parent===null?null:projectSameRunWorksiteCommandSourceAtPrefix(prefix,{
@@ -139,7 +139,7 @@ function isFailedUndispatchedForwardSuccessor(prefix:ValidatedRuntimeEventPrefix
       runOpen.payload.executionBasisRef!==basis.basisRef||runOpen.payload.executionBasisDigest!==basis.basisDigest||
       !hasExactInvocationRunBindingAtPrefix(prefix,invocation,runOpen.runId))return false;
     const runPrefix=selectValidatedRuntimeEventPrefix(events,{runId:runOpen.runId});
-    const runEvents=runtimeEventsFromValidatedPrefix(runPrefix),replayed=replayValidatedRuntimeEventPrefix(runPrefix,prefix);
+    const runEvents=runtimeEventsFromValidatedPrefix(runPrefix),replayed=projectRuntimeReplayRouteRefsAndCCalls(runPrefix,prefix);
     const terminal=exactOrNull(resolveExactMatch(runEvents,e=>e.runId===runOpen.runId&&
       (e.kind==="runtime_failure_observed"||e.kind==="run_stopped"||e.kind==="run_closed")));
     if(replayed.runId!==runOpen.runId||replayed.runtimeStatus!=="failed"||replayed.runClosedEventRef!==null||

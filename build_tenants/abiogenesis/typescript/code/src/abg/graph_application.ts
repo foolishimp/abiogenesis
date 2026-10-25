@@ -579,7 +579,6 @@ export function projectApplicationChildRouteAtPrefix(
     judgmentRef: string;
   }>,
 ): ReplayRouteState | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
   const route = projectValidatedReplayRouteByJudgmentAtPrefix(prefix, {
     cCallRef: coordinates.cCallRef,
     judgmentRef: coordinates.judgmentRef,

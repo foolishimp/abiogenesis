@@ -28,7 +28,7 @@ import {
   type RuntimeEventCandidate,
 } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { replayValidatedRuntimeEventPrefix } from "./replay.js";
+import { projectRuntimeReplayRouteRefsAndCCalls } from "./replay.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
@@ -975,7 +975,7 @@ function prepareSemanticEvent(
         );
       }
       const fullPrefix = selectValidatedRuntimeEventPrefix(events);
-      const replay = replayValidatedRuntimeEventPrefix(
+      const replay = projectRuntimeReplayRouteRefsAndCCalls(
         selectValidatedRuntimeEventPrefix(events, {
           runId: packet.context.run.ref,
         }),
@@ -994,7 +994,7 @@ function prepareSemanticEvent(
       const haltBody = {
         runId: replay.runId,
         runtimeStatus: replay.runtimeStatus,
-        routeRefs: replay.routes.map((route) => route.routeRef),
+        routeRefs: replay.routeRefs,
         resultRefs: replay.cCalls.flatMap((row) =>
           row.resultRef === null ? [] : [row.resultRef]
         ),

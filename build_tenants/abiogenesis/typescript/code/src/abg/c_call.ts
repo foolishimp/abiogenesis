@@ -88,8 +88,6 @@ import {
   runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import {
-  replay,
-  replayValidatedRuntimeEventPrefix,
   type ReplayState,
   type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, materializeRuntimeReplayGuard, writeRuntimeReplayGuardValue,
 } from "./replay.js";
@@ -7268,7 +7266,9 @@ export function completeRejectedCCall(
     resultEventRef = resultEvent.eventId;
   }
 
-  const rejectionReplay = replay(store, { runId: cCall.runId });
+  const rejectionAuthority = selectValidatedRuntimeEventPrefix(store.readAll());
+  const rejectionReplay = projectRuntimeReplayGuard(
+    selectRuntimeEventPrefixFromAuthority(rejectionAuthority, { runId: cCall.runId }), rejectionAuthority);
   const retryAttemptRef = activeRetryAttemptRef;
   const rejectionJudgmentBody = {
     cCallRef: cCall.cCallRef,

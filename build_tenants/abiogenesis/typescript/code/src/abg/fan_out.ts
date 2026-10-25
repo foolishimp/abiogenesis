@@ -35,7 +35,6 @@ import {
   type FanOutCompletionCandidateProjection,
 } from "./fan_out_projection.js";
 import {
-  replayValidatedRuntimeEventPrefix,
   type ReplayState,
 } from "./replay.js";
 import {

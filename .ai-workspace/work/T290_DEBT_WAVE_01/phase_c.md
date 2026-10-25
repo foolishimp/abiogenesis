@@ -6239,3 +6239,478 @@ Grant: `code/src/abg/replay.ts`; `code/src/abg/witness_admission_operation.ts` a
 Stops (write the stop in the Return, keep the rest moving): any persisted digest moving (a replay digest, a plan digest, `sourceReplayDigest` at `invocation_admission.ts:594`); a payload key, event kind, failure class (a new admit refusal code included) or Public export change (`replay(store, scope)` stays exported; the `ReplayState` shape unchanged); a vector, status member or digest differing from the full form at any cut; a lane whose outcome moves other than the named movers; an `admitContract` caller whose raw is not I-JSON.
 
 Return contract: one commit on `main`, staged by path, first line `C-15: TD-10 closed: the two vector readers and the status reader read narrow owner projections, the guard's generators read the loop's facts, the four digest-only full states take the guard, the dead producers and imports are gone; the admit atoms refuse a Proxy before any read and admitContract returns every refusal typed (F_D row 1 eligible)`, with any gap stated in place; the Return before the commit so the commit carries it: the census of guard callers by members read, the projections as realized, the counters per lane before and after, the differential, the lanes table, the measurement, the admitContract domain census, the termination argument for `admitJson`, the lint and gates, item 3's proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-15 return (Worker, Opus 5.5, 2026-10-26; base `4a8b73d64`)
+
+**Closed, with gaps and six stops.**
+
+**Item 1 (TD-10's remainder).**
+- **The readers.** The two vector readers read `projectRuntimeReplayRouteRefsAndCCalls`, and the status reader reads `projectRuntimeReplayStatus`. Both are internal replay-owner projections. Neither builds a fan-out or construction-delta vector, and neither computes the witness.
+- **The generators.** The guard's witness streams the facts its derivation's loops already projected.
+- **The four full states.**
+  - `c_call.ts:7270` and `traversal_route.ts:5354` take the guard.
+  - `retry.ts:6233` takes it on owned cuts and keeps the complete state on validated ones (stop 2: the field is a Public type).
+  - `traversal_route.ts:5448` keeps the complete state on validated staged prefixes (stop 1).
+- **The dead code.** The dead producers and the six unread imports are gone, and `graph_application.ts:582` is dropped. 20 of 20 refused inputs raise the same error class at the callee's first prefix access.
+- **The digest.** It is unchanged:
+  - at every derivation the lanes make: 2,320 guard and complete pairs, 172 at `:5354`, 2 at `:7270`;
+  - at every cut of the probe fixture, across the two builds: 60 of 60.
+- **The reach gap.** Four changed sites have no lane reach in either arm: `witness_admission_operation.ts:978`, `worksite_command_forward.ts:101` and `:142`, the changed branch of `:5354`, and `retry.ts:6233`.
+
+**Item 2 (the admit atoms).**
+- **`admitJson`.** It refuses a Proxy before any read: `non_ijson_value` at the member, with the reason `a Proxy is not I-JSON`. It terminates over a declared domain that excludes one class: a host object whose interceptors forward reads to a Proxy (stop 6).
+- **`admitContract`.** It returns every refusal typed: a Proxy raw is refused at the root, and a schema throw is `contract_mismatch` naming the thrown class.
+- **The callers.**
+  - `definition_binding_mechanics.ts:158` composes `admitJson` with `safeParse` through the new `admitJsonContract`.
+  - `static_definition_bindings.ts:48` and `:67` keep the identity form, because their raws are identity-bearing (stop 3).
+- **Lanes outside the grant.** Two pin the base `admitJson` behaviour on a Proxy and move: `t287-runtime-failure-diagnostic` (stop 4) and `t287-native-work-currentness-consumers` (stop 5).
+
+**Gates.** All green: `tsc`, the four lints, the build and `t287-calculus-fold`. No persisted digest moves, and no other lane moves.
+
+### The guard-caller census (item 1(b))
+
+`git grep -n 'projectRuntimeReplayGuard(' -- code/src`: 22 lines at base (the definition and 21 calls), 23 after. After adds the guard at `c_call.ts:7270` and `retry.ts:6236`, and drops `worksite_command_forward.ts:101`. By the members each caller reads:
+
+| Caller (base line) | Reads | Takes |
+|---|---|---|
+| `c_call.ts:3270`, `:6110` | `replayDigest`, persisted as `replayStateDigest` | guard (unchanged) |
+| `c_call.ts:6166` | the whole guard as the pending plan's `replayState`, written through `writeRuntimeReplayGuardValue` into `pendingInteractionBodyDigest` | guard |
+| `c_call.ts:7030`, `c_call_outcome.ts:1518`, `traversal_route.ts:4410` | `replayDigest`, compared | guard |
+| `fan_out.ts:220` | `replayDigest` (compared) and `activeFluents` | guard |
+| `invocation_admission.ts:442` | `runId`, `runtimeStatus`, `runClosedEventRef`, `runStoppedEventRef`, `runtimeFailureEventRef`, and `replayRef`/`replayDigest` persisted as `sourceReplayRef`/`sourceReplayDigest` | guard |
+| `invocation_admission.ts:1380` | `runId`, `runStoppedEventRef`, `runStoppedDisposition`, `runtimeStatus`; no witness | guard; a status-only reader outside the grant (finding) |
+| `closure.ts:699`, `deferred_application.ts:143` | the whole guard in an admission or result (materialized at the Public boundary) | guard |
+| `continuation.ts:1787`, `traversal_route.ts:5757` | passed to the caller's `selectRouteCandidate` | guard |
+| `replay.ts:229`, `:235` (`projectOwnedRuntimeTruthAtDurablePrefix`, `projectOwnedActiveRuntimeTransaction`) | the receipt's `replayState`; readers: `c_call_outcome.ts` 990, 1467, 1479, 1557, 1620, 1810 (the whole guard), `hog/ccall_lifecycle.ts:599`, `hog/operator_support.ts:147` `ownedReplayAtDurable` (route proposals, digest persisted), `hog/workflow_lifecycle.ts:994`; `hog/interaction_resume.ts:232` and `hog/retry_lifecycle.ts:265`, `:548` read the prefixes only, so the guard is computed and dropped (finding) | guard |
+| `retry.ts:5683`, `:6525` | the owned plans' `replayState` | guard |
+| `traversal_route.ts:5285`, `:5357` (owned branch), `:5452` (owned branch) | completion, `admitRoute` digest, staged admission | guard |
+| `worksite_command_forward.ts:101` | `runtimeStatus` only | **status projection** (`projectRuntimeReplayStatus`) |
+
+### The projections, as realized (item 1(a), (b))
+
+Everything below is in `replay.ts` only. Both projections are `@internal`, are in no barrel and are never persisted.
+
+- **`deriveReplayPrefixFacts(..., narrow?: "status" | "route_refs_and_c_calls")`.** A seventh parameter, called with `guardOnly = true`. Three flags replace the repeated `!guardOnly && routeOnly === undefined` test:
+  - `complete`: push every vector.
+  - `pushRows = complete || narrow === "route_refs_and_c_calls"`: push the CCall rows and every route.
+  - `keepFacts = guardOnly && narrow === undefined`: keep the loop's projections for the witness.
+- **Narrow modes skip the guard cache.** A narrow mode never returns `facts.lastGuard`; the same-cut return there requires `narrow === undefined`. Every other early return already requires `!guardOnly` or `routeOnly`. A narrow mode runs every validation loop and `projectNativeLivenessRead`. It then returns, before the witness, the body without its eight vector members.
+- **The narrow return.**
+  - `"status"` returns only those members.
+  - `"route_refs_and_c_calls"` adds `routeRefs: routes.map(route => route.routeRef)` and `cCalls`.
+  - Both are deep-frozen. Neither is stored in `facts.lastGuard` or `facts.last`, nor registered in `REPLAY_GUARD_PREFIXES`, so neither can be written or materialized as a guard.
+- **`projectRuntimeReplayStatus(prefix, authority = prefix): RuntimeReplayStatus`.** `RuntimeReplayStatus = Omit<RuntimeReplayGuard, "replayRef" | "replayDigest">`. Reader: `worksite_command_forward.ts:101`.
+- **`projectRuntimeReplayRouteRefsAndCCalls(prefix, authority = prefix): RuntimeReplayRouteRefsAndCCalls`.** The type is the status members plus `routeRefs: readonly string[]` and `cCalls: readonly ReplayCCallState[]`, in the full state's order. Readers:
+  - `witness_admission_operation.ts:977-1000`. The halt body is `{ runId, runtimeStatus, routeRefs: replay.routeRefs, resultRefs: replay.cCalls.flatMap(...) }`, the same object as before.
+  - `worksite_command_forward.ts:142`.
+- **The guard's generators read the loop's facts (C-11 finding 4).**
+  - The CCall loop keeps `projectReplayCCallGuardAtPrefix`'s result (`cCallFacts`). The route, fan-out and delta loops keep `[envelope, projected]` (`routeFacts`, `fanOutFacts`, `deltaFacts`).
+  - Each generator yields `projected ?? <the projection the old generator ran>`. A validated cut retains every fact, so the generators project nothing again. An owned cut does not retain a fact the loop found current (`fact` returns `undefined` when `needValue` is false), so the generator projects that fact once, as before.
+  - The new module helper `replayCCallRow` builds a ReplayState CCall row from the guard projection. Both the complete state's loop and the witness generator now call it.
+
+### Item 1(c), (d), (e) as realized
+
+- **`traversal_route.ts:5354`.** `const predecessorReplay = projectRuntimeReplayGuard(runPrefix, authorityPrefix);` on both branches. Its reader `admitRoute` reads `replayDigest` only. The imports are unchanged.
+- **`traversal_route.ts:5448`.** Unchanged (stop 1).
+- **`c_call.ts:7269-7271`.**
+  ```ts
+  const rejectionAuthority = selectValidatedRuntimeEventPrefix(store.readAll());
+  const rejectionReplay = projectRuntimeReplayGuard(
+    selectRuntimeEventPrefixFromAuthority(rejectionAuthority, { runId: cCall.runId }), rejectionAuthority);
+  ```
+  This is `replay(store, { runId })`'s own pair (`replay.ts:584-591` at the base: the Run's selection from the whole validated store, with the whole store as authority), so other Runs' withdrawal of `worksite_observation_current` is read as before. `replay` and `replayValidatedRuntimeEventPrefix` leave the import. `replay` stays exported from `abg/index.ts`.
+- **`retry.ts:6233`.**
+  ```ts
+  replayState: prefix.kind === "validated_runtime_event_prefix" && runPrefix.kind === "validated_runtime_event_prefix"
+    ? replayValidatedRuntimeEventPrefix(runPrefix, prefix) : projectRuntimeReplayGuard(runPrefix, prefix),
+  ```
+  - `planOwnedCompletedRetryProgress` passes an owned body scan, so its `prefix` and `runPrefix` are owned (`event_prefix.ts:466-469`), and it takes the guard.
+  - `planCompletedRetryProgress` (Public) passes a validated snapshot and keeps the complete state (stop 2).
+- **The dead producers.**
+  - Removed from `replay.ts`: `projectActiveRuntimeTransaction` (with its import of `readActiveRuntimeTransactionAtDurablePrefix`) and `projectRunReplayContext` (with `deriveRuntimeEventCalculusProjection`).
+  - Removed from `hog/operator_support.ts`: `replayAtDurable` (with `projectRuntimeTruthAtDurablePrefix` and `type ReplayState`).
+  - `ActiveRuntimeTransactionProjection` stays, because `projectRuntimeTruthAtDurablePrefix` returns it.
+  - No barrel named any of the three (`abg/index.ts:340-358`).
+  - The mock key `projectActiveRuntimeTransaction` is gone from `t287-result-evidence-lineage-projection.test.mjs:139`.
+- **The six imports.** `replayValidatedRuntimeEventPrefix` leaves `c_call.ts:92`, `closure.ts:51` and `fan_out.ts:38`. It also leaves `c_call_outcome.ts:108-110`, with `projectActiveRuntimeTransaction` and `projectRuntimeTruthAtDurablePrefix`. `continuation.ts:27` keeps `type ReplayState`. `invocation_admission.ts:109` drops the whole line.
+- **(e) `graph_application.ts:582`.** The line is dropped. On every refused input, the callee's first prefix access (`projectValidatedReplayRouteByJudgmentAtPrefix`, through `isLocatedPrefix` to `runtimeEventsFromValidatedPrefix`) raises what the dropped `runtimeEventBodiesAtPrefix(prefix)` raised. The probe (`c15/probe/e582.mjs`) found the same error for 20 of 20 refused inputs (ten values, each with a good authority and as its own authority): `TypeError: Event Calculus requires a nominal validated immutable event prefix`, from the base function, the dropped access and the callee alike. `runtimeEventBodiesAtPrefix` stays imported for its five other uses.
+
+### The counters, per lane
+
+The `// C15` counters were stripped before the commit.
+- **The before arm.** The base tree with the counters.
+- **The after arm.** The final tree with the same counters.
+- **What is counted.**
+  - `full` is a complete ReplayState derived.
+  - `guard`, `status` and `vectors` are the guard, the status projection and the route-and-CCall projection.
+  - The last two columns count the witness writer calls.
+- **Each call is keyed by the stack.** The key is the entry and the first frame outside `replay.js`.
+- **Omitted lanes.** The 31 lanes with every count zero in both arms are left out.
+
+| Lane | full b/a | guard b/a | status b/a | vectors b/a | digestReplayBody b/a | writeReplayBody b/a |
+|---|---|---|---|---|---|---|
+| `t287-route-reconstruction` | 45/144 | 18/116 | 0/98 | 0/98 | 717/823 | 4742/4848 |
+| `t287-recursive-registered-selection` | 1/1 | 61/61 | - | - | 25/25 | 25/25 |
+| `t287-c0-post-publication-failure` | 124/124 | 236/236 | - | - | 210/210 | 210/210 |
+| `t287-undispatched-diagnostic` | 4/2 | 2/4 | - | - | 6/6 | 6/6 |
+| `r10-projection-contracts` | 15/15 | - | - | - | 12/12 | 12/12 |
+| `t287-cross-cut-public-read` | 34/34 | 16/16 | - | - | 50/50 | 50/50 |
+| `t287-r4-aba-retry` | 2/2 | 92/92 | - | - | 53/53 | 58/58 |
+| `t287-f09-frontier-handoff` | 12/12 | 78/78 | - | - | 50/50 | 55/55 |
+| `m5-event-calculus-runtime` | 1/1 | - | - | - | 1/1 | 1/1 |
+| `t287-calculus-state-transfer` | 7/7 | 388/388 | - | - | 136/136 | 136/136 |
+| `t287-worksite-command-execution` | 15/15 | 597/597 | - | - | 258/258 | 258/258 |
+| `t287-calculus-state-transfer.compose` | 1/1 | 42/42 | - | - | 16/16 | 16/16 |
+| **total** | 261/358 | 1530/1630 | 0/98 | 0/98 | 1534/1640 | 5569/5675 |
+
+- **`t287-route-reconstruction`.** The whole increase is the added C-15 case: 98 derivations each of status, vectors, guard and full, and 105 digests, plus one full derivation by its fixture (`terminalOwner`, `:88`). The existing cases' counts are equal key by key; the only key differences are built-line shifts of the same call sites (`c_call.js:4661` to `:4665`, `retry.js:3939` to `:3948`).
+- **`t287-undispatched-diagnostic`.** `c_call.ts:7270`'s rejection replay goes from 2 full derivations to 2 guards. Its digest calls are equal (6/6), because the complete state also computed the witness.
+- **Every other lane** is equal in every category.
+- **The expected fall in `digestReplayBody`** ("by the status-only readers' derivations and by nothing else") does not occur: the status reader (`worksite_command_forward.ts:101`) has no reach. `digestReplayBody` is equal in every lane except the added case.
+
+**Site notes, summed over the batch (before / after).**
+
+| Site | Before | After |
+|---|---|---|
+| `traversal_route.ts:5354`, owned staged prefix (no prior derivation offered) | 172 | 172 |
+| `traversal_route.ts:5354`, validated staged prefix | 0 | 0 |
+| `traversal_route.ts:5448`, owned staged prefix | 170 | 170 |
+| `c_call.ts:7270` rejection replay | 2 (full) | 2 (guard) |
+| `retry.ts:6233` empty-exit plan | 0 | 0 |
+| `witness_admission_operation.ts:978` | 0 | 0 |
+| `definition_binding_mechanics.ts:158` | 234 | 234 |
+| `static_definition_bindings.ts:48` / `:67` | 37 / 31 | 37 / 31 |
+
+**Complete states by site after.** None remains at `c_call.ts:7270` (2 to 0). The other complete states are at sites outside C-15, all equal before and after:
+- `completePublicOutcome` (62);
+- `project_read_ports.js` `runContext` (54, plus 1 from the module);
+- the retained-projections falsifier (64) and the fresh-process proof (32);
+- the f09 worker's `inspectHandoff`, `rejectAttempt` and `produceAba` (5);
+- `planRetryRuntimeFailureTransition` (4);
+- `admitRuntimeFailure`, `projectDeferredApplicationAtPrefix` and the test files' own calls.
+
+### The differential
+
+**The method (C-11's).** Under `C15_DIFF=1` the after build derives each cut four ways at the entry of every guard, status, vector and complete derivation the lanes make: complete, guard, status and route-and-CCall. It then checks:
+- the guard's digest equals the complete state's;
+- the guard's other members equal the complete state's;
+- the status projection equals the guard without its witness, and has no `replayDigest`;
+- the route-and-CCall projection has route refs equal to `routes.map(r => r.routeRef)`, CCall rows equal to `cCalls`, and its other members equal to the guard's;
+- on a refusal, all four refuse with the same class and message.
+
+**The streaming witness.** Each one (`writeRuntimeReplayGuardValue`) is also written through a transcription of the base generators, and the bytes are compared.
+
+**Site notes.** These compare the base expression with the new one: the digest at `traversal_route.ts:5354` and `c_call.ts:7270`, the plan digest at `retry.ts:6233`, and the halt body digest at `witness_admission_operation.ts:978`.
+
+| Lane | Pairs: digest, members, status and vectors all equal | Refusals alike | Streamed witnesses byte-equal | Site notes |
+|---|---|---|---|---|
+| `t287-route-reconstruction` | 421 | 32 | 3,672 | - |
+| `t287-recursive-registered-selection` | 67 | 0 | 0 | `:5354` digest equal 5 |
+| `t287-c0-post-publication-failure` | 385 | 0 | 0 | `:5354` digest equal 25 |
+| `t287-undispatched-diagnostic` | 8 | 0 | 0 | `:7270` digest equal 2 |
+| `r10-projection-contracts` | 12 | 3 | 0 | - |
+| `t287-cross-cut-public-read` | 50 | 0 | 0 | - |
+| `t287-r4-aba-retry` | 104 | 0 | 5 | `:5354` digest equal 10 |
+| `t287-f09-frontier-handoff` | 101 | 0 | 5 | `:5354` digest equal 11 |
+| `m5-event-calculus-runtime` | 1 | 0 | 0 | - |
+| `t287-calculus-state-transfer` | 445 | 0 | 0 | `:5354` digest equal 50 |
+| `t287-worksite-command-execution` | 678 | 0 | 0 | `:5354` digest equal 66 |
+| compose | 48 | 0 | 0 | `:5354` digest equal 5 |
+| **total** | **2,320** | **35** | **3,682** | `:5354` 172, `:7270` 2; `:6233` and `:978` never reached |
+
+There are 0 mismatches in any category.
+
+- **What the generator check covers.** The differential's own guard derivation fills the same-cut guard cache, so the lane's real guard derivation returns the cached guard, and the non-streaming generator check never runs. The generator change is still covered twice:
+  - each of the 2,320 guard digests is computed through the new generators and equals the complete state's digest, which is computed over the pushed vectors;
+  - the 3,682 streamed witnesses are byte-equal to the base generators' bytes.
+- **The `:5354` notes are all owned prefixes,** which take the guard in both arms, so they show only that the site is reached. The changed branch is covered by the writer probe below.
+- **The differential run's lane outcomes** equal the counter run's in every lane but one. `t287-route-reconstruction` goes 12/9/1/2 because TD-15 at `:793` counts `writeReplayBody` calls and sees the differential's own. The counter run and the clean lanes pass it (12/10/0/2), so `:793` (the guard digest equals the full digest) holds.
+
+**The added case** (`t287-route-reconstruction`, `C-15: the status and route-and-CCall projections equal the complete replay at every cut`):
+- **Cuts and forms.** At every cut of the terminal fixture (`terminalOwner(t, 2)`), in three forms (a cold validated copy, the validated cut and the owned cut).
+- **Equalities.** Both projections equal the complete state and the guard. Neither carries `replayRef` or `replayDigest`, and both are frozen.
+- **A second read** after the cut is cached returns equal values.
+- **Malformed histories.** The four from the `:176` case refuse alike in all four derivations (status, route-and-CCall, complete, guard).
+
+**The writer probe** (`c15/probe/writer/`, a scratch copy of the lane with one added case, run on both builds).
+- **The cuts.** Every cut of the same fixture, in four forms: the three above plus retry's owned form. The retry form is literally `retry.ts:6233`'s owned branch: `selectValidatedRuntimeEventPrefix(runtimeEventBodiesAtPrefix(cut), { runId })`, with the planner's own `selectValidatedRuntimeEventPrefix(view)` as authority.
+- **The comparison.** For each pair, the probe derives the complete state and the guard. It writes the guard through `writeRuntimeReplayGuardValue`, the writer the plan digests use (`retry.ts:6586`, `c_call.ts:7346`), and compares the bytes with the complete state's canonical bytes.
+- **The result.**
+  - 60 of 60 pairs are equal at the base and after. 4 cuts are refused by the complete derivation and skipped.
+  - The list of (form, ordinal, complete digest, guard digest, written-bytes digest) hashes to `sha256:b2dbe3fd06b8b9ed8fa7a5d8aaec5dc1b0780eaf1354444d3a101ebe163d3210` in both builds.
+- **What it shows.** An owned empty-exit retry plan writes the plan digest the complete state wrote, and a validated `:5354` predecessor's guard carries the complete state's digest. Every replay digest of the fixture is unchanged across the two builds.
+
+### Lanes, each alone, before (`4a8b73d64`) and after (the final tree)
+
+**The batch.** 42 lanes and compose, covering:
+- C-11's eighteen;
+- the three support-reached lanes;
+- `t287-recursive-registered-selection`, `t287-route-reconstruction` and `t287-c0-post-publication-failure`;
+- the lanes `git grep -l` finds:
+  - `recursion_lifecycle`: `t287-recursive-registered-selection`, `t287-route-reconstruction`, `t287-runtime-failure-diagnostic`;
+  - `operator_support`: `hog-operator-support`, `t287-native-event-time`, `t287-runtime-failure-diagnostic`;
+  - none for `structural_transition` or `interaction_lifecycle`;
+- the binder and admit lanes;
+- C-13's C2 lanes.
+
+**The before arm.** It is the base build. The first base batch's library lane was contaminated: I edited a test file while it ran, so the lane failed to import `admitContract`. A clean base rebuild was hash-equal to the first, 785 files. On it the 14 source-reading or edited-test lanes were rerun. Only the library lane moved (1/0/1/0 to 10/10/0/0), and the table uses the rerun.
+
+**The after arm.** The after build is byte-equal to the final tree's rebuild.
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds, skips and first errors equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 | 1.9 / 1.8 | yes | - |
+| `t287-route-reconstruction` | 11/9/0/2 | 12/10/0/2 | 8.7 / 8.8 | yes (+1: the C-15 case) | 2 skipped |
+| `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/16/1/0 | 2.6 / 2.7 | NO (stop 4) | red `:701` AssertionError: F_D output: proxy |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 | 0.6 / 0.6 | yes | - |
+| `forward-command-owners` | 6/2/4/0 | 6/2/4/0 | 0.3 / 0.3 | yes | red `:7` AssertionError: The expression evaluated to a falsy value:; red `:22` AssertionError: The expression evaluated to a falsy value:; red `:37` AssertionError: The expression evaluated to a falsy value:; red `:45` AssertionError: The expression evaluated to a falsy value: |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | 0.9 / 0.8 | yes | red `:224` AssertionError: native failure reuses the original derivation |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | 2.2 / 2.2 | yes | - |
+| `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 0.5 / 0.4 | yes | 15 reds at `:27`, `:36`, `:67`, `:77`, `:94`, `:102`, `:112`, `:118`, `:124`, `:129`, `:147`, `:162`, `:169`, `:205`, `:226`, each `AssertionError: The expression evaluated to a falsy value` (setup) |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 0.5 / 0.4 | yes | 7 reds at `:31`, `:65`, `:77`, `:89`, `:96`, `:102`, `:117`, each `AssertionError: The expression evaluated to a falsy value` (setup) |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | 0.3 / 0.4 | yes | - |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.4 / 0.4 | yes | - |
+| `d2-binding-transition` | 10/0/0/10 | 10/0/0/10 | 0.0 / 0.0 | yes | 10 skipped |
+| `t287-native-semantic-revision` | 7/4/1/2 | 7/4/1/2 | 0.6 / 0.6 | yes | red `:118` AssertionError: Expected values to be strictly equal:; 2 skipped |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 36.0 / 35.5 | yes | red `:129` AssertionError: Expected values to be strictly equal:; 1 skipped |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 | 1216.7 / 1201.2 | yes | - |
+| `t287-native-frame-route-conservation` | 3/0/3/0 | 3/0/3/0 | 0.5 / 0.5 | yes | red `:5` AssertionError: The expression evaluated to a falsy value:; red `:10` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:14` AssertionError: The expression evaluated to a falsy value: |
+| `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 0.3 / 0.3 | yes | red `:30` AssertionError: explicit absolute proof territory required; red `:66` AssertionError: explicit absolute proof territory required; red `:86` AssertionError: explicit proof territory required; red `:108` AssertionError: exact rejected paired producer required; 2 skipped |
+| `hog-operator-support` | 3/3/0/0 | 3/3/0/0 | 0.3 / 0.3 | yes | - |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 0.3 / 0.3 | yes | red `:21` AssertionError: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError: missing source boundary: export function openInteractionCC; red `:281` AssertionError: Expected values to be strictly deep-equal:; red `:323` AssertionError: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError: missing source boundary: /** |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 68.9 / 69.3 | yes | red `:53` TypeError [Error]: abg.openCall is not a function; red `:721` TypeError [Error]: abg.openCall is not a function |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `t287-result-evidence-lineage-projection` | 1/0/1/0 | 1/0/1/0 | 0.4 / 0.3 | yes | red `:215` TypeError [Error]: event store was not constructed by this ABG module |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.6 / 1.6 | yes | - |
+| `t287-cross-cut-public-read` | 5/4/1/0 | 5/4/1/0 | 46.5 / 46.2 | yes | red `:105` AssertionError: run_status must retain the acquired prefix through late pr |
+| `t287-public-preparation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `steel-basic-cli-public` | 1/0/1/0 | 1/0/1/0 | 24.1 / 24.1 | yes, except the `invocationRef` in the message (below) | red `:269` AssertionError: product.verify: {"definitionKey":{"memberKey":"verify","op |
+| `t287-common-computational-library` | 10/10/0/0 | 14/14/0/0 | 0.3 / 0.3 | yes (+4: the C-15 cases; the C-3 case changes 6 message lines) | - |
+| `t287-value-equality` | 5/5/0/0 | 5/5/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 | 0.6 / 0.6 | yes | 2 skipped |
+| `t287-native-work-currentness-consumers` | 5/5/0/0 | 5/4/1/0 | 31.0 / 30.5 | NO (stop 5) | red `:1307` AssertionError: Expected values to be strictly deep-equal: |
+| `m5-worker-transport` | 23/23/0/0 | 23/23/0/0 | 8.8 / 8.9 | yes | - |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 | 0.3 / 0.3 | yes | 6 skipped |
+| `m5-event-store-reopen` | 21/21/0/0 | 21/21/0/0 | 57.7 / 57.4 | yes | - |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 45.9 / 46.0 | yes | - |
+| `t287-f09-frontier-handoff` | 1/1/0/0 | 1/1/0/0 | 68.2 / 67.9 | yes | - |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 139.9 / 139.4 | yes | red `:372` TypeError [Error]: abg.openCall is not a function; red `:1316` AssertionError: runtime_failure_observed/runtime_invocation_active; red `:1471` TypeError [Error]: abg.openCall is not a function; red `:1548` TypeError [Error]: abg.openCall is not a function; red `:1590` TypeError [Error]: abg.openCall is not a function; 1 skipped |
+| `t287-calculus-state-transfer` | 8/8/0/0 | 8/8/0/0 | 252.0 / 251.1 | yes | - |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | 318.3 / 316.5 | yes | - |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 35.6 / 36.0 | yes | - |
+
+**The movers.**
+- `t287-runtime-failure-diagnostic` and `t287-native-work-currentness-consumers` move with the Proxy refusal (stops 4 and 5).
+- **`steel-basic-cli-public`.**
+  - **The red.** It is the same failure in both arms: `:269`, `product.verify` refused at `resource_admission` with `resource_relation_mismatch`, `ValiError: Invalid type: Expected Object but received undefined`.
+  - **What differs.** Only the `invocationRef` inside the message differs.
+  - **It is stable per build.** Two runs each give `invocation://abiogenesis/dc90396f…` at the base and `invocation://abiogenesis/f47410e0…` after.
+  - **Why it moves.** The verify request carries the packed artifact (`:364`, `verifyRequest.artifact`), whose digest moves with any source change. No replay or plan digest is involved.
+
+**Five more lanes construct a Proxy or mock a removed name.** They are outside the batch, and none moves:
+
+| Lane | Before t/p/f/s | After t/p/f/s | Reds and first errors equal |
+|---|---|---|---|
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | yes |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | yes |
+| `t287-governance-covered-source-use` (mocks `invocation_admission`'s `replayValidatedRuntimeEventPrefix`) | 8/2/3/3 | 8/2/3/3 | yes |
+| `t287-st1-installed-cross-owner-hello` (a Proxy route candidate) | 2/0/2/0 | 2/0/2/0 | yes |
+| `steel-basic-cli-public`, second run | 1/0/1/0 | 1/0/1/0 | yes, modulo the `invocationRef` above |
+
+### Measurement
+
+The method is C-12's: `--cpu-prof` at the default interval, with inclusive ms per function summed over every profile of a run, three runs per arm.
+
+| Scenario | Arm | Total sampled (ms) | `deriveReplayPrefixFacts` (mean) | `digestReplayBody` (mean) | `projectNativeLivenessRead` (mean) |
+|---|---|---|---|---|---|
+| compose | before | 43,702 / 43,414 / 43,481 | 61.4 / 59.7 / 61.3 (60.8) | 1.5 / 3.0 / 7.3 (3.9) | 1.5 / 6.0 / 4.5 (4.0) |
+| compose | after | 43,587 / 43,731 / 44,334 | 63.0 / 61.4 / 61.6 (62.0) | 6.1 / 3.0 / 6.2 (5.1) | 1.5 / 6.7 / 0.0 (2.7) |
+| `steel-basic-cli-c2` | before | 296 / 293 / 294 | 0 | 0 | 0 |
+| `steel-basic-cli-c2` | after | 296 / 294 / 305 | 0 | 0 | 0 |
+
+- **The deltas are unresolved.** They sit at the sampler's 1.5 ms quantum and inside the run-to-run spread, so they show no change in either direction. Compose reaches none of the changed sites, and its guard and digest counts are equal (42/42, 16/16).
+- **`steel-basic-cli-c2` is skipped** (no `ABI5_C2_CARRIER_FIXTURE_PATH`).
+- `writeReplayBody` equals `digestReplayBody` in every run.
+
+### The `admitContract` domain census (item 2(ii))
+
+Each caller's raw was counted at the call in both arms, with `// C15` notes recording a Proxy check, `admitJson` and the composition over a copy.
+
+| Caller | Raw | Calls before / after | Proxy | `admitJson` | The composition | Taken |
+|---|---|---|---|---|---|---|
+| `definition_binding_mechanics.ts:158` (`exactContractCoordinate`) | a contract coordinate member of the admitted invocation, whose body the digest check at `:377-383` already canonicalized | 234 / 234 | 0 | ok in all | after: `safeParse` over the raw and `admitJsonContract` agree in outcome and value in 234 of 234 | `admitJsonContract` (deviation 1) |
+| `static_definition_bindings.ts:48` | `call.resources`, the resource assertion with its acquired selections | 37 / 37 | 0 | ok in all | `safeParse` over the detached copy refuses 9 of 37 | `admitContract`, identity form (stop 3) |
+| `static_definition_bindings.ts:67` | `result.resources`, the owner's resource receipt | 31 / 31 | 0 | ok in all | refuses 7 of 31 | `admitContract`, identity form (stop 3) |
+
+- **Why the copy is refused.** The `:48` and `:67` raws are I-JSON by value. Their schemas' `v.custom` checks find an acquired selection by reference in a WeakMap registry, so a detached copy is another object (`c15/probe/identity-probe.mjs`).
+- **No new refusal code.** Every refusal is `contract_mismatch`:
+  - at the first issue's path;
+  - for a Proxy raw, at the root, with the issue `non_ijson_value` and the message `a Proxy is not I-JSON`;
+  - for an `admitJson` refusal, at its member's path with its code as the issue;
+  - for a schema throw, at the root, with the thrown class as the issue and no member of the thrown value read.
+
+### The `admitJson` termination argument (item 2(i))
+
+**From code (`shared/admit/json.ts`).**
+
+`admitAt` returns at once for a primitive, and refuses a function or symbol by `typeof` without a read. For an object it first refuses a Proxy (`types.isProxy(input)`). It does this before `open.has`, the nesting bound and `Array.isArray`. `types.isProxy` is an engine type check: it runs no trap and is true for a revoked proxy. The order of checks matters, because `Array.isArray` sees through a live Proxy without a trap and throws on a revoked one. On an object that is not a Proxy it neither reads nor throws, so its `try` is gone.
+
+`admitArray` and `admitRecord` then make these inspection reads:
+- `Object.getPrototypeOf` of the container;
+- the D12 realm check on that prototype. This reads the prototype's own `constructor` descriptor, then that constructor's own `name` and `prototype` descriptors. A prototype or constructor that is a Proxy is now refused before any of these reads (`isRealmObjectPrototype`, `isRealmArrayPrototype`, `isRealmPrototype`);
+- one `Reflect.ownKeys`, which is a finite list;
+- one `Object.getOwnPropertyDescriptor` per key, as the loop walks.
+
+An accessor member is refused by its descriptor, so no getter runs. A member value is recursed into only when it is a data member. `open` holds the containers on the current path, so a cycle is refused. `NESTING_BOUND` 512 bounds the path. The walk is therefore a finite traversal of the root-to-leaf paths, each at most 512 containers long, with a finite branching at each container.
+
+**Where a read can still throw or run code: two non-Proxy objects, both shown in the new lane cases.**
+
+1. **A module namespace with an uninitialized binding.** Its `[[GetOwnProperty]]` throws ReferenceError from the engine. That throw is refused as `inspecting the value threw ReferenceError` (`trapped`). The read runs no user code and terminates. This is why `trapped`, `NATIVE_ERRORS` and `thrownClass` stay, against the activation's expectation that they become unreachable. `thrownClass` is also now exported for `contract.ts`.
+2. **A host object with named-property interceptors.** A vm-contextified global over a Proxy sandbox, whose prototype was reset to `null` or `Object.prototype`, is not a Proxy to `types.isProxy`. `vm.isContext` is false for the global, so nothing detects it. Its `Reflect.ownKeys` and `getOwnPropertyDescriptor` reach the sandbox's traps:
+   - the probe counted the traps that run;
+   - a throwing trap is refused, naming its class (lane case);
+   - a looping trap does not return.
+
+   The default contextified global is refused before any keyed read, because its prototype is no realm's `Object.prototype`.
+
+So `admitJson` terminates with one typed outcome on every input outside one declared class: a host object whose interceptors forward reads to a Proxy. That class is a gap in the claim "no trap and no getter runs on any input".
+
+**Bound on work.** The walk is finite, but it admits a shared container once per path. For a DAG, the number of steps is the number of root-to-leaf paths, which is exponential in depth. This predates C-15. Probe (`c15/probe/dag.mjs`, value `x = [x, x]` repeated):
+
+| Containers | Leaves | Time |
+|---|---|---|
+| 16 | 65,536 | 43 ms |
+| 18 | 262,144 | 156 ms |
+| 20 | 1,048,576 | 607 ms |
+
+Forty containers would not finish, or would exhaust memory before an outcome.
+
+### The regenerated files
+
+**The manifest.**
+- It has 51,321 leaves at `4a8b73d64` and after: 0 added, 0 removed, 232 moved.
+- Every move is a digest, or a ref that differs only in its embedded hex (52 refs: 47 `provenanceRef`, plus `contributionManifestRef`, `descriptorRef` and the like).
+
+**The public contract rows.**
+- All 75 are present, with equal inventory paths.
+- 47 of them differ only in the `declarationDigest` of three declaration files, and 21 of those 47 differ in `contractDigest`. No other member of any row moves.
+- The three files' changes against the base build:
+  - `abg/replay.d.ts` loses the declarations of `projectActiveRuntimeTransaction` and `projectRunReplayContext`, and the import of `RuntimeEventCalculusProjection`;
+  - `hog/operator_support.d.ts` loses `replayAtDurable` and its `ReplayState` import;
+  - `shared/admit/json.d.ts` carries the new `admitJson` doc comment.
+
+**What no declaration file contains.**
+- No barrel named a removed producer.
+- No declaration file names `RuntimeReplayGuard`, `RuntimeReplayStatus`, `RuntimeReplayRouteRefsAndCCalls`, the two projections or `thrownClass`, because `@internal` is stripped.
+- `admitJsonContract` appears only in `shared/admit/contract.d.ts` and `shared/admit/index.d.ts`, which no package export inventories, like `admitContract`.
+
+**The graph.**
+- It has 3,263 leaves: 0 added, 0 removed, 551 moved, all digests or the 34 `capabilityDefinitionRef` refs that embed one.
+- `graphDigest` goes from `73b021ef…` to `dfc99329…`.
+
+**Two rebuilds of the final tree** write byte-equal files: `product-toolchain-manifest.json` `af604d56…`, `capability-definition-graph.json` `8baf9bf3…`.
+
+### Lint and gates (final tree)
+
+| Gate | Result |
+|---|---|
+| `tsc -p tsconfig.json --noEmit` | rc 0 |
+| `lint:calculus` | rc 0: `6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender` |
+| `lint:imports` | rc 0: `28 modules under code/src/shared/ import only code/src/shared/ and packages` |
+| `lint:lifecycle` | rc 0: `286 modules under code/src; 7 allow-listed site(s), no offender` |
+| `lint:evidence` | rc 0: `691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other` |
+| `npm run build` | rc 0; `build/` byte-equal (785 files) to the build the after lanes ran on |
+| `t287-calculus-fold` | 18/18 |
+
+`npm run lint` (`scripts/lint-verification.mjs`) needs a recipe path argument and exits without one. It is not one of C-13's gates and was not run with a recipe.
+
+**The strip.**
+- **The count.** The `C15` count is 0 in `code/src`, in `build/` and in the three test files.
+- **The final tree.** `code/src` is byte-equal to the clean after copy (`c15/src-after/src`), and so are the three tests.
+- **The round trip.** Strip after instrument is byte-equal to the clean copy in both arms: after with the differential, 31 lines; base, 18 lines.
+- **The base copy.** `c15/src-base/src` is byte-equal to `HEAD` for every file.
+- **The unedited binder.** `static_definition_bindings.ts` equals `HEAD`.
+
+**Main during the run.** `main` stayed at `4a8b73d64`, and no commit landed.
+
+### Item 3: design-sentence proposals (the Executive places them; no design file was edited)
+
+Line numbers are the activation's, with the current line in brackets where the file has moved.
+
+**Register, TD-10 closure line.**
+> TD-10 closed at C-15. The two vector readers (`witness_admission_operation.ts:977-1000`, `worksite_command_forward.ts:142-158`) read `projectRuntimeReplayRouteRefsAndCCalls`. The status reader (`worksite_command_forward.ts:101`) reads `projectRuntimeReplayStatus`. Both are internal replay-owner projections that compute no witness. The guard's witness streams the facts its derivation's loops projected. Three of the four digest-only full states take the guard (`traversal_route.ts:5354`, `c_call.ts:7270`, `retry.ts:6233` on an owned cut). The fourth, the staged admission's validated branch (`traversal_route.ts:5448`), keeps the complete state its declared type `StagedRouteTransitionAdmission.replayState: ReplayState` (`:5196`) requires; nothing reads it. The dead producers `projectActiveRuntimeTransaction`, `projectRunReplayContext` and `hog/operator_support.ts` `replayAtDurable` are removed, with the six unread imports.
+
+**Library design `:195` [`:197`], second sentence.**
+> The body's digest is the replay state witness. The replay owner computes it for every guard it derives (`projectRuntimeReplayGuard`) and for every complete ReplayState, streaming each historical row from the facts the derivation projected. It is stored as `replayStateDigest` in route and judgment payloads and as `sourceReplayDigest` in the invocation source-result basis. A reader that compares and persists no witness reads one of the owner's two digest-free projections: `projectRuntimeReplayStatus`, the guard's members without `replayRef` and `replayDigest`, or `projectRuntimeReplayRouteRefsAndCCalls`, which adds the Run's route refs and CCall rows in the replay's order. Each runs the guard's whole derivation and validation, and neither computes a witness.
+
+**`T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md:644-646`.**
+> The existing replay owner computes the unchanged full logical replay digest for every guard it derives, whether or not the guard's reader compares or persists it. A reader that needs only the Run's status reads the owner's digest-free status projection. A reader that needs the status with the Run's route refs and CCall rows reads its digest-free route-and-CCall projection. Neither builds a complete ReplayState or computes the witness.
+
+**`:118-119` stands.** After C-15 no ordinary reader builds a full replay to get status, route, currentness or source facts. The one remaining full state outside a Public output is the staged admission's validated branch (`traversal_route.ts:5448`). It obtains no fact, because nothing reads it, so the sentence stands, and that branch is the open stop below.
+
+**Library design `:126` [`:128`] `admitJson` row, Codes cell.**
+> the seven `IJsonAdmissionFailureCode` values: duplicate key, invalid framing, invalid Unicode scalar, malformed JSON, non-finite number, non-I-JSON value, unsafe integral number. It is total over its declared domain, and each of the following is `non_ijson_value` at the member: a Proxy (refused before any read), a cycle, nesting past 512 containers, and a throw from an inspection read of an exotic object that is not a Proxy (a module namespace's uninitialized binding). Its domain excludes a host object whose interceptors forward reads to a Proxy (a vm context's global over a Proxy sandbox), which `types.isProxy` does not see.
+
+**Library design `:127` [`:129`] `admitContract` row.** Signature unchanged. Replaces: unchanged. Codes:
+> `contract_mismatch` with `path`, and nothing else. A Proxy raw is refused at the root before the schema reads it (`issue` `non_ijson_value`). A throw from the schema is `issue` = the thrown class, with no member of the thrown value read. The identity form reads the caller's value: a getter or trap below the root runs when the schema reads it. Add the row `admitJsonContract`, with the same signature, replacing `admitContract` at `definition_binding_mechanics.ts:158`. Codes: `contract_mismatch` with `path`. `admitJson` runs first and its refusal code is the issue; the schema runs over the detached frozen copy, so no getter or trap of the raw runs; a schema throw is as above.
+
+**Falsifiers `:282-283` [`:284-285`].**
+- `admitJson` admitted domain: `unknown` except a host object with Proxy-forwarding interceptors. Falsifier: an I-JSON value nested at most 512 containers deep is refused; a non-I-JSON value is admitted; any input throws; or any Proxy trap or getter runs.
+- `admitContract` admitted domain: `unknown` with a strict Valibot schema. Falsifier: `safeParse` succeeds with a refusal, or fails with `ok`; any outcome other than `ok` or `contract_mismatch`; a throw escapes; or a trap of a Proxy raw runs.
+- New `admitJsonContract`. Admitted domain: as `admitJson`. Falsifier: as `admitContract`, and also any getter or trap of the raw runs.
+
+**Binding §5 row 1 (`ABI5_STDO3_COMPUTATIONAL_BINDING.md:174`).**
+- *Profile:* unchanged.
+- *Totality:* `admitRef`, `isRecord` and `hasExactKeys` decide from one primitive or own-key read. `admitJson` refuses a Proxy (`types.isProxy`, which is true for a revoked proxy too) before any inspection read, at every container and at every prototype and constructor the realm check reads. It refuses an accessor member by its descriptor. It bounds the path by `open` (a cycle is refused) and by `NESTING_BOUND` 512. On an object that is not a Proxy, each inspection read is an engine internal method that runs no user code: `Object.getPrototypeOf`, `Reflect.ownKeys` (one finite list), one `Object.getOwnPropertyDescriptor` per key, and `Array.isArray`, which cannot throw on a non-Proxy. A module namespace's uninitialized binding throws ReferenceError from the engine, and that throw is refused. The recursion is therefore a finite walk of the root-to-leaf paths, and it terminates. The walk is exponential in depth for a DAG, because a shared container is admitted at each path. The declared domain excludes a host object with interceptors that forward to a Proxy (a vm-contextified global over a Proxy sandbox), whose reads run the sandbox's traps. `admitContract` refuses a Proxy raw at the root and catches every schema throw. In its identity form the schema reads the caller's value, so a nested getter or trap runs (see the stop on `static_definition_bindings.ts:48` and `:67`). `admitJsonContract` runs no raw code.
+- *Material dependencies:* the input, module constants, Valibot and the owner's schema. In `admitJsonContract`, no trap or accessor code of the input. In `admitContract`'s identity form, the raw's nested accessors and traps (the `:48`/`:67` domain).
+- *Outcomes:* a detached, deeply frozen `JsonValue` or the schema's output, else exactly one typed refusal (`non_ijson_value`, `contract_mismatch`, `blank_ref`). No input throws.
+- *RELEASE §9:* Eligible for `admitJson`, `admitRef`, `isRecord`, `hasExactKeys` and `admitJsonContract` under the declared domain above. `admitContract` stays Pending at `static_definition_bindings.ts:48` and `:67` until its identity-bearing domain is declared. The proposal there is that `admitJson` gates the raw and `safeParse` then reads the original. Evidence: `t287-common-computational-library` (the C-15 cases); code reading of `shared/admit/json.ts` and `contract.ts`.
+
+### Deviations
+
+1. **A binder call-site change, named here as the grant requires.** `public/binding/definition_binding_mechanics.ts:158` now calls `admitJsonContract(publicContractCoordinateSchema, value)`, and its import replaces `admitContract` with `admitJsonContract`. Its raw is the I-JSON candidate the activation's composition is for (the domain census above), so it takes `admitJson` first and `safeParse` over the detached frozen copy. The composition is a new export of `shared/admit/contract.ts` (`admitJsonContract`), re-exported from `shared/admit/index.ts`; like `admitContract`, no package export reaches it. `admitContract` keeps its name and signature for `static_definition_bindings.ts:48` and `:67`, which are not edited.
+2. **`trapped`, `NATIVE_ERRORS` and `thrownClass` stay in `json.ts`.** The activation expected them unreachable after the Proxy check. Two non-Proxy inputs still throw from an inspection read (the termination argument): a module namespace with an uninitialized binding (ReferenceError from the engine) and a vm-contextified global over a Proxy sandbox. The new lane cases reach both. `thrownClass` is also what `contract.ts` uses to name a schema throw, so it is exported `@internal` from `json.ts`.
+3. **The `admitJson` try around `Array.isArray` is gone.** `Array.isArray` throws only on a revoked Proxy, which is now refused first.
+4. **`traversal_route.ts:5354`.** The predecessor replay is now `projectRuntimeReplayGuard(runPrefix, authorityPrefix)`. The base passed the stage input's `priorDerivation` to `replay`; the guard call takes none, so `StageTraversalTransitionInput.priorDerivation` is unread (finding 5). The guard's own same-cut cache (`facts.lastGuard`) serves the repeat.
+5. **No type change at `retry.ts` or `hog/structural_transition.ts`.** `CompletedRetryProgressPlan.replayState` stays `ReplayState`, because retyping a Public field is a stop (stop 2). Only the owned branch at `:6233` takes `projectRuntimeReplayGuard`. `hog/structural_transition.ts:195-196` already carries the guard type, so it needs no edit.
+6. **The C-3 case labels.** The six changed lines change only the expected message to `a Proxy is not I-JSON`. Three labels still name the base behaviour (`Array.isArray of a revoked proxy`, `a subclass is named by its native ancestor`, and the foreign one). They are left, because only the message may change.
+7. **Two import lines outside the named line ranges.** `witness_admission_operation.ts:31` and `worksite_command_forward.ts:27` import the new projections in place of `replayValidatedRuntimeEventPrefix` and `projectRuntimeReplayGuard`. The edits at `:978`, `:101` and `:142` need them. Neither file has any other change.
+
+### Findings outside the grant
+
+1. **A second status-only guard reader.** `invocation_admission.ts:1380` reads `runId`, `runStoppedEventRef`, `runStoppedDisposition` and `runtimeStatus` and no witness. It could take `projectRuntimeReplayStatus`; it is outside the grant.
+2. **Guards computed and dropped.** `hog/interaction_resume.ts:232` and `hog/retry_lifecycle.ts:265`, `:548` call `projectOwnedRuntimeTruthAtDurablePrefix` or `projectOwnedActiveRuntimeTransaction` and read only the prefixes, so the receipt's guard is derived and discarded.
+3. **Unread imports left by the removals.** `closure.ts:50` imports `replay` and never calls it. `c_call_outcome.ts:111` imports `type ActiveRuntimeTransactionProjection` and never names it. Neither line is one of the six the grant names.
+4. **The mock key that remains is unrequested.** `t287-result-evidence-lineage-projection.test.mjs:139` keeps `'./replay.js': {projectRuntimeTruthAtDurablePrefix: truth}`. No module under test imports that name from `./replay.js` any more. The grant allows the dead key only, and this key was not named.
+5. **`StageTraversalTransitionInput.priorDerivation` is unread** after `traversal_route.ts:5354` takes the guard (deviation 4). Its producers still fill it.
+6. **`admitJson` work is exponential in depth for a DAG.** A container shared by two members is admitted at each, so the steps are the root-to-leaf paths (the termination argument's probe: 20 levels, 1,048,576 leaves, 607 ms). This predates C-15.
+7. **The C2 correspondence now decides a Proxy-row view by the path it takes.** `selectValidatedRuntimeEventPrefix` accepts rows that are Proxies (the TD-09 case at `t287-native-work-currentness-consumers:1358` builds such a view), and `runtimeEventPrefixDigest` reads through their traps. `durableCutCorrespondsToValidatedPrefix` (`event_store.ts:1901`, through `DurableHistoryDerivation.corresponds` at `:1796-1820`) returns `true` from its record when a plain view of the same exact prefix digest established it. Its cold path admits the view's bodies with `admitJson` (`:1810`), which after C-15 refuses a Proxy row, so the same view is `false` on a cold compare. At the base both paths gave `true`. No production producer builds a Proxy row (store rows are frozen plain objects). The fix belongs to the prefix owner (`event_prefix.ts`, refusing a Proxy row at selection) or to `event_store.ts`, both outside the grant.
+8. **The base's owned empty-exit retry plan carried an unregistered complete state.** At `retry.ts:6233` the base built `replayValidatedRuntimeEventPrefix(runPrefix, prefix)` for an owned prefix too, and that state is not registered as a guard. After C-15 it is a registered guard. No comparison of owned plans sees an empty one:
+   - `hog/retry_lifecycle.ts:161` returns not-applicable for a plan with no progress, so `workflow_lifecycle.ts:993` and `interaction_resume.ts:168` never read an empty plan's `replayState`;
+   - `hog/structural_transition.ts:195` reads the empty plan's `replayState` for the route proposal, which reads only `replayDigest` (`route_proposal.ts:132`). The admission then refuses the empty plan at `traversal_route.ts:5580` (`progresses.length === 0`, `candidate_mismatch`), before `admitOwnedPlannedCompletedRetryProgressInActiveTransaction` and its `ownedCompletedRetryProgressPlansCorrespond` (`retry.ts:6592`, which needs registered guards) can run.
+9. **Test support still supplies a removed name.** `test_env/support/t287-native-frame-route-conservation.mjs:94` injects `replayAtDurable` among the dependencies it supplies by name. The lane is red in both arms with equal first errors, so it cannot show whether the stale name matters.
+10. **C-11 finding 5 stands.** `witness_admission_operation.ts:978` and `worksite_command_forward.ts:101`, `:142` have no lane reach at base or after: the lanes that would reach them (`witness-reprice-definition-binding`, `witness-run-stopped-definition-binding`, `forward-command-owners`) are red on setup in both arms.
+
+### Stops
+
+1. **`traversal_route.ts:5448`, the staged admission's validated branch, keeps the complete state.** Its field is declared `StagedRouteTransitionAdmission.replayState: ReplayState` (`:5196`), outside the grant. No package export reaches the type, but it is not `@internal`. Passing the guard while the field is typed `ReplayState` would make the type lie, and retyping the field is outside the grant. Its two callers (`c_call_outcome.ts:1741`, `continuation.ts:1796`) never read `.replayState`. The lanes reach `:5448` 170 times, all on owned prefixes, which already take the guard. Proposal: type the field `RuntimeReplayGuard` and take `projectRuntimeReplayGuard` on both branches, in a package whose grant includes `:5196`.
+2. **`retry.ts:6233`, the validated branch, keeps the complete state; only the owned branch takes the guard.** Item 1(c) says a plan field typed `ReplayState` takes the guard type. `CompletedRetryProgressPlan.replayState` is that field, and it is Public (`planCompletedRetryProgress` is in the barrel and its return type carries it). Retyping it changes a Public export, which is a stop. The branch is decided by the planner's prefix kind: `planCompletedRetryProgress` (a validated snapshot) builds the complete state as before, and `planOwnedCompletedRetryProgress` (an owned body scan) takes the guard. Neither branch has lane reach (the `retry:6233` note never fires in either arm); the writer probe (in the differential section) is the evidence that the owned plan's digest is unchanged. See deviation 5.
+3. **`static_definition_bindings.ts:48` and `:67` keep `admitContract`'s identity form.** Their raws are I-JSON by value but identity-bearing: the schemas' `v.custom` checks look the acquired selection up by reference in a WeakMap registry. The census shows the detached copy refused where the original is accepted: `:48` refuses 9 of 37 copies, `:67` refuses 7 of 31, all of them `admitJson`-ok and none a Proxy. These callers take the activation's fallback: the root Proxy check plus the catch. A getter or trap below the root still runs when the schema reads it. Proposal: `admitJson(raw)` as a gate (refuse at its path), then `safeParse` over the original raw, so no accessor or Proxy reaches the schema and the identity survives. That is a contract-composition decision for the Executive.
+4. **`t287-runtime-failure-diagnostic` moves (17/17/0/0 to 17/16/1/0), outside the grant.** The TD-16 case (`:701`) pins the base `admitJson` message for its Proxy at `:757`: `proxy: ['', 'inspecting the value threw TypeError']`. After C-15 the same refusal comes at the same path (`.resultCandidate.answer`) with the reason `a Proxy is not I-JSON`. Proposal: the one-string edit at `:757`.
+5. **`t287-native-work-currentness-consumers` moves (5/5/0/0 to 5/4/1/0), outside the grant.** The TD-09 (a) case's reference transcription (`:1267-1273`) admits the view's bodies with the live `admitJson`. At `:1358` the case wraps each view row in a counting Proxy. After C-15 `admitJson` refuses the wrapped rows, so the reference returns `false`. `:1362` asserts `[firstRead.value, repeated.value, reference.value]` equal `[true, true, true]` and gets `[true, true, false]`. The reader's two values are unchanged. Because `:1362` throws, the case stops there. A scratch copy of the case that records the three values instead of asserting them (`c15/probe/td09/`) gives, base then after: values `[true, true, true]` and `[true, true, false]`; view-row reads `[93, 0, 48]` and `[93, 0, 0]`. So a second assertion also moves: `:1365` `reference.reads > 0` (the refusal comes before any read), while `:1363` and `:1364`, the reader's reads, hold. Proposal: the reference admits a plain copy of the view's rows (for example `JSON.parse(JSON.stringify(rows))`, which still reads every row through the counter), or the owner decides that a Proxy row is refused at prefix selection (finding 7) and the case counts reads another way.
+6. **`admitJson` does not meet "no trap and no getter runs on any input" for one class.** A vm-contextified global over a Proxy sandbox is not a Proxy to `types.isProxy`, and `vm.isContext` is false for the global, so its interceptors forward `Reflect.ownKeys` and `getOwnPropertyDescriptor` to the sandbox's traps. A throwing trap is refused, but a looping trap does not return. The engine exposes no test for an interceptor object, so the claim holds over a declared domain that excludes this class. F_D row 1's eligibility (item 3) is stated over that domain.
+
+### What could not be verified
+
+- **Lane reach at the changed sites.** These sites have none in either arm, so the counters and the per-call differential cover none of them. The evidence there is the added route-reconstruction case, the writer probe and code reading.
+  - `witness_admission_operation.ts:978` and `worksite_command_forward.ts:101`, `:142`: their lanes are red on setup at the base and after (C-11 finding 5).
+  - `traversal_route.ts:5354`'s changed branch (validated staged prefix): the lanes reach `:5354` 172 times, all on owned prefixes, which took the guard at the base too.
+  - `retry.ts:6233` in either branch (its note never fires).
+- **`steel-basic-cli-c2`.** It is all-skipped in both arms (no `ABI5_C2_CARRIER_FIXTURE_PATH`), so its CPU measurement is 0 ms in both, and the activation's second scenario measures nothing.
+- **The measurement deltas.** The compose deltas (`deriveReplayPrefixFacts` 60.8 to 62.0 ms, `digestReplayBody` 3.9 to 5.1 ms, means of three) are at the sampler's 1.5 ms quantum and inside the run-to-run spread. They are unresolved, not a change in either direction. Compose reaches none of the changed sites.
+- **The interceptor-global class (stop 6).** The termination claim is argued from code over a declared domain. No lane or probe can enumerate the host objects with interceptors.
+- **`static_definition_bindings.ts:48`, `:67` with an accessor or a Proxy below the root.** The census saw no such raw (every raw was `admitJson`-ok and not a Proxy). The identity form still runs one if a caller supplies it.

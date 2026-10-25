@@ -105,9 +105,6 @@ import {
   type ProbabilisticResultAdmissionResult,
 } from "./probabilistic_result.js";
 import {
-  projectActiveRuntimeTransaction,
-  projectRuntimeTruthAtDurablePrefix,
-  replayValidatedRuntimeEventPrefix,
   type ActiveRuntimeTransactionProjection,
   type ReplayState,
   type RuntimeReplayGuard, type OwnedActiveRuntimeTransactionProjection,
