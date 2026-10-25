@@ -30,6 +30,7 @@ import {
   type TraversalCursor,
 } from "./traversal.js";
 import { failTraversal } from "./traversal_failure.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 
 export type StructuralTerm = Exclude<
   Readonly<CProgramNode>,
@@ -268,10 +269,11 @@ function advanceStructuralTransitionUsing(
         progressBasis,
       });
   if (committed.kind !== "route_transition_admission") {
+    const stage = `structural-transition-${input.ordinal}`;
     return fail(
       input.predecessorPrefix,
-      `structural-transition-${input.ordinal}`,
-      `diagnostic://abiogenesis/hog/${committed.code}@5`,
+      stage,
+      constructRuntimeFailureDiagnosticRef({ stage, candidate: committed }),
       committed,
     );
   }

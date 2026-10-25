@@ -602,6 +602,16 @@ export function projectHistoricalTraversalRouteAtPrefix(
   return projectHistoricalTraversalRoute(prefix, admissionEventRef, authorityPrefix, false);
 }
 
+/** @internal The same reader rethrowing its replay failure: the retry
+ * frontier's cause capture over the staged prefix it already holds. */
+export function projectReplayPropagatingHistoricalTraversalRouteAtPrefix(
+  prefix: RuntimeEventPrefix,
+  admissionEventRef: string,
+  authorityPrefix: RuntimeEventPrefix,
+): HistoricalTraversalRouteProjection | null {
+  return projectHistoricalTraversalRoute(prefix, admissionEventRef, authorityPrefix, true);
+}
+
 function projectHistoricalTraversalRoute(
   prefix: RuntimeEventPrefix,
   admissionEventRef: string,

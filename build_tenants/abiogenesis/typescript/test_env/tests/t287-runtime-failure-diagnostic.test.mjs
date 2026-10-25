@@ -793,3 +793,194 @@ test('TD-16: the lift\'s refusal-only callers keep head\'s refusal for every mal
   t.diagnostic(JSON.stringify({ values: names, sites: Object.keys(sites).length,
     limit: 'abg/actor_process.ts assessNativeResultArtifact is reached only through a native worker exchange; its admission is read, not run.' }));
 });
+
+// The retry route cause: the frontier's exits as typed reasons and the
+// route_mismatch refusal's inline subject. Controlled basis, cursor, GTL and
+// replay premises; the frontier, the attempt admission and the failure
+// admission are the owners' own code over an actual held event store.
+async function retryRouteOwners(throwing) {
+  const failureOwner = await sourceOwner('abg/runtime_failure');
+  const routes = await sourceOwner('abg/traversal_route', {
+    './replay.js': { projectValidatedReplayRouteAtPrefix: () => { throw throwing.value; } },
+  });
+  const retry = await sourceOwner('abg/retry', {
+    './traversal_route.js': routes,
+    './execution_basis.js': { hasAdmittedExecutionBasisAtPrefix: () => true },
+    './traversal_cursor.js': { hasAdmittedTraversalCursorAtPrefix: () => true, isTraversalCursorCandidate: () => true },
+    '../gtl/materialize.js': { isMaterializedGtlGraph: () => true },
+    '../gtl/source_path.js': { resolveEnclosingCRetryContexts: () => [throwing.context] },
+  });
+  return { failureOwner, routes, retry };
+}
+function retryRoutePremises(f, budget) {
+  const graphFunction = { name: 'graph-function://diagnostic' };
+  const graph = { materializationRef: 'graph://diagnostic', graphFunctionRef: graphFunction.name,
+    graphFunctionDigest: hash(graphFunction), template: {} };
+  const inputValue = { item: 'retry-input' };
+  const cursor = { kind: 'traversal_cursor', runId: f.scope.runId, graphCallId: f.scope.graphCallId, frameId: f.scope.frameId,
+    executionBasisRef: f.scope.executionBasisRef, graphRef: graph.materializationRef, currentNodeRef: 'node://diagnostic/retry',
+    termPath: ['node', 'retry'], retryPath: [1], attempt: 1, inputRef: 'input://diagnostic/retry', inputDigest: hash(inputValue),
+    cursorRef: 'cursor://diagnostic/retry', cursorDigest: hash('cursor://diagnostic/retry') };
+  const context = { retryDepth: 1, budget, retryTermPath: ['node', 'retry'], wrappedTermPath: ['node', 'retry', 'term'],
+    taskOrdinal: null, inputCarrierRef: 'contract://diagnostic/retry-input' };
+  const executionBasis = { basisRef: f.scope.executionBasisRef, graphRef: graph.materializationRef };
+  const boundaryRef = 'retry-boundary://abiogenesis/' + hash({ graphRef: graph.materializationRef, frameId: cursor.frameId,
+    nodeRef: cursor.currentNodeRef, retryTermPath: context.retryTermPath, taskOrdinal: context.taskOrdinal }).slice('sha256:'.length);
+  return { graphFunction, graph, inputValue, cursor, context, executionBasis, boundaryRef };
+}
+function admitRoute(f) {
+  return events.admitRuntimeEvent(f.store, candidate('traversal_route_admitted', {
+    routeRef: 'route://diagnostic', routeDigest: hash('route'), routeKind: 'advance',
+    sourceCursorRef: 'cursor://source', sourceCursorDigest: hash('source'),
+  }, f.scope));
+}
+function attemptRefusal(owners, f, p, routeAdmissionEventRef) {
+  const prefix = prefixes.selectValidatedRuntimeEventPrefix(f.store.readAll());
+  return owners.retry.admitRetryAttempt(f.store, prefix, p.executionBasis, p.graph, p.graphFunction, p.cursor, p.inputValue,
+    routeAdmissionEventRef, { eventTime: time, correlationId: 'correlation://diagnostic/retry' });
+}
+
+test('route_mismatch through the replay exit carries its class, frontier reason and sanitized replay cause', async t => {
+  let reads = 0;
+  const accessor = new TypeError();
+  for (const name of ['message', 'stack']) Object.defineProperty(accessor, name, { get() { reads++;throw new Error('must not read ' + name); } });
+  const proxy = new Proxy({}, { get() { reads++;throw new Error('proxy get'); }, getPrototypeOf() { reads++;throw new Error('proxy prototype'); },
+    getOwnPropertyDescriptor() { reads++;throw new Error('proxy descriptor'); } });
+  const cases = [
+    { value: new TypeError('original retained input provenance failure'),
+      cause: { errorClass: 'TypeError', errorCode: null, message: 'original retained input provenance failure', messageTruncated: false } },
+    { value: accessor, cause: { errorClass: 'TypeError', errorCode: null, message: null, messageTruncated: false } },
+    { value: proxy, cause: { errorClass: null, errorCode: null, message: null, messageTruncated: false } },
+    { value: new RangeError('y'.repeat(9000)),
+      cause: { errorClass: 'RangeError', errorCode: null, message: 'y'.repeat(8192), messageTruncated: true } },
+  ];
+  for (const c of cases) {
+    const f = await fixture(t);
+    const p = retryRoutePremises(f, 3);
+    const throwing = { value: c.value, context: p.context };
+    const owners = await retryRouteOwners(throwing);
+    const row = admitRoute(f);
+    const before = f.store.readAll().length;
+    const refused = attemptRefusal(owners, f, p, row.eventId);
+    assert.equal(refused.kind, 'retry_admission_refusal');assert.equal(refused.code, 'route_mismatch');
+    assert.equal(refused.message, 'retry attempt must extend the exact admitted retry route');
+    assert.equal(f.store.readAll().length, before, 'a refused attempt appends nothing');
+    const subject = owners.failureOwner.readRuntimeFailureDiagnosticSubject(refused.diagnosticRef);
+    assert.deepEqual(subject, { code: 'route_mismatch', reason: 'historical_routes_unprojectable', retryDepth: 1, cause: c.cause });
+    assert.equal(refused.diagnosticRef, owners.failureOwner.constructRuntimeFailureDiagnosticRef(subject));
+    assert.equal(Object.hasOwn(subject.cause, 'stack'), false);
+    assert.equal(reads, 0, 'no getter or proxy trap runs');
+    const prefix = prefixes.selectValidatedRuntimeEventPrefix(f.store.readAll());
+    assert.equal(owners.retry.projectDeclaredCRetryFrontier(prefix, p.graph, p.cursor, p.graphFunction), null,
+      'the public frontier stays nullable at the same prefix');
+  }
+  const f = await fixture(t), p = retryRoutePremises(f, 3), owners = await retryRouteOwners({ value: new TypeError('unused'), context: p.context });
+  const basis = attemptRefusal(owners, f, { ...p, executionBasis: { ...p.executionBasis, graphRef: 'graph://other' } }, 'event://none');
+  assert.equal(basis.code, 'basis_mismatch');assert.equal(Object.hasOwn(basis, 'diagnosticRef'), false, 'only route_mismatch carries a subject');
+});
+
+test('route_mismatch through a non-replay frontier exit names its reason and carries no cause', async t => {
+  const f = await fixture(t);
+  const p = retryRoutePremises(f, 1);
+  let replays = 0;
+  const owners = await retryRouteOwners({ get value() { replays++;return new TypeError('no route replays'); }, context: p.context });
+  for (const attempt of [1, 2]) {
+    const body = { attemptManifestRef: 'retry-manifest://diagnostic/' + attempt, retryBoundaryRef: p.boundaryRef,
+      retryTermPath: p.context.retryTermPath, wrappedTermPath: p.context.wrappedTermPath, taskOrdinal: null, attempt,
+      retryPath: [attempt], budget: 1, retryableFailureClasses: ['worker_transport_failure'], priorJudgmentRef: null,
+      priorRouteRef: 'route://diagnostic', inputRef: p.cursor.inputRef, inputDigest: p.cursor.inputDigest,
+      inputContractRef: p.context.inputCarrierRef, inputValue: p.inputValue };
+    const attemptDigest = hash(body);
+    events.admitRuntimeEvent(f.store, candidate('retry_attempt_opened', {
+      attemptRef: 'retry-attempt://abiogenesis/' + attemptDigest.slice('sha256:'.length), attemptDigest, ...body }, f.scope));
+  }
+  const refused = attemptRefusal(owners, f, p, 'event://none');
+  assert.equal(refused.code, 'route_mismatch');
+  const subject = owners.failureOwner.readRuntimeFailureDiagnosticSubject(refused.diagnosticRef);
+  assert.deepEqual(subject, { code: 'route_mismatch', reason: 'attempt_budget_exceeded', retryDepth: 1 });
+  assert.equal(Object.hasOwn(subject, 'cause'), false);assert.equal(replays, 0, 'a non-replay exit reads no route replay');
+});
+
+test('the retry-resume HoG site records the nested route_mismatch subject inline under the base subject digest', async t => {
+  const source = await fixture(t), p = retryRoutePremises(source, 3);
+  const owners = await retryRouteOwners({ value: new TypeError('original retained input provenance failure'), context: p.context });
+  const refused = attemptRefusal(owners, source, p, admitRoute(source).eventId);
+  assert.equal(refused.code, 'route_mismatch');
+  const routeSubject = owners.failureOwner.readRuntimeFailureDiagnosticSubject(refused.diagnosticRef);
+  const correlationId = 'correlation://diagnostic/retry-resume';
+  // One failing HoG step over a fresh held store, then the cold read of its
+  // recorded runtime_failure_observed.
+  async function recorded(fail) {
+    const f = await fixture(t);
+    const executionBasis = Object.assign(f.input().executionBasis, { basisDigest: hash('basis') });
+    Object.assign(f.scope, { scopeRef: 'traversal-scope://diagnostic', scopeDigest: hash('scope') });
+    const failure = await sourceOwner('hog/traversal_failure', { '../abg/index.js': { admitRuntimeFailure: f.owner.admitRuntimeFailure } });
+    const thrown = await fail(f, executionBasis, failure).then(() => assert.fail('the HoG step must fail'), error => error);
+    assert.equal(thrown.kind, 'graph_traversal_failure', String(thrown?.stack ?? thrown));
+    const handoff = f.store.projectReopenAuthorityAndClose();
+    const rows = events.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(handoff.prefix)));
+    const admitted = rows.at(-1);
+    assert.equal(admitted.kind, 'runtime_failure_observed');
+    const evidence = f.owner.projectRuntimeFailureEvidenceAtPrefix(prefixes.selectValidatedRuntimeEventPrefix(rows, { runId: f.scope.runId }));
+    return { thrown, admitted, evidence: evidence.at(-1) };
+  }
+  // hog/retry_lifecycle.ts advanceOwnedRetryLifecycle with its lower owners
+  // supplied: every step before the atomic retry admission succeeds, and the
+  // admission returns the actual route_mismatch refusal above.
+  const site = await recorded(async (f, executionBasis, failure) => {
+    const durable = events.selectHeldEventStoreDurablePrefix(f.store);
+    const retry = { kind: 'executable_retry_input', projectionRef: 'executable-retry-input://diagnostic', projectionDigest: hash('retry-input'),
+      selector: { kind: 'retry_frontier_selector', schemaVersion: '5.0.0', runId: f.scope.runId, graphCallId: f.scope.graphCallId,
+        frameId: f.scope.frameId, retryBoundaryRef: p.boundaryRef, retryProgressRef: 'retry-progress://diagnostic' },
+      retryFrontier: {}, executionBasisRef: executionBasis.basisRef, executionBasisDigest: executionBasis.basisDigest,
+      traversalScopeRef: f.scope.scopeRef, traversalScopeDigest: f.scope.scopeDigest, sourceCursor: { cursorRef: 'cursor://source' },
+      inputRef: p.cursor.inputRef, inputDigest: p.cursor.inputDigest, inputValue: p.inputValue, nextAttempt: 1, nextRetryPath: [1],
+      cCall: { transitionContractRef: 'contract://transition' }, progress: {} };
+    const target = { ...p.cursor };
+    const lifecycle = await sourceOwner('hog/retry_lifecycle', {
+      '../abg/retry.js': {
+        planRetryRuntimeFailureTransition: () => ({ kind: 'retry_runtime_failure_transition_plan', transition: { disposition: 'retry' } }),
+        admitRetryRuntimeFailureTransition: () => ({ kind: 'retry_runtime_failure_transition_admission', successorPrefix: durable,
+          progress: { retryBoundaryRef: p.boundaryRef, progressRef: 'retry-progress://diagnostic' } }),
+        projectOwnedExecutableRetryInput: () => retry, assertFullRetryAttemptFrontier: () => {},
+      },
+      '../abg/replay.js': { projectOwnedRuntimeTruthAtDurablePrefix: () => ({ runtimePrefix: {}, replayState: {} }) },
+      '../abg/index.js': { rehydrateExecutionBasisAtPrefix: () => executionBasis, rehydrateOpenedTraversalScopeAtPrefix: () => f.scope,
+        completeTraversalTransitionCandidate: () => ({}), assertHeldEventStoreAtDurablePrefix: () => {} },
+      '../abg/traversal_route.js': { admitOwnedTraversalTransition: () => refused },
+      './traversal.js': { traverseFromCursor: (_runtime, cursor) => cursor, rehydrateHeldInteractionCursor: () => ({ cursorRef: 'cursor://source' }),
+        deriveRetryTraversalCursor: () => target },
+      './route_proposal.js': { proposeRetryRoute: () => ({ kind: 'traversal_route_candidate' }) },
+      './traversal_failure.js': failure,
+    });
+    lifecycle.advanceOwnedRetryLifecycle({
+      context: { store: f.store, executionBasis, openedTraversalScope: f.scope, graph: p.graph, graphFunction: p.graphFunction,
+        program: {}, graphValidation: {}, scopeClass: 'root', stop: { cursor: p.cursor }, clock: { eventTime: time, correlationId } },
+      outcome: { successorPrefix: durable, cCall: {}, source: {}, failureCandidate: {}, failureValueKind: 'diagnostic_failure' },
+      outputValueKind: 'diagnostic_output', outputContractRef: 'contract://diagnostic/output' });
+  });
+  assert.equal(site.evidence.availability, 'retained');
+  const subject = site.evidence.subject;
+  assert.deepEqual(Object.keys(subject).sort(), ['candidate', 'stage']);assert.equal(subject.stage, 'retry-resume');
+  assert.equal(subject.candidate.kind, 'projected_retry_resume_refusal');assert.equal(subject.candidate.code, 'retry_attempt_refused');
+  assert.deepEqual(subject.candidate.lowerCause, JSON.parse(JSON.stringify(refused)), 'the nested refusal is recorded whole');
+  assert.deepEqual(owners.failureOwner.readRuntimeFailureDiagnosticSubject(subject.candidate.lowerCause.diagnosticRef), routeSubject);
+  assert.equal(routeSubject.reason, 'historical_routes_unprojectable');
+  assert.equal(routeSubject.cause.message, 'original retained input provenance failure');
+  assert.equal(site.admitted.payload.diagnosticRef, site.thrown.diagnosticRef);
+  assert.deepEqual(owners.failureOwner.readRuntimeFailureDiagnosticSubject(site.thrown.diagnosticRef), subject);
+  // The base site's class-only reference over the same stage and candidate.
+  const base = await recorded(async (f, executionBasis, failure) => failure.failTraversal({ store: f.store,
+    predecessorPrefix: events.selectHeldEventStoreDurablePrefix(f.store), executionBasis, openedTraversalScope: f.scope,
+    eventTime: time, correlationId, stage: 'retry-resume', diagnosticRef: 'diagnostic://abiogenesis/hog/retry_attempt_refused@5',
+    candidate: subject.candidate }));
+  assert.equal(base.evidence.availability, 'not_retained');assert.equal(base.evidence.subject, null);
+  // As at the D15 precedent (failActorProcessEffect): the inline { stage,
+  // candidate } subject carries no diagnosticClassRef key, so the evidence row
+  // names no class where the base row named the class-only literal.
+  assert.equal(base.evidence.diagnosticClassRef, 'diagnostic://abiogenesis/hog/retry_attempt_refused@5');
+  assert.equal(site.evidence.diagnosticClassRef, null);
+  assert.equal(site.admitted.payload.subjectDigest, base.admitted.payload.subjectDigest, 'the subject digest does not move');
+  assert.equal(site.admitted.payload.subjectDigest, hash(subject));
+  t.diagnostic('Controlled basis/scope/cursor/GTL/replay premises and lower retry owners; actual frontier, attempt refusal, HoG retry-resume site, failure admission and cold read. The structural-transition site shares the constructor and is read, not run.');
+});

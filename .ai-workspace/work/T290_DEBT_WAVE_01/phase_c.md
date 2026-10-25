@@ -7093,3 +7093,396 @@ Grant: `code/src/abg/retry.ts` (the frontier's exits and result union, the refus
 Stops (write the stop in the Return, keep the rest moving): a new `code` on `RetryAdmissionRefusal` or any failure class; an event payload key; a `subjectDigest` or any persisted digest that moves; a Public export change (the barrel is untouched; the member is the ruled additive one); the extraction closure reaching an admission decision, a planner or the frontier; a lane whose outcome moves other than the named movers and the one assertion class above.
 
 Return contract: one commit on `main`, staged by path, first line `C-16: the retry route cause rides cold: the route_mismatch refusal carries its diagnostic subject (class, frontier reason, sanitized replay cause) and the two hog sites record the inline reference under TD-17's convention; the retry progress projection and the structural-identity join live in one module both owners import, ending the retry-liveness cycle`, with any gap stated in place; the Return before the commit so the commit carries it: the frontier's reason set with each exit mapped, the subject shape, the cause-retention function reused, the three cases, the hog literal assertions' reach, the extraction census and the move, the import check, the lanes table, the lint and gates, item 3's proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-16 return (Worker, Opus 5.5, 2026-10-26; base `82fcef8c1`)
+
+**Closed, with one gap stated in place: the direct import pair cycle between the retry owner and the liveness owner ends, but both owners still reach each other transitively through `c_call.ts`.**
+
+- **Item 1.**
+  - The frontier derives a typed refusal internally; the public overloads stay nullable.
+  - `route_mismatch` carries `diagnosticRef` over `{ code, reason, retryDepth, cause? }`.
+  - The two HoG sites record `{ stage, candidate }` inline under an unchanged `subjectDigest`.
+  - Three new cases pass.
+- **Item 2.**
+  - The closure is projections only and moved whole into `abg/retry_progress.ts`; the bodies are byte-equal.
+  - `runtime_liveness.ts:18` imports from the new module.
+  - The pair rule fires on the base and holds after.
+- **Gates.** `tsc`, the four lints and the build are green, with no packed declaration closure refusal.
+- **Lanes.** Every lane is equal before and after, except the named mover (`t287-runtime-failure-diagnostic`, +3 passing cases).
+- **Stops.** None.
+
+### Item 1(a): the frontier's reasons, each exit mapped
+
+`projectDeclaredCRetryFrontier` keeps its two nullable overloads. Its implementation now calls `deriveDeclaredCRetryFrontier` (`retry.ts:1958`) with `propagateReplayFailure` false and maps a refusal to `null`. `deriveDeclaredCRetryFrontier` is the one derivation, private to the module. It returns the frontier or `DeclaredCRetryFrontierRefusal` (`{ kind: "declared_c_retry_frontier_refusal", reason, retryDepth, cause? }`, `:2945`).
+
+The reason set is closed (`DeclaredCRetryFrontierExitReason`, `:2918`). It has sixteen frontier exits, and `RetryRouteMismatchReason` (`:2938`) adds four eligibility reasons.
+
+**The 57 base exits.** The base frontier has 57 `return null` exits. They become 61 typed exits and 3 inner propagations. Line numbers below are base `retry.ts` lines.
+
+| Reason | Base `return null` lines |
+|---|---|
+| `graph_mismatch` | `:2990`: the `isMaterializedGtlGraph` disjunct, and the graphRef, function-name and function-digest disjuncts |
+| `cursor_not_admitted` | `:2990`: the candidate and admitted-cursor disjuncts |
+| `retry_depth_out_of_range` | `:2990`: the depth disjuncts |
+| `retry_not_declared` | `:2996`, `:2998` |
+| `attempt_budget_exceeded` | `:3051`: the first disjunct, `attemptEvents.length > context.budget` |
+| `attempt_history_mismatch` | `:3051` (the remaining disjuncts), `:3362`, `:3373`, `:3804` |
+| `progress_history_mismatch` | `:3067`, `:3162`, `:3174`, `:3560` |
+| `historical_routes_unprojectable` | `:3075` (the replay exit) |
+| `entry_route_mismatch` | `:3103` |
+| `attempt_origin_mismatch` | `:3154`, `:3156`, `:3341`, `:3357` |
+| `attempt_lineage_mismatch` | `:3206`, `:3211`, `:3226`, `:3241`, `:3250`, `:3261`, `:3282`, `:3295` |
+| `attempt_consumption_mismatch` | `:3307`, `:3333`, `:3566`, `:3585` |
+| `active_attempt_mismatch` | `:3377`, `:3389`, `:3393`, `:3405`, `:3410`, `:3422`, `:3426`, `:3447`, `:3449`, `:3527`, `:3546` |
+| `inner_frontier_mismatch` | `:3494`, `:3509`, `:3513`, `:3677`, `:3723` |
+| `progress_row_mismatch` | `:3603`, `:3613`, `:3637`, `:3657`, `:3693`, `:3761`, `:3765`, `:3788` |
+| `frontier_state_mismatch` | `:3835`, `:3843`, `:3863`, `:3888` |
+
+**The two compound guards split.** The two compound guards at `:2990` and `:3051` are split in their original disjunct order, so the first failing condition names the exit.
+
+**Inner frontiers.** The three inner frontier calls (base `:3475`, `:3658`, `:3694`) return the inner refusal whole, with its own reason and depth. Each base path returned `null` on a `null` inner (`inner?.state !== …`, `predecessor === undefined`, `inner === null`), so the public frontier's nullness is unchanged at every exit.
+
+**The replay exit hoists one value.** The exit hoists the Run-scoped route prefix it already computed into `routePrefix`. It is the same expression, evaluated at the same point.
+
+**The eligibility reasons.** `eligibleRetryFrontier` (`:2993`) applies the base eligibility condition at the `route_mismatch` site in its original order:
+1. `frontier_not_eligible`: the state is not `eligible`.
+2. `next_attempt_mismatch`.
+3. `current_cursor_mismatch`.
+4. `eligibility_route_mismatch`: the admission event or the target cursor differs.
+
+**Where the cause is captured.** Capture happens inside the transaction. `admitRetryAttempt` runs inside the route transition's transaction, and `deriveDeclaredCRetryFrontier(prefix, …, cursor.retryPath.length, prefix, true)` reads the staged prefix it holds. It uses the same arguments as the base's defaulted call.
+
+On the replay exit, `historicalRouteReplayCause` (`:2972`) rereads each admitted route in admission order with the propagating reader. It retains the first throw. The cause is absent in two cases: when the plural projection's `null` came from a non-throwing check, and on every other exit. Public frontier reads never run the scan.
+
+### Item 1(b): the member, the subject and the retained cause
+
+**The member.** `RetryAdmissionRefusal` gains `readonly diagnosticRef?: string` (`retry.ts:306`). The `code` union is unchanged. `refusal()` (`:534`) sets the member only when given one, and only the `route_mismatch` site (`:4063-4089`) gives one. Case (i) asserts that `basis_mismatch` carries no member.
+
+**The subject.** The value is `constructRuntimeFailureDiagnosticRef(subject)`, over this subject:
+
+`{ code: "route_mismatch", reason: RetryRouteMismatchReason, retryDepth: number, cause?: { errorClass, errorCode, message, messageTruncated } }`
+
+- `code` names the class, which is the refusal class as ticket row `:142` puts it. No diagnostic class URI exists for an ABG retry refusal, and none is minted.
+- `retryDepth` is the depth whose frontier exited. On an inner propagation it is the inner depth.
+
+**The retained cause.** The cause is retained by `retainCaughtCause(error)` (`abg/event_contract_profiles.ts:105`, `@internal`, with its type `RetainedCaughtCause` at `:98`). It sits beside `sanitizeUndispatchedOwnerError`. It is the lifted body of `deterministicFailure`'s read:
+- `sanitizeUndispatchedOwnerError` runs over a non-Proxy value.
+- A native error's own data `message` is read through its descriptor.
+- The message is sliced to `DIAGNOSTIC_MESSAGE_LIMIT` (8192), with `messageTruncated`.
+- No getter runs, and there is no new sanitizer.
+
+`deterministicFailure` calls it (`implementation/leaf_invocation_port.ts:578`). That is the one edit outside the grant's modules.
+
+**Equivalence.**
+- The base computed the Proxy test into `caught`; the function applies the same test to the same value.
+- On a refusal, the base computed the read and discarded it; it now runs only when used. It has no side effect.
+- The canonical subject bytes are unchanged. The 17 base cases of `t287-runtime-failure-diagnostic` and `t287-undispatched-diagnostic` are equal.
+
+**The propagating reader.** `projectReplayPropagatingHistoricalTraversalRouteAtPrefix` (`abg/traversal_route.ts:607`, `@internal`) is that reader. It is a three-line wrapper over the private `projectHistoricalTraversalRoute(…, true)`.
+
+**Declarations.** `event_contract_profiles.d.ts`, `traversal_route.d.ts`, `runtime_failure.d.ts`, `runtime_liveness.d.ts` and `hog/retry_lifecycle.d.ts` are byte-equal to the base. They were emitted from the base copy.
+
+### Item 1(c): the two HoG sites
+
+`hog/retry_lifecycle.ts:737` (`retry-resume`) and `hog/structural_transition.ts:272-276` pass `constructRuntimeFailureDiagnosticRef({ stage, candidate })`. The structural site's `stage` is bound once, as `structural-transition-${input.ordinal}`. Each file imports `constructRuntimeFailureDiagnosticRef` (`:29`, `:33`). The other recording sites are unchanged.
+
+`failTraversal` digests the same `{ stage, candidate }`. So for the same candidate, `subjectDigest` equals the base's, and case (iii) proves it by differential. The candidate itself now carries the nested refusal's `diagnosticRef`, the ruled additive member.
+
+**The HoG literal assertions' reach.** No assertion on a `diagnostic://abiogenesis/hog/` literal in `test_env` reaches either changed site.
+
+| Assertion | Where its literal comes from |
+|---|---|
+| `runtime-f09-worker.mjs:1405`, `:1418`, `:1478`, `:1659`, `:2339-2388` | `hog/entry.ts` |
+| `m5-retry-lifecycle-authority:523` | `hog/entry.ts` |
+| `t287-held-prefix:138` | `judgment.ts` |
+| `t287-recursive-registered-selection:133` | recursion |
+| `t287-runtime-failure-diagnostic:44` | the test's own constant |
+| `t287-runtime-failure-diagnostic:568`, `:616`, `:637` | recursion and workflow |
+| `w2-steel-single-start-closure:92` | a retained recorded log (skip-gated) |
+| `w2-steel-single-start-closure:260` | the fan-out task census |
+
+`runtime-f09-worker.mjs:1354` asserts `retry_attempt_refused` with `lowerCause.code` `attempt_mismatch`. That refusal carries no member.
+
+**The evidence row now names no class.** The evidence projection's `diagnosticClassRef` (`abg/runtime_failure.ts:202`) reads `subject.diagnosticClassRef` from a retained subject. `{ stage, candidate }` has no such key, so for these two sites the `runtime_failure_evidence` row names `null` where the base named the class-only literal. This is the D15 precedent's behaviour (`failActorProcessEffect`, `hog/ccall_lifecycle.ts:826-834`). Case (iii) asserts both values, and no `test_env` reader keys on them (no lane moved).
+
+### Item 1(d): the three cases
+
+All three are in `test_env/tests/t287-runtime-failure-diagnostic.test.mjs` (186 added lines). The base file is a byte prefix of the new one.
+
+**The helpers.**
+- `retryRouteOwners` builds the actual `abg/retry` owner with `sourceOwner`. Its `./traversal_route.js` is the actual route owner, with `projectValidatedReplayRouteAtPrefix` throwing the `:208` override. The basis, cursor, GTL materialization and C.retry context premises are supplied.
+- `retryRoutePremises` builds the graph, cursor, context and boundary ref.
+- `attemptRefusal` calls the actual `admitRetryAttempt` over the fixture's held store.
+
+**(i) The replay exit.** `route_mismatch` is driven through the replay exit with four thrown values:
+
+| Thrown value | Retained cause |
+|---|---|
+| `TypeError('original retained input provenance failure')` | `{ errorClass: "TypeError", errorCode: null, message: <that>, messageTruncated: false }` |
+| a `TypeError` whose `message` and `stack` are throwing accessors | the class with `message: null` |
+| a Proxy whose every trap throws | all null |
+| `RangeError` of 9000 characters | 8192 characters, `messageTruncated: true` |
+
+The case asserts:
+- each subject is exactly `{ code: "route_mismatch", reason: "historical_routes_unprojectable", retryDepth: 1, cause }`;
+- `diagnosticRef` equals the constructor over it;
+- the subject has no `stack`;
+- `reads === 0`;
+- a refused attempt appends nothing;
+- the public frontier returns `null` at the same prefix;
+- `basis_mismatch` carries no member.
+
+**(ii) A non-replay exit.**
+- Two admitted `retry_attempt_opened` events share the boundary, against a budget of 1.
+- The subject is exactly `{ code: "route_mismatch", reason: "attempt_budget_exceeded", retryDepth: 1 }`, with no `cause`.
+- The replay override is never read.
+
+**(iii) Through the HoG site to the record.** `advanceOwnedRetryLifecycle` is built from source with its lower owners supplied: the retry plan, admission and input projection, the replay truth, the basis and scope rehydration, the traversal, and the route proposal. Every step before the atomic retry admission succeeds. The admission (`admitOwnedTraversalTransition`) returns case (i)'s actual `route_mismatch` refusal. The actual `hog/traversal_failure` runs over the fixture's failure owner.
+
+The case asserts:
+- the store holds one `runtime_failure_observed`;
+- the cold read, after close and reopen, is `retained`, with `{ stage: "retry-resume", candidate }`;
+- the candidate is `projected_retry_resume_refusal` / `retry_attempt_refused`, with `lowerCause` equal to the refusal whole;
+- that refusal's `diagnosticRef` reads back case (i)'s subject;
+- the thrown failure's `diagnosticRef` equals the payload's and decodes to the subject.
+
+The base differential runs the base site's call, `failTraversal` with `diagnostic://abiogenesis/hog/retry_attempt_refused@5`, over the same stage and candidate on a fresh store. It records `not_retained` under the equal `subjectDigest`, which equals `hash(subject)`. The `diagnosticClassRef` values are as stated in item 1(c).
+
+**(iv) The `:208` case** is unchanged and green.
+
+### Item 2: the extraction census and the move
+
+**The census: the closure, inside the base `retry.ts`, of the four named functions.**
+
+| Group | Members |
+|---|---|
+| Types (base `:205-242`, `:255-290`, `:334-338`) | `RetryProgressAdmissionBase`, `RetryFailureProgressAdmissionBase`, `RetryContinuationProgressAdmission`, `RetryStoppedProgressAdmission`, `RetryCompletedProgressAdmissionBase`, `RetrySuccessCompletionClass`, `RetryCCallCompletedProgressAdmission`, `RetryStructuralCompletedProgressAdmission`, `RetryCompletedProgressAdmission`, `RetryProgressAdmission` |
+| Value helpers (base `:810-825`) | `sameStrings`, `sameNumbers` |
+| The progress block (base `:1466-2445`) | the five `*_KEYS` constants, `exactPayloadKeys`, `progressBody`, `digestValue`, `positiveInteger`, `nonNegativeInteger`, `positiveIntegerValues`, `stringValues`, `sharesProgressScope`, `exactAttemptEvent`, `hasHistoricalAttemptCCallDescent`, `exactCCallPhaseEvents`, `hasExactRetryFailureProvenance`, `exactSourceCursorEvent`, `exactCursorCarrierEvent`, `exactFanOutCompletionWitness`, `exactFhResumeCompletionWitness`, `projectRetryProgressAt`, `projectAdmittedRetryProgress`, `hasStructuralIdentityCompletedRouteCausation`, `hasJudgedTerminalRouteCausation` |
+
+The Executive's first cut named `retryBoundaryRef` (`:852`). It is not in the closure: the closure reads only the property `body.retryBoundaryRef`, so the function stays in `retry.ts`.
+
+The closure is projections only. Outside it, it imports:
+- `projectCCallPhase` and `projectCCallRuntimeFailureSignal` (`c_call.ts`);
+- `projectFhContinuations`; `projectExactFanOutCompletion`;
+- the calculus readers `constructRuntimeFluent`, `constructScopedRetryFluent`, `deriveRuntimeHeldFluentProjection` and `holdsAt`;
+- the event prefix readers;
+- `shared/` atoms and transport constants.
+
+Nothing in it decides an admission, plans a transition or reads the frontier, so the move is taken.
+
+**The move.** `abg/retry_progress.ts` is new (1113 lines). Its content:
+1. An import header.
+2. One block comment stating what it carries.
+3. The 1075 moved lines from the five base ranges, in order.
+
+`scratchpad/c16/tools/verify_move.py` takes the new module after the header and does two things: it drops the nine added `/** @internal */` lines and it strips their `export ` prefixes. The result is byte-equal to the concatenated base ranges. Those nine helpers are now exported for `retry.ts`: `sameStrings`, `sameNumbers`, `progressBody`, `digestValue`, `positiveInteger`, `nonNegativeInteger`, `positiveIntegerValues`, `stringValues` and `projectAdmittedRetryProgress`. The two joins were already `export` and `@internal`.
+
+`retry.ts` changes in three places:
+- It imports back what it uses (`:139-157`).
+- It re-exports the seven exported progress types (`export type { … }`, `:167-175`) and the two joins (`/** @internal */ export { … } from "./retry_progress.js"`, `:177-180`).
+- It drops the six imports the move left unused: `projectCCallPhase`, `deriveRuntimeHeldFluentProjection`, `holdsAt`, `RuntimeHeldFluentProjection`, `projectFhContinuations` and `validatedRuntimeEventPrefixThroughEvent`.
+
+`runtime_liveness.ts:18` imports `hasStructuralIdentityCompletedRouteCausation` from `./retry_progress.js`.
+
+**The declarations.**
+- `retry.d.ts` keeps every named export. The seven progress types are now declared in `retry_progress.d.ts`, which `retry.d.ts` imports and re-exports, and the stripped joins stay out of both.
+- `abg/index.ts` is untouched and `index.d.ts` is byte-equal.
+- The built `retry.js` re-exports the two joins: `t287-public-terminal-projection` imports `hasJudgedTerminalRouteCausation` from it, and `project_read_ports.ts` still imports it through `./retry.js`.
+
+### The import check
+
+**The pair rule.** `scripts/check-import-direction.mjs` gains a `forbiddenPairs` table:
+- `runtime_liveness.ts` → `retry.ts`, the named rule;
+- `retry_progress.ts` → `retry.ts`;
+- `retry_progress.ts` → `runtime_liveness.ts`.
+
+Any relative specifier from the first module that resolves to the second is a violation, and so is a pair naming a missing module.
+
+**On the base.** On the base modules the rule fires: `code/src/abg/runtime_liveness.ts:18: imports code/src/abg/retry.ts: import { hasStructuralIdentityCompletedRouteCausation } from "./retry.js";`, plus the two missing-module rows, with exit 1 (`c16/gates/lint-pair-base.log`). With every other file at its final content and `runtime_liveness.ts` at the base, the named row alone fires (`lint-pair-base-liveness.log`). After the change, `check-import-direction: 3 forbidden owner pair(s) hold`, with exit 0.
+
+**Exit conditions.**
+- `runtime_liveness.ts` imports nothing from `retry.ts`.
+- `retry.ts:32` still imports the four liveness functions.
+- `retry_progress.ts` imports neither owner.
+
+**Gap: the transitive reach.** The direct pair cycle ends; the transitive reach does not. `scratchpad/c16/tools/scc.py` reads the runtime import graph from the emitted JavaScript, with type-only imports erased:
+- On the base, `retry.js`, `runtime_liveness.js` and `c_call.js` lie in one strongly connected component of 137 modules.
+- After the change, the component has 138 modules and holds `retry_progress.js` too.
+
+`c_call.ts` imports both owners (`:34`, `:117`). `retry_progress.ts` imports `c_call.ts` for `projectCCallPhase` and `projectCCallRuntimeFailureSignal`, which closes `retry_progress → c_call → retry → retry_progress`. No lane shows an initialization-order failure.
+
+### Lanes, each alone
+
+Before is the base build; after is this tree's build. There are two passes. `t287-continuation-causation` reads a recorded `retry.d.ts` inventory leaf, so it was added to the after pass only; it has no before row.
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `t287-runtime-failure-diagnostic` | 17/17/0/0 | 20/20/0/0 | 2.8 / 3.5 | yes | - |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.8 | yes | - |
+| `t287-route-reconstruction` | 12/10/0/2 | 12/10/0/2 | 8.9 / 8.7 | yes | 2 skipped |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 0.4 / 0.3 | yes | red `:21` AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCC; red `:281` AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:; red `:323` AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError [ERR_ASSERTION]: missing source boundary: /** |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 0.4 / 0.3 | yes | red `:82` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix; red `:132` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 72.1 / 70.1 | yes | red `:53` TypeError [Error]: abg.openCall is not a function; red `:721` TypeError [Error]: abg.openCall is not a function |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 0.5 / 0.5 | yes | red `:26` TypeError [Error]: traversal transition differs from its staged successor projection |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | 0.7 / 0.6 | yes | 3 skipped |
+| `t287-public-terminal-projection` | 4/0/4/0 | 4/0/4/0 | 0.3 / 0.3 | yes | red `:34` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:50` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:68` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:87` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-r6-retry-success-exit` | 1/1/0/0 | 1/1/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 37.1 / 35.9 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 0.3 / 0.3 | yes | red `:59` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:92` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:107` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier |
+| `t288-blocked-retry-entry` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:8` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `t288-scoped-retry-guard` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:12` SyntaxError [Error]: Unexpected token 'export' |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 47.3 / 46.9 | yes | - |
+| `t287-f09-frontier-handoff` | 1/1/0/0 | 1/1/0/0 | 71.6 / 68.8 | yes | - |
+| `t287-native-frame-route-conservation` | 3/0/3/0 | 3/0/3/0 | 0.5 / 0.5 | yes | red `:5` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:10` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:14` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 0.3 / 0.3 | yes | red `:187` AssertionError [ERR_ASSERTION]: explicit proof-local territory; red `:207` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:235` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; 4 skipped |
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 | 2.0 / 1.9 | yes | - |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.6 / 1.6 | yes | - |
+| `t287-ordered-reconstruction` | 7/2/2/3 | 7/2/2/3 | 0.4 / 0.4 | yes | red `:22` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:74` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:; 3 skipped |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 0.4 / 0.3 | yes | red `:39` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 12.0 / 11.0 | yes | - |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 37.5 / 36.1 | yes | red `:356` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 | 5.0 / 5.0 | yes | 4 skipped |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.4 / 1.4 | yes | 1 skipped |
+| `t288-native-producer-membership` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 1.2 / 1.2 | yes | red `:120` TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut; red `:195` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:212` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:227` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:238` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:266` TypeError [Error]: operations.nativeWorkReacquisition is not a function |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | 2.6 / 2.5 | yes | 3 skipped |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | 1.5 / 1.5 | yes | - |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 0.5 / 0.5 | yes | red `:27` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:36` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:67` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:77` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:94` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:102` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:112` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:118` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:124` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:129` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:147` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:162` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:169` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:205` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:226` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `t288-prefix-structure` | 1/0/1/0 | 1/0/1/0 | 0.4 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 | 0.8 / 0.8 | yes | 1 skipped |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | 5.8 / 5.7 | yes | red `:64` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal: |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 | 1.1 / 1.1 | yes | - |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/0/1 | 1/0/0/1 | 0.1 / 0.1 | yes | 1 skipped |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t288-instruction-assembly-owner` | 6/4/0/2 | 6/4/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | 0.4 / 0.3 | yes | 3 skipped |
+| `t287-c0-correction-regressions` | 4/3/1/0 | 4/3/1/0 | 74.3 / 75.1 | yes | red `:42` TypeError [Error]: Cannot read properties of undefined (reading 'graphFunctionRef') |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 146.2 / 146.9 | yes | red `:372` TypeError [Error]: abg.openCall is not a function; red `:1316` AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active; red `:1471` TypeError [Error]: abg.openCall is not a function; red `:1548` TypeError [Error]: abg.openCall is not a function; red `:1590` TypeError [Error]: abg.openCall is not a function; 1 skipped |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | 340.0 / 333.6 | yes | - |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 37.2 / 36.8 | yes | - |
+| `t287-continuation-causation` | new | 1/1/0/0 | - / 0.5 | new lane | - |
+
+**Totals.** Before: 49 lanes, 317 tests / 214 pass / 62 fail / 41 skipped. After: 50 lanes, 321/218/62/41. The difference is the three new cases and the after-only lane.
+
+**The one mover.** `t287-runtime-failure-diagnostic` moves 17/17 → 20/20 with the three new cases. Its 17 base cases are unchanged and green, `:208` included.
+
+**Every other lane** is equal in counts, red names, first error lines and skips. That includes the source-text readers of `retry.ts`:
+- `m5-retry-lifecycle-authority`: red at the same first relation as before;
+- `t288-scoped-retry-guard`;
+- `t287-native-frame-route-conservation`: red at setup.
+
+No lane log carries `Cannot access` or `before initialization`.
+
+The after logs are in `c16/lanes/after/` and the before logs in `c16/lanes/before/`.
+
+### Gates (the final tree)
+
+| Gate | Result |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | exit 0 |
+| `npm run lint:imports` | 28 shared modules clean; 3 forbidden owner pairs hold |
+| `npm run lint:lifecycle` | 287 modules, 7 allow-listed sites, no offender |
+| `npm run lint:evidence` | no new copy |
+| `npm run lint:calculus` | 6 calculus modules, 0 allow-listed imports, no offender |
+| `npm run build` | exit 0; no packed declaration closure refusal |
+| `C16` | 0 in source, build and tests; no instrumentation was used |
+
+**The regenerated files.** These are the regenerated files' moves, compared by contract id against the base copies (`c16/tools/rows.py`):
+- The 75 rows keep their ids and order.
+- **47 rows** (the rows carrying `retry.d.ts`):
+  - `retry.d.ts` takes a new `declarationDigest`, from the ruled member and the re-export;
+  - the leaf `build/code/src/abg/retry_progress.d.ts` is added;
+  - no leaf is removed.
+- **28 rows:** inventories equal.
+- **21 rows:** `contractDigest` moves.
+  - Those rows' digest is `nativeContractDigest(inventory)` (`scripts/generate-product-manifest.mjs:688-755`).
+  - The ruled member alone would move the same 21.
+  - No other row field moves.
+- **`productRelativeLocators`:** gains `retry_progress.js` and `retry_progress.d.ts`, and loses none.
+- **`capability-definition-graph.json`:** moves only in the digests and refs that follow the catalog and product content digests.
+
+These are build-manifest digests. No event payload key, `subjectDigest` or other event-log digest moves.
+
+### Item 3: design-sentence proposals (the Executive places them; no design file, register or ticket was edited)
+
+**1. Library design `:55`, the last two sentences.** Replace "One owner-level cycle remains, … which ends the cycle." with:
+
+> The retry owner imports the liveness owner and not the reverse: `retry.ts:32` imports `projectRuntimeLivenessAtPrefix`, `captureNativeFrameBoundary`, `observeNativeFrameLiveness` and `createRuntimeLivenessEventValidator` from `runtime_liveness.ts`. `runtime_liveness.ts:18` imports `hasStructuralIdentityCompletedRouteCausation`, the structural-identity route join its admission composes with the relation, from `retry_progress.ts`. That module holds the retry progress projection over admitted events and the two route joins that read it. It imports neither owner, and `retry.ts` re-exports what it held. `npm run lint:imports` checks the three pairs. Both owners still reach each other through `c_call.ts`, which imports both and from which `retry_progress.ts` reads the C-call phase projections.
+
+In the same paragraph, "the import-direction lint (`npm run lint:imports`) applies to `shared/`" becomes "applies to `shared/` and to three forbidden owner pairs".
+
+**2. §9.3, one item after the leaf-owner paragraph:**
+
+> Retry route refusals take the same inline route. `admitRetryAttempt` refuses `route_mismatch` inside the route transition's transaction, over the staged prefix that holds the just-staged retry route. The refusal carries `diagnosticRef`, `constructRuntimeFailureDiagnosticRef({ code: "route_mismatch", reason, retryDepth, cause })` (`abg/retry.ts`):
+> - `reason` is the declared C.retry frontier's exit, one of sixteen closed reasons, or how an eligible frontier differs from the attempt (`frontier_not_eligible`, `next_attempt_mismatch`, `current_cursor_mismatch`, `eligibility_route_mismatch`).
+> - `retryDepth` is the depth whose frontier exited.
+> - `cause`, only on `historical_routes_unprojectable`, is the first admitted route's replay failure. It is retained by `retainCaughtCause` (`abg/event_contract_profiles.ts`), the read the F_D boundary and the F_P completion use.
+>
+> No other refusal carries the member, and the frontier and route projections stay nullable. The `retry-resume` and `structural-transition-<ordinal>` HoG sites (`hog/retry_lifecycle.ts`, `hog/structural_transition.ts`) pass `constructRuntimeFailureDiagnosticRef({ stage, candidate })`, item 3's mechanism. So the admitted `runtime_failure_observed` retains the candidate whole, with the nested refusal and its reference, under the digest `failTraversal` computes over the same subject. As at item 3, the evidence row names no `diagnosticClassRef` for it (`t287-runtime-failure-diagnostic`).
+
+**3. Register row `NW-DEBT-ADMISSION-DIAGNOSTIC-01` (`:348`).** The last clause, from "the retry route cause stopped at C-8", becomes:
+
+> the retry route cause closed at C-16 under option A: the `route_mismatch` refusal carries its subject (class, frontier reason, retained replay cause) inline as `diagnosticRef`, and the `retry-resume` and structural-transition HoG sites record the candidate inline under the same `subjectDigest`.
+
+**4. Ticket row `:132` (Retry route cause), outcome:**
+
+> Done at C-16 under option A: the cause rides cold through the additive member `diagnosticRef` on `RetryAdmissionRefusal`; the projections stay nullable; the class, the refusal's `code` union, the event payload keys and `subjectDigest` are unchanged.
+
+**5. Ticket row `:142` (Retry route cause member), outcome:**
+
+> Done at C-16:
+> - Option A as recommended. The frontier's exits are typed internally: sixteen reasons and four eligibility reasons. The replay cause is read inside the transaction by an `@internal` propagating reader and retained by `retainCaughtCause`, which is lifted beside `sanitizeUndispatchedOwnerError` and called by `deterministicFailure`. The proof cases are in `t287-runtime-failure-diagnostic`.
+> - Item 2: `abg/retry_progress.ts` holds the progress projection and both route joins; `runtime_liveness.ts` imports it; a lint pair rule holds the direction. The transitive reach through `c_call.ts` remains.
+
+### Deviations
+
+1. **The propagating reader is a wrapper.** It is a new `@internal` wrapper (`traversal_route.ts:607`, the line the grant asks to name), not an `@internal` export of `projectHistoricalTraversalRoute` itself. The `:208` case appends `export {projectHistoricalTraversalRoute}` to the transpiled source, so exporting the function would make that unchanged case a duplicate-export SyntaxError.
+2. **Two lines in `leaf_invocation_port.ts` lie outside the named range.** The edits are the import at `:83` (`retainCaughtCause` added) and the base lines `:569-580` and `:589`. The grant names `:571-583`.
+3. **`retainCaughtCause` has a type beside it.** The function carries the type `RetainedCaughtCause` (`@internal`), which `retry.ts` uses for the refusal's `cause`.
+4. **The lint rule goes beyond the named pair.**
+   - It carries the named pair and two more: `retry_progress.ts` imports neither owner, as the activation's exit condition states.
+   - It also treats a pair naming a missing module as a violation, so the table cannot go stale silently.
+5. **The subject carries `retryDepth` beyond class, reason and cause.** It is needed to read an inner frontier's propagated exit.
+6. **Inner frontier refusals propagate the inner reason.** The base had `null` there; the refusals are not folded into `inner_frontier_mismatch`. That reason names only the outer checks over a projected inner frontier.
+7. **One after-only lane.** `t287-continuation-causation` was added to the after pass.
+
+### Findings outside the grant
+
+1. **The transitive cycle.** Ending the transitive reach needs one of two moves: `projectCCallPhase` and `projectCCallRuntimeFailureSignal` out of `c_call.ts`, or `c_call.ts`'s imports of both owners (`:34`, `:117`) moved. Either is a design question.
+2. **Dead code at base in `retry.ts`, outside the grant's sites and left in place.**
+   - Four unused imports: `deriveCSourceContinuation` (`:19`), `admitPlannedCCallRuntimeFailureClose` (`:49`), `rehydrateExecutionBasis` (`:61`) and `type RuntimeEventCalculusProjection` (`:87`).
+   - `type RuntimeEventWithBody` (`:763`).
+   - `positiveNumberArray` (`:1400`).
+   - The unread `const snapshot = runtimeEventBodiesAtPrefix(prefix)` in `admitRetryAttempt` (`:4062`). It may also serve as a prefix validation by throwing, so removing it is not a pure prune.
+3. **A stale source extraction.** `test_env/support/t287-native-frame-route-conservation.mjs:131-136` extracts the progress constants, `projectAdmittedRetryProgress` and `hasStructuralIdentityCompletedRouteCausation` from `abg/retry` source. They now live in `abg/retry_progress`. The lane is red at setup before and after (`ABI5_ROUTE_PROOF_ROOT` unset), so its outcome does not move.
+4. **A recorded digest that was already stale.** `test_env/fixtures/continuation-causation.json` records a `retry.d.ts` `declarationDigest` (`ff6c5b2e…`) that already differed from the base build's (`fecf9bfb…`).
+5. **Longer failure messages.** At the two HoG sites the thrown `GraphTraversalFailure`'s message is now the inline reference (`super(diagnosticRef)`), as at `failActorProcessEffect`. No length bound applies: `runtime_failure.ts` and the event store bound no `diagnosticRef` length, and `DIAGNOSTIC_MESSAGE_LIMIT` bounds the nested message.
+
+### Stops
+
+None. Each stop was checked:
+- **Refusal `code` and failure classes.** The `code` union and every failure class are unchanged.
+- **Event payloads and digests.** No event payload key is added. `subjectDigest` is equal for the same candidate (case (iii)), and no event-log digest moves.
+- **Public exports.** The barrel is untouched and `index.d.ts` is byte-equal. `retry.d.ts` keeps its named exports. The one member is the ruled additive one.
+- **The extraction closure** reaches no admission decision, planner or frontier.
+- **The build** issues no packed declaration closure refusal.
+- **Lanes.** No lane outcome moves other than the named mover.
+
+### What could not be verified
+
+- **The structural-transition site is read, not run.** It uses the same constructor over `{ stage, candidate: committed }`, the subject `fail` hands to `failTraversal`.
+- **No installed or native run reaches the replay exit.** Case (i) supplies the replay throw by the `:208` override, and the basis, cursor, GTL and context premises are supplied.
+- **The nested 9000-character variant was not run through the HoG site.** It is bounded at the refusal (case (i)), and no bound downstream would refuse it.
+- **Initialization order** under entry orders other than the lanes' is not measured.
+- **`t287-c0-post-publication-failure` was not run.** `git grep` shows it imports only `worksite_revision`, `c_call_outcome`, `event_calculus`, `event_prefix` and `native_worksite_execution`, none of them changed.
+
+### Main during the run
+
+No commits landed on `main` between `82fcef8c1` and this commit (`git log 82fcef8c1..HEAD -- build_tenants/abiogenesis/typescript` is empty).

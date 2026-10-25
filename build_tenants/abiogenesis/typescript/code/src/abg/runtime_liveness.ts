@@ -15,7 +15,7 @@ import {
   assertRuntimeEventTransactionActive,
   type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent, type RuntimeEventCandidate,
 } from "./event_store.js";
-import { hasStructuralIdentityCompletedRouteCausation } from "./retry.js";
+import { hasStructuralIdentityCompletedRouteCausation } from "./retry_progress.js";
 import {
   runtimeLivenessDigest as digest,
   type RuntimeLivenessObserverProjection, type RuntimeLivenessBudgetFacts,

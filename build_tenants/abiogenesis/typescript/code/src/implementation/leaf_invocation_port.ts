@@ -80,7 +80,7 @@ import {
 } from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
+import { retainCaughtCause, sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -566,18 +566,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
     refusal?: Readonly<{ at: string; reason: string }>,
   ): Readonly<LeafRealizationFailureCandidate> => {
     const original = totalizedFailure(failureClass);
-    const caught = (reason === "thrown" || reason === "rejected") && !types.isProxy(error) ? error : null;
-    const safe = sanitizeUndispatchedOwnerError(caught);
-    let message: string | null = null;
-    let messageTruncated = false;
-    if (types.isNativeError(caught)) {
-      const descriptor = Object.getOwnPropertyDescriptor(caught, "message");
-      if (descriptor !== undefined && "value" in descriptor &&
-          typeof descriptor.value === "string") {
-        message = descriptor.value.slice(0, 8192);
-        messageTruncated = descriptor.value.length > 8192;
-      }
-    }
+    const caught = reason === "thrown" || reason === "rejected" ? error : null;
     const diagnosticRef = constructRuntimeFailureDiagnosticRef({
       diagnosticClassRef: original.diagnosticRef,
       computeRegime: resolution.computeRegime,
@@ -586,7 +575,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       stage,
       reason,
       cause: refusal === undefined
-        ? { ...safe, message, messageTruncated }
+        ? retainCaughtCause(caught)
         : { at: refusal.at.slice(0, 8192), atTruncated: refusal.at.length > 8192, reason: refusal.reason },
     });
     const resultCandidate = { ...original.resultCandidate, diagnosticRef };
