@@ -10,7 +10,7 @@
 - current_method_basis: stdo://releases/v3.0.0-rc.1/ (until M-1 lands; then stdo://releases/v3.0.1-rc.1/)
 - current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232 (until M-1 lands; then 60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8)
 - current_activation: T291_STDO_301_REPIN_01
-- current_package: M-1 (activated 2026-10-25; the pin and the routes; its Worker starts when T-290 C-11 returns)
+- current_package: M-1 (activated 2026-10-25; the pin and the routes; Worker running from the C-11 acceptance head)
 - change_class: product_reprice (the owner's method selection, as the 3.0.0 adoption was classed)
 - derived_change_classes: design_reframe (M-2, the F_D import, bounded to the binding and frame owners); realization_refactor (D0 in T-287, the runtime default-library successor)
 - re_entry_point: specification/GOALS.md#current-selection
@@ -84,6 +84,6 @@ the record keeps digests and blob ids, not preimage copies.
 
 | Date | Package | Commit | Executive check | Disposition |
 |---|---|---|---|---|
-| 2026-10-25 | M-1 | | | activated (the pin and the routes; the Worker starts when C-11 returns) |
+| 2026-10-25 | M-1 | | | activated (the pin and the routes); Worker running after C-11's acceptance |
 
-Next: M-1 (activated; its Worker starts when T-290 C-11 returns); then M-2 (activation written at M-1's acceptance); then T-290 resumes at C-12; D0 opens T-287 Phase D.
+Next: M-1 (Worker running); then M-2 (activation written at M-1's acceptance); then T-290 resumes at C-12; D0 opens T-287 Phase D.
