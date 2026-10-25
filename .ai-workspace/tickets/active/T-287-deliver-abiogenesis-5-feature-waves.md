@@ -6,8 +6,8 @@
 - owner: abiogenesis
 - build_tenant: typescript
 - updated_at: 2026-10-24
-- current_method_basis: stdo://releases/v3.0.0-rc.1/
-- current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+- current_method_basis: stdo://releases/v3.0.1-rc.1/ (T-291 M-1, `72384fe07`; the runtime default-library snapshot stays on v3.0.0-rc.1 until D0)
+- current_method_manifest_sha256: 60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_activation_status: library delivered and closed (delivery close); T-290 Phase A closed at 46ed04895; L5 acceptance absent; T-290 Phase B in progress
 - current_handoff: .ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md
@@ -299,18 +299,18 @@ Decisions as ruled by the owner, 2026-10-24.
 
 ### Design and proof controls
 
-Executive applies [STDO proportionality](stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md#6-cost-and-proportionality)
+Executive applies [STDO proportionality](stdo://releases/v3.0.1-rc.1/standards/ACTIVATION.md#6-cost-and-proportionality)
 to material semantic ambiguity removed versus reasoning complexity introduced,
 including activation, review, hashing, status and evidence overhead. Retain
 exact applicable evidence and rerun only invalidated relations. Maintain the
 earliest real supported entry → owner effect → ABG admission → fresh replay
-[steel thread](stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#steel-thread-delivery),
+[steel thread](stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#steel-thread-delivery),
 widening by material uncertainty.
 
 [Reviewers supply severity and technical findings; Executive assigns priority,
-current-boundary effect and scope](stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#technical-triage-severity-priority-and-boundary-effect).
+current-boundary effect and scope](stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#technical-triage-severity-priority-and-boundary-effect).
 Routine validator or staging bookkeeping failures preserve the exact first
-cause and receive the [cheapest focused repair and reproof](stdo://releases/v3.0.0-rc.1/standards/ACTIVATION.md#transition-evidence);
+cause and receive the [cheapest focused repair and reproof](stdo://releases/v3.0.1-rc.1/standards/ACTIVATION.md#transition-evidence);
 they do not automatically trigger broad review, recompilation or qualification.
 Product/authority violations and an unconstructable selected lawful path still
 block. Required independent final L5 remains. These existing controls create

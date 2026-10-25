@@ -12,6 +12,7 @@
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
 `product_reprice` recorded in
+[STDO 3.0.1 adoption](../.ai-workspace/comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md), after the
 [STDO 3.0.0 RC1 adoption](../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md).
 **Release-scope ruling**: [2026-09-13 boundary amendment](../.ai-workspace/comments/codex/20260913_ABG5_ARCHITECTURE_FIXES/release-boundaries.md).
 **Delivery-allocation ruling**: [2026-09-13 steel-thread selection](../.ai-workspace/comments/codex/20260913_ABG5_STEEL_THREAD_DELIVERY_PLAN/decision.md).
