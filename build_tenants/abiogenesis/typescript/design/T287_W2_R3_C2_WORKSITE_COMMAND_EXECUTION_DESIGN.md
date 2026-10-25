@@ -252,9 +252,9 @@ canonical equality. `RuntimeEventBodyView` is a selection carrier, so its own
 object representation is not the logical event array. Physical JSONL codec
 records and their byte extent/digest authenticate the durable coordinate;
 they are distinct from the decoded event bodies compared here. This explicit
-whole-prefix equality requires transient work proportional to the selected
-source-prefix bodies, not a retained cache, a currentness surrogate, or
-whole-history expansion at unrelated handoffs. Both root execution-basis
+whole-prefix equality requires work proportional to the selected source-prefix
+bodies not yet verified in the owner's current generation, not a currentness
+surrogate or whole-history expansion at unrelated handoffs. Both root execution-basis
 admission and pre-effect C2 leaf source authentication consume this same
 predicate and preserve every source, prefix, environment and authority guard.
 
