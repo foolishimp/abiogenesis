@@ -69,7 +69,6 @@ function livenessContextFacts(context: RuntimeLivenessContext | null): RuntimeLi
 /** Reconstruct predeclared actor probes from admitted owner coordinates, never from observed paths. */
 function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
   try {
-    const events = runtimeEventBodiesAtPrefix(prefix);
     const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_invocation_started"), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
     if (started === null || !record(started.payload)) return null;
     const p = started.payload;
@@ -152,7 +151,6 @@ const NON_ACTOR_SOURCES = Object.freeze([
  * register a source, borrow an actor clock, or supply an undeclared timeout. */
 function deriveCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null {
   try {
-    const events = runtimeEventBodiesAtPrefix(prefix);
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
     const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
     if (opened === null || selected === null || !record(opened.payload) || !record(selected.payload) ||
@@ -189,7 +187,6 @@ const FRAME_PRODUCERS = new Set([
 /** The opening fact declares the occurrence; a probe never registers it. */
 function deriveFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
   try {
-    const events = runtimeEventBodiesAtPrefix(prefix);
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:frame_opened"), e => e.kind === "frame_opened" && e.aggregateId === frameId));
     if (opened === null || !record(opened.payload) || opened.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
     const p = opened.payload;
@@ -647,7 +644,6 @@ function validateRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Runtime
   reconstruction: RuntimeLivenessReconstruction): boolean {
   try {
     const p = event.payload, ordinal = event.admissionOrdinal - 1;
-    const events = reconstruction.facts(ordinal);
     if (!record(p) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
         event.admissionOrdinal !== ordinal + 1) return false;
     const actor = typeof p.actorInvocationRef === "string" ? p.actorInvocationRef : null;

@@ -1,10 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {readFile,writeFile} from 'node:fs/promises';
-import {join,resolve,dirname} from 'node:path';
+import {join,resolve} from 'node:path';
 import {createHash} from 'node:crypto';
-import {pathToFileURL} from 'node:url';
-import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {runControlledFrameEntry,loadFrameOwners,inspectFrameTrace} from '../support/t287-native-frame-observation.mjs';
 const root=resolve(import.meta.dirname,'../..'),proof=process.env.ABI5_FRAME_PROOF_ROOT;
 const sha=b=>createHash('sha256').update(b).digest('hex');
@@ -251,35 +249,40 @@ test('exact current D4 descriptor and retained historical EC rows/projections ar
  await writeFile(join(proof,'historical-equality.json'),JSON.stringify({descriptorEqual:true,d4:after.events.ROOT_EVENT_CONTRACT_DIGEST,summaries},null,2)+'\n');
 });
 
-// Component harness: the built runtime_liveness owner is linked in a VM with
-// two lower premises replaced, the execution-basis rehydration (one fixed
-// basis) and the retry budget (one fixed budget). The event prefix, the Event
-// Calculus fold and the liveness contracts are the built modules. The rows are
-// controlled current-profile facts, not a store, an installed Run or a process.
+// Component harness over admitted rows: the built runtime_liveness owner reads
+// its execution basis from an admitted basis_admitted row and its retry budget
+// from an admitted retry_attempt_opened row through its own derivations. The
+// event prefix, the Event Calculus fold and the liveness contracts are the
+// built modules. The rows are controlled current-profile facts, not a store,
+// an installed Run or a process.
 test('public liveness reads process liveness at the requested prefix; the validator reads before its own event',async()=>{
  const built=name=>join(root,'build/code/src',name+'.js');
  const ev=await import(built('abg/event_store')),px=await import(built('abg/event_prefix')),ec=await import(built('abg/event_calculus'));
  const contracts=await import(built('abg/runtime_liveness_contracts')),{deepFreeze}=await import(built('shared/immutable'));
- const {sha256Canonical:hash}=await import(built('shared/digests')),digest=contracts.runtimeLivenessDigest;
- const basis={basisRef:'basis://t287/liveness-cut',programRef:'program://t287/liveness-cut',graphFunctionRef:'graph-function://t287/liveness-cut'};
- const path=built('abg/runtime_liveness'),module=new SourceTextModule(await readFile(path,'utf8'),{identifier:path});
- const overrides={'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===basis.basisRef?basis:null},
-  './retry.js':{projectRuntimeRetryBudgetFacts:()=>({remaining:1,retryEligible:false,continuationRef:null,terminalPolicy:'block'})}};
- await module.link(async specifier=>{
-  const actual=await import(specifier.startsWith('.')?pathToFileURL(resolve(dirname(path),specifier)).href:specifier),values={...actual,...overrides[specifier]};
-  return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
- });
- await module.evaluate();const live=module.namespace;
+ const {sha256Canonical:hash}=await import(built('shared/digests')),{canonicalRecordDigest}=await import(built('shared/value/index')),digest=contracts.runtimeLivenessDigest;
+ const live=await import(built('abg/runtime_liveness'));
+ // The admitted execution basis: its body digests to its reference.
+ const rawInputValue={kind:'t287_liveness_cut_input',value:1};
+ const basisBody={programRef:'program://t287/liveness-cut',graphFunctionRef:'graph-function://t287/liveness-cut',invocationRef:'invocation://t287/liveness-cut',
+  rawInputValue,rawInputDigest:canonicalRecordDigest(rawInputValue)};
+ const basisDigest=hash(basisBody),basis={basisRef:`execution-basis://abiogenesis/${basisDigest.slice(7)}`,programRef:basisBody.programRef,graphFunctionRef:basisBody.graphFunctionRef};
  const scope={basisId:basis.basisRef,runId:'run://t287/liveness-cut',graphCallId:'graph-call://t287/liveness-cut',frameId:'frame://t287/liveness-cut',graphFunctionRef:basis.graphFunctionRef};
  const common={eventTime:'2026-10-23T00:00:00.000Z',correlationId:'correlation://t287/liveness-cut',workflowVersion:'5.0.0',scopeClass:'run',...scope};
- const event=(ordinal,kind,aggregateType,aggregateId,parentAggregateId,payload,causationEventRefs=[])=>deepFreeze({...common,kind,aggregateType,aggregateId,
+ const event=(ordinal,kind,aggregateType,aggregateId,parentAggregateId,payload,causationEventRefs=[],envelope=common)=>deepFreeze({...envelope,kind,aggregateType,aggregateId,
   parentAggregateId,causationEventRefs,payload,eventContractDigest:ev.ROOT_EVENT_CONTRACT_DIGEST,eventId:`event://t287/liveness-cut/${ordinal}/${kind}`,
   admissionOrdinal:ordinal,payloadDigest:hash(payload)});
  const rows=[],add=(...args)=>{const row=event(rows.length+1,...args);rows.push(row);return row;};
+ add('basis_admitted','workspace','workspace-binding://t287/liveness-cut',basisBody.invocationRef,{basisRef:basis.basisRef,basisDigest,...basisBody},[],
+  {eventTime:common.eventTime,correlationId:common.correlationId,workflowVersion:common.workflowVersion,scopeClass:'workspace',basisId:basis.basisRef});
+ // The admitted retry attempt: attempt 1 of a budget of 2 leaves one, with no progress recorded.
+ const retryPath=[{retryBoundaryRef:'retry-boundary://t287/liveness-cut'}];
+ const attemptBody={attempt:1,taskOrdinal:null,retryPath,budget:2,retryBoundaryRef:'retry-boundary://t287/liveness-cut'};
+ const retryAttemptDigest=hash(attemptBody),attemptRef=`retry-attempt://abiogenesis/${retryAttemptDigest.slice(7)}`;
+ add('retry_attempt_opened','retry_attempt',attemptRef,scope.frameId,{attemptRef,attemptDigest:retryAttemptDigest,...attemptBody});
  const cCallRef='c-call://t287/liveness-cut',processRef='process://t287/liveness-cut',parser='plain_text';
  const ids={actorRef:'actor://t287/liveness-cut',workerBindingRef:'worker-binding://t287/liveness-cut',implementationRef:'implementation://t287/liveness-cut',
   implementationBindingRef:'implementation-binding://t287/liveness-cut',inputDigest:hash('input'),promptDigest:hash('prompt'),dispatchOrdinal:1};
- const opened=add('c_call_opened','c_call',cCallRef,scope.frameId,{cCallRef,attempt:1,programLocusRef:'locus://t287/liveness-cut',taskOrdinal:null,vectorIndex:null,edgeRef:null});
+ const opened=add('c_call_opened','c_call',cCallRef,scope.frameId,{cCallRef,attempt:1,programLocusRef:'locus://t287/liveness-cut',taskOrdinal:null,vectorIndex:null,edgeRef:null,retryPath});
  const fibre=add('c_call_fibre_selected','c_call',cCallRef,scope.frameId,{cCallRef,callClass:'leaf',regime:'F_P',
   implementationRef:ids.implementationRef,implementationBindingRef:ids.implementationBindingRef},[opened.eventId]);
  // The declared identities the actor context owner recomputes.
@@ -307,6 +310,8 @@ test('public liveness reads process liveness at the requested prefix; the valida
  for(const [label,last,processLive,disposition]of cases){
   const cut=px.validatedRuntimeEventPrefixThroughEvent(source,last.eventId),context=live.projectActorLivenessContext(cut,actorRef);
   assert.notEqual(context,null,`${label}: the actor context authenticates`);
+  assert.deepEqual([context.scope.basisRef,context.scope.programRef,context.scope.graphFunctionRef],[basis.basisRef,basis.programRef,basis.graphFunctionRef],
+   `${label}: the context reads the admitted basis`);
   assert.equal(ec.holdsAt(ec.deriveRuntimeHeldFluentProjection(cut),ec.constructRuntimeFluentPattern({name:'actor_process_live',identity:processRef})).length!==0,processLive,
    `${label}: the calculus answer for actor_process_live`);
   // Public path: the hard cap is reached; controlled_terminate requires the process live at this prefix.
@@ -314,6 +319,8 @@ test('public liveness reads process liveness at the requested prefix; the valida
   const projection=live.deriveRuntimeLiveness(cut,context,sample);
   assert.notEqual(projection,null,`${label}: the public projection exists`);
   assert.equal(projection.hardCapReached,true);
+  assert.deepEqual(projection.retryBudget,{resultRejectionRef:null,remaining:1,retryEligible:false,continuationRef:null,terminalPolicy:'block'},
+   `${label}: the budget derived from the admitted attempt`);
   assert.equal(projection.disposition.disposition,disposition,`${label}: the public reader agrees with the calculus at the requested prefix`);
   // Validator path at the same prefix, for an event appended to it. The timeout
   // arm reads the public relation at its predecessor cut, this prefix.

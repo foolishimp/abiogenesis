@@ -5217,7 +5217,6 @@ export function projectRuntimeRetryBudgetFacts(prefix: ValidatedRuntimeEventPref
 export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts;
 export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts {
   const absent: RuntimeLivenessBudgetFacts = { remaining: null, retryEligible: false, continuationRef: null, terminalPolicy: "block" };
-  const events = runtimeEventBodiesAtPrefix(prefix);
   const opened = indexedRuntimeEvents(prefix, "related:" + scope.cCallRef).find(event => event.kind === "c_call_opened" && event.aggregateId === scope.cCallRef &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId);
   if (opened === undefined || !isRecord(opened.payload) || !Array.isArray(opened.payload.retryPath) || opened.payload.retryPath.length === 0) return absent;
