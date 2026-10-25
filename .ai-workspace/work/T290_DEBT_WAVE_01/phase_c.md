@@ -5439,3 +5439,367 @@ Grant: `code/src/abg/calculus/liveness.ts` (new), `code/src/abg/calculus/executi
 Stops (write the stop in the Return, keep the rest moving): any persisted digest, `activeFluents` vector, event kind, payload key, failure class or Public export that changes; any public contract row that changes; a step where the old validator and the new admission validator differ; a step where the relation alone and the old validator differ; a consumer of the basis record law whose outcome changes; a fold-law case red at any cut; a hunk that cannot be re-derived without changing the shape.
 
 Return contract: one commit on `main`, staged by path, first line `C-12c: the liveness relation is a calculus function of the fold state, the event and the cut before it, with the retry budget facts and the execution-basis record law in the calculus; the liveness owner's admission composes it with the structural-identity join; the calculus imports nothing from its consumers (lint:calculus clean)`, with any gap stated in place; the Return before the commit so the commit carries it: the shape as landed, the files and functions moved with their line ranges, the differential's counts and mismatches for both comparisons, the fold-law cases, the lanes table, the measurement, the lint's admitted set, item 3's texts, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-12c return (Worker, Opus 5.5, 2026-10-25; base `d83da14bd`)
+
+**Closed.**
+
+- **Shape.** The C-12b prototype is landed under the widened grant. The liveness relation, the context derivations, the reconstruction index and the retry budget facts with their record block are in `abg/calculus/liveness.ts`. The execution basis record law is in `abg/calculus/execution_basis_record.ts`. The fold reads `actor_process_live` from its own state. The liveness owner's admission is the relation composed with the structural-identity join. `rules.ts:7` and the WeakMap are gone.
+- **Lint.** `lint:calculus` is clean with no allow-list entry.
+- **Differential.** On the committed tree: 0 mismatches between the old validator and admission, and 0 between the old validator and the relation alone, at 6,402 fold steps and 669 off-fold validations, with the refusal sets equal (88 and 15). The basis record law differs at 0 of 1,166 calls.
+- **Fold-law case.** The new case is green at every cut.
+- **Lanes.** All 28 runs are equal to the base except `t287-calculus-fold`, which goes 17 → 18.
+- **Stops.** One, by the literal reading: 47 public contract rows gain `calculus/liveness.d.ts` in their declaration inventories, and 21 of them move their `contractDigest`. The cause is the ruled shape: the owner's declarations re-export the two context types from the calculus. The rows are equal by the C-12b check the activation names. The Executive rules on it.
+
+### The shape as landed
+
+The C-12b prototype patch applies to `d83da14bd` from the tenant directory with every hunk clean: eight files, no offset, no fuzz (`patch -p1`). Applied to scratch copies it is byte-equal to `c12b/proto/clean/` in all eight. On top of it this commit makes the item 1 changes and nothing else in the shape:
+
+- **The dead branches go.** `reconstruction` is a required parameter of `probeObservationMatches` and `deriveRuntimeLivenessSemantics`. The five `reconstruction === undefined` branches the C-12b Return names (base `runtime_liveness.ts:359`, `:423`, `:734`, `:752`, `:810` at `d83da14bd`) are removed, with the `?.`/`??` fallbacks that existed only for that case: the eager or lazy `events` cut fallbacks, `?? prefix` on the cursor-origin cut and the obligation cut, `?? events()` on the CCall declaration rows, the budget fallback to `projectRuntimeRetryBudgetFacts(prefix, …)`, and the `foldKey === null` guards. `actorContextAt`, whose one caller was the `:423` branch, goes. `probeObservationMatches` then reads no `prefix`, so that parameter goes and its two callers (`liveness.ts:639`, `runtime_liveness.ts:313`) drop the argument. `selectedBudget` in `deriveRuntimeLivenessSemantics` becomes `RuntimeLivenessBudgetFacts | undefined`, since a required parameter follows it; both callers already pass it.
+- **One fallback stays:** `reconstruction.observations.get(scopeDigest) ?? events().filter(…)` (`liveness.ts:610`). It is taken when the index has no row for the scope, not when the index is absent, so it is not one of the five.
+- **S2 is as it was**, including the derivation's `typeof progress.failureSignalRef === "string"` read. The C-12b Return's suggestion to tighten that read to a non-empty string is not done: the activation keeps S2 as it is.
+- **`@internal`.** Every export of `calculus/liveness.ts` and `calculus/execution_basis_record.ts` is `@internal` except `RuntimeLivenessContext` and `RuntimeLivenessSample`, which the owner's public declarations re-export. The emitted `calculus/liveness.d.ts` holds those two types only; `calculus/execution_basis_record.d.ts` is `export {};`. `npm run build`'s packed declaration closure check passes.
+
+The shape, file by file:
+
+- **`abg/calculus/liveness.ts` (new, 841 lines).** The three context derivations and `contextForOccurrence`; the reconstruction index `RuntimeLivenessReconstruction` with `livenessReconstruction`; the relation `nativeLivenessRelationHolds(source, processLive, event, obligations)` and its decision `decideRuntimeLivenessEvent`; `probeObservationMatches`, `deriveRuntimeLivenessSemantics` and `deriveRuntimeLivenessProjection`; the retry budget facts `projectRuntimeRetryBudgetFacts` with its record block. It reads the basis through `projectExactExecutionBasisRecordAtPrefix`.
+- **`abg/calculus/execution_basis_record.ts` (new, 118 lines).** The execution basis record law, `projectExactExecutionBasisRecordAtPrefix`, with `EXECUTION_BASIS_RECORD`, its refusal and `executionBasisBody`, verbatim from the invocation truth owner except the type name `ExecutionBasisRecord` (the fields the law and its readers use).
+- **`abg/calculus/rules.ts`.** `:7` and the `LIVENESS_VALIDATORS` WeakMap are gone, with the `RuntimeEventPrefix` type import only the WeakMap used. `deriveLiveness` (`:102-109`) throws its one message unless `state.source !== null` and `nativeLivenessRelationHolds(state.source, processRef => held(state, "actor_process_live", processRef), event)` holds: the fold reads process liveness from its own state.
+- **`abg/runtime_liveness.ts` (396 lines).** The owner keeps the IO-bound observers, the public projections and context wrappers, M5 and the two validators. `ownerProcessLive` (`:49-50`) reads `runtimeFluentHoldsAtPrefix` at the relation's cut. `structuralRoutesHold` (`:53-55`) is M5 over the relation's obligations. Admission is the relation composed with M5: `validateRuntimeLivenessEventAtPrefix` (`:180-196`, called at `event_store.ts:4091`) and `createRuntimeLivenessEventValidator` (`:199-208`, the retry frame join `retry.ts:705`); the public projections (`:236-249`) and `admitRuntimeActivityProbe` (`:313-314`) compose the same way.
+- **`abg/runtime_liveness_contracts.ts`** gains `RuntimeLivenessBudgetFacts` (`:100-108`); the owner re-exports it.
+- **`abg/invocation_execution_truth.ts`.** `projectExactExecutionBasisAtPrefix` (`:604-618`) keeps its two overloads and delegates to the calculus law, typed as its `ExecutionBasis`; its callers (56 call sites in 16 owner modules, `execution_basis.ts`'s `rehydrateExecutionBasisAtPrefix` among them) call the same function.
+- **`abg/retry.ts`** loses the record block and the derivation, `:141`, the width of `:143` and the type re-import in `:32`.
+- **`fold.ts`, `index.ts`, `axioms.ts` and `event_calculus.ts` are unchanged.** `eventCalculusDependencies` is unchanged (C-12b disposition, deviation 1). The fold needs no new fact.
+
+### Files and functions moved
+
+Base lines are at `d83da14bd`. Landed lines are on this commit. "Verbatim" means the body is the base body except for the changes named.
+
+| From (base) | To (landed) | What |
+|---|---|---|
+| `runtime_liveness.ts:61-67` `livenessContextFacts` | `calculus/liveness.ts:57-63` | verbatim |
+| `runtime_liveness.ts:70-134` `deriveActorLivenessContext` | `liveness.ts:65-129` | verbatim; reads the basis through the calculus law |
+| `runtime_liveness.ts:136-143` `RuntimeLivenessBudgetFacts` | `runtime_liveness_contracts.ts:100-108` | the type, re-exported by the owner |
+| `runtime_liveness.ts:145-148` `NON_ACTOR_SOURCES` | `liveness.ts:130-133` | verbatim |
+| `runtime_liveness.ts:152-181` `deriveCCallLivenessContext` | `liveness.ts:137-166` | verbatim |
+| `runtime_liveness.ts:182-185` `FRAME_PRODUCERS` | `liveness.ts:168-171` | verbatim |
+| `runtime_liveness.ts:188-218` `deriveFrameLivenessContext` | `liveness.ts:174-204` | verbatim |
+| `runtime_liveness.ts:219-221` `contextForOccurrence` | `liveness.ts:205-207` | verbatim |
+| `runtime_liveness.ts:223-227` `frameFailureApplies` | `liveness.ts:209-213` | verbatim |
+| `runtime_liveness.ts:350-354` `RuntimeLivenessSample` | `liveness.ts:230-234` | verbatim; the owner re-exports it |
+| `runtime_liveness.ts:355-451` `probeObservationMatches` | `liveness.ts:236-329` | M5 is appended to `obligations`, not decided; the dead branch (`:359`, `:423`) and `actorContextAt` go; `prefix` goes |
+| `runtime_liveness.ts:473-619` `RuntimeLivenessReconstruction` | `liveness.ts:336-482` | verbatim |
+| `runtime_liveness.ts:621-625` `LIVENESS_DERIVATION`, `livenessReconstruction` | `liveness.ts:484-489` | verbatim |
+| `runtime_liveness.ts:643-692` `validateRuntimeLivenessEvent` | `liveness.ts:507-560` `decideRuntimeLivenessEvent` | the process read and `obligations` are parameters |
+| new | `liveness.ts:496-504` `nativeLivenessRelationHolds` | the relation: `decideRuntimeLivenessEvent` at the cut before the event, through the source's index |
+| new | `liveness.ts:220-228` `NativeLivenessRouteObligation`, `ProcessLiveRead` | the obligation and the process read |
+| `runtime_liveness.ts:694-711` `RuntimeLivenessSemantics`, `RuntimeLivenessHistoryFold(s)` | `liveness.ts:561-579` | verbatim |
+| `runtime_liveness.ts:722-883` `deriveRuntimeLivenessSemantics` | `liveness.ts:582-739` | the process read and `obligations` are parameters; the dead branches (`:734`, `:752`, `:810`) and their fallbacks go; S2 at `:603-609` is unchanged |
+| `runtime_liveness.ts:910-926`, the body of `deriveRuntimeLivenessWithPrefixDigest` | `liveness.ts:744-762` `deriveRuntimeLivenessProjection` | the owner's `deriveRuntimeLivenessWithPrefixDigest` (`runtime_liveness.ts:236-249`) calls it and decides M5 |
+| `retry.ts:5176-5210` the record block (`DigestedRecord`, `DIGESTED_RECORD_REFUSAL`, `digestedRecord`, `DIGESTED_RECORD_DIGEST`, `RETRY_ATTEMPT_RECORD`, `RETRY_PROGRESS_RECORD`) | `liveness.ts:764-798` | verbatim |
+| `retry.ts:5212-5250` `projectRuntimeRetryBudgetFacts` | `liveness.ts:805-840` | verbatim |
+| `invocation_execution_truth.ts:603-690` (`EXECUTION_BASIS_PROJECTION_REFUSAL`, `executionBasisBody`, `EXECUTION_BASIS_RECORD`, `projectExactExecutionBasisAtPrefix`'s body) | `calculus/execution_basis_record.ts:30-118` (`projectExactExecutionBasisRecordAtPrefix` at `:78-118`) | verbatim, typed `ExecutionBasisRecord` (`:18-28`); the owner's `projectExactExecutionBasisAtPrefix` (`invocation_execution_truth.ts:604-618`) keeps its overloads and delegates |
+| `rules.ts:7` and the `LIVENESS_VALIDATORS` WeakMap | gone | `deriveLiveness` (`rules.ts:102-109`) calls the relation |
+
+The owner keeps the following, at their landed lines in `runtime_liveness.ts`:
+
+- `record` and `exactOrNull` (`:36-46`);
+- the frame and CCall observers (`:58-178`);
+- the three context projections (`:114-134`);
+- the two validators (`:180-208`);
+- the public projections (`:212-296`);
+- `admitRuntimeActivityProbe` (`:299-353`) and `admitRuntimeThreshold` (`:356-396`).
+
+It gains `ownerProcessLive` (`:49-50`) and `structuralRoutesHold` (`:53-55`).
+
+Line counts:
+
+| File | Base | Landed |
+|---|---|---|
+| `runtime_liveness.ts` | 1,072 | 396 |
+| `calculus/liveness.ts` | — | 841 |
+| `calculus/execution_basis_record.ts` | — | 118 |
+| `retry.ts` | 6,748 | 6,672 |
+| `invocation_execution_truth.ts` | 690 | 618 |
+
+### The differential (on the committed tree)
+
+**Method.** C-12b's method (`c12b/proto/instrument.py`), applied by `scratchpad/c12c/tools/instrument.py` to this commit's source, with a stronger old arm. Three scratch modules are added and removed again by the strip:
+
+- `abg/runtime_liveness_old.ts`, the old validator: the base owner `runtime_liveness.ts` at `d83da14bd`, with the base retry budget derivation inlined;
+- `abg/execution_basis_record_old.ts`, the base basis law verbatim from base `invocation_execution_truth.ts:603-690`, which the old validator reads its basis through;
+- `abg/c12c_counters.ts`, the counters.
+
+`// C12C` hooks go into three files: `rules.ts` (4 lines), `runtime_liveness.ts` (48) and `invocation_execution_truth.ts` (8). Counters are kept per installed package copy; a lane that loads two copies counts each copy against its own old validator. The instrumented tree passes `tsc --noEmit` and `npm run build`.
+
+Every lane of the C-12b list and the compose scenario then run alone, each with its own count file. C-12b's four scratch fixtures run through `scratchpad/c12c/tools/mutants.mjs`.
+
+| Mark | What it is |
+|---|---|
+| O | the old validator: the base owner, with the base budget derivation and the base basis law |
+| A | the tree's admission validator: the relation composed with M5 |
+| R | the relation alone, `nativeLivenessRelationHolds` |
+
+The comparisons are made in five places:
+
+- **On the fold**, at every `deriveLiveness` step with a source. O, A and R are each evaluated over the fold's source before the event.
+- **Off the fold**, at every call of `validateRuntimeLivenessEventAtPrefix` and of the `createRuntimeLivenessEventValidator` closure. These are admission, the retry frame join and the tests.
+- **At every public projection** (`deriveRuntimeLivenessWithPrefixDigest`), against the old `deriveRuntimeLiveness`, by null and by `projectionDigest`.
+- **At every call of the basis record law.** Every call of `projectExactExecutionBasisAtPrefix`, the owner function all 56 call sites in 16 owner modules use, is compared with the base law by null, by canonical value and by throw. This is for the stop "a consumer of the basis record law whose outcome changes".
+- **On the four fixtures**: the C-12b budget fixture; its `basis_admitted` with a wrong `basisDigest`; and its retry attempt with a wrong digest, once with the threshold citing the well-formed budget and once citing the derivation.
+
+Two skip-only lanes, `t287-authenticated-owner-family` and `t288-native-producer-membership`, write no count file. Each lane's one test skips, on an unset environment variable or an absent history. Neither file imports the liveness owner at top level, so no instrumented owner loads.
+
+**Result: 0 mismatches in both comparisons, and in the basis law.**
+
+- **Old against admission (A≠O): 0.**
+  - On the fold: 6,402 native-kind steps. That is 6,384 over the 28 runs plus 18 in the fixtures. By kind they are 6,136 probes, 156 timeouts and 110 interruptions.
+  - Off the fold: 669 validations. That is 653 over the 28 runs plus 16 in the fixtures. By kind they are 645 probes, 13 timeouts and 8 interruptions at a prefix, and 3 probes through the validator closure.
+- **Old against the relation alone (R≠O): 0** at the same steps.
+- **Route obligations: 0 everywhere,** on and off the fold, so M5 is vacuous on these lanes.
+- **The refusal sets are equal.** At every step O, A and R refuse together.
+  - On the fold, O refused 88 steps (68 probes and 20 timeouts): 80 in `t287-calculus-fold`, 4 in `r10-projection-contracts` and 4 in the fixtures. A and R refused exactly those.
+  - Off the fold, O refused 15 (7 probes, 5 timeouts and 3 interruptions): 8 in `t287-calculus-fold`, 1 in `t287-native-frame-observation` and 6 in the fixtures. A and R refused exactly those.
+- **Public projections:** 1,131 compared, with 0 null mismatches and 0 `projectionDigest` mismatches.
+- **The basis record law:** 1,166 calls, 1,161 of them non-null. There are 0 null mismatches and 0 value mismatches, and neither law threw.
+- **Against C-12b's counts.** The fold steps per lane are equal: `r4-aba-retry` 2,444, the frontier 2,268, `state-transfer` 793, compose 95, `r10` 4. `t287-calculus-fold` grows from 704 to 780 with the new case, so 6,308 + 76 = 6,384. That lane's fold refusals grow from 52 to 80; the 28 new ones are the faulty variant's 7 refused cuts × 4 folds (cold, warm, streaming, fork). Its off-fold steps grow from 14 to 22, and the 4 new off-fold refusals are the owner validator on the faulty variant's 4 native rows. Its projections grow from 12 to 13: the case calls `livenessFixture()`, which computes one projection.
+- **The fixtures.** Each has 4 native rows (ordinals 8, 11, 12 and 13), with 0 A≠O and 0 R≠O, and the two basis laws agree on each.
+
+  | Fixture | O, A and R |
+  |---|---|
+  | the valid fixture | all three accept all four |
+  | the basis mutant | both laws refuse the record; all three refuse all four |
+  | the wrong attempt digest, the threshold citing the well-formed budget | all three accept the two probes and refuse the threshold and the interruption after it |
+  | the wrong attempt digest, the threshold citing the derivation | all three accept all four |
+
+| Lane | Procs | Fold steps / refused O / A / R | Fold A≠O / R≠O / obligations | Off-fold steps / refused O / A / R | Off-fold A≠O / R≠O / obligations | Projections / null≠ / digest≠ | Basis-law calls / non-null / null≠ / value≠ |
+|---|---|---|---|---|---|---|---|
+| `compose` | 1 | 95 / 0 / 0 / 0 | 0 / 0 / 0 | 47 / 0 / 0 / 0 | 0 / 0 / 0 | 55 / 0 / 0 | 16 / 16 / 0 / 0 |
+| `fixtures` | 1 | 18 / 4 / 4 / 4 | 0 / 0 / 0 | 16 / 6 / 6 / 6 | 0 / 0 / 0 | 7 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `m5-event-calculus-runtime` | 3 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `m5-terminal-quiescence-owner` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `r10-projection-contracts` | 1 | 4 / 4 / 4 / 4 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 43 / 43 / 0 / 0 |
+| `retained-route-cursor-transition` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `steel-basic-cli-source-replay` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-authenticated-owner-values` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-calculus-fold` | 1 | 780 / 80 / 80 / 80 | 0 / 0 / 0 | 22 / 8 / 8 / 8 | 0 / 0 / 0 | 13 / 0 / 0 | 249 / 248 / 0 / 0 |
+| `t287-calculus-state-transfer` | 1 | 793 / 0 / 0 / 0 | 0 / 0 / 0 | 393 / 0 / 0 / 0 | 0 / 0 / 0 | 510 / 0 / 0 | 138 / 138 / 0 / 0 |
+| `t287-declared-testing-capability` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-event-body-encoding` | 3 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 3 / 3 / 0 / 0 |
+| `t287-event-calculus-owner-continuation` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-f04a-probabilistic-result-candidate` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 5 / 5 / 0 / 0 |
+| `t287-f09-frontier-handoff` | 3 | 2,268 / 0 / 0 / 0 | 0 / 0 / 0 | 79 / 0 / 0 / 0 | 0 / 0 / 0 | 245 / 0 / 0 | 222 / 221 / 0 / 0 |
+| `t287-lifecycle-failure-carrier` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-management-stream-drain` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-native-assessment-evidence` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-native-frame-observation` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 4 / 1 / 1 / 1 | 0 / 0 / 0 | 2 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-native-work-unknown-effect` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 120 / 118 / 0 / 0 |
+| `t287-native-workspace-work` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 6 / 6 / 0 / 0 |
+| `t287-ordered-reconstruction` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-owned-process-lifetime` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-r4-aba-retry` | 2 | 2,444 / 0 / 0 / 0 | 0 / 0 / 0 | 108 / 0 / 0 / 0 | 0 / 0 / 0 | 299 / 0 / 0 | 364 / 363 / 0 / 0 |
+| `t287-route-reconstruction` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-runtime-failure-diagnostic` | 2 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| `t287-undispatched-diagnostic` | 1 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 | 0 / 0 / 0 / 0 |
+| **total** | 35 | 6,402 / 88 / 88 / 88 | 0 / 0 / 0 | 669 / 15 / 15 / 15 | 0 / 0 / 0 | 1,131 / 0 / 0 | 1,166 / 1,161 / 0 / 0 |
+
+### Fold-law case (`t287-calculus-fold`, one addition)
+
+The lane is 18/18 on this commit; the 17 existing cases are unchanged and green. The new case, "C-12c fold law: a probe citing a basis_admitted whose basisDigest is wrong is refused by the fold with one message at every cut that holds it, and its mutant with the right digest is accepted" (`t287-calculus-fold.test.mjs:898-951`, with its comment and two imports at `:888-896`), uses the C-12 actor fixture (`livenessFixture`, 13 rows, the first probe at ordinal 7).
+
+- **The fault.** The faulty variant replaces only the `basis_admitted` row: its payload records a different well-formed `basisDigest`, and its `payloadDigest` is recomputed. `basisRef`, `programRef`, `graphFunctionRef` and `invocationRef`, the fields the liveness contexts read, are asserted equal to the valid row's, so a reader of those payload fields alone would accept every probe. The mutant with the right digest is the fixture itself.
+- **The law decides in the calculus.** The calculus law (`projectExactExecutionBasisRecordAtPrefix`) admits the valid record and refuses the faulty one, and the owner's `projectExactExecutionBasisAtPrefix` returns the same value (deep-equal) in both. The fold reaches the basis only through the calculus relation, so its refusal is the calculus deciding.
+
+| Variant | Owner's validator on the 4 native rows | Accepted cuts | Refused cuts |
+|---|---|---|---|
+| the right basis digest | accepts all 4 | 13 | 0 |
+| a wrong basis digest | refuses all 4 | 6 (ordinals 1-6) | 7 (ordinals 7-13) |
+
+At each accepted cut the cold fold, the warm projection, the streaming fold and a fork taken at the cut or at ordinal 4, whichever is earlier, and advanced to the cut agree. At each refused cut the cold fold, the warm projection, the streaming fold and a fork taken at ordinal 4 from the cut before the probe (ordinal 6) and advanced to the cut throw `native liveness effect has no exact admitted source/threshold relation`. The cuts before the probe fold alike under the faulty basis, so no fold step other than the liveness rule reads the `basis_admitted` payload.
+
+### Lanes (each alone, `npm run build` first; before = the `d83da14bd` build, after = this commit's build)
+
+All 28 runs are equal before and after in counts, red names, skip names and first error lines, except `t287-calculus-fold`, which moves 17/17 → 18/18 by the new case. No other lane moved.
+
+| Lane | before t/p/f/s | after t/p/f/s | Duration (s) before / after | Reds, skips, first errors equal to before |
+|---|---|---|---|---|
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 46.9 / 46.7 | yes |
+| `t287-f09-frontier-handoff` | 1/1/0/0 | 1/1/0/0 | 73.4 / 69.4 | yes |
+| `t287-calculus-fold` | 17/17/0/0 | 18/18/0/0 | 2.1 / 1.9 | yes |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 148.7 / 144.5 | yes |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 0.3 / 0.3 | yes |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.5 / 1.4 | yes |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | 0.4 / 0.3 | yes |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | 2.3 / 2.2 | yes |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.8 / 1.7 | yes |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes |
+| `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/17/0/0 | 2.7 / 2.6 | yes |
+| `t287-route-reconstruction` | 11/9/0/2 | 11/9/0/2 | 9.4 / 9.1 | yes |
+| `t287-calculus-state-transfer` | 8/8/0/0 | 8/8/0/0 | 261.4 / 259.9 | yes |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 0.5 / 0.5 | yes |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 0.3 / 0.3 | yes |
+| `t287-declared-testing-capability` | 7/3/0/4 | 7/3/0/4 | 35.8 / 35.2 | yes |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 11.3 / 11.1 | yes |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 36.2 / 35.4 | yes |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.5 / 0.5 | yes |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 | 5.0 / 5.0 | yes |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 | 0.5 / 0.4 | yes |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 | 0.9 / 0.9 | yes |
+| `t287-ordered-reconstruction` | 7/2/2/3 | 7/2/2/3 | 0.4 / 0.4 | yes |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes |
+| `t288-native-producer-membership` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 37.1 / 36.7 | yes |
+
+The reds and skips are the base's own, the same names and first lines in both arms:
+
+- `m5-event-calculus-runtime` (5 red, 1 skip): four reds start `TypeError [Error]: abg.openCall is not a function`, and one `AssertionError … runtime_failure_observed/runtime_invocation_active`.
+- `t287-native-frame-observation` (3 red, 4 skip): "explicit proof-local territory"; `ERR_INVALID_ARG_TYPE` "path … Received undefined"; a falsy assertion.
+- `retained-route-cursor-transition` (1 red): "traversal transition differs from its staged successor projection".
+- `t287-event-calculus-owner-continuation` (1 red): the file's `'test failed'`.
+- `t287-authenticated-owner-values` (1 red, 1 skip), `t287-f04a-probabilistic-result-candidate` (1 red) and `t287-ordered-reconstruction` (2 red, 3 skip): strict-equality and falsy assertions.
+- Skips only:
+  - `t287-native-workspace-work` 1;
+  - `t287-authenticated-owner-family` 1;
+  - `t287-route-reconstruction` 2;
+  - `steel-basic-cli-source-replay` 2;
+  - `t287-declared-testing-capability` 4, unset `ABI5_TESTING_INPUT_ROOT` / `ABG_TS_CLAUDE_COMMAND` and absent releases;
+  - `t287-management-stream-drain` 4;
+  - `t288-native-producer-membership` 1.
+
+### Measurement (C-12 method)
+
+The C-12 method is `--cpu-prof` at Node's default 1 ms sampling interval. `cpu2.mjs` sums inclusive milliseconds per labelled function, and per pair for "A within B". The base is the `d83da14bd` build. "After" is the clean landed build, the one the after lanes ran on, measured three times for compose. `decideRuntimeLivenessEvent` is counted under the base name `validateRuntimeLivenessEvent`.
+
+**Compose** (`ABI5_CALCULUS_CASES=compose`, 5 profiles, 2/2 green in every run):
+
+| ms | base | after r1 | after r2 | after r3 |
+|---|---|---|---|---|
+| total sampled | 47,559.6 | 44,350.0 | 43,638.3 | 43,755.7 |
+| `applyStep` | 25.4 | 30.0 | 22.9 | 26.4 |
+| `deriveLiveness` (the liveness rule under the fold) | 21.2 | 26.2 | 19.1 | 16.2 |
+| the relation under the fold: base `validateRuntimeLivenessEvent` within `deriveLiveness`; after `nativeLivenessRelationHolds` within `deriveLiveness` | 18.7 | 26.2 | 19.1 | 16.2 |
+| `runtimeFluentHoldsAtPrefix` within `deriveLiveness` | 1.3 | 0 | 0 | 0 |
+| admission, `validateRuntimeLivenessEventAtPrefix` | 53.7 | 54.6 | 55.4 | 55.1 |
+| `RuntimeLivenessReconstruction.advance` | 10.1 | 10.0 | 11.2 | 6.3 |
+| `deriveReplayPrefixFacts` | 65.0 | 60.1 | 59.0 | 61.5 |
+
+**`m5-event-calculus-runtime`** (19 profiles, one run each; 19/13/5/1 both):
+
+| ms | base | after |
+|---|---|---|
+| total sampled | 183,290.2 | 174,241.1 |
+| `applyStep` | 5.1 | 7.0 |
+| `runtimeFluentHoldsAtPrefix` | 2.5 | 4.5 |
+| every liveness label (`deriveLiveness`, the relation, the validators, the index) | 0 | 0 |
+
+**Reading.**
+
+- The quantities are tens of samples. The three after runs of the same build spread 22.9-30.0 ms for `applyStep` and 16.2-26.2 ms for the rule. C-12b measured the base rule at 16.9 ms, against 21.2 ms here.
+- Every base figure lies inside that spread, so this method shows no change in cost from the move.
+- The fold no longer calls `runtimeFluentHoldsAtPrefix`: 0 ms within `deriveLiveness` in the three after runs. It reads `actor_process_live` from its own state.
+- Admission costs what it did: 53.7 ms at the base, 54.6-55.4 ms after.
+- `m5-event-calculus-runtime` reaches no liveness step. Its `applyStep` and `runtimeFluentHoldsAtPrefix` totals are 2-5 ms over about 180 s, at the sampling floor.
+
+### The lint's admitted set
+
+`npm run lint:calculus` exits 0: "check-calculus-boundary: 6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender". `ALLOWED` is empty. At `d83da14bd` the same lint reports one offender, `rules.ts:7` (`import { createRuntimeLivenessEventValidator } from "../runtime_liveness.js"`), and exits 1. The admitted set (`scripts/check-calculus-boundary.mjs:27-42`, and its header comment `:9-15`) is the `:46` row's Imports cell less `abg/runtime_liveness.ts`, plus three entries:
+
+- `code/src/shared/admit/`, `shared/canonical_json.ts`, `shared/digests.ts`, `shared/immutable.ts`;
+- **added:** `code/src/shared/refusal.ts`, `code/src/shared/select/`, `code/src/shared/value/`;
+- `code/src/product/worksite_effect.ts`, `product/native_workspace_work.ts`;
+- `code/src/abg/event_prefix.ts`, `abg/event_store.ts`, `abg/runtime_liveness_contracts.ts`, `abg/c_call_outcome.ts`, `abg/native_work_effect.ts`;
+- `code/src/abg/calculus/`.
+
+Every entry is read: the import set of the six calculus modules, taken by grep, is exactly this set.
+
+The other gates on the stripped tree: `tsc --noEmit` exits 0; `lint:imports`, `lint:lifecycle` and `lint:evidence` exit 0; `npm run build` exits 0, its packed declaration closure check included.
+
+### Deviations
+
+1. **`retry.ts` beyond the three named places.** The patch also removes the retry budget facts derivation (`retry.ts:5212-5250` at the base, which moved to `liveness.ts:805-840`) and drops `RuntimeLivenessBudgetFacts` from the type re-import at `:32`. The activation's shape puts the derivation in the calculus. Its `retry.ts` grant names only the record block, `:141` and `:143`. The C-12b grant covered both. Without them the derivation would have two copies, or `retry.ts` would re-export a type it no longer declares. No other `retry.ts` line changes (`git diff -U0`: `-32 +32`, `-141`, `-143 +142`, `-5176,75`).
+2. **`invocation_execution_truth.ts:33-34`.** The prototype kept `resolveExactMatch` from the base `:34` import; after the delegation nothing in the file reads it, so it is removed. The base `:33-34` (the `shared/refusal.js` and `shared/select/index.js` imports) become the one import of the calculus law at `:33`. This is inside the `:33-34` grant. The residue outside those lines is finding 1.
+3. **`probeObservationMatches` drops `prefix`.** Once the dead branches go, the parameter has no reader, so it goes, and its two callers drop the argument. `selectedBudget` in `deriveRuntimeLivenessSemantics` is typed `RuntimeLivenessBudgetFacts | undefined` because a required parameter (`reconstruction`) now follows it. Both are consequences of item 1. Neither changes a public declaration: both functions are `@internal`.
+4. **`runtime_liveness.ts` hygiene.** The landed owner drops two imports the move left without a reader (`sha256Canonical`, `projectRuntimeEventFromValidatedHistory`) and one unused local in `admitRuntimeThreshold` (`const events = runtimeEventBodiesAtPrefix(prefix);`). This is within the file's grant.
+5. **Two comments.** The lint's header comment lists the admitted set and gains the three entries. `execution_basis_record.ts`'s header comment is in present tense and names the delegating owner.
+6. **The differential's old arm is stronger than C-12b's.** C-12b's old validator read the basis through the delegated (new) law. Here it reads the base law verbatim (`invocation_execution_truth.ts:603-690` at `d83da14bd`, in a scratch module). A hook at every call of `projectExactExecutionBasisAtPrefix` compares the new law with the old one. This is for the stop "a consumer of the basis record law whose outcome changes".
+7. **The lane count.** The C-12b list is 27 lanes plus the compose scenario: 28 runs, the C-12b Return's "28 lane runs". The activation's "the C-12b list (28) plus the compose scenario" is read as those 28 runs.
+
+### Findings outside the grant
+
+1. **Move residue: four imports with no reader.** They sit outside the literal grant lines, so they stay; each is a one-line removal. `tsc` does not flag them, because `noUnusedLocals` is off; `tsc --noUnusedLocals --noUnusedParameters` on scratch copies of the base and the tree shows these four as new and no other difference.
+   - `invocation_execution_truth.ts:5`: `import type { JsonValue } from "../shared/canonical_json.js";`.
+   - `invocation_execution_truth.ts:31`: `canonicalRecordDigest` in `import { canonicalEquals, canonicalRecordDigest } from "../shared/value/index.js";`.
+   - `invocation_execution_truth.ts:32`: `import { admitJson } from "../shared/admit/index.js";`.
+   - `retry.ts:33`: `import type { RuntimeInvocationScope } from "./runtime_liveness_contracts.js";`.
+
+   C-16 edits `retry.ts`; the three `invocation_execution_truth.ts` lines need a grant on that file.
+2. **The calculus's transitive reach.** The lint reads direct imports. Two admitted modules import consumers in turn: `event_store.ts:4410` imports `validateRuntimeLivenessEventAtPrefix` from the liveness owner, and `c_call_outcome.ts:123` and `:126` import from the retry and liveness owners. The C-12b disposition ruled this the design's named departure (`:55`). The item 3 text for `:55` names it.
+3. **The owner-level cycle.** `retry.ts:32` ↔ `runtime_liveness.ts:18` (`:22` at the base) is as the C-12b disposition describes. It is ruled into C-16; the item 3 text for `:55` names it.
+4. **The inventory growth is avoidable by a shape change** (stop 1). The 47 rows that gain `calculus/liveness.d.ts` already hold `abg/runtime_liveness_contracts.d.ts` and `abg/runtime_liveness.d.ts`. If `RuntimeLivenessContext` and `RuntimeLivenessSample` were declared in `runtime_liveness_contracts.ts`, as `RuntimeLivenessBudgetFacts` now is, the calculus would import them from that admitted module. The owner would re-export them from there, and the closure would not gain the calculus file. This is not done here: the move of these types is part of the ruled shape. The Executive rules on it.
+
+### Public surface, regenerated files, strip
+
+- **Public contract rows** (`publicContractCatalog`, base against this commit, keyed by `contractId`): 75 rows both, the same ids in the same order.
+  - 0 rows differ in a non-digest member, with the declaration inventory compared apart.
+  - The named symbol, package export path and declaration path are equal in every row, 50 of them typed.
+  - Inventory: 47 rows gain `build/code/src/abg/calculus/liveness.d.ts`, under the 12 package exports, and nothing is removed. The owner's declarations re-export its two types, so the packed declaration closure reaches it.
+  - The one digest member that moves is `contractDigest`, in 21 rows; the inventory is part of what it digests.
+  - No export, event kind, payload key or failure class changes. `execution_basis_record.d.ts` is `export {};`.
+- **`product-toolchain-manifest.json`:** 51,283 → 51,428 leaves, with 145 added and 0 removed.
+  - Of the 145, 4 are product-relative locators, for the `.js` and `.d.ts` of the two new modules.
+  - The other 141 are declaration-inventory leaves: the 47 rows above, three leaves each.
+  - 279 values move, every one digest-valued or digest-derived.
+  - C-12b's "47 declaration-inventory leaves, which are 12 rows" counts the same addition by rows, not by leaves.
+- **`capability-definition-graph.json`:** 3,243 leaves both, the same set. 551 values move, all digest-valued or digest-derived.
+- **Strip (C-12 method).**
+  - `strip.sh` removes the three scratch modules and every `// C12C` line. `rules.ts`, `runtime_liveness.ts` and `invocation_execution_truth.ts` are then byte-equal (`cmp`) to their clean copies in `scratchpad/c12c/clean/`, as is every other grant file.
+  - `grep -c C12C` is 0 in each of them, and no file under `code/src` contains it.
+  - After `npm run build`, `grep -c C12C` is 0 in `rules.js`, `runtime_liveness.js`, `invocation_execution_truth.js` and `calculus/liveness.js`, and no file under `build/` contains it.
+  - The 785-file `build/` is byte-equal (sha256 of every file) to the clean build the after lanes and the measurement ran on.
+  - The two regenerated files are byte-equal to the clean copies.
+
+### Stops
+
+**One stop, on the literal reading: public contract rows change in their declaration inventories.**
+
+- **What changes.** 47 of the 75 rows gain the inventory entry `build/code/src/abg/calculus/liveness.d.ts`, under the 12 package exports, and nothing is removed. `contractDigest` moves in 21 of those rows, since the inventory is part of what it digests.
+- **The cause is the ruled shape.** `RuntimeLivenessContext` and `RuntimeLivenessSample` move to the calculus with their derivations. The owner's emitted `runtime_liveness.d.ts:6-7` imports and re-exports them from `./calculus/liveness.js`. So the packed declaration closure of every package export that reaches the owner's declarations now reaches `calculus/liveness.d.ts`. C-12b's prototype showed the same addition.
+- **The check the activation names is equal.** The 75 rows match in named symbol, export path and declaration path, which is the C-12b Return's check. No member other than the inventory and `contractDigest` moves.
+- **For the Executive.** The Executive rules whether the inventory growth is accepted. A way to avoid it is finding 4; it changes the shape, so it is not done.
+- **The rest of the work kept moving,** as the activation directs, and is committed. The relation and the validator do not differ at any step. This stop concerns the public declaration closure, not a partial move.
+
+The other stops do not fire:
+
+- **Persisted digests, `activeFluents`, event kinds, payload keys, failure classes, Public exports.**
+  - The lanes that persist and compare them are equal: state transfer, event-body encoding, r10, frontier and r4.
+  - No export, event kind, payload key or failure class changes.
+  - The regenerated files' other digest moves are build digests over the changed source. Every source change moves them; C-12b's commit moved 68 and 310. They are not event-log digests.
+- **Old against admission.** 0.
+- **The relation alone against old.** 0.
+- **A consumer of the basis record law.** 0 of 1,166 calls differ.
+- **A fold-law case red at any cut.** 18/18, every cut decided.
+- **A hunk.** Every hunk applied clean.
+
+### Item 3: design sentences (proposals; the Executive places them)
+
+Each cites the landed tree. No design file is edited.
+
+- **Library `:46`, the `abg/calculus/` row's Imports cell.** The exact set, the lint's `ADMITTED` array less the calculus root, every entry read by some calculus module: "`shared/admit`, `shared/canonical_json.ts`, `shared/digests.ts`, `shared/immutable.ts`, `shared/refusal.ts`, `shared/select/`, `shared/value/`; `product/worksite_effect.ts`, `product/native_workspace_work.ts`; `abg/event_prefix.ts`, `abg/event_store.ts`, `abg/runtime_liveness_contracts.ts`, `abg/c_call_outcome.ts`, `abg/native_work_effect.ts`". `abg/runtime_liveness.ts` leaves the cell. `shared/refusal.ts`, `shared/select/` and `shared/value/` enter for the retry budget facts' record block (`ok`, `Outcome`, `StructuralRefusal`; `checkExactRecord`, `resolveExactMatch`, `RecordCheck`, `ExactMatch`; `canonicalEquals`) and the execution basis record law (the same, and `canonicalRecordDigest`). All three are left of `abg/calculus` in `:51`'s order.
+- **`:55`.** Replace the sentences from "`abg/calculus/` departs from this order." to the end with: "`abg/calculus/` departs from this order in one respect: its modules import the `product/` and `abg/` owner modules its Imports cell names. It imports nothing from its consumers: the liveness relation, the retry budget facts and the execution basis record law are calculus functions (§4.4). `npm run lint:calculus` (`scripts/check-calculus-boundary.mjs`) checks every import of `abg/calculus/` against this row's Imports cell, with no allow-list entry. The lint reads direct imports; two admitted modules import consumers in turn, `event_store.ts` the liveness owner (`:4410`) and `c_call_outcome.ts` the retry and liveness owners (`:123`, `:126`). One owner-level cycle remains, between the retry owner and the liveness owner, with no top-level use: `retry.ts:32` imports `projectRuntimeLivenessAtPrefix`, `captureNativeFrameBoundary`, `observeNativeFrameLiveness` and `createRuntimeLivenessEventValidator` from `runtime_liveness.ts`, and `runtime_liveness.ts:18` imports `hasStructuralIdentityCompletedRouteCausation`, the structural-identity route join its admission composes with the relation, from `retry.ts`. The retry progress projection and the join are extracted at C-16 into one module both owners import, which ends the cycle."
+  - The activation's `runtime_liveness.ts:22` is the base line; the import is at `:18` on the landed tree.
+- **§4.4, a paragraph after the one on the axiom and rule tables:** "The liveness rule evaluates the liveness relation, `nativeLivenessRelationHolds` (`abg/calculus/liveness.ts:496-504`). The relation decides whether a native probe, interruption or threshold observation has its exact admitted source and threshold relation (P0-P5, T1-T3, O1-O4, S1-S5, M1-M4, M6, M7). Its declared dependency is the fold state before the event, the event and the cut before it. It reads `actor_process_live` of the started process through the caller's read: the fold passes its own `holds` (`rules.ts:105`) and the liveness owner passes `runtimeFluentHoldsAtPrefix` at the relation's cut (`runtime_liveness.ts:49-50`). It reads the cut through the calculus's memoized index of that cut (`RuntimeLivenessReconstruction`, `liveness.ts:336-482`), as `axiomEffectOf` reads the admitted source cut: the occurrence's declarations, the scope's earlier observations and samples, and for a threshold the whole cut its `evaluatedPrefixDigest` names. Two derivations it reads are calculus functions over admitted events. The execution basis record law (`abg/calculus/execution_basis_record.ts`, `projectExactExecutionBasisRecordAtPrefix`) checks one `basis_admitted` record against its recorded raw-input and basis digests; the invocation truth owner's `projectExactExecutionBasisAtPrefix` delegates to it. The retry budget facts (`projectRuntimeRetryBudgetFacts`, `liveness.ts:805-840`) derive from `c_call_opened`'s `retryPath`, one digest-checked `retry_attempt_opened` and one digest-checked `retry_progress_recorded`. The budget shape check (S2, `liveness.ts:603-609`) has two roles: it checks the derived budget, and it is the only check on a budget a caller supplies (the CCall closure, `retry.ts:5334-5338`, and the public `deriveRuntimeLiveness` and `projectRuntimeLivenessAtPrefix`). The relation is boolean; it returns the structural-identity route joins it needs (M5) as obligations and decides none of them. The rule refuses the step with its one message when the relation is false (`rules.ts:104-107`). The liveness owner's admission validator is the relation composed with the owner's structural-identity join (`structuralRoutesHold`, `runtime_liveness.ts:53-55`), at `validateRuntimeLivenessEventAtPrefix` (`event_store.ts:4091`) and at the retry frame join (`retry.ts:705`). Admission refuses everything the fold refuses and, in addition, a frame observation whose structural route causation fails, so an admitted log never holds one."
+- **D1 (`:603`):** "**D1, contextual effects.** `ROOT_DERIVED_RULES` carries every contextual Event Calculus effect: the terminal Run census, per-process cleanup, liveness and the actor process lifecycle. `advance` holds no contextual branch. The liveness rule evaluates the calculus liveness relation (§4.4) and calls no module outside the calculus; the liveness owner's admission composes that relation with the structural-identity route join. This realizes the IACS's `RuntimeDerivedFluentRule`."
+- **Binding §5 row 3 (`ABI5_STDO3_COMPUTATIONAL_BINDING.md:176`):**
+  - **Realization owner:** after "[calculus/rules.ts](../code/src/abg/calculus/rules.ts) `deriveLiveness`;" add "[calculus/liveness.ts](../code/src/abg/calculus/liveness.ts) `nativeLivenessRelationHolds`, `projectRuntimeRetryBudgetFacts`; [calculus/execution_basis_record.ts](../code/src/abg/calculus/execution_basis_record.ts) `projectExactExecutionBasisRecordAtPrefix`;".
+  - **Totality:** replace "`deriveLiveness` uses the liveness validator, which reads the recorded `elapsedMs`, not a clock." with "`deriveLiveness` evaluates the calculus liveness relation over the fold state before the event, the event and the cut before it; the relation reads the recorded `elapsedMs`, not a clock, and checks finitely many earlier rows of the finite cut."
+  - **Outcome:** replace "(`calculus/rules.ts:112-114`); admission keeps both out of the domain (`event_store.ts:4091`)" with "(`calculus/rules.ts:104-107`); admission, the relation composed with the structural-identity join, keeps both out of the domain (`event_store.ts:4091`)".
+
+### What could not be verified
+
+- **M5 under the relation.** No lane or fixture produces a route obligation, because every frame route here is the direct consumption. So admission's composition with `structuralRoutesHold` is exercised only as the vacuous conjunction. A frame observation whose structural route causation fails is refused by the composition argument, not by an observed step.
+- **The pre-existing reds and skips.** The 14 reds and 24 skips across 14 lanes are the base's. A step they would have reached is not compared. That includes `t287-native-frame-observation`'s 4 skipped liveness reuse cases and `t287-ordered-reconstruction`'s historical liveness folds.
+- **Lanes outside the C-12b list** were not run. The basis law's 56 call sites in 16 owner modules are compared only where these lanes reach them: 1,166 calls.
+- **The measurement** resolves to the 1 ms sampling interval over tens of samples. It shows no change in cost from the move, and can show none smaller than its run-to-run spread of about 8 ms.
+- **`lint:evidence`** reads the mirror roots under `.ai-workspace/` by its own design. I ran it as the activation requires and read only its summary line.

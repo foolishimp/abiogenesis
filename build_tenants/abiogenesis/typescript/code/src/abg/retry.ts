@@ -29,7 +29,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { projectRuntimeLivenessAtPrefix, captureNativeFrameBoundary, observeNativeFrameLiveness, createRuntimeLivenessEventValidator, type RuntimeLivenessBudgetFacts } from "./runtime_liveness.js";
+import { projectRuntimeLivenessAtPrefix, captureNativeFrameBoundary, observeNativeFrameLiveness, createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
 import type { RuntimeInvocationScope } from "./runtime_liveness_contracts.js";
 import {
   deriveCanonicalRootedTopologyPartition,
@@ -138,9 +138,8 @@ import {
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
 import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
-import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { admitJson } from "../shared/admit/index.js";
-import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Owner boundary: `absent` and `many` map to `undefined`. */
@@ -5173,81 +5172,6 @@ export function projectRetryEligibility(
   }) as RetryEligibility;
 }
 
-type DigestedRecord = Readonly<{
-  ref: JsonValue | undefined;
-  digest: Sha256Digest;
-  body: Readonly<Record<string, JsonValue>>;
-}>;
-
-const DIGESTED_RECORD_REFUSAL: StructuralRefusal = Object.freeze({
-  kind: "structural_refusal",
-  stage: "validate",
-  code: "digested_record_projection",
-  path: Object.freeze(["payload"]),
-  evidence: Object.freeze({}),
-});
-
-/** A CRetry record payload splits into its ref, its digest and its body. */
-function digestedRecord(event: RuntimeEvent, refKey: string, digestKey: string): Outcome<DigestedRecord> {
-  if (!isRecord(event.payload)) return DIGESTED_RECORD_REFUSAL;
-  const { [refKey]: ref, [digestKey]: digest, ...body } = event.payload;
-  return isSha256Digest(digest) ? ok({ ref, digest, body }) : DIGESTED_RECORD_REFUSAL;
-}
-/** The body's canonical digest is the recorded digest (D2). */
-const DIGESTED_RECORD_DIGEST = Object.freeze({
-  expected: (_event: RuntimeEvent, record: DigestedRecord) => record.digest,
-  actual: (record: DigestedRecord) => sha256Canonical(record.body),
-});
-/** One `retry_attempt_opened` event as a checked record. */
-const RETRY_ATTEMPT_RECORD: RecordCheck<RuntimeEvent, DigestedRecord> = Object.freeze({
-  project: (event: RuntimeEvent) => digestedRecord(event, "attemptRef", "attemptDigest"),
-  digest: DIGESTED_RECORD_DIGEST,
-});
-/** One `retry_progress_recorded` event as a checked record. */
-const RETRY_PROGRESS_RECORD: RecordCheck<RuntimeEvent, DigestedRecord> = Object.freeze({
-  project: (event: RuntimeEvent) => digestedRecord(event, "progressRef", "progressDigest"),
-  digest: DIGESTED_RECORD_DIGEST,
-});
-
-/** Descriptive budget facts from existing native CRetry records. This helper
- * deliberately calls neither replay nor eligibility nor liveness. Actual retry
- * admission still verifies the full declared frontier, cursor and failure. */
-export function projectRuntimeRetryBudgetFacts(prefix: ValidatedRuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts;
-/** @internal */
-export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts;
-export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts {
-  const absent: RuntimeLivenessBudgetFacts = { remaining: null, retryEligible: false, continuationRef: null, terminalPolicy: "block" };
-  const opened = indexedRuntimeEvents(prefix, "related:" + scope.cCallRef).find(event => event.kind === "c_call_opened" && event.aggregateId === scope.cCallRef &&
-    event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId);
-  if (opened === undefined || !isRecord(opened.payload) || !Array.isArray(opened.payload.retryPath) || opened.payload.retryPath.length === 0) return absent;
-  const retryPath = opened.payload.retryPath;
-  const attempt = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
-    event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId &&
-    event.frameId === scope.frameId && event.admissionOrdinal < opened.admissionOrdinal &&
-    event.payload.attempt === scope.attempt && event.payload.taskOrdinal === scope.taskOrdinal && Array.isArray(event.payload.retryPath) &&
-    canonicalEquals(event.payload.retryPath, retryPath)), RETRY_ATTEMPT_RECORD);
-  // Owner boundary: `absent`, `many` and `invalid` are the existing `absent` facts.
-  if (attempt.kind !== "one") return absent;
-  const { ref: attemptRef, digest: attemptDigest, body } = attempt.value;
-  if (attemptRef !== `retry-attempt://abiogenesis/${String(attemptDigest).slice(7)}` ||
-      !Number.isSafeInteger(body.budget) || Number(body.budget) < scope.attempt) return absent;
-  const remaining = Number(body.budget) - scope.attempt;
-  const progressRecord = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_progress_recorded" && isRecord(event.payload) &&
-    event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId &&
-    event.payload.attemptRef === attemptRef && event.payload.cCallRef === scope.cCallRef), RETRY_PROGRESS_RECORD);
-  let retryEligible = false;
-  let resultRejectionRef: string | null = null;
-  // Owner boundary: `absent`, `many` and `invalid` leave the progress facts unset.
-  if (progressRecord.kind === "one") {
-    const { ref: progressRef, digest: progressDigest, body: progress } = progressRecord.value;
-    const exactProgress = progress.remainingBudget === remaining &&
-      progress.budget === body.budget && progress.retryBoundaryRef === body.retryBoundaryRef &&
-      progressRef === `retry-progress://abiogenesis/${String(progressDigest).slice(7)}`;
-    retryEligible = exactProgress && remaining > 0 && progress.progressClass === "retry";
-    if (exactProgress && progress.failureClass === "contract_failure" && typeof progress.failureSignalRef === "string") resultRejectionRef = progress.failureSignalRef;
-  }
-  return deepFreeze({ remaining, retryEligible, continuationRef: null, terminalPolicy: "block", resultRejectionRef });
-}
 
 function retryRuntimeFailureTransitionError(message: string): TypeError {
   return new TypeError(`retry runtime failure transition refusal: ${message}`);

@@ -2,9 +2,8 @@
 // the fold state before the event and the event; none reads its dependencies.
 // The table is a module constant; no caller supplies a rule.
 import { isRecord } from "../../shared/admit/index.js";
-import type { RuntimeEventPrefix } from "../event_prefix.js";
 import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
-import { createRuntimeLivenessEventValidator } from "../runtime_liveness.js";
+import { nativeLivenessRelationHolds } from "./liveness.js";
 import {
   constructRuntimeFluent,
   stringField,
@@ -96,20 +95,14 @@ function deriveProcessCleanup(state: FoldState, event: RuntimeEvent): EventCalcu
   ]);
 }
 
-const LIVENESS_VALIDATORS = new WeakMap<RuntimeEventPrefix, (event: RuntimeEvent) => boolean>();
-
 /** Liveness: a native probe, interruption or timeout has its exact admitted
- * source and threshold relation. It derives no fluent; a missing relation is
- * a defect. */
+ * source and threshold relation (the calculus relation; the owner's admission
+ * adds the structural-identity route join). It derives no fluent; a missing
+ * relation is a defect. Process liveness is this state's actor_process_live. */
 function deriveLiveness(state: FoldState, event: RuntimeEvent): EventCalculusEffect {
   if (event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return NO_EFFECT;
-  const source = state.source;
-  let validate = source === null ? undefined : LIVENESS_VALIDATORS.get(source);
-  if (source !== null && validate === undefined) {
-    validate = createRuntimeLivenessEventValidator(source);
-    LIVENESS_VALIDATORS.set(source, validate);
-  }
-  if (validate === undefined || !validate(event)) {
+  if (state.source === null ||
+      !nativeLivenessRelationHolds(state.source, processRef => held(state, "actor_process_live", processRef), event)) {
     throw new TypeError("native liveness effect has no exact admitted source/threshold relation");
   }
   return NO_EFFECT;

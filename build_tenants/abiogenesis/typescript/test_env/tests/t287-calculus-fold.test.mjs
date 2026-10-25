@@ -884,3 +884,68 @@ test('C-12b fold law: a threshold citing a budget whose retry attempt has the wr
   }
   t.diagnostic(JSON.stringify(tally));
 });
+
+// T-290 C-12c: the basis law decides in the calculus. The C-12 actor's
+// `basis_admitted` row keeps its basisRef and every field the liveness
+// contexts read, and records a different well-formed `basisDigest`. A reader
+// of those payload fields alone would accept the probes; the execution basis
+// record law refuses the record, so no context has a basis and the relation
+// refuses the first probe that cites it. Its mutant with the right digest is
+// the C-12 fixture itself.
+import { projectExactExecutionBasisRecordAtPrefix as basisRecordLaw } from '../../build/code/src/abg/calculus/execution_basis_record.js';
+import { projectExactExecutionBasisAtPrefix as basisOwnerRead } from '../../build/code/src/abg/invocation_execution_truth.js';
+
+test('C-12c fold law: a probe citing a basis_admitted whose basisDigest is wrong is refused by the fold with one message at every cut that holds it, and its mutant with the right digest is accepted', t => {
+  const fixture = livenessFixture(), basisRow = fixture.rows.find(row => row.kind === 'basis_admitted');
+  const faultyRows = fixture.rows.map(row => {
+    if (row !== basisRow) return row;
+    const payload = { ...row.payload, basisDigest: livenessDigest({ wrong: 'basis://t290/c12c' }) };
+    return livenessFreeze({ ...row, payload, payloadDigest: livenessDigest(payload) });
+  });
+  const faultyBasis = faultyRows.find(row => row.kind === 'basis_admitted');
+  // Only the recorded digest differs: every field the contexts read is the same.
+  for (const key of ['basisRef', 'programRef', 'graphFunctionRef', 'invocationRef'])
+    assert.equal(faultyBasis.payload[key], basisRow.payload[key], `the faulty basis keeps ${key}`);
+  assert.notEqual(faultyBasis.payload.basisDigest, basisRow.payload.basisDigest, 'the faulty basis records another digest');
+  const tally = {};
+  for (const [label, rows, admitted] of [['the right basis digest', fixture.rows, true], ['a wrong basis digest', faultyRows, false]]) {
+    const source = selectValidatedRuntimeEventPrefix(livenessFreeze([...rows])), cuts = throughEach(source);
+    // The basis record law is the calculus's; the invocation truth owner reads it.
+    const law = basisRecordLaw(source, basisRow.payload.basisRef);
+    assert.equal(law !== null, admitted, `${label}: the calculus basis law ${admitted ? 'admits' : 'refuses'} the record`);
+    assert.deepEqual(basisOwnerRead(source, basisRow.payload.basisRef), law, `${label}: the owner's basis read is the calculus law`);
+    const native = events(source).filter(row => LIVENESS_KINDS.includes(row.kind));
+    assert.deepEqual(LIVENESS_KINDS.map(kind => native.filter(row => row.kind === kind).length), [2, 1, 1]);
+    for (const row of native)
+      assert.equal(livenessValidator(validatedRuntimeEventPrefixBeforeEvent(source, row.eventId), row), admitted,
+        `${label}: the liveness owner ${admitted ? 'accepts' : 'refuses'} ${row.admissionOrdinal} ${row.kind}`);
+    const probeAt = native[0].admissionOrdinal, half = Math.floor((probeAt - 1) / 2), middle = cuts[half];
+    const streamed = throughEach(selectValidatedRuntimeEventPrefix(livenessFreeze([...rows])));
+    // A refused variant's derivation is forked from its cut before the probe, never from the whole log.
+    const forkSource = admitted ? source : cuts[probeAt - 2];
+    let refused = 0, accepted = 0;
+    for (const [index, cut] of cuts.entries()) {
+      const ordinal = index + 1, where = `${label} at ${ordinal}`;
+      if (admitted || ordinal < probeAt) {
+        const warm = projectionView(deriveRuntimeEventCalculusProjection(cut));
+        assert.deepEqual(stateView(coldFold(cut)), warm, `${where}: cold equals warm`);
+        assert.deepEqual(projectionView(deriveRuntimeEventCalculusProjection(streamed[index])), warm, `${where}: streaming equals warm`);
+        assert.deepEqual(projectionView(forkRuntimeEventCalculusAtForModuleTest(forkSource, cuts[Math.min(index, half)], cut)), warm,
+          `${where}: a fork at ${Math.min(index, half) + 1} advanced here`);
+        accepted++;
+        continue;
+      }
+      assert.throws(() => coldFold(cut), { message: LIVENESS_REFUSAL }, `${where}: cold`);
+      assert.throws(() => deriveRuntimeEventCalculusProjection(cut), { message: LIVENESS_REFUSAL }, `${where}: warm`);
+      assert.throws(() => deriveRuntimeEventCalculusProjection(streamed[index]), { message: LIVENESS_REFUSAL }, `${where}: streaming`);
+      assert.throws(() => forkRuntimeEventCalculusAtForModuleTest(cuts[probeAt - 2], middle, cut),
+        { message: LIVENESS_REFUSAL }, `${where}: a fork at ${half + 1} advanced here`);
+      refused++;
+    }
+    assert.equal(accepted + refused, cuts.length, `${label}: every cut is decided`);
+    if (admitted) assert.equal(refused, 0, `${label}: no cut is refused`);
+    else assert.ok(refused >= 3 && accepted >= 1, `${label}: the variant reaches cuts on both sides`);
+    tally[label] = { probeAt, accepted, refused };
+  }
+  t.diagnostic(JSON.stringify(tally));
+});
