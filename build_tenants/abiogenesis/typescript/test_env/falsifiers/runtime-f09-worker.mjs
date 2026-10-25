@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { chmod, mkdir, readFile, writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
-import { dirname, join } from "node:path";
+import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import * as installedAbg from "@abiogenesis/typescript-tenant/abg";
@@ -372,6 +372,127 @@ function scopeValueFromEvents(events, selector, executionBasis) {
   };
 }
 
+// The leaf port takes the owner's execution resolution
+// (implementation/leaf_invocation_port.ts:914-923). The consumer process holds
+// none of its inputs, so it reconstructs them cold as the support does
+// (root-installed-environment.mjs:275-292, :504-556, :650-661): each Product
+// verified again from the archive its install host was installed from, the
+// lock over them, the install and workspace binding candidates read from the
+// reopened artifact truth, the root and fixture publications, the ready
+// Catalog, its view and the Product execution resolution.
+async function reconstructExecutionResolution({
+  artifactTruth,
+  workspaceBinding,
+  publication,
+  program,
+  graphFunction,
+  childGraphFunction,
+}) {
+  const installHost = dirname(fileURLToPath(import.meta.url));
+  const { dependencies } = JSON.parse(
+    await readFile(join(installHost, "package.json"), "utf8"),
+  );
+  // The support admits and locks the root Product first, then the additional
+  // Products (root-installed-environment.mjs:291-292, :339); the artifact truth
+  // lists its rows in its own order.
+  const installRows = artifactTruth.rows
+    .filter((row) =>
+      row.operationId === "abg.operation.product.install" &&
+      isRecord(row.artifact)
+    )
+    .map((row) => row.artifact);
+  const installCandidates = [
+    ...installRows.filter((candidate) =>
+      candidate.packageName === "@abiogenesis/typescript-tenant"),
+    ...installRows.filter((candidate) =>
+      candidate.packageName !== "@abiogenesis/typescript-tenant"),
+  ];
+  const admittedInstalls = installCandidates.map((candidate) => {
+    const admitted = installedAbg.projectAdmittedProductInstall(
+      artifactTruth,
+      candidate,
+    );
+    assert.notEqual(admitted, null, `AX-F09 admitted ${candidate.installId}`);
+    return admitted;
+  });
+  const verifiedProducts = [];
+  for (const candidate of installCandidates) {
+    const spec = dependencies?.[candidate.packageName];
+    assert.equal(
+      typeof spec === "string" && spec.startsWith("file:"),
+      true,
+      `AX-F09 install host archive for ${candidate.packageName}: ${spec}`,
+    );
+    // Each Product was verified under its archive's file name
+    // (root-installed-environment.mjs:277, runtime-f09-product.mjs:658).
+    const artifactPath = resolve(installHost, spec.slice("file:".length));
+    const verified = await installedProduct.verifyProduct({
+      artifactPath,
+      artifactRef: basename(artifactPath),
+      expectedArtifactDigest: candidate.artifactDigest,
+      expectedProductContentDigest: candidate.productContentDigest,
+      expectedManifestDigest: candidate.manifestDigest,
+      expectedProductId: candidate.productId,
+      expectedPackageName: candidate.packageName,
+      expectedPackageVersion: candidate.packageVersion,
+    });
+    assert.equal(verified.disposition, "verified", JSON.stringify(verified));
+    verifiedProducts.push(verified);
+  }
+  const lock = installedProduct.constructResolvedProductLock(verifiedProducts);
+  assert.equal(lock.kind, "resolved_product_lock", JSON.stringify(lock));
+  assert.equal(lock.lockId, workspaceBinding.lockId);
+  const core = exactOne(
+    verifiedProducts,
+    (verified) => verified.packageName === "@abiogenesis/typescript-tenant",
+    "AX-F09 verified core Product",
+  );
+  const rootPublication =
+    installedGtl.constructWorksiteConstructionModulePublication({
+      productId: core.productId,
+      artifactDigest: core.artifactDigest,
+      productContentDigest: core.productContentDigest,
+      productManifestDigest: core.manifestDigest,
+      packageName: core.packageName,
+      packageVersion: core.packageVersion,
+    });
+  const {
+    kind: _bindingKind,
+    admissionEventRef: _bindingAdmissionEventRef,
+    ...bindingBody
+  } = workspaceBinding;
+  const catalog = installedProduct.admitGraphFunctionCatalog({
+    workspaceBinding: { kind: "workspace_binding_candidate", ...bindingBody },
+    resolvedLock: lock,
+    verifiedProducts,
+    installedProducts: installCandidates,
+    publications: [rootPublication, publication],
+  });
+  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
+  const catalogView = installedProduct.narrowGraphFunctionCatalog(catalog, [
+    graphFunction.name,
+    childGraphFunction.name,
+  ]);
+  assert.equal(catalogView.kind, "graph_function_catalog_view",
+    JSON.stringify(catalogView));
+  const executionResolution =
+    await installedProduct.ProductExecutionResolutionPort.resolve({
+      catalog,
+      catalogView,
+      admittedInstalls,
+      verifyInstallAdmission: (install) =>
+        installedAbg.hasAdmittedProductInstall(artifactTruth, install),
+      programRef: program.programRef,
+      selection: { kind: "direct", catalogHandle: graphFunction.name },
+    });
+  assert.equal(
+    executionResolution.kind,
+    "loaded_product_execution_resolution",
+    JSON.stringify(executionResolution),
+  );
+  return { catalog, catalogView, executionResolution };
+}
+
 async function loadInstalledRetryDependencies(
   reopened,
   events,
@@ -648,18 +769,23 @@ async function loadInstalledRetryDependencies(
       candidate.closureContractRef === executionBasis.closureContractRef,
     "AX-F09 installed closure contract",
   );
-  const semantics = await installedProduct.loadInstalledProductSemantics({
-    install: admittedInstall,
-    publication,
-    verifyInstallAdmission: (install) =>
-      installedAbg.hasAdmittedProductInstall(artifactTruth, install),
-  });
+  const { catalog, catalogView, executionResolution } =
+    await reconstructExecutionResolution({
+      artifactTruth,
+      workspaceBinding,
+      publication,
+      program,
+      graphFunction,
+      childGraphFunction,
+    });
+  // The leaf semantics are the execution resolution's own, as the support
+  // takes them (root-installed-environment.mjs:1090-1092).
+  const semantics = executionResolution.productSemantics;
   const leafPort = await installedLeafPortOwner.constructAdmittedLeafInvocationPort({
     prefix: installedAbg.selectValidatedRuntimeEventPrefix(events),
     artifactTruth,
-    install: admittedInstall,
     implementationSet,
-    publication,
+    executionResolution,
     semanticsProjection:
       installedProduct.projectInstalledLeafSemantics(semantics),
   });
@@ -731,14 +857,6 @@ async function loadInstalledRetryDependencies(
     materializedGraphImmutable &&
     installedContractsVerified &&
     implementationDependencyVerified;
-  const catalog = installedProduct.buildGraphFunctionCatalog([publication]);
-  assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
-  const catalogView = installedProduct.narrowGraphFunctionCatalog(catalog, [
-    graphFunction.name,
-    childGraphFunction.name,
-  ]);
-  assert.equal(catalogView.kind, "graph_function_catalog_view",
-    JSON.stringify(catalogView));
   return {
     publication,
     program,

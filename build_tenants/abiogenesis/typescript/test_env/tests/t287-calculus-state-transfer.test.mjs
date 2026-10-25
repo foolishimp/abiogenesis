@@ -61,7 +61,7 @@ function fixture(shape) {
   };
 }
 
-test('real admitted compose and shared batches conserve changing inputs under one basis', {timeout: 300_000}, async t => {
+test('real admitted compose and shared batches conserve changing inputs under one basis', {timeout: 600_000}, async t => {
   const artifactFor = changingLeafArtifact();
   const cases = {compose: ['seed', 'seed!'], batch: ['seed', 'seed'],
     nested: ['seed', 'seed!', 'seed', 'seed!'], progressed: ['seed', 'seed!', 'seed!'],

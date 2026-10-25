@@ -3814,3 +3814,335 @@ Grant: `code/src/abg/runtime_history.ts`; `code/src/abg/event_store.ts` at the r
 Stop (write it in the Return, keep the rest moving): a cold fold or a cold read at any cut differing from the warm one; a body served whose row location or digest is not its current row's; a change in the value or the identity semantics of any `materialize`, `readAll` or `consume` result; any event kind, payload key, failure class, Public export or Product contract change; item 0's `runAxF09` red on a `code/src` defect.
 
 Return contract: one commit on `main` with the first line `C-10: the held history generation projection: the held store keeps the verified bodies of its current generation and reads them by row location and digest, the cold fold equal to the warm read at every cut; the frontier handoff falsifier runs` (if a clause does not hold, keep the structure and state the gap in its place, as C-7 to C-9 did) and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## C-10 return` at the end of this record: the first sentence says closed, or names the gap; item 0's two repairs with the lane counts and the frontier run's result; the realization (a) with the restated comments; the proof (b) with its four parts, the changed assertions named, and the measurement table; the reach (c); item 2's proposals; item 3's tables; deviations from this wording; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
+
+## C-10 return
+
+Base `df7738b02`. Worker: Opus 5.5 at xhigh. The commit carrying this section is the C-10 commit. Scratch root: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/c10/`, written `scratch/c10/` below.
+
+Not closed: the frontier handoff falsifier does not run green, `m5-event-store-reopen` goes from 21/21 to 21/20, and one stop is written (element identity, Stops). The m5 red is at `:1345`, a third falsifier of the superseded law, outside the grant. Item 1 is realized and proved within the grant: the held store keeps the verified bodies of its current generation and reads them by row location and digest, and at every cut the cold read and the cold fold equal the warm read. In the TD-22 scenario the change cuts row reads from 9,389 to 87, CPU under `materialize` from 3,648.3 to 4.5 ms and the traversal from 4,278.8 to 508.5 ms. Item 0(b) is closed. Item 0(a) runs the construction and one more call, and the consumer then stops at its resume: `projected_retry_resume_refusal` `runtime_basis_mismatch`. The restatement is committed; the test stays in scratch. The commit's first line keeps the activation's structure and names the gap in place of the frontier clause (deviation 1).
+
+### Item 0: the C-9 residuals
+
+**(a) The frontier handoff consumer.** `runtime-f09-worker.mjs` gets `reconstructExecutionResolution` (`:374-494`). It reconstructs the consumer's ready Catalog and execution resolution cold, through the installed Product's own producers, as the support does (`root-installed-environment.mjs:275-292`, `:504-556`, `:650-661`). The steps, in order:
+
+1. The install host's `package.json` dependencies.
+2. The install candidates from the artifact truth rows with `operationId` `abg.operation.product.install`, root Product first.
+3. `projectAdmittedProductInstall` for each.
+4. `verifyProduct` for each archive (`:429-438`).
+5. `constructResolvedProductLock`, checked against the workspace binding's `lockId` (`:442-444`).
+6. The root publication from `constructWorksiteConstructionModulePublication`.
+7. `admitGraphFunctionCatalog` over the binding candidate, the lock, the verified Products, the install candidates and both publications (`:464-471`).
+8. `narrowGraphFunctionCatalog` to the two functions (`:472-475`).
+9. `ProductExecutionResolutionPort.resolve` with a direct selection, checked to be `loaded_product_execution_resolution` (`:478-492`).
+
+In `loadInstalledRetryDependencies`, the consumer's leaf port now takes `{ prefix, artifactTruth, implementationSet, executionResolution, semanticsProjection }` (`:784-791`), and its semantics are `executionResolution.productSemantics` (`:783`), as the support takes them (`:1090-1092`). The old `buildGraphFunctionCatalog([publication])`, its view and `loadInstalledProductSemantics` are removed, and the returned `catalog` and `catalogView` are the reconstructed ones. The import adds `basename` and `dirname` (`:7`).
+
+The run: the scratch test (`scratch/c10/item0/t287-f09-frontier-handoff.test.mjs`, C-9's), copied into `test_env/tests/` for its relative imports for each run and removed after. Each step ran the whole lane; the logs are `scratch/c10/item0/frontier-NN/`. Counts are tests/pass/fail/skipped.
+
+| Step | Restated call (as found → current form) | Lane after | First error after |
+|---|---|---|---|
+| C-9 head | the consumer passes `install` and `publication` to the leaf port (base `:657`) | 1/0/1/0 (C-9, 59 s) | `TypeError: Cannot read properties of undefined (reading 'declarationClosure')` in `constructAdmittedLeafInvocationPort` |
+| 1 (the construction) | `reconstructExecutionResolution` as above, `verifyProduct` given `artifactRef: candidate.artifactRef` | 1/0/1/0 (60 s) | `TypeError: Cannot convert undefined or null to object` (`canonical_json.js:35` ← `sha256Canonical` ← `verifyProduct`), from the step's `:417`: install candidates carry no `artifactRef` |
+| 2 (the construction) | `artifactRef` is the archive's basename (`:431`; as `runtime-f09-product.mjs:658` names it) | 1/0/1/0 (80 s) | the lock check (`:435` at that step): `product-lock://abiogenesis/722ac7c7…` for `…/a4b1c721…` |
+| 3 (the construction) | the install candidates ordered root Product first (`:395-409`); the artifact truth lists the fixture first (probe 01) | 1/0/1/0 (80 s) | `TypeError: leaf invocation port requires the exact owner-selected admitted execution closure` (`leaf_invocation_port.js:680`), from the step's `:787` |
+| 4 (the one more call) | the leaf semantics from `executionResolution.productSemantics` in place of `loadInstalledProductSemantics` (`:783`) | 1/0/1/0 (83 s); on the final tree 1/0/1/0 (68 s, `frontier-05`) | the resume: `AssertionError` at `:2238-2242`, `{"kind":"projected_retry_resume_refusal",…,"code":"runtime_basis_mismatch","message":"retry runtime declarations differ from the D17 execution basis",…}` |
+
+**Stage and first error.** The consumer now completes the work it reached at C-9:
+
+- it constructs its leaf port;
+- it projects the retry input and passes every expected ref and digest assertion before `:2232`;
+- it calls `installedHog.resumeProjectedRetry` (`:2232-2237`), which refuses with `runtime_basis_mismatch` (raised at `hog/retry_lifecycle.ts:326`).
+
+Probe 02 (`scratch/c10/item0/probe-02/`, a one-run instrumented copy of the worker, restored after) found:
+
+- the consumer's rehydrated execution basis and opened traversal scope equal the D17 basis's refs, digests and ids;
+- `traverseFromCursor` on the same inputs returns `traversal_refusal` `graph_mismatch`, "HoG Graph or GraphValidation differs from the admitted execution basis" (`hog/traversal.ts:656`);
+- the consumer's `graph` and `graphValidation` are its own reconstruction (`runtime.graph`, `runtime.graphValidation`, `:2227-2228`).
+
+This points at stale test input in the consumer's graph reconstruction. It is not proven, and a `code/src` cause is not excluded. Restating stopped here, at the bound. The restatement so far is committed and the test stays in scratch.
+
+**(b) The state-transfer timeout.** `t287-calculus-state-transfer.test.mjs:64`: `{timeout: 300_000}` → `{timeout: 600_000}`. The lane is 8/8/0/0 before (290.8 s) and 8/8/0/0 after (249.6 s), so the margin is now 350 s.
+
+### Item 1(a): the realization
+
+`realization_refactor` in `abg/runtime_history.ts` only (645 → 656 lines). `event_store.ts` is not edited: the kept projection lives in `RuntimeHistory`, beside the rows it is keyed by.
+
+- `#verifiedBodies` (`:71`): a map from row index to `{ body, event }`, where `body` is the `RuntimeEventBodyLocation` the event was verified at and `event` is the frozen `RuntimeEvent` the reader returned.
+- `work` gains `bodyDecodes` (`:72`). It counts the reader calls for committed rows, that is, the rows read from the log.
+- `event` (`:306-322`) works as follows:
+  - `bodyRows++` as before (`:311`).
+  - A kept entry is current only when its `offset`, `byteLength` and `physicalDigest` equal the row's (`:312-314`).
+  - If the entry is not current and the row is committed (`offset !== -1`), `bodyDecodes` is counted (`:315`).
+  - The value is the kept event when current, else the reader's (`:316`).
+  - The envelope check is unchanged and runs on both (`:317-319`).
+  - A committed row's freshly read event is kept only after that check (`:320`).
+  - A tentative row (`offset === -1`) is read from the staged bodies and is neither kept nor counted.
+- `commitLocation` (`:185`) deletes any entry at its index. None exists, since tentative rows are never kept.
+- `truncate` (`:195`) clears the whole map with `#generation++` and `#scopes.clear()`.
+- The validation fork keeps none. Its `event` delegates to the base selection before reaching the map (`:307-308`), so its own map stays empty, and the base owner keeps only committed rows.
+- `materialize` (`:498-503`) still builds a fresh frozen array per call, which `MATERIALIZED` binds. `consume` (`:505-510`) still scopes its `selectedBodies`. The reader is unchanged.
+
+The two comments, restated in place:
+
+- `:58-62`: "@internal The one Event Store history's disposable envelope/body-location index. It owns no disk writes, permission or event admission. It keeps the verified bodies of its current generation: a projection of the immutable history read by row location and digest, never authority, dropped with the generation." (was: "It owns no disk writes, permission, event admission or decoded cache.")
+- `:495-497`: "Complete historical materialization is explicit; each call returns a fresh vector. Only the owner's verified bodies of the current generation are kept, a projection of the immutable history, never authority." (was `:486`: "Complete historical materialization is explicit and never retained here.")
+
+### Item 1(b): the proof
+
+**(1) The fold law.**
+
+- `t287-calculus-fold`: 13/13/0/0 before (4.3 s) and after (1.6 s).
+- `m5-event-store-reopen`: 21/21/0/0 before (60.1 s) and 21/20/1/0 after (57.7 s). The activation's 20/20 is 21/21 at the base.
+  - The one red is `:1345`, "trusted owned history conserves currentness, callback publication, rollback and cold reconstruction": `AssertionError [ERR_ASSERTION]: explicit_complete_output: held output 0` (`0 !== 851`; at `:1370`, from `:1396`).
+  - The case asserts that every explicit complete output reads its whole prefix from the log (comment at `:1374-1375`: "a full output reads exactly its selected physical extent. It is not retained operational state"). That is the superseded law. The test is outside the grant, which allows one new m5 case only, so it is not restated.
+- Because the assertion fires at the second output, the rest of the case did not run in the lane. A scratch copy (`scratch/c10/m5probe/`) recorded the bytes without asserting them, ran only this case and was removed after. It is 1/1/0/0, so every value assertion in the case holds. These cover:
+  - held output against complete comparison, callback predecessor against callback complete comparison, historical and reidentified historical output, and rollback output;
+  - cold recovery equal to the committed value, the log digest and length, and `validateHistoricalEvents` equal to `readAll`;
+  - the fresh-process reopen probe's events, store digest, prefix and byte digest.
+- The bytes per output in that run:
+  - first, "immutable predecessor": 851;
+  - each "held output n": 0, 866, 866 and 866 (each new row once);
+  - every comparison, callback, historical and reidentified output: 0;
+  - "committed comparison value": 866;
+  - "rollback complete output": 4,315 (the new generation reads every row once);
+  - cold recovery: 4,315;
+  - log: 4,315 B over 5 events.
+- Each generation therefore reads each committed row's bytes once: 851 + 4 × 866 = 4,315. The proposed restatement is in finding 1.
+
+**(2) The proof case.** `t287-route-reconstruction.test.mjs:584`, new, "held history generation projection: verified bodies decode once per generation; cold reads and folds at every cut equal the warm read". It uses `terminalOwner(t,4)` and `ownedTerminal`, and its counters are the held owner's `work`. The parts are commented `(1)` to `(6)` (`:594-658`). The route lane is 10/8/0/2 before and 11/9/0/2 after. The diagnostic shows 19 events at the end; the counter pairs are bodyRows/bodyDecodes.
+
+- (1) Route read three times (`:594-603`).
+  - The first read runs the global checks: 65/18. Its decodes equal its physical reads, each a distinct ordinal.
+  - The second read is 1/0 with no read. The third read's work deep-equals the second's.
+  - All three values are deep-equal.
+- (2) `readAll` twice (`:604-611`).
+  - The first route read's decodes plus the first `readAll`'s equal the row count (18/0 after the route read).
+  - The repeat is 18/0 with no read.
+  - The two arrays are distinct, frozen and deep-equal, and their elements are the same frozen objects.
+  - `materialize` twice gives two arrays, and `fromMaterialized` binds the second to the selection.
+- (3) A rolled-back transaction that staged one `basis_admitted` (`:612-626`).
+  - The `readAll` inside the callback sees 19 rows at 19/0: the tentative row is read from its staged body.
+  - After the rollback, `generation` is +1, and the old selection's `materialize` throws `/invalidated by rollback/`.
+  - The next `readAll` is 18/18, "the new generation decodes each committed row once" (`:625`); then 18/0.
+- (4) Staged again and committed (`:627-639`).
+  - The committed row has a real offset.
+  - The transaction's decodes plus the first read's equal 1 (transaction 0/0, first read 19/1). That read is at `[eventId, offset]` of the committed row; the next read is 19/0.
+  - The last value equals the admitted event.
+- (5) The fold law at every cut (`:640-652`).
+  - For each of the 19 events, `validatedRuntimeEventPrefixThroughEvent` over the warm prefix and over `cold(rows)` (`:35`, a `structuredClone` of the rows, frozen) give equal events through `runtimeEventPrefixExtent` and `runtimeEventAtPrefixIndex`.
+  - They also give equal `deriveRuntimeEventCalculusProjection` and equal `runtimeEventPrefixDigest`.
+  - The full prefix digest and the Run replay are equal warm and cold.
+- (6) `projectReopenAuthorityAndClose`, then `reopenEventStore` (`:653-658`). The reopened store's history decodes every row once, 19/19, with 19 reads, and its values equal the warm rows.
+
+The mutant was re-run against the final test file (`scratch/c10/proof/mutant-final/`). `this.#verifiedBodies.clear()` was removed from `truncate` in the built `runtime_history.js` (`scratch/c10/proof/mutant/runtime_history.mutant.js`, one line), and the built module was restored after (`cmp` equal).
+
+- The route lane is 11/8/1/2. The case is red at `:625`: `AssertionError [ERR_ASSERTION]: the new generation decodes each committed row once` (`0 !== 18`).
+- It is caught by the counter only. No value can observe it: a committed row is never truncated (`truncate` requires `length === #committedLength`, `:194` now, `:190` at the base), so a body kept across the drop is the same verified body at the same location.
+
+**(3) The two falsifiers of the superseded law.** Both are read whole, and their titles are unchanged.
+
+`:481`, "ordinary selected route and scoped extent avoid growing historical bodies; explicit snapshots have their own lifetime". These assertions are kept and hold:
+
+- no prior `basis_admitted` row is enumerated;
+- `bodyRows` is 1 ("only the named canonical route body is consumed");
+- the nominal guard throws;
+- the extent work is 0/0/0;
+- the explicit snapshot's lifetime holds;
+- the changed authority cut re-enters the global checks;
+- the appended contradictory cut is refused;
+- `:508`: `deepEqual(diff(afterRead), warmWork)`;
+- `measured[1].warmWork.bodyRows === measured[0].warmWork.bodyRows` and `measured[1].warmReads.length === measured[0].warmReads.length`.
+
+The changes:
+
+| At | Old text | New text |
+|---|---|---|
+| `:494-497` (added after `:493`) | none | `assert.equal(warmWork.bodyDecodes,0,'the warm route reads its one body from the kept generation projection')`; `assert.equal(warm.reads.length,0,'the warm route reads no row from the log')` |
+| `:529-534` (base `:525-532`) | `let coordinateByteDelta=0; measured[1].warmReads.forEach((row,i)=>{…assert.equal(row.kind,before.kind);assert.equal(row.ordinal,before.ordinal+64); assert.ok(row.ordinal>64,'selected route decodes no added historical basis body'); …assert.equal(row.bytes-before.bytes,ordinalByteDelta,'only the selected row ordinal width changes');…}); assert.equal(measured[1].warmBytes-measured[0].warmBytes,coordinateByteDelta);` | `for(const row of measured){ assert.equal(row.warmReads.length,0,'selected route decodes no added historical basis body'); assert.equal(row.warmBytes,0,'the warm route reads no log bytes'); }` |
+
+The old block would pass vacuously under the new law: the warm route reads no row, so the `forEach` runs zero times and both byte deltas are 0. The restatement asserts the fact the old block can no longer observe.
+
+The activation's "the repeat read's work now differs in `bodyDecodes` only" does not hold. The comparison `route()` on the same reopened store (`:486`) decodes the cut's bodies and keeps them, so the warm read and the repeat both decode 0, and `:508` holds unchanged.
+
+`:538`, "drop complete output then selected route does not retain decoded historical bodies". Kept:
+
+- the `WeakRef` technique over the dropped complete output;
+- `runtimeEventsFromValidatedPrefix(explicit).length` is 78;
+- the heap-snapshot collection;
+- the route value's `admissionEventRef`;
+- the diagnostic's `selectedWork` and `selectedBytes`.
+
+| At | Old text | New text |
+|---|---|---|
+| `:539-545` | `const f=terminalOwner(t,64),o=ownedTerminal(t,f),routeEventRef=f.route.eventId;` | `const f=terminalOwner(t,64),routeEventRef=f.route.eventId,runId=f.route.runId;` and the reopened owner held by the case: `let held=store.reopenEventStore(f.close.reopenAuthority)` (checked `reopened_event_store_context`), `t.after(()=>held?.store.closeDurableLog())`, `let authority=…FromStore(held.store),run=…FromAuthority(authority,{runId})`. `ownedTerminal` keeps its owner in its `t.after` hook (`:312`), so it could not be dropped |
+| `:548` | `let full=o.store.readAll(),…` | `let full=held.store.readAll(),…` |
+| `:566` | `assert.equal(weak.deref(),undefined,'ordinary store owner does not retain dropped complete output bodies');` | `assert.notEqual(weak.deref(),undefined,'the open store keeps the verified bodies of its current generation');` |
+| `:567-568` | `RuntimeHistorySelection.owner(o.run.selection)`; `…(o.run,routeEventRef,o.authority)` | `RuntimeHistorySelection.owner(run.selection)`; `…(run,routeEventRef,authority)` |
+| `:570-575` (added) | none | `held.store.closeDurableLog()`; `held`, `authority`, `run`, `observed` set to `undefined`; a later callback; a second full heap-snapshot collection; `assert.equal(weak.deref(),undefined,'a closed and dropped store owner retains no dropped complete output bodies');` |
+| `:576-577` (diagnostic) | `afterDropHeap`, `selectedValueStillRetained`, limit "Dropped complete output is collectible while the same ordinary owner stays open. …" | `openHeap`, `afterCloseHeap`, `closedCollectionBytes`, limit "Dropped complete output stays in the open owner's current generation and is collectible once the owner is closed and dropped. …" |
+
+**(4) The measurement.** This is the TD-22 scenario (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`) by the TD-22 method (`packages.md:2596-2610`), before at the base build and after at the realization:
+
+- counts come from V8 coverage (`NODE_V8_COVERAGE`, function call counts over the installed core copy under `consumer/node_modules`);
+- CPU comes from `--cpu-prof` (under `materialize` and under the reader closure, the function at `event_store.js:2505`, each inclusive with self time by callee);
+- wall time is the lane's timing run.
+
+The counters row and the kept-projection row come from one instrumented run (4 lines tagged `// C10`, stripped after; `grep -c C10` over the source and the built module gives 0, and the built module is byte-equal to the clean build). The logs are in `scratch/c10/measure/`.
+
+| Measure | Before | After |
+|---|---|---|
+| `RuntimeHistorySelection.materialize` calls | 1,068 | 1,068 |
+| `RuntimeHistory.event` calls (fork delegations included) | 14,868 | 14,868 |
+| `bodyRows` (after, instrumented) / reader calls (before) | 10,799 | 10,799 |
+| Reader closure calls | 10,799 | 1,497 (1,410 tentative or staged, 87 committed) |
+| Row reads from the log (`readRuntimeHistoryRowBytes`) | 9,389 | 87 |
+| `bodyDecodes` (after, instrumented) | none | 87 (one per committed row; generation 0) |
+| `truncate` / `commitLocation` calls | 0 / 84 | 0 / 84 |
+| `writeCanonicalJson` calls, installed core | 29,696,382 | 14,377,411 |
+| CPU inclusive under `materialize` | 3,648.3 ms | 4.5 ms |
+| self `hash.update` under `materialize` | 1,327.4 ms | 0 |
+| self `writeCanonicalJson` under `materialize` | 1,234.9 ms | 0 |
+| CPU inclusive under the reader | 4,711.6 ms | 39.4 ms |
+| self `hash.update` under the reader | 1,649.3 ms | 16.5 ms |
+| self `writeCanonicalJson` under the reader | 1,622.2 ms | 11.9 ms |
+| `readRuntimeHistoryRowBytes` CPU | 177.5 ms | 1.9 ms |
+| Traversal wall, timing run | 4,278.8 ms | 508.5 ms |
+| Traversal wall, lanes of item 1(c), seven shapes | 4,295.2 to 6,982.4 ms | 509.4 to 807.2 ms |
+| Lane duration, timing run (compose) | 40,331.7 ms | 35,356.3 ms |
+| `provisioning_verify_artifact`, timing run | 20,739.6 ms | 20,200.5 ms |
+| Kept projection at the end of the installed process (instrumented) | none | 1 history, 87 entries, the kept rows' byte lengths summing to 3,472,391 = the log's 3,472,391 B; process `heapUsed` 222,966,264, `rss` 2,832,465,920 |
+| `:481` diagnostic, history 0: heap before / with explicit snapshot / rss / warm bytes | 79,287,584 / 81,377,528 / 191,021,056 / 2,389 | 62,017,104 / 63,543,600 / 188,252,160 / 0 |
+| `:481` diagnostic, history 64: the same | 98,888,960 / 108,437,848 / 290,717,696 / 2,389 | 73,421,712 / 110,950,880 / 276,332,544 / 0 |
+| `:538` diagnostic: operational / snapshot / after drop or open / after close heap | 111,232,944 / 82,881,120 / 41,902,848 / none | 110,725,768 / 88,696,136 / 59,316,088 / 53,067,168 |
+
+The TD-22 figures at `a8937b837` are 1,068 calls, 9,389 rows, 3.622 s, `hash.update` 1.291 s, `writeCanonicalJson` 1.260 s and 4,373.79 ms. The before arm reproduces both counts exactly. The CPU under `materialize` is within 1 % (3,648.3 against 3,622 ms), the two self times within 3 %, and the traversal within 3 % (4,278.8 against 4,373.79 ms).
+
+- The 1,410 staged reads are tentative rows read from their transaction's staged bodies, which the reader still verifies. They hold the 16.5 ms and 11.9 ms left under the reader.
+- The retained size of the decoded events is not measured as a heap figure. What is measured is the entry count and the kept rows' byte length, which is the whole log.
+- In the `:538` case the open store holds the dropped output's bodies: 59.3 MB with the owner open against 41.9 MB at the base after the drop. They are collected after close.
+
+### Item 1(c): the reach
+
+Item 3's lanes table. Ten of the fourteen lanes have the same counts, the same red and skip names and the same first errors before and after. The four that move:
+
+- `m5-event-store-reopen` (`:1345`, item 1, the superseded law);
+- `t287-route-reconstruction` (+1 test, the proof case);
+- `t287-ordered-reconstruction` (two reds go green, item 1: the stop);
+- `t287-calculus-state-transfer` (by time).
+
+The history-bound lanes are shorter: `t287-r4-aba-retry` 146.5 s → 46.6 s, `t287-native-work-currentness-consumers` 37.3 s → 30.4 s, `t287-route-reconstruction` 17.1 s → 8.7 s and `t287-calculus-fold` 4.3 s → 1.6 s.
+
+### Item 2: records (proposals; the Executive places them)
+
+- **Ticket, Phase C decisions row "Held history generation projection (O-4, NW-CALLER-PREPARATION-LIFETIME-01)"** (`T-290…md:131`). Proposed outcome: "C-10: run. `RuntimeHistory` keeps the verified bodies of its current generation. They are keyed by row index and checked against the row's body location and physical digest, kept only for committed rows after the envelope check, and dropped by `truncate` with the generation; the validation fork keeps none, and `materialize` and `consume` are unchanged. The fold law holds at every cut: cold read, calculus fold and prefix digest equal the warm read (19 cuts), and the reopened store decodes cold. In the TD-22 compose scenario, row reads go 9,389 → 87, CPU under `materialize` 3,648 → 4.5 ms and the traversal 4,279 → 509 ms. Element objects are shared across results within a generation (C-10 stop)."
+- **Register `TECHNICAL_DEBT_REGISTER.md:332`** (NW-CALLER-PREPARATION-LIFETIME-01 / LIFE-01). Proposed: "O-4 discharged at C-10: the held store keeps the verified bodies of its current generation, read by row location and digest and dropped with the generation; one body read per committed row per generation (87 of 87 in the TD-22 scenario, 9,389 before); the install-time hashing is necessary per-tree work."
+- **Design** (`git grep -n -i 'retain\|decoded\|private memory' -- design` in the tenant, narrowed to the 41 lines on history, body, decoded output or store retention). The restatement each needs, or "stands":
+  - `ABI5_STDO3_COMPUTATIONAL_BINDING.md:73` (history/body locations row): "scoped selection and transient body reads" → "scoped selection; body reads verified once per generation and kept by the owner as a projection of the immutable history, never authority, dropped on rollback, close or poison".
+  - `ABI5_STDO3_COMPUTATIONAL_BINDING.md:199` (history selection row): add "and the verified bodies of the current generation" after "physical body locations in the same owner".
+  - `T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md:64`: in "The same Event Store owner retains authenticated envelope, ordinal, cause, profile and physical-body locations, staged append state and current folds", add "and the verified bodies of its current generation, read by location and digest and dropped with the generation".
+  - `T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md:66`: "Temporary decoding, validation and complete historical output do not become compulsory resident body populations at later internal handoffs" → "Validation and complete historical output do not become compulsory resident populations at later internal handoffs; the owner's verified bodies of its current generation are a kept projection, never required of a caller and never authority".
+  - `T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:254-257`: "requires transient work proportional to the selected source-prefix bodies, not a retained cache, a currentness surrogate, or whole-history expansion" reads as a prohibition. Proposed: "requires work proportional to the selected source-prefix bodies not yet verified in the owner's current generation, not a currentness surrogate or whole-history expansion".
+  - These stand:
+    - `ABI5_STDO3_COMPUTATIONAL_BINDING.md:29`, `:200` and `:236`: the kept projection is no mandatory resident population and no new authority.
+    - `T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md:60` and `:68`.
+    - `ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md:44` and `:165`.
+    - `M03_INSTRUCTION_ASSEMBLY_DERIVATION.md:210`.
+    - `T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md:238`.
+    - `T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md:74`.
+    - `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:779` and `:781`.
+- **The two comments in `runtime_history.ts`** are restated as quoted in item 1(a). Two other comments stand: `:18-19`, where the row and the index retain no body, and the `RuntimeEventBodyView` comment at `:602` ("never retain decoded rows"), since the view carries none.
+
+### Item 3: gates and lanes
+
+**Gates**, on the final tree:
+
+| Gate | Result |
+|---|---|
+| `npm run build` | rc 0 (`scratch/c10/gates/final/build.log`); the two regenerated files byte-equal to the first after-build (`scratch/c10/gates/after-build-1/`); built `runtime_history.js` byte-equal to the copy the lanes and the mutant restore used |
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 |
+| `npm run lint:imports` | rc 0: "28 modules under code/src/shared/ import only code/src/shared/ and packages" |
+| `npm run lint:lifecycle` | rc 0: "284 modules under code/src; 7 allow-listed site(s), no offender" |
+| `npm run lint:evidence` | rc 0: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other" |
+| `git status --short` | modified: `code/src/abg/runtime_history.ts`, `test_env/falsifiers/runtime-f09-worker.mjs`, `test_env/tests/t287-calculus-state-transfer.test.mjs`, `test_env/tests/t287-route-reconstruction.test.mjs`, `product-toolchain-manifest.json`, `contracts/capabilities/capability-definition-graph.json` and this record, all staged by path and committed. The two Codex comment files under `.ai-workspace/comments/codex/` are untracked as before and not staged. No other entry; `t287-f09-frontier-handoff.test.mjs` is not in the tree. `grep -c C10` over the source, the worker and the built module: 0 |
+
+**The regenerated files.**
+
+- `product-toolchain-manifest.json` moves 68 of 51,283 JSON leaves, and `contracts/capabilities/capability-definition-graph.json` moves 310 of 3,243.
+- The leaf paths are the same sets before and after, and every moved value is a digest or a digest-derived ref. These are the same counts C-9's change moved (68 and 310).
+
+**Lanes.**
+
+- Each lane ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`.
+- "Before" is `df7738b02` after `npm run build` (`scratch/c10/before/`). "After" is the final tree after `npm run build` (`scratch/c10/after/`).
+- Counts are tests/pass/fail/skipped; no lane cancelled a test.
+- Red names are listed with their first error line. Skips carry no reason in the output.
+
+| Item | Lane | Before | After | Reds and skips (first error) | Attribution |
+|---|---|---|---|---|---|
+| 1(b)(1), 1(c) | `m5-event-store-reopen` | 21/21/0/0 (60.1 s) | 21/20/1/0 (57.7 s) | after: `trusted owned history conserves currentness, callback publication, rollback and cold reconstruction` (`:1345`): `AssertionError [ERR_ASSERTION]: explicit_complete_output: held output 0` (`0 !== 851`) | moved: item 1; the case asserts the superseded law (finding 1); its value assertions hold (1(b)(1)) |
+| 1(b)(2)(3), 1(c) | `t287-route-reconstruction` | 10/8/0/2 (17.1 s) | 11/9/0/2 (8.7 s) | 2 skips, same: `retained native outputs and exact pre-basis historical owner facts are conserved`; `route facts ignore unrelated growth and preserve relevant source, cursor and intent changes` | moved: item 1, the new case (`:584`); `:481` and `:538` restated, green |
+| 1(b)(1), 1(c) | `t287-calculus-fold` | 13/13/0/0 (4.3 s) | 13/13/0/0 (1.6 s) | none | unchanged, green |
+| 1(c) | `t287-ordered-reconstruction` | 7/0/4/3 | 7/2/2/3 | before 4 reds, after 2. Red both times: `snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback` (`:43`, `AssertionError: The expression evaluated to a falsy value`, the snapshot symbol absent); `cold acquisition receipt detaches caller input and preserves pure, copied, explicit-fresh and current-prefix distinctions` (`:86`, `Values have same structure but are not reference-equal`). Red before, green after: `historical durable cuts reidentify only exact owner history after physical authentication` (`:115`, `Values have same structure but are not reference-equal`); `held derivation preserves physical authentication and discards staged facts on rollback` (`:168`, `exact held object, after physical byte authentication`). 3 skips, same: `ordered owner advances exact suffixes…`, `historical liveness folds conserve…`, `liveness historical-cut intermediates are call-local…` | moved: item 1, element identity (the stop); the two remaining reds unchanged |
+| 1(c) | `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/17/0/0 | none | unchanged, green |
+| 1(c) | `m5-event-calculus-runtime` | 19/13/5/1 (140.7 s) | 19/13/5/1 (138.2 s) | 5 reds, same: four `TypeError [Error]: abg.openCall is not a function` (`A5-F10 exact CCall opening…`, `run HoldsAt truth survives durable reopen…`, `runtime_failure_observed terminates the exact active Run`, `run_stopped makes runtime failure throw…`); `terminal projection rows realize static locus law…`: `AssertionError: runtime_failure_observed/runtime_invocation_active`. 1 skip, same: `nominal prefix reuse preserves full historical EC and replay including fresh process` | unchanged (head) |
+| 1(c) | `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | 6 skips, same (`held Run truth/result/replay equal copied and closed-owner cold projections…` and five more) | unchanged |
+| 1(c) | `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 4 reds, same: three `explicit absolute proof territory required` / `explicit proof territory required`, one `exact rejected paired producer required`; 2 skips, same | unchanged; input-gated |
+| 1(c) | `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 2 reds, same: `real warm derivation and serialized cold projector agree…` and `indexed immutable route membership avoids serialization…`: `TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix` | unchanged (head) |
+| 1(c) | `t287-native-work-currentness-consumers` | 4/4/0/0 (37.3 s) | 4/4/0/0 (30.4 s) | none | unchanged, green; shorter by item 1 |
+| 1(c) | `t288-environment-context-reuse` | 1/0/0/1 | 1/0/0/1 | 1 skip, same | unchanged |
+| 1(c) | `t288-environment-guard-contraction` | 1/0/0/1 | 1/0/0/1 | 1 skip, same | unchanged |
+| 0(a), 1(c) | `t287-r4-aba-retry` | 1/1/0/0 (146.5 s) | 1/1/0/0 (46.6 s) | none | unchanged, green; shorter by item 1 |
+| 0(b), 1(b)(4), 1(c) | `t287-calculus-state-transfer` | 8/8/0/0 (290.8 s) | 8/8/0/0 (249.6 s) | none | unchanged, green; timeout 600 s (item 0(b)); traversals shorter by item 1 |
+| 0(a) | `t287-f09-frontier-handoff` (scratch, uncommitted) | not in the tree | 1/0/1/0 (68 s) | `runtime_basis_mismatch` at the consumer's resume (`:2238-2242`) | item 0(a), stopped at the bound |
+
+### Deviations from the activation's wording
+
+1. **The commit's first line.** The frontier clause does not hold. The line keeps the structure and states the stage in its place.
+2. **Rollback re-decodes the committed rows.** Item 1(b)(2) asks that after a rolled-back transaction "a read of the committed rows still decodes nothing new". Item 1(a) and the ruling ("dropped when the generation changes"; `truncate` "drops the whole map with the generation") require the opposite: the map is cleared in `truncate`, so the new generation decodes each committed row once (18/18, then 18/0). The alternative, dropping only the entries at or past `length`, would keep bodies across a generation change. It is not taken.
+3. **`bodyDecodes` counts committed-row reader calls only**, not every reader call. Tentative rows are read from their staged bodies through the same reader, and counting them would mix staged verification into the claim "at most one decode per committed row per generation". The tentative reads show up as reader calls in the measurement (1,410).
+4. **`m5-event-store-reopen` is not 20/20.** It is 21/21 at the base and 21/20 after; the red is outside the grant (finding 1).
+5. **The `:481` repeat read.** The activation's "differs in `bodyDecodes` only" does not hold (item 1(b)(3)). The diff assertion at `:508` holds unchanged.
+6. **The frontier stopped after the one more call** (step 4), as bounded. Steps 1 to 3 are the construction's own repairs (the missing `artifactRef`, the lock's Product order), each verified on its run.
+7. **Cites in the activation, corrected against `df7738b02`:**
+   - `runtime_history.ts` has 645 lines.
+   - `event` is `:302-313`, not `:319-329`, and `bodyRows++` is `:307`, not `:323`.
+   - `commitLocation` is `:175-182`, not `:176-183`.
+   - The committed-length check is `:190`, not `:189`.
+   - `validationSuccessor` is `:89-95`.
+   - `indexedRuntimeEvents`' `select(key).materialize()` is `event_prefix.ts:738`, not `:737`.
+8. **Listing under `.ai-workspace/`.** Two `git ls-files` calls, looking for the register, matched across `.ai-workspace/`:
+   - `'*/TECHNICAL_DEBT_REGISTER.md'`: git's `*` crosses `/`; its output was filtered by `grep -v` and printed nothing.
+   - `':(glob)*/TECHNICAL_DEBT_REGISTER.md'`: it printed one path, `.ai-workspace/TECHNICAL_DEBT_REGISTER.md`.
+
+   Nothing else was listed or opened there; the register, the ticket and this record were read by line. This breaks the rule the activation names.
+9. **Instrumentation.** The measurement's instrumented build carried 4 tagged lines in `runtime_history.ts`, and probes 01 and 02 carried `C10PROBE` lines in a worker copy. All are stripped: the source and the built module are byte-equal to the clean versions.
+
+### Findings outside the grant
+
+1. **`m5-event-store-reopen.test.mjs:1345` asserts the superseded law.** Its `output` helper (`:1376-1377`) expects every explicit complete output to read `selectedPrefix.prefixLength` bytes from the log (`:1370`, comment `:1374-1375`). Proposed restatement: an explicit complete output reads from the log exactly the bytes of the rows not yet verified in the owner's current generation, so each generation reads each committed row once. In this case that is 851, 0, 866 × 4 and 0 across the held outputs, 4,315 at the first output after the rollback, and 4,315 for the cold recovery. The comment would become: "a full output reads each row's physical extent once per generation of its owner".
+2. **`verifyProduct` throws late on a missing `artifactRef`.** `product/verify_product.ts:2109` verifies the whole archive, then throws `TypeError: Cannot convert undefined or null to object` from canonical JSON at the verification digest (`:2712`; the body takes `artifactRef: request.artifactRef`, `:2664`). It does not refuse the request at entry. Not traced further.
+3. **The artifact truth rows list the installs in a different order from the one the lock is built in.** The rows list the fixture Product first, and the lock over them in that order differs from the binding's lock id. The support builds the root Product first (`root-installed-environment.mjs:291-292`, `:339`). A reader that rebuilds the lock from the artifact truth must know the order.
+4. **The consumer's resume refuses on its runtime declarations** (item 0(a)). Probe 02's `graph_mismatch` from `traverseFromCursor` points at the consumer's own `graph` and `graphValidation` reconstruction. It is the retire-or-keep question the activation names.
+
+### Stops
+
+1. **The identity semantics of `materialize` and `readAll` results changed** (the activation's stop; item 1(a) claimed "no caller's result changes in value or in identity").
+   - Within one generation of one open store, two `materialize` or `readAll` results are distinct frozen arrays whose elements are the same frozen objects. At the base, every call decoded again and gave new element objects.
+   - Values, array identity and `MATERIALIZED` binding are unchanged.
+   - It is observable: `t287-ordered-reconstruction` `:115` (`rows[0] === a.store.readAll()[0]`) and `:168` ("exact held object, after physical byte authentication") are red at the base on reference equality and green after.
+   - The guards that bound it still hold. A copied, cold or foreign coordinate still gets distinct objects: `:119` ("untrusted current coordinate cannot lend historical facts"), `:122` ("equal ordinals in another store stay cold"), `:170` (cold) and `:176` ("a copied coordinate cannot carry the derivation"). A new generation and a reopened store decode again (proof case (3) and (6)).
+   - `RuntimeDerivationSource` instances stay per snapshot, so the identity fallback of `sharesRuntimeEventPrefix` compares only within one source lineage.
+   - `physicalEventPrefixes` still sets one receipt per event at decode.
+   - The only form that would keep fresh element objects is to clone the kept event per read and register its receipt again in `event_store.ts`. It is not taken.
+   - The head tests' expectation matches the new identity. The Executive rules.
+2. No cold fold or cold read at any cut differs from the warm one (proof case (5) and (6); m5 `:1345`'s value assertions).
+3. No body is served whose row location or digest is not its current row's. A kept entry is used only when its `offset`, `byteLength` and `physicalDigest` equal the row's, and the envelope check runs on it.
+4. No event kind, payload key, failure class, Public export or Product contract changes. `runtime_history.ts` is `@internal`, and no `public/*` or `product/*` module imports it; the regenerated files move digests only.
+5. The frontier red is not shown to be a `code/src` defect (item 0(a)).
+
+### What could not be verified
+
+- **The frontier handoff past the consumer's resume.** The worker after `:2242` and the harness's consumer audit did not run. Whether `runtime_basis_mismatch` is stale test input or a defect is not proven.
+- **The retained heap size of the kept projection.** It is measured as an entry count (87) and the kept rows' byte length (the whole log, 3,472,391 B), not as retained heap. The process's `heapUsed` and `rss` include everything else.
+- **The m5 `:1345` case as committed.** It is red in the tree. Its value assertions are verified only on the scratch copy with the byte assertions removed.
+- **The input-gated lanes** (`t287-native-event-time`, and the skipped `t287-held-prefix`, `t288-*`) exercise none of the change in this checkout.

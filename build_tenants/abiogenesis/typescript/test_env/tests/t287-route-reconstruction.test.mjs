@@ -491,6 +491,10 @@ test('ordinary selected route and scoped extent avoid growing historical bodies;
   const warmWork=diff(before,historyOwner.work);
   assert.equal(selectedKinds.includes('kind:basis_admitted'),false,'unchanged checked cut does not enumerate prior basis rows');
   assert.equal(warmWork.bodyRows,1,'only the named canonical route body is consumed');
+  // The comparison read above decoded this cut's bodies once; the held store
+  // keeps them for its current generation, so the warm read decodes none.
+  assert.equal(warmWork.bodyDecodes,0,'the warm route reads its one body from the kept generation projection');
+  assert.equal(warm.reads.length,0,'the warm route reads no row from the log');
   assert.throws(()=>replay.projectValidatedReplayRouteAtPrefix({...o.run},f.route.eventId,o.authority),/nominal/);
   const extentBefore={...historyOwner.work};for(let i=0;i<16;i++)prefix.runtimeEventSelectorExtent(o.run,'kind:basis_admitted');
   const extentWork=diff(extentBefore,historyOwner.work);assert.equal(extentWork.scopeRows,0);assert.equal(extentWork.selectorRows,0);assert.equal(extentWork.bodyRows,0);
@@ -522,23 +526,26 @@ test('ordinary selected route and scoped extent avoid growing historical bodies;
  }
  assert.equal(measured[1].warmWork.bodyRows,measured[0].warmWork.bodyRows);
  assert.equal(measured[1].warmReads.length,measured[0].warmReads.length);
- let coordinateByteDelta=0;
- measured[1].warmReads.forEach((row,i)=>{const before=measured[0].warmReads[i];
-  assert.equal(row.kind,before.kind);assert.equal(row.ordinal,before.ordinal+64);
-  assert.ok(row.ordinal>64,'selected route decodes no added historical basis body');
-  const ordinalByteDelta=String(row.ordinal).length-String(before.ordinal).length;
-  assert.equal(row.bytes-before.bytes,ordinalByteDelta,'only the selected row ordinal width changes');coordinateByteDelta+=ordinalByteDelta;
- });
- assert.equal(measured[1].warmBytes-measured[0].warmBytes,coordinateByteDelta);
+ // Neither history's warm route decodes a body, historical or selected: the
+ // added history changes no warm read, in rows or in bytes.
+ for(const row of measured){
+  assert.equal(row.warmReads.length,0,'selected route decodes no added historical basis body');
+  assert.equal(row.warmBytes,0,'the warm route reads no log bytes');
+ }
  t.diagnostic(JSON.stringify({measured,limit:'Selected-route/body extent discriminator, controlled lower declarations. Full explicit replay has complete cost; no campaign capacity/native qualification.'}));
 });
 
 test('drop complete output then selected route does not retain decoded historical bodies',async t=>{
- const f=terminalOwner(t,64),o=ownedTerminal(t,f),routeEventRef=f.route.eventId;
+ const f=terminalOwner(t,64),routeEventRef=f.route.eventId,runId=f.route.runId;
  f.rows=undefined;f.authority=undefined;f.run=undefined;
+ // The reopened owner is held here, not by a test hook, so that closing it and
+ // dropping these references leaves nothing holding its history.
+ let held=store.reopenEventStore(f.close.reopenAuthority);assert.equal(held.kind,'reopened_event_store_context',JSON.stringify(held));
+ t.after(()=>held?.store.closeDurableLog());
+ let authority=prefix.selectRuntimeEventPrefixFromStore(held.store),run=prefix.selectRuntimeEventPrefixFromAuthority(authority,{runId});
  if(global.gc)global.gc();const operationalHeap=process.memoryUsage().heapUsed;
  const requested=()=>new Promise(resolve=>setImmediate(()=>{
-  let full=o.store.readAll(),explicit=prefix.selectValidatedRuntimeEventPrefix(full),input=full.find(e=>e.kind==='basis_admitted').payload.rawInputValue;
+  let full=held.store.readAll(),explicit=prefix.selectValidatedRuntimeEventPrefix(full),input=full.find(e=>e.kind==='basis_admitted').payload.rawInputValue;
   // Requested immutable complete output remains exact until this caller drops
   // all of it. Only the weak reference and scalar measurements leave this scope.
   assert.equal(prefix.runtimeEventsFromValidatedPrefix(explicit).length,78);
@@ -549,16 +556,109 @@ test('drop complete output then selected route does not retain decoded historica
  // A single explicit GC does not guarantee V8 weak processing. Observe one
  // full collection in a later callback, discarding every diagnostic chunk;
  // neither a debugger target handle nor raw snapshot survives the operation.
- const collectionBytes=await new Promise((resolve,reject)=>setImmediate(async()=>{
+ const collect=()=>new Promise((resolve,reject)=>setImmediate(async()=>{
   try{let bytes=0;for await(const chunk of getHeapSnapshot())bytes+=chunk.length;resolve(bytes);}catch(error){reject(error);}
  }));
+ const collectionBytes=await collect();
  await new Promise(resolve=>setImmediate(resolve));
- assert.equal(weak.deref(),undefined,'ordinary store owner does not retain dropped complete output bodies');
- const work=RuntimeHistorySelection.owner(o.run.selection).work,before={...work};
- const observed=await observedBodies(()=>replay.projectValidatedReplayRouteAtPrefix(o.run,routeEventRef,o.authority));
+ // The open owner keeps the verified bodies of its current generation: the
+ // dropped complete output's bodies stay held by the store, not by the caller.
+ assert.notEqual(weak.deref(),undefined,'the open store keeps the verified bodies of its current generation');
+ const work=RuntimeHistorySelection.owner(run.selection).work,before={...work};
+ let observed=await observedBodies(()=>replay.projectValidatedReplayRouteAtPrefix(run,routeEventRef,authority));
  assert.equal(observed.value.admissionEventRef,routeEventRef);
- t.diagnostic(JSON.stringify({operationalHeap,snapshotHeap,afterDropHeap:process.memoryUsage().heapUsed,collectionBytes,collector:'V8 full snapshot stream discarded; no debugger handle',selectedWork:diff(before,work),selectedBytes:observed.bytes,
-  selectedValueStillRetained:weak.deref()!==undefined,limit:'Dropped complete output is collectible while the same ordinary owner stays open. Controlled finite history; heap records are evidence, not a quota or campaign-capacity proof.'}));
+ const selectedWork=diff(before,work),selectedBytes=observed.bytes,openHeap=process.memoryUsage().heapUsed;
+ held.store.closeDurableLog();held=undefined;authority=undefined;run=undefined;observed=undefined;
+ await new Promise(resolve=>setImmediate(resolve));
+ const closedCollectionBytes=await collect();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(weak.deref(),undefined,'a closed and dropped store owner retains no dropped complete output bodies');
+ t.diagnostic(JSON.stringify({operationalHeap,snapshotHeap,openHeap,afterCloseHeap:process.memoryUsage().heapUsed,collectionBytes,closedCollectionBytes,collector:'V8 full snapshot stream discarded; no debugger handle',selectedWork,selectedBytes,
+  limit:'Dropped complete output stays in the open owner\'s current generation and is collectible once the owner is closed and dropped. Controlled finite history; heap records are evidence, not a quota or campaign-capacity proof.'}));
+});
+
+// O-4. The held store keeps the verified bodies of its current generation and
+// reads them by row location and digest. A rollback changes the generation and
+// drops them; a reopened store has a fresh history and reads cold. The fold law
+// is the proof: a cold read and a cold fold at every cut equal the warm read.
+test('held history generation projection: verified bodies decode once per generation; cold reads and folds at every cut equal the warm read',async t=>{
+ const f=terminalOwner(t,4),o=ownedTerminal(t,f),owner=RuntimeHistorySelection.owner(o.authority.selection);
+ const read=async(action,selection)=>{const before={...owner.work};const observed=await observedBodies(action,selection);return {...observed,work:diff(before,owner.work)};};
+ const current=()=>prefix.selectRuntimeEventPrefixFromStore(o.store);
+ const basis=label=>{const value=deepFreeze({kind:'body_fixture_input',text:'generation '+label});
+  const body={basisClass:'root',rawInputValue:value,rawInputDigest:sha256Canonical(value),invocationRef:'invocation://component/generation/'+label};
+  const basisDigest=sha256Canonical(body),basisRef='execution-basis://abiogenesis/'+basisDigest.slice(7);
+  return {eventTime:'2026-10-10T00:00:00.000Z',correlationId:'correlation://component/generation',workflowVersion:'5.0.0',kind:'basis_admitted',
+   aggregateType:'workspace',aggregateId:'workspace://component/history',parentAggregateId:null,causationEventRefs:[],scopeClass:'workspace',basisId:basisRef,
+   payload:{...body,basisRef,basisDigest}};};
+ // (1) A selected route: the first read runs the global checks and decodes each
+ // body it reads once; a warm read twice gives equal values and body rows and
+ // decodes nothing.
+ const route=()=>replay.projectValidatedReplayRouteAtPrefix(o.run,f.route.eventId,o.authority);
+ const first=await read(route,o.authority.selection),second=await read(route,o.authority.selection),third=await read(route,o.authority.selection);
+ assert.deepEqual(second.value,first.value);assert.deepEqual(third.value,second.value);
+ assert.ok(first.work.bodyDecodes>0);assert.equal(first.reads.length,first.work.bodyDecodes,'each decode reads its one row');
+ assert.equal(new Set(first.reads.map(row=>row.ordinal)).size,first.reads.length,'a committed row decodes at most once in its generation');
+ assert.equal(second.work.bodyRows,1);assert.equal(second.work.bodyDecodes,0,'the warm read decodes no body');assert.equal(second.reads.length,0);
+ assert.deepEqual(third.work,second.work,'the repeat read consumes the same body rows and decodes nothing');assert.equal(third.reads.length,0);
+ // (2) Complete output: a fresh frozen vector per call over the same kept events.
+ const all=await read(()=>o.store.readAll(),o.authority.selection),again=await read(()=>o.store.readAll(),o.authority.selection);
+ assert.equal(first.work.bodyDecodes+all.work.bodyDecodes,all.value.length,'every committed row decodes once in this generation');
+ assert.equal(again.work.bodyDecodes,0);assert.equal(again.reads.length,0);
+ assert.notEqual(again.value,all.value);assert.deepEqual(again.value,all.value);
+ assert.ok(Object.isFrozen(again.value)&&again.value.every((event,index)=>event===all.value[index]&&Object.isFrozen(event)));
+ const materialized=o.authority.selection.materialize(),rematerialized=o.authority.selection.materialize();
+ assert.notEqual(rematerialized,materialized);assert.equal(RuntimeHistorySelection.fromMaterialized(rematerialized),o.authority.selection);
+ // (3) A rolled-back transaction that staged events changes the generation and
+ // drops its kept bodies: the committed rows decode once more, then not again.
+ const generation=owner.generation;
+ let tentative;
+ assert.throws(()=>store.admitRuntimeEventTransactionAtDurablePrefix(o.store,store.selectHeldEventStoreDurablePrefix(o.store),()=>{
+  store.admitRuntimeEvent(o.store,basis('refused'));
+  const before={...owner.work};const rows=o.store.readAll();tentative={rows:rows.length,work:diff(before,owner.work)};
+  throw new Error('fixed rollback discriminator');}),/fixed rollback discriminator/);
+ assert.equal(tentative.rows,all.value.length+1);assert.equal(tentative.work.bodyDecodes,0,'a tentative row reads from its staged body');
+ assert.equal(owner.generation,generation+1);
+ assert.throws(()=>o.authority.selection.materialize(),/invalidated by rollback/);
+ const afterRollback=await read(()=>o.store.readAll(),current().selection),settled=await read(()=>o.store.readAll(),current().selection);
+ assert.deepEqual(afterRollback.value,all.value);
+ assert.equal(afterRollback.work.bodyDecodes,all.value.length,'the new generation decodes each committed row once');
+ assert.equal(settled.work.bodyDecodes,0);
+ // (4) Staged again and committed: after commitLocation the row reads from the
+ // log once, at its committed location, and then from the kept projection.
+ const committedBefore={...owner.work};
+ const admitted=store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(o.store,store.selectHeldEventStoreDurablePrefix(o.store),
+  ()=>store.admitRuntimeEvent(o.store,basis('committed')));
+ const transactionWork=diff(committedBefore,owner.work);
+ const located=current().selection,row=located.row(located.length-1);
+ assert.equal(row.envelope.eventId,admitted.value.eventId);assert.notEqual(row.body.offset,-1);
+ const once=await read(()=>o.store.readAll(),located),twice=await read(()=>o.store.readAll(),current().selection);
+ assert.equal(transactionWork.bodyDecodes+once.work.bodyDecodes,1,'the committed row decodes once');
+ assert.deepEqual(once.reads.map(read=>[read.eventRef,read.position]),once.work.bodyDecodes===0?[]:[[row.envelope.eventId,row.body.offset]]);
+ assert.equal(twice.work.bodyDecodes,0);assert.deepEqual(twice.value,once.value);
+ assert.deepEqual(once.value.at(-1),admitted.value);
+ // (5) The fold law: at every cut, the warm read and the warm calculus fold
+ // equal a cold read and a cold fold over an independent copy of the rows.
+ const warm=current(),rows=once.value,coldAuthority=cold(rows);
+ const eventsAt=cut=>Array.from({length:prefix.runtimeEventPrefixExtent(cut).count},(_,index)=>prefix.runtimeEventAtPrefixIndex(cut,index));
+ for(const event of rows){
+  const warmCut=prefix.validatedRuntimeEventPrefixThroughEvent(warm,event.eventId),coldCut=prefix.validatedRuntimeEventPrefixThroughEvent(coldAuthority,event.eventId);
+  assert.deepEqual(eventsAt(warmCut),eventsAt(coldCut),event.eventId);
+  assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(warmCut),calculus.deriveRuntimeEventCalculusProjection(coldCut),event.eventId);
+  assert.equal(prefix.runtimeEventPrefixDigest(warmCut),prefix.runtimeEventPrefixDigest(coldCut),event.eventId);
+ }
+ assert.equal(prefix.runtimeEventPrefixDigest(warm),prefix.runtimeEventPrefixDigest(coldAuthority));
+ const warmReplay=replay.replayValidatedRuntimeEventPrefix(prefix.selectRuntimeEventPrefixFromAuthority(warm,{runId:f.route.runId}),warm);
+ assert.deepEqual(warmReplay,replay.replayValidatedRuntimeEventPrefix(prefix.selectRuntimeEventPrefixFromAuthority(coldAuthority,{runId:f.route.runId}),coldAuthority));
+ // (6) A reopened store has a fresh history: it decodes every row once, cold.
+ const closed=o.store.projectReopenAuthorityAndClose(),reopened=store.reopenEventStore(closed.reopenAuthority);
+ assert.equal(reopened.kind,'reopened_event_store_context',JSON.stringify(reopened));t.after(()=>reopened.store.closeDurableLog());
+ const reopenedAuthority=prefix.selectRuntimeEventPrefixFromStore(reopened.store),reopenedOwner=RuntimeHistorySelection.owner(reopenedAuthority.selection);
+ const coldBefore={...reopenedOwner.work},coldRead=await observedBodies(()=>reopened.store.readAll(),reopenedAuthority.selection);
+ assert.deepEqual(coldRead.value,rows);assert.equal(diff(coldBefore,reopenedOwner.work).bodyDecodes,rows.length);assert.equal(coldRead.reads.length,rows.length);
+ t.diagnostic(JSON.stringify({events:rows.length,routeFirst:first.work,routeWarm:second.work,routeRepeat:third.work,completeFirst:all.work,completeRepeat:again.work,
+  tentative:tentative.work,afterRollback:afterRollback.work,afterRollbackRepeat:settled.work,transaction:transactionWork,committedFirst:once.work,committedRepeat:twice.work,
+  coldReopen:diff(coldBefore,reopenedOwner.work),limit:'Controlled terminal history with four basis bodies; counters of the held owner, not a capacity proof.'}));
 });
 
 // TD-15. The three canonical record writers route their envelope through
