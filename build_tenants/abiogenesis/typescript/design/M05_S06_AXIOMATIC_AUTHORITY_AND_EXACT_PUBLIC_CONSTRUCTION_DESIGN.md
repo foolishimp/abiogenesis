@@ -2046,11 +2046,11 @@ same `D17 -> D18 -> executeGraphTraversal(projectedRetryResume)` relation after
 retry progress.
 
 Continuation, source-result, closure, cursor, causation, and run projection
-bases are rehydrated through the same scoped truth. Current
-`PublicContinuationAuthority` and `PublicRunProjectionAuthority` constructor
-semantics are replaced by unverified coordinate parsing plus ABG-backed basis
-rehydration; a self-consistent caller value is never admitted merely because
-its digest matches itself.
+bases are rehydrated through the same scoped truth. `PublicRunProjectionAuthority`
+constructor semantics are replaced by unverified coordinate parsing plus
+ABG-backed basis rehydration; no Public continuation carrier exists, and a
+continuation is read from the admitted log (T-290 C-17); a self-consistent
+caller value is never admitted merely because its digest matches itself.
 
 ## 8. One Normalized Program Before Effects
 

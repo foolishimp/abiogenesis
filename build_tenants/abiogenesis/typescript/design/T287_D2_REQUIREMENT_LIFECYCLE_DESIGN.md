@@ -354,7 +354,7 @@ is the code observation, not a claim of D2 implementation. Paths below are under
 | `abg/semantic_stage.ts::semanticEnvelopeMatchesAdmittedPredecessor`, `semanticInputMatchesBasis` | The entire carried envelope and each asset must match native admitted history. A caller cannot splice retained assets into a revised envelope. |
 | `hog/route_proposal.ts::proposeGraphSpanReentryRoute`; `abg/traversal_route.ts::admitTraversalTransition` | Existing declared `re_enter` and admission preserve source result/judgment, target/input and locus. They require a lawful advancing selection result, not advancement of the failed subject. |
 | `abg/traversal_route.ts::rehydrateConstructionIntentForCursorAtPrefix`; `abg/invocation_admission.ts::admitExactInvocation` | Existing action/intent and invocation joins retain selected obligation/assets and exact authority. Durable gap-start re-entry additionally requires its actual gap-stop route and unchanged applicable start/install/binding coordinates. |
-| `abg/continuation.ts::prepareContinuationPublicOperation`, `prepareFhInteractionResume` | Rehydrate a real held F_H continuation and its admitted response. No terminal/blocked Run is relabeled as held or gap-stopped. |
+| `abg/continuation.ts::prepareContinuationPublicOperation` | Rehydrate a real held F_H continuation and its admitted response. No terminal/blocked Run is relabeled as held or gap-stopped. |
 | `product/semantic_stage.ts::deriveSemanticWorksitePreparation`; existing C1/C0/C2 | Construct, replace and execute within current Product authority. D1's coordinate projection deliberately retains old preimage bytes, so it cannot refresh changed postimages for D2. |
 
 The missing join is exact admitted counterevidence plus a permitted affected-work
