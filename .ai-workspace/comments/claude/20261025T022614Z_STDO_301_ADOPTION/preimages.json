@@ -1,0 +1,70 @@
+{
+  "head": "b80da6d0c6f44f83e20fe69ed163826bf9b1eb1b",
+  "observed_at": "2026-10-25T02:31:18.856644+00:00",
+  "copies": "none (TD-19): digests and blob ids only",
+  "paths": {
+    "stdo_abiogenesis.json": {
+      "type": "file",
+      "sha256": "e539f249dba55892fcc0ba13053a42870b20b445f8fddcc1e8f985744352d8a8",
+      "blob": "c6e20961a56a7f728c8eca14a8b326cc79ac328e",
+      "bytes": 3146,
+      "worktree_equals_head": true
+    },
+    "AGENTS.md": {
+      "type": "file",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "blob": "766ae37f79de146cd51195cffc12f01ecc056ce8",
+      "bytes": 11923,
+      "worktree_equals_head": true
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "blob": "c591b56aa518c8cae370b3707827ecf0a179716b",
+      "bytes": 5297,
+      "worktree_equals_head": true
+    },
+    "specification/PRODUCT.md": {
+      "type": "file",
+      "sha256": "48050e7eb0bcd038e106da32705c621f63fddf6af053228626c94aa216e915cd",
+      "blob": "60858698c0a7dce7a5d07ae34ac316cf7fcd3bc4",
+      "bytes": 97498,
+      "worktree_equals_head": true
+    },
+    "specification/GOALS.md": {
+      "type": "file",
+      "sha256": "484586fa82471222613f6eb4e2964f1b0f799a2e935b05df9f126106b317e14b",
+      "blob": "2045c58896a12927a1d8b431b4e1930688b06d56",
+      "bytes": 83736,
+      "worktree_equals_head": true
+    },
+    "specification/requirements/README.md": {
+      "type": "file",
+      "sha256": "741cbaf8d7ea1b82006718d8fa84ccd62c01c59bff93885e75a26d16f8944169",
+      "blob": "701a0b7565d2914de0bbc6a85fe35f133807ec41",
+      "bytes": 8706,
+      "worktree_equals_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "type": "file",
+      "sha256": "c86473dc38bd4e803408154bee947c9b52c379373ed6998502bff663d09cf67e",
+      "blob": "1acff8add140195d0c6b3e599cab01576a5b5303",
+      "bytes": 26853,
+      "worktree_equals_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": {
+      "type": "file",
+      "sha256": "0f990b406777db9e3143a36c76a1f695c1496b0e68e901fdb331ab91d9bd6873",
+      "blob": "fd09bd45cdc993db224f2a60c572d6dd16792837",
+      "bytes": 59322,
+      "worktree_equals_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": {
+      "type": "file",
+      "sha256": "9141d4c50c183db3e9319e2aa89e29318acbf3e2b82f0148d80c4a2a25fc400a",
+      "blob": "df5ed3aec9ca909a18bc8e98ab1bf97a6dfadbe6",
+      "bytes": 122893,
+      "worktree_equals_head": true
+    }
+  }
+}

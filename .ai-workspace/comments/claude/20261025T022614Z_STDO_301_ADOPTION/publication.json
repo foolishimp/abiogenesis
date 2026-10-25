@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-10-25T02:34:48.462457+00:00",
+  "command": "gh release view specification_methodology/v3.0.1-rc.1 -R foolishimp/specification_methodology --json tagName,name,isDraft,isPrerelease,publishedAt,targetCommitish,url,assets",
+  "gh_release_view": {
+    "assets": [
+      {
+        "apiUrl": "https://api.github.com/repos/foolishimp/specification_methodology/releases/assets/672433385",
+        "contentType": "application/json",
+        "createdAt": "2026-10-24T14:11:06Z",
+        "digest": "sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+        "downloadCount": 4,
+        "id": "RA_kwDOR7M92c4oFITp",
+        "label": "",
+        "name": "stdo-v3.0.1-rc.1-manifest.json",
+        "size": 13792,
+        "state": "uploaded",
+        "updatedAt": "2026-10-24T14:11:06Z",
+        "url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.1-rc.1/stdo-v3.0.1-rc.1-manifest.json"
+      },
+      {
+        "apiUrl": "https://api.github.com/repos/foolishimp/specification_methodology/releases/assets/672433383",
+        "contentType": "application/octet-stream",
+        "createdAt": "2026-10-24T14:11:06Z",
+        "digest": "sha256:d53e6a5ffda20159252308a2d064232208ddc1a875bf84b58708527006668a49",
+        "downloadCount": 3,
+        "id": "RA_kwDOR7M92c4oFITn",
+        "label": "",
+        "name": "stdo-v3.0.1-rc.1-manifest.json.sha256",
+        "size": 97,
+        "state": "uploaded",
+        "updatedAt": "2026-10-24T14:11:06Z",
+        "url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.1-rc.1/stdo-v3.0.1-rc.1-manifest.json.sha256"
+      }
+    ],
+    "isDraft": false,
+    "isPrerelease": false,
+    "name": "STDO 3.0.1 RC1",
+    "publishedAt": "2026-10-24T14:11:07Z",
+    "tagName": "specification_methodology/v3.0.1-rc.1",
+    "targetCommitish": "fe4941f56a52ed3697a2b516d8d68948b0ea65d9",
+    "url": "https://github.com/foolishimp/specification_methodology/releases/tag/specification_methodology/v3.0.1-rc.1"
+  },
+  "asset_download": {
+    "command": "gh release download specification_methodology/v3.0.1-rc.1 -R foolishimp/specification_methodology -p stdo-v3.0.1-rc.1-manifest.json -p stdo-v3.0.1-rc.1-manifest.json.sha256 -D <scratch>/m1/assets",
+    "location": "session scratch only; no copy in this record (TD-19)",
+    "sidecar_check": "shasum -a 256 -c stdo-v3.0.1-rc.1-manifest.json.sha256: stdo-v3.0.1-rc.1-manifest.json: OK",
+    "sidecar_sha256_line": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8  stdo-v3.0.1-rc.1-manifest.json",
+    "asset_file_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+    "asset_canonical_manifest_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+    "installed_manifest_canonical_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+    "asset_bytes_equal_installed_manifest_json": true,
+    "canonical_digest_method": "stdo_toolchain.manifest.manifest_sha256 (stdo 0.1.5) over the parsed asset and the installed manifest.json"
+  },
+  "checks": {
+    "tag_name_equals_selection": true,
+    "target_commitish_equals_commit": true,
+    "draft_false": true,
+    "prerelease_false": true,
+    "asset_digest_equals_manifest": true,
+    "asset_canonical_equals_installed": true,
+    "tag_object_and_commit_from_public_tag": "the manager's adoption plan resolved refs/tags/specification_methodology/v3.0.1-rc.1 from the public repository: tag object 6e96ce1d2422508e5620bd12afceda890c556fd6, commit fe4941f56a52ed3697a2b516d8d68948b0ea65d9, tree 3aa889d2749e05f5c9c1d1375fb27391a8159e99"
+  },
+  "selection": {
+    "tag": "specification_methodology/v3.0.1-rc.1",
+    "commit": "fe4941f56a52ed3697a2b516d8d68948b0ea65d9",
+    "tag_object": "6e96ce1d2422508e5620bd12afceda890c556fd6",
+    "manifest_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8"
+  },
+  "published": false
+}

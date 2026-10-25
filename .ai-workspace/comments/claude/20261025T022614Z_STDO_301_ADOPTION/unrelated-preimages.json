@@ -1,0 +1,21 @@
+{
+  "head": "b80da6d0c6f44f83e20fe69ed163826bf9b1eb1b",
+  "observed_at": "2026-10-25T02:31:18.856644+00:00",
+  "command": "git status --short --untracked-files=all",
+  "excludes": "this record directory, created by M-1",
+  "entries": [
+    {
+      "status": "??",
+      "path": ".ai-workspace/comments/codex/20261023T211957Z_STRATEGY_gtl_worker_reference_frame_coherence_options.md",
+      "sha256": "62e508f208f9fd78cedd973b907a2d6f47a01b50d917c886b9f991557d187466",
+      "blob": "96447cfdb645d8c7affe6b1f2afba57d9f557b07"
+    },
+    {
+      "status": "??",
+      "path": ".ai-workspace/comments/codex/20261024T045334Z_STRATEGY_gtl_abg_stdo3_formal_model.md",
+      "sha256": "b8cdec093950d4c36b9397d71d8fcd7b3b9ac24b6bc8407cbc7981ad74482cb7",
+      "blob": "07b9cc03fb0a0e3439aba56753f246e4e2131184"
+    }
+  ],
+  "tracked_modified": 0
+}

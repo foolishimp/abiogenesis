@@ -660,7 +660,7 @@ the owning evaluation family, subject/basis, material relations, criteria,
 authority, admissible evidence, exclusions, result relation, invalidation and
 actor capability envelope. Role, question, scope, required inputs and response
 contract are its usable projection, not a replacement definition. Under STDO,
-[Reference Frame](stdo://releases/v3.0.0-rc.1/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit)
+[Reference Frame](stdo://releases/v3.0.1-rc.1/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit)
 owns that meaning. General GTL Programs need not adopt STDO to declare their
 own evaluation contracts.
 
@@ -1593,8 +1593,8 @@ atlas, and grants no implementation, mutation, admission, or release
 authority.
 
 The TypeScript realization applies the selected release's
-[software-design profile](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md)
-and [build-tenant binding law](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding).
+[software-design profile](stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md)
+and [build-tenant binding law](stdo://releases/v3.0.1-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding).
 The [STDO 3 computational binding](../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
 records their application to the existing Product and requirement owners.
 Algorithmic description, informational interpretation and computational
