@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { canonicalJson, writeCanonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { type Sha256Digest } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import type { CheckedRecord } from "../shared/select/index.js";
 import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
 import {
   selectRuntimeEvents,
@@ -740,6 +741,38 @@ export function indexedRuntimeEvents(prefix: RuntimeEventPrefix, key: string): r
   const index = runtimePrefixComputation(prefix, EVENT_INDEX, () => new RuntimeEventIndex());
   index.advance(events);
   return index.through(key, events.at(-1)?.admissionOrdinal ?? 0);
+}
+
+const CHECKED_RECORDS = Symbol("runtime_prefix_checked_records");
+/** @internal A module-constant reader's checked record over one immutable
+ * admitted cut is a derived fact of that cut. It is acquired once and recorded
+ * in the cut's own computation territory under the reader's constant and the
+ * canonical digest of the context data (the cut itself is the territory, so it
+ * is not part of the data); every later identical read returns the record.
+ * The territory spans every cut of one ordered lineage, so the cut's extent is
+ * part of the key. Only a `one` outcome is recorded: any other outcome is
+ * acquired again, so the owner's refusal channel reproduces its first refusal.
+ * A validation view, and a context that is not I-JSON, record nothing.
+ * Nothing is persisted, and nothing outlives the territory. */
+export function checkedRecordAtPrefix<P>(prefix: RuntimeEventPrefix, reader: object, context: JsonValue,
+  acquire: () => CheckedRecord<RuntimeEvent, P>): CheckedRecord<RuntimeEvent, P> {
+  if (isValidationRuntimeEventPrefix(prefix)) return acquire();
+  const extent = runtimeEventPrefixExtent(prefix);
+  let key: Sha256Digest;
+  // A context that is not I-JSON names no record; the reader acquires as before.
+  try { key = sha256Canonical(context); } catch { return acquire(); }
+  const cuts = runtimePrefixComputation(prefix, CHECKED_RECORDS,
+    () => new Map<string, WeakMap<object, Map<Sha256Digest, CheckedRecord<RuntimeEvent, unknown>>>>());
+  const cut = extent.count + ":" + extent.lastOrdinal;
+  let readers = cuts.get(cut);
+  if (readers === undefined) cuts.set(cut, readers = new WeakMap());
+  let records = readers.get(reader);
+  if (records === undefined) readers.set(reader, records = new Map());
+  const recorded = records.get(key);
+  if (recorded !== undefined) return recorded as CheckedRecord<RuntimeEvent, P>;
+  const checked = acquire();
+  if (checked.kind === "one") records.set(key, checked);
+  return checked;
 }
 
 const CANONICAL_PREFIX = Symbol("ordered_canonical_prefix_digest");

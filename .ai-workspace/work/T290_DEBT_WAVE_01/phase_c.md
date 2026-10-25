@@ -8008,3 +8008,415 @@ Grant: `code/src/shared/select/exact_record.ts`, `shared/select/index.ts` and `s
 Stops (write the stop in the Return, keep the rest moving): a function in the context, a runtime-supplied `project` or `digest`, a combinator, registry or mode selector (§5.6.2C); an owner refusal code, message or event changing; a payload key, event kind or persisted digest; a Public export change (`checkExactRecord`'s defaulted generic is additive) or a packed declaration closure refusal from the build; a side store or a copy re-attached by digest; a lane moving other than the named mover; a reader whose context cannot be data (then it stays as it is, named).
 
 Return contract: one commit on `main`, staged by path, first line `C-14: TD-12 closed: the eight contextual readers read one module-constant check over typed context data, each checked record acquired once per admitted prefix in the fold's own index, the two second hashes gone; O-3 closed: one materialization of the acquired prefix per cold Public read (t287-cross-cut-public-read green)`, with any gap stated in place; the Return before the commit so the commit carries it: the readers table (context type, owner channel, before and after), the counters per lane, the differential, the hash counts, the O-3 pass counts, the lanes table, the lint and gates, the design proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-14 return (Worker, Opus 5.5, 2026-10-26; base `ac3052784`)
+
+**O-3 not closed. TD-12 closed with gaps.**
+
+O-3: a cold Public read now materializes the acquired prefix once (a Run read 2 to 1, a GraphCall read 3 to 1). But every member still makes 1,053 log reads, twice the history's bytes, so `t287-cross-cut-public-read` stays 4/5 at its base first error. The second whole-history read belongs to the event store's reopen fold and first materialization, outside the grant.
+
+TD-12: the eight contextual readers read one module-constant check over typed context data. Seven of them acquire each `one` record once per admitted prefix in the prefix's own computation, and the two second hashes are gone. The gaps:
+- reader 1 checks a caller's event array, not a prefix, so it has no record;
+- readers 2 and 5 are reached by no lane;
+- readers 6 and 7 gain no record reads in the lanes.
+
+One stop was hit in the instrumented run and fixed inside the grant: `t287-installed-product-coordinate` moved because of a call route (see Stops). It is 11/11 after.
+
+- **Item 1.**
+  - `RecordCheck<E, P, C = void>` and a contextual `checkExactRecord` overload. The base overload is unchanged, and the 18 base sites keep `C = void`.
+  - Eight module-constant checks, each mapping `absent`, `many` and `invalid` to its base owner channel.
+  - No owner code, message or event changed.
+- **Item 2.** `checkedRecordAtPrefix` in `event_prefix.ts`: one record per (cut, reader, context key), `one` only.
+  - Readers 3, 4 and 8 turn 1,269 of 2,060 calls into record reads.
+  - Both differentials are equal at every call and every record read.
+- **Item 3.** The rehydrates make 1,790 body hashes instead of 3,580, and 1,790 fewer `id:` lookups.
+- **Item 4.** One materialization per member. Wall time fell from 1.17 to 1.01 s for a Run read and from 3.16 to 2.58 s for a GraphCall read. The Public read results are equal, except for the fixture's per-run `projectionBasis`.
+- **Lanes and gates.**
+  - Every lane equals the base, except four with added cases (+1, +3, +1, +1) and the mover, which did not move.
+  - `tsc`, the four lints and the build are green.
+
+### Item 1: the contextual record check, and the readers table
+
+`shared/select/exact_record.ts`: `RecordCheck<E, P, C = void>`, with `project: (event, context: C)` and `digest.expected: (event, value, context: C)`. `checkExactRecord` keeps its base overload verbatim and adds one contextual overload; the implementation passes `context` to both legs unchanged. `CheckedRecord`'s kinds are unchanged: no reader needed a `record_context` reason, because each reader's context mismatch is its existing `record_projection` or `record_digest`. The 18 base call sites (7 modules, 9 constants) keep `C = void` with their checks unchanged (the two `execution_basis.ts` rehydrates change only after their check, item 3); the `t287-select-family` exact-record cases stand. The Public declaration of `checkExactRecord` gains the defaulted generic and the overload, nothing else.
+
+Each reader's check is one module constant (`Object.freeze`), the context is a typed record of data, and the owner boundary maps the four kinds to the channel the base used. No owner code, message or event changed.
+
+| # | Reader (after site) | Constant; context type (data) | Record key (I-JSON) | Owner channel for `absent` / `many` / `invalid` | Before (base) | After |
+|---|---|---|---|---|---|---|
+| 1 | `c_call_outcome.ts:415` `projectWorksiteFailureResultRequest` | `WORKSITE_FAILURE_EVIDENCE_RECORD` (`:384`); `WorksiteFailureEvidenceContext {result, resultPayload, priorEvents}`: the frozen Result event, its payload and the caller's prior-event cut | none: the reader reads a caller-supplied `priorEvents` array, not a prefix, so nothing can hold its record | `null` (all three) | inline filter, `onlyExactMatch`, inline conditions, `projectWorksiteFailureBasis` over the events before the evidence, then the body hash | one `checkExactRecord`: `project` holds the order, scope and causation checks, the basis and the body checks; the digest leg compares `evidenceDigest` with the body hash; the evidenceRef format is checked after |
+| 2 | `worksite_revision.ts:381` `projectionFacts` | `REVISION_EVIDENCE_RECORD` (`:363`); `RevisionEvidenceContext`: the Result's scope ids, causation refs and ordinal, the CCall and evidence contract refs, the Result's evidence refs, and the request and envelope digests | the context itself (absent scope ids spread out, not `undefined`) | `null` (all three) | `resolveExactMatch`, inline conditions with `hash(request)` and `hash(envelope)` inline, then `hash(evidenceBody)` and the ref format | the record through `checkedRecordAtPrefix`; the caller computes the two digests into the context once; the ref format is checked after. **0 calls in every lane** (code reading only) |
+| 3 | `retry.ts:1370` `projectRetryAttempt` | `RETRY_ATTEMPT_RECORD` (`:1306`); `RetryAttemptRecordContext {prefix, graph}`: the cut and the materialized graph the cursor derivation reads | `{admissionEventRef, materializationRef, materializationDigest}` | `null` (all three) | `runtimeEventBodiesAtPrefix`, an id filter, the inline cursor derivation and the manifest-ref check, then the attempt-body hash | the record; `project` derives the cursor; the digest leg compares `attemptDigest` with the body hash; the attemptRef format, the prior-attempt recursion and the admission follow as before; the unused `runtimeEventBodiesAtPrefix` read is gone |
+| 4 | `invocation_execution_truth.ts:414` `projectExactInvocationAdmissionAtPrefix` | `INVOCATION_ADMISSION_RECORD` (`:311`); `InvocationAdmissionRecordContext {prefix, invocationAdmissionRef}` | `{invocationAdmissionRef}` | `null` (all three) | `runtimeEventBodiesAtPrefix`, the payload-index filter, `length !== 1`, the causation read by `id:` index, the admission build, then the body hash | the record; `project` reads the causation's public event by an index read of the same cut and builds the admission; the digest leg compares `invocationAdmissionDigest`; the relation to the public event is checked after, as before |
+| 5 | `invocation_execution_truth.ts:101` in `projectGovernanceCoveredSourceUse` | `GOVERNANCE_SOURCE_RESULT_RECORD` (`:55`); `GovernanceSourceResultContext`: the source result's admission event ref, result ref and digest, value digest, value, CCall ref and Run id | the context itself | `null` (all three) | an `id:` filter, `length === 1`, and inline conditions including `canonicalEquals(value, sourceResultValue)` | the record; `project` holds the payload conditions; the digest leg compares the recorded `resultDigest` with `sourceResultDigest` (no hash, as in the base). **0 calls in every lane** (code reading only) |
+| 6 | `c_call.ts:2333` `undispatchedResultRelation` | `UNDISPATCHED_EVIDENCE_RECORD` (`:2315`); `UndispatchedEvidenceContext`: the CCall ref and evidence and failure contract refs, and the Result's class, contract ref and `valueDigest` | the context itself | `absent` → `true`; `many` → `true` only when none is undispatched evidence; `invalid` → `true` only when the event is not undispatched evidence | a `related:` filter, an undispatched `some`, then inline conditions with `sha256Canonical(failureValue)` | the record; the digest leg compares `context.valueDigest` with the failure value's digest; the Result's evidence-ref check and the relation tail follow as before |
+| 7 | `traversal_cursor.ts:332` `projectTraversalInputAtPrefix` | `REGISTERED_INPUT_ORIGIN_RECORD` (`:317`); `RegisteredInputOriginContext {cursorRef, cursorDigest}` | the context itself | `absent` → the ordinary origins below; `many`, `invalid` → `null` | a filter over the cursor's admission events, `length !== 1`, then the admission digest against `cursorDigest` | the record; the digest leg compares `context.cursorDigest` with the admission digest |
+| 8 | `project_read_ports.ts:283` `scopeForBasis` | `BASIS_SCOPE_RECORD` (`:248`); `BasisScopeContext {prefix, basis: BasisScopeRow}`, the row a 10-member Pick of the execution basis | the row | `absent`, `many` → `TypeError("terminal projection requires one exact basis GraphCall")`; `invalid` → `TypeError("scope has no exact native root/child identity")`; the Frame, Run and relation `TypeError`s are thrown from `project` as before | `runtimeEventBodiesAtPrefix`, three `onlyExactMatch` selects, the relation checks, the scope body and hash, then `rehydrateOpenedTraversalScopeAtPrefix` and the class check | the record, `digest: null`; the scope body hash and the rehydrate stay inside `project`; `terminalDeclaration` (`:303`) reads the read owner's acquired artifact truth (item 4), and its two `id:` selects stay direct index reads |
+
+`checkedRecordAtPrefix` (`event_prefix.ts:746-776`): the record lives in the prefix's `runtimePrefixComputation` territory under the `CHECKED_RECORDS` symbol. The key is the cut's extent `count:lastOrdinal`, then the reader's constant (a `WeakMap` key), then `sha256Canonical(key)`. Only `one` is recorded. A validation prefix, and a key that is not I-JSON, acquire with no record.
+
+### Item 2: counters per lane and the differential (the instrumented run)
+
+**Shape.** The `// C14` lines counted, per reader:
+
+- `before`: the select-validate-digest sequences the base runs, one per call.
+- `after`: the sequences the memo ran.
+- `reads`: the records it returned.
+- `records`: the `one` outcomes it recorded.
+- validation-prefix calls, and calls whose key is not I-JSON.
+
+Two differentials ran at once.
+
+- **The memo differential.** At every record read, the sequence was re-run under a quiet flag and deep-compared with the record: kind, event, value and reason.
+- **The reader differential.** At every call, the after reader was compared with the base reader. The base reader was transcribed as a `c14Base_*` function into the same module. Values and `null` were deep-compared, and exceptions were compared by constructor and message.
+
+The rehydrates had the same reader differential, plus a hash counter.
+
+**Totals over all 101 lanes and compose.**
+
+| Reader | Calls (before = sequences) | Sequences after | Records read | `one` recorded | Refused (recomputed) | Validation / non-I-JSON key | Kinds of the sequences run | Memo differential | Reader differential |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 worksite failure evidence (no memo) | 2,028 | 2,028 | n/a | n/a | n/a | n/a | `one` 1,746; `many` 220; `invalid:record_projection` 60; `invalid:record_digest` 1; `absent` 1 | n/a | 2,301/2,301 same (1,746 values, 555 `null`) |
+| 2 worksite revision evidence | 0 | 0 | 0 | 0 | 0 | 0 / 0 | none | 0/0 | 0/0: no lane reaches it |
+| 3 retry attempt | 291 | 115 | 176 | 63 | 0 | 50 / 2 | `one` 63 | 176/176 | 155/155 (153 values, 2 `null`) |
+| 4 invocation admission | 1,663 | 632 | 1,031 | 626 | 2 | 2 / 2 | `one` 626; `invalid:record_projection` 2 | 1,031/1,031 | 1,663/1,663 (1,659 values, 4 `null`) |
+| 5 governance source result | 0 | 0 | 0 | 0 | 0 | 0 / 0 | none | 0/0 | 0/0: no lane reaches it |
+| 6 undispatched evidence | 1,092 | 1,090 | 2 | 2 | 932 | 106 / 50 | `invalid:record_projection` 932; `one` 2 | 2/2 | 1,092/1,092 (all `true`) |
+| 7 registered input origin | 140 | 140 | 0 | 0 | 140 | 0 / 0 | `absent` 140 | 0/0 | 140/140 (all values) |
+| 8 basis scope | 106 | 44 | 62 | 41 | 1 | 0 / 0 | `one` 41; `absent` 1; 2 `TypeError`s from `project`, propagated | 62/62 | 106/106 (103 values; one each of the GraphCall, Frame and relation `TypeError`s) |
+| implementation set rehydrate | 1,749 | (no memo) | | | | | `one` 1,749 | | 1,749/1,749 |
+| interaction set rehydrate | 41 | (no memo) | | | | | `one` 41 | | 41/41 |
+
+The library lane's own test check (unnamed) read its one record once (1/1).
+
+**What the exit shows.** The exit requires "at most one sequence per (prefix, reader, context), the rest reads". Readers 3, 4 and 8 show it: 1,269 of 2,060 calls became record reads. Reader 6 does not. Its outcomes are `invalid` 932 times, recomputed by rule, and `one` only twice. Reader 7's outcomes are all `absent`. Both still pay one `sha256Canonical` of the key per call, and neither saves a sequence in these lanes.
+
+Reader 6's 50 non-I-JSON keys come from CCalls whose runtime object has no `evidenceContractRef`. The key's `undefined` member is not I-JSON, so those calls acquire directly. Such a CCall's evidence cannot project `one`: `contractRef` is a required payload key, and the projection compares it with the absent member. So nothing that could have been recorded was lost.
+
+**Per lane.** The cell format:
+
+- `n:a->b rk` is reader `n`, `a` calls, `b` sequences, `k` records read.
+- `dx/y` is the reader differential, same/calls.
+- `1:` and `R:` (no memo) show the differential alone.
+- The hash column is the rehydrate hashes, before -> after.
+
+Lanes not listed show no counter.
+
+| Lane | Readers | Rehydrate hashes | O-3 counters |
+|---|---|---|---|
+| `m5-event-calculus-runtime` | 4:4->4r0 d4/4 |  |  |
+| `r10-projection-contracts` | 4:11->9r2 d11/11; 6:13->13r0 d13/13; 8:25->12r13 d25/25 |  | prepare:read 18 |
+| `r7-graph-validation-basis` | 4:5->4r1 d5/5 |  |  |
+| `r8-direct-hog-entry` | 4:1->1r0 d1/1 |  |  |
+| `r9-causal-result-closure` | 4:2->2r0 d2/2 |  |  |
+| `rival-authority-mutations` | 4:2->2r0 d2/2 |  |  |
+| `t287-c0-post-publication-failure` | 1:322->322r0 d342/342; 4:66->66r0 d66/66; 6:102->102r0 d102/102; R: d70/70 | implementation:140->70 |  |
+| `t287-calculus-fold` | 4:247->25r222 d247/247; R: d247/247 | implementation:494->247 |  |
+| `t287-calculus-state-transfer` | 1: d3/3; 4:7->7r0 d7/7; 6:138->138r0 d138/138; 7:64->64r0 d64/64; R: d33/33 | implementation:66->33 |  |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 4:1->1r0 d1/1; 6:17->17r0 d17/17; 7:6->6r0 d6/6; R: d4/4 | implementation:8->4 |  |
+| `t287-common-computational-library` | unnamed:2->1r1 |  |  |
+| `t287-continuation-causation` | 4:7->4r3 d7/7 |  |  |
+| `t287-cross-cut-public-read` | 4:90->32r58 d90/90; 6:26->26r0 d26/26; 8:62->24r38 d62/62; R: d5/5; R: d5/5 | implementation:10->5 interaction:10->5 | prepare:read 32, kernel 11, prepare:acquired 5, terminal:from_truth 2, terminal:from_prefix 6 |
+| `t287-exact-construction-intent` | 1: d8/8; 4:6->5r1 d6/6; 6:24->22r2 d24/24; 7:8->8r0 d8/8; R: d11/11; R: d3/3 | implementation:22->11 interaction:6->3 |  |
+| `t287-f04a-probabilistic-result-candidate` | 4:1->1r0 d1/1 |  |  |
+| `t287-governance-covered-source-use` | 4:2->2r0 d2/2 |  |  |
+| `t287-historical-source-resource` | 4:8->3r5 d8/8; 6:4->4r0 d4/4; 8:11->4r7 d11/11; R: d3/3; R: d3/3 | implementation:6->3 interaction:6->3 | prepare:read 1, terminal:from_prefix 3 |
+| `t287-installed-product-coordinate` |  |  | kernel 6, prepare:read 6 |
+| `t287-native-work-currentness-consumers` | 1:1706->1706r0 d1714/1714; 4:1006->314r692 d1006/1006; R: d970/970 | implementation:1940->970 |  |
+| `t287-native-work-reacquisition` | 6:3->3r0 d3/3 |  |  |
+| `t287-native-workspace-work` | 1: d4/4; 4:8->6r2 d8/8; R: d6/6 | implementation:12->6 |  |
+| `t287-ordered-reconstruction` |  |  | prepare:read 2 |
+| `t287-post-binding-worksite-write` | 4:4->4r0 d4/4; 6:5->5r0 d5/5; R: d3/3 | implementation:6->3 |  |
+| `t287-r4-aba-retry` | 1: d171/171; 3:289->113r176 d153/153; 4:5->5r0 d5/5; 6:467->467r0 d467/467; 7:8->8r0 d8/8; R: d277/277; R: d4/4 | implementation:554->277 interaction:8->4 |  |
+| `t287-recursive-registered-selection` | 1: d14/14; 4:1->1r0 d1/1; 6:37->37r0 d37/37; 7:1->1r0 d1/1; R: d10/10; R: d4/4 | implementation:20->10 interaction:8->4 |  |
+| `t287-runtime-failure-diagnostic` | 3:2->2r0 d2/2 |  |  |
+| `t287-st1-installed-cross-owner-hello` | 4:3->3r0 d3/3; 6:6->6r0 d6/6; 8:2->1r1 d2/2; R: d1/1 | implementation:2->1 | prepare:read 1 |
+| `t287-worksite-branch-construction` | 1: d24/24; 4:8->8r0 d8/8; 6:24->24r0 d24/24; 7:10->10r0 d10/10; R: d12/12; R: d4/4 | implementation:24->12 interaction:8->4 |  |
+| `t287-worksite-command-execution` | 1: d18/18; 4:165->120r45 d165/165; 6:222->222r0 d222/222; 7:42->42r0 d42/42; 8:6->3r3 d6/6; R: d96/96; R: d18/18 | implementation:192->96 interaction:36->18 | prepare:read 6 |
+| `t287-worksite-construction` | 1: d3/3; 4:3->3r0 d3/3; 6:4->4r0 d4/4; 7:1->1r0 d1/1; R: d1/1 | implementation:2->1 |  |
+
+### Item 3: the second hashes
+
+`rehydrateAdmittedImplementationSetAtPrefix` (`execution_basis.ts:1346-1369`) and `rehydrateAdmittedInteractionSetAtPrefix` (`:1395-1418`) return the checked value after the conditions of `hasAdmitted*SetAtPrefix` that the check does not already decide: the ref format, the payload's ref and digest, and the canonical equality of the payload set with the set's ref, digest and body. The dropped parts are already decided:
+
+- the body hash, which the check's digest leg computed once;
+- the `id:` lookup, whose event is the checked event (ids are unique in a validated prefix);
+- the kind, record and `implementationSet` conditions, which the select predicate holds;
+- `isAdmittedImplementationSet` / `isAdmittedInteractionSet`, which are `WeakSet` membership of the set the line before adds.
+
+The `has*` functions stay unchanged for their twelve external callers. Digest values are unchanged.
+
+**Hash counts (instrumented run).** Each rehydrate that reaches `one` used to make two dropped calls: the body hash inside `has*` and its `id:` lookup. Both are gone.
+
+| | Rehydrates (`one`) | Body hashes before (digest leg + `has*`) | Body hashes after (digest leg) | `id:` lookups dropped |
+|---|---|---|---|---|
+| Implementation sets | 1,749 | 3,498 | 1,749 | 1,749 |
+| Interaction sets | 41 | 82 | 41 | 41 |
+
+- The hashes are counted by a counter. The lookups are counted from code: one per `has*` call, and `has*` was called once per `one`.
+- Per lane, the column "Rehydrate hashes" above gives the hashes. Every lane halves exactly.
+- The rehydrate differential is 1,749/1,749 and 41/41 same.
+
+### Item 4: O-3, one materialization per cold Public read
+
+**Route.**
+
+- `runReadKernel` (`project_read_definition_bindings.ts:694-698`) passes the environment's artifact truth to `prepareRunReadAtDurablePrefix` as a fourth argument. That argument belongs to an `@internal` overload (`project_read_ports.ts:990-1015`); the public three-argument overload and its `.d.ts` are byte-equal to the base.
+- `prepareRead` (`:678-705`) reads the artifact truth's validated prefix when the truth's coordinate is identically the packet's coordinate. The packet's coordinate is the capture of a registered coordinate, which is the coordinate itself. It returns `{packet, events, fullPrefix, artifactTruth}`. Any other packet takes the base path.
+- The GraphCall projection's terminal environment, `terminalDeclaration` (`:364-368`), projects from that artifact truth under the same identity condition.
+- No digest re-attaches anything, nothing is stored on the side, and the reopen fold stays.
+- The activation's site (4), `projectHistoricalGraphCallSourceAtDurablePrefix`, is not on the Public read path. Its one caller is `implementation/leaf_invocation_port.ts:486`. The third materialization of a GraphCall read was `terminalDeclaration`'s environment.
+
+**Pass counts** (scratch `td212224` counters over the lane's retained D2 store, 13,540,472-byte log, each member a cold read):
+
+| Member | `fs.readSync` calls before / after | Bytes read before / after | Whole-history reads before / after | Materializations before / after (C-14 probe) | Wall ms before / after |
+|---|---|---|---|---|---|
+| `run_status` | 1,053 / 1,053 | 27,080,944 / 27,080,944 | 2 / 2 | 2 / 1 | 1,169 / 1,025 |
+| `run_result` | 1,053 / 1,053 | 27,080,944 / 27,080,944 | 2 / 2 | 2 / 1 | 1,170 / 1,012 |
+| `run_replay` | 1,053 / 1,053 | 27,080,944 / 27,080,944 | 2 / 2 | 2 / 1 | 1,161 / 1,010 |
+| `graph_call_result` | 1,053 / 1,053 | 27,080,944 / 27,080,944 | 2 / 2 | 3 / 1 | 3,155 / 2,582 |
+| `graph_call_replay` | 1,053 / 1,053 | 27,080,944 / 27,080,944 | 2 / 2 | 3 / 1 | 3,169 / 2,587 |
+
+- The `-owners` and `-passes` logs are line-identical before and after: one reopen per member, and two disk passes per member. The two passes are:
+  - the reopen descriptor fold, 207 chunks of 64 KiB;
+  - the first materialization's 846 row reads.
+- Later materializations read bodies from memory, so the base was already at 2 disk passes. The figures `packages.md:2537` records (3 passes and 1,899 calls for a Run read, 4 passes and 2,745 calls for a GraphCall read) are stale against this base.
+- C-14 reduced the in-memory materializations and the wall time. It did not reduce the O-3 measure.
+- `t287-cross-cut-public-read:110` asserts `reads === 1` and `readBytes === history`. That needs one read of the log, which only the event store's reopen fold could hand to the first materialization. Both owners are in `event_store.ts`, outside the grant, so the lane stays 4/5 with its base first error.
+
+**Public read results.** The probe captured every member's `ownerOutput` before and after.
+- `run_result` is byte-equal.
+- The other four are equal except `projectionBasis.ref` and `.digest`, and for the GraphCall members the same two leaves under `terminalResult`. These are the fixture's per-run temporary log path and its coordinate digest, which differ on every run, before or after.
+
+### Lanes, each alone
+
+- **The passes.** Before ran on the base build, after on the final clean build.
+- **The lanes.** All 101 lanes that the activation's `git grep -l` names, plus the compose scenario, 102 rows.
+- **Totals.** 565/371/96/98 before, 571/377/96/98 after: the six added cases, all green. Wall time was 2,842 s before and 2,828 s after.
+- **Counts, reds, skips and first errors are equal in every lane, except:**
+  - the four lanes with added cases: `r10-projection-contracts` +1, `t287-common-computational-library` +3, `t287-governance-covered-source-use` +1, `t287-native-work-currentness-consumers` +1;
+  - the named mover, `t287-cross-cut-public-read`, which stays 5/4/1/0 at `:105`, "run_status must retain the acquired prefix through late proof admission" (1,053 !== 1).
+- **¹** Four lanes have first-error texts that differ only in per-run values: digests, temporary paths, inodes, log byte lengths and measured `elapsedMs`. After normalizing exactly those, they are equal.
+- **The instrumented run** matched the before pass in every lane except the four added-case lanes, the library lane's instrumentation artifact (Deviations 7) and `t287-installed-product-coordinate` (Stops).
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `d2-acknowledgment` | 3/0/0/3 | 3/0/0/3 | 0.0 / 0.0 | yes | 3 skipped |
+| `d2-binding-transition` | 10/0/0/10 | 10/0/0/10 | 0.0 / 0.0 | yes | 10 skipped |
+| `d2-bounded-repair` | 12/1/0/11 | 12/1/0/11 | 0.4 / 0.4 | yes | 11 skipped |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 0.3 / 0.3 | yes | red `:82` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix; red `:132` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix |
+| `hog-operator-support` | 3/3/0/0 | 3/3/0/0 | 0.3 / 0.3 | yes | - |
+| `m5-consensus-module` | 17/17/0/0 | 17/17/0/0 | 0.6 / 0.6 | yes | - |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 139.4 / 136.9 | yes | red `:372` TypeError [Error]: abg.openCall is not a function; red `:1316` AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active; red `:1471` TypeError [Error]: abg.openCall is not a function; red `:1548` TypeError [Error]: abg.openCall is not a function; red `:1590` TypeError [Error]: abg.openCall is not a function; 1 skipped |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 0.3 / 0.3 | yes | red `:21` AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCC; red `:281` AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:; red `:323` AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError [ERR_ASSERTION]: missing source boundary: /** |
+| `r10-child-proof` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `r10-projection-contracts` | 10/10/0/0 | 11/11/0/0 | 1.6 / 1.5 | yes | - |
+| `r7-graph-validation-basis` | 1/1/0/0 | 1/1/0/0 | 137.2 / 136.4 | yes | - |
+| `r8-direct-hog-entry` | 1/0/1/0 | 1/0/1/0 | 34.2 / 34.2 | yes | red `:19` TypeError [Error]: abg.hasAdmittedExecutionBasis is not a function |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 68.6 / 68.9 | yes | red `:53` TypeError [Error]: abg.openCall is not a function; red `:721` TypeError [Error]: abg.openCall is not a function |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 0.5 / 0.5 | yes | red `:26` TypeError [Error]: traversal transition differs from its staged successor projection |
+| `rival-authority-mutations` | 3/1/2/0 | 3/1/2/0 | 74.6 / 74.3 | yes | red `:54` TypeError [Error]: environment.abg.openCall is not a function; red `:78` TypeError [Error]: abg.openCall is not a function |
+| `steel-basic-cli-public` | 1/0/1/0 | 1/0/1/0 | 24.1 / 24.4 | yes¹ | red `:269` AssertionError [ERR_ASSERTION]: product.verify: {"definitionKey":{"memberKey":"verify","op |
+| `steel-consumer-declaration` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 0.3 / 0.3 | yes | red `:39` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-c2-child-program` | 4/4/0/0 | 4/4/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 1.2 / 1.2 | yes | red `:120` TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut; red `:195` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:212` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:227` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:238` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:266` TypeError [Error]: operations.nativeWorkReacquisition is not a function |
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 | 1.8 / 1.8 | yes | - |
+| `t287-calculus-state-transfer` | 8/8/0/0 | 8/8/0/0 | 247.7 / 247.2 | yes | - |
+| `t287-common-computational-library` | 14/14/0/0 | 17/17/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 | 0.5 / 0.5 | yes | - |
+| `t287-cross-cut-public-read` | 5/4/1/0 | 5/4/1/0 | 46.0 / 43.9 | yes | red `:105` AssertionError [ERR_ASSERTION]: run_status must retain the acquired prefix through late pr |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 | 0.0 / 0.0 | yes | 3 skipped |
+| `t287-d1-semantic-stage` | 3/1/0/2 | 3/1/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | 2.4 / 2.4 | yes | 3 skipped |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | 1.5 / 1.5 | yes | - |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | 0.5 / 0.4 | yes | red `:85` AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier; red `:116` AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 10.8 / 10.6 | yes | - |
+| `t287-exact-construction-intent` | 1/1/0/0 | 1/1/0/0 | 50.3 / 49.8 | yes | - |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 35.0 / 34.4 | yes | red `:356` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-generic-job-meaning` | 5/3/0/2 | 5/3/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | 2/1/0/1 | 0.4 / 0.4 | yes | 1 skipped |
+| `t287-generic-job-revision` | 4/1/0/3 | 4/1/0/3 | 0.4 / 0.4 | yes | 3 skipped |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 9/3/3/3 | 0.3 / 0.3 | yes | red `:351` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:386` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:430` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; 3 skipped |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | 0.4 / 0.4 | yes | 6 skipped |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | 5.6 / 5.6 | yes | red `:64` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal: |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-live-worksite-construction` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 | 0.4 / 0.4 | yes | 2 skipped |
+| `t287-native-assembly-retained-input` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:12` AssertionError [ERR_ASSERTION]: explicit closed job selection required; this test never ac |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 0.3 / 0.3 | yes | red `:30` AssertionError [ERR_ASSERTION]: explicit absolute proof territory required; red `:66` AssertionError [ERR_ASSERTION]: explicit absolute proof territory required; red `:86` AssertionError [ERR_ASSERTION]: explicit proof territory required; red `:108` AssertionError [ERR_ASSERTION]: exact rejected paired producer required; 2 skipped |
+| `t287-native-owner-reuse` | 3/0/0/3 | 3/0/0/3 | 0.0 / 0.0 | yes | 3 skipped |
+| `t287-native-registered-selection` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | 0.9 / 0.9 | yes | red `:224` AssertionError [ERR_ASSERTION]: native failure reuses the original derivation |
+| `t287-native-semantic-revision` | 7/4/1/2 | 7/4/1/2 | 0.6 / 0.6 | yes | red `:118` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 2 skipped |
+| `t287-native-work-currentness-consumers` | 5/5/0/0 | 6/6/0/0 | 31.3 / 30.5 | yes | - |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | 0.6 / 0.6 | yes | 3 skipped |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | 0.3 / 0.3 | yes | 3 skipped |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.4 / 1.4 | yes | 1 skipped |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | 1.3 / 1.3 | yes | red `:43` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-ordered-reconstruction` | 7/2/2/3 | 7/2/2/3 | 0.4 / 0.4 | yes | red `:22` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:74` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:; 3 skipped |
+| `t287-owned-native-proof` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | 43.4 / 42.9 | yes | red `:244` TypeError [Error]: artifact truth is reachable only through its checked owner ingress |
+| `t287-public-preparation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-public-terminal-projection` | 4/0/4/0 | 4/0/4/0 | 0.3 / 0.3 | yes | red `:34` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:50` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:68` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture; red `:87` AssertionError [ERR_ASSERTION]: select the exact frozen S02 episode fixture |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:18` AssertionError [ERR_ASSERTION]: explicit frozen fixture and isolated emitted-owner binding |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/0/1 | 1/0/0/1 | 0.1 / 0.1 | yes | 1 skipped |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 45.8 / 45.2 | yes | - |
+| `t287-r6-retry-success-exit` | 1/1/0/0 | 1/1/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 35.5 / 35.1 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-registered-graph-selection` | 1/0/1/0 | 1/0/1/0 | 32.3 / 32.3 | yes¹ | red `:15` AssertionError [ERR_ASSERTION]: module://registered-selection/product@5: {"kind":"static_v |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 0.3 / 0.3 | yes | red `:59` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:92` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:107` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier |
+| `t287-route-reconstruction` | 12/10/0/2 | 12/10/0/2 | 8.7 / 8.7 | yes | 2 skipped |
+| `t287-runtime-failure-diagnostic` | 20/20/0/0 | 20/20/0/0 | 3.6 / 3.5 | yes | - |
+| `t287-select-family` | 7/7/0/0 | 7/7/0/0 | 0.0 / 0.0 | yes | - |
+| `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-selected-execution-closure` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/0/2/0 | 38.6 / 38.8 | yes | red `:116` AssertionError [ERR_ASSERTION]: inherited eventResource; red `:737` ReferenceError [Error]: product is not defined |
+| `t287-stdo-run-environment` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `t287-w2-05-install-catalog-owner-chain` | 1/0/1/0 | 1/0/1/0 | 6.3 / 6.1 | yes | red `:286` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 | 0.6 / 0.6 | yes | 2 skipped |
+| `t287-wave2-owner-contract-source-set` | 15/15/0/0 | 15/15/0/0 | 0.1 / 0.1 | yes | - |
+| `t287-worksite-branch-construction` | 2/0/2/0 | 2/0/2/0 | 76.6 / 76.7 | yes¹ | red `:584` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion":; red `:669` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion": |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | 317.1 / 314.8 | yes | - |
+| `t287-worksite-construction` | 3/0/3/0 | 3/0/3/0 | 66.9 / 66.7 | yes¹ | red `:217` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; red `:361` TypeError [Error]: Cannot read properties of null (reading 'nativeInstructionAssemblyBasis; red `:688` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion": |
+| `t287-worksite-file-replace-owner` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:371` AssertionError [ERR_ASSERTION]: {"kind":"worksite_effect_refusal","schemaVersion":"5.0.0", |
+| `t288-composition-conservation` | 1/0/0/1 | 1/0/0/1 | 0.1 / 0.1 | yes | 1 skipped |
+| `t288-initial-cursor-entry` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:8` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc |
+| `t288-instruction-assembly-owner` | 6/4/0/2 | 6/4/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t288-physical-return-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 | 0.0 / 0.0 | yes | 2 skipped |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 0.5 / 0.4 | yes | red `:27` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:36` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:67` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:77` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:94` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:102` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:112` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:118` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:124` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:129` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:147` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:162` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:169` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:205` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:226` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 0.4 / 0.4 | yes | red `:31` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:65` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:77` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:89` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:96` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:102` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:117` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 35.6 / 35.6 | yes | - |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 | 1195.1 / 1192.5 | yes | - |
+
+### Gates (the final tree)
+
+- **Type check and lints.**
+  - `tsc --noEmit`: 0 diagnostics.
+  - `lint:imports`: 28 shared modules import only `shared/` and packages, and the 3 forbidden owner pairs hold.
+  - `lint:lifecycle`: 286 modules, 7 allow-listed sites, no offender.
+  - `lint:evidence`: 691 roots, no new copy.
+  - `lint:calculus`: 6 modules, no offender.
+  - `npm run build`: rc 0. No packed declaration closure refusal.
+- **The regenerated files.** The leaf key sets equal the base: 51,146 for `product-toolchain-manifest.json` and 3,243 for `capability-definition-graph.json`. 279 and 551 values changed, and every one differs from its base only inside an embedded 64-hex digest.
+- **Declarations.** I compared the 286 emitted `code/src` `.d.ts` files with the base build's.
+  - `shared/select/exact_record.d.ts` carries the defaulted `C` and the contextual overload.
+  - Four files differ by union member order only. On each differing line the tokens are a permutation of the base line's tokens. The files are `abg/project_read_operation_contracts.d.ts` (76 lines), `product/environment_definition_bindings.d.ts` (2), `product/environment_operation_contracts.d.ts` (4) and `public/binding/owner_contract_source_set.d.ts` (40). For example, `"incompatible" | "unresolved" | "ambiguous" | "invalid"` prints as `"invalid" | "incompatible" | …`.
+  - Every other `.d.ts` is byte-equal, including `project_read_ports.d.ts` and `project_read_definition_bindings.d.ts`.
+- **Instrumentation strip.**
+  - `grep -c C14` is 0 in all 17 paths and 0 in `build/code`.
+  - The instrumented run's source, stripped, was byte-equal to the clean copy at the time (`clean-after-v1`). The rebuild from it was byte-equal to that clean build (785 files), and its regenerated files were equal too.
+  - The final tree differs from `clean-after-v1` in two files only: the stop below. Both final files are byte-equal to the clean copy `clean-after`.
+- **`main`.** It stayed at `ac3052784` through the run (`git log --oneline ac3052784..HEAD` is empty).
+
+### Design-sentence proposals (the Executive places them; no design file, register, ticket or `packages.md` was edited)
+
+**1. Library design §4.2 (`ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`).** The `checkExactRecord` row (`:144`): `<E, P, C = void>(match: ExactMatch<E>, check: RecordCheck<E, P, C>, context?: C) => CheckedRecord<E, P>`. The type block (`:147-150`):
+
+```ts
+type RecordCheck<E, P, C = void> = Readonly<{
+  project: (event: E, context: C) => Outcome<P>;
+  digest: null | Readonly<{ expected: (event: E, value: P, context: C) => Sha256Digest; actual: (value: P) => Sha256Digest }>;
+}>;
+```
+
+At `:158`, after "The owner supplies `project` and `digest` as a module constant per reader, never as a runtime argument (§5.6.2C).", add: "A contextual reader's check takes typed context `C`: data the call supplies (an I-JSON value or a frozen owner record such as digests, a cut, a cursor or a basis row), never a function. `project` and `digest.expected` read it; `digest.actual` reads the projected value alone. With the default `void` the check reads the event alone, and the two-argument form is the base form. A context mismatch is the owner's `record_projection` or `record_digest`; `CheckedRecord` has no further kind. Over an immutable admitted prefix ABG records a reader's `one` outcome once, in the prefix's own computation (`checkedRecordAtPrefix`, `abg/event_prefix.ts`, §4.4), and every later identical read returns it (T-290 C-14)."
+
+**2. §4.4, a new closing paragraph.** "Three derived facts of an immutable admitted prefix are recorded once in the owner's own index and read thereafter: the C2 check (TD-08), the C2 correspondence of an exact registered cut (§2, T-290 C-13), and the checked record of a contextual reader (§4.2, T-290 C-14). `checkedRecordAtPrefix` keys the record by the cut's extent (`count:lastOrdinal`, so one ordered lineage's territory holds every cut of it), the reader's module constant (a `WeakMap` key) and `sha256Canonical` of the context's I-JSON key. The cut itself is the territory, so it is not part of the key. Only `one` is recorded. `absent`, `many` and `invalid` are acquired again, so every owner channel reproduces its first refusal exactly. A validation prefix and a key that is not I-JSON record nothing. The record grants no append, prefix or currentness authority, is not persisted, and does not outlive the territory. A prefix re-selected cold from the same array is a new territory." The C-13 correspondence sentence sits in §2 at `:67`, not in §4.4; the Executive may prefer to place this paragraph after it.
+
+**3. Binding, class 2 row (`ABI5_STDO3_COMPUTATIONAL_BINDING.md:175`).**
+
+- **Profile cell.** "Reads: that argument only" becomes "Reads: that argument and, for `checkExactRecord`, the typed context data the call supplies."
+- **Totality cell, append.** "`checkExactRecord` runs `select`'s finite match, then the reader's module-constant `project`, then its digest leg, each at most once. Its context is data (an I-JSON value or a frozen owner record), never a function, so the check terminates where the reader's module-constant legs terminate over that data. An exception from either leg propagates. The ABG per-prefix record (`checkedRecordAtPrefix`) caches a `one` outcome under the reader's constant and the context key and changes no outcome."
+- **Material dependencies cell.** "The value or source argument, the caller's predicate, the reader's module-constant check and its typed context data, module constants and the `node:crypto` SHA-256 import. No clock, filesystem or shared mutable state."
+- **Outcomes cell.** Unchanged ("record check" already names the four kinds).
+
+**4. `packages.md:2537` (O-3).** The finding is not closed. Proposed state line: "**State (T-290 C-14):** the Run read and the GraphCall read now materialize the acquired prefix once. Before, a Run read materialized it twice and a GraphCall read three times (the artifact truth under `projectExactPrefixWorkspaceEnvironment`, `prepareRunReadAtDurablePrefix`, and the GraphCall read's terminal environment). Each member still makes 1,053 `fs.readSync` calls over 27,080,944 B, twice the 13,540,472-byte history. The calls are the reopen descriptor fold's 207 chunks of 64 KiB plus the first materialization's 846 row reads. Both owners are in `event_store.ts`. `t287-cross-cut-public-read:110` (`reads === 1`, `readBytes === history`) stays red. Remaining owner: the event store's reopen fold, which would hand the bodies it reads to the first materialization." Row `:2629`, cell 3: "1,053 readSync calls, 2 whole-history reads, 1 materialization per member (C-14)."
+
+**5. Register, `### TD-12`.** A bullet after the section's last bullet: "**Closed with gaps (T-290 C-14, `<hash>`).** The eight contextual readers read one module-constant `RecordCheck<E, P, C>` over typed context data (`shared/select/exact_record.ts`), and each maps `absent`, `many` and `invalid` to its existing owner channel. Seven read through `checkedRecordAtPrefix` in the prefix's own computation. A `one` record is acquired once per (cut, reader, context key) and read thereafter; refusals are recomputed. The two `execution_basis.ts` rehydrates no longer hash the body a second time or look it up a second time. The gaps:
+   - (a) Reader 1 (`projectWorksiteFailureResultRequest`) checks a caller-supplied `priorEvents` array, not a prefix, so it has no record.
+   - (b) Readers 2 (`worksite_revision.ts` `projectionFacts`) and 5 (the governance source result) are reached by no lane at this base, and are verified by code reading only.
+   - (c) Readers 6 and 7 gain no record reads in the lanes, because their outcomes there are `invalid` or `absent`."
+
+**6. Ticket decisions row TD-12, outcome.** "C-14 `<hash>`: closed with the gaps the register names. TD-12 (the one `design_reframe` of Phase C) stayed inside §5.6.2C: the owner supplies `project` and `digest` as module constants, a runtime call supplies data, and the library adds no combinator, registry, callback, controller or mode selector. O-3 is not closed: one materialization per cold Public read, but the event store's reopen fold keeps the second whole-history read."
+
+### Stops
+
+- **One hit in the instrumented run, fixed in the grant.** `t287-installed-product-coordinate` moved from 11/11 to 11/5/6/0. Its six cases fail at `:129` (`sourceLookups` 0 !== 1).
+  - **Cause.** The lane's private-owner harness replaces `./project_read_ports.js` `prepareRunReadAtDurablePrefix` by name and counts the kernel's source lookups. The first route called a new `@internal` export, `prepareRunReadAtAcquiredPrefix`, which the mock does not replace.
+  - **Fix.** `prepareRunReadAtAcquiredPrefix` is gone. `runReadKernel` calls `prepareRunReadAtDurablePrefix` again, with the artifact truth as a fourth argument, through an `@internal` overload. That overload calls the same private `prepareRunRead` with the same arguments the first route did, so no counter or differential moves. The public overload states its return type explicitly so that the `.d.ts` stays byte-equal to the base.
+  - **Diff from `clean-after-v1` to final.** In `project_read_definition_bindings.ts`, two lines: the import and the call name. In `project_read_ports.ts`, 17 lines: the two-overload form, and the second export removed.
+  - **Result.** The after pass shows the lane at 11/11 with its file untouched.
+  - **What the instrumented run measured.** The counters, the differential and the strip proof above were taken on the first route.
+- No other stop was hit:
+  - every context is data, with no function;
+  - every `project` and `digest` is a module constant;
+  - there is no combinator, registry or mode selector;
+  - no owner code, message or event changed;
+  - no payload key, event kind or persisted digest changed;
+  - no Public export changed beyond `checkExactRecord`'s generic and overload;
+  - nothing is stored on the side.
+
+### Deviations
+
+1. **Reader 1 has no record.** `projectWorksiteFailureResultRequest` takes `(event, priorEvents)`, a caller's array, not a prefix. Its callers pass slices that no prefix computation owns, so the reader is the module-constant check alone.
+2. **Readers 2 and 5 are reached by no lane** (0 calls in all 101 lanes and compose). No case was added for them, nor for the `invalid` channel of readers 3 and 7, which no lane reaches.
+   - Each would need a full admitted fixture that no lane builds green at this base: a semantic revision binding, the governance source chain, a materialized graph with a retry attempt, or an admitted registered cursor.
+   - All four channels answer `null`. Any earlier refusal produces the same `null`, so a synthetic case would not show the check ran.
+   - The activation's per-reader case requirement is met for readers 1, 4 and 8 only.
+3. **`terminalDeclaration`.** Its checked reads now go through reader 4's and reader 8's records. Its two `id:` selects ("child basis admission", "invocation event") remain bare index reads with no projection or digest, so a record would hold only what the index already holds.
+4. **The C-5 return names no reader list for step 5.** The activation's list of eight was used.
+5. **The base exact-record cases** are in `t287-select-family` (7/7 before and after), not `t287-common-computational-library`. The library's new cases are additions.
+6. **The activation's O-3 site (4)** names `projectHistoricalGraphCallSourceAtDurablePrefix`, which the Public read does not call (see item 4).
+7. **The instrumented library lane shows 17/16/1/0 at `:453`** (`acquisitions` 2 !== 1). The memo's record-read differential calls the reader's `acquire` again, and the case's counting closure counts that call. The clean after pass is 17/17.
+8. **The route fix after the instrumented run** (Stops).
+
+### Findings outside the grant
+
+- **Union reordering in declarations.** The four `.d.ts` files, `public/binding/owner_contract_source_set.d.ts` among them, change bytes by union order only. The new `"invalid"` literal in `exact_record.ts` changes TypeScript's type creation order. The manifest's declaration digests for those files move with them, and no type changes.
+- **The memo's key hash.** Every call through `checkedRecordAtPrefix` hashes its key once. Reader 5's key includes `sourceResultValue`, the whole source value. Readers 6 and 7 pay the hash with no record read in these lanes.
+- **Duplicated conditions.** The rehydrates and `hasAdmitted*SetAtPrefix` now state the same ref, digest and canonical-equality conditions twice: once over the checked event, once over a caller's set.
+- **A field the type declares is absent at runtime.** A runtime `CCall` with `childGraphFunctionRef` (a workflow child) has no `evidenceContractRef`, although `CCall` declares it `string` (`c_call.ts:186`). Reader 6's key is then not I-JSON, and the call acquires directly. Found by a scratch diagnostic run of `r10-projection-contracts` on a scratch copy of the build.
+- **Temporary directories.** The lanes and the O-3 counters write their fixtures under the OS temporary directory (`/var/folders/...`), not the scratch directory.
+
+### What could not be verified
+
+- **Unreached paths.** Readers 2 and 5 on any path. Reader 3's `invalid`. Reader 7's `one`, `many` and `invalid`. Reader 8's `invalid`, which is only an unencodable verified scope.
+- **Code reading only.** The rehydrate's dropped `isAdmitted*` check was checked by code reading alone (`WeakSet` membership of the set added the line before).
+- **The first route's numbers.** The counters and the differential were not re-taken on the final route: three passes only.
+- **The O-3 exit.** It cannot be reached without the event store.
+
+### Rule and process slips
+
+- Reads of `phase_c.md` outside `grep -n` and `sed -n` over the named sections:
+  - `wc -l` of the file;
+  - a whole-file `grep -n "^## "` listing its headings;
+  - `awk` and a whole-file `grep -n "^## C-13 return"` to find the C-13 section's end.
+- The base O-3 probe (`capture-before`) ran for about 15 s while `t287-c0-post-publication-failure` was running in the before batch. Only the timing is affected.
+- An extra scratch run of `r10-projection-contracts`, on a scratch copy of the build with a diagnostic line, outside the three passes. It changed nothing in the tenant.
+
+### Method
+
+Three passes:
+
+- before, on the base build;
+- one instrumented run carrying the counters and both differentials;
+- after, on the final clean build.
+
+Every lane ran alone, all 101 lanes the activation's `git grep -l` names, plus the compose scenario. `t287-c0-post-publication-failure` reaches `execution_basis` and `c_call`, so it ran in all three, about 20 minutes each.
+
+**One further slip, after the Return was appended:** a `git diff --numstat` with this file's exact path as its pathspec, run to confirm the append was additions only (410 added, 0 deleted). The rule asks for pathspecs under `build_tenants/` only.

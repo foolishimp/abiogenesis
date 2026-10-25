@@ -1,7 +1,7 @@
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { createHash } from "node:crypto";
 import { writeCanonicalJson } from "../shared/canonical_json.js";
-import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
 import type {
@@ -134,7 +134,8 @@ import {
 } from "./transport_contracts.js";
 import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
-import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { constructRuntimeFailureDiagnosticRef } from "./runtime_failure.js";
 import { retainCaughtCause, type RetainedCaughtCause } from "./event_contract_profiles.js";
 import {
@@ -1284,6 +1285,77 @@ function deriveRetryAttemptCursor(
     : null;
 }
 
+/** The retry attempt's cut, its materialized graph and its admission event:
+ * the cursor derivation reads the cut and the graph. The record is keyed by
+ * the admission event and the graph's materialization identity. */
+type RetryAttemptRecordContext = Readonly<{ prefix: RuntimeEventPrefix; graph: Readonly<GtlGraph> }>;
+type RetryAttemptRecord = Readonly<{ payload: Readonly<Record<string, JsonValue>>; cursor: TraversalCursorCandidate }>;
+
+const RETRY_ATTEMPT_NOT_PROJECTED: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "retry_attempt_not_projected",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One `retry_attempt_opened` event as a checked attempt: the projection
+ * derives its cursor and enclosing retry context and checks the payload
+ * against them; the digest leg compares the attempt body digest with the
+ * recorded `attemptDigest`. The prior attempt is read after the digest. */
+const RETRY_ATTEMPT_RECORD: RecordCheck<RuntimeEvent, RetryAttemptRecord, RetryAttemptRecordContext> = Object.freeze({
+  project: (event: RuntimeEvent, { prefix, graph }: RetryAttemptRecordContext): Outcome<RetryAttemptRecord> => {
+    const cursor = deriveRetryAttemptCursor(prefix, graph, event);
+    if (cursor === null || !isRecord(event.payload)) return RETRY_ATTEMPT_NOT_PROJECTED;
+    const context = contextForCursor(graph, cursor);
+    if (context === null || (typeof context === "object" && "kind" in context)) {
+      return RETRY_ATTEMPT_NOT_PROJECTED;
+    }
+    const payload = event.payload;
+    const retryTermPath = stringValues(payload.retryTermPath);
+    const wrappedTermPath = stringValues(payload.wrappedTermPath);
+    const retryable = stringValues(payload.retryableFailureClasses);
+    if (
+      event.aggregateId !== cursor.frameId ||
+      event.parentAggregateId !== cursor.graphCallId ||
+      event.basisId !== cursor.executionBasisRef ||
+      !nonEmptyString(payload.attemptRef) || !digestValue(payload.attemptDigest) ||
+      !nonEmptyString(payload.attemptManifestRef) ||
+      payload.retryBoundaryRef !== retryBoundaryRef(graph, cursor, context) ||
+      payload.attempt !== cursor.attempt ||
+      payload.taskOrdinal !== cursor.taskOrdinal || payload.budget !== context.budget ||
+      retryTermPath === null || !sameStrings(retryTermPath, context.retryTermPath) ||
+      wrappedTermPath === null || !sameStrings(wrappedTermPath, context.wrappedTermPath) ||
+      retryable === null ||
+      !sameStrings(retryable, WORKER_TRANSPORT_FAILURE_CLASS_VALUES) ||
+      !nonEmptyString(payload.priorRouteRef) ||
+      (payload.priorJudgmentRef !== null && !nonEmptyString(payload.priorJudgmentRef)) ||
+      payload.inputRef !== cursor.inputRef || payload.inputDigest !== cursor.inputDigest ||
+      payload.inputContractRef !== context.inputCarrierRef ||
+      !isRecord(payload.inputValue) ||
+      sha256Canonical(payload.inputValue) !== payload.inputDigest
+    ) return RETRY_ATTEMPT_NOT_PROJECTED;
+    const expectedAttemptManifestRef = deriveRetryAttemptManifestRef({
+      retryBoundaryRef: payload.retryBoundaryRef as string,
+      executionBasisRef: cursor.executionBasisRef,
+      inputContractRef: context.inputCarrierRef,
+      inputRef: cursor.inputRef,
+      inputDigest: cursor.inputDigest,
+      attempt: cursor.attempt,
+      retryPath: cursor.retryPath,
+    });
+    if (payload.attemptManifestRef !== expectedAttemptManifestRef) return RETRY_ATTEMPT_NOT_PROJECTED;
+    return ok(Object.freeze({ payload, cursor }));
+  },
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, { payload }: RetryAttemptRecord) => payload.attemptDigest as Sha256Digest,
+    actual: ({ payload }: RetryAttemptRecord) => {
+      const { attemptRef: _attemptRef, attemptDigest: _attemptDigest, ...attemptBody } = payload;
+      return sha256Canonical(attemptBody);
+    },
+  }),
+});
+
 export function projectRetryAttempt(
   prefix: ValidatedRuntimeEventPrefix,
   graph: Readonly<GtlGraph>,
@@ -1303,62 +1375,18 @@ export function projectRetryAttempt(
   if (!isMaterializedGtlGraph(graph) || admissionEventRef.length === 0) {
     return null;
   }
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const matches = indexedRuntimeEvents(prefix, "id:" + admissionEventRef).filter((event) =>
-    event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
-    event.eventId === admissionEventRef
-  );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  const cursor = deriveRetryAttemptCursor(prefix, graph, event);
-  if (cursor === null || !isRecord(event.payload)) return null;
-  const context = contextForCursor(graph, cursor);
-  if (context === null || (typeof context === "object" && "kind" in context)) {
-    return null;
-  }
-  const payload = event.payload;
-  const retryTermPath = stringValues(payload.retryTermPath);
-  const wrappedTermPath = stringValues(payload.wrappedTermPath);
-  const retryable = stringValues(payload.retryableFailureClasses);
+  const checked = checkedRecordAtPrefix(prefix, RETRY_ATTEMPT_RECORD, { admissionEventRef,
+    materializationRef: graph.materializationRef, materializationDigest: graph.materializationDigest }, () =>
+    checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + admissionEventRef), (event) =>
+      event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
+      event.eventId === admissionEventRef
+    ), RETRY_ATTEMPT_RECORD, { prefix, graph }));
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const event = checked.event, { payload, cursor } = checked.value;
   if (
-    event.aggregateId !== cursor.frameId ||
-    event.parentAggregateId !== cursor.graphCallId ||
-    event.basisId !== cursor.executionBasisRef ||
-    !nonEmptyString(payload.attemptRef) || !digestValue(payload.attemptDigest) ||
-    !nonEmptyString(payload.attemptManifestRef) ||
-    payload.retryBoundaryRef !== retryBoundaryRef(graph, cursor, context) ||
-    payload.attempt !== cursor.attempt ||
-    payload.taskOrdinal !== cursor.taskOrdinal || payload.budget !== context.budget ||
-    retryTermPath === null || !sameStrings(retryTermPath, context.retryTermPath) ||
-    wrappedTermPath === null || !sameStrings(wrappedTermPath, context.wrappedTermPath) ||
-    retryable === null ||
-    !sameStrings(retryable, WORKER_TRANSPORT_FAILURE_CLASS_VALUES) ||
-    !nonEmptyString(payload.priorRouteRef) ||
-    (payload.priorJudgmentRef !== null && !nonEmptyString(payload.priorJudgmentRef)) ||
-    payload.inputRef !== cursor.inputRef || payload.inputDigest !== cursor.inputDigest ||
-    payload.inputContractRef !== context.inputCarrierRef ||
-    !isRecord(payload.inputValue) ||
-    sha256Canonical(payload.inputValue) !== payload.inputDigest
-  ) return null;
-  const expectedAttemptManifestRef = deriveRetryAttemptManifestRef({
-    retryBoundaryRef: payload.retryBoundaryRef as string,
-    executionBasisRef: cursor.executionBasisRef,
-    inputContractRef: context.inputCarrierRef,
-    inputRef: cursor.inputRef,
-    inputDigest: cursor.inputDigest,
-    attempt: cursor.attempt,
-    retryPath: cursor.retryPath,
-  });
-  if (payload.attemptManifestRef !== expectedAttemptManifestRef) return null;
-  const { attemptRef: _attemptRef, attemptDigest: _attemptDigest, ...attemptBody } =
-    payload;
-  const computedAttemptDigest = sha256Canonical(
-    attemptBody,
-  );
-  if (
-    payload.attemptDigest !== computedAttemptDigest ||
     payload.attemptRef !==
-      `retry-attempt://abiogenesis/${computedAttemptDigest.slice("sha256:".length)}`
+      `retry-attempt://abiogenesis/${(payload.attemptDigest as string).slice("sha256:".length)}`
   ) return null;
   if (cursor.attempt > 1) {
     const priorRetryPath = [

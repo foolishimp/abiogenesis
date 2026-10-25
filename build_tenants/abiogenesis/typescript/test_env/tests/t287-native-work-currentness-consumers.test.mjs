@@ -1374,3 +1374,27 @@ test('TD-09 (a): the C2 prefix correspondence equals the base comparison at ever
   pair('copied coordinate, changed bytes', clone(cut1), array, false);
   t.diagnostic(`TD-09 equivalence: ${checked.length} pairs; view-row reads: first read ${firstRead.reads} (its digest), repeated read ${repeated.reads}, base comparison ${reference.reads}`);
 });
+
+const c14Frozen = (v) => { if (v && typeof v === 'object') { Object.values(v).forEach(c14Frozen); Object.freeze(v); } return v; };
+const c14Row = (kind, eventId, admissionOrdinal, extra = {}) => c14Frozen({ kind, eventTime: '2026-07-21T00:00:00.000Z',
+  aggregateType: 'workspace', aggregateId: 'workspace://c14', parentAggregateId: null, causationEventRefs: [],
+  correlationId: 'correlation://c14', workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: 'basis://c14', payload: {},
+  eventId, admissionOrdinal, payloadDigest: `sha256:${'0'.repeat(64)}`, ...extra });
+
+test('C-14: the C0 failure evidence check refuses its one cited row by order; the owner answer stays null', async () => {
+  const { sha256Canonical } = await import('../../build/code/src/shared/digests.js');
+  const { projectWorksiteFailureResultRequest } = await import('../../build/code/src/abg/c_call_outcome.js');
+  const { WORKSITE_C0_IDS } = await import('../../build/code/src/gtl/worksite_c0.js');
+  const value = { code: 'c14_refusal' }, refs = ['evidence://abiogenesis/c14'];
+  const body = { resultClass: 'failure', cCallRef: 'ccall://c14', contractRef: WORKSITE_C0_IDS.failureContractRef,
+    valueKind: 'worksite_effect_refusal', value, valueDigest: sha256Canonical(value), evidenceRefs: refs };
+  const resultDigest = sha256Canonical(body);
+  const scope = { basisId: 'basis://c14', runId: 'run://c14', graphCallId: 'graph-call://c14', frameId: 'frame://c14',
+    aggregateType: 'c_call', aggregateId: 'ccall://c14', scopeClass: 'run' };
+  const result = c14Row('c_call_result_admitted', 'event://c14/result', 2, { ...scope, causationEventRefs: ['event://c14/evidence'],
+    payload: { ...body, resultRef: `result://abiogenesis/${resultDigest.slice(7)}`, resultDigest } });
+  // The one cited evidence row is admitted after the Result: the evidence check refuses it.
+  const evidence = c14Row('c_call_evidenced', 'event://c14/evidence', 3, { ...scope,
+    payload: { evidenceRef: refs[0], evidenceClass: 'deterministic' } });
+  assert.equal(projectWorksiteFailureResultRequest(result, [evidence]), null);
+});

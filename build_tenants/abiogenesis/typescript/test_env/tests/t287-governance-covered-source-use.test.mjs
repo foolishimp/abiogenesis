@@ -442,3 +442,24 @@ test('built-in ingress preserves the whole captured34 state and independent asse
   assert.deepEqual(retained.original.testing,s.original.testing);assert.equal(retained.original.testing.selectedPaths.length,26);assert.equal(retained.original.testing.commands[0].expectedReports.length,8);
   assert.equal(retained.terminal,false);assert.deepEqual(retained.unresolvedSupportRefs,s.unresolvedSupportRefs);
 });
+
+const c14Frozen = (v) => { if (v && typeof v === 'object') { Object.values(v).forEach(c14Frozen); Object.freeze(v); } return v; };
+const c14Row = (kind, eventId, admissionOrdinal, extra = {}) => c14Frozen({ kind, eventTime: '2026-07-21T00:00:00.000Z',
+  aggregateType: 'workspace', aggregateId: 'workspace://c14', parentAggregateId: null, causationEventRefs: [],
+  correlationId: 'correlation://c14', workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: 'basis://c14', payload: {},
+  eventId, admissionOrdinal, payloadDigest: `sha256:${'0'.repeat(64)}`, ...extra });
+
+test('C-14: the invocation admission check refuses its one admission row by its causation; the owner answer stays null', async () => {
+  const { selectValidatedRuntimeEventPrefix } = await import('../../build/code/src/abg/event_prefix.js');
+  const { projectExactInvocationAdmissionAtPrefix } = await import('../../build/code/src/abg/invocation_execution_truth.js');
+  const ref = 'invocation-admission://abiogenesis/' + '1'.repeat(64);
+  const pub = c14Row('public_operation_admitted', 'event://c14/public', 1, { payload: { operationId: 'abg.operation.run.invoke' } });
+  const other = c14Row('run_segment_opened', 'event://c14/other', 2);
+  // Two causations, then one causation naming no public operation event.
+  for (const causationEventRefs of [[pub.eventId, other.eventId], [other.eventId]]) {
+    const admission = c14Row('invocation_admitted', 'event://c14/admission', 3, { causationEventRefs,
+      payload: { invocationAdmissionRef: ref, invocationAdmissionDigest: 'sha256:' + '1'.repeat(64) } });
+    const prefix = selectValidatedRuntimeEventPrefix(c14Frozen([pub, other, admission]));
+    assert.equal(projectExactInvocationAdmissionAtPrefix(prefix, ref), null);
+  }
+});

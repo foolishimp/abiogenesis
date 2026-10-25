@@ -691,8 +691,11 @@ function runReadKernel(
           );
         }
         const graphRead = packet.definitionKey.memberKey === "graph_call_result" || packet.definitionKey.memberKey === "graph_call_replay";
+        // The environment above materialized the acquired prefix; the
+        // preparation and the GraphCall projection read that one prefix.
         const truth = prepareRunReadAtDurablePrefix(
           resource.entryPrefix, packet.definitionKey.memberKey as RunReadMemberKey, source.ref,
+          environment.artifactTruth,
         );
         if (truth === null) {
           return finishRead(

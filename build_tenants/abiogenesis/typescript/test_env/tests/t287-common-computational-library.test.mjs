@@ -17,6 +17,10 @@ import { SEMANTIC_REVISION_IDS } from '../../build/code/src/gtl/semantic_revisio
 import * as product from '../../build/code/src/product/index.js';
 import { inspectProductLeafSemanticsProjection, productSemanticsFromModules } from '../../build/code/src/product/semantics.js';
 import { witnessInput } from '../support/default-library.mjs';
+import { checkExactRecord, onlyExactMatch } from '../../build/code/src/shared/select/index.js';
+import { ok } from '../../build/code/src/shared/refusal.js';
+import { sha256Canonical } from '../../build/code/src/shared/digests.js';
+import { checkedRecordAtPrefix, indexedRuntimeEvents, selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
 
 test('D02 canonical equality is canonical text over JsonValue; unknown values are admitted first', () => {
   assert.equal(canonicalEquals({ z: [-0, 2], a: { x: 'value' } }, { a: { x: 'value' }, z: [0, 2] }), true);
@@ -364,4 +368,99 @@ test('O-SCHEMA: the Product boundary admits an interaction response candidate to
   const hidden = { decision: 'accept', notes: ['a', { hidden: () => 7 }] };
   assert.equal(product.evaluateInstalledInteractionResponse(loaded, basis, hidden), null, 'a refused candidate takes the null channel');
   assert.equal(seen.length, 1, 'a refused candidate never reaches the provider');
+});
+
+const CONTEXT_OWNER_REFUSAL = Object.freeze({ kind: 'structural_refusal', stage: 'validate', code: 'owner_mismatch',
+  path: Object.freeze([]), evidence: Object.freeze({}) });
+/** A contextual owner check: the owner and the digest are typed context data. */
+const CONTEXT_OWNED_CHECK = Object.freeze({
+  project: (row, context) => row.payload.owner === context.owner ? ok(row.payload) : CONTEXT_OWNER_REFUSAL,
+  digest: Object.freeze({
+    expected: (_row, _value, context) => context.digest,
+    actual: (value) => sha256Canonical(value),
+  }),
+});
+const c14Row = Object.freeze({ eventId: 'event://c14/owned', payload: Object.freeze({ owner: 'owner://a', n: 1 }) });
+
+test('C-14: a contextual check reads its typed context in project and expected; a context mismatch is invalid', () => {
+  const context = Object.freeze({ owner: 'owner://a', digest: sha256Canonical(c14Row.payload) });
+  assert.deepEqual(checkExactRecord(onlyExactMatch([c14Row]), CONTEXT_OWNED_CHECK, context),
+    { kind: 'one', event: c14Row, value: c14Row.payload });
+  assert.deepEqual(checkExactRecord(onlyExactMatch([c14Row]), CONTEXT_OWNED_CHECK, { ...context, owner: 'owner://b' }),
+    { kind: 'invalid', event: c14Row, reason: 'record_projection' });
+  assert.deepEqual(checkExactRecord(onlyExactMatch([c14Row]), CONTEXT_OWNED_CHECK, { ...context, digest: sha256Canonical({ other: true }) }),
+    { kind: 'invalid', event: c14Row, reason: 'record_digest' });
+  const seen = [];
+  const spy = Object.freeze({
+    project: (row, c) => { seen.push(['project', c]); return ok(row.payload); },
+    digest: Object.freeze({
+      expected: (_row, value, c) => { seen.push(['expected', c]); return sha256Canonical(value); },
+      actual: (value) => sha256Canonical(value),
+    }),
+  });
+  assert.equal(checkExactRecord(onlyExactMatch([c14Row]), spy, context).kind, 'one');
+  assert.deepEqual(seen.map(([step]) => step), ['project', 'expected']);
+  assert.equal(seen[0][1], context);
+  assert.equal(seen[1][1], context);
+  seen.length = 0;
+  assert.deepEqual(checkExactRecord(onlyExactMatch([]), spy, context), { kind: 'absent' });
+  assert.equal(checkExactRecord(onlyExactMatch([c14Row, c14Row]), spy, context).kind, 'many');
+  assert.deepEqual(seen, []);
+});
+
+test('C-14: a check without context (C = void) receives none and keeps its outcomes', () => {
+  const args = [];
+  const payloadCheck = Object.freeze({
+    project: (row, c) => { args.push(c); return ok(row.payload); },
+    digest: Object.freeze({
+      expected: (row, _value, c) => { args.push(c); return row.payloadDigest; },
+      actual: (value) => sha256Canonical(value),
+    }),
+  });
+  const row = Object.freeze({ eventId: 'event://c14/void', payload: Object.freeze({ a: 1 }), payloadDigest: sha256Canonical({ a: 1 }) });
+  assert.deepEqual(checkExactRecord(onlyExactMatch([row]), payloadCheck), { kind: 'one', event: row, value: row.payload });
+  assert.deepEqual(args, [undefined, undefined]);
+  const forged = Object.freeze({ ...row, payloadDigest: sha256Canonical({ a: 2 }) });
+  assert.deepEqual(checkExactRecord(onlyExactMatch([forged]), payloadCheck), { kind: 'invalid', event: forged, reason: 'record_digest' });
+});
+
+function c14Event(eventId, admissionOrdinal, causationEventRefs = []) {
+  return Object.freeze({
+    kind: 'run_segment_opened', eventTime: '2026-07-21T00:00:00.000Z', aggregateType: 'run', aggregateId: 'run://c14',
+    parentAggregateId: null, causationEventRefs: Object.freeze([...causationEventRefs]), correlationId: 'correlation://c14',
+    workflowVersion: '5.0.0', scopeClass: 'run', basisId: 'basis://c14', runId: 'run://c14',
+    payload: Object.freeze({ owner: 'owner://a' }), eventId, admissionOrdinal, payloadDigest: `sha256:${'0'.repeat(64)}`,
+  });
+}
+
+test('C-14: a checked record is acquired once per cut, reader and context; a refusal, another context or another cut reacquires', () => {
+  const first = c14Event('event://c14/a', 1), second = c14Event('event://c14/b', 2, [first.eventId]);
+  const prefix = selectValidatedRuntimeEventPrefix(Object.freeze([first, second]));
+  const shorter = selectValidatedRuntimeEventPrefix(Object.freeze([first]));
+  const check = Object.freeze({
+    project: (row, c) => row.payload.owner === c.owner ? ok(row.payload) : CONTEXT_OWNER_REFUSAL,
+    digest: null,
+  });
+  let acquisitions = 0;
+  const read = (cut, context) => checkedRecordAtPrefix(cut, check, context, () => {
+    acquisitions++;
+    return checkExactRecord(onlyExactMatch(indexedRuntimeEvents(cut, 'id:' + first.eventId)), check, context);
+  });
+  const owner = { owner: 'owner://a' };
+  const recorded = read(prefix, owner);
+  assert.equal(recorded.kind, 'one');
+  assert.equal(read(prefix, { owner: 'owner://a' }), recorded);
+  assert.equal(acquisitions, 1);
+  assert.equal(read(shorter, owner).kind, 'one');
+  assert.equal(acquisitions, 2);
+  const other = { owner: 'owner://b' };
+  assert.deepEqual(read(prefix, other), { kind: 'invalid', event: first, reason: 'record_projection' });
+  assert.deepEqual(read(prefix, other), { kind: 'invalid', event: first, reason: 'record_projection' });
+  assert.equal(acquisitions, 4);
+  const unencodable = { owner: 'owner://a', extra: undefined };
+  assert.equal(read(prefix, unencodable).kind, 'one');
+  assert.equal(read(prefix, unencodable).kind, 'one');
+  assert.equal(acquisitions, 6);
+  assert.throws(() => checkedRecordAtPrefix(Object.freeze({ kind: 'validated_runtime_event_prefix', events: [] }), check, owner, () => recorded),
+    /nominal validated immutable event prefix/);
 });
