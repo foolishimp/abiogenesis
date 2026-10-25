@@ -64,6 +64,8 @@ The location `product/exact_match.ts` that [constitution §10](ABI5_REALIZATION_
 
 The remaining operators stay with their owners. `traverse` stays in `hog/`. `admit` as append stays in [event_store.ts](../code/src/abg/event_store.ts). `transition` stays in its owner modules. `materialize` effects stay in Product install and verify and in ABG actor transport. The library never owns an owner decision ([FS-17](ABI5_REALIZATION_CONSTITUTION.md#55-axioms); the last prohibition of §5.6.2C).
 
+[event_store.ts](../code/src/abg/event_store.ts) also derives the C2 prefix correspondence. `durableCutCorrespondsToValidatedPrefix(cut, view)` admits the cut's rows and the view's bodies to `JsonValue` and compares them. For an exact registered cut bound to the owner's events, with the owner open, a holding result is recorded on the owner's cut index under the cut's coordinate digest and the view's exact prefix digest, and a later cut of the same boundary with a view of the same digest reads it. A copied, captured, closed-owner, other-store or selection-bound cut, a view whose digest is refused, and every refusal take the comparison, with the physical read the cut needs. The record grants no append, prefix or currentness authority, and no admission path reads it (T-290 C-13).
+
 Existing shared modules take these places:
 
 - [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts) and [immutable.ts](../code/src/shared/immutable.ts) are the existing members of the `value` family.
