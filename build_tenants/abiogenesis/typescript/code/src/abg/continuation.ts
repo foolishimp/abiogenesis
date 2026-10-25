@@ -24,7 +24,7 @@ import {
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { replayValidatedRuntimeEventPrefix, type ReplayState } from "./replay.js";
+import { type ReplayState } from "./replay.js";
 import type { GraphValidation } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
 import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";

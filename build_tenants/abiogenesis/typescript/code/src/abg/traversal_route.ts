@@ -5351,10 +5351,7 @@ export function admitTraversalTransitionInActiveTransaction(
   const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
     runId: input.source.runId,
   });
-  const predecessorReplay = input.stagedPrefix.kind === "validated_runtime_event_prefix"
-    ? replayValidatedRuntimeEventPrefix(runPrefix,authorityPrefix,
-      input.priorDerivation !== undefined && "kind" in input.priorDerivation && input.priorDerivation.kind === "replay_state" ? input.priorDerivation as ReplayState : undefined)
-    : projectRuntimeReplayGuard(runPrefix,authorityPrefix);
+  const predecessorReplay = projectRuntimeReplayGuard(runPrefix,authorityPrefix);
   const transition = input.candidate;
   if (
     !isTraversalTransitionCandidate(transition) ||

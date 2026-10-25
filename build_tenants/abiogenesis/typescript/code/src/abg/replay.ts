@@ -30,7 +30,6 @@ import {
   constructRunClosedFluent,
   constructRunTerminalFluent,
   deriveRuntimeHeldFluentProjection,
-  deriveRuntimeEventCalculusProjection,
   type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
   holdsAt,
   projectWorksiteTransitionForResult,
@@ -67,7 +66,6 @@ import {
   rehydrateInvocationAdmissionAtPrefix,
 } from "./invocation_admission.js";
 import {
-  readActiveRuntimeTransactionAtDurablePrefix,
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   projectRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
@@ -149,27 +147,6 @@ export function projectRuntimeTruthAtDurablePrefix(
   });
 }
 
-/** Projects staged transaction truth without exposing raw mutable store reads. */
-export function projectActiveRuntimeTransaction(
-  store: AbgEventStore,
-  durablePredecessor: DurablePrefixCoordinate,
-  runId: string,
-  priorDerivation?: ReplayState,
-): ActiveRuntimeTransactionProjection {
-  const events = readActiveRuntimeTransactionAtDurablePrefix(store, durablePredecessor);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-  const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId });
-  return deepFreeze({
-    authorityPrefix,
-    runtimePrefix,
-    replayState: replayValidatedRuntimeEventPrefix(
-      runtimePrefix,
-      authorityPrefix,
-      priorDerivation,
-    ),
-  });
-}
-
 /** @internal The ordinary handoff retains guard/current coordinates, never a
  * complete historical ReplayState or a counterfeit of that Public output. */
 export type RuntimeReplayGuard = Pick<ReplayState,
@@ -188,6 +165,24 @@ function isFullReplayState(guard: RuntimeReplayGuard): guard is ReplayState {
 export function projectRuntimeReplayGuard(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayGuard {
   const value = deriveReplayPrefixFacts(prefix, authority, undefined, undefined, true) as RuntimeReplayGuard;
   REPLAY_GUARD_PREFIXES.set(value, { prefix, authority }); return value;
+}
+/** @internal The guard's members without the witness: what a reader of the
+ * Run's status needs when it compares and persists no digest. */
+export type RuntimeReplayStatus = Omit<RuntimeReplayGuard, "replayRef" | "replayDigest">;
+/** @internal The guard's derivation and validation, computing no witness digest. */
+export function projectRuntimeReplayStatus(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayStatus {
+  return deriveReplayPrefixFacts(prefix, authority, undefined, undefined, true, undefined, "status") as RuntimeReplayStatus;
+}
+/** @internal The status members plus the Run's route refs and CCall rows in the
+ * replay's order: a complete ReplayState's `routes.map(route => route.routeRef)`
+ * and `cCalls`, with no fan-out or construction-delta vector and no witness digest. */
+export type RuntimeReplayRouteRefsAndCCalls = RuntimeReplayStatus & {
+  readonly routeRefs: readonly string[];
+  readonly cCalls: readonly ReplayCCallState[];
+};
+/** @internal */
+export function projectRuntimeReplayRouteRefsAndCCalls(prefix: RuntimeEventPrefix, authority: RuntimeEventPrefix = prefix): RuntimeReplayRouteRefsAndCCalls {
+  return deriveReplayPrefixFacts(prefix, authority, undefined, undefined, true, undefined, "route_refs_and_c_calls") as RuntimeReplayRouteRefsAndCCalls;
 }
 /** @internal Compare only authentic guards of the same complete owner cut. */
 export function runtimeReplayGuardsHaveSameOwnedCut(left: RuntimeReplayGuard, right: RuntimeReplayGuard): boolean {
@@ -949,7 +944,14 @@ function deriveReplayPrefixFacts(
   routeOnly?: string,
   guardOnly = false,
   output?: Readonly<{ guard: RuntimeReplayGuard; write: (part: string) => void }>,
-): ReplayState | ReplayRouteState | RuntimeReplayGuard | undefined {
+  narrow?: "status" | "route_refs_and_c_calls",
+): ReplayState | ReplayRouteState | RuntimeReplayGuard | RuntimeReplayStatus | RuntimeReplayRouteRefsAndCCalls | undefined {
+  // The complete state pushes every vector; the guard pushes none and keeps the
+  // loop's projections for its witness; a narrow mode computes no witness, and
+  // the route-and-CCall mode pushes those two vectors only.
+  const complete = !guardOnly && routeOnly === undefined;
+  const pushRows = complete || narrow === "route_refs_and_c_calls";
+  const keepFacts = guardOnly && narrow === undefined;
   if (!guardOnly && priorDerivation !== undefined && ReplayDerivation.matches(priorDerivation, prefix, authorityPrefix)) return priorDerivation;
   const events = runtimeEventBodiesAtPrefix(prefix);
   const owned = prefix.kind !== "validated_runtime_event_prefix";
@@ -972,7 +974,7 @@ function deriveReplayPrefixFacts(
     const event = runtimeEventAtPrefix(prefix, routeOnly!);
     return event?.kind === "traversal_route_admitted" ? projectReplayRouteAtPrefix(prefix, event, authorityPrefix) : undefined;
   }
-  if (guardOnly && output === undefined && facts.lastGuard !== undefined &&
+  if (guardOnly && narrow === undefined && output === undefined && facts.lastGuard !== undefined &&
       facts.lastGuard.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) &&
       facts.lastGuard.authority === authority && facts.lastGuard.authorityEnd === authorityEnd &&
       facts.lastGuard.profileEnd === profileEnd) return facts.lastGuard.value;
@@ -1146,24 +1148,22 @@ function deriveReplayPrefixFacts(
   const cCallIds = new Set<string>();
   for (const event of indexedRuntimeEventEnvelopes(prefix, "type:c_call")) cCallIds.add(event.aggregateId);
   const cCalls: ReplayCCallState[] = [];
+  const cCallFacts: ReturnType<typeof projectReplayCCallGuardAtPrefix>[] = [];
   for (const cCallRef of cCallIds) {
-    const key = "aggregate:c_call:" + cCallRef;
     const projected = projectReplayCCallGuardAtPrefix(prefix, cCallRef);
-    if (!guardOnly && routeOnly === undefined) {
-      const { resultEventRef, ...fields } = projected;
-      const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
-      cCalls.push({ ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null });
-    }
+    if (pushRows) cCalls.push(replayCCallRow(prefix, projected));
+    else if (keepFacts) cCallFacts.push(projected);
   }
 
   const routes: ReplayRouteState[] = [];
+  const routeFacts: (readonly [Omit<RuntimeEvent, "payload">, ReplayRouteState | undefined])[] = [];
   let selectedRoute: ReplayRouteState | undefined;
   const stoppedRouteEvents = new Set<string>();
   for (const ref of runStoppedRouteRefs) if (ref !== null)
     for (const row of indexedRuntimeEventEnvelopes(prefix, "payload:routeRef:" + ref))
       if (row.kind === "traversal_route_admitted") stoppedRouteEvents.add(row.eventId);
   for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:traversal_route_admitted")) {
-    const needValue = (!guardOnly && routeOnly === undefined) || envelope.eventId === routeOnly || stoppedRouteEvents.has(envelope.eventId);
+    const needValue = pushRows || envelope.eventId === routeOnly || stoppedRouteEvents.has(envelope.eventId);
     let projected: ReplayRouteState | undefined;
     if (!owned) {
       const event = runtimeEventAtPrefix(prefix, envelope.eventId)!;
@@ -1196,20 +1196,25 @@ function deriveReplayPrefixFacts(
       }, authority, needValue);
     }
     if (projected !== undefined) {
-      if ((!guardOnly && routeOnly === undefined) || runStoppedRouteRefs.has(projected.routeRef)) routes.push(projected);
+      if (pushRows || runStoppedRouteRefs.has(projected.routeRef)) routes.push(projected);
       if (selectedRoute === undefined && projected.admissionEventRef === routeOnly) selectedRoute = projected;
     }
+    if (keepFacts) routeFacts.push([envelope, projected]);
   }
 
   const fanOutCompletions: FanOutCompletionAdmission[] = [];
+  const fanOutFacts: (readonly [Omit<RuntimeEvent, "payload">, FanOutCompletionAdmission | undefined])[] = [];
   for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) {
-    const projected = facts.fact("fan-out:" + envelope.eventId, String(envelope.admissionOrdinal), () => projectReplayFanOut(envelope), undefined, !guardOnly && routeOnly === undefined);
-    if (!guardOnly && routeOnly === undefined && projected !== undefined) fanOutCompletions.push(projected);
+    const projected = facts.fact("fan-out:" + envelope.eventId, String(envelope.admissionOrdinal), () => projectReplayFanOut(envelope), undefined, complete);
+    if (complete && projected !== undefined) fanOutCompletions.push(projected);
+    else if (keepFacts) fanOutFacts.push([envelope, projected]);
   }
   const constructionDeltas: ReplayConstructionDeltaState[] = [];
+  const deltaFacts: (readonly [Omit<RuntimeEvent, "payload">, ReplayConstructionDeltaState | undefined])[] = [];
   for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) {
-    const projected = facts.fact("delta:" + envelope.eventId, envelope.eventId, () => projectReplayDelta(envelope), undefined, !guardOnly && routeOnly === undefined);
-    if (!guardOnly && routeOnly === undefined && projected !== undefined) constructionDeltas.push(projected);
+    const projected = facts.fact("delta:" + envelope.eventId, envelope.eventId, () => projectReplayDelta(envelope), undefined, complete);
+    if (complete && projected !== undefined) constructionDeltas.push(projected);
+    else if (keepFacts) deltaFacts.push([envelope, projected]);
   }
 
   const actorFacts = projectRuntimeActorProcessFactsAtPrefix(prefix);
@@ -1448,25 +1453,26 @@ function deriveReplayPrefixFacts(
               ? "active" as const
               : "workspace" as const,
   };
-  const selected = !guardOnly ? undefined : {
+  if (narrow !== undefined) {
+    const { cCalls: _calls, routes: _routes, constructionDeltas: _deltas, fanOutCompletions: _fanout,
+      continuations: _continuations, actorProcesses: _actors, currentWorksiteObservations: _worksite, nativeLiveness: _liveness, ...current } = body;
+    return deepFreeze(narrow === "status" ? current : { ...current, routeRefs: routes.map(route => route.routeRef), cCalls });
+  }
+  // The witness streams the facts the loops above projected, in their order; a
+  // fact an owned cut did not retain is projected once here.
+  const selected = !keepFacts ? undefined : {
     cCalls: function* () {
-      for (const cCallRef of cCallIds) {
-        const key = "aggregate:c_call:" + cCallRef;
-        const projected = projectReplayCCallGuardAtPrefix(prefix, cCallRef);
-        const { resultEventRef, ...fields } = projected;
-        const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
-        yield { ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null };
-      }
+      for (const projected of cCallFacts) yield replayCCallRow(prefix, projected);
     },
     routes: function* () {
-      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:traversal_route_admitted"))
-        yield projectReplayRouteAtPrefix(prefix, runtimeEventAtPrefix(prefix, envelope.eventId)!, authorityPrefix);
+      for (const [envelope, projected] of routeFacts)
+        yield projected ?? projectReplayRouteAtPrefix(prefix, runtimeEventAtPrefix(prefix, envelope.eventId)!, authorityPrefix);
     },
     fanOutCompletions: function* () {
-      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:fan_out_completion_admitted")) yield projectReplayFanOut(envelope);
+      for (const [envelope, projected] of fanOutFacts) yield projected ?? projectReplayFanOut(envelope);
     },
     constructionDeltas: function* () {
-      for (const envelope of indexedRuntimeEventEnvelopes(prefix, "kind:construction_delta_observed")) yield projectReplayDelta(envelope);
+      for (const [envelope, projected] of deltaFacts) yield projected ?? projectReplayDelta(envelope);
     },
   };
   const replayDigest = output?.guard.replayDigest ?? digestReplayBody(body, selected);
@@ -2174,19 +2180,6 @@ export function projectRunSemanticReplayProjection(
   return projectRunSemanticReplay(fullPrefix, runId, undefined, currentOwnerPrefix);
 }
 
-/** One replay-owned derivation for the read owner's joined projections. */
-export function projectRunReplayContext(
-  fullPrefix: ValidatedRuntimeEventPrefix,
-  runId: string,
-  currentOwnerPrefix?: DurablePrefixCoordinate,
-) {
-  const prefix = selectRuntimeEventPrefixFromAuthority(fullPrefix, { runId });
-  const replay = replayValidatedRuntimeEventPrefix(prefix, fullPrefix);
-  if (replay.runId !== runId) return null;
-  const context = { prefix, replay, calculus: deriveRuntimeEventCalculusProjection(prefix) };
-  return deepFreeze({ ...context, semanticReplay: projectRunSemanticReplay(fullPrefix, runId, context, currentOwnerPrefix) });
-}
-
 /** @internal Explicit joined historical output for the read owner; its private prefix is not a Public array. */
 export function projectOwnedRunReplayContext(fullPrefix: RuntimeEventPrefix, runId: string,
   currentOwnerPrefix?: DurablePrefixCoordinate) {
@@ -2343,6 +2336,13 @@ function writeReplayBody(body: Readonly<Record<string, JsonValue>>,
       if (rowComma) sink(","); rowComma = true; writeCanonicalJson(row, sink);
     } sink("]"); }
   }, write);
+}
+
+/** A ReplayState CCall row: the guard's fields with the value of its result event. */
+function replayCCallRow(prefix: RuntimeEventPrefix, projected: ReturnType<typeof projectReplayCCallGuardAtPrefix>): ReplayCCallState {
+  const { resultEventRef, ...fields } = projected;
+  const result = resultEventRef === null ? undefined : runtimeEventAtPrefix(prefix, resultEventRef);
+  return { ...fields, resultValue: result !== undefined && isRecord(result.payload) ? result.payload.value ?? null : null };
 }
 
 /** @internal The same canonical selected C_Call fields without its historical value. */

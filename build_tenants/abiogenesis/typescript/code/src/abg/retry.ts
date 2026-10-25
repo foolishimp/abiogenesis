@@ -6230,7 +6230,10 @@ function planCompletedRetryProgressFromHistory(
       progresses:
         Object.freeze([]) as readonly RetryCompletedProgressAdmission[],
       projectedPrefix: prefix,
-      replayState: replayValidatedRuntimeEventPrefix(runPrefix, prefix),
+      replayState: prefix.kind === "validated_runtime_event_prefix" &&
+          runPrefix.kind === "validated_runtime_event_prefix"
+        ? replayValidatedRuntimeEventPrefix(runPrefix, prefix)
+        : projectRuntimeReplayGuard(runPrefix, prefix),
     });
   }
   const contextBySegmentRef = new Map(

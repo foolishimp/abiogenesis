@@ -1,4 +1,4 @@
-import { admitContract, admitJson, admitRef, hasExactKeys, isRecord } from "../../shared/admit/index.js";
+import { admitJson, admitJsonContract, admitRef, hasExactKeys, isRecord } from "../../shared/admit/index.js";
 import { resolveExactMatch } from "../../shared/select/exact_match.js";
 import * as v from "valibot";
 
@@ -155,7 +155,7 @@ function exactContractCoordinate(
   value: unknown,
   expected: PublicContractCoordinate,
 ): boolean {
-  const admitted = admitContract(publicContractCoordinateSchema, value);
+  const admitted = admitJsonContract(publicContractCoordinateSchema, value);
   return admitted.kind === "ok" && sameJson(admitted.value, expected);
 }
 

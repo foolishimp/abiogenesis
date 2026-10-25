@@ -61,10 +61,12 @@ function admitScalarString(
 // fresh ordinary containers. A prototype is a realm's `Object.prototype` when it
 // is this realm's, or when its own prototype is `null` and its own data
 // `constructor` is a function named `Object` whose own data `prototype` is that
-// same object. No getter runs.
+// same object. No getter runs, and a prototype or constructor that is a Proxy
+// is no realm's, read nowhere.
 function isRealmPrototype(prototype: object, name: "Array" | "Object"): boolean {
   const constructor = Object.getOwnPropertyDescriptor(prototype, "constructor");
-  if (!isDataDescriptor(constructor) || typeof constructor.value !== "function") return false;
+  if (!isDataDescriptor(constructor) || typeof constructor.value !== "function" ||
+    types.isProxy(constructor.value)) return false;
   const constructorName = Object.getOwnPropertyDescriptor(constructor.value, "name");
   const constructorPrototype = Object.getOwnPropertyDescriptor(constructor.value, "prototype");
   return isDataDescriptor(constructorName) && constructorName.value === name &&
@@ -73,7 +75,8 @@ function isRealmPrototype(prototype: object, name: "Array" | "Object"): boolean 
 
 function isRealmObjectPrototype(prototype: object | null): boolean {
   if (prototype === Object.prototype) return true;
-  return prototype !== null && Object.getPrototypeOf(prototype) === null && isRealmPrototype(prototype, "Object");
+  return prototype !== null && !types.isProxy(prototype) && Object.getPrototypeOf(prototype) === null &&
+    isRealmPrototype(prototype, "Object");
 }
 
 // A record's prototype is `null` or a realm's `Object.prototype`.
@@ -88,7 +91,7 @@ function isJsonObject(input: object): boolean {
 // A subclass prototype or a plain array prototype is not.
 function isRealmArrayPrototype(prototype: object | null): boolean {
   if (prototype === Array.prototype) return true;
-  return prototype !== null && Array.isArray(prototype) && isRealmPrototype(prototype, "Array") &&
+  return prototype !== null && !types.isProxy(prototype) && Array.isArray(prototype) && isRealmPrototype(prototype, "Array") &&
     isRealmObjectPrototype(Object.getPrototypeOf(prototype) as object | null);
 }
 
@@ -131,11 +134,11 @@ const NATIVE_ERRORS: readonly (readonly [object, string])[] = Object.freeze([
   [URIError.prototype, "URIError"],
 ] as const);
 
-// The class of a thrown value, read without running user code: its prototype
-// chain is walked to the nearest of this realm's native error prototypes, so a
-// subclass is named by its native ancestor. A proxy on the chain is not
-// inspected, and no member of the thrown value is read.
-function thrownClass(thrown: unknown): string {
+/** @internal The class of a thrown value, read without running user code: its
+ * prototype chain is walked to the nearest of this realm's native error
+ * prototypes, so a subclass is named by its native ancestor. A proxy on the
+ * chain is not inspected, and no member of the thrown value is read. */
+export function thrownClass(thrown: unknown): string {
   let link: unknown = thrown;
   while (typeof link === "object" && link !== null && !types.isProxy(link)) {
     const prototype: unknown = Object.getPrototypeOf(link);
@@ -146,10 +149,13 @@ function thrownClass(thrown: unknown): string {
   return "a value that is not a native error";
 }
 
-// An inspection read (`Array.isArray`, `Object.getPrototypeOf`,
-// `Reflect.ownKeys`, `Object.getOwnPropertyDescriptor`, and the prototype
-// reads of D12) runs a proxy's trap; a throw from it refuses the value being
-// inspected, at that value's own location.
+// A Proxy is refused before any read, so an inspection read (`Object.getPrototypeOf`,
+// `Reflect.ownKeys`, `Object.getOwnPropertyDescriptor`, and the prototype reads
+// of D12) meets an ordinary or engine exotic object. Two such objects can still
+// throw: a module namespace throws ReferenceError for an uninitialized binding,
+// and a host object with interceptors (a vm context's global over a Proxy
+// sandbox, which `types.isProxy` does not see) forwards the read to the
+// sandbox's trap. A throw refuses the value being inspected, at its own location.
 function trapped(path: readonly string[], at: string, thrown: unknown): StructuralRefusal {
   return refuse("non_ijson_value", path, at, `inspecting the value threw ${thrownClass(thrown)}`);
 }
@@ -281,6 +287,8 @@ function admitAt(
   if (typeof input !== "object") {
     return refuse("non_ijson_value", path, at, "expected an I-JSON value");
   }
+  // Before any inspection read: no trap of a Proxy runs.
+  if (types.isProxy(input)) return refuse("non_ijson_value", path, at, "a Proxy is not I-JSON");
   if (open.has(input)) {
     return refuse("non_ijson_value", path, at, "a container that encloses itself (a cycle) is not I-JSON");
   }
@@ -292,15 +300,10 @@ function admitAt(
       `containers nested more than ${String(NESTING_BOUND)} deep exceed the admission bound`,
     );
   }
-  let array: unknown[] | null;
-  try {
-    array = Array.isArray(input) ? input : null;
-  } catch (thrown) {
-    return trapped(path, at, thrown);
-  }
   open.add(input);
   try {
-    return array !== null ? admitArray(array, path, at, open) : admitRecord(input, path, at, open);
+    // `Array.isArray` of an object that is not a Proxy reads nothing and cannot throw.
+    return Array.isArray(input) ? admitArray(input, path, at, open) : admitRecord(input, path, at, open);
   } finally {
     open.delete(input);
   }
@@ -309,12 +312,17 @@ function admitAt(
 /**
  * I-JSON value admission: returns a detached, deeply frozen `JsonValue` with
  * `-0` as `0`, or the first refusal in member order. It returns an outcome for
- * every input and throws for none. Three refusals make it total, each
- * `non_ijson_value` at the member where it occurs: a container already on the
- * path from the root (a cycle); a container nested more than 512 deep (the
- * root container is 1); and a throw from an inspection read of a proxy, at
- * the proxy, naming the thrown class. No getter runs. The bound keeps the
- * recursion, and the recursive writers that read an admitted value, inside
+ * every input of its domain and throws for none. Four refusals make it total, each
+ * `non_ijson_value` at the member where it occurs: a Proxy, before any of its
+ * traps runs; a container already on the path from the root (a cycle); a
+ * container nested more than 512 deep (the root container is 1); and a throw
+ * from an inspection read of an exotic object that is not a Proxy, naming the
+ * thrown class. No getter runs. The domain excludes one class of input: a
+ * host object with interceptors that forward a read to a trap (a vm context's
+ * global over a Proxy sandbox) is no Proxy to `types.isProxy`, and a trap that
+ * does not return holds admission with it. A container shared by two members
+ * is admitted at each, so the work is the number of root-to-leaf paths. The
+ * bound keeps the recursion, and the recursive writers that read an admitted value, inside
  * the stack with room for the caller: called from 2,000 frames deep in
  * `node:test` and a VM module, before the engine optimizes it, this recursion
  * overflows past 1,476 nested records and `canonicalJson` past 3,220. The

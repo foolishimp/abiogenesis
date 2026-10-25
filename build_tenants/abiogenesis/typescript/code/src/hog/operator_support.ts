@@ -2,11 +2,9 @@ import { projectOwnedRuntimeTruthAtDurablePrefix, type RuntimeReplayGuard } from
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { sampleNativeEventTime } from "../abg/native_event_time.js";
 import {
-  projectRuntimeTruthAtDurablePrefix,
   projectRuntimePrefixesAtDurablePrefix,
   type ExecutionBasis,
   type OpenedTraversalScope,
-  type ReplayState,
   type RuntimeAdmissionBasis,
 } from "../abg/index.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
@@ -40,13 +38,6 @@ export function runtimePrefixAtDurable(
   runId: string,
 ) {
   return projectRuntimePrefixesAtDurablePrefix(prefix, runId).runtimePrefix;
-}
-
-export function replayAtDurable(
-  prefix: DurablePrefixCoordinate,
-  runId: string,
-): ReplayState {
-  return projectRuntimeTruthAtDurablePrefix(prefix, runId).replayState;
 }
 
 export function admissionBasis(
