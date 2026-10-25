@@ -19,6 +19,7 @@ import { hasStructuralIdentityCompletedRouteCausation } from "./retry.js";
 import {
   runtimeLivenessDigest as digest,
   type RuntimeLivenessObserverProjection, type RuntimeLivenessBudgetFacts,
+  type RuntimeLivenessContext, type RuntimeLivenessSample,
   type RuntimeProbeObservation, type RuntimeProbeSource,
   type RuntimeThresholdObservation,
   type RuntimeLivenessReadProjection,
@@ -26,9 +27,9 @@ import {
 import {
   FRAME_PRODUCERS, livenessReconstruction, probeObservationMatches, nativeLivenessRelationHolds,
   decideRuntimeLivenessEvent, deriveRuntimeLivenessProjection,
-  type NativeLivenessRouteObligation, type ProcessLiveRead, type RuntimeLivenessContext, type RuntimeLivenessSample,
+  type NativeLivenessRouteObligation, type ProcessLiveRead,
 } from "./calculus/liveness.js";
-export type { RuntimeLivenessContext, RuntimeLivenessSample } from "./calculus/liveness.js";
+export type { RuntimeLivenessContext, RuntimeLivenessSample } from "./runtime_liveness_contracts.js";
 export type { RuntimeLivenessBudgetFacts } from "./runtime_liveness_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { resolveExactMatch, type ExactMatch } from "../shared/select/index.js";

@@ -2,7 +2,6 @@ import { isOwnedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix } from "./e
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isExactOperationDefinitionCoordinate } from "../shared/operation_definition_coordinate.js";
@@ -28,8 +27,7 @@ import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
 import { projectAdmittedWorkspaceBindingAtCoordinate, projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
 import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
-import { canonicalEquals, canonicalRecordDigest } from "../shared/value/index.js";
-import { admitJson } from "../shared/admit/index.js";
+import { canonicalEquals } from "../shared/value/index.js";
 import { projectExactExecutionBasisRecordAtPrefix } from "./calculus/execution_basis_record.js";
 
 /** @internal Existing Catalog reconstruction binds each complete preimage to

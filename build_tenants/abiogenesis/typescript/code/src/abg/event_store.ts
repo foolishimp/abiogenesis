@@ -1716,7 +1716,10 @@ function readDescriptorBytes(
 // Unbound or closed-session reads reconstruct from the physical resource.
 const durableHistoryDerivations = new WeakMap<DurablePrefixCoordinate, DurableHistoryDerivation>();
 const DURABLE_DERIVATION_CUTS = Symbol("owner_authenticated_durable_cuts");
-type DurableDerivationCuts = Map<Sha256Digest, { readonly coordinate: DurablePrefixCoordinate; readonly eventCount: number }>;
+type DurableDerivationCuts = Map<Sha256Digest, { readonly coordinate: DurablePrefixCoordinate; readonly eventCount: number }> & {
+  /** Established C2 correspondences of this history's cuts: a cut's coordinate
+   * digest to the exact prefix digests of the validated views it corresponds to. */
+  correspondences?: Map<Sha256Digest, Set<Sha256Digest>> };
 class DurableHistoryDerivation {
   readonly #coordinate: DurablePrefixCoordinate;
   readonly #events: readonly RuntimeEvent[] | undefined;
@@ -1783,6 +1786,37 @@ class DurableHistoryDerivation {
       physical.byteLength, physical.digest, runtimeEventProfileAfter(events), {
         source: proof === undefined ? new RuntimeDerivationSource() : proof.#source, events, ...(proof === undefined || proof.#owner === undefined ? {} : { owner: proof.#owner }),
       });
+  }
+  /** See `durableCutCorrespondsToValidatedPrefix`. The record is read and
+   * written only where `readRuntimeEventsAtDurablePrefix(cut)` returns this
+   * derivation's own rows without a physical read: an exact events-bound
+   * coordinate whose owner is open and whose boundary the index holds at this
+   * derivation's event count. It lives on the index object, so a re-cut of the
+   * same boundary reads it. Only a holding fact is recorded. */
+  static corresponds(cut: DurablePrefixCoordinate, view: RuntimeEventPrefix): boolean {
+    const proof = durableHistoryDerivations.get(cut), owner = proof === undefined ? undefined : proof.#owner;
+    const events = proof === undefined || proof.#coordinate !== cut || proof.#selection !== undefined ||
+      owner === undefined || owner.durableAppendClosed ? undefined : proof.#events;
+    const cuts = events === undefined || proof!.#cuts.get(cut.coordinateDigest)?.eventCount !== events.length
+      ? undefined : proof!.#cuts;
+    let viewDigest: Sha256Digest | undefined;
+    if (cuts !== undefined) {
+      try { viewDigest = runtimeEventPrefixDigest(view); } catch { viewDigest = undefined; }
+      if (viewDigest !== undefined && cuts.correspondences?.get(cut.coordinateDigest)?.has(viewDigest) === true) return true;
+    }
+    let holds: boolean;
+    try {
+      const durableEvents = admitJson(readRuntimeEventsAtDurablePrefix(cut));
+      const viewEvents = admitJson(runtimeEventBodiesAtPrefix(view).materialize());
+      holds = durableEvents.kind === "ok" && viewEvents.kind === "ok" && canonicalEquals(durableEvents.value, viewEvents.value);
+    } catch { holds = false; }
+    if (holds && viewDigest !== undefined) {
+      const established = cuts!.correspondences ??= new Map();
+      let views = established.get(cut.coordinateDigest);
+      if (views === undefined) established.set(cut.coordinateDigest, views = new Set());
+      views.add(viewDigest);
+    }
+    return holds;
   }
   static historical(current: DurablePrefixCoordinate, historical: DurablePrefixCoordinate): DurablePrefixCoordinate | undefined {
     const proof = durableHistoryDerivations.get(current);
@@ -1852,6 +1886,20 @@ export function durableRuntimeEventPrefixThroughEvent(current: DurablePrefixCoor
   const index = events.findIndex(event => event.eventId === eventRef);
   if (index < 0) throw new TypeError("durable historical cut lacks its admitted event");
   return DurableHistoryDerivation.cut(current, events.slice(0, index + 1));
+}
+
+/** @internal The C2 prefix correspondence: the rows of an authenticated
+ * durable cut and the bodies of an exact validated view, each admitted to
+ * JsonValue, are canonically equal. It is a fact of the two immutable values,
+ * established by that comparison. While the exact registered cut keeps an open
+ * owner, a holding fact is recorded in the owner's index of the cut's history,
+ * under the cut's coordinate digest and the view's exact prefix digest, and a
+ * later read of an equal cut of that history with an equal view returns it. A
+ * copied, closed, reopened or selection-bound cut, a view with no recorded
+ * digest and every refusal take the comparison, with the physical read the cut
+ * needs. The fact grants no append, prefix or currentness authority. */
+export function durableCutCorrespondsToValidatedPrefix(cut: DurablePrefixCoordinate, view: RuntimeEventPrefix): boolean {
+  return DurableHistoryDerivation.corresponds(cut, view);
 }
 
 function durablePrefixCoordinate(
@@ -4408,5 +4456,5 @@ export function compareAndAppendExpectedPrefix(
   return admitRuntimeEventBatch(store, factories);
 }
 import { validateRuntimeLivenessEventAtPrefix } from "./runtime_liveness.js";
-import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
+import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, runtimeEventBodiesAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
 import { isNativeWorkerResultAssessment } from "./transport_contracts.js";

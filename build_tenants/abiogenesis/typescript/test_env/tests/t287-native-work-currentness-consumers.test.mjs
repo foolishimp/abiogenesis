@@ -1254,3 +1254,123 @@ test('TD-08 (b): visits grow with the subject\'s causes; joins are independent o
   // cause and the prefix's last row, one run fewer where the last row is a cause.
   for (const row of rows) assert.equal(row.boundary, 2 * row.causes - 1, JSON.stringify(row));
 });
+
+// TD-09: the C2 prefix correspondence. The reference is the comparison of
+// `exactC2SourceEnvironment` at c971aef24 (execution_basis.ts:799, :807-810),
+// transcribed: the durable cut's rows and the materialized view, each admitted
+// to JsonValue, compared canonically; a throw is a refusal. The reach lanes'
+// pairs are compared with the same transcription by the C-13 instrumentation.
+import { tmpdir } from 'node:os';
+import * as td09Events from '../../build/code/src/abg/event_store.js';
+import { admitJson as td09AdmitJson } from '../../build/code/src/shared/admit/index.js';
+import { canonicalEquals as td09CanonicalEquals } from '../../build/code/src/shared/value/index.js';
+const td09Reference = (cut, view) => {
+  try {
+    const durableEvents = td09AdmitJson(td09Events.readRuntimeEventsAtDurablePrefix(cut));
+    const viewEvents = td09AdmitJson(prefixes.runtimeEventBodiesAtPrefix(view).materialize());
+    return durableEvents.kind === 'ok' && viewEvents.kind === 'ok' && td09CanonicalEquals(durableEvents.value, viewEvents.value);
+  } catch { return false; }
+};
+const td09Candidate = (index, variant, causationEventRefs) => {
+  const invocationRef = `invocation://t287/td09/${index}`, correlationId = `correlation://t287/td09/${index}`;
+  return { kind: 'public_operation_admitted', eventTime: '2026-10-25T00:00:00.000Z', aggregateType: 'workspace', aggregateId: invocationRef,
+    parentAggregateId: null, causationEventRefs, correlationId, workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: 'basis://abiogenesis/t287/td09',
+    payload: { invocationDigest: hash({ invocationRef, correlationId }), invocationRef, operationId: 'abg.operation.project.read', variant } };
+};
+const td09RowReads = () => {
+  let counting = false, reads = 0;
+  const count = () => { if (counting) reads++; };
+  const handler = { get: (target, key, receiver) => { count(); return Reflect.get(target, key, receiver); },
+    getOwnPropertyDescriptor: (target, key) => { count(); return Reflect.getOwnPropertyDescriptor(target, key); },
+    ownKeys: target => { count(); return Reflect.ownKeys(target); }, has: (target, key) => { count(); return Reflect.has(target, key); } };
+  return { wrap: row => new Proxy(row, handler),
+    measure: run => { reads = 0; counting = true; try { return { value: run(), reads }; } finally { counting = false; } } };
+};
+// A held store admitting one candidate per index; `variants` changes the body at an index.
+async function td09History(t, label, count, variants = {}) {
+  const scratch = await fs.mkdtemp(join(tmpdir(), `abi5-td09-${label}-`)), path = join(scratch, 'events.jsonl');
+  const acquired = td09Events.createNewEmptyAppendSink({ kind: 'new_empty_append_sink_request', schemaVersion: '5.0.0', eventLogPath: path });
+  assert.ok('store' in acquired, `${label}: ${acquired.code}`);
+  let open = true, current = acquired.prefix;
+  const close = () => { if (open) { open = false; acquired.store.closeDurableLog(); } };
+  t.after(async () => { try { close(); } finally { await fs.rm(scratch, { force: true, recursive: true }); } });
+  const ids = [], append = () => {
+    const index = ids.length, admitted = td09Events.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store, current,
+      () => td09Events.admitRuntimeEvent(acquired.store, td09Candidate(index, variants[index] ?? 'status', ids.slice(-1))));
+    ids.push(admitted.value.eventId); current = admitted.successorPrefix; return current;
+  };
+  for (let i = 0; i < count; i++) append();
+  const located = through => prefixes.validatedRuntimeEventPrefixThroughEvent(prefixes.selectRuntimeEventPrefixFromStore(acquired.store), ids[through]);
+  return { store: acquired.store, path, ids, append, close, current: () => current, located };
+}
+
+test('TD-09 (a): the C2 prefix correspondence equals the base comparison at every cut and view pair; a repeated read compares nothing', async t => {
+  const a = await td09History(t, 'a', 4), changed = await td09History(t, 'changed', 3, { 2: 'other' }), same = await td09History(t, 'same', 3);
+  const current1 = a.current(), rows = td09Events.readRuntimeEventsAtDurablePrefix(current1), cut1 = td09Events.durableRuntimeEventPrefixThroughEvent(current1, a.ids[2]);
+  const array = prefixes.validatedRuntimeEventPrefixThroughEvent(prefixes.selectValidatedRuntimeEventPrefix(rows), a.ids[2]);
+  const cold = () => prefixes.selectValidatedRuntimeEventPrefix(deepFreeze(clone(rows.slice(0, 3))));
+  const checked = [];
+  const pair = (label, cut, view, expected) => {
+    const reference = td09Reference(cut, view), actual = td09Events.durableCutCorrespondsToValidatedPrefix(cut, view);
+    assert.equal(actual, reference, `${label}: the reader differs from the base comparison`);
+    assert.equal(reference, expected, `${label}: the pair decides what it names`);
+    checked.push(label);
+  };
+  // Equal: the located and array views of the cut, and a cold equal copy, each twice.
+  for (const round of [1, 2]) {
+    pair(`equal, located view ${round}`, cut1, a.located(2), true);
+    pair(`equal, array view ${round}`, cut1, array, true);
+    pair(`equal, cold copy of the rows ${round}`, cut1, cold(), true);
+  }
+  // Other cuts of the same history, each with a view recorded for another cut: the record is per cut.
+  const shorterCut = td09Events.durableRuntimeEventPrefixThroughEvent(current1, a.ids[1]), longerCut = td09Events.durableRuntimeEventPrefixThroughEvent(current1, a.ids[3]);
+  for (const round of [1, 2]) {
+    pair(`shorter cut, its own view ${round}`, shorterCut, a.located(1), true);
+    pair(`shorter cut, a view recorded for a longer cut ${round}`, shorterCut, a.located(2), false);
+    pair(`longer cut, a view recorded for a shorter cut ${round}`, longerCut, array, false);
+    pair(`longer cut, another view recorded for a shorter cut ${round}`, longerCut, a.located(1), false);
+  }
+  // Refusals, each evaluated twice: a shorter and a longer view, one changed body.
+  for (const round of [1, 2]) {
+    pair(`one event shorter ${round}`, cut1, a.located(1), false);
+    pair(`one event longer ${round}`, cut1, a.located(3), false);
+    pair(`one changed body ${round}`, cut1, changed.located(2), false);
+  }
+  // Copied coordinates have no record: the physical read, as at the base.
+  pair('copied coordinate', clone(cut1), a.located(2), true);
+  pair('captured copy', td09Events.captureDurablePrefixCoordinate(clone(cut1)), array, true);
+  pair('copied coordinate with another profile', { ...clone(cut1), storeIdentity: { ...cut1.storeIdentity, eventContractDigest: hash('other-profile') } }, array, false);
+  // Coordinates from another store: their own owner and index.
+  const changedCut = td09Events.durableRuntimeEventPrefixThroughEvent(changed.current(), changed.ids[2]);
+  const sameCut = td09Events.durableRuntimeEventPrefixThroughEvent(same.current(), same.ids[2]);
+  pair('another store, one changed body', changedCut, a.located(2), false);
+  pair('another store, equal rows', sameCut, a.located(2), true);
+  pair('another store, equal rows, repeated', sameCut, array, true);
+  // The store grows: the same cut from the earlier and the later current coordinate.
+  const current2 = a.append();
+  const cut2 = td09Events.durableRuntimeEventPrefixThroughEvent(current1, a.ids[2]), cut3 = td09Events.durableRuntimeEventPrefixThroughEvent(current2, a.ids[2]);
+  assert.notEqual(cut2, cut1); assert.equal(cut2.coordinateDigest, cut1.coordinateDigest); assert.equal(cut3.coordinateDigest, cut1.coordinateDigest);
+  pair('grown store, cut from the earlier current', cut2, a.located(2), true);
+  pair('grown store, cut from the later current', cut3, array, true);
+  pair('grown store, one event shorter', cut3, a.located(1), false);
+  // Reads of the view's rows (every property, descriptor and key read of a row
+  // object): the second read of an equal owned cut with the same view reads none.
+  const counter = td09RowReads(), wrapped = prefixes.selectValidatedRuntimeEventPrefix(Object.freeze(clone(rows.slice(0, 3)).map(row => counter.wrap(deepFreeze(row)))));
+  const firstRead = counter.measure(() => td09Events.durableCutCorrespondsToValidatedPrefix(cut3, wrapped));
+  const repeated = counter.measure(() => td09Events.durableCutCorrespondsToValidatedPrefix(td09Events.durableRuntimeEventPrefixThroughEvent(current2, a.ids[2]), wrapped));
+  const reference = counter.measure(() => td09Reference(cut3, wrapped));
+  assert.deepEqual([firstRead.value, repeated.value, reference.value], [true, true, true]);
+  assert.ok(firstRead.reads > 0, 'a new view object is read once, for its exact prefix digest');
+  assert.equal(repeated.reads, 0, 'a repeated read of an equal owned cut with the same view compares and copies no view row');
+  assert.ok(reference.reads > 0, 'the base comparison reads the view rows to admit and compare them');
+  // Closed owner: the same exact cut takes the physical read, which refuses changed bytes.
+  a.close();
+  pair('closed owner, unchanged bytes', cut1, array, true);
+  const bytes = await fs.readFile(a.path, 'utf8'), at = bytes.indexOf('2026-10-25T00:00:00.000Z');
+  assert.ok(at >= 0 && at < cut1.prefixLength);
+  await fs.writeFile(a.path, bytes.slice(0, at) + '2026-10-25T00:00:00.001Z' + bytes.slice(at + 24));
+  pair('closed owner, changed bytes', cut1, array, false);
+  pair('closed owner, changed bytes, cut from the later current', cut3, a.located(2), false);
+  pair('copied coordinate, changed bytes', clone(cut1), array, false);
+  t.diagnostic(`TD-09 equivalence: ${checked.length} pairs; view-row reads: first read ${firstRead.reads} (its digest), repeated read ${repeated.reads}, base comparison ${reference.reads}`);
+});
