@@ -33,7 +33,6 @@ import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { isRecord } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
 import {
   prepareChildTraversal,
   type ChildTraversalBasis,
@@ -58,7 +57,6 @@ import {
 import {
   projectOwnedExecutableTraversalCompletion as completion,
   type ExecutableTraversalCompletion,
-  type HeldRecursionSuspension,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -797,34 +795,7 @@ function completeRecursionChildUsing(
       frame.childTraversalScope.executionBasisRef !==
         frame.childExecutionBasis.basisRef
     ) throw new TypeError("held recursion has inconsistent lineage");
-    const suspension: HeldRecursionSuspension = deepFreeze({
-      kind: "held_recursion_suspension",
-      schemaVersion: "5.0.0",
-      parentExecutionBasisRef: state.input.executionBasis.basisRef,
-      parentTraversalScope: state.input.openedTraversalScope,
-      parentGraph: state.input.graph,
-      parentClosureContract: state.input.closureContract,
-      parentGraphInput: frame.graphEntryInput,
-      parentGraphInputDigest: frame.graphEntryInputDigest,
-      application: frame.application,
-      evaluatorCCall: state.cCall,
-      evaluatorResult: state.result,
-      evaluatorJudgment: state.judgment,
-      sourceCursor: state.input.traversalStop.cursor,
-      evaluatorInput: state.input.input,
-      evaluatorInputDigest: state.input.inputDigest,
-      childExecutionBasisRef: frame.childExecutionBasis.basisRef,
-      childTraversalScopeRef: frame.childTraversalScope.scopeRef,
-      childInput: frame.childInput,
-      childInputDigest: frame.childInputDigest,
-      terminalMode: frame.parentScopeClass === "root"
-        ? "close_run"
-        : "return_to_parent",
-    });
-    return deepFreeze({
-      ...child,
-      parentSuspensions: [...child.parentSuspensions, suspension],
-    });
+    return child;
   }
   if (child.disposition === "failed" && child.replayState.runtimeStatus === "failed") {
     return child;

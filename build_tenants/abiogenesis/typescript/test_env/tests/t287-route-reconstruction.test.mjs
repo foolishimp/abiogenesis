@@ -390,7 +390,7 @@ test('owned deferred recursion restores and begins at the exact cut while Public
   heldInteraction:{cCall,result,judgment,cursor:f.cursor},heldGraph:graph,heldClosureContract:{}});
  const ownedFold=recursion.completeOwnedRecursionChild(ownedStep.frame,held);
  const publicFold=recursion.completeRecursionChild(publicStep.frame,outcomes.completePublicOutcome(held));
- assert.equal(ownedFold.disposition,'held');assert.equal(ownedFold.parentSuspensions.length,1);
+ assert.equal(ownedFold.disposition,'held');assert.equal(ownedFold,held,'the held fold returns the child hold and carries no parent copy');assert.equal(ownedStep.frame.childExecutionBasis.parentExecutionBasisRef,opened.basisId);assert.throws(()=>recursion.completeOwnedRecursionChild({...ownedStep.frame,childTraversalScope:{...ownedStep.frame.childTraversalScope,executionBasisRef:'basis://component/crossed-child'}},held),/held recursion has inconsistent lineage/);
  assert.deepEqual(publicFold,outcomes.completePublicOutcome(ownedFold));assert.equal(sha256Canonical(publicFold),sha256Canonical(outcomes.completePublicOutcome(ownedFold)));
  const foreign=ownedTerminal(t,terminalOwner(t));
  const foreignCut=store.durableRuntimeEventPrefixThroughEvent(foreign.prefix,judgmentEvent.eventId);

@@ -13,7 +13,6 @@ import type {
   ClosureContract,
   FanOutApplication,
   GtlGraph,
-  RecurseApplication,
 } from "../gtl/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -47,32 +46,7 @@ export type HeldWorkflowSuspension = {
   readonly terminalMode: "close_run" | "return_to_parent";
 };
 
-export type HeldRecursionSuspension = {
-  readonly kind: "held_recursion_suspension";
-  readonly schemaVersion: "5.0.0";
-  readonly parentExecutionBasisRef: string;
-  readonly parentTraversalScope: OpenedTraversalScope;
-  readonly parentGraph: Readonly<GtlGraph>;
-  readonly parentClosureContract: Readonly<ClosureContract>;
-  readonly parentGraphInput: Readonly<Record<string, JsonValue>>;
-  readonly parentGraphInputDigest: `sha256:${string}`;
-  readonly application: Readonly<RecurseApplication>;
-  readonly evaluatorCCall: CCall;
-  readonly evaluatorResult: AdmittedCCallResult;
-  readonly evaluatorJudgment: AdmittedCCallJudgment;
-  readonly sourceCursor: TraversalCursorCandidate;
-  readonly evaluatorInput: Readonly<Record<string, JsonValue>>;
-  readonly evaluatorInputDigest: `sha256:${string}`;
-  readonly childExecutionBasisRef: string;
-  readonly childTraversalScopeRef: string;
-  readonly childInput: Readonly<Record<string, JsonValue>>;
-  readonly childInputDigest: `sha256:${string}`;
-  readonly terminalMode: "close_run" | "return_to_parent";
-};
-
-export type HeldParentTraversalSuspension =
-  | HeldRecursionSuspension
-  | HeldWorkflowSuspension;
+export type HeldParentTraversalSuspension = HeldWorkflowSuspension;
 
 export type ExecutableTraversalCompletion = {
   readonly kind: "executable_traversal_completion";
@@ -102,7 +76,6 @@ export type ExecutableTraversalCompletion = {
   readonly heldInteraction: HeldInteractionTraversal | null;
   readonly heldGraph: Readonly<GtlGraph> | null;
   readonly heldClosureContract: Readonly<ClosureContract> | null;
-  readonly parentSuspensions: readonly HeldParentTraversalSuspension[];
 };
 
 type CompletionValues = Partial<Readonly<{
@@ -120,7 +93,6 @@ type CompletionValues = Partial<Readonly<{
   heldInteraction: HeldInteractionTraversal;
   heldGraph: Readonly<GtlGraph>;
   heldClosureContract: Readonly<ClosureContract>;
-  parentSuspensions: readonly HeldParentTraversalSuspension[];
 }>>;
 
 
@@ -157,7 +129,6 @@ export function projectOwnedExecutableTraversalCompletion(
     heldInteraction: values.heldInteraction ?? null,
     heldGraph: values.heldGraph ?? null,
     heldClosureContract: values.heldClosureContract ?? null,
-    parentSuspensions: values.parentSuspensions ?? [],
   });
 }
 
@@ -168,7 +139,6 @@ export function projectOwnedHeldTraversalCompletion(input: Readonly<{
   graph: Readonly<GtlGraph>;
   closureContract: Readonly<ClosureContract>;
   replayState: RuntimeReplayGuard;
-  parentSuspensions: readonly HeldParentTraversalSuspension[];
 }>): OwnedExecutableTraversalCompletion {
   return projectOwnedExecutableTraversalCompletion(
     "held",
@@ -189,7 +159,6 @@ export function projectOwnedHeldTraversalCompletion(input: Readonly<{
         judgment: input.hold.pending.judgment,
         cursor: input.cursor,
       },
-      parentSuspensions: input.parentSuspensions,
     },
   );
 }
@@ -235,7 +204,6 @@ export function projectHeldTraversalCompletion(
   graph: Readonly<GtlGraph>;
   closureContract: Readonly<ClosureContract>;
   replayState: ReplayState;
-  parentSuspensions: readonly HeldParentTraversalSuspension[];
 }>
 ): ExecutableTraversalCompletion {
   return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedHeldTraversalCompletion(input));

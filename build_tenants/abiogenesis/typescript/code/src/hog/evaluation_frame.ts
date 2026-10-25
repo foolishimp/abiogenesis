@@ -22,7 +22,6 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import type { TraverseInput } from "./traversal.js";
 import type {
   HeldParentTraversalSuspension,
-  HeldRecursionSuspension,
   HeldWorkflowSuspension,
 } from "./traversal_completion.js";
 import type {
@@ -126,50 +125,24 @@ export type TraversalMachineState =
 export interface MachineLocusEvaluation extends TraversalLocusEvaluation {}
 
 export function projectParentSuspensions(
-  returns: readonly HogReturnFrame[],
+  returns: readonly WorkflowReturnFrame[],
 ): readonly HeldParentTraversalSuspension[] {
   return Object.freeze([...returns].reverse().map((frame) => {
     const parent = frame.parent;
-    if (frame.relation === "workflow") {
-      const suspension: HeldWorkflowSuspension = Object.freeze({
-        kind: "held_workflow_suspension",
-        schemaVersion: "5.0.0",
-        parentExecutionBasisRef: parent.traversal.executionBasis.basisRef,
-        parentTraversalScope: parent.traversal.openedTraversalScope,
-        parentGraph: parent.traversal.graph,
-        parentClosureContract: parent.closureContract,
-        parentCCall: frame.parentCall,
-        application: frame.application,
-        sourceCursor: parent.cursor,
-        parentGraphInput: parent.graphEntryInput,
-        parentGraphInputDigest: parent.graphEntryInputDigest,
-        parentInput: parent.input,
-        parentInputDigest: parent.cursor.inputDigest,
-        childExecutionBasisRef: frame.childExecutionBasis.basisRef,
-        childTraversalScopeRef: frame.childTraversalScope.scopeRef,
-        childInput: frame.childInput,
-        childInputDigest: frame.childInputDigest,
-        terminalMode: parent.terminalMode,
-      });
-      return suspension;
-    }
-    const admitted = frame.parentOutcome.admitted;
-    const suspension: HeldRecursionSuspension = Object.freeze({
-      kind: "held_recursion_suspension",
+    const suspension: HeldWorkflowSuspension = Object.freeze({
+      kind: "held_workflow_suspension",
       schemaVersion: "5.0.0",
       parentExecutionBasisRef: parent.traversal.executionBasis.basisRef,
       parentTraversalScope: parent.traversal.openedTraversalScope,
       parentGraph: parent.traversal.graph,
       parentClosureContract: parent.closureContract,
+      parentCCall: frame.parentCall,
+      application: frame.application,
+      sourceCursor: parent.cursor,
       parentGraphInput: parent.graphEntryInput,
       parentGraphInputDigest: parent.graphEntryInputDigest,
-      application: frame.application,
-      evaluatorCCall: admitted.cCall,
-      evaluatorResult: admitted.result,
-      evaluatorJudgment: admitted.judgment,
-      sourceCursor: parent.cursor,
-      evaluatorInput: parent.input,
-      evaluatorInputDigest: parent.cursor.inputDigest,
+      parentInput: parent.input,
+      parentInputDigest: parent.cursor.inputDigest,
       childExecutionBasisRef: frame.childExecutionBasis.basisRef,
       childTraversalScopeRef: frame.childTraversalScope.scopeRef,
       childInput: frame.childInput,

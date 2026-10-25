@@ -2087,6 +2087,152 @@ async function produceFrontier(input) {
   };
 }
 
+// The parent lineage of an F_H hold, read from the log at one cut (T-290 C-6
+// field table; C-17): every held_workflow_suspension field is an admitted
+// event, a definition input or a re-derivation from the two, walked from the
+// held CCall's basis to the root basis. The held completion carries no parent
+// copy, so the log is the only source of these frames.
+async function loadDerivationOwners(loadOwner) {
+  const [basisOwner, cursorOwner, callOwner, scopeOwner, graphMaterializer] =
+    await Promise.all([
+      loadOwner("abg/execution_basis"),
+      loadOwner("abg/traversal_cursor"),
+      loadOwner("abg/c_call"),
+      loadOwner("abg/open_call"),
+      loadOwner("gtl/materialize"),
+    ]);
+  return { basisOwner, cursorOwner, callOwner, scopeOwner, graphMaterializer };
+}
+
+function deriveHeldParentSuspensions({
+  owners,
+  prefix,
+  events,
+  continuationRef,
+  leafPort,
+  programValidation,
+  sha256Canonical,
+}) {
+  const { basisOwner, cursorOwner, callOwner, scopeOwner, graphMaterializer } =
+    owners;
+  const hold = exactOne(
+    events,
+    (event) =>
+      event.kind === "fh_interaction_opened" &&
+      event.payload.continuationRef === continuationRef,
+    "F_H hold at the cut",
+  );
+  const heldCall = exactOne(
+    events,
+    (event) =>
+      event.kind === "c_call_opened" &&
+      event.aggregateId === hold.payload.cCallRef,
+    "held CCall at the cut",
+  );
+  const levels = [];
+  let childBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
+    prefix,
+    heldCall.basisId,
+  );
+  assert.notEqual(childBasis, null);
+  let childFrameId = heldCall.frameId;
+  while (childBasis.parentExecutionBasisRef !== null) {
+    const parentBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
+      prefix,
+      childBasis.parentExecutionBasisRef,
+    );
+    assert.notEqual(parentBasis, null);
+    const parentFunction = leafPort.graphFunctionByRef(
+      parentBasis.graphFunctionRef,
+    );
+    const childFunction = leafPort.graphFunctionByRef(
+      childBasis.graphFunctionRef,
+    );
+    assert.equal(sha256Canonical(parentFunction), parentBasis.graphFunctionDigest);
+    assert.equal(sha256Canonical(childFunction), childBasis.graphFunctionDigest);
+    const parentGraph = graphMaterializer.materializeGraph(parentFunction, {
+      invocationAdmissionRef: parentBasis.invocationAdmissionRef,
+      admittedInputRef: parentBasis.rawInputAdmissionRef,
+      admittedInputDigest: parentBasis.rawInputDigest,
+      admittedInput: parentBasis.rawInputValue,
+    });
+    assert.equal(parentGraph.materializationRef, parentBasis.graphRef);
+    assert.equal(parentGraph.materializationDigest, parentBasis.graphDigest);
+    const parentPosition = cursorOwner.projectOpenedCCallTraversalInputAtPrefix(
+      prefix,
+      parentGraph,
+      childBasis.parentCCallRef,
+    );
+    assert.notEqual(parentPosition, null);
+    assert.equal(parentPosition.execution.basisRef, parentBasis.basisRef);
+    const parentCCall = callOwner.projectOpenedCCallCarrierAtPrefix(
+      prefix,
+      parentGraph,
+      childBasis.parentCCallRef,
+      parentPosition.cursor,
+      parentFunction,
+      childFunction,
+      programValidation,
+    );
+    assert.notEqual(parentCCall, null);
+    const parentScope = scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
+      prefix,
+      parentPosition.cursor.frameId,
+    );
+    const childScope = scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
+      prefix,
+      childFrameId,
+    );
+    assert.notEqual(parentScope, null);
+    assert.notEqual(childScope, null);
+    const parentClosure = leafPort.closureContractByRef(
+      parentBasis.closureContractRef,
+    );
+    assert.equal(
+      sha256Canonical(parentClosure),
+      parentBasis.closureContractDigest,
+    );
+    const application = parentCCall.batchRef === null
+      ? null
+      : parentGraph.template.applications.find((candidate) =>
+          candidate.relationKind === "fan_out" &&
+          candidate.batchRef === parentCCall.batchRef) ?? null;
+    const scopeClass = scopeOwner.projectOpenedTraversalScopeClassAtPrefix(
+      prefix,
+      parentScope,
+    );
+    levels.push({
+      suspension: {
+        kind: "held_workflow_suspension",
+        schemaVersion: "5.0.0",
+        parentExecutionBasisRef: parentBasis.basisRef,
+        parentTraversalScope: parentScope,
+        parentGraph,
+        parentClosureContract: parentClosure,
+        parentCCall,
+        application,
+        sourceCursor: parentPosition.cursor,
+        parentGraphInput: parentBasis.rawInputValue,
+        parentGraphInputDigest: parentBasis.rawInputDigest,
+        parentInput: parentPosition.input.value,
+        parentInputDigest: parentPosition.input.inputDigest,
+        childExecutionBasisRef: childBasis.basisRef,
+        childTraversalScopeRef: childScope.scopeRef,
+        childInput: childBasis.rawInputValue,
+        childInputDigest: childBasis.rawInputDigest,
+        terminalMode: scopeClass === "root" ? "close_run" : "return_to_parent",
+      },
+      childBasis,
+      childScope,
+      parentBasis,
+      parentClosure,
+    });
+    childBasis = parentBasis;
+    childFrameId = parentPosition.cursor.frameId;
+  }
+  return levels;
+}
+
 async function inspectHandoff(handoff, supportPath) {
   assert.deepEqual(Object.keys(handoff).sort(), [
     "expectedExecutableRetryInputDigest",
@@ -2406,8 +2552,23 @@ async function inspectHandoff(handoff, supportPath) {
     });
     const finalEvents = reopened.store.readAll();
     assert.equal(completion.disposition, "held", JSON.stringify(completion));
-    assert.equal(completion.parentSuspensions.length, 1);
-    const [parentSuspension] = completion.parentSuspensions;
+    const holdLevels = deriveHeldParentSuspensions({
+      owners: await loadDerivationOwners((path) => import(pathToFileURL(join(
+        dirname(installedAbgEntryPath),
+        "..",
+        `${path}.js`,
+      )).href)),
+      prefix: installedAbg.selectValidatedRuntimeEventPrefix(
+        installedAbg.readRuntimeEventsAtDurablePrefix(completion.successorPrefix),
+      ),
+      events: finalEvents,
+      continuationRef: completion.continuationRef,
+      leafPort: dependencies.leafPort,
+      programValidation: dependencies.programValidation,
+      sha256Canonical: installedProduct.sha256Canonical,
+    });
+    assert.equal(holdLevels.length, 1);
+    const [{ suspension: parentSuspension }] = holdLevels;
     assert.equal(parentSuspension.kind, "held_workflow_suspension");
     assert.deepEqual(
       parentSuspension.parentGraphInput,
@@ -2809,8 +2970,30 @@ async function produceAba(input) {
   assert.equal(attemptFourTerminalRoutes.length, 0);
   assert.equal(rootClosureEvents.length, 0);
 
-  assert.equal(completion.parentSuspensions.length, 1);
-  const [parentSuspension] = completion.parentSuspensions;
+  const loadOwner = (path) => import(pathToFileURL(join(
+    environment.tenantRoot,
+    `build/code/src/${path}.js`,
+  )).href);
+  const [derivationOwners, rehydrationOwner, valueOwner] = await Promise.all([
+    loadDerivationOwners(loadOwner),
+    loadOwner("hog/parent_rehydration"),
+    loadOwner("shared/value/index"),
+  ]);
+  const { canonicalEquals } = valueOwner;
+  const sha256Canonical = environment.product.sha256Canonical;
+  const holdLevels = deriveHeldParentSuspensions({
+    owners: derivationOwners,
+    prefix: environment.abg.selectValidatedRuntimeEventPrefix(
+      environment.abg.readRuntimeEventsAtDurablePrefix(completion.successorPrefix),
+    ),
+    events,
+    continuationRef: completion.continuationRef,
+    leafPort: environment.leafPort,
+    programValidation: environment.programValidation,
+    sha256Canonical,
+  });
+  assert.equal(holdLevels.length, 1);
+  const [{ suspension: parentSuspension }] = holdLevels;
   assert.equal(parentSuspension.kind, "held_workflow_suspension");
   assert.equal(
     parentSuspension.sourceCursor.cursorRef,
@@ -3054,36 +3237,14 @@ async function produceAba(input) {
   });
   assert.equal(heldReplay.runtimeStatus, "held");
   assert.deepEqual(completion.replayState, heldReplay);
-  // C-6 (TD-18) held-return steel thread over the genuine A-B-A hold: the
-  // store owner closes and reopens the log; the parent's held suspension is
-  // derived cold from admitted events and definition inputs only, starting
-  // from the continuation ref the held output names; it and the return frames
-  // rebuilt from it equal the warm suspension and its frames. No production
-  // operation resumes an F_H-held Run, so this is a derivability witness at
-  // the cold cut, not a Run resume.
-  const loadOwner = (path) => import(pathToFileURL(join(
-    environment.tenantRoot,
-    `build/code/src/${path}.js`,
-  )).href);
-  const [
-    basisOwner,
-    cursorOwner,
-    callOwner,
-    scopeOwner,
-    graphMaterializer,
-    rehydrationOwner,
-    valueOwner,
-  ] = await Promise.all([
-    loadOwner("abg/execution_basis"),
-    loadOwner("abg/traversal_cursor"),
-    loadOwner("abg/c_call"),
-    loadOwner("abg/open_call"),
-    loadOwner("gtl/materialize"),
-    loadOwner("hog/parent_rehydration"),
-    loadOwner("shared/value/index"),
-  ]);
-  const { canonicalEquals } = valueOwner;
-  const sha256Canonical = environment.product.sha256Canonical;
+  // C-6 (TD-18) held-return steel thread over the genuine A-B-A hold, restated
+  // at C-17: the store owner closes and reopens the log; the parent's held
+  // suspension is derived cold from admitted events and definition inputs
+  // only, starting from the continuation ref the held output names; it and
+  // the return frames rebuilt from it equal the derivation over the live log
+  // at the hold's cut and its frames. No production operation resumes an
+  // F_H-held Run, so this is a derivability witness at the cold cut, not a
+  // Run resume.
   const fieldDifferences = (left, right) =>
     [...new Set([...Object.keys(left), ...Object.keys(right)])].filter(
       (key) => !(key in left) || !(key in right) ||
@@ -3105,123 +3266,31 @@ async function produceAba(input) {
       environment.abg.readRuntimeEventsAtDurablePrefix(abaReopened.prefix),
     );
     const coldEvents = abaReopened.store.readAll();
-    const coldHold = exactOne(
-      coldEvents,
-      (event) =>
-        event.kind === "fh_interaction_opened" &&
-        event.payload.continuationRef === completion.continuationRef,
-      "C-6 cold F_H hold",
-    );
-    const coldHeldCall = exactOne(
-      coldEvents,
-      (event) =>
-        event.kind === "c_call_opened" &&
-        event.aggregateId === coldHold.payload.cCallRef,
-      "C-6 cold held CCall",
-    );
-    const coldChildBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
-      coldPrefix,
-      coldHeldCall.basisId,
-    );
-    assert.notEqual(coldChildBasis, null);
-    const coldParentBasis = basisOwner.rehydrateExecutionBasisAtPrefix(
-      coldPrefix,
-      coldChildBasis.parentExecutionBasisRef,
-    );
-    assert.notEqual(coldParentBasis, null);
-    const parentFunction = environment.leafPort.graphFunctionByRef(
-      coldParentBasis.graphFunctionRef,
-    );
-    const childFunction = environment.leafPort.graphFunctionByRef(
-      coldChildBasis.graphFunctionRef,
-    );
-    assert.equal(sha256Canonical(parentFunction), coldParentBasis.graphFunctionDigest);
-    assert.equal(sha256Canonical(childFunction), coldChildBasis.graphFunctionDigest);
-    const coldParentGraph = graphMaterializer.materializeGraph(parentFunction, {
-      invocationAdmissionRef: coldParentBasis.invocationAdmissionRef,
-      admittedInputRef: coldParentBasis.rawInputAdmissionRef,
-      admittedInputDigest: coldParentBasis.rawInputDigest,
-      admittedInput: coldParentBasis.rawInputValue,
+    const coldLevels = deriveHeldParentSuspensions({
+      owners: derivationOwners,
+      prefix: coldPrefix,
+      events: coldEvents,
+      continuationRef: completion.continuationRef,
+      leafPort: environment.leafPort,
+      programValidation: environment.programValidation,
+      sha256Canonical,
     });
-    assert.equal(coldParentGraph.materializationRef, coldParentBasis.graphRef);
-    assert.equal(
-      coldParentGraph.materializationDigest,
-      coldParentBasis.graphDigest,
-    );
-    const coldParentPosition =
-      cursorOwner.projectOpenedCCallTraversalInputAtPrefix(
-        coldPrefix,
-        coldParentGraph,
-        coldChildBasis.parentCCallRef,
-      );
-    assert.notEqual(coldParentPosition, null);
-    assert.equal(coldParentPosition.execution.basisRef, coldParentBasis.basisRef);
-    const coldParentCCall = callOwner.projectOpenedCCallCarrierAtPrefix(
-      coldPrefix,
-      coldParentGraph,
-      coldChildBasis.parentCCallRef,
-      coldParentPosition.cursor,
-      parentFunction,
-      childFunction,
-      environment.programValidation,
-    );
-    assert.notEqual(coldParentCCall, null);
-    const coldParentScope =
-      scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
-        coldPrefix,
-        coldParentPosition.cursor.frameId,
-      );
-    const coldChildScope =
-      scopeOwner.projectOpenedTraversalScopeForFrameAtPrefix(
-        coldPrefix,
-        coldHeldCall.frameId,
-      );
-    assert.notEqual(coldParentScope, null);
-    assert.notEqual(coldChildScope, null);
-    const coldParentClosure = environment.leafPort.closureContractByRef(
-      coldParentBasis.closureContractRef,
-    );
-    assert.equal(
-      sha256Canonical(coldParentClosure),
-      coldParentBasis.closureContractDigest,
-    );
-    const coldApplication = coldParentCCall.batchRef === null
-      ? null
-      : coldParentGraph.template.applications.find((candidate) =>
-          candidate.relationKind === "fan_out" &&
-          candidate.batchRef === coldParentCCall.batchRef) ?? null;
-    const coldScopeClass = scopeOwner.projectOpenedTraversalScopeClassAtPrefix(
-      coldPrefix,
-      coldParentScope,
-    );
-    const derivedSuspension = {
-      kind: "held_workflow_suspension",
-      schemaVersion: "5.0.0",
-      parentExecutionBasisRef: coldParentBasis.basisRef,
-      parentTraversalScope: coldParentScope,
-      parentGraph: coldParentGraph,
-      parentClosureContract: coldParentClosure,
-      parentCCall: coldParentCCall,
-      application: coldApplication,
-      sourceCursor: coldParentPosition.cursor,
-      parentGraphInput: coldParentBasis.rawInputValue,
-      parentGraphInputDigest: coldParentBasis.rawInputDigest,
-      parentInput: coldParentPosition.input.value,
-      parentInputDigest: coldParentPosition.input.inputDigest,
-      childExecutionBasisRef: coldChildBasis.basisRef,
-      childTraversalScopeRef: coldChildScope.scopeRef,
-      childInput: coldChildBasis.rawInputValue,
-      childInputDigest: coldChildBasis.rawInputDigest,
-      terminalMode: coldScopeClass === "root" ? "close_run" : "return_to_parent",
-    };
+    assert.equal(coldLevels.length, holdLevels.length);
+    const [{
+      suspension: derivedSuspension,
+      childBasis: coldChildBasis,
+      childScope: coldChildScope,
+      parentBasis: coldParentBasis,
+      parentClosure: coldParentClosure,
+    }] = coldLevels;
     assert.deepEqual(
       fieldDifferences(derivedSuspension, parentSuspension),
       [],
-      "cold log derivation differs from the warm held suspension",
+      "cold log derivation differs from the live log's derivation at the hold's cut",
     );
     assert.equal(canonicalEquals(derivedSuspension, parentSuspension), true);
     const coldImplementationSet =
-      basisOwner.rehydrateAdmittedImplementationSetAtPrefix(
+      derivationOwners.basisOwner.rehydrateAdmittedImplementationSetAtPrefix(
         coldPrefix,
         coldParentBasis.rootImplementationSetRef,
       );
@@ -3237,7 +3306,7 @@ async function produceAba(input) {
         currentChildTraversalScope: coldChildScope,
         suspensions,
       });
-    const warmFrames = rehydrate(completion.parentSuspensions);
+    const warmFrames = rehydrate(holdLevels.map((level) => level.suspension));
     const coldFrames = rehydrate([derivedSuspension]);
     assert.equal(
       warmFrames.kind,
@@ -3331,7 +3400,7 @@ async function produceAba(input) {
       childFhRouteKind: heldRoute.payload.routeKind,
       childFhHoldCoordinatesExact: true,
       childFhContinuationCount: heldContinuations.length,
-      parentSuspensionCount: completion.parentSuspensions.length,
+      parentSuspensionCount: holdLevels.length,
       parentSuspensionKind: parentSuspension.kind,
       parentGraphFunctionRef: parentSuspension.parentGraph.graphFunctionRef,
       childGraphFunctionRef: completion.heldGraph.graphFunctionRef,

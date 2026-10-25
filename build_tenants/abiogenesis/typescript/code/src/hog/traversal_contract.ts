@@ -6,12 +6,7 @@ import type {
   ContinuationProductBasis,
   ExecutionBasis,
   EffectfulPublicInvocationPriorAdmission,
-  InvocationAdmission,
   OpenedTraversalScope,
-  PreparedContinuationPublicOperation,
-  PublicOperationAdmissionBasis,
-  ReplayContinuationState,
-  RuntimeAdmissionBasis,
   RuntimeFailureAdmissionReceipt,
 } from "../abg/index.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
@@ -26,12 +21,8 @@ import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { GraphValidation } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
-import type { CompleteInteractionResumeInput } from "./interaction_resume.js";
 import type { TraversalCursor } from "./traversal.js";
-import type {
-  HeldRecursionSuspension,
-  HeldWorkflowSuspension,
-} from "./traversal_completion.js";
+import type { HeldWorkflowSuspension } from "./traversal_completion.js";
 import type { ProjectedRetryResumeSuccess } from "../abg/retry.js";
 
 /** Stable public traversal request basis. Locus operators receive projections. */
@@ -81,25 +72,7 @@ export type InitialOrNonRetryExecuteGraphTraversalInput =
 export type ExecuteGraphTraversalInput = ExecuteGraphTraversalCommonInput &
   (InitialOrNonRetryResumeEntry | ProjectedRetryResumeEntry);
 
-export interface ResumeHeldInteractionInput {
-  readonly current: InteractionResumeTraversalEntryInput;
-  readonly interactionResume: Readonly<{
-    preparedOperation: PreparedContinuationPublicOperation;
-    rootInvocation: InvocationAdmission;
-    continuation: ReplayContinuationState;
-    heldInteraction: CompleteInteractionResumeInput["heldInteraction"];
-    variant: string;
-    actorRef: string;
-    capabilityRef: string;
-    operationBasis: PublicOperationAdmissionBasis;
-    resumeBasis: RuntimeAdmissionBasis;
-  }>;
-  readonly parentSuspensions: readonly (
-    HeldRecursionSuspension | HeldWorkflowSuspension
-  )[];
-}
-
-/** Raw durable and installed carriers accepted by the single HoG resume port. */
+/** Raw durable and installed carriers of a continued Graph boundary. */
 export interface InteractionResumeTraversalEntryInput {
   readonly store: AbgEventStore;
   readonly predecessorPrefix: DurablePrefixCoordinate;
@@ -130,7 +103,6 @@ export interface ResumeConstructionIntentInput {
 }
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
-  | ResumeHeldInteractionInput
   | ResumeConstructionIntentInput;
 
 export interface GraphTraversalEntryRefusal {

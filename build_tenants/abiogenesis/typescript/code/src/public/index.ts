@@ -1,7 +1,4 @@
 export type {
-  PublicContinuationAuthority,
-} from "./continuation_authority.js";
-export type {
   PublicGapAuthority,
   PublicGapSource,
 } from "./gap_authority.js";

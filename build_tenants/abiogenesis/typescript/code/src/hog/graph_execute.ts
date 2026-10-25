@@ -6,8 +6,6 @@ import * as Exit from "effect/Exit";
 import * as Option from "effect/Option";
 
 import {
-  commitFhInteractionResumeAtExpectedPrefix,
-  deriveFhResumeSuccessorInputAtPrefix,
   projectOpenedTraversalScopeClassAtDurablePrefix,
   selectAdmittedImplementationResolution,
 } from "../abg/index.js";
@@ -16,7 +14,6 @@ import { projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
 import { runEffectProgram } from "../shared/effect_definition.js";
 import {
   constructChildTraversalBasis,
@@ -27,10 +24,7 @@ import {
   type CCallLifecycleEvaluation,
   type ExecutableCCallContext,
 } from "./ccall_lifecycle.js";
-import {
-  enterTraversal,
-  prepareInteractionResumeTraversalEntry,
-} from "./entry.js";
+import { enterTraversal } from "./entry.js";
 import type {
   EvaluationFrame,
   HogReturnFrame,
@@ -39,12 +33,9 @@ import type {
   MachineReturnFrame,
   MachineWorkflowReturnFrame,
   TraversalMachineState,
+  WorkflowReturnFrame,
 } from "./evaluation_frame.js";
 import { holdOwnedInteraction as holdInteraction } from "./interaction_lifecycle.js";
-import {
-  completeOwnedInteractionResume as resumeInteractionOwner,
-  type CompleteInteractionResumeInput,
-} from "./interaction_resume.js";
 import {
   isExactLocusStep,
   traversalBasis,
@@ -56,10 +47,8 @@ import {
   beginOwnedRecursionApplication as beginRecursionApplication,
   completeOwnedRecursionChild as completeRecursionChild,
   recursionApplication,
-  restoreOwnedDeferredRecursion as restoreDeferredRecursion,
   type CompleteExecutableTraversalInput,
   type RecursionChildFoldFrame,
-  type RestoreDeferredRecursionInput,
 } from "./recursion_lifecycle.js";
 import {
   advanceOwnedRetryLifecycle as advanceRetryLifecycle,
@@ -74,15 +63,11 @@ import { advanceOwnedStructuralTransition as advanceStructuralTransition } from 
 import {
   failTraversal,
   GraphTraversalFailure,
-  isGraphTraversalEntryRefusal,
   projectGraphTraversalFailure,
   refuseTraversalEntry,
 } from "./traversal_failure.js";
 import {
   resolveTraversalTerm,
-  deriveInteractionResumeCursor,
-  deriveInteractionSuccessorInputCarrierRef,
-  rehydrateHeldInteractionCursor,
   traverseFromCursor,
   type TraversalCursor,
 } from "./traversal.js";
@@ -93,14 +78,12 @@ import type {
   GraphTraversalEntryRefusal,
   GraphTraversalFailureResult,
   InitialOrNonRetryExecuteGraphTraversalInput,
-  InteractionResumeTraversalEntryInput,
-  ResumeHeldInteractionInput,
+  ResumeConstructionIntentInput,
 } from "./traversal_contract.js";
 import {
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
   type HeldParentTraversalSuspension,
-  type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
 } from "./traversal_completion.js";
 import {
@@ -122,11 +105,8 @@ export type {
   ExecutableTraversalCompletion,
   HeldInteractionTraversal,
   HeldParentTraversalSuspension,
-  HeldRecursionSuspension,
   HeldWorkflowSuspension,
   InitialOrNonRetryExecuteGraphTraversalInput,
-  InteractionResumeTraversalEntryInput,
-  ResumeHeldInteractionInput,
   ProjectedRetryResumeRefusal,
   ProjectedRetryResumeRefusalCode,
   ProjectedRetryResumeResult,
@@ -169,7 +149,7 @@ type MachineLocusStep =
 
 import { completePublicOutcome } from "../abg/c_call_outcome.js";
 import type { OwnedExecutableTraversalCompletion } from "./traversal_completion.js";
-import type { OwnedTraversalMachineState, OwnedMachineReturnFrame, OwnedMachineRecursionReturnFrame } from "./evaluation_frame.js";
+import type { OwnedTraversalMachineState, OwnedMachineReturnFrame } from "./evaluation_frame.js";
 import type { OwnedRecursionChildFoldFrame } from "./recursion_lifecycle.js";
 import type { OwnedTraversalLocusEvaluation } from "./workflow_lifecycle.js";
 import type { OwnedCCallLifecycleEvaluation } from "./ccall_lifecycle.js";
@@ -870,130 +850,9 @@ function machineWorkflowReturn(
   });
 }
 
-function machineRecursionReturn(
-  base: InitialOrNonRetryExecuteGraphTraversalInput,
-  frame: Extract<HogReturnFrame, Readonly<{ relation: "recursion" }>>,
-  predecessorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
-  ordinal: number,
-): OwnedMachineRecursionReturnFrame {
-  const parent = machineFrameFromRehydrated(
-    base,
-    frame.parent,
-    predecessorPrefix,
-    ordinal,
-  );
-  const stop = traverseFromCursor(
-    frame.parent.traversal,
-    parent.cursor,
-  );
-  if (stop.kind !== "traversal_stop_ref" ||
-      stop.stopClass !== "executable") {
-    return failFrame(
-      parent,
-      predecessorPrefix,
-      "recursion-resume-stop",
-      "diagnostic://abiogenesis/hog/recursion-resume-stop-mismatch@5",
-      stop,
-    );
-  }
-  const resolution = selectAdmittedImplementationResolution(
-    frame.parent.implementationSet,
-    {
-      graphFunctionRef: frame.parent.traversal.graph.graphFunctionRef,
-      nodeRef: stop.nodeRef,
-      programLocusRef: stop.programLocusRef,
-      implementationBindingRef: stop.implementationBindingRef,
-    },
-  );
-  const outputValueKind = frame.parent.leafPort.contractValueKind(
-    stop.outputContractRef,
-    "output",
-  );
-  if (resolution === null || outputValueKind === null) {
-    return failFrame(
-      parent,
-      predecessorPrefix,
-      "recursion-resume-resolution",
-      "diagnostic://abiogenesis/hog/recursion-resume-resolution-absent@5",
-      stop,
-    );
-  }
-  const traversalInput: CompleteExecutableTraversalInput<
-    Readonly<Record<string, JsonValue>>
-  > = Object.freeze({
-    store: parent.runtime.store,
-    predecessorPrefix,
-    executionBasis: parent.runtime.executionBasis,
-    openedTraversalScope: parent.runtime.openedTraversalScope,
-    program: parent.runtime.program,
-    graphFunction: parent.runtime.graphFunction,
-    graph: parent.runtime.graph,
-    traversalStop: stop,
-    implementationSet: parent.runtime.implementationSet,
-    implementationResolution: resolution,
-    leafPort: parent.runtime.leafPort,
-    input: parent.input,
-    inputDigest: parent.cursor.inputDigest,
-    closureContract: parent.runtime.closureContract,
-    actorRuntimeBinding: parent.runtime.actorRuntimeBinding,
-    ...(parent.runtime.deferFailedRunStop === true
-      ? { deferFailedRunStop: true }
-      : {}),
-    deferToApplication: true,
-    completionScopeClass: parent.scopeClass,
-    clock: {
-      eventTime: parent.runtime.eventTime,
-      correlationId: `${parent.runtime.correlationId}/recursion/restore`,
-    },
-  });
-  const admitted = frame.parentOutcome.admitted;
-  const restoration: RestoreDeferredRecursionInput = {
-    traversalInput,
-    application: frame.application,
-    cCallRef: admitted.cCall.cCallRef,
-    resultRef: admitted.result.resultRef,
-    judgmentRef: admitted.judgment.judgmentRef,
-  };
-  const restored = restoreDeferredRecursion(restoration);
-  if (restored === null) {
-    return failFrame(
-      parent,
-      predecessorPrefix,
-      "recursion-resume-deferred",
-      "diagnostic://abiogenesis/hog/recursion-resume-deferred-mismatch@5",
-      frame.application,
-    );
-  }
-  return Object.freeze({
-    kind: "recursion_return" as const,
-    parent,
-    recursion: Object.freeze({
-      kind: "recursion_child_fold_frame" as const,
-      parentClock: {
-        eventTime: parent.runtime.eventTime,
-        correlationId: parent.runtime.correlationId,
-      },
-      parentScopeClass: parent.scopeClass,
-      traversalInput,
-      application: frame.application,
-      restored,
-      restoration,
-      graphEntryInput: parent.graphEntryInput,
-      graphEntryInputDigest: parent.graphEntryInputDigest,
-      leafOrdinal: parent.ordinal,
-      childExecutionBasis: frame.childExecutionBasis,
-      childTraversalScope: frame.childTraversalScope,
-      childInput: frame.childInput,
-      childInputDigest: frame.childInputDigest,
-    }),
-    outputValueKind,
-    outputContractRef: stop.outputContractRef,
-  });
-}
-
 interface ParentReturnsPreflight {
   readonly kind: "parent_returns_preflight";
-  readonly frames: readonly HogReturnFrame[];
+  readonly frames: readonly WorkflowReturnFrame[];
 }
 
 function resumeEntryRefusal(
@@ -1013,7 +872,7 @@ function resumeEntryRefusal(
 }
 
 function preflightParentReturns(
-  input: Pick<ResumeHeldInteractionInput, "parentSuspensions">,
+  input: Pick<ResumeConstructionIntentInput, "parentSuspensions">,
   current: InitialOrNonRetryExecuteGraphTraversalInput,
 ): ParentReturnsPreflight | GraphTraversalEntryRefusal {
   const exact = rehydrateParentReturnFrames({
@@ -1045,273 +904,16 @@ function preflightParentReturns(
 
 function exactParentReturns(
   current: InitialOrNonRetryExecuteGraphTraversalInput,
-  frames: readonly HogReturnFrame[],
+  frames: readonly WorkflowReturnFrame[],
   successorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
 ): readonly OwnedMachineReturnFrame[] {
   return Object.freeze(frames.map((frame, ordinal) =>
-    frame.relation === "workflow"
-      ? machineWorkflowReturn(
-          current,
-          frame,
-          successorPrefix,
-          ordinal,
-        )
-      : machineRecursionReturn(
-          current,
-          frame,
-          successorPrefix,
-          ordinal,
-        )));
-}
-
-interface PreparedResumeHeldInteractionInput {
-  readonly current: InitialOrNonRetryExecuteGraphTraversalInput;
-  readonly interaction: CompleteInteractionResumeInput;
-  readonly parentFrames: readonly HogReturnFrame[];
-}
-
-function prepareHeldInteractionResume(
-  input: ResumeHeldInteractionInput,
-): PreparedResumeHeldInteractionInput | GraphTraversalEntryRefusal {
-  const held = prepareInteractionResumeTraversalEntry(input.current);
-  if (isGraphTraversalEntryRefusal(held)) return held;
-  const parentPreflight = preflightParentReturns(input, held);
-  if (parentPreflight.kind === "graph_traversal_entry_refusal") {
-    return parentPreflight;
-  }
-  const authority = input.interactionResume;
-  const heldCursor = rehydrateHeldInteractionCursor(
-    authority.preparedOperation.projectedPrefix,
-    authority.heldInteraction.cursor,
-  );
-  if (heldCursor === null) {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      "run continuation could not rehydrate its exact HoG cursor",
-        "diagnostic://abiogenesis/hog/interaction-resume-held-cursor@5",
-      authority.heldInteraction.cursor,
-    );
-  }
-  let successorInputContractRef: string | null;
-  try {
-    successorInputContractRef = deriveInteractionSuccessorInputCarrierRef(
-      held.graph,
-      heldCursor,
-    );
-  } catch (error) {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `run continuation successor carrier derivation failed: ${String(error)}`,
-        "diagnostic://abiogenesis/hog/interaction-resume-successor-carrier@5",
-      { error: String(error) },
-    );
-  }
-  const successorInputValueKind = successorInputContractRef === null
-    ? null
-    : held.leafPort.contractValueKindByRef(successorInputContractRef);
-  const continuation = authority.continuation;
-  if (
-    (successorInputContractRef === null) !==
-      (successorInputValueKind === null) ||
-    (continuation.constructionIntentRef !== null &&
-      (successorInputContractRef === null ||
-        successorInputValueKind !== "action_evaluation_basis")) ||
-    (continuation.constructionIntentRef === null &&
-      successorInputContractRef !== null &&
-      (successorInputContractRef !== continuation.responseContractRef ||
-        typeof continuation.responseValue !== "object" ||
-        continuation.responseValue === null ||
-        Array.isArray(continuation.responseValue) ||
-        !held.leafPort.validateContractValueByRef(
-          successorInputContractRef,
-          continuation.responseValue,
-        )))
-  ) {
-    return resumeEntryRefusal(
-      "target_mismatch",
-      "run continuation target carrier, response contract, or admitted value kind differs",
-        "diagnostic://abiogenesis/hog/interaction-resume-successor-contract@5",
-      {
-        successorInputContractRef,
-        successorInputValueKind,
-      },
-    );
-  }
-  let successorInput;
-  try {
-    successorInput = deriveFhResumeSuccessorInputAtPrefix(
-      authority.preparedOperation.projectedPrefix,
-      continuation,
-      authority.preparedOperation.operation,
-      held.executionBasis,
-      held.closureContract,
-      {
-        inputContractRef: successorInputContractRef,
-        inputValueKind: successorInputValueKind,
-      },
-    );
-  } catch (error) {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `run continuation successor input derivation failed: ${String(error)}`,
-      "diagnostic://abiogenesis/hog/interaction-resume-successor-input@5",
-      { error: String(error) },
-    );
-  }
-  if (
-    successorInputContractRef !== null &&
-    !held.leafPort.validateContractValueByRef(
-      successorInputContractRef,
-      successorInput.inputValue,
-    )
-  ) {
-    return resumeEntryRefusal(
-      "target_mismatch",
-      "run continuation successor value fails its exact admitted contract",
-        "diagnostic://abiogenesis/hog/interaction-resume-successor-value@5",
-      successorInput.inputValue,
-    );
-  }
-  const successorCursor = deriveInteractionResumeCursor(heldCursor, {
-    inputRef: successorInput.inputRef,
-    inputDigest: successorInput.inputDigest,
-  });
-  if (successorCursor.kind !== "traversal_cursor") {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `interaction resume cursor refused: ${successorCursor.message}`,
-        "diagnostic://abiogenesis/hog/interaction-resume-successor-cursor@5",
-      successorCursor,
-    );
-  }
-  let committed;
-  try {
-    committed = commitFhInteractionResumeAtExpectedPrefix(
-      held.store,
-      held.predecessorPrefix,
-      authority.rootInvocation,
-      continuation,
-      authority.variant,
-      authority.actorRef,
-      authority.capabilityRef,
-      authority.operationBasis,
-      held.executionBasis,
-      held.closureContract,
-      successorInput,
-      successorCursor,
-      authority.resumeBasis,
-    );
-  } catch (error) {
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `interaction resume admission failed: ${String(error)}`,
-      "diagnostic://abiogenesis/hog/interaction-resume-admission@5",
-      { error: String(error) },
-    );
-  }
-  if (!("resume" in committed)) {
-    if (committed.disposition === "duplicate") {
-      return resumeEntryRefusal(
-        "duplicate_invocation",
-        `effectful Public invocation ${committed.invocationRef} already has one owning admission`,
-        "diagnostic://abiogenesis/hog/interaction-resume-duplicate@5",
-        committed,
-        committed.priorAdmission,
-      );
-    }
-    return resumeEntryRefusal(
-      "owner_refusal",
-      `effectful invocation truth refused: ${committed.code}`,
-      "diagnostic://abiogenesis/hog/interaction-resume-invalid-history@5",
-      committed,
-    );
-  }
-  const current = Object.freeze({
-    ...held,
-    predecessorPrefix: committed.successorPrefix,
-  });
-  return Object.freeze({
-    current,
-    interaction: Object.freeze({
-      store: current.store,
-      predecessorPrefix: current.predecessorPrefix,
-      executionBasis: current.executionBasis,
-      openedTraversalScope: current.openedTraversalScope,
-      graphFunction: current.graphFunction,
-      graph: current.graph,
-      heldInteraction: Object.freeze({
-        ...authority.heldInteraction,
-        cursor: heldCursor,
-      }),
-      successorCursor,
-      resume: committed.resume,
-      closureContract: current.closureContract,
-      clock: Object.freeze({
-        eventTime: current.eventTime,
-        correlationId: `${current.correlationId}/interaction`,
-      }),
-    }),
-    parentFrames: parentPreflight.frames,
-  });
-}
-
-function seedParentContinuation(
-  parent: InitialOrNonRetryExecuteGraphTraversalInput,
-  completion: OwnedExecutableTraversalCompletion,
-  returns: readonly OwnedMachineReturnFrame[],
-): ActiveTraversalMachineState {
-  if (completion.disposition !== "advanced") {
-    return Object.freeze({
-      stateKind: "return" as const,
-      completion,
-      returns,
-    });
-  }
-  if (completion.nextCursor === null || !isRecord(completion.resultValue)) {
-    return failTraversal({
-      store: parent.store,
-      predecessorPrefix: completion.successorPrefix,
-      executionBasis: parent.executionBasis,
-      openedTraversalScope: parent.openedTraversalScope,
-      eventTime: parent.eventTime,
-      correlationId: parent.correlationId,
-      stage: "interaction-resume-advance",
-      diagnosticRef:
-        "diagnostic://abiogenesis/hog/interaction-resume-advance-incomplete@5",
-      candidate: { faultClass: "interaction_resume_advance_incomplete" },
-    });
-  }
-  const input = completion.resultValue;
-  const inputDigest = sha256Canonical(input);
-  if (completion.nextCursor.inputDigest !== inputDigest) {
-    return failTraversal({
-      store: parent.store,
-      predecessorPrefix: completion.successorPrefix,
-      executionBasis: parent.executionBasis,
-      openedTraversalScope: parent.openedTraversalScope,
-      eventTime: parent.eventTime,
-      correlationId: parent.correlationId,
-      stage: "interaction-resume-advance-digest",
-      diagnosticRef:
-        "diagnostic://abiogenesis/hog/interaction-resume-advance-digest-mismatch@5",
-      candidate: { faultClass: "interaction_resume_advance_digest_mismatch" },
-    });
-  }
-  return Object.freeze({
-    stateKind: "evaluate" as const,
-    frame: enterTraversal({
-      ...parent,
-      predecessorPrefix: completion.successorPrefix,
-      input: parent.input,
-      inputDigest: parent.inputDigest,
-      resume: {
-        cursor: completion.nextCursor,
-        input,
-        inputDigest,
-      },
-    }),
-    returns,
-  });
+    machineWorkflowReturn(
+      current,
+      frame,
+      successorPrefix,
+      ordinal,
+    )));
 }
 
 function traversalProgram(
@@ -1327,22 +929,6 @@ function traversalProgram(
       return evaluateTraversalProgram(Object.freeze({ stateKind: "evaluate" as const,
         frame: enterTraversal(input.current),
         returns: exactParentReturns(input.current, parents.frames, input.current.predecessorPrefix) }));
-    }
-    if ("interactionResume" in input) {
-      const prepared = prepareHeldInteractionResume(input);
-      if (isGraphTraversalEntryRefusal(prepared)) {
-        return Effect.succeed(prepared);
-      }
-      const resumed = resumeInteractionOwner(prepared.interaction);
-      return evaluateTraversalProgram(seedParentContinuation(
-        prepared.current,
-        resumed,
-        exactParentReturns(
-          prepared.current,
-          prepared.parentFrames,
-          resumed.successorPrefix,
-        ),
-      ));
     }
     return evaluateTraversalProgram(Object.freeze({
       stateKind: "evaluate" as const,

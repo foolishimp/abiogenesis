@@ -47,7 +47,6 @@ import {
 import {
   projectOwnedExecutableTraversalCompletion as completion,
   type ExecutableTraversalCompletion,
-  type HeldWorkflowSuspension,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
 import {
@@ -536,33 +535,8 @@ export function completeOwnedWorkflowLocus(
         child,
       );
     }
-    const suspension: HeldWorkflowSuspension = deepFreeze({
-      kind: "held_workflow_suspension",
-      schemaVersion: "5.0.0",
-      parentExecutionBasisRef: runtime.executionBasis.basisRef,
-      parentTraversalScope: runtime.openedTraversalScope,
-      parentGraph: runtime.graph,
-      parentClosureContract: runtime.closureContract,
-      parentCCall,
-      application: frame.application,
-      sourceCursor: cursor,
-      parentGraphInput: frame.graphEntryInput,
-      parentGraphInputDigest: frame.graphEntryInputDigest,
-      parentInput: frame.value,
-      parentInputDigest: cursor.inputDigest,
-      childExecutionBasisRef: frame.childExecutionBasis.basisRef,
-      childTraversalScopeRef: frame.childTraversalScope.scopeRef,
-      childInput: frame.childInput,
-      childInputDigest: frame.childInputDigest,
-      terminalMode: runtime.scopeClass === "root"
-        ? "close_run"
-        : "return_to_parent",
-    });
     return {
-      completion: deepFreeze({
-        ...child,
-        parentSuspensions: [...child.parentSuspensions, suspension],
-      }),
+      completion: child,
       outputValueKind: null,
       outputContractRef: null,
     };

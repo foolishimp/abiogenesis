@@ -5,11 +5,9 @@ import {
   type ExecutionBasis,
 } from "../abg/execution_basis.js";
 import {
-  projectAdmittedCCallOutcomeAtPrefix,
   projectCurrentChildParentCCallAtPrefix,
   rehydrateWorkflowCCallAtPrefix,
 } from "../abg/c_call.js";
-import { projectCCallOutcomeReceiptAtPrefix } from "../abg/c_call_outcome.js";
 import {
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
@@ -23,9 +21,7 @@ import {
 import type {
   FanOutApplication,
   GtlProgram,
-  RecurseApplication,
 } from "../gtl/contracts.js";
-import { recursionTerminationDecision } from "../gtl/graph_applications.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -34,7 +30,7 @@ import { validateGraph } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
 import {
   projectParentSuspensions,
-  type HogReturnFrame,
+  type WorkflowReturnFrame,
 } from "./evaluation_frame.js";
 import {
   rehydrateHeldInteractionCursor,
@@ -44,7 +40,6 @@ import {
 } from "./traversal.js";
 import type {
   HeldParentTraversalSuspension,
-  HeldRecursionSuspension,
   HeldWorkflowSuspension,
 } from "./traversal_completion.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -77,7 +72,7 @@ type RehydrationStep<T> = Rehydrated<T> | ParentRehydrationRefusal;
 export type ParentReturnFramesRehydration =
   | Readonly<{
       kind: "rehydrated_parent_return_frames";
-      frames: readonly HogReturnFrame[];
+      frames: readonly WorkflowReturnFrame[];
     }>
   | ParentRehydrationRefusal;
 
@@ -165,7 +160,7 @@ function exactWorkflowReturn(
   childExecutionBasis: ExecutionBasis,
   childScope: OpenedTraversalScope,
   terminalMode: "close_run" | "return_to_parent",
-): RehydrationStep<HogReturnFrame> {
+): RehydrationStep<WorkflowReturnFrame> {
   const traversalResult = exactParentTraversal(
     input,
     prefix,
@@ -243,88 +238,6 @@ function exactWorkflowReturn(
   }));
 }
 
-function exactRecursionReturn(
-  input: RehydrateParentReturnFramesInput,
-  prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>,
-  suspension: HeldRecursionSuspension,
-  parentExecutionBasis: ExecutionBasis,
-  parentScope: OpenedTraversalScope,
-  childExecutionBasis: ExecutionBasis,
-  childScope: OpenedTraversalScope,
-  terminalMode: "close_run" | "return_to_parent",
-): RehydrationStep<HogReturnFrame> {
-  const traversalResult = exactParentTraversal(
-    input,
-    prefix,
-    suspension,
-    parentExecutionBasis,
-    parentScope,
-  );
-  if (traversalResult.kind === "parent_rehydration_refusal") {
-    return traversalResult;
-  }
-  const traversal = traversalResult.value;
-  const sourceCursor = rehydrateHeldInteractionCursor(
-    prefix,
-    suspension.sourceCursor,
-  );
-  const application = traversal.graph.template.applications.find(
-    (candidate): candidate is RecurseApplication =>
-      candidate.relationKind === "recurse" &&
-      candidate.applicationRef === suspension.application.applicationRef,
-  );
-  const admitted = projectAdmittedCCallOutcomeAtPrefix(
-    prefix,
-    suspension.evaluatorCCall,
-    suspension.evaluatorResult,
-    suspension.evaluatorJudgment,
-  );
-  const outcome = admitted === null
-    ? null
-    : projectCCallOutcomeReceiptAtPrefix(input.predecessorPrefix, {
-        disposition: "judged",
-        admitted,
-      });
-  if (
-    sourceCursor === null ||
-    application === undefined ||
-    !canonicalEquals(application, suspension.application) ||
-    outcome?.disposition !== "judged" ||
-    outcome.admitted.cCall.cCallRef !== suspension.evaluatorCCall.cCallRef ||
-    recursionTerminationDecision(
-        application,
-        suspension.evaluatorResult.value,
-      ) !== false ||
-    sha256Canonical(
-        suspension.evaluatorInput,
-      ) !== suspension.evaluatorInputDigest ||
-    suspension.evaluatorInputDigest !== sourceCursor.inputDigest ||
-    application.graphFunctionRef !== childExecutionBasis.graphFunctionRef
-  ) {
-    return rehydrationFailure("recursion-relation");
-  }
-  return rehydrated(Object.freeze({
-    relation: "recursion" as const,
-    parent: Object.freeze({
-      traversal,
-      implementationSet: input.implementationSet,
-      leafPort: input.leafPort,
-      closureContract: suspension.parentClosureContract,
-      graphEntryInput: suspension.parentGraphInput,
-      graphEntryInputDigest: suspension.parentGraphInputDigest,
-      cursor: sourceCursor,
-      input: suspension.evaluatorInput,
-      terminalMode,
-    }),
-    parentOutcome: outcome,
-    application,
-    childExecutionBasis,
-    childTraversalScope: childScope,
-    childInput: suspension.childInput,
-    childInputDigest: suspension.childInputDigest,
-  }));
-}
-
 export function rehydrateParentReturnFrames(
   input: RehydrateParentReturnFramesInput,
 ): ParentReturnFramesRehydration {
@@ -353,7 +266,7 @@ export function rehydrateParentReturnFrames(
   ) {
     return rehydrationFailure("current-child");
   }
-  const inward: HogReturnFrame[] = [];
+  const inward: WorkflowReturnFrame[] = [];
   for (const [index, suspension] of input.suspensions.entries()) {
     const parentExecutionBasis = rehydrateExecutionBasisAtPrefix(
       prefix,
@@ -363,9 +276,7 @@ export function rehydrateParentReturnFrames(
       prefix,
       suspension.parentTraversalScope,
     );
-    const parentCCallRef = suspension.kind === "held_workflow_suspension"
-      ? suspension.parentCCall.cCallRef
-      : suspension.evaluatorCCall.cCallRef;
+    const parentCCallRef = suspension.parentCCall.cCallRef;
     const parentScopeClass = parentScope === null
       ? null
       : projectOpenedTraversalScopeClassAtPrefix(prefix, parentScope);
@@ -403,36 +314,21 @@ export function rehydrateParentReturnFrames(
     });
     if (
       owner?.cCallRef !== parentCCallRef ||
-      (suspension.kind === "held_workflow_suspension"
-        ? owner.disposition !== "workflow_open" ||
-          owner.resultRef !== null || owner.judgmentRef !== null
-        : owner.disposition !== "deferred_application_ready" ||
-          owner.resultRef !== suspension.evaluatorResult.resultRef ||
-          owner.judgmentRef !== suspension.evaluatorJudgment.judgmentRef)
+      owner.disposition !== "workflow_open" ||
+      owner.resultRef !== null || owner.judgmentRef !== null
     ) {
       return rehydrationFailure("parent-owner");
     }
-    const frame = suspension.kind === "held_workflow_suspension"
-      ? exactWorkflowReturn(
-            input,
-            prefix,
-            suspension,
-            parentExecutionBasis,
-            parentScope,
-            childExecutionBasis,
-            childScope,
-            terminalMode,
-          )
-      : exactRecursionReturn(
-            input,
-            prefix,
-            suspension,
-            parentExecutionBasis,
-            parentScope,
-            childExecutionBasis,
-            childScope,
-            terminalMode,
-          );
+    const frame = exactWorkflowReturn(
+      input,
+      prefix,
+      suspension,
+      parentExecutionBasis,
+      parentScope,
+      childExecutionBasis,
+      childScope,
+      terminalMode,
+    );
     if (frame.kind === "parent_rehydration_refusal") return frame;
     inward.push(frame.value);
     childExecutionBasis = parentExecutionBasis;
