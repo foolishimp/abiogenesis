@@ -7,8 +7,8 @@
 - build_tenant: typescript
 - parent: T-287
 - updated_at: 2026-10-24
-- current_method_basis: stdo://releases/v3.0.0-rc.1/
-- current_method_manifest_sha256: 069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232
+- current_method_basis: stdo://releases/v3.0.1-rc.1/ (T-291 M-1, `72384fe07`; the runtime default-library snapshot stays on v3.0.0-rc.1 until T-287 D0)
+- current_method_manifest_sha256: 60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8
 - current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
 - current_phase: C, the ruled packages (Phase A closed at `46ed04895`, L5 accepted 2026-10-24; Phase B closed at `a8937b837`, run and review at the close)
 - current_package: C-11 accepted at `5caf0149d` (item 0 closed; the two narrow replay consumers migrated, the census complete; TD-10's remainder ruled into C-15); T-291 M-1 runs between C-11 and C-12 (the owner's interleave of 2026-10-25); C-12 activates at T-291 M-2's acceptance
