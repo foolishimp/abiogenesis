@@ -4530,3 +4530,392 @@ Grant: `code/src/abg/calculus/liveness.ts` (new), `code/src/abg/calculus/rules.t
 Stop (write it in the Return, keep the rest moving): any persisted digest, `activeFluents` vector, event kind, payload key, failure class or Public export that changes; a value the relation needs that no admitted event carries; a step at which the relation and the validator differ; a fold-law case red at any cut; a `code/src` difference in the frontier handoff.
 
 Return contract: one commit on `main` with the first line `C-12: the liveness relation is a calculus function of the fold state, the event and its declared dependencies, consumed by the liveness owner; the calculus imports nothing from its consumers, checked by lint:calculus; the frontier falsifier takes its reconstructed resolution's Program validation and is green as a lane` (if a clause does not hold, keep the structure and state the gap in its place) and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## C-12 return` at the end of this file: the first sentence says closed, or names the gap; item 0's result (the lane's duration, or the next first difference); the trace table; the move with the files and lines; the differential's counts; the fold-law cases; the lanes table (before, after, reds and skips, first errors); the measurement; the lint at the base and the end; item 2's proposals; deviations from this wording; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
+
+## C-12 return (Worker, Opus 5.5, 2026-10-25; base `619296aa6`)
+
+**Not closed: the liveness relation did not move into the calculus.** Item 0 is closed. The frontier falsifier now takes its reconstructed resolution's Program validation, and `t287-f09-frontier-handoff` is green as a lane (1/1, 70,726 ms). Item 1 stopped at the move. The relation needs two derivations that `retry.ts` owns:
+
+- the retry budget facts (`projectRuntimeRetryBudgetFacts`, `retry.ts:5215-5249`), which enter the timeout's digested projection;
+- the structural-identity route join (`hasStructuralIdentityCompletedRouteCausation`, `retry.ts:2345-2393`, over `projectRetryProgressAt`, `:1939-2310`).
+
+The activation forbids `calculus/` importing `retry.ts`, and it forbids any edit to `retry.ts`. The frame-observation harness also links the liveness owner's own `./execution_basis.js` and `./retry.js` seams.
+
+So `rules.ts:7` stands, and `lint:calculus` names it at the base and at the end. Stops 1-3 name the smallest grant that closes the gap.
+
+The trace, the lint, the two fold-law cases, the reach counts, the lanes and the measurement are done; the measurement's two arms run the same `code/src`. No `code/src` file changes at this commit.
+
+### Item 0: the frontier falsifier's correction
+
+`test_env/falsifiers/runtime-f09-worker.mjs`, in `loadInstalledRetryDependencies`:
+
+- **The resolution's validation is used.** The cold reconstruction `reconstructExecutionResolution({ artifactTruth, workspaceBinding, publication, program, graphFunction, childGraphFunction })` was at base `:772-780`. It now runs where the publication-derived validation was (base `:638-640`). `programValidation` is now `executionResolution.programValidation`, and `validateGraph` uses it, as before.
+- **The publication's validation is a consistency check only** (`publicationProgramValidation`). It must have the same `kind`, the same `programRef` and the same `programDigest` as the resolution's. The resolution's `graphFunctionDigests` must be a subset of the publication's. They are not equal: the resolution validates over its narrowed Catalog view, so it carries 2 digests where the publication carries 8, and its reference differs. My first run asserted equality and failed on exactly that difference.
+- **New assertions after the basis rehydrate:** `programValidation.programRef === executionBasis.programRef` and `programValidation.programDigest === executionBasis.programDigest`.
+- **No `code/src` edit.** The base worker is in scratch at `scratchpad/c12/item0/runtime-f09-worker.base.mjs`.
+
+**Result.** `test_env/tests/t287-f09-frontier-handoff.test.mjs` is the C-10 scratch test, copied verbatim. It ran green: 1/1/0/0, `duration_ms` 70,726. It was green again in the instrumented count batch and in the after arm (74,513 ms). The restarted consumer resumes the retry frontier: the step resumes, attempts [1, 2, 3], and the final status holds. The test stays committed as the frontier lane.
+
+`t287-r4-aba-retry`, which runs the same worker, is green before and after (lanes table).
+
+### The trace table
+
+The table lists what `createRuntimeLivenessEventValidator` (`runtime_liveness.ts:632-644`) and `validateRuntimeLivenessEvent` (`:646-696`) decide, predicate by predicate, against the calculus input a move would give each one. "From the prefix" asks whether every value the predicate reads comes from admitted events at or before the cut.
+
+| # | Predicate (`runtime_liveness.ts` at base) | Events and fold facts it reads | From the prefix | Calculus input after a move | Line |
+|---|---|---|---|---|---|
+| P0 | Ordinal membership and identity (`:639-642`): the event's ordinal is within the source prefix, the prefix holds the event at its own id and ordinal, and the held row equals the event | the event's own row in the source prefix | yes | the fold step's own event, taken from `state.source` at its index; tautological on the fold path | equality |
+| P1 | Payload is a record; root contract digest; ordinal (`:651-652`) | the event | yes | the event | equality |
+| P2 | The occurrence (`:653-655`): `payload.actorInvocationRef`, else the probe contract's `scope.cCallRef`, else its `scope.frameId` | the event (`isRuntimeSystemProbeContract`, a `runtime_liveness_contracts.ts` predicate) | yes | the event | equality |
+| P3a | Actor context (`:70-135`, through `contextFacts` `:607-612` at the cut through the last declaration `:610`) | exactly one `actor_invocation_started` (aggregate = occurrence); exactly one `actor_transport_binding_admitted` (aggregate = the started `transportBindingRef`, earlier, causing the start, same Run, graph call, frame and basis); the basis (P3d); exactly one `c_call_opened` and one `c_call_fibre_selected` for the started `cCallRef` (F_P leaf, the binding's implementation, the fibre causing the binding). Recomputed: the binding body digest and ref, the attempt digest, the actor digest and ref, the clock origin ref, the policy against `timeoutMs`/`absoluteTimeoutMs`/`terminationGraceMs`, the sources against the parser | yes | the occurrence's declaration events | equality |
+| P3b | CCall context (`:153-183`), tried when P3a gives null | exactly one `c_call_opened` and one later `c_call_fibre_selected` (root contract, non-F_P, caused by the opening, same basis, Run, graph call, frame); the basis | yes | the same declaration events | equality |
+| P3c | Frame context (`:190-221`), tried when P3a and P3b give null | exactly one `frame_opened` (root contract; frame digest and ref recomputed); exactly one `graph_call_opened` for its graph call (earlier, causing the opening, same Run and basis); the basis (`invocationRef` checked); for a non-null parent, a parent `frame_opened` earlier than the graph call and causing it | yes | the same declaration events | equality |
+| P3d | The basis (`rehydrateExecutionBasisAtPrefix` → `projectExactExecutionBasisAtPrefix`, `invocation_execution_truth.ts:650-690`) | exactly one `basis_admitted` with `basisId` and `payload.basisRef` equal to the reference; `rawInputValue` admitted by `admitJson` with `canonicalRecordDigest` equal to `rawInputDigest`; `sha256Canonical` of the payload less `basisRef` and `basisDigest` equal to `basisDigest`; `basisRef` = `execution-basis://abiogenesis/<digest>` | yes | the `basis_admitted` event; every field the contexts read is a member of its payload (below) | equality |
+| P3e | `livenessContextFacts` (`:61-67`): a valid binding; at least one probe; unique probe refs; each probe valid with its scope digest equal | the derived context | yes | the derived context | equality |
+| P4 | Scope fields against the event envelope (`:657-659`): `runId`, `basisId`, `graphCallId`, `frameId`, `graphFunctionRef` | the event, the context | yes | the event and the context | equality |
+| P5 | Closed actor (`:660`): no `actor_invocation_closed` or `actor_invocation_failed` for the actor at or before the cut | the actor's terminal events | yes | the actor's terminal events | equality |
+| T1 | Threshold shape (`:661-665`): a policy; a valid `thresholdObservation`; its `evaluatedPrefixDigest` equal to `runtimeEventPrefixDigest` of the cut before the event; its `policyRef` and `scopeDigest` | **every event before the event** (the cut's digest) | yes | the cut before the event, from `state.source` | equality |
+| T2 | Threshold projection (`:666-669`): `deriveRuntimeLiveness` at the cut before the event, its `projectionDigest` equal to the recorded one, disposition `controlled_terminate`, `timeoutClass` and `timeoutMs` from `hardCapReached` | the S-relation's reads (S1-S8) at the cut; the cut's digest (the projection body carries `prefixDigest`); **the retry budget facts** (B) inside the digested body as `retryBudget`; `actor_process_live` at the cut (`runtimeFluentHoldsAtPrefix`, `:841`), which is the fold state's `holds` before the event | yes | everything except B is a calculus input; **B is derived by `retry.ts`** | **stop (B)** |
+| T3 | The process (`:670`): an `actor_process_started` with `aggregateId` = `payload.processRef` and `actorInvocationRef` = the actor | `actor_process_started` | yes | `actor_process_started` | equality |
+| O1 | Observation shape (`:672-677`): a probe contract; a valid observation; its scope digest; the aggregate (actor: the actor, `actor_invocation`, parent the CCall; else the graph call, `graph_call`, parent the Run); `causationEventRefs` exactly the declaration then the evidence, deduplicated; `external_interruption` signal exactly on the interruption kind | the event, the context | yes | the event and the context | equality |
+| O2 | Terminal frame sample (`:679-682`): the event at the cut is this frame's `frame_closed` and is the underlying event | the event at ordinal − 1 | yes | the event at the cut before, from `state.source` | equality |
+| O3 | Frame duplicate (`:683-686`): no earlier observation of the frame scope with the same `underlyingEventRef` | the scope's earlier observations | yes | the scope's earlier observations | equality |
+| O4 | Closure (`:687-691`): none of `run_closed`/`run_stopped` (Run), `graph_call_closed` (graph call), `frame_closed` (frame, unless O2), a `runtime_failure_observed` that applies to the frame (`frameFailureApplies`, `:226-230`), `c_call_judged` (CCall, other than the underlying event) at or before the cut | the closure events of the scope | yes | the scope's closure events | equality |
+| S0 | The S-relation (`deriveRuntimeLivenessSemantics`, `:726-887`, entered at `:692-694` at the event's own ordinal with the sample `{ clockOriginRef, elapsedMs, eventRef }` of the observation) is non-null | below | yes | below | below |
+| S1 | Context authenticated at the event's ordinal (`:738-745`) | P3 | yes | P3 | equality |
+| S2 | **Budget shape** (`:746-752`): `reconstruction.budget` → `projectRuntimeRetryBudgetFacts` (`retry.ts:5218-5249`) over the cut through the last `c_call_opened`, `retry_attempt_opened` or `retry_progress_recorded` (`:525`, `:613-621`) | `c_call_opened` (its `retryPath`); exactly one digest-checked `retry_attempt_opened` (scope, attempt, task ordinal, retry path, budget); exactly one digest-checked `retry_progress_recorded` (attempt ref, CCall) | yes | **derived by `retry.ts`** | **stop (B)**: the facts are well-formed by construction except an exact contract-failure progress with `failureSignalRef: ""` (`retry.ts:5248` keeps it, `:749` refuses it), which the retry owner never admits (`retry.ts:2116`); on admitted history S2 refuses nothing, and it reads retry-owned facts |
+| S3 | Sample (`:747`): the sample's clock is the binding's; elapsed finite and non-negative | the event, the context | yes | the event, the context | equality |
+| S4 | The scope's observation rows (`:753-807`), every row of the scope digest at or before the event, **the event itself included**, each in order: `probeObservationMatches` (M1-M7) at its own ordinal, with lookups bounded by the event's ordinal; elapsed not above the sample; one `(elapsed, sourceDigest)` per `underlyingObservationRef`; an alias of `(probeRef, underlyingObservationRef)` canonically equal to its first; elapsed not below the last non-alias row; no activity after an interruption except artifact and coverage signals; the memoized `maxElapsed` not above the sample (`:772`) | the scope's earlier observations and the event | yes | the scope's earlier observations (whole bodies: probe, underlying, elapsed, source digest, signal, coverage). The fold's `FoldProbeFact` and `FoldInterruptionFact` (`fold.ts:39-50`) carry the ordinal, actor, target, key and scope digest only, so they cannot replace the bodies | equality |
+| S5 | Disposition (`:813-885`): actor done, frame interruption by `run_stopped` or an applying failure, occurrence done, process live (`:834-843`, the fold's `actor_process_live` at the cut before the event), coverage, lease, systems | the actor's terminals, the scope's closure events, `actor_process_started`, the fold state's `holds` | yes | the same events; `holds` | no refusal: affects T2's digest only |
+| M1 | Declared contract (`:363-368`): the probe is in the context and canonically equal; the observation valid; probe ref, scope digest and clock origin equal | the row, the context | yes | the row, the context | equality |
+| M2 | Declaration and evidence (`:369-371`): the declaration event and every evidence event exist at or before the cut and before the row | the declaration and evidence events | yes | the declaration and **the evidence events, any kind** | equality |
+| M3 | Underlying event (`:372-382`, `:444-445`): exists before the row in the scope (Run, graph call, frame, basis), is in the evidence, is not an observation kind, its payload a record; for an actor scope, carries the actor; the observation's `underlyingObservationRef` and `sourceDigest` are its id and payload digest | **the underlying event, any kind** | yes | the underlying event | equality |
+| M4 | Non-frame source (`:430-433`): the kind in the source's allowed table (`:383-396`); for a CCall scope, the CCall's aggregate | the underlying event | yes | the underlying event | equality |
+| M5 | Frame source (`:397-429`): `frame_progress`, a frame producer, activity, observed, the graph function; `frame_opened` is the declaration at elapsed 0; `frame_closed` is this frame's; a route with no CCall: a cursor-origin source (`traversal_cursor_entered` or `traversal_route_admitted` for the source cursor, earlier, same scope) and either an empty consumption caused by the source or **`hasStructuralIdentityCompletedRouteCausation`** (`retry.ts:2356-2393`); other producers: exactly one earlier `c_call_opened` of the CCall in the scope with a safe-integer attempt, and for an `actor_invocation_*` producer **that actor's own context** (P3a for another occurrence) with the CCall, frame and attempt | `frame_opened`, `frame_closed`, the cursor-origin source, `c_call_opened`, the producing actor's declaration events; for the structural route the cited `retry_progress_recorded` rows and their authentication through `projectAdmittedRetryProgress` → `projectRetryProgressAt` (`retry.ts:2311-2342`, `:1939-2310`) | yes | every read except the structural join is a calculus input; **the join is retry law** | **stop (R)** |
+| M6 | Signals (`:434-443`): coverage only on a start; unavailable only for coverage; interruption only on an absolute timeout; artifact signals match the result class or the native assessment | the underlying event | yes | the underlying event | equality |
+| M7 | No underlying event (`:449-453`): a result or archive source, the asset observation ref recomputed, a pending or coverage signal | the row | yes (no file is read) | the row | equality |
+
+**The basis fields the contexts read** are all members of the `basis_admitted` payload, so the log principle raises no stop. `projectExactExecutionBasisAtPrefix` is pure over that payload: it recomputes the digest and admits the raw input.
+
+| Context | Fields |
+|---|---|
+| actor | `basisRef` (scope `basisId`, attempt digest), `programRef`, `graphFunctionRef` (scope) |
+| CCall | `basisRef`, `graphFunctionRef` |
+| frame | `basisRef`, `graphFunctionRef`, `invocationRef` (checked against the graph call's) |
+
+**Lines that are not equalities:**
+
+- **T2, stop (B).** The threshold projection's digested body carries `retryBudget`, which `retry.ts` derives.
+- **S2, stop (B).** The budget-shape check reads the same retry-owned facts. On admitted history it refuses nothing.
+- **M5, stop (R).** The structural-identity route join is retry law.
+- **S0.** A composite of S1-S5.
+- **S5.** No refusal; it affects T2's digest only.
+
+Every other line is an equality, given the declared dependencies:
+
+- **P0-P5 and O1-O4:** the event, the occurrence's declaration events, the scope's closure events and the actor's terminals.
+- **T1 and O2:** the cut before the event, from `state.source`.
+- **S4 and M1-M7:** the scope's earlier observations, with their declaration, evidence and underlying events of any kind.
+
+**The dependencies are wider than the activation read.** Beyond the seven declaration kinds and the scope's earlier observations, the relation reads:
+
+- the evidence and underlying events of every earlier observation, of any kind (M2, M3);
+- the scope's closure events (O4);
+- `actor_process_started` (T3);
+- a producing actor's own declaration events (M5);
+- the cursor-origin source (M5);
+- for a threshold, the whole cut before the event, whose digest it records (T1);
+- the retry records under B and R.
+
+The fold's `FoldProbeFact` and `FoldInterruptionFact` (declared at `fold.ts:39-50`, derived at `:213-235`) carry the ordinal, actor, target, key and scope digest. They do not carry the observation bodies that S4 compares, so the earlier observations stay dependencies, and `fold.ts` needs no new fact.
+
+### The move
+
+**It did not land.** At this commit `code/src/abg/calculus/rules.ts`, `calculus/index.ts`, `fold.ts`, `runtime_liveness.ts`, `event_calculus.ts` and `runtime_liveness_contracts.ts` are byte-equal to base. `calculus/liveness.ts` was not created. A relation that leaves out B and R would differ from the validator on every timeout whose scope has a retry budget (T2's digest), which is itself a stop. Copying the two retry derivations into the calculus would make a second owner of retry law. So no partial move was committed.
+
+What the move carries, once its premises exist:
+
+- **`calculus/liveness.ts`:**
+  - `deriveLivenessContext` (from `runtime_liveness.ts:70-135`, `:153-183`, `:190-221`, `:61-67`), reading the basis from its `basis_admitted` event;
+  - the relation: P0-P5, T1-T3, O1-O4, S1-S5, M1-M7, reading `holds` for `actor_process_live` (`:834-843`).
+- **`rules.ts:101-116`** (the activation's `:98-115` at `b80da6d0c`): `deriveLiveness` calls the relation over `state`, the event and `eventCalculusDependencies(state.source, event)`. `rules.ts:7` and the `LIVENESS_VALIDATORS` WeakMap (`:99`) go.
+- **`event_calculus.ts:92`:** `eventCalculusDependencies` gains the three native kinds' selection, with the dependency set above.
+- **`runtime_liveness.ts`:** `validateRuntimeLivenessEventAtPrefix` and `createRuntimeLivenessEventValidator` call the relation. The three context derivations call `deriveLivenessContext`. The reconstruction stays as the public projections' index.
+
+### The differential
+
+The relation does not exist, so there is no old-against-new comparison; "0 mismatches" would be vacuous. In its place, the instrumented build (`// C12` lines in `rules.ts` and `runtime_liveness.ts`, applied by `scratchpad/c12/tools/instrument.py`) counted, in every reach lane:
+
+- every fold step of the three native kinds, and whether the fold refused it;
+- the validators built;
+- the reconstructions and the rows they indexed;
+- whether the budget facts were present on each validation, on the fold path and off it;
+- how often the timeout arm and the frame route were reached, and which branch.
+
+These counts show which premises a moved relation must decide on real lanes, and how often.
+
+**The counts.** Each column counts over every process of the lane that loaded the instrumented build: `r4-aba-retry` 2 processes, the frontier 3, the others 1 to 3. The installed copies those falsifiers spawn did load it. "Fold" means a validation called from `deriveLiveness`; "off" means a call from admission, the retry frame join or a test.
+
+| Lane | Native fold steps (probe / timeout / interruption) | Refused by the fold | Validators built | Off-fold validations | Budget present on a fold-path validation | Timeout arm (fold / off) | Frame route, direct (fold / off) | Reconstructions (rows) |
+|---|---|---|---|---|---|---|---|---|
+| `t287-calculus-fold` | 224 / 48 / 40 | 36 (probes, the malformed variants) | 66 | 7 | 0 (239 observation and 50 timeout evaluations, all absent) | 48 / 1 | 0 / 0 | 14 (158) |
+| `r10-projection-contracts` | 4 / 0 / 0 | 4 (the law lane's malformed event) | 4 | 0 | - (refused before the budget) | 0 / 0 | 0 / 0 | 6 (124) |
+| `t287-calculus-state-transfer` | 793 / 0 / 0 | 0 | 265 | 393 | 0 of 793 | 0 / 0 | 34 / 418 | 747 (42,451) |
+| the compose scenario (subset of the row above) | 95 / 0 / 0 | 0 | 31 | 47 | 0 of 95 | 0 / 0 | 2 / 23 | 90 (4,304) |
+| `t287-r4-aba-retry` | 2,444 / 0 / 0 | 0 | 426 | 108 | 1,139 of 2,444 | 0 / 0 | 81 / 105 | 257 (28,731) |
+| `t287-f09-frontier-handoff` | 2,268 / 0 / 0 | 0 | 532 | 79 | 976 of 2,268 | 0 / 0 | 106 / 57 | 202 (18,282) |
+| `t287-native-frame-observation` | 0 | 0 | 0 | 4 (2 timeouts, 2 probes: the harness) | - (off-fold: 6 of 6 present, the harness's fixed budget) | 0 / 2 | 0 / 0 | 5 (31) |
+| `t287-native-workspace-work`, `t287-route-reconstruction`, `t287-event-body-encoding`, `retained-route-cursor-transition`, `t287-authenticated-owner-values`, `t287-undispatched-diagnostic` | 0 | 0 | 0 | 0 | - | 0 / 0 | 0 / 0 | 11 (133), 33 (649), 8 (638), 3 (48), 3 (3), 4 (30): the public projections' index only |
+| the 13 other lanes, `m5-event-calculus-runtime` among them | 0 | 0 | 0 | 0 | - | 0 / 0 | 0 / 0 | 0 |
+| `t287-authenticated-owner-family`, `t288-native-producer-membership` | no count record: both skip whole, before loading the build | | | | | | | |
+
+**What the counts show.**
+
+- **Fold-path native steps total 5,821** over the lanes; the compose run is not added, since it is a subset. The real lanes account for 5,505 of them (`state-transfer` 793, `r4-aba-retry` 2,444, the frontier 2,268). Every one is a `runtime_activity_probe_observed`. No real lane folds a timeout or an interruption. Those reach the fold only in the synthetic fixture of `t287-calculus-fold`.
+- **The budget facts are a live input on the fold path** (stop B). They are present on 2,115 fold-path probe validations (`r4-aba-retry` 1,139, the frontier 976). They carry a non-null `resultRejectionRef` on 152 budget evaluations, fold and off-fold together (120 and 32).
+- **T2 is never exercised on the fold path with a budget present.** T2 is the premise where the budget enters a persisted digest. The fixture's 48 folded timeouts all run with the budget absent; the only timeouts with a budget present are the harness's 2, off the fold.
+- **The structural-identity route join (stop R) is never reached.** Every frame route on every lane is the direct consumption, and none has no source.
+- **Validators are rebuilt per source prefix:** 426 for 2,444 fold steps in `r4-aba-retry`, 532 for 2,268 in the frontier, 265 for 793 in `state-transfer`.
+- **0 mismatches cannot be claimed**: nothing was compared.
+
+**The instrumentation is stripped and proven absent** (`scratchpad/c12/gates/strip-verify.out`):
+
+- The `// C12` lines were deleted from `rules.ts` and `runtime_liveness.ts`. `grep -c C12` gives 0 in both, and each is byte-equal (`cmp`) to the clean copy in `scratchpad/c12/base-src/`.
+- After `npm run build`, `grep -c C12` gives 0 in `build/code/src/abg/calculus/rules.js` and `build/code/src/abg/runtime_liveness.js`, and no file under `build/code` contains `C12`.
+- All 781 files under `build/` are byte-equal to the base build (`shasum -a 256` lists equal). This holds again after the `package.json` line.
+- `git status -- code` is clean.
+
+### The fold-law cases
+
+There are two new cases at the end of `test_env/tests/t287-calculus-fold.test.mjs`. They come with aliased imports and a `livenessFixture()` builder. No existing line of the file changed: the diff only adds lines.
+
+**The fixture** is 13 synthetic rows:
+
+1. a `basis_admitted` row, under a workspace envelope, with `basisDigest` = `sha256Canonical` of the body and `basisRef` = `execution-basis://abiogenesis/<hex>`;
+2. `c_call_opened`;
+3. `c_call_fibre_selected` (an F_P leaf);
+4. `actor_transport_binding_admitted`, its binding body digested and its liveness binding carrying `constructRuntimeWatchdogPolicy` (hard cap 5,000 ms) and `actorRuntimeProbeSources`;
+5. `actor_invocation_started`;
+6. `actor_process_started`;
+7. a `process_lifecycle` probe, with the start underlying it, at 0 ms;
+8. a stdout row;
+9. a stdout probe at 200 ms;
+10. an absolute `actor_process_timeout_observed`, whose `projectionDigest` is `deriveRuntimeLiveness` at the cut before it and whose `evaluatedPrefixDigest` is that cut's;
+11. a `process_lifecycle` `runtime_external_interruption_observed`, with the timeout underlying it;
+12. `actor_process_exited`;
+13. `actor_invocation_closed`.
+
+The owner's own `projectActorLivenessContext` authenticates the context. The owner's `validateRuntimeLivenessEventAtPrefix` accepts each native row at the cut before it.
+
+**Case 1:** "C-12 fold law: a declared actor with probe, threshold and interruption observations folds cold, warm, streaming and forked alike at every cut".
+
+- The native kinds number [2, 1, 1].
+- `assertFoldAgreement` holds at every cut.
+- Streaming equals batched equals cold at every cut.
+- A fork from every middle cut equals warm at the end and at every later cut (66 forks).
+- At the end the fold holds the interruption fact and the actor probe fact under the scope digest, and holds `actor_process_timed_out` for the process and `runtime_externally_interrupted` for the scope.
+- Diagnostic: `{"cuts":13,"nativeRows":4,"forks":66}`.
+
+**Case 2:** "C-12 fold law: a malformed native observation is refused by the fold with one message at every cut that holds it".
+
+Three variants branch from the cut after the stdout probe. In each, the malformed row is followed by two stdout rows.
+
+| Variant | The malformed row | Malformed at | Cuts accepted | Cuts refused |
+|---|---|---|---|---|
+| a wrong scope digest | `scopeDigest` of `{ ...scope, attempt: 2 }` | 11 | 10 | 3 |
+| an earlier elapsed sample | a probe at 100 ms after 200 ms | 11 | 10 | 3 |
+| a probe after the actor closed | `actor_invocation_closed`, then a probe at 300 ms | 12 | 11 | 3 |
+
+In every variant:
+
+- The owner validator refuses the malformed row.
+- Before the malformed row, cold equals warm equals streaming, and each equals the valid fixture through the shared rows.
+- At and after the malformed row, the cold fold, the warm projection, the streaming projection and a fork from the cut before the malformed row each throw exactly `native liveness effect has no exact admitted source/threshold relation`.
+
+**The mutants show each variant is refused for its named fault.** Each mutant removes the fault: the right scope digest; 300 ms; no close. Every mutant fails at "the liveness owner refuses the observation" (`scratchpad/c12/trace/mutants/`).
+
+**Result:** `t287-calculus-fold` goes from 13/13 at base to 15/15. The r10 law lane `r10-projection-contracts` is 10/10 before and after. In the reach counts its 4 malformed fold-path probes are refused by the fold.
+
+### The lanes
+
+Each lane ran alone (`node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`).
+
+- **Before:** the base build. `t287-r4-aba-retry` ran with the base worker, before item 0's edit. The rest of the batch ran after that edit, but only `r4-aba-retry` and the frontier load the worker. `t287-calculus-fold` was at its 13 base cases.
+- **After:** the stripped build plus the `package.json` line. This is the commit's tree.
+
+Reds are compared by file, line, test name and first error, and skips by name, with `scratchpad/c12/tools/reds.py` (logs in `scratchpad/c12/lanes/before/` and `scratchpad/c12/lanes/after/`).
+
+**What moved:**
+
+- `t287-calculus-fold` 13 → 15, the two new cases;
+- the new frontier lane.
+
+**What held:**
+
+- every other lane's counts, reds, skips and first errors are equal;
+- every red and skip is inherited from the base;
+- `t287-event-calculus-owner-continuation` fails at load: "exact preimage territory and a digest-bound CLOSED JSONL fixture are required".
+
+The `package.json` line moves `productContentDigest`. No lane result moved with it.
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 47.0 / 47.6 | yes | - |
+| `t287-calculus-fold` | 13/13/0/0 | 15/15/0/0 | 2.3 / 1.9 | yes | - |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 152.3 / 142.5 | yes | red `:372` TypeError [Error]: abg.openCall is not a function; red `:1316` AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active; red `:1471` TypeError [Error]: abg.openCall is not a function; red `:1548` TypeError [Error]: abg.openCall is not a function; red `:1590` TypeError [Error]: abg.openCall is not a function; 1 skipped |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 0.3 / 0.3 | yes | red `:189` AssertionError [ERR_ASSERTION]: explicit proof-local territory; red `:209` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:237` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; 4 skipped |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.4 / 1.4 | yes | 1 skipped |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | 0.3 / 0.4 | yes | - |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | 2.2 / 2.2 | yes | - |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.6 / 1.6 | yes | - |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/17/0/0 | 2.6 / 2.7 | yes | - |
+| `t287-route-reconstruction` | 11/9/0/2 | 11/9/0/2 | 8.5 / 8.7 | yes | 2 skipped |
+| `t287-calculus-state-transfer` | 8/8/0/0 | 8/8/0/0 | 257.9 / 271.0 | yes | - |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 0.5 / 0.5 | yes | red `:26` TypeError [Error]: traversal transition differs from its staged successor projection |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 0.3 / 0.3 | yes | red `:39` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-declared-testing-capability` | 7/3/0/4 | 7/3/0/4 | 34.6 / 35.8 | yes | 4 skipped |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 11.0 / 11.4 | yes | - |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 35.8 / 36.8 | yes | red `:356` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.5 / 0.5 | yes | - |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 | 5.0 / 5.0 | yes | 4 skipped |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 | 0.9 / 0.9 | yes | - |
+| `t287-ordered-reconstruction` | 7/2/2/3 | 7/2/2/3 | 0.4 / 0.4 | yes | red `:22` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:74` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:; 3 skipped |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `t288-native-producer-membership` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 36.8 / 37.3 | yes | - |
+| `t287-f09-frontier-handoff` | new | 1/1/0/0 | - / 74.5 | new lane | - |
+
+### The measurement
+
+Both arms run the same `code/src`, byte-equal and with 781 build files equal, so the after arm is a second sample of the base. It bounds the noise; it does not measure a move.
+
+**How it was measured.** CPU is V8 `--cpu-prof` through `NODE_OPTIONS`, summed over every profile of the run, inclusive per function, with "A within B" counting samples that carry both frames (`scratchpad/c12/tools/cpu.mjs`; data in `scratchpad/c12/measure/{before,after}/`). The sampling interval is 1 ms, so differences of a few ms are noise.
+
+"Evaluations" are the native fold steps from the reach counts: each is one validator call today, and would be one relation evaluation after a move.
+
+| Quantity | compose, before | compose, after | m5, before | m5, after |
+|---|---|---|---|---|
+| native fold steps (evaluations) | 95 (31 validators built) | 95 (31) | 0 | 0 |
+| off-fold validations | 47 | 47 | 0 | 0 |
+| `applyStep` inclusive CPU | 26.0 ms | 27.6 ms | 6.4 ms | 8.1 ms |
+| `deriveLiveness` inclusive (all under `applyStep`) | 18.6 ms | 17.5 ms | 0 | 0 |
+| validator under the fold (`validateRuntimeLivenessEvent` within `deriveLiveness`) | 15.6 ms | 10.0 ms | 0 | 0 |
+| the S-relation under the fold | 7.5 ms | 5.0 ms | 0 | 0 |
+| the admission validator `validateRuntimeLivenessEventAtPrefix` | 72.3 ms (57.3 ms in the validator, 30.2 ms in the S-relation) | 60.1 ms (46.4, 22.6) | 0 | 0 |
+| `RuntimeLivenessReconstruction.advance` | 4.5 ms | 11.3 ms | 0 | 0 |
+| `deriveReplayPrefixFacts` (TD-22) | 59.8 ms | 63.1 ms | 0 | 2.5 ms |
+| traversal wall, profiled | 544.6 ms | 539.0 ms | - | - |
+| traversal wall, unprofiled lane | 520.9 ms | 541.7 ms | - | - |
+| lane wall, profiled | 37.8 s | 38.4 s | 148.7 s | 150.8 s |
+| lane wall, unprofiled | 36.8 s | 37.3 s | 152.3 s | 142.5 s |
+
+**`m5-event-calculus-runtime` is vacuous for this measurement.** It folds no native liveness event, so its time is provisioning, and the compose scenario carries the measurement.
+
+**On compose, the liveness validator under the fold costs 10-16 ms of 26-28 ms of `applyStep`**, over 95 probe steps. Admission validates the same events again (60-72 ms). Wall time is dominated by artifact verification (21.2-21.9 s of `provisioning_verify_artifact`). The traversal is 0.52-0.54 s. No target was set.
+
+### The lint at the base and at the end
+
+`scripts/check-calculus-boundary.mjs` (new) follows the shape of `check-lifecycle-boundary.mjs`, and `package.json` gains `"lint:calculus": "node scripts/check-calculus-boundary.mjs"` after `lint:evidence`.
+
+**What it admits.** The admitted set is the `:46` row's Imports cell less `abg/runtime_liveness.ts`, plus `abg/calculus/` itself. A package specifier is outside the set.
+
+**What it checks.** It parses every `.ts` file under `code/src/abg/calculus/` with TypeScript and checks:
+
+- import and export declarations, `import type` included;
+- import-equals declarations;
+- dynamic `import()`;
+- `import("…")` type nodes.
+
+**The allow-list is empty.** `axioms.ts` and `fold.ts` import only modules the row names, so nothing needs the design's "departs from this order" reason. An allow-list entry that matches no line fails the check.
+
+**At the base** (rc 1):
+
+```
+code/src/abg/calculus/rules.ts:7: import { createRuntimeLivenessEventValidator } from "../runtime_liveness.js";
+check-calculus-boundary: 1 offender(s), 0 stale allow-list entries
+```
+
+**At the end** (rc 1): the same two lines. `rules.ts:7` is the witness of stops 1-3, not an omission, and it is not allow-listed: the activation allows allow-listing only for `axioms.ts` and `fold.ts`.
+
+No aggregate runs `lint:*`. The `lint` script is `scripts/lint-verification.mjs`, a recipe syntax lint, so the red lint turns no other gate red.
+
+**The mutant check** is in `scratchpad/c12/lint/mutants`:
+
+- A clean copy of the calculus with `rules.ts:7` deleted gives rc 0: "4 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender".
+- A mutant file holding six forbidden imports (an `import type`, a re-export, a `shared/value` import, a `valibot` package import, an `import()` type and a dynamic `import()`) is caught on all six, and the admitted imports in it pass.
+
+### Item 2: design sentences (proposals; the Executive places them)
+
+The move did not land, so every sentence below stands as written for the code at the commit. Each "when the move lands" text is the restatement that goes with the grant in Stop 1.
+
+- **`ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:46`, the `abg/calculus/` row.** It stands. Its Imports cell already ends with `abg/runtime_liveness.ts`, so the code does not depart from the row; the activation read the row without that entry (deviation 2). When the move lands, drop `abg/runtime_liveness.ts` from the cell. If the budget facts move with the relation as `retry.ts` writes them, the cell also gains `shared/value` and `shared/select`. Both sit left of `abg/calculus` in the dependency order, so the order holds, but the cell widens.
+- **`:55`, the sentence after the dependency order.** It stands, with one addition proposed now: "`npm run lint:calculus` (`scripts/check-calculus-boundary.mjs`) checks every import of `abg/calculus/` against this row's Imports cell less `abg/runtime_liveness.ts`, and names `rules.ts:7` until the cycle is broken." When the move lands: "`abg/calculus/` departs from this order: `axioms.ts` and `fold.ts` import the `product/` modules (`worksite_effect.ts`, `native_workspace_work.ts`) and the `abg/` owner modules (`c_call_outcome.ts`, `native_work_effect.ts`) its Imports cell names. The kernel imports no consumer: the liveness relation is a calculus function (§4.4), `npm run lint:calculus` checks the cell, and `runtime_liveness.ts` reads the fold through `runtimeFluentHoldsAtPrefix`."
+- **§4.4 (`:172-193`).** It stands. When the move lands, add after the paragraph on the axiom and rule tables: "The liveness relation (`abg/calculus/liveness.ts`) decides whether a native probe, interruption or threshold observation has its exact admitted source and threshold relation at the cut before it. Its inputs are:
+  - the fold state before the event: `holds`, for `actor_process_live` of the started process;
+  - the event;
+  - its declared dependencies, selected from the cut before the event by `eventCalculusDependencies`:
+    - the occurrence's declaration events (`basis_admitted`, `c_call_opened`, `c_call_fibre_selected`, `actor_transport_binding_admitted`, `actor_invocation_started`, `frame_opened`, `graph_call_opened`, and a parent `frame_opened`);
+    - the scope's earlier observations, with their declaration, evidence and underlying events of any kind;
+    - the scope's closure events, the actor's terminals and `actor_process_started`;
+    - for a frame observation, the producing CCall's `c_call_opened`, a producing actor's declarations and the cursor-origin source;
+    - the retry records the budget facts and the structural-identity join read;
+  - for a threshold, the cut before the event itself, whose prefix digest the threshold records.
+  The liveness rule refuses the step when the relation refuses. `runtime_liveness.ts` consumes the relation for admission (`event_store.ts:4091`) and the retry frame join (`retry.ts:706`)."
+- **§10.2 D1 (`:603`).** It stands. When the move lands: "**D1, contextual effects.** `ROOT_DERIVED_RULES` carries every contextual Event Calculus effect: the terminal Run census, per-process cleanup, liveness and the actor process lifecycle. `advance` holds no contextual branch. The liveness rule derives the liveness relation in the calculus (§4.4) and calls no owner outside it. This realizes the IACS's `RuntimeDerivedFluentRule`."
+- **`:209`.** It stands: `runtime_liveness.ts` reads `actor_process_live` through `runtimeFluentHoldsAtPrefix` (`runtime_liveness.ts:841-843`), as the sentence says.
+- **`ABI5_STDO3_COMPUTATIONAL_BINDING.md:176`, §5 disposition table row 3.**
+  - The realization-owner cell stands. When the move lands it adds "[calculus/liveness.ts](../code/src/abg/calculus/liveness.ts) the liveness relation".
+  - The totality cell's sentence "`deriveLiveness` uses the liveness validator, which reads the recorded `elapsedMs`, not a clock" stands. When the move lands: "`deriveLiveness` evaluates the calculus liveness relation over the fold state before the event, the event and its declared dependencies; it reads the recorded `elapsedMs`, not a clock."
+  - The outcome cell is imprecise now, so I propose it now. It reads "A `TypeError` guard fires only for an event outside the root contract, which admission keeps out of the domain." The liveness rule also throws for a root-contract native observation without its relation; the new `t287-calculus-fold` malformed case shows this at every cut. Admission keeps that event out too (`event_store.ts:4091-4093`). Proposed: "A `TypeError` guard fires only for an event outside the root contract, or for a native liveness observation without its exact admitted source and threshold relation (`calculus/rules.ts:112-114`); admission keeps both out of the domain (`event_store.ts:4091`)."
+- **The §7 rows of the binding** (`:225-275`). They stand: none names the liveness validator. The Event Calculus row (`:233`) states the incremental fold and stands.
+- **`T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md`.** It stands. `git grep -n 'createRuntimeLivenessEventValidator\|validateRuntimeLivenessEvent\|liveness relation' -- design` finds no line in any design file. The only liveness line in this file (`:16`) is about lock presence and process liveness, not the validator.
+
+### Deviations from the activation's wording
+
+1. **The commit's first line states the gaps in place of the move's clauses.** It keeps the structure the Return contract allows.
+2. **The `:46` row already names `abg/runtime_liveness.ts`.** It is the last entry of the Imports cell, and `:55` states the cycle as a departure. The activation read the row without that entry. The lint's set is therefore "the row less `abg/runtime_liveness.ts`", as the ruling intends, and not the row as written.
+3. **`RuntimeLivenessContext` is not in `runtime_liveness_contracts.ts`.** It is declared at `runtime_liveness.ts:47`, so "stays in the contracts" does not describe the base. A move would have had to place it in the contracts (types only, within the grant).
+4. **Item 0 edited a line outside the ones it names.** It hoists `reconstructExecutionResolution` from base `:772-780` to `:638`, so the resolution exists before the Program validation is taken. The publication's validation stays as a consistency check whose `graphFunctionDigests` relation is a subset, not equality (item 0).
+5. **The differential is a reach count.** With no relation, there is no old-against-new comparison (The differential).
+6. **The measurement has no relation arm.** Both arms run the same `code/src`. The after arm bounds noise; it does not measure a move.
+7. **Lanes added from `git grep -l 'liveness' -- test_env/tests`:** `retained-route-cursor-transition`, `steel-basic-cli-source-replay`, `t287-authenticated-owner-values`, `t287-declared-testing-capability`, `t287-event-body-encoding`, `t287-f04a-probabilistic-result-candidate`, `t287-lifecycle-failure-carrier`, `t287-management-stream-drain`, `t287-native-assessment-evidence`, `t287-native-work-unknown-effect`, `t287-ordered-reconstruction`, `t287-undispatched-diagnostic`, `t288-native-producer-membership`. The frontier lane is new.
+8. **The relation's dependency set is wider than the activation's list** (the seven declaration kinds and the scope's earlier observations); the trace has the full set.
+9. **The activation's line numbers are from `b80da6d0c`.** At base, `deriveLiveness` is at `rules.ts:101-116`, its WeakMap at `:99`, and the validator at `runtime_liveness.ts:632-696`.
+10. **The commit's parent is `da057f59e`, not the base `619296aa6`.** Three commits landed on `main` during the run (`718f47754`, `27496f1d5`, `da057f59e`). They touch the binding design (one-line replacements at `:160`, `:168`, `:180` and `:185`), the T-287, T-290 and T-291 tickets and `repin.md`. None touches a file of this package or `phase_c.md`. Item 2's cites were read at the new head, and §5 row 3 (`:176`) is unchanged.
+
+### Findings outside the grant
+
+1. **`projectRuntimeRetryBudgetFacts` has a single consumer**, `runtime_liveness.ts` (`git grep` over `code/src`). Its type, `RuntimeLivenessBudgetFacts`, is declared in `runtime_liveness.ts` and imported back by `retry.ts:32`. It is liveness reading retry records. The function can move below the calculus without a second owner of retry law. The only edit is to `retry.ts`, which removes it.
+2. **There is a second function-level cycle: `retry.ts:32` ↔ `runtime_liveness.ts:22`.** `retry.ts` imports `projectRuntimeLivenessAtPrefix`, `captureNativeFrameBoundary`, `observeNativeFrameLiveness` and `createRuntimeLivenessEventValidator`. `runtime_liveness.ts` imports `projectRuntimeRetryBudgetFacts` and `hasStructuralIdentityCompletedRouteCausation`. The `:55` sentence does not name it.
+3. **The binding's §5 row 3 outcome cell is imprecise.** It says the `TypeError` fires only for an event outside the root contract. The liveness rule also throws for a root-contract native observation without its relation; case 2 shows this at every cut. Item 2 proposes the restatement.
+4. **The validator's frame-observation harness pins the owner's module seams.** `t287-native-frame-observation.test.mjs:253-333` links the built `runtime_liveness.js` in a VM with `./execution_basis.js` (`rehydrateExecutionBasisAtPrefix`, one fixed basis with no `basis_admitted` row) and `./retry.js` (`projectRuntimeRetryBudgetFacts`, one fixed budget) replaced. A move that reads the basis from its `basis_admitted` event, or the budget in the calculus, makes that test's context null. Its assertions would have to be restated over admitted rows, an existing test change outside this grant.
+5. **Four unused locals.** `events` at `runtime_liveness.ts:72`, `:155`, `:192` and `:650` is assigned and never read. The one at `:650` builds a cut (`reconstruction.facts(ordinal)`) on every validation, so it is also cost.
+6. **An edge in the budget shape check.** S2 refuses an exact contract-failure progress with `failureSignalRef: ""`. `projectRuntimeRetryBudgetFacts` keeps such a progress (`retry.ts:5248`), but the retry owner never admits it (`retry.ts:2116` requires a non-empty ref). On admitted history the check refuses nothing.
+
+### Stops
+
+Stops 1-3 are not among the activation's five stop classes. They are grant gaps that block the move. None of the five named stops fired (the end of this section).
+
+1. **(B) The relation needs a value that only `retry.ts` derives.** The value is the retry budget facts. T2's digested projection body carries them as `retryBudget`, and S2 checks their shape. They come from admitted events (`c_call_opened`'s `retryPath`, one digest-checked `retry_attempt_opened`, one digest-checked `retry_progress_recorded`), so the log principle raises no stop. But the derivation is in `retry.ts`: the calculus may not import it, and the grant does not reach it. The reach counts show the budget present on 2,115 fold-path probe validations.
+   - **Smallest grant:** move `projectRuntimeRetryBudgetFacts` (`retry.ts:5215-5249`) and the `RuntimeLivenessBudgetFacts` type into `calculus/liveness.ts` or below it, editing `retry.ts` to remove it. The `:46` row gains `shared/value` and `shared/select` if the function moves as written.
+2. **(R) The frame route's structural-identity join is retry law.** `hasStructuralIdentityCompletedRouteCausation` (`retry.ts:2345-2393`) authenticates cited `retry_progress_recorded` rows through `projectAdmittedRetryProgress` → `projectRetryProgressAt` (`retry.ts:2311-2342`, `:1939-2310`). That is about 400 lines of the retry owner's progress law. The reach counts show no structural route on any lane: every frame route is the direct consumption (fold 81, 106 and 34 in `r4-aba-retry`, the frontier and `state-transfer`). The relation must still decide it. The join has a second, test-side consumer, `test_env/support/t287-native-frame-route-conservation.mjs:153`, through retry's API.
+   - **Smallest grant:** a `design_reframe` that places the retry progress projection below the calculus. It edits `retry.ts`, and the `:46` row names the new module.
+3. **(H) The harness coupling** (finding 4). The grant forbids changing an existing test, and the move turns `t287-native-frame-observation`'s green harness case red.
+   - **Smallest grant:** restate that case over admitted `basis_admitted` and retry rows.
+
+No other stop fired:
+
+- no persisted digest, `activeFluents` vector, event kind, payload key, failure class or Public export changed (no `code/src` change);
+- no fold-law case is red at any cut;
+- the frontier handoff has no `code/src` difference;
+- the relation and the validator cannot differ, because the relation does not exist.
+
+### What could not be verified
+
+- **The move itself:** the relation, the differential's 0-mismatch claim, the after measurement of a relation arm, and the clean lint at the end.
+- **The input-gated lanes.** Lanes that skip at base skip after, for the same reasons; their liveness paths are unexercised here (the lanes table counts them; the names are in `scratchpad/c12/lanes/after/`).
+- **The timeout threshold with a retry budget present, on the fold path.** No lane exercises it: the fixture's 48 folded timeouts all run with the budget absent, and no real lane folds a timeout. That is T2, where the budget enters the persisted `projectionDigest`. The next grant needs it as a fold-law case: a timeout whose scope has an opened retry attempt and its progress, folded cold, warm, streaming and forked.
+- **The interruption kind on a real lane.** Only the fixture folds `runtime_external_interruption_observed` (40 steps).

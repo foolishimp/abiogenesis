@@ -491,3 +491,205 @@ test('C-2: the lifecycle exact read equals the holdsAt pattern read at every at-
   assert.deepEqual([...heldNames].sort(), [...LIFECYCLE].sort(), 'each §4.4 lifecycle fluent holds at some cut');
   t.diagnostic(JSON.stringify(tally));
 });
+
+// T-290 C-12: the fold law over the three native liveness kinds. The fixture
+// is one declared actor (its execution basis, CCall, fibre, transport binding,
+// invocation and process start) with probe, threshold and interruption
+// observations built through the liveness owner's own projections, as its
+// admission owners build them. The liveness rule evaluates each native event
+// against the cut before it; the fold law holds over them as over every kind.
+import { projectActorLivenessContext as livenessActorContext, deriveRuntimeLiveness as livenessProjection,
+  validateRuntimeLivenessEventAtPrefix as livenessValidator } from '../../build/code/src/abg/runtime_liveness.js';
+import { actorRuntimeProbeSources as livenessSources, constructRuntimeWatchdogPolicy as livenessPolicy,
+  runtimeLivenessDigest as livenessDigest } from '../../build/code/src/abg/runtime_liveness_contracts.js';
+import { ROOT_EVENT_CONTRACT_DIGEST as LIVENESS_CONTRACT } from '../../build/code/src/abg/event_store.js';
+import { canonicalRecordDigest as livenessRecordDigest } from '../../build/code/src/shared/value/index.js';
+import { deepFreeze as livenessFreeze } from '../../build/code/src/shared/immutable.js';
+import { runtimeEventPrefixDigest as livenessPrefixDigest } from '../../build/code/src/abg/event_prefix.js';
+
+const LIVENESS_REFUSAL = 'native liveness effect has no exact admitted source/threshold relation';
+const LIVENESS_KINDS = ['runtime_activity_probe_observed', 'runtime_external_interruption_observed', 'actor_process_timeout_observed'];
+
+function livenessFixture() {
+  const rows = [], hash = livenessDigest;
+  const at = rows => selectValidatedRuntimeEventPrefix(livenessFreeze([...rows]));
+  const add = (target, envelope, kind, aggregateType, aggregateId, parentAggregateId, payload, causationEventRefs = []) => {
+    const ordinal = target.length + 1;
+    const event = livenessFreeze({ eventTime: '2026-10-25T00:00:00.000Z', correlationId: 'correlation://t290/c12-liveness',
+      workflowVersion: '5.0.0', ...envelope, kind, aggregateType, aggregateId, parentAggregateId, causationEventRefs, payload,
+      eventContractDigest: LIVENESS_CONTRACT, eventId: `event://t290/c12-liveness/${ordinal}/${kind}`, admissionOrdinal: ordinal,
+      payloadDigest: hash(payload) });
+    target.push(event);
+    return event;
+  };
+  // The execution basis: one admitted basis_admitted row whose body digests to its reference.
+  const rawInputValue = { kind: 't290_c12_liveness_input', value: 1 };
+  const basisBody = { programRef: 'program://t290/c12-liveness', graphFunctionRef: 'graph-function://t290/c12-liveness',
+    invocationRef: 'invocation://t290/c12-liveness', rawInputValue, rawInputDigest: livenessRecordDigest(rawInputValue) };
+  const basisDigest = hash(basisBody), basisRef = `execution-basis://abiogenesis/${basisDigest.slice(7)}`;
+  add(rows, { scopeClass: 'workspace', basisId: basisRef }, 'basis_admitted', 'workspace', 'workspace-binding://t290/c12-liveness',
+    basisBody.invocationRef, { basisRef, basisDigest, ...basisBody });
+  const scope = { scopeClass: 'run', basisId: basisRef, runId: 'run://t290/c12-liveness', graphCallId: 'graph-call://t290/c12-liveness',
+    frameId: 'frame://t290/c12-liveness', graphFunctionRef: basisBody.graphFunctionRef };
+  const cCall = 'c-call://t290/c12-liveness', processRef = 'process://t290/c12-liveness', parser = 'plain_text';
+  const ids = { actorRef: 'actor://t290/c12-liveness', workerBindingRef: 'worker-binding://t290/c12-liveness',
+    implementationRef: 'implementation://t290/c12-liveness', implementationBindingRef: 'implementation-binding://t290/c12-liveness',
+    inputDigest: hash('input'), promptDigest: hash('prompt'), dispatchOrdinal: 1 };
+  const opened = add(rows, scope, 'c_call_opened', 'c_call', cCall, scope.frameId, { cCallRef: cCall, attempt: 1,
+    programLocusRef: 'locus://t290/c12-liveness', taskOrdinal: null, vectorIndex: null, edgeRef: null });
+  const fibre = add(rows, scope, 'c_call_fibre_selected', 'c_call', cCall, scope.frameId, { cCallRef: cCall, callClass: 'leaf',
+    regime: 'F_P', implementationRef: ids.implementationRef, implementationBindingRef: ids.implementationBindingRef }, [opened.eventId]);
+  const attemptDigest = hash({ basisRef, cCallRef: cCall, attempt: 1, dispatchOrdinal: ids.dispatchOrdinal, actorRef: ids.actorRef,
+    workerBindingRef: ids.workerBindingRef, implementationBindingRef: ids.implementationBindingRef, implementationRef: ids.implementationRef,
+    inputDigest: ids.inputDigest, promptDigest: ids.promptDigest });
+  const transportPlanDigest = hash('transport-plan');
+  const policy = livenessPolicy({ startupMs: 1000, inactivityMs: 1000, hardCapMs: 5000, terminationGraceMs: 100 });
+  const bindingBody = { cCallRef: cCall, actorRef: ids.actorRef, workerBindingRef: ids.workerBindingRef,
+    implementationRef: ids.implementationRef, implementationBindingRef: ids.implementationBindingRef, inputDigest: ids.inputDigest,
+    dispatchOrdinal: ids.dispatchOrdinal, timeoutMs: 1000, absoluteTimeoutMs: 5000, terminationGraceMs: 100, parser,
+    agentKey: 'backend://t290/c12-liveness', transportPlanDigest,
+    paths: { output: 'file:///t290/c12-liveness/output.json', transport: 'file:///t290/c12-liveness/transport.json' },
+    livenessBinding: { kind: 'runtime_liveness_binding', schemaVersion: '5.0.0', clockKind: 'native_monotonic_elapsed', policy,
+      clockOriginRef: `runtime-clock://abiogenesis/${hash({ attemptDigest, transportPlanDigest }).slice(7)}`, sources: [...livenessSources(parser)] } };
+  const transportBindingDigest = hash(bindingBody), transportBindingRef = `transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`;
+  const binding = add(rows, scope, 'actor_transport_binding_admitted', 'transport_binding', transportBindingRef, cCall,
+    { ...bindingBody, transportBindingRef, transportBindingDigest }, [fibre.eventId]);
+  const actor = `actor-invocation://abiogenesis/${hash({ attemptDigest, transportBindingRef, transportBindingDigest }).slice(7)}`;
+  const actorStarted = add(rows, scope, 'actor_invocation_started', 'actor_invocation', actor, cCall, { actorInvocationRef: actor,
+    cCallRef: cCall, actorRef: ids.actorRef, workerBindingRef: ids.workerBindingRef, implementationRef: ids.implementationRef,
+    inputDigest: ids.inputDigest, dispatchOrdinal: ids.dispatchOrdinal, promptDigest: ids.promptDigest, transportBindingRef,
+    transportBindingDigest }, [binding.eventId]);
+  const started = add(rows, scope, 'actor_process_started', 'process', processRef, actor,
+    { actorInvocationRef: actor, processRef, processId: 4242, cCallRef: cCall }, [actorStarted.eventId]);
+  const context = livenessActorContext(at(rows), actor);
+  assert.notEqual(context, null, 'the declared actor context authenticates');
+  const contract = source => context.probes.find(probe => probe.source === source);
+  const observation = (source, underlying, elapsedMs, signal = 'activity', scopeDigest = hash(context.scope)) => ({
+    kind: 'runtime_probe_observation', schemaVersion: '5.0.0', probeRef: contract(source).probeRef, scopeDigest,
+    clockOriginRef: context.binding.clockOriginRef, elapsedMs, underlyingObservationRef: underlying.eventId,
+    underlyingEventRef: underlying.eventId, sourceDigest: underlying.payloadDigest, sourceRevisionDigest: null,
+    evidenceRefs: [underlying.eventId], coverage: 'observed', signal });
+  const probe = (target, source, underlying, elapsedMs, options = {}) => {
+    const observed = observation(source, underlying, elapsedMs, options.signal, options.scopeDigest);
+    return add(target, scope, options.signal === 'external_interruption' ? 'runtime_external_interruption_observed' : 'runtime_activity_probe_observed',
+      'actor_invocation', actor, cCall, { actorInvocationRef: actor, probeContract: contract(source), observation: observed },
+      [binding.eventId, underlying.eventId]);
+  };
+  const stdout = (target, n) => add(target, scope, 'actor_process_stdout_observed', 'process', processRef, actor,
+    { actorInvocationRef: actor, processRef, chunkOrdinal: n, chunkDigest: hash(`chunk-${n}`) }, [started.eventId]);
+  probe(rows, 'process_lifecycle', started, 0);
+  const firstOut = stdout(rows, 1);
+  probe(rows, 'stdout', firstOut, 200);
+  const branch = rows.length;
+  // The threshold: the liveness owner's projection at the cut before it, as admitRuntimeThreshold builds it.
+  const before = at(rows), sample = { clockOriginRef: context.binding.clockOriginRef, elapsedMs: policy.hardCapMs, eventRef: null };
+  const projection = livenessProjection(before, context, sample);
+  assert.equal(projection?.disposition.disposition, 'controlled_terminate', 'the hard cap terminates the live process');
+  const timeout = add(rows, scope, 'actor_process_timeout_observed', 'process', processRef, actor, { actorInvocationRef: actor, processRef,
+    timeoutClass: 'absolute', timeoutMs: policy.hardCapMs, thresholdObservation: { kind: 'runtime_threshold_observation',
+      schemaVersion: '5.0.0', clockOriginRef: sample.clockOriginRef, elapsedMs: sample.elapsedMs, policyRef: policy.policyRef,
+      scopeDigest: hash(context.scope), evaluatedPrefixDigest: livenessPrefixDigest(before), projectionDigest: projection.projectionDigest } },
+  [started.eventId, ...projection.evidenceRefs]);
+  probe(rows, 'process_lifecycle', timeout, policy.hardCapMs, { signal: 'external_interruption' });
+  add(rows, scope, 'actor_process_exited', 'process', processRef, actor, { actorInvocationRef: actor, processRef, status: null, signal: 'SIGTERM' },
+    [started.eventId]);
+  const close = target => add(target, scope, 'actor_invocation_closed', 'actor_invocation', actor, cCall,
+    { actorInvocationRef: actor, cCallRef: cCall, processRef }, [actorStarted.eventId]);
+  close(rows);
+  // Three malformed observations, each branching from the cut after the
+  // second probe and followed by two rows the liveness rule does not read.
+  // Each differs from an accepted observation only in its named fault.
+  const variant = (length, build) => {
+    const target = rows.slice(0, length), malformed = build(target);
+    stdout(target, 90); stdout(target, 91);
+    return { rows: target, malformed, shared: length };
+  };
+  const malformed = {
+    'a wrong scope digest': variant(branch, target => probe(target, 'stdout', stdout(target, 2), 300,
+      { scopeDigest: hash({ ...context.scope, attempt: 2 }) })),
+    'an earlier elapsed sample': variant(branch, target => probe(target, 'stdout', stdout(target, 2), 100)),
+    'a probe after the actor closed': variant(branch, target => { close(target); return probe(target, 'stdout', stdout(target, 2), 300); }),
+  };
+  return { rows, malformed, context, processRef, actor };
+}
+
+const throughEach = source => events(source).map(row => validatedRuntimeEventPrefixThroughEvent(source, row.eventId));
+
+test('C-12 fold law: a declared actor with probe, threshold and interruption observations folds cold, warm, streaming and forked alike at every cut', t => {
+  const fixture = livenessFixture(), source = selectValidatedRuntimeEventPrefix(livenessFreeze([...fixture.rows]));
+  // Every native row is accepted by the liveness owner at the cut before it.
+  const native = events(source).filter(row => LIVENESS_KINDS.includes(row.kind));
+  assert.deepEqual(LIVENESS_KINDS.map(kind => native.filter(row => row.kind === kind).length), [2, 1, 1]);
+  for (const row of native)
+    assert.equal(livenessValidator(validatedRuntimeEventPrefixBeforeEvent(source, row.eventId), row), true,
+      `the liveness owner accepts ${row.admissionOrdinal} ${row.kind}`);
+  // Cold, reference, warm and forkAt at every cut.
+  const count = assertFoldAgreement(source, 'liveness');
+  // Streaming: single-event advances of one source equal one batched advance and the cold fold.
+  const streaming = selectValidatedRuntimeEventPrefix(livenessFreeze([...fixture.rows]));
+  const batched = selectValidatedRuntimeEventPrefix(livenessFreeze([...fixture.rows]));
+  deriveRuntimeEventCalculusProjection(batched);
+  for (const [index, cut] of throughEach(streaming).entries()) {
+    const warm = projectionView(deriveRuntimeEventCalculusProjection(cut));
+    assert.deepEqual(warm, projectionView(deriveRuntimeEventCalculusProjection(throughEach(batched)[index])),
+      `streaming equals batched at ${index + 1}`);
+    assert.deepEqual(stateView(coldFold(cut)), warm, `streaming equals the cold fold at ${index + 1}`);
+  }
+  // The fork law from every middle cut, advanced to the end and to every later middle cut, effect rows included.
+  const cuts = throughEach(source), end = forkView(deriveRuntimeEventCalculusProjection(source));
+  let forks = 0;
+  cuts.forEach((cut, index) => {
+    if (index === 0 || index === cuts.length - 1) return;
+    assert.deepEqual(forkView(forkRuntimeEventCalculusAtForModuleTest(source, cut, source)), end, `fork at ${index + 1} advanced to the end`);
+    forks++;
+    for (const [later, through] of cuts.entries()) if (later > index && later < cuts.length - 1) {
+      assert.deepEqual(forkView(forkRuntimeEventCalculusAtForModuleTest(source, cut, through)),
+        forkView(deriveRuntimeEventCalculusProjection(through)), `fork at ${index + 1} advanced to ${later + 1}`);
+      forks++;
+    }
+  });
+  // The fold's own probe and interruption facts for the scope.
+  const state = coldFold(source), scopeDigest = livenessDigest(fixture.context.scope);
+  assert.equal(state.interruptedScopes.has(scopeDigest), true, 'the interruption fact is the scope digest');
+  assert.equal(state.actorProbeScopes.get(fixture.actor)?.has(scopeDigest), true, 'the actor probe fact is the scope digest');
+  assert.equal(state.holds.has(constructRuntimeFluent({ name: 'actor_process_timed_out', identity: fixture.processRef }).fluentRef), true);
+  assert.equal(state.holds.has(constructRuntimeFluent({ name: 'runtime_externally_interrupted', identity: scopeDigest }).fluentRef), true);
+  t.diagnostic(JSON.stringify({ cuts: count, nativeRows: native.length, forks }));
+});
+
+test('C-12 fold law: a malformed native observation is refused by the fold with one message at every cut that holds it', t => {
+  const fixture = livenessFixture(), valid = selectValidatedRuntimeEventPrefix(livenessFreeze([...fixture.rows]));
+  const tally = {};
+  for (const [label, { rows, malformed, shared }] of Object.entries(fixture.malformed)) {
+    const source = selectValidatedRuntimeEventPrefix(livenessFreeze([...rows])), cuts = throughEach(source);
+    assert.equal(livenessValidator(validatedRuntimeEventPrefixBeforeEvent(source, malformed.eventId), malformed), false,
+      `${label}: the liveness owner refuses the observation`);
+    const middle = cuts[Math.floor((malformed.admissionOrdinal - 1) / 2)];
+    const streaming = selectValidatedRuntimeEventPrefix(livenessFreeze([...rows]));
+    const streamed = throughEach(streaming);
+    let refused = 0, accepted = 0;
+    for (const [index, cut] of cuts.entries()) {
+      const ordinal = index + 1, where = `${label} at ${ordinal}`;
+      if (ordinal < malformed.admissionOrdinal) {
+        // Before the malformed row the variant folds by the fold law; through
+        // its shared rows it is the valid fixture's prefix.
+        const warm = projectionView(deriveRuntimeEventCalculusProjection(cut));
+        assert.deepEqual(stateView(coldFold(cut)), warm, `${where}: cold equals warm`);
+        assert.deepEqual(projectionView(deriveRuntimeEventCalculusProjection(streamed[index])), warm, `${where}: streaming equals warm`);
+        if (ordinal <= shared) assert.deepEqual(warm, projectionView(deriveRuntimeEventCalculusProjection(
+          validatedRuntimeEventPrefixThroughEvent(valid, events(valid)[index].eventId))), `${where}: the valid fixture's prefix`);
+        accepted++;
+        continue;
+      }
+      assert.throws(() => coldFold(cut), { message: LIVENESS_REFUSAL }, `${where}: cold`);
+      assert.throws(() => deriveRuntimeEventCalculusProjection(cut), { message: LIVENESS_REFUSAL }, `${where}: warm`);
+      assert.throws(() => deriveRuntimeEventCalculusProjection(streamed[index]), { message: LIVENESS_REFUSAL }, `${where}: streaming`);
+      assert.throws(() => forkRuntimeEventCalculusAtForModuleTest(cuts[malformed.admissionOrdinal - 2], middle, cut),
+        { message: LIVENESS_REFUSAL }, `${where}: a fork at ${Math.floor((malformed.admissionOrdinal - 1) / 2) + 1} advanced here`);
+      refused++;
+    }
+    assert.ok(refused >= 3 && accepted >= 1, `${label}: the variant reaches cuts on both sides`);
+    tally[label] = { malformedAt: malformed.admissionOrdinal, accepted, refused };
+  }
+  t.diagnostic(JSON.stringify(tally));
+});
