@@ -4190,3 +4190,297 @@ Grant: `code/src/abg/witness_admission_operation.ts`, `code/src/abg/worksite_com
 Stop (write it in the Return, keep the rest moving): any `replayStateDigest`, `sourceReplayDigest` or `replayDigest` value changing at any cut of any reach store; any payload key, event kind, failure class or Public export change; a migrated site whose result or refusal differs from the full form at any cut; a site where the narrow form needs a persisted-contract change (TD-10's L case: name it, do not take it); `runtimeStatus` or any guard member derived differently from the full state.
 
 Return contract: one commit on `main` with the first line `C-11: the replay witness consumers: every production reader of the full replay state that needs a status, a fact or a route reads it from the owner's narrow projection, the witness digest computed only where it is persisted or compared, unchanged in value; the reopen lane reads each committed row once per generation` (if a clause does not hold, keep the structure and state the gap in its place, as C-7 to C-10 did) and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## C-11 return` at the end of this record: the first sentence says closed, or names the gap; item 0 with the lane count; the census table (a); the migration (b) with each site's trace and each changed test assertion named; the measurement table (c); the reach (d); item 2's proposals; item 3's tables; deviations from this wording; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
+
+## C-11 return
+
+Not closed: two readers keep the full replay state for its route and CCall vectors, and the guard still computes the witness digest for the status reader that needs none. Two of the four sites the activation read as narrow, `witness_admission_operation.ts:978` and `worksite_command_forward.ts:142`, also read the replay's route and CCall vectors, which no narrow owner projection carries; they keep the full state. The status reader moved to the guard still pays the witness digest, because the guard derives that digest on every call not cached at its cut (`replay.ts:1472`). The commit's first line keeps the activation's structure and states both gaps in place (deviation 1).
+
+Base `07ac3c87a`; the commit's parent is `8b2a7676d`, which changes only the ticket (the C-10 review row) and leaves the TD-10 row at `:118`. Worker: Opus 5.5. The commit carrying this section is the C-11 commit. Scratch root: `/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/c11/`, written `scratch/c11/` below. Line numbers are at the commit unless marked "base".
+
+What holds:
+- Item 0 is closed: `m5-event-store-reopen` is 21/21 on the base build before the rest of the package and 21/21 at the end.
+- The two narrow sites are migrated. `worksite_command_forward.ts:101` reads `runtimeStatus` from the guard. `graph_application.ts:583` reads one route through a new `@internal` projection by CCall and judgment coordinates.
+- Equality is shown three ways: the trace; the reach lanes, every one with the same counts, the same reds and skips and the same first errors before and after; and a differential probe. At each of the 1,224 full-state and guard derivations the reach lanes made (item 1(b)), the probe found the guard members equal to the full state's and the coordinate route equal to the full form's `routes.find`, including the refusals.
+- No persisted value moves. No payload is built at either site; both regenerated files move digests only, with the same leaf sets.
+
+### Item 0: the C-10 residual
+
+`test_env/tests/m5-event-store-reopen.test.mjs`, the case at `:1345`; the title and every value assertion are unchanged.
+
+| At | Old text | New text |
+|---|---|---|
+| `:1374-1383` (base `:1374-1377`) | `// This fixture has only complete inline workspace rows: a full output reads` / `// exactly its selected physical extent. It is not retained operational state.` / `const output = (label, selectedPrefix, action) =>` / `measured("explicit_complete_output", label, selectedPrefix.prefixLength, action);` | `// This fixture has only complete inline workspace rows: a full output reads` / `// each row's physical extent once per generation of its owner. The held store` / `// keeps the verified bodies of its current generation, so an output reads the` / `// extent of its rows not yet verified in that generation.` / `let verifiedExtent = 0;` / `const output = (label, selectedPrefix, action) => {` / `const unverified = Math.max(0, selectedPrefix.prefixLength - verifiedExtent);` / `verifiedExtent = Math.max(verifiedExtent, selectedPrefix.prefixLength);` / `return measured("explicit_complete_output", label, unverified, action); };` |
+| `:1439` (added after the tentative-rollback block, base `:1432`) | none | `verifiedExtent = 0; // the rollback begins a new generation of the owner` |
+
+The expected bytes are derived from the selected prefix's `prefixLength`, which the test already holds. Verified rows always form a prefix of the log: a full output verifies every row of its prefix, and a generation starts empty. So the unverified extent of an output is its prefix length less the longest prefix already output in the generation. The rollback truncates the owner to a new generation, and the test resets the extent there. `cold_recovery` keeps `prefix.prefixLength`.
+
+The case alone (`scratch/c11/item0/case-only.tap`, 1/1/0/0) recorded exactly C-10's figures, each now asserted:
+- 851 for the first output;
+- 0, 866, 866 and 866 for held outputs 0 to 3;
+- 0 for every complete, callback, historical and reidentified output;
+- 866 for the committed comparison;
+- 4,315 for the rollback output and for the cold recovery.
+
+The lane went from 21/20/1/0 (56.9 s, base) to 21/21/0/0 (59.1 s) on the base build, before any code change (`scratch/c11/item0/lane/`). At the end it is 21/21/0/0 (58.3 s).
+
+### Item 1(a): the census
+
+Every production call of `replayValidatedRuntimeEventPrefix` in `code/src` at the base. Wrappers in `replay.ts` are followed to their callers. "Fires" names the runs of item 1(c) and (d) that reached the site (the instrumented counts, `scratch/c11/counts/before/`).
+
+| Site (base) | Members the caller reads | Digest | Narrow owner result for the same value | Class |
+|---|---|---|---|---|
+| `graph_application.ts:583` (`projectApplicationChildRouteAtPrefix`; callers `:539` `projectCurrentApplicationChildRoute`, a `./abg` export, and `:944` the recursive foldback) | `routes.find` by `cCallRef`, `judgmentRef` and `routeKind` terminal or blocked; then that route's `admissionEventRef`, `routeRef`, `routeKind` | none | one route by coordinates; no projection existed, so `projectValidatedReplayRouteByJudgmentAtPrefix` is added (`replay.ts:925-944`) | narrow: migrated. Fires in `t287-recursive-registered-selection` (1 call) |
+| `worksite_command_forward.ts:101` (`projectWorksiteCommandForwardSource`) | `runtimeStatus` | none | guard `runtimeStatus` (`projectRuntimeReplayGuard`, `replay.ts:188`) | narrow: migrated. Fires in no lane run |
+| `worksite_command_forward.ts:142` (`isFailedUndispatchedForwardSuccessor`) | `runId`, `runtimeStatus`, `runClosedEventRef`, `activeFluents`, `runtimeFailureEventRef`, `runStoppedEventRef` (`:145-149`), and `cCalls[].cCallRef`, `.resultValue`, `.resultClass` (`:153-156`) | none | the guard for the six; for the CCall rows, none: `resultValue` is the replay's own expression over each CCall's result event (`replay.ts:1153-1155`), and the CCall set is its own `type:c_call` loop (`:1146-1150`) | full form needed: stands (corrected from narrow). Fires in no lane run |
+| `witness_admission_operation.ts:978` (`prepareSemanticEvent`, member `intake`) | `runtimeStatus` (refusal, `:984-992`); halt body `runId`, `runtimeStatus`, `routes[].routeRef`, `cCalls[].resultRef` (`:994-1001`) | the halt body's digest is persisted as `haltDiagnosisRef` and `haltDiagnosisDigest` in `defect_intake_admitted` (`event_store.ts:491`); the witness is not read | the guard for `runId`, `runtimeStatus`; for the route refs in index order and the CCall result refs in `type:c_call` order, none | full form needed: stands (corrected from narrow). Fires in no lane run; `witness-reprice-definition-binding`, which names the member, is 15/0/15 at the base |
+| `replay.ts:144` `projectRuntimeTruthAtDurablePrefix` | whole state; a `./abg` export, called by name in owner requests (`t287-c0-post-publication-failure:691`) and by `hog/operator_support.ts:49` `replayAtDurable` | returned | none needed | contract (complete output): keep. `replayAtDurable` has no production caller (finding 3) |
+| `replay.ts:165` `projectActiveRuntimeTransaction` | none: no production caller (imported unused, `c_call_outcome.ts:108`; not in the barrel) | none | none | dead (finding 3) |
+| `replay.ts:206` `materializeRuntimeReplayGuard` (callers `c_call.ts:7356`, `c_call_outcome.ts:1912`, `closure.ts:716`, `continuation.ts:2397`, `deferred_application.ts:59`) | whole state, the explicit Public complete output; its digest compared with the guard's (`:207`) | compared, returned | none needed | contract: keep. Fires in TD-22 (1 call, `completePublicOutcome`) |
+| `replay.ts:590` `replay(store, scope)` (`c_call.ts:7271`; a `./abg` export) | `replayDigest`, persisted as `replayStateDigest` in the rejection judgment (`c_call.ts:7281`) | persisted | the guard over the same prefixes carries the same digest | contract (persisted): keep; full state built for its digest (finding 2) |
+| `replay.ts:2164` `projectRunReplayContext` | none: no caller in `code/src`, not in the barrel | none | none | dead (finding 3) |
+| `replay.ts:2174` `projectOwnedRunReplayContext` (`project_read_ports.ts:687`) | `replayRef`, `replayDigest` returned in Public read results (`project_read_ports.ts:871-872`, `:1032-1033`, `:1073-1074`); `routes`, `cCalls`, `continuations`, `runId`, `runtimeStatus`, `graphCallId`, `runStoppedEventRef`, `runtimeFailureEventRef` | returned | none needed | contract: keep. Fires in the read lanes (6 calls) |
+| `replay.ts:2212` `projectRunSemanticReplay` without context (`projectRunSemanticReplayProjection`, `project_read_ports.ts:1153`, a `./abg` export) | `runId`, `continuations`, the terminal refs, `routes[].routeKind`, `cCalls[].status`, `fanOutCompletions`, `nativeLiveness`, `activeFluents`, `runtimeStatus`, `eventStoreDigest`, `replayRef`, `replayDigest` (`:2241-2293`) | returned (`scopedReplayDigest`) | none needed | contract: keep |
+| `retry.ts:5760` `planRetryRuntimeFailureTransition`, validated branch (the owned branch is the guard, `:5761`) | `plan.replayState`, a `./abg` Public plan; `hog/retry_lifecycle.ts:582` gives it to `proposeBlockedRoute`, whose `replayDigest` becomes `replayStateDigest` (`hog/route_proposal.ts:1374`) | persisted, returned | the guard, already on the owned branch | contract: keep |
+| `retry.ts:6311` `planCompletedRetryProgressFromHistory`, no exited segment | `plan.replayState`, a `./abg` Public plan; `hog/structural_transition.ts:195` gives it to `proposeStructuralRoute` (`replayDigest` persisted, `hog/route_proposal.ts:132`) | persisted, returned | the guard | contract: keep; the owned planner reaches it too (finding 2) |
+| `retry.ts:6602` the same planner, exited segments, validated branch (guard otherwise, `:6603`) | as `:6311` | persisted, returned | the guard, already on the owned branch | contract: keep |
+| `runtime_failure.ts:353` `admitRuntimeFailure` receipt | `receipt.replayState: ReplayState`, a `./abg` Public receipt. Consumers: `hog/recursion_lifecycle.ts:310`, `:867` and `hog/workflow_lifecycle.ts:210` pass it into the Public completion; `hog/traversal_failure.ts:81` carries the receipt in `GraphTraversalFailure`; `hog/recursion_lifecycle.ts:829` and `hog/workflow_lifecycle.ts:570` read `child.replayState.runtimeStatus`; `owner_bindings/run_invocation.ts:1721` reads `successorPrefix` only | returned | none needed | contract: keep. Fires in `t287-recursive-registered-selection` (1 call) |
+| `traversal_route.ts:5285` `committedRouteTransition`, complete mode (the guard otherwise) | `route_transition_admission.replayState`, into the Public completion (`hog/retry_lifecycle.ts:658`) | returned | the guard, already in owned mode | contract: keep |
+| `traversal_route.ts:5355` `admitTraversalTransitionInActiveTransaction`, validated prefix | `replayDigest`, compared at `:5365`; also passed to `admitRoute` (`:5382`), whose parameter is a `RuntimeReplayGuard` and which reads only `replayDigest` (`:4431-4432`) | compared | the guard carries the same digest | digest is the contract: keep, outside the grant; full state built for its digest (finding 2) |
+| `traversal_route.ts:5451` the staged admission's `replayState`, validated prefix | none. The callers read `.kind`, `.route` and `.retryAttempt` (`traversal_route.ts:5496-5512`, `:5612-5628`, `:5767-5784`, `c_call_outcome.ts:1741-1757`, `continuation.ts:1796-1832`), and `committedRouteTransition` derives anew at the successor | none | none | full state built and unread (finding 2) |
+| `traversal_route.ts:5756` blocked retry, complete mode | `selectRouteCandidate(replay: ReplayState)`, a parameter of the `./abg` input `AdmitBlockedRetryTraversalTransitionInput` (`:5652`); HoG's callback (`hog/retry_lifecycle.ts:627-630`) reads `replayDigest` through `proposeBlockedRoute` | persisted via the proposal | the guard, already in owned mode (`:5757`) | contract (the callback's parameter type): keep |
+
+These already read a narrow owner result and stand.
+- **One route** (`projectValidatedReplayRouteAtPrefix`): `closure.ts:257`, `invocation_admission.ts:1385`, `traversal_route.ts:642` and `project_read_ports.ts:544`.
+- **The guard, whose digest is compared**: `fan_out.ts:220-222`, `c_call_outcome.ts:1518-1522`, `c_call.ts:7030` (`:7048-7049`) and `traversal_route.ts:4410` (`:4431-4432`).
+- **The guard, whose digest is persisted or carried**: `c_call.ts:3270`, `:6110`, `:6166`; `closure.ts:699`; `continuation.ts:1787`; `deferred_application.ts:143`; `invocation_admission.ts:442`, whose digest `:594` writes as `sourceReplayDigest`; `replay.ts:229` and `:235`; `retry.ts:5761` and `:6603`; `traversal_route.ts:5285`, `:5357`, `:5452` and `:5757`, owned mode.
+
+Corrections to the activation's reading:
+1. `worksite_command_forward.ts:142` reads `cCalls` (`:153-156`) as well as the six guard members, so it is not narrow.
+2. The halt body at `witness_admission_operation.ts:994-1001` carries every route's `routeRef` and every CCall's `resultRef`, so that site is not narrow either.
+3. `invocation_admission.ts:594` is not a full-state call: it writes the guard's digest (`:442`) as `sourceReplayDigest`. The module imports `replayValidatedRuntimeEventPrefix` (`:109`) without calling it.
+4. The "already narrow" list holds as read. `fan_out.ts:222` and `c_call_outcome.ts:1518` are guards.
+
+### Item 1(b): the migration
+
+`realization_refactor`, three source files.
+
+**`abg/replay.ts`: one additive `@internal` projection** (`:925-944`): `projectValidatedReplayRouteByJudgmentAtPrefix(prefix, { cCallRef, judgmentRef, routeKinds }, authorityPrefix)`. `deriveReplayPrefixFacts`, `digestReplayBody` and `writeReplayBody` are untouched. The barrel is untouched: the one caller imports from `./replay.js`, as for `projectValidatedReplayRouteAtPrefix`. In order, it:
+1. scans `indexedRuntimeEvents(prefix, "kind:traversal_route_admitted")` for the first event whose `stringField` `cCallRef`, `judgmentRef` and `routeKind` match;
+2. calls `deriveReplayPrefixFacts(prefix, authorityPrefix, undefined, eventId ?? "")`, the route-only path;
+3. returns the route deep-frozen.
+
+The selector index has no `cCallRef` or `judgmentRef` key (`runtime_history.ts:562`), so the existing kind index locates the event, and the payload decides.
+
+**`graph_application.ts:583`**: the `replayValidatedRuntimeEventPrefix(prefix, authorityPrefix).routes.find(…)` expression becomes `projectValidatedReplayRouteByJudgmentAtPrefix(prefix, { cCallRef, judgmentRef, routeKinds: ["terminal", "blocked"] }, authorityPrefix)`, and the import changes (`:45`). The rest of the function is unchanged, the unused `events` local at `:582` included (finding 6).
+
+The trace, full form to narrow form:
+- **Selection.**
+  - In the full form, every `traversal_route_admitted` row of the prefix is projected and pushed in index order (`replay.ts:1165`, `needValue` true at `:1166`, push at `:1199`). Each element's `cCallRef`, `judgmentRef` and `routeKind` are `stringField` reads of its own event (`:804-805`; `routeKind` at `:639`, validated at `:640-651`). The first element matching the predicate is therefore the projection of the first event, in that order, whose payload strings match.
+  - The narrow form reads the same key in the same order. `indexedRuntimeEvents` and `indexedRuntimeEventEnvelopes` both read `selection.select(key)` on a located prefix, and they are the same array on a validated one (`event_prefix.ts:195-197`, `:737-742`). It applies the same three reads to choose the event.
+- **Value.**
+  - The route-only derivation returns the first projected route with that `admissionEventRef` (`:1200`, `:1387`), or one of its same-cut returns:
+    - on an owned cut whose global route validation is current (`:960-974`), `projectReplayRouteAtPrefix` of that event;
+    - on a validated prefix whose last full derivation is at the same cut (`:979`), the full state's own element.
+  - Each is the same function of the same event and authority as the full form's element. `deepFreeze` makes it frozen, as the full state's element is (`:866`, `:1492`).
+- **No match.** `routeOnly` is `""`, which is no event's id (`eventById` gives `undefined`; `projectHistoricalTraversalRoute` refuses `""` at `traversal_route.ts:611`). The same validation runs and gives `undefined`, as the full form's `find` does after its validation.
+- **Refusals.**
+  - Both forms run every validation loop before `:1383`.
+  - The route-only path returns there, before `runtimeEventPrefixDigest` (`:1389`), `projectNativeLivenessRead` (`:1390`), the digest (`:1472`) and the state's freeze.
+  - None of those has a throw of its own on this path. `runtime_liveness.ts` throws only in its admit and observe functions. A throw raised only beyond `:1383` would refuse in the full form and not in the narrow one; the differential found none.
+  - At the caller, any throw is the same refusal (`graph_application.ts:1131-1137`).
+
+**`worksite_command_forward.ts:101`**: `replayValidatedRuntimeEventPrefix(…).runtimeStatus` becomes `projectRuntimeReplayGuard(…).runtimeStatus`, and the import adds it (`:27`). `:142` keeps the full form.
+
+The trace:
+- Both forms enter `deriveReplayPrefixFacts`: the full form with no route and no guard (`replay.ts:904`), the guard with `guardOnly` (`:189`).
+- There is no prior derivation. The guard's same-cut return (`:975-978`) gives a guard that this path built at the same runtime end, authority, authority end and profile end. The full form's same-cut return (`:979`) is not taken by the guard.
+- From `:980` both run every loop. `guardOnly` changes only which vectors are pushed:
+  - CCalls without result reads (`:1152`);
+  - routes only where a `run_stopped` names them (`:1199`);
+  - no fan-out or delta vector (`:1207`, `:1212`);
+  - the selected generators that stream the digest (`:1451-1470`).
+- `runtimeStatus` is the one expression at `:1422-1449`, built from `runtimeFailure`, `runClosed`, `runTerminalHeld`, `runStoppedDisposition`, `operatorRunStoppedHeld`, `invocationRefused`, `continuations`, `runOpen` and `eventCalculus`. All are computed before the vector branches and the same way in both modes: `continuations` is gated by `routeOnly` only (`:1277`). The member's derivation is the same code path.
+- **Refusals.** Every throw before `:1472` is shared. The guard's generators re-run the same route, fan-out and delta projections the loops ran (`:1460-1469`), so a throw from them would already have fired in the loop. The site is inside `try{…}catch{return null}` (`:84-127`).
+
+**The proof.**
+1. **Lanes** (item 3 table). Every reach lane has the same counts, the same reds and skips and the same first errors before and after. The exception is `m5-event-store-reopen`, which goes from red to green by item 0. `t287-recursive-registered-selection` is added because it is the one lane that fires `:583`: 4/2/1/1 before and after. Its red, `:129` "authenticated recursive child failure preserves its diagnostic…", has the same first error both times (`'diagnostic://registered-selection/original-child-failure@5' !== 'diagnostic://abiogenesis/hog/application-foldback-mismatch@5'`).
+2. **The differential** (`scratch/c11/counts/diff/`). An instrumented build carried 14 lines tagged `// C11` in `replay.ts`: the counter's 8 (item 1(c)) and the probe's 6, active with `C11_DIFF=1`. On entry to `replayValidatedRuntimeEventPrefix` and to `projectRuntimeReplayGuard`, it derived at the same prefix and authority: the full state, the guard, and for every `(cCallRef, judgmentRef)` pair of the full state's routes plus one absent pair, the coordinate route. It compared them with `canonicalEquals`; a throw on both sides had to carry the same message. Over the reach lanes:
+   - **1,224 guard comparisons.** In 1,220, every guard member equals the full state's; in 4, both forms refused with the same message.
+   - **4,246 coordinate routes.** 807 are equal to the full form's route, and frozen. 3,435 are absent in both: the absent pair at every cut, and the pairs whose routes are neither terminal nor blocked. In 4, both forms refused with the same message.
+   - None was a mismatch.
+   - The probe moves one lane: `t287-route-reconstruction` `:710` (TD-15) asserts `writeReplayBody` is called once (`:791-793`) and, under the probe, sees its second call (`2 !== 1`), 11/8/1/2. The clean arms are 11/9/0/2.
+3. **Nothing persisted changes.**
+   - Neither site builds a payload. `:101` gates a projection that returns `null` or continues; `:583` returns the route that `:944` reads for `admissionEventRef` and `routeKind`.
+   - No `replayStateDigest`, `sourceReplayDigest` or `replayDigest` writer is edited.
+   - The lanes that fold their stores cold and compare are green as before (`t287-calculus-fold` 13/13, `m5-event-store-reopen`, `t287-runtime-failure-diagnostic` 17/17, `t287-route-reconstruction` 11/9/0/2, `m5-terminal-quiescence-owner` 7/7).
+   - The regenerated files move digests only (item 3).
+
+No test assertion is changed for item 1: no lane asserts either migrated site's result.
+
+### Item 1(c): the measurement
+
+The TD-22 scenario (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`) by the TD-22 method:
+- **Counts:** V8 coverage, over the installed core under `consumer/node_modules`.
+- **CPU:** `--cpu-prof`, summed over the run's profiles; "under" is inclusive.
+- **Wall:** the timing run.
+- **Calls by caller site:** one more run on a build instrumented with a stack-keyed counter (8 lines tagged `// C11` in `replay.ts`). Its totals equal the coverage counts.
+
+Before is the base build; after is the commit's build. The logs are in `scratch/c11/measure/`.
+
+| Measure | Before | After |
+|---|---|---|
+| `replayValidatedRuntimeEventPrefix` calls | 1: `replay.ts:206` `materializeRuntimeReplayGuard` ← `c_call_outcome.ts:1912` `completePublicOutcome` | 1, same site |
+| `projectRuntimeReplayGuard` calls, by caller (digests computed) | 42: `c_call_outcome.ts:1479` 4 (4), `:1557` 4 (4), `:1810` 4 (0), all via `replay.ts:235`; `c_call_outcome.ts:990` 4 (0) and `hog/operator_support.ts:147` 1 (1), via `replay.ts:229`; `c_call_outcome.ts:1518` 4 (0); `c_call.ts:7030` 4 (0); `closure.ts:699` 1 (1); `traversal_route.ts:4410` 5 (0), `:5357` 5 (0), `:5452` 5 (5), `:5285` 1 (0) | 42, the same by site |
+| `projectValidatedReplayRouteAtPrefix` calls | 10: `traversal_route.ts:642` 9, `closure.ts:257` 1 | 10, the same |
+| `projectValidatedReplayRouteByJudgmentAtPrefix` calls | absent | 0 |
+| `deriveReplayPrefixFacts` calls | 53 | 53 |
+| `digestReplayBody` / `writeReplayBody` calls | 16 / 16 (15 guards, 1 complete output) | 16 / 16 |
+| `writeCanonicalJson` calls, installed core | 14,377,411 | 14,377,411 |
+| CPU under `deriveReplayPrefixFacts` | 104.8 ms | 103.0 ms |
+| self `hash.update` / self `writeCanonicalJson` under it | 32.8 / 30.6 ms | 32.6 / 38.9 ms |
+| CPU under `digestReplayBody` | 20.0 ms | 15.5 ms |
+| Traversal wall (`traversalMs`), timing run | 529.1 ms | 527.9 ms |
+| Lane duration, timing run | 37,933.9 ms | 37,178.5 ms |
+| `provisioning_verify_artifact`, timing run | 21,403.6 ms | 21,513.5 ms |
+
+Which census sites fire in this scenario:
+- Of the full-state calls, only the explicit Public complete output (`replay.ts:206`, one call) fires.
+- No migrated site fires, and neither do the two vector readers, `retry.ts`, `runtime_failure.ts` or the `traversal_route.ts` full sites. The scenario's replay work is the guard.
+- The before and after rows are equal within run-to-run noise. In this scenario C-11 changes nothing measurable, and the 508.5 ms C-10 left (529.1 and 527.9 ms here) is not replay work.
+
+Reach lanes for the migrated sites:
+- **`graph_application.ts:583`** fires in `t287-recursive-registered-selection` (`scratch/c11/counts/before/`, `/after/`). Before: one `replayValidatedRuntimeEventPrefix` call from `projectApplicationChildRouteAtPrefix`, with one `digestReplayBody` and one `writeReplayBody`. After: one `projectValidatedReplayRouteByJudgmentAtPrefix` call and no digest. The lane's totals:
+  - `replayValidatedRuntimeEventPrefix`: 2 → 1 (the other is `runtime_failure.ts:353`);
+  - `digestReplayBody`: 26 → 25;
+  - every other site's count is unchanged.
+- **`worksite_command_forward.ts:101`** fires in no lane run here: the 21 reach lanes, the 3 support-reached lanes and the 4 halt-diagnosis lanes (`t287-generic-job-meaning`, `-read-dependency`, `t287-management-context`, `t287-wave2-owner-contract-source-set`). Its proof is the trace and the differential's guard-to-full equality at every guard and full cut the lanes reached.
+
+### Item 1(d): the reach
+
+These are item 3's lanes table. Each lane ran alone, before at the base build and after at the commit's build.
+- The activation's 18 lanes.
+- The lanes `git grep -l` finds over `test_env/tests` for the three migrated modules or their functions. These are all among the 18.
+- Three lanes that reach `worksite_command_forward` or `witness_admission_operation` through support files: `d2-binding-transition`, `t287-native-semantic-revision` and `t287-worksite-command-execution`.
+- `t287-recursive-registered-selection`, the firing lane for `:583`.
+
+No red moves except item 0's.
+
+### Item 2: records (proposals; the Executive places them)
+
+- **Ticket, Phase C decisions row TD-10** (`T-290…md:118`). Proposed outcome: "C-11: run. The consumer census: nineteen full-state calls at the base.
+  - Ten are the contract and are kept: complete outputs returned in Public results, plans and receipts; digests persisted or compared; one callback parameter.
+  - Two are narrow and are migrated: the forward source's status reads the guard, and the application child route reads one route by CCall and judgment coordinates through a new internal projection.
+  - Two read the route and CCall vectors no narrow projection carries and keep the full state: the defect-intake halt body and the failed forward successor.
+  - Three are dead.
+  - Three build the full state where a guard would carry the digest or nothing reads it; they are named, outside the grant.
+  No persisted value, payload key, event kind or export changes. The two regenerated files move digests only. The migrated forms equal the full forms at every cut the reach lanes reach. The guard still streams the full witness digest, which the status reader now pays without needing it."
+- **Register, TD-10** (`TECHNICAL_DEBT_REGISTER.md:147-153`). Proposed closure: "Census at C-11. The consumers whose obligation is a status or one route read the guard or one route by coordinates (`worksite_command_forward.ts:101`, `graph_application.ts:583`). Persisted, compared and returned witnesses keep full semantics. Byte, digest and cold-recovery compatibility are shown by unchanged lanes and an unchanged leaf set in the regenerated files." Remaining conditions:
+  - (a) **Two vector readers keep the full state.** `witness_admission_operation.ts:978` reads route refs and CCall result refs in replay order; `worksite_command_forward.ts:142` reads CCall rows with result values. A narrow form needs one owner projection of the Run's route refs and CCall rows in the replay's order. That is an additive `replay.ts` export (M), not a persisted-contract change.
+  - (b) **The guard computes the full digest on every derivation not cached at its cut** (`replay.ts:1472`). A status-only reader pays it. A digest-free status projection is a change to `deriveReplayPrefixFacts` (M), within the owner's ruling: compute the narrow one each consumer needs.
+  - (c) **The three full-state builds outside the grant** (finding 2) are guard migrations of the same kind (S each).
+- **Design §4.4 `:193`.** The sentence does not stand as written. Its cites are stale, and its list of comparisons is incomplete. Proposed restatement of its third and fourth sentences: "`abg/replay.ts:1413` puts the held fluent set into the replay body. The body's digest is the replay state witness, computed by the replay owner only for the guard (`projectRuntimeReplayGuard`) and for a complete ReplayState. It is stored as `replayStateDigest` in route and judgment payloads and as `sourceReplayDigest` in the invocation source-result basis. … Every comparison of the witness in `code/src` (`abg/traversal_route.ts:4431-4432` and `:5365`, `abg/c_call.ts:7048-7049`, `abg/c_call_outcome.ts:1522`, `abg/fan_out.ts:222`, and the complete-output check `abg/replay.ts:207`) checks a value built in the same process against the current replay; both are computed under the same law." The rest of the paragraph stands.
+- **Other design sentences** (`git grep -n -i 'replay state\|ReplayState\|replay witness\|replayStateDigest' -- design`, 47 lines).
+  - `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md:643-647` ("The existing replay owner computes the unchanged full logical replay digest when it is required for a guard comparison."). The guard computes it on every uncached derivation, so a status reader of the guard pays it too. Proposed: "…computes the unchanged full logical replay digest for every guard it derives; a guard reader that needs no digest still pays it (TD-10's remaining condition)."
+  - `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md:118-119` ("They do not create a full replay … merely to obtain status, route, currentness or source facts."). It stands, and C-11 brings `:101` and `:583` into it. The two vector readers are not "merely" status or route readers.
+  - These stand: `ABI5_REALIZATION_CONSTITUTION.md:2618-2624` (L13-L19: the complete replay and the read ports over it); `ABI5_STDO3_COMPUTATIONAL_BINDING.md:200`; `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:655`; every `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md` line (`:149`, `:155`, `:228`, `:230`, `:281`, `:332-344`, `:452`, `:554`, `:577`, `:619`, `:890`, `:968-969`, `:993`, `:1007`, `:1105-1107`, `:1309`, `:1404`); `M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md:169`, `:186`, `:1009`; `M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md:208`; every `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md` line (`:138`, `:241`, `:290`, `:342`, `:741-792`, `:1498`, `:2090`); `M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md:176`; `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md:120-121`, `:138`, `:182`, `:186`, `:649`; `T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md:183`; `T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md:162`.
+
+### Item 3: gates and lanes
+
+**Gates**, on the final tree:
+
+| Gate | Result |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | rc 0 (base rc 0) |
+| `npm run lint:imports` | rc 0: "28 modules under code/src/shared/ import only code/src/shared/ and packages" |
+| `npm run lint:lifecycle` | rc 0: "284 modules under code/src; 7 allow-listed site(s), no offender" |
+| `npm run lint:evidence` | rc 0: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other" |
+| `npm run build` | rc 0. The 781 files under `build/` are byte-equal to the build the after lanes ran (`scratch/c11/gates/build-after-clean.sha256`), and both regenerated files are equal to that run's |
+| `git status --short` | the six tenant files of the diff and this record. The two untracked Codex posts under `.ai-workspace/comments/codex/` are not this package's and are not staged |
+
+**The regenerated files.** Their leaf-path sets are the same before and after, and every moved value is a digest or a digest-derived ref:
+- `product-toolchain-manifest.json` moves 68 of 51,317 leaves;
+- `contracts/capabilities/capability-definition-graph.json` moves 310 of 3,263.
+
+These are the counts C-9 and C-10 moved. No leaf is added, so no export surface the manifest lists changes.
+
+**Lanes.**
+- Each lane ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`.
+- Before is `07ac3c87a` after `npm run build` (`scratch/c11/before/`); after is the commit's tree after `npm run build` (`scratch/c11/after/`).
+- Counts are tests/pass/fail/skipped; no lane cancelled a test.
+- "Same" means the same red and skip names, locations and first error lines (`scratch/c11/tools/reds.mjs`).
+
+| Item | Lane | Before | After | Reds and skips (first error) | Attribution |
+|---|---|---|---|---|---|
+| 0, 1(d) | `m5-event-store-reopen` | 21/20/1/0 (56.9 s) | 21/21/0/0 (58.3 s) | before: `:1345` `explicit_complete_output: held output 0` (`0 !== 851`) | moved: item 0 |
+| 1(d) | `t287-calculus-fold` | 13/13/0/0 | 13/13/0/0 | none | unchanged |
+| 1(d) | `t287-runtime-failure-diagnostic` | 17/17/0/0 | 17/17/0/0 | none | unchanged |
+| 1(d) | `t287-route-reconstruction` | 11/9/0/2 | 11/9/0/2 | 2 skips, same: `retained native outputs and exact pre-basis historical owner facts are conserved`; `route facts ignore unrelated growth and preserve relevant source, cursor and intent changes` | unchanged |
+| 1(d) | `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 | none | unchanged |
+| 1(d) | `forward-command-owners` | 6/2/4/0 | 6/2/4/0 | 4 reds, same (`:7`, `:22`, `:37`, `:45`, the `synthetic …` cases): `The expression evaluated to a falsy value` | unchanged (base) |
+| 1(d) | `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | 1 skip, same: `probe and threshold share one entry…` | unchanged; input-gated |
+| 1(d) | `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | file-level, same: `ERR_MODULE_NOT_FOUND` under `.ai-workspace/comments/codex/20260923_RC1_QUALIFICATION_RECIPE/…` | unchanged; input-gated |
+| 1(d) | `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | same: `:224` `native author fold preserves exact contract issues…`: `native failure reuses the original derivation` | unchanged (base) |
+| 1(d) | `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | none | unchanged |
+| 1(d) | `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | file-level, same: `assert.ok(proof)` at `:12` | unchanged; input-gated |
+| 1(d) | `witness-reprice-definition-binding` | 15/0/15/0 | 15/0/15/0 | 15 reds, same: `The expression evaluated to a falsy value` | unchanged (base) |
+| 1(d) | `witness-run-stopped-definition-binding` | 7/0/7/0 | 7/0/7/0 | 7 reds, same: `The expression evaluated to a falsy value` | unchanged (base) |
+| 1(d) | `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | none | unchanged |
+| 1(d) | `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | none | unchanged |
+| 1(d) | `t287-r4-aba-retry` | 1/1/0/0 (46.1 s) | 1/1/0/0 (47.3 s) | none | unchanged |
+| 1(d) | `d2-binding-transition` (support) | 10/0/0/10 | 10/0/0/10 | 10 skips, same | unchanged; input-gated |
+| 1(d) | `t287-native-semantic-revision` (support) | 7/4/1/2 | 7/4/1/2 | same: `:118` `native D2 serialized public request…`: `Expected values to be strictly equal`; 2 skips, same | unchanged (base) |
+| 1(b), 1(d) | `t287-recursive-registered-selection` (fires `:583`) | 4/2/1/1 | 4/2/1/1 | same: `:129` (first error in item 1(b)); 1 skip, same: `one installed Public start revises native choice…` | unchanged (base) |
+| 1(d) | `t287-worksite-command-execution` (support) | 10/10/0/0 (319.7 s) | 10/10/0/0 (337.8 s) | none | unchanged |
+| 1(d) | `m5-event-calculus-runtime` | 19/13/5/1 (139.0 s) | 19/13/5/1 (153.7 s) | 5 reds, same: four `abg.openCall is not a function` (`:372`, `:1471`, `:1548`, `:1590`); `:1316` `runtime_failure_observed/runtime_invocation_active`. 1 skip, same: `nominal prefix reuse preserves full historical EC and replay including fresh process` | unchanged (base) |
+| 1(c), 1(d) | `t287-calculus-state-transfer` | 8/8/0/0 (259.3 s) | 8/8/0/0 (264.0 s) | none | unchanged |
+
+### Deviations from the activation's wording
+
+1. **The commit's first line.** Two clauses do not hold, and the line states the gap in place of each:
+   - "every production reader … that needs a status, a fact or a route reads it from the owner's narrow projection": the two vector readers keep the full state;
+   - "the witness digest computed only where it is persisted or compared": the guard computes it at the status reader.
+2. **The census reclasses two of the activation's narrow sites** (`:142`, `:978`) as "full form needed". Taking them would mean re-deriving the replay's CCall loop and `resultValue` expression, and its route order, in the caller. That is outside the grant (one route projection only) and is not an owner projection.
+3. **Lanes added to the reach**: `t287-recursive-registered-selection`, the one lane that fires `:583`; and three lanes that reach the migrated modules through support files. The four halt-diagnosis lanes ran instrumented only, to look for `:978`; none fires it, and none is in the lanes table.
+4. **"No lane's recorded store changes"** is shown by the lanes' own cold folds and comparisons, the differential and the unchanged writers, not by byte comparison. Lane stores carry natively sampled event times, so two runs of one lane never write equal bytes (what could not be verified).
+5. **Cites in the activation, corrected against `07ac3c87a`:**
+   - `ReplayState` is `replay.ts:494-529`;
+   - `runtimeStatus` is `:1402-1429` (at the commit `:1422-1449`), not `:1424-1431`;
+   - the digest writers are `:2312-2326`;
+   - `invocation_admission.ts:594` writes the guard's digest from `:442`;
+   - `traversal_route.ts:5365` is the comparison inside `:5355`'s function.
+
+### Findings outside the grant
+
+1. **Dead `replayValidatedRuntimeEventPrefix` imports**: `c_call.ts:92`, `c_call_outcome.ts:110` (with `projectActiveRuntimeTransaction` and `projectRuntimeTruthAtDurablePrefix`, `:108-109`), `closure.ts:51`, `continuation.ts:27`, `fan_out.ts:38` and `invocation_admission.ts:109`. Each module imports the function and does not call it.
+2. **Full states built where a guard would serve.**
+   - `traversal_route.ts:5355`: validated prefix. Its readers are `:5365` and `admitRoute` (`:5382`), and `admitRoute` takes a `RuntimeReplayGuard` and reads `replayDigest` only (`:4431-4432`). The guard over the same prefixes carries the same digest (`replay.ts:1472`; `t287-route-reconstruction:793` asserts the equality).
+   - `traversal_route.ts:5451`: the staged admission's full state, which no caller reads.
+   - `c_call.ts:7271`: `replay(store, scope)`, read for `replayDigest` only (`:7281`).
+   - `retry.ts:6311`: both planners pass a validated prefix (`:6111`), so `planOwnedCompletedRetryProgress`'s plan carries a full state that `hog/structural_transition.ts:195` reads for its digest only.
+
+   Each is a guard migration: S, `realization_refactor`, no persisted change. None fires in the TD-22 scenario.
+3. **Dead full-state producers**: `replay.ts:153` `projectActiveRuntimeTransaction` (only a test mock names it, `t287-result-evidence-lineage-projection:139`); `replay.ts:2158` `projectRunReplayContext`; `hog/operator_support.ts:45` `replayAtDurable`, which every hog module imports aliased from `ownedReplayAtDurable`.
+4. **The guard's digest cost on a validated prefix.** After the loop has projected every route, fan-out and delta through `facts.fact`, the guard's generators project them again directly (`replay.ts:1458-1469`). On a validated prefix the guard can therefore cost more than the full form. Not measured at a firing site, since `:101` fires nowhere.
+5. **No lane exercises the forward-successor relation** (`worksite_command_forward.ts:101` and `:142`) or the defect-intake member (`witness_admission_operation.ts:978`). The lanes that name them are red at the base on setup (`forward-command-owners` 4 reds, `witness-reprice-definition-binding` 15/0/15).
+6. **`graph_application.ts:582`**: `const events = runtimeEventBodiesAtPrefix(prefix)` is unused. It is kept so the function's first prefix access, and any refusal it raises, stays where it was.
+
+### Stops
+
+None reached.
+- No `replayStateDigest`, `sourceReplayDigest` or `replayDigest` value is shown to change. No writer is edited, and the differential found the full and narrow forms equal at every cut.
+- No payload key, event kind, failure class or Public export changes. The new function is `@internal` (stripped from the declarations, `tsconfig.json:16`) and not in a barrel; the regenerated files keep their leaf sets.
+- No migrated site's result or refusal differs from the full form at any cut the lanes reach.
+- No site needed a persisted-contract change. The two vector readers need an additive projection, not a contract change.
+- `runtimeStatus` and every guard member are derived by the same code path. The differential compared every guard member with the full state's at every derivation.
+
+### What could not be verified
+
+- **`worksite_command_forward.ts:101` by lane.** No lane run reaches it. Its equality rests on the trace and on the differential's guard-to-full equality at the other cuts.
+- **Byte equality of lane stores across runs.** Event times are sampled natively (deviation 4).
+- **A throw raised only after `replay.ts:1383`** (the liveness read, the event store digest or the witness digest) on a prefix the route-only path accepts. No throw statement exists there and none was observed, but the callees of `projectNativeLivenessRead` were not traced exhaustively.
+- **The guard's cost at a status reader** (finding 4).
+- **Instrumentation.** The count build carried 8 lines tagged `// C11` in `replay.ts`, and the differential build those 8 and 6 more. All are stripped:
+  - `grep -c C11` is 0 over `code/src/abg/replay.ts`, `build/code/src/abg/replay.js` and `build/code/src/abg/replay.d.ts`;
+  - `grep -rl 'C11\|c11Diff\|__c11'` over `code/src` and `build/code/src` finds no file;
+  - the stripped `replay.ts` is byte-equal to the clean after copy (`scratch/c11/src-after/replay.ts`);
+  - the new projection is in `build/code/src/abg/replay.js` and in neither `replay.d.ts` nor `index.d.ts`.

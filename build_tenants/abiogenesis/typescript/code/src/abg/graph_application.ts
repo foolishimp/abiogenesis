@@ -42,7 +42,7 @@ import {
   type OpenedTraversalScope,
 } from "./open_call.js";
 import {
-  replayValidatedRuntimeEventPrefix,
+  projectValidatedReplayRouteByJudgmentAtPrefix,
   type ReplayRouteState,
 } from "./replay.js";
 import {
@@ -580,15 +580,11 @@ export function projectApplicationChildRouteAtPrefix(
   }>,
 ): ReplayRouteState | null {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const route = replayValidatedRuntimeEventPrefix(
-    prefix,
-    authorityPrefix,
-  ).routes.find(
-    (candidate) =>
-      candidate.cCallRef === coordinates.cCallRef &&
-      candidate.judgmentRef === coordinates.judgmentRef &&
-      (candidate.routeKind === "terminal" || candidate.routeKind === "blocked"),
-  );
+  const route = projectValidatedReplayRouteByJudgmentAtPrefix(prefix, {
+    cCallRef: coordinates.cCallRef,
+    judgmentRef: coordinates.judgmentRef,
+    routeKinds: ["terminal", "blocked"],
+  }, authorityPrefix);
   if (route === undefined) return null;
   const routeEvent = indexedRuntimeEvents(prefix, "id:" + route.admissionEventRef).find(
     (event) =>

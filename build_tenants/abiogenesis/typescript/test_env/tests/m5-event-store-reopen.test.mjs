@@ -1372,9 +1372,15 @@ test("trusted owned history conserves currentness, callback publication, rollbac
   };
   const owned = (label, action) => measured("owned_coordinate_or_transition", label, 0, action);
   // This fixture has only complete inline workspace rows: a full output reads
-  // exactly its selected physical extent. It is not retained operational state.
-  const output = (label, selectedPrefix, action) =>
-    measured("explicit_complete_output", label, selectedPrefix.prefixLength, action);
+  // each row's physical extent once per generation of its owner. The held store
+  // keeps the verified bodies of its current generation, so an output reads the
+  // extent of its rows not yet verified in that generation.
+  let verifiedExtent = 0;
+  const output = (label, selectedPrefix, action) => {
+    const unverified = Math.max(0, selectedPrefix.prefixLength - verifiedExtent);
+    verifiedExtent = Math.max(verifiedExtent, selectedPrefix.prefixLength);
+    return measured("explicit_complete_output", label, unverified, action);
+  };
   let handoff, committed, beforeCallback, coldReadBytes;
   try {
     owned("stale, foreign, profile and malformed coordinates", () => {
@@ -1430,6 +1436,7 @@ test("trusted owned history conserves currentness, callback publication, rollbac
       assert.equal(store.digest(), committedDigest);
       assert.equal(selectHeldEventStoreDurablePrefix(store), prefix);
     });
+    verifiedExtent = 0; // the rollback begins a new generation of the owner
     assert.deepEqual(output("rollback complete output", prefix, () => store.readAll()), committed);
     handoff = owned("close and closed-owner refusal", () => {
       const closed = store.projectReopenAuthorityAndClose();
