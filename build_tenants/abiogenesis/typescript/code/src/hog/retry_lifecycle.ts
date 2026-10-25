@@ -26,6 +26,7 @@ import {
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
 import { failTraversal } from "./traversal_failure.js";
+import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 export interface RetryResumeStep {
@@ -733,7 +734,7 @@ export function advanceOwnedRetryLifecycle(
       request,
       retryTransition.successorPrefix,
       "retry-resume",
-      `diagnostic://abiogenesis/hog/${resume.code}@5`,
+      constructRuntimeFailureDiagnosticRef({ stage: "retry-resume", candidate: resume }),
       resume,
     );
   }

@@ -52,7 +52,6 @@ import {
   projectAdmittedCCallResultAtPrefix,
   planCCallRuntimeFailureClose,
   projectCCallCarrierPhaseAtPrefix,
-  projectCCallPhase,
   projectCCallRuntimeFailureSignal,
   projectOpenedCCallCarrierAtPrefix,
 } from "./c_call.js";
@@ -84,12 +83,9 @@ import {
 import {
   constructRuntimeFluent,
   constructScopedRetryFluent,
-  deriveRuntimeHeldFluentProjection,
-  holdsAt,
   runtimeFluentHoldsAtPrefix,
-  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
+  type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
-import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { runtimeEventPrefixDigest,
   projectOwnedRuntimeEventPrefixAtDurablePrefix,
   selectOwnedRuntimeEventPrefix,
@@ -100,7 +96,6 @@ import { runtimeEventPrefixDigest,
   selectRuntimeEventPrefixFromAuthority,
   selectValidatedRuntimeEventPrefix,
   unscopedRuntimeEventPrefix,
-  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -129,6 +124,7 @@ import {
   projectDeclaredStructuralAdvanceAtPrefix,
   projectAdmittedRouteAtPrefix,
   projectHistoricalTraversalRoutesAtPrefix,
+  projectReplayPropagatingHistoricalTraversalRouteAtPrefix,
   type DeclaredStructuralAdvanceProjection,
   type HistoricalTraversalRouteProjection,
 } from "./traversal_route.js";
@@ -139,6 +135,26 @@ import {
 import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { constructRuntimeFailureDiagnosticRef } from "./runtime_failure.js";
+import { retainCaughtCause, type RetainedCaughtCause } from "./event_contract_profiles.js";
+import {
+  digestValue,
+  nonNegativeInteger,
+  positiveInteger,
+  positiveIntegerValues,
+  progressBody,
+  projectAdmittedRetryProgress,
+  sameNumbers,
+  sameStrings,
+  stringValues,
+  type RetryCCallCompletedProgressAdmission,
+  type RetryCompletedProgressAdmission,
+  type RetryContinuationProgressAdmission,
+  type RetryProgressAdmission,
+  type RetryStoppedProgressAdmission,
+  type RetryStructuralCompletedProgressAdmission,
+  type RetrySuccessCompletionClass,
+} from "./retry_progress.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Owner boundary: `absent` and `many` map to `undefined`. */
@@ -148,6 +164,20 @@ export {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES as RETRYABLE_RUNTIME_FAILURE_CLASS_VALUES,
   type WorkerTransportFailureClass as RetryableRuntimeFailureClass,
 } from "./transport_contracts.js";
+export type {
+  RetryCCallCompletedProgressAdmission,
+  RetryCompletedProgressAdmission,
+  RetryContinuationProgressAdmission,
+  RetryProgressAdmission,
+  RetryStoppedProgressAdmission,
+  RetryStructuralCompletedProgressAdmission,
+  RetrySuccessCompletionClass,
+};
+/** @internal */
+export {
+  hasJudgedTerminalRouteCausation,
+  hasStructuralIdentityCompletedRouteCausation,
+} from "./retry_progress.js";
 
 export interface RetryInputBasis {
   readonly inputRef: string;
@@ -202,44 +232,6 @@ export type RetryAttemptAdmission = {
   readonly admissionEventRef: string;
 };
 
-type RetryProgressAdmissionBase = {
-  readonly kind: "retry_progress_admission";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "admitted";
-  readonly progressRef: string;
-  readonly progressDigest: Sha256Digest;
-  readonly progressClass: "retry" | "stopped" | "completed";
-  readonly retryBoundaryRef: string;
-  readonly attemptRef: string;
-  readonly attempt: number;
-  readonly retryPath: readonly number[];
-  readonly admissionEventRef: string;
-};
-
-type RetryFailureProgressAdmissionBase = RetryProgressAdmissionBase & {
-  readonly cCallRef: string;
-  readonly resultRef: string;
-  readonly judgmentRef: string;
-  readonly budget: number;
-  readonly failureClass: WorkerTransportFailureClass;
-  readonly failureSignalRef: string;
-  readonly completedAttempts: readonly number[];
-  readonly remainingBudget: number;
-  readonly inputRef: string;
-  readonly inputDigest: Sha256Digest;
-  readonly inputContractRef: string;
-};
-
-export type RetryContinuationProgressAdmission = RetryFailureProgressAdmissionBase & {
-  readonly progressClass: "retry";
-};
-
-export type RetryStoppedProgressAdmission = RetryFailureProgressAdmissionBase & {
-  readonly progressClass: "stopped";
-  readonly stopReason: "boundary_terminal" | "propagated_inner_stop";
-  readonly predecessorProgressRef: string | null;
-};
-
 export type RetryBoundaryStoppedProgressAdmission =
   RetryStoppedProgressAdmission & Readonly<{
     readonly stopReason: "boundary_terminal";
@@ -251,42 +243,6 @@ export type RetryPropagatedStoppedProgressAdmission =
     readonly stopReason: "propagated_inner_stop";
     readonly predecessorProgressRef: string;
   }>;
-
-type RetryCompletedProgressAdmissionBase = RetryProgressAdmissionBase & {
-  readonly progressClass: "completed";
-  readonly completedRetryDepth: number;
-  readonly completionClass: RetrySuccessCompletionClass;
-  readonly completionWitnessEventRef: string;
-  readonly sourceCursorRef: string;
-  readonly sourceCursorDigest: Sha256Digest;
-  readonly targetCursorRef: string | null;
-  readonly targetCursorDigest: Sha256Digest | null;
-  readonly predecessorProgressRef: string | null;
-};
-
-export type RetrySuccessCompletionClass =
-  | "judged_success"
-  | "fan_out_success"
-  | "fh_resume_success"
-  | "structural_identity_success";
-
-export type RetryCCallCompletedProgressAdmission = RetryCompletedProgressAdmissionBase & {
-  readonly completionClass:
-    | "judged_success"
-    | "fan_out_success"
-    | "fh_resume_success";
-  readonly cCallRef: string;
-  readonly resultRef: string;
-  readonly judgmentRef: string;
-};
-
-export type RetryStructuralCompletedProgressAdmission = RetryCompletedProgressAdmissionBase & {
-  readonly completionClass: "structural_identity_success";
-};
-
-export type RetryCompletedProgressAdmission =
-  | RetryCCallCompletedProgressAdmission
-  | RetryStructuralCompletedProgressAdmission;
 
 export interface CompletedRetryProgressPlan {
   readonly kind: "completed_retry_progress_plan";
@@ -331,11 +287,6 @@ export type RetrySuccessfulExitEvidence =
     completionWitnessEventRef: string;
   }>;
 
-export type RetryProgressAdmission =
-  | RetryContinuationProgressAdmission
-  | RetryStoppedProgressAdmission
-  | RetryCompletedProgressAdmission;
-
 export type RetryAdmissionRefusal = {
   readonly kind: "retry_admission_refusal";
   readonly schemaVersion: "5.0.0";
@@ -349,6 +300,10 @@ export type RetryAdmissionRefusal = {
     | "retry_not_declared"
     | "route_mismatch";
   readonly message: string;
+  /** Only on `route_mismatch`: the inline diagnostic subject (TD-17's
+   * convention) naming the class, the frontier's reason and, on the replay
+   * exit, the retained replay cause. */
+  readonly diagnosticRef?: string;
 };
 
 export type RetryAttemptAdmissionResult =
@@ -579,6 +534,7 @@ export type ProjectExecutableRetryInputResult =
 function refusal(
   code: RetryAdmissionRefusal["code"],
   message: string,
+  diagnosticRef?: string,
 ): RetryAdmissionRefusal {
   return deepFreeze({
     kind: "retry_admission_refusal" as const,
@@ -586,6 +542,7 @@ function refusal(
     disposition: "refused" as const,
     code,
     message,
+    ...(diagnosticRef === undefined ? {} : { diagnosticRef }),
   });
 }
 
@@ -806,22 +763,6 @@ export function projectRetryResumeAtDurablePrefix(
 type RuntimeEventWithBody = RuntimeEvent & {
   readonly payload: Readonly<Record<string, JsonValue>>;
 };
-
-function sameStrings(
-  left: readonly string[],
-  right: readonly string[],
-): boolean {
-  return left.length === right.length &&
-    left.every((value, index) => value === right[index]);
-}
-
-function sameNumbers(
-  left: readonly number[],
-  right: readonly number[],
-): boolean {
-  return left.length === right.length &&
-    left.every((value, index) => value === right[index]);
-}
 
 function contextForCursor(
   graph: Readonly<GtlGraph>,
@@ -1463,986 +1404,6 @@ function positiveNumberArray(value: JsonValue | undefined): readonly number[] {
     : [];
 }
 
-const RETRY_CONTINUATION_PROGRESS_KEYS = Object.freeze([
-  "attempt", "attemptRef", "budget", "cCallRef", "completedAttempts",
-  "failureClass", "failureSignalRef", "inputContractRef", "inputDigest",
-  "inputRef", "judgmentRef", "progressClass", "progressDigest", "progressRef",
-  "remainingBudget", "resultRef", "retryBoundaryRef", "retryPath",
-].sort());
-const RETRY_STOPPED_PROGRESS_KEYS = Object.freeze([
-  ...RETRY_CONTINUATION_PROGRESS_KEYS,
-  "predecessorProgressRef", "stopReason",
-].sort());
-const COMPLETED_PROGRESS_TERMINAL_KEYS = Object.freeze([
-  "attempt", "attemptRef", "cCallRef", "completedRetryDepth",
-  "completionClass", "completionWitnessEventRef", "judgmentRef",
-  "predecessorProgressRef", "progressClass", "progressDigest", "progressRef",
-  "resultRef", "retryBoundaryRef", "retryPath", "sourceCursorDigest",
-  "sourceCursorRef",
-].sort());
-const COMPLETED_PROGRESS_ADVANCE_KEYS = Object.freeze([
-  ...COMPLETED_PROGRESS_TERMINAL_KEYS, "targetCursorDigest", "targetCursorRef",
-].sort());
-const STRUCTURAL_COMPLETED_PROGRESS_ADVANCE_KEYS = Object.freeze([
-  "attempt", "attemptRef", "completedRetryDepth", "completionClass",
-  "completionWitnessEventRef", "predecessorProgressRef", "progressClass",
-  "progressDigest", "progressRef", "retryBoundaryRef", "retryPath",
-  "sourceCursorDigest", "sourceCursorRef", "targetCursorDigest",
-  "targetCursorRef",
-].sort());
-function exactPayloadKeys(
-  payload: Readonly<Record<string, JsonValue>>,
-  expected: readonly string[],
-): boolean {
-  return sameStrings(Object.keys(payload).sort(), expected);
-}
-
-function progressBody(
-  payload: Readonly<Record<string, JsonValue>>,
-): Readonly<Record<string, JsonValue>> | null {
-  if (payload.progressClass === "retry") {
-    if (!exactPayloadKeys(payload, RETRY_CONTINUATION_PROGRESS_KEYS)) return null;
-    const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
-    return body;
-  }
-  if (payload.progressClass === "stopped") {
-    if (!exactPayloadKeys(payload, RETRY_STOPPED_PROGRESS_KEYS)) return null;
-    const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
-    return body;
-  }
-  if (payload.progressClass !== "completed") return null;
-  if (payload.completionClass === "structural_identity_success") {
-    if (!exactPayloadKeys(payload, STRUCTURAL_COMPLETED_PROGRESS_ADVANCE_KEYS)) {
-      return null;
-    }
-    const { progressRef: _ref, progressDigest: _digest, ...body } = payload;
-    return body;
-  }
-  if (
-    payload.completionClass !== "judged_success" &&
-    payload.completionClass !== "fan_out_success" &&
-    payload.completionClass !== "fh_resume_success"
-  ) return null;
-  const terminal = !Object.hasOwn(payload, "targetCursorRef") &&
-    !Object.hasOwn(payload, "targetCursorDigest");
-  if (!exactPayloadKeys(
-    payload,
-    terminal ? COMPLETED_PROGRESS_TERMINAL_KEYS : COMPLETED_PROGRESS_ADVANCE_KEYS,
-  )) return null;
-  const { progressRef: _ref, progressDigest: _digest, ...storedBody } = payload;
-  return terminal
-    ? { ...storedBody, targetCursorRef: null, targetCursorDigest: null }
-    : storedBody;
-}
-
-function digestValue(value: JsonValue | undefined): value is Sha256Digest {
-  return typeof value === "string" && value.startsWith("sha256:");
-}
-
-function positiveInteger(value: JsonValue | undefined): value is number {
-  return Number.isSafeInteger(value) && Number(value) > 0;
-}
-
-function nonNegativeInteger(value: JsonValue | undefined): value is number {
-  return Number.isSafeInteger(value) && Number(value) >= 0;
-}
-
-function positiveIntegerValues(
-  value: JsonValue | undefined,
-): readonly number[] | null {
-  return Array.isArray(value) && value.length > 0 && value.every(positiveInteger)
-    ? value.map(Number)
-    : null;
-}
-
-function stringValues(value: JsonValue | undefined): readonly string[] | null {
-  return Array.isArray(value) && value.every(nonEmptyString)
-    ? value as readonly string[]
-    : null;
-}
-
-function sharesProgressScope(
-  candidate: RuntimeEvent,
-  progress: RuntimeEvent,
-): boolean {
-  return candidate.workflowVersion === "5.0.0" &&
-    candidate.scopeClass === "run" &&
-    candidate.basisId === progress.basisId &&
-    candidate.runId === progress.runId &&
-    candidate.graphFunctionRef === progress.graphFunctionRef &&
-    candidate.graphCallId === progress.graphCallId &&
-    candidate.frameId === progress.frameId;
-}
-
-function exactAttemptEvent(
-  prior: RuntimeEventScan,
-  progress: RuntimeEvent,
-  body: Readonly<Record<string, JsonValue>>,
-): RuntimeEvent | null {
-  const rows = prior.filter((candidate) =>
-    candidate.kind === "retry_attempt_opened" &&
-    isRecord(candidate.payload) &&
-    candidate.payload.attemptRef === body.attemptRef
-  );
-  if (rows.length !== 1) return null;
-  const event = rows[0]!;
-  const payload = event.payload;
-  if (!isRecord(payload)) return null;
-  const { attemptRef: _ref, attemptDigest: _digest, ...attemptBody } = payload;
-  const retryPath = positiveIntegerValues(payload.retryPath);
-  const retryTermPath = stringValues(payload.retryTermPath);
-  const wrappedTermPath = stringValues(payload.wrappedTermPath);
-  const retryable = stringValues(payload.retryableFailureClasses);
-  const attemptDigest = sha256Canonical(attemptBody);
-  const routeRows = prior.filter((candidate) =>
-    candidate.kind === "traversal_route_admitted" &&
-    sharesProgressScope(candidate, progress) &&
-    isRecord(candidate.payload) &&
-    candidate.payload.routeKind === "retry" &&
-    candidate.payload.routeRef === payload.priorRouteRef &&
-    event.causationEventRefs.includes(candidate.eventId)
-  );
-  return sharesProgressScope(event, progress) &&
-      event.aggregateType === "frame" &&
-      event.aggregateId === progress.frameId &&
-      event.parentAggregateId === progress.graphCallId &&
-      event.materializationRef === progress.materializationRef &&
-      nonEmptyString(payload.attemptRef) &&
-      digestValue(payload.attemptDigest) &&
-      payload.attemptDigest === attemptDigest &&
-      payload.attemptRef ===
-        `retry-attempt://abiogenesis/${attemptDigest.slice("sha256:".length)}` &&
-      payload.retryBoundaryRef === body.retryBoundaryRef &&
-      payload.attempt === body.attempt &&
-      retryPath !== null && sameNumbers(retryPath, body.retryPath as number[]) &&
-      positiveInteger(payload.budget) &&
-      Number(payload.attempt) <= Number(payload.budget) &&
-      retryTermPath !== null && retryTermPath.length >= 3 &&
-      wrappedTermPath !== null &&
-      sameStrings(wrappedTermPath, [...retryTermPath, "term"]) &&
-      retryable !== null &&
-      sameStrings(retryable, WORKER_TRANSPORT_FAILURE_CLASS_VALUES) &&
-      (payload.taskOrdinal === null || nonNegativeInteger(payload.taskOrdinal)) &&
-      (payload.priorJudgmentRef === null || nonEmptyString(payload.priorJudgmentRef)) &&
-      nonEmptyString(payload.priorRouteRef) &&
-      event.causationEventRefs.length === 1 && routeRows.length === 1 &&
-      event.causationEventRefs[0] === routeRows[0]!.eventId &&
-      nonEmptyString(payload.inputRef) && digestValue(payload.inputDigest) &&
-      nonEmptyString(payload.inputContractRef) &&
-      isRecord(payload.inputValue) &&
-      sha256Canonical(payload.inputValue) === payload.inputDigest
-    ? event
-    : null;
-}
-
-function hasHistoricalAttemptCCallDescent(
-  events: RuntimeEventScan,
-  attemptEvent: RuntimeEvent,
-  openedEvent: RuntimeEvent,
-): boolean {
-  if (
-    !isRecord(attemptEvent.payload) || !isRecord(openedEvent.payload) ||
-    openedEvent.kind !== "c_call_opened" ||
-    openedEvent.payload.attempt !== attemptEvent.payload.attempt ||
-    !nonEmptyString(openedEvent.payload.programLocusRef) ||
-    !sameNumbers(
-      positiveIntegerValues(openedEvent.payload.retryPath) ?? [],
-      positiveIntegerValues(attemptEvent.payload.retryPath) ?? [],
-    )
-  ) return false;
-  const attemptPayload = attemptEvent.payload;
-  const openedPayload = openedEvent.payload;
-  const immediateRoutes = events.filter((event) =>
-    event.kind === "traversal_route_admitted" &&
-    openedEvent.causationEventRefs.includes(event.eventId) &&
-    event.runId === openedEvent.runId &&
-    event.graphCallId === openedEvent.graphCallId &&
-    event.frameId === openedEvent.frameId &&
-    isRecord(event.payload) &&
-    event.payload.targetCursorRef === openedPayload.cursorRef &&
-    event.payload.targetCursorDigest === openedPayload.cursorDigest
-  );
-  const originRoutes = events.filter((event) =>
-    event.kind === "traversal_route_admitted" &&
-    attemptEvent.causationEventRefs.includes(event.eventId) &&
-    event.runId === attemptEvent.runId &&
-    event.graphCallId === attemptEvent.graphCallId &&
-    event.frameId === attemptEvent.frameId &&
-    isRecord(event.payload) && event.payload.routeKind === "retry" &&
-    event.payload.routeRef === attemptPayload.priorRouteRef
-  );
-  if (immediateRoutes.length !== 1 || originRoutes.length !== 1) return false;
-  const origin = originRoutes[0]!;
-  const pending = [immediateRoutes[0]!.eventId];
-  const visited = new Set<string>();
-  const byId = new Map(events.map((event) => [event.eventId, event]));
-  while (pending.length !== 0) {
-    const eventRef = pending.pop()!;
-    if (eventRef === origin.eventId) return true;
-    if (visited.has(eventRef)) continue;
-    visited.add(eventRef);
-    const event = byId.get(eventRef);
-    if (event !== undefined) pending.push(...event.causationEventRefs);
-  }
-  return false;
-}
-
-function exactCCallPhaseEvents(
-  prefix: RuntimeEventPrefix,
-  events: RuntimeEventScan,
-  progress: RuntimeEvent,
-  cCallRef: string,
-  resultRef: string,
-  judgmentRef: string,
-): Readonly<{
-  opened: RuntimeEvent;
-  fibre: RuntimeEvent;
-  result: RuntimeEvent;
-  judgment: RuntimeEvent;
-}> | null {
-  let phase;
-  try {
-    phase = projectCCallPhase(prefix, cCallRef);
-  } catch {
-    return null;
-  }
-  if (
-    phase.phase !== "judged" || phase.fibreEventRef === null ||
-    phase.resultEventRef === null ||
-    phase.judgmentEventRef === null
-  ) return null;
-  const opened = events.find((candidate) =>
-    candidate.eventId === phase.openedEventRef && candidate.kind === "c_call_opened"
-  );
-  const fibre = events.find((candidate) =>
-    candidate.eventId === phase.fibreEventRef &&
-    candidate.kind === "c_call_fibre_selected"
-  );
-  const result = events.find((candidate) =>
-    candidate.eventId === phase.resultEventRef &&
-    candidate.kind === "c_call_result_admitted"
-  );
-  const judgment = events.find((candidate) =>
-    candidate.eventId === phase.judgmentEventRef && candidate.kind === "c_call_judged"
-  );
-  if (
-    opened === undefined || fibre === undefined || result === undefined ||
-    judgment === undefined || !isRecord(opened.payload) ||
-    !isRecord(fibre.payload) || !isRecord(result.payload) ||
-    !isRecord(judgment.payload)
-  ) return null;
-  const resultPayload = result.payload;
-  const judgmentPayload = judgment.payload;
-  if (
-    !sharesProgressScope(opened, progress) ||
-    !sharesProgressScope(fibre, progress) ||
-    !sharesProgressScope(result, progress) ||
-    !sharesProgressScope(judgment, progress) ||
-    opened.aggregateType !== "c_call" || opened.aggregateId !== cCallRef ||
-    opened.materializationRef !== progress.materializationRef ||
-    opened.payload.cCallRef !== cCallRef ||
-    fibre.aggregateType !== "c_call" || fibre.aggregateId !== cCallRef ||
-    fibre.parentAggregateId !== opened.parentAggregateId ||
-    fibre.materializationRef !== progress.materializationRef ||
-    fibre.payload.cCallRef !== cCallRef ||
-    fibre.causationEventRefs.length !== 1 ||
-    fibre.causationEventRefs[0] !== opened.eventId ||
-    result.aggregateType !== "c_call" || result.aggregateId !== cCallRef ||
-    resultPayload.cCallRef !== cCallRef || resultPayload.resultRef !== resultRef ||
-    judgment.aggregateType !== "c_call" || judgment.aggregateId !== cCallRef ||
-    judgmentPayload.cCallRef !== cCallRef ||
-    judgmentPayload.judgmentRef !== judgmentRef ||
-    judgmentPayload.resultRef !== resultRef ||
-    judgmentPayload.resultDigest !== resultPayload.resultDigest ||
-    !judgment.causationEventRefs.includes(result.eventId)
-  ) return null;
-  return Object.freeze({ opened, fibre, result, judgment });
-}
-
-function hasExactRetryFailureProvenance(
-  prefix: RuntimeEventPrefix,
-  _events: RuntimeEventScan,
-  result: RuntimeEvent,
-  judgment: RuntimeEvent,
-  failureClass: JsonValue | undefined,
-  failureSignalRef: JsonValue | undefined,
-): boolean {
-  if (
-    !WORKER_TRANSPORT_FAILURE_CLASS_VALUES.includes(
-      failureClass as WorkerTransportFailureClass,
-    ) ||
-    !nonEmptyString(failureSignalRef) ||
-    !isRecord(result.payload) || !isRecord(judgment.payload) ||
-    result.payload.resultClass !== "failure" ||
-    judgment.payload.reasonRef !== failureSignalRef ||
-    typeof result.payload.resultRef !== "string" ||
-    typeof judgment.payload.judgmentRef !== "string"
-  ) return false;
-  const signal = projectCCallRuntimeFailureSignal(
-    prefix,
-    result.aggregateId,
-    result.payload.resultRef,
-    judgment.payload.judgmentRef,
-  );
-  return signal !== null && signal.failureClass === failureClass &&
-    signal.failureSignalRef === failureSignalRef;
-}
-function exactSourceCursorEvent(
-  prior: RuntimeEventScan,
-  cCallEvent: RuntimeEvent,
-  sourceCursorRef: JsonValue | undefined,
-  sourceCursorDigest: JsonValue | undefined,
-): RuntimeEvent | null {
-  if (
-    !nonEmptyString(sourceCursorRef) || !digestValue(sourceCursorDigest) ||
-    !isRecord(cCallEvent.payload) ||
-    cCallEvent.payload.cursorRef !== sourceCursorRef ||
-    cCallEvent.payload.cursorDigest !== sourceCursorDigest
-  ) return null;
-  const rows = prior.filter((candidate) => {
-    if (!isRecord(candidate.payload)) return false;
-    return (candidate.kind === "traversal_cursor_entered" &&
-        candidate.payload.cursorRef === sourceCursorRef &&
-        candidate.payload.cursorDigest === sourceCursorDigest) ||
-      (candidate.kind === "traversal_route_admitted" &&
-        candidate.payload.targetCursorRef === sourceCursorRef &&
-        candidate.payload.targetCursorDigest === sourceCursorDigest) ||
-      (candidate.kind === "fh_interaction_resume_admitted" &&
-        candidate.payload.successorCursorRef === sourceCursorRef &&
-        candidate.payload.successorCursorDigest === sourceCursorDigest);
-  });
-  return rows.length === 1 && rows[0]!.admissionOrdinal < cCallEvent.admissionOrdinal
-    ? rows[0]!
-    : null;
-}
-
-function exactCursorCarrierEvent(
-  prior: RuntimeEventScan,
-  progress: RuntimeEvent,
-  sourceCursorRef: JsonValue | undefined,
-  sourceCursorDigest: JsonValue | undefined,
-  witnessEventRef: JsonValue | undefined,
-): RuntimeEvent | null {
-  if (
-    !nonEmptyString(sourceCursorRef) || !digestValue(sourceCursorDigest) ||
-    !nonEmptyString(witnessEventRef)
-  ) return null;
-  const candidate = prior.find((event) => event.eventId === witnessEventRef);
-  if (candidate === undefined || !isRecord(candidate.payload)) return null;
-  const candidatePayload = candidate.payload;
-  const materializationRef = candidate.kind === "fh_interaction_resume_admitted"
-    ? prior.find((event) =>
-        event.kind === "fh_interaction_opened" &&
-        event.aggregateId === candidate.aggregateId &&
-        event.eventId === candidatePayload.openedEventRef
-      )?.materializationRef
-    : candidate.materializationRef;
-  if (
-    candidate.workflowVersion !== "5.0.0" ||
-    candidate.scopeClass !== "run" || candidate.runId !== progress.runId ||
-    candidate.graphCallId !== progress.graphCallId ||
-    candidate.frameId !== progress.frameId ||
-    materializationRef !== progress.materializationRef
-  ) return null;
-  const matches = (candidate.kind === "traversal_cursor_entered" &&
-      candidate.payload.cursorRef === sourceCursorRef &&
-      candidate.payload.cursorDigest === sourceCursorDigest) ||
-    (candidate.kind === "traversal_route_admitted" &&
-      candidate.payload.targetCursorRef === sourceCursorRef &&
-      candidate.payload.targetCursorDigest === sourceCursorDigest) ||
-    (candidate.kind === "fh_interaction_resume_admitted" &&
-      candidate.payload.successorCursorRef === sourceCursorRef &&
-      candidate.payload.successorCursorDigest === sourceCursorDigest);
-  return matches ? candidate : null;
-}
-
-function exactFanOutCompletionWitness(
-  prefix: RuntimeEventPrefix,
-  prior: RuntimeEventScan,
-  progress: RuntimeEvent,
-  body: Readonly<Record<string, JsonValue>>,
-  cCallEvent: RuntimeEvent,
-  resultEvent: RuntimeEvent,
-  judgmentEvent: RuntimeEvent,
-): RuntimeEvent | null {
-  const witness = prior.find((candidate) =>
-    candidate.eventId === body.completionWitnessEventRef &&
-    candidate.kind === "fan_out_completion_admitted"
-  );
-  const projected = typeof body.completionWitnessEventRef === "string"
-    ? projectExactFanOutCompletion(prefix, {
-        mode: "event_canonical",
-        admissionEventRef: body.completionWitnessEventRef,
-      })
-    : null;
-  if (
-    witness === undefined || !sharesProgressScope(witness, progress) ||
-    !isRecord(witness.payload) || !isRecord(cCallEvent.payload) ||
-    !isRecord(resultEvent.payload) || !isRecord(judgmentEvent.payload) ||
-    projected?.kind !== "fan_out_completion_admission" ||
-    projected.completionKind !== "complete_vector" ||
-    projected.taskRows.length === 0
-  ) return null;
-  const lastRow = projected.taskRows.at(-1)!;
-  return lastRow.cCallRef === body.cCallRef &&
-      lastRow.resultRef === body.resultRef &&
-      lastRow.judgmentRef === body.judgmentRef &&
-      cCallEvent.payload.batchRef === projected.batchRef &&
-      resultEvent.payload.resultClass === "success" &&
-      judgmentEvent.payload.judgment === "advance" &&
-      witness.causationEventRefs.includes(judgmentEvent.eventId)
-    ? witness
-    : null;
-}
-
-function exactFhResumeCompletionWitness(
-  prefix: RuntimeEventPrefix,
-  calculus: RuntimeHeldFluentProjection,
-  authorityPrefix: RuntimeEventPrefix,
-  body: Readonly<Record<string, JsonValue>>,
-  cCallEvent: RuntimeEvent,
-  fibreEvent: RuntimeEvent,
-  resultEvent: RuntimeEvent,
-  judgmentEvent: RuntimeEvent,
-): RuntimeEvent | null {
-  if (
-    !isRecord(cCallEvent.payload) || !isRecord(fibreEvent.payload) ||
-    !isRecord(resultEvent.payload) || !isRecord(judgmentEvent.payload) ||
-    fibreEvent.payload.cCallRef !== body.cCallRef ||
-    fibreEvent.payload.callClass !== "leaf" ||
-    fibreEvent.payload.regime !== "F_H" ||
-    resultEvent.payload.resultClass !== "pending" ||
-    judgmentEvent.payload.judgment !== "pending"
-  ) return null;
-  const continuation = projectFhContinuations(
-    prefix,
-    calculus,
-    authorityPrefix,
-  ).find((row) =>
-    row.status === "resolved" &&
-    row.cCallRef === body.cCallRef &&
-    row.resumedEventRef === body.completionWitnessEventRef &&
-    row.successorCursorRef === body.sourceCursorRef &&
-    row.successorCursorDigest === body.sourceCursorDigest
-  );
-  if (continuation === undefined || continuation.resumedEventRef === null) {
-    return null;
-  }
-  return indexedRuntimeEvents(prefix, "id:" + continuation.resumedEventRef).find((event) =>
-    event.kind === "fh_interaction_resume_admitted" &&
-    event.eventId === continuation.resumedEventRef
-  ) ?? null;
-}
-
-function projectRetryProgressAt(
-  prefix: RuntimeEventPrefix,
-  events: RuntimeEventScan,
-  eventIndex: number,
-  visiting: ReadonlySet<string>,
-  authorityPrefix: RuntimeEventPrefix,
-): RetryProgressAdmission | null {
-  const event = events.at(eventIndex);
-  if (
-    event?.kind !== "retry_progress_recorded" ||
-    event.runId === undefined || event.graphCallId === undefined ||
-    event.frameId === undefined || event.graphFunctionRef === undefined ||
-    event.materializationRef === undefined || !isRecord(event.payload) ||
-    event.workflowVersion !== "5.0.0" || event.scopeClass !== "run" ||
-    event.aggregateType !== "frame" || event.aggregateId !== event.frameId ||
-    event.parentAggregateId !== event.graphCallId ||
-    visiting.has(event.eventId)
-  ) return null;
-  const body = progressBody(event.payload);
-  if (body === null ||
-    typeof event.payload.progressDigest !== "string" ||
-    typeof event.payload.progressRef !== "string") return null;
-  const digest = sha256Canonical(body);
-  const progressRef =
-    `retry-progress://abiogenesis/${digest.slice("sha256:".length)}`;
-  if (event.payload.progressDigest !== digest || event.payload.progressRef !== progressRef) {
-    return null;
-  }
-  const attemptRef = body.attemptRef;
-  const structuralCompletion =
-    body.completionClass === "structural_identity_success";
-  const cCallRef = nonEmptyString(body.cCallRef) ? body.cCallRef : null;
-  const resultRef = nonEmptyString(body.resultRef) ? body.resultRef : null;
-  const judgmentRef = nonEmptyString(body.judgmentRef)
-    ? body.judgmentRef
-    : null;
-  const retryPath = positiveIntegerValues(body.retryPath);
-  if (
-    !nonEmptyString(attemptRef) ||
-    (!structuralCompletion &&
-      (cCallRef === null || resultRef === null || judgmentRef === null)) ||
-    !nonEmptyString(body.retryBoundaryRef) ||
-    !positiveInteger(body.attempt) ||
-    retryPath === null || body.attempt !== retryPath.at(-1) || eventIndex === 0
-  ) return null;
-  const prior = events.slice(0, eventIndex);
-  const priorPrefix = validatedRuntimeEventPrefixThroughEvent(
-    prefix,
-    events.at(eventIndex - 1)!.eventId,
-  );
-  let priorAuthorityPrefix: RuntimeEventPrefix;
-  try {
-    priorAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
-      authorityPrefix,
-      events.at(eventIndex - 1)!.eventId,
-    );
-  } catch {
-    return null;
-  }
-  const priorCalculus = deriveRuntimeHeldFluentProjection(priorPrefix);
-  const attemptEvent = exactAttemptEvent(prior, event, body);
-  const phase = structuralCompletion || cCallRef === null ||
-      resultRef === null || judgmentRef === null
-    ? null
-    : exactCCallPhaseEvents(
-        priorPrefix,
-        prior,
-        event,
-        cCallRef,
-        resultRef,
-        judgmentRef,
-      );
-  const cCallEvent = phase?.opened ?? null;
-  const fibreEvent = phase?.fibre ?? null;
-  const resultEvent = phase?.result ?? null;
-  const judgmentEvent = phase?.judgment ?? null;
-  const cCallPayload = cCallEvent !== null && isRecord(cCallEvent.payload)
-    ? cCallEvent.payload
-    : null;
-  const resultPayload = resultEvent !== null && isRecord(resultEvent.payload)
-    ? resultEvent.payload
-    : null;
-  const judgmentPayload = judgmentEvent !== null && isRecord(judgmentEvent.payload)
-    ? judgmentEvent.payload
-    : null;
-  if (
-    attemptEvent === null ||
-    event.causationEventRefs.length !== 2 ||
-    event.causationEventRefs[0] !== attemptEvent.eventId ||
-    (!structuralCompletion && (
-      cCallEvent === null || fibreEvent === null || resultEvent === null ||
-      judgmentEvent === null || cCallPayload === null || resultPayload === null ||
-      judgmentPayload === null ||
-      cCallPayload.cCallRef !== cCallRef ||
-      resultPayload.resultRef !== resultRef ||
-      judgmentPayload.judgmentRef !== judgmentRef
-    )) ||
-    !holdsAt(
-      priorCalculus,
-      constructScopedRetryFluent("retry_attempt_active", {
-        runId: event.runId,
-        graphCallId: event.graphCallId,
-        frameId: event.frameId,
-        retryBoundaryRef: body.retryBoundaryRef as string,
-        authorityRef: attemptRef,
-      }),
-    )
-  ) return null;
-
-  const failureProgress = event.payload.progressClass === "retry" ||
-    event.payload.progressClass === "stopped";
-  const propagatedStop = event.payload.progressClass === "stopped" &&
-    body.stopReason === "propagated_inner_stop";
-  const directCCallOwnership = !propagatedStop &&
-    !structuralCompletion &&
-    (failureProgress || body.predecessorProgressRef === null);
-  const callRetryPath = cCallPayload === null
-    ? null
-    : positiveIntegerValues(cCallPayload.retryPath);
-  if (directCCallOwnership) {
-    if (cCallPayload === null || cCallRef === null) return null;
-    if (
-      callRetryPath === null ||
-      (cCallPayload.taskOrdinal !== null &&
-        !nonNegativeInteger(cCallPayload.taskOrdinal)) ||
-      !positiveInteger(cCallPayload.attempt) ||
-      !nonEmptyString(cCallPayload.programLocusRef) ||
-      cCallPayload.attempt !== body.attempt ||
-      !sameNumbers(callRetryPath, retryPath) ||
-      cCallEvent === null ||
-      !hasHistoricalAttemptCCallDescent(prior, attemptEvent, cCallEvent)
-    ) return null;
-  }
-
-  if (failureProgress) {
-    if (
-      cCallPayload === null || resultPayload === null ||
-      judgmentPayload === null || cCallRef === null ||
-      resultRef === null || judgmentRef === null ||
-      resultEvent === null || judgmentEvent === null
-    ) return null;
-    const completedAttempts = positiveIntegerValues(body.completedAttempts);
-    const expectedAttempts = Array.from(
-      { length: Number(body.attempt) },
-      (_, index) => index + 1,
-    );
-    const priorFailureProgresses = prior.flatMap((candidate, index) => {
-      if (
-        candidate.kind !== "retry_progress_recorded" ||
-        !isRecord(candidate.payload) ||
-        candidate.payload.retryBoundaryRef !== body.retryBoundaryRef ||
-        candidate.payload.progressClass !== "retry"
-      ) return [];
-      const projected = projectRetryProgressAt(
-        prefix,
-        events,
-        index,
-        new Set([...visiting, event.eventId]),
-        authorityPrefix,
-      );
-      return projected?.progressClass === "retry" ? [projected] : [];
-    });
-    const immediatelyPrecedingFailure = priorFailureProgresses.at(-1);
-    const stationary = immediatelyPrecedingFailure?.failureSignalRef ===
-      body.failureSignalRef;
-    const budgetExhausted = Number(body.attempt) >= Number(body.budget);
-    const stopped = event.payload.progressClass === "stopped";
-    if (
-      !positiveInteger(body.budget) ||
-      completedAttempts === null ||
-      !sameNumbers(completedAttempts, expectedAttempts) ||
-      !nonNegativeInteger(body.remainingBudget) ||
-      body.remainingBudget !==
-        Math.max(0, Number(body.budget) - Number(body.attempt)) ||
-      !WORKER_TRANSPORT_FAILURE_CLASS_VALUES.includes(
-        body.failureClass as WorkerTransportFailureClass,
-      ) ||
-      !nonEmptyString(body.failureSignalRef) ||
-      !nonEmptyString(body.inputRef) || !digestValue(body.inputDigest) ||
-      !nonEmptyString(body.inputContractRef) ||
-      !isRecord(attemptEvent.payload) ||
-      attemptEvent.payload.budget !== body.budget ||
-      attemptEvent.payload.inputRef !== body.inputRef ||
-      attemptEvent.payload.inputDigest !== body.inputDigest ||
-      attemptEvent.payload.inputContractRef !== body.inputContractRef ||
-      !hasExactRetryFailureProvenance(
-        priorPrefix,
-        prior,
-        resultEvent,
-        judgmentEvent,
-        body.failureClass,
-        body.failureSignalRef,
-      ) ||
-      callRetryPath === null ||
-      (stopped
-        ? body.stopReason !== "boundary_terminal" &&
-          body.stopReason !== "propagated_inner_stop"
-        : Object.hasOwn(body, "stopReason") ||
-          Object.hasOwn(body, "predecessorProgressRef"))
-    ) return null;
-    if (!propagatedStop) {
-      if (
-        judgmentPayload.judgment !== (stopped ? "blocked" : "retry") ||
-        judgmentPayload.retryAttemptRef !== attemptRef ||
-        event.causationEventRefs[1] !== judgmentEvent.eventId ||
-        (stopped
-          ? body.stopReason !== "boundary_terminal" ||
-            body.predecessorProgressRef !== null ||
-            (!budgetExhausted && !stationary)
-          : budgetExhausted || stationary)
-      ) return null;
-    } else {
-      const predecessorIndex = prior.findIndex((candidate) =>
-        candidate.eventId === event.causationEventRefs[1]
-      );
-      const predecessor = predecessorIndex < 0 ? null : projectRetryProgressAt(
-        prefix,
-        events,
-        predecessorIndex,
-        new Set([...visiting, event.eventId]),
-        authorityPrefix,
-      );
-      if (
-        judgmentPayload.judgment !== "blocked" ||
-        !nonEmptyString(body.predecessorProgressRef) ||
-        predecessorIndex !== eventIndex - 1 ||
-        predecessor?.progressClass !== "stopped" ||
-        predecessor.progressRef !== body.predecessorProgressRef ||
-        predecessor.retryBoundaryRef === body.retryBoundaryRef ||
-        predecessor.cCallRef !== cCallRef ||
-        predecessor.resultRef !== resultRef ||
-        predecessor.judgmentRef !== judgmentRef ||
-        predecessor.failureClass !== body.failureClass ||
-        predecessor.failureSignalRef !== body.failureSignalRef ||
-        !sameNumbers(predecessor.retryPath.slice(0, -1), retryPath) ||
-        !sameNumbers(callRetryPath.slice(0, retryPath.length), retryPath) ||
-        callRetryPath.length <= retryPath.length
-      ) return null;
-    }
-  } else {
-    const completionClass = body.completionClass;
-    if (
-      completionClass !== "judged_success" &&
-      completionClass !== "fan_out_success" &&
-      completionClass !== "fh_resume_success" &&
-      completionClass !== "structural_identity_success"
-    ) return null;
-    let sourceCursorEvent: RuntimeEvent | null = null;
-    let completionWitness: RuntimeEvent | null = null;
-    if (completionClass === "structural_identity_success") {
-      sourceCursorEvent = exactCursorCarrierEvent(
-        prior,
-        event,
-        body.sourceCursorRef,
-        body.sourceCursorDigest,
-        body.completionWitnessEventRef,
-      );
-      completionWitness = sourceCursorEvent;
-    } else {
-      if (
-        cCallEvent === null || fibreEvent === null || resultEvent === null ||
-        judgmentEvent === null || cCallPayload === null || resultPayload === null ||
-        judgmentPayload === null || cCallRef === null || resultRef === null ||
-        judgmentRef === null
-      ) return null;
-      if (completionClass === "fh_resume_success") {
-        completionWitness = exactFhResumeCompletionWitness(
-          priorPrefix,
-          priorCalculus,
-          priorAuthorityPrefix,
-          body,
-          cCallEvent,
-          fibreEvent,
-          resultEvent,
-          judgmentEvent,
-        );
-        sourceCursorEvent = completionWitness;
-      } else {
-        sourceCursorEvent = exactSourceCursorEvent(
-          prior,
-          cCallEvent,
-          body.sourceCursorRef,
-          body.sourceCursorDigest,
-        );
-        completionWitness = completionClass === "fan_out_success"
-          ? exactFanOutCompletionWitness(
-              priorPrefix,
-              prior,
-              event,
-              body,
-              cCallEvent,
-              resultEvent,
-              judgmentEvent,
-            )
-          : body.completionWitnessEventRef === judgmentEvent.eventId &&
-              resultPayload.resultClass === "success" &&
-              judgmentPayload.judgment === "advance"
-            ? judgmentEvent
-            : null;
-      }
-    }
-    const targetPairValid =
-      (body.targetCursorRef === null && body.targetCursorDigest === null) ||
-      (nonEmptyString(body.targetCursorRef) && digestValue(body.targetCursorDigest));
-    if (
-      !positiveInteger(body.completedRetryDepth) ||
-      body.completedRetryDepth !== retryPath.length ||
-      sourceCursorEvent === null || completionWitness === null ||
-      !targetPairValid ||
-      (completionClass === "structural_identity_success" &&
-        (body.targetCursorRef === null || body.targetCursorDigest === null)) ||
-      !holdsAt(
-        priorCalculus,
-        constructRuntimeFluent({
-          name: "locus_active",
-          identity: body.sourceCursorRef as string,
-        }),
-      ) ||
-      (body.predecessorProgressRef !== null &&
-        !nonEmptyString(body.predecessorProgressRef))
-    ) return null;
-    if (body.predecessorProgressRef === null) {
-      if (
-        (completionClass !== "structural_identity_success" &&
-          judgmentPayload?.retryAttemptRef !== attemptRef) ||
-        event.causationEventRefs[1] !== completionWitness.eventId
-      ) return null;
-    } else {
-      const predecessorIndex = prior.findIndex((candidate) =>
-        candidate.eventId === event.causationEventRefs[1]
-      );
-      const predecessor = predecessorIndex < 0 ? null : projectRetryProgressAt(
-        prefix,
-        events,
-        predecessorIndex,
-        new Set([...visiting, event.eventId]),
-        authorityPrefix,
-      );
-      if (
-        predecessorIndex !== eventIndex - 1 ||
-        predecessor?.progressClass !== "completed" ||
-        predecessor.progressRef !== body.predecessorProgressRef ||
-        predecessor.completedRetryDepth !== Number(body.completedRetryDepth) + 1 ||
-        predecessor.retryBoundaryRef === body.retryBoundaryRef ||
-        predecessor.completionClass !== completionClass ||
-        predecessor.completionWitnessEventRef !==
-          body.completionWitnessEventRef ||
-        (completionClass === "structural_identity_success"
-          ? "cCallRef" in predecessor
-          : !("cCallRef" in predecessor) ||
-            predecessor.cCallRef !== cCallRef ||
-            predecessor.resultRef !== resultRef ||
-            predecessor.judgmentRef !== judgmentRef) ||
-        predecessor.sourceCursorRef !== body.sourceCursorRef ||
-        predecessor.sourceCursorDigest !== body.sourceCursorDigest ||
-        predecessor.targetCursorRef !== body.targetCursorRef ||
-        predecessor.targetCursorDigest !== body.targetCursorDigest ||
-        !sameNumbers(predecessor.retryPath.slice(0, -1), retryPath)
-      ) return null;
-    }
-  }
-  return deepFreeze({
-    kind: "retry_progress_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    progressRef,
-    progressDigest: digest,
-    ...body,
-    admissionEventRef: event.eventId,
-  }) as unknown as RetryProgressAdmission;
-}
-
-function projectAdmittedRetryProgress(
-  prefix: RuntimeEventPrefix,
-  admissionEventRef: string,
-  authorityPrefix: RuntimeEventPrefix = prefix,
-): RetryProgressAdmission | null {
-  try {
-    const historicalPrefix = validatedRuntimeEventPrefixThroughEvent(
-      prefix,
-      admissionEventRef,
-    );
-    const historicalAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
-      authorityPrefix,
-      admissionEventRef,
-    );
-    const events = runtimeEventBodiesAtPrefix(historicalPrefix);
-    const eventIndex = events.findIndex((event) =>
-      event.eventId === admissionEventRef
-    );
-    return eventIndex < 0
-      ? null
-      : projectRetryProgressAt(
-          historicalPrefix,
-          events,
-          eventIndex,
-          new Set(),
-          historicalAuthorityPrefix,
-        );
-  } catch {
-    return null;
-  }
-}
-
-/** @internal Exact existing completed-progress join for a structural route's
- * frame observation. This is not a general transitive-causation predicate. */
-export function hasStructuralIdentityCompletedRouteCausation(
-  prefix: ValidatedRuntimeEventPrefix,
-  route: RuntimeEvent,
-  source: RuntimeEvent,
-): boolean;
-/** @internal */
-export function hasStructuralIdentityCompletedRouteCausation(
-  prefix: RuntimeEventPrefix,
-  route: RuntimeEvent,
-  source: RuntimeEvent,
-): boolean;
-export function hasStructuralIdentityCompletedRouteCausation(
-  prefix: RuntimeEventPrefix,
-  route: RuntimeEvent,
-  source: RuntimeEvent,
-): boolean {
-  const payload = route.payload;
-  if (route.kind !== "traversal_route_admitted" || !isRecord(payload) ||
-      payload.routeKind !== "advance" || payload.cCallRef !== null ||
-      payload.judgmentRef !== null || payload.contractRef !== null ||
-      !Array.isArray(payload.consumedAvailabilityRefs) ||
-      payload.consumedAvailabilityRefs.length === 0) return false;
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  let previous: RetryCompletedProgressAdmission | null = null;
-  const progressEvents: RuntimeEvent[] = [];
-  for (const ref of payload.consumedAvailabilityRefs) {
-    const matches = indexedRuntimeEvents(prefix, "payload:progressRef:" + ref).filter(event => event.kind === "retry_progress_recorded" &&
-      isRecord(event.payload) && event.payload.progressRef === ref &&
-      event.admissionOrdinal < route.admissionOrdinal);
-    if (matches.length !== 1) return false;
-    const event = matches[0]!;
-    const progress = projectAdmittedRetryProgress(prefix, event.eventId);
-    if (progress?.progressClass !== "completed" ||
-        progress.completionClass !== "structural_identity_success" ||
-        "cCallRef" in progress ||
-        progress.completionWitnessEventRef !== source.eventId ||
-        progress.sourceCursorRef !== payload.sourceCursorRef ||
-        progress.sourceCursorDigest !== payload.sourceCursorDigest ||
-        progress.targetCursorRef !== payload.targetCursorRef ||
-        progress.targetCursorDigest !== payload.targetCursorDigest ||
-        progress.predecessorProgressRef !== (previous?.progressRef ?? null) ||
-        previous !== null && progress.completedRetryDepth !== previous.completedRetryDepth - 1 ||
-        event.runId !== route.runId || event.graphCallId !== route.graphCallId ||
-        event.frameId !== route.frameId || event.basisId !== route.basisId ||
-        event.graphFunctionRef !== route.graphFunctionRef ||
-        event.materializationRef !== route.materializationRef) return false;
-    previous = progress;
-    progressEvents.push(event);
-  }
-  // The existing route owner uses last progress first, then the earlier chain
-  // in reverse order. Any separately authorized additional causes stay intact.
-  return progressEvents.reverse().every((event, index) =>
-    route.causationEventRefs[index] === event.eventId);
-}
-
-/** @internal R10's exact judged terminal producer, through the existing retry
- * progress authentication owner. No arbitrary transitive ancestry is accepted. */
-export function hasJudgedTerminalRouteCausation(
-  prefix: ValidatedRuntimeEventPrefix, route: RuntimeEvent, judgment: RuntimeEvent,
-  authorityPrefix?: ValidatedRuntimeEventPrefix ,
-): boolean;
-/** @internal */
-export function hasJudgedTerminalRouteCausation(
-  prefix: RuntimeEventPrefix, route: RuntimeEvent, judgment: RuntimeEvent,
-  authorityPrefix?: RuntimeEventPrefix ,
-): boolean;
-export function hasJudgedTerminalRouteCausation(
-  prefix: RuntimeEventPrefix, route: RuntimeEvent, judgment: RuntimeEvent,
-  authorityPrefix: RuntimeEventPrefix = prefix,
-): boolean {
-  const payload = route.payload, source = judgment.payload;
-  if (route.kind !== "traversal_route_admitted" || !isRecord(payload) ||
-      payload.routeKind !== "terminal" || judgment.kind !== "c_call_judged" ||
-      !isRecord(source) || source.judgment !== "advance" ||
-      payload.cCallRef !== judgment.aggregateId || payload.judgmentRef !== source.judgmentRef ||
-      !Array.isArray(payload.consumedAvailabilityRefs) || payload.consumedAvailabilityRefs[0] !== source.judgmentRef ||
-      judgment.runId !== route.runId || judgment.graphCallId !== route.graphCallId ||
-      judgment.frameId !== route.frameId || judgment.basisId !== route.basisId) return false;
-  const refs = payload.consumedAvailabilityRefs.slice(1);
-  if (refs.length === 0) return route.causationEventRefs.includes(judgment.eventId);
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  let previous: RetryCompletedProgressAdmission | null = null;
-  const progressEvents: RuntimeEvent[] = [];
-  for (const ref of refs) {
-    const matches = indexedRuntimeEvents(prefix, "payload:progressRef:" + ref).filter(event => event.kind === "retry_progress_recorded" &&
-      isRecord(event.payload) && event.payload.progressRef === ref && event.admissionOrdinal < route.admissionOrdinal);
-    if (matches.length !== 1) return false;
-    const event = matches[0]!, progress = projectAdmittedRetryProgress(prefix, event.eventId, authorityPrefix);
-    if (progress?.progressClass !== "completed" || progress.completionClass !== "judged_success" ||
-        progress.cCallRef !== payload.cCallRef || progress.judgmentRef !== source.judgmentRef ||
-        progress.resultRef !== source.resultRef || progress.completionWitnessEventRef !== judgment.eventId ||
-        progress.sourceCursorRef !== payload.sourceCursorRef || progress.sourceCursorDigest !== payload.sourceCursorDigest ||
-        progress.targetCursorRef !== payload.targetCursorRef || progress.targetCursorDigest !== payload.targetCursorDigest ||
-        progress.predecessorProgressRef !== (previous?.progressRef ?? null) ||
-        previous !== null && progress.completedRetryDepth !== previous.completedRetryDepth - 1 ||
-        event.runId !== route.runId || event.graphCallId !== route.graphCallId || event.frameId !== route.frameId ||
-        event.basisId !== route.basisId || event.graphFunctionRef !== route.graphFunctionRef ||
-        event.materializationRef !== route.materializationRef) return false;
-    previous = progress; progressEvents.push(event);
-  }
-  return progressEvents.reverse().every((event, index) => route.causationEventRefs[index] === event.eventId);
-}
-
 function routeConsumesRetryProgress(
   route: HistoricalTraversalRouteProjection,
   progressEvent: RuntimeEvent,
@@ -2977,25 +1938,60 @@ export function projectDeclaredCRetryFrontier(
   retryDepth: number = cursor.retryPath.length,
   authorityPrefix: RuntimeEventPrefix = prefix,
 ): DeclaredCRetryFrontier | null {
+  const projected = deriveDeclaredCRetryFrontier(
+    prefix,
+    graph,
+    cursor,
+    graphFunction,
+    retryDepth,
+    authorityPrefix,
+    false,
+  );
+  return projected.kind === "declared_c_retry_frontier_refusal" ? null : projected;
+}
+
+/** The frontier's one derivation: the frontier, or the refusal naming the exit
+ * it took. `projectDeclaredCRetryFrontier` maps every refusal to `null`. With
+ * `propagateReplayFailure`, the historical route exit also carries the replay
+ * failure the plural route projection returns as `null`, retained as the F_D
+ * boundary retains a caught cause. */
+function deriveDeclaredCRetryFrontier(
+  prefix: RuntimeEventPrefix,
+  graph: Readonly<GtlGraph>,
+  cursor: TraversalCursorCandidate,
+  graphFunction: Readonly<GraphFunction>,
+  retryDepth: number,
+  authorityPrefix: RuntimeEventPrefix,
+  propagateReplayFailure: boolean,
+): DeclaredCRetryFrontierResult {
+  const exit = (
+    reason: DeclaredCRetryFrontierExitReason,
+    cause?: RetainedCaughtCause,
+  ): DeclaredCRetryFrontierRefusal =>
+    declaredCRetryFrontierRefusal(reason, retryDepth, cause);
+  if (!isMaterializedGtlGraph(graph)) return exit("graph_mismatch");
   if (
-    !isMaterializedGtlGraph(graph) ||
     !isTraversalCursorCandidate(cursor) ||
-    !hasAdmittedTraversalCursorAtPrefix(prefix, cursor) ||
+    !hasAdmittedTraversalCursorAtPrefix(prefix, cursor)
+  ) return exit("cursor_not_admitted");
+  if (
     cursor.graphRef !== graph.materializationRef ||
     graphFunction.name !== graph.graphFunctionRef ||
     sha256Canonical(graphFunction) !==
-      graph.graphFunctionDigest ||
+      graph.graphFunctionDigest
+  ) return exit("graph_mismatch");
+  if (
     !Number.isSafeInteger(retryDepth) || retryDepth < 1 ||
     retryDepth > cursor.retryPath.length
-  ) return null;
+  ) return exit("retry_depth_out_of_range");
   const contexts = resolveEnclosingCRetryContexts(
     graph.template,
     cursor.currentNodeRef,
     cursor.termPath,
   );
-  if ("kind" in contexts) return null;
+  if ("kind" in contexts) return exit("retry_not_declared");
   const context = contexts.find((candidate) => candidate.retryDepth === retryDepth);
-  if (context === undefined) return null;
+  if (context === undefined) return exit("retry_not_declared");
 
   const events = runtimeEventBodiesAtPrefix(prefix);
   const boundaryRef = retryBoundaryRef(graph, cursor, context);
@@ -3029,8 +2025,8 @@ export function projectDeclaredCRetryFrontier(
       left.event.admissionOrdinal - right.event.admissionOrdinal;
   });
   const retryPathPrefix = cursor.retryPath.slice(0, retryDepth - 1);
+  if (attemptEvents.length > context.budget) return exit("attempt_budget_exceeded");
   if (
-    attemptEvents.length > context.budget ||
     projectedAttempts.some(({ attempt, derivedCursor }, index) =>
       attempt === null || derivedCursor === null ||
       attempt.attempt !== index + 1 ||
@@ -3048,7 +2044,7 @@ export function projectDeclaredCRetryFrontier(
     ) ||
     new Set(projectedAttempts.map(({ attempt }) =>
       attempt?.attemptManifestRef)).size !== projectedAttempts.length
-  ) return null;
+  ) return exit("attempt_history_mismatch");
 
   const progressEvents = indexedRuntimeEvents(prefix, "kind:" + "retry_progress_recorded").filter((event) =>
     event.kind === "retry_progress_recorded" && sameBoundaryEvent(event)
@@ -3064,15 +2060,24 @@ export function projectDeclaredCRetryFrontier(
   if (
     projectedProgresses.some(({ progress }) => progress === null) ||
     projectedProgresses.length > projectedAttempts.length
-  ) return null;
+  ) return exit("progress_history_mismatch");
+  // Route replay is Run-scoped; admission authority may span many Runs.
+  const routePrefix = selectRuntimeEventPrefixFromAuthority(
+    unscopedRuntimeEventPrefix(prefix),
+    { runId: cursor.runId },
+  );
   const allRouteProjections = projectHistoricalTraversalRoutesAtPrefix(
-    // Route replay is Run-scoped; admission authority may span many Runs.
-    selectRuntimeEventPrefixFromAuthority(unscopedRuntimeEventPrefix(prefix), {
-      runId: cursor.runId,
-    }),
+    routePrefix,
     authorityPrefix,
   );
-  if (allRouteProjections === null) return null;
+  if (allRouteProjections === null) {
+    return exit(
+      "historical_routes_unprojectable",
+      propagateReplayFailure
+        ? historicalRouteReplayCause(routePrefix, authorityPrefix)
+        : undefined,
+    );
+  }
   const routeEvents = allRouteProjections.filter((route) =>
     route.runId === cursor.runId &&
     route.graphCallId === cursor.graphCallId &&
@@ -3100,7 +2105,7 @@ export function projectDeclaredCRetryFrontier(
         name: "locus_active",
         identity: cursor.cursorRef,
       }))
-    ) return null;
+    ) return exit("entry_route_mismatch");
     const body = {
       kind: "declared_c_retry_eligible_frontier" as const,
       schemaVersion: "5.0.0" as const,
@@ -3151,15 +2156,15 @@ export function projectDeclaredCRetryFrontier(
       route.targetCursorRef === projectedAttempt.derivedCursor!.cursorRef &&
       route.targetCursorDigest === projectedAttempt.derivedCursor!.cursorDigest
     );
-    if (originRoutes.length !== 1) return null;
+    if (originRoutes.length !== 1) return exit("attempt_origin_mismatch");
     const originRouteCandidate = originRoutes[0]!;
-    if (!isDeclaredCRetryAttemptOrigin(originRouteCandidate)) return null;
+    if (!isDeclaredCRetryAttemptOrigin(originRouteCandidate)) return exit("attempt_origin_mismatch");
     const originRoute = originRouteCandidate;
     const progressRows = projectedProgresses.filter(({ progress }) =>
       progress!.attempt === attempt.attempt
     );
     if (progressRows.length > 1 || (index < projectedAttempts.length - 1 &&
-      progressRows.length !== 1)) return null;
+      progressRows.length !== 1)) return exit("progress_history_mismatch");
     const progressRow = progressRows[0] ?? null;
     const progress = progressRow?.progress ?? null;
     const progressEvent = progressRow?.event ?? null;
@@ -3171,7 +2176,7 @@ export function projectDeclaredCRetryFrontier(
         progressEvent === null ||
         progressEvent.admissionOrdinal <= attemptEvent.admissionOrdinal
       )
-    ) return null;
+    ) return exit("progress_history_mismatch");
 
     const nextAttemptOrdinal = projectedAttempts[index + 1]?.event
       .admissionOrdinal ?? Number.MAX_SAFE_INTEGER;
@@ -3203,12 +2208,12 @@ export function projectDeclaredCRetryFrontier(
     let latestContinuationRoute: HistoricalTraversalRouteProjection | null =
       null;
     for (const [openedIndex, opened] of openedEvents.entries()) {
-      if (!isRecord(opened.payload)) return null;
+      if (!isRecord(opened.payload)) return exit("attempt_lineage_mismatch");
       const openedPayload = opened.payload;
       if (
         typeof openedPayload.cursorRef !== "string" ||
         !digestValue(openedPayload.cursorDigest)
-      ) return null;
+      ) return exit("attempt_lineage_mismatch");
       const sourceLineage = projectUniqueStructuralAdvanceLineage(
         prefix,
         authorityPrefix,
@@ -3223,7 +2228,7 @@ export function projectDeclaredCRetryFrontier(
         foldAdmissionOrdinal,
         opened.admissionOrdinal,
       );
-      if (sourceLineage === null) return null;
+      if (sourceLineage === null) return exit("attempt_lineage_mismatch");
       structuralAdvanceLineage.push(...sourceLineage.lineage);
       const sourceCursor = sourceLineage.currentCursor;
       if (!sourceCursors.some((candidate) =>
@@ -3238,7 +2243,7 @@ export function projectDeclaredCRetryFrontier(
         opened.aggregateId,
         [sourceCursor],
       );
-      if (phase === null) return null;
+      if (phase === null) return exit("attempt_lineage_mismatch");
       exactCCalls.push(phase);
       foldCursor = sourceCursor;
       foldAdmissionOrdinal = opened.admissionOrdinal;
@@ -3247,7 +2252,7 @@ export function projectDeclaredCRetryFrontier(
       const judgmentEvent = indexedRuntimeEvents(prefix, "id:" + phase.judgment.admissionEventRef).find((event) =>
         event.eventId === phase.judgment.admissionEventRef
       );
-      if (judgmentEvent === undefined) return null;
+      if (judgmentEvent === undefined) return exit("attempt_lineage_mismatch");
       const nextOpenedOrdinal = openedEvents[openedIndex + 1]
         ?.admissionOrdinal ?? intervalEnd;
       const continuationRoutes = routeEvents.filter((route) =>
@@ -3258,7 +2263,7 @@ export function projectDeclaredCRetryFrontier(
         route.cCallRef === phase.cCall.cCallRef &&
         route.judgmentRef === phase.judgment.judgmentRef
       );
-      if (continuationRoutes.length > 1) return null;
+      if (continuationRoutes.length > 1) return exit("attempt_lineage_mismatch");
       const continuationRoute = continuationRoutes[0] ?? null;
       latestContinuationRoute = continuationRoute;
       if (
@@ -3279,7 +2284,7 @@ export function projectDeclaredCRetryFrontier(
             cursorDigest: continuationRoute.targetCursorDigest,
           },
         );
-        if (targetCursor === null) return null;
+        if (targetCursor === null) return exit("attempt_lineage_mismatch");
         sourceCursors.push(targetCursor);
         foldCursor = targetCursor;
         foldAdmissionOrdinal = continuationRoute.admissionOrdinal;
@@ -3292,7 +2297,7 @@ export function projectDeclaredCRetryFrontier(
         exactCCalls.length ||
       new Set(structuralAdvanceLineage.map((edge) =>
         edge.route.admissionEventRef)).size !== structuralAdvanceLineage.length
-    ) return null;
+    ) return exit("attempt_lineage_mismatch");
 
     const attemptActive = runtimeFluentHoldsAtPrefix(
       prefix,
@@ -3304,7 +2309,7 @@ export function projectDeclaredCRetryFrontier(
         authorityRef: attempt.attemptRef,
       }),
     );
-    if ((progress === null) !== attemptActive) return null;
+    if ((progress === null) !== attemptActive) return exit("attempt_consumption_mismatch");
     const progressAvailable = progress === null ? false : runtimeFluentHoldsAtPrefix(
       prefix,
       constructScopedRetryFluent("retry_progress_available", {
@@ -3330,7 +2335,7 @@ export function projectDeclaredCRetryFrontier(
       citingRoutes.length !== consumingRoutes.length ||
       consumingRoutes.length > 1 ||
       (progress !== null && progressAvailable !== (consumingRoutes.length === 0))
-    ) return null;
+    ) return exit("attempt_consumption_mismatch");
     const consumingRoute = consumingRoutes[0] ?? null;
 
     if (index === 0) {
@@ -3338,7 +2343,7 @@ export function projectDeclaredCRetryFrontier(
         attempt.priorJudgmentRef !== null ||
         originRoute.cCallRef !== null || originRoute.judgmentRef !== null ||
         originRoute.consumedAvailabilityRefs.length !== 0
-      ) return null;
+      ) return exit("attempt_origin_mismatch");
     } else {
       const prior = rows[index - 1]!;
       if (
@@ -3354,12 +2359,12 @@ export function projectDeclaredCRetryFrontier(
           [prior.progress.judgmentRef, prior.progress.progressRef],
         ) ||
         originRoute.causationEventRefs[0] !== prior.progressEventRef
-      ) return null;
+      ) return exit("attempt_origin_mismatch");
     }
     if (
       progress !== null && index < projectedAttempts.length - 1 &&
       progress.progressClass !== "retry"
-    ) return null;
+    ) return exit("attempt_history_mismatch");
     const rowBase = {
       schemaVersion: "5.0.0" as const,
       attempt,
@@ -3370,11 +2375,11 @@ export function projectDeclaredCRetryFrontier(
       cursor: projectedAttempt.derivedCursor!,
     };
     if (progress === null) {
-      if (index !== projectedAttempts.length - 1) return null;
+      if (index !== projectedAttempts.length - 1) return exit("attempt_history_mismatch");
       const unfinished = exactCCalls.filter((phase) => phase.phase !== "judged");
       if (unfinished.length > 1 ||
         (unfinished.length === 1 && unfinished[0] !== exactCCalls.at(-1))) {
-        return null;
+        return exit("active_attempt_mismatch");
       }
       const latestCall = exactCCalls.at(-1) ?? null;
       const latestAdvanced = latestCall?.phase === "judged" &&
@@ -3386,11 +2391,11 @@ export function projectDeclaredCRetryFrontier(
         ? exactCCalls
         : exactCCalls.slice(0, -1);
       for (const historical of historicalCalls) {
-        if (historical.phase !== "judged") return null;
+        if (historical.phase !== "judged") return exit("active_attempt_mismatch");
         const historicalJudgmentEvent = indexedRuntimeEvents(prefix, "id:" + historical.judgment.admissionEventRef).find((event) =>
           event.eventId === historical.judgment.admissionEventRef
         );
-        if (historicalJudgmentEvent === undefined) return null;
+        if (historicalJudgmentEvent === undefined) return exit("active_attempt_mismatch");
         const consumers = routeEvents.filter((route) =>
           route.admissionOrdinal > historicalJudgmentEvent.admissionOrdinal &&
           route.causationEventRefs.includes(
@@ -3402,12 +2407,12 @@ export function projectDeclaredCRetryFrontier(
             historical.judgment.judgmentRef,
           )
         );
-        if (consumers.length !== 1) return null;
+        if (consumers.length !== 1) return exit("active_attempt_mismatch");
       }
       if (
         isAtDirectFrontier && cursor.retryPath.length === retryDepth
       ) {
-        if (!sameNumbers(cursor.retryPath, attempt.retryPath)) return null;
+        if (!sameNumbers(cursor.retryPath, attempt.retryPath)) return exit("active_attempt_mismatch");
         const finalLineage = projectUniqueStructuralAdvanceLineage(
           prefix,
           authorityPrefix,
@@ -3419,11 +2424,11 @@ export function projectDeclaredCRetryFrontier(
           foldAdmissionOrdinal,
           intervalEnd,
         );
-        if (finalLineage === null) return null;
+        if (finalLineage === null) return exit("active_attempt_mismatch");
         structuralAdvanceLineage.push(...finalLineage.lineage);
         if (new Set(structuralAdvanceLineage.map((edge) =>
           edge.route.admissionEventRef)).size !==
-          structuralAdvanceLineage.length) return null;
+          structuralAdvanceLineage.length) return exit("active_attempt_mismatch");
         const ownedCursors = [
           projectedAttempt.derivedCursor!,
           ...sourceCursors,
@@ -3444,9 +2449,9 @@ export function projectDeclaredCRetryFrontier(
           activeCursors.length !== 1 ||
           activeCursors[0]!.cursorRef !== cursor.cursorRef ||
           activeCursors[0]!.cursorDigest !== cursor.cursorDigest
-        ) return null;
+        ) return exit("active_attempt_mismatch");
         const prospective = deriveProspectiveCCall(prefix, graph, cursor);
-        if (prospective === null) return null;
+        if (prospective === null) return exit("active_attempt_mismatch");
         rows.push(deepFreeze({
           ...rowBase,
           kind: "declared_c_retry_pre_c_call_attempt" as const,
@@ -3472,17 +2477,19 @@ export function projectDeclaredCRetryFrontier(
           attempt.retryPath,
         )
       ) {
-        const inner = projectDeclaredCRetryFrontier(
+        const inner = deriveDeclaredCRetryFrontier(
           prefix,
           graph,
           cursor,
           graphFunction,
           retryDepth + 1,
           authorityPrefix,
+          propagateReplayFailure,
         );
-        const innerEntry = inner?.rows[0] ?? null;
+        if (inner.kind === "declared_c_retry_frontier_refusal") return inner;
+        const innerEntry = inner.rows[0] ?? null;
         if (
-          inner?.state !== "attempt_active" ||
+          inner.state !== "attempt_active" ||
           inner.retryDepth !== retryDepth + 1 ||
           inner.active.currentCursor.cursorRef !== cursor.cursorRef ||
           inner.active.currentCursor.cursorDigest !== cursor.cursorDigest ||
@@ -3491,7 +2498,7 @@ export function projectDeclaredCRetryFrontier(
             attempt.retryPath,
           ) ||
           innerEntry === null
-        ) return null;
+        ) return exit("inner_frontier_mismatch");
         const lineageToInnerSource = projectUniqueStructuralAdvanceLineage(
           prefix,
           authorityPrefix,
@@ -3506,11 +2513,11 @@ export function projectDeclaredCRetryFrontier(
           foldAdmissionOrdinal,
           innerEntry.originRoute.admissionOrdinal,
         );
-        if (lineageToInnerSource === null) return null;
+        if (lineageToInnerSource === null) return exit("inner_frontier_mismatch");
         structuralAdvanceLineage.push(...lineageToInnerSource.lineage);
         if (new Set(structuralAdvanceLineage.map((edge) =>
           edge.route.admissionEventRef)).size !==
-          structuralAdvanceLineage.length) return null;
+          structuralAdvanceLineage.length) return exit("inner_frontier_mismatch");
         rows.push(deepFreeze({
           ...rowBase,
           kind: "declared_c_retry_nested_active_attempt" as const,
@@ -3524,7 +2531,7 @@ export function projectDeclaredCRetryFrontier(
         }));
         continue;
       }
-      if (latestCall === null) return null;
+      if (latestCall === null) return exit("active_attempt_mismatch");
       const pending = latestCall.phase === "judged" &&
           latestCall.judgment.judgment === "pending"
         ? latestCall.cCall.regime === "F_H"
@@ -3543,7 +2550,7 @@ export function projectDeclaredCRetryFrontier(
       if (resumed !== null && (
         resumed.cursor.cursorRef !== cursor.cursorRef ||
         resumed.cursor.cursorDigest !== cursor.cursorDigest
-      )) return null;
+      )) return exit("active_attempt_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_active_c_call_attempt" as const,
@@ -3557,13 +2564,13 @@ export function projectDeclaredCRetryFrontier(
       continue;
     }
 
-    if (progressEvent === null) return null;
+    if (progressEvent === null) return exit("progress_history_mismatch");
     if (
       consumingRoute !== null &&
       (progress.progressClass === "retry"
         ? !isDeclaredCRetryRetryConsumption(consumingRoute)
         : !isDeclaredCRetryExitConsumption(consumingRoute))
-    ) return null;
+    ) return exit("attempt_consumption_mismatch");
     const consumption = progressAvailable
       ? deepFreeze({ kind: "progress_available" as const })
       : progress.progressClass === "retry"
@@ -3582,7 +2589,7 @@ export function projectDeclaredCRetryFrontier(
               route: consumingRoute,
             })
           : null;
-    if (consumption === null) return null;
+    if (consumption === null) return exit("attempt_consumption_mismatch");
     const exactTerminalCall = "cCallRef" in progress
       ? typedCCallPhase(
           prefix,
@@ -3600,7 +2607,7 @@ export function projectDeclaredCRetryFrontier(
         exactTerminalCall.judgment.judgmentRef !== progress.judgmentRef ||
         exactTerminalCall.judgment.judgment !== "retry" ||
         exactTerminalCall.judgment.retryAttemptRef !== attempt.attemptRef
-      ) return null;
+      ) return exit("progress_row_mismatch");
       const signal = projectCCallRuntimeFailureSignal(
         prefix,
         progress.cCallRef,
@@ -3610,7 +2617,7 @@ export function projectDeclaredCRetryFrontier(
       if (
         signal?.failureClass !== progress.failureClass ||
         signal.failureSignalRef !== progress.failureSignalRef
-      ) return null;
+      ) return exit("progress_row_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_retry_progress" as const,
@@ -3634,7 +2641,7 @@ export function projectDeclaredCRetryFrontier(
           exactTerminalCall.result.resultRef !== progress.resultRef ||
           exactTerminalCall.judgment.judgmentRef !== progress.judgmentRef ||
           exactTerminalCall.judgment.judgment !== "blocked"
-        ) return null;
+        ) return exit("progress_row_mismatch");
         rows.push(deepFreeze({
           ...rowBase,
           kind: "declared_c_retry_boundary_stopped_progress" as const,
@@ -3654,16 +2661,18 @@ export function projectDeclaredCRetryFrontier(
         progress.stopReason !== "propagated_inner_stop" ||
         progress.predecessorProgressRef === null || exactCCalls.length !== 0 ||
         retryDepth >= cursor.retryPath.length
-      ) return null;
-      const inner = projectDeclaredCRetryFrontier(
+      ) return exit("progress_row_mismatch");
+      const inner = deriveDeclaredCRetryFrontier(
         prefix,
         graph,
         cursor,
         graphFunction,
         retryDepth + 1,
         authorityPrefix,
+        propagateReplayFailure,
       );
-      const predecessor = inner?.rows.find(
+      if (inner.kind === "declared_c_retry_frontier_refusal") return inner;
+      const predecessor = inner.rows.find(
         (candidate): candidate is
           | DeclaredCRetryBoundaryStoppedProgressRow
           | DeclaredCRetryPropagatedStoppedProgressRow =>
@@ -3674,7 +2683,7 @@ export function projectDeclaredCRetryFrontier(
       if (
         predecessor === undefined ||
         progressEvent.causationEventRefs[1] !== predecessor.progressEventRef
-      ) return null;
+      ) return exit("inner_frontier_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_propagated_stopped_progress" as const,
@@ -3690,16 +2699,18 @@ export function projectDeclaredCRetryFrontier(
     }
     if (progress.predecessorProgressRef !== null) {
       if (exactCCalls.length !== 0 ||
-        retryDepth >= cursor.retryPath.length) return null;
-      const inner = projectDeclaredCRetryFrontier(
+        retryDepth >= cursor.retryPath.length) return exit("progress_row_mismatch");
+      const inner = deriveDeclaredCRetryFrontier(
         prefix,
         graph,
         cursor,
         graphFunction,
         retryDepth + 1,
         authorityPrefix,
+        propagateReplayFailure,
       );
-      const predecessor = inner?.rows.find(
+      if (inner.kind === "declared_c_retry_frontier_refusal") return inner;
+      const predecessor = inner.rows.find(
         (candidate): candidate is
           | DeclaredCRetryCCallCompletedProgressRow
           | DeclaredCRetryStructuralCompletedProgressRow
@@ -3712,7 +2723,7 @@ export function projectDeclaredCRetryFrontier(
           candidate.progress.progressRef === progress.predecessorProgressRef,
       );
       if (
-        inner === null || inner.retryDepth !== retryDepth + 1 ||
+        inner.retryDepth !== retryDepth + 1 ||
         predecessor === undefined ||
         predecessor.progress.completedRetryDepth !== retryDepth + 1 ||
         !sameNumbers(
@@ -3720,7 +2731,7 @@ export function projectDeclaredCRetryFrontier(
           attempt.retryPath,
         ) ||
         progressEvent.causationEventRefs[1] !== predecessor.progressEventRef
-      ) return null;
+      ) return exit("inner_frontier_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_propagated_completed_progress" as const,
@@ -3758,11 +2769,11 @@ export function projectDeclaredCRetryFrontier(
         exactCCalls.length !== 0 ||
         progress.predecessorProgressRef !== null ||
         progressEvent.causationEventRefs[1] !== witness.eventId
-      ) return null;
+      ) return exit("progress_row_mismatch");
       structuralAdvanceLineage.push(...completionLineage.lineage);
       if (new Set(structuralAdvanceLineage.map((edge) =>
         edge.route.admissionEventRef)).size !==
-        structuralAdvanceLineage.length) return null;
+        structuralAdvanceLineage.length) return exit("progress_row_mismatch");
       rows.push(deepFreeze({
         ...rowBase,
         kind: "declared_c_retry_structural_completed_progress" as const,
@@ -3785,7 +2796,7 @@ export function projectDeclaredCRetryFrontier(
       (progress.completionClass === "fh_resume_success"
         ? exactTerminalCall.judgment.judgment !== "pending"
         : exactTerminalCall.judgment.judgment !== "advance")
-    ) return null;
+    ) return exit("progress_row_mismatch");
     rows.push(deepFreeze({
       ...rowBase,
       kind: "declared_c_retry_c_call_completed_progress" as const,
@@ -3801,7 +2812,7 @@ export function projectDeclaredCRetryFrontier(
   }
 
   const latest = rows.at(-1) ?? null;
-  if (latest === null) return null;
+  if (latest === null) return exit("attempt_history_mismatch");
   const retryFailureProgresses = rows.flatMap(({ progress }) =>
     progress?.progressClass === "retry" ? [progress] : []
   );
@@ -3832,7 +2843,7 @@ export function projectDeclaredCRetryFrontier(
   };
   let body: DeclaredCRetryFrontierBody;
   if (latest.progress === null) {
-    if (!runActive) return null;
+    if (!runActive) return exit("frontier_state_mismatch");
     body = {
       ...common,
       kind: "declared_c_retry_active_frontier" as const,
@@ -3840,7 +2851,7 @@ export function projectDeclaredCRetryFrontier(
       active: latest,
     };
   } else if (latest.consumption.kind === "progress_available") {
-    if (!runActive) return null;
+    if (!runActive) return exit("frontier_state_mismatch");
     body = {
       ...common,
       kind: "declared_c_retry_available_progress_frontier" as const,
@@ -3860,7 +2871,7 @@ export function projectDeclaredCRetryFrontier(
         name: "locus_active",
         identity: cursor.cursorRef,
       }))
-    ) return null;
+    ) return exit("frontier_state_mismatch");
     const stationary = priorFailure !== null && latestFailure !== null &&
         priorFailure.failureSignalRef === latestFailure.failureSignalRef
       ? deepFreeze({
@@ -3885,7 +2896,7 @@ export function projectDeclaredCRetryFrontier(
       latest.consumption.kind !== "progress_consumed_by_exit" ||
       latest.progress.progressClass === "retry" ||
       latest.kind === "declared_c_retry_retry_progress"
-    ) return null;
+    ) return exit("frontier_state_mismatch");
     body = {
       ...common,
       kind: "declared_c_retry_consumed_frontier" as const,
@@ -3900,6 +2911,108 @@ export function projectDeclaredCRetryFrontier(
       `declared-c-retry-frontier://abiogenesis/${projectionDigest.slice("sha256:".length)}`,
     projectionDigest,
   });
+}
+
+/** The closed set of reasons a declared C.retry frontier does not project:
+ * each exit of `deriveDeclaredCRetryFrontier`. */
+type DeclaredCRetryFrontierExitReason =
+  | "graph_mismatch"
+  | "cursor_not_admitted"
+  | "retry_depth_out_of_range"
+  | "retry_not_declared"
+  | "attempt_budget_exceeded"
+  | "attempt_history_mismatch"
+  | "progress_history_mismatch"
+  | "historical_routes_unprojectable"
+  | "entry_route_mismatch"
+  | "attempt_origin_mismatch"
+  | "attempt_lineage_mismatch"
+  | "attempt_consumption_mismatch"
+  | "active_attempt_mismatch"
+  | "inner_frontier_mismatch"
+  | "progress_row_mismatch"
+  | "frontier_state_mismatch";
+
+/** A `route_mismatch` reason: a frontier exit, or how an eligible frontier
+ * differs from the attempt. */
+type RetryRouteMismatchReason =
+  | DeclaredCRetryFrontierExitReason
+  | "frontier_not_eligible"
+  | "next_attempt_mismatch"
+  | "current_cursor_mismatch"
+  | "eligibility_route_mismatch";
+
+type DeclaredCRetryFrontierRefusal = Readonly<{
+  kind: "declared_c_retry_frontier_refusal";
+  reason: RetryRouteMismatchReason;
+  retryDepth: number;
+  cause?: RetainedCaughtCause;
+}>;
+
+type DeclaredCRetryFrontierResult =
+  | DeclaredCRetryFrontier
+  | DeclaredCRetryFrontierRefusal;
+
+function declaredCRetryFrontierRefusal(
+  reason: RetryRouteMismatchReason,
+  retryDepth: number,
+  cause?: RetainedCaughtCause,
+): DeclaredCRetryFrontierRefusal {
+  return deepFreeze({
+    kind: "declared_c_retry_frontier_refusal" as const,
+    reason,
+    retryDepth,
+    ...(cause === undefined ? {} : { cause }),
+  });
+}
+
+/** The replay failure behind a `null` plural route projection: the first
+ * route, in admission order, whose replay throws when the reader propagates
+ * it, over the same cut; `undefined` when no route's replay throws. */
+function historicalRouteReplayCause(
+  prefix: RuntimeEventPrefix,
+  authorityPrefix: RuntimeEventPrefix,
+): RetainedCaughtCause | undefined {
+  for (const event of indexedRuntimeEvents(prefix, "kind:" + "traversal_route_admitted")) {
+    if (event.kind !== "traversal_route_admitted") continue;
+    try {
+      projectReplayPropagatingHistoricalTraversalRouteAtPrefix(
+        prefix,
+        event.eventId,
+        authorityPrefix,
+      );
+    } catch (caught) {
+      return retainCaughtCause(caught);
+    }
+  }
+  return undefined;
+}
+
+/** The eligible frontier an attempt extends, or the `route_mismatch` reason:
+ * the frontier's exit, or how the eligible frontier differs from the attempt. */
+function eligibleRetryFrontier(
+  frontier: DeclaredCRetryFrontierResult,
+  cursor: TraversalCursorCandidate,
+  routeAdmissionEventRef: string,
+): DeclaredCRetryEligibleFrontier | DeclaredCRetryFrontierRefusal {
+  if (frontier.kind === "declared_c_retry_frontier_refusal") return frontier;
+  const retryDepth = frontier.retryDepth;
+  if (frontier.state !== "eligible") {
+    return declaredCRetryFrontierRefusal("frontier_not_eligible", retryDepth);
+  }
+  if (frontier.nextAttempt !== cursor.attempt) {
+    return declaredCRetryFrontierRefusal("next_attempt_mismatch", retryDepth);
+  }
+  if (
+    frontier.currentCursor.cursorRef !== cursor.cursorRef ||
+    frontier.currentCursor.cursorDigest !== cursor.cursorDigest
+  ) return declaredCRetryFrontierRefusal("current_cursor_mismatch", retryDepth);
+  if (
+    frontier.eligibilityRoute.admissionEventRef !== routeAdmissionEventRef ||
+    frontier.eligibilityRoute.targetCursorRef !== cursor.cursorRef ||
+    frontier.eligibilityRoute.targetCursorDigest !== cursor.cursorDigest
+  ) return declaredCRetryFrontierRefusal("eligibility_route_mismatch", retryDepth);
+  return frontier;
 }
 
 export type DeclaredCRetryExitProgressProjection =
@@ -4947,24 +4060,31 @@ export function admitRetryAttempt(
       refusal("retry_not_declared", "cursor has no enclosing declared C.retry term");
   }
   const snapshot = runtimeEventBodiesAtPrefix(prefix);
-  const frontier = projectDeclaredCRetryFrontier(
-    prefix,
-    graph,
+  // Inside the route transition's transaction: the staged prefix holds the
+  // just-staged retry route, so the reason and any replay cause are read here.
+  const frontier = eligibleRetryFrontier(
+    deriveDeclaredCRetryFrontier(
+      prefix,
+      graph,
+      cursor,
+      graphFunction,
+      cursor.retryPath.length,
+      prefix,
+      true,
+    ),
     cursor,
-    graphFunction,
+    routeAdmissionEventRef,
   );
-  if (
-    frontier?.state !== "eligible" ||
-    frontier.nextAttempt !== cursor.attempt ||
-    frontier.currentCursor.cursorRef !== cursor.cursorRef ||
-    frontier.currentCursor.cursorDigest !== cursor.cursorDigest ||
-    frontier.eligibilityRoute.admissionEventRef !== routeAdmissionEventRef ||
-    frontier.eligibilityRoute.targetCursorRef !== cursor.cursorRef ||
-    frontier.eligibilityRoute.targetCursorDigest !== cursor.cursorDigest
-  ) {
+  if (frontier.kind === "declared_c_retry_frontier_refusal") {
     return refusal(
       "route_mismatch",
       "retry attempt must extend the exact admitted retry route",
+      constructRuntimeFailureDiagnosticRef({
+        code: "route_mismatch",
+        reason: frontier.reason,
+        retryDepth: frontier.retryDepth,
+        ...(frontier.cause === undefined ? {} : { cause: frontier.cause }),
+      }),
     );
   }
   if (

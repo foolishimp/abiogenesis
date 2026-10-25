@@ -91,6 +91,32 @@ export function sanitizeUndispatchedOwnerError(error: unknown): Readonly<{ error
   } catch { /* Keep a stage-qualified unknown; do not inspect arbitrary getters. */ }
   return Object.freeze({ errorClass, errorCode });
 }
+/** @internal A caught cause as the F_D boundary, the F_P completion and the
+ * retry frontier's replay exit retain it: class and code as sanitized above,
+ * and a native error's own data `message`, bounded with its truncation
+ * flagged. A Proxy is not inspected and no getter runs. */
+export type RetainedCaughtCause = Readonly<{
+  errorClass: string | null;
+  errorCode: string | null;
+  message: string | null;
+  messageTruncated: boolean;
+}>;
+/** @internal */
+export function retainCaughtCause(error: unknown): RetainedCaughtCause {
+  const caught = types.isProxy(error) ? null : error;
+  const safe = sanitizeUndispatchedOwnerError(caught);
+  let message: string | null = null;
+  let messageTruncated = false;
+  if (types.isNativeError(caught)) {
+    const descriptor = Object.getOwnPropertyDescriptor(caught, "message");
+    if (descriptor !== undefined && "value" in descriptor &&
+        typeof descriptor.value === "string") {
+      message = descriptor.value.slice(0, DIAGNOSTIC_MESSAGE_LIMIT);
+      messageTruncated = descriptor.value.length > DIAGNOSTIC_MESSAGE_LIMIT;
+    }
+  }
+  return Object.freeze({ ...safe, message, messageTruncated });
+}
 function undispatchedDiagnosticMatches(x: Record<string, unknown>, stage: UndispatchedOwnerStage, reason: UndispatchedOwnerReason): boolean {
   if (x.diagnosticRef === undispatchedOwnerDiagnosticRef(stage, reason)) return true;
   if (reason !== "thrown" || x.errorClass === null || typeof x.diagnosticRef !== "string") return false;
