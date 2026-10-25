@@ -66,6 +66,8 @@ The remaining operators stay with their owners. `traverse` stays in `hog/`. `adm
 
 [event_store.ts](../code/src/abg/event_store.ts) also derives the C2 prefix correspondence. `durableCutCorrespondsToValidatedPrefix(cut, view)` admits the cut's rows and the view's bodies to `JsonValue` and compares them. For an exact registered cut bound to the owner's events, with the owner open, a holding result is recorded on the owner's cut index under the cut's coordinate digest and the view's exact prefix digest, and a later cut of the same boundary with a view of the same digest reads it. A copied, captured, closed-owner, other-store or selection-bound cut, a view whose digest is refused, and every refusal take the comparison, with the physical read the cut needs. The record grants no append, prefix or currentness authority, and no admission path reads it (T-290 C-13).
 
+Three derived facts of an immutable admitted prefix are recorded once in the owner's own index and read thereafter: the C2 check (TD-08), the C2 correspondence of an exact registered cut (above, T-290 C-13), and the checked record of a contextual reader (§4.2, T-290 C-14). `checkedRecordAtPrefix` ([event_prefix.ts](../code/src/abg/event_prefix.ts)) keys the record by the cut's extent (`count:lastOrdinal`, so one ordered lineage's territory holds every cut of it), the reader's module constant (a `WeakMap` key) and `sha256Canonical` of the context's I-JSON key; the cut itself is the territory, so it is not part of the key. Only `one` is recorded; `absent`, `many` and `invalid` are acquired again, so every owner channel reproduces its first refusal exactly. A validation prefix and a key that is not I-JSON record nothing. The record grants no append, prefix or currentness authority, is not persisted, and does not outlive the territory; a prefix re-selected cold from the same array is a new territory. A reader over a caller's event array rather than a prefix has no territory and runs the check alone (`projectWorksiteFailureResultRequest`, [c_call_outcome.ts](../code/src/abg/c_call_outcome.ts)).
+
 Existing shared modules take these places:
 
 - [canonical_json.ts](../code/src/shared/canonical_json.ts), [digests.ts](../code/src/shared/digests.ts) and [immutable.ts](../code/src/shared/immutable.ts) are the existing members of the `value` family.
@@ -141,12 +143,12 @@ Ingress collapse (DESIGN_MODULE §3): `unknown` enters the pure layer only throu
 | `exactMatchCardinality` | `(length: number) => "absent" \| "one" \| "many"` | the count decision for already selected arrays |
 | `onlyExactMatch` | `<T>(selected: readonly T[]) => ExactMatch<T>` | 2 local `one()` helpers; returns the closed union, never `T \| null` |
 | `exactMatchOutcome` | `<T>(match: ExactMatch<T>) => Outcome<T>` | lifts `absent` and `many` to `select` refusals for sequential composition |
-| `checkExactRecord` | `<E, P>(match: ExactMatch<E>, check: RecordCheck<E, P>) => CheckedRecord<E, P>` | the private checked-record helpers; ABG instantiates `E = RuntimeEvent` for its 74 readers |
+| `checkExactRecord` | `<E, P, C = void>(match: ExactMatch<E>, check: RecordCheck<E, P, C>, context?: C) => CheckedRecord<E, P>` | the private checked-record helpers; ABG instantiates `E = RuntimeEvent` for its 74 readers; the eight contextual readers pass typed context data (T-290 C-14) |
 
 ```ts
-type RecordCheck<E, P> = Readonly<{
-  project: (event: E) => Outcome<P>;
-  digest: null | Readonly<{ expected: (event: E, value: P) => Sha256Digest; actual: (value: P) => Sha256Digest }>;
+type RecordCheck<E, P, C = void> = Readonly<{
+  project: (event: E, context: C) => Outcome<P>;
+  digest: null | Readonly<{ expected: (event: E, value: P, context: C) => Sha256Digest; actual: (value: P) => Sha256Digest }>;
 }>;
 type CheckedRecord<E, P> =
   | Readonly<{ kind: "absent" }>
@@ -155,7 +157,7 @@ type CheckedRecord<E, P> =
   | Readonly<{ kind: "one"; event: E; value: P }>;
 ```
 
-`ExactMatch<T>` realizes the §5.6.1 `select` codomain: `one` is `exact`, `many` is `ambiguous`. Selection preserves every occurrence, predicate order and predicate exception; it has no early exit, deduplication, default or first-match substitution. `checkExactRecord` is `select`, then `validate`, then `derive`, composed once. The owner supplies `project` and `digest` as a module constant per reader, never as a runtime argument (§5.6.2C). The digest leg runs after projection (D2). Both malformed null-digest partitions, a non-record singleton and an unencodable record, yield `invalid`.
+`ExactMatch<T>` realizes the §5.6.1 `select` codomain: `one` is `exact`, `many` is `ambiguous`. Selection preserves every occurrence, predicate order and predicate exception; it has no early exit, deduplication, default or first-match substitution. `checkExactRecord` is `select`, then `validate`, then `derive`, composed once. The owner supplies `project` and `digest` as a module constant per reader, never as a runtime argument (§5.6.2C). A contextual reader's check takes typed context `C`: data the call supplies (an I-JSON value or a frozen owner record such as digests, a cut, a cursor or a basis row), never a function. `project` and `digest.expected` read it; `digest.actual` reads the projected value alone. With the default `void` the check reads the event alone, and the two-argument form is the base form. A context mismatch is the owner's `record_projection` or `record_digest`; `CheckedRecord` has no further kind. Over an immutable admitted prefix ABG records a reader's `one` outcome once, in the prefix's own computation (`checkedRecordAtPrefix`, [event_prefix.ts](../code/src/abg/event_prefix.ts); §2), and every later identical read returns it (T-290 C-14). The digest leg runs after projection (D2). Both malformed null-digest partitions, a non-record singleton and an unencodable record, yield `invalid`.
 
 ### 4.3 `derive`: `shared/value/`, domain `JsonValue` only
 
@@ -284,7 +286,7 @@ Falsifier for the sequential row: an `andThen` whose refusal branch is not the i
 | `admitJson` | `unknown`, less a host object whose interceptors forward reads to a Proxy | an I-JSON value nested at most 512 containers deep refused, a non-I-JSON value admitted, any input that throws, or any Proxy trap or getter that runs |
 | `admitContract` | `unknown` with a strict Valibot schema, less `admitJson`'s excluded class | `safeParse` success with a refusal, or failure with `ok`; a trap or getter of the raw that runs, at the gate or after it; a throw that escapes; or an outcome other than `ok` or `contract_mismatch` |
 | `resolveExactMatch` | finite source and total predicate | cardinality disagreeing with the filter length |
-| `checkExactRecord` | `ExactMatch<E>` with a static `RecordCheck` | `one` when `project` refused or the digests differ |
+| `checkExactRecord` | `ExactMatch<E>` with a static `RecordCheck` and, for a contextual check, typed context data | `one` when `project` refused or the digests differ; a check or a context supplied as a function at the call; a recorded `one` that a fresh acquisition of the same prefix would not reproduce |
 | `effectOf`, `foldStep` | an admitted event in prefix order with its declared dependencies | a prefix split where the fold law of §5 fails; a cut, or a fork at a cut advanced to a later cut, where cold replay and the warm projection differ; or an effect differing from the expected-effect table of counterexample A or B (§4.4) |
 | `holdsAt` | a `FoldState` at an admitted prefix cut and a pattern `{ kind: "runtime_fluent_pattern", name, identity }` | any module outside `abg/calculus/` that decides one of the lifecycle fluents of §4.4 (`actor_process_spawn_failed`, `actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed`, `actor_cleanup_pending`) from a copied payload field, from the presence of an event kind in a prefix, from its own recomputation over the log or from a second store, instead of calling `holdsAt` with a pattern naming that fluent or `runtimeFluentHoldsAtPrefix` with that exact fluent (`constructRuntimeFluent({ name, identity })`), which reads the same fold's recorded transitions at the prefix; the owner's report of a terminal outcome from its physical observation (§4.6) is not such a reader |
 | `classifyOwnedProcessTerminal` | `OwnedProcessFacts` from one lifetime | an outcome other than the three-case formula of §4.6, or an adapter that keeps its own formula |
