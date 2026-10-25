@@ -7534,3 +7534,424 @@ Grant: `code/src/hog/graph_execute.ts`, `traversal_contract.ts`, `traversal_comp
 Stops (write the stop in the Return, keep the rest moving): the event kind `fh_interaction_resume_admitted`, any payload key, axiom or store kind list changing; any `interaction.respond` packet or Product operation contract changing; a `public/*` export change beyond the one type; a persisted digest moving; a lane or the falsifier moving other than the two restated proofs; a reader of admitted history that the census says must go to make `tsc` pass (then it stays and the dead arm is named).
 
 Return contract: one commit on `main`, staged by path, first line `C-17: the carried-memory F_H resume chain retired: the hog interaction-resume port, the held completion's parentSuspensions and its two accumulations, the ABG producer exports and PublicContinuationAuthority are gone; the interaction.respond packets stay declared-unbound and the fh_interaction_resume_admitted kind stays declared and read; the F09 falsifier and the route-reconstruction case assert the frames (C-6 stops 1 and 2)`, with any gap stated in place; the Return before the commit so the commit carries it: the census per item with each site and its callers, the stays and why, the two restated proofs before and after, the exit greps, the lanes table, the falsifier run, the lint and gates, the manifest inventory paths removed, the design proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-17 return (Worker, Opus 5.5, 2026-10-26; base `051756435`)
+
+**Closed, with one gap stated in place: `hog/interaction_resume.ts` and `proposeInteractionResumeRoute` stay, because a test support imports the built module by path (`test_env/support/root-installed-environment.mjs:350-352`) and the route is a `./hog` export; so the `interactionResume` exit grep is 9, not 0 (`abg/c_call_outcome.ts` 3 and `abg/traversal_route.ts` 6, both outside the grant, both handling resume evidence that reaches them through the Public `./abg`), and `continuation_authority` stays in two fixtures as recorded declaration paths.**
+
+- **Gone.** The hog port `ResumeHeldInteractionInput` and its branch, prepare and seed. The held completion's `parentSuspensions` and its two accumulations. `HeldRecursionSuspension` with its outward arm, inward rebuild and machine frame. The five `./abg` producer exports and the four types only they used. `PublicContinuationAuthority` and its module.
+- **Stays.** The construction resume's in-call workflow suspension (`hog/entry.ts:504`, `:521`) is now the one suspension. The `interaction.respond` packets and `product/*` are untouched. `fh_interaction_resume_admitted` is still declared and read: 34 quoted sites, against 35 at base, the one producer (`continuation.ts:2239`) gone.
+- **Proofs.** The F09 falsifier and `t287-route-reconstruction:393` now assert frames derived from the log at the hold's cut, and the held fold's identity.
+- **Gates.** `tsc`, the four lints and the build are green.
+- **Lanes.** Every lane is equal before and after.
+- **Stops.** None.
+
+### Census
+
+#### Item 1: the port
+
+**Gone.** Base constructors of the port's input: none (`interactionResume:` appeared only in its declaration).
+
+- **`hog/traversal_contract.ts`.**
+  - `ResumeHeldInteractionInput` (`:84-101`) and its `ExecuteGraphTraversalRequest` arm (`:132-135`). The union is now `ExecuteGraphTraversalInput | ResumeConstructionIntentInput`.
+  - The imports only the port used: `InvocationAdmission`, `PreparedContinuationPublicOperation`, `PublicOperationAdmissionBasis`, `ReplayContinuationState`, `RuntimeAdmissionBasis`, `CompleteInteractionResumeInput`, `HeldRecursionSuspension`.
+- **`hog/graph_execute.ts`.**
+  - The `"interactionResume" in input` branch of `traversalProgram` (`:1331-1345`).
+  - `PreparedResumeHeldInteractionInput` and `prepareHeldInteractionResume` (`:1067-1257`). Its only caller was that branch. It was the only caller of `commitFhInteractionResumeAtExpectedPrefix` (`:1189`).
+  - `seedParentContinuation` (`:1258-`). Its only caller was `prepareHeldInteractionResume`.
+  - The imports that went dead:
+    - `commitFhInteractionResumeAtExpectedPrefix`, `deriveFhResumeSuccessorInputAtPrefix`, `prepareInteractionResumeTraversalEntry`;
+    - `completeOwnedInteractionResume`, `CompleteInteractionResumeInput`;
+    - `deriveInteractionResumeCursor`, `deriveInteractionSuccessorInputCarrierRef`, `rehydrateHeldInteractionCursor`;
+    - `sha256Canonical`, `restoreOwnedDeferredRecursion`, `RestoreDeferredRecursionInput`, `isGraphTraversalEntryRefusal`, `OwnedMachineRecursionReturnFrame`.
+  - The re-exports of `ResumeHeldInteractionInput`, `InteractionResumeTraversalEntryInput` and `HeldRecursionSuspension`.
+  - `machineRecursionReturn`; its input frames came only from the port's recursion suspensions (item 2).
+- **`hog/route_proposal.ts`.** `proposeInteractionResumeTerminalRoute` (`:1007-1077`, three overloads). It had no caller in code, tests, falsifiers or scripts.
+- **`hog/index.ts`.** `proposeInteractionResumeTerminalRoute` (`:35`), `HeldRecursionSuspension` (`:55`) and `ResumeHeldInteractionInput` (`:65`).
+
+**Stays.**
+
+- **`InteractionResumeTraversalEntryInput` (`traversal_contract.ts`).** `entry.ts:38`, `:61` and `:459` read it: the construction resume's entry and `prepareInteractionResumeTraversalEntry`. Its comment now names the continued Graph boundary.
+- **`hog/interaction_resume.ts`, whole** (`completeOwnedInteractionResume`, `completeInteractionResume`, `CompleteInteractionResumeInput`).
+  - The port was its only code caller.
+  - `root-installed-environment.mjs:350-352` imports `build/code/src/hog/interaction_resume.js` by path and returns it as `interactionOwner` (`:573`). Nothing reads that property.
+  - 38 lane and falsifier files use the support, so deleting the module turns each of them red at setup. The support is outside the grant. This is the gap.
+- **`proposeInteractionResumeRoute` (`route_proposal.ts:1007-1104`).** `interaction_resume.ts:160` calls it and `./hog` exports it (`hog/index.ts:34`). Removing it would be an unruled `./hog` export change.
+
+#### Item 2: the carried member
+
+**Gone.**
+
+- **`hog/traversal_completion.ts`.**
+  - `parentSuspensions` on `ExecutableTraversalCompletion` (`:105`), on `CompletionValues` (`:123`) and in the default (`:160`).
+  - `projectOwnedHeldTraversalCompletion`'s input and pass-through (`:171`, `:192`), and `projectHeldTraversalCompletion`'s input (`:238`).
+  - `HeldRecursionSuspension` (`:50-75`) and the `RecurseApplication` import.
+  - `HeldParentTraversalSuspension` is now `= HeldWorkflowSuspension`.
+- **The two accumulations, with the suspension each built:**
+  - **`workflow_lifecycle.ts:539-566`**, and the import at `:50`. The held branch keeps its lineage check (`workflow-hold-lineage-mismatch`) and returns `{ completion: child, outputValueKind: null, outputContractRef: null }`.
+  - **`recursion_lifecycle.ts:800-827`**, and the imports at `:36` (`deepFreeze`, now unused) and `:61`. The held branch keeps `held recursion has inconsistent lineage` and returns `child`.
+- **The recursion arm of `projectParentSuspensions` (`evaluation_frame.ts:128-171`).** It now takes `readonly WorkflowReturnFrame[]`. The workflow body is unchanged, field order included.
+- **The recursion branch of the inward rebuild (`parent_rehydration.ts`).**
+  - `exactRecursionReturn` (`:246-327`), including the `application` selection by the carried ref (`:290-310`, the binding gap C-6 named).
+  - Its imports: `projectAdmittedCCallOutcomeAtPrefix`, `projectCCallOutcomeReceiptAtPrefix`, `RecurseApplication`, `recursionTerminationDecision`, `HeldRecursionSuspension`.
+  - The recursion arm of the owner check.
+  - `HogReturnFrame` is narrowed to `WorkflowReturnFrame` at `:80`, `:168` and `:356`.
+- **`graph_execute.ts`.** `exactParentReturns` now maps through `machineWorkflowReturn` only, and `ParentReturnsPreflight.frames` is `readonly WorkflowReturnFrame[]`.
+
+**No live ingress produces a recursion suspension.**
+
+- At base, the only producer of `held_recursion_suspension` was `recursion_lifecycle.ts:800-827`. It accumulated into the held completion, which only the port read.
+- The one live ingress, the construction resume, builds one `HeldWorkflowSuspension` (`entry.ts:504`, `kind: "held_workflow_suspension"`) and returns `parentSuspensions: Object.freeze([suspension])` (`:521`).
+- After: `HeldRecursionSuspension` and `held_recursion_suspension` occur 0 times over `code/src`, `test_env` and `scripts` (13 at base).
+
+**Stays.**
+
+- **The construction resume's carrier.** `ResumeConstructionIntentInput.parentSuspensions` (`traversal_contract.ts:102`) is built at `entry.ts:521` and consumed by `preflightParentReturns` (`graph_execute.ts:875-895`). That function passes it as `suspensions` to `rehydrateParentReturnFrames` in the same call.
+- **The workflow types and the outward comparison.** `HeldWorkflowSuspension`, `HeldParentTraversalSuspension` and `projectParentSuspensions` stay; the comparison is in `parent_rehydration.ts`.
+
+#### Item 3: the ABG producer chain
+
+**Gone (`abg/continuation.ts`).**
+
+- `prepareFhInteractionResume` (`:2153-`). Its only caller was `commitFhInteractionResumeAtExpectedPrefix` (`:2346`). It held the one producer site of `kind: "fh_interaction_resume_admitted"` (`:2239`).
+- `commitFhInteractionResumeAtExpectedPrefix` (`:2315-`). Its only caller was `graph_execute.ts:1189`.
+- `PreparedFhInteractionResume` (`:327`), `CommittedFhInteractionResume` and `CommittedFhInteractionResumeResult`.
+- `rehydrateFhContinuation` (`:1045`) and `rehydrateFhContinuationAtPrefix` (`:1059-`, three overloads), with `FhContinuationRehydrationBasis` and `RehydratedFhContinuationScope`. The only caller was the wrapper's own call (`:1051`).
+- The helpers only these reached: `digestField` and `stringField`.
+- The imports only these used: `rehydrateInvocationAdmissionAtPrefix`, `rehydrateOpenedTraversalScopeAtPrefix`, `isInteractionResumeCursorSuccessorAtPrefix`, `isTraversalCursorCandidate`, `validateExactFhResumeOwnerRelationAtPrefix`.
+
+**Gone (`abg/index.ts`).**
+
+- `:305`, `:310`, `:314`, `:315` and `:324`, as named.
+- `:327-328` (`CommittedFhInteractionResume`, `CommittedFhInteractionResumeResult`) and `:336-337` (`FhContinuationRehydrationBasis`, `RehydratedFhContinuationScope`): the four types only the removed functions used.
+
+**Stays (readers of admitted history; none edited).**
+
+- **The kind's declaration.** The axioms (`calculus/axioms.ts:1308`), the store's kind list (`event_store.ts:107`) and the failure owner list (`runtime_failure.ts:250`).
+- **The readers.**
+  - `c_call.ts:2435`, `:4238`, `:6348`;
+  - `traversal_route.ts:2442`, `:3610`, `:4426`;
+  - `fh_continuation_projection.ts:388`, `:579`, `:839`, `:862`, `:997`;
+  - `retry.ts:1840`;
+  - `retry_progress.ts:478-600`;
+  - `replay.ts:1675`, `:1878`;
+  - `runtime_history.ts:584`;
+  - `traversal_cursor.ts:187-546`;
+  - `project_read_ports.ts:1362`.
+- **Types and functions that stay in `continuation.ts`.**
+  - `FhInteractionResumeAdmission` (`:302`): read by `closure.ts`, `retry.ts:283`, `traversal_route.ts:484` and `:4043`, and the kept `interaction_resume.ts`.
+  - `deriveFhResumeSuccessorInput(AtPrefix)` (`:1805-1840`, `./abg` exports).
+  - `resolvePreparedContinuationOperationCoordinateAtPrefix` (still used by `prepareFhInteractionResponse`).
+- **`closure.ts:216`, `:251`, `:289-299`, `:352`.** These handle the `"interaction"` `ScopeClosureSubject` with `resume`, a reader of an admitted resume.
+  - `c_call_outcome.ts:1772-1787` builds it, outside the grant, from a candidate whose evidence class is `interaction_resume`.
+  - It is reachable from the Public `./abg` `admitCCallCompletion`, so it is not reachable only through the retired producers.
+- **`traversal_route.ts:478-486`** (`InteractionResumeRouteAdmissionEvidence`), **`:3549`** (`hasInteractionResumeRouteEvidence`) **and `:4037`** (`isDeclaredInteractionResumeTarget`), plus the `admitRoute` resume arm at `:4394`, `:4502` and `:4688`.
+  - This is the staged route admission's resume arm, reachable from the Public `./abg` `completeTraversalTransitionCandidate` and `admitTraversalTransitionInActiveTransaction`.
+  - The evidence type is a `./abg` export (`index.ts:445`) and a member of `TraversalTransitionEvidence`, which `traversal_transition.ts:8`, `:23` and `:106` consume.
+  - In code, the evidence is produced only by the kept `interaction_resume.ts:188`.
+  - It stays, and `traversal_route.ts` is not edited.
+
+#### Item 4: the Public type
+
+- **The module.** `public/continuation_authority.ts` is deleted (212 lines). It held the type and `constructPublicContinuationAuthority`, `updatePublicContinuationAuthority` and `parsePublicContinuationAuthority`.
+  - Only `public/index.ts:1-3` (the type re-export) referenced it.
+  - `public/index.ts:1-3` is removed. No other `public/*` edit.
+- **The catalog.** No row names the type.
+- **The manifest.**
+  - It loses the module's two `productRelativeLocators`.
+  - It loses the module's `declarationInventory` entry in 47 rows, across 12 exports (see the regenerated files).
+
+### Item 5: the two proofs, restated
+
+**`runtime-f09-worker.mjs`.** The C-6 cold derivation, the twelve assertions it made included, is lifted whole into one module-level reader. `loadDerivationOwners` (`:2095`) and `deriveHeldParentSuspensions` (`:2107`) find the `fh_interaction_opened` event and the held `c_call_opened`, then walk `parentExecutionBasisRef` to the root. They return one `held_workflow_suspension` per level, with the same fields in the same order as before.
+
+| Site | Before | After |
+|---|---|---|
+| `inspectHandoff` `:2409-2410` (now `:2555-2571`) | `assert.equal(completion.parentSuspensions.length, 1); const [parentSuspension] = completion.parentSuspensions;` | `holdLevels = deriveHeldParentSuspensions({ ..., prefix: installedAbg.selectValidatedRuntimeEventPrefix(installedAbg.readRuntimeEventsAtDurablePrefix(completion.successorPrefix)), events: finalEvents, continuationRef: completion.continuationRef, ... })` over the installed product's owners; `assert.equal(holdLevels.length, 1); const [{ suspension: parentSuspension }] = holdLevels;` |
+| `produceAba` `:2812-2813` (now `:2984-2996`) | the same two lines | the same derivation over the live store at `completion.successorPrefix`, the hold's cut; `assert.equal(holdLevels.length, 1)` |
+| cold block | inline derivation from the reopened store, compared with the carried `parentSuspension` | `coldLevels = deriveHeldParentSuspensions({ ...reopened prefix and events })`; `assert.equal(coldLevels.length, holdLevels.length)`; field and canonical equality with the live derivation (`:3269-3291`) |
+| `:3240` (now `:3309`) | `const warmFrames = rehydrate(completion.parentSuspensions);` | `const warmFrames = rehydrate(holdLevels.map((level) => level.suspension));` |
+| `:3334` (now `:3403`) | `parentSuspensionCount: completion.parentSuspensions.length,` | `parentSuspensionCount: holdLevels.length,` |
+
+**What F09 checked before.**
+- The warm hold carried exactly one workflow parent suspension. The driver asserts `parentSuspensionCount` 1, `parentSuspensionKind` `held_workflow_suspension` and `parentGraphFunctionRef` at `runtime-f09.mjs:195-202`.
+- The carried copy equalled a cold derivation from the reopened log, field by field.
+- `rehydrateParentReturnFrames` over the cold and the carried suspensions gave equal frames.
+
+**What it checks now.**
+- The log at the hold's cut yields exactly one workflow parent level. The driver's assertions are unchanged and hold.
+- The derivation over the reopened log equals the derivation over the live log at the cut.
+- The frames rebuilt from the two are canonically equal.
+- The independent field anchors check the derived suspension against admitted cursor and CCall events and against canonical input digests. They are the ones that checked the carried copy: `:2572-2590` in `inspectHandoff` and `:2997-3110` in `produceAba`.
+- What it no longer checks is that a carried copy equals the log, because no copy exists.
+
+The worker's assertion count is 300 at base and 301 after.
+
+**`t287-route-reconstruction.test.mjs:393`** (the case at `:331`):
+
+- **Before:** `assert.equal(ownedFold.disposition,'held');assert.equal(ownedFold.parentSuspensions.length,1);`
+- **After:** `assert.equal(ownedFold.disposition,'held');assert.equal(ownedFold,held,'the held fold returns the child hold and carries no parent copy');assert.equal(ownedStep.frame.childExecutionBasis.parentExecutionBasisRef,opened.basisId);assert.throws(()=>recursion.completeOwnedRecursionChild({...ownedStep.frame,childTraversalScope:{...ownedStep.frame.childTraversalScope,executionBasisRef:'basis://component/crossed-child'}},held),/held recursion has inconsistent lineage/);`
+
+**What the case checks.**
+- Before, it checked that the recursion fold appended one parent copy to the hold.
+- Now it checks three things:
+  - the fold returns the child's hold itself (the no-copy proof);
+  - the frame the fold holds names the parent basis;
+  - a frame whose child scope crosses lineage is refused.
+
+The extra fold call raises the `selectedLeaf` value in the case's `t.diagnostic` output by one; that value is not an assertion. The lane stays at 12/10/0/2.
+
+### Exit greps
+
+These run over `code/src`, `test_env` (not `test_env/proof/`) and `scripts`. The base column counts occurrences at `HEAD`.
+
+| Name | Base | After |
+|---|---|---|
+| `ResumeHeldInteractionInput` | 9 | 0 |
+| `interactionResume` (substring) | 12 | 9: `abg/c_call_outcome.ts` 3 (the local `interactionResume` at `:1772-1787` that builds the `"interaction"` closure subject) and `abg/traversal_route.ts` 6 (`interactionResumeEvidence` in the staged resume arm). Both are outside the grant and reachable through the Public `./abg`. |
+| `prepareHeldInteractionResume` | 2 | 0 |
+| `seedParentContinuation` | 2 | 0 |
+| `prepareFhInteractionResume` | 3 | 0 |
+| `commitFhInteractionResumeAtExpectedPrefix` | 4 | 0 |
+| `rehydrateFhContinuation` | 7 | 0 |
+| `PreparedFhInteractionResume` | 3 | 0 |
+| `PublicContinuationAuthority` | 16 | 0 |
+| `continuation_authority` | 75 | 71, all recorded declaration paths in fixtures (no fixture edit): `test_env/fixtures/continuation-causation.json` 1 and `test_env/fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl` 70 (one line) |
+| `HeldRecursionSuspension` / `held_recursion_suspension` | 13 | 0 |
+| `"fh_interaction_resume_admitted"` | 35 | 34. Only `abg/continuation.ts` moves (1 to 0, the `:2239` producer). |
+
+`parentSuspensions` is left only on the construction resume's carrier:
+- `entry.ts:521` builds it;
+- `traversal_contract.ts:102` declares it (`ResumeConstructionIntentInput`);
+- `graph_execute.ts:875`, `:886` and `:895` (`preflightParentReturns`) pass it to `rehydrateParentReturnFrames` as `suspensions`.
+
+`tsc --noEmit --noUnusedLocals` against the base log: no newly unused local. The one base entry gone, `continuation.ts` `events`, was inside a removed function.
+
+### Lanes, each alone
+
+Before is the base build and after is this tree's build. There were two passes; no counter or differential pass was run.
+
+The lanes run were:
+- the activation's reach lanes;
+- every lane that `git grep -l` over `test_env/tests` finds for `graph_execute`, `parent_rehydration`, `recursion_lifecycle`, `workflow_lifecycle`, `interaction_lifecycle` or `traversal_completion`;
+- `t287-r4-aba-retry`, which drives the F09 falsifier's `produce_aba`;
+- the compose scenario.
+
+Eight further lanes read the support, the manifest or the inventory: `t287-retry-run-prefix`, `w2-steel-single-start-closure`, `t287-native-frame-route-conservation`, `t287-public-groups`, `t287-st2a-g-capability-definition-graph`, `t287-w2-05-generator-package-reproducibility`, `r1-packed-artifact` and `r10-projection-contracts`.
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `t287-route-reconstruction` | 12/10/0/2 | 12/10/0/2 | 8.9 / 9.0 | yes | 2 skipped |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | 0.5 / 0.4 | yes | 6 skipped |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `generic-input-retention` | 4/2/2/0 | 4/2/2/0 | 0.3 / 0.3 | yes | red `:82` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix; red `:132` TypeError [Error]: Event Calculus requires a nominal validated immutable event prefix |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `t287-wave2-owner-contract-source-set` | 15/15/0/0 | 15/15/0/0 | 0.1 / 0.1 | yes | - |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 0.4 / 0.4 | yes | red `:21` AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCC; red `:281` AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:; red `:323` AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError [ERR_ASSERTION]: missing source boundary: /** |
+| `t287-runtime-failure-diagnostic` | 20/20/0/0 | 20/20/0/0 | 3.6 / 3.6 | yes | - |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/2/0 | 0.5 / 0.5 | yes | red `:85` AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier; red `:116` AssertionError [ERR_ASSERTION]: select the frozen S02 continuation-03 evidence carrier |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 0.3 / 0.3 | yes | red `:59` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:92` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:107` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `t287-native-frame-route-conservation` | 3/0/3/0 | 3/0/3/0 | 0.5 / 0.5 | yes | red `:5` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:10` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:14` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `t287-public-groups` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t287-st2a-g-capability-definition-graph` | 4/2/2/0 | 4/2/2/0 | 29.3 / 29.1 | yes | red `:74` AssertionError [ERR_ASSERTION]: missing capability projection for abg.asset.gtl.language-c; red `:271` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-w2-05-generator-package-reproducibility` | 2/1/1/0 | 2/1/1/0 | 32.2 / 31.9 | yes | red `:314` AssertionError [ERR_ASSERTION]: generated declarations must form exact export closures |
+| `t287-exact-construction-intent` | 1/1/0/0 | 1/1/0/0 | 52.9 / 52.1 | yes | - |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | 36.6 / 35.8 | yes | red `:96` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:218` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:285` AssertionError [ERR_ASSERTION]: The input did not match the regular expression /exact admi; red `:415` TypeError [Error]: runtime event candidate has an invalid envelope |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/0/2/0 | 41.0 / 40.1 | yes | red `:116` AssertionError [ERR_ASSERTION]: inherited eventResource; red `:737` ReferenceError [Error]: product is not defined |
+| `t287-w2-05-install-catalog-owner-chain` | 1/0/1/0 | 1/0/1/0 | 6.6 / 6.5 | yes | red `:286` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 37.6 / 36.7 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 47.5 / 46.9 | yes | - |
+| `t287-f09-frontier-handoff` | 1/1/0/0 | 1/1/0/0 | 70.0 / 70.1 | yes | - |
+| `r1-packed-artifact` | 1/0/1/0 | 1/0/1/0 | 4.6 / 4.7 | yes | red `:18` AssertionError [ERR_ASSERTION]: {"kind":"product_verification_refusal","schemaVersion":"5. |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 36.8 / 37.1 | yes | - |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.6 / 1.6 | yes | - |
+| `t287-c0-post-publication-failure` | 31/31/0/0 (the C-15 record, `phase_c.md:6479`) | 31/31/0/0 | 1216.7 (C-15) / 1196.7 | yes (no reds, no skips) | - |
+
+**Result.**
+- Every lane has equal counts, reds, skips and first errors before and after.
+- The two restated proofs keep their counts: `t287-route-reconstruction` 12/10/0/2, and F09 through `t287-r4-aba-retry` and `t287-f09-frontier-handoff`, each 1/1.
+- The reds are all present at base and unchanged. The skips are the base skips.
+
+**`t287-c0-post-publication-failure` ran after only.**
+- It imports none of the changed modules directly. Through the support, though, it reaches `abg/index.js` and `hog/index.js` (`root-installed-environment.mjs:344`, `:346`), so by the activation's `git grep` test it reaches changed modules.
+- It ran once, on the final build: 31/31/0/0, 1,197 s.
+- Its before row is the record's last count, 31/31/0/0 at C-15 (`:6479`). C-16 did not run it, and I made no base-build run (that would have been a third pass).
+
+### The falsifier run
+
+The driver `test_env/falsifiers/runtime-f09.mjs` runs the worker through two lanes. They pass before and after:
+- `t287-r4-aba-retry` (`runAxF09Aba`, `produce_aba`): 1/1, 47.5 s and 46.9 s;
+- `t287-f09-frontier-handoff` (`runAxF09`, `produce_frontier` and `inspect_frontier`/`inspectHandoff`): 1/1, 70.0 s and 70.1 s.
+
+The driver's audit assertions are unchanged and hold after, over the frames derived from the log:
+- `parentSuspensionCount` 1;
+- `parentSuspensionKind` `held_workflow_suspension`;
+- `parentGraphFunctionRef`, and the child and lineage exactness flags (`runtime-f09.mjs:195-215`).
+
+The worker passes `node --check`.
+
+### Gates (the final tree)
+
+| Gate | Result |
+|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | exit 0, no output |
+| `npm run lint:imports` | 28 shared modules clean; 3 forbidden owner pairs hold |
+| `npm run lint:lifecycle` | 286 modules (287 at C-16, one module deleted), 7 allow-listed sites, no offender |
+| `npm run lint:evidence` | no new copy |
+| `npm run lint:calculus` | 6 calculus modules, 0 allow-listed imports, no offender |
+| `npm run build` | exit 0; no packed declaration closure refusal |
+| Rebuild | `build/code` is byte-equal to the build the after lanes ran on (`shasum` over 572 files); the two regenerated files are byte-equal to their after-lane snapshot |
+| `C17` | 0 in `code/src`, `test_env` and `build/code`; no instrumentation was used. `build/toolchain/lib.dom.d.ts` and `lib.webworker.d.ts` hold 8 matches, the WebGL constant `0x8C17` copied from TypeScript. |
+| Byte equality | the 14 changed files equal the clean copies kept in `scratchpad/c17/clean/` (`cmp`) |
+
+**The regenerated files.** The rows were compared by contract id against the base copies.
+
+- **The catalog rows.** The 75 rows keep their ids and order. No row field moves except `nativeTypedLocator.declarationInventory` and `contractDigest`.
+- **The 47 rows whose inventory reaches `public/index.d.ts`** lose two leaf entries each, three members per entry:
+  - `build/code/src/public/continuation_authority.d.ts`, the deleted module;
+  - `build/code/src/hog/interaction_resume.d.ts`.
+    - `graph_execute.ts` and `traversal_contract.ts` no longer import it, so it is outside every export's declaration closure.
+    - It stays in `productRelativeLocators`, packed, held only by the support's by-path import.
+- **Removed inventory paths by export,** each for both declaration paths:
+
+  | Export | Rows |
+  |---|---|
+  | `./public` | 21 |
+  | `./abg` | 6 |
+  | `./product` | 4 |
+  | `./abg/m03` | 3 |
+  | `./gtl/m01` | 3 |
+  | `./gtl` | 2 |
+  | `./hog` | 2 |
+  | `./validator` | 2 |
+  | `./abg/m03/transport` | 1 |
+  | `./abg/requirements` | 1 |
+  | `./app/m04` | 1 |
+  | `./qualification/m05` | 1 |
+
+  No leaf is added.
+- **Declaration digests.** In the same 47 rows, eight take a new `declarationDigest`: `abg/continuation.d.ts`, `abg/index.d.ts`, `hog/graph_execute.d.ts`, `hog/index.d.ts`, `hog/route_proposal.d.ts`, `hog/traversal_completion.d.ts`, `hog/traversal_contract.d.ts` and `public/index.d.ts`.
+- **`contractDigest`.** It moves in 21 rows, all `abg.contract.*`. Those are the rows whose digest is `nativeContractDigest(inventory)`.
+  - The other 26 rows that lose leaves keep their `contractDigest`; it is their asset's content digest. One of them is `abg.operation.interaction.respond`: it keeps its `contractDigest` and every field but the inventory.
+- **`productRelativeLocators`.** It loses `build/code/src/public/continuation_authority.js` and `.d.ts` (5313 to 5311) and gains none.
+- **Leaf count.** The manifest goes from 51,430 to 51,146 leaves: 284 lost (2 locators, plus 47 rows × 2 entries × 3 members), 0 added.
+- **`capability-definition-graph.json`.** The leaf set is equal. Only the digests and refs that follow the catalog and product content digests move.
+
+These are build-manifest digests. No event payload key, `subjectDigest` already in admitted history, or other event-log digest moves (see Stops).
+
+### Item 3: design-sentence proposals (the Executive places them; no design file, register or ticket was edited)
+
+**1. Library design §9.4 (`ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:595`).** Replace the paragraph with:
+
+> `HeldWorkflowSuspension` (`hog/traversal_completion.ts`), the `HeldParentTraversalSuspension[]` input of `rehydrateParentReturnFrames` (`hog/parent_rehydration.ts`), carries `parentGraph`, `parentClosureContract`, `parentCCall`, `parentGraphInput`, `parentInput` and `childInput`, and `rehydrateParentReturnFrames` rebuilds the workflow return frames from it. Every field is an event in the log, a definition input bound by ref and digest, or a re-derivation of the two (traced at T-290 C-6): `sourceCursor` is the admitted cursor that `c_call_opened` names by `cursorRef` and `cursorDigest`; `application` is the definition's template application selected by the CCall's admitted `batchRef`. A held completion carries no suspension: a held workflow or recursion child folds to the child's own hold, and the parent lineage of a hold is read from the log at the hold's cut. The one ingress that builds a suspension, the construction resume (`hog/entry.ts`), builds one workflow suspension from the reopened log and consumes it in the same call (`preflightParentReturns`, then `rehydrateParentReturnFrames`): an internal handoff under §9.1. `rehydrateParentReturnFrames` uses a carried body only after checking it against the digest the log binds (the closure contract by ref and digest). No Public operation resumes an F_H hold: `abg.operation.interaction.respond` has packets and no binding; its binding, when selected, derives the frames from the log and selects a recursion `application` by the evaluator CCall's admitted `compositionRef`.
+
+**2. `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md:1228`** (Entity | Identity | Authority owner | Declare/create | Read/project | Update/transition | Delete/retire):
+
+> | Public continuation read family | No Public carrier: install, workspace, catalog, Program, graph, invocation, continuation and event-prefix identities are read from the admitted log at the reader's prefix; one closed read variant | Downstream Public projection only | Projected from ABG/replay truth at each read | `status`, `interaction`, `result`, `replay`, `lawful-actions`, and `gaps` | A longer admitted prefix is read again; nothing is replaced | Append authority exhausts at resolution; the admitted history stays readable |
+
+**3. `M05_...:1299`** ("Project or refresh public authority"): delete the row. No carrier is projected or refreshed. Row `:1287` ("Project immutable reads") is the read.
+
+**4. `M05_...:1300`:**
+
+> | Reopen a durable continuation | `Continuation` | none: `abg.operation.interaction.respond` is declared and unbound | reopen verification over the log | read | exact event prefix, Product basis and continuation lineage, read from the log | unbound; when F_H resume is selected, ABG derives the frames from the log with the recursion `compositionRef` check |
+
+**5. `M05_...:1496`:** remove `+PublicContinuationAuthority` from `class ReplayProjectionFamily`.
+
+**6. `M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:2050`** (the paragraph `:2048-2053`):
+
+> Continuation, source-result, closure, cursor, causation, and run projection bases are rehydrated through the same scoped truth. `PublicRunProjectionAuthority` constructor semantics are replaced by unverified coordinate parsing plus ABG-backed basis rehydration; no Public continuation carrier exists, and a continuation is read from the admitted log; a self-consistent caller value is never admitted merely because its digest matches itself.
+
+**7. Ticket row 141 outcome:**
+
+> C-17 (`<commit>`): the hog interaction-resume port, the held completion's `parentSuspensions` and its two accumulations, the recursion suspension with its inward and machine arms, the five `./abg` producer exports and their four types, and `PublicContinuationAuthority` with its module are gone; the construction resume's in-call workflow suspension built from the reopened log is the one suspension; the `interaction.respond` packets stay declared-unbound and `fh_interaction_resume_admitted` stays declared and read; the F09 falsifier and `t287-route-reconstruction:393` assert frames derived from the log; gap: `hog/interaction_resume.ts` and `proposeInteractionResumeRoute` stay (a test support imports the built module by path; a `./hog` export).
+
+**8. Register, TD-18 section,** after the `**Closed:**` bullet:
+
+> - **C-17:** `<commit>` (T-290 C-17): the carried-memory resume chain is retired. No held completion carries a parent suspension; the construction resume builds its one workflow suspension from the reopened log and consumes it in the same call; the recursion suspension and its rebuild are gone; the F09 falsifier and `t287-route-reconstruction` derive the parent lineage from the log at the hold's cut. `hog/interaction_resume.ts` stays while `test_env/support/root-installed-environment.mjs:350-352` imports it by path.
+
+**9. The completion record** (in the completion table's format), one row:
+
+> C-17, `<commit>`: TD-18's dead resume chain (C-6 stops 1 and 2) retired; gap `hog/interaction_resume.ts`.
+
+**Further design rows that name removed functions** (found by `git grep` over `design/`; not named by the activation):
+
+- **`ABI5_REALIZATION_CONSTITUTION.md:2651`, `:2653` and `:2654`.** The realization cells of `L46`, `L48` and `L49` name `rehydrateFhContinuationAtPrefix`, `prepareFhInteractionResume` and `commitFhInteractionResumeAtExpectedPrefix` as "(current)".
+  - Proposal for each cell: `none: the F_H resume operation is unbound; its binding realizes this row over the frames derived from the log`.
+  - The Executive may instead name `A/fh_continuation_projection.ts::projectFhContinuations` for `L46`, the fold over the prefix.
+  - `L47` (`fh_resume_relation.ts::deriveFhResumeSuccessorInputAtPrefix`) stays true.
+- **`T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md:357`.** Drop `, prepareFhInteractionResume`; `prepareContinuationPublicOperation` stays (`continuation.ts:988`).
+- **`M05_S06_...:2330`.** The frozen baseline row names `src/abg/continuation.ts::rehydrateFhContinuation` as its ingress. Either keep it as a frozen baseline record, or restate the ingress as `none (no Public operation reopens an F_H continuation)`. This is the Executive's call.
+- **Generic carrier wording.** `M05_...:1280`, `:1282`, `:1287` and `:1379` speak of a "refreshed carrier" or a "durable carrier" in general terms. They name no removed symbol. If the Executive places proposal 2, these read better as "replay" or "the admitted log".
+
+### Deviations
+
+1. **The F09 worker changes beyond the six named lines (+215/−146).**
+   - The C-6 cold derivation is lifted whole into the module-level `loadDerivationOwners` and `deriveHeldParentSuspensions` (`:2090-2235`), so the live log and the reopened log go through one reader.
+   - `produceAba`'s owner loading moves before the hold-cut site.
+   - The C-6 comment is restated for C-17.
+   - No assertion is removed: the twelve cold-block assertions run inside the helper, and one length assertion is added.
+2. **Edits outside the named line ranges.**
+   - `workflow_lifecycle.ts`: `:50` (import) and `:539-557`, the suspension construction that feeds the named accumulation at `:564`.
+   - `recursion_lifecycle.ts`: `:36` and `:61` (imports) and `:800-819`, the construction feeding `:826`.
+   - `parent_rehydration.ts`: the workflow-side type narrowing at `:80`, `:168` and `:356` (`HogReturnFrame` to `WorkflowReturnFrame`) and the owner check, which follow from removing the recursion branch.
+3. **`graph_execute.ts` beyond the named sites.**
+   - `machineRecursionReturn` is removed (no producer once the recursion suspension goes).
+   - The `InteractionResumeTraversalEntryInput` and `HeldRecursionSuspension` re-exports are removed, along with the dead imports listed in item 1. `ParentReturnsPreflight.frames` is narrowed.
+4. **`abg/index.ts` lines beyond the four named.** `:314` and the four helper types at `:327-328` and `:336-337` are removed.
+5. **`traversal_contract.ts`.** The `InteractionResumeTraversalEntryInput` comment is reworded; the type stays.
+6. **Extra lanes.** The eight further lanes in the table were run; all are equal.
+7. **Rule and scratch slips** (disclosed).
+   - Before the TD-18 section was located by exact path, one `grep -n '^### TD-18'` used a glob over `.ai-workspace/work/T290_DEBT_WAVE_01/*.md`. Its output was empty; no file was opened.
+   - One `tsc` log went to `/tmp/x` instead of scratch.
+
+### Findings outside the grant
+
+1. **`test_env/support/root-installed-environment.mjs:350-352` and `:573`.** The support imports the built `hog/interaction_resume.js` by path and returns it as `interactionOwner`, which nothing reads.
+   - Removing those lines releases `hog/interaction_resume.ts`, the `interaction_resume` evidence production (`:188`) and `proposeInteractionResumeRoute` (with its `./hog` export, an export ruling).
+   - The `closure.ts` and `traversal_route.ts` resume arms would then have no producer in code, but they stay reachable through the Public `./abg`.
+2. **`hog/entry.ts:60` `prepareInteractionResumeTraversalEntry`** has no caller and is not exported from `hog/index.ts`: dead code.
+3. **Public exports with no internal caller left.**
+   - `./hog` `deriveInteractionResumeCursor` (`traversal.ts:494`).
+   - `./abg` `deriveFhResumeSuccessorInput` and `deriveFhResumeSuccessorInputAtPrefix` (`continuation.ts:1805-1840`, the wrappers over `fh_resume_relation.ts`).
+4. **`hog/traversal_completion.ts` `projectOwnedHeldTraversalCompletion` and `projectHeldTraversalCompletion`** have no caller in code, tests or scripts.
+5. **`hog/evaluation_frame.ts:66` `RecursionReturnFrame`** now has no producer or consumer. `HogReturnFrame` (`:77`) is read only by `graph_execute.ts:809` as `Extract<HogReturnFrame, { relation: "workflow" }>`, which is `WorkflowReturnFrame`.
+   - Discharge: delete `RecursionReturnFrame`, collapse `HogReturnFrame`, and type `:809` as `WorkflowReturnFrame`.
+   - This was not done here: it lies outside the recursion arm of `projectParentSuspensions`, and it would have needed a rebuild after the lanes.
+6. **The `"resume_not_admitted"` member** of `route_proposal.ts`'s refusal code union (`:76`) is produced only by the kept `proposeInteractionResumeRoute` (`:1085`).
+7. **Unused locals already at base** remain (`tsc --noUnusedLocals`, 288 entries), including in the granted `continuation.ts` (`admitFhInteractionResponse` and others) and `graph_execute.ts` (`CCallLifecycleEvaluation` and others). They predate this package and were left as found, since the grant reaches only the five names and their helpers.
+8. **The design rows** listed under item 3's further rows.
+
+### Stops
+
+None triggered. Each was checked:
+
+1. **The event kind, payload keys, axioms and store kind list are unchanged.** `event_store.ts`, the calculus and `runtime_failure.ts` were not edited. `fh_interaction_resume_admitted` has 34 quoted sites, the one producer gone.
+2. **No `interaction.respond` packet or Product operation contract changes.** `product/*` was not edited. The catalog row `abg.operation.interaction.respond` keeps its `contractDigest` and every field but the inventory.
+3. **The `public/*` export changes only by the one type** (`public/index.ts:1-3`).
+4. **No persisted digest moves.** Considered: the failure subject's shape at three sites.
+   - **The sites:** `workflow_lifecycle.ts:536` (`failWorkflow`, the hold lineage mismatch) and `:597` (`workflowFailure`, `child-completion`), and `recursion_lifecycle.ts:887` (`recursionFailure`, `child-completion`).
+   - **The change:** each passes the child completion as the `candidate` of the subject `{ stage, candidate }`. The completion used to carry `parentSuspensions` (`[]` by default) and now has no such member.
+   - **Payload keys:** the `runtime_failure_observed` payload's keys are unchanged.
+   - **What the event stores:** the subject is digested (`runtime_failure.ts:293`) and retained whole only for inline JSON diagnostic refs (`:295`, `:180`). The three sites pass static `diagnostic://abiogenesis/hog/...@5` refs, so their events carry only `subjectDigest`.
+   - **Readers:** no reader recomputes that digest from a re-derived completion. The retry failure signal reads `c_call_result_admitted` (`c_call.ts:3421`), not this event.
+   - **Fixtures and lanes:** no fixture holds `parentSuspensions`, and the lanes are equal, `t287-runtime-failure-diagnostic` 20/20 and `t287-undispatched-diagnostic` 7/7 included.
+   - **Effect:** a new failure at those sites takes a different `subjectDigest` from the one the base build would compute. That is a new event's digest, not an admitted one.
+5. **No lane or falsifier moves** beyond the two restated proofs, whose counts are equal.
+6. **No reader of admitted history was removed to make `tsc` pass.** The removed functions produced or carried the chain; none folded admitted events for another reader.
+
+### What could not be verified
+
+- **A defect inside the F09 derivation helper.** The live and cold sides share one reader, so a defect in it would pass the equality and frame checks. Only the independent field anchors (`:2572-2590`, `:2997-3110`) guard it.
+- **The recursion held path** is proven by the component case (`t287-route-reconstruction:393`) only. No installed run holds an F_H under a recursion parent.
+- **Whether any lane reaches the three failure sites with a held child** is not measured. The subject change there is read from the code, not run.
+- **`interactionOwner` has no reader.** This rests on `git grep` over `test_env` and `scripts`.
+- **`t287-c0-post-publication-failure` has no before run on this base.** Its after result (31/31/0/0) is compared with the C-15 record.
+
+### Main during the run
+
+No commits landed on `main` between `051756435` and this commit (`git log 051756435..HEAD -- build_tenants/abiogenesis/typescript` is empty, and so is the unscoped count).
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>

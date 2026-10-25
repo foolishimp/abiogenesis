@@ -32,7 +32,6 @@ export {
   proposeGraphSpanReentryRoute,
   proposeHoldRoute,
   proposeInteractionResumeRoute,
-  proposeInteractionResumeTerminalRoute,
   proposeJudgedRoute,
   proposeRecursionRoute,
   proposeRetryRoute,
@@ -52,7 +51,6 @@ export {
   type ExecutableTraversalCompletion,
   type HeldInteractionTraversal,
   type HeldParentTraversalSuspension,
-  type HeldRecursionSuspension,
   type HeldWorkflowSuspension,
   type GraphTraversalEntryRefusal,
   type GraphTraversalFailureResult,
@@ -62,7 +60,6 @@ export {
   type ProjectedRetryResumeResult,
   type ResumeProjectedRetryRequest,
   type ResumeProjectedRetryRuntime,
-  type ResumeHeldInteractionInput,
 } from "./graph_execute.js";
 export {
   constructChildTraversalBasis,
