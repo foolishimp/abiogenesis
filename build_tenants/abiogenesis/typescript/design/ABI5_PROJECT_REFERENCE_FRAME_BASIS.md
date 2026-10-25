@@ -11,9 +11,13 @@ implementation, or release authority.
 These development/review frame declarations are structured prose. Their
 open-world selection and semantic evaluation remain LLM judgments. Code may
 resolve referenced bytes and join selected prompt sections. Under the Product
-governance calculus, an explicitly declared closed rule may be evaluated by F_D
-inside ordinary graph work. That does not make arbitrary frame prose executable
-or authorize a deterministic interpreter of open-world frame meaning.
+governance calculus, an explicitly declared rule over a closed domain runs inside
+ordinary graph work as common F_D, imported by exact edition under
+[the computational binding](ABI5_STDO3_COMPUTATIONAL_BINDING.md#the-deterministic-kind-under-the-selected-edition),
+only when that binding's disposition table lists its operation class as
+eligible: total over the domain, its dependencies declared, one typed outcome
+per input. That does not make arbitrary frame prose executable or authorize a
+deterministic interpreter of open-world frame meaning.
 
 ## Exact Basis
 

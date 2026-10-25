@@ -171,3 +171,339 @@ Stop (write it in the Return, keep the rest moving): a (D) sentence in `specific
 Return contract: one commit on `main`, first line `M-2: the deterministic kind under STDO 3.0.1: the binding imports common F_D by exact edition and disposes N operation classes under the migration relation (E eligible, P pending, U unresolved), the admission and closure owners named, the frame basis restated; the Product and requirements checked, none changed` (fill N, E, P, U; if a clause does not hold, keep the structure and state the gap in its place), last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## M-2 return` at the end of this file: the first sentence says closed, or names the gap; the table as committed; the census by class with counts and the (D) list; the restated sentences old and new; the gates; deviations; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
 
 The owner's Codex pass reviews M-2 after acceptance; T-290 resumes at C-12 when M-2 is accepted.
+
+## M-2 return
+
+Not closed: the binding imports common F_D by exact edition and disposes twelve operation classes (5 eligible, 7 pending, 0 unresolved), with the Product admission, ABG admission and closure owners named and the frame basis restated, but four `specification/` sentences contradict 3.0.1 and are stops (`INTENT.md:54`, `PRODUCT.md:697`, `REQ-R-ABG3-FN-COMP-004`, `REQ-L-GTL3-COMPUTE-NOTATION-010`), and two evaluation classes (rows 7 and 10b) are defects with undeclared material dependencies; the Product and requirements were checked and none changed.
+
+**What changed.** Three design files, all inside the grant:
+
+- `ABI5_STDO3_COMPUTATIONAL_BINDING.md` gains the new subsection `### The deterministic kind under the selected edition` at the end of §5, and its `:154` paragraph is restated.
+- `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:12-16` is restated.
+- `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:698` has its last cell restated; `:579` is unchanged.
+
+No code, contract, test, Product, requirement, GOALS, ticket or register was edited.
+
+**The table as committed** (binding §5, the deterministic kind under the selected edition; links rebased to this file's location):
+
+| Class | Realization owner | Profile | Totality | Material dependencies | Outcomes | RELEASE §9 row | Evidence |
+|---|---|---|---|---|---|---|---|
+| 1. Typed value admission | [admit/json.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/admit/json.ts) `admitJson`; [admit/contract.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/admit/contract.ts) `admitContract`, `admitRef`; [admit/record.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/admit/record.ts) `isRecord`, `hasExactKeys` | Admission. Evidence contract: the caller's I-JSON shape or Valibot schema. Grant: none of its own; the caller's admission owner decides what the admitted value may be used for. | `admitRef`, `isRecord` and `hasExactKeys` decide from one primitive or own-key read. `admitJson` bounds its recursion by the path set `open` (a cycle is refused) and `NESTING_BOUND` 512 over finite own keys and runs no getter. Its domain is `unknown`, though, and `Array.isArray`, `Object.getPrototypeOf`, `Reflect.ownKeys` and `Object.getOwnPropertyDescriptor` run Proxy traps before any refusal. `admitContract` runs the owner's Valibot schema; `safeParse` reads properties, so accessors and traps run. The termination argument covers only inputs whose reads return. | The input, module constants, Valibot and the owner's schema. Trap and accessor code is computation inside the domain that no contract declares. | A detached, deeply frozen `JsonValue` or the schema's output, else one typed refusal (`non_ijson_value`, `contract_mismatch`, `blank_ref`). `admitJson` turns a trap throw into `non_ijson_value`; `admitContract` has no catch, so an accessor or schema throw escapes it. | Pending. Remediation: refuse a Proxy (`types.isProxy`) and an accessor member before any trap or getter runs, and return schema throws as typed refusals; or declare the bounded successor whose domain excludes both. | `t287-json-value-definition`; code reading |
+| 2. Canonical value, digest, equality and exact selection | [canonical_json.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/canonical_json.ts) `canonicalJson`, `writeCanonicalJson`; [digests.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/digests.ts) `sha256Canonical`, `sha256Bytes`; [value/equality.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/value/equality.ts) `canonicalEquals`; [value/record.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/value/record.ts) `writeCanonicalRecord`, `canonicalRecordDigest`; [select/exact_match.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/select/exact_match.ts) `resolveExactMatch`, `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`; [select/exact_record.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/select/exact_record.ts) `checkExactRecord`; [immutable.ts](../../../build_tenants/abiogenesis/typescript/code/src/shared/immutable.ts) `deepFreeze`, `isDeeplyFrozen` | Evaluation. Subject: the admitted value or finite source. Reads: that argument only. Outputs: the derived bytes, digest or verdict; no witness. Writes: none, except that `deepFreeze` freezes its own argument. Stops and results: the outcome column. Authority: none. Invalidation: a change to the canonical-JSON or digest law. | The domain is the admitted `JsonValue` that row 1 returns (detached, frozen, acyclic, at most 512 deep) and a finite source. Recursion is structural over that finite value. `resolveExactMatch` passes once over the finite source with a total predicate fixed by its module ([library §6](../../../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#6-prime-atoms-admitted-domains-falsifiers)). | The value or source argument, module constants and the `node:crypto` SHA-256 import. No clock, filesystem or shared mutable state. | One canonical byte string, digest, boolean, record check or exact-match cardinality (none, one or many) per input. A non-finite number is outside the admitted domain; the `TypeError` guard marks that boundary. | Eligible, on the admitted domain. | `t287-value-equality`, `t287-select-family` |
+| 3. Event Calculus fold and point query | [calculus/fold.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts) `effectOf`, `applyStep`, `foldStep`, `applyClip`, `holdsAt`, `workingFoldState`; [calculus/axioms.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts); [calculus/rules.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts) `deriveLiveness`; [event_calculus.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts) `eventCalculusDependencies`, `runtimeFluentHoldsAtPrefix`, `deriveRuntimeEventCalculusProjection` | Evaluation. Subject: the admitted prefix. Reads: the prefix and the module tables. Outputs: a fold state, truth value or projection; no witness. Writes: identity-keyed memos only. Stops and results: the outcome column. Authority: none; consumers act under their own contracts. Invalidation: a change to the root event contract or the axiom and rule tables. | One step per event over a finite admitted prefix. Each step applies a finite effect list from module-constant axiom and rule tables. `applyClip` only deletes from a finite map. `deriveLiveness` uses the liveness validator, which reads the recorded `elapsedMs`, not a clock. `WeakMap` memos keyed by identity cache derived values without changing outcomes. | The admitted prefix under its root event contract and the module-constant tables. These modules read no clock, filesystem or dynamic import. The `performance.now` reads in `runtime_liveness.ts` belong to the observers `captureNativeFrameBoundary` and `observeNativeCCallLiveness`, which are effects outside this row. | One fold state, fluent truth value or projection per admitted prefix. A `TypeError` guard fires only for an event outside the root contract, which admission keeps out of the domain. | Eligible. | `t287-calculus-fold`, `m5-event-store-reopen` |
+| 4. Replay derivation and guard witness | [replay.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/replay.ts) `replayValidatedRuntimeEventPrefix`, `projectRuntimeReplayGuard`, `writeRuntimeReplayGuardValue` | Evaluation. Subject: the admitted prefix. Reads: the prefix only. Outputs: the replay projection and the guard witness value that `writeRuntimeReplayGuardValue` serializes. Writes: none; persisting the witness is the caller's separately authorized effect. Stops and results: the outcome column. Authority: none. Invalidation: a change to the prefix, the root contract or the replay rules. | One structural pass over a finite admitted prefix. Closure members are re-validated against their recorded route. Each check returns a typed value or throws its `TypeError` guard for an event outside the root contract. | The prefix argument and module constants. `replay(store, scope)` reads a held store; that read is the store's, and `replay` is not in this row. | One replay projection or guard witness per admitted prefix. | Eligible, for the prefix-taking functions. | `t287-route-reconstruction`, `m5-event-store-reopen` |
+| 5. Route, evidence, result and judgment admission, and the closure fold | [traversal_route.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts) `admitTraversalTransition`, `admitTraversalTransitionInActiveTransaction`, `admitRoute`, `constructionDeltaForAdvance`, `actionEvaluationProjection`, `edgeClosureDecision`; [c_call.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts) `admitEvidence`, `admitResult`, `admitJudgment`; [c_call_outcome.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts) `admitCCallResult`, `admitCCallJudgment` | Admission under ABG's grant. Evidence contract: the root event contract and the staged route, evidence, result and judgment candidates. Closure admits the `evaluateAction` result as the route's `actionEvaluationAdmission` member, the admitted `evaluate_action` fold. | The checks are finite over the staged prefix, candidate and route. | Undeclared clock. Route candidates take `eventTime: sampleNativeEventTime()`, which is `new Date().toISOString()`, inside admission (`traversal_route.ts:4988`, `:5030`, `:5077`, `:5107`), as do `admitResult` and `admitJudgment` (`c_call.ts:6941`, `:7071`). The event store hashes the candidate, `eventTime` included, into `eventId`. The append is the store's effect. | Admitted events or one typed refusal. The same inputs at two times yield different admitted events. | Pending. Remediation: pass the time sample in as a declared input, as the `basis.eventTime` sites in `c_call.ts` already do, and separate the admission check from event construction and append. | Code reading (`event_store.ts` `eventId` construction); `t287-route-reconstruction` |
+| 6. Graph materialization and Program validation | [materialize.ts](../../../build_tenants/abiogenesis/typescript/code/src/gtl/materialize.ts) `deriveMaterializedGraphShape`, `materializeGraph`; [validator/validation.ts](../../../build_tenants/abiogenesis/typescript/code/src/validator/validation.ts) `validateProgram`, `validatePublication`; [validator/graph.ts](../../../build_tenants/abiogenesis/typescript/code/src/validator/graph.ts) `validateGraph`; [graph_construction.ts](../../../build_tenants/abiogenesis/typescript/code/src/gtl/graph_construction.ts) `graphTemplateDiagnostics` | Evaluation (validation) and derivation (materialization). Subject: the declaration and its materialization basis. Reads: those only. Outputs: a validation result or graph value. Writes: the brand and the shape cache. Stops and results: the outcome column. Authority: none; Program admission is ABG's. Invalidation: a change to the declaration, the basis or the validator law. | Structural recursion over finite declarations. The source-path loops are bounded by path length. `validateProgram` maps every throw to an invalid result. | The declaration, its materialization basis and module constants. `materializeGraph` writes the process-local brand `materializedGraphs` and the shape cache `materializedShapes`, its declared writes. On a cache miss, `retainedMaterializedGraphShape` returns `null` and the caller reconstructs the shape in full. `isMaterializedGtlGraph`, which reads the brand, is not in this row. No filesystem, clock or dynamic import. | One validation result or materialized graph per declaration. A materialization `TypeError` fires only for a declaration outside the validated domain. | Eligible. | `m5-c-algebra-validation`, `r7-graph-validation-basis`, `t287-gtl-graph-law` |
+| 7. Artifact verification, dependency lock and install-tree match | [verify_product.ts](../../../build_tenants/abiogenesis/typescript/code/src/product/verify_product.ts) `verifyProduct`; [environment.ts](../../../build_tenants/abiogenesis/typescript/code/src/product/environment.ts) `resolveProductArtifacts`; [declaration_exports.ts](../../../build_tenants/abiogenesis/typescript/code/src/product/declaration_exports.ts) `linkNativeContractSet`, `installedToolchainProductContentDigest`; [install_product.ts](../../../build_tenants/abiogenesis/typescript/code/src/product/install_product.ts) `installedProductContentMatches`, `listInstalledPayloadFiles` | Evaluation. Subject: the artifact file or install root, unchanged. Reads: the file, its members through `tar`, the compiler module, the toolchain manifest and the install tree. Outputs: a verification receipt or lock. Writes: the memo `resolvedProductEnvironments`. Stops and results: typed refusals. Authority: none; Product admission (row 8) consumes the result. Invalidation: a change to the artifact bytes, the toolchain manifest or the compiler. | Not established. `verifyProduct` reads the artifact file, then lists and reads its members through `execFile("tar", …)`. The executable is resolved on PATH, its output is bounded by `TAR_MAX_BUFFER`, it has no deadline, and the file is read again for each member. `linkNativeContractSet` loads the TypeScript compiler through `createRequire(import.meta.url)` and runs it. `installedToolchainProductContentDigest` reads `product-toolchain-manifest.json` with `readFileSync` relative to its module. `listInstalledPayloadFiles` walks a mutable install root. | Undeclared: the `tar` on PATH, the artifact file between reads, the compiler module and its run, the module-relative manifest, and the install root's current tree. Digest comparisons bind some bytes after the read. No termination argument covers the compiler run. | A typed verification or lock outcome or refusal, when the external reads return. | Pending. Remediation: read the artifact bytes once and decide in process over them, with the module's ustar reader `bufferValidatedArchiveEntries`; declare the compiler and toolchain manifest in the lock contract by exact digest, with a termination bound; declare the install-root read as an observation effect outside the check. | Code reading; `t287-wave2-installed-product-verification`, `t287-installed-dependency-lock` |
+| 8. Product capability admission | [admission_authority.ts](../../../build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts) `validateAdmissionCapabilityBasis`, `admitCapabilityEnvironment`, `withAdmissionAuthority` | Admission under the Product's grant. Evidence contract: the verified artifact, the executing toolchain manifest and the current durable prefix. | Not established. `validateAdmissionCapabilityBasis` calls `verifyProduct` (row 7) and reads the executing `product-toolchain-manifest.json` with `readFile` to compare it with the verified manifest digest. `admitCapabilityEnvironment` asserts that the durable runtime prefix is current, a live read of the store's extent. | Undeclared: row 7's dependencies, the executing manifest file and the store's current extent. The `executingOwnerArtifacts` `WeakSet` is process-local state. | An admitted capability environment, or a refusal thrown as `TypeError`, which is a throw and not a typed outcome. | Pending. Remediation: split physical verification and current-extent observation, effects under their own contracts, from a deterministic admission check over their admitted results, and return typed refusals. | Code reading; `r4-catalog-admission`, `r5-invocation-admission` |
+| 9a. Governance choice, fold and parent projection | [implementation/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts) `projectGovernanceChoice`, `foldGovernanceWork`, `evaluateGovernanceParent` over [abg/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts) `projectGovernanceChoice`, `projectGovernanceFold`, `projectGovernanceParent`; declared F_D by [gtl/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts) | Evaluation. Subject: the admitted prefix and leaf input. Reads: those and the basis's GraphFunction declarations. Outputs: a choice, fold state or parent state. Writes: none. Stops and results: the outcome column, `null` included. Authority: none; ABG admits the leaf result. Invalidation: a change to the prefix, the library declarations or the registered selection. | One finite pass over the admitted prefix and the declared input. The three functions contain no `throw`. They return `null`, the declared no-outcome value, for an input outside the accepted shape, and `projectGovernanceChoice` also returns `null` for a throw from registered-selection resolution. A throw from a helper reaches the leaf port, which types it as `implementation_exception`. | The admitted prefix and the leaf input. | One choice or `null`, one fold, or one parent evaluation per input. | Eligible. | `t287-default-library`, `t287-default-library-fulfillment` |
+| 9b. Governance preparation leaves | [implementation/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts) `prepareGovernanceSelection`, `prepareGovernanceNativeTask`, `prepareObservedTestingTask`; declared F_D by [gtl/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts) | Construction under the leaf descriptor's grant, declared F_D. Evidence contract: the governance state, plus a worksite observation the contract does not declare. | Reads are bounded by `maxFiles` and `maxBytes` in `observeWorksiteContext` and `observeWorksiteSubject`, but the outcome depends on what the mutable worksite holds when it is read. | Undeclared as inputs: the worksite's current files, read through [abg/default_library.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts) `currentContext`, `observeWorksiteContext` and `observeWorksiteSubject`. | One task or refusal per pair of input and worksite state; the worksite state is not in the declared domain. | Pending. Remediation: split the worksite observation, an effect under its own contract admitted as evidence, from task construction over the admitted observation; the construction part can then be assessed for eligibility. | Code reading; `t287-default-library` |
+| 10a. `workflow.C` arm openings | [c_call.ts](../../../build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts) openings with `regime: "F_D"` and `armId: "arm://abiogenesis/workflow.C@5"`, and foldback `admitWorkflowChildFoldback` | Construction: the opening and foldback of a child traversal under the CCall owner's grant; the `F_D` label sits on an arm whose outcome is the child traversal's. | The arm declares no `f_B`. Its outcome depends on the child traversal, actor and process work included, so the label has no closed domain or termination argument. The arm's own opening and foldback checks are finite. | The child traversal and every dependency it has. | The child's admitted result folded back, or a refusal. | Pending. Remediation: scope the F_D claim to the arm's opening and foldback checks and compose the child traversal under [AC-016](stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#ac-016-typed-composition), which keeps both traversal identities. A change to the recorded `regime` value would be a payload change and is not proposed here. | Code reading; `d2-workflow-step`, `t288-workflow-scope-conservation` |
+| 10b. Program-declared F_D leaf implementations | [leaf_invocation_port.ts](../../../build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts) (stages `authority_verification`, `implementation_load`, `implementation_invocation`); the leaves that `gtl/*.ts` Programs declare F_D (requirement handoff, self-conformance, semantic revision publication, worksite, Consensus, default library); the qualification assessment leaves in [implementation/qualification.ts](../../../build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts) | Per leaf. An assessment leaf (self-conformance, qualification) is an evaluation: subject its assessed input, reads its declared input and the catalog files named in the next columns, output the typed assessment, no writes, no authority (ABG admits the result), invalidated by a change to its input or catalogs. A construction leaf has its descriptor's contract and grant. | The port types every outcome (`malformedOrAdmitted`) and loads the implementation by dynamic `import()` of a path inside the admitted install root. It sets no deadline or fuel, and no leaf records a termination argument. | Declared: the admitted implementation set and install root. Undeclared: `qualificationCoverageIsPublished` ([validator/qualification.ts](../../../build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts)) reads `contracts/qualification/coverage.json` by a module-relative `readFileSync` with no digest binding; `isQualificationVerdictInput`, `isMalformedGtlAssessmentInput` and `isNativeRuntimeAssessmentInput` reach it. `readQualificationCatalog` reads `rule-catalog.json` and computes its digest without binding it. | One typed leaf outcome per invocation that returns. | Pending. Remediation: assess each leaf with a termination argument, or declare a fuel-bounded successor distinct from the leaf it bounds; bind the qualification catalogs as digest-declared inputs. | Code reading; `t287-qualification-law`, `t287-qualification-scopes` |
+
+The table has twelve rows: five eligible (2, 3, 4, 6, 9a), seven pending (1, 5, 7, 8, 9b, 10a, 10b) and none unresolved. The subsection says once that actor and process execution, worksite mutation and native work are effects under their own operation contracts, and are not rows. HoG traversal composes rows and is not a row either. The two contract files carrying a regime field are not rows: `contracts/conformance/gtl-language-conformance-corpus.json` is a non-executable corpus, and `contracts/schemas/gtl-serialization.schema.json` holds a regime enum. Both are schematic contracts under RELEASE §9.
+
+**Owners named** (subsection, Owners):
+
+- Product admission: `validateAdmissionCapabilityBasis`, `admitCapabilityEnvironment` and `withAdmissionAuthority` (`product/admission_authority.ts:215`, `:187`, `:297`), and `admitGraphFunctionCatalog` (`product/catalog.ts:417`). The install effect `installProductInResolvedLock` (`product/install_product.ts:306`) enters truth through ABG's `admitProductInstallInResolvedLock` and `admitArtifact` (`abg/environment_admission.ts:1098`, `:803`).
+- ABG admission: `admitRuntimeEventTransactionAtExpectedPrefix` and `admitRuntimeEventTransactionAtDurablePrefix` (`abg/event_store.ts:4278`, `:4296`); `admitEvidence`, `admitResult` and `admitJudgment` (`abg/c_call.ts:6362`, `:6823`, `:6969`); `admitCCallResult` and `admitCCallJudgment` (`abg/c_call_outcome.ts:1918`, `:1921`); and the route path `admitTraversalTransition` (`:5464`) → `admitTraversalTransitionInActiveTransaction` (`:5317`) → `admitRoute` (`:4328`) in `abg/traversal_route.ts`.
+- Closure: the admitting function is `constructionDeltaForAdvance` (`abg/traversal_route.ts:2346`). It works under `selectAdmittedConstructionAuthority(…, "evaluateAction")` (`abg/execution_basis.ts:1146`). It builds the route's `actionEvaluationAdmission` member, kind `admitted_action_evaluation` (`:2704-2737`), which carries the `EdgeFulfillmentLedger` and `EdgeClosureDecision` refs and digests. Replay re-validates that member (`abg/replay.ts:1041-1090`).
+
+**Census** (item 3). `git grep -n 'F_D' -- specification build_tenants/abiogenesis/typescript/design` at the base returns 577 lines in 119 files: 73 lines in 23 specification files and 504 lines in 96 design files.
+
+Classification method:
+
+- Every line was classified, and each file is listed below with its per-class line counts.
+- Every specification line was read.
+- Every design line that names closure, admission, ownership, authority, decision or gating next to `F_D` was read.
+- In current designs (ABI5, T287, README, the module designs, and the accepted M03 and M05 direct-traversal, S05 and constitutional-basis designs), the split between (A) and (B) is lexical. A line naming an operation (leaf, seam, check, projection, preparation, reducer, join and similar) is (B) under its row; any other line is (A).
+- Lines in dated records are (C). That covers derivations, IACS, structural carrier diagrams, reviews, audits, ADRs, records that are closed, retrospective, proposed, ratified for a past ticket or held, and the five records whose headers invalidate or supersede them. Lines in those records that the authority scan flagged are the exception and are listed under (D).
+
+Totals:
+
+- (A) regime vocabulary consistent with §5 and the regime table: 90 lines in 38 files (66 specification, 24 design).
+- (B) an operation claim covered by a row: 187 lines in 31 files (3 specification, 184 design). By row: 10b 167, 5 8, 9a 7, 9b 3, 10a 2.
+- (C) dated records read through item 1(b): 280 lines in 64 design files.
+  - 20 lines in the 5 records the subsection names: the F_D authority placement derivation, IACS and carrier diagram, the construction-pressure derivation, and ADR-042.
+  - 73 lines in the 5 invalidated or superseded records: the public control-plane ontology, the M03 Consensus domain-family design, M03/M04 One Surface, M03/M04 public catalog invocation, and M02/M04 Consensus publication.
+  - 187 lines in 54 other dated records.
+- (D) contradicts 3.0.1 §5 or A5: 20 lines in 14 files.
+  - 4 lines in specification files: stops.
+  - 3 lines in the granted files, restated below.
+  - 13 lines in other design: named below, not edited.
+
+Reasons for the borderline specification calls, using one test: does the sentence give the kind itself a permission, admission, closure or decision?
+
+- (D):
+  - `PRODUCT.md:697` and `INTENT.md:54` attribute authority to each kind.
+  - `FN-COMP-004` (`:40`) and `COMPUTE-NOTATION-010` (`:110`) place closure authority on F_D.
+- (A):
+  - `INTENT.md:149` ("`F_D` owns total mechanical functions over declared closed inputs") states the kind's extent with totality.
+  - `INSTRUCTION-ASSEMBLY-004` ("shall be F_D-owned for …") classifies listed predicates under -004A's total-function condition and leaves semantic judgment and admission with their owners.
+  - `CCALL:114` ("F_D admission … are trust boundaries") names stages.
+  - `PRODUCT.md:535` (the regime row) is the import site; the binding reads it through the common contract.
+  - `PRODUCT.md:1649` ("obey their declared type and authority boundaries") bounds each kind by its declared contract.
+- (B), row 5:
+  - `FN-COMP-008` (`:48`) requires the closure function to be F_D, which is an eligibility claim.
+  - `REQUIREMENTS-ALGEBRA-040` (`:124`) names route code, which is ABG's admission mechanism, classified F_D; the doer is an admission owner, not the kind.
+  - `FPC-011E` (`:81`) is `evaluateAction`.
+- (D) test for design: a line is (D) when the kind is the holder of a closure or admission authority, or when a leaf that is not an admission owner is said to admit.
+
+The (D) list. Specification stops: quoted, with a proposed restatement, none edited.
+
+1. `specification/INTENT.md:54`: "7. preserve `F_D`, `F_P`, and `F_H` as distinct compute and authority regimes inside one traversal model;"
+   - Proposed: "7. preserve `F_D`, `F_P`, and `F_H` as distinct compute regimes inside one traversal model, each operation's authority carried by its own contract and admitted grant;"
+2. `specification/PRODUCT.md:697`: "`F_D`, `F_P` and `F_H` retain their distinct authorities."
+   - Proposed: "`F_D`, `F_P` and `F_H` remain distinct regimes; each operation's contract and admitted grant carry its authority, and classifying an operation `F_D` grants it none."
+3. `specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md:40` (FN-COMP-004): "`F_D` may own closure authority. … Non-`F_D` regimes shall not claim closure authority."
+   - Proposed: "No regime binding holds closure authority by its kind. Closure truth is ABG's admitted closure fold over admitted evidence, recorded as the closure decision, and a closure function that claims `F_D` establishes its total-domain eligibility. `F_P` may construct, diagnose, repair, rank, or supply evidence. `F_H` may be present, deferred, or absentia. `F_P` and `F_H` bindings shall not decide closure."
+   - The first sentence of FN-COMP-004, which lists the declared fields, is unchanged.
+4. `specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md:110` (COMPUTE-NOTATION-010): "Regime-binding notation shall make non-`F_D` closure authority unrepresentable."
+   - Proposed: "Regime-binding notation shall make closure authority unrepresentable on every regime binding; closure is represented only through the selected closure contract and ABG's admitted closure decision."
+   - The second sentence, about `F_P` and `F_H`, stays.
+
+In the granted files, restated in this commit:
+
+5. Binding `:154`.
+6. Frame basis `:14`.
+7. Library `:698`.
+
+The old and new text of each is below.
+
+Other design: named for the Executive, not edited.
+
+8. `M03_ABG_FN_COMPOSITION_DERIVATION.md:45`: "`F_D` owns deterministic closure."
+   - Proposed: "The closure contract's deterministic closure predicate decides closure under ABG's closure fold; its `F_D` claim requires total-domain eligibility."
+9. Same file, `:188-189`: "`F_D` may validate, gate, project, and close when the closure contract names an `F_D` predicate and required evidence is admitted."
+   - Proposed: "An `F_D` operation may validate, gate and project under its own contract; ABG closes when the closure contract's named predicate accepts over admitted evidence."
+10. Same file, `:262`: "| regime authority | `REQ-R-ABG3-FN-COMPOSITION` | only F_D can close |"
+    - Proposed: "| regime authority | `REQ-R-ABG3-FN-COMPOSITION` | only ABG's closure fold under the named closure predicate closes; no regime closes by its kind |"
+11. `M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md:134`: "only F_D closure can close."
+    - Proposed: "only ABG's closure fold under the named closure predicate can close."
+12. Same file, `:145`: "A non-F_D regime claiming closure authority fails closed."
+    - Proposed: "A regime binding claiming closure authority fails closed."
+13. Same file, `:160`: "| regime authority | this IACS | only F_D closure authority is accepted |"
+    - Proposed: "| regime authority | this IACS | no regime binding carries closure authority; the named predicate under ABG's fold closes |"
+14. `M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md:184`: "only an F_D closure predicate under the selected composition identity may close."
+    - Proposed: "only ABG's closure fold, under the closure predicate the selected composition identity names, may close."
+15. `M03_INSTRUCTION_ASSEMBLY_DERIVATION.md:159`: "F_D-admits review result shape, source package digest, …"
+    - Proposed: "Admits, under its declared admission contract, review result shape, source package digest, … (an `F_D` claim requires total-domain eligibility)."
+16. `M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md:99`: "F_D owns:", followed by a list that includes "event envelope admission and typed rejection".
+    - Proposed: "Deterministic operations, each under its owner's contract (ABG admission for envelopes, replay projection and guards) and its total-domain claim, perform:"
+17. `M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md:70`: "`export type AuthorityRegime = "F_D" | "F_P" | "F_H";`"
+    - Proposed: "`export type ComputeRegime = "F_D" | "F_P" | "F_H";`"
+18. Same file, `:111`: "`readonly authority: "F_D";`"
+    - Proposed: "`readonly regime: "F_D";`", with the projection's authority carried by its owner contract.
+19. `T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:846`: "F_D judgment admits a well-formed execution observation without interpreting …"
+    - Proposed: "The F_D judgment accepts a well-formed execution observation without interpreting …; ABG admits that judgment (§8)."
+
+Items 8 to 14 derive from FN-COMP-004 and follow its stop.
+
+Per-file classification. Paths under `design/` are under `build_tenants/abiogenesis/typescript/design/`. B rows are named; C carries its reason.
+
+Specification (23 files, 73 lines):
+
+- `specification/GOALS.md`: A 4
+- `specification/INTENT.md`: A 3; D 1 (:54)
+- `specification/PRODUCT.md`: A 11; D 1 (:697)
+- `specification/requirements/abg/REQ-R-ABG3-CCALL.md`: A 4
+- `specification/requirements/abg/REQ-R-ABG3-FN-COMPOSITION.md`: A 1; B 1 (row 5); D 1 (:40)
+- `specification/requirements/abg/REQ-R-ABG3-FP-CONSCIOUSNESS.md`: A 5; B 1 (row 5)
+- `specification/requirements/abg/REQ-R-ABG3-HANDLERS.md`: A 3
+- `specification/requirements/abg/REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md`: A 5
+- `specification/requirements/abg/REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH.md`: A 4
+- `specification/requirements/abg/REQ-R-ABG3-REQUIREMENTS-ALGEBRA.md`: A 4; B 1 (row 5)
+- `specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md`: A 1
+- `specification/requirements/abg/REQ-R-ABG3-TUNER.md`: A 2
+- `specification/requirements/gtl/README.md`: A 1
+- `specification/requirements/gtl/REQ-L-GTL3-C-ALGEBRA.md`: A 3
+- `specification/requirements/gtl/REQ-L-GTL3-COMPUTE-NOTATION.md`: A 2; D 1 (:110)
+- `specification/requirements/gtl/REQ-L-GTL3-CONTRACT-LAW-API.md`: A 3
+- `specification/requirements/gtl/REQ-L-GTL3-LANGUAGE-CAPABILITY-MODEL.md`: A 1
+- `specification/requirements/gtl/REQ-L-GTL3-OPERATOR.md`: A 1
+- `specification/requirements/gtl/REQ-L-GTL3-SELECTION-BOUNDARY.md`: A 1
+- `specification/requirements/mapping/REQ-M-GTL3-CAPABILITY.md`: A 4
+- `specification/requirements/product/REQ-P-CONSENSUS.md`: A 1
+- `specification/requirements/product/REQ-P-QUAL.md`: A 1
+- `specification/requirements/product/REQ-P-SCENARIOS.md`: A 1
+
+Design (96 files, 504 lines):
+
+- `design/ABG_3_MODULE_DESIGN.md`: A 1
+- `design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md`: C 8 (dated record)
+- `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md`: B 1 (row 10b); D 1 (:698)
+- `design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md`: D 1 (:14)
+- `design/ABI5_STDO3_COMPUTATIONAL_BINDING.md`: A 1; D 1 (:154)
+- `design/ABIOGENESIS_PUBLIC_CONTROL_PLANE_ONTOLOGY.md`: C 4 (invalidated or superseded)
+- `design/GTL_3_INTERFACE_CONTRACTS.md`: A 1
+- `design/GTL_ASSET_SURFACE_PROMPT_INTERFACE_DERIVATION.md`: C 1 (dated record)
+- `design/HOMEOSTATIC_LOOP_AFTER_EVAL_EVENT_DERIVATION.md`: C 1 (dated record)
+- `design/M01_TYPED_C_ALGEBRA_AUTHORING_IACS.md`: C 1 (dated record)
+- `design/M01_TYPED_C_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md`: C 2 (dated record)
+- `design/M02_M04_CONSENSUS_PUBLICATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`: C 5 (invalidated or superseded)
+- `design/M02_M04_INSTALLED_CATALOG_FOUNDATION_BEHAVIOR_DESIGN.md`: C 1 (dated record)
+- `design/M03_ABG_FN_COMPOSITION_DERIVATION.md`: B 2 (row 5); C 4 (dated record); D 4 (:45, :188, :189, :262)
+- `design/M03_ABG_FN_COMPOSITION_FIRST_SLICE_IACS.md`: D 3 (:134, :145, :160)
+- `design/M03_ABG_FN_COMPOSITION_STRUCTURAL_CARRIER_DIAGRAM.md`: B 1 (row 5); C 1 (dated record); D 1 (:184)
+- `design/M03_ABG_PROBABILISTIC_MONAD_PLUGIN_BOUNDARY_DERIVATION.md`: C 2 (dated record)
+- `design/M03_ATTACHED_FP_WORKER_LOOP_DERIVATION.md`: C 1 (dated record)
+- `design/M03_COMPOSED_C_STAGE_SET_DERIVATION.md`: C 2 (dated record)
+- `design/M03_CONSCIOUSNESS_TIER_STACK_AND_EXECUTION_MODEL.md`: C 5 (dated record)
+- `design/M03_CONSENSUS_DOMAIN_FAMILY_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`: C 19 (invalidated or superseded)
+- `design/M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN.md`: B 1 (row 10b)
+- `design/M03_CONSTRUCTION_INTENT_RUNNER_FIRST_SLICE_IACS.md`: C 1 (dated record)
+- `design/M03_CONSTRUCTION_PRESSURE_PACKAGE_DERIVATION.md`: C 1 (named in 1(b))
+- `design/M03_CONSTRUCTION_PRESSURE_PACKAGE_FIRST_SLICE_IACS.md`: C 2 (dated record)
+- `design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md`: A 3; B 15 (row 10b 13, row 5 2)
+- `design/M03_EDGE_ASSURANCE_CONTRACT_DERIVATION.md`: C 4 (dated record)
+- `design/M03_EDGE_ASSURANCE_CONTRACT_FIRST_SLICE_IACS.md`: C 2 (dated record)
+- `design/M03_EXECUTION_AUTHORITY_PROVENANCE_DESIGN.md`: C 2 (dated record)
+- `design/M03_FD_AUTHORITY_PLACEMENT_DERIVATION.md`: C 10 (named in 1(b))
+- `design/M03_FD_AUTHORITY_PLACEMENT_FIRST_SLICE_IACS.md`: C 5 (named in 1(b))
+- `design/M03_FD_AUTHORITY_PLACEMENT_STRUCTURAL_CARRIER_DIAGRAM.md`: C 2 (named in 1(b))
+- `design/M03_FP_CONSCIOUSNESS_LOOP_DERIVATION.md`: C 13 (dated record)
+- `design/M03_FP_CONSCIOUSNESS_LOOP_FIRST_SLICE_IACS.md`: C 3 (dated record)
+- `design/M03_FP_CONSCIOUSNESS_LOOP_STRUCTURAL_CARRIER_DIAGRAM.md`: C 1 (dated record)
+- `design/M03_GRAPH_FUNCTION_ITERATION_DERIVATION.md`: C 1 (dated record)
+- `design/M03_GRAPH_SPAN_FOLDBACK_REENTRY_DERIVATION.md`: C 6 (dated record)
+- `design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md`: C 10 (dated record); D 1 (:159)
+- `design/M03_INSTRUCTION_ASSEMBLY_FIRST_SLICE_IACS.md`: C 7 (dated record)
+- `design/M03_INSTRUCTION_ASSEMBLY_STRUCTURAL_CARRIER_DIAGRAM.md`: C 2 (dated record)
+- `design/M03_INSTRUCTION_PROTOCOL_BEHAVIOR_DESIGN.md`: C 3 (dated record)
+- `design/M03_M04_ONE_SURFACE_AUTHORITY_BEHAVIOR_DESIGN.md`: C 2 (invalidated or superseded)
+- `design/M03_M04_PLUGIN_CONTRACT_MODEL_IACS.md`: C 3 (dated record)
+- `design/M03_M04_PUBLIC_CATALOG_INVOCATION_AUTHORITY_BEHAVIOR_DESIGN.md`: C 43 (invalidated or superseded)
+- `design/M03_OUTPUT_ALLOCATION_AND_WORKSPACE_ZOOM_FOLDBACK_DERIVATION.md`: C 4 (dated record)
+- `design/M03_RECURSIVE_EXECUTIVE_OBSERVER_DERIVATION.md`: C 1 (dated record)
+- `design/M03_REQUIREMENTS_ALGEBRA_DERIVATION.md`: C 7 (dated record)
+- `design/M03_REQUIREMENTS_ALGEBRA_DESIGN_MODULE_REVIEW.md`: C 2 (dated record)
+- `design/M03_REQUIREMENTS_ALGEBRA_DOWNSTREAM_READINESS_DERIVATION.md`: C 3 (dated record); D 1 (:99)
+- `design/M03_REQUIREMENTS_ALGEBRA_REFINEMENT_FIRST_SLICE_IACS.md`: C 1 (dated record)
+- `design/M03_REQUIREMENTS_ALGEBRA_ROUTE_INTERFACE_DESIGN.md`: C 10 (dated record); D 2 (:70, :111)
+- `design/M03_REQUIREMENTS_ALGEBRA_ROUTE_REQUIREMENTS_AUDIT.md`: C 2 (dated record)
+- `design/M03_REQUIREMENTS_ALGEBRA_STRUCTURAL_CARRIER_DIAGRAM.md`: C 1 (dated record)
+- `design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_DERIVATION.md`: C 3 (dated record)
+- `design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_FIRST_SLICE_IACS.md`: C 2 (dated record)
+- `design/M03_REQUIREMENT_PROOF_CARRY_THROUGH_STRUCTURAL_CARRIER_DIAGRAM.md`: C 1 (dated record)
+- `design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_API_EVENT_PROJECTION_PROOF_PLAN.md`: C 3 (dated record)
+- `design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_DERIVATION.md`: C 3 (dated record)
+- `design/M03_RUNTIME_GRAPH_FUNCTION_REGISTRY_FIRST_SLICE_IACS.md`: C 3 (dated record)
+- `design/M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_FIRST_SLICE_IACS.md`: C 1 (dated record)
+- `design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_DERIVATION.md`: C 6 (dated record)
+- `design/M03_VECTOR_RUNTIME_REGIME_RESOLUTION_FIRST_SLICE_IACS.md`: C 4 (dated record)
+- `design/M04_PUBLIC_CONTRACT_PUBLICATION_BEHAVIOR_DESIGN.md`: C 4 (dated record)
+- `design/M04_PUBLIC_OPERATION_PRIME_CONTRACTION_BEHAVIOR_DESIGN.md`: C 1 (dated record)
+- `design/M04_SHARED_PRODUCT_TOOLCHAIN_DESIGN_MODULE_REVIEW.md`: C 1 (dated record)
+- `design/M04_TYPESCRIPT_INSTALLER_DERIVATION.md`: C 1 (dated record)
+- `design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md`: B 48 (row 10b)
+- `design/M05_RESEARCH_PRODUCT_LAB_SCENARIO_CATALOG_DERIVATION.md`: C 1 (dated record)
+- `design/M05_S04_OBSERVER_TUNER_GLOBAL_TO_LOCAL_DESIGN.md`: C 26 (dated record)
+- `design/M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN.md`: A 2; B 17 (row 10b)
+- `design/M05_S06_NATIVE_CONTRACT_CLOSURE_DESIGN.md`: C 5 (dated record)
+- `design/README.md`: B 1 (row 10a)
+- `design/T176_GTL_LANGUAGE_CAPABILITY_TS_HOW_AND_GAP_ANALYSIS.md`: B 2 (row 10b)
+- `design/T287_C1_PRESERVED_RESULT_ARTIFACT_DESIGN.md`: B 6 (row 10b)
+- `design/T287_C2_FORWARD_REENTRY_DESIGN.md`: A 2; B 5 (row 10b)
+- `design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md`: A 3; B 12 (row 10b)
+- `design/T287_D2_REQUIREMENT_LIFECYCLE_DESIGN.md`: A 1; B 6 (row 10b)
+- `design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md`: B 2 (row 10b)
+- `design/T287_D4_SELF_CONFORMANCE_DESIGN.md`: B 1 (row 10b)
+- `design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`: A 1; B 10 (row 9a 7, row 9b 3)
+- `design/T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN.md`: B 4 (row 10b)
+- `design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md`: B 2 (row 10b)
+- `design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md`: A 2; B 1 (row 10b)
+- `design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md`: B 1 (row 10b)
+- `design/T287_R10_TYPED_TERMINAL_OUTCOME_DESIGN.md`: B 1 (row 10b)
+- `design/T287_REGISTERED_GRAPH_SELECTION_DESIGN.md`: A 1; B 5 (row 10b)
+- `design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md`: B 4 (row 10b)
+- `design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`: A 1
+- `design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md`: A 2; B 2 (row 10b)
+- `design/T287_W2_R3_C1_LIVE_LLM_WORKSITE_CONSTRUCTION_DESIGN.md`: A 2; B 14 (row 10a 1, row 10b 13)
+- `design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md`: A 1; B 3 (row 10b); D 1 (:846)
+- `design/T287_W2_R3_C3_BRANCH_CONSTRUCTION_AGGREGATE_DESIGN.md`: B 10 (row 10b)
+- `design/T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md`: B 7 (row 10b)
+- `design/adrs/ADR-041-runtime-execution-law-is-carrier-and-event-owned.md`: C 1 (dated record)
+- `design/adrs/ADR-042-deterministic-handling-must-not-structurally-block-governed-fp.md`: C 2 (named in 1(b))
+- `design/adrs/ADR-043-runtime-advancement-uses-execution-basis-and-advancement-transition.md`: C 1 (dated record)
+
+**Restated sentences, old and new.**
+
+1. Binding `:154`.
+   - Old: "Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves. An optional a_c representation must bind operation kind, domain, authority and result meaning explicitly; equal spelling is no import."
+   - New: "Its F_D kind classifies total deterministic processing. That classification identifies no ABG construction, admission or effect leaf by itself; an operation's F_D standing is its row in [the deterministic kind under the selected edition](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md#the-deterministic-kind-under-the-selected-edition). An optional a_c representation binds operation kind, domain, authority and result meaning explicitly; equal spelling is no import."
+   - The paragraph's first sentence is unchanged.
+2. Frame basis `:12-16`.
+   - Old: "Under the Product governance calculus, an explicitly declared closed rule may be evaluated by F_D inside ordinary graph work."
+   - New: "Under the Product governance calculus, an explicitly declared rule over a closed domain runs inside ordinary graph work as common F_D, imported by exact edition under [the computational binding](../../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md#the-deterministic-kind-under-the-selected-edition), only when that binding's disposition table lists its operation class as eligible: total over the domain, its dependencies declared, one typed outcome per input."
+   - The sentences before and after are unchanged.
+3. Library `:698`, last cell.
+   - Old: "GTL topology, F_D/F_P/F_H authority, actual observed work and independent assessment remain distinct."
+   - New: "GTL topology, each leaf's declared regime (F_D, F_P or F_H) with the operation contract and admitted grant that carry its authority, actual observed work and independent assessment remain distinct."
+   - Cause: "F_D/F_P/F_H authority" gave authority to the kinds.
+4. Library `:579`: unchanged. "The F_D boundary (stages `authority_verification`, `implementation_load` and `implementation_invocation`)" names the leaf port's dispatch branch for a declared F_D leaf and its failure stages. It claims no standing, and row 10b disposes that branch.
+
+**Gates.**
+
+- `git diff --check`: clean.
+- Anchors: every `stdo://releases/v3.0.1-rc.1/...` link in the three design files resolves against the installed cut's headings with a GitHub-slug resolver (17 links, 0 bad). The resolver reports deliberately wrong stdo, local and same-file anchors as bad.
+  - The 8 distinct stdo anchors written: `AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds`, `#ac-015-functor-classification`, `#ac-016-typed-composition`; `ODD.md#probabilistic-compute`, `#115d-constructive-evaluation-and-yield-loop`, `#117a-conforming-agentic-development`; `RELEASE.md#deterministic-kind-migration`; `examples/DETERMINISTIC_CONTRACTS.md`.
+  - The local anchors written also resolve: `#the-deterministic-kind-under-the-selected-edition`, `PRODUCT.md#compute-and-authority`, library `#6-prime-atoms-admitted-domains-falsifiers`.
+- `npm run lint:evidence`: "check-evidence-mirrors: 691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other". This is the same as at the base.
+- `t287-calculus-fold`: 13 tests, 13 pass, 0 fail.
+- `git status --short`:
+  - the three design files and this file, modified;
+  - the two untracked Codex posts that were present at the start: `.ai-workspace/comments/codex/20261023T211957Z_…` and `20261024T045334Z_…`, not opened.
+- Evidence lanes for the eligible rows, run at this head:
+  - `t287-json-value-definition`: 1/1.
+  - `t287-value-equality`: 5/5.
+  - `t287-select-family`: 7/7.
+  - `m5-event-store-reopen`: 21/21.
+  - `t287-route-reconstruction`: 9 pass, 2 skipped.
+  - `m5-c-algebra-validation`: 19 pass, 3 skipped.
+  - `r7-graph-validation-basis`: 1/1.
+  - `t287-gtl-graph-law`: 9/9.
+  - `t287-default-library`: 17 pass, 3 skipped.
+  - `t287-default-library-fulfillment`: 7/7.
+  - `t287-registered-graph-selection` fails, as described under findings, and is not cited.
+
+**Deviations.**
+
+1. The activation's ten classes are twelve rows. (ix) splits into 9a, the projections (eligible), and 9b, the preparation leaves (pending), because their evidence differs. (x) splits into 10a, the `workflow.C` arm label, and 10b, the program-declared leaves through the leaf port. The two contract files are named once as schematic, not rows. No class was dropped.
+2. The activation cites the regime table as `PRODUCT.md:530-538`, with the F_D row at `:534` and "not a quality label" at `:538`. At the base those are `:530-539`, `:535` and `:539`. The binding cites `:530-539`.
+3. The activation points class (vi) at `hog/`. Materialization and Program validation are realized in `gtl/materialize.ts`, `gtl/graph_construction.ts` and `validator/`. `hog/` holds traversal, which composes rows and is not a row.
+4. Item 1(b)'s named records include the F_D authority placement structural carrier diagram, a sibling of the named derivation and IACS.
+5. The census is classified per line and listed per file with counts. The (A)/(B) split in current designs is lexical, as stated above.
+6. The owners are a three-item list, not single sentences.
+7. Profile cells give the evaluation profile (subject, reads, outputs, writes, stops and results, authority, invalidation) for evaluation rows, and the evidence contract and grant for admission and construction rows.
+
+**Findings outside the grant.**
+
+1. `test_env/tests/t287-registered-graph-selection.test.mjs` fails at this head. No code changed in M-2, so it fails at the base too.
+   - Publication validation returns `static_validation_refusal` with `duplicate_identity` for carried environment ref `contract://registered-selection/child-input@5` on `graph-function://registered-selection/A@5` and `B@5`; the test expects `publication_validation`.
+   - The lane is not cited as evidence.
+2. `contracts/qualification/sources/ODD_METHOD.md` keeps pre-3.0.1 wording: `:1054` "**A5. F_P Freedom, F_D Authority**" and `:1372` "an F_D gate that admits the produced artifacts". The `PRODUCT.md` and `INTENT.md` copies in the same directory mirror the two specification stops.
+3. `gtl/materialize.ts` `isMaterializedGtlGraph` reads a process-local brand, so a consumer's outcome depends on process history. Row 6 excludes it. The C1 design already records that a process-local brand cannot satisfy its joins.
+4. The proposed COMPUTE-NOTATION-010 restatement makes closure authority unrepresentable on every regime binding. The realized type exclusion covers F_P and F_H (T176 `:44`). Whether F_D regime bindings carry a closure-authority field in code was not assessed.
+5. Row 10b's gap is class-wide: no program-declared F_D leaf records a termination argument, and the port sets no deadline or fuel.
+
+**Stops** (written here; the rest kept moving):
+
+1. Four `(D)` sentences in `specification/`, each quoted above with a proposed restatement, none edited:
+   - `INTENT.md:54`;
+   - `PRODUCT.md:697`;
+   - `REQ-R-ABG3-FN-COMPOSITION.md:40` (FN-COMP-004);
+   - `REQ-L-GTL3-COMPUTE-NOTATION.md:110` (COMPUTE-NOTATION-010).
+2. Row 7 is a defect: evaluation operations with undeclared material dependencies and no termination argument. They depend on `tar` resolved on PATH with no deadline, the artifact re-read for each member, the TypeScript compiler loaded and run inside the lock, the module-relative toolchain manifest, and the mutable install tree. The row is pending.
+3. Row 10b is a defect: the qualification assessment leaves read `contracts/qualification/coverage.json` through `qualificationCoverageIsPublished`, by a module-relative `readFileSync` with no digest binding. `readQualificationCatalog`'s digest is computed and not bound. No F_D leaf records a termination argument. The row is pending.
+4. Row 5's clock read and row 8's executing-manifest and current-extent reads are in admission and construction operations, not evaluation operations, so they are pending gaps rather than evaluation stops. Row 8 calls row 7's evaluation, which stop 2 covers.
+5. No class was unplaceable (no unresolved row), and no edit outside the grant was made.
+
+**Not verified.**
+
+- The totality arguments for the eligible rows are structural, from reading the code. The lanes show agreement on their fixtures, not totality.
+- Row 1's divergence through a Proxy trap is argued from code, not demonstrated by a test. That Valibot `safeParse` has no catch was read in the installed `node_modules/valibot` copy.
+- The lanes cited for pending rows were not run: `t287-wave2-installed-product-verification`, `t287-installed-dependency-lock`, `r4-catalog-admission`, `r5-invocation-admission`, `d2-workflow-step`, `t288-workflow-scope-conservation`, `t287-qualification-law`, `t287-qualification-scopes`.
+- Lines in dated records were not read one by one beyond the authority scan, and the (A)/(B) split in current designs is lexical.
+- No census was taken over `code/src/` or `contracts/`. The activation's census covers `specification/` and the design directory only. The `computeRegime` declarations in code were read only where a row needed them.
+- Code line numbers in the table and here are at base `d0b1b196b`.
+- Only the two named `.ai-workspace/` paths were opened.
