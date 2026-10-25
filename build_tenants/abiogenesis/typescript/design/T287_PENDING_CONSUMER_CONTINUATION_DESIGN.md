@@ -642,7 +642,8 @@ Ordinary C_Call/HoG outcome and parent-return receipts carry only their declared
 current guard coordinates and currently selected input/result. They do not
 retain the complete authority Event array or complete historical ReplayState.
 The existing replay owner computes the unchanged full logical replay digest
-when it is required for a guard comparison. It streams each selected historical
+for every guard it derives, whether or not the guard's reader compares or
+persists it. It streams each selected historical
 value through the same canonical writer and releases that value before the next;
 an ordinary receipt does not construct the complete historical output vectors
 first. This preserves the digest's full extent and its acquisition cost. Explicit
