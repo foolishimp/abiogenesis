@@ -141,6 +141,17 @@ matrix or test count cannot establish whole-Product completion. Existing
 materially correct relations and applicable evidence are retained. Older
 routing below preserves history and cannot reactivate a superseded attempt.
 
+Owner selection, 2026-10-25: pin ABIogenesis source development to the published
+STDO 3.0.1 line, exact immutable `v3.0.1-rc.1` and manifest selected by
+[`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The
+[adoption record](../.ai-workspace/comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md)
+binds the digest-bound adoption, the verified install and the method routes
+rebound to that cut. This method selection preserves the current Product
+outcomes and the T-290 work. The runtime default-library snapshot keeps its
+exact `v3.0.0-rc.1` basis until T-287 Phase D's D0 moves it; retained Runs,
+qualification evidence and derivation links keep their original exact bases.
+The migration of deterministic-kind (F_D) claims under 3.0.1 is T-291 M-2.
+
 Owner selection, 2026-10-21: pin ABIogenesis source development to the published
 STDO 3.0.0 line, exact immutable `v3.0.0-rc.1` and manifest selected by
 [`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The

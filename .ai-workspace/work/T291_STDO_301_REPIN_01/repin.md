@@ -42,3 +42,88 @@ Stop (write it in the Return, keep the rest moving): a plan, installed-manifest 
 Return contract: one commit on `main` with the first line `M-1: ABIogenesis source development selects STDO 3.0.1 (v3.0.1-rc.1, manifest 60356364): the digest-bound adoption applied and verified, the bootstrap markers current, every method route rebound and resolved in the installed cut, the record written` (if a clause does not hold, keep the structure and state the gap in its place) and the last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Stage by path; no `git add -A`; never push; never amend. Append `## M-1 return` at the end of this file: the first sentence says closed, or names the gap; the manager's outputs with their digests and statuses; the routes table; the GOALS paragraph as written; the gates; deviations from this wording; findings outside the grant; stops; what could not be verified. Nothing above your section is edited.
 
 M-2 (the F_D migration) is activated by the Executive at M-1's acceptance; its census starts from the routes M-1 resolved.
+
+## M-1 return (Worker, Opus 5.5, 2026-10-25)
+
+Closed: ABIogenesis source development selects STDO 3.0.1 (`v3.0.1-rc.1`, manifest `60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8`) through the manager's digest-bound adoption, applied and verified; both bootstrap markers are current with no apply; every method route in the territory, 22 occurrences and two manifest digests, is rebound and resolves in the installed cut with its anchor present; the record is written at [`comments/claude/20261025T022614Z_STDO_301_ADOPTION/`](../../comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md). No stop fired. The change is the commit carrying this Return, on base `b80da6d0c`; nothing is pushed.
+
+**Manager outputs** (record directory, SHA-256 of each file):
+
+| File | Status | SHA-256 |
+|---|---|---|
+| `preimages.json` | nine territory files at `b80da6d0c`: SHA-256 and blob id, worktree equal to head; no copies | `ff83e09f3506641c090364e3d439a970a3449f8da749ebcfd8e47e961c3f5933` |
+| `unrelated-preimages.json` | start status: the two untracked Codex strategy posts, no tracked modification | `98a50117bc65defd1d7df6f9ab2e844c23abf0092475e86f3f0deb6c9b5e9679` |
+| `adoption-plan.json` | `from` `stdo://releases/v3.0.0-rc.1/`, manifest `069285ad…`; `to` cut `v3.0.1-rc.1`, commit `fe4941f56a52ed3697a2b516d8d68948b0ea65d9`, tag object `6e96ce1d2422508e5620bd12afceda890c556fd6`, tree `3aa889d2749e05f5c9c1d1375fb27391a8159e99`, manifest `60356364…`; `already_installed_verified`; plan `c929db0aac6032a826b5e93b2e68ee593496f3538e28a384e656847875608d50` | `fae20875118a9a69b9803340c4f9b096662e82eee0318a28dc6a0b757c5732a3` |
+| `adoption-result.json` | accepted plan `c929db0a…` applied unchanged; `already_installed`. The Definition changed in `$schema`, the selector (the hand edit) and `constitution.stdo.basis` only (`git diff` and parsed comparison); seven entrypoint paths, empty `composition`, `reference_frame_bases`, `what`, `how`, `ticketing` unchanged | `56f1b3051b6f607c761f3e0464a178cd0ebc512b92fba22b3514118b9b341a2a` |
+| `stdo-status.json` | installed true, valid true, failures empty, manifest `60356364…`; 64 standards, member set `8b33f4463da10a52cadb64de6053e2bfee53064677c737f5c99f00403d5194c7`; the installed manifest lists 17 plugin members (64 + 17 + licence + release note = 83) | `6b65d90cfc33c446f08f5b078807ae7e6c626fdaf06baca5552e831a231fba94` |
+| `bootstrap-plan.json` | `AGENTS.md` and `CLAUDE.md` both `unchanged`; no apply; both byte-unchanged | `2a148cb03cd82e3d61859820d0993790a4e5c45e062b7e53fc2de2992c544bd7` |
+| `publication.json` | tag `specification_methodology/v3.0.1-rc.1`, name "STDO 3.0.1 RC1", draft false, prerelease false, published 2026-10-24T14:11:07Z, `targetCommitish` `fe4941f5…` equal to the commit; asset digest `sha256:60356364…`; sidecar `shasum -a 256 -c` OK; asset bytes equal the installed `manifest.json`; canonical SHA-256 (the manager's own function) equal | `d2977d10d1bf99cf25711c0a7a9a7f0569a3ac21d00c4fc2bda4d0d117d2cec0` |
+| `verification.json` | 22 routes and 2 manifest replacements, all present and manifest-bound; 2 heading-text cites present; 7 entrypoints resolved and manifest-bound; the activation's 14 named headings present; post-edit digests of the nine territory files | `aed18049d60a9bc74e27569dc49611651de694861197ce3d80c41e07be48cd9a` |
+| `README.md` | the record in the 3.0.0 record's shape | `f349c6d9eaccc40cdcbc2ec75a30f71562f07e5d41cdd4951cbea422ecf11330` |
+
+**Routes.** Every routed heading is spelled identically in the 3.0.0 and 3.0.1 cuts (heading lists of the seven routed documents compared); no anchor moved and none is missing.
+
+| File:line | Old → new | Anchor heading in the installed cut | Present |
+|---|---|---|---|
+| `specification/PRODUCT.md:663` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit` | 1. The frame as the engagement unit | true |
+| `specification/PRODUCT.md:1596` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/DESIGN_MODULE.md` | document, no anchor | true |
+| `specification/PRODUCT.md:1597` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/SPEC_METHOD.md#11-build-tenant-binding` | 11. Build-tenant binding | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:22` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/REFERENCE_FRAME.md` | document, no anchor | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:25` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/EXECUTIVE_BASELINE.md` | document, no anchor | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:28` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/EXECUTIVE_BASELINE.md` | document, no anchor | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:171` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/EXECUTIVE_BASELINE.md#extension-versus-replacement` | Extension versus replacement | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:181` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set` | 11. Derived generic specialist frame set | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:182` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/ASSURANCE.md#integration-frame` | Integration frame | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:183` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/ASSURANCE.md#end-to-end-frame` | End-to-end frame | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:184` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/ASSURANCE.md#user-acceptance-frame` | User-acceptance frame | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:7` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `(basis)` | install root | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:7` | manifest `069285ad…` → `60356364…` | equals the installed manifest | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:11` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/SPEC_METHOD.md#11-build-tenant-binding` | 11. Build-tenant binding | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:11` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/DESIGN_MODULE.md` | document, no anchor | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:47` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/FOUNDATIONS.md#accounts-of-a-construction` | Accounts of a construction | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:123` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/FOUNDATIONS.md#4-algebra` | 4. Algebra | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:154` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds` | 5. Traversals and functor kinds | true |
+| `ABI5_STDO3_COMPUTATIONAL_BINDING.md:194` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/DESIGN_MODULE.md#computational-realisation-projection-up-019` | Computational realisation projection (UP-019) | true |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:7` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `(basis)` | install root | true |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:7` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/DESIGN_MODULE.md` | document, no anchor | true |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:7` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/SPEC_METHOD.md#11-build-tenant-binding` | 11. Build-tenant binding | true |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:7` | `v3.0.0-rc.1` → `v3.0.1-rc.1`, `standards/FOUNDATIONS.md` | document, no anchor | true |
+| `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:7` | manifest `069285ad…` → `60356364…` | equals the installed manifest | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:23` | heading-text cite, not edited | 3. Laws (`standards/REFERENCE_FRAME.md`) | true |
+| `ABI5_PROJECT_REFERENCE_FRAME_BASIS.md:26` | heading-text cite, not edited | 1. Canonical compression (`standards/EXECUTIVE_BASELINE.md`) | true |
+
+**The GOALS paragraph as written** (`specification/GOALS.md:144-153`, before the 2026-10-21 paragraph, which stays):
+
+> Owner selection, 2026-10-25: pin ABIogenesis source development to the published
+> STDO 3.0.1 line, exact immutable `v3.0.1-rc.1` and manifest selected by
+> [`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The
+> [adoption record](../.ai-workspace/comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md)
+> binds the digest-bound adoption, the verified install and the method routes
+> rebound to that cut. This method selection preserves the current Product
+> outcomes and the T-290 work. The runtime default-library snapshot keeps its
+> exact `v3.0.0-rc.1` basis until T-287 Phase D's D0 moves it; retained Runs,
+> qualification evidence and derivation links keep their original exact bases.
+> The migration of deterministic-kind (F_D) claims under 3.0.1 is T-291 M-2.
+
+The requirements README sentence now names the 3.0.1 record and keeps the 3.0.0 RC1 record as history in the same sentence.
+
+**Gates.** `git diff --check` clean, and `git diff --cached --check` clean on the staged set. `npm run lint:evidence`: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy" before the record existed and again with the record staged. `node --experimental-vm-modules --test --test-concurrency=1 test_env/tests/t287-default-library.test.mjs`: 20 tests, 17 pass, 0 fail, 3 skipped, at the base and after the change, with the same test names and outcomes; `code/`, `contracts/` and `test_env/` have no diff. `git status --short` before the commit: the seven changed territory files (`AGENTS.md` and `CLAUDE.md` unchanged), the record directory, this file, and the two pre-existing untracked Codex posts named in `unrelated-preimages.json`. Post-edit `git grep v3.0.0-rc.1` over `specification/` and the design directory: `GOALS.md:151` (the new paragraph's statement of the snapshot basis) and `GOALS.md:156` (the 2026-10-21 history) only.
+
+**Deviations from the activation's wording.**
+
+1. The library design's `:7` also carried manifest `069285ad…`; it is replaced by `60356364…` on the same named line. Rebinding the basis beside the 3.0.0 manifest would misstate the cut.
+2. Counting: the binding has seven route occurrences on its six named lines (`:11` carries two); the library design's `:7` has four. The "twelve" pre-checked anchors list fourteen headings. The territory also cites five anchors absent from that list, all verified present: EXECUTIVE_BASELINE `11. Derived generic specialist frame set`; ASSURANCE `Integration frame`, `End-to-end frame`, `User-acceptance frame`; FOUNDATIONS `4. Algebra`. Listed headings with no territory site, verified present: EXECUTIVE_BASELINE `8. Derived Executive frame`; ODD `4. Method library classes`, `5. Graph model`, `15. Release boundary`; RELEASE `Deterministic-kind migration`. EXECUTIVE_BASELINE `9. Derived Worker frame` is used by the record README's activation route.
+3. The GOALS paragraph separates two clauses the activation joined: only the runtime default-library snapshot moves at D0; retained Runs, qualification evidence and derivation links keep their original bases without an end date, as the 3.0.0 record and the Product state (a source pin does not retarget an existing Run). "The F_D migration" is written as "the migration of deterministic-kind (F_D) claims".
+4. Network: `stdo adopt`, dry-run and accept, resolved the channel by `git ls-remote --tags` against the public repository and fetched the one tag ref into the manager's own temporary bare object store. These reads are inherent to steps (c) and (d). No workspace repository was fetched, pulled or pushed. `stdo status`, `bootstrap` and `resolve` are local. Beyond that: `gh release view` and `gh release download` of the two assets into `scratchpad/m1/assets/`.
+5. Order: this Return is written before the commit and carried by it, as C-11's Return was carried by its Worker commit, and as the status gate's "this file" expects. The hash is reported to the Executive.
+6. `publication.json` holds the `gh release view` output verbatim under `gh_release_view`, with the download and digest checks beside it. `unrelated-preimages.json` was regenerated once, before any territory edit, to exclude this record's own `preimages.json`.
+
+**Findings outside the grant (not edited).**
+
+1. `specification/PRODUCT.md:14-15`, the header "Method adoption authority", still names the STDO 3.0.0 RC1 adoption record as the method adoption authority.
+2. `specification/GOALS.md:18`, GOAL-035's status, reads "Active under STDO 3.0.0 RC1."
+3. For M-2's census: `ABI5_STDO3_COMPUTATIONAL_BINDING.md:154` resolves, but its sentence ("Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves") states the 3.0.0 relation to AXIOMATIC_CALCULUS §5. 3.0.1 changes that relation by making F_D the common total deterministic kind.
+
+**Stops.** None.
+
+**Not verified.** Whether the citing text conforms to 3.0.1's changed meanings: route resolution proves that the member and the heading exist in the exact cut, not semantic conformance. That is M-2's census. The public tag object is verified only through the manager's resolution of the public tag; `gh release view` exposes no tag object. The earlier prerelease state that the publisher corrected was not observed; only the current flag, false, was. The release body and notes were not read.

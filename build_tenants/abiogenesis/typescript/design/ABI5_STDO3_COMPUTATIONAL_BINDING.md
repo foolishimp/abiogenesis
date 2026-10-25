@@ -4,11 +4,11 @@
 
 **Authority:** the Product owner's 2026-10-21 request for thorough STDO 3 application, under GOAL-035/T-287. The [activation and exact initial basis](../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/activation.md), [computational assessment](../../../../.ai-workspace/work/T287_STDO3_RECONCILIATION_01/calculus-assessment.md) and its separate Writer activation bind this document's construction. Final acceptance requires the Executive's disposition of independent assessment on the exact combined document delta.
 
-**Method:** the immutable `stdo://releases/v3.0.0-rc.1/` selected by [stdo_abiogenesis.json](../../../../stdo_abiogenesis.json), manifest SHA-256 `069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232`. No companion model or moving method source is selected.
+**Method:** the immutable `stdo://releases/v3.0.1-rc.1/` selected by [stdo_abiogenesis.json](../../../../stdo_abiogenesis.json), manifest SHA-256 `60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8`. No companion model or moving method source is selected.
 
 ## 1. Purpose and bounded claim
 
-This is the TypeScript tenant's explicit binding from the [ABIogenesis 5.0 Product](../../../../specification/PRODUCT.md), its requirements and retained obligations to the existing computational calculus, and from that calculus to its execution environment. It applies [SPEC_METHOD §11](stdo://releases/v3.0.0-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding) and the already adopted [DESIGN_MODULE](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md) profile. It adds no language, interpreter, compiler, runtime, schema, controller or universal accounting mechanism.
+This is the TypeScript tenant's explicit binding from the [ABIogenesis 5.0 Product](../../../../specification/PRODUCT.md), its requirements and retained obligations to the existing computational calculus, and from that calculus to its execution environment. It applies [SPEC_METHOD §11](stdo://releases/v3.0.1-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding) and the already adopted [DESIGN_MODULE](stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md) profile. It adds no language, interpreter, compiler, runtime, schema, controller or universal accounting mechanism.
 
 The owner's clarification makes the [common computational capability library](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 the first concrete design activity. This calculus supplies the library's
@@ -44,7 +44,7 @@ The requirements calculus is the Product's permitted outcomes, prohibitions, aut
 | Informational | Product `T/P/B/S/W/L`, declaration and invocation identity, current versus entry input, candidate versus admitted result, exact source/current-use relation, effect evidence, judgment and closure. | Matching structure or hashes cannot by itself establish semantic sufficiency or current physical truth. |
 | Computational | Node/TypeScript functions and data structures, Effect fold, native resources/agents, durable encoded rows, indexes, selected body acquisition, prompts and measured work. | An efficient implementation or a physically completed effect does not prove admission, application success or release acceptance. |
 
-These accounts instantiate [FOUNDATIONS, Accounts of a construction](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md#accounts-of-a-construction). Each mapping states the preserved relation: canonical serialization and codec reconstruction preserve exact logical values; current-state folding preserves the selected admitted state; context presentation preserves selected material and qualifications while its semantic sufficiency remains separately judged. No approximate transformation is selected here. An approximate successor must first declare its adequacy relation and end-to-end bound at the affected owner.
+These accounts instantiate [FOUNDATIONS, Accounts of a construction](stdo://releases/v3.0.1-rc.1/standards/FOUNDATIONS.md#accounts-of-a-construction). Each mapping states the preserved relation: canonical serialization and codec reconstruction preserve exact logical values; current-state folding preserves the selected admitted state; context presentation preserves selected material and qualifications while its semantic sufficiency remains separately judged. No approximate transformation is selected here. An approximate successor must first declare its adequacy relation and end-to-end bound at the affected owner.
 
 ### Execution environment
 
@@ -120,7 +120,7 @@ Keep pure owner atoms as `A → B | OwnerExpectedRefusal`. Physical/Promise atom
 
 For the selected invocation, use [§5.6.1A's operative graph correspondence](ABI5_REALIZATION_CONSTITUTION.md#561a-operative-computational-realization): every reachable semantic/control/effect vertex and edge maps to an accepted C relation, owner port, Effect edge, ABG admission or Event Calculus/replay projection, and every required accepted relation has its operative path. Multiple batch/retry/recursive occurrences are lawful. An unmapped hidden coordinator remains invalid even when renamed, moved or wrapped in Effect.
 
-The correspondence, actor regime and Product use of Kleisli/monadic terms are not a new claim that the entire tenant is a proved category-theoretic functor. A further categorical claim requires [FOUNDATIONS' formal demonstration](stdo://releases/v3.0.0-rc.1/standards/FOUNDATIONS.md#4-algebra), including arrow equality and preservation. No such new claim or mandatory a_c artifact is selected here.
+The correspondence, actor regime and Product use of Kleisli/monadic terms are not a new claim that the entire tenant is a proved category-theoretic functor. A further categorical claim requires [FOUNDATIONS' formal demonstration](stdo://releases/v3.0.1-rc.1/standards/FOUNDATIONS.md#4-algebra), including arrow equality and preservation. No such new claim or mandatory a_c artifact is selected here.
 
 ## 5. Operation results and method predicates
 
@@ -151,7 +151,7 @@ assessment has no result; a stopped invocation record does not fill its gap.
 These cases preserve both the actual operation/effect facts and the separate
 semantic predicate being evaluated.
 
-[AXIOMATIC_CALCULUS §5](stdo://releases/v3.0.0-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds) owns its own traversal and functor-kind vocabulary. Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves. An optional a_c representation must bind operation kind, domain, authority and result meaning explicitly; equal spelling is no import.
+[AXIOMATIC_CALCULUS §5](stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds) owns its own traversal and functor-kind vocabulary. Its F_D evaluation/proof classification does not automatically identify all deterministic ABG construction/effect leaves. An optional a_c representation must bind operation kind, domain, authority and result meaning explicitly; equal spelling is no import.
 
 The source/runtime-wide enumeration of every owner refusal constructor and its consuming method predicate is not certified complete by this table. That is an affected-path proof obligation where a concrete operation will be relied on. It cannot be replaced by a blanket “all errors are falsified” mapping.
 
@@ -191,7 +191,7 @@ For physical installation followed by event admission, the install owner and ABG
 
 ## 7. Computational realization and whole-path work
 
-This is the [UP-019](stdo://releases/v3.0.0-rc.1/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019) projection of the preceding meanings:
+This is the [UP-019](stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019) projection of the preceding meanings:
 
 | Material duty | Semantic disposition | Realization decision, role and source |
 |---|---|---|

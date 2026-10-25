@@ -14,8 +14,10 @@ Use SPEC_METHOD.md from the immutable STDO basis selected by the
 Earlier exact method links in requirement derivation fields preserve their
 original provenance. They do not select the governing method for new work.
 The current source-development adoption is recorded in
-[STDO 3.0.0 RC1 adoption](../../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md);
-historical runtime and qualification evidence retains its original basis.
+[STDO 3.0.1 adoption](../../.ai-workspace/comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md);
+the earlier [STDO 3.0.0 RC1 adoption](../../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md)
+remains as history, and historical runtime and qualification evidence retains
+its original basis.
 
 The [STDO 3 computational binding](../../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
 projects the existing Product and requirement owners into the TypeScript
