@@ -922,6 +922,26 @@ export function projectValidatedReplayRouteAtPrefix(
   return deriveReplayPrefixFacts(prefix, authorityPrefix, undefined, admissionEventRef) as ReplayRouteState | undefined;
 }
 
+/** @internal One authenticated historical route by its CCall and judgment
+ * coordinates: the first admitted route, in admission order, whose `cCallRef`,
+ * `judgmentRef` and `routeKind` match, which is the first such route of a complete
+ * ReplayState's `routes`. The same route-only validation runs whether or not one
+ * matches; no complete ReplayState is materialized or hashed. */
+export function projectValidatedReplayRouteByJudgmentAtPrefix(
+  prefix: RuntimeEventPrefix,
+  selection: Readonly<{ cCallRef: string; judgmentRef: string; routeKinds: readonly ReplayRouteState["routeKind"][] }>,
+  authorityPrefix: RuntimeEventPrefix = prefix,
+): ReplayRouteState | undefined {
+  const event = indexedRuntimeEvents(prefix, "kind:traversal_route_admitted").find(candidate =>
+    stringField(candidate, "cCallRef") === selection.cCallRef &&
+    stringField(candidate, "judgmentRef") === selection.judgmentRef &&
+    selection.routeKinds.some(kind => kind === stringField(candidate, "routeKind")));
+  // No event id is empty, so "" selects no route and still runs the validation.
+  const route = deriveReplayPrefixFacts(prefix, authorityPrefix, undefined, event?.eventId ?? "") as ReplayRouteState | undefined;
+  // Frozen as the complete ReplayState's route is.
+  return route === undefined ? undefined : deepFreeze(route);
+}
+
 function deriveReplayPrefixFacts(
   prefix: RuntimeEventPrefix,
   authorityPrefix: RuntimeEventPrefix,
