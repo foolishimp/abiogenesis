@@ -269,24 +269,28 @@ material invalidator or new admitted obligation requires them.
 The owner approved the Executive's [plan proposal](../../comments/claude/20261024T064557Z_PLAN_t287_phase_d_release_resumption.md)
 on 2026-10-24: the eight packages, their order and the six decisions as
 recommended, with the instruction "after C lands continue with this plan".
-Phase D starts when T-290 Phase C closes; no interleaving. Package records go
+Phase D starts when T-290 Phase C closes; no interleaving. The owner's
+instruction of 2026-10-25 ([T-291](T-291-repin-abiogenesis-to-stdo-3-0-1-and-migrate.md),
+the STDO 3.0.1 repin) adds D0 below and interleaves T-291 M-1 and M-2 into
+T-290 Phase C after C-11. Package records go
 under `work/T287_RELEASE_RESUMPTION_01/`; each package takes one activation,
 one Worker Return and one ledger line here, as T-290's packages did.
 
 | Package | Scope | Exit |
 |---|---|---|
+| D0 | The runtime default-library successor (owner ruling 2026-10-25, T-291): the GTL default library's STDO source (`code/src/gtl/default_library.ts`, `contracts/default-library/stdo/`: basis, manifest; its two member documents are byte-identical between the cuts) and its run-environment support, fixture and two tests move to `stdo://releases/v3.0.1-rc.1/`; the regenerated digests; no other runtime change. | The default-library and run-environment lanes green on the 3.0.1 source; the install snapshot digests regenerated; D5-b qualifies under 3.0.1. |
 | D1/D4-a | The red census and discharge: every red lane of the Phase B close that the Phase C evidence-root package did not resolve is repaired at its cause, or its stale expectation retired by the law it contradicts, or the lane retired with its reason; nothing recorded for later. | The integrated invocation and the single-invocation lanes are green or skip with a named reason under the evidence root; the uat harness lane is green. |
 | D1/D4-b | The comparison: the library design's completion condition and proofs re-read at the cut; the Source44 procedure (build, pack, clean install, Source/output and archive/installed correspondence, the twelve Public setup outcomes) rerun on the candidate; the delta to the release relations named. | The D1/D4 exit of the table above. |
 | D1/D4-c | The combined build with P1, P2/P3, P4 and P5 on the granted cut. P5's duration is a measurement, not an inference. | Each proof passes on its original subject or its exact failure returns to its owning boundary; a P5 timeout with no cause stops for the owner with the measurement. |
 | D2 | A changed pair on the new candidate with a fresh target root: the failing C2 with its cold diagnostic subject, retained by the parent; one native repair; the same checker green; close, reopen and fresh Public reads conserve (TD-18's trace is the check). Admitted16 and Continuation17 stay historical evidence; no Run migration. | The D2 exit of the table above. |
 | D3 | One prospectively recorded witness: candidate, specification, obligations, oracle, worker and assessor, execution context. | The D3 exit of the table above. |
 | D5-a | The gate roster: the fifteen families, the 4.6 conservation rows and S01/S02/S03/S06 mapped to lanes and native assessments; 5.1-reserved portions take their scoped disposition; proof packaging under TD-19; witnesses under TD-10. | Every family and conservation row has an explicit disposition; no vector lane is red or skipped. |
-| D5-b | F11 self-conformance under `stdo://releases/v3.0.0-rc.1/`, the actual native assessments, the sole AF22 verdict over the complete gate vector. | The D5 exit of the table above. |
+| D5-b | F11 self-conformance under the basis D0 selects (`stdo://releases/v3.0.1-rc.1/`; the plan of 2026-10-24 said `v3.0.0-rc.1`), the actual native assessments, the sole AF22 verdict over the complete gate vector. | The D5 exit of the table above. |
 | D6 | The push, the annotated `v5.0.0-rc.1` tag and the `v5.0.0` selector, AF25 publication, fresh install and qualification of the installed RC, the owner's acceptance, a source-blind post-publication install. | The D6 exit of the table above. |
 
 Decisions as ruled by the owner, 2026-10-24.
 
-1. Order: Phase D after the Phase C close, no interleaving.
+1. Order: Phase D after the Phase C close, no interleaving (the owner's instruction of 2026-10-25 interleaves T-291 M-1 and M-2 into Phase C after C-11 and adds D0; nothing else moves).
 2. The exact grant: the candidate cut is the Phase C close commit; the grant covers the combined build, P1, P5, P4 and their dependents on that cut. The HOLD in the current disposition lifts for that cut only; a later code change makes a new cut and needs a new grant. The Executive instantiates the hash in the D1/D4-c activation.
 3. Reconcile17: a changed pair on the new candidate with a fresh target root; the completed 16 and 17 installs stay historical evidence.
 4. D3's witness and context: the owner supplies, before D3 activates, the specification (a bounded real one for `A5-F17`), the independent oracle, the assessor, the network-enabled execution context and the provider budget. The Executive asks for them at the D2 close; D3 does not activate without the prospective record.
