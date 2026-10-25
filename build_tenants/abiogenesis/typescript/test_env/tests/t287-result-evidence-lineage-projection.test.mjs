@@ -136,7 +136,6 @@ function lowerAdmission(row) {
       },
     },
     './event_prefix.js': {selectValidatedRuntimeEventPrefix: () => selectedPrefix()},
-    './replay.js': {projectRuntimeTruthAtDurablePrefix: truth},
     './probabilistic_result.js': {admitProbabilisticResultFromActorTransport: () =>
       ({kind: 'contract_admitted_probabilistic_result_candidate'})},
     './c_call.js': {

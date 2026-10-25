@@ -1,5 +1,3 @@
-import { types } from "node:util";
-
 import * as v from "valibot";
 
 import { ok, type Outcome } from "../refusal.js";
@@ -7,41 +5,23 @@ import { admitJson, thrownClass } from "./json.js";
 import { validateRefusal } from "./validate_refusal.js";
 
 /**
- * Strict contract admission: the owner's Valibot schema decides; the admitted
- * value is the schema's output. Every refusal is `contract_mismatch`: a raw
- * that is a Proxy is refused before the schema reads it, a throw from the
- * schema names the thrown class, and otherwise the first issue's path. The
- * schema reads the caller's own value, so a schema that checks identity sees
- * it; a getter or a Proxy below the root runs when the schema reads it.
+ * Strict contract admission in the gate form. `admitJson` admits the raw first:
+ * an I-JSON refusal is `contract_mismatch` at its member's path, its code the
+ * issue. The owner's Valibot schema then decides over the original raw, so a
+ * schema that checks identity sees the caller's value, and after the gate no
+ * code of the raw runs: no member is an accessor and no container is a Proxy,
+ * over `admitJson`'s declared domain. The admitted value is the schema's output.
+ * Every refusal is `contract_mismatch`: a throw from the schema names the thrown
+ * class, and otherwise the first issue's path.
  */
 export function admitContract<T>(
   schema: v.GenericSchema<T, T>,
   raw: unknown,
 ): Outcome<T> {
-  if (types.isProxy(raw)) {
-    return validateRefusal("contract_mismatch", [], { issue: "non_ijson_value", message: "a Proxy is not I-JSON" });
+  const gate = admitJson(raw);
+  if (gate.kind !== "ok") {
+    return validateRefusal("contract_mismatch", gate.path, { issue: gate.code, message: gate.evidence.reason ?? null });
   }
-  return parseContract(schema, raw);
-}
-
-/**
- * I-JSON contract admission: `admitJson` first, then the schema over the
- * detached, frozen value it returns, so no getter or trap of the raw runs. An
- * I-JSON refusal is `contract_mismatch` at its member's path, its code the
- * issue; a throw from the schema names the thrown class.
- */
-export function admitJsonContract<T>(
-  schema: v.GenericSchema<T, T>,
-  raw: unknown,
-): Outcome<T> {
-  const admitted = admitJson(raw);
-  if (admitted.kind !== "ok") {
-    return validateRefusal("contract_mismatch", admitted.path, { issue: admitted.code, message: admitted.evidence.reason ?? null });
-  }
-  return parseContract(schema, admitted.value);
-}
-
-function parseContract<T>(schema: v.GenericSchema<T, T>, raw: unknown): Outcome<T> {
   try {
     const result = v.safeParse(schema, raw);
     if (result.success) return ok(result.output);

@@ -754,7 +754,7 @@ test('TD-16: the lift\'s refusal-only callers keep head\'s refusal for every mal
   const failureOwner = await sourceOwner('abg/runtime_failure');
   const td16Causes = { functionMember: ['.f', 'expected an I-JSON value'], unsafeInteger: ['', 'unsafe integral numbers are not I-JSON'],
     loneSurrogate: ['', 'lone high surrogate is not I-JSON'], cycle: ['.self', 'a container that encloses itself (a cycle) is not I-JSON'],
-    deep: ['[0]'.repeat(510), 'containers nested more than 512 deep exceed the admission bound'], proxy: ['', 'inspecting the value threw TypeError'] };
+    deep: ['[0]'.repeat(510), 'containers nested more than 512 deep exceed the admission bound'], proxy: ['', 'a Proxy is not I-JSON'] };
   const refusedAt = name => ({ at: '.resultCandidate.answer' + td16Causes[name][0], atTruncated: false, reason: td16Causes[name][1] });
   const rejected = regime => ({ at: '', atTruncated: false, reason: `the admitted output is not an ${regime} leaf realization candidate` });
   const headWithCause = (label, closed, invocation, stage, cause, message) => {

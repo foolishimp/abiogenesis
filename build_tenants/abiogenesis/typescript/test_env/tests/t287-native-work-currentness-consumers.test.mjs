@@ -1267,7 +1267,7 @@ import { canonicalEquals as td09CanonicalEquals } from '../../build/code/src/sha
 const td09Reference = (cut, view) => {
   try {
     const durableEvents = td09AdmitJson(td09Events.readRuntimeEventsAtDurablePrefix(cut));
-    const viewEvents = td09AdmitJson(prefixes.runtimeEventBodiesAtPrefix(view).materialize());
+    const viewEvents = td09AdmitJson(JSON.parse(JSON.stringify(prefixes.runtimeEventBodiesAtPrefix(view).materialize())));
     return durableEvents.kind === 'ok' && viewEvents.kind === 'ok' && td09CanonicalEquals(durableEvents.value, viewEvents.value);
   } catch { return false; }
 };

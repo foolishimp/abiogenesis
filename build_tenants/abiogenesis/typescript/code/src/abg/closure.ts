@@ -47,7 +47,6 @@ import {
 } from "./open_call.js";
 import {
   projectRunQuiescence,
-  replay,
   type ReplayState, type RuntimeReplayGuard,
   projectRuntimeReplayGuard, materializeRuntimeReplayGuard,
   projectReplayCCallGuardAtPrefix, projectValidatedReplayRouteAtPrefix,

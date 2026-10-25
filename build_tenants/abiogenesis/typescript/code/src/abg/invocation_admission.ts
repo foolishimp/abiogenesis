@@ -1,6 +1,6 @@
 import { selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
 import { admitJson } from "../shared/admit/index.js";
-import { projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
+import { projectRuntimeReplayGuard, projectRuntimeReplayStatus, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
@@ -1376,7 +1376,7 @@ function admitInvocationWithRequest(
     );
     const sourceReplay = (() => {
       try {
-        return projectRuntimeReplayGuard(selectRuntimeEventPrefixFromAuthority(predecessorPrefix, {runId:reentry.sourceRunId}), predecessorPrefix);
+        return projectRuntimeReplayStatus(selectRuntimeEventPrefixFromAuthority(predecessorPrefix, {runId:reentry.sourceRunId}), predecessorPrefix);
       } catch {
         return null;
       }

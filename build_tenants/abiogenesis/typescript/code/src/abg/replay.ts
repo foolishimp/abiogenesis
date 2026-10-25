@@ -974,11 +974,27 @@ function deriveReplayPrefixFacts(
     const event = runtimeEventAtPrefix(prefix, routeOnly!);
     return event?.kind === "traversal_route_admitted" ? projectReplayRouteAtPrefix(prefix, event, authorityPrefix) : undefined;
   }
-  if (guardOnly && narrow === undefined && output === undefined && facts.lastGuard !== undefined &&
+  // A narrow mode reads the owner's same-cut caches: the status from the cached
+  // guard without its witness, or the status and vectors from the cached state.
+  if (guardOnly && narrow !== "route_refs_and_c_calls" && output === undefined && facts.lastGuard !== undefined &&
       facts.lastGuard.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) &&
       facts.lastGuard.authority === authority && facts.lastGuard.authorityEnd === authorityEnd &&
-      facts.lastGuard.profileEnd === profileEnd) return facts.lastGuard.value;
-  if (!guardOnly && !owned && facts.last !== undefined && facts.last.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd) return routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
+      facts.lastGuard.profileEnd === profileEnd) {
+    if (narrow === undefined) return facts.lastGuard.value;
+    const { replayRef: _ref, replayDigest: _digest, ...status } = facts.lastGuard.value;
+    return deepFreeze(status);
+  }
+  if ((!guardOnly || narrow !== undefined) && !owned && facts.last !== undefined && facts.last.runtimeEnd === runtimeEventPrefixLastEnvelope(prefix) && facts.last.authority === authority && facts.last.authorityEnd === authorityEnd && facts.last.profileEnd === profileEnd)
+    return narrow !== undefined ? narrowed(facts.last.state) : routeOnly === undefined ? facts.last.state : facts.last.state.routes.find(route => route.admissionEventRef === routeOnly);
+  // The narrow members of a complete state or of its body: the status members,
+  // and in the route-and-CCall mode the Run's route refs and CCall rows.
+  function narrowed(value: Pick<ReplayState, "routes" | "cCalls"> & Readonly<Record<string, unknown>>): RuntimeReplayStatus | RuntimeReplayRouteRefsAndCCalls {
+    const { kind: _kind, schemaVersion: _version, replayRef: _ref, replayDigest: _digest, cCalls, routes, constructionDeltas: _deltas,
+      fanOutCompletions: _fanout, continuations: _continuations, actorProcesses: _actors, currentWorksiteObservations: _worksite,
+      nativeLiveness: _liveness, ...status } = value;
+    return deepFreeze(narrow === "status" ? status : { ...status, routeRefs: routes.map(route => route.routeRef), cCalls }) as
+      RuntimeReplayStatus | RuntimeReplayRouteRefsAndCCalls;
+  }
   const runCalculus = deriveRuntimeHeldFluentProjection(prefix);
   const physicalCalculus = authorityPrefix === prefix ? runCalculus : deriveRuntimeHeldFluentProjection(authorityPrefix);
   // Preserve this Run's fluent/observation population. Other Runs can withdraw
@@ -1453,11 +1469,7 @@ function deriveReplayPrefixFacts(
               ? "active" as const
               : "workspace" as const,
   };
-  if (narrow !== undefined) {
-    const { cCalls: _calls, routes: _routes, constructionDeltas: _deltas, fanOutCompletions: _fanout,
-      continuations: _continuations, actorProcesses: _actors, currentWorksiteObservations: _worksite, nativeLiveness: _liveness, ...current } = body;
-    return deepFreeze(narrow === "status" ? current : { ...current, routeRefs: routes.map(route => route.routeRef), cCalls });
-  }
+  if (narrow !== undefined) return narrowed(body);
   // The witness streams the facts the loops above projected, in their order; a
   // fact an owned cut did not retain is projected once here.
   const selected = !keepFacts ? undefined : {
