@@ -31,7 +31,7 @@ import type {
   LeafInvocationPort,
 } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, nativeWorkspaceWorkResultMatches } from "../product/native_workspace_work.js";
 import {
@@ -133,7 +133,7 @@ import {
 import type { TraversalTransitionCandidate } from "./traversal_transition.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
-import { ok, type StructuralRefusal } from "../shared/refusal.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, onlyExactMatch, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
 
 const PAYLOAD_NOT_RECORD: StructuralRefusal = Object.freeze({
@@ -355,6 +355,61 @@ export function worksiteSelectedOccurrenceDependencies(prefix: RuntimeEventPrefi
   return [...selected.values()].sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
 }
 
+/** The failure Result row, its record payload and the rows before it: the
+ * worksite failure basis the evidence row is checked against is authenticated
+ * over the rows before that evidence row, so `project` derives it from them. */
+type WorksiteFailureEvidenceContext = Readonly<{
+  result: RuntimeEvent;
+  resultPayload: Readonly<Record<string, JsonValue>>;
+  priorEvents: readonly RuntimeEvent[];
+}>;
+type WorksiteFailureEvidence = Readonly<{
+  payload: Readonly<Record<string, JsonValue>>;
+  request: WorksiteFileReplaceRequest;
+}>;
+
+const WORKSITE_FAILURE_EVIDENCE_MISMATCH: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "worksite_failure_evidence_mismatch",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One `c_call_evidenced` row as the C0 failure Result's deterministic
+ * evidence: the projection checks order, scope and citation, authenticates
+ * the worksite failure basis over the rows before the evidence row and
+ * checks the evidence body against its digests; the digest leg compares the
+ * evidence body digest with the recorded `evidenceDigest`. */
+const WORKSITE_FAILURE_EVIDENCE_RECORD: RecordCheck<RuntimeEvent, WorksiteFailureEvidence, WorksiteFailureEvidenceContext> = Object.freeze({
+  project: (evidenceEvent: RuntimeEvent, { result, resultPayload, priorEvents }: WorksiteFailureEvidenceContext):
+    Outcome<WorksiteFailureEvidence> => {
+    if (!isRecord(evidenceEvent.payload) ||
+      evidenceEvent.admissionOrdinal >= result.admissionOrdinal ||
+      evidenceEvent.basisId !== result.basisId || evidenceEvent.runId !== result.runId ||
+      evidenceEvent.graphCallId !== result.graphCallId || evidenceEvent.frameId !== result.frameId ||
+      !result.causationEventRefs.includes(evidenceEvent.eventId)) return WORKSITE_FAILURE_EVIDENCE_MISMATCH;
+    const { evidenceRef: _evidenceRef, evidenceDigest: _evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
+    const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
+      row.admissionOrdinal < evidenceEvent.admissionOrdinal), result.aggregateId, resultPayload.value);
+    if (authenticated === null ||
+      authenticated.executionBasis.basisRef !== result.basisId ||
+      authenticated.cCall.runId !== result.runId ||
+      evidenceBody.cCallRef !== result.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
+      evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
+      evidenceBody.inputDigest !== sha256Canonical(authenticated.request) ||
+      evidenceBody.outputDigest !== resultPayload.valueDigest) return WORKSITE_FAILURE_EVIDENCE_MISMATCH;
+    return ok(Object.freeze({ payload: evidenceEvent.payload, request: authenticated.request }));
+  },
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, { payload }: WorksiteFailureEvidence) => payload.evidenceDigest as Sha256Digest,
+    actual: ({ payload }: WorksiteFailureEvidence) => {
+      const { evidenceRef: _evidenceRef, evidenceDigest: _evidenceDigest, ...evidenceBody } = payload;
+      return sha256Canonical(evidenceBody);
+    },
+  }),
+});
+
 /** @internal The one complete C0 post-publication Result/evidence join. A
  * selected index row is only a candidate; every existing failure check remains. */
 export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
@@ -364,37 +419,21 @@ export function projectWorksiteFailureResultRequest(event: RuntimeEvent,
   const evidenceRefs: readonly string[] = Array.isArray(refs) && refs.every(ref => typeof ref === "string")
     ? refs as readonly string[] : [];
   const { resultRef, resultDigest, ...resultBody } = event.payload;
-  const evidenceRows = priorEvents.filter(row =>
-    row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
-    isRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string));
-  const evidenceMatch = onlyExactMatch(evidenceRows);
-  const evidenceEvent = evidenceMatch.kind === "one" ? evidenceMatch.value : null;
   if (event.kind !== "c_call_result_admitted" || evidenceRefs.length !== 1 ||
     event.payload.cCallRef !== event.aggregateId ||
     event.payload.contractRef !== WORKSITE_C0_IDS.failureContractRef ||
     event.payload.valueKind !== "worksite_effect_refusal" ||
     resultDigest !== sha256Canonical(resultBody) ||
     resultRef !== `result://abiogenesis/${String(resultDigest).slice("sha256:".length)}` ||
-    event.payload.valueDigest !== sha256Canonical(event.payload.value!) ||
-    evidenceEvent === null || !isRecord(evidenceEvent.payload) ||
-    evidenceEvent.admissionOrdinal >= event.admissionOrdinal ||
-    evidenceEvent.basisId !== event.basisId || evidenceEvent.runId !== event.runId ||
-    evidenceEvent.graphCallId !== event.graphCallId || evidenceEvent.frameId !== event.frameId ||
-    !event.causationEventRefs.includes(evidenceEvent.eventId)) return null;
-  const { evidenceRef, evidenceDigest, ...evidenceBody } = evidenceEvent.payload;
-  const authenticated = projectWorksiteFailureBasis(priorEvents.filter(row =>
-    row.admissionOrdinal < evidenceEvent.admissionOrdinal), event.aggregateId, event.payload.value);
-  if (authenticated === null ||
-    authenticated.executionBasis.basisRef !== event.basisId ||
-    authenticated.cCall.runId !== event.runId ||
-    evidenceBody.cCallRef !== event.aggregateId || evidenceBody.evidenceClass !== "deterministic" ||
-    evidenceBody.implementationRef !== authenticated.authorization.implementationRef ||
-    evidenceBody.inputDigest !== sha256Canonical(authenticated.request) ||
-    evidenceBody.outputDigest !== event.payload.valueDigest ||
-    evidenceDigest !== sha256Canonical(evidenceBody) ||
-    evidenceRef !== `evidence://abiogenesis/${String(evidenceDigest).slice("sha256:".length)}`) return null;
-  return authenticated.request;
-
+    event.payload.valueDigest !== sha256Canonical(event.payload.value!)) return null;
+  const evidence = checkExactRecord(onlyExactMatch(priorEvents.filter(row =>
+    row.kind === "c_call_evidenced" && row.aggregateId === event.aggregateId &&
+    isRecord(row.payload) && evidenceRefs.includes(row.payload.evidenceRef as string))),
+  WORKSITE_FAILURE_EVIDENCE_RECORD, { result: event, resultPayload: event.payload, priorEvents });
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (evidence.kind !== "one" || evidence.value.payload.evidenceRef !==
+    `evidence://abiogenesis/${String(evidence.value.payload.evidenceDigest).slice("sha256:".length)}`) return null;
+  return evidence.value.request;
 }
 
 /** @internal Only exact pre-event authentication support, not a full projection

@@ -174,3 +174,29 @@ test('the shared mapper rejects crossed result aliases and keeps failed-command 
   assert.equal(v.safeParse(ABG_TYPED_TERMINAL_RESULT_SCHEMA,carrier).success,true,'carrier does not reprice a failed command into a successful command');
   assert.equal(carrier.value.commandResults[0].exitStatus,1);
 });
+
+const c14Frozen = (v) => { if (v && typeof v === 'object') { Object.values(v).forEach(c14Frozen); Object.freeze(v); } return v; };
+const c14Row = (kind, eventId, admissionOrdinal, extra = {}) => c14Frozen({ kind, eventTime: '2026-07-21T00:00:00.000Z',
+  aggregateType: 'workspace', aggregateId: 'workspace://c14', parentAggregateId: null, causationEventRefs: [],
+  correlationId: 'correlation://c14', workflowVersion: '5.0.0', scopeClass: 'workspace', basisId: 'basis://c14', payload: {},
+  eventId, admissionOrdinal, payloadDigest: `sha256:${'0'.repeat(64)}`, ...extra });
+
+test('C-14: the basis scope check refuses its one GraphCall by Frame and basis relation with the terminal-projection TypeError', async () => {
+  const { selectValidatedRuntimeEventPrefix } = await import('../../build/code/src/abg/event_prefix.js');
+  const { privateOwner: c14PrivateOwner } = await import('../support/r10-private-owner-harness.mjs');
+  const ports = await c14PrivateOwner('abg/project_read_ports.js', ['scopeForBasis']);
+  const basis = c14Frozen({ basisRef: 'basis://c14', basisDigest: 'sha256:' + '2'.repeat(64), basisClass: 'root',
+    invocationAdmissionRef: 'invocation-admission://c14', invocationRef: 'invocation://c14', programRef: 'program://c14',
+    graphFunctionRef: 'gf://c14', graphFunctionDigest: 'sha256:' + '3'.repeat(64), graphRef: 'graph://c14', graphDigest: 'sha256:' + '4'.repeat(64) });
+  const run = c14Row('run_segment_opened', 'event://c14/run', 1, { runId: 'run://c14', scopeClass: 'run', aggregateType: 'run',
+    aggregateId: 'run://c14', payload: { runDigest: 'sha256:' + '5'.repeat(64) } });
+  const graph = c14Row('graph_call_opened', 'event://c14/graph', 2, { runId: 'run://c14', graphCallId: 'graph-call://c14', scopeClass: 'run',
+    causationEventRefs: [run.eventId], payload: { graphFunctionRef: 'gf://other', executionBasisRef: 'basis://c14' } });
+  const frame = c14Row('frame_opened', 'event://c14/frame', 3, { runId: 'run://c14', graphCallId: 'graph-call://c14', frameId: 'frame://c14',
+    scopeClass: 'run', causationEventRefs: [graph.eventId], payload: { executionBasisRef: 'basis://c14' } });
+  for (const [events, message] of [[[run], /one exact basis GraphCall/], [[run, graph], /one exact basis Frame/],
+    [[run, graph, frame], /scope differs from its admitted execution basis/]]) {
+    assert.throws(() => ports.scopeForBasis(selectValidatedRuntimeEventPrefix(c14Frozen(events)), basis),
+      (error) => error instanceof TypeError && message.test(error.message));
+  }
+});

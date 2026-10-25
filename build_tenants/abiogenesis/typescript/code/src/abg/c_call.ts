@@ -77,6 +77,7 @@ import {
 } from "./event_store.js";
 import { runtimeEventPrefixDigest, extendRuntimeEventPlanPrefixForValidation, writeRuntimeEventPrefixValue,
   runtimeEventBodiesAtPrefix,
+  checkedRecordAtPrefix,
   indexedRuntimeEvents,
   validatedRuntimeEventPrefixThroughEvent,
   selectValidatedRuntimeEventPrefix,
@@ -139,7 +140,8 @@ import {
   type WorksiteObservation,
 } from "../product/worksite_effect.js";
 import { canonicalEquals, presentMember, writeCanonicalRecord } from "../shared/value/index.js";
-import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 /** Owner boundary: `absent` and `many` map to `undefined`. */
 const exactOrUndefined = <T>(match: ExactMatch<T>): T | undefined => match.kind === "one" ? match.value : undefined;
 
@@ -2288,17 +2290,61 @@ function hasUndispatchedEvidence(prefix: RuntimeEventPrefix, cCallRef: string): 
   return indexedRuntimeEvents(prefix, "related:" + cCallRef).some(event => event.kind === "c_call_evidenced" &&
     event.aggregateId === cCallRef && isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal");
 }
+/** The CCall and Result coordinates the undispatched evidence record is read
+ * against: the context data of its record. */
+type UndispatchedEvidenceContext = Readonly<{
+  cCallRef: string; evidenceContractRef: string; failureContractRef: string;
+  resultClass: AdmittedCCallResult["resultClass"]; resultContractRef: string; valueDigest: Sha256Digest;
+}>;
+
+const UNDISPATCHED_EVIDENCE_MISMATCH: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "undispatched_evidence_mismatch",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+const isUndispatchedEvidence = (event: RuntimeEvent): boolean =>
+  isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal";
+
+/** The one `c_call_evidenced` event of a CCall as its checked undispatched
+ * owner-refusal evidence: the projection admits only undispatched evidence of
+ * the exact native identity and contracts; the digest leg compares the failure
+ * value's digest with the Result's `valueDigest`. */
+const UNDISPATCHED_EVIDENCE_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>, UndispatchedEvidenceContext> =
+  Object.freeze({
+    project: (event: RuntimeEvent, context: UndispatchedEvidenceContext): Outcome<Readonly<Record<string, JsonValue>>> => {
+      const p = event.payload;
+      return isRecord(p) && p.evidenceClass === "undispatched_owner_refusal" &&
+          exactCCallEvidenceIdentity(event) && event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+          context.resultClass === "failure" && context.resultContractRef === context.failureContractRef &&
+          p.contractRef === context.evidenceContractRef && p.outputDigest === context.valueDigest
+        ? ok(p) : UNDISPATCHED_EVIDENCE_MISMATCH;
+    },
+    digest: Object.freeze({
+      expected: (_event: RuntimeEvent, _p: Readonly<Record<string, JsonValue>>, context: UndispatchedEvidenceContext) =>
+        context.valueDigest,
+      actual: (p: Readonly<Record<string, JsonValue>>) => sha256Canonical(p.failureValue!),
+    }),
+  });
+
 function undispatchedResultRelation(prefix: RuntimeEventPrefix, cCall: CCall, result: AdmittedCCallResult): boolean {
   const events = runtimeEventBodiesAtPrefix(prefix);
-  const evidence = indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef).filter(event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef);
-  if (!evidence.some(event => isRecord(event.payload) && event.payload.evidenceClass === "undispatched_owner_refusal")) return true;
-  const event = evidence[0], p = event?.payload;
-  if (evidence.length !== 1 || event === undefined || !isRecord(p) ||
-      !exactCCallEvidenceIdentity(event) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
-      result.resultClass !== "failure" || result.contractRef !== cCall.failureContractRef ||
-      p.contractRef !== cCall.evidenceContractRef || p.outputDigest !== result.valueDigest ||
-      sha256Canonical(p.failureValue!) !== result.valueDigest ||
-      result.evidenceRefs.length !== 1 || result.evidenceRefs[0] !== p.evidenceRef) return false;
+  const context: UndispatchedEvidenceContext = { cCallRef: cCall.cCallRef, evidenceContractRef: cCall.evidenceContractRef,
+    failureContractRef: cCall.failureContractRef, resultClass: result.resultClass, resultContractRef: result.contractRef,
+    valueDigest: result.valueDigest };
+  const checked = checkedRecordAtPrefix(prefix, UNDISPATCHED_EVIDENCE_RECORD, context, () => checkExactRecord(
+    resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCall.cCallRef),
+      event => event.kind === "c_call_evidenced" && event.aggregateId === cCall.cCallRef),
+    UNDISPATCHED_EVIDENCE_RECORD, context));
+  // Owner boundary: without undispatched evidence the relation holds; any other
+  // selection, projection or digest outcome over undispatched evidence is `false`.
+  if (checked.kind === "absent") return true;
+  if (checked.kind === "many") return !checked.values.some(isUndispatchedEvidence);
+  if (checked.kind === "invalid") return !isUndispatchedEvidence(checked.event);
+  const event = checked.event, p = checked.value;
+  if (result.evidenceRefs.length !== 1 || result.evidenceRefs[0] !== p.evidenceRef) return false;
   const previous = events.filter(row => row.admissionOrdinal < event.admissionOrdinal).at(-1);
   if (previous === undefined) return false;
   const before = validatedRuntimeEventPrefixThroughEvent(prefix, previous.eventId);

@@ -1,7 +1,10 @@
 import { isOwnedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
+import type { JsonValue } from "../shared/canonical_json.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
+import { checkExactRecord, resolveExactMatch, type RecordCheck } from "../shared/select/index.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isExactOperationDefinitionCoordinate } from "../shared/operation_definition_coordinate.js";
@@ -30,6 +33,41 @@ import { runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./even
 import { canonicalEquals } from "../shared/value/index.js";
 import { projectExactExecutionBasisRecordAtPrefix } from "./calculus/execution_basis_record.js";
 
+/** The governance source's exact Result coordinates: the context data of its
+ * Result record. */
+type GovernanceSourceResultContext = Readonly<{
+  sourceResultAdmissionEventRef: string; sourceResultRef: string; sourceResultDigest: Sha256Digest;
+  sourceResultValueDigest: Sha256Digest; sourceResultValue: JsonValue; sourceCCallRef: string; sourceRunId: string;
+}>;
+
+const GOVERNANCE_SOURCE_RESULT_MISMATCH: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "governance_source_result_mismatch",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One `c_call_result_admitted` event as the checked Result of a governance
+ * source: the projection compares the admitted Result with the source's
+ * coordinates and value; the digest leg compares its `resultDigest` with the
+ * source's. */
+const GOVERNANCE_SOURCE_RESULT_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>, GovernanceSourceResultContext> =
+  Object.freeze({
+    project: (event: RuntimeEvent, source: GovernanceSourceResultContext): Outcome<Readonly<Record<string, JsonValue>>> =>
+      isRecord(event.payload) &&
+        event.payload.resultRef === source.sourceResultRef &&
+        event.payload.valueDigest === source.sourceResultValueDigest && event.payload.value !== undefined &&
+        canonicalEquals(event.payload.value, source.sourceResultValue) &&
+        event.aggregateId === source.sourceCCallRef && event.runId === source.sourceRunId
+        ? ok(event.payload) : GOVERNANCE_SOURCE_RESULT_MISMATCH,
+    digest: Object.freeze({
+      expected: (_event: RuntimeEvent, _payload: Readonly<Record<string, JsonValue>>, source: GovernanceSourceResultContext) =>
+        source.sourceResultDigest,
+      actual: (payload: Readonly<Record<string, JsonValue>>) => payload.resultDigest as Sha256Digest,
+    }),
+  });
+
 /** @internal Existing Catalog reconstruction binds each complete preimage to
  * its actual admitted install/lock/W. No copied Catalog grants applicability. */
 export function projectGovernanceCoveredSourceUse(prefix: ValidatedRuntimeEventPrefix, input: Readonly<{
@@ -55,13 +93,18 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
     if (physical.byteLength !== predecessorPrefix.prefixLength || physical.digest !== predecessorPrefix.prefixDigest ||
         source.sourceResultContractRef !== governanceContract("state")) return null;
     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, source.sourceInvocationAdmissionRef);
-    const result = indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef).filter(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
-    const resultEvent = result.length === 1 ? result[0] : undefined;
-    if (invocation === null || resultEvent === undefined || !isRecord(resultEvent.payload) ||
-        resultEvent.payload.resultRef !== source.sourceResultRef || resultEvent.payload.resultDigest !== source.sourceResultDigest ||
-        resultEvent.payload.valueDigest !== source.sourceResultValueDigest || resultEvent.payload.value === undefined ||
-        !canonicalEquals(resultEvent.payload.value, source.sourceResultValue) ||
-        resultEvent.aggregateId !== source.sourceCCallRef || resultEvent.runId !== source.sourceRunId ||
+    const sourceResult: GovernanceSourceResultContext = {
+      sourceResultAdmissionEventRef: source.sourceResultAdmissionEventRef, sourceResultRef: source.sourceResultRef,
+      sourceResultDigest: source.sourceResultDigest, sourceResultValueDigest: source.sourceResultValueDigest,
+      sourceResultValue: source.sourceResultValue, sourceCCallRef: source.sourceCCallRef, sourceRunId: source.sourceRunId,
+    };
+    const result = checkedRecordAtPrefix(prefix, GOVERNANCE_SOURCE_RESULT_RECORD, sourceResult, () => checkExactRecord(
+      resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef),
+        e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted"),
+      GOVERNANCE_SOURCE_RESULT_RECORD, sourceResult));
+    // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+    const resultEvent = result.kind === "one" ? result.event : undefined;
+    if (invocation === null || resultEvent === undefined ||
         invocation.workspaceBindingId !== source.workspaceBindingId || invocation.workspaceBindingDigest !== source.workspaceBindingDigest ||
         invocation.workspaceId !== workspaceBinding.workspaceId || invocation.actorRef !== workspaceBinding.authorizedActorRef ||
         invocation.programRef !== program.programRef || invocation.programDigest !== sha256Canonical(program) ||
@@ -101,7 +144,7 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
         sha256Canonical(outputContract.contract) !== invocation.outputContractDigest || !canonicalEquals(outputContract.owner, invocation.outputContractOwner)) return null;
     const compared = compareGovernanceDeclarationPublications(oldClosure.publications, newClosure.publications,
       { historical: oldEnvironment.productInstalls, current: currentEnvironment.productInstalls });
-    const basis = result[0]!.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, result[0]!.basisId);
+    const basis = resultEvent.basisId === null ? null : projectExactExecutionBasisAtPrefix(prefix, resultEvent.basisId);
     const covers = basis === null ? null : projectWorksiteRevisionBindingCover(prefix, oldEnvironment.workspaceBinding, workspaceBinding, [basis]);
     if (compared === null || covers === null) return null;
     const body = { kind: "governance_covered_source_use" as const, schemaVersion: "5.0.0" as const,
@@ -241,54 +284,68 @@ function sameStringArray(
     );
 }
 
-export function projectExactInvocationAdmissionAtPrefix(
-  prefix: ValidatedRuntimeEventPrefix,
-  invocationAdmissionRef: string,
-): InvocationAdmission | null;
-/** @internal */
-export function projectExactInvocationAdmissionAtPrefix(
-  prefix: RuntimeEventPrefix,
-  invocationAdmissionRef: string,
-): InvocationAdmission | null;
-export function projectExactInvocationAdmissionAtPrefix(
-  prefix: RuntimeEventPrefix,
-  invocationAdmissionRef: string,
-): InvocationAdmission | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const matches = indexedRuntimeEvents(prefix, "payload:invocationAdmissionRef:" + invocationAdmissionRef).filter(
-    (event) =>
-      event.kind === "invocation_admitted" &&
-      isRecord(event.payload) &&
-      event.payload.invocationAdmissionRef === invocationAdmissionRef,
-  );
-  if (matches.length !== 1) return null;
-  const event = matches[0]!;
-  if (event.causationEventRefs.length !== 1 || !isRecord(event.payload)) {
-    return null;
-  }
-  const publicEvent = indexedRuntimeEvents(prefix, "id:" + event.causationEventRefs[0]).find((candidate) =>
-    candidate.eventId === event.causationEventRefs[0] &&
-    candidate.kind === "public_operation_admitted"
-  );
-  if (publicEvent === undefined || !isRecord(publicEvent.payload)) return null;
-  const carriesCatalogApplications =
-    Array.isArray(event.payload.catalogApplicationRefs) &&
-    Array.isArray(event.payload.catalogApplicationDigests);
-  const admission = deepFreeze({
-    kind: "invocation_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "admitted" as const,
-    ...event.payload,
-    catalogApplicationRefs: carriesCatalogApplications
-      ? event.payload.catalogApplicationRefs
-      : [],
-    catalogApplicationDigests: carriesCatalogApplications
-      ? event.payload.catalogApplicationDigests
-      : [],
-    publicOperationEventRef: publicEvent.eventId,
-    admissionEventRef: event.eventId,
-  }) as unknown as InvocationAdmission;
-  const body = {
+/** The admission's cut and select key. The cut is the territory its record
+ * lives in; the reference is the context data that keys it. */
+type InvocationAdmissionRecordContext = Readonly<{ prefix: RuntimeEventPrefix; invocationAdmissionRef: string }>;
+type InvocationAdmissionRecord = Readonly<{
+  admission: InvocationAdmission;
+  payload: Readonly<Record<string, JsonValue>>;
+  publicEvent: RuntimeEvent;
+  publicPayload: Readonly<Record<string, JsonValue>>;
+  carriesCatalogApplications: boolean;
+}>;
+
+const INVOCATION_ADMISSION_NOT_PROJECTED: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal",
+  stage: "validate",
+  code: "invocation_admission_not_projected",
+  path: Object.freeze(["payload"]),
+  evidence: Object.freeze({}),
+});
+
+/** One `invocation_admitted` event as a checked record over its cut. The
+ * projection reads the one public operation event its causation names, by an
+ * index read of the same cut, and builds the admission; the digest leg compares
+ * the admission body digest with the recorded `invocationAdmissionDigest`.
+ * The relation to the public event is checked after the digest, as before. */
+const INVOCATION_ADMISSION_RECORD: RecordCheck<RuntimeEvent, InvocationAdmissionRecord, InvocationAdmissionRecordContext> = Object.freeze({
+  project: (event: RuntimeEvent, context: InvocationAdmissionRecordContext): Outcome<InvocationAdmissionRecord> => {
+    const payload = event.payload;
+    if (event.causationEventRefs.length !== 1 || !isRecord(payload)) return INVOCATION_ADMISSION_NOT_PROJECTED;
+    const publicEvent = indexedRuntimeEvents(context.prefix, "id:" + event.causationEventRefs[0]).find((candidate) =>
+      candidate.eventId === event.causationEventRefs[0] &&
+      candidate.kind === "public_operation_admitted"
+    );
+    const publicPayload = publicEvent?.payload;
+    if (publicEvent === undefined || !isRecord(publicPayload)) return INVOCATION_ADMISSION_NOT_PROJECTED;
+    const carriesCatalogApplications =
+      Array.isArray(payload.catalogApplicationRefs) &&
+      Array.isArray(payload.catalogApplicationDigests);
+    const admission = deepFreeze({
+      kind: "invocation_admission" as const,
+      schemaVersion: "5.0.0" as const,
+      disposition: "admitted" as const,
+      ...payload,
+      catalogApplicationRefs: carriesCatalogApplications
+        ? payload.catalogApplicationRefs
+        : [],
+      catalogApplicationDigests: carriesCatalogApplications
+        ? payload.catalogApplicationDigests
+        : [],
+      publicOperationEventRef: publicEvent.eventId,
+      admissionEventRef: event.eventId,
+    }) as unknown as InvocationAdmission;
+    return ok(Object.freeze({ admission, payload, publicEvent, publicPayload, carriesCatalogApplications }));
+  },
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, record: InvocationAdmissionRecord) => record.admission.invocationAdmissionDigest,
+    actual: (record: InvocationAdmissionRecord) =>
+      sha256Canonical(invocationAdmissionBody(record.admission, record.carriesCatalogApplications)),
+  }),
+});
+
+function invocationAdmissionBody(admission: InvocationAdmission, carriesCatalogApplications: boolean) {
+  return {
     invocationRef: admission.invocationRef,
     invocationDigest: admission.invocationDigest,
     invocationVariant: admission.invocationVariant,
@@ -343,10 +400,34 @@ export function projectExactInvocationAdmissionAtPrefix(
     sourceResultBasis: admission.sourceResultBasis,
     ...(admission.runEnvironment === undefined ? {} : { runEnvironment: admission.runEnvironment }),
   };
+}
+
+export function projectExactInvocationAdmissionAtPrefix(
+  prefix: ValidatedRuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null;
+/** @internal */
+export function projectExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null;
+export function projectExactInvocationAdmissionAtPrefix(
+  prefix: RuntimeEventPrefix,
+  invocationAdmissionRef: string,
+): InvocationAdmission | null {
+  const checked = checkedRecordAtPrefix(prefix, INVOCATION_ADMISSION_RECORD, { invocationAdmissionRef }, () =>
+    checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:invocationAdmissionRef:" + invocationAdmissionRef),
+      (event) =>
+        event.kind === "invocation_admitted" &&
+        isRecord(event.payload) &&
+        event.payload.invocationAdmissionRef === invocationAdmissionRef,
+    ), INVOCATION_ADMISSION_RECORD, { prefix, invocationAdmissionRef }));
+  // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+  if (checked.kind !== "one") return null;
+  const event = checked.event;
+  const { admission, payload, publicEvent, publicPayload, carriesCatalogApplications } = checked.value;
   const operationId = "abg.operation.run.invoke";
-  return sha256Canonical(body) ===
-        admission.invocationAdmissionDigest &&
-      typeof admission.publicRequestInvocationRef === "string" &&
+  return typeof admission.publicRequestInvocationRef === "string" &&
       admission.publicRequestInvocationRef.length > 0 &&
       admission.invocationAdmissionRef ===
         `invocation-admission://abiogenesis/${admission.invocationAdmissionDigest.slice("sha256:".length)}` &&
@@ -365,65 +446,65 @@ export function projectExactInvocationAdmissionAtPrefix(
       event.eventTime === publicEvent.eventTime &&
       event.correlationId === publicEvent.correlationId &&
       event.causationEventRefs[0] === publicEvent.eventId &&
-      publicEvent.payload.operationId === operationId &&
+      publicPayload.operationId === operationId &&
       isExactOperationDefinitionCoordinate({
-        operationId: publicEvent.payload.operationId,
-        memberKey: publicEvent.payload.memberKey,
-        definitionDigest: publicEvent.payload.definitionDigest,
+        operationId: publicPayload.operationId,
+        memberKey: publicPayload.memberKey,
+        definitionDigest: publicPayload.definitionDigest,
       }) &&
-      publicEvent.payload.memberKey ===
+      publicPayload.memberKey ===
         (admission.invocationVariant === "direct"
           ? "invoke"
           : admission.invocationVariant) &&
-      publicEvent.payload.variant === admission.invocationVariant &&
-      publicEvent.payload.invocationRef === admission.invocationRef &&
-      publicEvent.payload.invocationDigest === admission.invocationDigest &&
-      publicEvent.payload.actorRef === admission.actorRef &&
-      publicEvent.payload.authorityRef === admission.authorityRef &&
-      publicEvent.payload.authorityDigest === admission.authorityDigest &&
+      publicPayload.variant === admission.invocationVariant &&
+      publicPayload.invocationRef === admission.invocationRef &&
+      publicPayload.invocationDigest === admission.invocationDigest &&
+      publicPayload.actorRef === admission.actorRef &&
+      publicPayload.authorityRef === admission.authorityRef &&
+      publicPayload.authorityDigest === admission.authorityDigest &&
       sameStringArray(
-        publicEvent.payload.capabilityGrantRefs,
+        publicPayload.capabilityGrantRefs,
         admission.capabilityGrantRefs,
       ) &&
       carriesCatalogApplications &&
       sameStringArray(
-        publicEvent.payload.catalogApplicationRefs,
+        publicPayload.catalogApplicationRefs,
         admission.catalogApplicationRefs,
       ) &&
       sameStringArray(
-        publicEvent.payload.catalogApplicationDigests,
+        publicPayload.catalogApplicationDigests,
         admission.catalogApplicationDigests,
       ) &&
-      publicEvent.payload.catalogBasisRef === admission.catalogBasisRef &&
-      publicEvent.payload.catalogBasisDigest === admission.catalogBasisDigest &&
-      publicEvent.payload.catalogViewId === admission.catalogViewId &&
-      publicEvent.payload.policyRef === admission.policyRef &&
-      publicEvent.payload.policyDigest === admission.policyDigest &&
-      publicEvent.payload.workspaceBindingId ===
+      publicPayload.catalogBasisRef === admission.catalogBasisRef &&
+      publicPayload.catalogBasisDigest === admission.catalogBasisDigest &&
+      publicPayload.catalogViewId === admission.catalogViewId &&
+      publicPayload.policyRef === admission.policyRef &&
+      publicPayload.policyDigest === admission.policyDigest &&
+      publicPayload.workspaceBindingId ===
         admission.workspaceBindingId &&
-      publicEvent.payload.programRef === admission.programRef &&
-      publicEvent.payload.catalogHandle === admission.catalogHandle &&
-      publicEvent.payload.graphFunctionRef === admission.graphFunctionRef &&
-      publicEvent.payload.selectedDefinitionRef ===
+      publicPayload.programRef === admission.programRef &&
+      publicPayload.catalogHandle === admission.catalogHandle &&
+      publicPayload.graphFunctionRef === admission.graphFunctionRef &&
+      publicPayload.selectedDefinitionRef ===
         admission.selectedDefinitionRef &&
-      publicEvent.payload.selectedDefinitionDigest ===
+      publicPayload.selectedDefinitionDigest ===
         admission.selectedDefinitionDigest &&
-      publicEvent.payload.programValidationRef ===
+      publicPayload.programValidationRef ===
         admission.programValidationRef &&
-      publicEvent.payload.programValidationDigest ===
+      publicPayload.programValidationDigest ===
         admission.programValidationDigest &&
-      isRecord(publicEvent.payload.gtlEntryCoordinate) &&
-      isRecord(publicEvent.payload.gtlEntryTerm) &&
+      isRecord(publicPayload.gtlEntryCoordinate) &&
+      isRecord(publicPayload.gtlEntryTerm) &&
       canonicalEquals(
-        publicEvent.payload.gtlEntryCoordinate,
+        publicPayload.gtlEntryCoordinate,
         admission.gtlEntryCoordinate,
       ) &&
       canonicalEquals(
-        publicEvent.payload.gtlEntryTerm,
+        publicPayload.gtlEntryTerm,
         admission.gtlEntryTerm,
       ) &&
-      event.payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
-      event.payload.invocationAdmissionDigest ===
+      payload.invocationAdmissionRef === admission.invocationAdmissionRef &&
+      payload.invocationAdmissionDigest ===
         admission.invocationAdmissionDigest
     ? admission
     : null;

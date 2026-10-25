@@ -32,6 +32,7 @@ import {
 } from "./event_store.js";
 import {
   runtimeEventBodiesAtPrefix,
+  checkedRecordAtPrefix,
   indexedRuntimeEvents,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -42,7 +43,8 @@ import {
 } from "./open_call.js";
 import type { RuntimeEvent } from "./event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { ok } from "../shared/refusal.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Owner boundary: `absent` and `many` map to `undefined`. */
@@ -305,6 +307,21 @@ function* selectedTraversalInputOrigins(prefix: RuntimeEventPrefix, graph: Reado
   }
 }
 
+/** The admitted cursor a registered input origin is read against: the
+ * context data of its record. */
+type RegisteredInputOriginContext = Readonly<{ cursorRef: string; cursorDigest: Sha256Digest }>;
+
+/** The one registered-selection route among a cursor's admission events, as
+ * its checked origin: the digest leg compares the route's target cursor digest
+ * with the admitted cursor's. */
+const REGISTERED_INPUT_ORIGIN_RECORD: RecordCheck<RuntimeEvent, RuntimeEvent, RegisteredInputOriginContext> = Object.freeze({
+  project: (event: RuntimeEvent) => ok(event),
+  digest: Object.freeze({
+    expected: (_event: RuntimeEvent, _origin: RuntimeEvent, context: RegisteredInputOriginContext) => context.cursorDigest,
+    actual: (origin: RuntimeEvent) => traversalCursorAdmissionDigest(origin) as Sha256Digest,
+  }),
+});
+
 /** A current input is one admitted cursor's exact reference, value and origin.
  * Both execution and historical recovery consume this read-only relation. */
 export function projectTraversalInputAtPrefix(prefix: ValidatedRuntimeEventPrefix,
@@ -316,12 +333,17 @@ export function projectTraversalInputAtPrefix(prefix: RuntimeEventPrefix,
   graph: Readonly<GtlGraph>, execution: ExecutionBasis, cursor: TraversalCursorCandidate): TraversalInputOrigin | null {
   if (cursor.executionBasisRef !== execution.basisRef || cursor.graphRef !== graph.materializationRef ||
     !hasAdmittedTraversalCursorAtPrefix(prefix, cursor)) return null;
-  const registeredOrigins = traversalCursorAdmissionEventsAtPrefix(prefix, cursor).filter(event =>
-    event.kind === "traversal_route_admitted" && isRecord(event.payload) &&
-    event.payload.registeredSelectionApplicationRef !== undefined);
-  if (registeredOrigins.length > 0) {
-    if (registeredOrigins.length !== 1 || traversalCursorAdmissionDigest(registeredOrigins[0]!) !== cursor.cursorDigest) return null;
-    const event = registeredOrigins[0]!;
+  const origin: RegisteredInputOriginContext = { cursorRef: cursor.cursorRef, cursorDigest: cursor.cursorDigest };
+  const registered = checkedRecordAtPrefix(prefix, REGISTERED_INPUT_ORIGIN_RECORD, origin, () => checkExactRecord(
+    resolveExactMatch(traversalCursorAdmissionEventsAtPrefix(prefix, cursor), event =>
+      event.kind === "traversal_route_admitted" && isRecord(event.payload) &&
+      event.payload.registeredSelectionApplicationRef !== undefined),
+    REGISTERED_INPUT_ORIGIN_RECORD, origin));
+  // Owner boundary: a registered origin that is `many` or `invalid` is `null`;
+  // `absent` selects the ordinary origins below.
+  if (registered.kind !== "absent") {
+    if (registered.kind !== "one") return null;
+    const event = registered.event;
     const selected = projectRegisteredSelectionInputAtPrefix(prefix, event);
     return selected !== null && selected.admissionRef === cursor.inputRef && selected.subjectDigest === cursor.inputDigest
       ? { inputRef: selected.admissionRef, inputDigest: selected.subjectDigest, value: selected.value, event, retained: true }

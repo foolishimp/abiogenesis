@@ -1,6 +1,6 @@
 import { RuntimeEventBodyView } from "./runtime_history.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectNativeWorkCommandSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
@@ -11,7 +11,7 @@ import { semanticJobConstructionSourceAtPrefix, semanticJobReadDependenciesAtPre
 import { isWorksiteFileParentsSuccess } from "../product/worksite_effect.js";
 /** D2's single prefix-owned observation projection. No caller grants or ledger. */
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { constructWorksiteObservation, isWorksiteObservation, type WorksiteObservation, type WorksiteSubject } from "../product/worksite_effect.js";
 import { isSemanticStageEnvelope, projectSemanticWorksiteCoordinates, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { isSemanticRevisionEnvelope, isSemanticRevisionRequest, isSemanticRevisionSelectionInput, isSemanticRevisionSelection,
@@ -41,7 +41,8 @@ import type { ChildExecutionBasisInput, ExecutionBasis } from "./execution_basis
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
-import { onlyExactMatch, resolveExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, resolveExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 const record = (v: unknown): v is Record<string, JsonValue> => v !== null && typeof v === "object" && !Array.isArray(v);
 const isRevisionEnvelope = (value: unknown): value is SemanticRevisionEnvelope | SemanticJobRevisionEnvelope => isSemanticRevisionEnvelope(value) || isSemanticJobRevisionEnvelope(value);
 function sameSemanticSubject(a: unknown,b: unknown): boolean {
@@ -342,6 +343,41 @@ function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSub
   return typeof root !== "string" || worksiteCommandSourcesInvalidatedAfter(prefix, ordinal, root, [subject.relativePath]);
 }
 
+/** The admitted projection result's coordinates and the digests of its
+ * request and envelope: the deterministic evidence row the result cites is
+ * checked against them. Absent scope members stay absent. */
+type RevisionEvidenceContext = Readonly<{
+  aggregateId: string; basisId: string; runId?: string; graphCallId?: string; frameId?: string;
+  causationEventRefs: readonly string[]; admissionOrdinal: number;
+  cCallRef: string; evidenceContractRef: string; evidenceRefs: readonly string[];
+  requestDigest: Sha256Digest; envelopeDigest: Sha256Digest;
+}>;
+const REVISION_EVIDENCE_MISMATCH: StructuralRefusal = Object.freeze({
+  kind: "structural_refusal", stage: "validate", code: "worksite_revision_evidence_mismatch",
+  path: Object.freeze(["payload"]), evidence: Object.freeze({}),
+});
+/** One `c_call_evidenced` row as the projection result's deterministic
+ * evidence: the projection checks scope, contract, implementation, the
+ * request and envelope digests, citation and order; the digest leg compares
+ * the evidence body digest with the recorded `evidenceDigest`. */
+const REVISION_EVIDENCE_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>, RevisionEvidenceContext> = Object.freeze({
+  project: (evidence: RuntimeEvent, c: RevisionEvidenceContext): Outcome<Readonly<Record<string, JsonValue>>> =>
+    !record(evidence.payload)||evidence.basisId!==c.basisId||evidence.runId!==c.runId||evidence.graphCallId!==c.graphCallId||
+      evidence.frameId!==c.frameId||evidence.payload.evidenceClass!=="deterministic"||
+      evidence.payload.cCallRef!==c.cCallRef||evidence.payload.contractRef!==c.evidenceContractRef||
+      evidence.payload.implementationRef!==SEMANTIC_REVISION_IDS.projectionImplementationRef||evidence.payload.inputDigest!==c.requestDigest||
+      evidence.payload.outputDigest!==c.envelopeDigest||!c.evidenceRefs.includes(String(evidence.payload.evidenceRef))||
+      !c.causationEventRefs.includes(evidence.eventId)||evidence.admissionOrdinal>=c.admissionOrdinal
+      ? REVISION_EVIDENCE_MISMATCH : ok(evidence.payload),
+  digest: Object.freeze({
+    expected: (_evidence: RuntimeEvent, payload: Readonly<Record<string, JsonValue>>) => payload.evidenceDigest as Sha256Digest,
+    actual: (payload: Readonly<Record<string, JsonValue>>) => {
+      const {evidenceRef:_evidenceRef,evidenceDigest:_evidenceDigest,...evidenceBody}=payload;
+      return hash(evidenceBody);
+    },
+  }),
+});
+
 function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:ProjectionSession):BindingProjectionFacts|null {
   if(work.cache.has(result.eventId))return work.cache.get(result.eventId)!;
   if(work.active.has(result.eventId))return null;
@@ -376,14 +412,16 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
     if(environment===null||!canonicalEquals(environment.authority, current.workspaceAuthorityBasis)||
       current.workspaceBinding.bindingId!==basis.workspaceBindingId||current.workspaceBinding.bindingDigest!==basis.workspaceBindingDigest||
       invocation?.capabilityGrants.length!==1||invocation.capabilityGrants[0]===undefined||!canonicalEquals(invocation.capabilityGrants[0], current.capabilityGrant))return null;
-    const evidence=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId));
-    if(evidence===null||!record(evidence.payload)||!sameScope(evidence,result)||evidence.payload.evidenceClass!=="deterministic"||
-      evidence.payload.cCallRef!==state.cCall.cCallRef||evidence.payload.contractRef!==state.cCall.evidenceContractRef||
-      evidence.payload.implementationRef!==SEMANTIC_REVISION_IDS.projectionImplementationRef||evidence.payload.inputDigest!==hash(request)||
-      evidence.payload.outputDigest!==hash(envelope)||!state.result.evidenceRefs.includes(String(evidence.payload.evidenceRef))||
-      !result.causationEventRefs.includes(evidence.eventId)||evidence.admissionOrdinal>=result.admissionOrdinal)return null;
-    const {evidenceRef,evidenceDigest,...evidenceBody}=evidence.payload;
-    if(evidenceDigest!==hash(evidenceBody)||evidenceRef!==`evidence://abiogenesis/${String(evidenceDigest).slice(7)}`)return null;
+    const evidenceContext:RevisionEvidenceContext={aggregateId:result.aggregateId,basisId:result.basisId,
+      ...(result.runId===undefined?{}:{runId:result.runId}),...(result.graphCallId===undefined?{}:{graphCallId:result.graphCallId}),
+      ...(result.frameId===undefined?{}:{frameId:result.frameId}),causationEventRefs:result.causationEventRefs,
+      admissionOrdinal:result.admissionOrdinal,cCallRef:state.cCall.cCallRef,evidenceContractRef:state.cCall.evidenceContractRef,
+      evidenceRefs:state.result.evidenceRefs,requestDigest:hash(request),envelopeDigest:hash(envelope)};
+    const evidence=checkedRecordAtPrefix(prefix,REVISION_EVIDENCE_RECORD,evidenceContext as unknown as JsonValue,()=>checkExactRecord(
+      resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId),
+      REVISION_EVIDENCE_RECORD,evidenceContext));
+    // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
+    if(evidence.kind!=="one"||evidence.value.evidenceRef!==`evidence://abiogenesis/${String(evidence.value.evidenceDigest).slice(7)}`)return null;
     const origins=deriveCurrentOrigins(before,history.seed,history.prior,current,history.eligible,history.bases,work);
     if(origins===null)return null;
     answer={state,basis,envelope,origins,ordinal:result.admissionOrdinal,history};return answer;

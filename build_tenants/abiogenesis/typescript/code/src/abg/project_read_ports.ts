@@ -1,4 +1,4 @@
-import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
@@ -8,7 +8,8 @@ import { projectNativeLivenessRead } from "./runtime_liveness.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
-import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFromArtifactTruth, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
+import { runtimePrefixFromOwnedArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import { projectAdmittedCCallStateAtPrefix, projectCurrentChildParentCCallAtPrefix } from "./c_call.js";
 import { rehydrateAdmittedImplementationSetAtPrefix, rehydrateAdmittedInteractionSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateOpenedTraversalScopeAtPrefix, projectOpenedTraversalScopeClassAtPrefix, type OpenedTraversalScope } from "./open_call.js";
@@ -56,7 +57,8 @@ import {
   type RunSemanticReplayProjection,
 } from "./replay.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { checkExactRecord, onlyExactMatch, type ExactMatch, type RecordCheck } from "../shared/select/index.js";
+import { ok } from "../shared/refusal.js";
 
 export const ABG_PROJECT_READ_MEMBER_KEYS = Object.freeze([
   "run_status",
@@ -137,6 +139,9 @@ interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
   readonly events: RuntimeEventScan;
   readonly fullPrefix: RuntimeEventPrefix;
+  /** The read owner's artifact truth over its acquired prefix, when the
+   * owner supplied it: the one materialization the preparation reads. */
+  readonly artifactTruth?: ExactPrefixArtifactTruthProjection;
 }
 
 interface RunReadContext {
@@ -230,39 +235,67 @@ function eventRecord(event: RuntimeEvent): Readonly<Record<string, JsonValue>> {
   return event.payload;
 }
 
+/** The admitted execution basis row's members the scope reconstruction reads. */
+type BasisScopeRow = Readonly<Pick<ExecutionBasis, "basisRef" | "basisDigest" | "basisClass" | "invocationAdmissionRef" |
+  "invocationRef" | "programRef" | "graphFunctionRef" | "graphFunctionDigest" | "graphRef" | "graphDigest">>;
+type BasisScopeContext = Readonly<{ prefix: RuntimeEventPrefix; basis: BasisScopeRow }>;
+
+/** One `graph_call_opened` row of a basis as its opened traversal scope: the
+ * projection reads the basis Frame and the Run opening from the same cut,
+ * checks the three openings against the basis row and asks the native scope
+ * owner to verify the reconstructed carrier. Its owner channel is the
+ * terminal-projection `TypeError`, thrown in the existing order. */
+const BASIS_SCOPE_RECORD: RecordCheck<RuntimeEvent, OpenedTraversalScope, BasisScopeContext> = Object.freeze({
+  project: (graph: RuntimeEvent, { prefix, basis }: BasisScopeContext) => {
+    const frame = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:frame_opened").filter((event) =>
+      event.basisId === basis.basisRef && event.graphCallId === graph.graphCallId)), "basis Frame");
+    const run = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:run_segment_opened").filter((event) =>
+      event.runId === graph.runId)), "Run opening");
+    const g = eventRecord(graph), f = eventRecord(frame), r = eventRecord(run);
+    if (g.graphFunctionRef !== basis.graphFunctionRef || g.graphFunctionDigest !== basis.graphFunctionDigest ||
+        g.graphRef !== basis.graphRef || g.graphDigest !== basis.graphDigest ||
+        g.executionBasisRef !== basis.basisRef || f.executionBasisRef !== basis.basisRef ||
+        g.invocationRef !== basis.invocationRef || f.invocationRef !== basis.invocationRef) {
+      throw new TypeError("scope differs from its admitted execution basis");
+    }
+    const body = {
+      executionBasisRef: basis.basisRef, executionBasisDigest: basis.basisDigest,
+      invocationAdmissionRef: basis.invocationAdmissionRef, invocationRef: basis.invocationRef,
+      programRef: basis.programRef, graphFunctionRef: basis.graphFunctionRef, graphRef: basis.graphRef,
+      runId: graph.runId!, runDigest: r.runDigest!, runOpenEventRef: run.eventId,
+      graphCallId: graph.graphCallId!, graphCallDigest: g.graphCallDigest!, graphCallOpenEventRef: graph.eventId,
+      frameId: frame.frameId!, frameDigest: f.frameDigest!, frameLineageId: f.frameLineageId!, frameOpenEventRef: frame.eventId,
+    };
+    const digest = sha256Canonical(body);
+    const scope = rehydrateOpenedTraversalScopeAtPrefix(prefix, {
+      ...body, scopeRef: `traversal-scope://abiogenesis/${digest.slice(7)}`, scopeDigest: digest,
+    });
+    if (scope === null || projectOpenedTraversalScopeClassAtPrefix(prefix, scope) !== basis.basisClass) {
+      throw new TypeError("scope has no exact native root/child identity");
+    }
+    return ok(scope);
+  },
+  digest: null,
+});
+
 /** Reconstruct the existing scope carrier, then ask its native owner to verify
  * it. No current active-parent assumption is made at read time. */
 function scopeForBasis(prefix: RuntimeEventPrefix, basis: ExecutionBasis): OpenedTraversalScope {
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const graph = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
-    event.basisId === basis.basisRef)), "basis GraphCall");
-  const frame = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:frame_opened").filter((event) =>
-    event.basisId === basis.basisRef && event.graphCallId === graph.graphCallId)), "basis Frame");
-  const run = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:run_segment_opened").filter((event) =>
-    event.runId === graph.runId)), "Run opening");
-  const g = eventRecord(graph), f = eventRecord(frame), r = eventRecord(run);
-  if (g.graphFunctionRef !== basis.graphFunctionRef || g.graphFunctionDigest !== basis.graphFunctionDigest ||
-      g.graphRef !== basis.graphRef || g.graphDigest !== basis.graphDigest ||
-      g.executionBasisRef !== basis.basisRef || f.executionBasisRef !== basis.basisRef ||
-      g.invocationRef !== basis.invocationRef || f.invocationRef !== basis.invocationRef) {
-    throw new TypeError("scope differs from its admitted execution basis");
-  }
-  const body = {
-    executionBasisRef: basis.basisRef, executionBasisDigest: basis.basisDigest,
-    invocationAdmissionRef: basis.invocationAdmissionRef, invocationRef: basis.invocationRef,
-    programRef: basis.programRef, graphFunctionRef: basis.graphFunctionRef, graphRef: basis.graphRef,
-    runId: graph.runId!, runDigest: r.runDigest!, runOpenEventRef: run.eventId,
-    graphCallId: graph.graphCallId!, graphCallDigest: g.graphCallDigest!, graphCallOpenEventRef: graph.eventId,
-    frameId: frame.frameId!, frameDigest: f.frameDigest!, frameLineageId: f.frameLineageId!, frameOpenEventRef: frame.eventId,
+  const row: BasisScopeRow = {
+    basisRef: basis.basisRef, basisDigest: basis.basisDigest, basisClass: basis.basisClass,
+    invocationAdmissionRef: basis.invocationAdmissionRef, invocationRef: basis.invocationRef, programRef: basis.programRef,
+    graphFunctionRef: basis.graphFunctionRef, graphFunctionDigest: basis.graphFunctionDigest,
+    graphRef: basis.graphRef, graphDigest: basis.graphDigest,
   };
-  const digest = sha256Canonical(body);
-  const scope = rehydrateOpenedTraversalScopeAtPrefix(prefix, {
-    ...body, scopeRef: `traversal-scope://abiogenesis/${digest.slice(7)}`, scopeDigest: digest,
-  });
-  if (scope === null || projectOpenedTraversalScopeClassAtPrefix(prefix, scope) !== basis.basisClass) {
-    throw new TypeError("scope has no exact native root/child identity");
-  }
-  return scope;
+  const checked = checkedRecordAtPrefix(prefix, BASIS_SCOPE_RECORD, row as unknown as JsonValue, () =>
+    checkExactRecord(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
+      event.basisId === basis.basisRef)), BASIS_SCOPE_RECORD, { prefix, basis: row }));
+  if (checked.kind === "one") return checked.value;
+  // Owner boundary: `absent` and `many` are the basis GraphCall's terminal-projection
+  // `TypeError`; the projection throws every later one, so `invalid` is only an
+  // unencodable verified scope, the native identity refusal.
+  if (checked.kind === "invalid") throw new TypeError("scope has no exact native root/child identity");
+  throw new TypeError("terminal projection requires one exact basis GraphCall");
 }
 
 /** The child proof is data. Admission history selects all authority, including
@@ -326,8 +359,13 @@ function terminalDeclaration(
       !hasExactDataFields(proof, ["kind", "schemaVersion", "catalog", "catalogView"])) {
     throw new TypeError("closed child requires exact historical declaration evidence");
   }
-  const environment = projectExactPrefixWorkspaceEnvironment(prepared.packet.prefix,
-    truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest));
+  // The read owner's artifact truth is the exact-prefix projection of this
+  // same coordinate; without it the environment is projected from the prefix.
+  const environment = prepared.artifactTruth !== undefined && prepared.artifactTruth.prefix === prepared.packet.prefix
+    ? projectWorkspaceEnvironmentFromArtifactTruth(prepared.artifactTruth,
+      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest))
+    : projectExactPrefixWorkspaceEnvironment(prepared.packet.prefix,
+      truthCoordinate(root.workspaceBindingId, root.workspaceBindingDigest));
   if (environment.kind !== "exact_prefix_workspace_environment") throw new TypeError("historical environment is absent");
   const invocationEvent = exactOrThrow(onlyExactMatch(indexedRuntimeEvents(prefix,"id:"+invocation.admissionEventRef)), "invocation event");
   const installs = environment.productInstalls.map((install) =>
@@ -641,6 +679,7 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
   expectedMemberKey: K,
   supplied: AbgProjectReadPacket<K>,
   retainedPrefix?: DurablePrefixCoordinate,
+  acquired?: ExactPrefixArtifactTruthProjection,
 ): PreparedRead<K> | AbgProjectReadRefusal<K> {
   const admitted = admitReadPacket(expectedMemberKey, supplied);
   if ("code" in admitted) return admitted;
@@ -652,6 +691,14 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
       if (!canonicalEquals(retainedPrefix, admitted.prefix))
         throw new TypeError("retained prefix differs from admitted read packet");
       packet = deepFreeze({ ...admitted, prefix: retainedPrefix });
+    }
+    // The read owner materialized its acquired coordinate once for the
+    // environment; the preparation reads that validated prefix, never a copy.
+    const acquiredPrefix = acquired !== undefined && acquired.prefix === packet.prefix
+      ? runtimePrefixFromOwnedArtifactTruth(acquired) : null;
+    if (acquiredPrefix !== null && acquiredPrefix.kind === "validated_runtime_event_prefix") {
+      return deepFreeze({ packet, events: runtimeEventsFromValidatedPrefix(acquiredPrefix), fullPrefix: acquiredPrefix,
+        artifactTruth: acquired! });
     }
     const events = readRuntimeEventsAtDurablePrefix(packet.prefix);
     const fullPrefix = selectValidatedRuntimeEventPrefix(events);
@@ -944,12 +991,40 @@ export function prepareRunReadAtDurablePrefix(
   prefix: DurablePrefixCoordinate,
   memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
   targetRef: string,
+): Readonly<{
+  project: (declarationProof?: AbgHistoricalDeclarationProof) => AbgProjectReadResult<"run_status" | "run_result" | "graph_call_result" | "run_replay" | "graph_call_replay" | "run_gaps">;
+  source: AbgRunTruthCoordinate;
+  workspaceBinding: AbgRunTruthCoordinate;
+}> | null;
+/** @internal The read owner's entry over its acquired coordinate: the
+ * environment's artifact truth carries the one materialization of that
+ * prefix, read by the preparation and the GraphCall projection. */
+export function prepareRunReadAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  targetRef: string,
+  acquired: ExactPrefixArtifactTruthProjection,
+): ReturnType<typeof prepareRunRead>;
+export function prepareRunReadAtDurablePrefix(
+  prefix: DurablePrefixCoordinate,
+  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  targetRef: string,
+  acquired?: ExactPrefixArtifactTruthProjection,
+) {
+  return prepareRunRead(prefix, memberKey, targetRef, acquired);
+}
+
+function prepareRunRead(
+  prefix: DurablePrefixCoordinate,
+  memberKey: "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay",
+  targetRef: string,
+  acquired?: ExactPrefixArtifactTruthProjection,
 ) {
   const graphRead = memberKey === "graph_call_result" || memberKey === "graph_call_replay";
   const sourceMember = graphRead ? "graph_call_replay" : "run_replay";
   const prepared = prepareRead(sourceMember, {
     kind: "abg_project_read_packet", schemaVersion: "5.0.0", memberKey: sourceMember, prefix, targetRef,
-  }, captureDurablePrefixCoordinate(prefix));
+  }, captureDurablePrefixCoordinate(prefix), acquired);
   if ("code" in prepared) return null;
   try {
     const run = graphRead ? null : canonicalRunContext(prepared, targetRef);

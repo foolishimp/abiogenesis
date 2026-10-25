@@ -1355,9 +1355,18 @@ export function rehydrateAdmittedImplementationSetAtPrefix(
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
   if (checked.kind !== "one") return null;
-  const set = checked.value;
+  const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
   implementationSets.add(set);
-  return hasAdmittedImplementationSetAtPrefix(prefix, set) ? set : null;
+  // The checked row is the admission: its digest leg hashed the body once.
+  return set.implementationSetRef ===
+      `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
+    payload.implementationSetRef === set.implementationSetRef && payload.implementationSetDigest === set.implementationSetDigest &&
+    canonicalEquals(payload.implementationSet!, {
+      implementationSetRef: set.implementationSetRef,
+      implementationSetDigest: set.implementationSetDigest,
+      ...(implementationSetBody(set) as Readonly<Record<string, JsonValue>>),
+    })
+    ? set : null;
 }
 
 export function rehydrateAdmittedInteractionSet(
@@ -1395,9 +1404,18 @@ export function rehydrateAdmittedInteractionSetAtPrefix(
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
   if (checked.kind !== "one") return null;
-  const set = checked.value;
+  const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
   interactionSets.add(set);
-  return hasAdmittedInteractionSetAtPrefix(prefix, set) ? set : null;
+  // The checked row is the admission: its digest leg hashed the body once.
+  return set.interactionSetRef ===
+      `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
+    payload.interactionSetRef === set.interactionSetRef && payload.interactionSetDigest === set.interactionSetDigest &&
+    canonicalEquals(payload.interactionSet!, {
+      interactionSetRef: set.interactionSetRef,
+      interactionSetDigest: set.interactionSetDigest,
+      ...(interactionSetBody(set) as Readonly<Record<string, JsonValue>>),
+    })
+    ? set : null;
 }
 
 export function hasAdmittedImplementationResolution(
