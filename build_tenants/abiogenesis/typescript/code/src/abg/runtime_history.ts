@@ -56,7 +56,10 @@ class RuntimeScopeIndices implements Iterable<number> {
 const SELECTION_KEY = Symbol("owned_runtime_history_selection");
 
 /** @internal The one Event Store history's disposable envelope/body-location
- * index. It owns no disk writes, permission, event admission or decoded cache. */
+ * index. It owns no disk writes, permission or event admission. It keeps the
+ * verified bodies of its current generation: a projection of the immutable
+ * history read by row location and digest, never authority, dropped with the
+ * generation. */
 export class RuntimeHistory {
   readonly #rows: RuntimeEventHistoryRow[] = [];
   readonly #byId = new Map<string, number>();
@@ -65,7 +68,8 @@ export class RuntimeHistory {
   readonly #scopeCanonical = new WeakMap<object, { length: number; hash: Hash; digests: Map<number, Sha256Digest> }>();
   readonly #scopeExtents = new WeakMap<object, Map<string, { length: number; count: number; lastOrdinal: number }>>();
   readonly #scopes = new Map<string, { through: number; indices: number[]; included: Set<number>; order: object; selection: RuntimeHistorySelection }>();
-  readonly work = { bodyRows: 0, scopeRows: 0, membershipComparisons: 0, selectorRows: 0 };
+  readonly #verifiedBodies = new Map<number, Readonly<{ body: RuntimeEventBodyLocation; event: RuntimeEvent }>>();
+  readonly work = { bodyRows: 0, bodyDecodes: 0, scopeRows: 0, membershipComparisons: 0, selectorRows: 0 };
   #canonicalHash = createHash("sha256").update("[");
   #committedHash: Hash = this.#canonicalHash.copy();
   #committedLength = 0;
@@ -178,7 +182,7 @@ export class RuntimeHistory {
     if (row === undefined || row.body.offset !== -1)
       throw new TypeError("history location is not an owned tentative append");
     this.#rows[index] = deepFreeze({ ...row, body: { ...body } });
-    this.#tentativeCount--;
+    this.#verifiedBodies.delete(index); this.#tentativeCount--;
   }
 
   /** Rollback abandons the computation generation before its suffix locations. */
@@ -188,7 +192,7 @@ export class RuntimeHistory {
       throw new TypeError("invalid runtime history rollback");
     if (length === this.length) return;
     if (length !== this.#committedLength) throw new TypeError("runtime rollback must restore its committed prefix");
-    this.#generation++; this.#scopes.clear();
+    this.#generation++; this.#scopes.clear(); this.#verifiedBodies.clear();
     for (const row of this.#rows.slice(length)) this.#byId.delete(row.envelope.eventId);
     this.#rows.length = length;
     while ((this.#profileSpans.at(-1)?.firstOrdinal ?? 0) > length) this.#profileSpans.pop();
@@ -305,10 +309,15 @@ export class RuntimeHistory {
     const row = this.#rows[index];
     if (row === undefined) throw new TypeError("selected history row is absent");
     this.work.bodyRows++;
-    const value = this.#reader(row, selectedBodies);
+    const kept = this.#verifiedBodies.get(index), committed = row.body.offset !== -1;
+    const current = kept !== undefined && kept.body.offset === row.body.offset &&
+      kept.body.byteLength === row.body.byteLength && kept.body.physicalDigest === row.body.physicalDigest;
+    if (!current && committed) this.work.bodyDecodes++;
+    const value = current ? kept.event : this.#reader(row, selectedBodies);
     if (value.eventId !== row.envelope.eventId || value.payloadDigest !== row.envelope.payloadDigest ||
         value.admissionOrdinal !== row.envelope.admissionOrdinal)
       throw new TypeError("selected body differs from its authenticated envelope");
+    if (!current && committed) this.#verifiedBodies.set(index, { body: row.body, event: value });
     return value;
   }
   select(through = this.length, indices?: readonly number[] | RuntimeScopeIndices): RuntimeHistorySelection {
@@ -483,7 +492,9 @@ export class RuntimeHistorySelection {
       if (this.#indices.at(index) !== prior.#indices.at(index)) return false;
     return true;
   }
-  /** Complete historical materialization is explicit and never retained here. */
+  /** Complete historical materialization is explicit; each call returns a fresh
+   * vector. Only the owner's verified bodies of the current generation are kept,
+   * a projection of the immutable history, never authority. */
   materialize(): readonly RuntimeEvent[] {
     this.assertCurrentGeneration();
     const selectedBodies = new Map<string, RuntimeEvent>();
