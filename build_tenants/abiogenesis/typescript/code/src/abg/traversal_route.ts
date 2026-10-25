@@ -5236,11 +5236,10 @@ export interface StageTraversalTransitionInput extends Omit<
 > {
   readonly durablePredecessorPrefix: DurablePrefixCoordinate;
   readonly stagedPrefix: ValidatedRuntimeEventPrefix;
-  readonly priorDerivation?: ReplayState;
 }
 
 /** @internal */
-type OwnedStageTraversalTransitionInput = Omit<StageTraversalTransitionInput, "stagedPrefix" | "priorDerivation"> & { readonly stagedPrefix: RuntimeEventPrefix; readonly priorDerivation?: RuntimeReplayGuard };
+type OwnedStageTraversalTransitionInput = Omit<StageTraversalTransitionInput, "stagedPrefix"> & { readonly stagedPrefix: RuntimeEventPrefix };
 
 function transactionPrefixExtends(before: RuntimeEventPrefix, after: RuntimeEventPrefix): boolean {
   if (isOwnedRuntimeEventPrefix(before) && isOwnedRuntimeEventPrefix(after)) {

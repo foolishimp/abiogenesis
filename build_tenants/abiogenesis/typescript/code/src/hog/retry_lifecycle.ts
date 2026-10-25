@@ -1,6 +1,7 @@
 import * as Abg from "../abg/index.js";
 import type { RuntimeAdmissionBasis } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
 import * as AbgRetry from "../abg/retry.js";
 import * as OwnedRoutes from "../abg/traversal_route.js";
 import type { GraphFunction, GtlGraph } from "../gtl/contracts.js";
@@ -545,10 +546,7 @@ export function advanceOwnedRetryLifecycle(
 ): OwnedRetryLifecycleStep {
   const runtime = request.context;
   const admitted = request.outcome;
-  const prefix = OwnedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
-    admitted.successorPrefix,
-    runtime.stop.cursor.runId,
-  ).authorityPrefix;
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix);
   const failureBasis = admissionBasis(runtime.clock, "runtime-failure");
   const failurePlan = AbgRetry.planRetryRuntimeFailureTransition(
     runtime.store,

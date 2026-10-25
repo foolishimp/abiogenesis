@@ -3,7 +3,7 @@ import test from 'node:test';
 import { sameCoordinate, sameJson } from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import { resolveExactMatch } from '../../build/code/src/shared/select/exact_match.js';
 import { admitJson, hasExactKeys } from '../../build/code/src/shared/admit/index.js';
-import { admitContract, admitJsonContract } from '../../build/code/src/shared/admit/index.js';
+import { admitContract } from '../../build/code/src/shared/admit/index.js';
 import { canonicalEquals } from '../../build/code/src/shared/value/index.js';
 import { canonicalJson } from '../../build/code/src/shared/canonical_json.js';
 import { decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
@@ -98,7 +98,7 @@ test('C-3: admitJson refuses a cycle, nesting past 512 and a throwing proxy trap
     assert.deepEqual(admitJson([proxiedArray]), refusal(['0'], '[0]', 'a Proxy is not I-JSON'), trap);
   }
   const { proxy: revoked, revoke } = Proxy.revocable([], {});revoke();
-  assert.deepEqual(admitJson({ member: revoked }), refusal(['member'], '.member', 'a Proxy is not I-JSON'), 'Array.isArray of a revoked proxy');
+  assert.deepEqual(admitJson({ member: revoked }), refusal(['member'], '.member', 'a Proxy is not I-JSON'), 'a revoked Proxy is refused as a Proxy');
   let reads = 0;
   const thrownProxy = new Proxy({}, { get() { reads++; }, getPrototypeOf() { reads++;return null; }, getOwnPropertyDescriptor() { reads++; } });
   for (const thrown of ['a string', thrownProxy, { message: 'plain' }]) {
@@ -109,10 +109,10 @@ test('C-3: admitJson refuses a cycle, nesting past 512 and a throwing proxy trap
   class SubclassError extends RangeError {}
   const subclassed = new Proxy({}, { ownKeys() { throw new SubclassError('subclass'); } });
   assert.deepEqual(admitJson({ member: subclassed }), refusal(['member'], '.member', 'a Proxy is not I-JSON'),
-    'a subclass is named by its native ancestor');
+    'a Proxy whose trap throws a subclass error is refused before the trap runs');
   const foreign = new Proxy({}, { ownKeys() { throw runInNewContext('new TypeError("other realm")'); } });
   assert.deepEqual(admitJson({ member: foreign }), refusal(['member'], '.member', 'a Proxy is not I-JSON'),
-    'another realm\'s error is not this realm\'s native error');
+    'a Proxy whose trap throws another realm\'s error is refused before the trap runs');
   const today = { z: [-0, 1.5, 'é\u{1F600}', null, true, { b: [], a: {} }], a: runInNewContext('({ k: [1, { j: "x" }] })'),
     n: Object.assign(Object.create(null), { y: 2 }), s: 'line\nbreak\u0000' };
   assert.equal(canonicalJson(admitJson(today).value), '{"a":{"k":[1,{"j":"x"}]},"n":{"y":2},"s":"line\\nbreak\\u0000","z":[0,1.5,"é\u{1F600}",null,true,{"a":{},"b":[]}]}',
@@ -174,40 +174,35 @@ test('C-15: an exotic object that is not a Proxy and throws on inspection is ref
   }
 });
 
-// C-15. admitContract refuses a Proxy raw before its schema reads it and returns
-// a throw from the schema typed; admitJsonContract admits I-JSON first, so no
-// getter or trap of the raw runs. The identity form passes the caller's value.
-test('C-15: admitContract and admitJsonContract return every refusal as contract_mismatch', () => {
+// C-15. admitContract gates the raw with admitJson, so no getter or trap of the
+// raw runs and an I-JSON refusal is contract_mismatch at its member; its schema
+// then reads the original raw, so an identity-checking schema admits the
+// caller's value. A throw from the schema is typed.
+test('C-15: admitContract returns every refusal as contract_mismatch, gating the raw with admitJson and reading the original', () => {
   const mismatch = (path, issue, message) => ({ kind: 'structural_refusal', stage: 'validate', code: 'contract_mismatch', path, evidence: { issue, message } });
   const schema = v.strictObject({ a: v.number() });
   let reads = 0;
   const proxied = everyTrap({ a: 1 }, () => { reads++; });
-  for (const admit of [admitContract, admitJsonContract])
-    assert.deepEqual(admit(schema, proxied), mismatch([], 'non_ijson_value', 'a Proxy is not I-JSON'), admit.name + ' over a Proxy raw');
+  assert.deepEqual(admitContract(schema, proxied), mismatch([], 'non_ijson_value', 'a Proxy is not I-JSON'), 'a Proxy raw');
+  assert.deepEqual(admitContract(v.strictObject({ a: v.object({ b: v.number() }) }), { a: everyTrap({ b: 1 }, () => { reads++; }) }),
+    mismatch(['a'], 'non_ijson_value', 'a Proxy is not I-JSON'), 'a Proxy below the root');
   assert.equal(reads, 0, 'no trap of the raw runs');
   class SubclassError extends RangeError {}
   let gets = 0;
   const accessor = { get a() { gets++; throw new SubclassError('getter'); } };
-  assert.deepEqual(admitJsonContract(schema, accessor), mismatch(['a'], 'non_ijson_value', 'object members must be enumerable data properties'));
-  assert.equal(gets, 0, 'the I-JSON form runs no getter');
-  assert.deepEqual(admitContract(schema, accessor), mismatch([], 'RangeError', 'the contract schema threw RangeError'),
-    'the identity form lets its schema read the getter; the throw is typed');
-  assert.equal(gets, 1);
+  assert.deepEqual(admitContract(schema, accessor), mismatch(['a'], 'non_ijson_value', 'object members must be enumerable data properties'));
+  assert.equal(gets, 0, 'the gate runs no getter');
   const throwingSchema = v.pipe(v.number(), v.transform(() => { throw new SubclassError('schema'); }));
-  for (const admit of [admitContract, admitJsonContract])
-    assert.deepEqual(admit(throwingSchema, 1), mismatch([], 'RangeError', 'the contract schema threw RangeError'), admit.name + ': a throwing schema');
+  assert.deepEqual(admitContract(throwingSchema, 1), mismatch([], 'RangeError', 'the contract schema threw RangeError'), 'a throwing schema');
   const throwingCustom = v.custom(() => { throw runInNewContext('new TypeError("other realm")'); });
-  for (const admit of [admitContract, admitJsonContract])
-    assert.deepEqual(admit(throwingCustom, { a: 1 }), mismatch([], 'a value that is not a native error', 'the contract schema threw a value that is not a native error'),
-      admit.name + ': a throwing v.custom');
-  for (const admit of [admitContract, admitJsonContract]) {
-    assert.deepEqual(admit(schema, { a: 'x' }), mismatch(['a'], 'number', 'Invalid type: Expected number but received "x"'), admit.name + ': the first issue');
-    assert.deepEqual(admit(schema, { a: 1 }), { kind: 'ok', value: { a: 1 } }, admit.name + ': admitted');
-  }
+  assert.deepEqual(admitContract(throwingCustom, { a: 1 }), mismatch([], 'a value that is not a native error', 'the contract schema threw a value that is not a native error'),
+    'a throwing v.custom');
+  assert.deepEqual(admitContract(schema, { a: 'x' }), mismatch(['a'], 'number', 'Invalid type: Expected number but received "x"'), 'the first issue');
+  assert.deepEqual(admitContract(schema, { a: 1 }), { kind: 'ok', value: { a: 1 } }, 'admitted');
   const registered = new WeakSet(), owned = { a: 1 };registered.add(owned);
   const identity = v.custom(value => registered.has(value));
-  assert.equal(admitContract(identity, owned).value, owned, 'the identity form passes the caller\'s value to its schema');
-  assert.equal(admitJsonContract(identity, owned).code, 'contract_mismatch', 'the I-JSON form passes a detached copy');
+  assert.equal(admitContract(identity, owned).value, owned, 'the schema reads the caller\'s value');
+  assert.equal(admitContract(identity, owned).kind, 'ok', 'an identity-checking schema admits the original raw');
 });
 
 // A built owner linked in a VM with named lower premises replaced; the owner

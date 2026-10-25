@@ -6770,3 +6770,279 @@ Scope: C-15's residual, one `realization_refactor` that changes no contract. The
 **Stops** (write the stop in the Return, keep the rest moving): a `public/` or `product/` module or a manifest contract row carrying either retyped type (keep that branch's complete state and say so); a reader of either field needing a vector; the writer probe's hash moving; a new refusal code; a persisted digest moving; a lane moving other than the two restored lanes and the library lane's case count.
 
 **Return contract.** One commit on `main`, staged by path, first line `C-15b: TD-10 closed: the two validated branches take the guard, the second status reader and the two prefix-only hog readers take no guard, the narrow projections read the owner's same-cut caches, the stale imports, mock key and injected name are gone; admitContract gates with admitJson and reads the original, one function at three callers; the two pinned lanes green (F_D row 1 Eligible)`, with any gap stated in place; the Return before the commit so the commit carries it: the type-reach census, the readers of the two fields, the writer probe result, the `admitContract` census, the lanes table, the gates, item 8's proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-15b return (Worker, Opus 5.5, 2026-10-26; base `fa6f3a88e`)
+
+**Closed but item 1, which stops; two smaller gaps in items 3 and 6.**
+
+- **Item 1 stops (the activation's first stop).** Both retyped fields are declared in declaration files the Product's contract rows carry. `abg/traversal_route.d.ts` and `abg/retry.d.ts` are in the `nativeTypedLocator.declarationInventory` of 47 of the 75 public contract rows, and in the packed declaration closure of every package export, `./public` and `./product` included. `RuntimeReplayGuard` is `@internal`, so `stripInternal` removes it from `abg/replay.d.ts`, and the retyped declarations import a name that no declaration exports. `npm run build` then refuses at `generate-product-manifest.mjs:536`: `packed native declaration closure is invalid`. Both validated branches keep the complete state, both fields keep `ReplayState`, and both owned variants keep their overrides. `retry.ts` equals the base; `traversal_route.ts` carries item 2 only.
+- **Items 2 to 7.**
+  - `priorDerivation` and its fill are gone.
+  - The second status reader reads `projectRuntimeReplayStatus`.
+  - `retry_lifecycle.ts:548` reads the owner's authority prefix without the guard. `:265` keeps the guard, because `:406` reads it for the retry route proposal (gap, as the activation foresaw).
+  - The narrow modes read `facts.lastGuard` and `facts.last`.
+  - `admitContract` is one function in the gate form at its three callers, and `admitJsonContract` is gone.
+  - The two pinned lanes are green: 17/17 and 5/5.
+  - The two unread imports and the mock key are gone.
+  - The injected name in the route-conservation support stays (gap). It is the local binding of `interaction_lifecycle.ts:25`'s alias, `ownedReplayAtDurable as replayAtDurable`, which is the identifier `o.extract` binds, so neither the rename nor the removal applies.
+- **Digests and lanes.** The writer probe holds: 60 of 60, with the digest-list hash unchanged. No persisted digest moves and no refusal code is new. No lane moves but the two restored lanes, apart from two expected non-moves:
+  - `steel-basic-cli-public`'s `invocationRef` moves with the build;
+  - `t287-result-evidence-lineage-projection`'s red is the same test with the same first error, its `test at` line `:215` to `:214` by the deleted mock line.
+
+### Item 1: the type-reach census, the readers and the stop
+
+**The census the activation asked for finds nothing.**
+- `git grep -n 'StagedRouteTransitionAdmission\|StagedRouteTransitionResult\|CompletedRetryProgressPlan' -- code/src/public code/src/product` returns 0 lines.
+- The producers `planCompletedRetryProgress`, `planOwnedCompletedRetryProgress`, `admitTraversalTransitionInActiveTransaction` and `admitPlannedCompletedRetryProgressInActiveTransaction` have 0 lines there too.
+- The two `public/`/`product/` modules that import the `abg` barrel (`product/project_read_definition_bindings.ts:13`, `public/installed_definition_call_transport.ts:4`) read neither type.
+- `grep -c` over `product-toolchain-manifest.json` is 0 for all seven of these names: `StagedRouteTransitionAdmission`, `StagedRouteTransitionResult`, `CompletedRetryProgressPlan`, `OwnedCompletedRetryProgressPlan`, `RuntimeReplayGuard`, `planCompletedRetryProgress` and `admitTraversalTransitionInActiveTransaction`. The manifest is one line, so `grep -o | wc -l` was also run, and it is also 0.
+
+**The rows carry both types by declaration file.**
+- The base manifest lists `build/code/src/abg/retry.d.ts` and `build/code/src/abg/traversal_route.d.ts` in `publicContractCatalog.rows[*].nativeTypedLocator.declarationInventory` of 47 of the 75 rows (94 entries), plus two `productRelativeLocators`.
+- A walk of the relative imports of every package export's `types` entry finds both files in the declaration closure of all 14 exports, `./public` and `./product` included.
+- `stripInternal` removes the `@internal` `RuntimeReplayGuard` from `abg/replay.d.ts`.
+- With the retyping (scratch `c15b/retype-variant/retype.diff`), `retry.d.ts:10` and `traversal_route.d.ts:12` import `type RuntimeReplayGuard` from `./replay.js`, which exports no such name. The fields then read `readonly replayState: RuntimeReplayGuard` (`retry.d.ts:131`, `traversal_route.d.ts:362`).
+- `tsc --noEmit`, the four lints and `tsc` itself pass. `generate-product-manifest.mjs:536` then throws `packed native declaration closure is invalid` (`c15b/retype-variant/build.log`).
+- So a manifest contract row carries both retyped types. That is the activation's first stop, and both fields keep `ReplayState`, their validated branches the complete state. With the four type lines and the two branch expressions reverted, the build passes.
+
+**The readers of the two fields (none needs a vector).**
+- **`StagedRouteTransitionAdmission.replayState` and the owned variant: no reader.** The producer's five callers read only `kind`, `route` and `retryAttempt`:
+  - `c_call_outcome.ts:1738-1815`;
+  - `continuation.ts:1796-1831`;
+  - `traversal_route.ts:5493`, `:5609` and `:5764`, through `committedRouteTransition` `:5283-5284`.
+  The transaction returns the staged value unread (`event_store.ts` `runRuntimeEventTransaction`, `{ value, successorPrefix }`).
+- **`CompletedRetryProgressPlan.replayState` and the owned variant.** Each reader reads `replayDigest`, passes the value to a route proposal with a guard overload, or writes it through the guard writer:
+  - `retry.ts:6586` (`completedRetryProgressPlanDigest`) writes it through `writeRuntimeReplayGuardValue`.
+  - `retry.ts:6593-6595` (`ownedCompletedRetryProgressPlansCorrespond`, owned plans only) passes it to `runtimeReplayGuardsHaveSameOwnedCut`: the guard's receipt and members, no vector.
+  - `hog/structural_transition.ts:195` passes it to `proposeStructuralRoute`, `hog/interaction_resume.ts:168` to `proposeInteractionResumeRoute` and `hog/workflow_lifecycle.ts:993` to `proposeFanOutRoute`. Each has its guard overload (`route_proposal.ts:185-199`, `:1092-1112`, `:1191-1211`) and passes the value to `graphRouteCandidate`, which reads `replayDigest` only (`:117`, `:132`).
+  - `hog/ccall_lifecycle.ts:764`, `hog/recursion_lifecycle.ts:404` and `hog/workflow_lifecycle.ts:863` pass the whole plan as `completedRetryProgress`. `c_call_outcome.ts:1709-1735` reads its `projectedPrefix` and admits it through `admitOwnedPlannedCompletedRetryProgressInActiveTransaction`, which reaches the two `retry.ts` readers above.
+  - The Public plan (`hog/retry_lifecycle.ts:118-127`, `planSuccessfulRetryExit`) has no production caller. Two lanes read it whole, and both are skipped in both arms: `t287-authenticated-owner-family.test.mjs:38-40` takes `sha256Canonical` of the plan, and `w2-steel-single-start-closure.test.mjs:160`, `:231` reads it too.
+
+**The writer probe.** `c15/probe/writer/writer.test.mjs` was rerun unchanged on this build. Result: 60 equal, 4 refused, 0 mismatches, with 15 equal in each of the four forms (cold validated, validated, owned, and owned in the retry form); 60 digests, list hash `sha256:b2dbe3fd06b8b9ed8fa7a5d8aaec5dc1b0780eaf1354444d3a101ebe163d3210`. The counts and the hash equal C-15's (`c15b/lanes/after/summary.txt` against `c15/probe/writer`). The hash is the C-15 list's: the guard written through `writeRuntimeReplayGuardValue` equals the complete state's canonical bytes at every cut, so a plan digest written either way is the same. The two branch changes that this evidence would have carried were reverted under the stop.
+
+### Item 2: `priorDerivation`
+
+`StageTraversalTransitionInput.priorDerivation` (`traversal_route.ts:5239`), the owned variant's override (`:5243`, now `Omit<…, "stagedPrefix"> & { stagedPrefix }`) and the one fill (`c_call_outcome.ts:1741`) are gone. `git grep -n priorDerivation -- code/src` now finds only `replay.ts` (`replayValidatedRuntimeEventPrefix`, `projectRuntimeTruthAtDurablePrefix`) and `c_call_outcome.ts:982`, `:1926-1927` (`projectOwnedCCallOutcomeReceiptAtPrefix`, other callers), all unchanged. `abg/traversal_route.d.ts` loses the one member line, so the same 47 rows carry a changed declaration. That is allowed, and it is not the stop: no stop names `StageTraversalTransitionInput`, and the build can express the change, because the member is removed and no internal name is imported. It is the declaration-digest movement C-15's disposition accepted, and `traversal_route.d.ts` is the one declaration file whose digest moves in the 47 rows.
+
+### Items 3 and 7: the prefix-only readers and the unread imports
+
+- **`invocation_admission.ts:1379`.** It reads `projectRuntimeReplayStatus`, and its import line (`:3`) adds the name; `projectRuntimeReplayGuard` stays for `:441`. Its readers at `:1438-1450` read `runId`, `runStoppedEventRef`, `runStoppedDisposition` and `runtimeStatus`, all status members, and the `try`/`catch` maps a refusal to `null` as before. The status projection refuses where the guard refuses (C-15's differential: 35 refusals alike, 0 mismatches). The instrumented pass compared the guard's four members with the status at `:1379`: no lane reaches it, compose included (0 notes).
+- **`hog/retry_lifecycle.ts:548`.** It reads `projectOwnedRuntimeEventPrefixAtDurablePrefix(admitted.successorPrefix)`, the call `projectOwnedRuntimeTruthAtDurablePrefix` itself makes (`replay.ts:222`). The new import is `event_prefix.ts`'s name, so no new function.
+  - **The run half is not taken.** Its value, `selectRuntimeEventPrefixFromAuthority(authority, { runId })`, was never read at `:548`: the base read `.authorityPrefix` only.
+  - **The guard is no longer derived there.** On an owner-admitted successor it cannot refuse. On a history it would refuse, `planRetryRuntimeFailureTransition` derives the guard over its extension of the same prefix (`retry.ts:5681-5683`).
+  - **Census.** `t287-r4-aba-retry` reaches `:548` 3 times. At each, the base call `projectOwnedRuntimeTruthAtDurablePrefix(admitted.successorPrefix, runId).authorityPrefix` was run beside the new read and agrees: the same kind, selection length and selection end. No other lane reaches it.
+- **`hog/retry_lifecycle.ts:265` keeps the guard (the activation's foreseen case).** `truth` is read for `runtimePrefix` at `:282`, `:286` and `:334`, and for `replayState` at `:406`, where `Routes.proposeRetryRoute(…, truth.replayState, …)` builds the retry route. So the guard is computed and read on the success path, and dropped only on the refusal returns between `:265` and `:406`. C-15 finding 2 was right for `:548` and not for `:265`. `hog/interaction_resume.ts:232` is C-17's and untouched.
+- **Item 7.** `closure.ts:50` drops `replay`, which is never called there. `c_call_outcome.ts:108` drops `type ActiveRuntimeTransactionProjection`, which is never named there. Both modules' other imports are unchanged.
+
+### Item 4: the narrow modes read the owner's same-cut caches
+
+All changes are in `replay.ts`, at the two named sites.
+- **The guard cache (`:977-986`).** Its return now admits the `"status"` mode. With the same cut match, `facts.lastGuard.value` is returned to a guard read as before. To a status read it returns as `{ replayRef, replayDigest, ...status }`, with `status` deep-frozen.
+- **The complete-state cache (`:987-988`).** Its return admits both narrow modes, with the same `!owned` and cut match as before. A complete read and a route-only read are unchanged. A narrow read returns `narrowed(facts.last.state)`.
+- **The end return (`:1472`).** It is `narrowed(body)`.
+- **`narrowed` (`:989-997`).** A local function of `deriveReplayPrefixFacts`. It drops `kind`, `schemaVersion`, `replayRef`, `replayDigest`, the seven vectors and `nativeLiveness`. In the route-and-CCall mode it adds `routeRefs: routes.map(route => route.routeRef)` and `cCalls`, and it deep-freezes the result.
+  - Over the body it computes what the C-15 return computed: the same members in the same order.
+  - Over a cached complete state it computes the same members, because that state is `{ kind, schemaVersion, replayRef, replayDigest, ...body }`, and its non-enumerable derivation receipt is not copied.
+- **What the caches do not serve.** The route-and-CCall mode never reads the guard cache, which holds no vector. An owned cut keeps no complete state, so a narrow read of an owned cut is served by the guard cache (status) or derived.
+- **No new cache.** No new field, and a narrow read stores nothing.
+- **The route-reconstruction case holds.** The C-15 case passes, with the same diagnostic as C-15's after arm: 15 cuts in each of three forms, 1 refused per form, and the four malformed histories refused alike. Its second read at every cut equals the first, and its first read equals the complete state and the guard.
+- **Census (instrumented pass).** Only `t287-route-reconstruction` reaches a narrow mode.
+  - Status reads: 46 from the cached guard, 45 derived.
+  - Route-and-CCall reads: 31 from the cached complete state, 60 derived.
+  - That is 91 returns per mode. C-15 counted 98 calls per mode at entry; the other 7 are the refused reads, which reach no return.
+
+### Item 5: `admitContract` in the gate form
+
+- **`shared/admit/contract.ts`.** `admitContract` is one function.
+  - The gate is `admitJson(raw)`. A refusal there is `validateRefusal("contract_mismatch", gate.path, { issue: gate.code, message: gate.evidence.reason ?? null })`, the expression `admitJsonContract` used.
+  - Then `v.safeParse(schema, raw)` runs over the original raw.
+  - A schema throw is `contract_mismatch` at the root, its `issue` the thrown class read by `thrownClass`.
+  - The root `types.isProxy` check and its `node:util` import are gone, because `admitJson` refuses a root Proxy with the same path, issue and message. The private `parseContract` is inlined.
+  - `admitJsonContract` is removed from `contract.ts` and `shared/admit/index.ts`, and `git grep admitJsonContract -- code test_env scripts design` finds nothing.
+  - `admitJson` and `json.ts` are unchanged. No refusal code is new: the issue is one of `admitJson`'s seven codes, a schema issue type or a thrown class, as before.
+- **The callers.** `definition_binding_mechanics.ts:158` and its import (`:1`) return to `admitContract`. `static_definition_bindings.ts` equals the base.
+- **After the gate, no code of the raw runs.** No member is an accessor, because the gate refuses one by its descriptor. No container is a Proxy, because the gate refuses one at every container. Every container's prototype is null or a realm's `Object.prototype` or `Array.prototype`. The schema therefore reads only data members, over `admitJson`'s declared domain. That domain excludes a host object with Proxy-forwarding interceptors, and any accessor that some realm's prototype installs is outside it too.
+
+**The census at the three callers** (`// C15B` notes at each call; per call, `admitJson` of the raw, a Proxy check, and the C-15 form beside the gate form):
+
+| Caller | Calls by lane | Total | The raw | Against the C-15 form |
+|---|---|---|---|---|
+| `definition_binding_mechanics.ts:158` | steel 8, cross-cut 90, w2-05 88, worksite 48 | 234 | `admitJson` ok, no Proxy, at every call | the copy form (`admitJsonContract`): the same outcome and a canonically equal value at all 234 |
+| `static_definition_bindings.ts:48` | cross-cut 11, w2-05 20, worksite 6 | 37 | ok, no Proxy | the identity form: the same outcome and a deep-equal value; 34 ok, 3 refused alike (w2-05) |
+| `static_definition_bindings.ts:67` | cross-cut 11, w2-05 14, worksite 6 | 31 | ok, no Proxy | the identity form: 30 ok, 1 refused alike (w2-05) |
+
+The split equals C-15's per lane (steel 8; cross-cut 90/11/11; w2-05 88/20/14; worksite 48/6/6). No call has a mismatch or a throw. The instrumented pass's counts equal the clean pass's in all 23 runs the two passes share. Its two census lanes, `t287-w2-05-static-binding-algebra` 5/3/0/2 and `t287-worksite-command-execution` 10/10/0/0, equal C-15's after arm.
+
+### Item 6: the tests
+
+- **`t287-runtime-failure-diagnostic.test.mjs:757`.** The one string is now `proxy: ['', 'a Proxy is not I-JSON']`, and the lane is 17/17/0/0.
+- **`t287-native-work-currentness-consumers.test.mjs:1270`.** The TD-09 reference admits `JSON.parse(JSON.stringify(prefixes.runtimeEventBodiesAtPrefix(view).materialize()))`. `JSON.stringify` reads every row through the counting Proxy's `ownKeys`, `getOwnPropertyDescriptor` and `get` traps, so `:1365` `reference.reads > 0` holds.
+  - The reader's two values and reads are unchanged: `:1362` gives `[true, true, true]`, and `:1363` and `:1364` hold.
+  - Every other `pair` reference admits a plain copy of a plain store-row view, which changes no value.
+  - The lane is 5/5/0/0.
+- **`t287-common-computational-library.test.mjs`.** The import is `admitContract` alone. The C-15 case is restated over `admitContract` with the same assertions, and the identity case now expects `ok` with `value === owned`.
+  - The accessor case expects what the copy form gave: `['a']`, `non_ijson_value`, `object members must be enumerable data properties`, with 0 getter runs.
+  - One assertion is added inside the case: a Proxy below the root is refused at `['a']`, with no trap run. That is the gate's claim "no Proxy at any container" (deviation 2).
+  - The three C-3 labels name what they assert:
+    - `a revoked Proxy is refused as a Proxy`;
+    - `a Proxy whose trap throws a subclass error is refused before the trap runs`;
+    - `a Proxy whose trap throws another realm's error is refused before the trap runs`.
+  - The lane is 14/14/0/0, and the case count is unchanged.
+- **`t287-result-evidence-lineage-projection.test.mjs:139`.** The mock key `'./replay.js': {projectRuntimeTruthAtDurablePrefix: truth}` is removed. The lane is equal without it: 1/0/1/0, the same red test with the same first error, `TypeError [Error]: event store was not constructed by this ABG module`. Its `test at` line moves from `:215` to `:214`, because the case starts one line earlier.
+- **`test_env/support/t287-native-frame-route-conservation.mjs:94`: not edited (deviation 1).**
+  - **Why neither option applies.** `o.extract` builds `Function(...Object.keys(deps), text)`, so a supplied name binds the identifier it equals in the extracted text. `interaction_lifecycle.ts:25` imports `ownedReplayAtDurable as replayAtDurable`, so the built module's local identifier, used in `holdOwnedInteraction` (`.js:120`), is `replayAtDurable`. The supplied name is that identifier.
+    - The rename to `ownedReplayAtDurable` would bind nothing.
+    - Removal is not "supplied otherwise": no extracted text binds the name at all.
+  - **What the support extracts.** It extracts `holdInteraction`, which since the owned split is `completePublicOutcome(holdOwnedInteraction(input))`. That text binds neither name, and neither is supplied, so the hold branch's whole injected set is stale.
+  - **The lane.** It is red on setup before reaching the branch (`assert.ok(proof)`, `ABI5_ROUTE_PROOF_ROOT` unset), with the same three reds and first errors.
+  - C-15 finding 9's premise, a removed producer's name, does not hold. See finding 2.
+
+### Lanes, each alone
+
+**The arms.**
+- **Before.** C-15's after arm (`c15/lanes/after`) is used where the lane is in it. The base build equals C-15's after build: 785 files, hash-list equal. For `t287-r6-retry-success-exit`, `t288-blocked-retry-entry` and `t287-governance-covered-source-use`, the before run is on the base build (`fa6f3a88e`, `c15b/lanes/before`).
+- **After.** The clean final tree (`c15b/lanes/after`). The after build is the gates' build, 785 files.
+
+| Lane | Before t/p/f/s (arm) | After t/p/f/s | Duration before / after (s) | Reds, skips and first errors equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `t287-route-reconstruction` | 12/10/0/2 (C-15's after arm) | 12/10/0/2 | 8.8 / 8.6 | yes | 2 skipped |
+| `t287-runtime-failure-diagnostic` | 17/16/1/0 (C-15's after arm) | 17/17/0/0 | 2.7 / 2.6 | NO | - |
+| `t287-native-work-currentness-consumers` | 5/4/1/0 (C-15's after arm) | 5/5/0/0 | 30.5 / 30.6 | NO | - |
+| `t287-common-computational-library` | 14/14/0/0 (C-15's after arm) | 14/14/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-value-equality` | 5/5/0/0 (C-15's after arm) | 5/5/0/0 | 0.4 / 0.3 | yes | - |
+| `r10-projection-contracts` | 10/10/0/0 (C-15's after arm) | 10/10/0/0 | 1.6 / 1.6 | yes | - |
+| `t287-cross-cut-public-read` | 5/4/1/0 (C-15's after arm) | 5/4/1/0 | 46.2 / 45.6 | yes | red `:105` AssertionError [ERR_ASSERTION]: run_status must retain the acquired prefix through late pr |
+| `t287-public-preparation` | 1/0/1/0 (C-15's after arm) | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `steel-basic-cli-public` | 1/0/1/0 (C-15's after arm) | 1/0/1/0 | 24.1 / 23.8 | yes, modulo the `invocationRef` in the message (it moves with the build) | red `:269` AssertionError [ERR_ASSERTION]: product.verify: {"definitionKey":{"memberKey":"verify","op |
+| `t287-result-evidence-lineage-projection` | 1/0/1/0 (C-15's after arm) | 1/0/1/0 | 0.3 / 0.3 | yes, modulo the `test at` line (`:215` to `:214`, by the deleted mock line) | red `:214` TypeError [Error]: event store was not constructed by this ABG module |
+| `t287-native-frame-route-conservation` | 3/0/3/0 (C-15's after arm) | 3/0/3/0 | 0.5 / 0.5 | yes | red `:5` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:10` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:14` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 (C-15's after arm) | 9/4/5/0 | 0.3 / 0.3 | yes | red `:21` AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCC; red `:281` AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:; red `:323` AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError [ERR_ASSERTION]: missing source boundary: /** |
+| `t287-r4-aba-retry` | 1/1/0/0 (C-15's after arm) | 1/1/0/0 | 46.0 / 45.6 | yes | - |
+| `t287-r6-retry-success-exit` | 1/1/0/0 (base build) | 1/1/0/0 | 0.6 / 0.3 | yes | - |
+| `t288-blocked-retry-entry` | 1/0/1/0 (base build) | 1/0/1/0 | 0.0 / 0.0 | yes | red `:8` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `w2-steel-single-start-closure` | 8/0/0/8 (C-15's after arm) | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `t287-authenticated-owner-family` | 1/0/0/1 (C-15's after arm) | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-undispatched-diagnostic` | 7/7/0/0 (C-15's after arm) | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `t287-recursive-registered-selection` | 4/2/1/1 (C-15's after arm) | 4/2/1/1 | 35.5 / 35.7 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-f09-frontier-handoff` | 1/1/0/0 (C-15's after arm) | 1/1/0/0 | 67.9 / 68.5 | yes | - |
+| `t287-governance-covered-source-use` | 8/2/3/3 (base build) | 8/2/3/3 | 0.4 / 0.3 | yes | red `:351` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:386` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:430` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; 3 skipped |
+| `t287-w2-05-static-binding-algebra` (census lane, instrumented pass) | 5/3/0/2 (C-15's after arm) | 5/3/0/2 | 0.6 / 0.6 | yes | 2 skipped |
+| `t287-worksite-command-execution` (census lane, instrumented pass) | 10/10/0/0 (C-15's after arm) | 10/10/0/0 | 316.5 / 328.8 | yes | - |
+| `t287-calculus-state-transfer` | 8/8/0/0 (C-15's after arm) | 8/8/0/0 | 251.1 / 255.5 | yes | - |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 (C-15's after arm) | 2/2/0/0 | 36.0 / 36.8 | yes | - |
+
+**The movers.**
+- **The two restored lanes are green.**
+  - `t287-runtime-failure-diagnostic` goes from 17/16/1 to 17/17. Its `:701` TD-16 case now expects `a Proxy is not I-JSON`.
+  - `t287-native-work-currentness-consumers` goes from 5/4/1 to 5/5. Its `:1362` gives `[true, true, true]`, and `:1363` to `:1365` hold.
+- **`steel-basic-cli-public`.** The same red at `:269`, the same `resource_admission` / `resource_relation_mismatch` / `ValiError`. Only the `invocationRef` inside the message differs (`f47410e0…` to `e8bca305…`), equal modulo that ref. It moves with the packed artifact's digest, as C-15 found.
+- **`t287-result-evidence-lineage-projection`.** The same red test with the same first error. Its `test at` line moves from `:215` to `:214`, by the one deleted mock line above it.
+- **The library lane.** Its case count is unchanged (14/14): the C-15 case is restated, not split.
+- **Every other lane** is equal in counts, reds, skips and first errors.
+- **The two census lanes** are not in the activation's list. They ran in the instrumented pass only, because they carry the `admitContract` callers' C-15 census, and they equal C-15's after arm. Their durations carry the counters' cost, and the worksite lane's 12 s rise is not a measurement of the change.
+
+**Not run: `t287-c0-post-publication-failure`.** It is not run, as the activation directs. It reaches neither validated branch: in C-15's site notes it reaches the staged admission 25 times, all with owned prefixes, and `retry.ts:6233` never. In C-15's counters it reaches no narrow projection, and C-15's `admitContract` census totals (234/37/31) equal this batch's without it, so it reaches no caller of that function. Its twenty minutes would buy no evidence here. Whether it reaches `invocation_admission.ts:1379` or `retry_lifecycle.ts:548` is not measured.
+
+### Gates (the clean final tree)
+
+| Gate | Result |
+|---|---|
+| `tsc -p tsconfig.json --noEmit` | rc 0 |
+| `lint:calculus` | rc 0: `6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender` |
+| `lint:imports` | rc 0: `28 modules under code/src/shared/ import only code/src/shared/ and packages` |
+| `lint:lifecycle` | rc 0: `286 modules under code/src; 7 allow-listed site(s), no offender` |
+| `lint:evidence` | rc 0: `691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other` |
+| `npm run build` | rc 0, 785 files. 11 differ from the base build: `abg/c_call_outcome.js`, `closure.js`, `invocation_admission.js`, `replay.js`, `traversal_route.d.ts`, `hog/retry_lifecycle.js`, `public/binding/definition_binding_mechanics.js`, and `shared/admit/contract.{js,d.ts}`, `index.{js,d.ts}`. After the instrumented pass, `c15b/tools/strip.py` removed the 20 `// C15B` lines. The stripped `code/src` is byte-equal to the clean copy kept in scratch (`diff -r` against `c15b/src-after/src`), and the four tests and the support equal theirs. `retry.ts`, `static_definition_bindings.ts` and the support equal HEAD. The rebuild is byte-equal to the after-lane build (785 files, hash list equal), and the regenerated files' hashes equal the after build's. `C15B` (any case) is 0 in `code/src`, `build/` and `test_env/`. |
+| The retyped variant (item 1) | `tsc --noEmit` rc 0. `npm run build` rc 1: `generate-product-manifest.mjs:536` `packed native declaration closure is invalid` (the stop) |
+
+**The regenerated files: equal leaf sets.**
+- **The manifest.** 51,321 leaves at `fa6f3a88e` and after: 0 added, 0 removed, 138 moved. Every move is a digest, or a ref whose only change is its embedded hex: 47 `provenanceRef`, `contributionManifestRef` and `descriptorRef`. The movers:
+  - 47 rows' `declarationDigest`, all for `build/code/src/abg/traversal_route.d.ts`, the `priorDerivation` line;
+  - 21 `contractDigest`;
+  - 10 `publicationDigest`;
+  - the graph and content digests.
+- **The public contract rows.** All 75 are present, with equal inventory paths, and no other member of any row moves. `shared/admit/contract.d.ts` and `index.d.ts`, which lose `admitJsonContract`, are in no row's inventory.
+- **The graph.** 3,263 leaves: 0 added, 0 removed, 551 moved, all digests or the 34 `capabilityDefinitionRef` refs that embed one. `graphDigest` goes from `dfc99329…` to `b09bfe56…`.
+- **The files' hashes.** `product-toolchain-manifest.json` is `1c71bbfe…` and `capability-definition-graph.json` is `44fcb96d…`.
+
+### Item 8: design-sentence proposals (the Executive places them; no design file was edited)
+
+- **Library design `:129` (`admitContract` row).**
+  - Signature: unchanged.
+  - Replaces: unchanged.
+  - Codes cell:
+    > `contract_mismatch` with `path`, and nothing else. In the gate form, `admitJson` admits the raw first, and an I-JSON refusal is `contract_mismatch` at its member's path, with the I-JSON code as the issue. `safeParse` then reads the original raw. So an identity-checking schema sees the caller's value, and no code of the raw runs: no member is an accessor and no container is a Proxy, over `admitJson`'s declared domain. A throw from the schema is `contract_mismatch` at the root, with the thrown class as the issue and no member of the thrown value read.
+- **Library design `:285` (its falsifier).**
+  - Admitted domain:
+    > `unknown` with a strict Valibot schema, less `admitJson`'s excluded class.
+  - Falsifier:
+    > `safeParse` success with a refusal, or failure with `ok`; a trap or getter of the raw that runs, at the gate or after it; a throw that escapes; or an outcome other than `ok` or `contract_mismatch`.
+- **Binding §5 row 1 (`ABI5_STDO3_COMPUTATIONAL_BINDING.md:174`).**
+  - *Totality*, replacing its last sentence:
+    > `admitContract` gates the raw with `admitJson`, so it terminates where `admitJson` does and refuses every non-I-JSON raw as `contract_mismatch` at the member's path. `safeParse` then reads the original raw, which after the gate has no accessor member and no Proxy at any container, so no code of the raw runs. Every schema throw is caught and typed.
+  - *Material dependencies*:
+    > The input, module constants, Valibot and the owner's schema; no trap or accessor code of the input.
+  - *RELEASE §9*:
+    > Eligible for `admitJson`, `admitContract`, `admitRef`, `isRecord` and `hasExactKeys` over the declared domain: the four at `ee7c49721` (T-290 C-15), `admitContract` in the gate form at the C-15b commit.
+  - *Evidence*, appended:
+    > the C-15 `admitContract` case restated over the gate form: a Proxy raw at the root and below it and an accessor raw refused with no trap or getter run; a throwing schema and a throwing `v.custom` typed; an identity-checking schema admitting the original raw.
+- **The register's TD-10 line (in place of the closure line; TD-10 stays Discharging).**
+  > TD-10 at C-15b: the second status reader (`invocation_admission.ts:1379`) reads `projectRuntimeReplayStatus`. `hog/retry_lifecycle.ts:548` reads the owner's authority prefix without the guard, while `:265` keeps the guard that `:406` reads for the retry route proposal. The narrow projections read the owner's same-cut caches, and `StageTraversalTransitionInput.priorDerivation` is gone. The two validated branches (`traversal_route.ts:5446-5448`, `retry.ts:6233-6236`) keep the complete state. Their fields are declared in `abg/traversal_route.d.ts` and `abg/retry.d.ts`, which 47 of the 75 public contract rows' declaration inventories carry, and `RuntimeReplayGuard` is `@internal`, so the packed declaration closure refuses the retyped declarations (C-15b stop). Open until the guard's declaration is ruled.
+- **The stop's resolution, for the Executive's ruling.**
+  - **(a), proposed.** Declare the guard. Drop `@internal` from `RuntimeReplayGuard` (`replay.ts:150`), and make no barrel change, because it is reached through the declarations that name it. Then the four type lines and two branch expressions of item 1 apply as ruled, and `retry.ts:6525-6528` takes the same expression (finding 1). `abg/replay.d.ts`, `retry.d.ts` and `traversal_route.d.ts` change, and the 47 rows' `declarationDigest`s move with them. This adds a declared type to the Product's declaration closure, so it is a contract-surface decision.
+  - **(b)** Make the validated variants and their Public overloads `@internal`. This removes declarations that the rows carry.
+  - **(c)** Keep the complete state on the validated branches, as now.
+  - Under (a) or (b), the `traversal_route.ts:5192-5206` and `retry.ts:291-306` lines and `abg/replay.ts:150` would need to be in the grant.
+
+### Deviations
+
+1. **The support's injected name is not edited** (item 6). The supplied `replayAtDurable` is the extracted module's local identifier for `ownedReplayAtDurable`, and it is the name `o.extract` binds. The rename would bind nothing, and nothing supplies the name otherwise.
+2. **One assertion added inside the restated library case:** a Proxy below the root is refused at its member, and no trap runs. It is the gate's "no Proxy at any container"; the case count is unchanged.
+3. **`hog/retry_lifecycle.ts:548` takes the authority half of the pair only,** because the run half was never read there. `:265` is unchanged (item 3).
+4. **`admitContract`'s private `parseContract` is inlined,** since there is one caller. The root `types.isProxy` check and its `node:util` import are dropped, because the gate gives the same refusal at the same path with the same issue and message.
+5. **The comment on `OwnedStagedRouteTransitionAdmission` was edited with the retyping and is restored to the base text by the stop.**
+6. **`replay.ts`'s narrow projection is one local function, `narrowed` (`:989-997`), placed after the two cache returns.** The grant names the returns (`:977-981`, `:1456-1459`). The cached and the derived reads share the one destructure the end return carried at the base, moved, not a new projection; it stores nothing.
+
+### Findings outside the grant
+
+1. **More complete states in guard-typed positions.** Under resolution (a), the non-empty plan's validated branch (`retry.ts:6525-6528`) takes the same expression: `CompletedRetryProgressPlan.replayState` is filled there too, and its readers are item 1's. `RetryRuntimeFailureTransitionPlan.replayState: ReplayState` (`retry.ts:389`, filled at `:5681-5683`) is the same pattern, with the same validated/owned split.
+2. **The route-conservation support's hold branch is stale as a whole.** It extracts `holdInteraction`, now the Public wrapper over `holdOwnedInteraction`, which binds `completePublicOutcome` and `holdOwnedInteraction`. Neither is supplied, and none of the eight supplied names (`Abg`, `Routes`, `sha256Canonical`, `admissionBasis`, `deepFreeze`, `failTraversal`, `replayAtDurable`, `projectExecutableTraversalCompletion`) is bound. The branch would throw `ReferenceError` if reached. The lane is red on setup first (env-gated), which is C-18's. C-15 finding 9's premise, a removed producer's name, does not hold.
+3. **A census of type reach by name misses declaration reach.** No manifest row names either type, but 47 rows carry the declaration files that declare them. The packed declaration closure, which the build checks, is the reach that decides a retyping, and the build is the cheapest proof of it.
+4. **Neither validated branch has lane reach in this batch.** `retry.ts:6233` has 0 notes, and `traversal_route.ts:5447` has 145, all with an owned staged prefix. The writer probe is their only evidence, as in C-15.
+
+### Stops
+
+1. **Item 1: a manifest contract row carries both retyped types (the activation's first stop).**
+   - **The evidence.** `abg/traversal_route.d.ts` and `abg/retry.d.ts` are in 47 of the 75 public contract rows' `declarationInventory`. Both are in the packed declaration closure of `./public`, `./product` and every other package export. `RuntimeReplayGuard` is `@internal` and stripped. With the retyping, `npm run build` refuses: `packed native declaration closure is invalid`.
+   - **What stands.** Both fields keep `ReplayState`, both validated branches keep the complete state, and the owned variants keep their overrides.
+   - **The ruling needed.** Declare the guard, resolution (a), or another of item 8's resolutions.
+   - **Already in place for (a).**
+     - The writer probe: 60 of 60, the hash held.
+     - The readers: none needs a vector.
+     - The retype diff: `c15b/retype-variant/retype.diff`.
+
+No other stop: the writer probe's hash holds, no refusal code is new, no persisted digest moves, and no lane moves but the two restored lanes and the two expected non-moves above.
+
+### Rule breach (disclosed)
+
+Four git commands were run unscoped at the repository root before the work started. No file under `.ai-workspace/` was opened, and every later git call is scoped by path.
+- **Two `git status --short`.** One printed the two untracked `.ai-workspace/comments/codex/` paths. The other filtered them out with `grep -v`.
+- **One `git diff --name-only ee7c49721 fa6f3a88e | grep -v '^\.ai-workspace'`.** It filtered the commit's `.ai-workspace` paths out of its output.
+- **One unscoped `git diff --stat` from the tenant directory.** It printed only tenant paths.
+
+### What could not be verified
+
+- **The validated branches' reach.** Item 1 is not taken, so no lane measures a retyped branch. In the instrumented pass, `traversal_route:5447` is reached only with an owned staged prefix (145 notes: worksite 66, calculus 50, r4 10, f09 9, recursive 5, compose 5), and `retry.ts:6233`'s empty-exit plan is reached in no lane. The validated branches are covered by the writer probe only, which builds the validated and cold forms directly.
+- **The reach of the two prefix-only readers.** `invocation_admission.ts:1379` has no lane reach, so its status read is shown by C-15's differential and by reading the four members. `retry_lifecycle.ts:548` is reached 3 times, in `t287-r4-aba-retry` only.
+- **The env-gated and red-on-setup lanes.** The lanes below stop before the code they name, so they measure no change here; their reds, skips and first errors are equal in both arms:
+  - `t287-native-frame-route-conservation` (setup, `ABI5_ROUTE_PROOF_ROOT` unset);
+  - `t288-blocked-retry-entry` (`:8`);
+  - `t287-governance-covered-source-use` (3 reds on the frozen fixture, 3 skips);
+  - `w2-steel-single-start-closure` (8 skips) and `t287-authenticated-owner-family` (1 skip), the two lanes that read the Public retry plan whole;
+  - the skipped cases of `t287-route-reconstruction` (2) and `t287-recursive-registered-selection` (1).
+- **`t287-c0-post-publication-failure` was not run,** as the activation directs. Its reach of `invocation_admission.ts:1379` and `retry_lifecycle.ts:548` is not measured.
+- **The excluded class of `admitContract`'s gate.** A host object whose interceptors forward to a Proxy, or an accessor that some realm's prototype installs, is outside `admitJson`'s declared domain. No lane or case constructs one, so the claim "no code of the raw runs" is shown over the declared domain only.
+
+### Main during the run
+
+HEAD is still `fa6f3a88e` when the commit is prepared, so no commit landed on `main` during the run; `git log --oneline fa6f3a88e..HEAD` is empty for the tenant and this record.

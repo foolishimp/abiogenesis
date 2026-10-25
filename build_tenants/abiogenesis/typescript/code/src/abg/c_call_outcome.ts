@@ -105,7 +105,6 @@ import {
   type ProbabilisticResultAdmissionResult,
 } from "./probabilistic_result.js";
 import {
-  type ActiveRuntimeTransactionProjection,
   type ReplayState,
   type RuntimeReplayGuard, type OwnedActiveRuntimeTransactionProjection,
   projectOwnedActiveRuntimeTransaction, projectOwnedRuntimeTruthAtDurablePrefix,
@@ -1738,7 +1737,6 @@ export function admitOwnedCCallCompletion(
         const staged = admitTraversalTransitionInActiveTransaction({
           durablePredecessorPrefix: input.predecessorPrefix,
           stagedPrefix,
-          priorDerivation: exactOutcome.replayState,
           store: input.store,
           executionBasis: input.executionBasis,
           graph: input.graph,
