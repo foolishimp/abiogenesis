@@ -533,3 +533,7 @@ Accepted as delivered, not closed. The commit `e5791aa4e` does what the activati
 **Codex pass.** The owner's pass on M-1 (`72384fe07`) and M-2 (`e5791aa4e`) is the review; T-291 closes when it is recorded and any correction it names is run. Suggested focus: the five eligible rows' totality arguments; the owners paragraph against A5; the four restatements.
 
 **Next.** T-290 resumes at C-12 (activated in `phase_c.md` at this commit). T-291 holds M-3 (on the owner's ruling), M-4 and M-5 (after C-15); the Phase D migration-remainder package and D0's scope are proposals above.
+
+## M-2 stop 1 ruling (owner, 2026-10-25)
+
+The four `specification/` sentences stay. The owner: "F_D always has provenance, its always created so its grant exists from its lineage." An F_D operation is created under an admission owner; the record of that creation is its grant; the kind label adds none. Read with lineage, `INTENT.md:54`, `PRODUCT.md:697`, FN-COMP-004 and COMPUTE-NOTATION-010 are not contradictions: the closure predicate carries the closure grant in its lineage, and F_P and F_H cannot claim it because their outputs are not fixed by lineage. No M-3; the twelve dependent design lines (Return items 8 to 19) stay as written. The Executive restated the binding's import sentence and its reading sentence (`:158`, `:168`) to the lineage reading in this commit. The Worker's (D) reading of these sentences as kind-label claims is withdrawn; the census stands otherwise. Stops 2 and 3 (rows 7 and 10b) and the Phase D proposals remain the owner's.
