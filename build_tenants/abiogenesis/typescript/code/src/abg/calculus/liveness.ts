@@ -27,7 +27,7 @@ import {
   runtimeLivenessDigest as digest,
   type RuntimeInvocationScope, type RuntimeLivenessBinding, type RuntimeLivenessObserverProjection,
   type RuntimeProbeObservation, type RuntimeProbeSource, type RuntimeSystemProbeContract,
-  type RuntimeLivenessBudgetFacts,
+  type RuntimeLivenessBudgetFacts, type RuntimeLivenessContext, type RuntimeLivenessSample,
 } from "../runtime_liveness_contracts.js";
 import { projectExactExecutionBasisRecordAtPrefix } from "./execution_basis_record.js";
 
@@ -39,12 +39,6 @@ function record(value: unknown): value is Record<string, JsonValue> {
 }
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
-export type RuntimeLivenessContext = {
-  readonly scope: RuntimeInvocationScope;
-  readonly binding: RuntimeLivenessBinding;
-  readonly probes: readonly RuntimeSystemProbeContract[];
-  readonly declarationEventRef: string;
-};
 
 /** @internal */
 export interface RuntimeLivenessContextFacts {
@@ -227,11 +221,6 @@ export interface NativeLivenessRouteObligation {
 /** @internal */
 export type ProcessLiveRead = (processRef: string, cut: () => RuntimeEventPrefix) => boolean;
 
-export interface RuntimeLivenessSample {
-  readonly clockOriginRef: string;
-  readonly elapsedMs: number;
-  readonly eventRef: string | null;
-}
 /** @internal */
 export function probeObservationMatches(context: RuntimeLivenessContext,
   contract: RuntimeSystemProbeContract, observation: RuntimeProbeObservation, ordinal: number,

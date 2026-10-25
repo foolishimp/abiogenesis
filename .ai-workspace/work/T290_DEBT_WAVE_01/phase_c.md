@@ -5848,3 +5848,334 @@ Grant: `code/src/abg/event_store.ts` (`DurableHistoryDerivation` and the two rea
 Stops (write the stop in the Return, keep the rest moving): any (cut, view) pair where the reader's outcome differs from the base's compare; any authority (append, prefix, currentness) granted from a digest or count without the owner's authenticated coordinate; a record that survives its coordinate or lives in a module-level map; a durable coordinate shape, event payload key, failure class or Public export change; a public contract row differing from `d83da14bd`'s after item 0; a C1/C2 reach lane whose outcome moves.
 
 Return contract: one commit on `main`, staged by path, first line `C-13: TD-09 closed: the C2 prefix correspondence is a derived fact of the immutable durable cut, established once by the owner and read by its consumers; repeated reads of the same authenticated cut copy and compare nothing; copied, foreign, stale and shortened inputs still refuse; the two liveness context types declared in the contracts module and the public contract rows equal to d83da14bd's`, with any gap stated in place; the Return before the commit so the commit carries it: the census with shapes, the reader as realized and its key, the equivalence case and the counter (before and after per lane), the lanes table, the measurement, item 0's row and leaf-set comparison, the lint and gates, item 2's proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-13 return (Worker, Opus 5.5, 2026-10-25; base `c971aef24`)
+
+**Closed, with two gaps and one stop.**
+
+**Item 1 (TD-09).**
+
+- **What the owner records.** A holding C2 correspondence is recorded on its cut index, keyed by the cut's coordinate digest and the view's exact prefix digest.
+- **The consumer.** `exactC2SourceEnvironment` reads that record through `durableCutCorrespondsToValidatedPrefix`.
+- **The lane that reaches the compare.** Only `t287-worksite-command-execution` reaches it. There:
+  - the compares fall from 12 to 6, which equals the 6 distinct pairs;
+  - each pair's second read is a record hit;
+  - the differential against the base comparison is 0 of 12.
+- **Every other lane.** The 12 named reach lanes and compose never reach the compare, in either arm.
+
+**The two gaps.**
+
+1. The cut is still rebuilt on every call. `durableRuntimeEventPrefixThroughEvent` runs a read of the current coordinate, then `findIndex`, slice and `cut`; the lane measures about 10 ms for it. No (current coordinate, event) pair repeats, so the activation's conditional cuts-map answer has nothing to answer.
+2. A new view object still computes its exact prefix digest once. The second view of every lane pair is a new object, so its digest costs about 96 ms in the reader across the lane.
+
+The comparison and its `JsonValue` copies are what a repeated read no longer performs.
+
+**The stop (item 0).**
+
+- **What holds.** All 75 public contract rows have inventory paths equal to `d83da14bd`'s, and the 141 `declarationInventory` leaves are gone (47 entries for `calculus/liveness.d.ts`, 3 leaves each).
+- **What differs.** 47 rows differ from `d83da14bd` in the `declarationDigest` of four declaration files, and 21 of those 47 differ in `contractDigest`. 28 rows are equal in every member.
+- **The cause.** The bytes of those four `.d.ts` files differ from `d83da14bd`'s:
+  - C-12c's accepted content changes all four;
+  - item 0's placement also changes the bytes of the contracts module and of the owner.
+- **Why it stands.** No edit inside the grant reaches `d83da14bd`'s bytes.
+
+**Gates.** All gates are green, and no C1/C2 reach lane outcome moves.
+
+### Census (`code/src` at `c971aef24`)
+
+The census covers every site that compares a materialized view, or a value from caller or memory, against durable rows. It was found by `git grep` of `admitJson(readRuntimeEventsAtDurablePrefix`, of `canonicalEquals`/`sameJson` over event arrays, and of every `readRuntimeEventsAtDurablePrefix(` followed by an equality.
+
+| Site | What is compared | Shape | Disposition |
+|---|---|---|---|
+| `abg/execution_basis.ts:797-810` (`exactC2SourceEnvironment`) | The rows of the authenticated durable cut `sourceDurablePrefix` against the bodies of the validated view `sourcePrefix` (materialized at `:799`). Both are admitted to `JsonValue`, then `canonicalEquals`. | A: durable cut against validated view | Migrated |
+| `abg/event_store.ts:3821-3823` (`authenticateRuntimePrefixAncestry`, cold path after the owner's `historical` answer) | Two durable reads. The physical prefix digest of the current's first n rows is compared with the historical coordinate's `prefixDigest`. | C: durable against durable, by physical digest; the warm path is already the owner's `historical` index | Not this shape; outside the grant |
+| `product/declaration_application.ts:238-241` | Two full durable reads (the construction prefix and the current prefix). Ancestry is checked by `sameJson(earlier, current.slice(0, earlier.length))`. | B: durable against durable, ancestry by body equality | Not this shape; finding 4 |
+| `abg/worksite_command_forward.ts:193` | The request's carried source events against the current durable rows, element by element, after `authenticateRuntimePrefixAncestry`. | B': caller data against durable rows | Not this shape |
+| `abg/retry.ts:5706` | Two in-memory retry plans (`canonicalEquals` of finite parts, prefix events and replay state). | In memory | Not a durable compare |
+| `abg/c_call.ts:3411`, `:6282` | The events just admitted against the plan's projected events. | Append postcondition | Not this shape; module forbidden |
+| `abg/worksite_revision.ts:198` | One event against its re-projection. | Single event | Not this shape |
+| `abg/qualification_proof.ts:561`, `:697`; `abg/semantic_revision.ts:202`; `abg/witness_definition_bindings.ts:246`; `abg/worksite_command_forward.ts:221`; `abg/worksite_construction_recovery.ts:324` | A projected value (task, plan, catalog, run, execution basis) against a request value. | Projection against request | Not this shape |
+
+Only `exactC2SourceEnvironment` has the shape, and it is the only site migrated.
+
+### The reader as realized, and its key
+
+**The reader.** `event_store.ts`:
+
+```ts
+/** @internal ... */
+export function durableCutCorrespondsToValidatedPrefix(cut: DurablePrefixCoordinate, view: RuntimeEventPrefix): boolean {
+  return DurableHistoryDerivation.corresponds(cut, view);
+}
+```
+
+It is placed after `durableRuntimeEventPrefixThroughEvent`. It is `@internal`, so it is stripped from `event_store.d.ts`, which is byte-equal to the base.
+
+**`DurableHistoryDerivation.corresponds(cut, view)`** works in three steps.
+
+1. **The gate.** It is the condition under which `readRuntimeEventsAtDurablePrefix(cut)` returns the derivation's own rows without a physical read:
+   - the exact registered coordinate object (`proof.#coordinate === cut`);
+   - bound to events, not to a selection;
+   - an owner that is present and open (`!owner.durableAppendClosed`);
+   - the owner's cut index holds the cut's boundary at this derivation's event count.
+
+   Inside the gate the reader computes `runtimeEventPrefixDigest(view)`. If that digest is recorded under `cut.coordinateDigest`, it returns `true`.
+2. **The comparison.** Otherwise it runs the base comparison verbatim, inside a `try`:
+   - `admitJson(readRuntimeEventsAtDurablePrefix(cut))`;
+   - `admitJson(runtimeEventBodiesAtPrefix(view).materialize())`;
+   - both `ok` and `canonicalEquals`.
+
+   A throw is `false`.
+3. **The record.** Only a holding result found inside the gate is recorded, and a refusal never is.
+
+**The key.**
+- **Where it lives.** On the owner's cut index object, `DurableDerivationCuts`: the `DURABLE_DERIVATION_CUTS` owner of the history's `durable_history` derivation scope, which every derivation of that history already shares.
+- **Its form.** It is the optional field `correspondences: Map<cut coordinateDigest, Set<view exact prefix digest>>`.
+- **What the coordinate digest binds.** The log path, the device and inode, the prefix length, the physical prefix digest and the event contract digest. Within one owner's history, an equal coordinate digest means equal rows.
+- **What the view digest binds.** SHA256 of the view's canonical events. An equal view digest means equal bodies.
+
+**What takes the comparison:**
+- a copied (unregistered) coordinate;
+- a captured copy (`capture` gives a fresh derivation with no events and a new index);
+- a cut whose owner is closed;
+- a cut bound to a selection;
+- a cut with no owner;
+- a cut of another store, or of a reopened store. Each store construction or open builds its own owner state and `RuntimeDerivationSource`, and so its own index.
+- a view whose digest is refused;
+- every refusal.
+
+Where the base made a physical read, the comparison makes the same read.
+
+**Authority.** The result is the boolean that `exactC2SourceEnvironment` reads, where `false` refuses as at the base. No admission, append or prefix path reads the record. There is no module-level map.
+
+**`durableRuntimeEventPrefixThroughEvent` and `readRuntimeEventsAtDurablePrefix` are unchanged.** The counters show 2 distinct current coordinates per pair (2 current objects and 2 current digests in each of the 6 processes). The same (coordinate, event) never repeats, so a cuts-map answer for it would never be read.
+
+### The equivalence case and the faults
+
+**The case.** `TD-09 (a): the C2 prefix correspondence equals the base comparison at every cut and view pair; a repeated read compares nothing` is appended to `t287-native-work-currentness-consumers.test.mjs`; the change is 120 insertions and 0 deletions.
+
+- **The stores.** Three held scratch stores are built with `createNewEmptyAppendSink`: `a` (4 events, then grown to 5), `changed` (body 2 differs) and `same` (equal rows).
+- **What every pair asserts.** The reader equals a transcription of the base comparison, and that transcription equals the outcome the pair names.
+
+**The 33 pairs:**
+- **Equal, each read twice:** the located view, the array view, and a cold copy of the rows.
+- **Per-cut, each read twice:**
+  - the shorter cut with its own view (true);
+  - the shorter cut with a view recorded for a longer cut;
+  - the longer cut with each of two views recorded for shorter cuts.
+- **Refusals, each read twice:** a view one event shorter, a view one event longer, one changed body.
+- **Copied coordinates:**
+  - a copied coordinate (true);
+  - a captured copy (true);
+  - a copy with another profile (false).
+- **Another store:**
+  - one changed body (false);
+  - equal rows (true, and true again on repeat).
+- **Grown store:**
+  - a cut from the earlier current (true);
+  - a cut from the later current (true);
+  - a view one event shorter (false).
+- **Closed owner:**
+  - unchanged bytes (true);
+  - then, after one byte of the first event's timestamp is rewritten on disk: the same cut, the later-current cut, and a copied coordinate, each false.
+
+**Row reads.** A Proxy on each view row counts every `get`, `getOwnPropertyDescriptor`, `ownKeys` and `has`:
+
+| Read | Row reads |
+|---|---|
+| First read of a new view object (its digest, then the comparison) | 93 |
+| Repeated read: a freshly rebuilt cut of the same boundary with the same view | 0 |
+| The base comparison | 48 |
+
+**Faults.** Each fault was injected into the built `event_store.js` and the case was run with `--test-name-pattern='TD-09'`:
+
+| Fault | Caught by |
+|---|---|
+| F1: any recorded fact answers every view and cut | `shorter cut, a view recorded for a longer cut 1: the reader differs from the base comparison` |
+| F2: the closed-owner gate skipped | `closed owner, changed bytes, cut from the later current: the reader differs from the base comparison` |
+| F3: record whatever the outcome | `shorter cut, a view recorded for a longer cut 2: the reader differs from the base comparison` |
+| F4: the record keyed by the view digest alone | `shorter cut, a view recorded for a longer cut 1: the reader differs from the base comparison` |
+
+After the faults the file was restored (sha256 `3fcfce98…bf449`, equal before and after), and the clean rerun is green.
+
+### The counter, per lane
+
+The `// C13` counters were stripped before the commit.
+- **Before arm.** The base build with call, compare and pair counters, plus a differential that transcribes the base comparison.
+- **After arm.** The final tree with the same pair and differential counters, which count reader calls from the C2 site only. The counters are:
+  - hits;
+  - establishing compares and cold compares;
+  - digest computations;
+  - records.
+
+  The transcription does not call the reader.
+- **Pairs.** A distinct pair is a distinct (cut `coordinateDigest`, view exact prefix digest).
+
+| Lane | Before: calls / compares / distinct pairs | After: calls / compares (establishing + cold) / hits / distinct pairs | Differential mismatches before / after |
+|---|---|---|---|
+| `t287-worksite-command-execution` (6 of 23 processes reach) | 12 / 12 / 6 | 12 / 6 (6 + 0) / 6 / 6 | 0 of 12 / 0 of 12 |
+| The 12 named reach lanes and compose | 0 / 0 / 0 | 0 / 0 / 0 / 0 | none |
+| The 13 candidate lanes (before only): `t287-value-equality`, `t287-c2-owner-coordinate-reuse`, `t287-c2-core-environment`, `t287-c2-child-program`, `t287-c2a-fp-source-contract`, `t287-native-c2-instruction-assembly`, `t287-observed-worksite-command`, `t287-native-worksite-execution`, `t287-generic-job-read-dependency`, `forward-command-contracts`, `w2-steel-single-start`, `w2-steel-single-start-closure`, `t287-worksite-command-execution` | 0 except the worksite lane above | not run | none |
+
+- **The worksite lane, per process.** Each of the 6 processes makes two calls on one pair: one `owned_runtime_event_prefix` view and one `validated_runtime_event_prefix` view, of equal digest, on two cut objects of one boundary. All cuts are exact, open and bound to events.
+- **The after arm on that lane.** 12 digest computations, 6 establishing compares (all true, all recorded) and 6 hits. After, compares equal distinct pairs.
+
+### Lanes, each alone, before (`c971aef24`) and after (the final tree)
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration (s) before / after | Reds, skips, first errors equal |
+|---|---|---|---|---|
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 | 0.4 / 0.3 | yes |
+| `steel-basic-cli-projection` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes |
+| `t287-native-work-currentness-consumers` | 4/4/0/0 | 5/5/0/0 | 32.4 / 31.2 | yes (+1: the TD-09 case) |
+| `t287-governance-covered-source-use` | 8/2/3/3 | 8/2/3/3 | 0.4 / 0.4 | yes (the 3 reds of the base: `select the frozen bounded fixture`) |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | 2.6 / 2.4 | yes |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | 1.6 / 1.5 | yes |
+| `m5-consensus-module` | 17/17/0/0 | 17/17/0/0 | 0.7 / 0.7 | yes |
+| `m5-event-store-reopen` | 21/21/0/0 | 21/21/0/0 | 59.5 / 58.5 | yes |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 47.8 / 46.4 | yes |
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 | 1.9 / 1.9 | yes |
+| `r10-projection-contracts` | 10/10/0/0 | 10/10/0/0 | 1.7 / 1.6 | yes |
+| compose (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`) | 2/2/0/0 | 2/2/0/0 | 38.3 / 36.1 | yes |
+| `t287-worksite-command-execution` (added) | 10/10/0/0 | 10/10/0/0 | 323.9 / 325.0 | yes |
+
+No lane moves except the one added case.
+
+### Measurement
+
+The method is C-12's: `--cpu-prof` at the default interval, with inclusive milliseconds per function summed over every profile of the run.
+
+**Compose (three runs per arm).**
+- `exactC2SourceEnvironment` and the reader take 0 ms in every run of both arms; compose never reaches them.
+- Total sampled time is 45,006 / 45,999 / 46,480 ms before and 44,517 / 44,479 / 44,358 ms after.
+- `canonicalEquals` (1,046 to 1,144 ms) is outside the site.
+
+**`steel-basic-cli-c2` (three runs per arm).**
+- `exactC2SourceEnvironment` and the reader take 0 ms in every run; the lane's six tests are skipped without `ABI5_C2_CARRIER_FIXTURE_PATH`.
+- Total sampled time is 342 / 343 / 300 ms before and 315 / 301 / 301 ms after.
+
+**`t287-worksite-command-execution` (added; one run before, two after), in ms:**
+
+| | Before | After (run 1 / run 2) |
+|---|---|---|
+| `exactC2SourceEnvironment` inclusive | 3,918.9 | 3,561.8 / 3,555.0 |
+| the compare: before, `admitJson` 513.3 plus the compare's share of `canonicalEquals` plus materialize 3.8; after, the reader | about 918 (`canonicalEquals` share estimated at about 401: 1,550.7 within the site before, less 1,149.2 within the site but outside the reader after) | 534.9 / 538.7 |
+| within the reader (run 2) | | `admitJson` 255.0, `canonicalEquals` 188.0, view digest 95.7 |
+| `admitJson` within the site | 513.3 | 271.0 / 265.0 |
+| `canonicalEquals` within the site | 1,550.7 | 1,342.8 / 1,337.2 |
+| `runtimeEventPrefixDigest` within the site | 303.4 | 395.6 / 391.3 |
+| `durableRuntimeEventPrefixThroughEvent` within the site | 8.9 | 10.3 / 9.6 |
+| `rehydrateInvocationSourceResultBasisAtDurablePrefix` within the site | 695.5 | 693.2 / 687.6 |
+| lane total sampled | 368,938.9 | 372,588.5 / 372,472.7 |
+
+- **The site.** `exactC2SourceEnvironment` falls by about 360 ms (9%).
+- **The compare.** It falls from about 918 ms to about 537 ms. It now runs 6 times rather than 12, and the 6 hits add about 96 ms of view digests.
+
+### Item 0: the rows and the leaf sets
+
+**Placement.**
+- `RuntimeLivenessContext` and `RuntimeLivenessSample` are declared in `runtime_liveness_contracts.ts`.
+- `calculus/liveness.ts` imports them from there.
+- `runtime_liveness.ts` re-exports them from there (`:31`).
+- The four unread imports are removed: `invocation_execution_truth.ts:5` (`JsonValue`), `:31` (`canonicalRecordDigest`), `:32` (`admitJson`), and `retry.ts:33` (`RuntimeInvocationScope`).
+
+**Leaf sets.**
+- The manifest goes from 51,428 leaves at `c971aef24` to 51,287: 141 removed (the 47 `calculus/liveness.d.ts` `declarationInventory` entries, 3 leaves each), 0 added, 185 moved, all digest-valued.
+- The graph stays at 3,243 leaves: 0 added, 0 removed, 551 digest moves.
+- Against `d83da14bd`, the manifest goes from 51,283 to 51,287. The 4 added leaves are C-12c's `productRelativeLocators` for the two calculus modules.
+
+**The rows against `d83da14bd`.**
+- All 75 have inventory paths equal to `d83da14bd`'s, in order.
+- 28 are equal in every member.
+- 47 differ only in the `declarationDigest` of `invocation_execution_truth.d.ts`, `retry.d.ts`, `runtime_liveness.d.ts` and `runtime_liveness_contracts.d.ts`.
+- 21 of those 47, the rows whose `contractDigest` is the inventory digest, differ in `contractDigest`. Substituting `d83da14bd`'s four file digests reproduces `d83da14bd`'s `contractDigest` in all 21.
+- No row differs in any other member.
+
+**What changes the four files' bytes since `d83da14bd`:**
+- `retry.d.ts`: C-12c removed `projectRuntimeRetryBudgetFacts` and its public overload.
+- `invocation_execution_truth.d.ts`: C-12c replaced the doc comment of `projectExactExecutionBasisAtPrefix`.
+- `runtime_liveness_contracts.d.ts`: it gains C-12c's `RuntimeLivenessBudgetFacts` and item 0's two types.
+- `runtime_liveness.d.ts`: its three type declarations become re-exports (C-12c for the budget facts, item 0 for the two context types).
+
+Against `c971aef24`, `retry.d.ts` and `invocation_execution_truth.d.ts` are byte-equal; item 0 changes only the contracts module's and the owner's declarations.
+
+**Against the item-0 state.** The rows after item 1 equal the item-0 rows in every member, in all 75. Item 1 changes no declaration, and `event_store.d.ts` is byte-equal to the base.
+
+### Lint and gates (final tree)
+
+| Gate | Result |
+|---|---|
+| `tsc --noEmit` | rc 0 |
+| `lint:calculus` | rc 0: `6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender` |
+| `lint:imports` | rc 0 |
+| `lint:lifecycle` | rc 0: `286 modules under code/src; 7 allow-listed site(s), no offender` |
+| `lint:evidence` | rc 0: `691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other` |
+| `npm run build` | rc 0 |
+| `t287-calculus-fold` | 18/18 |
+
+**The strip.**
+- **Source.** The strip removed `c13_counters.ts` and every `// C13` line. The stripped `event_store.ts` and `execution_basis.ts`, and every other changed file, are byte-equal to a clean scratch copy taken before instrumenting.
+- **The `C13` count.** It is 0 in `code/src`, in `build/` and in the test file.
+- **The rebuild.** The rebuilt `build/` is byte-equal (785 files) to the clean build the after lanes ran on, and the two regenerated files are byte-equal to their clean copies.
+
+### Item 2: design sentences (proposals; the Executive places them)
+
+1. **The library design's `store` row** (§11, `abg/event_store.ts`), or the owner paragraph:
+   > `event_store.ts` also derives the C2 prefix correspondence. `durableCutCorrespondsToValidatedPrefix(cut, view)` admits the cut's rows and the view's bodies to `JsonValue` and compares them. For an exact registered cut bound to the owner's events, with an open owner, a holding result is recorded on the owner's cut index under the cut's coordinate digest and the view's exact prefix digest; a later cut of the same boundary, with a view of the same digest, reads it. A copied, captured, closed-owner, other-store or selection-bound cut, a view whose digest is refused, and every refusal take the comparison, with the physical read the cut needs. The record grants no append, prefix or currentness authority, and no admission path reads it.
+2. **The register's TD-09 closure line:**
+   > Closed at C-13. The owner records a holding C2 correspondence on its cut index, keyed by the cut's coordinate digest and the view's exact prefix digest, and `exactC2SourceEnvironment` reads it through `durableCutCorrespondsToValidatedPrefix`. On `t287-worksite-command-execution` the comparisons fall from 12 to the 6 distinct pairs, with no difference from the base comparison. Copied, captured, closed, other-store and selection-bound cuts and refused views take the comparison. A new view object still computes its exact prefix digest once, and `durableRuntimeEventPrefixThroughEvent` still rebuilds the cut per call, because no (current coordinate, event) repeats.
+
+### Deviations
+
+1. **The record is on the owner's cut index object, not on the cut's own `DurableHistoryDerivation`.**
+   - Each call builds a fresh cut object (`cut()` makes a new coordinate and a new derivation), so a record on the derivation would never be read again.
+   - A field on the index entry is lost too, because every re-cut replaces the entry (`durablePrefixCoordinate`'s `cuts.set`). The first realization did this and the repeated read compared again.
+   - The index object is shared by the history's derivations and holds the boundaries the owner has authenticated.
+2. **`DurableDerivationCuts`**, the class's index type alias just above the class, gains the optional `correspondences` field.
+3. **The `./event_prefix.js` import at the end of `event_store.ts`** gains `runtimeEventBodiesAtPrefix` and `type RuntimeEventPrefix`, which the reader needs. Apart from this, nothing in the file outside the class and the new reader changes.
+4. **The view's materialize moved into the reader.** It was at `execution_basis.ts:799`, before the cut; it now runs in the reader's comparison, after the cut.
+   - The outcome is `false` in every case where the base's materialize threw.
+   - The one difference is that `durableRuntimeEventPrefixThroughEvent` now also runs in that case and adds a derived index entry.
+   - `runtimeEventBodiesAtPrefix` left `execution_basis.ts`'s imports, unused.
+5. **`t287-worksite-command-execution` was added** to the lanes, the counters and the measurement, because no named reach lane reaches the compare.
+6. **The case's row counter counts every read trap** (`get`, descriptor, keys, `has`). The support's `eventVisitCounter` counts `get` only, and `admitJson` reads rows through descriptors and keys, so `eventVisitCounter` saw 0 reads in the base comparison.
+
+### Findings outside the grant
+
+1. **C-12c compared inventories as path sets.** The `declarationDigest` moves of `retry.d.ts` and `invocation_execution_truth.d.ts` are C-12c's, and so is part of the moves of the other two files. These moves are why item 0's exit cannot hold as written.
+2. **C-12c removed a public overload of `projectRuntimeRetryBudgetFacts`** from `retry.d.ts`, a declaration file in 47 rows' inventories. Whether that is a Public export change is the Executive's ruling.
+3. **No named reach lane reaches the C2 compare.**
+   - `steel-basic-cli-c2` is all-skipped without `ABI5_C2_CARRIER_FIXTURE_PATH`, which I did not search for.
+   - Compose never enters `exactC2SourceEnvironment`.
+   - The genuine positive reach is `t287-worksite-command-execution` only.
+4. **`product/declaration_application.ts:238-241`** checks predecessor ancestry with two full durable reads and `sameJson`. That is the relation `authenticateRuntimePrefixAncestry` answers from the owner's index; it could be a later package.
+5. **The view digest is not shared between the two view objects of a pair.** The callers at `:989` and `:1917` build their views separately, so each pays one digest; in the lane, about 96 ms. Outside the grant.
+
+### Stops
+
+1. **Item 0's rows** (above): 47 rows differ from `d83da14bd` in `declarationDigest`, and 21 of them in `contractDigest`. Not reachable inside the grant.
+2. **Named for the Executive's ruling: "a record that survives its coordinate".** I do not read it as a stop, but the record deliberately outlives the cut coordinate objects.
+   - It does not outlive the coordinate's validity. It is read only through an exact registered cut, bound to events, whose owner is open and whose boundary the index holds at its event count, which is the condition under which the base reads the same rows without a physical read.
+   - It lives and dies with the history's derivation scope.
+   - **Evidence:**
+     - the closed-owner pairs, including changed bytes on disk;
+     - the copied, captured and other-store pairs;
+     - the shorter- and longer-cut pairs;
+     - F1 to F4.
+
+No other stop applies:
+- **No differing pair.** 33 unit pairs agree, and the lane differential is 0 of 12.
+- **No authority from a digest or count.**
+- **No module-level map.**
+- **No contract change.** There is no coordinate shape, event payload key, failure class or Public export change; the reader is `@internal`, and `event_store.d.ts` is byte-equal to the base.
+- **No reach lane moves.**
+
+### What could not be verified
+
+1. **The C2 carrier qualification** in `steel-basic-cli-c2`: no fixture path, so the lane is all skipped.
+2. **A reopened store at the C2 site.** That it has its own owner state, derivation source and index follows from construction, but no lane reopens before the compare and the case does not reopen.
+3. **The measurement's spread.** It is one `--cpu-prof` run before and two after on the worksite lane, so run-to-run spread is not established.
+4. **The before arm's compare** is an estimate. `canonicalEquals` at `:810` cannot be separated by function name from the two other `canonicalEquals` calls in the site.
+5. **The 13 candidate lanes were not re-run in the after arm.** Their before counters show 0 calls except the worksite lane.
+
+`main` had no commits during the run: HEAD is `c971aef24`.

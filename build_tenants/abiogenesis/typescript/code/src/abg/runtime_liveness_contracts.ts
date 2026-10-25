@@ -106,6 +106,17 @@ export interface RuntimeLivenessBudgetFacts {
   /** Existing CCall owner failure signal, not a worker-authored rejection. */
   readonly resultRejectionRef?: string | null;
 }
+export type RuntimeLivenessContext = {
+  readonly scope: RuntimeInvocationScope;
+  readonly binding: RuntimeLivenessBinding;
+  readonly probes: readonly RuntimeSystemProbeContract[];
+  readonly declarationEventRef: string;
+};
+export interface RuntimeLivenessSample {
+  readonly clockOriginRef: string;
+  readonly elapsedMs: number;
+  readonly eventRef: string | null;
+}
 export type RuntimeInvocationDisposition = {
   readonly kind: "runtime_invocation_disposition";
   readonly schemaVersion: "5.0.0";

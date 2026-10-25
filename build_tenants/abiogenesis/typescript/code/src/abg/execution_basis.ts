@@ -117,6 +117,7 @@ import {
   compareAndAppendExpectedPrefix,
   captureDurablePrefixCoordinate,
   durableRuntimeEventPrefixThroughEvent,
+  durableCutCorrespondsToValidatedPrefix,
   readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
@@ -125,7 +126,7 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix, runtimeEventBodiesAtPrefix,
+  runtimeEventsFromValidatedPrefix,
   runtimeEventAtPrefix,
   isOwnedRuntimeEventPrefix,
   type RuntimeEventPrefix,
@@ -796,18 +797,14 @@ function exactC2SourceEnvironment(
       authorityPrefix,
       sourceRunClosures[0]!.eventId,
     );
-    const sourceEvents = runtimeEventBodiesAtPrefix(sourcePrefix).materialize();
     sourceDurablePrefix = durableRuntimeEventPrefixThroughEvent(
       durablePrefix, sourceRunClosures[0]!.eventId,
     );
     if (!validateDurablePrefixCoordinate(sourceDurablePrefix)) return false;
-    // C2 currentness: the durable read and the materialized body view are each
-    // admitted to JsonValue before comparison; a refused side (an
-    // unmaterialized view, a non-I-JSON body) is not current.
-    const durableEvents = admitJson(readRuntimeEventsAtDurablePrefix(sourceDurablePrefix));
-    const viewEvents = admitJson(sourceEvents);
-    if (durableEvents.kind !== "ok" || viewEvents.kind !== "ok" ||
-      !canonicalEquals(durableEvents.value, viewEvents.value)) return false;
+    // C2 currentness: the durable cut corresponds to the validated body view
+    // (the owner's reader: both sides admitted to JsonValue and compared once
+    // per exact owned cut and view); a refused side is not current.
+    if (!durableCutCorrespondsToValidatedPrefix(sourceDurablePrefix, sourcePrefix)) return false;
   } catch {
     return false;
   }

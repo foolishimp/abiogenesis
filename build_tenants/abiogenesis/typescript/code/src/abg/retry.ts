@@ -30,7 +30,6 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectRuntimeLivenessAtPrefix, captureNativeFrameBoundary, observeNativeFrameLiveness, createRuntimeLivenessEventValidator } from "./runtime_liveness.js";
-import type { RuntimeInvocationScope } from "./runtime_liveness_contracts.js";
 import {
   deriveCanonicalRootedTopologyPartition,
   type CanonicalRootedTopologyPartition,
