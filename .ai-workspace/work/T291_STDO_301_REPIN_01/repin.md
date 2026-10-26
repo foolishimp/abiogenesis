@@ -1438,3 +1438,379 @@ Grant: `code/src/abg/qualification_proof.ts`; `code/src/implementation/leaf_invo
 Stops (write the stop in the Return, keep the rest moving): a Program declaration (a leaf's declared input key, a `modulePath`, a declared semantics signature), payload key, failure class, declared reason enum or Public export change (`public/*` or the export map); the `refused` subject's member set declared under `contracts/`; a fuel or deadline bound; a lane moving beyond the two named cases; the evidence-candidate rule being the Product contract; a caller with no verified install or admitted Product identity in scope (the read moves into the caller's module, named; never stays in `validator/qualification.ts`).
 
 Return contract: one commit on `main`, staged by path, first line `M-5b: row 10b by realization: the module-relative catalog reads retired at every caller, the catalogs admitted at the authority stage as a member of the occurrence, the F_D qualification failures returned with their evidence, the leaves' totality classified by read class; no fuel bound`, with any gap stated in place; the Return before the commit so the commit carries it: the census per item (every caller and what it passes after; the provider's two module graphs; the Lim boundary; the Env? trace per leaf; the F reads per site; the loops read), the remaining `readFileSync` sites under `code/src/validator/` with their bindings, the lanes table, the lint and gates, the exit greps, the cell proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## M-5b return (Worker, Opus 5.5, 2026-10-26; base `4b8dc3208`)
+
+**No: item 1 does not close, so row 10b stays Pending.** The grant is realized:
+- every granted caller now passes the catalogs;
+- the verdict projection, called without catalogs by the in-tree release path, admits them from the owner install its durable prefix records;
+- the port admits them from the owner install ahead of the boundary call, decides a refusal as the first step of `authority_verification`, and carries the admission as a member of `LeafExecutionOccurrence`;
+- a tampered catalog is `refused` with its cause naming the catalog and both digests;
+- the five F_D qualification leaves return their typed failures with deterministic evidence;
+- totality is classified by read class.
+
+Three module-relative catalog reads remain. Each is a stop under this activation's own rules:
+1. the defaults of `validator/qualification.ts`, reached only by the `./abg` and `./validator` export-map members called without catalogs and by lanes outside the grant;
+2. `readSelfConformanceCatalog`, which `validator/index.ts:52` re-exports under the `./validator` export map;
+3. the semantics provider's own read, because its declared members carry no catalog channel.
+
+Item 4 (ii) has no code change. Its pass-through needs a declared input key at `NativeIntake`, and modules outside the grant for the other four leaves.
+
+The figures below were taken on the final clean tree. A first after pass was stopped at 15 of its 85 runs, all 15 equal to the base, when the verdict projection's admission was added. It is discarded, and the after column is the second pass, run once on the final tree. The commit is one commit on `main` over `4b8dc3208`; no commit landed on `main` during the run.
+
+### Item 1: the callers
+
+**Census.** A TypeScript-API pass over `code/src` lists every call to a function whose signature has a `catalogs` or `ruleCatalogOwner` parameter: 131 calls. 127 pass catalogs and 4 omit them:
+- `abg/qualification_proof.ts:84` does not reach the catalog. Its conjuncts are reordered so that the reference form is tested before `isQualificationAssessmentInput`, and a reference-form task never reaches the rule catalog.
+- `implementation/release_publication.ts:136` (`projectReleaseQualification`, outside the grant) has no install in scope at the caller: request, proof, selection and prefix. The callee has one: `projectQualificationVerdict` now admits the catalogs from the owner install that its selected producer's durable prefix records (`ownerInstallCatalogs`, `abg/qualification_proof.ts:922-929`, used at `:949-950`). That is the same install-rooted admission and the same owner-install selection `resolveQualificationSelfConformanceOwner` and `malformedSubjectMatches` use. A refusal returns `null`. The selection before it reads only the verdict call's input, which fails the assessment schema, so `declarationsOf` reaches no catalog there.
+- `owner_bindings/run_invocation.ts:1841` and `:1922` reach the named fallback of (d).
+
+A parameter-initializer census over the same modules finds 20 initializers and none that reads a file.
+
+| Caller module | Calls | Lines | What it passes after |
+|---|---|---|---|
+| `abg/qualification_proof.ts` | 45 | `:67`, `:70`, `:192`, `:288`, `:294`, `:298`, `:300`, `:301`, `:326`, `:327`, `:336`, `:455`, `:457`, `:461`, `:469`, `:470`, `:477`, `:492`, `:550`, `:564`, `:575`, `:608`, `:629`, `:666`, `:681`, `:694`, `:696`, `:709`, `:776`, `:786`, `:823` (×2), `:825` (×2), `:860`, `:886`, `:892`, `:908`, `:911`, `:913`, `:914`, `:936`, `:950`, `:976`; omits `:84` | Its own trailing `catalogs`. `ExecutionSourceFacts` keeps the catalogs a proof was admitted with (`source?.catalogs` `:192`; `selectedCatalogs` `:564`, `:575`). At `:950` it passes `admitted`, which is `catalogs ?? executionProofFacts.get(proof)?.catalogs ?? ownerInstallCatalogs(selected.owner)` (`:949`). |
+| `implementation/leaf_invocation_port.ts` | 16 | `:457`, `:458`, `:462`, `:466` | `occurrence.qualificationCatalogs` (the native self-conformance, verdict and runtime operations) |
+| | | `:508`, `:509`, `:522`, `:535` | `admitted`, which is `catalogs?.()`; a `null` admission returns `null` |
+| | | `:1548`, `:1560` | `judgmentCatalogs`, the semantics owner install's memoized admission at judgment time |
+| | | `:1605`, `:1606`, `:1609`, `:1610`, `:1650`, `:1651` | the stage's admitted `qualificationCatalogs` (owner projection, F_P preparation, result relation, success proof) |
+| `implementation/qualification.ts` | 9 | `:45`, `:46`, `:49`, `:86` (×2), `:88`; `:73`, `:80`, `:95` | `occurrence.qualificationCatalogs` |
+| `implementation/self_conformance.ts` | 2 | `:27`, `:29` | `occurrence.qualificationCatalogs` (the fallback, (c)) |
+| `product/run_invocation_operation.ts` | 3 | `:537`; `:432`, `:433` | `resolution.programInstall`; `rulesOf()` |
+| `validator/qualification.ts` | 18 | `:247` to `:701` | its own trailing `catalogs` |
+| `validator/self_conformance.ts` | 4 | `:73`, `:77`, `:80`, `:228` | its own trailing `catalogs` |
+| `validator/self_conformance_basis.ts` | 1 | `:29` | its own trailing `catalogs` |
+| `validator/self_conformance_semantics.ts` | 30 | `:46` to `:101` (20); `:122` to `:174` (10) | its own trailing `catalogs`; the provider members pass `providerCatalogs` |
+| `implementation/release_publication.ts` | 1 | `:136` | nothing; the callee admits from the owner install (above) |
+| `owner_bindings/run_invocation.ts` | 2 | `:1841`, `:1922` | nothing; `prepareRunQualificationResources` falls back to `readSelfConformanceCatalog` (stop 2) |
+
+**(a) ABG.**
+- Every exported projection named in the activation, and the ones they reach, takes a trailing `catalogs?` and passes it on: `projectQualificationConsumer`, `projectNativeRuntimeAssessment`, `projectQualificationVerdict`, `projectExactCandidateQualification`, `projectQualificationJudgment`, `projectQualificationOwnerRuling`, `projectQualificationConstructionAuthors`, `projectQualificationRulingForConsumer`, `projectQualificationSelfConformance`, `qualificationHasNativeSelfConformance`, `malformedGtlAssessmentHasNativeOwner`, `nativeRuntimeAssessmentHasNativeOwner`, `resolveQualificationAssessments`, `resolveQualificationExecutionEvidence`, `resolveQualificationExecutionMaterial`, `qualificationTenantClaimsMatch` and `resolveQualificationSelfConformanceOwner`.
+- `ownedProof` and `declarationsOf` carry them, and `isNativeRuntimeAssessmentInput` and `isQualificationVerdictInput` take them (M-5 deviation 1).
+- The owner-resolution rule read is install-rooted: `readInstalledQualificationRuleCatalog(install)`.
+- `projectQualificationVerdict`, given no catalogs and holding no owned proof's catalogs, admits them from the producer's recorded owner install (`:922-929`, `:949-950`; deviation 9).
+- `node:fs` and `node:path` left the module.
+
+**(b) The port.**
+- `LeafExecutionOccurrence` gains `qualificationCatalogs?: Readonly<AdmittedQualificationCatalogs>` (`implementation/contracts.ts`). Coverage is typed `JsonValue`, so the occurrence stays JSON-assignable: `abg/probabilistic_result.ts:662` hashes an ABG-built occurrence, which carries no catalogs. The two `CatalogOccurrence` intersections are gone.
+- Admission happens in `invoke` (`:1598-1601`), memoized by `installId`, with refusals not retained. A refusal reaches the boundary as `authorityRefusal`, and the boundary decides it as the first step of `authority_verification` (`:651-662`), before `verifyAuthority`. `verifyAuthority` no longer throws for catalogs.
+- The owner projection (`:1604-1606`; its refusal `:1607`) and the F_P preparation (`:1608-1611`) run only on an admission and take it.
+- The occurrence carries the admission when there is an owner basis (`:1612-1613`).
+- The verdict, runtime and self-conformance native operations pass the occurrence's catalogs.
+- The judgment-time operation (`nativeJudgmentProofOperations`) takes a thunk over the semantics owner install's memoized admission (`judgmentCatalogs`, `:991-994`; the memo `qualificationCatalogsOf`, `:983-989`). Its trailing parameters stay optional because four lanes call this private function positionally with four arguments (deviation 4).
+- The admission's read and digest comparison run in `invoke` ahead of the boundary call, and the stage decides the refusal. The owner projection and the F_P preparation also stay ahead of the boundary call (M-5's placement), as the activation allows when an observable would move:
+  - `t287-qualification-fp-proof-delivery` passes `qualificationPreparation` to `invokeLeafOwnerBoundary` (`:48`) and asserts the refusal without it (`:96`);
+  - `ownerRefusal("owner_boundary_exception")` (`:1607`) returns before the boundary.
+
+  Moving either into the boundary after the stage changes that boundary input and that lane, which is outside the grant (deviation 3).
+
+**(c)** `implementation/self_conformance.ts:27`, `:29` pass `occurrence.qualificationCatalogs`.
+
+**(d)** `prepareRunQualificationResources(resources, value, ruleCatalogOwner?)`.
+- In scope at the operation (`run_invocation_operation.ts:537`) is `resolution.programInstall`, the verified install of the selected Program.
+- The rule catalog is admitted from it by `readInstalledQualificationRuleCatalog`, the rule half of the port's admission. It is read lazily at the first qualification input, and a refusal throws the refusal's reason inside the operation's existing acquisition step.
+- The coverage half is not reached here: `isQualificationAssessmentInput`, `establishQualificationAssessment` and the scope correspondence read only the rules (deviation 5).
+- The two owner-binding callers (`owner_bindings/run_invocation.ts:1841`, `:1922`, outside the grant) pass no install. They reach `readSelfConformanceCatalog`, named in the doc comment at `:408-412` (stop 2).
+
+**(e) The provider, two module graphs.**
+- **Install graph.** The Program declares the provider by `modulePath: "build/code/src/validator/self_conformance_semantics.js"` (`gtl/self_conformance.ts:48`), and the port loads it from the owner install. Its members are the declared `ProductSemanticsProvider` signatures (`product/semantics.ts`): `admitInput`, `validateContractValue`, `resolveProbabilisticWorkerContracts`, `validateResultEvidenceLineage`, `validateInvocationBasis` and `evaluate`. They carry neither a catalog channel nor an install record.
+- Giving them catalogs would change a declared semantics signature: stop 3. The read moved into the provider's own module instead (`self_conformance_semantics.ts:28-40`, `providerCatalogs`). Each catalog is read once, lazily, relative to the module file, which is under the install root when loaded through `modulePath`. No recorded digest is in scope, so the read is named.
+- **Executing-package graph.** The port imports `qualificationResultRelation` (`leaf_invocation_port.ts:23`) and passes the stage's admitted catalogs (`:1650`).
+- `validator/qualification.ts` is not yet pure over its inputs (stop 1).
+
+**(f) `validator/self_conformance.ts`.**
+- `readSelfConformanceCatalog` (`:26-29`) stays, because the `./validator` export map names it (stop 2).
+- `evaluateSelfConformance` uses the admitted rules when passed: bytes from `contentBase64`, the digest from the admission, and that digest in `qualificationScopeCorrespondence`, the declaration materials and the `owner.catalogDigest` comparison. With no catalogs it calls the reader (`:41`).
+- The per-source read (`:182`, the activation's `:175`) uses a module-relative path under `packageRoot` and refuses an escaping path. Its bytes are compared to `source.digest` of the catalog in use, which is the admitted catalog when one is passed. It is digest-bound, but not install-rooted.
+
+**(g) Consolidation.** One module, `validator/qualification_catalogs.ts` (new, synchronous; M-5's admission was asynchronous, and the ABG projections and the judgment thunk are synchronous). It holds:
+- `readInstalledQualificationRuleCatalog`: exactly one asset row of `abg.asset.qualification.rule-catalog` at `contracts/qualification/rule-catalog.json`, with the bytes from `installedRoot` compared to the row's `contentDigest`;
+- `admitInstalledQualificationCatalogs`: the rule half; then the manifest from `installedRoot`, `sha256Canonical` against `manifestDigest`; then the coverage locator, the payload inventory recomputed over every locator with the two catalogs' digests reused, and `payloadInventoryDigest` against `productContentDigest`; then the coverage parsed as JSON and the rules by `parseQualificationRuleCatalog`;
+- the constants `SELF_CONFORMANCE_CATALOG_ASSET_PATH` and `SELF_CONFORMANCE_CATALOG_CONTRACT_ID`, re-exported by `validator/self_conformance.ts` under their old names.
+
+Four modules reuse it: the port (`:986`), (d), `self_conformance_basis.ts:70` (its rule read) and ABG's owner resolution. The basis's manifest read (`:68`) is a different read: a manifest-digest gate without the payload inventory, install-rooted. It stays. The port's asynchronous copy and its `parseQualificationCatalogs` call are gone; `parseQualificationCatalogs` remains the tests' parser.
+
+**(h) The seven lanes, arrangement only.** Each reads the catalogs by an explicit path under `contracts/qualification/` and passes them:
+- `t287-qualification-law` `:63`, `:71`;
+- `t287-installed-qualification-conservation` `:40` (coverage);
+- `t287-qualification-contraction` `:61`, `:69`, `:70`;
+- `t287-malformed-gtl-gate` `:12`, `:23`, `:24`;
+- `t287-native-runtime-gate` `:27`, `:61`, `:74`;
+- `t287-native-structural-gates` `:44`, `:80`, `:81`, `:111`.
+
+In `t287-qualification-scopes`, the `node:fs` and `qualificationCoverageIsPublished` mocks are gone. Its fixture coverage became a schema-valid identity (deviation 6), and the case passes `{rules, coverage}` through wrappers of the five functions it drives. No assertion changed in these lanes.
+
+**Remaining `readFileSync` under `code/src/validator/`.**
+
+| Site | Reads | Binding |
+|---|---|---|
+| `qualification_catalogs.ts:30` | any locator under `install.installedRoot` | install-rooted, digest-checked (asset digest, manifest digest, payload inventory) |
+| `self_conformance_basis.ts:68` | `product-toolchain-manifest.json` under `install.installedRoot` | install-rooted, `hash(manifest)` against `install.manifestDigest` |
+| `self_conformance.ts:27` | `readSelfConformanceCatalog`, the module-relative rule catalog | named: stop 2 |
+| `self_conformance.ts:182` | the catalog's source members, module-relative | digest-bound to the catalog's `sources[].digest`, not install-rooted |
+| `qualification.ts:430` | `readQualificationCatalog`, the module-relative rule catalog | named: stop 1 |
+| `qualification.ts:675` | the module-relative coverage default | named: stop 1 |
+| `self_conformance_semantics.ts:35` | the provider's own catalogs, module-relative | named: stop 3 |
+
+**Exit greps (clean tree).**
+- `validator/qualification.ts`: `readFileSync` 3 (`:9` import, `:430`, `:675`), `import.meta.url` 2 (`:430`, `:675`), `node:fs` 1 (`:9`). Not zero (stop 1).
+- `readQualificationCatalog` in `code/src`: `validator/qualification.ts:429` (definition), `:437`, `:481`, plus a comment at `:673`. Not zero (stop 1).
+- `readSelfConformanceCatalog` in `code/src`: `validator/self_conformance.ts:26`, `:41`; `validator/index.ts:52` (the export map); `product/run_invocation_operation.ts:7`, `:418`, plus a comment at `:412`. Not zero (stop 2).
+- Parameter defaults: no syntactic initializer reads a file (20 initializers). Three optional-parameter fallbacks read a file: `catalogs?.rules ?? readQualificationCatalog()` (`qualification.ts:437`, `:481`), the coverage fallback (`:674-675`) and `evaluateSelfConformance`'s `:41`. They are the defaults of stops 1 and 2.
+- `public/*` and `code/src/abg/index.ts` name neither reader. `validator/index.ts:52` names `readSelfConformanceCatalog`. Export names are unchanged in both index files; the signatures gained only optional trailing parameters (the stop 3 ruling of M-5).
+
+**M-6 row 8.** The port's admission reads land on the owner install's root (`implementationOwner(admittedResolution).install`). The executing package, whose `qualificationResultRelation` and validators consume the admitted values, is bound to the owner artifact only by `product/admission_authority.ts:279`: the executing package's own manifest, read module-relatively, against `verified.manifestDigest`.
+
+### Item 2: the refusal shape
+
+- **F_D.** An admission refusal is `implementation_exception` at `authority_verification`, reason `refused`, cause `{at, atTruncated, reason}`. This is the existing `deterministicFailure` with its refusal argument (`leaf_invocation_port.ts:573-592`), the convention `malformedOrAdmitted` uses at `:614`. `at` is the catalog path.
+- **F_P** is kept at `thrown`, with a `TypeError` naming the refusal (deviation 1).
+- The reasons name both digests:
+  - asset: "qualification catalog P is D; the verified install records R";
+  - manifest arm: "qualification catalog P binds through the manifest of install X, which is D; the verified install records R";
+  - inventory arm (M-5's): "… is C; the payload inventory over it is P, and the verified install records product content R".
+- `contracts/` declares no member set for this subject: `git grep` for `authority_verification`, `implementation_exception` and `atTruncated` under `contracts/` matches nothing. No stop.
+- **Restated case.** M-5's admission case (`t287-qualification-law:153`) now asserts `reason 'refused'` and `cause.at === relative`, and finds the three names in `cause.reason`. Before, it asserted `thrown`, `cause.errorClass 'TypeError'` and `cause.message`. That is two assertion lines of the one case, because the cause's members are renamed with the reason. The manifest arm has no lane: the case tampers the two catalogs, not the manifest.
+
+### Item 3: the F_D failures' evidence
+
+- **Census.** The F_D failures that already carry evidence are `implementation/semantic_revision.ts:39-40`, `semantic_stage.ts:42-51`, `default_library.ts:30-33`, `consensus.ts:247` and the port's own `totalizeLeafImplementationFailure` (`:266-274`) and `deterministicFailure` (`:594-602`). Each carries one `deterministic_evidence_candidate {kind, schemaVersion: "5.0.0", implementationRef, inputDigest, outputDigest}`, where `inputDigest` is the input's digest and `outputDigest` the digest of the failure's `resultCandidate`. `isDeterministicEvidenceCandidate` (`:200`) admits exactly that shape, so no new key is needed.
+- The rule "F_D carries evidence" is the port's check (`isLeafRealizationCandidate` `:239`). `contracts/`, `design/` and `public/*` do not declare it. No stop.
+- **Change.** `failure(failureClass, deterministic?)` (`implementation/qualification.ts:26-35`) adds that candidate when given `{input, implementationRef}`. The five F_D failure sites pass it: verdict `:74` and `:76`, ruling `:81`, malformed `:86-87`, runtime `:96`. The ruling leaf is a fifth F_D leaf the activation did not list (deviation 2). The F_P `complete()` failures keep `[]`, as F_P requires.
+- **New case** (`t287-qualification-law:267`). It drives `invokeLeafOwnerBoundary` with the real `realizeMalformedGtlAssessment` on a fixture input, with `verifyAuthority` stubbed true and the occurrence carrying an owner basis and the catalogs. It asserts:
+  - `computeRegime 'F_D'`;
+  - disposition `failure`;
+  - `failureClass 'malformed_gtl_task_unadmitted'`, not `malformed_return`;
+  - the exact evidence candidate.
+
+  On the base, `evidenceCandidates: []` fails `isLeafRealizationCandidate` and the port returns `malformed_return`. I reasoned this from code and did not run the case on the base.
+- No existing lane asserts `malformed_return` for such a failure: the after column equals the before column outside the two cases.
+
+### Item 4: totality by read class (lines on the clean tree; item 4's modules are unchanged)
+
+**(i) Catalogs.** Closed by item 1 for every granted caller and the release path. Open where stops 1 to 3 stand.
+
+**(ii) Lim.** `selectedWorksiteCommandExecutionLimits` (`implementation/worksite_command_execution.ts:614-617`) reads `Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000")` and `Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000")`. No code change.
+
+| Leaf | What the read decides | Input carries the limits? | Disposition |
+|---|---|---|---|
+| `NativeIntake` (`implementation/semantic_revision.ts:108-112`, read `:110`) | It is the entry point: the value is written into the output's `nativeWorksite.commandExecutionLimits` (`abg/semantic_revision.ts:318`). The judgment (`:333-336`) recomputes from the output, so the output is compared only with itself. | No. The input contract (`gtl/semantic_revision_publication.ts:19`; `product/semantic_revision.ts:38-41`) is a strict `{kind, schemaVersion, sourceRun, sourcePrefix}`. | **Stop: Program declaration** (a declared input key). |
+| `NativeConstruction` (`:116-119`, read `:117`) | A gate: it refuses unless `revisionBasis.request.nativeWorksite.commandExecutionLimits` equals the selected limits. A mismatch is a deterministic failure whose digest depends on the environment. The judgment (`abg/semantic_revision.ts:685-688`) has no gate, so the leaf and its judgment are asymmetric. | Yes | Named |
+| `realizeNativeSemanticAuthorTask`, `AssessorTask`, `ConstructionTask` (`implementation/semantic_stage.ts:124-128`, `:138-142`, `:150-154`) | A gate in `projectNativeSemanticTask` (`abg/semantic_job.ts:548-549`) when the input declares limits; otherwise the value is unused. | Optionally, at `job.taskData.nativeLifecycle.commandExecutionLimits` (`product/semantic_job.ts:765-774`). Nothing in `code/src` constructs that key. | Named |
+
+- **Boundary.** The basis is constructed at two sites: dispatch (`hog/ccall_lifecycle.ts:452-458` through `abg/semantic_stage.ts:126-132` and `abg/execution_basis.ts:246-261`) and judgment (`abg/c_call_outcome.ts:1306-1312`). A read-once value would have to be added at both.
+- **Why no change.** The limits could ride as a basis member or as a second occurrence member, but `contracts.ts` is granted for the catalogs member only. The leaves themselves (`implementation/semantic_revision.ts`, `semantic_stage.ts`) are outside the grant, and the activation names "the one boundary module" where there are two. So no grant module could carry the limits through.
+- `Number()` maps a malformed value to `NaN`. Its effect on `canonicalEquals` and the digest is not settled.
+
+**(iii) W.** The eight live-worksite leaves are row 9b's class, ruled to T-287 D0: `prepareGovernanceSelection`, `prepareGovernanceNativeTask`, `realizeSemanticJobContext`, the three native semantic task leaves, `NativeIntake` and `prepareNativeWorksiteCommandReacquisition`. No code change.
+
+**(iv) Env?** `environmentEntries` (`product/worksite_command_execution.ts:887-932`): an absent environment takes the record branch (`:890`). On that branch, `HOME`, `TMPDIR`, `LANG` and `LC_ALL` are read from `process.env` (`:897-902`). `process.env.PATH` is evaluated on every call (`:910`).
+
+| Leaf | Environment argument | Class |
+|---|---|---|
+| `selectWorksiteConstruction`, `selectWorksiteBranchConstruction`, `selectWorksiteRevisionConstruction` (`implementation/worksite_command_execution.ts:839-851`, `:864-866`) | `input.commands[].environment` (record, absent or list), through `validConfiguration` (`product/worksite_preparation.ts:48-87`) | Ambient read, acceptance only: the output is `input.constructionTask`. An ambient `PATH` with an empty or relative segment makes the leaf fail (`:913-916`). |
+| `prepareWorksiteCommands`, `prepareWorksiteBranchCommands`, `prepareWorksiteRevisionCommands` (`:842-851`, `:867-869`) | `input.entry.commands[].environment`, through `constructWorksiteCommandExecutionTask` (`:1546`, `:1599`) | Ambient read captured into the output's `commands[].environment`. This is the capture point ("selected at preparation, never at replay", `:934`). Semantic designs are always records. |
+| `prepareWorksiteCommandForward` (`implementation/worksite_command_forward.ts:24-33`) | `originalTask.commands`, a bound list | A default the input always supplies: on the list branch `PATH` is always present, so the `:910` value is evaluated but never used. Named: the module is `product/*`, outside the grant. |
+| `prepareNativeWorksiteCommandReacquisition` (`implementation/native_work_reacquisition.ts:17-35`) | `request.commands`, a fixed point (`:416`) | The same as forward. Named. |
+| `prepareObservedTestingTask` (`implementation/default_library.ts:41-62`) | `state.original.testing.commands` (`v.array(jsonRecord)`) | Ambient when the environment is a record or absent; declared when it is a list carrying `PATH`. The reacquire branch (`abg/default_library.ts:240-242`) is not traced. |
+| `realizeSemanticJobContext` (`implementation/semantic_stage.ts:110-113`) | none | No path to `environmentEntries` |
+
+Rows 1 and 2 are the six worksite selection and preparation leaves of the activation's ten.
+
+**(v) F reads.**
+
+| Site | Comparison | Class |
+|---|---|---|
+| `abg/semantic_revision.ts:964` (the activation's `semantic_revision.ts:964`) | `:965` byte length and `sha256Bytes` against `member.digest`; the input bound at `:955` | Bound (input digest) |
+| `readPhysical`: `abg/worksite_revision.ts:794`, `:820`; `abg/semantic_job.ts:198` | `:795` base64 against `row.base64`; `:802` and `:821-826` against the input's observation; `:199` digest and bytes | Bound (input) |
+| `abg/semantic_stage.ts:295` | `:298` base64; `:303` against `row.target.predecessorObservation`; the input checked at `:270` | Bound |
+| `abg/semantic_stage.ts:372` | `:373` digest against `member.digest`; the input bound at `:338` | Bound |
+| `abg/semantic_job.ts:303` | `:304` `observation.fileDigest`, where `observation` is the live `observeWorksiteSubject` result (`:301`) | **Named**: compared with a live observation, not a recorded digest. The bytes enter the output (`:306`). |
+| `abg/semantic_job.ts:374` | `:376` digest against `member.digest`; the input bound at `:348` | Bound |
+| preserved archive, `abg/worksite_construction_recovery.ts:274` | `:275` against the `actor_result_artifact_observed` event's digests (`:234`); prompt `:278` and chunks `:295` | Bound (event log) |
+| preserved target, `abg/worksite_construction_recovery.ts:147` | `:154` against the admitted task's `predecessorObservation` | Bound |
+
+**(vi) Loops.**
+
+| Module | Loop | Terminates because |
+|---|---|---|
+| `gtl/consensus.ts` | the `for` at `:791` and 58 array combinators | they run over finite arrays |
+| `gtl/consensus.ts` | the mutual recursion `isConsensusRoleTask` `:2642` → `validateConsensusSubmitterTask` `:2582` → `isConsensusFindingsVector` `:2477` → `isReviewFindings` `:2261` → `isConsensusReviewerTask` `:2651` | the role moves from submitter to reviewer once (`:2654` fixes `"reviewer"`), and `validateConsensusReviewerTask` (`:2161-2249`) has no edge back |
+| `validator/validation.ts` | 28 `for…of` loops | they run over frozen admitted arrays |
+| `validator/validation.ts` | `visit` `:1447-1458` | it recurses structurally over an admitted I-JSON tree |
+| `abg/semantic_job.ts` | the `while` at `:58` | a `seen` set over `basisRef` |
+| `abg/semantic_revision.ts` | `:113-141` | a strictly decreasing `admissionOrdinal` |
+| `abg/semantic_revision.ts` | `:737-756` | a `visited` set and a decreasing ordinal |
+| `abg/semantic_revision.ts` | `:845-856` | a `visited` set over `resultRef` on a finite prefix |
+| `admitRuntimeThreshold` (`abg/runtime_liveness.ts:357-397`) | none | it has no loop and no recursion |
+
+The remaining `abg/semantic_*` loops run over finite arrays. The two cross-module cycle hits were false positives: a string literal and a later `const` use.
+
+### Lanes (each alone; before on the base build, after on the clean tree)
+
+84 lanes (the ten-pattern set), the compose scenario and `t287-retained-installed-consumer`, each alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`. Counts, reds, skips and first errors are equal except the law lane's new case (7/3/0/4 → 8/4/0/4). The malformed gate's base red is unchanged; its line moved with the arrangement. Durations: no qualification lane moved (each within 0.1 s). The total went from 1,838 s to 1,936 s, carried by the long lanes (`t287-c0-post-publication-failure` 1,176 → 1,249 s, `t287-worksite-command-execution` 314 → 321 s), inside a 10% band per lane, with no lane over it.
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `d2-acknowledgment` | 3/0/0/3 | 3/0/0/3 | 0.0 / 0.0 | yes | 3 skipped |
+| `d2-binding-query-reuse` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `d2-binding-transition` | 10/0/0/10 | 10/0/0/10 | 0.0 / 0.0 | yes | 10 skipped |
+| `d2-bounded-repair` | 12/1/0/11 | 12/1/0/11 | 0.5 / 0.6 | yes | 11 skipped |
+| `d2-evidence-owner` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `d2-historical-design` | 13/0/0/13 | 13/0/0/13 | 0.0 / 0.0 | yes | 13 skipped |
+| `d2-historical-owner` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `d2-workflow-step` | 9/0/0/9 | 9/0/0/9 | 0.0 / 0.0 | yes | 9 skipped |
+| `integration-shared-seams` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `m5-consensus-module` | 17/17/0/0 | 17/17/0/0 | 0.6 / 0.7 | yes | - |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | 34.3 / 36.8 | yes | red `:96` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:218` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:285` AssertionError [ERR_ASSERTION]: The input did not match the regular expression /exact admi; red `:415` TypeError [Error]: runtime event candidate has an invalid envelope |
+| `m5-worker-transport` | 23/23/0/0 | 23/23/0/0 | 8.6 / 9.1 | yes | - |
+| `r10-projection-contracts` | 11/11/0/0 | 11/11/0/0 | 1.5 / 1.6 | yes | - |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 | 0.3 / 0.3 | yes | 6 skipped |
+| `t287-c0-correction-regressions` | 4/3/1/0 | 4/3/1/0 | 70.8 / 75.5 | yes | red `:42` TypeError [Error]: Cannot read properties of undefined (reading 'graphFunctionRef') |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 | 1176.4 / 1249.4 | yes | - |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 1.2 / 1.2 | yes | red `:120` TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut; red `:195` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:212` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:227` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:238` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:266` TypeError [Error]: operations.nativeWorkReacquisition is not a function |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 | 4/4/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-common-computational-library` | 17/17/0/0 | 17/17/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-d1-semantic-stage` | 3/1/0/2 | 3/1/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-declared-testing-capability` | 7/3/0/4 | 7/3/0/4 | 33.2 / 34.2 | yes | 4 skipped |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 | 1.5 / 1.5 | yes | - |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | 2.4 / 2.5 | yes | 3 skipped |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 10.7 / 11.1 | yes | - |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 34.5 / 36.1 | yes | red `:356` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-generic-job-lifecycle` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-generic-job-meaning` | 5/3/0/2 | 5/3/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | 2/1/0/1 | 0.4 / 0.4 | yes | 1 skipped |
+| `t287-generic-job-revision` | 4/1/0/3 | 4/1/0/3 | 0.3 / 0.4 | yes | 3 skipped |
+| `t287-governance-covered-source-use` | 9/3/3/3 | 9/3/3/3 | 0.3 / 0.4 | yes | red `:351` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:386` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:430` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; 3 skipped |
+| `t287-gtl-serialization-publication` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | 5.6 / 5.8 | yes | red `:64` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal: |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 | 0.4 / 0.5 | yes | - |
+| `t287-installed-qualification-conservation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-malformed-gtl-gate` | 6/5/1/0 | 6/5/1/0 | 0.5 / 0.5 | yes, shifted | red `:63` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; the base's red at `:60`/`:107`, moved to `:63`/`:110` by the arrangement's three added lines (same assertion: `'raw_admission_refused'` where `'validation_failed'` is expected) |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 | 0.4 / 0.4 | yes | 2 skipped |
+| `t287-native-assembly-retained-input` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:12` AssertionError [ERR_ASSERTION]: explicit closed job selection required; this test never ac |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 | 0.3 / 0.4 | yes | - |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 | 0.8 / 0.8 | yes | 1 skipped |
+| `t287-native-semantic-evidence` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:11` AssertionError [ERR_ASSERTION]: explicit closed owner extraction required; no runtime reso |
+| `t287-native-semantic-job` | 9/8/1/0 | 9/8/1/0 | 0.9 / 0.9 | yes | red `:224` AssertionError [ERR_ASSERTION]: native failure reuses the original derivation |
+| `t287-native-semantic-revision` | 7/4/1/2 | 7/4/1/2 | 0.6 / 0.6 | yes | red `:118` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 2 skipped |
+| `t287-native-structural-gates` | 9/9/0/0 | 9/9/0/0 | 2.6 / 2.6 | yes | - |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 | 6/6/0/0 | 30.6 / 32.1 | yes | - |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | 0.6 / 0.7 | yes | 3 skipped |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 | 0.8 / 0.9 | yes | - |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | 0.3 / 0.4 | yes | 3 skipped |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.4 / 1.5 | yes | 1 skipped |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | 1.3 / 1.4 | yes | red `:43` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-owned-native-proof` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 | 2.2 / 2.2 | yes | - |
+| `t287-predecessor-context` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t287-public-preparation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-qual056-material` | 7/7/0/0 | 7/7/0/0 | 2.6 / 2.7 | yes | - |
+| `t287-qualification-carrier-resource` | 7/0/0/7 | 7/0/0/7 | 0.3 / 0.3 | yes | 7 skipped |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 | 1.1 / 1.2 | yes | - |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-qualification-law` | 7/3/0/4 | 8/4/0/4 | 0.3 / 0.4 | yes | 4 skipped; +1 test: the item 3 case; the restated item 2 case passes |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:18` AssertionError [ERR_ASSERTION]: explicit frozen fixture and isolated emitted-owner binding |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/0/1 | 1/0/0/1 | 0.1 / 0.1 | yes | 1 skipped |
+| `t287-qualification-producer-context` | 4/4/0/0 | 4/4/0/0 | 1.1 / 1.2 | yes | - |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-qualification-scopes` | 17/17/0/0 | 17/17/0/0 | 0.9 / 1.0 | yes | - |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 34.6 / 36.8 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-result-evidence-lineage-projection` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:214` TypeError [Error]: event store was not constructed by this ABG module |
+| `t287-route-reconstruction` | 12/10/0/2 | 12/10/0/2 | 8.7 / 9.1 | yes | 2 skipped |
+| `t287-runtime-failure-diagnostic` | 20/20/0/0 | 20/20/0/0 | 3.5 / 3.6 | yes | - |
+| `t287-stdo-environment-citation` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-stdo-run-environment` | 2/0/0/2 | 2/0/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.8 / 0.9 | yes | - |
+| `t287-wave2-owner-contract-source-set` | 15/15/0/0 | 15/15/0/0 | 0.1 / 0.1 | yes | - |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | 313.8 / 321.0 | yes | - |
+| `t288-composition-conservation` | 1/0/0/1 | 1/0/0/1 | 0.1 / 0.1 | yes | 1 skipped |
+| `t288-instruction-assembly-owner` | 6/4/0/2 | 6/4/0/2 | 0.3 / 0.3 | yes | 2 skipped |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 | 0.0 / 0.0 | yes | 2 skipped |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `w2-steel-single-start` | 8/6/1/1 | 8/6/1/1 | 0.3 / 0.3 | yes | red `:118` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 35.1 / 35.7 | yes | - |
+| `t287-retained-installed-consumer` (extra) | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' (red at the base) |
+
+### Gates (clean tree)
+
+- `tsc --noEmit` rc 0.
+- `lint:imports`: 28 shared modules; 3 forbidden owner pairs hold.
+- `lint:lifecycle`: 287 modules, 7 allow-listed sites, no offender.
+- `lint:evidence`: 691 mirror roots, no new copy.
+- `lint:calculus`: 6 modules, no offender.
+- `npm run build` rc 0: 787 build files against 785 on the base. The two are `validator/qualification_catalogs.{js,d.ts}`.
+
+The regenerated files moved:
+- `product-toolchain-manifest.json`: 51,180 → 51,323 leaves, paths not equal. The delta is `productRelativeLocators[]` +2 (the new module's `.js` and `.d.ts`) and `declarationInventory[]` +47 rows: 47 public-contract rows' declaration closures gained `qualification_catalogs.d.ts`.
+- `contracts/capabilities/capability-definition-graph.json`: 3,263 leaves, paths equal, 551 digest values moved, the 16 capability ids equal.
+
+These are the classes of the M-5 stop 3 ruling (export names, the export map and `public/*` unchanged; the build decides the declaration closure) plus a new module the activation's (g) permits.
+
+Instrumentation: `grep -c M5B` is 0 in every changed source file and the new module, and 0 files under `build/` match. The stripped source is byte-equal to the clean copy in scratch (`cmp` over all 20 files).
+
+### Item 5: cell proposals for row 10b (the Executive places them)
+
+- **Totality.** "Termination is established per leaf from code (T-291 M-5) and the loop claims are read in full (M-5b): Consensus' role recursion runs submitter to reviewer once; `validator/validation.ts`'s `visit` is structural; the `abg/semantic_*` walks advance a decreasing ordinal or a visited set; `admitRuntimeThreshold` has no loop. The port types every outcome, sets no deadline or fuel (the owner's ruling of 2026-10-25), and returns an F_D leaf's typed failure with its deterministic evidence. Totality over the admitted input, by read class: the catalogs are inputs at every caller in the tree but the owner-binding run path and the semantics provider (Material dependencies); the five command-limit leaves read `selectedWorksiteCommandExecutionLimits` (`NativeIntake` as the value's entry point, which would need a declared input key; `NativeConstruction` and the three native semantic task leaves as a gate over limits their input carries); the live-worksite observations of eight leaves are row 9b's class (T-287 D0); the worksite selection and preparation leaves and `prepareObservedTestingTask` read the ambient `HOME`, `TMPDIR`, `LANG`, `LC_ALL` and `PATH` on `environmentEntries`' record branch, captured at preparation; `abg/semantic_job.ts:303` compares a whole-file read with a live observation; every other whole-file read is compared to a digest the input or the event log records."
+- **Material dependencies.** "Declared: the admitted implementation set and install root; the leaf's input and its occurrence's durable prefix; the coverage and rule catalogs, admitted once per owner install at `authority_verification` by `validator/qualification_catalogs.ts` (the rule catalog against its public-contract asset digest, coverage through `manifestDigest` and `productContentDigest`) and carried as `LeafExecutionOccurrence.qualificationCatalogs` to every qualification leaf, the native and judgment-time operations, the owner projection and the F_P preparation; the run operation admits the rule catalog from the selected Program's install; the verdict projection, given none, admits them from the owner install its durable prefix records. Remaining module-relative catalog reads: the defaults of `validator/qualification.ts`, reached only by the `./abg` and `./validator` export-map members called without catalogs; `readSelfConformanceCatalog` (named by the `./validator` export map), reached by those and by the owner-binding run path, which holds no install record; the semantics provider's own catalogs (`validator/self_conformance_semantics.ts`), whose declared members carry no catalog channel. The ambient command limits and environment reads are named under Totality."
+- **Outcomes.** "One typed leaf outcome per invocation that returns. A catalog whose bytes differ from what the verified install records is `implementation_exception` at `authority_verification`, reason `refused`, cause `{at, atTruncated, reason}` naming the catalog and both digests (F_D); an F_P leaf observes it as `thrown` with the reason. An F_D qualification leaf's typed failure arrives with its failure class."
+- **RELEASE §9 row.** "Pending. Realized by T-291 M-5 (`661294535`) and M-5b (this commit): the catalogs admitted at the authority stage and carried on the occurrence, every in-tree caller in the grant passing them, the F_D failures' evidence, totality classified by read class. Remaining: the three catalog reads under Material dependencies (the export map, the owner-binding run path, a declared semantics signature); the command limits (`NativeIntake` a Program declaration question; the others a basis member at two construction sites); the ambient environment reads; `abg/semantic_job.ts:303`. The live-worksite observations of eight leaves are row 9b's class (T-287 D0)."
+- **Evidence.** "Code reading; the census of 131 catalog-taking calls; `t287-qualification-law` (the admission case, intact and tampered for each catalog, `refused` with its cause; a typed F_D failure through the port with its evidence); `t287-qualification-scopes`, `t287-malformed-gtl-gate`, `t287-native-runtime-gate`, `t287-native-structural-gates`, `t287-qualification-contraction`, `t287-installed-qualification-conservation` and the other lanes equal before and after."
+
+**T-291 ledger row (proposal).** "M-5b: row 10b by realization, in part: the catalogs admitted at `authority_verification` as an occurrence member and passed at every granted caller; tamper `refused` with its cause; the F_D qualification failures returned with their evidence; totality classified by read class; the verdict projection admitting from the recorded owner install. Row stays Pending: three catalog reads (the export map, the owner-binding run path, a declared semantics signature), the command limits and the ambient environment reads named. 84 lanes, compose and `t287-retained-installed-consumer` equal before and after but the law lane (7/3/0/4 → 8/4/0/4, the item 3 case)."
+
+### Deviations
+
+1. A refusal for an F_P leaf stays `thrown`, with a `TypeError` naming the refusal. The undispatched observation profile (`abg/event_contract_profiles.ts`, outside the grant) admits a cause only for `thrown`.
+2. The ruling leaf (`realizeQualificationRuling`) also returns its failure with evidence: a fifth F_D qualification leaf beyond the activation's four.
+3. The admission's read and digest comparison precede the boundary call, in `invoke`, and the stage decides. The owner projection and the F_P preparation keep M-5's placement ahead of the boundary, because `t287-qualification-fp-proof-delivery` (`:48`, `:96`) drives `invokeLeafOwnerBoundary` with a precomputed `qualificationPreparation`, and `ownerRefusal("owner_boundary_exception")` returns before the boundary.
+4. `nativeJudgmentProofOperations`' trailing parameters, including the catalogs thunk, are optional. Four lanes call this private function positionally with four arguments; a required thunk crashed them in the probe (`t287-qualification-contraction`, `t287-native-runtime-gate`).
+5. (d) admits the rule half only (`readInstalledQualificationRuleCatalog`, the function the full admission calls first). The operation reaches no coverage, and the full admission hashes every payload locator.
+6. `t287-qualification-scopes`' fixture coverage is now a schema-valid catalog identity, because the case passes it instead of mocking `qualificationCoverageIsPublished`. No assertion changed.
+7. `referenceDependencies` (`abg/qualification_proof.ts:84`) tests the reference form before `isQualificationAssessmentInput`. Both are pure predicates, so the outcome is unchanged and the call never reaches the rule catalog.
+8. Item 2's restatement changes two assertion lines of the one case: the reason, and the cause member names (`errorClass` to `at`, `message` to `reason`).
+9. The verdict projection admits the catalogs from the producer's recorded owner install when the caller passes none. The activation listed (a)'s projections as taking catalogs from their callers; this takes the in-tree release path (`release_publication.ts:136`, reached from `abg/artifact_truth.ts:387`, `product/project_read_ports.ts:792`, `product/release_snapshot_definition_bindings.ts:46` and `release_publication.ts:207`) off the module-relative default without editing those modules. It is an install-rooted, digest-checked read in a granted module. It is not memoized, so each call hashes the owner install's payload.
+
+### Findings outside the grant
+
+1. `abg/actor_process.ts:834` and `:875-886` are a second reader of `ABG_TS_FP_ABSOLUTE_TIMEOUT_MS` and `ABG_TS_FP_TIMEOUT_MS`, with the same defaults (`:69-70`). It validates with `positiveInteger`, where `selectedWorksiteCommandExecutionLimits` uses bare `Number()`.
+2. `realizeSemanticJobPlan` (`implementation/semantic_stage.ts:114-117`) reads the ambient environment through `planInput` (`abg/semantic_job.ts:232-235`) for acceptance only. Its judgment repeats the read (`:409`). It is not among the activation's ten.
+3. `product/worksite_command_execution.ts:910` evaluates `process.env.PATH` on every call, including the list branch where the value is never used. Making it lazy is a `product/*` edit.
+4. `product/worksite_command_execution.ts:920` sorts the environment rows with `localeCompare`, an ambient-locale read.
+5. With `resolution.programInstall` as the owner, (d) refuses (throws) for a Program whose install lacks the rule-catalog asset row and is given a qualification input. The base read the executing package's catalog. For a qualification Program the Program's install is the owner install. A foreign Product's Program taking qualification input is not exercised by a lane.
+
+### Stops
+
+1. **`validator/qualification.ts` keeps its module-relative defaults** (`readQualificationCatalog` `:429-432`; the coverage default `:674-675`). No caller in `code/src` reaches them now; the census's remaining omitting calls are catalog-free (`:84`), admitted by the callee (`:136`) or reach stop 2. The remaining reachers are:
+   - the `./abg` and `./validator` export-map members called without catalogs: making the parameter required is a Public export change, and the read cannot move into an external caller's module;
+   - lanes outside the grant (for example `t287-qual056-material` and `t287-qualification-producer-context`).
+2. **`readSelfConformanceCatalog` stays**: the `./validator` export map names it (`validator/index.ts:52`). Its callers are:
+   - `evaluateSelfConformance`'s no-catalogs fallback;
+   - `prepareRunQualificationResources` for the owner-binding path (`owner_bindings/run_invocation.ts:1841`, `:1922`, outside the grant). Those callers pass no install, and the callee has none: `ProductRunInvocationResourceAssertion` (`run_invocation_operation.ts:79-87`) carries no install record.
+
+   The ungranted lane `t287-qual056-material:13` imports it.
+3. **The semantics provider**: the declared `ProductSemanticsProvider` members carry no catalog channel. Its read is in its own module, named, with no digest in scope.
+4. **`NativeIntake`'s command limits**: carrying them as input needs a key on its declared input contract (a Program declaration).
+
+No fuel or deadline bound was added. No payload key, failure class, reason enum, export name, `gtl/*` declaration or `contracts/` file changed, other than the regenerated graph.
+
+### What could not be verified
+
+- That the item 3 case fails on the base. I reasoned it from code and did not run it.
+- The verdict projection's owner-install admission (deviation 9): no lane drives a positive verdict through `projectQualificationVerdict` (`t287-release-acceptance` mocks it; `t287-release-publication:92` asserts `null` before it; `t287-conformance-owner-reuse`, whose `:426` asserts `null`, is red at the base), so its admitted arm is not exercised.
+- The manifest-binding refusal arm: no lane exercises it.
+- In the item 4 census (one Opus subagent, spot-checked at the Lim, Env?, F-read and loop rows):
+  - the effect of `NaN` limits;
+  - the observed-testing reacquire branch;
+  - `deriveSemanticJobPreparation` (whether the judgment catches a divergence at `semantic_job.ts:303`);
+  - the source of `job.taskData.nativeLifecycle.commandExecutionLimits`.
+
+  It read `gtl/consensus.ts` and `validator/validation.ts` at their loop and recursion sites and over the call graph, not line by line.
+- The lane count: `git grep -l -e qualification_proof -e run_invocation_operation -e self_conformance_semantics -e validator/qualification -e self_conformance -e implementation/qualification -e leaf_invocation_port 4b8dc3208 -- test_env/tests` gives 45 files: 43 lanes plus `r10-fresh-imports.mjs` and `r10-retained-hello-projection.mjs`. The activation says 46. The ten-pattern set is 89 files, which is 84 lanes; the pass ran those 84, the compose scenario and `t287-retained-installed-consumer`.

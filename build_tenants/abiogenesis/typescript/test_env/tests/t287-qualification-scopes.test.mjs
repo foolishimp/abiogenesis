@@ -8,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {qualificationHash as hash, constructQualificationIdentity as identity, QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
-import {projectExternalConstructionAttribution} from '../../build/code/src/validator/qualification.js';
+import {projectExternalConstructionAttribution,parseQualificationRuleCatalog} from '../../build/code/src/validator/qualification.js';
 import {acquireQualificationResources,resolveQualificationAssessment} from '../../build/code/src/validator/qualification_resources.js';
 const clone=x=>structuredClone(x),coord=(ref,digest=hash(ref))=>({ref,digest}),digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 const plainSource=m=>({ref:m.ref,path:m.path,digest:m.digest,byteCount:m.byteCount});
@@ -30,7 +30,9 @@ function fixture(size=3,ruleCount=2,configureCatalog=()=>{},roots=['root://candi
  const catalogBytes=Buffer.from(JSON.stringify(catalog)),catalogDigest=digest(catalogBytes);
  const law=identity({kind:'qualification_law_basis',...catalog.method,catalog:{ref:catalog.catalogRef,digest:catalogDigest,ownerRef:catalog.ownerRef,version:catalog.catalogVersion,assetPath:'contracts/qualification/rule-catalog.json'},sources:catalog.sources},'lawBasisRef','lawBasisDigest','qualification-law://abiogenesis/');
  const tenant=identity({kind:'tenant_conformance_manifest',schemaVersion:'5.0.0',productId:'product://component',capabilityDefinitionGraph:coord('capability://component'),publicContractCatalog:coord('public://component'),claims:[{claimRef:'claim://component',capabilityRef:'capability://one',publicContractRefs:['contract://one'],evidenceRefs:['evidence://one']}]},'manifestRef','manifestDigest','tenant-manifest://abiogenesis/');
- const coverage={kind:'qualification_coverage_catalog',schemaVersion:'5.0.0',catalogRef:'coverage://component',catalogDigest:hash('coverage'),catalogVersion:'1',lawBasis:coord(law.lawBasisRef,law.lawBasisDigest),claims:[{coverageRef:'coverage://one',behaviors:['behavior://one'],requirementRefs:[authority[1].ref+'#REQ'],evidenceRoles:['behavioral_coverage']}]};
+ const coverage=identity({kind:'qualification_coverage_catalog',lawBasis:coord(law.lawBasisRef,law.lawBasisDigest),authoritySources:roleSources,claims:[{coverageRef:'coverage://one',behaviors:['behavior://one'],requirementRefs:[authority[1].ref+'#REQ'],evidenceRoles:['behavioral_coverage']}]},'catalogRef','catalogDigest','qualification-coverage://abiogenesis/');
+ // The catalogs the cases need, passed as an admitting owner passes them.
+ const catalogs={rules:parseQualificationRuleCatalog(catalogBytes),coverage};
  const basis=identity({kind:'exact_candidate_qualification',projection:'basis',schemaVersion:'5.0.0',subjectKind:'installed_rc',productId:tenant.productId,productVersion:'5.0.0-rc.1',sourceInventory:coord(inventory.inventoryRef,inventory.inventoryDigest),artifact:coord('artifact://component'),productManifest:coord('manifest://component'),productContentDigest:hash('content'),toolchain:coord('manifest://component'),installedProduct:coord('install://component'),workspaceBinding:coord('workspace://component'),prospectiveRelease:{productId:tenant.productId,namespace:'abiogenesis',profile:'one_project_unqualified',projectSubtree:'.',versionLine:'5.0.0',ordinal:1,version:'5.0.0-rc.1',releaseClaim:coord('release-claim://component')},tenantManifest:coord(tenant.manifestRef,tenant.manifestDigest),coverageCatalog:coord(coverage.catalogRef,coverage.catalogDigest),lawBasis:coverage.lawBasis},'basisRef','basisDigest','qualification-basis://abiogenesis/');
  const scope=identity({kind:'qualification_scope',subjectBasis:coord(basis.basisRef,basis.basisDigest),lawBasis:basis.lawBasis,catalog:coord(catalog.catalogRef,catalogDigest),inventory,ruleGroups:[{groupRef:'group://rules',ruleRefs:rules.map(r=>r.ruleRef),sourceRefs:roleSources.map(s=>s.ref)}],surfaceGroups:[{groupRef:'group://surfaces',memberRefs:source.map(s=>s.ref),rootRefs:inventory.selectedRoots,surfaceRoles:[...new Set(source.flatMap(s=>s.surfaceRoles))],ownerRefs:['owner://component'],sourceRefs:[source[0].ref]}]},'scopeRef','scopeDigest','qualification-scope://abiogenesis/');
  const execution=mat('execution://actual-premise',{kind:'component_native_execution_premise'}),verification={subjectBasis:scope.subjectBasis,lawBasis:basis.lawBasis,recipe:coord('recipe://premise'),executionSelectionRef:'selection://execution',execution:coord(execution.ref,execution.digest),cCall:coord('c-call://executed-premise'),observation:coord('observation://premise'),commandOutcomes:[],lintOutcome:null,predicateOutcomes:[],testSummaries:[],disposition:'passed',diagnostics:[]};
@@ -48,8 +50,13 @@ function fixture(size=3,ruleCount=2,configureCatalog=()=>{},roots=['root://candi
   judgment('tenant','tenant_realization','tenant',tenant.manifestRef,sourceMembers,grouped);judgment('coverage','behavioral_coverage',coverage.claims[0].coverageRef,coverage.claims[0].behaviors[0],sourceMembers,grouped);
  }
  populate();
- async function ownerModule(){return privateOwner('validator/self_conformance.js',[],{'node:fs':{readFileSync:(p,...args)=>String(p).endsWith('/qualification/rule-catalog.json')?catalogBytes:fs.readFileSync(p,...args)},'./qualification.js':{qualificationCoverageIsPublished:()=>true},'../abg/qualification_proof.js':{resolveQualificationAssessments:()=>judgments,resolveQualificationExecutionMaterial:()=>({evidence:[execution],verification}),qualificationTenantClaimsMatch:()=>true}});}
- async function assessmentModule(){return privateOwner('validator/qualification.js',[],{'node:fs':{readFileSync:(p,...args)=>String(p).endsWith('/qualification/rule-catalog.json')?catalogBytes:fs.readFileSync(p,...args)}});}
+ async function ownerModule(){const m=await privateOwner('validator/self_conformance.js',[],{'../abg/qualification_proof.js':{resolveQualificationAssessments:()=>judgments,resolveQualificationExecutionMaterial:()=>({evidence:[execution],verification}),qualificationTenantClaimsMatch:()=>true}});
+  return {...m,evaluateSelfConformance:(input,owner,resources)=>m.evaluateSelfConformance(input,owner,resources,catalogs)};}
+ async function assessmentModule(){const m=await privateOwner('validator/qualification.js',[]);return {...m,
+  isQualificationAssessmentInput:value=>m.isQualificationAssessmentInput(value,catalogs),
+  establishQualificationAssessment:(input,resources)=>m.establishQualificationAssessment(input,resources,catalogs),
+  qualificationWorkerRequest:(input,established)=>m.qualificationWorkerRequest(input,established,catalogs),
+  qualificationRawMatches:(input,raw,view)=>m.qualificationRawMatches(input,raw,view,catalogs)};}
  return {input,owner,catalog,catalogBytes,catalogDigest,scope,sourceMembers,authority,execution,verification,ownerModule,assessmentModule,populate,judgment,get judgments(){return judgments;}};
 }
 

@@ -1,6 +1,7 @@
 // Controlled transport conservation only: this is not independent semantic assessment.
 import assert from 'node:assert/strict';
 import {readFile, writeFile, mkdir, chmod, appendFile} from 'node:fs/promises';
+import fs from 'node:fs';
 import {join, resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import test from 'node:test';
@@ -9,6 +10,7 @@ import {runtime, schemaVersion, hash, digest, readJson, writeJson, coordinate, s
   from '../support/installed-qualification-conservation.mjs';
 
 const {product, abg, validator, gtl, preparation} = runtime;
+const catalogs = { coverage: JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url))) };
 const root = resolve(process.env.ABI5_INSTALLED_CONSERVATION_ROOT);
 const packageRoot = resolve(process.env.ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT);
 const archivePath = resolve(process.env.ABI5_INSTALLED_CONSERVATION_ARCHIVE);
@@ -37,7 +39,7 @@ async function fixture(caller, install) {
   const catalog = JSON.parse(catalogBytes), law = await readJson(join(packageRoot, 'contracts/qualification/law-basis.json'));
   const coverage = await readJson(join(packageRoot, 'contracts/qualification/coverage.json'));
   assert.equal(coverage.lawBasis.digest, law.lawBasisDigest);
-  assert(validator.qualificationCoverageIsPublished(coverage));
+  assert(validator.qualificationCoverageIsPublished(coverage, catalogs));
   const lawBasis = coord(law.lawBasisRef, law.lawBasisDigest);
   const catalogCoordinate = coord(catalog.catalogRef, digest(catalogBytes));
   const fixtureRoot = join(fixtureOwnerRoot, 'fixture'), createFixture = fixtureOwnerRoot === root;

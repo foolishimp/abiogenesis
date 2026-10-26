@@ -7,11 +7,13 @@ import os from 'node:os';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createHash } from 'node:crypto';
-import { isQualificationCoverageCatalog, qualificationCoverageIsPublished } from '../../build/code/src/validator/qualification.js';
+import { isQualificationCoverageCatalog, qualificationCoverageIsPublished, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
 
 const root = fileURLToPath(new URL('../../', import.meta.url));
 const read = relative => fs.readFileSync(path.join(root, relative));
 const json = relative => JSON.parse(read(relative));
+const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
+  fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 const digest = bytes => 'sha256:' + createHash('sha256').update(bytes).digest('hex');
 const input = json('contracts/qualification/authority-inputs.json');
 const definition = json('contracts/qualification/sources/stdo_abiogenesis.json');
@@ -58,7 +60,7 @@ test('qualification law and every rule span bind the selected frozen source byte
 });
 
 test('coverage declarations preserve retained behavior without execution slots or fabricated results', () => {
-  assert(isQualificationCoverageCatalog(inventory)); assert(qualificationCoverageIsPublished(inventory));
+  assert(isQualificationCoverageCatalog(inventory)); assert(qualificationCoverageIsPublished(inventory, catalogs));
   const behaviors = inventory.claims.flatMap(c => c.behaviors);
   for (const behavior of ['traversal/compute/F_D', 'traversal/compute/F_P', 'traversal/structural/edge_program', 'C.retry',
     'ABG5-S01/R10', 'ABG5-S06/complete-selected-contract', 'malformed-GTL', 'malformed-FP']) assert(behaviors.includes(behavior));
@@ -66,7 +68,7 @@ test('coverage declarations preserve retained behavior without execution slots o
     assert(claim.requirementRefs.length); assert(claim.behaviors.length);
     for (const key of ['ordinal', 'graphFunctionRef', 'implementationRef', 'outputContract', 'mechanism', 'disposition']) assert(!(key in claim));
   }
-  const subset=structuredClone(inventory);subset.claims.pop();assert(!qualificationCoverageIsPublished(subset));
+  const subset=structuredClone(inventory);subset.claims.pop();assert(!qualificationCoverageIsPublished(subset, catalogs));
 });
 
 for (const name of ['retainedRC1', 'selectedRC2']) test(`authority staging and ordinary reproduction bind ${name}'s exact Definition-selected release`, async t => {
@@ -255,9 +257,32 @@ export function realizeAdmissionObserver(input, occurrence, resolution, inputDig
     assert.equal(closed.candidate.resultCandidate.failureClass, 'implementation_exception');
     const subject = readRuntimeFailureDiagnosticSubject(closed.candidate.diagnosticRef);
     assert.equal(subject.diagnosticClassRef, 'diagnostic://abiogenesis/implementation/implementation-exception@5');
-    assert.equal(subject.stage, 'authority_verification'); assert.equal(subject.reason, 'thrown'); assert.equal(subject.cause.errorClass, 'TypeError');
+    assert.equal(subject.stage, 'authority_verification'); assert.equal(subject.reason, 'refused'); assert.equal(subject.cause.at, relative);
     const recorded = relative === rulesPath ? digest(rulesBytes) : installed.productContentDigest;
-    for (const named of [relative, digest(changed), recorded]) assert(subject.cause.message.includes(named), subject.cause.message);
+    for (const named of [relative, digest(changed), recorded]) assert(subject.cause.reason.includes(named), subject.cause.reason);
     assert.equal((await tampered.leaf()).seen.length, 0, 'the implementation is not loaded or invoked');
   }
+});
+
+test('a typed failure of an F_D qualification leaf arrives through the port boundary with its evidence', async () => {
+  const built = relative => pathToFileURL(path.join(root, 'build/code/src', relative)).href;
+  const { invokeLeafOwnerBoundary } = await import(built('implementation/leaf_invocation_port.js'));
+  const { realizeMalformedGtlAssessment } = await import(built('implementation/qualification.js'));
+  const { QUALIFICATION_IDS: q } = await import(built('gtl/self_conformance.js'));
+  const { sha256Canonical } = await import(built('shared/digests.js'));
+  const value = { kind: 'qualification_law_admission_fixture' }, inputDigest = sha256Canonical(value);
+  const resolution = { implementationRef: q.malformedAssessImplementation, implementationBindingRef: 'binding://qualification-law/typed-failure@5',
+    computeRegime: 'F_D', inputContractRef: q.malformedInput, outputContractRef: q.malformedAssessment,
+    failureContractRef: 'contract://qualification-law/failure@5', programLocusRef: 'node://qualification-law/typed-failure' };
+  const occurrence = Object.freeze({ cCallRef: 'c-call://qualification-law/typed-failure', runId: 'run://qualification-law', graphCallId: 'graph-call://qualification-law',
+    frameId: 'frame://qualification-law', programLocusRef: resolution.programLocusRef, taskOrdinal: null, attempt: 1, executionAuthority: null,
+    qualificationOwnerBasis: { predecessorPrefix: {}, cCallRef: 'c-call://qualification-law/typed-failure' }, qualificationCatalogs: catalogs });
+  const closed = await invokeLeafOwnerBoundary({ resolution, value, inputDigest, failureValueKind: 'self_conformance_failure',
+    verifyAuthority: () => true, validateSuccess: () => false, resolveWorkerContracts: () => null, occurrence,
+    loadImplementation: async () => realizeMalformedGtlAssessment });
+  assert.equal(closed.computeRegime, 'F_D');
+  assert.equal(closed.candidate.disposition, 'failure', JSON.stringify(closed));
+  assert.equal(closed.candidate.resultCandidate.failureClass, 'malformed_gtl_task_unadmitted', JSON.stringify(closed.candidate));
+  assert.deepEqual(closed.candidate.evidenceCandidates, [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0',
+    implementationRef: q.malformedAssessImplementation, inputDigest, outputDigest: sha256Canonical(closed.candidate.resultCandidate) }]);
 });

@@ -8,7 +8,9 @@ import { createHash } from 'node:crypto';
 import { nativeJoinFixture, inputFixture, coverage, ids, hash, identity, publication } from '../support/malformed-gtl-native-fixture.mjs';
 import { constructLanguageTestInput } from '../support/language-test-gtl.mjs';
 import { render as renderLanguageTest } from '../fixtures/language-smoke/leaf.mjs';
-import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment } from '../../build/code/src/validator/qualification.js';
+import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
+const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
+  fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 const plain = x => JSON.parse(JSON.stringify(x));
 const reidentify = basis => { const { basisRef, basisDigest, ...body } = basis; return identity(body, 'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/'); };
 async function witnessFixture(options = {}) {
@@ -24,7 +26,7 @@ async function witnessFixture(options = {}) {
       slotRef: witness.call.programLocusRef, graphFunction: { ref: witness.execution.graphFunctionRef, digest: witness.execution.graphFunctionDigest },
       implementationRef: witness.call.implementationRef, inputDigest: hash(helloInput), result: { ref: result.resultRef, digest: result.resultDigest },
       expectedValueDigest: hash(value), substituteResultDigest: hash('declared-unequal-result-digest') }] };
-  assert(isNativeRuntimeAssessmentInput(input));
+  assert(isNativeRuntimeAssessmentInput(input, catalogs));
   return { ...f, input, witness, value, helloInput };
 }
 function assess(f, suffix = 'assessment') {
@@ -58,7 +60,7 @@ test('caller-editable qualification owner views cannot mutate retained input aut
   const returned=f.owner.projectQualificationConsumer(opened.basis,f.input,true);assert(returned);
   assert.equal(Object.isFrozen(returned),false);assert.equal(Object.getOwnPropertyDescriptor(returned,'input').writable,true);
   const altered=plain(f.input);altered.cases[0].expectedValueDigest=hash('different declared expected value');
-  assert(isNativeRuntimeAssessmentInput(altered));returned.input=altered;
+  assert(isNativeRuntimeAssessmentInput(altered, catalogs));returned.input=altered;
   assert.equal(f.owner.projectQualificationConsumer(opened.basis,altered,true),null);
   const warm=f.owner.projectQualificationConsumer(opened.basis,f.input,true);assert(warm);
   assert.notEqual(warm,returned);assert.equal(warm.input,f.input);
@@ -71,7 +73,7 @@ test('declared wrong value computes red; foreign law, changed installed subject,
   const mismatch = await witnessFixture(); mismatch.input.cases[0].expectedValueDigest = hash('different declared expected value');
   assert.equal(assess(mismatch).candidate.resultCandidate.disposition, 'red');
   const foreign = await witnessFixture(); foreign.input.basis.lawBasis = { ref: 'law://foreign', digest: hash('foreign') };
-  foreign.input.basis = reidentify(foreign.input.basis); assert(!isNativeRuntimeAssessmentInput(foreign.input));
+  foreign.input.basis = reidentify(foreign.input.basis); assert(!isNativeRuntimeAssessmentInput(foreign.input, catalogs));
   const subject = await witnessFixture(); subject.input.basis.productContentDigest = hash('foreign subject'); subject.input.basis = reidentify(subject.input.basis);
   assert.equal(assess(subject).candidate.disposition, 'failure');
   const substituted = await witnessFixture(); substituted.input.cases[0].result.digest = hash('substituted result');

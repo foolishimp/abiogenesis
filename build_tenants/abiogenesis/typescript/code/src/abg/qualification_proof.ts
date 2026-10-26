@@ -2,8 +2,6 @@ import type { RuntimeEventScan } from "./runtime_history.js";
 import { isQualificationReferenceForm, resolveQualificationAssessment, resolveQualificationProof, resolveSelfConformanceInput, type QualificationResources } from "../validator/qualification_resources.js";
 import { canonicalJson } from "../shared/canonical_json.js";
 import { isDeepStrictEqual } from "node:util";
-import { readFileSync } from "node:fs";
-import { join } from "node:path";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as v from "valibot";
 import { sha256Bytes } from "../shared/digests.js";
@@ -45,6 +43,8 @@ import { isQualificationAssessmentInput, qualificationPlanMatches, qualification
 import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExternalConstructionAttribution,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
+import type { AdmittedQualificationCatalogs } from "../validator/qualification.js";
+import { admitInstalledQualificationCatalogs, readInstalledQualificationRuleCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "../validator/qualification_catalogs.js";
 import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -60,12 +60,14 @@ const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typ
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 const coord = (ref: string, digest: string) => ({ ref, digest: digest as `sha256:${string}` });
-function declarationsOf(input: unknown, resources?: QualificationResources): readonly AbgHistoricalDeclarationProof[] {
+/** The qualification catalogs the caller admitted from the owner install. */
+type QualificationCatalogs = Readonly<AdmittedQualificationCatalogs>;
+function declarationsOf(input: unknown, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly AbgHistoricalDeclarationProof[] {
   if (!record(input)) return [];
-  if (input.kind === "native_runtime_assessment" && record(input.input)) return declarationsOf(input.input, resources);
+  if (input.kind === "native_runtime_assessment" && record(input.input)) return declarationsOf(input.input, resources, catalogs);
   if (input.kind === "malformed_gtl_assessment" && record(input.input) && Array.isArray(input.input.declarations))
     return input.input.declarations as unknown as AbgHistoricalDeclarationProof[];
-  if (isQualificationAssessmentInput(input)) return resolveQualificationAssessment(input, resources).task.declarations;
+  if (isQualificationAssessmentInput(input, catalogs)) return resolveQualificationAssessment(input, resources).task.declarations;
   if (isQualificationProofResource(input.proof)) return resolveQualificationProof(input.proof, resources).declarations;
   if (record(input.qualification) && isQualificationProofResource(input.qualification.proof)) return resolveQualificationProof(input.qualification.proof, resources).declarations;
   if (Array.isArray(input.declarations)) return input.declarations as unknown as AbgHistoricalDeclarationProof[];
@@ -78,7 +80,8 @@ function referenceDependencies(input: unknown, resources?: QualificationResource
   try {
     if (!record(input)) return true;
     const fields: Readonly<Record<string, JsonValue>> = input;
-    if (isQualificationAssessmentInput(input) && isQualificationReferenceForm(input.task)) { resolveQualificationAssessment(input, resources); return true; }
+    // A reference-form task never reaches the rule catalog; its form is tested first.
+    if (isQualificationReferenceForm(input.task) && isQualificationAssessmentInput(input)) { resolveQualificationAssessment(input, resources); return true; }
     if (isSelfConformanceInput(input) && isQualificationReferenceForm(input)) { resolveSelfConformanceInput(input, resources); return true; }
     const proof = record(fields.qualification) ? fields.qualification.proof : fields.proof;
     if (isQualificationProofResource(proof) && isQualificationReferenceForm(proof)) { resolveQualificationProof(proof, resources); return true; }
@@ -86,11 +89,12 @@ function referenceDependencies(input: unknown, resources?: QualificationResource
     return true;
   } catch { return false; }
 }
-function ownedProof(proof: QualificationProofResource, resources?: QualificationResources): QualificationEmbeddedProofResource {
+function ownedProof(proof: QualificationProofResource, resources?: QualificationResources, catalogs?: QualificationCatalogs): QualificationEmbeddedProofResource {
   const facts = executionProofFacts.get(proof);
-  const selectedResources = resources ?? facts?.resources;
+  const selectedResources = resources ?? facts?.resources, selectedCatalogs = catalogs ?? facts?.catalogs;
   const resolved = resolveQualificationProof(proof, selectedResources);
-  if (facts !== undefined || resources !== undefined) executionProofFacts.set(resolved, { ...facts, events: facts?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), environments: facts?.environments ?? new Map(), ...(selectedResources === undefined ? {} : { resources: selectedResources }) });
+  if (facts !== undefined || resources !== undefined || catalogs !== undefined) executionProofFacts.set(resolved, { ...facts, events: facts?.events ?? readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), environments: facts?.environments ?? new Map(), ...(selectedResources === undefined ? {} : { resources: selectedResources }),
+    ...(selectedCatalogs === undefined ? {} : { catalogs: selectedCatalogs }) });
   return resolved;
 }
 // Facts belong to the existing immutable-prefix derivation scope. They are
@@ -128,7 +132,8 @@ const sameFact = (a: unknown, b: unknown): boolean => {
 // authority on copied coordinates. The existing cold owners still acquire it.
 type ExecutionSourceFacts = { events: readonly RuntimeEvent[];
   artifactTruth?: ExactPrefixArtifactTruthProjection;
-  environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>>; resources?: QualificationResources | undefined };
+  environments: Map<string, ReturnType<typeof projectExactPrefixWorkspaceEnvironment>>; resources?: QualificationResources | undefined;
+  catalogs?: QualificationCatalogs | undefined };
 const executionProofFacts = new WeakMap<QualificationProofResource, ExecutionSourceFacts>();
 function acquireExecutionSource(coordinate: DurablePrefixCoordinate): ExecutionSourceFacts | null {
   const artifactTruth = projectExactPrefixArtifactTruth(coordinate);
@@ -184,7 +189,7 @@ function deriveGraphOwner(prefixCoordinate: DurablePrefixCoordinate, cCallRef: s
   if (invocationEvent === null || [...environment.productInstalls.map(i => i.admissionEventRef), environment.workspaceBinding.admissionEventRef].some(ref =>
     events.filter(e => e.eventId === ref && e.admissionOrdinal < invocationEvent.admissionOrdinal).length !== 1)) return null;
   if (!referenceDependencies(root.rawInputValue, source?.resources)) return null;
-  const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue, source?.resources) : declarations;
+  const supplied = declarations.length === 0 ? declarationsOf(root.rawInputValue, source?.resources, source?.catalogs) : declarations;
   const proofs = supplied.filter(d => d.catalog?.basisDigest === root.catalogBasisDigest && d.catalogView?.viewDigest === root.catalogViewDigest);
   const proof = exactOrNull(onlyExactMatch(proofs)); if (proof === null) return null;
   const installs = environment.productInstalls.map(i => projectAdmittedProductInstallByAdmissionEventRef(environment.artifactTruth, i.admissionEventRef));
@@ -275,24 +280,25 @@ function soleDeclaredReducer(owner: NonNullable<ReturnType<typeof graphOwner>>):
   };
   return countGraph(owner.root.graphFunctionRef, []) === 1;
 }
-export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources) {
+export function projectQualificationConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs) {
   try {
     if (!referenceDependencies(input, resources)) return null;
     const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
-    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources),
-      { events, environments: new Map(), ...(resources === undefined ? {} : { resources }) });
+    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources, catalogs),
+      { events, environments: new Map(), ...(resources === undefined ? {} : { resources }), ...(catalogs === undefined ? {} : { catalogs }) });
     if (owner === null || !QUALIFICATION_IMPLEMENTATION_REFS.includes(owner.call.implementationRef ?? "") ||
         !sameFact(owner.input, input) || projectCCallCarrierPhaseAtPrefix(owner.prefix, owner.call)?.phase !== "selected_no_evidence") return null;
     if (requireCurrent && owner.call.implementationRef === SELF && record(input) && record(input.qualification) &&
         isQualificationProofResource(input.qualification.proof) && input.qualification.proof.executionSources !== undefined &&
-        (!record(input.basis) || executionSourceProofs(ownedProof(input.qualification.proof, resources),
+        (!record(input.basis) || executionSourceProofs(ownedProof(input.qualification.proof, resources, catalogs),
           input.basis as unknown as ExactCandidateQualification<"basis">, basis, true) === null)) return null;
     if (owner.call.implementationRef === VERDICT && (!record(input) || input.slotRef !== owner.call.programLocusRef || !soleDeclaredReducer(owner))) return null;
     if (owner.call.implementationRef === MALFORMED_ASSESS &&
-        (!isMalformedGtlAssessmentInput(input) || !malformedSubjectMatches(owner, input))) return null;
+        (!isMalformedGtlAssessmentInput(input, catalogs) || !malformedSubjectMatches(owner, input))) return null;
     if (owner.call.implementationRef === RUNTIME_ASSESS &&
-        (!isNativeRuntimeAssessmentInput(input) || !malformedSubjectMatches(owner, input))) return null;
-    if (isQualificationAssessmentInput(input)) {
+        (!isNativeRuntimeAssessmentInput(input, catalogs) || !malformedSubjectMatches(owner, input))) return null;
+    if (isQualificationAssessmentInput(input, catalogs)) {
       const slot = exactOrNull(onlyExactMatch(input.plan.slots.filter(s => s.slotRef === input.task.slotRef)));
       if (slot === null || slot.graphFunctionRef !== owner.call.graphFunctionRef || slot.programLocusRef !== owner.call.programLocusRef) return null;
       const declaration = owner.publication.graphFunctions.find(g => g.name === owner.call.graphFunctionRef);
@@ -314,10 +320,11 @@ function malformedSubjectMatches(owner: NonNullable<ReturnType<typeof graphOwner
 }
 /** Reuse the native producer relation; the cited assessment is its exact typed
  * value, not a caller-authored assertion or an invented runtime Result ref. */
-export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: MalformedGtlAssessment, resources?: QualificationResources): boolean {
+export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: MalformedGtlAssessment, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): boolean {
   try {
-    proof = ownedProof(proof, resources);
-    if (!isMalformedGtlAssessment(assessment) || !isQualificationProofResource(proof) ||
+    proof = ownedProof(proof, resources, catalogs);
+    if (!isMalformedGtlAssessment(assessment, catalogs) || !isQualificationProofResource(proof) ||
         !proofWithin({ ...proof, prefix: assessment.nativeBasis.predecessorPrefix }, { cCallRef: assessment.nativeBasis.cCallRef, predecessorPrefix: proof.prefix })) return false;
     const source = nativeState(proof, assessment.nativeBasis.cCallRef);
     if (source === null || source.state.cCall.callClass !== "leaf" || source.state.cCall.implementationRef !== MALFORMED_ASSESS ||
@@ -326,7 +333,7 @@ export function malformedGtlAssessmentHasNativeOwner(proof: QualificationProofRe
         source.state.result.valueKind !== "malformed_gtl_assessment" ||
         !canonicalEquals(source.state.result.value, assessment) || !sameFact(source.owner.input, assessment.input) ||
         !malformedSubjectMatches(source.owner, assessment.input) ||
-        projectQualificationConsumer(assessment.nativeBasis, assessment.input) === null) return false;
+        projectQualificationConsumer(assessment.nativeBasis, assessment.input, false, undefined, catalogs) === null) return false;
     const competitors = source.owner.events.filter(e => e.kind === "c_call_opened" && e.aggregateId !== source.state.cCall.cCallRef)
       .map(e => nativeState(proof, e.aggregateId)).filter(s => s !== null && s.state.cCall.callClass === "leaf" &&
         s.state.cCall.implementationRef === MALFORMED_ASSESS && s.state.cCall.programLocusRef === source.state.cCall.programLocusRef &&
@@ -436,7 +443,8 @@ function nativeRuntimeCases(input: NativeRuntimeAssessmentInput, proof: Qualific
   }
   return cases;
 }
-export function projectNativeRuntimeAssessment(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<NativeRuntimeAssessment> | null {
+export function projectNativeRuntimeAssessment(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): Readonly<NativeRuntimeAssessment> | null {
   try {
     if (!referenceDependencies(input, resources)) return null;
     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
@@ -444,21 +452,22 @@ export function projectNativeRuntimeAssessment(basis: QualificationNativeBasis, 
     const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
     const known = facts.assessments.get(key);
     if (known !== undefined && sameFact(known.input, input)) return known.value;
-    if (!isNativeRuntimeAssessmentInput(input) || !proofWithin(input.proof, basis)) return null;
+    if (!isNativeRuntimeAssessmentInput(input, catalogs) || !proofWithin(input.proof, basis)) return null;
     readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(coordinate, input.proof.prefix as DurablePrefixCoordinate));
-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
     if (owner === null || owner.call.implementationRef !== RUNTIME_ASSESS) return null;
     const cases = nativeRuntimeCases(input, { ...input.proof, prefix: basis.predecessorPrefix });
     if (cases === null) return null;
-    const value = constructNativeRuntimeAssessment(input, basis, cases);
+    const value = constructNativeRuntimeAssessment(input, basis, cases, catalogs);
     facts.assessments.set(key, { input: value.input, value });
     return value;
   } catch { return null; }
 }
-export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: NativeRuntimeAssessment, resources?: QualificationResources): boolean {
+export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofResource, assessment: NativeRuntimeAssessment, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): boolean {
   try {
-    proof = ownedProof(proof, resources);
-    if (!isNativeRuntimeAssessment(assessment) || !isQualificationProofResource(proof) ||
+    proof = ownedProof(proof, resources, catalogs);
+    if (!isNativeRuntimeAssessment(assessment, catalogs) || !isQualificationProofResource(proof) ||
       !proofWithin({ ...proof, prefix: assessment.nativeBasis.predecessorPrefix }, { cCallRef: assessment.nativeBasis.cCallRef, predecessorPrefix: proof.prefix })) return false;
     const source = nativeState(proof, assessment.nativeBasis.cCallRef);
     if (source === null || source.state.cCall.implementationRef !== RUNTIME_ASSESS || source.state.cCall.callClass !== "leaf" ||
@@ -467,7 +476,7 @@ export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofR
       source.state.result.valueKind !== "native_runtime_assessment" || !sameFact(source.owner.input, assessment.input) ||
       !sameFact(source.state.result.value, assessment) || !sameFact(projectNativeRuntimeAssessment({ ...assessment.nativeBasis,
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(proof.prefix as DurablePrefixCoordinate,
-          assessment.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) }, assessment.input), assessment)) return false;
+          assessment.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) }, assessment.input, false, undefined, catalogs), assessment)) return false;
     const peers = eligibleCalls(source.owner.events, source.owner, RUNTIME_ASSESS).map(e => nativeState(proof, e.aggregateId)).filter(s =>
       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === RUNTIME_ASSESS &&
       s.state.cCall.programLocusRef === source.state.cCall.programLocusRef && s.owner.execution.invocationAdmissionRef === source.owner.execution.invocationAdmissionRef &&
@@ -476,10 +485,11 @@ export function nativeRuntimeAssessmentHasNativeOwner(proof: QualificationProofR
       nativeRuntimeCases(assessment.input, proof) !== null;
   } catch { return false; }
 }
-export function projectQualificationRulingForConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<QualificationOwnerRuling> | null {
+export function projectQualificationRulingForConsumer(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
   try {
     if (!referenceDependencies(input, resources)) return null;
-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
     if (owner === null || owner.call.implementationRef !== RULING) return null;
     const admittedInput = admitJson(input);
     if (admittedInput.kind !== "ok") return null;
@@ -534,9 +544,11 @@ function producerForResult(proof: QualificationProofResource, result: Qualificat
 }
 /** A selection cannot manufacture slots by assigning result IDs. */
 export function projectQualificationJudgment(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  selection: Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }>, resources?: QualificationResources): Readonly<QualificationJudgment> | null {
+  selection: Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }>, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): Readonly<QualificationJudgment> | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
+    const selectedCatalogs = catalogs ?? executionProofFacts.get(proof)?.catalogs;
     if (!isQualificationProofResource(proof) || !qualificationPlanMatches(plan)) return null;
     const slot = exactOrNull(onlyExactMatch(plan.slots.filter(s => s.slotRef === selection.slotRef)));
     if (slot === null || !canonicalEquals(slot.task, selection.task)) return null;
@@ -549,17 +561,18 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
       if (candidate === null || candidate.state.cCall.callClass !== "leaf" || candidate.state.cCall.implementationRef !== ASSESS ||
           candidate.owner.execution.programRef !== selection.programRef || candidate.owner.execution.invocationAdmissionRef !== selection.invocationAdmissionRef ||
           candidate.state.result.resultClass !== "success" || candidate.state.judgment.judgment !== "advance" ||
-          !isQualificationAssessmentInput(candidate.owner.input) || !canonicalEquals(candidate.owner.input.plan, plan) ||
+          !isQualificationAssessmentInput(candidate.owner.input, selectedCatalogs) || !canonicalEquals(candidate.owner.input.plan, plan) ||
           candidate.owner.input.task.slotRef !== slot.slotRef || candidate.owner.input.task.taskDigest !== slot.task.digest ||
           candidate.state.cCall.graphFunctionRef !== slot.graphFunctionRef || candidate.state.cCall.programLocusRef !== slot.programLocusRef ||
           !isQualificationJudgment(candidate.state.result.value)) continue;
       const value = candidate.state.result.value, transport = exactOrNull(onlyExactMatch(candidate.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
       const view = resolveQualificationAssessment(candidate.owner.input, resources ?? executionProofFacts.get(proof)?.resources);
       const preparation = graphOwner(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate, value.nativeBasis.cCallRef, view.task.declarations,
-        { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources });
+        { events: readRuntimeEventsAtDurablePrefix(value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources: resources ?? executionProofFacts.get(proof)?.resources,
+          catalogs: selectedCatalogs });
       const started = exactOrNull(onlyExactMatch(candidate.owner.events.filter(e => e.kind === "actor_invocation_started" && e.aggregateId === value.source.actorInvocationRef && e.parentAggregateId === candidate.state.cCall.cCallRef)));
       if (!canonicalEquals(value.task, candidate.owner.input.task) || !canonicalEquals(value.plan, plan) ||
-          !qualificationRawMatches(candidate.owner.input, value.raw, view) || preparation === null || started === null || !record(started.payload) ||
+          !qualificationRawMatches(candidate.owner.input, value.raw, view, selectedCatalogs) || preparation === null || started === null || !record(started.payload) ||
           preparation.call.cCallRef !== candidate.state.cCall.cCallRef || preparation.execution.basisDigest !== candidate.owner.execution.basisDigest ||
           !sameFact(preparation.input, candidate.owner.input) || projectCCallCarrierPhaseAtPrefix(preparation.prefix, preparation.call)?.phase !== "selected_no_evidence" ||
           started.payload.inputDigest !== value.source.inputDigest || started.payload.requestDigest !== value.source.requestDigest ||
@@ -589,9 +602,10 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
   } catch { return null; }
 }
 export function projectQualificationOwnerRuling(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, resources?: QualificationResources): Readonly<QualificationOwnerRuling> | null {
+  selection: Extract<QualificationEvidenceSelection, { kind: "ruling_selection" }>, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): Readonly<QualificationOwnerRuling> | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
     const events = readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate), prefix = selectValidatedRuntimeEventPrefix(events);
     const rows = projectFhContinuations(prefix, deriveRuntimeEventCalculusProjection(prefix)).filter(c =>
       c.continuationRef === selection.continuationRef && c.requestRef === selection.request.ref &&
@@ -610,9 +624,9 @@ export function projectQualificationOwnerRuling(proof: QualificationProofResourc
 /** Missing or conflicting attribution is blocked. This validates a concrete
  * record chain under the declared trusted-desktop authority; labels alone fail. */
 export function projectQualificationConstructionAuthors(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  judgment: QualificationJudgment, resources?: QualificationResources): readonly string[] | null {
+  judgment: QualificationJudgment, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly string[] | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
     const provenance = resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: judgment.task, plan: judgment.plan }, resources ?? executionProofFacts.get(proof)?.resources).task.provenance;
     if (!canonicalEquals(provenance.subjectInventory, judgment.task.inventory)) return null;
     if (provenance.kind === "native_construction") {
@@ -649,7 +663,7 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
     if (!adequate) {
       const selected = proof.selections.filter(s => s.kind === "ruling_selection" && s.selectionRef === provenance.acknowledgmentSelectionRef);
       if (selected.length !== 1 || selected[0]!.kind !== "ruling_selection") return null;
-      const ruling = projectQualificationOwnerRuling(proof, plan, selected[0]!);
+      const ruling = projectQualificationOwnerRuling(proof, plan, selected[0]!, undefined, catalogs);
       if (ruling?.disposition !== "acknowledged") return null;
       const selectedContinuationRef = selected[0]!.continuationRef;
       const events = proofEvents(proof);
@@ -662,9 +676,9 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
   } catch { return null; }
 }
 export function resolveQualificationAssessments(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
-  consumer: QualificationNativeBasis, resources?: QualificationResources): readonly Readonly<QualificationJudgment>[] | null {
+  consumer: QualificationNativeBasis, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly Readonly<QualificationJudgment>[] | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
     if (!proofWithin(proof, consumer) || !qualificationPlanMatches(plan)) return null;
     // Re-read the exact resource prefix: a declared earlier prefix cannot stand
     // for bytes from another store, even when their values match.
@@ -677,9 +691,9 @@ export function resolveQualificationAssessments(proof: QualificationProofResourc
       const selections = proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }> =>
         s.kind === "judgment_selection" && s.slotRef === slot.slotRef);
       if (selections.length !== 1) return null;
-      const judgment = projectQualificationJudgment(currentProof, plan, selections[0]!);
+      const judgment = projectQualificationJudgment(currentProof, plan, selections[0]!, undefined, catalogs);
       if (judgment === null) return null;
-      const authors = projectQualificationConstructionAuthors(currentProof, plan, judgment);
+      const authors = projectQualificationConstructionAuthors(currentProof, plan, judgment, undefined, catalogs);
       if (authors === null || slot.role.independence !== "not_required" && authors.includes(judgment.source.actorRef)) return null;
       out.push(judgment);
     }
@@ -689,9 +703,12 @@ export function resolveQualificationAssessments(proof: QualificationProofResourc
 }
 /** Exact finite tenant/public/capability ownership is native install data;
  * realization and evidence adequacy remain the declared assessment's task. */
-export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, input: unknown, manifest: TenantConformanceManifest, resources?: QualificationResources): boolean {
+export function qualificationTenantClaimsMatch(basis: QualificationNativeBasis, input: unknown, manifest: TenantConformanceManifest, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): boolean {
   try {
-    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources), resources === undefined ? undefined : { events: readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(), resources });
+    const owner = graphOwner(basis.predecessorPrefix as DurablePrefixCoordinate, basis.cCallRef, declarationsOf(input, resources, catalogs),
+      resources === undefined && catalogs === undefined ? undefined : { events: readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate), environments: new Map(),
+        ...(resources === undefined ? {} : { resources }), ...(catalogs === undefined ? {} : { catalogs }) });
     if (owner === null) return false;
     const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === manifest.productId)));
     if (install === null || !canonicalEquals(manifest.publicContractCatalog, coord(install.catalogId, install.catalogDigest)) ||
@@ -740,12 +757,12 @@ function executionSourceProofs(proof: QualificationProofResource, basis: ExactCa
     acquired.set(prefixKey, sourceFacts);
     if (retained !== undefined && known !== undefined) {
       const borrowed = { ...known.proof };
-      executionProofFacts.set(borrowed, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources });
+      executionProofFacts.set(borrowed, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources, catalogs: executionProofFacts.get(proof)?.catalogs });
       out.set(source.sourceRef, borrowed); continue;
     }
     const sourceProof: QualificationProofResource = { kind: proof.kind, schemaVersion: proof.schemaVersion,
       prefix: sourceFacts.artifactTruth!.prefix, declarations: [...source.declarations] as AbgHistoricalDeclarationProof[], selections: [] };
-    executionProofFacts.set(sourceProof, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources });
+    executionProofFacts.set(sourceProof, { ...sourceFacts, resources: executionProofFacts.get(proof)?.resources, catalogs: executionProofFacts.get(proof)?.catalogs });
     facts.executionSources.set(key, { declaration: deepFreeze(source), proof: sourceProof });
     out.set(source.sourceRef, sourceProof);
   }
@@ -755,17 +772,18 @@ function executionSourceProofs(proof: QualificationProofResource, basis: ExactCa
  * Material includes actual disposition and evidence; F11 independently judges
  * its applicability and sufficiency for each source-grounded coverage claim. */
 export function resolveQualificationExecutionEvidence(proof: QualificationProofResource,
-  basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis): readonly QualificationMaterial[] | null {
-  return resolveQualificationExecutionMaterial(proof, basis, consumer)?.evidence ?? null;
+  basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis, catalogs?: QualificationCatalogs): readonly QualificationMaterial[] | null {
+  return resolveQualificationExecutionMaterial(proof, basis, consumer, undefined, undefined, undefined, catalogs)?.evidence ?? null;
 }
 /** The existing join resolves each producer once for both general assessment
  * material and the selected QUAL-056 projection. This is no new proof carrier. */
 export function resolveQualificationExecutionMaterial(proof: QualificationProofResource,
   basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis,
   verificationSelection?: QualificationVerificationSelection,
-  inventory?: QualificationSubjectInventory | null, resources?: QualificationResources): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
+  inventory?: QualificationSubjectInventory | null, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
     readRuntimeEventsAtDurablePrefix(proof.prefix as DurablePrefixCoordinate);
     const current = { ...proof, prefix: consumer.predecessorPrefix };
@@ -802,9 +820,9 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
           !canonicalEquals(sourceBasis.workspaceBinding, coord(selected.owner.execution.workspaceBindingId, selected.owner.execution.workspaceBindingDigest))) return null;
       const value = selected.state.result.value;
       if (selected.state.cCall.implementationRef === MALFORMED_ASSESS &&
-          (!isMalformedGtlAssessment(value) || !canonicalEquals(value.input.basis, sourceBasis) || !malformedGtlAssessmentHasNativeOwner(sourceProof, value))) return null;
+          (!isMalformedGtlAssessment(value, catalogs) || !canonicalEquals(value.input.basis, sourceBasis) || !malformedGtlAssessmentHasNativeOwner(sourceProof, value, undefined, catalogs))) return null;
       if (selected.state.cCall.implementationRef === RUNTIME_ASSESS &&
-          (!isNativeRuntimeAssessment(value) || !canonicalEquals(value.input.basis, sourceBasis) || !nativeRuntimeAssessmentHasNativeOwner(sourceProof, value))) return null;
+          (!isNativeRuntimeAssessment(value, catalogs) || !canonicalEquals(value.input.basis, sourceBasis) || !nativeRuntimeAssessmentHasNativeOwner(sourceProof, value, undefined, catalogs))) return null;
       if (verificationSelection?.executionSelectionRef === selection.selectionRef && inventory != null &&
           selected.state.cCall.implementationRef === WORKSITE_COMMAND_EXECUTION_IDS.implementationRef &&
           selected.owner.execution.basisClass === "root" && selected.owner.execution.programRef === WORKSITE_COMMAND_EXECUTION_IDS.programRef &&
@@ -837,9 +855,9 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
  * the existing sub-traversal relation, never treated as independent evidence. */
 export function projectQualificationSelfConformance(proof: QualificationProofResource,
   selection: Extract<QualificationEvidenceSelection, { kind: "self_conformance_selection" }>,
-  basis: ExactCandidateQualification<"basis">, resources?: QualificationResources): Readonly<QualificationSelfConformanceSummary> | null {
+  basis: ExactCandidateQualification<"basis">, resources?: QualificationResources, catalogs?: QualificationCatalogs): Readonly<QualificationSelfConformanceSummary> | null {
   try {
-    proof = ownedProof(proof, resources);
+    proof = ownedProof(proof, resources, catalogs);
     const selected = producerForResult(proof, selection.result);
     if (selected === null || selected.state.cCall.implementationRef !== SELF ||
         selected.state.cCall.programLocusRef !== selection.slotRef ||
@@ -862,22 +880,24 @@ export function projectQualificationSelfConformance(proof: QualificationProofRes
       ...(value.verification === undefined ? {} : { verification: value.verification }) });
   } catch { return null; }
 }
-export function qualificationHasNativeSelfConformance(input: QualificationVerdictInput, consumer: QualificationNativeBasis, resources?: QualificationResources): boolean {
+export function qualificationHasNativeSelfConformance(input: QualificationVerdictInput, consumer: QualificationNativeBasis, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): boolean {
   try {
-    if (!isQualificationVerdictInput(input) || !proofWithin(input.proof, consumer)) return false;
+    if (!isQualificationVerdictInput(input, catalogs) || !proofWithin(input.proof, consumer)) return false;
     readRuntimeEventsAtDurablePrefix(reidentifyHistoricalDurablePrefixCoordinate(
       consumer.predecessorPrefix as DurablePrefixCoordinate, input.proof.prefix as DurablePrefixCoordinate));
     const selections = input.proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "self_conformance_selection" }> =>
       s.kind === "self_conformance_selection" && s.selectionRef === input.selectionRef);
     if (selections.length !== 1) return false;
-    const actual = projectQualificationSelfConformance({ ...input.proof, prefix: consumer.predecessorPrefix }, selections[0]!, input.basis, resources);
+    const actual = projectQualificationSelfConformance({ ...input.proof, prefix: consumer.predecessorPrefix }, selections[0]!, input.basis, resources, catalogs);
     return actual !== null && canonicalEquals(actual, input.selfConformance);
   } catch { return false; }
 }
 /** AF22 construction belongs to its authenticated immutable preparation cut.
  * The retained input is the admitted owner's value, never a caller-editable
  * wrapper. A new cut or changed input must establish the relation anew. */
-export function projectExactCandidateQualification(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): Readonly<ExactCandidateQualification<"verdict">> | null {
+export function projectExactCandidateQualification(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): Readonly<ExactCandidateQualification<"verdict">> | null {
   try {
     if (!referenceDependencies(input, resources)) return null;
     const coordinate = basis.predecessorPrefix as DurablePrefixCoordinate;
@@ -885,24 +905,35 @@ export function projectExactCandidateQualification(basis: QualificationNativeBas
     const facts = nativeFacts(selectValidatedRuntimeEventPrefix(events)), key = coordinate.coordinateDigest + ":" + basis.cCallRef;
     const known = facts.verdicts.get(key);
     if (known !== undefined && sameFact(known.input, input)) {
-      if (record(input) && isQualificationReferenceForm(input.proof) && !qualificationHasNativeSelfConformance(input as unknown as QualificationVerdictInput, basis, resources)) return null;
+      if (record(input) && isQualificationReferenceForm(input.proof) && !qualificationHasNativeSelfConformance(input as unknown as QualificationVerdictInput, basis, resources, catalogs)) return null;
       return known.value;
     }
-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
     if (owner === null || owner.call.implementationRef !== VERDICT ||
-        !qualificationHasNativeSelfConformance(input as QualificationVerdictInput, basis, resources)) return null;
-    const value = reduceExactCandidateQualification(input as QualificationVerdictInput, basis);
+        !qualificationHasNativeSelfConformance(input as QualificationVerdictInput, basis, resources, catalogs)) return null;
+    const value = reduceExactCandidateQualification(input as QualificationVerdictInput, basis, catalogs);
     facts.verdicts.set(key, { input: owner.input as unknown as QualificationVerdictInput, value });
     return value;
   } catch { return null; }
+}
+/** The catalogs admitted from the owner install the durable prefix records for
+ * a verdict's producer, for a caller that holds none: the install-rooted read of
+ * the port's admission, against the digests that install records. */
+function ownerInstallCatalogs(owner: NonNullable<ReturnType<typeof graphOwner>>): QualificationCatalogs | null {
+  const row = owner.resolution;
+  const install = row === null ? null : exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i =>
+    i.productId === row.implementationOwnerProductId && i.packageName === row.packageName && i.packageVersion === row.packageVersion)));
+  if (install === null) return null;
+  const admission = admitInstalledQualificationCatalogs(install);
+  return admission.kind === "admitted" ? admission.value : null;
 }
 /** D6 consumes the sole AF22 verdict; it never reinterprets F11 findings. */
 export function projectQualificationVerdict(input: Readonly<{
   proof: QualificationProofResource; selection: Extract<QualificationEvidenceSelection, { kind: "verdict_selection" }>;
   subjectBasis: QualificationCoordinate; lawBasis: QualificationCoordinate;
-}>, resources?: QualificationResources): Readonly<ExactCandidateQualification<"verdict">> | null {
+}>, resources?: QualificationResources, catalogs?: QualificationCatalogs): Readonly<ExactCandidateQualification<"verdict">> | null {
   try {
-    const proof = ownedProof(input.proof, resources);
+    const proof = ownedProof(input.proof, resources, catalogs);
     const selected = producerForResult(proof, input.selection.result);
     if (selected === null || selected.state.cCall.implementationRef !== VERDICT ||
         selected.state.cCall.programLocusRef !== input.selection.slotRef ||
@@ -915,7 +946,9 @@ export function projectQualificationVerdict(input: Readonly<{
     const originalInput = selected.owner.input as unknown as QualificationVerdictInput;
     const nativeBasis = { ...value.nativeBasis, predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(
       proof.prefix as DurablePrefixCoordinate, value.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
-    if (!sameFact(projectExactCandidateQualification(nativeBasis, originalInput, false, resources ?? executionProofFacts.get(proof)?.resources), value)) return null;
+    const admitted = catalogs ?? executionProofFacts.get(proof)?.catalogs ?? ownerInstallCatalogs(selected.owner);
+    if (admitted === null || !sameFact(projectExactCandidateQualification(nativeBasis, originalInput, false,
+      resources ?? executionProofFacts.get(proof)?.resources, admitted), value)) return null;
     const peers = eligibleCalls(selected.owner.events, selected.owner, VERDICT).map(e => nativeState(proof, e.aggregateId)).filter(s =>
       s !== null && s.state.cCall.callClass === "leaf" && s.state.cCall.implementationRef === VERDICT &&
       s.owner.execution.invocationAdmissionRef === input.selection.invocationAdmissionRef &&
@@ -936,26 +969,25 @@ export function projectQualificationVerdict(input: Readonly<{
 }
 /** Exact current conformance owner, including child use. Catalog bytes remain
  * the immutable installed asset; assessment resources never replace it. */
-export function resolveQualificationSelfConformanceOwner(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
+export function resolveQualificationSelfConformanceOwner(basis: QualificationNativeBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: QualificationCatalogs): SelfConformanceOwner | null {
   try {
     if (!referenceDependencies(input, resources)) return null;
-    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources);
+    const owner = projectQualificationConsumer(basis, input, requireCurrent, resources, catalogs);
     if (owner === null || owner.call.implementationRef !== SELF || owner.resolution === null) return null;
     const row = owner.resolution;
     const install = exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i => i.productId === row.implementationOwnerProductId &&
       i.packageName === row.packageName && i.packageVersion === row.packageVersion)));
     if (install === null) return null;
-    const asset = exactOrNull(onlyExactMatch(install.publicContracts.filter(c => c.contractId === "abg.asset.qualification.rule-catalog")));
-    if (asset?.assetLocator?.path !== "contracts/qualification/rule-catalog.json") return null;
-    const bytes = readFileSync(join(install.installedRoot, asset.assetLocator.path));
-    if (sha256Bytes(bytes) !== asset.assetLocator.contentDigest) return null;
-    const catalog = JSON.parse(bytes.toString("utf8"));
+    const rules = readInstalledQualificationRuleCatalog(install);
+    if (rules.kind !== "admitted") return null;
+    const bytes = rules.value, catalog = JSON.parse(Buffer.from(bytes).toString("utf8"));
     return deepFreeze({ installId: install.installId, installDigest: hash(install), artifactDigest: install.artifactDigest,
       productId: install.productId, productVersion: install.packageVersion, productContentDigest: install.productContentDigest,
       manifestDigest: install.manifestDigest, publicationDigest: hash(owner.publication),
       workspaceBinding: coord(owner.execution.workspaceBindingId, owner.execution.workspaceBindingDigest),
       executionBasis: coord(owner.execution.basisRef, owner.execution.basisDigest), cCallDigest: owner.call.cCallDigest,
       nativeBasis: basis, catalogDigest: sha256Bytes(bytes), catalogRef: catalog.catalogRef, catalogVersion: catalog.catalogVersion,
-      catalogAssetPath: asset.assetLocator.path });
+      catalogAssetPath: SELF_CONFORMANCE_CATALOG_ASSET_PATH });
   } catch { return null; }
 }

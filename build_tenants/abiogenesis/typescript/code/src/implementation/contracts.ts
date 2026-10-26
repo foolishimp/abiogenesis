@@ -107,6 +107,8 @@ export interface LeafExecutionOccurrence {
   readonly worksiteCommandForwardBasis?: Readonly<import("../abg/worksite_command_forward.js").WorksiteCommandForwardNativeBasis>;
   readonly worksitePreservedResultBasis?: Readonly<WorksitePreservedResultNativeBasis>;
   readonly qualificationOwnerBasis?: Readonly<QualificationOwnerBasis>;
+  /** The qualification catalogs admitted from the owner install at the authority stage. */
+  readonly qualificationCatalogs?: Readonly<import("../validator/qualification.js").AdmittedQualificationCatalogs>;
   readonly semanticStageBasis?: Readonly<SemanticStageNativeBasis>;
   readonly requirementHandoffBasis?: Readonly<RequirementHandoffDeclarationBasis>;
   readonly cCallRef: string;
