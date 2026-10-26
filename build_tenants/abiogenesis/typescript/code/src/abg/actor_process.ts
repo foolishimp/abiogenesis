@@ -953,6 +953,8 @@ async function invokeActorProcessWithAssembly(
   const processRef =
     `process://abiogenesis/${sha256Canonical({ actorInvocationRef }).slice("sha256:".length)}`;
   assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+  // One native sample at this transaction's opening is both events' eventTime.
+  const intentEventTime = sampleNativeEventTime();
   const intentAdmission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
     input.store,
     successorPrefix,
@@ -960,7 +962,7 @@ async function invokeActorProcessWithAssembly(
       const bindingEvent = admitRuntimeEvent(input.store, {
         kind: "actor_transport_binding_admitted",
         ...common,
-        eventTime: sampleNativeEventTime(),
+        eventTime: intentEventTime,
         aggregateType: "transport_binding",
         aggregateId: transportBindingRef,
         parentAggregateId: input.cCall.cCallRef,
@@ -974,7 +976,7 @@ async function invokeActorProcessWithAssembly(
       const startedEvent = admitRuntimeEvent(input.store, {
         kind: "actor_invocation_started",
         ...common,
-        eventTime: sampleNativeEventTime(),
+        eventTime: intentEventTime,
         aggregateType: "actor_invocation",
         aggregateId: actorInvocationRef,
         parentAggregateId: input.cCall.cCallRef,
@@ -1018,6 +1020,8 @@ async function invokeActorProcessWithAssembly(
     payload: Readonly<Record<string, JsonValue>>,
   ) => {
     assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+    // One native sample at this transaction's opening.
+    const eventTime = sampleNativeEventTime();
     const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(
       input.store,
       successorPrefix,
@@ -1026,7 +1030,7 @@ async function invokeActorProcessWithAssembly(
         const event = admitRuntimeEvent(input.store, {
         kind,
         ...common,
-        eventTime: sampleNativeEventTime(),
+        eventTime,
         aggregateType,
         aggregateId,
         parentAggregateId,

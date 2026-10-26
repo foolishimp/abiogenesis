@@ -644,6 +644,9 @@ export function openTraversalScope(
   }
 
   let frameClock: Readonly<{ opening: RuntimeEvent; startedAt: NativeFrameBoundarySample }> | null = null;
+  // One native sample at this transaction's opening is the eventTime of every
+  // event it admits. The caller's basis can carry the traversal's clock seed.
+  const eventTime = sampleNativeEventTime();
   const committed = admitRuntimeEventTransactionAtExpectedPrefix(
     store,
     context.expectedStorePrefixDigest,
@@ -653,7 +656,7 @@ export function openTraversalScope(
         ? (() => {
             const runEvent = admitRuntimeEvent(store, {
               kind: "run_segment_opened",
-              eventTime: sampleNativeEventTime(),
+              eventTime,
               aggregateType: "run",
               aggregateId: context.runId,
               parentAggregateId: executionBasis.workspaceBindingId,
@@ -711,7 +714,7 @@ export function openTraversalScope(
         `graph-call://abiogenesis/${graphCallDigest.slice("sha256:".length)}`;
       const graphCallEvent = admitRuntimeEvent(store, {
         kind: "graph_call_opened",
-        eventTime: sampleNativeEventTime(),
+        eventTime,
         aggregateType: "graph_call",
         aggregateId: graphCallId,
         parentAggregateId: runId,
@@ -769,7 +772,7 @@ export function openTraversalScope(
       const frameStartedAt = captureNativeFrameBoundary(store);
       const frameEvent = admitRuntimeEvent(store, {
         kind: "frame_opened",
-        eventTime: sampleNativeEventTime(),
+        eventTime,
         aggregateType: "frame",
         aggregateId: frameId,
         parentAggregateId: graphCallId,

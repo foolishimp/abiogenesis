@@ -743,6 +743,9 @@ function admitTraversalFrameCursor(
   basis: RuntimeAdmissionBasis,
   continuedFrom?: TraversalCursorCandidate,
 ): TraversalCursorAdmissionResult {
+  // One native sample at this transaction's opening. The caller's basis can
+  // carry the traversal's clock seed.
+  const eventTime = sampleNativeEventTime();
   const transaction = admitRuntimeEventTransactionAtDurablePrefix(
     store,
     predecessorPrefix,
@@ -843,7 +846,7 @@ function admitTraversalFrameCursor(
 
   const event = admitRuntimeEvent(store, {
     kind: "traversal_cursor_entered",
-    eventTime: sampleNativeEventTime(),
+    eventTime,
     aggregateType: "frame",
     aggregateId: scope.frameId,
     parentAggregateId: scope.graphCallId,

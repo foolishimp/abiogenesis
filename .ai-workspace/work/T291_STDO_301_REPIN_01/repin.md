@@ -1860,3 +1860,428 @@ Grant: `code/src/abg/native_event_time.ts` (unchanged, or the sampler's signatur
 Stops (write the stop in the Return, keep the rest moving): item 1's two (a reader on distinct times within a transaction; a collision on equal time); a payload key, event kind, `regime` value, `eventId` construction or persisted digest change; a Public operation's refusal shape changing; a failure class; a Public export change; a lane moving.
 
 Return contract: one commit on `main`, staged by path, first line `M-6: rows 5, 8 and 10a by realization: the native time sample one declared input per transaction (eventTime recorded as before); Product capability admission split into observation and a deterministic check returning the admit family's typed refusals; the workflow.C arm's F_D claim scoped to its opening and foldback checks with the child composed under AC-016, the recorded regime unchanged`, with any gap stated in place; the Return before the commit so the commit carries it: the sites table (site, transaction, kind, after), the base instrumentation's findings, the admission callers and the refusal mapping, the arm's census, the lanes table, the lint and gates, the exit greps, the cell proposals, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## M-6 return (Worker, Opus 5.5, 2026-10-26; base `47f01ac7d`)
+
+**No: row 5 does not close, and it stays Pending, realized in part. Rows 8 and 10a are realized.**
+- **Row 5.** 22 of the 29 in-transaction construction samples become a declared input. Each owner takes `basis.eventTime` where every caller samples its basis at the call that opens the transaction, or one sample at its own opening where a caller passes a seed. `eventTime` and the `eventId` construction are unchanged. The route (`admitRoute`, 4 fields) and the rejected-call completion (`completeRejectedCCall`, 3 fields) keep their native samples. Two lanes pass those owners a basis with no `eventTime`, and `basis.eventTime` there moved both lanes (stops 1 and 2). The ruling asked is under Stops.
+- **Row 8.** Product capability admission is split into observations and deterministic checks that return the admit family's typed refusals. They are mapped once to the unchanged `TypeError` and `resource_admission` surfaces. The `executingOwnerArtifacts` WeakSet is gone, and the executing install is bound by manifest digest and product content digest, with no memo.
+- **Row 10a.** The census finds the `workflow.C` arm's checks separate from the child's run. The F_D scope is stated at the opening and the foldback (comments only), and the recorded `regime` is unchanged.
+- **Lanes.** 88 lanes, the compose scenario and seven extra lanes, each alone. Counts, reds, skips and first errors are equal before and after on the committed tree; three lanes' first errors are equal once run-specific values are masked.
+- **Unchanged.** No payload key, event kind, `regime` value, `eventId` construction, persisted digest, failure class, Public refusal shape or Public export.
+
+### Item 1: the time sample (row 5)
+
+**Census.** A TypeScript-API pass over the ten modules lists 42 calls of `sampleNativeEventTime()` at the base. Each row names the site, the transaction the sampled time lands in, its kind, and what it is after. Kinds:
+- *construction*: a candidate field inside an owner's transaction;
+- *opening*: one sample at the call that opens the transaction, passed into it;
+- *seed*: a HoG clock seed, the `eventTime` of a traversal or continuation input, not a transaction opening.
+
+Base line numbers.
+
+| Site | Transaction | Kind | After |
+|---|---|---|---|
+| `actor_process.ts:963`, `:977` (`actor_transport_binding_admitted`, `actor_invocation_started`) | the intent transaction, `:956` | construction, two samples | one sample at the opening (`intentEventTime`, after `:957`), both events |
+| `actor_process.ts:1029` (`append`) | `append`'s own transaction, `:1021` | construction | one sample at the opening (after `:1024`); the liveness aliases keep `underlying.eventTime` |
+| `actor_process.ts:1112`, `:1197` | `admitRuntimeActivityProbe`'s and `admitRuntimeThreshold`'s own transactions (`runtime_liveness.ts`) | opening (passed as `eventTime`) | unchanged |
+| `c_call.ts:3981` (`child_preparation_refused`) | `admitChildLifecycleEvent` (`child_lifecycle.ts:242`) | construction | `basis.eventTime`: the only caller, `workflow_lifecycle.ts:449`, passes `workflowBasis(…, "preparation-refusal")`, sampled at the call |
+| `c_call.ts:4191` (`child_foldback_admitted`) | `admitChildLifecycleEvent` | construction | `basis.eventTime`: `workflowBasis(frame, "child-foldback")` (`workflow_lifecycle.ts:606`), admitted synchronously at `:634` |
+| `c_call.ts:5349`, `:5372` (`c_call_opened`, `c_call_fibre_selected`) | `openCCall`'s transaction, `:5904` | construction, two samples | one sample at `openCCall`'s opening, passed through the three locus openers to `admitPreparedCCallOpening` as `eventTime`. Not `basis.eventTime`, because `hog/entry.ts:464` passes the continuation's seed |
+| `c_call.ts:6832` (`c_call_evidenced`), `:6985` (`c_call_result_admitted`), `:7115` (`c_call_judged`) | `c_call_outcome.ts`'s result and judgment transactions (`:1440`, `:1543`), or their own through `admitCCallProgressEvent` | construction | `basis.eventTime`: `stageBasis(input.basis, …)` keeps the caller's `eventTime`, and every caller samples it at the call (`ccall_lifecycle` "outcome" and "judgment", `workflowBasis` "result" and "judgment") |
+| `c_call.ts:7247`, `:7297`, `:7337` (`completeRejectedCCall`) | the rejection and blocked transactions (`c_call_outcome.ts:1069`, `:1644`), or its own at `:7371` | construction | unchanged: stop 1. The rule gives `basis.eventTime` (`workflowBasis(…, "-rejection")`, `stageBasis`), but `t287-undispatched-diagnostic:298` passes a basis with no `eventTime` |
+| `closure.ts:583`, `:603`, `:624`, `:647` (`terminal_reached`, `frame_closed`, `graph_call_closed`, `run_closed`) | the completion transaction (`c_call_outcome.ts:1816`) or `admitScopeClosure`'s caller | construction, 3 or 4 samples | `basis.eventTime` (`stageBasis(input.basis, "closure")`) |
+| `execution_basis.ts:1532` (`invocation_refused`) | own, `:1527` | construction | `basis.eventTime`: `run_invocation.ts:1465`, `:1557` and `admitExecutionBasis`'s basis, each sampled at the call |
+| `execution_basis.ts:2045`, `:2182` (`implementation_admitted`, `basis_admitted`) | own, `:2039` | construction, two samples | `basis.eventTime`: the one caller, `run_invocation.ts:1489`, samples at the call (`:1508`) |
+| `execution_basis.ts:2725` (child `basis_admitted`) | own (`:2763`) or the caller's | construction | one sample at the admission's opening: `child_traversal.ts:248` passes `request.eventTime`, the traversal's seed (`workflow_lifecycle.ts:444`, `hog/entry.ts:497`) |
+| `invocation_admission.ts:1646` | own, `:1647` | opening (one sample, both paired events) | unchanged |
+| `open_call.ts:656`, `:714`, `:772` (`run_segment_opened`, `graph_call_opened`, `frame_opened`) | own, `:647` | construction, 2 or 3 samples | one sample at the opening: `child_traversal.ts:270` and `hog/entry.ts:466` pass seeds |
+| `traversal_cursor.ts:846` (cursor event) | own, `:746` | construction, after the checks inside the transaction | one sample at the opening: `hog/entry.ts:413` and the continuation (`:468`, `:499`) pass seeds |
+| `traversal_route.ts:4998`, `:5040`, `:5087`, `:5117` (`traversal_route_admitted`, `construction_intent_selected`, `construction_delta_observed`, `run_stopped`) | the route transition transaction (`:5496`, the retry variants, `c_call_outcome.ts:1776`, `continuation.ts:1501`) | construction, two samples per batch | unchanged: stop 2. The rule gives `basis.eventTime`: every production caller samples at the call (`structural_transition.ts:244` route, `retry_lifecycle.ts:458` retry, `interaction_lifecycle.ts:193` hold, `stageBasis(…, "transition")`). But `retained-route-cursor-transition:116` passes a basis with no `eventTime` |
+| `hog/operator_support.ts:48` (`admissionBasis`) | the ABG owner's transaction the phase opens next | opening (the basis sample) | unchanged |
+| `run_invocation.ts:1191` (`operationBasis`), `:1465`, `:1508`, `:1541`, `:1557`, `:1730` | the owner call each argument goes to | opening (the basis sample) | unchanged. `:1541`'s value and, for the start path, `:1191`'s are not event times: `openTraversalScope` and `admitInvocationWithRequest` sample at their own openings, at the base as after; the basis type requires the member |
+| `run_invocation.ts:1629`, `:1856`, `:1941` | HoG's traversal clock for start, current-intent and selected-action | seed | unchanged |
+
+**After.** 26 calls remain in the ten modules (42 at the base: 22 construction samples removed, 6 opening samples added):
+- 16 at an opening: `actor_process.ts` 4, `c_call.ts` 1, `execution_basis.ts` 1, `invocation_admission.ts` 1, `open_call.ts` 1, `traversal_cursor.ts` 1, `hog/operator_support.ts` 1 and `run_invocation.ts` 6;
+- 3 seeds in `run_invocation.ts`;
+- 7 constructions inside a transaction body, kept native under the two stops: `c_call.ts` `completeRejectedCCall` 3 (`:7277`, `:7327`, `:7367` after) and `traversal_route.ts` `admitRoute` 4 (`:4998`, `:5040`, `:5087`, `:5117`, unchanged).
+
+The sampler's definition (`native_event_time.ts:10`) is the only other occurrence.
+
+Apart from those seven, no call remains inside a transaction body in the ten modules. `closure.ts` no longer imports the sampler. `eventTime` stays a member of every candidate, and the store hashes it into `eventId` as before. `event_store.ts`, `native_event_time.ts` and `traversal_route.ts` are unchanged.
+
+**The rule applied.** Each owner either takes `basis.eventTime` or takes one sample at its own opening:
+- it takes `basis.eventTime` where every caller's basis is a sample taken at the call that opens the transaction;
+- it takes one sample at its own opening where a caller passes a seed shared with earlier transactions.
+
+One opening-sample owner can also run nested: the child basis (`admitChildExecutionBasisUsing`) keeps the base's staged path inside a caller's active transaction (`execution_basis.ts:2756`). There its one sample is taken at the owner's step inside the outer transaction, as the base's was. The base instrumentation saw that owner's event in 28 transactions, each its own and each with one time. The nested path did not occur in the lane set.
+
+So no event moves from a native sample to a seed. The activation's named pattern alone (`basis.eventTime` at every site) would have re-attached the child basis, child scope, cursor and continuation-opening events to a seed sampled earlier. That would undo T-287's native-phase repair.
+
+**The checks and the construction.** Every owner already ran its checks before its construction:
+- the refusal returns before any candidate is built;
+- `admitTraversalFrameCursor`'s checks run inside its transaction but before the candidate;
+- `admitRoute`'s and the closure's later candidates are factories over the batch, for `eventId` causation.
+
+With the time a declared input, each construction is a function of its inputs and the batch, except at the seven stop sites. The append is the store's effect.
+
+### Item 1: the base instrumentation's findings
+
+**Method.** The `// M6` lines sit in `abg/event_store.ts` (21 lines) and `abg/native_event_time.ts` (1 line), at the base, active only under `M6_OUT`:
+- the sampler records each sampled value with its call site;
+- the store records, per committed transaction, the opener stack, each event's kind and `eventTime`, and the site that sampled that value (`unsampled` when no sampler produced it: fixture time or a recorded value);
+- for every pair of events in one transaction, it records whether their candidates are equal once `eventTime`, `eventId`, `admissionOrdinal` and the two derived digests (`payloadDigest`, `eventContractDigest`) are removed.
+
+The pass was the 88 lanes and the compose scenario, each alone under the activation's command. 40 lanes committed transactions.
+
+**Figures.**
+- 2,719 transactions; 5,857 events.
+- 2,305 events carry a native sample; 2,694 carry a fixture or recorded time.
+- 1,217 transactions carry at least one native sample, and 734 carry more than one sampled event.
+- Distinct `eventTime` values per transaction: 1 in 2,430; 2 in 251; 3 in 28; 4 in 10. So 289 transactions carry more than one time.
+
+Transactions with more than one time, by the owner that opens them:
+
+| Opener | Multi-time / all | Sites sampling separately inside the transaction | After M-6 |
+|---|---|---|---|
+| `c_call_outcome.ts` `admitOwnedCCallResult` | 105 / 108 | `admitEvidenceUsingTransport` (evidence) and `admitResult` (result) | `basis.eventTime` at both: one time. The exception is a transaction that also completes a rejection (2 at the base), whose `completeRejectedCCall` events keep their samples (stop 1) |
+| `c_call_outcome.ts` `admitOwnedCCallCompletion` | 68 / 104 | `routeEventCandidate` (route) and the closure factories (`terminal_reached`, `frame_closed`, `graph_call_closed`) | the closure takes `basis.eventTime`. The route keeps its own sample (stop 2), so these transactions keep two times |
+| `c_call.ts` `openCCall` | 36 / 116 | `admitPreparedCCallOpening` (`c_call_opened`, `c_call_fibre_selected`) | one sample at `openCCall`'s opening |
+| `execution_basis.ts` `admitExecutionBasis` | 36 / 69 | `implementation_admitted` and `basis_admitted` | `basis.eventTime` |
+| `open_call.ts` `openTraversalScope` | 28 / 82 | `run_segment_opened`, `graph_call_opened`, `frame_opened` | one sample at the opening |
+| `actor_process.ts` `invokeActorProcessWithAssembly` | 10 / 19 | `actor_transport_binding_admitted`, `actor_invocation_started` | one sample at the opening |
+| `traversal_route.ts` `admitTraversalTransitionUsing` | 4 / 36 | HoG's `retry_attempt_opened` basis (`retry_lifecycle` `resumeProjectedRetry`, `structural_transition`) and the route's own sample | unchanged: the route keeps its sample (stop 2), and HoG's separate retry basis stays (finding 3) |
+| `continuation.ts` `admitOwnedFhInteractionHold` | 1 / 1 | three HoG bases (`interaction_lifecycle` `holdOwnedInteraction`) and the route's own sample | unchanged: the route keeps its sample (stop 2), and HoG's separate bases stay (finding 3) |
+| `c_call_outcome.ts` `admitOwnedCCallRejection` | 1 / 2 | `completeRejectedCCall`'s three samples | unchanged (stop 1) |
+
+The runtime liveness aliases (`runtime_activity_probe_observed`) copy their underlying event's `eventTime`. They follow it.
+
+**Stop 1 (a reader on distinct times within one transaction): not met.**
+- Code census over `code/src`: no reader orders, identifies or folds by distinct times inside one transaction.
+- The readers that compare `eventTime` across events require *equal* times between a Public operation's events and the owner's: `continuation.ts:1581`, `:1665`; `fh_continuation_projection.ts:435`, `:1092`; `invocation_execution_truth.ts:446`; `worksite_revision.ts:190`. One sample per transaction cannot break an equality those readers already see.
+- No lane asserts distinct times within a transaction. `t287-native-event-time` pins the sampler's call sites by source scan (finding 4), not event times.
+
+**Stop 2 (a collision on equal time): not met.**
+- No two candidates in any transaction with a native sample are equal apart from `eventTime` (0 pairs).
+- The 23 equal pairs are all in `createU1Fixture`'s `atCut` transaction: 3 in `t287-calculus-fold` and 20 in `t287-native-work-currentness-consumers`. Every event in that transaction carries fixture time (`unsampled`), and none is built at a sampling site M-6 changes. These pairs already share one time at the base, and their `eventId`s differ there, because the store hashes `admissionOrdinal` into `eventId` (`event_store.ts`, unchanged).
+- So one sample per transaction cannot produce an `eventId` collision.
+
+### Item 2: Product capability admission (row 8)
+
+**Realization.** `product/admission_authority.ts` is the only code file item 2 changes. Each throw site becomes a typed refusal in the admit family: a `StructuralRefusal` (`shared/refusal.ts`), stage `validate`, with a code, a path and `evidence.reason`. The reason is the message the base threw. There are 14 frozen constants for the 15 base throw sites; the two owner-artifact throws (`:276`, `:281`) share one.
+
+Each effect is an observation under the operation's effect contract. A store, log or file failure in an observation propagates exactly as before. Each deterministic check runs over the observations before it and returns `Outcome<T>`. The steps run in the base order:
+
+| Step | Kind | Refusal |
+|---|---|---|
+| `admitCapabilityBasisInput` | check: parse of the external authority and the closed data basis | `data_basis_invalid` |
+| `observeAcquiredPrefix` | observation: the held store at its acquired current prefix coordinate (`assertHeldEventStoreAtDurablePrefix`) | none |
+| `checkAcquiredPrefix` | check: the selection names that coordinate | `acquired_prefix_mismatch` |
+| `observePrefixEnvironment` | observation: artifact truth at the prefix (`projectOwnedPrefixArtifactTruth`, which does not throw), the environment projected from it, and, for live admission and only once the environment is exact, `assertDurableRuntimePrefixCurrent` (base order) | none |
+| `checkPrefixEnvironment` | check | `artifact_truth_unauthenticated`, `environment_unadmitted` |
+| `checkAdmissionScope` | check: approval, actor, request, owner scope and workspace relation | `approval_mismatch`, `actor_mismatch`, `workspace_binding_forbidden`, `environment_scope_mismatch` |
+| `observeOwnerArtifact` | observation: the owner's retained verification or `verifyProduct`, which returns refusals and does not throw | none |
+| `checkOwnerArtifact` | check | `owner_artifact_mismatch` |
+| `observeExecutingToolchainIdentity` | observation: the executing `product-toolchain-manifest.json`, read and parsed once per admission, yielding `{manifestDigest, productContentDigest}` | none |
+| `checkExecutingOwner` | check: both digests equal the verified artifact's (M-5 finding 5) | `owner_artifact_mismatch` |
+
+The `executingOwnerArtifacts` WeakSet is gone. There is no memo. The base compared only `manifestDigest`. The verified manifest records `productContentDigest`, and `verifyProduct` requires it to equal the payload inventory's digest. So on an intact install the added comparison changes no outcome. It states the binding that the M-5b disposition's C-18a item 6 (a) relies on.
+
+Compositions:
+- `admitCapabilityEnvironmentOutcome` composes the environment steps.
+- `admitAdmissionCapabilityBasis` composes all of them.
+- `withAdmissionAuthority`'s own checks (`definition_call_mismatch`, `resource_scope_mismatch`, `authority_slots_undeclared`, `event_resource_invalid`, `grants_mismatch`) return the same family, in the same short-circuit order. The slots selection is evaluated only after the request and digest legs, as the base `||` chain did.
+
+**Callers and the refusal mapping.**
+
+| Caller | Surface before | After |
+|---|---|---|
+| `withAdmissionAuthority` (15 fixed owners: `abg/witness_definition_bindings.ts:367`, `:372`; `product/catalog_definition_bindings.ts:957-959`; `product/environment_definition_bindings.ts:816-817`; `product/install_definition_bindings.ts:420`; `product/release_snapshot_definition_bindings.ts:81`, `:154`; `product/verification_definition_bindings.ts:380`; `product/workspace_definition_bindings.ts:326-327`; `validator/conformance_definition_bindings.ts:562`) | `definition_execution_fault`, stage `resource_admission`, code `resource_relation_mismatch`, message `String(cause)`, so `TypeError: <message>` for every admission throw | unchanged. A refusal of its own checks fails the effect with the same fault, whose message is `String(admissionRefusalError(refusal))`, that is `TypeError: <reason>`. The refusals of the composed admission still arrive as the TypeError `constructAdmissionCapabilityGrants` rejects with, through the same `catch` |
+| `constructCapabilityGrant`, `constructAdmissionCapabilityGrants` (`./product` exports, `product/invocation.ts:906`, `:915`) | reject with `TypeError(message)` | unchanged; `invocation.ts` is not edited, and `validateAdmissionCapabilityBasis` keeps its contract |
+| `validateAdmissionCapabilityBasis` (`invocation.ts:910`, `:922`; lane `t287-conformance-owner-reuse:309`) | rejects with `TypeError(message)` | the exported wrapper over `admitAdmissionCapabilityBasis`. A refusal rejects with `admissionRefusalError`, the same class and message. The R1 `cause` (the ValiError) is no longer attached; no reader in `code/src` or `test_env` reads `.cause` |
+| `admitCapabilityEnvironment` (`implementation/release_publication.ts:153`, inside `try … catch { return false }`; lanes `t287-conformance-owner-reuse:372`, `:375` and `t287-selected-action:50`, `:81`) | throws `TypeError(message)` | the exported wrapper over the typed composition: the same class and message, and still `false` in `isReleaseOperationArtifact` |
+| `admissionAuthoritySlots` (`./product` export: `release_publication.ts:156`, four lane supports, seven files under `test_env/tests`, `test_env/uat/public-setup.mjs`) | throws `TypeError("admission authority requires the declared authority slots")` | the exported wrapper over `admitAuthoritySlots`: the same throw |
+
+Unchanged, because they are not admission refusals:
+- the structural parses (`v.parse` of the resource structure and of the environment selection) still throw `ValiError`;
+- the `resource_acquisition` fault thrown at base `:325` still goes through the `catch`. It surfaces as message `[object Object]` (finding 1).
+
+Every Public operation's refusal shape is unchanged. The new lane `t291-m6-admission-refusal-surface` (four cases, fixture-free) asserts the surfaced class and string for four arms, equal on the base build and the clean tree:
+- the slots selection;
+- the invalid data basis;
+- the environment parse;
+- a call that differs from its fixed owner, through `withAdmissionAuthority`'s new `Effect.fail` path.
+
+One Public path shows the surface end to end. `steel-basic-cli-public`'s base red (`:269`) is a `product.verify` host receipt carrying a `definition_execution_fault` with stage `resource_admission`, code `resource_relation_mismatch`, message `ValiError: Invalid type: Expected Object but received undefined`: the structural parse through `withAdmissionAuthority`'s `catch`. The after red is the same receipt, with only run-specific digests differing.
+
+`admitCapabilityEnvironment`, `validateAdmissionCapabilityBasis` and `admissionAuthoritySlots` keep their throwing contracts. Lanes and the `./product` export rely on them, so each is a one-line mapping of the typed refusal through `admissionRefusalError`.
+
+### Item 3: the workflow.C arm (row 10a)
+
+**Census.** The realization does not conflate the arm's checks with the child's run.
+- **Opening.** `openCCall` opens one transaction (`c_call.ts:5904`). It runs `projectCCallOpeningAuthority` and the basis and scope checks. Then `openWorkflowCCallLocus` (`:5759`) resolves the declared term, checks the proposal and contracts, and builds the locus and fibre bodies with `regime: "F_D"` and `armId: "arm://abiogenesis/workflow.C@5"` (`:5869`). Last, `admitPreparedCCallOpening` checks the phase and the retry owner and admits two events. All of it is synchronous, and nothing runs or waits on the child.
+- **Reconstruction.** `projectOpenedWorkflowCCallCarrier` (`:2683`, bodies at `:2836`, `:2874`) and `rehydrateWorkflowCCallAtPrefix` (`:4377`, `:4489`, `:4546`) recompute the same bodies from the prefix and compare them with the admitted events. Both are pure.
+- **The child.** It runs in HoG between `Abg.openCCall` (`workflow_lifecycle.ts:353`) and `foldbackPreparation.admit()` (`:634`): child basis, child scope, child traversal and child closure. It runs under its own execution basis and traversal scope.
+- **Foldback.** `prepareWorkflowChildFoldback` (`:4041`) reads the construction intent. `admitWorkflowChildFoldbackUsing` (`:4075`) runs the parent owner projection, the retry owner, the basis and scope checks and `projectChildFoldbackTruth`, and admits one `child_foldback_admitted` event. That event carries the parent's `graphCallId` and `frameId` beside `childExecutionBasisRef`, `childGraphCallId` and `childFrameId`, so both traversal identities are kept. It is synchronous; the child's outcome enters only as admitted terminal truth at the prefix.
+- `graph_application.ts:1189` routes the workflow relation to `admitWorkflowChildFoldback`. Its signature is unchanged, so `:1193` is not edited.
+
+**Change.** Comments only:
+- at the opening's `regime: "F_D"` in `openWorkflowCCallLocus`: the claim covers the opening checks (`openCCall`, the locus opener, `admitPreparedCCallOpening`) and the foldback checks; both are finite over the selected prefix and their declared inputs, and each yields one admission or one typed refusal; the child is outside the claim, composed under AC-016 with both identities kept; the recorded regime is unchanged;
+- a doc comment on `admitWorkflowChildFoldbackUsing`;
+- one line in each reconstruction function, pointing to the statement.
+
+The recorded `regime` value and every payload are unchanged.
+
+### Lanes (each alone; before on the base build, after on the committed tree)
+
+**The set.** 88 lanes (the activation's named lanes and the `git grep -l` set over `test_env/tests` for its five patterns) and the compose scenario, plus seven extra lanes (deviation 8). Each ran alone with `node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000`.
+
+**Result.** Counts, reds, skips and first errors are equal on every lane.
+
+**Run noise.** Three lanes' first-error strings embed run-specific values, so the raw strings differ even between two base runs (the instrumented pass and the before pass): `steel-basic-cli-public`, `t287-worksite-branch-construction` and `t287-worksite-construction`. The values are hex digests and refs, ISO times, `*ElapsedMs`, temp-directory names, log byte lengths and inodes. With those masked, every lane's reds and skips are equal before and after, and also base against base. The table marks those three "yes (run noise)".
+
+**Durations.** The total went from 2,911 s to 2,972 s (+2%), carried by the long lanes:
+- `t287-c0-post-publication-failure` 1,202 → 1,234 s;
+- `t287-worksite-command-execution` 317 → 324 s.
+
+No lane over 5 s moved by more than 10%.
+
+**The first after pass.** It ran before the stop sites were reverted, and it is not this table (deviation 10). It moved `t287-undispatched-diagnostic` (7/7/0/0 → 7/6/1/0) and `retained-route-cursor-transition`'s first error (stops 1 and 2).
+
+| Lane | Before t/p/f/s | After t/p/f/s | Duration before / after (s) | Reds and skips equal | Reds (line: first error) and skips |
+|---|---|---|---|---|---|
+| `d2-workflow-step` | 9/0/0/9 | 9/0/0/9 | 0.0 / 0.0 | yes | 9 skipped |
+| `m5-consensus-module` | 17/17/0/0 | 17/17/0/0 | 0.7 / 0.6 | yes | - |
+| `m5-event-calculus-runtime` | 19/13/5/1 | 19/13/5/1 | 138.9 / 139.3 | yes | red `:372` TypeError [Error]: abg.openCall is not a function; red `:1316` AssertionError [ERR_ASSERTION]: runtime_failure_observed/runtime_invocation_active; red `:1471` TypeError [Error]: abg.openCall is not a function; red `:1548` TypeError [Error]: abg.openCall is not a function; red `:1590` TypeError [Error]: abg.openCall is not a function; 1 skipped |
+| `m5-event-store-reopen` | 21/21/0/0 | 21/21/0/0 | 57.9 / 57.7 | yes | - |
+| `m5-fresh-process-reconstruction` | 1/0/1/0 | 1/0/1/0 | 34.5 / 34.7 | yes | red `:13` TypeError [Error]: abg.openCall is not a function |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | 9/4/5/0 | 0.4 / 0.4 | yes | red `:21` AssertionError [ERR_ASSERTION]: declared retry frontier lost owner relation: const calculu; red `:238` AssertionError [ERR_ASSERTION]: missing source boundary: export function openInteractionCC; red `:281` AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:; red `:323` AssertionError [ERR_ASSERTION]: missing source boundary: else if (initialInput?.resume !==; red `:533` AssertionError [ERR_ASSERTION]: missing source boundary: /** |
+| `m5-s03-authority` | 5/1/4/0 | 5/1/4/0 | 34.8 / 34.7 | yes | red `:96` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:218` TypeError [Error]: capability grant requires exact workspace, policy, actor, and definitio; red `:285` AssertionError [ERR_ASSERTION]: The input did not match the regular expression /exact admi; red `:415` TypeError [Error]: runtime event candidate has an invalid envelope |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 | 0.4 / 0.3 | yes | - |
+| `r10-projection-contracts` | 11/11/0/0 | 11/11/0/0 | 1.6 / 1.6 | yes | - |
+| `r3-workspace-binding` | 1/0/1/0 | 1/0/1/0 | 4.5 / 4.5 | yes | red `:85` AssertionError [ERR_ASSERTION]: {"kind":"product_verification_refusal","schemaVersion":"5. |
+| `r4-catalog-admission` | 6/6/0/0 | 6/6/0/0 | 0.4 / 0.4 | yes | - |
+| `r5-invocation-admission` | 3/0/3/0 | 3/0/3/0 | 66.2 / 68.8 | yes | red `:15` Error: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/build_tena; red `:100` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; red `:598` AssertionError [ERR_ASSERTION]: {"kind":"catalog_construction_refusal","schemaVersion":"5. |
+| `r7-graph-validation-basis` | 1/1/0/0 | 1/1/0/0 | 137.9 / 141.6 | yes | - |
+| `r8-direct-hog-entry` | 1/0/1/0 | 1/0/1/0 | 34.0 / 34.8 | yes | red `:19` TypeError [Error]: abg.hasAdmittedExecutionBasis is not a function |
+| `r9-causal-result-closure` | 2/0/2/0 | 2/0/2/0 | 68.6 / 70.0 | yes | red `:53` TypeError [Error]: abg.openCall is not a function; red `:721` TypeError [Error]: abg.openCall is not a function |
+| `retained-route-cursor-transition` | 1/0/1/0 | 1/0/1/0 | 0.5 / 0.5 | yes | red `:26` TypeError [Error]: traversal transition differs from its staged successor projection |
+| `rival-authority-mutations` | 3/1/2/0 | 3/1/2/0 | 75.0 / 78.1 | yes | red `:54` TypeError [Error]: environment.abg.openCall is not a function; red `:78` TypeError [Error]: abg.openCall is not a function |
+| `runtime-scope-regressions` | 2/2/0/0 | 2/2/0/0 | 68.2 / 67.4 | yes | - |
+| `steel-basic-cli-public` | 1/0/1/0 | 1/0/1/0 | 24.4 / 24.0 | yes (run noise) | red `:269` AssertionError [ERR_ASSERTION]: product.verify: {"definitionKey":{"memberKey":"verify","op |
+| `steel-consumer-declaration` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-authenticated-owner-values` | 3/1/1/1 | 3/1/1/1 | 0.3 / 0.3 | yes | red `:39` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-c0-correction-regressions` | 4/3/1/0 | 4/3/1/0 | 75.1 / 71.7 | yes | red `:42` TypeError [Error]: Cannot read properties of undefined (reading 'graphFunctionRef') |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 | 1202.4 / 1233.9 | yes | - |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 | 0.3 / 0.4 | yes | - |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | 6/0/6/0 | 1.2 / 1.2 | yes | red `:120` TypeError [Error]: child C2 source does not reproduce at its admitted preparation cut; red `:195` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:212` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:227` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:238` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:266` TypeError [Error]: operations.nativeWorkReacquisition is not a function |
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 | 1.8 / 1.9 | yes | - |
+| `t287-cold-record-decoder` | 3/1/1/1 | 3/1/1/1 | 0.3 / 0.3 | yes | red `:77` AssertionError [ERR_ASSERTION]: retain existing replacement-character admission, without U; 1 skipped |
+| `t287-common-computational-library` | 17/17/0/0 | 17/17/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-cross-cut-public-read` | 5/4/1/0 | 5/4/1/0 | 44.0 / 45.8 | yes | red `:105` AssertionError [ERR_ASSERTION]: run_status must retain the acquired prefix through late pr |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 | 0.0 / 0.0 | yes | 3 skipped |
+| `t287-default-library` | 20/17/0/3 | 20/17/0/3 | 2.4 / 2.6 | yes | 3 skipped |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 | 10.9 / 11.4 | yes | - |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-exact-construction-intent` | 1/1/0/0 | 1/1/0/0 | 50.3 / 51.2 | yes | - |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | 2/1/1/0 | 34.7 / 36.6 | yes | red `:356` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-fh-hold-open` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-governance-covered-source-use` | 9/3/3/3 | 9/3/3/3 | 0.3 / 0.4 | yes | red `:351` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:386` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; red `:430` AssertionError [ERR_ASSERTION]: select the frozen bounded fixture; 3 skipped |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 | 0.4 / 0.5 | yes | 6 skipped |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/1/1/0 | 5.6 / 5.8 | yes | red `:64` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal: |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 | 0.5 / 0.5 | yes | - |
+| `t287-interrupted-event-resource-recovery` | 8/6/2/0 | 8/6/2/0 | 4.0 / 4.1 | yes | red `:74` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; red `:136` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-live-worksite-construction` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-malformed-gtl-gate` | 6/5/1/0 | 6/5/1/0 | 0.5 / 0.5 | yes | red `:63` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 | 0.4 / 0.4 | yes | 2 skipped |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 | 5.1 / 5.0 | yes | 4 skipped |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 | 0.4 / 0.4 | yes | - |
+| `t287-native-event-time` | 6/0/4/2 | 6/0/4/2 | 0.3 / 0.3 | yes | red `:30` AssertionError [ERR_ASSERTION]: explicit absolute proof territory required; red `:66` AssertionError [ERR_ASSERTION]: explicit absolute proof territory required; red `:86` AssertionError [ERR_ASSERTION]: explicit proof territory required; red `:108` AssertionError [ERR_ASSERTION]: exact rejected paired producer required; 2 skipped |
+| `t287-native-frame-observation` | 8/1/3/4 | 8/1/3/4 | 0.3 / 0.3 | yes | red `:187` AssertionError [ERR_ASSERTION]: explicit proof-local territory; red `:207` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:235` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; 4 skipped |
+| `t287-native-registered-selection` | 1/0/0/1 | 1/0/0/1 | 0.3 / 0.3 | yes | 1 skipped |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 | 6/6/0/0 | 31.1 / 31.5 | yes | - |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 | 0.6 / 0.6 | yes | 3 skipped |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 | 0.3 / 0.4 | yes | 3 skipped |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 | 1.4 / 1.5 | yes | 1 skipped |
+| `t287-observed-worksite-command` | 8/7/1/0 | 8/7/1/0 | 1.4 / 1.4 | yes | red `:43` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-ordered-reconstruction` | 7/2/2/3 | 7/2/2/3 | 0.4 / 0.4 | yes | red `:22` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:74` AssertionError [ERR_ASSERTION]: Values have same structure but are not reference-equal:; 3 skipped |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/1/1/0 | 43.4 / 44.4 | yes | red `:244` TypeError [Error]: artifact truth is reachable only through its checked owner ingress |
+| `t287-public-preparation` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-qualification-carrier-resource` | 7/0/0/7 | 7/0/0/7 | 0.3 / 0.3 | yes | 7 skipped |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 | 45.4 / 47.0 | yes | - |
+| `t287-recursive-registered-selection` | 4/2/1/1 | 4/2/1/1 | 35.2 / 36.3 | yes | red `:129` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; 1 skipped |
+| `t287-release-acceptance` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-release-publication` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/3/0 | 0.3 / 0.3 | yes | red `:59` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:92` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier; red `:107` AssertionError [ERR_ASSERTION]: select the immutable s02-installed-continuation-04 carrier |
+| `t287-route-reconstruction` | 12/10/0/2 | 12/10/0/2 | 8.9 / 9.1 | yes | 2 skipped |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-runtime-failure-diagnostic` | 20/20/0/0 | 20/20/0/0 | 3.5 / 3.6 | yes | - |
+| `t287-selected-action` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t287-selected-execution-closure` | 1/0/1/0 | 1/0/1/0 | 0.2 / 0.2 | yes | red `:1` 'test failed' |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/0/2/0 | 38.8 / 40.3 | yes | red `:116` AssertionError [ERR_ASSERTION]: inherited eventResource; red `:737` ReferenceError [Error]: product is not defined |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 | 0.9 / 0.9 | yes | - |
+| `t287-value-equality` | 5/5/0/0 | 5/5/0/0 | 0.3 / 0.3 | yes | - |
+| `t287-w2-05-install-catalog-owner-chain` | 1/0/1/0 | 1/0/1/0 | 6.2 / 6.4 | yes | red `:286` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal: |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 | 0.6 / 0.6 | yes | 2 skipped |
+| `t287-worksite-branch-construction` | 2/0/2/0 | 2/0/2/0 | 76.9 / 79.5 | yes (run noise) | red `:584` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion":; red `:669` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion": |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 | 317.2 / 324.3 | yes | - |
+| `t287-worksite-construction` | 3/0/3/0 | 3/0/3/0 | 66.1 / 66.8 | yes (run noise) | red `:217` AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:; red `:361` TypeError [Error]: Cannot read properties of null (reading 'nativeInstructionAssemblyBasis; red `:688` AssertionError [ERR_ASSERTION]: {"kind":"executable_traversal_completion","schemaVersion": |
+| `t288-logical-prefix-digest` | 2/0/2/0 | 2/0/2/0 | 0.3 / 0.3 | yes | red `:16` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:35` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc |
+| `t288-physical-return-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t288-scoped-retry-guard` | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:12` SyntaxError [Error]: Unexpected token 'export' |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t289-install-event-bodies` | 4/0/4/0 | 4/0/4/0 | 0.3 / 0.3 | yes | red `:121` AssertionError [ERR_ASSERTION]: explicit isolated proof territory and digest-bound retaine; red `:323` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:377` TypeError [ERR_INVALID_ARG_TYPE]: The "path" argument must be of type string or an instanc; red `:435` AssertionError [ERR_ASSERTION]: explicit predecessor package and digest-bound retained his |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 | 0.0 / 0.0 | yes | 2 skipped |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 | 0.3 / 0.3 | yes | 8 skipped |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-calculus-state-transfer.ABI5_CALCULUS_CASES-compose` | 2/2/0/0 | 2/2/0/0 | 35.5 / 35.6 | yes | - |
+| `witness-reprice-definition-binding` (extra) | 15/0/15/0 | 15/0/15/0 | 0.4 / 0.5 | yes | red `:27` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:36` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:67` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:77` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:94` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:102` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:112` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:118` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:124` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:129` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:147` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:162` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:169` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:205` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:226` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `witness-run-stopped-definition-binding` (extra) | 7/0/7/0 | 7/0/7/0 | 0.5 / 0.4 | yes | red `:31` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:65` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:77` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:89` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:96` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:102` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:; red `:117` AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value: |
+| `steel-consumer-authority` (extra) | 1/0/0/1 | 1/0/0/1 | 0.0 / 0.0 | yes | 1 skipped |
+| `t287-retained-installed-consumer` (extra) | 1/0/1/0 | 1/0/1/0 | 0.0 / 0.0 | yes | red `:1` 'test failed' |
+| `t287-declared-testing-capability` (extra) | 7/3/0/4 | 7/3/0/4 | 33.5 / 33.6 | yes | 4 skipped |
+| `t287-installed-qualification-conservation` (extra) | 1/0/1/0 | 1/0/1/0 | 0.3 / 0.3 | yes | red `:1` 'test failed' |
+| `t291-m6-admission-refusal-surface` (extra) | 4/4/0/0 | 4/4/0/0 | 0.3 / 0.3 | yes | - |
+
+### Gates (clean tree)
+
+- `tsc --noEmit` rc 0.
+- `lint:imports`: 28 shared modules; 3 forbidden owner pairs hold.
+- `lint:lifecycle`: 287 modules, 7 allow-listed sites, no offender.
+- `lint:evidence`: 691 mirror roots, no new copy.
+- `lint:calculus`: 6 modules, no offender.
+- `npm run build` rc 0: 787 build files, as on the base. Seven differ from the base build: the `.js` of the seven changed modules. Every `.d.ts` is byte-equal to the base's.
+
+An intermediate build had `product/admission_authority.d.ts` differing: two doc-comment notes, plus the exported wrapper's return type spelled as a named local type. That moved 47 declaration digests and 21 `./public` contract digests. The exported signature and doc comments are now the base's text, with the notes as body comments and the local type derived from the export (`Awaited<ReturnType<typeof validateAdmissionCapabilityBasis>>`). So the declaration closure is unchanged.
+
+The regenerated files moved values only:
+- `product-toolchain-manifest.json`: 51,289 leaves, paths equal, 68 values moved: `productContentDigest` and the refs and digests derived from it (47 `contributionManifest.rows[].provenanceRef`, 10 publication digests, the manifest and descriptor refs, the capability graph's digests). No `publicContractCatalog` value moved.
+- `contracts/capabilities/capability-definition-graph.json`: 3,243 leaves, paths equal, 310 values moved: 241 contract catalogs' `productContentDigest`, the 16 capability definitions' refs and digests and their 18 dependents', and `graphDigest`. No capability id moved.
+
+These are the classes of the M-5 stop 3 ruling: payload bytes moved, while export names, the export map and `public/*` are unchanged.
+
+Instrumentation: `grep -c M6` is 0 in every source file under `code/src` and 0 files under `build/` match. The stripped `abg/event_store.ts` and `abg/native_event_time.ts` (and `abg/traversal_route.ts`, back to the base under stop 2) are byte-equal to the clean copies in scratch (`cmp`). The stripped base build was byte-equal to the base build (787 files) before the before pass ran.
+
+### Exit greps (clean tree)
+
+- `sampleNativeEventTime()` in the ten modules: 26 occurrences (42 at the base).
+  - 16 are at an opening: `actor_process.ts:957` (intent), `:1024` (append), `:1116`, `:1201`; `c_call.ts:5930` (`openCCall`); `execution_basis.ts:2725` (child basis); `invocation_admission.ts:1646`; `open_call.ts:649`; `traversal_cursor.ts:748`; `hog/operator_support.ts:48`; `run_invocation.ts:1191`, `:1465`, `:1508`, `:1541`, `:1557`, `:1730`.
+  - 3 are HoG seeds: `run_invocation.ts:1629`, `:1856`, `:1941`.
+  - 7 are inside a transaction body, the two stops' sites: `c_call.ts:7277`, `:7327`, `:7367` (`completeRejectedCCall`) and `traversal_route.ts:4998`, `:5040`, `:5087`, `:5117` (`admitRoute`).
+  - The only other occurrence in `code/src` is the sampler's definition, `native_event_time.ts:10`.
+- `product/admission_authority.ts`: `throw new TypeError` 0; `executingOwnerArtifacts` 0; `throw admissionRefusalError` 3, the three exported wrappers (deviation 5).
+- `M6`: 0 files under `code/src`, 0 under `build/`.
+- `abg/event_store.ts`, `abg/native_event_time.ts` and `abg/traversal_route.ts` are byte-equal to the base (`cmp` against the clean copy). `event_store.ts` was not edited: every opening sample is in its owner module, and the store's opening, event construction and `eventId` are untouched.
+
+### Cell proposals (the Executive places them)
+
+**Row 5. Route, evidence, result and judgment admission, and the closure fold.** Proposed as Pending, realized in part. Eligible follows on the Executive's ruling on stops 1 and 2.
+- **Totality.** "The checks are finite over the staged prefix, candidate and route. Each refusal returns before any candidate is built. The construction is finite over the checked inputs and the batch: the later candidates of a route or closure batch are factories over the earlier events, for causation."
+- **Material dependencies.** "Declared for evidence, result, judgment and the closure fold. Their event time is the admission basis's `eventTime` (`RuntimeAdmissionBasis`), which the caller samples once at the call that opens the transaction (HoG's `admissionBasis` and `workflowBasis` per phase) and passes in: `admitEvidence`, `admitResult`, `admitJudgment` (`c_call.ts`) and `admitOwnedScopeClosure` (`closure.ts`) take `basis.eventTime`. Not yet declared for the route (`traversal_route.ts` `admitRoute`, 4 fields) and the rejected-call completion (`c_call.ts` `completeRejectedCCall`, 3 fields). Each of those fields still samples the native clock inside the transaction (T-291 M-6 stops 1 and 2). The event store hashes the candidate, `eventTime` and `admissionOrdinal` included, into `eventId`. The append is the store's effect."
+- **Outcomes.** "Admitted events or one typed refusal. For evidence, result, judgment and closure, the same inputs, the basis's `eventTime` included, yield the same admitted events. A route or rejected-call event also carries a time sampled inside the transaction."
+- **RELEASE §9 row.** "Pending, realized in part by T-291 M-6 (this commit). Evidence, result, judgment and closure take the declared basis time; the route and the rejected-call completion keep in-transaction samples. Two lanes pass bases with no `eventTime` (`retained-route-cursor-transition:116`, `t287-undispatched-diagnostic:298`), so `basis.eventTime` there moves them (M-6 stops 1 and 2). Eligible once the two lane bases carry `eventTime` and the seven fields take `basis.eventTime`."
+- **Evidence.** "Code reading (`event_store.ts` `eventId` construction; the M-6 sites census); the M-6 base instrumentation (no reader depends on distinct times in one transaction; no two candidates in a transaction with a native sample differ only in `eventTime`; `eventId` hashes the ordinal); `t287-route-reconstruction`, `t287-r4-aba-retry`, `t287-event-calculus-owner-continuation`, `t287-calculus-fold` and the M-6 lane set equal before and after on the committed tree."
+
+**Row 8. Product capability admission.**
+- **Totality.** "Established. Each deterministic check is finite over the observations before it. Those are the parsed authority and data basis; the acquired current prefix coordinate; the artifact truth and environment at it; the verified artifact; and the executing toolchain identity (manifest digest and product content digest)."
+- **Material dependencies.** "Declared as observations under the operation's effect contract, in the order the operation surfaces them:
+  - physical verification (`verifyProduct`, row 7), or the owner's retained verification;
+  - the held store at its acquired current prefix (`assertHeldEventStoreAtDurablePrefix`) and, for live admission, that prefix's currentness (`assertDurableRuntimePrefixCurrent`);
+  - the executing `product-toolchain-manifest.json`, read once per admission.
+
+  There is no process-local memo. A store, log or file failure is the effect's failure."
+- **Outcomes.** "An admitted capability basis or environment, or one admit-family typed refusal (`StructuralRefusal`, stage `validate`, `evidence.reason` the surfaced message). `admitCapabilityEnvironment`, `validateAdmissionCapabilityBasis` and `admissionAuthoritySlots` map a refusal once (`admissionRefusalError`) to the `TypeError` they threw before. `withAdmissionAuthority` maps it to the `resource_admission` fault, whose message is that error's string."
+- **RELEASE §9 row.** "Eligible. Realized by T-291 M-6 (this commit): observations split from deterministic checks that return typed refusals. The executing install is bound by manifest digest and product content digest. Every Public operation's refusal shape is unchanged."
+- **Evidence.** "Code reading; `r4-catalog-admission` (6/6/0/0) and `t291-m6-admission-refusal-surface` (four refusal arms' surfaced class and message, 4/4/0/0); `r5-invocation-admission` (red at the base, equal after); `witness-reprice-definition-binding`, `witness-run-stopped-definition-binding`, `steel-consumer-authority`, `steel-consumer-declaration`, `t287-conformance-owner-reuse`, `t287-selected-action`, `t287-w2-05-install-catalog-owner-chain`, `t287-declared-testing-capability`, `t287-installed-qualification-conservation` and `t287-retained-installed-consumer`, equal before and after."
+
+**Row 10a. `workflow.C` arm openings.**
+- **Profile.** Unchanged. (The cell's "the `F_D` label sits on an arm whose outcome is the child traversal's" now reads against the scope statement. The Executive may restate it as "the `F_D` label covers the arm's opening and foldback checks; the child traversal is composed under AC-016".)
+- **Totality.** "The F_D claim covers the arm's opening checks (`openCCall`, `openWorkflowCCallLocus`, `admitPreparedCCallOpening`) and its foldback checks (`admitWorkflowChildFoldbackUsing`). Both are finite over the selected prefix and their declared inputs; the claim is stated at `openWorkflowCCallLocus`. The child traversal runs between them as its own traversal, under its own rows, composed under AC-016."
+- **Material dependencies.** "Opening: the selected prefix, the execution basis, the scope, the proposal and the declared contracts. Foldback: the prefix, the parent CCall, the child execution basis and scope, and the child's admitted terminal truth at the prefix. The child traversal's dependencies are the child's, not the arm's."
+- **Outcomes.** "The CCall opened (two events) or one typed open refusal; the child foldback admitted (one event, carrying both traversal identities) or one typed foldback refusal."
+- **RELEASE §9 row.** "Eligible. Realized by T-291 M-6 (this commit): the census found the arm's checks separate from the child's run, and the code states the scope at the opening and the foldback. The recorded `regime` value is unchanged."
+- **Evidence.** "Code reading (the M-6 census; the scope statement at `openWorkflowCCallLocus` and `admitWorkflowChildFoldbackUsing`); `d2-workflow-step` and `t288-workflow-scope-conservation`, equal before and after. Both are skipped or red at the base under the activation's command, so they show only that nothing moved."
+
+**Migration counts.** If rows 8 and 10a are placed Eligible, they move from Pending to Eligible; row 5 stays Pending.
+
+**T-291 M-6 package row (proposal).** "M-6 | rows 5, 8 and 10a by realization | Exit at this commit, rows 8 and 10a; row 5 in part. The time sample is one declared input per transaction (either the basis's or one sample at the owner's opening) except the route and rejected-call constructions, kept native under two stops. Product capability admission is observations plus deterministic checks returning admit-family refusals; the WeakSet is gone, and the executing install is bound by both digests. The workflow.C arm's F_D scope is stated at its opening and foldback."
+
+**T-291 ledger row (proposal).** "M-6: rows 5, 8 and 10a by realization; row 5 in part.
+- The time sample is a declared input at 22 of 29 in-transaction construction sites in six ABG modules. They become `basis.eventTime` (evidence, result, judgment, closure, invocation refusal, execution basis, child lifecycle), or one sample at the owner's own opening where a caller passes a seed (actor intent and append, CCall opening, scope opening, cursor, child basis). `eventTime` and the `eventId` construction are unchanged.
+- The route (`admitRoute`, 4) and the rejected-call completion (3) keep their samples. Two lanes pass bases with no `eventTime`, so `basis.eventTime` there moves `retained-route-cursor-transition` and `t287-undispatched-diagnostic` (stops 1 and 2).
+- Capability admission is split into observations and deterministic checks returning admit-family refusals, mapped once to the unchanged TypeError and `resource_admission` surfaces. The executing install is bound by manifest digest and product content digest, with no memo.
+- The workflow.C arm's F_D scope is stated at its opening and foldback; no conflation was found.
+- 88 lanes, the compose scenario and seven extra lanes are equal before and after."
+
+### Deviations
+
+1. **Item 1's rule.** The activation names the `basis.eventTime` pattern. M-6 applies it only where every caller's basis is a sample taken at the call that opens the transaction. Where a caller passes a seed, the owner takes one sample at its own opening and passes it to the construction as a declared input:
+   - the CCall opening, because `hog/entry.ts:464` passes the continuation's seed;
+   - the child basis (`child_traversal.ts:248`);
+   - the scope opening (`child_traversal.ts:270`, `hog/entry.ts:466`);
+   - the cursor (`hog/entry.ts:413`, `:468`, `:499`);
+   - the actor intent and append, which have no basis.
+
+   The uniform pattern would have moved those events from a native sample to a seed sampled at the traversal's start.
+2. **`run_invocation.ts`.** Its nine calls are unchanged: six are basis samples at the call that opens the owner's transaction, and three are HoG's traversal clock seeds. `actor_process.ts:1112` and `:1197` and `invocation_admission.ts:1646` are already one sample at an opening, so they are unchanged too.
+3. **Item 2's observation and check interleave per step.** The activation reads as one observation step followed by one check. The base surfaces the first failing condition in a fixed order, and it skips later observations once an earlier condition fails: `verifyProduct`, the manifest read and the currentness assertion all run only after the checks before them pass. Interleaving keeps both the precedence and the skipped observations. Each check is still deterministic over the observations before it.
+4. **The executing identity is observed inside admission, not passed in from M-4.** M-4's `installedToolchainProductContentDigest()` returns only `productContentDigest`, and returns `null` on a failure. No admission caller holds it. Passing it in would change `validateAdmissionCapabilityBasis`'s parameters and its callers in `invocation.ts` beyond the mapping the grant allows. `observeExecutingToolchainIdentity` instead reads the same manifest once per admission and yields both digests. A read or parse failure propagates as before. With the WeakSet gone there is no memo, so a reused retained verification now re-reads the manifest on every admission.
+5. **Three throwing wrappers remain.** `admissionAuthoritySlots` (a `./product` export), `admitCapabilityEnvironment` and `validateAdmissionCapabilityBasis` keep their throwing contracts, each as a one-line `throw admissionRefusalError(refusal)` over its typed composition. Lanes import the last two directly (`t287-conformance-owner-reuse:309`, `:372`, `:375`; `t287-selected-action:50`, `:81`). So `throw new TypeError` and `executingOwnerArtifacts` are 0, and `throw admissionRefusalError` is 3.
+6. **The `cause` is dropped.** `DATA_BASIS_INVALID` no longer carries the `ValiError` as `cause`. No reader in `code/src` or `test_env` reads `.cause` on these errors.
+7. **A new lane.** `test_env/tests/t291-m6-admission-refusal-surface.test.mjs` (an addition) pins four refusal arms' surfaced class and message. It is 4/4/0/0 on the base build and on the clean tree.
+8. **Extra lanes.** Seven lanes beyond the activation's set, run as before and after: the two witness definition bindings, `steel-consumer-authority`, three T-287 admission consumers and the new lane. Each one reaches `withAdmissionAuthority` or the admission exports.
+9. **A slip, disclosed.** One read of the record, `sed -n '1260,1441p'`, ran past the end of the M-5 disposition (`:1417`) and through the M-5b activation (`:1418`-`:1441`). The M-5b activation is not among the permitted reads.
+10. **The after pass ran twice.** The first after pass ran on the tree with the rule applied at all 29 construction sites, and it moved the two stop lanes. After the seven stop fields went back to the base, the after pass ran again in full on the committed tree; the lanes table is that second pass. The first pass is kept in scratch (`after-r1`). Its other lanes were equal to the base once run noise is masked.
+
+### Findings outside the grant
+
+1. **The `resource_acquisition` fault surfaces as `[object Object]`.** In `withAdmissionAuthority`, the `throw definitionFault(…, "resource_acquisition", …)` sits inside the `tryPromise`. Its `catch` wraps it as a `resource_admission` fault whose message is `String(cause)`, which is `[object Object]`. The acquisition code and message are lost. The behavior is the base's, and M-6 keeps it. Surfacing the inner fault would change a Public operation's refusal shape, so it goes to the Executive.
+2. **Seed times in events at the base, unchanged by M-6.** Several events carry the traversal's clock seed, not a sample at their transaction's opening. Each of these sites takes `basis.eventTime` at the base and lies outside the grant's sites:
+   - HoG's continuation entry (`hog/entry.ts:464`) passes its seed basis to `admitConstructionContinuationExecutionBasis` (`execution_basis.ts:2792`, `basis_admitted`) and to `admitConstructionContinuationReentry` (`construction_continuation.ts:1548`: `continuation_superseded`, `continuation_reentry_link_admitted`, `construction_continuation_opened`);
+   - `failTraversal` (`traversal_failure.ts:90`) passes `runtime.eventTime` or `input.eventTime` (`graph_execute.ts:185`, `:787`, `structural_transition.ts:89`, `workflow_lifecycle.ts:165`, `entry.ts:146`) to `admitRuntimeFailure` (`runtime_failure.ts:316`).
+
+   One sample at each of those openings would be HoG's `admissionBasis` at those calls.
+3. **HoG samples separate bases for one ABG transaction.** These transactions keep more than one time after M-6:
+   - the retry progress basis and the route's basis (`retry_lifecycle` `resumeProjectedRetry`, `structural_transition`, `retry_attempt_opened` against the route);
+   - the F_H hold's pending, route and continuation bases (`interaction_lifecycle.ts:192`-`196`);
+   - `ccall_lifecycle`'s retry progress (`:718`) against completion, and the recursion and interaction-resume retry progress bases.
+
+   The base instrumentation saw 5 such transactions (`admitTraversalTransitionUsing` 4, `admitOwnedFhInteractionHold` 1). One basis per transaction there is a HoG change; HoG is outside the grant apart from `operator_support.ts`.
+4. **`t287-native-event-time` pins the per-module sampler counts.** Its support's `selectedTimeOwners` (`test_env/support/t287-native-event-time.mjs:43`) fixes, per module, how many `eventTime` fields are `sampleNativeEventTime()` and which other expressions are allowed. The scan is already stale at the base: run directly against the base source, it fails at `c_call.ts` (owner `planOwnedPendingInteractionAdmission:6099` is not in its allowed list). Against the M-6 source it fails first at `abg/actor_process.ts: native producer coverage`. Under the activation's command the lane is red at the base on its environment asserts (`explicit proof territory required` and the rest), and it is red at the same lines after M-6 (lanes table). Updating the table changes an existing assertion, so it goes to the Executive.
+5. **Two readers of the executing manifest.** M-4's `installedToolchainProductContentDigest()` and admission's `observeExecutingToolchainIdentity` read the same `product-toolchain-manifest.json`. One reader in `product/` yielding both digests would serve both. M-4's reader is outside the grant (C-18a).
+
+### Stops
+
+Two stops, both "a lane moving". Each comes from a lane that passes an admission basis with no `eventTime` to an owner the rule gives `basis.eventTime`. `RuntimeAdmissionBasis` declares `eventTime: string`. At the base those owners sampled their own time and never read the member. The first after pass, on the tree with `basis.eventTime` at these sites, moved both lanes. The sites are now the base's (`traversal_route.ts` is byte-equal to the base, and `completeRejectedCCall`'s body matches the base's), and the after pass in the lanes table is on that committed tree.
+
+1. **`t287-undispatched-diagnostic`, case `:233`** ("CCall refusal completion keeps full authority across sparse multi-Run scope and cold raw admission"):
+   - its basis at `:298` is `{correlationId:'correlation://refusal',causationEventRefs:[]}`;
+   - through `admitCCallRejection` it reaches `completeRejectedCCall`, whose `c_call_evidenced`, `c_call_result_admitted` and `c_call_judged` would take `basis.eventTime`;
+   - with that change the lane went 7/7/0/0 → 7/6/1/0, first error `TypeError [Error]: runtime event candidate has an invalid envelope` (`projectRuntimeEventAtContract`, from `admitFrameObservedCCallEvent` in `completeRejectedCCall`).
+2. **`retained-route-cursor-transition`, case `:26`** ("route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"):
+   - its transition input at `:116` carries `basis:{correlationId:'fixture/transition',causationEventRefs:[]}`;
+   - through `admitTraversalTransition` it reaches `admitRoute`, whose `traversal_route_admitted` (and the batch's `construction_intent_selected`, `construction_delta_observed` and `run_stopped`) would take `basis.eventTime`;
+   - the lane is red at the base (1/0/1/0) with first error `TypeError [Error]: traversal transition differs from its staged successor projection`;
+   - with the change the count was unchanged, but the first error became `AssertionError [ERR_ASSERTION]: The validation function is expected to return "true". Received false`: the `assert.throws` at `:122` caught the invalid-envelope `TypeError` before the replay check it expects.
+
+**The ruling asked.** May the two lane bases carry `eventTime` (one fixed ISO value each, at `t287-undispatched-diagnostic:298` and `retained-route-cursor-transition:116`)? That is an edit to existing tests, outside "tests: additions only". If allowed, the seven fields take `basis.eventTime` and row 5 is Eligible. If not, they keep in-transaction samples.
+
+Every production caller of the two owners passes a basis sampled at the call that opens the transaction (sites table). In the first after pass, with `basis.eventTime` at all seven fields, every lane other than these two was equal to the base once run noise is masked (lanes table, method).
+
+No other stop. Item 1's two stops are not met (instrumentation findings). No payload key, event kind, `regime` value, `eventId` construction or persisted digest changed. No Public operation's refusal shape changed (the mapping table, the new lane). No failure class was added or changed, and no Public export changed: `./product`'s list is unchanged, and every `.d.ts` under `build/` is byte-equal to the base's, so no declaration digest or Public contract digest moves.
+
+### What could not be verified
+
+- Item 1's after state was not instrumented, as the activation directs: no counter pass beyond the base. The after state's times per transaction follow from the code. Each changed owner reads one value, and the instrumentation names every site that sampled separately. The transactions that keep more than one time are those that hold a stop site's event (route, rejected-call completion) or several HoG bases (finding 3).
+- Under the activation's command, the named lanes for items 2 and 3 carry no green evidence beyond `r4-catalog-admission` (6/6/0/0):
+  - `r5-invocation-admission` is red at the base (3 reds: `:15` ENOENT on a build-relative path, `:100`, `:598`);
+  - `d2-workflow-step` is 9 skipped (`ABI5_EVIDENCE_ROOT` unset);
+  - `t288-workflow-scope-conservation` fails at file level (`assert.ok(prior)` at `:8`).
+
+  Each is equal after, so they show only that nothing moved. Item 3 rests on code reading. Item 2 rests on code reading, `r4-catalog-admission` and the new lane. The other admission lanes (`t287-conformance-owner-reuse`, `t287-selected-action`, the witness bindings and the installed consumers) are red or skipped at the base and equal after.
+- The cost of reading the manifest once per admission was not measured apart from lane durations. No lane over 5 s moved by more than 10%.
+- Admission's typed refusal arms are proven through the four surfaced arms the new lane exercises and through the existing lanes. The arms that need a live store at a non-current prefix (`acquired_prefix_mismatch`, `artifact_truth_unauthenticated`, `environment_unadmitted`) and a tampered executing manifest (`owner_artifact_mismatch` on the product content digest) were checked by code reading only.
