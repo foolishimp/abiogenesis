@@ -1,5 +1,6 @@
 import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
 import { isDeepStrictEqual } from "node:util";
+import { readFileSync } from "node:fs";
 import * as v from "valibot";
 import { resolveSelfConformanceOwner, type QualificationOwnerBasis } from "./self_conformance_basis.js";
 import { SELF_CONFORMANCE_IDS as ids, QUALIFICATION_IDS as q } from "../gtl/self_conformance.js";
@@ -16,36 +17,56 @@ import { isQualificationAssessmentInput, qualificationRawMatches, qualificationR
   isQualificationVerdictInput, qualificationCoverageIsPublished, isQualificationBasisReady,
   constructQualificationJudgment, isMalformedGtlAssessmentInput,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment,
-  isMalformedGtlAssessment, evaluateMalformedGtlAssessment } from "./qualification.js";
+  isMalformedGtlAssessment, evaluateMalformedGtlAssessment, parseQualificationRuleCatalog, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH,
+  type AdmittedQualificationCatalogs } from "./qualification.js";
+import { SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
 import { projectQualificationConsumer, projectExactCandidateQualification, projectNativeRuntimeAssessment } from "../abg/qualification_proof.js";
 import { reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-export function isQualificationContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
+/** The provider's own catalogs. Its declared members carry no catalog channel
+ * and no install record, so each catalog is read once, when first needed,
+ * relative to this module: under the install root when the provider is loaded
+ * through its `modulePath`. No recorded digest is in scope to check the bytes
+ * against. */
+const providerCatalogs: Readonly<AdmittedQualificationCatalogs> = (() => {
+  let coverage: JsonValue | undefined, rules: AdmittedQualificationCatalogs["rules"] | undefined;
+  const read = (relative: string) => readFileSync(new URL("../../../../" + relative, import.meta.url));
+  return Object.freeze({
+    get coverage() { return coverage ??= JSON.parse(read(QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH).toString("utf8")) as JsonValue; },
+    get rules() { return rules ??= parseQualificationRuleCatalog(read(SELF_CONFORMANCE_CATALOG_ASSET_PATH)); },
+  });
+})();
+export function isQualificationContractValue(valueKind: string, value: unknown,
+  catalogs?: Readonly<AdmittedQualificationCatalogs>): value is Readonly<Record<string, JsonValue>> {
   switch (valueKind) {
     case "self_conformance_input": return isSelfConformanceInput(value);
     case "self_conformance_result": return isSelfConformanceResult(value);
-    case "qualification_assessment_input": return isQualificationAssessmentInput(value);
+    case "qualification_assessment_input": return isQualificationAssessmentInput(value, catalogs);
     case "qualification_raw_judgment": return v.is(QUALIFICATION_RAW_JUDGMENT_SCHEMA, value);
     case "qualification_judgment": return isQualificationJudgment(value);
     case "qualification_ruling_request": return v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, value);
     case "qualification_owner_ruling": return v.is(QUALIFICATION_OWNER_RULING_SCHEMA, value);
-    case "qualification_verdict_input": return isQualificationVerdictInput(value);
+    case "qualification_verdict_input": return isQualificationVerdictInput(value, catalogs);
     case "exact_candidate_qualification": return isQualificationVerdict(value);
-    case "native_runtime_assessment_input": return isNativeRuntimeAssessmentInput(value);
-    case "native_runtime_assessment": return isNativeRuntimeAssessment(value);
-    case "malformed_gtl_assessment_input": return isMalformedGtlAssessmentInput(value);
-    case "malformed_gtl_assessment": return isMalformedGtlAssessment(value);
+    case "native_runtime_assessment_input": return isNativeRuntimeAssessmentInput(value, catalogs);
+    case "native_runtime_assessment": return isNativeRuntimeAssessment(value, catalogs);
+    case "malformed_gtl_assessment_input": return isMalformedGtlAssessmentInput(value, catalogs);
+    case "malformed_gtl_assessment": return isMalformedGtlAssessment(value, catalogs);
     case "self_conformance_failure": return record(value) && Object.keys(value).length === 4 &&
       value.kind === valueKind && value.schemaVersion === "5.0.0" && typeof value.failureClass === "string" && typeof value.diagnosticRef === "string";
     default: return false;
   }
 }
-export function qualificationResultRelation(predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations): boolean {
+/** `catalogs` are the owner install's admitted catalogs when the caller holds
+ * them (the invoking port); the declared provider members pass the provider's
+ * own catalogs. */
+export function qualificationResultRelation(predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations,
+  catalogs?: Readonly<AdmittedQualificationCatalogs>): boolean {
   try {
     if (predicateRef === q.runtimeAssessPredicate) {
-      if (!isNativeRuntimeAssessment(output) || !isNativeRuntimeAssessmentInput(input)) return false;
+      if (!isNativeRuntimeAssessment(output, catalogs) || !isNativeRuntimeAssessmentInput(input, catalogs)) return false;
       // Only the current native owner can recover these exact historical cuts.
       // Their logical bytes and all assessment/source predicates stay unchanged.
       const basis = currentOwnerPrefix === undefined || nativeProof?.qualificationAssessment !== undefined ? output.nativeBasis : { ...output.nativeBasis,
@@ -53,29 +74,31 @@ export function qualificationResultRelation(predicateRef: string, input: unknown
       const selected = currentOwnerPrefix === undefined || nativeProof?.qualificationAssessment !== undefined ? input : { ...input, proof: { ...input.proof,
         prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as DurablePrefixCoordinate) } };
       const expected = nativeProof?.qualificationAssessment !== undefined ? nativeProof.qualificationAssessment()
-        : projectNativeRuntimeAssessment(basis, selected);
+        : projectNativeRuntimeAssessment(basis, selected, false, undefined, catalogs);
       return isDeepStrictEqual(expected, output) || canonicalEquals(expected, output);
     }
-    if (predicateRef === q.malformedAssessPredicate) return isMalformedGtlAssessmentInput(input) && isMalformedGtlAssessment(output) &&
-      projectQualificationConsumer(output.nativeBasis, input) !== null && canonicalEquals(evaluateMalformedGtlAssessment(input, output.nativeBasis), output);
+    if (predicateRef === q.malformedAssessPredicate) return isMalformedGtlAssessmentInput(input, catalogs) && isMalformedGtlAssessment(output, catalogs) &&
+      projectQualificationConsumer(output.nativeBasis, input, false, undefined, catalogs) !== null &&
+      canonicalEquals(evaluateMalformedGtlAssessment(input, output.nativeBasis, catalogs), output);
     if (predicateRef === ids.judgmentPredicateRef) {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return false;
       if (nativeProof?.qualificationSelfConformance !== undefined) return canonicalEquals(nativeProof.qualificationSelfConformance(), output);
-      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input);
-      return owner !== null && canonicalEquals(owner, output.owner) && canonicalEquals(evaluateSelfConformance(input, owner), output);
+      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis as QualificationOwnerBasis, input, false, undefined, catalogs);
+      return owner !== null && canonicalEquals(owner, output.owner) && canonicalEquals(evaluateSelfConformance(input, owner, undefined, catalogs), output);
     }
     if (predicateRef === q.assessPredicate) {
       if (nativeProof?.qualificationJudgment !== undefined) return nativeProof.qualificationJudgment();
-      if (!isQualificationAssessmentInput(input) || !isQualificationJudgment(output) ||
-          projectQualificationConsumer(output.nativeBasis, input) === null || !qualificationRawMatches(input, output.raw)) return false;
-      return canonicalEquals(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source), output);
+      if (!isQualificationAssessmentInput(input, catalogs) || !isQualificationJudgment(output) ||
+          projectQualificationConsumer(output.nativeBasis, input, false, undefined, catalogs) === null ||
+          !qualificationRawMatches(input, output.raw, undefined, catalogs)) return false;
+      return canonicalEquals(constructQualificationJudgment(input, output.raw, output.nativeBasis, output.source, undefined, catalogs), output);
     }
     if (predicateRef === q.verdictPredicate) {
       if (!isQualificationVerdict(output)) return false;
       const basis = currentOwnerPrefix === undefined || nativeProof?.qualificationVerdict !== undefined ? output.nativeBasis : { ...output.nativeBasis,
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, output.nativeBasis.predecessorPrefix as DurablePrefixCoordinate) };
       const expected = nativeProof?.qualificationVerdict !== undefined ? nativeProof.qualificationVerdict()
-        : projectExactCandidateQualification(basis, input);
+        : projectExactCandidateQualification(basis, input, false, undefined, catalogs);
       return isDeepStrictEqual(expected, output) || canonicalEquals(expected, output);
     }
     if (predicateRef === q.rulingPredicate) {
@@ -96,15 +119,17 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
   packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   admitInput(contractRef: string, value: unknown) {
     const kind = inputs.get(contractRef);
-    return kind !== undefined && isQualificationContractValue(kind, value) ? deepFreeze(value) : null;
+    return kind !== undefined && isQualificationContractValue(kind, value, providerCatalogs) ? deepFreeze(value) : null;
   },
   evaluateInteractionResponse(basis, value) {
     return basis.requestContractRef === q.rulingRequest && basis.responseContractRef === q.rulingResponse &&
       qualificationRulingMatches(basis.requestValue, value, basis.actingActorRef) ? deepFreeze(value) : null;
   },
-  validateContractValue: isQualificationContractValue,
+  validateContractValue(valueKind: string, value: unknown): value is Readonly<Record<string, JsonValue>> {
+    return isQualificationContractValue(valueKind, value, providerCatalogs);
+  },
   resolveProbabilisticWorkerContracts(basis) {
-    return basis.inputContractRef === q.assessmentInput && isQualificationAssessmentInput(basis.input)
+    return basis.inputContractRef === q.assessmentInput && isQualificationAssessmentInput(basis.input, providerCatalogs)
       ? { instructionContractRef: q.assessmentInput, resultContractRef: q.assessmentRaw } : null;
   },
   validateResultEvidenceLineage(basis) {
@@ -112,7 +137,7 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
     if (!isQualificationJudgment(basis.value)) return false;
     const value = basis.value, rows = basis.admittedEvidence.filter(e => e.evidenceClass === "probabilistic_transport");
     const e = rows.length === 1 ? rows[0]! : null;
-    const request = basis.nativeProof?.qualificationRequest?.() ?? ("representation" in value.task ? null : qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan }));
+    const request = basis.nativeProof?.qualificationRequest?.() ?? ("representation" in value.task ? null : qualificationWorkerRequest({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: value.task, plan: value.plan }, undefined, providerCatalogs));
     if (request === null) return false;
     return e !== null && e.cCallRef === value.source.cCallRef && e.inputDigest === value.source.inputDigest &&
       e.actorInvocationRef === value.source.actorInvocationRef && e.actorRef === value.source.actorRef &&
@@ -122,10 +147,12 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
       e.transportFailureClass === null && e.outputDigest === hash(value);
   },
   validateInvocationBasis(basis) {
-    const runtime = isNativeRuntimeAssessmentInput(basis.input) ? basis.input : isNativeRuntimeAssessment(basis.input) ? basis.input.input : null;
+    const runtime = isNativeRuntimeAssessmentInput(basis.input, providerCatalogs) ? basis.input
+      : isNativeRuntimeAssessment(basis.input, providerCatalogs) ? basis.input.input : null;
     if (runtime !== null) return basis.sourceResultBasis === null && runtime.basis.workspaceBinding !== null &&
       runtime.basis.workspaceBinding.ref === basis.workspaceBindingId && runtime.basis.workspaceBinding.digest === basis.workspaceBindingDigest;
-    const malformed = isMalformedGtlAssessmentInput(basis.input) ? basis.input : isMalformedGtlAssessment(basis.input) ? basis.input.input : null;
+    const malformed = isMalformedGtlAssessmentInput(basis.input, providerCatalogs) ? basis.input
+      : isMalformedGtlAssessment(basis.input, providerCatalogs) ? basis.input.input : null;
     if (malformed !== null) return malformed.basis.workspaceBinding?.ref === basis.workspaceBindingId &&
       malformed.basis.workspaceBinding.digest === basis.workspaceBindingDigest;
     if (isSelfConformanceInput(basis.input)) {
@@ -136,13 +163,14 @@ export const ABI5_SELF_CONFORMANCE_PRODUCT_SEMANTICS: ProductSemanticsProvider =
       const selected = basis.input.basis.workspaceBinding;
       return selected !== null && selected.ref === basis.workspaceBindingId && selected.digest === basis.workspaceBindingDigest;
     }
-    return isQualificationAssessmentInput(basis.input) || v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, basis.input) || v.is(QUALIFICATION_OWNER_RULING_SCHEMA, basis.input);
+    return isQualificationAssessmentInput(basis.input, providerCatalogs) || v.is(QUALIFICATION_RULING_REQUEST_SCHEMA, basis.input) || v.is(QUALIFICATION_OWNER_RULING_SCHEMA, basis.input);
   },
   resolveJudgmentRelation(predicateRef: string) {
     return ([ids.judgmentPredicateRef, q.assessPredicate, q.rulingPredicate, q.verdictPredicate,
       q.runtimeAssessPredicate, q.malformedAssessPredicate] as string[]).includes(predicateRef)
       ? { predicateRef, advanceReasonRef: "reason://abiogenesis/qualification/evaluated@5",
         rejectionReasonRef: "reason://abiogenesis/qualification/result-mismatch@5",
-        evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) => qualificationResultRelation(predicateRef, input, output, currentOwnerPrefix, nativeProof) } : null;
+        evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate, nativeProof?: NativeJudgmentProofOperations) =>
+          qualificationResultRelation(predicateRef, input, output, currentOwnerPrefix, nativeProof, providerCatalogs) } : null;
   },
 });

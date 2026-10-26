@@ -6,13 +6,15 @@ import fs from 'node:fs';
 import { nativeJoinFixture, coverage, ids, hash, identity, publication } from '../support/malformed-gtl-native-fixture.mjs';
 import { SELF_CONFORMANCE_IDS as self } from '../../build/code/src/gtl/self_conformance.js';
 import { evaluateSelfConformance, readSelfConformanceCatalog } from '../../build/code/src/validator/self_conformance.js';
-import { isQualificationVerdictInput, reduceExactCandidateQualification } from '../../build/code/src/validator/qualification.js';
+import { isQualificationVerdictInput, reduceExactCandidateQualification, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
 import { isSelfConformanceResult } from '../../build/code/src/validator/self_conformance_contracts.js';
 import { isQualificationContractValue } from '../../build/code/src/validator/self_conformance_semantics.js';
 import { privateOwner } from '../support/r10-private-owner-harness.mjs';
 const plain=x=>JSON.parse(JSON.stringify(x));
 const c=(ref,digest=hash(ref))=>({ref,digest});
 const law=JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/law-basis.json',import.meta.url)));
+const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
+  fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 function partial(f){return {kind:'self_conformance_input',schemaVersion:'5.0.0',basis:f.input.basis,law,
  inventory:null,tenantManifest:null,authorityMembers:[],applications:[],evidenceCitations:[]};}
 function owner(f,opened){const install=f.environment.productInstalls[0],{catalog,bytes}=readSelfConformanceCatalog();return {
@@ -58,7 +60,7 @@ test('whole native F11 assessment feeds sole AF22 directly; development/foreign/
  const summary=f.owner.projectQualificationSelfConformance(proof,selected,input.basis);assert(summary);assert.equal(summary.disposition,'blocked');
  const verdictInput={kind:'qualification_verdict_input',schemaVersion:'5.0.0',slotRef:publication.graphFunctions.find(g=>g.name===ids.verdictGraph).template.startNodeRef,
  basis:input.basis,coverage,selectionRef:selected.selectionRef,selfConformance:summary,proof};
- assert(isQualificationVerdictInput(verdictInput));const consumer=f.open(ids.verdictGraph,verdictInput,'AF22');
+ assert(isQualificationVerdictInput(verdictInput,catalogs));const consumer=f.open(ids.verdictGraph,verdictInput,'AF22');
  assert(f.owner.qualificationHasNativeSelfConformance(verdictInput,consumer.basis));
  const actualVerdict=reduceExactCandidateQualification(verdictInput,consumer.basis);assert.equal(actualVerdict.disposition,'blocked');
  const verdictContract=publication.contracts.find(c=>c.contractRef===ids.verdict);assert(verdictContract);
@@ -66,8 +68,8 @@ test('whole native F11 assessment feeds sole AF22 directly; development/foreign/
  assert(isQualificationContractValue(verdictContract.valueKind,actualVerdict));
  const forged=plain(verdictInput);forged.selfConformance.disposition='green';assert.equal(f.owner.qualificationHasNativeSelfConformance(forged,consumer.basis),false);
  const missing=plain(verdictInput);missing.proof.selections=[];assert.equal(f.owner.qualificationHasNativeSelfConformance(missing,consumer.basis),false);
- const subset=plain(verdictInput);subset.coverage.claims.pop();assert(!isQualificationVerdictInput(subset));
- const foreign=plain(verdictInput);foreign.selfConformance.lawBasis=c('law://foreign');assert(!isQualificationVerdictInput(foreign));
+ const subset=plain(verdictInput);subset.coverage.claims.pop();assert(!isQualificationVerdictInput(subset,catalogs));
+ const foreign=plain(verdictInput);foreign.selfConformance.lawBasis=c('law://foreign');assert(!isQualificationVerdictInput(foreign,catalogs));
  const peer=f.open(self.graphFunctionRef,input,'whole-subject-peer');f.complete(peer,value);
  assert.equal(f.owner.projectQualificationSelfConformance({...f.proof(),selections:[selected]},selected,input.basis),null);
 });

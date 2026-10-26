@@ -15,11 +15,14 @@ import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
   type SelfConformanceInput, type SelfConformanceResult, type SelfConformanceOwner,
   type SelfConformanceFinding, type QualificationRuleCatalog } from "./self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
+export { SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./qualification_catalogs.js";
 
-export const SELF_CONFORMANCE_CATALOG_ASSET_PATH = "contracts/qualification/rule-catalog.json";
-export const SELF_CONFORMANCE_CATALOG_CONTRACT_ID = "abg.asset.qualification.rule-catalog";
+
 const packageRoot = fileURLToPath(new URL("../../../../", import.meta.url));
-/** Reads only this installed owner's manifest-bound declaration assets. */
+/** The module-relative rule catalog. A caller holding an install admits it
+ * (`admitInstalledQualificationCatalogs`) and passes it; this reader remains
+ * for a caller with none and is named by the `./validator` export map. */
 export function readSelfConformanceCatalog(): { catalog: QualificationRuleCatalog; bytes: Uint8Array } {
   const bytes = readFileSync(resolve(packageRoot, SELF_CONFORMANCE_CATALOG_ASSET_PATH));
   return { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), bytes };
@@ -34,7 +37,10 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     surfaceRefs: string[] = [], ruleRef: string | null = null, sourceRef: string | null = null,
     provenance: SelfConformanceFinding["provenance"] = "C") =>
     findings.push({ diagnostic, disposition, detail, surfaceRefs, ruleRef, sourceRef, provenance, evidenceRefs: [] });
-  const { catalog, bytes } = readSelfConformanceCatalog();
+  const admittedRules = catalogs?.rules;
+  const { catalog, bytes } = admittedRules === undefined ? readSelfConformanceCatalog()
+    : { catalog: admittedRules.catalog, bytes: Buffer.from(admittedRules.contentBase64, "base64") };
+  const catalogDigest = admittedRules?.digest ?? sha256Bytes(bytes);
   const basis = input.basis;
   const ruleByRef = new Map(catalog.rules.map(r => [r.ruleRef, r]));
   const inventoryRefs = new Set(input.inventory?.members.map(m => m.ref) ?? []);
@@ -44,7 +50,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     rootRefs: input.inventory?.selectedRoots ?? [], surfaceRoles: m.surfaceRoles, ownerRefs: [], sourceRefs: [m.ref] }));
   const ruleGroupByRef = new Map(ruleGroups.map(g => [g.groupRef, g])), surfaceGroupByRef = new Map(surfaceGroups.map(g => [g.groupRef, g]));
   if (scope !== undefined) {
-    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), resolvedInput.normalizedScope))
+    for (const diagnostic of qualificationScopeCorrespondence(scope, catalog, catalogDigest, resolvedInput.normalizedScope))
       add(diagnostic, diagnostic.includes("incomplete") ? "blocked_incomplete" : "failed", "Explicit grouped scope does not conserve its exact declared domain.");
     if (!canonicalEquals(scope.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) || !canonicalEquals(scope.lawBasis, basis.lawBasis) || !canonicalEquals(scope.inventory, input.inventory))
       add("scope_subject_basis_mismatch", "failed", "Scope differs from the exact evaluated subject/law/inventory.");
@@ -59,20 +65,20 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     return { ref, path: ref, digest: sha256Bytes(bytes), byteCount: bytes.length, contentBase64: bytes.toString("base64") };
   };
   const declarationMaterials = [
-    { ref: catalog.catalogRef, path: SELF_CONFORMANCE_CATALOG_ASSET_PATH, digest: sha256Bytes(bytes), byteCount: bytes.length, contentBase64: Buffer.from(bytes).toString("base64") },
+    { ref: catalog.catalogRef, path: SELF_CONFORMANCE_CATALOG_ASSET_PATH, digest: catalogDigest, byteCount: bytes.length, contentBase64: Buffer.from(bytes).toString("base64") },
     ...(input.inventory === null ? [] : [typedMaterial(input.inventory.inventoryRef, input.inventory)]),
     ...(input.tenantManifest === null ? [] : [typedMaterial(input.tenantManifest.manifestRef, input.tenantManifest)]),
     ...(input.law === null ? [] : [typedMaterial(input.law.lawBasisRef, input.law)]),
   ];
   const executionProof = input.qualification === undefined ? null : resolveQualificationExecutionMaterial(
-    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources);
+    input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources, catalogs);
   const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
   const coverage = input.qualification?.coverageCatalog;
   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage, catalogs) &&
     canonicalEquals(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && canonicalEquals(basis.lawBasis, coverage.lawBasis);
   if (coverageBound) declarationMaterials.push(typedMaterial(coverage!.catalogRef, coverage));
   const resolved = input.qualification === undefined ? null : resolveQualificationAssessments(input.qualification.proof,
-    input.qualification.plan, owner.nativeBasis, resources)?.map(j => ({ ...j, task: resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: j.task, plan: j.plan }, resources).task }));
+    input.qualification.plan, owner.nativeBasis, resources, catalogs)?.map(j => ({ ...j, task: resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: j.task, plan: j.plan }, resources).task }));
   const assessment = input.qualification === undefined || !canonicalEquals(input.qualification.plan.subjectBasis, { ref: basis.basisRef, digest: basis.basisDigest }) ||
     !canonicalEquals(input.qualification.plan.lawBasis, basis.lawBasis) || !coverageBound || executionMaterial === null ? null : resolved?.filter(j =>
       canonicalEquals(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && canonicalEquals(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
@@ -151,7 +157,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     assessed("behavioral_coverage_assessment_required", "Source-scoped applicability, actual positive/nearest-negative behavior and execution sufficiency require independent J; shared evidence does not imply coverage.",
       "coverage", "behavioral_coverage", [behavior], claim.coverageRef);
   }
-  if (sha256Bytes(bytes) !== owner.catalogDigest || catalog.catalogRef !== owner.catalogRef || catalog.catalogVersion !== owner.catalogVersion)
+  if (catalogDigest !== owner.catalogDigest || catalog.catalogRef !== owner.catalogRef || catalog.catalogVersion !== owner.catalogVersion)
     add("published_catalog_digest_mismatch", "failed", "Loaded catalog asset and owner coordinate differ.");
   if (input.law === null) add("qualification_law_missing", "blocked_incomplete", "Exact law basis is required.");
   else {
@@ -170,6 +176,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     if (member === undefined) { add("required_authority_member_missing", "blocked_incomplete", "Selected law source bytes are absent.", [source.ref], null, source.ref); continue; }
     const raw = Buffer.from(member.contentBase64, "base64");
     const coordinate = { ref: member.ref, path: member.path, digest: member.digest, byteCount: member.byteCount };
+    // Module-relative path; the bytes are bound to the admitted catalog's source digest below.
     const path = resolve(packageRoot, source.path);
     if (relative(packageRoot, path).startsWith("..")) throw new TypeError("catalog source path escapes owner asset inventory");
     const published = readFileSync(path);
@@ -218,7 +225,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
     const manifest = input.tenantManifest;
     if (!unique(manifest.claims.map(c => c.claimRef)) || manifest.claims.length === 0 || manifest.claims.some(c => c.publicContractRefs.length === 0 ||
         c.evidenceRefs.length === 0 || !unique(c.publicContractRefs))) add("tenant_claim_roster_mismatch", "failed", "Tenant claims require unique owned capability/contract and evidence coverage.");
-    if (!qualificationTenantClaimsMatch(owner.nativeBasis, rawInput, manifest, resources))
+    if (!qualificationTenantClaimsMatch(owner.nativeBasis, rawInput, manifest, resources, catalogs))
       add("tenant_owned_capability_contract_mismatch", "failed", "Tenant capability/Public coordinates or claim ownership differ from the exact native installed Product.");
     assessed("tenant_realization_assessment_required", "Capability/catalog presence cannot establish realized conformance.", "tenant", "tenant_realization", [manifest.manifestRef]);
   }

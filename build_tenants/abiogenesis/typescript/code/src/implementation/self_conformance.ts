@@ -23,8 +23,10 @@ export function realizeSelfConformance(input: Readonly<Record<string, JsonValue>
   const result = nativeProof?.qualificationSelfConformance !== undefined
     ? nativeProof.qualificationSelfConformance(input, occurrence)
     : (() => {
-        const owner = occurrence.qualificationOwnerBasis === undefined ? null : resolveSelfConformanceOwner(occurrence.qualificationOwnerBasis, input, true);
-        return owner === null || owner.nativeBasis.cCallRef !== occurrence.cCallRef ? null : evaluateSelfConformance(input, owner);
+        const owner = occurrence.qualificationOwnerBasis === undefined ? null
+          : resolveSelfConformanceOwner(occurrence.qualificationOwnerBasis, input, true, undefined, occurrence.qualificationCatalogs);
+        return owner === null || owner.nativeBasis.cCallRef !== occurrence.cCallRef ? null
+          : evaluateSelfConformance(input, owner, undefined, occurrence.qualificationCatalogs);
       })();
   if (result === null || result.owner.nativeBasis.cCallRef !== occurrence.cCallRef) throw new TypeError("self-conformance requires current admitted owner basis");
   const resultCandidate = result;

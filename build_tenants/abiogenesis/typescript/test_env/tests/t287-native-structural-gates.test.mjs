@@ -2,12 +2,15 @@
 // assumptions in nativeJoinFixture. This is not installed/runtime qualification.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { createHash } from 'node:crypto';
 import * as gtl from '../support/language-structural-gtl.mjs';
 import { nativeJoinFixture, inputFixture, coverage, ids, hash, publication } from '../support/malformed-gtl-native-fixture.mjs';
 import { STRUCTURAL_EXPECTATIONS as expected, selectFlatStructuralPublication, selectEdgeStructuralPublication } from '../support/native-runtime-structural-cases.mjs';
 import { atomic, normalize, project, pass } from '../fixtures/language-structural/leaf.mjs';
-import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment } from '../../build/code/src/validator/qualification.js';
+import { isNativeRuntimeAssessmentInput, evaluateMalformedGtlAssessment, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
+const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
+  fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 const plain = x => JSON.parse(JSON.stringify(x));
 async function fixture(kind, alterPublication = x => x) {
   const edge = kind === 'edge_program', composed = kind !== 'atomic_call';
@@ -41,7 +44,7 @@ async function fixture(kind, alterPublication = x => x) {
       steps: occurrences.map((o, i) => ({ slotRef: o.call.programLocusRef, implementationRef: o.call.implementationRef,
         inputDigest: hash(inputs[i]), result: { ref: results[i].resultRef, digest: results[i].resultDigest },
         expectedValueDigest: hash(expectedValues[i]), substituteResultDigest: hash('unequal result digest') })) }] };
-  assert(isNativeRuntimeAssessmentInput(input));
+  assert(isNativeRuntimeAssessmentInput(input, catalogs));
   return { ...f, input, occurrences, results, values, raw, gf };
 }
 function assess(f, suffix = 'assess') {
@@ -77,8 +80,8 @@ test('same final value does not hide a missing first step, wrong composition or 
   assert.equal(hash(foreign.values[1]), hash(expected.output)); assert.equal(assess(foreign).candidate.disposition, 'failure');
 });
 test('order, value chain, declared coverage and intermediate expectations remain material', async () => {
-  const omitted = await fixture('flat_composition'); omitted.input.cases[0].steps.shift(); assert(!isNativeRuntimeAssessmentInput(omitted.input));
-  const wrongKind = await fixture('atomic_call'); wrongKind.input.cases[0].structure.kind = 'edge_program'; assert(!isNativeRuntimeAssessmentInput(wrongKind.input));
+  const omitted = await fixture('flat_composition'); omitted.input.cases[0].steps.shift(); assert(!isNativeRuntimeAssessmentInput(omitted.input, catalogs));
+  const wrongKind = await fixture('atomic_call'); wrongKind.input.cases[0].structure.kind = 'edge_program'; assert(!isNativeRuntimeAssessmentInput(wrongKind.input, catalogs));
   const chain = await fixture('flat_composition'); chain.input.cases[0].steps[1].inputDigest = hash(chain.raw); assert.equal(assess(chain).candidate.disposition, 'failure');
   const order = await fixture('flat_composition');
   const firstJudgment = order.events.find(e => e.kind === 'c_call_judged' && e.aggregateId === order.occurrences[0].call.cCallRef);
@@ -108,7 +111,7 @@ test('edge: the same final value cannot replace declared kind, role order or int
   const missing = await fixture('edge_program'); missing.input.cases[0].steps[1].result.ref = 'result://missing-evaluation';
   assert.equal(assess(missing).candidate.disposition, 'failure');
   const omitted = await fixture('edge_program'); omitted.input.cases[0].steps.splice(1, 1);
-  assert.equal(isNativeRuntimeAssessmentInput(omitted.input), false);
+  assert.equal(isNativeRuntimeAssessmentInput(omitted.input, catalogs), false);
   const chain = await fixture('edge_program'); chain.input.cases[0].steps[1].inputDigest = hash(chain.raw);
   assert.equal(assess(chain).candidate.disposition, 'failure');
   const judged = await fixture('edge_program'); judged.states.get(judged.occurrences[1].call.cCallRef).judgment.judgment = 'blocked';

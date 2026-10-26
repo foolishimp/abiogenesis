@@ -1,5 +1,6 @@
 import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment,
-  parseQualificationCatalogs, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH, type AdmittedQualificationCatalogs } from "../validator/qualification.js";
+  type AdmittedQualificationCatalogs } from "../validator/qualification.js";
+import { admitInstalledQualificationCatalogs, type QualificationCatalogAdmission } from "../validator/qualification_catalogs.js";
 import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
 import type { QualificationResources } from "../validator/qualification_resources.js";
 import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
@@ -20,7 +21,7 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
 import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
-import { evaluateSelfConformance, SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "../validator/self_conformance.js";
+import { evaluateSelfConformance } from "../validator/self_conformance.js";
 import { resolveSelfConformanceOwner } from "../validator/self_conformance_basis.js";
 import { isSelfConformanceInput, isSelfConformanceResult } from "../validator/self_conformance_contracts.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
@@ -37,8 +38,7 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
-import { isAbsolute, join, relative, resolve } from "node:path";
-import { readFile } from "node:fs/promises";
+import { isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
@@ -81,7 +81,7 @@ import {
   WORKSITE_FILE_REPLACE_HANDLER_REF,
 } from "../product/worksite_effect.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { payloadInventoryDigest, sha256Bytes, sha256Canonical, sha256File, type PayloadInventoryRow } from "../shared/digests.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { retainCaughtCause, sanitizeUndispatchedOwnerError, undispatchedOwnerDiagnosticRef,
   type UndispatchedOwnerObservation, type UndispatchedOwnerStage, type UndispatchedOwnerReason } from "../abg/event_contract_profiles.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
@@ -129,39 +129,6 @@ type LoadedLeafExecutionAuthority = Pick<
   | "declarationPublications"
   | "ownerInstalls"
 >;
-
-/** A qualification leaf's occurrence carries the catalogs its admission read. */
-type CatalogOccurrence = LeafExecutionOccurrence & { readonly qualificationCatalogs?: Readonly<AdmittedQualificationCatalogs> };
-
-/** One read of the two qualification catalogs from the owner install's root,
- * each admitted against what that verified install records: the rule catalog
- * against its public contract asset digest; the coverage catalog, which has no
- * row of its own, against the install's product content digest, recomputed
- * over the digest-bound manifest's payload inventory with the bytes in hand.
- * A mismatch throws, naming the catalog and both digests. */
-async function admitInstalledQualificationCatalogs(install: LeafInvocationInstall): Promise<Readonly<AdmittedQualificationCatalogs>> {
-  const root = install.installedRoot, coveragePath = QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH;
-  const rows = install.publicContracts.filter(row => row.contractId === SELF_CONFORMANCE_CATALOG_CONTRACT_ID);
-  const asset = rows.length === 1 ? rows[0]!.assetLocator : undefined;
-  if (asset === undefined || asset.path !== SELF_CONFORMANCE_CATALOG_ASSET_PATH)
-    throw new TypeError(`qualification catalog ${SELF_CONFORMANCE_CATALOG_ASSET_PATH} has no single recorded asset row in install ${install.installId}`);
-  const rules = await readFile(join(root, asset.path)), rulesDigest = sha256Bytes(rules);
-  if (rulesDigest !== asset.contentDigest)
-    throw new TypeError(`qualification catalog ${asset.path} is ${rulesDigest}; the verified install records ${asset.contentDigest}`);
-  const manifest: unknown = JSON.parse(await readFile(join(root, "product-toolchain-manifest.json"), "utf8"));
-  const locators = isRecord(manifest) ? manifest.productRelativeLocators : undefined;
-  if (sha256Canonical(manifest as JsonValue) !== install.manifestDigest || !Array.isArray(locators) ||
-      !locators.every(path => typeof path === "string") || !locators.includes(coveragePath))
-    throw new TypeError(`qualification catalog ${coveragePath} is not a payload locator of the manifest install ${install.installId} records`);
-  const coverage = await readFile(join(root, coveragePath)), coverageDigest = sha256Bytes(coverage);
-  const inventory: PayloadInventoryRow[] = [];
-  for (const path of locators as string[]) inventory.push({ path, sha256: path === coveragePath ? coverageDigest
-    : path === asset.path ? rulesDigest : await sha256File(join(root, path)) });
-  const content = payloadInventoryDigest(inventory);
-  if (content !== install.productContentDigest)
-    throw new TypeError(`qualification catalog ${coveragePath} is ${coverageDigest}; the payload inventory over it is ${content}, and the verified install records product content ${install.productContentDigest}`);
-  return parseQualificationCatalogs(coverage, rules);
-}
 
 export function isClosedProbabilisticLeafInvocation(
   value: unknown,
@@ -466,7 +433,7 @@ function preimageRefusal(
 // These closures stay at the invoking owner. Installed modules execute their
 // declared realization/relation without acquiring a second copy of its history.
 function nativeLeafProofOperations(
-  implementationRef: string, value: unknown, occurrence: CatalogOccurrence,
+  implementationRef: string, value: unknown, occurrence: LeafExecutionOccurrence,
   historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
 ): Readonly<NativeLeafProofOperations> {
   const exact = (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -487,16 +454,16 @@ function nativeLeafProofOperations(
       ? { qualificationSelfConformance: (input: unknown, supplied: LeafExecutionOccurrence) => {
           exact(input, supplied);
           if (!isSelfConformanceInput(value)) return null;
-          const owner = resolveSelfConformanceOwner(basis, value, true, resources);
+          const owner = resolveSelfConformanceOwner(basis, value, true, resources, occurrence.qualificationCatalogs);
           return owner === null ? null : evaluateSelfConformance(value, owner, resources, occurrence.qualificationCatalogs);
         } } : {}),
     ...(implementationRef === qualificationIds.verdictImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationVerdict: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return projectExactCandidateQualification(basis, value, true, resources);
+          exact(input, supplied); return projectExactCandidateQualification(basis, value, true, resources, occurrence.qualificationCatalogs);
         } } : {}),
     ...(implementationRef === qualificationIds.runtimeAssessImplementation && basis?.cCallRef === occurrence.cCallRef
       ? { qualificationAssessment: (input: unknown, supplied: LeafExecutionOccurrence) => {
-          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true, resources);
+          exact(input, supplied); return projectNativeRuntimeAssessment(basis, value, true, resources, occurrence.qualificationCatalogs);
         } } : {}),
     ...(implementationRef === reacquireIds.implementationRef && native?.cCallRef === occurrence.cCallRef
       ? { nativeOwnedWorkReacquisition: (input: unknown, supplied: LeafExecutionOccurrence) => {
@@ -513,9 +480,13 @@ function nativeOccurrenceVerifier(occurrence: Readonly<LeafExecutionOccurrence>)
       .every(key => owner.call[key] === occurrence[key]);
   };
 }
+// `catalogs` yields the install's admitted catalogs when a qualification
+// relation first needs them, or null when the admission refused them; the
+// port always supplies it.
 function nativeJudgmentProofOperations(
   predicateRef: string, input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate,
   historicalSource?: AbgHistoricalGraphCallSourceResource, resources?: QualificationResources, preparation?: PreparedQualificationAssessment,
+  catalogs?: () => Readonly<AdmittedQualificationCatalogs> | null,
 ): Readonly<NativeJudgmentProofOperations> {
   const historical = historicalSource === undefined ? {} : { historicalGraphCallSource: () =>
     currentOwnerPrefix === undefined ? null : projectHistoricalGraphCallSourceAtDurablePrefix(currentOwnerPrefix, historicalSource) };
@@ -532,8 +503,10 @@ function nativeJudgmentProofOperations(
   if (predicateRef === SELF_CONFORMANCE_IDS.judgmentPredicateRef) return Object.freeze({ ...historical,
     qualificationSelfConformance: () => {
       if (!isSelfConformanceInput(input) || !isSelfConformanceResult(output)) return null;
-      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis, input, false, resources);
-      return owner === null ? null : evaluateSelfConformance(input, owner, resources);
+      const admitted = catalogs?.();
+      if (admitted === null) return null;
+      const owner = resolveSelfConformanceOwner(output.owner.nativeBasis, input, false, resources, admitted);
+      return owner === null ? null : evaluateSelfConformance(input, owner, resources, admitted);
     },
   });
   if (predicateRef === reacquireIds.predicateRef) return Object.freeze({ ...historical,
@@ -541,23 +514,25 @@ function nativeJudgmentProofOperations(
   });
   if (predicateRef === qualificationIds.verdictPredicate) return Object.freeze({ ...historical,
     qualificationVerdict: () => {
-      if (!isRecord(output) || !isRecord(output.nativeBasis)) return null;
+      const admitted = catalogs?.();
+      if (admitted === null || !isRecord(output) || !isRecord(output.nativeBasis)) return null;
       const original = output.nativeBasis as unknown as QualificationNativeBasis;
       const basis = currentOwnerPrefix === undefined ? original : { ...original,
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
-      return projectExactCandidateQualification(basis, input, false, resources);
+      return projectExactCandidateQualification(basis, input, false, resources, admitted);
     },
   });
   if (predicateRef !== qualificationIds.runtimeAssessPredicate) return Object.freeze(historical);
   return Object.freeze({ ...historical,
     qualificationAssessment: () => {
-      if (!isRecord(output) || !isRecord(output.nativeBasis)) return null;
+      const admitted = catalogs?.();
+      if (admitted === null || !isRecord(output) || !isRecord(output.nativeBasis)) return null;
       const original = output.nativeBasis as unknown as QualificationNativeBasis;
       const basis = currentOwnerPrefix === undefined ? original : { ...original,
         predecessorPrefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, original.predecessorPrefix as DurablePrefixCoordinate) };
       const selected = currentOwnerPrefix === undefined || !isRecord(input) || !isRecord(input.proof) ? input : { ...input,
         proof: { ...input.proof, prefix: reidentifyHistoricalDurablePrefixCoordinate(currentOwnerPrefix, input.proof.prefix as unknown as DurablePrefixCoordinate) } };
-      return projectNativeRuntimeAssessment(basis, selected, false, resources);
+      return projectNativeRuntimeAssessment(basis, selected, false, resources, admitted);
     },
   });
 }
@@ -577,6 +552,8 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   historicalSource?: AbgHistoricalGraphCallSourceResource;
   qualificationResources?: QualificationResources;
   qualificationPreparation?: PreparedQualificationAssessment;
+  /** A refusal the invoking owner's admission decided for this stage. */
+  authorityRefusal?: Readonly<{ at: string; reason: string }>;
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>;
   loadImplementation: () => Promise<unknown>;
 }>): Promise<Readonly<LeafInvocationOwnerResult>> {
@@ -671,6 +648,18 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   const carriesWorksiteAuthority = resolution.implementationRef === nativeIds.implementationRef ||
     isWorksiteFileReplaceRequest(input.value) || isWorksiteFileParentsRequest(input.value) ||
     input.occurrence.executionAuthority !== null;
+  // A refused admission is the stage's first step and carries its cause. The
+  // F_P undispatched observation admits a cause only for a throw, so there the
+  // refusal is observed as the TypeError naming it.
+  const refusal = input.authorityRefusal;
+  if (refusal !== undefined) {
+    return resolution.computeRegime === "F_D"
+      ? closedDeterministicOwnerReceipt(
+          deterministicFailure("implementation_exception", "authority_verification", "refused", undefined, refusal),
+          false,
+        )
+      : undispatched("implementation_exception", "authority_verification", "thrown", new TypeError(refusal.reason));
+  }
   let authorityValid = false;
   let authorityThrew = false;
   let authorityError: unknown;
@@ -989,16 +978,20 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
   // Admitted once per owner install; a refused admission is not retained.
-  const admittedCatalogs = new Map<string, Promise<Readonly<AdmittedQualificationCatalogs>>>();
-  function qualificationCatalogsOf(install: LeafInvocationInstall) {
-    let admitted = admittedCatalogs.get(install.installId);
-    if (admitted === undefined) {
-      admitted = admitInstalledQualificationCatalogs(install);
-      admittedCatalogs.set(install.installId, admitted);
-      admitted.catch(() => admittedCatalogs.delete(install.installId));
-    }
-    return admitted.then(catalogs => ({ catalogs }), (error: unknown) => ({ error }));
+  // These reads land on the executing package's verified install record.
+  const admittedCatalogs = new Map<string, Readonly<AdmittedQualificationCatalogs>>();
+  function qualificationCatalogsOf(install: LeafInvocationInstall): QualificationCatalogAdmission<Readonly<AdmittedQualificationCatalogs>> {
+    const known = admittedCatalogs.get(install.installId);
+    if (known !== undefined) return Object.freeze({ kind: "admitted" as const, value: known });
+    const admission = admitInstalledQualificationCatalogs(install);
+    if (admission.kind === "admitted") admittedCatalogs.set(install.installId, admission.value);
+    return admission;
   }
+  // A judgment-time relation evaluates under the semantics owner's install.
+  const judgmentCatalogs = () => {
+    const admission = qualificationCatalogsOf(semanticsBinding.install);
+    return admission.kind === "admitted" ? admission.value : null;
+  };
 
   function uniqueContractByRef(contractRef: string) {
     const ownerMatches = authority.executionResolution.declarationClosure
@@ -1552,7 +1545,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       return Object.freeze({ ...relation,
         evaluate: (input: unknown, output: unknown, currentOwnerPrefix?: DurablePrefixCoordinate) =>
           relation.evaluate(input, output, currentOwnerPrefix,
-            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource, authority.qualificationResources, preparationOf(output))),
+            nativeJudgmentProofOperations(predicateRef, input, output, currentOwnerPrefix, authority.historicalSource, authority.qualificationResources, preparationOf(output), judgmentCatalogs)),
       });
     },
     validateResultEvidenceLineage(
@@ -1564,7 +1557,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         outputContractRef,
         value,
         admittedEvidence,
-        nativeProof: nativeJudgmentProofOperations(qualificationIds.assessPredicate, preparationOf(value)?.input, value, undefined, authority.historicalSource, authority.qualificationResources, preparationOf(value)),
+        nativeProof: nativeJudgmentProofOperations(qualificationIds.assessPredicate, preparationOf(value)?.input, value, undefined, authority.historicalSource, authority.qualificationResources, preparationOf(value), judgmentCatalogs),
       });
     },
     verifyProbabilisticResultContractPreimage(input: Parameters<LeafInvocationPort["verifyProbabilisticResultContractPreimage"]>[0]) {
@@ -1597,18 +1590,23 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         }
         const isSelfQualification = admittedResolution.implementationRef === SELF_CONFORMANCE_IDS.implementationRef;
         const isQualification = QUALIFICATION_IMPLEMENTATION_REFS.includes(admittedResolution.implementationRef);
+        // The authority stage's first step for a qualification leaf: one read of
+        // both catalogs from the owner install's root, admitted against what that
+        // verified install records. A refusal is decided at the stage; the owner
+        // projection and the F_P preparation follow an admission and take it. With
+        // no owner install the stage refuses as it always has.
+        const catalogOwner = isQualification ? implementationOwner(admittedResolution) : null;
+        const catalogAdmission = catalogOwner === null ? null : qualificationCatalogsOf(catalogOwner.install);
+        const qualificationCatalogs = catalogAdmission?.kind === "admitted" ? catalogAdmission.value : undefined;
+        const authorityRefusal = catalogAdmission?.kind === "refused" ? { at: catalogAdmission.at, reason: catalogAdmission.reason } : undefined;
         const qualificationOwnerBasis = isQualification && call.predecessorPrefix !== undefined
           ? { predecessorPrefix: call.predecessorPrefix, cCallRef: call.occurrence.cCallRef } : null;
-        const qualificationOwner = qualificationOwnerBasis === null ? null : isSelfQualification
-          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true, authority.qualificationResources)
-          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true, authority.qualificationResources);
-        if (isQualification && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
-        // The catalogs' admission is read here and decided at the authority stage.
-        const catalogOwner = isQualification ? implementationOwner(admittedResolution) : null;
-        const catalogAdmission = catalogOwner === null ? null : await qualificationCatalogsOf(catalogOwner.install);
-        const qualificationCatalogs = catalogAdmission !== null && "catalogs" in catalogAdmission ? catalogAdmission.catalogs : undefined;
+        const qualificationOwner = qualificationOwnerBasis === null || qualificationCatalogs === undefined ? null : isSelfQualification
+          ? resolveSelfConformanceOwner(qualificationOwnerBasis, call.input, true, authority.qualificationResources, qualificationCatalogs)
+          : projectQualificationConsumer(qualificationOwnerBasis, call.input, true, authority.qualificationResources, qualificationCatalogs);
+        if (isQualification && qualificationCatalogs !== undefined && qualificationOwner === null) return ownerRefusal("owner_boundary_exception");
         const qualificationPreparation = admittedResolution.implementationRef === qualificationIds.assessImplementation &&
-            (catalogAdmission === null || qualificationCatalogs !== undefined) && isQualificationAssessmentInput(call.input, qualificationCatalogs)
+            qualificationCatalogs !== undefined && isQualificationAssessmentInput(call.input, qualificationCatalogs)
           ? prepareQualificationAssessment(call.input, authority.qualificationResources, qualificationCatalogs) : undefined;
         if (qualificationPreparation !== undefined) qualificationPreparations.set(call.occurrence.cCallRef, qualificationPreparation);
         const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis,
@@ -1623,12 +1621,12 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
           ...(authority.qualificationResources === undefined ? {} : { qualificationResources: authority.qualificationResources }),
           ...(qualificationPreparation === undefined ? {} : { qualificationPreparation }),
+          ...(authorityRefusal === undefined ? {} : { authorityRefusal }),
           resolution: admittedResolution,
           value: call.input,
           inputDigest: call.inputDigest,
           failureValueKind,
           verifyAuthority: async () => {
-            if (catalogAdmission !== null && "error" in catalogAdmission) throw catalogAdmission.error;
             const installedContentValid =
               await semantics.verifyInstalledContent();
             return isAdmittedLeafInvocationPort(port) &&
@@ -1650,7 +1648,8 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           validateSuccess: (value) => (!isQualification || (isSelfQualification ? isSelfConformanceResult(value) &&
             canonicalEquals(value.owner, qualificationOwner)
             : qualificationOwner !== null && qualificationResultRelation((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix,
-              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation)))) && port.validateContractValue(
+              nativeJudgmentProofOperations((qualificationOwner as NonNullable<ReturnType<typeof projectQualificationConsumer>>).call.judgmentPredicateRef, call.input, value, call.predecessorPrefix, authority.historicalSource, authority.qualificationResources, qualificationPreparation,
+                () => qualificationCatalogs ?? null), qualificationCatalogs))) && port.validateContractValue(
             admittedResolution.outputContractRef,
             "output",
             value,

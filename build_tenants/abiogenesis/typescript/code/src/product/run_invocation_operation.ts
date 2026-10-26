@@ -1,5 +1,7 @@
 import { acquireQualificationResources, type QualificationResources } from "../validator/qualification_resources.js";
-import { isQualificationAssessmentInput, establishQualificationAssessment } from "../validator/qualification.js";
+import { isQualificationAssessmentInput, establishQualificationAssessment, parseQualificationRuleCatalog,
+  type AdmittedQualificationRuleCatalog } from "../validator/qualification.js";
+import { readInstalledQualificationRuleCatalog } from "../validator/qualification_catalogs.js";
 import { isSelfConformanceInput } from "../validator/self_conformance_contracts.js";
 import { resolveSelfConformanceInput, isQualificationReferenceForm, resolveQualificationProof } from "../validator/qualification_resources.js";
 import { readSelfConformanceCatalog } from "../validator/self_conformance.js";
@@ -15,7 +17,7 @@ import type {
   AbgRunTruthRefusal,
 } from "../abg/project_read_ports.js";
 import { type JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   admitRuntimeContract,
@@ -403,9 +405,21 @@ export function runOperationAuthorityMatches(
       `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`;
 }
 
-/** @internal Finite raw/cold acquisition before dependent invocation effects. */
-export function prepareRunQualificationResources(resources: ProductRunInvocationResourceAssertion, value: unknown): QualificationResources | undefined {
-  let qualificationResources: QualificationResources | undefined;
+/** @internal Finite raw/cold acquisition before dependent invocation effects.
+ * The rule catalog is read once, at the first qualification input, from
+ * `ruleCatalogOwner`, the verified install of the selected program, against
+ * the digest it records. A caller passing none (`owner_bindings/run_invocation.ts`
+ * `:1841`, `:1922`) reaches the module-relative `readSelfConformanceCatalog`. */
+export function prepareRunQualificationResources(resources: ProductRunInvocationResourceAssertion, value: unknown,
+  ruleCatalogOwner?: Parameters<typeof readInstalledQualificationRuleCatalog>[0]): QualificationResources | undefined {
+  let qualificationResources: QualificationResources | undefined, rules: AdmittedQualificationRuleCatalog | undefined;
+  const rulesOf = (): AdmittedQualificationRuleCatalog => {
+    if (rules !== undefined) return rules;
+    if (ruleCatalogOwner === undefined) return rules = { rules: parseQualificationRuleCatalog(readSelfConformanceCatalog().bytes) };
+    const admitted = readInstalledQualificationRuleCatalog(ruleCatalogOwner);
+    if (admitted.kind === "refused") throw new TypeError(admitted.reason);
+    return rules = { rules: parseQualificationRuleCatalog(admitted.value) };
+  };
     if (resources.qualificationResources !== undefined) {
       const existing = [{ kind: "abg_historical_declaration_proof" as const, schemaVersion: "5.0.0" as const, catalog: resources.catalog, catalogView: resources.catalogView },
         ...(resources.historicalSource === undefined ? [] : [resources.historicalSource.declarationProof, ...(resources.historicalSource.declarationDependencies ?? [])])];
@@ -415,15 +429,15 @@ export function prepareRunQualificationResources(resources: ProductRunInvocation
       qualificationResources = acquireQualificationResources(resources.qualificationResources, extras);
     }
     const establish = (value: unknown): void => {
-      if (isQualificationAssessmentInput(value)) {
-        const established = establishQualificationAssessment(value, qualificationResources);
+      if (isRecord(value) && value.kind === "qualification_assessment_input" && isQualificationAssessmentInput(value, rulesOf())) {
+        const established = establishQualificationAssessment(value, qualificationResources, rulesOf());
         if ("representation" in value.task && !established.task.declarations.some(p => p.catalog.basisDigest === resources.catalog.basisDigest && p.catalogView.viewDigest === resources.catalogView.viewDigest))
           throw new TypeError("qualification invoking declaration dependency missing");
         return;
       }
       if (isSelfConformanceInput(value)) {
         const view = resolveSelfConformanceInput(value, qualificationResources), scope = view.input.scope;
-        if (scope !== undefined) { const { catalog, bytes } = readSelfConformanceCatalog(); if (qualificationScopeCorrespondence(scope, catalog, sha256Bytes(bytes), view.normalizedScope).length > 0) throw new TypeError("qualification scope differs"); }
+        if (scope !== undefined) { const { catalog, digest } = rulesOf().rules; if (qualificationScopeCorrespondence(scope, catalog, digest, view.normalizedScope).length > 0) throw new TypeError("qualification scope differs"); }
         if (view.input.qualification !== undefined) resolveQualificationProof(view.input.qualification.proof, qualificationResources);
         return;
       }
@@ -520,7 +534,7 @@ export async function prepareProductRunInvocation<
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
   }
   let qualificationResources: QualificationResources | undefined;
-  try { qualificationResources = prepareRunQualificationResources(resources, inputCarrier.value); }
+  try { qualificationResources = prepareRunQualificationResources(resources, inputCarrier.value, resolution.programInstall); }
   catch { return preparationRefusal(memberKey, "invalid_input", ["/qualificationResources"]); }
   const admittedSource = sourceBasis(request, resources.source);
   if (admittedSource === false) {

@@ -36,18 +36,27 @@ import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
 const coordinate = (ref: string, digest: string) => ({ ref, digest });
 export const QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH = "contracts/qualification/coverage.json";
-/** The coverage and rule catalogs as one leaf admission read them from its
- * verified install, each against the digest that install records. A caller
- * that passes none reads the module-relative files instead. */
+/** The coverage and rule catalogs as one admission read them from a verified
+ * install, each against the digest that install records
+ * (`admitInstalledQualificationCatalogs`). The rule catalog keeps its bytes as
+ * the material a self-conformance evaluation cites. */
 export interface AdmittedQualificationCatalogs {
-  readonly coverage: unknown;
-  readonly rules: Readonly<{ catalog: QualificationRuleCatalog; digest: string }>;
+  readonly coverage: JsonValue;
+  readonly rules: Readonly<{ catalog: QualificationRuleCatalog; digest: string; byteCount: number; contentBase64: string }>;
+}
+/** A caller that holds only the rule catalog passes this half. */
+export type AdmittedQualificationRuleCatalog = Pick<AdmittedQualificationCatalogs, "rules">;
+/** A caller that holds only the coverage catalog passes this half. */
+export type AdmittedQualificationCoverageCatalog = Pick<AdmittedQualificationCatalogs, "coverage">;
+/** Pure over the rule catalog's bytes; the admitting owner binds the bytes. */
+export function parseQualificationRuleCatalog(rules: Uint8Array): AdmittedQualificationCatalogs["rules"] {
+  const bytes = Buffer.from(rules);
+  return deepFreeze({ catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), digest: sha256Bytes(bytes),
+    byteCount: bytes.length, contentBase64: bytes.toString("base64") });
 }
 /** Pure over the two catalogs' bytes; the admitting owner binds the bytes. */
 export function parseQualificationCatalogs(coverage: Uint8Array, rules: Uint8Array): Readonly<AdmittedQualificationCatalogs> {
-  const text = (bytes: Uint8Array) => Buffer.from(bytes).toString("utf8");
-  return deepFreeze({ coverage: JSON.parse(text(coverage)) as unknown,
-    rules: { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(text(rules))), digest: sha256Bytes(rules) } });
+  return deepFreeze({ coverage: JSON.parse(Buffer.from(coverage).toString("utf8")) as JsonValue, rules: parseQualificationRuleCatalog(rules) });
 }
 const count = v.pipe(v.number(), v.integer(), v.minValue(0));
 const text = v.pipe(v.string(), v.minLength(1));
@@ -232,7 +241,7 @@ export function constructQualificationVerificationMaterial(input: {
       commandOutcomes, predicateOutcomes, lintOutcome, testSummaries, disposition, diagnostics });
   } catch { return null; }
 }
-export function isMalformedGtlAssessmentInput(value: unknown, catalogs?: AdmittedQualificationCatalogs): value is MalformedGtlAssessmentInput {
+export function isMalformedGtlAssessmentInput(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is MalformedGtlAssessmentInput {
   return v.is(MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, value) &&
     qualificationIdentity(value.basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
     qualificationCoverageIsPublished(value.coverage, catalogs) &&
@@ -275,23 +284,23 @@ function malformedGtlCaseOutcome(c: MalformedGtlAssessmentInput["cases"][number]
 }
 /** Computable case outcomes only; case-set adequacy remains its owning policy. */
 export function evaluateMalformedGtlAssessment(input: MalformedGtlAssessmentInput, nativeBasis: QualificationNativeBasis,
-  catalogs?: AdmittedQualificationCatalogs): Readonly<MalformedGtlAssessment> {
+  catalogs?: AdmittedQualificationCoverageCatalog): Readonly<MalformedGtlAssessment> {
   if (!isMalformedGtlAssessmentInput(input, catalogs)) throw new TypeError("invalid malformed-GTL qualification task");
   const cases = input.cases.map(c => { const actual = malformedGtlCaseOutcome(c); return { caseRef: c.caseRef, actual, matched: canonicalEquals(actual, c.expected) }; });
   return constructQualificationIdentity({ kind: "malformed_gtl_assessment" as const, schemaVersion: "5.0.0" as const,
     input, nativeBasis, cases, disposition: cases.every(c => c.matched) ? "green" as const : "red" as const },
     "assessmentRef", "assessmentDigest", "malformed-gtl-assessment://abiogenesis/") as unknown as Readonly<MalformedGtlAssessment>;
 }
-export function isMalformedGtlAssessment(value: unknown): value is MalformedGtlAssessment {
-  return v.is(MALFORMED_GTL_ASSESSMENT_SCHEMA, value) && isMalformedGtlAssessmentInput(value.input) &&
+export function isMalformedGtlAssessment(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is MalformedGtlAssessment {
+  return v.is(MALFORMED_GTL_ASSESSMENT_SCHEMA, value) && isMalformedGtlAssessmentInput(value.input, catalogs) &&
     qualificationIdentity(value, "assessmentRef", "assessmentDigest", "malformed-gtl-assessment://abiogenesis/") &&
     value.cases.length === value.input.cases.length && value.cases.every((c, i) => c.caseRef === value.input.cases[i]!.caseRef &&
       c.matched === canonicalEquals(c.actual, value.input.cases[i]!.expected)) && value.disposition === (value.cases.every(c => c.matched) ? "green" : "red");
 }
-export function isNativeRuntimeAssessmentInput(value: unknown): value is NativeRuntimeAssessmentInput {
+export function isNativeRuntimeAssessmentInput(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is NativeRuntimeAssessmentInput {
   if (!v.is(NATIVE_RUNTIME_ASSESSMENT_INPUT_SCHEMA, value) ||
     !qualificationIdentity(value.basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") ||
-    !qualificationCoverageIsPublished(value.coverage) ||
+    !qualificationCoverageIsPublished(value.coverage, catalogs) ||
     !canonicalEquals(value.basis.coverageCatalog, coordinate(value.coverage.catalogRef, value.coverage.catalogDigest)) ||
     !canonicalEquals(value.basis.lawBasis, value.coverage.lawBasis) || !unique(value.cases.map(c => c.caseRef)) ||
     !unique(value.cases.map(c => hash([c.programRef, c.invocationAdmissionRef, "structure" in c ? c.structure.nodeRef : c.slotRef]))) ||
@@ -310,15 +319,15 @@ export function isNativeRuntimeAssessmentInput(value: unknown): value is NativeR
 }
 /** The native owner supplies computed cases; this constructor grants no native truth. */
 export function constructNativeRuntimeAssessment(input: NativeRuntimeAssessmentInput, nativeBasis: QualificationNativeBasis,
-  cases: NativeRuntimeAssessment["cases"]): Readonly<NativeRuntimeAssessment> {
+  cases: NativeRuntimeAssessment["cases"], catalogs?: AdmittedQualificationCoverageCatalog): Readonly<NativeRuntimeAssessment> {
   const value = constructQualificationIdentity({ kind: "native_runtime_assessment", schemaVersion: "5.0.0", input, nativeBasis, cases,
     disposition: cases.every(c => c.matched && c.substituteRefused) ? "green" : "red" },
     "assessmentRef", "assessmentDigest", "native-runtime-assessment://abiogenesis/");
-  if (!isNativeRuntimeAssessment(value)) throw new TypeError("invalid native runtime assessment");
+  if (!isNativeRuntimeAssessment(value, catalogs)) throw new TypeError("invalid native runtime assessment");
   return value;
 }
-export function isNativeRuntimeAssessment(value: unknown): value is NativeRuntimeAssessment {
-  return v.is(NATIVE_RUNTIME_ASSESSMENT_SCHEMA, value) && isNativeRuntimeAssessmentInput(value.input) &&
+export function isNativeRuntimeAssessment(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is NativeRuntimeAssessment {
+  return v.is(NATIVE_RUNTIME_ASSESSMENT_SCHEMA, value) && isNativeRuntimeAssessmentInput(value.input, catalogs) &&
     qualificationIdentity(value, "assessmentRef", "assessmentDigest", "native-runtime-assessment://abiogenesis/") &&
     value.cases.length === value.input.cases.length && value.cases.every((c, i) => {
       const selected = value.input.cases[i]!;
@@ -412,6 +421,11 @@ function qualificationTaskScopeMatches(task: QualificationEmbeddedTask, catalog:
     (!grouped || task.subjectMembers.length === requiredMembers.size && task.subjectMembers.every(m => requiredMembers.has(m.ref))) &&
     [...requiredSources].every(ref => materialRefs.has(ref));
 }
+/** The module-relative rule catalog, reached only by a caller that passes no
+ * catalogs: the `./abg` and `./validator` export-map members called without
+ * them, and lanes outside M-5b's grant. Every caller in the tree passes
+ * catalogs or, for the verdict projection, has them admitted from the owner
+ * install its durable prefix records. */
 function readQualificationCatalog() {
   const bytes = readFileSync(fileURLToPath(new URL("../../../../contracts/qualification/rule-catalog.json", import.meta.url)));
   return { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), digest: sha256Bytes(bytes) };
@@ -419,7 +433,7 @@ function readQualificationCatalog() {
 /** The assessment subject is projected from owner-validated declarations, never
  * supplied as a caller summary. Catalog completeness includes all extracted
  * rows of each selected governing source, including other declared groups. */
-function qualificationSelectedSubject(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope, catalogs?: AdmittedQualificationCatalogs) {
+function qualificationSelectedSubject(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope, catalogs?: AdmittedQualificationRuleCatalog) {
   const { catalog, digest } = catalogs?.rules ?? readQualificationCatalog(), scope = task.scope;
   if (scope === undefined) throw new TypeError("selected assessment subject differs");
   const selectedGroups = new Set(task.coverage.map(c => c.ruleRef)),
@@ -460,7 +474,7 @@ function qualificationConstructionContext(task: QualificationEmbeddedTask) {
     providedAttributionSpans: spans, recordBodies: "retained for C; only these spans and explicitly selected SOURCE DATA bodies are provided to J" };
 }
 export function qualificationMaterialMatches(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope,
-  catalogs?: AdmittedQualificationCatalogs): boolean {
+  catalogs?: AdmittedQualificationRuleCatalog): boolean {
   const members = task.context.members;
   let roleSources: JsonValue = [];
   try {
@@ -511,7 +525,7 @@ export function qualificationPlanMatches(plan: QualificationAssessmentPlan): boo
   return plan.slots.every(s => unique(s.coverage.map(hash)) &&
     s.coverage.length > 0 && s.role.sourceBindings.length > 0);
 }
-export function isQualificationAssessmentInput(value: unknown, catalogs?: AdmittedQualificationCatalogs): value is QualificationAssessmentInput {
+export function isQualificationAssessmentInput(value: unknown, catalogs?: AdmittedQualificationRuleCatalog): value is QualificationAssessmentInput {
   if (!v.is(QUALIFICATION_ASSESSMENT_INPUT_SCHEMA, value) || !isQualificationAssessmentTask(value.task) ||
       !qualificationPlanMatches(value.plan) || (!("representation" in value.task) && !qualificationMaterialMatches(value.task, undefined, catalogs))) return false;
   const { task, plan } = value, slots = plan.slots.filter(s => s.slotRef === task.slotRef);
@@ -522,7 +536,7 @@ export function isQualificationAssessmentInput(value: unknown, catalogs?: Admitt
       : canonicalEquals(task.provenance.subjectInventory, task.inventory));
 }
 export function establishQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources,
-  catalogs?: AdmittedQualificationCatalogs): ResolvedQualificationAssessment {
+  catalogs?: AdmittedQualificationRuleCatalog): ResolvedQualificationAssessment {
   if (!isQualificationAssessmentInput(input, catalogs)) throw new TypeError("invalid qualification assessment input (shape/identity)");
   const validate = (view: ResolvedQualificationAssessment) => {
     if (!qualificationMaterialMatches(view.task, view.normalizedScope, catalogs) || !canonicalEquals(view.task.provenance.subjectInventory, input.task.inventory))
@@ -535,7 +549,7 @@ export function establishQualificationAssessment(input: QualificationAssessmentI
   const view = resolveQualificationAssessment(input, resources); validate(view); return view;
 }
 export function qualificationRawMatches(input: QualificationAssessmentInput, raw: unknown, view?: ResolvedQualificationAssessment,
-  catalogs?: AdmittedQualificationCatalogs): raw is QualificationRawJudgment {
+  catalogs?: AdmittedQualificationRuleCatalog): raw is QualificationRawJudgment {
   if (view === undefined && "representation" in input.task) return false;
   const task = view?.task ?? input.task as QualificationEmbeddedTask;
   return isQualificationAssessmentInput(input, catalogs) && v.is(QUALIFICATION_RAW_JUDGMENT_SCHEMA, raw) &&
@@ -552,7 +566,7 @@ export function qualificationRawMatches(input: QualificationAssessmentInput, raw
 /** Domain rendering is shared at preparation and replay. Required source bytes
  * are quoted data; no caller prompt or desired disposition is interpolated. */
 export function qualificationWorkerRequest(input: QualificationAssessmentInput, established?: ResolvedQualificationAssessment,
-  catalogs?: AdmittedQualificationCatalogs): Readonly<ProbabilisticWorkerRequest> {
+  catalogs?: AdmittedQualificationRuleCatalog): Readonly<ProbabilisticWorkerRequest> {
   const view = established ?? establishQualificationAssessment(input, undefined, catalogs);
   if (view.input !== input) throw new TypeError("qualification preparation differs from raw input");
   const task = view.task;
@@ -601,7 +615,7 @@ export function qualificationWorkerRequest(input: QualificationAssessmentInput, 
 }
 export function constructQualificationJudgment(input: QualificationAssessmentInput, raw: unknown,
   nativeBasis: QualificationNativeBasis, source: QualificationJudgment["source"], view?: ResolvedQualificationAssessment,
-  catalogs?: AdmittedQualificationCatalogs): Readonly<QualificationJudgment> {
+  catalogs?: AdmittedQualificationRuleCatalog): Readonly<QualificationJudgment> {
   if (!qualificationRawMatches(input, raw, view, catalogs) || source.cCallRef !== nativeBasis.cCallRef ||
       source.inputDigest !== hash(input) || source.rawValueDigest !== hash(raw) ||
       source.actorRef !== input.task.role.actorRef || source.workerBindingRef !== input.task.role.workerBindingRef) {
@@ -620,7 +634,7 @@ export interface PreparedQualificationAssessment {
   readonly matches: (input: unknown, output: unknown) => boolean;
 }
 export function prepareQualificationAssessment(input: QualificationAssessmentInput, resources?: QualificationResources,
-  catalogs?: AdmittedQualificationCatalogs): PreparedQualificationAssessment {
+  catalogs?: AdmittedQualificationRuleCatalog): PreparedQualificationAssessment {
   const view = establishQualificationAssessment(input, resources, catalogs), request = qualificationWorkerRequest(input, view, catalogs);
   let completed: Readonly<QualificationJudgment> | undefined;
   return Object.freeze({ input, view, request,
@@ -654,8 +668,9 @@ export function isQualificationCoverageCatalog(value: unknown): value is Qualifi
     value.claims.every(c => unique(c.requirementRefs) && unique(c.evidenceRoles));
 }
 /** Exact published coverage data. A caller subset cannot remove obligations. */
-export function qualificationCoverageIsPublished(value: QualificationCoverageCatalog, catalogs?: AdmittedQualificationCatalogs): boolean {
+export function qualificationCoverageIsPublished(value: QualificationCoverageCatalog, catalogs?: AdmittedQualificationCoverageCatalog): boolean {
   try {
+    // The module-relative default is reached only by the callers named at `readQualificationCatalog`.
     const published: unknown = catalogs !== undefined ? catalogs.coverage :
       JSON.parse(readFileSync(fileURLToPath(new URL("../../../../" + QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH, import.meta.url)), "utf8"));
     return isQualificationCoverageCatalog(published) && isQualificationCoverageCatalog(value) && canonicalEquals(published, value);
@@ -669,8 +684,8 @@ export function isQualificationBasisReady(basis: ExactCandidateQualification<"ba
     rc.profile === "one_project_unqualified" && rc.projectSubtree === "." && rc.versionLine === "5.0.0" &&
     rc.version === `5.0.0-rc.${rc.ordinal}` && basis.productVersion === rc.version;
 }
-export function isQualificationVerdictInput(value: unknown): value is QualificationVerdictInput {
-  if (!v.is(QUALIFICATION_VERDICT_INPUT_SCHEMA, value) || !qualificationCoverageIsPublished(value.coverage)) return false;
+export function isQualificationVerdictInput(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is QualificationVerdictInput {
+  if (!v.is(QUALIFICATION_VERDICT_INPUT_SCHEMA, value) || !qualificationCoverageIsPublished(value.coverage, catalogs)) return false;
   const { basis, coverage, selfConformance } = value;
   return qualificationIdentity(basis, "basisRef", "basisDigest", "qualification-basis://abiogenesis/") &&
     canonicalEquals(basis.coverageCatalog, coordinate(coverage.catalogRef, coverage.catalogDigest)) &&
@@ -681,8 +696,9 @@ export function isQualificationVerdictInput(value: unknown): value is Qualificat
 }
 /** AF22 alone computes qualification from its authenticated whole F11 result.
  * A computable assessment's green value never supplies semantic coverage. */
-export function reduceExactCandidateQualification(input: QualificationVerdictInput, nativeBasis: QualificationNativeBasis): Readonly<ExactCandidateQualification<"verdict">> {
-  if (!isQualificationVerdictInput(input)) throw new TypeError("qualification verdict requires exact complete self-conformance evidence");
+export function reduceExactCandidateQualification(input: QualificationVerdictInput, nativeBasis: QualificationNativeBasis,
+  catalogs?: AdmittedQualificationCoverageCatalog): Readonly<ExactCandidateQualification<"verdict">> {
+  if (!isQualificationVerdictInput(input, catalogs)) throw new TypeError("qualification verdict requires exact complete self-conformance evidence");
   const { basis, coverage, selfConformance } = input;
   const disposition = selfConformance.disposition === "red" || selfConformance.verification?.disposition === "failed" ? "red"
     : !isQualificationBasisReady(basis) || selfConformance.bypassRefs.length > 0 || selfConformance.verification?.disposition !== "passed"

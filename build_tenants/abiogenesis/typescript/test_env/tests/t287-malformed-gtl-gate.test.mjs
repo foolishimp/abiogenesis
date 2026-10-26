@@ -1,15 +1,18 @@
 // Validates: REQ-P-QUAL-064. No native Run, full-vector or release claim.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import fs from 'node:fs';
 import { inputFixture, nativeJoinFixture, coverage, ids, hash, identity } from '../support/malformed-gtl-native-fixture.mjs';
-import { isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment } from '../../build/code/src/validator/qualification.js';
+import { isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, parseQualificationCatalogs } from '../../build/code/src/validator/qualification.js';
 import { qualificationResultRelation } from '../../build/code/src/validator/self_conformance_semantics.js';
+const catalogs = parseQualificationCatalogs(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)),
+  fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json', import.meta.url)));
 const plain = value => JSON.parse(JSON.stringify(value));
 const reidentifyBasis = basis => { const { basisRef, basisDigest, ...body } = basis; return identity(body, 'basisRef', 'basisDigest', 'qualification-basis://abiogenesis/'); };
 const synthetic = { cCallRef: 'c-call://unadmitted', predecessorPrefix: { kind: 'durable_prefix_coordinate', schemaVersion: '5.0.0', eventLogRef: 'file:///unadmitted',
   prefixLength: 0, prefixDigest: hash([]), storeIdentity: { device: 1, inode: 2, eventContractDigest: hash('none') }, coordinateDigest: hash('none') } };
 test('actual raw admission and Program validation compute declared diagnostics and a control; development subject stays blocked', () => {
-  const { input } = inputFixture(); assert(isMalformedGtlAssessmentInput(input));
+  const { input } = inputFixture(); assert(isMalformedGtlAssessmentInput(input, catalogs));
   const assessment = evaluateMalformedGtlAssessment(input, synthetic);
   assert.deepEqual(assessment.cases.map(c => c.actual), input.cases.map(c => c.expected));
   assert.equal(assessment.disposition, 'green');
@@ -20,8 +23,8 @@ test('different expected diagnostics compute red and cannot close as green; fore
   const { input } = inputFixture(), changed = structuredClone(input); changed.cases[0].expected.diagnostics[0].code = 'invalid_contract';
   const result = evaluateMalformedGtlAssessment(changed, synthetic); assert.equal(result.disposition, 'red');
   const foreign = structuredClone(input); foreign.basis.lawBasis = { ref: 'law://foreign', digest: hash('foreign') }; foreign.basis = reidentifyBasis(foreign.basis);
-  assert(!isMalformedGtlAssessmentInput(foreign));
-  const duplicate = structuredClone(input); duplicate.cases.push(duplicate.cases[0]); assert(!isMalformedGtlAssessmentInput(duplicate));
+  assert(!isMalformedGtlAssessmentInput(foreign, catalogs));
+  const duplicate = structuredClone(input); duplicate.cases.push(duplicate.cases[0]); assert(!isMalformedGtlAssessmentInput(duplicate, catalogs));
 });
 async function assessedFixture(options) {
   const f = await nativeJoinFixture(options), assess = f.open(ids.malformedAssessGraph, f.input, 'assessment');

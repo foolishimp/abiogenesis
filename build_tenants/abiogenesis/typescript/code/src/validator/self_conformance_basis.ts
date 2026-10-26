@@ -15,16 +15,18 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson } from "../shared/admit/index.js";
 import type { SelfConformanceOwner } from "./self_conformance_contracts.js";
-import { SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./self_conformance.js";
+import { readInstalledQualificationRuleCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
+import type { AdmittedQualificationCatalogs } from "./qualification.js";
 import { resolveQualificationSelfConformanceOwner } from "../abg/qualification_proof.js";
 
 export type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
 import type { QualificationNativeBasis as QualificationOwnerBasis } from "./qualification_contracts.js";
 const hash = (value: JsonValue) => sha256Canonical(value);
 /** Rehydrates actual native owner truth. A consistent caller data tuple is insufficient. */
-export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false, resources?: QualificationResources): SelfConformanceOwner | null {
+export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, input: unknown, requireCurrent = false, resources?: QualificationResources,
+  catalogs?: Readonly<AdmittedQualificationCatalogs>): SelfConformanceOwner | null {
   if (typeof input === "object" && input !== null && "qualification" in input) {
-    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent, resources);
+    return resolveQualificationSelfConformanceOwner(basis, input, requireCurrent, resources, catalogs);
   }
   try {
     // The caller's input is unchecked: it is admitted as I-JSON before its
@@ -65,11 +67,9 @@ export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, inpu
       projectCCallCarrierPhaseAtPrefix(prefix, call)?.phase !== "selected_no_evidence") return null;
     const manifest = JSON.parse(readFileSync(join(install.installedRoot, "product-toolchain-manifest.json"), "utf8"));
     if (hash(manifest) !== install.manifestDigest) return null;
-    const assetRows = install.publicContracts.filter(row => row.contractId === SELF_CONFORMANCE_CATALOG_CONTRACT_ID);
-    if (assetRows.length !== 1 || assetRows[0]!.assetLocator?.path !== SELF_CONFORMANCE_CATALOG_ASSET_PATH) return null;
-    const bytes = readFileSync(join(install.installedRoot, SELF_CONFORMANCE_CATALOG_ASSET_PATH));
-    if (sha256Bytes(bytes) !== assetRows[0]!.assetLocator!.contentDigest) return null;
-    const catalog = JSON.parse(bytes.toString("utf8"));
+    const rules = readInstalledQualificationRuleCatalog(install);
+    if (rules.kind !== "admitted") return null;
+    const bytes = rules.value, catalog = JSON.parse(Buffer.from(bytes).toString("utf8"));
     return deepFreeze({ installId: install.installId, installDigest: hash(install), artifactDigest: install.artifactDigest,
       productId: install.productId, productVersion: install.packageVersion, productContentDigest: install.productContentDigest,
       manifestDigest: install.manifestDigest, publicationDigest: hash(publication),
