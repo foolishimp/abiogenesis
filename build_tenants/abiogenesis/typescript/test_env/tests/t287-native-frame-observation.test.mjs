@@ -184,7 +184,7 @@ test('liveness batch hash reuse preserves cold projections and isolates exact pr
  console.log(JSON.stringify({kind:'liveness_batch_hash_reuse',ordinals:[ordinals[0],ordinals.at(-1)],coldEqual:true,isolatedPrefixes:true}));
 });
 
-test('native controlled process preserves frame observations and owner causes',async context=>{
+test('native controlled process preserves frame observations and owner causes',{skip:!proof&&'ABI5_FRAME_PROOF_ROOT unset; requires the proof-local territory of a native controlled frame run (with ABI5_FRAME_ENTRY_ROOT and ABI5_FRAME_EXECUTION_GRANT)'},async context=>{
  assert.ok(proof,'explicit proof-local territory');
  const {result,installedRoot}=await runControlledFrameEntry(proof,process.env.ABI5_FRAME_PACKAGE_ROOT??root);
  assert.equal(result.disposition,'controlled_frame_plumbing_completed');
@@ -204,7 +204,7 @@ test('native controlled process preserves frame observations and owner causes',a
   path:eventLogPath.href,sha256:sha(bytes),report,barriers},null,2)+'\n');
 });
 
-test('frame declaration and observation-join falsifiers over an authentic read-only historical opening',async()=>{
+test('frame declaration and observation-join falsifiers over an authentic read-only historical opening',{skip:!(process.env.ABI5_FRAME_HISTORY_PATH&&process.env.ABI5_FRAME_HISTORY_SHA256)&&'ABI5_FRAME_HISTORY_PATH or ABI5_FRAME_HISTORY_SHA256 unset; requires the digest-bound retained frame history'},async()=>{
  const owners=await loadFrameOwners(root),bytes=await readFile(process.env.ABI5_FRAME_HISTORY_PATH);
  assert.equal(sha(bytes),process.env.ABI5_FRAME_HISTORY_SHA256);
  const history=owners.events.validateHistoricalEvents(bytes),opened=history.find(e=>e.kind==='frame_opened');assert.ok(opened);

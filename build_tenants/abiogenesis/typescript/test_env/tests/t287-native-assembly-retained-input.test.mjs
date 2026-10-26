@@ -9,7 +9,7 @@ const [store,prefixes,native,calls,cursors,gtl,traversal,semantic,job,immutable]
  'abg/event_store','abg/event_prefix','abg/execution_basis','abg/c_call','abg/traversal_cursor','gtl/index',
  'hog/traversal','abg/semantic_stage','abg/semantic_job','shared/immutable'].map(load));
 
-test('actual native author fold consumes its admitted retained pair; crossed basis and input refuse',async t=>{
+test('actual native author fold consumes its admitted retained pair; crossed basis and input refuse',{skip:!process.env.ABI5_NATIVE_RETAINED_JOB&&'ABI5_NATIVE_RETAINED_JOB unset; requires the explicit closed retained native job selection'},async t=>{
  const selected=process.env.ABI5_NATIVE_RETAINED_JOB;
  assert.ok(selected,'explicit closed job selection required; this test never acquires or writes its resource');
  const read=async name=>JSON.parse(await readFile(join(selected,name),'utf8'));

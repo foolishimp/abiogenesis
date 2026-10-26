@@ -17,7 +17,9 @@ const root=resolve(import.meta.dirname,'../..');
 const predecessor=process.env.ABI5_CONFORMANCE_PREDECESSOR_ROOT;
 const territory=process.env.ABI5_CONFORMANCE_PROOF_ROOT;
 const sourceOnly=process.env.ABI5_CONFORMANCE_SOURCE_ONLY==='1';
-assert.ok(predecessor && territory && process.env.ABI5_CONFORMANCE_METADATA);
+const skip=!(predecessor && territory && process.env.ABI5_CONFORMANCE_METADATA)&&'ABI5_CONFORMANCE_PREDECESSOR_ROOT, ABI5_CONFORMANCE_PROOF_ROOT or ABI5_CONFORMANCE_METADATA unset; requires the predecessor build, the proof territory and the retained declaration metadata';
+if(skip)test('conformance owner reuse over the predecessor build, the proof territory and the retained declaration metadata',{skip},()=>{});
+else await (async()=>{
 const metadata=JSON.parse(fs.readFileSync(process.env.ABI5_CONFORMANCE_METADATA,'utf8'));
 const load=(base,file)=>import(pathToFileURL(join(base,'build/code/src',file+'.js')).href);
 const product=await load(root,'product/index'), abg=await load(root,'abg/index'), eventStore=await load(root,'abg/event_store');
@@ -442,3 +444,4 @@ test('compact release-artifact ingress preserves historical selection and downst
     supplied:'enclosing release observation/proof/effect-grant schema only; no native qualification/publication/human O',
     preserved:'wrong owner/entry/approval and old full carrier refuse; missing original O and unproved QUAL056 remain unavailable'}));
 });
+})();

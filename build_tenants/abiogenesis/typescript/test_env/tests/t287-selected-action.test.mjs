@@ -9,7 +9,8 @@ import {constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCl
 import {publicOperationBasis} from '../support/root-installed-environment.mjs';
 import {observePublicSelection,afterNativeFsync} from '../support/t287-selected-action-host.mjs';
 import {ref,contract,fixtureInput} from '../fixtures/t287-selected-action-product/index.mjs';
-const proof=process.env.ABI5_SELECTED_ACTION_EVIDENCE_ROOT;assert.ok(proof);
+const proof=process.env.ABI5_SELECTED_ACTION_EVIDENCE_ROOT;
+const options={skip:!proof&&'ABI5_SELECTED_ACTION_EVIDENCE_ROOT unset; requires the selected-action evidence root'};
 const read=async p=>JSON.parse(await readFile(p,'utf8'));
 const save=async(dir,name,value)=>{await mkdir(dir,{recursive:true});await writeFile(join(dir,name),JSON.stringify(value,null,2)+'\n');};
 const freeze=v=>{if(v&&typeof v==='object'){Object.values(v).forEach(freeze);Object.freeze(v);}return v;};
@@ -180,7 +181,7 @@ async function preflightObserverAndRecovery(c,e,opened,resumeFrom,recoverFrom){
  await save(proof,'lock-absent-recovery-selection.json',selection);await save(proof,'recovery-precheck.json',{status:'passed',byteLength:bytes.length,digest:digest(bytes),eventCount:actual.length,device:physical.dev,inode:physical.ino,predecessorDigest:digest(predecessor),formerHostDead:dead,lockAbsent:true,lockPath:selection.lockPath,immutablePackageReference:join(resumeFrom,'archive-installed.json')});return selection;
 }
 
-test('complete selected-action acquisition, occurrence and cold-proof composition',async()=>{
+test('complete selected-action acquisition, occurrence and cold-proof composition',options,async()=>{
  const started=performance.now(),resumeFrom=process.env.ABI5_SELECTED_ACTION_RESUME_FROM,recoverFrom=process.env.ABI5_SELECTED_ACTION_RECOVER_FROM,runtimeTmp=join(resumeFrom??proof,'disposable');await mkdir(runtimeTmp,{recursive:true});process.env.TMPDIR=runtimeTmp;let c;
  try {
   if(process.env.ABI5_SELECTED_ACTION_PREFLIGHT==='1'){

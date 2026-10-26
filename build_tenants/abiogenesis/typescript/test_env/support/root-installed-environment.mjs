@@ -486,8 +486,17 @@ export async function setupInstalledRootCatalog(
     rootProgramRef,
     LANGUAGE_TEST_DIRECT_IDS.programRef,
   ]);
+  // A semantic Program (the validator's semanticLifecycleRefForProgram rule)
+  // names lifecycle, contract and binding owners in the Products it depends on.
+  // It validates over its Product-resolved declaration closure when the
+  // caller's Catalog resolves its execution (ProductExecutionResolutionPort),
+  // not over its own publication here; every other selected Program does.
+  const semanticPrograms = publication.programs.filter((program) =>
+    selectedProgramRefs.has(program.programRef) &&
+    (program.policies["abg.semantic_lifecycle"] ?? publication.semanticLifecycle?.declarationRef ??
+      publication.semanticJobLifecycle?.declarationRef) !== undefined);
   const programValidations = publication.programs
-    .filter((program) => selectedProgramRefs.has(program.programRef))
+    .filter((program) => selectedProgramRefs.has(program.programRef) && !semanticPrograms.includes(program))
     .map((program) =>
       validator.validateProgram(
         rawProgramInput(validator, publicationAdmission, program),
@@ -496,7 +505,8 @@ export async function setupInstalledRootCatalog(
     (value) => value.programRef === rootProgramRef,
   );
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
-  assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+  if (!semanticPrograms.some((program) => program.programRef === rootProgramRef))
+    assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
   assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
   const catalogInstalledProducts = admittedInstalls.map((install, index) => {
     const {

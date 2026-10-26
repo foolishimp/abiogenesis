@@ -9446,3 +9446,300 @@ Grant: the 22 lanes of item 1 (the input check and the skip option only); `scrip
 Stops (write the stop in the Return, keep the rest moving): a claim that cannot become a reasoned skip without moving an assertion past the input check (item 1); an identity the manifest does not carry (item 2); a fix under item 5 that changes an event contract, payload key, failure class, Program declaration or Public export; a lane moving beyond the named cases.
 
 Return contract: one commit on `main`, staged by path, first line `C-19: TD-04 closed: the owner-held inputs reasoned skips, the candidate basis identity from the manifest, the three repairs outside C-18b's grant, the unread r10 proof copies deleted, the stop 4 defect candidates classified`, with any gap stated in place; the Return before the commit so the commit carries it: item 1's table (lane, input, unset exit), item 2's identity (old and new), item 3's changes with their readers' exits and the retirements with their reasons, item 4's deletion, item 5's classification per lane (class, action, exit), the exit table (every remaining red with its class and owner question), the lanes table, the lint and gates, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-19 return (Worker, Opus 5.5, 2026-10-27; base `a6333a7b5`)
+
+TD-04 is not closed without gaps. Four lanes outside the grant stay red as stops: `r2-clean-install` and `r3-workspace-binding` (each moves past the corrected identity to its own arrangement), `t287-gtl-graph-law:191` (it pins the fixture duplicate that item 3 (a) removes; green in a reverted probe) and `t287-management-supervision:105` (its fixture's worker result carrier). The owner's five stops stay named, not worked. Otherwise:
+- The owner-held inputs are reasoned skips: 22 lanes, none red.
+- The candidate basis identity comes from the manifest; r1 is green.
+- Of the three repairs outside C-18b's grant, `t287-registered-graph-selection` and `t287-generic-job-intake` are green.
+- The unread r10 proof copies are deleted.
+- The stop 4 candidates are classified: `m5-installed-graph-edge` and `t287-post-binding-worksite-write` restated green, `t287-c2-owner-coordinate-reuse` retired, and ST-4 green.
+
+**Before column.** The Executive's C-18b check at `811bb8f85` with the root set, one log per lane. It is valid for this base because the subtrees are equal:
+
+| Subtree | `a6333a7b5` | `811bb8f85` |
+|---|---|---|
+| `code` | `b6e14f5c111398da52b7f8a6948fc0e8d7837ce2` | `b6e14f5c111398da52b7f8a6948fc0e8d7837ce2` |
+| `test_env` | `89fb1d442f4fa428a5599f2fd28b690c7799e6aa` | `89fb1d442f4fa428a5599f2fd28b690c7799e6aa` |
+| `contracts` | `ef21d7aafcb3eda7a245242577d6bf7189945646` | `ef21d7aafcb3eda7a245242577d6bf7189945646` |
+
+**After column.** The steel thread on the stripped tree, root set (`ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`), each lane alone, `TMPDIR` under the Worker's scratch. No commit landed on `main` during the run: `HEAD` is the base `a6333a7b5`.
+
+### Item 1: the owner-held inputs are reasoned skips
+
+Each lane's input check became `{ skip: !input && '<VAR> unset; requires <what>' }` on every test the input gates. Where the whole file sits behind the input (a top-level `throw`, `assert.ok` or support import), the C-18b precedent from `t288-composition-conservation` (a file 3 (e) deletes) is used: `if(skip)test(name,{skip},()=>{}); else await (async()=>{…})();`. No assertion past an input check moved. In `t287-predecessor-context` the support import that throws at `:8` became `selected ? await import(...) : {}`, and its scratch `mkdirSync` runs only when selected. `t287-native-frame-observation:207` and `t288-logical-prefix-digest` had no input check: the skip is the check.
+
+| Lane | Input | Before | After, unset (tests/pass/fail/skipped) |
+|---|---|---|---|
+| `t287-conformance-owner-reuse` | `ABI5_CONFORMANCE_PREDECESSOR_ROOT`, `_PROOF_ROOT`, `_METADATA` (file-level wrapper) | 1/0/1/0 | 1/0/0/1 |
+| `t287-deferred-application-restoration` | `ABI5_S02_RECURSION_FIXTURE` (2 tests) | 2/0/2/0 | 2/0/0/2 |
+| `t287-event-calculus-owner-continuation` | `ABI5_EC_OWNER_EVIDENCE`, `_CLOSED_HISTORY`, `_CLOSED_SHA256` (wrapper, with its `test.after`) | 1/0/1/0 | 1/0/0/1 |
+| `t287-governance-covered-source-use` | `ABG_GOVERNANCE_COVERED_FIXTURE` (`:351`, `:386`, `:430`; reader 5 is reached through it) | 9/3/3/3 | 9/3/0/6 |
+| `t287-installed-dependency-lock` | `ABI207_NATIVE_IDENTITY` (`:135`) | 2/0/1/1 | 2/0/0/2 |
+| `t287-installed-qualification-conservation` | `ABI5_INSTALLED_CONSERVATION_ROOT`, `_PACKAGE_ROOT`, `_ARCHIVE`, `_NODE` (wrapper) | 1/0/1/0 | 1/0/0/1 |
+| `t287-native-assembly-retained-input` | `ABI5_NATIVE_RETAINED_JOB` | 1/0/1/0 | 1/0/0/1 |
+| `t287-native-frame-observation` | `ABI5_FRAME_PROOF_ROOT` (`:187`, with `_ENTRY_ROOT` and `_EXECUTION_GRANT` named); `ABI5_FRAME_HISTORY_PATH`/`_SHA256` (`:207`, no check before) | 7/1/2/4 | 7/1/0/6 |
+| `t287-native-semantic-evidence` | `ABI5_NATIVE_EVIDENCE_EXTRACT` | 1/0/1/0 | 1/0/0/1 |
+| `t287-native-work-reacquisition-normalization` | `ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT` | 2/1/1/0 | 2/1/0/1 |
+| `t287-predecessor-context` | `ABI5_PREDECESSOR_PRIOR_ROOT`, `_PROOF_ROOT`, `_OLD_PACKAGE_ROOT` (support import conditional; the file-level failure was 1 test, now 3 skips) | 1/0/1/0 | 3/0/0/3 |
+| `t287-public-terminal-projection` | `ABI5_S02_PROJECTION_FIXTURE` (4 tests) | 4/0/4/0 | 4/0/0/4 |
+| `t287-qualification-parent-alias` | `ABI5_PARENT_ALIAS_BINDINGS` | 1/0/1/0 | 1/0/0/1 |
+| `t287-release-publication` | `ABI5_RELEASE_RETAINED_INSTALL_COORDINATE` (`:115`) | 6/5/1/0 | 6/5/0/1 |
+| `t287-retained-installed-consumer` | `ABI5_RETAINED_CONSUMER_CONFIG` (wrapper; `_PHASE` named) | 1/0/1/0 | 1/0/0/1 |
+| `t287-retry-run-prefix` | `ABI5_S02_RETRY_FIXTURE` (3 tests) | 3/0/3/0 | 3/0/0/3 |
+| `t287-s03-automatic` | `ABI5_S03_EVIDENCE_ROOT` (replaces `assert.ok(proof…)`; Phase B keeps its own skip after it; was 1 test, now 2 skips) | 1/0/1/0 | 2/0/0/2 |
+| `t287-selected-action` | `ABI5_SELECTED_ACTION_EVIDENCE_ROOT` (replaces `assert.ok(proof)`) | 1/0/1/0 | 1/0/0/1 |
+| `t287-selected-action-authority` | `ABI5_SELECTED_ACTION_OWNER_SUBJECT` (`:35`; ruling below) | 3/2/1/0 | 3/2/0/1 |
+| `t287-selected-execution-closure` | `ABI5_SELECTED_CLOSURE_INSTALLED_ROOT`, `_EVIDENCE`, `_HISTORY_FIXTURE` (wrapper) | 1/0/1/0 | 1/0/0/1 |
+| `t288-logical-prefix-digest` | `ABI5_OWNER_HISTORY` (2 tests; no check before) | 2/0/2/0 | 2/0/0/2 |
+| `t289-install-event-bodies` | `ABI5_INSTALL_BODY_HISTORY` and `_SHA256` (4 tests; the lane's own `historyRequired` message) | 4/0/4/0 | 4/0/0/4 |
+
+**`t287-selected-action-authority:35`: ruling.** The case refuses with `exact_prefix_artifact_truth_projection_refusal`, code `file_identity_mismatch`: "ABG durable prefix file identity differs from coordinate". The default subject's recovery prefix coordinate binds a device and inode from the machine that recorded it. On this machine the store's file identity differs.
+- **Class (i):** machine-bound input. It is not (v): no cut superseded the claim. It is not a defect: the identity binding is the store owner's law.
+- **Action:** a reasoned skip on `ABI5_SELECTED_ACTION_OWNER_SUBJECT` names a subject whose coordinate holds on the running machine. The two cases before it stay green.
+- **Exit:** 3/2/0/1 (was 3/2/1/0).
+- **Not done:** restating the case over a scratch byte copy reopened through the store owner (the r10 precedent) is outside item 1's grant. It is listed under findings.
+
+### Item 2: the candidate basis identity comes from the manifest
+
+`scripts/refresh-candidate-basis.mjs` takes `productId`, `packageName` and `packageVersion` from `product-toolchain-manifest.json`. No member is carried over from a previous basis, and the script refuses a manifest that lacks one. `test_env/fixtures/abi5-root-candidate-basis.json` was regenerated with `node scripts/refresh-candidate-basis.mjs` after the final stripped build. It was not hand-edited.
+
+| Member | Old | New |
+|---|---|---|
+| `productId` | `product://abiogenesis/typescript-tenant@5.0.0-dev.286` | `product://abiogenesis/typescript-tenant@5.0.0-rc.1` |
+| `packageName` | `@abiogenesis/typescript-tenant` | `@abiogenesis/typescript-tenant` |
+| `packageVersion` | `5.0.0-dev.286` | `5.0.0-rc.1` |
+| `artifactDigest` | `sha256:d53144e6…` | `sha256:453c0c69…` |
+| `productContentDigest` | `sha256:01ad18e0…` | `sha256:1406d8e8…` |
+| `manifestDigest` | `sha256:d2ccd50b…` | `sha256:923dbbe3…` |
+
+The leaf paths are equal (8 and 8); 5 values moved.
+
+r1, r2 and r3 exits:
+- **`r1-packed-artifact`:** green, 1/1/0/0 (was 1/0/1/0).
+- **`r2-clean-install`:** red, 1/0/1/0 (was 1/0/1/0). The identity now holds and the verify step returns `verified` for `abiogenesis-typescript-tenant-5.0.0-rc.1.tgz`. The lane then fails on its own bound: `:24` `execFileAsync` has `maxBuffer: 10 MiB`, and the verified result's stdout exceeds it (`ERR_CHILD_PROCESS_STDIO_MAXBUFFER`).
+- **`r3-workspace-binding`:** red, 1/0/1/0 (was 1/0/1/0). The identity now holds. `:188` `admitProductInstall` refuses `operation_mismatch`: "operation and member identity must match the selected owner definition". The lane's `artifactBasis` (`:56`) carries `operationId` and `definitionKey` but no `memberKey`. `validatePublicOperationBasis` (`abg/environment_admission.ts:713`) requires `operationId` and `memberKey`.
+- **Class:** both r2 and r3 are class (ii), each lane's own arrangement. Neither lane file is in the grant, so both are stops ("a lane moving beyond the named cases").
+
+### Item 3: the three repairs outside C-18b's grant
+
+**(a) `test_env/fixtures/registered-selection-product/index.mjs:56`.** The duplicated `environment.carries` is now `[...new Set([...])]`, following `fixtures/language-structural/program.mjs`. This is the hand-written program's one named edit.
+- **Readers** (`t287-registered-graph-selection`, `t287-gtl-graph-law`, `t287-native-registered-selection`, `t287-native-selection-profile-scope`, `t287-recursive-registered-selection`, `t287-static-declaration-closure`, `t287-stdo3-run-environment`): `t287-registered-graph-selection` is green, 1/1/0/0 (was 1/0/1/0). Five are equal: `t287-native-registered-selection` 1/0/0/1, `t287-native-selection-profile-scope` 4/4/0/0, `t287-recursive-registered-selection` 4/3/0/1, `t287-static-declaration-closure` 11/10/0/1 and `t287-stdo3-run-environment` 5/5/0/0. `t287-gtl-graph-law` is red, 9/8/1/0 (was 9/9/0/0), and is a stop. Its `:188-194` (from `727f1dbca`) pins the fixture's duplicate as a publication refusal, "Preserve that independent publication refusal", and `:191` now gets `publication_validation`. A probe restated it in place: `:191` expects `publication_validation`, the `:192-194` diagnostics asserts are removed, and the lane runs 9/9/0/0. The probe was restored from a base copy (`cmp` and `git diff --quiet` equal). The lane is outside the grant.
+
+**(b) `test_env/support/t287-generic-job-intake.mjs`.** `prepareGenericJobIntakeProduct` takes `abiPackageArchivePath`. The generic Product's `package.json` declares the managed ABI dependency as `file:<the exact ABI archive>`, which the install's `managedDependenciesMatchResolvedLock` (`product/install_product.ts:256`) now checks.
+
+**(c) `test_env/support/root-installed-environment.mjs`.** A semantic Program is any Program for which the validator's `semanticLifecycleRefForProgram` resolves: policy `abg.semantic_lifecycle`, else the publication's `semanticLifecycle` or `semanticJobLifecycle`.
+- **What changed:** the support no longer validates semantic Programs over their own publication. Every other selected Program still does, and the root's assert applies only when the root is not semantic.
+- **Where they are validated instead:** over the Product-resolved declaration closure on the run path, `product/execution_resolution.ts:729-756` (`constructProgramValidationInputFromResolvedClosure`, then `validateProgram`), when the caller's Catalog resolves its execution.
+- **Deviation from the activation's wording.** The activation reads "a semantic Program validates over the Product-resolved declaration closure" inside the support. Validating there over `product.resolveProgramDeclarationClosure` and `constructCatalogProgramValidationInput` was tried. It refuses with `execution_declaration_closure_refusal`: "ImplementationBinding implementation-binding://abiogenesis/semantic-stage/job-intake@5 does not resolve…". The support's Catalog lacks the native semantic-stage publications; the lanes admit their own Catalog with `nativePublications`. So the support defers to the run path.
+
+**Readers of (b) and (c).** The activation counts 9 and 36 direct `git grep -l` readers (45). The steel thread runs their static import closure, 10 and 42 lanes: (b) adds `t287-c2-child-program`, and (c) adds lanes that reach the support through another support. Of the 10, 9 are equal; `t287-generic-job-intake` moved. Of the 42, 34 are equal and 8 moved, each by a named item: `m5-installed-graph-edge`, `t287-post-binding-worksite-write` and `t287-st1-installed-cross-owner-hello` (item 5), `t287-conformance-owner-reuse`, `t287-s03-automatic` and `t287-selected-action` (item 1), `t287-registered-graph-selection` (3 (a)) and `t287-generic-job-intake` (3 (b)).
+- **`t287-generic-job-intake`:** green, 2/1/0/1 (was 2/0/1/1).
+- **`t287-management-supervision`:** red, 5/4/1/0, equal in counts (was 5/4/1/0) but with a different cause. It is not green. The `dependency_lock_mismatch` and the validation are gone, and `:105` now fails on a third layer.
+  - **The cause:** its fixture `test_env/fixtures/t287-management-supervision/semantic-worker.mjs` emits `{type:"result",subtype:"success",result:…}`. The worker transport has required `is_error:false` and `structured_output` under `--json-schema` since `c7988f937` (`abg/worker_transport.ts:303-315`), so the actor fails with `no_output` and the disposition is `runtime_failed` (`0 !== 2` closed actors at `:144`).
+  - **A probe:** emitting `{…, is_error:false, structured_output: raw}` turned the case green.
+  - **Not committed:** the fixture is a hand edit outside the grant. It was reverted (`cmp`-equal to base, `git diff --quiet`). This is a stop.
+
+**(d) Two deletions.**
+- **`test_env/support/d2-evidence-owner-conservation.mjs`:** no reader in `code`, `test_env`, `scripts`, `contracts` or `design`. Deleted.
+- **`test_env/tests/d2-binding-retained-diagnostic.mjs`:** a non-suite script with no reader.
+  - **Before:** rc 1, `ENOENT`. Its log path resolved under `build_tenants/` to a displaced `installed-continuation-09/...`.
+  - **Restated:** over the root record `comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/events-01/runtime.events.jsonl` (sha256 `f841bba9…`, 19,058,361 B) through `evidenceInput`, the 13,540,472-byte slice (digest `4f561cea…`, the pinned 846 events), with the dev/ino pin (`16777230/449590349`) retired.
+  - **Run with the root set:** the slice digest and the three leaf joins passed. Row 834 then returned `basis_fork_detected` where `:44` asserts `covered` ("current pure selected declaration consumes actual historical parent/cause").
+  - **Class (v):** a superseded cut. The current binding owner's rule (`d2-binding-transition`, green 10/10) refuses that historical relation.
+  - **Deleted** with that reason. Unset, the restated script printed its skip and exited 0.
+
+**(e) The t288 predecessor-differential siblings.** Four are deleted.
+
+| Lane | Reason |
+|---|---|
+| `t288-composition-conservation` | Every case runs inside the wrapper over `roots = [ABI5_COMPOSITION_PREDECESSOR, current]` |
+| `t288-environment-context-reuse` | One case; `modules = [load(ABI5_D17_PREDECESSOR), load(root)]` |
+| `t288-environment-guard-contraction` | Same as context-reuse |
+| `t288-native-producer-membership` | One case over `ABI5_D16_PREDECESSOR` |
+
+- **The ground:** a differential over a predecessor build with no package closure (C-5 stop 2, the class C-18b retired).
+- **Before exits:** 1/0/0/1 each.
+- **Deviation: `t288-instruction-assembly-owner` is kept.** Its six cases load only the current build (`:9`, `load = … join(root,'build/code/src',…)`):
+  - four run green on the current build;
+  - `:16` skips on `ABI5_NATIVE_D2_SELECTOR_PROMPT`;
+  - `:388` skips on `ABI5_D07_PREDECESSOR_SCRATCH`. That is the current assembly owner over a retained scratch: an owner-held input, not a predecessor build.
+  - **Why it stays:** no case is a predecessor differential, so applying the activation's rule ("the file going when empty") per case leaves the file.
+  - **After:** 6/4/0/2, equal.
+- **Citations:** `git grep` over `design/` finds no citation of the four deleted lanes, the d2 diagnostic or the support. `ABI5_STDO3_COMPUTATIONAL_BINDING.md:184` cites `t288-workflow-scope-conservation`, a different lane.
+
+### Item 4: the unread r10 proof copies are deleted
+
+`git rm` removed three files. They were added at `b59936897` and `03f65e6b7`, and they had no reader in `code`, `test_env`, `scripts`, `contracts` or `design`.
+
+| File | sha256 | Bytes |
+|---|---|---|
+| `test_env/proof/abi5-root-r10.json` | `f80d6ce54997b2b2…` | 18,642,450 |
+| `test_env/proof/abi5-root-r10.outcomes.json` | `d913a2f5d0fa5d00…` | 4,259,486 |
+| `test_env/proof/abi5-root-r10.transcript.json` | `2e05b430b42a4646…` | 9,801,195 |
+
+- **The record:** these digests and the two commits.
+- **The directory stays.** It still holds `abi5-m5-live-fp.json`, `abi5-root-governor.json`, `abi5-root-r10.events.jsonl` (named by `m5-consensus-module`'s `:1544` comment) and `abi5-root-rival-authority-mutations.json`.
+- **`lint:evidence` (check mode) after the staged deletion:** rc 0, "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other". The check reads the index; a listed oversize path that is no longer tracked is not an offender.
+- **The inventory:** the derived `.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json` may still list the two oversize paths. Regenerating it is the owner's `--write`; it is not written here.
+
+### Item 5: the stop 4 candidates, classified
+
+**(a) `m5-installed-graph-edge:9`: class (ii), lane restated.**
+- **Correction to the activation:** the run fails at root closure after the right (render) member's judged CCall, not the left member's.
+- **The cause:** probed with C19 lines in `abg/closure.ts`, now stripped. `admitOwnedScopeClosure` compares the Program's root closure contract with the terminal CCall:
+  - predicate, transition, result, scope and event kinds agree;
+  - `evidenceContractRef`, `refusalContractRef` and `judgmentContractRef` do not. The fixture's closure names `graph-edge/{evidence,refusal,judgment}@5`, while the terminal leaf (`LEAF_SPECS.project`) carries `project/{…}@5`.
+- **The ruled model:** a CCall carries its leaf requirement's contracts (`abg/c_call.ts:2658`), and root closure compares them. The precedent is the green `t287-calculus-state-transfer` fixture, which restates its root closure to the terminal leaf's contracts.
+- **Action:** the lane passes a `sourceTransform` that rewrites only the `GRAPH_EDGE_IDS.closureContractRef` closure's evidence, refusal, rejection and judgment members to `LEAF_SPECS.project.ids`. Predicate and transition stay the composition's own. The shared fixture is unchanged.
+- **Exit:** green, 1/1/0/0 (was 1/0/1/0).
+
+**(b) `t287-post-binding-worksite-write:1428`: class (ii), lane restated.**
+- **The cause:** probed with C19 lines in `implementation/leaf_invocation_port.ts`, `hog/ccall_lifecycle.ts` and `abg/event_calculus.ts`, now stripped.
+  - The recovery CCall's occurrence carries `executionAuthority: null`, because `worksiteLeafAuthority`'s `worksiteSelectedOccurrenceInputCurrent` is false.
+  - That is false because `worksite_observation_current(<fresh observation>)` does not hold before the fibre selection.
+  - The calculus' `worksiteBasisMayEstablish` (`abg/calculus/axioms.ts`, "a raw basis carries a value, not a new physical observation occurrence") lets a basis establish its predecessor observation only when no cause on the path is unexplained. The conflicted call's selection is such a cause, and no admitted transition establishes the fresh Product observation after it.
+- **The ruling:**
+  - C0 design `:620` and `:623-624`: after an unadmitted physical commit, "retry requires a fresh Product observation and a new authorization", and "a later admitted correction, compensation, or retry requires its own selected design and causal evidence".
+  - `ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md`: "Workspace changes become evidence only through their admitted observations".
+  - So the post-residue retry is not a selected design, and the refusal names the currentness relation the lane's arrangement violates.
+- **Action:** the arm is restated within its case to the ruled outcome:
+  - disposition `failed`;
+  - the diagnostic's stage is `authority_verification` with reason `refused`;
+  - the target keeps the residue bytes (`replacement`);
+  - the five CCall event kinds stay as they were.
+  - The substrate-failure arm's byte check (`:1528`) follows: `replacement`.
+- **Exit:** green, 2/2/0/0 (was 2/1/1/0).
+- **Not a defect at head.** If the owner selects a post-residue retry design, this arm is the one to reopen.
+
+**(c) `t287-c2-owner-coordinate-reuse`: every arm retired, file deleted.**
+- **The history:** the fixture hand-builds a raw event history (`admitRuntimeEvent` with hand-rolled payloads). It loads owner modules through `SourceTextModule` with supplied execution-basis, terminal, environment, CCall and binding-cover premises. Under C-5's ruling a history is built through its owner.
+- **Why not rebuilt:** building this one through its owners needs a native F_P source run, a reacquisition preparation and a C2 child admission. That does not fit this package.
+- **The arms:**
+  - `:120`: the replay owner refuses the hand-built history ("child C2 source does not reproduce at its admitted preparation cut").
+  - `:195`, `:212`, `:227`, `:238`: `projectSameRunNativeWorkCommandSourceAtPrefix` returns `null` at each arm's positive control. Their refusal claims are vacuous without it.
+  - `:266`: the seam is renamed, `operations.nativeWorkReacquisition` → `nativeOwnedWorkReacquisition` (`implementation/leaf_invocation_port.ts`, class (ii)). After the rename, the owner returns `null` at `:281` (`assert(warm.value)`) over the same hand-built (`prepareOnly`) history.
+- **Before:** 6/0/6/0. **After:** deleted.
+- **Supports:** `r10-private-owner-harness`, `isolated-compiled-copy` and `t287-generic-job-worksite` keep other readers. No `design/` citation.
+
+**(d) `public/installed_definition_call_transport.ts`: the check is restored.**
+- **The change:** `isInstalledDefinitionCallCandidate` refuses a candidate whose `resources` carries an `eventResource` that is not an own data property, written as `("eventResource" in resources && !hasOwnDataProperty(resources, "eventResource"))`. An eventless call has no `eventResource`, so it is still admitted.
+- **"Every resource selector the candidate shape declares":** the candidate type `DefinitionCall<…, unknown>` declares `resources` as `unknown`, an open record. `eventResource` is the only resource the transport routes by name before an owner admits the call (`acquisitionMatches`). `detachDefinitionCall`'s reads (`admissionAuthority`, `verifiedArtifact`, `verifiedProducts`, `verifiedPreimages`) pass to owners that admit them.
+- **Export map unchanged:** after the final build, all 785 files under `build/` equal the base build except `build/code/src/public/installed_definition_call_transport.js`. Every `.d.ts` is equal.
+- **ST-4 `:116`:** green (the lane is 2/1/1/0, was 2/0/2/0). With the eventResource falsifiers passing, two arms that the first failure had masked failed too: `:272` and `:291` expected `installed_binding_unavailable` and got `invalid_definition_call`.
+  - **The cause:** since `adaeede02`, `selectedCallable` admits the call against its exact installed invocation contract (`admitExactDefinitionCall`) before owner traversal. The two request-less arrangements are refused there.
+  - **Class (ii):** the admission seam moved ahead of traversal. Both arms are restated to `invalid_definition_call`, with zero inherited reads asserted. Line numbers are unchanged.
+  - **Gap, stated:** ST-4's owner-traversal claim (no inherited export or member read during traversal) has no falsifier that reaches traversal at head. Reaching it needs an admitted call with installed coordinates (`constructInstalledPublicDefinitionCall`). The traversal code (`Object.hasOwn` at module, export and member) is unchanged.
+- **The lane's other red** (`:737`, failing at `:1259`) is the owner's (item 6).
+
+### The exit table: every remaining red
+
+Ten rows. The seven reds the steel thread ran, the two owner lanes it did not run (unchanged, before column), and question 10, which has no red lane.
+
+| Lane | Failing site | Exit | Class | Stop or owner question |
+|---|---|---|---|---|
+| `r2-clean-install` | `:18`, at `:24` | 1/0/1/0 | (ii): the lane's 10 MiB stdout bound is below the verified result for the rc.1 artifact | Stop (lane outside the grant); item 2 |
+| `r3-workspace-binding` | `:85`, at `:188` | 1/0/1/0 | (ii): `artifactBasis` (`:56`) lacks `memberKey`, which `validatePublicOperationBasis` requires | Stop (lane outside the grant); item 2 |
+| `t287-gtl-graph-law` | `:185`, at `:191` | 9/8/1/0 | (ii): pins the fixture duplicate that item 3 (a) removes; restatement probed green, reverted | Stop (lane outside the grant); new red from 3 (a) |
+| `t287-management-supervision` | `:105`, at `:144` | 5/4/1/0 | (ii): the fixture's `semantic-worker.mjs` result carrier lacks `is_error:false` and `structured_output` (since `c7988f937`); probed green, reverted | Stop (fixture hand edit outside the grant) |
+| `t287-st2a-g-capability-definition-graph` (not run) | `:74`, `:271` | 4/2/2/0 | Owner | Q9: which catalog rows must project a capability (M05_S06 `:1006` against the constitution `:2180-2182`) |
+| Core consensus rows' Public application | No red lane: C-18b retired the `catalog.apply` arms of `steel-basic-cli-public` and `t287-w2-05-install-catalog-owner-chain` | — | Owner | Q10: the `node_type` and `overlay` rows' Public application (`contracts/`) |
+| `t287-worksite-construction` | `:701`, at `:886` | 3/2/1/0 | Owner | Q11: a partial-stop child failure, lifted as `failed` or refused as `blocked` (the CCall result contract) |
+| `t287-worksite-branch-construction` | `:671`, at `:683` | 2/1/1/0 | Owner | Q11 |
+| `t287-st1-installed-cross-owner-hello` | `:737`, at `:1259` | 2/1/1/0 | Owner | Q12: the replay body at a later prefix (T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY `:198-199`) |
+| `t287-historical-source-resource` (not run) | `:72`, at `:75` | 2/1/1/0 | Owner | Q13: retention scoped to a generation (R10 `:546`) |
+
+### The lanes table
+
+91 lanes, each alone, with the root set: 62 equal and 29 moved. Every move is named by an item except `t287-gtl-graph-law`, the stop. A file-level failure counted as one test, and now each case registers its skip. So `t287-predecessor-context` goes from 1 to 3 tests and `t287-s03-automatic` from 1 to 2. `t287-management-supervision` is equal in counts but its cause moved (item 3).
+
+Outside the 91:
+- The compose scenario (`ABI5_CALCULUS_CASES=compose`, `t287-calculus-state-transfer`): 2/2/0/0, rc 0.
+- `t288-instruction-assembly-owner`, alone: 6/4/0/2, equal.
+
+| Lane | Before | After | Move |
+|---|---|---|---|
+| `m5-installed-graph-edge` | 1/0/1/0 | 1/1/0/0 | item 5 (a) |
+| `r1-packed-artifact` | 1/0/1/0 | 1/1/0/0 | item 2 |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-deferred-application-restoration` | 2/0/2/0 | 2/0/0/2 | item 1 |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-generic-job-intake` | 2/0/1/1 | 2/1/0/1 | item 3 (b), (c) |
+| `t287-governance-covered-source-use` | 9/3/3/3 | 9/3/0/6 | item 1 |
+| `t287-gtl-graph-law` | 9/9/0/0 | 9/8/1/0 | item 3 (a); stop |
+| `t287-installed-dependency-lock` | 2/0/1/1 | 2/0/0/2 | item 1 |
+| `t287-installed-qualification-conservation` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-native-assembly-retained-input` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-native-frame-observation` | 7/1/2/4 | 7/1/0/6 | item 1 |
+| `t287-native-semantic-evidence` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-native-work-reacquisition-normalization` | 2/1/1/0 | 2/1/0/1 | item 1 |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | 2/2/0/0 | item 5 (b) |
+| `t287-predecessor-context` | 1/0/1/0 | 3/0/0/3 | item 1 |
+| `t287-public-terminal-projection` | 4/0/4/0 | 4/0/0/4 | item 1 |
+| `t287-qualification-parent-alias` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-registered-graph-selection` | 1/0/1/0 | 1/1/0/0 | item 3 (a) |
+| `t287-release-publication` | 6/5/1/0 | 6/5/0/1 | item 1 |
+| `t287-retained-installed-consumer` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-retry-run-prefix` | 3/0/3/0 | 3/0/0/3 | item 1 |
+| `t287-s03-automatic` | 1/0/1/0 | 2/0/0/2 | item 1 |
+| `t287-selected-action` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-selected-action-authority` | 3/2/1/0 | 3/2/0/1 | item 1 (ruling) |
+| `t287-selected-execution-closure` | 1/0/1/0 | 1/0/0/1 | item 1 |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | 2/1/1/0 | item 5 (d); `:737` is owner question 12 |
+| `t288-logical-prefix-digest` | 2/0/2/0 | 2/0/0/2 | item 1 |
+| `t289-install-event-bodies` | 4/0/4/0 | 4/0/0/4 | item 1 |
+
+Equal (62): `installed-language-smoke` 1/1/0/0, `m5-consensus-module` 17/17/0/0, `m5-event-calculus-runtime` 19/18/0/1, `m5-event-store-reopen` 21/21/0/0, `m5-fresh-process-reconstruction` 1/1/0/0, `m5-installed-portability` 8/8/0/0, `m5-s03-authority` 5/5/0/0, `r2-clean-install` 1/0/1/0 (red), `r3-workspace-binding` 1/0/1/0 (red), `r5-invocation-admission` 2/2/0/0, `r6-implementation-resolution` 1/1/0/0, `r7-graph-validation-basis` 1/1/0/0, `r8-direct-hog-entry` 1/1/0/0, `r9-causal-result-closure` 2/2/0/0, `rival-authority-mutations` 3/3/0/0, `runtime-scope-regressions` 2/2/0/0, `steel-basic-cli-projection` 1/0/0/1, `steel-basic-cli-public` 1/1/0/0, `steel-consumer-declaration` 1/0/0/1, `t287-c0-correction-regressions` 4/4/0/0, `t287-c0-post-publication-failure` 31/31/0/0, `t287-c2-child-program` 4/4/0/0, `t287-calculus-fold` 18/18/0/0, `t287-calculus-state-transfer` 8/8/0/0, `t287-cross-cut-public-read` 5/5/0/0, `t287-d1-requirement-handoff` 5/2/0/3, `t287-declared-testing-capability` 7/3/0/4, `t287-default-library` 20/17/0/3, `t287-exact-construction-intent` 1/1/0/0, `t287-f04a-probabilistic-result-candidate` 2/2/0/0, `t287-f09-frontier-handoff` 1/1/0/0, `t287-generic-job-lifecycle` 1/0/0/1, `t287-generic-job-meaning` 5/3/0/2, `t287-generic-job-read-dependency` 2/1/0/1, `t287-generic-job-revision` 4/1/0/3, `t287-live-worksite-construction` 1/0/0/1, `t287-management-context` 14/12/0/2, `t287-management-supervision` 5/4/1/0 (red), `t287-native-registered-selection` 1/0/0/1, `t287-native-selection-profile-scope` 4/4/0/0, `t287-native-semantic-job` 9/9/0/0, `t287-native-semantic-revision` 7/7/0/0, `t287-native-work-currentness-consumers` 6/6/0/0, `t287-native-work-unknown-effect` 10/10/0/0, `t287-pfc-f08a-product-verification-boundary` 1/1/0/0, `t287-r4-aba-retry` 1/1/0/0, `t287-recursive-registered-selection` 4/3/0/1, `t287-st2a-e-exact-prefix-workspace-environment` 1/1/0/0, `t287-static-declaration-closure` 11/10/0/1, `t287-stdo-environment-citation` 2/0/0/2, `t287-stdo-proof-entry` 5/0/0/5, `t287-stdo-run-environment` 2/0/0/2, `t287-stdo3-run-environment` 5/5/0/0, `t287-w2-05-generator-package-reproducibility` 2/2/0/0, `t287-w2-05-install-catalog-owner-chain` 1/1/0/0, `t287-w2-05-static-binding-algebra` 5/3/0/2, `t287-wave2-installed-product-verification` 2/2/0/0, `t287-worksite-branch-construction` 2/1/1/0 (red), `t287-worksite-command-execution` 10/10/0/0, `t287-worksite-construction` 3/2/1/0 (red), `w2-steel-serial-branch-installed` 2/0/0/2, `w2-steel-single-start-installed` 1/0/0/1.
+
+### Lints and gates
+
+- `tsc -p tsconfig.json --noEmit`: rc 0.
+- `tsc --noEmit --noUnusedLocals`: 3 errors, C-18a's three:
+  - `product/worksite_command_execution.ts:74` `BASE64_PATTERN`;
+  - `public/binding/owner_contract_source_set.ts:20` `JsonValue`;
+  - `public/run_projection_authority.ts:13` `JsonValue`.
+- `lint:imports`: rc 0, "3 forbidden owner pair(s) hold".
+- `lint:lifecycle`: rc 0, "286 modules under code/src; 7 allow-listed site(s), no offender".
+- `lint:calculus`: rc 0, "6 modules under code/src/abg/calculus/; 0 allow-listed import(s), no offender".
+- `lint:evidence` (check mode): rc 0, as quoted under item 4.
+- `npm run build`: rc 0; 785 files; only the transport `.js` differs from the base build.
+- **Regenerated files** (`npm run build`): every changed leaf is a digest-only move.
+
+| File | Leaf paths before / after | Values moved |
+|---|---|---|
+| `product-toolchain-manifest.json` | 51,287 / 51,287, equal | 68 |
+| `contracts/capabilities/capability-definition-graph.json` | 3,243 / 3,243, equal | 310 |
+
+- **The basis:** see item 2.
+- **Instrumentation:** `// C19` lines were added to `abg/closure.ts`, `implementation/leaf_invocation_port.ts`, `hog/ccall_lifecycle.ts` and `abg/event_calculus.ts` for the item 5 probes, and earlier to `abg/environment_admission.ts` and `abg/artifact_truth.ts` for the item 1 probe. All six are restored from clean copies kept in scratch and are byte-equal to them (`cmp`). `git grep -c C19` over `code`, `test_env`, `scripts`, `contracts`, `design` and `package.json` finds nothing, and `grep -r C19 build` finds nothing.
+
+### Deviations
+
+1. **3(c):** the support defers semantic Programs to the run-path validation instead of validating them over the Product-resolved closure itself (see 3(c)).
+2. **3(e):** `t288-instruction-assembly-owner` is kept; none of its cases is a predecessor differential.
+3. **5(d):** two ST-4 arms are restated beyond the eventResource check, class (ii), with the traversal falsifier gap stated.
+4. **5(b):** the restatement changes the substrate arm's byte expectation, which follows from the recovery arm.
+5. **The steel thread** runs the static import closure of item 3's supports (10 + 42), not the activation's 9 + 36 direct readers. It adds the item 3(a) fixture readers, the candidate basis readers, the transport census (41 direct files, 36 lanes, including lanes that exec `cli.js` through `runInstalledCliRequest`) and the compose scenario. 91 lanes in all.
+
+### Findings outside the grant
+
+1. **`fixtures/language-structural/program.mjs`:** the composed closures (`COMPOSED_IDS`, `GRAPH_EDGE_IDS`, and likely `SUBSTITUTED_IDS`) name group contracts that no terminal leaf carries. A C19 probe of `COMPOSED_IDS` through the installed route refuses root closure the same way. Every installed consumer of those Programs must restate their closure, as `m5-installed-graph-edge` and `t287-calculus-state-transfer` now do.
+2. **`OWNER_CONTRACT_SOURCES`** routes `abg.operation.interaction.respond`/`select` to `./product` `INTERACTION_DEFINITION_BINDINGS`, which `./product` does not export. Every admitted respond/select call through the transport would refuse `installed_binding_unavailable`.
+3. **`t287-selected-action-authority:35`:** a restatement over a scratch byte copy reopened through the store owner (the r10 precedent) would make the case machine-independent.
+4. **`r2-clean-install:24` and `r3-workspace-binding:56`:** the lane-level repairs that item 2 needs to go fully green are named in item 2.
+5. **`fixtures/t287-management-supervision/semantic-worker.mjs`:** the carrier repair is named in item 3.
+
+### Stops
+
+1. **`t287-management-supervision:105`.** The semantic-worker fixture's result carrier, class (ii) since `c7988f937`. Repairing it is a fixture hand edit outside the grant.
+2. **`r2-clean-install` and `r3-workspace-binding`.** These lanes moved past the identity to their own arrangement reds, outside the grant.
+3. **`t287-gtl-graph-law:191`.** Green before; red after item 3 (a)'s named fixture edit, because the lane pins the removed duplicate. Restating it is one assertion and drops `:192-194`. That restatement probed 9/9/0/0 and was reverted. The lane is outside the grant.
+4. **The owner's five stops (item 6).** Not worked. They are owner questions 9–13 in the exit table.
+
+### Not verified
+
+- The whole suite; it is the Executive's Phase C close run.
+- The owner-held lanes with their inputs set; only the unset exits are shown.
+- Whether `SUBSTITUTED_IDS` refuses like `COMPOSED_IDS`; not probed.
+- Completeness of the transport census. It is a text `git grep` over `test_env` and `scripts` (`public/index.js`, `public/cli.js`, the transport's module and function names, `runInstalledCliRequest`, the `build/code/src/public` path forms), plus the static import closure. A lane that builds its import path at runtime without one of those strings would be missed.

@@ -5,10 +5,19 @@ import { runInstalledLanguageTest } from "../support/installed-language-test.mjs
 import { prepareLanguageStructuralFixture } from "../support/language-structural-fixture.mjs";
 import { GRAPH_EDGE_IDS, STRUCTURAL_IDS, constructStructuralInput } from "../fixtures/language-structural/program.mjs";
 const packageRoot = fileURLToPath(new URL("../..", import.meta.url));
+// Root closure admission (abg/closure.ts) compares the Program's closure contract
+// with the terminal CCall: the composition's terminal leaf is the render member's
+// project leaf, so the root closure names that leaf's evidence, refusal and
+// judgment contracts; its predicate and transition stay the composition's own.
+const terminalClosure = (name, source) => name !== "program.mjs" ? source :
+  source.replace("export function constructStructuralPublication", "function baseStructuralPublication") +
+  "\nexport function constructStructuralPublication(gtl,artifact,options){const publication=baseStructuralPublication(gtl,artifact,options),final=LEAF_SPECS.project.ids;" +
+  "return gtl.modulePublication({...publication,closureContracts:publication.closureContracts.map(c=>c.closureContractRef===GRAPH_EDGE_IDS.closureContractRef?" +
+  "{...c,evidenceContractRef:final.evidenceContractRef,refusalContractRef:final.refusalContractRef,rejectionContractRef:final.refusalContractRef,judgmentContractRef:final.judgmentContractRef}:c)});}\n";
 
 test("M5 installed HoG traverses an independently declared composed GraphFunction", async context => {
   const proof = await runInstalledLanguageTest(context, packageRoot, {
-    prepareFixture: prepareLanguageStructuralFixture,
+    prepareFixture: basis => prepareLanguageStructuralFixture({ ...basis, sourceTransform: terminalClosure }),
     programRef: GRAPH_EDGE_IDS.programRef,
     catalogHandle: GRAPH_EDGE_IDS.graphFunctionRef,
     allowlist: [GRAPH_EDGE_IDS.graphFunctionRef],

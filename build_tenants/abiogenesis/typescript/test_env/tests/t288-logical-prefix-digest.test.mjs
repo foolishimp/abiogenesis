@@ -10,10 +10,11 @@ import {sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 const counts=()=>({...globalThis.p0Work});
 const delta=(a,b,k)=>(b[k]??0)-(a[k]??0);
+const options={skip:!process.env.ABI5_OWNER_HISTORY&&'ABI5_OWNER_HISTORY unset; requires the owner\'s retained runtime event history'};
 const history=async()=>deepFreeze((await readFile(process.env.ABI5_OWNER_HISTORY,'utf8')).trimEnd().split('\n').map(JSON.parse));
 const candidate=n=>({kind:'public_operation_admitted',eventTime:'2026-09-20T04:00:00.000Z',aggregateType:'workspace',aggregateId:'invocation://d10/'+n,parentAggregateId:null,causationEventRefs:[],correlationId:'correlation://d10/'+n,workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://d10',payload:{invocationDigest:sha256Canonical(n),invocationRef:'invocation://d10/'+n,operationId:'abg.operation.project.read',variant:'status'}});
 
-test('logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history',async()=>{
+test('logical prefix hashes conserve cold, copied, foreign, scoped and reverse values without re-encoding an owned history',options,async()=>{
  const events=await history(),source=new RuntimeDerivationSource();let full;
  for(const cut of [0,1,68,87,104,434,events.length,104,87]){
   const selected=prefix.selectValidatedRuntimeEventPrefix(source.snapshot(events.slice(0,cut)));
@@ -32,7 +33,7 @@ test('logical prefix hashes conserve cold, copied, foreign, scoped and reverse v
  console.log(JSON.stringify({kind:'d10_digest_conservation',cuts:9,coldCopiedForeignScopedReverse:true,repeatedOwnedEncodingRows:0}));
 });
 
-test('store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal',async()=>{
+test('store logical digest preserves staged guards, unrelated-run staleness, rollback and physical mutation refusal',options,async()=>{
  const scratch=await mkdtemp(join(tmpdir(),'d10-digest-'));const path=join(scratch,'events.jsonl');const acquired=store.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});assert.ok('store'in acquired);const s=acquired.store;
  try{
   assert.equal(s.digest(),sha256Canonical([]));

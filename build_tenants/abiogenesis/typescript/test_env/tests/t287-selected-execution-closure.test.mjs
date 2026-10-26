@@ -11,7 +11,10 @@ const tenant = resolve(import.meta.dirname, "../..");
 const installed = process.env.ABI5_SELECTED_CLOSURE_INSTALLED_ROOT;
 const evidence = process.env.ABI5_SELECTED_CLOSURE_EVIDENCE;
 const historyFixture = process.env.ABI5_SELECTED_CLOSURE_HISTORY_FIXTURE;
-assert.ok(installed && evidence && historyFixture, "select the frozen installed owner, refused request and finite historical fixture");
+const skip = !(installed && evidence && historyFixture) &&
+  "ABI5_SELECTED_CLOSURE_INSTALLED_ROOT, ABI5_SELECTED_CLOSURE_EVIDENCE or ABI5_SELECTED_CLOSURE_HISTORY_FIXTURE unset; requires the frozen installed owner, refused request and finite historical fixture";
+if (skip) test("selected execution closure over the frozen installed owner, refused request and finite historical fixture", { skip }, () => {});
+else await (async () => {
 const load = relative => import(pathToFileURL(join(installed, "build/code/src", relative + ".js")).href);
 const [product, gtl, validator, events, prefixes, invocations, oldBasis] = await Promise.all([
   load("product/index"), load("gtl/index"), load("validator/index"), load("abg/event_store"),
@@ -200,3 +203,4 @@ test("the actual Public refusal call preserves admitted event and diagnostic ref
   assert.deepEqual(result.value.issuePaths, ["/execution_basis"]);
   assert.deepEqual(result.value.evidenceRefs, [refusal.eventId, ...refusal.payload.contractOrDiagnosticRefs]);
 });
+})();

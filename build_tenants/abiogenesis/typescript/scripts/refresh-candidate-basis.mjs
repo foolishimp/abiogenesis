@@ -27,12 +27,22 @@ const manifest = JSON.parse(
 const { sha256Canonical } = await import(
   "../build/code/src/product/index.js"
 );
-const previous = JSON.parse(await readFile(basisPath, "utf8"));
+// The candidate's identity is the executing product's declared identity in its
+// manifest; no member is carried over from a previous basis.
+for (const key of ["productId", "packageName", "packageVersion"]) {
+  if (typeof manifest[key] !== "string" || manifest[key].length === 0) {
+    throw new TypeError(`product-toolchain-manifest.json declares no ${key}`);
+  }
+}
 const basis = {
-  ...previous,
+  kind: "abi5_root_candidate_basis",
+  schemaVersion: "5.0.0",
   artifactDigest: `sha256:${createHash("sha256").update(archive).digest("hex")}`,
   productContentDigest: manifest.productContentDigest,
   manifestDigest: sha256Canonical(manifest),
+  productId: manifest.productId,
+  packageName: manifest.packageName,
+  packageVersion: manifest.packageVersion,
 };
 
 await writeFile(basisPath, `${JSON.stringify(basis, null, 2)}\n`, "utf8");

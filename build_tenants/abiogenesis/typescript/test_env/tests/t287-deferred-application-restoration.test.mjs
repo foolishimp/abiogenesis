@@ -14,6 +14,7 @@ import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digest
 
 const root = resolve(import.meta.dirname, "../..");
 const fixtureRoot = process.env.ABI5_S02_RECURSION_FIXTURE;
+const options = { skip: !fixtureRoot && "ABI5_S02_RECURSION_FIXTURE unset; requires the frozen S02 continuation-03 evidence carrier" };
 const runId = "run://abiogenesis/5dfe8d2af8f5210fc5d763070ab38620dfc0bcfa5b452b2b6c03300374616a67";
 
 // Use the changed source with the unchanged built owner dependencies. This
@@ -82,7 +83,7 @@ function fixture(t) {
   return { ...acquired, coordinates, atJudgment, afterObservations, judgment, result, failure, rows };
 }
 
-test("deferred restoration preserves the exact native completion prefix including observations after judgment", async t => {
+test("deferred restoration preserves the exact native completion prefix including observations after judgment", options, async t => {
   const f = fixture(t), owner = await sourceOwner();
   const completionAt = prefix => {
     const projected = owner.projectDeferredApplicationAtPrefix(prefix, f.coordinates);
@@ -113,7 +114,7 @@ test("deferred restoration preserves the exact native completion prefix includin
   t.diagnostic("Actual frozen native events; disposable copied-resource ownership is a supplied fixture premise. Real prefix, EC, replay and completion owners; no fresh Run or Public admission proof.");
 });
 
-test("deferred restoration refuses another producer and the later failed native scope", async t => {
+test("deferred restoration refuses another producer and the later failed native scope", options, async t => {
   const f = fixture(t), owner = await sourceOwner();
   const foreign = f.rows.find(row => row.kind === "c_call_judged" && row.runId !== runId);
   assert.ok(foreign);

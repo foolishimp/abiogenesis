@@ -15,6 +15,7 @@ import {proposeStructuralRoute} from '../../build/code/src/hog/route_proposal.js
 import {replayValidatedRuntimeEventPrefix} from '../../build/code/src/abg/replay.js';
 import {sha256Canonical,sha256Bytes} from '../../build/code/src/shared/digests.js';
 
+const options={skip:!process.env.ABI5_S02_RETRY_FIXTURE&&'ABI5_S02_RETRY_FIXTURE unset; requires the immutable s02-installed-continuation-04 carrier'};
 function fixture(t, includeFailure=false) {
   const evidence=process.env.ABI5_S02_RETRY_FIXTURE;
   assert.ok(evidence,'select the immutable s02-installed-continuation-04 carrier');
@@ -56,7 +57,7 @@ function fixture(t, includeFailure=false) {
   return {...owned,path,bytes:Buffer.byteLength(copied),basis,graph,gf,source,make};
 }
 
-test('retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs',t=>{
+test('retry entry conserves nested attempts in one Run while the workspace retains other stopped Runs',options,t=>{
   const f=fixture(t);
   assert.equal(f.store.readAll().filter(e=>e.kind==='run_stopped').length,3,'real retained neighbor stops are present');
   let cursor=f.source;
@@ -89,7 +90,7 @@ test('retry entry conserves nested attempts in one Run while the workspace retai
   t.diagnostic('Copied finite native prefix and disposable append ownership are supplied component premises; no installed Run or actor is executed.');
 });
 
-test('retry entry refuses foreign scope and stale source without committing a partial transition',t=>{
+test('retry entry refuses foreign scope and stale source without committing a partial transition',options,t=>{
   const f=fixture(t),input=f.make(f.source);
   const foreign=f.store.readAll().find(e=>e.kind==='traversal_cursor_entered'&&e.runId!==f.source.runId);
   assert.ok(foreign);
@@ -104,7 +105,7 @@ test('retry entry refuses foreign scope and stale source without committing a pa
   assert.deepEqual(fs.readFileSync(f.path),committed);
 });
 
-test('retry entry retains the failed native scope refusal and refuses an unrelated authority prefix',t=>{
+test('retry entry retains the failed native scope refusal and refuses an unrelated authority prefix',options,t=>{
   const f=fixture(t,true),input=f.make(f.source);
   const before=fs.readFileSync(f.path);
   assert.notEqual(abg.admitTraversalTransition(input).kind,'route_transition_admission');

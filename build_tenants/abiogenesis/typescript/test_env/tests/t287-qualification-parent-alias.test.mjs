@@ -15,7 +15,7 @@ import {performance} from 'node:perf_hooks';
 const hashBytes = bytes => createHash('sha256').update(bytes).digest('hex');
 const clone = value => JSON.parse(JSON.stringify(value));
 
-test('native parent alias conserves the original child/J and rejects crossed provenance and competing producers', async t => {
+test('native parent alias conserves the original child/J and rejects crossed provenance and competing producers', {skip: !process.env.ABI5_PARENT_ALIAS_BINDINGS && 'ABI5_PARENT_ALIAS_BINDINGS unset; requires the explicit frozen fixture and isolated emitted-owner binding'}, async t => {
   const started = performance.now();
   const bindingPath = process.env.ABI5_PARENT_ALIAS_BINDINGS;
   assert(bindingPath, 'explicit frozen fixture and isolated emitted-owner binding required');

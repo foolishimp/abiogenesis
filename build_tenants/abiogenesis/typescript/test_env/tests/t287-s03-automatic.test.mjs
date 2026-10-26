@@ -3,14 +3,14 @@ import assert from 'node:assert/strict';
 import {join} from 'node:path';
 import {read,purePreflight,save,runInstalledProof} from '../support/t287-s03-automatic.mjs';
 const proof=process.env.ABI5_S03_EVIDENCE_ROOT;
-assert.ok(proof,'Exact S03 evidence directory is required');
-test('S03 Phase A pure declaration and finite domain construction',async()=>{
+const options={skip:!proof&&'ABI5_S03_EVIDENCE_ROOT unset; requires the exact S03 evidence directory'};
+test('S03 Phase A pure declaration and finite domain construction',options,async()=>{
  const prior=await read(join(proof,'../s7-pending-consumer-01/selected-action-09/same-basis/environment.json'));
  const result=await purePreflight({prior,oracle:await read(join(proof,'oracle.json'))});
  await save(proof,'pure-preflight.json',result);
 });
 
-test('S03 Phase B ordinary installed positive and no-action', {skip:process.env.ABI5_S03_PHASE_B_RELEASE!=='ROOT_RELEASED_PHASE_B'&&"ABI5_S03_PHASE_B_RELEASE is not 'ROOT_RELEASED_PHASE_B'; selects the S03 Phase B installed proof"},async()=>{
+test('S03 Phase B ordinary installed positive and no-action', {skip:options.skip||process.env.ABI5_S03_PHASE_B_RELEASE!=='ROOT_RELEASED_PHASE_B'&&"ABI5_S03_PHASE_B_RELEASE is not 'ROOT_RELEASED_PHASE_B'; selects the S03 Phase B installed proof"},async()=>{
  const prior=await read(join(proof,'../s7-pending-consumer-01/selected-action-09/same-basis/environment.json'));
  await runInstalledProof({proof,prior,oracle:await read(join(proof,'oracle.json')),release:process.env.ABI5_S03_PHASE_B_RELEASE});
 });

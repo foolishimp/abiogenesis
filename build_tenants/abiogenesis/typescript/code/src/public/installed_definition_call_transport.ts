@@ -116,7 +116,11 @@ export function isInstalledDefinitionCallCandidate(
     !isRecord(invocation) ||
     !hasOwnDataProperty(invocation, "kind") ||
     !hasOwnDataProperty(invocation, "definitionKey") ||
-    !isRecord(resources)
+    !isRecord(resources) ||
+    // An eventless call carries no eventResource; one that names it carries an
+    // own data property, never an inherited or accessor selector.
+    ("eventResource" in resources &&
+      !hasOwnDataProperty(resources, "eventResource"))
   ) {
     return false;
   }
