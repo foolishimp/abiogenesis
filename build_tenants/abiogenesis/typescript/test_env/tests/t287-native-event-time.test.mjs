@@ -13,7 +13,7 @@ const owners=await loadTimeOwners(packageRoot);
 const fixedTime='2000-01-01T00:00:00.000Z';
 
 test('same real HoG basis constructor path reproduces the old seed bug and discriminates the repair',{
-  skip:!process.env.ABI5_EVENT_TIME_BASELINE_ROOT,
+  skip:!process.env.ABI5_EVENT_TIME_BASELINE_ROOT&&'ABI5_EVENT_TIME_BASELINE_ROOT unset; requires the old-seed baseline build root',
 },async context=>{
   const baseline=await import(pathToFileURL(join(process.env.ABI5_EVENT_TIME_BASELINE_ROOT,'build/code/src/hog/operator_support.js')));
   context.mock.timers.enable({apis:['Date'],now:Date.parse('2030-01-01T00:00:00.000Z')});
@@ -167,7 +167,7 @@ test('exact paired admission producer preserves recognition across forced clock 
 });
 
 test('retained historical identity is unchanged; no wall clock is read by the historical event projector',{
-  skip:!process.env.ABI5_EVENT_TIME_HISTORY_PATH,
+  skip:!process.env.ABI5_EVENT_TIME_HISTORY_PATH&&'ABI5_EVENT_TIME_HISTORY_PATH unset; requires the retained historical event history',
 },async context=>{
   const path=process.env.ABI5_EVENT_TIME_HISTORY_PATH,bytes=await readFile(path);
   assert.equal(sha256(bytes),process.env.ABI5_EVENT_TIME_HISTORY_SHA256);

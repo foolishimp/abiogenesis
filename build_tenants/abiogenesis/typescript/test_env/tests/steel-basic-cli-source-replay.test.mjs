@@ -50,7 +50,7 @@ async function selectedReplayOwner() {
 test("external source replay uses the authenticated atomic admission entry cut", async t => {
   const statePath = process.env.ABI5_STEEL_SOURCE_REPLAY_STATE;
   if (!statePath) {
-    t.skip("requires an explicit retained source-bound continuation; no live invocation");
+    t.skip("ABI5_STEEL_SOURCE_REPLAY_STATE unset; requires an explicit retained source-bound continuation; no live invocation");
     return;
   }
   const state = JSON.parse(await readFile(statePath, "utf8"));
@@ -109,7 +109,7 @@ test("external source replay uses the authenticated atomic admission entry cut",
 test("retained source-bound C2 replay preserves external owner facts and local Run scope", async t => {
   const attempt = process.env.ABI5_STEEL_C2_ATTEMPT_PATH;
   if (!attempt) {
-    t.skip("requires the explicit retained C2 attempt; no live invocation is performed");
+    t.skip("ABI5_STEEL_C2_ATTEMPT_PATH unset; requires the explicit retained C2 attempt; no live invocation is performed");
     return;
   }
   const eventPath = path.join(attempt, "abi-authority/events/runtime.events.jsonl");

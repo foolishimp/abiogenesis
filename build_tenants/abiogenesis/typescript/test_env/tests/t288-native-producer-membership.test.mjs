@@ -16,7 +16,7 @@ const count = owner => Object.fromEntries(['Comparisons', 'BodyEncodes', 'BodyBy
 const delta = (before, after) => Object.fromEntries(Object.keys(after).map(k => [k, after[k] - before[k]]));
 
 test('native producer membership preserves bodies, transactions and clocks with constant indexed comparisons', {
-  skip: !historyPath || !predecessor, timeout: 180000,
+  skip: (!historyPath || !predecessor) && 'ABI5_D16_HISTORY or ABI5_D16_PREDECESSOR unset; requires the D16 native history and predecessor build', timeout: 180000,
 }, async () => {
   assert.ok(globalThis.p0Work, 'existing owner counters must be loaded');
   const raw = await readFile(historyPath), lines = raw.toString('utf8').trimEnd().split('\n'), history = lines.map(JSON.parse);

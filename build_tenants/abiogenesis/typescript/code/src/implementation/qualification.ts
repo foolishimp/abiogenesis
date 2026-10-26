@@ -6,8 +6,8 @@ import type { PackagedLeafImplementationDescriptor } from "../product/implementa
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { qualificationHash as hash, type QualificationJudgment } from "../validator/qualification_contracts.js";
-import { isQualificationAssessmentInput, qualificationWorkerRequest, constructQualificationJudgment, prepareQualificationAssessment,
-  isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment, isMalformedGtlAssessment } from "../validator/qualification.js";
+import { isQualificationAssessmentInput, prepareQualificationAssessment,
+  isMalformedGtlAssessmentInput, evaluateMalformedGtlAssessment } from "../validator/qualification.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 // The port admits both catalogs from the owner install at its authority stage

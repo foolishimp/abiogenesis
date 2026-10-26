@@ -1,6 +1,5 @@
 import { resolveSelfConformanceInput, resolveQualificationAssessment, type QualificationResources } from "./qualification_resources.js";
 import type { SelfConformanceEmbeddedInput } from "./self_conformance_contracts.js";
-import * as v from "valibot";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { resolve, relative } from "node:path";
@@ -11,21 +10,23 @@ import { resolveQualificationAssessments, qualificationTenantClaimsMatch, resolv
 import { canonicalJson } from "../shared/canonical_json.js";
 import { isQualificationBasisReady, qualificationCoverageIsPublished, qualificationScopeCorrespondence, qualificationRuleSurfaces,
   type AdmittedQualificationCatalogs } from "./qualification.js";
-import { QUALIFICATION_RULE_CATALOG_SCHEMA, qualificationIdentityDigest,
+import { qualificationIdentityDigest,
   type SelfConformanceInput, type SelfConformanceResult, type SelfConformanceOwner,
   type SelfConformanceFinding, type QualificationRuleCatalog } from "./self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
-import { SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
+import { executingQualificationCatalogs, SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
 export { SELF_CONFORMANCE_CATALOG_ASSET_PATH, SELF_CONFORMANCE_CATALOG_CONTRACT_ID } from "./qualification_catalogs.js";
 
 
 const packageRoot = fileURLToPath(new URL("../../../../", import.meta.url));
-/** The module-relative rule catalog. A caller holding an install admits it
- * (`admitInstalledQualificationCatalogs`) and passes it; this reader remains
- * for a caller with none and is named by the `./validator` export map. */
+/** The executing package's rule catalog. A caller holding an install admits
+ * it (`admitInstalledQualificationCatalogs`) and passes it; this reader remains
+ * for a caller with none and is named by the `./validator` export map. The
+ * catalog is admitted once per process (`executingQualificationCatalogs`);
+ * each call returns its own copy of the bytes. */
 export function readSelfConformanceCatalog(): { catalog: QualificationRuleCatalog; bytes: Uint8Array } {
-  const bytes = readFileSync(resolve(packageRoot, SELF_CONFORMANCE_CATALOG_ASSET_PATH));
-  return { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), bytes };
+  const rules = executingQualificationCatalogs().rules;
+  return { catalog: rules.catalog, bytes: Buffer.from(rules.contentBase64, "base64") };
 }
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 /** Finite native relation. Citations remain unadmitted; no caller flag can establish J/O truth. */

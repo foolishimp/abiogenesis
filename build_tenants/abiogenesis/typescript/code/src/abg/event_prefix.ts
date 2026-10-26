@@ -5,7 +5,6 @@ import type { CheckedRecord } from "../shared/select/index.js";
 import { ownedRuntimeDerivationSource, runtimeDerivationSource, RuntimeDerivationSource, type RuntimeDerivationScope } from "./runtime_derivation.js";
 import {
   selectRuntimeEvents,
-  LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
   projectRootEventProfileSchedule,
   extendRootEventProfileProjection,
   assertOwnedRuntimeHistorySelection,

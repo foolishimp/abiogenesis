@@ -64,10 +64,9 @@ import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessC
 import { sha256Bytes } from "../shared/digests.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import type { WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-const PROCESS_TIMEOUT_MS = 60_000;
-const PROCESS_ABSOLUTE_TIMEOUT_MS = 3_600_000;
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
 
 export interface ActorRuntimeBinding {
@@ -687,18 +686,30 @@ export interface ActorProcessInvocationInput {
   readonly basis: RuntimeAdmissionBasis;
 }
 
+/**
+ * The one reader of the two actor timer settings. The worksite command
+ * execution gate and the actor transport plan both read them here; each
+ * caller keeps its own check over the values.
+ */
+export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
+  return { absoluteTimeoutMs: Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000"),
+    inactivityTimeoutMs: Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000") };
+}
+
+function positiveLimit(key: string, value: number): number {
+  if (!Number.isSafeInteger(value) || value < 1) {
+    throw new TypeError(`${key} must be one positive safe integer`);
+  }
+  return value;
+}
+
 function positiveInteger(
   environment: Readonly<Record<string, string | undefined>>,
   key: string,
   fallback: number,
 ): number {
   const raw = environment[key];
-  if (raw === undefined) return fallback;
-  const value = Number(raw);
-  if (!Number.isSafeInteger(value) || value < 1) {
-    throw new TypeError(`${key} must be one positive safe integer`);
-  }
-  return value;
+  return raw === undefined ? fallback : positiveLimit(key, Number(raw));
 }
 
 function outputDigest(output: string): Sha256Digest {
@@ -832,6 +843,7 @@ async function invokeActorProcessWithAssembly(
     throw new TypeError("dependent dispatch requires exact native admitted instruction assembly");
   }
   const environment = Object.freeze({ ...process.env });
+  const limits = selectedWorksiteCommandExecutionLimits();
   const promptDigest = sha256Canonical(input.request.prompt);
   const requestDigest = sha256Canonical(
     input.request,
@@ -870,16 +882,10 @@ async function invokeActorProcessWithAssembly(
     cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
     archiveRoot: input.runtime.workspaceBinding.roots.archiveRoot,
     label: `fp-${attemptDigest.slice("sha256:".length, "sha256:".length + 16)}`,
-    timeoutMs: positiveInteger(
-      environment,
-      "ABG_TS_FP_TIMEOUT_MS",
-      PROCESS_TIMEOUT_MS,
-    ),
-    absoluteTimeoutMs: positiveInteger(
-      environment,
-      "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS",
-      PROCESS_ABSOLUTE_TIMEOUT_MS,
-    ),
+    // The two shared limits come from their one reader; this owner keeps its
+    // positive-safe-integer check over the values it returns.
+    timeoutMs: positiveLimit("ABG_TS_FP_TIMEOUT_MS", limits.inactivityTimeoutMs),
+    absoluteTimeoutMs: positiveLimit("ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", limits.absoluteTimeoutMs),
     terminationGraceMs: positiveInteger(
       environment,
       "ABG_TS_FP_TERMINATION_GRACE_MS",

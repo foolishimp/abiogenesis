@@ -19,7 +19,7 @@ async function instrument(root,name,overrides={},sharedRoot=root){
 }
 function record(name,value){fs.writeFileSync(join(evidence,name),JSON.stringify(value,null,2)+'\n');}
 
-test('actual historical reacquisition contracts owner work without changing task or refusals',{skip:!selected},async()=>{
+test('actual historical reacquisition contracts owner work without changing task or refusals',{skip:!selected&&'ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory'},async()=>{
  const task=JSON.parse(fs.readFileSync(retained,'utf8')), request=task.sourceReacquisition.request, basis=task.sourceReacquisition.nativeBasis;
  const measures=[];let expected;
  for(const [variant,root]of [['predecessor',predecessor],['successor',current]]){
@@ -51,7 +51,7 @@ test('actual historical reacquisition contracts owner work without changing task
  console.log(JSON.stringify({kind:'retained_owner_comparison',measures}));
 });
 
-test('R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused',{skip:!selected},async()=>{
+test('R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused',{skip:!selected&&'ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory'},async()=>{
  const task=JSON.parse(fs.readFileSync(retained,'utf8')),request=task.sourceReacquisition.request;
  const store=await load(current,'abg/event_store'),digests=await load(current,'shared/digests');
  const source=request.source.prefix, originalPath=new URL(source.eventLogRef);
@@ -108,7 +108,7 @@ test('R10 keeps same-owner exact prefix warm while copies, closed owners and mal
 });
 
 
-test('execution basis still refuses changed raw input and changed enclosing body',{skip:!selected},async()=>{
+test('execution basis still refuses changed raw input and changed enclosing body',{skip:!selected&&'ABG_OWNER_REUSE_PREDECESSOR, ABG_OWNER_REUSE_TASK or ABG_OWNER_REUSE_EVIDENCE unset; requires the predecessor build, retained reacquisition task and evidence directory'},async()=>{
  const task=JSON.parse(fs.readFileSync(retained,'utf8')),basis=task.sourceReacquisition.nativeBasis;
  const store=await load(current,'abg/event_store'),prefixes=await load(current,'abg/event_prefix'),digest=await load(current,'shared/digests'),immutable=await load(current,'shared/immutable');
  const events=store.readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix);

@@ -21,18 +21,13 @@ import {
 } from "./child_traversal.js";
 import {
   evaluateOwnedExecutableCCall as evaluateExecutableCCall,
-  type CCallLifecycleEvaluation,
   type ExecutableCCallContext,
 } from "./ccall_lifecycle.js";
 import { enterTraversal } from "./entry.js";
 import type {
   EvaluationFrame,
-  HogReturnFrame,
   MachineEvaluationFrame,
-  MachineRecursionReturnFrame,
-  MachineReturnFrame,
   MachineWorkflowReturnFrame,
-  TraversalMachineState,
   WorkflowReturnFrame,
 } from "./evaluation_frame.js";
 import { holdOwnedInteraction as holdInteraction } from "./interaction_lifecycle.js";
@@ -48,7 +43,6 @@ import {
   completeOwnedRecursionChild as completeRecursionChild,
   recursionApplication,
   type CompleteExecutableTraversalInput,
-  type RecursionChildFoldFrame,
 } from "./recursion_lifecycle.js";
 import {
   advanceOwnedRetryLifecycle as advanceRetryLifecycle,
@@ -89,7 +83,6 @@ import {
 import {
   beginOwnedWorkflowLocus as beginWorkflowLocus,
   completeOwnedWorkflowLocus as completeWorkflowLocus,
-  type TraversalLocusEvaluation,
   type WorkflowChildFoldFrame,
   type WorkflowLocusAuthority,
 } from "./workflow_lifecycle.js";
@@ -152,7 +145,6 @@ import type { OwnedExecutableTraversalCompletion } from "./traversal_completion.
 import type { OwnedTraversalMachineState, OwnedMachineReturnFrame } from "./evaluation_frame.js";
 import type { OwnedRecursionChildFoldFrame } from "./recursion_lifecycle.js";
 import type { OwnedTraversalLocusEvaluation } from "./workflow_lifecycle.js";
-import type { OwnedCCallLifecycleEvaluation } from "./ccall_lifecycle.js";
 /** @internal */
 export type ExecuteOwnedGraphTraversalResult = OwnedExecutableTraversalCompletion | GraphTraversalEntryRefusal | GraphTraversalFailureResult;
 function childTraversalBasis(
@@ -806,7 +798,7 @@ function machineFrameFromRehydrated(
 
 function machineWorkflowReturn(
   base: InitialOrNonRetryExecuteGraphTraversalInput,
-  frame: Extract<HogReturnFrame, Readonly<{ relation: "workflow" }>>,
+  frame: WorkflowReturnFrame,
   predecessorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
   ordinal: number,
 ): MachineWorkflowReturnFrame {

@@ -1,7 +1,6 @@
 import type { ModulePublication, RootModuleArtifactBasis, ContractDeclaration, GraphFunction, ClosureContract, ImplementationBinding } from "./contracts.js";
 import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import { modulePublication } from "./declarations.js";
-import { graphEdge } from "./graph_applications.js";
 import { qualificationHash, QUALIFICATION_ROLE_POLICY } from "../validator/qualification_contracts.js";
 const scope = "abiogenesis/qualification/self-conformance";
 export const SELF_CONFORMANCE_IDS = Object.freeze({

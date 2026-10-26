@@ -16,7 +16,6 @@ import {
   projectAdmittedProductInstall,
   type ArtifactAdmissionBasis,
 } from "../abg/environment_admission.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,

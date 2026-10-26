@@ -23,6 +23,7 @@ import {
   contractIndexedPendingSelectors,
   declarationExportSymbols,
   linkNativeContractSet,
+  installedToolchainProductContentDigest,
   resolveNativeDeclarationClosures,
 } from "../../build/code/src/product/declaration_exports.js";
 import {
@@ -33,6 +34,8 @@ import {
 } from "../../build/code/src/product/installed_module.js";
 
 const packageRoot = new URL("../..", import.meta.url).pathname;
+// The link takes the executing identity as an input: one read, passed to every link below.
+const executingToolchain = installedToolchainProductContentDigest();
 const digest = (character) => `sha256:${character.repeat(64)}`;
 const candidateManifest = JSON.parse(
   await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"),
@@ -826,7 +829,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
 
   const linked = linkNativeContractSet(
     [sourceProduct, targetProduct],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(linked.kind, "linked");
   const externalBinding = linked.bindings.find(
@@ -880,7 +883,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         }],
       },
     }],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(unownedPhysicalRelation.kind, "linked");
   assert.deepEqual(unownedPhysicalRelation.selectorDispositions, []);
@@ -944,7 +947,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         }],
       },
     }, targetProduct],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(ownedAndUnownedSameSpecifier.kind, "refused");
   assert.equal(
@@ -961,7 +964,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         productContentDigest: digest("c"),
       },
     }],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(changedTargetIdentity.kind, "linked");
   assert.notEqual(
@@ -971,7 +974,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
   );
   const changedToolchain = linkNativeContractSet(
     [sourceProduct, targetProduct],
-    digest("d"),
+    digest("d"), executingToolchain,
   );
   assert.equal(
     changedToolchain.code,
@@ -987,7 +990,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         requiredContractRefs: [],
       }],
     }, targetProduct],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(missingCoverage.code, "unresolved_dependency");
 
@@ -1028,7 +1031,7 @@ test("S06 native external meaning requires one direct named-symbol contract", as
         productId: intermediate.productId,
       }],
     }, intermediate, targetProduct],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(
     transitiveOnly.code,
@@ -1216,7 +1219,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   assert.equal(
     linkNativeContractSet(
       [source, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).kind,
     "linked",
   );
@@ -1231,7 +1234,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
         ]),
       ],
     }, target],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(contractIndexedStar.kind, "linked");
   assert.deepEqual(
@@ -1289,7 +1292,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   assert.equal(
     linkNativeContractSet(
       [shadowSource, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).kind,
     "linked",
     "a local symbol shadow must not demand authority for the hidden star export",
@@ -1331,7 +1334,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   assert.equal(
     linkNativeContractSet(
       [typeStarSource, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).kind,
     "linked",
     "a type-only star must not demand a value-only target contract",
@@ -1371,7 +1374,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   assert.equal(
     linkNativeContractSet(
       [typeValueSource, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).kind,
     "linked",
     "a type-only exact import may lawfully select a value symbol through typeof",
@@ -1419,7 +1422,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
   assert.equal(
     linkNativeContractSet(
       [directiveProduct, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).kind,
     "linked",
     "triple-slash type references use the same direct per-symbol authority",
@@ -1431,7 +1434,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
         dependencyFor([alpha.contractId, hidden.contractId]),
       ],
     }, target],
-    toolchain.productContentDigest,
+    toolchain.productContentDigest, executingToolchain,
   );
   assert.equal(contractIndexedDirective.kind, "linked");
   assert.deepEqual(
@@ -1482,7 +1485,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
           ],
         },
       }],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).code,
     "ambiguous_dependency",
     "two contracts cannot own the same crossing symbol",
@@ -1520,7 +1523,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
           [augmentingContract],
         ),
       }, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).code,
     "incompatible_dependency",
     "one Product cannot augment another Product's module",
@@ -1557,7 +1560,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
         selfClosures,
         [selfContract],
       ),
-    }], toolchain.productContentDigest).kind,
+    }], toolchain.productContentDigest, executingToolchain).kind,
     "linked",
     "same-Product inventoried augmentation must remain lawful",
   );
@@ -1593,7 +1596,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
           [globalContract],
         ),
       }, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).code,
     "incompatible_dependency",
     "Product-owned globals must refuse in a multi-Product closure",
@@ -1631,7 +1634,7 @@ test("S06 namespace coverage and augmentation remain owner-relative", async () =
           [umdContract],
         ),
       }, target],
-      toolchain.productContentDigest,
+      toolchain.productContentDigest, executingToolchain,
     ).code,
     "incompatible_dependency",
     "export-as-namespace must be treated as Product-owned global meaning",
@@ -1711,7 +1714,7 @@ test("S06 native applicability preserves complete nested suppliers and exact nat
     };
   };
   const core = await nativeProduct("core", "export interface Core { readonly value: string; }\n", "Core");
-  const link = products => linkNativeContractSet(products, toolchain.productContentDigest);
+  const link = products => linkNativeContractSet(products, toolchain.productContentDigest, executingToolchain);
   await context.test("complete nested supplier contributes nothing and preserves native results in either position", () => {
     const before = structuredClone(empty);
     const singleton = link([core]);

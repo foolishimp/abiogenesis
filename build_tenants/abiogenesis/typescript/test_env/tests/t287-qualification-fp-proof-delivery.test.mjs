@@ -24,7 +24,7 @@ const baselineTenant = process.env.ABI5_F11_FP_BASELINE_TENANT;
 const reportPath = process.env.ABI5_F11_FP_PROOF_REPORT;
 
 test('qualification F_P proof delivery preserves the actual prepared request and exact owner arguments',
-  {skip: !packetPath || !baselineTenant}, async t => {
+  {skip: (!packetPath || !baselineTenant) && 'ABI5_F11_FP_ASSESSMENT_PACKET or ABI5_F11_FP_BASELINE_TENANT unset; requires the prepared F_P assessment packet and baseline tenant'}, async t => {
     const started = performance.now();
     const packet = JSON.parse(fs.readFileSync(packetPath, 'utf8'));
     const manifestPath = resolve(packetPath, '..', packet.assertionManifestFile);

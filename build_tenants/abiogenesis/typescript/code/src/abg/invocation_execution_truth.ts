@@ -34,10 +34,11 @@ import { canonicalEquals } from "../shared/value/index.js";
 import { projectExactExecutionBasisRecordAtPrefix } from "./calculus/execution_basis_record.js";
 
 /** The governance source's exact Result coordinates: the context data of its
- * Result record. */
+ * Result record. `sourceResultValueDigest` identifies the value, so the value
+ * is not key data; the reader compares it with the recorded Result's value. */
 type GovernanceSourceResultContext = Readonly<{
   sourceResultAdmissionEventRef: string; sourceResultRef: string; sourceResultDigest: Sha256Digest;
-  sourceResultValueDigest: Sha256Digest; sourceResultValue: JsonValue; sourceCCallRef: string; sourceRunId: string;
+  sourceResultValueDigest: Sha256Digest; sourceCCallRef: string; sourceRunId: string;
 }>;
 
 const GOVERNANCE_SOURCE_RESULT_MISMATCH: StructuralRefusal = Object.freeze({
@@ -50,15 +51,14 @@ const GOVERNANCE_SOURCE_RESULT_MISMATCH: StructuralRefusal = Object.freeze({
 
 /** One `c_call_result_admitted` event as the checked Result of a governance
  * source: the projection compares the admitted Result with the source's
- * coordinates and value; the digest leg compares its `resultDigest` with the
- * source's. */
+ * coordinates and value digest; the digest leg compares its `resultDigest`
+ * with the source's. */
 const GOVERNANCE_SOURCE_RESULT_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<string, JsonValue>>, GovernanceSourceResultContext> =
   Object.freeze({
     project: (event: RuntimeEvent, source: GovernanceSourceResultContext): Outcome<Readonly<Record<string, JsonValue>>> =>
       isRecord(event.payload) &&
         event.payload.resultRef === source.sourceResultRef &&
         event.payload.valueDigest === source.sourceResultValueDigest && event.payload.value !== undefined &&
-        canonicalEquals(event.payload.value, source.sourceResultValue) &&
         event.aggregateId === source.sourceCCallRef && event.runId === source.sourceRunId
         ? ok(event.payload) : GOVERNANCE_SOURCE_RESULT_MISMATCH,
     digest: Object.freeze({
@@ -89,21 +89,24 @@ export function projectGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix, in
   try {
     const { source, predecessorPrefix, workspaceBinding, program, graphFunction, currentDeclaration } = input;
     if (prefix.kind === "runtime_validation_event_prefix") return null;
-    const events = runtimeEventBodiesAtPrefix(prefix), physical = runtimeEventPhysicalPrefix(isOwnedRuntimeEventPrefix(prefix) ? prefix.selection : runtimeEventsFromValidatedPrefix(prefix));
+    runtimeEventBodiesAtPrefix(prefix);
+    const physical = runtimeEventPhysicalPrefix(isOwnedRuntimeEventPrefix(prefix) ? prefix.selection : runtimeEventsFromValidatedPrefix(prefix));
     if (physical.byteLength !== predecessorPrefix.prefixLength || physical.digest !== predecessorPrefix.prefixDigest ||
         source.sourceResultContractRef !== governanceContract("state")) return null;
     const invocation = projectExactInvocationAdmissionAtPrefix(prefix, source.sourceInvocationAdmissionRef);
     const sourceResult: GovernanceSourceResultContext = {
       sourceResultAdmissionEventRef: source.sourceResultAdmissionEventRef, sourceResultRef: source.sourceResultRef,
       sourceResultDigest: source.sourceResultDigest, sourceResultValueDigest: source.sourceResultValueDigest,
-      sourceResultValue: source.sourceResultValue, sourceCCallRef: source.sourceCCallRef, sourceRunId: source.sourceRunId,
+      sourceCCallRef: source.sourceCCallRef, sourceRunId: source.sourceRunId,
     };
     const result = checkedRecordAtPrefix(prefix, GOVERNANCE_SOURCE_RESULT_RECORD, sourceResult, () => checkExactRecord(
       resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + source.sourceResultAdmissionEventRef),
         e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted"),
       GOVERNANCE_SOURCE_RESULT_RECORD, sourceResult));
     // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
-    const resultEvent = result.kind === "one" ? result.event : undefined;
+    // The record checks the value digest; the value itself is compared here.
+    const resultEvent = result.kind === "one" && result.value.value !== undefined &&
+      canonicalEquals(result.value.value, source.sourceResultValue) ? result.event : undefined;
     if (invocation === null || resultEvent === undefined ||
         invocation.workspaceBindingId !== source.workspaceBindingId || invocation.workspaceBindingDigest !== source.workspaceBindingDigest ||
         invocation.workspaceId !== workspaceBinding.workspaceId || invocation.actorRef !== workspaceBinding.authorizedActorRef ||
@@ -173,7 +176,7 @@ function coveredGovernancePredecessor(prefix: RuntimeEventPrefix,
       !isGovernanceWorkState(source.sourceResultValue) || source.sourceResultValue.terminal ||
       actual.rawInputDigest !== source.sourceResultValueDigest) return null;
   const before = validatedRuntimeEventPrefixBeforeEvent(prefix, actual.publicOperationEventRef);
-  const events = runtimeEventBodiesAtPrefix(before);
+  runtimeEventBodiesAtPrefix(before);
   const predecessor = projectExactInvocationAdmissionAtPrefix(before, source.sourceInvocationAdmissionRef);
   const result = indexedRuntimeEvents(before, "id:" + source.sourceResultAdmissionEventRef).find(e => e.eventId === source.sourceResultAdmissionEventRef && e.kind === "c_call_result_admitted");
   const judgment = indexedRuntimeEvents(before, "id:" + source.sourceResultJudgmentEventRef).find(e => e.eventId === source.sourceResultJudgmentEventRef && e.kind === "c_call_judged");
@@ -539,7 +542,7 @@ export function projectExactRunInvocationFactsAtPrefix(
 export function projectExactRunInvocationFactsAtPrefix(
   prefix: RuntimeEventPrefix,
 ): ExactRunInvocationFacts {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const ownerEvents = indexedRuntimeEvents(prefix, "kind:" + "invocation_admitted").filter((event) =>
     event.kind === "invocation_admitted"
   );

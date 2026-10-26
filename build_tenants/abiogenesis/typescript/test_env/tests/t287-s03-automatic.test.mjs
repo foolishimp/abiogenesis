@@ -10,7 +10,7 @@ test('S03 Phase A pure declaration and finite domain construction',async()=>{
  await save(proof,'pure-preflight.json',result);
 });
 
-test('S03 Phase B ordinary installed positive and no-action', {skip:process.env.ABI5_S03_PHASE_B_RELEASE!=='ROOT_RELEASED_PHASE_B'},async()=>{
+test('S03 Phase B ordinary installed positive and no-action', {skip:process.env.ABI5_S03_PHASE_B_RELEASE!=='ROOT_RELEASED_PHASE_B'&&"ABI5_S03_PHASE_B_RELEASE is not 'ROOT_RELEASED_PHASE_B'; selects the S03 Phase B installed proof"},async()=>{
  const prior=await read(join(proof,'../s7-pending-consumer-01/selected-action-09/same-basis/environment.json'));
  await runInstalledProof({proof,prior,oracle:await read(join(proof,'oracle.json')),release:process.env.ABI5_S03_PHASE_B_RELEASE});
 });

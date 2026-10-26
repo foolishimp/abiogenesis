@@ -50,12 +50,10 @@ import type {
   ExactStartRunInvocation,
 } from "../product/invocation.js";
 import {
-  applyCatalogDeclaration,
   lookupGraphFunction,
   lookupGraphFunctionDefinition,
 } from "../product/catalog.js";
 import {
-  isCapabilityGrant,
   isInvocationAuthority,
   isInvocationPolicyBasis,
   isPublicInvocationCandidate,
@@ -431,9 +429,9 @@ function deriveSourceResultBasisAtPrefix(
   input: InvocationSourceResultDerivationInput,
   requireClosedRun: boolean,
 ): ProductInvocationSourceResultBasis | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const runPrefix = selectRuntimeEventPrefixFromAuthority(prefix,{runId:input.runId});
-  const runEvents = runtimeEventBodiesAtPrefix(runPrefix);
+  runtimeEventBodiesAtPrefix(runPrefix);
   const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(
     prefix,
     input.invocationAdmissionRef,
@@ -1367,7 +1365,7 @@ function admitInvocationWithRequest(
     }
   } else {
     const reentry = input.reentryBasis;
-    const predecessorEvents = runtimeEventBodiesAtPrefix(
+    runtimeEventBodiesAtPrefix(
       predecessorPrefix,
     );
     const sourceInvocation = rehydrateInvocationAdmissionAtPrefix(

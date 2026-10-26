@@ -5,7 +5,7 @@ import { RuntimeDerivationSource } from "./runtime_derivation.js";
 import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue,
   type InlineBody, type InlineBodyReader, type InlineEventBodies } from "./event_body_encoding.js";
 import { RuntimeHistory, RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistoryRow, runtimeHistorySelectorKeys,
-  type RuntimeEventBodyLocation, type RuntimeEventHistoryRow } from "./runtime_history.js";
+  type RuntimeEventBodyLocation } from "./runtime_history.js";
 import {
   closeSync,
   constants,
@@ -16,7 +16,6 @@ import {
   lstatSync,
   mkdirSync,
   openSync,
-  readFileSync,
   readSync,
   statSync,
   unlinkSync,
@@ -36,13 +35,6 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isRunEnvironmentEvidence } from "./stdo_environment.js";
-import {
-  isWorksiteEffectAuthorization,
-  isWorksiteFileReplaceReceipt,
-  isWorksiteFileReplaceRequest,
-  isWorksiteObservation,
-  WORKSITE_FILE_REPLACE_EFFECT_URI,
-} from "../product/worksite_effect.js";
 import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 import {
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST,

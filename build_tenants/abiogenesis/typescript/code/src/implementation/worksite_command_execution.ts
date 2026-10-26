@@ -3,9 +3,7 @@ import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forwar
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
   executableWorksiteCommandSources as worksiteExecutionSources, executableWorksiteCommandLocus as worksiteExecutionLocus,
   executableWorksiteCommandImplementationRef as worksiteExecutionImplementationRef,
-  executableWorksiteCommandIdentityPrefix as worksiteExecutionIdentityPrefix,
-  type ExecutableWorksiteCommandTask as WorksiteExecutionTask,
-  type ExecutableWorksiteSnapshotMember as WorksiteExecutionSnapshotMember } from "../product/worksite_command_forward.js";
+  type ExecutableWorksiteCommandTask as WorksiteExecutionTask } from "../product/worksite_command_forward.js";
 import {
   WORKSITE_PREPARATION_IDS, isWorksitePreparationInput, isWorksitePreparationBoundInput,
   selectWorksiteConstructionTask, prepareWorksiteCommandTask,
@@ -25,7 +23,7 @@ import {
 } from "node:fs";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 
-import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
+import { selectedWorksiteCommandExecutionLimits, type ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis } from "../abg/execution_basis.js";
 import { requireWorksiteNativeInstructionAssembly, type NativeInstructionAssembly, worksiteCommandExecutionAttemptRef } from "../abg/instruction_assembly.js";
 import {
@@ -44,7 +42,6 @@ import {
   worksiteCommandExecutionHelperPlan,
   worksiteCommandExecutionWorkerResultSchema,
   projectWorksiteCommandExecutionBudget,
-  type WorksiteCommandExecutionLimits,
   type WorksiteCommandExecutionHelperPlan,
 } from "../product/worksite_command_execution.js";
 import { observeWorksiteSubject } from "../product/worksite_operations.js";
@@ -611,10 +608,7 @@ function manifestPairIsCurrent(
   }
 }
 
-export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
-  return { absoluteTimeoutMs: Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000"),
-    inactivityTimeoutMs: Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000") };
-}
+export { selectedWorksiteCommandExecutionLimits };
 
 export function realizeWorksiteCommandExecution(
   input: Readonly<WorksiteExecutionTask>,

@@ -116,7 +116,7 @@ test('RC7 source citation boundary: real corpus access, both compiled role assem
 });
 
 test('preserved failed RC6 output still has thirteen valid quotes and one ineligible role-frame quote',async t=>{
-  if(!process.env.ABI5_ENV_PRIOR_EVENTS){t.skip('requires preserved failed pilot history');return;}
+  if(!process.env.ABI5_ENV_PRIOR_EVENTS){t.skip('ABI5_ENV_PRIOR_EVENTS unset; requires preserved failed pilot history');return;}
   const bytes=await readFile(process.env.ABI5_ENV_PRIOR_EVENTS),events=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
   const priorDeclaration=events.find(e=>e.kind==='invocation_admitted'&&e.payload.stdoEnvironment).payload.stdoEnvironment.declaration;
   assert.equal(priorDeclaration.source.releaseUri,'stdo://releases/v2.5.0-rc.6/');

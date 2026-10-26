@@ -13,7 +13,7 @@ import { readGenericJobThroughFreshPublic } from "../support/t287-generic-job-re
 
 const packageRoot = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirname, "../..");
 test("installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners", { timeout: 3600000,
-  skip: process.env.ABI5_GENERIC_JOB_FULL_NATIVE !== "1" }, async () => {
+  skip: process.env.ABI5_GENERIC_JOB_FULL_NATIVE !== "1" && "ABI5_GENERIC_JOB_FULL_NATIVE is not '1'; selects the installed full native job traversal" }, async () => {
   const environment = await setupInstalledRootCatalog({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
     prepareAdditionalProducts: async basis => [await prepareGenericJobIntakeProduct({ ...basis, declarationFactory: genericRevisionPublicationData })],

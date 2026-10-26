@@ -295,7 +295,7 @@ test('CCall refusal completion keeps full authority across sparse multi-Run scop
  const outcome=await sourceOwner('abg/c_call_outcome',{'./c_call.js':{...owner,completeRejectedCCall:(...args)=>{completionCalls++;
   assert.deepEqual([...prefixes.runtimeEventBodiesAtPrefix(args[1])],[...eventsAt(authority)],'handoff conserves the full authority cut');
   return owner.completeRejectedCCall(...args);}}});
- const basis={correlationId:'correlation://refusal',causationEventRefs:[]};
+ const basis={correlationId:'correlation://refusal',causationEventRefs:[],eventTime:'2026-09-24T00:00:00.000Z'};
  const initial=eventsAt(held(warm.store));
  const full=prefixes.selectValidatedRuntimeEventPrefix(initial),sparse=prefixes.selectRuntimeEventPrefixFromAuthority(full,{runId});
  assert.deepEqual(sparse.events.map(e=>e.admissionOrdinal),[1,3,4]);

@@ -1149,7 +1149,7 @@ test("T-287 C2 compact acknowledgment preserves installed large-log observation 
 // entry prefix and at the source Run's closure, and after a first C2 Run they
 // differ. The helper-failure run therefore has its own installed setup and C1.
 test("T-287 C2 helper failure after launch reaches result admission with its subject inline", {
-  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "command_cleanup_unresolved"));
 
 test('C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries', async () => {
@@ -1403,11 +1403,11 @@ async function assertHelperFailureMode(mode, { task, subject, artifact, paths })
 
 // Each HTTP class has its own installed setup and C1, as the cleanup case does.
 test("T-287 C2 helper failure http_probe_failed through the installed helper reaches result admission with its subject inline", {
-  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "http_probe_failed"));
 
 test("T-287 C2 helper failure http_cleanup_unresolved through the installed helper reaches result admission with its subject inline", {
-  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "http_cleanup_unresolved"));
 
 // A launch that establishes no child, through the installed helper. The declared
@@ -1588,9 +1588,9 @@ async function assertLaunchFailureAdmitted(context, { environment, product, abg,
 
 // Each launch-failure case has its own installed setup and C1, as the cleanup case does.
 test("T-287 C2 command launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission", {
-  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "command_spawn_enoexec"));
 
 test("T-287 C2 HTTP launch spawn error ENOEXEC through the installed helper publishes the no-child launch failure and reaches result admission", {
-  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined,
+  timeout: 180_000, skip: process.env.ABG_T287_C2_PROOF_CONFIG !== undefined && "ABG_T287_C2_PROOF_CONFIG set; the selected installed proof runs only the compact acknowledgment case",
 }, (context) => installedC2Case(context, "http_spawn_enoexec"));

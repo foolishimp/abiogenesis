@@ -1,5 +1,4 @@
 /** Closed D2-only source carriers. Origins are evidence coordinates, not grants. */
-import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";

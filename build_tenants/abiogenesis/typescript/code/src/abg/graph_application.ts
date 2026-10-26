@@ -323,7 +323,7 @@ export function isAdmittedApplicationChildFoldbackAtPrefix(
   prefix: RuntimeEventPrefix,
   value: ApplicationChildFoldbackAdmission,
 ): value is ApplicationChildFoldbackAdmission {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const projected = projectApplicationChildFoldbackAtPrefix(prefix, {
     runId: indexedRuntimeEvents(prefix, "id:" + value.admissionEventRef).find(
       (event) => event.eventId === value.admissionEventRef,
@@ -360,7 +360,7 @@ export function isAdmittedApplicationChildPreparationRefusalAtPrefix(
   prefix: RuntimeEventPrefix,
   value: ApplicationChildPreparationRefusalAdmission,
 ): value is ApplicationChildPreparationRefusalAdmission {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const projected = projectApplicationChildPreparationRefusalAtPrefix(prefix, {
     runId: indexedRuntimeEvents(prefix, "id:" + value.admissionEventRef).find(
       (event) => event.eventId === value.admissionEventRef,
@@ -402,7 +402,7 @@ export function projectApplicationChildPreparationRefusalAtPrefix(
   if (coordinates.runId.length === 0 || coordinates.refusalRef.length === 0) {
     return null;
   }
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const event = indexedRuntimeEvents(prefix, "kind:" + "child_preparation_refused").find(
     (candidate) =>
       candidate.kind === "child_preparation_refused" &&
@@ -486,7 +486,7 @@ export function projectApplicationChildFoldbackAtPrefix(
   if (coordinates.runId.length === 0 || coordinates.foldbackRef.length === 0) {
     return null;
   }
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const event = indexedRuntimeEvents(prefix, "kind:" + "child_foldback_admitted").find(
     (candidate) =>
       candidate.kind === "child_foldback_admitted" &&
@@ -867,7 +867,7 @@ function admitRecursiveApplicationChildFoldback(
             "application foldback requires the exact evaluated parent cursor and CCall",
           );
         }
-        const events = runtimeEventBodiesAtPrefix(prefix);
+        runtimeEventBodiesAtPrefix(prefix);
         const eventCalculus = deriveRuntimeHeldFluentProjection(prefix);
         const parentJudgmentEvent = indexedRuntimeEvents(prefix, "related:" + parentCCall.cCallRef).find(
           (event) =>

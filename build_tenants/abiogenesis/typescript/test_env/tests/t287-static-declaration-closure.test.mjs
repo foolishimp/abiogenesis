@@ -241,7 +241,7 @@ test('borrowed implementation declarations retain dependency, uniqueness and ins
 
 test('frozen81 unchanged ready basis resolves where its predecessor refused', async context => {
   const inputPath = process.env.ABI5_STATIC_CLOSURE_CAPTURED_INPUT;
-  if (!inputPath) {context.skip('requires the exact frozen81 input; portable source checks above remain active'); return;}
+  if (!inputPath) {context.skip('ABI5_STATIC_CLOSURE_CAPTURED_INPUT unset; requires the exact frozen81 input; portable source checks above remain active'); return;}
   const bytes = await readFile(inputPath);
   assert.equal(bytes.length, 35510031);
   assert.equal(createHash('sha256').update(bytes).digest('hex'),

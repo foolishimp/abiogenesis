@@ -8470,3 +8470,459 @@ Stops (write the stop in the Return, keep the rest moving): the descriptor-only 
 Return contract: one commit on `main`, staged by path, first line `C-18a: the code remainder of Phase C: one read of the log per Public read, the retired names and dead code of C-16, C-17 and M-4 deleted, one retry recording shape, one condition function for the execution-basis rehydrates, the executing identity an input at its three remaining readers, M-5b's and M-6's residuals; no contract change`, with any gap stated in place; the Return before the commit so the commit carries it: item 1's counter before and after, the retired names with their exit greps, item 3 (b)'s six sites and their shape, item 4's census (writers, key, the condition function's callers and the record-read counts), item 5's boundaries and the `--noUnusedLocals` table, item 7's classification, the lanes table, the lint and gates, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
 
 **Correction (Executive, 2026-10-26, before the Worker's launch).** Item 2's "the full lane list of this package runs once after the support edit" is withdrawn: after the support edit, one lane that loads `root-installed-environment.mjs` runs once (name it in the Return); the full list runs once, at the after pass, which covers all 38 loaders. Two whole-suite passes in this package, not three.
+
+## C-18a return (Worker, Opus 5.5, 2026-10-26; base `0bd19086f`)
+
+**No: closed with stops and a gap.** Done, with no contract change:
+- item 2: C-17's names, plus C-16's and M-4's dead code, are deleted;
+- item 3 (a) and (b): one retry recording shape across the six sites;
+- item 4 (b) and (c);
+- item 5 (a), and (b) at two of the three readers;
+- item 6 (a) at `readSelfConformanceCatalog` and the semantics provider; (b); (c); (d)'s one reader; (f1); (f2); (f3) except admission;
+- item 7.
+
+Seven stops:
+1. **Item 1.** The descriptor-only reopen is a stated design choice. The lane's `:105` is restated to the design's count, so the lane stays red one assertion later, at `:114`.
+2. **Item 4 (a).** The census places the absent member in a projection rebuild. Neither branch is a realization refactor there.
+3. **Item 5 (b) at `declaration_application.ts`.** Its boundary is the exported function, whose signature stays, so it has no source for the identity. It calls the one reader and stays, named.
+4. **Item 6 (a) at `validator/qualification.ts`'s two defaults.** Admitting the executing package there moves `t287-native-runtime-gate`, because the lane's isolated compiled copy is not an admissible executing package. The two defaults keep the base's module-relative reads.
+5. **Item 6 (d)'s basis-member half.** It moves `t287-native-semantic-job`.
+6. **Item 6 (e).** The renderer's built bytes are pinned by a `gtl/` declaration.
+7. **Item 6 (f3) at admission.** Lanes substitute admission's own manifest read.
+
+One gap: **the `--noUnusedLocals` census is 3, not 0.** Two entries are in `public/*` and one is behind stop 6.
+
+**Lanes.** Both passes ran on clean trees: 212 lanes, each run alone, plus the compose scenario.
+
+| | tests | pass | fail | skip | red lanes |
+|---|---|---|---|---|---|
+| before | 1,153 | 794 | 164 | 195 | 92 |
+| after | 1,154 | 795 | 164 | 195 | 92 |
+
+Only the named cases moved:
+- item 1's exit: `t287-cross-cut-public-read`'s first error moves from `:105` to `:114`;
+- item 6 (f2)'s added case: `t291-m6-admission-refusal-surface` goes from 4/4 to 5/5.
+
+Every other lane keeps its counts, reds, skips, failing cases and first errors. All 195 skips now carry a reason, against 80 without one at the base.
+
+### Item 1: one read of the log per Public read (stop)
+
+**The stop.** `design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md`, *Operational history representation* (`:64`), states how the owner treats an acquisition. Cold acquisition "validates the complete selected extent with bounded record decoding". The owner retains "envelope, ordinal, cause, profile and physical-body locations … and the verified bodies of its current generation, read by location and digest". The next paragraph says validation and complete output "do not become compulsory resident populations at later internal handoffs". So the reopen decodes for validation and keeps locations, and the first materialization reads each body by its location. That is the activation's stop case. `event_store.ts` is untouched.
+
+**The lane.** The lane's `:105` is restated to the design's count, `Math.ceil(f.bytes.length/65536)+f.rows.length`, with the design cited in a comment above it.
+- The assertion now passes: 1,053 is 207 chunks plus 846 rows.
+- The lane stays 5/4/1/0. Its first error moves to the byte assertion at `:114`, which was `:106` at the base: `run_status reconstructs history only at acquisition`, 27,080,944 against 13,540,472.
+- That assertion states the same one-pass claim in bytes. It is not among the named cases, so it is not restated. Its restatement is the owner's call; see Findings.
+
+**Counter.** The lane's own `readSync` and byte measurement served as the counter. The before figures came from the counter pass on the instrumented base; the after figures from the instrumented after tree.
+
+| | reads (`run_status`) | bytes |
+|---|---|---|
+| before | 1,053 (`1053 !== 1` at `:105`) | 27,080,944 |
+| after | 1,053 (the restated `:105` passes) | 27,080,944 (`:114`'s first error) |
+
+Both runs measure 2 passes: 207 descriptor chunks of 64 KiB plus 846 body reads.
+
+### Item 2: the retired names
+
+**Deleted.**
+- `test_env/support/root-installed-environment.mjs`: the `interactionOwner` import (`:350-352`) and its return member (`:573`).
+- `code/src/hog/interaction_resume.ts`, the whole file.
+- `proposeInteractionResumeRoute`: its three overloads in `route_proposal.ts` and its `./hog` export.
+- `deriveInteractionResumeCursor`, by census: no caller in `code/`, `test_env/`, `scripts/` or `contracts/`. It and its `./hog` export are gone.
+- `prepareInteractionResumeTraversalEntry` in `entry.ts`.
+- `projectOwnedHeldTraversalCompletion` and `projectHeldTraversalCompletion` in `traversal_completion.ts`.
+- `RecursionReturnFrame`. `HogReturnFrame` collapses to `WorkflowReturnFrame` in `evaluation_frame.ts`, and `graph_execute.ts` takes `frame: WorkflowReturnFrame`.
+
+**Kept:** `resume_not_admitted`, `deriveFhResumeSuccessorInput` and `AtPrefix`, `InteractionResumeTraversalEntryInput`, and the readers of `fh_interaction_resume_admitted`.
+
+**Exports.** The export map (`package.json` `exports`) names no retired module, and `public/*` names no retired symbol. A checker listing of the names exported by the export map's 15 entries goes from 4,873 at the base build to 4,869. `./hog` loses `proposeInteractionResumeRoute` and `deriveInteractionResumeCursor`, as item 2 directs for the `./hog` export ("the class of the exports C-17 removed; no contract row"). `.` loses the same two names, because it re-exports `./hog/index.js` with `export *`. No name is added, and no row under `contracts/` names either symbol.
+
+**Support check.** After the support edit, one lane that loads the support ran once: `t287-management-context`, 14/12/0/2, equal to the base. Its setup case skips, so `t287-st2a-e-exact-prefix-workspace-environment` also ran once, because it executes `setupInstalledRootCatalog`: 1/1/0/0, equal. See Deviations.
+
+**Exit greps.** All were run from the tenant, with `code`, `test_env/support`, `test_env/tests` and `scripts` as separate pathspecs, and each is 0. The positive control is `readQualificationCatalog`, which is 4 (stop 4's residue).
+- `git grep -E "interaction_resume\.(js|ts)|/interaction_resume\b"`;
+- `-w` greps for `proposeInteractionResumeRoute`, `deriveInteractionResumeCursor`, `prepareInteractionResumeTraversalEntry`, `projectOwnedHeldTraversalCompletion`, `projectHeldTraversalCompletion`, `RecursionReturnFrame`, `HogReturnFrame` and `interactionOwner`.
+`MachineRecursionReturnFrame` and the `fh_interaction_resume_admitted` readers are different names and stay.
+
+The same zero holds for the dead code of C-16 and M-4 deleted here:
+- `positiveNumberArray`;
+- `RuntimeEventWithBody`;
+- the `PROCESS_TIMEOUT_MS` and `PROCESS_ABSOLUTE_TIMEOUT_MS` constants;
+- and, from the census, `admitFhInteractionResponse`, `executionBasisDescendsFromRootInvocation` (and `AtPrefix`), and `-w resolveCurrentContinuationOperationCoordinate`.
+
+**Residue outside the grant, named:**
+- The evidence copies `test_env/proof/abi5-root-r10.json`, `.outcomes.json` and `.transcript.json` name `proposeInteractionResumeRoute` and `deriveInteractionResumeCursor`.
+- `test_env/fixtures/continuation-causation.json` and the retained `test_env/fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl` name the built module's path.
+- Designs name retired symbols as owners. `design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md:1308` names `deriveInteractionResumeCursor`: "retain in `src/hog`". `:1306` and `:1639` name `admitFhInteractionResponse`, and so does `design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:2331`.
+- Each of these was dead at the base: no caller.
+
+### Item 3: C-16's residuals
+
+**(a)** In `abg/retry.ts`:
+- The unused imports go: `deriveCSourceContinuation`, `admitPlannedCCallRuntimeFailureClose`, `rehydrateExecutionBasis`, `RuntimeEventCalculusProjection` and `progressBody`.
+- The type `RuntimeEventWithBody` and `positiveNumberArray` go.
+- The unread `snapshot` validates by throwing: `runtimeEventsFromValidatedPrefix` raises a `TypeError` on a non-nominal prefix. So the call is kept as the statement `runtimeEventBodiesAtPrefix(prefix);` and only the binding goes.
+
+**(b) One recording shape.** Every site now records `constructRuntimeFailureDiagnosticRef({stage, candidate})`, the inline subject C-16 introduced. The `subjectDigest` law and every event payload key are unchanged, and no key is new.
+
+| site | stage | candidate | base |
+|---|---|---|---|
+| `hog/retry_lifecycle.ts:736` (C-16) | `retry-resume` | `resume` | unchanged |
+| `hog/structural_transition.ts:277` (C-16) | `structural-transition-…` | `committed` | unchanged |
+| `hog/retry_lifecycle.ts:569` | `retry-failure-plan` | `failurePlan` | class-only `diagnostic://abiogenesis/hog/<code>@5` |
+| `hog/retry_lifecycle.ts:688` | `retry-failure-transition` | `retryTransition` | class-only |
+| `hog/retry_lifecycle.ts:712` | `retry-input-projection` | `retry` | class-only |
+| `hog/structural_transition.ts:193` | `structural-progress-<ordinal>` (one `stage` binding, also passed as `failTraversal`'s stage) | `progressPlan` | class-only |
+
+- Every site has a candidate, so none records `candidate: null`.
+- **Census of the lanes that read the four sites' records: none.** No lane drives the four refusal arms, so no assertion is restated. The shape is verified by type and by construction only; see What could not be verified.
+- Not touched: the neighbouring class-only sites that are not retry recording sites. These are `retry-blocked-route` and `retry-blocked-transition`, and the four `successful_retry_exit_plan_refusal` sites in `ccall_lifecycle`, `recursion_lifecycle` and `workflow_lifecycle` (two). They are named in Findings.
+
+**(c)** `test_env/fixtures/continuation-causation.json` is an evidence copy: it has no regeneration owner, and the build does not write it. It is not edited. It and its reader `t287-continuation-causation` (1/1/0/0 at the base and after) are named for C-18b.
+
+### Item 4: C-14's residuals
+
+**(a) The writers' census (stop).**
+
+*Probes.* The counter pass placed a `// C18A` probe:
+- after each writer of `evidenceContractRef` into a CCall:
+  - `c_call.ts`, nine sites: the leaf, interaction, workflow and child openings, plus the rehydrates;
+  - `continuation.ts:666`;
+  - `hog/traversal.ts:749`;
+- at the two execution-basis writers (`execution_basis.ts:2168`, `:2703`);
+- at the reader, `undispatchedResultRelation`'s context.
+
+*What the probes showed.* Over 22 lanes and compose:
+- No writer ever produced an absent member.
+- The reader saw it absent 39 times:
+  - 13 on `arm://abiogenesis/conformance/hello-world/fd@5` leaf calls, in `r10-projection-contracts`;
+  - 10 on a `d2-continuation` leaf arm and 16 on `workflow.C`, both in `t287-cross-cut-public-read`.
+- A stack probe on a scratch copy of the base build traced the calls. They come from `project_read_ports.ts` `terminalOutcomeFromSelectedFacts` (`:494-498`) and from the lane's own CCalls (`r10-projection-contracts:161`, `:164`).
+- That rebuild, and its twin at `:1355`, constructs the CCall as `{...opened payload, ...fibre payload, …}`. Neither event carries an evidence contract: the event contract's opened body has `failureContractRef` only. `c_call.ts:1261`'s carrier, typed `as unknown as CCall`, has the same gap.
+- So the absence is not specific to workflow children: it belongs to the projection rebuild.
+
+*Why neither branch is taken.* Neither is a realization refactor at this site.
+- **The child gets the field.** The rebuild holds the execution basis. But the basis's `evidenceContractRef` is the graph function's closure contract, while a leaf CCall's is its requirement's (`c_call.ts:2668`, `declaredTerm.requirement.evidenceContractRef`). The rebuild would need the declared term, which is a reframe of the projection. It would also change what the undispatched relation projects for those calls, which is a Public read value.
+- **The type follows the runtime** (`string | null`, with `null` set at the rebuild). `tsc` then names four sites. Two of them pass the member into evidence writers whose event contract requires a string: `admitWorkflowChildPreparationRefusal` (`c_call.ts:3997`) and `stageCCallResult`'s `admitEvidence` (`c_call_outcome.ts:1181`). That would need a guard or a cast at writers that only ever see constructed CCalls. The type change also moves `c_call.d.ts` in the declaration closures.
+
+*Outcome.* Stopped for the owner. The type is unchanged.
+
+**(b) Reader 5's key.**
+- `GovernanceSourceResultContext` in `invocation_execution_truth.ts` drops `sourceResultValue`. The key is the remaining context, and `sourceResultValueDigest` identifies the value.
+- The projection checks the payload's `valueDigest` and the value's presence.
+- After the record, the value itself is compared by `canonicalEquals`, so a `one` record carries no claim about a different value under the same digest.
+- The one-per-key law and the refusals are as C-14 left them. Reader 5 is reached by no lane, at the base and after.
+
+**(c) One condition function.**
+- `execution_basis.ts` gains `admittedSetPayloadAgrees(keys, ref, digest, body, payload)`, over two frozen key tables: `IMPLEMENTATION_SET_KEYS` and `INTERACTION_SET_KEYS`.
+- It states the scheme-and-digest ref law, the payload's ref and digest equalities, and the recorded set's canonical equality to `{ref, digest, ...body}`.
+- Its callers are the four:
+  - `hasAdmittedImplementationSetAtPrefix`;
+  - `rehydrateImplementationSet…AtPrefix`;
+  - `hasAdmittedInteractionSetAtPrefix`;
+  - `rehydrateInteractionSet…AtPrefix`.
+- Each `has*` keeps its own `sha256Canonical(body)`, and its `implementation_admitted` kind and record checks.
+
+*Counters.* Record reads by `checkedRecordAtPrefix` caller and outcome, from the counter pass over the same 22 lanes plus compose, before and after. The table follows.
+
+| reader (function, module) | outcome | before | after |
+|---|---|---|---|
+| `projectExactInvocationAdmissionAtPrefix`, `invocation_execution_truth` | record / acquire-one / acquire-invalid / validation | 979 / 395 / 2 / 2 | 979 / 395 / 2 / 2 |
+| `projectRetryAttempt`, `retry` | record / acquire-one / non-I-JSON / validation | 176 / 63 / 2 / 50 | 176 / 63 / 2 / 50 |
+| `scopeForBasis`, `project_read_ports` | record / acquire-one / acquire-absent | 51 / 33 / 1 | 51 / 33 / 1 |
+| `projectTraversalInputAtPrefix`, `traversal_cursor` | acquire-absent | 22 | 22 |
+| `undispatchedResultRelation`, `c_call` | acquire-invalid / acquire-one / record / non-I-JSON / validation | 398 / 2 / 2 / 39 / 106 | 398 / 2 / 2 / 39 / 106 |
+| reader 5 (`GOVERNANCE_SOURCE_RESULT_RECORD`), `invocation_execution_truth:102`; `worksite_revision:421` | any | 0 | 0 |
+
+- The rows are equal per lane as well as in total.
+- The four `execution_basis.ts` functions read no checked record: they scan the prefix's events. So their record-read count is 0 before and after, and the item 4 (c) change leaves every reader's count unchanged.
+- The record counters ran on the first after tree. The final tree differs from that tree only in `validator/qualification.ts` (stop 4), which calls no `checkedRecordAtPrefix`.
+
+C-14's reader numbers 3, 4 and 8 cannot be mapped from the sections this package may read, so the table names each reader by its function.
+
+### Item 5: M-4's residuals
+
+**(a) Parameters.**
+- `resolveProductArtifacts(artifacts, executingToolchainProductContentDigest)` and `linkNativeContractSet(products, toolchainProductContentDigest, executingToolchainProductContentDigest)` now take the identity as a required parameter, with no default.
+- Neither is a `./product` export.
+- The three lanes pass one read:
+  - `m5-s06-prime`: a module-level `const executingToolchain = installedToolchainProductContentDigest()`, passed to all 20 calls, the `link` helper included.
+  - `t287-installed-dependency-lock` (env-gated): one read for the five resolutions. A second read follows the case's change to the isolated manifest, so the `incompatible_dependency` arm still observes the changed identity, as the base's default did.
+  - `t287-w2-05-static-binding-algebra` (env-gated): one read for its two resolutions. The counting wrapper forwards its arguments unchanged.
+- Exit grep `installedToolchainProductContentDigest(` in `code/src`:
+  - the two boundaries, `environment.ts:538` `constructResolvedProductLock` and `environment_definition_bindings.ts:462` `resolve`;
+  - the definition at `declaration_exports.ts:544`.
+- In `test_env/`, it appears in the three lanes above.
+
+**(b) The three readers.** The one reader is `readExecutingToolchainIdentity()` in `declaration_exports.ts` (`@internal`), which returns `{manifest, manifestDigest, productContentDigest}`. `installedToolchainProductContentDigest()` is its null-on-failure projection. A read or parse failure propagates as each caller's did at the base.
+- **`abg/definition_event_resource.ts:457`.** Its boundary is `acquireAbgEventResource`, reached from the definitions and from admission, which holds no identity. It calls the one reader once per acquisition for `manifestDigest`. Its own `package.json` read stays, since the executing manifest does not carry that file.
+- **`abg/project_read_definition_bindings.ts:635`.** Its boundary is the fixed definition. It calls the one reader for `manifest`, and the projection reads `manifest`. See Deviations.
+- **`product/declaration_application.ts:208`.** Its boundary is the function itself, a `./product` export whose signature stays. Its callers, `catalog_definition_bindings.ts:893` and `invocation_admission.ts:942`, are outside the grant. So it calls the one reader and takes no input: the named reader, stop 3.
+
+In each case the module-relative manifest path leaves the module. Module-relative readers of the executing manifest went from 5 to 2: the one reader, and admission (stop 7).
+
+**(c) The census.** `tsc --noEmit --noUnusedLocals` went from 284 entries in 116 modules at the base to 3 after:
+- 249 were TS6133, 7 TS6192 and 28 TS6196;
+- 268 were import entries, deleted by the TypeScript language service's `unusedIdentifier_deleteImports` fix, with `public/` and `calculus/` skipped;
+- the rest are restated:
+  - 43 `const x = runtimeEventBodiesAtPrefix(…)` bindings become statements, because they validate by throwing;
+  - `gtl/consensus.ts`'s `roundRef` becomes the statement `cGraphFunctionRef({…});`;
+  - unused locals and functions are deleted, the dead code named under item 2;
+  - `parent_rehydration` iterates `for (const suspension of …)`;
+  - the 15 compile-time agreement types become `/** @internal Compile-time agreement check. */ export type`, stripped from the declarations. They are 7 in `environment_operation_contracts`, 6 in `worksite_preparation_contracts`, and 1 each in `interaction_operation_contracts` and `declaration_application`.
+
+The emitted `gtl/*.js` differs only by deleted imports, the `roundRef` binding and the unused `strings` local. No declaration changed.
+
+By module, before → after (modules not named in the after column end at 0):
+
+| directory | modules | entries before → after | by module (`a→b` where an entry remains) |
+|---|---|---|---|
+| `abg/` | 43 | 150 → 0 | artifact_truth 2, c_call 16, c_call_outcome 6, child_lifecycle 1, closure 7, construction_continuation 1, continuation 10, definition_event_resource 1, effectful_invocation_truth 1, environment_admission 2, event_calculus 1, event_log 1, event_prefix 1, event_store 3, execution_basis 4, fan_out 4, fan_out_projection 5, fh_continuation_projection 2, fh_resume_relation 2, graph_application 5, invocation_admission 5, invocation_execution_truth 3, native_work_reacquisition 6, open_call 5, project_read_definition_bindings 1, project_read_operation_contracts 1, project_read_ports 5, qualification_proof 6, replay 5, retry 9, retry_progress 2, semantic_job 1, semantic_revision 3, semantic_stage 3, stdo_environment 1, traversal_cursor 1, traversal_route 6, witness_admission_operation 1, witness_definition_bindings 1, worksite_command_forward 2, worksite_construction_recovery 3, worksite_input_provenance 3, worksite_revision 2 |
+| `gtl/` | 12 | 16 → 0 | consensus 4, contracts 1, graph_construction 1, requirement_handoff 1, self_conformance 1, semantic_revision_publication 1, semantic_stage 2, semantic_stage_publication 1, serialization_contracts 1, source_path 1, worksite_c0 1, worksite_command_forward 1 |
+| `hog/` | 10 | 28 → 0 | ccall_lifecycle 2, entry 6, graph_execute 7, interaction_lifecycle 2, judgment 2, parent_rehydration 2, recursion_lifecycle 1, retry_lifecycle 1, traversal 3, workflow_lifecycle 2 |
+| `implementation/` | 7 | 13 → 0 | consensus 2, leaf_execution_authority 1, native_work_reacquisition 1, qualification 3, release_publication 3, worksite_command_execution 2, worksite_command_forward 1 |
+| `owner_bindings/` | 1 | 4 → 0 | run_invocation 4 |
+| `product/` | 34 | 59 → 1 | builtin_semantics 4, catalog_definition_bindings 1, catalog_operation_contracts 1, declaration_application 1, declaration_closure 2, declaration_exports 1, default_library_fulfillment 1, environment 1, environment_definition_bindings 2, environment_operation_contracts 8, execution_resolution 1, implementation_resolution 1, install_definition_bindings 1, install_product 1, interaction_operation_contracts 1, project_read_definition_bindings 1, project_read_operation_contracts 1, project_read_ports 1, public_contract_publication 1, publication 1, release_snapshot_operations 3, requirement_handoff 1, semantic_job 1, stdo_environment 1, verification_definition_bindings 1, worksite_command_execution 1→1, worksite_construction_recovery 1, worksite_effect 1, worksite_operations 1, worksite_preparation 7, worksite_preparation_contracts 6, worksite_revision 1, workspace_definition_bindings 1, workspace_operations 1 |
+| `public/` | 2 | 2 → 2 | binding/owner_contract_source_set 1→1, run_projection_authority 1→1 |
+| `shared/` | 2 | 2 → 0 | operation_definition_coordinate 1, public_function_contracts 1 |
+| `validator/` | 5 | 10 → 0 | conformance_definition_bindings 1, qualification 3, self_conformance_contracts 1, self_conformance_semantics 3, validation 2 |
+
+The remaining 3:
+- `public/binding/owner_contract_source_set.ts(20,40)` and `public/run_projection_authority.ts(13,8)`, `JsonValue`: `public/*` is outside the grant;
+- `product/worksite_command_execution.ts(74,7)` `BASE64_PATTERN`: stop 6. Deleting it moves the pinned built bytes.
+
+### Item 6: M-5b's and M-6's residuals
+
+**(a) Executing catalogs (in part; stop 4).**
+- `qualification_catalogs.ts` gains `executingQualificationCatalogs()`.
+  - It admits the executing package once per process through `admitQualificationCatalogsOnce` (c).
+  - The install is `{installedRoot: the package root, manifestDigest, productContentDigest, publicContracts}`, located by f3's one reader and checked against the executing manifest's payload inventory.
+  - A null identity or a refusal throws a `TypeError` carrying the reason, and is not retained.
+- Two of the three sites use it:
+  - `readSelfConformanceCatalog()` in `self_conformance.ts` keeps its signature; its `.d.ts` differs only in the comment. It returns the admitted rules' catalog and bytes, and only the per-source read at `:183` remains.
+  - The semantics provider in `self_conformance_semantics.ts` has getters over the admitted catalogs. Its module keeps no read of its own: `readFileSync` and `import.meta.url` are 0.
+- The owner-binding run path (`owner_bindings/run_invocation.ts:1841`, `:1922`) reaches the rule catalog through `prepareRunQualificationResources`, which the same admission serves (b).
+- **The stop at `validator/qualification.ts`'s defaults:** the rule default (`:436`, `:480`) and the coverage default (`:672-674`); the reader at `:428-431`.
+  - With both reading the executing admission, `t287-native-runtime-gate` went from 7/6/0/1 to 7/5/1/1. It failed at `:152`, on `semantics.qualificationResultRelation(…)` loaded from the lane's copy.
+  - That copy (`test_env/support/isolated-compiled-copy.mjs`, outside the grant) carries `build/code/src`, `contracts`, `package.json` and the manifest, but no `build/toolchain`. So the copy's own admission refuses: `qualification catalog build/toolchain/lib.d.ts cannot be read from install install://abiogenesis/executing-package (ENOENT)`.
+  - With the base reads restored, the lane is 7/6/0/1 again, and it stays there with the provider and `readSelfConformanceCatalog` converted. The other copy lanes match the base: `t287-qualification-contraction` 4/4/0/0, and `t287-c2-owner-coordinate-reuse` 6/0/6/0 with its first error unchanged.
+  - So `readQualificationCatalog`, `readFileSync` (3), `import.meta.url` (2) and `node:fs` (1) stay in `validator/qualification.ts`. Only its two unused type imports and the unused `digest` binding at `:436` go.
+  - The source of a copy's catalogs belongs to the support's owner; see Findings.
+
+**(b)** `prepareRunQualificationResources(resources, value)` takes the rule catalog from the executing package's admitted catalogs, not from `resolution.programInstall`. Its third parameter goes, and it is not a `./product` export.
+
+**(c) One memo.**
+- `admitQualificationCatalogsOnce(install)` in `qualification_catalogs.ts` keys on `[installId, productContentDigest]`. A refusal is not retained.
+- The port's private memo in `leaf_invocation_port.ts` is gone, and the port's two sites and `ownerInstallCatalogs` in `qualification_proof.ts` call it.
+- Admissions per lane, from the counter at `admitInstalledQualificationCatalogs`'s entry:
+
+| lane | before | after |
+|---|---|---|
+| `t287-qualification-law` | 3 | 3 |
+| `t287-qualification-contraction` | 0 | 1 |
+| the other 20 counter lanes and compose | 0 | 0 |
+
+- The one admission in `t287-qualification-contraction` is the executing package's, which items 6 (a) and (b) share. It is new because the provider and the run operation now admit the catalogs rather than reading them.
+- The after column comes from a 12-lane counter round on the final tree. Those 12 lanes are the 4 with any admission in the first after round plus 8 neighbours.
+- The other 10 counter lanes were 0 in the first after round. That tree admitted at a superset of the final tree's sites (`validator/qualification.ts` converted too), so they are 0 on the final tree as well.
+
+**(d) Command limits.**
+- *The unification.* There is now one reader of the two settings. `selectedWorksiteCommandExecutionLimits()` moves to `abg/actor_process.ts`, and `implementation/worksite_command_execution.ts` re-exports it, so its callers are unchanged. Each caller validates the values: the actor plan's `positiveLimit` keeps the base's message `${key} must be one positive safe integer`. `PROCESS_TIMEOUT_MS` and `PROCESS_ABSOLUTE_TIMEOUT_MS` go, and their values equal the reader's defaults.
+- *The stop.* The basis-member half (the two construction sites, and the four leaves comparing against the basis) is stopped. `t287-native-semantic-job` builds its own basis (`:128-141`) and asserts the reader's `0` and `NaN` (`:93`, `:196-198`). A `NaN` member fails `admitJson` on a basis, so the lane would move beyond the named cases.
+- *Census of the four open points.*
+  - `NaN` limits: they reach the leaves' canonical comparisons and the gates in `realizeWorksiteCommandExecution`.
+  - The source of `job.taskData.nativeLifecycle.commandExecutionLimits`: the job's declared selection (`product/semantic_job.ts:767-778`).
+  - `deriveSemanticJobPreparation` (`product/semantic_job.ts:627`, called from `abg/semantic_job.ts:322`, `:362`, `:405`, `:448`): it reads no limit.
+  - The observed-testing reacquire branch: not censused further.
+
+**(e) Stop.**
+- `gtl/worksite_command_execution.ts:36-39` declares the C2 renderer's context member as the built `product/worksite_command_execution.js`, pinned by digest and byteCount (`115644`). It also declares the renderer's span offsets.
+- The generator checks these before publication (`scripts/generate-product-manifest.mjs:101`), and the scratch build refused the edited module: "C2 declared context member differs from its packaged Product source".
+- The lazy `PATH` at `:910`, the code-point comparator at `:920` and `BASE64_PATTERN` each move those bytes. The pin is a `gtl/` declaration member, a Program declaration change.
+- So `product/worksite_command_execution.ts` is untouched.
+- *Census.* No tracked fixture carries an environment array. Retained history under `.ai-workspace/` was not censused.
+- The capture half needs a declared input key at the six prepare and select leaves, `selectWorksite*Construction` and `prepareWorksite*Commands`: also a stop.
+
+**(f1)** The seven fields take `basis.eventTime`:
+- `c_call.ts` `completeRejectedCCall`: `c_call_evidenced`, `c_call_result_admitted`, `c_call_judged`;
+- `traversal_route.ts` `admitRoute`: `traversal_route_admitted`, `construction_intent_selected`, `construction_delta_observed`, `run_stopped`.
+
+The two lane bases carry one fixed ISO value each:
+- `t287-undispatched-diagnostic:298`, `2026-09-24T00:00:00.000Z`: 7/7, as at the base;
+- `retained-route-cursor-transition:116`, `2026-09-23T00:00:00.000Z`: the base first error, "traversal transition differs from its staged successor projection".
+
+Exit grep `sampleNativeEventTime()`: 27 at the base in 10 modules, 20 after in 9. That is the 16 openings, the 3 seeds and the definition in `native_event_time.ts`. Zero are inside a transaction body.
+
+**(f2)** In `withAdmissionAuthority`'s `catch`, a `definitionFault` cause becomes the `resource_admission` fault's message as `canonicalJson({stage, code, message})`. Any other cause stays `String(cause)`. The receipt's stage and code are unchanged. `t291-m6-admission-refusal-surface` gains one case, which drives the acquisition refusal through `privateOwner` with the call admission, the parse and the event-resource owner substituted, and asserts the string. 4/4 → 5/5.
+
+**(f3)** There is one reader in `product/`, item 5 (b)'s. Its callers are M-4's `installedToolchainProductContentDigest()`, the three readers of item 5 (b), and item 6 (a). Admission's `observeExecutingToolchainIdentity` is unchanged: stop 7. Lanes substitute admission's own manifest read by overriding its `node:fs/promises`:
+- `t287-conformance-owner-reuse:64-66`, `:270-276`;
+- `test_env/support/witness-reprice-mechanics.mjs:141-148`.
+
+A call to the one reader bypasses those substitutions, so those lanes would move.
+
+### Item 7: the skip classification
+
+There are 186 skip sites in `test_env/tests` and their reason definitions in `test_env/support`, covering the 195 fired skips of the before pass.
+
+| class | sites |
+|---|---|
+| named: the reason already names its variable or path | 66 (63 fire) |
+| restated | 116 |
+| retired | 0 |
+
+The 116 restated sites:
+- 79 had no reason (all 80 `# SKIP` lines);
+- 37 had a reason that named no variable;
+- 102 fire at this base;
+- 14 do not, the `win32` gates among them.
+
+Every edit changes only the reason's text: an appended `&& '<reason>'`, parentheses around an `||` condition, or reworded text. No skip condition changed. Forms used:
+- `<VAR> unset; requires …`
+- `<VAR> is not '1'; selects …`
+- `win32 platform: …`
+
+One reason is computed: in `t287-qualification-raw-contract-preimage` it names the unset `ABI5_QUAL_RAW_*` variables, as `t287-qualification-producer-acquisition-reuse` already did.
+
+No skip lacks an input, so nothing is retired. See Findings for the three `d1-preserved-result-mechanics` cases (`nativeStoreSkip`, `test_env/support/d1-preserved-result-harness.mjs:34`). Their reason names the store path, but they skip in every configuration.
+
+### Lanes
+
+- **The passes.**
+  - Before: the base build, 4,002 s.
+  - After: the final tree, built after the item 7 edits, 4,072 s.
+  - Both used a scratch `pass.sh`, which runs `scratchpad/c12/tools/lane.sh` once per lane under `test_env/tests`, in name order.
+  - Comparison is per lane: summary counts, the ordered list of test rows with their status, the first failing test, and its first error line. Durations are dropped. Skip reasons are compared separately.
+- **Moved, both named.**
+  - `t287-cross-cut-public-read`: 5/4/1/0 → 5/4/1/0. The failing case is the same: `different-cut native Definition reads keep blocked absence and exact historical child result/replay`. Its first error moves from `run_status must retain the acquired prefix through late proof admission` (`:105`) to `run_status reconstructs history only at acquisition` (`:114`).
+  - `t291-m6-admission-refusal-surface`: 4/4/0/0 → 5/5/0/0.
+- **Two lanes differ only in run-dependent values.**
+  - `t287-w2-05-release-snapshot-definition-bindings`: the error text differs only by its `mkdtemp` directory.
+  - `t287-worksite-branch-construction`, 2/0/2/0: the same two failing cases and the same assertion. The JSON in the message differs only by digests, elapsed milliseconds, the event log's inode and its byte length (`prefixLength`). A third run on the final tree gave a third set of values (3,664,590 and 3,665,552, against 3,664,591 and 3,665,544 before, and 3,664,578 and 3,665,544 after), so those values vary from run to run.
+- **Named lanes, after (equal to before unless stated).**
+  - item 5 (a): `m5-s06-prime` 49/48/1/0, with the same failing case; its line moves from `:1821` to `:1824` because of the edit. Also `t287-installed-dependency-lock` 2/0/1/1 and `t287-w2-05-static-binding-algebra` 5/3/0/2.
+  - item 6 (f1): `t287-undispatched-diagnostic` 7/7/0/0, and `retained-route-cursor-transition` 1/0/1/0 with its base first error.
+  - item 6 (a): `t287-native-runtime-gate` 7/6/0/1, `t287-qualification-contraction` 4/4/0/0 and `t287-c2-owner-coordinate-reuse` 6/0/6/0.
+  - item 6 (d): `t287-native-semantic-job` 9/8/1/0.
+  - item 3 (c): `t287-continuation-causation` 1/1/0/0.
+  - item 2's support check: `t287-management-context` 14/12/0/2 and `t287-st2a-e-exact-prefix-workspace-environment` 1/1/0/0.
+  - compose: `t287-calculus-state-transfer` with `ABI5_CALCULUS_CASES=compose`, 2/2/0/0.
+- **Skips.** 195 before and after, over the same cases.
+  - 119 fired skips in 60 lanes changed only their reason text (item 7).
+  - None is without a reason after.
+  - No skip condition changed: the skipped set is equal in every lane.
+
+### Gates
+
+| gate | result |
+|---|---|
+| `tsc --noEmit -p tsconfig.json` | 0 errors |
+| `tsc --noEmit --noUnusedLocals` | 3, against 284 at the base (the gap; item 5 (c)) |
+| `lint:imports`, `lint:lifecycle`, `lint:evidence`, `lint:calculus` | all green |
+| `npm run build` | green; the generator's C2 pin check passes |
+| leaf gate, `product-toolchain-manifest.json` against HEAD | 51,289 → 51,287 scalar leaves; locators 5,313 → 5,311; gone: `build/code/src/hog/interaction_resume.d.ts` and `.js`; came: 0 |
+| leaf gate, `contracts/capabilities/capability-definition-graph.json` against HEAD | 3,243 → 3,243; paths equal; 551 digest values moved |
+| emitted build | 787 → 785 files (the two above); 86 `.js` and 20 `.d.ts` moved |
+| export map (checker listing over its 15 entries) | 4,873 → 4,869 names: the two item 2 names, each in `.` and `./hog`; none added |
+| load order (each emitted module imported alone) | equal to the base: 276 of 286 modules load alone; the same 10 refuse as at the base (TDZ in `LEGACY_ROOT_EVENT_CONTRACT_DIGEST`, `WORKSITE_FILE_PARENTS_IDS`, `RUN_ENVIRONMENT_RESOURCES_SCHEMA`, and the helper's argv check) |
+| strip | `diff -rq` against `final-src` empty; `C18A` 0 in `code`, `build`, `test_env`, `scripts` |
+
+- **The 20 moved `.d.ts`.**
+  - `abg/`: `actor_process`, `project_read_operation_contracts`, `witness_definition_bindings`, `worksite_command_forward`, `worksite_construction_recovery`.
+  - `gtl/worksite_command_forward`: it renders `JsonValue` inline once its unused import goes, and the type is the same.
+  - `hog/`: `entry`, `evaluation_frame`, `index`, `route_proposal`, `traversal`, `traversal_completion`.
+  - `implementation/worksite_command_execution`: the re-export.
+  - `product/`: `declaration_exports`, `environment`, `project_read_definition_bindings`, `project_read_operation_contracts`, `worksite_revision`.
+  - `validator/`: `qualification_catalogs` (two new exports, `admitQualificationCatalogsOnce` and `executingQualificationCatalogs`) and `self_conformance` (comment only).
+  - None is under `public/`.
+- **`npm run lint` is not one of the four lints.** It runs `scripts/lint-verification.mjs`, which reads a recipe path from `argv[2]` and throws without one on any tree.
+- **`git status --short -- .` from the tenant:**
+  - `code/src`: 124 modified and 1 deleted (`hog/interaction_resume.ts`);
+  - `test_env/tests`: 72 modified;
+  - `test_env/support/root-installed-environment.mjs`;
+  - `product-toolchain-manifest.json`;
+  - `contracts/capabilities/capability-definition-graph.json`, the only file under `contracts/`.
+
+  Both regenerated files come from `npm run build`, and the item 7 test edits leave them byte-equal.
+
+### Deviations
+
+1. **Record reads.** Whole-file `grep -n` searches of the two records printed lines outside the named sections:
+   - in `phase_c.md`, lines 8030, 8091, 8093, 8377, 8381, 8393 and 8398, in the C-14 return;
+   - in `repin.md`, lines 565, 802, 932, 1225-1227, 1234, 1434, 1856 and 2162-2163.
+
+   No other read took either record's path.
+2. **Item 2's support check ran two lanes, not one.** `t287-management-context` skips its setup case, so `t287-st2a-e-exact-prefix-workspace-environment` also ran once, because it executes `setupInstalledRootCatalog`.
+3. **Item 6 (d)'s reader moved into `abg/actor_process.ts`.** It was first placed so that `actor_process` imported `implementation/worksite_command_execution.js`. That edge closed a load-order cycle: `WORKSITE_BRANCH_CONSTRUCTION_IDS` hit a TDZ error when `actor_process` loaded first. After the move, `implementation/` re-exports the reader, and the load-order check (each emitted module imported alone) is equal to the base.
+4. **The one reader returns one member more than f3 names.** `readExecutingToolchainIdentity()` yields `{manifest, manifestDigest, productContentDigest}`. The extra `manifest` member is there because `project_read_definition_bindings` projects the manifest itself.
+5. **Instrumented rounds and clean copies.** There were four counter rounds, each stripped against its own clean copy. Each copy was taken from the uninstrumented tree before instrumenting, and none was refreshed:
+   - the base (copy `base-src`);
+   - the first after tree (`after-src`), for the full 22 lanes plus compose;
+   - a 12-lane round on an intermediate tree whose provider was reverted as a diagnosis probe (`after2-src`);
+   - a 12-lane round on the final tree for item 6 (c) (`final-src`).
+
+   The final strip proof: `diff -rq final-src/code/src code/src` is empty, and `C18A` is 0 in `code`, `build`, `test_env` and `scripts`. `final-src` is `after-src` except for `validator/qualification.ts` (stop 4).
+6. **Hand probes in the built JS.** While diagnosing stop 4, I inserted diagnostic lines by hand into the real tree's built `validator/qualification_catalogs.js` and `validator/self_conformance_semantics.js`, outside the `// C18A` instrument script. A clean `npm run build` removed them, and the absence is proven by the grep above.
+7. **Single-lane diagnostic runs outside the two passes.** Before the after pass, these lanes ran once each on the final tree to localize stop 4, and each matched its before figures:
+   - `t287-native-runtime-gate`;
+   - `t287-qualification-contraction`;
+   - `t287-c2-owner-coordinate-reuse`;
+   - `t287-qualification-law`;
+   - `t287-qualification-producer-context`;
+   - `t287-observed-worksite-command`.
+8. **The scratch package.** It copies `node_modules` instead of symlinking it, because of bundled-dependency resolution. It differs from the tree by 2 `CHANGELOG` locators, so the scratch manifest figures are relative only. The gate figures are the real tree's.
+
+### Findings outside the grant
+
+1. **Item 1.** `t287-cross-cut-public-read:114` (`run_status reconstructs history only at acquisition`, 27,080,944 against 13,540,472) states the same one-pass claim in bytes as `:105`. Restating it to the design's count is the lane owner's call.
+2. **Item 6 (a).** `test_env/support/isolated-compiled-copy.mjs` builds a partial package: it has no `build/toolchain`, so it cannot be admitted as the executing package. Any default that admits the executing package moves the lanes that load a copy's `validator/` (`t287-native-runtime-gate`; `t287-qualification-contraction` and `t287-c2-owner-coordinate-reuse` use copies too). Whether a copy carries the full payload, or the lane passes catalogs, is the support owner's question.
+3. **Item 4 (a).** These construct a `CCall` without `evidenceContractRef`, although the type declares it a `string`:
+   - `project_read_ports.ts` `terminalOutcomeFromSelectedFacts` (`:494-498`) and its twin at `:1355`;
+   - the carrier at `c_call.ts:1261` (`as unknown as CCall`);
+   - the lane CCalls at `r10-projection-contracts:161` and `:164`.
+4. **Item 3 (b).** Neighbouring class-only diagnostic sites are not retry recording sites and were not touched:
+   - `retry-blocked-route` and `retry-blocked-transition`;
+   - the four `successful_retry_exit_plan_refusal` sites, in `ccall_lifecycle`, `recursion_lifecycle` and `workflow_lifecycle` (two).
+5. **Item 2's residue.**
+   - `design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md:1308` says to keep `deriveInteractionResumeCursor` ("retain in `src/hog`"). It had no caller at the base.
+   - `admitFhInteractionResponse` is named at `:1306` and `:1639` of the same design and at `design/M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:2331`.
+   - The evidence copies `test_env/proof/abi5-root-r10{,.outcomes,.transcript}.json` and the fixtures `test_env/fixtures/continuation-causation.json` and `r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl` name the retired module or symbols.
+6. **The 3 `--noUnusedLocals` entries.**
+   - `JsonValue` in `public/binding/owner_contract_source_set.ts:20` and `public/run_projection_authority.ts:13` belongs to the Public surface's owner.
+   - `BASE64_PATTERN` (`product/worksite_command_execution.ts:74`) belongs to the C2 pin's owner (stop 6).
+7. **Item 7.** `nativeStoreSkip` (`test_env/support/d1-preserved-result-harness.mjs:34`) skips the three `d1-preserved-result-mechanics` cases in every configuration. Its reason names the store path, but the cases test nothing as configured.
+8. **Item 4 (c).** C-14's reader numbers 3, 4 and 8 cannot be mapped from the sections this package may read.
+
+### Stops
+
+Each stop names its class from the activation's list. Each change is reverted or never made, and the rest moved on.
+1. **Item 1: the descriptor-only reopen is a stated design choice.** The source is `design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md`, *Operational history representation* (`:64`). `event_store.ts` is untouched. `:105` is restated, with the design cited.
+2. **Item 4 (a): neither branch is a realization refactor at the census's site.**
+   - Giving the child the field is a projection reframe: it needs the declared term, and it changes what the undispatched relation projects, which is a Public read value.
+   - Changing the type moves `c_call.d.ts` in the declaration closures and needs guards at two evidence writers.
+   - The type is unchanged.
+3. **Item 5 (b) at `product/declaration_application.ts:208`: a boundary with no source for the identity.** The function is a `./product` export whose signature stays, and its callers are outside the grant. It calls the one reader and stays, named.
+4. **Item 6 (a) at `validator/qualification.ts`: a lane moves beyond the named cases.** `t287-native-runtime-gate` goes from 7/6/0/1 to 7/5/1/1 at `:152`. The base reads are restored.
+5. **Item 6 (d)'s basis-member half: a lane moves beyond the named cases.** `t287-native-semantic-job` builds its own basis (`:128-141`) and asserts the reader's `0` and `NaN` (`:93`, `:196-198`). The one-reader half is done.
+6. **Item 6 (e): a Program declaration.** The `gtl/worksite_command_execution.ts:36-39` C2 pin covers `product/worksite_command_execution.js`'s digest, byte count and spans. The environment-capture half would need a declared input key at the six prepare and select leaves. The module is untouched.
+7. **Item 6 (f3) at admission: a lane moves beyond the named cases.** These substitute admission's `node:fs/promises`, which a call to the one reader bypasses:
+   - `t287-conformance-owner-reuse:64-66`, `:270-276`;
+   - `test_env/support/witness-reprice-mechanics.mjs:141-148`.
+
+   `observeExecutingToolchainIdentity` is unchanged.
+
+### What could not be verified
+
+1. **Item 3 (b)'s four new recording sites.** No lane drives the four refusal arms, so the shape is checked by type and by construction only.
+2. **Reader 5 (item 4 (b)).** No lane reaches it, at the base or after.
+3. **Item 5 (a)'s edits to the env-gated cases.** They run only with their inputs set:
+   - `t287-installed-dependency-lock:78` needs `ABI232_NATIVE_IDENTITY` and `ABI232_ISOLATED_MANIFEST`;
+   - `t287-w2-05-static-binding-algebra:776`, `:863` need `ABI5_PREPARATION_RESOLVE_CALL`.
+
+   Without those inputs the cases skip in both passes. The edits are checked by `node --check`, by `tsc` over the two required parameters, and by `m5-s06-prime`'s 20 executed calls.
+4. **Item 6 (c)'s after admissions for 10 of the 22 counter lanes** are inferred, not measured: their first-after-round figure is 0, on a superset of the final tree's admission sites.
+5. **The open census points.** The observed-testing reacquire branch (item 6 (d)) was not censused. Retained history under `.ai-workspace/` (item 6 (e)) was not censused, by the listing rule.
+6. **Item 6 (a) at the provider and `readSelfConformanceCatalog`.** These are verified by the lanes that reach them, including the three copy lanes, which are equal to the base. Whether any lane reaches `readSelfConformanceCatalog` from a copy was not censused.
+7. **The same-family limit.** Item 7's classification table was drafted by one Opus subagent and checked by me, so drafter and checker are the same model family. No other reader took part.
+

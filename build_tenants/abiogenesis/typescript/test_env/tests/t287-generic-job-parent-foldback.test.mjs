@@ -8,7 +8,7 @@ const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirn
 const load = (base, name) => import(pathToFileURL(join(base, "build/code/src", name + ".js")).href);
 
 test("actual parent effect is conserved by workflow foldback; downstream projection remains prospective", {
-  skip: !process.env.ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT, timeout: 180000,
+  skip: !process.env.ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT && "ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT unset; requires the retained parent foldback scratch root", timeout: 180000,
 }, async () => {
   const scratch = process.env.ABI5_GENERIC_JOB_PARENT_FOLDBACK_ROOT;
   const installed = join(scratch, "consumer/node_modules/@abiogenesis/typescript-tenant");

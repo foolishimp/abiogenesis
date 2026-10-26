@@ -231,7 +231,7 @@ async function inventory(root) {
 test("Thread 2: independent data-only declarations through actual installed Public", async t => {
   const evidenceRoot = process.env.ABI5_STEEL02_EVIDENCE_PATH;
   if (!evidenceRoot || !process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH) {
-    t.skip("requires exact frozen artifact/install and a fresh retained evidence directory"); return;
+    t.skip("ABI5_STEEL02_EVIDENCE_PATH or ABI5_WAVE1_FROZEN_ARTIFACT_PATH unset; requires exact frozen artifact/install and a fresh retained evidence directory"); return;
   }
   await mkdir(evidenceRoot, { recursive: true });
   const scratch = join(evidenceRoot, `attempt-${Date.now()}-${process.pid}`);

@@ -11,7 +11,6 @@ import type {
   ResolvedSemanticSelection,
 } from "./declaration_exports.js";
 import type { ProductDeclaredDependency } from "./contracts.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 
 import {
@@ -77,7 +76,8 @@ const directDependencyEdgeSchema = v.strictObject({
 
 type Assert<T extends true> = T;
 type NativeOutputOf<A, B> = [A] extends [B] ? true : false;
-type _DirectDependencyEdgeSchemaIsNative = Assert<
+/** @internal Compile-time agreement check. */
+export type _DirectDependencyEdgeSchemaIsNative = Assert<
   NativeOutputOf<
     v.InferOutput<typeof directDependencyEdgeSchema>,
     ProductDeclaredDependency
@@ -342,27 +342,33 @@ export function admitResolvedNativeContractClosure(
     });
 }
 
-type _CheckerTargetSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _CheckerTargetSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof canonicalCheckerTargetIdentitySchema>,
   CanonicalCheckerTargetIdentity
 >>;
-type _SourceWitnessSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _SourceWitnessSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof canonicalSourceWitnessSchema>,
   CanonicalSourceWitness
 >>;
-type _SemanticSelectionSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _SemanticSelectionSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof resolvedSemanticSelectionSchema>,
   ResolvedSemanticSelection
 >>;
-type _ExternalOccurrenceSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _ExternalOccurrenceSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof contractExternalOccurrenceSchema>,
   ContractExternalOccurrence
 >>;
-type _SelectorDispositionSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _SelectorDispositionSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof pendingSelectorDispositionSchema>,
   PendingSelectorDisposition
 >>;
-type _NativeBindingSchemaIsNative = Assert<NativeOutputOf<
+/** @internal Compile-time agreement check. */
+export type _NativeBindingSchemaIsNative = Assert<NativeOutputOf<
   v.InferOutput<typeof resolvedNativeContractBindingSchema>,
   NativeContractBinding
 >>;

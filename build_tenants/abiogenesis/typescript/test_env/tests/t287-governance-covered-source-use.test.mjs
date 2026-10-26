@@ -27,7 +27,7 @@ const oldIdentity={productId:p.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescr
 const newIdentity={...oldIdentity,artifactDigest:hash('new archive'),productContentDigest:hash('new content'),productManifestDigest:hash('new manifest')};
 const publications=identity=>['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'].map(n=>gtl[n](identity));
 
-test('normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes',{skip:!proofRoot},async t=>{
+test('normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes',{skip:!proofRoot&&'ABG_GOVERNANCE_COVERED_PROOF_ROOT unset; requires the proof-local output root'},async t=>{
   fs.mkdirSync(proofRoot,{recursive:true});const scratch=fs.mkdtempSync(path.join(proofRoot,'closed-owner-'));
   t.after(()=>fs.rmSync(scratch,{recursive:true,force:true}));
   const eventLogPath=path.join(scratch,'events.jsonl'),resourceOwner=await load('abg/definition_event_resource'),artifact=await load('abg/artifact_truth');
@@ -99,7 +99,7 @@ test('complete canonical declarations permit only publication identity consequen
 });
 
 test('frozen176 selected declarations compare across artifact and manifest hash-order reversal',
-  {skip:!declarationPairPath},t=>{
+  {skip:!declarationPairPath&&'ABG_GOVERNANCE_COVERED_DECLARATION_PAIR unset; requires the frozen176 selected declaration pair'},t=>{
   const pair=JSON.parse(fs.readFileSync(declarationPairPath,'utf8'));
   assert.equal(pair.kind,'frozen_selected_declaration_pair');
   assert.equal(pair.historical.length,4);assert.equal(pair.current.length,4);
@@ -150,7 +150,7 @@ test('only the substituted provenance inventory is ordered and every reference r
 });
 
 test('actual installed C2 material correspondence preserves consumed content and strict refusals',
-  {skip:!c2MaterialPath},async t=>{
+  {skip:!c2MaterialPath&&'ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS unset; requires the installed C2 material selectors'},async t=>{
   const selected=JSON.parse(fs.readFileSync(c2MaterialPath,'utf8'));
   const material=await load('product/stdo_environment'),verification=await load('product/verify_product');
   const publicationOwner=await load('product/publication');

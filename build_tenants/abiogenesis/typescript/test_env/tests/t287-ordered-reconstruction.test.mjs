@@ -17,7 +17,7 @@ import { projectOwnedPrefixArtifactTruth, projectExactPrefixArtifactTruth, valid
 const counts=()=>({...globalThis.p0Work});
 const delta=(before,after)=>Object.fromEntries([...new Set([...Object.keys(before),...Object.keys(after)])].map(k=>[k,(after[k]??0)-(before[k]??0)]));
 const select=(events,runId)=>{const authority=prefixOwner.selectValidatedRuntimeEventPrefix(events);return {authority,run:prefixOwner.selectRuntimeEventPrefixFromAuthority(authority,{runId})};};
-const retained={skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180000};
+const retained={skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180000};
 
 test('snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback',async()=>{
   const scratch=await mkdtemp(join(tmpdir(),'ordered-snapshot-identity-'));
@@ -189,7 +189,7 @@ test('held derivation preserves physical authentication and discards staged fact
 
 
 test('historical liveness folds conserve full/scoped/reverse reads and declaration refusals',
-  {skip:!process.env.ABI5_HISTORICAL_LIVENESS_LOG,timeout:180000},async()=>{
+  {skip:!process.env.ABI5_HISTORICAL_LIVENESS_LOG&&'ABI5_HISTORICAL_LIVENESS_LOG unset; requires the historical liveness event log',timeout:180000},async()=>{
   const {pathToFileURL}=await import('node:url');
   const predecessor=process.env.ABI5_HISTORICAL_LIVENESS_PREDECESSOR;
   assert.ok(predecessor,'explicit frozen predecessor');
@@ -363,7 +363,7 @@ async function inspectLivenessCutRetention(source) {
 }
 
 test('liveness historical-cut intermediates are call-local while authentic current, older, lease and refusal answers agree',
-  { skip: !process.env.ABI5_LIVENESS_CUT_HISTORY, timeout: 180000 }, async () => {
+  { skip: !process.env.ABI5_LIVENESS_CUT_HISTORY && 'ABI5_LIVENESS_CUT_HISTORY unset; requires the liveness historical-cut history', timeout: 180000 }, async () => {
   const { pathToFileURL } = await import('node:url');
   const { sha256Bytes } = await import('../../build/code/src/shared/digests.js');
   const oldRoot = process.env.ABI5_LIVENESS_CUT_PREDECESSOR;

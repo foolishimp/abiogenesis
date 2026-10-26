@@ -84,7 +84,6 @@ import {
   admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   isRuntimeEventTransactionActive,
-  readActiveRuntimeTransactionAtDurablePrefix,
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
@@ -590,22 +589,6 @@ export type AdmittedCCallOutcomeReceipt =
   | RetryCCallOutcomeReceipt
   | BlockedCCallOutcomeReceipt;
 
-type ResultCCallOutcomeReceiptBody = Omit<
-  ResultCCallOutcomeReceipt,
-  "successorPrefix"
->;
-type JudgedCCallOutcomeReceiptBody = Omit<
-  JudgedCCallOutcomeReceipt,
-  "successorPrefix"
->;
-type RetryCCallOutcomeReceiptBody = Omit<
-  RetryCCallOutcomeReceipt,
-  "successorPrefix"
->;
-type BlockedCCallOutcomeReceiptBody = Omit<
-  BlockedCCallOutcomeReceipt,
-  "successorPrefix"
->;
 export interface AdmitCCallJudgmentInput {
   readonly store: AbgEventStore;
   readonly graph: Readonly<GtlGraph>;
@@ -953,7 +936,7 @@ function projectCCallOutcomeReceiptFromTruth(
     projection.runtimePrefix,
     basis.cCall,
   );
-  const events = runtimeEventBodiesAtPrefix(projection.runtimePrefix);
+  runtimeEventBodiesAtPrefix(projection.runtimePrefix);
   const { completion } = basis;
   const result = indexedRuntimeEvents(projection.runtimePrefix, "id:" + completion.resultEventRef).find((event) =>
     event.eventId === completion.resultEventRef

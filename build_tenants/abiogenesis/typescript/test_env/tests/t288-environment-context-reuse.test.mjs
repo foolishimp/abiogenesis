@@ -17,7 +17,7 @@ const load = async root => Object.fromEntries(await Promise.all(['product/enviro
 const outcome = action => { try { return { returned: action() }; } catch (error) { return { error: error.name, message: error.message }; } };
 
 test('environment predicates and projection conserve raw meanings with one contextual binding guard', {
-  skip: !predecessor || !retained, timeout: 180000,
+  skip: (!predecessor || !retained) && 'ABI5_D17_PREDECESSOR or ABI5_D17_SCRATCH unset; requires the D17 predecessor build and retained scratch', timeout: 180000,
 }, async () => {
   assert.ok(globalThis.p0Work, 'existing entry/completion counters required');
   const modules = [await load(predecessor), await load(root)];

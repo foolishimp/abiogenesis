@@ -351,7 +351,7 @@ test('reacquisition publishes one ordinary F_D with existing C2 output and nativ
   assert.equal(result.diagnostics.length,0);
   assert.deepEqual(gtl.nativeWorkReacquisitionGraphFunction().effects,[]);
 });
-test('actual closed child survives blocked parent without acquiring closed-Run source authority', {skip:!actualRoot}, async t=>{
+test('actual closed child survives blocked parent without acquiring closed-Run source authority', {skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'}, async t=>{
   const a=actual(),begin=performance.now();
   const task=reacquire.projectNativeWorkReacquisitionTask(a.coordinate,a.request,a.nativeBasis);assert(task,'R10 child/source projection');
   assert(p.isNativeWorksiteCommandExecutionTask(task));assert.deepEqual(task.sourceNativeWork,a.source);
@@ -369,7 +369,7 @@ test('actual closed child survives blocked parent without acquiring closed-Run s
     originalResult:a.result.eventId,originalValueDigest:a.result.payload.valueDigest,sourceGraphCall:a.result.graphCallId,
     limit:'Actual preserved child/current files. Same W has empty cover. No new invocation, witness, command, result admission or provider.'}));
 });
-test('actual source rejects absent child, foreign provenance, changed context and uncovered authority',{skip:!actualRoot},async()=>{
+test('actual source rejects absent child, foreign provenance, changed context and uncovered authority',{skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'},async()=>{
   const a=actual();
   const wrong=p.constructNativeWorksiteCommandReacquisitionRequest({...a.request,source:{...a.request.source,graphCallRef:'graph-call://foreign'}});
   assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,wrong,a.nativeBasis),null);
@@ -389,7 +389,7 @@ test('actual source rejects absent child, foreign provenance, changed context an
   assert.equal(reacquire.projectNativeWorkReacquisitionTask(a.coordinate,uncovered,a.nativeBasis),null);
 });
 
-test('later admitted failure invalidates full reacquired context beyond the C2 snapshot subset',{skip:!actualRoot},async()=>{
+test('later admitted failure invalidates full reacquired context beyond the C2 snapshot subset',{skip:!actualRoot&&'ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root'},async()=>{
   const a=actual(),{projectRuntimeEventFromValidatedHistory}=await import('../../build/code/src/abg/event_store.js');
   const {deepFreeze}=await import('../../build/code/src/shared/immutable.js');
   const {isNativeWorkspaceWorkFailure}=await import('../../build/code/src/product/native_workspace_work.js');

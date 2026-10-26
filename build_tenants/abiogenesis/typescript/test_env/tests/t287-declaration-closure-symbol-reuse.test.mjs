@@ -6,7 +6,7 @@ import {focusedDeclarationCases,loadClosureOwner,sha256} from '../support/t287-d
 
 test('direct-symbol reuse conserves complete closure output and ownership refusals', async context => {
   if (!process.env.ABI5_DECLARATION_BASELINE_MODULE || !process.env.ABI5_DECLARATION_PROOF_ROOT) {
-    context.skip('requires exact frozen baseline module and proof-local output root'); return;
+    context.skip('ABI5_DECLARATION_BASELINE_MODULE or ABI5_DECLARATION_PROOF_ROOT unset; requires exact frozen baseline module and proof-local output root'); return;
   }
   const baseline = await loadClosureOwner(process.env.ABI5_DECLARATION_BASELINE_MODULE);
   const candidate = await loadClosureOwner(resolve(import.meta.dirname, '../../build/code/src/product/declaration_exports.js'));

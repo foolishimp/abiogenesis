@@ -1,6 +1,5 @@
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
-import { readFileSync } from "node:fs";
 
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import {
@@ -34,7 +33,6 @@ import {
   ABG_PROJECT_READ_OWNER_PORTS,
   prepareRunReadAtDurablePrefix,
   type AbgProjectReadMemberKey,
-  type AbgProjectReadPacket,
   type AbgProjectReadProjection,
   type AbgProjectReadRefusal,
   type AbgProjectReadResult,
@@ -45,6 +43,7 @@ import {
 } from "../product/invocation.js";
 import { productInstallCoordinate } from "../product/environment.js";
 import { projectProductManifestOperationCoordinate } from "../product/verify_product.js";
+import { readExecutingToolchainIdentity } from "../product/declaration_exports.js";
 import {
   bindExactPrefixRead,
 } from "./exact_prefix_bindings.js";
@@ -633,7 +632,7 @@ function runReadKernel(
         // The loaded reader owns its current contract. Historical grants below
         // remain permission over the source binding, not the reader's Product.
         const executingContract = projectProductManifestOperationCoordinate(
-          JSON.parse(readFileSync(new URL("../../../../product-toolchain-manifest.json", import.meta.url), "utf8")),
+          readExecutingToolchainIdentity().manifest,
           packet.definitionKey.operationId,
         );
         if (executingContract === null) throw new TypeError("executing read owner has invalid Product operation metadata");

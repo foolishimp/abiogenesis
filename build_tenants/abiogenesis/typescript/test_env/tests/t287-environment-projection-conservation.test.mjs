@@ -6,7 +6,7 @@ import {tmpdir} from 'node:os';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 
 test('installed environment owner authenticates once and preserves exact outputs and entry refusals',{
-  skip:!process.env.P0_ENVIRONMENT_NATIVE_SCRATCH,timeout:120000,
+  skip:!process.env.P0_ENVIRONMENT_NATIVE_SCRATCH&&'P0_ENVIRONMENT_NATIVE_SCRATCH unset; requires the retained installed environment native scratch',timeout:120000,
 },async()=>{
   const scratch=process.env.P0_ENVIRONMENT_NATIVE_SCRATCH;
   const load=(root,name)=>import(pathToFileURL(join(root,'build/code/src',name+'.js')));

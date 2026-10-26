@@ -65,7 +65,7 @@ test("T-287 C1 traverses one installed real-Claude candidate through C0 and fres
   timeout: 300_000,
   skip: liveRequested
     ? false
-    : "environment://abiogenesis/t287/c1/live-worker-not-requested",
+    : "ABI5_T287_C1_LIVE is not '1'; environment://abiogenesis/t287/c1/live-worker-not-requested",
 }, async (context) => {
   const liveCommand = process.env[LIVE_COMMAND];
   assert.equal(

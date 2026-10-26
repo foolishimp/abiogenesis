@@ -9,7 +9,7 @@ const root=fileURLToPath(new URL('../../',import.meta.url));
 const load=async root=>Object.fromEntries(await Promise.all(['event_store','event_prefix','event_calculus','runtime_liveness','graph_application','traversal_route','closure','retry'].map(async n=>[n,await import(pathToFileURL(join(root,'build/code/src/abg',n+'.js')))])));
 const counts=()=>({...globalThis.p0Work});const delta=(a,b,k)=>(b[k]??0)-(a[k]??0);
 
-test('probe and threshold share one entry, retain lineage and conserve exact owner events and refusals',{skip:!process.env.ABI5_OWNER_HISTORY},async()=>{
+test('probe and threshold share one entry, retain lineage and conserve exact owner events and refusals',{skip:!process.env.ABI5_OWNER_HISTORY&&'ABI5_OWNER_HISTORY unset; requires the retained owner event history'},async()=>{
  const raw=await readFile(process.env.ABI5_OWNER_HISTORY,'utf8'),lines=raw.trimEnd().split('\n'),events=lines.map(JSON.parse);
  const sample=events.find(e=>e.kind==='runtime_activity_probe_observed'&&e.payload.actorInvocationRef&&e.payload.observation.underlyingEventRef);
  assert.ok(sample);const history=Buffer.from(lines.slice(0,sample.admissionOrdinal-1).join('\n')+'\n');

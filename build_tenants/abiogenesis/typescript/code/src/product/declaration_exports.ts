@@ -503,23 +503,47 @@ function loadTypeScript(): typeof TypeScript {
   return (compilerModule.default ?? compilerModule) as typeof TypeScript;
 }
 
-/** @internal The executing toolchain's identity. A Product operation boundary
- * reads it once and passes it to the resolution and the link as an input. */
+/** @internal The executing toolchain's identity: its manifest, the manifest's
+ * canonical digest and its ABIogenesis product content digest (`null` when the
+ * manifest names another Product or no digest). */
+export interface ExecutingToolchainIdentity {
+  readonly manifest: JsonValue;
+  readonly manifestDigest: Sha256Digest;
+  readonly productContentDigest: Sha256Digest | null;
+}
+
+/** @internal The one reader of the executing `product-toolchain-manifest.json`.
+ * A boundary reads it once per call and passes the identity on as an input. A
+ * read or parse failure throws; each caller keeps its own failure channel. */
+export function readExecutingToolchainIdentity(): ExecutingToolchainIdentity {
+  const manifest = JSON.parse(
+    readFileSync(
+      new URL(
+        "../../../../product-toolchain-manifest.json",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
+  ) as JsonValue;
+  const record = typeof manifest === "object" && manifest !== null && !Array.isArray(manifest)
+    ? manifest as Readonly<Record<string, JsonValue>>
+    : null;
+  return {
+    manifest,
+    manifestDigest: sha256Canonical(manifest),
+    productContentDigest: record !== null && record.productId === ABI5_PRODUCT_ID &&
+        isSha256Digest(record.productContentDigest)
+      ? record.productContentDigest
+      : null,
+  };
+}
+
+/** @internal The executing toolchain's product content digest. A Product
+ * operation boundary reads it once and passes it to the resolution and the
+ * link as an input; a read or parse failure is `null`. */
 export function installedToolchainProductContentDigest(): Sha256Digest | null {
   try {
-    const manifest = JSON.parse(
-      readFileSync(
-        new URL(
-          "../../../../product-toolchain-manifest.json",
-          import.meta.url,
-        ),
-        "utf8",
-      ),
-    ) as Readonly<Record<string, unknown>>;
-    return manifest.productId === ABI5_PRODUCT_ID &&
-        isSha256Digest(manifest.productContentDigest)
-      ? manifest.productContentDigest
-      : null;
+    return readExecutingToolchainIdentity().productContentDigest;
   } catch {
     return null;
   }
@@ -619,7 +643,7 @@ function createClosedHost(
     fileName: string,
   ) => TypeScript.ResolutionMode | undefined = () => undefined,
 ): TypeScript.CompilerHost {
-  const { options, standardHost, compilerDependencyRoots } = basis;
+  const { standardHost, compilerDependencyRoots } = basis;
   return {
     directoryExists: (directory) =>
       directoryContainsSource(sourceText, directory) ||
@@ -2036,13 +2060,12 @@ function nativeProductApplicability(
   return "native";
 }
 
-/** `executingToolchainProductContentDigest` is the caller's input; a caller
- * with no source for it (a component test of this module) keeps the read. */
+/** `executingToolchainProductContentDigest` is the caller's input, read once
+ * by the Product operation boundary. */
 export function linkNativeContractSet(
   products: readonly NativeLinkProduct[],
   toolchainProductContentDigest: Sha256Digest,
-  executingToolchainProductContentDigest: Sha256Digest | null =
-    installedToolchainProductContentDigest(),
+  executingToolchainProductContentDigest: Sha256Digest | null,
 ): NativeContractLinkResult {
   if (
     executingToolchainProductContentDigest !==

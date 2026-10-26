@@ -9,7 +9,7 @@ const callPath = process.env.ABI5_STEEL02_AUTHORITY_CALL_PATH;
 
 test("installed admission producer preserves its native invalid-basis error contract", async t => {
   if (!host || !callPath) {
-    t.skip("requires exact installed owner and retained actual create call"); return;
+    t.skip("ABI5_STEEL02_AUTHORITY_INSTALL_HOST or ABI5_STEEL02_AUTHORITY_CALL_PATH unset; requires exact installed owner and retained actual create call"); return;
   }
   const packageRoot = join(host, "node_modules/@abiogenesis/typescript-tenant");
   const manifest = JSON.parse(await readFile(join(packageRoot, "package.json"), "utf8"));

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { RUN_ENVIRONMENT_SCHEMA, isRunEnvironmentDeclaration, runEnvironmentForProgram,
-  type RunEnvironmentDeclaration, STDO_RUN_ENVIRONMENT_SCHEMA, isStdoRunEnvironmentDeclaration, stdoEnvironmentForProgram,
+  STDO_RUN_ENVIRONMENT_SCHEMA, isStdoRunEnvironmentDeclaration, stdoEnvironmentForProgram,
   type StdoRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
 import type { ModulePublication, GtlProgram } from "../gtl/contracts.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";

@@ -186,10 +186,11 @@ function advanceStructuralTransitionUsing(
     progressPlan !== null &&
     progressPlan.kind !== "completed_retry_progress_plan"
   ) {
+    const stage = `structural-progress-${input.ordinal}`;
     return fail(
       input.predecessorPrefix,
-      `structural-progress-${input.ordinal}`,
-      `diagnostic://abiogenesis/hog/${progressPlan.code}@5`,
+      stage,
+      constructRuntimeFailureDiagnosticRef({ stage, candidate: progressPlan }),
       progressPlan,
     );
   }

@@ -35,12 +35,10 @@ import {
   assertDurableRuntimePrefixBytes,
   assertDurableRuntimePrefixCurrent,
   readRuntimeEventsAtDurablePrefix,
-  projectRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
   runtimeEventPrefixExtent,
   isOwnedRuntimeEventPrefix,
   projectOwnedRuntimeEventPrefixAtDurablePrefix,

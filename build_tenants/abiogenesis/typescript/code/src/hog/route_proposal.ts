@@ -14,7 +14,6 @@ import type {
   JudgedCCallOutcomeReceipt,
 } from "../abg/c_call_outcome.js";
 import type { FanOutCompletionAdmission } from "../abg/fan_out.js";
-import type { FhInteractionResumeAdmission } from "../abg/continuation.js";
 import type {
   CompletedRetryProgressPlan,
   OwnedCompletedRetryProgressPlan,
@@ -999,105 +998,6 @@ export function proposeHoldRoute(
     cCallRef: cCall.cCallRef,
     judgmentRef: judgment.judgmentRef,
     consumedAvailabilityRefs: [judgment.judgmentRef] as const,
-    contractRef,
-    replayState,
-  });
-}
-
-export function proposeInteractionResumeRoute(
-  graph: Readonly<GtlGraph>,
-  cursor: TraversalCursor,
-  targetCursor: TraversalCursor | null,
-  cCall: CCall,
-  judgment: AdmittedCCallJudgment,
-  resume: FhInteractionResumeAdmission,
-  replayState: ReplayState,
-  contractRef: string,
-  completedProgresses?: readonly RetryCompletedProgressAdmission[],
-  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
-): RouteCandidate | RouteProposalRefusal;
-/** @internal Same candidate construction from authenticated current guard facts. */
-export function proposeInteractionResumeRoute(
-  graph: Readonly<GtlGraph>,
-  cursor: TraversalCursor,
-  targetCursor: TraversalCursor | null,
-  cCall: CCall,
-  judgment: AdmittedCCallJudgment,
-  resume: FhInteractionResumeAdmission,
-  replayState: RuntimeReplayGuard,
-  contractRef: string,
-  completedProgresses?: readonly RetryCompletedProgressAdmission[],
-  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-  definitionDigests?: Readonly<Record<string, `sha256:${string}`>>,
-): RouteCandidate | RouteProposalRefusal;
-export function proposeInteractionResumeRoute(
-  graph: Readonly<GtlGraph>,
-  cursor: TraversalCursor,
-  targetCursor: TraversalCursor | null,
-  cCall: CCall,
-  judgment: AdmittedCCallJudgment,
-  resume: FhInteractionResumeAdmission,
-  replayState: RuntimeReplayGuard,
-  contractRef: string,
-  completedProgresses: readonly RetryCompletedProgressAdmission[] = [],
-  boundInput?: RawAdmittedValue<Readonly<Record<string, JsonValue>>>,
-  definitionDigests: Readonly<Record<string, `sha256:${string}`>> = {},
-): RouteCandidate | RouteProposalRefusal {
-  const continuation = deriveCSourceContinuation(
-    graph.template,
-    cursor.currentNodeRef,
-    cursor.termPath,
-  );
-  const terminal =
-    continuation.kind === "c_source_continuation" &&
-    continuation.disposition === "terminal" &&
-    continuation.targetPath === null &&
-    targetCursor === null &&
-    graph.template.terminalNodeRefs.includes(cursor.currentNodeRef);
-  const advancing =
-    continuation.kind === "c_source_continuation" &&
-    continuation.disposition === "advance" &&
-    continuation.targetPath !== null &&
-    targetCursor !== null;
-  if (
-    !isMaterializedGtlGraph(graph) ||
-    !isTraversalCursorCandidate(cursor) ||
-    (targetCursor !== null && !isTraversalCursorCandidate(targetCursor)) ||
-    cursor.graphRef !== graph.materializationRef ||
-    cursor.frameId !== cCall.frameId ||
-    cursor.graphCallId !== cCall.graphCallId ||
-    cursor.cursorRef !== resume.successorCursorRef ||
-    cursor.cursorDigest !== resume.successorCursorDigest ||
-    cursor.inputRef !== resume.successorInputRef ||
-    cursor.inputDigest !== resume.successorInputDigest ||
-    cCall.regime !== "F_H" ||
-    judgment.cCallRef !== cCall.cCallRef ||
-    judgment.judgment !== "pending" ||
-    (!terminal && !advancing) ||
-    !isDeclaredCompletion(graph, cursor, targetCursor, {
-      inputRef: cursor.inputRef,
-      inputDigest: cursor.inputDigest,
-    }) ||
-    contractRef !== cCall.transitionContractRef
-  ) {
-    return routeRefusal(
-      "resume_not_admitted",
-      "F_H resume route requires the exact admitted response and GTL-declared continuation",
-    );
-  }
-  return graphRouteCandidate({
-    graph,
-    routeKind: terminal ? "terminal" as const : "advance" as const,
-    sourceCursor: cursor,
-    targetCursor,
-    cCallRef: cCall.cCallRef,
-    judgmentRef: judgment.judgmentRef,
-    consumedAvailabilityRefs: [
-      judgment.judgmentRef,
-      resume.admissionEventRef,
-      ...completedProgresses.map((progress) => progress.progressRef),
-    ],
     contractRef,
     replayState,
   });

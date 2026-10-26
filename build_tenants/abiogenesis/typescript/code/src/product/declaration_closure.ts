@@ -15,12 +15,11 @@ import type {
   ContractDeclaration,
   EvaluatorDeclaration,
   GraphFunction,
-  GtlProgram,
   ImplementationBinding,
   ModulePublication,
   RuleDeclaration,
 } from "../gtl/contracts.js";
-import { canonicalJson, compareUnicodeCodeUnits, type JsonValue } from
+import { canonicalJson, compareUnicodeCodeUnits } from
   "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";

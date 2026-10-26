@@ -11,7 +11,7 @@ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { sha256Bytes, sha256Canonical } from '../../build/code/src/shared/digests.js';
 import { projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection } from '../../build/code/src/abg/artifact_truth.js';
 
-const retainedBasis = { skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS };
+const retainedBasis = { skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS && 'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record' };
 
 test('owner derivation is exact-value bound, disposable, and cannot be copied or forged', retainedBasis, async () => {
   assert.ok(process.env.ABI5_PREFIX_REUSE_OBSERVATIONS, 'explicit retained read-only basis');

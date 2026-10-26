@@ -1,7 +1,6 @@
 import type * as structure from "./serialization_contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
-import type { ComputeRegime } from "./c_algebra.js";
 
 export type { ComputeRegime } from "./c_algebra.js";
 

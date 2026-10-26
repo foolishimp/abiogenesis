@@ -14,7 +14,7 @@ import { prepareStdoNoteProduct, pilotResources, pilotInputSkip } from "../suppo
 const packageRoot=resolve(dirname(fileURLToPath(import.meta.url)),"../..");
 test("construction readiness rederives the exact retained native request and preserves unknown refusal", { timeout: 180_000 }, async t => {
   if (!process.env.ABI5_DESIGN_CONTEXT_OBSERVATIONS || !process.env.ABI5_DESIGN_CONTEXT_PREDECESSOR) {
-    t.skip("requires explicit closed observations and frozen predecessor package"); return;
+    t.skip("ABI5_DESIGN_CONTEXT_OBSERVATIONS or ABI5_DESIGN_CONTEXT_PREDECESSOR unset; requires explicit closed observations and frozen predecessor package"); return;
   }
   const load = name => import(pathToFileURL(join(packageRoot, "build/code/src", name + ".js")).href);
   const [store, prefixes, executions, calls, cursors, materialize, semantic, instructions, traversal, meaning] = await Promise.all([

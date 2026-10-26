@@ -18,7 +18,6 @@ import {
   safeNonNegativeIntegerSchema,
   safePositiveIntegerSchema,
   TERMINAL_ONLY_ADAPTER_EXIT_MAP,
-  type RuntimeContractSchema,
 } from "../shared/public_function_contracts.js";
 
 export const ABG_PROJECT_READ_CASES = Object.freeze([

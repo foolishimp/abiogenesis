@@ -13,7 +13,6 @@ import {
 import {
   readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
-  type RuntimeEvent,
 } from "./event_store.js";
 import {
   runtimeEventBodiesAtPrefix,

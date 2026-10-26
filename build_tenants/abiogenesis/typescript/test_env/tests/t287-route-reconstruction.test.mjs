@@ -22,7 +22,7 @@ import {syncBuiltinESMExports} from 'node:module';
 import {constructTraversalCursorCandidate} from '../../build/code/src/abg/traversal_cursor.js';
 import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
 import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
-const enabled={skip:!process.env.P0_RETAINED_NATIVE_SCRATCH,timeout:180000};
+const enabled={skip:!process.env.P0_RETAINED_NATIVE_SCRATCH&&'P0_RETAINED_NATIVE_SCRATCH unset; requires the retained native scratch holding full-outcome.json',timeout:180000};
 const work=()=>({...globalThis.p0Work});
 const diff=(a,b)=>Object.fromEntries([...new Set([...Object.keys(a),...Object.keys(b)])].map(k=>[k,(b[k]??0)-(a[k]??0)]));
 async function retained(){

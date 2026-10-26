@@ -3,7 +3,6 @@ import type { ModulePublication, RootModuleArtifactBasis, ContractDeclaration } 
 import { C, cCarrier } from "./c_algebra.js";
 import { modulePublication } from "./declarations.js";
 import { sha256Canonical } from "../shared/digests.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));

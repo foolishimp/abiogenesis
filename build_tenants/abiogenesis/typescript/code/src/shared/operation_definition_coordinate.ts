@@ -1,5 +1,4 @@
 import { hasExactKeys, isNonEmptyString } from "./admission_predicates.js";
-import type { JsonValue } from "./canonical_json.js";
 import {
   isSha256Digest,
   sha256Canonical,

@@ -1,5 +1,4 @@
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT } from "../product/semantic_job.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";

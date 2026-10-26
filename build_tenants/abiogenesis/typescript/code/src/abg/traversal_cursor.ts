@@ -31,7 +31,6 @@ import {
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
-  runtimeEventBodiesAtPrefix,
   checkedRecordAtPrefix,
   indexedRuntimeEvents,
   selectValidatedRuntimeEventPrefix,

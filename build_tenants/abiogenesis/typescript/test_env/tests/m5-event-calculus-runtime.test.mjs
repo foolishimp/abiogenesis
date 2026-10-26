@@ -22,7 +22,7 @@ import { setupInstalledRootExecutionBasis } from "../support/root-installed-envi
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 test("nominal prefix reuse preserves full historical EC and replay including fresh process", {
-  skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,
+  skip: !process.env.ABI5_PREFIX_REUSE_OBSERVATIONS && "ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record",
   timeout: 180_000,
 }, async () => {
   const observationPath = process.env.ABI5_PREFIX_REUSE_OBSERVATIONS;

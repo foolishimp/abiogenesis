@@ -861,7 +861,7 @@ test("M5 ABG transport excludes semantic output emitted after its timeout bounda
 });
 
 test('owned process groups retain descendant cleanup after normal and TERM leader exits', {
-  skip: process.platform === 'win32', timeout: 20_000,
+  skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and TERM leader exits are unavailable', timeout: 20_000,
 }, async t => {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-group-')));
   t.after(() => rm(scratch, { recursive: true, force: true }));
@@ -1039,7 +1039,7 @@ test('M5 a finite native wakeup above the host timer domain does not fire before
 });
 
 test('M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive', {
-  skip: process.platform === 'win32', timeout: 10000,
+  skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and /bin/ps are unavailable', timeout: 10000,
 }, async t => {
   const root = await realpath(await mkdtemp(join(tmpdir(), 'abi5-owned-stdin-error-')));
   const childFile = join(root, 'finite-child.mjs'), hostFile = join(root, 'host.mjs');

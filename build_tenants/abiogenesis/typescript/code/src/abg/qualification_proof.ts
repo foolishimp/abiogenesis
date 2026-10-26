@@ -3,7 +3,6 @@ import { isQualificationReferenceForm, resolveQualificationAssessment, resolveQu
 import { canonicalJson } from "../shared/canonical_json.js";
 import { isDeepStrictEqual } from "node:util";
 import type { JsonValue } from "../shared/canonical_json.js";
-import * as v from "valibot";
 import { sha256Bytes } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { materializeGraph } from "../gtl/materialize.js";
@@ -33,18 +32,18 @@ import {
   type QualificationNativeBasis, type QualificationProofResource, type QualificationEmbeddedProofResource, type QualificationAssessmentPlan,
   type QualificationEvidenceSelection, type QualificationJudgment, type QualificationOwnerRuling,
   type QualificationSelfConformanceSummary, type QualificationMaterial, type QualificationVerdictInput,
-  type TenantConformanceManifest, type MalformedGtlAssessment, type MalformedGtlAssessmentInput,
+  type TenantConformanceManifest, type MalformedGtlAssessment, 
   type NativeRuntimeAssessmentInput, type NativeRuntimeAssessment,
-  type ExactCandidateQualification, type QualificationCoordinate, constructQualificationIdentity,
+  type ExactCandidateQualification, type QualificationCoordinate, 
   type QualificationVerificationSelection, type QualificationVerificationMaterial, type QualificationSubjectInventory,
 } from "../validator/qualification_contracts.js";
-import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationWorkerRequest, qualificationRawMatches,
+import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationRawMatches,
   qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial } from "../validator/qualification.js";
-import { qualificationCoverageIsPublished, isQualificationBasisReady, projectExternalConstructionAttribution,
+import { projectExternalConstructionAttribution,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
 import type { AdmittedQualificationCatalogs } from "../validator/qualification.js";
-import { admitInstalledQualificationCatalogs, readInstalledQualificationRuleCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "../validator/qualification_catalogs.js";
+import { admitQualificationCatalogsOnce, readInstalledQualificationRuleCatalog, SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "../validator/qualification_catalogs.js";
 import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOwner } from "../validator/self_conformance_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -924,7 +923,7 @@ function ownerInstallCatalogs(owner: NonNullable<ReturnType<typeof graphOwner>>)
   const install = row === null ? null : exactOrNull(onlyExactMatch(owner.environment.productInstalls.filter(i =>
     i.productId === row.implementationOwnerProductId && i.packageName === row.packageName && i.packageVersion === row.packageVersion)));
   if (install === null) return null;
-  const admission = admitInstalledQualificationCatalogs(install);
+  const admission = admitQualificationCatalogsOnce(install);
   return admission.kind === "admitted" ? admission.value : null;
 }
 /** D6 consumes the sole AF22 verdict; it never reinterprets F11 findings. */

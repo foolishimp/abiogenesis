@@ -31,9 +31,8 @@ import type { ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import {
   isAdmittedCCallJudgment,
   isAdmittedCCallResult,
-  admitPlannedPendingInteraction, admitOwnedPlannedPendingInteraction, type OwnedPendingInteractionAdmissionPlan,
+  admitOwnedPlannedPendingInteraction, type OwnedPendingInteractionAdmissionPlan,
   projectPendingInteractionCarrier,
-  rehydratePendingInteraction,
   type AdmittedCCallJudgment,
   type AdmittedCCallResult,
   type CCall,
@@ -47,12 +46,9 @@ function graphFunctionCatalogViewRef(view: GraphFunctionCatalogView): string {
   return `graph-function-catalog-view://abiogenesis/${view.viewDigest.slice("sha256:".length)}`;
 }
 import {
-  admittedConstructionComposition,
   hasAdmittedExecutionBasisAtPrefix,
   hasAdmittedInteractionSetAtPrefix,
   isAdmittedConstructionInteractionLocus,
-  rehydrateExecutionBasis,
-  rehydrateExecutionBasisAtPrefix,
   type AdmittedInteractionSet,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
@@ -72,7 +68,6 @@ import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   admitRuntimeEvent,
-  admitRuntimeEventTransactionAtExpectedPrefix,
   readHeldRuntimeEventsAtDurablePrefix,
   compareAndAppendExpectedPrefix,
   projectRuntimeEventFromValidatedHistory,
@@ -148,13 +143,11 @@ import { runtimeEventPrefixDigest,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
-  hasAdmittedInvocation,
   hasAdmittedInvocationAtPrefix,
   type InvocationAdmission,
 } from "./invocation_admission.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
-  rehydrateOpenedTraversalScope,
   type OpenedTraversalScope,
 } from "./open_call.js";
 import {
@@ -318,55 +311,6 @@ export type FhInteractionResumeAdmission = {
   readonly successorCursorDigest: Sha256Digest;
   readonly admissionEventRef: string;
 };
-
-function executionBasisDescendsFromRootInvocation(
-  store: AbgEventStore,
-  leafBasis: ExecutionBasis,
-  rootInvocation: InvocationAdmission,
-): boolean {
-  return executionBasisDescendsFromRootInvocationAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    leafBasis,
-    rootInvocation,
-  );
-}
-
-function executionBasisDescendsFromRootInvocationAtPrefix(
-  prefix: RuntimeEventPrefix,
-  leafBasis: ExecutionBasis,
-  rootInvocation: InvocationAdmission,
-): boolean {
-  const seen = new Set<string>();
-  let current: ExecutionBasis | null = leafBasis;
-  while (current !== null) {
-    if (
-      seen.has(current.basisRef) ||
-      current.invocationAdmissionRef !==
-        rootInvocation.invocationAdmissionRef ||
-      current.invocationRef !== rootInvocation.invocationRef ||
-      current.programRef !== rootInvocation.programRef
-    ) {
-      return false;
-    }
-    seen.add(current.basisRef);
-    if (current.parentExecutionBasisRef === null) {
-      return current.basisClass === "root" &&
-        current.parentTraversalScopeRef === null &&
-        current.graphFunctionRef === rootInvocation.graphFunctionRef;
-    }
-    if (
-      current.basisClass !== "child" ||
-      current.parentTraversalScopeRef === null
-    ) {
-      return false;
-    }
-    current = rehydrateExecutionBasisAtPrefix(
-      prefix,
-      current.parentExecutionBasisRef,
-    );
-  }
-  return false;
-}
 
 /**
  * Reconstructs the exact pending F_H CCall carrier from one immutable ABG
@@ -716,26 +660,6 @@ function runtimeEventCandidate(event: RuntimeEvent): RuntimeEventCandidate {
   return candidate;
 }
 
-function resolveCurrentContinuationOperationCoordinate(
-  store: AbgEventStore,
-  continuationRef: string,
-  operation: ContinuationPublicOperationAdmission,
-  predecessor: Readonly<{
-    readonly eventRef: string | null;
-    readonly kind: "fh_interaction_opened" | "fh_interaction_responded";
-  }>,
-): Readonly<{
-  readonly event: RuntimeEvent;
-  readonly payload: Readonly<Record<string, JsonValue>>;
-}> | null {
-  return resolveCurrentContinuationOperationCoordinateAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
-    continuationRef,
-    operation,
-    predecessor,
-  );
-}
-
 function resolveCurrentContinuationOperationCoordinateAtPrefix(
   prefix: RuntimeEventPrefix,
   continuationRef: string,
@@ -883,7 +807,7 @@ export function projectFhInteractionSemanticBasisAtPrefix(
   readonly constructionIntent: Readonly<Record<string, JsonValue>> | null;
   readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
 }> | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const continuationRef = continuation.continuationRef;
   const opened = indexedRuntimeEvents(prefix, "id:" + continuation.openedEventRef).find(
     (event) => event.eventId === continuation.openedEventRef,
@@ -1541,94 +1465,6 @@ export function admitOwnedFhInteractionHold(
   return deepFreeze({
     ...committed.value,
     successorPrefix: committed.successorPrefix,
-  });
-}
-
-function admitFhInteractionResponse(
-  store: AbgEventStore,
-  continuation: ReplayContinuationState,
-  operation: ContinuationPublicOperationAdmission,
-  responseContractRef: string,
-  responseValue: Readonly<Record<string, JsonValue>>,
-  basis: RuntimeAdmissionBasis,
-): FhInteractionResponseAdmission {
-  const continuationRef = continuation.continuationRef;
-  const operationCoordinate = resolveCurrentContinuationOperationCoordinate(
-    store,
-    continuationRef,
-    operation,
-    {
-      eventRef: continuation.openedEventRef,
-      kind: "fh_interaction_opened",
-    },
-  );
-  const publicEvent = operationCoordinate?.event;
-  const publicPayload = operationCoordinate?.payload ?? null;
-  if (
-    continuation.status !== "open" ||
-    operation.operationId !== "abg.operation.interaction.respond" ||
-    operation.capabilityRef !== continuation.actorCapabilityRef ||
-    responseContractRef !== continuation.responseContractRef ||
-    (
-      continuation.constructionIntentRef !== null &&
-      responseValue.constructionIntentRef !==
-        continuation.constructionIntentRef
-    ) ||
-    publicEvent?.kind !== "public_operation_admitted" ||
-    publicPayload?.capabilityRef !== operation.capabilityRef ||
-    !Array.isArray(publicPayload.capabilityGrantRefs) ||
-    publicPayload.capabilityGrantRefs[0] !== operation.capabilityGrantRef ||
-    basis.eventTime !== publicEvent.eventTime ||
-    basis.correlationId !== publicEvent.correlationId
-  ) {
-    throw new TypeError(
-      "F_H response requires one exact open continuation and admitted response operation",
-    );
-  }
-  const responseDigest = sha256Canonical(responseValue);
-  const responseRef =
-    `interaction-response://abiogenesis/${responseDigest.slice("sha256:".length)}`;
-  const event = admitRuntimeEvent(store, {
-    kind: "fh_interaction_responded",
-    eventTime: basis.eventTime,
-    aggregateType: "continuation",
-    aggregateId: continuationRef,
-    parentAggregateId: continuation.frameId,
-    causationEventRefs: [
-      continuation.openedEventRef,
-      operation.admissionEventRef,
-      ...basis.causationEventRefs,
-    ],
-    correlationId: basis.correlationId,
-    workflowVersion: "5.0.0",
-    scopeClass: "run",
-    basisId: continuation.continuationRef,
-    runId: continuation.runId,
-    graphCallId: continuation.graphCallId,
-    frameId: continuation.frameId,
-    payload: {
-      continuationRef,
-      actorRef: operation.actorRef,
-      capabilityRef: operation.capabilityRef,
-      responseContractRef,
-      responseRef,
-      responseDigest,
-      responseValue,
-      publicOperationEventRef: operation.admissionEventRef,
-    },
-  });
-  return deepFreeze({
-    kind: "fh_interaction_response_admission" as const,
-    schemaVersion: "5.0.0" as const,
-    disposition: "responded" as const,
-    continuationRef,
-    actorRef: operation.actorRef,
-    capabilityRef: operation.capabilityRef,
-    responseContractRef,
-    responseRef,
-    responseDigest,
-    responseValue,
-    admissionEventRef: event.eventId,
   });
 }
 

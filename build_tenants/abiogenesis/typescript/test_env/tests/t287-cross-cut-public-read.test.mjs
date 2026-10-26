@@ -107,7 +107,10 @@ test('different-cut native Definition reads keep blocked absence and exact histo
   const measurements={};
   for(const member of ['run_status','run_result','run_replay','graph_call_result','graph_call_replay']) {
     const measured=await measureHistoryReads(f,()=>f.invoke(f.call(member),false));out[member]=measured.value;
-    assert.equal(measured.reads,1,member+' must retain the acquired prefix through late proof admission');
+    // design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md, Operational history representation (:64): the
+    // acquisition validates the extent by bounded 64 KiB record decoding and retains body locations; the first
+    // materialization reads each body by its location (C-18a item 1).
+    assert.equal(measured.reads,Math.ceil(f.bytes.length/65536)+f.rows.length,member+' decodes the extent in bounded chunks and reads each body once by location');
     assert.equal(measured.readBytes,f.bytes.length,member+' reconstructs history only at acquisition');
     measurements[member]={reads:measured.reads,readBytes:measured.readBytes};
   }

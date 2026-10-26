@@ -1,6 +1,6 @@
 import { isQualificationAssessmentInput, prepareQualificationAssessment, type PreparedQualificationAssessment,
   type AdmittedQualificationCatalogs } from "../validator/qualification.js";
-import { admitInstalledQualificationCatalogs, type QualificationCatalogAdmission } from "../validator/qualification_catalogs.js";
+import { admitQualificationCatalogsOnce } from "../validator/qualification_catalogs.js";
 import type { ResultEvidenceLineage } from "../abg/result_evidence_lineage_contracts.js";
 import type { QualificationResources } from "../validator/qualification_resources.js";
 import { graphFunctionSemanticsOwner } from "../product/execution_resolution.js";
@@ -977,19 +977,11 @@ export async function constructAdmittedLeafInvocationPort(authority: {
   }
   const semantics = inspected.runtime;
   const modules = new Map<string, Promise<Record<string, unknown>>>();
-  // Admitted once per owner install; a refused admission is not retained.
-  // These reads land on the executing package's verified install record.
-  const admittedCatalogs = new Map<string, Readonly<AdmittedQualificationCatalogs>>();
-  function qualificationCatalogsOf(install: LeafInvocationInstall): QualificationCatalogAdmission<Readonly<AdmittedQualificationCatalogs>> {
-    const known = admittedCatalogs.get(install.installId);
-    if (known !== undefined) return Object.freeze({ kind: "admitted" as const, value: known });
-    const admission = admitInstalledQualificationCatalogs(install);
-    if (admission.kind === "admitted") admittedCatalogs.set(install.installId, admission.value);
-    return admission;
-  }
   // A judgment-time relation evaluates under the semantics owner's install.
+  // Catalogs are admitted once per owner install identity per process
+  // (`admitQualificationCatalogsOnce`); a refused admission is not retained.
   const judgmentCatalogs = () => {
-    const admission = qualificationCatalogsOf(semanticsBinding.install);
+    const admission = admitQualificationCatalogsOnce(semanticsBinding.install);
     return admission.kind === "admitted" ? admission.value : null;
   };
 
@@ -1596,7 +1588,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
         // projection and the F_P preparation follow an admission and take it. With
         // no owner install the stage refuses as it always has.
         const catalogOwner = isQualification ? implementationOwner(admittedResolution) : null;
-        const catalogAdmission = catalogOwner === null ? null : qualificationCatalogsOf(catalogOwner.install);
+        const catalogAdmission = catalogOwner === null ? null : admitQualificationCatalogsOnce(catalogOwner.install);
         const qualificationCatalogs = catalogAdmission?.kind === "admitted" ? catalogAdmission.value : undefined;
         const authorityRefusal = catalogAdmission?.kind === "refused" ? { at: catalogAdmission.at, reason: catalogAdmission.reason } : undefined;
         const qualificationOwnerBasis = isQualification && call.predecessorPrefix !== undefined

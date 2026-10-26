@@ -4,7 +4,6 @@ import { join } from "node:path";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
-import { type JsonValue } from "../shared/canonical_json.js";
 import type {
   DefinitionCall, DefinitionExecutionFault, DefinitionReturn,
   ExactDefinitionCallable,

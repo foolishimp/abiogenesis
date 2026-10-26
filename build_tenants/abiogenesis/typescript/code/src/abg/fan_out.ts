@@ -1,4 +1,4 @@
-import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromStore, runtimeEventBodiesAtPrefix, indexedRuntimeEvents, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromStore, indexedRuntimeEvents, selectRuntimeEventPrefixFromAuthority } from "./event_prefix.js";
 import { projectRuntimeReplayGuard, type RuntimeReplayGuard } from "./replay.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type {
@@ -11,7 +11,6 @@ import {
 import { isMaterializedGtlGraph } from "../gtl/materialize.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {
-  sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
 import {
@@ -24,11 +23,9 @@ import {
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import { runtimeEventPrefixDigest,
-  selectValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   projectExactFanOutCompletion,

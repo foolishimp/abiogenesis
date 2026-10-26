@@ -8,7 +8,7 @@ import { constructWorksiteConstructionModulePublication, constructWorksitePreser
 import { constructSemanticBridgeGraphFunction, constructSemanticStageGraphFunction } from "../gtl/semantic_stage_publication.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { ABI5_PRODUCT_ID } from "../product/contracts.js";
-import { deriveSemanticWorksitePreparation, isSemanticStageEnvelope, type SemanticStageEnvelope } from "../product/semantic_stage.js";
+import { deriveSemanticWorksitePreparation, isSemanticStageEnvelope } from "../product/semantic_stage.js";
 import { isWorksitePreparationInput } from "../product/worksite_preparation.js";
 import { WORKSITE_CONSTRUCTION_IDS, constructWorksiteConstructionWorkerResult, isWorksiteConstructionTask,
   worksiteConstructionWorkerResultSchema, type WorksiteConstructionTask } from "../product/worksite_construction.js";
@@ -24,8 +24,8 @@ import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, type CCall } from "./c_call.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
-import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "./event_store.js";
+import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";

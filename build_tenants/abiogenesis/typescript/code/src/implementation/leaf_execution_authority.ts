@@ -1,7 +1,6 @@
 import { isRecord, isNonblankNulFreeString as nonEmptyString } from "../shared/admission_predicates.js";
 import { admitJson } from "../shared/admit/index.js";
 import { validateDurablePrefixCoordinate } from "../abg/event_store.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import type { LeafExecutionAuthority } from "./contracts.js";

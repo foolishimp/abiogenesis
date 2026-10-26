@@ -9,7 +9,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import { defaultGovernanceGraphFunctions } from "../gtl/default_library.js";
 import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
-import { isGovernanceWorkState, governanceTestingConfiguration, governanceRef, type GovernanceWorkState } from "../product/default_library.js";
+import { isGovernanceWorkState, governanceTestingConfiguration, governanceRef } from "../product/default_library.js";
 import { constructNativeWorksiteCommandReacquisitionRequest, constructWorksiteCommandConfiguration,
   worksiteCommandConfigurationMatches } from "../product/worksite_command_execution.js";
 import { constructWorksiteSubject, type WorksiteContextObservation } from "../product/worksite_effect.js";
@@ -20,9 +20,9 @@ import { NATIVE_WORK_REACQUISITION_IDS as ids, constructNativeWorksiteCommandExe
   isNativeWorksiteCommandReacquisitionRequest,
   type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { observeWorksiteContext } from "../product/worksite_operations.js";
-import { readRuntimeEventsAtDurablePrefix, authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate,
+import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate,
   runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix, runtimeEventBodiesAtPrefix, runtimePrefixComputation, unscopedRuntimeEventPrefix, isImmutableRuntimeValue,
+import { selectValidatedRuntimeEventPrefix, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix, 
   validatedRuntimeEventPrefixThroughEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix, hasAdmittedGovernanceSourceUse,
@@ -137,7 +137,7 @@ function projectNativeWorkReacquisitionOccurrence(basis: NativeWorkReacquisition
   try {
     if (!isNativeWorksiteCommandReacquisitionRequest(input)) return refused(refusal, stage, "request_shape");
     stage = "native_occurrence_basis";
-    const events = runtimeEventBodiesAtPrefix(prefix);
+    runtimeEventBodiesAtPrefix(prefix);
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + basis.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef));
     const execution = opened?.basisId == null ? null : projectExactExecutionBasisAtPrefix(prefix, opened.basisId);
     const library = execution?.graphFunctionRef === governanceRef("graph-function", "testing");
@@ -373,7 +373,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
   const recordedCover = projectWorksiteRevisionBindingCover(preparedPrefix, input.task.sourceNativeWork.task.workspaceBinding,
     input.task.workspaceBinding, [original.sourceBasis]);
   if (recordedCover === null || !same(recordedCover, proof.bindingCoverEventRefs)) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === proof.nativeBasis.cCallRef));
   const judgment = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + proof.nativeBasis.cCallRef), e => e.kind === "c_call_judged" && e.aggregateId === proof.nativeBasis.cCallRef));
   const parentCall = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.parentCCallRef), e => e.kind === "c_call_opened" && e.aggregateId === input.parentCCallRef && e.basisId === input.parentBasis.basisRef));

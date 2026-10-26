@@ -105,7 +105,6 @@ export type SuccessfulRetryExitPlan =
 
 
 import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
-import * as OwnedOutcome from "../abg/c_call_outcome.js";
 import * as OwnedReplay from "../abg/replay.js";
 /** @internal */
 export type OwnedRetryLifecycleStep = OwnedOutcomeValue<RetryLifecycleStep>;
@@ -567,7 +566,7 @@ export function advanceOwnedRetryLifecycle(
       request,
       admitted.successorPrefix,
       "retry-failure-plan",
-      `diagnostic://abiogenesis/hog/${failurePlan.code}@5`,
+      constructRuntimeFailureDiagnosticRef({ stage: "retry-failure-plan", candidate: failurePlan }),
       failurePlan,
     );
   }
@@ -686,7 +685,7 @@ export function advanceOwnedRetryLifecycle(
       request,
       admitted.successorPrefix,
       "retry-failure-transition",
-      `diagnostic://abiogenesis/hog/${retryTransition.code}@5`,
+      constructRuntimeFailureDiagnosticRef({ stage: "retry-failure-transition", candidate: retryTransition }),
       retryTransition,
     );
   }
@@ -710,7 +709,7 @@ export function advanceOwnedRetryLifecycle(
       request,
       retryTransition.successorPrefix,
       "retry-input-projection",
-      `diagnostic://abiogenesis/hog/${retry.code}@5`,
+      constructRuntimeFailureDiagnosticRef({ stage: "retry-input-projection", candidate: retry }),
       retry,
     );
   }

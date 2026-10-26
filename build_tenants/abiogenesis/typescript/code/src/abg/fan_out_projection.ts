@@ -13,7 +13,6 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { runtimeEventPrefixDigest,
-  validatedRuntimeEventPrefixThroughEvent,
   runtimeEventBodiesAtPrefix,
   runtimePrefixComputation,
   indexedRuntimeEvents,
@@ -25,11 +24,9 @@ import {
   runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import type {
-  CompleteFanOutAdmission,
   FanOutCompletedTaskRow,
   FanOutCompletionAdmission,
   FanOutStoppingTaskRow,
-  PartialFanOutAdmission,
 } from "./fan_out.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
@@ -964,7 +961,7 @@ function candidateProjection(
   prefix: RuntimeEventPrefix,
   request: Extract<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionCandidateProjection | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   if (
     runtimeEventPrefixDigest(prefix) !==
       request.expectedPrefixDigest
@@ -1090,7 +1087,7 @@ function deriveCanonicalAdmission(
   prefix: RuntimeEventPrefix,
   request: Exclude<ExactFanOutCompletionProjectionRequest, { mode: "candidate" }>,
 ): FanOutCompletionAdmission | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const completionEvent = uniqueEvent(indexedRuntimeEvents(prefix, "id:" + request.admissionEventRef), (event) =>
     event.eventId === request.admissionEventRef &&
     event.kind === "fan_out_completion_admitted"

@@ -41,11 +41,8 @@ import {
   CONSENSUS_FH_DECISION_VALUES,
   CONSENSUS_REVIEWER_RESPONSE_SCHEMA,
   CONSENSUS_ROUND_OUTCOME_VALUES,
-  CONSENSUS_SCHEMA_ASSET_BINDINGS,
   CONSENSUS_SCHEMA_REQUIRED_KEYS,
   CONSENSUS_SUBMITTER_RESPONSE_SCHEMA,
-  isConsensusReviewerCandidate,
-  isConsensusSubmitterResponseCandidate,
   REVIEW_RULING_KIND_VALUES,
 } from "./consensus_schema.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -4163,7 +4160,7 @@ export function constructConsensusModulePublication(
   const submitterResponseCarrier = cCarrier<ConsensusSubmitterResponse>(
     CONSENSUS_IDS.submitterResponseContractRef,
   );
-  const roundRef = cGraphFunctionRef({
+  cGraphFunctionRef({
     graphFunctionRef: CONSENSUS_IDS.roundGraphFunctionRef,
     input: stateCarrier,
     output: stateCarrier,

@@ -1,4 +1,4 @@
-import { toJsonSchema, type JsonSchema } from "@valibot/to-json-schema";
+import { toJsonSchema } from "@valibot/to-json-schema";
 import * as v from "valibot";
 
 import { admitJson, isRecord } from "./admit/index.js";

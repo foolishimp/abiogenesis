@@ -82,8 +82,7 @@ export function deriveFhResumeSuccessorInputAtPrefix(
   closureContract: Readonly<ClosureContract>,
   successorCarrier: FhResumeSuccessorCarrier,
 ): FhResumeSuccessorInput {
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const continuationRef = continuation.continuationRef;
+  runtimeEventBodiesAtPrefix(prefix);
   if (
     continuation.status !== "responded" ||
     continuation.responseRef === null ||

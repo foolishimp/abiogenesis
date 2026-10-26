@@ -14,7 +14,6 @@ import {
   projectTicketConsensus,
 } from "../gtl/consensus.js";
 import {
-  canonicalJson,
   compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";

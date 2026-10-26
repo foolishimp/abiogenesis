@@ -6,7 +6,6 @@ import { WORKSITE_COMMAND_EXECUTION_IDS as C2 } from "../product/worksite_comman
 import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
 import { realizeWorksiteCommandExecution, installedProductInventoryDigest } from "./worksite_command_execution.js";
 import type { LeafExecutionOccurrence, LeafRealizationCandidate } from "./contracts.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";

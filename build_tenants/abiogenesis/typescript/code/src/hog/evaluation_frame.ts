@@ -2,9 +2,6 @@ import type {
   CCall,
 } from "../abg/c_call.js";
 import type {
-  JudgedCCallOutcomeReceipt,
-} from "../abg/c_call_outcome.js";
-import type {
   AdmittedImplementationSet,
   ExecutionBasis,
 } from "../abg/execution_basis.js";
@@ -15,7 +12,6 @@ import type {
 import type {
   ClosureContract,
   FanOutApplication,
-  RecurseApplication,
 } from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -62,19 +58,6 @@ export interface WorkflowReturnFrame {
   readonly childInput: TraversalValue;
   readonly childInputDigest: `sha256:${string}`;
 }
-
-export interface RecursionReturnFrame {
-  readonly relation: "recursion";
-  readonly parent: EvaluationFrame;
-  readonly parentOutcome: JudgedCCallOutcomeReceipt;
-  readonly application: Readonly<RecurseApplication>;
-  readonly childExecutionBasis: ExecutionBasis;
-  readonly childTraversalScope: OpenedTraversalScope;
-  readonly childInput: TraversalValue;
-  readonly childInputDigest: `sha256:${string}`;
-}
-
-export type HogReturnFrame = WorkflowReturnFrame | RecursionReturnFrame;
 
 /** Fold-internal position. Entity operators never receive this carrier. */
 export interface MachineEvaluationFrame {

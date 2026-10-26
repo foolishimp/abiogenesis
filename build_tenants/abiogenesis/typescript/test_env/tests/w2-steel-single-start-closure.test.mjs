@@ -26,7 +26,7 @@ import { rawAdmitValue } from "../../build/code/src/validator/raw_admission.js";
 
 const retainedC2Root = process.env.ABI5_STEEL03_RETAINED_C2_ROOT;
 test("same-Run C2 source and failed semantic replay preserve immutable historical cuts", {
-  skip: !retainedC2Root && "requires the retained installed C2 pre-actor failure",
+  skip: !retainedC2Root && "ABI5_STEEL03_RETAINED_C2_ROOT unset; requires the retained installed C2 pre-actor failure",
 }, async () => {
   const events = deepFreeze((await readFile(`${retainedC2Root}/events/runtime.events.jsonl`, "utf8"))
     .trimEnd().split("\n").map(JSON.parse));
@@ -81,7 +81,7 @@ test("same-Run C2 source and failed semantic replay preserve immutable historica
 
 const retainedContinuationRoot = process.env.ABI5_STEEL03_RETAINED_CONTINUATION_ROOT;
 test("retry continuation preserves the admitted retained C1 input and ordinary terminal input", {
-  skip: !retainedContinuationRoot && "requires the retained installed completed C1 prefix",
+  skip: !retainedContinuationRoot && "ABI5_STEEL03_RETAINED_CONTINUATION_ROOT unset; requires the retained installed completed C1 prefix",
 }, async () => {
   const preflight = JSON.parse(await readFile(`${retainedContinuationRoot}/preflight.json`, "utf8"));
   const receipt = JSON.parse(await readFile(`${retainedContinuationRoot}/receipt-12.json`, "utf8")).receipt;
@@ -251,7 +251,7 @@ test("retry continuation preserves the admitted retained C1 input and ordinary t
 
 const fanOutRoot = process.env.ABI5_STEEL03_RETAINED_FANOUT_ROOT;
 test("declared fan-out output validates independently of leaf output slots", {
-  skip: !fanOutRoot && "requires the retained installed successful C0 prefix",
+  skip: !fanOutRoot && "ABI5_STEEL03_RETAINED_FANOUT_ROOT unset; requires the retained installed successful C0 prefix",
 }, async () => {
   const preflight = JSON.parse(await readFile(`${fanOutRoot}/preflight.json`, "utf8"));
   const receipt = JSON.parse(await readFile(`${fanOutRoot}/receipt-12.json`, "utf8")).receipt;
@@ -312,7 +312,7 @@ const callPath = process.env.ABI5_STEEL03_RETAINED_CALL_PATH;
 const c0Root = process.env.ABI5_STEEL03_RETAINED_C0_ROOT;
 
 test("C0 authentic immutable Program publication witness binds raw and installed semantic identities", {
-  skip: !c0Root && "requires the retained installed C0 prefix",
+  skip: !c0Root && "ABI5_STEEL03_RETAINED_C0_ROOT unset; requires the retained installed C0 prefix",
 }, async () => {
   const preflight = JSON.parse(await readFile(`${c0Root}/preflight.json`, "utf8"));
   const receipt = JSON.parse(await readFile(`${c0Root}/receipt-12.json`, "utf8")).receipt;
@@ -391,7 +391,7 @@ test("C0 authentic immutable Program publication witness binds raw and installed
 const preflightPath = process.env.ABI5_STEEL03_RETAINED_PREFLIGHT_PATH;
 const leafRoot = process.env.ABI5_STEEL03_RETAINED_LEAF_ROOT;
 test("admitted stage output preserves the exact C1 task carrier and distinct failure slot", {
-  skip: !leafRoot && "requires the retained installed first-leaf prefix",
+  skip: !leafRoot && "ABI5_STEEL03_RETAINED_LEAF_ROOT unset; requires the retained installed first-leaf prefix",
 }, async () => {
   const preflight = JSON.parse(await readFile(`${leafRoot}/preflight.json`, "utf8"));
   const receipt = JSON.parse(await readFile(`${leafRoot}/receipt-12.json`, "utf8")).receipt;
@@ -445,7 +445,7 @@ test("admitted stage output preserves the exact C1 task carrier and distinct fai
   }
 });
 test("worksite Program owner binds raw publication separately from installed semantic identity", {
-  skip: !preflightPath && "requires the authentic installed preflight and original prefix",
+  skip: !preflightPath && "ABI5_STEEL03_RETAINED_PREFLIGHT_PATH unset; requires the authentic installed preflight and original prefix",
 }, async () => {
   const preflight = JSON.parse(await readFile(preflightPath, "utf8"));
   const W = preflight.input.constructionTask.workspaceBinding;
@@ -499,7 +499,7 @@ test("worksite Program owner binds raw publication separately from installed sem
 });
 
 test("consumer callable membership resolves exact borrowed owners without contributor membership rewriting", {
-  skip: !callPath && "requires the retained installed conformance call",
+  skip: !callPath && "ABI5_STEEL03_RETAINED_CALL_PATH unset; requires the retained installed conformance call",
 }, async () => {
   const call = JSON.parse(await readFile(callPath, "utf8")).invocation;
   const resources = call.resources;
@@ -556,7 +556,7 @@ test("consumer callable membership resolves exact borrowed owners without contri
 
 const resourceCallPath = process.env.ABI5_STEEL03_RETAINED_START_CALL_PATH;
 test("run resources preserve the accepted retention carrier and reject wrong kind or extra fields", {
-  skip: !resourceCallPath && "requires the retained exact start resource assertion",
+  skip: !resourceCallPath && "ABI5_STEEL03_RETAINED_START_CALL_PATH unset; requires the retained exact start resource assertion",
 }, async () => {
   const call = JSON.parse(await readFile(resourceCallPath, "utf8")).invocation;
   assert.equal(product.isRunInvocationResourceAssertion(call.resources), true);

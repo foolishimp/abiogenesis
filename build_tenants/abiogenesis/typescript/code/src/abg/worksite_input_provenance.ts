@@ -17,7 +17,7 @@ import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../prod
 import { nativeWorksiteRecoverySourceAtPrefix } from "./worksite_construction_recovery.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS, isWorksiteBranchConstructionOutputVector,
   reduceWorksiteBranchConstructionResults } from "../product/worksite_branch_construction.js";
-import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask, isWorksiteCommandExecutionTask, type WorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+import { isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { indexedRuntimeEvents, runtimeEventBodiesAtPrefix, runtimeEventPrefixExtent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
@@ -26,7 +26,7 @@ import { projectWorkflowCCallInputDigestAtPrefix } from "./c_call.js";
 import type { ExecutionBasis } from "./execution_basis.js";
 import type { RuntimeEvent } from "./event_store.js";
 import { observedGovernanceTaskMatches } from "./default_library.js";
-import { governanceRef, governanceContract, isGovernanceWorkState } from "../product/default_library.js";
+import { governanceRef, isGovernanceWorkState } from "../product/default_library.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
 import { worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";

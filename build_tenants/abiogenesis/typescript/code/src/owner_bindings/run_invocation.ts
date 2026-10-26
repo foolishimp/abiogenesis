@@ -51,10 +51,7 @@ import {
 } from "../abg/runtime_failure.js";
 import {
   type DurablePrefixCoordinate,
-  type EventStoreCloseHandoff,
   selectHeldEventStoreDurablePrefix,
-  validateDurablePrefixCoordinate,
-  validateEventStoreCloseHandoff,
 } from "../abg/event_store.js";
 import {
   admitExactInvocation,
@@ -102,7 +99,6 @@ import { RUN_OPERATION_CONTRACTS } from
   "../product/run_operation_contracts.js";
 import {
   projectInstalledLeafSemantics,
-  type ProductInvocationSourceResultBasis,
 } from "../product/semantics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import {

@@ -31,7 +31,6 @@ import { proposeJudgmentCandidate } from "./judgment.js";
 import {
   admissionBasis,
   ownedRuntimePrefixAtDurable as runtimePrefixAtDurable,
-  type ExecutionClock,
 } from "./operator_support.js";
 import * as Routes from "./route_proposal.js";
 import { planOwnedSuccessfulRetryExit as planSuccessfulRetryExit } from "./retry_lifecycle.js";
@@ -123,7 +122,6 @@ export type WorkflowLocusStep =
 
 
 import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
-import type { RuntimeReplayGuard } from "../abg/replay.js";
 import * as OwnedOutcome from "../abg/c_call_outcome.js";
 import * as OwnedReplay from "../abg/replay.js";
 

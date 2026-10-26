@@ -17,7 +17,7 @@ const hash=product.sha256Canonical;
 
 test('qualification F_P publication supplies the exact raw owner to real singleton and mixed native preimage verification',async t=>{
   const names=['ABI5_QUAL_RAW_COORDINATES','ABI5_QUAL_RAW_INPUT_PACKET','ABI5_QUAL_RAW_REQUEST','ABI5_QUAL_RAW_BODY','ABI5_QUAL_RAW_BASELINE_TENANT'];
-  if(names.some(n=>!process.env[n]))return t.skip('requires explicit frozen qualification and failed-Runtime preimages; no current installation is inferred');
+  if(names.some(n=>!process.env[n]))return t.skip(names.filter(n=>!process.env[n]).join(', ')+' unset; requires explicit frozen qualification and failed-Runtime preimages; no current installation is inferred');
   const start=performance.now(),coords=await read(process.env.ABI5_QUAL_RAW_COORDINATES),packet=await read(process.env.ABI5_QUAL_RAW_INPUT_PACKET),request=await read(process.env.ABI5_QUAL_RAW_REQUEST),raw=await read(process.env.ABI5_QUAL_RAW_BODY);
   const input=packet.assessmentInput,q=gtl.QUALIFICATION_IDS;
   assert.equal(request.inputDigest,hash(input));assert.equal(request.instructionContractRef,q.assessmentInput);assert.equal(request.resultContractRef,q.assessmentRaw);

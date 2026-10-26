@@ -8,7 +8,7 @@ const root=resolve(import.meta.dirname,'../..'),proof=process.env.ABI5_FRAME_PRO
 const sha=b=>createHash('sha256').update(b).digest('hex');
 
 test('nominal liveness replay cuts preserve cold validation and reject false reuse',{
- skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180_000,
+ skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180_000,
 },async()=>{
  const owners=await loadFrameOwners(root),observation=JSON.parse(await readFile(process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,'utf8'));
  const durablePrefix=observation.observedPrefix??observation.prefix;
@@ -61,7 +61,7 @@ test('nominal liveness replay cuts preserve cold validation and reject false reu
 });
 
 test('liveness fold reuse refuses invalid history and never borrows another computation',{
- skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180_000,
+ skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180_000,
 },async()=>{
  assert.ok(process.env.ABI5_PREFIX_REUSE_BASELINE_ROOT);
  const owners=await loadFrameOwners(root),baseline=await loadFrameOwners(process.env.ABI5_PREFIX_REUSE_BASELINE_ROOT);
@@ -113,7 +113,7 @@ test('liveness fold reuse refuses invalid history and never borrows another comp
 });
 
 test('liveness hash reuse preserves complete probe contracts and rejects untrusted contexts',{
- skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180_000,
+ skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180_000,
 },async()=>{
  assert.ok(process.env.ABI5_PREFIX_REUSE_BASELINE_ROOT,'explicit frozen predecessor required');
  const owners=await loadFrameOwners(root),baseline=await loadFrameOwners(process.env.ABI5_PREFIX_REUSE_BASELINE_ROOT);
@@ -156,7 +156,7 @@ test('liveness hash reuse preserves complete probe contracts and rejects untrust
 });
 
 test('liveness batch hash reuse preserves cold projections and isolates exact prefixes',{
- skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,timeout:180_000,
+ skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180_000,
 },async()=>{
  const owners=await loadFrameOwners(root),observation=JSON.parse(await readFile(process.env.ABI5_PREFIX_REUSE_OBSERVATIONS,'utf8'));
  const rows=owners.events.readRuntimeEventsAtDurablePrefix(observation.observedPrefix??observation.prefix,{requireCurrent:true});

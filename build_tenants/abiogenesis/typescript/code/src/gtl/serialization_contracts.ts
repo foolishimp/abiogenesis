@@ -25,7 +25,6 @@ export type ContractValue<Schema extends v.GenericSchema> = StructuralValue<v.In
 
 const ref = nonblankSchema;
 const refs = v.array(ref);
-const strings = v.array(v.string());
 const version = v.literal("5.0.0");
 const nonNegativeInteger = v.pipe(v.number(), v.integer(), v.minValue(0), v.maxValue(Number.MAX_SAFE_INTEGER));
 const positiveInteger = v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(Number.MAX_SAFE_INTEGER));

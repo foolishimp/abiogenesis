@@ -16,7 +16,6 @@ import {
   TERMINAL_ONLY_ADAPTER_EXIT_MAP,
   typedResidualSetSchema,
   uniqueArray,
-  type RuntimeContractSchema,
 } from "../shared/public_function_contracts.js";
 
 type ProductReadCase =

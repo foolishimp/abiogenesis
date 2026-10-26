@@ -250,7 +250,7 @@ async function inventory(root) {
 
 
 test("D2 mechanical installed repair writes two files and snapshots twenty-two", async t => {
-  if (process.env.ABI5_D2_FRAME_RUN !== "1") { t.skip("author-only until explicitly selected by candidate Worker"); return; }
+  if (process.env.ABI5_D2_FRAME_RUN !== "1") { t.skip("ABI5_D2_FRAME_RUN is not '1'; author-only until explicitly selected by candidate Worker"); return; }
   const scratch = process.env.ABI5_D2_FRAME_RUN_ROOT;
   assert.ok(scratch && isAbsolute(scratch) && confined(territory, scratch));
   assert.equal(dirname(resolve(scratch)), territory, "run root must be a new direct child of the isolated implementation");

@@ -14,6 +14,7 @@ const [verification, environment, installation, capability, digests, canonical, 
   load('product/verify_product.js'), load('product/environment.js'), load('product/install_product.js'),
   load('shared/capability_contracts.js'), load('shared/digests.js'), load('shared/canonical_json.js'), load('product/catalog.js'),
 ]);
+const declarations = await load('product/declaration_exports.js');
 const exec = promisify(execFile);
 const canonicalJson = canonical.canonicalJson;
 const compatibilityRef = 'compatibility://dependency-lock.test/major/5';
@@ -74,7 +75,7 @@ const requires = (productId) => ({kind: 'requires', productId, packageVersion: '
 test('fixed definition resolution shares actual verifier/link and Catalog owner results, with cold/toolchain refusals intact', async t => {
   const selectedIdentity = process.env.ABI232_NATIVE_IDENTITY;
   const isolatedManifest = process.env.ABI232_ISOLATED_MANIFEST;
-  if (!selectedIdentity || !isolatedManifest) {t.skip('requires immutable native artifact and isolated compiler-basis fixture'); return;}
+  if (!selectedIdentity || !isolatedManifest) {t.skip('ABI232_NATIVE_IDENTITY or ABI232_ISOLATED_MANIFEST unset; requires immutable native artifact and isolated compiler-basis fixture'); return;}
   const identity = JSON.parse(await readFile(selectedIdentity, 'utf8'));
   const request = {artifactPath: identity.archive.path, artifactRef: basename(identity.archive.path),
     expectedArtifactDigest: `sha256:${identity.archive.sha256}`, expectedProductContentDigest: identity.productContentDigest,
@@ -83,20 +84,22 @@ test('fixed definition resolution shares actual verifier/link and Catalog owner 
   const verified = await verification.verifyProduct(request);
   assert.equal(verified.kind, 'verified_product_artifact', JSON.stringify(verified));
   assert.strictEqual(verification.selectOwnedProductVerification(request, verified), verified);
-  const resolved = environment.resolveProductArtifacts([verified]);
+  // The resolution takes the executing identity as an input: one read here, one after the manifest changes.
+  const executing = declarations.installedToolchainProductContentDigest();
+  const resolved = environment.resolveProductArtifacts([verified], executing);
   assert.equal(resolved.kind, 'resolved_product_environment', JSON.stringify(resolved));
   assert.strictEqual(environment.constructResolvedProductLock([verified]), resolved.lock);
-  assert.strictEqual(environment.resolveProductArtifacts([verified]), resolved, 'native/Public resolution shares the actual link result');
-  const copied = environment.resolveProductArtifacts([structuredClone(verified)]);
+  assert.strictEqual(environment.resolveProductArtifacts([verified], executing), resolved, 'native/Public resolution shares the actual link result');
+  const copied = environment.resolveProductArtifacts([structuredClone(verified)], executing);
   assert.equal(copied.kind, 'resolved_product_environment');assert.notStrictEqual(copied, resolved);
   assert.deepEqual(copied, resolved, 'copied data retains complete cold resolution and identical output');
   const changed = structuredClone(verified);changed.nativeDeclarationEvidence.sources[0].sourceText += '\nexport const changed = true;\n';
-  assert.equal(environment.resolveProductArtifacts([changed]).kind, 'environment_refusal');
+  assert.equal(environment.resolveProductArtifacts([changed], executing).kind, 'environment_refusal');
   const before = await readFile(isolatedManifest);
   try {
     const altered = JSON.parse(before);altered.productContentDigest = digests.sha256Canonical({changedCompilerBasis: true});
     await writeFile(isolatedManifest, canonicalJson(altered) + '\n');
-    const refused = environment.resolveProductArtifacts([verified]);
+    const refused = environment.resolveProductArtifacts([verified], declarations.installedToolchainProductContentDigest());
     assert.equal(refused.kind, 'environment_refusal');assert.equal(refused.code, 'incompatible_dependency');
   } finally {await writeFile(isolatedManifest, before);}
   const scratch = await mkdtemp(join(process.env.ABI207_PROOF_ROOT ?? tmpdir(), 'fixed-definition-'));

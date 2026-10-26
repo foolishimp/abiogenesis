@@ -53,7 +53,6 @@ import {
   type RuntimeEventCandidate,
 } from "./event_store.js";
 import {
-  selectValidatedRuntimeEventPrefix,
   runtimePrefixComputation,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -504,7 +503,6 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
   if (!validateArtifactTruthProjectionValue(artifactTruth)) return exactPrefixEnvironmentRefusal(
     "artifact_truth_invalid", "workspace environment requires authenticated artifact truth");
-  const prefix = artifactTruth.prefix;
   if (
     typeof workspaceBindingCoordinate !== "object" ||
     workspaceBindingCoordinate === null ||

@@ -1,6 +1,6 @@
 import * as v from "valibot";
 import { readFile, readdir, lstat, readlink, realpath, mkdtemp, writeFile, unlink, rmdir } from "node:fs/promises";
-import { resolve, relative, isAbsolute, join, dirname } from "node:path";
+import { resolve, relative, isAbsolute, join } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { performance } from "node:perf_hooks";

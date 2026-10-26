@@ -347,9 +347,6 @@ export async function setupInstalledRootCatalog(
   const implementationLeafPort = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/leaf_invocation_port.js")).href}?env=${nonce}`
   );
-  const interactionOwner = await import(
-    `${pathToFileURL(join(installedRoot, "build/code/src/hog/interaction_resume.js")).href}?env=${nonce}`
-  );
   const implementation = await import(
     `${pathToFileURL(join(installedRoot, "build/code/src/implementation/index.js")).href}?env=${nonce}`
   );
@@ -570,7 +567,6 @@ export async function setupInstalledRootCatalog(
     gtl: languageTestGtlView(gtl),
     hog,
     implementationLeafPort,
-    interactionOwner,
     implementation,
     validator,
     store,

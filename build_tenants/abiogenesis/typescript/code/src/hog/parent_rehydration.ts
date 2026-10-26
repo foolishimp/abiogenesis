@@ -24,7 +24,6 @@ import type {
 } from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { validateGraph } from "../validator/graph.js";
 import type { ProgramValidation } from "../validator/validation.js";
@@ -267,7 +266,7 @@ export function rehydrateParentReturnFrames(
     return rehydrationFailure("current-child");
   }
   const inward: WorkflowReturnFrame[] = [];
-  for (const [index, suspension] of input.suspensions.entries()) {
+  for (const suspension of input.suspensions) {
     const parentExecutionBasis = rehydrateExecutionBasisAtPrefix(
       prefix,
       suspension.parentExecutionBasisRef,
