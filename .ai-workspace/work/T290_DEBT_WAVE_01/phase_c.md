@@ -9796,3 +9796,192 @@ Grant: `test_env/tests/r2-clean-install.test.mjs`, `test_env/tests/r3-workspace-
 Stops (write the stop in the Return, keep the rest moving): a design sentence under item 5; item 6 (c); a fix that changes an event contract, payload key, failure class, declared reason enum, Program declaration or Public export beyond item 6's routed names; a lane moving beyond the named cases.
 
 Return contract: one commit on `main`, staged by path, first line `C-20: TD-04 closed: the four lane-level reds repaired, the structural fixture's closures the terminal leaf's, the three unbound transport routes classified, the retired coordinate-reuse claims traced`, with any gap stated in place; the Return before the commit so the commit carries it: items 1 to 4 (the arrangement, the exit), item 5 (the design check with its citations, the fixture change, the retirements, the falsifier before and after, the readers' exits), item 6 (the census table per packet, the class per row, the change or the stop, the `.d.ts` diff, the falsifiers), item 7 (the claims table), the exit table (every remaining red with its owner question), the lanes table, the lint and gates, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-20 return (Worker, Opus 5.5, 2026-10-27; base `b9aed25d9`)
+
+**C-20: TD-04 closed: the four lane-level reds repaired, the structural fixture's closures the terminal leaf's, the three unbound transport routes classified (all three class (c), a stop: no static callable of the declared signature at head), the retired coordinate-reuse claims traced (no runnable falsifier through the owner's own construction at head for any of the six: four gaps, two with falsifiers only over owner-held retained roots).**
+
+Commit: the commit carrying this section (hash in the caller's summary). No change under `code/`, `contracts/`, `scripts/` or `design/`. The build is byte-equal to the base build, so the `.d.ts` diff is empty.
+
+**Basis.** The base's `code/`, `test_env/` and `contracts/` trees equal `d61cfd90f`'s (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<dir>`):
+
+| Subtree | `b9aed25d9` | `d61cfd90f` |
+|---|---|---|
+| `code` | `b717791bc98d2d52de4826114cb3016e371cb7e6` | `b717791bc98d2d52de4826114cb3016e371cb7e6` |
+| `test_env` | `4c66c23e3b54fd1919c9bde9c228a50d494c9472` | `4c66c23e3b54fd1919c9bde9c228a50d494c9472` |
+| `contracts` | `635d819c877d764e9e5e8e1a3c32376a25ef8eb5` | `635d819c877d764e9e5e8e1a3c32376a25ef8eb5` |
+
+The before column is valid on that equality: the C-19 Return's after column (`scratchpad/c19/steel/`) for the lanes it tabled, and the Executive's C-18b check (`scratchpad/close/close_lanes_c18b/`) for the six it did not.
+
+### Items 1 to 4
+
+| Item | Lane | Failing site at base | Arrangement | Class | Before | After |
+|---|---|---|---|---|---|---|
+| 1 | `r2-clean-install` (`:18`) | The installed-export probe, not the `npm pack` the activation cites: `execFileAsync("node", ["--input-type=module", "--eval", probe], { maxBuffer: 10 MiB })` (`:74`), whose script wrote `JSON.stringify(result)` of `verifyProduct` (`:72`). The `npm pack` at `:24` carries the same bound and passes. | The probe projects the two members the case asserts: `process.stdout.write(JSON.stringify({ disposition: result.disposition, artifactDigest: result.artifactDigest }))`. The lane asserts only those two (`installedVerification.disposition === "verified"`, `artifactDigest` equal). The bound is unchanged. | (ii), as C-19 classed it: the verified result outgrew the probe's channel | 1/0/1/0 | 1/1/0/0 |
+| 2 | `r3-workspace-binding` (`:85`, now `:97`) | `artifactBasis` carried `definitionKey` and no `memberKey`; `validatePublicOperationBasis` (`abg/environment_admission.ts`) refused `operation_mismatch`. | `artifactBasis` carries the member key the operation's contract row declares (`contracts/public-operations/product/install` → `install`, `workspace/bind` → `bind`; `artifactMemberKey` gives the same pair). The non-member `definitionKey` is gone. `invocationDigest` takes the owner's five-field preimage (`shared/operation_definition_coordinate.ts`: `operationId`, `memberKey`, `definitionDigest`, `invocationRef`, `invocationPayloadDigest`). | (ii) | 1/0/1/0 | see below |
+| 2, next refusal | `r3-workspace-binding` | With the basis admitted, the forged-binding arm's `projectRuntimeEventFromValidatedHistory` refused "runtime event candidate has an invalid envelope" (`:502`). The lane's `runtimeEventCandidate` rebuilt a candidate from an admitted event and kept `eventContractDigest`, which the stored envelope now carries. | `runtimeEventCandidate` also deletes `eventContractDigest`, as the owner's own `validateRuntimeHistoryCandidate` (`abg/event_store.ts`) and `support/new-empty-append-sink.mjs` strip it in the same destructure. The forged arm is then refused for its own reason, as before. | (ii) | | 1/1/0/0 |
+| 3 | `t287-gtl-graph-law` (`declared registered selection keeps its multi-edge workflow domain…`) | The positive case asserted `static_validation_refusal` with two `duplicate_identity` diagnostics, a refusal C-19 removed from the publication. | The three diagnostics asserts and their three-line comment go. The case asserts `actual.publication.kind === 'publication_validation'`. The duplicate-identity refusal keeps its own falsifiers: `a5-f02-canonical-gtl-identity:52`, `:720`; `t287-default-library:50`, `:58`. | (ii), as C-19 classed it | 9/8/1/0 | 9/9/0/0 |
+| 4 | `t287-management-supervision` | The double `fixtures/t287-management-supervision/semantic-worker.mjs` emitted `{type:"result", subtype:"success", result}`. Under `--json-schema`, `abg/worker_transport.ts` admits a result only with `is_error:false` and `structured_output`. | The success emit carries `is_error: false` and `structured_output: raw` beside `result`. The `hard_cap` branch is unchanged. The lane is the double's only reader (`git grep`), and no lane asserts `no_output` or `runtime_failed` from it. | (ii) | 5/4/1/0 | 5/5/0/0 |
+
+### Item 5: the structural fixture's closures
+
+**Design check, no stop.** `git grep` over `design/` finds no sentence naming the root closure's evidence, refusal or judgment contract as the composition's own:
+- `M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md:153`: the ClosureContract "names the F_D closure predicate, evidence and rejection refs, replay projection, exact closure event kinds, and payload contracts". It names the members, not what they equal.
+- The same file at `:279` and `:342`, and `M03_COMPILED_EXECUTION_HANDOFF_BEHAVIOR_DESIGN.md:493`, describe closure admission without assigning the refs to the composition.
+- `T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md:319-320` ("Root closure requires the declared final result and judgment, never a child terminal alone") agrees with the realization.
+
+**Readers named before the edit.** The fixture is read by `support/language-structural-fixture.mjs`, `support/language-structural-gtl.mjs`, `m5-installed-graph-edge`, `t287-calculus-state-transfer`, `t287-f04a-probabilistic-result-candidate`, `t287-gtl-graph-law` and `t287-static-declaration-closure`. The supports add `a5-f02-canonical-gtl-identity`, `m5-c-algebra-validation`, `m5-event-calculus-runtime`, `t287-native-structural-gates` and `t287-r6-retry-success-exit`. No lane under `test_env/` asserts `closure_contract_mismatch` (`git grep`: `abg/closure.ts` only).
+
+**The change** (`test_env/fixtures/language-structural/program.mjs`). `close()` takes a sixth parameter, `terminal`, default the group. The closure's `evidenceContractRef`, `refusalContractRef`, `rejectionContractRef` and `judgmentContractRef` are the terminal leaf's; predicate, transition, result and scope stay the group's own, as `admitOwnedScopeClosure` (`abg/closure.ts`) compares them. `graph()` and `addProgram()` pass `terminal` through, for both the run and the child closure. Each composed Program whose terminal node applies a leaf names that leaf:
+
+| Program | Terminal leaf | Closures changed |
+|---|---|---|
+| `COMPOSED_IDS` | `LEAF_SPECS.project` | closure, child closure |
+| `GRAPH_EDGE_IDS` | `LEAF_SPECS.project` | closure |
+| `SUBSTITUTED_IDS` | `LEAF_SPECS.project` | closure |
+| `FP_RETRY_IDS` | `LEAF_SPECS.worker` | closure, child closure |
+| `FP_FD_COMPOSED_IDS` (worker-compose) | `LEAF_SPECS.workerPass` | closure |
+
+A script compared the publication before and after: exactly these 7 closures change, in exactly those 4 members each. The other 22 of the 29 closures and all 188 contracts are identical. Workflow-terminal Programs (fan-out, gate, recursion, workflow) need no change: a workflow CCall carries the basis's refs (`abg/c_call.ts`), so they match by construction. Atomic Programs already name their own leaf. The activation's "every composed Program the fixture declares" takes in retry and worker-compose, beside the three it names.
+
+**The retirements.**
+- `m5-installed-graph-edge`: the `terminalClosure` `sourceTransform` and its comment go, back to `prepareFixture: prepareLanguageStructuralFixture`, the form at `a6333a7b5`. Before 1/1/0/0, after 1/1/0/0.
+- `t287-calculus-state-transfer`: the `final` restatement goes. That was the `closureContracts` map over the run and child closures (including predicate and transition) and the graph's `abg.evidence_contract`, `abg.judgment_contract`, `abg.judgment_predicate` and `abg.transition_contract` overrides. The template rewrite stays. Before 8/8/0/0, after 8/8/0/0. The lane asserts `run.completion.disposition === 'closed'` for every shape but recovery, so it falsifies the retirement itself. The predicate staying the composition's own is green.
+
+**Falsifier.** C-19's finding, that `COMPOSED_IDS` refuses root closure, is probed through the installed route by a scratch probe, `scratchpad/c20/probe/c20-composed-closure.test.mjs`. It runs `runInstalledLanguageTest` with `prepareLanguageStructuralFixture`, `expectedExitCode: null` and `readback: false` for `COMPOSED_IDS`, `SUBSTITUTED_IDS` and `GRAPH_EDGE_IDS`. It asserts no `closure_contract_mismatch`, one `run_closed`, exit 0 and outcome `result`.
+- Before the edit (`scratchpad/c20/probe-before/`): 3/0/3/0. Each Program exits 0 with outcome `result`, then emits `runtime_failure_observed` with `diagnostic://abiogenesis/hog/closure_contract_mismatch@5` after the terminal `c_call_judged`, with `run_closed` 0.
+- After (`scratchpad/c20/probe-after/`): 3/3/0/0. Each run ends `terminal_reached`, `frame_closed`, `graph_call_closed`, `run_closed`.
+
+The probe stays in scratch; no arm is added to a lane. The readers' exits are in the lanes table.
+
+### Item 6: the three unbound transport routes, classified
+
+**The declared callable**, the same for all three rows (`public/binding/owner_contract_source_set.ts:182-195`, `:210-216`, the `executionBindingSpecification` at `:420-470`):
+- `packageExportPath` is `./product`.
+- The named export is the routed name.
+- The member path is `[member]`, or `["respond", member]` for interaction.
+- The kind is `statically_composed_callable`.
+- `callableContractDigest` includes `resourceRelation: "owner_indexed_sibling_assertion_and_receipt"`.
+
+The transport selects `INSTALLED_OWNER_MODULES["./product"][name]` and walks the member path with `Object.hasOwn` (`public/installed_definition_call_transport.ts`). A missing name refuses `installed_binding_unavailable`. The siblings' form is `withAdmissionAuthority(packet, owner)`, with owner of type `AdmissionDefinitionOwner = (call, boundEnvironment, acquiredResource) => Effect` (`product/admission_authority.ts`, `product/install_definition_bindings.ts:419`). Each sibling declares its resource assertion and receipt types.
+
+| Packet (route) | Members | Where realized at head, by which owner | Lanes that reach it | Class |
+|---|---|---|---|---|
+| `interaction.respond` → `INTERACTION_DEFINITION_BINDINGS` (`:185`) | `answer_escalation`, `approve`, `assess`, `reject`, `select` | Only inside the ABG continuation owner: `resolveContinuationPublicOperationGrant` (`abg/continuation.ts:1058`, the `abg.operation.interaction.respond` admission at `:1082`), `prepareFhInteractionResponse` (`:1471`) and `commitFhInteractionResponseAtExpectedPrefix` (`:1567`). These take the event store, the expected prefix, the root invocation and the continuation state of a waiting Run. No function takes `(call, boundEnvironment, acquiredResource)`. | `m5-s03-authority:95-120` reaches admission authority for respond and approve, not the binding. `t287-st1-installed-cross-owner-hello:246` is a request-less respond/select call, refused `invalid_definition_call` at exact admission before traversal, with zero inherited reads. `t287-wave2-owner-contract-source-set` covers packet shapes (D10, D11, D14, the perturbation arm at `:765-766`), not the binding. | (c): no static callable |
+| `result.assess` → `RESULT_DEFINITION_BINDINGS` (`:192`) | `assess` | `assessResult(packet, context)` (`product/result_assessment_operation.ts:490`). Its request is the declared one plus a `kind`/`schemaVersion`/`memberKey` wrapper, and its refusal enum matches. The context is an `AbgEventStore`, a `predecessorPrefix`, a native `ProductPublicContract`, a `ResultAssessmentInvocationAuthority` with a `result_assessment_capability_grant`, `eventTime` and `correlationId`. It admits an `assessed` event. | The same three, plus `t287-runtime-failure-diagnostic:712-714` (a direct `assessResult` call). | (c): the context has no declared resource assertion or receipt, and the result carries extra `kind`/`memberKey`. A binding means a new assertion and receipt and a result relation, which is a contract change. |
+| `product.materialize` → `MATERIALIZATION_DEFINITION_BINDINGS` (`:213`) | `configuration`, `context_bootstrap` | `materializeConfiguration` (`product/materialization_operations.ts:508`) and `materializeContextBootstrap` (`:376`). The native packet needs a `WorkspaceBinding`, a `ProductPublicContract` and a workspace coordinate where the declared request carries ref/digest pairs. Native refusals (`workspace_not_ready`, `input_invalid`, `authority_overwrite_forbidden`, `contract_invalid`, `mutable_default_forbidden`, `filesystem_failure`, `binding_mismatch`) differ from the declared ones (`workspace_mismatch`, `binding_mismatch`, `input_mismatch`, `authority_mismatch`, `contract_mismatch`, `mutable_default`, `filesystem_failure`). The result shapes differ. | The same three. | (c): mapping one enum to the other is a declared reason enum relation. |
+
+**The stop.** None of the three rows has a callable of the declared signature at head. No binding is constructed, and nothing is exported from `product/index.ts` (byte-equal to the clean copy). The route rows name what the Product does not realize statically; the Executive carries this to the close report as the owner's question.
+
+**Correction to the activation.** `abg/environment_admission.ts:68-70` is the `PublicOperationId` type union, not an admission of `result.assess`.
+
+**`.d.ts` diff: empty.** The whole build (674 files) is byte-equal to the base build. **Falsifiers: none,** since no row is repaired. The st1 arm at `:246` is unchanged, at zero inherited reads. C-19's 36-lane transport census was not rerun. The build is byte-equal, and of the 36 lanes only `m5-installed-graph-edge` and `t287-management-supervision` import an edited file; both are in the steel thread. The other 34 are unchanged by construction.
+
+### Item 7: the retired coordinate-reuse claims, traced
+
+The arms are from `t287-c2-owner-coordinate-reuse` at `a6333a7b5`. The search was `git grep` over `test_env/tests` and `test_env/support` for each refusal reason and seam. The searches with no hits:
+- `projectSameRunNativeWorkCommandSourceAtPrefix`: 0 hits.
+- `does not reproduce`: one unrelated comment.
+- `exactAuthorityFreeOccurrence`: 0 hits.
+- `nativeOccurrenceVerifier`: 0 hits.
+
+The exits are the C-18b check and C-19 columns (the trees are equal), not rerun.
+
+| Arm | Claim | Owner seam at head | Lane at head and how its history is built | Verdict |
+|---|---|---|---|---|
+| `:120` | The replay owner refuses a child C2 basis whose same-Run source does not reproduce at its admitted preparation cut. Held, copied and closed coordinates fold to the same cold semantics. | The `abg/replay.ts` owner-facts fold ("child C2 source does not reproduce at its admitted preparation cut"), through `deriveSameRunWorksiteCommandSourceBasisAtPrefix` and, for a native task, `projectSameRunNativeWorkCommandSourceAtPrefix` | No lane asserts the refusal, and none reaches the native branch. The `same_run_source_result` fold over installed Runs is reached positively by `w2-steel-single-start-closure:28` (it also refuses missing source, crossed parent CCall, crossed Run and altered digest at the lower seam) and `w2-steel-serial-branch-installed:649`. Both are on the non-native branch and both skip on owner-held roots (`ABI5_STEEL03_RETAINED_C2_ROOT`; `ABI5_STEEL04_*`): 8/0/0/8 and 2/0/0/2. `t287-worksite-command-execution:1144` (10/10/0/0) projects runtime truth of a root C2 Run, not the child fold. | **Gap** |
+| `:195` | The C2 consumer reidentifies its copied preparation cut, keeps source and output, and falls back cold for an unbound hint or a closed owner. | `projectSameRunNativeWorkCommandSourceAtPrefix(prefix, input, currentOwnerPrefix)` (`abg/native_worksite_execution.ts:165`) | None at the consumer. The same warm/copied/closed law on the reacquisition owner, not the consumer, is `t287-native-owner-reuse:54` (skip, `ABG_OWNER_REUSE_*`, 3/0/0/3) and `t287-owned-native-proof:89` (skip, `ABI5_OWNED_PROOF_NATIVE_REQUEST`, 1/0/0/1). | **Gap** |
+| `:212` | The reopened C2 consumer keeps the original native and preparation cuts without another physical read. | The same consumer over a reopened store | None. `m5-event-store-reopen` covers store reopen in general, not this consumer. | **Gap** |
+| `:227` | A later duplicate producer invalidates current C2 consumption; the historical cut stays valid. | The same consumer's producer uniqueness | None. No lane admits a second eligible preparation Result. `t287-native-worksite-execution:120` (green) is about duplicate selected sources at the task constructor, not a duplicate producer. | **Gap** |
+| `:238` | Wrong or foreign cut, absent advancing producer, binding cover, and latest failed mutation are each refused. | The consumer, and below it `projectNativeWorkReacquisitionTask`, `projectNativeWorkCommandSourceAtPrefix`, `worksiteCommandSourcesInvalidatedAfter` | At the lower owners over actual retained histories: `t287-native-work-reacquisition:354` (foreign graph call, foreign provenance, changed context, uncovered authority) and `:372` (later admitted failure), skip `ABG_NATIVE_REACQUISITION_RETAINED_ROOT`; `t287-native-worksite-execution:225` (absent producer before the cut, foreign origin) and `:260` (admitted failed-write residue), skip `ABG_NATIVE_EXECUTION_RETAINED_LOG`. Green only over hand-built rows: `t287-native-work-reacquisition:186` (before Result, before judgment, crossed rows, cover false), whose `declarationFixture` builds raw events with supplied premises; C-5's ruling does not count these. | **Falsified only over owner-held inputs; gap in the runnable set and at the consumer** |
+| `:266` | Separate reacquisition realization and judgment use the exact original owner at `nativeOwnedWorkReacquisition`; a stale preparation cannot redispatch; the C2 occurrence stays owner-bound. | `implementation/leaf_invocation_port.ts` `nativeLeafProofOperations(...).nativeOwnedWorkReacquisition`, `nativeJudgmentProofOperations(...).nativeWorkReacquisition`, `exactAuthorityFreeOccurrence` | `t287-native-work-reacquisition:158` (green; the lane is 9/6/0/3) calls the renamed seam and the judgment, refuses a cloned request, refuses missing, duplicate and crossed dependency resources, a non-current state and a changed physical source. It runs over `declarationFixture`'s hand-built rows ("no installed or Run claim follows"), the class the retirement removed. Stale preparation is covered by `t287-owned-native-proof:123` (skip, owner-held). `exactAuthorityFreeOccurrence` has no lane. | **Seam reached under supplied premises; stale preparation falsified only over an owner-held input; occurrence binding a gap** |
+
+Census only; no construction.
+
+### The exit table: every remaining red
+
+Six rows: the owner's five questions (9 to 13), which are named and not worked. Nothing else is red. The four lane-level reds of C-19's table are green. `t287-st1-installed-cross-owner-hello` was run again; the other lanes are carried from C-19's column. None of them imports an edited file, and the build is byte-equal, so their exits stand.
+
+| Lane | Failing site | Exit | Source | Owner question |
+|---|---|---|---|---|
+| `t287-st2a-g-capability-definition-graph` | `:74`, `:271` | 4/2/2/0 | C-19 (not run) | Q9: which catalog rows must project a capability |
+| Core consensus rows' Public application | no red lane | none | none | Q10: the `node_type` and `overlay` rows' Public application |
+| `t287-worksite-construction` | `:701`, at `:886` | 3/2/1/0 | C-19 (not run) | Q11: a partial-stop child failure, lifted as `failed` or refused as `blocked` |
+| `t287-worksite-branch-construction` | `:671`, at `:683` | 2/1/1/0 | C-19 (not run) | Q11 |
+| `t287-st1-installed-cross-owner-hello` | `:737`, at `:1259` | 2/1/1/0 | this steel thread | Q12: the replay body at a later prefix |
+| `t287-historical-source-resource` | `:72`, at `:75` | 2/1/1/0 | C-19 (not run) | Q13: retention scoped to a generation |
+
+The item 6 (c) rows are under Stops: they have no red lane, and the route refuses `installed_binding_unavailable` for an admitted call.
+
+### The lanes table
+
+Each lane ran alone on the clean tree, with the root set (`ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`, `TMPDIR` under scratch), in `scratchpad/c20/steel/`. The build is the same before and after the run (`build-start.sha` = `build-end.sha` = the base build). The red and skip names were compared by `c18b/tools/exit.py` against the before column; they are equal except the four named moves. The counts are tests/pass/fail/skip.
+
+| Lane | Reached by | Before | Source | After | Move |
+|---|---|---|---|---|---|
+| `r2-clean-install` | item 1 | 1/0/1/0 | C-19 | 1/1/0/0 | named |
+| `r3-workspace-binding` | item 2 | 1/0/1/0 | C-19 | 1/1/0/0 | named |
+| `t287-gtl-graph-law` | item 3; fixture reader | 9/8/1/0 | C-19 | 9/9/0/0 | named |
+| `t287-management-supervision` | item 4; transport census | 5/4/1/0 | C-19 | 5/5/0/0 | named |
+| `m5-installed-graph-edge` | item 5 retirement; fixture reader; transport census | 1/1/0/0 | C-19 | 1/1/0/0 | none (restatement retired) |
+| `t287-calculus-state-transfer` | item 5 retirement; fixture reader | 8/8/0/0 | C-19 | 8/8/0/0 | none (restatement retired) |
+| `t287-calculus-state-transfer`, compose scenario (`ABI5_CALCULUS_CASES=compose`) | item 5 | 2/2/0/0 | C-19 `compose.log` | 2/2/0/0 | none |
+| `t287-f04a-probabilistic-result-candidate` | fixture reader | 2/2/0/0 | C-19 | 2/2/0/0 | none |
+| `t287-static-declaration-closure` | fixture reader | 11/10/0/1 | C-19 | 11/10/0/1 | none (same skip) |
+| `a5-f02-canonical-gtl-identity` | support reader | 7/7/0/0 | C-18b check | 7/7/0/0 | none |
+| `m5-c-algebra-validation` | support reader | 22/19/0/3 | C-18b check | 22/19/0/3 | none (same 3 skips) |
+| `m5-event-calculus-runtime` | support reader | 19/18/0/1 | C-19 | 19/18/0/1 | none (same skip) |
+| `t287-native-structural-gates` | support reader | 9/9/0/0 | C-18b check | 9/9/0/0 | none |
+| `t287-r6-retry-success-exit` | support reader | 1/1/0/0 | C-18b check | 1/1/0/0 | none |
+| `m5-s03-authority` | item 6 reach | 5/5/0/0 | C-19 | 5/5/0/0 | none |
+| `t287-st1-installed-cross-owner-hello` | item 6 reach (`:246`) | 2/1/1/0 | C-19 | 2/1/1/0 | none (the red is Q12, at `:1259`) |
+| `t287-wave2-owner-contract-source-set` | item 6 reach | 15/15/0/0 | C-18b check | 15/15/0/0 | none |
+| `t287-runtime-failure-diagnostic` | item 6 reach (grep) | 20/20/0/0 | C-18b check | 20/20/0/0 | none |
+
+The import census of the edits (`git grep -l` for the edited fixtures, the two supports and the double) gives the eleven readers above. Items 1 and 2 have no importers.
+
+### Lint and gates
+
+| Gate | Result |
+|---|---|
+| `npx tsc -p tsconfig.json --noEmit` | rc 0 |
+| `tsc --noEmit --noUnusedLocals` | rc 2, C-18a's three: `product/worksite_command_execution.ts:74` `BASE64_PATTERN`, `public/binding/owner_contract_source_set.ts:20` `JsonValue`, `public/run_projection_authority.ts:13` `JsonValue` |
+| `npm run lint:imports` | rc 0, "3 forbidden owner pair(s) hold" |
+| `npm run lint:lifecycle` | rc 0, 286 modules, 7 allow-listed sites, no offender |
+| `npm run lint:calculus` | rc 0, 6 modules, no offender |
+| `npm run lint:evidence` | rc 0, 691 tracked mirror roots, all inventoried, no new copy |
+| `npm run build` | rc 0. All 674 files under `build/` byte-equal the base build (`scratchpad/c20/gates/build-base.sha256` against `gates-after/build-after.sha256`). |
+| `.d.ts` diff | Empty (386 `.d.ts` files equal). |
+| Regenerated files | `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json` byte-equal the base. Same leaf set, same digests; nothing to regenerate. |
+| `code/src/product/index.ts` | Byte-equal to the clean copy (`scratchpad/c20/clean/`). |
+| Instrumentation | No `// C20` line was added to source. `git grep -c C20` over `code`, `test_env`, `scripts`, `contracts` and `design` gives one hit, `design/M03_DIRECT_GTL_TRAVERSAL_BEHAVIOR_DESIGN.md:503` (`XC18..XC20`). It is pre-existing, not mine, and the file is unchanged. `grep -r C20 build`: 0. The `C20PROBE` tokens are in the scratch probe only. `program.mjs` is byte-equal to its staged copy (`scratchpad/c20/staged/program.mjs`). The seven committed files are kept in `scratchpad/c20/final/`, byte-equal to the tree, each with `C20` count 0. Their sha256 values: `program.mjs` `1bdef2c4…6f19c91`, `semantic-worker.mjs` `1fb4d6af…a0b2cbb5`, `m5-installed-graph-edge` `8f490b01…458d9b33`, `r2-clean-install` `62995530…7858451`, `r3-workspace-binding` `ea2a7628…4960b0e7`, `t287-calculus-state-transfer` `d3a70467…b15de12`, `t287-gtl-graph-law` `087fae0e…ff53ee4e` (full values in `scratchpad/c20/final.sha256`). |
+| `git status --short -- build_tenants/abiogenesis/typescript` | The seven test_env files only. |
+| Commits on `main` during the run | None (`git log b9aed25d9..HEAD`: empty). |
+
+### Deviations
+
+- Item 1's failing site is the installed-export probe at `:74`, not the `npm pack` at `:24`. The arrangement is the activation's second option (project the output to what the lane asserts); the bound is not raised.
+- Item 2 needed a second class (ii) repair in the same lane: `eventContractDigest` deleted from the rebuilt candidate. Without it the lane's next refusal is the invalid envelope at `:502`.
+- Item 5 covers retry and worker-compose beside the three Programs the activation names, under its "every composed Program the fixture declares": both compose over a leaf terminal and named the group's own refs. No lane drives either through the installed route (`git grep` under `test_env/tests`: no `FP_RETRY_IDS` or `FP_FD_COMPOSED_IDS`; `t287-r6-retry-success-exit` reads `FAN_OUT_IDS`). Their change is verified by the publication comparison and by the static readers' exits.
+- Item 5's falsifier also probes `SUBSTITUTED_IDS` and `GRAPH_EDGE_IDS`, beside `COMPOSED_IDS`.
+- Item 6's 36-lane transport census was not rerun. The build is byte-equal, and the two transport lanes that import an edited file are in the steel thread.
+
+### Findings outside the grant (not worked)
+
+- `RESULT_OPERATION_CONTRACTS` and `MATERIALIZATION_OPERATION_CONTRACTS` are declared as port-named consts inside the operation modules, beside the contract roots the route rows read.
+- `product/materialization_operations.ts` is not imported by `product/index.ts` or any owner on the route.
+- C-18a's three `--noUnusedLocals` sites stand, all in `code/src`, outside this grant.
+
+### Stops
+
+- **Item 6 (c), all three rows:** interaction, result and materialization have no static callable of the declared signature. The Executive carries this to the close report as the owner's question.
+- No design sentence under item 5.
+- No contract, event contract, payload key, failure class, declared reason enum, Program declaration or Public export change.
+- No lane moved beyond the named cases.
+- The owner's questions 9 to 13 are not worked.
+
+### What could not be verified
+
+- Item 7's skipped falsifiers need owner-held retained roots that are absent here, so whether they still hold at head is unverified.
+- The probe's after run covers compose, substitute and graph-edge. The retry and worker-compose closures are F_P Programs that need a semantic actor. They are verified statically only (the publication comparison and the static readers), not by an installed run.
+- The whole suite is the Executive's Phase C close run.

@@ -53,20 +53,31 @@ function runEntry212ReopenProbe(input) {
   });
 }
 
+// The member key each artifact operation's contract row declares
+// (contracts/public-operations/{product/install,workspace/bind}).
+const ARTIFACT_MEMBER_KEYS = Object.freeze({
+  "abg.operation.product.install": "install",
+  "abg.operation.workspace.bind": "bind",
+});
+
 function artifactBasis(product, operationId, scopeRef, scopeDigest, invocationRef, causationEventRefs = []) {
   const invocationPayloadDigest = product.sha256Canonical({});
+  const memberKey = ARTIFACT_MEMBER_KEYS[operationId];
+  const definitionDigest = product.sha256Canonical({ operationId, schemaVersion: "5.0.0" });
   return {
     operationId,
-    definitionKey: operationId,
-    definitionDigest: product.sha256Canonical({ operationId, schemaVersion: "5.0.0" }),
+    memberKey,
+    definitionDigest,
     authorityScopeRef: scopeRef,
     authorityScopeDigest: scopeDigest,
     invocationRef,
     invocationPayloadDigest,
     invocationDigest: product.sha256Canonical({
-      invocationRef,
       operationId,
-      payloadDigest: invocationPayloadDigest,
+      memberKey,
+      definitionDigest,
+      invocationRef,
+      invocationPayloadDigest,
     }),
     correlationId: "correlation://t286/r3",
     eventTime: "2026-07-21T00:00:00.000Z",
@@ -79,6 +90,7 @@ function runtimeEventCandidate(event) {
   delete candidate.admissionOrdinal;
   delete candidate.eventId;
   delete candidate.payloadDigest;
+  delete candidate.eventContractDigest;
   return candidate;
 }
 

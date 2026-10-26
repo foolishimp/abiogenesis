@@ -49,13 +49,8 @@ function fixture(shape) {
       recovery: () => gtl.C.compose(batch('equal-producers', [leaf('A'), leaf('B')]), leaf('F')),
     };
     const term = gtl.C.compose(normalizer, gtl.C.compose(terms[shape](), render));
-    const final=gtl.LEAF_SPECS.project.ids;
-    const closureContracts=publication.closureContracts.map(c=>[ids.closureContractRef,ids.childClosureContractRef].includes(c.closureContractRef)?{...c,
-      predicateRef:final.judgmentPredicateRef,evidenceContractRef:final.evidenceContractRef,refusalContractRef:final.refusalContractRef,
-      judgmentContractRef:final.judgmentContractRef,rejectionContractRef:final.refusalContractRef,transitionContractRef:final.transitionContractRef}:c);
-    const next = {...graph,declarations:{...graph.declarations,'abg.evidence_contract':final.evidenceContractRef,'abg.judgment_contract':final.judgmentContractRef,
-      'abg.judgment_predicate':final.judgmentPredicateRef,'abg.transition_contract':final.transitionContractRef}, template: {...graph.template, nodes: [{...graph.template.nodes[0], term}], edges: [], applications: []}};
-    return {publication: gtl.modulePublication({...publication,closureContracts, graphFunctions: publication.graphFunctions.map(g => g === graph ? next : g)}),
+    const next = {...graph, template: {...graph.template, nodes: [{...graph.template.nodes[0], term}], edges: [], applications: []}};
+    return {publication: gtl.modulePublication({...publication, graphFunctions: publication.graphFunctions.map(g => g === graph ? next : g)}),
       programRef: ids.programRef, graphFunctionRef: ids.graphFunctionRef,
       input: {kind: 'data_input', schemaVersion: '5.0.0', subject: ' seed '}};
   };
