@@ -35,6 +35,11 @@ function interrupted(t,{lostReceipt=false}={}){
  t.after(()=>{if(fs.existsSync(lockPath))fs.unlinkSync(lockPath);fs.rmSync(scratch,{recursive:true,force:true});});
  return {selection,path,bytes,lockBytes,lockPath};
 }
+function assertOneExtentPass(rows,byteLength,events){
+ assert.deepEqual(rows[0],{length:byteLength,position:0},'one decoding pass over the complete extent');
+ assert(rows.slice(1).every(row=>row.length<byteLength&&row.position+row.length<=byteLength),'later reads are bodies by location');
+ assert(rows.length-1<=events,'at most one body read per validated event');
+}
 function intact(f){assert.deepEqual(fs.readFileSync(f.path),f.bytes);assert.deepEqual(fs.readFileSync(f.lockPath),f.lockBytes);}
 function patchFs(patches,call){const before={};for(const [k,v]of Object.entries(patches)){before[k]=fs[k];fs[k]=v;}syncBuiltinESMExports();
  try{return call();}finally{for(const[k,v]of Object.entries(before))fs[k]=v;syncBuiltinESMExports();}}
@@ -73,16 +78,19 @@ async function resourceOwner(){
 
 test('genuinely interrupted owner recovers once, keeps lock through validation and yields ordinary exact reopen',async t=>{
  const f=interrupted(t),r=await resourceOwner(),request=r.request(f.selection);assert.equal(typeof abg.recoverInterruptedAbgEventResource,'function');
- const originalRead=fs.readSync;let logReads=0,readBytes=0;
+ const originalRead=fs.readSync;let logReads=0,readBytes=0;const logReadRows=[];
  // Awaited wrapper verification precedes physical recovery; sync instrumentation
  // remains scoped to this one serial test and is restored before test completion.
  const before=fs.readSync;fs.readSync=(fd,...args)=>{if(fs.fstatSync(fd).ino===f.selection.lastCloseHandoff.reopenAuthority.inode){
-  logReads++;assert(fs.existsSync(f.lockPath));assert.equal(store.reopenEventStore(f.selection.lastCloseHandoff.reopenAuthority).kind,'event_store_reopen_refusal');
+  logReads++;logReadRows.push({length:args[2],position:args[3]});assert(fs.existsSync(f.lockPath));assert.equal(store.reopenEventStore(f.selection.lastCloseHandoff.reopenAuthority).kind,'event_store_reopen_refusal');
   const n=originalRead(fd,...args);readBytes+=n;return n;}return originalRead(fd,...args);};syncBuiltinESMExports();
  let result;const start=performance.now();try{result=await r.owner.recoverInterruptedAbgEventResource(request,r.approve(request));}
  finally{fs.readSync=before;syncBuiltinESMExports();}
  assert.equal(result.kind,'abg_event_resource_recovery_receipt');assert.equal(result.outcome.kind,'recovered',JSON.stringify(result));
- assert.equal(logReads,1);assert.equal(readBytes,f.bytes.length);assert.equal(result.outcome.validatedEventCount,3);
+ // Cold acquisition decodes the complete selected extent once (bounded decoding)
+ // and reads verified bodies by location (recovery design, Operational history
+ // representation). The extent fits one decoding chunk here.
+ assertOneExtentPass(logReadRows,f.bytes.length,3);assert.equal(result.outcome.validatedEventCount,3);
  assert.notStrictEqual(store.captureDurablePrefixCoordinate(result.outcome.closeHandoff.prefix),result.outcome.closeHandoff.prefix,
   'portable recovery handoff has no nominal runtime-history association');
  assert(!fs.existsSync(f.lockPath));assert.deepEqual(fs.readFileSync(f.path),f.bytes);
@@ -137,10 +145,10 @@ test('genuine append/close with undelivered handoff recovers selected absent loc
  const f=interrupted(t,{lostReceipt:true}),r=await resourceOwner(),request=r.request(f.selection),approval=r.approve(request);
  const wrong=structuredClone(request);wrong.lockPath+='-foreign';
  assert.equal((await r.owner.recoverInterruptedAbgEventResource(wrong,approval)).code,'approval_mismatch');
- const before=fs.readSync;let reads=0;
- fs.readSync=(fd,...args)=>{if(fs.fstatSync(fd).ino===fs.statSync(f.path).ino){reads++;assert(fs.existsSync(f.lockPath));}return before(fd,...args);};syncBuiltinESMExports();
+ const before=fs.readSync;let reads=0;const readRows=[];
+ fs.readSync=(fd,...args)=>{if(fs.fstatSync(fd).ino===fs.statSync(f.path).ino){reads++;readRows.push({length:args[2],position:args[3]});assert(fs.existsSync(f.lockPath));}return before(fd,...args);};syncBuiltinESMExports();
  let receipt;try{receipt=await r.owner.recoverInterruptedAbgEventResource(request,approval);}finally{fs.readSync=before;syncBuiltinESMExports();}
- assert.equal(receipt.outcome.kind,'recovered',JSON.stringify(receipt));assert.equal(reads,1);assert.equal(receipt.outcome.validatedEventCount,3);
+ assert.equal(receipt.outcome.kind,'recovered',JSON.stringify(receipt));assertOneExtentPass(readRows,f.bytes.length,3);assert.equal(receipt.outcome.validatedEventCount,3);
  assert(!fs.existsSync(f.lockPath));assert.deepEqual(fs.readFileSync(f.path),f.bytes);assert.equal(fs.statSync(f.path).ino,f.selection.lastCloseHandoff.reopenAuthority.inode);
  assert.equal(store.reopenEventStore(f.selection.lastCloseHandoff.reopenAuthority).kind,'event_store_reopen_refusal');
  const reopened=store.reopenEventStore(receipt.outcome.closeHandoff.reopenAuthority);assert.equal(reopened.kind,'reopened_event_store_context');

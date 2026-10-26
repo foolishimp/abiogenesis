@@ -118,7 +118,8 @@ test('extended original C2 plan preserves all 26 sources through native and obse
     assert.deepEqual(material.commands, task.commands.map(({ ordinal, commandId }) => ({ ordinal, commandId })));
     assert.deepEqual(material.outcomePredicates, task.outcomePredicates.map(({ ordinal, predicateId, predicateKind }) => ({ ordinal, predicateId, predicateKind })));
     const budget = c2.projectWorksiteCommandExecutionBudget(task).requiredExecutionBudgetMs;
-    assert.equal(budget, 18_025_000);
+    // timeout + grace + grace + the owned process drain min(grace, 250) + owner allowance.
+    assert.equal(budget, 18_000_000 + 10_000 + 10_000 + 250 + 5_000);
     assert.equal(c2.worksiteCommandExecutionBudgetFits(budget, example.provider), true);
     for (const limits of [{ inactivityTimeoutMs: budget, absoluteTimeoutMs: 18_040_000 },
       { inactivityTimeoutMs: 18_030_000, absoluteTimeoutMs: budget },

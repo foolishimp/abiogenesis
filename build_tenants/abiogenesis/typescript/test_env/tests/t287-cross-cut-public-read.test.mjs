@@ -16,8 +16,17 @@ import {ABG_PROJECT_READ_DEFINITION_BINDINGS} from '../../build/code/src/abg/pro
 import {admitExactDefinitionCall} from '../../build/code/src/public/binding/definition_binding_mechanics.js';
 import {parseProductManifest,parseProductPublicContract,projectProductManifestOperationCoordinate} from '../../build/code/src/product/verify_product.js';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
+import {evidenceInput} from '../support/evidence-root.mjs';
 const root=resolve(import.meta.dirname,'../..'),hash=product.sha256Canonical;
-const fixtureRoot=resolve(root,'../../../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01');
+// The retained D2 store and its program-ready record are historical evidence
+// under the evidence root (T-290 C-5), named by path, digest and bytes; without
+// the root the cases over them skip with the reason. The store was appended
+// after this fixture's capture: the fixture is its first 846 lines, 13,540,472
+// bytes, sha256 4f561cea….
+const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/';
+const logInput=evidenceInput({path:D2+'events-01/runtime.events.jsonl',sha256:'f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82',bytes:19058361});
+const readyInput=evidenceInput({path:D2+'attempt-01/program-ready-16.json',sha256:'2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02',bytes:12781893});
+const skip=[logInput,readyInput].find(input=>input.kind==='absent')?.reason??false;
 const digest=bytes=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
 const manifest=JSON.parse(fs.readFileSync(join(root,'product-toolchain-manifest.json'),'utf8'));
 const parsed=parseProductManifest(manifest);assert.ok(parsed);
@@ -35,10 +44,9 @@ const shapeSlots={workspace_binding:null,product_set:null,dependency_lock:null,c
 async function fixture(t) {
   // Copy only the exact previously closed R10 fixture prefix into a disposable
   // component resource. Never acquire or mutate its original resource or C10.
-  const fd=fs.openSync(join(fixtureRoot,'events-01/runtime.events.jsonl'),'r');
-  const bytes=Buffer.alloc(13540472);try {assert.equal(fs.readSync(fd,bytes,0,bytes.length,0),bytes.length);} finally {fs.closeSync(fd);}
+  const bytes=Buffer.from(logInput.bytes.subarray(0,13540472));
   assert.equal(digest(bytes),'sha256:4f561ceacf40fd13db82132d93890cb67750453dfa81a75c0401f04bd9345649');
-  const readyBytes=fs.readFileSync(join(fixtureRoot,'attempt-01/program-ready-16.json'));
+  const readyBytes=readyInput.bytes;
   assert.equal(digest(readyBytes),'sha256:2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02');
   const ready=JSON.parse(readyBytes),rows=bytes.toString('utf8').trimEnd().split('\n').map(JSON.parse);
   const scratch=fs.mkdtempSync(join(tmpdir(),'abi5-cross-cut-read-')),eventLogPath=join(scratch,'fixture.events.jsonl');
@@ -102,7 +110,7 @@ async function measureHistoryReads(f, action) {
   try {return {value:await action(),reads,readBytes};} finally {Object.assign(fs,originals);syncBuiltinESMExports();}
 }
 
-test('different-cut native Definition reads keep blocked absence and exact historical child result/replay',async t=>{
+test('different-cut native Definition reads keep blocked absence and exact historical child result/replay',{skip},async t=>{
   const f=await fixture(t),out={};
   const measurements={};
   for(const member of ['run_status','run_result','run_replay','graph_call_result','graph_call_replay']) {
@@ -111,7 +119,9 @@ test('different-cut native Definition reads keep blocked absence and exact histo
     // acquisition validates the extent by bounded 64 KiB record decoding and retains body locations; the first
     // materialization reads each body by its location (C-18a item 1).
     assert.equal(measured.reads,Math.ceil(f.bytes.length/65536)+f.rows.length,member+' decodes the extent in bounded chunks and reads each body once by location');
-    assert.equal(measured.readBytes,f.bytes.length,member+' reconstructs history only at acquisition');
+    // In bytes (C-18b item 5 (c)): the bounded decoding reads the extent once, and the body reads by location
+    // read each row once; the rows tile the extent, so the bodies total the extent again.
+    assert.equal(measured.readBytes,2*f.bytes.length,member+' reconstructs history only at acquisition and reads each body once by location');
     measurements[member]={reads:measured.reads,readBytes:measured.readBytes};
   }
   assert.equal(digest(fs.readFileSync(f.eventLogPath)),digest(f.bytes));
@@ -126,7 +136,7 @@ test('different-cut native Definition reads keep blocked absence and exact histo
     historyReadsByMember:measurements,blocked:'blocked',absentResult:'not_found',childValueDigest:result.valueDigest,installedProof:false}));
 });
 
-test('current catalog and historical source permission refuse independently',async t=>{
+test('current catalog and historical source permission refuse independently',{skip},async t=>{
   const f=await fixture(t),refused=async (c,path)=>{const r=await f.invoke(c);assert.equal(r.outcomeKind,'refusal');assert.equal(r.value.code,'projection_basis_mismatch');assert.deepEqual(r.value.issuePaths,[path]);};
   const historicalCatalog={...current.contractCatalog,productContentDigest:f.historical.productContentDigest,catalogDigest:f.historical.catalogDigest,catalogId:f.historical.catalogId};
   await refused(f.call('run_status',{catalog:historicalCatalog}),'/contractCatalog');
@@ -141,7 +151,7 @@ test('current catalog and historical source permission refuse independently',asy
   assert.equal(admitExactDefinitionCall(obsolete,ABG_PROJECT_READ_CONTRACTS.run_status),null);
 });
 
-test('historical source digest and child declaration evidence remain necessary',async t=>{
+test('historical source digest and child declaration evidence remain necessary',{skip},async t=>{
   const f=await fixture(t);
   const wrong=await f.invoke(f.call('run_status',{sourceChanges:{sourceDigest:hash('wrong-source')}}));assert.equal(wrong.value.code,'source_digest_mismatch');
   const missing=f.call('graph_call_result');delete missing.resources.declarationProof;
@@ -165,7 +175,7 @@ test('Product metadata projection refuses incoherent catalog and missing or dupl
 });
 
 
-test('late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse',async t=>{
+test('late child proof preserves only the exact acquired prefix; copies and closed owners reconstruct, changed bytes refuse',{skip},async t=>{
   const f=await fixture(t),opened=events.reopenEventStore(f.handoff.reopenAuthority);assert.ok(opened.store);
   t.after(()=>opened.store.closeDurableLog());const prefix=opened.prefix;
   const target=f.selections.graph_call_result.source.ref;

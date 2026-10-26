@@ -147,15 +147,36 @@ export async function bindingHarness(){
     return {...call,request,selection,decision};
   }
   const modulePath=resolve(packageRoot,'build/code/src/abg/worksite_revision.js');
+  // The owners read a prefix through the runtime-history readers (the body
+  // view, the selector index, checked records and the extent). Over the
+  // lookup-only rows the substitutes are the real body view and the real
+  // selector-key vocabulary (`runtimeHistorySelectorKeys`); a checked record is
+  // acquired on every read; nothing is admitted or validated.
+  const {RuntimeEventBodyView,runtimeHistorySelectorKeys}=await load('build/code/src/abg/runtime_history.js');
+  const {nativeWorkspacePathWithin}=await load('build/code/src/product/native_workspace_work.js');
   const overrides={
-    './event_prefix.js':{runtimeEventsFromValidatedPrefix:p=>p.events,selectValidatedRuntimeEventPrefix:rows=>({assumption:'lookup-only',events:rows})},
+    './event_prefix.js':{selectValidatedRuntimeEventPrefix:rows=>({assumption:'lookup-only',events:rows}),
+      runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),
+      indexedRuntimeEvents:(p,key)=>p.events.filter(e=>runtimeHistorySelectorKeys(e).includes(key)),
+      checkedRecordAtPrefix:(_p,_reader,_context,acquire)=>acquire(),
+      runtimeEventPrefixExtent:p=>({count:p.events.length,lastOrdinal:p.events.at(-1)?.admissionOrdinal??0})},
     './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(p,ref)=>{const b=bases.get(ref);return b&&present(p,b.admissionEventRef)?b:null;},
       projectExactInvocationAdmissionAtPrefix:(_p,ref)=>invocations.get(ref)??null},
     './execution_basis.js':{rehydrateAdmittedImplementationSetAtPrefix:(_p,ref)=>sets.get(ref)??null},
     './artifact_truth.js':{projectArtifactTruth:p=>({artifacts:artifacts.filter(row=>present(p,row.admissionEventRef))})},
     './c_call.js':{projectAdmittedCCallStateAtPrefix:(_p,cCall,result,judgment)=>({cCall,result,judgment})},
-    './event_calculus.js':{deriveRuntimeEventCalculusProjection:p=>p,constructWorksiteObservationCurrentFluent:ref=>ref,
+    './event_calculus.js':{deriveRuntimeHeldFluentProjection:p=>p,constructWorksiteObservationCurrentFluent:ref=>ref,
       holdsAt:(p,ref)=>!p.events.some(e=>transitions.get(e.eventId)?.before===ref),projectWorksiteTransitionForResult:e=>transitions.get(e.eventId)??null},
+    // Cross-binding invalidation is the shared native worksite-observation
+    // dependency reader (400d763d1): a later write under the same admitted
+    // root touching the subject's path invalidates its older alias. Over the
+    // lookup rows the writes are the C0 outcome lookups of the `transitions`
+    // table, the same table premise the transition stub above uses.
+    './native_worksite_execution.js':{worksiteCommandSourcesInvalidatedAfter:(p,afterOrdinal,canonicalRoot,selectedPaths,readRoots)=>p.events.some(e=>{
+      if(e.admissionOrdinal<=afterOrdinal||!transitions.has(e.eventId))return false;
+      const request=bases.get(e.basisId)?.rawInputValue,path=request?.subject?.relativePath;
+      if(request?.workspaceAuthorityBasis?.canonicalRoot!==canonicalRoot||typeof path!=='string')return false;
+      return readRoots===undefined?selectedPaths.includes(path):nativeWorkspacePathWithin(path,readRoots);})},
     'node:fs':{readFileSync:()=>{physicalReads++;throw Error('no original file read in replay');},lstatSync:()=>{physicalReads++;throw Error('no original stat in replay');},realpathSync:()=>{physicalReads++;throw Error('no original path in replay');}},
   };
   // The foldback provenance owner itself is real; only the same declared
@@ -191,7 +212,10 @@ export async function bindingHarness(){
       const path=resolve(packageRoot,'build/code/src/abg/semantic_revision.js');
       semanticModule=new SourceTextModule(readFileSync(path,'utf8'),{identifier:path});
       const semanticOverrides={
-        './semantic_stage.js':{authenticateSemanticStageBasis:()=>semanticOwner,semanticInputValueAtBasis:b=>b.input,
+        // The revision owner authenticates through the owned stage
+        // authenticator (`authenticateOwnedSemanticStageBasis`, 67c333799).
+        './semantic_stage.js':{authenticateSemanticStageBasis:()=>semanticOwner,authenticateOwnedSemanticStageBasis:()=>semanticOwner,semanticInputValueAtBasis:b=>b.input,
+          semanticInputAtBasisEquals:(b,value)=>hash(b.input)===hash(value),
           projectSemanticPredecessorAtPrefix:(p,_events,_publication,ref)=>{const c=calls.get(ref);return c===undefined?null:module.namespace.projectWorksiteRevisionNativeResult(p,c.coordinate);}},
         './execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_p,ref)=>bases.get(ref)??null},
         './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:(_p,ref)=>invocations.get(ref)??null},
@@ -200,6 +224,10 @@ export async function bindingHarness(){
         // Existing mechanical dispatch-currentness assumption only; the
         // installed fixture below this test boundary observes real files.
         './worksite_revision.js':{...module.namespace,worksiteRevisionPhysicalMatches:()=>true},
+        // The revision owner reads the same lookup rows through the same
+        // history readers and the same invalidation reader as above.
+        './event_prefix.js':overrides['./event_prefix.js'],
+        './native_worksite_execution.js':overrides['./native_worksite_execution.js'],
       };
       const linked=new Map();await semanticModule.link(async specifier=>{
         if(linked.has(specifier))return linked.get(specifier);

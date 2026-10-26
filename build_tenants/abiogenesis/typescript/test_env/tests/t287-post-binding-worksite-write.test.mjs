@@ -364,10 +364,20 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       join(installedRoot, "build/code/src/abg/event_store.js"),
     ).href,
   );
+  // A cloned row re-enters through its owner's ingress: native liveness
+  // observations only through admitNativeRuntimeLivenessEvent (abg/event_store.ts).
+  const cloneIngress = Object.freeze({
+    admitRuntimeEvent: (target, candidate) =>
+      candidate.kind === "runtime_activity_probe_observed" ||
+        candidate.kind === "runtime_external_interruption_observed" ||
+        (candidate.kind === "actor_process_timeout_observed" && "thresholdObservation" in candidate.payload)
+        ? eventStore.admitNativeRuntimeLivenessEvent(target, candidate)
+        : eventStore.admitRuntimeEvent(target, candidate),
+  });
   const conflict = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     store.readAll(),
     "abi5-t287-c0-prefix-conflict-",
     artifactTruth,
@@ -375,7 +385,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   const staleOwner = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     store.readAll(),
     "abi5-t287-c0-stale-owner-",
     artifactTruth,
@@ -383,7 +393,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   const crossedReceipt = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     store.readAll(),
     "abi5-t287-c0-crossed-receipt-",
     artifactTruth,
@@ -391,7 +401,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   const alternateAuthority = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     store.readAll(),
     "abi5-t287-c0-alternate-authority-",
     artifactTruth,
@@ -399,7 +409,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   const substrateFailure = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     store.readAll(),
     "abi5-t287-c0-substrate-failure-",
     artifactTruth,
@@ -691,7 +701,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   const replayIdentityRefusal = await cloneEventPrefixFixture(
     context,
     abg,
-    eventStore,
+    cloneIngress,
     preJudgmentEvents,
     "abi5-t287-c0-crossed-replay-identity-",
     artifactTruth,
@@ -966,7 +976,10 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       runId: staleOpened.scope.runId,
     }),
   );
-  assert.equal(abg.holdsAt(staleCalculus, beforeFluent), true);
+  // An admitted C0 failure result terminates worksite_observation_current(O0)
+  // as success does, initiating O1 only for complete success (design
+  // T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md :550-552).
+  assert.equal(abg.holdsAt(staleCalculus, beforeFluent), false);
   assert.equal(abg.holdsAt(staleCalculus, afterFluent), false);
   const staleFreshProof = await proveFreshProcessRuntimeProjectionEquality({
     abg,
@@ -981,10 +994,11 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       args: [staleOpened.scope.runId],
     }],
   });
+  // Replay's holds-at filter removes the terminated O0 (same design :553-554).
   assert.deepEqual(
     staleFreshProof.retainedRows[0].projection.replayState
       .currentWorksiteObservations.map((row) => row.observation),
-    [predecessorObservation],
+    [],
   );
   await rm(targetPath, { force: true });
 
@@ -1060,7 +1074,10 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       runId: crossedReceiptOpened.scope.runId,
     }),
   );
-  assert.equal(abg.holdsAt(crossedReceiptCalculus, beforeFluent), true);
+  // After an unadmitted physical commit O1 is not runtime truth and retry needs
+  // a fresh Product observation (C0 design :612-620): the selected C0 call
+  // retires O0 (calculus c_call_fibre_selected), so neither holds.
+  assert.equal(abg.holdsAt(crossedReceiptCalculus, beforeFluent), false);
   assert.equal(abg.holdsAt(crossedReceiptCalculus, afterFluent), false);
   await rm(targetPath, { force: true });
 
@@ -1129,20 +1146,15 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       runId: conflictOpened.scope.runId,
     }),
   );
-  assert.equal(abg.holdsAt(conflictCalculus, beforeFluent), true);
+  // Same as the crossed receipt: the selected C0 call retires O0 and the
+  // unadmitted O1 is not runtime truth (C0 design :612-620).
+  assert.equal(abg.holdsAt(conflictCalculus, beforeFluent), false);
   assert.equal(abg.holdsAt(conflictCalculus, afterFluent), false);
   const conflictReplay = abg.projectRuntimeTruthAtDurablePrefix(
     abg.selectHeldEventStoreDurablePrefix(conflict.store),
     conflictOpened.scope.runId,
   ).replayState;
-  assert.deepEqual(
-    conflictReplay.currentWorksiteObservations.map((row) => row.observation),
-    [predecessorObservation],
-  );
-  assert.deepEqual(
-    conflictReplay.currentWorksiteObservations.map((row) => row.sourceEventRef),
-    [executionBasis.admissionEventRef],
-  );
+  assert.deepEqual(conflictReplay.currentWorksiteObservations, []);
 
   assert.ok(retainedConflict.call);
   const residueAuthorityReuse = await leafPort.invoke(retainedConflict.call);
@@ -1348,6 +1360,8 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       executionResolution: executionResolution.resolution,
       rawInputValue: recoveryInput,
       program,
+      // The basis admits the Program's owner install through its publication.
+      programPublication: executionResolution.programPublication,
       programValidation,
       graph: recoveryGraph,
       graphValidation: recoveryGraphValidation,

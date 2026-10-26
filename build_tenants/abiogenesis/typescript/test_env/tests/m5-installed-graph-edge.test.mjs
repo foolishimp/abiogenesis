@@ -12,7 +12,8 @@ test("M5 installed HoG traverses an independently declared composed GraphFunctio
     programRef: GRAPH_EDGE_IDS.programRef,
     catalogHandle: GRAPH_EDGE_IDS.graphFunctionRef,
     allowlist: [GRAPH_EDGE_IDS.graphFunctionRef],
-    declaredStartRef: GRAPH_EDGE_IDS.startRef,
+    // Direct control selects the Product-declared default start (target next);
+    // a caller-selected start is supervised-only (gtl/public_start).
     input: constructStructuralInput("  Qualification  "),
     identity: "structural-graph-edge",
   });

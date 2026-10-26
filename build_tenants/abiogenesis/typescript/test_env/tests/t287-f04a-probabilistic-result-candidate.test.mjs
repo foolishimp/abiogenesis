@@ -705,14 +705,19 @@ test("F04-A exact request-bound raw result admission is pure and decision-exact"
     withRawResult(environment, basis, JSON.stringify(validResult({ message: "Goodbye World" }))),
     "declared_contract_refused",
   );
+  // The fixture declares one fixed payload, independent of the subject
+  // (language-structural WORKER_EXPECTED_PAYLOAD). Another subject keeps the
+  // same declared message and binds a distinct request; a subject-derived
+  // message is refused. RETIRED: the subject-derived "Hello <subject>" const
+  // and its admission, gone with the fixture's subject-dependent payload.
   const otherInput = { ...fpInput(), subject: "Ada" };
-  const wrongSubject = constructBasis(environment, JSON.stringify(validResult()), otherInput);
-  assert.equal(wrongSubject.request.responseJsonSchema.properties.message.const, "Hello Ada");
-  assertPureRefusal(environment, admit, wrongSubject, "declared_contract_refused");
-  const exactOther = admit(constructBasis(environment,
-    JSON.stringify(validResult({ message: "Hello Ada" })), otherInput));
+  const otherSubject = constructBasis(environment, JSON.stringify(validResult()), otherInput);
+  assert.equal(otherSubject.request.responseJsonSchema.properties.message.const, "World");
+  const exactOther = admit(otherSubject);
   assert.equal(exactOther.kind, "contract_admitted_probabilistic_result_candidate");
-  assert.equal(exactOther.value.message, "Hello Ada");
+  assert.notEqual(exactOther.requestDigest, accepted.requestDigest);
+  assertPureRefusal(environment, admit, constructBasis(environment,
+    JSON.stringify(validResult({ message: "Hello Ada" })), otherInput), "declared_contract_refused");
   // Exercise the same admitted owner method used by native artifact assessment.
   for (const [rawResult, expectedKind] of [
     [validResult(), "verified_probabilistic_result_contract_preimage"],

@@ -103,11 +103,14 @@ test('live owner stop borrows its admitted state without decoding history or rel
   const h=await witnessMechanics({operatorRun:true}),opened=resources.acquireAbgEventResource(input(h));assert.equal(opened.kind,'acquired_abg_event_resource');
   const selected=resources.selectAcquiredAbgEventResource(opened.resource,opened.resource.entryPrefix),raw=await call(h,{eventResource:selected});
   const oldRead=fs.readSync,oldParse=JSON.parse;let reads=0,decodes=0,result;
-  fs.readSync=function(...args){reads++;return oldRead.apply(this,args);};JSON.parse=function(...args){if(new Error().stack.includes('decodeHistoricalEvents'))decodes++;return oldParse.apply(this,args);};syncBuiltinESMExports();
+  fs.readSync=function(...args){reads++;return oldRead.apply(this,args);};JSON.parse=function(...args){if(new Error().stack.includes('decodeRuntimeHistoryDescriptor'))decodes++;return oldParse.apply(this,args);};syncBuiltinESMExports();
   try{result=await h.run(raw);}finally{fs.readSync=oldRead;JSON.parse=oldParse;syncBuiltinESMExports();}
   try{
     assert.equal(result.exitCode,0,JSON.stringify(result));assert.equal(result.resources.eventResource.kind,'abg_event_resource_completion');
-    assert.equal(reads,0);assert.equal(decodes,0);assert.equal(h.nativeCalls,1);
+    // The held store reads each verified body of its current generation by row
+    // location and digest (T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md
+    // :64, T-290 C-10): at most one body read per held row, and no decode.
+    assert.ok(reads<=opened.resource.store.readAll().length,`${reads} body reads`);assert.equal(decodes,0);assert.equal(h.nativeCalls,1);
     const next=result.resources.eventResource.successor;resources.assertAcquiredAbgEventResourceSelectionCurrent(next);
     assert.throws(()=>resources.assertAcquiredAbgEventResourceSelectionCurrent(selected));
     console.log(JSON.stringify({kind:'operator_stop_live_owner',reads,decodes,eventDelta:2,productEnvironment:'explicit component premise',installedProof:false}));

@@ -6,8 +6,6 @@ import { rawAdmitValue, type RawAdmittedValue, type RawSubjectKind } from "./raw
 import { validateProgram, type ProgramValidationInput } from "./validation.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import { toJsonSchema } from "@valibot/to-json-schema";
-import { readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import type { ProbabilisticWorkerRequest } from "../implementation/contracts.js";
 import { isObservedWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionObservation,
@@ -32,6 +30,7 @@ import {
   type ExactCandidateQualification, type QualificationOwnerRuling,
 } from "./qualification_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { executingQualificationCatalogs } from "./qualification_catalogs.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
 const coordinate = (ref: string, digest: string) => ({ ref, digest });
 export const QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH = "contracts/qualification/coverage.json";
@@ -420,20 +419,11 @@ function qualificationTaskScopeMatches(task: QualificationEmbeddedTask, catalog:
     (!grouped || task.subjectMembers.length === requiredMembers.size && task.subjectMembers.every(m => requiredMembers.has(m.ref))) &&
     [...requiredSources].every(ref => materialRefs.has(ref));
 }
-/** The module-relative rule catalog, reached only by a caller that passes no
- * catalogs: the `./abg` and `./validator` export-map members called without
- * them, and lanes outside M-5b's grant. Every caller in the tree passes
- * catalogs or, for the verdict projection, has them admitted from the owner
- * install its durable prefix records. */
-function readQualificationCatalog() {
-  const bytes = readFileSync(fileURLToPath(new URL("../../../../contracts/qualification/rule-catalog.json", import.meta.url)));
-  return { catalog: v.parse(QUALIFICATION_RULE_CATALOG_SCHEMA, JSON.parse(bytes.toString("utf8"))), digest: sha256Bytes(bytes) };
-}
 /** The assessment subject is projected from owner-validated declarations, never
  * supplied as a caller summary. Catalog completeness includes all extracted
  * rows of each selected governing source, including other declared groups. */
 function qualificationSelectedSubject(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope, catalogs?: AdmittedQualificationRuleCatalog) {
-  const { catalog } = catalogs?.rules ?? readQualificationCatalog(), scope = task.scope;
+  const { catalog } = (catalogs ?? executingQualificationCatalogs()).rules, scope = task.scope;
   if (scope === undefined) throw new TypeError("selected assessment subject differs");
   const selectedGroups = new Set(task.coverage.map(c => c.ruleRef)),
     groups = scope.ruleGroups.filter(g => selectedGroups.has(g.groupRef)),
@@ -477,7 +467,7 @@ export function qualificationMaterialMatches(task: QualificationEmbeddedTask, no
   const members = task.context.members;
   let roleSources: JsonValue = [];
   try {
-    const { catalog, digest } = catalogs?.rules ?? readQualificationCatalog();
+    const { catalog, digest } = (catalogs ?? executingQualificationCatalogs()).rules;
     if (!qualificationTaskScopeMatches(task, catalog, digest, normalized)) return false;
     qualificationConstructionContext(task);
     const foundSources = QUALIFICATION_ROLE_POLICY.authoritySourceRefs.map(ref => catalog.sources.find(s => s.ref === ref));
@@ -669,9 +659,8 @@ export function isQualificationCoverageCatalog(value: unknown): value is Qualifi
 /** Exact published coverage data. A caller subset cannot remove obligations. */
 export function qualificationCoverageIsPublished(value: QualificationCoverageCatalog, catalogs?: AdmittedQualificationCoverageCatalog): boolean {
   try {
-    // The module-relative default is reached only by the callers named at `readQualificationCatalog`.
-    const published: unknown = catalogs !== undefined ? catalogs.coverage :
-      JSON.parse(readFileSync(fileURLToPath(new URL("../../../../" + QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH, import.meta.url)), "utf8"));
+    // A caller that passes no catalogs reads the executing package's admitted catalogs.
+    const published: unknown = (catalogs ?? executingQualificationCatalogs()).coverage;
     return isQualificationCoverageCatalog(published) && isQualificationCoverageCatalog(value) && canonicalEquals(published, value);
   } catch { return false; }
 }

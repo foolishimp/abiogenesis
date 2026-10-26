@@ -176,6 +176,24 @@ export async function prepareFlavoredCatalogProduct(
   const nativeContractDigest = product.sha256Canonical(
     nativeTypedLocator.declarationInventory,
   );
+  // The capability definition graph is constructed from ABG's register
+  // projection of the catalog's contracts (product/verify_product.ts), which
+  // projects no capability for a developer contract: the flavored product's
+  // graph is the empty graph, and it declares no capability.
+  const capabilityDefinitionGraph =
+    product.constructCapabilityDefinitionGraph([]);
+  const capabilityDefinitionGraphBytes =
+    product.capabilityDefinitionGraphAssetBytes(capabilityDefinitionGraph);
+  await mkdir(
+    join(sourceRoot, product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH, ".."),
+    { recursive: true },
+  );
+  await writeFile(
+    join(sourceRoot, product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH),
+    capabilityDefinitionGraphBytes,
+  );
+  const capabilityDefinitionGraphCoordinate =
+    product.capabilityDefinitionGraphCoordinate(capabilityDefinitionGraph);
   const descriptorRef = "descriptor://flavor.example/text@5";
   const contributionManifestRef =
     "contribution-manifest://flavor.example/text@5";
@@ -189,7 +207,7 @@ export async function prepareFlavoredCatalogProduct(
     requirementAuthorityRefs: [
       "requirement://flavor.example/text/render@5",
     ],
-    capabilityIdentities: ["flavor.example.capability.render@5"],
+    capabilityIdentities: [],
     assetLocator: {
       path: flavoredSchemaPath,
       mediaType: "application/schema+json",
@@ -215,7 +233,7 @@ export async function prepareFlavoredCatalogProduct(
     requirementAuthorityRefs: [
       "requirement://flavor.example/text/native-contract@5",
     ],
-    capabilityIdentities: ["flavor.example.capability.native-contract@5"],
+    capabilityIdentities: [],
     nativeTypedLocator: {
       ...nativeTypedLocator,
       namedSymbol,
@@ -268,6 +286,7 @@ export async function prepareFlavoredCatalogProduct(
     productContentDigest,
     publicContractCatalogId: publicContractCatalog.catalogId,
     publicContractCatalogDigest: publicContractCatalog.catalogDigest,
+    capabilityDefinitionGraph: capabilityDefinitionGraphCoordinate,
     publicationBindings: [{
       moduleRef: draftPublication.moduleRef,
       publicationDigest:
@@ -317,7 +336,16 @@ export async function prepareFlavoredCatalogProduct(
       ],
     }],
     provenanceRef,
-    declaredCapabilityRefs: ["flavor.example.capability.render@5"],
+    declaredCapabilityRefs: [],
+    capabilityDefinitionGraph: {
+      ...capabilityDefinitionGraphCoordinate,
+      assetLocator: {
+        path: product.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH,
+        mediaType: "application/json",
+        schemaVersion: "5.0.0",
+        contentDigest: product.sha256Bytes(capabilityDefinitionGraphBytes),
+      },
+    },
     publicContractCatalog,
   };
   await writeFile(

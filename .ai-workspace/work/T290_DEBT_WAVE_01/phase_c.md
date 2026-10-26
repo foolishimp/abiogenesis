@@ -8981,3 +8981,422 @@ Grant: every lane and support file this activation names under `test_env/`; the 
 Stops (write the stop in the Return, keep the rest moving): a defect at head whose repair reaches a Product contract, an event contract, a payload key, a failure class or a Public export; a fixture whose regeneration needs a native run or an input only the owner holds (named with the input); an evidence copy under the tenant whose tracked record cannot be found (named, not moved; its reader retired, item 5 (d)); a lane whose claim you cannot classify (named with the first error, left red).
 
 Return contract: one commit on `main`, staged by path, first line `C-18b: TD-04 and TD-05 closed: the remaining sites and the unowned reds classified, each lane repaired, regenerated through its owner, restated to the current design or retired with its reason`, with any gap stated in place; the Return before the commit so the commit carries it: the classification table (lane, red at base, class, action, exit), item 1's sites, the regenerations with their owner commands, the code changes with their reds, the whole-suite exit table (the expected red set for the close run), the lanes table, the lint and gates, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## C-18b return (Worker, Opus 5.5, 2026-10-27; base `ec375af82`)
+
+**No: TD-04 and TD-05 are closed with stops, and 36 lanes stay red.** Every lane red at the base, plus every lane the activation names, is classified below and either discharged or named. There is no contract change.
+
+**Done:**
+- item 1 (a) to (e);
+- item 2: every d2 red and `t287-native-semantic-revision`'s three. The activation counts 34 d2 reds; my root-set base has 36, because `d2-bounded-repair` has 5 reds, not 3;
+- item 3: every unowned red, by class;
+- item 5 (a), (b), (c) and (e);
+- item 5 (d) for `continuation-causation.json` and the two S01 copies.
+
+**Exit:** 36 red lanes and 56 red tests (item 4's table). Each red is one of:
+- an owner-held input, named;
+- a stop;
+- a repair outside the grant.
+
+**Gaps:**
+- **Reader 5 is unreached.** Its reach, `t287-governance-covered-source-use`, needs the owner-held `ABG_GOVERNANCE_COVERED_FIXTURE`.
+- **Item 5 (d) at `test_env/proof/abi5-root-r10*.json` is stop 3.** The record they copy cannot be found inside the permitted reads.
+
+**Stops:**
+- **Stop 1, contract or `public/`:** `t287-st2a-g-capability-definition-graph`, `t287-st1-installed-cross-owner-hello:116`, and the core consensus rows' Public application.
+- **Stop 2, owner-held inputs:** the candidate basis of `r1`, `r2` and `r3`, `t287-selected-action-authority`, and the owner-held reds.
+- **Stop 3:** the three `abi5-root-r10` proof files.
+- **Stop 4, unclassified:** `t287-worksite-construction` and `t287-worksite-branch-construction` (one cause), `t287-st1-installed-cross-owner-hello:1259`, `t287-c2-owner-coordinate-reuse`, `m5-installed-graph-edge`, `t287-post-binding-worksite-write:1428` and `t287-historical-source-resource:75`.
+
+**Deviations:**
+- One rule breach (a `git grep` pathspec at the repository root printed file names under `.ai-workspace/`).
+- Seven support files edited that the activation does not name.
+
+**Proof: subtree hashes.** The base's `code/`, `test_env/` and `contracts/` equal C-18a's commit `a0829a298`, so C-18a's after column is the before.
+
+| Subtree | C-18a `a0829a298` | Base `ec375af82` | After (this commit) |
+|---|---|---|---|
+| `code` | `3eaea8bad4a0292f7b9c478b3e11220ecc698364` | `3eaea8bad4a0292f7b9c478b3e11220ecc698364` | `b6e14f5c111398da52b7f8a6948fc0e8d7837ce2` |
+| `test_env` | `8cf99a5953c7941a4ac8ba2cb2a8194c94d6dce3` | `8cf99a5953c7941a4ac8ba2cb2a8194c94d6dce3` | `89fb1d442f4fa428a5599f2fd28b690c7799e6aa` |
+| `contracts` | `a82bcca3fe924d2ac3b67ebecf49950b549040f7` | `a82bcca3fe924d2ac3b67ebecf49950b549040f7` | `ef21d7aafcb3eda7a245242577d6bf7189945646` |
+
+No commit landed on `main` during the run: `git log ec375af82..HEAD -- build_tenants/` is empty.
+
+### Classification table
+The base column is C-18a's after, which ran unset. Item 2's lanes also show their root-set base, measured on the base build. The exit column is the after pass, run with the root set. A lane that now reads root evidence skips unset, naming its input.
+
+| Lane | Base (C-18a after, unset) | Class | Action | Exit (after pass, root set) |
+|---|---|---|---|---|
+| `d1-preserved-result` | 1/0/1/0 | (i), item 1(a) | The one case reads a native store outside the root with no tracked record; case retired, lane empty, file deleted | deleted |
+| `d1-preserved-result-mechanics` | 5/1/0/4 | item 5(e) | `nativeStoreSkip`'s three cases retired | 2/2/0/0 |
+| `d2-acknowledgment` | 3/0/0/3 | (ii), item 2 (root 3/0/3) | Harness authenticator: the owned name `authenticateOwnedSemanticStageBasis` substituted (cause A) | 3/3/0/0 |
+| `d2-binding-query-reuse` | 1/0/1/0 | (iv) then (ii)/(iii) | `origins.json` and the preimage parent build are gone: the parent-vs-candidate equivalence and the sole-source-delta source-text case retired; candidate cases restated over the current build | 7/7/0/0 |
+| `d2-binding-transition` | 10/0/0/10 | (ii), item 2 (root 10/0/10) | `d2-binding-harness` history readers restated to the runtime-history surface; invalidation through `worksiteCommandSourcesInvalidatedAfter` | 10/10/0/0 |
+| `d2-bounded-repair` | 12/1/0/11 | (ii) + item 1(e), item 2 (root 12/7/5) | `:10`, `:66` predecessor claims retired (C-5 stop 2); `:103` restated to root input reuse, its source-text halves retired; causes A and B | 10/10/0/0 |
+| `d2-evidence-owner` | 1/0/0/1 | item 1(e) + (v) | Retired, lane deleted: predecessor arm; the current arm's ic-07 admitted preparation predates the current stage context contract | deleted |
+| `d2-evidence-owner-lookup` | 9/0/0/9 | (v) + (ii), item 2 (root 9/2/7) | Initial arm (4 cases) retired, same cause; revision arm restated; `:40` before half retired (predecessor) | 5/5/0/0 |
+| `d2-historical-design` | 13/0/0/13 | (ii), item 2 (root 13/10/3) | Cause A | 13/13/0/0 |
+| `d2-historical-owner` | 1/0/1/0 | (i), item 1(a) | Ready record is an evidence copy no tracked text names; 16 cases retired; lane and `d2-historical-owner-harness.mjs` deleted | deleted |
+| `d2-workflow-step` | 9/0/0/9 | (ii), item 2 (root 9/1/8) | Causes A and B; `:123` retired (imports a D2 fixture calling `constructHelloWorldModulePublication`, removed `0b1187c40`) | 8/8/0/0 |
+| `d4-s01-program-owner` | 1/0/1/0 | (i) + (iii) | `s01-origins.json` never tracked; predecessor build; Source04 delta: 10 cases retired, file deleted | deleted |
+| `forward-command-owners` | 6/2/4/0 | (ii) | `forward-owner-lookups.mjs` doubles restated to the runtime-history readers | 6/6/0/0 |
+| `generic-input-retention` | 4/2/2/0 | (ii) | Doubles through `RuntimeEventBodyView`; sub-traversal evidence with `childOutputDigest`; comparisons counted as `canonicalEquals` | 4/4/0/0 |
+| `integration-shared-seams` | 1/0/1/0 | (i)/(v), item 1(a) | `:62` Source04 bytes and `:23`, `:41` (D2 ready record) retired; `:52` restated over the named ic-09 ready-16 | 2/2/0/0 |
+| `m5-event-calculus-runtime` | 19/13/5/1 | (ii) + (v) | A5-F10 restated (`openTraversalScope`, input-object `openCCall`); closure through `hog.executeGraphTraversal`; `:1316` restated to the probe-scope key | 19/18/0/1 |
+| `m5-event-store-reopen` | 21/21/0/0 | item 5(d) | S01 reader restated to `evidenceInput` (`s01Skip`) | 21/21/0/0 |
+| `m5-fresh-process-reconstruction` | 1/0/1/0 | (ii) | `openCall` -> `openTraversalScope` | 1/1/0/0 |
+| `m5-installed-graph-edge` | 1/0/1/0 | (ii) + (v); stop 4 | Start restated to target `next`; then the run fails at head: `hog/closure_contract_mismatch` at the first CCall. Left red | 1/0/1/0 |
+| `m5-installed-portability` | 8/5/3/0 | (ii) | `flavored-catalog-product.mjs` restated to the current manifest (capability definition graph) | 8/8/0/0 |
+| `m5-retry-lifecycle-authority` | 9/4/5/0 | (iii) | Text censuses retired; behaviour kept; `:323` cites `hog/entry.ts` (M05_S06 `:1983-1985`) | 7/7/0/0 |
+| `m5-s03-authority` | 5/1/4/0 | (ii) | Installed root environment; developer-capability grants retired | 5/5/0/0 |
+| `m5-s06-prime` | 49/48/1/0 | (ii) + (i) | `:1824` install over a lane-owned extraction of this build's pack | 49/49/0/0 |
+| `r1-packed-artifact` | 1/0/1/0 | (v); stop 2 | Persisted candidate basis is the dev.286 cut; `scripts/refresh-candidate-basis.mjs` carries the old identity. Left red | 1/0/1/0 |
+| `r10-child-proof` | 1/0/0/1 | item 5(d) | Reads the root S01 inputs by digest | 10/10/0/0 |
+| `r10-projection-contracts` | 11/11/0/0 | item 5(d) | Ten store cases skip unset, setup gated | 11/11/0/0 |
+| `r2-clean-install` | 1/0/1/0 | (v); stop 2 | As r1 | 1/0/1/0 |
+| `r3-workspace-binding` | 1/0/1/0 | (v); stop 2 | As r1 | 1/0/1/0 |
+| `r5-invocation-admission` | 3/0/3/0 | (iii) + (ii) + (v) | Text slices retired; installed readiness, grants and execution-resolution refusal restated | 2/2/0/0 |
+| `r6-implementation-resolution` | 1/0/1/0 | (ii) | Second input is the resolved declaration closure | 1/1/0/0 |
+| `r8-direct-hog-entry` | 1/0/1/0 | (ii) | Prefix readers and `openTraversalScope` | 1/1/0/0 |
+| `r9-causal-result-closure` | 2/0/2/0 | (ii) | Success through HoG; manual-writer mutations retired (writers removed `415b58dc8`) | 2/2/0/0 |
+| `retained-route-cursor-transition` | 1/0/1/0 | (ii) | `childOutputDigest`; predecessor arms retired (C-5 stop 2) | 1/1/0/0 |
+| `rival-authority-mutations` | 3/1/2/0 | (ii) | `openTraversalScope`; opening kinds incl. the liveness probe | 3/3/0/0 |
+| `steel-basic-cli-public` | 1/0/1/0 | (ii) | Admission authority on every call; ten core publications; `catalog.apply` arm retired | 1/0/1/0 in the pass (load); 1/1/0/0 alone |
+| `t287-authenticated-owner-values` | 3/1/1/1 | (v) | Held-store tamper arms retired (design excludes same-length hardening); drift arms over cold copies | 3/2/0/1 |
+| `t287-c0-correction-regressions` | 4/3/1/0 | (ii) + (iii) | Compiled-text harness retired; `replaceWorksiteFile` not exported kept | 4/4/0/0 |
+| `t287-c2-owner-coordinate-reuse` | 6/0/6/0 | item 5(a); stop 4 | First error unchanged by item 5(a); `:120` replay owner refuses the built history. Left red | 6/0/6/0 |
+| `t287-cold-record-decoder` | 3/1/1/1 | (v) | Malformed UTF-8 is refused as noncanonical since `67c333799`: restated; predecessor oracle retired | 3/2/0/1 |
+| `t287-conformance-owner-reuse` | 1/0/1/0 | item 5(b); (iv) -> owner-held | Substitution moved to `./declaration_exports.js`; the predecessor arm's input is owner-held | 1/0/1/0 |
+| `t287-continuation-causation` | 1/1/0/0 | item 5(d) | Reads the two root records by digest; copy deleted | 1/1/0/0 |
+| `t287-cross-cut-public-read` | 5/4/1/0 | item 1(b), 5(c), (iii) | D2 store via `evidenceInput`; `:114` bytes restated to the design's figure | 5/5/0/0 |
+| `t287-deferred-application-restoration` | 2/0/2/0 | (i); stop 2 | Owner-held `ABI5_S02_RECURSION_FIXTURE` | 2/0/2/0 |
+| `t287-event-calculus-owner-continuation` | 1/0/1/0 | (i); stop 2 | Owner-held `ABI5_EC_OWNER_CLOSED_HISTORY` (+`_SHA256`), `ABI5_EC_OWNER_EVIDENCE` | 1/0/1/0 |
+| `t287-exact-prefix-projection-reuse` | 2/0/1/1 | (i) + (iii) | Lane-owned territory; identity restated to equality (M05_S06 `:361`) | 2/1/0/1 |
+| `t287-f04a-probabilistic-result-candidate` | 2/1/1/0 | (ii) | Fixed payload "World": another subject admitted on a distinct digest; "Hello Ada" refused | 2/2/0/0 |
+| `t287-fh-hold-open` | 1/0/1/0 | (iv) -> (i) -> (v), item 1(b) | S02 held transaction over a superseded event contract: both cases retired, lane deleted | deleted |
+| `t287-generic-job-intake` | 2/0/1/1 | (ii); left red | Two harness layers in shared supports the activation does not name | 2/0/1/1 |
+| `t287-governance-covered-source-use` | 9/3/3/3 | (i); stop 2 | Owner-held `ABG_GOVERNANCE_COVERED_FIXTURE`; reader 5's reach | 9/3/3/3 |
+| `t287-gtl-language-corpus` | 1/0/1/0 | (iv) -> (i) | Package root: the extracted one, else the build | 3/3/0/0 |
+| `t287-gtl-serialization-publication` | 1/0/1/0 | (iv) -> (i) | Lane-owned pack; prior-address arm retired (C-5 stop 2) | 9/9/0/0 |
+| `t287-historical-source-resource` | 2/1/1/0 | item 1(b) + (v); stop | D2 inputs via `evidenceInput`; `:75` retention absent at head: a design question. Left red | 2/1/1/0 |
+| `t287-installed-dependency-lock` | 2/0/1/1 | (i); stop 2 | Owner-held `ABI207_NATIVE_IDENTITY` | 2/0/1/1 |
+| `t287-installed-qualification-conservation` | 1/0/1/0 | item 1(c); stop 2 | HOME assertion retired; owner-held `ABI5_INSTALLED_CONSERVATION_*` | 1/0/1/0 |
+| `t287-interrupted-event-resource-recovery` | 8/6/2/0 | (v) | One extent pass plus bodies by location (design `:64`) | 8/8/0/0 |
+| `t287-malformed-gtl-gate` | 6/5/1/0 | (v) + (ii) | Raw admission owns the closed C term schema; grants slot supplied | 6/6/0/0 |
+| `t287-management-supervision` | 5/4/1/0 | (ii); left red | Shared support `root-installed-environment.mjs`, not named | 5/4/1/0 |
+| `t287-native-assembly-retained-input` | 1/0/1/0 | (i); stop 2 | Owner-held `ABI5_NATIVE_RETAINED_JOB` | 1/0/1/0 |
+| `t287-native-event-time` | 6/0/4/2 | (i) + (iii) | Lane-owned territory; field census retired; baseline arm retired | 5/2/0/3 |
+| `t287-native-frame-observation` | 8/1/3/4 | (i); stop 2 | `:187`, `:207` owner-held; `:235` retired (predecessor, D4 digest) | 7/1/2/4 |
+| `t287-native-frame-route-conservation` | 3/0/3/0 | (iii) | Retired; lane and support deleted | deleted |
+| `t287-native-runtime-gate` | 7/6/0/1 | item 5(a) | Copy carries the full payload | 7/6/0/1 |
+| `t287-native-semantic-evidence` | 1/0/1/0 | (i); stop 2 | Owner-held `ABI5_NATIVE_EVIDENCE_EXTRACT` | 1/0/1/0 |
+| `t287-native-semantic-job` | 9/8/1/0 | (ii) | Seam restated to the owned authenticator and `runtimeEventBodiesAtPrefix` | 9/9/0/0 |
+| `t287-native-semantic-revision` | 7/4/1/2 | (ii), item 2 (root 7/4/3) | Owned authenticator; `RuntimeEventBodyView` | 7/7/0/0 |
+| `t287-native-work-reacquisition-normalization` | 2/1/1/0 | (i); stop 2 | Owner-held `ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT` | 2/1/1/0 |
+| `t287-observed-worksite-command` | 8/7/1/0 | (v) | Budget includes the owned drain `min(grace, 250)` | 8/8/0/0 |
+| `t287-ordered-reconstruction` | 7/2/2/3 | (ii) + (iii) | Snapshot proof module-private: transplant arms retired; identity -> equality | 7/4/0/3 |
+| `t287-pfc-f08a-product-verification-boundary` | 1/0/1/0 | (ii) | Capability definition graph bound at seal; register identities; forged-shape claim retired | 1/1/0/0 |
+| `t287-post-binding-worksite-write` | 2/1/1/0 | (ii) + (v); stop 4 | Five layers restated; `:1428` C0 leaf `authority_verification`. Left red | 2/1/1/0 |
+| `t287-predecessor-context` | 1/0/1/0 | (i); stop 2 | original1B evidence; predecessor | 1/0/1/0 |
+| `t287-public-groups` | 1/0/1/0 | (iv) -> (i) | Baseline identity arm retired (C-5 stop 2) | 3/3/0/0 |
+| `t287-public-preparation` | 1/0/1/0 | (iv) -> (i) | Lane-owned consumer directory | 6/6/0/0 |
+| `t287-public-terminal-projection` | 4/0/4/0 | (i); stop 2 | Frozen S02 episode fixture | 4/0/4/0 |
+| `t287-qualification-contraction` | 4/4/0/0 | item 5(a) | Equal | 4/4/0/0 |
+| `t287-qualification-parent-alias` | 1/0/1/0 | (i); stop 2 | Frozen fixture and emitted-owner binding | 1/0/1/0 |
+| `t287-recursive-registered-selection` | 4/2/1/1 | (ii) | Owned completion seam; 'old-failure' arm retired | 4/3/0/1 |
+| `t287-registered-graph-selection` | 1/0/1/0 | left red, outside the grant | Duplicate `environment.carries` in `test_env/fixtures/registered-selection-product/index.mjs:56` (fixture hand edit) | 1/0/1/0 |
+| `t287-release-acceptance` | 1/0/1/0 | (iv) -> (i) | Lane-owned F16 territory | 6/6/0/0 |
+| `t287-release-publication` | 1/0/1/0 | (iv) -> (i); stop 2 at `:115` | Owner-held `ABI5_RELEASE_RETAINED_INSTALL_COORDINATE` | 6/5/1/0 |
+| `t287-result-evidence-lineage-projection` | 1/0/1/0 | (ii) | Seam restated; owner bodies called | 1/1/0/0 |
+| `t287-retained-installed-consumer` | 1/0/1/0 | (i); stop 2 | Owner-held `ABI5_RETAINED_CONSUMER_CONFIG` | 1/0/1/0 |
+| `t287-retry-run-prefix` | 3/0/3/0 | (i); stop 2 | s02-installed-continuation-04 carrier | 3/0/3/0 |
+| `t287-route-reconstruction` | 12/10/0/2 | item 5(d) | S01 part a subtest with `s01Skip` | 13/11/0/2 |
+| `t287-s03-automatic` | 1/0/1/0 | (i); stop 2 | S03 evidence directory | 1/0/1/0 |
+| `t287-selected-action` | 1/0/1/0 | (i); stop 2 | Owner-held `ABI5_SELECTED_ACTION_EVIDENCE_ROOT` | 1/0/1/0 |
+| `t287-selected-action-authority` | 3/2/1/0 | stop 2 | Retained installs fail `hasAdmittedProductInstall` at head; needs the owner's regenerated subject | 3/2/1/0 |
+| `t287-selected-execution-closure` | 1/0/1/0 | (i); stop 2 | Frozen installed owner fixture | 1/0/1/0 |
+| `t287-st1-installed-cross-owner-hello` | 2/0/2/0 | lane bug + stop 4 + stop 1 | `:737` lane bug repaired; `:1259` replay at a later prefix (design question); `:116` in `public/` | 2/0/2/0 |
+| `t287-st2a-g-capability-definition-graph` | 4/2/2/0 | stop 1 | 21 of 75 rows project no capability; parser admits `[]` (M05_S06 `:1006` types NonEmpty) | 4/2/2/0 |
+| `t287-w2-05-generator-package-reproducibility` | 2/1/1/0 | (ii) | `packageMetadataSources` supplied | 2/2/0/0 |
+| `t287-w2-05-install-catalog-owner-chain` | 1/0/1/0 | (v) + (ii) | Frozen census retired; admission authority; ten publications; I-JSON artifact truth copy; conformance over a catalog Program; apply arms retired | 1/1/0/0 |
+| `t287-w2-05-release-snapshot-definition-bindings` | 1/0/1/0 | (ii) | Bare call refused at admission; owner-refusal claim retired | 1/1/0/0 |
+| `t287-worksite-branch-construction` | 2/0/2/0 | (ii); stop 4 | Carrier restated; `:671` parent result admission refuses the partial-stop lift | 2/1/1/0 |
+| `t287-worksite-construction` | 3/0/3/0 | (ii); stop 4 | Four restatements; `:701` the same refusal | 3/2/1/0 |
+| `t287-worksite-file-replace-owner` | 1/0/1/0 | (ii) | Raw writer retired from the Product surface; lane deleted | deleted |
+| `t288-blocked-retry-entry` | 1/0/1/0 | item 1(e) / C-5 stop 2 | Predecessor differential; lane deleted | deleted |
+| `t288-initial-cursor-entry` | 1/0/1/0 | (ii) + (iii) | Lane-owned admitted event; byte-mutation arm retired | 1/1/0/0 |
+| `t288-logical-prefix-digest` | 2/0/2/0 | (i); stop 2 | Owner-held `ABI5_OWNER_HISTORY` | 2/0/2/0 |
+| `t288-physical-return-conservation` | 1/0/1/0 | C-5 stop 2 | Predecessor differential; lane deleted | deleted |
+| `t288-prefix-structure` | 1/0/1/0 | C-5 stop 2 | Predecessor differential; lane deleted | deleted |
+| `t288-scoped-retry-guard` | 1/0/1/0 | (iii) | Compiled-body text slice; lane deleted | deleted |
+| `t288-workflow-scope-conservation` | 1/0/1/0 | C-5 stop 2 | Predecessor differential; lane deleted | deleted |
+| `t289-install-event-bodies` | 4/0/4/0 | (i); stop 2 | Lane-owned proof root; predecessor arm retired; owner-held `ABI5_INSTALL_BODY_HISTORY` (+`_SHA256`) | 4/0/4/0 |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | item 1(c) | Claude command asserted over the declared input | 2/0/0/2 |
+| `w2-steel-single-start` | 8/6/1/1 | (ii) | Terminal edge refused at raw admission | 8/7/0/1 |
+| `w2-steel-single-start-installed` | 1/0/0/1 | item 1(c) | As the serial branch | 1/0/0/1 |
+| `witness-reprice-definition-binding` | 15/0/15/0 | (i) + (v) + (iii), item 5(b) | Lane-owned territory; mock identity carries `productContentDigest`; counts to design `:64` | 15/15/0/0 |
+| `witness-run-stopped-definition-binding` | 7/0/7/0 | (i) + (ii) + (iii) | Same support; `projectAbgReadOutput` | 7/7/0/0 |
+
+### Item 1: TD-04's remaining sites
+
+**(a) Displaced paths.**
+- `d2-historical-owner-harness.mjs:6`, `:11`, `:63` (the D2 implementation work build, `evidence/d2-program-ready.json`, the `installed-continuation-09` store pinned by dev/ino `16777230/449590349`). I restated the harness over the current build with the ic-09 inputs named. The lane then ran 16/11/5: ic-09 ready-16 lacks the GraphFunction of row 834's basis, and the `36fe4ea9` predecessor constant appears in no record. The lane's ready record is a D2 implementation evidence copy that no tracked text names, by path or by digest. Class (i). `d2-historical-owner.test.mjs` (16 cases) and the harness are deleted; the harness had no other reader.
+- `integration-shared-seams:62-63`. The Source04 byte equality over `origins.json` is retired as a superseded cut. `:23` and `:41` are retired, because they need the same D2 ready record. `:14` is kept. `:52` is restated over the named ic-09 ready-16.
+- `integration-d1-readonly-discriminator:7-8`. It is a non-suite D1-cut diagnostic over `origins.json`, a donor manifest, an old work build and preimages, and nothing references it. It is retired and the file is deleted.
+- Two lanes not in the list hit the same class, so they are added here:
+  - `d4-s01-program-owner`: its first error is `ENOENT evidence/s01-origins.json`, which was never tracked. Its 10 cases are retired and the file is deleted.
+  - `d1-preserved-result`: it reads a native store outside the root, which has no tracked record. Its one case is retired and the file is deleted.
+
+**(b) Relative `.ai-workspace/` reads.** I found these with `git grep "ai-workspace"` over `test_env` and `code`, and checked whether each is tracked with `git cat-file -e HEAD:<exact path>`.
+- **Migrated to the root**, read through `evidenceInput` by path and digest, with a skip that names the input:
+  - `t287-cross-cut-public-read:20` and `t287-historical-source-resource:38`: the D2 `installed-frame-01` store and program-ready-16.
+  - `t287-fh-hold-open:13-14`: migrated, then retired under (i)/(v). The restated lane opens the store under a superseded event contract.
+- **Stay, because they are tracked records:**
+  - `t287-common-computational-library:316`;
+  - `t287-default-library:24`: the `default-library-witness` paths, 13 of 13;
+  - `t287-default-library-fulfillment:16`;
+  - `t287-selected-action:187`;
+  - `t287-selected-action-authority:13`: the `selected-action-04` and `-05` environment, handoff and prefix files.
+- **Not reads:**
+  - absolute paths that are payload values in `t287-native-assessment-evidence`;
+  - `workspaceRoot/.ai-workspace` joins inside scratch territories (`r3-workspace-binding:233`, `root-installed-environment:414`, `t287-post-binding-worksite-write:440`, `t287-w2-05-install-catalog-owner-chain:545`, `steel-basic-cli-public:530`, `t287-c0-post-publication-failure:506`);
+  - one comment.
+
+**(c) The three machine-identity assertions.**
+- `t287-installed-qualification-conservation:34` asserts `HOME === '/Users/jim'`. It is retired: the lane neither reads nor passes `HOME`.
+- `w2-steel-single-start-installed:547` and `w2-steel-serial-branch-installed:597` assert `ABG_TS_CLAUDE_COMMAND === '/Users/jim/.local/bin/claude'`. Both are restated as "an absolute path", over the input the live arm declares.
+
+**(d) The ten reasonless skips.** C-18a's item 7 restated all 116 sites, and its one site with no input was `nativeStoreSkip`, which is retired under 5(e). Each skip C-18b adds uses `evidenceInput`'s reason: `ABI5_EVIDENCE_ROOT unset; requires <path> (sha256:<12>)`, or the named owner input. The exit check is the after pass, where every `# SKIP` line carries a reason (see the exit table).
+
+**(e) Stop 2's three cases.**
+- `d2-bounded-repair:10` (the predecessor publication delta) and `:66` (predecessor counterexamples) are retired. Their claims are about the D2 frame-repair predecessor, whose build has no package closure.
+- `d2-evidence-owner:5`: the predecessor arm is retired. I restated the current arm over a temporary byte copy of the 795-row prefix, and it still refuses. The ic-07 admitted preparation (row 211) predates the current stage context contract: `constructionTask.prompt`, `promptDigest`, `taskRef` and `taskDigest` differ. That makes it a superseded cut's claim, so the lane is deleted.
+- No closure is provisioned under the root.
+
+### Item 2: TD-05's reds (root set)
+- **Cause A (ii).** `semantic_revision` authenticates through `authenticateOwnedSemanticStageBasis` (since `67c333799`). The harnesses substituted only the unowned name. The owned name is now added in `d2-historical-design-harness`, `d2-bounded-harness`, `d2-binding-harness` and `d2-evidence-owner-harness`.
+- **Cause B (ii).** `semanticInputAtBasisEquals` calls the module-local `semanticInputValueAtBasis`, so that is substituted too.
+- **`d2-binding-harness` (ii).** The history readers were renamed in the runtime-history redesign: `runtimeEventBodiesAtPrefix`, the `runtimeHistorySelectorKeys` index, `checkedRecordAtPrefix`, `runtimeEventPrefixExtent` and `deriveRuntimeHeldFluentProjection`. Cross-binding invalidation now goes through `worksiteCommandSourcesInvalidatedAfter`.
+- **Per lane**, root base to after:
+
+| Lane | Root base | After |
+|---|---|---|
+| `d2-acknowledgment` | 3/0/3 | 3/3 |
+| `d2-historical-design` | 13/10/3 | 13/13 |
+| `d2-binding-transition` | 10/0/10 | 10/10 |
+| `d2-workflow-step` | 9/1/8 | 8/8; `:123` retired: its D2 fixture calls `constructHelloWorldModulePublication`, removed at `0b1187c40` |
+| `d2-bounded-repair` | 12/7/5 | 10/10; `:10` and `:66` per item 1(e); `:103` restated, with its source-text halves retired |
+| `d2-evidence-owner-lookup` | 9/2/7 | 5/5; the initial arm (4 cases) retired as a superseded cut, the `:40` before half as a predecessor, the revision arm restated |
+
+- **`t287-native-semantic-revision:118`, `:266`, `:328` (ii).** The owned authenticator and `RuntimeEventBodyView` premises are restated. It goes from 7/4/3 (root set) to 7/7.
+
+### Item 3: C-14's readers 2 and 5
+I added instrumented `// C18B` append lines after each reader's record check, rebuilt, and ran 14 candidate lanes with the root set. The instrumentation is stripped; both files are `cmp`-equal to their clean copies.
+- **Reader 2** (`worksite_revision.ts` `projectionFacts`, `REVISION_EVIDENCE_RECORD`, `checkedRecordAtPrefix`) is reached by `d2-binding-transition` only: 37 checks, kind `one`, and the lane is 10/10. The other 13 candidates do not reach it.
+- **Reader 5** (`invocation_execution_truth.ts` `projectGovernanceCoveredSourceUse`, `GOVERNANCE_SOURCE_RESULT_RECORD`) is unreached. `t287-governance-covered-source-use` stops before it, at `:256` "select the frozen bounded fixture", which is the owner-held `ABG_GOVERNANCE_COVERED_FIXTURE`. When that fixture is restored, this lane is the reach.
+
+### Item 5: C-18a's residuals
+**(a) Done.**
+- `isolated-compiled-copy.mjs` now copies all of `build/` (plus `contracts/`, `package.json` and the manifest, with `node_modules` by link). The copy now carries the payload the executing manifest inventories, so the copy's modules admit the copy as their executing package.
+- I chose to copy the payload rather than have the copy lanes pass catalogs, for one reason: the default then reads the executing package for every caller, and no lane needs a new parameter.
+- `validator/qualification.ts`: the rule default (`qualificationSelectedSubject`, `qualificationMaterialMatches`) and the coverage default (`qualificationCoverageIsPublished`) read `executingQualificationCatalogs()`. `readQualificationCatalog` is deleted. The exit grep counts in `qualification.ts`: `readQualificationCatalog` 0, `readFileSync` 0, `import.meta.url` 0, `node:fs` 0; `executingQualificationCatalogs` 4.
+- The three lanes are as at the base: `t287-native-runtime-gate` 7/6/0/1, `t287-qualification-contraction` 4/4/0/0, and `t287-c2-owner-coordinate-reuse` 6/0/6 with the same first error.
+
+**(b) Done.**
+- Admission's `observeExecutingToolchainIdentity` calls `readExecutingToolchainIdentity()` (`product/declaration_exports.ts`, the one reader).
+- `t287-conformance-owner-reuse` and `witness-reprice-mechanics.mjs` substitute `./declaration_exports.js` `readExecutingToolchainIdentity`. The conformance lane's predecessor arm keeps its own `node:fs/promises` read, because that is how the predecessor build read it.
+- The exit grep in `product/admission_authority.ts` counts `import.meta.url` 0 and `product-toolchain-manifest.json` 0.
+- `t287-conformance-owner-reuse` is 1/0/1/0 at the base and after: its predecessor arm's input is owner-held.
+- `witness-reprice-definition-binding` goes from 15/0/15 to 15/15, and its classes are in the table.
+
+**(c) Done.** `t287-cross-cut-public-read:114` is restated from bytes to the design's figure: two times the extent, citing design `:64` as `:105` does (class (iii)). With the root set the lane exits 5/5; unset it is 5/1/0/4, with the four fixture cases skipping and naming their input.
+
+**(d) Evidence copies.**
+- **`test_env/fixtures/continuation-causation.json`** (sha256 `2073873155c8ae66…`, 477,899 B, added at `0b1187c40`). It is an assembled extraction of two root records:
+  - S7 exact-intent-02 `final-events.json` (`4e96fd89…`, 5,070,328 B): the rows at ordinals 4, 5, 7, 8, 9, 10, 64, 66 and 122;
+  - `attempt-07/continue-call.json` (`5c83dcf7…`, 22,500,824 B): the readiness basis, the Program and the owning install.
+
+  The reader `t287-continuation-causation` is restated to digest-bound `evidenceInput` reads of both records plus the same selection. All five parts are proven value-equal, in canonical form, to the retired copy. The copy is deleted. The lane is 1/0/0/1 unset and 1/1 set.
+- **`test_env/fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl`** (`d2a677a2…`, 2,797,774 B) and **`call-11.jsonl`** (`3d4adcf6…`, 9,304 B). They are byte copies of the D4_S01 `fixture-program-selection-01/attempt-01` records under the root, with equal digests. `call-11.jsonl` is an extension, because it was committed with the first copy, at `bf117cf92`.
+  - `s01-store.mjs` reads both through `evidenceInput`. The owner reopens a scratch copy for each process, never the root file.
+  - The readers are restated: `r10-projection-contracts`, `r10-child-proof`, `m5-event-store-reopen` (TD-23 (c)), `t287-route-reconstruction` (its S01 part becomes a subtest) and `r10-retained-hello-projection.mjs`.
+  - Both copies and their directories are deleted. The exits are in the lanes table.
+- **`test_env/proof/abi5-root-r10.json`** (`f80d6ce54997b2b2…`, 18,642,450 B), **`.outcomes.json`** (`d913a2f5d0fa5d00…`, 4,259,486 B) and **`.transcript.json`** (`2e05b430b42a4646…`, 9,801,195 B): stop 3.
+  - Nothing reads them in `code`, `test_env`, `scripts`, `contracts` or `design`.
+  - They were committed at `b59936897` and `03f65e6b7` as the outputs of an R10 root proof run in a temp directory.
+  - No tenant text names a record they copy, and a search under `.ai-workspace/` is not permitted.
+  - They are named, not moved and not deleted. There is no reader to retire.
+- `lint:evidence` (check mode) passes, and its inventory was not written.
+
+**(e) Done.** `nativeStoreSkip`'s three `d1-preserved-result-mechanics` cases are retired. Their store lies outside the root and has no tracked record, and making it real under the root would be an evidence copy, which TD-19 forbids. The harness loses `nativeStoreSkip`, `readRetained`, `rebindRetained`, `nativeHarness`, `packageRoot`, `hash` and 11 imports. The lane goes from 5/1/0/4 to 2/2 (set) and 2/1/0/1 (unset).
+
+### Regenerations
+The one regeneration owner is `npm run build` (`tsc -p tsconfig.json`, then `scripts/generate-product-manifest.mjs`). It rewrites `product-toolchain-manifest.json` and `contracts/capabilities/capability-definition-graph.json`. They move because item 5's two `code/src` changes move the product content digest.
+- Manifest: 51,287 scalar leaves before and after, with equal paths. Its 5,311 locators are unchanged, with none gone and none added. 68 digest values moved.
+- Graph: 3,243 leaves before and after, with equal paths. 310 digest values moved.
+- No leaf other than a digest or a ref built from a digest moved.
+
+No fixture was regenerated. The one candidate is `test_env/fixtures/abi5-root-candidate-basis.json` (`r1`, `r2`, `r3`), which is stop 2: its owner, `node scripts/refresh-candidate-basis.mjs`, carries `productId`, `packageName` and `packageVersion` over from the previous basis.
+
+### Code changes with their reds
+- `code/src/validator/qualification.ts`: item 5(a), above. No red; the three lanes are equal.
+- `code/src/product/admission_authority.ts`: item 5(b), above. No new red: `t287-conformance-owner-reuse` is as at the base, and `witness-reprice-definition-binding` goes green with its other classes.
+- No other `code/src` change. No classified red was a defect at head whose repair lies inside the grant. The defect candidates are stops; see Stops.
+
+### Item 4: the exit table (the close run's expected red set)
+The after pass (root set) has 38 lanes with rc 1. Two of them are the load-affected lanes, green when run alone: `r7-graph-validation-basis` and `steel-basic-cli-public` (see Lanes). That leaves **36 red lanes with 56 failing tests**.
+
+| Lane | Red tests (declared at) | First error | Class and reason | Owner |
+|---|---|---|---|---|
+| `r1-packed-artifact`, `r2-clean-install`, `r3-workspace-binding` | `:18`, `:18`, `:85` | `product_verification_refusal` `artifact_digest_mismatch` | Stop 2: `test_env/fixtures/abi5-root-candidate-basis.json` is the dev.286 cut | Basis owner: the candidate identity (rc.1) for `scripts/refresh-candidate-basis.mjs`, or a change to the script |
+| `m5-installed-graph-edge` | `:9` | `run_result CLI exit` (the run fails: `hog/closure_contract_mismatch`) | Stop 4 | HoG composition owner |
+| `t287-c2-owner-coordinate-reuse` | `:120`, `:195`, `:212`, `:227`, `:238`, `:266` | `child C2 source does not reproduce at its admitted preparation cut` | Stop 4 | C2 owner (premise drift of a hand-built history) |
+| `t287-conformance-owner-reuse` | file (`:1`) | `assert.ok(predecessor && territory && process.env.ABI5_CONFORMANCE_METADATA)` | Owner-held | `ABI5_CONFORMANCE_PREDECESSOR_ROOT`, `ABI5_CONFORMANCE_PROOF_ROOT`, `ABI5_CONFORMANCE_METADATA` |
+| `t287-deferred-application-restoration` | `:85`, `:116` | select the frozen S02 continuation-03 evidence carrier | Owner-held | `ABI5_S02_RECURSION_FIXTURE` |
+| `t287-event-calculus-owner-continuation` | file | a digest-bound CLOSED JSONL fixture is required | Owner-held | `ABI5_EC_OWNER_CLOSED_HISTORY` + `ABI5_EC_OWNER_CLOSED_SHA256`, `ABI5_EC_OWNER_EVIDENCE` |
+| `t287-generic-job-intake` | `:12` | `product_install_refusal` `dependency_lock_mismatch` | (ii), outside the grant | `support/t287-generic-job-intake.mjs` (managed ABI dependency in the generic product) |
+| `t287-governance-covered-source-use` | `:351`, `:386`, `:430` | select the frozen bounded fixture | Owner-held; reader 5's reach | `ABG_GOVERNANCE_COVERED_FIXTURE` |
+| `t287-historical-source-resource` | `:72` (fails `:75`) | same structure, not reference-equal | Stop 4 (design question: retention scoped to a generation) | Design owner of R10 `:546` |
+| `t287-installed-dependency-lock` | `:135` | select one exact immutable ABI artifact identity | Owner-held | `ABI207_NATIVE_IDENTITY` |
+| `t287-installed-qualification-conservation` | file | `paths[0]` undefined | Owner-held | `ABI5_INSTALLED_CONSERVATION_*` |
+| `t287-management-supervision` | `:105` | `product_install_refusal` `dependency_lock_mismatch` | (ii), outside the grant | `support/t287-generic-job-intake.mjs` and `support/root-installed-environment.mjs` |
+| `t287-native-assembly-retained-input` | `:12` | explicit closed job selection required | Owner-held | `ABI5_NATIVE_RETAINED_JOB` |
+| `t287-native-frame-observation` | `:187`, `:207` | explicit proof-local territory; history path undefined | Owner-held (a native run; a retained history) | `ABI5_FRAME_EXECUTION_GRANT`, `ABI5_FRAME_ENTRY_ROOT`, `ABI5_FRAME_PROOF_ROOT`; `ABI5_FRAME_HISTORY_PATH` + `_SHA256` |
+| `t287-native-semantic-evidence` | `:11` | explicit closed owner extraction required | Owner-held | `ABI5_NATIVE_EVIDENCE_EXTRACT` |
+| `t287-native-work-reacquisition-normalization` | `:21` | explicit retained continuation root required | Owner-held | `ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT` |
+| `t287-post-binding-worksite-write` | `:244` (fails `:1428`) | C0 leaf `implementation_exception`, stage `authority_verification` | Stop 4 | C0 leaf authority owner |
+| `t287-predecessor-context` | file | requires exact preserved original1B evidence | Owner-held (predecessor) | `ABI5_PREDECESSOR_OLD_PACKAGE_ROOT`, `ABI5_PREDECESSOR_PROOF_ROOT` |
+| `t287-public-terminal-projection` | `:34`, `:50`, `:68`, `:87` | select the exact frozen S02 episode fixture | Owner-held | `ABI5_S02_PROJECTION_FIXTURE` |
+| `t287-qualification-parent-alias` | `:18` | explicit frozen fixture and emitted-owner binding required | Owner-held | `ABI5_PARENT_ALIAS_BINDINGS`, `ABI5_PARENT_ALIAS_REPORT` |
+| `t287-registered-graph-selection` | `:15` | `static_validation_refusal` `duplicate_identity` (`environment.carries`) | Outside the grant (fixture hand edit) | `test_env/fixtures/registered-selection-product/index.mjs:56` |
+| `t287-release-publication` | `:115` | exact retained installed-coordinate selection required | Owner-held | `ABI5_RELEASE_RETAINED_INSTALL_COORDINATE` |
+| `t287-retained-installed-consumer` | file | config path undefined | Owner-held | `ABI5_RETAINED_CONSUMER_CONFIG` (`_PHASE`) |
+| `t287-retry-run-prefix` | `:59`, `:92`, `:107` | select the immutable s02-installed-continuation-04 carrier | Owner-held | `ABI5_S02_RETRY_FIXTURE` |
+| `t287-s03-automatic` | file | Exact S03 evidence directory is required | Owner-held | `ABI5_S03_EVIDENCE_ROOT`, `ABI5_S03_PHASE_B_RELEASE` |
+| `t287-selected-action` | file | `ABI5_SELECTED_ACTION_EVIDENCE_ROOT` | Owner-held | `ABI5_SELECTED_ACTION_EVIDENCE_ROOT` |
+| `t287-selected-action-authority` | `:35` | `product_execution_resolution_refusal` `incompatible_or_unproven` | Stop 2 | Regenerated `ABI5_SELECTED_ACTION_OWNER_SUBJECT` (a native run) |
+| `t287-selected-execution-closure` | file | select the frozen installed owner, refused request and finite historical fixture | Owner-held | `ABI5_SELECTED_CLOSURE_EVIDENCE`, `_HISTORY_FIXTURE`, `_INSTALLED_ROOT`, `_PREIMAGE` |
+| `t287-st1-installed-cross-owner-hello` | `:116`; `:737` (fails `:1259`) | inherited eventResource; replay at a later prefix | Stop 1 (`public/`); stop 4 (replay design) | `public/installed_definition_call_transport.ts`; replay design owner |
+| `t287-st2a-g-capability-definition-graph` | `:74`, `:271` | missing capability projection for `abg.asset.gtl.language-conformance-corpus` | Stop 1 (contract) | Product catalog contract (M05_S06 `:1006`) |
+| `t287-worksite-branch-construction` | `:671` | completion `blocked` (`c-call/result-contract-mismatch@5`) | Stop 4 | Parent CCall result admission of a partial-stop lift |
+| `t287-worksite-construction` | `:701` | completion `blocked` | Stop 4, same cause | Same |
+| `t288-logical-prefix-digest` | `:16`, `:35` | history path undefined | Owner-held | `ABI5_OWNER_HISTORY` |
+| `t289-install-event-bodies` | `:128`, `:328`, `:382`, `:443` | `ABI5_INSTALL_BODY_HISTORY and ABI5_INSTALL_BODY_HISTORY_SHA256 unset` | Owner-held | `ABI5_INSTALL_BODY_HISTORY` + `_SHA256` |
+
+**Skips.** There are 133 fired skips in 63 lanes, and every one carries a reason that names its input (`exit.py` over the after logs; no reason is empty or bare `SKIP`). The inputs are owner-held retained evidence, predecessor builds, frozen fixtures, or `…_LIVE` / `…_NATIVE` selectors for live or native runs. Grouped by lane and reason, they are in `scratchpad/c18b/exit.json`. The lanes with five or more skips:
+- `steel-basic-cli-c2` 6: `ABI5_C2_CARRIER_FIXTURE_PATH`;
+- `t287-held-prefix` 6: `ABI5_HELD_PREFIX_NATIVE_FIXTURE` and `ABI5_OWNED_JUDGMENT_FIXTURE`;
+- `t287-qualification-carrier-resource` 7: `ABI5_F11_CARRIER_FULL_FIXTURE`;
+- `t287-stdo-proof-entry` 5: `ABI5_WAVE1_FROZEN_INSTALL_HOST` / `ABI5_ENV_RUN_ROOT` and `ABI5_ENV_SOURCE_EVIDENCE`;
+- `w2-steel-single-start-closure` 8: the `ABI5_STEEL03_RETAINED_*` roots.
+
+The skips in lanes C-18b edited name their input:
+- `t287-exact-prefix-projection-reuse`: `ABI5_PREFIX_EVENT_PATH`;
+- `t287-native-event-time`: `ABI5_EVENT_TIME_HISTORY_PATH` ×2 and `ABI5_EVENT_TIME_BASELINE_ROOT`;
+- `t287-recursive-registered-selection`: `ABI5_RECURSIVE_SELECTION_LIVE`;
+- `w2-steel-single-start`: `W2_STEEL_RETAINED_EVENT_PATH`.
+
+Unset, the `evidenceInput` readers skip with `ABI5_EVIDENCE_ROOT unset; requires <path> (sha256:<12>)`.
+
+### Lanes
+**The pass.**
+- One pass over the whole suite, on the clean tree after the final rebuild, with `ABI5_EVIDENCE_ROOT` set to the root: 200 lanes, each run alone in name order, except that the two lanes that rebuild `build/` (`t287-w2-05-generator-package-reproducibility`, `t287-w2-05-release-snapshot-definition-bindings`) ran last. `t287-calculus-state-transfer` was also run with `ABI5_CALCULUS_CASES=compose`, which gave 2/2.
+- It took 9,274 s. The scripts are `scratchpad/c18b/tools/after.sh` and `lane.sh`.
+- The `build/` digest (674 files) and the two regenerated files are equal at the pass's start and end.
+- Totals:
+
+| | Entries | rc ≠ 0 | Tests | Pass | Fail | Skip |
+|---|---|---|---|---|---|---|
+| Before (C-18a) | 213 | 92 | 1,154 | 795 | 164 | 195 |
+| After (pass) | 201 | 38 | 1,169 | 978 | 57, plus 1 cancelled | 133 |
+
+- **Moved.** 72 entries moved: the 12 deleted lanes, the compose entry renamed, `r7-graph-validation-basis` (machine load; see below), and the classified lanes in the table above. Every other moved lane is classified. 142 are equal.
+
+**Load during the pass.**
+- Every process of this session runs at background priority (PRI 4). From about the r5 lane on, a game started on the machine ran at PRI 97, and heavy lanes ran 5 to 10 times slower than the same code had earlier that night. For example, `r6-implementation-resolution` took 37 s green at 01:03 and 295 s in the pass. `runtime-scope-regressions`, which C-18b did not change, took 68 s at C-18a and 638 s here.
+- A CPU profile of `r8-direct-hog-entry`, run alone during the pass, puts the time in `verifyProduct`'s TypeScript declaration check. There was no swapping, no memory pressure and no thermal warning, and the disk was idle. I did not change any process priority.
+- Two lanes failed under the load, and I reran each alone after the game ended, with the root set:
+  - `r7-graph-validation-basis` was cancelled at the 600 s test timeout. Alone it passed 1/1 in 140 s, which equals C-18a.
+  - `steel-basic-cli-public` failed with `Unexpected end of JSON input` at `cliCall:219`. Alone it passed 1/1 in 266 s.
+- Every other red in the pass is the classified red.
+
+**Named lanes after** (the lanes not already in the table above):
+- item 5 (a): `t287-native-runtime-gate` 7/6/0/1 and `t287-qualification-contraction` 4/4.
+- item 5 (d): `m5-event-store-reopen` 21/21, `r10-projection-contracts` 11/11, `t287-continuation-causation` 1/1, and `t287-route-reconstruction` 13/11/0/2.
+- item 1 (c): `w2-steel-single-start-installed` 1/0/0/1 and `w2-steel-serial-branch-installed` 2/0/0/2. Their live arms are gated.
+- C-14 reach: `d2-binding-transition` 10/10.
+
+**Skips.** 195 before, 133 after. The difference comes from three sources: the root set (the d2 lanes and the root-evidence readers now run), the retired cases (`nativeStoreSkip`'s three; the predecessor arms), and the deleted lanes. Every fired skip names its input.
+
+### Lints and gates
+Run on the final tree, after the w2-05 trio and a clean `npm run build`:
+
+| Gate | Result |
+|---|---|
+| `npm run build` | rc 0 |
+| `tsc -p tsconfig.json --noEmit` | rc 0, no output |
+| `--noUnusedLocals` | 3 TS6133, the same as C-18a's after: `product/worksite_command_execution.ts:74` `BASE64_PATTERN`, `public/binding/owner_contract_source_set.ts:20` `JsonValue`, `public/run_projection_authority.ts:13` `JsonValue`. None introduced |
+| `lint:imports` | rc 0 (28 shared modules; 3 forbidden owner pairs hold) |
+| `lint:lifecycle` | rc 0 (286 modules, 7 allow-listed sites, no offender) |
+| `lint:calculus` | rc 0 (6 calculus modules, no offender) |
+| `lint:evidence` (TD-19) | rc 0: "691 tracked mirror roots under .ai-workspace, all inventoried; no new copy; 1739 listed path(s) over 6000000 bytes, no other". Check mode only; the inventory was not written |
+| Regenerated files against HEAD | Manifest: 51,287 leaves, paths equal, 5,311 locators (0 gone, 0 added), 68 digest values moved. Graph: 3,243 leaves, paths equal, 310 digest values moved |
+| `// C18B` | `grep -rl C18B` over `code/src`, `build` (excluding `node_modules`), `test_env/tests`, `test_env/support`, `test_env/fixtures` and `scripts` gives 0 files; `git grep -l C18B` gives 0 |
+| Source against a clean copy | `code/src` differs from HEAD only in the two item 5 files. `worksite_revision.ts` and `invocation_execution_truth.ts` (the reach probe) are byte-equal to their clean copies (`cmp`) and to HEAD |
+| Item 5 exit greps | `admission_authority.ts`: `import.meta.url` 0, `product-toolchain-manifest.json` 0. `qualification.ts`: `readQualificationCatalog` 0, `readFileSync` 0, `import.meta.url` 0, `node:fs` 0 |
+
+### Stops
+**Stop 1: the repair reaches a contract or an excluded path.**
+- **`t287-st2a-g-capability-definition-graph`**, at `:74`/`:260` and `:271`/`:370`. 21 of the manifest's 75 catalog rows project no capability, and the row parser admits `[]` (its emptiness check was removed at `adaeede02`). Design M05_S06 `:1006` types the field `NonEmptyUnique<CapabilityIdentity>`. The constitution `:2180-2182` makes it a pure projection of the register, which gives `[]` for unregistered contracts. Settling this is a Product catalog contract decision. Left red.
+- **`t287-st1-installed-cross-owner-hello:116`.** An "inherited eventResource" candidate (and an accessor one) is admitted by `public/installed_definition_call_transport.ts` `isInstalledDefinitionCallCandidate`, which since `adaeede02` no longer checks `resources.eventResource`. `acquisitionMatches` then reads it through the prototype or a getter. This is a defect candidate at head, and its repair lies in `public/`. Left red.
+- **Core consensus rows have no Public application.** The `node_type` and `overlay` rows have no installed schema whose `$id` is their contract ref: `consensus.schema.json`'s `$id` is `abg.schema.consensus@5`. The repair reaches `contracts/`. The `catalog.apply` arms of `steel-basic-cli-public` and `t287-w2-05-install-catalog-owner-chain` are retired; `steel-consumer-declaration` owns the Public apply claim.
+
+**Stop 2: an input only the owner holds, or a native run.**
+- **`r1-packed-artifact`, `r2-clean-install`, `r3-workspace-binding`** (`artifact_digest_mismatch`). `test_env/fixtures/abi5-root-candidate-basis.json` is the dev.286 cut. Its owner, `node scripts/refresh-candidate-basis.mjs`, refreshes the three digests but carries the identity over from the previous basis. A probe over a scratch pack confirmed this: the owner-style basis gives `identity_mismatch`, and the basis with the manifest identity verifies. Regenerating it needs the owner's candidate identity, or a change to the script (`scripts/` is outside the grant).
+- **`t287-selected-action-authority:35`.** Both retained installs of `ABI5_SELECTED_ACTION_OWNER_SUBJECT` fail `abg.hasAdmittedProductInstall` at head. Telling a superseded cut from a regression needs the owner's regenerated subject, which is a native run.
+- **The owner-held reds** in the exit table, each named with its input.
+
+**Stop 3: an evidence copy whose record cannot be found.** `test_env/proof/abi5-root-r10.json`, `.outcomes.json` and `.transcript.json`; see item 5(d).
+
+**Stop 4: a claim I could not classify.** Each is named with its first error and left red.
+- **`t287-worksite-construction:701` and `t287-worksite-branch-construction:671`** share one cause. The parent CCall's result admission refuses the lift of a partial-stop child failure (`rejectedStage` result, `c-call/result-contract-mismatch@5`, `run_stopped` blocked), where the lanes expect `failed`.
+- **`t287-st1-installed-cross-owner-hello:1259`** (and `:1275`, `:1291`, `:1293`). The run truth's replay, read at a later prefix (after a sibling bind appended to the log), differs from the terminal replay. A probe showed it is equal at the run's own terminal prefix. The replay body carries prefix-wide members: `eventStoreDigest`, `eventCount` and `lastAdmissionOrdinal` since `79f0e00b0`, and `nativeLiveness` since `ad2a39f40`. Design T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY `:198-199` fixes the digest only "at its original prefix". This is a replay design question.
+- **`t287-c2-owner-coordinate-reuse`.** At `:120` the real replay owner refuses the hand-built history: "child C2 source does not reproduce at its admitted preparation cut". At `:195`, `:212`, `:227` and `:238` the instrumented consumer returns null. At `:266`, `operations.nativeWorkReacquisition` is not a function.
+- **`m5-installed-graph-edge`.** The composed run fails after the left member's judged CCall with `runtime_failure_observed hog/closure_contract_mismatch`.
+- **`t287-post-binding-worksite-write:1428`.** Five layers were restated. The post-residue recovery run then fails at the C0 leaf: `implementation_exception`, stage `authority_verification`, reason refused.
+- **`t287-historical-source-resource:75`.** The retention named in design R10 `:546` is absent at head: `67c333799` dropped the retained value, and `retained.set` is dead. A naive restore lends the live value after close and over mutated bytes; I probed this and reverted the code. Retention would need to be scoped to the store's generation, which is a design question.
+
+**Left red, repair outside the grant:**
+- **`t287-registered-graph-selection`.** It has a duplicate `environment.carries` at `test_env/fixtures/registered-selection-product/index.mjs:56`, and the fix would be a hand edit of a fixture.
+- **`t287-generic-job-intake`** and **`t287-management-supervision`.** The fixes are in the shared supports `support/t287-generic-job-intake.mjs` (install now checks the declared managed ABI dependency) and `support/root-installed-environment.mjs` (a semantic Program validates over the Product-resolved declaration closure). The activation names neither support, and many other lanes share them. Probes confirmed both layers and were reverted.
+
+### Deviations
+1. **I broke the listing rule once.** While looking for `T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md`, I ran a `git grep -l` that carried the pathspec `../../../`, which is the repository root. It printed about ten matching file names under `.ai-workspace/`: the `work/T287_COMMON_LIBRARY_DELIVERY_01` proof and realization copies, and `TECHNICAL_DEBT_REGISTER.md`. Only names were printed, no content was read, and I did not use the output.
+2. **Support files edited that the activation does not name.** Each edit is the smallest one its named or base-red lane needs:
+   - `d2-binding-harness.mjs`, `d2-bounded-harness.mjs`, `d2-evidence-owner-harness.mjs`, `d2-historical-design-harness.mjs` (item 2);
+   - `flavored-catalog-product.mjs` (`m5-installed-portability`);
+   - `forward-owner-lookups.mjs` (`forward-command-owners`);
+   - `t287-native-event-time.mjs` (`t287-native-event-time`).
+
+   `fixtures/r10-projection-family/s01-store.mjs` is edited too. It is item 5(d)'s reader of the deleted copy, a reader module rather than a fixture value, and item 5(d) names the copy's readers.
+3. **Diagnostic runs beyond the after pass.** Lanes were run singly to classify them. One census of the remaining 72 lanes ran at the base with the root set, to class the reds; it moved no lane relative to the base. A reach run of 14 lanes ran on an instrumented build. After the pass, two lanes that failed under machine load were rerun alone (see Lanes). None of these is a column; the after column is the one whole-suite pass.
+4. **The before column ran unset; the after pass ran with the root set**, as the Proof directs. Where a lane's set and unset counts differ, the classification table states both.
+
+### Findings outside the grant
+- `design/README.md:294` and `T287_W2_R3_C0:651` name the deleted `t287-worksite-file-replace-owner`.
+- `design/ABI5_STDO3_COMPUTATIONAL_BINDING.md:184` cites the retired `t288-workflow-scope-conservation` as row 10a's nothing-moved evidence. Row 8's evidence names `r5-invocation-admission` ("red at the base, equal after") and `t287-w2-05-install-catalog-owner-chain` ("equal before and after") at their reds; both are green after C-18b.
+- No lane drives `admitScopeClosure`'s refusals (stale prefix, interleaved route, live retry blocker, duplicate). No lane drives the release snapshot owner's refusals through an authorized call.
+- `test_env/support/d2-evidence-owner-conservation.mjs` has no reader. `tests/d2-binding-retained-diagnostic.mjs:16` pins dev/ino `16777230/449590349`.
+- The green t288 siblings (`composition-conservation`, `environment-context-reuse`, `environment-guard-contraction`, `instruction-assembly-owner`, `native-producer-membership`) are the same predecessor-differential class as the deleted ones, and skip with reasons.
+- `t287-authenticated-owner-values`: an in-action overwrite under a held store is admitted, with no post-append byte check. This is by design (T287_D4_D5 `:262-271`).
+- `t287-w2-05-install-catalog-owner-chain`'s `forgedCatalogBasisCall` arm asserts only kind and stage. That is a base assertion, and I did not change it.
+- `--noUnusedLocals` stands at C-18a's three: two under `public/`, and `worksite_command_execution.ts:74 BASE64_PATTERN`, which is no red.
+
+### What could not be verified
+- **Reader 5's reach.** The fixture its lane needs is owner-held.
+- **The owner-held reds' claims.** None of them ran past its input check.
+- **The source of the three `abi5-root-r10` proof files.** A search under `.ai-workspace/` is not permitted.
+- **Whether `t287-selected-action-authority`'s refusal is a superseded cut or a regression.** Telling them apart needs the owner's regenerated subject.
+- **`lint:evidence`'s inventory bytes.** The inventory lies under `.ai-workspace/`. I ran only check mode, which writes nothing; the inventory was not opened.
+- **The pass's timing for the heavy lanes.** The pass ran under the load described in Lanes, so their durations are not comparable to C-18a's.
+- **Item 2's lanes unset.** The after pass ran with the root set. The lanes' unset counts come from the diagnostic runs (the fixture cases skip, naming their input).

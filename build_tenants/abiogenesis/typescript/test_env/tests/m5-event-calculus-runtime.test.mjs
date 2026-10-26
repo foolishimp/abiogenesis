@@ -227,153 +227,13 @@ function runProjection(abg, prefixModule, store, runId) {
   return abg.deriveRuntimeEventCalculusProjection(prefix);
 }
 
-async function admitStandardClosure(environment, store, opened, correlationRoot) {
-  const {
-    abg,
-    gtl,
-    hog,
-    installedRoot,
-    program,
-    graphFunction,
-    graph,
-    graphValidation,
-    input,
-    rawInput,
-    implementationSet,
-    implementationRow,
-    implementationResolution,
-    executionBasis,
-    closureContract,
-  } = environment;
-  const traversalStop = hog.traverse({
-    program,
-    graph,
-    graphValidation,
-    executionBasis,
-    openedTraversalScope: opened.scope,
-  });
-  assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
-  const cursor = abg.admitInitialTraversalCursor(
-    store,
-    executionBasis,
-    opened.scope,
-    graph,
-    graphValidation,
-    traversalStop.cursor,
-    runtimeBasis(`${correlationRoot}/cursor`),
-  );
-  assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
-  const cCallAdmission = abg.openCCall(
-    store,
-    executionBasis,
-    opened.scope,
-    program,
-    graphFunction,
-    graph,
-    traversalStop,
-    implementationSet,
-    implementationRow,
-    runtimeBasis(`${correlationRoot}/c-call-open`),
-  );
-  assert.equal(cCallAdmission.kind, "c_call_admission", JSON.stringify(cCallAdmission));
-  const cCall = cCallAdmission.cCall;
-  const implementationModule = await import(
-    `${pathToFileURL(join(installedRoot, implementationResolution.modulePath)).href}?t287-closure=${Date.now()}`
-  );
-  const leafCandidate = implementationModule[implementationResolution.namedSymbol](input);
-  const evidence = abg.admitEvidence(
-    store,
-    graph,
-    graphFunction,
-    traversalStop.cursor,
-    cCall,
-    leafCandidate.evidenceCandidates[0],
-    closureContract.evidenceContractRef,
-    rawInput.subjectDigest,
-    runtimeBasis(`${correlationRoot}/evidence`),
-  );
-  assert.equal(evidence.kind, "admitted_c_call_evidence", JSON.stringify(evidence));
-  const result = abg.admitResult(
-    store,
-    graph,
-    graphFunction,
-    traversalStop.cursor,
-    cCall,
-    leafCandidate.resultCandidate,
-    "success",
-    closureContract.resultContractRef,
-    "hello_world_output",
-    (value) => value?.kind === "hello_world_output" && value?.schemaVersion === "5.0.0",
-    [evidence],
-    runtimeBasis(`${correlationRoot}/result`),
-  );
-  assert.equal(result.kind, "admitted_c_call_result", JSON.stringify(result));
-  const resultReplay = abg.replay(store, { runId: opened.scope.runId });
-  const judgmentCandidate = abg.proposeJudgment(
-    cCall,
-    result,
-    resultReplay,
-    input,
-    {
-      predicateRef: gtl.LANGUAGE_TEST_IDS.judgmentPredicateRef,
-      advanceReasonRef: "reason://abiogenesis/conformance/hello-world-satisfied@5",
-      rejectionReasonRef: "reason://abiogenesis/conformance/hello-world-rejected@5",
-      evaluate: gtl.evaluateLanguageTestResult,
-    },
-    closureContract.judgmentContractRef,
-  );
-  const judgment = abg.admitJudgment(
-    store,
-    graph,
-    graphFunction,
-    traversalStop.cursor,
-    cCall,
-    result,
-    judgmentCandidate,
-    resultReplay,
-    runtimeBasis(`${correlationRoot}/judgment`),
-  );
-  assert.equal(judgment.kind, "admitted_c_call_judgment", JSON.stringify(judgment));
-  const judgedReplay = abg.replay(store, { runId: opened.scope.runId });
-  const routeCandidate = abg.proposeTerminalRoute(
-    graph,
-    traversalStop,
-    cCall,
-    judgment,
-    judgedReplay,
-    closureContract.transitionContractRef,
-  );
-  const route = abg.admitRoute(
-    store,
-    executionBasis,
-    graph,
-    traversalStop.cursor,
-    null,
-    judgedReplay,
-    routeCandidate,
-    runtimeBasis(`${correlationRoot}/route`),
-    { cCall, graphFunction, result, judgment },
-  );
-  assert.equal(route.kind, "admitted_traversal_route", JSON.stringify(route));
-  const closure = abg.admitClosure(
-    store,
-    abg.selectHeldEventStoreDurablePrefix(store),
-    cCall,
-    result,
-    judgment,
-    route,
-    closureContract,
-    runtimeBasis(`${correlationRoot}/closure`),
-  );
-  assert.equal(closure.kind, "closure_admission", JSON.stringify(closure));
-  return closure;
-}
 
 test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat or stale prefixes with zero append", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const {
     abg,
     store,
+    durablePrefix,
     executionBasis,
     program,
     graphFunction,
@@ -383,12 +243,13 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
     implementationRow,
     hog,
   } = environment;
-  const opened = abg.openCall(
+  const opened = abg.openTraversalScope(
     store,
-    structuredClone(executionBasis),
+    durablePrefix,
+    { kind: "root", executionBasis: structuredClone(executionBasis) },
     runtimeBasis("correlation://t287/a5-f10/root-open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
   const traversalStop = hog.traverse({
     program,
     graph,
@@ -399,6 +260,7 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
   assert.equal(traversalStop.kind, "traversal_stop_ref", JSON.stringify(traversalStop));
   const cursor = abg.admitInitialTraversalCursor(
     store,
+    opened.successorPrefix,
     executionBasis,
     opened.scope,
     graph,
@@ -407,45 +269,45 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
     runtimeBasis("correlation://t287/a5-f10/cursor"),
   );
   assert.equal(cursor.kind, "traversal_cursor_admission", JSON.stringify(cursor));
+  // The opening is one input object over the exact predecessor prefix; each
+  // carrier is a structured clone, so the opening reads values, not identities.
+  const openAt = (predecessorPrefix, correlationId) => abg.openCCall({
+    locusClass: "implementation",
+    store,
+    predecessorPrefix,
+    executionBasis: structuredClone(executionBasis),
+    scope: structuredClone(opened.scope),
+    program,
+    graphFunction,
+    graph,
+    stop: structuredClone(traversalStop),
+    implementationSet: structuredClone(implementationSet),
+    resolution: structuredClone(implementationRow),
+    basis: runtimeBasis(correlationId),
+  });
 
   const beforeOpen = store.readAll().length;
-  const first = abg.openCCall(
-    store,
-    structuredClone(executionBasis),
-    structuredClone(opened.scope),
-    program,
-    graphFunction,
-    graph,
-    structuredClone(traversalStop),
-    structuredClone(implementationSet),
-    structuredClone(implementationRow),
-    runtimeBasis("correlation://t287/a5-f10/c-call"),
-  );
+  const first = openAt(cursor.successorPrefix, "correlation://t287/a5-f10/c-call");
   assert.equal(first.kind, "c_call_admission", JSON.stringify(first));
-  assert.equal(store.readAll().length, beforeOpen + 2);
+  assert.ok(store.readAll().length > beforeOpen);
+  assert.equal(store.readAll().filter((event) => event.kind === "c_call_opened").length, 1);
   const beforeRepeat = store.readAll().length;
-  const repeated = abg.openCCall(
-    store,
-    executionBasis,
-    opened.scope,
-    program,
-    graphFunction,
-    graph,
-    traversalStop,
-    implementationSet,
-    implementationRow,
-    runtimeBasis("correlation://t287/a5-f10/c-call-repeat"),
-  );
+  const repeated = openAt(first.successorPrefix, "correlation://t287/a5-f10/c-call-repeat");
   assert.equal(repeated.kind, "c_call_open_refusal", JSON.stringify(repeated));
+  assert.equal(repeated.code, "locus_mismatch");
+  assert.equal(store.readAll().length, beforeRepeat);
+  const stalePrefix = openAt(cursor.successorPrefix, "correlation://t287/a5-f10/c-call-stale-prefix");
+  assert.equal(stalePrefix.kind, "c_call_open_refusal", JSON.stringify(stalePrefix));
   assert.equal(store.readAll().length, beforeRepeat);
 
   const staleEnvironment = await setupInstalledRootExecutionBasis(context, root);
-  const staleOpened = staleEnvironment.abg.openCall(
+  const staleOpened = staleEnvironment.abg.openTraversalScope(
     staleEnvironment.store,
-    staleEnvironment.executionBasis,
+    staleEnvironment.durablePrefix,
+    { kind: "root", executionBasis: staleEnvironment.executionBasis },
     runtimeBasis("correlation://t287/a5-f10/stale/root-open"),
   );
-  assert.equal(staleOpened.kind, "open_call_admission", JSON.stringify(staleOpened));
+  assert.equal(staleOpened.kind, "traversal_scope_open_admission", JSON.stringify(staleOpened));
   const staleStop = staleEnvironment.hog.traverse({
     program: staleEnvironment.program,
     graph: staleEnvironment.graph,
@@ -456,6 +318,7 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
   assert.equal(staleStop.kind, "traversal_stop_ref", JSON.stringify(staleStop));
   const staleCursor = staleEnvironment.abg.admitInitialTraversalCursor(
     staleEnvironment.store,
+    staleOpened.successorPrefix,
     staleEnvironment.executionBasis,
     staleOpened.scope,
     staleEnvironment.graph,
@@ -464,29 +327,33 @@ test("A5-F10 exact CCall opening accepts rehydrated carriers and refuses repeat 
     runtimeBasis("correlation://t287/a5-f10/stale/cursor"),
   );
   assert.equal(staleCursor.kind, "traversal_cursor_admission", JSON.stringify(staleCursor));
-  const stopped = staleEnvironment.abg.admitRuntimeFailure(
-    staleEnvironment.store,
-    staleEnvironment.executionBasis,
-    staleOpened.scope,
-    "hog_traversal",
-    { kind: "a5_f10_stale_open_probe" },
-    "diagnostic://t287/a5-f10/stale-open",
-    runtimeBasis("correlation://t287/a5-f10/stale/stop"),
-  );
-  assert.equal(stopped.kind, "runtime_failure_admission", JSON.stringify(stopped));
+  const stopped = staleEnvironment.abg.admitRuntimeFailure({
+    store: staleEnvironment.store,
+    predecessorPrefix: staleCursor.successorPrefix,
+    executionBasis: staleEnvironment.executionBasis,
+    scope: staleOpened.scope,
+    stage: "hog_traversal",
+    subject: { kind: "a5_f10_stale_open_probe" },
+    diagnosticRef: "diagnostic://t287/a5-f10/stale-open",
+    basis: runtimeBasis("correlation://t287/a5-f10/stale/stop"),
+  });
+  assert.equal(stopped.kind, "runtime_failure_admission_receipt", JSON.stringify(stopped));
+  assert.equal(stopped.admission.kind, "runtime_failure_admission");
   const beforeStale = staleEnvironment.store.readAll().length;
-  const stale = staleEnvironment.abg.openCCall(
-    staleEnvironment.store,
-    staleEnvironment.executionBasis,
-    staleOpened.scope,
-    staleEnvironment.program,
-    staleEnvironment.graphFunction,
-    staleEnvironment.graph,
-    staleStop,
-    staleEnvironment.implementationSet,
-    staleEnvironment.implementationRow,
-    runtimeBasis("correlation://t287/a5-f10/stale/c-call"),
-  );
+  const stale = staleEnvironment.abg.openCCall({
+    locusClass: "implementation",
+    store: staleEnvironment.store,
+    predecessorPrefix: stopped.successorPrefix,
+    executionBasis: staleEnvironment.executionBasis,
+    scope: staleOpened.scope,
+    program: staleEnvironment.program,
+    graphFunction: staleEnvironment.graphFunction,
+    graph: staleEnvironment.graph,
+    stop: staleStop,
+    implementationSet: staleEnvironment.implementationSet,
+    resolution: staleEnvironment.implementationRow,
+    basis: runtimeBasis("correlation://t287/a5-f10/stale/c-call"),
+  });
   assert.equal(stale.kind, "c_call_open_refusal", JSON.stringify(stale));
   assert.equal(staleEnvironment.store.readAll().length, beforeStale);
 });
@@ -1448,8 +1315,22 @@ test("terminal projection rows realize static locus law for the exact Run and pr
     const dynamicTerminationNames = new Set(
       terminalEffect.terminates.map((fluent) => fluent.name),
     );
-    for (const staticName of eventCalculus.ROOT_EVENT_CALCULUS[terminalKind]
-      .terminates) {
+    // A termination ends one fluent instance. Activity observation initiates
+    // runtime_invocation_active for its probe scope (M03 probe-observer
+    // derivation :64), so a prefix with no probe observation holds no instance
+    // of it: the static law is realized for every instance held before the
+    // terminal row, and the row terminates no undeclared name.
+    const staticNames = new Set(
+      eventCalculus.ROOT_EVENT_CALCULUS[terminalKind].terminates,
+    );
+    for (const dynamicName of dynamicTerminationNames) {
+      assert.equal(staticNames.has(dynamicName), true, `${terminalKind}/${dynamicName}`);
+    }
+    const heldBefore = eventCalculus.deriveRuntimeEventCalculusProjection(
+      prefixModule.selectValidatedRuntimeEventPrefix(deeplyFreeze(rows.slice(0, -1))),
+    );
+    for (const staticName of staticNames) {
+      if (!heldBefore.holds.some((fluent) => fluent.name === staticName)) continue;
       assert.equal(
         dynamicTerminationNames.has(staticName),
         true,
@@ -1471,12 +1352,13 @@ test("terminal projection rows realize static locus law for the exact Run and pr
 test("run HoldsAt truth survives durable reopen and a lawful closure", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const { abg, executionBasis } = environment;
-  const first = abg.openCall(
+  const first = abg.openTraversalScope(
     environment.store,
-    executionBasis,
+    environment.durablePrefix,
+    { kind: "root", executionBasis },
     runtimeBasis("correlation://t287/event-calculus/first/open"),
   );
-  assert.equal(first.kind, "open_call_admission", JSON.stringify(first));
+  assert.equal(first.kind, "traversal_scope_open_admission", JSON.stringify(first));
   const prefixModule = await installedInternal(environment.installedRoot, "event_prefix");
   const openProjection = runProjection(
     abg,
@@ -1501,12 +1383,33 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
     false,
   );
 
-  await admitStandardClosure(
-    environment,
-    firstReopen.store,
-    first,
-    "correlation://t287/event-calculus/first",
-  );
+  // The lawful closure is HoG's: one admitted traversal over the reopened
+  // store from the opening's successor prefix.
+  const completion = await environment.hog.executeGraphTraversal({
+    store: firstReopen.store,
+    predecessorPrefix: first.successorPrefix,
+    executionBasis,
+    openedTraversalScope: first.scope,
+    program: environment.program,
+    programPublication: environment.publication,
+    graphFunction: environment.graphFunction,
+    graph: environment.graph,
+    graphValidation: environment.graphValidation,
+    programValidation: environment.programValidation,
+    implementationSet: environment.implementationSet,
+    interactionSet: environment.executionBasisAdmission.interactionSet,
+    leafPort: environment.leafPort,
+    closureContract: environment.closureContract,
+    actorRuntimeBinding: {
+      workspaceBinding: environment.workspaceBinding,
+      artifactTruth: environment.artifactTruth,
+    },
+    input: environment.input,
+    inputDigest: environment.rawInput.subjectDigest,
+    eventTime: "2026-07-21T00:00:00.000Z",
+    correlationId: "correlation://t287/event-calculus/first/traversal",
+  });
+  assert.equal(completion.disposition, "closed", completion.diagnosticRef ?? completion.disposition);
   const closedProjection = runProjection(
     abg,
     prefixModule,
@@ -1534,12 +1437,13 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
   assert.equal(abg.holdsAt(finalProjection, abg.constructRunActiveFluent(first.scope.runId)), false);
   assert.equal(abg.holdsAt(finalProjection, abg.constructRunActiveFluent("run://t287/other")), false);
   const beforeClosedReopen = secondReopen.store.readAll().length;
-  const closedReopen = abg.openCall(
+  const closedReopen = abg.openTraversalScope(
     secondReopen.store,
-    structuredClone(executionBasis),
+    abg.selectHeldEventStoreDurablePrefix(secondReopen.store),
+    { kind: "root", executionBasis: structuredClone(executionBasis) },
     runtimeBasis("correlation://t287/event-calculus/closed/reopen"),
   );
-  assert.equal(closedReopen.kind, "open_call_refusal", JSON.stringify(closedReopen));
+  assert.equal(closedReopen.kind, "traversal_scope_open_refusal", JSON.stringify(closedReopen));
   assert.equal(closedReopen.code, "execution_basis_already_opened");
   assert.equal(secondReopen.store.readAll().length, beforeClosedReopen);
   secondReopen.store.closeDurableLog();
@@ -1548,22 +1452,25 @@ test("run HoldsAt truth survives durable reopen and a lawful closure", async (co
 test("runtime_failure_observed terminates the exact active Run", async (context) => {
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const { abg, executionBasis } = environment;
-  const opened = abg.openCall(
+  const opened = abg.openTraversalScope(
     environment.store,
-    executionBasis,
+    environment.durablePrefix,
+    { kind: "root", executionBasis },
     runtimeBasis("correlation://t287/event-calculus/runtime-failure/open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
-  const failure = abg.admitRuntimeFailure(
-    environment.store,
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
+  const failure = abg.admitRuntimeFailure({
+    store: environment.store,
+    predecessorPrefix: opened.successorPrefix,
     executionBasis,
-    opened.scope,
-    "hog_traversal",
-    { kind: "t287_runtime_failure_probe" },
-    "diagnostic://t287/runtime-failure",
-    runtimeBasis("correlation://t287/event-calculus/runtime-failure/admit"),
-  );
-  assert.equal(failure.kind, "runtime_failure_admission", JSON.stringify(failure));
+    scope: opened.scope,
+    stage: "hog_traversal",
+    subject: { kind: "t287_runtime_failure_probe" },
+    diagnosticRef: "diagnostic://t287/runtime-failure",
+    basis: runtimeBasis("correlation://t287/event-calculus/runtime-failure/admit"),
+  });
+  assert.equal(failure.kind, "runtime_failure_admission_receipt", JSON.stringify(failure));
+  assert.equal(failure.admission.kind, "runtime_failure_admission");
   const prefixModule = await installedInternal(environment.installedRoot, "event_prefix");
   const projection = runProjection(
     abg,
@@ -1577,12 +1484,13 @@ test("runtime_failure_observed terminates the exact active Run", async (context)
   );
   assert.equal(abg.replay(environment.store, { runId: opened.scope.runId }).runtimeStatus, "failed");
   const beforeFailedReopen = environment.store.readAll().length;
-  const failedReopen = abg.openCall(
+  const failedReopen = abg.openTraversalScope(
     environment.store,
-    structuredClone(executionBasis),
+    failure.successorPrefix,
+    { kind: "root", executionBasis: structuredClone(executionBasis) },
     runtimeBasis("correlation://t287/event-calculus/failed/reopen"),
   );
-  assert.equal(failedReopen.kind, "open_call_refusal", JSON.stringify(failedReopen));
+  assert.equal(failedReopen.kind, "traversal_scope_open_refusal", JSON.stringify(failedReopen));
   assert.equal(failedReopen.code, "execution_basis_already_opened");
   assert.equal(environment.store.readAll().length, beforeFailedReopen);
 });
@@ -1591,12 +1499,13 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const { abg, executionBasis } = environment;
   const eventLogPath = fileURLToPath(environment.durablePrefix.eventLogRef);
-  const opened = abg.openCall(
+  const opened = abg.openTraversalScope(
     environment.store,
-    executionBasis,
+    environment.durablePrefix,
+    { kind: "root", executionBasis },
     runtimeBasis("correlation://t287/event-calculus/stopped/open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
   const eventStore = await installedInternal(
     environment.installedRoot,
     "event_store",
@@ -1656,15 +1565,16 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   const countBeforeCall = environment.store.readAll().length;
   const bytesBeforeCall = await readFile(eventLogPath);
   assert.throws(
-    () => abg.admitRuntimeFailure(
-      environment.store,
+    () => abg.admitRuntimeFailure({
+      store: environment.store,
+      predecessorPrefix: abg.selectHeldEventStoreDurablePrefix(environment.store),
       executionBasis,
-      opened.scope,
-      "hog_traversal",
-      { kind: "t287_stopped_runtime_probe" },
-      "diagnostic://t287/stopped-runtime",
-      runtimeBasis("correlation://t287/event-calculus/stopped/failure"),
-    ),
+      scope: opened.scope,
+      stage: "hog_traversal",
+      subject: { kind: "t287_stopped_runtime_probe" },
+      diagnosticRef: "diagnostic://t287/stopped-runtime",
+      basis: runtimeBasis("correlation://t287/event-calculus/stopped/failure"),
+    }),
     /runtime failure requires one exact active admitted traversal scope/,
   );
   assert.equal(environment.store.readAll().length, countBeforeCall);
@@ -1697,12 +1607,13 @@ test("run_stopped makes runtime failure throw before memory or durable append", 
   assert.equal(replayBeforeReopen.runStoppedEventRef, stopped.eventId);
   assert.equal(replayBeforeReopen.runStoppedDisposition, "blocked");
   const beforeStoppedReopen = environment.store.readAll().length;
-  const stoppedReopen = abg.openCall(
+  const stoppedReopen = abg.openTraversalScope(
     environment.store,
-    structuredClone(executionBasis),
+    abg.selectHeldEventStoreDurablePrefix(environment.store),
+    { kind: "root", executionBasis: structuredClone(executionBasis) },
     runtimeBasis("correlation://t287/event-calculus/stopped/reopen"),
   );
-  assert.equal(stoppedReopen.kind, "open_call_refusal", JSON.stringify(stoppedReopen));
+  assert.equal(stoppedReopen.kind, "traversal_scope_open_refusal", JSON.stringify(stoppedReopen));
   assert.equal(stoppedReopen.code, "execution_basis_already_opened");
   assert.equal(environment.store.readAll().length, beforeStoppedReopen);
 

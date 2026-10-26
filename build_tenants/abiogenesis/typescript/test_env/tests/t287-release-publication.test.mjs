@@ -1,10 +1,11 @@
 import assert from 'node:assert/strict';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
-import {mkdir,mkdtemp,readFile,writeFile,rm,chmod} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,writeFile,rm,chmod,realpath} from 'node:fs/promises';
 import {join,resolve,dirname} from 'node:path';
+import {tmpdir} from 'node:os';
 import {fileURLToPath,pathToFileURL} from 'node:url';
-import test from 'node:test';
+import test,{after} from 'node:test';
 import * as Effect from 'effect/Effect';
 import * as product from '../../build/code/src/product/index.js';
 import * as abg from '../../build/code/src/abg/index.js';
@@ -16,8 +17,10 @@ import {constructQualificationIdentity} from '../../build/code/src/validator/qua
 import {publishReleaseSnapshot,projectReleaseQualification} from '../../build/code/src/implementation/release_publication.js';
 import {projectReleaseEvidence} from '../../build/code/src/product/project_read_ports.js';
 const exec=promisify(execFile),h=product.sha256Canonical,bytesHash=product.sha256Bytes;
-const proofRoot=process.env.ABI5_RELEASE_PROOF_ROOT;
-assert.ok(proofRoot,'explicit disposable release-fixture territory required');
+// The territory is disposable output: the named root, else a lane-owned one removed after.
+// Git reports the territory by its real path (tmpdir may be a symlink).
+const proofRoot=process.env.ABI5_RELEASE_PROOF_ROOT??await realpath(await mkdtemp(join(tmpdir(),'abi5-release-proof-')));
+if(process.env.ABI5_RELEASE_PROOF_ROOT===undefined)after(()=>rm(proofRoot,{recursive:true,force:true}));
 await mkdir(proofRoot,{recursive:true});
 const git=async(root,args)=>(await exec('git',['-C',root,'-c','core.hooksPath=/dev/null',...args],{env:{...process.env,GIT_CONFIG_NOSYSTEM:'1'},maxBuffer:4*1024*1024})).stdout.trim();
 const save=async(name,data)=>writeFile(join(proofRoot,name+'.json'),JSON.stringify(data,null,2)+'\n');

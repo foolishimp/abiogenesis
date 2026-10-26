@@ -270,7 +270,9 @@ async function installDeterministicClaude(environment) {
     `  const replacementBase64 = ${JSON.stringify(REPLACEMENT.toString("base64"))};`,
     "  const result = { kind: 'worksite_construction_worker_result', schemaVersion: '5.0.0', files: targetRefs.map((targetRef) => ({ kind: 'worksite_candidate_file', schemaVersion: '5.0.0', targetRef, replacementBase64 })) };",
     "  process.stdout.write(`${JSON.stringify({ type: 'system', subtype: 'init', model: 'deterministic-c3-proof' })}\\n`);",
-    "  process.stdout.write(`${JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(result) })}\\n`);",
+    // A schema-bound request selects its result only from the host's successful
+    // structured_output carrier; the result text is not a fallback.
+    "  process.stdout.write(`${JSON.stringify({ type: 'result', subtype: 'success', is_error: false, result: JSON.stringify(result), structured_output: result })}\\n`);",
     "});",
     "",
   ].join("\n"), "utf8");

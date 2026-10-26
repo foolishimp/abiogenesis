@@ -36,7 +36,7 @@ test('immutable payload validation advances owner rows, with cold, reverse, chan
  console.log(JSON.stringify({kind:'immutable_owner_controls',firstRows:difference(before,once,'immutablePayloadRows'),repeatPayloadNodes:difference(once,repeat,'immutablePayloadNodes'),suffixRows:difference(repeat,grown,'immutablePayloadRows'),coldReverseChangedGetterAndForgeryConserved:true}));
 });
 
-test('pure artifact values do not reacquire; fresh bytes, currentness and held effect checks still refuse drift',async()=>{
+test('pure artifact values do not reacquire; cold ingress still refuses byte, extent and identity drift',async()=>{
  const scratch=await mkdtemp(join(tmpdir(),'read05-values-'));const path=join(scratch,'events.jsonl');
  const acquired=store.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});assert.ok('store'in acquired);
  try{
@@ -83,30 +83,30 @@ test('pure artifact values do not reacquire; fresh bytes, currentness and held e
    throw Error('staged rollback control');
   }),/staged rollback control/);
   assert.equal(acquired.store.readAll().length,1);
+  // A held, open store is the exclusive writer of its log: its derivation is
+  // current by the store's own head, and the trusted-desktop boundary does not
+  // rehash unchanged prior bytes for hostile same-length mutation. Cold and
+  // copied ingress still authenticate through the reader (T287_D4_D5 design
+  // :262-271; T287_W2_R2 design :88-95).
+  // Retired: the held-store arms of the superseded cut, in which held, active
+  // and transactional reads re-authenticated the bytes under an external
+  // same-length mutation, append, truncation or inode replacement, and an
+  // in-action overwrite was caught by a post-append byte check.
   const bytes=await readFile(path),changed=Buffer.from(bytes);changed[0]=91;await writeFile(path,changed);
   assert.equal(artifact.validateArtifactTruthProjectionValue(value),true,'immutable past value is a derivation, not current physical authority');
-  assert.equal(artifact.validateExactPrefixArtifactTruthProjection(value),false);
-  assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(coordinate),e=>e.code==='prefix_digest_mismatch');
-  let effected=false;assert.throws(()=>store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,coordinate,()=>{effected=true;}));assert.equal(effected,false);
-  assert.throws(()=>store.readHeldRuntimeEventsAtDurablePrefix(acquired.store,coordinate));
-  assert.throws(()=>store.admitRuntimeEventTransaction(acquired.store,()=>store.readActiveRuntimeTransactionAtDurablePrefix(acquired.store,coordinate,{durableOnly:true})),/bytes differ/);
+  assert.equal(artifact.validateExactPrefixArtifactTruthProjection(structuredClone(value)),false,'copied value authenticates cold');
+  assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(structuredClone(coordinate)),e=>e.code==='prefix_digest_mismatch');
   assert.equal(artifact.projectOwnedPrefixArtifactTruth(structuredClone(coordinate)).kind,'exact_prefix_artifact_truth_projection_refusal');
 
   await writeFile(path,bytes);await writeFile(path,Buffer.concat([bytes,Buffer.from('\n')]));
-  assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(coordinate,{requireCurrent:true}),e=>e.code==='prefix_length_mismatch');assert.throws(()=>store.assertHeldEventStoreAtDurablePrefix(acquired.store,coordinate));
-  await writeFile(path,bytes.subarray(0,bytes.length-1));assert.equal(artifact.validateExactPrefixArtifactTruthProjection(value),false);
+  assert.throws(()=>store.readRuntimeEventsAtDurablePrefix(structuredClone(coordinate),{requireCurrent:true}),e=>e.code==='prefix_length_mismatch');
+  await writeFile(path,bytes.subarray(0,bytes.length-1));assert.equal(artifact.validateExactPrefixArtifactTruthProjection(structuredClone(value)),false);
   await writeFile(path,bytes);await rename(path,path+'.old');await writeFile(path,bytes);
-  assert.equal(artifact.validateExactPrefixArtifactTruthProjection(value),false);await rm(path);await rename(path+'.old',path);
+  assert.equal(artifact.validateExactPrefixArtifactTruthProjection(structuredClone(value)),false);await rm(path);await rename(path+'.old',path);
+  assert.equal(artifact.validateExactPrefixArtifactTruthProjection(structuredClone(value)),true);
   assert.equal(artifact.validateExactPrefixArtifactTruthProjection(value),true);
-  // Mutation during an admitted action is caught by the unchanged post-append
-  // byte check and removes only the owner's newly appended suffix.
-  const fs=await import('node:fs');
-  assert.throws(()=>store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,coordinate,()=>{
-   fs.writeFileSync(path,changed);store.admitRuntimeEvent(acquired.store,candidate('commit-drift'));
-  }));assert.deepEqual(await readFile(path),changed);assert.equal(acquired.store.readAll().length,1);
-  await writeFile(path,bytes);
 
-  console.log(JSON.stringify({kind:'artifact_value_boundary_controls',pureRepeatedPhysicalReads:difference(before,after,'physicalReads'),heldAndActiveNewEcOwners:0,heldAndActiveNewLivenessOwners:0,heldAndActiveRepeatedPayloadRows:0,coldAndForgeryConserved:true,sameLengthCurrentnessTruncationInodeAndMutationRefused:true}));
+  console.log(JSON.stringify({kind:'artifact_value_boundary_controls',pureRepeatedPhysicalReads:difference(before,after,'physicalReads'),heldAndActiveNewEcOwners:0,heldAndActiveNewLivenessOwners:0,heldAndActiveRepeatedPayloadRows:0,coldAndForgeryConserved:true,coldSameLengthCurrentnessTruncationAndInodeRefused:true}));
  }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
 });
 

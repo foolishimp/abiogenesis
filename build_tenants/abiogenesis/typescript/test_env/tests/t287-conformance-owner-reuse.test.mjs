@@ -61,9 +61,14 @@ async function backend(base) {
     './verify_product.js':{verifyProduct:async request=>{metrics.archiveChecks++;
       assert.equal(request.artifactPath,join(territory,'unmaterialized-fixture.tgz'));
       return archiveFails?{kind:'product_verification_refusal'}:structuredClone(verified);}},
-    'node:fs/promises':{readFile:async file=>{assert.equal(String(file),join(base,'product-toolchain-manifest.json'));
+    // The executing-manifest read: the one reader's module at head, the
+    // predecessor's own `node:fs/promises` read on its cut.
+    ...(base===root?{'./declaration_exports.js':{readExecutingToolchainIdentity:()=>{afterManifestRead?.();
+      const manifest=structuredClone(manifestFails?{changed:true}:metadata.ownerManifest);
+      return {manifest,manifestDigest:hash(manifest),productContentDigest:manifest.productContentDigest??null};}}}
+    :{'node:fs/promises':{readFile:async file=>{assert.equal(String(file),join(base,'product-toolchain-manifest.json'));
       afterManifestRead?.();
-      return Buffer.from(JSON.stringify(manifestFails?{changed:true}:metadata.ownerManifest));}},
+      return Buffer.from(JSON.stringify(manifestFails?{changed:true}:metadata.ownerManifest));}}}),
     './invocation.js':{constructCapabilityGrant:(...args)=>invocation.constructCapabilityGrant(...args),
       constructAdmissionCapabilityGrants:(...args)=>invocation.constructAdmissionCapabilityGrants(...args)},
   });

@@ -1,10 +1,11 @@
 // Component proof. Original human/source approval, native qualification and
 // admitted publication rows are labelled lower-owner premises, not real O/J.
 // Only disposable local Git and file effects below are actual physical proof.
-import test from 'node:test';
+import test,{after} from 'node:test';
 import assert from 'node:assert/strict';
 import * as fs from 'node:fs/promises';
 import {join,resolve} from 'node:path';
+import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
 import {execFile} from 'node:child_process';
 import {promisify} from 'node:util';
@@ -19,8 +20,11 @@ import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {admitRuntimeContract} from '../../build/code/src/shared/public_function_contracts.js';
 import {nativeJoinFixture} from '../support/malformed-gtl-native-fixture.mjs';
 const exec=promisify(execFile),hash=p.sha256Canonical,bytesHash=p.sha256Bytes,clone=structuredClone;
-const proofRoot=process.env.ABI5_F16_PROOF_ROOT;
-assert(proofRoot,'explicit disposable F16 proof territory required');await fs.mkdir(proofRoot,{recursive:true});
+// The territory is disposable output: the named root, else a lane-owned one removed after.
+// Git reports the territory by its real path (tmpdir may be a symlink).
+const proofRoot=process.env.ABI5_F16_PROOF_ROOT??await fs.realpath(await fs.mkdtemp(join(tmpdir(),'abi5-f16-proof-')));
+if(process.env.ABI5_F16_PROOF_ROOT===undefined)after(()=>fs.rm(proofRoot,{recursive:true,force:true}));
+await fs.mkdir(proofRoot,{recursive:true});
 const coord=(ref,value=ref)=>({ref,digest:hash(value)});
 const raw=(ref,text)=>{const bytes=Buffer.from(text);return {ref,digest:bytesHash(bytes),byteCount:bytes.length,contentBase64:bytes.toString('base64')};};
 const git=async(root,args)=>(await exec('git',['-C',root,'-c','core.hooksPath=/dev/null',...args],{env:{...process.env,GIT_CONFIG_NOSYSTEM:'1'},maxBuffer:4*1024*1024})).stdout.trim();

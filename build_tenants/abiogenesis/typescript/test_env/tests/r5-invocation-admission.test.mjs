@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -12,73 +12,20 @@ import {
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
-test("W2-03 request selection is owned only by ProductExecutionResolutionPort", async () => {
-  const publicSource = await readFile(
-    join(root, "code/src/public/operations.ts"),
-    "utf8",
-  );
-  const productSource = await readFile(
-    join(root, "code/src/product/execution_resolution.ts"),
-    "utf8",
-  );
-  const publicStart = publicSource.indexOf("async function applyRunInvoke(");
-  const publicEnd = publicSource.indexOf(
-    "\nasync function projectCurrentOutcome(",
-    publicStart,
-  );
-  const productStart = productSource.indexOf(
-    "async function resolveProductExecution(",
-  );
-  const productEnd = productSource.indexOf(
-    "\nexport const ProductExecutionResolutionPort",
-    productStart,
-  );
-  assert.notEqual(publicStart, -1);
-  assert.notEqual(publicEnd, -1);
-  assert.notEqual(productStart, -1);
-  assert.notEqual(productEnd, -1);
-  const publicInvoke = publicSource.slice(publicStart, publicEnd);
-  const productResolution = productSource.slice(productStart, productEnd);
-
-  assert.match(publicInvoke, /selection: executionSelection/u);
-  assert.match(publicInvoke, /executionResolution\.program/u);
-  assert.match(publicInvoke, /executionResolution\.selectedCatalogEntry/u);
-  assert.match(publicInvoke, /executionResolution\.resolvedProgramStart/u);
-  assert.match(publicInvoke, /executionResolution\.programInstall/u);
-  assert.doesNotMatch(publicInvoke, /resolveProgramStart\s*\(/u);
-  assert.doesNotMatch(
-    publicInvoke,
-    /lookupGraphFunction(?:Definition)?\s*\(/u,
-  );
-  assert.doesNotMatch(publicInvoke, /resolveExactMatch\s*\(/u);
-  assert.doesNotMatch(publicInvoke, /publicationMatches|readinessInstallMatches/u);
-
-  assert.match(
-    productResolution,
-    /resolveProgramDeclarationClosure\([\s\S]*input\.selection\.kind === "direct"/u,
-  );
-  assert.match(
-    productResolution,
-    /lookupGraphFunction\([\s\S]*input\.selection\.catalogHandle/u,
-  );
-  assert.match(productResolution, /resolveProgramStart\(program,/u);
-  assert.match(
-    productResolution,
-    /lookupGraphFunctionDefinition\([\s\S]*resolved\.start\.graphFunctionRef/u,
-  );
-  assert.match(
-    productResolution,
-    /input\.selection\.kind === "admitted"[\s\S]*input\.selection\.graphFunctionRef/u,
-  );
-});
+// Retired: "W2-03 request selection is owned only by ProductExecutionResolutionPort"
+// sliced public/operations.ts (removed) and product/execution_resolution.ts by
+// function markers and matched source text in them. No design sentence names
+// that text; the selection behavior is the cases below.
 
 function readinessCatalogView(environment, allowlist) {
   const catalog = environment.product.admitGraphFunctionCatalog({
     workspaceBinding: environment.bindingCandidate,
     resolvedLock: environment.lock,
-    verifiedProducts: [environment.verified],
-    installedProducts: [environment.installCandidate],
-    publications: [environment.publication],
+    // The lock holds every installed Product (the root and the test-owned
+    // language fixture), so readiness takes their complete sets.
+    verifiedProducts: environment.verifiedProducts,
+    installedProducts: environment.installCandidates,
+    publications: environment.publications,
   });
   assert.equal(catalog.kind, "graph_function_catalog", JSON.stringify(catalog));
   assert.ok(catalog.readinessBasis);
@@ -131,9 +78,10 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     const duplicateRefusal = product.admitGraphFunctionCatalog({
       workspaceBinding: bindingCandidate,
       resolvedLock: lock,
-      verifiedProducts: [verified],
-      installedProducts: [installCandidate],
-      publications: [duplicatePublication],
+      verifiedProducts: environment.verifiedProducts,
+      installedProducts: environment.installCandidates,
+      publications: environment.publications.map((row) =>
+        row === publication ? duplicatePublication : row),
     });
     assert.equal(
       duplicateRefusal.kind,
@@ -169,7 +117,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
   const executionResolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
     catalogView,
-    admittedInstalls: [admittedInstall],
+    admittedInstalls: environment.admittedInstalls,
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(artifactTruth, install),
     programRef: program.programRef,
@@ -188,7 +136,9 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     gtl.LANGUAGE_TEST_DIRECT_IDS.handle,
   );
   assert.equal(executionResolution.resolvedProgramStart, null);
-  assert.deepEqual(executionResolution.programInstall, admittedInstall);
+  // The Program's owner is the test-owned language fixture Product.
+  assert.deepEqual([executionResolution.programInstall],
+    environment.admittedInstalls.filter((install) => install.productId === publication.owningProductId));
   const programValidation = executionResolution.programValidation;
   const selectedRow = product.lookupGraphFunction(
     catalogView,
@@ -221,13 +171,27 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     "public_operation_request",
     "contract://abiogenesis/public/run-invoke-request@5",
   );
+  // The policy names the Program's validated compute fibres; the one
+  // direct-invoke grant binds the installed capability graph row and the
+  // fixed run packet, for the workspace's authorized actor.
   const policy = product.constructRootInvocationPolicy(
     workspaceBinding,
     program,
     [],
+    ["F_D", "F_P", "F_H"].filter((regime) => [
+      ...programValidation.executableLeafRows,
+      ...programValidation.interactionLeafRows,
+    ].some((row) => row.fibre === regime)),
   );
-  const actorRef = "actor://abiogenesis/t286/trusted-developer";
-  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
+  const actorRef = workspaceBinding.authorizedActorRef;
+  const capabilityGrantBasis = {
+    admittedInstalls: environment.admittedInstalls,
+    workspaceBinding,
+    fixedPacket: product.RUN_OPERATION_CONTRACTS.invoke[
+      program.policies["abg.root_mode"] === "supervised" ? "start" : "invoke"],
+  };
+  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef,
+    "abg.operation.run.invoke", product.DIRECT_INVOKE_CAPABILITY, capabilityGrantBasis);
   const authority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
@@ -236,6 +200,7 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
     selectedRow,
     policy,
     [capabilityGrant],
+    capabilityGrantBasis,
   );
   assert.equal(authority.kind, "invocation_authority", JSON.stringify(authority));
   const invocation = product.constructDirectInvocation(
@@ -335,7 +300,9 @@ test("non-root alias selection admits a distinct catalogHandle for one exact def
       invocation.publicRequestInvocationRef,
     ),
   );
-  assert.equal(wrongDefinitionRefusal.code, "selection_mismatch");
+  // The Product execution resolution binds the GraphFunction; a substituted
+  // definition is refused at that relation before request selection.
+  assert.equal(wrongDefinitionRefusal.code, "contract_mismatch", JSON.stringify(wrongDefinitionRefusal));
 
   const directSupervisedRefusal = abg.admitInvocation(
     store,
@@ -653,7 +620,7 @@ test("R5 start admission resolves one exact Product start before its catalog def
   const executionResolution = await product.ProductExecutionResolutionPort.resolve({
     catalog,
     catalogView,
-    admittedInstalls: [admittedInstall],
+    admittedInstalls: environment.admittedInstalls,
     verifyInstallAdmission: (install) =>
       abg.hasAdmittedProductInstall(artifactTruth, install),
     programRef: program.programRef,
@@ -682,7 +649,9 @@ test("R5 start admission resolves one exact Product start before its catalog def
     executionResolution.selectedCatalogEntry.handle,
     gtl.LANGUAGE_TEST_IDS.graphFunctionRef,
   );
-  assert.deepEqual(executionResolution.programInstall, admittedInstall);
+  // The Program's owner is the test-owned language fixture Product.
+  assert.deepEqual([executionResolution.programInstall],
+    environment.admittedInstalls.filter((install) => install.productId === publication.owningProductId));
   const start = resolvedStart.start;
   assert.equal(start.startRef, gtl.LANGUAGE_TEST_IDS.startRef);
   const input = gtl.constructLanguageTestInput("World");
@@ -692,13 +661,26 @@ test("R5 start admission resolves one exact Product start before its catalog def
     "invocation_input",
     gtl.LANGUAGE_TEST_IDS.inputContractRef,
   );
+  // The policy names the Program's validated compute fibres; the one
+  // direct-invoke grant binds the installed capability graph row and the
+  // fixed run packet, for the workspace's authorized actor.
   const policy = product.constructRootInvocationPolicy(
     workspaceBinding,
     program,
     [],
+    ["F_D", "F_P", "F_H"].filter((regime) => [
+      ...programValidation.executableLeafRows,
+      ...programValidation.interactionLeafRows,
+    ].some((row) => row.fibre === regime)),
   );
-  const actorRef = "actor://abiogenesis/t286/trusted-developer";
-  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef);
+  const actorRef = workspaceBinding.authorizedActorRef;
+  const capabilityGrantBasis = {
+    admittedInstalls: environment.admittedInstalls,
+    workspaceBinding,
+    fixedPacket: product.RUN_OPERATION_CONTRACTS.invoke.start,
+  };
+  const capabilityGrant = product.constructCapabilityGrant(policy, actorRef,
+    "abg.operation.run.invoke", product.DIRECT_INVOKE_CAPABILITY, capabilityGrantBasis);
   const authority = product.constructInvocationAuthority(
     actorRef,
     workspaceBinding,
@@ -707,6 +689,7 @@ test("R5 start admission resolves one exact Product start before its catalog def
     canonicalLookup.entry,
     policy,
     [capabilityGrant],
+    capabilityGrantBasis,
   );
   assert.equal(authority.kind, "invocation_authority");
 

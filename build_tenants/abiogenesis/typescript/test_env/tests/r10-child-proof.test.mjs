@@ -14,10 +14,10 @@ import {resolveExecutionDeclarationClosure,selectExactClosureContract} from '../
 import {sha256Canonical} from '../../build/code/src/shared/digests.js';
 import {reopenEventStore,closeHeldEventStoreAtDurablePrefix} from '../../build/code/src/abg/event_store.js';
 import {evidenceInput} from '../support/evidence-root.mjs';
-import {reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
-// The retained D2 store with its program-ready record, and the S01 call-9
-// record, are historical evidence under the evidence root, named by path,
-// digest and bytes. Without the root every case skips with the reason. The
+import {callInput as s01CallInput,eventsInput as s01EventsInput,reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
+// The retained D2 store with its program-ready record, the S01 call-9 record
+// and the S01 store's call-11 record and log (s01-store.mjs) are historical
+// evidence under the evidence root, named by path, digest and bytes. Without the root every case skips with the reason. The
 // store was appended after this proof's capture (913 lines); the proof is over
 // its first 846 lines, 13,540,472 bytes, sha256 4f561cea….
 const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/';
@@ -25,7 +25,7 @@ const logInput=evidenceInput({path:D2+'events-01/runtime.events.jsonl',sha256:'f
 const readyInput=evidenceInput({path:D2+'attempt-01/program-ready-16.json',sha256:'2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02',bytes:12781893});
 const s01Input=evidenceInput({path:'comments/codex/20260911_D4_S01_PROGRAM_OWNER/fixture-program-selection-01/attempt-01/call-9.jsonl',
   sha256:'b41e2253b63acb7fd9d2505544272c1ef887c2430d11ec3027d11759a8d32d65',bytes:20426253});
-const absent=[logInput,readyInput,s01Input].find(input=>input.kind==='absent');
+const absent=[logInput,readyInput,s01Input,s01CallInput,s01EventsInput].find(input=>input.kind==='absent');
 if(absent)test('R10 child proof over the retained D2 store and the S01 call-9 record',{skip:absent.reason},()=>{});
 else await (async()=>{
 const hash=x=>createHash('sha256').update(x).digest('hex');
@@ -146,9 +146,9 @@ test('conformance keeps the complete artifact-truth, inventory and Program joins
   const resources=call.resources,catalog=resources.declarationCatalog.catalog;
   const workspace={ref:catalog.workspaceBindingId,digest:catalog.workspaceBindingDigest};
   // The record's artifact-truth prefix names the original S01 file and a device
-  // that no longer holds. The same prefix (length and digest) is read from the
-  // packaged byte copy of the S01 store, under the coordinate its owner gives
-  // on reopen with no append.
+  // that no longer holds. The same prefix (length and digest) is read from a
+  // scratch copy of the S01 store under the evidence root, under the coordinate
+  // its owner gives on reopen with no append.
   const historical=resources.artifactTruth.prefix,packaged=reopenPackagedS01Store(historical.storeIdentity.eventContractDigest);
   assert.ok(packaged.prefix,JSON.stringify(packaged));
   const {coordinateDigest:_,...base}=structuredClone(packaged.prefix);
@@ -162,8 +162,8 @@ test('conformance keeps the complete artifact-truth, inventory and Program joins
   // The artifact truth the join reads is the admitted environment's, not a supplied copy.
   const foreign={...environment,artifactTruth:{...environment.artifactTruth,projectionDigest:sha256Canonical('foreign')}};
   assert.throws(()=>conformance.reconstructDeclarationBasis(resources,foreign),/artifact truth differs/);
-  // The packaged byte copy of the S01 call-11 record (TD-04 R10 increment).
-  const readBytes=fs.readFileSync(path.join(import.meta.dirname,'../fixtures/r10-projection-family/s01-attempt-01/call-11.jsonl'));
+  // The S01 call-11 record under the evidence root (s01-store.mjs).
+  const readBytes=s01CallInput.bytes;
   assert.equal(hash(readBytes),'3d4adcf616337360931993fbd10e42090c989ac24060d56318cd21ea9363f845');
   const read=JSON.parse(readBytes.toString('utf8')).invocation.resources;
   const schemas=await privateOwner('abg/project_read_definition_bindings.js',['PROJECT_READ_RESOURCE_ASSERTION_SCHEMA','GRAPH_CALL_TERMINAL_RESOURCE_ASSERTION_SCHEMA']);

@@ -1,8 +1,11 @@
 // Pure packed-component proof. Original declarations and native witnesses are
 // supplied here; no Product install, Runtime resource, helper, provider or Run.
-import test from 'node:test';
+import test,{after} from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import os from 'node:os';
+import {execFile} from 'node:child_process';
+import {promisify} from 'node:util';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
@@ -11,8 +14,19 @@ import * as m01 from '@abiogenesis/typescript-tenant/gtl/m01';
 import * as m02 from '@abiogenesis/typescript-tenant/gtl/m02';
 import * as m03 from '@abiogenesis/typescript-tenant/abg/m03';
 import * as gtl from '@abiogenesis/typescript-tenant/gtl';
-const root=process.env.ABI5_GTL_CORE_PACKAGE_ROOT;
-assert(root,'proof requires the explicit extracted package');
+// The package is the extracted one a source-blind consumer run names, else the
+// build it is packed from. Unnamed, the lane packs and extracts its own copy for
+// the population case and writes the strict consumer inside the package scope
+// (ignored test_runs); both territories are lane-owned and removed after.
+const tenantRoot=fileURLToPath(new URL('../..',import.meta.url)),named=process.env.ABI5_GTL_CORE_PACKAGE_ROOT!==undefined;
+const root=named?process.env.ABI5_GTL_CORE_PACKAGE_ROOT:path.resolve(tenantRoot);
+const exec=promisify(execFile);
+const lane=(base,prefix)=>{fs.mkdirSync(base,{recursive:true});const directory=fs.mkdtempSync(path.join(base,prefix));
+ after(()=>fs.rmSync(directory,{recursive:true,force:true}));return directory;};
+const extractedPackage=async()=>{if(named)return root;const territory=lane(os.tmpdir(),'abi5-gtl-core-pack-');
+ const {stdout}=await exec('npm',['pack','--ignore-scripts','--json','--pack-destination',territory],{cwd:tenantRoot,maxBuffer:10*1024*1024});
+ const [packed]=JSON.parse(stdout);await exec('tar',['-xzf',path.join(territory,packed.filename),'-C',territory]);
+ return path.join(territory,'package');};
 assert.equal(fileURLToPath(import.meta.resolve('@abiogenesis/typescript-tenant/gtl/m01')),path.join(root,'build/code/src/gtl/m01.js'));
 const require=createRequire(import.meta.url),ts=require(path.join(root,'build/toolchain/typescript.cjs'));
 const {canonicalJson}=await import(pathToFileURL(path.join(root,'build/code/src/shared/canonical_json.js')));
@@ -214,11 +228,11 @@ test('complete optional declarations roundtrip while native relational guards re
   suppliedLocalDeclarations:true,wholeProgramClaims:0,RuntimeCalls:0}));
 });
 
-test('exact extracted package binds all current schema/API/native declarations and preserves prior addresses',async t=>{
- const baseline=JSON.parse(fs.readFileSync(process.env.ABI5_GTL_CORE_BASELINE));
- const packageJson=json('package.json');assert.deepEqual(packageJson.exports,baseline.package.exports);
- assert.equal(catalog.rows.length,baseline.catalogIds.length+6);
- for(const id of baseline.catalogIds)assert.equal(catalog.rows.filter(row=>row.contractId===id).length,1,id);
+// Retired (C-18b, C-5 stop 2): the prior-address arm compared the package with
+// ABI5_GTL_CORE_BASELINE, a predecessor cut's export and catalog record; that is a
+// claim about the change from that cut. The current bindings are kept below.
+test('exact extracted package binds all current schema/API/native declarations',async t=>{
+ const packageJson=json('package.json'),packageRoot=await extractedPackage();
  assert(!catalog.rows.some(row=>row.contractId==='abg.vocabulary.gtl-program-repair-edit-class'),'unsettled repair meaning is not published as complete');
  const selected=[
   ['abg.schema.gtl-graph-function','GraphFunction','./gtl/m01','GTL_GRAPH_FUNCTION_SERIALIZATION_API',m01,['admitGraphFunction','serializeGraphFunction']],
@@ -228,14 +242,14 @@ test('exact extracted package binds all current schema/API/native declarations a
  ];
  const sources=[],metadata=[];
  const visit=directory=>{for(const entry of fs.readdirSync(directory,{withFileTypes:true})){
-  const absolute=path.join(directory,entry.name),relative=path.relative(root,absolute).split(path.sep).join('/');
+  const absolute=path.join(directory,entry.name),relative=path.relative(packageRoot,absolute).split(path.sep).join('/');
   assert(!entry.isSymbolicLink(),'extracted package has no hidden symlink dependency');
   if(entry.isDirectory())visit(absolute);
   else if(entry.isFile()&&(/\.d\.(?:c|m)?ts$/u.test(relative)||entry.name==='package.json')){
    const bytes=fs.readFileSync(absolute),row={path:relative,bytes};
    if(/\.d\.(?:c|m)?ts$/u.test(relative))sources.push(row);else metadata.push(row);
   }
- }};visit(root);
+ }};visit(packageRoot);
  assert.deepEqual(sources.map(row=>row.path).sort(),manifest.productRelativeLocators.filter(locator=>/\.d\.(?:c|m)?ts$/u.test(locator)).sort(),
   'consumer supplies the producer complete .d.ts/.d.cts/.d.mts population');
  assert.deepEqual(metadata.map(row=>row.path).sort(),manifest.productRelativeLocators.filter(locator=>locator==='package.json'||locator.endsWith('/package.json')).sort(),
@@ -273,14 +287,14 @@ test('exact extracted package binds all current schema/API/native declarations a
  assert.equal(corpus.diagnosticVocabularyContractRef,vocabularyRow.contractId);
  assert.equal(corpus.schema.contentDigest,hash(fs.readFileSync(path.join(root,corpus.schema.path))));
  assert.equal(schemaCheck('GtlLanguageConformanceCorpus')(corpus),true,JSON.stringify(schemaCheck('GtlLanguageConformanceCorpus').errors));
- t.diagnostic(JSON.stringify({catalogRows:catalog.rows.length,oldIdentities:baseline.catalogIds.length,
+ t.diagnostic(JSON.stringify({catalogRows:catalog.rows.length,
   packageExports:Object.keys(packageJson.exports).length,nativeDeclarationSources:sources.length,
   ctsMtsDeclarations:sources.filter(row=>/\.d\.[cm]ts$/u.test(row.path)).length,completeProducerPopulation:true,
   pairedRows:selected.length,corpusDigest:corpusRow.contractDigest,diagnosticValues:19}));
 });
 
 test('packed native types expose original recursively typed carriers and preserve constructor witnesses',t=>{
- const file=path.join(path.dirname(fileURLToPath(import.meta.url)),'strict-native-consumer.mts');
+ const file=path.join(named?path.dirname(fileURLToPath(import.meta.url)):lane(path.join(tenantRoot,'test_env/test_runs'),'gtl-core-consumer-'),'strict-native-consumer.mts');
  const source=`import {C,cCarrier,admitGraphFunction,serializeGraphFunction,admitCProgramSyntax,serializeCProgramCanonical,type CProgramNode,type CProgramTerm,type GraphFunction} from '@abiogenesis/typescript-tenant/gtl/m01';
 import {admitModule,serializeModule,type ModulePublication} from '@abiogenesis/typescript-tenant/gtl/m02';
 import {admitGtlProgramConformanceInput,typecheckGtlProgram,type GtlProgramConformanceInput,type GtlProgramDiagnosticId} from '@abiogenesis/typescript-tenant/abg/m03';

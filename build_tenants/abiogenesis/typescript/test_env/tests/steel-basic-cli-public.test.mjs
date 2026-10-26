@@ -24,10 +24,8 @@ const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 const schemaVersion = "5.0.0";
 let admittedContractCatalog = null;
 let admittedDefinitionContractCoordinates = null;
-
-function keyOf(definition) {
-  return `${definition.definitionKey.operationId}#${definition.definitionKey.memberKey}`;
-}
+let ownerArtifact = null;
+const actorRef = "actor://abiogenesis/t287/w2-05-worker";
 
 function coordinate(product, ref, value = { ref }) {
   return Object.freeze({ ref, digest: product.sha256Canonical(value) });
@@ -35,7 +33,7 @@ function coordinate(product, ref, value = { ref }) {
 
 function actorAuthority(product) {
   return Object.freeze({
-    actor: coordinate(product, "actor://abiogenesis/t287/w2-05-worker"),
+    actor: coordinate(product, actorRef),
     attribution: coordinate(
       product,
       "attribution://abiogenesis/t287/w2-05-worker",
@@ -43,18 +41,7 @@ function actorAuthority(product) {
   });
 }
 
-function capabilityAuthority(product, definition) {
-  return Object.freeze({
-    requiredCapabilityRefs: [...definition.capabilityRefs],
-    grants: [coordinate(
-      product,
-      `capability-grant://abiogenesis/t287/${encodeURIComponent(keyOf(definition))}`,
-      { definitionKey: definition.definitionKey },
-    )],
-  });
-}
-
-function authoritySlots(product, definition, supplied = {}) {
+function authoritySlots(supplied = {}) {
   return Object.freeze({
     workspace_binding: null,
     product_set: null,
@@ -64,7 +51,7 @@ function authoritySlots(product, definition, supplied = {}) {
     graph_function: null,
     input_contract: null,
     session_policy: null,
-    capability_grants: capabilityAuthority(product, definition),
+    capability_grants: null,
     actor: null,
     transport_steering: null,
     verification_references: null,
@@ -95,7 +82,7 @@ function definitionCall({
 }) {
   const definition = definitionFor(publicApi, operationId, memberKey);
   const requestDigest = product.sha256Canonical(request);
-  const admittedSlots = authoritySlots(product, definition, slots);
+  const admittedSlots = authoritySlots(slots);
   const authorityBody = Object.freeze({
     kind: "invocation_authority",
     definitionKey: definition.definitionKey,
@@ -165,6 +152,37 @@ function definitionCall({
     }),
     resources,
   });
+}
+
+// The installed owner validates every grant: each call carries the admission
+// basis over the owner-verified artifact, the resolved trusted-developer
+// authority and the grants constructed for its fixed definition packet.
+async function authorizedCall({ publicApi, product, packet, ordinal, request, slots = {}, resources, prefix = null }) {
+  const { operationId, memberKey } = packet.definitionKey;
+  const definition = definitionFor(publicApi, operationId, memberKey);
+  const hash = product.sha256Canonical;
+  const selected = authoritySlots(slots);
+  const data = {
+    kind: "admission_capability_data", schemaVersion,
+    definition: { definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,
+      definitionDigest: definition.definitionDigest, owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
+    ownerArtifact, request,
+    resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(selected) },
+    boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden"
+      ? null : product.admissionEnvironmentSelection(prefix, selected.workspace_binding),
+  };
+  const authorityValue = { actorRef, authorityMode: "trusted_developer" };
+  const approvalValue = { decision: "allow", actorRef, definitionRef: definition.definitionRef,
+    definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(data).digest };
+  const authority = { kind: "resolved_admission_authority", schemaVersion, actorRef, authorityMode: "trusted_developer",
+    authority: { ...coordinate(product, "authority://abiogenesis/t287/w2-05-worker", authorityValue), value: authorityValue },
+    approval: { ...coordinate(product, `approval://abiogenesis/t287/w2-05/${ordinal}`, approvalValue), value: approvalValue } };
+  const admitted = await product.constructAdmissionCapabilityGrants(authority, actorRef,
+    { kind: "admission_capability_grant_construction_basis", fixedPacket: packet, data }, null);
+  return definitionCall({ publicApi, product, operationId, memberKey, ordinal, request,
+    slots: { ...slots, capability_grants: { requiredCapabilityRefs: [...definition.capabilityRefs],
+      grants: admitted.grants.map((grant) => ({ ref: grant.grantRef, digest: grant.grantDigest })) } },
+    resources: { ...resources, admissionAuthority: { basis: admitted.data, authority, grants: admitted.grants } } });
 }
 
 function rehashInvocation(product, call) {
@@ -318,6 +336,7 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
   );
   const verified = ownerVerification.verifiedArtifact;
   assert.ok(verified.definitionContractCoordinates);
+  ownerArtifact = Object.freeze({ request: verificationPacket.request, verified });
   admittedContractCatalog = Object.freeze({
     productId: verified.productId,
     productContentDigest: verified.productContentDigest,
@@ -370,8 +389,8 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     },
   );
 
-  const verifyCall = definitionCall({ publicApi, product,
-    operationId: "abg.operation.product.verify", memberKey: "verify", ordinal: 1,
+  const verifyCall = await authorizedCall({ publicApi, product,
+    packet: product.PRODUCT_VERIFICATION_SOURCE_DECLARATIONS.verify, ordinal: 1,
     request: verifyRequest, resources: { kind: "product_verification_resources",
       schemaVersion, targetKind: "packed_artifact", packedArtifact },
   });
@@ -402,8 +421,8 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     outcome: verifiedThroughCli.ownerOutput.value.verifiedArtifact,
   });
 
-  const resolveCall = definitionCall({ publicApi, product,
-    operationId: "abg.operation.product.resolve", memberKey: "resolve", ordinal: 2,
+  const resolveInput = (selectorDispositions) => ({ publicApi, product,
+    packet: product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.resolve, ordinal: 2,
     request: { requirements: [{ productId: verified.productId,
       packageVersion: verified.packageVersion, requiredContractRefs: [], requiredCapabilityRefs: [] }],
       verifiedCandidates: [verificationReference] },
@@ -411,16 +430,17 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     resources: { kind: "product_resolution_resource_assertion", schemaVersion,
       verifiedPreimages: [{ verification: verificationReference, verifiedArtifact: verified,
         verificationOutput: verifiedThroughCli.ownerOutput }],
-      nativeContractClosure: { selectorDispositions: [], occurrences: [], nativeBindings: [] } },
+      nativeContractClosure: { selectorDispositions, occurrences: [], nativeBindings: [] } },
   });
+  const resolveCall = await authorizedCall(resolveInput([]));
   const resolvedThroughCli = await runBinding(product.PRODUCT_ENVIRONMENT_DEFINITION_BINDINGS.resolve,
     resolveCall, "product.resolve");
   assert.deepEqual(resolvedThroughCli.ownerOutput.value.resolvedLock, lockCoordinate);
-  const changedClosureCall = structuredClone(resolveCall);
-  changedClosureCall.resources.nativeContractClosure.selectorDispositions.push({
+  // The changed closure is authorized as supplied, so the resolve owner judges it.
+  const changedClosureCall = await authorizedCall(resolveInput([{
     kind: "no_external_contribution", selectorRef: `sha256:${"1".repeat(64)}`,
     reason: "not_in_source_contract_meaning", checkerWitnessDigest: `sha256:${"2".repeat(64)}`,
-  });
+  }]));
   const changedClosure = await cliCall(changedClosureCall, { kind: "eventless" });
   assert.equal(changedClosure.receipt.exitCode, 70);
   assert.equal(changedClosure.receipt.failure.fault.code, "product_resolution_execution_failure");
@@ -437,11 +457,10 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     targetRoot: installedRoot,
     installPolicy: "clean",
   });
-  const installCall = definitionCall({
+  const installCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.product.install",
-    memberKey: "install",
+    packet: product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
     ordinal: 3,
     request: installRequest,
     slots: {
@@ -511,7 +530,7 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     workspaceId: workspaceManifest.workspaceRef,
     canonicalRoot: workspaceManifest.canonicalRoot,
     authorityMode: "trusted_developer",
-    authorizedActorRef: "actor://abiogenesis/t287/w2-05-worker",
+    authorizedActorRef: actorRef,
   });
   const workspaceAuthority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,
@@ -552,11 +571,10 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
       path: declaredRoots[field],
     })),
   });
-  const bindCall = definitionCall({
+  const bindCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.workspace.bind",
-    memberKey: "bind",
+    packet: product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
     ordinal: 4,
     request: bindRequest,
     slots: {
@@ -572,6 +590,7 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
         install.resources.eventResource.closeHandoff,
       ),
       workspaceAuthority,
+      workspaceManifest,
       admittedInstalls: [installedTruth.install],
       resolvedLock,
       declaredRoots,
@@ -602,11 +621,20 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
+  // The Product's contribution manifest binds its ten core publications
+  // (scripts/generate-product-manifest.mjs); the catalog admits exactly them.
+  const consensusPublication = gtl.constructConsensusModulePublication(artifactBasis);
   const publications = Object.freeze([
-    harness.rootPublication,
-    gtl.constructConsensusModulePublication(artifactBasis),
+    gtl.constructDefaultGovernanceLibraryModulePublication(artifactBasis),
+    consensusPublication,
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
+    gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
+    gtl.constructWorksiteCommandForwardModulePublication(artifactBasis),
+    gtl.constructRequirementHandoffModulePublication(artifactBasis),
+    gtl.constructSemanticStageModulePublication(artifactBasis),
+    gtl.constructSemanticRevisionModulePublication(artifactBasis),
+    gtl.constructSelfConformanceModulePublication(artifactBasis),
   ]);
   assert.deepEqual(
     publications.map(product.modulePublicationSemanticDigest).sort(),
@@ -639,15 +667,16 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     dependency_lock: lockCoordinate,
     actor: actorAuthority(product),
   });
-  const catalogCall = definitionCall({
+  const boundPrefix = binding.resources.eventResource.closeHandoff.prefix;
+  const catalogCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.catalog.admit",
-    memberKey: "admit",
+    packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
     ordinal: 5,
     request: catalogRequest,
     slots: catalogSlots,
     resources: catalogResources,
+    prefix: boundPrefix,
   });
   const admittedCatalog = await runBinding(
     product.CATALOG_DEFINITION_BINDINGS.admit,
@@ -661,15 +690,15 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
   );
   const independentlyReconstructedCatalog = await runBinding(
     product.CATALOG_DEFINITION_BINDINGS.admit,
-    definitionCall({
+    await authorizedCall({
       publicApi,
       product,
-      operationId: "abg.operation.catalog.admit",
-      memberKey: "admit",
+      packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
       ordinal: 6,
       request: structuredClone(catalogRequest),
       slots: structuredClone(catalogSlots),
       resources: structuredClone(catalogResources),
+      prefix: boundPrefix,
     }),
     "catalog.admit independently reconstructed",
   );
@@ -709,14 +738,14 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     catalog: admittedCatalog.ownerOutput.value.catalog,
     allowlist,
   });
-  const viewCall = definitionCall({
+  const viewCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.catalog.view",
-    memberKey: "allowlist",
+    packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
     ordinal: 7,
     request: viewRequest,
     slots: catalogSlots,
+    prefix: boundPrefix,
     resources: Object.freeze({
       kind: "catalog_view_resource_assertion",
       schemaVersion,
@@ -745,10 +774,10 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     assert.equal(rows.length, 1);
     return rows[0].handle;
   }).sort();
-  const executionViewCall = definitionCall({ publicApi, product,
-    operationId: "abg.operation.catalog.view", memberKey: "allowlist", ordinal: 20,
+  const executionViewCall = await authorizedCall({ publicApi, product,
+    packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist, ordinal: 20,
     request: { catalog: admittedCatalog.ownerOutput.value.catalog, allowlist: executionAllowlist },
-    slots: catalogSlots,
+    slots: catalogSlots, prefix: boundPrefix,
     resources: { kind: "catalog_view_resource_assertion", schemaVersion, catalog: structuredClone(catalog) },
   });
   const executionViewReceipt = await runBinding(product.CATALOG_DEFINITION_BINDINGS.view.allowlist,
@@ -758,7 +787,7 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     catalog, allowlist: executionAllowlist,
   });
   assert.deepEqual(executionViewReceipt.ownerOutput.value.effectiveHandles, executionView.allowlist);
-  assert.equal(catalog.boundPublications.length, 4);
+  assert.equal(catalog.boundPublications.length, publications.length);
   for (const target of executionTargets) {
     const rows = executionView.entries.filter(({ definitionRef }) => definitionRef === target.graphFunctionRef);
     assert.equal(rows.length, 1);
@@ -791,94 +820,14 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
     assert.equal(duplicatedProgram.code, "ambiguous");
   }
 
-  const catalogScope = Object.freeze({
-    catalog: admittedCatalog.ownerOutput.value.catalog,
-    view: narrowed.ownerOutput.value.view,
-    allowlist,
-  });
-  const applicationSlots = Object.freeze({
-    ...catalogSlots,
-    catalog_scope: catalogScope,
-  });
-  const workspaceCatalogSlots = Object.freeze({
-    workspace_binding: binding.ownerOutput.value.binding,
-    product_set: [install.ownerOutput.value.installedProduct],
-    dependency_lock: lockCoordinate,
-    catalog_scope: Object.freeze({
-      ref: admittedCatalog.ownerOutput.value.catalog.ref,
-      digest: admittedCatalog.ownerOutput.value.catalog.digest,
-    }),
-  });
-  const environmentReadSlots = Object.freeze({
-    workspace_binding: binding.ownerOutput.value.binding,
-    product_set: [install.ownerOutput.value.installedProduct],
-    dependency_lock: lockCoordinate,
-  });
-  const applicationBasis = coordinate(
-    product,
-    "catalog-application-basis://abiogenesis/t287/w2-05",
-  );
-  const validationReceipt = coordinate(
-    product,
-    "product-validation-receipt://abiogenesis/t287/w2-05",
-  );
-  const contributor = coordinate(
-    product,
-    "product-contributor://abiogenesis/t287/w2-05",
-  );
-  const nodeTarget = coordinate(
-    product,
-    publications[1].programs[0].programRef,
-    publications[1].programs[0],
-  );
-  const applicationRequest = (memberKey, row, target) => Object.freeze({
-    applicationKind: memberKey,
-    catalogRow: Object.freeze({ ref: row.handle, digest: row.entryDigest }),
-    catalogView: narrowed.ownerOutput.value.view,
-    declaration: Object.freeze({
-      ref: row.declarationOrContractRef,
-      digest: row.entryDigest,
-    }),
-    target,
-    applicationBasis,
-    validationReceipt,
-    contributor,
-  });
-  const apply = async (memberKey, row, target, ordinal) => {
-    const request = applicationRequest(memberKey, row, target);
-    return runBinding(
-      product.CATALOG_DEFINITION_BINDINGS.apply[memberKey],
-      definitionCall({
-        publicApi,
-        product,
-        operationId: "abg.operation.catalog.apply",
-        memberKey,
-        ordinal,
-        request,
-        slots: applicationSlots,
-        resources: Object.freeze({
-          kind: "catalog_application_resource_assertion",
-          schemaVersion,
-          catalog: structuredClone(catalog),
-          catalogRow: structuredClone(row),
-          catalogView: structuredClone(view),
-          applicationBasis,
-          validationReceipt,
-          contributor,
-        }),
-      }),
-      `catalog.apply#${memberKey}`,
-    );
-  };
-  const nodeApplication = await apply("node_type", nodeRow, nodeTarget, 8);
-  const overlayApplication = await apply("overlay", overlayRow, null, 9);
-  assert.deepEqual(nodeApplication.ownerOutput.value.target, nodeTarget);
-  assert.equal(overlayApplication.ownerOutput.value.target, null);
-  assert.notEqual(
-    nodeApplication.ownerOutput.value.application.digest,
-    overlayApplication.ownerOutput.value.application.digest,
-  );
-
+  // RETIRED: catalog.apply over the core consensus rows with caller-asserted
+  // application basis, validation receipt and contributor coordinates. At head
+  // the owner derives all three from an explicit construction (prefix, Program,
+  // target, value, installed schema assets: constructCatalogApplicationResources)
+  // and the core consensus schema asset ($id abg.schema.consensus@5) carries no
+  // schema whose $id is a row's contract ref, so these rows have no Public
+  // application. steel-consumer-declaration owns the Public apply claim over a
+  // consumer's installed schemas; m5-consensus-module owns the native one.
   assert.deepEqual(await readFile(eventLogPath), eventlessPrefixBytes);
   const legacyEventPath = join(harness.scratch, "legacy-must-not-create.events.jsonl");
   const legacy = await cliCall({ kind: "public_invocation", schemaVersion,
@@ -900,5 +849,5 @@ test("STEEL-BASIC-CLI-01 installed exact Public admits its eventless and event-b
         eventlessEventDelta: 0, legacyExportAbsent: true, legacyCliRefusedBeforeEffect: true, fullPublicationC1C2Resolution: true, genuineOwnerAmbiguityRefused: true },
     }, null, 2)}\n`);
   }
-  context.diagnostic("installed Public verify/resolve/install/bind/catalog/view/apply chain completed; 13 pre-effect refusals, changed native-closure refusal, eventless zero event delta, legacy refusal");
+  context.diagnostic("installed Public verify/resolve/install/bind/catalog/view chain completed; 13 pre-effect refusals, changed native-closure refusal, eventless zero event delta, legacy refusal");
 });

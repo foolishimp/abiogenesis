@@ -80,12 +80,29 @@ export async function ownerLookups(){
     const row=structuredClone(eventOwner.projectRuntimeEventFromValidatedHistory(events,candidate));events.push(row);mutate(row,operation);return row;
   }
   const modulePath=path.join(packageRoot,'build/code/src/abg/worksite_revision.js');
+  // The owners read a prefix through the runtime-history readers (the body
+  // view, the selector index, checked records and the extent). Over the
+  // lookup-only rows the substitutes are the real body view and the real
+  // selector-key vocabulary; a checked record is acquired on every read.
+  const {RuntimeEventBodyView,runtimeHistorySelectorKeys}=await import(pathToFileURL(path.join(packageRoot,'build/code/src/abg/runtime_history.js')).href);
   const overrides={
-    './event_prefix.js':{runtimeEventsFromValidatedPrefix:p=>p.events,selectValidatedRuntimeEventPrefix:rows=>({events:rows})},
+    './event_prefix.js':{runtimeEventsFromValidatedPrefix:p=>p.events,selectValidatedRuntimeEventPrefix:rows=>({events:rows}),
+      runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),
+      indexedRuntimeEvents:(p,key)=>p.events.filter(e=>runtimeHistorySelectorKeys(e).includes(key)),
+      checkedRecordAtPrefix:(_p,_reader,_context,acquire)=>acquire(),
+      runtimeEventPrefixExtent:p=>({count:p.events.length,lastOrdinal:p.events.at(-1)?.admissionOrdinal??0})},
+    // Cross-binding invalidation is the shared native worksite-observation
+    // dependency reader: a later write under the admitted root touching the
+    // subject's path invalidates its older alias. Over the lookup rows the
+    // writes are the C0 outcome lookups of the transitions table, under the
+    // one admitted root of the retained task.
+    './native_worksite_execution.js':{worksiteCommandSourcesInvalidatedAfter:(p,afterOrdinal,canonicalRoot,selectedPaths)=>
+      canonicalRoot===old.workspaceAuthorityBasis.canonicalRoot&&p.events.some(e=>e.admissionOrdinal>afterOrdinal&&transitions.has(e.eventId)&&
+        selectedPaths.includes(bases.get(e.basisId)?.rawInputValue?.subject?.relativePath))},
     './artifact_truth.js':{projectArtifactTruth:p=>({artifacts:artifacts.filter(a=>present(p,a.admissionEventRef))})},
     './invocation_execution_truth.js':{projectExactExecutionBasisAtPrefix:(p,ref)=>{const b=bases.get(ref);return b&&present(p,b.admissionEventRef)?b:null;},
       projectExactInvocationAdmissionAtPrefix:(_p,ref)=>invocations.get(ref)??null},
-    './event_calculus.js':{deriveRuntimeEventCalculusProjection:p=>p,constructWorksiteObservationCurrentFluent:ref=>ref,
+    './event_calculus.js':{deriveRuntimeHeldFluentProjection:p=>p,constructWorksiteObservationCurrentFluent:ref=>ref,
       holdsAt:(p,ref)=>!p.events.some(e=>transitions.get(e.eventId)?.before===ref),
       projectWorksiteTransitionForResult:e=>{transitionReads++;return transitions.get(e.eventId)??null;}},
   };

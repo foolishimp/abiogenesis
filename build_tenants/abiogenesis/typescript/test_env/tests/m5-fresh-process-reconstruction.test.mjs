@@ -16,26 +16,31 @@ test("M5 exact catalog basis and retained runtime truth reconstruct equally in t
     abg,
     product,
     executionBasis,
+    durablePrefix,
     installedRoot,
     store,
-    verified,
-    installCandidate,
+    verifiedProducts,
+    catalogInstalledProducts,
     lock,
     bindingCandidate,
-    publication,
+    publications,
   } = environment;
-  const opened = abg.openCall(store, executionBasis, {
+  // The root Run opens through the one traversal-scope owner (openCall was
+  // folded into openTraversalScope at 415b58dc8).
+  const opened = abg.openTraversalScope(store, durablePrefix, { kind: "root", executionBasis }, {
     eventTime: "2026-08-05T00:00:00.000Z",
     correlationId: "correlation://t287/fresh-process/open",
     causationEventRefs: [],
   });
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
   const readinessBasis = {
     workspaceBinding: bindingCandidate,
     resolvedLock: lock,
-    verifiedProducts: [verified],
-    installedProducts: [installCandidate],
-    publications: [publication],
+    // Every Product of the exact resolved lock (the root setup installs the
+    // language fixture beside ABI), as the environment's own catalog reads them.
+    verifiedProducts,
+    installedProducts: catalogInstalledProducts,
+    publications,
   };
   const retainedCatalog = product.admitGraphFunctionCatalog(readinessBasis);
   assert.equal(

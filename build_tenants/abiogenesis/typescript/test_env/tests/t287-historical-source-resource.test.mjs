@@ -17,8 +17,18 @@ import {projectExactExecutionBasisAtPrefix} from '../../build/code/src/abg/invoc
 import {GraphCallProjectionPort} from '../../build/code/src/abg/project_read_ports.js';
 import {sha256Canonical as hash} from '../../build/code/src/shared/digests.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
+import {evidenceInput} from '../support/evidence-root.mjs';
 const root=resolve(import.meta.dirname,'../..');
 const evidenceRoot=process.env.ABI5_HISTORICAL_SOURCE_EVIDENCE;
+// The retained D2 store and its program-ready record are historical evidence
+// under the evidence root (T-290 C-5), named by path, digest and bytes; without
+// the root the cases over them skip with the reason. The store was appended
+// after this fixture's capture: the fixture is its first 846 lines, 13,540,472
+// bytes, sha256 4f561cea….
+const D2='comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01/';
+const logInput=evidenceInput({path:D2+'events-01/runtime.events.jsonl',sha256:'f841bba98385cb572a944edf1793634fcf10baf59a74331110042bcb200f8e82',bytes:19058361});
+const readyInput=evidenceInput({path:D2+'attempt-01/program-ready-16.json',sha256:'2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02',bytes:12781893});
+const skip=[logInput,readyInput].find(input=>input.kind==='absent')?.reason??false;
 const byteHash=bytes=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
 async function sourceOwner(relative,names=[],overrides={}){
  const source=join(root,'code/src',relative+'.ts'),file=join(root,'build/code/src',relative+'.js');
@@ -35,10 +45,8 @@ async function sourceOwner(relative,names=[],overrides={}){
 }
 
 async function fixture(t){
- const fixtureRoot=resolve(root,'../../../.ai-workspace/comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-09/installed-frame-01');
- const fd=fs.openSync(join(fixtureRoot,'events-01/runtime.events.jsonl'),'r'),bytes=Buffer.alloc(13540472);
- try{assert.equal(fs.readSync(fd,bytes,0,bytes.length,0),bytes.length);}finally{fs.closeSync(fd);}
- const readyBytes=fs.readFileSync(join(fixtureRoot,'attempt-01/program-ready-16.json'));
+ const bytes=Buffer.from(logInput.bytes.subarray(0,13540472));
+ const readyBytes=readyInput.bytes;
  assert.equal(byteHash(bytes),'sha256:4f561ceacf40fd13db82132d93890cb67750453dfa81a75c0401f04bd9345649');
  assert.equal(byteHash(readyBytes),'sha256:2147862a16f8526d546ca918563b8d8b8094e684d8f629784b256e4803d3fc02');
  const ready=JSON.parse(readyBytes),rows=bytes.toString().trimEnd().split('\n').map(JSON.parse);
@@ -61,7 +69,7 @@ async function fixture(t){
  return {bytes,readyBytes,rows,opened,prefix,resource,ancestor,terminal,publication,eventLogPath};
 }
 
-test('actual R10 ancestry, declaration and leaf proof owners return borrowed historical facts; same live resource resolves once and cold copies reconstruct',async t=>{
+test('actual R10 ancestry, declaration and leaf proof owners return borrowed historical facts; same live resource resolves once and cold copies reconstruct',{skip},async t=>{
  const f=await fixture(t),counts={catalog:0};
  const r10=await sourceOwner('abg/project_read_ports',[],{'../product/declaration_closure.js':{
   reconstructHistoricalDeclarationCatalog:(...args)=>{counts.catalog++;return declarations.reconstructHistoricalDeclarationCatalog(...args);},

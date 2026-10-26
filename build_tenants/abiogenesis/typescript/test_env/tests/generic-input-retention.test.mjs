@@ -9,7 +9,9 @@ import * as gtl from '../../build/code/src/gtl/index.js';
 import {rawAdmitValue} from '../../build/code/src/validator/index.js';
 import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
 import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
+import * as value from '../../build/code/src/shared/value/index.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
+import {RuntimeEventBodyView,runtimeHistorySelectorKeys} from '../../build/code/src/abg/runtime_history.js';
 const hash=p.sha256Canonical, version='5.0.0';
 const E={contractRef:'contract://retention/entry',contractVersion:version,contractKind:'input',valueKind:'job_entry'};
 const S={contractRef:'contract://retention/source',contractVersion:version,contractKind:'output',valueKind:'job_execution'};
@@ -49,7 +51,8 @@ export function fixture(origin="entry"){
  if(origin==='resume')sourceOrigin.basisId='continuation://basis';
  rows.splice(1,0,sourceOrigin);
  const body={cCallRef:'call://source',evidenceClass:'sub_traversal',inputDigest:child.rawInputDigest,outputDigest:hash(output),
-  foldbackEventRef:'event://fold',foldbackRef:'foldback://source',foldbackDigest:hash('foldback'),childExecutionBasisRef:child.basisRef,childExecutionBasisDigest:child.basisDigest};
+  foldbackEventRef:'event://fold',foldbackRef:'foldback://source',foldbackDigest:hash('foldback'),childExecutionBasisRef:child.basisRef,childExecutionBasisDigest:child.basisDigest,
+  childOutputDigest:hash(output)};
  const evidenceDigest=hash(body),evidenceRef=`evidence://abiogenesis/${evidenceDigest.slice(7)}`;
  rows.splice(rows.findIndex(e=>e.eventId==='event://result'),0,event('c_call_evidenced','event://evidence',{...body,evidenceDigest,evidenceRef},scope,['event://fold']));
  rows.find(e=>e.eventId==='event://result').payload.evidenceRefs=[evidenceRef];
@@ -82,9 +85,11 @@ test('finite installed declaration equation, raw round trip and old tuples',()=>
 test('real warm derivation and serialized cold projector agree; crossed/missing/duplicate lineage refuses',async()=>{
  const f=fixture(),lookup={projectExactExecutionBasisAtPrefix:(v,ref)=>ref===v.basis.basisRef?v.basis:ref===v.child.basisRef?v.child:null,
   projectExactInvocationAdmissionAtPrefix:()=>({inputContractRef:E.contractRef})};
- const runtime={runtimeEventsFromValidatedPrefix:x=>x.rows,
-  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>key==='id:'+event.eventId || key==='graph-call:'+event.graphCallId || key==='related:'+event.aggregateId ||
-   key==='cursor-origin:'+(event.kind==='traversal_cursor_entered'?event.payload.cursorRef:event.kind==='traversal_route_admitted'?event.payload.targetCursorRef:event.kind==='fh_interaction_resume_admitted'?event.payload.successorCursorRef:undefined)),
+ // The owners read the premise rows through the runtime-history body view.
+ const runtime={runtimeEventBodiesAtPrefix:x=>new RuntimeEventBodyView(x.rows),
+  checkedRecordAtPrefix:(_prefix,_reader,_context,acquire)=>acquire(),
+  // The selector index is the real selector-key vocabulary over the rows.
+  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>runtimeHistorySelectorKeys(event).includes(key)),
   runtimePrefixComputation:(_prefix,_owner,construct)=>construct()};
  const warm=await owner('abg/traversal_route.js',{'./event_prefix.js':runtime,'./execution_basis.js':{hasAdmittedExecutionBasisAtPrefix:()=>true,rehydrateExecutionBasisAtPrefix:lookup.projectExactExecutionBasisAtPrefix},
   './traversal_cursor.js':{hasAdmittedTraversalCursorAtPrefix:()=>true},'./c_call.js':{projectAdmittedCCallOutcomeAtPrefix:()=>({})},'../gtl/source_path.js':{deriveCSourceContinuation:()=>({relation:'graph_edge'})}});
@@ -129,35 +134,40 @@ test('real warm derivation and serialized cold projector agree; crossed/missing/
  }
  const routeBody=projectTraversalRouteBody(f.route.payload);assert(!('retentionBinding' in routeBody));assert.deepEqual(routeBody.boundInput,f.input);
 });
-test('indexed immutable route membership avoids serialization and preserves detached-copy provenance',async t=>{
+test('indexed immutable route membership avoids whole-route comparison and preserves detached-copy provenance',async t=>{
  const f=deepFreeze(fixture()),lookup={projectExactExecutionBasisAtPrefix:(v,ref)=>ref===v.basis.basisRef?v.basis:ref===v.child.basisRef?v.child:null,
   projectExactInvocationAdmissionAtPrefix:()=>({inputContractRef:E.contractRef})};
- const runtime={runtimeEventsFromValidatedPrefix:x=>x.rows,
-  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>key==='id:'+event.eventId || key==='graph-call:'+event.graphCallId || key==='related:'+event.aggregateId ||
-   key==='cursor-origin:'+(event.kind==='traversal_cursor_entered'?event.payload.cursorRef:event.kind==='traversal_route_admitted'?event.payload.targetCursorRef:event.kind==='fh_interaction_resume_admitted'?event.payload.successorCursorRef:undefined))};
+ // The owners read the premise rows through the runtime-history body view.
+ const runtime={runtimeEventBodiesAtPrefix:x=>new RuntimeEventBodyView(x.rows),
+  checkedRecordAtPrefix:(_prefix,_reader,_context,acquire)=>acquire(),
+  // The selector index is the real selector-key vocabulary over the rows.
+  indexedRuntimeEvents:(x,key)=>x.rows.filter(event=>runtimeHistorySelectorKeys(event).includes(key))};
  const cursors=await owner('abg/traversal_cursor.js',{'./event_prefix.js':runtime});
  const calls=await owner('abg/c_call.js',{'./event_prefix.js':runtime,'./traversal_cursor.js':cursors});
- let wholeRouteSerializations=0;
+ // The owner compares a detached route through canonicalEquals, which writes
+ // both events in full; a comparison naming the route is the counted cost.
+ let wholeRouteComparisons=0;
+ const isRoute=event=>event?.kind==='traversal_route_admitted'&&event.eventId===f.route.eventId;
  const cold=await owner('abg/worksite_input_provenance.js',{'./event_prefix.js':runtime,'./invocation_execution_truth.js':lookup,
-  './traversal_cursor.js':cursors,'./c_call.js':calls,'../shared/canonical_json.js':{canonicalJson:value=>{
-   if(value?.kind==='traversal_route_admitted'&&value.eventId===f.route.eventId)wholeRouteSerializations++;
-   return canonicalJson(value);
+  './traversal_cursor.js':cursors,'./c_call.js':calls,'../shared/value/index.js':{canonicalEquals:(left,right)=>{
+   if(isRoute(left)||isRoute(right))wholeRouteComparisons++;
+   return value.canonicalEquals(left,right);
   }}});
  const indexed=cold.projectRetainedWorksiteInputAtPrefix(f,f.route);
- assert.deepEqual(indexed?.input,f.input);assert.equal(wholeRouteSerializations,0);
+ assert.deepEqual(indexed?.input,f.input);assert.equal(wholeRouteComparisons,0);
  const copied=structuredClone(f.route);
  assert.deepEqual(cold.projectRetainedWorksiteInputAtPrefix(f,copied),indexed);
- assert.equal(wholeRouteSerializations,2,'detached equal copy retains exact whole-event comparison');
+ assert.equal(wholeRouteComparisons,1,'detached equal copy retains exact whole-event comparison');
  copied.payload.boundInput.value.source.result='altered';
  assert.equal(cold.projectRetainedWorksiteInputAtPrefix(f,copied),null);
- assert.equal(wholeRouteSerializations,4,'altered detached route still compares and refuses');
+ assert.equal(wholeRouteComparisons,2,'altered detached route still compares and refuses');
  const missing={...f,rows:f.rows.filter(row=>row!==f.route)};
  assert.equal(cold.projectRetainedWorksiteInputAtPrefix(missing,f.route),null);
- assert.equal(wholeRouteSerializations,4,'identity outside the selected prefix supplies no membership');
+ assert.equal(wholeRouteComparisons,2,'identity outside the selected prefix supplies no membership');
  const crossed=structuredClone(f);crossed.child.invocationRef='invocation://crossed';
  assert.equal(cold.projectRetainedWorksiteInputAtPrefix(crossed,crossed.route),null,'identity does not waive source lineage');
- assert.equal(wholeRouteSerializations,4);
- t.diagnostic(JSON.stringify({sameObjectWholeRouteSerializations:0,equalDetachedWholeRouteSerializations:2,
+ assert.equal(wholeRouteComparisons,2);
+ t.diagnostic(JSON.stringify({sameObjectWholeRouteComparisons:0,equalDetachedWholeRouteComparisons:1,
   routeBytes:Buffer.byteLength(canonicalJson(f.route)),scope:'Existing component admission premises; no history acquisition or OOM-cure claim.'}));
 });
 

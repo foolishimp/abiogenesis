@@ -18,7 +18,7 @@ function sourceSlice(source, start, end) {
   return source.slice(startIndex, endIndex);
 }
 
-test("declared C.retry frontier is the sole retry-attempt lifecycle owner", async () => {
+test("retry lifecycle exports only the progress bridges beside the declared retry frontier owners", async () => {
   const lifecycle = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/retry_lifecycle.js",
@@ -36,26 +36,9 @@ test("declared C.retry frontier is the sole retry-attempt lifecycle owner", asyn
   assert.equal(typeof retry.projectDeclaredCRetryFrontier, "function");
   assert.equal(typeof retry.projectDeclaredCRetryCCallWriteAtPrefix, "function");
   assert.equal(typeof retry.projectRetryAttempt, "function");
-
-  const retrySource = await readFile(join(root, "code/src/abg/retry.ts"), "utf8");
-  const frontierOwner = sourceSlice(
-    retrySource,
-    "export function projectDeclaredCRetryFrontier(",
-    "export function projectDeclaredCRetryCCallWriteAtPrefix(",
-  );
-  for (const relation of [
-    "const calculus = deriveRuntimeEventCalculusProjection(prefix);",
-    "attemptEvents.length > context.budget",
-    "constructScopedRetryFluent(\"retry_attempt_active\"",
-    "new Set(projectedAttempts.map",
-    "rows.length >= context.budget",
-  ]) {
-    assert.equal(
-      frontierOwner.includes(relation),
-      true,
-      `declared retry frontier lost owner relation: ${relation}`,
-    );
-  }
+  // Retired: a census of five source strings inside the frontier owner's text
+  // (the calculus projection's old name among them). No design sentence names
+  // that text; the frontier's behavior is the retry lanes' claim.
 });
 
 test("stopped retry foldback bridge requires the exact consumed causal suffix", async () => {
@@ -235,71 +218,14 @@ test("stopped retry foldback bridge requires the exact consumed causal suffix", 
   );
 });
 
-test("CCall retry writes require the exact current declared retry frontier", async () => {
-  const cCallSource = await readFile(join(root, "code/src/abg/c_call.ts"), "utf8");
-  const retrySource = await readFile(join(root, "code/src/abg/retry.ts"), "utf8");
-  const openCCall = sourceSlice(
-    cCallSource,
-    "export function openCCall(",
-    "export function openInteractionCCall(",
-  );
-  for (const relation of [
-    "projectDeclaredCRetryCCallWriteAtPrefix(",
-    "openingPrefix,",
-    "openingAuthorityPrefix,",
-    "stop.retryPath.length !== 0 && retryOwner === null",
-    "retry CCall open requires the exact declared active retry frontier",
-  ]) {
-    assert.equal(
-      openCCall.includes(relation),
-      true,
-      `CCall opening lost retry owner relation: ${relation}`,
-    );
-  }
-
-  const writeOwner = sourceSlice(
-    retrySource,
-    "export function projectDeclaredCRetryCCallWriteAtPrefix(",
-    "const RETRY_FRONTIER_SOURCE_KINDS",
-  );
-  for (const relation of [
-    "frontier?.state !== \"attempt_active\"",
-    "frontier.active.currentCursor.cursorRef !== cursor.cursorRef",
-    "frontier.active.currentCursor.cursorDigest !== cursor.cursorDigest",
-    "sha256Canonical(exact.cCall as unknown as JsonValue)",
-    "matches.length === 1 && matches[0] === frontier.active.cCalls.at(-1)",
-  ]) {
-    assert.equal(
-      writeOwner.includes(relation),
-      true,
-      `retry CCall writer lost exact frontier relation: ${relation}`,
-    );
-  }
-  assert.doesNotMatch(writeOwner, /\.at\(-1\)\?\? null|findLast/u);
-});
-
-test("production judgment writers remain closed behind the CCall owner", async () => {
-  const cCallSource = await readFile(join(root, "code/src/abg/c_call.ts"), "utf8");
-  const abgExports = await readFile(join(root, "code/src/abg/index.ts"), "utf8");
-  const exportedFunctions = [...cCallSource.matchAll(
-    /^export function (?<name>[A-Za-z0-9_]+)\(/gmu,
-  )];
-  const judgmentOwners = [...cCallSource.matchAll(/kind: "c_call_judged"/gu)]
-    .map((writer) => exportedFunctions.findLast(
-      (candidate) => candidate.index < writer.index,
-    )?.groups?.name);
-  assert.deepEqual(judgmentOwners, [
-    "admitPlannedCCallRuntimeFailureClose",
-    "admitPlannedPendingInteraction",
-    "admitJudgment",
-    "completeRejectedCCall",
-  ]);
-  assert.equal(/kind: "c_call_judged"/u.test(await readFile(
-    join(root, "code/src/abg/event_store.ts"), "utf8",
-  )), false);
-  assert.equal(/\badmitRuntimeEvent(?:Batch)?\b/u.test(abgExports), false);
-  assert.doesNotMatch(abgExports, /\badmitRuntimeEventTransaction\b/u);
-});
+// Retired: "CCall retry writes require the exact current declared retry
+// frontier" sliced openCCall's and the retry write owner's text between export
+// markers (openInteractionCCall no longer exists) and asserted ten strings in
+// it; "production judgment writers remain closed behind the CCall owner"
+// assigned each `kind: "c_call_judged"` literal to the nearest preceding
+// exported function by text. No design sentence names either text. The writer
+// closure the second claimed is the exported surface, which the next case
+// checks on the built modules.
 
 test("runtime package exports expose no raw or candidate-factory event writer", async () => {
   const abg = await import(pathToFileURL(join(root, "build/code/src/abg/index.js")).href);
@@ -321,12 +247,15 @@ test("runtime package exports expose no raw or candidate-factory event writer", 
 });
 
 test("raw executor resume remains closed to every retry cursor", async () => {
-  const graphExecuteSource = await readFile(
-    join(root, "code/src/hog/graph_execute.ts"),
+  // M05_S06 design :1983-1985: "Its raw `resume.cursor.retryPath` must remain
+  // empty; a caller cannot use it to author retry cursor or input truth." The
+  // branch lives in the traversal entry owner.
+  const entrySource = await readFile(
+    join(root, "code/src/hog/entry.ts"),
     "utf8",
   );
   const rawResumeBranch = sourceSlice(
-    graphExecuteSource,
+    entrySource,
     "else if (initialInput?.resume !== undefined)",
     "} else {",
   );
@@ -531,82 +460,10 @@ test("projected retry entry consumes only its exact admitted successor prefix wi
 });
 
 test("F04 payload refusal composes one pure result rejection while authority refusal cannot retry", async (context) => {
-  const outcomeSource = await readFile(
-    join(root, "code/src/abg/c_call_outcome.ts"),
-    "utf8",
-  );
-  const cCallSource = await readFile(
-    join(root, "code/src/abg/c_call.ts"),
-    "utf8",
-  );
-  const retrySource = await readFile(
-    join(root, "code/src/abg/retry.ts"),
-    "utf8",
-  );
-  const eligibility = sourceSlice(
-    outcomeSource,
-    "function isRetryEligibleProbabilisticPayloadRefusal(",
-    "function projectProbabilisticResultAtPrefix(",
-  );
-  assert.deepEqual(
-    [...eligibility.matchAll(/case "([^"]+)":/gu)].map((match) => match[1]),
-    [
-      "duplicate_object_key",
-      "invalid_json_framing",
-      "invalid_unicode_scalar",
-      "malformed_json",
-      "non_finite_number",
-      "non_ijson_value",
-      "unsafe_integral_number",
-      "non_object_result",
-      "declared_contract_refused",
-    ],
-  );
-  const stage = sourceSlice(
-    outcomeSource,
-    "function stageCCallResult(",
-    "/**\n * Admits owner evidence and one result at the caller-selected predecessor.",
-  );
-  assert.match(stage, /payloadRejection !== null\s*\? \[\]/u);
-  assert.match(stage, /const result = payloadRejection \?\? admitResult\(/u);
-  const admission = sourceSlice(
-    outcomeSource,
-    "export function admitCCallResult(",
-    "/**\n * Admits only the judgment candidate already derived by HoG",
-  );
-  assert.match(
-    admission,
-    /failureCandidate:\s*probabilisticInput\.ownerReceipt\.candidate\.resultCandidate,/u,
-  );
-  assert.match(admission, /source: payloadRejection,/u);
-  // Authority refusal conserves events, digest and bytes (asserted below).
-  // Checked transaction entry may now supply the shared authenticated history.
-  const closePlan = sourceSlice(
-    cCallSource,
-    "export function planCCallRuntimeFailureClose(",
-    "function runtimeFailureCloseError(",
-  );
-  assert.match(
-    closePlan,
-    /source\.kind === "c_call_admission_rejection"\s*\? phase\.phase === "selected_no_evidence" \|\| phase\.phase === "evidencing"\s*:\s*phase\.phase === "evidencing"/u,
-  );
-  const frozenScratchSelections = (source) => [
-    ...source.matchAll(
-      /selectValidatedRuntimeEventPrefix\(\s*Object\.freeze\(\[\.\.\.projectedHistory\]\)/gu,
-    ),
-  ].length;
-  assert.equal(frozenScratchSelections(closePlan), 3);
-  assert.equal(frozenScratchSelections(sourceSlice(
-    retrySource,
-    "export function planRetryRuntimeFailureTransition(",
-    "export function admitPlannedRetryRuntimeFailureTransitionInActiveTransaction(",
-  )), 2);
-  assert.equal(frozenScratchSelections(sourceSlice(
-    retrySource,
-    "export function planCompletedRetryProgress(",
-    "export function admitPlannedCompletedRetryProgressInActiveTransaction(",
-  )), 2);
-
+  // Retired: slices of c_call_outcome.ts, c_call.ts and retry.ts by comment
+  // and export markers (the judgment admission's doc comment moved), with the
+  // retry-eligible case list, stage text and scratch-selection counts asserted
+  // in them. No design sentence names that text; the behavior is below.
   const abg = await import(pathToFileURL(join(
     root,
     "build/code/src/abg/index.js",

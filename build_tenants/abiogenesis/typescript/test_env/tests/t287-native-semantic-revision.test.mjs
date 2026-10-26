@@ -12,6 +12,7 @@ const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirn
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
  'product/native_workspace_work','product/worksite_operations','product/worksite_effect','abg/native_worksite_execution','abg/event_prefix','shared/immutable'].map(load));
+const {RuntimeEventBodyView}=await load('abg/runtime_history');
 const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
 const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
  artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
@@ -99,13 +100,19 @@ async function harness(env, options={}){
  const lookup=(_prefix,c)=>{options.onLeafLookup?.(c.cCallRef);const state=states.get(c.cCallRef);return state&&hash(coordinate(state))===hash(c)?state:null;};
  const selected=(_basis,impl,value)=>{const rows=[...states.values()].filter(s=>s.result.resultClass==='success'&&s.judgment.judgment==='advance'&&s.cCall.implementationRef===impl&&hash(s.result.value)===hash(value)&&bases.get(s.cCall.basisId)?.invocationAdmissionRef===current.execution.invocationAdmissionRef);
   return rows.length===1?{previous:rows[0],execution:bases.get(rows[0].cCall.basisId),event:events.find(e=>e.eventId===rows[0].result.admissionEventRef)}:null;};
- const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>bases.get(ref)??null};
+ // The revision intake authenticates through the owned assembly authenticator
+ // (`authenticateOwnedNativeInstructionAssemblyBasis`) and scans the prefix
+ // through the body view; both are the same component premises.
+ const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,authenticateOwnedNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>bases.get(ref)??null};
  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[options.current?.capabilityGrant??env.capabilityGrant]})};
- const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,
+ // The job and revision owners read the component prefix through the same
+ // prefix premises.
+ const prefixOverrides={selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)};
+ const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
   '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
-  './event_prefix.js':{selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)},'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
+  './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});

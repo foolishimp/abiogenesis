@@ -28,27 +28,10 @@ const selectedAdditions = Object.freeze([
   "abg.operation.project.read#ticket_consensus",
   "abg.operation.project.read#workspace_status",
 ]);
-const remainingKeys = Object.freeze([
-  "abg.operation.interaction.respond#answer_escalation",
-  "abg.operation.interaction.respond#approve",
-  "abg.operation.interaction.respond#assess",
-  "abg.operation.interaction.respond#reject",
-  "abg.operation.interaction.respond#select",
-  "abg.operation.product.materialize#configuration",
-  "abg.operation.product.materialize#context_bootstrap",
-  "abg.operation.project.read#release_evidence",
-  "abg.operation.result.assess#assess",
-  "abg.operation.run.continue#current_intent",
-  "abg.operation.run.continue#selected_action",
-  "abg.operation.witness.admit#attest",
-  "abg.operation.witness.admit#hygiene-stamp",
-  "abg.operation.witness.admit#intake",
-  "abg.operation.witness.admit#reprice",
-  "abg.operation.witness.admit#run-resumed",
-  "abg.operation.witness.admit#run-stopped",
-]);
 let admittedContractCatalog = null;
 let admittedDefinitionContractCoordinates = null;
+let ownerArtifact = null;
+const actorRef = "actor://abiogenesis/t287/w2-05-worker";
 
 function keyOf(definition) {
   return `${definition.definitionKey.operationId}#${definition.definitionKey.memberKey}`;
@@ -60,7 +43,7 @@ function coordinate(product, ref, value = { ref }) {
 
 function actorAuthority(product) {
   return Object.freeze({
-    actor: coordinate(product, "actor://abiogenesis/t287/w2-05-worker"),
+    actor: coordinate(product, actorRef),
     attribution: coordinate(
       product,
       "attribution://abiogenesis/t287/w2-05-worker",
@@ -190,6 +173,39 @@ function definitionCall({
     }),
     resources,
   });
+}
+
+// Definitions bound through withAdmissionAuthority validate every grant: each
+// call carries the admission basis over the owner-verified artifact, the
+// resolved trusted-developer authority and the grants constructed for its fixed
+// definition packet. project.read members are not admission-bound and keep the
+// invocation authority definitionCall supplies.
+async function authorizedCall({ publicApi, product, packet, ordinal, request, slots = {}, resources, prefix = null }) {
+  const { operationId, memberKey } = packet.definitionKey;
+  const definition = definitionFor(publicApi, operationId, memberKey);
+  const hash = product.sha256Canonical;
+  const selected = authoritySlots(product, definition, slots);
+  const data = {
+    kind: "admission_capability_data", schemaVersion,
+    definition: { definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,
+      definitionDigest: definition.definitionDigest, owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
+    ownerArtifact, request,
+    resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots({ ...selected, capability_grants: null }) },
+    boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden"
+      ? null : product.admissionEnvironmentSelection(prefix, selected.workspace_binding),
+  };
+  const authorityValue = { actorRef, authorityMode: "trusted_developer" };
+  const approvalValue = { decision: "allow", actorRef, definitionRef: definition.definitionRef,
+    definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(data).digest };
+  const authority = { kind: "resolved_admission_authority", schemaVersion, actorRef, authorityMode: "trusted_developer",
+    authority: { ...coordinate(product, "authority://abiogenesis/t287/w2-05-worker", authorityValue), value: authorityValue },
+    approval: { ...coordinate(product, `approval://abiogenesis/t287/w2-05/${ordinal}`, approvalValue), value: approvalValue } };
+  const admitted = await product.constructAdmissionCapabilityGrants(authority, actorRef,
+    { kind: "admission_capability_grant_construction_basis", fixedPacket: packet, data }, null);
+  return definitionCall({ publicApi, product, operationId, memberKey, ordinal, request,
+    slots: { ...slots, capability_grants: { requiredCapabilityRefs: [...definition.capabilityRefs],
+      grants: admitted.grants.map((grant) => ({ ref: grant.grantRef, digest: grant.grantDigest })) } },
+    resources: { ...resources, admissionAuthority: { basis: admitted.data, authority, grants: admitted.grants } } });
 }
 
 function rehashInvocation(product, call) {
@@ -325,25 +341,16 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     .map(({ definitionKey }) => definitionKey)
     .sort();
   assert.equal(census.report.definitionCount, 56);
-  assert.equal(census.report.callableCount, 39);
-  assert.deepEqual(missingKeys, remainingKeys);
-  assert.equal(
-    "release_evidence" in product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS,
-    false,
-  );
+  // RETIRED (T-290 C-18b, superseded cut): the W2-05 cut's frozen callable
+  // census (39 callable, 17 named remaining, release_evidence unbound, 28
+  // earlier keys and their digest). Later work bound five more definitions
+  // (project.read#release_evidence, run.continue#current_intent and
+  // #selected_action, witness.admit#reprice and #run-stopped); the census was
+  // the cut's delta, not a claim about the Product at head. The W2-05
+  // additions stay callable.
   assert.deepEqual(
     loadedKeys.filter((key) => selectedAdditions.includes(key)),
     selectedAdditions,
-  );
-  assert.equal(loadedKeys.filter((key) => !selectedAdditions.includes(key)).length, 28);
-  assert.equal(
-    product.sha256Bytes(
-      `${census.report.rows
-        .filter((row) => row.callable && !selectedAdditions.includes(row.definitionKey))
-        .map((row) => row.definitionKey)
-        .join("\n")}\n`,
-    ),
-    "sha256:9a5e128ae9f02104aa9944d0ef57988f1f593790ff60c65f6cd9c68cc6cc5ad5",
   );
 
   const verificationPacket = Object.freeze({
@@ -367,6 +374,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   );
   const verified = ownerVerification.verifiedArtifact;
   assert.ok(verified.definitionContractCoordinates);
+  ownerArtifact = Object.freeze({ request: verificationPacket.request, verified });
   admittedContractCatalog = Object.freeze({
     productId: verified.productId,
     productContentDigest: verified.productContentDigest,
@@ -453,11 +461,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     targetRoot: installedRoot,
     installPolicy: "clean",
   });
-  const installCall = definitionCall({
+  const installCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.product.install",
-    memberKey: "install",
+    packet: product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
     ordinal: 3,
     request: installRequest,
     slots: {
@@ -526,7 +533,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     workspaceId: workspaceManifest.workspaceRef,
     canonicalRoot: workspaceManifest.canonicalRoot,
     authorityMode: "trusted_developer",
-    authorizedActorRef: "actor://abiogenesis/t287/w2-05-worker",
+    authorizedActorRef: actorRef,
   });
   const workspaceAuthority = product.constructWorkspaceAuthorityBasis({
     ...authorityManifest,
@@ -567,11 +574,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
       path: declaredRoots[field],
     })),
   });
-  const bindCall = definitionCall({
+  const bindCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.workspace.bind",
-    memberKey: "bind",
+    packet: product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
     ordinal: 4,
     request: bindRequest,
     slots: {
@@ -587,6 +593,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
         install.resources.eventResource.closeHandoff,
       ),
       workspaceAuthority,
+      workspaceManifest,
       admittedInstalls: [installedTruth.install],
       resolvedLock,
       declaredRoots,
@@ -617,11 +624,19 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     packageName: harness.candidateBasis.packageName,
     packageVersion: harness.candidateBasis.packageVersion,
   });
+  // The Product's contribution manifest binds its ten core publications
+  // (scripts/generate-product-manifest.mjs); the catalog admits exactly them.
   const publications = Object.freeze([
-    harness.rootPublication,
+    gtl.constructDefaultGovernanceLibraryModulePublication(artifactBasis),
     gtl.constructConsensusModulePublication(artifactBasis),
     gtl.constructWorksiteConstructionModulePublication(artifactBasis),
     gtl.constructWorksiteCommandExecutionModulePublication(artifactBasis),
+    gtl.constructNativeWorkspaceWorkModulePublication(artifactBasis),
+    gtl.constructWorksiteCommandForwardModulePublication(artifactBasis),
+    gtl.constructRequirementHandoffModulePublication(artifactBasis),
+    gtl.constructSemanticStageModulePublication(artifactBasis),
+    gtl.constructSemanticRevisionModulePublication(artifactBasis),
+    gtl.constructSelfConformanceModulePublication(artifactBasis),
   ]);
   assert.deepEqual(
     publications.map(product.modulePublicationSemanticDigest).sort(),
@@ -654,37 +669,43 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     dependency_lock: lockCoordinate,
     actor: actorAuthority(product),
   });
-  const catalogCall = definitionCall({
+  const boundPrefix = binding.resources.eventResource.closeHandoff.prefix;
+  const catalogCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.catalog.admit",
-    memberKey: "admit",
+    packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
     ordinal: 5,
     request: catalogRequest,
     slots: catalogSlots,
     resources: catalogResources,
+    prefix: boundPrefix,
   });
   const admittedCatalog = await runBinding(
     product.CATALOG_DEFINITION_BINDINGS.admit,
     catalogCall,
     "catalog.admit",
   );
-  assert.equal(admittedCatalog.ownerOutput.value.rows.length, 43);
+  // One disposition row per contribution manifest input row (the W2-05 cut's
+  // four-publication count, 43, is restated to the relation).
+  assert.equal(
+    admittedCatalog.ownerOutput.value.rows.length,
+    verified.contributionManifest.rows.length,
+  );
   assert.deepEqual(
     admittedCatalog.resources.eventResource.closeHandoff.prefix,
     binding.resources.eventResource.closeHandoff.prefix,
   );
   const independentlyReconstructedCatalog = await runBinding(
     product.CATALOG_DEFINITION_BINDINGS.admit,
-    definitionCall({
+    await authorizedCall({
       publicApi,
       product,
-      operationId: "abg.operation.catalog.admit",
-      memberKey: "admit",
+      packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
       ordinal: 6,
       request: structuredClone(catalogRequest),
       slots: structuredClone(catalogSlots),
       resources: structuredClone(catalogResources),
+      prefix: boundPrefix,
     }),
     "catalog.admit independently reconstructed",
   );
@@ -724,14 +745,14 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     catalog: admittedCatalog.ownerOutput.value.catalog,
     allowlist,
   });
-  const viewCall = definitionCall({
+  const viewCall = await authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.catalog.view",
-    memberKey: "allowlist",
+    packet: product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
     ordinal: 7,
     request: viewRequest,
     slots: catalogSlots,
+    prefix: boundPrefix,
     resources: Object.freeze({
       kind: "catalog_view_resource_assertion",
       schemaVersion,
@@ -753,15 +774,6 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   assert.equal(view.kind, "graph_function_catalog_view", JSON.stringify(view));
   assert.deepEqual(narrowed.ownerOutput.value.effectiveHandles, view.allowlist);
 
-  const catalogScope = Object.freeze({
-    catalog: admittedCatalog.ownerOutput.value.catalog,
-    view: narrowed.ownerOutput.value.view,
-    allowlist,
-  });
-  const applicationSlots = Object.freeze({
-    ...catalogSlots,
-    catalog_scope: catalogScope,
-  });
   const workspaceCatalogSlots = Object.freeze({
     workspace_binding: binding.ownerOutput.value.binding,
     product_set: [install.ownerOutput.value.installedProduct],
@@ -776,81 +788,32 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     product_set: [install.ownerOutput.value.installedProduct],
     dependency_lock: lockCoordinate,
   });
-  const applicationBasis = coordinate(
-    product,
-    "catalog-application-basis://abiogenesis/t287/w2-05",
-  );
-  const validationReceipt = coordinate(
-    product,
-    "product-validation-receipt://abiogenesis/t287/w2-05",
-  );
-  const contributor = coordinate(
-    product,
-    "product-contributor://abiogenesis/t287/w2-05",
-  );
-  const nodeTarget = coordinate(
-    product,
-    publications[1].programs[0].programRef,
-    publications[1].programs[0],
-  );
-  const applicationRequest = (memberKey, row, target) => Object.freeze({
-    applicationKind: memberKey,
-    catalogRow: Object.freeze({ ref: row.handle, digest: row.entryDigest }),
-    catalogView: narrowed.ownerOutput.value.view,
-    declaration: Object.freeze({
-      ref: row.declarationOrContractRef,
-      digest: row.entryDigest,
-    }),
-    target,
-    applicationBasis,
-    validationReceipt,
-    contributor,
-  });
-  const apply = async (memberKey, row, target, ordinal) => {
-    const request = applicationRequest(memberKey, row, target);
-    return runBinding(
-      product.CATALOG_DEFINITION_BINDINGS.apply[memberKey],
-      definitionCall({
-        publicApi,
-        product,
-        operationId: "abg.operation.catalog.apply",
-        memberKey,
-        ordinal,
-        request,
-        slots: applicationSlots,
-        resources: Object.freeze({
-          kind: "catalog_application_resource_assertion",
-          schemaVersion,
-          catalog: structuredClone(catalog),
-          catalogRow: structuredClone(row),
-          catalogView: structuredClone(view),
-          applicationBasis,
-          validationReceipt,
-          contributor,
-        }),
-      }),
-      `catalog.apply#${memberKey}`,
-    );
-  };
-  const nodeApplication = await apply("node_type", nodeRow, nodeTarget, 8);
-  const overlayApplication = await apply("overlay", overlayRow, null, 9);
-  assert.deepEqual(nodeApplication.ownerOutput.value.target, nodeTarget);
-  assert.equal(overlayApplication.ownerOutput.value.target, null);
-  assert.notEqual(
-    nodeApplication.ownerOutput.value.application.digest,
-    overlayApplication.ownerOutput.value.application.digest,
-  );
+  // RETIRED (T-290 C-18b, removed surface): catalog.apply over the core
+  // consensus node_type and overlay rows with caller-asserted application
+  // basis, validation receipt and contributor coordinates. At head the owner
+  // derives all three from an explicit construction (prefix, Program, target,
+  // value, installed schema assets: constructCatalogApplicationResources), and
+  // the core consensus schema asset ($id abg.schema.consensus@5) carries no
+  // schema whose $id is a row's contract ref, so these rows have no Public
+  // application. steel-consumer-declaration owns the Public apply claim over a
+  // consumer's installed schemas; m5-consensus-module owns the native one.
 
   const projectionBasis = (memberKey, value) => Object.freeze({
     basisRef: `projection-basis://abiogenesis/t287/w2-05/${memberKey}`,
     basisDigest: product.sha256Canonical(value),
     value: Object.freeze(value),
   });
+  // The read owner admits I-JSON resources only. The exact artifact truth
+  // projection carries its derivation proof as a symbol member, so it travels
+  // as a detached copy and the owner reconstructs it cold.
   const readResources = (packet, additional = {}) => Object.freeze({
     kind: "product_project_read_resource_assertion",
     schemaVersion,
     packet: Object.freeze(packet),
     ...additional,
+    ...("artifactTruth" in additional
+      ? { artifactTruth: structuredClone(additional.artifactTruth) }
+      : {}),
   });
   const readRequest = (caseKey, sourceKind, source, basis, selector) =>
     Object.freeze({
@@ -907,7 +870,10 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     catalogListCall,
     "project.read#catalog_list",
   );
-  assert.equal(catalogListRead.ownerOutput.value.projection.rows.length, 43);
+  assert.equal(
+    catalogListRead.ownerOutput.value.projection.rows.length,
+    catalog.entries.length + catalog.declarationEntries.length,
+  );
 
   const sessionViewCoordinate = Object.freeze({
     ref: `graph-function-catalog-view://abiogenesis/${
@@ -1282,7 +1248,8 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     ],
   ]) {
     const unadmittedCatalogCall = structuredClone(sourceCall);
-    unadmittedCatalogCall.resources.artifactTruth = preBindingArtifactTruth;
+    unadmittedCatalogCall.resources.artifactTruth =
+      structuredClone(preBindingArtifactTruth);
     const unadmittedCatalogFault = await Effect.runPromise(Effect.flip(
       bindingUnderTest(unadmittedCatalogCall),
     ));
@@ -1430,10 +1397,11 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   }
 
   const staleWorkspaceCall = structuredClone(workspaceStatusCall);
-  staleWorkspaceCall.resources.artifactTruth =
+  staleWorkspaceCall.resources.artifactTruth = structuredClone(
     abg.projectExactPrefixArtifactTruth(
       install.resources.eventResource.closeHandoff.prefix,
-    );
+    ),
+  );
   const staleWorkspaceFault = await Effect.runPromise(Effect.flip(
     product.PRODUCT_PROJECT_READ_DEFINITION_BINDINGS.workspace_status(
       staleWorkspaceCall,
@@ -1454,109 +1422,120 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   ));
   assert.equal(forgedSessionRefFault.code, "resource_relation_mismatch");
 
-  const conformanceProgram = harness.rootPublication.programs[0];
+  // A declared-inventory conformance evaluates a Program of the admitted
+  // catalog over its exact bound publications and a view of the Program's
+  // members (declarationCatalog). The W2-05 cut's test-owned root publication
+  // is no longer a catalog publication; a core consensus Program stands for it.
+  const conformancePublication = publications[1];
+  const conformanceProgram = conformancePublication.programs[0];
   assert.ok(conformanceProgram);
   const conformanceProgramCoordinate = Object.freeze({
     ref: conformanceProgram.programRef,
     digest: product.sha256Canonical(conformanceProgram),
   });
-  const conformancePublicationCoordinate = Object.freeze({
-    ref: harness.rootPublication.moduleRef,
-    digest: product.sha256Canonical(harness.rootPublication),
-  });
-  const consensusPublicationCoordinate = Object.freeze({
-    ref: publications[1].moduleRef,
-    digest: product.sha256Canonical(publications[1]),
-  });
   const conformanceLaw = coordinate(
     product,
     "law://abiogenesis/validator/gtl-program@5",
   );
+  const lawfulInventory = catalog.boundPublications;
   const conformanceRequest = Object.freeze({
     program: conformanceProgramCoordinate,
     conformanceLaw,
     inventoryBasis: Object.freeze({
       kind: "declared_inventory",
-      inventory: Object.freeze([
-        consensusPublicationCoordinate,
-        conformancePublicationCoordinate,
-      ]),
+      inventory: Object.freeze(lawfulInventory.map((publication) => coordinate(
+        product,
+        publication.moduleRef,
+        publication,
+      ))),
     }),
   });
-  const conformanceCall = definitionCall({
+  const conformanceCatalogView = product.narrowGraphFunctionCatalog(
+    catalog,
+    catalog.entries
+      .filter((row) => row.programMembershipRefs.includes(conformanceProgram.programRef))
+      .map((row) => row.handle)
+      .sort(),
+  );
+  const conformanceSlots = Object.freeze({
+    workspace_binding: binding.ownerOutput.value.binding,
+    product_set: [install.ownerOutput.value.installedProduct],
+    dependency_lock: lockCoordinate,
+    actor: actorAuthority(product),
+  });
+  const conformanceResources = (law, declaredInventory) => Object.freeze({
+    kind: "conformance_evaluation_resource_assertion",
+    schemaVersion,
+    packet: Object.freeze({
+      kind: "conformance_evaluate_packet",
+      schemaVersion,
+      memberKey: "gtl_program",
+      publication: conformancePublication,
+      program: conformanceProgram,
+    }),
+    conformanceLaw: law,
+    declaredInventory: Object.freeze(declaredInventory),
+    declarationCatalog: Object.freeze({ catalog, catalogView: conformanceCatalogView }),
+  });
+  // Each conformance call, and each altered one below, is authorized as
+  // supplied, so the conformance owner judges it.
+  const conformanceCall = (ordinal, request, resources) => authorizedCall({
     publicApi,
     product,
-    operationId: "abg.operation.conformance.evaluate",
-    memberKey: "gtl_program",
-    ordinal: 26,
-    request: conformanceRequest,
-    slots: {
-      workspace_binding: binding.ownerOutput.value.binding,
-      product_set: [install.ownerOutput.value.installedProduct],
-      dependency_lock: lockCoordinate,
-      actor: actorAuthority(product),
-    },
-    resources: Object.freeze({
-      kind: "conformance_evaluation_resource_assertion",
-      schemaVersion,
-      packet: Object.freeze({
-        kind: "conformance_evaluate_packet",
-        schemaVersion,
-        memberKey: "gtl_program",
-        publication: harness.rootPublication,
-        program: conformanceProgram,
-      }),
-      conformanceLaw,
-      declaredInventory: Object.freeze([
-        harness.rootPublication,
-        publications[1],
-      ]),
-    }),
+    packet: validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+    ordinal,
+    request,
+    slots: conformanceSlots,
+    resources,
+    prefix: boundPrefix,
   });
   const conformance = await runBinding(
     validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program,
-    conformanceCall,
+    await conformanceCall(26, conformanceRequest, conformanceResources(conformanceLaw, lawfulInventory)),
     "conformance.evaluate#gtl_program",
   );
   assert.equal(conformance.ownerOutput.value.disposition, "passed");
 
-  const forgedProgramCall = structuredClone(conformanceCall);
-  forgedProgramCall.invocation.request.program.digest = product.sha256Canonical({
-    forged: "program",
-  });
-  rehashInvocation(product, forgedProgramCall);
+  const forgedProgramCall = await conformanceCall(27, {
+    ...conformanceRequest,
+    program: { ...conformanceProgramCoordinate, digest: product.sha256Canonical({ forged: "program" }) },
+  }, conformanceResources(conformanceLaw, lawfulInventory));
   const forgedProgramFault = await Effect.runPromise(Effect.flip(
     validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
       forgedProgramCall,
     ),
   ));
-  assert.equal(forgedProgramFault.kind, "definition_execution_fault");
-  assert.equal(forgedProgramFault.stage, "resource_admission");
+  const conformanceRelationMismatch = (label, fault) => {
+    assert.equal(fault.kind, "definition_execution_fault", label);
+    assert.equal(fault.stage, "resource_admission", label);
+    assert.equal(fault.code, "resource_relation_mismatch", label);
+    assert.equal(
+      fault.message,
+      "conformance packet differs from the public Program, law, or inventory coordinates",
+      label,
+    );
+  };
+  conformanceRelationMismatch("forged Program", forgedProgramFault);
 
-  const forgedConformanceBasisCall = structuredClone(conformanceCall);
-  forgedConformanceBasisCall.invocation.request.conformanceLaw = coordinate(
-    product,
-    "law://abiogenesis/validator/unrelated@5",
-  );
-  rehashInvocation(product, forgedConformanceBasisCall);
+  const forgedConformanceBasisCall = await conformanceCall(28, {
+    ...conformanceRequest,
+    conformanceLaw: coordinate(product, "law://abiogenesis/validator/unrelated@5"),
+  }, conformanceResources(conformanceLaw, lawfulInventory));
   const forgedConformanceBasisFault = await Effect.runPromise(Effect.flip(
     validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
       forgedConformanceBasisCall,
     ),
   ));
-  assert.equal(
-    forgedConformanceBasisFault.code,
-    "resource_relation_mismatch",
-  );
+  conformanceRelationMismatch("forged law", forgedConformanceBasisFault);
 
-  const synchronizedUnrelatedLawCall = structuredClone(conformanceCall);
   const unrelatedLaw = coordinate(
     product,
     "law://abiogenesis/validator/unrelated@5",
   );
-  synchronizedUnrelatedLawCall.invocation.request.conformanceLaw = unrelatedLaw;
-  synchronizedUnrelatedLawCall.resources.conformanceLaw = unrelatedLaw;
-  rehashInvocation(product, synchronizedUnrelatedLawCall);
+  const synchronizedUnrelatedLawCall = await conformanceCall(29, {
+    ...conformanceRequest,
+    conformanceLaw: unrelatedLaw,
+  }, conformanceResources(unrelatedLaw, lawfulInventory));
   const synchronizedUnrelatedLaw = await Effect.runPromise(
     validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
       synchronizedUnrelatedLawCall,
@@ -1565,52 +1544,18 @@ test("W2-05 installed Product install and catalog owners compose without catalog
   assert.equal(synchronizedUnrelatedLaw.ownerOutput.outcomeKind, "refusal");
   assert.equal(synchronizedUnrelatedLaw.ownerOutput.value.code, "law_mismatch");
 
-  const duplicateInventoryCall = structuredClone(conformanceCall);
-  duplicateInventoryCall.resources.declaredInventory.push(
-    structuredClone(harness.rootPublication),
-  );
+  const duplicateInventoryCall = await conformanceCall(30, conformanceRequest,
+    conformanceResources(conformanceLaw, [...lawfulInventory, structuredClone(conformancePublication)]));
   const duplicateInventoryFault = await Effect.runPromise(Effect.flip(
     validator.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(
       duplicateInventoryCall,
     ),
   ));
-  assert.equal(duplicateInventoryFault.code, "resource_relation_mismatch");
+  conformanceRelationMismatch("duplicate inventory", duplicateInventoryFault);
 
-  const forgedView = structuredClone(view);
-  const forgedOverlay = {
-    ...forgedView.declarationsByHandle[overlayRow.handle],
-    provenanceRefs: [
-      ...forgedView.declarationsByHandle[overlayRow.handle].provenanceRefs,
-      "provenance://forged-process-local-view",
-    ],
-  };
-  forgedView.declarationEntries = forgedView.declarationEntries.map((row) =>
-    row.handle === overlayRow.handle ? forgedOverlay : row
-  );
-  forgedView.declarationsByHandle[overlayRow.handle] = forgedOverlay;
-  const forgedViewFault = await Effect.runPromise(Effect.flip(
-    product.CATALOG_DEFINITION_BINDINGS.apply.node_type(definitionCall({
-      publicApi,
-      product,
-      operationId: "abg.operation.catalog.apply",
-      memberKey: "node_type",
-      ordinal: 10,
-      request: applicationRequest("node_type", nodeRow, nodeTarget),
-      slots: applicationSlots,
-      resources: Object.freeze({
-        kind: "catalog_application_resource_assertion",
-        schemaVersion,
-        catalog: structuredClone(catalog),
-        catalogRow: structuredClone(nodeRow),
-        catalogView: forgedView,
-        applicationBasis,
-        validationReceipt,
-        contributor,
-      }),
-    })),
-  ));
-  assert.equal(forgedViewFault.kind, "definition_execution_fault");
-  assert.equal(forgedViewFault.stage, "resource_admission");
+  // RETIRED (T-290 C-18b, removed surface): the forged process-local view arm
+  // of catalog.apply, built on the retired caller-asserted application request
+  // above.
 
   const prefixAfterCatalog = await readFile(eventLogPath);
   assert.deepEqual(prefixAfterCatalog, prefixBeforeCatalog);
@@ -1653,7 +1598,7 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     callableCount: census.report.callableCount,
     definitionCount: census.report.definitionCount,
     addedKeys: selectedAdditions,
-    remainingKeys,
+    remainingKeys: missingKeys,
     eventCountBeforeCatalog: 2,
     eventCountAfterCatalog: 2,
     ticketConsensusUnavailableCode: ticketConsensusUnavailableFault.code,
