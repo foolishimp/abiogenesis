@@ -647,10 +647,10 @@ publication already includes C0. Reuse the existing fresh-process proof helper
 unchanged. No Public implementation repair or copied admission algorithm is
 required for this bounded installed owner/admission/replay path.
 
-The two historical C0 tests,
-`t287-worksite-file-replace-owner.test.mjs` and
-`t287-post-binding-worksite-write.test.mjs`, are source references for existing
-receipt and admission behavior. Their predecessor signatures/productRoot
+The historical C0 test
+`t287-post-binding-worksite-write.test.mjs` is a source reference for existing
+receipt and admission behavior (`t287-worksite-file-replace-owner.test.mjs` was
+retired at T-290 C-18b `811bb8f85`: the raw writer left the Product surface). Their predecessor signatures/productRoot
 fixtures and the latter's installed-module deletion case remain B06/historical
 evidence. B04 neither repairs nor executes their entire unrelated matrix.
 

@@ -291,7 +291,7 @@ the eight support/evidence paths and refresh the two generated outputs:
 
 1. `test_env/support/root-installed-environment.mjs`
 2. `test_env/support/root-cli-environment.mjs`
-3. `test_env/tests/t287-worksite-file-replace-owner.test.mjs`
+3. `test_env/tests/t287-worksite-file-replace-owner.test.mjs` (retired at T-290 C-18b `811bb8f85`: the raw writer left the Product surface)
 4. `test_env/tests/t287-post-binding-worksite-write.test.mjs`
 5. `test_env/tests/t287-worksite-construction.test.mjs`
 6. `test_env/tests/t287-live-worksite-construction.test.mjs`
