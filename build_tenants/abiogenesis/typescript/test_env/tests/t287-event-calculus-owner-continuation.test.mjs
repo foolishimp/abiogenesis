@@ -15,8 +15,10 @@ import { sha256Bytes, sha256Canonical } from '../../build/code/src/shared/digest
 const root = resolve(import.meta.dirname, '../..');
 const evidence = process.env.ABI5_EC_OWNER_EVIDENCE;
 const fixture = process.env.ABI5_EC_OWNER_CLOSED_HISTORY;
-assert.ok(evidence && fixture && process.env.ABI5_EC_OWNER_CLOSED_SHA256,
-  'exact preimage territory and a digest-bound CLOSED JSONL fixture are required');
+const skip = !(evidence && fixture && process.env.ABI5_EC_OWNER_CLOSED_SHA256) &&
+  'ABI5_EC_OWNER_EVIDENCE, ABI5_EC_OWNER_CLOSED_HISTORY or ABI5_EC_OWNER_CLOSED_SHA256 unset; requires the exact preimage territory and a digest-bound CLOSED JSONL fixture';
+if (skip) test('COST33 Event Calculus owner continuation over the exact preimage territory and the CLOSED fixture', { skip }, () => {});
+else await (async () => {
 const bytes = await readFile(fixture);
 assert.equal(sha256Bytes(bytes), process.env.ABI5_EC_OWNER_CLOSED_SHA256);
 // The cold event owner expands the stored body-reference encoding from these
@@ -229,3 +231,4 @@ test.after(async () => {
   assert.equal(sha256Bytes(await readFile(fixture)), process.env.ABI5_EC_OWNER_CLOSED_SHA256);
   await writeFile(join(evidence, 'owner-continuation-controls.json'), JSON.stringify({ fixture, sha256: process.env.ABI5_EC_OWNER_CLOSED_SHA256, reports }, null, 2) + '\n');
 });
+})();

@@ -11,6 +11,11 @@ import {runtime, schemaVersion, hash, digest, readJson, writeJson, coordinate, s
 
 const {product, abg, validator, gtl, preparation} = runtime;
 const catalogs = { coverage: JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url))) };
+const skip = !['ABI5_INSTALLED_CONSERVATION_ROOT', 'ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT', 'ABI5_INSTALLED_CONSERVATION_ARCHIVE',
+  'ABI5_INSTALLED_CONSERVATION_NODE'].every(name => process.env[name]) &&
+  'ABI5_INSTALLED_CONSERVATION_ROOT, _PACKAGE_ROOT, _ARCHIVE or _NODE unset; requires the installed conservation territory, the installed package, its archive and the pinned interpreter';
+if (skip) test('installed qualification conservation over the installed territory, package, archive and pinned interpreter', { skip }, () => {});
+else await (async () => {
 const root = resolve(process.env.ABI5_INSTALLED_CONSERVATION_ROOT);
 const packageRoot = resolve(process.env.ABI5_INSTALLED_CONSERVATION_PACKAGE_ROOT);
 const archivePath = resolve(process.env.ABI5_INSTALLED_CONSERVATION_ARCHIVE);
@@ -365,3 +370,4 @@ test(process.env.ABI5_INSTALLED_CONSERVATION_MODE === 'cold' ? 'fresh process Pu
     throw error;
   }
 });
+})();

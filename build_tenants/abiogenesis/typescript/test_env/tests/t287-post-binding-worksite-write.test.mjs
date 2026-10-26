@@ -1425,12 +1425,21 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     eventTime: "2026-09-01T00:00:02.000Z",
     correlationId: "correlation://t287/c0/post-residue-recovery/hog",
   });
+  // A raw basis carries a value, not an admitted observation: after the
+  // unadmitted residue its fresh Product observation is not current (calculus
+  // worksiteBasisMayEstablish), so the leaf refuses at authority_verification
+  // and the residue stays; retry after residue needs its own selected design
+  // (C0 design :620-624).
   assert.equal(
     recoveryCompletion.disposition,
-    "closed",
+    "failed",
     JSON.stringify(recoveryCompletion),
   );
-  assert.deepEqual(await readFile(targetPath), recoveredBytes);
+  const recoveryDiagnostic = JSON.parse(decodeURIComponent(
+    recoveryCompletion.resultValue.diagnosticRef.slice(recoveryCompletion.resultValue.diagnosticRef.indexOf(",") + 1)));
+  assert.equal(recoveryDiagnostic.stage, "authority_verification");
+  assert.equal(recoveryDiagnostic.reason, "refused");
+  assert.deepEqual(await readFile(targetPath), replacement);
   const recoveryEvents = conflict.store.readAll().filter(
     (event) => event.aggregateId === recoveryCompletion.cCallRef,
   );
@@ -1516,7 +1525,7 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
       .payload.judgment,
     "blocked",
   );
-  assert.deepEqual(await readFile(targetPath), recoveredBytes);
+  assert.deepEqual(await readFile(targetPath), replacement);
   await assert.rejects(
     implementationLeafPort.constructAdmittedLeafInvocationPort({
       prefix: abg.selectValidatedRuntimeEventPrefix(

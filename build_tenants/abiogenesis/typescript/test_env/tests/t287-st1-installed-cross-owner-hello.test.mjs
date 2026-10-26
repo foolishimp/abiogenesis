@@ -267,9 +267,9 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
     );
   } finally {
     delete Object.prototype.INTERACTION_DEFINITION_BINDINGS;
-  }
+  } // The exact invocation contract refuses the request-less call before traversal.
   assert.equal(inheritedExportRead, 0);
-  assert.equal(inheritedExportOutcome.code, "installed_binding_unavailable");
+  assert.equal(inheritedExportOutcome.code, "invalid_definition_call");
 
   let inheritedMemberRead = 0;
   Object.defineProperty(Object.prototype, "release_evidence", {
@@ -289,7 +289,7 @@ test("ST-4 transport refuses inherited selectors and owner traversal", async () 
     delete Object.prototype.release_evidence;
   }
   assert.equal(inheritedMemberRead, 0);
-  assert.equal(inheritedMemberOutcome.code, "installed_binding_unavailable");
+  assert.equal(inheritedMemberOutcome.code, "invalid_definition_call");
 });
 
 function rebaseDefinitionContractCatalog(

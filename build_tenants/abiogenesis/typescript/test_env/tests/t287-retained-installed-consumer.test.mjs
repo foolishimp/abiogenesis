@@ -8,6 +8,10 @@ import {bytesDigest, readPinnedJson, loadRetainedInstalledRuntime, loadQualifica
   from '../support/retained-installed-consumer.mjs';
 import {prepareRetainedSetupBinding, selectQualificationTaskDependencyClosure} from '../../scripts/prepare-retained-setup-binding.mjs';
 
+const skip = !process.env.ABI5_RETAINED_CONSUMER_CONFIG &&
+  'ABI5_RETAINED_CONSUMER_CONFIG unset; requires the retained installed consumer configuration (ABI5_RETAINED_CONSUMER_PHASE selects current or historical)';
+if (skip) test('retained installed consumer over its configuration and selected phase', { skip }, () => {});
+else await (async () => {
 const cfg = JSON.parse(await readFile(process.env.ABI5_RETAINED_CONSUMER_CONFIG, 'utf8'));
 const phase = process.env.ABI5_RETAINED_CONSUMER_PHASE;
 const output = async (name, value) => writeFile(join(cfg.outputRoot, name), JSON.stringify(value, null, 2) + '\n', {flag: 'wx'});
@@ -195,3 +199,4 @@ if (phase === 'historical') test('fresh original child Result/J recovery and nea
     prefix, physical: before, requiredIngressLedger: ledger, originalProducerReruns: 0, eventAppends: 0,
     negatives: ['absent GraphCall', 'crossed prefix digest', 'crossed declaration View', 'crossed selected Result'], status: 'passed'});
 });
+})();

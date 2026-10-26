@@ -112,7 +112,7 @@ test('changed generic artifact ingress refuses malformed release and wrong membe
   assert.equal(artifact.projectExactPrefixArtifactTruth(prefix).kind,'exact_prefix_artifact_truth_projection');
  }finally{store.projectReopenAuthorityAndClose();}
 });
-test('retained installed archive remains verified under its owner; successor refuses its older Public catalog',async()=>{
+test('retained installed archive remains verified under its owner; successor refuses its older Public catalog',{skip:!process.env.ABI5_RELEASE_RETAINED_INSTALL_COORDINATE&&'ABI5_RELEASE_RETAINED_INSTALL_COORDINATE unset; requires the exact retained installed-coordinate selection'},async()=>{
  const coordinatePath=process.env.ABI5_RELEASE_RETAINED_INSTALL_COORDINATE;assert.ok(coordinatePath,'exact retained installed-coordinate selection required');
  const c=JSON.parse(await readFile(coordinatePath,'utf8'));
  const installedPackage=JSON.parse(await readFile(join(c.installedRoot,'package.json'),'utf8'));

@@ -125,7 +125,8 @@ if (process.argv[2] === "--cold") {
   const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT ?? await mkdtemp(join(tmpdir(), "t289-install-body-proof-"));
   if (ownedProofRoot) test.after(() => rm(proofRoot, { recursive: true, force: true }));
   const historyRequired = "ABI5_INSTALL_BODY_HISTORY and ABI5_INSTALL_BODY_HISTORY_SHA256 unset; requires the owner's digest-bound retained install history";
-  test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", async () => {
+  const historyOptions = { skip: !(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256) && historyRequired };
+  test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", historyOptions, async () => {
     const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
     assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     await mkdir(proofRoot, { recursive: true });
@@ -325,7 +326,7 @@ if (process.argv[2] === "--cold") {
     }
   });
 
-  test("T289 live state recovers after rollback without changing earlier artifact prefixes", async () => {
+  test("T289 live state recovers after rollback without changing earlier artifact prefixes", historyOptions, async () => {
     assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     const historyBytes = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
     assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
@@ -379,7 +380,7 @@ if (process.argv[2] === "--cold") {
     }
   });
 
-  test("T289 established causal installs and binding admit a new lock without changing prior truth", async () => {
+  test("T289 established causal installs and binding admit a new lock without changing prior truth", historyOptions, async () => {
     const product = await import("../../build/code/src/product/environment.js");
     const coordinate = await import("../../build/code/src/shared/operation_definition_coordinate.js");
     assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
@@ -440,7 +441,7 @@ if (process.argv[2] === "--cold") {
   // RETIRED (C-5 stop 2): the ABI5_INSTALL_BODY_PREDECESSOR_ROOT arm and the
   // predecessor/successor refusal equality are claims about the change from
   // that predecessor build. The current build's structured raw refusal stays.
-  test("T289 raw install eligibility returns its structured refusal without appending", async () => {
+  test("T289 raw install eligibility returns its structured refusal without appending", historyOptions, async () => {
     const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
     assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     const bytes = await readFile(historyPath);

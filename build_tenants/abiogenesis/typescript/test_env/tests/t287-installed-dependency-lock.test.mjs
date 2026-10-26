@@ -132,7 +132,7 @@ test('fixed definition resolution shares actual verifier/link and Catalog owner 
   assert.equal(catalog.admitGraphFunctionCatalog(crossed).kind, 'catalog_construction_refusal');
 });
 
-test('physical managed dependency material must match the selected immutable Product lock', async t => {
+test('physical managed dependency material must match the selected immutable Product lock', {skip: !process.env.ABI207_NATIVE_IDENTITY && 'ABI207_NATIVE_IDENTITY unset; requires one exact immutable ABI artifact identity for the canonical lock owner'}, async t => {
   const base = process.env.ABI207_PROOF_ROOT ?? tmpdir();
   await mkdir(base, {recursive: true});
   const scratch = await mkdtemp(join(base, 'installed-dependency-lock-'));

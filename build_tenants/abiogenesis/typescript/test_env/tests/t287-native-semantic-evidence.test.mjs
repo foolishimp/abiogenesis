@@ -8,7 +8,7 @@ const load=name=>import(pathToFileURL(join(root,'build/code/src',name+'.js')).hr
 const [job,c2,construction,effect,hash,gtl]=await Promise.all(['product/semantic_job','product/worksite_command_execution',
  'product/worksite_construction','product/worksite_effect','shared/digests','gtl/semantic_stage_identity'].map(load));
 
-test('retained native C2 evidence preserves file scope without constructing a legacy C1 task',async t=>{
+test('retained native C2 evidence preserves file scope without constructing a legacy C1 task',{skip:!process.env.ABI5_NATIVE_EVIDENCE_EXTRACT&&'ABI5_NATIVE_EVIDENCE_EXTRACT unset; requires the explicit closed owner extraction'},async t=>{
  const selected=process.env.ABI5_NATIVE_EVIDENCE_EXTRACT;
  assert.ok(selected,'explicit closed owner extraction required; no runtime resource is read');
  const extracted=JSON.parse(await readFile(selected,'utf8'));

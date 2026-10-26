@@ -139,12 +139,14 @@ export function genericIntakePublicationData({ gtl, abiPublication }) {
     contributions: graphs.map(g => ({ handle: g.name, kind: "graph_function", declarationOrContractRef: g.name,
       owningProductId: ids.productId, programMembershipRefs: [ids.programRef], readinessPrerequisiteRefs: [ids.programRef], compatibilityRefs: ["compatibility://abiogenesis/major/5"] })) };
 }
-export async function prepareGenericJobIntakeProduct({ scratch, product, gtl, abiPublication, declarationFactory = genericIntakePublicationData }) {
+export async function prepareGenericJobIntakeProduct({ scratch, product, gtl, abiPublication, abiPackageArchivePath, declarationFactory = genericIntakePublicationData }) {
   const ids = intakeIds, data = declarationFactory({ product, gtl, abiPublication });
   const sourceRoot = join(scratch, "generic-job-data-product"), graph = product.constructCapabilityDefinitionGraph([]);
   const graphBytes = product.capabilityDefinitionGraphAssetBytes(graph), graphCoordinate = product.capabilityDefinitionGraphCoordinate(graph);
+  // The declared managed ABI dependency is materialized from the exact ABI archive.
   const values = { "package.json": { name: ids.packageName, version: ids.packageVersion, type: "module", exports: { "./publication": "./build/publication.json" },
-    files: ["build", "contracts", "product-toolchain-manifest.json"] }, "build/publication.json": data,
+    files: ["build", "contracts", "product-toolchain-manifest.json"],
+    dependencies: { [abiPublication.productSemanticsBinding.packageName]: `file:${abiPackageArchivePath}` } }, "build/publication.json": data,
     "contracts/public-contract-catalog.schema.json": { $schema: "https://json-schema.org/draft/2020-12/schema", type: "object" } };
   await mkdir(sourceRoot);
   for (const [path, value] of Object.entries(values)) { await mkdir(dirname(join(sourceRoot, path)), { recursive: true });

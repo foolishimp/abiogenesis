@@ -12,6 +12,7 @@ import {ABG_PROJECT_READ_CONTRACTS} from '../../build/code/src/abg/project_read_
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 const clone=x=>structuredClone(x),hash=p.sha256Canonical;
 const fixturePath=process.env.ABI5_S02_PROJECTION_FIXTURE;
+const options={skip:!fixturePath&&'ABI5_S02_PROJECTION_FIXTURE unset; requires the exact frozen S02 episode fixture'};
 function fixture(t){
  assert(fixturePath,'select the exact frozen S02 episode fixture');
  const receipt=JSON.parse(fs.readFileSync(join(fixturePath,'nested-compose-root-stdout.json'),'utf8')).receipt;
@@ -31,7 +32,7 @@ function fixture(t){
  return {...acquired,events,full,runPrefix,run,route,judgment,binding:run.parentAggregateId};
 }
 
-test('actual closed retry-completion history yields exact Run truth, Result and replay without new execution',t=>{
+test('actual closed retry-completion history yields exact Run truth, Result and replay without new execution',options,t=>{
  const f=fixture(t);assert.equal(f.route.causationEventRefs.includes(f.judgment.eventId),false);
  assert(hasJudgedTerminalRouteCausation(f.runPrefix,f.route,f.judgment,f.full));
  const truth=reads.projectRunTruthAtDurablePrefix(f.prefix,f.run.runId);
@@ -47,7 +48,7 @@ test('actual closed retry-completion history yields exact Run truth, Result and 
  t.diagnostic('Real frozen failed S02 events copied into a disposable owner; actual cold/read/terminal owners. No fresh installed Run, provider or original resource mutation.');
 });
 
-test('terminal producer join refuses missing progress, foreign producer/scope and unrelated causal paths',t=>{
+test('terminal producer join refuses missing progress, foreign producer/scope and unrelated causal paths',options,t=>{
  const f=fixture(t),missing=prefixOwner.validatedRuntimeEventPrefixThroughEvent(f.runPrefix,f.judgment.eventId);
  assert.equal(hasJudgedTerminalRouteCausation(missing,f.route,f.judgment,f.full),false);
  const variants=[
@@ -65,7 +66,7 @@ test('terminal producer join refuses missing progress, foreign producer/scope an
  assert.equal(hasJudgedTerminalRouteCausation(f.runPrefix,{...direct,causationEventRefs:[f.route.eventId]},f.judgment,f.full),false);
 });
 
-test('workspace replay fixed Definition uses its exact owner projection identity in held and cold reads',async t=>{
+test('workspace replay fixed Definition uses its exact owner projection identity in held and cold reads',options,async t=>{
  const f=fixture(t),owner=await privateOwner('abg/project_read_definition_bindings.js',['outputFor']);
  const packet={kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:'workspace_replay',prefix:f.prefix,targetRef:f.binding};
  const native=reads.WorkspaceProjectionPort.workspace_replay(packet);assert.equal(native.kind,'abg_project_read_projection');
@@ -84,7 +85,7 @@ test('workspace replay fixed Definition uses its exact owner projection identity
  t.diagnostic('Actual workspace/read projection and fixed output contract, with supplied source digest/request transport premises. No Public acquisition/permission claim.');
 });
 
-test('Run-truth refusal conserves the caught terminal cause through existing Public evidenceRefs',async t=>{
+test('Run-truth refusal conserves the caught terminal cause through existing Public evidenceRefs',options,async t=>{
  const f=fixture(t);
  // Force only the same rejecting causal predicate as the retained predecessor;
  // every other owner/fixture remains actual. This is an explicit lower premise.

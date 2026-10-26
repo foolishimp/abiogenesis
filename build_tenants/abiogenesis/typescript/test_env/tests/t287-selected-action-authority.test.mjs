@@ -32,7 +32,11 @@ test('occurrence selection refuses genuine ambiguity and crossed basis',()=>{
  assert.equal(owner.pendingSelectedOccurrence([actual,other],basis),null);
  assert.equal(owner.pendingSelectedOccurrence([actual],{...basis,digest:product.sha256Canonical('crossed')}),null);
 });
-test('retained catalog and view authority reject a coherent same-binding alternative',async()=>{
+// The default subject's recovery handoff binds its prefix to the original
+// store's device and inode, which a checkout does not hold: the install
+// admission projection refuses file_identity_mismatch. The case runs over an
+// explicitly selected subject (a native run regenerates it).
+test('retained catalog and view authority reject a coherent same-binding alternative',{skip:!process.env.ABI5_SELECTED_ACTION_OWNER_SUBJECT&&'ABI5_SELECTED_ACTION_OWNER_SUBJECT unset; requires a selected-action owner subject whose recovery prefix coordinate names its store on this machine (the default subject\'s device and inode do not hold)'},async()=>{
  const use=owner.selectPendingActionUse(prefix,request,basis);assert.equal(use.kind,'selected_action_use');
  const exact=await resolve(environment.catalogView);assert.equal(exact.kind,'loaded_product_execution_resolution',JSON.stringify(exact));
  assert.ok(owner.prepareSelectedActionContinuation(prefix,use,exact),'exact actual retained context prepares');

@@ -1,9 +1,11 @@
 import test from 'node:test';import assert from 'node:assert/strict';import fs from 'node:fs';import {join} from 'node:path';import {pathToFileURL} from 'node:url';
-import {root,prior,load,semantic,hash,sha256Bytes,input,stage,failed,raw,source,eventsPath,originalBytes,retainedBasis,componentAssembly,assertIdentities} from '../support/t287-predecessor-context.mjs';
-const out=process.env.ABI5_PREDECESSOR_PROOF_ROOT;assert.ok(out);fs.mkdirSync(out,{recursive:true});
+const out=process.env.ABI5_PREDECESSOR_PROOF_ROOT,selected=Boolean(process.env.ABI5_PREDECESSOR_PRIOR_ROOT&&out&&process.env.ABI5_PREDECESSOR_OLD_PACKAGE_ROOT);
+const options={skip:!selected&&'ABI5_PREDECESSOR_PRIOR_ROOT, ABI5_PREDECESSOR_PROOF_ROOT or ABI5_PREDECESSOR_OLD_PACKAGE_ROOT unset; requires the exact preserved original1B evidence, its proof root and the predecessor package'};
+const {root,prior,load,semantic,hash,sha256Bytes,input,stage,failed,raw,source,eventsPath,originalBytes,retainedBasis,componentAssembly,assertIdentities}=selected?await import('../support/t287-predecessor-context.mjs'):{};
+if(selected)fs.mkdirSync(out,{recursive:true});
 const report={scope:'pure and native-assembly rederivation only; no new runtime admission or actor',checks:[]};
 const record=(name,details)=>{report.checks.push({name,...details});fs.writeFileSync(join(out,'result.json'),JSON.stringify(report,null,2)+'\n');};
-test('empty eligibility, exact retained counterexample and unchanged consumer acceptance',async()=>{
+test('empty eligibility, exact retained counterexample and unchanged consumer acceptance',options,async()=>{
   assert.deepEqual(semantic.semanticPredecessorStatementRefs(input),[]);
   assert.equal(semantic.isSemanticAssetCandidate(failed),true);
   assert.equal(semantic.deriveSemanticAsset(input,stage.declarationRef,failed,source('failure')),null);
@@ -19,7 +21,7 @@ test('empty eligibility, exact retained counterexample and unchanged consumer ac
   assert.deepEqual(schema,before.semanticWorkerResultSchema('author',[]),'description only; schema acceptance grammar unchanged');
   record('empty and retained failure',{invalidLinks:failed.statements.flatMap(s=>s.predecessorStatementRefs).length,assessorCurrentCandidate:true});
 });
-test('all active assets remain eligible, not just declared predecessor stages; exact nonempty native rendering',async()=>{
+test('all active assets remain eligible, not just declared predecessor stages; exact nonempty native rendering',options,async()=>{
   const gtl=await load('gtl/semantic_stage');
   const second=structuredClone(stage);second.declarationRef+='-second';second.graphFunctionRef+='-second';second.assembly.graphFunctionRef=second.graphFunctionRef;second.predecessorStageRefs=[];
   const third=structuredClone(second);third.declarationRef+='-third';third.graphFunctionRef+='-third';third.assembly.graphFunctionRef=third.graphFunctionRef;third.predecessorStageRefs=[stage.declarationRef];
@@ -44,7 +46,7 @@ test('all active assets remain eligible, not just declared predecessor stages; e
   assert.deepEqual(assembly.envelope.sections.task.taskData,input.taskData);assert.deepEqual(assembly.envelope.sections.task.rubric,third.rubric);
   record('nonempty component',{lookupAndInputAuthenticationDoubled:true,eligible:semantic.semanticPredecessorStatementRefs(value),historicalOnlyRef:historicalOnly.candidate.statements[0].statementRef,historicalRevisionAdmissionNotExercised:true,promptDigest:assembly.manifest.promptDigest});
 });
-test('complete actual retained native owner authenticates empty author assembly; deterministic identities and old bytes conserved',async()=>{
+test('complete actual retained native owner authenticates empty author assembly; deterministic identities and old bytes conserved',options,async()=>{
   const {basis,authenticated,count}=await retainedBasis();
   const instructions=await load('abg/instruction_assembly');
   const assembly=instructions.evaluateNativeInstructionAssembly(basis,input);assertIdentities(assembly);

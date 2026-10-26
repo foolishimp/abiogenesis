@@ -18,7 +18,7 @@ test('reacquisition constructor has exactly its ordinary normalized publication 
  assert.equal(h(prior),'sha256:9c9af1b591a53d9df49d43bd90c8c05819a2dd41db8370781cfe7fcce61c5b0a');
  assert.notEqual(h(prior),h(published));
 });
-test('actual historical pre-result occurrence authenticates with unchanged source and all current physical context',async t=>{
+test('actual historical pre-result occurrence authenticates with unchanged source and all current physical context',{skip:!process.env.ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT&&'ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT unset; requires the explicit retained continuation root'},async t=>{
  const root=process.env.ABG_REACQUISITION_NORMALIZATION_RETAINED_ROOT;
  assert.ok(root,'explicit retained continuation root is required; this check never admits or executes a Run');
  const read=name=>readFileSync(join(root,name),'utf8');

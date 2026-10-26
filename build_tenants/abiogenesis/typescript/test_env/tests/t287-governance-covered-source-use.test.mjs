@@ -13,6 +13,7 @@ const prefixOwner=await load('abg/event_prefix'),eventOwner=await load('abg/even
 const terminal=await load('abg/terminal_result_contracts'),decl=await load('product/declaration_closure');
 const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
 const fixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
+const fixtureOptions={skip:!fixturePath&&'ABG_GOVERNANCE_COVERED_FIXTURE unset; requires the frozen bounded captured34 fixture (reader 5 is reached through it)'};
 const declarationPairPath=process.env.ABG_GOVERNANCE_COVERED_DECLARATION_PAIR;
 const c2MaterialPath=process.env.ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS;
 const proofRoot=process.env.ABG_GOVERNANCE_COVERED_PROOF_ROOT;
@@ -348,7 +349,7 @@ async function coveredFixture(){
   return {c,f,source,oldW,newW,old,current,program,gf,oldBasis,gates,owner,inputUse,result,judgment,oldInvocation,beforeRows:freeze([...f.rows])};
 }
 
-test('covered use binds exact original state, complete canonical Catalog and cold admitted coordinates',async t=>{
+test('covered use binds exact original state, complete canonical Catalog and cold admitted coordinates',fixtureOptions,async t=>{
   const x=await coveredFixture(),stateBytes=JSON.stringify(x.c.state34),sourceBytes=JSON.stringify(x.source),valueDigest=x.result.payload.valueDigest;
   const use=x.owner.projectGovernanceCoveredSourceUse(x.f.prefix(),x.inputUse);assert.ok(use);
   assert.deepEqual(use.historicalDeclaration,terminal.constructAbgHistoricalDeclarationReference(x.old));assert.deepEqual(use.currentDeclaration,terminal.constructAbgHistoricalDeclarationReference(x.current));
@@ -383,7 +384,7 @@ test('covered use binds exact original state, complete canonical Catalog and col
     privateComparisonBytes:Buffer.byteLength(JSON.stringify(use)),extraAdmissionBytes:0,owners:use.declarationOwners.map(o=>({moduleRef:o.moduleRef,historicalPublicationDigest:o.historicalPublicationDigest,currentPublicationDigest:o.currentPublicationDigest})),installedContinuation:false}));
 });
 
-test('later completed work follows actual admitted covered-source ancestry without root or value guesses',async t=>{
+test('later completed work follows actual admitted covered-source ancestry without root or value guesses',fixtureOptions,async t=>{
   const x=await coveredFixture();
   const replay={runId:x.result.runId,runtimeStatus:'blocked',runClosedEventRef:null,runStoppedEventRef:'event://controlled-source-stop',runtimeFailureEventRef:null,
     replayRef:'replay://controlled-source',replayDigest:hash('controlled semantic replay'),actorProcesses:[],cCalls:[{
@@ -427,7 +428,7 @@ test('later completed work follows actual admitted covered-source ancestry witho
   t.diagnostic('Source derivation and actual admitted-coordinate ancestry exercised; semantic replay, environment/cover and later-result producer premises are controlled, with no native/current-app admission credit.');
 });
 
-test('built-in ingress preserves the whole captured34 state and independent assessment subject',async()=>{
+test('built-in ingress preserves the whole captured34 state and independent assessment subject',fixtureOptions,async()=>{
   const c=captured(),s=c.state34;assert.ok(p.isGovernanceWorkState(s));assert.equal(s.observations.length,34);
   const builtin=(await load('product/builtin_semantics')).ABI5_DEFAULT_LIBRARY_PRODUCT_SEMANTICS,retained=p.retainedGovernanceWorkInput(s),original=JSON.stringify(s);
   const source={sourceResultContractRef:p.governanceContract('state'),sourceWorkspaceId:'workspace://same',workspaceBindingId:'binding://old',workspaceBindingDigest:hash('old'),sourceResultValue:s,basisRef:'source://same',basisDigest:hash('source')};
