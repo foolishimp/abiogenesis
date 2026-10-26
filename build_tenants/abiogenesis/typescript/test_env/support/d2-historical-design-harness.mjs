@@ -77,7 +77,10 @@ export async function historicalDesignHarness() {
   await module.link(async specifier=>{
     if(links.has(specifier))return links.get(specifier);
     const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(modulePath),specifier)).href);
-    const overrides=specifier==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,
+    // The revision owner authenticates its basis through the owned stage
+    // authenticator (`authenticateOwnedSemanticStageBasis`, 67c333799); both
+    // names are the one stage-owner assumption.
+    const overrides=specifier==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,
       projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>{lookups.push(ref);return states.get(ref)??null;}}:{};
     const values={...native,...overrides},linked=new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
     links.set(specifier,linked);return linked;

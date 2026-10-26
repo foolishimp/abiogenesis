@@ -23,6 +23,7 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
     gtl,
     hog,
     store,
+    durablePrefix,
     verified,
     program,
     graph,
@@ -32,19 +33,32 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   } = environment;
   const eventsBeforeOpen = store.readAll();
   assert.equal(eventsBeforeOpen.at(-1).kind, "basis_admitted");
-  assert.equal(abg.hasAdmittedExecutionBasis(store, executionBasis), true);
+  assert.equal(
+    abg.hasAdmittedExecutionBasisAtPrefix(
+      abg.selectValidatedRuntimeEventPrefix(eventsBeforeOpen),
+      executionBasis,
+    ),
+    true,
+  );
   assert.equal(
     executionBasis.entryRef,
     invocationAdmission.gtlEntryCoordinate.nodeRef,
   );
 
-  const opened = abg.openCall(
+  const opened = abg.openTraversalScope(
     store,
-    executionBasis,
+    durablePrefix,
+    { kind: "root", executionBasis },
     runtimeBasis("correlation://t286/r8/open"),
   );
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
-  assert.equal(abg.hasOpenedTraversalScope(store, opened.scope), true);
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
+  assert.equal(
+    abg.hasOpenedTraversalScopeAtPrefix(
+      abg.selectValidatedRuntimeEventPrefix(store.readAll()),
+      opened.scope,
+    ),
+    true,
+  );
   assert.equal(opened.scope.executionBasisRef, executionBasis.basisRef);
   assert.equal(opened.scope.invocationAdmissionRef, invocationAdmission.invocationAdmissionRef);
   assert.equal(opened.scope.programRef, program.programRef);
@@ -88,16 +102,18 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal("event" in traversalStop, false);
   assert.equal("plan" in traversalStop, false);
 
+  // The opening also records the frame's liveness probe observation.
   const events = store.readAll();
-  assert.equal(events.length, eventsBeforeOpen.length + 3);
-  assert.deepEqual(events.slice(-3).map((event) => event.kind), [
+  assert.equal(events.length, eventsBeforeOpen.length + 4);
+  assert.deepEqual(events.slice(-4).map((event) => event.kind), [
     "run_segment_opened",
     "graph_call_opened",
     "frame_opened",
+    "runtime_activity_probe_observed",
   ]);
-  const runEvent = events.at(-3);
-  const graphCallEvent = events.at(-2);
-  const frameEvent = events.at(-1);
+  const runEvent = events.at(-4);
+  const graphCallEvent = events.at(-3);
+  const frameEvent = events.at(-2);
   const executionBasisEvent = events.find((event) => event.eventId === executionBasis.admissionEventRef);
   const implementationEvent = events.find(
     (event) => event.eventId === environment.implementationResolution.admissionEventRef,
@@ -139,20 +155,22 @@ test("R8 opens explicit runtime scope and enters HoG at the declared C locus", a
   assert.equal(store.readAll().length, eventCountBeforeCopiedScope);
 
   const copiedBasis = structuredClone(executionBasis);
-  const copiedBasisOpen = abg.openCall(
+  const copiedBasisOpen = abg.openTraversalScope(
     store,
-    copiedBasis,
+    opened.successorPrefix,
+    { kind: "root", executionBasis: copiedBasis },
     runtimeBasis("correlation://t286/r8/copied-basis"),
   );
-  assert.equal(copiedBasisOpen.kind, "open_call_refusal");
+  assert.equal(copiedBasisOpen.kind, "traversal_scope_open_refusal");
   assert.equal(copiedBasisOpen.code, "execution_basis_already_opened");
   assert.equal(store.readAll().length, eventCountBeforeCopiedScope);
-  const duplicateOpen = abg.openCall(
+  const duplicateOpen = abg.openTraversalScope(
     store,
-    executionBasis,
+    opened.successorPrefix,
+    { kind: "root", executionBasis },
     runtimeBasis("correlation://t286/r8/duplicate-open"),
   );
-  assert.equal(duplicateOpen.kind, "open_call_refusal");
+  assert.equal(duplicateOpen.kind, "traversal_scope_open_refusal");
   assert.equal(duplicateOpen.code, "execution_basis_already_opened");
   assert.equal(store.readAll().length, eventCountBeforeCopiedScope);
   assert.equal(

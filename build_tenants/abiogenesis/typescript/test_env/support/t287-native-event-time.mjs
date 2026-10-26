@@ -40,66 +40,6 @@ export function timeFixtureCandidate(eventTime, ordinal, causationEventRefs=[]) 
     payload:{invocationDigest:'sha256:'+'1'.repeat(64),invocationRef,operationId:'abg.operation.project.read',variant:'status'}};
 }
 
-export const selectedTimeOwners = Object.freeze({
-  'abg/actor_process.ts': {native:5, preserved:{'event.eventTime':1}},
-  'abg/c_call.ts': {native:10, preserved:{'basis.eventTime':6}},
-  'abg/closure.ts': {native:4},
-  'abg/execution_basis.ts': {native:4},
-  'abg/invocation_admission.ts': {native:0, sharedNativeSamples:1, preserved:{invocationAdmissionEventTime:2}},
-  'abg/open_call.ts': {native:3},
-  'abg/traversal_cursor.ts': {native:1},
-  'abg/traversal_route.ts': {native:4},
-  'hog/operator_support.ts': {native:1},
-  'owner_bindings/run_invocation.ts': {native:7},
-});
-
-export async function sourceTimeExpressions(packageRoot) {
-  const imported=await import(pathToFileURL(join(packageRoot,'node_modules/typescript/lib/typescript.js')));
-  const ts=imported.default??imported,rows=[];
-  for(const [path,expected] of Object.entries(selectedTimeOwners)) {
-    const source=await readFile(join(packageRoot,'code/src',path),'utf8');
-    const tree=ts.createSourceFile(path,source,ts.ScriptTarget.Latest,true);
-    const fields=[];
-    const visit=node=>{
-      if(ts.isPropertyAssignment(node)&&node.name.getText(tree)==='eventTime') {
-        let owner=node.parent;
-        while(owner&&!ts.isFunctionDeclaration(owner))owner=owner.parent;
-        fields.push({path,line:tree.getLineAndCharacterOfPosition(node.getStart(tree)).line+1,
-          expression:node.initializer.getText(tree),owner:owner?.name?.getText(tree)??'<callback>'});
-      }
-      ts.forEachChild(node,visit);
-    };
-    visit(tree);
-    if(expected.sharedNativeSamples) {
-      const captures=[];
-      const capture=node=>{
-        if(ts.isVariableDeclaration(node)&&node.name.getText(tree)==='invocationAdmissionEventTime')
-          captures.push(node.initializer?.getText(tree));
-        ts.forEachChild(node,capture);
-      };
-      capture(tree);
-      assert.deepEqual(captures,['sampleNativeEventTime()'],'one native capture covers both paired fields');
-    }
-    const native=fields.filter(row=>row.expression==='sampleNativeEventTime()');
-    assert.equal(native.length,expected.native,`${path}: native producer coverage`);
-    const preserved=fields.filter(row=>row.expression!=='sampleNativeEventTime()');
-    assert.equal(preserved.length,Object.values(expected.preserved??{}).reduce((a,b)=>a+b,0),`${path}: no unclassified caller seed`);
-    for(const [expression,count] of Object.entries(expected.preserved??{}))assert.equal(preserved.filter(row=>row.expression===expression).length,count);
-    if(path==='abg/c_call.ts')for(const row of preserved)assert.ok(
-      ['planCCallRuntimeFailureClose','planPendingInteractionAdmission'].includes(row.owner),
-      `only deterministic prepared plans retain basis time: ${row.owner}:${row.line}`);
-    rows.push(...fields);
-  }
-  return rows;
-}
-
-// Executes the exact production field expression, not a retyped clock model.
-// It is a field-level discriminator; it does not claim to run an entire owner.
-export function evaluateTimeExpression(row, clock, fixedTime) {
-  return Function('sampleNativeEventTime','basis','event','invocationAdmissionEventTime',`"use strict"; return (${row.expression});`)(
-    clock.sampleNativeEventTime,{eventTime:fixedTime},{eventTime:fixedTime},fixedTime);
-}
-
 // Execute the exact compiled owner tail: digest/ref construction, native sample
 // capture, complete transaction callback and receipt construction. Outer input
 // validation is deliberately outside this component fixture's evidence scope.

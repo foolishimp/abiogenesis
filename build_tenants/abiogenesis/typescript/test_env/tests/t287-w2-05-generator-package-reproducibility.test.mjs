@@ -94,6 +94,13 @@ async function exactPublicDeclarationClosure(manifest, declarations) {
     packageType: packageJson.type === "module" ? "module" : "commonjs",
     packageExports: packageJson.exports,
     declarationSources,
+    // The resolver admits the package's metadata (root and nested
+    // package.json) as the generator and verifyProduct supply it.
+    packageMetadataSources: await Promise.all(
+      manifest.productRelativeLocators
+        .filter((path) => path === "package.json" || path.endsWith("/package.json"))
+        .map(async (path) => ({ path, bytes: await readFile(join(root, path)) })),
+    ),
     sourceProductContentDigest: manifest.productContentDigest,
   });
   assert.ok(closures, "generated declarations must form exact export closures");

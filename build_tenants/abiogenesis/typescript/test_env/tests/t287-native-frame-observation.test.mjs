@@ -232,22 +232,11 @@ test('frame declaration and observation-join falsifiers over an authentic read-o
  await writeFile(join(proof,'join-falsifiers.json'),JSON.stringify({kind:'pure_relation_falsifiers_not_native_trace',controls:controls.map(([name])=>name),passed:true},null,2)+'\n');
 });
 
-test('exact current D4 descriptor and retained historical EC rows/projections are conserved',async()=>{
- assert.ok(process.env.ABI5_FRAME_BASELINE_ROOT);const before=await loadFrameOwners(process.env.ABI5_FRAME_BASELINE_ROOT),after=await loadFrameOwners(root);
- assert.deepEqual(after.events.ROOT_EVENT_CONTRACT_DESCRIPTOR,before.events.ROOT_EVENT_CONTRACT_DESCRIPTOR);
- assert.equal(after.events.ROOT_EVENT_CONTRACT_DIGEST,'sha256:3e8f2d4cb80c3c263c44fdadf6c23a46a5c510c3466f1f2cf31fe6016e01cc6a');
- const bytes=await readFile(process.env.ABI5_FRAME_HISTORY_PATH);assert.equal(sha(bytes),process.env.ABI5_FRAME_HISTORY_SHA256);
- const summaries=[];for(const count of [240,246,388]){
-  const a=before.immutable.deepFreeze(before.events.validateHistoricalEvents(bytes).slice(0,count));
-  const b=after.immutable.deepFreeze(after.events.validateHistoricalEvents(bytes).slice(0,count));
-  const ap=before.prefix.selectValidatedRuntimeEventPrefix(a),bp=after.prefix.selectValidatedRuntimeEventPrefix(b);
-  const ecBefore=before.calculus.deriveRuntimeEventCalculusProjection(ap),ecAfter=after.calculus.deriveRuntimeEventCalculusProjection(bp);
-  assert.deepEqual(ecAfter,ecBefore,'all effect rows and held fluents');
-  assert.deepEqual(after.replay.replayValidatedRuntimeEventPrefix(bp),before.replay.replayValidatedRuntimeEventPrefix(ap));
-  summaries.push({count,eventCalculusDigest:sha(JSON.stringify(ecAfter))});
- }
- await writeFile(join(proof,'historical-equality.json'),JSON.stringify({descriptorEqual:true,d4:after.events.ROOT_EVENT_CONTRACT_DIGEST,summaries},null,2)+'\n');
-});
+// Retired (T-290 C-18b): 'exact current D4 descriptor and retained historical
+// EC rows/projections are conserved'. It ran the build at ABI5_FRAME_BASELINE_ROOT
+// (a predecessor cut; C-5 stop 2) and asserted equality with it, including the
+// D4 contract digest sha256:3e8f2d4cb80c…, which the current profile replaced: a
+// conservation claim against a superseded cut is a claim about that cut.
 
 // Component harness over admitted rows: the built runtime_liveness owner reads
 // its execution basis from an admitted basis_admitted row and its retry budget

@@ -151,10 +151,13 @@ test("S06 Product verification resolves contract authority and exact locators", 
       expectedCode: "catalog_mismatch",
     },
     {
-      label: "empty-capability",
+      // A contract's capability identities are ABG's register projection
+      // (shared/capability_contracts.ts capabilityRefsForContract), empty for a
+      // developer contract; an identity the register does not project refuses.
+      label: "unprojected-capability",
       transformPublicContract: (row) => ({
         ...row,
-        capabilityIdentities: [],
+        capabilityIdentities: ["flavor.example.capability.render@5"],
       }),
       expectedCode: "catalog_mismatch",
     },

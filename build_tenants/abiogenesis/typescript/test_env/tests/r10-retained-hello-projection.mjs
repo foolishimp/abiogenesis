@@ -3,7 +3,9 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { projectRunTruthAtDurablePrefix, RunProjectionPort, GraphCallProjectionPort } from '../../build/code/src/abg/project_read_ports.js';
 import { constructRunInvocationOutcome } from '../../build/code/src/product/run_invocation_operation.js';
-import { eventLogPath as log, historical, reopenPackagedS01Store } from '../fixtures/r10-projection-family/s01-store.mjs';
+import { eventLogPath as log, historical, reopenPackagedS01Store, s01Skip } from '../fixtures/r10-projection-family/s01-store.mjs';
+// The S01 store is historical evidence under ABI5_EVIDENCE_ROOT (s01-store.mjs).
+if (s01Skip) { console.log(JSON.stringify({ kind: 'r10_retained_hello_projection', disposition: 'skipped', reason: s01Skip })); process.exit(0); }
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const expected = 'd2a677a2201dddb5b6f14d82b1c11e5d3cf95e9d369c30742cd750dac198e56c';
 assert.equal(hash(log), expected);

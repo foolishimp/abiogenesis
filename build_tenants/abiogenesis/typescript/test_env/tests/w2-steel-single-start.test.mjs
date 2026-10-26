@@ -117,7 +117,11 @@ test('missing preserved E and unbound unequal ordinary wires refuse', () => {
 });
 test('terminal cardinality remains one while explicit downstream consumption preserves child result', () => {
   const s = subject(); s.gf.template.terminalNodeRefs = ['node://unit/prepare'];
-  diagnostic(validate(s), 'invalid_result_cardinality', 'exactly one result-bearing');
+  // A terminal that keeps its downstream edge is refused structurally at raw
+  // admission; the static validator never receives the template.
+  const refused = validator.rawAdmitValue(JSON.parse(JSON.stringify(s.gf)), 'graph_function', 'contract://unit/raw/graph_function');
+  assert.equal(refused.kind, 'raw_admission_refusal');
+  assert.match(refused.message, /terminal GTL node cannot declare an outgoing graph edge/u);
 });
 test('C2 and serial C3 publish graph-call child closure without changing callable pairs', () => {
   const c2Graph = c2Publication.graphFunctions.find((row) => row.name === c2.graphFunctionRef);

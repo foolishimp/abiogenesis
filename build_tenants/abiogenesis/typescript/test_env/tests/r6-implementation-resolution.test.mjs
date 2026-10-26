@@ -29,6 +29,8 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
     resolutionValidation: validation,
   } = environment;
   const node = graphFunction.template.nodes[0];
+  // The resolver reads the Program's resolved declaration closure.
+  const declarationClosure = environment.executionResolution.declarationClosure;
   const eventCountBeforeResolution = store.readAll().length;
   assert.equal(resolution.kind, "implementation_resolution_candidate", JSON.stringify(resolution));
   const binding = publication.implementationBindings.find(
@@ -84,7 +86,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
 
   const absentNode = product.resolveImplementation(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     graphValidation,
     graphFunction.name,
@@ -95,7 +97,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
 
   const absentPackageImplementation = product.resolveImplementation(
     catalogView,
-    publication,
+    declarationClosure,
     programValidation,
     graphValidation,
     graphFunction.name,
@@ -106,7 +108,7 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
 
   const changedView = product.resolveImplementation(
     { ...catalogView, entries: [] },
-    publication,
+    declarationClosure,
     programValidation,
     graphValidation,
     graphFunction.name,
@@ -121,7 +123,8 @@ test("R6 resolves one exact packaged leaf and all declared contracts", async (co
   ).modulePath = "build/code/src/implementation/other.js";
   const alteredBinding = product.resolveImplementation(
     catalogView,
-    alteredPublication,
+    { ...declarationClosure, publications: declarationClosure.publications.map((row) =>
+      row === publication ? alteredPublication : row) },
     programValidation,
     graphValidation,
     graphFunction.name,

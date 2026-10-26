@@ -55,17 +55,23 @@ test("B8 an exact rehydrated ExecutionBasis enters the installed ABG path", asyn
   const environment = await setupInstalledRootExecutionBasis(context, root);
   const copiedBasis = structuredClone(environment.executionBasis);
   const eventCount = environment.store.readAll().length;
-  const open = environment.abg.openCall(
+  // The root Run opens through the one traversal-scope owner (openCall was
+  // folded into openTraversalScope at 415b58dc8).
+  const open = environment.abg.openTraversalScope(
     environment.store,
-    copiedBasis,
+    environment.durablePrefix,
+    { kind: "root", executionBasis: copiedBasis },
     {
       eventTime: "2026-07-21T00:00:00.000Z",
       correlationId: "correlation://t286/b8/copied-basis",
       causationEventRefs: [],
     },
   );
-  assert.equal(open.kind, "open_call_admission", JSON.stringify(open));
-  assert.equal(environment.store.readAll().length, eventCount + 3);
+  assert.equal(open.kind, "traversal_scope_open_admission", JSON.stringify(open));
+  // The opening admits Run, GraphCall and Frame and the Frame's first native
+  // liveness observation (observeNativeFrameLiveness in abg/open_call.ts).
+  assert.deepEqual(environment.store.readAll().slice(eventCount).map((event) => event.kind),
+    ["run_segment_opened", "graph_call_opened", "frame_opened", "runtime_activity_probe_observed"]);
   mutationEvidence.push({
     mutation: "exact_rehydrated_execution_basis",
     boundary: "abg_open_call",
@@ -95,6 +101,9 @@ test("B8 HoG hides low-level completion and rejects a forged leaf port", async (
     closureContract,
     workspaceBinding,
     artifactTruth,
+    durablePrefix,
+    publication,
+    programValidation,
   } = environment;
   assert.equal("completeExecutableTraversal" in hog, false);
   assert.equal("constructChildTraversalPreparationPort" in hog, false);
@@ -104,16 +113,19 @@ test("B8 HoG hides low-level completion and rejects a forged leaf port", async (
     correlationId: `correlation://t286/b8/forged-leaf-port/${stage}`,
     causationEventRefs: [],
   });
-  const opened = abg.openCall(store, executionBasis, runtimeBasis("open"));
-  assert.equal(opened.kind, "open_call_admission", JSON.stringify(opened));
+  const opened = abg.openTraversalScope(store, durablePrefix, { kind: "root", executionBasis }, runtimeBasis("open"));
+  assert.equal(opened.kind, "traversal_scope_open_admission", JSON.stringify(opened));
   const completion = await hog.executeGraphTraversal({
     store,
+    predecessorPrefix: opened.successorPrefix,
     executionBasis,
     openedTraversalScope: opened.scope,
     program,
+    programPublication: publication,
     graphFunction,
     graph,
     graphValidation,
+    programValidation,
     implementationSet,
     interactionSet: executionBasisAdmission.interactionSet,
     leafPort: { ...leafPort },

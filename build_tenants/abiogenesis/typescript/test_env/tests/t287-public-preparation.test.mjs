@@ -3,10 +3,10 @@
 // no ABG occurrence, independent judgment or qualification verdict is asserted.
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createRequire } from "node:module";
 import { dirname, join, resolve } from "node:path";
-import test from "node:test";
+import test, { after } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
   acquireQualificationResources, prepareQualificationAssessment,
@@ -14,8 +14,18 @@ import {
   QUALIFICATION_ROLE_POLICY as policy,
 } from "@abiogenesis/typescript-tenant/qualification/m05";
 
-assert(process.env.ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT, "an extracted package is required");
-const root = resolve(process.env.ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT);
+// The package is the extracted one a source-blind consumer run names, else the
+// build it is packed from; the strict consumer file is then written in a
+// lane-owned directory inside the package scope (ignored test_runs), removed after.
+const tenantRoot = fileURLToPath(new URL("../..", import.meta.url));
+const root = resolve(process.env.ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT ?? tenantRoot);
+const consumerDirectory = process.env.ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT !== undefined
+  ? dirname(fileURLToPath(import.meta.url))
+  : (mkdirSync(join(tenantRoot, "test_env/test_runs"), { recursive: true }),
+    mkdtempSync(join(tenantRoot, "test_env/test_runs/public-preparation-")));
+if (process.env.ABI5_PUBLIC_PREPARATION_PACKAGE_ROOT === undefined) {
+  after(() => rmSync(consumerDirectory, { recursive: true, force: true }));
+}
 assert.equal(fileURLToPath(import.meta.resolve("@abiogenesis/typescript-tenant/qualification/m05")),
   join(root, "build/code/src/qualification/m05.js"));
 const digest = bytes => "sha256:" + createHash("sha256").update(bytes).digest("hex");
@@ -262,7 +272,7 @@ test("existing owners refuse missing resources, crossed selectors and changed ta
 
 test("source-blind strict caller imports canonical input, resource and request types from m05", t => {
   const require = createRequire(import.meta.url), ts = require(join(root, "build/toolchain/typescript.cjs"));
-  const file = join(dirname(fileURLToPath(import.meta.url)), "public-preparation-consumer.mts");
+  const file = join(consumerDirectory, "public-preparation-consumer.mts");
   const consumer = `import {acquireQualificationResources,prepareQualificationAssessment,
     type QualificationResourceAssertion,type QualificationAssessmentInput,type QualificationEmbeddedTask,
     type QualificationReferenceTask,type QualificationResources,type ResolvedQualificationAssessment,

@@ -1,29 +1,13 @@
 import assert from "node:assert/strict";
 import { constants } from "node:buffer";
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
-import { SourceTextModule, SyntheticModule } from "node:vm";
 import test from "node:test";
 import * as owner from "../../build/code/src/abg/event_store.js";
 import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
 
-// Optional differential oracle: the exact emitted predecessor, supplied by the
-// closed correction evidence. No source reconstruction or duplicate decoder.
-let previous;
-if (process.env.ABI5_COLD_RECORD_PREIMAGE) {
-  const file = resolve(import.meta.dirname, "../../build/code/src/abg/event_store.js");
-  const module = new SourceTextModule(readFileSync(process.env.ABI5_COLD_RECORD_PREIMAGE, "utf8"),
-    { identifier: file, initializeImportMeta: meta => { meta.url = pathToFileURL(file).href; } });
-  await module.link(async spec => {
-    const actual = await import(spec.startsWith("node:") ? spec : pathToFileURL(resolve(dirname(file), spec)).href);
-    return new SyntheticModule(Object.keys(actual), function () {
-      for (const [name, value] of Object.entries(actual)) this.setExport(name, value);
-    });
-  });
-  await module.evaluate(); previous = module.namespace;
-}
+// Retired: the ABI5_COLD_RECORD_PREIMAGE differential oracle, which evaluated
+// the emitted predecessor event_store.js beside the current owner (a claim
+// about that cut, C-5 stop 2).
 
 const candidate = (text, label) => ({ kind: "basis_admitted", eventTime: "2026-09-23T00:00:00.000Z",
   aggregateType: "workspace", aggregateId: "workspace://cold-record-fixture", parentAggregateId: null,
@@ -64,12 +48,10 @@ test("record decoder preserves complete framing precedence and exact historical 
   for (const [label, value, message] of cases) {
     const actual = result(owner, value);
     assert.match(actual.error.message, message, label);
-    if (previous) assert.deepEqual(actual, result(previous, value), label);
   }
   for (const value of [Buffer.alloc(0), bytes]) {
     const profile = sha256Canonical("unknown profile");
     assert.match(result(owner, value, profile).error.message, /coordinate profile differs/);
-    if (previous) assert.deepEqual(result(owner, value, profile), result(previous, value, profile));
   }
   assert.match(result(owner, bytes, owner.LEGACY_ROOT_EVENT_CONTRACT_DIGEST).error.message, /coordinate profile differs/);
 });
@@ -79,22 +61,20 @@ test("record decoder preserves UTF-8 replacement, offset views and physical-pref
   const view = new Uint8Array(wrapped.buffer, wrapped.byteOffset + 9, bytes.length);
   for (const value of [bytes, view]) {
     assert.deepEqual(owner.validateHistoricalEvents(value), [event]);
-    if (previous) assert.deepEqual(result(owner, value), result(previous, value));
   }
   const marker = Buffer.from("�"), offset = bytes.indexOf(marker);
   assert.ok(offset >= 0);
   const malformed = Buffer.concat([bytes.subarray(0, offset), Buffer.from([0xff]), bytes.subarray(offset + marker.length)]);
-  const actual = result(owner, malformed);
-  assert.deepEqual(actual.events, [event], "retain existing replacement-character admission, without UTF-8 hardening");
-  assert.equal(actual.physical.digest, sha256Bytes(bytes), "preserve existing re-encoded physical-prefix hashing");
-  assert.equal(actual.physical.byteLength, bytes.length);
-  if (previous) assert.deepEqual(actual, result(previous, malformed));
+  // Retired: lossy admission of a malformed UTF-8 row as U+FFFD, a superseded
+  // cut's behavior. A row now admits only when its bytes are its value's
+  // canonical text (the canonical byte check in validateHistoricalEvents), so
+  // the malformed row is refused and no re-encoded physical prefix exists.
+  assert.match(result(owner, malformed).error.message, /noncanonical event/u);
   assert.deepEqual(owner.validateHistoricalEvents(Buffer.alloc(0)), []);
   const { eventContractDigest, eventId, ...legacyBody } = event;
   const legacy = { ...legacyBody, eventId: "event://abiogenesis/" + sha256Canonical(legacyBody).slice(7) };
   const legacyBytes = encode([legacy]);
   assert.deepEqual(owner.validateHistoricalEvents(legacyBytes, owner.LEGACY_ROOT_EVENT_CONTRACT_DIGEST), [legacy]);
-  if (previous) assert.deepEqual(result(owner, legacyBytes), result(previous, legacyBytes));
 });
 
 test("material cold history above Node string length decodes by record with unchanged identities", {

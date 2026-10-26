@@ -617,7 +617,7 @@ function reopenedReadResource(product, closeHandoff) {
 }
 
 function readAuthoritySlots(environment, packet, grants) {
-  const { admittedInstalls, workspaceBinding } = environment;
+  const { admittedInstalls, product, workspaceBinding } = environment;
   return Object.freeze({
     workspace_binding: Object.freeze({
       ref: workspaceBinding.bindingId,

@@ -544,7 +544,9 @@ test("Thread 3: independent order-summary Program through one installed start", 
     console.log(JSON.stringify({ phase: preflight.disposition, scratch, callables: program.callableMembership.length,
       leaves: resolution.programValidation.executableLeafRows.length, installedMembers: installedBefore.map(row => row.members) }));
     if (process.env.ABI5_STEEL03_RUN_LIVE !== "1") return;
-    assert.equal(process.env.ABG_TS_CLAUDE_COMMAND, "/Users/jim/.local/bin/claude");
+    // The live arm's actor command is the input its caller declares in
+    // ABG_TS_CLAUDE_COMMAND: an absolute path, not one machine's path.
+    assert.ok(isAbsolute(process.env.ABG_TS_CLAUDE_COMMAND ?? ""), "ABG_TS_CLAUDE_COMMAND names an absolute actor command");
     assert.equal(process.env.ABG_TS_CLAUDE_APPEND_ARGS, '["--effort","medium"]');
     assert.equal(process.env.ABG_TS_FP_TIMEOUT_MS, "900000");
     assert.equal(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS, "3600000");

@@ -100,7 +100,9 @@ const request = Object.freeze({
   verdict,
   requestedIdentity,
 });
-const direct = await Effect.runPromise(publishedRc({
+// A bare call carries no admission authority, so it is refused at resource
+// admission before the owner runs.
+const direct = await Effect.runPromise(Effect.either(publishedRc({
   invocation: Object.freeze({
     definitionKey: Object.freeze({
       operationId: "abg.operation.release.snapshot",
@@ -109,7 +111,7 @@ const direct = await Effect.runPromise(publishedRc({
     request,
   }),
   resources: null,
-}));
+})));
 
 process.stdout.write(JSON.stringify({
   publishedRcType: typeof publishedRc,
@@ -126,12 +128,16 @@ process.stdout.write(JSON.stringify({
   const probe = JSON.parse(probeStdout);
   assert.equal(probe.publishedRcType, "function");
   assert.equal(probe.tappedReleaseType, "function");
-  assert.equal(probe.direct.resources, null);
-  assert.equal(probe.direct.ownerOutput.outcomeKind, "refusal");
-  assert.equal(
-    probe.direct.ownerOutput.value.kind,
-    "release_snapshot_refusal",
-  );
-  assert.equal(probe.direct.ownerOutput.value.memberKey, "published_rc");
-  assert.equal(probe.direct.ownerOutput.value.code, "wrong_subject_kind");
+  // RETIRED (T-290 C-18b, removed surface): the bare call's owner refusal
+  // (release_snapshot_refusal wrong_subject_kind). Every definition binding
+  // runs under admission authority (withAdmissionAuthority), which refuses a
+  // call that is not its fixed owner's before the owner judges the request.
+  assert.equal(probe.direct._tag, "Left", JSON.stringify(probe.direct));
+  assert.equal(probe.direct.left.kind, "definition_execution_fault");
+  assert.equal(probe.direct.left.stage, "resource_admission");
+  assert.equal(probe.direct.left.code, "resource_relation_mismatch");
+  assert.deepEqual(probe.direct.left.definitionKey, {
+    operationId: "abg.operation.release.snapshot",
+    memberKey: "published_rc",
+  });
 });

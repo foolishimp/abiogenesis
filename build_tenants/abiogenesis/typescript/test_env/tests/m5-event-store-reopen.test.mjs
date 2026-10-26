@@ -59,6 +59,7 @@ import {
   td23Partitions,
 } from "../support/new-empty-append-sink.mjs";
 import { privateOwner } from "../support/r10-private-owner-harness.mjs";
+import { eventLogPath as s01EventLogPath, historical as s01Historical, reopenPackagedS01Store, s01Skip } from "../fixtures/r10-projection-family/s01-store.mjs";
 import {
   publicOperationBasis,
   setupInstalledRootInvocation,
@@ -1769,11 +1770,11 @@ test("TD-23 (b) the line mechanism yields the same rows, offsets and framing fac
   assert.equal(partitions, 68882);
 });
 
-test("TD-23 (c) the packaged S01 store keeps its historical prefix through rows that straddle 64 KiB reads", async () => {
+// The S01 store is historical evidence under ABI5_EVIDENCE_ROOT (s01-store.mjs);
+// without the root this case skips with its reason. The owner reads a scratch
+// copy of its log, never the file under the root.
+test("TD-23 (c) the retained S01 store keeps its historical prefix through rows that straddle 64 KiB reads", { skip: s01Skip }, async () => {
   const { DurableHistoryLines, foldRuntimeHistoryDescriptor } = await td23Private();
-  // Loaded here, so that only this case depends on the packaged S01 fixture.
-  const { eventLogPath: s01EventLogPath, historical: s01Historical, reopenPackagedS01Store } =
-    await import("../fixtures/r10-projection-family/s01-store.mjs");
   const bytes = await readFile(s01EventLogPath), read = 64 * 1024;
   assert.equal(bytes.length, 2_797_774);
   const whole = [];
@@ -1785,7 +1786,7 @@ test("TD-23 (c) the packaged S01 store keeps its historical prefix through rows 
   for (let at = 0; at < bytes.length; at += read)
     for (const [row, offset] of lines.read(bytes.subarray(at, at + read))) chunked.push([offset, row.length, td23Sha(row)]);
   assert.deepEqual(chunked, whole);
-  // Head's fold and the new one over the packaged file, in 64 KiB reads.
+  // Head's fold and the new one over the scratch copy, in 64 KiB reads.
   const descriptor = fs.openSync(s01EventLogPath, "r");
   try {
     const record = fold => { const calls = []; const hash = fold(descriptor, bytes.length, (row, offset) => calls.push([offset, row.length, td23Sha(row)]),

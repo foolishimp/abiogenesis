@@ -22,6 +22,7 @@ import {syncBuiltinESMExports} from 'node:module';
 import {constructTraversalCursorCandidate} from '../../build/code/src/abg/traversal_cursor.js';
 import {projectTraversalRouteBody} from '../../build/code/src/abg/traversal_transition.js';
 import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
+import {eventsInput as s01EventsInput,s01Skip} from '../fixtures/r10-projection-family/s01-store.mjs';
 const enabled={skip:!process.env.P0_RETAINED_NATIVE_SCRATCH&&'P0_RETAINED_NATIVE_SCRATCH unset; requires the retained native scratch holding full-outcome.json',timeout:180000};
 const work=()=>({...globalThis.p0Work});
 const diff=(a,b)=>Object.fromEntries([...new Set([...Object.keys(a),...Object.keys(b)])].map(k=>[k,(b[k]??0)-(a[k]??0)]));
@@ -812,20 +813,23 @@ test('TD-15: the three record writers through writeCanonicalRecord keep head byt
    catch(error){if(error!==td15.failure)throw error;return {threw:true};}});
  const oracle=[];head.replay(full,undefined,td15Sink(oracle,Infinity));assert.deepEqual(streamed.value,oracle,'the complete ReplayState written without selected is the streamed part sequence');
 
- // Persisted: the two replayStateDigest values of the packaged S01 store (ordinals 15 and 16) are the
+ // Persisted: the two replayStateDigest values of the S01 store (ordinals 15 and 16) are the
  // complete replay digests at cuts 14 and 15; the transcription and the new writer recompute both.
- const s01=deepFreeze(fs.readFileSync(join(import.meta.dirname,'../fixtures/r10-projection-family/s01-attempt-01/events-01/runtime.events.jsonl'),'utf8')
-  .trim().split('\n').map(line=>JSON.parse(line)));
- const persisted=s01.filter(event=>typeof event.payload?.replayStateDigest==='string');
- assert.deepEqual(persisted.map(event=>[event.admissionOrdinal,event.kind]),[[15,'c_call_judged'],[16,'traversal_route_admitted']]);
- for(const event of persisted){
-  const cut=prefix.selectValidatedRuntimeEventPrefix(Object.freeze(s01.slice(0,event.admissionOrdinal-1)));
-  const recomputed=captured(()=>owner.replayValidatedRuntimeEventPrefix(prefix.selectRuntimeEventPrefixFromAuthority(cut,{runId:event.runId}),cut));
-  assert.equal(recomputed.value.replayDigest,event.payload.replayStateDigest);
-  const {body}=recomputed.calls.at(-1),bytes=[];head.replay(body,undefined,td15Sink(bytes,Infinity));
-  assert.equal('sha256:'+createHashForTd15('sha256').update(bytes.join(''),'utf8').digest('hex'),event.payload.replayStateDigest);
-  measured['persisted ordinal '+event.admissionOrdinal]={digest:event.payload.replayStateDigest,cut:event.admissionOrdinal-1};
- }
+ // The S01 log is historical evidence under ABI5_EVIDENCE_ROOT (s01-store.mjs); without it this
+ // subtest skips with its reason.
+ await t.test('the S01 store\'s persisted replay digests recompute through head and the new writer',{skip:s01Skip},()=>{
+  const s01=deepFreeze(s01EventsInput.bytes.toString('utf8').trim().split('\n').map(line=>JSON.parse(line)));
+  const persisted=s01.filter(event=>typeof event.payload?.replayStateDigest==='string');
+  assert.deepEqual(persisted.map(event=>[event.admissionOrdinal,event.kind]),[[15,'c_call_judged'],[16,'traversal_route_admitted']]);
+  for(const event of persisted){
+   const cut=prefix.selectValidatedRuntimeEventPrefix(Object.freeze(s01.slice(0,event.admissionOrdinal-1)));
+   const recomputed=captured(()=>owner.replayValidatedRuntimeEventPrefix(prefix.selectRuntimeEventPrefixFromAuthority(cut,{runId:event.runId}),cut));
+   assert.equal(recomputed.value.replayDigest,event.payload.replayStateDigest);
+   const {body}=recomputed.calls.at(-1),bytes=[];head.replay(body,undefined,td15Sink(bytes,Infinity));
+   assert.equal('sha256:'+createHashForTd15('sha256').update(bytes.join(''),'utf8').digest('hex'),event.payload.replayStateDigest);
+   measured['persisted ordinal '+event.admissionOrdinal]={digest:event.payload.replayStateDigest,cut:event.admissionOrdinal-1};
+  }
+ });
  t.diagnostic(JSON.stringify(measured));
 });
 

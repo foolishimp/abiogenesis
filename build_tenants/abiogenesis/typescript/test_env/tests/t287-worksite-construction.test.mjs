@@ -71,7 +71,9 @@ async function installDeterministicClaude(environment, encoding = "base64") {
     "  };",
     "  console.log(JSON.stringify({ type: 'system', subtype: 'init', model: 'deterministic-c1-proof' }));",
     "  console.log(JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'candidate ready' }] } }));",
-    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', result: JSON.stringify(result) }));",
+    // A schema-bound request selects its result only from the host's successful
+    // structured_output carrier; the result text is not a fallback.
+    "  console.log(JSON.stringify({ type: 'result', subtype: 'success', is_error: false, result: JSON.stringify(result), structured_output: result }));",
     "});",
     "",
   ].join("\n"), "utf8");
@@ -113,6 +115,12 @@ function captureLeafCalls(leafPort, retained) {
     const outcome = await leafPort.invoke(call);
     retained.push({ call, outcome });
     return outcome;
+  };
+  // A nested graph call invokes its leaves through the port the parent
+  // resolves for that GraphFunction; capture follows it.
+  delegated.forGraphFunction = async (graphFunctionRef) => {
+    const child = await leafPort.forGraphFunction(graphFunctionRef);
+    return child === null ? null : captureLeafCalls(child, retained);
   };
   return Object.freeze(delegated);
 }
@@ -193,7 +201,9 @@ async function assertRawEncodingLaw(environment, task) {
   for (const value of [...invalidVectors, ...invalidPayloads.slice(0, 2)]) assert.equal(schemaAccepts(value), true);
   const { realizeWorksiteConstructionCandidate } = await import(pathToFileURL(join(environment.installedRoot,
     "build/code/src/implementation/worksite_construction.js")).href);
-  const prepared = realizeWorksiteConstructionCandidate(vectorTask, null);
+  // The realization reads its occurrence only for a native instruction
+  // assembly basis; an occurrence without one keeps the plain worker request.
+  const prepared = realizeWorksiteConstructionCandidate(vectorTask, {});
   assert.deepEqual(prepared.workerRequest.responseJsonSchema, schema);
   assert.equal(prepared.workerRequest.prompt, task.prompt);
   for (const value of [...invalidVectors, ...invalidPayloads,
@@ -236,10 +246,12 @@ test("T-287 C1 remains singular inside the C3 composite publication", async () =
     packageVersion: manifest.packageVersion,
   });
 
+  // The publication also carries the C0 file-parents Program (one GraphFunction,
+  // one F_D binding) and the two preserved-result bindings; C1 stays singular.
   assert.equal(publication.moduleRef, ids.moduleRef);
-  assert.equal(publication.programs.length, 3);
-  assert.equal(publication.graphFunctions.length, 7);
-  assert.equal(publication.implementationBindings.length, 6);
+  assert.equal(publication.programs.length, 4);
+  assert.equal(publication.graphFunctions.length, 8);
+  assert.equal(publication.implementationBindings.length, 9);
   const constructionProgram = publication.programs.find(
     (candidate) => candidate.programRef === ids.programRef,
   );
@@ -275,6 +287,7 @@ test("T-287 C1 remains singular inside the C3 composite publication", async () =
     [ids.vectorApplicationGraphFunctionRef]: 0,
     [ids.fileReplaceGraphFunctionRef]: 1,
     [ids.reducerGraphFunctionRef]: 1,
+    [gtl.WORKSITE_FILE_PARENTS_IDS.graphFunctionRef]: 1,
   });
 
   const rootGraphFunction = publication.graphFunctions.find(

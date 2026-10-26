@@ -31,7 +31,6 @@ const planSlot = 'slot://abiogenesis/t287/installed-conservation/inventory-A';
 const rootA = 'fixture://abiogenesis/t287/installed-conservation/A';
 const rootB = 'fixture://abiogenesis/t287/installed-conservation/B';
 assert.equal(process.execPath, pinnedNode, 'caller interpreter is pinned');
-assert.equal(process.env.HOME, '/Users/jim');
 assert.equal(process.env.NODE_OPTIONS, undefined, 'default heap is preserved');
 
 async function fixture(caller, install) {

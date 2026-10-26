@@ -9,21 +9,13 @@ export const packageRoot=resolve(import.meta.dirname,"../..");
 export const load=path=>import(pathToFileURL(resolve(packageRoot,path)).href);
 const skipOf=input=>input.kind==="absent"&&input.reason;
 // Historical evidence under ABI5_EVIDENCE_ROOT: the D1 live-04 bridge input
-// (the captured stage envelope) and the D2 frame-repair implementation-01
-// predecessor, named by each file a lane reads or imports from it.
+// (the captured stage envelope), named by path, digest and bytes. The D2
+// frame-repair predecessor's build and source freeze are not read: its build
+// is not runnable here (T-290 C-5 stop 2) and the claims over it are retired
+// (C-18b).
 export const capturedEnvelopeInput=evidenceInput({path:"comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json",
   sha256:"6cde4824e5912305cb94de3afdc2eabfd74560e8d8f828cd6be7aa6f64991b16",bytes:983713});
 export const capturedEnvelopeSkip=skipOf(capturedEnvelopeInput);
-const PREDECESSOR="comments/codex/20260910_D2_FRAME_REPAIR/implementation-01/";
-export const predecessorInputs=Object.fromEntries([
-  ["productIndex","work/build/code/src/product/index.js","db068a67ff99a137b7bc52fb5dcf3729b4b9414b3cfa06526d6e34fe5c8d042a",9920],
-  ["commandExecution","work/build/code/src/gtl/worksite_command_execution.js","9e0bbd55fdbd4d3dbfc2c4cf0d80276981aff1bfcb03de424bcaf70e78d6a059",15716],
-  ["semanticStage","work/build/code/src/product/semantic_stage.js","46b06546b994f5977e59aec334de948a210ed51fba14a94bc922316ac9189b21",26525],
-  ["frozenWorksiteRevision","source-freeze-01/source/code/src/abg/worksite_revision.ts","771808d262f84730a5f911c67e790bd644b16a7ac85fa8da8e2651c6b06098e5",10022],
-  ["workWorksiteRevision","work/code/src/abg/worksite_revision.ts","771808d262f84730a5f911c67e790bd644b16a7ac85fa8da8e2651c6b06098e5",10022],
-].map(([name,path,sha256,bytes])=>[name,evidenceInput({path:PREDECESSOR+path,sha256,bytes})]));
-export const predecessorSkip=Object.values(predecessorInputs).map(skipOf).find(Boolean)||false;
-export const predecessorRoot=predecessorSkip?null:resolve(dirname(predecessorInputs.productIndex.path),"../../../../..");
 export function capturedEnvelope(){
   if(capturedEnvelopeInput.kind!=="present")throw new Error(capturedEnvelopeSkip);
   return JSON.parse(capturedEnvelopeInput.bytes);
@@ -32,14 +24,10 @@ export function capturedEnvelope(){
 // These are lookup stubs, not RuntimeEvents or calls to ABG admission. They
 // exercise the real private projection body with authentic Product guards and
 // explicit boundary assumptions. No prefix is admitted, persisted, or replayed.
-export async function projectionHarness({sourceRoot=packageRoot,selectionInputProfile="current"}={}){
-  assert.ok(["current","pre-context-counterexample"].includes(selectionInputProfile));
-  const historical=selectionInputProfile==="pre-context-counterexample";
-  assert.equal(resolve(sourceRoot),historical?resolve(predecessorRoot,"work"):packageRoot,"explicit counterexample subject, not schema fallback");
-  const subjectLoad=path=>import(pathToFileURL(resolve(sourceRoot,path)).href);
-  const product=await subjectLoad("build/code/src/product/index.js");
-  const revisionProduct=await subjectLoad("build/code/src/product/semantic_revision.js");
-  const {SEMANTIC_REVISION_IDS:ids}=await subjectLoad("build/code/src/gtl/semantic_revision_identity.js");
+export async function projectionHarness(){
+  const product=await load("build/code/src/product/index.js");
+  const revisionProduct=await load("build/code/src/product/semantic_revision.js");
+  const {SEMANTIC_REVISION_IDS:ids}=await load("build/code/src/gtl/semantic_revision_identity.js");
   const stage=capturedEnvelope(),current=stage.worksite,states=new Map(),executions=new Map(),lookupOrder=[];
   const originCalls=[];
   const oldCommand={kind:"unit_old_closed_C2_guard_assumption",commandResults:[{exitStatus:1}]};
@@ -49,7 +37,7 @@ export async function projectionHarness({sourceRoot=packageRoot,selectionInputPr
   const basis={input:null,publication:{},predecessorPrefix:{fixture:"lookup-only"},graphFunction:{declarations:{"abg.semantic_revision_selection":stage.lifecycle.declarationRef}},declarationGraphFunctions:[]};
   function selectionInput(parent,cause){
     const input={kind:"semantic_revision_selection_input",schemaVersion:"5.0.0",parent:parent.coordinate,causes:[cause.coordinate],
-      ...(historical?{}:{currentWorksite:current})};
+      currentWorksite:current};
     assert.equal(revisionProduct.isSemanticRevisionSelectionInput(input),true,"selected cut accepts its exact input before semantic counterexample");
     return input;
   }
@@ -80,9 +68,14 @@ export async function projectionHarness({sourceRoot=packageRoot,selectionInputPr
   const first=revision(root,oldCause,"first-revision",40,"invocation://unit/first-repair");
   const partial=state("later-partial-C1-failure",{kind:"unit_failure_value"},{ordinal:50,invocation:first.execution.invocationAdmissionRef,resultClass:"failure",judgment:"block"});
   const second=revision(first,partial,"second-revision",70,"invocation://unit/second-repair");
-  const modulePath=resolve(sourceRoot,"build/code/src/abg/semantic_revision.js");
+  const modulePath=resolve(packageRoot,"build/code/src/abg/semantic_revision.js");
   const overrides={
-    "./semantic_stage.js":{authenticateSemanticStageBasis:()=>owner,semanticInputValueAtBasis:b=>b.input,
+    // The revision owner authenticates through the owned stage authenticator
+    // (`authenticateOwnedSemanticStageBasis`, 67c333799); both names are the
+    // one stage-owner assumption; the basis input is compared by the owner's
+    // input-equality reader (`semanticInputAtBasisEquals`).
+    "./semantic_stage.js":{authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:b=>b.input,
+      semanticInputAtBasisEquals:(b,value)=>product.sha256Canonical(b.input)===product.sha256Canonical(value),
       projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>states.get(ref)??null},
     "./execution_basis.js":{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>executions.get(ref)??null},
     "./invocation_admission.js":{rehydrateInvocationAdmissionAtPrefix:(_prefix,ref)=>ref===owner.execution.invocationAdmissionRef?{capabilityGrants:[current.capabilityGrant]}:null},

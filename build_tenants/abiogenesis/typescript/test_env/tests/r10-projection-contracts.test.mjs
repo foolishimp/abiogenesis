@@ -1,7 +1,5 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import fs from 'node:fs';
-import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import * as v from 'valibot';
@@ -19,23 +17,27 @@ import {PUBLIC_FUNCTION_DEFINITION_FAMILY,PUBLIC_OPERATION_CONTRACT_PROJECTIONS}
 import {ROOT_EVENT_CONTRACT_DIGEST,projectRuntimeEventFromValidatedHistory} from '../../build/code/src/abg/event_store.js';
 import {constructRuntimeSystemProbeContract} from '../../build/code/src/abg/runtime_liveness_contracts.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
-import {storeRoot as native,eventLogPath,historical,reopenPackagedS01Store} from '../fixtures/r10-projection-family/s01-store.mjs';
-// Integration relocates test source only. The packaged S01 store is reopened once
-// by the store owner to obtain this file's coordinate and closed with no append;
-// no Public invocation or application effect is selected.
-const reopened=reopenPackagedS01Store(historical.reopenAuthority.eventContractDigest);
-assert.ok(reopened.prefix,JSON.stringify(reopened));
-const prefix=reopened.prefix,events=readRuntimeEventsAtDurablePrefix(prefix);
-const run=events.find(e=>e.kind==='run_segment_opened').runId,graph=events.find(e=>e.kind==='graph_call_opened').graphCallId;
-const truth=projectRunTruthAtDurablePrefix(prefix,run);assert.equal(truth.kind,'abg_run_truth_projection');
+import {eventsInput,eventLogPath,historical,reopenPackagedS01Store,s01Skip as skip} from '../fixtures/r10-projection-family/s01-store.mjs';
+// Integration relocates test source only. The S01 store (under the evidence
+// root; s01-store.mjs) is reopened once by the store owner to obtain this file's
+// coordinate and closed with no append; no Public invocation or application
+// effect is selected. Without the root every case that reads it skips.
+let prefix,events,run,graph,truth;
+if(!skip){
+  const reopened=reopenPackagedS01Store(historical.reopenAuthority.eventContractDigest);
+  assert.ok(reopened.prefix,JSON.stringify(reopened));
+  prefix=reopened.prefix;events=readRuntimeEventsAtDurablePrefix(prefix);
+  run=events.find(e=>e.kind==='run_segment_opened').runId;graph=events.find(e=>e.kind==='graph_call_opened').graphCallId;
+  truth=projectRunTruthAtDurablePrefix(prefix,run);assert.equal(truth.kind,'abg_run_truth_projection');
+}
 const packet=(member,target=run)=>({kind:'abg_project_read_packet',schemaVersion:'5.0.0',memberKey:member,prefix,targetRef:target});
 const projection=(member,fromOrdinal=0,limit=1)=>({source:{sourceRef:member.startsWith('graph_call')?graph:run,sourceDigest:member.startsWith('graph_call')?truth.graphCall.digest:truth.run.digest},
   projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},selector:{kind:'ordinal_page',fromOrdinal,limit}});
 const owners=await privateOwner('abg/project_read_ports.js',['terminalResult']);
-const replay=RunProjectionPort.run_replay(packet('run_replay'));
-assert.equal(replay.kind,'abg_project_read_projection');
+const replay=skip?null:RunProjectionPort.run_replay(packet('run_replay'));
+if(!skip)assert.equal(replay.kind,'abg_project_read_projection');
 
-test('the packaged log is the historical S01 prefix: the owner coordinate keeps its digest, length and profile; the current profile refuses it',()=>{
+test('the retained S01 log is the historical S01 prefix: the owner coordinate keeps its digest, length and profile; the current profile refuses it',{skip},()=>{
   assert.equal(prefix.eventLogRef,pathToFileURL(eventLogPath).href);
   assert.equal(prefix.prefixDigest,historical.prefix.prefixDigest);
   assert.equal(prefix.prefixLength,historical.prefix.prefixLength);
@@ -45,7 +47,7 @@ test('the packaged log is the historical S01 prefix: the owner coordinate keeps 
   assert.equal(current.code,'invalid_event_history');
 });
 
-test('six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster',()=>{
+test('six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster',{skip},()=>{
   assert.equal(PUBLIC_OPERATION_CONTRACT_PROJECTIONS.length,18);
   assert.equal(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.length,56);
   for(const [member,port,target] of [['run_result',RunProjectionPort.run_result,run],['run_replay',RunProjectionPort.run_replay,run],['graph_call_result',GraphCallProjectionPort.graph_call_result,graph],['graph_call_replay',GraphCallProjectionPort.graph_call_replay,graph]]) {
@@ -56,7 +58,7 @@ test('six current owner outputs preserve the same admitted terminal carrier and 
   for(const member of ['invoke','start'])assert.deepEqual(constructRunInvocationOutcome(member,truth).value.terminalResult,truth.terminalResult);
 });
 
-test('legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result)',()=>{
+test('legal I-JSON null is not absence (pure carrier and replay-row selection, not a new admitted result)',{skip},()=>{
   const terminal={...truth.terminalResult,value:null,valueDigest:sha256Canonical(null)};
   assert.equal(v.safeParse(ABG_TYPED_TERMINAL_RESULT_SCHEMA,terminal).success,true);
   const selected=owners.terminalResult([{routeKind:'terminal',cCallRef:'call:null'}],[{cCallRef:'call:null',resultRef:'result:null',resultDigest:sha256Canonical('result'),resultValue:null}]);
@@ -64,7 +66,7 @@ test('legal I-JSON null is not absence (pure carrier and replay-row selection, n
   assert.equal(owners.terminalResult([{routeKind:'terminal',cCallRef:'call:null'}],[]),null);
 });
 
-test('held/failed/missing terminal truth cannot become a completed Product result',()=>{
+test('held/failed/missing terminal truth cannot become a completed Product result',{skip},()=>{
   assert.equal(constructRunInvocationOutcome('start',{...truth,runtimeStatus:'held'}).outcomeKind,'nonterminal');
   const failed=constructRunInvocationOutcome('start',{...truth,runtimeStatus:'failed'});
   assert.equal(failed.value.disposition,'runtime_failed');assert.equal(failed.value.result,null);assert.equal(failed.value.terminalResult,null);
@@ -74,8 +76,8 @@ test('held/failed/missing terminal truth cannot become a completed Product resul
   assert.equal(constructRunInvocationOutcome('start',{...truth,result:{...truth.result,digest:sha256Canonical('wrong')}}).outcomeKind,'refusal');
 });
 
-test('read before Run close is not_ready while the actually closed root GraphCall is independently readable',()=>{
-  const bytes=fs.readFileSync(path.join(native,'events-01/runtime.events.jsonl'));
+test('read before Run close is not_ready while the actually closed root GraphCall is independently readable',{skip},()=>{
+  const bytes=eventsInput.bytes;
   const selected=Buffer.from(bytes.toString('utf8').trimEnd().split('\n').slice(0,19).join('\n')+'\n');
   const {coordinateDigest:_,...rest}=prefix;
   const body={...rest,prefixLength:selected.length,prefixDigest:'sha256:'+createHash('sha256').update(selected).digest('hex')};
@@ -86,7 +88,7 @@ test('read before Run close is not_ready while the actually closed root GraphCal
   assert.equal(projected.kind,'abg_project_read_projection');assert.equal(projected.value.terminalResult.result.ref,truth.result.ref);
 });
 
-test('whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse',()=>{
+test('whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse',{skip},()=>{
   const count=replay.value.eventAtoms.length;
   for(const offset of [0,count]) {
     const output=projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS.run_replay,projection('run_replay',offset,1),'run_replay',replay);
@@ -99,14 +101,14 @@ test('whole-prefix typed replay summary is conserved on first and empty-end page
   }
 });
 
-test('scope and packet crossings refuse; root does not accept a caller declarationProof field',()=>{
+test('scope and packet crossings refuse; root does not accept a caller declarationProof field',{skip},()=>{
   assert.equal(RunProjectionPort.run_replay({...packet('run_replay'),declarationProof:{}}).code,'invalid_packet');
   assert.equal(RunProjectionPort.run_result({...packet('run_result'),prefix:{...prefix,coordinateDigest:sha256Canonical('wrong')}}).code,'invalid_history');
   assert.equal(GraphCallProjectionPort.graph_call_result(packet('graph_call_result',run)).kind,'abg_project_read_refusal');
   assert.equal(RunProjectionPort.run_result(packet('run_result',graph)).kind,'abg_project_read_refusal');
 });
 
-test('a prefix holding a malformed liveness event is not admitted history: Run and workspace reads over it refuse',async()=>{
+test('a prefix holding a malformed liveness event is not admitted history: Run and workspace reads over it refuse',{skip},async()=>{
   // Component boundary: supply the authenticated immutable-event premise to
   // the read owner. These current-profile variants are unadmitted test data;
   // physical decoding/stamps are exercised by the decoder and body-codec tests.
@@ -150,7 +152,7 @@ test('a prefix holding a malformed liveness event is not admitted history: Run a
   assert.equal(target.RunProjectionPort.run_replay(packet('run_replay')).code,'invalid_history');
 });
 
-test('native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission',()=>{
+test('native CCall owner rejects altered value, contract, producer, judgment and pre-result prefix without test-owned admission',{skip},()=>{
   const opened=events.find(e=>e.kind==='c_call_opened'),fibre=events.find(e=>e.kind==='c_call_fibre_selected');
   const resultEvent=events.find(e=>e.kind==='c_call_result_admitted'),judgmentEvent=events.find(e=>e.kind==='c_call_judged');
   const call={...opened.payload,...fibre.payload,kind:'c_call',schemaVersion:'5.0.0',runId:opened.runId,
@@ -165,7 +167,7 @@ test('native CCall owner rejects altered value, contract, producer, judgment and
   assert.equal(projectAdmittedCCallStateAtPrefix(validatedRuntimeEventPrefixThroughEvent(selected,fibre.eventId),call,result,judgment),null);
 });
 
-test('the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim',()=>{
+test('the shared mapper rejects crossed result aliases and keeps failed-command observation data verbatim',{skip},()=>{
   const actual=RunProjectionPort.run_result(packet('run_result'));
   const crossed={...actual,value:{...actual.value,admittedResult:{...actual.value.admittedResult,resultRef:'result://foreign'}}};
   assert.throws(()=>projectAbgReadOutput(ABG_PROJECT_READ_CONTRACTS.run_result,projection('run_result'),'run_result',crossed),/terminal owner coordinates/);

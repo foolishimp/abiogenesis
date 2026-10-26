@@ -1,11 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {readFileSync} from 'node:fs';
-import {resolve} from 'node:path';
-import {pathToFileURL} from 'node:url';
-import {load,packageRoot,capturedEnvelopeSkip} from '../support/d2-bounded-harness.mjs';
+import {load,capturedEnvelopeSkip} from '../support/d2-bounded-harness.mjs';
 import {workflowStepHarness,retainedIntentWitness,retainedIntentSkip} from '../support/d2-workflow-step-harness.mjs';
-import {evidenceInput} from '../support/evidence-root.mjs';
 
 test('retained stopped Intent foldback satisfies existing D1 step, not premature lifecycle closure',{skip:retainedIntentSkip},async()=>{
   const product=await load('build/code/src/product/index.js'),{SEMANTIC_STAGE_IDS:D}=await load('build/code/src/gtl/semantic_stage_identity.js');
@@ -114,41 +110,4 @@ test('revision acknowledgment now constructs its honest nonzero-command observat
   assert.deepEqual(h.product.constructWorksiteRevisionCommandExecutionObservation(h.task,acknowledgment,actor,artifact,plan),h.observation);
   assert.ok(h.observation.commandResults.every(row=>row.exitStatus===1));
   // Pre-ack failure and exact inputs remain frozen separately; no runtime runs.
-});
-
-// The D2 implementation-04 fixture-preparation continuation fixture,
-// historical evidence under ABI5_EVIDENCE_ROOT.
-const continuationFixture=evidenceInput({path:'comments/codex/20260911_D2_BOUNDED_REPAIR/implementation-04/fixture-preparation/work/test_env/support/d2-continuation-fixture.mjs',
-  sha256:'3405f1595000e422416561011017c843b56e23703cd229913df2a383fea61ded',bytes:35798});
-test('exact four corrected Programs validate; root step differs from run closure and nested E_D is unchanged',{skip:continuationFixture.kind==='absent'&&continuationFixture.reason},async()=>{
-  const [product,gtl,validator]=await Promise.all(['product','gtl','validator'].map(name=>load(`build/code/src/${name}/index.js`)));
-  const fixturePath=continuationFixture.path;
-  const {nativePublications,constructD2FrameDeclarations}=await import(pathToFileURL(fixturePath).href);
-  const hash=n=>`sha256:${String(n).repeat(64)}`,abiArtifact={productId:product.ABI5_PRODUCT_ID,packageName:product.ABI5_PACKAGE_NAME,
-    packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:hash(1),productContentDigest:hash(2),manifestDigest:hash(3)};
-  const natives=nativePublications(gtl,abiArtifact),bundle=constructD2FrameDeclarations({product,gtl,abiArtifact,abiPublications:natives});
-  const publications=[...natives,bundle.sourcePublication,bundle.consumerPublication],unique=(rows,key)=>[...new Map(rows.map(row=>[row[key],row])).values()];
-  const raw=(value,kind)=>{const r=validator.rawAdmitValue(value,kind,`contract://unit/d2-workflow-step/${kind}`);assert.equal(r.kind,'raw_admitted_value');return r;};
-  const validations=[];
-  for(const publication of [bundle.sourcePublication,bundle.consumerPublication])for(const program of publication.programs){
-    const p=raw(publication,'module_publication'),validation=validator.validateProgram({declarationBasisDigest:p.subjectDigest,programPublication:p,program:raw(program,'gtl_program'),
-      graphFunctions:unique(publications.flatMap(p=>p.graphFunctions).filter(g=>program.callableMembership.includes(g.name)),'name').map(g=>raw(g,'graph_function')),
-      contracts:unique(publications.flatMap(p=>p.contracts),'contractRef').map(c=>raw(c,'contract_declaration')),
-      implementationBindings:unique(publications.flatMap(p=>p.implementationBindings),'bindingRef').map(b=>raw(b,'implementation_binding')),
-      closureContracts:unique(publications.flatMap(p=>p.closureContracts),'closureContractRef').map(c=>raw(c,'closure_contract')),rules:[],evaluators:[],
-      ...(publication.semanticLifecycle===undefined?{}:{semanticLifecyclePublication:raw(bundle.consumerPublication,'module_publication'),semanticSourcePublication:raw(bundle.sourcePublication,'module_publication')})});
-    assert.equal(validation.kind,'program_validation',JSON.stringify(validation));validations.push(validation);
-  }
-  assert.equal(validations.length,4);
-  const {SEMANTIC_STAGE_IDS:D}=await load('build/code/src/gtl/semantic_stage_identity.js');
-  const {SEMANTIC_REVISION_IDS:R}=await load('build/code/src/gtl/semantic_revision_identity.js');
-  for(const [name,step,closure]of [['initial',D.lifecycleStepPredicateRef,D.lifecyclePredicateRef],['repair',R.stepPredicateRef,R.projectionPredicateRef]]){
-    const root=bundle.consumerPublication.graphFunctions.find(g=>g.name.endsWith(`/${name}-root@5`));
-    assert.equal(root.declarations['abg.judgment_predicate'],step);
-    const contract=bundle.consumerPublication.closureContracts.find(c=>c.closureContractRef===root.declarations['abg.closure_contract']);
-    assert.equal(contract.predicateRef,closure);
-  }
-  const before=readFileSync(resolve(packageRoot,'../preimages/fixture/work/test_env/support/d2-continuation-fixture.mjs'),'utf8'),after=readFileSync(fixturePath,'utf8');
-  assert.equal(after.slice(0,after.indexOf('  function root(')),before.slice(0,before.indexOf('  function root(')));
-  assert.equal(after.slice(after.indexOf('  const selectionClose =')),before.slice(before.indexOf('  const selectionClose =')),'actors, assertions and remaining declarations exact');
 });

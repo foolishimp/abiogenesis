@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
-import {readFileSync,mkdtempSync,writeFileSync,statSync} from 'node:fs';
+import {readFileSync,mkdtempSync,writeFileSync,statSync,rmSync} from 'node:fs';
+import {tmpdir} from 'node:os';
 import {createHash} from 'node:crypto';
 import {resolve,join,dirname} from 'node:path';
 import {pathToFileURL} from 'node:url';
@@ -68,8 +69,17 @@ function declarationFixture() {
  * The fixed grant algorithm, call admission, event-resource ownership, native
  * witness transaction, event contracts and close/reopen machinery are real.
  */
+let laneTerritory=null;
+function ownedTerritory(){
+  if(laneTerritory===null){
+    laneTerritory=mkdtempSync(join(tmpdir(),'abi5-witness-territory-'));
+    process.once('exit',()=>rmSync(laneTerritory,{recursive:true,force:true}));
+  }
+  return laneTerritory;
+}
 export async function witnessMechanics({faultNative=null,transactionFault=false,seedPayloadBytes=0,legacyProfile=false,beforeClose=null,operatorRun=false,closedRun=false}={}) {
-  const territory=process.env.ABI5_WITNESS_TEST_ROOT;assert.ok(territory);
+  // The territory is disposable: ABI5_WITNESS_TEST_ROOT names one, else the lane owns a temporary one.
+  const territory=process.env.ABI5_WITNESS_TEST_ROOT??ownedTerritory();
   assert.equal(resolve(territory),territory,'explicit absolute disposable fixture territory');
   const scratch=mkdtempSync(join(territory,'witness-')),eventLogPath=join(scratch,'events.jsonl');
   const declaration=declarationFixture(),actor=coord('actor://mechanical/developer','actor'),oldW=coord('workspace-binding://mechanical/old','old W'),newW=coord('workspace-binding://mechanical/current','current W');
@@ -109,12 +119,12 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
   const replayOwner=await loadMechanism('abg/replay.js');
   const readOwner=operatorRun?await loadMechanism('abg/project_read_ports.js',{'./replay.js':replayOwner}):null;
   const readContracts=operatorRun?await loadMechanism('abg/project_read_operation_contracts.js'):null;
-  const readBinding=operatorRun?await loadMechanism('abg/project_read_definition_bindings.js',{'./project_read_ports.js':readOwner,'./project_read_operation_contracts.js':readContracts},['outputFor']):null;
+  const readBinding=operatorRun?await loadMechanism('abg/project_read_definition_bindings.js',{'./project_read_ports.js':readOwner,'./project_read_operation_contracts.js':readContracts}):null;
   function publicStatus(prefix){
     const prepared=readOwner.prepareRunReadAtDurablePrefix(prefix,'run_status',nativeRun.ref);assert.ok(prepared,'actual current Public Run source owner');
     const request={caseKey:'run_status',source:{sourceKind:'run',sourceRef:prepared.source.ref,sourceDigest:prepared.source.digest},
       projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},selector:{kind:'none'}};
-    const result=readBinding.outputFor(readContracts.ABG_PROJECT_READ_CONTRACTS.run_status,request,'run_status',prepared.project());
+    const result=readBinding.projectAbgReadOutput(readContracts.ABG_PROJECT_READ_CONTRACTS.run_status,request,'run_status',prepared.project());
     assert.equal(result.outcomeKind,'result',JSON.stringify(result));return result.value;
   }
   if(operatorRun)run=publicStatus(events.selectHeldEventStoreDurablePrefix(acquired.store)).source;
@@ -142,7 +152,8 @@ export async function witnessMechanics({faultNative=null,transactionFault=false,
     '../abg/environment_admission.js':{projectWorkspaceEnvironmentFromArtifactTruth:(truth,w)=>projection(truth.prefix,w)},
     '../abg/artifact_truth.js':{projectOwnedPrefixArtifactTruth:prefix=>({kind:'exact_prefix_artifact_truth_projection',prefix})},
     './verify_product.js':{isVerifiedProductArtifact:value=>value?.kind==='verified_product_artifact',verifyProduct:async request=>request.artifactRef===verified.artifactRef?verified:{kind:'product_verification_refusal'}},
-    'node:fs/promises':{readFile:async path=>{assert.match(String(path),/product-toolchain-manifest\.json$/);return Buffer.from(JSON.stringify(ownerManifest));}},
+    // The executing package is the verified owner: its manifest digest and its product content digest.
+    './declaration_exports.js':{readExecutingToolchainIdentity:()=>({manifest:structuredClone(ownerManifest),manifestDigest:hash(ownerManifest),productContentDigest:verified.productContentDigest})},
     './invocation.js':{constructCapabilityGrant:(...args)=>invocation.constructCapabilityGrant(...args),
       constructAdmissionCapabilityGrants:(...args)=>invocation.constructAdmissionCapabilityGrants(...args)},
   });

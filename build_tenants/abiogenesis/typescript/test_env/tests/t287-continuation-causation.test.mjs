@@ -1,9 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFileSync,writeFileSync,mkdtempSync,mkdirSync,rmSync} from 'node:fs';
+import {writeFileSync,mkdtempSync,mkdirSync,rmSync} from 'node:fs';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {registerHooks} from 'node:module';
+import {evidenceInput} from '../support/evidence-root.mjs';
 // Same test-only export technique as multi-candidate-admission-owner.mjs:
 // no copied predicate, no dependency mocking, no public production test port.
 const ownerUrl=new URL('../../build/code/src/abg/construction_continuation.js',import.meta.url).href;
@@ -15,19 +16,43 @@ const events=await import('../../build/code/src/abg/event_store.js');
 const prefixes=await import('../../build/code/src/abg/event_prefix.js');
 const truth=await import('../../build/code/src/abg/invocation_execution_truth.js');
 hook.deregister();
-const fixture=JSON.parse(readFileSync(new URL('../fixtures/continuation-causation.json',import.meta.url),'utf8'));
+// The controlled predecessor premises are read from the two S7 exact-intent
+// records under ABI5_EVIDENCE_ROOT by path, sha256 and bytes (TD-19): the
+// eight route rows and the current-intent operation (ordinal 122) of the final
+// events, and the admitted Program, WorkspaceBinding and continue-capability
+// owner of the attempt-07 continue call's catalog readiness basis.
+const S7='comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/exact-intent-02/';
+const eventsInput=evidenceInput({path:S7+'final-events.json',sha256:'4e96fd895487a6b9e581467e6cad6ad60415a15dd411e9fbc68e39eb18e8a6a8',bytes:5070328});
+const callInput=evidenceInput({path:S7+'attempt-07/continue-call.json',sha256:'5c83dcf7daded0f8af1cc53ad7e070faa6b83d2d26f9604090b206c56b3ebf4c',bytes:22500824});
+const skip=(eventsInput.kind==='absent'&&eventsInput.reason)||(callInput.kind==='absent'&&callInput.reason);
+const ROUTE_ORDINALS=[4,5,7,8,9,10,64,66],CURRENT_INTENT_ORDINAL=122;
+function premises(){
+  const events=JSON.parse(eventsInput.bytes.toString('utf8')),readiness=JSON.parse(callInput.bytes.toString('utf8')).resources.catalog.readinessBasis;
+  const atOrdinal=ordinal=>{const rows=events.filter(row=>row.admissionOrdinal===ordinal);assert.equal(rows.length,1,`one retained row at ordinal ${ordinal}`);return rows[0];};
+  const continues=install=>install.publicContracts.filter(contract=>contract.contractId==='abg.operation.run.continue');
+  const installs=readiness.installedProducts.filter(install=>continues(install).length>0);assert.equal(installs.length,1,'one install owns the continue capability');
+  const install=installs[0],continueContracts=continues(install);
+  assert.equal(continueContracts.length,1);
+  const programs=readiness.publications[0].programs.filter(program=>program.programRef==='program://exact-intent/root@5');assert.equal(programs.length,1);
+  return {rows:ROUTE_ORDINALS.map(atOrdinal),currentIntentOperation:atOrdinal(CURRENT_INTENT_ORDINAL),workspaceBinding:readiness.workspaceBinding,program:programs[0],
+    capabilityOwners:[{productId:install.productId,productContentDigest:install.productContentDigest,catalogId:install.catalogId,catalogDigest:install.catalogDigest,
+      capabilityDefinitionGraph:install.capabilityDefinitionGraph,publicContracts:continueContracts}]};
+}
 // Validate the complete selected route relation before any physical admission.
-const selectionRows=fixture.rows.filter(row=>row.kind==='construction_intent_selected');
-assert.equal(selectionRows.length,1);
-const selection=selectionRows[0],routeRows=fixture.rows.filter(row=>row.kind==='traversal_route_admitted'&&selection.causationEventRefs.includes(row.eventId));
-assert.equal(routeRows.length,1,'pending selection requires its actual causal route');
-for(const field of ['runId','frameId','graphCallId','basisId'])assert.equal(routeRows[0][field],selection[field]);
-for(const field of ['routeRef','targetCursorRef','targetCursorDigest'])assert.equal(routeRows[0].payload[field],selection.payload[field]);
+function selectedRoute(fixture){
+  const selectionRows=fixture.rows.filter(row=>row.kind==='construction_intent_selected');
+  assert.equal(selectionRows.length,1);
+  const selection=selectionRows[0],routeRows=fixture.rows.filter(row=>row.kind==='traversal_route_admitted'&&selection.causationEventRefs.includes(row.eventId));
+  assert.equal(routeRows.length,1,'pending selection requires its actual causal route');
+  for(const field of ['runId','frameId','graphCallId','basisId'])assert.equal(routeRows[0][field],selection[field]);
+  for(const field of ['routeRef','targetCursorRef','targetCursorDigest'])assert.equal(routeRows[0].payload[field],selection.payload[field]);
+}
 const candidate=({eventId,admissionOrdinal,payloadDigest,eventContractDigest,...value})=>value;
 const evidenceRoot=process.env.ABI5_CAUSATION_EVIDENCE_ROOT;
 const save=(name,value)=>{if(evidenceRoot){mkdirSync(evidenceRoot,{recursive:true});writeFileSync(join(evidenceRoot,name),JSON.stringify(value,null,2)+'\n');}};
 
-test('shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen',()=>{
+test('shared continuation constructor admits workspace causes and authenticates pending Run payload after cold reopen',{skip},()=>{
+ const fixture=premises();selectedRoute(fixture);
  const scratch=mkdtempSync(join(tmpdir(),'abg-causation-')),started=performance.now();
  let store;try{
   const acquired=events.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(scratch,'events.jsonl')});
@@ -80,7 +105,8 @@ test('shared continuation constructor admits workspace causes and authenticates 
   const coldInvocation=truth.projectExactInvocationAdmissionAtPrefix(coldPrefix,invocation.invocationAdmissionRef);
   assert.ok(owner.projectSelectedActionOperation(coldPrefix,coldRows.find(e=>e.eventId===selectedOperation.eventId)));
   assert.equal(owner.continuationOperationWorkspaceCorresponds(coldRows.find(e=>e.eventId===currentOperation.eventId),coldInvocation),true);
-  save('boundary-result.json',{status:'passed',wallMs:performance.now()-started,source:fixture.source,proofClass:fixture.proofClass,events:store.readAll().length,
+  save('boundary-result.json',{status:'passed',wallMs:performance.now()-started,source:{finalEvents:S7+'final-events.json',continueCall:S7+'attempt-07/continue-call.json',ordinals:[...ROUTE_ORDINALS,CURRENT_INTENT_ORDINAL]},
+   proofClass:'Controlled immutable predecessor carriers; newly admitted event-owner boundary test only; no edited history is native execution.',events:store.readAll().length,
    currentIntentCandidateIdentical:true,lawfulWorkspaceOperation:true,illegalRunCauseRefused:true,pendingPayloadColdCorrespondence:true,crossedPayloadRefused:true,consumedOnce:true,
    installedOrHoGQualification:false,currentOperation,selectedOperation,pending:current,closeHandoff:handoff});
  }catch(error){save('boundary-failure.json',{message:error.message,stack:error.stack,events:store?.readAll()??[]});throw error;}

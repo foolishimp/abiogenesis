@@ -1,7 +1,5 @@
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
-import { readFile } from "node:fs/promises";
-import { fileURLToPath } from "node:url";
 import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -27,6 +25,7 @@ import { isVerifiedProductArtifact, selectOwnedProductVerification, verifyProduc
 import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invocation.js";
 import { productInstallCoordinate } from "./environment.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
+import { readExecutingToolchainIdentity } from "./declaration_exports.js";
 
 import {
   acquireAbgEventResource, abandonAbgEventResource, validateAbgEventResourceInput, isAcquiredAbgEventResourceSelection,
@@ -387,12 +386,12 @@ function checkOwnerArtifact(
 }
 
 /** Observation under the operation's effect contract: the executing
- * toolchain's identity, read once per admission from its own manifest. A read
- * or parse failure propagates as the operation's effect failure. */
+ * toolchain's identity, read once per admission through the one reader of the
+ * executing manifest (`readExecutingToolchainIdentity`). A read or parse
+ * failure propagates as the operation's effect failure. */
 async function observeExecutingToolchainIdentity(): Promise<Readonly<{ manifestDigest: string; productContentDigest: unknown }>> {
-  const manifest = JSON.parse((await readFile(fileURLToPath(
-    new URL("../../../../product-toolchain-manifest.json", import.meta.url)))).toString("utf8")) as JsonValue;
-  return { manifestDigest: digest(manifest), productContentDigest: isRecord(manifest) ? manifest.productContentDigest : undefined };
+  const { manifestDigest, productContentDigest } = readExecutingToolchainIdentity();
+  return { manifestDigest, productContentDigest };
 }
 
 /** Deterministic check: the verified artifact is the executing install, by

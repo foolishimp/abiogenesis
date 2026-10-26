@@ -11,6 +11,7 @@ import {
 } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, relative } from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 import test from "node:test";
 
@@ -34,6 +35,7 @@ import * as verificationContractModule from
   "../../build/code/src/product/verification_operation_contracts.js";
 
 const execFileAsync = promisify(execFile);
+const tenantRoot = fileURLToPath(new URL("../../", import.meta.url));
 const manifestName = "product-toolchain-manifest.json";
 const adapterPath = "contracts/public-functions/adapter-projection.json";
 const operationPathPattern =
@@ -56,8 +58,11 @@ async function writeCanonicalJson(path, value) {
 }
 
 async function packagePayloadFiles(packageDirectory) {
+  // The capability definition graph asset is bound by the manifest outside the
+  // payload inventory, as the manifest itself is.
   const locators = (await walkFiles(packageDirectory))
-    .filter((path) => path !== manifestName);
+    .filter((path) => path !== manifestName &&
+      path !== productApi.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH);
   const files = new Map();
   for (const path of locators) {
     files.set(path, await readFile(join(packageDirectory, path)));
@@ -118,6 +123,87 @@ async function resealCatalogAssets(manifest, packageDirectory) {
   manifest.publicContractCatalog.catalogDigest = sha256Canonical(catalogFields);
 }
 
+// The manifest binds the capability definition graph derived from its sealed
+// catalog: every flat row plus each operation definition slot, as the manifest
+// generator derives it. A tampered candidate whose slots form no graph keeps
+// the binding it was cloned with; its refusal precedes the graph check.
+async function bindCapabilityDefinitionGraph(packageDirectory, manifest) {
+  const catalog = manifest.publicContractCatalog;
+  const contractCatalog = {
+    productId: manifest.productId,
+    productContentDigest: manifest.productContentDigest,
+    catalogId: catalog.catalogId,
+    catalogVersion: catalog.catalogVersion,
+    catalogDigest: catalog.catalogDigest,
+  };
+  const flat = catalog.rows.map((row) => ({
+    contractCatalog,
+    flatRow: {
+      contractId: row.contractId,
+      contractVersion: row.contractVersion,
+      contractDigest: row.contractDigest,
+    },
+    nestedSelector: {
+      selectorKind: "flat_contract",
+      definitionKey: null,
+      slot: null,
+      definitionRef: null,
+    },
+  }));
+  const flatById = new Map(flat.map((coordinate) => [coordinate.flatRow.contractId, coordinate]));
+  let graph;
+  try {
+    const slots = [];
+    for (const row of operationRows(manifest)) {
+      const projection = JSON.parse(
+        await readFile(join(packageDirectory, row.assetLocator.path), "utf8"),
+      );
+      const owner = flatById.get(projection.operationId);
+      if (owner === undefined) throw new Error(`no catalog row for ${projection.operationId}`);
+      for (const definition of projection.definitions) {
+        for (const [slot, identity] of [
+          ["request", definition.requestContract],
+          ["result", definition.resultContract],
+          ["refusal", definition.refusalContract],
+          ...(definition.nonTerminalContract === null
+            ? []
+            : [["non_terminal", definition.nonTerminalContract]]),
+        ]) {
+          slots.push({
+            contractCatalog: owner.contractCatalog,
+            flatRow: owner.flatRow,
+            nestedSelector: {
+              selectorKind: "operation_definition_slot",
+              definitionKey: definition.definitionKey,
+              slot,
+              definitionRef: identity.definitionRef,
+            },
+          });
+        }
+      }
+    }
+    graph = productApi.constructCapabilityDefinitionGraph([...flat, ...slots]);
+  } catch {
+    if (manifest.capabilityDefinitionGraph !== undefined) return;
+    throw new Error("the lawful candidate must derive its capability definition graph");
+  }
+  const bytes = productApi.capabilityDefinitionGraphAssetBytes(graph);
+  const path = productApi.CAPABILITY_DEFINITION_GRAPH_ASSET_PATH;
+  await mkdir(dirname(join(packageDirectory, path)), { recursive: true });
+  await writeFile(join(packageDirectory, path), bytes);
+  const coordinate = productApi.capabilityDefinitionGraphCoordinate(graph);
+  manifest.capabilityDefinitionGraph = {
+    ...coordinate,
+    assetLocator: {
+      path,
+      mediaType: "application/json",
+      schemaVersion: "5.0.0",
+      contentDigest: sha256Bytes(bytes),
+    },
+  };
+  manifest.contributionManifest.capabilityDefinitionGraph = coordinate;
+}
+
 async function sealCandidate(candidateRoot, packageDirectory, manifest) {
   await resealCatalogAssets(manifest, packageDirectory);
   const { files, locators } = await packagePayloadFiles(packageDirectory);
@@ -134,6 +220,7 @@ async function sealCandidate(candidateRoot, packageDirectory, manifest) {
     manifest.publicContractCatalog.catalogId;
   manifest.contributionManifest.publicContractCatalogDigest =
     manifest.publicContractCatalog.catalogDigest;
+  await bindCapabilityDefinitionGraph(packageDirectory, manifest);
   manifest.contributionManifestDigest = sha256Canonical(
     manifest.contributionManifest,
   );
@@ -196,6 +283,18 @@ async function constructLawfulCandidate(temporaryRoot) {
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, asset.bytes, "utf8");
   }
+  // run.invoke owns the consensus capability, whose projected contracts are
+  // the consensus schema rows; the capability rosters are equal only when the
+  // candidate carries them (verify_product, capability rosters). They are the
+  // tenant's own rows and asset.
+  const tenantManifest = JSON.parse(await readFile(join(tenantRoot, manifestName), "utf8"));
+  const consensusRows = tenantManifest.publicContractCatalog.rows.filter(({ capabilityIdentities }) =>
+    capabilityIdentities.includes("abg.capability.graph-function.consensus@5"));
+  assert.ok(consensusRows.length > 0, "the tenant publishes the consensus schema rows");
+  for (const path of new Set(consensusRows.map(({ assetLocator }) => assetLocator.path))) {
+    await mkdir(dirname(join(packageDirectory, path)), { recursive: true });
+    await cp(join(tenantRoot, path), join(packageDirectory, path));
+  }
 
   const { closures, packageJson } = await nativeClosures(packageDirectory);
   const { files } = await packagePayloadFiles(packageDirectory);
@@ -224,14 +323,16 @@ async function constructLawfulCandidate(temporaryRoot) {
       requirementAuthorityRefs: [
         "specification/requirements/product/REQ-P-PUBLIC-CONTRACTS.md#REQ-P-PUBLIC-CONTRACTS-002",
       ],
-      capabilityIdentities: ["abg.capability.product.verify@5"],
+      // The owner's capability register attributes the catalog schema.
+      capabilityIdentities: [...productApi.capabilityRefsForContract("abg.schema.public-contract-catalog")],
       assetLocator: {
         path: catalogSchemaPath,
         mediaType: "application/schema+json",
         schemaVersion: "5.0.0",
         contentDigest: catalogSchemaDigest,
       },
-    }],
+    }, ...consensusRows].sort((left, right) =>
+      left.contractId < right.contractId ? -1 : left.contractId > right.contractId ? 1 : 0),
   };
   const extantCatalog = {
     ...extantCatalogFields,
@@ -292,10 +393,11 @@ async function constructLawfulCandidate(temporaryRoot) {
     compatibilityRefs: [],
     declaredDependencies: [],
     provenanceRef: "provenance://abiogenesis/t287-pfc-f08a",
-    declaredCapabilityRefs: [
-      "abg.capability.operator.public-contract@5",
-      "abg.capability.product.verify@5",
-    ],
+    // The declared capabilities are the bound catalog's, which the derived
+    // capability definition graph carries.
+    declaredCapabilityRefs: [...new Set(binding.catalog.rows.flatMap(
+      ({ capabilityIdentities }) => capabilityIdentities,
+    ))].sort(),
     publicContractCatalog: structuredClone(binding.catalog),
   };
   const request = await sealCandidate(candidateRoot, packageDirectory, manifest);
@@ -364,7 +466,7 @@ function replaceOperationIdentity(value, from, to) {
   ]));
 }
 
-function forgeShapeValidArtifact(verified, catalog) {
+function forgeCatalogArtifact(verified, catalog) {
   const forgedCatalog = structuredClone(catalog);
   forgedCatalog.catalogId = `${forgedCatalog.catalogId}/forged`;
   const { catalogDigest: _catalogDigest, ...catalogBody } = forgedCatalog;
@@ -528,7 +630,12 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
             contractId === "abg.schema.public-contract-catalog",
         );
         assert.ok(catalogRow, "the generic catalog schema row must remain");
+        // The generic catalog schema row is attributed to the install
+        // capability, whose owner contracts a data-only product lacks; its one
+        // row here is its own data schema, which no capability claims.
         catalogRow.owningProduct = productId;
+        catalogRow.contractId = "example.schema.data-only";
+        catalogRow.capabilityIdentities = [];
         manifest.publicContractCatalog.rows = [catalogRow];
         manifest.publicContractCatalog.catalogId =
           "catalog://example/data-only/public-contracts@5.0.0";
@@ -539,9 +646,7 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
         manifest.contributionManifestRef =
           "product-contribution-manifest://example/data-only";
         manifest.provenanceRef = "provenance://example/data-only";
-        manifest.declaredCapabilityRefs = [
-          "abg.capability.product.verify@5",
-        ];
+        manifest.declaredCapabilityRefs = [];
         manifest.contributionManifest.productId = productId;
         manifest.contributionManifest.descriptorRef = manifest.descriptorRef;
         manifest.contributionManifest.contributionManifestRef =
@@ -573,11 +678,21 @@ test("PFC-F08A is minted only by verifyProduct over exact artifact bytes", async
     );
     assert.equal(unrelatedNoFamily.definitionContractCoordinates, null);
 
-    const { forged, forgedCatalog } = forgeShapeValidArtifact(
+    const { forged, forgedCatalog } = forgeCatalogArtifact(
       verified,
       lawful.manifest.publicContractCatalog,
     );
-    assert.equal(productApi.isVerifiedProductArtifact(forged), true);
+    // The guard re-derives the capability definition graph from the artifact's
+    // catalog and definition coordinates; the family's catalog without them
+    // forms no graph, so the forgery is not even shape-valid. RETIRED: the
+    // claim that it passes the shape guard.
+    assert.equal(productApi.isVerifiedProductArtifact(forged), false);
+    assert.throws(() => productApi.constructCapabilityDefinitionGraph(forgedCatalog.rows.map((row) => ({
+      contractCatalog: { productId: forged.productId, productContentDigest: forged.productContentDigest,
+        catalogId: forgedCatalog.catalogId, catalogVersion: "5.0.0", catalogDigest: forgedCatalog.catalogDigest },
+      flatRow: { contractId: row.contractId, contractVersion: row.contractVersion, contractDigest: row.contractDigest },
+      nestedSelector: { selectorKind: "flat_contract", definitionKey: null, slot: null, definitionRef: null },
+    }))), /missing graph owner definition/u);
     assert.equal(forged.definitionContractCoordinates, null);
     assert.match(forgedCatalog.catalogDigest, /^sha256:[0-9a-f]{64}$/u);
     for (const api of [productApi, verificationContractModule]) {

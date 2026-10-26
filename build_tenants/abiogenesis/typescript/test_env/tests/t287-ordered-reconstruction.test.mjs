@@ -19,7 +19,7 @@ const delta=(before,after)=>Object.fromEntries([...new Set([...Object.keys(befor
 const select=(events,runId)=>{const authority=prefixOwner.selectValidatedRuntimeEventPrefix(events);return {authority,run:prefixOwner.selectRuntimeEventPrefixFromAuthority(authority,{runId})};};
 const retained={skip:!process.env.ABI5_PREFIX_REUSE_OBSERVATIONS&&'ABI5_PREFIX_REUSE_OBSERVATIONS unset; requires the retained prefix-reuse observation record',timeout:180000};
 
-test('snapshot proof identity rejects transplanted descriptors while raw and copied histories keep cold fallback',async()=>{
+test('snapshot proof identity is owner-held while raw and copied histories keep cold fallback',async()=>{
   const scratch=await mkdtemp(join(tmpdir(),'ordered-snapshot-identity-'));
   const acquired=storeOwner.createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:join(scratch,'events.jsonl')});
   assert.ok('store'in acquired);
@@ -39,15 +39,13 @@ test('snapshot proof identity rejects transplanted descriptors while raw and cop
     assert.equal(source.prefix(appended,appended.length),appended);
     assert.equal(source.hasPrefix(appended,first),true);
     assert.equal(source.hasPrefix(appended,cut),true);
-    const key=Reflect.ownKeys(appended).find(key=>typeof key==='symbol'&&key.description==='owner_runtime_derivation_snapshot');
-    assert.ok(key);
-    const descriptor=Object.getOwnPropertyDescriptor(appended,key);
-    const transplanted=[...appended];Object.defineProperty(transplanted,key,descriptor);Object.freeze(transplanted);
-    const inherited=[...appended];Object.setPrototypeOf(inherited,Object.create(Array.prototype,{[key]:descriptor}));Object.freeze(inherited);
-    const counterfeit=[...appended];Object.defineProperty(counterfeit,key,{value:Object.freeze(Object.create(Object.getPrototypeOf(descriptor.value)))});Object.freeze(counterfeit);
+    // Retired: the transplanted, inherited and counterfeit descriptor arms. The
+    // snapshot proof is now a module-private WeakMap keyed by the owner's frozen
+    // array; a snapshot carries no own property to transplant or counterfeit.
+    assert.deepEqual(Reflect.ownKeys(appended).filter(key=>typeof key==='symbol'),[]);
     const expected=replay.replayValidatedRuntimeEventPrefix(prefixOwner.selectValidatedRuntimeEventPrefix(appended));
-    for(const raw of [[...appended],JSON.parse(JSON.stringify(appended)),structuredClone(appended),transplanted,inherited,counterfeit]) {
-      assert.equal(ownedRuntimeDerivationSource(raw),undefined,'copies and reflected proof transplants carry no nominal source');
+    for(const raw of [[...appended],JSON.parse(JSON.stringify(appended)),structuredClone(appended)]) {
+      assert.equal(ownedRuntimeDerivationSource(raw),undefined,'copies carry no nominal source');
       const cold=runtimeDerivationSource(raw);assert.notEqual(cold,source);
       deepFreeze(raw); // Copied event values must satisfy the unchanged immutable-prefix guard.
       const admitted=cold.snapshot(raw);assert.equal(ownedRuntimeDerivationSource(admitted),cold);
@@ -67,7 +65,7 @@ test('snapshot proof identity rejects transplanted descriptors while raw and cop
     assert.equal(ownedRuntimeDerivationSource(appended),source,'invalidation clears disposable facts, not authentic snapshot provenance');
     assert.throws(()=>source.prefix(appended,-1),/invalid snapshot prefix length/);
     assert.throws(()=>source.prefix(appended,appended.length+1),/invalid snapshot prefix length/);
-    console.log(JSON.stringify({kind:'snapshot_identity_conservation',events:rows.length,coldFallbacks:6,transplantsUnowned:true,appendCutScopeAndInvalidation:true,replayDigest:sha256Canonical(expected)}));
+    console.log(JSON.stringify({kind:'snapshot_identity_conservation',events:rows.length,coldFallbacks:3,appendCutScopeAndInvalidation:true,replayDigest:sha256Canonical(expected)}));
   } finally {acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
 });
 
@@ -83,8 +81,11 @@ test('cold acquisition receipt detaches caller input and preserves pure, copied,
     raw.prefixLength=0;assert.equal(captured.prefixLength,first.prefixLength,'caller mutation is detached');
     const rows=storeOwner.readRuntimeEventsAtDurablePrefix(captured,{requireCurrent:true});
     const truth=projectOwnedPrefixArtifactTruth(captured);assert.equal(truth.kind,'exact_prefix_artifact_truth_projection');
-    assert.equal(runtimePrefixFromArtifactTruth(truth).events,rows);
-    assert.equal(storeOwner.projectRuntimeEventsAtDurablePrefix(captured),rows,'pure projection borrows the acquired vector');
+    // M05_S06 design :361: "equal prefix reconstructs equal result"; object
+    // identity supports mechanics only (constitution :136), so the pure
+    // projections are equal to the acquired rows, not the same vector.
+    assert.deepEqual(runtimePrefixFromArtifactTruth(truth).events,rows);
+    assert.deepEqual(storeOwner.projectRuntimeEventsAtDurablePrefix(captured),rows,'pure projection reconstructs the acquired rows');
     const fresh=storeOwner.readRuntimeEventsAtDurablePrefix(captured,{requireCurrent:true});
     assert.deepEqual(fresh,rows);assert.notEqual(fresh,rows,'explicit physical read reacquires');
     assert.notEqual(storeOwner.readRuntimeEventsAtDurablePrefix(structuredClone(captured)),fresh,'copied coordinate has no acquired source');

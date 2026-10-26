@@ -1,34 +1,8 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import {readFileSync} from "node:fs";
-import {resolve} from "node:path";
-import {pathToFileURL} from "node:url";
-import {packageRoot,predecessorRoot,load,capturedEnvelope,projectionHarness,capturedEnvelopeSkip,predecessorSkip} from "../support/d2-bounded-harness.mjs";
+import {packageRoot,load,projectionHarness,capturedEnvelopeSkip} from "../support/d2-bounded-harness.mjs";
 import {nativePublications,constructD2FrameDeclarations} from "../support/d2-frame-fixture.mjs";
 import {runStaticD2} from "../support/d2-static-smoke.mjs";
-
-test("revision-C2 adds exactly its contribution and closed raw contract; old publication members are conserved",{skip:predecessorSkip},async()=>{
-  const [gtl,product,previous]=await Promise.all([load("build/code/src/gtl/index.js"),load("build/code/src/product/index.js"),
-    import(pathToFileURL(resolve(predecessorRoot,"work/build/code/src/gtl/worksite_command_execution.js")).href)]);
-  const h=n=>`sha256:${String(n).repeat(64)}`,artifact={productId:product.ABI5_PRODUCT_ID,artifactDigest:h(1),productContentDigest:h(2),productManifestDigest:h(3),packageName:product.ABI5_PACKAGE_NAME,packageVersion:product.ABI5_PACKAGE_VERSION};
-  const before=previous.constructWorksiteCommandExecutionModulePublication(artifact),after=gtl.constructWorksiteCommandExecutionModulePublication(artifact),revision=product.WORKSITE_REVISION_IDS;
-  assert.equal(before.contributions.some(row=>row.handle===revision.graphFunctionRef),false,"recorded predecessor counterexample");
-  const rows=after.contributions.filter(row=>row.handle===revision.graphFunctionRef);
-  assert.equal(rows.length,1);assert.equal(rows[0].declarationOrContractRef,revision.graphFunctionRef);assert.equal(rows[0].owningProductId,artifact.productId);
-  for(const key of ["programs","implementationBindings","closureContracts"])assert.deepEqual(after[key],before[key],key);
-  assert.deepEqual(after.graphFunctions,before.graphFunctions.map(graph=>graph.name===revision.graphFunctionRef?{
-    ...graph,environment:{...graph.environment,carries:[revision.workerResultContractRef]},
-    declarations:{...graph.declarations,"abg.raw_result_contract":revision.workerResultContractRef},
-  }:graph),"only revision carries and raw-result declaration change");
-  const rawContracts=after.contracts.filter(c=>c.contractRef===revision.workerResultContractRef);
-  assert.deepEqual(rawContracts,[gtl.contractDeclaration({contractRef:revision.workerResultContractRef,contractVersion:"5.0.0",
-    contractKind:"output",valueKind:"worksite_revision_command_execution_worker_result"})]);
-  assert.deepEqual(after.contracts.filter(c=>c.contractRef!==revision.workerResultContractRef),before.contracts,"all prior contracts remain exact and ordered");
-  assert.deepEqual(after.contributions.filter(row=>row.handle!==revision.graphFunctionRef),before.contributions);
-  assert.deepEqual(rows[0].programMembershipRefs,[before.programs[0].programRef]);
-  assert.deepEqual(rows[0].readinessPrerequisiteRefs,rows[0].programMembershipRefs);
-  assert.deepEqual(rows[0].provenanceRefs,[artifact.artifactDigest,artifact.productManifestDigest]);
-});
 
 test("actual four-Program fixture and prior five raw/closure discriminators remain valid",async()=>{
   const [product,gtl,validator]=await Promise.all([load("build/code/src/product/index.js"),load("build/code/src/gtl/index.js"),load("build/code/src/validator/index.js")]);
@@ -63,17 +37,6 @@ test("selection accepts the new C2 success/advance observation cause and conserv
   assert.equal(h.select(h.first,notObservation),null);
 });
 
-test("the two recorded continuation counterexamples still fail on exact predecessor code (same lookup assumptions)",{skip:capturedEnvelopeSkip||predecessorSkip},async()=>{
-  const h=await projectionHarness({sourceRoot:resolve(predecessorRoot,"work"),selectionInputProfile:"pre-context-counterexample"});
-  const next=h.state("new-command",h.newCommand,{ordinal:51,invocation:h.first.execution.invocationAdmissionRef});
-  assert.equal(h.select(h.first,next),null,"predecessor selection omits the new observation guard");
-  assert.equal(h.revisionProduct.isSemanticRevisionSelectionInput(h.basis.input),true,"old schema accepts the exact historical subject");
-  assert.equal(Object.hasOwn(h.basis.input,"currentWorksite"),false,"new input field is not injected into old-cut evidence");
-  assert.equal(h.project(h.second.request),null,"predecessor projects origins from the request-input parent basis");
-  assert.equal(h.originCalls[0][1],h.first.execution);
-  assert.equal(h.originCalls[0][1].rawInputValue.kind,"semantic_revision_request");
-});
-
 test("revision-projection parent recovers the native ancestor seed after later C1 failure (lookup stubs)",{skip:capturedEnvelopeSkip},async()=>{
   const h=await projectionHarness();
   assert.equal(h.first.execution.rawInputValue.kind,"semantic_revision_request","recorded seed counterexample");
@@ -100,29 +63,6 @@ for(const mutation of ["missing-parent","crossed-coordinate","non-advancing-pare
   });
 }
 
-test("root input reuse, historical C0 byte conservation and current physical guard are retained",{skip:capturedEnvelopeSkip||predecessorSkip},async()=>{
+test("revision projection reads its origins from the root input basis (lookup stubs)",{skip:capturedEnvelopeSkip},async()=>{
   const h=await projectionHarness();assert.ok(h.project(h.first.request));assert.equal(h.originCalls[0][1],h.root.execution);
-  const relative="code/src/abg/worksite_revision.ts",before=readFileSync(resolve(predecessorRoot,"source-freeze-01/source",relative),"utf8"),after=readFileSync(resolve(packageRoot,relative),"utf8");
-  // This original byte-conservation claim belongs to that historical candidate
-  // and its source freeze. Later admitted binding/forward work changed the
-  // current suffix; current behavior is checked by the binding-transition suite.
-  const historical=readFileSync(resolve(predecessorRoot,"work",relative),"utf8");
-  assert.equal(historical.slice(historical.indexOf("function currentReplacement")),before.slice(before.indexOf("function currentReplacement")),"historical successful C0, post-publication-failure, supersession and physical comparison mechanics unchanged");
-  const physicalBody=text=>{const start=text.indexOf("export function worksiteRevisionPhysicalMatches");assert.ok(start>=0);return text.slice(start,text.indexOf("\n}\n",start)+3);};
-  assert.equal(physicalBody(after),physicalBody(before),"current exact physical observation guard remains unchanged");
-  const [current,previous]=await Promise.all([load("build/code/src/product/semantic_stage.js"),import(pathToFileURL(resolve(predecessorRoot,"work/build/code/src/product/semantic_stage.js")).href)]);
-  const envelope=capturedEnvelope(),oldPreparation=previous.deriveSemanticWorksitePreparation(envelope);
-  assert.ok(oldPreparation);
-  const prompt=oldPreparation.constructionTask.prompt,separator=prompt.indexOf("\n\n");assert.ok(separator>0);
-  const oldContext=JSON.parse(prompt.slice(separator+2));
-  const design=envelope.assets.at(-1).candidate.worksiteDesign;
-  const inventory=new Set([...design.targets.map(row=>row.targetRef),...design.dependencyTargetRefs]);
-  assert.deepEqual(oldContext.currentWorksite.map(row=>row.targetRef),envelope.worksite.targets.filter(row=>inventory.has(row.target.targetRef)).map(row=>row.target.targetRef),
-    "this historical subject already carries exactly Design V; no body is dropped");
-  // The current context contract adds this exact metadata. Reconstruct only
-  // its consequent native task identity; compare every other carrier field.
-  const expectedPrompt=prompt.slice(0,separator)+"\n\n"+h.product.canonicalJson({...oldContext,worksiteInventoryDigest:h.product.sha256Canonical(envelope.worksite)});
-  const constructionTask=h.product.constructWorksiteConstructionTask({...oldPreparation.constructionTask,prompt:expectedPrompt});
-  const expected=h.product.constructWorksiteCommandPreparationInput({...oldPreparation,constructionTask});
-  assert.deepEqual(current.deriveSemanticWorksitePreparation(envelope),expected,"exact typed preparation conserved with the selected inventory metadata and derived identity");
 });

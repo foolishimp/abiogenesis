@@ -1,12 +1,16 @@
-import test from 'node:test';
+import test,{after} from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdir,mkdtemp,readFile,writeFile,rename} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,writeFile,rename,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
 import {join,resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {loadProjectionOwners,filePrefix,sha256} from '../support/t287-exact-prefix-projection-reuse.mjs';
 
 const packageRoot=process.env.ABI5_PREFIX_PACKAGE_ROOT??resolve(dirname(fileURLToPath(import.meta.url)),'../..');
-const proofRoot=process.env.ABI5_PREFIX_PROOF_ROOT;
+// The proof territory is disposable output, not evidence: ABI5_PREFIX_PROOF_ROOT
+// names one, else the lane owns a temporary one and removes it after the lane.
+const proofRoot=process.env.ABI5_PREFIX_PROOF_ROOT??await mkdtemp(join(tmpdir(),'abi5-prefix-proof-'));
+if(process.env.ABI5_PREFIX_PROOF_ROOT===undefined)after(()=>rm(proofRoot,{recursive:true,force:true}));
 const owners=await loadProjectionOwners(packageRoot);
 const resign=value=>{const {coordinateDigest,...body}=value;return {...body,coordinateDigest:owners.digests.sha256Canonical(body)};};
 const project=p=>owners.artifact.projectExactPrefixArtifactTruth(p);
@@ -17,7 +21,9 @@ test('T287 disposable reuse preserves prefix/profile/file checks and rejects mut
   const files=[];
   for(let i=0;i<3;i++){const path=join(scratch,'empty-'+i+'.jsonl');await writeFile(path,'',{flag:'wx'});files.push(await filePrefix(path,Buffer.alloc(0),owners));}
   const first=project(files[0]);assert.equal(first.kind,'exact_prefix_artifact_truth_projection');
-  assert.strictEqual(project(structuredClone(files[0])),first,'structural reuse discriminator');
+  // The design's figure is equality, not identity: "equal prefix reconstructs equal result"
+  // (M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md:361).
+  assert.deepStrictEqual(project(structuredClone(files[0])),first,'equal prefix reconstructs equal result');
   assert.equal(Object.isFrozen(first),true);assert.equal(Object.isFrozen(first.prefix.storeIdentity),true);
   const supplied=structuredClone(first);assert.equal(owners.artifact.validateExactPrefixArtifactTruthProjection(supplied),true);
   supplied.projectionDigest='sha256:'+'0'.repeat(64);
@@ -43,7 +49,7 @@ test('T287 disposable reuse preserves prefix/profile/file checks and rejects mut
   await writeFile(fileURLToPath(files[0].eventLogRef),'',{flag:'wx'});
   assert.equal(project(files[0]).code,'file_identity_mismatch','cache cannot authorize replacement inode');
   const one=project(files[1]);project(files[2]);project(legacy);
-  // A valid third distinct file evicts the oldest of the bounded two entries.
+  // A further distinct file; a later projection of an earlier file is equal, a new value.
   const fourthPath=join(scratch,'empty-3.jsonl');await writeFile(fourthPath,'',{flag:'wx'});
   project(await filePrefix(fourthPath,Buffer.alloc(0),owners));
   const again=project(files[1]);assert.notStrictEqual(again,one);assert.equal(again.projectionDigest,one.projectionDigest);
@@ -71,7 +77,7 @@ test('T287 retained scope and same-inode byte mutation cannot reuse false truth'
   const scoped=owners.artifact.projectValidatedPrefixArtifactTruth(coordinate,scope);
   assert.equal(scoped.rows.length,0);
   assert.equal(owners.artifact.validateExactPrefixArtifactTruthProjection(scoped),false);
-  assert.strictEqual(project(coordinate),full,'scoped computation cannot poison unscoped owner cache');
+  assert.deepStrictEqual(project(coordinate),full,'scoped computation cannot change the unscoped projection');
   const scratch=await mkdtemp(join(proofRoot,'bytes-')),copy=join(scratch,'events.jsonl');
   const initial=Buffer.from(bytes.toString('utf8').trimEnd().split('\n').slice(0,27).join('\n')+'\n');
   await writeFile(copy,initial,{flag:'wx'});const copied=await filePrefix(copy,initial,owners);

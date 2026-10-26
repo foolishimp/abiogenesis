@@ -132,7 +132,10 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
   const sourceCode=await readFile(join(packageRoot,'build/code/src/hog/recursion_lifecycle.js'),'utf8');
   const opaqueDiagnostic='diagnostic://registered-selection/original-child-failure@5',mismatch='diagnostic://abiogenesis/hog/application-foldback-mismatch@5';
   const cases=[];
-  for(const scenario of ['old-failure','failure','retained-diagnostic','retained-null','success']){
+  // RETIRED: the 'old-failure' arm, whose installed recursion owner yielded the
+  // application-foldback mismatch; the installed owner is the head owner and
+  // preserves the child diagnostic, which every failure scenario asserts.
+  for(const scenario of ['failure','retained-diagnostic','retained-null','success']){
     const input=initialState();input.task={...input.task,scenario:scenario==='success'?'success':'failure'};input.taskDigest=hash(input.task);
     const env=await setupInstalledRootExecutionBasis({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
       programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
@@ -145,7 +148,6 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
         return [prepared];
       }});
     const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
-    const actualRecursion=await load('hog/recursion_lifecycle');
     const diagnosticOwner=await load('abg/runtime_failure'),profiles=await load('abg/event_contract_profiles');
     const retained=scenario.startsWith('retained-');
     const diagnostic=scenario==='retained-null'?diagnosticOwner.constructRuntimeFailureDiagnosticRef(null):
@@ -153,8 +155,9 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
     const retainedSubject=diagnosticOwner.readRuntimeFailureDiagnosticSubject(diagnostic);
     const owner=await linkedOwner(env,'hog/recursion_lifecycle',sourceCode,{},['projectFailedRecursionChildTruth','requireDeferredApplication']);
     const captures=[];
-    const selected=scenario==='old-failure'?actualRecursion:owner;
-    const recursion={...selected,completeRecursionChild(frame,child){
+    const selected=owner;
+    // graph_execute completes a recursion child through the owned completion.
+    const recursion={...selected,completeOwnedRecursionChild(frame,child){
       captures.push({frame,child});
       if((scenario==='failure'||retained)&&child.disposition==='failed'){
         assert.equal(child.replayState.runtimeStatus,'active','valid child-local failure leaves its enclosing Run live');
@@ -169,7 +172,7 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
         for(const changed of [{parentCCallRef:'c-call://crossed'},{rawInputAdmissionRef:'result://crossed'},{rawInputDigest:hash('crossed')}])
           assert.equal(owner.projectFailedRecursionChildTruth({...frame,childExecutionBasis:{...frame.childExecutionBasis,...changed}},state,child),null);
         assert.equal(owner.projectFailedRecursionChildTruth({...frame,childTraversalScope:{...frame.childTraversalScope,runId:'run://crossed'}},state,child),null);
-        assert.throws(()=>owner.completeRecursionChild(frame,{...child,disposition:'held',continuationRef:null}),/inconsistent lineage/);
+        assert.throws(()=>owner.completeOwnedRecursionChild(frame,{...child,disposition:'held',continuationRef:null}),/inconsistent lineage/);
         if(retained){
           assert.throws(()=>env.abg.admitRuntimeFailure({store:env.store,predecessorPrefix:child.successorPrefix,
             executionBasis:state.input.executionBasis,scope:state.input.openedTraversalScope,stage:'route',
@@ -179,7 +182,7 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
         }
         assert.equal(env.store.readAll().length,count,'pure crossed/stale/held refusals admit no events');
       }
-      return selected.completeRecursionChild(frame,child);
+      return selected.completeOwnedRecursionChild(frame,child);
     }};
     const graphOverrides={'./recursion_lifecycle.js':recursion};
     if(retained)graphOverrides['./ccall_lifecycle.js']=await retainedDiagnosticCCallOwner(env,load,diagnostic);
@@ -197,8 +200,7 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
     assert.equal(runEvents.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.applicationRef!==undefined).length,scenario==='success'?2:1);
     if(scenario==='success'){assert.equal(result.disposition,'closed');assert.equal(result.resultValue.terminal,true);assert.equal(failures.length,0);}
     else{
-      assert.equal(result.disposition,'failed');assert.equal(result.diagnosticRef,scenario==='old-failure'?mismatch:diagnostic);assert.equal(failures.length,1);
-      if(scenario!=='old-failure'){
+      assert.equal(result.disposition,'failed');assert.equal(result.diagnosticRef,diagnostic);assert.equal(failures.length,1);
         const {frame,child}=captures.at(-1),truth=owner.projectFailedRecursionChildTruth(frame,owner.requireDeferredApplication(frame.restored,frame.restoration),child);
         assert.equal(result.resultRef,child.resultRef);assert.equal(result.judgmentRef,child.judgmentRef);assert.deepEqual(result.resultValue,child.resultValue);
         assert.equal(failures[0].payload.diagnosticRef,diagnostic);assert.deepEqual(failures[0].causationEventRefs,[truth.routeEventRef]);
@@ -212,9 +214,8 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
             'controlled F_D diagnostic proof claims no F_P owner observation');
         }
         assert.equal(runEvents.some(e=>e.kind==='runtime_failure_observed'&&e.payload.diagnosticRef===mismatch),false);
-        const count=events.length,globallyFailed={...child,replayState:result.replayState};assert.equal(owner.completeRecursionChild(frame,globallyFailed),globallyFailed);
+        const count=events.length,globallyFailed={...child,replayState:result.replayState};assert.equal(owner.completeOwnedRecursionChild(frame,globallyFailed),globallyFailed);
         assert.equal(env.store.readAll().length,count);
-      }
     }
     const handoff=env.store.projectReopenAuthorityAndClose(),cold=env.abg.reopenEventStore(structuredClone(handoff.reopenAuthority));
     assert.equal(cold.kind,'reopened_event_store_context');

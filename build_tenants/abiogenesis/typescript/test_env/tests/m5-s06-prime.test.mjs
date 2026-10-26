@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
 import { join } from "node:path";
-import test from "node:test";
+import test, { after } from "node:test";
+import { promisify } from "node:util";
 
 import {
   catalogContribution,
@@ -1821,26 +1823,46 @@ test("S06 native applicability preserves complete nested suppliers and exact nat
   });
 });
 
+// An install's payload is the packed file set: the loader checks the installed
+// files against the manifest's locators and the capability-definition graph
+// carrier. The install is a lane-owned extraction of this build's pack, under
+// the tenant so its dependencies resolve, removed after.
+async function extractedInstall() {
+  const exec = promisify(execFile);
+  await mkdir(join(packageRoot, "test_env/test_runs"), { recursive: true });
+  const territory = await realpath(await mkdtemp(join(packageRoot, "test_env/test_runs/s06-installed-module-")));
+  after(() => rm(territory, { recursive: true, force: true }));
+  const { stdout } = await exec("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", territory],
+    { cwd: packageRoot, maxBuffer: 10 * 1024 * 1024 });
+  const [packed] = JSON.parse(stdout);
+  await exec("tar", ["-xzf", join(territory, packed.filename), "-C", territory]);
+  return join(territory, "package");
+}
+
 test("S06 installed module loading binds content, confinement, and import once", async () => {
+  const installedRoot = await extractedInstall();
   const manifest = JSON.parse(
     await readFile(
-      join(packageRoot, "product-toolchain-manifest.json"),
+      join(installedRoot, "product-toolchain-manifest.json"),
       "utf8",
     ),
   );
+  const graphAsset = manifest.capabilityDefinitionGraph.assetLocator;
   const currentInstall = {
     kind: "product_install",
     schemaVersion: "5.0.0",
     disposition: "admitted",
     admissionEventRef: "event://s06-prime/current-install",
     installId: "product-install://s06-prime/current",
-    installedRoot: packageRoot,
+    installedRoot,
     productId: manifest.productId,
     packageName: manifest.packageName,
     packageVersion: manifest.packageVersion,
     artifactDigest: digest("c"),
     productContentDigest: manifest.productContentDigest,
     manifestDigest: sha256Canonical(manifest),
+    capabilityDefinitionGraph: JSON.parse(await readFile(join(installedRoot, graphAsset.path), "utf8")),
+    capabilityDefinitionGraphAsset: { ...graphAsset },
   };
   const loaded = await loadVerifiedInstalledModule(
     currentInstall,

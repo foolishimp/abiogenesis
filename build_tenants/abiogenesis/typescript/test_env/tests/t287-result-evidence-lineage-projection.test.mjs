@@ -127,15 +127,20 @@ function lowerAdmission(row) {
   const truth = () => ({runtimePrefix: selectedPrefix(), replayState: {kind: 'component-replay-premise'}});
   const recordEvidence = () => { events.push({kind: 'component-admitted-evidence-premise'}); return row; };
   return {store, selectedPrefix, truth, get callback() { return callback; }, get admitted() { return admitted; }, overrides: {
+    // The owner borrows the active transaction's history, selects its owned
+    // prefix and projects the active transaction's truth; each is a premise here.
     './event_store.js': {
       isRuntimeEventTransactionActive: () => active,
-      readActiveRuntimeTransactionAtDurablePrefix: () => [...events],
+      selectActiveRuntimeTransactionHistoryAtDurablePrefix: () => ({events: [...events]}),
       admitRuntimeEventTransactionAtDurablePrefix: (_store, _prefix, stage) => {
         active = true;
         try { return {value: stage(), successorPrefix: prefix}; } finally { active = false; }
       },
     },
-    './event_prefix.js': {selectValidatedRuntimeEventPrefix: () => selectedPrefix()},
+    './event_prefix.js': {selectValidatedRuntimeEventPrefix: () => selectedPrefix(),
+      selectOwnedRuntimeEventPrefix: () => selectedPrefix(), selectRuntimeEventPrefixFromStore: () => selectedPrefix(),
+      runtimeEventPrefixExtent: (supplied) => ({count: supplied.events.length})},
+    './replay.js': {projectOwnedActiveRuntimeTransaction: () => truth(), projectOwnedRuntimeTruthAtDurablePrefix: () => truth()},
     './probabilistic_result.js': {admitProbabilisticResultFromActorTransport: () =>
       ({kind: 'contract_admitted_probabilistic_result_candidate'})},
     './c_call.js': {
@@ -184,7 +189,10 @@ async function throughActualCallback(file, fixture, evidence, validateLineage, c
       }},
   };
   let receipt;
-  try { receipt = owner.admitCCallResult(input); }
+  // The owner bodies run over the supplied lower premises; the Public wrappers
+  // only add the explicit full-history materialization, which no premise prefix
+  // can supply.
+  try { receipt = owner.admitOwnedCCallResult(input); }
   catch (error) {
     if (!(error instanceof SuppliedAdmissionRefusal)) throw error;
     return {accepted: false, projected, lower, refusal: error.message};
@@ -192,7 +200,7 @@ async function throughActualCallback(file, fixture, evidence, validateLineage, c
   assert.equal(receipt.disposition, 'result');
   // Pure receipt rehydration is also real; the lower prefix/state premises are
   // explicit and do not establish a genuine durable store or semantic judgment.
-  const projectedReceipt = owner.projectCCallOutcomeReceiptAtPrefix(prefix, {disposition: 'judged',
+  const projectedReceipt = owner.projectOwnedCCallOutcomeReceiptAtPrefix(prefix, {disposition: 'judged',
     admitted: {cCall, result: lower.admitted, judgment: {kind: 'component-judgment-premise'}}});
   assert.equal(projectedReceipt.disposition, 'judged');
   assert.strictEqual(projectedReceipt.successorPrefix, prefix);

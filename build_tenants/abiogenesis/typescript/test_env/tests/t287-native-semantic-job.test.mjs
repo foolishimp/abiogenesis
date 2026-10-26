@@ -277,7 +277,9 @@ test('native author fold preserves exact contract issues for same-response requi
  const basis={publication:selectedPublication,graphFunction:{declarations:{'abg.semantic_native_stage':stage.declarationRef}}};
  let nativeSourceAvailable=true,productDerivations=0,computedIssues;
  const fold=await component('abg/semantic_job',{
-  './execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
+  // The fold borrows the owned basis facts and reads its event bodies at that prefix.
+  './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
+  './event_prefix.js':{runtimeEventBodiesAtPrefix:prefix=>prefix===native.prefix?native.events:[]},
   './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>predecessors.get(ref)??null},

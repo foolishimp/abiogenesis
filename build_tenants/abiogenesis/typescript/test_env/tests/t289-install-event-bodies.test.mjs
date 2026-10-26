@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
@@ -118,11 +119,15 @@ if (process.argv[2] === "--cold") {
     "fresh-process recovery equals the complete live projection at the same physical prefix");
   process.stdout.write(JSON.stringify({ processId: process.pid, outcomes }));
 } else {
+  // The proof root is disposable output: lane-owned when unset. The retained
+  // install history is the owner's input and is never substituted.
+  const ownedProofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT === undefined;
+  const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT ?? await mkdtemp(join(tmpdir(), "t289-install-body-proof-"));
+  if (ownedProofRoot) test.after(() => rm(proofRoot, { recursive: true, force: true }));
+  const historyRequired = "ABI5_INSTALL_BODY_HISTORY and ABI5_INSTALL_BODY_HISTORY_SHA256 unset; requires the owner's digest-bound retained install history";
   test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", async () => {
-    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
     const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
-    assert.ok(proofRoot && historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256,
-      "explicit isolated proof territory and digest-bound retained history required");
+    assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     await mkdir(proofRoot, { recursive: true });
     const historyBytes = await readFile(historyPath);
     assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
@@ -321,7 +326,7 @@ if (process.argv[2] === "--cold") {
   });
 
   test("T289 live state recovers after rollback without changing earlier artifact prefixes", async () => {
-    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+    assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     const historyBytes = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
     assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
     const original = historyBytes.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
@@ -377,7 +382,7 @@ if (process.argv[2] === "--cold") {
   test("T289 established causal installs and binding admit a new lock without changing prior truth", async () => {
     const product = await import("../../build/code/src/product/environment.js");
     const coordinate = await import("../../build/code/src/shared/operation_definition_coordinate.js");
-    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+    assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     const history = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
     assert.equal(sha256(history), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
     const original = history.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
@@ -432,20 +437,17 @@ if (process.argv[2] === "--cold") {
     } finally { store.closeDurableLog(); }
   });
 
-  test("T289 raw install compaction preserves the predecessor structured refusal", async () => {
-    const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT;
+  // RETIRED (C-5 stop 2): the ABI5_INSTALL_BODY_PREDECESSOR_ROOT arm and the
+  // predecessor/successor refusal equality are claims about the change from
+  // that predecessor build. The current build's structured raw refusal stays.
+  test("T289 raw install eligibility returns its structured refusal without appending", async () => {
     const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
-    const predecessorRoot = process.env.ABI5_INSTALL_BODY_PREDECESSOR_ROOT;
-    assert.ok(proofRoot && historyPath && predecessorRoot && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256,
-      "explicit predecessor package and digest-bound retained history required");
+    assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
     const bytes = await readFile(historyPath);
     assert.equal(sha256(bytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
     const original = JSON.parse(bytes.toString().split("\n")[0]);
-    const predecessorOwners = await loadProjectionOwners(predecessorRoot);
     const results = [];
-    for (const [label, selectedOwners, packageRoot] of [
-      ["predecessor", predecessorOwners, predecessorRoot], ["successor", owners, root],
-    ]) {
+    for (const [label, selectedOwners, packageRoot] of [["successor", owners, root]]) {
       for (const malformed of [false, true]) {
         const path = join(proofRoot, `raw-${label}-${malformed ? "null" : "valid"}.jsonl`);
         const { store, prefix } = selectedOwners.events.createNewEmptyAppendSink({
@@ -473,8 +475,7 @@ if (process.argv[2] === "--cold") {
             assert.equal(store.readAll().length, 1, label);
             assert.deepEqual(result.artifactTruth.rows[0].artifact, original.payload.artifact, label);
             assert.deepEqual(result.artifactTruth.rows[0].resolvedLock, original.payload.resolvedLock, label);
-            assert.equal(store.readAll()[0].payload.artifact.kind,
-              label === "predecessor" ? "product_install_candidate" : "product_install_lock_row", label);
+            assert.equal(store.readAll()[0].payload.artifact.kind, "product_install_lock_row", label);
           }
           results.push({ label, malformed, root: packageRoot, returned: true,
             disposition: result.disposition, code: result.refusal?.code,
@@ -486,10 +487,6 @@ if (process.argv[2] === "--cold") {
         }
       }
     }
-    const before = results.find((row) => row.label === "predecessor" && row.malformed);
-    const after = results.find((row) => row.label === "successor" && row.malformed);
-    assert.equal(after.code, before.code);
-    assert.equal(after.message, before.message);
     assert.equal(sha256(await readFile(historyPath)), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
     await writeFile(join(proofRoot, "raw-refusal-comparison.json"), JSON.stringify({
       mutation: "artifact.productContentDigest = null; all other candidate, lock and invocation fields retained",

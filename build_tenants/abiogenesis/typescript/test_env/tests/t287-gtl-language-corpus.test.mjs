@@ -4,10 +4,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {fileURLToPath,pathToFileURL} from 'node:url';
 import * as m01 from '@abiogenesis/typescript-tenant/gtl/m01';
 import * as m03 from '@abiogenesis/typescript-tenant/abg/m03';
-const root=process.env.ABI5_GTL_CORE_PACKAGE_ROOT;
+// The package is the extracted one a consumer run names, else the build it is packed from.
+const root=process.env.ABI5_GTL_CORE_PACKAGE_ROOT??fileURLToPath(new URL('../..',import.meta.url));
 const corpus=JSON.parse(fs.readFileSync(path.join(root,'contracts/conformance/gtl-language-conformance-corpus.json')));
 const {isProgramValidation}=await import(pathToFileURL(path.join(root,'build/code/src/validator/validation.js')));
 const {evaluateGtlProgramConformanceFromResolvedClosure}=await import(pathToFileURL(path.join(root,'build/code/src/validator/conformance_operation.js')));

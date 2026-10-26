@@ -14,8 +14,10 @@ import {rawAdmitValue} from '../../build/code/src/validator/index.js';
 import {acquireNewEmptyAppendSinkFixture} from '../support/new-empty-append-sink.mjs';
 const hash=p.sha256Canonical;
 async function owner(relative,overrides={}){
- const file=path.resolve('build/code/src',relative),source=relative==='abg/replay.js'&&process.env.ABI5_REPLAY_PREIMAGE?process.env.ABI5_REPLAY_PREIMAGE:file;
- const m=new vm.SourceTextModule(await fs.readFile(source,'utf8'),{identifier:file});
+ // Retired: the ABI5_REPLAY_PREIMAGE arm, which loaded a predecessor replay.js
+ // source in place of the current owner (a claim about that cut, C-5 stop 2).
+ const file=path.resolve('build/code/src',relative);
+ const m=new vm.SourceTextModule(await fs.readFile(file,'utf8'),{identifier:file});
  await m.link(async spec=>{const actual=await import(spec.startsWith('node:')?spec:pathToFileURL(path.resolve(path.dirname(file),spec)).href),values={...actual,...overrides[spec]};
   return new vm.SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m.namespace;
 }
@@ -76,7 +78,8 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
   outputDigest:hash(output),foldbackRef:'foldback://fixture',foldbackDigest:hash('foldback')};
  const fold=append('child_foldback_admitted',foldPayload,f,'frame',f.frameId,[closed.eventId,fibre.eventId]);
  const evidenceBody={cCallRef:'call://source',evidenceClass:'sub_traversal',contractRef:'evidence-contract://fixture',implementationRef:null,inputDigest:source.inputDigest,outputDigest:hash(output),
-  foldbackRef:foldPayload.foldbackRef,foldbackDigest:foldPayload.foldbackDigest,foldbackEventRef:fold.eventId,childExecutionBasisRef:child.basisRef,childExecutionBasisDigest:child.basisDigest};
+  foldbackRef:foldPayload.foldbackRef,foldbackDigest:foldPayload.foldbackDigest,foldbackEventRef:fold.eventId,childExecutionBasisRef:child.basisRef,childExecutionBasisDigest:child.basisDigest,
+  childOutputDigest:foldPayload.outputDigest};
  const evidenceDigest=hash(evidenceBody),evidenceRef=`evidence://abiogenesis/${evidenceDigest.slice(7)}`;
  const evidence=append('c_call_evidenced',{evidenceRef,evidenceDigest,...evidenceBody},f,'c_call','call://source',[fibre.eventId,fold.eventId]);
  const resultEvent=append('c_call_result_admitted',{resultRef:'result://parent',resultClass:'success',resultDigest:hash('parent-result'),value:output,valueDigest:hash(output),evidenceRefs:[evidenceRef]},f,'c_call','call://source',[evidence.eventId]);
@@ -114,9 +117,9 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
   evidence:{evidenceClass:'judged',cCall:call,result,judgment,graphFunction:{},completedProgresses:[]},terminalizeRun:false});
  assert(transitionOwner.isTraversalTransitionCandidate(candidate));
  const transitionInput={store:acquired.store,predecessorPrefix:prefix,executionBasis:basis,graph,graphFunction:{},source,target,candidate,basis:{correlationId:'fixture/transition',causationEventRefs:[],eventTime:'2026-09-23T00:00:00.000Z'}};
- const rejectedProjection=process.env.ABI5_CURSOR_BASELINE_PROVENANCE
-  ? await owner(process.env.ABI5_CURSOR_BASELINE_PROVENANCE,{'./invocation_execution_truth.js':lookup,'./event_prefix.js':ep})
-  : {...cold,projectRetainedWorksiteInputAtPrefix:()=>null};
+ // Retired: the ABI5_CURSOR_BASELINE_PROVENANCE arm, a predecessor provenance
+ // owner (C-5 stop 2). Missing provenance is injected at the current owner.
+ const rejectedProjection={...cold,projectRetainedWorksiteInputAtPrefix:()=>null};
  const rejectingReplay=await owner('abg/replay.js',{'./worksite_input_provenance.js':rejectedProjection});
  const rejectingRoute=await makeRouteOwner(rejectingReplay);
  if(material===null)assert.throws(()=>rejectingRoute.admitTraversalTransition(transitionInput),error=>error.message==='traversal transition differs from its staged successor projection' &&
@@ -156,6 +159,6 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
   assert.equal(cold.projectRetainedWorksiteInputAtPrefix(contradicted,finalRoute),null);
   assert.throws(()=>replay.replayValidatedRuntimeEventPrefix(contradicted),/no exact entry\/source\/foldback provenance/,'new competing origin invalidates prior replay relation');
  }
- t.diagnostic(JSON.stringify({admittedEvents:copied.events.length,retainedBytes:Buffer.byteLength(JSON.stringify(input.value)),retainedDigest:input.subjectDigest,baseline:process.env.ABI5_CURSOR_BASELINE_PROVENANCE??'injected missing provenance',material:material!==null,sourceEnteredRows:0,sourceOrigin:prior.eventId,retainedRoute:admitted.route.admissionEventRef,coldReplayDigest:coldReplay.replayDigest,
+ t.diagnostic(JSON.stringify({admittedEvents:copied.events.length,retainedBytes:Buffer.byteLength(JSON.stringify(input.value)),retainedDigest:input.subjectDigest,baseline:'injected missing provenance',material:material!==null,sourceEnteredRows:0,sourceOrigin:prior.eventId,retainedRoute:admitted.route.admissionEventRef,coldReplayDigest:coldReplay.replayDigest,
   lowerPremises:'Supplied declaration, basis, completed CCall carrier and inert native frame-clock observer; real cursor/provenance, append transaction, staged route admission and replay.'}));
 });

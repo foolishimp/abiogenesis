@@ -1,9 +1,12 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
-import { readFile, readdir } from "node:fs/promises";
+import { mkdtemp, readFile, readdir, realpath, rm } from "node:fs/promises";
+import { execFile } from "node:child_process";
+import { tmpdir } from "node:os";
+import { promisify } from "node:util";
 import { join, resolve } from "node:path";
-import { pathToFileURL } from "node:url";
-import test from "node:test";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import test, { after } from "node:test";
 
 // Run this file from a source-blind consumer beside the extracted package.
 // This roster is the PUBLIC005 oracle, independent of the manifest generator.
@@ -18,14 +21,28 @@ const required = [
   ["abg.contract.qualification.m05", "./qualification/m05", "QualificationLawBasis", "QUALIFICATION_LAW_BASIS_SCHEMA", "./validator"],
 ];
 const packageName = "@abiogenesis/typescript-tenant";
-const root = resolve(process.env.ABI5_PUBLIC_GROUPS_PACKAGE_ROOT);
-const baseline = JSON.parse(await readFile(process.env.ABI5_PUBLIC_GROUPS_BASELINE, "utf8"));
+// The package is the extracted one a source-blind consumer run names, else the
+// build it is packed from, whose physical declaration population is read from a
+// lane-owned pack and extraction removed after.
+const named = process.env.ABI5_PUBLIC_GROUPS_PACKAGE_ROOT !== undefined;
+const root = resolve(named ? process.env.ABI5_PUBLIC_GROUPS_PACKAGE_ROOT : fileURLToPath(new URL("../..", import.meta.url)));
+async function extractedPackage() {
+  if (named) return root;
+  const exec = promisify(execFile), territory = await realpath(await mkdtemp(join(tmpdir(), "abi5-public-groups-pack-")));
+  after(() => rm(territory, { recursive: true, force: true }));
+  const { stdout } = await exec("npm", ["pack", "--ignore-scripts", "--json", "--pack-destination", territory],
+    { cwd: root, maxBuffer: 10 * 1024 * 1024 });
+  const [packed] = JSON.parse(stdout);
+  await exec("tar", ["-xzf", join(territory, packed.filename), "-C", territory]);
+  return join(territory, "package");
+}
+const packageRoot = await extractedPackage();
 const metadata = JSON.parse(await readFile(join(root, "package.json"), "utf8"));
 const manifest = JSON.parse(await readFile(join(root, "product-toolchain-manifest.json"), "utf8"));
 const { sha256Canonical } = await import(pathToFileURL(join(root, "build/code/src/shared/digests.js")));
 const { resolveNativeDeclarationClosures } = await import(pathToFileURL(join(root, "build/code/src/product/declaration_exports.js")));
 
-async function physicalSources(directory = root, prefix = "") {
+async function physicalSources(directory = packageRoot, prefix = "") {
   const declarations = [], packages = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = prefix + entry.name;
@@ -34,9 +51,9 @@ async function physicalSources(directory = root, prefix = "") {
       const nested = await physicalSources(join(directory, entry.name), path + "/");
       declarations.push(...nested.declarations); packages.push(...nested.packages);
     } else if (/\.d\.(?:c|m)?ts$/u.test(path)) {
-      declarations.push({ path, bytes: await readFile(join(root, path)) });
+      declarations.push({ path, bytes: await readFile(join(packageRoot, path)) });
     } else if (entry.name === "package.json") {
-      packages.push({ path, bytes: await readFile(join(root, path)) });
+      packages.push({ path, bytes: await readFile(join(packageRoot, path)) });
     }
   }
   return { declarations, packages };
@@ -92,23 +109,16 @@ test("all eight exact package addresses resolve canonical owner projections", as
   }
 });
 
-test("catalog locates fresh complete declaration closures, retaining every extant identity", async () => {
+// Retired (C-18b, C-5 stop 2): the arm retaining every extant identity compared
+// the catalog, exports and asset rows with ABI5_PUBLIC_GROUPS_BASELINE, a
+// predecessor cut's record; that is a claim about the change from that cut.
+test("catalog locates fresh complete declaration closures", async () => {
   checkRows(manifest.publicContractCatalog.rows);
-  const expected = [...baseline.contractIds, ...required.map(row => row[0])].sort();
-  assert.deepEqual(manifest.publicContractCatalog.rows.map(row => row.contractId).sort(), expected);
-  for (const [exportPath, value] of Object.entries(baseline.exports)) {
-    assert.deepEqual(metadata.exports[exportPath], value);
-  }
   for (const [, exportPath] of required) {
     for (const member of closureByExport.get(exportPath).declarationInventory) {
       assert.equal(digest(await readFile(join(root, member.declarationPath))), member.declarationDigest);
     }
   }
-  assert.deepEqual(
-    manifest.publicContractCatalog.rows.filter(row => row.assetLocator).map(row => row.contractId).sort(),
-    baseline.assetIds,
-    "facade wiring must not fabricate missing serialized content",
-  );
 });
 
 test("missing group and crossed locator are rejected by the same fixed oracle", () => {

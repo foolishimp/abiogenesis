@@ -100,15 +100,21 @@ test('Public conformance conserves dual-kind closure authorities and rejects mis
     const call={invocation:{definitionKey:{operationId:'abg.operation.conformance.evaluate',memberKey:'gtl_program'},
       request:{program:coord(packet.program.programRef,packet.program),conformanceLaw:selectedLaw,inventoryBasis:{kind:'program_only'}},
       invocationAuthority:{slots:{workspace_binding:workspace,product_set:[install],dependency_lock:{ref:lock.lockId,digest:lock.lockDigest},
-        actor:{actor:coord(authority.authorizedActorRef)}}}},
+        actor:{actor:coord(authority.authorizedActorRef)},
+        // The resource receipt names the admitted grants (CapabilityGrantAuthority).
+        capability_grants:{requiredCapabilityRefs:['capability://component/conformance'],grants:[coord('capability-grant://component/conformance')]}}}},
       resources:{kind:'conformance_evaluation_resource_assertion',schemaVersion:'5.0.0',packet,conformanceLaw:selectedLaw,declaredInventory:[publication]}};
     return Effect.runPromise(owner.CONFORMANCE_DEFINITION_BINDINGS.evaluate.gtl_program(call));
   };
   const invalid=structuredClone(publication), graph=invalid.graphFunctions.find(g=>g.name===program.starts[0].graphFunctionRef);
-  graph.template.nodes[0].term={kind:'c_controller',inputCarrierRef:graph.inputs[0],outputCarrierRef:graph.outputs[0]};
+  // Raw admission now owns the closed C term schema (an unknown discriminant is
+  // raw_admission_refused before Program validation); the ordinary Program
+  // failure is a cross-declaration one: a leaf naming an absent binding.
+  const leaf=graph.template.nodes[0].term;
+  graph.template.nodes[0].term={...leaf,requirement:{...leaf.requirement,implementationBindingRef:'implementation-binding://component/absent@5'}};
   const native=ConformancePort.evaluateGtlProgram(packetFor(invalid));
-  assert.equal(native.code,'validation_failed');assert.equal(native.diagnostics[0].code,'invalid_constructor');
-  assert.equal(native.diagnostics[0].path,`$.graphFunctions[${graph.name}].template.nodes[${graph.template.nodes[0].nodeRef}].term.kind`);
+  assert.equal(native.code,'validation_failed');assert.equal(native.diagnostics[0].code,'missing_binding');
+  assert.equal(native.diagnostics[0].path,`$.graphFunctions[${graph.name}].template.nodes[${graph.template.nodes[0].nodeRef}].term.requirement.implementationBindingRef`);
   const failed=(await invoke(invalid)).ownerOutput;
   assert.equal(failed.outcomeKind,'result');assert.equal(failed.value.disposition,'failed');
   assert.deepEqual(failed.value.diagnostics,native.diagnostics);
