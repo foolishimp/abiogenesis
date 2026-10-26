@@ -1529,7 +1529,7 @@ export function admitInvocationRefusal(
     predecessorPrefix,
     () => admitRuntimeEvent(store, {
       kind: "invocation_refused",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "workspace",
       aggregateId: invocationAdmission.workspaceBindingId,
       parentAggregateId: invocationAdmission.invocationRef,
@@ -2042,7 +2042,7 @@ export function admitExecutionBasis(
     () => {
   const setEvent = admitRuntimeEvent(store, {
     kind: "implementation_admitted",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "workspace",
     aggregateId: input.invocationAdmission.workspaceBindingId,
     parentAggregateId: input.invocationAdmission.invocationRef,
@@ -2179,7 +2179,7 @@ export function admitExecutionBasis(
   const basisRef = `execution-basis://abiogenesis/${basisDigest.slice("sha256:".length)}`;
   const basisEvent = admitRuntimeEvent(store, {
     kind: "basis_admitted",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "workspace",
     aggregateId: input.invocationAdmission.workspaceBindingId,
     parentAggregateId: input.invocationAdmission.invocationRef,
@@ -2720,9 +2720,12 @@ function admitChildExecutionBasisUsing(
       "one deterministic child entry cannot admit a second ExecutionBasis",
     );
   }
+  // One native sample at this admission's opening. The caller's basis carries
+  // the traversal's clock seed, not a sample taken at this opening.
+  const eventTime = sampleNativeEventTime();
   const factories: readonly RuntimeEventCandidateFactory[] = [() => ({
     kind: "basis_admitted",
-    eventTime: sampleNativeEventTime(),
+    eventTime,
     aggregateType: "frame",
     aggregateId: parentScope.frameId,
     parentAggregateId: parentScope.graphCallId,

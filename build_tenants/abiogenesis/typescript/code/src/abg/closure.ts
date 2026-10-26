@@ -6,7 +6,6 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { sampleNativeEventTime } from "./native_event_time.js";
 import { observeNativeFrameLiveness, discardNativeFrameClock, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   projectAdmittedCCallStateAtPrefix,
@@ -580,7 +579,7 @@ export function admitOwnedScopeClosure(
   const factories: RuntimeEventCandidateFactory[] = [
     () => ({
       kind: "terminal_reached",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "frame",
       aggregateId: frameId,
       parentAggregateId: graphCallId,
@@ -600,7 +599,7 @@ export function admitOwnedScopeClosure(
     }),
     (batch) => ({
       kind: "frame_closed",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "frame",
       aggregateId: frameId,
       parentAggregateId: graphCallId,
@@ -621,7 +620,7 @@ export function admitOwnedScopeClosure(
     }),
     (batch) => ({
       kind: "graph_call_closed",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "graph_call",
       aggregateId: graphCallId,
       parentAggregateId: runId,
@@ -644,7 +643,7 @@ export function admitOwnedScopeClosure(
   if (scopeClass === "root") {
     factories.push((batch) => ({
       kind: "run_closed",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "run",
       aggregateId: runId,
       parentAggregateId: null,

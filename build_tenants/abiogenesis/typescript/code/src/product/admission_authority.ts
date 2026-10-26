@@ -15,6 +15,7 @@ import {
   admitExactDefinitionCall, definitionFault, isRecord, sameJson,
 } from "../public/binding/definition_binding_mechanics.js";
 import { admitJson } from "../shared/admit/index.js";
+import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
 import type { DefinitionCall, ExactDefinitionCallable } from "../shared/effect_definition.js";
 import {
   projectWorkspaceEnvironmentFromArtifactTruth,
@@ -165,12 +166,57 @@ export function admissionAuthorityScope(data: AdmissionCapabilityData) {
   return deepFreeze({ ref: `admission-scope://abiogenesis/${scopeDigest}`, digest: scopeDigest });
 }
 
-export function admissionAuthoritySlots(slots: unknown): JsonValue {
-  if (!isRecord(slots) || !("capability_grants" in slots)) {
-    throw new TypeError("admission authority requires the declared authority slots");
-  }
+/** One refusal of capability admission in the admit family. `evidence.reason`
+ * is the message the operation surfaces for it. */
+function admissionRefusal(code: string, path: readonly string[], reason: string): StructuralRefusal {
+  return deepFreeze({ kind: "structural_refusal" as const, stage: "validate" as const, code, path: [...path], evidence: { reason } });
+}
+const AUTHORITY_SLOTS_UNDECLARED = admissionRefusal("authority_slots_undeclared", ["invocationAuthority", "slots"],
+  "admission authority requires the declared authority slots");
+const DATA_BASIS_INVALID = admissionRefusal("data_basis_invalid", ["admissionAuthority"],
+  "admission grant requires valid external authority and closed data basis");
+const ACQUIRED_PREFIX_MISMATCH = admissionRefusal("acquired_prefix_mismatch", ["boundEnvironment", "prefix"],
+  "admission environment differs from the acquired current prefix");
+const ARTIFACT_TRUTH_UNAUTHENTICATED = admissionRefusal("artifact_truth_unauthenticated", ["boundEnvironment", "prefix"],
+  "admission requires authenticated exact-prefix artifact truth");
+const ENVIRONMENT_UNADMITTED = admissionRefusal("environment_unadmitted", ["boundEnvironment", "workspaceBinding"],
+  "admission requires the exact admitted prefix environment");
+const APPROVAL_MISMATCH = admissionRefusal("approval_mismatch", ["authority", "approval"],
+  "admission grant requires exact external approval, actor, request and owner scope");
+const ACTOR_MISMATCH = admissionRefusal("actor_mismatch", ["resourceScope", "authoritySlots", "actor"],
+  "admission actor differs from the declared invocation actor");
+const WORKSPACE_BINDING_FORBIDDEN = admissionRefusal("workspace_binding_forbidden", ["boundEnvironment"],
+  "pre-binding definition forbids a WorkspaceBinding");
+const ENVIRONMENT_SCOPE_MISMATCH = admissionRefusal("environment_scope_mismatch", ["resourceScope", "authoritySlots"],
+  "admission grant requires the exact admitted workspace, Product set and lock");
+const OWNER_ARTIFACT_MISMATCH = admissionRefusal("owner_artifact_mismatch", ["ownerArtifact", "verified"],
+  "admission capability owner differs from the verified executing artifact");
+const DEFINITION_CALL_MISMATCH = admissionRefusal("definition_call_mismatch", ["invocation"],
+  "definition call differs from its fixed owner");
+const RESOURCE_SCOPE_MISMATCH = admissionRefusal("resource_scope_mismatch", ["resources"],
+  "admission resources differ from the approved request and authority scope");
+const EVENT_RESOURCE_INVALID = admissionRefusal("event_resource_invalid", ["resources", "eventResource"],
+  "invalid event resource assertion");
+const GRANTS_MISMATCH = admissionRefusal("grants_mismatch", ["invocationAuthority", "slots", "capability_grants"],
+  "admission grants differ from exact owner reconstruction");
+
+/** The one mapping from an admission refusal to the TypeError the exported
+ * admission functions throw; its string is the surfaced message. */
+function admissionRefusalError(refusal: StructuralRefusal): TypeError {
+  return new TypeError(String(refusal.evidence.reason));
+}
+
+/** Deterministic check: the declared authority slots without the grants slot. */
+function admitAuthoritySlots(slots: unknown): Outcome<JsonValue> {
+  if (!isRecord(slots) || !("capability_grants" in slots)) return AUTHORITY_SLOTS_UNDECLARED;
   const { capability_grants: _grants, ...remaining } = slots;
-  return v.parse(jsonValueSchema, remaining);
+  return ok(v.parse(jsonValueSchema, remaining));
+}
+
+export function admissionAuthoritySlots(slots: unknown): JsonValue {
+  const admitted = admitAuthoritySlots(slots);
+  if (admitted.kind !== "ok") throw admissionRefusalError(admitted);
+  return admitted.value;
 }
 
 const ADMISSION_OPERATIONS = new Set([
@@ -181,6 +227,65 @@ const ADMISSION_OPERATIONS = new Set([
   "abg.operation.catalog.apply", "abg.operation.conformance.evaluate",
 ]);
 
+/** Observation under the operation's effect contract: the held store at its
+ * acquired current prefix coordinate. A store failure propagates as the
+ * operation's effect failure. */
+function observeAcquiredPrefix(acquiredResource: AcquiredAbgEventResource | null): DurablePrefixCoordinate | null {
+  if (acquiredResource === null) return null;
+  assertHeldEventStoreAtDurablePrefix(acquiredResource.store, acquiredResource.entryPrefix);
+  return acquiredResource.entryPrefix;
+}
+
+/** Deterministic check: the selection names the acquired current prefix. */
+function checkAcquiredPrefix(
+  selection: AdmissionEnvironmentSelection,
+  acquiredPrefix: DurablePrefixCoordinate | null,
+): Outcome<DurablePrefixCoordinate> {
+  if (acquiredPrefix === null) return ok(selection.prefix);
+  return sameJson(selection.prefix, acquiredPrefix) ? ok(acquiredPrefix) : ACQUIRED_PREFIX_MISMATCH;
+}
+
+/** Observation at one prefix: its artifact truth, the environment projected
+ * from that truth, and, for live admission, the currentness of the projected
+ * environment's prefix. A store or log failure propagates as the operation's
+ * effect failure. */
+function observePrefixEnvironment(
+  prefix: DurablePrefixCoordinate,
+  workspaceBinding: AdmissionEnvironmentSelection["workspaceBinding"],
+  requireCurrent: boolean,
+) {
+  const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
+  const environment = artifactTruth.kind === "exact_prefix_artifact_truth_projection"
+    ? projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, workspaceBinding)
+    : null;
+  if (requireCurrent && environment?.kind === "exact_prefix_workspace_environment") {
+    assertDurableRuntimePrefixCurrent(environment.prefix);
+  }
+  return { artifactTruth, environment };
+}
+
+/** Deterministic check over the prefix observation. */
+function checkPrefixEnvironment(
+  observed: ReturnType<typeof observePrefixEnvironment>,
+): Outcome<ExactPrefixWorkspaceEnvironment> {
+  if (observed.artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return ARTIFACT_TRUTH_UNAUTHENTICATED;
+  if (observed.environment?.kind !== "exact_prefix_workspace_environment") return ENVIRONMENT_UNADMITTED;
+  return ok(observed.environment);
+}
+
+/** Environment admission over one exact selection: each observation, then its
+ * deterministic check, in that order. */
+function admitCapabilityEnvironmentOutcome(
+  value: unknown,
+  acquiredResource: AcquiredAbgEventResource | null,
+  requireCurrent: boolean,
+): Outcome<ExactPrefixWorkspaceEnvironment> {
+  const selection = v.parse(admissionEnvironmentSelectionSchema, value);
+  const located = checkAcquiredPrefix(selection, observeAcquiredPrefix(acquiredResource));
+  if (located.kind !== "ok") return located;
+  return checkPrefixEnvironment(observePrefixEnvironment(located.value, selection.workspaceBinding, requireCurrent));
+}
+
 /** Existing environment owner over one exact selection. Historical release
  * observations authenticate their entry cut; live admission also requires the
  * current extent. Retained acquired coordinates reuse only real owner proof. */
@@ -189,49 +294,40 @@ export function admitCapabilityEnvironment(
   acquiredResource: AcquiredAbgEventResource | null = null,
   requireCurrent = true,
 ): ExactPrefixWorkspaceEnvironment {
-  const selection = v.parse(admissionEnvironmentSelectionSchema, value);
-  let prefix = selection.prefix;
-  if (acquiredResource !== null) {
-    assertHeldEventStoreAtDurablePrefix(acquiredResource.store, acquiredResource.entryPrefix);
-    if (!sameJson(prefix, acquiredResource.entryPrefix))
-      throw new TypeError("admission environment differs from the acquired current prefix");
-    prefix = acquiredResource.entryPrefix;
-  }
-  const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
-  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection")
-    throw new TypeError("admission requires authenticated exact-prefix artifact truth");
-  const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, selection.workspaceBinding);
-  if (environment.kind !== "exact_prefix_workspace_environment")
-    throw new TypeError("admission requires the exact admitted prefix environment");
-  if (requireCurrent) assertDurableRuntimePrefixCurrent(environment.prefix);
-  return environment;
+  // A refusal is thrown as its TypeError.
+  const admitted = admitCapabilityEnvironmentOutcome(value, acquiredResource, requireCurrent);
+  if (admitted.kind !== "ok") throw admissionRefusalError(admitted);
+  return admitted.value;
 }
 
-// The actual Product result is also bound once to this executing immutable
-// install. This disposable relation conveys neither approval nor ABG currentness.
-const executingOwnerArtifacts = new WeakSet<VerifiedProductArtifact>();
+type AdmittedCapabilityBasis = Awaited<ReturnType<typeof validateAdmissionCapabilityBasis>>;
 
-/** Establish/reuse immutable owner bytes; external approval is consumed here. */
-export async function validateAdmissionCapabilityBasis(
+/** Deterministic check: the external authority and the closed data basis. */
+function admitCapabilityBasisInput(
   authorityInput: ResolvedAdmissionAuthority,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+): Outcome<Readonly<{ authority: ResolvedAdmissionAuthority; data: AdmissionCapabilityData }>> {
+  try {
+    return ok({
+      authority: v.parse(RESOLVED_ADMISSION_AUTHORITY_SCHEMA, authorityInput),
+      data: v.parse(admissionCapabilityDataStructure, basis.data),
+    });
+  } catch {
+    return DATA_BASIS_INVALID;
+  }
+}
+
+/** Deterministic check: approval, actor, request and owner scope, and the
+ * workspace relation the definition declares. */
+function checkAdmissionScope(
+  authority: ResolvedAdmissionAuthority,
+  data: AdmissionCapabilityData,
+  scope: ReturnType<typeof admissionAuthorityScope>,
+  boundEnvironment: ExactPrefixWorkspaceEnvironment | null,
+  packet: OwnerContractSourceDeclaration,
   actorRef: string,
   capabilityRef: string,
-  basis: AdmissionCapabilityGrantConstructionBasis,
-  acquiredResource: AcquiredAbgEventResource | null = null,
-): Promise<Readonly<{ data: AdmissionCapabilityData; authority: ResolvedAdmissionAuthority;
-  scope: ReturnType<typeof admissionAuthorityScope>; boundEnvironment: ExactPrefixWorkspaceEnvironment | null }>> {
-  let authority: ResolvedAdmissionAuthority;
-  let data: AdmissionCapabilityData;
-  try {
-    authority = v.parse(RESOLVED_ADMISSION_AUTHORITY_SCHEMA, authorityInput);
-    data = v.parse(admissionCapabilityDataStructure, basis.data);
-  } catch (cause) {
-    throw new TypeError("admission grant requires valid external authority and closed data basis", { cause });
-  }
-  const boundEnvironment = data.boundEnvironment === null ? null :
-    admitCapabilityEnvironment(data.boundEnvironment, acquiredResource);
-  const scope = admissionAuthorityScope(data);
-  const packet = basis.fixedPacket;
+): Outcome<null> {
   const admissionOperation = ADMISSION_OPERATIONS.has(packet.definitionKey.operationId) ||
     (packet.definitionKey.operationId === "abg.operation.release.snapshot" && (packet.definitionKey.memberKey === "published_rc" || packet.definitionKey.memberKey === "tapped_release")) ||
     (packet.definitionKey.operationId === "abg.operation.witness.admit" &&
@@ -249,16 +345,16 @@ export async function validateAdmissionCapabilityBasis(
       authority.approval.value.requestDigest !== digest(data.request) ||
       authority.approval.value.scopeDigest !== scope.digest ||
       admitRuntimeContract(packet.requestSchema, data.request).disposition !== "admitted") {
-    throw new TypeError("admission grant requires exact external approval, actor, request and owner scope");
+    return APPROVAL_MISMATCH;
   }
   const slots = data.resourceScope.authoritySlots;
   if (!isRecord(slots) || (packet.metadata.actorRequirement === "required" &&
       (!isRecord(slots.actor) || !isRecord(slots.actor.actor) || slots.actor.actor.ref !== actorRef))) {
-    throw new TypeError("admission actor differs from the declared invocation actor");
+    return ACTOR_MISMATCH;
   }
   if (packet.metadata.workspaceBindingRequirement === "forbidden") {
     if (data.boundEnvironment !== null || slots.workspace_binding !== null) {
-      throw new TypeError("pre-binding definition forbids a WorkspaceBinding");
+      return WORKSPACE_BINDING_FORBIDDEN;
     }
   } else {
     const env = boundEnvironment;
@@ -266,24 +362,92 @@ export async function validateAdmissionCapabilityBasis(
         !sameJson(slots.workspace_binding, { ref: env.workspaceBinding.bindingId, digest: env.workspaceBinding.bindingDigest }) ||
         !sameJson(slots.dependency_lock, { ref: env.resolvedProductLock.lockId, digest: env.resolvedProductLock.lockDigest }) ||
         !sameJson(slots.product_set, env.productInstalls.map(productInstallCoordinate))) {
-      throw new TypeError("admission grant requires the exact admitted workspace, Product set and lock");
+      return ENVIRONMENT_SCOPE_MISMATCH;
     }
   }
-  const owned = selectOwnedProductVerification(data.ownerArtifact.request, data.ownerArtifact.verified);
-  const verified = owned ?? await verifyProduct(data.ownerArtifact.request);
-  if (verified.kind !== "verified_product_artifact" ||
-      (owned === null && !sameJson(verified, data.ownerArtifact.verified))) {
-    throw new TypeError("admission capability owner differs from the verified executing artifact");
-  }
-  if (!executingOwnerArtifacts.has(verified)) {
-    const installedManifest = await readFile(fileURLToPath(new URL("../../../../product-toolchain-manifest.json", import.meta.url)));
-    if (digest(JSON.parse(installedManifest.toString("utf8"))) !== verified.manifestDigest)
-      throw new TypeError("admission capability owner differs from the verified executing artifact");
-    executingOwnerArtifacts.add(verified);
-  }
+  return ok(null);
+}
+
+/** Observation under the operation's effect contract: the owner artifact as
+ * this owner verified it, or physical verification of the requested bytes. */
+async function observeOwnerArtifact(ownerArtifact: AdmissionCapabilityData["ownerArtifact"]) {
+  const owned = selectOwnedProductVerification(ownerArtifact.request, ownerArtifact.verified);
+  return { owned, verified: owned ?? await verifyProduct(ownerArtifact.request) };
+}
+
+/** Deterministic check: the observed artifact is the verified owner the data names. */
+function checkOwnerArtifact(
+  ownerArtifact: AdmissionCapabilityData["ownerArtifact"],
+  observed: Awaited<ReturnType<typeof observeOwnerArtifact>>,
+): Outcome<VerifiedProductArtifact> {
+  const { owned, verified } = observed;
+  return verified.kind !== "verified_product_artifact" || (owned === null && !sameJson(verified, ownerArtifact.verified))
+    ? OWNER_ARTIFACT_MISMATCH
+    : ok(verified);
+}
+
+/** Observation under the operation's effect contract: the executing
+ * toolchain's identity, read once per admission from its own manifest. A read
+ * or parse failure propagates as the operation's effect failure. */
+async function observeExecutingToolchainIdentity(): Promise<Readonly<{ manifestDigest: string; productContentDigest: unknown }>> {
+  const manifest = JSON.parse((await readFile(fileURLToPath(
+    new URL("../../../../product-toolchain-manifest.json", import.meta.url)))).toString("utf8")) as JsonValue;
+  return { manifestDigest: digest(manifest), productContentDigest: isRecord(manifest) ? manifest.productContentDigest : undefined };
+}
+
+/** Deterministic check: the verified artifact is the executing install, by
+ * both its manifest digest and its product content digest. */
+function checkExecutingOwner(
+  verified: VerifiedProductArtifact,
+  executing: Awaited<ReturnType<typeof observeExecutingToolchainIdentity>>,
+): Outcome<VerifiedProductArtifact> {
+  return executing.manifestDigest === verified.manifestDigest &&
+      executing.productContentDigest === verified.productContentDigest
+    ? ok(verified)
+    : OWNER_ARTIFACT_MISMATCH;
+}
+
+/** Capability admission: each observation, then its deterministic check, in
+ * the order the operation surfaces them. */
+async function admitAdmissionCapabilityBasis(
+  authorityInput: ResolvedAdmissionAuthority,
+  actorRef: string,
+  capabilityRef: string,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+  acquiredResource: AcquiredAbgEventResource | null,
+): Promise<Outcome<AdmittedCapabilityBasis>> {
+  const input = admitCapabilityBasisInput(authorityInput, basis);
+  if (input.kind !== "ok") return input;
+  const { authority, data } = input.value;
+  const boundEnvironment = data.boundEnvironment === null ? ok(null) :
+    admitCapabilityEnvironmentOutcome(data.boundEnvironment, acquiredResource, true);
+  if (boundEnvironment.kind !== "ok") return boundEnvironment;
+  const scope = admissionAuthorityScope(data);
+  const scoped = checkAdmissionScope(authority, data, scope, boundEnvironment.value, basis.fixedPacket, actorRef, capabilityRef);
+  if (scoped.kind !== "ok") return scoped;
+  const owner = checkOwnerArtifact(data.ownerArtifact, await observeOwnerArtifact(data.ownerArtifact));
+  if (owner.kind !== "ok") return owner;
+  const executing = checkExecutingOwner(owner.value, await observeExecutingToolchainIdentity());
+  if (executing.kind !== "ok") return executing;
+  const verified = executing.value;
   // Share only owner-built immutable bodies; caller wrappers are not retained.
-  return { data: deepFreeze({ ...data, ownerArtifact: { ...data.ownerArtifact, verified } }),
-    authority: deepFreeze(authority), scope, boundEnvironment };
+  return ok({ data: deepFreeze({ ...data, ownerArtifact: { ...data.ownerArtifact, verified } }),
+    authority: deepFreeze(authority), scope, boundEnvironment: boundEnvironment.value });
+}
+
+/** Establish/reuse immutable owner bytes; external approval is consumed here. */
+export async function validateAdmissionCapabilityBasis(
+  authorityInput: ResolvedAdmissionAuthority,
+  actorRef: string,
+  capabilityRef: string,
+  basis: AdmissionCapabilityGrantConstructionBasis,
+  acquiredResource: AcquiredAbgEventResource | null = null,
+): Promise<Readonly<{ data: AdmissionCapabilityData; authority: ResolvedAdmissionAuthority;
+  scope: ReturnType<typeof admissionAuthorityScope>; boundEnvironment: ExactPrefixWorkspaceEnvironment | null }>> {
+  // A refusal rejects as its TypeError.
+  const admitted = await admitAdmissionCapabilityBasis(authorityInput, actorRef, capabilityRef, basis, acquiredResource);
+  if (admitted.kind !== "ok") throw admissionRefusalError(admitted);
+  return admitted.value;
 }
 
 /** Native call-local handoff; never serialized or supplied as authority data. */
@@ -298,12 +462,17 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
   packet: P,
   owner: AdmissionDefinitionOwner<P, R, O>,
 ): ExactDefinitionCallable<P, AdmissionAuthorizedResources<R>, O> {
+  // One surface for both: a thrown observation failure and a typed refusal
+  // each become the resource_admission fault whose message is the string of
+  // the cause (for a refusal, of its TypeError).
+  const fault = (cause: unknown) =>
+    definitionFault(packet.definitionKey, "resource_admission", "resource_relation_mismatch", String(cause));
   return (call) => Effect.suspend(() => {
     let acquiredResource: AcquiredAbgEventResource | null = null;
     return Effect.tryPromise({
-      try: async () => {
+      try: async (): Promise<Outcome<Readonly<{ call: DefinitionCall<P, R>; boundEnvironment: ExactPrefixWorkspaceEnvironment | null }>>> => {
         if (admitExactDefinitionCall(call, packet) === null || !isRecord(call.resources)) {
-          throw new TypeError("definition call differs from its fixed owner");
+          return DEFINITION_CALL_MISMATCH;
         }
         const parsed = v.parse(admissionAuthorityResourceStructure, call.resources.admissionAuthority);
         const { admissionAuthority: _authority, ...resources } = call.resources;
@@ -311,16 +480,18 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
         // resources that are not I-JSON differ from the approved scope.
         const admittedResources = admitJson(resources);
         if (admittedResources.kind !== "ok" || !sameJson(parsed.basis.request, call.invocation.request) ||
-            parsed.basis.resourceScope.resourcesDigest !== digest(admittedResources.value) ||
-            !sameJson(parsed.basis.resourceScope.authoritySlots, admissionAuthoritySlots(call.invocation.invocationAuthority.slots))) {
-          throw new TypeError("admission resources differ from the approved request and authority scope");
+            parsed.basis.resourceScope.resourcesDigest !== digest(admittedResources.value)) {
+          return RESOURCE_SCOPE_MISMATCH;
         }
+        const slots = admitAuthoritySlots(call.invocation.invocationAuthority.slots);
+        if (slots.kind !== "ok") return slots;
+        if (!sameJson(parsed.basis.resourceScope.authoritySlots, slots.value)) return RESOURCE_SCOPE_MISMATCH;
         // Bound reopened effects acquire once, before semantic reconstruction.
         // A new resource is still created only by its authorized effect owner.
         const assertion = (resources as Record<string, unknown>).eventResource;
         if (isAcquiredAbgEventResourceSelection(assertion) ||
             (parsed.basis.boundEnvironment !== null && isRecord(assertion) && assertion.kind === "reopen_abg_event_resource")) {
-          if (!validateAbgEventResourceInput(assertion)) throw new TypeError("invalid event resource assertion");
+          if (!validateAbgEventResourceInput(assertion)) return EVENT_RESOURCE_INVALID;
           const acquired = acquireAbgEventResource(assertion);
           if (acquired.kind !== "acquired_abg_event_resource") throw definitionFault(
             packet.definitionKey, "resource_acquisition", acquired.code, acquired.message);
@@ -334,12 +505,14 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
         if (!sameJson(parsed.grants, grants) || !sameJson(
           call.invocation.invocationAuthority.slots.capability_grants,
           { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map((grant) => ({ ref: grant.grantRef, digest: grant.grantDigest })) },
-        )) throw new TypeError("admission grants differ from exact owner reconstruction");
-        return { call: { ...call, resources: resources as R }, boundEnvironment };
+        )) return GRANTS_MISMATCH;
+        return ok({ call: { ...call, resources: resources as R }, boundEnvironment });
       },
-      catch: (cause) => definitionFault(packet.definitionKey, "resource_admission", "resource_relation_mismatch", String(cause)),
+      catch: fault,
     }).pipe(
-      Effect.flatMap(({ call, boundEnvironment }) => owner(call, boundEnvironment, acquiredResource)),
+      Effect.flatMap((admitted) => admitted.kind === "ok"
+        ? owner(admitted.value.call, admitted.value.boundEnvironment, acquiredResource)
+        : Effect.fail(fault(admissionRefusalError(admitted)))),
       // An owner may refuse before entering its effect scope. Release the same
       // acquisition in every outcome; ordinary owner close still issues truth.
       Effect.ensuring(Effect.sync(() => { if (acquiredResource !== null) abandonAbgEventResource(acquiredResource); })),

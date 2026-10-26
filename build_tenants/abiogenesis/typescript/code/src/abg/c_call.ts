@@ -2808,6 +2808,8 @@ function projectOpenedWorkflowCCallCarrier(
   };
   const cCallDigest = sha256Canonical(identity);
   if (cCallRef !== `c-call:${cCallDigest}`) return null;
+  // The opening's locus and fibre bodies as openWorkflowCCallLocus writes
+  // them; the arm's F_D scope (binding row 10a) is stated there.
   const locusBody = {
     cCallRef,
     cCallDigest,
@@ -3978,7 +3980,7 @@ export function admitWorkflowChildPreparationRefusal(
     expectedPrefixDigest: owner.expectedStorePrefixDigest,
     event: {
     kind: "child_preparation_refused",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "c_call",
     aggregateId: parentCCall.cCallRef,
     parentAggregateId: parentCCall.frameId,
@@ -4072,6 +4074,9 @@ export function prepareWorkflowChildFoldback(
   } });
 }
 
+/** The workflow.C arm's foldback checks, under the arm's F_D claim (binding
+ * row 10a; the scope is stated at openWorkflowCCallLocus). The child
+ * traversal enters only as its admitted terminal truth at the prefix. */
 function admitWorkflowChildFoldbackUsing(
   readCurrent: () => RuntimeEventPrefix,
 
@@ -4188,7 +4193,7 @@ function admitWorkflowChildFoldbackUsing(
     expectedPrefixDigest: parentOwner.expectedStorePrefixDigest,
     event: {
       kind: "child_foldback_admitted",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "frame",
       aggregateId: parentCCall.frameId,
       parentAggregateId: parentCCall.graphCallId,
@@ -4467,6 +4472,8 @@ export function rehydrateWorkflowCCallAtPrefix(
   ) {
     return null;
   }
+  // The opening's CCall and fibre bodies as openWorkflowCCallLocus writes
+  // them; the arm's F_D scope (binding row 10a) is stated there.
   const expected = deepFreeze({
     kind: "c_call" as const,
     schemaVersion: "5.0.0" as const,
@@ -5301,6 +5308,8 @@ function admitPreparedCCallOpening(input: Readonly<{
   graphFunction: Readonly<GraphFunction>;
   prepared: PreparedCCallOpening;
   basis: RuntimeAdmissionBasis;
+  /** The one native sample taken at openCCall's transaction opening. */
+  eventTime: string;
 }>): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const {
     store,
@@ -5314,6 +5323,7 @@ function admitPreparedCCallOpening(input: Readonly<{
     graphFunction,
     prepared,
     basis,
+    eventTime,
   } = input;
   const { cCall: body, cursor } = prepared;
   if (!cCallPhasePermitsOpening(openingPrefix, body.cCallRef)) {
@@ -5346,7 +5356,7 @@ function admitPreparedCCallOpening(input: Readonly<{
   assertRuntimeEventTransactionActive(store);
   const openedEvent = admitRuntimeEvent(store, {
     kind: "c_call_opened",
-    eventTime: sampleNativeEventTime(),
+    eventTime,
     aggregateType: "c_call",
     aggregateId: body.cCallRef,
     parentAggregateId: scope.frameId,
@@ -5369,7 +5379,7 @@ function admitPreparedCCallOpening(input: Readonly<{
   const fibreCapturedAt = captureNativeFrameBoundary(store);
   const fibreEvent = admitRuntimeEvent(store, {
     kind: "c_call_fibre_selected",
-    eventTime: sampleNativeEventTime(),
+    eventTime,
     aggregateType: "c_call",
     aggregateId: body.cCallRef,
     parentAggregateId: scope.frameId,
@@ -5416,6 +5426,7 @@ function openImplementationCCallLocus(
   implementationSet: AdmittedImplementationSet,
   resolution: AdmittedImplementationResolutionRow,
   basis: RuntimeAdmissionBasis,
+  eventTime: string,
 ): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
@@ -5547,6 +5558,7 @@ function openImplementationCCallLocus(
     graphFunction,
     prepared,
     basis,
+    eventTime,
   });
 }
 
@@ -5563,6 +5575,7 @@ function openInteractionCCallLocus(
   interactionSet: AdmittedInteractionSet,
   interaction: AdmittedInteractionContractRow,
   basis: RuntimeAdmissionBasis,
+  eventTime: string,
 ): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
@@ -5711,6 +5724,7 @@ function openInteractionCCallLocus(
     graphFunction,
     prepared,
     basis,
+    eventTime,
   });
 }
 
@@ -5771,6 +5785,7 @@ function openWorkflowCCallLocus(
   childClosureContract: Readonly<ClosureContract>,
   programValidation: ProgramValidation,
   basis: RuntimeAdmissionBasis,
+  eventTime: string,
 ): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const openingAuthorityPrefix = opening.authorityPrefix;
   const openingPrefix = opening.runPrefix;
@@ -5866,6 +5881,14 @@ function openWorkflowCCallLocus(
     stageRole: "workflow",
     batchRef: declaredBatchRef,
     programLocusRef,
+    // The F_D claim (binding row 10a) covers this arm's opening checks (in
+    // openCCall, here and in admitPreparedCCallOpening) and its foldback
+    // checks (admitWorkflowChildFoldbackUsing). Both are finite over the
+    // selected prefix and their declared inputs, and each yields one
+    // admission or one typed refusal. The child traversal is outside the
+    // claim: it runs between the two as its own traversal, composed under
+    // AC-016 with both traversal identities kept. The recorded regime value
+    // is unchanged.
     regime: "F_D",
     armId: "arm://abiogenesis/workflow.C@5",
     compositionRef: null,
@@ -5893,6 +5916,7 @@ function openWorkflowCCallLocus(
     graphFunction,
     prepared,
     basis,
+    eventTime,
   });
 }
 
@@ -5901,6 +5925,9 @@ export function openCCall(
 ): CCallAdmission | CCallOpenRefusal {
   let entered = false;
   try {
+    // One native sample at this transaction's opening is the eventTime of
+    // every event the opening admits.
+    const eventTime = sampleNativeEventTime();
     const transaction = admitRuntimeEventTransactionAtDurablePrefix(
       input.store, input.predecessorPrefix, () => {
         entered = true;
@@ -5939,6 +5966,7 @@ export function openCCall(
               input.implementationSet,
               input.resolution,
               input.basis,
+              eventTime,
             );
           case "interaction":
             return openInteractionCCallLocus(
@@ -5954,6 +5982,7 @@ export function openCCall(
               input.interactionSet,
               input.interaction,
               input.basis,
+              eventTime,
             );
           case "workflow":
             return openWorkflowCCallLocus(
@@ -5971,6 +6000,7 @@ export function openCCall(
               input.childClosureContract,
               input.programValidation,
               input.basis,
+              eventTime,
             );
         }
       },
@@ -6829,7 +6859,7 @@ function admitEvidenceUsingTransport(
     owner.expectedStorePrefixDigest,
     {
     kind: "c_call_evidenced",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -6982,7 +7012,7 @@ export function admitResult(
     owner.expectedStorePrefixDigest,
     {
     kind: "c_call_result_admitted",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
@@ -7112,7 +7142,7 @@ export function admitJudgment(
     owner.expectedStorePrefixDigest,
     {
     kind: "c_call_judged",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,
