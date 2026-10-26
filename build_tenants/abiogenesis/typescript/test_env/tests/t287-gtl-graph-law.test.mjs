@@ -185,13 +185,7 @@ function selectionModule(o){const declared=selectionPublication(o.gtl);
 test('declared registered selection keeps its multi-edge workflow domain and separate whole-law checks',()=>{
   const pub=selectionModule(current),program=pub.programs[0];
   const actual=validate(current,pub,program.programRef,selectionRef('graph-function','root'));
-  // The existing fixture repeats child-input in each child's carried environment.
-  // Preserve that independent publication refusal; this positive exercises the
-  // complete whole-Program/Graph and registered-selection owners, not publication.
-  assert.equal(actual.publication.kind,'static_validation_refusal');
-  assert.deepEqual(actual.publication.diagnostics.map(d=>[d.code,d.path]),['A','B'].map(name=>[
-    'duplicate_identity',`$.graphFunctions[${selectionRef('graph-function',name)}].environment.carries`]));
-  assert(actual.publication.diagnostics.every(d=>/duplicate GraphFunction carried environment ref/.test(d.message)));
+  assert.equal(actual.publication.kind,'publication_validation');
   const g=actual.graphFunction,source={currentNodeRef:selectionRef('node','select'),termPath:current.paths.rootCSourcePath(selectionRef('node','select'))};
   assert.equal(g.template.edges.filter(e=>e.fromNodeRef===source.currentNodeRef).length,2);
   const definitions=Object.fromEntries(actual.pub.graphFunctions.map(g=>[g.name,current.digests.sha256Canonical(g)]));

@@ -29,5 +29,5 @@ process.stdin.on("end", () => {
       requirementCandidates: [], worksiteDesign: null, pressure: [] }, bindings: [], design: null,
   };
   // Deliberately exceeds the test lease, with no claim about unobserved work.
-  setTimeout(() => emit({ type: "result", subtype: "success", result: JSON.stringify(raw) }), 350);
+  setTimeout(() => emit({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(raw), structured_output: raw }), 350);
 });

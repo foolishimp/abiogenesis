@@ -69,7 +69,12 @@ test("R2 installs the verified artifact into an empty source-blind consumer", as
       expectedPackageName: process.env.ABI5_PACKAGE_NAME,
       expectedPackageVersion: process.env.ABI5_PACKAGE_VERSION
     });
-    process.stdout.write(JSON.stringify(result));
+    // The verified result exceeds a bounded stdout; the probe projects the
+    // two members this case asserts.
+    process.stdout.write(JSON.stringify({
+      disposition: result.disposition,
+      artifactDigest: result.artifactDigest
+    }));
   `;
   const probeResult = await execFileAsync(
     "node",
