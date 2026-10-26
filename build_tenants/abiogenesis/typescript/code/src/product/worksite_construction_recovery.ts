@@ -1,4 +1,4 @@
-import { WORKSITE_PRESERVED_RESULT_IDS, constructWorksitePreservedResultSource, isWorksitePreservedResultSource,
+import { WORKSITE_PRESERVED_RESULT_IDS, isWorksitePreservedResultSource,
   type WorksitePreservedResultSource } from "../gtl/worksite_construction_recovery.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";

@@ -1,11 +1,10 @@
-import { SEMANTIC_STAGE_IDS, SEMANTIC_IMPLEMENTATION_REFS } from "./semantic_stage_identity.js";
+import { SEMANTIC_STAGE_IDS } from "./semantic_stage_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
 export { SEMANTIC_STAGE_IDS, SEMANTIC_IMPLEMENTATION_REFS } from "./semantic_stage_identity.js";
 import * as v from "valibot";
 import type { ContractDeclaration, GtlProgram, ModulePublication } from "./contracts.js";
 import { REQUIREMENT_TERM_SCHEMA, type RequirementTerm } from "./requirement_handoff.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { validSemanticJobLifecyclePublication, validSemanticJobProgramOwners } from "./semantic_job.js";
 
 const ref = v.pipe(v.string(), v.minLength(1));

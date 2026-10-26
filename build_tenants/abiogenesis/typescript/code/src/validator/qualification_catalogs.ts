@@ -1,11 +1,13 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { payloadInventoryDigest, sha256Bytes, sha256Canonical, type PayloadInventoryRow } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { parseQualificationRuleCatalog, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH,
   type AdmittedQualificationCatalogs } from "./qualification.js";
+import { readExecutingToolchainIdentity } from "../product/declaration_exports.js";
 
 export const SELF_CONFORMANCE_CATALOG_ASSET_PATH = "contracts/qualification/rule-catalog.json";
 export const SELF_CONFORMANCE_CATALOG_CONTRACT_ID = "abg.asset.qualification.rule-catalog";
@@ -87,4 +89,44 @@ export function admitInstalledQualificationCatalogs(install: QualificationCatalo
   try { parsedRules = parseQualificationRuleCatalog(rules.value); }
   catch { return refused(SELF_CONFORMANCE_CATALOG_ASSET_PATH, `qualification catalog ${SELF_CONFORMANCE_CATALOG_ASSET_PATH} (${rulesDigest}) is not a rule catalog`); }
   return deepFreeze({ kind: "admitted" as const, value: deepFreeze({ coverage: coverageValue, rules: parsedRules }) });
+}
+
+/** One admission per install identity (`installId` and `productContentDigest`)
+ * per process, for the leaf invocation port and the verdict projection. A
+ * refusal is not retained: the next call admits again. */
+const admittedCatalogs = new Map<string, Readonly<AdmittedQualificationCatalogs>>();
+export function admitQualificationCatalogsOnce(install: QualificationCatalogInstall): QualificationCatalogAdmission<Readonly<AdmittedQualificationCatalogs>> {
+  const key = JSON.stringify([install.installId, install.productContentDigest]);
+  const known = admittedCatalogs.get(key);
+  if (known !== undefined) return Object.freeze({ kind: "admitted" as const, value: known });
+  const admission = admitInstalledQualificationCatalogs(install);
+  if (admission.kind === "admitted") admittedCatalogs.set(key, admission.value);
+  return admission;
+}
+
+const EXECUTING_PACKAGE_INSTALL_ID = "install://abiogenesis/executing-package";
+let executingCatalogs: Readonly<AdmittedQualificationCatalogs> | undefined;
+/** The executing package's own catalogs. Its install record is its own
+ * manifest, located as the executing toolchain identity is located
+ * (`readExecutingToolchainIdentity`, beside this package's build), and both
+ * catalogs are admitted against that manifest's payload inventory, whose
+ * digest the admitted owner artifact carries. Admitted once per process; a
+ * refusal throws its cause and is not retained. */
+export function executingQualificationCatalogs(): Readonly<AdmittedQualificationCatalogs> {
+  if (executingCatalogs !== undefined) return executingCatalogs;
+  const identity = readExecutingToolchainIdentity();
+  const manifest = identity.manifest;
+  const catalog = isRecord(manifest) ? manifest.publicContractCatalog : undefined;
+  const rows = isRecord(catalog) && Array.isArray(catalog.rows) ? catalog.rows : null;
+  if (identity.productContentDigest === null || rows === null)
+    throw new TypeError("the executing package manifest names no ABIogenesis product content or public contract rows");
+  const admission = admitInstalledQualificationCatalogs({
+    installId: EXECUTING_PACKAGE_INSTALL_ID,
+    installedRoot: fileURLToPath(new URL("../../../../", import.meta.url)),
+    manifestDigest: identity.manifestDigest,
+    productContentDigest: identity.productContentDigest,
+    publicContracts: rows as unknown as QualificationCatalogInstall["publicContracts"],
+  });
+  if (admission.kind === "refused") throw new TypeError(admission.reason);
+  return executingCatalogs = admission.value;
 }

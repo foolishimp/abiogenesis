@@ -49,7 +49,7 @@ test("one generic publication declares native initial, selection and correction 
 });
 
 test("saved native revision bridge preserves revision discriminants and selected-retained ownership", {
-  skip: !process.env.ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT, timeout: 180000,
+  skip: !process.env.ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT && "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT unset; requires the saved native revision bridge prefix root", timeout: 180000,
 }, async () => {
   const [product, gtl, revision, preparation, meaning, origins] = await Promise.all([
     "product/index", "gtl/index", "abg/semantic_revision", "product/worksite_preparation", "product/semantic_job", "abg/worksite_revision",
@@ -113,7 +113,7 @@ test("saved native revision bridge preserves revision discriminants and selected
 });
 
 test("saved revision Evidence separates historical origins from checked successor state", {
-  skip: !process.env.ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT, timeout: 600000,
+  skip: !process.env.ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT && "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT unset; requires the saved revision Evidence prefix root", timeout: 600000,
 }, async t => {
   const [product, revision, meaning, assembly, implementation, origins] = await Promise.all([
     "product/index", "abg/semantic_revision", "product/semantic_revision", "abg/instruction_assembly",
@@ -219,7 +219,7 @@ test("saved revision Evidence separates historical origins from checked successo
 });
 
 test("native correction consumes an actual failed verifier and preserves the unselected file", {
-  timeout: 7200000, skip: process.env.ABI5_GENERIC_JOB_CORRECTION_NATIVE !== "1" }, async () => {
+  timeout: 7200000, skip: process.env.ABI5_GENERIC_JOB_CORRECTION_NATIVE !== "1" && "ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier" }, async () => {
   const environment = await setupInstalledRootCatalog({ after() {} }, packageRoot, {
     candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
     prepareAdditionalProducts: async basis => [await prepareGenericJobIntakeProduct({ ...basis, declarationFactory: genericRevisionPublicationData })],

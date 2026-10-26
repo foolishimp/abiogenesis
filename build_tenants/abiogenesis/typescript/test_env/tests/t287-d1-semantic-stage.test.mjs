@@ -44,7 +44,7 @@ test("D1 native operating-basis projection conserves exact preparation identity"
   // actor, event append, fixture normalization or synthetic admission occurs.
   const evidencePath = process.env.ABI5_D1_NATIVE_PROJECTION_EVIDENCE;
   if (!evidencePath) {
-    t.skip("requires an explicit closed native proof observation record"); return;
+    t.skip("ABI5_D1_NATIVE_PROJECTION_EVIDENCE unset; requires an explicit closed native proof observation record"); return;
   }
   const evidence = JSON.parse(await readFile(evidencePath, "utf8"));
   const product = await import(pathToFileURL(join(packageRoot, "build/code/src/product/index.js")).href);
@@ -116,7 +116,7 @@ test("D1 assessor statement domain matches native assembly and preserves strict 
   // its lawful synthetic candidate is not substituted into saved output/history.
   const evidencePath = process.env.ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE;
   const predecessorRoot = process.env.ABI5_D1_ASSESSOR_PREDECESSOR_ROOT;
-  if (!evidencePath || !predecessorRoot) { t.skip("requires explicit closed native observations and predecessor package"); return; }
+  if (!evidencePath || !predecessorRoot) { t.skip("ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE or ABI5_D1_ASSESSOR_PREDECESSOR_ROOT unset; requires explicit closed native observations and predecessor package"); return; }
   const load = (root, name) => import(pathToFileURL(join(root, "build/code/src", name + ".js")).href);
   const [store, prefixes, executions, calls, cursors, materialize, native, instructions, traversal, meaning, digests,
     priorMeaning, priorInstructions] = await Promise.all([

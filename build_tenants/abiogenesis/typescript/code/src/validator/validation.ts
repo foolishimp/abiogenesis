@@ -10,7 +10,6 @@ import { hasExactKeys } from "../shared/admit/index.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
@@ -21,7 +20,6 @@ import type {
   EvaluatorDeclaration,
   GraphFunction,
   GraphFunctionApplication,
-  GtlActionCatalogRow,
   GtlEdge,
   GtlProgram,
   ImplementationBinding,

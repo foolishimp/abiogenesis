@@ -2,7 +2,6 @@ import { isRecord, hasExactKeys, isNonblankString as nonEmptyString } from "../s
 import { admitJson } from "../shared/admit/index.js";
 import { isAbsolute } from "node:path";
 
-import { type JsonValue } from "../shared/canonical_json.js";
 import {
   serializeCapabilityDefinitionGraph,
   capabilityRefsForContract,
@@ -415,12 +414,10 @@ const resolvedProductEnvironments = new WeakMap<object, Readonly<{
 /** Internal owner result: preserve the link already established for this lock.
  * It is not a new serialized lock or runtime admission. The executing
  * toolchain's identity is an input, read once by the Product operation
- * boundary; a caller with no source for it (a component test of this module)
- * keeps the read. */
+ * boundary. */
 export function resolveProductArtifacts(
   artifacts: readonly VerifiedProductArtifact[],
-  executingToolchainProductContentDigest: Sha256Digest | null =
-    installedToolchainProductContentDigest(),
+  executingToolchainProductContentDigest: Sha256Digest | null,
 ): EnvironmentRefusal | ResolvedProductEnvironment {
   if (artifacts.length === 0) {
     return refusal(

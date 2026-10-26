@@ -296,7 +296,7 @@ test('worker error after launch with unresolved cleanup: termination_unconfirmed
 });
 
 test('helper route: the classifier reports spawn failure as confirmed and unresolved cleanup with processFacts', {
-  skip: process.platform === 'win32', timeout: 20_000,
+  skip: process.platform === 'win32' && 'win32 platform: the helper route runs over POSIX process groups and signals', timeout: 20_000,
 }, async t => {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-carrier-helper-')));
   t.after(() => rm(scratch, { recursive: true, force: true }));
@@ -335,7 +335,7 @@ test('helper route: the classifier reports spawn failure as confirmed and unreso
 });
 
 test('helper route: an error after launch with unresolved cleanup throws the command failure with processFacts', {
-  skip: process.platform === 'win32', timeout: 20_000,
+  skip: process.platform === 'win32' && 'win32 platform: the helper route runs over POSIX process groups and signals', timeout: 20_000,
 }, async t => {
   const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-carrier-helper-error-')));
   t.after(() => rm(scratch, { recursive: true, force: true }));

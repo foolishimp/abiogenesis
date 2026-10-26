@@ -1,7 +1,6 @@
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {

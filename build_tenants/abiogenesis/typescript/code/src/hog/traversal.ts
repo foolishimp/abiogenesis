@@ -20,7 +20,6 @@ import {
   isTraversalCursorCandidate,
   type TraversalCursorCandidate,
 } from "../abg/traversal_cursor.js";
-import type { AbgEventStore } from "../abg/event_store.js";
 import type { ValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
 import type {
   GraphFunction,
@@ -42,10 +41,8 @@ import {
   resolveEnclosingCBatchRef,
 } from "../gtl/source_path.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
 import { isGraphValidation, type GraphValidation } from "../validator/graph.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -488,35 +485,6 @@ export function deriveGraphSpanReentryCursor(
     },
     "at_term",
     targetInput,
-  );
-}
-
-export function deriveInteractionResumeCursor(
-  heldCursor: TraversalCursor,
-  responseInput: TraversalInputBasis,
-): TraversalCursor | TraversalRefusal {
-  if (
-    !isTraversalCursorCandidate(heldCursor) ||
-    heldCursor.position !== "at_term" ||
-    responseInput.inputRef.length === 0 ||
-    !responseInput.inputDigest.startsWith("sha256:")
-  ) {
-    return refusal(
-      "traversal_cursor_mismatch",
-      "HoG resumes an interaction only from its exact held cursor and admitted response",
-    );
-  }
-  return createCursor(
-    cursorLineage(heldCursor),
-    {
-      nodeRef: heldCursor.currentNodeRef,
-      termPath: heldCursor.termPath,
-      taskOrdinal: heldCursor.taskOrdinal,
-      attempt: heldCursor.attempt,
-      retryPath: heldCursor.retryPath,
-    },
-    "at_term",
-    responseInput,
   );
 }
 

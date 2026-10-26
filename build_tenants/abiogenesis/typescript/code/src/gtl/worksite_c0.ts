@@ -27,7 +27,6 @@ import {
 } from "../product/worksite_effect.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 const WORKSITE_C0_IMPLEMENTATION = Object.freeze({

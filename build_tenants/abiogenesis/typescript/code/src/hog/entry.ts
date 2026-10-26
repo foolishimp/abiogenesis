@@ -6,11 +6,7 @@ import {
   projectOpenedTraversalScopeClassAtDurablePrefix,
   type AbgEventStore,
   type ActorRuntimeBinding,
-  type AdmittedImplementationSet,
-  type AdmittedInteractionSet,
-  type ContinuationProductBasis,
   type ExecutionBasis,
-  type OpenedTraversalScope,
 } from "../abg/index.js";
 import {
   assertHeldEventStoreAtDurablePrefix,
@@ -19,22 +15,13 @@ import {
 import * as AbgRetry from "../abg/retry.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
-import type {
-  ClosureContract,
-  GtlGraph,
-  GtlProgram,
-} from "../gtl/contracts.js";
 import type { LeafInvocationPort } from "../implementation/contracts.js";
-import { validateGraph } from "../validator/graph.js";
-import type { ChildTraversalBasis } from "./child_traversal.js";
 import { isAdmittedLeafInvocationPort } from
   "../implementation/leaf_invocation_port.js";
 import type {
   ExecuteGraphTraversalCommonInput,
   ExecuteGraphTraversalInput,
   InitialOrNonRetryExecuteGraphTraversalInput,
-  GraphTraversalEntryRefusal,
   InteractionResumeTraversalEntryInput,
 } from "./traversal_contract.js";
 import type { MachineEvaluationFrame } from "./evaluation_frame.js";
@@ -53,83 +40,8 @@ import {
 } from "./traversal.js";
 import {
   failTraversal,
-  refuseTraversalEntry,
 } from "./traversal_failure.js";
 import { canonicalEquals } from "../shared/value/index.js";
-
-export function prepareInteractionResumeTraversalEntry(
-  input: InteractionResumeTraversalEntryInput,
-): InitialOrNonRetryExecuteGraphTraversalInput | GraphTraversalEntryRefusal {
-  const graphFunction = input.leafPort.graphFunctionByRef(
-    input.graph.graphFunctionRef,
-  );
-  if (graphFunction === null) {
-    return refuseTraversalEntry({
-      code: "owner_refusal",
-      message:
-        "continued run could not reproduce an admitted Graph boundary",
-      diagnosticRef:
-        "diagnostic://abiogenesis/hog/resume-entry-graph-function@5",
-      candidate: { graphFunctionRef: input.graph.graphFunctionRef },
-    });
-  }
-  const graphValidation = validateGraph(
-    input.graph,
-    input.programValidation,
-    graphFunction,
-    {
-      invocationAdmissionRef: input.graph.invocationAdmissionRef,
-      admittedInputRef: input.graph.admittedInputRef,
-      admittedInputDigest: input.graph.admittedInputDigest,
-      admittedInput: input.graphInput,
-    },
-  );
-  if (
-    graphValidation.kind !== "graph_validation" ||
-    graphValidation.validationRef !== input.executionBasis.graphValidationRef ||
-    input.executionBasis.graphRef !== input.graph.materializationRef ||
-    input.executionBasis.graphDigest !== input.graph.materializationDigest ||
-    input.executionBasis.closureContractRef !==
-      input.closureContract.closureContractRef ||
-    sha256Canonical(input.graphInput) !==
-      input.graph.admittedInputDigest
-  ) {
-    return refuseTraversalEntry({
-      code: "owner_refusal",
-      message:
-        "continued run could not reproduce an admitted Graph boundary",
-      diagnosticRef:
-        "diagnostic://abiogenesis/hog/resume-entry-graph-mismatch@5",
-      candidate: { graphRef: input.graph.materializationRef },
-    });
-  }
-  return deepFreeze({
-    store: input.store,
-    predecessorPrefix: input.predecessorPrefix,
-    executionBasis: input.executionBasis,
-    openedTraversalScope: input.openedTraversalScope,
-    program: input.program,
-    ...(input.programPublication === undefined ? {} : { programPublication: input.programPublication }),
-    graphFunction,
-    graph: input.graph,
-    graphValidation,
-    programValidation: input.programValidation,
-    implementationSet: input.implementationSet,
-    interactionSet: input.interactionSet,
-    continuationProductBasis: {
-      ...input.continuationProductBasis,
-      programValidation: input.programValidation,
-      graphValidation,
-    },
-    leafPort: input.leafPort,
-    closureContract: input.closureContract,
-    actorRuntimeBinding: input.actorRuntimeBinding,
-    input: input.graphInput,
-    inputDigest: input.graph.admittedInputDigest,
-    eventTime: input.eventTime,
-    correlationId: input.correlationId,
-  });
-}
 
 function failEntry(
   input: ExecuteGraphTraversalCommonInput,

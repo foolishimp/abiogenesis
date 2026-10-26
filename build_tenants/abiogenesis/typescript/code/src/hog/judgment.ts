@@ -1,5 +1,4 @@
 import type { RuntimeReplayGuard } from "../abg/replay.js";
-import type { OwnedJudgedCCallOutcomeReceipt, OwnedBlockedCCallOutcomeReceipt } from "../abg/c_call_outcome.js";
 import type {
   AdmittedCCallResult,
   CCall,
@@ -7,7 +6,6 @@ import type {
 } from "../abg/c_call.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 

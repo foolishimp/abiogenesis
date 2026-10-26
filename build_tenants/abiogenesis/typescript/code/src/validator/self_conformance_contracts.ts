@@ -7,7 +7,6 @@ import { EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_LAW_BASIS_SCH
 export * from "./qualification_contracts.js";
 const ref = v.pipe(v.string(), v.minLength(1));
 const digest = v.pipe(v.string(), v.regex(/^sha256:[a-f0-9]{64}$/));
-const ordinal = v.pipe(v.number(), v.integer(), v.minValue(0));
 /** @internal Runtime parser mechanics; serialized schemas and native data types are the published contract. */
 export const SELF_CONFORMANCE_EMBEDDED_INPUT_SCHEMA = v.strictObject({
   kind: v.literal("self_conformance_input"), schemaVersion: v.literal("5.0.0"),

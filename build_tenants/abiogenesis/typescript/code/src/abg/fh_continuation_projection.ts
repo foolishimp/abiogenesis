@@ -172,7 +172,7 @@ function exactOpenedBasis(
     opened.payload.pendingJudgment,
   );
   if (pending === null) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const holdRoutes = indexedRuntimeEvents(prefix, "payload:routeRef:" + openedPayload.holdRouteRef).filter((event) =>
     event.kind === "traversal_route_admitted" &&
     isRecord(event.payload) &&
@@ -393,7 +393,7 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       authorityEvents,
       { runId: resumeEvent.runId },
     );
-    const runEvents = runtimeEventBodiesAtPrefix(ownerRunPrefix);
+    runtimeEventBodiesAtPrefix(ownerRunPrefix);
     const exactResume = indexedRuntimeEvents(ownerRunPrefix, "id:" + resumeEvent.eventId).find((event) =>
       event.eventId === resumeEvent.eventId
     );

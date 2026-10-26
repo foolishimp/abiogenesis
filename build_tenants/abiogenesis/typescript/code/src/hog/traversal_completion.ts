@@ -3,7 +3,6 @@ import type {
   AdmittedCCallResult,
   CCall,
 } from "../abg/c_call.js";
-import type { FhInteractionHoldAdmission } from "../abg/continuation.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type { ReplayState } from "../abg/replay.js";
 import type { RetryRuntimeFailureTransitionPlan } from "../abg/retry.js";
@@ -133,37 +132,6 @@ export function projectOwnedExecutableTraversalCompletion(
 }
 
 /** @internal Same owner computation with a selected guard receipt. */
-export function projectOwnedHeldTraversalCompletion(input: Readonly<{
-  hold: FhInteractionHoldAdmission;
-  cursor: TraversalCursorCandidate;
-  graph: Readonly<GtlGraph>;
-  closureContract: Readonly<ClosureContract>;
-  replayState: RuntimeReplayGuard;
-}>): OwnedExecutableTraversalCompletion {
-  return projectOwnedExecutableTraversalCompletion(
-    "held",
-    input.replayState,
-    input.hold.successorPrefix,
-    {
-      cCallRef: input.hold.pending.cCall.cCallRef,
-      resultRef: input.hold.pending.result.resultRef,
-      judgmentRef: input.hold.pending.judgment.judgmentRef,
-      resultValue: input.hold.pending.result.value,
-      continuationRef: input.hold.continuation.continuationRef,
-      heldCursor: input.cursor,
-      heldGraph: input.graph,
-      heldClosureContract: input.closureContract,
-      heldInteraction: {
-        cCall: input.hold.pending.cCall,
-        result: input.hold.pending.result,
-        judgment: input.hold.pending.judgment,
-        cursor: input.cursor,
-      },
-    },
-  );
-}
-
-/** @internal Same owner computation with a selected guard receipt. */
 export function projectOwnedBlockedRetryTraversalCompletion(input: Readonly<{
   plan: RetryRuntimeFailureTransitionPlan;
   route: OwnedRouteTransitionAdmission;
@@ -195,18 +163,6 @@ export function projectExecutableTraversalCompletion(
   values: CompletionValues = {}
 ): ExecutableTraversalCompletion {
   return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedExecutableTraversalCompletion(disposition, replayState, successorPrefix, values));
-}
-
-export function projectHeldTraversalCompletion(
-  input: Readonly<{
-  hold: FhInteractionHoldAdmission;
-  cursor: TraversalCursorCandidate;
-  graph: Readonly<GtlGraph>;
-  closureContract: Readonly<ClosureContract>;
-  replayState: ReplayState;
-}>
-): ExecutableTraversalCompletion {
-  return completePublicOutcome<ExecutableTraversalCompletion>(projectOwnedHeldTraversalCompletion(input));
 }
 
 export function projectBlockedRetryTraversalCompletion(

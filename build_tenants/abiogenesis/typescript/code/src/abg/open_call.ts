@@ -165,7 +165,7 @@ function projectRunPhaseAtPrefix(
     executionBasisRef: string;
   }>,
 ): RunPhase | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const openEvents = indexedRuntimeEvents(prefix, "related:" + input.runId).filter((event) =>
     event.kind === "run_segment_opened" && event.aggregateId === input.runId
   );
@@ -224,7 +224,7 @@ function projectGraphCallPhaseAtPrefix(
     executionBasisRef: string;
   }>,
 ): GraphCallPhase | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const openEvents = indexedRuntimeEvents(prefix, "related:" + input.graphCallId).filter((event) =>
     event.kind === "graph_call_opened" &&
     event.aggregateId === input.graphCallId
@@ -283,7 +283,7 @@ export function hasOpenedTraversalScopeAtPrefix(
     scopeDigest: _scopeDigest,
     ...body
   } = scope;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const runEvent = indexedRuntimeEvents(prefix, "id:" + scope.runOpenEventRef).find((event) => event.eventId === scope.runOpenEventRef);
   const graphCallEvent = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) => event.eventId === scope.graphCallOpenEventRef);
   const frameEvent = indexedRuntimeEvents(prefix, "id:" + scope.frameOpenEventRef).find((event) => event.eventId === scope.frameOpenEventRef);
@@ -332,7 +332,7 @@ export function projectOpenedTraversalScopeClassAtPrefix(
     prefix,
     scope.executionBasisRef,
   );
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const graphCallOpen = indexedRuntimeEvents(prefix, "id:" + scope.graphCallOpenEventRef).find((event) =>
     event.kind === "graph_call_opened" &&
     event.eventId === scope.graphCallOpenEventRef &&
@@ -864,7 +864,7 @@ export function projectOpenedTraversalScopeForFrameAtPrefix(
 export function projectOpenedTraversalScopeForFrameAtPrefix(
   prefix: RuntimeEventPrefix, frameId: string,
 ): OpenedTraversalScope | null {
-  const rows = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const frames = indexedRuntimeEvents(prefix, "related:" + frameId).filter(e => e.kind === "frame_opened" && e.aggregateId === frameId);
   const frame = exactOrUndefined(onlyExactMatch(frames));
   if (frame === undefined || !isRecord(frame.payload) || typeof frame.graphCallId !== "string" || typeof frame.runId !== "string") return null;

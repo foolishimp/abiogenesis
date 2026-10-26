@@ -16,7 +16,7 @@ import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope,
   deriveSemanticJobAsset, deriveSemanticJobAssessment, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, semanticJobDesignMatches,
   semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
-import { constructWorksiteSubject, constructWorksiteTerritory, constructWorksiteObservation,
+import { constructWorksiteSubject, constructWorksiteTerritory, 
   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
   isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubject } from "../product/worksite_operations.js";

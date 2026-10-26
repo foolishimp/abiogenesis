@@ -14,7 +14,7 @@ const { SEMANTIC_REVISION_IDS: R } = await load('gtl/semantic_revision_identity'
 
 const selectorPrompt = process.env.ABI5_NATIVE_D2_SELECTOR_PROMPT;
 test('native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data', {
-  skip: !selectorPrompt,
+  skip: !selectorPrompt && 'ABI5_NATIVE_D2_SELECTOR_PROMPT unset; requires the retained native D2 selector prompt',
 }, async t => {
   const { sha256Bytes } = await load('shared/digests');
   const { canonicalJson } = await load('shared/canonical_json');
@@ -386,7 +386,7 @@ test('semantic stage, revision and selection implementations preserve the comple
 });
 
 test('retained native assemblies conserve every canonical part and required-content refusal', {
-  skip: !process.env.ABI5_D07_PREDECESSOR_SCRATCH, timeout: 180000,
+  skip: !process.env.ABI5_D07_PREDECESSOR_SCRATCH && 'ABI5_D07_PREDECESSOR_SCRATCH unset; requires the retained D07 predecessor scratch', timeout: 180000,
 }, async t => {
   const scratch = process.env.ABI5_D07_PREDECESSOR_SCRATCH;
   const call = JSON.parse(fs.readFileSync(join(scratch, 'full-call.json'), 'utf8'));

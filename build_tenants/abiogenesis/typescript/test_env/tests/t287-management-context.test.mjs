@@ -402,7 +402,7 @@ test("generic exact-byte ingress, crossed Public coordinates, source mismatch an
   console.log(JSON.stringify({ proof: "generic_environment_exact_bytes", sourceUnavailableReplay: true, nativeRoles: fixture.environment.roles.length, pythonUsed: false }));
 });
 
-test("Public-start exact positive and schema-valid crossed input coordinate use the existing preparation owner", { skip: process.env.ABI5_CONTEXT_PUBLIC_PROOF !== "1", timeout: 300000 }, async () => {
+test("Public-start exact positive and schema-valid crossed input coordinate use the existing preparation owner", { skip: process.env.ABI5_CONTEXT_PUBLIC_PROOF !== "1" && "ABI5_CONTEXT_PUBLIC_PROOF is not '1'; selects the installed Public-start proof", timeout: 300000 }, async () => {
   const root = resolve(import.meta.dirname, "../..");
   const environment = await setupInstalledRootCatalog({ after() {} }, root, { candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
     prepareAdditionalProducts: async basis => [await prepareGenericJobIntakeProduct({ ...basis, declarationFactory: genericLifecyclePublicationData })] });
@@ -431,7 +431,7 @@ test("Public-start exact positive and schema-valid crossed input coordinate use 
   console.log(JSON.stringify({ proof: "public_start_exact_positive_crossed_input", root: environment.scratch, crossed: fields.length, providerCalls: 0 }));
 });
 
-test("exact released a_c validation and emitted-map equality are structural access, not frame application", { skip: !process.env.ABI5_CONTEXT_STDO_CONFIGURATION }, async () => {
+test("exact released a_c validation and emitted-map equality are structural access, not frame application", { skip: !process.env.ABI5_CONTEXT_STDO_CONFIGURATION && "ABI5_CONTEXT_STDO_CONFIGURATION unset; requires the released a_c run-environment configuration directory" }, async () => {
   const configuration = process.env.ABI5_CONTEXT_STDO_CONFIGURATION;
   const environment = JSON.parse(await readFile(join(configuration, "run-environment.json"), "utf8"));
   const supplied = JSON.parse(await readFile(join(configuration, "run-environment-resources.json"), "utf8"));

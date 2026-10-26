@@ -17,7 +17,6 @@ import type {
   GtlProgram,
   ModulePublication,
 } from "../gtl/contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,

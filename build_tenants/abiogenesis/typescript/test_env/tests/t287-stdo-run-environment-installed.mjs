@@ -277,7 +277,7 @@ test("STDO environment installed public invocation and fresh replay", async t =>
   const scratch = process.env.ABI5_ENV_RUN_ROOT;
   const outputRoot = process.env.ABI5_ENV_OUTPUT_ROOT ?? scratch;
   if (!evidenceRoot || !scratch || !process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH) {
-    t.skip("requires exact frozen artifact, isolated run root and retained evidence path"); return;
+    t.skip("ABI5_ENV_EVIDENCE_ROOT, ABI5_ENV_RUN_ROOT or ABI5_WAVE1_FROZEN_ARTIFACT_PATH unset; requires exact frozen artifact, isolated run root and retained evidence path"); return;
   }
   const installsSkip = stdoInstallsSkip(process.env.ABI5_ENV_INPUT_ROOT);
   if (installsSkip) { t.skip(installsSkip); return; }

@@ -134,7 +134,7 @@ test('C2 and serial C3 publish graph-call child closure without changing callabl
 
 const retainedEventPath = process.env.W2_STEEL_RETAINED_EVENT_PATH;
 test('pure preparation preserves actual recorded A/W, grant, source and command configuration', {
-  skip: !retainedEventPath && 'explicit historical carrier fixture is optional outside this focused proof',
+  skip: !retainedEventPath && 'W2_STEEL_RETAINED_EVENT_PATH unset; explicit historical carrier fixture is optional outside this focused proof',
 }, async () => {
   const events = (await readFile(retainedEventPath, 'utf8')).trim().split('\n').map(JSON.parse);
   const tasks = events.filter((event) => event.kind === 'basis_admitted' && event.payload.basisClass === 'root').map((event) => event.payload.rawInputValue);

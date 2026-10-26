@@ -57,7 +57,7 @@ test('same published task is a lawful root output and unchanged C2 input; reserv
  for(const mutate of mutations){const g=fixture(publication);mutate(g);assert.equal(check(g).code,'contract_mismatch');}
  assert.equal(check(fixture(publication,{kind:'wrong-value-kind'})).code,'contract_mismatch');
 });
-test('retained refused Public input crosses only the corrected production contract boundary',{skip:!process.env.ABG_REACQUISITION_ROOT_ACTUAL_REQUEST},t=>{
+test('retained refused Public input crosses only the corrected production contract boundary',{skip:!process.env.ABG_REACQUISITION_ROOT_ACTUAL_REQUEST&&'ABG_REACQUISITION_ROOT_ACTUAL_REQUEST unset; requires the retained refused Public request'},t=>{
  const started=performance.now(),path=process.env.ABG_REACQUISITION_ROOT_ACTUAL_REQUEST,bytes=readFileSync(path),request=JSON.parse(bytes),call=request.invocation,value=call.invocation.request.input.value;
  const pub=call.resources.catalog.boundPublications.find(p=>p.graphFunctions.some(g=>g.name===ids.graphFunctionRef));assert(pub);
  const actualGraph=pub.graphFunctions.find(g=>g.name===ids.graphFunctionRef),currentGraph=publication.graphFunctions.find(g=>g.name===ids.graphFunctionRef);assert.deepEqual(actualGraph,currentGraph);

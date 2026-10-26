@@ -2,7 +2,6 @@ import { WORKSITE_COMMAND_FORWARD_IDS as F } from "../product/worksite_command_f
 import { type WorksiteCommandForwardRequest, type WorksiteCommandForwardTask,
   type WorksiteCommandForwardObservation } from "../product/worksite_command_forward.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as C2 } from "../product/worksite_command_execution.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { C, cCarrier, cGraphFunctionRef, workflow } from "./c_algebra.js";
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import { graphEdge } from "./graph_applications.js";

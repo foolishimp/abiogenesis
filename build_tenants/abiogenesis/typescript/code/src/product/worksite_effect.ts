@@ -4,9 +4,6 @@ import { isAbsolute, posix, relative, resolve, win32 } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  type JsonValue,
-} from "../shared/canonical_json.js";
-import {
   isSha256Digest,
   sha256Bytes,
   sha256Canonical,

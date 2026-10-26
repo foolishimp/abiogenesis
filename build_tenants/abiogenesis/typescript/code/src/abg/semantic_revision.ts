@@ -7,7 +7,6 @@ import { selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } f
 import { WORKSITE_REVISION_IDS, type WorksiteRevisionObservationOrigin } from "../product/worksite_revision.js";
 import { constructWorksiteRevisionCommandPreparationInput } from "../product/worksite_preparation.js";
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { WORKSITE_C0_IDS, isWorksiteFileReplaceOutput } from "../gtl/worksite_c0.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult, constructWorksiteConstructionTask } from "../product/worksite_construction.js";
 import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
@@ -30,7 +29,6 @@ import { projectWorksiteInputLeafResultAtPrefix } from "./worksite_input_provena
 import { materializeGraph } from "../gtl/materialize.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { constructWorksiteObservation, isWorksiteObservation, isWorksitePostPublicationFailure } from "../product/worksite_effect.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
 import { authenticateSemanticJobBasis, authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
@@ -49,7 +47,7 @@ import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalid
 import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
 import { isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
-import { isSemanticJobInput, constructNativeSemanticConstructionTask, nativeSemanticContextMatches } from "../product/semantic_job.js";
+import { isSemanticJobInput, constructNativeSemanticConstructionTask } from "../product/semantic_job.js";
 import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic_job.js";
 import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";

@@ -2,7 +2,6 @@ import * as v from "valibot";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, isRequirementHandoffDeclaration,
   type GtlRequirementHandoffDeclaration, type RequirementTerm } from "../gtl/requirement_handoff.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { canonicalEquals } from "../shared/value/index.js";
 const ref = v.pipe(v.string(), v.minLength(1));

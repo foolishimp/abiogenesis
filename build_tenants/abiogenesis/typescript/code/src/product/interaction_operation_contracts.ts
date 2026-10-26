@@ -155,7 +155,8 @@ type Assert<T extends true> = T;
 type SameShape<A, B> = [A] extends [B]
   ? [B] extends [A] ? true : false
   : false;
-type _TypedResidualSchemaIsNative = Assert<
+/** @internal Compile-time agreement check. */
+export type _TypedResidualSchemaIsNative = Assert<
   SameShape<
     v.InferOutput<typeof typedResidualSchema>,
     ResultAssessmentResidual

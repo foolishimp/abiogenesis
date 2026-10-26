@@ -252,7 +252,7 @@ async function runScenario(t, variantId) {
   const evidenceRoot = process.env.ABI5_STEEL04_EVIDENCE_PATH;
   const scratch = process.env.ABI5_STEEL04_RUN_ROOT;
   if (!evidenceRoot || !scratch || !process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH) {
-    t.skip("requires exact frozen artifact, isolated run root and retained evidence path"); return;
+    t.skip("ABI5_STEEL04_EVIDENCE_PATH, ABI5_STEEL04_RUN_ROOT or ABI5_WAVE1_FROZEN_ARTIFACT_PATH unset; requires exact frozen artifact, isolated run root and retained evidence path"); return;
   }
   await mkdir(evidenceRoot, { recursive: true });
   await assert.rejects(() => lstat(scratch), { code: "ENOENT" });

@@ -2,7 +2,6 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { runtimeEventAtPrefixIndex, indexedRuntimeEvents } from "./event_prefix.js";
 import {
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {

@@ -15,7 +15,7 @@ const retainedPair=async()=>({
   receipt:(await readJson(join(retained,"attempt-01/receipt-9.json"))).receipt,
 });
 
-test("SDK proof resolves and imports the installed declared import-only public export",{skip:!enabled},async()=>{
+test("SDK proof resolves and imports the installed declared import-only public export",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
   const root=join(cliHost,"node_modules/@abiogenesis/typescript-tenant");
   const manifest=await readJson(join(root,"package.json"));
   assert.equal(manifest.exports["./abg"].require,undefined);
@@ -31,14 +31,14 @@ test("SDK proof resolves and imports the installed declared import-only public e
   assert.ok(events.every(row=>row.kind==="public_operation_artifact_admitted"));
 });
 
-test("successful receipt nine is retained without changing its request or receipt",{skip:!enabled},async()=>{
+test("successful receipt nine is retained without changing its request or receipt",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
   const {call,receipt}=await retainedPair(),before=JSON.stringify({call,receipt});
   const selected=selectPreservedCatalogReceipt(call,receipt);
   assert.equal(selected.preservedCatalogReceipt,receipt);
   assert.equal(JSON.stringify({call,receipt}),before);
 });
 
-test("retained success rejects mismatched invocation, catalog or physical handoff",{skip:!enabled},async()=>{
+test("retained success rejects mismatched invocation, catalog or physical handoff",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
   const {call,receipt}=await retainedPair();
   for(const alter of [
     value=>value.invocationRef+="/foreign",
@@ -50,7 +50,7 @@ test("retained success rejects mismatched invocation, catalog or physical handof
   }
 });
 
-test("the existing conservation refusal remains a non-retained catalog branch",{skip:!enabled},async()=>{
+test("the existing conservation refusal remains a non-retained catalog branch",{skip:!enabled&&"ABI5_WAVE1_FROZEN_INSTALL_HOST or ABI5_ENV_RUN_ROOT unset; requires the frozen install host and the retained run root"},async()=>{
   const {call,receipt}=await retainedPair();
   // A synthetic negative control only, never persisted or used as runtime evidence.
   const refused=structuredClone(receipt);
@@ -62,7 +62,7 @@ test("the existing conservation refusal remains a non-retained catalog branch",{
   assert.throws(()=>selectPreservedCatalogReceipt(call,refused));
 });
 
-test("current source evidence rehydrates through installed owners and preserves refusal scope",{skip:!process.env.ABI5_ENV_SOURCE_EVIDENCE},async()=>{
+test("current source evidence rehydrates through installed owners and preserves refusal scope",{skip:!process.env.ABI5_ENV_SOURCE_EVIDENCE&&"ABI5_ENV_SOURCE_EVIDENCE unset; requires the retained STDO source evidence"},async()=>{
   const [product,abg]=await Promise.all(["product","abg"].map(name=>importInstalledPackageExport({cliHost},"@abiogenesis/typescript-tenant/"+name)));
   const evidence=await readRetainedStdoSourceEvidence(process.env.ABI5_ENV_SOURCE_EVIDENCE,{product,abg});
   assert.equal(evidence.eventCount,27);

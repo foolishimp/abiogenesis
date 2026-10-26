@@ -557,7 +557,7 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
   }
 });
 
-test('physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result', { skip: process.platform === 'win32', timeout: 10000 }, async t => {
+test('physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result', { skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and inherited pipes are unavailable', timeout: 10000 }, async t => {
   const root = await scratch(t), helper = await helperModule(t);
   const { constructKnownWorkerTransportContract } = await load('abg/transport_contracts');
   const { runWorkerTransport } = await load('abg/worker_transport');
@@ -607,7 +607,7 @@ test('controlled lifetime: both long grace phases and final drain recheck their 
   assert.equal(facts.cleanupDeadlineNs, total); assert.equal(facts.streamsDisposed, true); assert.equal(facts.drainExpired, true);
 });
 
-test('physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded', { skip: process.platform === 'win32', timeout: 5000 }, async t => {
+test('physical lifetime: an escaped finite pipe holder is outside owned-group absence and drain remains bounded', { skip: process.platform === 'win32' && 'win32 platform: detached POSIX process groups are unavailable', timeout: 5000 }, async t => {
   const root = await scratch(t), leaderFile = join(root, 'leader.mjs'), escapedFile = join(root, 'escaped.mjs'), ready = join(root, 'escaped.json');
   await writeFile(escapedFile, `import {writeFileSync} from 'node:fs';import {execFileSync} from 'node:child_process';
     writeFileSync(${JSON.stringify(ready)},JSON.stringify({pid:process.pid,pgid:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())}));

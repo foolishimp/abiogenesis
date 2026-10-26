@@ -14,7 +14,6 @@ import type {
   ReenterApplication,
   RecurseApplication,
 } from "../gtl/contracts.js";
-import { sampleNativeEventTime } from "./native_event_time.js";
 import { observeNativeFrameLiveness, captureNativeFrameBoundary } from "./runtime_liveness.js";
 import {
   graphFunctionApplicationRef,
@@ -40,7 +39,6 @@ import {
   type AdmittedCCallResult,
   type CCall,
   type CCallRuntimeFailureSource,
-  type RehydratedAdmittedCCallState,
 } from "./c_call.js";
 import type { FanOutCompletionAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
@@ -619,7 +617,7 @@ function projectHistoricalTraversalRoute(
   propagateReplayFailure: boolean,
 ): HistoricalTraversalRouteProjection | null {
   if (admissionEventRef.length === 0) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const matches = indexedRuntimeEvents(prefix, "id:" + admissionEventRef).filter((event) =>
     event.eventId === admissionEventRef &&
     event.kind === "traversal_route_admitted" &&
@@ -785,7 +783,7 @@ function projectAdmittedRoute(
     propagateReplayFailure,
   );
   if (projected === null) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const constructionIntentEvent = indexedRuntimeEvents(prefix, "payload:routeRef:" + projected.routeRef).find((event) =>
     event.kind === "construction_intent_selected" &&
     event.causationEventRefs.includes(projected.admissionEventRef) &&
@@ -1806,7 +1804,7 @@ function noActionProjectionForStopRoute(
     );
   }
   const projection = noActionNextActionProjection(evidence.result.value);
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const basisEvent = indexedRuntimeEvents(prefix, "payload:resultRef:" + sourceCursor.inputRef).find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
@@ -2395,7 +2393,7 @@ function constructionDeltaForAdvance(
       "evaluateAction did not emit one canonical evidence ledger and closure candidate",
     );
   }
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const intentEvent = indexedRuntimeEvents(prefix, "kind:" + "construction_intent_selected").find(
     (event) =>
       event.kind === "construction_intent_selected" &&
@@ -4300,7 +4298,7 @@ export function deriveRetainedCCallInputAtPrefix(
   const term = graph.template.nodes.find((node) => node.nodeRef === source.currentNodeRef)?.term;
   const causes = [executionBasis.admissionEventRef, result.admissionEventRef, judgment.admissionEventRef];
   if (term?.kind === "c_workflow") {
-    const events = runtimeEventBodiesAtPrefix(prefix);
+    runtimeEventBodiesAtPrefix(prefix);
     const folds = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + cCall.cCallRef).filter((event) => event.kind === "child_foldback_admitted" && event.runId === source.runId &&
       event.graphCallId === source.graphCallId && isRecord(event.payload) && event.payload.parentCCallRef === cCall.cCallRef);
     const fold = exactOrUndefined(onlyExactMatch(folds));
@@ -4995,7 +4993,7 @@ function admitRoute(
   additionalCausationEventRefs = [...new Set([...additionalCausationEventRefs, ...(retained?.causationEventRefs ?? [])])];
   const routeEventCandidate = (primaryCausationEventRef: string) => ({
     kind: "traversal_route_admitted",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "frame",
     aggregateId: sourceCursor.frameId,
     parentAggregateId: sourceCursor.graphCallId,
@@ -5037,7 +5035,7 @@ function admitRoute(
         () => routeEventCandidate(causationEventRef),
         (batch) => ({
           kind: "construction_intent_selected",
-          eventTime: sampleNativeEventTime(),
+          eventTime: basis.eventTime,
           aggregateType: "frame",
           aggregateId: sourceCursor.frameId,
           parentAggregateId: sourceCursor.graphCallId,
@@ -5084,7 +5082,7 @@ function admitRoute(
     ? admitRuntimeEventBatch(store, [
         () => ({
           kind: "construction_delta_observed",
-          eventTime: sampleNativeEventTime(),
+          eventTime: basis.eventTime,
           aggregateType: "frame",
           aggregateId: sourceCursor.frameId,
           parentAggregateId: sourceCursor.graphCallId,
@@ -5114,7 +5112,7 @@ function admitRoute(
         () => routeEventCandidate(causationEventRef),
         (batch) => ({
           kind: "run_stopped",
-          eventTime: sampleNativeEventTime(),
+          eventTime: basis.eventTime,
           aggregateType: "run",
           aggregateId: sourceCursor.runId,
           parentAggregateId: null,

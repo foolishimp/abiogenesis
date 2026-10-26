@@ -56,8 +56,6 @@ export interface InteractionHoldEvaluation {
 
 
 import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
-import * as OwnedOutcome from "../abg/c_call_outcome.js";
-import * as OwnedReplay from "../abg/replay.js";
 /** @internal */
 export type OwnedInteractionHoldEvaluation = OwnedOutcomeValue<InteractionHoldEvaluation>;
 /** @internal Same current completion with a selected guard receipt. */

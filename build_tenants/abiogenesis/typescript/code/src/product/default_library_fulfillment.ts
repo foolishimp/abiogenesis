@@ -19,7 +19,6 @@ const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const hash = (value: JsonValue) => sha256Canonical(value);
 const judgment = v.picklist(["satisfied", "falsified", "indeterminate"]);
 const file = v.strictObject({ path: ref, digest });
-const proofRole = v.picklist(["realization", "verifier_artifact", "verifier_execution", "semantic_assessment"]);
 const completeness = v.strictObject({ policyRef: ref, semanticCriteria: refs,
   depthClasses: v.array(v.strictObject({ classRef: ref, permitsNonApplicability: v.boolean() })), strengthRuleRef: ref,
   adverseCommands: v.array(v.strictObject({ commandId: ref, disposition: v.picklist(["nonzero", "zero"]) })) });

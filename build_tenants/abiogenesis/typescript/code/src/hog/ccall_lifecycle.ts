@@ -6,8 +6,6 @@ import { semanticLifecycleRefForProgram } from "../gtl/semantic_stage.js";
 import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
 import { runEnvironmentForProgram, nativeContextLeafFamily, registeredSelectionNativeRole } from "../gtl/stdo_run_environment.js";
 import { cLeafTerms } from "../gtl/c_algebra.js";
-import { WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction_identity.js";
-import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import * as Effect from "effect/Effect";
 
 import * as Abg from "../abg/index.js";

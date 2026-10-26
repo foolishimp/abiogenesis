@@ -25,7 +25,7 @@ import {proposeJudgmentCandidate} from '../../build/code/src/hog/judgment.js';
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 import {canonicalJson} from '../../build/code/src/shared/canonical_json.js';
 const fixture=process.env.ABI5_HELD_PREFIX_NATIVE_FIXTURE;
-const options={skip:!fixture};
+const options={skip:!fixture&&'ABI5_HELD_PREFIX_NATIVE_FIXTURE unset; requires the held-prefix native fixture'};
 const clone=x=>structuredClone(x);
 const resign=x=>{const {coordinateDigest,...body}=x;return {...body,coordinateDigest:sha256Canonical(body)};};
 async function observe(action){const old=fs.readSync;let reads=0,bytes=0;fs.readSync=(...args)=>{const n=old(...args);reads++;bytes+=n;return n;};syncBuiltinESMExports();try{return {value:await action(),reads,bytes};}finally{fs.readSync=old;syncBuiltinESMExports();}}
@@ -206,7 +206,7 @@ function judgmentOwnerFixture(t,name){
   basis:{eventTime:'2026-09-24T00:00:00.000Z',correlationId:'correlation://owned-judgment',causationEventRefs:[]}};
 }
 
-test('owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix',{skip:!judgmentFixture},async t=>{
+test('owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix',{skip:!judgmentFixture&&'ABI5_OWNED_JUDGMENT_FIXTURE unset; requires the owned judgment fixture'},async t=>{
  const beforeCounts={wholePrefixHashes:[],ownedPrefixDigests:0},afterCounts={wholePrefixHashes:[],ownedPrefixDigests:0};
  const before=await observedOutcomeOwner(true,beforeCounts),after=await observedOutcomeOwner(false,afterCounts);
  const a=judgmentOwnerFixture(t,'before'),b=judgmentOwnerFixture(t,'after');

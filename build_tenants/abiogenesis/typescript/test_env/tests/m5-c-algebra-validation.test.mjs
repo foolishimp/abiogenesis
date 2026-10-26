@@ -14,7 +14,7 @@ function admittedResolutionFixture() {
   return steelResolutionFixture;
 }
 const requiresAdmittedFixture = { skip: process.env.ABI5_STEEL02_RESOLVER_PROOF_PATH
-  ? false : "requires retained Thread 2 installed consumer proof" };
+  ? false : "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof" };
 
 function artifactBasis() {
   return {

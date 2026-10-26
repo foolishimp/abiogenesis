@@ -431,7 +431,7 @@ test("D1 installed fixed-source obligation handoff remains non-closing", async t
   const evidenceRoot = process.env.ABI5_D1_EVIDENCE_ROOT;
   const scratch = process.env.ABI5_D1_RUN_ROOT;
   if (!evidenceRoot || !scratch || !process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH) {
-    t.skip("requires exact frozen artifact, isolated run root and retained evidence path"); return;
+    t.skip("ABI5_D1_EVIDENCE_ROOT, ABI5_D1_RUN_ROOT or ABI5_WAVE1_FROZEN_ARTIFACT_PATH unset; requires exact frozen artifact, isolated run root and retained evidence path"); return;
   }
   await mkdir(evidenceRoot, { recursive: true });
   const attempt = process.env.ABI5_D1_ATTEMPT ?? "01";
@@ -1080,7 +1080,7 @@ test("D1 retained catalog continuation reaches admitted handoff and replay", asy
 });
 
 test("D1 ordinary installed wrong-role invocation cannot close the transfer", async t => {
-  if (!process.env.ABI5_D1_POSITIVE_PROOF) { t.skip("requires the retained completed installed transfer"); return; }
+  if (!process.env.ABI5_D1_POSITIVE_PROOF) { t.skip("ABI5_D1_POSITIVE_PROOF unset; requires the retained completed installed transfer"); return; }
   const proof = JSON.parse(await readFile(process.env.ABI5_D1_POSITIVE_PROOF, "utf8"));
   const harness = { cliHost: process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST,
     installedPackageRoot: join(process.env.ABI5_WAVE1_FROZEN_INSTALL_HOST, "node_modules/@abiogenesis/typescript-tenant") };
@@ -1135,7 +1135,7 @@ test("D1 ordinary installed wrong-role invocation cannot close the transfer", as
 });
 
 test("D1 retained prefix guard reconstructs the graph and rejects fabricated transfer bases", async t => {
-  if (!process.env.ABI5_D1_RETAINED_NATIVE_BASIS || !process.env.ABI5_D1_BUILD_ROOT) { t.skip("requires exact retained native predecessor and candidate build"); return; }
+  if (!process.env.ABI5_D1_RETAINED_NATIVE_BASIS || !process.env.ABI5_D1_BUILD_ROOT) { t.skip("ABI5_D1_RETAINED_NATIVE_BASIS or ABI5_D1_BUILD_ROOT unset; requires exact retained native predecessor and candidate build"); return; }
   const build = process.env.ABI5_D1_BUILD_ROOT;
   const [product, gtl, abg] = await Promise.all(["product", "gtl", "abg"].map(surface =>
     import(pathToFileURL(join(build, "build/code/src", surface, "index.js")).href)));

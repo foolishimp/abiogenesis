@@ -110,7 +110,7 @@ test('pure artifact values do not reacquire; fresh bytes, currentness and held e
  }finally{acquired.store.closeDurableLog();await rm(scratch,{recursive:true,force:true});}
 });
 
-test('native basis retains one immutable derivation; copied, changed and physically stale inputs revalidate',{skip:!process.env.ABI5_NATIVE_BASIS_SAMPLE},async()=>{
+test('native basis retains one immutable derivation; copied, changed and physically stale inputs revalidate',{skip:!process.env.ABI5_NATIVE_BASIS_SAMPLE&&'ABI5_NATIVE_BASIS_SAMPLE unset; requires the retained native execution-basis sample'},async()=>{
  const { stat }=await import('node:fs/promises');const { pathToFileURL, fileURLToPath }=await import('node:url');
  const native=await import('../../build/code/src/abg/execution_basis.js');
  const old=await import(pathToFileURL(join(process.env.ABI5_NATIVE_BASIS_PREDECESSOR,'build/code/src/abg/execution_basis.js')));

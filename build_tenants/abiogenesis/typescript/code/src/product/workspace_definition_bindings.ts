@@ -1,7 +1,7 @@
 import { withAdmissionAuthority } from "./admission_authority.js";
 import * as Effect from "effect/Effect";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson } from "../shared/canonical_json.js";
 import {
   type DefinitionCall,
   type DefinitionExecutionFault,

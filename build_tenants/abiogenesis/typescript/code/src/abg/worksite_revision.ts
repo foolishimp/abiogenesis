@@ -66,7 +66,7 @@ export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
 export function projectWorksiteRevisionNativeResult(prefix: RuntimeEventPrefix,
   coordinate: SemanticRevisionCoordinate): RehydratedAdmittedCCallState | null {
   try {
-    const events = runtimeEventBodiesAtPrefix(prefix);
+    runtimeEventBodiesAtPrefix(prefix);
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === coordinate.cCallRef));
     const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === coordinate.cCallRef));
     const result = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + coordinate.cCallRef), e => e.kind === "c_call_result_admitted" && e.aggregateId === coordinate.cCallRef));
@@ -245,7 +245,8 @@ function coordinateFor(events: RuntimeEventScan, result: RuntimeEvent): Semantic
 }
 function nativeHistory(prefix: RuntimeEventPrefix, parentRef: SemanticRevisionCoordinate,
   causeRefs: readonly SemanticRevisionCoordinate[]): NativeHistory | null {
-  const events = runtimeEventBodiesAtPrefix(prefix), bases: ExecutionBasis[] = [], eligible = new Set<string>();
+  runtimeEventBodiesAtPrefix(prefix);
+  const bases: ExecutionBasis[] = [], eligible = new Set<string>();
   const parent = projectWorksiteRevisionNativeResult(prefix,parentRef);
   const first = parent === null ? null : isRevisionEnvelope(parent.result.value) ? parent.result.value.current : parent.result.value;
   if (parent === null || parent.result.resultClass !== "success" || parent.judgment.judgment !== "advance" ||

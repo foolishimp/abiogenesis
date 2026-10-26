@@ -508,7 +508,7 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   assert.equal((await planningAssemblyFor(oversized)).cause,'declared_bound_overflow');
 });
 test('selector planning fits captured eighteen and realistic fifty-one complete owned assemblies',
-  {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE},async t=>{
+  {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE&&'ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture'},async t=>{
     const fixture=JSON.parse(await readFile(process.env.ABI5_PLANNING_PROJECTION_CAPTURE,'utf8')),metrics=[];
     const load=async pin=>{const bytes=await readFile(pin.path);assert.equal(product.sha256Bytes(bytes),'sha256:'+pin.sha256);return JSON.parse(bytes);};
     const captured=await load(fixture.captured),controlled=await load(fixture.controlled);
@@ -552,7 +552,7 @@ test('selector planning fits captured eighteen and realistic fifty-one complete 
   });
 
 test('native observation facts preserve captured history through preparation admission and complete assembly',
-  {skip:!process.env.ABI5_NATIVE_OBSERVATION_CAPTURE},async t=>{
+  {skip:!process.env.ABI5_NATIVE_OBSERVATION_CAPTURE&&'ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture'},async t=>{
     const fixture=JSON.parse(await readFile(process.env.ABI5_NATIVE_OBSERVATION_CAPTURE,'utf8'));
     const pinned=async pin=>{const bytes=await readFile(pin.path);assert.equal(product.sha256Bytes(bytes),'sha256:'+pin.sha256);assert.equal(bytes.length,pin.bytes);return bytes;};
     const events=Object.fromEntries(await Promise.all(Object.entries(fixture.events).map(async([key,pin])=>[key,JSON.parse(await pinned(pin))])));
@@ -999,7 +999,7 @@ test('observed command correspondence conserves explicit input across empty and 
   await promisify(execFile)(process.execPath,['--input-type=module','--eval',predicateChild,JSON.stringify([configuration,bound])],{env:{}});
 });
 
-test('one installed Public default-library invocation reuses observed files, corrects actual work and independently closes',{skip:process.env.ABI5_DEFAULT_LIBRARY_LIVE!=='1'},async()=>{
+test('one installed Public default-library invocation reuses observed files, corrects actual work and independently closes',{skip:process.env.ABI5_DEFAULT_LIBRARY_LIVE!=='1'&&"ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation"},async()=>{
   const evidence=process.env.ABI5_DEFAULT_LIBRARY_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-default-library-'));
   await mkdir(evidence,{recursive:true});const save=(n,v)=>writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
   const selectionPath=join(witnessRoot,'selection.json'),selection=JSON.parse(await readFile(selectionPath,'utf8'));

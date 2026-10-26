@@ -1031,7 +1031,7 @@ export function hasStructuralIdentityCompletedRouteCausation(
       payload.judgmentRef !== null || payload.contractRef !== null ||
       !Array.isArray(payload.consumedAvailabilityRefs) ||
       payload.consumedAvailabilityRefs.length === 0) return false;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   let previous: RetryCompletedProgressAdmission | null = null;
   const progressEvents: RuntimeEvent[] = [];
   for (const ref of payload.consumedAvailabilityRefs) {
@@ -1089,7 +1089,7 @@ export function hasJudgedTerminalRouteCausation(
       judgment.frameId !== route.frameId || judgment.basisId !== route.basisId) return false;
   const refs = payload.consumedAvailabilityRefs.slice(1);
   if (refs.length === 0) return route.causationEventRefs.includes(judgment.eventId);
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   let previous: RetryCompletedProgressAdmission | null = null;
   const progressEvents: RuntimeEvent[] = [];
   for (const ref of refs) {

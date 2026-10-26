@@ -80,7 +80,7 @@ test("separate installed reader projects retained C1 root among child terminals 
   const attempt = process.env.ABI5_STEEL_C1_ATTEMPT_PATH;
   const reader = process.env.ABI5_STEEL_READER_INSTALL_ROOT;
   if (!attempt || !reader) {
-    t.skip("requires explicit retained C1 attempt and separately installed reader");
+    t.skip("ABI5_STEEL_C1_ATTEMPT_PATH or ABI5_STEEL_READER_INSTALL_ROOT unset; requires explicit retained C1 attempt and separately installed reader");
     return;
   }
   const [publicApi, product, abg] = await Promise.all(["public", "product", "abg"].map(surface => installedSurface(reader, surface)));

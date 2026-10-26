@@ -1,6 +1,5 @@
 import { readFileSync } from "node:fs";
 import { isAbsolute, relative, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
 import * as v from "valibot";
 import { Ajv2020 } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -25,6 +24,7 @@ import {
 import { CATALOG_OPERATION_CONTRACTS } from "./catalog_operation_contracts.js";
 import { productInstallCoordinate } from "./environment.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
+import { readExecutingToolchainIdentity } from "./declaration_exports.js";
 
 export const CATALOG_APPLICATION_CONSTRUCTION_SCHEMA = v.strictObject({
   prefix: v.custom<DurablePrefixCoordinate>(validateDurablePrefixCoordinate, "durable prefix"),
@@ -52,7 +52,8 @@ type SameConstructionShape<L, R> =
     ? (<T>() => T extends R ? 1 : 2) extends (<T>() => T extends L ? 1 : 2)
       ? true : false
     : false;
-type CatalogConstructionSchemaAgreement = AssertConstructionAgreement<
+/** @internal Compile-time agreement check. */
+export type CatalogConstructionSchemaAgreement = AssertConstructionAgreement<
   SameConstructionShape<CatalogApplicationConstruction, v.InferOutput<typeof CATALOG_APPLICATION_CONSTRUCTION_SCHEMA>>
 >;
 export interface CatalogApplicationConstructionInput {
@@ -204,7 +205,7 @@ export function constructCatalogApplicationResources(input: CatalogApplicationCo
   const packet = CATALOG_OPERATION_CONTRACTS.apply[row.declarationKind];
   const validationBody = {
     authority: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest },
-    ownerManifestDigest: digest(JSON.parse(readFileSync(fileURLToPath(new URL("../../../../product-toolchain-manifest.json", import.meta.url)), "utf8"))),
+    ownerManifestDigest: readExecutingToolchainIdentity().manifestDigest,
     schemaRows, declaration: { ref: declaration.contractRef, digest: digest(declaration) },
     target: { ref: targetRef, digest: digest(target) }, value: applicationBasis,
     catalogBasisDigest: catalog.basisDigest, viewDigest: view.viewDigest,

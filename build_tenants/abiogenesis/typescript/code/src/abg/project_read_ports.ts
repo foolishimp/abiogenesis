@@ -1,4 +1,4 @@
-import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
@@ -25,14 +25,13 @@ import {
   constructRuntimeFluent,
   deriveRuntimeEventCalculusProjection,
   holdsAt,
-  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
+  type RuntimeHeldFluentProjection,
 } from "./event_calculus.js";
 import {
   runtimePrefixComputation,
   isImmutableRuntimeValue,
   runtimeEventBodiesAtPrefix, runtimeEventsFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
-  validatedRuntimeEventPrefixThroughEvent,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -307,7 +306,7 @@ function terminalDeclaration(
   sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
 ): Readonly<{ contract: AbgRunTruthCoordinate; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> {
   const prefix = prepared.fullPrefix;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
   if (invocation === null) throw new TypeError("terminal result lacks its exact invocation");
   const inherited = ["invocationAdmissionRef", "invocationRef", "workspaceBindingId", "workspaceBindingDigest",
@@ -473,7 +472,7 @@ function terminalOutcomeFromSelectedFacts(
   graphCallId: string, requireRunClosed: boolean, terminal: Readonly<{ route: ReplayRouteState }> | null,
   sourceInput?: AbgHistoricalGraphCallSourceResource["input"],
 ): Readonly<{ terminalResult: AbgTypedTerminalResult; source?: Omit<AbgHistoricalGraphCallSource, "terminalResult"> }> | null {
-  const events = runtimeEventBodiesAtPrefix(context.prefix);
+  runtimeEventBodiesAtPrefix(context.prefix);
   const closes = indexedRuntimeEvents(context.prefix,"kind:graph_call_closed").filter((event) => event.aggregateId === graphCallId);
   if (closes.length === 0 || (requireRunClosed && !context.runClosed)) return null;
   const closed = exactOrThrow(onlyExactMatch(closes), "GraphCall close"), closeBody = eventRecord(closed);

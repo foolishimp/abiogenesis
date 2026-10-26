@@ -22,7 +22,6 @@ import {
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import {
   type DefinitionCall,
@@ -73,7 +72,6 @@ import { isVerifiedProductArtifact, productVerificationCoordinates } from "./ver
 type ResolvePacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.resolve;
 type BindPacket = typeof PRODUCT_ENVIRONMENT_CONTRACTS.bind;
 type ResolveRequest = OwnerRequestOf<ResolvePacket>;
-type BindRequest = OwnerRequestOf<BindPacket>;
 type VerificationPacket = typeof PRODUCT_VERIFICATION_CONTRACTS.verify;
 type SuccessfulVerificationOutput = Extract<
   OwnerSemanticOutput<VerificationPacket>,

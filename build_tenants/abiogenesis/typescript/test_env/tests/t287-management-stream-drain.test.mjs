@@ -91,7 +91,7 @@ test("finite producer drain with slow observation exposes producer-side truncati
 });
 
 test("retained native durable-prefix validation reproduces blocking consumer pressure", {
-  skip: process.env.T287_STREAM_RETAINED_EVENT_LOG === undefined,
+  skip: process.env.T287_STREAM_RETAINED_EVENT_LOG === undefined && "T287_STREAM_RETAINED_EVENT_LOG unset; requires the retained native event log",
 }, async () => {
   // Read-only localization of an actual dependency called by the actor's
   // append/probe path. This is NOT a complete native owner/admission test and
@@ -215,7 +215,7 @@ async function heldObservation(context, selected) {
 
 for (const selected of heldCases) {
   test(`fixed 1000ms producer drains intact through actual held append/probe owners (${selected.name})`, {
-    skip: process.env.T287_STREAM_HELD_EVENT_LOG === undefined,
+    skip: process.env.T287_STREAM_HELD_EVENT_LOG === undefined && "T287_STREAM_HELD_EVENT_LOG unset; requires the held native event log",
   }, async context => {
     const held = await heldObservation(context, selected);
     const { result, expected, producer } = await exercise({ mode: "finite_drain", producerDrainMs: 1000,
@@ -235,7 +235,7 @@ for (const selected of heldCases) {
 }
 
 test("actual late held owner path keeps incomplete output unadmitted", {
-  skip: process.env.T287_STREAM_HELD_EVENT_LOG === undefined,
+  skip: process.env.T287_STREAM_HELD_EVENT_LOG === undefined && "T287_STREAM_HELD_EVENT_LOG unset; requires the held native event log",
 }, async context => {
   const held = await heldObservation(context, heldCases[1]);
   const { result } = await exercise({ mode: "incomplete", observe: held.observe });

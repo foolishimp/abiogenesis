@@ -10,7 +10,7 @@ import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
 import {declarations,ref,contract,NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname;
 
-test('native Executive selects registered capabilities through installed Public entry', {skip:process.env.ABI5_NATIVE_SELECTION_LIVE!=='1'}, async()=>{
+test('native Executive selects registered capabilities through installed Public entry', {skip:process.env.ABI5_NATIVE_SELECTION_LIVE!=='1'&&"ABI5_NATIVE_SELECTION_LIVE is not '1'; selects the installed Public native selection run"}, async()=>{
   const evidence=process.env.ABI5_NATIVE_SELECTION_EVIDENCE_ROOT ?? await mkdtemp(join(tmpdir(),'abi5-native-selection-'));
   await mkdir(evidence,{recursive:true});
   const save=(name,value)=>writeFile(join(evidence,name),JSON.stringify(value,null,2)+'\n');

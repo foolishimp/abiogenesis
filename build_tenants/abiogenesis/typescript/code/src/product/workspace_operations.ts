@@ -9,7 +9,7 @@ import {
 } from "node:fs/promises";
 import { isAbsolute, join, resolve } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Canonical,

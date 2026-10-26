@@ -98,7 +98,7 @@ test("record decoder preserves UTF-8 replacement, offset views and physical-pref
 });
 
 test("material cold history above Node string length decodes by record with unchanged identities", {
-  skip: process.env.ABI5_COLD_RECORD_MATERIAL !== "1" && "explicit material-memory selection required",
+  skip: process.env.ABI5_COLD_RECORD_MATERIAL !== "1" && "ABI5_COLD_RECORD_MATERIAL is not '1'; explicit material-memory selection required",
 }, t => {
   const text = "x".repeat(20 * 1024 * 1024);
   const count = Math.ceil((constants.MAX_STRING_LENGTH + 1) / text.length);

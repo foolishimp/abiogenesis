@@ -9,8 +9,8 @@ import { canonicalJson,type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes,sha256Canonical } from "../shared/digests.js";
 import { qualificationIdentityDigest, QUALIFICATION_VERIFICATION_MATERIAL_SCHEMA, type ExactCandidateQualification } from "../validator/qualification_contracts.js";
 import { releaseAcceptanceRequest, releaseOwnerRulingCoordinate, resolveReleaseOwnerRuling, type ReleaseOwnerRuling } from "../product/release_acceptance.js";
-import { RELEASE_OPERATION_ARTIFACT_SCHEMA, RELEASE_OPERATION_CONTRACTS, RELEASE_IDENTITY_SCHEMA, releaseAuthorityScope, releaseAcceptanceScope, releaseArtifactCoordinate,
- type PublishedRcSnapshotRequest,type ReleasePublicationGrant,type ReleasePhysicalObservation,type ReleaseOperationArtifact, type PublishedReleaseOperationArtifact, type TappedReleaseSnapshotRequest, type ReleaseAcceptanceGrant, type TappedReleaseOperationArtifact } from "../product/release_snapshot_operations.js";
+import { RELEASE_OPERATION_ARTIFACT_SCHEMA, RELEASE_OPERATION_CONTRACTS, releaseAuthorityScope, releaseAcceptanceScope, releaseArtifactCoordinate,
+ type PublishedRcSnapshotRequest,type ReleasePublicationGrant,type ReleasePhysicalObservation,type ReleaseOperationArtifact, type PublishedReleaseOperationArtifact, type TappedReleaseSnapshotRequest, type ReleaseAcceptanceGrant } from "../product/release_snapshot_operations.js";
 import * as v from "valibot";
 import { readFileSync } from "node:fs";
 import { admitExactDefinitionCall } from "../public/binding/definition_binding_mechanics.js";
@@ -21,7 +21,7 @@ import { projectQualificationVerdict } from "../abg/qualification_proof.js";
 import { assertDurableRuntimePrefixBytes,type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { QUALIFICATION_PROOF_RESOURCE_SCHEMA,type QualificationProofResource,type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";
 import { isQualificationBasisReady } from "../validator/qualification.js";
-import { refDigestSchema,admitRuntimeContract } from "../shared/public_function_contracts.js";
+import { admitRuntimeContract } from "../shared/public_function_contracts.js";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
 const exec=promisify(execFile);
 /** Output-only field selection shared by the physical snapshot and its bounded

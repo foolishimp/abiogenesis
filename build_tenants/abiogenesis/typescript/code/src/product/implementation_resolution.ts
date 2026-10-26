@@ -10,7 +10,6 @@ import {
   type ProgramValidation,
   type ValidatedExecutableLeaf,
 } from "../validator/validation.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import {
   lookupGraphFunctionDefinition,
   type GraphFunctionCatalogView,

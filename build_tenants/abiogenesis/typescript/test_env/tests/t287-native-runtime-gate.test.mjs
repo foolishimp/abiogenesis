@@ -94,7 +94,7 @@ test('same-valued duplicate witness after assessment invalidates current consump
 // Full retained declaration body; native install/admission/terminal lookup facts
 // remain the fixture's explicit lower-owner assumptions. No runtime is opened.
 test('material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction',
-  {skip:!process.env.ABI5_OWNED_PROOF_DECLARATION}, async t => {
+  {skip:!process.env.ABI5_OWNED_PROOF_DECLARATION&&'ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body'}, async t => {
   const donor=JSON.parse(fs.readFileSync(process.env.ABI5_OWNED_PROOF_DECLARATION,'utf8'));
   const declarationProof=donor.proof.declarations[0],begin=performance.now();
   const f=await witnessFixture({declarationProof}),a=assess(f);

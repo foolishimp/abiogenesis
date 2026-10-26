@@ -8,7 +8,7 @@ import { projectObservedWorksiteCommandChildAtPrefix } from "./worksite_input_pr
 import { isObservedWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { projectRegisteredSelectionInputAtPrefix, registeredSelectionInputRelationVersion, registeredSelectionInputDependencyKeys } from "./registered_selection_provenance.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
-import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
+import { isRecord } from "../shared/admission_predicates.js";
 import { projectExactExecutionBasisAtPrefix } from "./invocation_execution_truth.js";
 import { projectNativeLivenessRead, projectFrameLivenessContext, projectRuntimeLivenessAtPrefix } from "./runtime_liveness.js";
 import type { RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
@@ -30,7 +30,7 @@ import {
   constructRunClosedFluent,
   constructRunTerminalFluent,
   deriveRuntimeHeldFluentProjection,
-  type RuntimeEventCalculusProjection, type RuntimeHeldFluentProjection,
+  type RuntimeHeldFluentProjection,
   holdsAt,
   projectWorksiteTransitionForResult,
   runtimeFluentHoldsAtPrefix,
@@ -51,7 +51,6 @@ import {
   runtimePrefixComputation,
   runtimeEventPrefixDigest,
   indexedRuntimeEvents,
-  runtimeEventProfileSourceFromValidatedPrefix,
   selectValidatedRuntimeEventPrefix,
   selectRuntimeEventPrefixFromAuthority,
   validatedRuntimeEventPrefixThroughEvent,
@@ -74,7 +73,6 @@ import {
   type RuntimeEvent,
   type RuntimeEventScope,
 } from "./event_store.js";
-import { ROOT_EVENT_CONTRACT_DIGEST } from "./event_store.js";
 import { projectCCallPhase } from "./c_call.js";
 import type { FanOutCompletionAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
@@ -570,10 +568,6 @@ function positiveIntegerArrayField(
       value.every((row) => Number.isSafeInteger(row) && (row as number) > 0)
     ? value as readonly number[]
     : null;
-}
-
-function isNonNegativeInteger(value: JsonValue | undefined): value is number {
-  return Number.isSafeInteger(value) && (value as number) >= 0;
 }
 
 export function replay(store: AbgEventStore, scope?: RuntimeEventScope): ReplayState {

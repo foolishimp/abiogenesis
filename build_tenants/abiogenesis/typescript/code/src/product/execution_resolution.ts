@@ -23,7 +23,7 @@ import {
   type ProgramStartRequest,
   type ResolvedProgramStart,
 } from "../gtl/public_start.js";
-import { compareUnicodeCodeUnits, type JsonValue } from
+import { compareUnicodeCodeUnits } from
   "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";

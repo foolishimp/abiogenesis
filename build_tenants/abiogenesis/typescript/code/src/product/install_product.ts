@@ -3,7 +3,7 @@ import { access, lstat, mkdir, readFile, readdir, writeFile } from "node:fs/prom
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { createRequire } from "node:module";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson } from "../shared/canonical_json.js";
 import {
   serializeCapabilityDefinitionGraph,
   isCapabilityDefinitionGraph,

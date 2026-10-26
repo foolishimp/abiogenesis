@@ -1,6 +1,5 @@
 import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
 import type { ModulePublication } from "../gtl/contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 
 export function modulePublicationSemanticDigest(

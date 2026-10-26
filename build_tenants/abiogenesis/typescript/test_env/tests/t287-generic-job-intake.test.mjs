@@ -76,7 +76,7 @@ test("one installed generic declaration admits two ordinary jobs through actual 
     jobRef: r.intake.payload.value.basis.jobRef, rootBasis: r.root.basisRef, childBasis: r.child.basisRef })), paidCalls: 0 }));
 });
 
-test("retained two-job native intake rejects crossed job values and scopes", { skip: !process.env.ABI5_GENERIC_JOB_RETAINED_PROOF }, async () => {
+test("retained two-job native intake rejects crossed job values and scopes", { skip: !process.env.ABI5_GENERIC_JOB_RETAINED_PROOF && "ABI5_GENERIC_JOB_RETAINED_PROOF unset; requires the retained two-job native intake proof" }, async () => {
   const proof = JSON.parse(await readFile(process.env.ABI5_GENERIC_JOB_RETAINED_PROOF, "utf8"));
   console.log(JSON.stringify(await verifyRetainedGenericIntakes(proof)));
 });

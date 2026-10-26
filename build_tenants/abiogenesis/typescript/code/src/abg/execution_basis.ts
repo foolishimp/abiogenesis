@@ -50,7 +50,6 @@ import {
   WORKSITE_CONSTRUCTION_IDS,
 } from "../product/worksite_construction.js";
 import {
-  isWorksiteCommandExecutionTask,
   WORKSITE_COMMAND_EXECUTION_IDS,
 } from "../product/worksite_command_execution.js";
 import {
@@ -106,13 +105,10 @@ import { hasAdmittedTraversalCursorAtPrefix, projectTraversalInputAtPrefix, type
 import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
-  admitRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEventBatch,
   admitRuntimeEventTransactionAtExpectedPrefix,
   isRuntimeEventTransactionActive,
   admitRuntimeEvent,
-  readHeldRuntimeEventsAtDurablePrefix,
-  projectHeldRuntimeEventsAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
   captureDurablePrefixCoordinate,
@@ -1116,6 +1112,26 @@ const INTERACTION_SET_RECORD: RecordCheck<RuntimeEvent, AdmittedInteractionSet> 
   }),
 });
 
+/** The payload members of one admitted set kind (data, not behaviour). */
+type AdmittedSetPayloadKeys = Readonly<{ scheme: string; ref: string; digest: string; set: string }>;
+const IMPLEMENTATION_SET_KEYS: AdmittedSetPayloadKeys = Object.freeze({ scheme: "implementation-set://abiogenesis/",
+  ref: "implementationSetRef", digest: "implementationSetDigest", set: "implementationSet" });
+const INTERACTION_SET_KEYS: AdmittedSetPayloadKeys = Object.freeze({ scheme: "interaction-set://abiogenesis/",
+  ref: "interactionSetRef", digest: "interactionSetDigest", set: "interactionSet" });
+
+/** One admitted set's ref, digest and canonical-equality conditions over the
+ * checked `implementation_admitted` payload, for the has-reader and the
+ * rehydrate of each set kind. The caller owns the body's digest: this function
+ * never hashes it. */
+function admittedSetPayloadAgrees(keys: AdmittedSetPayloadKeys, ref: string, digest: string,
+  body: Readonly<Record<string, JsonValue>>, payload: Readonly<Record<string, JsonValue>>): boolean {
+  const recorded = payload[keys.set];
+  return ref === keys.scheme + digest.slice("sha256:".length) &&
+    payload[keys.ref] === ref && payload[keys.digest] === digest &&
+    recorded !== undefined && isRecord(recorded) &&
+    canonicalEquals(recorded, { [keys.ref]: ref, [keys.digest]: digest, ...body });
+}
+
 export function isAdmittedImplementationSet(value: object): boolean {
   return implementationSets.has(value);
 }
@@ -1189,36 +1205,15 @@ export function hasAdmittedImplementationSetAtPrefix(
   set: AdmittedImplementationSet,
 ): boolean {
   if (!isAdmittedImplementationSet(set)) return false;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    implementationSetRef: _implementationSetRef,
-    implementationSetDigest: _implementationSetDigest,
-    admissionEventRef: _admissionEventRef,
-    ...body
-  } = set;
+  const body = implementationSetBody(set) as Readonly<Record<string, JsonValue>>;
   const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
     sha256Canonical(body) === set.implementationSetDigest &&
-    set.implementationSetRef ===
-      `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
     isRecord(event.payload) &&
-    event.payload.implementationSetRef === set.implementationSetRef &&
-    event.payload.implementationSetDigest === set.implementationSetDigest &&
-    event.payload.implementationSet !== undefined &&
-    isRecord(event.payload.implementationSet) &&
-    canonicalEquals(
-      event.payload.implementationSet,
-      {
-        implementationSetRef: set.implementationSetRef,
-        implementationSetDigest: set.implementationSetDigest,
-        ...body,
-      },
-    )
+    admittedSetPayloadAgrees(IMPLEMENTATION_SET_KEYS, set.implementationSetRef, set.implementationSetDigest, body, event.payload)
   );
 }
 
@@ -1287,36 +1282,15 @@ export function hasAdmittedInteractionSetAtPrefix(
   set: AdmittedInteractionSet,
 ): boolean {
   if (!isAdmittedInteractionSet(set)) return false;
-  const {
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    disposition: _disposition,
-    interactionSetRef: _interactionSetRef,
-    interactionSetDigest: _interactionSetDigest,
-    admissionEventRef: _admissionEventRef,
-    ...body
-  } = set;
+  const body = interactionSetBody(set) as Readonly<Record<string, JsonValue>>;
   const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
   return (
     sha256Canonical(body) === set.interactionSetDigest &&
-    set.interactionSetRef ===
-      `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
     event?.kind === "implementation_admitted" &&
     isRecord(event.payload) &&
-    event.payload.interactionSetRef === set.interactionSetRef &&
-    event.payload.interactionSetDigest === set.interactionSetDigest &&
-    event.payload.interactionSet !== undefined &&
-    isRecord(event.payload.interactionSet) &&
-    canonicalEquals(
-      event.payload.interactionSet,
-      {
-        interactionSetRef: set.interactionSetRef,
-        interactionSetDigest: set.interactionSetDigest,
-        ...body,
-      },
-    )
+    admittedSetPayloadAgrees(INTERACTION_SET_KEYS, set.interactionSetRef, set.interactionSetDigest, body, event.payload)
   );
 }
 
@@ -1358,15 +1332,8 @@ export function rehydrateAdmittedImplementationSetAtPrefix(
   const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
   implementationSets.add(set);
   // The checked row is the admission: its digest leg hashed the body once.
-  return set.implementationSetRef ===
-      `implementation-set://abiogenesis/${set.implementationSetDigest.slice("sha256:".length)}` &&
-    payload.implementationSetRef === set.implementationSetRef && payload.implementationSetDigest === set.implementationSetDigest &&
-    canonicalEquals(payload.implementationSet!, {
-      implementationSetRef: set.implementationSetRef,
-      implementationSetDigest: set.implementationSetDigest,
-      ...(implementationSetBody(set) as Readonly<Record<string, JsonValue>>),
-    })
-    ? set : null;
+  return admittedSetPayloadAgrees(IMPLEMENTATION_SET_KEYS, set.implementationSetRef, set.implementationSetDigest,
+    implementationSetBody(set) as Readonly<Record<string, JsonValue>>, payload) ? set : null;
 }
 
 export function rehydrateAdmittedInteractionSet(
@@ -1407,15 +1374,8 @@ export function rehydrateAdmittedInteractionSetAtPrefix(
   const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
   interactionSets.add(set);
   // The checked row is the admission: its digest leg hashed the body once.
-  return set.interactionSetRef ===
-      `interaction-set://abiogenesis/${set.interactionSetDigest.slice("sha256:".length)}` &&
-    payload.interactionSetRef === set.interactionSetRef && payload.interactionSetDigest === set.interactionSetDigest &&
-    canonicalEquals(payload.interactionSet!, {
-      interactionSetRef: set.interactionSetRef,
-      interactionSetDigest: set.interactionSetDigest,
-      ...(interactionSetBody(set) as Readonly<Record<string, JsonValue>>),
-    })
-    ? set : null;
+  return admittedSetPayloadAgrees(INTERACTION_SET_KEYS, set.interactionSetRef, set.interactionSetDigest,
+    interactionSetBody(set) as Readonly<Record<string, JsonValue>>, payload) ? set : null;
 }
 
 export function hasAdmittedImplementationResolution(

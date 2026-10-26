@@ -22,7 +22,7 @@ import {
   projectAdmittedWorkspaceBindingByInvocationRef,
   projectAdmittedWorkspaceProductInstall,
 } from "../abg/environment_admission.js";
-import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import {
   definitionFault,

@@ -3,12 +3,10 @@ import type { ReferenceDigest } from "../shared/public_invocation.js";
 import * as v from "valibot";
 import { capabilityRefsForDefinition } from "../shared/capability_contracts.js";
 import { type JsonValue } from "../shared/canonical_json.js";
-import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
+import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { isRecord } from "../shared/admission_predicates.js";
 import { absolutePathSchema, digestSchema, jsonValueSchema, nonblankSchema, refDigestSchema,
   ownerAuthorityDigest, ownerContractPacket, ownerMetadata, TERMINAL_ONLY_ADAPTER_EXIT_MAP } from "../shared/public_function_contracts.js";
-import { isExactOperationInvocationCoordinate } from "../shared/operation_definition_coordinate.js";
 import { EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA, QUALIFICATION_PROOF_RESOURCE_SCHEMA,
   QUALIFICATION_SELECTION_SCHEMA, QUALIFICATION_INVENTORY_SCHEMA, QUALIFICATION_PREFIX_SCHEMA,
   type QualificationProofResource, type QualificationEvidenceSelection } from "../validator/qualification_contracts.js";

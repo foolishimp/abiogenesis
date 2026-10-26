@@ -1,6 +1,5 @@
 import type { NativeJudgmentProofOperations } from "../implementation/contracts.js";
 import { isDeepStrictEqual } from "node:util";
-import { readFileSync } from "node:fs";
 import * as v from "valibot";
 import { resolveSelfConformanceOwner, type QualificationOwnerBasis } from "./self_conformance_basis.js";
 import { SELF_CONFORMANCE_IDS as ids, QUALIFICATION_IDS as q } from "../gtl/self_conformance.js";
@@ -12,32 +11,27 @@ import { isSelfConformanceInput, isSelfConformanceResult } from "./self_conforma
 import { evaluateSelfConformance } from "./self_conformance.js";
 import { QUALIFICATION_RAW_JUDGMENT_SCHEMA, QUALIFICATION_RULING_REQUEST_SCHEMA, QUALIFICATION_OWNER_RULING_SCHEMA,
   QUALIFICATION_VERDICT_INPUT_SCHEMA, isQualificationJudgment, isQualificationVerdict,
-  qualificationHash as hash, type QualificationVerdictInput } from "./qualification_contracts.js";
+  qualificationHash as hash } from "./qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationRawMatches, qualificationRulingMatches, qualificationWorkerRequest,
-  isQualificationVerdictInput, qualificationCoverageIsPublished, isQualificationBasisReady,
+  isQualificationVerdictInput, 
   constructQualificationJudgment, isMalformedGtlAssessmentInput,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment,
-  isMalformedGtlAssessment, evaluateMalformedGtlAssessment, parseQualificationRuleCatalog, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH,
+  isMalformedGtlAssessment, evaluateMalformedGtlAssessment, 
   type AdmittedQualificationCatalogs } from "./qualification.js";
-import { SELF_CONFORMANCE_CATALOG_ASSET_PATH } from "./qualification_catalogs.js";
+import { executingQualificationCatalogs } from "./qualification_catalogs.js";
 import { projectQualificationConsumer, projectExactCandidateQualification, projectNativeRuntimeAssessment } from "../abg/qualification_proof.js";
 import { reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-/** The provider's own catalogs. Its declared members carry no catalog channel
- * and no install record, so each catalog is read once, when first needed,
- * relative to this module: under the install root when the provider is loaded
- * through its `modulePath`. No recorded digest is in scope to check the bytes
- * against. */
-const providerCatalogs: Readonly<AdmittedQualificationCatalogs> = (() => {
-  let coverage: JsonValue | undefined, rules: AdmittedQualificationCatalogs["rules"] | undefined;
-  const read = (relative: string) => readFileSync(new URL("../../../../" + relative, import.meta.url));
-  return Object.freeze({
-    get coverage() { return coverage ??= JSON.parse(read(QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH).toString("utf8")) as JsonValue; },
-    get rules() { return rules ??= parseQualificationRuleCatalog(read(SELF_CONFORMANCE_CATALOG_ASSET_PATH)); },
-  });
-})();
+/** The provider's catalogs. Its declared members carry no catalog channel and
+ * no install record, so they are the executing package's own catalogs,
+ * admitted once per process when first needed (`executingQualificationCatalogs`):
+ * under the install root when the provider is loaded through its `modulePath`. */
+const providerCatalogs: Readonly<AdmittedQualificationCatalogs> = Object.freeze({
+  get coverage() { return executingQualificationCatalogs().coverage; },
+  get rules() { return executingQualificationCatalogs().rules; },
+});
 export function isQualificationContractValue(valueKind: string, value: unknown,
   catalogs?: Readonly<AdmittedQualificationCatalogs>): value is Readonly<Record<string, JsonValue>> {
   switch (valueKind) {

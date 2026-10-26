@@ -14,10 +14,10 @@ import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { rehydrateExecutionBasisAtPrefix, authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type ExecutionBasis } from "./execution_basis.js";
-import { readRuntimeEventsAtDurablePrefix, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
-import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
+import { type TraversalCursorCandidate } from "./traversal_cursor.js";
+import { projectOpenedCCallCarrierAtPrefix, projectAdmittedCCallStateAtPrefix,
   type CCall, type RehydratedAdmittedCCallState } from "./c_call.js";
 import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope,
   deriveSemanticWorksitePreparation, type SemanticStageEnvelope, type SemanticActorSource, type SemanticWorksiteBasis } from "../product/semantic_stage.js";

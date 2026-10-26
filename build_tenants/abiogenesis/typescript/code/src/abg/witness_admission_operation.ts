@@ -1,5 +1,5 @@
 import { isRecord } from "../shared/admission_predicates.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { type JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Canonical,

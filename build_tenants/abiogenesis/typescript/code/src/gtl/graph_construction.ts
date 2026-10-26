@@ -1,6 +1,5 @@
 import {
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { isDeeplyFrozen } from "../shared/immutable.js";

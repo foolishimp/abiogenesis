@@ -26,11 +26,10 @@ import {
   type MalformedGtlAssessmentInput, type MalformedGtlAssessment,
   qualificationHash as hash, uniqueQualificationRefs as unique,
   qualificationIdentity, constructQualificationIdentity, isQualificationAssessmentTask,
-  type QualificationAssessmentInput, type QualificationAssessmentTask, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
+  type QualificationAssessmentInput, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
   type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment, type QualificationConstructionProvenance,
   type QualificationCoverageCatalog, type QualificationVerdictInput,
   type ExactCandidateQualification, type QualificationOwnerRuling,
-  type QualificationRulingRequest,
 } from "./qualification_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
@@ -434,7 +433,7 @@ function readQualificationCatalog() {
  * supplied as a caller summary. Catalog completeness includes all extracted
  * rows of each selected governing source, including other declared groups. */
 function qualificationSelectedSubject(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope, catalogs?: AdmittedQualificationRuleCatalog) {
-  const { catalog, digest } = catalogs?.rules ?? readQualificationCatalog(), scope = task.scope;
+  const { catalog } = catalogs?.rules ?? readQualificationCatalog(), scope = task.scope;
   if (scope === undefined) throw new TypeError("selected assessment subject differs");
   const selectedGroups = new Set(task.coverage.map(c => c.ruleRef)),
     groups = scope.ruleGroups.filter(g => selectedGroups.has(g.groupRef)),

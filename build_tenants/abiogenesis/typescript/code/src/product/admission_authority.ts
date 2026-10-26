@@ -2,7 +2,7 @@ import * as Effect from "effect/Effect";
 import * as v from "valibot";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
-import { type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -12,7 +12,7 @@ import {
   type OwnerContractSourceDeclaration,
 } from "../shared/public_function_contracts.js";
 import {
-  admitExactDefinitionCall, definitionFault, isRecord, sameJson,
+  admitExactDefinitionCall, definitionFault, isDefinitionFault, isRecord, sameJson,
 } from "../public/binding/definition_binding_mechanics.js";
 import { admitJson } from "../shared/admit/index.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
@@ -464,9 +464,12 @@ export function withAdmissionAuthority<P extends OwnerContractSourceDeclaration,
 ): ExactDefinitionCallable<P, AdmissionAuthorizedResources<R>, O> {
   // One surface for both: a thrown observation failure and a typed refusal
   // each become the resource_admission fault whose message is the string of
-  // the cause (for a refusal, of its TypeError).
+  // the cause (for a refusal, of its TypeError). A definition fault thrown
+  // inside (the resource_acquisition fault) rides in the message as its inline
+  // subject: its stage, code and message.
   const fault = (cause: unknown) =>
-    definitionFault(packet.definitionKey, "resource_admission", "resource_relation_mismatch", String(cause));
+    definitionFault(packet.definitionKey, "resource_admission", "resource_relation_mismatch",
+      isDefinitionFault(cause) ? canonicalJson({ stage: cause.stage, code: cause.code, message: cause.message }) : String(cause));
   return (call) => Effect.suspend(() => {
     let acquiredResource: AcquiredAbgEventResource | null = null;
     return Effect.tryPromise({

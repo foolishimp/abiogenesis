@@ -73,7 +73,7 @@ test('coverage declarations preserve retained behavior without execution slots o
 
 for (const name of ['retainedRC1', 'selectedRC2']) test(`authority staging and ordinary reproduction bind ${name}'s exact Definition-selected release`, async t => {
   const fixturesPath = process.env.ABG_QUALIFICATION_STAGE_FIXTURES;
-  if (fixturesPath === undefined) return t.skip('exact historical/current staging fixtures not supplied');
+  if (fixturesPath === undefined) return t.skip('ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied');
   const fixture = JSON.parse(fs.readFileSync(fixturesPath))[name];
   const stager = await isolatedStager(t);
   const staged = stager.stageQualificationAuthorities(fixture.sourceRoot, fixture.releaseRoot);
@@ -106,7 +106,7 @@ for (const name of ['retainedRC1', 'selectedRC2']) test(`authority staging and o
 test('authority staging refuses wrong manifest and altered selected member before writing', async t => {
   const sourceRoot = process.env.ABG_QUALIFICATION_SOURCE_ROOT;
   const releaseRoot = process.env.ABG_QUALIFICATION_RELEASE_ROOT;
-  if (sourceRoot === undefined || releaseRoot === undefined) return t.skip('exact installed source acquisition roots not supplied');
+  if (sourceRoot === undefined || releaseRoot === undefined) return t.skip('ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied');
   for (const source of input.sources) {
     const actual = source.ref.startsWith('repo://abiogenesis/')
       ? path.join(sourceRoot, source.ref.slice('repo://abiogenesis/'.length))
@@ -130,7 +130,7 @@ test('authority staging refuses wrong manifest and altered selected member befor
 
 test('authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest', async t => {
   const fixturesPath = process.env.ABG_QUALIFICATION_STAGE_FIXTURES;
-  if (fixturesPath === undefined) return t.skip('exact current staging fixture not supplied');
+  if (fixturesPath === undefined) return t.skip('ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied');
   const fixture = JSON.parse(fs.readFileSync(fixturesPath)).selectedRC2;
   const stager = await isolatedStager(t);
   const source = path.join(stager.scratch, 'source'), release = path.join(stager.scratch, 'release');

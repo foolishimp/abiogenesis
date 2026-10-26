@@ -5,7 +5,7 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isUndispatchedOwnerObservation } from "./event_contract_profiles.js";
-import { runtimeEventBodiesAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRuntimeEventsAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";

@@ -7,7 +7,6 @@ import {
   type AdmissionAuthorityResource,
 } from "../product/admission_authority.js";
 import { productInstallCoordinate } from "../product/environment.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import {
   definitionFault,
   isDefinitionFault,

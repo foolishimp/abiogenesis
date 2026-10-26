@@ -126,7 +126,6 @@ export type RecursionApplicationStep =
 
 
 import { completePublicOutcome, type OwnedOutcomeValue } from "../abg/c_call_outcome.js";
-import type { RuntimeReplayGuard } from "../abg/replay.js";
 import * as OwnedOutcome from "../abg/c_call_outcome.js";
 import * as OwnedReplay from "../abg/replay.js";
 

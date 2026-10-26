@@ -22,7 +22,6 @@ import type {
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import {
   admitExactDefinitionCall,

@@ -16,7 +16,6 @@ import {
 } from "../gtl/c_algebra.js";
 import {
   deriveCEnclosingRetryTopology,
-  deriveCSourceContinuation,
   resolveEnclosingCRetryContexts,
   resolveCProgramTermAtSourcePath,
   type CEnclosingRetryContext,
@@ -46,7 +45,6 @@ import type { FhInteractionResumeAdmission } from "./continuation.js";
 import type { CompleteFanOutAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import {
-  admitPlannedCCallRuntimeFailureClose,
   isCCallRuntimeFailureCloseError,
   projectAdmittedCCallOutcomeAtPrefix,
   projectAdmittedCCallResultAtPrefix,
@@ -58,7 +56,6 @@ import {
 import {
   hasAdmittedExecutionBasisAtPrefix,
   rehydrateAdmittedImplementationSetAtPrefix,
-  rehydrateExecutionBasis,
   rehydrateExecutionBasisAtPrefix,
   type ExecutionBasis,
   type RuntimeAdmissionBasis,
@@ -84,7 +81,6 @@ import {
   constructRuntimeFluent,
   constructScopedRetryFluent,
   runtimeFluentHoldsAtPrefix,
-  type RuntimeEventCalculusProjection,
 } from "./event_calculus.js";
 import { runtimeEventPrefixDigest,
   projectOwnedRuntimeEventPrefixAtDurablePrefix,
@@ -143,7 +139,6 @@ import {
   nonNegativeInteger,
   positiveInteger,
   positiveIntegerValues,
-  progressBody,
   projectAdmittedRetryProgress,
   sameNumbers,
   sameStrings,
@@ -760,10 +755,6 @@ export function projectRetryResumeAtDurablePrefix(
     return null;
   }
 }
-
-type RuntimeEventWithBody = RuntimeEvent & {
-  readonly payload: Readonly<Record<string, JsonValue>>;
-};
 
 function contextForCursor(
   graph: Readonly<GtlGraph>,
@@ -1423,13 +1414,6 @@ export function projectRetryAttempt(
     ...body,
     admissionEventRef: event.eventId,
   }) as unknown as RetryAttemptAdmission;
-}
-
-function positiveNumberArray(value: JsonValue | undefined): readonly number[] {
-  return Array.isArray(value) &&
-      value.every((row) => Number.isSafeInteger(row) && Number(row) > 0)
-    ? value.map(Number)
-    : [];
 }
 
 function routeConsumesRetryProgress(
@@ -4087,7 +4071,7 @@ export function admitRetryAttempt(
     return context ??
       refusal("retry_not_declared", "cursor has no enclosing declared C.retry term");
   }
-  const snapshot = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   // Inside the route transition's transaction: the staged prefix holds the
   // just-staged retry route, so the reason and any replay cause are read here.
   const frontier = eligibleRetryFrontier(
@@ -5404,7 +5388,7 @@ function planCompletedRetryProgressFromHistory(
     );
   }
 
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const executionBasisRef = cCall?.basisId ?? sourceCursor.executionBasisRef;
   const basisEvents = indexedRuntimeEvents(prefix, "payload:basisRef:" + executionBasisRef).filter((event) =>
     event.kind === "basis_admitted" && event.basisId === executionBasisRef &&

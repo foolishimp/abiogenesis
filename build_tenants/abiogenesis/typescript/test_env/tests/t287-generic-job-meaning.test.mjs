@@ -61,7 +61,7 @@ test("generic declaration bytes stay fixed while ordinary job identities and sou
 });
 
 test("saved native Design-to-plan counterexample uses the assessor result coordinate, not a cursor value digest", {
-  skip: !process.env.ABI5_GENERIC_JOB_FAILED_PARENT_ROOT }, async () => {
+  skip: !process.env.ABI5_GENERIC_JOB_FAILED_PARENT_ROOT && "ABI5_GENERIC_JOB_FAILED_PARENT_ROOT unset; requires the saved native Design-to-plan scratch root" }, async () => {
   const scratch = process.env.ABI5_GENERIC_JOB_FAILED_PARENT_ROOT;
   const [outcome, invocation] = await Promise.all(["full-outcome.json", "full-call.json"].map(async name => JSON.parse(await readFile(join(scratch, name), "utf8"))));
   const [store, prefixes, executions, calls, cursors, traversal, jobs] = await Promise.all([
@@ -210,7 +210,7 @@ test("assessed explicit supersession selects one current version and preserves o
 });
 
 test("corrected disclosed double satisfies retained Requirements and downstream component response contracts", {
-  skip: !process.env.ABI5_GENERIC_JOB_FAILED_FULL_ROOT }, async () => {
+  skip: !process.env.ABI5_GENERIC_JOB_FAILED_FULL_ROOT && "ABI5_GENERIC_JOB_FAILED_FULL_ROOT unset; requires the saved native full-outcome scratch root" }, async () => {
   const scratch = process.env.ABI5_GENERIC_JOB_FAILED_FULL_ROOT;
   const outcome = JSON.parse(await readFile(join(scratch, "full-outcome.json"), "utf8"));
   const store = await load("abg/event_store"), events = store.readRuntimeEventsAtDurablePrefix(outcome.resources.eventResource.closeHandoff.prefix);

@@ -86,7 +86,7 @@ async function fixture(request){
   return {request,source,sourceBasis,execution,call,basis,owner,nativeSource,counts,append,coordinate,prefix:()=>snap,read,
     cold:()=>{active=false;},warm:()=>{active=true;},cover:v=>{cover=v;},result,judgment,closed};
 }
-test('20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators', {skip:!inputPath},async t=>{
+test('20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators', {skip:!inputPath&&'ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20–24 MB native carrier request'},async t=>{
   const start=performance.now(),packet=JSON.parse(fs.readFileSync(inputPath,'utf8'));
   const request=packet.kind==='native_worksite_command_reacquisition_request'?packet:packet.invocation.invocation.request.input.value;
   const h=await fixture(request),prepared=h.owner.authenticateNativeWorkReacquisition(h.basis,request,true);assert(prepared,JSON.stringify(h.counts));

@@ -6,7 +6,6 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, NativeLeafProof
 import { sha256Canonical } from "../shared/digests.js";
 import { admitJson } from "../shared/admit/index.js";
 import { deepFreeze } from "../shared/immutable.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import type { AbgHistoricalGraphCallSourceResource } from "../abg/terminal_result_contracts.js";
 const body = { implementationRef: ids.implementationRef, packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   modulePath: "build/code/src/implementation/native_work_reacquisition.js", namedSymbol: "prepareNativeWorksiteCommandReacquisition",

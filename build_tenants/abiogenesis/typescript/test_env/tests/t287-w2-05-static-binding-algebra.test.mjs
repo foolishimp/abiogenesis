@@ -773,7 +773,7 @@ const retainedPreparation = preparationCallPath
   ? readFile(preparationCallPath, 'utf8').then(JSON.parse) : null;
 
 test('preparation resolution retains its established native link and raw lock refusals', {
-  skip: !retainedPreparation,
+  skip: !retainedPreparation && 'ABI5_PREPARATION_RESOLVE_CALL unset; requires the retained preparation resolve call',
 }, async t => {
   const call = await retainedPreparation;
   const declarations = await import('../../build/code/src/product/declaration_exports.js');
@@ -799,7 +799,9 @@ test('preparation resolution retains its established native link and raw lock re
   assert.deepEqual(value.resources, prior.receipt.resources);
   const artifacts = resources.verifiedPreimages.map(x => x.verifiedArtifact);
   const environmentModule = await import('../../build/code/src/product/environment.js');
-  const resolved = environment.resolveProductArtifacts(artifacts);
+  // The resolution takes the executing identity as an input: one read.
+  const executing = declarations.installedToolchainProductContentDigest();
+  const resolved = environment.resolveProductArtifacts(artifacts, executing);
   assert.equal(resolved.kind, 'resolved_product_environment');
   assert.equal(environmentModule.isResolvedProductLock(structuredClone(resolved.lock)), true);
   assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], resolved.lock), true);
@@ -807,7 +809,7 @@ test('preparation resolution retains its established native link and raw lock re
   wrongLock.rows[0].productContentDigest = sha256Canonical('foreign Product');
   assert.equal(environmentModule.verifiedArtifactMatchesResolvedLock(artifacts[0], wrongLock), false);
   const forged = structuredClone(artifacts[0]); forged.verificationDigest = sha256Canonical('foreign body');
-  assert.equal(environment.resolveProductArtifacts([forged]).code, 'lock_mismatch');
+  assert.equal(environment.resolveProductArtifacts([forged], executing).code, 'lock_mismatch');
   const install = await import('../../build/code/src/product/install_product.js');
   assert.equal((await install.installProduct({verifiedArtifact:artifacts[0],resolvedLock:wrongLock})).code,
     'dependency_lock_mismatch', 'bad basis refuses before any physical install');
@@ -858,7 +860,7 @@ test('preparation module loading shares one physical basis and reacquires change
 });
 
 test('native detachment retains only actual immutable verifier bodies and detaches raw copies', {
-  skip: !retainedPreparation,
+  skip: !retainedPreparation && 'ABI5_PREPARATION_RESOLVE_CALL unset; requires the retained preparation resolve call',
 }, async t => {
   const original=await retainedPreparation;
   const verification=await import('../../build/code/src/product/verify_product.js');

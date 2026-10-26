@@ -236,9 +236,6 @@ export function derivePublicCatalogRowProposals(
   const operationRows = payloads.operationContractAssets.map(
     (asset): PublicContractCatalogRowProposal => {
       const operationId = asset.operationId!;
-      const definitions = PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.filter(
-        (definition) => definition.definitionKey.operationId === operationId,
-      );
       return deepFreeze({
         contractId: operationId,
         contractVersion: "5.0.0",

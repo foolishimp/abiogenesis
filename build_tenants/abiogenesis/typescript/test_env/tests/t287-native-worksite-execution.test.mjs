@@ -136,7 +136,7 @@ test('changed physical source refuses before archive publication or native dispa
   await assert.rejects(fs.stat(env.workspaceBinding.roots.archiveRoot), { code: 'ENOENT' });
 });
 test('native source selection preserves complete values and exact membership across long producer history and cold coordinates',
-  {skip:process.env.ABI5_NATIVE_SOURCE_READY_CATALOG===undefined},async t=>{
+  {skip:process.env.ABI5_NATIVE_SOURCE_READY_CATALOG===undefined&&'ABI5_NATIVE_SOURCE_READY_CATALOG unset; requires the supplied native source-ready catalog'},async t=>{
   const env=await fixture(t),task=p.constructNativeWorksiteCommandExecutionTask(env.input),source=env.source;
   const nativeResultAssessment=await componentNativeAssessment(source);
   const path=join(env.scratch,'native-source-selection.jsonl'),opened=createNewEmptyAppendSink({kind:'new_empty_append_sink_request',schemaVersion:'5.0.0',eventLogPath:path});
@@ -222,7 +222,7 @@ test('native source selection preserves complete values and exact membership acr
     premises:'Invocation/execution and install/admission premises supplied; actual declaration closure/leaf report verifier, Product source/task predicates, EventStore, indexes, codec, source uniqueness and cold physical owner execute.'}));
 });
 const retainedPath = process.env.ABG_NATIVE_EXECUTION_RETAINED_LOG;
-test('retained actual native producer joins C2 source admission; absent and foreign origins refuse', { skip: retainedPath === undefined }, async t => {
+test('retained actual native producer joins C2 source admission; absent and foreign origins refuse', { skip: retainedPath === undefined && 'ABG_NATIVE_EXECUTION_RETAINED_LOG unset; requires the retained native producer event log' }, async t => {
   const start = performance.now();
   const bytes = await fs.readFile(retainedPath), events = deepFreeze(bytes.toString('utf8').trim().split('\n').map(JSON.parse));
   const prefix = selectValidatedRuntimeEventPrefix(events), parsed = performance.now();
@@ -257,7 +257,7 @@ test('retained actual native producer joins C2 source admission; absent and fore
 
 // Projection counterexample, not a new admitted Run: preserve the real source
 // prefix and append canonical event fixtures for the C2 cut and later residue.
-test('native source currentness includes admitted failed-write residue after the child basis cut', { skip: retainedPath === undefined }, async t => {
+test('native source currentness includes admitted failed-write residue after the child basis cut', { skip: retainedPath === undefined && 'ABG_NATIVE_EXECUTION_RETAINED_LOG unset; requires the retained native producer event log' }, async t => {
   const { projectRuntimeEventFromValidatedHistory } = await import('../../build/code/src/abg/event_store.js');
   const { isNativeWorkspaceWorkFailure } = await import('../../build/code/src/product/native_workspace_work.js');
   const all = deepFreeze((await fs.readFile(retainedPath, 'utf8')).trim().split('\n').map(JSON.parse));

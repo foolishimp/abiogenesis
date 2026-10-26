@@ -11,7 +11,6 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { deepFreeze } from "../shared/immutable.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native } from "../product/native_workspace_work_identity.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, graphInputRetentionBinding } from "../product/worksite_preparation_contracts.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { canonicalizeAuthoredGtlCarrier } from "./canonicalization.js";
 import { canonicalEquals } from "../shared/value/index.js";
 export type SemanticRevisionRole = "selection" | "projection" | "author" | "assessor" | "bridge" | "evidenceInput" | "terminal" | "nativeIntake" | "nativeRequest" | "nativeConstruction" | "nativeExecution" | "nativeEvidence";

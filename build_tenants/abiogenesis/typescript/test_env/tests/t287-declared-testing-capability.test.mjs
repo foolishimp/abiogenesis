@@ -123,7 +123,7 @@ test("declared testing context records current toolchain facts without checker o
 });
 
 test("declared testing context is bound into the actual consumer lifecycle and shared role policies", { timeout: 180_000 }, async t => {
-  if (!process.env.ABI5_TESTING_INPUT_ROOT) { t.skip("requires exact selected RC7 companion release-record directory"); return; }
+  if (!process.env.ABI5_TESTING_INPUT_ROOT) { t.skip("ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory"); return; }
   const installsSkip = stdoInstallsSkip(process.env.ABI5_TESTING_INPUT_ROOT, "ABI5_TESTING_INPUT_ROOT");
   if (installsSkip) { t.skip(installsSkip); return; }
   const [product, gtl] = await Promise.all(["product", "gtl"].map(name => import(pathToFileURL(join(packageRoot, "build/code/src", name, "index.js")).href)));

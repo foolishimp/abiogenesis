@@ -428,7 +428,7 @@ test('native implementation without physical authority refuses before loading', 
 
 const retainedNativeRoot = process.env.ABI5_NATIVE_WORK_RETAINED_ROOT;
 test('admitted pure consumer evaluates a native task as data without physical authority', {
-  skip: !retainedNativeRoot && 'requires the retained installed consumer first-leaf failure',
+  skip: !retainedNativeRoot && 'ABI5_NATIVE_WORK_RETAINED_ROOT unset; requires the retained installed consumer first-leaf failure',
 }, async () => {
   const abg = await import('../../build/code/src/abg/index.js');
   const productOwner = await import('../../build/code/src/product/index.js');

@@ -1,5 +1,4 @@
 import { isGovernanceWorkState, retainedGovernanceWorkInput, constructGovernanceWorkState, governanceRef, governanceContract, GOVERNANCE_OPERATIONS, isFramedSynthesisTask, isFramedSynthesisResult, isFramedSynthesisJudgment } from "./default_library.js";
-import { isNativeRegisteredSelectionTask, isNativeRegisteredSelectionResponse } from "./registered_selection_native.js";
 import { isRegisteredGraphChoice } from "../gtl/registered_selection.js";
 import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import { isDeepStrictEqual as governanceSame } from "node:util";
@@ -20,7 +19,7 @@ import { SEMANTIC_REVISION_IDS as revisionIds } from "../gtl/semantic_revision_i
 import { isSemanticRevisionRequest, isSemanticRevisionEnvelope, isSemanticRevisionSelection, isSemanticRevisionSelectionInput, deriveRevisionAsset, deriveRevisionAssessment,
   isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment, isNativeSemanticRevisionIntake, evaluateNativeSemanticRevisionRelation } from "./semantic_revision.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
-import { evaluateNativeSemanticRelation, isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobRelation } from "./semantic_job.js";
+import { evaluateNativeSemanticRelation, isSemanticJobInput, isSemanticJobEnvelope, isSemanticJobAssetCandidate, isSemanticJobDesignResponse, evaluateSemanticJobRelation } from "./semantic_job.js";
 import { isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess, isWorksiteFileParentsFailure } from "./worksite_effect.js";
 import { isSemanticStageEnvelope, isSemanticAssetCandidate, isSemanticAssessmentCandidate, deriveSemanticAsset, deriveSemanticAssessment, deriveSemanticWorksitePreparation } from "./semantic_stage.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
@@ -38,7 +37,7 @@ import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   isWorksiteCommandExecutionFailure,
   isWorksiteCommandExecutionObservation,
-  isWorksiteCommandExecutionTask, isC2WorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionObservation, isObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
+  isC2WorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionObservation, isObservedWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
   isWorksiteCommandExecutionWorkerResult,
   resolveWorksiteCommandExecutionJudgmentRelation,
 } from "./worksite_command_execution.js";

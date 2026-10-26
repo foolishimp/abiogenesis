@@ -113,7 +113,7 @@ test('route-origin workflow cursor stages, replays, commits and cold-projects ex
  const candidate=transitionOwner.completeTraversalTransitionCandidate({kind:'traversal_transition_candidate',schemaVersion:'5.0.0',transitionClass:'route',route,
   evidence:{evidenceClass:'judged',cCall:call,result,judgment,graphFunction:{},completedProgresses:[]},terminalizeRun:false});
  assert(transitionOwner.isTraversalTransitionCandidate(candidate));
- const transitionInput={store:acquired.store,predecessorPrefix:prefix,executionBasis:basis,graph,graphFunction:{},source,target,candidate,basis:{correlationId:'fixture/transition',causationEventRefs:[]}};
+ const transitionInput={store:acquired.store,predecessorPrefix:prefix,executionBasis:basis,graph,graphFunction:{},source,target,candidate,basis:{correlationId:'fixture/transition',causationEventRefs:[],eventTime:'2026-09-23T00:00:00.000Z'}};
  const rejectedProjection=process.env.ABI5_CURSOR_BASELINE_PROVENANCE
   ? await owner(process.env.ABI5_CURSOR_BASELINE_PROVENANCE,{'./invocation_execution_truth.js':lookup,'./event_prefix.js':ep})
   : {...cold,projectRetainedWorksiteInputAtPrefix:()=>null};

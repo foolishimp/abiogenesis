@@ -16,7 +16,7 @@ const [product, gtl, effects, operations, command, preparation, meaning, jobs, p
 const owner = { ...product, ...effects, ...operations }, hash = product.sha256Canonical;
 
 test("completed native Evidence keeps the exact initial Design/context read origin", {
-  skip: !process.env.ABI5_GENERIC_JOB_COMPLETED_ROOT, timeout: 180000,
+  skip: !process.env.ABI5_GENERIC_JOB_COMPLETED_ROOT && "ABI5_GENERIC_JOB_COMPLETED_ROOT unset; requires the completed native Evidence scratch root", timeout: 180000,
 }, async () => {
   const scratch = process.env.ABI5_GENERIC_JOB_COMPLETED_ROOT;
   const outcome = JSON.parse(await readFile(join(scratch, "full-outcome.json"), "utf8"));

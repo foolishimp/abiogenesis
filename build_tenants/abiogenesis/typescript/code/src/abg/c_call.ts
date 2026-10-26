@@ -1,5 +1,5 @@
 import { createHash } from "node:crypto";
-import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, runtimeEventAtPrefix, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
 import { selectActiveRuntimeTransactionHistoryAtDurablePrefix } from "./event_store.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
@@ -57,15 +57,10 @@ import {
 import {
   AbgEventStore,
   admitRuntimeEventTransactionAtDurablePrefix,
-  readActiveRuntimeTransactionAtDurablePrefix,
   admitRuntimeEvent,
-  admitRuntimeEventBatch,
   admitRuntimeEventTransactionAtExpectedPrefix,
-  readHeldRuntimeEventsAtDurablePrefix,
-  projectHeldRuntimeEventsAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   assertRuntimeEventTransactionActive,
-  compareAndAppendExpectedPrefix,
   isRuntimeEventTransactionActive,
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
@@ -110,11 +105,6 @@ import {
   type ActorProcessRequest,
   type ActorProcessObservation,
 } from "./actor_process.js";
-import {
-  hasExactCompletedRetryProgressBridge,
-  hasExactStoppedRetryProgressBridge,
-} from "./retry_lifecycle.js";
-import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
 import { projectDeclaredCRetryCCallWriteAtPrefix } from "./retry.js";
 import {
   admitChildLifecycleEvent,
@@ -1220,7 +1210,7 @@ export function projectCurrentChildParentCCallAtPrefix(
     projectedPhase.fibreEventRef === null
   ) return null;
 
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const opened = indexedRuntimeEvents(prefix, "id:" + projectedPhase.openedEventRef).find((event) =>
     event.eventId === projectedPhase.openedEventRef
   );
@@ -2375,7 +2365,7 @@ function projectOpenedLeafCCallCarrier(
   cCallRef: string,
 ): CCall | null {
   if (!isMaterializedGtlGraph(graph) || cCallRef.length === 0) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const rows = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.aggregateType === "c_call" && event.aggregateId === cCallRef
   );
@@ -2752,7 +2742,7 @@ function projectOpenedWorkflowCCallCarrier(
   if (failureContractRef === null) return null;
   const judgmentPredicateRef =
     graphFunction.declarations["abg.judgment_predicate"];
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const rows = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter((event) =>
     event.aggregateType === "c_call" && event.aggregateId === cCallRef
   );
@@ -3485,7 +3475,7 @@ export function projectCCallRuntimeFailureSignal(
   resultRef: string,
   judgmentRef: string,
 ): CCallRuntimeFailureSignal | null {
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   let phase: CCallPhaseProjection;
   try {
     phase = projectCCallPhase(prefix, cCallRef);
@@ -4748,7 +4738,7 @@ function projectAdmittedLeafCCallOutcomeFromPrefix(
   const cCallDigest = sha256Canonical(identity);
   const cCallRef = `c-call:${cCallDigest}`;
   if (input.cCallRef !== cCallRef) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix);
+  runtimeEventBodiesAtPrefix(prefix);
   const cCallEvents = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(
     (event) =>
       event.aggregateType === "c_call" && event.aggregateId === cCallRef,
@@ -5027,7 +5017,7 @@ export function rehydratePendingInteraction(
         judgmentValue,
       );
   if (projected === null) return null;
-  const events = runtimeEventBodiesAtPrefix(prefix!);
+  runtimeEventBodiesAtPrefix(prefix!);
   const continuationEvent = indexedRuntimeEvents(prefix!, "kind:" + "fh_interaction_opened").find(
     (event) =>
       event.kind === "fh_interaction_opened" &&
@@ -5313,7 +5303,6 @@ function admitPreparedCCallOpening(input: Readonly<{
 }>): Omit<CCallAdmission, "successorPrefix"> | CCallOpenRefusal {
   const {
     store,
-    predecessorPrefix,
     openingAuthorityPrefix,
     openingPrefix,
     cursorAdmissionEventRef,
@@ -6401,7 +6390,7 @@ export function undispatchedOwnerEvidenceMatches(
         o.inputContractRef !== cCall.inputContractRef || o.outputContractRef !== cCall.outputContractRef ||
         o.inputDigest !== expectedInputDigest || candidate.failureValue.diagnosticRef !== o.diagnosticRef ||
         candidate.failureValue.failureClass !== (o.reason === "malformed_preparation" ? "malformed_return" : "implementation_exception")) return false;
-    const events = runtimeEventBodiesAtPrefix(prefix);
+    runtimeEventBodiesAtPrefix(prefix);
     const opened = indexedRuntimeEvents(prefix, "id:" + cCall.openedEventRef).find(event => event.eventId === cCall.openedEventRef);
     const fibre = indexedRuntimeEvents(prefix, "id:" + cCall.fibreSelectedEventRef).find(event => event.eventId === cCall.fibreSelectedEventRef);
     if (opened?.kind !== "c_call_opened" || fibre?.kind !== "c_call_fibre_selected" ||
@@ -7274,7 +7263,7 @@ export function completeRejectedCCall(
       `evidence://abiogenesis/${rejectionEvidenceDigest.slice("sha256:".length)}`;
     const evidenceEvent = admitFrameObservedCCallEvent(store, {
       kind: "c_call_evidenced",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "c_call",
       aggregateId: cCall.cCallRef,
       parentAggregateId: cCall.frameId,
@@ -7324,7 +7313,7 @@ export function completeRejectedCCall(
     resultRef = `result://abiogenesis/${resultDigest.slice("sha256:".length)}`;
     const resultEvent = admitFrameObservedCCallEvent(store, {
       kind: "c_call_result_admitted",
-      eventTime: sampleNativeEventTime(),
+      eventTime: basis.eventTime,
       aggregateType: "c_call",
       aggregateId: cCall.cCallRef,
       parentAggregateId: cCall.frameId,
@@ -7364,7 +7353,7 @@ export function completeRejectedCCall(
     `judgment://abiogenesis/${rejectionJudgmentDigest.slice("sha256:".length)}`;
   const judgmentEvent = admitFrameObservedCCallEvent(store, {
     kind: "c_call_judged",
-    eventTime: sampleNativeEventTime(),
+    eventTime: basis.eventTime,
     aggregateType: "c_call",
     aggregateId: cCall.cCallRef,
     parentAggregateId: cCall.frameId,

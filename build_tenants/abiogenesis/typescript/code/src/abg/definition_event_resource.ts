@@ -5,11 +5,12 @@ import { fileURLToPath } from "node:url";
 import { absolutePathSchema, digestSchema, nonblankSchema, refDigestSchema } from "../shared/public_function_contracts.js";
 import { ADMISSION_CAPABILITY_DATA_SCHEMA, RESOLVED_ADMISSION_AUTHORITY_SCHEMA, type ResolvedAdmissionAuthority } from "../product/admission_authority.js";
 import { verifyProduct, isVerifiedProductArtifact } from "../product/verify_product.js";
+import { readExecutingToolchainIdentity } from "../product/declaration_exports.js";
 import type { VerifiedProductArtifact } from "../product/contracts.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { isAbsolute, resolve } from "node:path";
 
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
@@ -453,11 +454,11 @@ export async function recoverInterruptedAbgEventResource(requestInput: unknown, 
   let verified: VerifiedProductArtifact;
   try {
     const observed = await verifyProduct(request.ownerArtifact.request);
-    const manifest = JSON.parse(await readFile(new URL("../../../../product-toolchain-manifest.json", import.meta.url), "utf8"));
+    const executing = readExecutingToolchainIdentity();
     const pkg = JSON.parse(await readFile(new URL("../../../../package.json", import.meta.url), "utf8"));
     if (observed.kind !== "verified_product_artifact" ||
         !canonicalEquals(observed, request.ownerArtifact.verified) ||
-        sha256Canonical(manifest) !== observed.manifestDigest || pkg.name !== observed.packageName || pkg.version !== observed.packageVersion ||
+        executing.manifestDigest !== observed.manifestDigest || pkg.name !== observed.packageName || pkg.version !== observed.packageVersion ||
         pkg.exports?.[ABG_EVENT_RESOURCE_RECOVERY.packageExport]?.import !== "./build/code/src/abg/index.js") {
       throw new TypeError("native maintenance owner differs from the verified executing artifact/export");
     }

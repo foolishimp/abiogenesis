@@ -14,7 +14,6 @@ import { randomUUID } from "node:crypto";
 import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import type { CCall } from "../abg/c_call.js";

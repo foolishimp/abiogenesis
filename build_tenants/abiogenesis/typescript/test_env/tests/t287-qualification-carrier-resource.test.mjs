@@ -50,7 +50,7 @@ function alteredScope(mutate){const f=fixture(),scope=clone(f.normalized);mutate
 function replaceMemberSet(scope,group,mutate){const old=scope.referenceSets.find(s=>s.setRef===group.memberSet.ref),body=clone(old);mutate(body.values);
  const set=resign(body,'setRef','setDigest','qualification-set://abiogenesis/');if(!scope.referenceSets.some(s=>s.setRef===set.setRef))scope.referenceSets.push(set);group.memberSet=c(set.setRef,set.setDigest);
 }
-const skip=!fixturePath;
+const skip=!fixturePath&&'ABI5_F11_CARRIER_FULL_FIXTURE unset; requires the full F11 carrier fixture';
 test('closed resource forms retain nonempty group arrays and actual old embedded identities',{skip},t=>{
  const f=fixture();assert.equal(f.embedded.task.taskDigest,'sha256:acf5b524e60a6b391109215c4a403bfa13b4b175f9547204fbd86aad0248dd85');
  assert.equal(f.embedded.plan.planDigest,'sha256:c97523f6a25977187211cf35060642c2a57b4949a2e3705345c0ef0eb4444e98');

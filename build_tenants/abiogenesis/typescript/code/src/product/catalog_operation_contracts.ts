@@ -19,7 +19,7 @@ import {
   typedResidualSetSchema,
   uniqueArray,
 } from "../shared/public_function_contracts.js";
-import { canonicalJson, type JsonValue } from "../shared/canonical_json.js";
+import { canonicalJson } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { canonicalEquals } from "../shared/value/index.js";
 

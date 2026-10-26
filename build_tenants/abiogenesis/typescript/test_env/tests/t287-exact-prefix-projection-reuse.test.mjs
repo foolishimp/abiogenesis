@@ -49,7 +49,7 @@ test('T287 disposable reuse preserves prefix/profile/file checks and rejects mut
   const again=project(files[1]);assert.notStrictEqual(again,one);assert.equal(again.projectionDigest,one.projectionDigest);
 });
 
-test('T287 retained scope and same-inode byte mutation cannot reuse false truth',{skip:!process.env.ABI5_PREFIX_EVENT_PATH},async()=>{
+test('T287 retained scope and same-inode byte mutation cannot reuse false truth',{skip:!process.env.ABI5_PREFIX_EVENT_PATH&&'ABI5_PREFIX_EVENT_PATH unset; requires the retained event log'},async()=>{
   const path=process.env.ABI5_PREFIX_EVENT_PATH,bytes=await readFile(path);
   assert.equal(sha256(bytes),process.env.ABI5_PREFIX_EXPECTED_SHA256);
   const coordinate=await filePrefix(path,bytes,owners,240),full=project(coordinate);

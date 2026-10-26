@@ -1,8 +1,7 @@
-import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -19,8 +18,6 @@ import {
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
   isRuntimeEventTransactionActive,
-  readHeldRuntimeEventsAtDurablePrefix,
-  readActiveRuntimeTransactionAtDurablePrefix,
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -28,10 +25,7 @@ import {
   type RuntimeEventCandidateFactory,
 } from "./event_store.js";
 import { runtimeEventPrefixDigest,
-  runtimeEventBodiesAtPrefix,
-  selectValidatedRuntimeEventPrefix,
   selectRuntimeEventPrefixFromAuthority,
-  type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
   constructRuntimeFluent,

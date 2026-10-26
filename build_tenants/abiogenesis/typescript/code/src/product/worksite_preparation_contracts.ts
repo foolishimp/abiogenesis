@@ -105,12 +105,18 @@ const revisionBoundFields = { kind: literal("worksite_revision_command_preparati
   entry: { ...contractNode<WorksiteRevisionCommandPreparationInput>(revisionEntry.declaration), schema: revisionEntry }, source };
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends (<T>() => T extends B ? 1 : 2) ? true : false;
 type Assert<T extends true> = T;
-type EntryAgreement = Assert<Equal<RecordValue<typeof entryFields>, Omit<WorksiteCommandPreparationInput, "readDependencyBasis">>>;
-type BranchEntryAgreement = Assert<Equal<RecordValue<typeof branchEntryFields>, WorksiteBranchCommandPreparationInput>>;
-type BoundAgreement = Assert<Equal<RecordValue<typeof boundFields>, WorksiteCommandPreparationBoundInput>>;
-type BranchBoundAgreement = Assert<Equal<RecordValue<typeof branchBoundFields>, WorksiteBranchCommandPreparationBoundInput>>;
-type RevisionEntryAgreement = Assert<Equal<RecordValue<typeof revisionEntryFields>, WorksiteRevisionCommandPreparationInput>>;
-type RevisionBoundAgreement = Assert<Equal<RecordValue<typeof revisionBoundFields>, WorksiteRevisionCommandPreparationBoundInput>>;
+/** @internal Compile-time agreement check. */
+export type EntryAgreement = Assert<Equal<RecordValue<typeof entryFields>, Omit<WorksiteCommandPreparationInput, "readDependencyBasis">>>;
+/** @internal Compile-time agreement check. */
+export type BranchEntryAgreement = Assert<Equal<RecordValue<typeof branchEntryFields>, WorksiteBranchCommandPreparationInput>>;
+/** @internal Compile-time agreement check. */
+export type BoundAgreement = Assert<Equal<RecordValue<typeof boundFields>, WorksiteCommandPreparationBoundInput>>;
+/** @internal Compile-time agreement check. */
+export type BranchBoundAgreement = Assert<Equal<RecordValue<typeof branchBoundFields>, WorksiteBranchCommandPreparationBoundInput>>;
+/** @internal Compile-time agreement check. */
+export type RevisionEntryAgreement = Assert<Equal<RecordValue<typeof revisionEntryFields>, WorksiteRevisionCommandPreparationInput>>;
+/** @internal Compile-time agreement check. */
+export type RevisionBoundAgreement = Assert<Equal<RecordValue<typeof revisionBoundFields>, WorksiteRevisionCommandPreparationBoundInput>>;
 const boundSources = [
   { declaration: declaration(WORKSITE_PREPARATION_IDS.boundInputContractRef, "input", "worksite_command_preparation_bound_input"), fields: boundFields },
   { declaration: declaration(WORKSITE_PREPARATION_IDS.branchBoundInputContractRef, "input", "worksite_branch_command_preparation_bound_input"), fields: branchBoundFields },

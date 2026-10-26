@@ -1,7 +1,6 @@
 import type { COfNode, CProgramNode } from "./c_algebra.js";
 import type { GraphTemplate, GtlGraph } from "./contracts.js";
 import { graphNodeIdentityFailure, ordinaryGraphBoundaryFailure } from "./graph_construction.js";
-import type { JsonValue } from "../shared/canonical_json.js";
 import {
   isSha256Digest,
   sha256Canonical,
