@@ -127,3 +127,46 @@ test('Run resource schema admits the one declaration dependency and refuses extr
  assert.equal(schema.wrapped,contracts.ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA);
  assert.equal(v.safeParse(schema,{kind:'abg_historical_graph_call_source_resource',schemaVersion:'5.0.0',trusted:true}).success,false);
 });
+
+// The retention lives in the open owner's derivation generation
+// (`projectHistoricalGraphCallSourceAtDurablePrefix`): a later prefix of the same
+// generation lends the retained source, and the Event Store's own rollback
+// replaces the generation, so the next read reconstructs. The driver is the owner
+// operation `admitRuntimeEventTransaction`; no store internal is reached.
+async function retentionOwner(t){
+ const f=await fixture(t),counts={catalog:0};
+ const r10=await sourceOwner('abg/project_read_ports',[],{'../product/declaration_closure.js':{
+  reconstructHistoricalDeclarationCatalog:(...args)=>{counts.catalog++;return declarations.reconstructHistoricalDeclarationCatalog(...args);},
+ }});
+ const leaf=await sourceOwner('implementation/leaf_invocation_port',['nativeJudgmentProofOperations'],{'../abg/project_read_ports.js':r10});
+ const read=prefix=>leaf.nativeJudgmentProofOperations('predicate://generic/consumer',{},null,prefix,f.resource).historicalGraphCallSource();
+ const eventTime=f.rows.at(-1).eventTime,candidate=key=>{const invocationRef='invocation://t287/historical-retention/'+key,correlationId='correlation://t287/historical-retention/'+key;
+  return {kind:'public_operation_admitted',eventTime,aggregateType:'workspace',aggregateId:invocationRef,parentAggregateId:null,causationEventRefs:[],correlationId,
+   workflowVersion:'5.0.0',scopeClass:'workspace',basisId:'basis://t287/historical-retention',
+   payload:{invocationDigest:hash({invocationRef,correlationId}),invocationRef,operationId:'abg.operation.project.read',variant:'status'}};};
+ return {f,counts,read,candidate};
+}
+
+test('a later prefix of the same derivation generation lends the same retained historical source; the count is unchanged',{skip},async t=>{
+ const {f,counts,read,candidate}=await retentionOwner(t);
+ const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
+ const appended=eventOwner.admitRuntimeEvent(f.opened.store,candidate('later'));assert.equal(appended.admissionOrdinal,f.rows.length+1);
+ const later=eventOwner.selectHeldEventStoreDurablePrefix(f.opened.store);
+ assert.ok(later.prefixLength>f.prefix.prefixLength);assert.notEqual(later.prefixDigest,f.prefix.prefixDigest);
+ assert.strictEqual(read(later),result,'same generation lends the retained object at its later prefix');assert.equal(counts.catalog,1);
+ assert.strictEqual(read(f.prefix),result);assert.equal(counts.catalog,1);
+});
+
+test('an append rollback replaces the derivation generation and drops the retained historical source; the next read reconstructs once',{skip},async t=>{
+ const {f,counts,read,candidate}=await retentionOwner(t);
+ const result=read(f.prefix);assert.ok(result);assert.equal(counts.catalog,1);
+ assert.strictEqual(read(f.prefix),result);assert.equal(counts.catalog,1);
+ let tentative;
+ assert.throws(()=>eventOwner.admitRuntimeEventTransaction(f.opened.store,()=>{
+  tentative=eventOwner.admitRuntimeEvent(f.opened.store,candidate('rolled-back'));throw Error('injected append rollback');
+ }),/injected append rollback/);
+ assert.equal(tentative.admissionOrdinal,f.rows.length+1);assert.deepEqual(eventOwner.selectHeldEventStoreDurablePrefix(f.opened.store),f.prefix);
+ const rebuilt=read(f.prefix);assert.deepEqual(rebuilt,result);assert.notStrictEqual(rebuilt,result,'the rolled-back generation lends nothing');
+ assert.equal(counts.catalog,2);
+ assert.strictEqual(read(f.prefix),rebuilt,'the replacement generation retains its own reconstruction');assert.equal(counts.catalog,2);
+});

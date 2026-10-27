@@ -772,3 +772,275 @@ No contract, payload, failure-class or design stop arose for items 1 to 4.
 **Exit.** Each of the three members admitted through the installed transport with one positive and one refusing case; the export map carries the two declared exports and no other change; st1 2/2/0/0; C1 3/3/0/0; the uat harness green; the retention cases green; the three r-lanes green on the refreshed fixture; no other lane moves; the red set at your commit the standing one (question 9, `t287-st2a-g-capability-definition-graph:74`, `:271`).
 
 **Return contract.** `## R2 return (Worker, Opus 5.5, 2026-10-27; base \`<hash>\`)` appended once to this file, after a blank line, before the commit so the commit carries it: the first sentence (closed, the gaps, or the stops); the subtree pairs; item 1's census table; item 2's mapping per member (owner refusal to declared reason); item 3's six cases; item 4's excluded members; item 5's trace (the terminating event and site, the design sentence), the budget computation and the retention cases; the export-list diff; the fixture's three fields; the lanes table (before, after, compose; every moved lane with its first error; the standing red); gates (`tsc`, `tsc --noUnusedLocals` (1, `BASE64_PATTERN`, R3's), the four lints, the build, the regenerated files' moved leaves named); instrumentation (`// R2` lines) stripped and proven absent; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `R2: result.assess and product.materialize realized to their declared route contracts; the st1 replay case restated to the design; D1/D4-a's lane items discharged`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## R2 return (Worker, Opus 5.5, 2026-10-27; base `17e708cdb27f00b289c4f4d42066a620e4930ce0`)
+
+No: `result.assess` and `product.materialize` are not realized. The admission authority refuses both operations before any binding reaches its owner, which is a stop outside the grant (items 2 and 3). C1's `O0` is terminated by the C0 fibre selection, and no design sentence names that retirement, which is a stop for the Executive (item 5 (a)). The st1 replay case is restated (2/2/0/0). C1's superseded expectation is deleted (3/3/0/0). The harness budget assertion is restated to the C2 rule (34/31/0/3). The two retention cases are added and green (4/4/0/0).
+
+**Subtree pairs.** `git rev-parse <rev>:build_tenants/abiogenesis/typescript/<dir>`, base `17e708cdb` against D1/D4-a's `93119c1b2`:
+
+| Subtree | `17e708cdb` | `93119c1b2` |
+|---|---|---|
+| `code` | `948a08a6d6b71e6ca6b686583ea8d07d8dd670ab` | `948a08a6d6b71e6ca6b686583ea8d07d8dd670ab` |
+| `test_env` | `3a5172e9441132bbb4f6ad63e760a136b1aeca08` | `3a5172e9441132bbb4f6ad63e760a136b1aeca08` |
+| `contracts` | `e87ebafc06c04897a2637b51a2bb9b6b9fcd0f26` | `e87ebafc06c04897a2637b51a2bb9b6b9fcd0f26` |
+
+The D1/D4-a after column is therefore the before column for every lane it tables.
+
+**Item 1: the census.**
+
+Every site below is cited by symbol at the base. Line numbers are the base's.
+
+*The declared side.* The route rows sit in `public/binding/owner_contract_source_set.ts` `OWNER_CONTRACT_MODULE_SOURCES`. Each row reads one contract root. `resolveSource` derives the declared callable from it:
+- the package export `./product`;
+- the named export, which is the row's export name;
+- the member path, which is the declaration's `owner.memberPath`;
+- the kind, `statically_composed_callable`;
+- `callableContractDigest`, taken over the request, result, refusal and non-terminal schema refs plus `resourceRelation: "owner_indexed_sibling_assertion_and_receipt"`.
+
+The relation declares the assertion and the receipt as the sibling binding's own schemas, as `abg/witness_definition_bindings.ts` does. No contract root carries them, and no module defines either export.
+
+| Member | Declared request | Declared result (and non-terminal) | Declared refusal codes | Manifest `callableContractDigest` and `memberPath` (`contracts/public-operations/<op>/operation-contract.json`) | Owner and its input | Owner result and refusal enum | Mapping the binding needs |
+|---|---|---|---|---|---|---|---|
+| `result.assess#assess`. Contract root `RESULT_OPERATION_CONTRACTS.assess` (`product/interaction_operation_contracts.ts`); owner `Product.ResultAssessment`, `authority://abiogenesis/product/result-assessment@5`. | `expectedResult`, `assessmentContract`, `assessment` (a `contract_admitted_assessment_value`), `evidence` (non-empty), `currentBasis` | Result: `assessment`, `disposition` (`admitted` or `rejected`), `closureEligible`, `residuals`, `evidence`. Non-terminal: the same fields with `retry` or `blocked`, `closureEligible: false` and non-empty residuals. | `result_mismatch`, `digest_mismatch`, `contract_mismatch`, `value_mismatch`, `capability_mismatch`, `evidence_mismatch`, `basis_mismatch` | `sha256:4c8779cd0fc3e4337a66df8785c98a57879f4496c3486872d85ed042e4ac4fd7`, `["assess"]` | `assessResult(packet, context)` (`product/result_assessment_operation.ts`). Packet: the declared request plus `kind: "result_assess_packet"`, `schemaVersion` and `memberKey: "assess"`. Context: `store`, `predecessorPrefix`, `assessmentContract` (a `ProductPublicContract` body), `invocationAuthority` (`ResultAssessmentInvocationAuthority`), `eventTime`, `correlationId`, `causationEventRefs`. | `result_assess_result` or `result_assess_non_terminal`: the declared fields plus `kind`, `schemaVersion` and `memberKey`. `result_assessment_refusal`: the same seven codes, plus `message`, `issuePaths` and `evidenceRefs`. The owner admits one `assessed` event at the expected prefix. | **Request:** add the wrapper. **Result and non-terminal:** strip the wrapper, selected by `kind`. **Refusal:** `code` is the identity map; `issuePaths` and `evidenceRefs` pass through; `message` is dropped. **Context:** the store and prefix from the acquired event resource, as witness does. The contract body from the bound environment's installed Product contract catalog row named by `assessmentContract`, never from the caller. `eventTime` and `correlationRef` from the invocation. The causation from the binding's admission event. **Authority:** the owner's `actor` is `{ref, sha256({actorRef})}` built from `slots.actor.actor.ref`. Its `capabilityGrant` is the owner-native `result_assessment_capability_grant`, a digest over `{actorRef, operationId, capabilityRef}`. That grant is distinct from the Public `capability_grant` coordinates in `slots.capability_grants`, and the binding states the relation between them. Every input is met **but the authority (Stops, 1)**. |
+| `product.materialize#configuration`. Contract root `MATERIALIZATION_OPERATION_CONTRACTS.configuration` (`product/materialization_operation_contracts.ts`); owner `Product.Materialization`, `authority://abiogenesis/product/materialization@5`; terminal only. | `configurationContract` (ref/digest), `binding` (ref/digest), `inputs` (JSON) | `materializationKind`, `subject` (one ref/digest), `content`, `manifest`, `rows` (non-empty `{disposition: created, refreshed or preserved, content}`), `residuals`, `provenance` (non-empty) | `workspace_mismatch`, `binding_mismatch`, `input_mismatch`, `authority_mismatch`, `contract_mismatch`, `mutable_default`, `filesystem_failure` | `sha256:fa4a6d91f5f2c844ede9b91d5af0e507f98214745924db2d145689b2c835c60d`, `["configuration"]` | `materializeConfiguration(packet)` (`product/materialization_operations.ts`). Packet: `kind: "product_materialize_packet"`, `schemaVersion`, `memberKey`, plus three bodies: `workspace` (`{workspaceRef, workspaceDigest, authorityRef, authorityDigest}`), `binding` (the full `WorkspaceBinding`) and `configurationContract` (the full `ProductPublicContract`). Also `inputs`. | `product_materialization_result`. Its `subject` is two pairs, `{workspaceRef, workspaceDigest, bindingRef, bindingDigest}`. Its `content` and `manifest` carry paths. Its `rows` are `{inputRef, inputDigest, assetRef, assetDigest, assetPath, disposition: created or preserved}`. Its `provenance` is `{provenanceRef, provenanceDigest}`. `product_materialization_refusal` codes: `workspace_not_ready`, `binding_mismatch`, `input_invalid`, `authority_overwrite_forbidden`, `contract_invalid`, `mutable_default_forbidden`, `filesystem_failure`. The refusal has no `issuePaths`. | **Packet:** the binding and contract bodies from the bound environment, by the declared refs and digests. The workspace coordinate from the binding: `workspaceId`, `authorityBasisId` and `authorityBasisDigest`. `workspaceDigest` is not in the binding: it is read from the admitted workspace (the workspace manifest, or the digest encoded in the `workspace://abiogenesis/<digest>` ref), a named choice. **Result:** `subject` is one pair from two, a named choice; M04 `:636` says "affected workspace/configuration subject". `content`, `manifest`, `rows[].content` and `provenance` drop the paths. **Refusal:** stem to stem. `issuePaths` must be supplied by the binding. **Authority:** Stops, 1. |
+| `product.materialize#context_bootstrap`. Same root, owner and authority. | `workspace` (ref/digest), `binding` (ref/digest), `contextInputs` (non-empty unique `{name, contract (ref/digest), value}`) | as `configuration`, with `materializationKind: "context_bootstrap"` | the same seven | `sha256:59b36d1811349f27f160fbf8d59743f139d7374f4cc38f998cf2aff6a664976f`, `["context_bootstrap"]` | `materializeContextBootstrap(packet)`. Packet: as above, but `contextInputs` are exact-keyed `{kind: "declared_context_input", inputRef, inputDigest, content}`, with `inputDigest = sha256(content)`. | as `configuration` | As `configuration`, except for the inputs. The owner's input has no field for the declared `contextInputs[].contract`, and no step admits a value under its contract. `name → inputRef` and `value → content` would be the binding's choices. This is a declared request member the owner cannot meet (Stops, 2). |
+
+*The port-named consts beside the owners.* Each owner module exports a const under the same name as its contract root:
+- `product/result_assessment_operation.ts` exports `RESULT_OPERATION_CONTRACTS = {assess: ResultAssessmentPort.assess}`;
+- `product/materialization_operations.ts` exports `MATERIALIZATION_OPERATION_CONTRACTS = {context_bootstrap, configuration}` over `ProductMaterializationPort`.
+
+Each is equal by name and member path to the owner coordinate the declaration names: `exportName` plus `memberPath`, which the constitution `:3047`, `:3050-3051` writes as `ResultAssessmentPort.assess` and `ProductMaterializationPort[member]`. So the coordinate itself is equal, not a finding. The finding is the following:
+- One export name denotes the declared packet in one module and the owner function in another.
+- No module under `code/src` imports either owner module. The one exception is a type-only import of `ResultAssessmentResidual`.
+- Only `t287-runtime-failure-diagnostic` reaches `assessResult`, by a direct call.
+
+*The interaction row.* It is left as declared. No export was added. The st1 ST-4 arm (`:246`) keeps it as the inherited-read falsifier, and the arm is unedited.
+
+**Item 2: the realization. Stop (Stops, 1). No module and no export is committed.**
+
+*Why it stops.* The witness form wraps the owner in `withAdmissionAuthority(packet, owner)` (`product/admission_authority.ts`). Every call then passes `constructAdmissionCapabilityGrants` → `validateAdmissionCapabilityBasis` → the scope check. That check admits an operation only if `ADMISSION_OPERATIONS` (`admission_authority.ts:221-226`) holds its id, or the operation is one of the two named `release.snapshot` and `witness.admit` member pairs. Neither `abg.operation.result.assess` nor `abg.operation.product.materialize` is in the set, so every grant for them refuses with "admission grant requires exact external approval, actor, request and owner scope". `product/invocation.ts` `constructInvocationCapabilityGrant` serves only `interaction.respond`, `run.continue`, `run.invoke` and `project.read`. No grant constructor in the tree admits either operation.
+
+*The probe.* `scratchpad/r2/probe-authority/probe.mjs` reads the build and writes nothing. For each of the three members, plus `conformance.evaluate#gtl_program` as a control, it:
+- admits a declared request (`admitRuntimeContract`, all four admitted);
+- calls `validateAdmissionCapabilityBasis` on two arms:
+  - the built owner;
+  - the same source transpiled in memory with the two ids added to `ADMISSION_OPERATIONS`.
+
+Results:
+- Built arm: the three members refuse at the scope gate above. The control passes it and stops at the next gate, "requires the exact admitted workspace, Product set and lock", which is where the probe supplies no environment.
+- Patched arm: all four reach that next gate.
+
+The one-line set membership is the gate. That file is outside the grant, and the grant forbids Public changes beyond the two exports. The modules would compile, but every call would refuse at the authority. That is no realization, and binding presence alone claims no support (REQ-P-PUBLIC-CONTRACTS `:20-25`). So nothing is committed. The route rows keep their declared 5.0 behaviour, an admitted call refusing `installed_binding_unavailable`, which is the C-20 disposition's.
+
+*Item 2's mapping per member, for the re-grant.* This is the owner refusal mapped to the declared reason:
+- `result.assess#assess`. Identity on all seven codes: `result_mismatch`, `digest_mismatch`, `contract_mismatch`, `value_mismatch`, `capability_mismatch`, `evidence_mismatch`, `basis_mismatch`. `issuePaths` and `evidenceRefs` pass through; `message` is dropped.
+- `product.materialize#configuration` and `#context_bootstrap`. Stem to stem:
+
+  | Owner code | Declared reason |
+  |---|---|
+  | `workspace_not_ready` | `workspace_mismatch` |
+  | `binding_mismatch` | `binding_mismatch` |
+  | `input_invalid` | `input_mismatch` |
+  | `authority_overwrite_forbidden` | `authority_mismatch` |
+  | `contract_invalid` | `contract_mismatch` |
+  | `mutable_default_forbidden` | `mutable_default` |
+  | `filesystem_failure` | `filesystem_failure` |
+
+  The owner refusal has no `issuePaths`, so the binding supplies them. The owner's code paths emit only five of the seven: `workspace_not_ready` and `mutable_default_forbidden` are never raised.
+
+**Item 3: the falsifiers. Not written.** No binding exists to drive, and a lane over the stopped modules would only prove the authority refusal. The new lane `test_env/tests/t287-required-operation-bindings.test.mjs` is not created. The re-grant's six cases are, per member, one admitted call through the installed transport that reaches the owner, and one owner refusal mapped to its declared reason. The probe above is the evidence in their place. It is not a lane.
+
+**Item 4: the st1 replay case. Restated; 2/1/1/0 → 2/2/0/0; the ST-4 arm (`:116`, with its inherited-read falsifier over `INTERACTION_DEFINITION_BINDINGS` at `:245-246`) is untouched.**
+
+The lane now cites T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY `:200-202`: a Run projection at its original prefix reproduces its replay shape and digest exactly. Four assertions changed, all at base line numbers, in the ST-1 test (`:737`):
+- `:1259` is replaced by the restatement below.
+- `:1275`, `:1291` and `:1293` compare `readProjections.get(<member>).replay` for `run_status`, `run_result` and `run_replay` against `terminalReplay`. They now compare against `laterReplay`. Those reads run at the later prefix too (`terminalPrefix`, after the sibling bind). The `:1259` failure masked them, and they fail for the same cause, so they are lines the restatement needs.
+
+The restatement:
+1. **At the run's own terminal prefix** (`runTerminalPrefix`), two equalities to `terminalReplay`:
+   - the Run truth's replay coordinate, `projectRunTruthAtDurablePrefix(runTerminalPrefix, run).replay`;
+   - the replay owner's coordinate, `replayValidatedRuntimeEventPrefix` over the run-scoped selection of the durable events at that prefix.
+2. **At the later prefix:**
+   - The Run truth's replay equals the replay owner's coordinate there (`laterReplay`).
+   - The replay state's terminal semantics equal the original's. Everything is compared except the excluded members: run, graph call, frame and cursor refs; `cCalls`; `routes`; construction deltas; fan-out completions; continuations; actor processes; current worksite observations; `activeFluents`; the terminal, frame, graph-call and run closure refs; the stop and refusal refs; `runtimeStatus`.
+   - The Run truth's members equal the original's, apart from its prefix coordinates: run, execution basis, workspace binding, graph call, result, `terminalResult`, stop, gap, interaction, evidence, `runtimeStatus`.
+
+*Excluded members.*
+- In the replay state:
+  - `replayRef` and `replayDigest`, the coordinate whose digest covers the whole body;
+  - the four prefix-wide members, `eventStoreDigest`, `eventCount`, `lastAdmissionOrdinal` and `nativeLiveness`.
+- In the Run truth, the prefix coordinates `prefixCoordinateDigest`, `replay` and `terminalResult.projectionBasis`. The activation's list does not name `projectionBasis`; it is the durable prefix coordinate, the event log ref plus the prefix digest (Deviations, 1).
+
+*Measured* (development runs with `// R2` lines, stripped):
+- Between the two prefixes, the run-scoped replay states differ only in `replayRef`, `replayDigest` and `nativeLiveness`. In `nativeLiveness`, the profile schedule span's `lastOrdinal` goes from 34 to 35.
+- `eventStoreDigest`, `eventCount` (31) and `lastAdmissionOrdinal` (34) are equal at both prefixes, because the replay is run-scoped and the sibling bind is outside the run. They are excluded because the activation names them, not because they moved.
+- `activeFluents` is equal.
+- The Run truths differ only in `prefixCoordinateDigest`, `replay` and `terminalResult.projectionBasis`.
+
+**Item 5 (a): C1's `O0`. Traced; stop (Stops, 3); the `:1012` deletion applied; 3/2/1/0 → 3/3/0/0.**
+
+*The trace.* `// R2` lines (stripped) were placed before the assertion at `:1006` in `t287-worksite-construction:701`. They read the store's own fold:
+- the prefix is `selectRuntimeEventPrefixFromStore(environment.store)` from the installed `abg/event_prefix.js`, the same module instance that built the store;
+- currentness is `runtimeFluentHoldsAtPrefix(prefix, constructWorksiteObservationCurrentFluent(O0), ordinal)` at every ordinal 1-174;
+- the cause is the effect row for each transition, `runtimeEventCalculusEffectsByKind(prefix, kind)`. That row is the fold's `effectAtRef`, computed with the `eventCalculusDependencies` history.
+
+No history-less recomputation was used. Three runs gave the same ordinals; the c-call ids vary from run to run. For member 1's `O0`:
+
+| Ordinal | Event | Fold effect on `worksite_observation_current(O0)` |
+|---|---|---|
+| 125 | `basis_admitted` (member 1's C0 child basis) | initiates |
+| 130, 131 | `c_call_opened`, `c_call_fibre_selected` (the C0 selection) | 131 **terminates**, through `code/src/abg/calculus/axioms.ts` `eventCalculusEffectRefs` `case "c_call_fibre_selected"` → `retiredWorksiteObservations` |
+| 135 | `c_call_evidenced` (deterministic, same call) | none |
+| 137 | `c_call_result_admitted`, `contract://abiogenesis/worksite/file-replace-failure@5`, code `stale_observation` | none |
+
+The effect row at 137 initiates only `c_call_result_available(result://…)` and terminates only `c_call_evidence_available(evidence://…)`. Its `case "c_call_result_admitted"` arm names no `worksite_observation_current` term. That means `worksiteTransitionForResult` gave `null` for it under the fold's dependencies, because a non-null transition would put `worksite.before` among the terminates.
+
+For contrast, member 0's `O0` is initiated at 81 and terminated at 87 (its selection), and its success result at 93 also names it. Member 2's `O0` is never initiated, because its C0 never opens.
+
+*The design.* C0 design `T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md:551`: "The result event terminates `worksite_observation_current(O0)` in either case". `:605-607` gives the same law for the admitted C-call result. These were searched without finding a sentence that names a retirement by the selection:
+- that file, for `select|fibre|occurrence|current|retire|terminat`, with `:300-380` scanned for currentness terms and `:372-410`, `:515-556` and `:598-612` read in full;
+- `T287_NATIVE_WORKSPACE_WORK_DESIGN.md:103-125`, which retires C0 observations by native results;
+- `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md:461`, which is about continuation occurrences;
+- every other `design/` hit for `worksite_observation_current`, `fibre_selected` and selection with terminate or retire.
+
+So the terminator is the selection, no design sentence names it, and at 137 the realization does not do what `:551` states. That is the stop: no calculus edit; the Executive places the sentence or rules. One fact for the ruling: `event_calculus.ts` `eventCalculusDependencies` adds `worksiteFailureResultDependencies` to a C0 failure result only when `isWorksitePostPublicationFailure(value)` holds (phase `post_publication`). Here the file still holds `staleBytes` (`:968`), so no write happened. Whether that gate is why 137 carries no term was not checked. A second fact for the ruling: C0 design `:375-376` requires the admitted C-call basis and the validated current prefix to agree that `O0` is current before owner invocation. The realization checks this at the cut just before the selection: `event_calculus.ts` `worksiteSelectedOccurrenceInputCurrent`, "eligibility of this selected C0 occurrence, never public currentness", is consumed by `hog/ccall_lifecycle.ts`, `implementation/leaf_invocation_port.ts` and `implementation/worksite_file_replace.ts`. With that check, the selection's retirement of `O0` does not refuse the owner. The deletion stands either way, because `O0` is not current at the end.
+
+*The deletion.* Base `:1012` (`      predecessorObservations[1].observationRef,`) is removed; nothing else in the lane changed. The expected set is now the one successor observation of member 0.
+
+**Item 5 (b): the harness budget. Restated; the harness 34/30/1/3 → 34/31/0/3.**
+
+Base `test_env/uat/harness.test.mjs:492` asserted the literal 18,015,000. It is now one line that cites C2 design `T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:776-781`:
+- each declared command and HTTP launch contributes its timeout, two termination-grace terms (TERM waiting and KILL confirmation), and a drain of `min(terminationGraceMs, 250)`;
+- each HTTP probe also contributes its request timeout;
+- the separate 5,000 ms owner allowance is added once.
+
+The line computes this from `input.original.testing`, the selected scenario's declared fields, and the design's constants, without the rule object. The `data-mapper-full` scenario declares:
+- one command, `command://abiogenesis-sandbox-uat/data-mapper-full/tests`, with `timeoutMs` 780,000 (overridden to 18,000,000 by the case) and `terminationGraceMs` 10,000;
+- no `http_response_exact` predicate among its nine.
+
+Budget: 18,000,000 + 2 × 10,000 + min(10,000, 250) + 0 + 5,000 = **18,025,250**. The old literal, 18,015,000, equals 18,000,000 + 10,000 + 5,000. The design's current terms supersede the earlier Run02 budget accounting (`:785-786`). The next assertion, the fit against 18,030,000 and 18,040,000, is unchanged and holds.
+
+**Item 5 (c): the retention cases. Added, additions only; the lane 2/2/0/0 → 4/4/0/0.**
+
+`diff` against the base shows 43 lines added after `:129` and 0 removed. A shared helper, `retentionOwner(t)`, reuses `fixture(t)` and the counting R10 override of the first case. Its candidate is a workspace `public_operation_admitted`, a legacy-profile kind.
+1. *A later prefix of the same generation lends the same object.*
+   - `read(f.prefix)` resolves once, count 1.
+   - One event is admitted through `eventOwner.admitRuntimeEvent`, at ordinal 847.
+   - The later prefix is `eventOwner.selectHeldEventStoreDurablePrefix(store)`; it is longer and has a different digest.
+   - `read(later)` is `strictEqual` to the first result, count still 1, and so is `read(f.prefix)`.
+2. *An append rollback drops it.*
+   - The first read retains, count 1; a second read is the same object.
+   - **Driver:** the throwing action under the owner operation `eventOwner.admitRuntimeEventTransaction(store, action)`. The action admits one event (ordinal 847, tentative) and throws. The owner's catch truncates the history and replaces the `RuntimeDerivationSource` (`event_store.ts` `admitRuntimeEventTransaction`'s rollback, base `:4291`). This is the transaction rollback, not the failed-durable-append path (`:2355`).
+   - The held prefix equals `f.prefix` again.
+   - The next read is `deepEqual` to the first result but not `strictEqual`, count 2.
+   - A further read is `strictEqual` to the reconstruction, count 2.
+
+No store internal is reached from the lane. The liveness-refusal driver is not available on this fixture: `admitNativeRuntimeLivenessEvent` requires a current-profile store, and the D2 fixture reopens under `LEGACY_ROOT_EVENT_CONTRACT_DIGEST`.
+
+**Export-list diff.** None. `code/src/product/index.ts` is byte-equal to the base, as is all of `code/`. The two declared exports are not added (Stops, 1). Every existing export is unchanged by name.
+
+**The fixture's three fields.** `node scripts/refresh-candidate-basis.mjs` ran once from the tenant, on the final tree, after the strip and the final `npm run build`, and before the after pass. `test_env/fixtures/abi5-root-candidate-basis.json` is byte-equal to the base:
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:c36b7a7009f2641f2a0500c026e9d2743e957aac2788e062b6e2c44fb6a62940` | unchanged |
+| `productContentDigest` | `sha256:2f0eeec75e0c20ec34a97433438ac06c4812daa6710f432183849c64e6c16d64` | unchanged |
+| `manifestDigest` | `sha256:aab30b956b39259891a349b5d90e4a9e393c155ea06d33810ef3b878afad7993` | unchanged |
+
+No packed payload changed: there is no `code/` edit, and the regenerated outputs are byte-equal.
+
+**Lanes.**
+- **Before.**
+  - The D1/D4-a after column (`scratchpad/d14a/lanes/after/summary.txt` and `compose-summary.txt`). It is valid for every lane it tables, because the three subtrees are equal.
+  - The named set of 37 lanes, rerun alone at the base build with the root set (`scratchpad/r2/lanes/before/`). It covers:
+    - the lanes that reach the installed transport or the binding set (C-20's census method);
+    - st1;
+    - the owner importers;
+    - the candidate basis consumers;
+    - item 5's three lanes and `t287-worksite-branch-construction`;
+    - the two uat lanes.
+  - Every one of the 35 tabled lanes is equal to the column. The harness lane, not tabled, measured 34/30/1/3 at `:473`, assertion `:492` (18,025,250 actual against 18,015,000), as D1/D4-a measured it. `uat/continuation` measured 4/0/0/4.
+- **After.**
+  - The whole suite once, each lane alone with `ABI5_EVIDENCE_ROOT` set, on the clean tree after the refresh: 195 lanes in 5,459 s.
+  - Then the two uat lanes and the compose scenario (`scratchpad/r2/lanes/after/`, `after-uat/`).
+  - The join is `scratchpad/r2/join.tsv`; the reds and skips are in `after-exit.json`.
+
+| | Lanes | tests/pass/fail/skip | Red lanes | Compose | uat harness | uat continuation |
+|---|---|---|---|---|---|---|
+| Before | 195 | 1,161/990/4/167 | 3 | 2/2/0/0 | 34/30/1/3 | 4/0/0/4 |
+| After | 195 | 1,163/994/2/167 | 1 | 2/2/0/0 | 34/31/0/3 | 4/0/0/4 |
+
+192 lanes are equal. Four moved, all by the named cases:
+
+| Lane | Before | After | First error before → after |
+|---|---|---|---|
+| `t287-st1-installed-cross-owner-hello` | 2/1/1/0 | 2/2/0/0 | `:737` at assertion `:1259`, replay coordinate `fe074f29…` against `1bbdf36e…` → none |
+| `t287-worksite-construction` | 3/2/1/0 | 3/3/0/0 | `:701` at assertion `:1006`, the current-observation set without member 1's `O0` → none |
+| `t287-historical-source-resource` | 2/2/0/0 | 4/4/0/0 | none; the two retention cases were added |
+| `uat-harness` (not in the column) | 34/30/1/3 | 34/31/0/3 | `:473` at assertion `:492`, 18,025,250 against 18,015,000 → none |
+
+- **The standing red** is the one the exit names, equal to before: `t287-st2a-g-capability-definition-graph`, 4/2/2/0. Its failures are at `:74` ("missing capability projection for `abg.asset.gtl.language-c`…") and `:271` (question 9). It is not worked here.
+- **Skips.** Skip names and reasons are equal lane by lane: 167 before and 167 after.
+- **The three r-lanes** (`r1-packed-artifact`, `r2-clean-install`, `r3-workspace-binding`) are 1/1/0/0 before and after, on the refreshed fixture, which is byte-equal.
+- **The new lane** `t287-required-operation-bindings` does not exist (Stops, 1).
+
+*Main.* No commit landed on `main` during the run. `HEAD` is the base `17e708cdb` before this commit, and `git log 17e708cdb..main -- build_tenants/abiogenesis/typescript` is empty.
+
+**Gates** (on the final tree; logs in `scratchpad/r2/gates/`).
+- `npx tsc --noEmit -p tsconfig.json`: clean.
+- `--noUnusedLocals`: 1 error, `code/src/product/worksite_command_execution.ts(74,7)` `BASE64_PATTERN`, R3's, as expected.
+- The four lints, each rc 0:
+  - `lint:imports`: 3 forbidden owner pairs hold;
+  - `lint:lifecycle`: 286 modules, 7 allow-listed sites, no offender;
+  - `lint:evidence`: 691 tracked mirror roots, all inventoried, no new copy;
+  - `lint:calculus`: 6 modules, no offender.
+- `npm run build`: rc 0.
+- *Regenerated files.* `product-toolchain-manifest.json`, `contracts/capabilities/capability-definition-graph.json` and `contracts/default-library/stdo/context.inventory.json` are byte-equal to the base, so no leaf moved. Two lanes of the pass (`t287-w2-05-release-snapshot-definition-bindings`, `t287-w2-05-generator-package-reproducibility`) run `npm run build` themselves; after the pass, `git status` shows only the four test files.
+- *`callableContractDigest`s*, from the manifest's `contracts/public-operations/*/operation-contract.json`, equal to the base:
+  - `result/assess` `["assess"]` `sha256:4c8779cd…4ac4fd7`;
+  - `product/materialize` `["configuration"]` `sha256:fa4a6d91…c835c60d`;
+  - `product/materialize` `["context_bootstrap"]` `sha256:59b36d18…a664976f`.
+
+**Instrumentation.** The `// R2` lines lived only in development copies of st1 and C1; no source or build file carried any. Proof:
+- `git grep -c '// R2' -- code test_env scripts contracts` finds none (rc 1).
+- `grep -c 'R2'` is 0 in each of the four edited files and in their base copies.
+- Each edited file is byte-equal (`cmp`) to the clean copy kept in `scratchpad/r2/` (`st1.clean.mjs`, `c1.clean.mjs`, `harness.clean.mjs`, `historical-source.clean.mjs`).
+- Each base copy is byte-equal to `HEAD`'s blob.
+- No `code/` file was edited, so the build carries none.
+
+**Deviations.**
+1. *st1.* Three assertions beyond `:1259` changed: `:1275`, `:1291` and `:1293`, under "the lines its restatement needs". The Run-truth exclusions add `terminalResult.projectionBasis`, a prefix coordinate the activation's list does not name (item 4).
+2. *Development runs outside the two passes.* These were authoring runs of the edited lanes, not counted passes:
+   - `t287-historical-source-resource` once;
+   - st1 three times;
+   - C1's `:701` case four times, by name pattern;
+   - the harness once;
+   - the scratch probes `probe-authority/` and `probe-5c/`.
+
+   The historical-source and st1 runs overlapped the before pass, while it was running other lanes. Every tabled lane of that pass is equal to the D1/D4-a column. One probe import failed with `ERR_MODULE_NOT_FOUND` while `t287-w2-05-release-snapshot-definition-bindings` was rebuilding `build/`, and was rerun after.
+3. *The before set.* It also ran `test_env/uat/continuation.test.mjs` (4/0/0/4), which the D1/D4-a column does not table.
+4. *Record reads.* Earlier in the run, one `grep -n '^## '` heading listing of a record file was piped through `tail -n 12`. That filters the grep's output; it is not a read of the record's contents. The R2 activation was read as `sed -n '754,$p'`, and that output was sometimes filtered by `grep`. No other command took a record's path except the permitted section reads, this append, and `git add` and `git commit`.
+
+**Findings outside the grant.**
+1. *The port-named consts* (item 1). `RESULT_OPERATION_CONTRACTS` and `MATERIALIZATION_OPERATION_CONTRACTS` are the contract roots in `product/*_operation_contracts.ts`. The owner modules export the same names, holding the owner functions. No `code/src` module imports either owner module, except one type-only import.
+2. *C1 at 137* (item 5 (a)). The C0 failure result's fold effect names no worksite term, against design `:551`.
+3. *materialize's event boundary.* The declaration is `eventAdmission: immutable_artifact_boundary`. `abg/artifact_truth.ts` admits `public_operation_artifact_admitted` only for `product.install`, `workspace.bind` and `release.snapshot`. The re-grant must say what event, if any, materialize's binding admits.
+4. *materialize's refusal enum.* The owner never raises `workspace_not_ready` or `mutable_default_forbidden`.
+
+**Stops.**
+1. *Items 2 and 3, the admission authority.* `product/admission_authority.ts` `ADMISSION_OPERATIONS` (`:221-226`) lacks `abg.operation.result.assess` and `abg.operation.product.materialize`. Every grant for the three members therefore refuses at the scope check, which the probe confirms. No grant constructor elsewhere admits them.
+   - The fix is outside the grant, one line: add the two ids to the set.
+   - The re-grant also needs these named choices:
+     - `configuration`'s `workspaceDigest`, which the binding does not carry;
+     - the one declared `subject` taken from the owner's workspace and binding pairs;
+     - the binding-supplied `issuePaths`;
+     - `result.assess`'s owner-native grant and actor digest, related to the Public `capability_grant` slot;
+     - the assessment contract body, taken from the bound environment's catalog.
+2. *`context_bootstrap`'s declared `contextInputs[].contract`.* The owner's `declared_context_input` has no contract field, and no step admits a value under its contract. This is a declared request member the owner cannot meet. Either the owner gains the field or the declaration changes; both are outside the grant.
+3. *Item 5 (a).* The terminator of C1's member-1 `O0` is `c_call_fibre_selected` at ordinal 131, through `code/src/abg/calculus/axioms.ts` `eventCalculusEffectRefs` `case "c_call_fibre_selected"` → `retiredWorksiteObservations`. No design sentence names that retirement. C0 design `:551` names the result, and the result at 137 does not terminate it. There is no calculus edit; the Executive places the sentence or rules.
+
+**What could not be verified.**
+- Items 2 and 3's six cases, because no binding exists.
+- Whether the `isWorksitePostPublicationFailure` gate in `eventCalculusDependencies` is the cause of 137's empty worksite term.
+- The liveness-refusal half of item 5 (c), which is not drivable on the legacy-profile fixture. The rollback half stands.

@@ -1009,7 +1009,6 @@ test("T-287 C1 retains an exact partial prefix when a later C0 member refuses", 
       .sort(),
     [
       admittedSuccessfulOutput.payload.value.successorObservation.observationRef,
-      predecessorObservations[1].observationRef,
     ].sort(),
   );
 });

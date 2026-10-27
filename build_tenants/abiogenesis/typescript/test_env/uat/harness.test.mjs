@@ -489,7 +489,7 @@ test('Caller execution policy preserves acquired meaning and all command fields 
   assert.deepEqual(input.observations,[]);assert.equal(input.synthesis,null);assert.equal(input.terminal,false);
   assert.equal(input.original.testing.commands[0].timeoutMs,18000000);
   const budget=c2.projectWorksiteCommandExecutionBudget(input.original.testing);
-  assert.equal(budget.requiredExecutionBudgetMs,18015000);
+  /* T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md:776-781: each command and HTTP launch contributes its timeout, two termination-grace terms and a drain of min(terminationGraceMs, 250); each HTTP probe adds its request timeout; plus the separate 5,000ms owner allowance. */ assert.equal(budget.requiredExecutionBudgetMs,input.original.testing.commands.reduce((sum,c)=>sum+c.timeoutMs+2*c.terminationGraceMs+Math.min(c.terminationGraceMs,250),0)+input.original.testing.outcomePredicates.filter(p=>p.predicateKind==='http_response_exact').reduce((sum,{declaration:{launch,request}})=>sum+launch.timeoutMs+2*launch.terminationGraceMs+Math.min(launch.terminationGraceMs,250)+request.timeoutMs,0)+5000);
   assert.equal(c2.worksiteCommandExecutionBudgetFits(budget.requiredExecutionBudgetMs,{inactivityTimeoutMs:18030000,absoluteTimeoutMs:18040000}),true);
   assert.throws(()=>applyCommandTimeoutOverrides(selected.request,{foreign:18000000}),/no declared command/u);
 });
