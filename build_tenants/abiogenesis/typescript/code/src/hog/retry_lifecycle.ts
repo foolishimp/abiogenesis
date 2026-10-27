@@ -586,7 +586,7 @@ export function advanceOwnedRetryLifecycle(
         request,
         admitted.successorPrefix,
         "retry-blocked-route",
-        `diagnostic://abiogenesis/hog/${proposal.code}@5`,
+        constructRuntimeFailureDiagnosticRef({ stage: "retry-blocked-route", candidate: proposal }),
         proposal,
       );
     }
@@ -644,7 +644,7 @@ export function advanceOwnedRetryLifecycle(
         request,
         admitted.successorPrefix,
         "retry-blocked-transition",
-        `diagnostic://abiogenesis/hog/${route.code}@5`,
+        constructRuntimeFailureDiagnosticRef({ stage: "retry-blocked-transition", candidate: route }),
         route,
       );
     }

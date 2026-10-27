@@ -740,11 +740,12 @@ export function evaluateOwnedExecutableCCall(
         })
       : null;
     if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+      const stage = `leaf-retry-progress-${input.ordinal}`;
       return failCCall(
         input,
         admitted.successorPrefix,
-        `leaf-retry-progress-${input.ordinal}`,
-        `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+        stage,
+        constructRuntimeFailureDiagnosticRef({ stage, candidate: retryExit }),
         retryExit,
       );
     }

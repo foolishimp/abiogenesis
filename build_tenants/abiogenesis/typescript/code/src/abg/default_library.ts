@@ -68,10 +68,38 @@ function contextMatches(o: Owner, state: GovernanceWorkState, context: WorksiteC
     context.maxFiles === state.original.maxContextFiles && context.maxBytes === state.original.maxContextBytes &&
     state.original.sources.every(s => context.entries.some(e => e.relativePath === s.path && e.state === "file" && e.digest === s.digest));
 }
-async function currentContext(o: Owner, state: GovernanceWorkState, refusal?: GovernanceTestingRefusal) {
+/** The preparation leaves' worksite observation, an admitted observation. */
+type GovernanceWorksiteObservation = Readonly<{
+  context: WorksiteContextObservation;
+  observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"];
+}>;
+/**
+ * The one effect of the three governance preparation leaves, under the worksite
+ * operations' own contracts: the context under the original read roots
+ * (`observeWorksiteContext`; every file by path, digest and bytes within the
+ * original `maxContextFiles` and `maxContextBytes`) and, for observed testing
+ * only, each selected path (`observeWorksiteSubject`). This owner admits the
+ * context only when it binds the current authority, binding, read roots, bounds
+ * and every original source (`contextMatches`). The task constructions read the
+ * admitted observation, the declared input and the admitted prefix, never the
+ * worksite; the observation is carried in the constructed task, so the leaf's
+ * deterministic evidence binds it by the output digest and result admission
+ * (`governanceResultMatches`) re-derives the task from the carried observation.
+ */
+async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, observedPaths: readonly string[],
+  refusal?: GovernanceTestingRefusal): Promise<GovernanceWorksiteObservation | null> {
   const context = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
   if (!isWorksiteContextObservation(context)) return testingRefused(refusal, "testing_context", "context_observation");
-  return contextMatches(o, state, context) ? context : testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
+  if (!contextMatches(o, state, context)) return testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
+  const current = operating(o), observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
+  for (const relativePath of observedPaths) {
+    const subject = constructWorksiteSubject({ ...current, relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href });
+    if (subject.kind !== "worksite_subject") return testingRefused(refusal, "testing_observed_subject", "subject_construction");
+    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
+    if (observation.kind !== "worksite_observation" || observation.state !== "file") return testingRefused(refusal, "testing_observed_subject", "file_observation");
+    observedFiles.push({ subject, observation });
+  }
+  return { context, observedFiles };
 }
 function result(o: Owner, resultRef: string, resultDigest?: string): RuntimeEvent | null {
   const rows = indexedRuntimeEvents(o.prefix, "payload:resultRef:" + resultRef).filter(e => e.kind === "c_call_result_admitted" &&
@@ -86,7 +114,10 @@ function sourceResult(o: Owner, input: unknown) {
   return retained !== undefined && retained.entryBasis.basisRef === o.execution.basisRef &&
     retained.input.admissionRef === o.inputRef && same(retained.input.value, input) ? retained.sourceResult : null;
 }
-function selectionTask(state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask {
+/** Selection task construction over the admitted context; reads no worksite. */
+function selectionTask(state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
+  if (state.original.fulfillment !== undefined && state.synthesis === null &&
+    !governanceFulfillmentSourceMatches(state.original.fulfillment, context)) return null;
   if (state.terminal) throw new TypeError("completed parent cannot select work");
   return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
 }
@@ -130,10 +161,8 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
 }
 export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
-  const context = await currentContext(o, input);
-  if (context === null || input.original.fulfillment !== undefined && input.synthesis === null &&
-    !governanceFulfillmentSourceMatches(input.original.fulfillment, context)) return null;
-  return selectionTask(input, context);
+  const observation = await observeGovernanceWorksite(o, input, []);
+  return observation === null ? null : selectionTask(input, observation.context);
 }
 function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, refusal?: GovernanceTestingRefusal) {
   const ref = state.synthesis?.judgment.subjectEvidenceRef;
@@ -155,6 +184,7 @@ function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: Governan
   if (value.provenance.actorInvocationRef !== selected[0]!.actorInvocationRef) return testingRefused(refusal, "testing_subject", "producer_actor", { resultRef: ref });
   return { event, value };
 }
+/** Native task construction over the admitted context and prefix; reads no worksite. */
 function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, context: WorksiteContextObservation) {
   const order = state.original.workOrders[purpose]; if (order === undefined || !contextMatches(o, state, context)) return null;
   const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
@@ -210,7 +240,8 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
 export async function projectGovernanceNativeTask(basis: NativeInstructionAssemblyBasis, input: unknown) {
   const o = owner(basis, input), purpose = basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose;
   if (o === null || !isGovernanceWorkState(input) || !Object.hasOwn(GOVERNANCE_POLICIES, purpose) || purpose === "testing") return null;
-  const context = await currentContext(o, input); return context === null ? null : nativeTask(o, input, purpose, context);
+  const observation = await observeGovernanceWorksite(o, input, []);
+  return observation === null ? null : nativeTask(o, input, purpose, observation.context);
 }
 /** Shared pure task/input relation for preparation admission and observed child provenance. */
 export function observedGovernanceTaskMatches(state: unknown, task: unknown): boolean {
@@ -232,29 +263,29 @@ export async function projectGovernanceTestingTask(basis: NativeInstructionAssem
   const o = owner(basis, input, refusal);
   if (o === null) return null;
   if (!isGovernanceWorkState(input) || basis.graphFunction.declarations["abg.default_library_purpose"] !== "testing") return testingRefused(refusal, "testing_input", "state_purpose");
-  const context = await currentContext(o, input, refusal); if (context === null) return null;
-  const current = operating(o), selectedSource = input.synthesis?.judgment.subjectEvidenceRef,
-    p = subjectEvidence(o, input, "testing", selectedSource === null || selectedSource === undefined ? undefined : refusal);
-  if (selectedSource !== null && selectedSource !== undefined) {
-    if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
-    if (!same(p.value.after, context)) {
-      if (reacquire === undefined) return testingRefused(refusal, "testing_reacquisition", "callback_absent", { resultRef: selectedSource, contextRef: context.observationRef });
-      const task = refusal === undefined ? reacquire(context) : reacquire(context, refusal);
-      return task ?? testingRefused(refusal, "testing_reacquisition", "callback_entered_refused", { resultRef: selectedSource, contextRef: context.observationRef });
-    }
-    return constructNativeWorksiteCommandExecutionTask({ ...current, sourceNativeWork: p.value,
+  const selectedSource = input.synthesis?.judgment.subjectEvidenceRef, observed = selectedSource === null || selectedSource === undefined;
+  const observation = await observeGovernanceWorksite(o, input, observed ? input.original.testing.selectedPaths : [], refusal);
+  return observation === null ? null : testingTask(o, input, observation, reacquire, refusal);
+}
+/** Testing task construction over the admitted observation and prefix; reads no
+ * worksite. A changed selected native source is the reacquisition operation's,
+ * entered through the caller's callback. */
+function testingTask(o: Owner, input: GovernanceWorkState, observation: GovernanceWorksiteObservation,
+  reacquire?: (context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null,
+  refusal?: GovernanceTestingRefusal) {
+  const current = operating(o), context = observation.context, selectedSource = input.synthesis?.judgment.subjectEvidenceRef;
+  if (selectedSource === null || selectedSource === undefined)
+    return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) });
+  const p = subjectEvidence(o, input, "testing", refusal);
+  if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
+  if (!same(p.value.after, context)) {
+    if (reacquire === undefined) return testingRefused(refusal, "testing_reacquisition", "callback_absent", { resultRef: selectedSource, contextRef: context.observationRef });
+    const task = refusal === undefined ? reacquire(context) : reacquire(context, refusal);
+    return task ?? testingRefused(refusal, "testing_reacquisition", "callback_entered_refused", { resultRef: selectedSource, contextRef: context.observationRef });
+  }
+  return constructNativeWorksiteCommandExecutionTask({ ...current, sourceNativeWork: p.value,
     selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
     ...governanceTestingConfiguration(input) });
-  }
-  const observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
-  for (const relativePath of input.original.testing.selectedPaths) {
-    const subject = constructWorksiteSubject({ ...current, relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href });
-    if (subject.kind !== "worksite_subject") return testingRefused(refusal, "testing_observed_subject", "subject_construction");
-    const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
-    if (observation.kind !== "worksite_observation" || observation.state !== "file") return testingRefused(refusal, "testing_observed_subject", "file_observation");
-    observedFiles.push({ subject, observation });
-  }
-  return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles, ...governanceTestingConfiguration(input) });
 }
 export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
   const o = owner(basis, input), purpose = basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose;

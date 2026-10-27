@@ -134,9 +134,9 @@ test('declared wrapper judgments advance actual observations, including red C2, 
 
 test('default role content is the exact packaged STDO3 subset with capability instructions separate',async()=>{
   const {DEFAULT_LIBRARY_STDO_SOURCE:source}=await import('../../build/code/src/gtl/default_library.js');
-  assert.equal(source.basisRef,'stdo://releases/v3.0.0-rc.1/');
+  assert.equal(source.basisRef,'stdo://releases/v3.0.1-rc.1/');
   const manifest=await readFile(join(packageRoot,source.manifest.assetPath));
-  assert.equal(product.sha256Bytes(manifest),'sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232');
+  assert.equal(product.sha256Bytes(manifest),'sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8');
   const released=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifest),packaged=new Map();
   const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
     'standards/ASSURANCE.md':'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca'};

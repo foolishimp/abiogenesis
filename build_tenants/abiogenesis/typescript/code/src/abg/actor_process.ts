@@ -687,13 +687,15 @@ export interface ActorProcessInvocationInput {
 }
 
 /**
- * The one reader of the two actor timer settings. The worksite command
- * execution gate and the actor transport plan both read them here; each
- * caller keeps its own check over the values.
+ * The one reader of the two actor timer settings, validated once here: an
+ * unset key takes its default and a set value that is not one positive safe
+ * integer is refused at the reader. The worksite command execution gate and
+ * the actor transport plan read the validated values; each caller keeps only
+ * its own relation over them.
  */
 export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
-  return { absoluteTimeoutMs: Number(process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? "3600000"),
-    inactivityTimeoutMs: Number(process.env.ABG_TS_FP_TIMEOUT_MS ?? "60000") };
+  return { absoluteTimeoutMs: positiveInteger(process.env, "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", 3_600_000),
+    inactivityTimeoutMs: positiveInteger(process.env, "ABG_TS_FP_TIMEOUT_MS", 60_000) };
 }
 
 function positiveLimit(key: string, value: number): number {
@@ -882,10 +884,9 @@ async function invokeActorProcessWithAssembly(
     cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
     archiveRoot: input.runtime.workspaceBinding.roots.archiveRoot,
     label: `fp-${attemptDigest.slice("sha256:".length, "sha256:".length + 16)}`,
-    // The two shared limits come from their one reader; this owner keeps its
-    // positive-safe-integer check over the values it returns.
-    timeoutMs: positiveLimit("ABG_TS_FP_TIMEOUT_MS", limits.inactivityTimeoutMs),
-    absoluteTimeoutMs: positiveLimit("ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", limits.absoluteTimeoutMs),
+    // The two shared limits come validated from their one reader.
+    timeoutMs: limits.inactivityTimeoutMs,
+    absoluteTimeoutMs: limits.absoluteTimeoutMs,
     terminationGraceMs: positiveInteger(
       environment,
       "ABG_TS_FP_TERMINATION_GRACE_MS",

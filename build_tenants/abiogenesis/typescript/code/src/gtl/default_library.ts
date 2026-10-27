@@ -79,12 +79,12 @@ export function defaultGovernanceGraphFunctions(options: { purposes?: readonly G
 // Exact released bytes are packaged as a generic source subset. The original
 // manifest proves provenance; only the two selected members supply role context.
 export const DEFAULT_LIBRARY_STDO_SOURCE = {
-  "basisRef": "stdo://releases/v3.0.0-rc.1/",
-  "manifestDigest": "sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232",
+  "basisRef": "stdo://releases/v3.0.1-rc.1/",
+  "manifestDigest": "sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
   "manifest": {
     "path": "manifest.json",
     "assetPath": "contracts/default-library/stdo/manifest.json",
-    "byteCount": 13478
+    "byteCount": 13792
   },
   "members": {
     "executive": {

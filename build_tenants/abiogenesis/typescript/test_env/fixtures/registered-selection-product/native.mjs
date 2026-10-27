@@ -5,7 +5,7 @@ export {ref,contract,version,packageName};
 // source. This is declaration data for the shared current environment constructor.
 export const NATIVE_SELECTION_STDO3_ROLE=Object.freeze({
   graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',
-  frameRefs:['stdo://releases/v3.0.0-rc.1/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame'],
+  frameRefs:['stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame'],
   policy:{policyRef:ref('policy','native-suitability'),text:"Under the declared bounded Executive frame, judge whether one permitted registered capability serves the supplied task and recipient requirements. Respect the declared purpose, conditions, input, result and effect contracts. This computation produces a suitability finding and permitted choice or gap; it does not confer operation authority or claim a wider STDO disposition. Supplied observations are current request facts, not independently verified workspace state. A missing suitable capability or required support remains an explicit gap. Do not generate capabilities, repair input, inspect the workspace or treat capability presence as success.",
     digest:"sha256:4edda6c26a4fb54b24e005051b96d7457b94b77041557ba1c8a238e96924eeb2"},
   contextPolicy:{policyRef:ref('policy','native-context'),selectors:['full_source','active_binding_semantics']},

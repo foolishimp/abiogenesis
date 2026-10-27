@@ -10,7 +10,6 @@ import type { CatalogReadinessBasis, ProductInstall } from "../product/index.js"
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
-  type JsonValue,
 } from "../shared/canonical_json.js";
 import {
   isSha256Digest,

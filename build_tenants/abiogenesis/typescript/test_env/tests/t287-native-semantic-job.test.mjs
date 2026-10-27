@@ -195,7 +195,8 @@ test('command budget shares HTTP terms and exact existing C2 selector behavior',
  try{delete process.env.ABG_TS_FP_TIMEOUT_MS;delete process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS;
   assert.deepEqual(implementation.selectedWorksiteCommandExecutionLimits(),{inactivityTimeoutMs:60000,absoluteTimeoutMs:3600000});
   process.env.ABG_TS_FP_TIMEOUT_MS='';process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='invalid';
-  const invalid=implementation.selectedWorksiteCommandExecutionLimits();assert.equal(invalid.inactivityTimeoutMs,0);assert(Number.isNaN(invalid.absoluteTimeoutMs));
+  assert.throws(()=>implementation.selectedWorksiteCommandExecutionLimits(),/ABG_TS_FP_ABSOLUTE_TIMEOUT_MS must be one positive safe integer/);
+  process.env.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS='900000';assert.throws(()=>implementation.selectedWorksiteCommandExecutionLimits(),/ABG_TS_FP_TIMEOUT_MS must be one positive safe integer/);
  }finally{for(const [i,key]of ['ABG_TS_FP_TIMEOUT_MS','ABG_TS_FP_ABSOLUTE_TIMEOUT_MS'].entries())if(before[i]===undefined)delete process.env[key];else process.env[key]=before[i];}
 });
 
