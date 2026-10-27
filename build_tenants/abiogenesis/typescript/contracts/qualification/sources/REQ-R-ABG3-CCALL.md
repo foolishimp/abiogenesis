@@ -1,6 +1,7 @@
 # REQ-R-ABG3-CCALL — The Uniform C-Call Envelope
 
 **Status**: Active - accepted by T-283 F_H closure
+**Category**: Capability / Constraint / Guarantee
 **Product behavior**: [Execution And Context Calculus](../../PRODUCT.md#execution-and-context-calculus); T-287 owner-directed Product/requirement re-entry.
 **Realizes**: T-200 (design §2 as amended §8)
 **Derives from**: REQ-R-ABG3-* dispatch census (T-190), REQ-L-GTL3-TEMPORAL-PROPERTIES (T-192), REQ-R-ABG3-REQUIREMENT-PROOF-CARRY-THROUGH (T-188), T-195 C3/C4 adjudications, T-030 emergence boundary law.

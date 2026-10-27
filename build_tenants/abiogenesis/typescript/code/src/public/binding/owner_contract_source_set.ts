@@ -17,7 +17,7 @@ import { RUN_OPERATION_CONTRACTS } from "../../product/run_operation_contracts.j
 import { PRODUCT_VERIFICATION_CONTRACTS } from "../../product/verification_operation_contracts.js";
 import { WORKSPACE_OPERATION_CONTRACTS } from "../../product/workspace_operation_contracts.js";
 import { CONFORMANCE_OPERATION_CONTRACTS } from "../../validator/conformance_operation_contracts.js";
-import { compareUnicodeCodeUnits, type JsonValue } from "../../shared/canonical_json.js";
+import { compareUnicodeCodeUnits } from "../../shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../../shared/digests.js";
 import { deepFreeze } from "../../shared/immutable.js";
 import {

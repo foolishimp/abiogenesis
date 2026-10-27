@@ -107,7 +107,7 @@ test('K11 current public specialization admits exact standalone STDO3 and conser
   for (const mutate of [
     x => { x.dependencies = []; },
     x => { x.dependencies.push(structuredClone(x.dependencies[0])); },
-    x => { x.dependencies[0].basisRef = x.contexts[0].sourceLocator = 'stdo://releases/v3.0.0-rc.1'; },
+    x => { x.dependencies[0].basisRef = x.contexts[0].sourceLocator = 'stdo://releases/v3.0.1-rc.1'; },
     x => { x.dependencies[0].recordFormat = 'member_inventory@1'; },
     x => { x.contexts[0].members[0].digest = product.sha256Canonical('wrong member'); },
     x => { x.roles[0].sourceBindings[0].endByte = x.contexts[0].members[0].byteCount + 1; },

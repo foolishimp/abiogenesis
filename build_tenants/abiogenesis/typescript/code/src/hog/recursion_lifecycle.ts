@@ -387,7 +387,7 @@ function finishRecursionTerminal(
       outcome.successorPrefix,
       clock,
       "terminal-retry-progress",
-      `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+      constructRuntimeFailureDiagnosticRef({ stage: "terminal-retry-progress", candidate: retryExit }),
       retryExit,
     );
   }

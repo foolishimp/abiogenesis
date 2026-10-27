@@ -622,12 +622,10 @@ export function realizeWorksiteCommandExecution(
   const c2Occurrence = exactAuthorityFreeOccurrence(occurrence, verifyNativeOccurrence);
   const { absoluteTimeoutMs: configuredAbsoluteTimeout, inactivityTimeoutMs: configuredInactivityTimeout } = selectedWorksiteCommandExecutionLimits();
   const requiredBudget = projectWorksiteCommandExecutionBudget(input).requiredExecutionBudgetMs;
-  if (!Number.isSafeInteger(configuredInactivityTimeout) ||
-    configuredInactivityTimeout <= requiredBudget) {
+  if (configuredInactivityTimeout <= requiredBudget) {
     throw new TypeError("actor inactivity timeout must exceed the task's closed helper execution budget");
   }
-  if (!Number.isSafeInteger(configuredAbsoluteTimeout) ||
-    configuredAbsoluteTimeout <= requiredBudget ||
+  if (configuredAbsoluteTimeout <= requiredBudget ||
     configuredAbsoluteTimeout <= configuredInactivityTimeout) {
     throw new TypeError("actor absolute timeout must exceed the task's closed helper execution budget");
   }

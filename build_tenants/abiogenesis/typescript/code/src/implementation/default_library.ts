@@ -32,6 +32,16 @@ function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonVa
   return success ? { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success", resultCandidate, evidenceCandidates }
     : { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate, evidenceCandidates, diagnosticRef };
 }
+/**
+ * The three governance preparation leaves each run one worksite observation
+ * effect, admitted by its owner before any construction reads it
+ * (`observeGovernanceWorksite`), then one pure task construction over the
+ * declared input, the admitted prefix and that admitted observation. The F_D
+ * claim is the construction's: it terminates from code, its dependencies are the
+ * declared input, the prefix and the observation the result carries, and it has
+ * one typed outcome per input. The deterministic evidence binds the carried
+ * observation through the output digest.
+ */
 export async function prepareGovernanceSelection(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
   return realized("prepare-selection", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceSelection(occurrence.nativeInstructionAssemblyBasis, input));
 }

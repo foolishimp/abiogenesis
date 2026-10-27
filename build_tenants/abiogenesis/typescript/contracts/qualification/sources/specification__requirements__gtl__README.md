@@ -58,6 +58,7 @@ ratified ontology, and the GTL/ABG boundary.
 - `REQ-L-GTL3-EVALUATOR.md`
 - `REQ-L-GTL3-RULE.md`
 - `REQ-L-GTL3-GRAPHFUNCTION.md`
+- `REQ-L-GTL3-GRAPHFUNCTION-REFINEMENT.md`
 - `REQ-L-GTL3-HOOKS.md`
 - `REQ-L-GTL3-COMPUTE-NOTATION.md`
 - `REQ-L-GTL3-ROLE.md`
@@ -69,6 +70,7 @@ ratified ontology, and the GTL/ABG boundary.
 - `REQ-L-GTL3-RECURSE.md`
 - `REQ-L-GTL3-HOF.md`
 - `REQ-L-GTL3-LAWS.md`
+- `REQ-L-GTL3-TEMPORAL-PROPERTIES.md`
 - `REQ-L-GTL3-MODULE.md`
 - `REQ-L-GTL3-SELECTION-BOUNDARY.md`
 - `REQ-L-GTL3-SUBWORK.md`

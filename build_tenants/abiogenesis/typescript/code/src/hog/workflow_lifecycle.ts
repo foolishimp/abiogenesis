@@ -1,5 +1,5 @@
 import * as Abg from "../abg/index.js";
-import { projectRuntimeFailureCandidate } from "../abg/runtime_failure.js";
+import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureCandidate } from "../abg/runtime_failure.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, indexedRuntimeEventEnvelopes } from "../abg/event_prefix.js";
 import type {
   AbgEventStore,
@@ -817,10 +817,11 @@ export function completeOwnedWorkflowLocus(
         })
       : null;
     if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+      const stage = `workflow-retry-progress-${ordinal}`;
       return failWorkflow(frame,
         outcome.successorPrefix,
-        `workflow-retry-progress-${ordinal}`,
-        `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+        stage,
+        constructRuntimeFailureDiagnosticRef({ stage, candidate: retryExit }),
         retryExit,
       );
     }
@@ -954,10 +955,11 @@ export function completeOwnedWorkflowLocus(
       })
     : null;
   if (retryExit?.kind === "successful_retry_exit_plan_refusal") {
+    const stage = `fan-out-retry-progress-${ordinal}`;
     return failWorkflow(frame,
       fanOutCompletion.successorPrefix,
-      `fan-out-retry-progress-${ordinal}`,
-      `diagnostic://abiogenesis/hog/${retryExit.code}@5`,
+      stage,
+      constructRuntimeFailureDiagnosticRef({ stage, candidate: retryExit }),
       retryExit,
     );
   }

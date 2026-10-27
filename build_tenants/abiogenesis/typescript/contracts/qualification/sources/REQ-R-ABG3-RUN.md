@@ -37,9 +37,10 @@ unchanged.
 
 **REQ-R-ABG3-RUN-010**: An STDO-governed Run shall retain its admitted
 environment declaration and immutable dependency identities, permitted access
-basis, actual required corpus-access evidence and the context/policy supplied
-to dependent calls through the existing ABG event history. Fresh replay shall
-reconstruct those exact relations and distinguish access evidence from
+basis, actual required native-source and selected supplementary access evidence,
+and the context/policy supplied to dependent calls through the existing ABG
+event history. Fresh replay shall reconstruct those exact relations and
+distinguish access evidence from
 semantic assessment without relying on an ambient installation, performing a
 new retrieval or fabricating missing evidence. A material governing-environment
 change requires its declared re-entry; it shall not silently upgrade the Run.

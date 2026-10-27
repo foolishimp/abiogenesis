@@ -300,10 +300,16 @@ async function observeDesignWorksite(basis: SemanticStageNativeBasis, input: unk
     if (subject.kind !== "worksite_subject") return null;
     const observation = await observeWorksiteSubject(current.workspaceAuthorityBasis, current.workspaceBinding, subject);
     if (observation.kind !== "worksite_observation") return null;
-    const bytes = observation.state === "absent" ? Buffer.alloc(0) : readFileSync(resolve(current.workspaceAuthorityBasis.canonicalRoot, target.relativePath));
+    // The target bytes are the admitted envelope context's, as the saved
+    // relation (`semanticJobSavedWorksite`) reads them; the live subject
+    // observation is admitted only when it names those exact bytes.
+    const entry = original.context?.entries.find(e => e.relativePath === target.relativePath);
+    const base64 = observation.state === "absent" ? "" : entry?.state === "file" ? entry.bytes : null;
+    if (base64 === null) return null;
+    const bytes = Buffer.from(base64, "base64");
     if (observation.state === "file" && (observation.fileDigest !== sha256Bytes(bytes) || observation.byteLength !== bytes.length)) return null;
     const task = constructWorksiteConstructionTask({ ...current, prompt: "Native assessed target identity", targets: [{ subject, territory: target.territory, predecessorObservation: observation }] });
-    rows.push({ target: task.targets[0]!, base64: bytes.toString("base64"), role: design.targets.find(t => t.relativePath === target.relativePath)!.role });
+    rows.push({ target: task.targets[0]!, base64, role: design.targets.find(t => t.relativePath === target.relativePath)!.role });
   }
   // Read-only members are exact context observations, never replacement targets.
   for (const dependency of deriveSemanticJobReadDependencies(original, current)?.members ?? []) {

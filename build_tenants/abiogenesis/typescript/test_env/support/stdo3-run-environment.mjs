@@ -4,8 +4,8 @@ import { join } from 'node:path';
 import { ref } from '../fixtures/registered-selection-product/index.mjs';
 
 export const STDO3_SOURCE = Object.freeze({
-  basisRef: 'stdo://releases/v3.0.0-rc.1/',
-  manifestDigest: 'sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232',
+  basisRef: 'stdo://releases/v3.0.1-rc.1/',
+  manifestDigest: 'sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8',
   memberPath: 'standards/EXECUTIVE_BASELINE.md',
   memberDigest: 'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
 });

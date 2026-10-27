@@ -23,3 +23,437 @@ Grant: `code/src/gtl/default_library.ts` (the three `DEFAULT_LIBRARY_STDO_SOURCE
 Stops (write the stop in the Return, keep the rest moving): a declared input key at a leaf (items 2 and 3 (b)) without the owner's answer; the C2 pin without the owner's answer (3 (c)); the declaration closure refusing `evidenceContractRef`'s type (3 (a)); a 3.0.1 document whose digest the installed manifest does not carry, a fixture or assertion pinned to the 2.5.1 or 3.0.0 basis that no owner command regenerates, or a rule-catalog row set that a Program declaration or Public export pins by name (item 1); a lane moving beyond the named cases; any Product contract, event contract, payload key, failure class or Public export change.
 
 Return contract: one commit on `main`, staged by path, first line `D0: the runtime default library and the frozen qualification authorities on STDO 3.0.1-rc.1, the governance observation an admitted effect, the Phase C snapshot residuals, the HoG basis census`, with any gap stated in place; the Return before the commit so the commit carries it: item 1's digests (old and new, per document and per regenerated file; the deleted 2.5.1 copies), item 2's split with its contract, item 3's results per letter, item 4's census table, the lanes table, the lint and gates, deviations, findings outside the grant, stops, what could not be verified; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D0 return (Worker, 2026-10-27; base and head `51bc5d2d8`; tenant `build_tenants/abiogenesis/typescript/`)
+
+**D0 is done in part.**
+- **Done:**
+  - Item 1. The default library's STDO source, its support, fixture and lane pins are on `stdo://releases/v3.0.1-rc.1/`. `contracts/qualification/` is restaged on 3.0.1 through its owner command, and the six 2.5.1 copies are deleted.
+  - Item 3 (d) and (e).
+  - Item 4's census, below. Read-only.
+- **Done in part:**
+  - Item 2. The observation is split from the construction, and the construction is Eligible. Admitting the observation as its own evidence row is a stop.
+  - Item 3 (b). Done at the reader; the basis member is not applied, because its type is outside the grant.
+- **Not applied, or not taken:**
+  - Item 3 (a): the declaration closure accepts the type, but one of the four consumer sites is outside the grant.
+  - Item 3 (c): no owner answer.
+
+The after pass: 195 lanes, each run alone with the evidence root set, give 1,160 tests, 984 passed, 9 failed, 167 skipped. The close column was 1,160/987/6/167. 192 lanes are equal to it. Three moved red: `r1-packed-artifact`, `r2-clean-install` and `r3-workspace-binding`. Each refuses `artifact_digest_mismatch` against `test_env/fixtures/abi5-root-candidate-basis.json`, which pins the base product's identity. That fixture is not in the grant, so it is a stop; the cause and its one-command discharge are under Stops. The standing red set is unchanged. The compose scenario is 2/2/0/0.
+
+**Basis.** The tenant subtrees are equal at `51bc5d2d8` and `acb5200a8`:
+- `code` `b717791bc98d2d52de4826114cb3016e371cb7e6`;
+- `test_env` `fe7cd5d94f6fc5025a4a5f8e5d985ecf20ddb944`;
+- `contracts` `635d819c877d764e9e5e8e1a3c32376a25ef8eb5`.
+
+The Executive's close column at `acb5200a8` is therefore this package's before column, and so is the Phase C close's compose 2/2/0/0. No commit landed on `main` during the run: `HEAD` is `51bc5d2d8` before the commit. Manager commands used: `stdo status` only. No network, push, pull or fetch.
+
+Import census. Method: the static import closure of each `test_env/tests/*.test.mjs`, following relative `import`/`export … from` and literal `import()` paths through `build/code/src`. The census script is kept in scratch.
+- 98 of the 195 lanes reach an edited module statically.
+- The other 97 reach the product through dynamic or computed imports, the packed artifact, installed copies or child processes, which a static census does not bound. Examples: `r1`-`r3` pack the product; `t287-native-semantic-job` imports through a computed path.
+- So the census cannot narrow the set, and the after pass ran all 195 lanes plus the compose scenario.
+
+**Item 1 (a): the default library's STDO source on 3.0.1.**
+
+| Pin | Before | After |
+|---|---|---|
+| `gtl/default_library.ts` `DEFAULT_LIBRARY_STDO_SOURCE.basisRef` | `stdo://releases/v3.0.0-rc.1/` | `stdo://releases/v3.0.1-rc.1/` |
+| `.manifestDigest` | `sha256:069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232` | `sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8` |
+| `.manifest.byteCount` | 13478 | 13792 |
+| member `standards/EXECUTIVE_BASELINE.md` | `fcef4346…c62e`, 156,797 bytes | unchanged: byte-identical in both cuts, so its digest and spans stand |
+| member `standards/ASSURANCE.md` | `5f6740a3…27ca`, 87,324 bytes | unchanged, for the same reason |
+
+`contracts/default-library/stdo/manifest.json` was copied with `cp` from the 3.0.1 install root. `shasum -a 256` gives `60356364…` on both sides, 13,792 bytes. Restated pins:
+- `test_env/support/stdo3-run-environment.mjs:7`, the basisRef, and `:8`, the manifest digest;
+- `test_env/fixtures/registered-selection-product/native.mjs:8`, the frame locator `…/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame`;
+- `t287-default-library` `:137` basisRef and `:139` manifest digest;
+- `t287-stdo3-run-environment` `:110` mutation locator.
+
+The two digest lines, `:8` and `:139`, go beyond the grant's line list; see Deviations.
+
+**Item 1 (b): the qualification authorities restaged.** Commands, in order:
+1. `node scripts/generate-qualification-rule-catalog.mjs --stage-authorities /Users/jim/src/apps/abiogenesis "/Users/jim/Library/Application Support/STDO/releases/v3.0.1-rc.1"`, rc 0.
+2. The plain regeneration, rc 0.
+
+The result is 95 sources (95 before), 2,096 rules (2,137 before) and 16 coverage claims. The plain regeneration after every later build is a fixed point: the four JSON files are byte-equal to their state after staging. The method basis moves from `stdo://releases/v2.5.1-rc.2/` (manifest `3d860ff4…2782`, member set `2f54671d…`) to `stdo://releases/v3.0.1-rc.1/` (manifest `60356364…`, member set `8b33f446…`).
+
+Every staged 3.0.1 document's digest equals its row in the installed manifest. No unlisted file remains under `sources/`. No Program declaration, Public export, script or lane pins a rule ref by name; the item 1 stop did not fire.
+
+Per document:
+
+| Source copy | Before | After |
+|---|---|---|
+| `AXIOMATIC_CALCULUS.md` | 2.5.1 `cbe2edb928d3e75e23446f6d525baea664966e8d5920e6fa389cbaa4af8f1f8d`, 37,849 | 3.0.1 `b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5`, 92,360 |
+| `SPEC_METHOD.md` | 2.5.1 `7f12d32ef4e5720d5d59ee5ace50de6c1a12cc56afa53dd67a8ee4c54f8fb8a4`, 157,952 | 3.0.1 `b2773dc0c9feb429b6b357bcfd60e7df46e54db8adcb04dc8d6dbfa023b73677`, 148,117 |
+| `EXECUTIVE_BASELINE.md` | absent | 3.0.1 `fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e`, 156,797 |
+| `IDENTITY.md` | absent | 3.0.1 `2e7026aeec957ebb9b1aa0b01ae76b81b4236f02db93b040f158eadf31f5e08b`, 29,002 |
+| `ODD.md` | absent | 3.0.1 `9580be6e6e0a5e6c4e378b9bb8bc60392d1e4e0e342f7350f3463ddf5e3b321c`, 126,569 |
+| `REFERENCE_FRAME.md` | absent | 3.0.1 `8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21`, 103,132 |
+| `RELEASE.md` | absent | 3.0.1 `1ec805a4acb60f7ce0d061cf4ba6656690500e27ae6756866eaafa34aad071e0`, 59,362 |
+| `bootstrap.md` (`standards/frames/bootstrap.md`) | absent | 3.0.1 `cbf4a10e8d0b4ca2ab4a1f3ee28a85ffedc3298a0fba666949d9b091e82cc714`, 84,475 |
+| `PRODUCT.md` | `6f7906e8bcf371e12c5867265a9c2cce5784ca391d634b9d4cd6c91604bf84c6`, 93,690 | `cfa1b2ecefc1b79810f4018837db419de053475a60868c3e1daad0f53594d03f`, 97,610 |
+| `REQ-L-GTL3-CONTEXT.md` | `068a3485…5c1d`, 4,137 | `bdc3f6b3…f8c4`, 4,522 |
+| `REQ-L-GTL3-TEMPORAL-PROPERTIES.md` | `810a1d30…99cf`, 5,892 | `f5494e90…8ec0`, 5,929 |
+| `REQ-R-ABG3-BINDING.md` | `af6538e5…3175`, 7,543 | `2a0fc555…1e64`, 7,870 |
+| `REQ-R-ABG3-CCALL.md` | `3db608b1…7502`, 8,926 | `baf81ffd…9f3e`, 8,976 |
+| `REQ-R-ABG3-INSTRUCTION-ASSEMBLY.md` | `e09939e6…c32d`, 12,093 | `0ed4ec30…222d`, 12,282 |
+| `REQ-R-ABG3-RUN.md` | `b7e548ee…3bd8`, 2,917 | `c5853902…50c6`, 2,952 |
+| `specification__requirements__README.md` | `4f364154…71a0`, 7,676 | `20688da4…247c`, 8,846 |
+| `specification__requirements__abg__README.md` | `42130026…a44d`, 3,069 | `c3eeb697…461b`, 3,144 |
+| `specification__requirements__gtl__README.md` | `3738823c…333b`, 3,023 | `be6365c9…7786`, 3,104 |
+| `stdo_abiogenesis.json` | `eafbb85e…869c`, 4,277 | `1b3c14b2…2fb0`, 3,146 |
+
+The 11 repository copies moved because the copies frozen at the last staging were behind the repository's current specification; the owner command re-read them. `INTENT.md` and the other 76 copies are unchanged.
+
+Deleted with `git rm` (the 2.5.1 copies the command no longer writes):
+
+| File | SHA-256 | Bytes |
+|---|---|---|
+| `IDENTITY_METHOD.md` | `e65b875464cc93a3f9186d915ad88603755de34bac6f27072562ed34c13f64cd` | 11,350 |
+| `ODD_METHOD.md` | `b33dd5b868e66e27c583b3237e93421ab12d502b38368bf075973c1bf7faef2d` | 71,327 |
+| `REFERENCE_FRAME_METHOD.md` | `6e9148d7c8eff847abf172315b0e282e4477f3d40866b28f7fef21c41cb067e7` | 55,118 |
+| `RELEASE_METHOD.md` | `582bc15451855670495e559db3ae6a89ba37edaa3656f33499d02220cbdb141c` | 26,086 |
+| `STDO_REFERENCE_FRAME_BASELINE.md` | `29ac1367a77bf686e621a3e1b88bb39a0ba8e6c44b40e2b29904a7eb5606571d` | 133,684 |
+| `stdo_bootstrap.md` | `f7bec3f86d9f24d1fb22acc553ade2eb0861105ec4cd2f1afa7290cc85c5b61a` | 5,772 |
+
+Per regenerated file:
+
+| File | Before | After |
+|---|---|---|
+| `contracts/qualification/authority-inputs.json` | `2bfe7bbf7c2da0ec32cf16eae70263dd0d09e4a926f6262206517e96d8181d43`, 28,062 | `64e1f64802cb45fb6780d002d96f36cb7d423c870b61af89b6839158342a57a2`, 27,961 |
+| `contracts/qualification/rule-catalog.json` | `02ce01aa9d233433d547570ab36a28a5b7fca107f21bb8043386431164209f40`, 1,796,651 | `b3f01811d9eb7f80aaa510404c2c6beea4e168d890f06b82fc7e34e976a5ee87`, 1,760,800 |
+| `contracts/qualification/law-basis.json` | `f1b6a4f9018582df1f4228baa1ff923a3978ffc4cee51837f32f64648161c9cc`, 28,470 | `098448a5c57612e6a3f63dd92e69e4117b9ee5fcc348345431fadd06265b4155`, 28,369 |
+| `contracts/qualification/coverage.json` | `df40b538434c066c1bc5859615dbc0f1d1869dd17897424a12ae64557e845ff7`, 11,476 | `b2c8e9c2c9d3f7641286c138c9e0346a0cfa5d0a2f6cce32a9e03714127932cc`, 11,476 |
+| `contracts/schemas/self-conformance.schema.json` | `28663643…f446` | unchanged |
+| `contracts/default-library/stdo/manifest.json` | `069285ad…2232`, 13,478 | `60356364…3df8`, 13,792 |
+| `contracts/default-library/stdo/context.inventory.json` (build) | `541e46d8246e8efa8205f88b6fdb7c3d12c1850100d17552a7dd50f689538d84`, 515 | `3d716295ff49d9371ec3675a7fdd5288364fc723dbcbedfb0643ba54c3dd980b`, 515 |
+| `product-toolchain-manifest.json` (build) | `b68109fb5a0ef1b43e3822842118dae2133349b13beab0116689f756a52ac20c`, 3,254,200 | `7af7ab2115f18e9ef7e1805410cb8ab85acd8164eaaeb9c65f8088a049bae6a9`, 3,254,156 |
+| `contracts/capabilities/capability-definition-graph.json` (build) | `df1359a01d4fc5b1d1d606a98da3dcd52fdbd22ccf7703dd84dd0efe9e6cb7ec`, 197,474 | `946570c8713fa1d41d9c54282d272fc0c3516641e05c08e599cc38c830bcf5e7`, 197,474 |
+
+**Item 1 (c): the steel thread on the restaged tree.** 19 lanes, each run alone with the evidence root set. Every one equals the close column. Every skip names its input.
+
+| Lane | Result |
+|---|---|
+| stdo-environment-citation | 2/0/0/2 |
+| stdo-run-environment | 2/0/0/2 |
+| stdo3-run-environment | 5/5/0/0 |
+| stdo-proof-entry | 5/0/0/5 |
+| default-library | 20/17/0/3 |
+| default-library-fulfillment | 7/7/0/0 |
+| raw-contract-preimage | 1/0/0/1 |
+| qualification-law | 8/4/0/4 |
+| contraction | 4/4/0/0 |
+| installed-qualification-conservation | 1/0/0/1 |
+| qual056 | 7/7/0/0 |
+| carrier-resource | 7/0/0/7 |
+| producer-acquisition-reuse | 1/0/0/1 |
+| scopes | 17/17/0/0 |
+| malformed-gtl-gate | 6/6/0/0 |
+| native-runtime-gate | 7/6/0/1 |
+| native-structural-gates | 9/9/0/0 |
+| public-preparation | 6/6/0/0 |
+| result-evidence-lineage-projection | 1/1/0/0 |
+
+One extra probe: `t287-qualification-law` with `ABG_QUALIFICATION_SOURCE_ROOT=/Users/jim/src/apps/abiogenesis` and `ABG_QUALIFICATION_RELEASE_ROOT` set to the 3.0.1 install gives 8/5/0/3. "authority staging refuses wrong manifest and altered selected member" passes against 3.0.1.
+
+**Item 2: row 9b split; the construction is Eligible, admitting the observation as its own evidence is a stop.**
+
+*The effect.* `abg/default_library.ts` `observeGovernanceWorksite(owner, state, observedPaths, refusal?)` is the three leaves' only worksite read.
+- It runs `observeWorksiteContext` under the original read roots, bounded by `maxContextFiles` and `maxContextBytes`.
+- It admits the context only when `contextMatches` holds: current authority, binding, read roots, bounds, and every original source.
+- For observed testing it also runs `constructWorksiteSubject` and `observeWorksiteSubject` for each selected path, and requires a file.
+- It returns `{context, observedFiles}` or `null`. The refusal stages and their order are unchanged: `testing_context`/`context_observation`, `testing_context`/`authority_binding_sources`, `testing_observed_subject`/`subject_construction`, `testing_observed_subject`/`file_observation`.
+
+*The constructions.* `selectionTask(state, context)`, `nativeTask(owner, state, purpose, context)` and `testingTask(owner, state, observation, reacquire?, refusal?)` read no worksite. `selectionTask` now carries the fulfillment-source check that `projectGovernanceSelection` used to run inline. `projectGovernanceSelection`, `projectGovernanceNativeTask` and `projectGovernanceTestingTask` each observe, then construct. `currentContext` is gone; its body is the first half of the effect.
+
+*The observation's contract.* The observation runs under the worksite context and subject operations' own contracts, and the owner admits it through `contextMatches`. It travels in the constructed task: the task's `context` carries every entry by path, digest and bytes, and the observed testing task carries `observedFiles`. The leaf's existing `deterministic_evidence_candidate` therefore binds the observation through `outputDigest`. At result admission, `governanceResultMatches` re-derives the selection and native tasks from the carried context.
+
+No declared input key, Program declaration, evidence kind or payload key was added.
+
+*Two relation changes.* Both leave every outcome a leaf produces unchanged.
+1. `governanceResultMatches` now applies the fulfillment-source check through `selectionTask`. Result admission is stricter, with the same outcome for every output a leaf produces.
+2. The observed-testing branch no longer calls `subjectEvidence(…, undefined)`. That call returned `null` at its first line (the subject evidence ref is null or undefined there), had no side effect, and its value was unused.
+
+`implementation/default_library.ts` gains a comment above the three leaves stating the F_D scope. It is a JSDoc comment, so it prints into the `.d.ts` (Gates).
+
+*`abg/semantic_job.ts` `observeDesignWorksite`.* The whole-file `readFileSync` at `:303` is gone.
+- Each target's bytes are now the admitted envelope context's entry bytes, read the way `semanticJobSavedWorksite` reads them.
+- They are admitted only when the live subject observation names those exact bytes, by digest and length.
+- An absent observation gives empty bytes. A target missing from the admitted context returns `null`.
+- Admitted results are equal. When the live file differs from the admitted context, the refusal now happens at the leaf (`null`) instead of at result admission (`semanticJobSavedWorksite`'s digest check). A different event fires, and no result is admitted in either case.
+- `readFileSync` stays imported for the two other reads, `:198` and `:380` (`:374` at base).
+
+*Row 9b, restated.* The design file is outside the grant, so this cell is stated here for its owner:
+> Construction Eligible; the leaf Pending on a stop. Subject: the governance state and the admitted worksite observation. Termination: one finite pass. The observation is bounded by `maxContextFiles`, `maxContextBytes` and the selected paths; the construction is a finite projection. Dependencies: the declared input, the admitted prefix, and the observation the result carries, bound by the deterministic evidence's output digest and re-derived at result admission. Outcome: one task or refusal per (input, prefix, admitted observation). Per declared input alone, the leaf still has one outcome per worksite state, because it performs the observation itself. Stop: admitting the observation as its own evidence row before construction needs a new evidence-candidate kind. `DeterministicEvidenceCandidate`'s fields are closed, so that is an event contract change. Evidence: `t287-default-library`, `t287-default-library-fulfillment`, `t287-declared-testing-capability`, `t287-governance-covered-source-use`.
+
+*Other live reads in the same class (outside item 2):* `abg/semantic_job.ts:207` and `:551` (`projectNativeSemanticTask`), `implementation/semantic_revision.ts:322` (native intake), `abg/native_work_reacquisition.ts:293`.
+
+**Item 3.**
+
+(a) Not applied. The cause is a gap in the grant, not the activation's stop.
+
+To test the closure, the tenant's `code/src` was copied to scratch and the change was made only there. Widening `CCall.evidenceContractRef` (`abg/c_call.ts:176`) to `string | null` fails `tsc` at exactly four sites:
+- `c_call.ts:2324`: `undispatchedResultRelation`'s `UndispatchedEvidenceContext`;
+- `c_call.ts:3997`: `admitWorkflowChildPreparationRefusal`'s `rejection(…)`;
+- `c_call_outcome.ts:1181`: `stageCCallResult`'s `admitEvidence`;
+- `abg/worksite_revision.ts:419`: `RevisionEvidenceContext`, declared at `:353`.
+
+The probe then guarded the two named writers so that `null` refuses, widened `UndispatchedEvidenceContext`, and widened `RevisionEvidenceContext`. With those four changes `tsc` is 0. The declaration closure accepts the type, so the activation's stop did not fire.
+
+The fourth site is outside the grant. `noEmitOnError` makes a partial change unbuildable, so nothing was applied. The null producers stay as they are:
+- `project_read_ports.ts` `terminalOutcomeFromSelectedFacts` `:497` and `gapCall` `:1354`;
+- the carrier `c_call.ts:1251` (the activation cites `:1261`);
+- the lane CCalls.
+
+Discharge: grant one type member, `abg/worksite_revision.ts:353`.
+
+(b) Done at the reader. The basis member is not applied: a gap in the grant.
+- `abg/actor_process.ts` `selectedWorksiteCommandExecutionLimits` now validates each key once. It goes through `positiveInteger` → `positiveLimit`, which throws `${key} must be one positive safe integer`. An unset key takes its default.
+- The actor transport uses the validated values; its own `positiveLimit` wrap is removed.
+- `implementation/worksite_command_execution.ts` `realizeWorksiteCommandExecution` keeps only the budget relations; the two `!Number.isSafeInteger` guards are removed.
+- Behaviour: a junk value now throws at the reader inside the gate leaf. The leaf port types the throw `implementation_exception`, an existing class. Before, `NativeConstruction` threw its own `TypeError` (the same class) and the semantic stage leaves passed `NaN` into `projectNativeSemanticTask`.
+- `t287-native-semantic-job:198` is restated: the raw `NaN`/`0` read becomes two `assert.throws` on the reader's message, absolute key first, then inactivity. `:93` and `:196`-`:197` are unchanged and pass under the validated reader.
+
+The basis member: setting it at `hog/ccall_lifecycle.ts:451`'s `constructSemanticStageNativeBasis` call fails `TS2353`, because `SemanticStageNativeBasis` (`abg/semantic_stage.ts:36`) is outside the grant. `abg/c_call_outcome.ts:1289`'s rebuild uses the same type. The four gate leaves keep calling the one validating reader. `NativeIntake`'s declared input key needs the owner's answer and was not taken.
+
+(c) Not taken. The activation states no owner answer. `product/worksite_command_execution.ts` and `gtl/worksite_command_execution.ts` are untouched, and `--noUnusedLocals` is 1 (`BASE64_PATTERN`, `:74`).
+
+(d) Done.
+- `public/binding/owner_contract_source_set.ts` now imports only `compareUnicodeCodeUnits`.
+- `public/run_projection_authority.ts` loses `type JsonValue`.
+- Side effect: `owner_contract_source_set.d.ts` moves. Its inferred types now print `import("../../shared/canonical_json.js").JsonValue` where they printed `JsonValue`. The type is the same, and the declaration digest moves in the public contract catalog, the M-4 class. `run_projection_authority.d.ts` is byte-equal.
+
+(e) Done. Six sites now record `constructRuntimeFailureDiagnosticRef({stage, candidate})` with the stage that `failTraversal` admits:
+- `retry_lifecycle`: `retry-blocked-route` (candidate: the proposal) and `retry-blocked-transition` (candidate: the route);
+- `ccall_lifecycle`: `leaf-retry-progress-${ordinal}`;
+- `recursion_lifecycle`: `terminal-retry-progress`;
+- `workflow_lifecycle`: `workflow-retry-progress-${ordinal}` and `fan-out-retry-progress-${ordinal}`.
+
+At the four retry-exit sites the candidate is the exit refusal. No payload key changes, and no lane pins these refs.
+
+**Item 4: the HoG basis census (read-only; no HoG edit).** Measured on the base tree (`51bc5d2d8`, `code/src/hog/`, 19 modules, 9,292 lines). The activation's line cites have drifted, so every site is re-cited by symbol with its base line: `hog/entry.ts` has 435 lines (`:464` is past its end; the continuation entry is `prepareConstructionContinuationTraversal`, basis at `:376`); in `abg/continuation.ts`, `:1581` falls in `commitFhInteractionResponseAtExpectedPrefix` and `:1665` in the `deriveFhResumeSuccessorInputAtPrefix` overloads, neither of which compares a basis; the equality is in their callee `prepareFhInteractionResponse` at `:1501`-`:1503`. The other four cites hold.
+
+*Seed sites.* The HoG builds an admission basis in one of two ways, and the two ways do not share a clock.
+
+| Regime | Sites (symbol, base line) | eventTime | correlationId | What it feeds |
+|---|---|---|---|---|
+| Seed, unchanged | `entry.ts` `prepareConstructionContinuationTraversal`, the `admissionBasis` const `:376` | the seed's | the seed's | six admissions under one basis: `admitConstructionContinuationExecutionBasis`, `openTraversalScope`, `admitContinuedTraversalCursor` twice, `openCCall` (workflow parent), `admitConstructionContinuationReentry` |
+| Seed, suffixed | `entry.ts` `enterTraversal` initial cursor `:323`-`:328` (`/cursor`); `child_traversal.ts` `:248`-`:251` (`/basis`), `:270`-`:273` (`/open`); `traversal_failure.ts` `failTraversal` `:88`-`:92` (`/${stage}`) | the seed's | the seed's plus a suffix | the cursor; the child basis and scope; every HoG runtime failure (`admitRuntimeFailure`, stage `hog_traversal`) |
+| Sampled | `operator_support.ts` `admissionBasis` `:43`; `workflow_lifecycle.ts` `workflowBasis` `:171` (built over `admissionBasis`) | `sampleNativeEventTime()`; the clock's `eventTime` is never read, so `workflowBasis`'s clock time is unused | the clock's plus `/${stage}` | 37 calls in six modules: `ccall_lifecycle` 6, `interaction_lifecycle` 4, `recursion_lifecycle` 8, `retry_lifecycle` 3, `structural_transition` 2, `workflow_lifecycle` 14 |
+
+`failTraversal`'s callers are 11 call sites in eight modules. The activation says "five callers"; that count does not match these 11. Seven are module wrappers that pass the same five fields (store, prefix, execution basis, scope, seed): `ccall_lifecycle` `failCCall` `:212` (with `failActorProcessEffect` `:824` over it), `entry` `failEntry` `:53`, `graph_execute` `failFrame` `:172`, `recursion_lifecycle` `failRecursionInput` `:151`, `retry_lifecycle` `failRetry` `:183`, `structural_transition`'s inline `fail` `:84`, `workflow_lifecycle` `failWorkflow` `:158`. Four are direct calls: `graph_execute` `machineFrameFromRehydrated` `:774` and `interaction_lifecycle` `:81`, `:108`, `:138`. Method: an AST walk over the base tree for call expressions named `failTraversal`.
+
+*Equality readers.* A grep of `(eventTime|correlationId) (===|!==)` over `code/src` finds 17 sites in 8 files. Six of the 17 are `typeof` shape checks. Of the rest, five are the named readers. Each binds an event to its public operation's `eventTime` and `correlationId`, so only the unchanged-seed regime can satisfy them:
+
+| Reader (symbol, base line) | Binds |
+|---|---|
+| `abg/continuation.ts` `prepareFhInteractionResponse` `:1501`-`:1503` | the response basis to the `interaction.respond` operation's time and correlation, with empty causation |
+| `abg/fh_continuation_projection.ts` `validateExactFhResumeOwnerRelationAtPrefix` `:435`-`:436` | the resume event to the `run.continue` operation |
+| `abg/fh_continuation_projection.ts` `projectFhEffectfulPublicInvocationFacts` `:1092`-`:1093` | the owner event (`fh_interaction_responded`, `fh_interaction_resume_admitted`) to its public operation |
+| `abg/invocation_execution_truth.ts` `projectExactInvocationAdmissionAtPrefix` `:449`-`:450` | the workspace invocation event to its public operation |
+| `abg/worksite_revision.ts` `projectWitnessedWorkspaceBindingCover` `:190` | the reprice revision event to the `witness.admit` operation |
+
+Two equality sites are not named in the activation: `abg/event_store.ts:3752`, which chains each invocation's correlation, and `abg/artifact_truth.ts:272`, which compares an artifact payload's correlation to its event's. No equality reader reads a suffixed or sampled basis. Not traced: which HoG writer, if any, produces each bound event. The response and resume events are written in `abg/continuation.ts` and `abg/traversal_route.ts` from bases their callers pass.
+
+*Transactions that take more than one HoG basis.* All of these bases are sampled, so one transaction carries two or three `eventTime` values. No equality reader compares them with each other.
+
+| HoG site | ABG owner (input member) | Bases |
+|---|---|---|
+| `interaction_lifecycle` F_H hold | `abg/continuation.ts` `admitFhInteractionHold` (`AdmitFhInteractionHoldInput` `:1345`-`:1347`) | `pendingBasis` `interaction/N/pending` (`:115`), `routeBasis` `/hold` (`:191`), `continuationBasis` `/continuation` (`:192`) |
+| `structural_transition` retry exit | `abg/traversal_route.ts` completed-retry transition (`progressBasis` `:5541`) | `progress/N` (`:166`), `route/N` (`:245`) |
+| `retry_lifecycle` runtime failure under retry | `abg/traversal_route.ts` blocked-retry transition (`failureBasis` `:5660`) | `runtime-failure` (`:550`), `runtime-failure/blocked-route` (`:619`) |
+| `ccall_lifecycle` retry progress against completion | `planSuccessfulRetryExit` then `admitOwnedCCallCompletion` with `completedRetryProgress` | `retry-progress` (`:716`), `completion` (`:791`); the plan built under the first basis is admitted inside the second |
+| the same pair in `recursion_lifecycle` and `workflow_lifecycle` (twice) | as above | `:363`/`:427`; `:798`/`:859`; `:935`/`:1023` |
+
+*Execution machinery against domain transitions, per module.* Method: a TypeScript AST walk (`typescript` 5.9.2). Each non-blank line is assigned to its innermost statement, and function bodies nested in expressions are walked too, so `Effect.gen` bodies are classified statement by statement. Each statement takes the first class that matches, in this order:
+- failure carriage: `throw`; a return of a fail or refusal call; an `if` whose only branch returns or throws a fail, a refusal or `null`; `try`/`catch`; `fail*` functions;
+- retry: the statement's declared name or head callee names retry;
+- basis: admission-basis or clock construction;
+- scope: traversal scope open or close;
+- iteration: loop headers;
+- effect: `Effect.*` wrappers;
+- domain: everything else.
+
+The split is a heuristic. "Duplicated" counts machinery statements of at least 3 lines that occur at 2 or more sites once identifiers and literals are abstracted. The scripts are kept in scratch.
+
+| Module | Lines | Decl. | Failure | Retry | Basis | Scope | Iter. | Effect | Machinery | Domain | Duplicated |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| ccall_lifecycle | 847 | 159 | 178 | 32 | 1 | 0 | 0 | 36 | 247 | 413 | 27 |
+| child_traversal | 303 | 116 | 73 | 0 | 0 | 14 | 0 | 0 | 87 | 83 | 32 |
+| entry | 436 | 70 | 151 | 47 | 1 | 1 | 0 | 0 | 200 | 159 | 29 |
+| evaluation_frame | 150 | 110 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 24 | 0 |
+| graph_execute | 963 | 238 | 139 | 3 | 0 | 0 | 0 | 176 | 318 | 377 | 49 |
+| index | 70 | 69 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| interaction_lifecycle | 230 | 61 | 33 | 0 | 8 | 0 | 0 | 0 | 41 | 120 | 3 |
+| judgment | 99 | 53 | 5 | 0 | 0 | 0 | 0 | 0 | 5 | 36 | 0 |
+| operator_support | 140 | 66 | 5 | 0 | 0 | 0 | 1 | 0 | 6 | 57 | 0 |
+| parent_rehydration | 350 | 106 | 0 | 0 | 0 | 0 | 1 | 0 | 1 | 232 | 0 |
+| recursion_lifecycle | 1098 | 281 | 94 | 18 | 9 | 0 | 0 | 0 | 121 | 664 | 12 |
+| retry_lifecycle | 751 | 138 | 229 | 161 | 1 | 0 | 0 | 0 | 391 | 197 | 135 |
+| route_proposal | 1207 | 527 | 247 | 26 | 0 | 0 | 0 | 0 | 273 | 367 | 12 |
+| structural_transition | 306 | 72 | 70 | 33 | 9 | 0 | 0 | 0 | 112 | 114 | 12 |
+| traversal | 824 | 238 | 256 | 42 | 0 | 0 | 0 | 0 | 298 | 254 | 22 |
+| traversal_completion | 176 | 120 | 5 | 0 | 0 | 0 | 0 | 0 | 5 | 36 | 5 |
+| traversal_contract | 133 | 120 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
+| traversal_failure | 97 | 32 | 45 | 0 | 0 | 0 | 0 | 0 | 45 | 13 | 0 |
+| workflow_lifecycle | 1112 | 200 | 230 | 58 | 8 | 0 | 0 | 0 | 296 | 592 | 96 |
+| total | 9292 | 2776 | 1760 | 420 | 37 | 15 | 2 | 212 | 2446 | 3738 | 434 |
+
+Machinery is 2,446 of 6,184 executable lines (40%). Failure carriage is the largest class at 1,760 lines. Iteration is 2 lines because the HoG has no loops of its own: it iterates through `Effect.iterate` in `graph_execute` `evaluateTraversalProgram` (`:557`) and through recursion frames. Effect is used in only two modules, `graph_execute` (32 `Effect.*` calls) and `ccall_lifecycle` (5). The other 17 modules are direct style and signal failure by throwing: `failTraversal` throws `GraphTraversalFailure`, which is caught in `graph_execute` at `liftGraphTraversalFailure` `:533` and at the `Effect.catchAll` `:938`.
+
+Duplicated machinery, by family. These are measured directly, separately from the AST clone count:
+- The seven `failTraversal` wrappers total 142 lines (19, 19, 20, 25, 20, 16, 23). They differ only in which runtime record they read the five fields from.
+- 62 refusal exits of the form `if (…) return fail…(…)` total 603 lines: `ccall_lifecycle` 11 sites/88 lines, `entry` 5/70, `graph_execute` 5/56, `interaction_lifecycle` 3/30, `recursion_lifecycle` 4/34, `retry_lifecycle` 6/54, `structural_transition` 6/66, `workflow_lifecycle` 22/205.
+- The retry exit appears at four sites, 35 to 41 lines each, about 150 lines in all: the basis, `planSuccessfulRetryExit`, its refusal, and the `completedRetryProgress` spreads. The sites are `ccall_lifecycle` `:716`, `recursion_lifecycle` `:363`, and `workflow_lifecycle` `:798` and `:935`. Each has the same shape and differs only in its completion record and stage name.
+- The largest exact clones are in `retry_lifecycle`: a 7-site `catch (error)` block that returns `projectedRetryRefusal` (8 lines each) and a 3-site `planRetryRuntimeFailureTransition` refusal. `workflow_lifecycle` has a 6-site `opened.kind !== "c_call_admission"` exit.
+
+*The reach of each candidate change.* None is made here.
+1. One failure-carriage operator in place of the seven wrappers and the 62 exits. It reaches eight HoG modules and nothing in ABG. What must be conserved: `failTraversal`'s subject `{stage, candidate}`, its correlation `${seed}/${stage}`, `admitRuntimeFailure`'s check that the JSON-diagnostic subject digest matches, and every stage name. The falsifiers are `t287-runtime-failure-diagnostic` and the lanes that pin `diagnostic://abiogenesis/hog/…`.
+2. One retry-exit operator. It reaches `ccall_lifecycle`, `recursion_lifecycle` and `workflow_lifecycle` (twice). `planSuccessfulRetryExit` and `admitOwnedCCallCompletion` are unchanged, and the four stage names are conserved.
+3. One basis per transaction or one clock. It reaches the 37 sampled constructions, the five multi-basis transactions and their three ABG input members. Event `eventTime` values move; event shapes do not. No named reader reads a sampled-regime event. Moving the unchanged-seed sites to sampled time would break all five readers.
+4. Effect as the HoG's one carrier. It reaches all 19 modules and the leaf-port boundary, and `GraphTraversalFailure`'s throw becomes a typed failure channel.
+
+On the tree after this package, item 3 (e) moves the census only inside `ccall_lifecycle` and `workflow_lifecycle`. Three sites now bind `const stage` before the return, so the classifier counts 2 fewer refusal-exit sites in `workflow_lifecycle` and 1 fewer in `ccall_lifecycle`. No class total moves by more than 22 lines.
+
+**Lanes.** Each lane ran alone:
+
+`ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000 test_env/tests/<lane>.test.mjs`
+
+The run used 85 minutes of lane wall time. The compose scenario used `ABI5_CALCULUS_CASES=compose` and `--test-name-pattern='real admitted compose'` on `t287-calculus-state-transfer`.
+
+| | Lanes | Tests | Pass | Fail | Skip |
+|---|---|---|---|---|---|
+| Before (close column, `acb5200a8`) | 195 | 1,160 | 987 | 6 | 167 |
+| After (this tree) | 195 | 1,160 | 984 | 9 | 167 |
+| Compose scenario, before / after | | 2 / 2 | 2 / 2 | 0 / 0 | 0 / 0 |
+
+Moved lanes. All three moved for one cause, the candidate basis (Stops 1):
+
+| Lane | Before | After | First error |
+|---|---|---|---|
+| `r1-packed-artifact` (`:18`) | 1/1/0/0 | 1/0/1/0 | `product_verification_refusal` `artifact_digest_mismatch` |
+| `r2-clean-install` (`:18`) | 1/1/0/0 | 1/0/1/0 | the same |
+| `r3-workspace-binding` (`:97`) | 1/1/0/0 | 1/0/1/0 | the same |
+
+The standing red set is unchanged: six cases in five lanes at the record's lines, each the owner's.
+
+| Lane | Count | Failing case | First error |
+|---|---|---|---|
+| `t287-st2a-g-capability-definition-graph` | 4/2/2/0 | `:74` | `missing capability projection for abg.asset.gtl.language-conformance-corpus` |
+| | | `:271` | |
+| `t287-worksite-construction` | 3/2/1/0 | `:701` (assertion `:886`) | `executable_traversal_completion` `blocked` |
+| `t287-worksite-branch-construction` | 2/1/1/0 | `:671` (assertion `:683`) | the same class |
+| `t287-st1-installed-cross-owner-hello` | 2/1/1/0 | `:737` (assertion `:1259`) | |
+| `t287-historical-source-resource` | 2/1/1/0 | `:72` (assertion `:83`) | |
+
+The activation's named cases did not change their counts:
+- `t287-default-library` 20/17/0/3;
+- `t287-native-semantic-job` 9/9/0/0, with `:198` restated;
+- `t287-stdo3-run-environment` 5/5/0/0;
+- `t287-default-library-fulfillment` 7/7/0/0;
+- `t287-runtime-failure-diagnostic` 20/20/0/0.
+
+The candidate basis fixture's other consumers stayed equal: `steel-basic-cli-public` 1/1/0/0, `steel-consumer-declaration` 1/0/0/1, `t287-d1-requirement-handoff` 5/2/0/3, `t287-w2-05-install-catalog-owner-chain` 1/1/0/0, `w2-steel-serial-branch-installed` 2/0/0/2, `w2-steel-single-start-installed` 1/0/0/1, `t287-declared-testing-capability` 7/3/0/4.
+
+The 167 skips fall in 78 lanes, and each names its input. The inputs are owner-held roots, fixtures and variables. The most frequent are `ABI5_PREFIX_REUSE_OBSERVATIONS` 8, `ABI5_F11_CARRIER_FULL_FIXTURE` 7, `ABI5_C2_CARRIER_FIXTURE_PATH` 6, `ABI5_HELD_PREFIX_NATIVE_FIXTURE` 5, `ABI5_S02_PROJECTION_FIXTURE` 4 and `ABG_QUALIFICATION_STAGE_FIXTURES` 3.
+
+Item 2's steel thread ran on the built tree before the pass; all 19 lanes were equal to the close column. They were `t287-default-library`, `-default-library-fulfillment`, `-governance-covered-source-use`, `-declared-testing-capability`, `-native-work-reacquisition`, `-native-work-currentness-consumers`, `-runtime-failure-diagnostic`, the eight `t287-generic-job-*` lanes, `-native-semantic-job`, `-native-semantic-evidence`, `-native-semantic-revision` and `-d1-semantic-stage`.
+
+**Gates.**
+
+| Gate | Base | After |
+|---|---|---|
+| `npx tsc --noEmit -p tsconfig.json` | 0 | 0 |
+| `--noUnusedLocals` | 3 | 1 (`product/worksite_command_execution.ts:74` `BASE64_PATTERN`; 3 (c) untouched, as the activation expects) |
+| `lint:imports` | 0 | 0: 28 shared modules, 3 forbidden owner pairs hold |
+| `lint:lifecycle` | 0 | 0: 286 modules, 7 allow-listed sites, no offender |
+| `lint:evidence` | 0 | 0: 691 tracked mirror roots, all inventoried, no new copy |
+| `lint:calculus` | 0 | 0: 6 modules, no offender |
+| `npm run build` | 0 | 0 |
+
+The final `npm run build`, after the pass, leaves all 785 `build/` files byte-equal to the pre-pass build. The build outputs and the qualification files keep the digests tabled above, so the build is a fixed point.
+
+No `// D0` instrumentation was used. `grep` finds no `// D0` line in `code/src`, `build/`, `test_env/tests`, `support` or `fixtures`. The `D0` token count is 0 in every changed source and test file and in the 14 moved build files, at base and after.
+
+Every changed tenant file is byte-equal (`cmp`) to the clean copy kept in scratch before the pass. `git status --short -- build_tenants/abiogenesis/typescript` is identical before and after the pass, so no lane wrote into the tree.
+
+The moved build files are:
+- the `.js` of the 12 edited modules;
+- four `.d.ts` files: `abg/actor_process` (doc comment), `gtl/default_library` (the three literal members), `implementation/default_library` (the F_D comment) and `public/binding/owner_contract_source_set` (the inlined `JsonValue` references).
+
+No other declaration moved.
+
+**The regenerated files' leaf sets.** Each file's JSON leaves were compared by path with the base copy. Method: `d0/leafdiff/leafdiff.py`, which walks every scalar leaf; lists were also compared as sets by their named member.
+
+| File | Leaves before/after | Gone | Came | Moved |
+|---|---|---|---|---|
+| `product-toolchain-manifest.json` | 51,321 / 51,321 | 0 | 0 | 327 |
+| `contracts/capabilities/capability-definition-graph.json` | 3,263 / 3,263 | 0 | 0 | 551 |
+| `contracts/default-library/stdo/context.inventory.json` | 14 / 14 | 0 | 0 | 1 |
+| `contracts/default-library/stdo/manifest.json` (copy) | 181 / 185 | 0 | 4 | 104 |
+| `contracts/qualification/authority-inputs.json` | 386 / 386 | 0 | 0 | 58 |
+| `contracts/qualification/law-basis.json` | 392 / 392 | 0 | 0 | 60 |
+| `contracts/qualification/coverage.json` | 180 / 180 | 0 | 0 | 6 |
+| `contracts/qualification/rule-catalog.json` | 30,310 / 29,736 | 574 | 0 | 3,002 |
+
+What each change is:
+
+- **`product-toolchain-manifest.json`.**
+  - `productRelativeLocators` loses the six 2.5.1 copies (`IDENTITY_METHOD.md`, `ODD_METHOD.md`, `REFERENCE_FRAME_METHOD.md`, `RELEASE_METHOD.md`, `STDO_REFERENCE_FRAME_BASELINE.md`, `stdo_bootstrap.md`). It gains the six 3.0.1 ones (`EXECUTIVE_BASELINE.md`, `IDENTITY.md`, `ODD.md`, `REFERENCE_FRAME.md`, `RELEASE.md`, `bootstrap.md`). The list stays sorted, so 93 positions shift.
+  - The product content digest moves (`1406d8e8…` → `6cee91c9…`), and with it `descriptorRef`, `provenanceRef`, `contributionManifestRef` and the 47 row `provenanceRef`s.
+  - The capability graph's `contentDigest` and `graphDigest` move, as do the 10 publication-binding digests, the catalog digest and 22 row contract digests. One of those 22 is the rule-catalog asset row (`02ce01aa…` → `b3f01811…`).
+  - 141 declaration digests move: three `.d.ts` files, each listed in 47 rows' declaration inventories. They are `abg/actor_process.d.ts` (the reader's doc comment), `gtl/default_library.d.ts` (the three literal members) and `public/binding/owner_contract_source_set.d.ts` (the inlined `JsonValue` references).
+- **`capability-definition-graph.json`.** Only digests and refs move: the graph digest, 16 capability definition refs and digests, 18 dependent-capability refs and digests, and 241 owning-contract catalog and product-content digests. All are derived from the two moved product digests.
+- **`context.inventory.json`.** One leaf moves: the member digest, `069285ad…` → `60356364…`.
+- **`manifest.json`.**
+  - It gains two members, `examples/DETERMINISTIC_CONTRACTS.md` and `examples/deterministic_contracts.py`. Their four leaves are the ones that came.
+  - Release fields move: cut, commit, tag object, trees, qualified ref and release note. `member_count` goes from 62 to 64 and `member_set_sha256` from `3b97fc16…` to `8b33f446…`.
+  - 26 members' digests move. 36 are unchanged, `EXECUTIVE_BASELINE.md` and `ASSURANCE.md` among them. The 39 path moves are position shifts.
+- **The three qualification bases.** Locators move from `v2.5.1-rc.2` to `v3.0.1-rc.1` (release ref, method version, manifest, member set), and 19 source digests and byte counts move. 8 source refs move: the six replaced copies, plus `AXIOMATIC_CALCULUS` and `SPEC_METHOD` re-pointed to 3.0.1. 7 paths move, as position shifts in the sorted list. `law-basis` and `coverage` also move the law-basis ref and digest, the catalog digest, and the `PRODUCT.md` authority source.
+- **`rule-catalog.json`.** It goes from 2,137 rules to 2,096.
+  - The 1,728 repository-sourced rules keep their refs.
+  - All 409 STDO-sourced rules are replaced by 368 new ones. Rules per source:
+
+    | Change | Source: before → after |
+    |---|---|
+    | moved | `AXIOMATIC_CALCULUS` 40 → 43; `SPEC_METHOD` 80 → 50 |
+    | gone | `IDENTITY_METHOD` 24; `ODD_METHOD` 49; `REFERENCE_FRAME_METHOD` 121; `RELEASE_METHOD` 23; `STDO_REFERENCE_FRAME_BASELINE` 71; `authority_compressions/stdo_bootstrap` 1 |
+    | came | `EXECUTIVE_BASELINE` 62; `IDENTITY` 25; `ODD` 50; `REFERENCE_FRAME` 87; `RELEASE` 26; `frames/bootstrap` 25 |
+
+  - The 574 lost leaves are the 41 trailing positions, 14 leaves each: the list is 41 rules shorter. The other moves are span, ref and digest values.
+
+No leaf outside these classes moved, and no file gained or lost a key outside the source and member lists. Every 2.5.1 and 3.0.0 locator in the regenerated files is gone. A grep of `v2.5.1-rc.2` and `v3.0.0-rc.1` finds 0 hits in each of the eight files.
+
+**Deviations.**
+1. Two lines beyond the grant's line list. `test_env/support/stdo3-run-environment.mjs:8` and `t287-default-library:139` are the manifest digests of the same locator pins as `:7` and `:137`. The lane's `stdo resolve` reads the 3.0.1 manifest, so the basisRef cannot move without its digest.
+2. A third build output is committed. `contracts/default-library/stdo/context.inventory.json` is regenerated by `npm run build` alongside the grant's "two regenerated files", `product-toolchain-manifest.json` and `capability-definition-graph.json`. Its one moved leaf is item 1 (a)'s manifest digest. Leaving it out would leave the committed tree without a build fixed point.
+3. The 11 repository-sourced qualification copies moved with the restage, as the owner command writes them (item 1 (b)).
+
+**Findings outside the grant.**
+1. `code/src/gtl/stdo_run_environment.ts:61` and the pilot supports still pin `v2.5.0-rc.6` and `rc.7` as retained Run bases: `test_env/support/stdo-environment-pilot.mjs`, `t287-stdo-environment-citation`, and `t287-gtl-serialization-publication:166`.
+2. The `ABG_QUALIFICATION_STAGE_FIXTURES` owner fixture names `selectedRC2`/`retainedRC1`, which are 2.5.1 cuts and owner-held.
+3. Row 9b's class has four more live worksite reads that are not item 2's: `abg/semantic_job.ts:207` and `:551`, `implementation/semantic_revision.ts:322`, `abg/native_work_reacquisition.ts:293`.
+4. 3 (d) moves `owner_contract_source_set.d.ts`'s text. The type is unchanged; the move is M-4 class.
+5. The HoG's sampled `admissionBasis` ignores the clock's `eventTime`, so `workflowBasis`'s clock time is unused (item 4).
+6. The activation's cites `hog/entry.ts:464` and `abg/continuation.ts:1581`/`:1665`, and its "five callers", do not match the tree at `51bc5d2d8` (item 4).
+7. Any change to the product payload moves `test_env/fixtures/abi5-root-candidate-basis.json`'s pinned identity (Stops 1). Every later package that changes code or contracts needs that fixture granted.
+
+**Stops.**
+1. **The candidate basis (a lane moved beyond the named cases).** `test_env/fixtures/abi5-root-candidate-basis.json` pins the packed product's identity: `artifactDigest` `453c0c69…`, `productContentDigest` `1406d8e8…` (equal to the base manifest's) and `manifestDigest` `923dbbe3…`.
+   - Item 1 alone moves the product content digest: `productRelativeLocators` lists the qualification sources, and the default-library manifest is a payload file. So any D0 cut turns `r1`, `r2` and `r3` red with `artifact_digest_mismatch`.
+   - The fixture is not in the grant, so its owner command, `node scripts/refresh-candidate-basis.mjs`, was not run.
+   - Scratch probe. The script computed the basis the owner command would write: it packed the tree into scratch with `npm pack --ignore-scripts` and read the manifest. It did not write the fixture. Exactly three fields differ: `artifactDigest` `a19d4d47498fc0fa2e6d1a6236ebac773c2c54daa183b3ace667a9bc54e37548`, `productContentDigest` `6cee91c9a768e2063231de095715f3016e615ab4c1306e5030f245a440741554` (the after manifest's) and `manifestDigest` `2e2d6e650cb3ccd1121e803625c951fcc224924ba7ccb2f81f19908e6cbcac74`. `verifyProduct` on the packed artifact returns `refused`/`artifact_digest_mismatch` with the fixture's identity and `verified` with the computed one.
+   - Discharge: grant the fixture and its three lanes, then run the owner command once on the committed tree.
+2. **Item 2: the observation as its own evidence row.** Admitting the governance observation as a separate evidence row needs a new evidence-candidate kind, which is an event contract change. Not taken. Row 9b's whole leaf stays Pending on it.
+3. **Item 3 (a): one consumer site outside the grant.** This is not the activation's stop, because the closure accepts the type. One of the four consumer sites, `abg/worksite_revision.ts:353`, is outside the grant, so nothing is applied.
+4. **Item 3 (b): the basis member and `NativeIntake`.** The basis member needs `SemanticStageNativeBasis` (`abg/semantic_stage.ts:36`), which is outside the grant. `NativeIntake`'s declared input key needs the owner's answer.
+5. **Item 3 (c): the C2 pin.** It needs the owner's answer to question 8, which the activation does not give.
+
+No Product contract, event contract, payload key, failure class, declared reason enum, Program declaration or Public export changed. The digest moves of regenerated files are the M-4 class.
+
+**What could not be verified.**
+1. Equality of skip names and first errors against the before column, case by case. The close logs are not readable under the rules, so the comparison is per-lane counts plus the record's red lines. All 167 skips name their input.
+2. The skipped cases themselves. They run only when the owner's roots and variables are set; this includes item 2's testing and covered-source branches beyond the passing cases.
+3. Whether a separate observation evidence row would change any lane. It was not built (Stops 2).
+4. Which HoG writer produces each event the five equality readers bind; this was not traced.
+5. The census's class split. It is a heuristic over the AST; the duplicated-family measures are exact counts.
+6. `r1`-`r3` green on a refreshed fixture. The probe proves `verifyProduct`'s verdict, not the three lanes.
