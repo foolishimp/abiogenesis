@@ -8,12 +8,12 @@
 - updated_at: 2026-10-24
 - current_method_basis: stdo://releases/v3.0.1-rc.1/ (T-291 M-1, `72384fe07`; the runtime default-library snapshot stays on v3.0.0-rc.1 until D0)
 - current_method_manifest_sha256: 60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8
-- current_activation: T287_COMMON_LIBRARY_DELIVERY_01 post-close repairs, then the technical debt register
-- current_activation_status: library delivered and closed (delivery close); T-290 Phase A closed at 46ed04895; L5 acceptance absent; T-290 Phase B in progress
-- current_handoff: .ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md
-- current_next_work: the Next line of T-290 (Phase B packages to the Phase B close; the owner's review pass on 46ed04895; L5)
+- current_activation: T287_RELEASE_RESUMPTION_01 (Phase D; D0 activated 2026-10-27)
+- current_activation_status: library delivered and closed; T-290 Phases A, B and C closed (`46ed04895`, `a8937b837`, `acb5200a89e49e0336173d8841ff5cbc43b546a6`); L5 accepted 2026-10-24; Phase D started at the Phase C close
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md
+- current_next_work: D0 (Worker running; the runtime default library and the frozen qualification authorities restaged on STDO 3.0.1-rc.1, row 9b's governance observation an admitted effect, the Phase C snapshot residuals (evidenceContractRef, the command limits, the two imports, the six diagnostic sites; the C2 pin on the owner's answer), the HoG basis census), then D1/D4-a, D1/D4-b, D1/D4-c, D2, D3 (inputs asked at the D2 close), D5-a, D5-b, D6 (the push only there)
 - current_prerequisite_deliverable: common_computational_capability_library
-- current_release_resumption_gate: CLOSED_until_L5_library_delivery_acceptance
+- current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
 - current_runtime_frontier: historical_P1_PASS_P5_TIMEOUT_candidate_P1_P5_P4_and_dependents_HELD_until_L5_acceptance_and_a_later_exact_grant
 - current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
@@ -296,6 +296,12 @@ Decisions as ruled by the owner, 2026-10-24.
 4. D3's witness and context: the owner supplies, before D3 activates, the specification (a bounded real one for `A5-F17`), the independent oracle, the assessor, the network-enabled execution context and the provider budget. The Executive asks for them at the D2 close; D3 does not activate without the prospective record.
 5. Publication: the push of both repositories, the `abiogenesis` namespace with `v5.0.0-rc.1` and the owner as the human Product authority are authorized as D6's publication step. Nothing is pushed before D6 publishes the qualified cut; the Executive reads this authorization as bound to that step and that cut.
 6. Assessment cadence: the owner's Codex pass is the independent assessment inside D3, D5 and D6; D1/D4 and D2 take the pass at their close.
+
+### Phase D ledger
+
+| Date | Package | Commit | Executive check | State |
+|---|---|---|---|---|
+| 2026-10-27 | D0 | | | activated (the runtime default library and the frozen qualification authorities restaged on STDO 3.0.1-rc.1, row 9b's governance observation an admitted effect, the Phase C snapshot residuals (evidenceContractRef, the command limits, the two imports, the six diagnostic sites; the C2 pin on the owner's answer), the HoG basis census) |
 
 ### Design and proof controls
 
