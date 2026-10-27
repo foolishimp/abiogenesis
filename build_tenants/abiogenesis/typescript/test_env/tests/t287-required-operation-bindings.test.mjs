@@ -2,11 +2,11 @@
 // transport. One installed language Run supplies an admitted C-call result, its
 // evidence and its execution basis; result.assess is then authorized through the
 // admission authority and run by the installed CLI against the same event log.
-// product.materialize has no installed binding (R2-b stop: its artifact event has
-// no checked ingress), so it has no case here.
+// T-287 R2-c: product.materialize (context_bootstrap, configuration) through the same
+// transport and log, each with its one admitted artifact event, its truth and its files.
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir, writeFile } from 'node:fs/promises';
 import { basename, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { runInstalledLanguageTest } from '../support/installed-language-test.mjs';
@@ -70,6 +70,61 @@ async function authorizedAssessCall(c, handoff, request, identity) {
     resources: { ...resources, admissionAuthority: { basis, authority, grants } }, requestRef: `public-request://t287-r2b/${identity}`,
     correlationRef: `correlation://t287-r2b/${identity}`, eventTime: '2026-10-27T00:00:00.000Z', provenanceRefs: ['provenance://t287-r2b/lane'] });
   return { call, grants, actorRef };
+}
+
+// The authorized installed DefinitionCall for one product.materialize member at one handoff.
+async function authorizedMaterializeCall(c, handoff, memberKey, request, identity) {
+  const { e, product, publicApi } = c, hash = product.sha256Canonical;
+  const contracts = await import(pathToFileURL(join(e.installedRoot, 'build/code/src/product/materialization_operation_contracts.js')).href);
+  const packet = contracts.MATERIALIZATION_OPERATION_CONTRACTS[memberKey], key = packet.definitionKey;
+  const definition = publicApi.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d =>
+    d.definitionKey.operationId === key.operationId && d.definitionKey.memberKey === key.memberKey);
+  const binding = { ref: e.workspaceBinding.bindingId, digest: e.workspaceBinding.bindingDigest };
+  const env = c.authority.admitCapabilityEnvironment(product.admissionEnvironmentSelection(handoff.prefix, binding));
+  const actorRef = env.workspaceAuthorityBasis.authorizedActorRef;
+  const slots = Object.fromEntries(SLOT_KEYS.map(k => [k, null]));
+  Object.assign(slots, { workspace_binding: binding, product_set: env.productInstalls.map(c.environment.productInstallCoordinate),
+    dependency_lock: { ref: env.resolvedProductLock.lockId, digest: env.resolvedProductLock.lockDigest },
+    actor: { actor: { ref: actorRef, digest: hash({ actorRef }) }, attribution: { ref: `attribution://t287-r2c/${identity}`, digest: hash(identity) } } });
+  const resources = { kind: 'product_materialize_resource_assertion', schemaVersion: '5.0.0',
+    eventResource: { kind: 'reopen_abg_event_resource', schemaVersion: '5.0.0', closeHandoff: handoff, handoffDigest: hash(handoff) } };
+  const basis = { kind: 'admission_capability_data', schemaVersion: '5.0.0',
+    definition: { definitionKey: definition.definitionKey, definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest,
+      owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
+    ownerArtifact: { request: c.ownerRequest, verified: c.verified }, request,
+    resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots) },
+    boundEnvironment: product.admissionEnvironmentSelection(handoff.prefix, binding) };
+  const authorityValue = { actorRef, authorityMode: 'trusted_developer' };
+  const approvalValue = { decision: 'allow', actorRef, definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest,
+    requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(basis).digest };
+  const authority = { kind: 'resolved_admission_authority', schemaVersion: '5.0.0', actorRef, authorityMode: 'trusted_developer',
+    authority: { ref: 'authority://t287-r2c/developer', digest: hash(authorityValue), value: authorityValue },
+    approval: { ref: `approval://t287-r2c/${identity}`, digest: hash(approvalValue), value: approvalValue } };
+  const grants = await Promise.all(definition.capabilityRefs.map(cap => product.constructCapabilityGrant(authority, actorRef, key.operationId, cap,
+    { kind: 'admission_capability_grant_construction_basis', fixedPacket: packet, data: basis })));
+  slots.capability_grants = { requiredCapabilityRefs: definition.capabilityRefs, grants: grants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) };
+  const contractCatalog = e.verified.definitionContractCoordinates.operations.find(o => o.operationId === key.operationId)
+    .members.find(m => m.memberKey === key.memberKey).slots.request.contractCatalog;
+  const call = publicApi.constructInstalledPublicDefinitionCall({ product, installedPublic: publicApi,
+    definitionContractCoordinates: e.verified.definitionContractCoordinates, contractCatalog, ...key, request, slots,
+    resources: { ...resources, admissionAuthority: { basis, authority, grants } }, requestRef: `public-request://t287-r2c/${identity}`,
+    correlationRef: `correlation://t287-r2c/${identity}`, eventTime: '2026-10-28T00:00:00.000Z', provenanceRefs: ['provenance://t287-r2c/lane'] });
+  return { call, env };
+}
+
+// Every file under one directory, by path, with its bytes' digest (absent directory: none).
+async function filesUnder(product, root) {
+  const out = {};
+  const walk = async dir => {
+    let entries;
+    try { entries = await readdir(dir, { withFileTypes: true }); } catch (error) { if (error.code === 'ENOENT') return; throw error; }
+    for (const entry of entries) {
+      const path = join(dir, entry.name);
+      if (entry.isDirectory()) await walk(path); else out[path] = product.sha256Bytes(await readFile(path));
+    }
+  };
+  await walk(root);
+  return out;
 }
 
 test('T-287 R2-b result.assess through the installed transport: the declared result and an owner refusal', { timeout: 1800000 }, async t => {
@@ -159,5 +214,137 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
     assert.equal(assessed.payload.capabilityGrantRef, `capability-grant://abiogenesis/${grantDigest.slice('sha256:'.length)}`);
     assert.equal(assessed.payload.invocationRef, made.call.invocation.invocationRef);
     assert.equal(assessed.payload.executionBasisRef, currentBasis.ref);
+  });
+
+  // T-287 R2-c: product.materialize through the same transport and log.
+  const truthModule = await import(pathToFileURL(join(c.e.installedRoot, 'build/code/src/abg/artifact_truth.js')).href);
+  const materializations = join(c.e.workspaceBinding.roots.projectionRoot, 'product-materializations');
+  const rulingsRows = c.e.admittedInstalls.flatMap(i => i.publicContracts).filter(r => r.contractId === 'abg.schema.review-rulings');
+  assert.equal(rulingsRows.length, 1);
+  const rulings = { ref: rulingsRows[0].contractId, digest: rulingsRows[0].contractDigest };
+  const ruling = [{ rulingRef: 'ruling://t287-r2c/1', rulingKind: 'deferment', findingRefs: [], rationaleRef: 'rationale://t287-r2c/1', payloadRef: 'payload://t287-r2c/1' }];
+  const bindingPair = { ref: c.e.workspaceBinding.bindingId, digest: c.e.workspaceBinding.bindingDigest };
+  const runMaterialize = async (identity, memberKey, request) => {
+    const made = await authorizedMaterializeCall(c, handoff, memberKey, request, identity);
+    assert.equal(made.call.resources.kind, 'product_materialize_resource_assertion');
+    assert.equal(made.call.resources.eventResource.kind, 'reopen_abg_event_resource');
+    const before = await readFile(new URL(handoff.prefix.eventLogRef));
+    const filesBefore = await filesUnder(c.product, materializations);
+    const output = (await runInstalledCliRequest({ scratch: c.e.scratch, installedRoot: c.e.installedRoot, identity,
+      acquisition: { kind: 'reopen', closeHandoff: handoff }, call: made.call, expectedExitCode: null })).output;
+    assert.equal(output.kind, 'installed_definition_call_transport_result', JSON.stringify(output));
+    const receipt = output.receipt;
+    assert.equal(receipt.failure, null, JSON.stringify(receipt));
+    assert.equal(receipt.resources.kind, 'product_materialize_resource_receipt');
+    assert.equal(receipt.resources.eventResource.kind, 'abg_event_resource_receipt');
+    assert.deepEqual(receipt.resources.eventResource.entryPrefix, handoff.prefix);
+    const entry = handoff;
+    handoff = receipt.resources.eventResource.closeHandoff;
+    const after = await readFile(new URL(handoff.prefix.eventLogRef));
+    assert.equal(after.subarray(0, before.length).equals(before), true, `${identity} preserves its entry bytes`);
+    return { made, receipt, entry, before, after, filesBefore };
+  };
+  // The positive case: the declared result, its one artifact event, its truth and its files.
+  const materialized = async (identity, memberKey, request) => {
+    const run = await runMaterialize(identity, memberKey, request);
+    const { made, receipt, entry } = run;
+    assert.equal(receipt.exitCode, 0, JSON.stringify(receipt.ownerOutput));
+    assert.equal(receipt.ownerOutput.outcomeKind, 'result');
+    const value = receipt.ownerOutput.value;
+    assert.deepEqual(Object.keys(value).sort(), ['content', 'manifest', 'materializationKind', 'provenance', 'residuals', 'rows', 'subject']);
+    assert.equal(value.materializationKind, memberKey);
+    const workspacePair = { ref: made.env.workspaceAuthorityBasis.workspaceId, digest: made.env.workspaceAuthorityBasis.authorityBasisDigest };
+    assert.deepEqual(value.subject, workspacePair);
+    assert.deepEqual(value.residuals, []);
+    assert.ok(value.rows.every(row => row.disposition === 'created'));
+    assert.ok(value.provenance.some(p => p.ref === workspacePair.ref && p.digest === workspacePair.digest));
+    assert.ok(value.provenance.some(p => p.ref === bindingPair.ref && p.digest === bindingPair.digest));
+    const prior = c.events.readRuntimeEventsAtDurablePrefix(entry.prefix);
+    const current = c.events.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+    assert.equal(current.length, prior.length + 1);
+    const event = current.at(-1);
+    assert.equal(event.kind, 'public_operation_artifact_admitted');
+    assert.equal(event.payload.operationId, 'abg.operation.product.materialize');
+    assert.equal(event.payload.memberKey, memberKey);
+    assert.equal(event.payload.invocationRef, made.call.invocation.invocationRef);
+    assert.equal(event.payload.authorityScopeRef, value.manifest.ref);
+    assert.equal(event.payload.authorityScopeDigest, value.manifest.digest);
+    assert.equal(event.payload.artifactRef, value.content.ref);
+    assert.equal(event.payload.artifactDigest, value.content.digest);
+    assert.deepEqual(event.causationEventRefs, [c.e.workspaceBinding.admissionEventRef]);
+    assert.equal(event.payload.artifact.kind, 'product_materialization_artifact');
+    // The truth reconstructed from the log by artifact_truth: one row at the scope, equal to the result's coordinates.
+    const truth = truthModule.projectExactPrefixArtifactTruth(handoff.prefix);
+    assert.equal(truth.kind, 'exact_prefix_artifact_truth_projection', JSON.stringify(truth));
+    const rows = truth.rows.filter(row => row.authorityScopeRef === value.manifest.ref);
+    assert.equal(rows.length, 1);
+    const row = rows[0];
+    assert.deepEqual([row.operationId, row.memberKey, row.authorityScopeDigest, row.artifactRef, row.artifactDigest, row.admissionEventRef],
+      ['abg.operation.product.materialize', memberKey, value.manifest.digest, value.content.ref, value.content.digest, event.eventId]);
+    const owned = row.artifact.result;
+    assert.deepEqual(owned.subject, { workspaceRef: workspacePair.ref, workspaceDigest: workspacePair.digest,
+      bindingRef: bindingPair.ref, bindingDigest: bindingPair.digest });
+    assert.deepEqual([owned.manifest.manifestRef, owned.manifest.manifestDigest, owned.content.contentRef, owned.content.contentDigest],
+      [value.manifest.ref, value.manifest.digest, value.content.ref, value.content.digest]);
+    assert.deepEqual(owned.rows.map(r => ({ disposition: r.disposition, content: { ref: r.assetRef, digest: r.assetDigest } })), value.rows);
+    assert.deepEqual(truthModule.projectExactPrefixArtifactTruth(entry.prefix).rows.filter(r => r.authorityScopeRef === value.manifest.ref), []);
+    // The files the owner wrote, present at the manifest.
+    const manifest = JSON.parse(await readFile(owned.manifest.manifestPath, 'utf8'));
+    const { manifestRef, manifestDigest, ...manifestBody } = manifest;
+    assert.deepEqual([manifestRef, manifestDigest], [value.manifest.ref, value.manifest.digest]);
+    assert.equal(c.product.sha256Canonical(manifestBody), value.manifest.digest);
+    assert.deepEqual(manifest.rows, owned.rows);
+    for (const asset of manifest.rows) {
+      const { assetRef, assetDigest, contentRef, contentDigest, ...assetBody } = JSON.parse(await readFile(asset.assetPath, 'utf8'));
+      assert.equal(assetRef ?? contentRef, asset.assetRef);
+      assert.equal(assetDigest ?? contentDigest, asset.assetDigest);
+      assert.equal(c.product.sha256Canonical(assetBody), asset.assetDigest);
+    }
+    return { ...run, value, owned };
+  };
+  // The refusing case: a declared reason from an owner refusal, its issuePaths, the log bytes and the files unchanged.
+  const refused = async (identity, memberKey, request, expected) => {
+    const run = await runMaterialize(identity, memberKey, request);
+    assert.equal(run.receipt.exitCode, 1, JSON.stringify(run.receipt.ownerOutput));
+    assert.deepEqual(run.receipt.ownerOutput, { outcomeKind: 'refusal', value: expected });
+    assert.equal(run.after.equals(run.before), true, 'a refusal appends nothing');
+    assert.deepEqual(await filesUnder(c.product, materializations), run.filesBefore, 'a refusal writes no file');
+    return run;
+  };
+  const workspace = () => {
+    const env = c.authority.admitCapabilityEnvironment(c.product.admissionEnvironmentSelection(handoff.prefix, bindingPair));
+    return { ref: env.workspaceAuthorityBasis.workspaceId, digest: env.workspaceAuthorityBasis.authorityBasisDigest };
+  };
+
+  await t.test('product.materialize#context_bootstrap: the declared result, its one artifact event, its truth and its files', async () => {
+    const { owned } = await materialized('materialize-context-positive', 'context_bootstrap', { workspace: workspace(), binding: bindingPair,
+      contextInputs: [{ name: 'review-rulings/deferment', contract: rulings, value: ruling }, { name: 'review-rulings/empty', contract: rulings, value: [] }] });
+    assert.deepEqual(owned.rows.map(r => r.inputRef), ['review-rulings/deferment', 'review-rulings/empty']);
+    assert.deepEqual(owned.rows.map(r => r.inputDigest), [c.product.sha256Canonical(ruling), c.product.sha256Canonical([])]);
+  });
+
+  await t.test('product.materialize#context_bootstrap: an owner refusal maps onto the declared reason with its issuePaths', async () => {
+    // Two declared inputs with one content: the owner refuses its non-unique content addresses before any write.
+    await refused('materialize-context-refusal', 'context_bootstrap', { workspace: workspace(), binding: bindingPair,
+      contextInputs: [{ name: 'review-rulings/a', contract: rulings, value: [] }, { name: 'review-rulings/b', contract: rulings, value: [] }] },
+    { code: 'input_mismatch', issuePaths: ['/contextInputs'], evidenceRefs: [] });
+  });
+
+  let configured;
+  await t.test('product.materialize#configuration: the declared result, its one artifact event, its truth and its files', async () => {
+    configured = await materialized('materialize-configuration-positive', 'configuration',
+      { configurationContract: rulings, binding: bindingPair, inputs: ruling });
+    assert.deepEqual(configured.owned.rows.map(r => [r.inputRef, r.inputDigest]), [[rulings.ref, c.product.sha256Canonical(ruling)]]);
+    assert.ok(configured.value.provenance.some(p => p.ref === rulings.ref && p.digest === rulings.digest));
+  });
+
+  await t.test('product.materialize#configuration: an owner refusal maps onto the declared reason with its issuePaths', async () => {
+    // The materialized content path now holds unequal bytes: the owner refuses to overwrite authority.
+    const contentPath = configured.owned.content.contentPath;
+    await writeFile(contentPath, '{}\n');
+    await refused('materialize-configuration-refusal', 'configuration',
+      { configurationContract: rulings, binding: bindingPair, inputs: ruling },
+      { code: 'authority_mismatch', issuePaths: ['/binding'], evidenceRefs: [] });
+    assert.equal(await readFile(contentPath, 'utf8'), '{}\n');
   });
 });

@@ -4180,7 +4180,9 @@ export function appendCheckedArtifactEvent(
     !isRecord(initiatedEvent.payload) ||
     !(["abg.operation.product.install", "abg.operation.workspace.bind"].includes(String(initiatedEvent.payload.operationId)) ||
       initiatedEvent.payload.operationId === "abg.operation.release.snapshot" &&
-        (initiatedEvent.payload.memberKey === "published_rc" || initiatedEvent.payload.memberKey === "tapped_release"))
+        (initiatedEvent.payload.memberKey === "published_rc" || initiatedEvent.payload.memberKey === "tapped_release") ||
+      initiatedEvent.payload.operationId === "abg.operation.product.materialize" &&
+        (initiatedEvent.payload.memberKey === "context_bootstrap" || initiatedEvent.payload.memberKey === "configuration"))
   ) {
     throw new TypeError(
       "checked artifact ingress is closed to Product install and workspace binding",

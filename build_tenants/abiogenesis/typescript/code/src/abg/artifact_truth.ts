@@ -1,3 +1,5 @@
+import { join } from "node:path";
+
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { isReleaseOperationArtifact, projectReleaseQualification, projectReleaseAcceptance } from "../implementation/release_publication.js";
 import { releaseArtifactCoordinate } from "../product/release_snapshot_operations.js";
@@ -17,7 +19,7 @@ import {
   isWorkspaceBindingCandidateInResolvedLock,
   productInstallCoordinate,
 } from "../product/environment.js";
-import { type JsonValue } from "../shared/canonical_json.js";
+import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
@@ -183,6 +185,115 @@ function assertsArtifactAvailabilityEffect(
   }
 }
 
+const MATERIALIZATION_ARTIFACT_KEYS = [
+  "entryPrefix", "invocation", "kind", "memberKey", "request", "result", "schemaVersion", "workspaceBinding",
+] as const;
+
+/**
+ * product.materialize's artifact: the owner's result and the declared request at
+ * the entry coordinate. The fold reconstructs the result from the request and
+ * the environment projected at the entry prefix through the binding the event's
+ * cause names (the workspace pair is the admitted authority basis, the
+ * configuration contract body the installed catalog row); only each row's
+ * created/preserved disposition is the owner's filesystem observation. The scope
+ * is the manifest pair and the artifact the content pair.
+ */
+function materializationArtifactCorresponds(
+  artifact: JsonValue | null,
+  payload: Readonly<Record<string, JsonValue>>,
+  event: RuntimeEvent,
+  coordinate: Readonly<{
+    invocation: Readonly<Record<string, string>>;
+    scope: Readonly<{ ref: string; digest: string }>;
+    artifact: Readonly<{ ref: string; digest: string }>;
+  }>,
+): boolean {
+  try {
+    const memberKey = coordinate.invocation.memberKey;
+    if (!isRecord(artifact) || !hasExactKeys(artifact, MATERIALIZATION_ARTIFACT_KEYS) ||
+        artifact.kind !== "product_materialization_artifact" || artifact.schemaVersion !== "5.0.0" ||
+        artifact.memberKey !== memberKey || (memberKey !== "context_bootstrap" && memberKey !== "configuration") ||
+        payload.resolvedLock !== undefined || payload.workspaceAuthorityBasis !== undefined ||
+        !canonicalEquals(artifact.invocation ?? null, coordinate.invocation) ||
+        !isRecord(artifact.request) || !isRecord(artifact.result) || !Array.isArray(artifact.result.rows) ||
+        !isRecord(artifact.workspaceBinding) || typeof artifact.workspaceBinding.ref !== "string" ||
+        typeof artifact.workspaceBinding.digest !== "string" || !isDigest(artifact.workspaceBinding.digest)) return false;
+    const environment = projectExactPrefixWorkspaceEnvironment(artifact.entryPrefix as unknown as DurablePrefixCoordinate,
+      { ref: artifact.workspaceBinding.ref, digest: artifact.workspaceBinding.digest });
+    if (environment.kind !== "exact_prefix_workspace_environment" || event.causationEventRefs.length !== 1 ||
+        event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) return false;
+    const binding = environment.workspaceBinding, basis = environment.workspaceAuthorityBasis;
+    const request = artifact.request, observedRows = artifact.result.rows;
+    const bindingPair = { ref: binding.bindingId, digest: binding.bindingDigest };
+    if (!canonicalEquals(artifact.workspaceBinding, bindingPair) || !canonicalEquals(request.binding ?? null, bindingPair)) return false;
+    const hex = (digest: string) => digest.slice("sha256:".length);
+    const root = join(binding.roots.projectionRoot, "product-materializations", memberKey);
+    const subject = { workspaceRef: basis.workspaceId, workspaceDigest: basis.authorityBasisDigest,
+      bindingRef: binding.bindingId, bindingDigest: binding.bindingDigest };
+    const disposition = (index: number) => {
+      const row = observedRows[index];
+      return isRecord(row) && (row.disposition === "created" || row.disposition === "preserved") ? row.disposition : null;
+    };
+    const provenance = [
+      { provenanceRef: subject.workspaceRef, provenanceDigest: subject.workspaceDigest },
+      { provenanceRef: subject.bindingRef, provenanceDigest: subject.bindingDigest },
+    ];
+    let rows: JsonValue[], content: Readonly<{ contentRef: string; contentDigest: Sha256Digest; contentPath: string }>;
+    if (memberKey === "context_bootstrap") {
+      if (!canonicalEquals(request.workspace ?? null, { ref: subject.workspaceRef, digest: subject.workspaceDigest }) ||
+          !Array.isArray(request.contextInputs) || request.contextInputs.length !== observedRows.length) return false;
+      const inputs = request.contextInputs.map((input) => {
+        if (!isRecord(input) || typeof input.name !== "string" || input.value === undefined) {
+          throw new TypeError("materialization context input is malformed");
+        }
+        const value = input.value as JsonValue;
+        return { inputRef: input.name, inputDigest: sha256Canonical(value), content: value };
+      }).sort((left, right) => compareUnicodeCodeUnits(left.inputRef, right.inputRef));
+      rows = inputs.map((input, index) => {
+        const assetDigest = sha256Canonical({ kind: "generated_product_asset", schemaVersion: "5.0.0",
+          materializationKind: "context_bootstrap", ...subject, ...input });
+        return { inputRef: input.inputRef, inputDigest: input.inputDigest,
+          assetRef: `generated-product-asset://abiogenesis/${hex(assetDigest)}`, assetDigest,
+          assetPath: join(root, "content", `${hex(assetDigest)}.json`), disposition: disposition(index) };
+      });
+      const contentDigest = sha256Canonical(rows.map((row) => (row as Readonly<{ assetDigest: string }>).assetDigest));
+      content = { contentRef: `context-bootstrap-content://abiogenesis/${hex(contentDigest)}`, contentDigest, contentPath: root };
+      provenance.push(...inputs.map((input) => ({ provenanceRef: input.inputRef, provenanceDigest: input.inputDigest })));
+    } else {
+      const selected = request.configurationContract;
+      const contracts = isRecord(selected) ? environment.productInstalls.flatMap((install) =>
+        install.publicContracts.filter((row) => row.contractId === selected.ref)) : [];
+      if (contracts.length !== 1 || !isRecord(selected) || contracts[0]!.contractDigest !== selected.digest ||
+          request.inputs === undefined || observedRows.length !== 1) return false;
+      const contract = contracts[0]!, inputsDigest = sha256Canonical(request.inputs);
+      const contentDigest = sha256Canonical({ kind: "generated_product_asset", schemaVersion: "5.0.0",
+        materializationKind: "configuration", ...subject, configurationContract: contract as unknown as JsonValue,
+        inputsDigest, inputs: request.inputs });
+      content = { contentRef: `configuration-content://abiogenesis/${hex(contentDigest)}`, contentDigest,
+        contentPath: join(root, "content", `${hex(contentDigest)}.json`) };
+      rows = [{ inputRef: contract.contractId, inputDigest: inputsDigest, assetRef: content.contentRef,
+        assetDigest: contentDigest, assetPath: content.contentPath, disposition: disposition(0) }];
+      provenance.push({ provenanceRef: contract.contractId, provenanceDigest: contract.contractDigest });
+    }
+    if (rows.some((row) => (row as Readonly<{ disposition: unknown }>).disposition === null)) return false;
+    provenance.sort((left, right) => compareUnicodeCodeUnits(left.provenanceRef, right.provenanceRef));
+    const manifestBody = { kind: "product_materialization_manifest", schemaVersion: "5.0.0", materializationKind: memberKey,
+      workspaceRef: subject.workspaceRef, workspaceDigest: subject.workspaceDigest, bindingRef: subject.bindingRef,
+      bindingDigest: subject.bindingDigest, contentRef: content.contentRef, contentDigest: content.contentDigest, rows,
+      validationDisposition: "admitted", residuals: [], provenance };
+    const manifestDigest = sha256Canonical(manifestBody);
+    const manifest = { manifestRef: `product-materialization-manifest://abiogenesis/${hex(manifestDigest)}`, manifestDigest,
+      manifestPath: join(root, "manifests", `${hex(manifestDigest)}.json`) };
+    return canonicalEquals(artifact.result, { kind: "product_materialization_result", schemaVersion: "5.0.0",
+      disposition: "materialized", materializationKind: memberKey, subject, content, manifest, rows,
+      validationDisposition: "admitted", residuals: [], provenance }) &&
+      coordinate.scope.ref === manifest.manifestRef && coordinate.scope.digest === manifest.manifestDigest &&
+      coordinate.artifact.ref === content.contentRef && coordinate.artifact.digest === content.contentDigest;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Ordered artifact relations consume the shared Event Calculus owner facts.
  * The installed authority surface remains projectExactPrefixArtifactTruth.
@@ -226,7 +337,8 @@ class RuntimeArtifactFacts {
     );
     if (
       (operationId !== "abg.operation.product.install" &&
-        operationId !== "abg.operation.workspace.bind" && operationId !== "abg.operation.release.snapshot") ||
+        operationId !== "abg.operation.workspace.bind" && operationId !== "abg.operation.release.snapshot" &&
+        operationId !== "abg.operation.product.materialize") ||
       ownerAdmittedDisposition !== "admitted"
     ) {
       throw new TypeError(
@@ -249,7 +361,9 @@ class RuntimeArtifactFacts {
     const artifactDigest = requiredString(payload, "artifactDigest");
     const event = row.sourceEvent;
     if (
-      !(operationId === "abg.operation.release.snapshot" && memberKey === "tapped_release") && memberKey !== (operationId === "abg.operation.product.install"
+      !(operationId === "abg.operation.release.snapshot" && memberKey === "tapped_release") &&
+      !(operationId === "abg.operation.product.materialize" && (memberKey === "context_bootstrap" || memberKey === "configuration")) &&
+      memberKey !== (operationId === "abg.operation.product.install"
         ? "install"
         : operationId === "abg.operation.release.snapshot" ? "published_rc" : "bind") ||
       !isExactOperationInvocationCoordinate({
@@ -393,6 +507,14 @@ class RuntimeArtifactFacts {
           artifact.dependencyLock.ref !== environment.resolvedProductLock.lockId || artifact.dependencyLock.digest !== environment.resolvedProductLock.lockDigest ||
           event.causationEventRefs.length !== 1 || event.causationEventRefs[0] !== environment.workspaceBinding.admissionEventRef) {
         throw new TypeError("release artifact actor/environment differs from its exact admitted predecessor");
+      }
+    } else if (operationId === "abg.operation.product.materialize") {
+      if (!materializationArtifactCorresponds(artifact, payload, event, {
+        invocation: { operationId, memberKey, definitionDigest, invocationRef, invocationPayloadDigest, invocationDigest },
+        scope: { ref: authorityScopeRef, digest: authorityScopeDigest },
+        artifact: { ref: artifactRef, digest: artifactDigest },
+      })) {
+        throw new TypeError("materialization artifact differs from its closed owner result, request, scope or Definition relation");
       }
     } else {
       if (

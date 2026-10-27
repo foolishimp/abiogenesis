@@ -68,6 +68,7 @@ export type PublicOperationId =
   | "abg.operation.interaction.respond"
   | "abg.operation.project.read"
   | "abg.operation.result.assess"
+  | "abg.operation.product.materialize"
   | "abg.operation.run.continue"
   | "abg.operation.run.invoke"
   | "abg.operation.witness.admit";
@@ -757,7 +758,8 @@ export function validatePublicOperationBasis(
 type ArtifactOperationId =
   | "abg.operation.release.snapshot"
   | "abg.operation.product.install"
-  | "abg.operation.workspace.bind";
+  | "abg.operation.workspace.bind"
+  | "abg.operation.product.materialize";
 
 type ArtifactAdmissionResult =
   | Readonly<{
@@ -830,7 +832,8 @@ function admitArtifactFromOwner(
   if (
     expectedOperation !== "abg.operation.product.install" &&
     expectedOperation !== "abg.operation.workspace.bind" &&
-    expectedOperation !== "abg.operation.release.snapshot"
+    expectedOperation !== "abg.operation.release.snapshot" &&
+    expectedOperation !== "abg.operation.product.materialize"
   ) {
     return {
       disposition: "refused",
@@ -845,7 +848,9 @@ function admitArtifactFromOwner(
     basis,
     expectedOperation,
     expectedOperation === "abg.operation.release.snapshot" && basis.memberKey === "tapped_release" ? "tapped_release" :
-      expectedOperation === "abg.operation.release.snapshot" ? "published_rc" : artifactMemberKey(expectedOperation),
+      expectedOperation === "abg.operation.release.snapshot" ? "published_rc" :
+      expectedOperation === "abg.operation.product.materialize" ? (basis.memberKey === "configuration" ? "configuration" : "context_bootstrap") :
+      artifactMemberKey(expectedOperation),
   );
   if (invalidBasis !== null) {
     return {
