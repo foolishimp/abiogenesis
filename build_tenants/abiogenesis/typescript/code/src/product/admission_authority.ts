@@ -224,6 +224,8 @@ const ADMISSION_OPERATIONS = new Set([
   "abg.operation.product.install", "abg.operation.workspace.bind",
   "abg.operation.catalog.admit", "abg.operation.catalog.view",
   "abg.operation.catalog.apply", "abg.operation.conformance.evaluate",
+  "abg.operation.result.assess",
+  "abg.operation.product.materialize",
 ]);
 
 /** Observation under the operation's effect contract: the held store at its
