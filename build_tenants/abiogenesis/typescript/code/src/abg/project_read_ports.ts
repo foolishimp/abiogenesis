@@ -1,4 +1,4 @@
-import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
@@ -556,21 +556,29 @@ const HISTORICAL_GRAPH_CALL_SOURCES = Symbol("r10_historical_graph_call_sources"
 /** Owner-only Run resource path. The complete DefinitionCall has already passed
  * raw ingress. All authority still comes from the current history and R10 joins.
  * Copies/closed owners reconstruct; an immutable resource identity retains the
- * borrowed result only within the existing authenticated prefix lineage. */
+ * borrowed result only within the existing authenticated prefix lineage.
+ *
+ * The retention lives in the open owner's derivation generation: the active
+ * selection's `RuntimeDerivationSource`, which the Event Store invalidates and
+ * replaces at rollback and refusal. Outside the open session (closed owner,
+ * copied or unbound coordinate) the prefix is a cold physical read with a new
+ * derivation source, so nothing retained is lent and mutated bytes refuse. */
 export function projectHistoricalGraphCallSourceAtDurablePrefix(
   suppliedPrefix: DurablePrefixCoordinate, resource: AbgHistoricalGraphCallSourceResource,
 ): AbgHistoricalGraphCallSource | null {
   try {
     const prefix = captureDurablePrefixCoordinate(suppliedPrefix);
-    const fullPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
+    const fullPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
     const events = runtimeEventBodiesAtPrefix(fullPrefix);
     const retained = runtimePrefixComputation(fullPrefix, HISTORICAL_GRAPH_CALL_SOURCES,
-      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number }>());
+      () => new WeakMap<AbgHistoricalGraphCallSourceResource, { minimumOrdinal: number; value: AbgHistoricalGraphCallSource }>());
     const lastOrdinal = runtimeEventPrefixExtent(fullPrefix).lastOrdinal;
     if (!isImmutableRuntimeValue(resource) || resource.kind !== "abg_historical_graph_call_source_resource" ||
         resource.schemaVersion !== "5.0.0" || !hasExactDataFields(resource, ["kind", "schemaVersion", "terminal", "input", "declarationProof",
           ...(resource.declarationDependencies === undefined ? [] : ["declarationDependencies"])]) ||
         !hasExactDataFields(resource.input, ["graphFunctionRef", "contractRef"]) || !hasUniqueHistoricalDeclarationDependencies(resource)) return null;
+    const kept = retained.get(resource);
+    if (kept !== undefined && lastOrdinal >= kept.minimumOrdinal) return kept.value;
     const packet: AbgProjectReadPacket<"graph_call_result"> = Object.freeze({ kind: "abg_project_read_packet", schemaVersion: "5.0.0",
       memberKey: "graph_call_result", prefix, targetRef: resource.terminal.producer.graphCallRef, declarationProof: resource.declarationProof });
     const prepared: PreparedRead<"graph_call_result"> = Object.freeze({ packet, events, fullPrefix });
@@ -592,7 +600,7 @@ export function projectHistoricalGraphCallSourceAtDurablePrefix(
     const value = Object.freeze({ terminalResult: result.terminalResult, ...result.source });
     // The complete prefix is sufficient and prevents a historical cut from
     // borrowing a result authenticated only in a later owner state.
-    retained.set(resource, { minimumOrdinal: lastOrdinal });
+    retained.set(resource, { minimumOrdinal: lastOrdinal, value });
     return value;
   } catch { return null; }
 }

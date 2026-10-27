@@ -499,3 +499,230 @@ No Product contract, event contract, payload key, failure class, declared reason
 **Exit.** The order table's: the integrated invocation and the single-invocation lanes green or skipping with a named reason under the evidence root; the uat harness lane green; and here: the two partial-stop lanes `failed` with the typed failure, the historical-source lane green, the three r-lanes green on the refreshed fixture, the restored cases green in their hosts, the census table complete, every other lane equal; the red set at your commit the standing two (questions 9 and 12).
 
 **Return contract.** `## D1/D4-a return (Worker, Opus 5.5, 2026-10-27; base \`<hash>\`)` appended once to this file, after a blank line, before the commit so the commit carries it: the first sentence (closed, the gaps, or the stops); the subtree pairs; item 1's trace table (C1, C3: the value at admission, disposition, contract, before and after); item 2's generation owner and the retention's lifetime; item 3's table; item 4's three fields and the classing of any other red; the lanes table (before, after, compose; every moved lane with its first error); gates (`tsc`, `tsc --noUnusedLocals` (1, `BASE64_PATTERN`, R3's), the four lints, the build, the regenerated files' moved leaves named); instrumentation stripped and proven absent; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `D1/D4-a: the red census and discharge: question 11's child lift, question 13's retained source, the lost current-owner cases restored, the candidate basis refreshed`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D1/D4-a return (Worker, Opus 5.5, 2026-10-27; base `c7b148e8192fd1b42c8da76d6cf26e19f2f5dbb2`)
+
+**Closed with one gap, which is a stop.**
+
+What is done:
+- **Item 1 (question 11).** C3 is green. C1 now completes `failed` with the typed vector-application failure.
+- **Item 2 (question 13).** `t287-historical-source-resource` is 2/2/0/0.
+- **Item 3.** The restored case is green in `t287-runtime-failure-diagnostic`, and the census of deleted cases is complete.
+- **Item 4.** The candidate basis was refreshed through its owner command, and r1, r2 and r3 are green.
+
+The gap: C1 (`t287-worksite-construction:701`) is still red at assertion `:1006`.
+- That assertion expects member 1's refused stale `O0` to be current. The repair does not reach it; it was masked by the `:886` failure until now.
+- The lane grant does not let me retire it. It is class (v), a superseded cut; see **Stops**.
+- So the red set at this commit is four cases in three lanes, not the standing two: question 9, question 12, and C1 `:1006`.
+- No contract, event payload, failure class, declared reason enum, Program declaration, Public export or design was edited.
+
+**Subtree pairs** (`git rev-parse <base>:<subtree> 529ffa0f6:<subtree>`). Each pair is equal.
+
+| Subtree | Base | `529ffa0f6` |
+|---|---|---|
+| `code` | `be3710ce439894434befb3f4f6a00507f1f480fb` | `be3710ce439894434befb3f4f6a00507f1f480fb` |
+| `test_env` | `b388eed90e1f61038a3ef8787663960f7c378f2a` | `b388eed90e1f61038a3ef8787663960f7c378f2a` |
+| `contracts` | `2c9cfe68e4847c72e7d2929e5356dd383bfdbb04` | `2c9cfe68e4847c72e7d2929e5356dd383bfdbb04` |
+
+**Item 1: the workflow child lift (question 11).**
+
+*Trace.* D14A lines sat at the `admitOwnedCCallResult` call in `completeOwnedWorkflowLocus` and after it. Base values come from the base build; after values come from the repaired build. The lift sees four levels.
+
+| Case and lift (parent GraphFunction, child) | Child completion and foldback | The child's admitted row (class, contract, kind, judgment) | Before: submitted value, disposition, checked contract, outcome | After: submitted value, disposition, checked contract, outcome |
+|---|---|---|---|---|
+| C1 and C3, the stale member (`vector-application@5`, child `file-replace@5`) | `failed` / `failed` | `failure`, `file-replace-failure@5`, `worksite_effect_refusal`, `blocked` | `{worksite_effect_refusal, child_traversal_failed, stale_observation@5}`, `failure`, `file-replace-failure@5`: admitted (`result`, class `failure`) | the same: unchanged |
+| C1 root; C3 the branch's construction call (`construction@5`, child `vector-application@5`) | `blocked` / `blocked` | `failure`, `file-replace-failure@5`, `worksite_effect_refusal`, `blocked` | the child's value under `success`, checked against the output carrier `construction-result@5` (kind `worksite_construction_result`): **refused**, `blocked`, `c-call/result-contract-mismatch@5`, value `worksite_construction_refusal` (`rejectedStage: "result"`) | `{worksite_construction_vector_application_failure, child_traversal_failed, stale_observation@5}` under `failure`, checked against `parentCCall.failureContractRef` = `construction/vector-application-failure@5`: admitted (`result`, class `failure`) |
+| C3, the branch-application member (`branch-application@5`, child `construction@5`) | before `blocked` / `blocked`; after `failed` / `failed` | before `refusal`, `construction-refusal@5`, `worksite_construction_refusal`; after the level below is a failure | the refusal under `success`, checked against `construction-result@5`: **refused**, `blocked`, `result-contract-mismatch@5`, value `worksite_branch_construction_refusal` | `{worksite_construction_failure, child_traversal_failed, stale_observation@5}` under `failure`, checked against `construction-failure@5`. This is the existing failed-child branch. Admitted. |
+| C3 root (`branch-construction@5`, child `branch-application@5`, the outer fan-out partial stop) | `blocked` / `blocked` | before `refusal`, `branch-construction-refusal@5`; after the stopping member's failure (class `failure`, kind `worksite_construction_failure`) | the refusal under `success`, checked against `construction-result@5`: **refused**, `blocked`, `result-contract-mismatch@5` | `{worksite_branch_construction_branch_application_failure, child_traversal_failed, stale_observation@5}` under `failure`, checked against `branch-construction/branch-application-failure@5`. Admitted. |
+
+*What the result-contract check requires.*
+- **`success`.** Admission validates the candidate by `cCall.outputContractRef`, the parent's output carrier. A failure-class child value never meets that check.
+- **`failure`.** Admission validates it against `cCall.failureContractRef` with `failureValueKind`. That kind is resolved by the reader at base `:577` (`runtime.leafPort.contractValueKind(parentCCall.failureContractRef, "failure")`; `:608` in the repaired file).
+
+The C1 refs after the repair are read from events: ordinal 150 (`file-replace-failure@5`) and ordinal 164 (`construction/vector-application-failure@5`). Each C3 ref comes from the declaration whose `valueKind` is that kind (`gtl/worksite_construction.ts:496-505`, `gtl/worksite_branch_construction.ts:515-519`, `product/worksite_construction_identity.ts:55-56` and `:71-72`, `product/worksite_branch_construction.ts:105-106`).
+
+*Repair.* `hog/workflow_lifecycle.ts`, HoG side only. `abg/c_call.ts` is untouched. Line numbers below are the repaired file's.
+- A new module-private `childResultIsFailureClass` (`:510`) is consulted only when `foldback.childDisposition === "blocked"`. It works in three steps.
+  1. It reads the child's terminal CCall row with `OwnedReplay.projectReplayCCallGuardAtPrefix` over the child run's prefix: `selectRuntimeEventPrefixFromAuthority(projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix), { runId })`. This is the same selection the incomplete-child path uses.
+  2. It binds that row to the foldback by `resultRef === foldback.childResultRef` and `resultDigest === foldback.childResultDigest`.
+  3. It returns whether `leafPort.contractValueKind(row.resultContractRef, "failure")`, the same reader the parent's `failureKind` uses, is non-null and equal to `child.resultValue.kind`.
+- `childBlocked` (`:683`) is now `blocked && !failureClass`. A failure-class blocked child therefore takes the existing failed-child branch: the parent's declared `failureKind`, `failureClass: "child_traversal_failed"`, the existing `failureDiagnosticRef`, `resultDisposition: "failure"`, and a `refuse` judgment.
+- A success-class blocked child keeps the conservation, and so does any child whose class cannot be read: no row, the ref or digest disagrees, or no failure contract. A throw from the row reader is caught and also keeps the conservation.
+- The comment at the conservation site gains one sentence stating the lift.
+- Nothing is added: no failure class, no event payload member, no diagnostic, and no stage.
+- A `null` parent `failureKind` is already refused earlier, at `:612` (`workflow-result-contract-absent@5`).
+
+*Lanes.*
+- **C3 (`t287-worksite-branch-construction:671`).** Green, 2/2/0/0.
+- **C1 (`t287-worksite-construction:701`).**
+  - It now completes `failed` with the typed vector-application failure, and every assertion from `:886` through `:1005` passes. That covers no reducer, the outer `partial_stop` (completed `[0]`, stopping `1`, unstarted `[2]`), the stale C0 failure, `run_stopped`, the file states, fresh replay `failed` with `partial_stop`, and the replayed vector-failure value.
+  - It stays red at `:1006`. See **Stops**.
+
+**Item 2: the retained historical source (question 13).**
+
+`abg/project_read_ports.ts` `projectHistoricalGraphCallSourceAtDurablePrefix` (`:566`). Three changes:
+- The WeakMap entry is `{ minimumOrdinal, value }`.
+- After the resource-shape checks, an entry is lent only when `lastOrdinal >= kept.minimumOrdinal` (`:580-581`). Otherwise the existing validation runs, which is why the early cut refuses.
+- The prefix is acquired through `readOwnedRuntimeEventPrefixAtDurablePrefix`, in place of `projectOwnedRuntimeEventPrefixAtDurablePrefix`. That import was its only use and is removed.
+
+*Generation owner.* It is read only, through two readers.
+- **The Event Store's derivation source.** The open owner's active selection is bound to `EventStoreState.derivation`, a `RuntimeDerivationSource` (`DurableHistoryDerivation.bindSelection(prefix, selection, state.derivation, state)` in the durable append).
+  - The store invalidates and replaces it at an append rollback, a failed durable append and a liveness refusal: `state.derivation.invalidate(); state.derivation = new RuntimeDerivationSource()` in `event_store.ts`. The rollback also increments `RuntimeHistory.#generation` in `truncate`.
+  - The retention is reached through `runtimePrefixComputation`, which calls `receipt.source.selectionScope(scopeKey, selection).owner(...)`.
+- **The open-session bound.** It is `DurableHistoryDerivation.activeSelection`: owner bound, `durableAppendClosed` false, `durableHistory` non-null. It is reached through `readOwnedRuntimeEventPrefixAtDurablePrefix`. Outside that bound, the reader performs a cold physical read and binds a new `RuntimeDerivationSource`.
+
+*Lifetime.* An entry lives in one `RuntimeDerivationScope` of the open owner's derivation source.
+- **Shared across** the extending selections and historical cuts that `acceptsSelection` admits.
+- **Lent** only at or after the authenticating prefix's last ordinal.
+- **Dropped** when the source is invalidated (rollback or refusal), when a non-extending selection replaces the scope, and with the resource object (WeakMap).
+- **Never consulted** after close or for a copied or unbound coordinate. Those take the cold read with a fresh source, so they reconstruct, and mutated bytes refuse at the physical read.
+
+The lane is `t287-historical-source-resource`, 2/1/1/0 before and 2/2/0/0 after; every other assertion is unchanged. The six checks it runs:
+- `:83`, the same live resource, now gives the same object at count 1;
+- the cold copy gives a deepEqual, notStrictEqual object at count 2;
+- the copied resource gives count 3;
+- the six variants give `null`, and the refused candidates do not poison;
+- the early cut gives `null`;
+- after close, the count is +1, and the mutated byte gives `null`.
+
+**Item 3: the lost current-owner cases.**
+- **(a)** The fourth case of `t288-workflow-scope-conservation` is restored into `t287-runtime-failure-diagnostic` (`:988-1012`), additions only (26 lines).
+  - *Host choice, by subject.* That lane already evaluates `implementation/leaf_invocation_port` and holds the same owner's purity claim at `:288`: deterministic caught-cause retention never evaluates arbitrary getters or proxies.
+  - *Text.* The case is the original's text with its `path.join`, `path.resolve` and `path.dirname` written as the host's imported `join`, `resolve` and `dirname`. It reads `isFixedDeclarationData` and `hasOwnedDeclarationLookups` through the built module, as the original does.
+  - *Run.* It is green: the host is 21/21, and the run printed `{"gettersInvoked":0,"proxyTrapsInvoked":0,...}`.
+- **(b)** The census covers the 19 files deleted between `a8937b837` and `acb5200a8`, each read at `<deletion>^`. There are 49 `test(` sites in 17 test files plus two scripts. Deletion commits: `811bb8f85` (C-18b) and `d61cfd90f` (C-19).
+
+| File | Cases | Class | Gate, lane or law |
+|---|---|---|---|
+| `d1-preserved-result` | 1 | (a) | `../../../preimages/source-observation.json` and the native store it names |
+| `d2-binding-retained-diagnostic.mjs` (script) | 0 | (a) | a retained log by relative path and dev/ino; deleted at C-19 item 3 (d) |
+| `d2-evidence-owner` | 1 | (a) | `priorSkip` (the implementation-03 predecessor, retired at C-18b) and the ic-07 store under the evidence root |
+| `d2-historical-owner` | 7 sites (6 cases and an 11-mutation loop) | (a) | the harness `evidence/d2-program-ready.json` and its `work/` copy (the harness was deleted at `811bb8f85`) |
+| `d4-s01-program-owner` | 8 sites (7 cases and a 4-variant loop) | (a) | `evidence/s01-origins.json`, `s01-closure-input.json` and the compiled-parent root |
+| `integration-d1-readonly-discriminator.mjs` (script) | 0 | (a) | the integration `origins.json` |
+| `t287-c2-owner-coordinate-reuse` | 6 | (b) | resolves under the built tree from a hand-built history. Retired by C-19 item 5 (c) under C-5's ruling (a history is built through its owner). The C-20 trace found no falsifier through the owner for four claims and owner-held roots only for two. |
+| `t287-fh-hold-open` | 2 | (a) | the retained S02 installed episode and the fh-hold evidence (file-level imports from the episode build) |
+| `t287-native-frame-route-conservation` | 3 | (a) | `ABI5_ROUTE_PROOF_ROOT`, `ABI5_FRAME_HISTORY_PATH`/`_SHA256`; D4 also needs `ABI5_ROUTE_BASELINE_ROOT` |
+| `t287-worksite-file-replace-owner` | 1 | (b) | Retired by C-18b because the raw writer left the Product surface (`design/README.md:294`, C0 design `:652`). At head, `replaceWorksiteFile` is not a `product/index` export. |
+| `t288-blocked-retry-entry` | 1 | (a) | `ABI5_COMPOSITION_PREDECESSOR`, `ABI5_OWNER_HISTORY` |
+| `t288-composition-conservation` | 5 | (a) | `ABI5_COMPOSITION_PREDECESSOR`/`_SCRATCH` and the evidence-root S01 record |
+| `t288-environment-context-reuse` | 1 | (a) | `ABI5_D17_PREDECESSOR`/`_SCRATCH` |
+| `t288-environment-guard-contraction` | 1 | (a) | `ABI5_D17_PREDECESSOR`/`_SCRATCH` |
+| `t288-native-producer-membership` | 1 | (a) | `ABI5_D16_HISTORY`/`_PREDECESSOR` |
+| `t288-physical-return-conservation` | 2 | (a) | `ABI5_PHYSICAL_PREDECESSOR`/`_SCRATCH` |
+| `t288-prefix-structure` | 4 | (a) | `ABI5_PREFIX_PREDECESSOR_ROOT`, `ABI5_OWNER_HISTORY` |
+| `t288-scoped-retry-guard` | 1 | (a) | `ABI5_OWNER_HISTORY` |
+| `t288-workflow-scope-conservation` | 4 | 3 (a); 1 (b) | Three cases are gated on `ABI5_PHYSICAL_PREDECESSOR`/`_SCRATCH`. The fourth was restored by (a) into `t287-runtime-failure-diagnostic`. |
+
+No other (b) case remains unrestored without a named law. No deleted file is recreated.
+
+**Item 4: the candidate basis and the other reds.**
+- **(a)** `node scripts/refresh-candidate-basis.mjs` ran once, from the tenant, on the final tree (after the strip and the final `npm run build`, before the after pass). No edit followed it. Three fields moved in `test_env/fixtures/abi5-root-candidate-basis.json`; nothing else in the file moved:
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:453c0c69703103c9f008e72d50d4306a580c2486d2a285791ddfd61bdf4cd23c` | `sha256:c36b7a7009f2641f2a0500c026e9d2743e957aac2788e062b6e2c44fb6a62940` |
+| `productContentDigest` | `sha256:1406d8e818a908fe9f908a9b1fe69e71345b99e6d7a481d01a01bdcca1531c5f` | `sha256:2f0eeec75e0c20ec34a97433438ac06c4812daa6710f432183849c64e6c16d64` |
+| `manifestDigest` | `sha256:923dbbe3b25f655e923a14516009df2399a2625d301a4b34c5c6ad28dc5536fe` | `sha256:aab30b956b39259891a349b5d90e4a9e393c155ea06d33810ef3b878afad7993` |
+
+- **(b)** D0's after column has no red beyond the nine cases in eight lanes, and the before pass reproduced the named set equal to it. The after pass adds no red lane. C1's first error moved within its own lane, from `:886` to `:1006`; it is classed (v), a superseded cut, under **Stops**.
+- **The standing reds** are question 9 (`t287-st2a-g-capability-definition-graph:74`, `:271`) and question 12 (`t287-st1-installed-cross-owner-hello:737`), both equal to before.
+
+**Lanes.**
+- **Before.** D0's after column (`scratchpad/d0/lanes/after/summary.txt`, the whole suite alone at `529ffa0f6` with the root set). It holds for every lane because the base's three subtrees equal `529ffa0f6`'s. The named set was rerun at the base build first, and every lane was equal to D0.
+- **After.** The whole suite once, each lane alone, with `ABI5_EVIDENCE_ROOT` set, on the clean tree after the refresh. It ran 195 lanes in 5,224 s, followed by the compose scenario. Outputs are in `scratchpad/d14a/lanes/after/`. The join (`scratchpad/d14a/join.tsv`) and the reds and skips (`after-exit.json`) come from the C-18b tools.
+
+| | Lanes | tests/pass/fail/skip | Red lanes | Compose |
+|---|---|---|---|---|
+| Before (D0 after) | 195 | 1,160/984/9/167 | 8 | 2/2/0/0 |
+| After | 195 | 1,161/990/4/167 | 3 | 2/2/0/0 |
+
+189 lanes are equal. Six moved, all by design:
+
+| Lane | Before | After | First error before → after |
+|---|---|---|---|
+| `r1-packed-artifact` | 1/0/1/0 | 1/1/0/0 | `:18` `artifact_digest_mismatch` → none |
+| `r2-clean-install` | 1/0/1/0 | 1/1/0/0 | `:18` `artifact_digest_mismatch` → none |
+| `r3-workspace-binding` | 1/0/1/0 | 1/1/0/0 | `:97` `artifact_digest_mismatch` → none |
+| `t287-historical-source-resource` | 2/1/1/0 | 2/2/0/0 | `:72` (assertion `:83`, "same structure but are not reference-equal") → none |
+| `t287-runtime-failure-diagnostic` | 20/20/0/0 | 21/21/0/0 | none; the restored case was added |
+| `t287-worksite-branch-construction` | 2/1/1/0 | 2/2/0/0 | `:671` (completion `blocked`) → none |
+
+- **`t287-worksite-construction`.** The count is unchanged, 3/2/1/0 before and after, but its first error moved. Before: `:701` at assertion `:886`, completion `blocked`. After: `:701` at assertion `:1006`, the current-observation set. See **Stops**.
+- **The standing reds are equal to before.** `t287-st1-installed-cross-owner-hello:737` (question 12, R2's) and `t287-st2a-g-capability-definition-graph:74` and `:271` (question 9). Neither is worked here.
+- **Skips.** Skip names and reasons are equal lane by lane: 167 before and 167 after.
+
+*The named set.* Every lane in it is equal before and after, apart from the named cases:
+- the fixture's other consumers: `steel-basic-cli-public`, `steel-consumer-declaration`, `t287-d1-requirement-handoff`, `t287-w2-05-install-catalog-owner-chain`, `w2-steel-serial-branch-installed`, `w2-steel-single-start-installed`, `t287-declared-testing-capability`;
+- the blocked-candidate conservation lanes: `d2-binding-transition`, `generic-input-retention`, `m5-event-calculus-runtime`, `retained-route-cursor-transition`, `t287-management-supervision`;
+- the structural lanes: `t287-calculus-state-transfer`, `m5-installed-graph-edge`, `m5-c-algebra-validation`, `t287-gtl-graph-law`, `t287-native-structural-gates`, `t287-r6-retry-success-exit`, `a5-f02-canonical-gtl-identity`, `t287-f04a-probabilistic-result-candidate`, `t287-static-declaration-closure`.
+
+No lane drives `fixtures/language-structural/leaf.mjs:14-15`'s blocked branches; `git grep` finds no input that reaches them.
+
+*Import census.* D0's `census/imports.py`, run over `hog/workflow_lifecycle.js` and `abg/project_read_ports.js`, finds that 96 of 195 lanes statically reach an edited module (each module alone also reaches 96). The rest reach the product dynamically or, like `t287-historical-source-resource`, transpile the source, so the census does not bound the set. The whole-suite pass is the check.
+
+*Main.* No commit landed on `main` during the run: `HEAD` is the base `c7b148e81` before this commit.
+
+**Gates.** All run on the final tree, after the strip.
+
+| Gate | Result |
+|---|---|
+| `tsc --noEmit -p tsconfig.json` | 0 |
+| `tsc --noUnusedLocals` | 1 error, `BASE64_PATTERN` (`product/worksite_command_execution.ts:74`, R3's). The removed `projectOwnedRuntimeEventPrefixAtDurablePrefix` import keeps it at 1. |
+| `lint:imports`, `lint:lifecycle`, `lint:evidence`, `lint:calculus` | 0, 0, 0, 0 |
+| `npm run build` | 0 |
+
+*Regenerated files, by leaf, against the base.* No leaf was added or removed, and every moved leaf is a digest or a ref built from a digest: shape-equal with only the 64-hex part changed, checked by script. This is the M-4 class.
+
+| File | Leaves | Moved | Groups |
+|---|---|---|---|
+| `product-toolchain-manifest.json` | 51,321 | 138 | `capabilityDefinitionGraph/{assetLocator/contentDigest,graphDigest}`; `productContentDigest`, `descriptorRef`, `provenanceRef`, `contributionManifestRef`, `contributionManifestDigest`; `contributionManifest/{capabilityDefinitionGraph/graphDigest, contributionManifestRef, descriptorRef, productContentDigest, publicContractCatalogDigest, publicationBindings/#/publicationDigest (10), rows/#/provenanceRef (47)}`; `publicContractCatalog/{catalogDigest, rows/#/contractDigest (21), rows/#/nativeTypedLocator/declarationInventory/#/declarationDigest (47)}` |
+| `contracts/capabilities/capability-definition-graph.json` | 3,263 | 551 | `graphDigest`; `rows/#/capabilityDefinition{Digest,Ref}` (16 + 16); `rows/#/dependentCapabilities/#/capabilityDefinition{Digest,Ref}` (18 + 18); `rows/#/owningPublicContracts/#/contractCatalog/{catalogDigest,productContentDigest}` (241 + 241) |
+| `contracts/default-library/stdo/context.inventory.json` | 14 | 0 | unchanged, not committed |
+
+**Instrumentation stripped and proven absent.**
+- `grep -rl D14A code/src test_env build/code` lists 0 files.
+- `code/src/hog/workflow_lifecycle.ts` and `code/src/abg/project_read_ports.ts` are each `cmp`-equal to the clean repaired copies in `scratchpad/d14a/clean-repair/`. Those copies were saved before any D14A line was added; `project_read_ports.ts` was never instrumented.
+- `test_env/tests/t287-worksite-construction.test.mjs` carried two D14A lines for two development runs and was restored from `scratchpad/d14a/clean-base/`. `git diff --quiet` on it and on `t287-worksite-branch-construction.test.mjs` returns 0.
+- The final build follows the strip.
+
+**Deviations.**
+- **A record read past its section.** `sed -n 9404,9440` on `phase_c.md` ran past `## C-18b disposition` (next heading `:9424`) into the first 16 lines of `## C-19 activation`, which is not a named read. Nothing in this Return rests on those lines. Later reads stopped at the next heading.
+- **A read of a non-existent path.** One `grep -n '^## '` named `phase_c.md` under `T287_RELEASE_RESUMPTION_01/`, where the file does not exist. It read nothing.
+- **Development runs, separate from the two passes.** None is a counter pass.
+  - C1 at three points. The first is the D14A after trace. The second had a D14A replay dump in the test. The third had a D14A Event Calculus dump in the test, recomputed history-less.
+  - C3 with the D14A after trace.
+  - `t287-historical-source-resource` once.
+  - `t287-runtime-failure-diagnostic` once.
+  - Two builds: instrumented, then stripped.
+  - Before the compaction of this session: the before pass of the named lanes and the C1 and C3 before traces.
+- **Instrumentation in a lane file.** D14A lines went into a lane file (`t287-worksite-construction.test.mjs`) as well as into source, to read the replay and the calculus at `:1006`. Each insertion was reverted byte-equal from the clean copy; no assertion changed.
+- **`git grep` reached `design/`.** The C0 and C1 designs were read to class the `:1006` red. `design/` is not under `.ai-workspace/`.
+
+**Findings outside the grant.**
+1. **C1 `:1006` is an expectation the repair does not reach.** It is detailed under **Stops**.
+2. **The mechanism that retires member 1's `O0` was not confirmed.** C0 design `:544-555` names the admitted C0 failure result as the event that terminates `worksite_observation_current(O0)` "in either case". The history-less recomputation (`eventCalculusEffect(event, priorEvents)` over the run's events) shows something else:
+   - the termination comes at member 1's `c_call_fibre_selected` (ordinal 131), the same-path selection retirement that entered the calculus at `400d763d1`;
+   - the failure result (ordinal 137) carries no currentness effect;
+   - no design sentence was found that names the selection retirement.
+
+   The outcome agrees with `:551`. No defect is claimed from a recomputation without fold history.
+3. **Post-close reads now reauthenticate physically.** With `readOwnedRuntimeEventPrefixAtDurablePrefix`, a closed-owner or unbound read of this reader performs the cold physical read, and the cold read rebinds the coordinate's derivation without an owner.
+   - The two callers outside the lane are `implementation/leaf_invocation_port.ts:492`, which reads the live owner's current prefix and is unchanged while the owner is open, and `test_env/uat/continuation.mjs:226`, which reads while its files exist.
+   - Base behaviour: base borrowed the known selection after close without a physical read.
+
+**Stops.**
+1. **`t287-worksite-construction:701`, assertion `:1006-1014`.** Class (v), a superseded cut.
+   - *The expectation.* After the partial stop, the replay's `currentWorksiteObservations` should be member 0's successor and `predecessorObservations[1]`. It was cut at `29846fc36` (2026-09-06).
+   - *The arrangement.* `predecessorObservations[1]` is captured at `:752`, and `staleBytes` are written over member 1's target at `:831`. So it is the `O0` that the C0 owner refused as stale, and the case's own `:968` asserts that the file holds `staleBytes`.
+   - *The law at head.* A refused stale `O0` is not current: C0 design `:551`, and the calculus since `400d763d1`. The fresh replay names member 0's successor alone.
+   - *Why it is not edited.* The value is fixed at member 1's C0 selection (ordinal 131), below the lift (ordinals 161 and later), so it is not a value the repair changes. The lane grant covers only those.
+   - *Proposed retirement, not applied.* Delete line `:1012` (`predecessorObservations[1].observationRef,`) from the expected list at `:1010-1013`, which leaves member 0's successor alone.
+
+No contract, payload, failure-class or design stop arose for items 1 to 4.
+
+**What could not be verified.**
+- The calculus mechanism with fold history (finding 2).
+- Retention across an append rollback or a liveness refusal. The invalidation is read from the code; no lane rolls back between two reads of one resource.
+- A lend at a later prefix of the same generation. The lane exercises the same prefix, an earlier cut, copies and close, but no later prefix.
+- The live-model paths: no `ABG_TS_CLAUDE_COMMAND` live run beyond what the suite's lanes drive.

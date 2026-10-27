@@ -984,3 +984,29 @@ test('the retry-resume HoG site records the nested route_mismatch subject inline
   assert.equal(site.admitted.payload.subjectDigest, hash(subject));
   t.diagnostic('Controlled basis/scope/cursor/GTL/replay premises and lower retry owners; actual frontier, attempt refusal, HoG retry-resume site, failure admission and cold read. The structural-transition site shares the constructor and is read, not run.');
 });
+
+// Restored at T-287 D1/D4-a from `t288-workflow-scope-conservation` (retired at
+// `811bb8f85`): the frozen-data guard of native lookup reuse, read through the
+// built leaf port as the original read it. The host's subject is the same
+// owner's refusal to evaluate getters or Proxy traps.
+test('native lookup reuse rejects mutable, accessor, callable and Proxy captured data',async()=>{
+ const file=join(root,'build/code/src/implementation/leaf_invocation_port.js');
+ const module=new SourceTextModule(fs.readFileSync(file,'utf8')+'\nexport {isFixedDeclarationData};',{identifier:file});
+ await module.link(async specifier=>{const actual=await import(specifier.startsWith('.')?pathToFileURL(resolve(dirname(file),specifier)).href:specifier);
+  return new SyntheticModule(Object.keys(actual),function(){for(const[key,value]of Object.entries(actual))this.setExport(key,value);});});
+ await module.evaluate();const check=module.namespace.isFixedDeclarationData;let getterCalls=0;
+ assert.equal(check(Object.freeze({ordinary:Object.freeze([1,'a'])})),true);
+ assert.equal(check(Object.freeze({nested:{mutable:true}})),false);
+ assert.equal(check(Object.freeze({get changing(){getterCalls++;return'changed';}})),false);assert.equal(getterCalls,0);
+ assert.equal(check(Object.freeze({invoke:()=>{throw Error('must not invoke');}})),false);
+ assert.equal(check(Object.freeze(Object.create({inherited:true}))),false);
+ let proxyTraps=0;const rejectTrap=()=>{proxyTraps++;throw Error('purity check must not invoke Proxy traps');};
+ const proxy=new Proxy(Object.freeze({ordinary:1}),{get:rejectTrap,getOwnPropertyDescriptor:rejectTrap,getPrototypeOf:rejectTrap,isExtensible:rejectTrap,ownKeys:rejectTrap});
+ assert.equal(check(proxy),false);
+ assert.equal(check(Object.freeze({nested:proxy})),false);
+ assert.equal(check(new Proxy(Object.freeze([1]),{get:rejectTrap,getOwnPropertyDescriptor:rejectTrap,getPrototypeOf:rejectTrap,isExtensible:rejectTrap,ownKeys:rejectTrap})),false);
+ const revoked=Proxy.revocable(Object.freeze({}),{});revoked.revoke();assert.equal(check(revoked.proxy),false);
+ assert.equal(proxyTraps,0);
+ assert.equal(module.namespace.hasOwnedDeclarationLookups(()=>null,()=>null),false);
+ console.log(JSON.stringify({kind:'workflow_lookup_purity_controls',gettersInvoked:getterCalls,proxyTrapsInvoked:proxyTraps,rawFunctionsAccepted:false,proxiesAccepted:false}));
+});
