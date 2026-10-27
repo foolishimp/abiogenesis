@@ -542,18 +542,35 @@ Missing O1 is explicit inside that variant. HoG's existing catch already passes
 the owner result to this helper and remains a thin transport of its return.
 
 The only additional currentness join is in
-`event_calculus.ts:projectWorksiteTransitionForResult`: a validated admitted
-C0 failure result plus its same-call deterministic evidence yields
-`before = O0`, with no `after` or successor observation. Reconstruct the same
-Product-owned joins from the prior admitted basis/call and result value;
-require result/evidence digests, call, failure contract, and ordered prefix to
-agree. Success retains the existing complete transition. The result event
-terminates `worksite_observation_current(O0)` in either case, initiating O1
-only for complete success. `replay.ts` accepts only a present verified
-successor as a new observation candidate; its existing holds-at filter removes
-terminated O0 and its C-call `resultValue` already preserves the full failure.
-No additional currentness fluent, projection store, event family, filesystem
-read during replay, or C-call evidence taxonomy is needed.
+`abg/calculus/axioms.ts:projectWorksiteTransitionForResult`: a validated
+admitted post-publication C0 failure result plus its same-call deterministic
+evidence yields `before = O0`, with no `after` or successor observation.
+Reconstruct the same Product-owned joins from the prior admitted basis/call and
+result value; require result/evidence digests, call, failure contract, and
+ordered prefix to agree. Success retains the existing complete transition. The
+result event's declared effect terminates `worksite_observation_current(O0)`
+for complete success and post-publication failure, initiating O1 only for
+complete success. `replay.ts` accepts only a present verified successor as a
+new observation candidate; its existing holds-at filter removes terminated O0
+and its C-call `resultValue` already preserves the full failure. No additional
+currentness fluent, projection store, event family, filesystem read during
+replay, or C-call evidence taxonomy is needed.
+
+Fold placement of the retirement (ruled 2026-10-27, T-287 R2 item 5 (a)). The
+calculus retires `worksite_observation_current(O0)` at the C-call fibre
+selection over the C0 occurrence (`abg/calculus/axioms.ts`
+`eventCalculusEffectRefs`, `c_call_fibre_selected`: every observation current
+for the subject path under the canonical root at that prefix, O0 included), so
+that from the selection to the result the occurrence's eligibility is the
+selected-occurrence relation (`event_calculus.ts`
+`worksiteSelectedOccurrenceInputCurrent`), never public currentness, and no
+second occurrence is admitted over O0 meanwhile. The result's termination above
+is therefore vacuous at the fold. A pre-publication failure (no write happened;
+`stale_observation` is one) carries no worksite transition: the fold adds the
+failure-result dependencies only for a post-publication failure
+(`isWorksitePostPublicationFailure`). The outcome of this section is unchanged:
+after the result, O0 is not current in either case and O1 is current only for
+complete success.
 
 ### Deterministic B04 acceptance matrix
 
