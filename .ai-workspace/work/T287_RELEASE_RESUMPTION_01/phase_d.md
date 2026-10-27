@@ -1096,3 +1096,225 @@ A declared request, result or refusal member the owner cannot meet after (a)-(e)
 **Exit.** Each of the three members admitted through the installed transport with one positive and one refusing case; the admission set two rows larger and nothing else in it; the export map the two declared exports and no other change; `artifact_truth` admitting materialize's event with its truth reconstructed; the load map complete (195 lanes plus the two uat lanes, the unbounded set named); no other lane moves; the red set at your commit the standing one (question 9, `t287-st2a-g-capability-definition-graph:74`, `:271`).
 
 **Return contract.** `## R2-b return (Worker, Opus 5.5, 2026-10-27; base \`<hash>\`)` appended once to this file, after a blank line, before the commit so the commit carries it: the first sentence (closed, the gaps, or the stops); the subtree pairs; item 1's probe result; item 2's mapping per member as built (every ruled choice with its site), (d)'s reconstruction and (e)'s census; item 3's six cases; item 5's index in brief (lane count, the unbounded set, the largest and smallest maps); the export-list diff; the fixture's three fields; the lanes table (before, after, compose, the uat lanes; every moved lane with its first error; the standing red); gates (`tsc`, `tsc --noUnusedLocals` (1, `BASE64_PATTERN`, R3's), the four lints, the build, the regenerated files' moved leaves named); instrumentation (`// R2B` lines) stripped and proven absent; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `R2-b: result.assess and product.materialize realized to their declared route contracts through the admission authority; the dynamic load map`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## R2-b return (Worker, Opus 5.5, 2026-10-27; base `338554818c402f14061d156ec47910f8bb30849f`)
+
+R2-b closes in part. Item 1 is closed: `ADMISSION_OPERATIONS` has its two rows. `result.assess` is realized to its declared route contract through the admission authority, with a positive case and a refusing case in the new lane. The load map covers all 198 lanes; three of them are unbounded and named below. `product.materialize` (both members) is a stop: its artifact event has no checked ingress. `abg/event_store.ts` `appendCheckedArtifactEvent` admits only install, bind and the two release.snapshot members, and that file is outside the grant. So (b), (c) and (d) are not built, `MATERIALIZATION_DEFINITION_BINDINGS` is not exported, and the four materialize cases do not exist. For (e), `mutable_default_forbidden` has no raising condition anywhere; it goes to the Executive as owner question 17.
+
+**Subtree pairs** (`git rev-parse`, base `338554818` and R2 `c01b63c4f`, equal):
+
+| Subtree | Tree |
+|---|---|
+| `code` | `948a08a6d6b71e6ca6b686583ea8d07d8dd670ab` |
+| `test_env` | `d2b7dd39c4049f650cf2d514a4e2b1fffdb5a776` |
+| `contracts` | `e87ebafc06c04897a2637b51a2bb9b6b9fcd0f26` |
+
+**Sites re-cited at the base, by symbol.**
+- `product/admission_authority.ts`:
+  - `ADMISSION_OPERATIONS` `:221-226`;
+  - `checkAdmissionScope` `:321`, with the gate expression at `:330`;
+  - `checkPrefixEnvironment` `:267` (`ENVIRONMENT_UNADMITTED` at `:271`);
+  - `ENVIRONMENT_SCOPE_MISMATCH` return `:364`.
+- The witness form: `abg/witness_definition_bindings.ts` `WITNESS_DEFINITION_BINDINGS` `:376`, and `validator/conformance_definition_bindings.ts` `CONFORMANCE_DEFINITION_BINDINGS` `:560`.
+- The owners: `product/result_assessment_operation.ts` `assessResult` `:490`; `product/materialization_operations.ts` `materializeContextBootstrap` `:376` and `materializeConfiguration` `:508`.
+- `abg/environment_admission.ts`:
+  - `PublicOperationId` `:61` (it lists `result.assess` but not `product.materialize`);
+  - `ArtifactOperationId` `:757-760`;
+  - `admitArtifactFromOwner` `:812`, with its operation gate at `:831-833` and the member key at `:846-848`;
+  - the checked append `:1031`.
+- `abg/artifact_truth.ts` `RuntimeArtifactFacts.prepare` `:214`:
+  - the operation gate `:228-229`;
+  - the member-key check `:252-254`;
+  - the install branch `:285-378` and the release branch `:379`.
+- M04 rows: `result.assess` `:630`; `product.materialize` `:635` and `:636`.
+- Outside the grant: `abg/event_store.ts` `appendCheckedArtifactEvent` `:4172`, with its operation gate at `:4179-4188`. `admitRuntimeEvent` (`:4110`) and `admitRuntimeEventBatch` (`:4223-4224`) refuse the event kind outright.
+
+**Item 1: the probe.** I copied R2's probe to `scratchpad/r2b/probe-authority/probe.mjs` (built arm only) and ran it on the base build and on mine.
+- On the base build, all three members refuse at the scope gate ("admission grant requires exact external approval, actor, request and owner scope"). The control (`conformance.evaluate#gtl_program`) stops at the environment gate.
+- On my build, all three members and the control pass the scope gate and stop at the environment gate ("admission grant requires the exact admitted workspace, Product set and lock"). Each request is `admitted` by its declared request schema.
+- The module diff is the two set rows and nothing else.
+
+**Item 2: `result.assess`, as built.** The new module is `product/result_definition_bindings.ts`. It exports `RESULT_DEFINITION_BINDINGS = Object.freeze({ assess: bindStaticOwner(packet, assess, typedAssertionSchema, receiptSchema) })` (`:308`), in the witness form:
+- `withAdmissionAuthority(packet, …)` (`:302`) over `assessOwner` (`:176`);
+- the assertion is `result_assess_resource_assertion` `{eventResource: reopened, admissionAuthority}`;
+- the receipt is `result_assess_resource_receipt` `{eventResource}`.
+
+The binding:
+- supplies `kind: "result_assess_packet"`, `schemaVersion` and `memberKey: "assess"`;
+- passes the five declared request members only (`:239-247`);
+- returns `{assessment, disposition, closureEligible, residuals, evidence}` from the owner's `result_assess_result`, or the declared non-terminal from `result_assess_non_terminal`;
+- maps refusals through `DECLARED_REFUSAL` (`:111`), R2's identity table over the seven codes, typed so the compiler checks the correspondence;
+- drops `message`.
+
+The ruled choices and their sites:
+- `store` and `predecessorPrefix` come from the acquired event resource (`:249-250`).
+- The `assessmentContract` body comes from `installedAssessmentContract` (`:126`): the one `productInstalls[].publicContracts` row of the bound environment whose `contractId` is the request's ref. If no such row exists, or its digest differs, the binding refuses `contract_mismatch` at `["/assessmentContract"]` (`:216-221`). The body never comes from the caller.
+- `eventTime` and `correlationId` come from the invocation (`:253-254`).
+- `causationEventRefs` is `[workspaceBinding.admissionEventRef]` (`:255`).
+- The owner's `actor` is `{ref, digest: sha256({actorRef})}`, from `slots.actor.actor.ref` (`:223`).
+- The `result_assessment_capability_grant` is `nativeCapabilityGrant` (`:136`). It takes `actorRef`, `operationId` and `capabilityRef` from the one admitted Public `capability_grant` row: `grantDigest = sha256({actorRef, operationId, capabilityRef})` and `grantRef = capability-grant://abiogenesis/<hex>`.
+- The invocation authority is built over the invocation's `invocationRef` and `invocationDigest`, the actor, that grant and `request.currentBasis`. The owner's own content address is its ref.
+- The module doc states that the Public grant is the authority and the owner-native grant is its projection. No slot is added.
+- `issuePaths` and `evidenceRefs` pass through (`:259-261`).
+
+Resource relations are checked before the owner, as witness checks them (`:194-213`). Any mismatch is a `resource_admission` fault (`resource_relation_mismatch`), not a declared refusal. The checks:
+- the bound environment at the acquired prefix;
+- the `workspace_binding`, `product_set` and `dependency_lock` slots;
+- the actor equals both the authorized actor and the approved actor;
+- `slots.execution_basis` equals `request.currentBasis`;
+- exactly one grant, with this actor, operation, a declared capability and the invocation's contract catalog.
+
+The receipt closes on the held store's prefix (`:276`). `assessTransitionCorresponds` (`:156`) admits two cases only:
+- an unchanged entry on refusal;
+- the entry plus exactly one `assessed` event naming the returned assessment, authenticated by ancestry, on success.
+
+**(b), (c), (d) `product.materialize`, both members: stop, not built.**
+- The ingress probe is `scratchpad/r2b/ingress/probe.mjs` and its output `probe.out`, run on the built owner.
+- For both `context_bootstrap` and `configuration`, `appendCheckedArtifactEvent` throws `TypeError: checked artifact ingress is closed to Product install and workspace binding`. `admitRuntimeEvent` throws `TypeError: artifact truth is reachable only through its checked owner ingress`. The install control passes the operation gate and reaches the prefix check.
+- The event kind has no other ingress. `admitRuntimeEventInternal` is reached only through the checked append (`:4195`), the guarded `admitRuntimeEvent` (`:4115`), the liveness path (`:4135`) and the root-profile upgrade (`:3797-3799`).
+- If I had built the binding and (d), every successful materialize call would write its files and then fault at the append. That is worse than the current clean refusal.
+- Through the installed transport today, both members (authorized through item 1's rows) refuse `installed_binding_unavailable` with the log bytes unchanged (`scratchpad/r2b/probe-lane/probe2.log`).
+- The change that unblocks it is one guard in `appendCheckedArtifactEvent` (`:4181`): add `"abg.operation.product.materialize"` with member key `context_bootstrap` or `configuration`. Then the granted (d) edits are:
+  - `ArtifactOperationId` and the gate in `admitArtifactFromOwner`, plus its member-key selection;
+  - `RuntimeArtifactFacts.prepare`'s operation gate and member-key check;
+  - a materialize branch that reconstructs the manifest body from the admitted result, as the install branch does from its lock row.
+- Three realization facts for that re-grant, read at the base:
+  1. No site builds the `(workspaceRef, workspaceDigest)` pair from an `ExactPrefixWorkspaceEnvironment`. The owner requires `binding.workspaceId === workspace.workspaceRef` (`validWorkspaceAndBinding`), so the ref must be `workspaceAuthorityBasis.workspaceId`. The installed test workspace is `workspace://t286/abi5-root`, which carries no digest. The only pair builder is the `workspace.create` manifest (`workspace_operations.ts` `constructManifest` `:264-271`, read by `project_read_definition_bindings.ts` `:731-733`), and the environment does not carry it. The digest's source is therefore an open choice for the re-grant.
+  2. Artifact truth holds one row per `authorityScopeRef`, and the event initiates `public_operation_artifact_available(authorityScopeRef)`. Materialize's scope must therefore be per manifest, not the binding (bind already holds the binding scope).
+  3. `materializeConfiguration` never checks `inputs` against the configuration contract.
+
+**(e) The two unraised codes: census, no guard.**
+- `workspace_not_ready`.
+  - M04 `:635` (`context_bootstrap`; input "admitted target-workspace ref/digest") assigns it to an unadmitted target workspace.
+  - Today the realization refuses that condition before any owner, as `resource_admission` faults rather than the declared reason: `checkPrefixEnvironment` → `ENVIRONMENT_UNADMITTED` (`admission_authority.ts:271`) and `checkAdmissionScope` → `ENVIRONMENT_SCOPE_MISMATCH` (`:364`). A workspace that differs from the binding is the owner's `binding_mismatch` (`validWorkspaceAndBinding`).
+  - The owner cannot decide admission from its packet, which carries no event truth. `materialization_operations.ts` also has no importer anywhere in `code/src`, `test_env` or `scripts`, so any guard would be unreachable. No guard.
+- `mutable_default_forbidden`.
+  - M04 `:636` (`configuration`) gives "none; no defaults" in the defaults column. The constitution row R37 (`ABI5_REALIZATION_CONSTITUTION.md:2800`) says "mutable implicit input -> `mutable_default`".
+  - No defaults or implicit-input mechanism exists in the declared request (`{configurationContract, binding, inputs}`, `defaults: {}` at `materialization_operation_contracts.ts:64`), in the packet or in the owner. It has no raising condition anywhere.
+  - **Owner question 17** (for the Executive): what condition raises `mutable_default_forbidden` / `mutable_default`, or is the code to be retired? No enum change was made.
+
+**Item 3: the lane.** `test_env/tests/t287-required-operation-bindings.test.mjs` uses the C-20 probe form:
+- `runInstalledLanguageTest` gives one installed Run with one admitted C-call result, its evidence and its execution basis (whose actor is the authorized actor);
+- `result.assess` is authorized through the admission authority and run by the installed CLI against the same log.
+
+The lane runs 3/3/0/0: one parent test and two subtests. The six cases:
+
+| Member | Case | Result |
+|---|---|---|
+| `result.assess` | positive | Exit 0. The declared result is `{assessment, closureEligible: true, disposition: "admitted", evidence, residuals: []}`. The assertion is `result_assess_resource_assertion` with a reopened resource. The receipt is `result_assess_resource_receipt` with `abg_event_resource_receipt` and entry = handoff. Exactly one `assessed` event is appended, entry bytes preserved. That event carries the binding admission as a cause, the authorized actor with `sha256({actorRef})`, and `capabilityGrantRef` / `capabilityGrantDigest` equal to `sha256({actorRef, operationId, capabilityRef})` of the admitted Public grant (`abg.capability.runtime.admit-fp-result@5`). |
+| `result.assess` | refusing | Exit 1, from the owner's evidence check (`result_assessment_operation.ts:641`): `{code: "evidence_mismatch", issuePaths: ["/evidence"], evidenceRefs: [<supplied ref>]}`. The receipt is present and the log bytes are unchanged. |
+| `product.materialize#context_bootstrap` | positive | Not built (stop). |
+| `product.materialize#context_bootstrap` | refusing | Not built (stop). |
+| `product.materialize#configuration` | positive | Not built (stop). |
+| `product.materialize#configuration` | refusing | Not built (stop). |
+
+The scratch probe (`scratchpad/r2b/probe-lane/probe2.log`) also showed the binding's own `contract_mismatch` at `["/assessmentContract"]` when a different digest is supplied, with the bytes unchanged. That case is not in the lane, because the activation's refusing case is an owner refusal.
+
+**The export-list diff** (`product/index.ts`, values and types through the TypeScript checker, base text against mine; `scratchpad/r2b/gates/export-diff.txt`): the base has 711 exports and mine has 712. The diff is `+ RESULT_DEFINITION_BINDINGS` and nothing else. `MATERIALIZATION_DEFINITION_BINDINGS` is not added (stop). The source diff is one line: `export { RESULT_DEFINITION_BINDINGS } from "./result_definition_bindings.js";`.
+
+**The fixture's three fields** (`node scripts/refresh-candidate-basis.mjs`, run once on the final built tree before the after pass). The new `productContentDigest` equals the regenerated manifest's, and the new `manifestDigest` equals `sha256Canonical(manifest)`.
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:c36b7a7009f2641f2a0500c026e9d2743e957aac2788e062b6e2c44fb6a62940` | `sha256:0e22ccadce18cc8d855ef023fce83cadd859fa7daafc25404f142444a2a736eb` |
+| `productContentDigest` | `sha256:2f0eeec75e0c20ec34a97433438ac06c4812daa6710f432183849c64e6c16d64` | `sha256:9c4f263d92d04e28efa070da529a74c6c603511fdc2398e37a3a3097e3d6514f` |
+| `manifestDigest` | `sha256:aab30b956b39259891a349b5d90e4a9e393c155ea06d33810ef3b878afad7993` | `sha256:a0016bb1593456f1b1695af8544d8abfb85be3d1acfba788db6b72a81ae43699` |
+
+**Item 5: the load map** (`scratchpad/r2b/loadmap/`).
+- The recorder is `record.mjs`: one `module.register` hook (`hooks.mjs`) whose `resolve` and `load` are pass-throughs. `resolve` appends each resolved tenant `file:` URL to `raw/<lane>.txt`.
+- It reaches each lane process and its children through `NODE_OPTIONS=--import=<record.mjs>`, set for the lane process only. No lane, source or `package.json` edit.
+- `finish.mjs` writes one `<lane>.txt` per lane: sorted unique paths, `build/code/src/*.js` mapped to `code/src/*.ts`, query and hash stripped, `node_modules/` excluded.
+- `index.tsv` has the columns lane, modules, equal_to_column, note. It has 198 rows: the 196 lanes, the new one included, plus `uat-harness` (257 modules) and `uat-continuation` (6).
+- 195 rows are equal to the column.
+- Three lanes are `unbounded`, each tabled from its rerun without the recorder: `t287-continuation-causation`, `t287-multi-candidate-admission` and `t287-selected-action-authority`. Their maps are partial (189, 3 and 236 modules), because the run under the recorder stopped at load.
+- Largest map: `m5-s06-prime`, 654 modules (247 under `code/src`). The new lane has 255.
+- Smallest: 1 module, the test file only, in ten lanes that reach the tenant only through packed or installed copies: `d2-binding-query-reuse`, `hello-product-boundary`, `steel-basic-cli-projection`, `steel-consumer-authority`, `t287-environment-projection-conservation`, `t287-generic-job-parent-foldback`, `t287-native-owner-reuse`, `t287-predecessor-context`, `t287-qualification-parent-alias`, `t287-result-evidence-lineage-type-contract`.
+
+**Lanes.**
+- Before is R2's after column (`scratchpad/r2/lanes/after/`), which is valid at my base: the subtree pairs are equal.
+- After is the whole suite, once, on my clean tree, under the recorder, with the candidate basis refreshed first. Each lane ran alone with the root set. `scratchpad/r2b/lanes/after/`, `after-uat/`, `after-rerun/`.
+- 1-minute load average: 10.38 at the start (21:36), 11.36 at the end (23:11).
+
+| Column | Lanes | tests/pass/fail/skip |
+|---|---|---|
+| before | 195 | 1,163/994/2/167 |
+| after, raw under the recorder | 196 | 1,090/919/5/166 |
+| after, tabled (the three unbounded lanes from their rerun) | 196 | 1,166/997/2/167 (before plus the new lane's 3/3/0/0) |
+| compose (`real admitted compose`) | 1 | 2/2/0/0 before and after |
+| `uat-harness` | 1 | 34/31/0/3 before and after |
+| `uat-continuation` | 1 | 4/0/0/4 before and after |
+
+Moved lanes:
+- `t287-required-operation-bindings`: new, 3/3/0/0. Equal to its standalone run on the same build.
+- `t287-continuation-causation`: 1/0/1/0 under the recorder, first error `TypeError [ERR_INVALID_RETURN_PROPERTY_VALUE]: Expected a string, an ArrayBuffer, or a TypedArray to be returned for the "source" from the "load" hook but got null.`, raised in the lane's own `registerHooks` load hook (`:11`). 1/1/0/0 without the recorder. `unbounded`.
+- `t287-multi-candidate-admission`: 1/0/1/0 under the recorder, first error `SyntaxError: Export 'constructionIntentForAdvance' is not defined in module` (`build/code/src/abg/traversal_route.js:2`), because the support's source-appending hook is dropped. 75/75/0/0 without the recorder. `unbounded`.
+- `t287-selected-action-authority`: 1/0/1/0 under the recorder, with the same `ERR_INVALID_RETURN_PROPERTY_VALUE` first error. 3/2/0/1 without the recorder. `unbounded`.
+- None of the three is a timeout. Each installs a synchronous `module.registerHooks` load hook that reads `loaded.source`; chained with an asynchronous `module.register` hook, that source arrives null.
+- In the named set on the base build, 60 lanes ran (`git grep -l` over `test_env/tests`: the transport and binding-set importers and their support importers, the importers of the two owners, `artifact_truth` and `environment_admission`, the five candidate-basis consumers, st1 and the release-snapshot bindings lane). 59 equal R2's column.
+  - `t287-worksite-command-execution` moved on the base tree: 10/9/0/0 with one cancelled. Its first error is `test timed out after 180000ms` at `:1594` (the HTTP ENOEXEC case, 266 s), at load average 20 to 25, with my read-only inspect probe overlapping for about 40 s. It is 10/10/0/0 in the after pass, equal to the column: an environmental move on the base tree.
+- The standing red is unchanged: `t287-st2a-g-capability-definition-graph` 4/2/2/0 at `:74` (`missing capability projection for abg.asset.gtl.language-conformance-corpus`, as R2) and `:271` (question 9).
+
+**Gates** (on the final source; the final `npm run build` exited 0).
+- `tsc --noEmit` is clean.
+- `tsc --noEmit --noUnusedLocals` gives one error, `BASE64_PATTERN` (`worksite_command_execution.ts:74`, R3's).
+- The four lints exit 0:
+  - `lint:imports` "3 forbidden owner pair(s) hold";
+  - `lint:lifecycle` "287 modules … 7 allow-listed site(s), no offender";
+  - `lint:evidence` "691 tracked mirror roots … no new copy";
+  - `lint:calculus` "6 modules … no offender".
+- `callableContractDigest` is unchanged. The contract assets `contracts/public-operations/{result/assess,product/materialize}/operation-contract.json` are unmoved and carry R2's values: assess `sha256:4c8779cd…4fd7`, configuration `sha256:fa4a6d91…c60d`, context_bootstrap `sha256:59b36d18…976f`. The manifest catalog rows for both operations keep `sha256:e5191353…babd` and `sha256:2f8dfffb…dc84`.
+
+The regenerated files' moved leaves, keyed by set and contract id (a leaf-by-index diff counts 20,800 in the manifest, mostly from one array insertion):
+- `product-toolchain-manifest.json`:
+  - `productRelativeLocators` gains `build/code/src/product/result_definition_bindings.{d.ts,js}`;
+  - 47 of the 50 `nativeTypedLocator.declarationInventory` lists gain `build/code/src/product/result_definition_bindings.d.ts` (all except `abg.contract.gtl.m02`, `abg.contract.gtl.requirements` and `abg.schema.gtl-module`, which do not carry `product/index.d.ts`), and only `build/code/src/product/index.d.ts` changes its digest;
+  - `contractDigest` moves on 21 `native_typed_group` rows (those whose inventories carry `product/index.d.ts`); no serialized, schema or vocabulary row moves; the catalog stays 75 rows, with no row body moved beyond digest and locator;
+  - `publicContractCatalog.catalogDigest`, `productContentDigest`, `descriptorRef`, `provenanceRef`, `contributionManifest{,Ref,Digest}` (with `publicationBindings[*].publicationDigest` ×10 and `rows[*].provenanceRef` ×47), and `capabilityDefinitionGraph.{graphDigest,assetLocator.contentDigest}`.
+- `contracts/capabilities/capability-definition-graph.json`:
+  - `graphDigest`;
+  - `rows[*].capabilityDefinition{Digest,Ref}` ×16;
+  - `dependentCapabilities[*]` ×18;
+  - `owningPublicContracts[*].contractCatalog.{catalogDigest,productContentDigest}` ×241.
+- `contracts/default-library/stdo/context.inventory.json`: byte-equal to the base, not staged.
+
+**Instrumentation.**
+- No `// R2B` line was placed in source, build or tests. The scratch probes carried their own stamps.
+- `grep -c R2B` gives 0 over `code/src`, `build`, `test_env/{tests,support,uat,fixtures}`. The only hits under `test_env/test_runs/` are pre-existing ignored archive bytes, not mine.
+- The four edited or new source and lane files are byte-equal (`cmp`) to the clean copies in `scratchpad/r2b/clean/`.
+
+**Deviations.**
+1. The C-20 section dump was first written to the scratchpad root (`scratchpad/c20_sections.txt`). It was a new file, so nothing was overwritten. I moved it into `scratchpad/r2b/`.
+2. The re-export is one line, not two, and the lane has two of its six cases (the stop).
+3. The load-map files exclude `node_modules/`; the raw appends are kept in `loadmap/raw/`. `index.tsv` has a fourth `note` column carrying the `unbounded` mark.
+   - The recorder trial ran on `hello-product-boundary` and `m5-event-store-reopen`: equal counts, and no warning from the hook. It is kept in `scratchpad/r2b/loadmap-trial/`, and its raw files were cleared before the pass.
+4. The lane's parent test sets `{timeout: 1800000}`. Under this load, the probe's installed setup and three CLI calls took 24 minutes. The lane itself took 154 s.
+5. My read-only inspect probe overlapped the base pass for about 40 s.
+
+**Findings outside the grant.**
+1. `abg/event_store.ts` `appendCheckedArtifactEvent` `:4179-4188` closes the artifact ingress to `product.materialize`: the stop, and its one-guard change.
+2. `issuePaths`. The activation's general sentence asks for "one request path per refusal", while (a) rules pass-through. I passed them through, and the declared pointer schema admits every owner path. The owner emits paths that are not request paths, or two paths per refusal, at:
+   - `:499` and `:507` (`/`);
+   - `:525`, `:533` and `:678` (`/invocationAuthority`);
+   - `:544` (two `/invocationAuthority/…`);
+   - `:518`, `:593` and `:608` (two paths each, `:593` including `/invocationAuthority/actor`).
+
+   This is for the Executive.
+3. `materialization_operations.ts` has no importer anywhere, and `materializeConfiguration` never checks `inputs` against its contract.
+4. No site builds a materialize `workspaceDigest` from the bound environment. Artifact truth's one-row-per-scope rule makes materialize's scope per manifest. Both are recorded under (b)-(d) for the re-grant.
+5. Adding any `product` export moves the `contractDigest` of the 21 `native_typed_group` rows whose declaration inventories carry `product/index.d.ts`.
+6. Three lanes are unbounded for any asynchronous loader instrument, because of their own synchronous `registerHooks`.
+7. The machine carried an external load (another application; load average 25 down to 9) through the base pass, the probes and the after pass.
+
+**Stops.**
+1. **`product.materialize` (`context_bootstrap`, `configuration`).** `public_operation_artifact_admitted` has no checked ingress for it: `abg/event_store.ts` `appendCheckedArtifactEvent`, outside the grant. Therefore none of the following is built: (b), (c), (d), `MATERIALIZATION_DEFINITION_BINDINGS`, its re-export, its four lane cases, or any (e) guard. The materialize route refuses `installed_binding_unavailable` with no effect. Unblocking it needs the ingress guard granted and a ruled source for `workspaceDigest`.
+2. **Owner question 17.** `mutable_default_forbidden` / `mutable_default` has no raising condition anywhere.
+
+**What could not be verified.**
+- The materialize declared members against the owner, since the binding is not built.
+- `result.assess`'s non-terminal (`retry` / `blocked`) path through the transport. The lane exercises `admitted` and a refusal only.
+- Whether the route expects a `public_operation_admitted` event for `result.assess`. The unchanged owner appends one `assessed` event only.
+- The load map does not see:
+  - owner modules loaded from packed install roots under the system tmp directory;
+  - installed CLI children, which `runInstalledCliRequest` spawns with `env: {}`.
+
+  So the small maps of installed-route lanes are not coverage. The three unbounded maps are partial.

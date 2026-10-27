@@ -396,6 +396,7 @@ export {
 export {
   RELEASE_SNAPSHOT_DEFINITION_BINDINGS,
 } from "./release_snapshot_definition_bindings.js";
+export { RESULT_DEFINITION_BINDINGS } from "./result_definition_bindings.js";
 export {
   MANDATORY_SCHEMA_VOCABULARY_CORPUS_IDS,
   PUBLIC_CATALOG_BINDING_CONTRACTS,
