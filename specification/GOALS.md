@@ -88,11 +88,13 @@ stateless inspection, is withdrawn (D0).
 
 Next, under [T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md):
 Phase B, the registered debt wave, is closed at `a8937b837` (twelve packages
-in the ticket's order, each with its record, proof and register closure). Next
-is Phase C, the packages the owner agreed on 2026-10-24 are ruled by the log
-principle, in the ticket's recorded order, with TD-12 last; L5 delivery
-acceptance is recorded (2026-10-24); release work (Phase D) follows Phase C
-on the owner's order. L4 remains partial on older subjects, including P1 pass/P5
+in the ticket's order, each with its record, proof and register closure).
+Phase C, the packages the owner agreed on 2026-10-24 under the log principle,
+is closed at `acb5200a89e49e0336173d8841ff5cbc43b546a6` (24 packages with T-291's six interleaved; TD-04, TD-05
+and TD-12 closed and O-3 closed by design; the F_D disposition ten of twelve
+rows Eligible); L5 delivery acceptance is recorded (2026-10-24); release work
+(Phase D) has started under T-287 with D0, the runtime default-library
+successor, on the owner's order. L4 remains partial on older subjects, including P1 pass/P5
 timeout; L5 delivery acceptance is recorded (2026-10-24). No new broad design-review campaign is
 selected. Old failed cuts and main generated936 remain protected.
 
@@ -102,7 +104,7 @@ reuse exact applicable evidence, repair and reprove only affected relations,
 and widen the earliest real entry-to-outcome path by material uncertainty.
 Review findings inform Executive priority and boundary decisions; they do not
 activate a new review campaign. Product/authority and supported-path blockers,
-the release-resumption gate is open after L5 (2026-10-24); release work follows the Phase C packages.
+the release-resumption gate is open after L5 (2026-10-24); release work runs under T-287 Phase D from the Phase C close (2026-10-27).
 
 The intended asset is a reusable computational basis from which feature
 behaviour is composed. The calculus identifies common structure, contracts
