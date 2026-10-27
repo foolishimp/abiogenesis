@@ -787,6 +787,121 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   assert.deepEqual(product.governanceSubjectEvidenceRefs({...population,observations:[{...nativeFold.observations.at(-1),value:{report:{summary:'malformed'},changedPaths:[]}}]},'testing'),[null]);
 });
 
+test('UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations',async t=>{
+  const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is bounded only by the declared `maxPromptBytes`, whose overflow refuses `declared_bound_overflow`, so nothing is withheld silently. Reacquire all mandatory selected source and assessment material through the declared reads.";
+  const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
+  const fixtures=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));
+  const acquired=await scenarios.acquireScenario(fixtures.root,fixtures.rows.find(r=>r.key==='rust-cli'));
+  const initial=scenarios.constructWorkloadInput(product,acquired,consumer.assessmentSelection,{cargo:{executable:'/unit/cargo',environment:{}},node:{executable:'/unit/node',environment:{}}});
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  const put=async(path,bytes)=>{await mkdir(dirname(join(f.canonicalRoot,path)),{recursive:true});await writeFile(join(f.canonicalRoot,path),bytes);};
+  for(const source of acquired.sources)await put(source.path,source.bytes);
+  // The original rust-cli sources and command/predicate plan are acquired. The
+  // other selected files and every measured row are controlled unit premises:
+  // no cargo, node:test, provider, Run or UAT verdict.
+  for(const path of initial.original.testing.selectedPaths)if(!initial.original.sources.some(s=>s.path===path))await put(path,'controlled command input: '+path+'\n');
+  const context=await physical.observeWorksiteContext({...f,readRoots:initial.original.readRoots,maxFiles:initial.original.maxContextFiles,maxBytes:initial.original.maxContextBytes});
+  const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[];
+  const invocation={invocationRef:'invocation:full-producer',invocationAdmissionRef:'invocation-admission:full-producer',capabilityGrants:[f.capabilityGrant]};
+  const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
+  const owned={program:library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:full-producer'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
+  let sourceBasis={...execution},invalidated=false,checkedPaths=[];
+  const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  // Only occurrence authentication, indexing and invalidation are controlled;
+  // physical contexts and typed task/artifact/observation/fold owners are real.
+  await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+  const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original rust-cli work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the full original against its measured producer',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
+  const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+  const fold=(state,purpose,value)=>{const input=product.constructRetainedGraphInput(state,value),b=at(purpose,'fold',input);
+    const event={kind:'c_call_result_admitted',runId:owned.call.runId,basisId:'basis:child',aggregateId:'call:controlled:'+rows.length,admissionOrdinal:rows.length+10,payload:{resultRef:'result:controlled:'+rows.length,resultDigest:product.sha256Canonical(value),resultClass:'success',value}};
+    rows.push(event);owned.inputOrigin={retainedProjection:{entryBasis:execution,input:{admissionRef:owned.inputRef,value:input},sourceResult:event}};
+    const stateAfter=m.namespace.projectGovernanceFold(b,input);assert.ok(stateAfter);return {state:stateAfter,event};};
+  const nativeOwner=await import('../../build/code/src/product/native_workspace_work.js');
+  const provenance={cCallRef:'call:native',executionAuthorityRef:'authority:test',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:native',transportBindingRef:'transport:test',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')};
+  const testing=synth(initial,'testing'),task=await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',testing),testing);
+  assert.ok(task?.sourceObservedInput);assert.equal(task.commands.length,2);
+  assert.deepEqual(task.outcomePredicates.map(p=>p.predicateKind),['process_exit','process_exit','test_pass_count','stdout_exact']);
+  const c2=await import('../../build/code/src/product/worksite_command_execution.js'),plan=c2.worksiteCommandExecutionHelperPlan(task,'attempt:measurement');
+  const stream=bytes=>({kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding:'base64',payload:bytes.toString('base64'),byteLength:bytes.length,digest:product.sha256Bytes(bytes)});
+  const strict=bytes=>{try{new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(bytes);return true;}catch{return false;}};
+  // The cli stdout is not strict UTF-8. The node:test stdout has the failed
+  // rust-cli run's shape: its middle lines, `ℹ fail 0` among them, are what the
+  // planning view withholds. The stderr keeps a leading BOM.
+  const cliOut=Buffer.concat([Buffer.from('Hello, world!\n'),Buffer.from([0xff,0xfe,0x80,0x0a])]);
+  const testOut=Buffer.from(['✔ component: cargo run --quiet exits 0 and prints exactly Hello, world! with one newline (398.074917ms)',
+    '✔ component: src/main.rs defines main() (0.204542ms)','✔ uat: user runs cargo run --quiet and sees exactly Hello, world! (136.536791ms)',
+    'ℹ tests 3','ℹ suites 0','ℹ pass 3','ℹ fail 0','ℹ cancelled 0','ℹ skipped 0','ℹ todo 0','ℹ duration_ms 499.442334',''].join('\n'));
+  const bomErr=Buffer.from('\uFEFFwarning: Ω controlled diagnostic\n');
+  assert.equal(strict(cliOut),false);assert.equal(strict(testOut),true);assert.equal(strict(bomErr),true);
+  const measuredStreams=[{stdout:stream(cliOut),stderr:stream(Buffer.alloc(0))},{stdout:stream(testOut),stderr:stream(bomErr)}];
+  const commandResults=task.commands.map(({kind,schemaVersion,expectedReports,...command})=>{
+    const body={...command,exitStatus:0,timedOut:false,processSignal:null,signalSequence:[],terminationConfirmed:true,...measuredStreams[command.ordinal],reports:[],reportCount:0},observationDigest=product.sha256Canonical(body);
+    return {kind:'worksite_command_result',schemaVersion:'5.0.0',...body,observationRef:'worksite-command-observation://abiogenesis/'+observationDigest.slice(7),observationDigest};});
+  const observedValue={process_exit:0,test_pass_count:3,stdout_exact:false};
+  const predicateObservations=task.outcomePredicates.map(p=>{const row=commandResults.find(r=>r.commandId===p.declaration.validationCommandId);
+    return {kind:'worksite_predicate_observation',schemaVersion:'5.0.0',ordinal:p.ordinal,predicateId:p.predicateId,predicateKind:p.predicateKind,observedValue:observedValue[p.predicateKind],
+      evidence:[{kind:'worksite_command_observation_coordinate',ref:row.observationRef,digest:row.observationDigest,stdoutDigest:row.stdout.digest}],evidenceRefs:[row.observationRef]};});
+  const members=task.protectedObservations.map(p=>({kind:'worksite_snapshot_member',schemaVersion:'5.0.0',ordinal:p.ordinal,sourceMemberRef:p.sourceMemberRef,sourceObservationRef:p.observation.observationRef,sourceObservationDigest:p.observation.observationDigest,relativePath:p.subject.relativePath,byteLength:p.observation.byteLength,digest:p.observation.fileDigest})),snapshotDigest=product.sha256Canonical(members);
+  const artifact=c2.constructWorksiteExecutionHelperArtifact({task,disposition:'success',commandResults,predicateObservations,worksiteDelta:[],productDelta:[],snapshotRoot:plan.sandboxRoot,snapshotRef:'worksite-command-snapshot://abiogenesis/'+snapshotDigest.slice(7),snapshotDigest,snapshotMembers:members,protectedBefore:task.protectedObservations.map(p=>p.observation),protectedAfter:task.protectedObservations.map(p=>p.observation)});
+  const acknowledgment={kind:'worksite_command_execution_worker_result',schemaVersion:'5.0.0',taskRef:task.taskRef,taskDigest:task.taskDigest,attemptRef:plan.attemptRef,helperArtifactRef:artifact.artifactRef,helperArtifactDigest:artifact.artifactDigest};
+  const actor={actorRef:task.workerActorRef,workerBindingRef:task.workerBindingRef,implementationRef:product.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,inputDigest:product.sha256Canonical(task),transportLane:'worker_executes',disposition:'success',toolCallCount:1,toolInvocations:[{kind:'worker_tool_invocation_evidence',schemaVersion:'5.0.0',ordinal:0,toolName:'Bash',toolUseRef:'tool:test',inputDigest:plan.toolInputDigest,inputByteLength:plan.toolInputByteLength}],processRef:'process:test',...provenance,actorInvocationRef:'actor:measurement'};
+  const observed=c2.constructWorksiteExecutionObservation(task,acknowledgment,actor,artifact,plan),measured=fold(testing,'testing',observed),producer=measured.event;
+  const uat=synth(measured.state,'uat',producer.payload.resultRef),b=at('uat','prepare-native',uat);
+  const prepared=await m.namespace.projectGovernanceNativeTask(b,uat);assert.ok(nativeOwner.isNativeWorkspaceWorkTask(prepared));
+  at('uat','prepare-native',uat);assert.equal(m.namespace.governanceResultMatches(b,uat,prepared),true);
+  assert.deepEqual(prepared.assessment.producer,{resultRef:producer.payload.resultRef,resultDigest:producer.payload.resultDigest,cCallRef:producer.aggregateId,actorInvocationRef:'actor:measurement'});
+  // Exactly one producer instruction, citing the producer the task's assessment binds.
+  const carried=prepared.instructions.filter(i=>i.startsWith(PRODUCER));assert.equal(carried.length,1);
+  const whole=JSON.parse(carried[0].slice(PRODUCER.length+1));
+  assert.deepEqual(Object.keys(whole),['resultRef','resultDigest','cCallRef','actorInvocationRef','commandResults','predicateObservations']);
+  assert.equal(whole.resultRef,producer.payload.resultRef);assert.equal(whole.resultDigest,producer.payload.resultDigest);
+  assert.equal(whole.cCallRef,producer.aggregateId);assert.equal(whole.actorInvocationRef,observed.provenance.actorInvocationRef);
+  // Every stream whole, byte-equal to the admitted Testing Result's stream, its digest and length.
+  const admitted=producer.payload.value,presentations=[];assert.equal(whole.commandResults.length,admitted.commandResults.length);
+  for(const[j,row]of admitted.commandResults.entries()){
+    const carriedRow=whole.commandResults[j];
+    assert.deepEqual(Object.keys(carriedRow),['commandId','ordinal','observationRef','observationDigest','exitStatus','stdout','stderr']);
+    for(const key of ['commandId','ordinal','observationRef','observationDigest','exitStatus'])assert.equal(carriedRow[key],row[key]);
+    for(const lane of ['stdout','stderr']){
+      const shown=carriedRow[lane],bytes=Buffer.from(row[lane].payload,'base64');
+      const carriedBytes=shown.encoding==='utf8'?Buffer.from(shown.text,'utf8'):Buffer.from(shown.payload,'base64');
+      assert.ok(carriedBytes.equals(bytes),lane+' '+j+' bytes');assert.equal(product.sha256Bytes(carriedBytes),row[lane].digest);
+      assert.equal(shown.byteLength,row[lane].byteLength);assert.equal(shown.digest,row[lane].digest);
+      if(strict(bytes))assert.deepEqual(Object.keys(shown),['byteLength','digest','encoding','text']);
+      else assert.deepEqual(shown,row[lane],'a stream that is not strict UTF-8 is the admitted base64 row as it is');
+      presentations.push(shown.encoding);
+    }
+  }
+  assert.deepEqual([...new Set(presentations)].sort(),['base64','utf8'],'both presentations are exercised');
+  assert.equal(whole.commandResults[1].stderr.text.codePointAt(0),0xFEFF,'a leading BOM is kept');
+  assert.ok(whole.commandResults[1].stdout.text.includes('ℹ fail 0\n'));
+  assert.deepEqual(whole.predicateObservations,admitted.predicateObservations);
+  assert.equal(whole.predicateObservations.length,4);assert.ok(whole.predicateObservations.every(p=>p.evidence.length>0));
+  // The shared bounded view is the unchanged Product projection and withholds what the producer carries.
+  const facts=product.projectGovernanceObservationFacts(uat,prepared.context);
+  assert.deepEqual(prepared.instructions.filter(i=>i.startsWith('Actual admitted observations: ')),['Actual admitted observations: '+JSON.stringify(facts)]);
+  const bounded=facts.find(row=>row.resultRef===producer.payload.resultRef).observed;
+  assert.equal(bounded.commandResults[1].stdout.excerpts.some(e=>e.text.includes('ℹ fail 0')),false,'the planning view withholds the middle lines');
+  assert.equal(bounded.commandResults[0].stdout.displayUnavailable,'not_utf8');
+  assert.ok(bounded.predicateObservations.every(p=>!Object.hasOwn(p,'evidence')&&p.evidenceBody.omittedFromPlanningView===true));
+  // Falsifiers: the producer removed, or the planning view substituted for its streams or predicate evidence.
+  const replaced=value=>({...prepared,instructions:prepared.instructions.map(i=>i===carried[0]?PRODUCER+' '+JSON.stringify(value):i)});
+  assert.equal(m.namespace.governanceResultMatches(b,uat,replaced(whole)),true,'the re-rendered producer is the prepared one');
+  assert.equal(m.namespace.governanceResultMatches(b,uat,{...prepared,instructions:prepared.instructions.filter(i=>i!==carried[0])}),false,'a task without its producer is refused');
+  assert.equal(m.namespace.governanceResultMatches(b,uat,replaced({...whole,commandResults:whole.commandResults.map((row,j)=>
+    ({...row,stdout:bounded.commandResults[j].stdout,stderr:bounded.commandResults[j].stderr}))})),false,'the planning view substituted for the producer streams is refused');
+  assert.equal(m.namespace.governanceResultMatches(b,uat,replaced({...whole,predicateObservations:bounded.predicateObservations})),false,'the planning view substituted for the predicate evidence is refused');
+  // A native producer gets no producer instruction: the bounded view carries its report whole.
+  const nativeState=synth(initial,'construction'),nativeTask=await m.namespace.projectGovernanceNativeTask(at('construction','prepare-native',nativeState),nativeState);
+  const native=nativeOwner.constructNativeWorkspaceWorkObservation(nativeTask,context,{summary:'Controlled partial native observation',gaps:['Independent assessment unresolved']},provenance);
+  const nativeFold=fold(nativeState,'construction',native),nativeUat=synth(nativeFold.state,'uat',nativeFold.event.payload.resultRef);
+  const nativeAssessmentTask=await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',nativeUat),nativeUat);
+  assert.ok(nativeOwner.isNativeWorkspaceWorkTask(nativeAssessmentTask));assert.equal(nativeAssessmentTask.instructions.some(i=>i.startsWith(PRODUCER)),false);
+});
+
 test('C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources',async t=>{
   const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
   const fixtures=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));

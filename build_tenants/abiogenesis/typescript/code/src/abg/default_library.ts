@@ -15,7 +15,7 @@ import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.
 import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { constructObservedWorksiteCommandExecutionTask, constructNativeWorksiteCommandExecutionTask, worksiteCommandConfigurationMatches,
   isObservedWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
-  isNativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionTaskInput } from "../product/worksite_command_execution.js";
+  isNativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionTaskInput, type WorksiteObservedStream } from "../product/worksite_command_execution.js";
 import { constructWorksiteSubject, isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { observeWorksiteContext, observeWorksiteSubject } from "../product/worksite_operations.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -184,6 +184,13 @@ function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: Governan
   if (value.provenance.actorInvocationRef !== selected[0]!.actorInvocationRef) return testingRefused(refusal, "testing_subject", "producer_actor", { resultRef: ref });
   return { event, value };
 }
+/** A `uat` producer stream whole: UTF-8 text when its admitted bytes decode as
+ * strict UTF-8 (a leading BOM kept), else the admitted base64 row as it is. */
+function producerStream(row: WorksiteObservedStream) {
+  try { return { byteLength: row.byteLength, digest: row.digest, encoding: "utf8",
+    text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(row.payload, "base64")) }; }
+  catch { return row; }
+}
 /** Native task construction over the admitted context and prefix; reads no worksite. */
 function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, context: WorksiteContextObservation) {
   const order = state.original.workOrders[purpose]; if (order === undefined || !contextMatches(o, state, context)) return null;
@@ -223,6 +230,13 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
     !dependencies.every(e => context.entries.some(c => c.relativePath === e.path && c.state === "file" && c.digest === e.digest)) ||
     worksiteCommandSourcesInvalidatedAfter(o.prefix, p.event.admissionOrdinal,
       o.environment.workspaceAuthorityBasis.canonicalRoot, dependencies.map(e => e.path))) return null;
+  // UAT consumes its full authenticated producer; the parent-context view above stays bounded.
+  if (isObservedWorksiteCommandExecutionObservation(p.value) || isNativeWorksiteCommandExecutionObservation(p.value)) instructions.push(
+    "This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is bounded only by the declared `maxPromptBytes`, whose overflow refuses `declared_bound_overflow`, so nothing is withheld silently. Reacquire all mandatory selected source and assessment material through the declared reads. " +
+    JSON.stringify({ resultRef: p.event.payload.resultRef, resultDigest: p.event.payload.resultDigest, cCallRef: p.event.aggregateId,
+      actorInvocationRef: p.value.provenance.actorInvocationRef, commandResults: p.value.commandResults.map(r => ({ commandId: r.commandId,
+        ordinal: r.ordinal, observationRef: r.observationRef, observationDigest: r.observationDigest, exitStatus: r.exitStatus,
+        stdout: producerStream(r.stdout), stderr: producerStream(r.stderr) })), predicateObservations: p.value.predicateObservations }));
   const asset = (path: string) => { const e = context.entries.find(e => e.relativePath === path); if (e?.state !== "file") throw new TypeError("assessment file missing"); return { path, digest: e.digest }; };
   if (state.original.fulfillment !== undefined) instructions.push(
     "Return the installed structural fulfillment response. Use exactly one row per current obligation, criterion, depth class and discovery class. Meanings and sufficiency are your independent judgments. Unknown support is indeterminate, never implicit success.",
