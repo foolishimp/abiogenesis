@@ -504,6 +504,37 @@ export function beginOwnedWorkflowLocus(input: Readonly<{
     };
 }
 
+/** The child's result class, read from the contract its admitted result names
+ * through the reader of the parent's declared failure kind. The foldback
+ * admission binds the result by ref and digest; it carries no class. */
+function childResultIsFailureClass(
+  leafPort: LeafInvocationPort,
+  frame: WorkflowChildFoldFrame,
+  child: OwnedExecutableTraversalCompletion,
+  foldback: Abg.ChildFoldbackAdmission,
+): boolean {
+  if (child.cCallRef === null || !isRecord(child.resultValue)) return false;
+  let admitted: ReturnType<typeof OwnedReplay.projectReplayCCallGuardAtPrefix>;
+  try {
+    admitted = OwnedReplay.projectReplayCCallGuardAtPrefix(
+      selectRuntimeEventPrefixFromAuthority(
+        projectOwnedRuntimeEventPrefixAtDurablePrefix(child.successorPrefix),
+        { runId: frame.childTraversalScope.runId },
+      ),
+      child.cCallRef,
+    );
+  } catch {
+    // No admitted child row to read: the class stays unread and the block is
+    // conserved as before.
+    return false;
+  }
+  if (admitted.resultRef !== foldback.childResultRef ||
+    admitted.resultDigest !== foldback.childResultDigest ||
+    admitted.resultContractRef === null) return false;
+  const failureKind = leafPort.contractValueKind(admitted.resultContractRef, "failure");
+  return failureKind !== null && failureKind === child.resultValue.kind;
+}
+
 /** @internal Same owner computation with a selected guard receipt. */
 export function completeOwnedWorkflowLocus(
   frame: WorkflowChildFoldFrame,
@@ -644,12 +675,15 @@ export function completeOwnedWorkflowLocus(
     };
   }
   const childSucceeded = child.disposition === "closed";
-  const childBlocked = foldback.childDisposition === "blocked";
-  const failureDiagnosticRef = foldback.childReasonRef ?? child.diagnosticRef ??
-    "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
   // A blocked child may have a valid candidate whose evaluator refused
   // advancement. Conserve that candidate and its block; do not invent a
   // failure result that the ordinary route relation must classify as failed.
+  // A child blocked after an admitted failure (a partial stop) carries a
+  // failure-class result: it lifts as the parent's failure, as a failed child.
+  const childBlocked = foldback.childDisposition === "blocked" &&
+    !childResultIsFailureClass(runtime.leafPort, frame, child, foldback);
+  const failureDiagnosticRef = foldback.childReasonRef ?? child.diagnosticRef ??
+    "diagnostic://abiogenesis/hog/child-traversal-blocked@5";
   const childValue = childSucceeded || childBlocked
     ? actionValue ?? child.resultValue
     : deepFreeze({
