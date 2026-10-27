@@ -1256,7 +1256,71 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     digest: workspaceBinding.bindingDigest,
   });
   assert.deepEqual(replayedTruth.result, outcome.ownerOutput.value.result);
-  assert.deepEqual(replayedTruth.replay, terminalReplay);
+  // T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md:200-202: a Run projection
+  // at its original prefix reproduces its replay shape and digest exactly. The
+  // replay body carries prefix-wide members, so at the later prefix (the sibling
+  // bind appended) the terminal semantics are equal and those members excluded.
+  const ownPrefixTruth = abg.projectRunTruthAtDurablePrefix(
+    runTerminalPrefix,
+    terminalRun.ref,
+  );
+  assert.deepEqual(ownPrefixTruth.replay, terminalReplay);
+  const runReplayAt = (prefix) => {
+    const events = abg.readRuntimeEventsAtDurablePrefix(prefix);
+    return abg.replayValidatedRuntimeEventPrefix(
+      abg.selectValidatedRuntimeEventPrefix(events, { runId: terminalRun.ref }),
+      abg.selectValidatedRuntimeEventPrefix(events),
+    );
+  };
+  const ownPrefixReplay = runReplayAt(runTerminalPrefix);
+  const laterPrefixReplay = runReplayAt(terminalPrefix);
+  assert.deepEqual({
+    ref: ownPrefixReplay.replayRef,
+    digest: ownPrefixReplay.replayDigest,
+  }, terminalReplay);
+  const laterReplay = {
+    ref: laterPrefixReplay.replayRef,
+    digest: laterPrefixReplay.replayDigest,
+  };
+  assert.deepEqual(replayedTruth.replay, laterReplay);
+  // Excluded: the replay coordinate, whose digest covers the whole body, and the
+  // prefix-wide members.
+  const prefixWideReplayMembers = [
+    "replayRef",
+    "replayDigest",
+    "eventStoreDigest",
+    "eventCount",
+    "lastAdmissionOrdinal",
+    "nativeLiveness",
+  ];
+  const terminalSemantics = (state) =>
+    Object.fromEntries(
+      Object.entries(state).filter(([key]) =>
+        !prefixWideReplayMembers.includes(key)
+      ),
+    );
+  assert.deepEqual(
+    terminalSemantics(laterPrefixReplay),
+    terminalSemantics(ownPrefixReplay),
+  );
+  // The Run truth's prefix coordinates (`prefixCoordinateDigest`, `replay`,
+  // `terminalResult.projectionBasis`) are the same exclusion.
+  const {
+    prefixCoordinateDigest: _ownCut,
+    replay: _ownReplay,
+    terminalResult: { projectionBasis: _ownBasis, ...ownTerminalResult },
+    ...ownTruth
+  } = ownPrefixTruth;
+  const {
+    prefixCoordinateDigest: _laterCut,
+    replay: _laterReplay,
+    terminalResult: { projectionBasis: _laterBasis, ...laterTerminalResult },
+    ...laterTruth
+  } = replayedTruth;
+  assert.deepEqual(
+    { ...laterTruth, terminalResult: laterTerminalResult },
+    { ...ownTruth, terminalResult: ownTerminalResult },
+  );
   const ownerStatus = projectReadPorts.RunProjectionPort.run_status({
     kind: "abg_project_read_packet",
     schemaVersion,
@@ -1272,7 +1336,7 @@ test("ST-1 executes an independently authored minimal GTL test through installed
   assert.ok(expectedActiveFluents.length > 0);
   assert.equal(readProjections.get("run_status").status, "closed");
   assert.deepEqual(readProjections.get("run_status").subject, terminalRun);
-  assert.deepEqual(readProjections.get("run_status").replay, terminalReplay);
+  assert.deepEqual(readProjections.get("run_status").replay, laterReplay);
   assert.deepEqual(
     readProjections.get("run_status").activeFluents,
     expectedActiveFluents,
@@ -1288,9 +1352,9 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     outcome.ownerOutput.value.result,
   );
   assert.deepEqual(readProjections.get("run_result").subject, terminalRun);
-  assert.deepEqual(readProjections.get("run_result").replay, terminalReplay);
+  assert.deepEqual(readProjections.get("run_result").replay, laterReplay);
   assert.deepEqual(readProjections.get("run_replay").subject, terminalRun);
-  assert.deepEqual(readProjections.get("run_replay").replay, terminalReplay);
+  assert.deepEqual(readProjections.get("run_replay").replay, laterReplay);
   assert.equal(readProjections.get("run_replay").fromOrdinal, 0);
   assert.equal(readProjections.get("run_replay").limit, 1024);
   assert.deepEqual(replayedTruth.result, {
