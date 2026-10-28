@@ -1,0 +1,151 @@
+{
+ "kind": "d1d4b_source44_procedure_on_candidate",
+ "base": "9e5d1383f12d97e585e25fcfe39e403939508120",
+ "subtrees": {
+  "code": "7112fffad94f4b1380332ace1a7a69a7d417892b",
+  "test_env": "f63df92944afdbdc41d6fb958df6f3e8fadaa1bd",
+  "contracts": "9da8b3d81a6f9e61360ce9b939b6e8d7de42d516",
+  "equalTo": "bf7119489"
+ },
+ "a_build": {
+  "command": "npm run build",
+  "rc": 0,
+  "wallS": 32,
+  "sourceCount": 288,
+  "emissionCount": 576,
+  "js": 288,
+  "dts": 288,
+  "missingEmissions": 0,
+  "extraEmissions": 0,
+  "sourcePopulationDigest": "sha256:d8c05d10d26634a0e5a7c7c9da86dd69210101df7c9033c069cee8fdb6d48e92",
+  "emissionPopulationDigest": "sha256:80b9801a7b2d051c45cad9bba2c9e1a65cd8ba4de8a1345db16220857fb5dc54",
+  "continuation16": {
+   "sourceCount": 264,
+   "emissionCount": 528
+  },
+  "sourceVsCut44": {
+   "equal": 48,
+   "changed": 208,
+   "added": 32,
+   "removed": 8
+  },
+  "emissionVsCut44": {
+   "equal": 181,
+   "changed": 331,
+   "added": 64,
+   "removed": 16
+  },
+  "relation": "check-02 relation of Continuation16 (each .ts Source has exactly one .js and one .d.ts emission; no other build file)"
+ },
+ "b_pack": {
+  "command": "npm pack --ignore-scripts --json --pack-destination <scratch>",
+  "sha256": "sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612",
+  "bytes": 10914695,
+  "npmShasum": "26659727ea1a6550b31abb8d9837541ddadf9418",
+  "integrity": "sha512-oiprrtcdS0yEe3qW3P9hW8V58f2kVvlkSdS/95w63j1inWXMPTrKnQMmPW3WyPKNjkV2+Uve62JcDXR4slyefg==",
+  "entryCount": 5317,
+  "executivePackSha256": "sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612",
+  "executivePackRecord": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-bf7119489/pack.sha256",
+  "equalToExecutive": true,
+  "fixtureArtifactDigest": "sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612",
+  "fixtureProductContentDigest": "sha256:ea9740752bfd8389749eaa5bfdfb5a77436513cca47dab76e3065d6bc6656a4d",
+  "continuation16": {
+   "archive": "sha256:192356a4291696de676128394d355e9a2d371c8828ba17d60d2daead79ac34b5",
+   "bytes": 10676374,
+   "content": "sha256:6fb24fc7a8f6297aed78fbf830fb8b8ea977f9e9212f70733493abcf66c0b1f3"
+  }
+ },
+ "c_install": {
+  "command": "npm install --prefix <scratch>/install/host --ignore-scripts --offline --no-audit --no-fund <tgz>",
+  "rc": 0,
+  "archiveMembers": 5317,
+  "byTop": {
+   "node_modules": 4330,
+   "build": 789,
+   "contracts": 196,
+   "(root)": 2
+  },
+  "bodyMismatches": 0,
+  "installedNotInArchive": 0,
+  "modeDifferences": [
+   {
+    "path": "build/code/src/public/cli.js",
+    "archiveMode": "0o644",
+    "installedMode": "0o755"
+   },
+   {
+    "path": "build/code/src/public/codex_cli.js",
+    "archiveMode": "0o644",
+    "installedMode": "0o755"
+   }
+  ],
+  "populationDigest": "sha256:2d74edbd4ef16bda5c89082a54f88d5fd67d66a7ee808424cb6197dd92a451f4",
+  "continuation16Members": 5267,
+  "vsContinuation16": {
+   "equal": 4890,
+   "changed": 354,
+   "added": 73,
+   "removed": 23
+  },
+  "vsContinuation16ByTop": {
+   "build": {
+    "changed": 331,
+    "added": 64,
+    "equal": 394,
+    "removed": 16
+   },
+   "contracts": {
+    "changed": 21,
+    "equal": 166,
+    "added": 9,
+    "removed": 7
+   },
+   "node_modules": {
+    "equal": 4330
+   },
+   "(root)": {
+    "changed": 2
+   }
+  },
+  "note": "Continuation16's archive-correspondence.json records modeDifferences [] while its return names the two installed CLI modes; this run measures those two"
+ },
+ "d_consumer": {
+  "subject": ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/consumer.mts",
+  "sha256": "sha256:2f324626ebf9d4ef630de0b587df3519f0fa986f8620f678e883b66e082225ac",
+  "equalToContinuation16": true,
+  "command": "tsc --strict --noEmit --skipLibCheck false --module nodenext --moduleResolution nodenext --target es2022 --typeRoots <tenant>/node_modules/@types --types node consumer.mts",
+  "rc": 0,
+  "fileClosure": 480,
+  "installedTenantBuildDeclarations": 214,
+  "bundledDependencyDeclarations": 102,
+  "typesNode": 58,
+  "toolchain": {
+   "typescript": "5.9.2",
+   "node": "v24.7.0",
+   "npm": "11.5.1"
+  }
+ },
+ "tools": {
+  "correspondence.py": "sha256:976baa576875465aa5971eddcbded670a7d69c3870b2fa05454c6ca1f33294f5",
+  "archive_installed.py": "sha256:629b86f21cbfe9045b8aa6f6430a3350e9ead29c124f685a9e36dd44f79192da",
+  "delta.py": "sha256:4d365db139b138f203419a0dbc61559bc7c117a88e7f731965e513d30b9cd48a",
+  "group.py": "sha256:9e06357e276e282c2710d463f22af373c8f9be56448183e3306a326cf855e755",
+  "lane.sh": "sha256:a2cca9883f42b90afdf7db5e12058b43b6b5940652875df4524c660673acf8aa",
+  "record.py": "sha256:bd90f4e99e45b87b01e87cf3dc0c15f7958d28607c2a575f2fcb523cebbcdcdc",
+  "item1.py": "sha256:8c09d438ad14a175980c089a7c5465ab39e79c60667af5bbd9416c2410902c84",
+  "item4.py": "sha256:b47ca31e9cfa366bd5722c51d8c99950db46d04a9bf62b6d833ce727c507939b"
+ },
+ "sources": {
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/freeze.json": "sha256:ced70e64a04020e91ef23e01c26e8cf293ed013613f92ac50e9f3df535759c39",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/dependency-cut-44-inputs.json": "sha256:114cc2756182cc763b322f5ed7727f68d00be3e7b0734db2f4d32df7b680fb7f",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/dependency-cut-44-emission.json": "sha256:9b8225de8822f7ddaa310c94087498ab9005ad831e8f1b3612140b921c42234d",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-runtime-state-233/successor-44/postimages.json": "sha256:c14786d6e260a7add60f2147a7b55b1819e12f81ddb0eb1cc1660492676189ae",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/readiness.json": "sha256:0cd5be0a3a8872b1f15441854d82d918d20eea480787f41acdeefb23ca82e107",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/freeze.json": "sha256:134eeb4c526552027daddd356f338eba4748e885bcbe54b83504e02adc07d8a2",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/build-correspondence.json": "sha256:c2907fd6fe44f6d4ddc99a0eb727cf225dcf0a22f67da7bc8e7c0e66c5fac53c",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/publication/archive-correspondence.json": "sha256:b00767f043c2c77edabbf2a73e6e66907c3757c8fc96d3cf9e41e6dffedcf359",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/completed-effects-index.json": "sha256:54ffbf0c68e53acb0f9e77bbe2500211aa926dea8541a2d9114a1e3a4edee5fe",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/consumer.mts": "sha256:2f324626ebf9d4ef630de0b587df3519f0fa986f8620f678e883b66e082225ac",
+  ".ai-workspace/work/T287_SANDBOX_UAT_RUN_02/operator/library-joint-proof-237/continuation-16/return.md": "sha256:12fdbb7c2f013721a23e51452ab98b9dc457f5d0ffde82c259aa46afb20522bd"
+ }
+}
