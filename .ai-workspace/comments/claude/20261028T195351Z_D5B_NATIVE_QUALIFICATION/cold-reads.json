@@ -1,0 +1,112 @@
+{
+ "kind": "qualification_cold_reads",
+ "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+ "runId": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+ "coldRoot": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5b/cold-20261028T195000Z",
+ "process": {
+  "pid": 90559,
+  "argv": [
+   "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+   "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+   "cold-reads",
+   "--config",
+   "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/operator-config.json",
+   "--archive",
+   "test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+   "--out",
+   "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5b/cold-20261028T195000Z",
+   "--json",
+   "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5b/cold-20261028T195000Z.json"
+  ],
+  "node": "v24.7.0"
+ },
+ "eventLog": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/resources/events/runtime.events.jsonl",
+ "identityBefore": {
+  "device": 16777231,
+  "inode": 654389330,
+  "byteCount": 3196589,
+  "digest": "sha256:1d0424763de50470f708adb294d078f301b8008d3af7bdec205405a54225bc67"
+ },
+ "identityAfter": {
+  "device": 16777231,
+  "inode": 654389330,
+  "byteCount": 3196589,
+  "digest": "sha256:1d0424763de50470f708adb294d078f301b8008d3af7bdec205405a54225bc67"
+ },
+ "identityUnchanged": true,
+ "environmentKind": "exact_prefix_workspace_environment",
+ "observedMismatches": [],
+ "scopeCorrespondenceErrors": [],
+ "basisReady": true,
+ "rows": [
+  {
+   "name": "basis",
+   "archivedDigest": "sha256:66a8c1b44615c9aed6ea89123a1bceaf49b212c547ecd12db2c01c08c1629a8d",
+   "rederived": "sha256:66a8c1b44615c9aed6ea89123a1bceaf49b212c547ecd12db2c01c08c1629a8d",
+   "equal": true
+  },
+  {
+   "name": "scope",
+   "archivedDigest": "sha256:d615fd3121c9b8811fe30bcfb341a231f81e09f56e40c5b72b75d43e6820128e",
+   "rederived": "sha256:d615fd3121c9b8811fe30bcfb341a231f81e09f56e40c5b72b75d43e6820128e",
+   "equal": true
+  },
+  {
+   "name": "inventory",
+   "archivedDigest": "sha256:c4a1654f50120e6730552afaeaaa2244e9c57f26318f70f653364f7776c70ffd",
+   "rederived": "sha256:c4a1654f50120e6730552afaeaaa2244e9c57f26318f70f653364f7776c70ffd",
+   "equal": true
+  },
+  {
+   "name": "tenantManifest",
+   "archivedDigest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+   "rederived": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+   "equal": true
+  },
+  {
+   "name": "commandConfiguration",
+   "archivedDigest": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
+   "rederived": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
+   "equal": true
+  },
+  {
+   "name": "predicateConfiguration",
+   "archivedDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+   "rederived": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+   "equal": true
+  },
+  {
+   "name": "writeTerritories",
+   "archivedDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+   "rederived": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+   "equal": true
+  },
+  {
+   "name": "constructionRecordSet",
+   "archivedDigest": "sha256:a5852e7134cf7bebd9fdef4444bf07561e10a42dd388f73fe08914a64f6f43aa",
+   "rederived": "sha256:a5852e7134cf7bebd9fdef4444bf07561e10a42dd388f73fe08914a64f6f43aa",
+   "equal": true
+  },
+  {
+   "name": "constructionChains",
+   "archivedDigest": "22",
+   "rederived": "22",
+   "equal": true
+  },
+  {
+   "name": "applications",
+   "archivedDigest": "sha256:6e0c250be5cd2cdc1d791048c1a8d649c38b10af3b643d85275b408166dbd3dc",
+   "rederived": "sha256:6e0c250be5cd2cdc1d791048c1a8d649c38b10af3b643d85275b408166dbd3dc",
+   "equal": true
+  }
+ ],
+ "allEqual": true,
+ "output": {
+  "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5b/cold-20261028T195000Z.json",
+  "digest": "sha256:9d996410bb2ff0165aa1122539e41b00ba595087c7872bde931aaf3d2687f8b0",
+  "byteCount": 4602
+ },
+ "after": "the live run's process exited; commit 1 (7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc)",
+ "uptimeBefore": "6:50  up 23 days, 17:08, 10 users, load averages: 13.59 15.79 16.98",
+ "uptimeAfter": "6:50  up 23 days, 17:08, 10 users, load averages: 17.45 16.45 17.17"
+}

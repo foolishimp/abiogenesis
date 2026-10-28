@@ -1,0 +1,16 @@
+{
+ "kind": "qualification_run_cost",
+ "runId": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+ "providerCalls": 0,
+ "turns": 0,
+ "usd": 0,
+ "source": "No provider archive: no dispatch occurred (the gates held before the observed C2 run and every slot)",
+ "capUsd": 60,
+ "projectedUsd": 1295.6,
+ "archiveFile": {
+  "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/cost.json",
+  "digest": "sha256:d989a61b1af1492d6f9ffb7b2d42e3191f934b10a6b1fd3bdb02efc92c228028",
+  "byteCount": 279
+ },
+ "tokenHandling": "CLAUDE_CODE_OAUTH_TOKEN entered the wrapper's environment by the activation's export form and so the driver process it launched; the driver's child processes ran under setupEnvironment, which does not carry it; the only probe was the not-empty test; no value was printed, written or passed on a command line; no provider process was started"
+}
