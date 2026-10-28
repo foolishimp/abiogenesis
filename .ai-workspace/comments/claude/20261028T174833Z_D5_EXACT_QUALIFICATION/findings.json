@@ -1,0 +1,92 @@
+{
+  "kind": "d5_findings",
+  "findings": [
+    {
+      "id": "F-1",
+      "class": "stop",
+      "title": "The observed C2 cannot complete inside one provider Bash call",
+      "facts": [
+        "Claude Code 2.1.306 defaults Bash to 120,000 ms (maximum 600,000 ms) unless BASH_DEFAULT_TIMEOUT_MS / BASH_MAX_TIMEOUT_MS are set; the C2 prompt forbids a timeout field (product/worksite_command_execution.ts:2344); the transport contract sets none",
+        "the recipe commands take 230,017 ms bare at load 9.81-9.82 (prepare run), 256.3 s in dry run 2 at load 16.84; the helper adds snapshot materialization and observation of 1,119 protected files",
+        "the Product C2 budget is 855,250 ms and fits the operator limits (900,000 / 1,200,000 ms)",
+        "precedent: the longest Bash call in 201 earlier C2 transports was 57 s; the js-sdlc-bootstrap 263 s session was ttft 219,488 ms plus a ~38 s Bash call, not a 263 s Bash call"
+      ],
+      "remedies": [
+        "Configuration: give the provider CLI BASH_DEFAULT_TIMEOUT_MS (and BASH_MAX_TIMEOUT_MS above 600,000 to cover the 855,250 ms budget), e.g. through provider.inheritEnvironment and the wrapper. Not verified: that a name added to provider.inheritEnvironment reaches the CLI process through the transport.",
+        "Product: the C2 transport derives the Bash call timeout from the C2 budget (the prompt or the provider lane), a code change."
+      ],
+      "owner": "T-287 Executive; the choice is not the Worker's"
+    },
+    {
+      "id": "F-2",
+      "class": "stop",
+      "title": "F11 J cannot carry four candidate members inside the prompt bound (projection; no J prompt was built)",
+      "facts": [
+        "J receives each material body as JSON.stringify of its text (validator/qualification.ts:589), so raw bytes are a floor; the role sources add 42674 raw bytes to every slot",
+        "over the 1,048,576-byte bound on raw bytes alone: contracts/qualification/rule-catalog.json 1,767,172; contracts/schemas/public-operation.schema.json 2,867,688; contracts/schemas/self-conformance.schema.json 1,050,028; product-toolchain-manifest.json 3,273,847 (contracts and pack members)",
+        "8 of the 28 declared surface groups exceed the bound on raw bytes; the 4 members cannot be split by any partition",
+        "D5-authored test_env/qualification/recipe/expected-output-inventory.json (879,999 bytes) fits on the raw floor; its escaped rendering was not measured"
+      ],
+      "consequence": "A green F11 needs a code, contracts or pack change (span-carried material, or smaller published members): the activation's stop"
+    },
+    {
+      "id": "F-3",
+      "class": "stop-input",
+      "title": "F11 J material floor exceeds the 40 USD cap",
+      "facts": [
+        "inventory 34,531,450 bytes plus catalog sources 1,528,867 bytes read once at 4 bytes per token and 5 USD per million input tokens: 9,015,080 tokens, 45.08 USD",
+        "the six js-sdlc-bootstrap D3 transports show about 7.4 USD per million written input tokens; rule x surface pairs (95 x 28 = 2,660 in the global domain), independent peers, re-reads and output add to the floor"
+      ]
+    },
+    {
+      "id": "F-4",
+      "class": "gap",
+      "title": "No construction provenance for the pre-RC subject",
+      "facts": [
+        "the candidate was constructed outside ABG; tenant and inventory attribution J requires external_construction provenance (activation, preimage, delta and closure records per chain; qualification_contracts.ts:132-140); no resource carries it"
+      ]
+    },
+    {
+      "id": "F-5",
+      "class": "recipe precondition",
+      "title": "The recipe binds the launching environment and reaches outside the C2 sandbox",
+      "facts": [
+        "the configuration digests bind the ambient HOME, TMPDIR and LANG rows with LC_ALL absent; a live run launched from another environment fails as verification_recipe_configuration_mismatch",
+        "ABI5_UAT_UNIT_ROOT is written outside the C2 snapshot sandbox and outside the declared write territories (the continuation lane needs an absolute root; a relative one is refused)",
+        "ABI5_EVIDENCE_ROOT and the D3 archive inputs of the continuation lane are read outside the sandbox, unprotected by the recipe (evidence-root.mjs pins the former by digest; the lock digest pins the latter only in part)"
+      ]
+    },
+    {
+      "id": "F-6",
+      "class": "basis",
+      "title": "The inventory binds the base design, not the candidate's",
+      "facts": [
+        "design differs between fd38e8227 (tree 799601bf…) and the base (d061f94b…) by one line of ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md (3d33d5584); test_env differs by D3-a, D3-a-b and D5; release-claim.md is new (99b799d56); code, contracts, scripts, package files and specification equal the candidate"
+      ]
+    },
+    {
+      "id": "F-7",
+      "class": "correction",
+      "title": "The \"263 s proven\" Bash figure is wrong",
+      "facts": [
+        "the 263 s js-sdlc-bootstrap session was ttft 219,488 ms plus a ~38 s Bash call (09:59:51.861Z to 10:00:29.725Z)"
+      ]
+    },
+    {
+      "id": "F-8",
+      "class": "surface",
+      "title": "Qualification construction needs non-exported functions",
+      "facts": [
+        "projectWorksiteCommandExecutionBudget, worksiteCommandExecutionBudgetFits, constructWorksiteCommandConfiguration, selectedWorksiteCommandAmbientEnvironment and isQualificationBasisReady are not package exports; the driver deep-imports them from the installed build"
+      ]
+    },
+    {
+      "id": "F-9",
+      "class": "design",
+      "title": "The helper runs commands in a task-addressed snapshot sandbox",
+      "facts": [
+        "worksite_command_helper.ts:596-621 materializes the protected inputs under archiveRoot/worksite-command-execution/<task>/<attempt>/sandbox, so no recipe environment value can name an absolute path inside it"
+      ]
+    }
+  ]
+}

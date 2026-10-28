@@ -1,0 +1,2967 @@
+{
+  "kind": "d5_gate_roster",
+  "candidate": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+  "pack": "sha256:550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6",
+  "coverageCatalog": {
+    "ref": "qualification-coverage://abiogenesis/dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789",
+    "digest": "sha256:dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789",
+    "path": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+    "fileDigest": "sha256:05c8c3dcc75f2cb9673ca4e29758862c4f0e124cc01b46450a84fffb4ba98073"
+  },
+  "placement": {
+    "claims": 16,
+    "behaviors": 66,
+    "placed": 66,
+    "unplaced": []
+  },
+  "dispositions": {
+    "covered": 54,
+    "intentionally_removed": 2,
+    "gap": 17
+  },
+  "natives": {
+    "N-D3": {
+      "carrier": "D3 sandbox UAT witnesses on pack sha256:550b48cc…3df6 (record section \"## D3 record\"; D2 disposition \"The sixth amendment, applied\")",
+      "claimBasis": "each run: fresh install root, bootstrap unpack, product verify/resolve/install, workspace.bind, catalog admit and view, program conformance through fresh installed CLI processes; run.invoke of the independently authored publication program://abi5-tests/sandbox-uat/lifecycle@5 with scope program, target next, until converged, fhMode direct, rootMode direct; live F_P actors on claude-opus-5-5; C2 command executions; independent oracle; fresh run_result and run_replay readbacks",
+      "runs": [
+        {
+          "case": "rust-cli",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T12-16-56-187Z-f038597f-3224-43da-b940-43d209006f72/summary.json",
+            "digest": "sha256:b6a75bcf19c753c7a91d307e205c285c0361eeec7efa5155b7eb096180f9f24d",
+            "byteCount": 529
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T12-16-56-187Z-f038597f-3224-43da-b940-43d209006f72/SEALED.json",
+            "digest": "sha256:91c31e71cac6f2a0ca636d82b34023b836167928c28ced891dca08eb9b0dfe84",
+            "byteCount": 278
+          }
+        },
+        {
+          "case": "basic-cli",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-28T12-31-34-745Z-acf2deb3-b674-4cca-b649-235cb73c1d3e/summary.json",
+            "digest": "sha256:7a054168a5b23781c32a59a274f53b703daa72dc661e932cfc940a3b38936978",
+            "byteCount": 531
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-28T12-31-34-745Z-acf2deb3-b674-4cca-b649-235cb73c1d3e/SEALED.json",
+            "digest": "sha256:0f8101ab55eff5001e98912401d2c5903b38146f0b6b7d3767c2b9c754653877",
+            "byteCount": 279
+          }
+        },
+        {
+          "case": "js-tenant-test",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-28T12-44-51-631Z-630c7d9c-519d-4ecb-9b45-87e89bc1b8c2/summary.json",
+            "digest": "sha256:b367e5e5f7d67533f4412ac1f91817976529fc78330469a2b3ed9b07a60bd208",
+            "byteCount": 541
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-28T12-44-51-631Z-630c7d9c-519d-4ecb-9b45-87e89bc1b8c2/SEALED.json",
+            "digest": "sha256:5c9607695c8a835822e17f0ef6277ffcefeb8617c94a1154c44a1bfe273ccda1",
+            "byteCount": 284
+          }
+        },
+        {
+          "case": "rust-service",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-28T13-26-41-551Z-acada2d7-2c7f-4908-8da1-167dbd6abb56/summary.json",
+            "digest": "sha256:c476cab69f93d5d831be61d6a4793a8675cbfcbf385695fa7d0601b8b6ef90bb",
+            "byteCount": 537
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-28T13-26-41-551Z-acada2d7-2c7f-4908-8da1-167dbd6abb56/SEALED.json",
+            "digest": "sha256:135ac9fd96eb02e955f1277f786a5e9ee37042a7c57dd63967a84f0a0f7a85d5",
+            "byteCount": 282
+          }
+        },
+        {
+          "case": "parallel-js",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-28T13-45-09-711Z-a9dfda84-381e-46a6-9b50-2148bbc1fbc7/summary.json",
+            "digest": "sha256:a7b0ffe61ddbfe17f8a8d4f93221db0f3e978e8b3da874a658fbf693b47d93ed",
+            "byteCount": 535
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-28T13-45-09-711Z-a9dfda84-381e-46a6-9b50-2148bbc1fbc7/SEALED.json",
+            "digest": "sha256:31ab75d0b8def157730f604ec75909e2aadbc9c5e69bc223af19aa383160a0fa",
+            "byteCount": 281
+          }
+        },
+        {
+          "case": "js-sdlc-bootstrap",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/summary.json",
+            "digest": "sha256:79f27b4502d9c82782071fdf26fc9e0c13b3cb1df0f55ecbed14a3eb9cd87c65",
+            "byteCount": 547
+          },
+          "sealed": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/SEALED.json",
+            "digest": "sha256:0d86ec3379f5862edd4ff20f7fa50ad39e62d69980829fccc7fe42892638627d",
+            "byteCount": 287
+          }
+        }
+      ]
+    },
+    "N-D3-GAP": {
+      "carrier": "D3 sweep js-sdlc-bootstrap run 2026-10-28T12-57-57-253Z on the same pack: the executive actor registered gap on complete-original-outcome, run_stopped blocked, run_result not_found, run_replay blocked (D2 disposition, \"The sixth amendment, applied\")",
+      "runs": [
+        {
+          "case": "js-sdlc-bootstrap",
+          "summary": {
+            "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T12-57-57-253Z-624419a6-50d0-4b7a-a6b7-9d2a26b9e94d/summary.json",
+            "digest": "sha256:9a48547e75c9d50dfcabab1de869a9100348f1a3884368354fcad8acbab3d407",
+            "byteCount": 556
+          }
+        }
+      ]
+    },
+    "N-D2": {
+      "carrier": "D2 controlled correction specimen (record \"## D2 disposition\", Worker commit 2a07453f0): failing C2 retained by the parent, one native repair, the same checker green, the selector gap, run_stopped blocked, fresh and cold reads conserved",
+      "runs": [
+        {
+          "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d"
+        }
+      ]
+    },
+    "N-P4": {
+      "carrier": "D1/D4-c-b P4 stdo3-native-selection (record \"## D1/D4-c-b disposition\", Worker commit 9836dff97): one native selection call, oracle choice A, fresh run_result and run_replay after the source mirror was made unavailable, the new call on the unavailable source refused"
+    }
+  },
+  "vectorLanesNamed": [
+    "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+    "test_env/tests/hog-operator-support.test.mjs",
+    "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/r10-child-proof.test.mjs",
+    "test_env/tests/r10-projection-contracts.test.mjs",
+    "test_env/tests/r4-catalog-admission.test.mjs",
+    "test_env/tests/retained-route-cursor-transition.test.mjs",
+    "test_env/tests/t287-c2-child-program.test.mjs",
+    "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+    "test_env/tests/t287-calculus-fold.test.mjs",
+    "test_env/tests/t287-calculus-state-transfer.test.mjs",
+    "test_env/tests/t287-event-body-encoding.test.mjs",
+    "test_env/tests/t287-gtl-graph-law.test.mjs",
+    "test_env/tests/t287-gtl-language-corpus.test.mjs",
+    "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+    "test_env/tests/t287-multi-candidate-admission.test.mjs",
+    "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+    "test_env/tests/t287-native-semantic-job.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs",
+    "test_env/tests/t287-native-structural-gates.test.mjs",
+    "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+    "test_env/tests/t287-public-preparation.test.mjs",
+    "test_env/tests/t287-qual056-material.test.mjs",
+    "test_env/tests/t287-qualification-contraction.test.mjs",
+    "test_env/tests/t287-qualification-producer-context.test.mjs",
+    "test_env/tests/t287-qualification-scopes.test.mjs",
+    "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+    "test_env/tests/t287-release-acceptance.test.mjs",
+    "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+    "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+    "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+    "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+    "test_env/tests/t288-initial-cursor-entry.test.mjs",
+    "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+    "test_env/tests/witness-reprice-definition-binding.test.mjs",
+    "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+    "test_env/uat/continuation.test.mjs",
+    "test_env/uat/harness.test.mjs"
+  ],
+  "rows": [
+    {
+      "section": "families",
+      "row": "A5-F01",
+      "title": "Exact product, install, workspace, and catalog",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/r4-catalog-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "R4 catalog construction is permutation and cache-loss deterministic",
+              "R4 equal duplicates are idempotent and unequal collisions refuse",
+              "R4 refresh adds and replaces exact publication sets"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "families",
+      "row": "A5-F02",
+      "title": "Complete GTL authoring and validation",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "A5-F02 canonicalizes every selected authored set inventory",
+              "A5-F02 canonicalizes Program action candidates and rederives their catalog identity",
+              "A5-F02 Validator publication and Program identity ignore selected set permutations",
+              "A5-F02 Product semantic and catalog identity consume the canonical authored carrier",
+              "A5-F02 retains decision-exact duplicate refusal for every selected set",
+              "A5-F02 retains typed raw refusal for invalid selected set entries",
+              "A5-F02 preserves ordered topology, C composition, arguments, and closure sequences"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "published seven-constructor/local-refusal cases exercise exact original recursive syntax",
+              "fixed Program mutations reach the actual sole validator and restore the original positive",
+              "current input is exact, owner branded and preserves actual resolved-publication matching"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual raw admission and Program validation compute declared diagnostics and a control; development subject stays blocked",
+              "different expected diagnostics compute red and cannot close as green; foreign law and duplicate case IDs refuse",
+              "actual F_D assessment and native producer remain reusable without owning-result minting",
+              "closed lower-native assumptions: foreign installed subject refuses before computation; old owner frontier refuses",
+              "closed lower-native assumptions: invented assessment, foreign prefix and later duplicate producer cannot project",
+              "Public conformance conserves dual-kind closure authorities and rejects missing or conflicting ownership"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "families",
+      "row": "A5-F03",
+      "title": "Complete graph, C, and traversal execution",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "atomic_call: actual assessment owner remains evidence; no duplicate result leaf",
+              "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+              "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+              "flat_composition: finite declaration passes actual raw/Program validation",
+              "edge_program: finite declaration passes actual raw/Program validation",
+              "same final value does not hide a missing first step, wrong composition or foreign Result",
+              "order, value chain, declared coverage and intermediate expectations remain material",
+              "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+              "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red"
+            ]
+          },
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retry lifecycle exports only the progress bridges beside the declared retry frontier owners",
+              "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "runtime package exports expose no raw or candidate-factory event writer",
+              "raw executor resume remains closed to every retry cursor",
+              "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "the 4.6 rows marked gap below (batch, graph_span_reentry, ticket_traversal, re_enter, yield_continuation, inspect_runtime_archive, escalate, targeting a published asset, fibre substitution)",
+      "reservedPortion": {
+        "scope": "human-response portion, 5.1",
+        "citation": "specification/PRODUCT.md:1291-1292"
+      }
+    },
+    {
+      "section": "families",
+      "row": "A5-F04",
+      "title": "Probabilistic result integrity",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "probabilistic completion malformed returns keep their cause through failure admission and cold/Public projection"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "C2A F_P effect handoff is one direct exact-prefix ABG invocation",
+              "C2A F_P receipt rejects missing and forged carrier pairs",
+              "C2A implementation owner preserves exact exception and malformed-return failures",
+              "C2A owner boundary preserves structural F_P proposals and totalizes exceptions"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "families",
+      "row": "A5-F05",
+      "title": "One public contract authority",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "one owner source relation derives the exact frozen 18/56 key set",
+              "every owner module source is present and content-addressed",
+              "owner member and abstract-module digests exclude physical and port identity",
+              "the deeply frozen intrinsic family closes exact schemas and schema-free digests",
+              "recursive family schema normalization survives refCount perturbation",
+              "all 56 packets preserve exact capability and authority-slot vectors",
+              "D01-D15 strict native requests admit their accepted representative",
+              "D01-D15 reject the superseded wrapper and construction-issue shapes",
+              "all 56 result contracts project closed schemas rather than open JSON",
+              "PFC-F08A exposes no coordinate-map constructor from verification contracts",
+              "D05 admits complete semantic occurrence closure and rejects legacy rows",
+              "D05 refuses missing, surplus and forged occurrence bindings",
+              "D07 admits disjoint eventless rows only under exact conservation",
+              "D07 rejects legacy flat and nullable-reason catalog rows",
+              "D15 release snapshot refusal algebra excludes gate_incomplete for every member"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "ST-2A-G admits one deterministic frozen zero-row graph",
+              "ST-2A-G publishes one exact immutable capability graph",
+              "ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and manifests",
+              "ST-2A-G conserves the graph through packed verification, lock, install, and provenance",
+              "failing tests:",
+              "ST-2A-G publishes one exact immutable capability graph",
+              "ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and manifests"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "families",
+      "row": "A5-F06",
+      "title": "Thin public SDK and CLI",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result",
+              "wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission",
+              "approved but false stop content or Run/basis context returns a semantic refusal and unchanged close",
+              "a closed Run with the authentic Public identity and basis refuses stop without appending",
+              "changed cold physical bytes refuse before stop admission",
+              "live owner stop borrows its admitted state without decoding history or releasing the enclosing owner",
+              "failed native stop transaction keeps both events absent and returns the first cause"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-public-preparation.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "ungrouped construction metadata retains spans and coordinates while selected bodies are quoted once",
+              "ungrouped canonical owners refuse corrupt construction record bytes and attribution spans",
+              "two responsibility bindings use the same published preparation and immutable resource owners",
+              "existing owners refuse missing resources, crossed selectors and changed task identity",
+              "source-blind strict caller imports canonical input, resource and request types from m05",
+              "generated m05 group locates both canonical owners and hashes its actual native inventory"
+            ]
+          },
+          {
+            "path": "test_env/uat/continuation.test.mjs",
+            "command": "command://abiogenesis/qualification/test-uat-continuation",
+            "cases": [
+              "CLI request framing preserves literal bodies, authority and producer coordinates in one line",
+              "Actual changed-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged",
+              "Actual unchanged-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged",
+              "Physical input tampering refuses before verifier, acquisition or dispatch"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "native human response/resume, 5.1",
+        "citation": "specification/PRODUCT.md:1274, :1291-1292"
+      }
+    },
+    {
+      "section": "families",
+      "row": "A5-F07",
+      "title": "Complete One Surface loop",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits 1 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 2 obligations at F_H target",
+              "owner admits 1 candidates / 1 obligations at workflow target",
+              "owner admits 2 candidates / 1 obligations at workflow target",
+              "owner admits 2 candidates / 2 obligations at workflow target",
+              "owner preserves Product-supplied order and does not select the ranked head",
+              "distinct alternative bindings survive; policy may rank an eligible subset",
+              "binding order does not change exact obligation coverage",
+              "owner refuses selected ref absent from ranking",
+              "owner refuses unknown selected ref",
+              "owner refuses duplicate ranked ref",
+              "owner refuses unknown ranked ref",
+              "owner refuses ranked ref with no binding",
+              "owner refuses non-string ranked ref",
+              "owner refuses empty ranked ref",
+              "owner refuses missing ranking",
+              "owner refuses wrong priority scheme",
+              "owner refuses missing obligation binding",
+              "owner refuses empty obligation bindings",
+              "owner refuses duplicate obligation binding",
+              "owner refuses surplus obligation binding",
+              "owner refuses mismatched obligation binding",
+              "owner refuses unbound selected obligation",
+              "owner refuses wrong binding kind",
+              "owner refuses missing eligible refs",
+              "owner refuses duplicate eligible ref",
+              "owner refuses unknown eligible ref even when unranked",
+              "owner refuses non-string eligible ref",
+              "owner refuses selected ref absent from one binding",
+              "owner refuses wrong selected obligations",
+              "owner refuses wrong selected Program",
+              "owner refuses wrong selected GraphFunction",
+              "owner refuses wrong selected target locus",
+              "owner refuses wrong selected output asset",
+              "owner refuses wrong selected expected delta",
+              "owner refuses wrong selected basis reference",
+              "owner refuses wrong selected basis digest",
+              "owner refuses wrong workspace",
+              "owner refuses wrong admitted catalog ref",
+              "owner refuses wrong admitted catalog digest",
+              "owner refuses duplicate admitted alternative identity",
+              "owner refuses alternative with mismatched Program",
+              "owner refuses alternative with mismatched obligation",
+              "owner refuses non-string basis obligation",
+              "owner refuses duplicate basis obligation",
+              "workflow target input remains digest-bound",
+              "owner admits gap stop for 1 obligations",
+              "owner admits gap stop for 2 obligations",
+              "owner refuses gap stop missing binding",
+              "owner refuses gap stop duplicate binding",
+              "owner refuses gap stop wrong obligation",
+              "owner refuses gap stop wrong binding disposition",
+              "owner refuses gap stop nonempty eligible refs",
+              "owner refuses gap stop nonempty ranking",
+              "owner admits correction for 1 obligations",
+              "owner admits correction for 2 obligations",
+              "owner refuses correction missing binding",
+              "owner refuses correction duplicate binding",
+              "owner refuses correction wrong obligation",
+              "owner refuses correction wrong binding disposition",
+              "owner refuses correction nonempty eligible refs",
+              "owner refuses correction nonempty ranking",
+              "dependent closure gate admits 1 fulfilled obligations",
+              "dependent closure gate admits 2 fulfilled obligations",
+              "dependent closure gate refuses missing binding",
+              "dependent closure gate refuses duplicate binding",
+              "dependent closure gate refuses wrong obligation",
+              "dependent closure gate refuses wrong binding kind",
+              "dependent closure gate refuses unfulfilled obligation",
+              "dependent closure gate refuses nonempty eligible refs",
+              "dependent closure gate refuses nonempty ranking",
+              "dependent closure gate refuses missing delta evidence",
+              "dependent closure gate refuses wrong closure decision",
+              "dependent closure gate refuses wrong refreshed basis"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "human-response portion, 5.1",
+        "citation": "specification/PRODUCT.md:1291-1292"
+      }
+    },
+    {
+      "section": "families",
+      "row": "A5-F08",
+      "title": "Standalone Consensus free-construction qualification",
+      "claims": [],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "intentionally_removed",
+      "scope": "planned 5.1 outcome; excluded from required 5.0 realization, qualification and release",
+      "citation": "specification/PRODUCT.md:1285-1290"
+    },
+    {
+      "section": "families",
+      "row": "A5-F09",
+      "title": "Catalog semantics",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/r4-catalog-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "R4 view and declaration application are pure and non-callable separated",
+              "R4 pure catalog operations admit zero registry or catalog events",
+              "R4 keeps canonical handles distinct from GraphFunction definitions"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-c2-child-program.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "complete core publication validation and catalog construction retain every contribution",
+              "revision no-start Program validates with its existing child closure and leaves root environment exact",
+              "revision no-start Program refuses public starts and direct root invocation",
+              "existing generic correction parent still composes the unchanged revision child"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "families",
+      "row": "A5-F10",
+      "title": "Event-sourced runtime truth",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-fold.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "P-FOLD: the U1 recorded store folds cold, warm and forked to the same holds at every cut",
+              "P-FOLD streaming: single-event advances agree with one batched advance and the cold fold at every cut; one owned state",
+              "P-LIFECYCLE counterexample A: exit, no actor terminal, then the Run stop",
+              "P-LIFECYCLE counterexample B: no exit, then the Run stop",
+              "P-LIFECYCLE negative: spawn failure without start, then the actor terminal",
+              "P-LIFECYCLE late confirmation: termination unconfirmed, then an exit",
+              "one producer: only actor_process_lifecycle initiates or terminates the four rule-owned fluents",
+              "TD-06: an exact clip reads its one held fluent; its visits are independent of the unrelated held population",
+              "TD-06 negative: a wildcard clip enumerates, its visits grow with N, and it clips every match in held order",
+              "TD-06: an exact clip of a fluent not held clips nothing, records nothing and keeps the step effect",
+              "TD-07: the exact read equals the held-projection point query at every cut of the U1 store",
+              "TD-07: the exact read equals the held-projection point query at every cut of the actor process lifecycle rows",
+              "C-2: the lifecycle exact read equals the holdsAt pattern read at every at-prefix and before-event cut",
+              "C-12 fold law: a declared actor with probe, threshold and interruption observations folds cold, warm, streaming and forked alike at every cut",
+              "C-12 fold law: a malformed native observation is refused by the fold with one message at every cut that holds it",
+              "C-12b fold law: a threshold whose scope has an opened retry attempt and its progress carries the budget in its persisted digest and folds cold, warm, streaming and forked alike at every cut",
+              "C-12b fold law: a threshold citing a budget whose retry attempt has the wrong digest is refused by the fold with one message at every cut that holds it",
+              "C-12c fold law: a probe citing a basis_admitted whose basisDigest is wrong is refused by the fold with one message at every cut that holds it, and its mutant with the right digest is accepted"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays",
+              "shared canonical traversal preserves captured entries, array length and refusal precedence",
+              "incremental canonical hashes preserve independently declared golden bytes and refusal behavior",
+              "typed native definitions share physical rows while complete per-call assembly bytes and v1 remain exact",
+              "native definition references refuse missing, forward, foreign-slot, changed and injected material",
+              "native body encoding retains distinct admissions, exact logical replay, cold reopen and historical-inline append",
+              "physical source cuts and F_H predecessor digest use encoded bytes, retain cold ancestry and reject crossed sequences",
+              "nearest malformed body references refuse before logical history is exposed",
+              "reused cold bodies still require each new envelope identity, stamp, cause and logical digest",
+              "independently supplied mutable raw input remains detached at event admission",
+              "live body reuse preserves caller isolation, owned prefix and transaction rollback",
+              "literal marker-shaped Product data and small duplicate values remain unambiguous",
+              "failed durable batch discards new inline sources; committed same-batch references survive reopen",
+              "large duplicate Result bodies and complete replay hashing fit a constrained heap"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "caught diagnostic survives owner admission, JSON-cloned cold read, and Public evidence projection"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2",
+          "N-D3"
+        ]
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "yield and escalation truth have no carrier (rows yield_continuation and escalate)",
+      "reservedPortion": {
+        "scope": "human-response portion, 5.1",
+        "citation": "specification/PRODUCT.md:1291-1292"
+      }
+    },
+    {
+      "section": "families",
+      "row": "A5-F11",
+      "title": "Self-conformance",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+              "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+              "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+              "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-qual056-material.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "real Node report conserves complete multi-file, nested-suite and ordinary test outcomes",
+              "real skip, todo, failure, import error, process crash and cancellation never yield green material",
+              "missing, truncated, duplicated, malformed, mismatched and signalled reports retain non-green outcomes",
+              "finite lint checks actual selected MJS and JSON and reports failures without executing tests",
+              "observed C2 material binds exact inventory, recipe, policy and command bodies; snapshot copies unchanged",
+              "selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning",
+              "F11 conserves selected passed, failed and incomplete predicates through native summary and AF22"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "small whole subject grouped and singleton semantics agree under explicit independent/native premises",
+              "required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment",
+              "unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope",
+              "G1 multi-root assessment conserves failure and citations beside missing judgment",
+              "grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings",
+              "reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes",
+              "reference attribution retains missing crossed record scope and independence refusals",
+              "actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records",
+              "scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence",
+              "fresh process conserves grouped result identities and refuses changed grouped bytes",
+              "explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation",
+              "catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations",
+              "catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses",
+              "inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union",
+              "per-rule complete member domains preserve flat semantics and do not split unrelated rule work",
+              "domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives",
+              "six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (remedy of D5 stops A and B)",
+      "gapScope": "D5 item 5 stop: the observed C2 cannot complete within the provider Bash tool default (120 s); native F11 and AF22 not run; the lanes carry the F11 and AF22 law at component level only",
+      "stops": [
+        "Stop A: the observed C2 runs inside one provider Bash call whose default timeout (120,000 ms, Claude Code 2.1.306) is below the recipe wall time (230,017 ms measured for the bare commands)",
+        "Stop B: F11 J is infeasible by projection on the candidate as cut (four contract and pack members exceed the 1,048,576-byte prompt bound as raw text; material floor 45.08 USD over the 40 USD cap; no construction provenance)"
+      ]
+    },
+    {
+      "section": "families",
+      "row": "A5-F12",
+      "title": "Replay-grounded observer/tuner Product",
+      "claims": [],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "intentionally_removed",
+      "scope": "planned 5.1 outcome; observer/tuner drafts and public surfaces under A5-F12/S04",
+      "citation": "specification/PRODUCT.md:1062-1075, :1136, :1285-1290"
+    },
+    {
+      "section": "families",
+      "row": "A5-F13",
+      "title": "Native independence",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result",
+              "wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission",
+              "approved but false stop content or Run/basis context returns a semantic refusal and unchanged close",
+              "a closed Run with the authentic Public identity and basis refuses stop without appending",
+              "changed cold physical bytes refuse before stop admission",
+              "live owner stop borrows its admitted state without decoding history or releasing the enclosing owner",
+              "failed native stop transaction keeps both events absent and returns the first cause"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "additional host work and mandatory parity qualification, 5.1",
+        "citation": "specification/PRODUCT.md:1279"
+      }
+    },
+    {
+      "section": "families",
+      "row": "A5-F14",
+      "title": "Installed language and runtime mechanics proof",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "CMP executes an external deterministic composition on the installed packed artifact; N-D3 executes the independently authored lifecycle publication and the live F_P path through the installed CLI with typed result, events and replay. installed-language-smoke is outside the vector: 646 s timeout in the bf7119489 suite, 42 s in the 7da76d7d7 suite"
+    },
+    {
+      "section": "families",
+      "row": "A5-F15",
+      "title": "Exact-candidate qualification",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-qualification-producer-context.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "same candidate in distinct original install/workspace/resource authenticates and conserves original producer material",
+              "candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper",
+              "original source currentness is rechecked at dispatch while historical authenticated prefix remains replayable",
+              "duplicate aliases and competing successful producers remain refused in their original context"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "small whole subject grouped and singleton semantics agree under explicit independent/native premises",
+              "required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment",
+              "unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope",
+              "G1 multi-root assessment conserves failure and citations beside missing judgment",
+              "grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings",
+              "reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes",
+              "reference attribution retains missing crossed record scope and independence refusals",
+              "actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records",
+              "scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence",
+              "fresh process conserves grouped result identities and refuses changed grouped bytes",
+              "explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation",
+              "catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations",
+              "catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses",
+              "inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union",
+              "per-rule complete member domains preserve flat semantics and do not split unrelated rule work",
+              "domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives",
+              "six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-release-acceptance.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "release join requires installed green non-bypassed qualification and exact admitted publication/current ruling"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (remedy of D5 stops A and B)",
+      "gapScope": "D5 item 5 stop: the observed C2 cannot complete within the provider Bash tool default (120 s); native F11 and AF22 not run",
+      "stops": [
+        "Stop A: the observed C2 runs inside one provider Bash call whose default timeout (120,000 ms, Claude Code 2.1.306) is below the recipe wall time (230,017 ms measured for the bare commands)",
+        "Stop B: F11 J is infeasible by projection on the candidate as cut (four contract and pack members exceed the 1,048,576-byte prompt bound as raw text; material floor 45.08 USD over the 40 USD cap; no construction provenance)"
+      ]
+    },
+    {
+      "section": "families",
+      "row": "A5-F16",
+      "title": "Immutable RC and accepted 5.0 release",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-release-acceptance.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "original O/source correspondence rejects generated-only, missing, altered, foreign and conditional decisions",
+              "release join requires installed green non-bypassed qualification and exact admitted publication/current ruling",
+              "physical accept and withhold addenda preserve immutable RC refs/package/snapshot and retain partial effects",
+              "shared artifact commit preserves write/admission/close facts without manufacturing success",
+              "tapped owner returns the declared result or withholding refusal through one artifact/close consequence",
+              "fresh-process release projection conserves original O and distinguishes accepted, withheld and incomplete"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "PFC-F08A is minted only by verifyProduct over exact artifact bytes"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "note": "the release join law is carried at component level; its application is the release step after a green AF22"
+    },
+    {
+      "section": "families",
+      "row": "A5-F17",
+      "title": "Specification-driven downstream lifecycle",
+      "claims": [],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+              "command cleanup budget rejects the old one-grace envelope through the semantic owner",
+              "command budget shares HTTP terms and exact existing C2 selector behavior",
+              "native workspace candidate derives through the Product algebra; provenance never becomes cold admission",
+              "independent rejection is retained and cannot advance; changed candidate or protected source refuses",
+              "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+              "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+              "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+              "native C2 retains assessed non-target dependencies without granting realization credit"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+              "native revision complete publication admits unique carriers and retains the exact factory graph",
+              "native revision installed descriptor loader discovers every declared leaf through module exports",
+              "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+              "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+              "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+              "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "full original Data Mapper upper-bound evaluation, independently owned",
+        "citation": "specification/PRODUCT.md:1283"
+      }
+    },
+    {
+      "section": "compute",
+      "row": "F_D",
+      "title": "Deterministic fibre",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/compute@5",
+          "behavior": "traversal/compute/F_D"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "compute",
+      "row": "F_P",
+      "title": "Probabilistic fibre",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/compute@5",
+          "behavior": "traversal/compute/F_P"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "C2A F_P effect handoff is one direct exact-prefix ABG invocation",
+              "C2A F_P receipt rejects missing and forged carrier pairs",
+              "C2A implementation owner preserves exact exception and malformed-return failures",
+              "C2A owner boundary preserves structural F_P proposals and totalizes exceptions"
+            ]
+          },
+          {
+            "path": "test_env/tests/m5-worker-transport.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "M5 B-001 preserves lane-owned Claude execution posture",
+              "M5 native report keeps its original host schema presentation",
+              "M5 schema literal placeholders remain opaque while ordinary templates and append positions expand",
+              "M5 requested structured output uses only the final carrier and preserves raw/schema refusal",
+              "M5 B-001 bounds append arguments for all four transport contracts",
+              "M5 B-001 gives agent-specific sandbox binding precedence",
+              "M5 transport identity changes with parser and prompt-delivery semantics",
+              "M5 B-001 crosses a real worker process, parser, tool event, and archive",
+              "M5 Bash tool identity ignores only optional string description metadata",
+              "M5 B-001 rejects tool activity only in the closed-prompt lane",
+              "M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool",
+              "M5 selected result text cannot admit a valid file without its final carrier",
+              "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+              "M5 ABG transport renews its inactivity lease only from observed progress",
+              "M5 ABG transport does not renew from unacknowledged output",
+              "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+              "owned process groups retain descendant cleanup after normal and TERM leader exits",
+              "M5 ABG transport excludes descendant output emitted after direct-process exit",
+              "M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts",
+              "M5 a finite native wakeup above the host timer domain does not fire before its owner deadline",
+              "M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive",
+              "TD-11: the incremental tool projection equals the head projection at every cut",
+              "TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-P4"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "compute",
+      "row": "F_H",
+      "title": "Human fibre (typed hold and handoff)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/compute@5",
+          "behavior": "traversal/compute/F_H"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/hog-operator-support.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "HoG exact F_H locus preserves distinct raw-response and constructive-successor contracts",
+              "HoG exact F_H locus refuses every changed interaction coordinate",
+              "HoG exact executable locus retains its declared executable contracts"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits 1 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 2 obligations at F_H target"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "native response admission and response-driven resumption, 5.1",
+        "citation": "specification/PRODUCT.md:357"
+      }
+    },
+    {
+      "section": "compute",
+      "row": "mixed",
+      "title": "Mixed program",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/compute@5",
+          "behavior": "traversal/compute/mixed"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+              "native revision complete publication admits unique carriers and retains the exact factory graph",
+              "native revision installed descriptor loader discovers every declared leaf through module exports",
+              "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+              "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+              "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+              "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "native response/resume composition, 5.1",
+        "citation": "specification/PRODUCT.md:358"
+      }
+    },
+    {
+      "section": "structural",
+      "row": "atomic_call",
+      "title": "Atomic call",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/atomic_call"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "atomic_call: actual assessment owner remains evidence; no duplicate result leaf"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "structural",
+      "row": "flat_composition",
+      "title": "Flat composition",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/flat_composition"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+              "flat_composition: finite declaration passes actual raw/Program validation",
+              "same final value does not hide a missing first step, wrong composition or foreign Result"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "structural",
+      "row": "edge_program",
+      "title": "Edge program",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/edge_program"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+              "edge_program: finite declaration passes actual raw/Program validation",
+              "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+              "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "structural",
+      "row": "adaptive_declared_selection",
+      "title": "Adaptive declared selection",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/adaptive_declared_selection"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values",
+              "actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live",
+              "frozen accessors cannot turn changed raw declarations into reusable immutable facts",
+              "nearest static and materialization refusal: duplicate node identities with distinct C loci",
+              "nearest static and materialization refusal: terminal node with outgoing edge",
+              "nearest static and materialization refusal: two ordinary edges without registered selection",
+              "existing constructor and source-path guards retain their earlier refusal precedence",
+              "authored composition, substitution, recursion and fan-out retain full static and materialized owner results",
+              "declared registered selection keeps its multi-edge workflow domain and separate whole-law checks"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "generic registered F_P keeps its own task/raw contract when the profile is unselected",
+              "selected exact role requires runtime correspondence and cannot fall back on another input shape",
+              "missing or misbound selected environment refuses at preparation and result guard",
+              "an unrelated locus remains outside this profile even with choice-shaped data"
+            ]
+          }
+        ],
+        "native": [
+          "N-P4",
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "structural",
+      "row": "batch",
+      "title": "Batch",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/batch"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values",
+              "actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live",
+              "frozen accessors cannot turn changed raw declarations into reusable immutable facts",
+              "nearest static and materialization refusal: duplicate node identities with distinct C loci",
+              "nearest static and materialization refusal: terminal node with outgoing edge",
+              "nearest static and materialization refusal: two ordinary edges without registered selection",
+              "existing constructor and source-path guards retain their earlier refusal precedence",
+              "authored composition, substitution, recursion and fan-out retain full static and materialized owner results",
+              "declared registered selection keeps its multi-edge workflow domain and separate whole-law checks"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "the vector carries batch declaration and validation only; the executing carrier test_env/tests/t287-worksite-branch-construction.test.mjs (214 s in the bf7119489 suite) is outside the vector by the C2 budget law"
+    },
+    {
+      "section": "structural",
+      "row": "transparent_child_traversal",
+      "title": "Transparent child traversal",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/transparent_child_traversal"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"
+            ]
+          },
+          {
+            "path": "test_env/tests/r10-child-proof.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual child selects a different output contract from the admitted root without root or View substitution",
+              "missing, foreign, stale View and equal-URI changed declaration proofs refuse from a real positive basis",
+              "native root/child ancestry and basis coordinates cannot be supplied across an invocation",
+              "future environment admission refuses even if a supplied projection otherwise looks equal (explicit environment lookup assumption)",
+              "held-parent summary does not erase a genuinely closed child or close its Run (held status is an explicit projection assumption)",
+              "same child remains authentic after actual root completion at prefix831; no current active-parent requirement",
+              "one exact contract selector refuses competing same-valued owners inside the resolved closure",
+              "fresh-process child projection reads only the retained log once proof is supplied; no current workspace or installed declaration file lookup",
+              "conformance keeps the complete artifact-truth, inventory and Program joins around the shared verifier",
+              "the retained native log and proof bytes remain unchanged"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-c2-child-program.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "existing generic correction parent still composes the unchanged revision child"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "structural",
+      "row": "graph_recursion",
+      "title": "Graph recursion",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/graph_recursion"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values",
+              "actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live",
+              "frozen accessors cannot turn changed raw declarations into reusable immutable facts",
+              "nearest static and materialization refusal: duplicate node identities with distinct C loci",
+              "nearest static and materialization refusal: terminal node with outgoing edge",
+              "nearest static and materialization refusal: two ordinary edges without registered selection",
+              "existing constructor and source-path guards retain their earlier refusal precedence",
+              "authored composition, substitution, recursion and fan-out retain full static and materialized owner results",
+              "declared registered selection keeps its multi-edge workflow domain and separate whole-law checks"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "N-D3: js-sdlc-bootstrap ran specification, design, construction, testing and uat in five recursions under recursion bound 12 (D2 disposition)"
+    },
+    {
+      "section": "structural",
+      "row": "retry",
+      "title": "Retry",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/structural@5",
+          "behavior": "traversal/structural/retry"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retry lifecycle exports only the progress bridges beside the declared retry frontier owners",
+              "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "runtime package exports expose no raw or candidate-factory event writer",
+              "raw executor resume remains closed to every retry cursor",
+              "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "T-287 TV5 declared retry boundary identity is stable across structural descent and distinct across sibling loci"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-calculus-fold.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "C-12b fold law: a threshold whose scope has an opened retry attempt and its progress carries the budget in its persisted digest and folds cold, warm, streaming and forked alike at every cut",
+              "C-12b fold law: a threshold citing a budget whose retry attempt has the wrong digest is refused by the fold with one message at every cut that holds it"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "consequence",
+      "row": "same_edge_retry",
+      "title": "Same-edge retry",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/same_edge_retry"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retry lifecycle exports only the progress bridges beside the declared retry frontier owners",
+              "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "runtime package exports expose no raw or candidate-factory event writer",
+              "raw executor resume remains closed to every retry cursor",
+              "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-calculus-fold.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "C-12b fold law: a threshold whose scope has an opened retry attempt and its progress carries the budget in its persisted digest and folds cold, warm, streaming and forked alike at every cut",
+              "C-12b fold law: a threshold citing a budget whose retry attempt has the wrong digest is refused by the fold with one message at every cut that holds it"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "consequence",
+      "row": "depth_traversal",
+      "title": "Depth traversal",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/depth_traversal"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"
+            ]
+          },
+          {
+            "path": "test_env/tests/r10-child-proof.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual child selects a different output contract from the admitted root without root or View substitution",
+              "missing, foreign, stale View and equal-URI changed declaration proofs refuse from a real positive basis",
+              "native root/child ancestry and basis coordinates cannot be supplied across an invocation",
+              "future environment admission refuses even if a supplied projection otherwise looks equal (explicit environment lookup assumption)",
+              "held-parent summary does not erase a genuinely closed child or close its Run (held status is an explicit projection assumption)",
+              "same child remains authentic after actual root completion at prefix831; no current active-parent requirement",
+              "one exact contract selector refuses competing same-valued owners inside the resolved closure",
+              "fresh-process child projection reads only the retained log once proof is supplied; no current workspace or installed declaration file lookup",
+              "conformance keeps the complete artifact-truth, inventory and Program joins around the shared verifier",
+              "the retained native log and proof bytes remain unchanged"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "consequence",
+      "row": "graph_span_reentry",
+      "title": "Graph-span re-entry (5.0 portion)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/graph_span_reentry"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no vector carrier: test_env/tests/t287-selected-action.test.mjs is environment-gated and skipped; the native runs record no graph-span selection",
+      "reservedPortion": {
+        "scope": "autonomous upstream/out-of-traversal A.0 routing, 5.1",
+        "citation": "specification/PRODUCT.md:396"
+      }
+    },
+    {
+      "section": "consequence",
+      "row": "public_start_reentry",
+      "title": "Public start re-entry",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/public_start_reentry"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-c2-child-program.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "revision no-start Program validates with its existing child closure and leaves root environment exact",
+              "revision no-start Program refuses public starts and direct root invocation"
+            ]
+          },
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result",
+              "wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission",
+              "approved but false stop content or Run/basis context returns a semantic refusal and unchanged close",
+              "a closed Run with the authentic Public identity and basis refuses stop without appending",
+              "changed cold physical bytes refuse before stop admission",
+              "live owner stop borrows its admitted state without decoding history or releasing the enclosing owner",
+              "failed native stop transaction keeps both events absent and returns the first cause"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "consequence",
+      "row": "ticket_traversal",
+      "title": "Ticket traversal",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/ticket_traversal"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no carrier in test_env or the native runs"
+    },
+    {
+      "section": "consequence",
+      "row": "fh_input_required",
+      "title": "F_H input required (typed stop and handoff)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/fh_input_required"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/hog-operator-support.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "HoG exact F_H locus refuses every changed interaction coordinate"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits 2 candidates / 1 obligations at F_H target"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "native response admission and same-run resumption, 5.1",
+        "citation": "specification/PRODUCT.md:399"
+      }
+    },
+    {
+      "section": "consequence",
+      "row": "escalation_or_reprice",
+      "title": "Escalation or reprice",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/escalation_or_reprice"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "declared ABG constructors remain unchanged and source binding exposes only selected callables",
+              "exact DefinitionCall admits one native witness pair and fresh-process reads/replay agree (stubbed Product environment)",
+              "external approval remains exact-member only; unselected witness members remain unsupported",
+              "crossed or missing authority, request, resource and grant refuse before native owner",
+              "installed catalog coordinate cannot be substituted with internally consistent caller coordinates",
+              "native semantic content/context refusals return owner close handoff and no witness event",
+              "generic witness reprice does not implement D2 cover-selection meaning",
+              "native second-event transaction failure leaves neither event and preserves first cause",
+              "duplicate native outcome projects a typed basis refusal without forging success",
+              "raw Public witness with material history decodes only on acquisition and retains cold correspondence",
+              "copied witness packets keep I-JSON, wrong-prefix and foreign-store refusals",
+              "raw witness acquisition still refuses changed current physical bytes before native admission",
+              "all six native witness members consume the admitted held history after raw packet validation",
+              "Public profile reprice retains the exact L-to-P boundary and standalone cold content checks",
+              "successful append still requires successful physical close before any receipt"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "note": "carried by the reprice half; escalation has no carrier (row escalate)"
+    },
+    {
+      "section": "consequence",
+      "row": "gap_stop",
+      "title": "Gap stop",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/gap_stop"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits gap stop for 1 obligations",
+              "owner admits gap stop for 2 obligations",
+              "owner refuses gap stop missing binding",
+              "owner refuses gap stop duplicate binding",
+              "owner refuses gap stop wrong obligation",
+              "owner refuses gap stop wrong binding disposition",
+              "owner refuses gap stop nonempty eligible refs",
+              "owner refuses gap stop nonempty ranking"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2",
+          "N-D3-GAP"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "consequence",
+      "row": "non_admit",
+      "title": "Non-admit",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+          "behavior": "traversal/consequence/non_admit"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "the exported slots selection throws the refusal as its TypeError",
+              "capability basis validation rejects an invalid data basis with its TypeError",
+              "environment admission keeps its structural parse failure",
+              "a fixed owner surfaces a differing call as its resource_admission fault",
+              "a definition fault thrown inside admission rides in the resource_admission message as its stage, code and message"
+            ]
+          },
+          {
+            "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "initial cursor validates from its checked entry and refuses a stale prefix before semantic validation"
+            ]
+          },
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission"
+            ]
+          }
+        ],
+        "native": [
+          "N-P4"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "advance_vector",
+      "title": "advance_vector",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/advance_vector"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          },
+          {
+            "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "close",
+      "title": "close",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/close"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "dependent closure gate admits 1 fulfilled obligations",
+              "dependent closure gate admits 2 fulfilled obligations",
+              "dependent closure gate refuses missing binding",
+              "dependent closure gate refuses duplicate binding",
+              "dependent closure gate refuses wrong obligation",
+              "dependent closure gate refuses wrong binding kind",
+              "dependent closure gate refuses unfulfilled obligation",
+              "dependent closure gate refuses nonempty eligible refs",
+              "dependent closure gate refuses nonempty ranking",
+              "dependent closure gate refuses missing delta evidence",
+              "dependent closure gate refuses wrong closure decision",
+              "dependent closure gate refuses wrong refreshed basis"
+            ]
+          },
+          {
+            "path": "test_env/tests/r10-projection-contracts.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "read before Run close is not_ready while the actually closed root GraphCall is independently readable"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "retry_same_edge",
+      "title": "retry_same_edge",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/retry_same_edge"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retry lifecycle exports only the progress bridges beside the declared retry frontier owners",
+              "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "runtime package exports expose no raw or candidate-factory event writer",
+              "raw executor resume remains closed to every retry cursor",
+              "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "T-287 TV5 declared retry boundary identity is stable across structural descent and distinct across sibling loci"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "repair",
+      "title": "repair",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/repair"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits correction for 1 obligations",
+              "owner admits correction for 2 obligations"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+              "native revision complete publication admits unique carriers and retains the exact factory graph",
+              "native revision installed descriptor loader discovers every declared leaf through module exports",
+              "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+              "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+              "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+              "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "re_enter",
+      "title": "re_enter",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/re_enter"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no vector carrier: t287-selected-action is environment-gated; t287-gtl-serialization-publication only roundtrips the declaration"
+    },
+    {
+      "section": "disposition",
+      "row": "yield_continuation",
+      "title": "yield_continuation",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/yield_continuation"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no carrier: every test budget has continuationRef null"
+    },
+    {
+      "section": "disposition",
+      "row": "inspect_runtime_archive",
+      "title": "inspect_runtime_archive",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/inspect_runtime_archive"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no carrier: the token appears only in a fixture source enum"
+    },
+    {
+      "section": "disposition",
+      "row": "reprice",
+      "title": "reprice",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/reprice"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "declared ABG constructors remain unchanged and source binding exposes only selected callables",
+              "exact DefinitionCall admits one native witness pair and fresh-process reads/replay agree (stubbed Product environment)",
+              "external approval remains exact-member only; unselected witness members remain unsupported",
+              "crossed or missing authority, request, resource and grant refuse before native owner",
+              "installed catalog coordinate cannot be substituted with internally consistent caller coordinates",
+              "native semantic content/context refusals return owner close handoff and no witness event",
+              "generic witness reprice does not implement D2 cover-selection meaning",
+              "native second-event transaction failure leaves neither event and preserves first cause",
+              "duplicate native outcome projects a typed basis refusal without forging success",
+              "raw Public witness with material history decodes only on acquisition and retains cold correspondence",
+              "copied witness packets keep I-JSON, wrong-prefix and foreign-store refusals",
+              "raw witness acquisition still refuses changed current physical bytes before native admission",
+              "all six native witness members consume the admitted held history after raw packet validation",
+              "Public profile reprice retains the exact L-to-P boundary and standalone cold content checks",
+              "successful append still requires successful physical close before any receipt"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "note": "a declaration-reprice witness, not the NoAction reprice route"
+    },
+    {
+      "section": "disposition",
+      "row": "human_assurance_required",
+      "title": "human_assurance_required (hold)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/human_assurance_required"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/hog-operator-support.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "HoG exact F_H locus preserves distinct raw-response and constructive-successor contracts"
+            ]
+          },
+          {
+            "path": "test_env/tests/r10-projection-contracts.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "held/failed/missing terminal truth cannot become a completed Product result"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered",
+      "reservedPortion": {
+        "scope": "response side, 5.1",
+        "citation": "specification/PRODUCT.md:357, :1291-1292"
+      }
+    },
+    {
+      "section": "disposition",
+      "row": "escalate",
+      "title": "escalate",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/escalate"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no carrier: only the 5.1 Consensus module escalates"
+    },
+    {
+      "section": "disposition",
+      "row": "gap_stop",
+      "title": "gap_stop",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/gap_stop"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits gap stop for 1 obligations",
+              "owner admits gap stop for 2 obligations"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2",
+          "N-D3-GAP"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "block",
+      "title": "block",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/block"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/r10-projection-contracts.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "held/failed/missing terminal truth cannot become a completed Product result"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retained activity is historical while live, blocked and unknown quiescence guards remain"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2",
+          "N-D3-GAP"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "disposition",
+      "row": "non_admit",
+      "title": "non_admit",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+          "behavior": "traversal/disposition/non_admit"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "initial cursor validates from its checked entry and refuses a stale prefix before semantic validation"
+            ]
+          },
+          {
+            "path": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "the exported slots selection throws the refusal as its TypeError",
+              "capability basis validation rejects an invalid data basis with its TypeError",
+              "environment admission keeps its structural parse failure",
+              "a fixed owner surfaces a differing call as its resource_admission fault",
+              "a definition fault thrown inside admission rides in the resource_admission message as its stage, code and message"
+            ]
+          },
+          {
+            "path": "test_env/uat/continuation.test.mjs",
+            "command": "command://abiogenesis/qualification/test-uat-continuation",
+            "cases": [
+              "Actual changed-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged",
+              "Actual unchanged-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged"
+            ]
+          }
+        ],
+        "native": [
+          "N-P4"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "public",
+      "row": "advancing_the_next_lawful_work",
+      "title": "Advancing the next lawful work",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/advancing_the_next_lawful_work"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "N-D3 requests: target {kind: next}"
+    },
+    {
+      "section": "public",
+      "row": "targeting_a_published_GraphFunction",
+      "title": "Targeting a published GraphFunction",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/targeting_a_published_GraphFunction"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": [
+          "N-P4"
+        ]
+      },
+      "disposition": "covered",
+      "note": "CMP invokes the published composition on the installed artifact; the Public-CLI direct target lane r8-direct-hog-entry is outside the vector"
+    },
+    {
+      "section": "public",
+      "row": "targeting_a_published_asset",
+      "title": "Targeting a published asset",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/targeting_a_published_asset"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no positive carrier: a5-f02 canonicalizes publicAssetTargets and r5 refuses an absent asset"
+    },
+    {
+      "section": "public",
+      "row": "bounded_traversal_until",
+      "title": "Bounded traversal until",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/bounded_traversal_until"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "N-D3 requests: until converged"
+    },
+    {
+      "section": "public",
+      "row": "direct_or_lawfully_proxied",
+      "title": "Direct or lawfully proxied F_H control",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/direct_or_lawfully_proxied"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "direct only (N-D3 fhMode direct)",
+      "reservedPortion": {
+        "scope": "proxied F_H control, 5.1",
+        "citation": "specification/PRODUCT.md:454-456"
+      }
+    },
+    {
+      "section": "public",
+      "row": "direct_or_supervised_root_control",
+      "title": "Direct or supervised root control",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+          "behavior": "traversal/public/direct_or_supervised_root_control"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-c2-child-program.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "revision no-start Program validates with its existing child closure and leaves root environment exact",
+              "revision no-start Program refuses public starts and direct root invocation"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.of",
+      "title": "C.of",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.of"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "published seven-constructor/local-refusal cases exercise exact original recursive syntax",
+              "fixed Program mutations reach the actual sole validator and restore the original positive",
+              "current input is exact, owner branded and preserves actual resolved-publication matching"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.identity",
+      "title": "C.identity",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.identity"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "published seven-constructor/local-refusal cases exercise exact original recursive syntax",
+              "fixed Program mutations reach the actual sole validator and restore the original positive",
+              "current input is exact, owner branded and preserves actual resolved-publication matching"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.compose",
+      "title": "C.compose",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.compose"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "flat_composition: actual assessment owner remains evidence; no duplicate result leaf",
+              "flat_composition: finite declaration passes actual raw/Program validation"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.edge",
+      "title": "C.edge",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.edge"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "edge_program: actual assessment owner remains evidence; no duplicate result leaf",
+              "edge_program: finite declaration passes actual raw/Program validation",
+              "edge: the same final value cannot replace declared kind, role order or intermediate provenance",
+              "edge: foreign source, stale frontier and a later equal-valued competitor refuse; wrong intermediate expectation is red"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.workflow",
+      "title": "C.workflow",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.workflow"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "route-origin workflow cursor stages, replays, commits and cold-projects exact retained input"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-c2-child-program.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "existing generic correction parent still composes the unchanged revision child"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "C.batch",
+      "title": "C.batch",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.batch"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "released original corpus and owner-contributed baseline preserve complete producer/validation/materialization values",
+              "actual materializer handoff reuses fixed shape while occurrence/fan-out and foreign checks remain live",
+              "frozen accessors cannot turn changed raw declarations into reusable immutable facts",
+              "nearest static and materialization refusal: duplicate node identities with distinct C loci",
+              "nearest static and materialization refusal: terminal node with outgoing edge",
+              "nearest static and materialization refusal: two ordinary edges without registered selection",
+              "existing constructor and source-path guards retain their earlier refusal precedence",
+              "authored composition, substitution, recursion and fan-out retain full static and materialized owner results",
+              "declared registered selection keeps its multi-edge workflow domain and separate whole-law checks"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "as row batch: execution carrier outside the vector by the C2 budget law"
+    },
+    {
+      "section": "algebra",
+      "row": "C.retry",
+      "title": "C.retry",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/complete-C-algebra@5",
+          "behavior": "C.retry"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "retry lifecycle exports only the progress bridges beside the declared retry frontier owners",
+              "stopped retry foldback bridge requires the exact consumed causal suffix",
+              "runtime package exports expose no raw or candidate-factory event writer",
+              "raw executor resume remains closed to every retry cursor",
+              "entry frame runtime is an exact common projection and retry composition stays disjoint",
+              "projected retry entry consumes only its exact admitted successor prefix without effects",
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "T-287 TV5 declared retry boundary identity is stable across structural descent and distinct across sibling loci"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "fibre-substitution",
+      "title": "Shape-preserving fibre substitution",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/fibre-substitution@5",
+          "behavior": "shape-preserving-fibre-substitution"
+        }
+      ],
+      "carriers": {
+        "lanes": [],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "no carrier: no lane or native run replaces a declared F_P stage with an equivalent F_D stage",
+      "reservedPortion": {
+        "scope": "all-F_H native response/resume traversal, 5.1",
+        "citation": "specification/PRODUCT.md:360-365"
+      }
+    },
+    {
+      "section": "algebra",
+      "row": "malformed-GTL",
+      "title": "Malformed GTL refusal",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/malformed-GTL@5",
+          "behavior": "malformed-GTL"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual raw admission and Program validation compute declared diagnostics and a control; development subject stays blocked",
+              "different expected diagnostics compute red and cannot close as green; foreign law and duplicate case IDs refuse",
+              "actual F_D assessment and native producer remain reusable without owning-result minting",
+              "closed lower-native assumptions: foreign installed subject refuses before computation; old owner frontier refuses",
+              "closed lower-native assumptions: invented assessment, foreign prefix and later duplicate producer cannot project",
+              "Public conformance conserves dual-kind closure authorities and rejects missing or conflicting ownership"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "fixed Program mutations reach the actual sole validator and restore the original positive"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "algebra",
+      "row": "malformed-FP",
+      "title": "Malformed F_P output refusal",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/malformed-FP@5",
+          "behavior": "malformed-FP"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "F04 payload refusal composes one pure result rejection while authority refusal cannot retry"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "probabilistic completion malformed returns keep their cause through failure admission and cold/Public projection"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "covered"
+    },
+    {
+      "section": "scenarios",
+      "row": "S01",
+      "title": "ABG5-S01 clean install and minimal invocation (ABI5-ROOT-001 R1-R10)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R1"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R2"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R3"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R4"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R5"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R6"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R7"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R8"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R9"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABI5-ROOT-001@5",
+          "behavior": "ABG5-S01/R10"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/r4-catalog-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "R4 catalog construction is permutation and cache-loss deterministic",
+              "R4 refresh adds and replaces exact publication sets",
+              "R4 keeps canonical handles distinct from GraphFunction definitions",
+              "R4 equal duplicates are idempotent and unequal collisions refuse",
+              "R4 view and declaration application are pure and non-callable separated",
+              "R4 pure catalog operations admit zero registry or catalog events",
+              "R4 catalog application lands each schema-asset admission refusal in its unready message"
+            ]
+          },
+          {
+            "path": "test_env/uat/harness.test.mjs",
+            "command": "command://abiogenesis/qualification/test-uat-harness",
+            "cases": [
+              "Oracle event acquisition records the authentic prefix without serializing or changing complete owner events",
+              "Eventless read conservation hashes bounded chunks and detects tampering, append and identical-byte replacement"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3"
+        ]
+      },
+      "disposition": "covered",
+      "note": "N-D3: pack 550b48cc, clean install root, independently authored publication abi5-tests/sandbox-uat, verify, bind, catalog admission, resolution, invocation through fresh installed CLI processes, typed result and replay readbacks"
+    },
+    {
+      "section": "scenarios",
+      "row": "S02",
+      "title": "ABG5-S02 complete GTL and live F_P",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABG5-S02@5",
+          "behavior": "ABG5-S02/failure-truth"
+        },
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/public-operator-loop@5",
+          "behavior": "ABG5-S02/operator-loop"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "caught diagnostic survives owner admission, JSON-cloned cold read, and Public evidence projection",
+              "digest-only history is explicit not_retained; first failure cannot be overwritten",
+              "explicit causation remains exact and an absent material frontier falls back to the admitted frame open",
+              "malformed or substituted retained body refuses before append; cold projection rejects altered failure binding",
+              "typed sync and async faults conserve original Error cause and stack",
+              "historical route projection stays nullable while staged projection conserves its replay cause",
+              "deterministic boundary retains authority, loading, export and invocation first causes with exact evidence",
+              "deterministic caught-cause retention never evaluates arbitrary getters or proxies and bounds native messages",
+              "deterministic retained cause survives actual failure admission and cold/Public projection; tampering refuses",
+              "normal nullable Testing diagnostic agrees with its evidence and survives admitted cold/Public failure readback",
+              "successful deterministic returns and legacy opaque failure totalization remain unchanged",
+              "probabilistic completion that throws keeps its first cause through failure admission and cold/Public projection",
+              "probabilistic completion that rejects keeps its first cause through failure admission and cold/Public projection",
+              "probabilistic completion malformed returns keep their cause through failure admission and cold/Public projection",
+              "deterministic malformed returns keep their cause through failure admission and cold/Public projection",
+              "lifecycle failure subjects carry each outcome receipt's own cut through both admission routes",
+              "TD-16: the lift's refusal-only callers keep head's refusal for every malformed value",
+              "route_mismatch through the replay exit carries its class, frontier reason and sanitized replay cause",
+              "route_mismatch through a non-replay frontier exit names its reason and carries no cause",
+              "the retry-resume HoG site records the nested route_mismatch subject inline under the base subject digest",
+              "native lookup reuse rejects mutable, accessor, callable and Proxy captured data"
+            ]
+          },
+          {
+            "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "current Public run_status supplies the same Run and route-grade basis to stop; cold replay preserves the result",
+              "wrong actor, missing/crossed execution basis, grant and malformed request refuse before native admission",
+              "approved but false stop content or Run/basis context returns a semantic refusal and unchanged close",
+              "a closed Run with the authentic Public identity and basis refuses stop without appending",
+              "changed cold physical bytes refuse before stop admission",
+              "live owner stop borrows its admitted state without decoding history or releasing the enclosing owner",
+              "failed native stop transaction keeps both events absent and returns the first cause"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+            "command": "command://abiogenesis/qualification/test-compose",
+            "cases": [
+              "real admitted compose and shared batches conserve changing inputs under one basis (subtest compose; ABI5_CALCULUS_CASES=compose)"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "the scenario requires shape-preserving fibre substitution (row fibre-substitution, gap)"
+    },
+    {
+      "section": "scenarios",
+      "row": "S03",
+      "title": "ABG5-S03 One Surface, local correction and truthful blocking",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/ABG5-S03@5",
+          "behavior": "ABG5-S03/retained-human-boundary"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "owner admits 1 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 1 obligations at F_H target",
+              "owner admits 2 candidates / 2 obligations at F_H target",
+              "owner admits 1 candidates / 1 obligations at workflow target",
+              "owner admits 2 candidates / 1 obligations at workflow target",
+              "owner admits 2 candidates / 2 obligations at workflow target",
+              "owner preserves Product-supplied order and does not select the ranked head",
+              "distinct alternative bindings survive; policy may rank an eligible subset",
+              "binding order does not change exact obligation coverage",
+              "owner refuses selected ref absent from ranking",
+              "owner refuses unknown selected ref",
+              "owner refuses duplicate ranked ref",
+              "owner refuses unknown ranked ref",
+              "owner refuses ranked ref with no binding",
+              "owner refuses non-string ranked ref",
+              "owner refuses empty ranked ref",
+              "owner refuses missing ranking",
+              "owner refuses wrong priority scheme",
+              "owner refuses missing obligation binding",
+              "owner refuses empty obligation bindings",
+              "owner refuses duplicate obligation binding",
+              "owner refuses surplus obligation binding",
+              "owner refuses mismatched obligation binding",
+              "owner refuses unbound selected obligation",
+              "owner refuses wrong binding kind",
+              "owner refuses missing eligible refs",
+              "owner refuses duplicate eligible ref",
+              "owner refuses unknown eligible ref even when unranked",
+              "owner refuses non-string eligible ref",
+              "owner refuses selected ref absent from one binding",
+              "owner refuses wrong selected obligations",
+              "owner refuses wrong selected Program",
+              "owner refuses wrong selected GraphFunction",
+              "owner refuses wrong selected target locus",
+              "owner refuses wrong selected output asset",
+              "owner refuses wrong selected expected delta",
+              "owner refuses wrong selected basis reference",
+              "owner refuses wrong selected basis digest",
+              "owner refuses wrong workspace",
+              "owner refuses wrong admitted catalog ref",
+              "owner refuses wrong admitted catalog digest",
+              "owner refuses duplicate admitted alternative identity",
+              "owner refuses alternative with mismatched Program",
+              "owner refuses alternative with mismatched obligation",
+              "owner refuses non-string basis obligation",
+              "owner refuses duplicate basis obligation",
+              "workflow target input remains digest-bound",
+              "owner admits gap stop for 1 obligations",
+              "owner admits gap stop for 2 obligations",
+              "owner refuses gap stop missing binding",
+              "owner refuses gap stop duplicate binding",
+              "owner refuses gap stop wrong obligation",
+              "owner refuses gap stop wrong binding disposition",
+              "owner refuses gap stop nonempty eligible refs",
+              "owner refuses gap stop nonempty ranking",
+              "owner admits correction for 1 obligations",
+              "owner admits correction for 2 obligations",
+              "owner refuses correction missing binding",
+              "owner refuses correction duplicate binding",
+              "owner refuses correction wrong obligation",
+              "owner refuses correction wrong binding disposition",
+              "owner refuses correction nonempty eligible refs",
+              "owner refuses correction nonempty ranking",
+              "dependent closure gate admits 1 fulfilled obligations",
+              "dependent closure gate admits 2 fulfilled obligations",
+              "dependent closure gate refuses missing binding",
+              "dependent closure gate refuses duplicate binding",
+              "dependent closure gate refuses wrong obligation",
+              "dependent closure gate refuses wrong binding kind",
+              "dependent closure gate refuses unfulfilled obligation",
+              "dependent closure gate refuses nonempty eligible refs",
+              "dependent closure gate refuses nonempty ranking",
+              "dependent closure gate refuses missing delta evidence",
+              "dependent closure gate refuses wrong closure decision",
+              "dependent closure gate refuses wrong refreshed basis"
+            ]
+          },
+          {
+            "path": "test_env/tests/r10-projection-contracts.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "held/failed/missing terminal truth cannot become a completed Product result"
+            ]
+          },
+          {
+            "path": "test_env/tests/hog-operator-support.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "HoG exact F_H locus preserves distinct raw-response and constructive-successor contracts",
+              "HoG exact F_H locus refuses every changed interaction coordinate",
+              "HoG exact executable locus retains its declared executable contracts"
+            ]
+          }
+        ],
+        "native": [
+          "N-D2",
+          "N-D3-GAP"
+        ]
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (Phase D carrier authoring)",
+      "gapScope": "the scenario requires local graph-span re-entry (row graph_span_reentry, gap)",
+      "reservedPortion": {
+        "scope": "native human response/resume and F12/S04",
+        "citation": "specification/PRODUCT.md:1341-1342"
+      }
+    },
+    {
+      "section": "scenarios",
+      "row": "S06",
+      "title": "ABG5-S06 selected downstream lifecycle",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/selected-downstream-lifecycle@5",
+          "behavior": "ABG5-S06/complete-selected-contract"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native Design command budget retains exact capacity through both roles, readiness and historical correspondence",
+              "command cleanup budget rejects the old one-grace envelope through the semantic owner",
+              "command budget shares HTTP terms and exact existing C2 selector behavior",
+              "native workspace candidate derives through the Product algebra; provenance never becomes cold admission",
+              "independent rejection is retained and cannot advance; changed candidate or protected source refuses",
+              "native author fold preserves exact contract issues for same-response requirement refs outside the incoming domain",
+              "four assessed stages conserve requirement bindings and restrict construction/C2 to current Design",
+              "native typed semantic assessment uses the exact installed schema owner and rejects wrong declarations",
+              "native C2 retains assessed non-target dependencies without granting realization credit"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "native D2 serialized public request chooses among eligible stages and composes the declared correction through native C2 and fresh Evidence",
+              "native revision complete publication admits unique carriers and retains the exact factory graph",
+              "native revision installed descriptor loader discovers every declared leaf through module exports",
+              "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+              "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+              "Product author recovery values retain accepted stages under an explicit failed-stage premise",
+              "Product assessor recovery values preserve pending Design and select assessment-first without reauthoring"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered",
+      "note": "N-D3 js-sdlc-bootstrap rerun: the genuine selected lifecycle on the candidate (record \"## D3 record\")"
+    },
+    {
+      "section": "claims",
+      "row": "self-conformance",
+      "title": "Whole-subject self-conformance (QUAL-060)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/self-conformance@5",
+          "behavior": "whole-subject-self-conformance"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused",
+              "green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task",
+              "whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green",
+              "AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked"
+            ]
+          },
+          {
+            "path": "test_env/tests/t287-qual056-material.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "real Node report conserves complete multi-file, nested-suite and ordinary test outcomes",
+              "real skip, todo, failure, import error, process crash and cancellation never yield green material",
+              "missing, truncated, duplicated, malformed, mismatched and signalled reports retain non-green outcomes",
+              "finite lint checks actual selected MJS and JSON and reports failures without executing tests",
+              "observed C2 material binds exact inventory, recipe, policy and command bodies; snapshot copies unchanged",
+              "selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning",
+              "F11 conserves selected passed, failed and incomplete predicates through native summary and AF22"
+            ]
+          }
+        ],
+        "native": []
+      },
+      "disposition": "gap",
+      "owner": "T-287 Executive (remedy of D5 stops A and B)",
+      "gapScope": "D5 item 5 stop: the observed C2 cannot complete within the provider Bash tool default (120 s); native F11 and AF22 not run",
+      "stops": [
+        "Stop A: the observed C2 runs inside one provider Bash call whose default timeout (120,000 ms, Claude Code 2.1.306) is below the recipe wall time (230,017 ms measured for the bare commands)",
+        "Stop B: F11 J is infeasible by projection on the candidate as cut (four contract and pack members exceed the 1,048,576-byte prompt bound as raw text; material floor 45.08 USD over the 40 USD cap; no construction provenance)"
+      ]
+    },
+    {
+      "section": "claims",
+      "row": "native-projection",
+      "title": "Native public projection (QUAL-063)",
+      "claims": [
+        {
+          "coverageRef": "qualification-coverage-claim://abiogenesis/native-projection@5",
+          "behavior": "native-public-projection"
+        }
+      ],
+      "carriers": {
+        "lanes": [
+          {
+            "path": "test_env/tests/r10-projection-contracts.test.mjs",
+            "command": "command://abiogenesis/qualification/test-vector",
+            "cases": [
+              "six current owner outputs preserve the same admitted terminal carrier and the 18/56 Public roster",
+              "whole-prefix typed replay summary is conserved on first and empty-end pages; invalid offsets and arithmetic refuse"
+            ]
+          },
+          {
+            "path": "test_env/uat/harness.test.mjs",
+            "command": "command://abiogenesis/qualification/test-uat-harness",
+            "cases": [
+              "Oracle event acquisition records the authentic prefix without serializing or changing complete owner events"
+            ]
+          }
+        ],
+        "native": [
+          "N-D3",
+          "N-D2"
+        ]
+      },
+      "disposition": "covered"
+    }
+  ],
+  "coveragePublished": {
+    "holds": true,
+    "check": "validator.qualificationCoverageIsPublished(coverage) against the executing package's admitted catalogs, in test_env/qualification/build-resources.mjs (lawAndCoverage), on the installed package of the D3 js-sdlc-bootstrap rerun (pack sha256:550b48cc...3df6); repeated by the prepare and cold-read processes"
+  }
+}

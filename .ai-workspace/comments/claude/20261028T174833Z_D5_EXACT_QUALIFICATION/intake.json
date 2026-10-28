@@ -1,0 +1,163 @@
+{
+  "kind": "d5_vector_intake",
+  "tenant": "build_tenants/abiogenesis/typescript",
+  "rules": {
+    "i": "the input exists: run once and carry the variable into the recipe environment",
+    "ii": "historical: retire the case with its name and reason in a comment, or keep the lane outside the vector and name a current carrier",
+    "iii": "provider-gated: run live inside the recipe",
+    "iv": "5.1-reserved: retire"
+  },
+  "vector": {
+    "commands": {
+      "command://abiogenesis/qualification/test-vector": 36,
+      "command://abiogenesis/qualification/test-uat-harness": 1,
+      "command://abiogenesis/qualification/test-uat-continuation": 1,
+      "command://abiogenesis/qualification/test-compose": 1
+    },
+    "lanes": 39,
+    "rosterLanesEqualRecipeTests": true,
+    "source": "test_env/qualification/recipe/declared-commands.json (tests), verification-recipe.json (tests)"
+  },
+  "dispositions": [
+    {
+      "lane": "test_env/tests/r10-child-proof.test.mjs",
+      "rule": "i",
+      "skipsWithoutInput": "1 placeholder case (the lane's 10 cases need the retained evidence root)",
+      "input": "ABI5_EVIDENCE_ROOT",
+      "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+      "pinning": "test_env/support/evidence-root.mjs pins each read by relative path, sha256 and byte count",
+      "withInput": "10 cases pass, 0 skipped",
+      "carriedInto": "command://abiogenesis/qualification/test-vector"
+    },
+    {
+      "lane": "test_env/tests/r10-projection-contracts.test.mjs",
+      "rule": "i",
+      "skipsWithoutInput": "10 of 11 cases",
+      "input": "ABI5_EVIDENCE_ROOT",
+      "value": "/Users/jim/src/apps/abiogenesis/.ai-workspace",
+      "pinning": "test_env/support/evidence-root.mjs",
+      "withInput": "11 cases pass, 0 skipped",
+      "carriedInto": "command://abiogenesis/qualification/test-vector"
+    },
+    {
+      "lane": "test_env/uat/continuation.test.mjs",
+      "rule": "i",
+      "skipsWithoutInput": "4 of 4 cases",
+      "inputs": {
+        "ABI5_UAT_CONTINUATION_INSTALLED_ROOT": "<A>/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION": "<A>/abg-acquisition.json",
+        "ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION": "<A>/consumer-acquisition.json",
+        "ABI5_UAT_CONTINUATION_LOCK_REF": "product-lock://abiogenesis/c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6",
+        "ABI5_UAT_CONTINUATION_LOCK_DIGEST": "sha256:c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6",
+        "ABI5_UAT_UNIT_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-units"
+      },
+      "A": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a (the D3 js-sdlc-bootstrap rerun on pack 550b48cc)",
+      "run": {
+        "startedUtc": "2026-10-28T16:30:08Z",
+        "endedUtc": "2026-10-28T16:30:56Z",
+        "durationMs": 47201,
+        "tests": 4,
+        "pass": 4,
+        "skipped": 0,
+        "loadBefore": "10.38 8.02 9.84",
+        "loadAfter": "12.12 8.81 10.04"
+      },
+      "notes": [
+        "The unit root must be absolute: a relative value made the event resource refuse.",
+        "The C2 helper runs commands in its snapshot sandbox; the unit root is outside it and outside the declared write territories (named out-of-territory write). The installed root and acquisitions are read outside it, unprotected by the recipe; the lock digest pins the resolved lock only."
+      ],
+      "carriedInto": "command://abiogenesis/qualification/test-uat-continuation"
+    },
+    {
+      "lane": "test_env/uat/harness.test.mjs",
+      "rule": "ii",
+      "action": "three cases retired in place by comment, names kept",
+      "cases": [
+        {
+          "name": "One authentic cold read supplies caller artifact/environment/read preparation without another physical decode",
+          "inputs": [
+            "ABI5_AUTHENTIC_READ_HISTORY",
+            "ABI5_AUTHENTIC_READ_HISTORY_DIGEST"
+          ],
+          "introducedBy": "727f1dbca (2026-10-09)",
+          "reason": "a 434-event admitted history of an earlier candidate, pinned only by a caller-supplied digest",
+          "currentCarriers": [
+            "harness.test.mjs 'Oracle event acquisition records the authentic prefix without serializing or changing complete owner events'",
+            "test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+            "installed sandbox UAT fresh run_result and run_replay readbacks (runner.mjs freshReadbacks)"
+          ]
+        },
+        {
+          "name": "Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations",
+          "inputs": [
+            "ABI5_AUTHENTIC_C2_EVENT",
+            "ABI5_AUTHENTIC_C2_EVENT_DIGEST",
+            "ABI5_AUTHENTIC_C2_EVENT_PROVENANCE"
+          ],
+          "introducedBy": "727f1dbca (2026-10-09)",
+          "reason": "one native C2 event of an earlier candidate's data-mapper-full run, caller-supplied and unpinned",
+          "currentCarriers": [
+            "test_env/tests/t287-observed-worksite-command.test.mjs",
+            "test_env/tests/t287-worksite-command-execution.test.mjs",
+            "live C2 observations of the D3 installed sandbox UAT runs"
+          ]
+        },
+        {
+          "name": "Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT",
+          "inputs": [
+            "ABI5_AUTHENTIC_XML_STORE",
+            "ABI5_AUTHENTIC_XML_BYTES",
+            "ABI5_AUTHENTIC_XML_OFFSET",
+            "ABI5_AUTHENTIC_XML_DIGEST",
+            "ABI5_AUTHENTIC_XML_WORKSITE"
+          ],
+          "introducedBy": "67c333799 (2026-10-21)",
+          "reason": "an earlier candidate's data-mapper-full event store at a caller-supplied byte offset; unpinned",
+          "currentCarriers": [
+            "the four 'Owned XML ...' cases of harness.test.mjs over the controlled report fixture"
+          ]
+        }
+      ],
+      "searchScope": "test_env/test_runs/sandbox-uat/data-mapper-full (13 archives, 2026-10-06 to 2026-10-27) and the repository's tracked files; no digest is pinned anywhere in the repository; .ai-workspace was not searched (the activation forbids listing it)",
+      "after": "31 tests, 31 pass, 0 skipped",
+      "carriedInto": "command://abiogenesis/qualification/test-uat-harness"
+    },
+    {
+      "lane": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+      "rule": "selection, not a skip",
+      "input": "ABI5_CALCULUS_CASES=compose with --test-name-pattern='real admitted compose'",
+      "withInput": "2 tests, 2 pass, 0 skipped",
+      "carriedInto": "command://abiogenesis/qualification/test-compose"
+    }
+  ],
+  "rulesIiiIv": "No vector case is provider-gated or 5.1-reserved; the provider-gated work is the D3 native carriers (roster natives), outside the recipe.",
+  "outsideTheVector": [
+    {
+      "lane": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "reason": "No roster row names it as a carrier, so it is not a vector lane. It was in the first vector draft and was dropped after dry run 2: its 7 cases read the Codex record .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/ by a path relative to the test file (ABI5_FULFILLMENT_RECORDS_ROOT overrides it; nothing pins those bytes), which does not exist inside the C2 snapshot sandbox (7 ENOENT)."
+    },
+    {
+      "lane": "test_env/tests/installed-language-smoke.test.mjs",
+      "reason": "No roster row names it as a carrier (the roster names CMP and N-D3 for the installed language and runtime mechanics); its duration (646 s timeout in the bf7119489 suite, 42 s in the 7da76d7d7 suite) is not a bounded member of one C2 call."
+    }
+  ],
+  "dryRuns": [
+    {
+      "id": "dry-1",
+      "when": "2026-10-28T16:56:04Z",
+      "scope": "setup, build, harness, continuation, compose (no vector)",
+      "totalS": 193,
+      "load": "10.38 -> 19.14",
+      "note": "continuation red: relative unit root; corrected to an absolute path"
+    },
+    {
+      "id": "dry-2",
+      "when": "2026-10-28T17:02:54Z",
+      "scope": "all nine commands; vector of 37 files including default-library-fulfillment",
+      "totalS": 256.3,
+      "testVectorS": 116.1,
+      "load": "16.84 -> 11.19",
+      "outcome": "353 tests, 346 pass, 7 fail (all 7 in t287-default-library-fulfillment, removed), 0 skipped; harness 31/31; continuation 4/4; compose 2/2; compare 'candidate pack reproduced: 5317 files'"
+    }
+  ]
+}
