@@ -48,9 +48,9 @@ Routes, in order:
 14. [REFERENCE_FRAME.md#foundation-to-law](../REFERENCE_FRAME.md#foundation-to-law)
 15. [SPEC_METHOD.md#foundation-to-law-chain-outcome-and-build-tenant-binding](../SPEC_METHOD.md#foundation-to-law-chain-outcome-and-build-tenant-binding)
 
-Size of this frame: 84475 bytes.
+Size of this frame: 94520 bytes.
 
-Source: SPEC_METHOD.md#canonical-statement sha256=b2773dc0c9feb429b6b357bcfd60e7df46e54db8adcb04dc8d6dbfa023b73677
+Source: SPEC_METHOD.md#canonical-statement sha256=06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e
 
 ### Canonical statement
 
@@ -95,7 +95,7 @@ cost and forcing close review; they are not authority layers and cannot hide
 drift (§4).
 
 
-Source: FOUNDATIONS.md#product-lineage-objects sha256=92fe2f3c09a59b4e9a732463a41d4a45d7efd693648159621e03c75f7127eac5
+Source: FOUNDATIONS.md#product-lineage-objects sha256=7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e
 
 ### Product lineage objects
 
@@ -146,10 +146,12 @@ and not sufficient as an exact basis ([RELEASE §1](../RELEASE.md#1-context-and-
 states which).
 Equal version text does not collapse these objects. A selector or a
 mutable carrier may move; a release cut never moves. RELEASE §2 realises
-them, with the carriers that hold them, as refs of one release source.
+them, with the carriers that hold them, as refs of one release source. A
+release profile need not provide a mutable selector: discovery can resolve
+an immutable cut directly without changing that cut into a selector.
 
 
-Source: PRODUCT_DEFINITION.md#2-required-definition-relations sha256=95afb85e4cf8f248a6f430be34ef288add61445dc43d9c8121239409b9fac231
+Source: PRODUCT_DEFINITION.md#2-required-definition-relations sha256=7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523
 
 ## 2. Required definition relations
 
@@ -194,7 +196,7 @@ every local disambiguation names the exact context in which its resolution
 applies (P1, P3).
 
 
-Source: PRODUCT_DEFINITION.md#9-recursive-discovery-and-explicit-composition sha256=95afb85e4cf8f248a6f430be34ef288add61445dc43d9c8121239409b9fac231
+Source: PRODUCT_DEFINITION.md#9-recursive-discovery-and-explicit-composition sha256=7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523
 
 ## 9. Recursive discovery and explicit composition
 
@@ -262,8 +264,161 @@ completeness, and authority-congruence checks. The structural subset and
 the semantic subset of these checks are distinct claims (EVALUATION §2;
 P1, P6).
 
+### Product composition contract
 
-Source: PRODUCT_DEFINITION.md#11-one-constitutional-surface-and-version-boundary sha256=95afb85e4cf8f248a6f430be34ef288add61445dc43d9c8121239409b9fac231
+The following clauses apply the shared authority, identity, context,
+preservation and change laws to Product composition. They define no second
+admission or result algebra. A Product may consume, coordinate or assess
+another Product through its declared relation; these roles are neither a closed
+nor disjoint kind taxonomy, and none confers authority (P6, P3).
+
+[The contract template](../templates/PRODUCT_COMPOSITION_CONTRACT_TEMPLATE.md)
+projects these coordinates; [the recursive example](../examples/PRODUCT_COMPOSITION.md)
+works them through a shared leaf and an independently enterable composite.
+[CONFORMANCE](../CONFORMANCE.md#product-composition-discriminators) names their
+positive and adverse discriminators. These artifacts apply this owner (P1, P6).
+
+### PC-01 — Recursive Product boundaries
+
+A Product identifies one coherent WHAT and its owning authority. Alternative
+realizations of that WHAT are build tenants. A decomposition into Products names
+which distinct outcomes and authorities each constituent owns, and which outer
+outcome the composition owns.
+
+Under the identity and ownership laws (P3, P6), within a declared decomposition scope, a leaf has no further constituent Product
+boundary exposed by that decomposition. It may contain modules and declared
+external dependencies. A composite relates two or more constituent capabilities
+or an outer capability to its constituent capability; its own capability may in
+turn be consumed as a constituent. The same definition, contract and authority
+laws apply at every depth. Shared constituents keep one identity and their
+separately bound uses; a hierarchy view may show several references to one leaf.
+
+Decomposition, capability/data dependency, inspection permission, authority and
+work prerequisites are distinct relations. A directory tree establishes none of
+them. A named composition view states its root, participating identities,
+selected boundaries and relation kinds rather than treating all reachable edges
+as one hierarchy.
+
+### PC-02 — Independent entry and the integrated outcome
+
+A Product offered as a standalone constituent must be enterable through its own
+Product Definition and a Product-authorized applicable frame basis, with the
+dependency closure and capabilities its contract declares. Entry must not require
+an enclosing composition's activation unless that enclosing capability is itself
+an explicit prerequisite. Such a prerequisite is disclosed as a limit on the
+standalone claim. Shared or externally located frame documents are permitted
+where adoption, scope and availability are established; file ownership alone is
+not the deciding test.
+
+Standalone does not imply dependency-free, separately deployable or able to
+supply every host itself. The claim names which construction, evaluation or use
+can be performed independently and its required inputs. The composition owner
+separately establishes interface compatibility, material joins and its complete
+outcome. Successful constituent checks do not establish that outer predicate.
+
+### PC-03 — The edge's contract and authority record
+
+For each directed relation, the `relation` authority and referenced `contracts`
+state, directly or by exact reference:
+
+1. Source and target Product identities and roles; the consumed capability,
+   outcome, purpose, selected basis and currentness policy.
+2. The existing owners and grants for each material operation: acquisition,
+   disclosure, use, execution, mutation, assessment and disposition. A kind or
+   role label records no grant by itself.
+3. Admissible inputs and exports; material assumptions, effects, failures,
+   obligations and evidence; restrictions on implementation material and derived
+   information where applicable.
+4. The acting principals or binding rule, task/phase scope, permitted delegation,
+   return consumer, stop/refusal conditions and revocation/invalidation route.
+
+These coordinates may be supplied by source-linked prose. The relation locates
+and constrains lawfully granted authority; it cannot manufacture the target's
+permission or the source's admission. Missing material authority or an unresolved
+conflict withholds the dependent action. The execution-scoped activation remains
+the place where a particular actor, input, effect and return are bound.
+
+### PC-04 — Recursive authority and information eligibility
+
+A permitted A → B use does not entail A's access to B's dependencies. Neither
+A → B plus B → C nor two routes to a shared leaf imply a union of their grants.
+Each onward acquisition, disclosure or delegated effect needs authority for that
+actor, purpose and path, including any permitted onward use of returned material.
+Existing delegation may authorize a chain explicitly; its scope cannot expand
+silently at a recursive step.
+
+A provider may encapsulate internal dependencies behind an adequate contract.
+Consumers need not flatten every implementation dependency into a direct edge.
+Where an outer claim materially relies on a far-side contract, assumption,
+evidence item or acquisition, that reliance and its applicable authority must be
+preserved through the boundary. Unknown impact is not evidence of encapsulation.
+
+Durable Product consumption and bounded authorized inspection are different
+relations. A Reviewer or diagnostic Worker may inspect a larger causal cone under
+an explicit access grant without thereby adopting those internals as a runtime
+dependency or gaining a write grant. If findings become a continuing construction
+constraint or dependency, their producer, applicability and governing relation
+must be retained.
+
+### PC-05 — Context construction and clean-room conditions
+
+An actor's selected context must satisfy both permission and adequacy for its
+engagement. Permission covers the source information and permitted derivations,
+not only paths or filenames. The boundary identifies eligible source classes,
+exports and tool outputs, material provenance, intended use, later acquisitions
+and the effect of prior exposure. An allowed file location or a fresh summary
+does not sanitize prohibited information.
+
+A target owner may authorize an export, but clean-room eligibility additionally
+requires that the engagement's information policy admits that export and its
+provenance. The actual delivered/acquired material must be recorded to the extent
+required by the claim. An uncertain or prohibited exposure follows the declared
+hold/re-entry rule; it cannot be repaired by deleting its receipt or relabeling
+the same actor fresh. Prior actor knowledge and external acquisition channels are
+part of the declared limits.
+
+Adequacy retains the distinctions required for the task's decisions and
+continuations, including unresolved obligations, result standing, currentness and
+authority. If the permitted material is insufficient, acquire an authorized
+extension, narrow the task with the owner, use a suitable actor or return the
+unresolved outcome. Permission is not evidence of sufficiency, and a budget is
+not permission to omit a deciding condition. This applies [FOUNDATIONS Observation sufficiency](../FOUNDATIONS.md#assurance-relations)
+and its scoped preservation law; it supplies no general optimal context selector (P1, P2, P6).
+
+### PC-06 — Readiness, cycles and replacement
+
+Work selects a dependency-ready frontier at the required subjects and revisions.
+A cycle in declared Product relationships need not be a cycle in the selected
+work. A cycle of current prerequisite claims requires an executable resolution:
+for example an admitted prior revision, explicit seed, staged contract or bounded
+iteration with its continuation/stop conditions. Naming a lead alone does not
+supply a missing prerequisite or establish convergence.
+
+Replacing a constituent or refining it into further Products preserves the
+consumer's material contract: meaning, preconditions, effects, failures,
+authority, lifecycle, evidence and subsequent obligations. A semantic change
+requires an authorized successor relation and affected reassessment. The [ACTIVATION refinement contract](../ACTIVATION.md#refinement) governs this
+preservation. Matching signatures, labels or a sample output is insufficient (P4a, P6). New capabilities may be
+added without silently widening existing consumers' duties or grants.
+
+### PC-07 — Change, evidence and reliance
+
+Each cross-boundary use binds the actual selected sources and material execution
+basis, including uncommitted bytes where relevant. A moving selection identifies
+how advancement is detected and which reliance must be reassessed. Git is one
+possible carrier, not a mandatory identity system.
+
+Changes and new counterexamples propagate through material assertion, execution
+and evidence-use dependencies under [FOUNDATIONS Change impact and evidence reuse](../FOUNDATIONS.md#change-impact-and-evidence-reuse). Historical
+evidence remains about its original subject. Reuse on a changed subject needs an
+established applicability or preservation relation; rereading alone does not
+establish it. A new release does not invalidate a still-selected older release,
+and a changed hash alone establishes neither semantic incompatibility nor
+continued validity. Unknown impact holds the dependent assurance or widens
+assessment; it does not require unrelated work to restart.
+
+
+Source: PRODUCT_DEFINITION.md#11-one-constitutional-surface-and-version-boundary sha256=7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523
 
 ## 11. One constitutional surface and version boundary
 
@@ -324,7 +479,7 @@ source may author a future cut; it must not silently govern a consumer
 (P6, P3).
 
 
-Source: FOUNDATIONS.md#authority-kinds sha256=92fe2f3c09a59b4e9a732463a41d4a45d7efd693648159621e03c75f7127eac5
+Source: FOUNDATIONS.md#authority-kinds sha256=7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e
 
 ### Authority kinds
 
@@ -391,7 +546,7 @@ so one list keeps the answer the same in every member, and a capability,
 a label or a passing check can never be read as a permission (P6).
 
 
-Source: FOUNDATIONS.md#the-frame-tuple sha256=92fe2f3c09a59b4e9a732463a41d4a45d7efd693648159621e03c75f7127eac5
+Source: FOUNDATIONS.md#the-frame-tuple sha256=7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e
 
 ### The frame tuple
 
@@ -416,7 +571,7 @@ source-linked prose, and representation cannot create, widen or replace it
 (P3, P6).
 
 
-Source: REFERENCE_FRAME.md#11-the-activation-packet sha256=8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21
+Source: REFERENCE_FRAME.md#11-the-activation-packet sha256=4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64
 
 ## 11. The activation packet
 
@@ -488,6 +643,14 @@ Every field resolves through stable identities and source references.
 Paths, line numbers, member counts, summaries and matching labels may aid
 navigation or diagnostics; they do not substitute for the declared identity
 and basis (P3).
+
+For an activation crossing Product boundaries, the packet applies
+[PRODUCT_DEFINITION PC-03–PC-05](../PRODUCT_DEFINITION.md#pc-03--the-edges-contract-and-authority-record):
+its selected relation and grants, eligible sources/derivations, actual exposure,
+material basis and continuation obligations remain explicit. Permission and
+adequacy are separate predicates; an insufficient permitted view returns its
+missing condition instead of acquiring prohibited material. Byte deduplication
+or recursion must not merge distinct route permissions (P1, P3, P6).
 
 
 Source: ACTIVATION.md#intake sha256=56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d
@@ -819,7 +982,7 @@ relation is whether a decision rests on a surface whose sources are not
 those of the selected basis. This rule applies to derived surfaces under every selected carrier.
 
 
-Source: FOUNDATIONS.md#results sha256=92fe2f3c09a59b4e9a732463a41d4a45d7efd693648159621e03c75f7127eac5 rows=0/18 selected by the anchors this frame carries; the consumers paragraph of 18 items is omitted
+Source: FOUNDATIONS.md#results sha256=7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e rows=0/18 selected by the anchors this frame carries; the consumers paragraph of 18 items is omitted
 
 ### Results
 
@@ -986,7 +1149,7 @@ beyond any refinement they map under the fifth row;
 step's refinements of the fifth row and the stop state of the seventh.
 
 
-Source: PRODUCT_DEFINITION.md#foundation-to-law-binding-a-project-to-the-method sha256=95afb85e4cf8f248a6f430be34ef288add61445dc43d9c8121239409b9fac231 rows=3/10 selected by the anchors this frame carries; the consumers paragraph of 10 items is omitted
+Source: PRODUCT_DEFINITION.md#foundation-to-law-binding-a-project-to-the-method sha256=7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523 rows=3/10 selected by the anchors this frame carries; the consumers paragraph of 10 items is omitted
 
 ### Foundation to law: binding a project to the method
 
@@ -1022,7 +1185,7 @@ are traced by family F3 at
 [FOUNDATIONS §4 Results](../FOUNDATIONS.md#results).
 
 
-Source: REFERENCE_FRAME.md#foundation-to-law sha256=8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21 rows=13/36 selected by the anchors this frame carries; the consumers paragraph of 36 items is omitted
+Source: REFERENCE_FRAME.md#foundation-to-law sha256=4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64 rows=13/36 selected by the anchors this frame carries; the consumers paragraph of 36 items is omitted
 
 ### Foundation to law
 
@@ -1082,7 +1245,7 @@ global context, universal completeness or domain authority inferred from
 adopting the member.
 
 
-Source: SPEC_METHOD.md#foundation-to-law-chain-outcome-and-build-tenant-binding sha256=b2773dc0c9feb429b6b357bcfd60e7df46e54db8adcb04dc8d6dbfa023b73677 rows=1/13 selected by the anchors this frame carries; the consumers paragraph of 13 items is omitted
+Source: SPEC_METHOD.md#foundation-to-law-chain-outcome-and-build-tenant-binding sha256=06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e rows=1/13 selected by the anchors this frame carries; the consumers paragraph of 13 items is omitted
 
 ### Foundation to law: chain, outcome and build-tenant binding
 

@@ -1001,6 +1001,14 @@ Paths, line numbers, member counts, summaries and matching labels may aid
 navigation or diagnostics; they do not substitute for the declared identity
 and basis (P3).
 
+For an activation crossing Product boundaries, the packet applies
+[PRODUCT_DEFINITION PC-03–PC-05](PRODUCT_DEFINITION.md#pc-03--the-edges-contract-and-authority-record):
+its selected relation and grants, eligible sources/derivations, actual exposure,
+material basis and continuation obligations remain explicit. Permission and
+adequacy are separate predicates; an insufficient permitted view returns its
+missing condition instead of acquiring prohibited material. Byte deduplication
+or recursion must not merge distinct route permissions (P1, P3, P6).
+
 ## 12. Violations
 
 Each of the following is a violation of this member where it supports a

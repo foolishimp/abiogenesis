@@ -1,0 +1,1343 @@
+{
+  "checked_at": "2026-10-28T00:10:31.358594+00:00",
+  "basis": {
+    "uri": "stdo://releases/v3.0.2/",
+    "manifest_sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "installed_manifest_file_sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "standards_member_count": 67,
+    "member_set_sha256": "644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d"
+  },
+  "predecessor": {
+    "uri": "stdo://releases/v3.0.1-rc.1/",
+    "manifest_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8"
+  },
+  "slug_rule": "GitHub heading slug: lowercase, drop characters other than word characters, hyphen and space, spaces to hyphens",
+  "routes": [
+    {
+      "file": "specification/PRODUCT.md",
+      "line": 665,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit",
+      "new": "stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "kind": "member",
+      "member": "REFERENCE_FRAME.md",
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "manifest_bound": true,
+      "anchor": "1-the-frame-as-the-engagement-unit",
+      "anchor_heading": "1. The frame as the engagement unit",
+      "heading_line": 13,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 13
+    },
+    {
+      "file": "specification/PRODUCT.md",
+      "line": 1598,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md",
+      "new": "stdo://releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "kind": "member",
+      "member": "DESIGN_MODULE.md",
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "specification/PRODUCT.md",
+      "line": 1599,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "new": "stdo://releases/v3.0.2/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/SPEC_METHOD.md",
+      "kind": "member",
+      "member": "SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "manifest_bound": true,
+      "anchor": "11-build-tenant-binding",
+      "anchor_heading": "11. Build-tenant binding",
+      "heading_line": 1755,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1755
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 26,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/REFERENCE_FRAME.md",
+      "new": "stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "kind": "member",
+      "member": "REFERENCE_FRAME.md",
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 29,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "new": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "kind": "member",
+      "member": "EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 32,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md",
+      "new": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "kind": "member",
+      "member": "EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 175,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement",
+      "new": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "kind": "member",
+      "member": "EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "manifest_bound": true,
+      "anchor": "extension-versus-replacement",
+      "anchor_heading": "Extension versus replacement",
+      "heading_line": 1507,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1499
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 185,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+      "new": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "kind": "member",
+      "member": "EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "manifest_bound": true,
+      "anchor": "11-derived-generic-specialist-frame-set",
+      "anchor_heading": "11. Derived generic specialist frame set",
+      "heading_line": 1018,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1010
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 186,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ASSURANCE.md#integration-frame",
+      "new": "stdo://releases/v3.0.2/standards/ASSURANCE.md#integration-frame",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ASSURANCE.md",
+      "kind": "member",
+      "member": "ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "manifest_bound": true,
+      "anchor": "integration-frame",
+      "anchor_heading": "Integration frame",
+      "heading_line": 451,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 451
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 187,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ASSURANCE.md#end-to-end-frame",
+      "new": "stdo://releases/v3.0.2/standards/ASSURANCE.md#end-to-end-frame",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ASSURANCE.md",
+      "kind": "member",
+      "member": "ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "manifest_bound": true,
+      "anchor": "end-to-end-frame",
+      "anchor_heading": "End-to-end frame",
+      "heading_line": 428,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 428
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 188,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ASSURANCE.md#user-acceptance-frame",
+      "new": "stdo://releases/v3.0.2/standards/ASSURANCE.md#user-acceptance-frame",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ASSURANCE.md",
+      "kind": "member",
+      "member": "ASSURANCE.md",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "manifest_bound": true,
+      "anchor": "user-acceptance-frame",
+      "anchor_heading": "User-acceptance frame",
+      "heading_line": 396,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 396
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 7,
+      "old": "stdo://releases/v3.0.1-rc.1/",
+      "new": "stdo://releases/v3.0.2/",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2",
+      "kind": "basis",
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 7,
+      "kind": "manifest",
+      "old": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "new": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "present": true,
+      "equals_installed_manifest": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 11,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "new": "stdo://releases/v3.0.2/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/SPEC_METHOD.md",
+      "kind": "member",
+      "member": "SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "manifest_bound": true,
+      "anchor": "11-build-tenant-binding",
+      "anchor_heading": "11. Build-tenant binding",
+      "heading_line": 1755,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1755
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 11,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md",
+      "new": "stdo://releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "kind": "member",
+      "member": "DESIGN_MODULE.md",
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 47,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/FOUNDATIONS.md#accounts-of-a-construction",
+      "new": "stdo://releases/v3.0.2/standards/FOUNDATIONS.md#accounts-of-a-construction",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/FOUNDATIONS.md",
+      "kind": "member",
+      "member": "FOUNDATIONS.md",
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "manifest_bound": true,
+      "anchor": "accounts-of-a-construction",
+      "anchor_heading": "Accounts of a construction",
+      "heading_line": 266,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 264
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 123,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/FOUNDATIONS.md#4-algebra",
+      "new": "stdo://releases/v3.0.2/standards/FOUNDATIONS.md#4-algebra",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/FOUNDATIONS.md",
+      "kind": "member",
+      "member": "FOUNDATIONS.md",
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "manifest_bound": true,
+      "anchor": "4-algebra",
+      "anchor_heading": "4. Algebra",
+      "heading_line": 642,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 640
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 154,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "new": "stdo://releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "kind": "member",
+      "member": "AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "manifest_bound": true,
+      "anchor": "5-traversals-and-functor-kinds",
+      "anchor_heading": "5. Traversals and functor kinds",
+      "heading_line": 919,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 919
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 160,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ODD.md#probabilistic-compute",
+      "new": "stdo://releases/v3.0.2/standards/ODD.md#probabilistic-compute",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ODD.md",
+      "kind": "member",
+      "member": "ODD.md",
+      "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "manifest_bound": true,
+      "anchor": "probabilistic-compute",
+      "anchor_heading": "Probabilistic compute",
+      "heading_line": 294,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 294
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 160,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "new": "stdo://releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "kind": "member",
+      "member": "AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "manifest_bound": true,
+      "anchor": "5-traversals-and-functor-kinds",
+      "anchor_heading": "5. Traversals and functor kinds",
+      "heading_line": 919,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 919
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 160,
+      "old": "stdo://releases/v3.0.1-rc.1/",
+      "new": "stdo://releases/v3.0.2/",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2",
+      "kind": "basis",
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 160,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#ac-015-functor-classification",
+      "new": "stdo://releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md#ac-015-functor-classification",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "kind": "member",
+      "member": "AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "manifest_bound": true,
+      "anchor": "ac-015-functor-classification",
+      "anchor_heading": "AC-015 Functor classification",
+      "heading_line": 1063,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1063
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 160,
+      "kind": "manifest",
+      "old": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "new": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "present": true,
+      "equals_installed_manifest": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 166,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ODD.md#115d-constructive-evaluation-and-yield-loop",
+      "new": "stdo://releases/v3.0.2/standards/ODD.md#115d-constructive-evaluation-and-yield-loop",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ODD.md",
+      "kind": "member",
+      "member": "ODD.md",
+      "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "manifest_bound": true,
+      "anchor": "115d-constructive-evaluation-and-yield-loop",
+      "anchor_heading": "11.5D Constructive evaluation and yield loop",
+      "heading_line": 796,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 796
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 168,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/ODD.md#117a-conforming-agentic-development",
+      "new": "stdo://releases/v3.0.2/standards/ODD.md#117a-conforming-agentic-development",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ODD.md",
+      "kind": "member",
+      "member": "ODD.md",
+      "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "manifest_bound": true,
+      "anchor": "117a-conforming-agentic-development",
+      "anchor_heading": "11.7A Conforming agentic development",
+      "heading_line": 1474,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1474
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 170,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/RELEASE.md#deterministic-kind-migration",
+      "new": "stdo://releases/v3.0.2/standards/RELEASE.md#deterministic-kind-migration",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/RELEASE.md",
+      "kind": "member",
+      "member": "RELEASE.md",
+      "sha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "manifest_bound": true,
+      "anchor": "deterministic-kind-migration",
+      "anchor_heading": "Deterministic-kind migration",
+      "heading_line": 770,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 715
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 170,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/examples/DETERMINISTIC_CONTRACTS.md",
+      "new": "stdo://releases/v3.0.2/standards/examples/DETERMINISTIC_CONTRACTS.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/examples/DETERMINISTIC_CONTRACTS.md",
+      "kind": "member",
+      "member": "examples/DETERMINISTIC_CONTRACTS.md",
+      "sha256": "1ce623ad76a65b62292c842974811e10a5daa6fda672f836181a220205fbcbcb",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 184,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/AXIOMATIC_CALCULUS.md#ac-016-typed-composition",
+      "new": "stdo://releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md#ac-016-typed-composition",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "kind": "member",
+      "member": "AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "manifest_bound": true,
+      "anchor": "ac-016-typed-composition",
+      "anchor_heading": "AC-016 Typed composition",
+      "heading_line": 1095,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1095
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 189,
+      "old": "stdo://releases/v3.0.1-rc.1/",
+      "new": "stdo://releases/v3.0.2/",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2",
+      "kind": "basis",
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 189,
+      "kind": "manifest",
+      "old": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "new": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "present": true,
+      "equals_installed_manifest": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "line": 227,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019",
+      "new": "stdo://releases/v3.0.2/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "kind": "member",
+      "member": "DESIGN_MODULE.md",
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "manifest_bound": true,
+      "anchor": "computational-realisation-projection-up-019",
+      "anchor_heading": "Computational realisation projection (UP-019)",
+      "heading_line": 1601,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1601
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "line": 7,
+      "old": "stdo://releases/v3.0.1-rc.1/",
+      "new": "stdo://releases/v3.0.2/",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2",
+      "kind": "basis",
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "line": 7,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/DESIGN_MODULE.md",
+      "new": "stdo://releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/DESIGN_MODULE.md",
+      "kind": "member",
+      "member": "DESIGN_MODULE.md",
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "line": 7,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "new": "stdo://releases/v3.0.2/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/SPEC_METHOD.md",
+      "kind": "member",
+      "member": "SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "manifest_bound": true,
+      "anchor": "11-build-tenant-binding",
+      "anchor_heading": "11. Build-tenant binding",
+      "heading_line": 1755,
+      "present": true,
+      "same_heading_in_3_0_1": true,
+      "heading_line_3_0_1": 1755
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "line": 7,
+      "old": "stdo://releases/v3.0.1-rc.1/standards/FOUNDATIONS.md",
+      "new": "stdo://releases/v3.0.2/standards/FOUNDATIONS.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/FOUNDATIONS.md",
+      "kind": "member",
+      "member": "FOUNDATIONS.md",
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "manifest_bound": true,
+      "anchor": null,
+      "anchor_heading": null,
+      "present": true
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "line": 7,
+      "kind": "manifest",
+      "old": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "new": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "present": true,
+      "equals_installed_manifest": true
+    }
+  ],
+  "route_count": 32,
+  "manifest_replacements": 4,
+  "all_present": true,
+  "all_manifest_bound": true,
+  "all_anchor_headings_same_as_3_0_1": true,
+  "heading_cites": [
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 27,
+      "route_line": 26,
+      "document": "stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "heading": "3. Laws",
+      "heading_line": 273,
+      "present": true,
+      "edited": false
+    },
+    {
+      "file": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "line": 30,
+      "route_line": 29,
+      "document": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "heading": "1. Canonical compression",
+      "heading_line": 46,
+      "present": true,
+      "edited": false
+    }
+  ],
+  "definition_entrypoints": [
+    {
+      "entrypoint": "standards/frames/bootstrap.md",
+      "uri": "stdo://releases/v3.0.2/standards/frames/bootstrap.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/frames/bootstrap.md",
+      "sha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/SPEC_METHOD.md",
+      "uri": "stdo://releases/v3.0.2/standards/SPEC_METHOD.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/REFERENCE_FRAME.md",
+      "uri": "stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/EXECUTIVE_BASELINE.md",
+      "uri": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/ODD.md",
+      "uri": "stdo://releases/v3.0.2/standards/ODD.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ODD.md",
+      "sha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/IDENTITY.md",
+      "uri": "stdo://releases/v3.0.2/standards/IDENTITY.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/IDENTITY.md",
+      "sha256": "c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08",
+      "manifest_bound": true
+    },
+    {
+      "entrypoint": "standards/RELEASE.md",
+      "uri": "stdo://releases/v3.0.2/standards/RELEASE.md",
+      "resolved_path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/RELEASE.md",
+      "sha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "manifest_bound": true
+    }
+  ],
+  "entrypoints_resolved": 7,
+  "cited_sections_3_0_1_to_3_0_2": [
+    {
+      "member": "REFERENCE_FRAME.md",
+      "anchor": null,
+      "sites": [
+        "FRAME_BASIS:26"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21",
+      "section_sha256_3_0_2": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "unchanged": false,
+      "diff": [
+        "@@ -1003,0 +1004,8 @@",
+        "+For an activation crossing Product boundaries, the packet applies",
+        "+[PRODUCT_DEFINITION PC-03–PC-05](PRODUCT_DEFINITION.md#pc-03--the-edges-contract-and-authority-record):",
+        "+its selected relation and grants, eligible sources/derivations, actual exposure,",
+        "+material basis and continuation obligations remain explicit. Permission and",
+        "+adequacy are separate predicates; an insufficient permitted view returns its",
+        "+missing condition instead of acquiring prohibited material. Byte deduplication",
+        "+or recursion must not merge distinct route permissions (P1, P3, P6).",
+        "+"
+      ]
+    },
+    {
+      "member": "REFERENCE_FRAME.md",
+      "anchor": "3-laws",
+      "sites": [
+        "FRAME_BASIS:27 (heading text)"
+      ],
+      "heading_3_0_1": "3. Laws",
+      "line_3_0_1": 273,
+      "heading_3_0_2": "3. Laws",
+      "line_3_0_2": 273,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "596d5a4bbf5f7b554592ef83f57e9eb293f03edfe8c62585a7c110e6fbfbf036",
+      "section_sha256_3_0_2": "596d5a4bbf5f7b554592ef83f57e9eb293f03edfe8c62585a7c110e6fbfbf036",
+      "unchanged": true
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "anchor": null,
+      "sites": [
+        "FRAME_BASIS:29",
+        "FRAME_BASIS:32"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "section_sha256_3_0_2": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "unchanged": false,
+      "diff": [
+        "@@ -706,0 +707,8 @@",
+        "+",
+        "+Capability composition, including recursive and shared constituents, applies",
+        "+[PRODUCT_DEFINITION §9](PRODUCT_DEFINITION.md#product-composition-contract).",
+        "+Select the outcome-owning frame and the actual dependency-ready work; retain",
+        "+path-specific authority and material far-side reliance. A cycle in Product",
+        "+relations is not itself a work deadlock, and naming a lead supplies no missing",
+        "+current prerequisite. An enclosing Product is not required for a constituent's",
+        "+scoped standalone entry when its declared dependencies suffice (P3, P6)."
+      ]
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "anchor": "1-canonical-compression",
+      "sites": [
+        "FRAME_BASIS:30 (heading text)"
+      ],
+      "heading_3_0_1": "1. Canonical compression",
+      "line_3_0_1": 46,
+      "heading_3_0_2": "1. Canonical compression",
+      "line_3_0_2": 46,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "588f04b49e1f44255e79c7e7e66c83b555a5403957707d22fbf2171cb2b1e735",
+      "section_sha256_3_0_2": "588f04b49e1f44255e79c7e7e66c83b555a5403957707d22fbf2171cb2b1e735",
+      "unchanged": true
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "anchor": "extension-versus-replacement",
+      "sites": [
+        "FRAME_BASIS:175"
+      ],
+      "heading_3_0_1": "Extension versus replacement",
+      "line_3_0_1": 1499,
+      "heading_3_0_2": "Extension versus replacement",
+      "line_3_0_2": 1507,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "e7e081b742bf190ccb9cfb9b4ccc7be1a05c14ac428f05ab6235c5b97ef36711",
+      "section_sha256_3_0_2": "e7e081b742bf190ccb9cfb9b4ccc7be1a05c14ac428f05ab6235c5b97ef36711",
+      "unchanged": true
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "anchor": "11-derived-generic-specialist-frame-set",
+      "sites": [
+        "FRAME_BASIS:185"
+      ],
+      "heading_3_0_1": "11. Derived generic specialist frame set",
+      "line_3_0_1": 1010,
+      "heading_3_0_2": "11. Derived generic specialist frame set",
+      "line_3_0_2": 1018,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "c152ee19cf14833adc3c18e86dbfa927c4a3e035dc5735d8ee352fd968b166b5",
+      "section_sha256_3_0_2": "c152ee19cf14833adc3c18e86dbfa927c4a3e035dc5735d8ee352fd968b166b5",
+      "unchanged": true
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "anchor": "7-non-hierarchical-frame-configuration",
+      "sites": [
+        "none (the added paragraph's section)"
+      ],
+      "heading_3_0_1": "7. Non-hierarchical frame configuration",
+      "line_3_0_1": 734,
+      "heading_3_0_2": "7. Non-hierarchical frame configuration",
+      "line_3_0_2": 742,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "bb0d953c96e3b903d6c4bc9ef1825c9100b50f5befbf4dc0ee56b241a5d1c8c9",
+      "section_sha256_3_0_2": "bb0d953c96e3b903d6c4bc9ef1825c9100b50f5befbf4dc0ee56b241a5d1c8c9",
+      "unchanged": true
+    },
+    {
+      "member": "ASSURANCE.md",
+      "anchor": "integration-frame",
+      "sites": [
+        "FRAME_BASIS:186"
+      ],
+      "heading_3_0_1": "Integration frame",
+      "line_3_0_1": 451,
+      "heading_3_0_2": "Integration frame",
+      "line_3_0_2": 451,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "edf61aef85473d36dab78a7a612c27d4225480dea18fe2f6f785cae03201f3d0",
+      "section_sha256_3_0_2": "edf61aef85473d36dab78a7a612c27d4225480dea18fe2f6f785cae03201f3d0",
+      "unchanged": true
+    },
+    {
+      "member": "ASSURANCE.md",
+      "anchor": "end-to-end-frame",
+      "sites": [
+        "FRAME_BASIS:187"
+      ],
+      "heading_3_0_1": "End-to-end frame",
+      "line_3_0_1": 428,
+      "heading_3_0_2": "End-to-end frame",
+      "line_3_0_2": 428,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "6f303788f24e5443b3dd77c5dba4c48df08926f707722060f49810216cbdeb7f",
+      "section_sha256_3_0_2": "6f303788f24e5443b3dd77c5dba4c48df08926f707722060f49810216cbdeb7f",
+      "unchanged": true
+    },
+    {
+      "member": "ASSURANCE.md",
+      "anchor": "user-acceptance-frame",
+      "sites": [
+        "FRAME_BASIS:188"
+      ],
+      "heading_3_0_1": "User-acceptance frame",
+      "line_3_0_1": 396,
+      "heading_3_0_2": "User-acceptance frame",
+      "line_3_0_2": 396,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "c9ec2333013c6187191a8eaa0d545ec39c8685a050651dfa8afac503f93d2bd6",
+      "section_sha256_3_0_2": "c9ec2333013c6187191a8eaa0d545ec39c8685a050651dfa8afac503f93d2bd6",
+      "unchanged": true
+    },
+    {
+      "member": "SPEC_METHOD.md",
+      "anchor": "11-build-tenant-binding",
+      "sites": [
+        "BINDING:11",
+        "LIBRARY:7",
+        "PRODUCT:1598"
+      ],
+      "heading_3_0_1": "11. Build-tenant binding",
+      "line_3_0_1": 1755,
+      "heading_3_0_2": "11. Build-tenant binding",
+      "line_3_0_2": 1755,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "17e4ef8cdac1e42945563e4982ac5cf79cfae71d9ae296a9716134b1fd299151",
+      "section_sha256_3_0_2": "17e4ef8cdac1e42945563e4982ac5cf79cfae71d9ae296a9716134b1fd299151",
+      "unchanged": true
+    },
+    {
+      "member": "DESIGN_MODULE.md",
+      "anchor": null,
+      "sites": [
+        "BINDING:11",
+        "LIBRARY:7",
+        "PRODUCT:1597"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "section_sha256_3_0_2": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "unchanged": true
+    },
+    {
+      "member": "DESIGN_MODULE.md",
+      "anchor": "computational-realisation-projection-up-019",
+      "sites": [
+        "BINDING:227"
+      ],
+      "heading_3_0_1": "Computational realisation projection (UP-019)",
+      "line_3_0_1": 1601,
+      "heading_3_0_2": "Computational realisation projection (UP-019)",
+      "line_3_0_2": 1601,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "f897a3083198f7a6a13bc47c189f81b00b0fd3bc169d4afefee093b7108428c7",
+      "section_sha256_3_0_2": "f897a3083198f7a6a13bc47c189f81b00b0fd3bc169d4afefee093b7108428c7",
+      "unchanged": true
+    },
+    {
+      "member": "FOUNDATIONS.md",
+      "anchor": null,
+      "sites": [
+        "LIBRARY:7"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "92fe2f3c09a59b4e9a732463a41d4a45d7efd693648159621e03c75f7127eac5",
+      "section_sha256_3_0_2": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "unchanged": false,
+      "diff": [
+        "@@ -247 +247,3 @@",
+        "-them, with the carriers that hold them, as refs of one release source.",
+        "+them, with the carriers that hold them, as refs of one release source. A",
+        "+release profile need not provide a mutable selector: discovery can resolve",
+        "+an immutable cut directly without changing that cut into a selector."
+      ]
+    },
+    {
+      "member": "FOUNDATIONS.md",
+      "anchor": "accounts-of-a-construction",
+      "sites": [
+        "BINDING:47"
+      ],
+      "heading_3_0_1": "Accounts of a construction",
+      "line_3_0_1": 264,
+      "heading_3_0_2": "Accounts of a construction",
+      "line_3_0_2": 266,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "86648e7a3c2aadb6c711181bde8e075b224d3f5b3d9288cf51e9daa64f4cc003",
+      "section_sha256_3_0_2": "86648e7a3c2aadb6c711181bde8e075b224d3f5b3d9288cf51e9daa64f4cc003",
+      "unchanged": true
+    },
+    {
+      "member": "FOUNDATIONS.md",
+      "anchor": "4-algebra",
+      "sites": [
+        "BINDING:123"
+      ],
+      "heading_3_0_1": "4. Algebra",
+      "line_3_0_1": 640,
+      "heading_3_0_2": "4. Algebra",
+      "line_3_0_2": 642,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "ebb94a8469106e8f25dbd031940d4e45661022c6ed3a2dfe126e7f3e28c48049",
+      "section_sha256_3_0_2": "ebb94a8469106e8f25dbd031940d4e45661022c6ed3a2dfe126e7f3e28c48049",
+      "unchanged": true
+    },
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "anchor": "5-traversals-and-functor-kinds",
+      "sites": [
+        "BINDING:154",
+        "BINDING:160"
+      ],
+      "heading_3_0_1": "5. Traversals and functor kinds",
+      "line_3_0_1": 919,
+      "heading_3_0_2": "5. Traversals and functor kinds",
+      "line_3_0_2": 919,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "cb383d6e2cfb9d278f9324641cd90ed107cadc2d67becebed365a302fae917b9",
+      "section_sha256_3_0_2": "cb383d6e2cfb9d278f9324641cd90ed107cadc2d67becebed365a302fae917b9",
+      "unchanged": true
+    },
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "anchor": "ac-015-functor-classification",
+      "sites": [
+        "BINDING:160"
+      ],
+      "heading_3_0_1": "AC-015 Functor classification",
+      "line_3_0_1": 1063,
+      "heading_3_0_2": "AC-015 Functor classification",
+      "line_3_0_2": 1063,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "0f5b3fd92a87d72565843bfa3e86756ca2bf5b73a2a22e7d3f041f754abf4e00",
+      "section_sha256_3_0_2": "0f5b3fd92a87d72565843bfa3e86756ca2bf5b73a2a22e7d3f041f754abf4e00",
+      "unchanged": true
+    },
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "anchor": "ac-016-typed-composition",
+      "sites": [
+        "BINDING:184"
+      ],
+      "heading_3_0_1": "AC-016 Typed composition",
+      "line_3_0_1": 1095,
+      "heading_3_0_2": "AC-016 Typed composition",
+      "line_3_0_2": 1095,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "0845d6d195805cc9a8e6ac9da395e97a1e3c484fa60ee610e834ae9faad0849a",
+      "section_sha256_3_0_2": "0845d6d195805cc9a8e6ac9da395e97a1e3c484fa60ee610e834ae9faad0849a",
+      "unchanged": true
+    },
+    {
+      "member": "ODD.md",
+      "anchor": "probabilistic-compute",
+      "sites": [
+        "BINDING:160"
+      ],
+      "heading_3_0_1": "Probabilistic compute",
+      "line_3_0_1": 294,
+      "heading_3_0_2": "Probabilistic compute",
+      "line_3_0_2": 294,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "3dfd5252adb1f62f08f8e5e01ea3b05d65dd274453370ee8ba3e347e041ac2a9",
+      "section_sha256_3_0_2": "3dfd5252adb1f62f08f8e5e01ea3b05d65dd274453370ee8ba3e347e041ac2a9",
+      "unchanged": true
+    },
+    {
+      "member": "ODD.md",
+      "anchor": "115d-constructive-evaluation-and-yield-loop",
+      "sites": [
+        "BINDING:166",
+        "BINDING:168 (A5 as 3.0.1 states it)"
+      ],
+      "heading_3_0_1": "11.5D Constructive evaluation and yield loop",
+      "line_3_0_1": 796,
+      "heading_3_0_2": "11.5D Constructive evaluation and yield loop",
+      "line_3_0_2": 796,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "30a073a4f2aae39f365c8295b7369b8c66c4430297aa6979f86e17ae618e39c1",
+      "section_sha256_3_0_2": "30a073a4f2aae39f365c8295b7369b8c66c4430297aa6979f86e17ae618e39c1",
+      "unchanged": true
+    },
+    {
+      "member": "ODD.md",
+      "anchor": "117a-conforming-agentic-development",
+      "sites": [
+        "BINDING:168"
+      ],
+      "heading_3_0_1": "11.7A Conforming agentic development",
+      "line_3_0_1": 1474,
+      "heading_3_0_2": "11.7A Conforming agentic development",
+      "line_3_0_2": 1474,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "48602a16ba142a75322ca9fa754584bd18e7e19c21871137aa0c4d6631f4b5b2",
+      "section_sha256_3_0_2": "48602a16ba142a75322ca9fa754584bd18e7e19c21871137aa0c4d6631f4b5b2",
+      "unchanged": true
+    },
+    {
+      "member": "RELEASE.md",
+      "anchor": "deterministic-kind-migration",
+      "sites": [
+        "BINDING:170"
+      ],
+      "heading_3_0_1": "Deterministic-kind migration",
+      "line_3_0_1": 715,
+      "heading_3_0_2": "Deterministic-kind migration",
+      "line_3_0_2": 770,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "7a533223f3bd3ad19287e6cde64c08de970a7b8f11d7fde6bc5be366d29c1085",
+      "section_sha256_3_0_2": "7a533223f3bd3ad19287e6cde64c08de970a7b8f11d7fde6bc5be366d29c1085",
+      "unchanged": true
+    },
+    {
+      "member": "examples/DETERMINISTIC_CONTRACTS.md",
+      "anchor": null,
+      "sites": [
+        "BINDING:170"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "1ce623ad76a65b62292c842974811e10a5daa6fda672f836181a220205fbcbcb",
+      "section_sha256_3_0_2": "1ce623ad76a65b62292c842974811e10a5daa6fda672f836181a220205fbcbcb",
+      "unchanged": true
+    },
+    {
+      "member": "REFERENCE_FRAME.md",
+      "anchor": "1-the-frame-as-the-engagement-unit",
+      "sites": [
+        "PRODUCT:664"
+      ],
+      "heading_3_0_1": "1. The frame as the engagement unit",
+      "line_3_0_1": 13,
+      "heading_3_0_2": "1. The frame as the engagement unit",
+      "line_3_0_2": 13,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "ae86aed987718d1cf760bda7c4c09b4da891c8e049fe28760b4c6ee91e11867e",
+      "section_sha256_3_0_2": "ae86aed987718d1cf760bda7c4c09b4da891c8e049fe28760b4c6ee91e11867e",
+      "unchanged": true
+    },
+    {
+      "member": "RELEASE.md",
+      "anchor": "9-successor-baseline-conservation-stdo-up-015",
+      "sites": [
+        "BINDING:170 (label RELEASE §9)"
+      ],
+      "heading_3_0_1": "9. Successor baseline conservation (STDO-UP-015)",
+      "line_3_0_1": 651,
+      "heading_3_0_2": "9. Successor baseline conservation (STDO-UP-015)",
+      "line_3_0_2": 706,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "881cc56ba045eeaccdb22fea58d6523ccb8ceda4ae4ab2b1c242a692b9e4f39a",
+      "section_sha256_3_0_2": "7d2c56018855459fa4514f392caf029167ba7baf1dea5e75b9836091eb3e8764",
+      "unchanged": false,
+      "diff": [
+        "@@ -3 +3 @@",
+        "-A successor identifies the exact predecessor immutable RC whose semantic",
+        "+A successor identifies the exact predecessor immutable cut whose semantic"
+      ]
+    },
+    {
+      "member": "ODD.md",
+      "anchor": "5-graph-model",
+      "sites": [
+        "BINDING:160 (label ODD §5)"
+      ],
+      "heading_3_0_1": "5. Graph model",
+      "line_3_0_1": 273,
+      "heading_3_0_2": "5. Graph model",
+      "line_3_0_2": 273,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "90f1aa427096ba2c3a6e36355df1437dc13fcd39a8ac92a733b4e64b7606823b",
+      "section_sha256_3_0_2": "90f1aa427096ba2c3a6e36355df1437dc13fcd39a8ac92a733b4e64b7606823b",
+      "unchanged": true
+    },
+    {
+      "member": "ODD.md",
+      "anchor": null,
+      "sites": [
+        "whole-member context for BINDING:160,166,168"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "9580be6e6e0a5e6c4e378b9bb8bc60392d1e4e0e342f7350f3463ddf5e3b321c",
+      "section_sha256_3_0_2": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "unchanged": false,
+      "changed_line_count": 9,
+      "diff": "omitted: whole-member context, not a cited section (TD-19)"
+    },
+    {
+      "member": "RELEASE.md",
+      "anchor": null,
+      "sites": [
+        "whole-member context for BINDING:170"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "1ec805a4acb60f7ce0d061cf4ba6656690500e27ae6756866eaafa34aad071e0",
+      "section_sha256_3_0_2": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "unchanged": false,
+      "changed_line_count": 230,
+      "diff": "omitted: whole-member context, not a cited section (TD-19)"
+    },
+    {
+      "member": "SPEC_METHOD.md",
+      "anchor": null,
+      "sites": [
+        "whole-member context for BINDING:11, LIBRARY:7"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "b2773dc0c9feb429b6b357bcfd60e7df46e54db8adcb04dc8d6dbfa023b73677",
+      "section_sha256_3_0_2": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "unchanged": false,
+      "changed_line_count": 12,
+      "diff": "omitted: whole-member context, not a cited section (TD-19)"
+    },
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "anchor": null,
+      "sites": [
+        "whole-member context"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "section_sha256_3_0_2": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "unchanged": true
+    },
+    {
+      "member": "ASSURANCE.md",
+      "anchor": null,
+      "sites": [
+        "whole-member context"
+      ],
+      "heading_3_0_1": null,
+      "line_3_0_1": null,
+      "heading_3_0_2": null,
+      "line_3_0_2": null,
+      "present_3_0_2": true,
+      "same_heading": true,
+      "section_sha256_3_0_1": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "section_sha256_3_0_2": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "unchanged": true
+    }
+  ],
+  "territory_after": {
+    "stdo_abiogenesis.json": {
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "blob": "626639c0c66ae99a57e12d20074f53ccdffd01cb",
+      "bytes": 3136,
+      "changed_from_head": true
+    },
+    "AGENTS.md": {
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "blob": "766ae37f79de146cd51195cffc12f01ecc056ce8",
+      "bytes": 11923,
+      "changed_from_head": false
+    },
+    "CLAUDE.md": {
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "blob": "c591b56aa518c8cae370b3707827ecf0a179716b",
+      "bytes": 5297,
+      "changed_from_head": false
+    },
+    "specification/PRODUCT.md": {
+      "sha256": "6b7266fadd990fc4bfa4c6dd134cb740c4fa7bfb18b62b1458c2a653f890e25e",
+      "blob": "e5885b138c28157b2f7881ca3cdca297ffb79a4a",
+      "bytes": 97704,
+      "changed_from_head": true
+    },
+    "specification/GOALS.md": {
+      "sha256": "9043d5378729fc670093bcc0983e4054d13a139064eda667c4b5d78659689517",
+      "blob": "a919c8ab79746d733e3eda42facb7a27646d88f7",
+      "bytes": 85582,
+      "changed_from_head": true
+    },
+    "specification/requirements/README.md": {
+      "sha256": "ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b",
+      "blob": "62a0bc2f2c8be89e9ad3df047e51595b1ffefc08",
+      "bytes": 8953,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "sha256": "a5598f28da632275333a0102aa27640ef188265f41ff71f8c8f7a05d71f4b8f6",
+      "blob": "2a61f73a0dca5f7a179a848eec77e4173b300500",
+      "bytes": 27131,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": {
+      "sha256": "a277ec6925d03d3837fa49cb9d37939c822ce370ac029858b2bb8fb044218f00",
+      "blob": "0cf7f6425f18711432b2570e9b1fe9859192206b",
+      "bytes": 100785,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": {
+      "sha256": "2c0f9b02386377a41eb9c99414691589128d90d879ed298c3e35f81dedc6acc5",
+      "blob": "76cf9bc0be04cacbd32e45f421f2e6e61d9562cb",
+      "bytes": 133256,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts": {
+      "sha256": "653b0f0d8567636d5c66a5c77bce38b76a2765c9ba7337c7ebd8782bbbc2ff1b",
+      "blob": "835721445b0907916c97e0a57391545454686b49",
+      "bytes": 20546,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts": {
+      "sha256": "51649172675e61539a7285c9a8a5503cf66df3a6fea3ea5610326c0309931021",
+      "blob": "dddb398e05430f5e14c54c55d99f179439fe0aee",
+      "bytes": 41427,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json": {
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "blob": "4f22ee93638c01ffaf8f6290f45190351af6d2be",
+      "bytes": 14286,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md": {
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "blob": "674d1922156e1eaa02181923226cd9087db3f787",
+      "bytes": 157336,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/ASSURANCE.md": {
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "blob": "29f287c99009a16a9523efa8942c1aa0144cd62e",
+      "bytes": 87324,
+      "changed_from_head": false
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json": {
+      "sha256": "169fb264ebeebb0c41e0b39cb250479287e856312b70a0f7430372ffe942a269",
+      "blob": "1ac6922f46134a1788b0df77c9f0907130e1ea06",
+      "bytes": 515,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json": {
+      "sha256": "bd9e26b2f2590f8b03723021d0f702629249ae280a1a2e626e379882acb13a2b",
+      "blob": "e253051c937d1ac303886cac97ba165576a1b006",
+      "bytes": 27911,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json": {
+      "sha256": "ef77e5a71fdb1262ad2c1ddd783941c6c7f1500acf1eeb68161e206c1f0d68eb",
+      "blob": "8a9f009e30ca24d64f72bb9b3ef9755d4e97d877",
+      "bytes": 1767172,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json": {
+      "sha256": "bed8e31c41b982f4ba33f0495d0fa1550fe875427f3590a9c3e1b05dd7bd86c3",
+      "blob": "93a4ee10a4c878eb8dd80b162fe4911ef0e350a5",
+      "bytes": 28319,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json": {
+      "sha256": "05c8c3dcc75f2cb9673ca4e29758862c4f0e124cc01b46450a84fffb4ba98073",
+      "blob": "aca3fea93aa7c3a3a947a68b0f4d2b87365a26bf",
+      "bytes": 11476,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs": {
+      "sha256": "63d4dbf75197cdc9e85585cfa5409b46afe25e2f8647df05ec62969b97b5ae72",
+      "blob": "6f64c5df91317019542858e78b269740a1357b47",
+      "bytes": 5746,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs": {
+      "sha256": "a0e5f4cca8631a21bdd37fbaabf7a55e14e39303ec81c8893d890f624363a7e7",
+      "blob": "4250d8666ff1a0772fc6bdaabf47dc3ec514ce5c",
+      "bytes": 7982,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": {
+      "sha256": "a9bdcce62ba4bbaadd321e2ff67e201f1985a9387c65978ac9155aa2715e6c5d",
+      "blob": "79392c0236952af1f585771301c65a95d5916586",
+      "bytes": 174721,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs": {
+      "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5",
+      "blob": "c5e3fa827e18228f3fcdc15828a2b0d803661dba",
+      "bytes": 16306,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json": {
+      "sha256": "988107e22fc174c9d840037e241b7d0c2630cfc6d5e4cc3155771bf95b67c282",
+      "blob": "b933523cbe523ac28e04a3a1b0f35aff752cfb5d",
+      "bytes": 515,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "sha256": "edeb9bf7c7e67c0dc20c3502923fcc01fab5eba38b5b452b4d77ee78f68112c0",
+      "blob": "267cfae4fcbc70a4ac68d4bc8c753f7957f89b0e",
+      "bytes": 3273847,
+      "changed_from_head": true
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "sha256": "4a3c4da4d381902d127797e63121bddd21555a546809292fcf34a24ced5652d9",
+      "blob": "d475488e89dddc0307b423cfecaa47648d5a0f87",
+      "bytes": 197474,
+      "changed_from_head": true
+    }
+  }
+}

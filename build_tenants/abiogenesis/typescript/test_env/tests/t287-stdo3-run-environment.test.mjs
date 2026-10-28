@@ -107,7 +107,7 @@ test('K11 current public specialization admits exact standalone STDO3 and conser
   for (const mutate of [
     x => { x.dependencies = []; },
     x => { x.dependencies.push(structuredClone(x.dependencies[0])); },
-    x => { x.dependencies[0].basisRef = x.contexts[0].sourceLocator = 'stdo://releases/v3.0.1-rc.1'; },
+    x => { x.dependencies[0].basisRef = x.contexts[0].sourceLocator = 'stdo://releases/v3.0.2'; },
     x => { x.dependencies[0].recordFormat = 'member_inventory@1'; },
     x => { x.contexts[0].members[0].digest = product.sha256Canonical('wrong member'); },
     x => { x.roles[0].sourceBindings[0].endByte = x.contexts[0].members[0].byteCount + 1; },
@@ -119,7 +119,7 @@ test('K11 current public specialization admits exact standalone STDO3 and conser
 test('ordinary selector data uses complete Executive source while the P4 default remains exact', async () => {
   const ordinary=await stdo3RunEnvironment({gtl,product,sourceRoot,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
   assert.deepEqual(ordinary.declaration.roles,[NATIVE_SELECTION_STDO3_ROLE]);
-  assert.deepEqual(ordinary.declaration.roles[0].sourceBindings.map(({startByte,endByte})=>[startByte,endByte]),[[83537,89094]]);
+  assert.deepEqual(ordinary.declaration.roles[0].sourceBindings.map(({startByte,endByte})=>[startByte,endByte]),[[84076,89633]]);
   const bytes=await readFile(join(sourceRoot,STDO3_SOURCE.memberPath)),span=ordinary.declaration.roles[0].sourceBindings[0];
   assert.equal(product.sha256Bytes(bytes.subarray(span.startByte,span.endByte)),span.spanDigest);
   assert.match(bytes.subarray(span.startByte,span.endByte).toString(),/^## 8\. Derived Executive frame\n/);

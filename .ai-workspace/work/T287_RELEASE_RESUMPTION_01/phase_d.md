@@ -1837,3 +1837,470 @@ Between the cuts, the standards diff at the tags is 33 files: `EXECUTIVE_BASELIN
 **Exit.** Item 8's sentence and literal moved together, `t287-default-library` 21/18/0/3; `stdo status --verify` valid on 3.0.2; the Definition's diff the four leaves; the markers by the manager; every cite resolving with its anchor; item 4 reported with no F_D claim changed (else the stop); the default library's pins moved with the spans proven and the copies digest-equal to the install root; the qualification catalog regenerating byte-equal through its owner command; the test pins moved; the fixture refreshed and the named lanes equal to the column; the red set at your commit the standing one.
 
 **Return contract.** `## S1 return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once to this file, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's status and the four-leaf diff; item 2's plan; item 3's table (file, occurrences, anchors present, re-pointed) and the prose census; item 4's per-cite diff report; item 5's moved pins (old and new digest, bytes, spans) and the span proof; item 6's staged digests moved and the counts; item 8's sentence as realized; the fixture's three fields; the lanes table with the set's count; gates (`tsc`, `tsc --noUnusedLocals` (1, `BASE64_PATTERN`, R3's), the four lints, the build, the regenerated files' moved leaves named); deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `S1: the method basis moved to STDO 3.0.2; the Definition adopted through the manager; the runtime default library and the qualification authorities restaged; the method cites rebound; the uat producer sentence's bound clause restated`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## S1 return (Worker, Opus 5.5, 2026-10-28; base `e5ab7f959d3ee5e377569b216f4a5df32067832b`)
+
+**S1 is closed, with no stop and five deviations: 1 and 3 need the Executive's ruling, and 5 is a disclosed rule breach.** The changes:
+- The Definition is on STDO 3.0.2 through the manager, and `stdo status --verify` is valid.
+- The runtime default library and the qualification authorities are restaged on the 3.0.2 install root.
+- 32 method routes and four manifest digests are rebound, every anchor present with its heading unchanged.
+- The uat producer clause and its lane literal are restated together.
+- The fixture is refreshed. The 179 named lanes and the compose scenario equal the column, and the standing red is unchanged.
+
+The deviations needing a ruling:
+- Deviation 1: six test pins of the changed EXECUTIVE_BASELINE member moved beyond item 5's grep.
+- Deviation 3: GOALS gains a 2026-10-27 owner-selection paragraph, and GOAL-035's status cell is restated.
+
+Deviation 5 is one `ls` of the new record directory.
+
+**Basis.** The tenant subtrees at the base `e5ab7f959` and at U1-b's `9ec6c22f1` are equal:
+- `code` `489a853e85f7708e17bc356ccb266ffda66b5ef6`;
+- `test_env` `a4323ffcfcf3cf7c6f85c912f855a0959a276cd3`;
+- `contracts` `0aa9163bf528269f52d566b8e0c5e863a7ac70d4`.
+
+So U1-b's after column is the before column for every lane it tables. At the start, `git status --short` on the six named paths showed one entry, ` M stdo_abiogenesis.json`. The base build was a fixed point: `npm run build` exited 0 and the status was unchanged. Manager commands: `stdo --version`, `stdo list`, `stdo status --verify` and `stdo bootstrap --dry-run`, all reading the store only. No network, push, pull or fetch. `HEAD` was `e5ab7f959` from start to commit; no commit landed on `main` during the run.
+
+The record directory is `.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION/` (UTC). It holds:
+- `README.md`, `verification.json` and `preimages.json`;
+- `bootstrap-plan.json`, from my dry run;
+- `adoption-plan.json`, `adoption-result.json` and `stdo-status.json`, copied byte for byte from the Executive's `scratchpad/s1_install/`.
+
+It holds digests only, no evidence copies (TD-19).
+
+**Item 1: the Definition, verified.** `stdo status --definition stdo_abiogenesis.json --verify` exits 0, at the census and again on the final tree:
+- installed, `valid: true`, `failures: []`;
+- basis `stdo://releases/v3.0.2/`, manifest `f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477`;
+- 67 standards, member set `644e5f6a…eb9d`.
+
+Both runs' JSON is identical by sorted comparison to the Executive's `stdo-status.json`. The diff of `git diff -- stdo_abiogenesis.json` is exactly four leaves:
+
+| Leaf | Before | After |
+|---|---|---|
+| `$schema` | `stdo://releases/v3.0.1-rc.1/standards/schemas/product-definition.schema.json` | `stdo://releases/v3.0.2/standards/schemas/product-definition.schema.json` |
+| `constitution.stdo.selector` | `stdo://channels/3.0.1` | `stdo://channels/3.0.2` |
+| `constitution.stdo.basis.uri` | `stdo://releases/v3.0.1-rc.1/` | `stdo://releases/v3.0.2/` |
+| `constitution.stdo.basis.manifest_sha256` | `60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8` | `f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477` |
+
+These were checked by parsed leaf comparison of `HEAD:stdo_abiogenesis.json` with the working tree. `stdo_abiogenesis.before.json` equals `HEAD`. The seven entrypoints, `composition`, `reference_frame_bases`, `what`, `how` and `ticketing` are unchanged. The basis and selector equal `adoption-result.json`'s `from` and `to` (plan `cb944b3c…43e4`). The file is staged as the manager left it: SHA-256 `6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28`, 3,136 bytes. The wheel's SHA-256 `ef726f78…3242` equals its sidecar.
+
+**Item 2: the bootstrap markers.** `stdo bootstrap --definition stdo_abiogenesis.json --dry-run` gives `AGENTS.md` `unchanged` and `CLAUDE.md` `unchanged`, kept as `bootstrap-plan.json`. No apply was run. Both files are byte-unchanged (`git status` clean on them), so the marker block's diff is empty.
+
+**Item 3: the method cites.** `git grep -n 'releases/v3.0.1-rc.1' -- specification build_tenants stdo_abiogenesis.json AGENTS.md CLAUDE.md README.md` at the base finds four kinds of occurrence:
+- the four territory files below (`PRODUCT.md` and the three design files);
+- `code/src/gtl/default_library.ts:82` and the four test-pin files, both item 5's;
+- `contracts/qualification/**`, item 6's owner command;
+- no other file.
+
+After the package the grep finds nothing on those paths. Every route is rebound to `stdo://releases/v3.0.2/`. The 3.0.1 manifest digest is rebound where it stands beside a basis route; this is a separate grep, since the route grep does not catch it. Each route resolves to a manifest-bound member of the installed cut, and every anchor is present with its heading text unchanged from 3.0.1. No cite was re-pointed.
+
+| File | Routes | Manifest digests | Anchors present (heading unchanged) | Re-pointed |
+|---|---|---|---|---|
+| `specification/PRODUCT.md` (`:665`, `:1598`, `:1599` after the header line) | 3 | 0 | 2 of 2 | 0 |
+| `design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md` (`:26`, `:29`, `:32`, `:175`, `:185`-`:188`) | 8 | 0 | 5 of 5, plus both heading-text cites (`3. Laws` at REFERENCE_FRAME:273, `1. Canonical compression` at EXECUTIVE_BASELINE:46) | 0 |
+| `design/ABI5_STDO3_COMPUTATIONAL_BINDING.md` (`:7`, `:11`×2, `:47`, `:123`, `:154`, `:160`×4, `:166`, `:168`, `:170`×2, `:184`, `:189`, `:227`) | 17 | 3 (`:7`, `:160`, `:189`) | 12 of 12 | 0 |
+| `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` (`:7`×4) | 4 | 1 (`:7`) | 1 of 1 | 0 |
+| `specification/GOALS.md`, `specification/requirements/README.md` | 0 | 0 | none cited | 0 |
+
+Totals: 32 routes (M-1 counted 22; the binding's 10 beyond M-1's 7 are at `:160`, `:166`, `:168`, `:170`, `:184`, `:189`), 4 manifest digests and 20 anchors. Anchor lines moved only in EXECUTIVE_BASELINE (+8), FOUNDATIONS (+2) and RELEASE (+55); every heading text is unchanged. The seven Definition entrypoints resolve to manifest-bound 3.0.2 members. `verification.json` carries every route with its resolved path, member digest, anchor heading and line in both cuts, plus post-edit digests of every territory file.
+
+The prose census: `git grep -n '3\.0\.1' -- specification build_tenants/abiogenesis/typescript/design README.md`.
+
+| Site | Class | Disposition |
+|---|---|---|
+| `PRODUCT.md:15` header, "[STDO 3.0.1 adoption](…), after the [STDO 3.0.0 RC1 adoption](…)" | basis mention | restated, in the Executive's M-1 form: "recorded in [STDO 3.0.2 adoption](../.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION/README.md), after the [STDO 3.0.1 adoption](…) and the [STDO 3.0.0 RC1 adoption](…)." |
+| `requirements/README.md:17` | basis mention | restated: "The current source-development adoption is recorded in [STDO 3.0.2 adoption](…); the earlier [STDO 3.0.1 adoption](…) and [STDO 3.0.0 RC1 adoption](…) remain as history, and historical runtime and qualification evidence retains its original basis." |
+| `GOALS.md:18` GOAL-035 status | basis mention | restated: "Active under STDO 3.0.2 (the source-development pin of 2026-10-27; the runtime default-library snapshot moves at T-287 Phase D's S1)." `v3.0.2` is the stable cut, so it has no "RC1". |
+| `GOALS.md` 2026-10-25 owner-selection paragraph (`:147`, `:155` before; now `:158`, `:166`) | historical, dated | kept. A new paragraph above it, in M-1's words: "Owner selection, 2026-10-27: pin ABIogenesis source development to the published STDO 3.0.2 line, exact immutable `v3.0.2` and manifest selected by [`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The [adoption record](…/20261027T224556Z_STDO_302_ADOPTION/README.md) binds the digest-bound adoption, the verified install and the method routes rebound to that cut. This method selection preserves the current Product outcomes and the T-287 work. The runtime default-library snapshot and the qualification authorities move to the same cut in T-287 Phase D's S1; retained Runs, qualification evidence and derivation links keep their original exact bases. The deterministic-kind (F_D) claims are unchanged under 3.0.2." |
+| binding `:168`, "A5 as 3.0.1 states it governs" | basis mention | restated "A5 as 3.0.2 states it governs". ODD §11.5D, which holds A5, is unchanged between the cuts. |
+| binding `:189` migration record, "The new basis is `stdo://releases/v3.0.1-rc.1/`, manifest SHA-256 `60356364…`, with the clauses cited above." | route occurrence | rebound to `v3.0.2` and `f7f3f824…`, since the clauses cited above move with it. AXIOMATIC_CALCULUS is byte-identical, and the cited ODD and RELEASE sections are unchanged. The old basis `v3.0.0-rc.1` stays. |
+| the design routes and digests (binding, frame basis, library) | route occurrences | rebound (table above) |
+| `T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN.md:134`, `:142`, `:144` (`ajv-formats@3.0.1`) | not a method mention | kept |
+
+No other sentence changed. The word-level diff over `specification` and `design` contains only the route, digest and version tokens, the basis mentions restated as tabled, and the added GOALS paragraph.
+
+**Item 4: the F_D disposition's basis.** For every section the three design files cite, I extracted and diffed the text in the two install roots. A section runs from its heading to the next heading of the same or higher level. Whole-member cites diff the whole member.
+- Byte-identical members: `AXIOMATIC_CALCULUS.md`, `ASSURANCE.md`, `DESIGN_MODULE.md`, `examples/DETERMINISTIC_CONTRACTS.md`.
+- Changed members among those cited: `EXECUTIVE_BASELINE.md`, `REFERENCE_FRAME.md`, `FOUNDATIONS.md`, `ODD.md`, `RELEASE.md`, `SPEC_METHOD.md`.
+
+| Cite (site) | Section in 3.0.2 | Result |
+|---|---|---|
+| REFERENCE_FRAME whole, heading `3. Laws` (frame basis `:26`-`:27`) | §3 | §3 unchanged. Elsewhere one paragraph is added in §11, The activation packet, after the minimal activation binding: "For an activation crossing Product boundaries, the packet applies [PRODUCT_DEFINITION PC-03–PC-05](PRODUCT_DEFINITION.md#pc-03--the-edges-contract-and-authority-record): its selected relation and grants, eligible sources/derivations, actual exposure, material basis and continuation obligations remain explicit. Permission and adequacy are separate predicates; an insufficient permitted view returns its missing condition instead of acquiring prohibited material. Byte deduplication or recursion must not merge distinct route permissions (P1, P3, P6)." |
+| EXECUTIVE_BASELINE whole, heading `1. Canonical compression` (`:29`-`:30`); Executive, Worker and Reviewer (`:32`) | §1; §8–§10 | unchanged; the §8–§11 span digests are equal (item 5). Elsewhere one paragraph is added, under `### Product-chain basis` in §6, Executive attention, evaluation and action (3.0.2 lines 707–714): "Capability composition, including recursive and shared constituents, applies [PRODUCT_DEFINITION §9](PRODUCT_DEFINITION.md#product-composition-contract). Select the outcome-owning frame and the actual dependency-ready work; retain path-specific authority and material far-side reliance. A cycle in Product relations is not itself a work deadlock, and naming a lead supplies no missing current prerequisite. An enclosing Product is not required for a constituent's scoped standalone entry when its declared dependencies suffice (P3, P6)." §7, Non-hierarchical frame configuration (3.0.2 line 742), is unchanged. |
+| EXECUTIVE_BASELINE `#extension-versus-replacement` (`:175`) | §16 | unchanged |
+| EXECUTIVE_BASELINE `#11-derived-generic-specialist-frame-set` (`:185`) | §11 | unchanged |
+| ASSURANCE `#integration-frame`, `#end-to-end-frame`, `#user-acceptance-frame` (`:186`-`:188`) | — | member byte-identical |
+| SPEC_METHOD `#11-build-tenant-binding` (binding `:11`, library `:7`) | §11 | unchanged. The member's only edits are in §6, Lineage and release, which is not cited. |
+| DESIGN_MODULE whole and `#computational-realisation-projection-up-019` (binding `:11`, `:227`; library `:7`) | — | member byte-identical |
+| FOUNDATIONS `#accounts-of-a-construction` (`:47`), `#4-algebra` (`:123`) | both | unchanged |
+| FOUNDATIONS whole (library `:7`) | — | one sentence added in `### Product lineage objects`: "A release profile need not provide a mutable selector: discovery can resolve an immutable cut directly without changing that cut into a selector." |
+| AXIOMATIC_CALCULUS §5, AC-015, AC-016 (binding `:154`, `:160`, `:184`) | — | member byte-identical |
+| ODD `#probabilistic-compute`, labelled ODD §5 (`:160`) | §5 Graph model, whole | unchanged |
+| ODD `#115d-constructive-evaluation-and-yield-loop` (`:166`, and A5 at `:168`) | §11.5D | unchanged |
+| ODD `#117a-conforming-agentic-development` (`:168`) | §11.7A | unchanged. The member's three edits are in §4 (lines 248, 254: "RC cut" becomes "release cut", "immutable RC" becomes "immutable cut") and in §15 (line 1665: "Immutable RC publication, version-line selector advancement" becomes "Immutable publication, applicable RC selector advancement"); none is cited. |
+| RELEASE `#deterministic-kind-migration`, labelled RELEASE §9 (`:170`) | `### Deterministic-kind migration` | unchanged (3.0.1 line 715, 3.0.2 line 770) |
+| RELEASE §9, Successor baseline conservation, whole (the label at `:170`) | §9 | one word altered in the opening sentence: "A successor identifies the exact predecessor immutable RC whose semantic claims it evolves" becomes "A successor identifies the exact predecessor immutable cut whose semantic claims it evolves". The rest of §9 is unchanged. |
+| `examples/DETERMINISTIC_CONTRACTS.md` (`:170`) | — | member byte-identical |
+
+No changed sentence alters a claim that an F_D disposition row rests on.
+- The rows rest on AXIOMATIC_CALCULUS §5, AC-015 and AC-016 (identical), on ODD §5 Probabilistic compute, §11.5D and §11.7A, on RELEASE Deterministic-kind migration (all unchanged), and on the deterministic contract examples (identical).
+- RELEASE §9's "RC" to "cut" widens the predecessor form to a stable cut. The migration record's old basis `v3.0.0-rc.1` is an immutable cut under either wording.
+- The binding does not cite EXECUTIVE_BASELINE §6 or §7.
+
+So there is no stop. M-2's calculus and assurance cites stand by construction. The Product's three cites (REFERENCE_FRAME §1, DESIGN_MODULE, SPEC_METHOD §11) are also unchanged. `verification.json`, under `cited_sections_3_0_1_to_3_0_2`, holds each cited section's SHA-256 and heading line in both cuts. It also holds the diffs of the changed cited sections and of the three cited whole members. The three uncited whole-member context diffs (ODD, RELEASE, SPEC_METHOD) are omitted, with their changed-line counts kept (TD-19).
+
+**Item 5: the runtime default library.** The span rule:
+- A span runs from the first byte of its first anchor's `## ` heading to the first byte of the next `## ` heading after its last anchor.
+- Proof first: at 3.0.1-rc.1 the rule reproduces D0's four executive spans exactly (boundaries `83537`/`89094`/`92075`/`96708`/`109201`) with their digests, and the assurance span `34042`–`63245`.
+- Fence-aware and raw `grep -b '^## '` give the same offsets.
+- The script is `scratchpad/s1/tools/spans.py`; its output is `scratchpad/s1/spans.out.json`.
+
+| `DEFAULT_LIBRARY_STDO_SOURCE` pin | Before (3.0.1-rc.1) | After (3.0.2) |
+|---|---|---|
+| `basisRef` | `stdo://releases/v3.0.1-rc.1/` | `stdo://releases/v3.0.2/` |
+| `manifestDigest` | `sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8` | `sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477` |
+| `manifest.byteCount` | 13792 | 14286 |
+| `members.executive.digest` | `sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e` | `sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a` |
+| `members.executive.byteCount` | 156797 | 157336 (+539) |
+| `members.assurance` | `5f6740a3…27ca`, 87324 | unchanged: `shasum -a 256` equal in both install roots, 87,324 bytes |
+| `spans.executive` (`8-derived-executive-frame`) | 83537–89094 | 84076–89633 |
+| `spans.worker` (`9-derived-worker-frame`) | 89094–92075 | 89633–92614 |
+| `spans.reviewer` (`10-derived-reviewer-frame`) | 92075–96708 | 92614–97247 |
+| `spans.specialists` (`11-derived-generic-specialist-frame-set`) | 96708–109201 | 97247–109740 |
+| every `spanDigest`, the testing span | — | unchanged: `beac5c3e…`, `41c60108…`, `fc549bf2…`, `6498d934…`, `4abfd834…` recomputed equal at 3.0.2 |
+
+The copies were made with `cp` from `/Users/jim/Library/Application Support/STDO/releases/v3.0.2/`, and `shasum -a 256` is equal on both sides:
+- `contracts/default-library/stdo/manifest.json`: `f7f3f824…4477`, 14,286 bytes;
+- `contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md`: `064eb55e…2f2a`, 157,336 bytes;
+- `ASSURANCE.md` unchanged.
+
+The build regenerated `contracts/default-library/stdo/context.inventory.json`. It moved from `3d716295…980b` to `169fb264ebeebb0c41e0b39cb250479287e856312b70a0f7430372ffe942a269`, 515 bytes. It lists the manifest at `f7f3f824…`, ASSURANCE at `5f6740a3…` and EXECUTIVE_BASELINE at `064eb55e…`.
+
+Test pins: `git grep -n 'v3.0.1-rc.1\|60356364' -- test_env` from the tenant root finds exactly D0's six sites. Each moved to the 3.0.2 value:
+- `test_env/support/stdo3-run-environment.mjs:7`, the basisRef, to `stdo://releases/v3.0.2/`;
+- `:8`, the manifest digest, to `sha256:f7f3f824…4477`;
+- `test_env/fixtures/registered-selection-product/native.mjs:8`, the frame locator, to `stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame`;
+- `t287-default-library:137`, the basisRef;
+- `:139`, the manifest digest;
+- `t287-stdo3-run-environment:110`, the mutation locator, to `stdo://releases/v3.0.2`.
+
+Six more pins of the same member moved with them (Deviation 1):
+- the member digest `fcef4346…` to `064eb55e…` at `stdo3-run-environment.mjs:10`, `native.mjs:13` and `t287-default-library:141`;
+- the spans at `native.mjs:14` (83537/89094 to 84076/89633), `t287-default-library:156-157` (the four role span sets as in the table) and `t287-stdo3-run-environment:122` (`[[84076,89633]]`).
+
+After the package, `git grep -E 'fcef4346|83537|89094|92075|96708|109201|156797|13792|60356364|v3\.0\.1'` over `test_env`, `code`, `scripts` and `contracts/default-library` matches only a hex substring inside the retained `test_env/proof/abi5-root-r10.events.jsonl`, which is not a pin and is unchanged.
+
+**Item 6: the qualification authorities.** Commands, in order, from the tenant root:
+1. `node scripts/generate-qualification-rule-catalog.mjs --stage-authorities /Users/jim/src/apps/abiogenesis "/Users/jim/Library/Application Support/STDO/releases/v3.0.2"`, rc 0;
+2. the plain regeneration, rc 0;
+3. a second plain run, rc 0. The four JSON files are byte-equal to the first run;
+4. a third plain run after the final build, byte-equal again.
+
+Counts: 95 sources, before and after; 2,096 rules before and 2,106 after; 16 coverage claims before and after; behavioral coverage 66 after (the before run's figure was not captured). Per source document, the rules move only for RELEASE (26 to 28) and bootstrap (25 to 33). 368 rule refs leave and 378 enter, because every ref carries its source's ref and digest. None of the 368 departing refs is named anywhere in `code`, `test_env`, `scripts` or the `contracts` outside `qualification`, and no Program declaration, export, script or lane names a rule ref.
+
+Every staged method document's digest equals its row in the installed 3.0.2 manifest. No unlisted file is under `sources/`. No `v3.0.1-rc.1` remains in `contracts/qualification/`. The method basis moves:
+- from `stdo://releases/v3.0.1-rc.1/` (manifest `60356364…`, member set `8b33f446…`);
+- to `stdo://releases/v3.0.2/` (manifest `f7f3f824…`, member set `644e5f6a…`).
+
+The staged copies that moved:
+
+| Source copy | Before | After |
+|---|---|---|
+| `EXECUTIVE_BASELINE.md` | `fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e`, 156,797 | `064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a`, 157,336 |
+| `IDENTITY.md` | `2e7026aeec957ebb9b1aa0b01ae76b81b4236f02db93b040f158eadf31f5e08b`, 29,002 | `c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08`, 29,087 |
+| `ODD.md` | `9580be6e6e0a5e6c4e378b9bb8bc60392d1e4e0e342f7350f3463ddf5e3b321c`, 126,569 | `06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9`, 126,573 |
+| `REFERENCE_FRAME.md` | `8152838639950b09389f99181172792100e4470b4807b4e112870cd4e6f6ba21`, 103,132 | `4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64`, 103,687 |
+| `RELEASE.md` | `1ec805a4acb60f7ce0d061cf4ba6656690500e27ae6756866eaafa34aad071e0`, 59,362 | `b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886`, 62,982 |
+| `SPEC_METHOD.md` | `b2773dc0c9feb429b6b357bcfd60e7df46e54db8adcb04dc8d6dbfa023b73677`, 148,117 | `06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e`, 148,190 |
+| `bootstrap.md` (`standards/frames/bootstrap.md`) | `cbf4a10e8d0b4ca2ab4a1f3ee28a85ffedc3298a0fba666949d9b091e82cc714`, 84,475 | `9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502`, 94,520 |
+| `PRODUCT.md` (repository) | `cfa1b2ecefc1b79810f4018837db419de053475a60868c3e1daad0f53594d03f`, 97,610 | `6b7266fadd990fc4bfa4c6dd134cb740c4fa7bfb18b62b1458c2a653f890e25e`, 97,704 |
+| `specification__requirements__README.md` (repository) | `20688da437ca6994a7bdb69ddbb64b7d1fbbadf7f586d1db9c4fcc9e9daf247c`, 8,846 | `ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b`, 8,953 |
+| `stdo_abiogenesis.json` (repository) | `1b3c14b29a1513475cd3ddcd9177e2749c98c1fa00a10d17007fb020b4ae2fb0`, 3,146 | `6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28`, 3,136 |
+
+Seven method copies moved because their members changed between the cuts. `AXIOMATIC_CALCULUS.md` stays at `b39c45fd…`, its ref rebound to `v3.0.2`. The three repository copies moved with this package's Definition and cite edits; the restage ran after the last specification edit. The other 85 copies are unchanged. Per regenerated file:
+
+| File | Before | After | Moved leaves |
+|---|---|---|---|
+| `contracts/qualification/authority-inputs.json` | `64e1f64802cb45fb6780d002d96f36cb7d423c870b61af89b6839158342a57a2`, 27,961 | `bd9e26b2f2590f8b03723021d0f702629249ae280a1a2e626e379882acb13a2b`, 27,911 | `definitionDigest`; `method.{releaseRef, methodVersion 3.0.1-rc.1→3.0.2, installedManifestDigest, memberSetDigest}`; 10 source digests and byte counts; 8 source refs |
+| `contracts/qualification/law-basis.json` | `098448a5c57612e6a3f63dd92e69e4117b9ee5fcc348345431fadd06265b4155`, 28,369 | `bed8e31c41b982f4ba33f0495d0fa1550fe875427f3590a9c3e1b05dd7bd86c3`, 28,319 | the same method leaves; `catalog.digest`; `lawBasisRef` and `lawBasisDigest` to `e682cf62…` |
+| `contracts/qualification/rule-catalog.json` | `b3f01811d9eb7f80aaa510404c2c6beea4e168d890f06b82fc7e34e976a5ee87`, 1,760,800 | `ef77e5a71fdb1262ad2c1ddd783941c6c7f1500acf1eeb68161e206c1f0d68eb`, 1,767,172 | rules 2,096 → 2,106 |
+| `contracts/qualification/coverage.json` | `b2c8e9c2c9d3f7641286c138c9e0346a0cfa5d0a2f6cce32a9e03714127932cc`, 11,476 | `05c8c3dcc75f2cb9673ca4e29758862c4f0e124cc01b46450a84fffb4ba98073`, 11,476 | the PRODUCT authority source, `lawBasis`, `catalogRef`/`catalogDigest` |
+| `contracts/schemas/self-conformance.schema.json` | `28663643…f446` | unchanged | — |
+
+**Item 7: the fixture.** I ran `node scripts/refresh-candidate-basis.mjs` once, rc 0. It ran on the final tree, after the final `npm run build` and before the after pass. `test_env/fixtures/abi5-root-candidate-basis.json` moved from `407a43ad…d1ed` to `988107e2…c282`, 515 bytes. Its three moved fields:
+- `artifactDigest`: `sha256:e3da55ed2548a235b126c8ea8b6df72da911ee31e55489360ce72f55b84b3919` to `sha256:16d76c4f8ec3f3f960e96a11f9aa7c523a5b54947b8ad0affe8e328727c82a2b`;
+- `productContentDigest`: `sha256:5376439b990670a71e475d103a4d9d5259afe6c8daecae32f2c0c4decafb4edd` to `sha256:db24dc1efa29e4f89bbc36eee1e8b35458f1df42e5950e84fff07e728ace5471`;
+- `manifestDigest`: `sha256:65431343bfcbf7fbc0b5fb2f63f303ae923e259e4295de987b695981d8fcc5b7` to `sha256:1be28ffd1b2adec69d356336762d929e260c638e7b5edf38154df37d34901d5d`.
+
+**Item 8: U1-b's carried clause.** At `code/src/abg/default_library.ts:235` the `uat` producer instruction now reads, in full at the clause: "Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is carried whole, nothing withheld. Reacquire all mandatory selected source and assessment material through the declared reads."
+
+The lane's `PRODUCER` literal at `test_env/tests/t287-default-library.test.mjs:791` moved with it, the same one-clause replacement. Each file had exactly one occurrence of the old clause and now has one of the new. `git grep 'withheld silently'` over `code`, `test_env`, `contracts` and `design` finds nothing. The comment at `:233` and every other byte of both files except item 5's pins are unchanged.
+
+**Lanes.** The after set has 179 lanes, including the two uat lanes, plus the compose scenario. Its sources:
+- 152 lanes whose `scratchpad/r2b/loadmap/<lane>.txt` lists `code/src/gtl/default_library.ts` or `code/src/abg/default_library.ts`;
+- the map's 38 `unbounded` and `installed_route` lanes;
+- the 49 lanes that `git grep -l -E 'default-library|qualification' -- test_env/tests test_env/uat` names among `*.test.mjs`;
+- the five candidate basis consumers;
+- `t287-default-library`, `t287-default-library-fulfillment`, `t287-stdo3-run-environment` and the two uat lanes.
+
+The sources overlap; their union is 179. The list is `scratchpad/s1/after-set.txt`.
+
+Each lane ran alone with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`, `--test-concurrency=1` and `--test-timeout=600000`, without the recorder, on the final built tree after the fixture refresh. That took 4,387 s of lane wall time.
+
+The before column, by the activation's order: U1-b's after column for 170 lanes, R2-c's for `r1`, `r2` and `r3`, and R2-b's for the other six lanes named in Deviation 2. Those nine base-build runs equal their columns.
+
+Totals: before 1,166/998/2/166, after 1,166/998/2/166. No lane moved; every lane is equal to its column.
+
+The compose scenario (`ABI5_CALCULUS_CASES=compose`, `t287-calculus-state-transfer`, `real admitted compose`) is 2/2/0/0, equal to U1-b's 2/2/0/0.
+
+| Named lane | Before (column) | After |
+|---|---|---|
+| `t287-default-library` | 21/18/0/3 (U1-b) | 21/18/0/3 |
+| `t287-default-library-fulfillment` | 7/7/0/0 (U1-b) | 7/7/0/0 |
+| `t287-stdo3-run-environment` | 5/5/0/0 (U1-b) | 5/5/0/0 |
+| `r1-packed-artifact` | 1/1/0/0 (R2-c) | 1/1/0/0 |
+| `r2-clean-install` | 1/1/0/0 (R2-c) | 1/1/0/0 |
+| `r3-workspace-binding` | 1/1/0/0 (R2-c) | 1/1/0/0 |
+| `steel-basic-cli-public` | 1/1/0/0 (U1-b) | 1/1/0/0 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 (U1-b) | 5/2/0/3 |
+| `uat-harness` | 34/31/0/3 (U1-b) | 34/31/0/3 |
+| `uat-continuation` | 4/0/0/4 (U1-b) | 4/0/0/4 |
+
+The standing red is the one red lane, `t287-st2a-g-capability-definition-graph`, 4/2/2/0, equal to U1-b's 4/2/2/0. Its failing tests and first error lines:
+- "ST-2A-G publishes one exact immutable capability graph": `AssertionError [ERR_ASSERTION]: missing capability projection for abg.asset.gtl.language-conformance-corpus` (`t287-st2a-g-capability-definition-graph.test.mjs:260`);
+- "ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and manifests": `AssertionError [ERR_ASSERTION]: Expected values to be strictly equal` (actual `abg.contract.product.verification`, expected `null`).
+
+Skips: 166. Each skip names its input or selector (`ABI5_*`, `ABG_*`, `P0_*`, `T287_*`, `W2_*` unset, or a `*_LIVE` selector not `1`). The exception is `uat-harness`'s three bare `# SKIP` tests:
+- "One authentic cold read supplies caller artifact/environment/read preparation without another physical decode";
+- "Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations";
+- "Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT".
+
+Those are the column's 34/31/0/3. `t287-default-library`'s three skips are `ABI5_PLANNING_PROJECTION_CAPTURE`, `ABI5_NATIVE_OBSERVATION_CAPTURE` and `ABI5_DEFAULT_LIBRARY_LIVE`. The per-lane skip census is `scratchpad/s1/lanes/after-skips.txt`.
+
+Every lane in the set:
+
+| Lane | Before | After |
+|---|---|---|
+| `a5-f02-canonical-gtl-identity` | 7/7/0/0 | 7/7/0/0 |
+| `d1-preserved-result-mechanics` | 2/2/0/0 | 2/2/0/0 |
+| `d2-acknowledgment` | 3/3/0/0 | 3/3/0/0 |
+| `d2-binding-query-reuse` | 7/7/0/0 | 7/7/0/0 |
+| `d2-binding-transition` | 10/10/0/0 | 10/10/0/0 |
+| `d2-bounded-repair` | 10/10/0/0 | 10/10/0/0 |
+| `d2-evidence-owner-lookup` | 5/5/0/0 | 5/5/0/0 |
+| `d2-historical-design` | 13/13/0/0 | 13/13/0/0 |
+| `d2-workflow-step` | 8/8/0/0 | 8/8/0/0 |
+| `forward-command-contracts` | 10/10/0/0 | 10/10/0/0 |
+| `forward-command-owners` | 6/6/0/0 | 6/6/0/0 |
+| `generic-input-retention` | 4/4/0/0 | 4/4/0/0 |
+| `hello-product-boundary` | 1/1/0/0 | 1/1/0/0 |
+| `hog-operator-support` | 3/3/0/0 | 3/3/0/0 |
+| `installed-language-smoke` | 1/1/0/0 | 1/1/0/0 |
+| `integration-shared-seams` | 2/2/0/0 | 2/2/0/0 |
+| `m5-c-algebra-validation` | 22/19/0/3 | 22/19/0/3 |
+| `m5-consensus-module` | 17/17/0/0 | 17/17/0/0 |
+| `m5-event-calculus-runtime` | 19/18/0/1 | 19/18/0/1 |
+| `m5-event-store-reopen` | 21/21/0/0 | 21/21/0/0 |
+| `m5-installed-graph-edge` | 1/1/0/0 | 1/1/0/0 |
+| `m5-installed-portability` | 8/8/0/0 | 8/8/0/0 |
+| `m5-retry-lifecycle-authority` | 7/7/0/0 | 7/7/0/0 |
+| `m5-s03-authority` | 5/5/0/0 | 5/5/0/0 |
+| `m5-s06-prime` | 49/49/0/0 | 49/49/0/0 |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 | 7/7/0/0 |
+| `m5-worker-transport` | 23/23/0/0 | 23/23/0/0 |
+| `r1-packed-artifact` | 1/1/0/0 | 1/1/0/0 |
+| `r10-child-proof` | 10/10/0/0 | 10/10/0/0 |
+| `r10-projection-contracts` | 11/11/0/0 | 11/11/0/0 |
+| `r2-clean-install` | 1/1/0/0 | 1/1/0/0 |
+| `r3-workspace-binding` | 1/1/0/0 | 1/1/0/0 |
+| `r4-catalog-admission` | 6/6/0/0 | 6/6/0/0 |
+| `retained-route-cursor-transition` | 1/1/0/0 | 1/1/0/0 |
+| `steel-basic-cli-c2` | 6/0/0/6 | 6/0/0/6 |
+| `steel-basic-cli-projection` | 1/0/0/1 | 1/0/0/1 |
+| `steel-basic-cli-public` | 1/1/0/0 | 1/1/0/0 |
+| `steel-basic-cli-source-replay` | 2/0/0/2 | 2/0/0/2 |
+| `steel-consumer-authority` | 1/0/0/1 | 1/0/0/1 |
+| `steel-consumer-declaration` | 1/0/0/1 | 1/0/0/1 |
+| `t287-authenticated-owner-family` | 1/0/0/1 | 1/0/0/1 |
+| `t287-authenticated-owner-values` | 3/2/0/1 | 3/2/0/1 |
+| `t287-c0-correction-regressions` | 4/4/0/0 | 4/4/0/0 |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | 31/31/0/0 |
+| `t287-c2-child-program` | 4/4/0/0 | 4/4/0/0 |
+| `t287-c2-core-environment` | 3/3/0/0 | 3/3/0/0 |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 | 4/4/0/0 |
+| `t287-calculus-fold` | 18/18/0/0 | 18/18/0/0 |
+| `t287-cold-record-decoder` | 3/2/0/1 | 3/2/0/1 |
+| `t287-common-computational-library` | 17/17/0/0 | 17/17/0/0 |
+| `t287-conformance-owner-reuse` | 1/0/0/1 | 1/0/0/1 |
+| `t287-consensus-ref-shape` | 2/2/0/0 | 2/2/0/0 |
+| `t287-continuation-causation` | 1/1/0/0 | 1/1/0/0 |
+| `t287-cross-cut-public-read` | 5/5/0/0 | 5/5/0/0 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | 5/2/0/3 |
+| `t287-d1-semantic-stage` | 3/1/0/2 | 3/1/0/2 |
+| `t287-declared-testing-capability` | 7/3/0/4 | 7/3/0/4 |
+| `t287-default-library` | 21/18/0/3 | 21/18/0/3 |
+| `t287-default-library-fulfillment` | 7/7/0/0 | 7/7/0/0 |
+| `t287-deferred-application-restoration` | 2/0/0/2 | 2/0/0/2 |
+| `t287-environment-projection-conservation` | 1/0/0/1 | 1/0/0/1 |
+| `t287-event-body-encoding` | 14/14/0/0 | 14/14/0/0 |
+| `t287-event-calculus-owner-continuation` | 1/0/0/1 | 1/0/0/1 |
+| `t287-exact-construction-intent` | 1/1/0/0 | 1/1/0/0 |
+| `t287-exact-prefix-projection-reuse` | 2/1/0/1 | 2/1/0/1 |
+| `t287-f04a-probabilistic-result-candidate` | 2/2/0/0 | 2/2/0/0 |
+| `t287-f09-frontier-handoff` | 1/1/0/0 | 1/1/0/0 |
+| `t287-generic-job-intake` | 2/1/0/1 | 2/1/0/1 |
+| `t287-generic-job-lifecycle` | 1/0/0/1 | 1/0/0/1 |
+| `t287-generic-job-meaning` | 5/3/0/2 | 5/3/0/2 |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 | 1/0/0/1 |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | 2/1/0/1 |
+| `t287-generic-job-revision` | 4/1/0/3 | 4/1/0/3 |
+| `t287-generic-job-worksite` | 9/9/0/0 | 9/9/0/0 |
+| `t287-governance-covered-source-use` | 9/3/0/6 | 9/3/0/6 |
+| `t287-gtl-graph-law` | 9/9/0/0 | 9/9/0/0 |
+| `t287-gtl-language-corpus` | 3/3/0/0 | 3/3/0/0 |
+| `t287-gtl-serialization-publication` | 9/9/0/0 | 9/9/0/0 |
+| `t287-held-prefix` | 6/0/0/6 | 6/0/0/6 |
+| `t287-historical-source-resource` | 4/4/0/0 | 4/4/0/0 |
+| `t287-installed-dependency-lock` | 2/0/0/2 | 2/0/0/2 |
+| `t287-installed-product-coordinate` | 11/11/0/0 | 11/11/0/0 |
+| `t287-installed-qualification-conservation` | 1/0/0/1 | 1/0/0/1 |
+| `t287-interrupted-event-resource-recovery` | 8/8/0/0 | 8/8/0/0 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | 5/5/0/0 |
+| `t287-malformed-gtl-gate` | 6/6/0/0 | 6/6/0/0 |
+| `t287-management-context` | 14/12/0/2 | 14/12/0/2 |
+| `t287-management-stream-drain` | 8/4/0/4 | 8/4/0/4 |
+| `t287-management-supervision` | 5/5/0/0 | 5/5/0/0 |
+| `t287-multi-candidate-admission` | 75/75/0/0 | 75/75/0/0 |
+| `t287-native-assembly-retained-input` | 1/0/0/1 | 1/0/0/1 |
+| `t287-native-assessment-evidence` | 4/4/0/0 | 4/4/0/0 |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | 1/1/0/0 |
+| `t287-native-event-time` | 5/2/0/3 | 5/2/0/3 |
+| `t287-native-frame-observation` | 7/1/0/6 | 7/1/0/6 |
+| `t287-native-owner-reuse` | 3/0/0/3 | 3/0/0/3 |
+| `t287-native-registered-selection` | 1/0/0/1 | 1/0/0/1 |
+| `t287-native-runtime-gate` | 7/6/0/1 | 7/6/0/1 |
+| `t287-native-selection-profile-scope` | 4/4/0/0 | 4/4/0/0 |
+| `t287-native-semantic-evidence` | 1/0/0/1 | 1/0/0/1 |
+| `t287-native-semantic-job` | 9/9/0/0 | 9/9/0/0 |
+| `t287-native-semantic-revision` | 7/7/0/0 | 7/7/0/0 |
+| `t287-native-structural-gates` | 9/9/0/0 | 9/9/0/0 |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 | 6/6/0/0 |
+| `t287-native-work-reacquisition` | 9/6/0/3 | 9/6/0/3 |
+| `t287-native-work-reacquisition-normalization` | 2/1/0/1 | 2/1/0/1 |
+| `t287-native-work-unknown-effect` | 10/10/0/0 | 10/10/0/0 |
+| `t287-native-worksite-execution` | 6/3/0/3 | 6/3/0/3 |
+| `t287-native-workspace-work` | 38/37/0/1 | 38/37/0/1 |
+| `t287-observed-worksite-command` | 8/8/0/0 | 8/8/0/0 |
+| `t287-ordered-reconstruction` | 7/4/0/3 | 7/4/0/3 |
+| `t287-owned-native-proof` | 1/0/0/1 | 1/0/0/1 |
+| `t287-owned-process-lifetime` | 18/18/0/0 | 18/18/0/0 |
+| `t287-pfc-f08a-product-verification-boundary` | 1/1/0/0 | 1/1/0/0 |
+| `t287-post-binding-worksite-write` | 2/2/0/0 | 2/2/0/0 |
+| `t287-predecessor-context` | 3/0/0/3 | 3/0/0/3 |
+| `t287-public-groups` | 3/3/0/0 | 3/3/0/0 |
+| `t287-public-preparation` | 6/6/0/0 | 6/6/0/0 |
+| `t287-public-terminal-projection` | 4/0/0/4 | 4/0/0/4 |
+| `t287-qual056-material` | 7/7/0/0 | 7/7/0/0 |
+| `t287-qualification-carrier-resource` | 7/0/0/7 | 7/0/0/7 |
+| `t287-qualification-contraction` | 4/4/0/0 | 4/4/0/0 |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | 1/0/0/1 |
+| `t287-qualification-law` | 8/4/0/4 | 8/4/0/4 |
+| `t287-qualification-parent-alias` | 1/0/0/1 | 1/0/0/1 |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/0/1 | 1/0/0/1 |
+| `t287-qualification-producer-context` | 4/4/0/0 | 4/4/0/0 |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | 1/0/0/1 |
+| `t287-qualification-scopes` | 17/17/0/0 | 17/17/0/0 |
+| `t287-r4-aba-retry` | 1/1/0/0 | 1/1/0/0 |
+| `t287-r6-retry-success-exit` | 1/1/0/0 | 1/1/0/0 |
+| `t287-reacquisition-root-contract` | 2/1/0/1 | 2/1/0/1 |
+| `t287-reconstruction-conservation` | 2/0/0/2 | 2/0/0/2 |
+| `t287-recursive-registered-selection` | 4/3/0/1 | 4/3/0/1 |
+| `t287-registered-graph-selection` | 1/1/0/0 | 1/1/0/0 |
+| `t287-release-acceptance` | 6/6/0/0 | 6/6/0/0 |
+| `t287-release-publication` | 6/5/0/1 | 6/5/0/1 |
+| `t287-required-operation-bindings` | 7/7/0/0 | 7/7/0/0 |
+| `t287-result-evidence-lineage-projection` | 1/1/0/0 | 1/1/0/0 |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 | 1/1/0/0 |
+| `t287-retained-installed-consumer` | 1/0/0/1 | 1/0/0/1 |
+| `t287-retry-run-prefix` | 3/0/0/3 | 3/0/0/3 |
+| `t287-route-reconstruction` | 13/11/0/2 | 13/11/0/2 |
+| `t287-runtime-activity-quiescence` | 1/1/0/0 | 1/1/0/0 |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 | 21/21/0/0 |
+| `t287-s03-automatic` | 2/0/0/2 | 2/0/0/2 |
+| `t287-selected-action` | 1/0/0/1 | 1/0/0/1 |
+| `t287-selected-action-authority` | 3/2/0/1 | 3/2/0/1 |
+| `t287-selected-execution-closure` | 1/0/0/1 | 1/0/0/1 |
+| `t287-st1-installed-cross-owner-hello` | 2/2/0/0 | 2/2/0/0 |
+| `t287-st2a-g-capability-definition-graph` | 4/2/2/0 | 4/2/2/0 |
+| `t287-static-declaration-closure` | 11/10/0/1 | 11/10/0/1 |
+| `t287-stdo-environment-citation` | 2/0/0/2 | 2/0/0/2 |
+| `t287-stdo-run-environment` | 2/0/0/2 | 2/0/0/2 |
+| `t287-stdo3-run-environment` | 5/5/0/0 | 5/5/0/0 |
+| `t287-undispatched-diagnostic` | 7/7/0/0 | 7/7/0/0 |
+| `t287-value-equality` | 5/5/0/0 | 5/5/0/0 |
+| `t287-w2-05-generator-package-reproducibility` | 2/2/0/0 | 2/2/0/0 |
+| `t287-w2-05-release-snapshot-definition-bindings` | 1/1/0/0 | 1/1/0/0 |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | 5/3/0/2 |
+| `t287-wave2-installed-product-verification` | 2/2/0/0 | 2/2/0/0 |
+| `t287-wave2-owner-chain` | 2/2/0/0 | 2/2/0/0 |
+| `t287-wave2-owner-contract-source-set` | 15/15/0/0 | 15/15/0/0 |
+| `t287-worksite-branch-construction` | 2/2/0/0 | 2/2/0/0 |
+| `t287-worksite-command-execution` | 10/10/0/0 | 10/10/0/0 |
+| `t287-worksite-construction` | 3/3/0/0 | 3/3/0/0 |
+| `t288-initial-cursor-entry` | 1/1/0/0 | 1/1/0/0 |
+| `t288-instruction-assembly-owner` | 6/4/0/2 | 6/4/0/2 |
+| `t288-logical-prefix-digest` | 2/0/0/2 | 2/0/0/2 |
+| `t289-install-event-bodies` | 4/0/0/4 | 4/0/0/4 |
+| `t291-m6-admission-refusal-surface` | 5/5/0/0 | 5/5/0/0 |
+| `uat-continuation` | 4/0/0/4 | 4/0/0/4 |
+| `uat-harness` | 34/31/0/3 | 34/31/0/3 |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | 2/0/0/2 |
+| `w2-steel-single-start` | 8/7/0/1 | 8/7/0/1 |
+| `w2-steel-single-start-closure` | 8/0/0/8 | 8/0/0/8 |
+| `w2-steel-single-start-installed` | 1/0/0/1 | 1/0/0/1 |
+| `witness-reprice-definition-binding` | 15/15/0/0 | 15/15/0/0 |
+| `witness-run-stopped-definition-binding` | 7/7/0/0 | 7/7/0/0 |
+
+**Gates** on the final tree, from the tenant root:
+- `tsc -p tsconfig.json --noEmit`: 0.
+- `tsc --noUnusedLocals`: 1 error, `code/src/product/worksite_command_execution.ts(74,7)` `BASE64_PATTERN`, R3's. It is the only one.
+- `lint:imports`, `lint:lifecycle`, `lint:evidence` and `lint:calculus`: all 0.
+- `npm run build`: 0. The qualification plain regeneration after it is byte-equal.
+- After the build, `git status` on the named paths lists exactly the files this commit stages.
+
+The build regenerated three files:
+- `contracts/default-library/stdo/context.inventory.json`: as in item 5.
+- `product-toolchain-manifest.json`: `e691772a…d02e` to `edeb9bf7…c0e2`, 3,273,847 bytes, 140 leaves moved:
+  - the product content digest `5376439b…` to `db24dc1e…`, with the descriptor, provenance and contribution-manifest refs derived from it (47 provenance rows);
+  - the public contract catalog digest `ee98eab9…` to `6f245aa6…`;
+  - 22 public contract rows' `contractDigest`: the rule-catalog asset row (with its `assetLocator.contentDigest`) to `ef77e5a7…`, and 21 native-typed contract rows whose digest covers the declaration inventory below;
+  - the capability-definition graph digest `c7f85747…` to `8707a931…`;
+  - 10 publication binding digests;
+  - 47 `declarationInventory` rows for one declaration, `build/code/src/gtl/default_library.d.ts`, from `e816e382…` to `86b94256…`. The `as const` literal type carries the moved pins: D0's finding 4, the M-4 class. No export name changes.
+- `contracts/capabilities/capability-definition-graph.json`: `15e1ab5d…cfc8` to `4a3c4da4…52d9`, 197,474 bytes, 551 leaves moved. These are the same product-content and catalog digests: 241 + 241 owning-contract rows, 16 capability definition refs and digests, and 18 dependent refs.
+
+**Deviations.**
+1. **Six test pins beyond item 5's grep moved with the member.** They are the member digest at `test_env/support/stdo3-run-environment.mjs:10`, `test_env/fixtures/registered-selection-product/native.mjs:13` and `t287-default-library:141`, and the span offsets at `native.mjs:14`, `t287-default-library:156-157` and `t287-stdo3-run-environment:122`.
+   - D0 never moved these, because EXECUTIVE_BASELINE was byte-identical from 3.0.0 to 3.0.1. At 3.0.2 it is not.
+   - Without them, `t287-stdo3-run-environment` and `t287-default-library` fail on the member digest and the spans, so the exit's `t287-default-library` 21/18/0/3 cannot hold.
+   - This is D0's accepted Deviation 1, "the digest lines move with their locators". No assertion's form changed, only its 3.0.2 value.
+2. **I ran nine lanes on the base build before any edit.** They are the after-set lanes that U1-b's column does not table: `r1-packed-artifact`, `r2-clean-install`, `r3-workspace-binding`, `t287-authenticated-owner-family`, `t287-conformance-owner-reuse`, `t287-installed-dependency-lock`, `t287-qualification-producer-acquisition-reuse`, `t287-selected-execution-closure` and `t287-wave2-owner-contract-source-set`.
+   - Each equals its R2-c or R2-b column value: 1/1/0/0 for the three packed lanes, 15/15/0/0 for `wave2-owner-contract-source-set`, and skips for the rest.
+   - The before column stays the activation's. The base run only confirms it for those nine at the base tree.
+3. **GOALS was restated additively.** The 2026-10-25 owner-selection paragraph is a dated historical fact, so I kept it and placed a 2026-10-27 paragraph above it, in its words. This is the form M-1 used for 2026-10-25 over 2026-10-21. GOAL-035's status cell is a census occurrence, and I restated it.
+4. **The after set's path grep also matched four non-lane files.** `git grep -l -E 'default-library|qualification' -- test_env/tests test_env/uat` matched `test_env/tests/r10-retained-hello-projection.mjs`, `test_env/uat/consumer.mjs`, `test_env/uat/public-setup.mjs` and `test_env/uat/README.md`. They are support files, not lanes, and are not in the set. Their consumers are in it.
+5. **One listing under `.ai-workspace/`.** After populating the record directory, I listed it once by its exact path (`ls -la` on `.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION`) to check the seven files. That is a listing the rules forbid. It touched only the directory this package created, and nothing else under `.ai-workspace/` was listed or walked.
+
+**Findings outside the grant.**
+1. **The activation places the added EXECUTIVE_BASELINE paragraph in §7.** It is under `### Product-chain basis` in §6, Executive attention, evaluation and action, at 3.0.2 lines 707–714. §7 is unchanged. The effect is the same: it sits before §8, so the span digests are equal.
+2. **Binding `:189` carries a stale sentence:** "The runtime default-library snapshot keeps the old basis until T-287 D0." D0 moved the snapshot at `529ffa0f6`, and S1 moves it again. It is not a cite, so it stands; the Executive owns its restatement.
+3. **The activation's member summary of the standards diff omits several changed members.** The installed cuts also differ in `CONFORMANCE.md`, `FOUNDATIONS.md`, `GLOSSARY.md`, `PRODUCT_DEFINITION.md`, `standards/README.md` and 13 `frames/*` members.
+   - Of these, only `FOUNDATIONS.md` is cited. Its one added sentence is outside the cited anchors (item 4).
+   - The 3.0.2 PRODUCT_DEFINITION carries the new composition contract (§9, PC-03–PC-05), which the added EXECUTIVE_BASELINE and REFERENCE_FRAME paragraphs cite. The Definition's `composition` is empty, and S1 takes no action on it.
+4. **`gtl/default_library.d.ts` text moves whenever the source declaration's values move.** The `as const` literal types carry them. This is D0's finding 4. It moves 47 declaration-inventory rows in the toolchain manifest.
+
+**Stops.** None. Item 4's diff altered no sentence under an F_D row, so no anchor needed re-pointing and no cite stop fired.
+
+**What could not be verified.**
+- The public release: the tag, the GitHub Latest marking and the manifest asset against the installed manifest. S1 uses no network. The selection rests on the Executive's digest-bound install (`stdo list`, `stdo status --verify`) and the store's manifest `f7f3f824…`.
+- Semantic conformance of the citing text to 3.0.2 beyond the cited sections compared in item 4.
+- That lanes outside the after set are unaffected. The whole suite was not run (D5-a's).

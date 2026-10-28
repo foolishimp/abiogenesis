@@ -1249,13 +1249,13 @@ analogy; the product definition is the source project's present-tense
 surface, not the released artifact and not the builder that happens to be
 running the build (P3).
 
-The only exact operative release identifier is the immutable release-cut
-tag `v<version>-rc.<n>` (P3). That cut is a
+The only exact operative release identifier is an immutable release-cut
+tag under the selected [RELEASE profile](RELEASE.md#2-release-identities):
+an RC cut or an explicit stable cut (P3). That cut is a
 point-in-time release identity, a boundary over the feature set accepted
 for that cut, and part of release metadata and release-process evaluation;
-it is not part of the live project specification. The mutable `v<version>`
-tag is a version-line discovery selector to the highest-ordinal published
-immutable cut; it is not an exact dependency, evidence or constitutional
+it is not part of the live project specification. On an RC line the mutable
+`v<version>` tag is a discovery selector to the highest published ordinal; it is not an exact dependency, evidence or constitutional
 basis and cannot silently change a consumer selection. How an active
 constitutional surface uses version labels is the
 [§2 Specification surface rule](#specification-surface-rule); shared

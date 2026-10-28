@@ -705,6 +705,14 @@ P6).
 
 ### Product-chain basis
 
+Capability composition, including recursive and shared constituents, applies
+[PRODUCT_DEFINITION §9](PRODUCT_DEFINITION.md#product-composition-contract).
+Select the outcome-owning frame and the actual dependency-ready work; retain
+path-specific authority and material far-side reliance. A cycle in Product
+relations is not itself a work deadlock, and naming a lead supplies no missing
+current prerequisite. An enclosing Product is not required for a constituent's
+scoped standalone entry when its declared dependencies suffice (P3, P6).
+
 A governed outcome may concern one Product or an explicit directed chain of
 Products. Its basis records the distinct role of every mutable Source
 Project, current Product Definition, exact candidate checkpoint, Release

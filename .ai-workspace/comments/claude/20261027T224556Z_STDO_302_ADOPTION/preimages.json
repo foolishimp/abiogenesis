@@ -1,0 +1,273 @@
+{
+  "head": "e5ab7f959d3ee5e377569b216f4a5df32067832b",
+  "observed_at": "2026-10-27T22:46:15.223893+00:00",
+  "copies": "none (TD-19): digests and blob ids only",
+  "paths": {
+    "stdo_abiogenesis.json": {
+      "type": "file",
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "blob": "626639c0c66ae99a57e12d20074f53ccdffd01cb",
+      "bytes": 3136,
+      "worktree_equals_head": false,
+      "head_sha256": "1b3c14b29a1513475cd3ddcd9177e2749c98c1fa00a10d17007fb020b4ae2fb0",
+      "head_blob": "baef940ce956fa920bd2e1bb6416037f7aaec55b",
+      "head_bytes": 3146
+    },
+    "AGENTS.md": {
+      "type": "file",
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "blob": "766ae37f79de146cd51195cffc12f01ecc056ce8",
+      "bytes": 11923,
+      "worktree_equals_head": true,
+      "head_sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "head_blob": "766ae37f79de146cd51195cffc12f01ecc056ce8",
+      "head_bytes": 11923
+    },
+    "CLAUDE.md": {
+      "type": "file",
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "blob": "c591b56aa518c8cae370b3707827ecf0a179716b",
+      "bytes": 5297,
+      "worktree_equals_head": true,
+      "head_sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "head_blob": "c591b56aa518c8cae370b3707827ecf0a179716b",
+      "head_bytes": 5297
+    },
+    "specification/PRODUCT.md": {
+      "type": "file",
+      "sha256": "cfa1b2ecefc1b79810f4018837db419de053475a60868c3e1daad0f53594d03f",
+      "blob": "439d249ccde1c936464d335e7bbe50af84be04a9",
+      "bytes": 97610,
+      "worktree_equals_head": true,
+      "head_sha256": "cfa1b2ecefc1b79810f4018837db419de053475a60868c3e1daad0f53594d03f",
+      "head_blob": "439d249ccde1c936464d335e7bbe50af84be04a9",
+      "head_bytes": 97610
+    },
+    "specification/GOALS.md": {
+      "type": "file",
+      "sha256": "aaa632c5376b18263b1a06ae8d55e6aab218cda152b3e43c53a8352ceea40e55",
+      "blob": "ec51cff5e14e0de357f1be3387c68dfe9cc76a74",
+      "bytes": 84835,
+      "worktree_equals_head": true,
+      "head_sha256": "aaa632c5376b18263b1a06ae8d55e6aab218cda152b3e43c53a8352ceea40e55",
+      "head_blob": "ec51cff5e14e0de357f1be3387c68dfe9cc76a74",
+      "head_bytes": 84835
+    },
+    "specification/requirements/README.md": {
+      "type": "file",
+      "sha256": "20688da437ca6994a7bdb69ddbb64b7d1fbbadf7f586d1db9c4fcc9e9daf247c",
+      "blob": "1bb953c42d278348f4984d745b07744934ef13cd",
+      "bytes": 8846,
+      "worktree_equals_head": true,
+      "head_sha256": "20688da437ca6994a7bdb69ddbb64b7d1fbbadf7f586d1db9c4fcc9e9daf247c",
+      "head_blob": "1bb953c42d278348f4984d745b07744934ef13cd",
+      "head_bytes": 8846
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md": {
+      "type": "file",
+      "sha256": "977831645b11b3be0d93784550ac6b172b98afad816c725039200144200e404f",
+      "blob": "f1dd99487b7fce6d892eea34bbadba5cb0a41225",
+      "bytes": 27171,
+      "worktree_equals_head": true,
+      "head_sha256": "977831645b11b3be0d93784550ac6b172b98afad816c725039200144200e404f",
+      "head_blob": "f1dd99487b7fce6d892eea34bbadba5cb0a41225",
+      "head_bytes": 27171
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md": {
+      "type": "file",
+      "sha256": "ea588099cf04f1c173f74c33d6bcfe555fa433f450aa8c70ce82505482daffc1",
+      "blob": "e637d15523f153def98b79eb73e991cd57e00007",
+      "bytes": 100870,
+      "worktree_equals_head": true,
+      "head_sha256": "ea588099cf04f1c173f74c33d6bcfe555fa433f450aa8c70ce82505482daffc1",
+      "head_blob": "e637d15523f153def98b79eb73e991cd57e00007",
+      "head_bytes": 100870
+    },
+    "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md": {
+      "type": "file",
+      "sha256": "c17b4c81368f22e1ad80e39f0e580103a15f9671ac3561cb352c77faa5b060f6",
+      "blob": "6b6c37b89f78a4c6d57839cfd5aa78d0ad1d99b1",
+      "bytes": 133276,
+      "worktree_equals_head": true,
+      "head_sha256": "c17b4c81368f22e1ad80e39f0e580103a15f9671ac3561cb352c77faa5b060f6",
+      "head_blob": "6b6c37b89f78a4c6d57839cfd5aa78d0ad1d99b1",
+      "head_bytes": 133276
+    },
+    "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts": {
+      "type": "file",
+      "sha256": "5fb7a34ba16cf876f333aaaf413ba7aeb819e899ca00f35c3a2610918e32f42a",
+      "blob": "2974a40f5eb8baa3b200fa4d35e5de38012efe3d",
+      "bytes": 20551,
+      "worktree_equals_head": true,
+      "head_sha256": "5fb7a34ba16cf876f333aaaf413ba7aeb819e899ca00f35c3a2610918e32f42a",
+      "head_blob": "2974a40f5eb8baa3b200fa4d35e5de38012efe3d",
+      "head_bytes": 20551
+    },
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts": {
+      "type": "file",
+      "sha256": "e08625fdd50d28976b42df1339f19c92a6c9c8065418f798de16103f62d35b03",
+      "blob": "9ccf30c3dcce9bd39a856da2f01dd9575167df67",
+      "bytes": 41524,
+      "worktree_equals_head": true,
+      "head_sha256": "e08625fdd50d28976b42df1339f19c92a6c9c8065418f798de16103f62d35b03",
+      "head_blob": "9ccf30c3dcce9bd39a856da2f01dd9575167df67",
+      "head_bytes": 41524
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json": {
+      "type": "file",
+      "sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "blob": "f728e66c0e12af626c5986cbaf272e5bc69b1521",
+      "bytes": 13792,
+      "worktree_equals_head": true,
+      "head_sha256": "60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+      "head_blob": "f728e66c0e12af626c5986cbaf272e5bc69b1521",
+      "head_bytes": 13792
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md": {
+      "type": "file",
+      "sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "blob": "135b48ee008ff7e7dc495aaeb33ac97105408507",
+      "bytes": 156797,
+      "worktree_equals_head": true,
+      "head_sha256": "fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
+      "head_blob": "135b48ee008ff7e7dc495aaeb33ac97105408507",
+      "head_bytes": 156797
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/ASSURANCE.md": {
+      "type": "file",
+      "sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "blob": "29f287c99009a16a9523efa8942c1aa0144cd62e",
+      "bytes": 87324,
+      "worktree_equals_head": true,
+      "head_sha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "head_blob": "29f287c99009a16a9523efa8942c1aa0144cd62e",
+      "head_bytes": 87324
+    },
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json": {
+      "type": "file",
+      "sha256": "3d716295ff49d9371ec3675a7fdd5288364fc723dbcbedfb0643ba54c3dd980b",
+      "blob": "c819bc62d6b0886b93fe75aac935a2d721b42a56",
+      "bytes": 515,
+      "worktree_equals_head": true,
+      "head_sha256": "3d716295ff49d9371ec3675a7fdd5288364fc723dbcbedfb0643ba54c3dd980b",
+      "head_blob": "c819bc62d6b0886b93fe75aac935a2d721b42a56",
+      "head_bytes": 515
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json": {
+      "type": "file",
+      "sha256": "64e1f64802cb45fb6780d002d96f36cb7d423c870b61af89b6839158342a57a2",
+      "blob": "bd261331cb8455eeb069c942018125f9082dd502",
+      "bytes": 27961,
+      "worktree_equals_head": true,
+      "head_sha256": "64e1f64802cb45fb6780d002d96f36cb7d423c870b61af89b6839158342a57a2",
+      "head_blob": "bd261331cb8455eeb069c942018125f9082dd502",
+      "head_bytes": 27961
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json": {
+      "type": "file",
+      "sha256": "b3f01811d9eb7f80aaa510404c2c6beea4e168d890f06b82fc7e34e976a5ee87",
+      "blob": "9fefa4bf5b003543d95c1c78de32e99581814a19",
+      "bytes": 1760800,
+      "worktree_equals_head": true,
+      "head_sha256": "b3f01811d9eb7f80aaa510404c2c6beea4e168d890f06b82fc7e34e976a5ee87",
+      "head_blob": "9fefa4bf5b003543d95c1c78de32e99581814a19",
+      "head_bytes": 1760800
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json": {
+      "type": "file",
+      "sha256": "098448a5c57612e6a3f63dd92e69e4117b9ee5fcc348345431fadd06265b4155",
+      "blob": "1e7ec1c7504e3eff2441cd7160e1a6a205e2993d",
+      "bytes": 28369,
+      "worktree_equals_head": true,
+      "head_sha256": "098448a5c57612e6a3f63dd92e69e4117b9ee5fcc348345431fadd06265b4155",
+      "head_blob": "1e7ec1c7504e3eff2441cd7160e1a6a205e2993d",
+      "head_bytes": 28369
+    },
+    "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json": {
+      "type": "file",
+      "sha256": "b2c8e9c2c9d3f7641286c138c9e0346a0cfa5d0a2f6cce32a9e03714127932cc",
+      "blob": "0863bf90024d3c7be10813b70bb34deb6821122a",
+      "bytes": 11476,
+      "worktree_equals_head": true,
+      "head_sha256": "b2c8e9c2c9d3f7641286c138c9e0346a0cfa5d0a2f6cce32a9e03714127932cc",
+      "head_blob": "0863bf90024d3c7be10813b70bb34deb6821122a",
+      "head_bytes": 11476
+    },
+    "build_tenants/abiogenesis/typescript/test_env/support/stdo3-run-environment.mjs": {
+      "type": "file",
+      "sha256": "e1cfbd6fe2a98624929d4b2d988f1b49cfd95e2b0fee9a9e5fb5d8921eb209cd",
+      "blob": "2e8a9588f10a7f1e207db041c30614b185d4143e",
+      "bytes": 5751,
+      "worktree_equals_head": true,
+      "head_sha256": "e1cfbd6fe2a98624929d4b2d988f1b49cfd95e2b0fee9a9e5fb5d8921eb209cd",
+      "head_blob": "2e8a9588f10a7f1e207db041c30614b185d4143e",
+      "head_bytes": 5751
+    },
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/native.mjs": {
+      "type": "file",
+      "sha256": "0e0a349db121b5107b86b80de8cf4cedec783b100056164286ee8c240344556a",
+      "blob": "4c75e75a80141e5534e5c297db8e91437daa0d51",
+      "bytes": 7987,
+      "worktree_equals_head": true,
+      "head_sha256": "0e0a349db121b5107b86b80de8cf4cedec783b100056164286ee8c240344556a",
+      "head_blob": "4c75e75a80141e5534e5c297db8e91437daa0d51",
+      "head_bytes": 7987
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs": {
+      "type": "file",
+      "sha256": "ce2e454b617461d9ee1058188840512a933fa26f675d85cb899ccbfb01613a91",
+      "blob": "386ebfde74d05136cf1f214ec5f7034e9ce3b8ce",
+      "bytes": 174823,
+      "worktree_equals_head": true,
+      "head_sha256": "ce2e454b617461d9ee1058188840512a933fa26f675d85cb899ccbfb01613a91",
+      "head_blob": "386ebfde74d05136cf1f214ec5f7034e9ce3b8ce",
+      "head_bytes": 174823
+    },
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs": {
+      "type": "file",
+      "sha256": "f14f885650051ecafdb09e0f97e41f3f2faf5dc611fb728975511dd47391bca3",
+      "blob": "fb4f505bf3b97c88a1f69d178affe4e95bcfa6ab",
+      "bytes": 16311,
+      "worktree_equals_head": true,
+      "head_sha256": "f14f885650051ecafdb09e0f97e41f3f2faf5dc611fb728975511dd47391bca3",
+      "head_blob": "fb4f505bf3b97c88a1f69d178affe4e95bcfa6ab",
+      "head_bytes": 16311
+    },
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json": {
+      "type": "file",
+      "sha256": "407a43ad82ab3285a4dd90fd9bf9f92289c61f8596669267efd76d8aa14fd1ed",
+      "blob": "5443463aecab16bfe1da74317982df7ef72d4165",
+      "bytes": 515,
+      "worktree_equals_head": true,
+      "head_sha256": "407a43ad82ab3285a4dd90fd9bf9f92289c61f8596669267efd76d8aa14fd1ed",
+      "head_blob": "5443463aecab16bfe1da74317982df7ef72d4165",
+      "head_bytes": 515
+    },
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json": {
+      "type": "file",
+      "sha256": "e691772a17a0351dce6563d4946d99f86f6d8376a8d94d6532e86bf12dccd02e",
+      "blob": "b4e4e6e261af4e5088a03043a9c552077d655c89",
+      "bytes": 3273847,
+      "worktree_equals_head": true,
+      "head_sha256": "e691772a17a0351dce6563d4946d99f86f6d8376a8d94d6532e86bf12dccd02e",
+      "head_blob": "b4e4e6e261af4e5088a03043a9c552077d655c89",
+      "head_bytes": 3273847
+    },
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json": {
+      "type": "file",
+      "sha256": "15e1ab5d6e25293a0998fc9d205531e88036dc4deadd6944ce65f989e574cfc8",
+      "blob": "55b39d9da954be795c0bf73f029a1263fe33c28f",
+      "bytes": 197474,
+      "worktree_equals_head": true,
+      "head_sha256": "15e1ab5d6e25293a0998fc9d205531e88036dc4deadd6944ce65f989e574cfc8",
+      "head_blob": "55b39d9da954be795c0bf73f029a1263fe33c28f",
+      "head_bytes": 197474
+    }
+  },
+  "trees_at_head": {
+    "build_tenants/abiogenesis/typescript/contracts/qualification/sources": "543da9d6775136c5f14e414594330d2aed3582d8",
+    "build_tenants/abiogenesis/typescript/contracts/default-library/stdo": "55414a7298e64daac30a703ad1aa47648e1db637",
+    "build_tenants/abiogenesis/typescript/contracts/qualification": "d4e3c3ef3c741648498e54ca6dcbde6f7a3ac173"
+  },
+  "note": "stdo_abiogenesis.json: worktree is the manager adoption (uncommitted at start); head_* is the base. Every other path: worktree equals head."
+}

@@ -15,7 +15,7 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.1 RC1 (the source-development pin of 2026-10-25; the runtime default-library snapshot moves at T-287 Phase D's D0). The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is closed on `main` at `46ed04895` ([T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md) Phase A, after the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md) and eight post-close repairs): every owner obligation O-RESOURCE to O-TYPE is closed with its sites and the design's proofs hold; the lifecycle law is realized as the rule `actor_process_lifecycle` in the one fold. The registered debt wave (T-290 Phase B, twelve packages, each accepted with its record and closed in the register) is closed at `a8937b837`. This is not a release: L5 delivery acceptance is recorded (the owner, 2026-10-24, on an independent review with no S0 to S2); the Phase C packages ruled by the log principle, the complete source conjunction, the combined candidate/P1/P5/P4, the fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.2 (the source-development pin of 2026-10-27; the runtime default-library snapshot moves at T-287 Phase D's S1). The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is closed on `main` at `46ed04895` ([T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md) Phase A, after the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md) and eight post-close repairs): every owner obligation O-RESOURCE to O-TYPE is closed with its sites and the design's proofs hold; the lifecycle law is realized as the rule `actor_process_lifecycle` in the one fold. The registered debt wave (T-290 Phase B, twelve packages, each accepted with its record and closed in the register) is closed at `a8937b837`. This is not a release: L5 delivery acceptance is recorded (the owner, 2026-10-24, on an independent review with no S0 to S2); the Phase C packages ruled by the log principle, the complete source conjunction, the combined candidate/P1/P5/P4, the fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
 
@@ -142,6 +142,17 @@ states its domain, legal compositions and independent evidence; a document,
 matrix or test count cannot establish whole-Product completion. Existing
 materially correct relations and applicable evidence are retained. Older
 routing below preserves history and cannot reactivate a superseded attempt.
+
+Owner selection, 2026-10-27: pin ABIogenesis source development to the published
+STDO 3.0.2 line, exact immutable `v3.0.2` and manifest selected by
+[`stdo_abiogenesis.json`](../stdo_abiogenesis.json). The
+[adoption record](../.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION/README.md)
+binds the digest-bound adoption, the verified install and the method routes
+rebound to that cut. This method selection preserves the current Product
+outcomes and the T-287 work. The runtime default-library snapshot and the
+qualification authorities move to the same cut in T-287 Phase D's S1; retained Runs,
+qualification evidence and derivation links keep their original exact bases.
+The deterministic-kind (F_D) claims are unchanged under 3.0.2.
 
 Owner selection, 2026-10-25: pin ABIogenesis source development to the published
 STDO 3.0.1 line, exact immutable `v3.0.1-rc.1` and manifest selected by
