@@ -507,6 +507,45 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   const oversized=structuredClone(task);oversized.state.original.task='x'.repeat(state.original.maxPromptBytes+1);
   assert.equal((await planningAssemblyFor(oversized)).cause,'declared_bound_overflow');
 });
+test('native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses',async t=>{
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+  const context=await physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:state.original.maxContextFiles,maxBytes:state.original.maxContextBytes});
+  const nativeOwner=await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/native_workspace_work.js')).href),ids=nativeOwner.NATIVE_WORKSPACE_WORK_IDS;
+  const task=nativeOwner.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,
+    capabilityGrant:f.capabilityGrant,context,...state.original.workOrders.construction});
+  assert.ok(nativeOwner.isNativeWorkspaceWorkTask(task));assert.equal(task.assessment,undefined,'the constructor variant');
+  const graph=gtl.constructNativeWorkspaceWorkModulePublication(basis).graphFunctions.find(g=>g.name===ids.graphFunctionRef);
+  const execution={basisRef:'basis:native-work-bound',basisDigest:product.sha256Canonical('native-work-bound'),parentExecutionBasisRef:'basis:root-bound',
+    invocationAdmissionRef:'invocation:native-work-bound',invocationRef:'invocation-ref:native-work-bound',programRef:'program:native-work-bound'};
+  const call={regime:'F_P',cCallRef:'call:native-work-bound',cCallDigest:product.sha256Canonical('call'),implementationRef:ids.implementationRef,
+    graphFunctionRef:nativeOwner.nativeWorkspaceWorkGraphFunctionRef(task),inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef,programLocusRef:'locus:native-work-bound'};
+  const assemblyBasis={publication:{},graphFunction:graph,executionBasis:execution,cCall:call,predecessorPrefix:{}};
+  const owner={prefix:{},events:[],call,execution,program:{callableMembership:[]},environment:{kind:'exact_prefix_workspace_environment',productInstalls:[]},
+    inputRef:'input:native-work-bound',inputValue:task,inputDigest:product.sha256Canonical(task)};
+  // The root ancestry projection runs as built; only the owned basis, the role
+  // read and the exact-prefix basis rehydration are supplied lower premises.
+  let root;
+  const link=async(file,replacements={})=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+    await m.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href),values={...actual,...(replacements[s]??{})};
+      return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+    await m.evaluate();return m.namespace;};
+  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null}});
+  const assembly=await link(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>null},'./semantic_job.js':{...ancestry}});
+  const rooted=rawInputValue=>{root={...execution,basisRef:'basis:root-bound',parentExecutionBasisRef:null,rawInputValue};};
+  rooted(task);const unbounded=assembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,task);
+  assert.equal(unbounded?.kind,'native_instruction_assembly','a Run whose root declares no prompt bound assembles');
+  const bytes=unbounded.manifest.promptByteCount;assert.equal(bytes,Buffer.byteLength(unbounded.request.prompt));
+  rooted(product.constructGovernanceWorkState({...state.original,maxPromptBytes:bytes}));
+  const fitting=assembly.requireWorksiteNativeInstructionAssembly(assemblyBasis,task);
+  assert.deepEqual(fitting,unbounded,'a prompt at the declared bound assembles unchanged');
+  rooted(product.constructGovernanceWorkState({...state.original,maxPromptBytes:bytes-1}));
+  assert.equal(assembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,task),null);
+  assert.throws(()=>assembly.requireWorksiteNativeInstructionAssembly(assemblyBasis,task),error=>{
+    assert.deepEqual(JSON.parse(error.message),{kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:null,role:'constructor',unresolvedRefs:['maxPromptBytes']});return true;});
+});
 test('selector planning fits captured eighteen and realistic fifty-one complete owned assemblies',
   {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE&&'ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture'},async t=>{
     const fixture=JSON.parse(await readFile(process.env.ABI5_PLANNING_PROJECTION_CAPTURE,'utf8')),metrics=[];
@@ -788,7 +827,7 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
 });
 
 test('UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations',async t=>{
-  const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is carried whole, nothing withheld. Reacquire all mandatory selected source and assessment material through the declared reads.";
+  const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is carried whole, nothing withheld, and the declared prompt bound refuses a prompt that overflows it. Reacquire all mandatory selected source and assessment material through the declared reads.";
   const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
   const fixtures=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));
   const acquired=await scenarios.acquireScenario(fixtures.root,fixtures.rows.find(r=>r.key==='rust-cli'));

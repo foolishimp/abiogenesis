@@ -1167,6 +1167,10 @@ function stageCCallResult(
   const workerContracts = leafInput?.ownerReceipt.workerContracts ?? null;
   const evidence: AdmittedCCallEvidence[] = [];
   for (const row of evidenceCandidates) {
+    const evidenceContractRef = input.cCall.evidenceContractRef;
+    if (evidenceContractRef === null) {
+      throw new TypeError("CCall evidence admission requires the call's declared evidence contract");
+    }
     const admitCurrentEvidence = row.kind === "probabilistic_transport_evidence_candidate"
       ? (...args: Parameters<typeof admitEvidence>) => admitEvidenceFromActorTransport(actorTransport(), ...args)
       : admitEvidence;
@@ -1178,7 +1182,7 @@ function stageCCallResult(
       input.cursor,
       input.cCall,
       row,
-      input.cCall.evidenceContractRef,
+      evidenceContractRef,
       input.inputDigest,
       stageBasis(input.basis, "evidence"),
       workerContracts?.instructionContractRef,
@@ -1292,7 +1296,9 @@ function stageCCallResult(
                   graph: input.graph,
                   graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
                   cursor: input.cursor, predecessorPrefix: input.predecessorPrefix,
-                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] });
+                  declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
+                  // Result admission re-derives from the carried result and selects no limits.
+                  commandExecutionLimits: null });
                 if (basis === null) return false;
                 if (lifecyclePublication.semanticJobLifecycle !== undefined)
                   return (SEMANTIC_REVISION_IMPLEMENTATION_REFS.includes(input.cCall.implementationRef ?? "")

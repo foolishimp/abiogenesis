@@ -2346,3 +2346,357 @@ The build regenerated three files:
 **Stops.** An effect kind the vocabulary lacks (item 1); a Public read value that would change (items 2 and 3); a site needing a new input key, evidence kind, payload key or refusal reason (item 5); a bound reachable only through a new member (item 8); any other contract, event contract, payload key, failure class, declared reason enum, Program declaration, Public export name or design sentence. Write the stop into the Return and keep the rest moving.
 
 **Return contract.** `## R3 return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's declared effects and the grants cited; item 2's key and the boundary; item 3's six leaves, the edits and the pin's old and new digest, byte count and offsets; item 4's four sites; item 5's census table (site, leaf, declared class, admission relation, construction reads, result-admission reader, change or none), its functions per site and the grep proof; item 6's function and callers; item 7's byte-equality; item 8's carrier, refusal and case, or its stop; the regenerated files' digest table (M-4); the fixture's three fields; the lanes table with the set's count; gates (`tsc`, `tsc --noUnusedLocals` 0, the four lints, the build, the export-name diff); deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `R3: the command-execution declarations (preparation effects, command limits and ambient environment declared, the C2 renderer pin regenerated); D0's residuals discharged; the four live worksite reads split; the schema-asset admission consolidated; the prior-admission union widened; the native-work prompt bound enforced`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## R3 return (Worker, Opus 5.5, 2026-10-28; base `9de0ffeabb2a12e3289566203b747cb20303f653`)
+
+R3 closes with three stops. Items 4, 6, 7 and 8 landed. Item 5's census found every site already in the D0 form or a currentness gate, so nothing was split. Item 1 stops because the effect vocabulary has no archive attempt-preparation kind. Item 2 stops on the declared input key; its leaf now reads the limits from the basis member, not the environment. Item 3 landed its three edits and the regenerated pin, and stops on carrying the ambient environment.
+
+**Base.** These subtree pairs are equal at the base and at S1's commit `e71ae8a5c` (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<dir>`):
+
+| Subtree | Tree at the base and at `e71ae8a5c` |
+|---|---|
+| `code` | `c025db2f688935fd26a5e9a4aefdf9e5a7aebd3c` |
+| `test_env` | `444a9b635b1ba2643d19eb5d0282bdcee31e209d` |
+| `contracts` | `bac2d682f6d29ce91b5a8e31805bae93ffdbde00` |
+
+No commit landed on `main` during the run: HEAD stayed at the base until this commit.
+
+The Phase C records the activation cites are absent at the named paths: `phase_c.md` (`## Phase C close` and its correction, `## C-18a disposition` stop 6) and `repin.md` (`## M-5 return` finding 6, `## M-5b return` stop 4). They were not searched for (see What could not be verified). The sites came from this file's D0, R2-c and U1-b sections and from the code.
+
+**Item 1: the preparation effects (stop).**
+
+The census of `effects:` members under `code/src/gtl` finds six kinds; 15 graph functions declare `effects: []`.
+
+| Effect kind | Declared by |
+|---|---|
+| `effect://abiogenesis/worksite/file.replace/v1` | `worksite_c0.ts:320`, `worksite_branch_construction.ts:273`, `worksite_construction.ts:283`, `worksite_construction_recovery.ts:142` |
+| `effect://abiogenesis/worksite/file.parents/v1` | `worksite_c0.ts:191` |
+| `effect://abiogenesis/worksite/native-work/v1` | `native_workspace_work.ts:43`, `semantic_stage_publication.ts:147` |
+| `effect://abg/consensus/reviewer-worker@5`, `submitter-worker@5`, `human-resolution@5` | `consensus.ts` |
+| `effect://abiogenesis/qualification/owner-ruling@5` | `self_conformance.ts:172` |
+
+The C2 preparation is `materializeExecutionManifests` (`implementation/worksite_command_execution.ts:578-596`). It creates the attempt directory (`mkdirSync`, `:585`). It then publishes `task.json` (`:588`) and `launch.json` (`:594`) through the create-only publisher `publishCreateOnly` (`:517-532`). All three writes land under the binding's archive root, in `<archiveRoot>/worksite-command-execution/<task digest>/<attempt digest>/` (`product/worksite_command_execution.ts:760-767`). None of them is in a worksite territory.
+
+Two owner grants constrain these writes:
+- the binding's `roots.archiveRoot`, which `assertArchiveExecutionBoundary` checks (`:431`): every root is a canonical non-symlink, and the archive root lies outside the product and toolchain roots;
+- the Run's capability grant, `abg.operation.run.invoke` scoped to that binding.
+
+`file.replace` and `file.parents` name worksite subjects and their parents under worksite territories. No member of the vocabulary names an archive attempt preparation.
+
+Stop: the writes need an archive attempt-preparation kind, which this Return names `effect://abiogenesis/worksite/command-attempt.prepare/v1`. No member was added. `effects: []` at `gtl/worksite_command_execution.ts:213` is unchanged.
+
+**Item 2: the command limits as a declared input (stop on the key).**
+
+The key would be a new member, `commandExecutionLimits`, of the declared `native_semantic_revision_intake` value. That value is owned in three places:
+- its type and strict validator, `product/semantic_revision.ts:32-41` (`NativeSemanticRevisionIntake`, `isNativeSemanticRevisionIntake`);
+- its admission, `product/builtin_semantics.ts:822`;
+- its contract, `gtl/semantic_revision_publication.ts:76`.
+
+The Public callers construct the raw value. Adding the key is a payload-key and contract change outside the grant, so this item stops with that member named.
+
+Realized instead, under item 4(b): `NativeIntake` (`realizeSemanticRevisionNativeIntake`, `implementation/semantic_revision.ts:113-116`) reads `SemanticStageNativeBasis.commandExecutionLimits`, not the environment. The limits now enter at one boundary, the basis construction in `hog/ccall_lifecycle.ts:451-458`. That construction calls the validating reader `selectedWorksiteCommandExecutionLimits` (`abg/actor_process.ts:696`) once and records `null` when the reader refuses.
+
+**Item 3: the C2 renderer pin and the ambient environment (three edits and the pin landed; the carry stops).**
+
+Edits to `product/worksite_command_execution.ts`:
+- **Lazy `PATH` default.** In `environmentEntries` (`:907-912`), the ambient `PATH` and its default are read only when no `PATH` is supplied.
+- **Comparator.** The sort at `:920` uses `compareUnicodeCodeUnits`, the shared owner imported from `shared/canonical_json.ts`.
+- **`BASE64_PATTERN`.** Deleted.
+
+The ambient carry stops. The record branch (`environmentEntries`, `:886-930`) captures `HOME`, `TMPDIR`, `LANG` and `LC_ALL` at `:895-902` and reads `PATH` at `:910`. It is reached through `constructCommand` (`:1021`) and `constructPredicate` (`:1059`) from these construction sites:
+- `product/worksite_preparation.ts`: `validConfiguration` (`:71`, the selection leaf) and `prepareWorksiteCommandTask` (`:193`, the preparation leaf). `prepareWorksiteCommandTask` is reached from `abg/semantic_stage.ts:368`, `abg/semantic_job.ts:374`, `abg/semantic_revision.ts:1009` and `abg/worksite_input_provenance.ts:506`.
+- `product/worksite_revision.ts`: `constructWorksiteRevisionCommandExecutionTask` (`:129`, `:142`).
+- `product/worksite_command_execution.ts`: `nativeReacquisitionBody` (`:371`), `nativeCommandTaskBody` (`:430`) and `constructObservedWorksiteCommandExecutionTask` (`:477`).
+- `abg/semantic_job.ts`: `planInput` (`:232`).
+- `abg/default_library.ts`: `testingTask` (`:292`), the body of `prepareObservedTestingTask` (`implementation/default_library.ts:68`).
+
+The six prepare and select leaves are the preparation descriptors in `implementation/worksite_command_execution.ts:794-805` and `:851-856`, all realized by `realizePreparation` (`:807`):
+
+| Leaf | Implementation ref |
+|---|---|
+| `selectWorksiteConstruction` | `implementation://abiogenesis/worksite/command-execution/select-construction-fd@5` |
+| `prepareWorksiteCommands` | `implementation://abiogenesis/worksite/command-execution/prepare-task-fd@5` |
+| `selectWorksiteBranchConstruction` | `implementation://abiogenesis/worksite/command-execution/select-branch-construction-fd@5` |
+| `prepareWorksiteBranchCommands` | `implementation://abiogenesis/worksite/command-execution/prepare-branch-task-fd@5` |
+| `selectWorksiteRevisionConstruction` | `implementation://abiogenesis/worksite/revision-command-execution/select-construction-fd@5` |
+| `prepareWorksiteRevisionCommands` | `implementation://abiogenesis/worksite/revision-command-execution/prepare-task-fd@5` |
+
+`prepareObservedTestingTask` (governance `prepare-testing`) is row 10b's seventh reader. The `prepareWorksiteCommandTask` calls in `abg/semantic_stage.ts:368`, `abg/semantic_job.ts:374`, `abg/semantic_revision.ts:1009` and `abg/worksite_input_provenance.ts:506` are evidence and source projections, not leaves.
+
+Carrying the capture as a basis member with a declared input key needs `product/worksite_preparation.ts`, `product/worksite_preparation_contracts.ts` and the input contracts of these leaves. All are outside the grant, and the key is a payload key. Stop, with the member named: the captured `HOME`, `TMPDIR`, `LANG`, `LC_ALL` and `PATH` as one environment member of the preparation input. The capture on the record branch is unchanged.
+
+The renderer pin is `gtl/worksite_command_execution.ts:36-39` and `:61`:
+
+| Pin field | Old | New |
+|---|---|---|
+| digest | `sha256:5a9e5414090bd2e2b521551b9a28d98917cefa6edd1d252c2d26fbfd9997aba5` | `sha256:45f238bfb1b4ef718d951058d239e8a826d0df3ba1a7cffcb572b5babe2abf29` |
+| byteCount | 115644 | 115627 |
+| startByte, endByte | 105559, 107991 | 105542, 107974 |
+
+The span digest is unchanged: `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf`. The final `npm run build` passes the generator's verification of the pin (rc 0).
+
+**Item 4: D0's residuals.**
+
+(a) `evidenceContractRef` follows the runtime type `string | null` at four sites:
+1. `abg/c_call.ts:176`: `CCall.evidenceContractRef` is `string | null`.
+2. `abg/c_call.ts:2286`: `UndispatchedEvidenceContext` is widened. `admitWorkflowChildPreparationRefusal` (`:3943-3952`) refuses a parent whose evidence contract is `null`, with the function's existing `parent_call_mismatch` code, before `rejection(…)` at `:4007`. That call now takes the narrowed value.
+3. `abg/c_call_outcome.ts:1169-1186`: `stageCCallResult`'s evidence loop throws `TypeError` on `null` before `admitCurrentEvidence`. That is the same form as D0's probe.
+4. `abg/worksite_revision.ts:353`: `RevisionEvidenceContext` is widened.
+
+The `null` producers are unchanged. `c_call.d.ts` moves in the declaration closure (M-4).
+
+(b) `SemanticStageNativeBasis` gains `commandExecutionLimits: Readonly<WorksiteCommandExecutionLimits> | null` (`abg/semantic_stage.ts:50`). It is set in two places:
+- `hog/ccall_lifecycle.ts:458`, from the validating reader, or `null` on its refusal;
+- the result-admission rebuild in `abg/c_call_outcome.ts:1298-1301`, as `null`. Result admission re-derives from the carried result and selects no limits.
+
+Five gate leaves compare against the member through a local `selectedLimits`, which throws `TypeError` on `null` or absence:
+- `implementation/semantic_stage.ts`: `realizeNativeSemanticAuthorTask`, `realizeNativeSemanticAssessorTask` and `realizeNativeSemanticConstructionTask` (`:130-161`);
+- `implementation/semantic_revision.ts`: `realizeSemanticRevisionNativeIntake` (`:113-116`) and `realizeSemanticRevisionNativeConstruction` (`:121-125`).
+
+The member enters no digest or payload:
+- `semanticStageBasis` is used only as the occurrence member;
+- every semantic `assemblyIdentity` digests `{ sections }` and the publication, never the basis;
+- the only `sha256Canonical(basis)` calls in `abg/` and `hog/` digest event admission bases (`c_call.ts:3358`, `:6268`).
+
+**Item 5: the four live worksite reads (census; nothing split).**
+
+| Site | Leaf, Program declaration, class | Admission relation | Construction reads | Result-admission reader | Change |
+|---|---|---|---|---|---|
+| `abg/semantic_job.ts` `projectSemanticJobContext` (`:204-210`) | `realizeSemanticJobContext`, `gtl/semantic_stage_publication.ts:26`, F_D | `semanticJobContextMatches` (`:178-186`) | `{ ...input, context }`: the input and the admitted observation | `semanticJobResultMatchesBasis` (`:419`): `semanticJobContextMatches` over the carried `context`, and equality with `{ ...input, context }` | none: the D0 form |
+| `abg/semantic_job.ts` `projectNativeSemanticTask` (`:548-564`) | the native author, assessor and construction task leaves, `semantic_stage_publication.ts:29`, `:31`, `:33`, F_D | `nativeSemanticContextMatches` (`product/semantic_job.ts:795-803`), applied inside both constructions | `constructNativeSemanticTask` (`product/semantic_job.ts:870-918`) and `constructNativeSemanticConstructionTask` (`:924-942`), over the input, the operating facts and the observation | `nativeSemanticResultMatchesBasis` (`:587-604`): `semanticJobContextMatches` over the carried `output.context`, then the construction again | none: the D0 form |
+| `abg/semantic_revision.ts` `prepareNativeSemanticRevisionIntake` (`:318-329`) | `realizeSemanticRevisionNativeIntake` (`native-intake@5`), `gtl/semantic_revision_publication.ts:27`, F_D | `intakeValue`'s `contextCorresponds` against `facts.expectedContext`, plus the binding identity (`:309-317`, `:181-185`) | `intakeValue` over the facts, the observation and the limits | `nativeSemanticRevisionIntakeMatches` (`:330-334`): re-derives `intakeValue` from `output.nativeWorksite.context` | none: the D0 form (the activation's citation of `implementation/` corrected to `abg/`) |
+| `abg/native_work_reacquisition.ts` `nativeWorkReacquisitionContextCurrent` (`:291-295`) | `prepareNativeWorksiteCommandReacquisition`, `gtl/worksite_command_execution.ts:78-96` (`effects: []`), F_D | the comparison itself: the live observation is `same` as `request.currentContext` | none: the task derives from the prefix (`deriveNativeWorkReacquisitionTask`, `:66-99`) | `nativeWorkReacquisitionResultMatches` (`:298-311`): re-derives the task from the prefix; currentness is a point-in-time gate and is not re-derived | none: a currentness evaluation over the live worksite, left as it is |
+
+On the second row: the observation is taken with `operating(owner)` and the input's read roots and bounds. `semanticJobContextMatches` therefore holds at the leaf by construction. No check was added.
+
+Grep proof: `scratchpad/r3/gates/item5-grep.txt` extracts each function body. No construction or admission body calls `readFileSync`, `lstatSync`, `readdirSync`, `realpathSync`, `statSync`, `existsSync`, `readFile`, `readdir`, `lstat`, `realpath` or `observeWorksite*`. The bodies checked:
+- `constructNativeSemanticTask`, `constructNativeSemanticConstructionTask`, `nativeSemanticContextMatches`, `nativeSemanticFile`;
+- `constructNativeWorkspaceWorkTask`, `isNativeWorkspaceWorkTask`, `nativeWorkspaceAssessmentSubjectMatches`;
+- `intakeValue`, `contextCorresponds`, `nativeSemanticRevisionIntakeMatches`;
+- `semanticJobContextMatches`, `nativeSemanticResultMatchesBasis`, `semanticJobResultMatchesBasis`;
+- `deriveNativeWorkReacquisitionTask`, `nativeWorkReacquisitionResultMatches`.
+
+The four observing functions each make exactly one `observeWorksiteContext` call. `product/semantic_job.ts` and `product/native_workspace_work.ts` import no `node:fs`.
+
+Row 10b sentences for the Executive. Each leaf is in row 9b's form.
+- **Job context leaf.** Subject: the job envelope's worksite context under the job's read roots and bounds. Termination: one bounded observation. Dependencies: the input, the owned basis and the worksite. Outcome: the envelope with the admitted context, or `job_context_relation_mismatch`.
+- **Native task leaves.** As for the job context leaf. The outcome is the native task over the admitted context, or `native_semantic_source_relation_mismatch`.
+- **Native intake.** Subject: the source Run's retained context. Outcome: the selection input, or the intake refusal reasons (`native_revision_current_context_unavailable`, `native_revision_current_context_mismatch`).
+- **Reacquisition.** Its graph declares `effects: []` (`:82`, "Effect-free closed-child authentication"), yet its leaf reads the live worksite as a currentness gate whose outcome is the comparison.
+
+**Item 6: one schema-asset admission.**
+
+`admitInstalledSchemaAsset(install, row, { contractVersion?, suppliedBytes?, document? })` lives in `product/declaration_application.ts:94-118`. The census found no module that `native_workspace_assessment` and `materialization_definition_bindings` both import and that owns schema assets. Each already reaches `declaration_application` through `product/index`, and the new import comes last in each file. The function checks, in this order:
+1. **locator**: media type, and the contract version when one is expected;
+2. **locus**: the path stays under the install root;
+3. **bytes**: supplied `null` (the supplied encoding is not canonical); the SHA-256 against the locator's content digest, then against the row's contract digest; supplied bytes against the installed file, or the file read when none are supplied;
+4. **dialect**: with `document`, a JSON Schema 2020-12 document.
+
+It returns the first check that refuses. A read or parse error throws to the caller.
+
+The three callers:
+- **`product/declaration_application.ts:204-212`.** Each check maps to the site's existing `unready` message. `$id` and `$async` stay at the site, under the same message. The thrown read and parse errors land in the same `catch`.
+- **`product/native_workspace_assessment.ts:97-98`.** Every refusal is `null`. The supplied bytes are `Buffer.from(base64)` with no round trip, as before.
+- **`product/materialization_definition_bindings.ts:189-192`.** Every refusal is `"contract"`. No version is expected, and the file is read first, as before.
+
+Each site's refusal classes and their order are unchanged (`scratchpad/r3/gates/item6-order.txt`). The lanes that cover each site, all in the set:
+- **Catalog application.** `steel-consumer-declaration:580-596`: the admitted application, "missing schema", "duplicate schema" and "wrong schema owner" (`unready`, site checks), and the schema-value cases (`application_mismatch`). `t287-default-library` covers the admitted path.
+- **Native assessment.** `t287-native-semantic-job:332-336` and `t287-native-workspace-work:614-618`: the admitted schema, the site checks returning `null`, and "changed installed schema", which reaches the shared bytes check.
+- **Materialization.** `t287-required-operation-bindings`: `product.materialize#configuration` admits its contract through the shared function. Its refusal case is an owner refusal, not a contract refusal.
+
+No Public export name moved: the function appears in no entry point.
+
+**Item 7: the union widened.**
+
+`EffectfulPublicInvocationPriorAdmission.operationId` (`abg/effectful_invocation_truth.ts:34-43`) and the artifact-row cast (`:168-172`) carry `"abg.operation.product.materialize"`. The emitted `build/code/src/abg/effectful_invocation_truth.js` equals the base build byte for byte (`cmp`; SHA-256 `1fd243e1c29c737a9089e8cde74c45a7e9f119c64899405ef925242015c12ab8` before and after). `effectful_invocation_truth.d.ts` moves (M-4).
+
+**Item 8: the native-work prompt bound (landed).**
+
+- **Carrier.** The Run's root input. The first candidate fails. The registered native selection's `maxPromptBytes` is that leaf's own input member, and its own branch already consumes it (`instruction_assembly.ts`, the registered-selection branch's `plan.maxPromptBytes` and its overflow check). The activation's "no consumer" and its `:305` as a semantic bound are miscitations. A native-work owner's input is a `NativeWorkspaceWorkTask`, which carries no such member.
+- **Reader.** The bound read is the governance original's `maxPromptBytes` (`product/default_library.ts:51`) on the root's `GovernanceWorkState`. `declaredRunPromptBound` (`abg/instruction_assembly.ts:118-126`) reads it through the root-ancestry projection `semanticJobRootAtPrefix` (`abg/semantic_job.ts:55`). A child execution basis carries its parent's invocation, invocation admission, program, binding and root implementation set (`abg/execution_basis.ts:2614-2652`), so the walk reaches the root. A root input that is not a governance work state declares no bound: semantic job, semantic revision and direct native-work Runs are unchanged. A root that cannot be projected selects none, through the reader's own `try`, so the read cannot become a new `null`.
+- **Refusal.** `assemblyRefusal("declared_bound_overflow", null, <constructor|assessor>, ["maxPromptBytes"])` at `:179`. It comes after every existing `null` and after the prompt is rendered. The rendered bytes are passed on to `finishInstructionAssembly`, so the manifest is unchanged.
+- **Surfacing.** The internal `evaluateWorksiteNativeInstructionAssembly` (`:136`) returns the assembly, the refusal or `null`. `constructWorksiteNativeInstructionAssembly` keeps `| null`. `requireWorksiteNativeInstructionAssembly` (`:246`) and the fallthrough of `requireDeclaredNativeInstructionAssembly` (`:437`) throw `TypeError(JSON.stringify(refusal))`, as their framed-synthesis and registered-selection branches do. Their existing messages on `null` are kept; `t287-undispatched-diagnostic:37` quotes one of them.
+- **Case.** `t287-default-library` gains "native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses", on the constructor variant. The root-ancestry projection runs as built; only the owned basis, the role read and the basis rehydration are supplied. The cases:
+  - a root without a governance state assembles;
+  - a bound equal to the exact prompt byte count assembles the same value;
+  - a bound one byte lower returns `null` from `construct…`, and `require…` throws `{kind:"native_instruction_assembly_refusal",cause:"declared_bound_overflow",policy:null,role:"constructor",unresolvedRefs:["maxPromptBytes"]}`.
+- **Sentence.** The `uat` producer sentence (`abg/default_library.ts:235`) now reads "… this producer is carried whole, nothing withheld, and the declared prompt bound refuses a prompt that overflows it. …". The lane's `PRODUCER` literal (`t287-default-library.test.mjs`) moves with it byte for byte; no other copy exists under `test_env`.
+- **Sandbox prompt.** The rust-cli assessor prompt (75,673 bytes) stays under that fixture's declared 1,048,576 (`test_env/fixtures/sandbox-uat/rust-cli/request.json:43`).
+
+**Regenerated files (M-4).**
+
+| File | SHA-256 old | SHA-256 new | Moved members |
+|---|---|---|---|
+| `contracts/capabilities/capability-definition-graph.json` | `4a3c4da4d381902d127797e63121bddd21555a546809292fcf34a24ced5652d9` | `3467dac9d5647f6ebd688910a53735764af7772be71c4e1db5f9adb0b57f6f1e` | `graphDigest` `8707a931…` → `5bee1f88…`; the rows' definition digests and contract-catalog digests (product-content cascade) |
+| `contracts/worksite/command-execution-context.inventory.json` | `6e72f8a15368fc428770c9407ad8d507f9a388e3971c84d205004669be4d198a` | `3431aac4a0b62b7ee867df9169c59206f49aa8ea507d569a2602aeeb04323930` | the member digest `5a9e5414…` → `45f238bf…` (the pin) |
+| `product-toolchain-manifest.json` | `edeb9bf7c7e67c0dc20c3502923fcc01fab5eba38b5b452b4d77ee78f68112c0` | `4c85b8b7737a92b82652319652e1bbf735b64b7c3f0e7199d1926219d71f343c` | `productContentDigest` and the contribution-manifest identities; 282 declaration-inventory digests and 21 of 75 contract digests (the declaration closure); all 10 publication-binding digests; the graph's asset digest |
+
+The declaration closure is the six `.d.ts` files that moved against the base build:
+- `abg/c_call`, `abg/effectful_invocation_truth` and `abg/semantic_stage`;
+- `product/declaration_application`, `product/materialization_definition_bindings` and `product/native_workspace_assessment`.
+
+**Candidate basis fixture.** `node scripts/refresh-candidate-basis.mjs` ran once, after the final build and before the after pass. Its three fields:
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:16d76c4f8ec3f3f960e96a11f9aa7c523a5b54947b8ad0affe8e328727c82a2b` | `sha256:85e5a21861dced529a14048cc8cd40b71e4e15c9dbb1166cfb0e363142686d16` |
+| `productContentDigest` | `sha256:db24dc1efa29e4f89bbc36eee1e8b35458f1df42e5950e84fff07e728ace5471` | `sha256:d2c597acb5d4271af4ff0d0f4fba226b1f27395845d2dc94cda7cfbc728168e2` |
+| `manifestDigest` | `sha256:1be28ffd1b2adec69d356336762d929e260c638e7b5edf38154df37d34901d5d` | `sha256:1a8353dbab040460e265df541850aeb3cfe917bcc2ce5cbd491eef111dd99f24` |
+
+**Lanes.** The named set is 94 lanes, plus `uat-harness`, `uat-continuation` and the compose scenario: 97 runs. Each ran alone, with `ABI5_EVIDENCE_ROOT` set, on the final built tree after the refresh.
+
+The set is the activation's named lanes and censuses (`scratchpad/r3/set/named2.txt`). The activation also names `d2-frame-installed` and `t287-worksite-revision`, but neither has a lane file at the base.
+
+The before column is S1's after column for 93 lanes and for the uat and compose rows. `t287-generic-job-parent-audit` has no row in S1, U1-b or R2-c, so it ran once on the base build (1/0/0/1).
+
+After totals: 695 tests, 594 pass, 0 fail, 101 skipped. Every skip is an environment-gated case, and each lane's skip count equals its before count; the names are in `scratchpad/r3/gates/skip-names.txt`.
+
+One lane moved: `t287-default-library`, from 21/18/0/3 to 22/19/0/3. That is item 8's new case, and it passes, so there is no first error. The set has no red. The standing red, `t287-st2a-g-capability-definition-graph` (4/2/2/0), is outside the named set and was not run.
+
+| Lane | Before (column) | After |
+|---|---|---|
+| `a5-f02-canonical-gtl-identity` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `d2-acknowledgment` | 3/3/0/0 (S1) | 3/3/0/0 |
+| `d2-binding-query-reuse` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `d2-binding-transition` | 10/10/0/0 (S1) | 10/10/0/0 |
+| `d2-bounded-repair` | 10/10/0/0 (S1) | 10/10/0/0 |
+| `d2-historical-design` | 13/13/0/0 (S1) | 13/13/0/0 |
+| `hello-product-boundary` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `installed-language-smoke` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `m5-consensus-module` | 17/17/0/0 (S1) | 17/17/0/0 |
+| `m5-event-store-reopen` | 21/21/0/0 (S1) | 21/21/0/0 |
+| `m5-installed-graph-edge` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `m5-installed-portability` | 8/8/0/0 (S1) | 8/8/0/0 |
+| `m5-retry-lifecycle-authority` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `m5-worker-transport` | 23/23/0/0 (S1) | 23/23/0/0 |
+| `r1-packed-artifact` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `r2-clean-install` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `r3-workspace-binding` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `r4-catalog-admission` | 6/6/0/0 (S1) | 6/6/0/0 |
+| `steel-basic-cli-c2` | 6/0/0/6 (S1) | 6/0/0/6 |
+| `steel-basic-cli-projection` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `steel-basic-cli-public` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `steel-consumer-authority` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `steel-consumer-declaration` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-c0-correction-regressions` | 4/4/0/0 (S1) | 4/4/0/0 |
+| `t287-c0-post-publication-failure` | 31/31/0/0 (S1) | 31/31/0/0 |
+| `t287-c2-child-program` | 4/4/0/0 (S1) | 4/4/0/0 |
+| `t287-c2-core-environment` | 3/3/0/0 (S1) | 3/3/0/0 |
+| `t287-common-computational-library` | 17/17/0/0 (S1) | 17/17/0/0 |
+| `t287-continuation-causation` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 (S1) | 5/2/0/3 |
+| `t287-d1-semantic-stage` | 3/1/0/2 (S1) | 3/1/0/2 |
+| `t287-declared-testing-capability` | 7/3/0/4 (S1) | 7/3/0/4 |
+| `t287-default-library` | 21/18/0/3 (S1) | 22/19/0/3 (moved) |
+| `t287-default-library-fulfillment` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `t287-environment-projection-conservation` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-event-body-encoding` | 14/14/0/0 (S1) | 14/14/0/0 |
+| `t287-exact-construction-intent` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-generic-job-intake` | 2/1/0/1 (S1) | 2/1/0/1 |
+| `t287-generic-job-lifecycle` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-generic-job-meaning` | 5/3/0/2 (S1) | 5/3/0/2 |
+| `t287-generic-job-parent-audit` | 1/0/0/1 (R3 base) | 1/0/0/1 |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-generic-job-read-dependency` | 2/1/0/1 (S1) | 2/1/0/1 |
+| `t287-generic-job-revision` | 4/1/0/3 (S1) | 4/1/0/3 |
+| `t287-generic-job-worksite` | 9/9/0/0 (S1) | 9/9/0/0 |
+| `t287-governance-covered-source-use` | 9/3/0/6 (S1) | 9/3/0/6 |
+| `t287-gtl-graph-law` | 9/9/0/0 (S1) | 9/9/0/0 |
+| `t287-held-prefix` | 6/0/0/6 (S1) | 6/0/0/6 |
+| `t287-installed-qualification-conservation` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-management-context` | 14/12/0/2 (S1) | 14/12/0/2 |
+| `t287-multi-candidate-admission` | 75/75/0/0 (S1) | 75/75/0/0 |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-native-owner-reuse` | 3/0/0/3 (S1) | 3/0/0/3 |
+| `t287-native-registered-selection` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-native-selection-profile-scope` | 4/4/0/0 (S1) | 4/4/0/0 |
+| `t287-native-semantic-evidence` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-native-semantic-job` | 9/9/0/0 (S1) | 9/9/0/0 |
+| `t287-native-semantic-revision` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 (S1) | 6/6/0/0 |
+| `t287-native-work-reacquisition` | 9/6/0/3 (S1) | 9/6/0/3 |
+| `t287-native-work-reacquisition-normalization` | 2/1/0/1 (S1) | 2/1/0/1 |
+| `t287-native-work-unknown-effect` | 10/10/0/0 (S1) | 10/10/0/0 |
+| `t287-native-worksite-execution` | 6/3/0/3 (S1) | 6/3/0/3 |
+| `t287-native-workspace-work` | 38/37/0/1 (S1) | 38/37/0/1 |
+| `t287-observed-worksite-command` | 8/8/0/0 (S1) | 8/8/0/0 |
+| `t287-owned-native-proof` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-owned-process-lifetime` | 18/18/0/0 (S1) | 18/18/0/0 |
+| `t287-predecessor-context` | 3/0/0/3 (S1) | 3/0/0/3 |
+| `t287-qual056-material` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-qualification-parent-alias` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-recursive-registered-selection` | 4/3/0/1 (S1) | 4/3/0/1 |
+| `t287-registered-graph-selection` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-release-acceptance` | 6/6/0/0 (S1) | 6/6/0/0 |
+| `t287-required-operation-bindings` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `t287-result-evidence-lineage-projection` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 (S1) | 1/1/0/0 |
+| `t287-retained-installed-consumer` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-route-reconstruction` | 13/11/0/2 (S1) | 13/11/0/2 |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 (S1) | 21/21/0/0 |
+| `t287-s03-automatic` | 2/0/0/2 (S1) | 2/0/0/2 |
+| `t287-selected-action` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `t287-selected-action-authority` | 3/2/0/1 (S1) | 3/2/0/1 |
+| `t287-st1-installed-cross-owner-hello` | 2/2/0/0 (S1) | 2/2/0/0 |
+| `t287-stdo-environment-citation` | 2/0/0/2 (S1) | 2/0/0/2 |
+| `t287-stdo-run-environment` | 2/0/0/2 (S1) | 2/0/0/2 |
+| `t287-undispatched-diagnostic` | 7/7/0/0 (S1) | 7/7/0/0 |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 (S1) | 5/3/0/2 |
+| `t287-worksite-command-execution` | 10/10/0/0 (S1) | 10/10/0/0 |
+| `t288-instruction-assembly-owner` | 6/4/0/2 (S1) | 6/4/0/2 |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 (S1) | 2/0/0/2 |
+| `w2-steel-single-start` | 8/7/0/1 (S1) | 8/7/0/1 |
+| `w2-steel-single-start-closure` | 8/0/0/8 (S1) | 8/0/0/8 |
+| `w2-steel-single-start-installed` | 1/0/0/1 (S1) | 1/0/0/1 |
+| `uat-harness` | 34/31/0/3 (S1) | 34/31/0/3 |
+| `uat-continuation` | 4/0/0/4 (S1) | 4/0/0/4 |
+| compose (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`, `real admitted compose`) | 2/2/0/0 (S1) | 2/2/0/0 |
+
+**Gates.**
+
+| Gate | Result |
+|---|---|
+| `tsc` | 0 |
+| `tsc --noUnusedLocals` | 0 errors |
+| `lint:imports` | 28 shared modules; 3 forbidden pairs hold |
+| `lint:lifecycle` | 288 modules, no offender |
+| `lint:evidence` | no new copy |
+| `lint:calculus` | 6 modules, no offender |
+| `npm run build` | rc 0; the generator verified the pin |
+| Smoke import | all 15 `package.json` export entry points import; each of the three new value edges imports first in a fresh process |
+| Export-name diff (adapted from R2-b's `exports.mjs` to every entry point; the base list taken with the same tool) | 4,952 names, no line moved |
+
+**Deviations.**
+1. **The pin was computed by script.** The generator verifies the pin and never writes it, so the new values were computed by a scratch script under the generator's own relation and then verified by the build. This follows the C-4 precedent `cc8e796a6`.
+2. **`implementation/semantic_stage.ts` was edited, and there are five gate leaves where the activation says four.** The grant lists `implementation/semantic_job.ts`, which does not exist. The leaf module that calls `abg/semantic_job.ts` is `implementation/semantic_stage.ts`. Its three task leaves were taken under item 5's leaf-module grant for item 4(b). The fifth gate leaf, `realizeSemanticRevisionNativeConstruction`, is the native construction gate.
+3. **Two lanes restated outside the named assertions.**
+   - `t287-native-semantic-job:136-140`: the hand-built basis carries `commandExecutionLimits` instead of toggling the environment. Both assertions keep their expected values: the changed limits refuse; the retained limits prepare `v.task`.
+   - `t287-native-semantic-revision:303`: the occurrence carries the lane's `limits` (setup only, no assertion changed).
+4. **Item 8 edits sit outside "the native-work branch only"**: `declaredRunPromptBound`, the internal evaluator, and the two `require…` functions.
+5. **The invalid-environment message moved.** An invalid limits environment now fails at the gate leaf with the basis message ("… requires the basis's selected command execution limits") where it used to fail with the reader's message. The reader's own messages remain asserted directly (`t287-native-semantic-job:196-199`).
+6. **One development run.** The new `t287-default-library` case ran once alone by name pattern before the after pass (1/1/0/0).
+
+**Findings outside the grant.**
+1. The reacquisition graph declares `effects: []` while its leaf reads the live worksite as a currentness gate (item 5, row 10b).
+2. Two readers project the same governance root fact:
+   - `abg/default_library.ts` `owner`: the root `basis_admitted` event through `indexedRuntimeEvents`;
+   - item 8's `semanticJobRootAtPrefix`.
+
+   Consolidating them needs `abg/default_library.ts`.
+3. The C2 and construction branches of the worksite assembly (`worksite-native`) remain unbounded by the Run's prompt bound.
+4. Native semantic and revision Runs declare no Run-level prompt bound on their root input.
+5. Row 10b's `abg/semantic_job.ts:303` (`semanticJobContextCurrent`, the whole-file comparison with a live observation) is now at `:187`; unchanged.
+6. Citation corrections: `NativeIntake` was `implementation/semantic_revision.ts:110` at the base and is `:113` now; the activation's "the registered native selection's `maxPromptBytes` has no consumer" is a miscitation (item 8).
+
+**Stops.**
+1. **Item 1.** The effect kind is missing: an archive attempt-preparation effect, `effect://abiogenesis/worksite/command-attempt.prepare/v1`.
+2. **Item 2.** The declared input key is a new member, `commandExecutionLimits`, of `native_semantic_revision_intake` (`product/semantic_revision.ts:32-41`, `product/builtin_semantics.ts:822`, `gtl/semantic_revision_publication.ts:76`).
+3. **Item 3 (the ambient carry).** The captured environment would be a basis member and a declared input key at the preparation leaves. It needs `product/worksite_preparation.ts`, `product/worksite_preparation_contracts.ts` and the leaves' input contracts (the census above).
+
+**What could not be verified.**
+- The Phase C records (`phase_c.md`, `repin.md`) are absent at the cited paths and were not searched for.
+- The sandbox rust-cli assessor prompt under the enforced bound was not run here; that is the Executive's post-deploy steel thread.
+- No lane exercises the shared function's locator, locus or dialect refusals at the catalog-application site, or any of its refusals at the materialization site. At those sites the order equality rests on the order table and code reading.
+- That an authenticated production owner always projects its root, so the bound is never silently skipped, is argued from owner authentication and the child basis's carried fields. It is exercised only by the lane case's projection over supplied bases.
+- The readers were same-family: no independent reader checked this Return.

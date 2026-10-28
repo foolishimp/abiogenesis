@@ -13,10 +13,16 @@ import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSema
   projectSemanticJobEvidence, semanticJobInputMatchesBasis } from "../abg/semantic_job.js";
 import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobActorCandidate,
   semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, type SemanticJobContractIssue } from "../product/semantic_job.js";
-import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
+import type { SemanticStageNativeBasis } from "../abg/semantic_stage.js";
+import type { WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 const hash = (x: JsonValue) => sha256Canonical(x);
+/** The limits the basis selected; it records `null` when the validating reader refused. */
+function selectedLimits(basis: SemanticStageNativeBasis): Readonly<WorksiteCommandExecutionLimits> {
+  if (basis.commandExecutionLimits == null) throw new TypeError("native semantic task requires the basis's selected command execution limits");
+  return basis.commandExecutionLimits;
+}
 const placeholder = `sha256:${"0".repeat(64)}` as const;
 const bindings = semanticStageImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   productId: ABI5_PRODUCT_ID, artifactDigest: placeholder, productContentDigest: placeholder, productManifestDigest: placeholder });
@@ -122,7 +128,7 @@ export async function realizeSemanticJobBridge(input: Readonly<Record<string, Js
 
 // Existing owner adapters; actors remain the native workspace child Calls.
 export async function realizeNativeSemanticAuthorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedLimits(occurrence.semanticStageBasis));
   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAuthorTaskImplementationRef })
     : success(input, output, ids.nativeAuthorTaskImplementationRef, true);
 }
@@ -136,7 +142,7 @@ export function realizeNativeSemanticAuthorFold(input: Readonly<Record<string, J
 }
 export const NATIVE_SEMANTIC_AUTHOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAuthorFoldImplementationRef)!;
 export async function realizeNativeSemanticAssessorTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedLimits(occurrence.semanticStageBasis));
   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeAssessorTaskImplementationRef })
     : success(input, output, ids.nativeAssessorTaskImplementationRef, true);
 }
@@ -148,7 +154,7 @@ export function realizeNativeSemanticAssessorFold(input: Readonly<Record<string,
 }
 export const NATIVE_SEMANTIC_ASSESSOR_FOLD_DESCRIPTOR = descriptors.find(d => d.implementationRef === ids.nativeAssessorFoldImplementationRef)!;
 export async function realizeNativeSemanticConstructionTask(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedWorksiteCommandExecutionLimits());
+  const output = occurrence.semanticStageBasis === undefined ? null : await projectNativeSemanticTask(occurrence.semanticStageBasis, input, selectedLimits(occurrence.semanticStageBasis));
   return output === null ? failure("native_semantic_source_relation_mismatch", { input, implementationRef: ids.nativeConstructionTaskImplementationRef })
     : success(input, output, ids.nativeConstructionTaskImplementationRef, true);
 }

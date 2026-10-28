@@ -1,9 +1,8 @@
-import { selectedWorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
 import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS as old } from "../gtl/semantic_stage_identity.js";
 import { semanticRevisionImplementationBindings } from "../gtl/semantic_revision_publication.js";
 import { requireNativeInstructionAssembly, type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
-import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
+import { authenticateSemanticStageBasis, type SemanticStageNativeBasis } from "../abg/semantic_stage.js";
 import { authenticateSemanticJobBasis } from "../abg/semantic_job.js";
 import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevisionWorksitePreparation, projectRevisionEvidenceInput, semanticRevisionSelectionMatchesBasis,
   prepareNativeSemanticRevisionIntake, projectNativeSemanticRevisionRequest, projectNativeRevisionConstructionTask, projectNativeRevisionExecutionTask, projectNativeRevisionEvidence,
@@ -11,6 +10,7 @@ import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevi
 import { deriveRevisionAsset, deriveRevisionAssessment, isSemanticRevisionEnvelope,
   isSemanticJobRevisionEnvelope, deriveJobRevisionAsset, deriveJobRevisionAssessment } from "../product/semantic_revision.js";
 import type { SemanticActorSource } from "../product/semantic_stage.js";
+import type { WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { materializeSemanticJobDesignResponse, semanticJobUsesDesignResponse } from "../product/semantic_job.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
@@ -22,6 +22,11 @@ import { canonicalEquals } from "../shared/value/index.js";
 import { isRecord } from "../shared/admit/index.js";
 
 const hash = (x: JsonValue) => sha256Canonical(x);
+/** The limits the basis selected; it records `null` when the validating reader refused. */
+function selectedLimits(basis: SemanticStageNativeBasis): Readonly<WorksiteCommandExecutionLimits> {
+  if (basis.commandExecutionLimits == null) throw new TypeError("native revision requires the basis's selected command execution limits");
+  return basis.commandExecutionLimits;
+}
 const placeholder = `sha256:${"0".repeat(64)}` as const;
 export const SEMANTIC_REVISION_IMPLEMENTATION_DESCRIPTORS = semanticRevisionImplementationBindings({ packageName: ABI5_PACKAGE_NAME, packageVersion: ABI5_PACKAGE_VERSION,
   productId: ABI5_PRODUCT_ID, artifactDigest: placeholder, productContentDigest: placeholder, productManifestDigest: placeholder }).map(({ kind: _kind, bindingRef: _ref, ...body }) => deepFreeze({
@@ -107,14 +112,15 @@ export function realizeSemanticRevisionSelection(input: Readonly<Record<string, 
 
 export async function realizeSemanticRevisionNativeIntake(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
   let failureClass = "native_revision_basis_unavailable";
-  const output = occurrence.semanticStageBasis === undefined ? null : await prepareNativeSemanticRevisionIntake(occurrence.semanticStageBasis,input,selectedWorksiteCommandExecutionLimits(),reason=>{failureClass=reason;});
+  const output = occurrence.semanticStageBasis === undefined ? null : await prepareNativeSemanticRevisionIntake(occurrence.semanticStageBasis,input,selectedLimits(occurrence.semanticStageBasis),reason=>{failureClass=reason;});
   return result(input,output,ids.nativeIntakeImplementationRef,true,failureClass);
 }
 export function realizeSemanticRevisionNativeRequest(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeSemanticRevisionRequest(occurrence.semanticStageBasis,input), ids.nativeRequestImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeConstruction(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {
-  if (!isSemanticJobRevisionEnvelope(input) || (input.revisionBasis.request.nativeWorksite?.commandExecutionLimits === undefined || !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedWorksiteCommandExecutionLimits()))) return result(input,null,ids.nativeConstructionImplementationRef,true);
+  if (!isSemanticJobRevisionEnvelope(input) || (input.revisionBasis.request.nativeWorksite?.commandExecutionLimits === undefined || occurrence.semanticStageBasis === undefined ||
+    !canonicalEquals(input.revisionBasis.request.nativeWorksite?.commandExecutionLimits, selectedLimits(occurrence.semanticStageBasis)))) return result(input,null,ids.nativeConstructionImplementationRef,true);
   return result(input, occurrence.semanticStageBasis === undefined ? null : projectNativeRevisionConstructionTask(occurrence.semanticStageBasis,input), ids.nativeConstructionImplementationRef, true);
 }
 export function realizeSemanticRevisionNativeExecution(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>) {

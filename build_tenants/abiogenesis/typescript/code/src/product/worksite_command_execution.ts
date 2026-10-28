@@ -18,6 +18,7 @@ import {
 import type { ActorProcessObservation } from "../abg/actor_process.js";
 import {
   canonicalJson,
+  compareUnicodeCodeUnits,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
@@ -71,8 +72,6 @@ import { canonicalEquals } from "../shared/value/index.js";
 const SCHEMA_VERSION = "5.0.0" as const;
 // Technical Node timer representation limit; execution policy belongs to callers.
 const HOST_TIMER_MAX_MS = 2_147_483_647;
-const BASE64_PATTERN =
-  "^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$";
 
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
 export { WORKSITE_COMMAND_EXECUTION_IDS } from "./worksite_command_execution_identity.js";
@@ -907,17 +906,18 @@ function environmentEntries(
   }
   const rows = declared.filter((row) => row.name !== "PATH_PREFIX");
   const suppliedPath = rows.find((row) => row.name === "PATH");
-  const safeAmbientPath = process.env.PATH ?? "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+  // The ambient PATH and its default are read only when no PATH is supplied.
+  const basePath = suppliedPath?.value ?? process.env.PATH ?? "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
   const normalizedPath: string = prefixRows[0] === undefined
-    ? (suppliedPath?.value ?? safeAmbientPath)
-    : `${prefixRows[0].value}${pathDelimiter}${suppliedPath?.value ?? safeAmbientPath}`;
+    ? basePath
+    : `${prefixRows[0].value}${pathDelimiter}${basePath}`;
   if (normalizedPath.split(pathDelimiter).some((segment) =>
     segment.length === 0 || !isAbsolute(segment))) {
     throw new TypeError("worksite command PATH requires only non-empty absolute entries");
   }
   if (suppliedPath === undefined) rows.push({ name: "PATH", value: normalizedPath });
   else suppliedPath.value = normalizedPath;
-  rows.sort((left, right) => left.name.localeCompare(right.name));
+  rows.sort((left, right) => compareUnicodeCodeUnits(left.name, right.name));
   if (rows.some((row) =>
     !/^[A-Za-z_][A-Za-z0-9_]*$/u.test(row.name) ||
     typeof row.value !== "string" || row.value.includes("\0")

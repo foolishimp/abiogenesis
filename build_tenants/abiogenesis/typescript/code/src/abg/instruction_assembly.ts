@@ -1,6 +1,6 @@
 import { isDeepStrictEqual as sameSynthesis } from "node:util";
 import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
-  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask } from "../product/default_library.js";
+  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
@@ -8,7 +8,7 @@ import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_worksp
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
   nativeWorkspaceWorkReportSchema, nativeWorkspaceWorkGraphFunctionRef, nativeWorkspaceWorkResultContractRef } from "../product/native_workspace_work.js";
-import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent } from "./semantic_job.js";
+import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from "./semantic_job.js";
 import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, semanticJobSourceText, projectSemanticJobActorMaterial, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
 import { isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, isSemanticRevisionSelection, semanticRevisionSelectionSchema, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { semanticRevisionInputMatchesBasis, projectOwnedRevisionSelectionSubject, projectRevisionHistoricalContext,
@@ -111,11 +111,30 @@ export function worksiteCommandExecutionAttemptRef(occurrence: Readonly<{
   return `worksite-command-attempt://abiogenesis/${digest.slice(7)}`;
 }
 
+/** The Run's declared prompt bound: the governance original's `maxPromptBytes`
+ * on the Run's root input, read through the root ancestry projection. A Run
+ * whose root input is not a governance work state declares none, and a root
+ * that cannot be projected selects none. */
+function declaredRunPromptBound(owner: Pick<NonNullable<ReturnType<typeof authenticateOwnedNativeInstructionAssemblyBasis>>, "prefix" | "execution">): number | null {
+  try {
+    const root = semanticJobRootAtPrefix(owner.prefix, owner.execution)?.rawInputValue;
+    return isGovernanceWorkState(root) ? root.original.maxPromptBytes : null;
+  } catch { return null; }
+}
+
 /** The same assembly owner extends to the two declared worksite carriers.
  * Base requests are derived from authenticated task values, never supplied
  * prompt overrides. This projection performs no helper or filesystem effect. */
 export function constructWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
   supplied: unknown): Readonly<NativeInstructionAssembly> | null {
+  const result = evaluateWorksiteNativeInstructionAssembly(basis, supplied);
+  return result?.kind === "native_instruction_assembly" ? result : null;
+}
+/** The worksite assembly with its typed refusal: a native-work prompt over the
+ * Run's declared bound refuses `declared_bound_overflow`; `null` is every other
+ * refusal of this owner. */
+function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
+  supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
   try {
     const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
     const admittedSupplied = admitJson(supplied);
@@ -156,12 +175,14 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
       const identity = assemblyIdentity("native-work", plan, owner,
         basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied });
       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
+      const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
+      if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, selectedRole, ["maxPromptBytes"]);
       return finishInstructionAssembly(identity, { contextRef: supplied.context.observationRef,
         contextDigest: supplied.context.observationDigest }, { actorRef: nativeIds.workerActorRef, workerBindingRef: nativeIds.workerBindingRef,
           implementationRef: nativeIds.implementationRef, inputDigest: owner.inputDigest,
           rendererRef: nativeIds.rendererRef, instructionContractRef: nativeIds.taskContractRef,
           resultContractRef, transportLane: "worker_executes", prompt,
-          responseJsonSchema: schema, ...presentation });
+          responseJsonSchema: schema, ...presentation }, promptBytes);
     }
     const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term))
       .filter(leaf => leaf.programLocusRef === owner.call.programLocusRef);
@@ -224,8 +245,9 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
 
 export function requireWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
   supplied: unknown): Readonly<NativeInstructionAssembly> {
-  const assembly = constructWorksiteNativeInstructionAssembly(basis, supplied);
+  const assembly = evaluateWorksiteNativeInstructionAssembly(basis, supplied);
   if (assembly === null) throw new TypeError("worksite dispatch requires exact native admitted instruction assembly");
+  if (assembly.kind !== "native_instruction_assembly") throw new TypeError(JSON.stringify(assembly));
   return assembly;
 }
 
@@ -423,8 +445,9 @@ export function requireDeclaredNativeInstructionAssembly(basis: NativeInstructio
     if (result.kind !== "native_instruction_assembly") throw new TypeError(JSON.stringify(result));
     return result;
   }
-  const assembly = constructDeclaredNativeInstructionAssembly(basis, input, contractByRef);
+  const assembly = evaluateWorksiteNativeInstructionAssembly(basis, input);
   if (assembly === null) throw new TypeError("declared native dispatch requires exact admitted instruction assembly");
+  if (assembly.kind !== "native_instruction_assembly") throw new TypeError(JSON.stringify(assembly));
   return assembly;
 }
 

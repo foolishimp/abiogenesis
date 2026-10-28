@@ -350,7 +350,7 @@ function invalidatedAcrossBindings(prefix:RuntimeEventPrefix,subject:WorksiteSub
 type RevisionEvidenceContext = Readonly<{
   aggregateId: string; basisId: string; runId?: string; graphCallId?: string; frameId?: string;
   causationEventRefs: readonly string[]; admissionOrdinal: number;
-  cCallRef: string; evidenceContractRef: string; evidenceRefs: readonly string[];
+  cCallRef: string; evidenceContractRef: string | null; evidenceRefs: readonly string[];
   requestDigest: Sha256Digest; envelopeDigest: Sha256Digest;
 }>;
 const REVISION_EVIDENCE_MISMATCH: StructuralRefusal = Object.freeze({

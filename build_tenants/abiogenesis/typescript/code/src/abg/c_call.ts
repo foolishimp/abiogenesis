@@ -173,7 +173,7 @@ export type CCall = {
   readonly failureContractRef: string;
   readonly refusalContractRef: string;
   readonly refusalValueKind: string;
-  readonly evidenceContractRef: string;
+  readonly evidenceContractRef: string | null;
   readonly judgmentContractRef: string;
   readonly rejectionContractRef: string;
   readonly transitionContractRef: string;
@@ -2283,7 +2283,7 @@ function hasUndispatchedEvidence(prefix: RuntimeEventPrefix, cCallRef: string): 
 /** The CCall and Result coordinates the undispatched evidence record is read
  * against: the context data of its record. */
 type UndispatchedEvidenceContext = Readonly<{
-  cCallRef: string; evidenceContractRef: string; failureContractRef: string;
+  cCallRef: string; evidenceContractRef: string | null; failureContractRef: string;
   resultClass: AdmittedCCallResult["resultClass"]; resultContractRef: string; valueDigest: Sha256Digest;
 }>;
 
@@ -3940,6 +3940,16 @@ export function admitWorkflowChildPreparationRefusal(
       message: "child preparation refusal requires one open transparent parent workflow CCall",
     };
   }
+  const parentEvidenceContractRef = parentCCall.evidenceContractRef;
+  if (parentEvidenceContractRef === null) {
+    return {
+      kind: "child_preparation_refusal_refusal",
+      schemaVersion: "5.0.0",
+      disposition: "refused",
+      code: "parent_call_mismatch",
+      message: "child preparation refusal requires the parent workflow CCall's declared evidence contract",
+    };
+  }
   if (
     candidate.kind !== "child_preparation_refusal_candidate" ||
     candidate.schemaVersion !== "5.0.0" ||
@@ -3994,7 +4004,7 @@ export function admitWorkflowChildPreparationRefusal(
     parentCCall,
     "evidence",
     candidate,
-    parentCCall.evidenceContractRef,
+    parentEvidenceContractRef,
     candidate.diagnosticRef,
   );
   return deepFreeze({

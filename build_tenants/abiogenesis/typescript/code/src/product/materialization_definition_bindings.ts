@@ -15,8 +15,6 @@
  * admitted authority basis, `workspaceRef` its `workspaceId` and
  * `workspaceDigest` its `authorityBasisDigest`, never a caller value.
  */
-import { readFileSync } from "node:fs";
-import { isAbsolute, relative, resolve } from "node:path";
 
 import { Ajv2020 } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
@@ -53,7 +51,7 @@ import {
 } from "../public/binding/definition_binding_mechanics.js";
 import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
 import type { JsonValue } from "../shared/canonical_json.js";
-import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical } from "../shared/digests.js";
 import type {
   DefinitionCall,
   DefinitionExecutionFault,
@@ -79,6 +77,7 @@ import {
   type ProductMaterializationResult,
   type ProductMaterializePacketByMember,
 } from "./materialization_operations.js";
+import { admitInstalledSchemaAsset } from "./declaration_application.js";
 
 type Member = ProductMaterializationMember;
 type Packet<M extends Member> = (typeof MATERIALIZATION_OPERATION_CONTRACTS)[M];
@@ -173,7 +172,7 @@ function installedContract(environment: ExactPrefixWorkspaceEnvironment, coordin
 
 /**
  * A value is admitted under an installed contract only through that row's
- * installed JSON Schema (the schema_asset convention of catalog application):
+ * installed JSON Schema (the schema_asset convention, `admitInstalledSchemaAsset`):
  * the digest-checked bytes under the install root, the 2020-12 dialect, strict
  * Ajv, and the row's `$defs` selection. A row with no executable schema admits
  * no value. Returns the request member that fails: the contract or the value.
@@ -184,20 +183,13 @@ function admitUnderInstalledContract(
   value: JsonValue,
 ): "admitted" | "contract" | "value" {
   const selected = installedContract(environment, coordinate);
-  const locator = selected?.row.assetLocator;
-  if (selected === null || locator === undefined || locator.mediaType !== "application/schema+json") return "contract";
+  if (selected === null) return "contract";
   let validate: (candidate: unknown) => boolean;
   try {
-    const path = resolve(selected.install.installedRoot, locator.path);
-    const within = relative(selected.install.installedRoot, path);
-    if (isAbsolute(within) || within === ".." || within.startsWith("../")) return "contract";
-    const bytes = readFileSync(path);
-    if (sha256Bytes(bytes) !== locator.contentDigest || sha256Bytes(bytes) !== selected.row.contractDigest) return "contract";
-    const schema: unknown = JSON.parse(bytes.toString("utf8"));
-    if (typeof schema !== "object" || schema === null || Array.isArray(schema)) return "contract";
-    const document = schema as Readonly<Record<string, unknown>>;
-    if (document.$schema !== "https://json-schema.org/draft/2020-12/schema") return "contract";
-    const definitionRef = locator.definitionRef;
+    const admitted = admitInstalledSchemaAsset(selected.install, selected.row, { document: true });
+    if (admitted.kind === "refused") return "contract";
+    const document = admitted.document!;
+    const definitionRef = admitted.locator.definitionRef;
     const definitions = document.$defs;
     const named = definitionRef === undefined ? null : /^#\/\$defs\/([^/~]+)$/u.exec(definitionRef)?.[1];
     if (named === undefined || (named !== null && (typeof definitions !== "object" || definitions === null ||

@@ -300,7 +300,7 @@ test('native D2 root-backed binding cover authenticates source ancestry and pres
  const limits={inactivityTimeoutMs:300000,absoluteTimeoutMs:900000};let reason;
  const prepare=()=>h.owner.prepareNativeSemanticRevisionIntake(h.basis,h.intake,limits,r=>reason=r);
  assert.equal(await prepare(),null);assert.equal(reason,'native_revision_binding_cover_absent');
- const failed=await h.implementation.realizeSemanticRevisionNativeIntake(h.intake,{semanticStageBasis:h.basis});
+ const failed=await h.implementation.realizeSemanticRevisionNativeIntake(h.intake,{semanticStageBasis:{...h.basis,commandExecutionLimits:limits}});
  assert.equal(failed.resultCandidate.failureClass,'native_revision_binding_cover_absent');
  assert.equal(failed.diagnosticRef,'diagnostic://abiogenesis/semantic-revision/native_revision_binding_cover_absent@5');
  // Reuse the existing witness-event constructor and complete cover owner.
