@@ -4782,3 +4782,146 @@ The `legacyInterpretation` objects stay as they are (the harness's record). No o
 **Stops.** A request the installed owner refuses after the insertion (name the refusal; the task length against `maxPromptBytes` and the input contract's shape are the candidates); a catalog lane red on the base before your edit (the before column is the stop, not your edit); a lane red after your edit at loads at or below 16.
 
 **Return contract.** `## D3-a return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)` appended once, after a blank line, before the commit: the first sentence (Yes or No, with the stops); the subtree pairs; the inserted text (once) and the seven pins before and after; the prepare table; the lanes table with loads; deviations; findings outside the grant; what could not be verified. One commit on `main`, staged by path (the nine files, the record, the record directory's two files), first line `D3-a: the sandbox UAT catalog delivers each workload's legacy interpretation through its task text (the adaptation notes the task names); the seven requests re-pinned; the catalog lanes equal`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D3-a return (Worker, Opus 5.5, 2026-10-29; base `638127c0ef0bbc22408aa4ce3373d81d629db1fa`)
+
+Yes, no stop fired: the nine files changed as stated, the seven requests were admitted by the installed owner in prepare with the provider disabled, and the four catalog lanes are equal before and after; the activation's diagnosis is not confirmed, since each of the seven tasks already carried its legacy interpretation as a trailing `INTERPRETATION` block that the assessor's prompt delivered in the failed run (`fp-2231c5f1623cc9e0`) and in both passing runs, so the new content reaching the actors is the decidability note and its header; and the note leaves criteria 7–9 of ordinal 10095 open, of which the Node.js version, not carried by the admitted observation, can keep the Executive's rerun `indeterminate` under the note's own last clause (findings 1 and 3).
+
+**Subtree pairs** (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<subtree>`):
+
+| Subtree | HEAD `638127c0e` | `fd38e8227` | Staged before commit |
+|---|---|---|---|
+| `code` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` |
+| `test_env` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` | `96af595e702158aab29aa759fe8fd4d3c281100c` (the nine fixture files) |
+| `contracts` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` |
+
+The staged column is from `git write-tree --prefix=<subtree>/` after staging the nine files by path.
+
+**The defect, read from the event log** of the failed run `js-sdlc-bootstrap/2026-10-28T12-57-57-253Z-624419a6-…`:
+
+- Ordinal 10095: `c_call_result_admitted`, the native-work observation `result://abiogenesis/a403b5e0…`. Its `assessment` is `indeterminate` with nine `unresolvedCriteria`.
+  - Criteria 1–6 are the ones the activation names: eight-vector parity unproven; per-stage write-only rules not separately observed; `executeFromPlan`, `executionStatus`, the stdout digest algorithm and `planSatisfied` unknown.
+  - Criteria 7–9 are not named. 7: the Node.js version is neither pinned by the source nor recorded in the admitted observation. 8: the declared empty environment differs from the observed `HOME`, `LANG`, `PATH` and `TMPDIR` (the assessor judged this immaterial but listed it). 9: no observation establishes the absence of writes outside the worksite, and the assessor's own `git status` is cited.
+- Ordinal 10863: the registered choice `gap`, missing `…/complete-original-outcome`.
+- Ordinal 10876: `run_stopped`, `reason://abiogenesis/default-library/gap@5`.
+- `independent-oracle.json`: `satisfied`.
+
+**The inserted text, once.** It goes directly after the anchor sentence, in this order: one `\n`; the header; the request's own entries in file order as `- <key>: <text>`; the note. `\n` separates each part. The existing `\n\n` before the declaration is unchanged.
+
+Five requests carry four entries. `data-mapper-full` adds `sourceCountConflict` and `rust-service` adds `originalService`.
+
+Header (105 bytes, `sha256:8f3e94aab19ab22c62648aab6c283b1e75fd381514a69a857492c6e87ba34b67`):
+
+    Adaptation notes (the test owner's interpretation of the legacy mechanisms; governing for this workload):
+
+Note (1,411 bytes, `sha256:916747b5480c7aa33b9a00a5d6ce818be16e3acf09201af47b932b8e53315af6`; one occurrence in each of the seven tasks, byte-identical):
+
+    - decidability: The donor's witness block (its source project, run path, duration, traversal shape and parity rule), any executeFromPlan flag and the donor harness's result fields (executionStatus, planSatisfied, observedTestPassCount and the stdout digest) are provenance and historical meaning of the donor run. They are satisfied for this workload by being preserved unchanged in the original source; they are not criteria of this run and are not reported as unresolved. Under the installed lifecycle the execution-result stage is judged from the admitted command observation: its exit status, its stream bytes and digests, its observed pass and fail lines against the plan's command, args, cwd, expected exit code, expected stdout fragments and pass floor, and the admitted predicate observations. Stage meanings are satisfied by the artifacts' content, by each stage's write-only rule read as a content rule (a stage's file holds only that stage's content) and by the declared dependency order between the artifacts; separate vectors, invocations or graph calls per stage are not required, and their absence is not a gap. The original application outcomes, every required artifact, test file and test role, the pass floor, zero failures and plan satisfaction remain mandatory: an unmet one is unmet, never indeterminate, and indeterminate is reserved for a criterion the admitted observations do not carry.
+
+Verified per request:
+
+- parsed, the file deep-equals the original except `task`, with the key order kept;
+- `newTask === oldTask.replace(anchor, anchor + insertion)`, with the anchor occurring exactly once in both the raw file and the task;
+- the written file is `JSON.stringify(value, null, 2) + "\n"`, which reproduced every original byte for byte before the edit.
+
+`scenarios.json`: only the seven `<key>/request.json` digest and byte-count pairs changed. Undoing them yields the original value.
+
+`README.md`: the sentence sits on four new lines directly after "missing evidence keeps the UAT outcome non-green.", inside that paragraph. No existing line changed.
+
+The harness's own `loadScenarios` and `acquireScenario` acquire all seven against the new pins (manifest `sha256:223d6a8b…149b`).
+
+**Pins** (sha256 prefix…suffix; full values in the record directory's `pins.json`):
+
+| Request | Before sha256 | Before bytes | After sha256 | After bytes | Task bytes before → after |
+|---|---|---:|---|---:|---|
+| `basic-cli/request.json` | `481aad19…980f` | 21,323 | `017d3ce2…025e` | 23,776 | 5,642 → 8,089 |
+| `data-mapper-full/request.json` | `d583deda…9f43` | 77,648 | `0fa6938f…ad9f` | 80,320 | 42,698 → 45,363 |
+| `js-sdlc-bootstrap/request.json` | `3e16c502…e983` | 25,009 | `21790825…d6b9` | 27,462 | 7,437 → 9,884 |
+| `js-tenant-test/request.json` | `8a80cd9e…91be` | 21,640 | `2d4ac5ac…7a2e` | 24,093 | 4,972 → 7,419 |
+| `parallel-js/request.json` | `ad8880aa…73f1` | 24,062 | `118623a7…11b0` | 26,515 | 5,602 → 8,049 |
+| `rust-cli/request.json` | `f132ab8b…b8c1` | 22,840 | `321c2541…0ace` | 25,293 | 5,133 → 7,580 |
+| `rust-service/request.json` | `068fccd2…40da` | 22,913 | `a6e06dbb…5eb2` | 25,596 | 5,726 → 8,402 |
+| `scenarios.json` | `2c506450…e3e8` | 34,763 | `223d6a8b…149b` | 34,763 | |
+
+`README.md` (fixture directory): `73b884a2…5ef9`, 3,722 bytes, before; `f7494b29…6023`, 3,965 bytes, after.
+
+**Prepare table.** Each case ran `node scripts/sandbox-uat.mjs prepare --config <scratch>/d3a/prepare/config.json --case <key>` under `env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN`, with `TMPDIR` set to scratch and `provider.enabled` false. The archive root was `<scratch>/d3a/prepare/runs/`.
+
+The package was `<scratch>/d3a/pack/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz`, sha256 `550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6`, equal to the pack of `fd38e8227` (deviation 1).
+
+Every case: status `prepared`, preflight `ready`, no `failure.json`, the after pin acquired, and the archived manifest `223d6a8b…`. The note's exact bytes appear in `prepared-definition-call.json` at the owner's admitted `original.task`, in both the `input_contract` slot and the request input, with the header directly after the anchor.
+
+Task bytes against `maxPromptBytes` 1,048,576: 7,419 to 45,363.
+
+| Case | Status | Preflight | Request pin at acquisition | Note in `prepared-definition-call.json` | Call sha256, bytes | Wall s | Load 1-min before → after |
+|---|---|---|---|---|---|---:|---|
+| basic-cli | prepared | ready | after pin `017d3ce2…025e` | 2 (both `original.task` copies), header adjacent | `a78b59a9…dedd`, 29,675,558 | 274 | 15.65 → 5.47 |
+| data-mapper-full | prepared | ready | after pin `0fa6938f…ad9f` | 2 (both `original.task` copies), header adjacent | `588c2e00…ac71`, 29,793,400 | 267 | 5.47 → 4.14 |
+| js-sdlc-bootstrap | prepared | ready | after pin `21790825…d6b9` | 2 (both `original.task` copies), header adjacent | `bfd4f983…4d7b`, 29,682,682 | 266 | 4.14 → 5.57 |
+| js-tenant-test | prepared | ready | after pin `2d4ac5ac…7a2e` | 2 (both `original.task` copies), header adjacent | `b85c05fc…bac3`, 29,675,908 | 267 | 5.57 → 4.82 |
+| parallel-js | prepared | ready | after pin `118623a7…11b0` | 2 (both `original.task` copies), header adjacent | `a84f8e20…60bc`, 29,681,376 | 265 | 4.82 → 3.82 |
+| rust-cli | prepared | ready | after pin `321c2541…0ace` | 2 (both `original.task` copies), header adjacent | `dd1ab84c…a35c`, 29,678,918 | 265 | 3.82 → 4.22 |
+| rust-service | prepared | ready | after pin `a6e06dbb…5eb2` | 2 (both `original.task` copies), header adjacent | `8d2553a7…c91b`, 29,678,088 | 268 | 4.22 → 5.36 |
+
+**Lanes table.** Each lane ran alone with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000 <path>`. `uptime` was read immediately before and after each lane.
+
+The before pass ran on the base after the one `npm run build`: rc 0, 31 s, load 5.62 → 7.88, the tree clean by path afterwards. The after pass ran on the edited tree after the seven prepares.
+
+Test names and statuses are identical between the two passes (sha256 of the ordered result lines equal per lane). "Seven exact original workloads authenticate source, request and independent oracle before use" passes in both.
+
+| Lane | Before tests/pass/fail/skipped | Before load 1-min start → end | After tests/pass/fail/skipped | After load 1-min start → end | Equal |
+|---|---|---|---|---|---|
+| `uat-harness` | 34/31/0/3 (rc 0, 1027 ms) | 8.91 → 10.76 | 34/31/0/3 (rc 0, 977 ms) | 4.66 → 4.66 | yes |
+| `t287-default-library` | 25/22/0/3 (rc 0, 3164 ms) | 10.76 → 10.76 | 25/22/0/3 (rc 0, 2987 ms) | 4.66 → 5.81 | yes |
+| `t287-observed-worksite-command` | 8/8/0/0 (rc 0, 1629 ms) | 10.76 → 12.06 | 8/8/0/0 (rc 0, 1462 ms) | 5.81 → 5.81 | yes |
+| `t287-governance-covered-source-use` | 9/3/0/6 (rc 0, 392 ms) | 12.06 → 12.06 | 9/3/0/6 (rc 0, 364 ms) | 5.81 → 5.81 | yes |
+
+Skips, the same twelve in both passes:
+
+- `uat-harness`, three bare `# SKIP`: the authentic cold read, the terminal-null C2 partial evidence, and the owned XML acquisition of authentic C2 reports.
+- `t287-default-library`, three: `ABI5_PLANNING_PROJECTION_CAPTURE` unset, `ABI5_NATIVE_OBSERVATION_CAPTURE` unset, `ABI5_DEFAULT_LIBRARY_LIVE` not `1`.
+- `t287-governance-covered-source-use`, six: `ABG_GOVERNANCE_COVERED_PROOF_ROOT`, `…_DECLARATION_PAIR` and `…_C2_MATERIAL_SELECTORS` unset, and `ABG_GOVERNANCE_COVERED_FIXTURE` unset (three tests).
+
+No red, no rerun. The highest 1-minute load across the lane readings was 12.06, and across all readings 15.65 (before the first prepare).
+
+**Record directory** `.ai-workspace/comments/claude/20261028T151836Z_D3A_CATALOG_INTERPRETATION/`:
+
+| File | sha256 | Bytes |
+|---|---|---:|
+| `README.md` | `b6035d4a6db830049825803544e6d1f537bbfe7a905d7d20f08e0d629238c182` | 11,330 |
+| `pins.json` | `581a0dd54f7a0cc43acbaf95b806dcb1964000a20be2e6e3f9fb7c5afa37b9e8` | 5,684 |
+
+The digests were computed on the scratch copies before `cp`. The record directory's files were named only to `mkdir`, `cp`, `git add` and `git commit`.
+
+**Deviations.**
+
+1. **The pack.** I built the pack with `npm pack --ignore-scripts --pack-destination <scratch>/d3a/pack` from the base after the one `npm run build`. `--ignore-scripts` keeps `prepack` from running a second build. Its sha256 equals `550b48cc…3df6`, so the prepares ran on the pack of `fd38e8227`. The activation named no pack source, and the Executive's operator configuration was outside my granted reads.
+2. **The prepare configuration.** It is D1/D4-b's form, with the `rustc`, `cargo`, `sbt` and `java` toolchains copied from the tenant's `test_env/uat/config.example.json`. The rust-cli, rust-service and data-mapper-full rows' `toolchainObligations.requiredExecutables` need them at preflight, and D1/D4-b prepared basic-cli only. The other fields are D1/D4-b's, with the paths moved to `d3a`.
+3. **The README sentence** is on new lines inside the `legacyInterpretation` paragraph, not in a separate paragraph, so "Its" keeps its subject. It is wrapped at 79 columns like the file.
+4. **The header and note** were extracted from the activation's line by `sed -n` piped into a script. The enclosing Markdown backticks were stripped and nothing was retyped.
+5. **"`node -e` JSON parse of the nine files"**: eight are JSON and parsed. `README.md` is Markdown.
+6. **Listing outside the granted context.** While looking for the candidate pack I listed the scratchpad root and the Executive's `uat/` scratch folder with `ls`, names only. Nothing there was read.
+
+**Findings outside the grant.**
+
+1. **The activation's diagnosis is half wrong.** "Recorded by the harness but never delivered" does not hold.
+   - Every task already ends with `\n\nINTERPRETATION\n{…}`, which parses equal to its `legacyInterpretation`. Three entries, `runtimeAuthority`, `executionEvidence` and `sourcePreservation`, are also verbatim instructions of every work order in all seven requests.
+   - The failed run's assessor prompt is `fp-2231c5f1623cc9e0-prompt.txt` (frame §10, 86,838 bytes, sha256 `ec12ef56…94b5ce`). It carries the block at byte 49,661.
+   - The passing assessors of 2026-10-06 (`fp-294892292c68d1ff`) and 2026-10-27 (`fp-f2c33b0020f7eaa0`) carry the same block and returned `satisfied` with no unresolved criteria.
+   - The file the activation names as the assessor's prompt, `fp-362830887d446612`, is an executive selector prompt (frame §8; its output is a contribution set for the remaining stage meanings).
+   - What the runs lacked is the decidability note.
+2. **Duplication.** After this package each task carries the entries twice: the inserted list and the trailing `INTERPRETATION` block. The manifest row and the request key each hold a further copy, and the harness records the manifest row's copy (`runner.mjs:374`, `row.legacyInterpretation`). The trailing block is now redundant, and removing it is a test-territory edit for the owner's choice. The activation's grant kept it.
+3. **Criteria 7–9 are not decided by the note.**
+   - Criterion 7, the Node.js version, is a fact the admitted command observation does not carry. Under the note's last clause it remains eligible for `indeterminate`.
+   - Criteria 8 (environment rows) and 9 (writes outside the worksite) are not named by the note. The `executionEvidence` entry names "environment" as preserved evidence.
+   - The Executive's one rerun can still return `indeterminate` on these.
+4. **Prompt bound.** Prepare does not assemble prompts. The largest prompt of the failed run was 97,901 bytes. The insertion adds 2,447–2,676 bytes per task copy, against 1,048,576.
+
+**What could not be verified.**
+
+- The assessor's reading of the new text. There was no provider; that is the Executive's rerun.
+- Assembled prompt bytes against `maxPromptBytes`: estimated in finding 4, not measured.
+- One model's reading with a same-family advisor; no Codex reading.
+- Staged paths outside `build_tenants/`: I checked none, because no pathspec outside `build_tenants/` was permitted. The commit names its twelve paths explicitly (`git commit -- <paths>`), so nothing else staged can enter it.
+- Commits on `main` during the run: none. HEAD was `638127c0e` before the commit, and `git log 638127c0e..HEAD -- build_tenants/` was empty.
+- No credential scan was run, because no token was read and no provider process started.
