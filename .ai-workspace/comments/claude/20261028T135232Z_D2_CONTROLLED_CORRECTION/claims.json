@@ -1,0 +1,620 @@
+{
+  "kind": "d2_claims",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runRef": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+  "inRunJudgment": {
+    "disposition": "unsatisfied",
+    "oracleModule": {
+      "path": "specimen-oracle.mjs",
+      "digest": "sha256:fd05e5214dd90f3d7d172754ff07a3c49c8a98acf88b9b35ca58e0ce59837f61",
+      "byteCount": 31991
+    },
+    "claims": {
+      "failingC2": true,
+      "repair": false,
+      "greenC2": true,
+      "retention": true
+    },
+    "foldedNow": {
+      "failingC2": true,
+      "repair": true,
+      "greenC2": true,
+      "retention": true
+    },
+    "note": "The run-time oracle counted native work admissions, not observations; one repair admitted at the leaf and as the construction child result counted twice. Corrected fold below."
+  },
+  "modules": {
+    "oracleAtRunTime": {
+      "path": "specimen-oracle.mjs",
+      "digest": "sha256:fd05e5214dd90f3d7d172754ff07a3c49c8a98acf88b9b35ca58e0ce59837f61",
+      "byteCount": 31991
+    },
+    "oracleAtFold": {
+      "path": "specimen-oracle.mjs",
+      "sha256": "sha256:d64b3530af50b81468922ff8573ea8e5df239df938b75e204c8cc5b096df236f",
+      "byteCount": 38948
+    },
+    "driverAtRunTime": {
+      "path": "run-specimen.mjs",
+      "sha256": "sha256:233409e96addb6a61fdde3a00b5e1237166bb21bed5654c6a30c43c904867fd0",
+      "byteCount": 20619,
+      "source": "the copy kept in the Worker scratch before the coldReads edit"
+    },
+    "driverAtFold": {
+      "path": "run-specimen.mjs",
+      "sha256": "sha256:22d0b57bce33494f13673569f0afa758af387a67a921c53fb120049b7c39bd11",
+      "byteCount": 20969
+    }
+  },
+  "harness": {
+    "status": "failed",
+    "uatPass": false,
+    "reason": "Original application obligations or terminal evidence remain incomplete",
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "stop": {
+      "disposition": "blocked",
+      "stop": {
+        "digest": "sha256:bccef73fa4396b2c46f2b4596627b47db3361171e9d77a74137b4cb4a794fdb3",
+        "ref": "event://abiogenesis/998c344a9f26cf5baf3be665ea74bf47e25fee68333159ed56a0a03158d3eea7"
+      },
+      "reasonRef": "reason://abiogenesis/default-library/gap@5"
+    },
+    "closeState": {
+      "source": {
+        "eventId": "event://abiogenesis/e2c2eaf647ae091ccffc24aaeada82e2292dada1625bcc61cc1deb5af93a6570",
+        "admissionOrdinal": 5286,
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "resultRef": "result://abiogenesis/b7ab6790f6743852322fb260e38852489861a6a10047ca8c8be793c9ab01e92e"
+      },
+      "terminal": false,
+      "unresolvedSupportRefs": [
+        "support://abiogenesis-d2/mechanical-lifecycle-specimen/complete-original-outcome"
+      ],
+      "observations": [
+        "construction",
+        "testing",
+        "construction",
+        "testing"
+      ]
+    },
+    "uatVerdict": []
+  },
+  "claims": [
+    {
+      "claim": 1,
+      "title": "The failing C2, retained",
+      "satisfied": true,
+      "observation": {
+        "exact": true,
+        "eventId": "event://abiogenesis/3bf6799bb89f44903ebb04631ef313ea6a35abae0028463f450bfb10a91ced8e",
+        "eventIndex": 2505,
+        "admissionOrdinal": 2506,
+        "runId": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:02afb3309fa515b4ed4c45d6c23e12cff5e68eefe6cabe16ac69617a0baf3f5d",
+        "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "observationDigest": "sha256:5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "taskRef": "worksite-command-execution-task://abiogenesis/60b8e553268af6818374a7aae934007c7cffa4277eccd3d7ef10262785be5a39",
+        "taskDigest": "sha256:60b8e553268af6818374a7aae934007c7cffa4277eccd3d7ef10262785be5a39",
+        "taskKind": "native",
+        "sourceNativeWorkObservationRef": "native-work-observation://abiogenesis/e48398e2239ab97694a11acea71b3e2936dd76c1ee06d01c2d2e5c02a19e16ac",
+        "actorInvocationRef": "actor-invocation://abiogenesis/4e21fdd1dfd7a692c5ac1ad5bfe6593a9bde885c4b5b6f3794b12e92be28f4f8",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/c247cd6eff1ee01c7fe4578fc517420643b5b0e53010c5250b5410f8f5265d55",
+        "helperArtifactDigest": "sha256:c247cd6eff1ee01c7fe4578fc517420643b5b0e53010c5250b5410f8f5265d55",
+        "command": {
+          "commandId": "command://abiogenesis-d2/specimen/checker",
+          "executable": "/opt/homebrew/bin/node",
+          "args": [
+            "fixture/checker.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": [
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "HOME",
+              "schemaVersion": "5.0.0",
+              "value": "/Users/jim"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "LANG",
+              "schemaVersion": "5.0.0",
+              "value": "en_AU.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "PATH",
+              "schemaVersion": "5.0.0",
+              "value": "/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/Library/TeX/texbin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "TMPDIR",
+              "schemaVersion": "5.0.0",
+              "value": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d2/tmp"
+            }
+          ],
+          "timeoutMs": 60000,
+          "terminationGraceMs": 10000
+        },
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "exitStatus": 1,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "processSignal": null,
+        "stdout": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n",
+        "stdoutDigest": "sha256:f52d66ca046e0ca529e90b8dd2a770f382902f442f4ba9d9c711cecea8af62e5",
+        "stderr": "",
+        "predicateObservations": [
+          {
+            "evidence": [
+              {
+                "digest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 1,
+            "ordinal": 0,
+            "predicateId": "predicate://abiogenesis-d2/specimen/checker-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          }
+        ],
+        "worksiteDelta": [],
+        "productDelta": [],
+        "protectedDigests": {
+          "fixture/source.md": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+          "fixture/checker.mjs": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+          "fixture/rubric.md": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+          "fixture/value.txt": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048"
+        }
+      },
+      "parentFirstRetaining": {
+        "eventId": "event://abiogenesis/4ba0fb9d77f598a73f9420ce1954dc398223c9c7616fc83628659efbd20a5cc2",
+        "eventIndex": 2535,
+        "admissionOrdinal": 2536,
+        "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+        "resultRef": "result://abiogenesis/e5b0c5f1e2a0aaa90f9b325734d5cd6d37a0c18e0febd6d6123bc20faf92120b",
+        "terminal": false,
+        "hits": [
+          {
+            "observationIndex": 1,
+            "resultRefField": "observations[1].resultRef",
+            "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "cCallRef": "c-call:sha256:02afb3309fa515b4ed4c45d6c23e12cff5e68eefe6cabe16ac69617a0baf3f5d",
+            "commandResultField": "observations[1].value.commandResults[0]",
+            "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "exitStatus": 1,
+            "stdoutText": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n",
+            "equal": true
+          }
+        ]
+      },
+      "closeStateSource": {
+        "eventId": "event://abiogenesis/e2c2eaf647ae091ccffc24aaeada82e2292dada1625bcc61cc1deb5af93a6570",
+        "admissionOrdinal": 5286,
+        "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive@5",
+        "resultRef": "result://abiogenesis/b7ab6790f6743852322fb260e38852489861a6a10047ca8c8be793c9ab01e92e"
+      },
+      "closeStateRetention": [
+        {
+          "observationIndex": 1,
+          "resultRefField": "observations[1].resultRef",
+          "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+          "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+          "cCallRef": "c-call:sha256:02afb3309fa515b4ed4c45d6c23e12cff5e68eefe6cabe16ac69617a0baf3f5d",
+          "commandResultField": "observations[1].value.commandResults[0]",
+          "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+          "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+          "exitStatus": 1,
+          "stdoutText": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n",
+          "equal": true
+        }
+      ],
+      "route": "A nonzero subject-command exit is an admitted success-class C2 observation (worksite_command_execution.ts:2347); the diagnostic rides in commandResults[].stdout"
+    },
+    {
+      "claim": 2,
+      "title": "One native repair, fixture/value.txt only",
+      "satisfied": true,
+      "repair": {
+        "nativeWorkBetween": [
+          {
+            "index": 3996,
+            "eventId": "event://abiogenesis/97b14ac9fa0ee5778c1b00ab245b310ba7d9bcec173ad7ca3760f2043034c27e",
+            "admissionOrdinal": 3997,
+            "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+            "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+            "cCallRef": "c-call:sha256:ebcbd0048788a1a42ec5e9856308ce5f8ccb1ff72ceba00518d1c19e6a9bffe0",
+            "resultRef": "result://abiogenesis/936d21a65cb9238484fb975913151befb8ad0da20d0418e0793df630c5f2d0b4",
+            "resultDigest": "sha256:936d21a65cb9238484fb975913151befb8ad0da20d0418e0793df630c5f2d0b4",
+            "observationRef": "native-work-observation://abiogenesis/4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c",
+            "observationDigest": "sha256:4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c",
+            "writeRoots": [
+              "fixture/value.txt"
+            ],
+            "assessment": false,
+            "changedPaths": [
+              "fixture/value.txt"
+            ],
+            "candidate": {
+              "before": {
+                "state": "file",
+                "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048"
+              },
+              "after": {
+                "state": "file",
+                "digest": "sha256:0c3071418e6356e614898c84ed064ca95e88551bc0811b534bdf1952ecdae534"
+              }
+            },
+            "others": [
+              {
+                "path": "fixture/checker.mjs",
+                "before": {
+                  "state": "file",
+                  "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22"
+                },
+                "after": {
+                  "state": "file",
+                  "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22"
+                },
+                "unchanged": true
+              },
+              {
+                "path": "fixture/rubric.md",
+                "before": {
+                  "state": "file",
+                  "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42"
+                },
+                "after": {
+                  "state": "file",
+                  "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42"
+                },
+                "unchanged": true
+              },
+              {
+                "path": "fixture/source.md",
+                "before": {
+                  "state": "file",
+                  "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328"
+                },
+                "after": {
+                  "state": "file",
+                  "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328"
+                },
+                "unchanged": true
+              }
+            ],
+            "report": {
+              "gaps": [
+                "The C2 remeasurement has not run. The same command, command://abiogenesis-d2/specimen/checker, still has to execute through native C2, report FIXTURE_VALUE_FIXED with exit status 0, and have that observation admitted. This work unit did not run the checker.",
+                "The close/restart conservation and fresh owner reads required by fixture/rubric.md are not done.",
+                "The support obligation support://abiogenesis-d2/mechanical-lifecycle-specimen/complete-original-outcome is still unresolved, and terminal stays false.",
+                "This report and the byte read-back are not independent acceptance or UAT. They do not establish Claude behavior, Data Mapper correctness or release qualification.",
+                "The before/after file checks cover only the selected worksite files. They do not prove that nothing was written elsewhere. I know of no write outside fixture/value.txt."
+              ],
+              "summary": "I did the native repair under the work order's second branch. The admitted observations include a Testing result for command://abiogenesis-d2/specimen/checker (result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7): exit status 1 and stdout `FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"`. First I read the protected originals (fixture/source.md, fixture/checker.mjs, fixture/rubric.md) and the current fixture/value.txt, which held exactly b r o k e n \\n (7 bytes). Then I ran `printf 'fixed\\n' > fixture/value.txt` from the worksite root; this is the only write I made. Reading the file back with `od -c` showed f i x e d \\n, and `wc -c` reported 6 bytes; its sha256 is 0c3071418e6356e614898c84ed064ca95e88551bc0811b534bdf1952ecdae534. The protected originals were only read, never changed. Their sha256 values are: checker.mjs 5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22 (the same as the 5a39eff7… prefix cited in the selection), source.md 9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328, and rubric.md d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42; their modification times are unchanged. I did not run the checker, did not rewrite \"broken\\n\" and did not rerun the earlier Construction write. That write, result://abiogenesis/f4e695786cd6411565dff4d8fcda1fd46b66b140dc0c7314b6fd8b9a9365c1ff, stays the failed producer, and its literal diagnostic stays as cited. I created no temporary or scratch files. The only other commands were reads: cat, od, wc, shasum and ls."
+            },
+            "actorInvocationRef": "actor-invocation://abiogenesis/86091d0b5934df3b57ddf39e56302e724058a2aab0e570fc822aeae49c448f67",
+            "admissions": [
+              {
+                "eventId": "event://abiogenesis/97b14ac9fa0ee5778c1b00ab245b310ba7d9bcec173ad7ca3760f2043034c27e",
+                "admissionOrdinal": 3997,
+                "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+                "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+                "cCallRef": "c-call:sha256:ebcbd0048788a1a42ec5e9856308ce5f8ccb1ff72ceba00518d1c19e6a9bffe0",
+                "resultRef": "result://abiogenesis/936d21a65cb9238484fb975913151befb8ad0da20d0418e0793df630c5f2d0b4"
+              },
+              {
+                "eventId": "event://abiogenesis/de255f1574b47202f82554b93a2c5ec81e48d523f338d6772b6e7fb9bc4738d7",
+                "admissionOrdinal": 4010,
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+                "cCallRef": "c-call:sha256:a5569514c6926143e0f1b4a88fd4a18b9959f98f03371adb08ebd8aad853b65a",
+                "resultRef": "result://abiogenesis/f77d88b04324f0b54d7360068c28023c68d4ef8091c2bc0b603673e6342ab7db"
+              }
+            ]
+          }
+        ],
+        "writingUnitsBetween": 1,
+        "priorBrokenWrite": [
+          {
+            "eventId": "event://abiogenesis/7de95b94502dc5e0fe86d3b8b4b7d6916d2b637be1aefcad10538b569a5a1a45",
+            "admissionOrdinal": 964,
+            "resultRef": "result://abiogenesis/f4e695786cd6411565dff4d8fcda1fd46b66b140dc0c7314b6fd8b9a9365c1ff",
+            "observationRef": "native-work-observation://abiogenesis/e48398e2239ab97694a11acea71b3e2936dd76c1ee06d01c2d2e5c02a19e16ac",
+            "changedPaths": [
+              "fixture/value.txt"
+            ],
+            "candidate": {
+              "before": {
+                "state": "absent",
+                "digest": null
+              },
+              "after": {
+                "state": "file",
+                "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048"
+              }
+            },
+            "admissions": [
+              {
+                "eventId": "event://abiogenesis/7de95b94502dc5e0fe86d3b8b4b7d6916d2b637be1aefcad10538b569a5a1a45",
+                "admissionOrdinal": 964,
+                "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+                "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+                "cCallRef": "c-call:sha256:f3234989bbc47fa8cdb618d43ab9011355331f8221a08257ed31555a1b89c61f",
+                "resultRef": "result://abiogenesis/f4e695786cd6411565dff4d8fcda1fd46b66b140dc0c7314b6fd8b9a9365c1ff"
+              },
+              {
+                "eventId": "event://abiogenesis/362d25d9c55ddcf6067be03cc5cd9169efaedbd17c775558bf63a285ba2e769d",
+                "admissionOrdinal": 977,
+                "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+                "contractRef": "contract://abiogenesis/worksite/native-work/observation@5",
+                "cCallRef": "c-call:sha256:b03fa83e6c9b7dea3067a4dc95e6ba2bee5bc870ee6fb5da2f2c22fb0bfb472e",
+                "resultRef": "result://abiogenesis/08f70f2a3711b61bbd17c523f8d1cc974d3ebe9968c55294e74681e6ad022812"
+              }
+            ]
+          }
+        ],
+        "satisfied": true
+      }
+    },
+    {
+      "claim": 3,
+      "title": "The same checker, green",
+      "satisfied": true,
+      "observation": {
+        "exact": true,
+        "eventId": "event://abiogenesis/c525c1b2691a1fb1cb51852bd119414d24aef4d50b867ac763112b4ed1b5016e",
+        "eventIndex": 5214,
+        "admissionOrdinal": 5215,
+        "runId": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+        "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+        "cCallRef": "c-call:sha256:7bd2f4a649208555b8e07b20afdc484099d41ce3fac849cb84cf3c9252c6fc33",
+        "resultRef": "result://abiogenesis/2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "resultDigest": "sha256:2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "observationDigest": "sha256:2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "taskRef": "worksite-command-execution-task://abiogenesis/eaf527cdbca8244538cda3447289a983b8d0b63c97e287104cd57d302bc216da",
+        "taskDigest": "sha256:eaf527cdbca8244538cda3447289a983b8d0b63c97e287104cd57d302bc216da",
+        "taskKind": "native",
+        "sourceNativeWorkObservationRef": "native-work-observation://abiogenesis/4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c",
+        "actorInvocationRef": "actor-invocation://abiogenesis/464f3a99d52aa15868114725b3212b95d04f3b1fddddd7677dc5d76f6dc62f11",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/73651d67b17d32df26be255f962b1c44805a5def6a5b3202263ba248428a3fbe",
+        "helperArtifactDigest": "sha256:73651d67b17d32df26be255f962b1c44805a5def6a5b3202263ba248428a3fbe",
+        "command": {
+          "commandId": "command://abiogenesis-d2/specimen/checker",
+          "executable": "/opt/homebrew/bin/node",
+          "args": [
+            "fixture/checker.mjs"
+          ],
+          "relativeCwd": ".",
+          "environment": [
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "HOME",
+              "schemaVersion": "5.0.0",
+              "value": "/Users/jim"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "LANG",
+              "schemaVersion": "5.0.0",
+              "value": "en_AU.UTF-8"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "PATH",
+              "schemaVersion": "5.0.0",
+              "value": "/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/Library/TeX/texbin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter"
+            },
+            {
+              "kind": "worksite_command_environment_entry",
+              "name": "TMPDIR",
+              "schemaVersion": "5.0.0",
+              "value": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d2/tmp"
+            }
+          ],
+          "timeoutMs": 60000,
+          "terminationGraceMs": 10000
+        },
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "commandObservationDigest": "sha256:ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "exitStatus": 0,
+        "timedOut": false,
+        "terminationConfirmed": true,
+        "processSignal": null,
+        "stdout": "FIXTURE_VALUE_FIXED\n",
+        "stdoutDigest": "sha256:32cf8c49aafd8d784f64728b445fbdcd9aa582424b229f75593a3f2df5109c4c",
+        "stderr": "",
+        "predicateObservations": [
+          {
+            "evidence": [
+              {
+                "digest": "sha256:ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+                "kind": "worksite_command_observation_coordinate",
+                "ref": "worksite-command-observation://abiogenesis/ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+                "schemaVersion": "5.0.0"
+              }
+            ],
+            "evidenceRefs": [
+              "worksite-command-observation://abiogenesis/ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9"
+            ],
+            "kind": "worksite_predicate_observation",
+            "observedValue": 0,
+            "ordinal": 0,
+            "predicateId": "predicate://abiogenesis-d2/specimen/checker-exit",
+            "predicateKind": "process_exit",
+            "schemaVersion": "5.0.0"
+          }
+        ],
+        "worksiteDelta": [],
+        "productDelta": [],
+        "protectedDigests": {
+          "fixture/source.md": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+          "fixture/checker.mjs": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+          "fixture/rubric.md": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+          "fixture/value.txt": "sha256:0c3071418e6356e614898c84ed064ca95e88551bc0811b534bdf1952ecdae534"
+        }
+      },
+      "checkerDigestConserved": {
+        "path": "fixture/checker.mjs",
+        "expected": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+        "observed": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22"
+      }
+    },
+    {
+      "claim": 4,
+      "title": "Close, reopen, fresh reads conserve",
+      "satisfied": false,
+      "freshReadback": [
+        {
+          "memberKey": "run_result",
+          "outcomeKind": "refusal",
+          "status": null,
+          "projectionDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+          "terminalValueDigest": null
+        },
+        {
+          "memberKey": "run_replay",
+          "outcomeKind": "result",
+          "status": "blocked",
+          "projectionDigest": "sha256:7de551569804049883895a0f5bb19b15bc63747ab2f7f4aac0bbdc086e55a29f",
+          "terminalValueDigest": null
+        }
+      ],
+      "coldReads": {
+        "allEqual": true,
+        "identityUnchanged": true,
+        "reads": [
+          {
+            "memberKey": "run_result",
+            "outcomeKind": "refusal",
+            "status": null,
+            "ownerOutputDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+            "archivedOwnerOutputDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+            "ownerOutputEqual": true,
+            "projectionDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "archivedProjectionDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "projectionEqual": true,
+            "sourceDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "archivedSourceDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+            "terminalResult": null,
+            "terminalValueDigest": null
+          },
+          {
+            "memberKey": "run_replay",
+            "outcomeKind": "result",
+            "status": "blocked",
+            "ownerOutputDigest": "sha256:821582278cf5c274bd5ec74e6fb9acdd73872521aa4ff39c2f93e38662857ec4",
+            "archivedOwnerOutputDigest": "sha256:821582278cf5c274bd5ec74e6fb9acdd73872521aa4ff39c2f93e38662857ec4",
+            "ownerOutputEqual": true,
+            "projectionDigest": "sha256:7de551569804049883895a0f5bb19b15bc63747ab2f7f4aac0bbdc086e55a29f",
+            "archivedProjectionDigest": "sha256:7de551569804049883895a0f5bb19b15bc63747ab2f7f4aac0bbdc086e55a29f",
+            "projectionEqual": true,
+            "sourceDigest": "sha256:91dce3fc710da3de897e6ab3235eb0bee8418731ac01f2c2d7adef15bb1c7d9a",
+            "archivedSourceDigest": "sha256:91dce3fc710da3de897e6ab3235eb0bee8418731ac01f2c2d7adef15bb1c7d9a",
+            "terminalResult": null,
+            "terminalValueDigest": null
+          }
+        ],
+        "coldRoot": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d2/cold/reads-1",
+        "pid": 43689
+      },
+      "traceGaps": [],
+      "expected": {
+        "runResult": "result with the held terminal",
+        "runReplayStatus": "closed"
+      },
+      "held": {
+        "runResult": "refusal not_found (no terminal result held)",
+        "runReplayStatus": "blocked"
+      },
+      "literalClosed": false,
+      "heldStateConserved": true,
+      "gap": "No terminal result: the Run stopped blocked at the selector gap the specimen predicts; run_result is a not_found refusal and run_replay reports blocked, not closed. The reads conserve the held stop."
+    },
+    {
+      "claim": 5,
+      "title": "No Run migration",
+      "satisfied": true,
+      "specimen": [
+        {
+          "path": "specimen/source.md",
+          "worksitePath": "fixture/source.md",
+          "digest": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+          "byteCount": 1107
+        },
+        {
+          "path": "specimen/checker.mjs",
+          "worksitePath": "fixture/checker.mjs",
+          "digest": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+          "byteCount": 335
+        },
+        {
+          "path": "specimen/rubric.md",
+          "worksitePath": "fixture/rubric.md",
+          "digest": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+          "byteCount": 634
+        },
+        {
+          "path": "specimen/request.json",
+          "digest": "sha256:e1c049abda12f08d8191ab8b5f3a33adc17c223175c39e6349baf5ab6dcf3327",
+          "byteCount": 11958
+        },
+        {
+          "path": "specimen-oracle.mjs",
+          "digest": "sha256:fd05e5214dd90f3d7d172754ff07a3c49c8a98acf88b9b35ca58e0ce59837f61",
+          "byteCount": 31991
+        }
+      ],
+      "conservation": [
+        {
+          "path": "fixture/source.md",
+          "expected": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328",
+          "observed": "sha256:9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328"
+        },
+        {
+          "path": "fixture/checker.mjs",
+          "expected": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22",
+          "observed": "sha256:5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22"
+        },
+        {
+          "path": "fixture/rubric.md",
+          "expected": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42",
+          "observed": "sha256:d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42"
+        }
+      ],
+      "driverSourceHits": [],
+      "commandRecordHits": [],
+      "eventPayloadHits": [],
+      "runSegmentsOpened": [
+        {
+          "eventId": "event://abiogenesis/1890b7f6f41bd84581d00108bfe81f907bab4f9326faa3412a15f1cbb2ed9f83",
+          "admissionOrdinal": 8,
+          "runId": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0"
+        }
+      ],
+      "eventLogUnderArchive": true,
+      "firstEvent": {
+        "kind": "public_operation_artifact_admitted",
+        "admissionOrdinal": 1,
+        "eventTime": "2026-10-28T14:06:03.594Z"
+      }
+    }
+  ],
+  "satisfied": false
+}

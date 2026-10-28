@@ -1,0 +1,79 @@
+{
+  "kind": "d2_cold_reads",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "coldRoot": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d2/cold/reads-1",
+  "process": {
+    "pid": 43689,
+    "argv": [
+      "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261028T135232Z_D2_CONTROLLED_CORRECTION/run-specimen.mjs",
+      "cold-reads",
+      "--config",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/operator-config.json",
+      "--archive",
+      "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+      "--out",
+      "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d2/cold/reads-1",
+      "--json",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261028T135232Z_D2_CONTROLLED_CORRECTION/cold-reads.json"
+    ],
+    "node": "v24.7.0"
+  },
+  "closeHandoffDigest": "sha256:d3e22341ae5d6284a808076ccd7d3cb540f4ab568d8fa9e52ab98ed92042c03c",
+  "eventLog": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/resources/events/runtime.events.jsonl",
+  "identityBefore": {
+    "device": 16777231,
+    "inode": 646390318,
+    "byteCount": 26187674,
+    "digest": "sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d"
+  },
+  "identityAfter": {
+    "device": 16777231,
+    "inode": 646390318,
+    "byteCount": 26187674,
+    "digest": "sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d"
+  },
+  "identityUnchanged": true,
+  "reads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "refusal",
+      "status": null,
+      "ownerOutputDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+      "archivedOwnerOutputDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+      "ownerOutputEqual": true,
+      "projectionDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "archivedProjectionDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "projectionEqual": true,
+      "sourceDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "archivedSourceDigest": "sha256:74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b",
+      "terminalResult": null,
+      "terminalValueDigest": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "status": "blocked",
+      "ownerOutputDigest": "sha256:821582278cf5c274bd5ec74e6fb9acdd73872521aa4ff39c2f93e38662857ec4",
+      "archivedOwnerOutputDigest": "sha256:821582278cf5c274bd5ec74e6fb9acdd73872521aa4ff39c2f93e38662857ec4",
+      "ownerOutputEqual": true,
+      "projectionDigest": "sha256:7de551569804049883895a0f5bb19b15bc63747ab2f7f4aac0bbdc086e55a29f",
+      "archivedProjectionDigest": "sha256:7de551569804049883895a0f5bb19b15bc63747ab2f7f4aac0bbdc086e55a29f",
+      "projectionEqual": true,
+      "sourceDigest": "sha256:91dce3fc710da3de897e6ab3235eb0bee8418731ac01f2c2d7adef15bb1c7d9a",
+      "archivedSourceDigest": "sha256:91dce3fc710da3de897e6ab3235eb0bee8418731ac01f2c2d7adef15bb1c7d9a",
+      "terminalResult": null,
+      "terminalValueDigest": null
+    }
+  ],
+  "allEqual": true,
+  "callRecords": [
+    "run_replay.close.json",
+    "run_replay.outcome.json",
+    "run_replay.request.jsonl",
+    "run_result.close.json",
+    "run_result.outcome.json",
+    "run_result.request.jsonl"
+  ]
+}

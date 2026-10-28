@@ -1,0 +1,61 @@
+{
+  "kind": "d2_archive",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "freshRoot": {
+    "sandbox": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/sandbox",
+    "bootstrap": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/bootstrap"
+  },
+  "files": [
+    {
+      "name": "summary.json",
+      "sha256": "sha256:418bf7b754e376966708d553241185d64bc521f171c66bceab300857d4ce645a",
+      "byteCount": 546
+    },
+    {
+      "name": "fresh-readback.json",
+      "sha256": "sha256:34d0a9402bcd439ca8f46143f8f5cb47f9c11ce5bbba893f29f8376b19f04acc",
+      "byteCount": 2459
+    },
+    {
+      "name": "final-close-handoff.json",
+      "sha256": "sha256:b8771fe067bc9c0ad22ed00eb2081d6ad86e6b610efdcc50802a309ebf57f639",
+      "byteCount": 1458
+    },
+    {
+      "name": "runtime-event-prefix.json",
+      "sha256": "sha256:f96cbd329b7b2c59c5e747b33cecdc3a6cbab0eef7b0c243eebb70670ee499c9",
+      "byteCount": 702
+    },
+    {
+      "name": "source-conservation.json",
+      "sha256": "sha256:c421e22ff6a6357544a8d8d7fc84040400941918c9c367cabfec5459e00216d3",
+      "byteCount": 674
+    },
+    {
+      "name": "specimen-judgment.json",
+      "sha256": "sha256:bfea3e6be856037bcefee6a537549761b3a413923c4ca32084a868912949ae48",
+      "byteCount": 31143
+    }
+  ],
+  "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/resources/events/runtime.events.jsonl",
+    "device": 16777231,
+    "inode": 646390318,
+    "byteCount": 26187674,
+    "digest": "sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d"
+  },
+  "events": 6218,
+  "summary": {
+    "scenario": "d2-specimen",
+    "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+    "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+    "mode": "run",
+    "status": "failed",
+    "uatPass": false,
+    "runtimeDisposition": "result",
+    "terminalAvailable": false,
+    "independentOracle": "unsatisfied",
+    "reason": "Original application obligations or terminal evidence remain incomplete"
+  }
+}

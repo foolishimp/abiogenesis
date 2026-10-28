@@ -4632,3 +4632,113 @@ The harness's own pass predicate (`:396-399`: the receipt's exit 0 and `outcomeK
 **Stops.** A `BoundaryFailure` of the driver (its `failure.json` stage: bootstrap, install, workspace, catalog, conformance, `lifecycle-input-admission` of an admitted shape, `lifecycle-start` refusal, a transport, a readback, source conservation): name the boundary and the Product owner. Claim 1's absent observation after the second run. The parent not retaining the failing observation, or its diagnostic absent from the admitted observation (a payload question for the owner). Claim 4's reads disagreeing with the held terminal, or a trace gap (a Product defect; a defect package). The provider unavailable, over budget or timed out (record; no retry beyond the one permitted second run). Write the stop into the Return and keep the rest moving where it does not depend on it.
 
 **Return contract.** `## D2 return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)` appended once, after a blank line, before the commit: the first sentence (Yes or No, with the stops); the subtree pairs; the run table (archive, run id, fresh root, owners, turns, cost, elapsed, load before and after, the harness's `summary.json` status and reason); the five claims with their evidence; the request's repairs if any; the omissions from `runScenario`; the record directory's files and digests; deviations; findings outside the grant; what could not be verified. One commit on `main`, staged by path, first line `D2: the controlled correction on cut fd38e8227; the mechanical lifecycle specimen through the installed lifecycle at a fresh root: the failing C2 retained, one native repair, the same checker green, close, reopen and fresh reads conserved`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D2 return (Worker, Opus 5.5, 2026-10-29; base `f0b73d63d427311a5f73e6ce139f6946928413e5`)
+
+No: claims 1, 2, 3 and 5 are satisfied. Claim 4 is not satisfied as stated: the Run stopped `blocked` at the selector gap the specimen source predicts ("terminal stays false, and the selector explicitly gaps"), so there is no terminal result to conserve, `run_result` is a `not_found` refusal, and `run_replay` reports `blocked`, not `closed`. The fresh reads, the cold reads and TD-18's trace (21 rows, no gap) conserve the held stop. No activation stop fired: no `BoundaryFailure` (no `failure.json`), the failing observation is present and retained by the parent, the reads agree with the held state, the trace has no gap, and the provider ran within budget. The harness's `summary.json` records `failed`. Because the specimen requires `terminal` to stay false, claim 4's literal clause cannot be met by a run that follows the specimen; that is the owner's call (below, finding 1).
+
+**Subtree pairs** (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<subtree>`; HEAD `f0b73d63d` against `fd38e8227`):
+
+| Subtree | HEAD | `fd38e8227` |
+|---|---|---|
+| `code` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` |
+| `test_env` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` |
+| `contracts` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` |
+
+**Run table.**
+
+| Field | Value |
+|---|---|
+| Archive | `test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/` (git-ignored, retained) |
+| Run id | `2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d`; Run `run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0` |
+| Fresh root | that archive's `sandbox/` and `bootstrap/` |
+| Owners | 9 actor invocations: 5 `executive-step@5`, 2 `native-work@5`, 2 `command-execution@5` |
+| Turns | 24 in total (selectors 2 each; workers 4, 4, 3, 3) |
+| Cost | 2.599031 USD, 9 transports, all `success`, `claude-opus-5-5` |
+| Elapsed | 791 s (14:04:05Z to 14:17:16Z); `lifecycle-start` 508.2 s, exit 0 |
+| Load (1, 5, 15 min) | before 6.17 7.42 7.94; after 12.08 9.50 8.91 |
+| `summary.json` | status `failed`, `uatPass` false, `runtimeDisposition` `result`, `terminalAvailable` false, `independentOracle` `unsatisfied` (the run-time oracle's overcount, deviation 4); reason "Original application obligations or terminal evidence remain incomplete" |
+
+The live run was the one run; the permitted second run was not used. An admission check ran before it in the driver's `prepare` mode with no provider dispatch: archive `d2-specimen/2026-10-28T13-58-58-223Z-c99d2351-a27d-45b6-88e4-a64a4474ffa8/`, status `prepared`, 266.9 s, load 4.19 before and 7.69 after.
+
+**The five claims.**
+1. *Failing C2, retained: satisfied.*
+   - Admission: `event://abiogenesis/3bf6799bb89f44903ebb04631ef313ea6a35abae0028463f450bfb10a91ced8e`, ordinal 2506, `command-execution@5`, result `ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7`.
+   - Observation: `worksite-command-execution-observation://abiogenesis/5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9`, digest `sha256:5175b793…`.
+   - Command: equal to the declaration. Exit 1, stdout `FIXTURE_VALUE_BAD expected=fixed actual="broken\n"\n`.
+   - Diagnostic: rides in `commandResults[0].stdout`.
+   - Handoff: actor invocation `4e21fdd1…` ran helper `worksite-command-helper-artifact://abiogenesis/c247cd6e…`, which relayed the subject's stdout. The subject's exit 1 is a success-class C2 observation (`worksite_command_execution.ts:2347`), not a `helper_failure`.
+   - Retention: in `observations[1].resultRef` and `observations[1].value.commandResults[0]` of the `testing@5` state `result://abiogenesis/e5b0c5f1…` (`event://abiogenesis/4ba0fb9d…`, ordinal 2536), and of the non-terminal state at the stop, `executive@5` result `b7ab6790…` (`event://abiogenesis/e2c2eaf6…`, ordinal 5286). No terminal `governance_work_state` exists.
+2. *One native repair, `fixture/value.txt` only: satisfied.*
+   - One observation between the measurements: `native-work-observation://abiogenesis/4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c`. Admitted at the leaf (`event://abiogenesis/97b14ac9…`, ordinal 3997) and as the Construction child (ordinal 4010); actor invocation `86091d0b…`.
+   - Writes: `changedPaths` `[fixture/value.txt]`, from `sha256:cdd6c109…6048` (`broken\n`) to `sha256:0c307141…e534` (`fixed\n`).
+   - The other three files: unchanged by the observation's before and after rows, and by `source-conservation.json`. Method: the native work observation's own rows over the selected worksite files.
+3. *Same checker, green: satisfied.*
+   - Admission: `event://abiogenesis/c525c1b2691a1fb1cb51852bd119414d24aef4d50b867ac763112b4ed1b5016e`, ordinal 5215.
+   - Observation: `…/2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9`. Command rows are equal to claim 1's. Exit 0, stdout `FIXTURE_VALUE_FIXED\n`, `worksiteDelta` and `productDelta` empty.
+   - `checker.mjs` digest: conserved.
+   - Producers: `4e21fdd1…` (failing) and `464f3a99…` (green).
+4. *Close, reopen, fresh reads conserve: not satisfied as stated.*
+   - `fresh-readback.json`: `run_result` refusal `not_found`; `run_replay` result `blocked`, the Run as subject, `terminalResult` null.
+   - `cold-reads.json`: second process, pid 43689. Owner outputs and projections are equal to the fresh reads; the resource identity is unchanged.
+   - `trace.json`: 21 held fields recovered from the durable prefix and equal. Among them are the stop (`event://abiogenesis/998c344a…`, ordinal 6218, `blocked`, `reason://abiogenesis/default-library/gap@5`), the stop producer (c-call `460091fe…`), the state at the stop (value `sha256:63ef8ef4…`), the 6,215 receipt evidence rows, the Run, the root graph call, both observations, the repair write, parent retention, the close handoff prefix, and the log's device and inode.
+   - The gap: no terminal result, and `blocked`, not `closed`.
+5. *No Run migration: satisfied.*
+   - No historical name appears in the driver, the command and call records, or the event payloads.
+   - One `run_segment_opened` (ordinal 8).
+   - The log is under the fresh archive (6,218 events, 26,187,674 bytes, device 16777231, inode 646390318, `sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d`).
+   - The specimen bytes equal the pins.
+
+**Request repairs.**
+- `testing.allowedWriteTerritories` is `[]`, not the activation's file territory `fixture/value.txt`. The C2 law (`constructWorksiteCommandConfiguration`, clause `worksite_command_execution.ts:1588`) refuses a protected subject inside a territory. Testing's protected subjects are `testing.selectedPaths` (`abg/default_library.ts:279`), which must include `fixture/value.txt`. The admission archive's `c2-configuration-check.json` (`sha256:172fcb06…a71a`) constructs `[]` and refuses the literal.
+- `predicateId` `predicate://abiogenesis-d2/specimen/checker-exit` was added.
+
+**Omissions from `runScenario`.**
+- The catalog acquisition (`acquireScenario`); replaced by `acquireSpecimen` against the pins.
+- The snapshot (`oracle-acquisition.json`); replaced by `specimen-acquisition.json`.
+- The archived re-acquisition (`acquireArchivedScenario`); replaced by the oracle and request digest check.
+- The catalog oracle (`independent-oracle.mjs`); replaced by `specimen-oracle.mjs`, which writes `specimen-judgment.json`.
+- The resume path does not apply.
+
+**Record directory** `.ai-workspace/comments/claude/20261028T135232Z_D2_CONTROLLED_CORRECTION/` (sha256, bytes):
+
+| File | sha256 | Bytes |
+|---|---|---:|
+| `README.md` | `a43570976123083fcbf21521a8b9d00de616e298789517f68a6d096c2ae53d5a` | 13,270 |
+| `run-specimen.mjs` | `22d0b57bce33494f13673569f0afa758af387a67a921c53fb120049b7c39bd11` | 20,969 |
+| `specimen-oracle.mjs` | `d64b3530af50b81468922ff8573ea8e5df239df938b75e204c8cc5b096df236f` | 38,948 |
+| `specimen/request.json` | `e1c049abda12f08d8191ab8b5f3a33adc17c223175c39e6349baf5ab6dcf3327` | 11,958 |
+| `specimen/source.md` | `9a28aa248b2fbab7493ff91456331aeb1a8287de363b65fcd59f2ba0dbd3f328` | 1,107 |
+| `specimen/checker.mjs` | `5a39eff7d6082835ebc49bc9deeaf4ff1d7e01e55314bfec749cf3d018cced22` | 335 |
+| `specimen/rubric.md` | `d5efa802ff34c2847871df8b2bf81f21b05abfca70c1c4c33281ba977f54ea42` | 634 |
+| `claims.json` | `c78dcb66b578e8118a82c16b0bc55a818a06381e322790a7132729d774940c38` | 33,415 |
+| `trace.json` | `6a2ba65be0bff411e167c9603af9b53ed38d8e6f23d5f6ea04bf1e744be1c8d3` | 18,529 |
+| `cold-reads.json` | `3280adec5b938e12797dd6d2160c8b16bcd78a44ffd1e3990d201b6c9f5b76ec` | 4,069 |
+| `archive.json` | `13e9ddffe7671aca07cc983d270cc81496ea29d826eb98f787004c2faad3a698` | 2,746 |
+| `cost.json` | `64395acfc2c58fb2956d4463ed70310d166f26b2bd4e2432210e768b073d6902` | 9,992 |
+
+**Deviations.**
+1. The transport records are under `<archive>/resources/archives/` (the binding's `archiveRoot`), not `sandbox/`. Cost and turns come from each transport's stream `result` row.
+2. `setupEnvironment` and `redactedConfig` are module-private, so they are inlined verbatim. The driver adds a `prepare` mode that writes `c2-configuration-check.json` (admission archive only). The wrapper set `TMPDIR` to the Worker scratch; the C2 observations record `HOME`, `LANG`, `PATH` and `TMPDIR` rows from the worker environment.
+3. The driver's `coldReads` was corrected before the cold-reads process ran: `projection ?? null` for a refused read, and owner outputs compared. The run-time digest is `sha256:233409e9…7fd0` (20,619 bytes); the committed digest is `22d0b57b…`.
+4. The oracle was corrected after the run. The run-time oracle `sha256:fd05e521…7f61` (31,991 bytes) counted the one repair twice (leaf and child admissions) and judged claim 2 unsatisfied. That is the archive's `specimen-judgment.json` (`sha256:bfea3e6b…`) and `summary.json`'s `independentOracle`. The committed oracle `d64b3530…` deduplicates by `observationRef` and adds the `claims` fold. `claims.json` records both judgments and all four module digests.
+5. A first claims fold into scratch judged claim 4 on held-state conservation. That was replaced by the activation's literal criterion before the record's fold. A first fold into the record wrote claim 4 as `null`, not `false`. I deleted its four files by exact path and re-ran it with a boolean coercion. Only the final fold is committed.
+6. `shasum`, `wc -c`, `test -e` and `rm` were run on my own record-directory files by exact path. Neither the record nor any other `.ai-workspace/` path was listed.
+7. The record directory carries the UTC date (2026-10-28); the heading carries the local date.
+
+**Findings outside the grant.**
+1. Claim 4 as written conflicts with the specimen. The specimen requires `terminal` false and a selector gap, while claim 4 and the harness's pass predicate require a terminal result and `closed`. A specimen run can satisfy at most the held-stop form. The owner chooses: restate claim 4 for a blocked stop, or change the specimen.
+2. The activation's `allowedWriteTerritories` clause conflicts with the C2 law (repair above). That law's guard throws one message, "worksite command and predicate identities must be unique", for every clause, including a protected subject inside a territory. The diagnosis needed a separate construction check.
+3. Native work and C2 observations are each admitted twice: at the leaf, and as the purpose child's result. A reader that counts admissions overcounts, which is what the run-time oracle did.
+4. D15's "helper's non-zero exit" is not the route: a nonzero subject exit is an admitted observation, and `helper_failure` is not reached.
+5. The receipt's Run digest is the `run_segment_opened` payload digest.
+6. The final selector gapped without running UAT, judging close and restart to be the runtime's.
+
+**Not verified.**
+- The native assessor's verdict: no UAT ran.
+- Worksite paths outside the four selected fixture files between the two observations, beyond the native observation's rows and the C2 observations' empty deltas.
+- `HOME`: not scanned. The credential scan (paths and a count only) covered both archives, the scratch logs and `tmp`, the record directory's files and this Return's draft: 0 matching files.
+- Timings: taken under load.
+- Same-family reading: one model with a same-family advisor; no Codex reading.
+- Commits on `main` during the run: none (HEAD `f0b73d63d` at the commit).
+- The tree: `git status --short -- build_tenants/abiogenesis/typescript` is empty.
