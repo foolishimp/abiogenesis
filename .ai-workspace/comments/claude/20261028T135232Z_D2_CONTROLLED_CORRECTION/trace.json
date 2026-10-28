@@ -1,0 +1,384 @@
+{
+  "kind": "d2_trace",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "source": "readRuntimeEventsAtDurablePrefix(captureDurablePrefixCoordinate(runtime-event-prefix.json))",
+  "events": 6218,
+  "fields": [
+    {
+      "field": "terminal result (absent)",
+      "required": true,
+      "held": null,
+      "heldSource": "receipt ownerOutput.value.terminalResult (null)",
+      "recovered": null,
+      "fold": "terminal_reached events of the root graph call (receipt graphCall.ref): none",
+      "equal": true
+    },
+    {
+      "field": "fresh run_result terminal (absent)",
+      "required": false,
+      "held": null,
+      "heldSource": "fresh-readback.json",
+      "recovered": null,
+      "fold": "as terminal result (absent)",
+      "equal": true
+    },
+    {
+      "field": "fresh run_replay terminal (absent)",
+      "required": false,
+      "held": null,
+      "heldSource": "fresh-readback.json",
+      "recovered": null,
+      "fold": "as terminal result (absent)",
+      "equal": true
+    },
+    {
+      "field": "stop",
+      "required": true,
+      "held": {
+        "digest": "sha256:bccef73fa4396b2c46f2b4596627b47db3361171e9d77a74137b4cb4a794fdb3",
+        "ref": "event://abiogenesis/998c344a9f26cf5baf3be665ea74bf47e25fee68333159ed56a0a03158d3eea7"
+      },
+      "heldSource": "receipt ownerOutput.value.stop",
+      "recovered": {
+        "ref": "event://abiogenesis/998c344a9f26cf5baf3be665ea74bf47e25fee68333159ed56a0a03158d3eea7",
+        "digest": "sha256:bccef73fa4396b2c46f2b4596627b47db3361171e9d77a74137b4cb4a794fdb3"
+      },
+      "fold": "the run_stopped event: {eventId,payloadDigest}",
+      "equal": true
+    },
+    {
+      "field": "stop disposition",
+      "required": true,
+      "held": "blocked",
+      "heldSource": "receipt ownerOutput.value.disposition",
+      "recovered": "blocked",
+      "fold": "run_stopped payload.disposition",
+      "equal": true
+    },
+    {
+      "field": "stop producer",
+      "required": true,
+      "held": {
+        "cCallRef": "c-call:sha256:460091feefe15ff1db3c4e4b0b8e8d1893491564ffea23eebeae4f912f4bdcae",
+        "judgmentRef": "judgment://abiogenesis/564b794750a100ae8882fcbada0f8bc2883544003666d7d5a761b2636c7b5e17"
+      },
+      "heldSource": "run_stopped payload, held in the receipt by stop.digest",
+      "recovered": {
+        "cCallRef": "c-call:sha256:460091feefe15ff1db3c4e4b0b8e8d1893491564ffea23eebeae4f912f4bdcae",
+        "judgmentRef": "judgment://abiogenesis/564b794750a100ae8882fcbada0f8bc2883544003666d7d5a761b2636c7b5e17"
+      },
+      "fold": "the c_call_judged event carrying that judgmentRef: {aggregateId,payload.judgmentRef}",
+      "equal": true
+    },
+    {
+      "field": "state at the stop (result admission)",
+      "required": true,
+      "held": {
+        "digest": "sha256:82436e8519d1e94aeb2f9496e7d572c33e1883619055fd6f99f7528277c64040",
+        "ref": "event://abiogenesis/e2c2eaf647ae091ccffc24aaeada82e2292dada1625bcc61cc1deb5af93a6570"
+      },
+      "heldSource": "receipt ownerOutput.value.evidence row of that event",
+      "recovered": {
+        "ref": "event://abiogenesis/e2c2eaf647ae091ccffc24aaeada82e2292dada1625bcc61cc1deb5af93a6570",
+        "digest": "sha256:82436e8519d1e94aeb2f9496e7d572c33e1883619055fd6f99f7528277c64040"
+      },
+      "fold": "c_call_result_admitted of the stop c-call: {eventId,payloadDigest}",
+      "equal": true
+    },
+    {
+      "field": "state at the stop (value digest)",
+      "required": true,
+      "held": "sha256:63ef8ef4ca2154660f6953bfcd09c11046971c09153546c7e11cd4275506840d",
+      "heldSource": "that event payload.valueDigest",
+      "recovered": "sha256:63ef8ef4ca2154660f6953bfcd09c11046971c09153546c7e11cd4275506840d",
+      "fold": "sha256Canonical of payload.value",
+      "equal": true
+    },
+    {
+      "field": "receipt evidence rows",
+      "required": true,
+      "held": 6215,
+      "heldSource": "receipt ownerOutput.value.evidence (count)",
+      "recovered": 6215,
+      "fold": "rows whose ref is an eventId of the log with an equal payloadDigest",
+      "equal": true
+    },
+    {
+      "field": "run",
+      "required": true,
+      "held": {
+        "digest": "sha256:26042b3d5e03dccf210fb404786afd048c6ec458005ea74590075d8864b2871f",
+        "ref": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0"
+      },
+      "heldSource": "receipt resources.run",
+      "recovered": {
+        "ref": "run://abiogenesis/5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+        "digest": "sha256:26042b3d5e03dccf210fb404786afd048c6ec458005ea74590075d8864b2871f"
+      },
+      "fold": "run_segment_opened: {aggregateId,payloadDigest}",
+      "equal": true
+    },
+    {
+      "field": "run body digest",
+      "required": false,
+      "held": "sha256:5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+      "heldSource": "run_segment_opened payload.runDigest",
+      "recovered": "sha256:5df74f453abce58b98f6e74ad0e74e004b3b10443404d198b2fa01f84fa86fb0",
+      "fold": "sha256Canonical of the runBody (open_call.ts:527-538)",
+      "equal": true
+    },
+    {
+      "field": "root graph call",
+      "required": true,
+      "held": {
+        "digest": "sha256:53e04dc3a5c6e3f9d2ff1f61af2478fe3cf2de4ad4666cc728485b1aebdbb9e4",
+        "ref": "graph-call://abiogenesis/a058c82cf44c00a702dfc97648ae767d958071fe09bb222a49afaab930b3d9aa"
+      },
+      "heldSource": "receipt ownerOutput.value.graphCall",
+      "recovered": {
+        "ref": "graph-call://abiogenesis/a058c82cf44c00a702dfc97648ae767d958071fe09bb222a49afaab930b3d9aa",
+        "digest": "sha256:53e04dc3a5c6e3f9d2ff1f61af2478fe3cf2de4ad4666cc728485b1aebdbb9e4"
+      },
+      "fold": "graph_call_opened: {aggregateId,payloadDigest}",
+      "equal": true
+    },
+    {
+      "field": "replay",
+      "required": false,
+      "held": {
+        "digest": "sha256:82852764584826d4ee435e320367c954802d700dd87df065c8d0c9742dea31ce",
+        "ref": "replay://abiogenesis/82852764584826d4ee435e320367c954802d700dd87df065c8d0c9742dea31ce"
+      },
+      "heldSource": "receipt ownerOutput.value.replay",
+      "recovered": {
+        "digest": "sha256:82852764584826d4ee435e320367c954802d700dd87df065c8d0c9742dea31ce",
+        "ref": "replay://abiogenesis/82852764584826d4ee435e320367c954802d700dd87df065c8d0c9742dea31ce"
+      },
+      "fold": "fresh run_replay projection.replay (an owner projection, not a log fold)",
+      "equal": true
+    },
+    {
+      "field": "failing C2 observation",
+      "required": true,
+      "held": {
+        "eventId": "event://abiogenesis/3bf6799bb89f44903ebb04631ef313ea6a35abae0028463f450bfb10a91ced8e",
+        "admissionOrdinal": 2506,
+        "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "observationDigest": "sha256:5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "exitStatus": 1,
+        "stdout": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n"
+      },
+      "heldSource": "specimen-judgment.json (in-run fold)",
+      "recovered": {
+        "eventId": "event://abiogenesis/3bf6799bb89f44903ebb04631ef313ea6a35abae0028463f450bfb10a91ced8e",
+        "admissionOrdinal": 2506,
+        "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "observationDigest": "sha256:5175b793160c4a4bd1c958791cff9bf9ce8336af80edceaf9e32cb43837ee3a9",
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+        "exitStatus": 1,
+        "stdout": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n"
+      },
+      "fold": "first checker observation of the installed C2 owner (independent-oracle.mjs:70-90 selection)",
+      "equal": true
+    },
+    {
+      "field": "green C2 observation",
+      "required": true,
+      "held": {
+        "eventId": "event://abiogenesis/c525c1b2691a1fb1cb51852bd119414d24aef4d50b867ac763112b4ed1b5016e",
+        "admissionOrdinal": 5215,
+        "resultRef": "result://abiogenesis/2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "resultDigest": "sha256:2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "observationDigest": "sha256:2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "commandObservationDigest": "sha256:ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "exitStatus": 0,
+        "stdout": "FIXTURE_VALUE_FIXED\n"
+      },
+      "heldSource": "specimen-judgment.json (in-run fold)",
+      "recovered": {
+        "eventId": "event://abiogenesis/c525c1b2691a1fb1cb51852bd119414d24aef4d50b867ac763112b4ed1b5016e",
+        "admissionOrdinal": 5215,
+        "resultRef": "result://abiogenesis/2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "resultDigest": "sha256:2c793351b55e1f5c30281f86e84bef2bb10c58c6bb06746bff479ee6c66fadcc",
+        "observationRef": "worksite-command-execution-observation://abiogenesis/2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "observationDigest": "sha256:2c6ac989c335509233b7f7787abfe00f6e4d8cf239fee2a82025a35e4112aae9",
+        "commandObservationRef": "worksite-command-observation://abiogenesis/ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "commandObservationDigest": "sha256:ae46fafbb4e48f0a75cd3ed7cd891489376698a7fca6afee588fee786213e5f9",
+        "exitStatus": 0,
+        "stdout": "FIXTURE_VALUE_FIXED\n"
+      },
+      "fold": "last checker observation, same selection",
+      "equal": true
+    },
+    {
+      "field": "repair write",
+      "required": true,
+      "held": [
+        {
+          "eventId": "event://abiogenesis/97b14ac9fa0ee5778c1b00ab245b310ba7d9bcec173ad7ca3760f2043034c27e",
+          "resultRef": "result://abiogenesis/936d21a65cb9238484fb975913151befb8ad0da20d0418e0793df630c5f2d0b4",
+          "observationRef": "native-work-observation://abiogenesis/4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c",
+          "changedPaths": [
+            "fixture/value.txt"
+          ],
+          "candidate": {
+            "before": {
+              "state": "file",
+              "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048"
+            },
+            "after": {
+              "state": "file",
+              "digest": "sha256:0c3071418e6356e614898c84ed064ca95e88551bc0811b534bdf1952ecdae534"
+            }
+          }
+        }
+      ],
+      "heldSource": "specimen-judgment.json (in-run fold)",
+      "recovered": [
+        {
+          "eventId": "event://abiogenesis/97b14ac9fa0ee5778c1b00ab245b310ba7d9bcec173ad7ca3760f2043034c27e",
+          "resultRef": "result://abiogenesis/936d21a65cb9238484fb975913151befb8ad0da20d0418e0793df630c5f2d0b4",
+          "observationRef": "native-work-observation://abiogenesis/4e411a08a46ba80b6921542baba0896dbabfaf4ef761dd5981d5a4c5bfc2cb9c",
+          "changedPaths": [
+            "fixture/value.txt"
+          ],
+          "candidate": {
+            "before": {
+              "state": "file",
+              "digest": "sha256:cdd6c109503d4e19cad782eef4d9ba162af0d84727445edbb9d300df1adc6048"
+            },
+            "after": {
+              "state": "file",
+              "digest": "sha256:0c3071418e6356e614898c84ed064ca95e88551bc0811b534bdf1952ecdae534"
+            }
+          }
+        }
+      ],
+      "fold": "native workspace work observations admitted between the two C2 observations with nonempty changedPaths",
+      "equal": true
+    },
+    {
+      "field": "parent retention",
+      "required": true,
+      "held": {
+        "eventId": "event://abiogenesis/4ba0fb9d77f598a73f9420ce1954dc398223c9c7616fc83628659efbd20a5cc2",
+        "resultRef": "result://abiogenesis/e5b0c5f1e2a0aaa90f9b325734d5cd6d37a0c18e0febd6d6123bc20faf92120b",
+        "hits": [
+          {
+            "observationIndex": 1,
+            "resultRefField": "observations[1].resultRef",
+            "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "cCallRef": "c-call:sha256:02afb3309fa515b4ed4c45d6c23e12cff5e68eefe6cabe16ac69617a0baf3f5d",
+            "commandResultField": "observations[1].value.commandResults[0]",
+            "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "exitStatus": 1,
+            "stdoutText": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n",
+            "equal": true
+          }
+        ]
+      },
+      "heldSource": "specimen-judgment.json (in-run fold)",
+      "recovered": {
+        "eventId": "event://abiogenesis/4ba0fb9d77f598a73f9420ce1954dc398223c9c7616fc83628659efbd20a5cc2",
+        "resultRef": "result://abiogenesis/e5b0c5f1e2a0aaa90f9b325734d5cd6d37a0c18e0febd6d6123bc20faf92120b",
+        "hits": [
+          {
+            "observationIndex": 1,
+            "resultRefField": "observations[1].resultRef",
+            "resultRef": "result://abiogenesis/ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "resultDigest": "sha256:ae52222321408ffa87888ab04d9f39bb50e9d398ce6cfa8c8eb4d9b6b6ff77e7",
+            "cCallRef": "c-call:sha256:02afb3309fa515b4ed4c45d6c23e12cff5e68eefe6cabe16ac69617a0baf3f5d",
+            "commandResultField": "observations[1].value.commandResults[0]",
+            "commandObservationRef": "worksite-command-observation://abiogenesis/ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "commandObservationDigest": "sha256:ed3fb2d9616e5d1e1e0f19b4507c6cc0226fc962267c93d856c60460a34921d9",
+            "exitStatus": 1,
+            "stdoutText": "FIXTURE_VALUE_BAD expected=fixed actual=\"broken\\n\"\n",
+            "equal": true
+          }
+        ]
+      },
+      "fold": "first governance_work_state result after the failing C2 that carries it",
+      "equal": true
+    },
+    {
+      "field": "closeHandoff.prefix",
+      "required": true,
+      "held": {
+        "coordinateDigest": "sha256:b20c8c42da0d3b3dd67c94929e010bff1e3f9f99ae03e895f3e02bb668a9c399",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d",
+        "prefixLength": 26187674,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 646390318
+        }
+      },
+      "heldSource": "final-close-handoff.json",
+      "recovered": {
+        "coordinateDigest": "sha256:b20c8c42da0d3b3dd67c94929e010bff1e3f9f99ae03e895f3e02bb668a9c399",
+        "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d/resources/events/runtime.events.jsonl",
+        "kind": "durable_prefix_coordinate",
+        "prefixDigest": "sha256:f40ef7636fa7d3d3309951e29f9af4974e78a92021ddd40ee7e96bee2175d19d",
+        "prefixLength": 26187674,
+        "schemaVersion": "5.0.0",
+        "storeIdentity": {
+          "device": 16777231,
+          "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+          "inode": 646390318
+        }
+      },
+      "fold": "runtime-event-prefix.json (captured from the same handoff by readOracleEvents)",
+      "equal": true
+    },
+    {
+      "field": "event log device/inode",
+      "required": true,
+      "held": {
+        "device": 16777231,
+        "inode": 646390318
+      },
+      "heldSource": "final-close-handoff.json prefix.storeIdentity",
+      "recovered": {
+        "device": 16777231,
+        "inode": 646390318
+      },
+      "fold": "eventResourceIdentity of prefix.eventLogRef (the physical file the cold read authenticated)",
+      "equal": true
+    },
+    {
+      "field": "event log byte length",
+      "required": false,
+      "held": 26187674,
+      "heldSource": "final-close-handoff.json prefix.prefixLength",
+      "recovered": 26187674,
+      "fold": "eventResourceIdentity byteCount (no append after close)",
+      "equal": true
+    },
+    {
+      "field": "cold read authenticated",
+      "required": true,
+      "held": true,
+      "heldSource": "the coordinate",
+      "recovered": true,
+      "fold": "readRuntimeEventsAtDurablePrefix(captureDurablePrefixCoordinate(archived)) read and validated 6218 events against prefixDigest",
+      "equal": true
+    }
+  ],
+  "gaps": [],
+  "complete": true
+}

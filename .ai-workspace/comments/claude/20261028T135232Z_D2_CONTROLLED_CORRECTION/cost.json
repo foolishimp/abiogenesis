@@ -1,0 +1,278 @@
+{
+  "kind": "d2_cost",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/d2-specimen/2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "runId": "2026-10-28T14-04-05-074Z-6ff30dc1-bb3a-43f4-8412-1aac43a4bd7d",
+  "transportRoot": "resources/archives",
+  "productAiWorkspaceDirectories": [],
+  "actorInvocationsStarted": 9,
+  "actorInvocations": [
+    {
+      "eventId": "event://abiogenesis/bc689be3ac606aeb8e7bc0e0a3ff61dec3f4ca9adab7280d48c8e42c32b39912",
+      "admissionOrdinal": 54,
+      "eventTime": "2026-10-28T14:08:37.088Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "aggregateId": "actor-invocation://abiogenesis/128b9409f12fb9633d4a2bf859b475f759c9bc85dbfc798a2fa01a2089b492b4"
+    },
+    {
+      "eventId": "event://abiogenesis/5f896f9337ee6a2c32c76ddba03d0f49448524220d00b6aa24aca219a9c6aef1",
+      "admissionOrdinal": 842,
+      "eventTime": "2026-10-28T14:09:24.343Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "aggregateId": "actor-invocation://abiogenesis/5a69b47b4d260ab3c0317c69d81fd92e86970d7588bd3c5818a1bfbfe1c58f39"
+    },
+    {
+      "eventId": "event://abiogenesis/6234dec6f54df5a31da1be1be527b522c41b840ae585c92c8e38a7dba428bd07",
+      "admissionOrdinal": 1069,
+      "eventTime": "2026-10-28T14:10:01.518Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "aggregateId": "actor-invocation://abiogenesis/03f1f8006e96b13937b09c129a929d63366f1182427fb005fb9731464ba35561"
+    },
+    {
+      "eventId": "event://abiogenesis/5c19b6f11080914f0d7b1df16263048a5fe53b547a563eed4d84d7eca8a04ea8",
+      "admissionOrdinal": 2283,
+      "eventTime": "2026-10-28T14:11:03.884Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "aggregateId": "actor-invocation://abiogenesis/4e21fdd1dfd7a692c5ac1ad5bfe6593a9bde885c4b5b6f3794b12e92be28f4f8"
+    },
+    {
+      "eventId": "event://abiogenesis/488ee7962643914aa8aefa28d059fe20191a970bc5abb3731c302952dafdbf7d",
+      "admissionOrdinal": 2611,
+      "eventTime": "2026-10-28T14:11:39.118Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "aggregateId": "actor-invocation://abiogenesis/639ef2e9dcf0472ff25104ec9e1ebe826fb10f79609bcefc079ed9a3299f62c5"
+    },
+    {
+      "eventId": "event://abiogenesis/ca73537ef5a59c46e7b8d6b6a8f42a2993a551f2197c527e007e342d9561241e",
+      "admissionOrdinal": 3833,
+      "eventTime": "2026-10-28T14:12:50.024Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/native-work@5",
+      "aggregateId": "actor-invocation://abiogenesis/86091d0b5934df3b57ddf39e56302e724058a2aab0e570fc822aeae49c448f67"
+    },
+    {
+      "eventId": "event://abiogenesis/aa071f6bf8819930d05fbbadc1aa73b622aeebbd89091b6c0b41a9c33a1df671",
+      "admissionOrdinal": 4102,
+      "eventTime": "2026-10-28T14:13:41.861Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "aggregateId": "actor-invocation://abiogenesis/3d0e05ec5333092d53a49347cfd19315b8f4c1b274a1d570dad70e7ece55137b"
+    },
+    {
+      "eventId": "event://abiogenesis/b2128cb14b8e873c58e25d37ee5ae657463febfa70ca031847d02bb6ae76cd35",
+      "admissionOrdinal": 5118,
+      "eventTime": "2026-10-28T14:15:01.303Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "aggregateId": "actor-invocation://abiogenesis/464f3a99d52aa15868114725b3212b95d04f3b1fddddd7677dc5d76f6dc62f11"
+    },
+    {
+      "eventId": "event://abiogenesis/a78389ab4c2e31a02f9d6b6273288ed5968a77bdd5b43dc5fb0d17446b49c405",
+      "admissionOrdinal": 5320,
+      "eventTime": "2026-10-28T14:15:46.958Z",
+      "graphFunctionRef": "graph-function://abi5-tests/sandbox-uat/executive-step@5",
+      "aggregateId": "actor-invocation://abiogenesis/b0b2c015effc11f9b301122b6eb3b806a949ecc9e9c16294608ca73cb901204e"
+    }
+  ],
+  "transports": [
+    {
+      "path": "resources/archives/fp-1e648c953bc54067-transport.json",
+      "sha256": "sha256:508db75f6b0a2d176d2a41c37e01ea141fcefa1156405724109f5c94c2cbf39b",
+      "byteCount": 180008,
+      "disposition": "success",
+      "status": 0,
+      "lane": "closed_prompt_proof",
+      "timedOut": false,
+      "total_cost_usd": 0.20744400000000002,
+      "num_turns": 2,
+      "duration_ms": 39143,
+      "duration_api_ms": 27269,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-3074a8a92785ed1d-transport.json",
+      "sha256": "sha256:5e7c96773a1c039d49e1b3edfc0c8be0132f16bbf7df841fa36b5b05da01b062",
+      "byteCount": 354277,
+      "disposition": "success",
+      "status": 0,
+      "lane": "closed_prompt_proof",
+      "timedOut": false,
+      "total_cost_usd": 0.331308,
+      "num_turns": 2,
+      "duration_ms": 58447,
+      "duration_api_ms": 48140,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-3987ac1f59420271-transport.json",
+      "sha256": "sha256:361e3ab3ad40c2f12921e2a45022ace64362898be6eba0d9891d76d7bc18aaf6",
+      "byteCount": 153111,
+      "disposition": "success",
+      "status": 0,
+      "lane": "worker_executes",
+      "timedOut": false,
+      "total_cost_usd": 0.23764440000000003,
+      "num_turns": 4,
+      "duration_ms": 40898,
+      "duration_api_ms": 17695,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-767e35829b534416-transport.json",
+      "sha256": "sha256:beabb47aa50435c45b948c7dd583b153afe174b78d9f66f4032e734865c0afa6",
+      "byteCount": 117844,
+      "disposition": "success",
+      "status": 0,
+      "lane": "worker_executes",
+      "timedOut": false,
+      "total_cost_usd": 0.1839066,
+      "num_turns": 4,
+      "duration_ms": 32356,
+      "duration_api_ms": 14661,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-81a0c4a3e5132bc6-transport.json",
+      "sha256": "sha256:f3f939fcd08292e630f0d36c7e3fe9001fc31f3ef13112b9b3d2522e172dbeff",
+      "byteCount": 340613,
+      "disposition": "success",
+      "status": 0,
+      "lane": "closed_prompt_proof",
+      "timedOut": false,
+      "total_cost_usd": 0.31342,
+      "num_turns": 2,
+      "duration_ms": 57909,
+      "duration_api_ms": 47584,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-bdc32f0946c3be6b-transport.json",
+      "sha256": "sha256:e6a4ccbe0b8b735c98acb3571390d9cce3ed3b37a0bb7c11b4cb36e55848da76",
+      "byteCount": 75237,
+      "disposition": "success",
+      "status": 0,
+      "lane": "worker_executes",
+      "timedOut": false,
+      "total_cost_usd": 0.3581814,
+      "num_turns": 3,
+      "duration_ms": 27494,
+      "duration_api_ms": 10115,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-c14b0a579d2d2917-transport.json",
+      "sha256": "sha256:201788f3c03b5b17fe1596b0c68a82f8d75dbfe87096cb6533dbe8ac4663f47c",
+      "byteCount": 74340,
+      "disposition": "success",
+      "status": 0,
+      "lane": "worker_executes",
+      "timedOut": false,
+      "total_cost_usd": 0.3577826,
+      "num_turns": 3,
+      "duration_ms": 30912,
+      "duration_api_ms": 13451,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-d5d7c6936bd663c0-transport.json",
+      "sha256": "sha256:1e5cf6c63bb29430f6fdf10c91bd368f0d0565090f45f0546d602d0037cf5229",
+      "byteCount": 352943,
+      "disposition": "success",
+      "status": 0,
+      "lane": "closed_prompt_proof",
+      "timedOut": false,
+      "total_cost_usd": 0.346708,
+      "num_turns": 2,
+      "duration_ms": 60733,
+      "duration_api_ms": 50420,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    },
+    {
+      "path": "resources/archives/fp-d90b32a09ac36fcf-transport.json",
+      "sha256": "sha256:3e54f735008f22d667446c2027459c508d516aa865f08489fd4633bb69c1e71b",
+      "byteCount": 285201,
+      "disposition": "success",
+      "status": 0,
+      "lane": "closed_prompt_proof",
+      "timedOut": false,
+      "total_cost_usd": 0.262636,
+      "num_turns": 2,
+      "duration_ms": 51028,
+      "duration_api_ms": 40698,
+      "is_error": false,
+      "subtype": "success",
+      "model": "claude-opus-5-5",
+      "models": [
+        "claude-opus-5-5"
+      ]
+    }
+  ],
+  "totals": {
+    "transports": 9,
+    "total_cost_usd": 2.599031,
+    "num_turns": 24
+  },
+  "measure": {
+    "kind": "d2_measure",
+    "wrapper": "scratch run-live.sh (not committed)",
+    "start": "2026-10-28T14:04:05Z",
+    "end": "2026-10-28T14:17:16Z",
+    "exit": "rc=1",
+    "elapsedSeconds": 791,
+    "timeRealSeconds": 791.36,
+    "uptimeBefore": "1:04  up 23 days, 11:22, 10 users, load averages: 6.17 7.42 7.94",
+    "uptimeAfter": "1:17  up 23 days, 11:35, 10 users, load averages: 12.08 9.50 8.91",
+    "loadBefore": [
+      6.17,
+      7.42,
+      7.94
+    ],
+    "loadAfter": [
+      12.08,
+      9.5,
+      8.91
+    ],
+    "lifecycleStart": {
+      "started": "2026-10-28T14:08:32.205Z",
+      "wallMs": 508174.54429199995,
+      "exitCode": 0,
+      "timedOut": false
+    }
+  }
+}
