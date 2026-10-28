@@ -74,8 +74,8 @@
         },
         {
           "path": "basic-cli/request.json",
-          "digest": "sha256:481aad19106047377f1b25fb0b8847e5a2cee00a36964db3bacd3688bb6c980f",
-          "byteCount": 21323
+          "digest": "sha256:017d3ce2d2b3a9ff49881c43eaed9c388c20e7084736a5e203e84b814bf5025e",
+          "byteCount": 23776
         },
         {
           "path": "independent-oracle.mjs",
@@ -163,8 +163,8 @@
         },
         {
           "path": "js-tenant-test/request.json",
-          "digest": "sha256:8a80cd9eb94f44b6e85d61e8ba694b34d8c8ea00b242c447b08e2e28abfb91be",
-          "byteCount": 21640
+          "digest": "sha256:2d4ac5ac0757d640b3b3125e8497fa78f6da2e8fb46d1231fea381b7ff337a2e",
+          "byteCount": 24093
         },
         {
           "path": "independent-oracle.mjs",
@@ -252,8 +252,8 @@
         },
         {
           "path": "js-sdlc-bootstrap/request.json",
-          "digest": "sha256:3e16c50293a2dece9126dc784d011e493f979dc8e1a9d1293803ceaa3397e983",
-          "byteCount": 25009
+          "digest": "sha256:21790825b8a93a760035156b43318dbcbed0e55707e03a308591b32874acd6b9",
+          "byteCount": 27462
         },
         {
           "path": "independent-oracle.mjs",
@@ -358,8 +358,8 @@
         },
         {
           "path": "rust-cli/request.json",
-          "digest": "sha256:f132ab8bdf2f7c5cda0fd9845fdac56ab3e3d8403da824d9e1852b466a69b8c1",
-          "byteCount": 22840
+          "digest": "sha256:321c2541623ab2fa994525a8a7fb891a31636890499c0247caf998b6974e0ace",
+          "byteCount": 25293
         },
         {
           "path": "independent-oracle.mjs",
@@ -450,8 +450,8 @@
         },
         {
           "path": "rust-service/request.json",
-          "digest": "sha256:068fccd2f67085276b09411d48c203783fe945837aed7282e4a767e3060440da",
-          "byteCount": 22913
+          "digest": "sha256:a6e06dbbfcc05c1be4a652b6e8736f837aac57f20948348711a99db2996d5eb2",
+          "byteCount": 25596
         },
         {
           "path": "independent-oracle.mjs",
@@ -540,8 +540,8 @@
         },
         {
           "path": "parallel-js/request.json",
-          "digest": "sha256:ad8880aada1db005f6777ceaff720fcdadbfab0e721c10c9d8d0e224d6ad73f1",
-          "byteCount": 24062
+          "digest": "sha256:118623a7e9b87a771e0882cbf5950c57b762817c5ef23d97fcb4ead02adf11b0",
+          "byteCount": 26515
         },
         {
           "path": "independent-oracle.mjs",
@@ -692,8 +692,8 @@
         },
         {
           "path": "data-mapper-full/request.json",
-          "digest": "sha256:d583dedab8ac5d7c94ccbed10431e8e078a8e3497ec6814fe75f24cd29219f43",
-          "byteCount": 77648
+          "digest": "sha256:0fa6938f0303a05d32e93ba75b427cf37ae0456277e4456795faef13fad8ad9f",
+          "byteCount": 80320
         },
         {
           "path": "independent-oracle.mjs",
