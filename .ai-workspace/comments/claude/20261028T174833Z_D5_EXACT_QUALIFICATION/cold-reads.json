@@ -1,0 +1,66 @@
+{
+  "kind": "d5_cold_reads",
+  "process": {
+    "pid": 26022,
+    "node": "v24.7.0"
+  },
+  "after": "commit 1 (ddc1b091c)",
+  "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099",
+  "output": {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5/cold-20261028T174506Z.json",
+    "digest": "sha256:ad59701a47493ee57ad247b3e4b5ec0139762299a683c356f5756e838a0ef74e"
+  },
+  "uptimeBefore": "4:45 load 14.36 13.48 11.94",
+  "uptimeAfter": "4:45 load 14.72 13.57 12.00",
+  "environmentKind": "exact_prefix_workspace_environment",
+  "identityUnchanged": true,
+  "observedMismatches": [],
+  "scopeCorrespondenceErrors": [],
+  "basisReady": true,
+  "rows": [
+    {
+      "name": "basis",
+      "archivedDigest": "sha256:7a1f95d4d7c1f56c46edc388977fc119ec662f184a9d9fbb2f0fea69e0ca1041",
+      "rederived": "sha256:7a1f95d4d7c1f56c46edc388977fc119ec662f184a9d9fbb2f0fea69e0ca1041",
+      "equal": true
+    },
+    {
+      "name": "scope",
+      "archivedDigest": "sha256:1e2faf9395e5c8e6cf5d57503108f0c4dbda92d91d0ecb35777a3e4267462f35",
+      "rederived": "sha256:1e2faf9395e5c8e6cf5d57503108f0c4dbda92d91d0ecb35777a3e4267462f35",
+      "equal": true
+    },
+    {
+      "name": "inventory",
+      "archivedDigest": "sha256:c01b69062b22b627d5acf49a29af224b256f85708dd14df94efa1353ca75e473",
+      "rederived": "sha256:c01b69062b22b627d5acf49a29af224b256f85708dd14df94efa1353ca75e473",
+      "equal": true
+    },
+    {
+      "name": "tenantManifest",
+      "archivedDigest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+      "rederived": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+      "equal": true
+    },
+    {
+      "name": "commandConfiguration",
+      "archivedDigest": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+      "rederived": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+      "equal": true
+    },
+    {
+      "name": "predicateConfiguration",
+      "archivedDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+      "rederived": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+      "equal": true
+    },
+    {
+      "name": "writeTerritories",
+      "archivedDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+      "rederived": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+      "equal": true
+    }
+  ],
+  "allEqual": true,
+  "scope": "A fresh process re-verified the pack, rebuilt the caller from the sealed archive, re-read the workspace environment from the event log and re-derived the basis, scope, inventory, tenant manifest and the three C2 configuration digests. It is not a Public run-result readback: there is no run."
+}

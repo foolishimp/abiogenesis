@@ -5154,3 +5154,179 @@ The digests were computed on the scratch copies before `cp`. The directory's fil
 ## D5 activation, amendment 1 (Executive, 2026-10-29; the release claim)
 
 The pre-RC basis binds a prospective release identity whose `releaseClaim` coordinate names frozen release-claim bytes (`EXACT_CANDIDATE_QUALIFICATION_BASIS_SCHEMA`'s `prospectiveRelease`; `REQ-P-QUAL-057C`; `design/T287_D6_RC6_RELEASE_IDENTITY_DESIGN.md` §2: "Release notes and any claims intended to belong to the cut are frozen qualifying inputs"), and the publication copies the same bytes into the snapshot as `release-claim` (`implementation/release_publication.ts:71-72`). No such file existed. The Executive authored `build_tenants/abiogenesis/typescript/release-claim.md` (sha256 `c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90`,     3649 bytes; outside the pack) at commit `99b799d56d1b40f3e83f35267c46c133180b6714`. For D5: the frozen subject inventory includes it as a member (a release-scoped claim surface); the basis's `prospectiveRelease` is `{ productId: "product://abiogenesis/typescript-tenant@5.0.0-rc.1", namespace: "abiogenesis", profile: "one_project_unqualified", projectSubtree: ".", versionLine: "5.0.0", ordinal: 1, version: "5.0.0-rc.1", releaseClaim: <the member's coordinate> }` so that the verdict is release-grade and D6's request binds the same identity; the grant of D5 is unchanged otherwise, and the file is not edited by the Worker. A byte change to the claim is a qualifying change (a new basis).
+
+## D5 return (Worker, Opus 5.5, 2026-10-29; base `21c15697d157f18f34e8ae87530f3e44f4bd5ccb`)
+
+### Disposition and stops
+
+Stopped before F11. No AF22 verdict was produced, and no `green`, `red` or `blocked` value is asserted. No provider call was made (0 of 2 runs, 0 USD). Items 1 to 4 are complete. Item 5 ran in prepare mode only, measured the recipe once outside C2, and the cold reads followed.
+
+- **Stop A (measured): the observed C2 cannot finish inside one provider Bash call.**
+  - Claude Code 2.1.306 defaults the Bash tool to 120,000 ms (maximum 600,000 ms) unless `BASH_DEFAULT_TIMEOUT_MS` / `BASH_MAX_TIMEOUT_MS` are set.
+  - The C2 prompt forbids a timeout field (`product/worksite_command_execution.ts:2344`), and the transport contract sets none.
+  - The recipe's bare commands took 230,017 ms in the prepare run (load 9.81 → 9.82). The helper adds snapshot materialization and observation of 1,119 protected files on top of that.
+  - The Product budget is 855,250 ms and fits the operator limits (900,000 / 1,200,000 ms).
+  - Remedies for the Executive (not my choice):
+    - **Configuration:** give the provider CLI `BASH_DEFAULT_TIMEOUT_MS`, plus `BASH_MAX_TIMEOUT_MS` above 600,000 to cover the 855,250 ms budget. One route is `provider.inheritEnvironment` and the wrapper. It is unverified that a name added there reaches the CLI process through the transport.
+    - **Product:** the C2 transport derives the Bash timeout from the C2 budget. This is a code change.
+- **Stop B (projected; no J prompt was built): F11 J cannot be carried as the candidate is cut.**
+  - J receives each material body as `JSON.stringify` of its text (`validator/qualification.ts:589`), so raw bytes are a floor on the prompt size.
+  - Four contract and pack members exceed the 1,048,576-byte bound as raw text: `contracts/qualification/rule-catalog.json` (1,767,172), `contracts/schemas/public-operation.schema.json` (2,867,688), `contracts/schemas/self-conformance.schema.json` (1,050,028) and `product-toolchain-manifest.json` (3,273,847). No partition can split them.
+  - The material floor is 45.08 USD (36.06 MB read once, at 4 bytes per token and 5 USD per million tokens), over the 40 USD cap.
+  - No construction provenance exists for the pre-RC subject.
+  - A green F11 therefore needs a code, contracts or pack change, which is one of the activation's stops.
+  - Fixing stop A alone does not reach a verdict.
+
+### Commits
+
+- **Commit 1:** `ddc1b091cd201f803e8a9f235c1a9a7c52f831fc` (`…/scratchpad/d5/commit1.txt`). It holds 15 files, all in the test territory.
+- **Commit 2** carries this Return and the record directory `.ai-workspace/comments/claude/20261028T174833Z_D5_EXACT_QUALIFICATION/`.
+- **Commits that landed on `main` during the run (both):**
+  - `99b799d56` adds `release-claim.md`. D5 neither authored nor edited it. The inventory binds it at `c388d2f3…8b90` (3,649 bytes) with the role `release_claim`.
+  - `f717e1843` changes no path under `build_tenants/`.
+  - Neither touches a D5 file.
+- The inventory was first built after amendment 1, with the release claim as a member, so no rebuild was needed.
+
+### Roster, intake and the restated red
+
+**Roster** (`roster.json`):
+
+- 73 rows: families A5-F01..F17, the 4.6 rows, S01/S02/S03/S06 and the claims.
+- Placement: all 16 claims and 66 behaviors are placed.
+- Dispositions:
+  - 54 `covered`.
+  - 2 `intentionally_removed`:
+    - A5-F08, `PRODUCT.md:1285-1290`;
+    - A5-F12, `:1062-1075`, `:1136`, `:1285-1290`.
+  - 17 `gap`, owned by the T-287 Executive:
+    - 14 rows for Phase D carrier authoring: A5-F03, A5-F10, batch, graph_span_reentry, ticket_traversal, re_enter, yield_continuation, inspect_runtime_archive, escalate, targeting_a_published_asset, C.batch, fibre-substitution, S02 and S03;
+    - 3 rows for the remedy of stops A and B: A5-F11, A5-F15 and self-conformance.
+- Carriers are the 39 vector lanes, with case names, plus the natives N-D3 (six D3 runs on pack `550b48cc`), N-D3-GAP, N-D2 and N-P4.
+- The lanes the roster names equal the recipe's test files.
+- `qualificationCoverageIsPublished` holds against the installed package.
+
+**Intake** (`intake.json`):
+
+- **Rule (i):**
+  - r10-child-proof and r10-projection-contracts take `ABI5_EVIDENCE_ROOT`, pinned by `evidence-root.mjs`;
+  - uat-continuation takes the D3 js-sdlc-bootstrap rerun inputs and an absolute unit root (run 16:30:08–16:30:56Z, 4/4, load 10.38 → 12.12).
+- **Rule (ii):** the three uat-harness cases are retired in place, with names, reasons and current carriers. The search covered `test_env/test_runs/sandbox-uat/data-mapper-full` (13 archives) and the tracked files, but not `.ai-workspace`. The harness passes 31/31 afterwards.
+- **Rules (iii) and (iv):** no case.
+- **Outside the vector (no roster row names either lane):**
+  - `t287-default-library-fulfillment` reads the Codex record by a relative path, which does not exist in the C2 snapshot;
+  - `installed-language-smoke` is not bounded.
+
+**The red:** the st2a-g lane is restated to the cardinality law, grounding non-emptiness in the Public-operation ownership of `DS1_CAPABILITY_CONTRACT_REGISTER`. The suggested locator-kind rule was falsified by 14 rows. The lane passes 4/4.
+
+### Resources (commit 1, `test_env/qualification/`)
+
+- **Inventory:**
+  - `qualification-inventory://abiogenesis/c01b6906…e473`;
+  - `complete_claim` over the one selected root, `repo://abiogenesis/build_tenants/abiogenesis/typescript`;
+  - 1,186 members, 34,531,450 bytes;
+  - roles: code 288, design 326, proof 347, public_contract 97, constitutional 95, qualification 15, execution_contract 12, manifest 5, release_claim 1;
+  - it excludes only itself, and no other member binds its digest.
+- **Repository `specification/` is outside the selected roots.** It is law, not subject: the law basis binds it through the 95 catalog sources, and their byte copies are the constitutional members. Selecting it would give one ref two paths in J material.
+- **`release-claim.md` has the role `release_claim`.** `prospectiveRelease.releaseClaim` binds this member, and publication copies its bytes. It is outside the pack and is neither law, contract nor manifest.
+- **Verification recipe:**
+  - `recipe/verification-recipe.json` at `sha256:bfbe4d62…25e3`, 249,845 bytes, an inventory member at `recipePath`;
+  - 1,102 source inputs (the generated outputs excluded) and 16 locked dependency archives;
+  - command digests: `dcc217f3…`, `1873d342…`, `4c29c332…`;
+  - roles setup, build ×2, lint (one), test ×4, compare;
+  - `skipPolicy` `incomplete`, `reportFormat` `node-test-events-jsonl@1`;
+  - environment rows carry no token.
+- **Other resources:**
+  - the classification (scope partitions: 28 surface groups, 95 rule groups);
+  - the material selection;
+  - the tenant manifest `5fdbfdb7…ebc5` (16 claims);
+  - the law basis `e682cf62…` and coverage catalog `dcb55ba8…` by coordinate;
+  - `resources.json`.
+- **Construction:** `build-resources.mjs` builds these from the installed package's exports. The run-specific basis, bound scope and C2 configuration come from `test_env/support/exact-candidate-qualification.mjs`, which is the one new support file.
+
+### Run table
+
+| Run | Mode | Provider calls | uptime before → after | Result |
+|---|---|---|---|---|
+| `2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099` | prepare --execute-recipe | 0 | 5.88 6.65 8.49 → 9.82 12.71 11.52 | `prepared` |
+
+The prepare run did the following:
+
+1. Ran the Public setup through fresh installed CLI processes: verify, resolve, install, bind and catalog admit.
+2. Viewed the qualification allowlist. Program conformance passed for `assess@5`, `exact-candidate@5`, `self-conformance@5` and `worksite/command-execution@5`.
+3. Built the basis `7a1f95d4…1041`. `isQualificationBasisReady` holds, and `prospectiveRelease` joins the install.
+4. Built the scope `1e2faf93…2f35`. Correspondence errors: none.
+5. Checked the inventory and tenant manifest against the committed files: both equal.
+6. Placed the 1,119 protected inputs in the bound worksite, where the installed owner observed them. There were no mismatches, and the configuration digests equal the recipe's.
+7. Measured the recipe outside C2, in a snapshot copy:
+
+| Command | Time |
+|---|---|
+| setup | 0.5 s |
+| tsc | 7.3 s |
+| manifest | 22.0 s |
+| lint | 1.1 s |
+| vector | 113.8 s (346/346, 0 skipped) |
+| harness | 1.0 s (31/31) |
+| continuation | 45.8 s (4/4) |
+| compose | 38.4 s (2/2) |
+| compare | 0.2 s ("candidate pack reproduced: 5317 files", predicate matched) |
+| **Total** | **230.0 s** |
+
+The C2 prompt measures 3,309 bytes on fixture roots.
+
+### Verdict and findings
+
+`verdict.json`: AF22 not produced; F11 not run; verification not observed.
+
+`findings.json`:
+
+- **F-1:** stop A.
+- **F-2:** stop B, the bound.
+- **F-3:** the 45.08 USD floor.
+- **F-4:** no construction provenance.
+- **F-5:** the recipe binds the launching environment's HOME, TMPDIR and LANG with LC_ALL absent. A different environment fails as `verification_recipe_configuration_mismatch`. The continuation unit root is written outside the C2 sandbox and outside its territories. The evidence-root and D3 archive inputs are read unprotected.
+- **F-6:** the inventory binds the base design (one line differs from `fd38e8227`, from `3d33d5584`). Code, contracts, scripts, the package files and the specification equal the candidate.
+- **F-7:** correction. The "263 s proven" Bash figure is wrong. That session was ttft 219,488 ms plus a ~38 s Bash call. The longest earlier C2 Bash call was 57 s.
+- **F-8:** five functions the driver needs are not package exports.
+- **F-9:** the helper runs commands in a task-addressed snapshot sandbox.
+
+### Cold reads
+
+A fresh process (pid 26022, after commit 1) re-verified the pack and rebuilt the caller from the sealed archive. It re-read the workspace environment from the event log and re-derived seven items: the basis, the scope, the inventory, the tenant manifest and the three C2 digests. All seven are equal, the event log identity is unchanged, and there are no observation mismatches. This is a re-derivation, not a Public run-result readback, because there is no run.
+
+### Deviations
+
+1. Before compaction, I ran a forbidden listing: `ls …/.ai-workspace/comments/claude/ | grep -i d2`.
+2. I ran `wc -c` on the preparation records and made a `cd` into the Codex directory.
+3. I read the pack archive under `.ai-workspace` and extracted it to scratch to check it against the D3 install. That is outside the permitted reads.
+4. `zsh -ic` printed TMPDIR and LANG. No token was read.
+5. A prototype build may have made an npm update-notifier contact before `npm_config_update_notifier=false` was set. Unverified.
+6. Some git commands broke the pathspec rule: a bare `git diff --cached --name-only` before commit 1, and `git status --short -- specification`, whose pathspec is outside `build_tenants/`.
+7. Prepare ran before commit 1, reversing the activation's order, so that the driver was proven before the freeze. The cold read after commit 1 shows the inventory unchanged.
+8. The 36 vector lanes were observed inside the recipe's one test-vector command (one subprocess per file, in sequence), with `uptime` around the command rather than around each lane alone.
+9. The live mode (assess, ruling, F11, AF22) is not authored, because stop A holds it.
+10. Named substitutions in the driver and generator:
+    - deep imports of `projectWorksiteCommandExecutionBudget`, `worksiteCommandExecutionBudgetFits`, `constructWorksiteCommandConfiguration`, `selectedWorksiteCommandAmbientEnvironment` and `isQualificationBasisReady`;
+    - valibot resolved through `createRequire` from the installed package;
+    - `inherited`, `setupEnvironment` and `redactedConfig` inlined from `runner.mjs`, as D2 did;
+    - the generic worksite fixture's grant, used for the recipe digests and the prompt measurement;
+    - the tenant manifest built from the D3 install record, then matched to the fresh install;
+    - the qualification view and conformance steps mirror the conservation `setup`.
+11. The recipe measurement's continuation lane wrote under `test_env/test_runs/qualification-units`.
+
+### Findings outside the grant
+
+- F-1 and F-9: the C2 transport and helper design.
+- F-2: contract and pack member sizes against the J bound.
+- F-8: missing exports.
+- `t287-default-library-fulfillment` reads `.ai-workspace` by a relative path.
+- The D3 "263 s" figure (F-7).
+
+### Not verified
+
+- The live C2 helper's wall time and overhead.
+- Whether `BASH_DEFAULT_TIMEOUT_MS` reaches the CLI through `provider.inheritEnvironment`.
+- Rendered J prompt sizes beyond the raw-byte floor, including the escaped size of `expected-output-inventory.json`.
+- Any F11 or AF22 outcome.
+- The historical inputs in `.ai-workspace`, which were not searched.
+- The prototype's npm network contact.

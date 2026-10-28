@@ -1,0 +1,196 @@
+{
+  "kind": "d5_qualification_resources",
+  "commit": "ddc1b091cd201f803e8a9f235c1a9a7c52f831fc",
+  "tenant": "build_tenants/abiogenesis/typescript",
+  "files": {
+    "test_env/qualification/build-resources.mjs": {
+      "digest": "sha256:c316375e03280fbf3789db92635c9f5fd6a3c1a373aa4d90170b4c49a42bfcdb",
+      "byteCount": 20079
+    },
+    "test_env/qualification/classification.json": {
+      "digest": "sha256:0e31fade82752090e8730369630b3b2f45fd77af1808499d5c99cbbbacb921d6",
+      "byteCount": 5394
+    },
+    "test_env/qualification/inventory.json": {
+      "digest": "sha256:75fdc9ff02db89a89811a4c1304c3356c6b38d42c5b1d1a48c214d8588fbc2b3",
+      "byteCount": 570259
+    },
+    "test_env/qualification/material-selection.json": {
+      "digest": "sha256:9eced3ff7847ab34655dba93b1bccb6975b52f96d9e25213e8248b2749ff690c",
+      "byteCount": 3154
+    },
+    "test_env/qualification/resources.json": {
+      "digest": "sha256:a2faec50ff28a506a909b7e79f7b8c1bbec6e7be5c43a51568377ca258b5c1e0",
+      "byteCount": 3785
+    },
+    "test_env/qualification/tenant-manifest.json": {
+      "digest": "sha256:72971fda3e08d426ff87aa316e0c140f84ba05b5811b8120ff1a958c4783b12f",
+      "byteCount": 9012
+    },
+    "test_env/qualification/recipe/compare-generated.mjs": {
+      "digest": "sha256:ae060f8f020947c154a627d29787d00b4eb9d207e65c51f7304e25419c4c3f23",
+      "byteCount": 2451
+    },
+    "test_env/qualification/recipe/declared-commands.json": {
+      "digest": "sha256:b88081bb41b5eea53240d02e3f6f8cb1aece7e4b3abd6974b7773d6895fc760a",
+      "byteCount": 19700
+    },
+    "test_env/qualification/recipe/dependencies.json": {
+      "digest": "sha256:0ee54df4d4df95590b184bb89283ba52332c55aee70124bc6756067b23251c32",
+      "byteCount": 4397
+    },
+    "test_env/qualification/recipe/expected-output-inventory.json": {
+      "digest": "sha256:f67fdfed97c7db6c24ba1a3f119580fc78c390fe673d9ffb6bba0476d414f1ed",
+      "byteCount": 879999
+    },
+    "test_env/qualification/recipe/install-dependencies.mjs": {
+      "digest": "sha256:fe1f25086abe90430a2478cb7b3683d11141a69f4021d94014bb92605563ce1f",
+      "byteCount": 2847
+    },
+    "test_env/qualification/recipe/verification-recipe.json": {
+      "digest": "sha256:bfbe4d62380594f5534a26677931ab7e56c37785d970ad3706af4c87c9c625e3",
+      "byteCount": 249845
+    },
+    "test_env/support/exact-candidate-qualification.mjs": {
+      "digest": "sha256:8ac51dc80f57a09633889dfdcd365e624653b14b92d467be54d13f3d0d92303c",
+      "byteCount": 31072
+    },
+    "release-claim.md": {
+      "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+      "byteCount": 3649
+    }
+  },
+  "inventory": {
+    "ref": "qualification-inventory://abiogenesis/c01b69062b22b627d5acf49a29af224b256f85708dd14df94efa1353ca75e473",
+    "digest": "sha256:c01b69062b22b627d5acf49a29af224b256f85708dd14df94efa1353ca75e473",
+    "coverage": "complete_claim",
+    "selectedRoots": [
+      "repo://abiogenesis/build_tenants/abiogenesis/typescript"
+    ],
+    "members": 1186,
+    "bytes": 34531450,
+    "roles": {
+      "manifest": 5,
+      "code": 288,
+      "public_contract": 97,
+      "qualification": 15,
+      "constitutional": 95,
+      "design": 326,
+      "release_claim": 1,
+      "execution_contract": 12,
+      "proof": 347
+    },
+    "excluded": [
+      "test_env/qualification/inventory.json (itself)"
+    ],
+    "builtAfterAmendment1": true
+  },
+  "releaseClaim": {
+    "member": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+    "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+    "byteCount": 3649,
+    "surfaceRole": "release_claim",
+    "why": "prospectiveRelease.releaseClaim binds this member (REQ-P-QUAL-057C) and publication copies its bytes; it is outside the pack and is neither law, contract nor manifest; the role set names release_claim for it"
+  },
+  "prospectiveRelease": {
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "namespace": "abiogenesis",
+    "profile": "one_project_unqualified",
+    "projectSubtree": ".",
+    "versionLine": "5.0.0",
+    "ordinal": 1,
+    "version": "5.0.0-rc.1",
+    "releaseClaim": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+      "byteCount": 3649
+    }
+  },
+  "lawBasis": {
+    "ref": "qualification-law://abiogenesis/e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85",
+    "digest": "sha256:e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85"
+  },
+  "ruleCatalog": {
+    "ref": "catalog://abiogenesis/qualification/self-conformance@2",
+    "digest": "sha256:ef77e5a71fdb1262ad2c1ddd783941c6c7f1500acf1eeb68161e206c1f0d68eb",
+    "path": "contracts/qualification/rule-catalog.json"
+  },
+  "coverageCatalog": {
+    "ref": "qualification-coverage://abiogenesis/dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789",
+    "digest": "sha256:dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789"
+  },
+  "tenantManifest": {
+    "ref": "tenant-conformance-manifest://abiogenesis/5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+    "digest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+    "path": "test_env/qualification/tenant-manifest.json"
+  },
+  "verificationRecipe": {
+    "path": "test_env/qualification/recipe/verification-recipe.json",
+    "recipePath": "test_env/qualification/recipe/verification-recipe.json",
+    "digest": "sha256:bfbe4d62380594f5534a26677931ab7e56c37785d970ad3706af4c87c9c625e3",
+    "byteCount": 249845,
+    "sourceInputs": 1102,
+    "auxiliaryInputs": 16,
+    "commandConfigurationDigest": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+    "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+    "writeTerritoriesDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+    "ambientRows": [
+      "HOME",
+      "TMPDIR",
+      "LANG",
+      "PATH"
+    ],
+    "requiredExecutionBudgetMs": 855250
+  },
+  "scopeDeclaration": {
+    "surfaceGroups": 28,
+    "ruleGroups": 95,
+    "rule": "classification.json surfaceGroups and ruleGroups"
+  },
+  "materialSelection": {
+    "path": "test_env/qualification/material-selection.json",
+    "rendering": "J receives each material body as JSON.stringify of its UTF-8 text (validator/qualification.ts:589); raw bytes are a floor on the rendered prompt"
+  },
+  "runSpecific": {
+    "run": "test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099",
+    "basis": {
+      "ref": "qualification-basis://abiogenesis/7a1f95d4d7c1f56c46edc388977fc119ec662f184a9d9fbb2f0fea69e0ca1041",
+      "digest": "sha256:7a1f95d4d7c1f56c46edc388977fc119ec662f184a9d9fbb2f0fea69e0ca1041"
+    },
+    "scope": {
+      "ref": "qualification-scope://abiogenesis/1e2faf9395e5c8e6cf5d57503108f0c4dbda92d91d0ecb35777a3e4267462f35",
+      "digest": "sha256:1e2faf9395e5c8e6cf5d57503108f0c4dbda92d91d0ecb35777a3e4267462f35"
+    },
+    "basisReady": true,
+    "scopeCorrespondenceErrors": [],
+    "installedProduct": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/12ee813b…/c035d3c0…",
+    "workspaceBinding": {
+      "ref": "workspace-binding://abiogenesis/8698b1aace12ef2f6b499e1dcdc5ff8aed95b0f0cc1d8ddcf9b8a8708f01320f",
+      "digest": "sha256:8698b1aace12ef2f6b499e1dcdc5ff8aed95b0f0cc1d8ddcf9b8a8708f01320f"
+    },
+    "records": {
+      "resources/basis.json": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/resources/basis.json",
+        "digest": "sha256:1b5c7e03b4a403736b781f7273559ee26e59d24e21604d8e91d3a8e11ac419aa",
+        "byteCount": 3225
+      },
+      "resources/scope.json": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/resources/scope.json",
+        "digest": "sha256:eb0b14fedd7a4370e50bb4447ad0112ad002af4437f6fe8273cb2cc36ceaaf47",
+        "byteCount": 1122762
+      },
+      "resources/inventory.json": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/resources/inventory.json",
+        "digest": "sha256:9d4c1865522456fa3f12cb0ff3e5b16cbbecd5732747b9a32ddec8663bf3a6e9",
+        "byteCount": 677035
+      },
+      "resources/tenant-manifest.json": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/resources/tenant-manifest.json",
+        "digest": "sha256:72971fda3e08d426ff87aa316e0c140f84ba05b5811b8120ff1a958c4783b12f",
+        "byteCount": 9012
+      }
+    }
+  },
+  "split": "Commit 1 carries the run-independent resources; the basis (installedProduct, workspaceBinding), the bound scope (subjectBasis), the resource manifest and the verification material bind one run and are constructed by the driver."
+}

@@ -1,0 +1,9 @@
+{
+  "kind": "d5_cost",
+  "capUsd": 40,
+  "providerCalls": 0,
+  "spentUsd": 0,
+  "reason": "Stop A holds the live run: no assessment, ruling, F11 or AF22 dispatch and no observed C2. The prepare and cold-read processes make no provider call.",
+  "tokenHandling": "The wrapper export of CLAUDE_CODE_OAUTH_TOKEN was never run in D5",
+  "projection": "findings.json F-3: the F11 J material floor is 45.08 USD before re-reads, pair multiplicity, peers or output"
+}

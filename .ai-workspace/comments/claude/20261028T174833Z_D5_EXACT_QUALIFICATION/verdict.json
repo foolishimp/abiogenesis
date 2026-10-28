@@ -1,0 +1,11 @@
+{
+  "kind": "d5_verdict",
+  "af22": "not produced: stopped before F11 at the C2 transport timeout (stop A); F11 is also infeasible by projection (stop B)",
+  "values": "AF22 computes green, red or blocked; none was computed and none is asserted",
+  "f11": "not run",
+  "verification": "not observed (no C2); measured outside C2 only",
+  "stops": [
+    "Stop A: the observed C2 runs inside one provider Bash call whose default timeout (120,000 ms, Claude Code 2.1.306) is below the recipe wall time (230,017 ms measured for the bare commands)",
+    "Stop B: F11 J is infeasible by projection on the candidate as cut (four contract and pack members exceed the 1,048,576-byte prompt bound as raw text; material floor 45.08 USD over the 40 USD cap; no construction provenance)"
+  ]
+}

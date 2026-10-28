@@ -1,0 +1,328 @@
+{
+  "kind": "d5_runs",
+  "providerRuns": 0,
+  "maxRuns": 2,
+  "runs": [
+    {
+      "id": "2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099",
+      "mode": "prepare --execute-recipe",
+      "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099",
+      "status": "prepared",
+      "providerCalls": 0,
+      "uptimeBefore": "4:33  up 23 days, 14:51, 10 users, load averages: 5.88 6.65 8.49",
+      "uptimeAfter": "4:43  up 23 days, 15:01, 10 users, load averages: 9.82 12.71 11.52",
+      "startedUtc": "2026-10-28T17:33:19Z",
+      "endedUtc": "2026-10-28T17:43Z",
+      "driver": {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+        "digest": "sha256:8ac51dc80f57a09633889dfdcd365e624653b14b92d467be54d13f3d0d92303c"
+      },
+      "config": {
+        "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/operator-config.json",
+        "packDigest": "sha256:550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6"
+      },
+      "steps": [
+        "preflight",
+        "bootstrap unpack",
+        "verify (abg, consumer)",
+        "resolve",
+        "install (abg, test-consumer)",
+        "workspace.bind",
+        "catalog admit",
+        "catalog view (fixture)",
+        "program conformance (fixture)",
+        "catalog view (qualification allowlist)",
+        "program conformance (assess, exact-candidate, self-conformance, worksite command-execution: all passed)",
+        "resources (inventory, law, tenant manifest, basis, scope)",
+        "protected inputs placed and observed in the bound worksite",
+        "C2 configuration over the binding",
+        "budget",
+        "J material projection",
+        "recipe execution measurement"
+      ],
+      "checks": {
+        "inventoryEqualsCommitted": true,
+        "tenantManifestEqualsCommitted": true,
+        "artifactJoinsInstall": true,
+        "releaseClaim": {
+          "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+          "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+          "byteCount": 3649,
+          "surfaceRoles": [
+            "release_claim"
+          ]
+        },
+        "basisReady": true,
+        "prospectiveReleaseJoinsInstall": true,
+        "scopeCorrespondenceErrors": []
+      },
+      "recipe": {
+        "path": "test_env/qualification/recipe/verification-recipe.json",
+        "digest": "sha256:bfbe4d62380594f5534a26677931ab7e56c37785d970ad3706af4c87c9c625e3",
+        "byteCount": 249845,
+        "protectedInputs": 1119,
+        "observed": 1119,
+        "mismatched": [],
+        "worksite": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/sandbox/worksite",
+        "digests": {
+          "commandConfigurationDigest": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+          "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+          "writeTerritoriesDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b"
+        },
+        "digestsEqualRecipe": true,
+        "ambient": [
+          "HOME",
+          "TMPDIR",
+          "LANG",
+          "PATH"
+        ]
+      },
+      "budget": {
+        "commandBudgetMs": 850250,
+        "requiredExecutionBudgetMs": 855250,
+        "limits": {
+          "inactivityTimeoutMs": 900000,
+          "absoluteTimeoutMs": 1200000
+        },
+        "fitsProductLimits": true,
+        "providerBashDefaultTimeoutMs": 120000,
+        "providerBashMaximumTimeoutMs": 600000
+      },
+      "c2Prompt": {
+        "byteCount": 3309,
+        "digest": "sha256:73be0b50add76cd566c6f9525eaed4fe3ba0ae661076efc48543f12c00ef1eb6",
+        "basis": "build-resources.mjs over a fixture binding; renders refs and the helper tool command only, so it is independent of the protected set and differs per binding by root path lengths"
+      },
+      "recipeExecution": {
+        "elapsedMs": 230017,
+        "uptimeBefore": "4:39  up 23 days, 14:57, 10 users, load averages: 9.81 11.54 10.50",
+        "uptimeAfter": "4:43  up 23 days, 15:01, 10 users, load averages: 9.82 12.71 11.52",
+        "exceedsProviderBashDefault": true,
+        "commands": [
+          {
+            "commandId": "command://abiogenesis/qualification/setup",
+            "role": "setup",
+            "exitStatus": 0,
+            "elapsedMs": 511,
+            "timeoutMs": 20000,
+            "counts": null,
+            "stdout": {
+              "digest": "sha256:98fc83c09134eb81e83375218d1e76eabd49be499468a9db67e54193cf177d93",
+              "byteLength": 56
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/build-typescript",
+            "role": "build",
+            "exitStatus": 0,
+            "elapsedMs": 7340,
+            "timeoutMs": 45000,
+            "counts": null,
+            "stdout": {
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "byteLength": 0
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/build-product-manifest",
+            "role": "build",
+            "exitStatus": 0,
+            "elapsedMs": 21981,
+            "timeoutMs": 120000,
+            "counts": null,
+            "stdout": {
+              "digest": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "byteLength": 0
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/lint",
+            "role": "lint",
+            "exitStatus": 0,
+            "elapsedMs": 1103,
+            "timeoutMs": 45000,
+            "counts": null,
+            "stdout": {
+              "digest": "sha256:4527817351a1bcccdf2eff88abdf8c27db65f4737de2d653c0fca9bc2b7e3bc1",
+              "byteLength": 7002
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/test-vector",
+            "role": "test",
+            "exitStatus": 0,
+            "elapsedMs": 113754,
+            "timeoutMs": 240000,
+            "counts": {
+              "tests": 346,
+              "failed": 0,
+              "passed": 346,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 346,
+              "suites": 0
+            },
+            "stdout": {
+              "digest": "sha256:44d73f3ee9d9fc54ac6fd332d2f2929471be92b6f05c9dd6a1f6752b3bd71016",
+              "byteLength": 104749
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/test-uat-harness",
+            "role": "test",
+            "exitStatus": 0,
+            "elapsedMs": 985,
+            "timeoutMs": 30000,
+            "counts": {
+              "tests": 31,
+              "failed": 0,
+              "passed": 31,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 25,
+              "suites": 0
+            },
+            "stdout": {
+              "digest": "sha256:8f66b8b4bf81f74e73043fdd37f3c4c8666eb2bc2926f85960e1ff61e618b733",
+              "byteLength": 8544
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/test-uat-continuation",
+            "role": "test",
+            "exitStatus": 0,
+            "elapsedMs": 45777,
+            "timeoutMs": 120000,
+            "counts": {
+              "tests": 4,
+              "failed": 0,
+              "passed": 4,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 4,
+              "suites": 0
+            },
+            "stdout": {
+              "digest": "sha256:c9f42c7bdafeaed1df9cf83652bde172d2238122c36a7fae9ee136a1b958567a",
+              "byteLength": 1625
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/test-compose",
+            "role": "test",
+            "exitStatus": 0,
+            "elapsedMs": 38384,
+            "timeoutMs": 180000,
+            "counts": {
+              "tests": 2,
+              "failed": 0,
+              "passed": 2,
+              "cancelled": 0,
+              "skipped": 0,
+              "todo": 0,
+              "topLevel": 1,
+              "suites": 0
+            },
+            "stdout": {
+              "digest": "sha256:1f0dddb95eb97ab8be46d4d24383b38cc661eb832c6dafdd14138476c072cbc9",
+              "byteLength": 1014
+            }
+          },
+          {
+            "commandId": "command://abiogenesis/qualification/compare",
+            "role": "compare",
+            "exitStatus": 0,
+            "elapsedMs": 182,
+            "timeoutMs": 30000,
+            "counts": null,
+            "stdout": {
+              "digest": "sha256:97bfa3601726ac61426a2cc16e214f5bcb12d5a96f57a806ab979ab2d72e4a0f",
+              "byteLength": 38
+            }
+          }
+        ],
+        "predicates": [
+          {
+            "predicateId": "predicate://abiogenesis/qualification/candidate-pack-reproduced",
+            "matched": true
+          }
+        ],
+        "classification": "Bound commands executed once outside C2 in a snapshot copy; a wall-time and outcome measurement, not an admitted observation"
+      },
+      "programs": [
+        {
+          "programRef": "program://abiogenesis/qualification/assess@5",
+          "disposition": "passed"
+        },
+        {
+          "programRef": "program://abiogenesis/qualification/exact-candidate@5",
+          "disposition": "passed"
+        },
+        {
+          "programRef": "program://abiogenesis/qualification/self-conformance@5",
+          "disposition": "passed"
+        },
+        {
+          "programRef": "program://abiogenesis/worksite/command-execution@5",
+          "disposition": "passed"
+        }
+      ],
+      "records": {
+        "run.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/run.json",
+          "digest": "sha256:179232ec6e569b176474f55bee9d46dc4119b4f21ee0bbcff5f0d9fad2252ac5",
+          "byteCount": 3606
+        },
+        "preflight.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/preflight.json",
+          "digest": "sha256:28ad00623b0a3c9413effc8a2db21c566452ddeef70d9afdb60dfcccbad2a17b",
+          "byteCount": 2274
+        },
+        "setup-identity.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/setup-identity.json",
+          "digest": "sha256:fa599e90319e73097c60674427349c73e6bde9a0f981ec090bd620b9fb833bd2",
+          "byteCount": 9517633
+        },
+        "qualification-programs.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/qualification-programs.json",
+          "digest": "sha256:a4280fecfa0b9437c1e5ba5c9c0fbc20718b8fc5fb0b5fbc74b25b0789e0faf2",
+          "byteCount": 868
+        },
+        "prepare.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/prepare.json",
+          "digest": "sha256:6dd316460a674962692397aa168367b23da7658e80c6bc33a23c73ed898b6596",
+          "byteCount": 7296
+        },
+        "material-projection.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/material-projection.json",
+          "digest": "sha256:ccea0457c11f53c67f63c9f779bdcdc835175db06a395310ad0c295411d8a6ab",
+          "byteCount": 9276
+        },
+        "recipe-execution.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/recipe-execution.json",
+          "digest": "sha256:11830450a120dc47d5fec68fa9c4cf7b5817f94cadb492d58d9d5dbbcefc86a3",
+          "byteCount": 6199
+        },
+        "final-close-handoff.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/final-close-handoff.json",
+          "digest": "sha256:7f5dd75ec548883e7ba61d1c8bc097ca095bee68ca8a3b5a9e873ae85429412f",
+          "byteCount": 1436
+        },
+        "summary.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/summary.json",
+          "digest": "sha256:0d99a471987af07f79920ad7573281b50dd0e744c1e6593769fdeb05f30c44a9",
+          "byteCount": 651
+        },
+        "SEALED.json": {
+          "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T17-33-19-252Z-43adb6ab-4383-42a0-b935-6811f983b099/SEALED.json",
+          "digest": "sha256:4e5e1fc453a188ed52206244895f785f6733ea47e3840fbb220bb8bd06cf5b6a",
+          "byteCount": 273
+        }
+      }
+    }
+  ],
+  "notHeld": "assess@5 with the live provider, the ruling, F11 and AF22, and the observed C2: stop A"
+}
