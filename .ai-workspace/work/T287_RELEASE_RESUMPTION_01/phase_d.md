@@ -5384,3 +5384,151 @@ A fresh process (pid 26022, after commit 1) re-verified the pack and rebuilt the
 **Grant.** `test_env/support/exact-candidate-qualification.mjs` and new modules under `test_env/support/` as the live mode needs; `test_env/qualification/**` (regenerated and extended: domains, applications, the provenance construction, the projection); `test_env/uat/` for the continuation lane's unit root only; no other lane; no code, contracts, design, specification, scripts, package.json, fixture or operator-config edit; the record directory `.ai-workspace/comments/claude/<UTC>_D5B_NATIVE_QUALIFICATION/` (`README.md` and the files of items 3, 4, 6 and 8); the record; your scratch. Reads: D5's reads, plus the D5 record's nine files and the prepare run; the chain commits through `git log`, `git diff` and `git show` with tenant pathspecs only; `phase_d.md` by heading only. Two runs at most; 60 USD at most; no network beyond the provider calls.
 
 **Exit.** Commit 1 (test territory; its hash written to the Executive's scratch marker immediately), the Executive's suite started on it; the run; commit 2 only on a repair; the record commit last, carrying the Return. Return contract: `## D5-b return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)`, appended once after a blank line; first sentence Yes or No with the verdict's disposition or the stop. Commit 1 first line: `D5-b (test territory): the live qualification mode, the scope's declared domains and applications, the construction provenance over the Phase C and D chains, the slot projection and the recipe regenerated on the exact candidate`. Commit 2 first line: `D5-b (repair): <the finding class and what changed>`. The record commit first line: `D5-b: native F11 self-conformance and the sole AF22 verdict (<disposition>) on the candidate fd38e8227 through the installed pack`. Stops: the projection above 60 USD; a chain set that cannot be held (the acknowledgment request prepared); Product-class findings; a prompt the transport refuses; the token absent (length check only).
+
+## D5-b return (Worker, Opus 5.5, 2026-10-29; base `603404b6849934b9bba8b0fdbef9fb2b2ed03f5b`)
+
+No: the projection stop held dispatch. The plan projects 1,295.6 USD against the 60 USD cap. The rule-input floor alone is 81.85 USD, which also exceeds the cap, and no partition goes below the floor. No AF22 verdict was produced, F11 did not run, and no provider call was made (0 USD, 1 of 2 runs used).
+
+### Disposition
+
+- **Stop (item 4).** `projection.json` was written before any dispatch.
+  - Total: 1,295.6 USD over 578 slots.
+  - The slots inside the 1,048,576-byte bound alone come to 594.72 USD.
+  - The floor counts only rule input: each applicable pair carries its governing rule sources and its members, and a slot holds at most the bound less the role sources. That gives 81.85 USD (16,369,336 input tokens).
+- **Attribution gate (finding G-2). This is not an activation stop.** It stops F11 independently of the cost.
+  - The F-4 chain set is 22 chains, every one grounded on its own. Together they cover 128 of the 1,188 inventory members.
+  - A task whose subject member no chain scopes is `invalid` (`validator/qualification.ts:800-804`). 521 of the 578 slots are invalid.
+  - `abg/qualification_proof.ts:659` returns null on `invalid` before the acknowledgment branch (`:661-668`). An owner acknowledgment therefore cures only `insufficient`.
+  - Under the F-4 ruling ("not attributed by chains"), F11 cannot be reached at any budget.
+  - The chain set is held, so no acknowledgment request was prepared.
+- **Item 7 was not reached** because there is no verdict. There is no commit 2.
+- **Correction to the stop's basis.** Before compaction I treated the attribution gate as a second stop, and I reasoned that the observed C2 alone would discharge Stop A. Both were wrong:
+  - the stop rests on the projection alone;
+  - for Stop A, see G-4.
+
+### Items
+
+1. **Wrapper.** It exports `BASH_DEFAULT_TIMEOUT_MS=900000`, `BASH_MAX_TIMEOUT_MS=900000` and `npm_config_update_notifier=false`. The token goes in by the export form, followed by a not-empty check. By a static read (G-4), the two Bash limits do not reach the provider CLI through this harness.
+2. **Domains and applications.**
+   - `classification.json` declares 9 domain families, with governed groups cut into parts of at most 340,000 bytes and one complement per role.
+   - 95 rule groups give 5,614 pairs, against D5's global 2,660: 5,049 applicable, 565 inapplicable, 0 unknown. Every domain is classified, with premise evidence `classification.json#domain/<family>`. Applications digest: `6e0c250b…dbd3dc`.
+   - Families (rule groups / pairs):
+
+     | Family | Rule groups | Pairs |
+     |---|---|---|
+     | realization-requirements | 79 | 4,819 |
+     | product-definition | 2 | 200 |
+     | method-standards | 6 | 174 |
+     | contract-law | 2 | 144 |
+     | qualification-law | 2 | 138 |
+     | install-law | 1 | 65 |
+     | method-project | 1 | 33 |
+     | identity-method | 1 | 24 |
+     | release-method | 1 | 17 |
+3. **Provenance.**
+   - 22 chains, from `51bc5d2d8` (exclusive) to commit 1 `7e3fefa46` (inclusive): 15 Opus 5.5 and 7 Fable 5.1. Each is grounded alone in process by the installed projection, and all are grounded together over the 128 members they constructed.
+   - 442 records, 138,197,867 bytes (184,264,424 as base64). Record set `a5852e71…43aa`.
+   - Built in 13.2 s; heap 182 MB, RSS 817 MB. The set is held.
+4. **Material and slots.**
+   - Five roles; `sharedCoverage` is `disjoint`. 529 specifications became 578 slots after re-partition: catalog 7, inventory 15, rule 554, tenant 1, coverage 1.
+   - 72 slots are irreducibly over the bound (G-3): 71 REQ-P-QUAL-056 rule slots and the coverage slot. They render at 1,061,484 to 8,337,697 bytes because each must carry the execution material, estimated at 6,847,520 bytes.
+5. **Verification.**
+   - `build-resources.mjs` regenerated the recipe on commit 1's tree: `faaacf47…a707`, 250,237 bytes, 1,121 protected inputs, command configuration `27484fd7…223a`.
+   - The continuation lane's unit root moved to the declared write territory `test_env/test_runs/qualification-units` (F-5).
+   - `node --check` passed on the five modules.
+   - The observed C2 did not run, because of the stop.
+6. **The native run.** One run, through the wrapper.
+   - Setup as in D5's prepare: the four qualification Programs are conformant.
+   - Resources:
+     - inventory `c4a1654f…0ffd` (1,188 members), equal to the committed one;
+     - basis `66a8c1b4…9a8d`, ready;
+     - scope `d615fd31…128e`, with no correspondence errors;
+     - tenant manifest `5fdbfdb7…ebc5`.
+   - All 1,121 protected inputs were observed, with 0 mismatches, and the recipe digests are equal. The budget of 855,250 ms fits the limits.
+   - The recipe, measured outside C2, took 228,077 ms; 9 commands all exited 0 and the pack predicate matched.
+   - Then provenance, applications and the projection ran, and the gates stopped the run.
+   - Cold reads ran in a fresh process after the run: 10 of 10 rows are equal (basis, scope, inventory, tenant manifest, the three C2 configuration digests, construction record set, chains, applications), and the event log is unchanged.
+7. **Not reached.**
+8. **Roster.** Rows are mapped by case text over the whole suite at `ddc1b091c` (199 lanes, 1,227 tests, 1,056 pass, 0 fail, 171 skip; ended 19:19:44Z), `test_env/uat/` and the compose scenario. Totals: 56 covered, 2 intentionally removed, 15 gap.
+   - **Mapped to suite lanes (2):** `batch` and `C.batch`, by `t287-calculus-state-transfer` subtests batch, nested, progressed, batch_in_batch, identity_end and recovery (8/8). The recipe runs only that lane's compose subtest.
+   - **True gaps:**
+
+     | Row | Reason | Citation |
+     |---|---|---|
+     | `ticket_traversal` | no carrier | PRODUCT.md:398 |
+     | `yield_continuation` | no carrier | :422, :434 |
+     | `inspect_runtime_archive` | no carrier | :423 |
+     | `escalate` | no carrier; only the 5.1 Consensus `escalate_fh` | :426, :400 |
+     | `targeting_a_published_asset` | no carrier; a5-f02 canonicalizes and r5 refuses an absent asset | :445, :452-453 |
+     | `fibre-substitution` | no carrier; m5 GraphFunction substitution is structural, not F_P to F_D | :360-365, :463-464 |
+     | `graph_span_reentry` | only `t287-selected-action`, which is environment-gated and skipped | :396 |
+     | `re_enter` | only `t287-selected-action`, which is environment-gated and skipped | :421, :434 |
+     | `A5-F03` | derived | :1271 |
+     | `A5-F10` | derived | :1277 |
+     | `S02` | derived | :1320-1328 |
+     | `S03` | derived | :1330-1345 |
+
+   - A5-F11, A5-F15 and self-conformance remain open with this stop.
+
+### Run table
+
+| Run id | Slots | Calls | Turns | Cost | Elapsed | Load before / after | Observed recipe |
+|---|---|---|---|---|---|---|---|
+| `2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085` | 578 projected, 0 dispatched | 0 | 0 | 0 USD | 13 min 50 s | 13.59 / 15.71 | not run (stop); measured outside C2: 228,077 ms, exit 0 ×9 |
+
+### Verdict
+
+None. Disposition: not produced. Bypass refs: none. Verification: not observed, because there was no C2.
+
+### Findings
+
+F11 diagnostics: none, because F11 did not run. The pre-dispatch findings are below.
+
+| Finding | Disposition | Rule | Surface | Triage class |
+|---|---|---|---|---|
+| G-1 projection 1,295.6 USD over the cap | stop | D5-b item 4 | `projection.json` | activation stop |
+| G-2 521 of 578 slots `invalid` under F-4 | gate, owner | `qualification.ts:800-804`, `qualification_proof.ts:659` | `provenance.json` | qualification input under ruling F-4 |
+| G-3 72 slots irreducibly over the bound | projection | `self_conformance.ts:107, :111, :118-119` | `projection.json` | qualification input (the recipe's 7,381 created paths), with a Product question on whole-material rendering |
+| G-4 Bash limits do not reach the provider CLI | ruling gap (static read) | Stop A ruling; `exact-candidate-qualification.mjs:59-61, :317`; `runner.mjs:113-120` | operator configuration `provider.inheritEnvironment` | test territory or operator configuration |
+| G-5 F-6 reproduces | correction | D5 disposition F-6 | `git diff --stat fd38e8227 21c15697d -- build_tenants/abiogenesis/typescript/design` reports one file, 1 insertion and 1 deletion | record |
+| G-6 the batch carrier named in the ruling carries no batch; 12 of 14 rows remain gaps | correction | D5 disposition, the roster's 17 gaps | `t287-worksite-branch-construction.test.mjs` (`grep -c batch`: 0) | record |
+| G-7 the assessor and 15 of 22 chain authors are the same model | disclosure | role independence `author_distinct` | operator configuration `model` | disclosure |
+| G-8 concurrent suite runs | disclosure | load gate | `scratchpad/suite/launch.sh` at `ddc1b091c` and `7e3fefa46` | disclosure |
+
+### Projection against the cap (60 USD)
+
+| Role | Slots | Prompt bytes | Input tokens | Output tokens | USD | Invalid |
+|---|---|---|---|---|---|---|
+| catalog | 7 | 4,851,929 | 1,212,985 | 47,035 | 7.24 | 0 |
+| inventory | 15 | 6,577,781 | 1,644,450 | 83,106 | 10.30 | 12 |
+| rule | 554 | 951,854,119 | 237,963,739 | 3,124,955 | 1,267.94 | 509 |
+| tenant | 1 | 86,591 | 21,648 | 1,080 | 0.14 | 0 |
+| coverage | 1 | 7,525,064 | 1,881,266 | 23,007 | 9.98 | 0 |
+| total | 578 | 970,895,484 | 242,724,088 | 3,279,183 | 1,295.60 | 521 |
+
+The slot table is `projection.json` in the record (all 578 rows), and the full rows are in the archive by digest.
+
+### Record
+
+`.ai-workspace/comments/claude/20261028T195351Z_D5B_NATIVE_QUALIFICATION/`: `README.md`, `provenance.json`, `projection.json`, `run.json`, `verdict.json`, `findings.json`, `cost.json`, `cold-reads.json`, `roster.json`.
+
+### Deviations
+
+- **Two live-mode dry runs before commit 1, launched from my shell outside the wrapper.** This repeats the order breach the D5 disposition restated.
+  - `2026-10-28T19-11-48-396Z-4ed2f20d…` had a wrong `--dependencies` path. I killed it during setup, and its archive is unsealed.
+  - `2026-10-28T19-16-59-716Z-1fb3b1bf…` stopped at 1,294.2 USD with 531 of 578 slots invalid.
+  - Neither run had the token or the three exports. The recipe measurement runs npm, so an npm update-notifier contact may have occurred.
+- **One bare `git diff --cached --name-only | wc -l` before commit 1.** It printed only the count 11, which equals the staged grant files.
+- **The dispatch path (`assess@5` with the live provider, the observed C2, rulings, the leaf, AF22) is not authored.** Had the gates passed, the run would have ended `undispatched`.
+
+### Findings outside the grant
+
+G-2, G-3 and G-4 need the Executive's ruling. G-5 and G-6 correct the D5 disposition.
+
+### Not verified
+
+- that the provider accepts an 8.3 MB prompt;
+- the execution material's real size (the delta and snapshot rows are modelled);
+- G-4 at runtime.
+
+No commits landed on `main` during the run: HEAD was `603404b6` until commit 1, then `7e3fefa46`, checked with a `build_tenants/` pathspec. During the live run and the cold reads, a suite run on `7e3fefa46` (`scratchpad/suite/launch.sh`, not mine) was running in parallel.

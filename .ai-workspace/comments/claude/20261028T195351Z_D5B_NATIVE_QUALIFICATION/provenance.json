@@ -1,0 +1,275 @@
+{
+ "kind": "qualification_construction_provenance",
+ "runId": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+ "head": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+ "base": "51bc5d2d8",
+ "baseExclusive": true,
+ "tenantPath": "build_tenants/abiogenesis/typescript",
+ "tenantClean": true,
+ "recordSet": {
+  "ref": "qualification-record-set://abiogenesis/construction/a5852e7134cf7bebd9fdef4444bf07561e10a42dd388f73fe08914a64f6f43aa",
+  "digest": "sha256:a5852e7134cf7bebd9fdef4444bf07561e10a42dd388f73fe08914a64f6f43aa"
+ },
+ "chains": 22,
+ "records": 442,
+ "recordBytes": 138197867,
+ "recordBase64Bytes": 184264424,
+ "constructionMs": 13221,
+ "heapUsedBytes": 181998944,
+ "rssBytes": 817381376,
+ "held": true,
+ "perChain": [
+  {
+   "commit": "529ffa0f6dd56720f5b49163896d52b103f060b8",
+   "parent": "51bc5d2d88c70adf796aead93a4b7d67bc48e5e3",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 44,
+   "deleted": 6,
+   "records": 86,
+   "status": "grounded"
+  },
+  {
+   "commit": "c7b148e8192fd1b42c8da76d6cf26e19f2f5dbb2",
+   "parent": "529ffa0f6dd56720f5b49163896d52b103f060b8",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 6,
+   "status": "grounded"
+  },
+  {
+   "commit": "93119c1b2ed3e686ccd7de16725a80fe451bd110",
+   "parent": "c7b148e8192fd1b42c8da76d6cf26e19f2f5dbb2",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 6,
+   "deleted": 0,
+   "records": 16,
+   "status": "grounded"
+  },
+  {
+   "commit": "c01b63c4f3ce4bdaabb8bcc63b3d8b5a26a5ea87",
+   "parent": "17e708cdb27f00b289c4f4d42066a620e4930ce0",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 4,
+   "deleted": 0,
+   "records": 12,
+   "status": "grounded"
+  },
+  {
+   "commit": "338554818c402f14061d156ec47910f8bb30849f",
+   "parent": "c01b63c4f3ce4bdaabb8bcc63b3d8b5a26a5ea87",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 6,
+   "status": "grounded"
+  },
+  {
+   "commit": "6e7a5246d913d27f6a44773bb717a3f1484c4429",
+   "parent": "338554818c402f14061d156ec47910f8bb30849f",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 7,
+   "deleted": 0,
+   "records": 16,
+   "status": "grounded"
+  },
+  {
+   "commit": "19700d8f7459c813b24fb460566edbc6392a0e69",
+   "parent": "952d27b73c1229942c7cea7f4462e79eb42fbbee",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 9,
+   "deleted": 0,
+   "records": 21,
+   "status": "grounded"
+  },
+  {
+   "commit": "9ec6c22f1ae38261354ae631ec5fc767708d9149",
+   "parent": "16fb35ecdec644e71e670f5ce2d40446bc4a9f86",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 5,
+   "deleted": 0,
+   "records": 14,
+   "status": "grounded"
+  },
+  {
+   "commit": "e71ae8a5c35b8361768c427b91542db03f5e0d7e",
+   "parent": "e5ab7f959d3ee5e377569b216f4a5df32067832b",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 29,
+   "deleted": 0,
+   "records": 62,
+   "status": "grounded"
+  },
+  {
+   "commit": "9de0ffeabb2a12e3289566203b747cb20303f653",
+   "parent": "e71ae8a5c35b8361768c427b91542db03f5e0d7e",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 6,
+   "status": "grounded"
+  },
+  {
+   "commit": "0f62584331f0d7069c9929caba5ad1d6afaf4240",
+   "parent": "9de0ffeabb2a12e3289566203b747cb20303f653",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 22,
+   "deleted": 0,
+   "records": 48,
+   "status": "grounded"
+  },
+  {
+   "commit": "b78409e76fdd9fc33d19b6e3a7fe43141962f63f",
+   "parent": "f99f5b0eedf7c6e78fe96d534a1b8024aa421fa5",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 24,
+   "deleted": 0,
+   "records": 52,
+   "status": "grounded"
+  },
+  {
+   "commit": "bf71194899facac0211cd306dd160cf40d68b41f",
+   "parent": "0d02eceb45b5d5997ea57c71bafdf18aeba39d38",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 27,
+   "deleted": 0,
+   "records": 58,
+   "status": "grounded"
+  },
+  {
+   "commit": "9e5d1383f12d97e585e25fcfe39e403939508120",
+   "parent": "bf71194899facac0211cd306dd160cf40d68b41f",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 6,
+   "status": "grounded"
+  },
+  {
+   "commit": "0e06b3e4fda7ce779283b3eda1ab1424dc19708a",
+   "parent": "dea8bd3ab35762d01a4041a07a7c43e5a2b96333",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 2,
+   "deleted": 0,
+   "records": 8,
+   "status": "grounded"
+  },
+  {
+   "commit": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+   "parent": "0e06b3e4fda7ce779283b3eda1ab1424dc19708a",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 15,
+   "deleted": 0,
+   "records": 34,
+   "status": "grounded"
+  },
+  {
+   "commit": "3d33d558452a80ecf7a0055343f5322710fb8a23",
+   "parent": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 6,
+   "status": "grounded"
+  },
+  {
+   "commit": "e5aad68a7f23365465872d98e75a20227ade229e",
+   "parent": "638127c0ef0bbc22408aa4ce3373d81d629db1fa",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 9,
+   "deleted": 0,
+   "records": 22,
+   "status": "grounded"
+  },
+  {
+   "commit": "7da76d7d7d70614080f475dc39f5d0e6161ef653",
+   "parent": "f8030abec153cea9a958737583c7a16fcdbbbb6f",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 9,
+   "deleted": 0,
+   "records": 22,
+   "status": "grounded"
+  },
+  {
+   "commit": "99b799d56d1b40f3e83f35267c46c133180b6714",
+   "parent": "76b9986dc30354d45ac0b4b3b9f90e9c15a2e299",
+   "authorRef": "actor://abiogenesis/t287/executive",
+   "actorIdentityRef": "actor-identity://anthropic/claude-fable-5.1",
+   "postimageMembers": 1,
+   "deleted": 0,
+   "records": 5,
+   "status": "grounded"
+  },
+  {
+   "commit": "ddc1b091cd201f803e8a9f235c1a9a7c52f831fc",
+   "parent": "f717e18432b62174d20de9798b0c202b1bf7c97b",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 15,
+   "deleted": 0,
+   "records": 21,
+   "status": "grounded"
+  },
+  {
+   "commit": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+   "parent": "603404b6849934b9bba8b0fdbef9fb2b2ed03f5b",
+   "authorRef": "actor://abiogenesis/t287/worker",
+   "actorIdentityRef": "actor-identity://anthropic/claude-opus-5.5",
+   "postimageMembers": 11,
+   "deleted": 0,
+   "records": 24,
+   "status": "grounded"
+  }
+ ],
+ "groundedAlone": 22,
+ "allChainsOverConstructedMembers": {
+  "members": 128,
+  "status": "grounded"
+ },
+ "wholeInventory": {
+  "members": 1188,
+  "covered": 128,
+  "uncovered": 1060,
+  "status": "invalid"
+ },
+ "uncoveredByRole": {
+  "code": 241,
+  "constitutional": 76,
+  "design": 321,
+  "execution_contract": 12,
+  "manifest": 4,
+  "proof": 314,
+  "public_contract": 92,
+  "qualification": 0,
+  "release_claim": 0
+ },
+ "identities": [
+  "actor-identity://anthropic/claude-fable-5.1",
+  "actor-identity://anthropic/claude-opus-5.5"
+ ],
+ "classification": "Records read from Git with tenant pathspecs (provenance.mjs); the attribution is the installed package's own projection (validator/qualification.ts:743)",
+ "archiveFile": {
+  "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/provenance.json",
+  "digest": "sha256:ed6530f874c1994b24d4aaebd75bb46e4a0fb6986bd691d89ec42ddb5781190f",
+  "byteCount": 9384
+ }
+}

@@ -1,0 +1,26 @@
+{
+ "kind": "d5b_verdict",
+ "af22": "not produced: the projection stop held dispatch before the observed C2 run and every slot (G-1)",
+ "values": "AF22 computes green, red or blocked; none was computed and none is asserted",
+ "f11": "not run; also unreachable under the F-4 chain set (G-2)",
+ "verification": "not observed (no C2); the recipe was measured outside C2 in the run",
+ "bypassRefs": [],
+ "stops": [
+  "projection 1295.6 USD above the 60 USD cap; rule-input floor 81.85 USD"
+ ],
+ "gates": {
+  "projection": {
+   "capUsd": 60,
+   "projectedUsd": 1295.6,
+   "withinBoundUsd": 594.72,
+   "ruleInputFloorUsd": 81.85,
+   "holds": true
+  },
+  "attribution": {
+   "invalidSlots": 521,
+   "slots": 578,
+   "holds": true
+  }
+ },
+ "run": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085"
+}

@@ -1,0 +1,265 @@
+{
+ "kind": "d5b_runs",
+ "providerRuns": 0,
+ "maxRuns": 2,
+ "runs": [
+  {
+   "id": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+   "mode": "live",
+   "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+   "status": "stopped",
+   "reason": "A gate held dispatch: projection 1295.6 USD above the 60 USD cap; 521 of 578 slots with an invalid construction attribution",
+   "gates": {
+    "projection": {
+     "capUsd": 60,
+     "projectedUsd": 1295.6,
+     "withinBoundUsd": 594.72,
+     "ruleInputFloorUsd": 81.85,
+     "holds": true
+    },
+    "attribution": {
+     "invalidSlots": 521,
+     "slots": 578,
+     "holds": true
+    }
+   },
+   "providerCalls": 0,
+   "turns": 0,
+   "usd": 0,
+   "commit1": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+   "heapLimitBytes": 17381195776,
+   "wrapper": {
+    "sequence": [
+     "TOKEN present (not-empty check only)",
+     "LOAD 2026-10-28T19:35:54Z load1=13.59 waited_s=0",
+     "START live 2026-10-28T19:35:54Z",
+     "END live rc=1 2026-10-28T19:49:44Z"
+    ],
+    "uptimeBefore": "6:35  up 23 days, 16:53, 10 users, load averages: 13.59 12.93 16.52",
+    "uptimeAfter": "6:49  up 23 days, 17:07, 10 users, load averages: 15.71 16.29 17.17"
+   },
+   "driverUptime": {
+    "before": "6:35  up 23 days, 16:53, 10 users, load averages: 13.59 12.93 16.52",
+    "after": "6:49  up 23 days, 17:07, 10 users, load averages: 15.71 16.29 17.17"
+   },
+   "recipeMeasurement": {
+    "elapsedMs": 228077,
+    "exitStatuses": [
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0
+    ],
+    "predicates": [
+     {
+      "predicateId": "predicate://abiogenesis/qualification/candidate-pack-reproduced",
+      "matched": true
+     }
+    ]
+   },
+   "resources": {
+    "inventory": {
+     "ref": "qualification-inventory://abiogenesis/c4a1654f50120e6730552afaeaaa2244e9c57f26318f70f653364f7776c70ffd",
+     "digest": "sha256:c4a1654f50120e6730552afaeaaa2244e9c57f26318f70f653364f7776c70ffd",
+     "members": 1188
+    },
+    "basis": {
+     "ref": "qualification-basis://abiogenesis/66a8c1b44615c9aed6ea89123a1bceaf49b212c547ecd12db2c01c08c1629a8d",
+     "digest": "sha256:66a8c1b44615c9aed6ea89123a1bceaf49b212c547ecd12db2c01c08c1629a8d"
+    },
+    "scope": {
+     "ref": "qualification-scope://abiogenesis/d615fd3121c9b8811fe30bcfb341a231f81e09f56e40c5b72b75d43e6820128e",
+     "digest": "sha256:d615fd3121c9b8811fe30bcfb341a231f81e09f56e40c5b72b75d43e6820128e"
+    },
+    "tenantManifest": {
+     "ref": "tenant-conformance-manifest://abiogenesis/5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+     "digest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5"
+    },
+    "recipe": {
+     "path": "test_env/qualification/recipe/verification-recipe.json",
+     "digest": "sha256:faaacf4758d3bd0e105b51bf07750e68fef5b2e63a0c4ba1f09a9332e423a707",
+     "byteCount": 250237,
+     "protectedInputs": 1121,
+     "digestsEqualRecipe": true,
+     "ambient": [
+      "HOME",
+      "TMPDIR",
+      "LANG",
+      "PATH"
+     ],
+     "mismatched": 0
+    },
+    "checks": {
+     "inventoryEqualsCommitted": true,
+     "tenantManifestEqualsCommitted": true,
+     "artifactJoinsInstall": true,
+     "releaseClaim": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+      "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+      "byteCount": 3649,
+      "surfaceRoles": [
+       "release_claim"
+      ]
+     },
+     "basisReady": true,
+     "prospectiveReleaseJoinsInstall": true,
+     "scopeCorrespondenceErrors": []
+    },
+    "budget": {
+     "requiredExecutionBudgetMs": 855250,
+     "limits": {
+      "inactivityTimeoutMs": 900000,
+      "absoluteTimeoutMs": 1200000
+     },
+     "fitsProductLimits": true
+    }
+   },
+   "applications": {
+    "kind": "qualification_declared_applications",
+    "runId": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+    "scope": {
+     "ref": "qualification-scope://abiogenesis/cfbb155f6a54adbdb4a22b0612d0ca7576318e8150923e060ede836b9689186c",
+     "digest": "sha256:cfbb155f6a54adbdb4a22b0612d0ca7576318e8150923e060ede836b9689186c"
+    },
+    "ruleGroups": 95,
+    "pairs": 5614,
+    "d5GlobalPairs": 2660,
+    "applicable": 5049,
+    "inapplicable": 565,
+    "unknown": 0,
+    "applicationsDigest": "sha256:6e0c250be5cd2cdc1d791048c1a8d649c38b10af3b643d85275b408166dbd3dc",
+    "everyDomainClassified": true,
+    "scopeCorrespondenceErrors": [],
+    "families": [
+     {
+      "id": "method-project",
+      "ruleGroups": 1,
+      "pairs": 33,
+      "applicable": 26
+     },
+     {
+      "id": "product-definition",
+      "ruleGroups": 2,
+      "pairs": 200,
+      "applicable": 198
+     },
+     {
+      "id": "realization-requirements",
+      "ruleGroups": 79,
+      "pairs": 4819,
+      "applicable": 4345
+     },
+     {
+      "id": "contract-law",
+      "ruleGroups": 2,
+      "pairs": 144,
+      "applicable": 134
+     },
+     {
+      "id": "install-law",
+      "ruleGroups": 1,
+      "pairs": 65,
+      "applicable": 60
+     },
+     {
+      "id": "qualification-law",
+      "ruleGroups": 2,
+      "pairs": 138,
+      "applicable": 132
+     },
+     {
+      "id": "method-standards",
+      "ruleGroups": 6,
+      "pairs": 174,
+      "applicable": 126
+     },
+     {
+      "id": "identity-method",
+      "ruleGroups": 1,
+      "pairs": 24,
+      "applicable": 17
+     },
+     {
+      "id": "release-method",
+      "ruleGroups": 1,
+      "pairs": 17,
+      "applicable": 11
+     }
+    ]
+   },
+   "files": {
+    "run.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/run.json",
+     "digest": "sha256:d1ec2d8252ab81dd52886fd048e13a2b9877ff4a63b7d75436fa92f605cb06b3",
+     "byteCount": 3683
+    },
+    "summary.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/summary.json",
+     "digest": "sha256:a79acd2d8e1a026c5dc0bc13b8368b6c52a8c01f5afadb54a2168ff67d969127",
+     "byteCount": 1243
+    },
+    "prepare.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/prepare.json",
+     "digest": "sha256:7e14e7370d77ef6639822e9dfbb1485497227bb6e0186ca2533db9e78bb4bb2c",
+     "byteCount": 7296
+    },
+    "provenance.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/provenance.json",
+     "digest": "sha256:ed6530f874c1994b24d4aaebd75bb46e4a0fb6986bd691d89ec42ddb5781190f",
+     "byteCount": 9384
+    },
+    "applications.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/applications.json",
+     "digest": "sha256:415a88ad4006b16c43ccfccfffc3e150a45aa5a465c2790725905cfa60574484",
+     "byteCount": 1657
+    },
+    "projection.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/projection.json",
+     "digest": "sha256:aa675f9b46ae0a53dc035b7f92db70e2c5968cf0370eda8a5aac6b3c3b68410a",
+     "byteCount": 542647
+    },
+    "cost.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/cost.json",
+     "digest": "sha256:d989a61b1af1492d6f9ffb7b2d42e3191f934b10a6b1fd3bdb02efc92c228028",
+     "byteCount": 279
+    },
+    "recipe-execution.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/recipe-execution.json",
+     "digest": "sha256:90b35c3077ac0bc20f06a331c15fb276b51dbebca240becd14d7e4f1ce252647",
+     "byteCount": 6202
+    },
+    "SEALED.json": {
+     "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085/SEALED.json",
+     "digest": "sha256:46cc4de1093e6e9538e5a5804628d21c1dfc9b5c6c16238e34544ec5fdb242d4",
+     "byteCount": 272
+    }
+   }
+  }
+ ],
+ "dryRuns": [
+  {
+   "id": "2026-10-28T19-11-48-396Z-4ed2f20d-26f0-43cd-b2e8-3f0d1704cd11",
+   "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-11-48-396Z-4ed2f20d-26f0-43cd-b2e8-3f0d1704cd11",
+   "mode": "live",
+   "head": "603404b6849934b9bba8b0fdbef9fb2b2ed03f5b (before commit 1; tenant tree uncommitted)",
+   "status": "killed during setup (wrong --dependencies path); archive unsealed",
+   "providerCalls": 0
+  },
+  {
+   "id": "2026-10-28T19-16-59-716Z-1fb3b1bf-40e6-4d17-bb5c-ef820f05358a",
+   "archive": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T19-16-59-716Z-1fb3b1bf-40e6-4d17-bb5c-ef820f05358a",
+   "mode": "live",
+   "head": "603404b6849934b9bba8b0fdbef9fb2b2ed03f5b (before commit 1; tenant tree uncommitted)",
+   "status": "stopped: projection 1294.2 USD; 531 of 578 slots invalid; 21 chains",
+   "providerCalls": 0,
+   "uptimeBefore": "6:16 load 23.04 30.05 20.83",
+   "uptimeAfter": "6:30 load 11.18 16.44 19.19"
+  }
+ ],
+ "dryRunConditions": "Both launched from the Worker shell before commit 1, outside the wrapper: no token in their environment, and neither exported BASH_DEFAULT_TIMEOUT_MS, BASH_MAX_TIMEOUT_MS or npm_config_update_notifier; the recipe measurement runs npm, so an npm update-notifier contact may have occurred"
+}

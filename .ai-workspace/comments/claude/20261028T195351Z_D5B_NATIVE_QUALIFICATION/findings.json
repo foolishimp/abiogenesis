@@ -1,0 +1,110 @@
+{
+ "kind": "d5b_findings",
+ "commit1": "7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc",
+ "run": "2026-10-28T19-35-54-534Z-bf82a8b7-1d37-42ed-9764-90e42e510085",
+ "f11Findings": [],
+ "findings": [
+  {
+   "id": "G-1",
+   "class": "stop",
+   "triage": "activation stop (item 4)",
+   "title": "The projection is above the 60 USD cap",
+   "facts": [
+    "projected 1295.6 USD over 578 slots (catalog 7 slots 7.24 USD, inventory 15 slots 10.3 USD, rule 554 slots 1267.94 USD, tenant 1 slots 0.14 USD, coverage 1 slots 9.98 USD); input 242,724,088 tokens, output 3,279,183 tokens",
+    "the slots within the 1,048,576-byte bound alone project 594.72 USD; the 72 over-bound slots 700.88 USD",
+    "the rule-input floor is 81.85 USD (16,369,336 input tokens): for each governed role, every applicable pair carries the governing rule sources and the role's members, and a slot holds at most the bound less the role sources; the floor holds for every partition, so no re-partition brings the projection under the cap",
+    "the projection was written to projection.json before any dispatch; no provider call was made"
+   ],
+   "owner": "T-287 Executive: the cap, or the material law per slot (self_conformance.ts:104-119)"
+  },
+  {
+   "id": "G-2",
+   "class": "gate",
+   "triage": "qualification input under ruling F-4 (owner: the Executive)",
+   "title": "The F-4 chain set leaves most subject members unattributed: their slots are invalid, which no acknowledgment cures",
+   "facts": [
+    "22 chains from 51bc5d2d8 (exclusive) to 7e3fefa46676cf6a5afdc29f677b9cb2c2e87fdc (inclusive) cover 128 of 1188 inventory members; uncovered by role: {\"code\": 241, \"constitutional\": 76, \"design\": 321, \"execution_contract\": 12, \"manifest\": 4, \"proof\": 314, \"public_contract\": 92, \"qualification\": 0, \"release_claim\": 0}",
+    "validator/qualification.ts:800-804: a task whose subject member no chain scopes is invalid; 521 of 578 slots are invalid",
+    "abg/qualification_proof.ts:659 returns null on invalid before the acknowledgment branch (:661-668), so the owner acknowledgment cures insufficient grounding only; a plan with one invalid slot resolves to no assessment and F11 is blocked whatever the budget",
+    "the chain set is held: 22 of 22 chains grounded alone, all chains grounded over their 128 constructed members; 442 records, 138,197,867 bytes; no acknowledgment request is prepared (the activation's stop is a set that cannot be held)"
+   ],
+   "remedies": [
+    "a chain that attributes the tenant tree inherited at 51bc5d2d8 (for example one external_construction chain from the empty tree to 51bc5d2d8) to its author; this reverses the F-4 sentence \"not attributed by chains\""
+   ],
+   "owner": "T-287 Executive (ruling F-4)"
+  },
+  {
+   "id": "G-3",
+   "class": "projection",
+   "triage": "qualification input (the recipe's created-path volume), with a Product question on whole-material rendering",
+   "title": "The execution material puts the QUAL-056 rule slots and the coverage slot over the bound",
+   "facts": [
+    "estimated execution material 6,847,520 bytes: observed task 1,781,936, streams 164,052, worksite delta 7,381 created paths 4,522,202, snapshot 1,121 members 313,794; modelled before C2, not observed",
+    "self_conformance.ts:107 requires the execution material in every rule slot of a REQ-P-QUAL-056 group and :111, :118-119 in the coverage slot; the prompt renders it whole (qualificationWorkerRequest, SOURCE DATA)",
+    "71 rule slots and 1 coverage slot are over the bound and irreducible, rendered 1,061,484 to 8,337,697 bytes (about 2,084,424 tokens at 4 bytes per token)",
+    "whether the transport or the provider accepts such a prompt is not tested (no dispatch)"
+   ],
+   "owner": "T-287 Executive"
+  },
+  {
+   "id": "G-4",
+   "class": "ruling gap (static read, not verified at runtime)",
+   "triage": "test territory (the dispatch environment) or operator configuration; not the Worker's",
+   "title": "The wrapper's Bash limits do not reach the provider CLI",
+   "facts": [
+    "ruling Stop A: the provider child inherits the launching process environment whole (abg/actor_process.ts:865) - true of the installed CLI process",
+    "the harness launches that CLI with a filtered environment: the driver's commandRecorder uses setupEnvironment(config) (exact-candidate-qualification.mjs:59-61, :317): HOME, PATH, TMPDIR, LANG, LC_ALL and toolchainEnvironment (JAVA_HOME); the UAT runner's workerEnvironment adds provider.inheritEnvironment (runner.mjs:113-120)",
+    "the operator configuration names ANTHROPIC_API_KEY, CLAUDE_CONFIG_DIR and CLAUDE_CODE_OAUTH_TOKEN in provider.inheritEnvironment and neither BASH_DEFAULT_TIMEOUT_MS nor BASH_MAX_TIMEOUT_MS",
+    "the transport removes only its sanitized prefixes (abg/transport_contracts.ts:262-272, :367-383), so a name present in the CLI process environment reaches the provider"
+   ],
+   "remedies": [
+    "the dispatch path composes the CLI environment as workerEnvironment(config) plus the two names",
+    "or the operator configuration names the two in provider.inheritEnvironment"
+   ],
+   "owner": "T-287 Executive"
+  },
+  {
+   "id": "G-5",
+   "class": "correction",
+   "triage": "record (D5 disposition, F-6)",
+   "title": "F-6 reproduces: the design differs by one line",
+   "facts": [
+    "git diff --stat fd38e8227 21c15697d -- build_tenants/abiogenesis/typescript/design: \".../design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md | 2 +-; 1 file changed, 1 insertion(+), 1 deletion(-)\" (commit 3d33d5584); the same line differs between fd38e8227 and HEAD",
+    "the inventory is over the qualifying head's tree by design, so the qualification subject carries that line"
+   ],
+   "owner": "T-287 Executive"
+  },
+  {
+   "id": "G-6",
+   "class": "correction",
+   "triage": "record (D5 disposition, the roster's 17 gaps)",
+   "title": "Twelve of the fourteen rows remain gaps; the batch carrier named in the ruling carries no batch",
+   "facts": [
+    "t287-worksite-branch-construction.test.mjs contains no \"batch\" (grep -c: 0); its two cases construct the C3 parallel worksite topology",
+    "the executing C.batch carrier is t287-calculus-state-transfer (subtests batch, nested, progressed, batch_in_batch, identity_end, recovery; 8/8 at ddc1b091c)",
+    "two rows map to suite lanes (batch, C.batch); six have no carrier (ticket_traversal, yield_continuation, inspect_runtime_archive, escalate, targeting_a_published_asset, fibre-substitution); two have only the environment-gated, skipped t287-selected-action (graph_span_reentry, re_enter); four are derived (A5-F03, A5-F10, S02, S03); roster.json"
+   ],
+   "owner": "T-287 Executive (owner questions)"
+  },
+  {
+   "id": "G-7",
+   "class": "independence",
+   "triage": "disclosure",
+   "title": "The assessor and most chain authors are the same model",
+   "facts": [
+    "the assessor is claude-opus-5-5 under the operator configuration; the chains name actor-identity://anthropic/claude-opus-5.5 and actor-identity://anthropic/claude-fable-5.1",
+    "role independence author_distinct holds by actor reference; the same-model limit is not removed by it"
+   ]
+  },
+  {
+   "id": "G-8",
+   "class": "load",
+   "triage": "disclosure",
+   "title": "A concurrent whole-suite run",
+   "facts": [
+    "scratchpad/suite/launch.sh ddc1b091c (not this Worker's) ran until 2026-10-28T19:19:44Z, during the dry runs (1-minute load 23-34)",
+    "scratchpad/suite/launch.sh 7e3fefa46 (commit 1; not this Worker's) started about 19:35Z and ran through the live run (19:35:54Z-19:49:44Z; 1-minute load 13.59 at the start, 15.71 at the end) and the cold reads"
+   ]
+  }
+ ]
+}
