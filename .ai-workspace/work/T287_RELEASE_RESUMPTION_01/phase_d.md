@@ -4465,3 +4465,126 @@ No other stop: the archive is equal, there was no offline dependency gap, the co
 **Stops.** A second transport refusal (name the flag; the runner's remaining append arguments become the owner's question); the provider unavailable, past its timeout or returning invalid output (the measurement, no retry); a runner assertion before the launch (the stage, the support, the pinned prerequisites: name it).
 
 **Return contract.** `## D1/D4-c-b return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)` appended once, after a blank line, before the commit: the first sentence (Yes or No, with the stop); the subtree pairs; the runner diff (the line, `node --check`, the digest); the P4 row (exit, elapsed seconds, result); the native call's interval, cost, turns and model; the record directory's files and digests; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path (the record, the record directory's files, the second successor runner), first line `D1/D4-c-b: P4 stdo3-native-selection on cut fd38e8227 with the second successor runner (the runner-appended --tools removed); one native call`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D1/D4-c-b return (Worker, Opus 5.5, 2026-10-29; base `0da2b1e7e359f768ad10f50a876f648e6f969d19`)
+
+Yes. P4 `stdo3-native-selection` is satisfied on cut `fd38e8227` on one native call, with no stop.
+- **Outcome.** The oracle chose A. The terminal value renders the literal `{"service":"Atlas","status":"healthy"}`. After the source mirror was made unavailable, the fresh `run_result` and `run_replay` reads returned results, and the unavailable-source refusal held.
+- **The runner change.** The second successor runner removes only the runner-appended `--tools`. The Product's closed-prompt lane supplied `--safe-mode --tools ""` itself. No second transport refusal occurred.
+- **The tree.** It is unchanged except the granted files.
+
+**Subtree pairs.** I compared the head with the cut using `git rev-parse <rev>:build_tenants/abiogenesis/typescript/<subtree>`:
+
+| Subtree | Head `0da2b1e7e` | Cut `fd38e8227` |
+|---|---|---|
+| `code` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` |
+| `test_env` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` |
+| `contracts` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` |
+
+No commit landed on `main` during the run: HEAD was `0da2b1e7e` at the start, after the run and before the append.
+
+**The second successor runner.** `.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed-d14c-p4.mjs`, sha256 `b539d704710b13bab40ef7ab3821379d338d8eb562a19ea9535832858c9b5371`, 49,250 bytes.
+- **Source.** I verified the first successor (`a184966c2756f905858969be3f6202177e407cf67453569f3139695a48e42e9b`) before the copy.
+- **The one changed line.** `:337` became `    ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(['--model','claude-opus-5-5','--effort','xhigh']),`; the two tokens `'--tools',''` were removed. `diff -u` between the two successors is `runner-p4.diff`: 11 lines, one hunk, one `-` and one `+` line, sha256 `607787dfd78739629cb415dd89f4613d112e307d047eed8cc3d23243dd48c832`.
+- **Check.** `node --check` returned 0.
+- **Untouched.** The first successor and the frozen runner (`fb20ffc2…7164`) are unchanged.
+- **Effective arguments.** The admitted transport binding shows the protocol's `--safe-mode --tools ""`, then its `--json-schema`, then the appended `--model claude-opus-5-5 --effort xhigh`.
+
+**The configuration and grant.**
+- **`configuration-p4b.json`** (sha256 `9db7b029…d07d`, 7,298 bytes).
+  - Built from the D1/D4-c record's `configuration-p4.json`, which I verified at `07407fde…ef3c`.
+  - It differs only in `activationFile` (the new grant) and the lane block: `runId` `t287-candidate-p4b-70cd1bfe859740b1`, and eight new absent roots under `<scratch>/d14cb/l4/p4/`.
+  - Everything else is equal by a structural comparison: the `provider` block verbatim, the subject, archive, manifest and inventories, the method basis 3.0.2, the support manifest, the external consumer, the toolchains, and `requiredEvidence`. That last holds the same four paths and digests, with obligations exactly `P1`, `P2`, `P3`, `P5-physical`, `P5-U1`.
+- **`effect-grant-p4b.json`** (sha256 `20e80b89…e2f6`, 4,336 bytes).
+  - `configurationSha256` is the new configuration's and `runnerSha256` is `b539d704…5371`. `oracleSha256` is `dee13b0b…95dc`, unchanged.
+  - `lanes` is `["stdo3-native-selection"]`, `maxNativePositiveCalls` is 1, and `resources` holds the new roots verbatim.
+  - `requiredEvidence` names this activation at the head, the D1/D4-c disposition (Worker commit `4ac3b8b36`), decision 2 with the sixth amendment's item 4, the cut, the runner and its predecessor, and the four prerequisites.
+- **Pins.** A pin check of mine passed before and after the run. It covered the archive, manifest, package inventory, node, npm, provider executable, STDO 3.0.2 manifest, the four prerequisites (each `satisfied`, `subjectId` `candidate`), and both stage inventories (1,793 and 5,365 rows, 0 mismatches). The D1/D4-c scratch is unchanged by this run.
+
+**P4.** I launched it once through the wrapper `<scratch>/d14cb/tools/run-p4b.sh`. The wrapper ran under the full environment (not `env -i`), took the token by the sandbox launcher's form and printed none of it. Its cwd was the scratch. The command was `/usr/bin/time -l /opt/homebrew/Cellar/node/24.7.0/bin/node <second successor> --configuration <scratch>/d14cb/l4/config/configuration-p4b.json --lane stdo3-native-selection`.
+
+| Lane | Exit | Elapsed s | Result |
+|---|---:|---:|---|
+| P4 `stdo3-native-selection` | 0 | 64.04 | **Satisfied.** `result.json` sha256 `639a620abf2fc9fe89b4dc7379277c5e6104b1fa77bc534cb1705da6bde495ed`; oracle "P4 one native machine recipient and retained source context", `satisfied` true, population 1; `nativeCalls` 1. |
+
+- **Times.** 66.54 s user and 11.26 s sys.
+- **Memory.** Maximum RSS 3,428,597,760 bytes.
+- **Clock and load.** The run went from 13:30:16Z to 13:31:20Z UTC. The 1-minute load average (`uptime`) was 14.41 at start and 8.63 at end.
+- **Lane intervals** (runner `measurements.json` sha256 `4e9fe5cc…db85`):
+  - bootstrap-install 6,153.3 ms;
+  - native-fixture-preparation 31,396.7 ms;
+  - one-native-positive 10,631.1 ms;
+  - fresh `run_result` 1,161.7 ms;
+  - fresh `run_replay` 1,194.5 ms;
+  - whole-lane 56,632.4 ms.
+
+What the lane established:
+- **One actor start.** Exactly one `actor_invocation_started` across the whole store. The actor process exited with status 0. The result artifact was observed with `terminationConfirmed` true, and the run closed `completed`.
+- **The choice.** `c_call_result_admitted` carries the registered choice `graph-function://registered-selection/A@5` (definition `sha256:0d69f911…f06a`). It equals the oracle's expected A, and the graph calls opened were root and then A.
+- **The terminal value.** `{kind:"selection_rendered_record", schemaVersion:"5.0.0", child:"A", rendered:"{\"service\":\"Atlas\",\"status\":\"healthy\"}"}`, deep-equal to `native-expected.json`.
+- **The prompt.** The prompt's role, task and evidence sections correspond to the actual role evidence. The 3.0.2 Executive spans [55240, 55942) and [64650, 65910) hold with their digests.
+- **Attribution.** All three attribution checks held: a changed choice, a changed input, and a stale target refused.
+- **Source unavailable.** The source mirror was renamed to the unavailable mirror. Role evidence at the cold prefix is byte-equal to before (`e06de1a3…f81` both).
+- **Fresh reads.** `run_result` and `run_replay` both returned `result`.
+- **The new invocation.** A new invocation on the unavailable source was refused: `refusal`, code `invalid_capability`, issue paths `/runEnvironmentResources` and `/runEnvironment/cause/access_unavailable`. The store still holds exactly one actor start.
+- **Negatives.** The pre-native negatives ran again as the lane defines them, with zero actor starts each: nine acquisition, two constructor, missing-resources and prompt-bound.
+
+**The native call.** Measured four ways:
+- **Interval.**
+  - The runner's `one-native-positive` was 10,631.1 ms.
+  - The installed CLI request was 10,545.6 ms.
+  - The actor process ran 6,367.0 ms, from start at 13:31:06.576Z to exit at 13:31:12.943Z.
+  - From invocation start to close took 6,411.0 ms.
+- **Provider figures.** The transport record retained in the evidence root is the stream copy `native-files/stdout-fp-84bddeceec9657d5-stdout.log`, sha256 `ee09232c…b64f`. Its `result` row reports `success`, `is_error` false, `duration_ms` 5,336 and `duration_api_ms` 5,042.
+- **Cost.** 0.057788 USD.
+- **Turns.** 2.
+- **Model.** `claude-opus-5-5` from the stream's `init`, `modelUsage` and `provider-observation.json` (`models: ["claude-opus-5-5"]`, prompt 7,904 bytes, one invocation start).
+- **Tools.** The stream's `init` lists `["StructuredOutput"]`.
+
+**Credential.**
+- `native-environment.json` records `CLAUDE_CODE_OAUTH_TOKEN` as `[withheld]`.
+- The wrapper's post-run scan covered `d14cb/l4/p4`, `l4/config`, `logs` and `tools`. It found 0 matching files and printed paths and a count only. The pattern reached `grep` through the `printf` builtin and a pipe, never `argv`.
+- No value was printed, logged or recorded.
+
+**The record directory.** `.ai-workspace/comments/claude/20261028T133212Z_D1D4C_B_NATIVE_SELECTION/`:
+
+| File | sha256 |
+|---|---|
+| `README.md` | `14fec27ab6072d304a0eb0e786edf7172299006c11ba931a609270360b11b555` |
+| `configuration-p4b.json` | `9db7b02957342d9dcf2ad7aec2fa6cd8ff58c261e8e9be2d861ea5be3031d07d` |
+| `effect-grant-p4b.json` | `20e80b896036232375eb0a3fde4963380c2d2cc2760d6db52e0cf4bca0a8e2f6` |
+| `runner-p4.diff` | `607787dfd78739629cb415dd89f4613d112e307d047eed8cc3d23243dd48c832` |
+| `results.json` | `b682c07a06374798e354e4b1e478035030d2a6805e752ebb492ce3dcec086280` |
+| `measurements.json` | `c00cd726585e9771a864e173b9424515cfc58eb60c1ab47f17b3ed1ebe14491e` |
+
+- **Copies.** The configuration and grant copies are byte-equal (`cmp`) to the files run from `<scratch>/d14cb/l4/config/`.
+- **`results.json`** holds:
+  - P4's `result.json` path, sha256 and status, and its evidence root and roots;
+  - the command figures, and the stdout and stderr digests;
+  - the choice, the terminal value and the transport argument tail;
+  - the provider and stream figures;
+  - the fresh reads and the unavailable refusal, each with path and sha256;
+  - the credential scan;
+  - the four prerequisites as cited.
+- **`measurements.json`** holds the runner `measurements.json` digest, the headline intervals, and the native call's four intervals with its cost, turns and model.
+- **Retention.** No evidence copy is in the record. Every root is retained in the scratch.
+- **Tree.** `git status --short -- build_tenants/abiogenesis/typescript` is empty.
+
+**Deviations.**
+1. **`activationFile` changed.** It names the new grant `<scratch>/d14cb/l4/config/effect-grant-p4b.json`, not the D1/D4-c grant. This follows mechanically from a new grant, since the runner reads the grant through it. The activation's "everything else equal" holds for every other key.
+2. **The credential scan reached a product `.ai-workspace/`.** The recursive `grep` over `<scratch>/d14cb/l4/p4` descended into `scratchParent/abi5-root-env-k1Pacf/workspace/.ai-workspace/archive/`. The installed Product creates that actor archive inside my scratch; it is not the repository's `.ai-workspace/`. The scan printed paths and a count only.
+3. **The scan uses the variable's value.** It follows the D1/D4-c wrapper's accepted form: a pattern through the `printf` builtin and a pipe, output paths and a count. Beyond that, the only probe of the variable was the wrapper's non-empty guard.
+4. **Reads outside the permitted forms.** `wc -l` and `wc -c` on the first successor runner `proof/run-installed-d14c.mjs`. Both were read-only and had no consequence.
+5. **Shell noise.** Two `echo ======` separators failed under zsh's `=` expansion. They were harmless.
+
+**Findings outside the grant.**
+1. **The product's archive sits under the evidence roots.** The installed Product writes its actor archive (`fp-*-prompt.txt`, `-stdout.log`, `-transport.json` and the rest) under `<scratchParent>/abi5-root-env-*/workspace/.ai-workspace/archive/`. A wrapper scan over the evidence roots therefore meets a directory named `.ai-workspace/`, and later wrappers can scope their scan to exclude it or name it.
+2. **The actor's flags.** The actor ran with the protocol's `--permission-mode bypassPermissions`, `--no-session-persistence` and `--disable-slash-commands`, and with `HOME=/Users/jim`. The stream's `init` lists only `StructuredOutput`. This confirms the disposition's reading that the effective arguments are unchanged by removing `--tools` from the append.
+
+**Stops.** None.
+
+**What could not be verified.**
+- **`HOME`.** It was not scanned for the credential. The CLI ran with `HOME=/Users/jim` and `--no-session-persistence`, and I did not check what it keeps there.
+- **The oracle's predicate body.** `oracle.mjs` is not among my permitted reads. The runner's preflight pinned it at `dee13b0b…95dc`, and I report its `satisfied` and population only.
+- **The measurements' conditions.** They were taken under other machine load (1-minute load 14.41 to 8.63). No inference is drawn from them.
+- **The reading.** One model's, with an advisor; no Codex reading.
