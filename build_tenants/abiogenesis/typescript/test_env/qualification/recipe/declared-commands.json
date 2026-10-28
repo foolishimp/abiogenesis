@@ -1,7 +1,7 @@
 {
   "kind": "qualification_declared_commands",
   "schemaVersion": "1",
-  "purpose": "The declared C2 command input of the verification recipe; verification-recipe.json binds its constructed digests. The C2 helper runs the commands in its snapshot sandbox (the protected inputs materialized under the binding archive root, worksite_command_helper.ts:596-621), so commands use relative paths. Three environment values are absolute paths outside that sandbox: ABI5_EVIDENCE_ROOT and the ABI5_UAT_CONTINUATION_* inputs are read there, unprotected by the recipe; ABI5_UAT_UNIT_ROOT is written there, outside the declared write territories.",
+  "purpose": "The declared C2 command input of the verification recipe; verification-recipe.json binds its constructed digests. The C2 helper runs the commands in its snapshot sandbox (the protected inputs materialized under the binding archive root, worksite_command_helper.ts:596-621), so commands use relative paths. Two environment values are absolute paths outside that sandbox, read there and unprotected by the recipe by design (intake rule (i) inputs, D5 disposition F-5): ABI5_EVIDENCE_ROOT and the ABI5_UAT_CONTINUATION_* inputs. ABI5_UAT_UNIT_ROOT is relative: the continuation lane resolves it against its working directory, the sandbox root, so its writes land inside the declared test_env/test_runs write territory.",
   "commands": [
     {
       "commandId": "command://abiogenesis/qualification/setup",
@@ -162,7 +162,7 @@
         "ABI5_UAT_CONTINUATION_INSTALLED_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
         "ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/abg-acquisition.json",
         "ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/consumer-acquisition.json",
-        "ABI5_UAT_UNIT_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-units",
+        "ABI5_UAT_UNIT_ROOT": "test_env/test_runs/qualification-units",
         "ABI5_UAT_CONTINUATION_LOCK_REF": "product-lock://abiogenesis/c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6",
         "ABI5_UAT_CONTINUATION_LOCK_DIGEST": "sha256:c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6"
       },
