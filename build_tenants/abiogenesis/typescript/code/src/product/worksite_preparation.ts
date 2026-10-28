@@ -24,6 +24,7 @@ import {
   WORKSITE_COMMAND_EXECUTION_IDS,
   constructWorksiteCommandConfiguration,
   constructWorksiteCommandExecutionTask,
+  boundWorksiteCommandDeclarations,
   isWorksiteReadDependencyBasis,
   resolveWorksiteCommandExecutionJudgmentRelation,
   type WorksiteCommandAmbientEnvironment,
@@ -150,10 +151,11 @@ export function selectWorksiteConstructionTask(input: WorksitePreparationInput):
   if (!isWorksitePreparationInput(input)) throw new TypeError("invalid worksite preparation input");
   return input.constructionTask;
 }
-/** `ambient` is the operation boundary's capture; a caller without one takes
- * the constructors' call-time read. */
+/** `ambient` is the operation boundary's capture, carried on the leaf's
+ * occurrence; `null` captures nothing. A re-deriver calls
+ * `rederiveWorksiteCommandTask`, never this with a capture. */
 export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput,
-  ambient?: WorksiteCommandAmbientEnvironment | null): WorksiteExecutionTask {
+  ambient: WorksiteCommandAmbientEnvironment | null): WorksiteExecutionTask {
   if (!isWorksitePreparationBoundInput(input)) throw new TypeError("invalid worksite preparation bound input");
   const tasks = preparationConstructionTasks(input.entry);
   const original = tasks[0]!;
@@ -197,6 +199,18 @@ export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput,
   return constructWorksiteCommandExecutionTask(common, ambient);
 }
 
+/** A recorded preparation task re-derived under the bound law: the recorded
+ * task's bound rows in place of the entry's declared environment at each
+ * command and predicate (`boundWorksiteCommandDeclarations`), ambient `null`,
+ * so nothing is captured and the result is independent of the re-deriving
+ * process's environment. Throws when the recorded task does not carry the
+ * entry's declarations under that law. */
+export function rederiveWorksiteCommandTask(input: WorksitePreparationBoundInput, recorded: unknown): WorksiteExecutionTask {
+  if (!isWorksitePreparationBoundInput(input)) throw new TypeError("invalid worksite preparation bound input");
+  const entry = { ...input.entry, ...boundWorksiteCommandDeclarations(input.entry, recorded) };
+  return prepareWorksiteCommandTask({ ...input, entry } as WorksitePreparationBoundInput, null);
+}
+
 export function resolveWorksitePreparationJudgmentRelation(predicateRef: string): Readonly<{
   predicateRef: string; advanceReasonRef: string; rejectionReasonRef: string;
   evaluate: (input: unknown, output: unknown) => boolean;
@@ -228,11 +242,11 @@ export function resolveWorksitePreparationJudgmentRelation(predicateRef: string)
         if (kind !== (revision ? select ? "worksite_revision_command_preparation_input" : "worksite_revision_command_preparation_bound_input"
           : select ? branch ? "worksite_branch_command_preparation_input" : "worksite_command_preparation_input"
           : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input")) return false;
-        const expected = select && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
-          : prepare && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
-        if (expected === null) return false;
         const admittedOutput = admitJson(output);
-        return admittedOutput.kind === "ok" && canonicalEquals(expected, admittedOutput.value);
+        if (admittedOutput.kind !== "ok") return false;
+        const expected = select && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
+          : prepare && isWorksitePreparationBoundInput(input) ? rederiveWorksiteCommandTask(input, admittedOutput.value) : null;
+        return expected !== null && canonicalEquals(expected, admittedOutput.value);
       } catch { return false; }
     },
   });

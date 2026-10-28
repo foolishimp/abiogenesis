@@ -5,7 +5,7 @@ import { NATIVE_SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_ident
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask,
+import { constructNativeSemanticTask, constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask, rederiveNativeSemanticExecutionTask,
   deriveNativeSemanticAsset, deriveNativeSemanticAssessment, nativeSemanticContextMatches, nativeSemanticEvidenceArtifacts,
   nativeSemanticCommandExecutionLimits } from "../product/semantic_job.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
@@ -23,7 +23,7 @@ import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubj
 import { constructWorksiteConstructionTask, WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { isWorksiteCommandExecutionObservation, constructWorksiteCommandConfiguration, isWorksiteReadDependencyBasis,
   type WorksiteReadDependencyBasis, type WorksiteCommandExecutionLimits, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
-import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
+import { isWorksitePreparationInput, rederiveWorksiteCommandTask } from "../product/worksite_preparation.js";
 import { WORKSITE_FILE_PARENTS_IMPLEMENTATION } from "../implementation/worksite_file_replace.js";
 import type { SemanticStageNativeBasis } from "./semantic_stage.js";
 import { projectSemanticPredecessorAtPrefix } from "./semantic_stage.js";
@@ -48,11 +48,33 @@ const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" 
 
 const hash = (x: JsonValue) => sha256Canonical(x);
 const record = (x: unknown): x is Record<string, JsonValue> => x !== null && typeof x === "object" && !Array.isArray(x);
-/** Existing semantic-job ancestry owner; an internal projection, not Public authority. */
+/** Existing semantic-job ancestry owner; an internal projection, not Public
+ * authority. It reads the one governance-root projection. */
 export function semanticJobRootAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null;
 /** @internal */
 export function semanticJobRootAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null;
 export function semanticJobRootAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null {
+  return invocationRootAtPrefix(prefix, execution);
+}
+/** The one governance-root projection, a fold over the log proving both
+ * relations of an owned execution's root: the invocation's selector index
+ * (`invocation:<invocationRef>`) holds exactly one root-class `basis_admitted`
+ * whose invocation admission and root implementation set equal the
+ * execution's, and the execution's ancestry walk (`parentExecutionBasisRef`
+ * through the exact-prefix rehydration, the same job invocation at every step,
+ * a cycle refusing) reaches that same root. A log with two such roots, or an
+ * ancestry that does not reach the indexed root, is inconsistent and refuses.
+ * The governance owner (`abg/default_library.ts` `owner`) and
+ * `semanticJobRootAtPrefix` both read it. @internal */
+export function invocationRootAtPrefix(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null;
+/** @internal */
+export function invocationRootAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null;
+export function invocationRootAtPrefix(prefix: RuntimeEventPrefix, execution: ExecutionBasis): ExecutionBasis | null {
+  const indexed = indexedRuntimeEvents(prefix, "invocation:" + execution.invocationRef).filter(e =>
+    e.kind === "basis_admitted" && record(e.payload) && e.payload.basisClass === "root" &&
+    e.payload.invocationAdmissionRef === execution.invocationAdmissionRef && e.payload.implementationSetRef === execution.rootImplementationSetRef);
+  const indexedRootRef = indexed.length === 1 && record(indexed[0]!.payload) ? indexed[0]!.payload.basisRef : undefined;
+  if (typeof indexedRootRef !== "string") return null;
   let root: ExecutionBasis | null = execution;
   const seen = new Set<string>();
   while (root !== null && root.parentExecutionBasisRef !== null) {
@@ -62,7 +84,7 @@ export function semanticJobRootAtPrefix(prefix: RuntimeEventPrefix, execution: E
     if (next === null || !sameJobInvocation(execution, next)) return null;
     root = next;
   }
-  return root;
+  return root !== null && root.basisRef === indexedRootRef ? root : null;
 }
 function sameJobInvocation(a: ExecutionBasis, b: ExecutionBasis): boolean {
   return a.invocationAdmissionRef === b.invocationAdmissionRef && a.invocationRef === b.invocationRef &&
@@ -371,8 +393,8 @@ export function projectSemanticJobEvidence(basis: SemanticStageNativeBasis, inpu
     if (bridges.length !== 1) return null;
     const { original: savedOriginal, worksite, expected } = bridges[0]!;
     const original = savedOriginal as SemanticJobEnvelope;
-    if (!canonicalEquals(prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
-      basis.commandAmbientEnvironment), input.task)) return null;
+    if (!canonicalEquals(rederiveWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
+      input.task), input.task)) return null;
     const root = input.provenance.helperPlan.sandboxRoot;
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {
@@ -577,12 +599,19 @@ export function projectNativeSemanticFold(basis: SemanticStageNativeBasis, input
       : deriveNativeSemanticAssessment(input.entry, stageRef, input.source, adapter);
   } catch { return null; }
 }
+/** The live native semantic execution task: the rows are the basis member,
+ * the operation boundary's capture. */
 export function projectNativeSemanticExecution(basis: SemanticStageNativeBasis, input: unknown) {
+  return nativeSemanticExecution(basis, input, (entry, source) => constructNativeSemanticExecutionTask(entry, source, basis.commandAmbientEnvironment ?? null));
+}
+/** The owner checks of the native execution leaf, one body for the live
+ * construction and for result admission's re-derivation. */
+function nativeSemanticExecution(basis: SemanticStageNativeBasis, input: unknown,
+  derive: (entry: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation) => ReturnType<typeof constructNativeSemanticExecutionTask>) {
   try {
     if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return null;
     const source = nativeStageSource(basis, input.entry, input.source);
-    return source?.owner.call.implementationRef === ids.nativeExecutionTaskImplementationRef
-      ? constructNativeSemanticExecutionTask(input.entry, input.source) : null;
+    return source?.owner.call.implementationRef === ids.nativeExecutionTaskImplementationRef ? derive(input.entry, input.source) : null;
   } catch { return null; }
 }
 function nativeSemanticResultMatchesBasis(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
@@ -590,7 +619,9 @@ function nativeSemanticResultMatchesBasis(basis: SemanticStageNativeBasis, input
   if (owner === null) return false;
   const implementation = owner.call.implementationRef;
   if (implementation === ids.nativeAuthorFoldImplementationRef || implementation === ids.nativeAssessorFoldImplementationRef) return outputIs(projectNativeSemanticFold(basis, input), output);
-  if (implementation === ids.nativeExecutionTaskImplementationRef) return outputIs(projectNativeSemanticExecution(basis, input), output);
+  // Result admission re-derives the recorded task under the bound law: its bound rows, nothing captured.
+  if (implementation === ids.nativeExecutionTaskImplementationRef)
+    return outputIs(nativeSemanticExecution(basis, input, (entry, source) => rederiveNativeSemanticExecutionTask(entry, source, output)), output);
   if (implementation === ids.nativeEvidenceImplementationRef) return outputIs(projectNativeSemanticEvidence(basis, input), output);
   if (!isSemanticJobEnvelope(input) || !semanticJobInputMatchesBasis(basis, input) || !isNativeWorkspaceWorkTask(output) ||
     !semanticJobContextMatches(basis, input, output.context)) return false;

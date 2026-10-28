@@ -12,7 +12,7 @@ import { type JsonValue } from "../shared/canonical_json.js";
 import { isSha256Digest, sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { rawAdmitValue, type RawAdmittedValue } from "../validator/raw_admission.js";
 import { isWorksitePreparationBoundInput, isWorksitePreparationInput, constructRetainedWorksiteInput,
-  worksiteRetentionBinding, prepareWorksiteCommandTask, preparationConstructionTasks, WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation.js";
+  worksiteRetentionBinding, rederiveWorksiteCommandTask, preparationConstructionTasks, WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { nativeWorksiteRecoverySourceAtPrefix } from "./worksite_construction_recovery.js";
 import { WORKSITE_BRANCH_CONSTRUCTION_IDS, isWorksiteBranchConstructionOutputVector,
@@ -503,7 +503,7 @@ export function projectSameRunWorksiteCommandSourceAtPrefix(prefix: RuntimeEvent
     !readDependencyEntryHasNativeBridge(prefix, retained.entryBasis)) return null;
   if (preparationFibre.payload.implementationRef !== (revision ? WORKSITE_REVISION_IDS.prepareImplementationRef : branch ? WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef : WORKSITE_PREPARATION_IDS.prepareImplementationRef) ||
     preparationFibre.payload.implementationBindingRef !== (revision ? WORKSITE_REVISION_IDS.prepareBindingRef : branch ? WORKSITE_PREPARATION_IDS.prepareBranchBindingRef : WORKSITE_PREPARATION_IDS.prepareBindingRef)) return null;
-  try { if (!canonicalEquals(prepareWorksiteCommandTask(value), input.task)) return null; } catch { return null; }
+  try { if (!canonicalEquals(rederiveWorksiteCommandTask(value, input.task), input.task)) return null; } catch { return null; }
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, input.parentBasis.invocationAdmissionRef);
   const tasks = preparationConstructionTasks(value.entry);
   if (invocation === null || invocation.capabilityGrants.length !== 1 || tasks.some((task) =>

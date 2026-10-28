@@ -3,6 +3,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import * as p from '../../build/code/src/product/index.js';
@@ -13,6 +14,7 @@ import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/even
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt, constructWorksiteCommandConfiguration } from '../../build/code/src/product/worksite_command_execution.js';
 import { selectedWorksiteCommandAmbientEnvironment } from '../../build/code/src/abg/actor_process.js';
+import { prepareWorksiteCommandTask, rederiveWorksiteCommandTask, resolveWorksitePreparationJudgmentRelation, WORKSITE_PREPARATION_IDS } from '../../build/code/src/product/worksite_preparation.js';
 import { worksiteCommandExecutionAttemptRef } from '../../build/code/src/abg/instruction_assembly.js';
 import { privateOwner } from '../support/r10-private-owner-harness.mjs';
 import { loadWorksiteOwner, worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
@@ -135,8 +137,75 @@ test('the command environment takes the operation-boundary rows and reads no amb
  assert.deepEqual(bound(retained,other),retained);assert.deepEqual(bound(retained,null),retained);
  const pathless=[{kind:'worksite_command_environment_entry',schemaVersion:'5.0.0',name:'HOME',value:'/bound/home'}];
  assert.deepEqual(named(bound(pathless,rows)),[{name:'HOME',value:'/bound/home'},{name:'PATH',value:defaultChain}]);
- // A caller without a capture takes the one reader at the call.
- assert.deepEqual(named(bound({})),named(bound({},selectedWorksiteCommandAmbientEnvironment())));
+ // The operation boundary passes the one reader's capture; no constructor reads it at the call.
+ assert.deepEqual(named(bound({},selectedWorksiteCommandAmbientEnvironment())),named(bound({},selectedWorksiteCommandAmbientEnvironment())));
+ // A call that passes no capture captures nothing, whatever the process holds.
+ assert.deepEqual(named(bound({})),[{name:'PATH',value:defaultChain}]);
+});
+test('a recorded task re-derives under its bound rows, not the process rows, and a relative bound PATH segment refuses',async t=>{
+ const f=await fixture(t),names=['HOME','TMPDIR','LANG','LC_ALL','PATH'],saved=Object.fromEntries(names.map(name=>[name,process.env[name]]));
+ const identity=(prefix,digest)=>prefix+'/'+digest.slice(7);
+ const relativePath='prepared.txt';await fs.writeFile(join(f.canonicalRoot,relativePath),'predecessor source\n');
+ const subject=p.constructWorksiteSubject({...f,relativePath,subjectUri:pathToFileURL(join(f.canonicalRoot,relativePath)).href});
+ const predecessor=await sourceOwner.observeWorksiteSubject(f.workspaceAuthorityBasis,f.workspaceBinding,subject);
+ const constructionTask=p.constructWorksiteConstructionTask({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,capabilityGrant:f.capabilityGrant,
+  prompt:'Replace the prepared source.',targets:[{subject,territory:f.territory,predecessorObservation:predecessor}]});
+ const entry=p.constructWorksiteCommandPreparationInput({constructionTask,commands:[{commandId:'command://component/prepared',executable:process.execPath,args:['--version'],
+  relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],outcomePredicates:[],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'verification'}]});
+ // Synthetic construction receipt over an actual successor observation; no
+ // RuntimeEvent, actor or command runs.
+ await fs.writeFile(join(f.canonicalRoot,relativePath),'successor source\n');
+ const successorObservation=await sourceOwner.observeWorksiteSubject(f.workspaceAuthorityBasis,f.workspaceBinding,subject);
+ const receiptBody={authorizationRef:'synthetic-unadmitted:authorization',authorizationDigest:hash('synthetic-unadmitted-authorization'),
+  beforeObservationRef:predecessor.observationRef,beforeObservationDigest:predecessor.observationDigest,afterObservationRef:successorObservation.observationRef,
+  afterObservationDigest:successorObservation.observationDigest,writtenDigest:successorObservation.fileDigest,committed:true},receiptDigest=hash(receiptBody);
+ const receipt={kind:'worksite_file_replace_receipt',schemaVersion:'5.0.0',receiptRef:identity('worksite-file-replace-receipt://abiogenesis',receiptDigest),receiptDigest,...receiptBody};
+ assert.ok(p.isWorksiteFileReplaceReceipt(receipt));
+ const constructionBody={sourceApplicationRef:p.WORKSITE_CONSTRUCTION_IDS.fanOutApplicationRef,members:[{ordinal:0,inputMemberRef:constructionTask.targets[0].targetRef,
+  outputMemberRef:'synthetic-unadmitted:output-0',receipt,successorObservation}]},resultDigest=hash(constructionBody);
+ const source={kind:'worksite_construction_result',schemaVersion:'5.0.0',resultRef:identity('worksite-construction-result://abiogenesis',resultDigest),resultDigest,...constructionBody};
+ assert.ok(p.isWorksiteConstructionResult(source));
+ const input={kind:'worksite_command_preparation_bound_input',schemaVersion:'5.0.0',entry,source};
+ const recordedRows=deepFreeze([{name:'HOME',value:'/recorded/home'},{name:'TMPDIR',value:'/recorded/tmp'},{name:'LANG',value:'C.UTF-8'},{name:'LC_ALL',value:'C'},{name:'PATH',value:'/recorded/bin:/usr/bin'}]);
+ const recorded=prepareWorksiteCommandTask(input,recordedRows),relation=resolveWorksitePreparationJudgmentRelation(WORKSITE_PREPARATION_IDS.preparePredicateRef);
+ assert.deepEqual(recorded.commands[0].environment.map(({name,value})=>({name,value})).find(row=>row.name==='PATH'),{name:'PATH',value:'/recorded/bin:/usr/bin'});
+ try {
+  process.env.HOME='/process/home';process.env.TMPDIR='/process/tmp';process.env.LANG='en_US.UTF-8';process.env.LC_ALL='POSIX';process.env.PATH='/process/bin:/bin';
+  const processRows=selectedWorksiteCommandAmbientEnvironment();
+  assert.deepEqual(processRows.map(row=>row.name),names,'the process holds all five rows');
+  for(const row of processRows)assert.notEqual(row.value,recordedRows.find(r=>r.name===row.name).value,row.name+' differs from the recorded row');
+  assert.notDeepEqual(prepareWorksiteCommandTask(input,processRows),recorded,'a construction under the process rows is a different task');
+  // Every re-derivation takes the recorded task's bound rows, ambient null.
+  assert.deepEqual(rederiveWorksiteCommandTask(input,recorded),recorded,'the recorded task re-derives equal under different process rows');
+  assert.equal(relation.evaluate(input,recorded),true,'the preparation judgment admits the recorded task');
+  // A recorded task whose bound PATH has a relative segment, identity recomputed.
+  const relative=structuredClone(recorded),row=relative.commands[0].environment.find(entry=>entry.name==='PATH');row.value='relative/bin:/usr/bin';
+  const {kind:_kind,schemaVersion:_schemaVersion,taskRef:_taskRef,taskDigest:_taskDigest,...body}=relative,taskDigest=hash(body);
+  relative.taskDigest=taskDigest;relative.taskRef=identity('worksite-command-execution-task://abiogenesis',taskDigest);
+  assert.throws(()=>rederiveWorksiteCommandTask(input,relative),TypeError,'a relative bound PATH segment refuses');
+  assert.equal(relation.evaluate(input,relative),false,'the preparation judgment refuses a relative bound PATH segment');
+ } finally {
+  for(const name of names){if(saved[name]===undefined)delete process.env[name];else process.env[name]=saved[name];}
+ }
+});
+test('the reader refuses a NUL in LANG and the operation boundary carries null',()=>{
+ const saved=process.env;
+ // The boundary expression as built in hog/ccall_lifecycle.js, evaluated with
+ // the actual reader: a disclosed seam, not a driven lifecycle.
+ const built=readFileSync(join(root,'build/code/src/hog/ccall_lifecycle.js'),'utf8');
+ const expression=built.match(/const commandAmbientEnvironment = (\(\(\) => \{ try \{[\s\S]*?\} \}\)\(\));/);
+ assert.ok(expression,'the built boundary capture is present');
+ const boundary=new Function('selectedWorksiteCommandAmbientEnvironment','return '+expression[1]+';');
+ try {
+  process.env={...saved,LANG:'C.UTF-8\0trailing'};
+  assert.equal(process.env.LANG.includes('\0'),true,'the NUL reaches the reader');
+  assert.throws(()=>selectedWorksiteCommandAmbientEnvironment(),error=>error instanceof TypeError&&error.message==='ambient LANG is not one string without NUL');
+  assert.equal(boundary(selectedWorksiteCommandAmbientEnvironment),null,'the boundary carries null');
+  process.env={...saved,LANG:'C.UTF-8'};
+  assert.deepEqual(boundary(selectedWorksiteCommandAmbientEnvironment),selectedWorksiteCommandAmbientEnvironment(),'a clean LANG is carried as the reader returns it');
+ } finally {
+  process.env=saved;
+ }
 });
 test('the one ambient reader returns the present variables as frozen rows and applies no default',()=>{
  const names=['HOME','TMPDIR','LANG','LC_ALL','PATH'],saved=Object.fromEntries(names.map(name=>[name,process.env[name]]));

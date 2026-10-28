@@ -72,10 +72,10 @@ async function component(name,overrides){const file=join(root,'build/code/src',n
   return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});});await module.evaluate();return module.namespace;}
 function coordinate(state){return {cCallRef:state.cCall.cCallRef,resultRef:state.result.resultRef,resultDigest:state.result.resultDigest,resultAdmissionEventRef:state.result.admissionEventRef,judgmentEventRef:state.judgment.admissionEventRef};}
 async function harness(env, options={}){
- const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map();
+ const events=[],states=new Map(),bases=new Map(),nativeSources=new Map(),runs=new Map(),admittedRoots=[];
  const prefix={events},publicRun={ref:'component:source-run',digest:hash('public-run')},original={...env.executionBasis,basisRef:env.envelope.basis.rootExecutionBasisRef,parentExecutionBasisRef:null,
   rawInputValue:env.job,rawInputDigest:hash(env.job),rawInputAdmissionRef:env.envelope.basis.rootInputRef,invocationAdmissionRef:env.envelope.basis.invocationAdmissionRef};
- bases.set(original.basisRef,original);
+ bases.set(original.basisRef,original);admittedRoots.push(original);
  runs.set(publicRun.ref,{run:publicRun,executionBasis:{ref:original.basisRef}});
  const oldEnvironment={kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]};
  const environment={...oldEnvironment,...options.current};
@@ -87,7 +87,7 @@ async function harness(env, options={}){
  let current,ordinal=0,rootBasis,runId,ancestry=true;const basis={publication:lifecyclePublication,lifecyclePublication,sourcePublication:lifecyclePublication,predecessorPrefix:intake.sourcePrefix,declarationGraphFunctions:[],graphFunction:{declarations:{}}};
  function invocation(name,input,operating=env){runId='component:run:'+name;rootBasis={...original,basisRef:'component:root:'+name,basisDigest:hash(['basis',name]),admissionEventRef:'component:basis-event:'+name,
   rawInputValue:input,rawInputDigest:hash(input),rawInputAdmissionRef:'component:input:'+name,invocationAdmissionRef:'component:invocation:'+name,
-  workspaceBindingId:operating.workspaceBinding.bindingId,workspaceBindingDigest:operating.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);
+  workspaceBindingId:operating.workspaceBinding.bindingId,workspaceBindingDigest:operating.workspaceBinding.bindingDigest};bases.set(rootBasis.basisRef,rootBasis);admittedRoots.push(rootBasis);
   const run={ref:runId,digest:hash(['run',name])};runs.set(runId,{run,executionBasis:{ref:rootBasis.basisRef}});return {run,root:rootBasis};}
  function call(impl,input,raw=input,extra={}){const execution={...rootBasis,basisRef:'component:basis:'+(++ordinal),parentExecutionBasisRef:rootBasis.basisRef,rawInputValue:raw,rawInputDigest:hash(raw)};
   bases.set(execution.basisRef,execution);const cCall={...env.cCall,cCallRef:'component:call:'+ordinal,basisId:execution.basisRef,runId,implementationRef:impl,regime:[R.selectionImplementationRef,R.authorImplementationRef,R.assessorImplementationRef].includes(impl)?'F_P':'F_D',...extra};
@@ -107,7 +107,12 @@ async function harness(env, options={}){
  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[options.current?.capabilityGrant??env.capabilityGrant]})};
  // The job and revision owners read the component prefix through the same
  // prefix premises.
- const prefixOverrides={selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)};
+ // An invocation key reads the admission events of the root bases this
+ // harness admits (the original and each invocation's root), the index premise
+ // of the one governance-root projection; `bases` stays the rehydration premise.
+ const rootAdmissions=key=>admittedRoots.filter(b=>'invocation:'+b.invocationRef===key).map(b=>({kind:'basis_admitted',eventId:b.admissionEventRef,
+  payload:{basisClass:'root',basisRef:b.basisRef,invocationAdmissionRef:b.invocationAdmissionRef,implementationSetRef:b.rootImplementationSetRef,rawInputValue:b.rawInputValue}}));
+ const prefixOverrides={selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>key.startsWith('invocation:')?rootAdmissions(key):p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)};
  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},

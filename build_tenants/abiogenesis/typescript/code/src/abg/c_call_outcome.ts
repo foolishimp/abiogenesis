@@ -1297,7 +1297,9 @@ function stageCCallResult(
                   graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: input.cCall,
                   cursor: input.cursor, predecessorPrefix: input.predecessorPrefix,
                   declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
-                  // Result admission re-derives from the carried result and selects no limits.
+                  // Result admission re-derives from the carried result under the bound
+                  // law: it selects no limits and carries no ambient environment, which
+                  // no re-deriver reads.
                   commandExecutionLimits: null });
                 if (basis === null) return false;
                 if (lifecyclePublication.semanticJobLifecycle !== undefined)

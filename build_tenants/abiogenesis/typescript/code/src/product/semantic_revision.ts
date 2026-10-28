@@ -9,10 +9,11 @@ import type { RequirementTerm, GtlContractFulfillmentBinding } from "../gtl/requ
 import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope, isSemanticWorksiteBasis, projectSemanticWorksiteCoordinates,
   type SemanticStageEnvelope, type SemanticActorSource, type SemanticWorksiteBasis } from "./semantic_stage.js";
 import { isSemanticJobEnvelope, projectSemanticJobBindings, deriveSemanticJobAsset, deriveSemanticJobAssessment,
-  constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask, nativeSemanticEvidenceArtifacts,
+  constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask, rederiveNativeSemanticExecutionTask, nativeSemanticEvidenceArtifacts,
   type SemanticJobEnvelope, type SemanticJobAsset, type NativeSemanticOperating, type NativeSemanticRevisionConstruction } from "./semantic_job.js";
 import { isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask, resolveNativeWorkspaceWorkJudgmentRelation, NATIVE_WORKSPACE_WORK_IDS, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
-import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask, resolveWorksiteCommandExecutionJudgmentRelation, WORKSITE_COMMAND_EXECUTION_IDS, type WorksiteCommandExecutionLimits } from "./worksite_command_execution.js";
+import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask, resolveWorksiteCommandExecutionJudgmentRelation, WORKSITE_COMMAND_EXECUTION_IDS, type WorksiteCommandExecutionLimits,
+  type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { exactWorkspaceBinding, isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
 import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
@@ -344,10 +345,21 @@ export function constructNativeRevisionConstructionTask(input: SemanticJobRevisi
   if (native === undefined || operating === undefined || input.current.context === null || input.current.evidence !== null) throw new TypeError("native revision construction basis required");
   return constructNativeSemanticConstructionTask(input.current, operating, input.current.context, nativeSemanticRevisionConstruction(input));
 }
-export function constructNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) {
+function selectedNativeRevisionConstruction(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) {
   if (!isNativeWorkspaceWorkObservation(source) || !canonicalEquals(source.task, constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...source.task})))
     throw new TypeError("actual selected native revision construction required");
-  return constructNativeSemanticExecutionTask(input.current, source, nativeSemanticRevisionConstruction(input));
+  return nativeSemanticRevisionConstruction(input);
+}
+/** The live construction: the rows are the operation boundary's capture on the
+ * semantic stage basis (`null` captures nothing). */
+export function constructNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation,
+  ambient: WorksiteCommandAmbientEnvironment | null) {
+  return constructNativeSemanticExecutionTask(input.current, source, ambient, selectedNativeRevisionConstruction(input, source));
+}
+/** A recorded native revision execution task re-derived under the bound law
+ * (`rederiveNativeSemanticExecutionTask`): its bound rows, ambient `null`. */
+export function rederiveNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation, recorded: unknown) {
+  return rederiveNativeSemanticExecutionTask(input.current, source, recorded, selectedNativeRevisionConstruction(input, source));
 }
 /** Coordinates supplied here are admitted by the ABG source join, never by this pure constructor. */
 export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope, execution: unknown,
@@ -355,7 +367,7 @@ export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope,
   command: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">): SemanticJobRevisionEnvelope | null {
   try {
     if (!isSemanticJobRevisionEnvelope(input) || !isNativeWorksiteCommandExecutionObservation(execution) ||
-      !canonicalEquals(execution.task, constructNativeRevisionExecutionTask(input, execution.task.sourceNativeWork))) return null;
+      !canonicalEquals(execution.task, rederiveNativeRevisionExecutionTask(input, execution.task.sourceNativeWork, execution.task))) return null;
     const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, nativeSemanticRevisionConstruction(input));
     if (artifacts === null) return null;
     return deepFreeze({ ...input, current: { ...input.current, context: execution.task.sourceNativeWork.after, worksite: null,
@@ -400,7 +412,7 @@ export function evaluateNativeSemanticRevisionRelation(predicate: string, input:
     if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output)) {
       if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return false;
       const admittedOutput = admitJson(output);
-      return admittedOutput.kind === "ok" && canonicalEquals(constructNativeRevisionExecutionTask(input.entry,input.source), admittedOutput.value);
+      return admittedOutput.kind === "ok" && canonicalEquals(rederiveNativeRevisionExecutionTask(input.entry,input.source,admittedOutput.value), admittedOutput.value);
     }
     if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
       if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)

@@ -8,12 +8,13 @@ import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstruction
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
   hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
+import { invocationRootAtPrefix } from "./semantic_job.js";
 import { worksiteCommandSourcesInvalidatedAfter, projectNativeWorkspaceWorkSourceAtPrefix } from "./native_worksite_execution.js";
 import { isGovernanceWorkState, governanceTestingConfiguration, governanceAssessmentContract, governanceVerdict, GOVERNANCE_POLICIES,
   GOVERNANCE_IMPLEMENTATION_REFS, governanceRef as ref, governanceContract as contract, type GovernanceWorkState, type GovernancePurpose } from "../product/default_library.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
-import { constructObservedWorksiteCommandExecutionTask, constructNativeWorksiteCommandExecutionTask, worksiteCommandConfigurationMatches,
+import { constructObservedWorksiteCommandExecutionTask, constructNativeWorksiteCommandExecutionTask, worksiteCommandConfigurationMatches, boundWorksiteCommandDeclarations,
   isObservedWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
   isNativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionTaskInput, type WorksiteObservedStream } from "../product/worksite_command_execution.js";
 import { constructWorksiteSubject, isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
@@ -42,16 +43,16 @@ function owner(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: 
   if (!same(owned.inputValue, input) || !GOVERNANCE_IMPLEMENTATION_REFS.includes(owned.call.implementationRef ?? "") || owned.environment.kind !== "exact_prefix_workspace_environment") return testingRefused(refusal, "testing_owner", "input_implementation_environment", { basisRef: owned.execution.basisRef });
   const invocation = projectExactInvocationAdmissionAtPrefix(owned.prefix, owned.execution.invocationAdmissionRef);
   if (invocation === null || invocation.capabilityGrants.length !== 1) return testingRefused(refusal, "testing_owner", "invocation_grant", { invocationAdmissionRef: owned.execution.invocationAdmissionRef });
-  const roots = indexedRuntimeEvents(owned.prefix, "invocation:" + invocation.invocationRef).filter(e =>
-    e.kind === "basis_admitted" && record(e.payload) && e.payload.basisClass === "root" &&
-    e.payload.invocationAdmissionRef === invocation.invocationAdmissionRef && e.payload.implementationSetRef === owned.execution.rootImplementationSetRef);
-  const initial = roots.length === 1 && record(roots[0]!.payload) ? roots[0]!.payload.rawInputValue : null;
+  // The one governance-root projection: the index population of one and the
+  // ancestry walk to that same root.
+  const root = invocationRootAtPrefix(owned.prefix, owned.execution);
+  const initial: JsonValue = root === null ? null : root.rawInputValue;
   // The ingress already admitted exact source -> raw input equality. Consume
   // those bound identities rather than revalidate/hash the retained state here.
   const retained = invocation.sourceResultBasis?.sourceResultContractRef === contract("state") &&
     invocation.sourceResultBasis.sourceResultValueDigest === invocation.rawInputDigest;
   if (!isGovernanceWorkState(initial) || initial.terminal || (!retained &&
-    (initial.observations.length !== 0 || initial.synthesis !== null))) return testingRefused(refusal, "testing_owner", "retained_root_state", { invocationAdmissionRef: invocation.invocationAdmissionRef, rootPopulation: roots.length, retainedInput: retained });
+    (initial.observations.length !== 0 || initial.synthesis !== null))) return testingRefused(refusal, "testing_owner", "retained_root_state", { invocationAdmissionRef: invocation.invocationAdmissionRef, rootProjected: root !== null, retainedInput: retained });
   if (governanceFulfillmentSelection(owned.program, initial.original) === "invalid" || initial.original.fulfillment !== undefined &&
     !retained && !same(initial.fulfillment, initialGovernanceFulfillment(initial.original.fulfillment))) return testingRefused(refusal, "testing_owner", "fulfillment_selection");
   const state = isRetainedGraphInput(input) ? input.entry : isFramedSynthesisTask(input) || isFramedSynthesisResult(input) ? input.state : input;
@@ -289,7 +290,7 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
   refusal?: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null) {
   const current = operating(o), context = observation.context, selectedSource = input.synthesis?.judgment.subjectEvidenceRef;
   if (selectedSource === null || selectedSource === undefined)
-    return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) }, ambient);
+    return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) }, ambient ?? null);
   const p = subjectEvidence(o, input, "testing", refusal);
   if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
   if (!same(p.value.after, context)) {
@@ -299,7 +300,7 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
   }
   return constructNativeWorksiteCommandExecutionTask({ ...current, sourceNativeWork: p.value,
     selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
-    ...governanceTestingConfiguration(input) }, ambient);
+    ...governanceTestingConfiguration(input) }, ambient ?? null);
 }
 export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
   const o = owner(basis, input), purpose = basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose;
@@ -386,10 +387,11 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
       if (!same(output.workspaceAuthorityBasis, o.environment.workspaceAuthorityBasis) || !same(output.workspaceBinding, o.environment.workspaceBinding) || !same(output.capabilityGrant, o.grant)) return false;
       if (isObservedWorksiteCommandExecutionTask(output)) return observedGovernanceTaskMatches(input, output);
       if (output.sourceReacquisition !== undefined) return governanceNativeWorkReacquisitionResultMatches(basis, input, output);
-      const p = subjectEvidence(o, input, "testing");
+      // Re-derived under the bound law: the recorded task's bound rows, nothing captured.
+      const p = subjectEvidence(o, input, "testing"), configuration = governanceTestingConfiguration(input);
       return p !== null && isNativeWorkspaceWorkObservation(p.value) && same(output, constructNativeWorksiteCommandExecutionTask({ ...operating(o), sourceNativeWork: p.value,
         selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath, subjectUri: pathToFileURL(resolve(o.environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
-        ...governanceTestingConfiguration(input) }));
+        ...configuration, ...boundWorksiteCommandDeclarations(configuration, output) }, null));
     }
     return false;
   } catch { return false; }

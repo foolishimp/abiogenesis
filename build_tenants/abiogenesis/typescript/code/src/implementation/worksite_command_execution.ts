@@ -814,7 +814,7 @@ function realizePreparation(input: unknown, implementationRef: string, selection
       : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input";
     if (!admitted || kind !== expectedKind) throw new TypeError("preparation input does not match its declared leaf");
     const resultCandidate = selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
-      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input, occurrence?.commandAmbientEnvironment) : null;
+      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input, occurrence?.commandAmbientEnvironment ?? null) : null;
     if (resultCandidate === null) throw new TypeError("preparation result absent");
     const admittedInput = admitJson(input);
     if (admittedInput.kind !== "ok") throw new TypeError("preparation input is not admitted JSON");

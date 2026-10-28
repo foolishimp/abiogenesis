@@ -15,7 +15,7 @@ import {
   win32,
 } from "node:path";
 
-import { selectedWorksiteCommandAmbientEnvironment, type ActorProcessObservation } from "../abg/actor_process.js";
+import type { ActorProcessObservation } from "../abg/actor_process.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -87,17 +87,13 @@ export type WorksiteCommandEnvironmentEntry = {
  * not declare them: HOME, TMPDIR, LANG, LC_ALL, and PATH as the base of an
  * undeclared PATH. One row per present variable; an absent variable has no
  * row. The operation boundary reads them once through the actor-process
- * reader and carries them on the basis or occurrence its leaf receives. */
+ * reader and carries them on the basis or occurrence its leaf receives; every
+ * constructor takes them as a required parameter, `null` capturing nothing (the
+ * already-bound, validating and re-deriving callers). */
 export type WorksiteCommandAmbientEnvironment = readonly Readonly<{
   readonly name: "HOME" | "TMPDIR" | "LANG" | "LC_ALL" | "PATH";
   readonly value: string;
 }>[];
-
-/** The rows for a caller that receives no operation-boundary capture: the one
- * reader, read at the call; `null` when the reader refuses. */
-function callTimeAmbientEnvironment(): WorksiteCommandAmbientEnvironment | null {
-  try { return selectedWorksiteCommandAmbientEnvironment(); } catch { return null; }
-}
 
 export type WorksiteDeclaredCommand = {
   readonly kind: "worksite_declared_command";
@@ -397,7 +393,7 @@ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionR
   return body;
 }
 export function constructNativeWorksiteCommandReacquisitionRequest(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">,
-  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): NativeWorksiteCommandReacquisitionRequest {
+  ambient: WorksiteCommandAmbientEnvironment | null): NativeWorksiteCommandReacquisitionRequest {
   const body = nativeReacquisitionBody(input, ambient), requestDigest = sha256Canonical(body);
   return deepFreeze({ kind: "native_worksite_command_reacquisition_request", schemaVersion: SCHEMA_VERSION,
     requestRef: identity("native-work-command-reacquisition://abiogenesis", requestDigest), requestDigest, ...body });
@@ -458,7 +454,7 @@ function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput, a
   return body;
 }
 export function constructNativeWorksiteCommandExecutionTask(input: NativeWorksiteCommandExecutionTaskInput,
-  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): NativeWorksiteCommandExecutionTask {
+  ambient: WorksiteCommandAmbientEnvironment | null): NativeWorksiteCommandExecutionTask {
   const body = nativeCommandTaskBody(input, ambient), taskDigest = sha256Canonical(body);
   return deepFreeze({ kind: "worksite_command_execution_task", schemaVersion: SCHEMA_VERSION,
     taskRef: identity("worksite-command-execution-task://abiogenesis", taskDigest), taskDigest, ...body });
@@ -477,7 +473,7 @@ export function isNativeWorksiteCommandExecutionTask(value: unknown): value is N
 /** Pure construction only. ABG binds these file claims to the current admitted
  * root input; the existing physical owner re-observes them before effects. */
 export function constructObservedWorksiteCommandExecutionTask(input: ObservedWorksiteCommandExecutionTaskInput,
-  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): ObservedWorksiteCommandExecutionTask {
+  ambient: WorksiteCommandAmbientEnvironment | null): ObservedWorksiteCommandExecutionTask {
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !Array.isArray(input.observedFiles) || input.observedFiles.length === 0 ||
     new Set(input.observedFiles.map(row => row.subject?.relativePath)).size !== input.observedFiles.length) {
@@ -970,27 +966,55 @@ function declaredEnvironmentMatches(input: WorksiteDeclaredCommandInput["environ
     actual.get("PATH")!.startsWith(`${prefix}${pathDelimiter}`) && actual.get("PATH")!.length > prefix.length + 1);
 }
 
-/** Pure original-configuration correspondence using the task's bound context.
+/** The bound law of re-derivation, its one owner. A re-deriver compares a
+ * recorded task with a fresh construction from the declared input; here the
+ * recorded bound environment rows stand in place of the declared input's
+ * unbound environment at each command and HTTP predicate launch, each declared
+ * constraint checked against them (`declaredEnvironmentMatches`). The caller
+ * constructs from the result with ambient `null`: the already-bound branch of
+ * `environmentEntries` applies, nothing is captured and a bound row set
+ * normalizes to itself, so the re-derivation is independent of the re-deriving
+ * process's environment. `recorded` is the task (or configuration) carrying
+ * `commands` and `outcomePredicates`. Throws when the counts differ, a bound row
+ * set is absent or not normalized (a relative PATH segment refuses there), or a
+ * declared constraint changed. */
+export function boundWorksiteCommandDeclarations(
+  declared: Readonly<{ commands: readonly WorksiteDeclaredCommandInput[]; outcomePredicates?: readonly WorksiteOutcomePredicateInput[] }>,
+  recorded: unknown,
+): Readonly<{ commands: readonly WorksiteDeclaredCommandInput[]; outcomePredicates: readonly WorksiteOutcomePredicateInput[] }> {
+  const declaredPredicates = declared.outcomePredicates ?? [];
+  if (!isRecord(recorded) || !Array.isArray(recorded.commands) || !Array.isArray(recorded.outcomePredicates) ||
+    !Array.isArray(declared.commands) || !Array.isArray(declaredPredicates) ||
+    declared.commands.length !== recorded.commands.length || declaredPredicates.length !== recorded.outcomePredicates.length)
+    throw new TypeError("re-derivation requires the recorded commands and predicates of the declared counts");
+  const boundCommands: readonly unknown[] = recorded.commands, boundPredicates: readonly unknown[] = recorded.outcomePredicates;
+  const commands = declared.commands.map((command, i) => {
+    const row = boundCommands[i];
+    if (!isRecord(row) || !Array.isArray(row.environment)) throw new TypeError("missing bound command environment");
+    const environment = row.environment as unknown as readonly WorksiteCommandEnvironmentEntry[];
+    if (!declaredEnvironmentMatches(command.environment, environment)) throw new TypeError("changed explicit command environment");
+    return { ...command, environment };
+  });
+  const outcomePredicates = declaredPredicates.map((predicate, i) => {
+    if (predicate.predicateKind !== "http_response_exact") return predicate;
+    const declaration = predicate.declaration, row = boundPredicates[i], retained = isRecord(row) ? row.declaration : undefined;
+    if (!isRecord(declaration) || !isRecord(declaration.launch) || !isRecord(retained) || !isRecord(retained.launch) ||
+      !Array.isArray(retained.launch.environment)) throw new TypeError("missing bound HTTP environment");
+    const environment = retained.launch.environment as unknown as readonly WorksiteCommandEnvironmentEntry[];
+    if (!declaredEnvironmentMatches(declaration.launch.environment as WorksiteDeclaredCommandInput["environment"], environment)) throw new TypeError("changed explicit HTTP environment");
+    return { ...predicate, declaration: { ...declaration, launch: { ...declaration.launch, environment } } };
+  });
+  return { commands, outcomePredicates };
+}
+
+/** Pure original-configuration correspondence using the task's bound context:
+ * the bound law (`boundWorksiteCommandDeclarations`) over the configuration.
  * Command and HTTP launch environments share the same acquisition-only law. */
 export function worksiteCommandConfigurationMatches(input: WorksiteCommandConfigurationInput,
   bound: ReturnType<typeof constructWorksiteCommandConfiguration>): boolean {
   try {
-    if (input.commands.length !== bound.commands.length || input.outcomePredicates.length !== bound.predicates.length) return false;
-    const commands = input.commands.map((command, i) => {
-      const environment = bound.commands[i]!.environment;
-      if (!declaredEnvironmentMatches(command.environment, environment)) throw new TypeError("changed explicit command environment");
-      return { ...command, environment };
-    });
-    const outcomePredicates = input.outcomePredicates.map((predicate, i) => {
-      if (predicate.predicateKind !== "http_response_exact") return predicate;
-      const declaration = predicate.declaration, retained = bound.predicates[i]!.declaration;
-      if (!isRecord(declaration) || !isRecord(declaration.launch) || !isRecord(retained) || !isRecord(retained.launch) ||
-        !Array.isArray(retained.launch.environment)) throw new TypeError("missing bound HTTP environment");
-      const environment = retained.launch.environment as unknown as readonly WorksiteCommandEnvironmentEntry[];
-      if (!declaredEnvironmentMatches(declaration.launch.environment as WorksiteDeclaredCommandInput["environment"], environment)) throw new TypeError("changed explicit HTTP environment");
-      return { ...predicate, declaration: { ...declaration, launch: { ...declaration.launch, environment } } };
-    });
-    return same(bound, constructWorksiteCommandConfiguration({ ...input, commands, outcomePredicates }, null));
+    const declarations = boundWorksiteCommandDeclarations(input, { commands: bound.commands, outcomePredicates: bound.predicates });
+    return same(bound, constructWorksiteCommandConfiguration({ ...input, ...declarations }, null));
   } catch { return false; }
 }
 
@@ -1447,7 +1471,7 @@ export function worksiteCommandConfigurationInputSchema(): Readonly<{
 
 /** Pure pre-construction checks; no source result or observation is fabricated. */
 export function constructWorksiteCommandConfiguration(input: WorksiteCommandConfigurationInput,
-  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): Readonly<{
+  ambient: WorksiteCommandAmbientEnvironment | null): Readonly<{
   commands: readonly WorksiteDeclaredCommand[];
   predicates: readonly WorksiteOutcomePredicate[];
   allowedWriteTerritories: readonly WorksiteCommandWriteTerritory[];
@@ -1572,7 +1596,7 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
 
 export function constructWorksiteCommandExecutionTask(
   input: WorksiteCommandExecutionTaskInput,
-  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment(),
+  ambient: WorksiteCommandAmbientEnvironment | null,
 ): WorksiteCommandExecutionTask {
   if (!exactWorkspaceAuthorityJoin(
     input.workspaceAuthorityBasis,

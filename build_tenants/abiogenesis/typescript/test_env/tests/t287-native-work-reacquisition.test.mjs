@@ -97,7 +97,7 @@ async function declarationFixture(t, inline=false, library=false) {
     {aggregateId:call.cCallRef,causationEventRefs:[opened.eventId]});
   const before=deepFreeze(library?[sourceResult,old,opened,fibre]:[old,opened,fibre]),nativeBasis={predecessorPrefix:coordinate(before),cCallRef:call.cCallRef};
   const heldPrefix=prefixOwner.selectValidatedRuntimeEventPrefix(before);
-  const basis={...env.executionBasis,basisRef:identity.basisId,invocationAdmissionRef:'invocation://prepare',invocationRef:'runtime://prepare',
+  const basis={...env.executionBasis,basisRef:identity.basisId,parentExecutionBasisRef:null,invocationAdmissionRef:'invocation://prepare',invocationRef:'runtime://prepare',
     workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
     rootImplementationSetRef:call.implementationSetRef,rootImplementationSetDigest:hash('set'),graphFunctionRef:gf.name,graphFunctionDigest:hash(gf),rawInputValue:raw,rawInputDigest:hash(raw),rawInputAdmissionRef:'raw://prepare'};
   const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:raw});
@@ -108,7 +108,7 @@ async function declarationFixture(t, inline=false, library=false) {
   const owned={prefix:heldPrefix,inputValue:raw,call,execution:basis,graphFunction:gf,program:libraryPublication.programs[0],
     environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:[]}};
   const invocation={invocationAdmissionRef:basis.invocationAdmissionRef,capabilityGrants:[request.capabilityGrant],rawInputDigest:hash(raw),sourceResultBasis:{sourceResultContractRef:p.governanceContract('state'),sourceResultValueDigest:hash(raw)}};
-  const rootEvent={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:basis.invocationAdmissionRef,implementationSetRef:basis.rootImplementationSetRef,rawInputValue:raw}};
+  const rootEvent={kind:'basis_admitted',payload:{basisClass:'root',basisRef:basis.basisRef,invocationAdmissionRef:basis.invocationAdmissionRef,implementationSetRef:basis.rootImplementationSetRef,rawInputValue:raw}};
   const overrides={
     './event_prefix.js':{selectValidatedRuntimeEventPrefix:rows=>rows===before?heldPrefix:prefixOwner.selectValidatedRuntimeEventPrefix(rows),
       projectOwnedRuntimeEventPrefixAtDurablePrefix:()=>heldPrefix,
@@ -136,7 +136,10 @@ async function declarationFixture(t, inline=false, library=false) {
   const implementation=await load(path.join(ownerBuildRoot,'implementation/native_work_reacquisition.js'),{'../abg/native_work_reacquisition.js':owner});
   const builtin=await load(path.join(ownerBuildRoot,'product/builtin_semantics.js'),{'../abg/native_work_reacquisition.js':owner});
   const leaf=await load(path.join(ownerBuildRoot,'implementation/leaf_invocation_port.js'),{'../abg/native_work_reacquisition.js':owner},['nativeLeafProofOperations','nativeJudgmentProofOperations']);
-  const governance=library?await load(path.join(ownerBuildRoot,'abg/default_library.js'),{'./native_work_reacquisition.js':owner}):null;
+  // The governance owner reads the one governance-root projection as built,
+  // over the same index and basis premises: the owned basis is its own root.
+  const governance=library?await load(path.join(ownerBuildRoot,'abg/default_library.js'),{'./native_work_reacquisition.js':owner,
+    './semantic_job.js':await load(path.join(ownerBuildRoot,'abg/semantic_job.js'))}):null;
   const libraryImplementation=library?await load(path.join(ownerBuildRoot,'implementation/default_library.js'),{'../abg/default_library.js':governance}):null;
   const preparedRequest=library?p.constructNativeWorksiteCommandReacquisitionRequest({...request,source:{...request.source,prefix:nativeBasis.predecessorPrefix}}):request;
   const task=p.constructNativeWorksiteCommandExecutionTask({...preparedRequest,sourceReacquisition:{request:preparedRequest,nativeBasis,bindingCoverEventRefs:[]}});

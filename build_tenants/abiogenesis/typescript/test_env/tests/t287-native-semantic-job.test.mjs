@@ -127,7 +127,9 @@ test('native Design command budget retains exact capacity through both roles, re
  // are supplied explicitly; this does not claim production authentication or runtime admission.
  const abg=await component('abg/semantic_job',{
   './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
-  './event_prefix.js':{runtimeEventBodiesAtPrefix:()=>native.events},
+  // The owned root basis's admission event is the supplied index premise of
+  // the one governance-root projection; every other key reads as built.
+  './event_prefix.js':{runtimeEventBodiesAtPrefix:()=>native.events,indexedRuntimeEvents:(prefix,key)=>key==='invocation:'+execution.invocationRef?[{kind:'basis_admitted',payload:{basisClass:'root',basisRef:execution.basisRef,invocationAdmissionRef:execution.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:execution.rawInputValue}}]:prefixes.indexedRuntimeEvents(prefix,key)},
   './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_pub,ref)=>predecessors.get(ref)??null},
@@ -279,7 +281,7 @@ test('native author fold preserves exact contract issues for same-response requi
  const fold=await component('abg/semantic_job',{
   // The fold borrows the owned basis facts and reads its event bodies at that prefix.
   './execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>native,rehydrateExecutionBasisAtPrefix:()=>execution},
-  './event_prefix.js':{runtimeEventBodiesAtPrefix:prefix=>prefix===native.prefix?native.events:[]},
+  './event_prefix.js':{runtimeEventBodiesAtPrefix:prefix=>prefix===native.prefix?native.events:[],indexedRuntimeEvents:(prefix,key)=>key==='invocation:'+execution.invocationRef?[{kind:'basis_admitted',payload:{basisClass:'root',basisRef:execution.basisRef,invocationAdmissionRef:execution.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:execution.rawInputValue}}]:prefixes.indexedRuntimeEvents(prefix,key)},
   './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[env.capabilityGrant]})},
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>predecessors.get(ref)??null},

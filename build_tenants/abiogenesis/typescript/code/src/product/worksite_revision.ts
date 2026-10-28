@@ -117,7 +117,7 @@ export type WorksiteRevisionCommandExecutionTaskInput = Omit<WorksiteCommandExec
   snapshotSources: readonly WorksiteRevisionSnapshotSource[];
 }>;
 export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRevisionCommandExecutionTaskInput,
-  ambient?: WorksiteCommandAmbientEnvironment | null): WorksiteRevisionCommandExecutionTask {
+  ambient: WorksiteCommandAmbientEnvironment | null): WorksiteRevisionCommandExecutionTask {
   if (!isSha256Digest(input.revisionBasisDigest) || input.revisionBasisRef !== `semantic-revision://abiogenesis/${input.revisionBasisDigest.slice(7)}` ||
     !Array.isArray(input.snapshotSources) || input.snapshotSources.length === 0 || !input.snapshotSources.every(isWorksiteRevisionSnapshotSource) ||
     new Set(input.snapshotSources.map(row => row.designTargetRef)).size !== input.snapshotSources.length ||

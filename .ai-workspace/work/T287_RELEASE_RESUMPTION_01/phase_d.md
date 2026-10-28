@@ -3131,3 +3131,396 @@ None of the other three stop classes was met:
 **Lanes.** Before: R3-b's after column (`scratchpad/r3b/lanes/after/summary.txt`, its compose and uat files), valid because the base's subtrees equal `b78409e76`'s. After, under the fifth amendment: the named set only, checked first on the built tree: the lanes importing `worksite_command_execution`, `worksite_preparation`, `worksite_revision`, `semantic_job`, `semantic_revision`, `semantic_stage`, `builtin_semantics`, `default_library`, `worksite_input_provenance`, `c_call_outcome`, `actor_process` or `instruction_assembly` (census by `git grep -l` over `test_env/tests`, run from `build_tenants/abiogenesis/typescript/`), the pin and manifest lanes (`r1-packed-artifact`, `t287-gtl-graph-law`, `a5-f02-canonical-gtl-identity`), the candidate basis consumers (`r2-clean-install`, `r3-workspace-binding`, `steel-basic-cli-public`, `t287-d1-requirement-handoff`), the map's 35 `installed_route` rows and three `unbounded` rows (`scratchpad/r2b/loadmap/index.tsv`, the `note` column), the two uat lanes and the compose scenario; each alone with the root set; the set listed in the Return with its count; no map-bound breadth and no whole suite. A lane the before column lacks runs once on the base build before your edits. The post-deploy test is the Executive's after your commit. Equal before and after but the named cases; a moved lane named with its first error; the standing red `t287-st2a-g-capability-definition-graph` 4/2/2/0 known.
 
 **Return contract.** `## R3-c return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's owner and the caller table (caller, construct or re-derive, the rows it passes), the falsifiers; item 2's callers; item 3's signatures and the two greps; item 4's projection, the relations and the falsifiers; item 5's case; the pin's old and new digest, byte count and offsets; the regenerated files (M-4 table); the fixture's three fields; the lanes table (every lane, before and after; moved lanes with first errors; the set's count); the gates; deviations; findings outside the grant; stops; what could not be verified. One commit on `main` by path, first line `R3-c: re-derivation under the bound law; the live constructor on the basis member; the call-time default deleted; one governance-root projection; the reader refusal cased` with ` (stops: …)` appended when any, body the Return's first paragraph, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## R3-c return (Worker, Opus 5.5, 2026-10-28; base `0d02eceb45b5d5997ea57c71bafdf18aeba39d38`)
+
+No: all six items are done and no stop holds, but R3-c does not close inside the activation's terms. Item 4's projection now requires both the index relation and the ancestry relation. Four lanes outside the named cases had substituted or component fixtures that supplied only one of them, so they moved on the after pass:
+- `t287-native-semantic-job` 9/9/0/0 to 9/7/2/0;
+- `t287-native-semantic-revision` 7/7/0/0 to 7/4/3/0;
+- `t287-native-work-currentness-consumers` 6/6/0/0 to 6/5/1/0;
+- `t287-native-work-reacquisition` 9/6/0/3 to 9/4/2/3.
+
+They are in the named set. My census of the fixtures that feed the two root owners missed them because it did not see owners loaded through `component('abg/…')`. I restated those four lanes' setup, and `t287-default-library-fulfillment`'s before the pass. All five are outside the lanes the activation grants, and no expected value changed. I then re-ran the four alone, outside the two passes, and each equals its before column. Two out-of-grant code call sites also take one token each, because the parameter is now required (`product/worksite_command_forward.ts:150`, `abg/native_work_reacquisition.ts:250`). Every other lane in the 96-run set equals its before column except the named cases, and every gate is 0.
+
+**Subtree pairs.** The base subtrees equal R3-b's `b78409e76` (`git rev-parse`):
+
+| Subtree | Base `0d02eceb4` | `b78409e76` | After (written tree, staged) |
+|---|---|---|---|
+| tenant | `f21bf87e139a3e311309c2602f7ca7bf2e75fb85` | `f21bf87e139a3e311309c2602f7ca7bf2e75fb85` | `a1894d41ecfcf3bbf96b41002179f1f9d31c1611` |
+| `code` | `46510ef1efd75f41b0ef57bae555c06d7de83997` | `46510ef1efd75f41b0ef57bae555c06d7de83997` | `7112fffad94f4b1380332ace1a7a69a7d417892b` |
+| `test_env` | `0bc67d2c075b868f7ec6a362814bde63fac9404b` | `0bc67d2c075b868f7ec6a362814bde63fac9404b` | `f63df92944afdbdc41d6fb958df6f3e8fadaa1bd` |
+| `contracts` | `5df7b971a755d96dd6a5e3e18a635b2467c5dd67` | `5df7b971a755d96dd6a5e3e18a635b2467c5dd67` | `9da8b3d81a6f9e61360ce9b939b6e8d7de42d516` |
+
+The commit changes 27 tenant files:
+- the 16 code files named below;
+- the two regenerated contracts;
+- `product-toolchain-manifest.json`;
+- the candidate-basis fixture;
+- seven lanes.
+
+
+**Item 1: re-derivation under the bound law.**
+
+- **The owner** is `boundWorksiteCommandDeclarations(declared, recorded)` in `code/src/product/worksite_command_execution.ts`.
+  - For each command, and for each `http_response_exact` predicate launch, it puts the recorded task's bound environment rows in place of the declared unbound environment.
+  - It checks each declared constraint against those rows with `declaredEnvironmentMatches`. That check refuses a bound row set that is not normalized, so a relative or empty PATH segment refuses.
+  - It throws when the counts differ or a bound row set is absent.
+  - `worksiteCommandConfigurationMatches` is consolidated onto it. Its former inline substitution is deleted and it now calls the owner, then constructs with `null`.
+- **Three re-derivation entries call the owner and then construct with ambient `null`:**
+  - `rederiveWorksiteCommandTask(input, recorded)` in `product/worksite_preparation.ts`, for the preparation leaves.
+  - `rederiveNativeSemanticExecutionTask(envelope, source, recorded, revision?)` in `product/semantic_job.ts`.
+  - `rederiveNativeRevisionExecutionTask(input, source, recorded)` in `product/semantic_revision.ts`, which goes through the semantic one.
+
+  These are new exports of modules that `product/index.ts` exports by name, so they are not Public. The Public export names are unchanged (4952, identical).
+
+**Caller table.** It covers every caller in `code/src` of:
+- the five exported constructors;
+- `prepareWorksiteCommandTask`, `constructWorksiteRevisionCommandExecutionTask`, `selectWorksiteConstructionTask`;
+- `constructNativeSemanticExecutionTask`, `constructNativeRevisionExecutionTask` and `constructNativeRevisionConstructionTask`.
+
+"Internal" marks a constructor body that passes its own `ambient` parameter through.
+
+| Caller | Class | Rows passed |
+|---|---|---|
+| `implementation/worksite_command_execution.ts:817` `realizePreparation` → `prepareWorksiteCommandTask` | construct | the leaf occurrence's capture, `occurrence?.commandAmbientEnvironment ?? null` |
+| `implementation/worksite_command_execution.ts:816` → `selectWorksiteConstructionTask` | construct | none (construction task, no command environment) |
+| `abg/semantic_job.ts:605` `projectNativeSemanticExecution` → `constructNativeSemanticExecutionTask` | construct | basis member `basis.commandAmbientEnvironment ?? null` |
+| `abg/semantic_revision.ts:640` `projectNativeRevisionExecutionTask` → `constructNativeRevisionExecutionTask` | construct | basis member `basis.commandAmbientEnvironment ?? null` |
+| `product/semantic_revision.ts:357` `constructNativeRevisionExecutionTask` → `constructNativeSemanticExecutionTask` | construct | its `ambient` parameter |
+| `abg/default_library.ts:293`, `:301` `testingTask` → `constructObservedWorksiteCommandExecutionTask` / `constructNativeWorksiteCommandExecutionTask` | construct | `ambient ?? null`; the value is `implementation/default_library.ts:71`'s `occurrence.commandAmbientEnvironment` |
+| `abg/native_work_reacquisition.ts:244` `prepareGovernanceNativeWorkReacquisition` → `constructNativeWorksiteCommandReacquisitionRequest` | construct | `ambient ?? null` (leaf occurrence) |
+| `abg/native_work_reacquisition.ts:87` `deriveNativeWorkReacquisitionTask` → `constructNativeWorksiteCommandExecutionTask` | construct over an already-bound request | `null` |
+| `product/worksite_command_forward.ts:150` `constructWorksiteCommandForwardTask` → `constructWorksiteCommandConfiguration` | construct over the original task's bound arrays | `null` |
+| `abg/semantic_revision.ts:634` `projectNativeRevisionConstructionTask` → `constructNativeRevisionConstructionTask` | construct | none (native work task, no command environment) |
+| `abg/semantic_job.ts:254` `planInput` → `constructWorksiteCommandConfiguration` | validate (declared configuration check) | `null` |
+| `product/worksite_preparation.ts:73` `validConfiguration` → `constructWorksiteCommandConfiguration` | validate | `null` |
+| `product/worksite_command_execution.ts:384`, `:444`, `:493`, `:1651`; `product/worksite_preparation.ts:196`, `:199`; `product/worksite_revision.ts:130`, `:143`; `product/semantic_job.ts:968` | internal | the enclosing constructor's `ambient` |
+| `product/worksite_command_execution.ts:511` `isObservedWorksiteCommandExecutionTask`; `:1706` `isWorksiteCommandExecutionTask`; `product/worksite_revision.ts:163` `isWorksiteRevisionCommandExecutionTask` | re-derive (validator, from the bound task) | `null` |
+| `product/worksite_command_execution.ts:1016-1017` `worksiteCommandConfigurationMatches` | re-derive | owner, then `null` |
+| `product/worksite_preparation.ts:210-211` `rederiveWorksiteCommandTask` → `prepareWorksiteCommandTask` | re-derive | owner, then `null` |
+| `product/worksite_preparation.ts:247` judgment relation → `selectWorksiteConstructionTask` | re-derive | none |
+| `product/worksite_preparation.ts:248` judgment relation (prepare) | re-derive | `rederiveWorksiteCommandTask(input, admitted output)` |
+| `product/builtin_semantics.ts:879`, `:977` `resolveJudgmentRelation` | re-derive | `rederiveWorksiteCommandTask(…, output.task)` |
+| `abg/semantic_stage.ts:374` `projectSemanticEvidenceInput` | re-derive | `rederiveWorksiteCommandTask(…, input.task)` |
+| `abg/semantic_job.ts:396` `projectSemanticJobEvidence` | re-derive | `rederiveWorksiteCommandTask(…, input.task)` |
+| `abg/semantic_revision.ts:1019` `revisionEvidenceComponentsAtBasis` | re-derive | `rederiveWorksiteCommandTask(…, input.task)` |
+| `abg/worksite_input_provenance.ts:506` `projectSameRunWorksiteCommandSourceAtPrefix` | re-derive | `rederiveWorksiteCommandTask(value, input.task)` |
+| `abg/semantic_job.ts:624` `nativeSemanticResultMatchesBasis` (result admission) | re-derive | `rederiveNativeSemanticExecutionTask(…, output)` |
+| `abg/semantic_revision.ts:696` `semanticJobRevisionResultMatchesBasis` (result admission) | re-derive | `rederiveNativeRevisionExecutionTask(…, output)` |
+| `product/semantic_job.ts:855` `nativeSemanticEvidenceArtifacts`; `:1003`, `:1012` `evaluateNativeSemanticRelation` | re-derive | `rederiveNativeSemanticExecutionTask(…, recorded task)` |
+| `product/semantic_revision.ts:362` `rederiveNativeRevisionExecutionTask`; `:370` `deriveNativeRevisionEvidence`; `:415` `evaluateNativeSemanticRevisionRelation` | re-derive | `rederiveNativeSemanticExecutionTask` / `rederiveNativeRevisionExecutionTask` (recorded task) |
+| `abg/default_library.ts:392-394` `governanceResultMatches` (native testing) | re-derive | owner over the recorded output, then `null` |
+| `abg/native_work_reacquisition.ts:202` `governanceReacquisitionRequestMatches`; `:270` `governanceNativeWorkReacquisitionResultMatches`; `:360` `projectReacquiredNativeWorkCommandSourceAtPrefix` | re-derive over the recorded request's bound arrays | `null` |
+| `abg/semantic_revision.ts:264` `nativeIntakeFacts`; `product/semantic_revision.ts:349` `selectedNativeRevisionConstruction`; `:411` `evaluateNativeSemanticRevisionRelation` → `constructNativeRevisionConstructionTask` | re-derive | none (no command environment) |
+
+Two re-derivers were hidden on the result-admission rebuild (`abg/c_call_outcome.ts` ~1293, which carries no ambient member):
+- `nativeSemanticResultMatchesBasis` called `projectNativeSemanticExecution`;
+- `semanticJobRevisionResultMatchesBasis` called `projectNativeRevisionExecutionTask`.
+
+Each now shares the owner checks with its live projection through one internal body (`nativeSemanticExecution` and `nativeRevisionExecution`) and re-derives under the bound law.
+
+No re-deriver is outside the bound law. Each one either re-derives from already-bound arrays, which `environmentEntries` never fills from rows, or calls the owner.
+
+**Item 1 falsifiers.** One new case in `t287-c2-core-environment`: "a recorded task re-derives under its bound rows, not the process rows, and a relative bound PATH segment refuses". It runs on a real preparation bound input: an actual worksite, construction task and successor observation, with a synthetic replace receipt.
+- **Re-derives equal under different process rows.** The task is recorded under rows A. `process.env` is then set to rows B, all five present, and the case asserts that every B value differs from A. Under B:
+  - `prepareWorksiteCommandTask(input, B)` is not equal to the recorded task;
+  - `rederiveWorksiteCommandTask(input, recorded)` deep-equals it;
+  - the preparation judgment relation (`WORKSITE_PREPARATION_IDS.preparePredicateRef`) admits it.
+- **A relative bound PATH segment refuses.** A copy has PATH `relative/bin:/usr/bin` and a recomputed `taskDigest` and `taskRef`. `rederiveWorksiteCommandTask` throws a TypeError and the judgment relation returns false.
+
+**Item 2: the live constructor on the basis member.**
+- `constructNativeSemanticExecutionTask(envelope, source, ambient: WorksiteCommandAmbientEnvironment | null, revision?)` takes the rows as a required parameter.
+- Its live callers pass the basis member:
+  - `abg/semantic_job.ts:605` `projectNativeSemanticExecution` passes `basis.commandAmbientEnvironment ?? null`;
+  - the revision construction from `abg/semantic_revision.ts:640` `projectNativeRevisionExecutionTask` passes `basis.commandAmbientEnvironment ?? null` to `constructNativeRevisionExecutionTask(input, source, ambient)`, which passes it to `constructNativeSemanticExecutionTask` (`product/semantic_revision.ts:357`).
+- No other caller in `code/src` constructs a native semantic execution task.
+
+**Item 3: the default deleted.**
+- `callTimeAmbientEnvironment` is deleted (`git grep` over `code/src test_env scripts`: no match).
+- `ambient: WorksiteCommandAmbientEnvironment | null` is a required parameter on:
+  - `constructNativeWorksiteCommandReacquisitionRequest`, `constructNativeWorksiteCommandExecutionTask`, `constructObservedWorksiteCommandExecutionTask`, `constructWorksiteCommandConfiguration` and `constructWorksiteCommandExecutionTask` (all in `product/worksite_command_execution.ts`);
+  - `prepareWorksiteCommandTask` (`product/worksite_preparation.ts`);
+  - `constructWorksiteRevisionCommandExecutionTask` (`product/worksite_revision.ts`, a star-exported Public module: the declaration moves from `ambient?:` to `ambient:`, as the activation names; the export name is unchanged).
+- `product/` has no runtime import of `abg/actor_process.ts`:
+  - the value import is removed;
+  - `product/worksite_command_execution.ts:18` is `import type { ActorProcessObservation }`, as it was before R3-b;
+  - the built `build/code/src/product/*.js` contain no `actor_process` reference;
+  - two type-only imports remain in source and declarations: that one and `product/native_workspace_work.ts:11` `ActorProcessCarrierValidation`, which predates R3-b and is outside the grant.
+- **Grep 1:** `git grep -n 'selectedWorksiteCommandAmbientEnvironment' -- code/src` matches:
+  - `abg/actor_process.ts:708` (the definition);
+  - `hog/ccall_lifecycle.ts:464` (the boundary call);
+  - `hog/ccall_lifecycle.ts:14`, the boundary module's import line of the same name.
+- **Grep 2:** `git grep -n 'process\.env' -- code/src/product` is empty (rc 1).
+
+**Item 4: one governance-root projection.**
+- **The owner** is `invocationRootAtPrefix(prefix, execution)` in `abg/semantic_job.ts`. It is exported `@internal` and stripped from the declarations; it is not Public.
+- **It requires both relations:**
+  - the selector index `invocation:<execution.invocationRef>` holds exactly one root-class `basis_admitted` whose `invocationAdmissionRef` and `implementationSetRef` equal the execution's `invocationAdmissionRef` and `rootImplementationSetRef`;
+  - the ancestry walk reaches the basis that that event's `basisRef` names. The walk follows `parentExecutionBasisRef` through `rehydrateExecutionBasisAtPrefix`, with the same job invocation at every step and a cycle refusing.
+- **Callers:** `semanticJobRootAtPrefix` returns the projection, keeping its name and overloads. The governance `owner` in `abg/default_library.ts` reads `root.rawInputValue` from it in place of its own index filter.
+- **Unchanged:** both names stay and no Public export name moves.
+- **The index key** is the execution's `invocationRef`, where the governance owner used to key on the projected admission's `invocationRef`. These are equal in an admitted log: the root body takes `invocationRef` from the invocation admission (`execution_basis.ts:1928`, `:1954`) and a child basis takes its parent's (`:2616`).
+- **Fixture setup restated** in `t287-default-library`, with no expected value changed:
+  - A file-scope `rootProjection(index, rehydrate)` links the built `abg/semantic_job.js` over the fixture's index and rehydration. `rootBasis(root, execution)` rehydrates the root basis from the indexed event at call time.
+  - Each `default_library.js` link substitutes `./semantic_job.js` with that projection over the same index function. Each owned execution gains `invocationRef` and `parentExecutionBasisRef`, and each root event gains `basisRef`. This applies to the fixtures at former lines 326, 682 (env-gated, skipped), 748, 910, 1024 and 1100.
+  - The two `semantic_job.js` ancestry links (former 534 and 595) gain an `./event_prefix.js` index that holds the root basis's admission event.
+- **Falsifiers.** A new case in `t287-default-library` drives `semanticJobRootAtPrefix`, `invocationRootAtPrefix` and the governance `owner` (through `projectGovernanceParent`) over one supplied log:
+  - consistent log: the root is projected and the parent state returned;
+  - an index with two roots: all refuse (null);
+  - one indexed root that the ancestry does not reach: all refuse (null);
+  - restoring the root returns the state again.
+
+  The parent-conservation case's existing two-root assertion (`roots.push(root)`) now also passes through the projection.
+
+**Item 5: the reader's refusal cased.** A new case in `t287-c2-core-environment`: "the reader refuses a NUL in LANG and the operation boundary carries null".
+- `process.env` is swapped for a copy with `LANG` = `C.UTF-8\0trailing`, and the case asserts that the NUL reaches the reader.
+- `selectedWorksiteCommandAmbientEnvironment()` throws `TypeError: ambient LANG is not one string without NUL`.
+- The boundary expression is extracted from the built `hog/ccall_lifecycle.js` (`const commandAmbientEnvironment = (() => { try { … } catch { return null; } })();`) and evaluated with the actual reader. It returns `null`, and with a clean `LANG` it returns the reader's rows.
+- `process.env` is restored in `finally`.
+
+**Item 6: the pin.** `product/worksite_command_execution.ts` changed, so the renderer pin in `gtl/worksite_command_execution.ts` (the member at :36-39, the span at :61) is re-declared by C-4's procedure. A script (`scratchpad/r3c/tools/pin.mjs`) computes it under the generator's relation:
+- the member is the whole built `build/code/src/product/worksite_command_execution.js`;
+- the span is the unique byte range whose UTF-8 text equals `renderWorksiteCommandExecutionPrompt.toString()`.
+
+The script writes the values into source, and `npm run build` verifies them (rc 0). Before the re-pin, `t287-c2-core-environment` was red: `byteCount 117920 !== 116679`, and two `run_environment_refusal` errors.
+
+| Field | Old | New |
+|---|---|---|
+| member digest | `sha256:e37aef8a3e86c90f548f30a019fbf4ce6d57f57ecf2a1a26223e0812734994cd` | `sha256:de094ad192c48a5a466605aac9cea89207e4474f30063bbe55b71a41c88fac37` |
+| byteCount | 116679 | 117920 |
+| startByte / endByte | 106594 / 109026 | 107835 / 110267 |
+| spanDigest | `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` | unchanged (the renderer text did not change) |
+
+**The regenerated files (M-4).** File digests are SHA-256 of the file. Byte counts are equal before and after.
+
+| File | Old digest | New digest | Bytes | Moved leaves |
+|---|---|---|---|---|
+| `contracts/capabilities/capability-definition-graph.json` | `31b17b958ebd73a142e76161740827374360941ee7da5d1771a3f907da064ed8` | `69e38ea86edda3a3b3744c329418a368a1051fde3bcd157dccbf88013c55c8b3` | 197474 | 551 (see below) |
+| `contracts/worksite/command-execution-context.inventory.json` | `aad60b05e4dfe217077ac3f827d6fc5ed3c63ce87ac440e28736411ee1326094` | `b0530707f35b5e2dd4ae487a8ed6a326b22b1195534dd4e967e2511d98eeb588` | 255 | 1: `/members/0/digest`, the pin's member digest |
+| `product-toolchain-manifest.json` | `38dabd87a5b9ccc610d2f3d88c162825bec82cb2ea0c20e78e52cbe6189d2d01` | `39cf36ce45ba072f35a33670249349943f654a797236cdd2848f6d83a2d0f4ed` | 3273847 | 420 (see below) |
+
+- **The capability-definition graph's 551 leaves:**
+  - 241 `catalogDigest` and 241 `productContentDigest` under `owningPublicContracts`;
+  - 18 + 18 `dependentCapabilities` digest and ref;
+  - 16 + 16 row `capabilityDefinitionDigest` and `capabilityDefinitionRef`;
+  - `graphDigest`.
+- **The manifest's 420 leaves:**
+  - 329 `publicContractCatalog/rows/*/nativeTypedLocator/declarationInventory/*/declarationDigest` over seven declaration paths: `abg/semantic_revision.d.ts`, `abg/semantic_stage.d.ts`, `product/semantic_job.d.ts`, `product/semantic_revision.d.ts`, `product/worksite_command_execution.d.ts`, `product/worksite_preparation.d.ts`, `product/worksite_revision.d.ts`;
+  - 47 row `provenanceRef`;
+  - 21 `contractDigest`, all `native_typed_group`;
+  - 10 `publicationDigest`;
+  - 13 top-level identities: `productContentDigest`, the catalog, contribution-manifest and graph digests, and the descriptor and provenance refs.
+- **What did not move in the manifest:** no locator is added or removed, and the catalog stays at 75 rows.
+- **The declaration diffs** (scratch base build against the final build) are comments, the required `ambient` parameter, and the new `rederive*` and `boundWorksiteCommandDeclarations` exports.
+- **Public export names:** 4952, identical to R3-b's after.
+
+**The fixture's three fields.** `test_env/fixtures/abi5-root-candidate-basis.json`, refreshed once by `node scripts/refresh-candidate-basis.mjs` on the final build and before the after pass:
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:56175e03cf4b147c16252fb8ad2282f774be48b419f82b93423f0be16a109934` | `sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612` |
+| `productContentDigest` | `sha256:d83b39e5580f4285a6506d14fe32eedd6c8f3c9c7b2b37ee3f10c9f58f80935e` | `sha256:ea9740752bfd8389749eaa5bfdfb5a77436513cca47dab76e3065d6bc6656a4d` (equals the manifest's) |
+| `manifestDigest` | `sha256:d59dac13212aa00fa0f3934b68dcc43ea73b194740fe03b0750d82f4bd535907` | `sha256:ce284cbbc8bb7ab2e925f22d0a96f6eb21305e99de033b6d6d8be9f5382fe2c9` |
+
+After the refresh, only lane files changed. The package `files` are `build/**`, `contracts/**` and `product-toolchain-manifest.json`, so a lane edit moves neither the artifact nor the fixture. Neither the build nor the refresh ran again.
+
+**Lanes.**
+- **Before column:** R3-b's after column (`scratchpad/r3b/lanes/after/summary.txt`, its compose and uat files) for the lanes it holds. It is valid because the base subtrees equal `b78409e76`'s.
+- **Base-build lanes:** 11 lanes the column lacks ran once on the base build before my edits (marked "base build").
+- **After column:** the final built tree with the refreshed fixture, each lane alone with `ABI5_EVIDENCE_ROOT` set.
+- **The set:** 96 runs.
+  - The census came from `git grep -l` over `test_env/tests` for the twelve named modules.
+  - It is joined with the pin and manifest lanes, the four candidate-basis consumers and the map's 35 `installed_route` rows and three `unbounded` rows. Together these are the 93 named lanes.
+  - The other three runs are `uat-harness`, `uat-continuation` and the compose scenario.
+- **Skips:** the skip names are identical before and after in every lane.
+
+| Lane | Before | After (final built tree) | Restated re-run |
+|---|---|---|---|
+| `a5-f02-canonical-gtl-identity` | 7/7/0/0 (R3-b after) | 7/7/0/0 |  |
+| `d2-acknowledgment` | 3/3/0/0 (R3-b after) | 3/3/0/0 |  |
+| `d2-binding-query-reuse` | 7/7/0/0 (R3-b after) | 7/7/0/0 |  |
+| `d2-workflow-step` | 8/8/0/0 (base build) | 8/8/0/0 |  |
+| `forward-command-contracts` | 10/10/0/0 (base build) | 10/10/0/0 |  |
+| `generic-input-retention` | 4/4/0/0 (base build) | 4/4/0/0 |  |
+| `hello-product-boundary` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `installed-language-smoke` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `m5-consensus-module` | 17/17/0/0 (base build) | 17/17/0/0 |  |
+| `m5-installed-graph-edge` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 (R3-b after) | 7/7/0/0 |  |
+| `m5-worker-transport` | 23/23/0/0 (R3-b after) | 23/23/0/0 |  |
+| `r1-packed-artifact` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `r2-clean-install` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `r3-workspace-binding` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `retained-route-cursor-transition` | 1/1/0/0 (base build) | 1/1/0/0 |  |
+| `steel-basic-cli-c2` | 6/0/0/6 (R3-b after) | 6/0/0/6 |  |
+| `steel-basic-cli-projection` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `steel-basic-cli-public` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `steel-consumer-authority` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `steel-consumer-declaration` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-c0-post-publication-failure` | 31/31/0/0 (R3-b after) | 31/31/0/0 |  |
+| `t287-c2-core-environment` | 5/5/0/0 (R3-b after) | 7/7/0/0 **moved** |  |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 (R3-b after) | 4/4/0/0 |  |
+| `t287-calculus-fold` | 18/18/0/0 (R3-b after) | 18/18/0/0 |  |
+| `t287-calculus-state-transfer` | 8/8/0/0 (base build) | 8/8/0/0 |  |
+| `t287-common-computational-library` | 17/17/0/0 (R3-b after) | 17/17/0/0 |  |
+| `t287-continuation-causation` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `t287-d1-requirement-handoff` | 5/2/0/3 (R3-b after) | 5/2/0/3 |  |
+| `t287-d1-semantic-stage` | 3/1/0/2 (R3-b after) | 3/1/0/2 |  |
+| `t287-declared-testing-capability` | 7/3/0/4 (R3-b after) | 7/3/0/4 |  |
+| `t287-default-library` | 24/21/0/3 (R3-b after) | 25/22/0/3 **moved** |  |
+| `t287-default-library-fulfillment` | 7/7/0/0 (R3-b after) | 7/7/0/0 |  |
+| `t287-environment-projection-conservation` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-event-body-encoding` | 14/14/0/0 (R3-b after) | 14/14/0/0 |  |
+| `t287-exact-construction-intent` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `t287-f04a-probabilistic-result-candidate` | 2/2/0/0 (R3-b after) | 2/2/0/0 |  |
+| `t287-generic-job-lifecycle` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-generic-job-meaning` | 5/3/0/2 (R3-b after) | 5/3/0/2 |  |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-generic-job-read-dependency` | 2/1/0/1 (R3-b after) | 2/1/0/1 |  |
+| `t287-generic-job-revision` | 4/1/0/3 (R3-b after) | 4/1/0/3 |  |
+| `t287-governance-covered-source-use` | 9/3/0/6 (R3-b after) | 9/3/0/6 |  |
+| `t287-gtl-graph-law` | 9/9/0/0 (R3-b after) | 9/9/0/0 |  |
+| `t287-gtl-serialization-publication` | 9/9/0/0 (R3-b after) | 9/9/0/0 |  |
+| `t287-held-prefix` | 6/0/0/6 (base build) | 6/0/0/6 |  |
+| `t287-installed-qualification-conservation` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 (R3-b after) | 5/5/0/0 |  |
+| `t287-management-context` | 14/12/0/2 (R3-b after) | 14/12/0/2 |  |
+| `t287-multi-candidate-admission` | 75/75/0/0 (R3-b after) | 75/75/0/0 |  |
+| `t287-native-assembly-retained-input` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `t287-native-owner-reuse` | 3/0/0/3 (R3-b after) | 3/0/0/3 |  |
+| `t287-native-registered-selection` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-native-selection-profile-scope` | 4/4/0/0 (R3-b after) | 4/4/0/0 |  |
+| `t287-native-semantic-evidence` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-native-semantic-job` | 9/9/0/0 (R3-b after) | 9/7/2/0 **moved** | 9/9/0/0 |
+| `t287-native-semantic-revision` | 7/7/0/0 (R3-b after) | 7/4/3/0 **moved** | 7/7/0/0 |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 (R3-b after) | 6/5/1/0 **moved** | 6/6/0/0 |
+| `t287-native-work-reacquisition` | 9/6/0/3 (R3-b after) | 9/4/2/3 **moved** | 9/6/0/3 |
+| `t287-native-work-unknown-effect` | 10/10/0/0 (R3-b after) | 10/10/0/0 |  |
+| `t287-native-worksite-execution` | 6/3/0/3 (R3-b after) | 6/3/0/3 |  |
+| `t287-native-workspace-work` | 38/37/0/1 (R3-b after) | 38/37/0/1 |  |
+| `t287-observed-worksite-command` | 8/8/0/0 (R3-b after) | 8/8/0/0 |  |
+| `t287-owned-native-proof` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-owned-process-lifetime` | 18/18/0/0 (R3-b after) | 18/18/0/0 |  |
+| `t287-predecessor-context` | 3/0/0/3 (R3-b after) | 3/0/0/3 |  |
+| `t287-qual056-material` | 7/7/0/0 (R3-b after) | 7/7/0/0 |  |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-qualification-parent-alias` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-reacquisition-root-contract` | 2/1/0/1 (base build) | 2/1/0/1 |  |
+| `t287-recursive-registered-selection` | 4/3/0/1 (R3-b after) | 4/3/0/1 |  |
+| `t287-registered-graph-selection` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `t287-required-operation-bindings` | 8/8/0/0 (R3-b after) | 8/8/0/0 |  |
+| `t287-result-evidence-lineage-projection` | 1/1/0/0 (base build) | 1/1/0/0 |  |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 (R3-b after) | 1/1/0/0 |  |
+| `t287-retained-installed-consumer` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-route-reconstruction` | 13/11/0/2 (base build) | 13/11/0/2 |  |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 (R3-b after) | 21/21/0/0 |  |
+| `t287-s03-automatic` | 2/0/0/2 (R3-b after) | 2/0/0/2 |  |
+| `t287-selected-action` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `t287-selected-action-authority` | 3/2/0/1 (R3-b after) | 3/2/0/1 |  |
+| `t287-st1-installed-cross-owner-hello` | 2/2/0/0 (R3-b after) | 2/2/0/0 |  |
+| `t287-stdo-environment-citation` | 2/0/0/2 (R3-b after) | 2/0/0/2 |  |
+| `t287-stdo-run-environment` | 2/0/0/2 (R3-b after) | 2/0/0/2 |  |
+| `t287-undispatched-diagnostic` | 7/7/0/0 (base build) | 7/7/0/0 |  |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 (R3-b after) | 5/3/0/2 |  |
+| `t287-worksite-command-execution` | 10/10/0/0 (R3-b after) | 10/10/0/0 |  |
+| `t288-instruction-assembly-owner` | 6/4/0/2 (R3-b after) | 6/4/0/2 |  |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 (R3-b after) | 2/0/0/2 |  |
+| `w2-steel-single-start` | 8/7/0/1 (R3-b after) | 8/7/0/1 |  |
+| `w2-steel-single-start-closure` | 8/0/0/8 (R3-b after) | 8/0/0/8 |  |
+| `w2-steel-single-start-installed` | 1/0/0/1 (R3-b after) | 1/0/0/1 |  |
+| `uat-harness` | 34/31/0/3 (R3-b after) | 34/31/0/3 |  |
+| `uat-continuation` | 4/0/0/4 (R3-b after) | 4/0/0/4 |  |
+| compose (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`, `real admitted compose`) | 2/2/0/0 (R3-b after) | 2/2/0/0 | |
+
+Set: 93 named lanes + 2 uat lanes + compose = 96 runs. After pass totals 679/571/8/100 (compose excluded); with the four restated lanes 679/579/0/100.
+
+**Moved lanes and first errors (after pass):**
+- **`t287-c2-core-environment`**, 5/5/0/0 to 7/7/0/0: the item 1 and item 5 cases were added. The existing case's setup is restated (see the deviations).
+- **`t287-default-library`**, 24/21/0/3 to 25/22/0/3: the item 4 falsifier case was added and the fixture setup restated. The same three cases are skipped.
+- **`t287-native-semantic-job`**, 9/7/2/0. First error at :139:143, `'failure' !== 'success'`, in "native Design command budget retains exact capacity through both roles, readiness and historical correspondence". The second red is :295 "native failure reuses the original derivation", in "native author fold preserves exact contract issues …".
+  - Cause: the harness's `indexedRuntimeEvents` held no root admission for the execution's invocation, so the index relation failed.
+  - Restated: both harnesses answer `invocation:<execution.invocationRef>` with one root `basis_admitted` built from the execution's own refs.
+  - Re-run: 9/9/0/0.
+- **`t287-native-semantic-revision`**, 7/4/3/0. First error at :138:92, `null` where `true` was expected, in "native D2 serialized public request chooses among eligible stages …". Further reds: at :302 `native_revision_source_root_ancestry_mismatch` where `native_revision_binding_cover_absent` was expected, and at :404 `native_revision_parent_absent`.
+  - Cause: the same missing index relation.
+  - Restated: an `admittedRoots` list holds the harness root plus each `invocation()` root, and `indexedRuntimeEvents` answers `invocation:` keys from it. Indexing only harness-admitted roots keeps the case's added `component:unrelated-root` basis out of the index.
+  - Re-run: 7/7/0/0.
+- **`t287-native-work-currentness-consumers`**, 6/5/1/0. First error at :323:12, "default source gate pre-cause output must be a valid native task", in "U1-P5-02 actual C0 successor and every affected currentness consumer".
+  - Cause: the governance consumer's component `semantic_job` had no rehydration of the indexed root, and the semantic fold consumer had no index.
+  - Restated:
+    - a `governanceRoots` Map with a linked `abg/semantic_job` projection on the gate;
+    - the root index on `semanticOwnerHarness`;
+    - own `invocationRef` values for the intake and selection roots.
+  - Re-run: 6/6/0/0.
+- **`t287-native-work-reacquisition`**, 9/4/2/3. First error at :245, `governance_failure` with selector `rootProjected:false`, in "library prepare-testing reuses the invoking private operation and its actual F_D origin". The second red is at :283, `'failure' !== 'success'`, in "library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards".
+  - Cause: the basis had no `parentExecutionBasisRef`, the root event had no `basisRef`, and the governance load did not link `./semantic_job.js`.
+  - Restated: all three supplied.
+  - Re-run: 9/6/0/3, with the same three skips.
+
+**Totals.**
+- After pass: 679/571/8/100, with compose (2/2/0/0) excluded.
+- With the four re-runs in place of their after rows: 679/579/0/100.
+- Skips: 100 in both columns, by the same names.
+
+**The standing red.** I ran `t287-st2a-g-capability-definition-graph` once on the final tree, outside the set: 4/2/2/0, as known. Its first errors are "missing capability projection for abg.asset.gtl.language-conformance-corpus" and the `declarationPath` mismatch at `node_modules/effect/dist/dts/ConfigError.d.ts`.
+
+**Gates.** All rc 0, on the final tree:
+
+| Gate | Result |
+|---|---|
+| `tsc` | rc 0 |
+| `tsc --noUnusedLocals` | rc 0 |
+| `lint:imports` | 28 shared modules; 3 forbidden owner pairs hold |
+| `lint:lifecycle` | 288 modules; 7 allow-listed sites, no offender |
+| `lint:evidence` | 691 mirror roots, all inventoried, no new copy |
+| `lint:calculus` | 6 modules, 0 allow-listed imports |
+| `npm run build` | rc 0; the pin verified |
+| Public export names | 4952, identical to R3-b's after |
+
+The pin also checks by script against the built module: 117920 bytes, `sha256:de094ad1…`.
+
+**Deviations.**
+1. **Two code call sites outside the grant.** Each takes one token because `ambient` is now required: `product/worksite_command_forward.ts:150` passes `null` (the forward task re-derives from the original task's bound arrays), and `abg/native_work_reacquisition.ts:250` passes `ambient ?? null` (the leaf occurrence's capture).
+2. **A refusal selector key changed** in `abg/default_library.ts` `owner`, on the `retained_root_state` refusal: `rootPopulation: roots.length` became `rootProjected: root !== null`, because the owner no longer holds a root list.
+   - The key occurs once at base, in no contract, design or lane.
+   - `testingRefused` passes it into the open `selectors` record that `constructRuntimeFailureDiagnosticRef` encodes, so that refusal's `diagnosticRef` text changes on that path.
+   - It is not a declared payload key, failure class or reason enum.
+3. **`t287-c2-core-environment`: one existing assertion restated.**
+   - The assertion at former :139 asserted the deleted default: `named(bound({}))` equal to `named(bound({}, reader()))`. With the default deleted, `bound({})` captures nothing.
+   - I restated its left side to pass the reader's capture explicitly; the relation asserted, equality with the reader's rows, is unchanged.
+   - I added one assertion that a call with no capture yields only the default PATH chain.
+   - This is the only removed `assert` line across the seven lane diffs.
+4. **Five lanes outside the lane grant restated, setup only, no expected value changed:**
+   - `t287-default-library-fulfillment`, before the after pass: `controlledOwner` gains the execution's `invocationRef` and `parentExecutionBasisRef`, a root `basisRef`, a shared index and a linked `semantic_job` projection, and the retained-use mutation also moves `execution.invocationRef`.
+   - the four lanes above, after the after pass.
+5. **Runs outside the two passes:**
+   - the four restated lanes, re-run alone once each on the final tree;
+   - the standing-red lane, run once;
+   - development runs of the edited lanes before the after pass.
+6. **A scratch base build** (`scratchpad/r3c/basetree/`) made only for the declaration diff.
+
+**Findings outside the grant.**
+1. **Two indexed roots in a consistent log.** A construction continuation produces one. `execution_basis.ts` ~2760-2795 copies the source root body, including `invocationRef`, `invocationAdmissionRef` and `rootImplementationSetRef`, into a second `basis_admitted` under the same invocation. The projection would refuse an owner on a continued invocation. No caller of it is reachable there:
+   - only `gtl/consensus.ts:4905` declares a construction composition;
+   - continuations open only from terminal runs, and the continued child is effect-free and single-node (`construction_continuation.ts` ~46-60, ~778-790);
+   - consensus graphs reference no semantic job, revision or governance owner.
+
+   If a later package lets a continuation reach these owners, the projection's index relation needs a continuation rule.
+2. **JS callers that omit `ambient`** compile only because test code is untyped. They now capture nothing, where they used to capture at the call; this is intended by item 3. In the named set no expected value depended on the old behaviour other than deviation 3.
+3. **`t287-native-semantic-evidence:23`** (env-gated, skipped) re-derives through the live constructor `constructNativeSemanticExecutionTask(entry, source)` with a process PATH restoration. When enabled it would need `rederiveNativeSemanticExecutionTask`. Not run, not edited.
+4. **Type-only imports of `abg/actor_process`** remain at `product/worksite_command_execution.ts:18` (as before R3-b) and `product/native_workspace_work.ts:11` (outside the grant). Neither reaches the built JS.
+5. **`ambient?` is still optional** on the internal `projectGovernanceTestingTask` and `testingTask` in `abg/default_library.ts`; they forward `ambient ?? null`. Their only production caller, `implementation/default_library.ts:71`, passes the occurrence's capture.
+
+**Stops.** None held:
+- every re-deriver applies the bound law;
+- no Public export name, declared contract or schema moved;
+- for the consistent-log stop, the case is named in finding 1. I judged it outside the stop because no log that reaches the projection holds two roots. If the Executive reads the stop as covering any consistent log, finding 1 is that stop.
+
+**Could not verify.**
+- **Skipped cases:** `t287-default-library`'s env-gated fixture at former :682 (restated, not executed) and the other skipped cases (100 skips).
+- **The boundary half of item 5** beyond the built expression extracted and evaluated in the lane; no live operation ran with a NUL in `LANG`.
+- **Lanes outside the named set** that reference the changed modules were not run:
+  - `d2-binding-transition`, `d2-bounded-repair`, `d2-historical-design`, `t287-c2-child-program`;
+  - `t287-native-work-reacquisition-normalization` (R3-b after 2/1/0/1).
+- **No live installed or provider run.** The post-deploy test is the Executive's.
