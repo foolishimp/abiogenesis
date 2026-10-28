@@ -4961,3 +4961,148 @@ The digests were computed on the scratch copies before `cp`. The record director
 **Stops.** The prepare refusing the request; a lane red at loads at or below 16.
 
 **Return contract.** `## D3-a-b return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)` appended once, after a blank line, before the commit: the first sentence (Yes or No, with the stops); the subtree pairs; the paragraph's digest and byte count; the seven pins before and after; the prepare; the lanes table with loads; deviations; findings outside the grant; what could not be verified. One commit on `main`, staged by path (the nine files, the record, the record directory's two files), first line `D3-a-b: the sandbox UAT catalog's decidability note stands alone (the duplicated adaptation notes removed; the host toolchain, environment and write-confinement criteria named); the seven requests re-pinned; the fixture README corrected`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D3-a-b return (Worker, Opus 5.5, 2026-10-29; base `f8030abec153cea9a958737583c7a16fcdbbbb6f`)
+
+Yes, no stop fired. The decidability paragraph now stands alone in all seven tasks. D3-a's adaptation-notes header, its entry lines and its `- decidability: ` line are gone; the trailing `INTERPRETATION` block is kept, once per task. The seven requests are re-pinned in `scenarios.json` and the fixture README sentence is replaced. The js-sdlc-bootstrap prepare reached `prepared` with preflight `ready`, and the paragraph's bytes are in both admitted `original.task` copies. The four catalog lanes equal D3-a's after column, at loads 4.28 to 5.22.
+
+**Subtree pairs** (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<subtree>`):
+
+| Subtree | HEAD `f8030abec` | `fd38e8227` | D3-a `e5aad68a7` | Staged before commit |
+|---|---|---|---|---|
+| `code` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` | `06f2c1d1b0c2eb7360594036d84c9dc7a5576519` |
+| `test_env` | `96af595e702158aab29aa759fe8fd4d3c281100c` | `8648b4a3e1101b4602db8d88cd0c606ff275d155` | `96af595e702158aab29aa759fe8fd4d3c281100c` | `4feac6d59a060e916f42b8ac3dd80bd3c3a3305f` (the nine fixture files) |
+| `contracts` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` | `675de3053738ca284fd3fd339b56d13b61b12067` |
+
+The staged column comes from `git write-tree --prefix=<subtree>/`, run after the nine files were staged by path.
+
+**The paragraph.** It is 1,972 bytes, `sha256:847cccec07da43047e367689472a35d958f39468bef63c173bed15dc283a6c7f`, and contains no `"`, `\`, control or non-ASCII characters. It occurs once in each of the seven tasks, at task byte 349. The text is in the record directory's `README.md`.
+
+Verified per request (`d3ab/tools/edit.mjs`):
+
+- **The removed segment.** From D3-a's task the script removed exactly `"\n" + header + "\n" + entries + "\n" + "- decidability: …"`. The header and the old line are D3-a's `header.txt` (105 bytes) and `note.txt` (1,411 bytes). The entries are the request's `legacyInterpretation` in file order: four, or five for `data-mapper-full` (`sourceCountConflict`) and `rust-service` (`originalService`). In the segment, the header and the `- decidability: ` line each counted 1 and the entry lines counted 4 or 5. The segment was 2,447 bytes, 2,665 for `data-mapper-full` and 2,676 for `rust-service`. `"\n\n" + paragraph` replaced it.
+- **Two derivations agree.** The result equals the pre-D3-a task (`git show 638127c0e:…/request.json`) with `"\n\n" + paragraph` inserted after the anchor sentence. That sentence is "The adaptation notes govern interpretation of legacy mechanisms, not weakening of original application outcomes." Both derivations are byte-equal, and the whole file equals the pre-D3-a file carrying that task.
+- **Size against the pre-D3-a file.** Each file is 1,976 bytes larger and each task 1,974 bytes larger.
+- **Counts after the edit.**
+  - Each of these counts 0: the header, `- decidability: ` and every `\n- <key>: ` line.
+  - The paragraph counts 1.
+  - The `\n\nINTERPRETATION\n` marker counts 1.
+  - There is a blank line before and after the paragraph.
+- **The `INTERPRETATION` block.** It is the task's last content, and it equals `JSON.stringify(legacyInterpretation, null, 2)` of the request.
+- **The other fields.** They deep-equal the base's, with the key order kept.
+- **The written bytes.** The output is `JSON.stringify(value, null, 2) + "\n"`, which round-tripped every base file exactly.
+
+The other files:
+
+- **`scenarios.json`.** Only the seven `<key>/request.json` digest and byte-count pairs changed; undoing them yields the base value.
+- **The fixture `README.md`.** D3-a's four-line sentence is removed. The activation's sentence (304 bytes, `sha256:a464a0c7905cb3ca357c3baaeaacf128d3a3fafba461d3104ce55c4be541f38e`) is its own paragraph after the `legacyInterpretation` paragraph, with one blank line on each side. The result equals the pre-D3-a README with that paragraph inserted.
+- **JSON parse.** `node -e` parsed the eight JSON files.
+- **Acquisition.** The harness's `loadScenarios` and `acquireScenario` acquire all seven cases against the new pins, under manifest `sha256:666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843`.
+
+**Pins** (sha256 prefix…suffix; full values in the record directory's `pins.json`). Before is D3-a's after; the pre-D3-a values are also in `pins.json`.
+
+| Request | Before sha256 | Before bytes | After sha256 | After bytes | Task bytes before → after |
+|---|---|---:|---|---:|---|
+| `basic-cli/request.json` | `017d3ce2…025e` | 23,776 | `340c8a33…0219` | 23,299 | 8,089 → 7,616 |
+| `data-mapper-full/request.json` | `0fa6938f…ad9f` | 80,320 | `98ff95ba…593a` | 79,624 | 45,363 → 44,672 |
+| `js-sdlc-bootstrap/request.json` | `21790825…d6b9` | 27,462 | `3eb6ebb6…b2c3` | 26,985 | 9,884 → 9,411 |
+| `js-tenant-test/request.json` | `2d4ac5ac…7a2e` | 24,093 | `9d66f966…0f24` | 23,616 | 7,419 → 6,946 |
+| `parallel-js/request.json` | `118623a7…11b0` | 26,515 | `766a1b4c…dbc8` | 26,038 | 8,049 → 7,576 |
+| `rust-cli/request.json` | `321c2541…0ace` | 25,293 | `942e7711…6d5b` | 24,816 | 7,580 → 7,107 |
+| `rust-service/request.json` | `a6e06dbb…5eb2` | 25,596 | `65e24341…7116` | 24,889 | 8,402 → 7,700 |
+| `scenarios.json` | `223d6a8b…149b` | 34,763 | `666afea3…a843` | 34,763 | |
+| `README.md` | `f7494b29…6023` | 3,965 | `8fe134f0…dbba` | 4,028 | |
+
+**Prepare.** One prepare: `node scripts/sandbox-uat.mjs prepare --config <scratch>/d3ab/prepare/config.json --case js-sdlc-bootstrap`.
+
+- It ran under `env -u ANTHROPIC_API_KEY -u CLAUDE_CODE_OAUTH_TOKEN` with `TMPDIR` in scratch and `provider.enabled` false.
+- The archive root was `<scratch>/d3ab/prepare/runs/`, run `2026-10-28T15-36-49-681Z-97ba4245-…`.
+- The configuration is D3-a's with its paths moved to `d3ab` (deviation 2).
+- The pack is D3-a's, copied into `d3ab/pack/`, sha256 `550b48cc…3df6`.
+
+Result:
+
+| Field | Value |
+|---|---|
+| Status | `prepared` (rc 0, 273 s) |
+| Preflight | `ready`, no issues, no `failure.json` |
+| Archived manifest | `666afea3…a843` (the after value) |
+| Request pin at acquisition | `3eb6ebb6…b2c3`, 26,985 bytes (the after value) |
+| `prepared-definition-call.json` | `sha256:0f15bb1d910c2c89dfae169a06181cc2a569e7d16a6efec92302d9c8caa0f851`, 29,681,748 bytes |
+| The paragraph in the call | Two hits, `invocation.invocationAuthority.slots.input_contract.value.original.task` and `invocation.request.input.value.original.task`. Each is 9,411 bytes and equal to the edited request's task, with the blank line before and after and one `INTERPRETATION` block. |
+| D3-a's text in the call | The header and `- decidability: ` are both absent. |
+| Load 1-min | 5.96 → 4.08 |
+
+**Lanes.** Each lane ran alone with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace node --experimental-vm-modules --test --test-concurrency=1 --test-timeout=600000 <path>`. `uptime` was read immediately before and after each lane.
+
+The before column is D3-a's after column (`<scratch>/d3a/lanes-after/`). That pass ran on the tree D3-a committed as `e5aad68a7`, whose `test_env` equals this base's.
+
+The ordered result lines, with durations stripped, have an equal sha256 per lane against D3-a's after logs:
+
+- `uat-harness`: `78b529f3f937…`
+- `t287-default-library`: `b30ebfd5af9a…`
+- `t287-observed-worksite-command`: `70eaf07db948…`
+- `t287-governance-covered-source-use`: `2fb35dd29f32…`
+
+"Seven exact original workloads authenticate source, request and independent oracle before use" passes against the new pins.
+
+| Lane | Before (D3-a after) tests/pass/fail/skipped | Before load 1-min start → end | After tests/pass/fail/skipped | After load 1-min start → end | Equal |
+|---|---|---|---|---|---|
+| `uat-harness` | 34/31/0/3 (rc 0, 977 ms) | 4.66 → 4.66 | 34/31/0/3 (rc 0, 1,054 ms) | 4.28 → 4.98 | yes |
+| `t287-default-library` | 25/22/0/3 (rc 0, 2,987 ms) | 4.66 → 5.81 | 25/22/0/3 (rc 0, 3,072 ms) | 4.98 → 4.98 | yes |
+| `t287-observed-worksite-command` | 8/8/0/0 (rc 0, 1,462 ms) | 5.81 → 5.81 | 8/8/0/0 (rc 0, 1,515 ms) | 4.98 → 5.22 | yes |
+| `t287-governance-covered-source-use` | 9/3/0/6 (rc 0, 364 ms) | 5.81 → 5.81 | 9/3/0/6 (rc 0, 380 ms) | 5.22 → 5.22 | yes |
+
+The twelve skips are the same as D3-a's:
+
+- `uat-harness`: three bare `# SKIP`.
+- `t287-default-library`: three, from the unset capture and live gates.
+- `t287-governance-covered-source-use`: six, from the unset `ABG_GOVERNANCE_COVERED_*` gates.
+
+No lane was red and none was rerun. The highest 1-minute load across the lane readings was 5.22, and across all readings 5.96 (before the prepare).
+
+**Record directory** `.ai-workspace/comments/claude/20261028T154229Z_D3A_B_CATALOG_NOTE/`:
+
+| File | sha256 | Bytes |
+|---|---|---:|
+| `README.md` | `f1aa682d2e8964ab34112cc90de705d0e8d672439cfc412f4e16472a72891de1` | 6,839 |
+| `pins.json` | `d2895305fc34aa0a904b58365055871a4d7caf1ebeb2112fb9d89f16ab459985` | 8,988 |
+
+The digests were computed on the scratch copies before `cp`. The directory's files were named only to `mkdir`, `cp`, `git add` and `git commit`.
+
+**Deviations.**
+
+1. **The README sentence.** It is wrapped at 79 columns into four lines (68, 79, 79 and 75 characters), as the file and D3-a did. The lines joined by spaces reproduce the activation's sentence byte for byte.
+2. **The prepare configuration.** It is D3-a's `config.json` with `archivePath`, `archiveRoot` and `npm_config_logs_dir` moved to `d3ab`, and the `sourceCommit` note naming this base. The pack is a copy of D3-a's, with its digest verified, so nothing was written under `d3a/`.
+3. **The build.** The activation names `dist`; the tenant's build output is `build/` (gitignored). It is D3-a's one `npm run build` on `638127c0e`, whose `code` tree equals this base's. Nothing was rebuilt.
+4. **Extraction.** The paragraph and the README sentence were extracted from the activation by `sed -n` piped into a script: the enclosing backticks and quotes were stripped and nothing was retyped.
+5. **The first heading listing.** I piped `grep -n '^## '` on the record through `tail -n 30`. `tail` read only grep's output, never the record, but the brief listed `tail` among the forbidden reads.
+6. **Early staging.** The nine fixture files were staged by path before the Return was written, to compute the staged subtree column. The record and the record directory's two files are staged at the commit.
+
+**Findings outside the grant.**
+
+1. **The paragraph's carve-out selects per workload.** I scanned each case's assessment sources (`source.original.txt`, `obligations.json`, and Data Mapper's `supporting-constants.original.txt`) and its rubric (`assessment.rubricPath`, the case's `oracle.json`). The terms were `version`, `env`/`environment`, `HOME`, `PATH`, `TMPDIR`, `confin`, `sandbox`, `worksite`, `outside`, `write only`/`write-only`, `do not write`, `modif` and a Node version pattern, case-insensitive.
+   - **`data-mapper-full` names host toolchain and environment bindings.** These stay criteria of that workload under "unless the original source or the rubric names them", as the paragraph intends:
+     - the oracle's `toolchain` gives `scalaVersion` 2.13, `sbtVersion` 1.11.7, `scalaTestMajorMinor` 3.2, the `javaHome` and a `pathPrefix`;
+     - the source gives `sbt.version=1.11.7` and the Java 11 home;
+     - the supporting constants give `JAVA_HOME` and `PATH`;
+     - its oracle carries `forbiddenOutputPaths`;
+     - its source carries `requiresSocketSandbox`.
+   - **The other six name none of these.** No host toolchain version, no environment row, and no write confinement beyond the per-stage "Write only <path>" / "Do not write …" rules, which the paragraph reads as content rules.
+   - **Two near-matches are not criteria.** `basic-cli`'s source (line 78) and obligations ask that `cwd` and `env` be recorded in `test-execution-result.json`, which is a recording obligation. `rust-cli`'s "version 0.0.0" is the crate's own version.
+   - **js-sdlc-bootstrap.** Its source, obligations and oracle name none of the three, so criteria 7–9 of ordinal 10095 now fall under the paragraph's non-criteria.
+2. **Environment in the evidence list.** The paragraph's execution evidence (executable path, arguments, cwd, exit status and streams) omits "environment". The `executionEvidence` entry names it as preserved, in the `INTERPRETATION` block and in each work order's third instruction. I read the two as consistent: preserved evidence, not a criterion. How an assessor weighs it is for the Executive's rerun.
+3. **The README sentence's claims hold.** In all seven tasks:
+   - the `INTERPRETATION` block is the last content;
+   - it equals the request's `legacyInterpretation`, serialized with two-space indentation;
+   - the manifest row's `legacyInterpretation` deep-equals the request's, so the harness's recorded copy is the same object.
+
+**What could not be verified.**
+
+- **The assessor's reading of the paragraph.** There was no provider call; the Executive's rerun answers it.
+- **Assembled prompt bytes against `maxPromptBytes`.** Prepare assembles no prompt, so they were not measured. Each task is 473 to 702 bytes shorter than at D3-a, so D3-a's accepted estimate is an upper bound.
+- **An independent reading.** This is one model's reading with a same-family advisor, and there was no Codex reading.
+- **Writes under the evidence root by the lanes.** They were not inspected, because no read under `.ai-workspace/` was permitted.
+- **Staged paths outside `build_tenants/`.** I did not check them, because no such pathspec was permitted. The commit names its twelve paths explicitly (`git commit -- <paths>`).
+- **Commits on `main` during the run.** There were none. HEAD was `f8030abec` before the Return and `git log f8030abec..HEAD -- build_tenants/` was empty.
+- **A credential scan.** None was run, because no token was read and no provider process started.
