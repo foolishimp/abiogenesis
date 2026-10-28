@@ -1,0 +1,86 @@
+{
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-e71ae8a5c/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "sha256:16d76c4f8ec3f3f960e96a11f9aa7c523a5b54947b8ad0affe8e328727c82a2b"
+  },
+  "sourceCommit": "e71ae8a5c35b8361768c427b91542db03f5e0d7e",
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat",
+  "nodePath": "/opt/homebrew/bin/node",
+  "recursionBound": 12,
+  "processTimeoutMs": 3600000,
+  "maxProcessOutputBytes": 16777216,
+  "inheritEnvironment": [
+    "HOME",
+    "PATH",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL"
+  ],
+  "toolchainEnvironment": {
+    "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+  },
+  "toolchains": {
+    "node": {
+      "executable": "/opt/homebrew/bin/node",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "npm": {
+      "executable": "/opt/homebrew/bin/npm",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "rustc": {
+      "executable": "/Users/jim/.cargo/bin/rustc",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "cargo": {
+      "executable": "/Users/jim/.cargo/bin/cargo",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "sbt": {
+      "executable": "/opt/homebrew/bin/sbt",
+      "versionArgs": [
+        "--script-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11",
+        "PATH_PREFIX": "/opt/homebrew/opt/openjdk@11/bin:/opt/homebrew/bin"
+      }
+    },
+    "java": {
+      "executable": "/opt/homebrew/opt/openjdk@11/bin/java",
+      "versionArgs": [
+        "-version"
+      ],
+      "environment": {
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@11"
+      }
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "maxTurns": 24,
+    "maxBudgetUsd": 5,
+    "inactivityTimeoutMs": 900000,
+    "absoluteTimeoutMs": 1200000,
+    "appendArgs": [],
+    "inheritEnvironment": [
+      "ANTHROPIC_API_KEY",
+      "CLAUDE_CONFIG_DIR",
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  }
+}
