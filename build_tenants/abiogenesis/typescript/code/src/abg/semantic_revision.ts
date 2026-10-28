@@ -1006,7 +1006,8 @@ function revisionEvidenceComponentsAtBasis(basis: SemanticStageNativeBasis,
     }).filter((v): v is NonNullable<typeof v> => v !== null);
     if (candidates.length !== 1) return null;
     const { original, expected, subject } = candidates[0]!;
-    const prepared = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult });
+    const prepared = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
+      basis.commandAmbientEnvironment);
     if (!canonicalEquals(prepared, input.task)) return null;
     if (original.current.worksite === null) return null;
     if (!isSemanticJobRevisionEnvelope(original)) {

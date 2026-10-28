@@ -232,7 +232,7 @@ function planInput(basis: SemanticStageNativeBasis, input: SemanticJobEnvelope) 
   constructWorksiteCommandConfiguration({ workspaceAuthorityBasis: current.workspaceAuthorityBasis,
     workspaceBinding: current.workspaceBinding, commands: design.commands, outcomePredicates: design.outcomePredicates,
     protectedSubjects: [...protectedSubjects, ...(deriveSemanticJobReadDependencies(input, current)?.members.map(row => row.subject) ?? [])],
-    allowedWriteTerritories: input.job.worksiteScope.evidenceWriteRoots.map(relativePath => ({ pathKind: "subtree", relativePath })) });
+    allowedWriteTerritories: input.job.worksiteScope.evidenceWriteRoots.map(relativePath => ({ pathKind: "subtree", relativePath })) }, null);
   // The cursor carries a value digest and may name a workflow result. The
   // parent-effect proof names the actual assessor's admitted result coordinate.
   return { ...current, sourceEnvelopeRef: assessed.previous.result.resultRef, sourceEnvelopeDigest: assessed.previous.result.resultDigest, sourceDesignAssetRef: asset.assetRef,
@@ -371,7 +371,8 @@ export function projectSemanticJobEvidence(basis: SemanticStageNativeBasis, inpu
     if (bridges.length !== 1) return null;
     const { original: savedOriginal, worksite, expected } = bridges[0]!;
     const original = savedOriginal as SemanticJobEnvelope;
-    if (!canonicalEquals(prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult }), input.task)) return null;
+    if (!canonicalEquals(prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
+      basis.commandAmbientEnvironment), input.task)) return null;
     const root = input.provenance.helperPlan.sandboxRoot;
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;
     const artifacts = input.snapshotMembers.map(member => {

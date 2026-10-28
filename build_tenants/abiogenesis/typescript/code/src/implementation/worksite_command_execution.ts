@@ -804,7 +804,8 @@ export const WORKSITE_PREPARATION_BRANCH_COMMAND_IMPLEMENTATION_DESCRIPTOR = pre
   WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef, "prepareWorksiteBranchCommands",
   WORKSITE_PREPARATION_IDS.branchBoundInputContractRef, WORKSITE_COMMAND_EXECUTION_IDS.taskContractRef);
 
-function realizePreparation(input: unknown, implementationRef: string, selection: boolean, branch: boolean, revision = false): Readonly<LeafRealizationCandidate> {
+function realizePreparation(input: unknown, implementationRef: string, selection: boolean, branch: boolean, revision = false,
+  occurrence?: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate> {
   try {
     const admitted = selection ? isWorksitePreparationInput(input) : isWorksitePreparationBoundInput(input);
     const kind = typeof input === "object" && input !== null && "kind" in input ? input.kind : null;
@@ -813,7 +814,7 @@ function realizePreparation(input: unknown, implementationRef: string, selection
       : branch ? "worksite_branch_command_preparation_bound_input" : "worksite_command_preparation_bound_input";
     if (!admitted || kind !== expectedKind) throw new TypeError("preparation input does not match its declared leaf");
     const resultCandidate = selection && isWorksitePreparationInput(input) ? selectWorksiteConstructionTask(input)
-      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input) : null;
+      : !selection && isWorksitePreparationBoundInput(input) ? prepareWorksiteCommandTask(input, occurrence?.commandAmbientEnvironment) : null;
     if (resultCandidate === null) throw new TypeError("preparation result absent");
     const admittedInput = admitJson(input);
     if (admittedInput.kind !== "ok") throw new TypeError("preparation input is not admitted JSON");
@@ -831,14 +832,14 @@ function realizePreparation(input: unknown, implementationRef: string, selection
 export function selectWorksiteConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
   return realizePreparation(input, WORKSITE_PREPARATION_IDS.selectImplementationRef, true, false);
 }
-export function prepareWorksiteCommands(input: unknown): Readonly<LeafRealizationCandidate> {
-  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareImplementationRef, false, false);
+export function prepareWorksiteCommands(input: unknown, occurrence?: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareImplementationRef, false, false, false, occurrence);
 }
 export function selectWorksiteBranchConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
   return realizePreparation(input, WORKSITE_PREPARATION_IDS.selectBranchImplementationRef, true, true);
 }
-export function prepareWorksiteBranchCommands(input: unknown): Readonly<LeafRealizationCandidate> {
-  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef, false, true);
+export function prepareWorksiteBranchCommands(input: unknown, occurrence?: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef, false, true, false, occurrence);
 }
 
 const revisionDescriptorBody = { ...descriptorBody, implementationRef: WORKSITE_REVISION_IDS.implementationRef,
@@ -857,7 +858,7 @@ export const WORKSITE_REVISION_PREPARE_IMPLEMENTATION_DESCRIPTOR = preparationDe
 export function selectWorksiteRevisionConstruction(input: unknown): Readonly<LeafRealizationCandidate> {
   return realizePreparation(input, WORKSITE_REVISION_IDS.selectImplementationRef, true, false, true);
 }
-export function prepareWorksiteRevisionCommands(input: unknown): Readonly<LeafRealizationCandidate> {
-  return realizePreparation(input, WORKSITE_REVISION_IDS.prepareImplementationRef, false, false, true);
+export function prepareWorksiteRevisionCommands(input: unknown, occurrence?: Readonly<LeafExecutionOccurrence>): Readonly<LeafRealizationCandidate> {
+  return realizePreparation(input, WORKSITE_REVISION_IDS.prepareImplementationRef, false, false, true, occurrence);
 }
 export const realizeWorksiteRevisionCommandExecution = realizeWorksiteCommandExecution;

@@ -11,7 +11,8 @@ import { validRunEnvironmentProgram, runEnvironmentForProgram } from '../../buil
 import { projectRunEnvironmentRoleEvidence } from '../../build/code/src/abg/stdo_environment.js';
 import { selectValidatedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
-import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt } from '../../build/code/src/product/worksite_command_execution.js';
+import { worksiteCommandExecutionHelperPlan, renderWorksiteCommandExecutionPrompt, constructWorksiteCommandConfiguration } from '../../build/code/src/product/worksite_command_execution.js';
+import { selectedWorksiteCommandAmbientEnvironment } from '../../build/code/src/abg/actor_process.js';
 import { worksiteCommandExecutionAttemptRef } from '../../build/code/src/abg/instruction_assembly.js';
 import { privateOwner } from '../support/r10-private-owner-harness.mjs';
 import { loadWorksiteOwner, worksiteFixture } from '../support/t287-generic-job-worksite.mjs';
@@ -113,4 +114,40 @@ test('observed root C2 assembles the single exact helper request from actual con
  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(basis,{...task,taskDigest:hash('changed')}),null);
  const foreign=structuredClone(basis);foreign.publication.programs.find(x=>x.programRef===ids.programRef).programRef='program://foreign';
  assert.equal(assemblyOwner.constructWorksiteNativeInstructionAssembly(foreign,task),null);
+});
+test('the command environment takes the operation-boundary rows and reads no ambient process environment',async t=>{
+ const f=await fixture(t),defaultChain='/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin';
+ const rows=deepFreeze([{name:'HOME',value:'/rows/home'},{name:'TMPDIR',value:'/rows/tmp'},{name:'LANG',value:'C.UTF-8'},{name:'LC_ALL',value:'C'},{name:'PATH',value:'/rows/bin:/usr/bin'}]);
+ const command=environment=>({commandId:'command://component/environment',executable:process.execPath,args:['--version'],relativeCwd:'.',environment,timeoutMs:1000,terminationGraceMs:100,expectedReports:[]});
+ const bound=(environment,...ambient)=>constructWorksiteCommandConfiguration({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,
+  commands:[command(environment)],outcomePredicates:[],protectedSubjects:[],allowedWriteTerritories:[]},...ambient).commands[0].environment;
+ const named=entries=>entries.map(({name,value})=>({name,value}));
+ const sorted=[...rows].sort((a,b)=>a.name<b.name?-1:a.name>b.name?1:0).map(row=>({...row}));
+ // Rows for the five and a declared input without PATH: the entries are the rows, PATH normalized.
+ assert.deepEqual(named(bound({},rows)),sorted);
+ assert.deepEqual(named(bound({PATH_PREFIX:'/prefix/bin'},rows)),sorted.map(row=>row.name==='PATH'?{name:'PATH',value:'/prefix/bin:/rows/bin:/usr/bin'}:row));
+ assert.equal(named(bound({HOME:'/declared/home'},rows)).find(row=>row.name==='HOME').value,'/declared/home','a declared variable keeps its value');
+ // No rows: the default chain and no HOME/TMPDIR/LANG/LC_ALL entry, whatever the process holds.
+ assert.deepEqual(named(bound({},null)),[{name:'PATH',value:defaultChain}]);
+ assert.deepEqual(named(bound({PATH_PREFIX:'/prefix/bin'},null)),[{name:'PATH',value:'/prefix/bin:'+defaultChain}]);
+ // An already-bound input ignores the rows, including a PATH-less bound array.
+ const retained=bound({},rows),other=deepFreeze([{name:'HOME',value:'/other/home'},{name:'PATH',value:'/other/bin'}]);
+ assert.deepEqual(bound(retained,other),retained);assert.deepEqual(bound(retained,null),retained);
+ const pathless=[{kind:'worksite_command_environment_entry',schemaVersion:'5.0.0',name:'HOME',value:'/bound/home'}];
+ assert.deepEqual(named(bound(pathless,rows)),[{name:'HOME',value:'/bound/home'},{name:'PATH',value:defaultChain}]);
+ // A caller without a capture takes the one reader at the call.
+ assert.deepEqual(named(bound({})),named(bound({},selectedWorksiteCommandAmbientEnvironment())));
+});
+test('the one ambient reader returns the present variables as frozen rows and applies no default',()=>{
+ const names=['HOME','TMPDIR','LANG','LC_ALL','PATH'],saved=Object.fromEntries(names.map(name=>[name,process.env[name]]));
+ try {
+  process.env.HOME='/reader/home';delete process.env.TMPDIR;process.env.LANG='C';delete process.env.LC_ALL;process.env.PATH='/reader/bin';
+  const rows=selectedWorksiteCommandAmbientEnvironment();
+  assert.deepEqual(rows,[{name:'HOME',value:'/reader/home'},{name:'LANG',value:'C'},{name:'PATH',value:'/reader/bin'}]);
+  assert.ok(Object.isFrozen(rows)&&rows.every(row=>Object.isFrozen(row)));
+  for(const name of names)delete process.env[name];
+  assert.deepEqual(selectedWorksiteCommandAmbientEnvironment(),[],'an absent variable stays absent');
+ } finally {
+  for(const name of names){if(saved[name]===undefined)delete process.env[name];else process.env[name]=saved[name];}
+ }
 });

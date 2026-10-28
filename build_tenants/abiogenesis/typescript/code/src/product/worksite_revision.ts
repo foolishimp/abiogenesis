@@ -10,7 +10,7 @@ import { constructWorksiteCommandExecutionTask, constructWorksiteCommandConfigur
   type ObservedWorksiteCommandExecutionTask, type ObservedWorksiteCommandExecutionObservation,
   type WorksiteCommandExecutionTaskInput, type WorksiteCommandExecutionTask, type WorksiteCommandExecutionObservation,
   type WorksiteCommandHelperArtifact, type WorksiteSnapshotMember, type WorksiteDeclaredCommandInput,
-  type WorksiteOutcomePredicateInput, type WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
+  type WorksiteOutcomePredicateInput, type WorksiteCommandWriteTerritoryInput, type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
 
 import { WORKSITE_REVISION_IDS } from "./worksite_revision_identity.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -116,7 +116,8 @@ export type WorksiteRevisionCommandExecutionTaskInput = Omit<WorksiteCommandExec
   revisionBasisRef: string; revisionBasisDigest: Sha256Digest;
   snapshotSources: readonly WorksiteRevisionSnapshotSource[];
 }>;
-export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRevisionCommandExecutionTaskInput): WorksiteRevisionCommandExecutionTask {
+export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRevisionCommandExecutionTaskInput,
+  ambient?: WorksiteCommandAmbientEnvironment | null): WorksiteRevisionCommandExecutionTask {
   if (!isSha256Digest(input.revisionBasisDigest) || input.revisionBasisRef !== `semantic-revision://abiogenesis/${input.revisionBasisDigest.slice(7)}` ||
     !Array.isArray(input.snapshotSources) || input.snapshotSources.length === 0 || !input.snapshotSources.every(isWorksiteRevisionSnapshotSource) ||
     new Set(input.snapshotSources.map(row => row.designTargetRef)).size !== input.snapshotSources.length ||
@@ -128,7 +129,7 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
   // its existing source-member/O1 bijection; dependencies never enter that C1.
   const base = constructWorksiteCommandExecutionTask({ ...input, outcomePredicates: [],
     protectedObservations: selected.map(row => ({ sourceMemberRef: (row.source as {sourceMemberRef:string}).sourceMemberRef,
-      subject: row.subject, observation: row.observation })) });
+      subject: row.subject, observation: row.observation })) }, ambient);
   for (const row of input.snapshotSources) {
     if (row.observation.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
       !canonicalEquals(
@@ -140,7 +141,7 @@ export function constructWorksiteRevisionCommandExecutionTask(input: WorksiteRev
       )) throw new TypeError("revision C2 snapshot source crosses its exact A/W subject");
   }
   const configuration = constructWorksiteCommandConfiguration({ ...input,
-    outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: input.snapshotSources.map(row => row.subject) });
+    outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: input.snapshotSources.map(row => row.subject) }, ambient);
   const { kind: _kind, schemaVersion: _schema, taskRef: _ref, taskDigest: _digest,
     protectedObservations: _protected, ...common } = base;
   const body = { ...common, revisionBasisRef: input.revisionBasisRef, revisionBasisDigest: input.revisionBasisDigest,
@@ -159,7 +160,7 @@ export function isWorksiteRevisionCommandExecutionTask(value: unknown): value is
       "sourceConstructionResultRef","sourceConstructionResultDigest","sourceConstructionResult","materializationPlanRef","rendererRef",
       "instructionContractRef","resultContractRef","workerActorRef","workerBindingRef","transportLane","commands","outcomePredicates",
       "allowedWriteTerritories","revisionBasisRef","revisionBasisDigest","snapshotSources"])) return false;
-  try { const admitted = admitJson(value); return admitted.kind === "ok" && canonicalEquals(admitted.value, constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput)); }
+  try { const admitted = admitJson(value); return admitted.kind === "ok" && canonicalEquals(admitted.value, constructWorksiteRevisionCommandExecutionTask(value as unknown as WorksiteRevisionCommandExecutionTaskInput, null)); }
   catch { return false; }
 }
 export function isWorksiteExecutionTask(value: unknown): value is WorksiteExecutionTask {

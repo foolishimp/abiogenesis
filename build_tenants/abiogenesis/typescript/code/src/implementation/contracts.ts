@@ -111,6 +111,10 @@ export interface LeafExecutionOccurrence {
   readonly qualificationCatalogs?: Readonly<import("../validator/qualification.js").AdmittedQualificationCatalogs>;
   readonly semanticStageBasis?: Readonly<SemanticStageNativeBasis>;
   readonly requirementHandoffBasis?: Readonly<RequirementHandoffDeclarationBasis>;
+  /** The ambient command environment rows read once at the operation boundary
+   * for the worksite command preparation and governance testing leaves;
+   * `null` when the reader refuses. */
+  readonly commandAmbientEnvironment?: import("../product/worksite_command_execution.js").WorksiteCommandAmbientEnvironment | null;
   readonly cCallRef: string;
   readonly runId: string;
   readonly graphCallId: string;

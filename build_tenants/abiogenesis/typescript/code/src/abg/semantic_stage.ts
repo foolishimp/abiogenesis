@@ -23,7 +23,7 @@ import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope,
   deriveSemanticWorksitePreparation, type SemanticStageEnvelope, type SemanticActorSource, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { constructWorksiteObservation } from "../product/worksite_effect.js";
-import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation, type WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation, type WorksiteCommandAmbientEnvironment, type WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
@@ -48,6 +48,10 @@ export interface SemanticStageNativeBasis {
    * reader where the basis is constructed; `null` when the reader refuses or
    * the basis is rebuilt for result admission, which selects no limits. */
   readonly commandExecutionLimits: Readonly<WorksiteCommandExecutionLimits> | null;
+  /** The ambient command environment rows, read once by the one reader where
+   * the basis is constructed; `null` when the reader refuses. Absent on the
+   * basis rebuilt for result admission, whose re-derivation reads at the call. */
+  readonly commandAmbientEnvironment?: WorksiteCommandAmbientEnvironment | null;
 }
 const hash = (x: JsonValue) => sha256Canonical(x);
 function record(value: unknown): value is Readonly<Record<string, JsonValue>> {
@@ -366,7 +370,7 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
     if (candidates.length !== 1) return null;
     const { original, expected } = candidates[0]!;
     const prepared = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
-      entry: expected, source: input.task.sourceConstructionResult });
+      entry: expected, source: input.task.sourceConstructionResult }, basis.commandAmbientEnvironment);
     if (!canonicalEquals(prepared, input.task)) return null;
     const root = input.provenance.helperPlan.sandboxRoot;
     if (resolve(root) !== root || realpathSync(root) !== root || lstatSync(root).isSymbolicLink()) return null;

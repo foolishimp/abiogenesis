@@ -356,3 +356,84 @@ test("R4 pure catalog operations admit zero registry or catalog events", async (
     false,
   );
 });
+
+// The catalog-application site of the shared schema-asset admission. The
+// catalog, view, environment, publication and owner identities are supplied
+// lower premises; the site's schema loop and `admitInstalledSchemaAsset` run as
+// built over one installed root.
+test("R4 catalog application lands each schema-asset admission refusal in its unready message", async (context) => {
+  const { mkdtemp, mkdir, writeFile, readFile, rm } = await import("node:fs/promises");
+  const { join, resolve, dirname } = await import("node:path");
+  const { tmpdir } = await import("node:os");
+  const { pathToFileURL, fileURLToPath } = await import("node:url");
+  const { SourceTextModule, SyntheticModule } = await import("node:vm");
+  const { sha256Bytes } = await import("../../build/code/src/shared/digests.js");
+  const installedRoot = await mkdtemp(join(tmpdir(), "r4-schema-admission-"));
+  context.after(() => rm(installedRoot, { recursive: true, force: true }));
+  const productId = "product://abiogenesis/schema-admission@5", contractId = "abg.schema.r4-application-value";
+  const document = (dialect) => Buffer.from(JSON.stringify({ $schema: dialect, $id: contractId, type: "object",
+    properties: { kind: { const: "r4_application_value" } }, required: ["kind"] }));
+  const current = document("https://json-schema.org/draft/2020-12/schema");
+  const draft07 = document("http://json-schema.org/draft-07/schema#");
+  await mkdir(join(installedRoot, "schemas"), { recursive: true });
+  await writeFile(join(installedRoot, "schemas/value.schema.json"), current);
+  await writeFile(join(installedRoot, "schemas/draft07.schema.json"), draft07);
+  const schemaRow = (overrides = {}, bytes = current, path = "schemas/value.schema.json") => ({
+    contractKind: "schema_asset", contractId, owningProduct: productId, contractVersion: "5.0.0", contractDigest: sha256Bytes(bytes),
+    assetLocator: { mediaType: "application/schema+json", path, contentDigest: sha256Bytes(bytes) }, ...overrides });
+  const programRef = "program://abiogenesis/schema-admission@5", handle = "overlay://abiogenesis/schema-admission@5";
+  const declaration = { contractRef: contractId, contractVersion: "5.0.0", valueKind: "r4_application_value" };
+  const program = { programRef, callableMembership: [] };
+  const publication = { moduleRef: "module://abiogenesis/schema-admission@5", contracts: [declaration], programs: [program] };
+  const row = { handle, moduleRef: publication.moduleRef, publicationDigest: sha256Canonical("publication"), owningProductId: productId,
+    declarationKind: "overlay", declarationOrContractRef: contractId, programMembershipRefs: [programRef] };
+  const contribution = { moduleRef: row.moduleRef, handle, kind: "overlay", declarationOrContractRef: contractId, owningProductId: productId,
+    programMembershipRefs: [programRef], provenanceRef: "provenance://abiogenesis/schema-admission@5" };
+  const binding = { bindingId: "binding://abiogenesis/schema-admission@5", bindingDigest: sha256Canonical("binding") };
+  const lock = { lockId: "lock://abiogenesis/schema-admission@5", lockDigest: sha256Canonical("lock") };
+  const catalog = { kind: "graph_function_catalog", workspaceBindingId: binding.bindingId, workspaceBindingDigest: binding.bindingDigest,
+    basisDigest: sha256Canonical("catalog"), boundPublications: [publication],
+    readinessBasis: { workspaceBinding: binding, resolvedLock: lock, installedProducts: [{ productId }],
+      verifiedProducts: [{ productId, descriptorRef: "descriptor://abiogenesis/schema-admission@5", productContentDigest: sha256Canonical("content"),
+        contributionManifestRef: "contributions://abiogenesis/schema-admission@5", contributionManifestDigest: sha256Canonical("contributions"),
+        contributionManifest: { rows: [contribution] } }] } };
+  const view = { kind: "graph_function_catalog_view", viewDigest: sha256Canonical("view"), declarationsByHandle: { [handle]: row }, entries: [] };
+  let install;
+  const environment = () => ({ kind: "exact_prefix_workspace_environment", workspaceBindingCandidate: binding, resolvedProductLock: lock,
+    productInstalls: [install], artifactTruth: { projectionRef: "truth://r4", projectionDigest: sha256Canonical("truth") },
+    workspaceAuthorityBasis: { authorityBasisDigest: sha256Canonical("authority") }, workspaceBinding: binding });
+  const replacements = {
+    "./catalog.js": { admitGraphFunctionCatalog: () => catalog, narrowGraphFunctionCatalog: () => view,
+      applyCatalogDeclaration: () => ({ kind: "declaration_application" }) },
+    "../abg/environment_admission.js": { projectExactPrefixWorkspaceEnvironment: environment, projectAdmittedProductInstall: () => install },
+    "../abg/event_store.js": { validateDurablePrefixCoordinate: () => true },
+    "./publication.js": { modulePublicationSemanticDigest: () => row.publicationDigest },
+    "./environment.js": { productInstallCoordinate: () => ({ ref: productId, digest: sha256Canonical("install") }) },
+    "../validator/raw_admission.js": { rawAdmitValue: () => ({ kind: "raw_admitted_value" }) },
+    "./declaration_exports.js": { readExecutingToolchainIdentity: () => ({ manifestDigest: sha256Canonical("toolchain") }) },
+  };
+  const file = fileURLToPath(new URL("../../build/code/src/product/declaration_application.js", import.meta.url));
+  const site = new SourceTextModule(await readFile(file, "utf8"), { identifier: file });
+  await site.link(async (specifier) => {
+    const actual = await import(specifier.startsWith(".") ? pathToFileURL(resolve(dirname(file), specifier)).href : specifier);
+    const values = { ...actual, ...(replacements[specifier] ?? {}) };
+    return new SyntheticModule(Object.keys(values), function () { for (const [k, v] of Object.entries(values)) this.setExport(k, v); });
+  });
+  await site.evaluate();
+  const construct = (contractRow, bytes = current) => {
+    install = { productId, installedRoot, publicContracts: [contractRow] };
+    return site.namespace.constructCatalogApplicationResources({ catalog, catalogView: view, catalogRow: row,
+      construction: { prefix: { coordinateDigest: sha256Canonical("prefix") }, programRef, targetRef: programRef,
+        value: { kind: "r4_application_value" }, schemaAssets: [{ productId, contractId, bytesBase64: bytes.toString("base64") }] } });
+  };
+  // The falsifier: the admitted asset passes every check and the application is constructed.
+  const admitted = construct(schemaRow());
+  assert.equal(admitted.application.kind, "declaration_application");
+  assert.deepEqual(admitted.resources.validationReceipt.ref.startsWith("validation://abiogenesis/"), true);
+  const unready = (contractRow, message, bytes) => assert.throws(() => construct(contractRow, bytes),
+    (error) => error.code === "unready" && error.message === message, message);
+  unready(schemaRow({ assetLocator: { ...schemaRow().assetLocator, mediaType: "application/json" } }), "schema asset has no compatible installed locator");
+  unready(schemaRow({ contractVersion: "4.0.0" }), "schema asset has no compatible installed locator");
+  unready(schemaRow({}, current, "../outside.schema.json"), "schema locator escapes its installed owner");
+  unready(schemaRow({}, draft07, "schemas/draft07.schema.json"), "unsupported or crossed schema dialect/identity", draft07);
+});

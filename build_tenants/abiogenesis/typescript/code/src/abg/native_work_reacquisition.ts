@@ -18,7 +18,7 @@ import { pathToFileURL } from "node:url";
 import { nativeWorkReacquisitionGraphFunction } from "../gtl/worksite_command_execution.js";
 import { NATIVE_WORK_REACQUISITION_IDS as ids, constructNativeWorksiteCommandExecutionTask,
   isNativeWorksiteCommandReacquisitionRequest,
-  type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+  type NativeWorksiteCommandReacquisitionRequest, type NativeWorksiteCommandExecutionTask, type WorksiteCommandAmbientEnvironment } from "../product/worksite_command_execution.js";
 import { observeWorksiteContext } from "../product/worksite_operations.js";
 import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate,
   runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
@@ -85,7 +85,7 @@ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
   if (covers === null) return refused(refusal, stage, "binding_cover", { workspaceBindingRef: request.workspaceBinding.bindingId });
   stage = "native_task_construction";
   const task = constructNativeWorksiteCommandExecutionTask({ ...request,
-    sourceReacquisition: { request, nativeBasis, bindingCoverEventRefs: covers } });
+    sourceReacquisition: { request, nativeBasis, bindingCoverEventRefs: covers } }, null);
   stage = "native_current_source";
   const source = projectNativeWorkCommandSourceAtPrefix(prefix, task);
   if (source === null) return refused(refusal, stage, "command_source");
@@ -200,7 +200,7 @@ function governanceReacquisitionRequestMatches(prefix: RuntimeEventPrefix, execu
     worksiteCommandConfigurationMatches({ ...governanceTestingConfiguration(state), workspaceAuthorityBasis: request.workspaceAuthorityBasis,
       workspaceBinding: request.workspaceBinding, protectedSubjects: subjects.filter(s => s.kind === "worksite_subject") },
       constructWorksiteCommandConfiguration({ ...request, protectedSubjects: subjects.filter(s => s.kind === "worksite_subject"),
-        outcomePredicates: request.outcomePredicates ?? [] }));
+        outcomePredicates: request.outcomePredicates ?? [] }, null));
   if (!matches) refused(refusal, "native_occurrence_subjects", "paths_command_configuration");
   return matches;
 }
@@ -212,10 +212,10 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
 /** @internal Call-local first refusal through the same preparation owner. */
 export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
   context: WorksiteContextObservation, historicalSource: AbgHistoricalGraphCallSourceResource | undefined,
-  refusal: GovernanceTestingRefusal | undefined): NativeWorksiteCommandExecutionTask | null;
+  refusal: GovernanceTestingRefusal | undefined, ambient?: WorksiteCommandAmbientEnvironment | null): NativeWorksiteCommandExecutionTask | null;
 export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
   context: WorksiteContextObservation, historicalSource?: AbgHistoricalGraphCallSourceResource,
-  refusal?: GovernanceTestingRefusal): NativeWorksiteCommandExecutionTask | null {
+  refusal?: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null): NativeWorksiteCommandExecutionTask | null {
   let stage = "native_preparation_owner";
   try {
     const owned = authenticateNativeInstructionAssemblyBasis(basis);
@@ -247,7 +247,7 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
       source: { prefix: basis.predecessorPrefix, graphCallRef: source.sourceResult.graphCallId!, declarationReference: reference },
       selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath,
         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
-      ...governanceTestingConfiguration(input) });
+      ...governanceTestingConfiguration(input) }, ambient);
     const nativeBasis = { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef };
     stage = "native_historical_declaration";
     const declaration = declarationProofFor(request, historicalSource);
@@ -267,7 +267,7 @@ export function governanceNativeWorkReacquisitionResultMatches(basis: NativeInst
         !same(owned.inputValue, admittedInput.value) || !record(value) || !record(value.sourceReacquisition)) return false;
     const task = value as unknown as NativeWorksiteCommandExecutionTask, proof = task.sourceReacquisition;
     if (proof === undefined || !same(proof.nativeBasis, { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef }) ||
-        !isNativeWorksiteCommandReacquisitionRequest(proof.request) || !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }), task)) return false;
+        !isNativeWorksiteCommandReacquisitionRequest(proof.request) || !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }, null), task)) return false;
     const occurrence = projectNativeWorkReacquisitionOccurrence(proof.nativeBasis, proof.request, owned.prefix);
     if (occurrence === null || occurrence.call.implementationRef !== governanceRef("implementation", "prepare-testing") ||
         projectCCallCarrierPhaseAtPrefix(owned.prefix, occurrence.call)?.phase !== "selected_no_evidence") return false;
@@ -357,7 +357,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
   try {
   const proof = input.task.sourceReacquisition;
   if (proof === undefined || !isNativeWorksiteCommandReacquisitionRequest(proof.request) ||
-    !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }), input.task) ||
+    !same(constructNativeWorksiteCommandExecutionTask({ ...proof.request, sourceReacquisition: proof }, null), input.task) ||
     !sameEventResource(proof.request.source.prefix, proof.nativeBasis.predecessorPrefix) ||
     (currentOwnerPrefix !== undefined && (!sameEventResource(proof.nativeBasis.predecessorPrefix, currentOwnerPrefix) ||
       proof.nativeBasis.predecessorPrefix.prefixLength > currentOwnerPrefix.prefixLength))) return null;

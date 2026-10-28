@@ -26,6 +26,7 @@ import {
   constructWorksiteCommandExecutionTask,
   isWorksiteReadDependencyBasis,
   resolveWorksiteCommandExecutionJudgmentRelation,
+  type WorksiteCommandAmbientEnvironment,
 } from "./worksite_command_execution.js";
 
 import { worksitePreparationSchemaSources, worksitePreparationContractDeclarations, 
@@ -76,7 +77,7 @@ function validConfiguration(input: WorksitePreparationInput): boolean {
       allowedWriteTerritories: input.allowedWriteTerritories,
       protectedSubjects: [...tasks.flatMap((task) => task.targets.map((target) => target.subject)), ...dependencies.map(d=>d.subject),
         ...(readBasis?.members.map(row => row.subject) ?? [])],
-    });
+    }, null);
     return true;
   } catch { return false; }
 }
@@ -149,7 +150,10 @@ export function selectWorksiteConstructionTask(input: WorksitePreparationInput):
   if (!isWorksitePreparationInput(input)) throw new TypeError("invalid worksite preparation input");
   return input.constructionTask;
 }
-export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput): WorksiteExecutionTask {
+/** `ambient` is the operation boundary's capture; a caller without one takes
+ * the constructors' call-time read. */
+export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput,
+  ambient?: WorksiteCommandAmbientEnvironment | null): WorksiteExecutionTask {
   if (!isWorksitePreparationBoundInput(input)) throw new TypeError("invalid worksite preparation bound input");
   const tasks = preparationConstructionTasks(input.entry);
   const original = tasks[0]!;
@@ -188,9 +192,9 @@ export function prepareWorksiteCommandTask(input: WorksitePreparationBoundInput)
         source: { kind: "construction_member", sourceMemberRef: selected.sourceMemberRef } };
     });
     return constructWorksiteRevisionCommandExecutionTask({ ...common, revisionBasisRef: entry.revisionBasisRef,
-      revisionBasisDigest: entry.revisionBasisDigest, snapshotSources });
+      revisionBasisDigest: entry.revisionBasisDigest, snapshotSources }, ambient);
   }
-  return constructWorksiteCommandExecutionTask(common);
+  return constructWorksiteCommandExecutionTask(common, ambient);
 }
 
 export function resolveWorksitePreparationJudgmentRelation(predicateRef: string): Readonly<{

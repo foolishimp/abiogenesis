@@ -21,7 +21,7 @@ import { observeWorksiteContext, observeWorksiteSubject } from "../product/works
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { RuntimeEvent } from "./event_store.js";
 import { governanceNativeWorkReacquisitionResultMatches, type GovernanceTestingRefusal } from "./native_work_reacquisition.js";
-import type { NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
+import type { NativeWorksiteCommandExecutionTask, WorksiteCommandAmbientEnvironment } from "../product/worksite_command_execution.js";
 import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanceFulfillmentSourceMatches, deriveGovernanceObligations,
   bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
   type GovernanceFulfillmentEvidence } from "../product/default_library_fulfillment.js";
@@ -270,26 +270,26 @@ export async function projectGovernanceTestingTask(basis: NativeInstructionAssem
 /** @internal Call-local refusal through the unchanged nullable task projection. */
 export async function projectGovernanceTestingTask(basis: NativeInstructionAssemblyBasis, input: unknown,
   reacquire: ((context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null) | undefined,
-  refusal: GovernanceTestingRefusal): Promise<NativeWorksiteCommandExecutionTask | import("../product/worksite_command_execution.js").ObservedWorksiteCommandExecutionTask | null>;
+  refusal: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null): Promise<NativeWorksiteCommandExecutionTask | import("../product/worksite_command_execution.js").ObservedWorksiteCommandExecutionTask | null>;
 export async function projectGovernanceTestingTask(basis: NativeInstructionAssemblyBasis, input: unknown,
   reacquire?: (context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null,
-  refusal?: GovernanceTestingRefusal) {
+  refusal?: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null) {
   const o = owner(basis, input, refusal);
   if (o === null) return null;
   if (!isGovernanceWorkState(input) || basis.graphFunction.declarations["abg.default_library_purpose"] !== "testing") return testingRefused(refusal, "testing_input", "state_purpose");
   const selectedSource = input.synthesis?.judgment.subjectEvidenceRef, observed = selectedSource === null || selectedSource === undefined;
   const observation = await observeGovernanceWorksite(o, input, observed ? input.original.testing.selectedPaths : [], refusal);
-  return observation === null ? null : testingTask(o, input, observation, reacquire, refusal);
+  return observation === null ? null : testingTask(o, input, observation, reacquire, refusal, ambient);
 }
 /** Testing task construction over the admitted observation and prefix; reads no
  * worksite. A changed selected native source is the reacquisition operation's,
  * entered through the caller's callback. */
 function testingTask(o: Owner, input: GovernanceWorkState, observation: GovernanceWorksiteObservation,
   reacquire?: (context: WorksiteContextObservation, refusal?: GovernanceTestingRefusal) => NativeWorksiteCommandExecutionTask | null,
-  refusal?: GovernanceTestingRefusal) {
+  refusal?: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null) {
   const current = operating(o), context = observation.context, selectedSource = input.synthesis?.judgment.subjectEvidenceRef;
   if (selectedSource === null || selectedSource === undefined)
-    return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) });
+    return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) }, ambient);
   const p = subjectEvidence(o, input, "testing", refusal);
   if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
   if (!same(p.value.after, context)) {
@@ -299,7 +299,7 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
   }
   return constructNativeWorksiteCommandExecutionTask({ ...current, sourceNativeWork: p.value,
     selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath, subjectUri: pathToFileURL(resolve(current.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
-    ...governanceTestingConfiguration(input) });
+    ...governanceTestingConfiguration(input) }, ambient);
 }
 export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
   const o = owner(basis, input), purpose = basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose;

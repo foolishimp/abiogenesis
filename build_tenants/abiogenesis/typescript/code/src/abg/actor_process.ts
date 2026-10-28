@@ -64,7 +64,7 @@ import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessC
 import { sha256Bytes } from "../shared/digests.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
-import type { WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
+import type { WorksiteCommandAmbientEnvironment, WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
 const PROCESS_TERMINATION_GRACE_MS = 1_000;
@@ -696,6 +696,24 @@ export interface ActorProcessInvocationInput {
 export function selectedWorksiteCommandExecutionLimits(): WorksiteCommandExecutionLimits {
   return { absoluteTimeoutMs: positiveInteger(process.env, "ABG_TS_FP_ABSOLUTE_TIMEOUT_MS", 3_600_000),
     inactivityTimeoutMs: positiveInteger(process.env, "ABG_TS_FP_TIMEOUT_MS", 60_000) };
+}
+
+/**
+ * The one reader of the ambient command environment: HOME, TMPDIR, LANG,
+ * LC_ALL and PATH, in that order, as frozen rows. An absent variable has no
+ * row and no default is applied here; a present value that is not one string
+ * without NUL is refused at the reader. The operation boundary reads it once
+ * and carries the rows on the basis or occurrence its leaf receives.
+ */
+export function selectedWorksiteCommandAmbientEnvironment(): WorksiteCommandAmbientEnvironment {
+  const rows: { name: "HOME" | "TMPDIR" | "LANG" | "LC_ALL" | "PATH"; value: string }[] = [];
+  for (const name of ["HOME", "TMPDIR", "LANG", "LC_ALL", "PATH"] as const) {
+    const value: unknown = process.env[name];
+    if (value === undefined) continue;
+    if (typeof value !== "string" || value.includes("\0")) throw new TypeError(`ambient ${name} is not one string without NUL`);
+    rows.push({ name, value });
+  }
+  return deepFreeze(rows);
 }
 
 function positiveLimit(key: string, value: number): number {
