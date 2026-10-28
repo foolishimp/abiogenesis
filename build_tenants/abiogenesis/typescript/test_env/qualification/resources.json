@@ -1,0 +1,92 @@
+{
+  "kind": "qualification_resource_index",
+  "schemaVersion": "1",
+  "subject": {
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "packageVersion": "5.0.0-rc.1",
+    "candidateCommit": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+    "archive": {
+      "name": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "digest": "sha256:550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6"
+    }
+  },
+  "prospectiveRelease": {
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.1",
+    "namespace": "abiogenesis",
+    "profile": "one_project_unqualified",
+    "projectSubtree": ".",
+    "versionLine": "5.0.0",
+    "ordinal": 1,
+    "version": "5.0.0-rc.1",
+    "releaseClaim": {
+      "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+      "byteCount": 3649
+    }
+  },
+  "runIndependent": {
+    "classification": {
+      "path": "test_env/qualification/classification.json",
+      "role": "inventory member set, surface roles, surface and rule partitions"
+    },
+    "materialSelection": {
+      "path": "test_env/qualification/material-selection.json",
+      "role": "per-role J material selection and its bound"
+    },
+    "lawBasis": {
+      "ref": "qualification-law://abiogenesis/e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85",
+      "digest": "sha256:e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85"
+    },
+    "ruleCatalog": {
+      "ref": "catalog://abiogenesis/qualification/self-conformance@2",
+      "digest": "sha256:ef77e5a71fdb1262ad2c1ddd783941c6c7f1500acf1eeb68161e206c1f0d68eb",
+      "path": "contracts/qualification/rule-catalog.json"
+    },
+    "coverageCatalog": {
+      "ref": "qualification-coverage://abiogenesis/dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789",
+      "digest": "sha256:dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789"
+    },
+    "tenantManifest": {
+      "ref": "tenant-conformance-manifest://abiogenesis/5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+      "digest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+      "path": "test_env/qualification/tenant-manifest.json"
+    },
+    "verificationRecipe": {
+      "path": "test_env/qualification/recipe/verification-recipe.json",
+      "recipePath": "test_env/qualification/recipe/verification-recipe.json",
+      "digest": "sha256:bfbe4d62380594f5534a26677931ab7e56c37785d970ad3706af4c87c9c625e3",
+      "byteCount": 249845,
+      "sourceInputs": 1102,
+      "auxiliaryInputs": 16,
+      "commandConfigurationDigest": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+      "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+      "writeTerritoriesDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+      "ambientRows": [
+        "HOME",
+        "TMPDIR",
+        "LANG",
+        "PATH"
+      ],
+      "requiredExecutionBudgetMs": 855250
+    },
+    "inventory": {
+      "path": "test_env/qualification/inventory.json",
+      "coordinate": "carried by the file itself; no other member binds it"
+    }
+  },
+  "runSpecific": [
+    "basis (installedProduct and workspaceBinding of the run)",
+    "bound scope (subjectBasis)",
+    "resource manifest",
+    "verification material (observed C2)",
+    "assessment plan and tasks"
+  ],
+  "generator": {
+    "path": "test_env/qualification/build-resources.mjs",
+    "package": {
+      "name": "@abiogenesis/typescript-tenant",
+      "version": "5.0.0-rc.1"
+    }
+  }
+}

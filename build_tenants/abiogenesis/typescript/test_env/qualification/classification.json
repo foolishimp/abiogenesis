@@ -1,0 +1,44 @@
+{
+  "kind": "qualification_inventory_classification",
+  "schemaVersion": "1",
+  "purpose": "Declares the subject inventory of the pre-RC candidate of @abiogenesis/typescript-tenant 5.0.0-rc.1: its selected root, its member set, the surface role of each member and the declared surface and rule partitions from which the bound qualification scope is constructed. The classification is a declaration for J to assess (inventory_coverage, inventory_classification); it supplies no authority.",
+  "repository": "repo://abiogenesis",
+  "tenantPath": "build_tenants/abiogenesis/typescript",
+  "selectedRoots": ["repo://abiogenesis/build_tenants/abiogenesis/typescript"],
+  "memberRefPrefix": "repo://abiogenesis/build_tenants/abiogenesis/typescript/",
+  "memberPathPrefix": "build_tenants/abiogenesis/typescript/",
+  "coverage": "complete_claim",
+  "memberSet": {
+    "rule": "Every file of the selected root that Git tracks or would track (git ls-files --cached --others --exclude-standard, run in the tenant root), minus the exclusions below. Ignored outputs (build, node_modules, test_env/test_runs) are not members.",
+    "exclusions": [
+      { "path": "test_env/qualification/inventory.json", "reason": "The inventory itself: it carries its own identity and cannot be its own member. No other file of the selected root binds the inventory's digest." }
+    ]
+  },
+  "outsideSelectedRoots": [
+    { "ref": "repo://abiogenesis/specification", "reason": "The constitutional specification is the law, not the subject. The law basis binds it through the rule catalog's 95 sources (refs repo://abiogenesis/specification/..., byte copies under contracts/qualification/sources/, which are members here with the constitutional role). Selecting it as a subject root would give two inventory and catalog sources one ref with two paths, and a J task's material requires unique refs." },
+    { "ref": "repo://abiogenesis/build_tenants/abiogenesis/python", "reason": "A paused sibling realization; not part of this candidate." },
+    { "ref": "repo://abiogenesis/build_tenants/common", "reason": "Shared cross-tenant material; the candidate's package does not include it." }
+  ],
+  "roles": [
+    { "id": "release-claim", "match": { "file": "release-claim.md" }, "surfaceRoles": ["release_claim"], "reason": "The release claim of 5.0.0-rc.1. prospectiveRelease.releaseClaim binds this member's coordinate (REQ-P-QUAL-057C) and publication copies its bytes. It is outside the pack and is neither law, contract nor manifest; the role set's release_claim names it." },
+    { "id": "manifest", "match": { "files": ["package.json", "package-lock.json", "tsconfig.json", "product-toolchain-manifest.json", ".gitignore"] }, "surfaceRoles": ["manifest"], "reason": "Package, lock, compiler, product-toolchain and ignore manifests of the tenant." },
+    { "id": "constitutional-sources", "match": { "prefix": "contracts/qualification/sources/" }, "surfaceRoles": ["constitutional"], "reason": "Byte copies of the specification and method sources the rule catalog extracts and the law basis binds." },
+    { "id": "qualification-law", "match": { "prefix": "contracts/qualification/" }, "surfaceRoles": ["qualification"], "reason": "The published qualification rule catalog, law basis, coverage catalog and authority inputs." },
+    { "id": "public-contract", "match": { "prefix": "contracts/" }, "surfaceRoles": ["public_contract"], "reason": "Published public contracts, schemas, vocabularies, capabilities and default library assets." },
+    { "id": "code", "match": { "prefix": "code/" }, "surfaceRoles": ["code"], "reason": "Tenant source code." },
+    { "id": "design", "match": { "prefix": "design/" }, "surfaceRoles": ["design"], "reason": "Tenant design surfaces." },
+    { "id": "execution-contract", "match": { "prefix": "scripts/" }, "surfaceRoles": ["execution_contract"], "reason": "Build, generation, lint and reporter scripts the package scripts and the verification recipe execute." },
+    { "id": "qualification-resources", "match": { "prefix": "test_env/qualification/" }, "surfaceRoles": ["qualification"], "reason": "The verification recipe, its inputs and these qualification resource declarations." },
+    { "id": "proof", "match": { "prefix": "test_env/" }, "surfaceRoles": ["proof"], "reason": "Tests, support, fixtures, falsifiers and proof surfaces." }
+  ],
+  "roleRule": "The first matching entry in order classifies a member; a member no entry matches is a classification error.",
+  "surfaceGroups": {
+    "rule": "One group per (role entry id, directory key): the directory key is the first two path segments of a tenant-relative path with three or more segments, the first segment of a two-segment path, and the whole path of a top-level file. groupRef = qualification-surface-group://abiogenesis/typescript-tenant/<role id>/<segments>.",
+    "rootRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript"],
+    "ownerRefs": ["product://abiogenesis/typescript-tenant@5.0.0-rc.1"],
+    "sourceRefs": ["repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json"]
+  },
+  "ruleGroups": {
+    "rule": "One group per rule catalog source: the group holds every rule whose sourceRef is that source, and its sourceRefs are that source alone. groupRef = qualification-rule-group://abiogenesis/typescript-tenant/<source ordinal in the catalog>."
+  }
+}

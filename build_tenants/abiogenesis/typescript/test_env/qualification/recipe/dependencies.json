@@ -1,0 +1,119 @@
+{
+  "kind": "qualification_recipe_dependencies",
+  "schemaVersion": "1",
+  "source": "package-lock.json (lockfileVersion 3); each archive is the locked tarball whose sha512 equals its lock integrity",
+  "dependencies": [
+    {
+      "name": "@standard-schema/spec",
+      "version": "1.1.0",
+      "path": "qualification-inputs/dependencies/@standard-schema__spec-1.1.0.tgz",
+      "digest": "sha256:a7cb7268be280ab518d450f8c3b07c86f23417225c0ab53691ed59b3067cceaf",
+      "byteCount": 4178
+    },
+    {
+      "name": "@types/node",
+      "version": "24.3.0",
+      "path": "qualification-inputs/dependencies/@types__node-24.3.0.tgz",
+      "digest": "sha256:f0c189f2e4afb3a09d5a8e54d925658be1f290f96f5651547b0697126aab30bf",
+      "byteCount": 442417
+    },
+    {
+      "name": "@valibot/to-json-schema",
+      "version": "1.7.1",
+      "path": "qualification-inputs/dependencies/@valibot__to-json-schema-1.7.1.tgz",
+      "digest": "sha256:37d9210b3613f84d9c1952a274c40e7b65c0ef7a7a197c743f0c694e8f8428b8",
+      "byteCount": 26470
+    },
+    {
+      "name": "ajv",
+      "version": "8.20.0",
+      "path": "qualification-inputs/dependencies/ajv-8.20.0.tgz",
+      "digest": "sha256:b2f0b3a893bbb8cc5efb6814f08b1499e19e31d5dd73683f5893382f48f6e7b3",
+      "byteCount": 217611
+    },
+    {
+      "name": "ajv-formats",
+      "version": "3.0.1",
+      "path": "qualification-inputs/dependencies/ajv-formats-3.0.1.tgz",
+      "digest": "sha256:f4d6980fd367381fd29199066911e863db8d97496613b6c2c5b91563a150acc5",
+      "byteCount": 15999
+    },
+    {
+      "name": "effect",
+      "version": "3.22.1",
+      "path": "qualification-inputs/dependencies/effect-3.22.1.tgz",
+      "digest": "sha256:94d00b7672f53dcb7482c3eea269ae0ce704ff138d07e9103a26433b2bb3d986",
+      "byteCount": 4215337
+    },
+    {
+      "name": "fast-check",
+      "version": "3.23.2",
+      "path": "qualification-inputs/dependencies/fast-check-3.23.2.tgz",
+      "digest": "sha256:e0dc9a854e04856bd9962fc64001a21d609d44a3ef0f3b1b224de5f488334646",
+      "byteCount": 281432
+    },
+    {
+      "name": "fast-deep-equal",
+      "version": "3.1.3",
+      "path": "qualification-inputs/dependencies/fast-deep-equal-3.1.3.tgz",
+      "digest": "sha256:b019a0980f27638dc3f85836b0e478f188e00d7a6e5852c0819fa86f56e47b8f",
+      "byteCount": 3656
+    },
+    {
+      "name": "fast-uri",
+      "version": "3.1.7",
+      "path": "qualification-inputs/dependencies/fast-uri-3.1.7.tgz",
+      "digest": "sha256:3fa380284be4ecbf471c1dbb8c5da6f517c95f54279f88c2037985d03fdc6d92",
+      "byteCount": 43760
+    },
+    {
+      "name": "json-schema-traverse",
+      "version": "1.0.0",
+      "path": "qualification-inputs/dependencies/json-schema-traverse-1.0.0.tgz",
+      "digest": "sha256:023222622df29fc274bde5d3590e47aa1d4a8e3c1d6e2aba029948ed79799b21",
+      "byteCount": 6074
+    },
+    {
+      "name": "jsonc-parser",
+      "version": "3.3.1",
+      "path": "qualification-inputs/dependencies/jsonc-parser-3.3.1.tgz",
+      "digest": "sha256:4a0315b8671e7463bae7af7c142cdf19e9aa7ba39eb36dc2df383b8648e3cbc9",
+      "byteCount": 27354
+    },
+    {
+      "name": "pure-rand",
+      "version": "6.1.0",
+      "path": "qualification-inputs/dependencies/pure-rand-6.1.0.tgz",
+      "digest": "sha256:cb9e5ff9b8f365590b793b63a29941913414285a143ba2ac8313f963f7f06fd7",
+      "byteCount": 18677
+    },
+    {
+      "name": "require-from-string",
+      "version": "2.0.2",
+      "path": "qualification-inputs/dependencies/require-from-string-2.0.2.tgz",
+      "digest": "sha256:cb694a4965908f7775a0c757f00cf4e624d193cd71d77988fbcca0f597b88d82",
+      "byteCount": 1816
+    },
+    {
+      "name": "typescript",
+      "version": "5.9.2",
+      "path": "qualification-inputs/dependencies/typescript-5.9.2.tgz",
+      "digest": "sha256:67a3bc82e822b8f45f653a80fc3a9730d23214d36c83ba85dd7f5abebee82062",
+      "byteCount": 4376902
+    },
+    {
+      "name": "undici-types",
+      "version": "7.10.0",
+      "path": "qualification-inputs/dependencies/undici-types-7.10.0.tgz",
+      "digest": "sha256:de1edd1be9533525edf772b908e1b5643821c5bf95de199539c08fc534e7fd63",
+      "byteCount": 25969
+    },
+    {
+      "name": "valibot",
+      "version": "1.4.2",
+      "path": "qualification-inputs/dependencies/valibot-1.4.2.tgz",
+      "digest": "sha256:523d2044ac64460f8f29cae16fec163ff96e8012c084d0f01a817c3db04db447",
+      "byteCount": 184447
+    }
+  ]
+}
