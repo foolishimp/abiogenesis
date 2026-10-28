@@ -1,0 +1,33 @@
+--- run-installed.mjs	2026-10-21 10:43:04
++++ run-installed-d14c.mjs	2026-10-28 23:46:10
+@@ -17,6 +17,7 @@
+ const within=(root,path)=>{const r=relative(root,path);return r===''||(!r.startsWith('..')&&!isAbsolute(r));};
+ const cleanJson=value=>JSON.parse(JSON.stringify(value)); // Callable properties are not evidence; their package coordinates are retained separately.
+ let evidence=null,configuration=null,lane=null,runEnvironment=null;
++const providerCredential=process.env.CLAUDE_CODE_OAUTH_TOKEN; // D1/D4-c: read once at load, before main() replaces the environment; it enters only the native actor environment and is never recorded.
+ const measures=[],commands=[],retainedCleanup=[];
+ async function record(name,value,raw=false) {
+   const path=join(evidence,name); assert.ok(within(evidence,path)); await mkdir(dirname(path),{recursive:true});
+@@ -58,7 +59,7 @@
+   assert.equal(grant.configurationSha256,sha(bytes));assert.equal(grant.runnerSha256,sha(await readFile(self)));
+   assert.equal(grant.oracleSha256,sha(await readFile(new URL('../realization/proof/oracle.mjs',import.meta.url))));
+   assert.ok(grant.lanes.includes(selectedLane));assert.equal(grant.subjectId,c.subject.id);
+-  assert.equal(c.method.manifestSha256,'069285ad5a79d59ca2dd835e34a54b3e537b0eeef99c29994b18c339dbe62232');
++  assert.equal(c.method.manifestSha256,'f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477');
+   assert.deepEqual(c.method.composition,[]);assert.equal(c.retryCount,0);assert.equal(c.cleanup,false);
+   assert.ok(isAbsolute(c.subject.stageTenant));
+   assert.notEqual(c.subject.stageTenant,'/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript');
+@@ -332,11 +333,11 @@
+   let handoff=environment.store.projectReopenAuthorityAndClose();await record('setup-handoff.json',handoff);
+   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
+   await acquisitionNegatives({environment,selectedEnvironment,selected,helpers,publicApi,eventResource:resource()});
+-  const actorEnvironment={...runEnvironment,ABG_TS_CLAUDE_COMMAND:configuration.provider.executable,
++  const actorEnvironment={...runEnvironment,...(providerCredential===undefined?{}:{CLAUDE_CODE_OAUTH_TOKEN:providerCredential}),ABG_TS_CLAUDE_COMMAND:configuration.provider.executable,
+     ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(['--model','claude-opus-5-5','--effort','xhigh','--tools','']),
+     ABG_TS_FP_TIMEOUT_MS:'120000',ABG_TS_FP_ABSOLUTE_TIMEOUT_MS:'600000',ABG_TS_FP_TERMINATION_GRACE_MS:'1000'};
+   await record('native-input.json',NATIVE_TASK);await record('native-expected.json',NATIVE_EXPECTED);
+-  await record('native-environment.json',actorEnvironment);
++  await record('native-environment.json',providerCredential===undefined?actorEnvironment:{...actorEnvironment,CLAUDE_CODE_OAUTH_TOKEN:'[withheld]'});
+   // These are actual Public preparation/assembly refusals, with a zero-launch oracle.
+   // Their identities are distinct work, never retries of a failed native semantic call.
+   for(const test of [{name:'missing-resources',input:structuredClone(NATIVE_TASK),resources:false,issue:'missing_binding'},

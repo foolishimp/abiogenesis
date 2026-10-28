@@ -1,0 +1,99 @@
+{
+  "kind": "t287_installed_proof_configuration",
+  "status": "activated",
+  "activationFile": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/config/effect-grant-p1.json",
+  "method": {
+    "basis": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "composition": []
+  },
+  "retryCount": 0,
+  "cleanup": false,
+  "subject": {
+    "id": "candidate",
+    "stageTenant": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript",
+    "archive": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "sha256": "550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6"
+    },
+    "manifest": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "d00532a5d351837b9bf414b43adb415efa00b40988b95e74389277cf7e9f4467"
+    },
+    "packageInventory": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/candidate-package-inventory.json",
+      "sha256": "5b192882f60338c19acbeba5503d37cb4f9d2f0c50f9856dc6a7fd7cb12b48de"
+    },
+    "supportManifest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/claude/20261028T124519Z_D1D4C_INSTALLED_PROOF/candidate-support-manifest-fd38e8227.json",
+      "sha256": "cd04ea23ade646b904e5186ae785788411cbf8bd7fd781af6ffb94d9cfed4d9b"
+    },
+    "inventories": [
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/combined-source-manifest.json",
+        "sha256": "c5f5f5bb64f7947f730dbdea69b9d88b91d72c129c9c70b2adbcfde342d23e98",
+        "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage"
+      },
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/generated-and-dependency-manifest.json",
+        "sha256": "ec86a75e98723066330180de82aa1959b386c8e988eb17f959f16557565af190",
+        "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript"
+      }
+    ]
+  },
+  "toolchains": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    },
+    "typescript": {
+      "version": "5.9.2",
+      "lockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+    }
+  },
+  "environment": {
+    "PATH": "/opt/homebrew/Cellar/node/24.7.0/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "HOME": "/Users/jim",
+    "LANG": "en_AU.UTF-8",
+    "npm_config_offline": "true",
+    "npm_config_ignore_scripts": "true",
+    "npm_config_audit": "false",
+    "npm_config_fund": "false"
+  },
+  "requiredEvidence": [],
+  "provider": {
+    "executable": "/Users/jim/.local/share/claude/versions/2.1.303",
+    "sha256": "d2da3b003dc08b88b7230469014fe3e1dc6fe94bc8f648e89b34175d30269370",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "inactivityTimeoutMs": 120000,
+    "absoluteTimeoutMs": 600000,
+    "terminationGraceMs": 1000
+  },
+  "sourceRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2",
+  "sourceManifest": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/manifest.json",
+    "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "lanes": {
+    "public-preparation": {
+      "runId": "t287-candidate-p1-f6f4658a3a7a02e6",
+      "roots": {
+        "evidence": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/evidence",
+        "host": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/host",
+        "scratchParent": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/scratchParent",
+        "worksite": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/worksite"
+      }
+    }
+  },
+  "externalConsumer": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/proof/external-consumer.mts",
+    "sha256": "6821ee75b2e9392246dcf121940f9c953dad19984756bd964164e40ee4487ce7"
+  }
+}

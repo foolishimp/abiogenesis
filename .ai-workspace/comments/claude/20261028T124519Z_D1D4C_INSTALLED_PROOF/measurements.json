@@ -1,0 +1,176 @@
+{
+  "kind": "d14c_measurements",
+  "runnerMeasurements": [
+    {
+      "id": "P1",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/evidence/measurements.json",
+      "sha256": "891dd7bec8782235dbf0b1fcfa259a45ecdbc2bfef83bc5f5b226414eaf86d3d",
+      "intervalsMs": {
+        "bootstrap-install": 6755.6,
+        "cold-installed-owner-acquisition": 297.5,
+        "public-preparation": 259449.9,
+        "execution-resolution-first": 1881.4,
+        "execution-resolution-warm": 1083.8,
+        "whole-lane": 281216.2
+      },
+      "archiveBytes": 10914938,
+      "footprints": [
+        {
+          "root": "evidence",
+          "files": 10711,
+          "logicalBytes": 508193472,
+          "allocatedKiB": 525616
+        },
+        {
+          "root": "host",
+          "files": 5321,
+          "logicalBytes": 71629698,
+          "allocatedKiB": 84028
+        },
+        {
+          "root": "scratchParent",
+          "files": 590,
+          "logicalBytes": 2863280,
+          "allocatedKiB": 4176
+        },
+        {
+          "root": "worksite",
+          "files": 1,
+          "logicalBytes": 1474,
+          "allocatedKiB": 4
+        }
+      ],
+      "timeL": {
+        "realS": 289.85,
+        "userS": 342.29,
+        "sysS": 16.91,
+        "maxRssBytes": 3158884352,
+        "loadAverage1mStart": 11.42,
+        "loadAverage1mEnd": 6.5
+      }
+    },
+    {
+      "id": "P2",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p2/evidence/measurements.json",
+      "sha256": "feb8859e5f76049ca5cf235cbd3a755a3a7df1aaca87f042cfde316f59e03eb9",
+      "intervalsMs": {
+        "bootstrap-install": 6940.3,
+        "second-physical-install-and-admission": 40481.2,
+        "whole-lane": 61153.8
+      },
+      "archiveBytes": 10914938,
+      "footprints": [
+        {
+          "root": "evidence",
+          "files": 15,
+          "logicalBytes": 97350646,
+          "allocatedKiB": 95108
+        },
+        {
+          "root": "host",
+          "files": 5321,
+          "logicalBytes": 71629698,
+          "allocatedKiB": 84028
+        },
+        {
+          "root": "scratchParent",
+          "files": 586,
+          "logicalBytes": 2857288,
+          "allocatedKiB": 4160
+        },
+        {
+          "root": "secondInstall",
+          "files": 5320,
+          "logicalBytes": 71628883,
+          "allocatedKiB": 84024
+        }
+      ],
+      "timeL": {
+        "realS": 69.76,
+        "userS": 79.64,
+        "sysS": 8.7,
+        "maxRssBytes": 2624798720,
+        "loadAverage1mStart": 6.37,
+        "loadAverage1mEnd": 9.04
+      }
+    },
+    {
+      "id": "P3",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p3/evidence/measurements.json",
+      "sha256": "6952f51ddf806ff9d3808eba00aff265a2f40b35a788a807803fd150a7759aac",
+      "intervalsMs": {
+        "bootstrap-install": 6521.2,
+        "language-setup-and-start": 35775.3,
+        "fresh-run_result": 1004.2,
+        "fresh-run_replay": 999.5,
+        "whole-lane": 38468.3
+      },
+      "archiveBytes": 10914938,
+      "footprints": [
+        {
+          "root": "evidence",
+          "files": 14,
+          "logicalBytes": 86427744,
+          "allocatedKiB": 84440
+        },
+        {
+          "root": "host",
+          "files": 5321,
+          "logicalBytes": 71629698,
+          "allocatedKiB": 84028
+        },
+        {
+          "root": "scratchParent",
+          "files": 11247,
+          "logicalBytes": 170585558,
+          "allocatedKiB": 197080
+        }
+      ],
+      "timeL": {
+        "realS": 46.11,
+        "userS": 52.75,
+        "sysS": 10.43,
+        "maxRssBytes": 3396911104,
+        "loadAverage1mStart": 7.76,
+        "loadAverage1mEnd": 30.97
+      }
+    },
+    {
+      "id": "P4",
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p4/evidence/failure.json",
+      "sha256": "71f1aed05b41e9f7bed638499abfafb3bfc8957c9faa7e608211aed8fe5b6a03",
+      "note": "no measurements.json: the lane stopped; its measures are inside failure.json",
+      "intervalsMs": {
+        "bootstrap-install": 6073.8,
+        "native-fixture-preparation": 30235.3,
+        "one-native-positive": 3418.9,
+        "whole-lane": 41712.9
+      },
+      "oneNativePositiveScope": "CLI round trip to the actor-process refusal; no actor launched, so no native interval, cost or turns",
+      "timeL": {
+        "realS": 48.63,
+        "userS": 56.6,
+        "sysS": 9.71,
+        "maxRssBytes": 3342630912,
+        "loadAverage1mStart": 5.81,
+        "loadAverage1mEnd": 7.56
+      }
+    }
+  ],
+  "headline": {
+    "buildS": {
+      "npmCi": 0.73,
+      "tsc": 7.75,
+      "generate": 22.65,
+      "pack": 3.75
+    },
+    "P1realS": 289.85,
+    "P2realS": 69.76,
+    "P3realS": 46.11,
+    "P5wallS": 544.69,
+    "P4realS": 48.63,
+    "nativeCostUsd": null,
+    "nativeTurns": null
+  },
+  "scope": "runner intervals are the runner process scope (parent CPU only); /usr/bin/time -l covers the whole command; maximum RSS is the largest single process, not a sum; the Executive sweep ran beside every interval"
+}
