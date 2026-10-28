@@ -17,20 +17,33 @@
 //               material projected. With --execute-recipe, the bound commands are
 //               executed once in a snapshot copy, timed, outside C2 (a
 //               measurement, not an observation).
+//   live        (D5-b) the admission check as prepare, the recipe executed once as
+//               its measurement, then, before any dispatch: the construction
+//               provenance over the Phase C and D chains (provenance.mjs), the
+//               declared domains and applications, the assessment plan in
+//               reference form with every slot's prompt rendered by the installed
+//               renderer, and the projection (assessment-plan.mjs). Two gates hold
+//               dispatch: a projection above the package cap, and a slot whose
+//               construction attribution is invalid (a slot member no chain
+//               constructed: the plan then resolves to no assessment,
+//               abg/qualification_proof.ts:677-697). The dispatch of the observed C2
+//               run and the slots, the owner rulings, F11 and AF22 are not authored:
+//               in the D5-b run both gates held before any dispatch.
 //   cold-reads  a fresh process re-derives the prepare records from the sealed
-//               archive, the event log and the tenant's files.
-// The live mode (assessment, ruling, F11, AF22) is not authored: D5's stop holds
-// it (the observed C2 runs inside one provider Bash call whose default timeout is
-// below the recipe's wall time).
+//               archive, the event log and the tenant's files, and, for a live
+//               archive, the construction record set from Git.
 import { execFileSync, spawnSync } from 'node:child_process';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, newArchive, preflight } from '../uat/runner.mjs';
 import { BoundaryFailure, installedModules, populateSandbox, publicCaller, verifyArtifact } from '../uat/public-setup.mjs';
 import { OUTPUTS, PROSPECTIVE_RELEASE_FIELDS, Q, RECIPE_PATH, TENANT_ROOT, classification, commandInput, constructInventory,
   constructScope, installedExports, lawAndCoverage, sha256, tenantManifest } from '../qualification/build-resources.mjs';
+import { PHASE_C_CLOSE, TENANT_PATH, REPOSITORY_ROOT, chainCommits, chainCoverage, constructChains, constructProvenance } from '../qualification/provenance.mjs';
+import { PACKAGE_CAP_USD, PRICE, acquireAssessmentResources, constructAssessmentMaterial, constructSlotSpecifications, materialSelection,
+  projectAssessment, ruleInputFloor } from '../qualification/assessment-plan.mjs';
 
 const PROMPT_BOUND_BYTES = 1_048_576;
 // Claude Code 2.1.306 (the provider lane's CLI): Bash default 120000 ms, maximum 600000 ms, unless
@@ -112,19 +125,19 @@ async function placeInputs(rows, targetRoot, dependencyRoot, sourceRoot = TENANT
 /** The C2 configuration over the bound worksite: the installed owner observes every protected input. */
 async function c2Configuration(q, environment, rows, declared, ambient) {
   const authority = environment.workspaceAuthorityBasis, binding = environment.workspaceBinding, mismatched = [];
-  const subjects = [];
+  const subjects = [], observations = [];
   for (const row of rows) {
     const subject = q.product.constructWorksiteSubject({ workspaceAuthorityBasis: authority, workspaceBinding: binding,
       subjectUri: pathToFileURL(resolve(authority.canonicalRoot, row.relativePath)).href, relativePath: row.relativePath });
     const observation = await q.product.observeWorksiteSubject(authority, binding, subject);
     if (observation.state !== 'file' || observation.fileDigest !== row.digest || observation.byteLength !== row.byteCount) mismatched.push(row.relativePath);
-    subjects.push(subject);
+    subjects.push(subject); observations.push(observation);
   }
   const bound = q.deep.c2.constructWorksiteCommandConfiguration({ workspaceAuthorityBasis: authority, workspaceBinding: binding,
     commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, protectedSubjects: subjects,
     allowedWriteTerritories: declared.allowedWriteTerritories }, ambient);
   const hash = q.product.sha256Canonical;
-  return { bound, observed: rows.length, mismatched, canonicalRoot: authority.canonicalRoot,
+  return { bound, subjects, observations, observed: rows.length, mismatched, canonicalRoot: authority.canonicalRoot,
     digests: { commandConfigurationDigest: hash(bound.commands), predicateConfigurationDigest: hash(bound.predicates),
       writeTerritoriesDigest: hash(bound.allowedWriteTerritories) } };
 }
@@ -182,21 +195,133 @@ async function executeRecipe(root, rows, bound, declared, dependencyRoot, record
     const text = await readFile(join(out, bound.commands[command].commandId.split('/').at(-1) + '.stdout'), 'utf8');
     p.matched = text === declared.outcomePredicates[i].declaration.equals;
   }
-  return record('recipe-execution.json', { kind: 'qualification_recipe_execution_measurement', sandbox, uptimeBefore: before, uptimeAfter: after,
+  const measured = { kind: 'qualification_recipe_execution_measurement', sandbox, uptimeBefore: before, uptimeAfter: after,
     elapsedMs, providerBashDefaultTimeoutMs: PROVIDER_BASH_DEFAULT_TIMEOUT_MS, exceedsProviderBashDefault: elapsedMs > PROVIDER_BASH_DEFAULT_TIMEOUT_MS,
-    results, predicates, classification: 'Bound commands executed once outside C2 in a snapshot copy; a wall-time and outcome measurement, not an admitted observation' });
+    results, predicates, classification: 'Bound commands executed once outside C2 in a snapshot copy; a wall-time and outcome measurement, not an admitted observation' };
+  await record('recipe-execution.json', measured);
+  return measured;
 }
 
-export async function prepare(config, { executeRecipe: execute = false, dependencies }) {
+/** The observed C2 execution material's size before that run exists (D5-b item 4), estimated from this run's own
+ * figures: the observed task (commands, predicates, write territories, every protected subject with its observation),
+ * every command's streams as base64 (the measurement's byte counts), one worksite delta row per path the measurement
+ * created in its snapshot copy (the rows the observation records, worksite_command_execution.ts:702-718), one
+ * snapshot member per protected input, and a fixed allowance for the result, judgment and evidence envelopes. */
+async function executionEstimate(q, c2, measurement, rows) {
+  const task = Buffer.from(q.product.canonicalJson({ commands: c2.bound.commands, outcomePredicates: c2.bound.predicates,
+    allowedWriteTerritories: c2.bound.allowedWriteTerritories, protectedObservations: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })) }));
+  const streams = measurement.results.reduce((n, r) => n + 4 * Math.ceil(r.stdout.byteLength / 3) + 4 * Math.ceil(r.stderr.byteLength / 3), 0);
+  const protectedPaths = new Set(rows.map(row => row.relativePath)), digest = 'sha256:' + '0'.repeat(64);
+  let deltaRows = 0, deltaBytes = 0;
+  for (const entry of await readdir(measurement.sandbox, { recursive: true, withFileTypes: true })) {
+    const path = relative(measurement.sandbox, join(entry.parentPath ?? entry.path, entry.name));
+    if (protectedPaths.has(path)) continue;
+    const after = { kind: 'worksite_path_observation', schemaVersion: '5.0.0', relativePath: path,
+      nodeKind: entry.isDirectory() ? 'directory' : entry.isSymbolicLink() ? 'symlink' : 'file', digest, byteLength: entry.isFile() ? 0 : null, symlinkTarget: null };
+    deltaBytes += Buffer.byteLength(JSON.stringify({ kind: 'worksite_path_delta', schemaVersion: '5.0.0', ordinal: deltaRows, changeKind: 'created',
+      relativePath: path, before: null, after, matchedTerritoryRef: 'write-territory://abiogenesis/' + '0'.repeat(64) })) + 1;
+    deltaRows += 1;
+  }
+  const snapshotBytes = rows.reduce((n, row) => n + Buffer.byteLength(JSON.stringify({ relativePath: row.relativePath, digest, byteLength: row.byteCount,
+    observationRef: 'observation://abiogenesis/' + '0'.repeat(64) })) + 1, 0);
+  const envelope = 65_536, estimatedBytes = task.length + streams + deltaBytes + snapshotBytes + envelope;
+  return { kind: 'qualification_execution_material_estimate', estimatedBytes,
+    jsonStringExpansion: Number((Buffer.byteLength(JSON.stringify(task.toString('utf8'))) / task.length).toFixed(4)),
+    components: { observedTaskBytes: task.length, streamBase64Bytes: streams, worksiteDeltaRows: deltaRows, worksiteDeltaBytes: deltaBytes,
+      snapshotMembers: rows.length, snapshotBytes, envelopeAllowanceBytes: envelope },
+    basis: 'Estimated before the observed C2 run: this run\'s observed task, the recipe measurement\'s stream byte counts and created paths, one snapshot member per protected input; the delta and snapshot rows are modelled, not observed' };
+}
+
+/** D5-b items 2-4 before any dispatch: the construction provenance, the domains and applications, the plan's slots
+ * rendered and projected, and the two gates that hold dispatch. */
+async function preDispatch(q, { runId, record, resources, caller, c2, rows, measurement }) {
+  const policy = q.preparation.QUALIFICATION_ROLE_POLICY, hash = q.product.sha256Canonical, git = args => execFileSync('git', ['-C', REPOSITORY_ROOT, ...args]).toString('utf8').trim();
+  const head = git(['rev-parse', 'HEAD']), tenantStatus = git(['status', '--porcelain', '--', TENANT_PATH]);
+  // Item 3: one chain per commit touching the tenant after the Phase C close, up to the head; each chain grounded
+  // alone, then all chains over the members they constructed, then the whole inventory (the qualification subject).
+  const started = performance.now(), commits = chainCommits(head);
+  const chains = constructChains(commits, policy.authorityRef), provenance = constructProvenance(q.product, { inventory: resources.inventory, ...chains });
+  const constructionMs = Math.round(performance.now() - started), memory = process.memoryUsage();
+  const attribution = q.deep.qualification.projectExternalConstructionAttribution, plan = { ownerAuthorityRef: policy.authorityRef };
+  const judgment = (selected, subjectMembers) => ({ task: { material: [], subjectMembers, context: { members: [] } }, raw: { attributions: selected.map(c => ({
+    activationRef: c.activationRef, authorRef: c.authorRef, actorIdentityRef: c.actorIdentityRef, authorityRef: c.authorityRef, scopeRefs: c.scopeRefs,
+    disposition: 'established', sourceRefs: [c.activationRef, c.preimageRef, c.deltaRef, c.closureRef], reason: 'D5-b item 3 in-process grounding' })) } });
+  const source = m => ({ ref: m.ref, path: m.path, digest: m.digest, byteCount: m.byteCount });
+  const perChain = provenance.chains.map((chain, n) => {
+    const refs = new Set([chain.activationRef, chain.preimageRef, chain.deltaRef, chain.closureRef, ...chain.changes.flatMap(c => [c.preimageMemberRef, c.postimageMemberRef]).filter(Boolean)]);
+    const records = provenance.records.filter(m => refs.has(m.ref));
+    const alone = { ...provenance.embedded, records, recordSet: { ref: 'qualification-record-set://abiogenesis/construction/chain-' + n, digest: hash(records) }, chains: [chain] };
+    const result = attribution(judgment([chain], chain.postimageMembers.map(source)), plan, alone);
+    return { commit: chains.chains[n].commit, parent: chains.chains[n].parent, authorRef: chain.authorRef, actorIdentityRef: chain.actorIdentityRef,
+      postimageMembers: chain.postimageMembers.length, deleted: chains.chains[n].deleted.length, records: records.length, status: result.status };
+  });
+  const members = resources.inventory.members.map(source), coverage = chainCoverage(provenance.chains, members.map(m => m.ref));
+  const covered = members.filter(m => !coverage.uncovered.includes(m.ref));
+  const allOverCovered = attribution(judgment(provenance.chains, covered), plan, provenance.embedded).status;
+  const wholeInventory = attribution(judgment(provenance.chains, members), plan, provenance.embedded).status;
+  const recordBytes = provenance.records.reduce((n, m) => n + m.byteCount, 0);
+  const provenanceRecord = { kind: 'qualification_construction_provenance', runId, head, base: PHASE_C_CLOSE, baseExclusive: true, tenantPath: TENANT_PATH,
+    tenantClean: tenantStatus === '', recordSet: provenance.recordSet, chains: provenance.chains.length, records: provenance.records.length, recordBytes,
+    recordBase64Bytes: provenance.records.reduce((n, m) => n + m.contentBase64.length, 0), constructionMs, heapUsedBytes: memory.heapUsed, rssBytes: memory.rss,
+    held: true, perChain, groundedAlone: perChain.filter(c => c.status === 'grounded').length, allChainsOverConstructedMembers: { members: covered.length, status: allOverCovered },
+    wholeInventory: { members: coverage.subject, covered: coverage.covered, uncovered: coverage.uncovered.length, status: wholeInventory },
+    uncoveredByRole: Object.fromEntries([...new Set(resources.inventory.members.map(m => m.surfaceRoles[0]))].sort().map(role => [role,
+      resources.inventory.members.filter(m => m.surfaceRoles[0] === role && coverage.uncovered.includes(m.ref)).length])),
+    identities: [...new Set(provenance.chains.map(c => c.actorIdentityRef))].sort(),
+    classification: 'Records read from Git with tenant pathspecs (provenance.mjs); the attribution is the installed package\'s own projection (validator/qualification.ts:743)' };
+  await record('provenance.json', provenanceRecord);
+
+  // Item 4 (with item 2): the material, the domains and applications, the slots, the projection.
+  const estimate = await executionEstimate(q, c2, measurement, rows);
+  const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
+  const base = await constructAssessmentMaterial(q, { ...resources, provenance, declarationProof });
+  const groupsOf = new Map(base.domains.map(d => [d.ruleGroupRef, new Set(d.surfaceGroups.map(g => g.groupRef))]));
+  const appliedOf = new Map();
+  for (const a of base.applications) appliedOf.set(a.ruleRef, [...(appliedOf.get(a.ruleRef) ?? []), a.surfaceRef]);
+  const families = [...new Set(base.domains.map(d => d.familyId))];
+  await record('applications.json', { kind: 'qualification_declared_applications', runId, scope: { ref: base.normalized.scopeRef, digest: base.normalized.scopeDigest },
+    ruleGroups: base.domains.length, pairs: base.applications.length, d5GlobalPairs: 2660,
+    applicable: base.applications.filter(a => a.applicability === 'applicable').length, inapplicable: base.applications.filter(a => a.applicability === 'inapplicable').length,
+    unknown: base.applications.filter(a => a.applicability === 'unknown').length, applicationsDigest: hash(base.applications),
+    everyDomainClassified: base.domains.every(d => { const applied = appliedOf.get(d.ruleGroupRef) ?? []; return applied.length === groupsOf.get(d.ruleGroupRef).size &&
+      applied.every(ref => groupsOf.get(d.ruleGroupRef).has(ref)); }),
+    scopeCorrespondenceErrors: resources.checks.scopeCorrespondenceErrors,
+    families: families.map(id => { const ds = base.domains.filter(d => d.familyId === id); return { id, ruleGroups: ds.length,
+      pairs: ds.reduce((n, d) => n + d.surfaceGroups.length, 0), applicable: ds.reduce((n, d) => n + d.governedRefs.length, 0) }; }) });
+  const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection, { executionEstimate: estimate });
+  const built = acquireAssessmentResources(q, base, specified);
+  let rendered = 0;
+  const projection = projectAssessment(q, built, specified, selection, { ownerActorRef: caller.actorRef, onSlot: () => { rendered += 1; } });
+  const invalid = projection.rows.filter(r => r.attribution.status === 'invalid');
+  const overBound = projection.rows.filter(r => r.overBound);
+  const admittedUsd = Number(projection.rows.filter(r => !r.overBound).reduce((n, r) => n + r.usd, 0).toFixed(2));
+  const floor = ruleInputFloor(q, base, selection);
+  const gates = { projection: { capUsd: PACKAGE_CAP_USD, projectedUsd: projection.usd, withinBoundUsd: admittedUsd, ruleInputFloorUsd: floor.usd, holds: projection.usd > PACKAGE_CAP_USD },
+    attribution: { invalidSlots: invalid.length, slots: projection.rows.length, holds: invalid.length > 0 } };
+  const projected = { kind: 'qualification_assessment_projection', runId, writtenBeforeDispatch: true, promptBoundBytes: 1_048_576, price: PRICE,
+    method: 'Every slot rendered by the installed prepareQualificationAssessment (a one-slot plan: the prompt renders the task, never the plan); a slot over the bound re-partitioned (assessment-plan.mjs); input tokens = prompt bytes / 4; output by material-selection.json plan.outputModel; the slots that require the observed C2 execution material carry its estimate',
+    resource: built.resource, provenanceSelections: built.provenanceEntries.size, executionEstimate: estimate, specifications: specified.specs.length,
+    criteria: Object.fromEntries([...specified.criteria].map(([role, list]) => [role, list.length])), slots: projection.rows.length, renderedSlots: rendered,
+    byRole: projection.byRole, totals: { promptBytes: projection.promptBytes, inputTokens: projection.inputTokens, outputTokens: projection.outputTokens, usd: projection.usd },
+    ruleInputFloor: floor, overBound: overBound.map(r => ({ slotRef: r.slotRef, role: r.role, criteria: r.criteria, promptBytes: r.promptBytes, renderedPromptBytes: r.renderedPromptBytes,
+      estimatedExecutionPromptBytes: r.estimatedExecutionPromptBytes })), gates, rows: projection.rows };
+  await record('projection.json', projected);
+  return { provenance: provenanceRecord, projection: projected, gates, stop: gates.projection.holds || gates.attribution.holds };
+}
+
+export async function prepare(config, { executeRecipe: execute = false, dependencies, live = false }) {
   const archive = await newArchive(join(TENANT_ROOT, 'test_env/test_runs'), 'qualification'), root = archive.path;
   const record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
   const effective = { ...config, runId: archive.runId, bootstrapRoot: join(root, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
     worksiteRoot: join(root, 'sandbox/worksite'), setupEnvironment: setupEnvironment(config) };
   const command = commandRecorder(root, { environment: effective.setupEnvironment, timeoutMs: config.processTimeoutMs, maxOutputBytes: config.maxProcessOutputBytes ?? 16 * 1024 * 1024 });
-  let caller, summary = { kind: 'qualification_prepare', runId: archive.runId, archive: root, mode: 'prepare', status: 'incomplete', uptimeBefore: uptime() };
-  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode: 'prepare',
+  const mode = live ? 'live' : 'prepare';
+  let caller, summary = { kind: 'qualification_' + mode, runId: archive.runId, archive: root, mode, status: 'incomplete', uptimeBefore: uptime() };
+  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode,
     interpreter: { executable: config.nodePath, version: process.version }, configuration: redactedConfig(config), invokedCommand: process.argv,
-    classification: 'Admission check of the exact qualification; no provider dispatch' });
+    heapLimitBytes: (await import('node:v8')).getHeapStatistics().heap_size_limit,
+    classification: live ? 'The native qualification run (D5-b): admission, the recipe measurement, provenance, applications, plan and projection before any dispatch'
+      : 'Admission check of the exact qualification; no provider dispatch' });
   try {
     const row = { key: 'qualification', toolchainObligations: { requiredExecutables: ['node'] } };
     const ready = await preflight(config, [row], root); await record('preflight.json', ready);
@@ -268,12 +393,20 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
         providerBashDefaultTimeoutMs: PROVIDER_BASH_DEFAULT_TIMEOUT_MS },
       material: { ...material, groups: undefined } };
     await record('prepare.json', prepared); await record('material-projection.json', material);
-    if (execute) await executeRecipe(root, rows, c2.bound, declared, dependencies, record);
+    const measurement = execute || live ? await executeRecipe(root, rows, c2.bound, declared, dependencies, record) : null;
     const green = Object.values(resources.checks).every(v => v === true || (Array.isArray(v) && v.length === 0) || (typeof v === 'object' && !Array.isArray(v))) &&
       c2.mismatched.length === 0 && prepared.recipe.digestsEqualRecipe;
-    return summary = { ...summary, status: green ? 'prepared' : 'refused', reason: green
+    if (!live || !green) return summary = { ...summary, status: green ? 'prepared' : 'refused', reason: green
       ? 'Clean Public install and binding; qualification programs viewed and conformant; resources constructed; no provider dispatch'
       : 'A prepared resource check failed (prepare.json)' };
+    const held = await preDispatch(q, { runId: archive.runId, record, resources, caller, c2, rows, measurement });
+    await record('cost.json', { kind: 'qualification_run_cost', runId: archive.runId, providerCalls: 0, turns: 0, usd: 0,
+      source: 'No provider archive: no dispatch occurred (the gates held before the observed C2 run and every slot)' });
+    if (!held.stop) return summary = { ...summary, status: 'undispatched', reason: 'The gates passed; the dispatch path is not authored in this driver' };
+    return summary = { ...summary, status: 'stopped', reason: 'A gate held dispatch: ' + [held.gates.projection.holds ? 'projection ' + held.gates.projection.projectedUsd +
+      ' USD above the ' + PACKAGE_CAP_USD + ' USD cap' : null, held.gates.attribution.holds ? held.gates.attribution.invalidSlots + ' of ' + held.gates.attribution.slots +
+      ' slots with an invalid construction attribution' : null].filter(Boolean).join('; '), gates: held.gates,
+      recipeMeasurement: { elapsedMs: measurement.elapsedMs, exitStatuses: measurement.results.map(r => r.exitStatus), predicates: measurement.predicates } };
   } catch (error) {
     summary = { ...summary, status: error instanceof BoundaryFailure ? 'refused' : 'failed', reason: String(error), boundary: error.stage ?? null,
       observation: error.observation ?? null };
@@ -315,12 +448,25 @@ export async function coldReads(config, archivePath, outRoot) {
     ['commandConfiguration', prepared.recipe.digests.commandConfigurationDigest, c2.digests.commandConfigurationDigest],
     ['predicateConfiguration', prepared.recipe.digests.predicateConfigurationDigest, c2.digests.predicateConfigurationDigest],
     ['writeTerritories', prepared.recipe.digests.writeTerritoriesDigest, c2.digests.writeTerritoriesDigest],
-  ].map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));
+  ];
+  if (run.mode === 'live') {
+    // The construction record set from Git at the archived head, and the declared applications over the re-derived scope.
+    const archivedProvenance = await archived('provenance.json'), archivedApplications = await archived('applications.json');
+    const chains = constructChains(chainCommits(archivedProvenance.head), q.preparation.QUALIFICATION_ROLE_POLICY.authorityRef);
+    const provenance = constructProvenance(q.product, { inventory: resources.inventory, ...chains });
+    const { constructApplicationDomains, constructApplications } = await import('../qualification/build-resources.mjs');
+    const applications = constructApplications(resources.declaration, constructApplicationDomains(resources.declaration,
+      { inventory: resources.inventory, ruleGroups: resources.scope.ruleGroups, surfaceGroups: resources.scope.surfaceGroups }));
+    rowsCompared.push(['constructionRecordSet', archivedProvenance.recordSet.digest, provenance.recordSet.digest],
+      ['constructionChains', String(archivedProvenance.chains), String(provenance.chains.length)],
+      ['applications', archivedApplications.applicationsDigest, q.product.sha256Canonical(applications)]);
+  }
+  const comparedRows = rowsCompared.map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));
   const result = { kind: 'qualification_cold_reads', archive: archivePath, runId: run.runId, coldRoot: root,
     process: { pid: process.pid, argv: process.argv, node: process.version }, eventLog, identityBefore, identityAfter,
     identityUnchanged: JSON.stringify(identityBefore) === JSON.stringify(identityAfter), environmentKind: environment.kind,
     observedMismatches: c2.mismatched, scopeCorrespondenceErrors: resources.checks.scopeCorrespondenceErrors, basisReady: resources.checks.basisReady,
-    rows: rowsCompared, allEqual: rowsCompared.every(row => row.equal) && c2.mismatched.length === 0 };
+    rows: comparedRows, allEqual: comparedRows.every(row => row.equal) && c2.mismatched.length === 0 };
   await record('cold-reads.json', result);
   return result;
 }
@@ -332,16 +478,16 @@ async function main(args = process.argv.slice(2)) {
     else if (['--config', '--archive', '--out', '--json', '--dependencies'].includes(rest[i])) options[rest[i].slice(2)] = rest[++i];
     else throw new TypeError('Unknown argument: ' + rest[i]);
   }
-  if (!['prepare', 'cold-reads'].includes(mode) || !options.config) throw new TypeError(
-    'Usage: exact-candidate-qualification.mjs prepare --config FILE --dependencies DIR [--execute-recipe] | cold-reads --config FILE --archive SEALED_ARCHIVE --out NEW_ROOT --json OUTPUT');
+  if (!['prepare', 'live', 'cold-reads'].includes(mode) || !options.config) throw new TypeError(
+    'Usage: exact-candidate-qualification.mjs prepare|live --config FILE --dependencies DIR [--execute-recipe] | cold-reads --config FILE --archive SEALED_ARCHIVE --out NEW_ROOT --json OUTPUT');
   const config = await configuration(options.config);
   if (mode === 'cold-reads') {
     const result = await coldReads(config, resolve(options.archive), resolve(options.out));
     await writeFile(resolve(options.json), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' });
     console.log(JSON.stringify({ allEqual: result.allEqual, identityUnchanged: result.identityUnchanged })); return result.allEqual && result.identityUnchanged ? 0 : 1;
   }
-  if (!options.dependencies) throw new TypeError('prepare requires --dependencies DIR (the locked dependency archives by file name)');
-  const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies) });
+  if (!options.dependencies) throw new TypeError(mode + ' requires --dependencies DIR (the locked dependency archives by file name)');
+  const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies), live: mode === 'live' });
   console.log(JSON.stringify(result)); return result.status === 'prepared' ? 0 : 1;
 }
 

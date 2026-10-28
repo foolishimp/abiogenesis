@@ -3279,6 +3279,10 @@
       "relativePath": "test_env/proof/abi5-root-rival-authority-mutations.json"
     },
     {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/assessment-plan.mjs",
+      "relativePath": "test_env/qualification/assessment-plan.mjs"
+    },
+    {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
       "relativePath": "test_env/qualification/build-resources.mjs"
     },
@@ -3289,6 +3293,10 @@
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/material-selection.json",
       "relativePath": "test_env/qualification/material-selection.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/provenance.mjs",
+      "relativePath": "test_env/qualification/provenance.mjs"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/recipe/compare-generated.mjs",
@@ -4493,7 +4501,7 @@
       "byteCount": 184447
     }
   ],
-  "commandConfigurationDigest": "sha256:dcc217f372dde4f825aa2d1a061d133ac51d2d62393aa0e3318970e88194f3b5",
+  "commandConfigurationDigest": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
   "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
   "writeTerritoriesDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
   "commands": [

@@ -36,9 +36,10 @@ export async function installedExports(packageRoot) {
     validator: await exported('validator'), preparation: await exported('qualification/m05'), valibot,
     // Not package exports (named substitutions): the ambient reader (abg/actor_process.ts:708), the C2
     // configuration constructor and budget projection (product/worksite_command_execution.ts:166, :1474),
-    // and the basis readiness and verification material (validator/qualification.ts:130, :669).
+    // the basis readiness, verification material and attribution projection (validator/qualification.ts:130, :669, :743),
+    // and the scope's interned form (validator/qualification_resources.ts:234).
     deep: { actorProcess: await deep('abg/actor_process.js'), c2: await deep('product/worksite_command_execution.js'),
-      qualification: await deep('validator/qualification.js') } };
+      qualification: await deep('validator/qualification.js'), qualificationResources: await deep('validator/qualification_resources.js') } };
 }
 
 export async function classification(root = TENANT_ROOT) { return readJson(join(root, Q, 'classification.json')); }
@@ -86,11 +87,66 @@ export function constructScope(runtime, declaration, { inventory, catalog, catal
   const ruleGroups = catalog.sources.map((source, ordinal) => ({ groupRef: 'qualification-rule-group://abiogenesis/typescript-tenant/' + ordinal,
     ruleRefs: catalog.rules.filter(rule => rule.sourceRef === source.ref).map(rule => rule.ruleRef), sourceRefs: [source.ref] }))
     .filter(group => group.ruleRefs.length > 0);
+  const surfaceGroups = [...groups.values()].sort((a, b) => a.groupRef < b.groupRef ? -1 : a.groupRef > b.groupRef ? 1 : 0);
+  const applicationDomains = declaration.applicationDomains === undefined ? undefined
+    : constructApplicationDomains(declaration, { inventory, ruleGroups, surfaceGroups }).map(({ ruleGroupRef, surfaceGroups }) => ({ ruleGroupRef, surfaceGroups }));
   const scope = runtime.preparation.constructQualificationIdentity({ kind: 'qualification_scope', subjectBasis, lawBasis,
-    catalog: { ref: catalog.catalogRef, digest: catalogDigest }, inventory, ruleGroups,
-    surfaceGroups: [...groups.values()].sort((a, b) => a.groupRef < b.groupRef ? -1 : a.groupRef > b.groupRef ? 1 : 0) },
+    catalog: { ref: catalog.catalogRef, digest: catalogDigest }, inventory, ruleGroups, surfaceGroups,
+    ...(applicationDomains === undefined ? {} : { applicationDomains }) },
     'scopeRef', 'scopeDigest', 'qualification-scope://abiogenesis/');
   return { scope, errors: runtime.validator.qualificationScopeCorrespondence(scope, catalog, catalogDigest) };
+}
+
+/** The declared family of one rule group's source: the first entry whose refs name it, else whose prefix it starts with. */
+export function domainFamily(declaration, sourceRef) {
+  const family = declaration.applicationDomains.families.find(f => f.match.refs?.includes(sourceRef) || (f.match.prefix !== undefined && sourceRef.startsWith(f.match.prefix)));
+  if (family === undefined) throw new TypeError('rule group source without a declared domain family: ' + sourceRef);
+  return family;
+}
+
+/** A governed global group's parts: its members in inventory order, cut before a part would exceed chunkBytes (a member
+ * larger than chunkBytes is a part alone). One part keeps the group's key; several are keyed <key>/part-<n>. */
+export function domainParts(declaration, group, members) {
+  const limit = declaration.applicationDomains.chunkBytes, parts = [];
+  let part = [], bytes = 0;
+  for (const ref of group.memberRefs) {
+    const size = members.get(ref).byteCount;
+    if (part.length > 0 && bytes + size > limit) { parts.push(part); part = []; bytes = 0; }
+    part.push(ref); bytes += size;
+  }
+  if (part.length > 0) parts.push(part);
+  return parts.map((memberRefs, n) => ({ ...group, memberRefs, partKey: parts.length === 1 ? '' : '/part-' + n }));
+}
+
+/** Each rule group's domain (classification.json applicationDomains): the governed global groups re-keyed in byte-bounded
+ * parts, and one complement group per surface role the family does not govern. */
+export function constructApplicationDomains(declaration, { inventory, ruleGroups, surfaceGroups }) {
+  const prefix = 'qualification-surface-group://abiogenesis/typescript-tenant/', members = new Map(inventory.members.map(m => [m.ref, m]));
+  return ruleGroups.map(rule => {
+    if (rule.sourceRefs.length !== 1) throw new TypeError('a rule group names one source: ' + rule.groupRef);
+    const ordinal = rule.groupRef.split('/').at(-1), family = domainFamily(declaration, rule.sourceRefs[0]);
+    const governed = surfaceGroups.filter(g => g.surfaceRoles.every(role => family.governedRoles.includes(role)));
+    if (governed.length === 0) throw new TypeError('empty domain: ' + rule.groupRef);
+    const rekey = ({ partKey, ...g }) => ({ ...g, groupRef: prefix + 'domain/' + ordinal + '/' + g.groupRef.slice(prefix.length) + partKey });
+    const parts = governed.flatMap(g => domainParts(declaration, g, members));
+    const inside = new Set(governed.flatMap(g => g.memberRefs)), rest = inventory.members.filter(m => !inside.has(m.ref));
+    const roles = [...new Set(rest.flatMap(m => members.get(m.ref).surfaceRoles))].sort();
+    const complement = roles.map(role => ({ groupRef: prefix + 'domain/' + ordinal + '/complement/' + role,
+      memberRefs: rest.filter(m => members.get(m.ref).surfaceRoles[0] === role).map(m => m.ref),
+      rootRefs: [...declaration.surfaceGroups.rootRefs], surfaceRoles: [role],
+      ownerRefs: [...declaration.surfaceGroups.ownerRefs], sourceRefs: [...declaration.surfaceGroups.sourceRefs] }));
+    if (rest.some(m => members.get(m.ref).surfaceRoles.length !== 1)) throw new TypeError('a complement member carries other than one surface role');
+    return { ruleGroupRef: rule.groupRef, familyId: family.id, governedRefs: parts.map(g => rekey(g).groupRef),
+      surfaceGroups: [...parts.map(rekey), ...complement] };
+  });
+}
+
+/** The self-conformance applications: every (rule group, domain group) pair, governed applicable and complement inapplicable. */
+export function constructApplications(declaration, domains) {
+  const evidence = declaration.memberRefPrefix + Q + '/classification.json#domain/';
+  return domains.flatMap(d => d.surfaceGroups.map(g => ({ ruleRef: d.ruleGroupRef, surfaceRef: g.groupRef,
+    applicability: d.governedRefs.includes(g.groupRef) ? 'applicable' : 'inapplicable', premiseEvidenceRefs: [evidence + d.familyId],
+    evaluationEvidenceRefs: [], rulingEvidenceRefs: [] })));
 }
 
 /** The published law, rule catalog and coverage catalog, checked against the executing package. */

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {access,mkdir,mkdtemp,readFile,stat,writeFile} from 'node:fs/promises';
-import {join} from 'node:path';
+import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import test from 'node:test';
 import {BoundaryFailure,cliTransportJsonl,installedModules} from './public-setup.mjs';
@@ -10,7 +10,9 @@ import {prepareInstalledContinuation} from './continuation.mjs';
 const installedRoot=process.env.ABI5_UAT_CONTINUATION_INSTALLED_ROOT;
 const nativeAcquisition=process.env.ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION;
 const consumerAcquisition=process.env.ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION;
-const scratch=process.env.ABI5_UAT_UNIT_ROOT;
+// A relative unit-run root resolves against the working directory, so a recipe can name a write territory inside the
+// C2 snapshot sandbox whose absolute location is the helper's (D5 F-5, F-9); the event resource still receives an absolute root.
+const scratch=process.env.ABI5_UAT_UNIT_ROOT?resolve(process.env.ABI5_UAT_UNIT_ROOT):process.env.ABI5_UAT_UNIT_ROOT;
 const selected=Boolean(installedRoot&&nativeAcquisition&&consumerAcquisition&&scratch);
 const unset=Object.entries({ABI5_UAT_CONTINUATION_INSTALLED_ROOT:installedRoot,ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION:nativeAcquisition,
   ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION:consumerAcquisition,ABI5_UAT_UNIT_ROOT:scratch}).filter(([,value])=>!value).map(([name])=>name);
