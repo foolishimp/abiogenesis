@@ -54,7 +54,9 @@ export function parseQualificationRuleCatalog(rules: Uint8Array): AdmittedQualif
 }
 /** Pure over the two catalogs' bytes; the admitting owner binds the bytes. */
 export function parseQualificationCatalogs(coverage: Uint8Array, rules: Uint8Array): Readonly<AdmittedQualificationCatalogs> {
-  return deepFreeze({ coverage: JSON.parse(Buffer.from(coverage).toString("utf8")) as JsonValue, rules: parseQualificationRuleCatalog(rules) });
+  const admitted = admitJson(JSON.parse(Buffer.from(coverage).toString("utf8")));
+  if (admitted.kind !== "ok") throw new TypeError(`the qualification coverage catalog is not I-JSON (${admitted.code})`);
+  return deepFreeze({ coverage: admitted.value, rules: parseQualificationRuleCatalog(rules) });
 }
 const count = v.pipe(v.number(), v.integer(), v.minValue(0));
 const text = v.pipe(v.string(), v.minLength(1));

@@ -3857,3 +3857,318 @@ Decisions are yours by these rules; a site whose lawful decision needs a contrac
 **Stops.** A site whose lawful decision needs a contract, payload key, failure class, reason enum or export change (kept, the change named); a lane red under a 1-minute load average at or below 16 after its one rerun; a moved lane whose expected value would have to change. Write the stop into the Return and keep the rest moving.
 
 **Return contract.** `## O1 return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's table (the sixteen: site, type, sink, decision, realization, case) and the census after (every cast with its decision and record); item 2's two lanes with their loads before and after; the fixture's three fields; the lanes table (every lane of the set, before and after, with its load; moved lanes with first errors; the set's count); the gates; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path, first line `O1: O-TYPE at the cut: the sixteen casts introduced after the TD-14 census decided and realized ((T) n, (I) n, (A) n); the two load-red lanes rerun alone with the load recorded` with the counts filled and ` (stops: …)` appended when any, body the Return's first paragraph, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## O1 return (Worker, Opus 5.5, 2026-10-28; base `0e06b3e4fda7ce779283b3eda1ab1424dc19708a`)
+
+Closed: the sixteen casts the four packages introduced after the TD-14 census are decided and realized, (T) 7, (I) 3, (A) 6, none kept; the census of the three forms in `code/src` is 23, the 23 of `a692fb4b9` by file and cast text, none undecided; the two load-red lanes are green on the final tree, `t287-owned-process-lifetime` 18/18/0/0 at a 1-minute load average of 11.43 and `t287-worksite-command-execution` 10/10/0/0 at 17.88; the named set (103 lanes), the two uat lanes and the compose scenario equal their before column but the nine added cases and one recovery, `t287-worksite-command-execution`, which was red on the base run (10/7/0/0, three cases cancelled at the 180 s timeout) with the average at 8.60 when it started and 42.45 when it ended; no stop.
+
+**Subtree pairs.** Base `0e06b3e4f` against R3-c `bf7119489`, by `git rev-parse <rev>:build_tenants/abiogenesis/typescript/<subtree>`: `code` `7112fffad94f4b1380332ace1a7a69a7d417892b` = `7112fffad94f4b1380332ace1a7a69a7d417892b`; `test_env` `f63df92944afdbdc41d6fb958df6f3e8fadaa1bd` = `f63df92944afdbdc41d6fb958df6f3e8fadaa1bd`; `contracts` `9da8b3d81a6f9e61360ce9b939b6e8d7de42d516` = `9da8b3d81a6f9e61360ce9b939b6e8d7de42d516`. R3-c's after column is therefore the before column for the lanes it holds. No commit landed on `main` during the run: HEAD was `0e06b3e4f` at the start and before the append.
+
+### Item 1: the sixteen sites, decided and realized
+
+Census at the base (`git grep -n -E 'as (unknown as )?(JsonValue|Readonly<Record<string, JsonValue>>)' -- code/src`, run from the tenant): 39 lines; `git blame` assigns 16 of them to the four packages (C-14 `57e39894e` 4, C-18a `a0829a298` 6, M-5b `94e923d75` 3, R2-c `19700d8f7` 3), the sixteen the activation names; the other 23 equal `a692fb4b9`'s 23 by file and cast text, and every commit blamed for them (12) is an ancestor of `a692fb4b9`.
+
+| Site at the base | Static type of the value | Sink | Decision | Realization | Case |
+|---|---|---|---|---|---|
+| `abg/execution_basis.ts:1208` | `implementationSetBody(set)`: `JsonValue` (the rest of the owner alias `AdmittedImplementationSet`) | `sha256Canonical`; `admittedSetPayloadAgrees` → `canonicalEquals` | (T) | `implementationSetBody` (module-private) returns `Readonly<Record<string, JsonValue>>`; the owner alias flows; cast deleted; no runtime change | none (no runtime change) |
+| `abg/execution_basis.ts:1285` | `interactionSetBody(set)`: `JsonValue` (rest of `AdmittedInteractionSet`) | as above | (T) | `interactionSetBody` returns `Readonly<Record<string, JsonValue>>`; cast deleted | none |
+| `abg/execution_basis.ts:1332` | `checked.event.payload`: `JsonValue` (`RuntimeEvent.payload`, admitted at append) | `admittedSetPayloadAgrees` (`payload`) → `canonicalEquals` | (I) | `isRecord(payload) &&` before the comparison; a non-record is the existing `null` (the matcher and the projection leg already select only a record, so the guard narrows a type that did not flow through `checkExactRecord`) | `t287-native-workspace-work` "O1 (I): … no implementation set" (channel check; passes at the base by design) |
+| `abg/execution_basis.ts:1336` | as `:1208` | `admittedSetPayloadAgrees` (`body`) | (T) | as `:1208`; cast deleted | none |
+| `abg/execution_basis.ts:1374` | as `:1332` | as `:1332` | (I) | as `:1332` for the interaction set | `t287-native-workspace-work` "O1 (I): … no interaction set" (channel check) |
+| `abg/execution_basis.ts:1378` | as `:1285` | `admittedSetPayloadAgrees` (`body`) | (T) | as `:1285`; cast deleted | none |
+| `abg/project_read_ports.ts:289` | `row`: `BasisScopeRow` (alias over ten string members of `ExecutionBasis`) | `checkedRecordAtPrefix` context → `sha256Canonical` | (T) | cast deleted; the declared alias is `JsonValue`-compatible | none |
+| `abg/worksite_revision.ts:421` | `evidenceContext`: `RevisionEvidenceContext` (alias; exact optional members) | `checkedRecordAtPrefix` context → `sha256Canonical` | (T) | cast deleted | none |
+| `product/declaration_exports.ts:527` | `JSON.parse(…)`: `any` | `sha256Canonical` (`manifestDigest`) and the identity's `manifest` | (A) | `admitJson` over the parse; a refusal throws `TypeError` (the reader's documented channel: a read or parse failure throws), which `installedToolchainProductContentDigest` keeps as `null`; the admitted value is the identity's `manifest` | `m5-s06-prime` "O1 (A): a parsed toolchain manifest outside I-JSON …" |
+| `product/declaration_exports.ts:529` | the admitted manifest: `JsonValue` | `record.productId`, `record.productContentDigest` | (I) | `isRecord` over the admitted value replaces the open-coded shallow guard and the cast; a non-record is the existing `null` | `m5-s06-prime` "O1 (I): an admitted toolchain manifest that is not a record …" (channel check) |
+| `validator/qualification.ts:57` | `JSON.parse(…)`: `any` | `deepFreeze` as the coverage catalog (`AdmittedQualificationCatalogs.coverage: JsonValue`) | (A) | `admitJson`; a refusal throws `TypeError` (the parser's channel, beside `JSON.parse`'s and `v.parse`'s throws) | `t287-qualification-law` "O1 (A): parseQualificationCatalogs …" |
+| `validator/qualification_catalogs.ts:67` | `manifest`: `unknown`; `isRecord` leaves its members `unknown` | `sha256Canonical` | (A) | `admitJson` on the record branch at the parse; a refusal is `refused(coveragePath, …)` ("binds through the manifest of install …, which is not I-JSON"); a non-record keeps `sha256Bytes`; the locators are read from the admitted value | `t287-qualification-law` "O1 (A): an install manifest outside I-JSON …" |
+| `validator/qualification_catalogs.ts:86` | `JSON.parse(…)`: `any` | the admitted catalogs' `coverage` | (A) | `admitJson` after the parse `try`; a refusal is `refused(coveragePath, "… is not I-JSON (<code>)")` | `t287-qualification-law` "O1 (A): an installed coverage catalog outside I-JSON …" |
+| `abg/artifact_truth.ts:249` | `input.value`: `{} \| null` (`Array.isArray` widens the admitted `JsonValue` array to `any[]`) | `sha256Canonical` (`inputDigest`, `assetDigest`) | (A) | `admitJson` at the site; a refusal throws the existing `TypeError("materialization context input is malformed")`, which the relation's `catch` turns into `false` | `t287-required-operation-bindings` "O1 (A): the materialization artifact relation …" |
+| `abg/artifact_truth.ts:270` | `contract`: `ProductPublicContract` (alias, exact optional members) | `sha256Canonical` composite | (T) | cast deleted | none |
+| `product/materialization_definition_bindings.ts:403` | `Readonly<{…; invocation: ExactOperationInvocationCoordinate (interface); request: OwnerRequestOf<…>; result: ProductMaterializationResult<…>}>` | `admitArtifact` `metadata.artifact` | (A) | `admitJson` over the built record replaces `deepFreeze` and the cast; a refusal throws the site's existing fault `abg_admission` / `product_materialization_artifact_refused` before any admission; the admitted value is passed | `t287-required-operation-bindings` "O1 (A): the materialization binding refuses …" |
+
+Counts: (T) 7, (I) 3, (A) 6, kept 0.
+
+**Census after.** `git grep -n -E 'as (unknown as )?(JsonValue|Readonly<Record<string, JsonValue>>)' -- code/src`, run from the tenant on the final tree: 23 lines. Each one equals a line of `a692fb4b9`'s census by file and cast text, so each is decided under the design's O-TYPE row (§10.3, the universe recorded at the TD-14 commit and after TD-15 + TD-16). None of the sixteen remains, and none is undecided: `abg/artifact_truth.ts:457`, `abg/construction_continuation.ts:1865`, `abg/project_read_definition_bindings.ts:374`, `abg/project_read_ports.ts:1090`, `:1181`, `:1242`, `:1253`, `:1478`, `hog/ccall_lifecycle.ts:629`, `implementation/consensus.ts:547`, `implementation/native_workspace_work.ts:64`, `implementation/worksite_command_execution.ts:783`, `implementation/worksite_command_helper.ts:1308`, `:1329`, `:1414`, `product/builtin_semantics.ts:1052`, `product/default_library_fulfillment.ts:163`, `product/release_snapshot_definition_bindings.ts:66`, `:139`, `public/installed_public_definition_call.ts:217`, `:256`, `validator/qualification.ts:103` (`:101` at the base; two inserted lines above it), `validator/raw_admission.ts:204`. The 23 are not reopened; see the finding on how the regex counts them.
+
+The 288 emitted declaration files are byte-equal to the base's (the base emitted in scratch from `git archive 0e06b3e4f`): no export, signature or declaration closure moved. The two body functions whose return type narrowed are module-private.
+
+### Item 2: the two lanes red under load
+
+Each lane ran alone with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace`, `--test-concurrency=1 --test-timeout=600000`, and `uptime` taken immediately before and after; the figures are tests/pass/fail/skipped, with the 1-minute load average at the start and at the end.
+
+| Lane | Base build (before my edits) | Final tree (after pass) |
+|---|---|---|
+| `t287-owned-process-lifetime` | 18/18/0/0, load 8.60 / 8.60, 2 s | 18/18/0/0, load 11.43 / 17.88, 2 s |
+| `t287-worksite-command-execution` | 10/7/0/0 with 3 cancelled, load 8.60 / 42.45, 1,363 s | 10/10/0/0, load 17.88 / 21.71, 364 s |
+
+The base red: `:1409` (http_cleanup_unresolved), `:1590` (command launch ENOEXEC) and `:1594` (HTTP launch ENOEXEC), each `'test timed out after 180000ms'` at 341, 408 and 425 s of wall time. The other seven cases passed, `:1144` in 69 s, `:1151` in 60 s and `:1405` in 59 s. The average was 8.60 when the run started and 42.45 when it ended. Other work ran beside it: the Executive's suite was running `t287-c0-post-publication-failure` in `scratchpad/suite/wt-bf7119489`, and the sandbox and the owner's processes ran too. The activation's rule keys on the start reading, so the red is a finding with its first error and was not rerun on the base. On the final tree the lane is green at a start reading above 16, so no rerun was owed and the stop does not arise. R3-c's column holds 10/10/0/0 and 18/18/0/0 for these two lanes on the same subtrees.
+
+**The candidate basis.** `node scripts/refresh-candidate-basis.mjs` ran once, from the tenant, on the final tree after the final `npm run build` and before the after pass (rc 0). `test_env/fixtures/abi5-root-candidate-basis.json`:
+- `artifactDigest` `sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612` → `sha256:550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6`
+- `productContentDigest` `sha256:ea9740752bfd8389749eaa5bfdfb5a77436513cca47dab76e3065d6bc6656a4d` → `sha256:12ee813bb4b61df5c8fc484733f5fe9aab52c1fb491316649dbfbca7fdb71507`
+- `manifestDigest` `sha256:ce284cbbc8bb7ab2e925f22d0a96f6eb21305e99de033b6d6d8be9f5382fe2c9` → `sha256:09577eccdab697e8737f36f96db04ec0d7170e5f44f4dbd3a009a66a47aa68e4`
+
+No edit followed the refresh. The packing lanes rebuilt `build/` through `prepack` during the after pass; afterwards the fixture is byte-equal to the refreshed file, and the canonical digest of the tracked manifest equals its `manifestDigest`.
+
+**Regenerated by the build** (committed as the build left them): `contracts/capabilities/capability-definition-graph.json`, `graphDigest` `sha256:ee7ad3a1…199d` → `sha256:7ad59e8d…1af8`, file `sha256:69e38ea8…b3` → `sha256:68ea09cb…69d`; the only change is the product content digest the rows and graph carry. `product-toolchain-manifest.json`: `productContentDigest` `ea974075…6a4d` → `12ee813b…1507`, and with it the graph locator and publication-binding digests, file `sha256:39cf36ce…f4ed` → `sha256:d00532a5…4467`. Nothing else under `contracts/` moved.
+
+### Lanes
+
+**The set.** 103 lanes, the two uat lanes and the compose scenario, 106 runs, each alone on the final built tree. The 103 are:
+- **73 importing a granted module** (census over `test_env/tests`, run from the tenant): `N='(execution_basis|project_read_ports|worksite_revision|declaration_exports|qualification|qualification_catalogs|artifact_truth|materialization_definition_bindings)'; git grep -l -E "/${N}\.js|[\"']${N}\.js[\"']|[\"'](abg|product|implementation|hog|gtl|validator)/${N}[\"']" -- test_env/tests`. This is R3-c's basename matcher. It is a superset: the directory-qualified census gives 47, all inside the 73, and the extra 26 import same-named modules such as `product/worksite_revision.js`, `implementation/qualification.js` and `product/project_read_ports.js`.
+- **29 more** from the five candidate basis consumers and the load map's 35 `installed_route` and three `unbounded` rows (`r2b/loadmap/index.tsv`; 36 lanes besides the two uat rows), all five consumers and 24 map lanes falling outside the census.
+- **`t287-owned-process-lifetime`**, added for item 2.
+
+**The before column:**
+- **R3-c's after column** for the 72 runs it holds: its `summary.txt`, its compose file and its two uat rows.
+- **R3-c's restated figures** (`lanes/restated/final.txt`) for the four lanes its first run showed red: `t287-native-semantic-job` 9/9/0/0, `t287-native-semantic-revision` 7/7/0/0, `t287-native-work-currentness-consumers` 6/6/0/0 and `t287-native-work-reacquisition` 9/6/0/3.
+- **This run on the base build, before any edit,** for the other 34: the two item-2 lanes and the 32 lanes the column lacks.
+
+Two of those 32 were red under load and were rerun once alone at the end of the before pass, both green on the rerun:
+- `m5-event-store-reopen`: 21/20/0/0, one case cancelled at the 600 s harness timeout, load 42.45 at the start.
+- `t287-w2-05-generator-package-reproducibility`: 2/1/0/0, one case cancelled at 600 s, load 33.39 at the start.
+
+**The after column.** Totals 719/598/0/121, against 710/586/0/121 before. The difference is the nine added cases and the three `t287-worksite-command-execution` cases that were cancelled on the base run. Every lane but `t287-worksite-command-execution` equals its before figure plus its added cases.
+
+**Moved lanes.** Only `t287-worksite-command-execution` moved: red under load on the base run, green after; item 2 covers it. No lane went red.
+
+**The standing red.** `t287-st2a-g-capability-definition-graph` (4/2/2/0) is outside the set and was not run.
+
+| Lane | Before | Before source | Before load (start) | After | After load (start / end) | After wall s |
+|---|---|---|---|---|---|---|
+| `t287-owned-process-lifetime` | 18/18/0/0 | O1 base | 8.60 | 18/18/0/0 | 11.43 / 17.88 | 2 |
+| `t287-worksite-command-execution` | 10/7/0/0 (cancelled 3) | O1 base | 8.60 | 10/10/0/0 | 17.88 / 21.71 | 364 |
+| `d2-binding-query-reuse` | 7/7/0/0 | R3-c | - | 7/7/0/0 | 21.71 / 21.71 | 1 |
+| `generic-input-retention` | 4/4/0/0 | R3-c | - | 4/4/0/0 | 21.71 / 21.71 | 0 |
+| `hello-product-boundary` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 21.71 / 24.05 | 6 |
+| `installed-language-smoke` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 24.05 / 19.01 | 44 |
+| `m5-event-store-reopen` | 21/21/0/0 | O1 base, rerun (first 21/20/0/0 cancelled 1 at 42.45) | 56.12 | 21/21/0/0 | 19.01 / 13.30 | 66 |
+| `m5-installed-graph-edge` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 13.30 / 12.62 | 49 |
+| `m5-s06-prime` | 49/49/0/0 | O1 base | 34.05 | 51/51/0/0 (+2 added) | 12.62 / 12.78 | 39 |
+| `r1-packed-artifact` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 12.78 / 11.05 | 27 |
+| `r10-child-proof` | 10/10/0/0 | O1 base | 34.60 | 10/10/0/0 | 11.05 / 11.13 | 13 |
+| `r10-projection-contracts` | 11/11/0/0 | O1 base | 41.26 | 11/11/0/0 | 11.13 / 11.13 | 2 |
+| `r2-clean-install` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 11.13 / 15.53 | 50 |
+| `r3-workspace-binding` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 15.53 / 14.90 | 36 |
+| `r4-catalog-admission` | 7/7/0/0 | O1 base | 41.26 | 7/7/0/0 | 14.90 / 14.90 | 0 |
+| `retained-route-cursor-transition` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 14.90 / 14.90 | 0 |
+| `steel-basic-cli-projection` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 14.66 / 14.66 | 0 |
+| `steel-basic-cli-public` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 14.66 / 9.65 | 287 |
+| `steel-consumer-authority` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 9.65 / 9.65 | 0 |
+| `steel-consumer-declaration` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 9.65 / 9.65 | 0 |
+| `t287-authenticated-owner-values` | 3/2/0/1 | O1 base | 41.26 | 3/2/0/1 | 9.65 / 9.65 | 1 |
+| `t287-c0-post-publication-failure` | 31/31/0/0 | R3-c | - | 31/31/0/0 | 9.65 / 18.26 | 1398 |
+| `t287-c2-core-environment` | 7/7/0/0 | R3-c | - | 7/7/0/0 | 18.26 / 18.26 | 0 |
+| `t287-conformance-owner-reuse` | 1/0/0/1 | O1 base | 42.04 | 1/0/0/1 | 18.26 / 18.26 | 1 |
+| `t287-continuation-causation` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 18.26 / 18.26 | 0 |
+| `t287-cross-cut-public-read` | 5/5/0/0 | O1 base | 42.04 | 5/5/0/0 | 18.26 / 12.78 | 57 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 | R3-c | - | 5/2/0/3 | 12.78 / 12.78 | 0 |
+| `t287-d1-semantic-stage` | 3/1/0/2 | R3-c | - | 3/1/0/2 | 12.78 / 12.78 | 0 |
+| `t287-declaration-closure-symbol-reuse` | 1/0/0/1 | O1 base | 42.32 | 1/0/0/1 | 12.78 / 12.78 | 1 |
+| `t287-declared-testing-capability` | 7/3/0/4 | R3-c | - | 7/3/0/4 | 12.78 / 9.51 | 37 |
+| `t287-default-library` | 25/22/0/3 | R3-c | - | 25/22/0/3 | 9.51 / 9.23 | 3 |
+| `t287-default-library-fulfillment` | 7/7/0/0 | R3-c | - | 7/7/0/0 | 9.23 / 9.23 | 2 |
+| `t287-environment-projection-conservation` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 9.23 / 9.23 | 0 |
+| `t287-exact-construction-intent` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 9.23 / 9.88 | 56 |
+| `t287-f04a-probabilistic-result-candidate` | 2/2/0/0 | R3-c | - | 2/2/0/0 | 9.88 / 8.42 | 40 |
+| `t287-generic-job-lifecycle` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 8.42 / 8.42 | 1 |
+| `t287-generic-job-meaning` | 5/3/0/2 | R3-c | - | 5/3/0/2 | 8.42 / 8.42 | 0 |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 8.42 / 8.42 | 0 |
+| `t287-generic-job-read-dependency` | 2/1/0/1 | R3-c | - | 2/1/0/1 | 8.42 / 8.14 | 1 |
+| `t287-generic-job-revision` | 4/1/0/3 | R3-c | - | 4/1/0/3 | 8.14 / 8.14 | 0 |
+| `t287-governance-covered-source-use` | 9/3/0/6 | R3-c | - | 9/3/0/6 | 8.14 / 8.14 | 1 |
+| `t287-gtl-serialization-publication` | 9/9/0/0 | R3-c | - | 9/9/0/0 | 8.14 / 8.85 | 27 |
+| `t287-held-prefix` | 6/0/0/6 | R3-c | - | 6/0/0/6 | 8.85 / 8.85 | 0 |
+| `t287-historical-source-resource` | 4/4/0/0 | O1 base | 42.32 | 4/4/0/0 | 8.85 / 8.26 | 29 |
+| `t287-installed-dependency-lock` | 2/0/0/2 | O1 base | 40.42 | 2/0/0/2 | 8.26 / 8.26 | 0 |
+| `t287-installed-product-coordinate` | 11/11/0/0 | O1 base | 40.79 | 11/11/0/0 | 8.26 / 8.26 | 3 |
+| `t287-installed-qualification-conservation` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 8.26 / 7.92 | 0 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 | R3-c | - | 5/5/0/0 | 7.92 / 7.92 | 0 |
+| `t287-malformed-gtl-gate` | 6/6/0/0 | O1 base | 39.42 | 6/6/0/0 | 7.92 / 7.92 | 1 |
+| `t287-management-context` | 14/12/0/2 | R3-c | - | 14/12/0/2 | 7.92 / 7.92 | 0 |
+| `t287-multi-candidate-admission` | 75/75/0/0 | R3-c | - | 75/75/0/0 | 7.92 / 7.92 | 1 |
+| `t287-native-assembly-retained-input` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 7.92 / 7.92 | 0 |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 7.92 / 7.92 | 0 |
+| `t287-native-owner-reuse` | 3/0/0/3 | R3-c | - | 3/0/0/3 | 7.92 / 7.92 | 1 |
+| `t287-native-registered-selection` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 7.92 / 7.92 | 0 |
+| `t287-native-runtime-gate` | 7/6/0/1 | O1 base | 38.34 | 7/6/0/1 | 7.92 / 8.00 | 1 |
+| `t287-native-semantic-job` | 9/9/0/0 | R3-c restated | - | 9/9/0/0 | 8.00 / 8.00 | 1 |
+| `t287-native-semantic-revision` | 7/7/0/0 | R3-c restated | - | 7/7/0/0 | 8.00 / 8.00 | 2 |
+| `t287-native-structural-gates` | 9/9/0/0 | O1 base | 37.55 | 9/9/0/0 | 8.00 / 7.60 | 3 |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 | R3-c restated | - | 6/6/0/0 | 7.60 / 7.56 | 34 |
+| `t287-native-work-reacquisition` | 9/6/0/3 | R3-c restated | - | 9/6/0/3 | 7.56 / 7.56 | 0 |
+| `t287-native-worksite-execution` | 6/3/0/3 | R3-c | - | 6/3/0/3 | 7.56 / 7.56 | 1 |
+| `t287-native-workspace-work` | 38/37/0/1 | R3-c | - | 40/39/0/1 (+2 added) | 7.56 / 7.56 | 2 |
+| `t287-observed-worksite-command` | 8/8/0/0 | R3-c | - | 8/8/0/0 | 7.56 / 7.51 | 1 |
+| `t287-ordered-reconstruction` | 7/4/0/3 | O1 base | 39.20 | 7/4/0/3 | 7.51 / 7.51 | 1 |
+| `t287-owned-native-proof` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 7.51 / 7.51 | 0 |
+| `t287-pfc-f08a-product-verification-boundary` | 1/1/0/0 | O1 base | 39.10 | 1/1/0/0 | 7.51 / 7.55 | 7 |
+| `t287-predecessor-context` | 3/0/0/3 | R3-c | - | 3/0/0/3 | 7.55 / 7.55 | 0 |
+| `t287-public-groups` | 3/3/0/0 | O1 base | 37.11 | 3/3/0/0 | 7.55 / 7.70 | 22 |
+| `t287-public-preparation` | 6/6/0/0 | O1 base | 36.06 | 6/6/0/0 | 7.70 / 7.65 | 4 |
+| `t287-public-terminal-projection` | 4/0/0/4 | O1 base | 33.90 | 4/0/0/4 | 7.65 / 7.65 | 1 |
+| `t287-qual056-material` | 7/7/0/0 | R3-c | - | 7/7/0/0 | 7.65 / 7.65 | 3 |
+| `t287-qualification-carrier-resource` | 7/0/0/7 | O1 base | 33.90 | 7/0/0/7 | 7.65 / 7.65 | 0 |
+| `t287-qualification-contraction` | 4/4/0/0 | O1 base | 33.90 | 4/4/0/0 | 7.65 / 7.60 | 2 |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 7.60 / 7.60 | 0 |
+| `t287-qualification-law` | 8/4/0/4 | O1 base | 31.74 | 11/7/0/4 (+3 added) | 7.60 / 7.60 | 1 |
+| `t287-qualification-parent-alias` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 7.60 / 7.60 | 0 |
+| `t287-qualification-producer-acquisition-reuse` | 1/0/0/1 | O1 base | 31.74 | 1/0/0/1 | 7.60 / 7.60 | 0 |
+| `t287-qualification-raw-contract-preimage` | 1/0/0/1 | O1 base | 31.74 | 1/0/0/1 | 7.60 / 7.60 | 1 |
+| `t287-qualification-scopes` | 17/17/0/0 | O1 base | 31.74 | 17/17/0/0 | 7.60 / 7.60 | 1 |
+| `t287-reconstruction-conservation` | 2/0/0/2 | O1 base | 31.74 | 2/0/0/2 | 7.60 / 7.60 | 0 |
+| `t287-recursive-registered-selection` | 4/3/0/1 | R3-c | - | 4/3/0/1 | 7.60 / 10.98 | 156 |
+| `t287-registered-graph-selection` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 10.98 / 8.19 | 66 |
+| `t287-release-acceptance` | 6/6/0/0 | O1 base | 31.74 | 6/6/0/0 | 8.19 / 7.77 | 5 |
+| `t287-release-publication` | 6/5/0/1 | O1 base | 31.46 | 6/5/0/1 | 7.77 / 7.77 | 2 |
+| `t287-required-operation-bindings` | 8/8/0/0 | R3-c | - | 10/10/0/0 (+2 added) | 7.77 / 30.08 | 203 |
+| `t287-result-evidence-lineage-projection` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 30.08 / 30.08 | 1 |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 | R3-c | - | 1/1/0/0 | 30.08 / 28.71 | 7 |
+| `t287-retained-installed-consumer` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 28.71 / 28.71 | 0 |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 | R3-c | - | 21/21/0/0 | 28.71 / 27.70 | 4 |
+| `t287-s03-automatic` | 2/0/0/2 | R3-c | - | 2/0/0/2 | 27.70 / 27.70 | 0 |
+| `t287-selected-action` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 27.70 / 27.70 | 1 |
+| `t287-selected-action-authority` | 3/2/0/1 | R3-c | - | 3/2/0/1 | 27.70 / 27.70 | 0 |
+| `t287-selected-execution-closure` | 1/0/0/1 | O1 base | 33.39 | 1/0/0/1 | 27.70 / 27.70 | 1 |
+| `t287-st1-installed-cross-owner-hello` | 2/2/0/0 | R3-c | - | 2/2/0/0 | 27.70 / 16.32 | 60 |
+| `t287-stdo-run-environment` | 2/0/0/2 | R3-c | - | 2/0/0/2 | 16.32 / 15.65 | 0 |
+| `t287-w2-05-generator-package-reproducibility` | 2/2/0/0 | O1 base, rerun (first 2/1/0/0 cancelled 1 at 33.39) | 25.52 | 2/2/0/0 | 15.65 / 18.63 | 120 |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 | R3-c | - | 5/3/0/2 | 18.63 / 18.63 | 1 |
+| `t288-instruction-assembly-owner` | 6/4/0/2 | R3-c | - | 6/4/0/2 | 18.63 / 18.63 | 1 |
+| `t289-install-event-bodies` | 4/0/0/4 | O1 base | 62.65 | 4/0/0/4 | 18.63 / 18.63 | 0 |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 | R3-c | - | 2/0/0/2 | 18.63 / 18.63 | 0 |
+| `w2-steel-single-start-closure` | 8/0/0/8 | R3-c | - | 8/0/0/8 | 18.63 / 18.63 | 1 |
+| `w2-steel-single-start-installed` | 1/0/0/1 | R3-c | - | 1/0/0/1 | 18.63 / 18.63 | 0 |
+| `uat-harness` | 34/31/0/3 | R3-c | - | 34/31/0/3 | 18.63 / 18.63 | 1 |
+| `uat-continuation` | 4/0/0/4 | R3-c | - | 4/0/0/4 | 18.63 / 18.63 | 0 |
+| `compose` | 2/2/0/0 | R3-c | - | 2/2/0/0 | 18.63 / 14.14 | 39 |
+
+**Case names.** I compared the (case name, status) pairs of every run, before against after (`scratchpad/o1/tools/names.py`; before logs: `o1/lanes/before-rerun/` for the two rerun lanes, `o1/lanes/before/` for the 34, `r3c/lanes/restated/` for its four lanes, `r3c/lanes/after/` for the rest). In all 106 runs the sets are equal apart from twelve names:
+- the nine added `O1 …` cases, each passed after;
+- the three `t287-worksite-command-execution` cases at `:1409`, `:1590` and `:1594`, cancelled before and passed after.
+
+**Reds by name.** None after. Before, on this run's base pass: the three `t287-worksite-command-execution` cases above; `m5-event-store-reopen` "M5 effectful truth rejects forged artifact operation identity before query selection" and `t287-w2-05-generator-package-reproducibility` "W2-05 generator is reproducible and the real pack verifies 18/56", each cancelled at 600 s and passed on its rerun.
+
+**Skips by name.** 121 after, the same names as before in every lane, so listed once:
+- `steel-basic-cli-projection` (1): "separate installed reader projects retained C1 root among child terminals without changing its authority".
+- `steel-consumer-authority` (1): "installed admission producer preserves its native invalid-basis error contract".
+- `steel-consumer-declaration` (1): "Thread 2: independent data-only declarations through actual installed Public".
+- `t287-authenticated-owner-values` (1): "native basis retains one immutable derivation; copied, changed and physically stale inputs revalidate".
+- `t287-conformance-owner-reuse` (1): "conformance owner reuse over the predecessor build, the proof territory and the retained declaration metadata".
+- `t287-d1-requirement-handoff` (3): "D1 installed fixed-source obligation handoff remains non-closing"; "D1 ordinary installed wrong-role invocation cannot close the transfer"; "D1 retained prefix guard reconstructs the graph and rejects fabricated transfer bases".
+- `t287-d1-semantic-stage` (2): "D1 assessor statement domain matches native assembly and preserves strict relation refusals"; "D1 native operating-basis projection conserves exact preparation identity".
+- `t287-declaration-closure-symbol-reuse` (1): "direct-symbol reuse conserves complete closure output and ownership refusals".
+- `t287-declared-testing-capability` (4): "declared checker composition uses native owners and independently rederives saved C1/C2 requests"; "declared testing context is bound into the actual consumer lifecycle and shared role policies"; "declared testing live actor allowance preserves defaults and existing transport policy"; "declared testing preparation keeps prospective criteria and explicit transport modes".
+- `t287-default-library` (3): "native observation facts preserve captured history through preparation admission and complete assembly"; "one installed Public default-library invocation reuses observed files, corrects actual work and independently closes"; "selector planning fits captured eighteen and realistic fifty-one complete owned assemblies".
+- `t287-environment-projection-conservation` (1): "installed environment owner authenticates once and preserves exact outputs and entry refusals".
+- `t287-generic-job-lifecycle` (1): "installed ordinary job traverses full native semantic, parent, C1, C2 and Evidence owners".
+- `t287-generic-job-meaning` (2): "corrected disclosed double satisfies retained Requirements and downstream component response contracts"; "saved native Design-to-plan counterexample uses the assessor result coordinate, not a cursor value digest".
+- `t287-generic-job-parent-foldback` (1): "actual parent effect is conserved by workflow foldback; downstream projection remains prospective".
+- `t287-generic-job-read-dependency` (1): "completed native Evidence keeps the exact initial Design/context read origin".
+- `t287-generic-job-revision` (3): "native correction consumes an actual failed verifier and preserves the unselected file"; "saved native revision bridge preserves revision discriminants and selected-retained ownership"; "saved revision Evidence separates historical origins from checked successor state".
+- `t287-governance-covered-source-use` (6): "actual installed C2 material correspondence preserves consumed content and strict refusals"; "built-in ingress preserves the whole captured34 state and independent assessment subject"; "covered use binds exact original state, complete canonical Catalog and cold admitted coordinates"; "frozen176 selected declarations compare across artifact and manifest hash-order reversal"; "later completed work follows actual admitted covered-source ancestry without root or value guesses"; "normal close preserves the owned ArtifactTruth snapshot while copies and fresh reads validate bytes".
+- `t287-held-prefix` (6): "cold reopen preserves pre-acquisition cuts for ancestry and real R10 projections"; "held Run truth/result/replay equal copied and closed-owner cold projections without history reads"; "only exact known cuts reuse held history; copied, foreign, forward and wrong coordinates retain authentication"; "ordinary leaf judgment receives exact Result successor; cold and held candidates agree"; "ordinary workflow judgment receives exact Result successor; cold and held candidates agree"; "owned result-to-judgment conserves semantic digests without canonicalizing either complete prefix".
+- `t287-installed-dependency-lock` (2): "fixed definition resolution shares actual verifier/link and Catalog owner results, with cold/toolchain refusals intact"; "physical managed dependency material must match the selected immutable Product lock".
+- `t287-installed-qualification-conservation` (1): "installed qualification conservation over the installed territory, package, archive and pinned interpreter".
+- `t287-management-context` (2): "Public-start exact positive and schema-valid crossed input coordinate use the existing preparation owner"; "exact released a_c validation and emitted-map equality are structural access, not frame application".
+- `t287-native-assembly-retained-input` (1): "actual native author fold consumes its admitted retained pair; crossed basis and input refuse".
+- `t287-native-owner-reuse` (3): "R10 keeps same-owner exact prefix warm while copies, closed owners and malformed cuts remain cold/refused"; "actual historical reacquisition contracts owner work without changing task or refusals"; "execution basis still refuses changed raw input and changed enclosing body".
+- `t287-native-registered-selection` (1): "native Executive selects registered capabilities through installed Public entry".
+- `t287-native-runtime-gate` (1): "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction".
+- `t287-native-work-reacquisition` (3): "actual closed child survives blocked parent without acquiring closed-Run source authority"; "actual source rejects absent child, foreign provenance, changed context and uncovered authority"; "later admitted failure invalidates full reacquired context beyond the C2 snapshot subset".
+- `t287-native-worksite-execution` (3): "native source currentness includes admitted failed-write residue after the child basis cut"; "native source selection preserves complete values and exact membership across long producer history and cold coordinates"; "retained actual native producer joins C2 source admission; absent and foreign origins refuse".
+- `t287-native-workspace-work` (1): "admitted pure consumer evaluates a native task as data without physical authority".
+- `t287-ordered-reconstruction` (3): "historical liveness folds conserve full/scoped/reverse reads and declaration refusals"; "liveness historical-cut intermediates are call-local while authentic current, older, lease and refusal answers agree"; "ordered owner advances exact suffixes and preserves historical, cold and unrelated-growth outputs".
+- `t287-owned-native-proof` (1): "20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators".
+- `t287-predecessor-context` (3): "all active assets remain eligible, not just declared predecessor stages; exact nonempty native rendering"; "complete actual retained native owner authenticates empty author assembly; deterministic identities and old bytes conserved"; "empty eligibility, exact retained counterexample and unchanged consumer acceptance".
+- `t287-public-terminal-projection` (4): "Run-truth refusal conserves the caught terminal cause through existing Public evidenceRefs"; "actual closed retry-completion history yields exact Run truth, Result and replay without new execution"; "terminal producer join refuses missing progress, foreign producer/scope and unrelated causal paths"; "workspace replay fixed Definition uses its exact owner projection identity in held and cold reads".
+- `t287-qualification-carrier-resource` (7): "Run pre-effect acquisition borrows only the exact invoking proof and rejects redundant dependencies"; "closed resource forms retain nonempty group arrays and actual old embedded identities"; "fresh explicit acquisition agrees; warmed and fresh missing resources refuse at actual cold consumer entrypoints"; "full F11 input and scope output keep compact identities and whole-scope blocked findings"; "full omission overlap and missing-domain negatives reach complete correspondence after every identity is repaired"; "missing crossed ambiguous inventory sets bodies and declaration dependencies refuse before material can be used"; "selected full prompt preserves source bodies rubric ordering and attribution apart from explicit normalized coordinates".
+- `t287-qualification-fp-proof-delivery` (1): "qualification F_P proof delivery preserves the actual prepared request and exact owner arguments".
+- `t287-qualification-law` (4): "authority staging and ordinary reproduction bind retainedRC1's exact Definition-selected release"; "authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release"; "authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest"; "authority staging refuses wrong manifest and altered selected member before writing".
+- `t287-qualification-parent-alias` (1): "native parent alias conserves the original child/J and rejects crossed provenance and competing producers".
+- `t287-qualification-producer-acquisition-reuse` (1): "T-287 qualification producer acquisition reuse over the copied producer history and the historical owner".
+- `t287-qualification-raw-contract-preimage` (1): "qualification F_P publication supplies the exact raw owner to real singleton and mixed native preimage verification".
+- `t287-reconstruction-conservation` (2): "artifact derivation removes repeated history reconstruction while every physical byte check remains operative"; "owner derivation is exact-value bound, disposable, and cannot be copied or forged".
+- `t287-recursive-registered-selection` (1): "one installed Public start revises native choice from child evidence and reevaluates its parent".
+- `t287-release-publication` (1): "retained installed archive remains verified under its owner; successor refuses its older Public catalog".
+- `t287-retained-installed-consumer` (1): "retained installed consumer over its configuration and selected phase".
+- `t287-s03-automatic` (2): "S03 Phase A pure declaration and finite domain construction"; "S03 Phase B ordinary installed positive and no-action".
+- `t287-selected-action` (1): "complete selected-action acquisition, occurrence and cold-proof composition".
+- `t287-selected-action-authority` (1): "retained catalog and view authority reject a coherent same-binding alternative".
+- `t287-selected-execution-closure` (1): "selected execution closure over the frozen installed owner, refused request and finite historical fixture".
+- `t287-stdo-run-environment` (2): "STDO declaration, exact actual access, bounded refusals and immutable profiles"; "construction readiness rederives the exact retained native request and preserves unknown refusal".
+- `t287-w2-05-static-binding-algebra` (2): "native detachment retains only actual immutable verifier bodies and detaches raw copies"; "preparation resolution retains its established native link and raw lock refusals".
+- `t288-instruction-assembly-owner` (2): "native revision decision view conserves retained selector material without duplicate byte bodies or evaluator-only data"; "retained native assemblies conserve every canonical part and required-content refusal".
+- `t289-install-event-bodies` (4): "T289 established causal installs and binding admit a new lock without changing prior truth"; "T289 live state recovers after rollback without changing earlier artifact prefixes"; "T289 owner serialization and cold historical/reference reconstruction preserve exact install truth"; "T289 raw install eligibility returns its structured refusal without appending".
+- `w2-steel-serial-branch-installed` (2): "Thread 4 deterministic partial stop"; "Thread 4 live success".
+- `w2-steel-single-start-closure` (8): "C0 authentic immutable Program publication witness binds raw and installed semantic identities"; "admitted stage output preserves the exact C1 task carrier and distinct failure slot"; "consumer callable membership resolves exact borrowed owners without contributor membership rewriting"; "declared fan-out output validates independently of leaf output slots"; "retry continuation preserves the admitted retained C1 input and ordinary terminal input"; "run resources preserve the accepted retention carrier and reject wrong kind or extra fields"; "same-Run C2 source and failed semantic replay preserve immutable historical cuts"; "worksite Program owner binds raw publication separately from installed semantic identity".
+- `w2-steel-single-start-installed` (1): "Thread 3: independent order-summary Program through one installed start".
+- `uat-harness` (3): "One authentic cold read supplies caller artifact/environment/read preparation without another physical decode"; "Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT"; "Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations".
+- `uat-continuation` (4): "Actual changed-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged"; "Actual unchanged-pair owner verification/resolution precedes history; an unadmitted source refuses and closes unchanged"; "CLI request framing preserves literal bodies, authority and producer coordinates in one line"; "Physical input tampering refuses before verifier, acquisition or dispatch".
+
+
+**The added cases** are nine, each added only, with no existing line changed:
+- `t287-native-workspace-work`: 2, both (I).
+- `m5-s06-prime`: 2, one (A) and one (I).
+- `t287-qualification-law`: 3, all (A).
+- `t287-required-operation-bindings`: 2, both (A).
+
+The seven (A) cases are falsifiers. Each feeds a value that the base accepts and admission refuses: a lone surrogate (`"\ud800"`) or an unsafe integer (`9007199254740993`), both of which `JSON.parse` keeps and `sha256Canonical` digests. Two cases rebuild their site's whole valid subject so that the base takes its accepting branch:
+- The relation case recomputes the context artifact's rows, content, manifest and provenance.
+- The binding case drives the private `materializeOwner`, loaded as R3-b's case loads its module. Its supplied assumptions are the install coordinate, a fresh invocation, an empty truth projection, the owner's result, an artifact-ingress spy and the resource release. The request admission, the declared output check and the body admission run as the module's own.
+
+Each (A) case has its valid control, and every control passes on both builds.
+
+The three (I) cases check the channel only. No non-record value reaches the guard: the matcher and the projection leg already select a record, and the reader's admitted value enters typed. So these cases pass on both builds.
+
+Dev check, run by name (`--test-name-pattern='^O1 '`) in the four lanes and not part of either pass:
+- With the cases added and the base build still in place, the seven (A) cases are red on their falsifying assertion and the three (I) cases are green.
+- After the port and the build, all nine are green.
+
+### Gates
+
+- `npx tsc --noEmit -p tsconfig.json`: rc 0, 0 lines.
+- `npx tsc --noEmit --noUnusedLocals -p tsconfig.json`: rc 0, 0 lines.
+- `lint:imports`: 28 modules, 3 forbidden pairs hold.
+- `lint:lifecycle`: 288 modules, 7 allow-listed sites, no offender.
+- `lint:evidence`: 691 roots, no new copy.
+- `lint:calculus`: 6 modules, no offender.
+- `npm run build`: rc 0, 31 s.
+- The 288 declaration files are byte-equal to the base's.
+- `git status --short -- build_tenants/abiogenesis/typescript` before the commit lists the 15 committed paths and nothing else:
+  - the eight sources;
+  - the four lanes;
+  - the fixture;
+  - the two regenerated outputs.
+
+### Deviations
+
+1. I piped the record's `grep -n '^## '` heading read through `tail -n 30`. `tail` read grep's output, not the record, and no other command took the record's path.
+2. The lane census uses R3-c's basename matcher (73 lanes), the superset named above. The directory-qualified 47 are inside it.
+3. Two lanes that the column lacks went red under load on the base run (start averages 42.45 and 33.39). I applied item 2's rule to them and reran each once alone at the end of the before pass; both were green.
+4. While the before pass ran, I drafted the decisions and the cases in a scratch copy of `code/src`, typechecked and built under scratch with a symlinked `node_modules`, and changed nothing in the tree. The base declaration emit for the `.d.ts` comparison came from `git archive 0e06b3e4f` into scratch.
+5. The dev checks above ran the added cases by name outside the two passes.
+6. Lanes and builds ran with `TMPDIR` and `npm_config_logs_dir` under scratch.
+7. One shell redirect in a scratch counting command named a malformed `/tmp/..` path. It failed with no file written.
+
+### Findings outside the grant
+
+- **The O-TYPE row's census tail against the activation's regex.** The regex counts 23 lines at `a692fb4b9`, while the row records "16 casts remain after TD-15 + TD-16".
+  - Seven of the 23 lines are array forms: `as JsonValue[]` at `abg/construction_continuation.ts:1865` and `abg/project_read_definition_bindings.ts:374`; `as unknown as JsonValue[]` at `implementation/worksite_command_helper.ts:1308` and `:1414`, `product/release_snapshot_definition_bindings.ts:66` and `:139`, and `validator/qualification.ts:101`, which carries two. The row's three forms do not name these.
+  - The other 16 lines are the three forms, the row's figure.
+  - The row records counts, not sites, so the match is by count and by text against `a692fb4b9`; the site set itself cannot be checked against the row.
+  - Every commit blamed for the 23 (12) is an ancestor of `a692fb4b9`.
+- **Load during the before run.** The base run of `t287-worksite-command-execution` started at an average of 8.60, which rose to 42.45 during its 1,363 s. The start reading the rule keys on does not bound the load a long lane sees.
+
+### Stops
+
+None.
+
+### What could not be verified
+
+- The load in the after pass. The averages are those `uptime` showed; the work beside mine was the Executive's suite in `scratchpad/suite/wt-bf7119489`, the sandbox and the owner's processes, none of it mine to lower.
+- The (I) guards. They cannot be falsified by a reachable value: the type did not flow, but the value was already a record.
+- The site set of the 23 against the design row. The row records counts, not sites.
+- The post-deploy test is the Executive's.
+- The reading is one model's, with an advisor; there was no Codex reading.

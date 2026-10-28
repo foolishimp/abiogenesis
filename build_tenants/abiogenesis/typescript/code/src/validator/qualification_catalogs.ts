@@ -3,6 +3,7 @@ import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { isRecord } from "../shared/admission_predicates.js";
+import { admitJson } from "../shared/admit/index.js";
 import { payloadInventoryDigest, sha256Bytes, sha256Canonical, type PayloadInventoryRow } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { parseQualificationRuleCatalog, QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH,
@@ -62,9 +63,16 @@ export function admitInstalledQualificationCatalogs(install: QualificationCatalo
   if (rules.kind === "refused") return rules;
   const manifestBytes = read(install, MANIFEST_PATH);
   if (typeof manifestBytes === "string") return refused(coveragePath, manifestBytes);
-  let manifest: unknown;
-  try { manifest = JSON.parse(Buffer.from(manifestBytes).toString("utf8")); } catch { manifest = null; }
-  const manifestDigest = isRecord(manifest) ? sha256Canonical(manifest as JsonValue) : sha256Bytes(manifestBytes);
+  let parsed: unknown;
+  try { parsed = JSON.parse(Buffer.from(manifestBytes).toString("utf8")); } catch { parsed = null; }
+  let manifest: JsonValue | null = null;
+  if (isRecord(parsed)) {
+    const admitted = admitJson(parsed);
+    if (admitted.kind !== "ok")
+      return refused(coveragePath, `qualification catalog ${coveragePath} binds through the manifest of install ${install.installId}, which is not I-JSON (${admitted.code})`);
+    manifest = admitted.value;
+  }
+  const manifestDigest = isRecord(manifest) ? sha256Canonical(manifest) : sha256Bytes(manifestBytes);
   if (manifestDigest !== install.manifestDigest)
     return refused(coveragePath, `qualification catalog ${coveragePath} binds through the manifest of install ${install.installId}, which is ${manifestDigest}; the verified install records ${install.manifestDigest}`);
   const locators = isRecord(manifest) ? manifest.productRelativeLocators : undefined;
@@ -82,13 +90,16 @@ export function admitInstalledQualificationCatalogs(install: QualificationCatalo
   const content = payloadInventoryDigest(inventory);
   if (content !== install.productContentDigest)
     return refused(coveragePath, `qualification catalog ${coveragePath} is ${coverageDigest}; the payload inventory over it is ${content}, and the verified install records product content ${install.productContentDigest}`);
-  let coverageValue: JsonValue;
-  try { coverageValue = JSON.parse(Buffer.from(coverage).toString("utf8")) as JsonValue; }
+  let parsedCoverage: unknown;
+  try { parsedCoverage = JSON.parse(Buffer.from(coverage).toString("utf8")); }
   catch { return refused(coveragePath, `qualification catalog ${coveragePath} (${coverageDigest}) is not JSON`); }
+  const coverageValue = admitJson(parsedCoverage);
+  if (coverageValue.kind !== "ok")
+    return refused(coveragePath, `qualification catalog ${coveragePath} (${coverageDigest}) is not I-JSON (${coverageValue.code})`);
   let parsedRules: AdmittedQualificationCatalogs["rules"];
   try { parsedRules = parseQualificationRuleCatalog(rules.value); }
   catch { return refused(SELF_CONFORMANCE_CATALOG_ASSET_PATH, `qualification catalog ${SELF_CONFORMANCE_CATALOG_ASSET_PATH} (${rulesDigest}) is not a rule catalog`); }
-  return deepFreeze({ kind: "admitted" as const, value: deepFreeze({ coverage: coverageValue, rules: parsedRules }) });
+  return deepFreeze({ kind: "admitted" as const, value: deepFreeze({ coverage: coverageValue.value, rules: parsedRules }) });
 }
 
 /** One admission per install identity (`installId` and `productContentDigest`)

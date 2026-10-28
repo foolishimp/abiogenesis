@@ -418,7 +418,7 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
       ...(result.frameId===undefined?{}:{frameId:result.frameId}),causationEventRefs:result.causationEventRefs,
       admissionOrdinal:result.admissionOrdinal,cCallRef:state.cCall.cCallRef,evidenceContractRef:state.cCall.evidenceContractRef,
       evidenceRefs:state.result.evidenceRefs,requestDigest:hash(request),envelopeDigest:hash(envelope)};
-    const evidence=checkedRecordAtPrefix(prefix,REVISION_EVIDENCE_RECORD,evidenceContext as unknown as JsonValue,()=>checkExactRecord(
+    const evidence=checkedRecordAtPrefix(prefix,REVISION_EVIDENCE_RECORD,evidenceContext,()=>checkExactRecord(
       resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + result.aggregateId),e=>e.kind==="c_call_evidenced"&&e.aggregateId===result.aggregateId),
       REVISION_EVIDENCE_RECORD,evidenceContext));
     // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.

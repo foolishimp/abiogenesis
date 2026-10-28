@@ -22,6 +22,7 @@ import type {
   ProductPublicContract,
 } from "./contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitJson, isRecord } from "../shared/admit/index.js";
 
 export interface DeclarationSource {
   readonly path: string;
@@ -516,7 +517,7 @@ export interface ExecutingToolchainIdentity {
  * A boundary reads it once per call and passes the identity on as an input. A
  * read or parse failure throws; each caller keeps its own failure channel. */
 export function readExecutingToolchainIdentity(): ExecutingToolchainIdentity {
-  const manifest = JSON.parse(
+  const admitted = admitJson(JSON.parse(
     readFileSync(
       new URL(
         "../../../../product-toolchain-manifest.json",
@@ -524,10 +525,12 @@ export function readExecutingToolchainIdentity(): ExecutingToolchainIdentity {
       ),
       "utf8",
     ),
-  ) as JsonValue;
-  const record = typeof manifest === "object" && manifest !== null && !Array.isArray(manifest)
-    ? manifest as Readonly<Record<string, JsonValue>>
-    : null;
+  ));
+  if (admitted.kind !== "ok") {
+    throw new TypeError(`the executing toolchain manifest is not I-JSON (${admitted.code})`);
+  }
+  const manifest = admitted.value;
+  const record = isRecord(manifest) ? manifest : null;
   return {
     manifest,
     manifestDigest: sha256Canonical(manifest),

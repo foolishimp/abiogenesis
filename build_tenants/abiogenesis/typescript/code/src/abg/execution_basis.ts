@@ -1044,7 +1044,7 @@ const SET_PROJECTION_REFUSAL: StructuralRefusal = Object.freeze({
   evidence: Object.freeze({}),
 });
 
-function implementationSetBody(set: AdmittedImplementationSet): JsonValue {
+function implementationSetBody(set: AdmittedImplementationSet): Readonly<Record<string, JsonValue>> {
   const {
     kind: _kind,
     schemaVersion: _schemaVersion,
@@ -1057,7 +1057,7 @@ function implementationSetBody(set: AdmittedImplementationSet): JsonValue {
   return body;
 }
 
-function interactionSetBody(set: AdmittedInteractionSet): JsonValue {
+function interactionSetBody(set: AdmittedInteractionSet): Readonly<Record<string, JsonValue>> {
   const {
     kind: _kind,
     schemaVersion: _schemaVersion,
@@ -1205,7 +1205,7 @@ export function hasAdmittedImplementationSetAtPrefix(
   set: AdmittedImplementationSet,
 ): boolean {
   if (!isAdmittedImplementationSet(set)) return false;
-  const body = implementationSetBody(set) as Readonly<Record<string, JsonValue>>;
+  const body = implementationSetBody(set);
   const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
@@ -1282,7 +1282,7 @@ export function hasAdmittedInteractionSetAtPrefix(
   set: AdmittedInteractionSet,
 ): boolean {
   if (!isAdmittedInteractionSet(set)) return false;
-  const body = interactionSetBody(set) as Readonly<Record<string, JsonValue>>;
+  const body = interactionSetBody(set);
   const event = indexedRuntimeEvents(prefix, "id:" + set.admissionEventRef).find(
     (candidate) => candidate.eventId === set.admissionEventRef,
   );
@@ -1329,11 +1329,11 @@ export function rehydrateAdmittedImplementationSetAtPrefix(
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
   if (checked.kind !== "one") return null;
-  const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
+  const set = checked.value, payload = checked.event.payload;
   implementationSets.add(set);
   // The checked row is the admission: its digest leg hashed the body once.
-  return admittedSetPayloadAgrees(IMPLEMENTATION_SET_KEYS, set.implementationSetRef, set.implementationSetDigest,
-    implementationSetBody(set) as Readonly<Record<string, JsonValue>>, payload) ? set : null;
+  return isRecord(payload) && admittedSetPayloadAgrees(IMPLEMENTATION_SET_KEYS, set.implementationSetRef,
+    set.implementationSetDigest, implementationSetBody(set), payload) ? set : null;
 }
 
 export function rehydrateAdmittedInteractionSet(
@@ -1371,11 +1371,11 @@ export function rehydrateAdmittedInteractionSetAtPrefix(
   );
   // Owner boundary: `absent`, `many` and `invalid` are the existing `null`.
   if (checked.kind !== "one") return null;
-  const set = checked.value, payload = checked.event.payload as Readonly<Record<string, JsonValue>>;
+  const set = checked.value, payload = checked.event.payload;
   interactionSets.add(set);
   // The checked row is the admission: its digest leg hashed the body once.
-  return admittedSetPayloadAgrees(INTERACTION_SET_KEYS, set.interactionSetRef, set.interactionSetDigest,
-    interactionSetBody(set) as Readonly<Record<string, JsonValue>>, payload) ? set : null;
+  return isRecord(payload) && admittedSetPayloadAgrees(INTERACTION_SET_KEYS, set.interactionSetRef,
+    set.interactionSetDigest, interactionSetBody(set), payload) ? set : null;
 }
 
 export function hasAdmittedImplementationResolution(

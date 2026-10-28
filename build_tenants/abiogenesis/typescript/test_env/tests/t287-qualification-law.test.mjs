@@ -286,3 +286,56 @@ test('a typed failure of an F_D qualification leaf arrives through the port boun
   assert.deepEqual(closed.candidate.evidenceCandidates, [{ kind: 'deterministic_evidence_candidate', schemaVersion: '5.0.0',
     implementationRef: q.malformedAssessImplementation, inputDigest, outputDigest: sha256Canonical(closed.candidate.resultCandidate) }]);
 });
+
+// O1 (O-TYPE (A)): the qualification coverage catalog and the install manifest
+// it binds through are admitted where they are parsed. JSON.parse keeps a lone
+// surrogate and an unsafe integer, and the canonical digest accepts both; each
+// is refused on the site's own channel.
+const o1QualificationRoot = fileURLToPath(new URL('../..', import.meta.url));
+
+test('O1 (A): parseQualificationCatalogs refuses a coverage catalog outside I-JSON on its throw', () => {
+  const rules = fs.readFileSync(path.join(o1QualificationRoot, 'contracts/qualification/rule-catalog.json'));
+  const coverage = fs.readFileSync(path.join(o1QualificationRoot, 'contracts/qualification/coverage.json'));
+  assert.deepEqual(parseQualificationCatalogs(coverage, rules).coverage, JSON.parse(coverage.toString('utf8')));
+  for (const text of ['{"rows":["\\ud800"]}', '{"rows":[9007199254740993]}'])
+    assert.throws(() => parseQualificationCatalogs(Buffer.from(text), rules), TypeError, text);
+});
+
+async function o1InstalledCatalogs(t) {
+  const catalogs = await import('../../build/code/src/validator/qualification_catalogs.js');
+  const { QUALIFICATION_COVERAGE_CATALOG_ASSET_PATH: coveragePath } = await import('../../build/code/src/validator/qualification.js');
+  const { sha256Bytes, sha256Canonical, payloadInventoryDigest } = await import('../../build/code/src/shared/digests.js');
+  const rulesPath = catalogs.SELF_CONFORMANCE_CATALOG_ASSET_PATH, rules = fs.readFileSync(path.join(o1QualificationRoot, rulesPath));
+  const validCoverage = fs.readFileSync(path.join(o1QualificationRoot, coveragePath));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 't287-o1-qualification-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(root, path.dirname(coveragePath)), { recursive: true });
+  const manifest = note => `{"productRelativeLocators":${JSON.stringify([coveragePath, rulesPath])},"note":"${note}"}`;
+  const admit = (coverage, manifestText) => {
+    fs.writeFileSync(path.join(root, rulesPath), rules);
+    fs.writeFileSync(path.join(root, coveragePath), coverage);
+    fs.writeFileSync(path.join(root, 'product-toolchain-manifest.json'), manifestText);
+    return catalogs.admitInstalledQualificationCatalogs({ installId: 'install://abiogenesis/o1-qualification', installedRoot: root,
+      manifestDigest: sha256Canonical(JSON.parse(manifestText)),
+      productContentDigest: payloadInventoryDigest([{ path: coveragePath, sha256: sha256Bytes(coverage) }, { path: rulesPath, sha256: sha256Bytes(rules) }]),
+      publicContracts: [{ contractId: catalogs.SELF_CONFORMANCE_CATALOG_CONTRACT_ID, assetLocator: { path: rulesPath, contentDigest: sha256Bytes(rules) } }] });
+  };
+  assert.equal(admit(validCoverage, manifest('o1')).kind, 'admitted', 'the install fixture admits both catalogs');
+  return { admit, manifest, coveragePath, validCoverage };
+}
+
+test('O1 (A): an install manifest outside I-JSON is refused at the coverage catalog it binds', async t => {
+  const { admit, manifest, coveragePath, validCoverage } = await o1InstalledCatalogs(t);
+  const refusal = admit(validCoverage, manifest('\\ud800'));
+  assert.equal(refusal.kind, 'refused', JSON.stringify(refusal));
+  assert.equal(refusal.at, coveragePath);
+});
+
+test('O1 (A): an installed coverage catalog outside I-JSON is refused at its path', async t => {
+  const { admit, manifest, coveragePath } = await o1InstalledCatalogs(t);
+  for (const text of ['{"rows":["\\ud800"]}', '{"rows":[9007199254740993]}']) {
+    const refusal = admit(Buffer.from(text), manifest('o1'));
+    assert.equal(refusal.kind, 'refused', text);
+    assert.equal(refusal.at, coveragePath, text);
+  }
+});

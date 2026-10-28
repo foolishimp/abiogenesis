@@ -50,6 +50,7 @@ import {
   validatedOwnerOutput,
 } from "../public/binding/definition_binding_mechanics.js";
 import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
+import { admitJson } from "../shared/admit/index.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type {
@@ -391,7 +392,7 @@ function materializeOwner<M extends Member>(
             const coordinate = constructExactOperationInvocationCoordinate({ operationId: key.operationId, memberKey: member,
               definitionDigest: invocation.definitionDigest }, invocation.invocationRef, invocation.requestDigest);
             const binding = environment.workspaceBinding;
-            const body = deepFreeze({
+            const body = admitJson({
               kind: "product_materialization_artifact",
               schemaVersion: "5.0.0",
               memberKey: member,
@@ -400,7 +401,10 @@ function materializeOwner<M extends Member>(
               workspaceBinding: reference(binding.bindingId, binding.bindingDigest),
               request: invocation.request,
               result: native,
-            }) as unknown as JsonValue;
+            });
+            if (body.kind !== "ok") {
+              throw fault("abg_admission", "product_materialization_artifact_refused", JSON.stringify(body));
+            }
             const admission = admitArtifact(resource.store, {
               ...coordinate,
               operationId: key.operationId,
@@ -410,7 +414,7 @@ function materializeOwner<M extends Member>(
               eventTime: invocation.eventTime,
               causationEventRefs: [binding.admissionEventRef],
               predecessorPrefix: resource.entryPrefix,
-            }, key.operationId, artifact.ref, artifact.digest, { artifact: body });
+            }, key.operationId, artifact.ref, artifact.digest, { artifact: body.value });
             if (admission.disposition !== "admitted" && admission.disposition !== "idempotent") {
               throw fault("abg_admission", "product_materialization_artifact_refused", JSON.stringify(admission));
             }
