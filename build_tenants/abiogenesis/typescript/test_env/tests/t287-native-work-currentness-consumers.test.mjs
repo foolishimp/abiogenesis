@@ -266,7 +266,14 @@ async function governanceConsumers(t) {
   const library = g.constructDefaultGovernanceLibraryModulePublication({ productId: p.ABI5_PRODUCT_ID, packageName: p.ABI5_PACKAGE_NAME,
     packageVersion: p.ABI5_PACKAGE_VERSION, artifactDigest: hash('artifact'), productContentDigest: hash('content'), productManifestDigest: hash('manifest') });
   let owned;
+  const governanceRoots = new Map();
+  // The one governance-root projection as built over the actual index; the
+  // owned execution's ancestry to the governance root basis is the supplied
+  // rehydration premise.
+  const projection = await component('abg/semantic_job', {
+    './execution_basis.js': { rehydrateExecutionBasisAtPrefix: (_prefix, ref) => governanceRoots.get(ref) ?? null } });
   const gate = await component('abg/default_library', {
+    './semantic_job.js': { ...projection },
     './execution_basis.js': { authenticateOwnedNativeInstructionAssemblyBasis: () => owned },
     './native_worksite_execution.js': { worksiteCommandSourcesInvalidatedAfter: trace.worksiteCommandSourcesInvalidatedAfter,
       projectNativeWorkspaceWorkSourceAtPrefix: (prefix, value) => nativeOwner.projectNativeWorkspaceWorkSourceAtPrefix(prefix, value) ?? assessedSources.get(value.observationRef) ?? null },
@@ -308,7 +315,8 @@ async function governanceConsumers(t) {
       assessment: assessmentSelection });
     assert.equal(p.isNativeWorkspaceWorkTask(assessmentTask), true, 'complete typed assessment prerequisites hold before consumer gates');
     const root = f.atCut(() => f.basisFor(f, f.inv, state, { implementationSetRef: 'implementation-set://u1/governance/' + path }));
-    const execution = { ...native.basis, rootImplementationSetRef: root.implementationSetRef };
+    const execution = { ...native.basis, rootImplementationSetRef: root.implementationSetRef, parentExecutionBasisRef: root.basisRef };
+    governanceRoots.set(root.basisRef, { ...execution, basisRef: root.basisRef, parentExecutionBasisRef: null, rawInputValue: root.rawInputValue });
     const stateWithSource = synthesized({ ...state, observations: [{ purpose: 'construction', resultRef: native.result.resultRef,
       resultDigest: native.result.resultDigest, cCallRef: native.event.aggregateId, actorInvocationRef: native.source.provenance.actorInvocationRef,
       synthesisResultRef: 'result://u1/prior-selection', selectedGraphFunctionRef: p.governanceRef('graph-function', 'construction'),
@@ -407,6 +415,12 @@ async function semanticOwnerHarness(data) {
   const root = { ...f.basis, basisRef: envelope.basis.rootExecutionBasisRef, basisDigest: hash('controlled-semantic-root'),
     parentExecutionBasisRef: null, rawInputValue: env.job, rawInputDigest: hash(env.job), rawInputAdmissionRef: envelope.basis.rootInputRef };
   bases.set(root.basisRef, root);
+  // An invocation key reads the admission events of the root bases this harness
+  // admits, the index premise of the one governance-root projection; a consumer
+  // whose execution is its own root admits it under its own invocation.
+  const admittedRoots = [root];
+  const rootAdmissions = key => admittedRoots.filter(b => 'invocation:' + b.invocationRef === key).map(b => ({ kind: 'basis_admitted',
+    payload: { basisClass: 'root', basisRef: b.basisRef, invocationAdmissionRef: b.invocationAdmissionRef, implementationSetRef: b.rootImplementationSetRef, rawInputValue: b.rawInputValue } }));
   const pub = helpers.declaredPublication;
   const environment = { kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
     productInstalls: [{ productId: pub.owningProductId, artifactDigest: pub.artifactDigest, productContentDigest: pub.productContentDigest,
@@ -420,6 +434,7 @@ async function semanticOwnerHarness(data) {
     rehydrateExecutionBasisAtPrefix: (_prefix, ref) => bases.get(ref) ?? null };
   const owner = await component('abg/semantic_job', {
     './execution_basis.js': executionOverrides,
+    './event_prefix.js': { indexedRuntimeEvents: (prefix, key) => key.startsWith('invocation:') ? rootAdmissions(key) : prefixes.indexedRuntimeEvents(prefix, key) },
     './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => ({ capabilityGrants: [f.capabilityGrant] }) },
     '../gtl/semantic_job.js': { validSemanticJobProgramOwners: () => true },
     './semantic_stage.js': { projectSemanticPredecessorAtPrefix: lookup },
@@ -440,7 +455,7 @@ async function semanticOwnerHarness(data) {
         programLocusRef: stage?.authorLocusRef ?? f.cCall.programLocusRef, openedEventRef: openedEventRef ?? 'event://u1/consumer-open' } };
     return owned;
   };
-  return { owner, trace, basis, root, environment, states, bases, lookup, leaf, executionOverrides, admit, setOwner, get owned() { return owned; } };
+  return { owner, trace, basis, root, environment, states, bases, admittedRoots, lookup, leaf, executionOverrides, admit, setOwner, get owned() { return owned; } };
 }
 
 async function semanticFoldConsumer(t) {
@@ -477,8 +492,8 @@ async function revisionIntakeConsumer(t) {
     const intake = { kind: 'native_semantic_revision_intake', schemaVersion: '5.0.0', sourceRun,
       sourcePrefix: clone(selectHeldEventStoreDurablePrefix(f.store)) };
     assert.equal(revisionProduct.isNativeSemanticRevisionIntake(intake), true);
-    const execution = { ...h.root, basisRef: 'basis://u1/revision-intake', rawInputValue: intake, rawInputDigest: hash(intake),
-      rawInputAdmissionRef: 'input://u1/revision-intake' }; h.bases.set(execution.basisRef, execution);
+    const execution = { ...h.root, basisRef: 'basis://u1/revision-intake', invocationRef: 'invocation://u1/revision-intake', rawInputValue: intake, rawInputDigest: hash(intake),
+      rawInputAdmissionRef: 'input://u1/revision-intake' }; h.bases.set(execution.basisRef, execution); h.admittedRoots.push(execution);
     const revision = await component('abg/semantic_revision', {
       './execution_basis.js': h.executionOverrides,
       './semantic_job.js': h.owner,
@@ -549,8 +564,8 @@ async function revisionEvidenceConsumer(t) {
     const acquisitionBasis = { ...h.root, basisRef: 'basis://u1/acquisition', rawInputValue: source, rawInputDigest: hash(source) };
     h.bases.set(acquisitionBasis.basisRef, acquisitionBasis);
     const acquired = h.admit(request, R.nativeIntakeImplementationRef, 'c-call://u1/acquired', acquisitionBasis);
-    const execution = { ...h.root, basisRef: 'basis://u1/selection', rawInputValue: request, rawInputDigest: hash(request) };
-    h.bases.set(execution.basisRef, execution);
+    const execution = { ...h.root, basisRef: 'basis://u1/selection', invocationRef: 'invocation://u1/selection', rawInputValue: request, rawInputDigest: hash(request) };
+    h.bases.set(execution.basisRef, execution); h.admittedRoots.push(execution);
     const revision = await component('abg/semantic_revision', {
       './execution_basis.js': h.executionOverrides,
       './semantic_job.js': h.owner,

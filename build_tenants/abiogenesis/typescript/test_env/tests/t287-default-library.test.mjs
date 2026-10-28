@@ -36,6 +36,19 @@ function validation(publication,program,publications){
     implementationBindings:unique('bindingRef',publications.flatMap(p=>p.implementationBindings)).map(v=>raw(v,'implementation_binding')),
     closureContracts:unique('closureContractRef',publications.flatMap(p=>p.closureContracts)).map(v=>raw(v,'closure_contract'))});
 }
+// The one governance-root projection as built (abg/semantic_job.js), linked
+// over a fixture's index and exact-prefix rehydration: each fixture supplies
+// both relations, the one indexed root and the ancestry walk that reaches it.
+async function rootProjection(indexed,rehydrateExecutionBasisAtPrefix){
+  const file=resolve(packageRoot,'build/code/src/abg/semantic_job.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  await m.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href);
+    const values={...actual,...(s==='./event_prefix.js'?{indexedRuntimeEvents:(p,key)=>indexed(p,key,actual.indexedRuntimeEvents)}:s==='./execution_basis.js'?{rehydrateExecutionBasisAtPrefix}:{})};
+    return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+  await m.evaluate();return {...m.namespace};
+}
+// The root basis the indexed root event admits, read from that event at call
+// time: an owned execution's ancestry reaches it in one step.
+const rootBasis=(root,execution)=>(_p,ref)=>ref===root.payload.basisRef?{...execution,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null;
 test('default library preserves cumulative wrapper bindings and rejects duplicate carried refs',()=>{
   const state=product.governanceContract('state'),graphs=gtl.defaultGovernanceGraphFunctions();
   for(const purpose of product.GOVERNANCE_PURPOSES){
@@ -325,11 +338,12 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   assert.deepEqual(Object.keys(revision.state.synthesis).sort(),['basis','judgment','resultDigest','resultRef']);
   const invocation={invocationRef:'invocation:unit',invocationAdmissionRef:execution.invocationAdmissionRef,capabilityGrants:[f.capabilityGrant]},projection=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_projection']);
   const origin={kind:'c_call_result_admitted',runId:'run:unit',basisId:execution.basisRef,graphCallId:'graph-call:unit',aggregateId:call.cCallRef,payload:{resultClass:'success',resultRef:'result:unit',resultDigest:product.sha256Canonical(bound)}};
-  const projectionOwner={...owner,inputValue:bound,inputRef:origin.payload.resultRef,inputOrigin:{event:origin},execution:{...execution,rootImplementationSetRef:'set:unit'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{},call:{...call,runId:'run:unit',graphCallId:'graph-call:unit',implementationRef:product.governanceRef('implementation','project-choice'),outputContractRef:product.governanceContract('choice')}};
-  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:unit',rawInputValue:state}},opened={kind:'c_call_opened',runId:'run:unit',basisId:execution.basisRef,payload:{programLocusRef:node.nodeRef}};
+  const projectionOwner={...owner,inputValue:bound,inputRef:origin.payload.resultRef,inputOrigin:{event:origin},execution:{...execution,rootImplementationSetRef:'set:unit',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root-unit'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{},call:{...call,runId:'run:unit',graphCallId:'graph-call:unit',implementationRef:product.governanceRef('implementation','project-choice'),outputContractRef:product.governanceContract('choice')}};
+  const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root-unit',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:unit',rawInputValue:state}},opened={kind:'c_call_opened',runId:'run:unit',basisId:execution.basisRef,payload:{programLocusRef:node.nodeRef}};
+  const projectionIndex=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened],projectionRoot=await rootProjection(projectionIndex,rootBasis(root,projectionOwner.execution));
   const projectionFile=resolve(packageRoot,'build/code/src/abg/default_library.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
   await projectionModule.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(projectionFile),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened]}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:projectionIndex}:specifier==='./semantic_job.js'?projectionRoot:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
   const projectionBasis={graphFunction:graph,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}};
   const choice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);assert.equal(choice.graphFunctionRef,raw.nextGraphFunctionRef);assert.equal(choice.reason,raw.nextReason);assert.deepEqual(choice.input.value.original,state.original);assert.deepEqual(choice.input.value.synthesis,current.resultRef==='result:unit'?current:{...current,resultRef:'result:unit'});
@@ -531,7 +545,8 @@ test('native-work assembly is bounded by the Run declared prompt bound: a fittin
     await m.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href),values={...actual,...(replacements[s]??{})};
       return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
     await m.evaluate();return m.namespace;};
-  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null}});
+  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null},
+    './event_prefix.js':{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+execution.invocationRef?[{kind:'basis_admitted',payload:{basisClass:'root',basisRef:root.basisRef,invocationAdmissionRef:root.invocationAdmissionRef,implementationSetRef:root.rootImplementationSetRef,rawInputValue:root.rawInputValue}}]:[]}});
   const assembly=await link(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
     './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>null},'./semantic_job.js':{...ancestry}});
   const rooted=rawInputValue=>{root={...execution,basisRef:'basis:root-bound',parentExecutionBasisRef:null,rawInputValue};};
@@ -592,7 +607,8 @@ async function worksiteRoleBoundCase(t,role){
     await m.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href),values={...actual,...(replacements[s]??{})};
       return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
     await m.evaluate();return m.namespace;};
-  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null}});
+  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null},
+    './event_prefix.js':{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+execution.invocationRef?[{kind:'basis_admitted',payload:{basisClass:'root',basisRef:root.basisRef,invocationAdmissionRef:root.invocationAdmissionRef,implementationSetRef:root.rootImplementationSetRef,rawInputValue:root.rawInputValue}}]:[]}});
   const assembly=await link(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
     './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>stdo},'./semantic_job.js':{...ancestry}});
   const rooted=rawInputValue=>{root={...execution,basisRef:'basis:root-bound',parentExecutionBasisRef:null,rawInputValue};};
@@ -677,7 +693,7 @@ test('native observation facts preserve captured history through preparation adm
     const execution={...nativeBasis.executionBasis,rootImplementationSetRef:'set:controlled-context'};
     const invocation={invocationRef:'invocation:controlled-context',invocationAdmissionRef:execution.invocationAdmissionRef,capabilityGrants:[previous.capabilityGrant],
       sourceResultBasis:{sourceResultContractRef:product.governanceContract('state'),sourceResultValueDigest:product.sha256Canonical(state)},rawInputDigest:product.sha256Canonical(state)};
-    const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:state}};
+    const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:execution.parentExecutionBasisRef??execution.basisRef,invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:state}};
     const owned={program,prefix:{},execution,environment,call:{runId:'run:controlled-context',implementationRef:product.governanceRef('implementation','prepare-native')},inputRef:'input:controlled-context',inputValue:state,inputOrigin:{}};
     const {default:ts}=await import('typescript');
     const module=async(file,replacements={},source)=>{
@@ -692,6 +708,7 @@ test('native observation facts preserve captured history through preparation adm
     const replacements={'./execution_basis.js':{authenticateNativeInstructionAssemblyBasis:()=>owned,authenticateOwnedNativeInstructionAssemblyBasis:()=>owned},
       './invocation_execution_truth.js':{projectExactInvocationAdmissionAtPrefix:()=>invocation},
       './event_prefix.js':{indexedRuntimeEvents:()=>[root]},'../product/worksite_operations.js':{observeWorksiteContext:async()=>previous.context}};
+    replacements['./semantic_job.js']=await rootProjection(()=>[root],rootBasis(root,execution));
     const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),current=await module(file,replacements),old=await module(file,replacements,(await pinned(fixture.oldAbg)).toString());
     const oldProduct=await module(resolve(packageRoot,'build/code/src/product/default_library.js'),{},(await pinned(fixture.oldProduct)).toString());
     let assemblyOwner;
@@ -745,15 +762,16 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   assert.ok(product.isGovernanceWorkState(originalState));assert.ok(!originalState.original.workOrders.uat.readFirst.includes(originalState.original.assessment.candidatePath));
   const context=await physical.observeWorksiteContext({...f,readRoots:originalState.original.readRoots,maxFiles:originalState.original.maxContextFiles,maxBytes:originalState.original.maxContextBytes});
   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[],invocation={invocationRef:'invocation:test',invocationAdmissionRef:'invocation-admission:test',capabilityGrants:[f.capabilityGrant]};
-  const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
-  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:originalState}};
+  const execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+  const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:originalState}};
   const owned={program:library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:test'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
   let sourceBasis={...execution},invalidated=false;
+  const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   // Controlled admitted occurrence/index premises; all native/C2/assessment
   // values and worksite observations are their actual typed owner constructors.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Supplied work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -907,15 +925,16 @@ test('UAT preparation carries its full authenticated producer: whole streams in 
   const context=await physical.observeWorksiteContext({...f,readRoots:initial.original.readRoots,maxFiles:initial.original.maxContextFiles,maxBytes:initial.original.maxContextBytes});
   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[];
   const invocation={invocationRef:'invocation:full-producer',invocationAdmissionRef:'invocation-admission:full-producer',capabilityGrants:[f.capabilityGrant]};
-  const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
-  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
+  const execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+  const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
   const owned={program:library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:full-producer'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
   let sourceBasis={...execution},invalidated=false,checkedPaths=[];
+  const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   // Only occurrence authentication, indexing and invalidation are controlled;
   // physical contexts and typed task/artifact/observation/fold owners are real.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original rust-cli work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the full original against its measured producer',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -1021,15 +1040,16 @@ test('C2 assessment binds a separate current DataMapper dossier without changing
   const context=await physical.observeWorksiteContext({...f,readRoots:initial.original.readRoots,maxFiles:initial.original.maxContextFiles,maxBytes:initial.original.maxContextBytes});
   const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[];
   const invocation={invocationRef:'invocation:separate-dossier',invocationAdmissionRef:'invocation-admission:separate-dossier',capabilityGrants:[f.capabilityGrant]};
-  const execution={basisRef:'basis:wrapper',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
-  const root={kind:'basis_admitted',payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
+  const execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:test',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+  const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:initial}};
   const owned={program:library.programs[0],prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:separate-dossier'},inputValue:null,inputRef:'input:test',inputOrigin:{}};
   let sourceBasis={...execution},invalidated=false,checkedPaths=[];
+  const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   // Only occurrence authentication, indexing and invalidation are controlled;
   // physical contexts and typed task/artifact/observation/fold owners are real.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId)}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original DataMapper work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the current declared dossier',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -1099,11 +1119,12 @@ test('C2 assessment binds a separate current DataMapper dossier without changing
 
 test('parent conservation joins the pre-Run root basis through exact invocation and root implementation set',async()=>{
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
-  const invocation={invocationRef:'invocation:root',invocationAdmissionRef:'invocation-admission:root',capabilityGrants:[{}]},root={kind:'basis_admitted',runId:null,payload:{basisClass:'root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:root',rawInputValue:state}},roots=[root];
-  const owned={program:{policies:{}},inputValue:state,call:{runId:'run:later-created',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution:{invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:root'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
+  const invocation={invocationRef:'invocation:root',invocationAdmissionRef:'invocation-admission:root',capabilityGrants:[{}]},root={kind:'basis_admitted',runId:null,payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:'set:root',rawInputValue:state}},roots=[root];
+  const owned={program:{policies:{}},inputValue:state,call:{runId:'run:later-created',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution:{basisRef:'basis:later-created',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:root'},environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
+  const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[],projection=await rootProjection(index,rootBasis(root,owned.execution));
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[]}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?projection:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   assert.deepEqual(m.namespace.projectGovernanceParent({},state),state,'root basis has no Run coordinate yet');
   root.payload.implementationSetRef='set:foreign';assert.equal(m.namespace.projectGovernanceParent({},state),null);root.payload.implementationSetRef='set:root';
@@ -1111,6 +1132,36 @@ test('parent conservation joins the pre-Run root basis through exact invocation 
   roots.push(root);assert.equal(m.namespace.projectGovernanceParent({},state),null);
 });
 
+test('one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root',async()=>{
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+  const invocation={invocationRef:'invocation:projection',invocationAdmissionRef:'invocation-admission:projection',capabilityGrants:[{}]};
+  const execution={basisRef:'basis:projection-child',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:projection-root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:projection'};
+  const admitted=basisRef=>({kind:'basis_admitted',runId:null,payload:{basisClass:'root',basisRef,invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:state}});
+  let roots=[admitted('basis:projection-root')];
+  const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?roots:[];
+  const rehydrate=(_p,ref)=>ref===execution.parentExecutionBasisRef?{...execution,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:state}:null;
+  // Both owners read the one projection as built over the same supplied log.
+  const projection=await rootProjection(index,rehydrate);
+  const owned={program:{policies:{}},inputValue:state,call:{runId:'run:projection',implementationRef:product.governanceRef('implementation','evaluate-parent')},execution,environment:{kind:'exact_prefix_workspace_environment'},prefix:{}};
+  const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?projection:{};
+    const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
+  // Consistent log: the one indexed root is the root the ancestry reaches.
+  assert.equal(projection.semanticJobRootAtPrefix({},execution)?.basisRef,'basis:projection-root');
+  assert.deepEqual(projection.invocationRootAtPrefix({},execution),projection.semanticJobRootAtPrefix({},execution));
+  assert.deepEqual(m.namespace.projectGovernanceParent({},state),state);
+  // Two indexed roots of the same invocation admission and implementation set.
+  roots=[admitted('basis:projection-root'),admitted('basis:projection-second')];
+  assert.equal(projection.semanticJobRootAtPrefix({},execution),null,'an index with two roots refuses');
+  assert.equal(m.namespace.projectGovernanceParent({},state),null,'the governance owner refuses two indexed roots');
+  // One indexed root that the ancestry walk does not reach.
+  roots=[admitted('basis:projection-other')];
+  assert.equal(projection.semanticJobRootAtPrefix({},execution),null,'an ancestry that misses the indexed root refuses');
+  assert.equal(m.namespace.projectGovernanceParent({},state),null,'the governance owner refuses an ancestry that misses the indexed root');
+  roots=[admitted('basis:projection-root')];
+  assert.deepEqual(m.namespace.projectGovernanceParent({},state),state);
+});
 test('DataMapper caller separates author territories and baseline inputs from future final proof',async()=>{
   const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
   const {root,rows}=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));

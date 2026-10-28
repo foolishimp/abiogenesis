@@ -149,7 +149,7 @@ export function constructWorksiteCommandForwardTask(input: Readonly<{request:Wor
     }))throw new TypeError("forward task requires the complete unchanged construction vector and explicit native proof coordinates");
   const configuration=constructWorksiteCommandConfiguration({...request,commands:originalTask.commands,
     outcomePredicates:originalTask.outcomePredicates,allowedWriteTerritories:originalTask.allowedWriteTerritories,
-    protectedSubjects:snapshotSources.map(r=>r.subject)});
+    protectedSubjects:snapshotSources.map(r=>r.subject)},null);
   if(!canonicalEquals(configuration.commands, originalTask.commands)||!canonicalEquals(configuration.predicates, originalTask.outcomePredicates)||
     !canonicalEquals(configuration.allowedWriteTerritories, originalTask.allowedWriteTerritories))throw new TypeError("forward command meaning changed");
   const {kind:_kind,schemaVersion:_schema,taskRef:_ref,taskDigest:_digest,protectedObservations:_observations,...old}=originalTask;

@@ -9,7 +9,7 @@ import { constructWorksiteRevisionCommandPreparationInput } from "../product/wor
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult, constructWorksiteConstructionTask } from "../product/worksite_construction.js";
-import { isWorksitePreparationInput, prepareWorksiteCommandTask } from "../product/worksite_preparation.js";
+import { isWorksitePreparationInput, rederiveWorksiteCommandTask } from "../product/worksite_preparation.js";
 import { selectedSemanticPredecessor } from "./semantic_stage.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
@@ -37,7 +37,7 @@ import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobR
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment,
   type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { isNativeSemanticRevisionIntake, type NativeSemanticRevisionIntake, type SemanticRevisionSelectionInput, type SemanticRevisionRequest,
-  constructNativeRevisionConstructionTask, constructNativeRevisionExecutionTask, deriveNativeRevisionEvidence,
+  constructNativeRevisionConstructionTask, constructNativeRevisionExecutionTask, rederiveNativeRevisionExecutionTask, deriveNativeRevisionEvidence,
   semanticJobRevisionNativeTargets } from "../product/semantic_revision.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, readRuntimeEventsAtDurablePrefix } from "./event_store.js";
@@ -45,7 +45,7 @@ import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix } from "./event_
 import { projectRunIdentityAtPrefix } from "./replay.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
 import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
-import { isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
+import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { isSemanticJobInput, constructNativeSemanticConstructionTask } from "../product/semantic_job.js";
 import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic_job.js";
@@ -634,7 +634,15 @@ export function projectNativeRevisionConstructionTask(basis: SemanticStageNative
     return constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, workspaceAuthorityBasis:owner.environment.workspaceAuthorityBasis, workspaceBinding:owner.environment.workspaceBinding, capabilityGrant:owner.grant});
   } catch { return null; }
 }
+/** The live native revision execution task: the rows are the basis member,
+ * the operation boundary's capture. */
 export function projectNativeRevisionExecutionTask(basis: SemanticStageNativeBasis, input: unknown) {
+  return nativeRevisionExecution(basis, input, (entry, source) => constructNativeRevisionExecutionTask(entry, source, basis.commandAmbientEnvironment ?? null));
+}
+/** The owner checks of the native revision execution leaf, one body for the
+ * live construction and for result admission's re-derivation. */
+function nativeRevisionExecution(basis: SemanticStageNativeBasis, input: unknown,
+  derive: (entry: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) => ReturnType<typeof constructNativeRevisionExecutionTask>) {
   try {
     const owner = authenticateOwnedSemanticJobBasis(basis);
     if (owner?.call.implementationRef !== ids.nativeExecutionImplementationRef || !isRetainedGraphInput(input) ||
@@ -644,7 +652,7 @@ export function projectNativeRevisionExecutionTask(basis: SemanticStageNativeBas
       construction.sourceResult.runId !== owner.call.runId) return null;
     const prepared = selectedSemanticPredecessor(basis,ids.nativeConstructionImplementationRef,input.source.task);
     if (prepared === null || !canonicalEquals(prepared.execution.rawInputValue, input.entry)) return null;
-    return constructNativeRevisionExecutionTask(input.entry,input.source);
+    return derive(input.entry,input.source);
   } catch { return null; }
 }
 export function projectNativeRevisionEvidence(basis: SemanticStageNativeBasis, input: unknown) {
@@ -681,9 +689,11 @@ export function semanticJobRevisionResultMatchesBasis(basis: SemanticStageNative
   if (owner === null) return false;
   const nativeProjection = owner.call.implementationRef === ids.nativeRequestImplementationRef ? projectNativeSemanticRevisionRequest :
     owner.call.implementationRef === ids.nativeConstructionImplementationRef ? projectNativeRevisionConstructionTask :
-    owner.call.implementationRef === ids.nativeExecutionImplementationRef ? projectNativeRevisionExecutionTask :
     owner.call.implementationRef === ids.nativeEvidenceImplementationRef ? projectNativeRevisionEvidence : null;
   if (nativeProjection !== null) { const value = nativeProjection(basis,input); return projectionIs(value, output); }
+  // Result admission re-derives the recorded task under the bound law: its bound rows, nothing captured.
+  if (owner.call.implementationRef === ids.nativeExecutionImplementationRef)
+    return projectionIs(nativeRevisionExecution(basis,input,(entry,source)=>rederiveNativeRevisionExecutionTask(entry,source,output)), output);
   if (owner.call.implementationRef === ids.selectionImplementationRef) return jobRevisionSelectionMatchesBasis(basis,input,output);
   if (owner.call.implementationRef === ids.projectionImplementationRef) { const value=projectSemanticJobRevision(basis,input);return projectionIs(value, output); }
   if (owner.call.implementationRef === ids.bridgeImplementationRef) { const value=projectJobRevisionPreparation(basis,input);return projectionIs(value, output); }
@@ -1006,8 +1016,8 @@ function revisionEvidenceComponentsAtBasis(basis: SemanticStageNativeBasis,
     }).filter((v): v is NonNullable<typeof v> => v !== null);
     if (candidates.length !== 1) return null;
     const { original, expected, subject } = candidates[0]!;
-    const prepared = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
-      basis.commandAmbientEnvironment);
+    const prepared = rederiveWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0", entry: expected, source: input.task.sourceConstructionResult },
+      input.task);
     if (!canonicalEquals(prepared, input.task)) return null;
     if (original.current.worksite === null) return null;
     if (!isSemanticJobRevisionEnvelope(original)) {

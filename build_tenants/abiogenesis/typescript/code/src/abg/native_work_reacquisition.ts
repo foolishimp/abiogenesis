@@ -247,7 +247,7 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
       source: { prefix: basis.predecessorPrefix, graphCallRef: source.sourceResult.graphCallId!, declarationReference: reference },
       selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath,
         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
-      ...governanceTestingConfiguration(input) }, ambient);
+      ...governanceTestingConfiguration(input) }, ambient ?? null);
     const nativeBasis = { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef };
     stage = "native_historical_declaration";
     const declaration = declarationProofFor(request, historicalSource);

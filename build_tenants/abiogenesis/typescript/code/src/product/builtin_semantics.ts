@@ -25,7 +25,7 @@ import { isSemanticStageEnvelope, isSemanticAssetCandidate, isSemanticAssessment
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
 import { isRequirementHandoffInput, isRequirementHandoffOutput } from "./requirement_handoff.js";
 import {
-  admitWorksitePreparationInput, isWorksitePreparationInput, preparationConstructionTasks, prepareWorksiteCommandTask,
+  admitWorksitePreparationInput, isWorksitePreparationInput, preparationConstructionTasks, rederiveWorksiteCommandTask,
   validateWorksitePreparationContractValue, resolveWorksitePreparationJudgmentRelation,
 } from "./worksite_preparation.js";
 import {
@@ -876,8 +876,8 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
             if (isWorksiteRevisionCommandExecutionObservation(input)) return evidenceMatches(output, input);
             if (isWorksitePreparationInput(input) && input.kind === "worksite_revision_command_preparation_input" &&
               isWorksiteRevisionCommandExecutionObservation(output)) {
-              const task = prepareWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
-                entry: input, source: output.task.sourceConstructionResult });
+              const task = rederiveWorksiteCommandTask({ kind: "worksite_revision_command_preparation_bound_input", schemaVersion: "5.0.0",
+                entry: input, source: output.task.sourceConstructionResult }, output.task);
               return canonicalEquals(task, output.task) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_REVISION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
@@ -974,8 +974,8 @@ export const ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS: ProductSemanticsProvider = O
             if (isWorksiteCommandExecutionObservation(input)) return matches(ids.evidenceInputPredicateRef, input, output);
             if (isWorksitePreparationInput(input) && input.kind === "worksite_command_preparation_input" &&
               isWorksiteCommandExecutionObservation(output)) {
-              const task = prepareWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
-                entry: input, source: output.task.sourceConstructionResult });
+              const task = rederiveWorksiteCommandTask({ kind: "worksite_command_preparation_bound_input", schemaVersion: "5.0.0",
+                entry: input, source: output.task.sourceConstructionResult }, output.task);
               return canonicalEquals(task, output.task) &&
                 resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(task, output) === true;
             }
