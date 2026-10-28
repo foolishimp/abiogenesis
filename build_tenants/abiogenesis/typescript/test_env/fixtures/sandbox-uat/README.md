@@ -25,10 +25,11 @@ historical meaning or provenance. Current native traversal does not establish
 identical old traversal. Original application, lifecycle, correction, depth,
 mutation and archive outcomes remain mandatory; unresolved interpretation or
 missing evidence keeps the UAT outcome non-green.
-Its entries are delivered to the actors through each request's task text, as
-the adaptation notes the task names, because the installed governance input
-carries no separate key; the harness records the object itself in
-`workload-source.json`.
+
+Each request's task text carries the object verbatim as its trailing
+`INTERPRETATION` block and, after the sentence that names the adaptation notes,
+the test owner's decidability note: which legacy elements are provenance rather
+than criteria of the native run, and what the admitted observations decide.
 
 Data Mapper's exact source has 28 stage meanings. One retained instruction
 still says 26; the extra earned-depth and mutation obligations are preserved.
