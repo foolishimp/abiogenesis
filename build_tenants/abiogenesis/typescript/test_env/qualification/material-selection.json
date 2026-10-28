@@ -3,7 +3,7 @@
   "schemaVersion": "1",
   "purpose": "Declares the material each F11 assessment slot carries for the pre-RC candidate, by role, from the bound scope (classification.json partitions and application domains), the rule catalog and the role policy. It selects bytes for J; it supplies no authority and no judgment. assessment-plan.mjs constructs the slots from it.",
   "promptBoundBytes": 1048576,
-  "promptBoundSource": "T-287 Phase D, D5-b activation item 4: each slot's rendered prompt stays at or under 1,048,576 bytes; a slot over the bound is re-partitioned (not a stop); a slot with no lawful smaller partition is reported over the bound",
+  "promptBoundSource": "T-287 Phase D, D5-b activation item 4: each slot's rendered prompt stays at or under 1,048,576 bytes; a slot over the bound is re-partitioned (not a stop); a slot with no lawful smaller partition is reported over the bound. D5-b disposition G-3: a slot over the bound only by the observed C2 execution material it must carry (the coverage slot, the REQ-P-QUAL-056 rule slots) enters the plan up to 3,500,000 bytes; above that it is a Product finding (owner question)",
   "roleSources": {
     "rule": "QUALIFICATION_ROLE_POLICY.authoritySourceRefs (REQ-P-SELF-CONFORMANCE.md, REQ-P-QUAL.md), as catalog sources with their packaged bytes, in every slot (validator/qualification.ts:476-481)",
     "refs": [
@@ -28,7 +28,7 @@
       "roleRef": "qualification-role://abiogenesis/rule@5",
       "coverage": "ruleRef = one rule group, surfaceRef = one group of that rule group's declared domain (classification.json applicationDomains), evidenceRole = semantic_assessment (:400-407)",
       "subject": "the domain group's members; a domain key (a governed part or a role's complement) names the same members under every rule group whose domain has it, so one slot covers several rule groups' pairs over one key",
-      "material": "the role sources, the classification, the rule groups' sources, and for a governed part its members' bytes (a member above plan.memberCarryBytes as metadata only); a complement carries metadata only, its applications declared inapplicable. The rule groups of a key are packed by their sources, catalog rows and pair listings within what the key leaves of plan.ruleSlotTargetBytes (at least plan.minimumPackBytes). A rule group governing REQ-P-QUAL-056 is alone and carries the verification recipe and the observed C2 execution material (validator/self_conformance.ts:107)"
+      "material": "D5-b disposition G-1: per domain key, slots that each carry the key's members once (a governed part its members' bytes, a member above plan.memberCarryBytes as metadata only; a complement its members' metadata only, its applications declared inapplicable), the role sources and the classification, and the governing rule groups' sources packed beside them in catalog order while the estimated prompt stays under the bound less plan.rulePackMarginBytes; the key's pair criteria inside. The estimate is the key's base, rendered once by the installed renderer, plus each rule group's share (its source as rendered SOURCE DATA, its catalog rows, its rule group, its criterion and listing); every slot is then rendered and a pack over the bound halved. The rule group governing REQ-P-QUAL-056 is packed alone per key and carries the verification recipe and the observed C2 execution material (validator/self_conformance.ts:107)"
     },
     {
       "roleRef": "qualification-role://abiogenesis/tenant@5",
@@ -43,8 +43,8 @@
       "material": "the role sources, the typed coverage catalog, the requirement sources its claims cite and the observed C2 execution material, which every criterion's evidence refs must name (validator/self_conformance.ts:111, :118-119)"
     }
   ],
-  "provenance": "Every task carries the construction provenance of its subject members: the chains of provenance.mjs (one per commit touching the tenant after the Phase C close, external_construction, records by material selection) whose postimage scope meets the slot's subject members; a subject set no chain constructed carries the chain of fewest members (the schema requires one). The attribution's coverage of a slot's members is the same as under the whole chain set (validator/qualification.ts:800-804). A slot member no chain constructed makes that slot's attribution invalid, and the plan then resolves to no assessment (abg/qualification_proof.ts:677-697).",
-  "execution": "The observed C2 execution material does not exist before its run; the projection carries its estimate for the coverage and REQ-P-QUAL-056 slots (exact-candidate-qualification.mjs executionEstimate), marked estimated.",
+  "provenance": "Every task carries the construction provenance of its subject members (provenance.mjs taskProvenance): the inherited-base chain of the tree at the Phase C close (D5-b disposition G-2) and one chain per commit touching the tenant after it, each subject member under the last chain that constructed it (its postimage digest is the member's current digest), each chain restricted to those members with exactly their records, its attribution spans the whole activation, the closure's header and the closure rows of those members. One provenance entry per distinct slot subject set. The installed attribution check (validator/qualification.ts:743-805) is run over every slot's resolved provenance with established attributions before dispatch; a slot whose attribution is invalid holds dispatch.",
+  "execution": "The observed C2 execution material is the C2 Result's material (abg/qualification_proof.ts:832-846: canonical JSON of the result, its judgment and its evidence). Before the C2 run, the projection and the dry mode carry a measured stand-in: the observation constructed by the installed owner from a direct run of the prepared C2 task's helper command in the prepared sandbox, under the envelope of an observed C2 Result (exact-candidate-qualification.mjs, execution-material.mjs), marked as such.",
   "plan": {
     "memberCarryBytes": 600000,
     "inventoryCarryBytes": 500000,
@@ -57,7 +57,8 @@
       "reasonBytes": 600,
       "sourceRefsPerCriterion": 3,
       "rule": "Output per slot is the canonical JSON of its raw judgment: every criterion with a reason of reasonBytes and that many source refs, and one established attribution per carried chain with the chain's scope refs"
-    }
+    },
+    "rulePackMarginBytes": 16384
   },
   "fit": "The projection renders every slot's prompt with the installed renderer and measures it against the bound before any dispatch (assessment-plan.mjs projectAssessment); ruleInputFloor states the rule role's input that no partition lowers under this selection."
 }

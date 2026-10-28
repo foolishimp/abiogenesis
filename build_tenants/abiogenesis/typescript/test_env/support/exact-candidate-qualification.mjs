@@ -1,56 +1,73 @@
-// T-287 Phase D, D5: the exact qualification driver of the pre-RC candidate of
+// T-287 Phase D, D5 (D5-b, D5-c): the exact qualification driver of the pre-RC candidate of
 // @abiogenesis/typescript-tenant 5.0.0-rc.1. It mirrors the D2 driver
 // (record directory 20261028T135232Z_D2_CONTROLLED_CORRECTION/run-specimen.mjs)
-// and the installed conservation chain (installed-qualification-conservation.mjs
-// `setup`) where they apply: the sandbox harness's exports for the installed
-// Public path, and the installed package's exports for the qualification
+// and the installed conservation chain (installed-qualification-conservation.mjs) where they apply: the sandbox
+// harness's exports for the installed Public path, and the installed package's exports for the qualification
 // resources (test_env/qualification/build-resources.mjs).
 //
 // Modes:
-//   prepare     the admission check, with no provider dispatch: the pack verified,
-//               resolved, installed and bound through fresh installed CLI
-//               processes; the qualification programs viewed and their
-//               conformance evaluated; the basis, bound scope and tenant manifest
-//               constructed; the recipe's protected inputs placed in the bound
-//               worksite, observed by the installed owner, and the C2
-//               configuration constructed over them; the budget and the J
-//               material projected. With --execute-recipe, the bound commands are
-//               executed once in a snapshot copy, timed, outside C2 (a
-//               measurement, not an observation).
-//   live        (D5-b) the admission check as prepare, the recipe executed once as
-//               its measurement, then, before any dispatch: the construction
-//               provenance over the Phase C and D chains (provenance.mjs), the
-//               declared domains and applications, the assessment plan in
-//               reference form with every slot's prompt rendered by the installed
-//               renderer, and the projection (assessment-plan.mjs). Two gates hold
-//               dispatch: a projection above the package cap, and a slot whose
-//               construction attribution is invalid (a slot member no chain
-//               constructed: the plan then resolves to no assessment,
-//               abg/qualification_proof.ts:677-697). The dispatch of the observed C2
-//               run and the slots, the owner rulings, F11 and AF22 are not authored:
-//               in the D5-b run both gates held before any dispatch.
-//   cold-reads  a fresh process re-derives the prepare records from the sealed
-//               archive, the event log and the tenant's files, and, for a live
-//               archive, the construction record set from Git.
+//   prepare             the admission check, with no provider dispatch: the pack verified, resolved, installed and
+//                       bound through fresh installed CLI processes; the qualification programs (with the owner
+//                       ruling Program) viewed and their conformance evaluated; the admitted catalog retained for the
+//                       later modes; the basis, bound scope and tenant manifest constructed; the recipe's protected
+//                       inputs placed in the bound worksite, observed by the installed owner, and the C2
+//                       configuration constructed over them; the setup environment recorded. The provider version
+//                       probe runs only in live mode. With --execute-recipe, the bound commands are executed once in a
+//                       snapshot copy, timed, outside C2 (a measurement, not an observation).
+//   helper-realize      (D5-c item 3) over a prepared archive: the observed C2 task constructed and realized by the
+//                       installed leaf (its manifests in the prepared sandbox's archive root) and the helper command
+//                       recorded, for the operator to run from a shell with the recorded setup environment. No C call.
+//   execution-material  (D5-c item 3) over a prepared archive whose helper ran: the helper artifact admitted, the
+//                       observation and the verification material by the installed constructors, the stand-in
+//                       execution material under an observed C2 envelope of the candidate, and one REQ-P-QUAL-056 rule
+//                       slot and the coverage slot rendered with them. A measurement, never an admitted C2.
+//   dry                 (D5-c item 5) over a prepared archive: the construction provenance with the inherited-base
+//                       chain, the re-packed plan over the stand-in with every slot rendered and its construction
+//                       attribution checked, and every C call's input admitted in process (the observed C2 start, each
+//                       assess@5 start, each owner acknowledgment request, the F11 and AF22 inputs over placeholder
+//                       selections); the projection and its time; the provider environment the transport would
+//                       receive (G-4). It ends undispatched: no transport call, no provider spawn, the event log and
+//                       the transport archives unchanged.
+//   live                (D5-c item 5, authored, not run in D5-c) over a prepared archive, the item 3 archive and an
+//                       explicit --cap-usd: the plan's gates over the measured stand-in first (no provider call when one
+//                       holds), then dispatch.mjs dispatchLive: the observed C2, the plan over its Result, assess@5 per slot, the
+//                       owner acknowledgments the fold requires, the F11 leaf, the sole AF22 verdict; the cold reads
+//                       follow in a fresh process (cold-reads over the live archive).
+//   cold-reads          a fresh process re-derives the prepare records from the sealed archive, the event log and the
+//                       tenant's files, and, for a dry or live archive, the construction record set from Git.
 import { execFileSync, spawnSync } from 'node:child_process';
-import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { chmod, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
-import { dirname, join, relative, resolve } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, newArchive, preflight } from '../uat/runner.mjs';
+import { commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, newArchive, preflight, workerEnvironment } from '../uat/runner.mjs';
 import { BoundaryFailure, installedModules, populateSandbox, publicCaller, verifyArtifact } from '../uat/public-setup.mjs';
 import { OUTPUTS, PROSPECTIVE_RELEASE_FIELDS, Q, RECIPE_PATH, TENANT_ROOT, classification, commandInput, constructInventory,
   constructScope, installedExports, lawAndCoverage, sha256, tenantManifest } from '../qualification/build-resources.mjs';
-import { PHASE_C_CLOSE, TENANT_PATH, REPOSITORY_ROOT, chainCommits, chainCoverage, constructChains, constructProvenance } from '../qualification/provenance.mjs';
-import { PACKAGE_CAP_USD, PRICE, acquireAssessmentResources, constructAssessmentMaterial, constructSlotSpecifications, materialSelection,
-  projectAssessment, ruleInputFloor } from '../qualification/assessment-plan.mjs';
+import { PHASE_C_CLOSE, TENANT_PATH, REPOSITORY_ROOT, chainCommits, constructChains, constructProvenance, establishedAttributions, memberCurrency,
+  phaseCCloseRows } from '../qualification/provenance.mjs';
+import { EXECUTION_CLASS_BOUND_BYTES, PRICE, PROMPT_BOUND_BYTES, acquireAssessmentResources, constructAssessmentMaterial, constructPlan,
+  constructSlotSpecifications, materialSelection, packRuleRole, projectAssessment, ruleInputFloor } from '../qualification/assessment-plan.mjs';
+import { PROGRAMS, RUN_ENVIRONMENT_SUPPORT, SELECTION_PREFIX, acknowledgmentRequest, admitCall, dispatchLive, observedC2Task, proofResource,
+  selfConformanceInput, startCall } from '../qualification/dispatch.mjs';
+import { c2Envelope, constructMeasuredObservation, executionMaterial, observationParts, realizeForMeasurement,
+  verificationMaterial } from '../qualification/execution-material.mjs';
+import { d3Calls, fitLatency, projectTime } from '../qualification/time-projection.mjs';
 
-const PROMPT_BOUND_BYTES = 1_048_576;
 // Claude Code 2.1.306 (the provider lane's CLI): Bash default 120000 ms, maximum 600000 ms, unless
 // BASH_DEFAULT_TIMEOUT_MS is set; the C2 prompt forbids a timeout field (worksite_command_execution.ts:2344).
 const PROVIDER_BASH_DEFAULT_TIMEOUT_MS = 120_000;
 const QUALIFICATION_PROGRAMS = ['program://abiogenesis/qualification/assess@5', 'program://abiogenesis/qualification/self-conformance@5',
-  'program://abiogenesis/qualification/exact-candidate@5', 'program://abiogenesis/worksite/command-execution@5'];
+  'program://abiogenesis/qualification/exact-candidate@5', 'program://abiogenesis/worksite/command-execution@5',
+  'program://abiogenesis/qualification/ruling@5'];
+// The observed C2 Result of the candidate whose envelope (result, judgment and evidence rows) carries the stand-in
+// execution material (D3 record: the js-sdlc-bootstrap run on the candidate pack).
+const STAND_IN_ENVELOPE = Object.freeze({ run: 'js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a',
+  cCallRef: 'c-call:sha256:bea21ff5def6994d6e9902d0fa7a17f6b1a25cd7b7c968a220b5a693bacbce5f' });
+// G-4 (D5-b disposition): the two Bash limits the provider CLI reads and the two npm keys of the recipe's setup.
+const G4_KEYS = Object.freeze({ bash: ['BASH_DEFAULT_TIMEOUT_MS', 'BASH_MAX_TIMEOUT_MS'], npm: ['npm_config_update_notifier', 'npm_config_offline'] });
+const CREDENTIAL_KEYS = Object.freeze(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TOKEN']);
+const DRY_REFUSAL = 'D5-c dry mode: no dispatch';
 const readJson = async path => JSON.parse(await readFile(path, 'utf8'));
 const uptime = () => execFileSync('/usr/bin/uptime').toString('utf8').trim();
 
@@ -202,129 +219,25 @@ async function executeRecipe(root, rows, bound, declared, dependencyRoot, record
   return measured;
 }
 
-/** The observed C2 execution material's size before that run exists (D5-b item 4), estimated from this run's own
- * figures: the observed task (commands, predicates, write territories, every protected subject with its observation),
- * every command's streams as base64 (the measurement's byte counts), one worksite delta row per path the measurement
- * created in its snapshot copy (the rows the observation records, worksite_command_execution.ts:702-718), one
- * snapshot member per protected input, and a fixed allowance for the result, judgment and evidence envelopes. */
-async function executionEstimate(q, c2, measurement, rows) {
-  const task = Buffer.from(q.product.canonicalJson({ commands: c2.bound.commands, outcomePredicates: c2.bound.predicates,
-    allowedWriteTerritories: c2.bound.allowedWriteTerritories, protectedObservations: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })) }));
-  const streams = measurement.results.reduce((n, r) => n + 4 * Math.ceil(r.stdout.byteLength / 3) + 4 * Math.ceil(r.stderr.byteLength / 3), 0);
-  const protectedPaths = new Set(rows.map(row => row.relativePath)), digest = 'sha256:' + '0'.repeat(64);
-  let deltaRows = 0, deltaBytes = 0;
-  for (const entry of await readdir(measurement.sandbox, { recursive: true, withFileTypes: true })) {
-    const path = relative(measurement.sandbox, join(entry.parentPath ?? entry.path, entry.name));
-    if (protectedPaths.has(path)) continue;
-    const after = { kind: 'worksite_path_observation', schemaVersion: '5.0.0', relativePath: path,
-      nodeKind: entry.isDirectory() ? 'directory' : entry.isSymbolicLink() ? 'symlink' : 'file', digest, byteLength: entry.isFile() ? 0 : null, symlinkTarget: null };
-    deltaBytes += Buffer.byteLength(JSON.stringify({ kind: 'worksite_path_delta', schemaVersion: '5.0.0', ordinal: deltaRows, changeKind: 'created',
-      relativePath: path, before: null, after, matchedTerritoryRef: 'write-territory://abiogenesis/' + '0'.repeat(64) })) + 1;
-    deltaRows += 1;
-  }
-  const snapshotBytes = rows.reduce((n, row) => n + Buffer.byteLength(JSON.stringify({ relativePath: row.relativePath, digest, byteLength: row.byteCount,
-    observationRef: 'observation://abiogenesis/' + '0'.repeat(64) })) + 1, 0);
-  const envelope = 65_536, estimatedBytes = task.length + streams + deltaBytes + snapshotBytes + envelope;
-  return { kind: 'qualification_execution_material_estimate', estimatedBytes,
-    jsonStringExpansion: Number((Buffer.byteLength(JSON.stringify(task.toString('utf8'))) / task.length).toFixed(4)),
-    components: { observedTaskBytes: task.length, streamBase64Bytes: streams, worksiteDeltaRows: deltaRows, worksiteDeltaBytes: deltaBytes,
-      snapshotMembers: rows.length, snapshotBytes, envelopeAllowanceBytes: envelope },
-    basis: 'Estimated before the observed C2 run: this run\'s observed task, the recipe measurement\'s stream byte counts and created paths, one snapshot member per protected input; the delta and snapshot rows are modelled, not observed' };
-}
+/** The configuration without the provider version probe (preflight runs `<provider.command> --version` when the
+ * provider is enabled): the prepare and reopen modes spawn no provider process. */
+const withoutProviderProbe = config => ({ ...config, provider: { ...config.provider, enabled: false } });
 
-/** D5-b items 2-4 before any dispatch: the construction provenance, the domains and applications, the plan's slots
- * rendered and projected, and the two gates that hold dispatch. */
-async function preDispatch(q, { runId, record, resources, caller, c2, rows, measurement }) {
-  const policy = q.preparation.QUALIFICATION_ROLE_POLICY, hash = q.product.sha256Canonical, git = args => execFileSync('git', ['-C', REPOSITORY_ROOT, ...args]).toString('utf8').trim();
-  const head = git(['rev-parse', 'HEAD']), tenantStatus = git(['status', '--porcelain', '--', TENANT_PATH]);
-  // Item 3: one chain per commit touching the tenant after the Phase C close, up to the head; each chain grounded
-  // alone, then all chains over the members they constructed, then the whole inventory (the qualification subject).
-  const started = performance.now(), commits = chainCommits(head);
-  const chains = constructChains(commits, policy.authorityRef), provenance = constructProvenance(q.product, { inventory: resources.inventory, ...chains });
-  const constructionMs = Math.round(performance.now() - started), memory = process.memoryUsage();
-  const attribution = q.deep.qualification.projectExternalConstructionAttribution, plan = { ownerAuthorityRef: policy.authorityRef };
-  const judgment = (selected, subjectMembers) => ({ task: { material: [], subjectMembers, context: { members: [] } }, raw: { attributions: selected.map(c => ({
-    activationRef: c.activationRef, authorRef: c.authorRef, actorIdentityRef: c.actorIdentityRef, authorityRef: c.authorityRef, scopeRefs: c.scopeRefs,
-    disposition: 'established', sourceRefs: [c.activationRef, c.preimageRef, c.deltaRef, c.closureRef], reason: 'D5-b item 3 in-process grounding' })) } });
-  const source = m => ({ ref: m.ref, path: m.path, digest: m.digest, byteCount: m.byteCount });
-  const perChain = provenance.chains.map((chain, n) => {
-    const refs = new Set([chain.activationRef, chain.preimageRef, chain.deltaRef, chain.closureRef, ...chain.changes.flatMap(c => [c.preimageMemberRef, c.postimageMemberRef]).filter(Boolean)]);
-    const records = provenance.records.filter(m => refs.has(m.ref));
-    const alone = { ...provenance.embedded, records, recordSet: { ref: 'qualification-record-set://abiogenesis/construction/chain-' + n, digest: hash(records) }, chains: [chain] };
-    const result = attribution(judgment([chain], chain.postimageMembers.map(source)), plan, alone);
-    return { commit: chains.chains[n].commit, parent: chains.chains[n].parent, authorRef: chain.authorRef, actorIdentityRef: chain.actorIdentityRef,
-      postimageMembers: chain.postimageMembers.length, deleted: chains.chains[n].deleted.length, records: records.length, status: result.status };
-  });
-  const members = resources.inventory.members.map(source), coverage = chainCoverage(provenance.chains, members.map(m => m.ref));
-  const covered = members.filter(m => !coverage.uncovered.includes(m.ref));
-  const allOverCovered = attribution(judgment(provenance.chains, covered), plan, provenance.embedded).status;
-  const wholeInventory = attribution(judgment(provenance.chains, members), plan, provenance.embedded).status;
-  const recordBytes = provenance.records.reduce((n, m) => n + m.byteCount, 0);
-  const provenanceRecord = { kind: 'qualification_construction_provenance', runId, head, base: PHASE_C_CLOSE, baseExclusive: true, tenantPath: TENANT_PATH,
-    tenantClean: tenantStatus === '', recordSet: provenance.recordSet, chains: provenance.chains.length, records: provenance.records.length, recordBytes,
-    recordBase64Bytes: provenance.records.reduce((n, m) => n + m.contentBase64.length, 0), constructionMs, heapUsedBytes: memory.heapUsed, rssBytes: memory.rss,
-    held: true, perChain, groundedAlone: perChain.filter(c => c.status === 'grounded').length, allChainsOverConstructedMembers: { members: covered.length, status: allOverCovered },
-    wholeInventory: { members: coverage.subject, covered: coverage.covered, uncovered: coverage.uncovered.length, status: wholeInventory },
-    uncoveredByRole: Object.fromEntries([...new Set(resources.inventory.members.map(m => m.surfaceRoles[0]))].sort().map(role => [role,
-      resources.inventory.members.filter(m => m.surfaceRoles[0] === role && coverage.uncovered.includes(m.ref)).length])),
-    identities: [...new Set(provenance.chains.map(c => c.actorIdentityRef))].sort(),
-    classification: 'Records read from Git with tenant pathspecs (provenance.mjs); the attribution is the installed package\'s own projection (validator/qualification.ts:743)' };
-  await record('provenance.json', provenanceRecord);
-
-  // Item 4 (with item 2): the material, the domains and applications, the slots, the projection.
-  const estimate = await executionEstimate(q, c2, measurement, rows);
-  const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
-  const base = await constructAssessmentMaterial(q, { ...resources, provenance, declarationProof });
-  const groupsOf = new Map(base.domains.map(d => [d.ruleGroupRef, new Set(d.surfaceGroups.map(g => g.groupRef))]));
-  const appliedOf = new Map();
-  for (const a of base.applications) appliedOf.set(a.ruleRef, [...(appliedOf.get(a.ruleRef) ?? []), a.surfaceRef]);
-  const families = [...new Set(base.domains.map(d => d.familyId))];
-  await record('applications.json', { kind: 'qualification_declared_applications', runId, scope: { ref: base.normalized.scopeRef, digest: base.normalized.scopeDigest },
-    ruleGroups: base.domains.length, pairs: base.applications.length, d5GlobalPairs: 2660,
-    applicable: base.applications.filter(a => a.applicability === 'applicable').length, inapplicable: base.applications.filter(a => a.applicability === 'inapplicable').length,
-    unknown: base.applications.filter(a => a.applicability === 'unknown').length, applicationsDigest: hash(base.applications),
-    everyDomainClassified: base.domains.every(d => { const applied = appliedOf.get(d.ruleGroupRef) ?? []; return applied.length === groupsOf.get(d.ruleGroupRef).size &&
-      applied.every(ref => groupsOf.get(d.ruleGroupRef).has(ref)); }),
-    scopeCorrespondenceErrors: resources.checks.scopeCorrespondenceErrors,
-    families: families.map(id => { const ds = base.domains.filter(d => d.familyId === id); return { id, ruleGroups: ds.length,
-      pairs: ds.reduce((n, d) => n + d.surfaceGroups.length, 0), applicable: ds.reduce((n, d) => n + d.governedRefs.length, 0) }; }) });
-  const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection, { executionEstimate: estimate });
-  const built = acquireAssessmentResources(q, base, specified);
-  let rendered = 0;
-  const projection = projectAssessment(q, built, specified, selection, { ownerActorRef: caller.actorRef, onSlot: () => { rendered += 1; } });
-  const invalid = projection.rows.filter(r => r.attribution.status === 'invalid');
-  const overBound = projection.rows.filter(r => r.overBound);
-  const admittedUsd = Number(projection.rows.filter(r => !r.overBound).reduce((n, r) => n + r.usd, 0).toFixed(2));
-  const floor = ruleInputFloor(q, base, selection);
-  const gates = { projection: { capUsd: PACKAGE_CAP_USD, projectedUsd: projection.usd, withinBoundUsd: admittedUsd, ruleInputFloorUsd: floor.usd, holds: projection.usd > PACKAGE_CAP_USD },
-    attribution: { invalidSlots: invalid.length, slots: projection.rows.length, holds: invalid.length > 0 } };
-  const projected = { kind: 'qualification_assessment_projection', runId, writtenBeforeDispatch: true, promptBoundBytes: 1_048_576, price: PRICE,
-    method: 'Every slot rendered by the installed prepareQualificationAssessment (a one-slot plan: the prompt renders the task, never the plan); a slot over the bound re-partitioned (assessment-plan.mjs); input tokens = prompt bytes / 4; output by material-selection.json plan.outputModel; the slots that require the observed C2 execution material carry its estimate',
-    resource: built.resource, provenanceSelections: built.provenanceEntries.size, executionEstimate: estimate, specifications: specified.specs.length,
-    criteria: Object.fromEntries([...specified.criteria].map(([role, list]) => [role, list.length])), slots: projection.rows.length, renderedSlots: rendered,
-    byRole: projection.byRole, totals: { promptBytes: projection.promptBytes, inputTokens: projection.inputTokens, outputTokens: projection.outputTokens, usd: projection.usd },
-    ruleInputFloor: floor, overBound: overBound.map(r => ({ slotRef: r.slotRef, role: r.role, criteria: r.criteria, promptBytes: r.promptBytes, renderedPromptBytes: r.renderedPromptBytes,
-      estimatedExecutionPromptBytes: r.estimatedExecutionPromptBytes })), gates, rows: projection.rows };
-  await record('projection.json', projected);
-  return { provenance: provenanceRecord, projection: projected, gates, stop: gates.projection.holds || gates.attribution.holds };
-}
-
-export async function prepare(config, { executeRecipe: execute = false, dependencies, live = false }) {
+export async function prepare(config, { executeRecipe: execute = false, dependencies }) {
   const archive = await newArchive(join(TENANT_ROOT, 'test_env/test_runs'), 'qualification'), root = archive.path;
   const record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
   const effective = { ...config, runId: archive.runId, bootstrapRoot: join(root, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
     worksiteRoot: join(root, 'sandbox/worksite'), setupEnvironment: setupEnvironment(config) };
   const command = commandRecorder(root, { environment: effective.setupEnvironment, timeoutMs: config.processTimeoutMs, maxOutputBytes: config.maxProcessOutputBytes ?? 16 * 1024 * 1024 });
-  const mode = live ? 'live' : 'prepare';
+  const mode = 'prepare';
   let caller, summary = { kind: 'qualification_' + mode, runId: archive.runId, archive: root, mode, status: 'incomplete', uptimeBefore: uptime() };
   await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode,
     interpreter: { executable: config.nodePath, version: process.version }, configuration: redactedConfig(config), invokedCommand: process.argv,
     heapLimitBytes: (await import('node:v8')).getHeapStatistics().heap_size_limit,
-    classification: live ? 'The native qualification run (D5-b): admission, the recipe measurement, provenance, applications, plan and projection before any dispatch'
-      : 'Admission check of the exact qualification; no provider dispatch' });
+    classification: 'Admission check of the exact qualification; no provider dispatch and no provider version probe' });
   try {
     const row = { key: 'qualification', toolchainObligations: { requiredExecutables: ['node'] } };
-    const ready = await preflight(config, [row], root); await record('preflight.json', ready);
+    const ready = await preflight(withoutProviderProbe(config), [row], root); await record('preflight.json', ready);
     if (ready.disposition !== 'ready') return summary = { ...summary, status: 'blocked', reason: 'Preflight obligations incomplete', issues: ready.issues };
     await mkdir(effective.bootstrapRoot, { recursive: true });
     const unpacked = await command('acquire-bootstrap', '/usr/bin/tar', ['-xzf', config.package.archivePath, '--strip-components=1', '-C', effective.bootstrapRoot]);
@@ -343,6 +256,10 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
       { catalog: admitted.receipt.ownerOutput.value.catalog, allowlist }, { kind: 'catalog_view_resource_assertion', schemaVersion: '5.0.0', catalog: caller.state.catalog },
       { ...caller.boundSlots(), dependency_lock: lock }));
     caller.state.catalogView = product.narrowGraphFunctionCatalog(caller.state.catalog, allowlist);
+    // The admitted catalog (setup-identity.json records its basis digest only), for the modes that reopen this archive.
+    await record('resources/catalog.json', caller.state.catalog);
+    await record('setup-environment.json', { kind: 'qualification_setup_environment', runId: archive.runId, environment: effective.setupEnvironment,
+      source: 'runner.mjs setupEnvironment: the configuration\'s inherited keys and its toolchainEnvironment', g4NpmKeys: Object.fromEntries(G4_KEYS.npm.map(key => [key, effective.setupEnvironment[key] ?? null])) });
     const conformance = [];
     for (const p of programs) {
       const publication = publications.find(value => value.programs.some(value => value.programRef === p.programRef));
@@ -359,7 +276,8 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
           { ...caller.boundSlots(), dependency_lock: lock }));
       conformance.push({ programRef: p.programRef, disposition: result.receipt.ownerOutput.value.disposition });
     }
-    await record('qualification-programs.json', { allowlist, conformance, viewDigest: product.sha256Canonical(caller.state.catalogView) });
+    await record('qualification-programs.json', { allowlist, conformance, viewDigest: product.sha256Canonical(caller.state.catalogView),
+      catalogDigest: product.sha256Canonical(caller.state.catalog), catalogBasisDigest: caller.state.catalog.basisDigest });
     if (conformance.some(c => c.disposition !== 'passed')) throw new BoundaryFailure('qualification-program-conformance', conformance);
 
     // The qualification resources over this run's install and binding.
@@ -393,20 +311,12 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
         providerBashDefaultTimeoutMs: PROVIDER_BASH_DEFAULT_TIMEOUT_MS },
       material: { ...material, groups: undefined } };
     await record('prepare.json', prepared); await record('material-projection.json', material);
-    const measurement = execute || live ? await executeRecipe(root, rows, c2.bound, declared, dependencies, record) : null;
+    if (execute) await executeRecipe(root, rows, c2.bound, declared, dependencies, record);
     const green = Object.values(resources.checks).every(v => v === true || (Array.isArray(v) && v.length === 0) || (typeof v === 'object' && !Array.isArray(v))) &&
       c2.mismatched.length === 0 && prepared.recipe.digestsEqualRecipe;
-    if (!live || !green) return summary = { ...summary, status: green ? 'prepared' : 'refused', reason: green
+    return summary = { ...summary, status: green ? 'prepared' : 'refused', reason: green
       ? 'Clean Public install and binding; qualification programs viewed and conformant; resources constructed; no provider dispatch'
       : 'A prepared resource check failed (prepare.json)' };
-    const held = await preDispatch(q, { runId: archive.runId, record, resources, caller, c2, rows, measurement });
-    await record('cost.json', { kind: 'qualification_run_cost', runId: archive.runId, providerCalls: 0, turns: 0, usd: 0,
-      source: 'No provider archive: no dispatch occurred (the gates held before the observed C2 run and every slot)' });
-    if (!held.stop) return summary = { ...summary, status: 'undispatched', reason: 'The gates passed; the dispatch path is not authored in this driver' };
-    return summary = { ...summary, status: 'stopped', reason: 'A gate held dispatch: ' + [held.gates.projection.holds ? 'projection ' + held.gates.projection.projectedUsd +
-      ' USD above the ' + PACKAGE_CAP_USD + ' USD cap' : null, held.gates.attribution.holds ? held.gates.attribution.invalidSlots + ' of ' + held.gates.attribution.slots +
-      ' slots with an invalid construction attribution' : null].filter(Boolean).join('; '), gates: held.gates,
-      recipeMeasurement: { elapsedMs: measurement.elapsedMs, exitStatuses: measurement.results.map(r => r.exitStatus), predicates: measurement.predicates } };
   } catch (error) {
     summary = { ...summary, status: error instanceof BoundaryFailure ? 'refused' : 'failed', reason: String(error), boundary: error.stage ?? null,
       observation: error.observation ?? null };
@@ -416,6 +326,472 @@ export async function prepare(config, { executeRecipe: execute = false, dependen
     summary.uptimeAfter = uptime();
     await record('summary.json', summary); await record('SEALED.json', { sealedAt: new Date().toISOString(), status: summary.status, archiveRoot: root, retained: true });
   }
+}
+
+const shellQuote = value => "'" + String(value).replaceAll("'", "'\\''") + "'";
+
+/** A prepared archive reopened into a new archive of its own: the caller over the sealed install, binding and close
+ * handoff (as cold-reads); the retained catalog checked against its recorded digests and the qualification view narrowed
+ * again from the recorded allowlist (installed-qualification-conservation.mjs restoreSetup); the resources and the C2
+ * configuration re-derived from the tree and checked against the prepared records. */
+async function reopenArchive(config, archivePath, mode, classification) {
+  const archived = path => readJson(join(archivePath, path));
+  const source = await archived('run.json'), prepared = await archived('summary.json');
+  if (source.mode !== 'prepare' || prepared.status !== 'prepared') throw new TypeError('not a prepared archive: ' + archivePath);
+  const setup = await archived('setup-identity.json'), closeHandoff = await archived('final-close-handoff.json');
+  const programs = await archived('qualification-programs.json'), catalog = await archived('resources/catalog.json'), preparedRecord = await archived('prepare.json');
+  const archive = await newArchive(join(TENANT_ROOT, 'test_env/test_runs'), 'qualification'), root = archive.path;
+  const record = (path, value, raw = false) => exclusiveRecord(root, path, value, raw);
+  const effective = { ...config, runId: archive.runId, bootstrapRoot: join(archivePath, 'bootstrap/node_modules/@abiogenesis/typescript-tenant'),
+    worksiteRoot: join(archivePath, 'sandbox/worksite'), setupEnvironment: setupEnvironment(config) };
+  const command = commandRecorder(root, { environment: effective.setupEnvironment, timeoutMs: config.processTimeoutMs, maxOutputBytes: config.maxProcessOutputBytes ?? 16 * 1024 * 1024 });
+  await record('run.json', { timestamp: new Date().toISOString(), runId: archive.runId, sourceCommit: config.sourceCommit, mode, sourceArchive: archivePath,
+    sourceRunId: source.runId, interpreter: { executable: process.execPath, version: process.version }, configuration: redactedConfig(config), invokedCommand: process.argv,
+    heapLimitBytes: (await import('node:v8')).getHeapStatistics().heap_size_limit, classification });
+  const runtime = await installedModules(effective.bootstrapRoot), manifest = await readJson(join(effective.bootstrapRoot, 'product-toolchain-manifest.json'));
+  const native = await verifyArtifact(runtime, { artifactPath: config.package.archivePath, manifest, expectedArtifactDigest: config.package.sha256 }, record, 'abg');
+  // The prepare run's actor: the workspace authority authorizes it alone (public-setup.mjs populateSandbox), and the C2
+  // task's capability grant and the plan's owner actor bind it.
+  const actorRef = setup.workspaceAuthority.authorizedActorRef;
+  if (actorRef !== 'actor://abi5-tests/sandbox-uat/' + source.runId) throw new TypeError('the prepared workspace authority names another actor: ' + actorRef);
+  const caller = publicCaller({ root, runtime, native, command, record, config: effective, actorRef }), hash = runtime.product.sha256Canonical;
+  caller.state.binding = setup.workspaceBinding; caller.state.closeHandoff = closeHandoff; caller.state.resolvedLock = setup.resolvedLock;
+  caller.installedRoot = setup.installations[0].installedRoot;
+  const eventLog = fileURLToPath(closeHandoff.prefix.eventLogRef), identityBefore = await eventResourceIdentity(eventLog);
+  const environment = caller.refresh();
+  if (hash(catalog) !== programs.catalogDigest || catalog.basisDigest !== setup.catalog.basisDigest) throw new TypeError('the retained catalog differs from its recorded digests');
+  caller.state.catalog = catalog; caller.state.catalogView = runtime.product.narrowGraphFunctionCatalog(catalog, programs.allowlist);
+  if (hash(caller.state.catalogView) !== programs.viewDigest) throw new TypeError('the qualification view differs from the prepared view');
+  const q = await installedExports(await packageRoot(caller.installedRoot));
+  const resources = await constructResources(q, { install: setup.installations[0], verified: native.verified, binding: setup.workspaceBinding });
+  const checks = { basis: preparedRecord.basis.digest === resources.basis.basisDigest, scope: preparedRecord.scope.digest === resources.scope.scopeDigest,
+    inventory: preparedRecord.inventory.digest === resources.inventory.inventoryDigest, tenantManifest: preparedRecord.tenantManifest.digest === resources.tenant.manifestDigest };
+  if (!Object.values(checks).every(Boolean)) throw new TypeError('the tree differs from the prepared resources: ' + JSON.stringify(checks));
+  const recipeBytes = await readFile(join(TENANT_ROOT, RECIPE_PATH)), recipe = JSON.parse(recipeBytes.toString('utf8'));
+  const declared = await readJson(join(TENANT_ROOT, Q, 'recipe/declared-commands.json'));
+  const rows = await protectedInputs(recipeBytes, recipe, resources.inventory);
+  const ambient = q.deep.actorProcess.selectedWorksiteCommandAmbientEnvironment();
+  const c2 = await c2Configuration(q, environment, rows, declared, ambient);
+  if (c2.mismatched.length > 0 || hash(c2.digests) !== hash(preparedRecord.recipe.digests)) throw new TypeError('the bound worksite differs from the prepared C2 configuration');
+  await record('reopen.json', { kind: 'qualification_archive_reopen', sourceArchive: archivePath, sourceRunId: source.runId, eventLog, identityBefore,
+    catalogDigest: programs.catalogDigest, viewDigest: programs.viewDigest, allowlist: programs.allowlist.length, checks, protectedInputs: rows.length,
+    c2Digests: c2.digests, ambient: ambient.map(row => row.name) });
+  return { archive, root, record, caller, q, setup, effective, eventLog, identityBefore, resources, recipe, declared, rows, ambient, c2, archivePath, native };
+}
+
+/** One reopen mode's body, sealed with its summary, the event log identity after it, and SEALED.json. */
+async function sealed(r, mode, body) {
+  let summary = { kind: 'qualification_' + mode, runId: r.archive.runId, archive: r.root, sourceArchive: r.archivePath, mode, status: 'incomplete', uptimeBefore: uptime() };
+  try { summary = { ...summary, ...(await body()) }; }
+  catch (error) { summary = { ...summary, status: 'failed', reason: String(error), stack: String(error?.stack ?? '').slice(0, 4000) }; await r.record('failure.json', summary); }
+  finally {
+    summary.uptimeAfter = uptime(); summary.identityAfter = await eventResourceIdentity(r.eventLog);
+    summary.eventLogUnchanged = JSON.stringify(summary.identityAfter) === JSON.stringify(r.identityBefore);
+    await r.record('summary.json', summary); await r.record('SEALED.json', { sealedAt: new Date().toISOString(), status: summary.status, archiveRoot: r.root, retained: true });
+  }
+  return summary;
+}
+
+/** G-4: the setup environment and the provider environment the in-process transport would receive in live mode
+ * (runner.mjs workerEnvironment applied to process.env, then the installed transport contract's sanitization,
+ * abg/transport_contracts.ts:367-384). The credential keys are left out of this computation by construction: their
+ * names are recorded, their values never read. */
+function providerEnvironmentEvidence(q, config, setup) {
+  const keys = [...G4_KEYS.bash, ...G4_KEYS.npm], declared = config.provider.inheritEnvironment ?? [];
+  const worker = workerEnvironment({ ...config, provider: { ...config.provider, inheritEnvironment: declared.filter(key => !CREDENTIAL_KEYS.includes(key)) } });
+  const contract = q.abg.constructKnownWorkerTransportContract('claude', { command: config.provider.command });
+  const handed = q.abg.sanitizeWorkerTransportEnvironment(contract, worker) ?? {};
+  const row = env => Object.fromEntries(keys.map(key => [key, env[key] ?? null]));
+  return { kind: 'qualification_provider_environment_evidence', setupEnvironment: { keys: Object.keys(setup).sort(), g4: row(setup) },
+    providerEnvironment: { keys: Object.keys(handed).sort(), g4: row(handed), actorLimits: { ABG_TS_FP_TIMEOUT_MS: handed.ABG_TS_FP_TIMEOUT_MS ?? null,
+      ABG_TS_FP_ABSOLUTE_TIMEOUT_MS: handed.ABG_TS_FP_ABSOLUTE_TIMEOUT_MS ?? null }, appendArgs: handed.ABG_TS_CLAUDE_APPEND_ARGS ?? null,
+      command: handed.ABG_TS_CLAUDE_COMMAND ?? null, sanitizedPrefixes: contract.sanitizedEnvironmentPrefixes },
+    credentialKeys: { declared: declared.filter(key => CREDENTIAL_KEYS.includes(key)), valuesRead: false },
+    present: { bashLimitsInProviderEnvironment: G4_KEYS.bash.every(key => handed[key] !== undefined),
+      npmKeysInSetupEnvironment: G4_KEYS.npm.every(key => setup[key] !== undefined), npmKeysInProviderEnvironment: G4_KEYS.npm.every(key => handed[key] !== undefined) },
+    source: 'Bash limits: provider.inheritEnvironment, inherited from the driver process; npm keys: toolchainEnvironment through the setup environment' };
+}
+
+/** D5-c item 1: the chains (the inherited base, then one per commit after the Phase C close up to the head) grounded
+ * by the installed attribution check: the inherited base alone, every chain alone over the members it constructed,
+ * then all chains over the whole inventory (the qualification subject); the set's size and the process heap. */
+function groundProvenance(q, resources, runId) {
+  const policy = q.preparation.QUALIFICATION_ROLE_POLICY, hash = q.product.sha256Canonical;
+  const git = args => execFileSync('git', ['-C', REPOSITORY_ROOT, ...args]).toString('utf8').trim();
+  const head = git(['rev-parse', 'HEAD']), tenantStatus = git(['status', '--porcelain', '--', TENANT_PATH]);
+  const started = performance.now(), commits = chainCommits(head);
+  const constructed = constructChains(commits, policy.authorityRef), provenance = constructProvenance(q.product, { inventory: resources.inventory, ...constructed });
+  const constructionMs = Math.round(performance.now() - started);
+  const attribution = q.deep.qualification.projectExternalConstructionAttribution, plan = { ownerAuthorityRef: policy.authorityRef };
+  const source = m => ({ ref: m.ref, path: m.path, digest: m.digest, byteCount: m.byteCount });
+  const check = (selected, subjectMembers, form) => { const t = performance.now();
+    const status = attribution({ task: { material: [], subjectMembers, context: { members: [] } }, raw: { attributions: establishedAttributions(selected, 'D5-c item 1 grounding') } },
+      plan, form).status;
+    return { status, ms: Math.round(performance.now() - t) }; };
+  const perChain = provenance.chains.map((chain, n) => {
+    const refs = new Set([chain.activationRef, chain.preimageRef, chain.deltaRef, chain.closureRef, ...chain.changes.flatMap(c => [c.preimageMemberRef, c.postimageMemberRef]).filter(Boolean)]);
+    const records = provenance.records.filter(m => refs.has(m.ref)), s = constructed.chains[n];
+    const alone = { ...provenance.embedded, records, recordSet: { ref: 'qualification-record-set://abiogenesis/construction/chain-' + n, digest: hash(records) }, chains: [chain] };
+    return { index: n, kind: n === 0 ? 'inherited_base' : 'commit', commit: s.commit, parent: s.parent, authorRef: chain.authorRef, actorIdentityRef: chain.actorIdentityRef,
+      postimageMembers: chain.postimageMembers.length, deleted: s.deleted.length, records: records.length, recordBytes: records.reduce((t, m) => t + m.byteCount, 0),
+      ...check([chain], chain.postimageMembers.map(source), alone) };
+  });
+  const members = resources.inventory.members.map(source), currency = memberCurrency(provenance, members);
+  const whole = check(provenance.chains, members, provenance.embedded), memory = process.memoryUsage();
+  const records = provenance.records, inherited = perChain[0], activation = records.find(m => m.ref === provenance.chains[0].activationRef);
+  const notCurrent = currency.filter(c => !c.current), byChain = {};
+  for (const c of currency) byChain[c.chain ?? 'none'] = (byChain[c.chain ?? 'none'] ?? 0) + 1;
+  const value = { kind: 'qualification_construction_provenance', runId, head, base: PHASE_C_CLOSE, tenantPath: TENANT_PATH, tenantClean: tenantStatus === '',
+    tenantStatus: tenantStatus === '' ? [] : tenantStatus.split('\n'), recordSet: provenance.recordSet, chains: provenance.chains.length, commitChains: commits.length,
+    records: records.length, recordBytes: records.reduce((t, m) => t + m.byteCount, 0), recordBase64Bytes: records.reduce((t, m) => t + m.contentBase64.length, 0),
+    constructionMs, heapUsedBytes: memory.heapUsed, rssBytes: memory.rss, heapLimitBytes: null, held: true,
+    inheritedBase: { ...inherited, authorRef: provenance.chains[0].authorRef, actorIdentityRef: provenance.chains[0].actorIdentityRef, authorityRef: provenance.chains[0].authorityRef,
+      activation: { ref: activation.ref, digest: activation.digest, byteCount: activation.byteCount, ticketRows: phaseCCloseRows().map(row => row.line) },
+      deltaBytes: records.find(m => m.ref === provenance.chains[0].deltaRef).byteCount, closureBytes: records.find(m => m.ref === provenance.chains[0].closureRef).byteCount },
+    groundedAlone: perChain.filter(c => c.status === 'grounded').length, perChain,
+    wholeInventory: { members: members.length, ...whole, current: currency.length - notCurrent.length, notCurrent: notCurrent.map(c => ({ ref: c.ref, chain: c.chain })),
+      membersByConstructingChain: byChain },
+    identities: [...new Set(provenance.chains.map(c => c.actorIdentityRef))].sort(),
+    classification: 'Records read from Git with tenant pathspecs and the ticket rows by grep -n and sed -n (provenance.mjs); the attribution is the installed package\'s own check (validator/qualification.ts:743-805) with established attributions' };
+  return { provenance, value };
+}
+
+/** The plan over the re-packed slots (assessment-plan.mjs) over one execution material: the material, the slot
+ * specifications, the resource manifest, the rule role packed per surface part, every slot rendered and its
+ * construction attribution checked, then the plan over the admitted slots in their order. */
+async function planOver(q, caller, resources, provenance, execution, { onSlot } = {}) {
+  const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
+  const base = await constructAssessmentMaterial(q, { ...resources, provenance, declarationProof, executionMaterial: execution });
+  const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection);
+  const built = acquireAssessmentResources(q, base, specified);
+  const calibration = packRuleRole(q, built, specified, selection, { ownerActorRef: caller.actorRef });
+  const projection = projectAssessment(q, built, specified, selection, { ownerActorRef: caller.actorRef, onSlot });
+  const { plan, inputs } = constructPlan(q, built, projection.admitted.map(a => a.slot), caller.actorRef);
+  return { base, selection, specified, built, calibration, projection, plan, inputs };
+}
+
+/** D5-c item 3, first half: the observed C2 task realized by the installed leaf over the prepared sandbox (its task and
+ * launch manifests under the binding's archive root) and its helper command recorded with the setup environment. */
+export async function helperRealize(config, archivePath) {
+  const r = await reopenArchive(config, archivePath, 'helper-realize', 'D5-c item 3: the observed C2 task realized by the installed leaf in the prepared sandbox; the helper command recorded for the operator; no C call, no provider');
+  return sealed(r, 'helper-realize', async () => {
+    const { q, caller, record } = r, setup = r.effective.setupEnvironment;
+    const { task, observed } = await observedC2Task(caller, q, r.c2, r.declared, r.ambient);
+    const limits = { inactivityTimeoutMs: config.provider.inactivityTimeoutMs, absoluteTimeoutMs: config.provider.absoluteTimeoutMs };
+    const realized = await realizeForMeasurement(q, task, { ...limits, id: r.archive.runId }), plan = realized.helperPlan;
+    await record('c2-task.json', task);
+    await record('helper-plan.json', { kind: 'qualification_helper_measurement_plan', runId: r.archive.runId, sourceArchive: archivePath,
+      task: { ref: task.taskRef, digest: task.taskDigest }, observedTask: observed, limits, helperPlan: plan, launchPath: realized.launchPath,
+      prompt: { byteCount: Buffer.byteLength(realized.prompt, 'utf8'), digest: sha256(Buffer.from(realized.prompt, 'utf8')) }, setupEnvironment: setup,
+      operatorCommand: ['env', '-i', ...Object.entries(setup).map(([key, value]) => shellQuote(key + '=' + value)), '/bin/sh', '-c', shellQuote(plan.toolCommand)].join(' '),
+      classification: 'A measurement: the helper command the C2 prompt hands its Worker, run once by the operator from a shell with the setup environment; never an admitted C2' });
+    return { status: 'realized', task: { ref: task.taskRef, digest: task.taskDigest }, toolCommand: plan.toolCommand, artifactPath: plan.artifactPath };
+  });
+}
+
+/** D5-c item 3, second half: the helper's artifact admitted by the installed owner, the observation and the verification
+ * material by the installed constructors, the stand-in execution material (the observation under the envelope of an
+ * observed C2 Result of the candidate), and one REQ-P-QUAL-056 rule slot and the coverage slot rendered with them. */
+export async function executionMaterialMode(config, archivePath, { helperArchive, helperElapsedMs = null }) {
+  const r = await reopenArchive(config, archivePath, 'execution-material', 'D5-c item 3: the helper artifact, the observation, the verification material and the stand-in execution material, and the two execution slot classes rendered with them; a measurement, never an admitted C2');
+  return sealed(r, 'execution-material', async () => {
+    const { q, caller, record } = r, hash = q.product.sha256Canonical, json = value => Buffer.byteLength(q.product.canonicalJson(value));
+    const helper = await readJson(join(helperArchive, 'helper-plan.json'));
+    const { task } = await observedC2Task(caller, q, r.c2, r.declared, r.ambient);
+    if (task.taskDigest !== helper.task.digest) throw new TypeError('the C2 task differs from the realized task');
+    const helperPlan = q.product.worksiteCommandExecutionHelperPlan(task, helper.helperPlan.attemptRef);
+    if (hash(helperPlan) !== hash(helper.helperPlan)) throw new TypeError('the helper plan differs from the realized plan');
+    const measured = await constructMeasuredObservation(q, task, helperPlan);
+    const envelope = await c2Envelope(join(config.archiveRoot, STAND_IN_ENVELOPE.run, 'resources/events/runtime.events.jsonl'), STAND_IN_ENVELOPE.cCallRef);
+    const stand = executionMaterial(q, envelope, measured.observation, null);
+    const recipeMember = r.resources.inventory.members.find(m => m.ref === r.resources.declaration.memberRefPrefix + RECIPE_PATH);
+    const recipeBytes = await readFile(join(TENANT_ROOT, RECIPE_PATH));
+    const recipe = { ref: recipeMember.ref, path: recipeMember.path, digest: recipeMember.digest, byteCount: recipeMember.byteCount, contentBase64: recipeBytes.toString('base64') };
+    const executionSelectionRef = SELECTION_PREFIX + 'execution/c2', cCallRef = 'c-call://abiogenesis/t287/d5c/helper-measurement/' + r.archive.runId;
+    const verification = verificationMaterial(q, { basis: r.resources.basis, inventory: r.resources.inventory, recipe,
+      execution: { ref: stand.material.ref, digest: stand.material.digest }, cCall: { ref: cCallRef, digest: hash({ cCallRef }) }, observation: measured.observation, executionSelectionRef });
+    await record('stand-in-material.json', stand.material); await record('verification-material.json', verification);
+    // The two slot classes that carry the execution material, rendered by the installed renderer over the stand-in.
+    const policy = q.preparation.QUALIFICATION_ROLE_POLICY;
+    const constructed = constructChains(chainCommits(execFileSync('git', ['-C', REPOSITORY_ROOT, 'rev-parse', 'HEAD']).toString('utf8').trim()), policy.authorityRef);
+    const provenance = constructProvenance(q.product, { inventory: r.resources.inventory, ...constructed });
+    const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
+    const base = await constructAssessmentMaterial(q, { ...r.resources, provenance, declarationProof, executionMaterial: stand.material });
+    const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection), built = acquireAssessmentResources(q, base, specified);
+    packRuleRole(q, built, specified, selection, { ownerActorRef: caller.actorRef });
+    const render = spec => { const { inputs } = constructPlan(q, built, [spec], caller.actorRef);
+      const prompt = Buffer.from(q.preparation.prepareQualificationAssessment(inputs[0], built.acquired).request.prompt, 'utf8');
+      return { slotRef: inputs[0].task.slotRef, key: spec.key, criteria: spec.coverage.length, subjectMembers: spec.subjectRefs.length, materialMembers: spec.materialRefs.length,
+        promptBytes: prompt.length, promptDigest: sha256(prompt), overPromptBound: prompt.length > PROMPT_BOUND_BYTES, overExecutionClassBound: prompt.length > EXECUTION_CLASS_BOUND_BYTES,
+        withoutExecutionMaterialBytes: prompt.length - stand.parts.renderedSourceDataBytes }; };
+    const rule056 = specified.specs.find(s => s.role === 'rule' && s.execution), coverage = specified.specs.find(s => s.role === 'coverage');
+    const slots = { rule056: render(rule056), coverage: render(coverage), rule056Slots: specified.specs.filter(s => s.role === 'rule' && s.execution).length };
+    const findings = [slots.rule056, slots.coverage].filter(s => s.overExecutionClassBound).map(s => ({ slotRef: s.slotRef, promptBytes: s.promptBytes,
+      finding: 'Product finding (owner question): the slot carries the execution material and exceeds the execution-material class bound of ' + EXECUTION_CLASS_BOUND_BYTES + ' bytes; recorded, not repaired' }));
+    const value = { kind: 'qualification_execution_material_measurement', runId: r.archive.runId, sourceArchive: archivePath, helperArchive,
+      task: { ref: task.taskRef, digest: task.taskDigest }, helperPlan: { attemptRef: helperPlan.attemptRef, toolCommand: helperPlan.toolCommand, artifactPath: helperPlan.artifactPath },
+      helperElapsedMs, artifact: { ref: measured.artifact.artifactRef, digest: measured.artifact.artifactDigest, byteCount: measured.artifactBytes },
+      observation: { ref: measured.observation.observationRef, digest: measured.observation.observationDigest, ...observationParts(q, measured.observation) },
+      envelope: { run: STAND_IN_ENVELOPE.run, cCallRef: STAND_IN_ENVELOPE.cCallRef, observedValueBytes: envelope.observedValueBytes, evidenceRows: envelope.evidence.length },
+      standIn: { ref: stand.material.ref, digest: stand.material.digest, byteCount: stand.material.byteCount, parts: stand.parts },
+      verificationMaterial: verification === null ? null : { digest: hash(verification), byteCount: json(verification), keys: Object.keys(verification).sort() },
+      verificationExecutionRef: { resolvesTo: 'the execution selection\'s Result coordinate (selection.result.ref); its material is the canonical JSON of the C2 Result state (the admitted Result payload with the whole observation as value), its judgment and its evidence rows (abg/qualification_proof.ts:779-846); here the stand-in ref ' + stand.material.ref,
+        materialBytes: stand.material.byteCount, valueBytes: stand.parts.valueBytes },
+      bounds: { promptBoundBytes: PROMPT_BOUND_BYTES, executionClassBoundBytes: EXECUTION_CLASS_BOUND_BYTES }, slots, findings,
+      classification: 'A measurement: the helper run by the operator from a shell, the observation constructed over a synthetic actor observation; never an admitted C2 (no C call, Result or event exists for it)' };
+    await record('execution-material.json', value);
+    return { status: 'measured', standInBytes: stand.material.byteCount, observationBytes: value.observation.totalBytes, rule056PromptBytes: slots.rule056.promptBytes,
+      coveragePromptBytes: slots.coverage.promptBytes, findings: findings.length };
+  });
+}
+
+/** The projection rows of the plan's slots from their final renders (the plan's own task ordinals), and the totals. */
+function finalProjection(planned, finals) {
+  const tokens = bytes => Math.ceil(bytes / PRICE.bytesPerToken), sum = (xs, f) => xs.reduce((s, x) => s + f(x), 0);
+  const rows = finals.map((final, n) => { const row = planned.projection.rows[n], inputTokens = tokens(final.promptBytes);
+    if (row.slotRef !== final.slotRef) throw new TypeError('projection row order differs from the plan');
+    return { ...row, onePlanPromptBytes: row.promptBytes, promptBytes: final.promptBytes, promptDigest: final.promptDigest, taskDigest: final.taskDigest, inputDigest: final.inputDigest,
+      inputTokens, usd: Number((inputTokens * PRICE.inputUsdPerMillionTokens / 1e6 + row.outputTokens * PRICE.outputUsdPerMillionTokens / 1e6).toFixed(4)) }; });
+  const byRole = Object.fromEntries(['catalog', 'inventory', 'rule', 'tenant', 'coverage'].map(role => { const xs = rows.filter(r => r.role === role);
+    return [role, { slots: xs.length, criteria: sum(xs, r => r.criteria), promptBytes: sum(xs, r => r.promptBytes), inputTokens: sum(xs, r => r.inputTokens),
+      outputTokens: sum(xs, r => r.outputTokens), usd: Number(sum(xs, r => r.usd).toFixed(2)), executionClassSlots: xs.filter(r => r.executionClass).length,
+      maxPromptBytes: xs.length === 0 ? 0 : Math.max(...xs.map(r => r.promptBytes)), attributionNotGrounded: xs.filter(r => r.attribution.status !== 'grounded').length }]; }));
+  return { rows, byRole, slots: rows.length, criteria: sum(rows, r => r.criteria), promptBytes: sum(rows, r => r.promptBytes), inputTokens: sum(rows, r => r.inputTokens),
+    outputTokens: sum(rows, r => r.outputTokens), usd: Number(sum(rows, r => r.usd).toFixed(2)) };
+}
+
+/** D5-c item 5, the dry mode: every input of the dispatch path rendered and admitted in process, ending undispatched. */
+export async function dryRun(config, archivePath, { executionArchive }) {
+  const r = await reopenArchive(config, archivePath, 'dry', 'D5-c item 5 dry mode: provenance, the re-packed plan over the stand-in, every C call input admitted in process; ends undispatched before any provider spawn');
+  return sealed(r, 'dry', async () => {
+    const { q, caller, record, root } = r, hash = q.product.sha256Canonical, product = caller.runtime.product;
+    // The no-spawn guards: a provider sentinel that marks any execution, and refusing transports.
+    const sentinelRoot = join(root, 'sentinel'), sentinel = join(sentinelRoot, 'provider-sentinel.sh'), marker = join(sentinelRoot, 'executed');
+    await mkdir(sentinelRoot, { recursive: true });
+    await writeFile(sentinel, '#!/bin/sh\n: > ' + shellQuote(marker) + '\nexit 97\n', { flag: 'wx' }); await chmod(sentinel, 0o700);
+    process.env.ABG_TS_CLAUDE_COMMAND = sentinel;
+    const transports = { inProcess: 0, cli: 0 };
+    caller.runtime = { ...caller.runtime, api: { ...caller.runtime.api, runInstalledDefinitionCallTransport: async () => { transports.inProcess += 1; throw new TypeError(DRY_REFUSAL); } } };
+    caller.invoke = async () => { transports.cli += 1; throw new TypeError(DRY_REFUSAL); };
+    const archivesRoot = join(archivePath, 'resources/archives');
+    // Not transport archives: the helper's realized task (item 3) and the run environment's temporary root, which the
+    // C2 start's preparation observes (dispatch.mjs runEnvironmentResources).
+    const transportArchives = async () => (await readdir(archivesRoot)).filter(name => name !== 'worksite-command-execution' && name !== RUN_ENVIRONMENT_SUPPORT).sort();
+    const transportBefore = await transportArchives();
+    const g4 = providerEnvironmentEvidence(q, config, r.effective.setupEnvironment);
+    await record('provider-environment.json', g4);
+    // Item 1.
+    const grounded = groundProvenance(q, r.resources, r.archive.runId);
+    grounded.value.heapLimitBytes = (await import('node:v8')).getHeapStatistics().heap_size_limit;
+    await record('provenance.json', grounded.value);
+    // Item 3's stand-in and verification material.
+    const executed = await readJson(join(executionArchive, 'execution-material.json'));
+    const stand = await readJson(join(executionArchive, 'stand-in-material.json')), verification = await readJson(join(executionArchive, 'verification-material.json'));
+    if (sha256(Buffer.from(stand.contentBase64, 'base64')) !== stand.digest || stand.digest !== executed.standIn.digest) throw new TypeError('the stand-in differs from its record');
+    const admitted = [], cache = new Map();
+    const admit = async (label, program, input, options = {}) => {
+      const t = performance.now(), start = await startCall(caller, program, input, { ...options, label, cache });
+      const owner = start.call === null ? null : await admitCall(caller, start.call);
+      const row = { label, programRef: program.programRef, inputDigest: hash(input), inputAdmitted: start.inputAdmitted, startAdmitted: owner?.admitted ?? false,
+        ownerKind: owner?.kind ?? null, ownerCode: owner?.code ?? null, ownerIssuePaths: owner?.issuePaths ?? null,
+        invocation: start.call === null ? null : { ref: start.call.invocation.invocationRef, digest: start.call.invocation.invocationDigest }, ms: Math.round(performance.now() - t) };
+      admitted.push(row);
+      if (!label.startsWith('assess-') || admitted.filter(x => x.label.startsWith('assess-')).length <= 3 || admitted.length % 25 === 0)
+        process.stderr.write(JSON.stringify({ admitted: admitted.length, label, ms: row.ms, inputAdmitted: row.inputAdmitted, startAdmitted: row.startAdmitted,
+          code: row.ownerCode, issuePaths: row.ownerIssuePaths, heapUsed: process.memoryUsage().heapUsed }) + '\n');
+      return { row, owner };
+    };
+    // The observed C2 start over the prepared worksite.
+    const c2Task = await observedC2Task(caller, q, r.c2, r.declared, r.ambient);
+    await admit('c2', PROGRAMS.c2, c2Task.task);
+    // The plan over the stand-in; every slot rendered and its attribution checked.
+    let rendered = 0;
+    const planned = await planOver(q, caller, r.resources, grounded.provenance, stand, { onSlot: () => { rendered += 1; } });
+    const invoking = { ...planned.built.assertion, declarationProofs: [] };
+    const finals = [];
+    // Every program kind before the long assess@5 loop. The owner's acknowledgment request of every slot's provenance view (the ruling the fold requires when J's
+    // attribution of that view is insufficient, abg/qualification_proof.ts:661-671).
+    // One request per acknowledgment selection: F11 selects exactly one ruling_selection per provenance view.
+    const views = new Map([...planned.built.provenanceEntries.values()].map(e => [e.coordinate.ref, e])), requested = new Set();
+    for (const input of planned.inputs) {
+      const entry = views.get(input.task.provenance.entry.ref);
+      if (requested.has(entry.acknowledgmentSelectionRef)) continue;
+      requested.add(entry.acknowledgmentSelectionRef);
+      const request = acknowledgmentRequest(q, planned.plan, input.task.slotRef, entry.view);
+      const { row } = await admit('ruling-' + String(requested.size - 1).padStart(4, '0'), PROGRAMS.ruling, request);
+      Object.assign(row, { slotRef: input.task.slotRef, acknowledgmentSelectionRef: entry.acknowledgmentSelectionRef, request: { ref: request.requestRef, digest: request.requestDigest } });
+    }
+    // F11 and AF22 over placeholder selections (the judgments, the C2 Result and the F11 Result exist only after dispatch).
+    const placeholder = label => ({ ref: 'result://abiogenesis/t287/d5c/placeholder/' + label, digest: hash({ placeholder: label }) });
+    const judgmentSelections = planned.plan.slots.map((slot, n) => ({ kind: 'judgment_selection', selectionRef: SELECTION_PREFIX + 'judgment/' + n, slotRef: slot.slotRef,
+      task: slot.task, programRef: PROGRAMS.assess.programRef, invocationAdmissionRef: 'invocation-admission://abiogenesis/t287/d5c/placeholder/judgment/' + n, result: placeholder('judgment/' + n) }));
+    const executionSelection = { kind: 'execution_selection', selectionRef: SELECTION_PREFIX + 'execution/c2', slotRef: product.WORKSITE_COMMAND_EXECUTION_IDS.nodeRef,
+      programRef: PROGRAMS.c2.programRef, invocationAdmissionRef: 'invocation-admission://abiogenesis/t287/d5c/placeholder/c2', result: { ref: stand.ref, digest: placeholder('c2').digest } };
+    const prefix = caller.state.closeHandoff.prefix;
+    const selfInput = selfConformanceInput(q, planned.built, { plan: planned.plan, proof: proofResource(planned.built, prefix, [...judgmentSelections, executionSelection]),
+      executionSelectionRef: executionSelection.selectionRef });
+    await admit('f11', PROGRAMS.selfConformance, selfInput, { qualificationResources: invoking });
+    const selfSelection = { kind: 'self_conformance_selection', selectionRef: SELECTION_PREFIX + 'self-conformance', slotRef: 'node://abiogenesis/qualification/self-conformance@5',
+      programRef: PROGRAMS.selfConformance.programRef, invocationAdmissionRef: 'invocation-admission://abiogenesis/t287/d5c/placeholder/f11', result: placeholder('f11') };
+    const verdictInput = { kind: 'qualification_verdict_input', schemaVersion: '5.0.0', slotRef: 'node://abiogenesis/qualification/exact-candidate@5', basis: planned.built.basisValue,
+      coverage: planned.built.law.coverage, selectionRef: selfSelection.selectionRef, proof: proofResource(planned.built, prefix, [selfSelection]),
+      selfConformance: { subjectBasis: planned.built.subjectBasis, lawBasis: planned.built.lawBasis, assessment: selfSelection.result, disposition: 'blocked', bypassRefs: [], verification } };
+    await admit('af22', PROGRAMS.verdict, verdictInput, { qualificationResources: invoking });
+    // Every assess@5 start in plan order, its prompt rendered from the plan's own input and again from the owner's resources.
+    for (const [n, input] of planned.inputs.entries()) {
+      const prompt = Buffer.from(q.preparation.prepareQualificationAssessment(input, planned.built.acquired).request.prompt, 'utf8');
+      const { row, owner } = await admit('assess-' + String(n).padStart(4, '0'), PROGRAMS.assess, input, { qualificationResources: invoking });
+      const ownerPrompt = owner?.admitted ? Buffer.from(q.preparation.prepareQualificationAssessment(input, owner.owner.qualificationResources).request.prompt, 'utf8') : null;
+      Object.assign(row, { slotRef: input.task.slotRef, taskDigest: input.task.taskDigest, promptBytes: prompt.length, promptDigest: sha256(prompt),
+        ownerPromptEqual: ownerPrompt !== null && ownerPrompt.equals(prompt) });
+      finals.push({ slotRef: input.task.slotRef, taskDigest: input.task.taskDigest, inputDigest: row.inputDigest, promptBytes: prompt.length, promptDigest: row.promptDigest });
+    }
+    // The projection over the final renders, and its time over the D3 natives' observed latency.
+    const projection = finalProjection(planned, finals);
+    const model = fitLatency(await d3Calls(config.archiveRoot));
+    // The C2: the measured helper run (item 3) and the relay's provider share, modelled as one structured response over
+    // the C2 prompt with 1,000 output tokens (an approximation; the C2 Worker's relay turns are not two-turn calls).
+    const c2Prompt = executed.helperPlan === undefined ? null : await readJson(join(executed.helperArchive, 'helper-plan.json'));
+    const c2ProviderMs = c2Prompt === null ? 0 : Math.max(0, model.interceptMs + model.perPromptByteMs * c2Prompt.prompt.byteCount + model.perOutputTokenMs * 1000);
+    const time = projectTime(projection.rows, model, { c2Ms: executed.helperElapsedMs === null ? null : Math.round(executed.helperElapsedMs + c2ProviderMs) });
+    time.c2 = { helperElapsedMs: executed.helperElapsedMs, providerShareMs: Math.round(c2ProviderMs), promptBytes: c2Prompt?.prompt.byteCount ?? null,
+      basis: 'the measured helper wall time plus the latency model over the C2 prompt with 1,000 output tokens' };
+    // The preparation each start pays in process before its provider spawn, as measured here (the qualification
+    // resource assertion canonicalized and digested per call).
+    const preparationMs = admitted.filter(row => row.label.startsWith('assess-')).reduce((n, row) => n + row.ms, 0);
+    time.preparation = { assessStarts: admitted.filter(row => row.label.startsWith('assess-')).length, ms: preparationMs,
+      basis: 'the measured in-process start admissions of every assess@5 input (startCall and ProductRunInvocationPort.prepare)' };
+    time.sequentialWithPreparationMs = time.sequentialMs + preparationMs;
+    time.sequentialWithPreparationHours = Number((time.sequentialWithPreparationMs / 3.6e6).toFixed(1));
+    const irreducible = planned.projection.irreducible.map(({ slot, total, executionClass }) => ({ slotRef: 'slot://abiogenesis/typescript-tenant/qualification/' + slot.key, role: slot.role,
+      criteria: slot.coverage.length, promptBytes: total, executionClass, finding: executionClass ? 'Product finding (owner question): over the execution-material class bound' : 'over the prompt bound with no lawful partition' }));
+    await record('projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, writtenBeforeDispatch: true, price: PRICE,
+      bounds: { promptBoundBytes: PROMPT_BOUND_BYTES, executionClassBoundBytes: EXECUTION_CLASS_BOUND_BYTES },
+      method: 'Every slot of the plan rendered by the installed prepareQualificationAssessment from the plan\'s own input; the rule role packed per surface part (G-1; assessment-plan.mjs packRuleRole); a slot over the bound re-partitioned; input tokens = prompt bytes / 4; output by material-selection.json plan.outputModel; the execution slots carry the item 3 stand-in',
+      resource: planned.built.resource, plan: { ref: planned.plan.planRef, digest: planned.plan.planDigest }, provenanceSelections: planned.built.provenanceEntries.size,
+      standIn: { ref: stand.ref, digest: stand.digest, byteCount: stand.byteCount }, specifications: planned.specified.specs.length, renderedDuringPartition: rendered,
+      calibration: { keys: planned.calibration.length, minRoomBytes: Math.min(...planned.calibration.map(c => c.roomBytes)), negativeRoom: planned.calibration.filter(c => c.roomBytes <= 0).map(c => c.key) },
+      slots: projection.slots, criteria: projection.criteria, byRole: projection.byRole,
+      totals: { promptBytes: projection.promptBytes, inputTokens: projection.inputTokens, outputTokens: projection.outputTokens, usd: projection.usd },
+      time: { ...time, model: { ...model, basis: 'least squares of the D3 two-turn provider calls\' wall duration on prompt bytes and output tokens (time-projection.mjs fitLatency); applied to a slot it is an extrapolation by time.extrapolation.ratio' } },
+      tokenSensitivity: { assumedPromptBytesPerToken: PRICE.bytesPerToken, observedPromptBytesPerInputToken: model.observedPromptBytesPerInputToken.mean,
+        usdAtObservedRatio: Number((projection.rows.reduce((s, row) => s + Math.ceil(row.promptBytes / model.observedPromptBytesPerInputToken.mean) * PRICE.inputUsdPerMillionTokens / 1e6
+          + row.outputTokens * PRICE.outputUsdPerMillionTokens / 1e6, 0)).toFixed(2)),
+        note: 'The activation prices input at 4 bytes per token; the D3 C-call prompts carried fewer bytes per input token' },
+      ruleInputFloor: ruleInputFloor(q, planned.base, planned.selection), irreducible,
+      attribution: Object.fromEntries(['grounded', 'insufficient', 'invalid'].map(s => [s, projection.rows.filter(row => row.attribution.status === s).length])), rows: projection.rows });
+    // The undispatched proof.
+    const transportAfter = await transportArchives(), identityAfter = await eventResourceIdentity(r.eventLog);
+    const proof = { transports, sentinel: { path: sentinel, executed: existsSync(marker) },
+      transportArchives: { before: transportBefore.length, after: transportAfter.length, unchanged: JSON.stringify(transportBefore) === JSON.stringify(transportAfter) },
+      eventLog: { path: r.eventLog, before: r.identityBefore, after: identityAfter, unchanged: JSON.stringify(r.identityBefore) === JSON.stringify(identityAfter) } };
+    proof.undispatched = proof.transports.inProcess === 0 && proof.transports.cli === 0 && !proof.sentinel.executed && proof.transportArchives.unchanged && proof.eventLog.unchanged;
+    const refusedByContract = admitted.filter(row => !row.inputAdmitted), refusedStart = admitted.filter(row => row.inputAdmitted && !row.startAdmitted);
+    // A refused C2, assess@5 or ruling start is not dispatch-ready; only the F11 and AF22 starts carry placeholders.
+    const placeholderLabels = new Set(['f11', 'af22']), blockingStart = refusedStart.filter(row => !placeholderLabels.has(row.label));
+    const assessMs = admitted.filter(row => row.programRef === PROGRAMS.assess.programRef).map(row => row.ms);
+    const byProgram = Object.fromEntries(Object.values(PROGRAMS).map(p => { const xs = admitted.filter(row => row.programRef === p.programRef);
+      return [p.programRef, { inputs: xs.length, inputAdmitted: xs.filter(row => row.inputAdmitted).length, startAdmitted: xs.filter(row => row.startAdmitted).length,
+        ms: xs.reduce((n, row) => n + row.ms, 0), refusals: [...new Set(xs.filter(row => !row.startAdmitted).map(row => row.ownerKind + ':' + row.ownerCode))] }]; }));
+    // Dispatch-ready is the live mode's own gate (liveRun: planOver stops on an irreducible slot): every input admitted
+    // and every slot in the plan. The status is the dry mode's proof alone: it ended before any dispatch.
+    const invalidAttributions = projection.rows.filter(row => row.attribution.status === 'invalid').map(row => row.slotRef);
+    const dispatchReady = proof.undispatched && refusedByContract.length === 0 && blockingStart.length === 0 && irreducible.length === 0 && invalidAttributions.length === 0;
+    const status = !proof.undispatched ? 'failed' : 'undispatched';
+    const notReady = [...(refusedByContract.length > 0 ? ['inputs refused by their declared contract: ' + refusedByContract.map(row => row.label).join(', ')] : []),
+      ...(blockingStart.length > 0 ? ['starts refused: ' + blockingStart.map(row => row.label + ' ' + row.ownerCode).join(', ')] : []),
+      ...(irreducible.length > 0 ? [irreducible.length + ' slots outside the plan (' + irreducible.filter(x => x.executionClass).length +
+        ' execution-class slots over ' + EXECUTION_CLASS_BOUND_BYTES + ' bytes: a Product finding, owner question); the live mode stops at its plan gate'] : []),
+      ...(invalidAttributions.length > 0 ? [invalidAttributions.length + ' slots with an invalid construction attribution (a member no chain covers); the live mode stops at its gate'] : []),
+      ...(proof.undispatched ? [] : ['the undispatched proof failed'])];
+    await record('dry-run.json', { kind: 'qualification_dry_run', runId: r.archive.runId, status, sourceArchive: archivePath, executionArchive,
+      plan: { ref: planned.plan.planRef, digest: planned.plan.planDigest, slots: planned.plan.slots.length }, resource: planned.built.resource,
+      placeholders: 'The judgment selections, the C2 Result coordinate (named by the stand-in ref), the F11 Result and the AF22 summary disposition are placeholders: they exist only after dispatch',
+      dispatchReady, notReady, byProgram, refusedByContract: refusedByContract.map(row => row.label),
+      refusedStart: refusedStart.map(row => ({ label: row.label, kind: row.ownerKind, code: row.ownerCode, issuePaths: row.ownerIssuePaths, placeholderInput: placeholderLabels.has(row.label) })),
+      assessPreparationMs: { calls: assessMs.length, total: assessMs.reduce((n, ms) => n + ms, 0), max: Math.max(0, ...assessMs),
+        note: 'ProductRunInvocationPort.prepare per assess@5 start (the live mode pays it per call before the provider spawn)' },
+      ownerPromptEqual: admitted.filter(row => row.ownerPromptEqual === true).length, inputsDigest: hash(admitted.map(row => row.inputDigest)),
+      admitted, proof, g4: g4.present });
+    await record('cost.json', { kind: 'qualification_run_cost', runId: r.archive.runId, providerCalls: 0, turns: 0, usd: 0, source: 'Dry mode: no transport call and no provider spawn (dry-run.json proof)' });
+    return { status, dispatchReady, notReady,
+      placeholderStartRefusals: refusedStart.filter(row => placeholderLabels.has(row.label)).map(row => row.label + ' ' + row.ownerCode),
+      slots: projection.slots, usd: projection.usd, sequentialHours: time.sequentialHours, sequentialWithPreparationHours: time.sequentialWithPreparationHours, irreducible: irreducible.length, proof: { undispatched: proof.undispatched } };
+  });
+}
+
+/** D5-c item 5, the live mode (authored; not run in D5-c): the provider version probe, the provenance, then
+ * dispatch.mjs dispatchLive under the owner's explicit cap. */
+export async function liveRun(config, archivePath, { capUsd, executionArchive }) {
+  if (!(Number.isFinite(capUsd) && capUsd > 0)) throw new TypeError('live requires an explicit --cap-usd granted by the owner');
+  if (!executionArchive) throw new TypeError('live requires --execution, the item 3 archive whose stand-in gates the plan before the C2 dispatch');
+  const r = await reopenArchive(config, archivePath, 'live', 'D5-c item 5 live mode: the observed C2, the plan over its Result, assess@5 per slot, the owner acknowledgments, F11 and the sole AF22 verdict');
+  return sealed(r, 'live', async () => {
+    const { q, caller, record } = r;
+    const ready = await preflight(config, [{ key: 'qualification', toolchainObligations: { requiredExecutables: ['node'] } }], r.root);
+    await record('preflight.json', ready);
+    if (ready.disposition !== 'ready') return { status: 'blocked', reason: 'Preflight obligations incomplete', issues: ready.issues };
+    // G-4: both Bash limits reach the provider and each exceeds the C2 helper's closed execution budget.
+    const budget = q.deep.c2.projectWorksiteCommandExecutionBudget({ commands: commandInput(r.declared), outcomePredicates: r.declared.outcomePredicates });
+    const g4 = providerEnvironmentEvidence(q, config, r.effective.setupEnvironment);
+    await record('provider-environment.json', g4);
+    const short = G4_KEYS.bash.filter(key => !(Number(g4.providerEnvironment.g4[key]) > budget.requiredExecutionBudgetMs));
+    if (short.length > 0 || !g4.present.npmKeysInProviderEnvironment) return { status: 'blocked', reason: 'G-4: ' + (short.length > 0 ? short.join(', ') +
+      ' absent or not above the helper budget of ' + budget.requiredExecutionBudgetMs + ' ms' : 'the npm keys do not reach the provider environment') };
+    const grounded = groundProvenance(q, r.resources, r.archive.runId);
+    await record('provenance.json', grounded.value);
+    const gatesOf = planned => { const invalid = planned.projection.rows.filter(row => row.attribution.status === 'invalid').length, irreducible = planned.projection.irreducible.length;
+      const gates = { capUsd, projectedUsd: planned.projection.usd, invalidAttributions: invalid, irreducibleSlots: irreducible };
+      return { gates, stop: planned.projection.usd > capUsd || invalid > 0 || irreducible > 0 }; };
+    // The plan's gates over the measured stand-in, before the C2 dispatch spends a provider call.
+    const stand = await readJson(join(executionArchive, 'stand-in-material.json'));
+    const pre = await planOver(q, caller, r.resources, grounded.provenance, stand), preGates = gatesOf(pre);
+    await record('pre-dispatch-projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, standIn: { ref: stand.ref, digest: stand.digest, byteCount: stand.byteCount },
+      plan: { ref: pre.plan.planRef, digest: pre.plan.planDigest }, byRole: pre.projection.byRole, usd: pre.projection.usd, gates: preGates.gates });
+    if (preGates.stop) return { status: 'blocked', reason: 'a gate held the run before the C2 dispatch: ' + JSON.stringify(preGates.gates), dispatched: 0 };
+    const c2Task = await observedC2Task(caller, q, r.c2, r.declared, r.ambient);
+    let dispatched = 0;
+    const ctx = { caller, q, config, record, c2Task: c2Task.task,
+      applyProviderEnvironment: () => { Object.assign(process.env, workerEnvironment(config)); },
+      executionMaterialOf: async c2Result => { const envelope = await c2Envelope(r.eventLog, c2Result.producer.cCallRef);
+        return executionMaterial(q, envelope, envelope.result.payload.value, c2Result.result.ref).material; },
+      planOver: async execution => {
+        const planned = await planOver(q, caller, r.resources, grounded.provenance, execution), { gates, stop } = gatesOf(planned);
+        await record('projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, plan: { ref: planned.plan.planRef, digest: planned.plan.planDigest },
+          resource: planned.built.resource, byRole: planned.projection.byRole, usd: planned.projection.usd, gates, rows: planned.projection.rows });
+        return { ...planned, stop, gates, reason: stop ? 'a gate held the assessments: ' + JSON.stringify(gates) : null }; },
+      guard: label => { dispatched += 1; if (dispatched > 1 + 4 * 2048) throw new TypeError('dispatch count exceeds the plan bound at ' + label); } };
+    const result = await dispatchLive(ctx);
+    await record('live.json', { kind: 'qualification_live_result', ...result, dispatched });
+    return { status: result.status, reason: result.reason ?? null, dispatched };
+  });
+}
+
+/** Cold reads of a dry or live archive: a fresh process reopens its prepared archive (reopen.json: the prepared records
+ * re-derived), re-derives the construction record set from Git at the archived head and, for a dry archive, the plan
+ * over the recorded stand-in, and compares them with the archive's records. */
+async function coldReadsOfRun(config, runArchive) {
+  const run = await readJson(join(runArchive, 'run.json'));
+  const r = await reopenArchive(config, run.sourceArchive, 'cold-reads', 'Cold reads of the ' + run.mode + ' archive ' + runArchive + ' in a fresh process');
+  return sealed(r, 'cold-reads', async () => {
+    const { q, caller, record } = r, policy = q.preparation.QUALIFICATION_ROLE_POLICY;
+    const archivedProvenance = await readJson(join(runArchive, 'provenance.json'));
+    const constructed = constructChains(chainCommits(archivedProvenance.head), policy.authorityRef);
+    const provenance = constructProvenance(q.product, { inventory: r.resources.inventory, ...constructed });
+    const rows = [['constructionRecordSet', archivedProvenance.recordSet.digest, provenance.recordSet.digest],
+      ['constructionChains', String(archivedProvenance.chains), String(provenance.chains.length)]];
+    if (run.mode === 'dry') {
+      const dry = await readJson(join(runArchive, 'dry-run.json')), stand = await readJson(join(dry.executionArchive, 'stand-in-material.json'));
+      const planned = await planOver(q, caller, r.resources, provenance, stand);
+      rows.push(['resource', dry.resource.digest, planned.built.resource.digest], ['plan', dry.plan.digest, planned.plan.planDigest]);
+    }
+    const compared = rows.map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));
+    const identityAfter = await eventResourceIdentity(r.eventLog), allEqual = compared.every(row => row.equal);
+    await record('cold-reads.json', { kind: 'qualification_cold_reads', runArchive, mode: run.mode, sourceArchive: run.sourceArchive,
+      process: { pid: process.pid, argv: process.argv, node: process.version }, reopenChecks: 'reopen.json: basis, scope, inventory, tenant manifest and the C2 configuration re-derived equal to prepare.json',
+      rows: compared, eventLog: r.eventLog, identityBefore: r.identityBefore, identityAfter, identityUnchanged: JSON.stringify(r.identityBefore) === JSON.stringify(identityAfter), allEqual });
+    return { status: allEqual ? 'equal' : 'differs', allEqual };
+  });
 }
 
 // After the prepare process has exited: a fresh process rebuilds the caller from the sealed archive (as D2's
@@ -449,18 +825,6 @@ export async function coldReads(config, archivePath, outRoot) {
     ['predicateConfiguration', prepared.recipe.digests.predicateConfigurationDigest, c2.digests.predicateConfigurationDigest],
     ['writeTerritories', prepared.recipe.digests.writeTerritoriesDigest, c2.digests.writeTerritoriesDigest],
   ];
-  if (run.mode === 'live') {
-    // The construction record set from Git at the archived head, and the declared applications over the re-derived scope.
-    const archivedProvenance = await archived('provenance.json'), archivedApplications = await archived('applications.json');
-    const chains = constructChains(chainCommits(archivedProvenance.head), q.preparation.QUALIFICATION_ROLE_POLICY.authorityRef);
-    const provenance = constructProvenance(q.product, { inventory: resources.inventory, ...chains });
-    const { constructApplicationDomains, constructApplications } = await import('../qualification/build-resources.mjs');
-    const applications = constructApplications(resources.declaration, constructApplicationDomains(resources.declaration,
-      { inventory: resources.inventory, ruleGroups: resources.scope.ruleGroups, surfaceGroups: resources.scope.surfaceGroups }));
-    rowsCompared.push(['constructionRecordSet', archivedProvenance.recordSet.digest, provenance.recordSet.digest],
-      ['constructionChains', String(archivedProvenance.chains), String(provenance.chains.length)],
-      ['applications', archivedApplications.applicationsDigest, q.product.sha256Canonical(applications)]);
-  }
   const comparedRows = rowsCompared.map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));
   const result = { kind: 'qualification_cold_reads', archive: archivePath, runId: run.runId, coldRoot: root,
     process: { pid: process.pid, argv: process.argv, node: process.version }, eventLog, identityBefore, identityAfter,
@@ -474,21 +838,44 @@ export async function coldReads(config, archivePath, outRoot) {
 async function main(args = process.argv.slice(2)) {
   const [mode, ...rest] = args, options = {};
   for (let i = 0; i < rest.length; i++) {
-    if (rest[i] === '--execute-recipe') options['execute-recipe'] = true;
-    else if (['--config', '--archive', '--out', '--json', '--dependencies'].includes(rest[i])) options[rest[i].slice(2)] = rest[++i];
+    if (rest[i] === '--execute-recipe' || rest[i] === '--dry') options[rest[i].slice(2)] = true;
+    else if (['--config', '--archive', '--out', '--json', '--dependencies', '--helper', '--helper-elapsed-ms', '--execution', '--cap-usd'].includes(rest[i])) options[rest[i].slice(2)] = rest[++i];
     else throw new TypeError('Unknown argument: ' + rest[i]);
   }
-  if (!['prepare', 'live', 'cold-reads'].includes(mode) || !options.config) throw new TypeError(
-    'Usage: exact-candidate-qualification.mjs prepare|live --config FILE --dependencies DIR [--execute-recipe] | cold-reads --config FILE --archive SEALED_ARCHIVE --out NEW_ROOT --json OUTPUT');
-  const config = await configuration(options.config);
-  if (mode === 'cold-reads') {
-    const result = await coldReads(config, resolve(options.archive), resolve(options.out));
-    await writeFile(resolve(options.json), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' });
-    console.log(JSON.stringify({ allEqual: result.allEqual, identityUnchanged: result.identityUnchanged })); return result.allEqual && result.identityUnchanged ? 0 : 1;
+  const usage = 'Usage: exact-candidate-qualification.mjs prepare --config FILE --dependencies DIR [--execute-recipe]\n' +
+    '  | helper-realize --config FILE --archive PREPARED\n  | execution-material --config FILE --archive PREPARED --helper HELPER_ARCHIVE [--helper-elapsed-ms N]\n' +
+    '  | live --dry --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE\n  | live --config FILE --archive PREPARED --execution EXECUTION_ARCHIVE --cap-usd N\n' +
+    '  | cold-reads --config FILE --archive ARCHIVE [--out NEW_ROOT --json OUTPUT (a prepared archive)]';
+  if (!['prepare', 'helper-realize', 'execution-material', 'live', 'cold-reads'].includes(mode) || !options.config) throw new TypeError(usage);
+  const config = await configuration(options.config), print = value => console.log(JSON.stringify(value));
+  if (mode === 'prepare') {
+    if (!options.dependencies) throw new TypeError('prepare requires --dependencies DIR (the locked dependency archives by file name)');
+    const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies) });
+    print(result); return result.status === 'prepared' ? 0 : 1;
   }
-  if (!options.dependencies) throw new TypeError(mode + ' requires --dependencies DIR (the locked dependency archives by file name)');
-  const result = await prepare(config, { executeRecipe: options['execute-recipe'] === true, dependencies: resolve(options.dependencies), live: mode === 'live' });
-  console.log(JSON.stringify(result)); return result.status === 'prepared' ? 0 : 1;
+  if (!options.archive) throw new TypeError(usage);
+  const archive = resolve(options.archive);
+  if (mode === 'cold-reads') {
+    const run = await readJson(join(archive, 'run.json'));
+    if (run.mode !== 'prepare') { const result = await coldReadsOfRun(config, archive); print(result); return result.allEqual ? 0 : 1; }
+    const result = await coldReads(config, archive, resolve(options.out));
+    await writeFile(resolve(options.json), JSON.stringify(result, null, 2) + '\n', { flag: 'wx' });
+    print({ allEqual: result.allEqual, identityUnchanged: result.identityUnchanged }); return result.allEqual && result.identityUnchanged ? 0 : 1;
+  }
+  if (mode === 'helper-realize') { const result = await helperRealize(config, archive); print(result); return result.status === 'realized' ? 0 : 1; }
+  if (mode === 'execution-material') {
+    if (!options.helper) throw new TypeError(usage);
+    const result = await executionMaterialMode(config, archive, { helperArchive: resolve(options.helper),
+      helperElapsedMs: options['helper-elapsed-ms'] === undefined ? null : Number(options['helper-elapsed-ms']) });
+    print(result); return result.status === 'measured' ? 0 : 1;
+  }
+  if (options.dry === true) {
+    if (!options.execution) throw new TypeError(usage);
+    const result = await dryRun(config, archive, { executionArchive: resolve(options.execution) });
+    print(result); return result.status === 'undispatched' ? 0 : 1;
+  }
+  const result = await liveRun(config, archive, { capUsd: Number(options['cap-usd']), executionArchive: options.execution === undefined ? null : resolve(options.execution) });
+  print(result); return result.status === 'qualified' ? 0 : 1;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) process.exitCode = await main();
