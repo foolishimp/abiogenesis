@@ -896,3 +896,30 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
     t.diagnostic('Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and explicitly selected result_text transport input. Full schema remains bound; controlled lower occurrence/role admission only; dispatch prohibited.');
   }
 });
+
+// O1 (O-TYPE (I)): each admitted-set rehydrate narrows the checked event's
+// payload by `isRecord` before the payload comparison. The matcher already
+// selects only a record payload, so a non-record never reaches the guard; these
+// cases pin the channel, the existing `null`, for every non-record payload.
+const o1NonRecordImplementationPayloads = [['implementation-set://abiogenesis/o1'], 'implementation-set://abiogenesis/o1', null];
+async function o1AdmittedEventPrefix(payload) {
+  const { sha256Canonical } = await import('../../build/code/src/shared/digests.js');
+  return selectValidatedRuntimeEventPrefix(deepFreeze([{ eventId: 'event://o1/implementation', kind: 'implementation_admitted',
+    aggregateId: 'invocation://o1', basisId: 'basis://o1', admissionOrdinal: 1, correlationId: 'correlation://o1', causationEventRefs: [],
+    eventTime: '2026-10-28T00:00:00.000Z', payload, payloadDigest: sha256Canonical(payload) }]));
+}
+
+test('O1 (I): an implementation_admitted event with a non-record payload rehydrates no implementation set (the existing null)', async () => {
+  for (const payload of o1NonRecordImplementationPayloads) {
+    assert.equal(rehydrateAdmittedImplementationSetAtPrefix(await o1AdmittedEventPrefix(payload), 'implementation-set://abiogenesis/o1'), null,
+      JSON.stringify(payload));
+  }
+});
+
+test('O1 (I): an implementation_admitted event with a non-record payload rehydrates no interaction set (the existing null)', async () => {
+  const { rehydrateAdmittedInteractionSetAtPrefix } = await import('../../build/code/src/abg/execution_basis.js');
+  for (const payload of o1NonRecordImplementationPayloads) {
+    assert.equal(rehydrateAdmittedInteractionSetAtPrefix(await o1AdmittedEventPrefix(payload), 'interaction-set://abiogenesis/o1'), null,
+      JSON.stringify(payload));
+  }
+});

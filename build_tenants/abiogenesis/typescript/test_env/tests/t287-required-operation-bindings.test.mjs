@@ -405,3 +405,134 @@ test('T-287 R3-b product.materialize lands each schema-asset admission refusal a
     assert.deepEqual(context(row), { kind: 'refusal', code: 'input_mismatch', path: '/contextInputs/0/contract' }, check);
   }
 });
+
+// O1 (O-TYPE (A)): product.materialize's artifact relation admits each context
+// input value where its digest is taken, and the binding admits the artifact
+// body before the artifact ingress. JSON.parse and the canonical digest accept
+// a lone surrogate and an unsafe integer; admission refuses them on each
+// site's own channel: the relation's `false`, the binding's
+// `product_materialization_artifact_refused` fault before any admission.
+test('O1 (A): the materialization artifact relation refuses a context input value outside I-JSON (false)', async () => {
+  const { privateOwner } = await import('../support/r10-private-owner-harness.mjs');
+  const { sha256Canonical: hash } = await import('../../build/code/src/shared/digests.js');
+  const binding = { bindingId: 'binding://abiogenesis/o1-materialize@5', bindingDigest: hash('binding'),
+    admissionEventRef: 'event://o1/binding', roots: { projectionRoot: '/o1/projection' } };
+  const basis = { workspaceId: 'workspace://abiogenesis/o1-materialize@5', authorityBasisDigest: hash('authority') };
+  const owner = await privateOwner('abg/artifact_truth.js', ['materializationArtifactCorresponds'], {
+    './environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => ({ kind: 'exact_prefix_workspace_environment',
+      workspaceBinding: binding, workspaceAuthorityBasis: basis, productInstalls: [] }) } });
+  const hex = digest => digest.slice('sha256:'.length), memberKey = 'context_bootstrap', order = (a, b) => a < b ? -1 : a > b ? 1 : 0;
+  const root = join(binding.roots.projectionRoot, 'product-materializations', memberKey);
+  const subject = { workspaceRef: basis.workspaceId, workspaceDigest: basis.authorityBasisDigest, bindingRef: binding.bindingId,
+    bindingDigest: binding.bindingDigest };
+  const pair = { ref: binding.bindingId, digest: binding.bindingDigest };
+  // The relation's own reconstruction, recomputed here over the value given.
+  const corresponds = value => {
+    const input = { inputRef: 'o1/input', inputDigest: hash(value), content: value };
+    const assetDigest = hash({ kind: 'generated_product_asset', schemaVersion: '5.0.0', materializationKind: memberKey, ...subject, ...input });
+    const rows = [{ inputRef: input.inputRef, inputDigest: input.inputDigest, assetRef: `generated-product-asset://abiogenesis/${hex(assetDigest)}`,
+      assetDigest, assetPath: join(root, 'content', `${hex(assetDigest)}.json`), disposition: 'created' }];
+    const contentDigest = hash(rows.map(row => row.assetDigest));
+    const content = { contentRef: `context-bootstrap-content://abiogenesis/${hex(contentDigest)}`, contentDigest, contentPath: root };
+    const provenance = [{ provenanceRef: subject.workspaceRef, provenanceDigest: subject.workspaceDigest },
+      { provenanceRef: subject.bindingRef, provenanceDigest: subject.bindingDigest },
+      { provenanceRef: input.inputRef, provenanceDigest: input.inputDigest }].sort((a, b) => order(a.provenanceRef, b.provenanceRef));
+    const manifestDigest = hash({ kind: 'product_materialization_manifest', schemaVersion: '5.0.0', materializationKind: memberKey, ...subject,
+      contentRef: content.contentRef, contentDigest, rows, validationDisposition: 'admitted', residuals: [], provenance });
+    const manifest = { manifestRef: `product-materialization-manifest://abiogenesis/${hex(manifestDigest)}`, manifestDigest,
+      manifestPath: join(root, 'manifests', `${hex(manifestDigest)}.json`) };
+    const invocation = { operationId: 'abg.operation.product.materialize', memberKey };
+    const artifact = { kind: 'product_materialization_artifact', schemaVersion: '5.0.0', memberKey, invocation,
+      entryPrefix: { coordinateDigest: hash('entry') }, workspaceBinding: pair,
+      request: { binding: pair, workspace: { ref: subject.workspaceRef, digest: subject.workspaceDigest }, contextInputs: [{ name: input.inputRef, value }] },
+      result: { kind: 'product_materialization_result', schemaVersion: '5.0.0', disposition: 'materialized', materializationKind: memberKey,
+        subject, content, manifest, rows, validationDisposition: 'admitted', residuals: [], provenance } };
+    return owner.materializationArtifactCorresponds(artifact, {}, { causationEventRefs: [binding.admissionEventRef] },
+      { invocation, scope: { ref: manifest.manifestRef, digest: manifestDigest }, artifact: { ref: content.contentRef, digest: contentDigest } });
+  };
+  assert.equal(corresponds(['ruling']), true, 'the reconstructed context artifact corresponds');
+  assert.equal(corresponds(['\ud800']), false, 'a lone surrogate');
+  assert.equal(corresponds([9007199254740993]), false, 'an unsafe integer');
+});
+
+test('O1 (A): the materialization binding refuses an artifact body outside I-JSON before the artifact ingress', async t => {
+  const { mkdtemp, mkdir, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { dirname, resolve } = await import('node:path');
+  const { SourceTextModule, SyntheticModule } = await import('node:vm');
+  const Effect = await import('effect/Effect');
+  const { sha256Bytes, sha256Canonical: hash } = await import('../../build/code/src/shared/digests.js');
+  const { MATERIALIZATION_OPERATION_CONTRACTS } = await import('../../build/code/src/product/materialization_operation_contracts.js');
+  const installedRoot = await mkdtemp(join(tmpdir(), 't287-o1-materialize-'));
+  t.after(() => rm(installedRoot, { recursive: true, force: true }));
+  const contractId = 'abg.schema.o1-context', productId = 'product://abiogenesis/o1-materialize@5';
+  const schema = Buffer.from(JSON.stringify({ $schema: 'https://json-schema.org/draft/2020-12/schema', $id: contractId, type: 'array', items: { type: 'string' } }));
+  await mkdir(join(installedRoot, 'schemas'), { recursive: true });
+  await writeFile(join(installedRoot, 'schemas/context.schema.json'), schema);
+  const row = { contractKind: 'schema_asset', contractId, owningProduct: productId, contractVersion: '5.0.0', contractDigest: sha256Bytes(schema),
+    assetLocator: { mediaType: 'application/schema+json', path: 'schemas/context.schema.json', contentDigest: sha256Bytes(schema) } };
+  const actorRef = 'actor://abiogenesis/o1', binding = { bindingId: 'binding://abiogenesis/o1-materialize@5', bindingDigest: hash('binding'),
+    admissionEventRef: 'event://o1/binding', authorityBasisId: 'authority://o1', authorityBasisDigest: hash('authority') };
+  const entryPrefix = { kind: 'durable_prefix_coordinate', coordinateDigest: hash('entry') };
+  const workspace = { workspaceId: 'workspace://abiogenesis/o1-materialize@5', authorityBasisDigest: hash('authority'), authorizedActorRef: actorRef };
+  const environment = { kind: 'exact_prefix_workspace_environment', prefix: entryPrefix, workspaceBinding: binding, workspaceAuthorityBasis: workspace,
+    productInstalls: [{ productId, installedRoot, publicContracts: [row] }], resolvedProductLock: { lockId: 'lock://o1', lockDigest: hash('lock') } };
+  const pair = { ref: binding.bindingId, digest: binding.bindingDigest }, catalog = { ref: 'catalog://o1', digest: hash('catalog') };
+  const packet = MATERIALIZATION_OPERATION_CONTRACTS.context_bootstrap, admissions = [];
+  let native;
+  // Supplied lookup assumptions: the install coordinate, a fresh invocation,
+  // no truth row at the scope, the owner's result, the artifact ingress and
+  // the resource release. The request admission, the declared output and the
+  // body admission are the module's own.
+  const assumptions = {
+    './environment.js': { productInstallCoordinate: install => ({ productId: install.productId }) },
+    '../abg/effectful_invocation_truth.js': { projectEffectfulPublicInvocationTruthAtPrefix: () => ({ disposition: 'available' }) },
+    './materialization_operations.js': { materializeContextBootstrap: async () => native },
+    '../abg/artifact_truth.js': { projectExactPrefixArtifactTruth: () => ({ kind: 'exact_prefix_artifact_truth_projection', rows: [] }) },
+    '../abg/environment_admission.js': { admitArtifact: (...args) => { admissions.push(args); return { disposition: 'admitted' }; } },
+    '../abg/definition_event_resource.js': { abandonAbgEventResource: () => {} },
+  };
+  const file = fileURLToPath(new URL('../../build/code/src/product/materialization_definition_bindings.js', import.meta.url));
+  const site = new SourceTextModule(`${await readFile(file, 'utf8')}\nexport { materializeOwner as componentMaterializeOwner };\n`, { identifier: file });
+  await site.link(async specifier => {
+    const actual = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(file), specifier)).href : specifier),
+      ...(assumptions[specifier] ?? {}) };
+    return new SyntheticModule(Object.keys(actual), function () { for (const [k, v] of Object.entries(actual)) this.setExport(k, v); });
+  });
+  await site.evaluate();
+  const request = { workspace: { ref: workspace.workspaceId, digest: workspace.authorityBasisDigest }, binding: pair,
+    contextInputs: [{ name: 'o1/input', contract: { ref: contractId, digest: row.contractDigest }, value: ['ruling'] }] };
+  const call = { invocation: { invocationAuthority: { slots: { actor: { actor: { ref: actorRef } }, workspace_binding: pair,
+    product_set: [{ productId }], dependency_lock: { ref: 'lock://o1', digest: hash('lock') } } }, request, contractCatalog: catalog,
+    definitionDigest: hash('definition'), invocationRef: 'invocation://o1/materialize', requestDigest: hash(request),
+    correlationRef: 'correlation://o1', eventTime: '2026-10-28T00:00:00.000Z' }, resources: { eventResource: {} } };
+  const approved = { grants: [{ actorRef, operationId: packet.definitionKey.operationId, capabilityRef: packet.metadata.capabilityRefs[0],
+    operationContract: { contractCatalog: catalog } }], authority: { actorRef } };
+  const coordinate = (scheme, label) => ({ ref: `${scheme}://abiogenesis/${hash(label).slice(7)}`, digest: hash(label) });
+  const result = contentPath => {
+    const content = coordinate('context-bootstrap-content', 'content'), manifest = coordinate('product-materialization-manifest', 'manifest');
+    const asset = coordinate('generated-product-asset', 'asset');
+    return { kind: 'product_materialization_result', schemaVersion: '5.0.0', disposition: 'materialized', materializationKind: 'context_bootstrap',
+      subject: { workspaceRef: workspace.workspaceId, workspaceDigest: workspace.authorityBasisDigest, bindingRef: pair.ref, bindingDigest: pair.digest },
+      content: { contentRef: content.ref, contentDigest: content.digest, contentPath },
+      manifest: { manifestRef: manifest.ref, manifestDigest: manifest.digest, manifestPath: '/o1/manifest.json' },
+      rows: [{ inputRef: 'o1/input', inputDigest: hash(['ruling']), assetRef: asset.ref, assetDigest: asset.digest, assetPath: '/o1/asset.json',
+        disposition: 'created' }],
+      validationDisposition: 'admitted', residuals: [], provenance: [{ provenanceRef: 'o1/input', provenanceDigest: hash(['ruling']) }] };
+  };
+  const run = async contentPath => {
+    native = result(contentPath); admissions.length = 0;
+    const exit = await Effect.runPromiseExit(site.namespace.componentMaterializeOwner('context_bootstrap', call, approved, environment,
+      { entryPrefix, store: {} }));
+    return { exit, admissions: [...admissions] };
+  };
+  const admitted = await run('/o1/content');
+  assert.equal(admitted.admissions.length, 1, JSON.stringify(admitted.exit));
+  assert.deepEqual(admitted.admissions[0][5], { artifact: { kind: 'product_materialization_artifact', schemaVersion: '5.0.0',
+    memberKey: 'context_bootstrap', invocation: admitted.admissions[0][5].artifact.invocation, entryPrefix, workspaceBinding: pair, request, result: native } });
+  const refused = await run('/o1/\ud800');
+  assert.equal(refused.admissions.length, 0, 'no artifact admission is attempted');
+  assert.equal(refused.exit._tag, 'Failure');
+  assert.equal(refused.exit.cause.error?.stage, 'abg_admission', JSON.stringify(refused.exit.cause));
+  assert.equal(refused.exit.cause.error.code, 'product_materialization_artifact_refused');
+});

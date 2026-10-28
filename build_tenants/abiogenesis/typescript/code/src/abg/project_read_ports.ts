@@ -286,7 +286,7 @@ function scopeForBasis(prefix: RuntimeEventPrefix, basis: ExecutionBasis): Opene
     graphFunctionRef: basis.graphFunctionRef, graphFunctionDigest: basis.graphFunctionDigest,
     graphRef: basis.graphRef, graphDigest: basis.graphDigest,
   };
-  const checked = checkedRecordAtPrefix(prefix, BASIS_SCOPE_RECORD, row as unknown as JsonValue, () =>
+  const checked = checkedRecordAtPrefix(prefix, BASIS_SCOPE_RECORD, row, () =>
     checkExactRecord(onlyExactMatch(indexedRuntimeEvents(prefix,"kind:graph_call_opened").filter((event) =>
       event.basisId === basis.basisRef)), BASIS_SCOPE_RECORD, { prefix, basis: row }));
   if (checked.kind === "one") return checked.value;

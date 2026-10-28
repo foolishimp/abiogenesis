@@ -1979,3 +1979,27 @@ test("S06 declaration builders preserve Product meaning and reject malformed mec
   assert.ok(publication.closureContracts.every(Object.isFrozen));
   assert.ok(publication.contributions.every(Object.isFrozen));
 });
+
+// O1 (O-TYPE (A), (I)): the executing toolchain manifest is admitted at its read.
+// JSON.parse keeps a lone surrogate and an unsafe integer, and the canonical
+// digest accepts both; admission refuses them on the reader's own channel, the
+// throw, which the content-digest reader keeps as `null`. An admitted manifest
+// that is not a record keeps the existing `null` product content digest.
+const o1ToolchainReader = async text => (await import('../support/r10-private-owner-harness.mjs'))
+  .privateOwner('product/declaration_exports.js', [], { 'node:fs': { readFileSync: () => text } });
+
+test('O1 (A): a parsed toolchain manifest outside I-JSON is refused at the read; the content-digest reader keeps null', async () => {
+  for (const text of ['{"productId":"product://abiogenesis@5","note":"\\ud800"}', '{"productId":"product://abiogenesis@5","count":9007199254740993}']) {
+    const owner = await o1ToolchainReader(text);
+    assert.throws(() => owner.readExecutingToolchainIdentity(), TypeError, text);
+    assert.equal(owner.installedToolchainProductContentDigest(), null, text);
+  }
+});
+
+test('O1 (I): an admitted toolchain manifest that is not a record names no product content digest', async () => {
+  const owner = await o1ToolchainReader('[1,2]');
+  const identity = owner.readExecutingToolchainIdentity();
+  assert.deepEqual(identity.manifest, [1, 2]);
+  assert.equal(identity.manifestDigest, sha256Canonical([1, 2]));
+  assert.equal(identity.productContentDigest, null);
+});

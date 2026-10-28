@@ -246,8 +246,9 @@ function materializationArtifactCorresponds(
         if (!isRecord(input) || typeof input.name !== "string" || input.value === undefined) {
           throw new TypeError("materialization context input is malformed");
         }
-        const value = input.value as JsonValue;
-        return { inputRef: input.name, inputDigest: sha256Canonical(value), content: value };
+        const value = admitJson(input.value);
+        if (value.kind !== "ok") throw new TypeError("materialization context input is malformed");
+        return { inputRef: input.name, inputDigest: sha256Canonical(value.value), content: value.value };
       }).sort((left, right) => compareUnicodeCodeUnits(left.inputRef, right.inputRef));
       rows = inputs.map((input, index) => {
         const assetDigest = sha256Canonical({ kind: "generated_product_asset", schemaVersion: "5.0.0",
@@ -267,7 +268,7 @@ function materializationArtifactCorresponds(
           request.inputs === undefined || observedRows.length !== 1) return false;
       const contract = contracts[0]!, inputsDigest = sha256Canonical(request.inputs);
       const contentDigest = sha256Canonical({ kind: "generated_product_asset", schemaVersion: "5.0.0",
-        materializationKind: "configuration", ...subject, configurationContract: contract as unknown as JsonValue,
+        materializationKind: "configuration", ...subject, configurationContract: contract,
         inputsDigest, inputs: request.inputs });
       content = { contentRef: `configuration-content://abiogenesis/${hex(contentDigest)}`, contentDigest,
         contentPath: join(root, "content", `${hex(contentDigest)}.json`) };
