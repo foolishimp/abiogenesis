@@ -133,12 +133,11 @@ test('native Design command budget retains exact capacity through both roles, re
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_pub,ref)=>predecessors.get(ref)??null},
  });
  const seam=await component('implementation/semantic_stage',{'../abg/semantic_job.js':abg});
- const occurrence={semanticStageBasis:basis};
+ // The basis carries the limits its validating reader selected where it was constructed.
+ const occurrence={semanticStageBasis:{...basis,commandExecutionLimits:{...limits,inactivityTimeoutMs:60000}}};
  assert.equal((await seam.realizeNativeSemanticAssessorTask(a.authored,occurrence)).disposition,'failure','changed current controls refuse preparation');
- process.env.ABG_TS_FP_TIMEOUT_MS='300000';
- const prepared=await seam.realizeNativeSemanticAssessorTask(a.authored,occurrence);assert.equal(prepared.disposition,'success');
+ const prepared=await seam.realizeNativeSemanticAssessorTask(a.authored,{semanticStageBasis:{...basis,commandExecutionLimits:limits}});assert.equal(prepared.disposition,'success');
  assert.deepEqual(prepared.resultCandidate,v.task);
- process.env.ABG_TS_FP_TIMEOUT_MS='60000';
  assert.equal(abg.semanticJobResultMatchesBasis(basis,a.authored,prepared.resultCandidate),true,'historical result correspondence uses retained limits');
  const construction=m.constructNativeSemanticConstructionTask(v.assessed,env,await env.observe());
  await mkdir(join(env.canonicalRoot,'app'));await writeFile(join(env.canonicalRoot,'app/main.mjs'),'component implementation');

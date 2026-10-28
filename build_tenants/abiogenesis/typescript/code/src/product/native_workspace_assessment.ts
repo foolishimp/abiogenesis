@@ -1,16 +1,15 @@
 import { isRecord } from "../shared/admission_predicates.js";
-import { readFileSync } from "node:fs";
-import { isAbsolute, relative, resolve } from "node:path";
 import { Ajv2020, type ValidateFunction } from "ajv/dist/2020.js";
 import addFormats from "ajv-formats";
 import * as v from "valibot";
 import type { ContractDeclaration, ModulePublication } from "../gtl/contracts.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { admitIJsonText } from "../shared/i_json.js";
-import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
+import type { Sha256Digest } from "../shared/digests.js";
 import type { ProductInstall } from "./environment.js";
 import { normalizeWorksiteRelativePath, type WorksiteContextObservation } from "./worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { admitInstalledSchemaAsset } from "./declaration_application.js";
 
 /** Consumer contract and exact observed subject, not a core semantic rubric. */
 export type NativeWorkspaceAssessmentSelection = {
@@ -95,12 +94,8 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
     const install = owners[0]!;
     const rows = install.publicContracts.filter(row => row.contractKind === "schema_asset" && row.contractId === selection.schemaAsset.contractId && row.owningProduct === install.productId);
     if (rows.length !== 1) return null;
-    const row = rows[0]!, locator = row.assetLocator;
-    if (locator === undefined || locator.mediaType !== "application/schema+json" || row.contractVersion !== selection.resultContract.contractVersion) return null;
-    const file = resolve(install.installedRoot, locator.path), within = relative(install.installedRoot, file);
-    if (isAbsolute(within) || within === ".." || within.startsWith("../")) return null;
-    const bytes = Buffer.from(selection.schemaAsset.bytesBase64, "base64");
-    if (sha256Bytes(bytes) !== row.contractDigest || sha256Bytes(bytes) !== locator.contentDigest || !bytes.equals(readFileSync(file))) return null;
+    if (admitInstalledSchemaAsset(install, rows[0]!, { contractVersion: selection.resultContract.contractVersion,
+      suppliedBytes: Buffer.from(selection.schemaAsset.bytesBase64, "base64") }).kind !== "admitted") return null;
     const schema = nativeWorkspaceAssessmentSchema(selection);
     if (schema === null) return null;
     validator(schema); // Refuse invalid/unresolved schemas before any native dispatch.

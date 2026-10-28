@@ -35,6 +35,7 @@ export type EffectfulPublicInvocationPriorAdmission = {
   readonly operationId:
     | "abg.operation.release.snapshot"
     | "abg.operation.product.install"
+    | "abg.operation.product.materialize"
     | "abg.operation.workspace.bind"
     | "abg.operation.run.invoke"
     | "abg.operation.interaction.respond"
@@ -167,6 +168,7 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       operationId: row.operationId as
         | "abg.operation.release.snapshot"
         | "abg.operation.product.install"
+        | "abg.operation.product.materialize"
         | "abg.operation.workspace.bind",
       publicInvocationRef: row.invocationRef,
       ownerInvocationRef: row.invocationRef,

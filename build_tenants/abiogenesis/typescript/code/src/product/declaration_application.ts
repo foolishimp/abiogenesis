@@ -22,7 +22,8 @@ import {
   type GraphFunctionCatalogView, type ReadyGraphFunctionCatalog,
 } from "./catalog.js";
 import { CATALOG_OPERATION_CONTRACTS } from "./catalog_operation_contracts.js";
-import { productInstallCoordinate } from "./environment.js";
+import { productInstallCoordinate, type ProductInstall } from "./environment.js";
+import type { ProductAssetLocator, ProductPublicContract } from "./contracts.js";
 import { modulePublicationSemanticDigest } from "./publication.js";
 import { readExecutingToolchainIdentity } from "./declaration_exports.js";
 
@@ -78,6 +79,40 @@ export class CatalogApplicationConstructionError extends TypeError {
     super(message);
   }
 }
+/**
+ * The installed `schema_asset` convention, one owner for catalog application,
+ * native assessment and materialization admission: the row's
+ * `application/schema+json` locator (and its contract version when one is
+ * expected), a locator path under the install root, and bytes whose SHA-256
+ * equals both the locator's content digest and the row's contract digest.
+ * Supplied bytes must also equal the installed file (`null`: the supplied
+ * encoding is not canonical); without them the installed file is read. With
+ * `document`, the bytes parse as one JSON Schema 2020-12 document. Returns the
+ * first check that refuses, in that order; a read or parse failure throws to
+ * the caller, whose refusal it is.
+ */
+export function admitInstalledSchemaAsset(
+  install: Readonly<ProductInstall>,
+  row: Readonly<ProductPublicContract>,
+  expected: Readonly<{ contractVersion?: string; suppliedBytes?: Buffer | null; document?: boolean }>,
+): Readonly<{ kind: "admitted"; locator: Readonly<ProductAssetLocator>; bytes: Buffer; document: Readonly<Record<string, unknown>> | null }>
+  | Readonly<{ kind: "refused"; check: "locator" | "locus" | "bytes" | "dialect" }> {
+  const locator = row.assetLocator;
+  if (locator === undefined || locator.mediaType !== "application/schema+json" ||
+      (expected.contractVersion !== undefined && row.contractVersion !== expected.contractVersion)) return { kind: "refused", check: "locator" };
+  const path = resolve(install.installedRoot, locator.path);
+  const within = relative(install.installedRoot, path);
+  if (isAbsolute(within) || within === ".." || within.startsWith("../")) return { kind: "refused", check: "locus" };
+  if (expected.suppliedBytes === null) return { kind: "refused", check: "bytes" };
+  const bytes = expected.suppliedBytes ?? readFileSync(path);
+  if (sha256Bytes(bytes) !== locator.contentDigest || sha256Bytes(bytes) !== row.contractDigest ||
+      (expected.suppliedBytes !== undefined && !bytes.equals(readFileSync(path)))) return { kind: "refused", check: "bytes" };
+  if (expected.document !== true) return { kind: "admitted", locator, bytes, document: null };
+  const document: unknown = JSON.parse(bytes.toString("utf8"));
+  if (!isRecord(document) || document.$schema !== "https://json-schema.org/draft/2020-12/schema") return { kind: "refused", check: "dialect" };
+  return { kind: "admitted", locator, bytes, document };
+}
+
 function fail(code: CatalogApplicationRefusalCode, message: string): never {
   throw new CatalogApplicationConstructionError(code, message);
 }
@@ -165,21 +200,15 @@ export function constructCatalogApplicationResources(input: CatalogApplicationCo
         "unready", "schema asset owner is absent, ambiguous or crossed");
       if (seen.has(asset.contractId)) fail("unready", "schema asset identity is duplicated");
       seen.add(asset.contractId);
-      const locator = schemaRow.assetLocator;
-      if (locator === undefined || locator.mediaType !== "application/schema+json" || schemaRow.contractVersion !== declaration.contractVersion) {
-        fail("unready", "schema asset has no compatible installed locator");
+      const supplied = Buffer.from(asset.bytesBase64, "base64");
+      const admitted = admitInstalledSchemaAsset(install, schemaRow, { contractVersion: declaration.contractVersion,
+        suppliedBytes: supplied.toString("base64") === asset.bytesBase64 ? supplied : null, document: true });
+      if (admitted.kind === "refused") {
+        fail("unready", ({ locator: "schema asset has no compatible installed locator", locus: "schema locator escapes its installed owner",
+          bytes: "schema asset bytes differ from the exact installed owner", dialect: "unsupported or crossed schema dialect/identity" } as const)[admitted.check]);
       }
-      const path = resolve(install.installedRoot, locator.path);
-      const within = relative(install.installedRoot, path);
-      if (isAbsolute(within) || within === ".." || within.startsWith("../")) fail("unready", "schema locator escapes its installed owner");
-      const bytes = Buffer.from(asset.bytesBase64, "base64");
-      if (bytes.toString("base64") !== asset.bytesBase64 || sha256Bytes(bytes) !== locator.contentDigest ||
-          sha256Bytes(bytes) !== schemaRow.contractDigest || !bytes.equals(readFileSync(path))) {
-        fail("unready", "schema asset bytes differ from the exact installed owner");
-      }
-      const schema: unknown = JSON.parse(bytes.toString("utf8"));
-      if (!isRecord(schema) || schema.$schema !== "https://json-schema.org/draft/2020-12/schema" ||
-          schema.$id !== asset.contractId || schema.$async !== undefined) fail("unready", "unsupported or crossed schema dialect/identity");
+      const locator = admitted.locator, schema = admitted.document!;
+      if (schema.$id !== asset.contractId || schema.$async !== undefined) fail("unready", "unsupported or crossed schema dialect/identity");
       if (asset.contractId === declaration.contractRef && install.productId !== ownerInstall.productId) fail("unready", "value schema belongs to a different declaration owner");
       ajv.addSchema(schema);
       schemaRows.push({ productId: install.productId, contractId: asset.contractId, digest: locator.contentDigest });

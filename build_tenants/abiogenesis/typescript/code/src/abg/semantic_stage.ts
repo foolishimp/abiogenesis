@@ -23,7 +23,7 @@ import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope,
   deriveSemanticWorksitePreparation, type SemanticStageEnvelope, type SemanticActorSource, type SemanticWorksiteBasis } from "../product/semantic_stage.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { constructWorksiteObservation } from "../product/worksite_effect.js";
-import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { WORKSITE_COMMAND_EXECUTION_IDS, isWorksiteCommandExecutionObservation, type WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
@@ -44,6 +44,10 @@ export interface SemanticStageNativeBasis {
   readonly cCall: Readonly<CCall>;
   readonly cursor: Readonly<TraversalCursorCandidate>;
   readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
+  /** The selected command execution limits, read once by the validating
+   * reader where the basis is constructed; `null` when the reader refuses or
+   * the basis is rebuilt for result admission, which selects no limits. */
+  readonly commandExecutionLimits: Readonly<WorksiteCommandExecutionLimits> | null;
 }
 const hash = (x: JsonValue) => sha256Canonical(x);
 function record(value: unknown): value is Readonly<Record<string, JsonValue>> {

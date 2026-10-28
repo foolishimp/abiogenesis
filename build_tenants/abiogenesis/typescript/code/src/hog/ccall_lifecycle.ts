@@ -11,6 +11,7 @@ import * as Effect from "effect/Effect";
 import * as Abg from "../abg/index.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
 import { worksiteSelectedOccurrenceInputCurrent } from "../abg/event_calculus.js";
+import { selectedWorksiteCommandExecutionLimits } from "../abg/actor_process.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import type {
   AbgEventStore,
@@ -453,7 +454,8 @@ export function evaluateOwnedExecutableCCall(
           sourcePublication: semanticSourcePublication, graph: input.graph,
           graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: opened.cCall,
           cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix,
-          declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [] }) : null;
+          declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
+          commandExecutionLimits: (() => { try { return selectedWorksiteCommandExecutionLimits(); } catch { return null; } })() }) : null;
     const worksitePreservedResultBasis = WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined
       ? Abg.constructWorksitePreservedResultNativeBasis({ publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
           executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix }) : null;
