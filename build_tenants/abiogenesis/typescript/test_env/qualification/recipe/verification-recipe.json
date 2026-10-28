@@ -3291,6 +3291,14 @@
       "relativePath": "test_env/qualification/classification.json"
     },
     {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+      "relativePath": "test_env/qualification/dispatch.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/execution-material.mjs",
+      "relativePath": "test_env/qualification/execution-material.mjs"
+    },
+    {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/material-selection.json",
       "relativePath": "test_env/qualification/material-selection.json"
     },
@@ -3325,6 +3333,10 @@
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/tenant-manifest.json",
       "relativePath": "test_env/qualification/tenant-manifest.json"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/time-projection.mjs",
+      "relativePath": "test_env/qualification/time-projection.mjs"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/admitted-graph-execution.mjs",

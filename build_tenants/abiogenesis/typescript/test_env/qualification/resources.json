@@ -55,9 +55,9 @@
     "verificationRecipe": {
       "path": "test_env/qualification/recipe/verification-recipe.json",
       "recipePath": "test_env/qualification/recipe/verification-recipe.json",
-      "digest": "sha256:faaacf4758d3bd0e105b51bf07750e68fef5b2e63a0c4ba1f09a9332e423a707",
-      "byteCount": 250237,
-      "sourceInputs": 1104,
+      "digest": "sha256:c743710ec43506952cd1dd4db0fb077a31c58e78173249128858fa0452e60b3b",
+      "byteCount": 250832,
+      "sourceInputs": 1107,
       "auxiliaryInputs": 16,
       "commandConfigurationDigest": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
       "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
