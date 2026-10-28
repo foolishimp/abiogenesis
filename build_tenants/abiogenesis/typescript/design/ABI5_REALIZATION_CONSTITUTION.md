@@ -2591,7 +2591,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `N02` | canonical/byte SHA-256 | `shared/digests.ts::{sha256Canonical,sha256Bytes}` |
 | `N03` | Unicode ordering and immutable finite-set operations | `shared/canonical_json.ts::compareUnicodeCodeUnits` plus native copied arrays/sets |
 | `N04` | detached immutable carrier construction | `shared/immutable.ts::deepFreeze` and typed constructors |
-| `N05` | strict schema and I-JSON admission | owner Valibot schemas and `shared/i_json.ts::admitIJsonValue` |
+| `N05` | strict schema and I-JSON admission | owner Valibot schemas, `shared/i_json.ts::admitIJsonValue` and the admission atoms of `shared/admit/` (`admitJson`, `admitContract`, `admitRef`, `isRecord`, `hasExactKeys`; the library design's §10.7 catalog extension) |
 | `N06` | multiplicity-preserving exact-match cardinality | `shared/select/exact_match.ts` |
 | `N07` | safe path normalization and containment | current Product path guards |
 | `N08` | filesystem inspection and read | `node:fs` behind Product artifact functions |
