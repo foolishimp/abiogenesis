@@ -546,6 +546,71 @@ test('native-work assembly is bounded by the Run declared prompt bound: a fittin
   assert.throws(()=>assembly.requireWorksiteNativeInstructionAssembly(assemblyBasis,task),error=>{
     assert.deepEqual(JSON.parse(error.message),{kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:null,role:'constructor',unresolvedRefs:['maxPromptBytes']});return true;});
 });
+// The worksite constructor and command-executor prompts take the same Run
+// declared bound as the native-work prompt: one case per role.
+async function worksiteRoleBoundCase(t,role){
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
+  const relativePath='bounded-source.txt';await writeFile(join(f.canonicalRoot,relativePath),'bounded source\n');
+  const subject=product.constructWorksiteSubject({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,relativePath,subjectUri:pathToFileURL(join(f.canonicalRoot,relativePath)).href});
+  const observation=await physical.observeWorksiteSubject(f.workspaceAuthorityBasis,f.workspaceBinding,subject);
+  const {cLeafTerms}=await import(pathToFileURL(resolve(packageRoot,'build/code/src/gtl/c_algebra.js')).href);
+  let task,graph,locus,refs;
+  if(role==='command_executor'){
+    const ids=product.WORKSITE_COMMAND_EXECUTION_IDS;
+    task=product.constructObservedWorksiteCommandExecutionTask({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,capabilityGrant:f.capabilityGrant,
+      observedFiles:[{subject,observation}],commands:[{commandId:'command://bound/check',executable:process.execPath,args:['--version'],relativeCwd:'.',environment:{},timeoutMs:1000,terminationGraceMs:100,expectedReports:[]}],
+      outcomePredicates:[],allowedWriteTerritories:[{pathKind:'subtree',relativePath:'verification'}]});
+    graph=gtl.constructWorksiteCommandExecutionModulePublication(basis).graphFunctions.find(g=>g.name===ids.graphFunctionRef);locus=ids.nodeRef;
+    refs={implementationRef:ids.implementationRef,inputContractRef:ids.taskContractRef,outputContractRef:ids.observationContractRef};
+  } else {
+    const ids=product.WORKSITE_CONSTRUCTION_IDS;
+    task=product.constructWorksiteConstructionTask({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,capabilityGrant:f.capabilityGrant,
+      prompt:'Replace the bounded source.',targets:[{subject,territory:f.territory,predecessorObservation:observation}]});
+    const located=gtl.constructWorksiteConstructionModulePublication(basis).graphFunctions.flatMap(g=>g.template.nodes.flatMap(n=>cLeafTerms(n.term))
+      .filter(leaf=>gtl.nativeContextLeafFamily(g,leaf)==='constructor').map(leaf=>({g,leaf})));
+    assert.equal(located.length,1,'one declared constructor leaf');graph=located[0].g;locus=located[0].leaf.programLocusRef;
+    refs={implementationRef:ids.candidateImplementationRef,inputContractRef:ids.taskContractRef,outputContractRef:ids.candidateBundleContractRef};
+  }
+  const execution={basisRef:'basis:worksite-bound',basisDigest:product.sha256Canonical('worksite-bound'),parentExecutionBasisRef:'basis:root-bound',
+    invocationAdmissionRef:'invocation:worksite-bound',invocationRef:'invocation-ref:worksite-bound',programRef:'program:worksite-bound'};
+  const call={regime:'F_P',cCallRef:'call:worksite-bound',cCallDigest:product.sha256Canonical('call'),runId:'run:worksite-bound',graphCallId:'graph-call:worksite-bound',
+    frameId:'frame:worksite-bound',taskOrdinal:null,attempt:1,graphFunctionRef:graph.name,programLocusRef:locus,...refs};
+  const assemblyBasis={publication:{},graphFunction:graph,executionBasis:execution,cCall:call,predecessorPrefix:{}};
+  const owner={prefix:{},events:[],call,execution,program:{callableMembership:[]},environment:{kind:'exact_prefix_workspace_environment',productInstalls:[]},
+    inputRef:'input:worksite-bound',inputValue:task,inputDigest:product.sha256Canonical(task)};
+  const stdo={invocationAdmissionRef:execution.invocationAdmissionRef,environmentRef:'environment:worksite-bound',environmentDigest:product.sha256Canonical('environment'),
+    evidenceDigest:product.sha256Canonical('evidence'),graphFunctionRef:graph.name,programLocusRef:locus,frameRefs:['frame:worksite-bound/'+role],
+    policy:{policyRef:'policy:worksite-bound',digest:product.sha256Canonical('policy')},contextPolicyDigest:product.sha256Canonical('context-policy'),
+    contextPolicy:{policyRef:'context-policy:worksite-bound',selectors:role==='constructor'?['full_source','declared_predecessor_semantics','active_binding_semantics','current_worksite']:['current_worksite','admitted_execution_evidence']},
+    sourceContent:[],accessContent:[]};
+  // The root ancestry projection runs as built; the owned basis, the role read
+  // and the exact-prefix basis rehydration are supplied lower premises.
+  let root;
+  const link=async(file,replacements={})=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+    await m.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(file),s)).href),values={...actual,...(replacements[s]??{})};
+      return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+    await m.evaluate();return m.namespace;};
+  const ancestry=await link(resolve(packageRoot,'build/code/src/abg/semantic_job.js'),{'./execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>ref===root.basisRef?root:null}});
+  const assembly=await link(resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),{'./execution_basis.js':{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner},
+    './stdo_environment.js':{projectRunEnvironmentRoleEvidenceAtPrefix:()=>stdo},'./semantic_job.js':{...ancestry}});
+  const rooted=rawInputValue=>{root={...execution,basisRef:'basis:root-bound',parentExecutionBasisRef:null,rawInputValue};};
+  rooted(task);const unbounded=assembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,task);
+  assert.equal(unbounded?.kind,'native_instruction_assembly','a Run whose root declares no prompt bound assembles');
+  assert.equal(unbounded.plan.role,role);
+  const bytes=unbounded.manifest.promptByteCount;assert.equal(bytes,Buffer.byteLength(unbounded.request.prompt));
+  rooted(product.constructGovernanceWorkState({...state.original,maxPromptBytes:bytes}));
+  assert.deepEqual(assembly.requireWorksiteNativeInstructionAssembly(assemblyBasis,task),unbounded,'a prompt at the declared bound assembles unchanged');
+  rooted(product.constructGovernanceWorkState({...state.original,maxPromptBytes:bytes-1}));
+  assert.equal(assembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,task),null);
+  assert.throws(()=>assembly.requireWorksiteNativeInstructionAssembly(assemblyBasis,task),error=>{
+    assert.deepEqual(JSON.parse(error.message),{kind:'native_instruction_assembly_refusal',cause:'declared_bound_overflow',policy:null,role,unresolvedRefs:['maxPromptBytes']});return true;});
+}
+test('worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses',
+  async t=>worksiteRoleBoundCase(t,'command_executor'));
+test('worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses',
+  async t=>worksiteRoleBoundCase(t,'constructor'));
 test('selector planning fits captured eighteen and realistic fifty-one complete owned assemblies',
   {skip:!process.env.ABI5_PLANNING_PROJECTION_CAPTURE&&'ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture'},async t=>{
     const fixture=JSON.parse(await readFile(process.env.ABI5_PLANNING_PROJECTION_CAPTURE,'utf8')),metrics=[];

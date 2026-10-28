@@ -67,7 +67,8 @@ export async function prepareObservedTestingTask(input: Readonly<Record<string, 
   if (basis === undefined) refusal("testing_basis", "assembly_basis_absent");
   const output = basis === undefined ? null : await projectGovernanceTestingTask(basis, input,
     proof?.governanceTestingReacquisition === undefined ? undefined :
-      (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal);
+      (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal,
+    occurrence.commandAmbientEnvironment);
   return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined);
 }
 export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {

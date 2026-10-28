@@ -15,7 +15,7 @@ import {
   win32,
 } from "node:path";
 
-import type { ActorProcessObservation } from "../abg/actor_process.js";
+import { selectedWorksiteCommandAmbientEnvironment, type ActorProcessObservation } from "../abg/actor_process.js";
 import {
   canonicalJson,
   compareUnicodeCodeUnits,
@@ -82,6 +82,22 @@ export type WorksiteCommandEnvironmentEntry = {
   readonly name: string;
   readonly value: string;
 };
+
+/** The ambient variables a declared command environment takes when it does
+ * not declare them: HOME, TMPDIR, LANG, LC_ALL, and PATH as the base of an
+ * undeclared PATH. One row per present variable; an absent variable has no
+ * row. The operation boundary reads them once through the actor-process
+ * reader and carries them on the basis or occurrence its leaf receives. */
+export type WorksiteCommandAmbientEnvironment = readonly Readonly<{
+  readonly name: "HOME" | "TMPDIR" | "LANG" | "LC_ALL" | "PATH";
+  readonly value: string;
+}>[];
+
+/** The rows for a caller that receives no operation-boundary capture: the one
+ * reader, read at the call; `null` when the reader refuses. */
+function callTimeAmbientEnvironment(): WorksiteCommandAmbientEnvironment | null {
+  try { return selectedWorksiteCommandAmbientEnvironment(); } catch { return null; }
+}
 
 export type WorksiteDeclaredCommand = {
   readonly kind: "worksite_declared_command";
@@ -349,7 +365,8 @@ export type NativeWorksiteCommandReacquisition = {
   readonly nativeBasis: Readonly<{ predecessorPrefix: DurablePrefixCoordinate; cCallRef: string }>;
   readonly bindingCoverEventRefs: readonly string[];
 };
-function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">) {
+function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">,
+  ambient: WorksiteCommandAmbientEnvironment | null) {
   const { source, currentContext, sourceNativeWork: original } = input;
   if (!source || !validateDurablePrefixCoordinate(source.prefix) || typeof source.graphCallRef !== "string" || source.graphCallRef.length === 0 ||
       !(source.declarationReference === undefined
@@ -373,14 +390,15 @@ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionR
       const subject = constructWorksiteSubject({ ...input, ...row });
       if (!isWorksiteSubject(subject)) throw new TypeError("native reacquisition source subject is refused");
       return subject;
-    }) });
+    }) }, ambient);
   const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding, capabilityGrant: input.capabilityGrant,
     sourceNativeWork: original, selectedSources: input.selectedSources, commands: configuration.commands, outcomePredicates: configuration.predicates,
     allowedWriteTerritories: configuration.allowedWriteTerritories, source, currentContext };
   return body;
 }
-export function constructNativeWorksiteCommandReacquisitionRequest(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">): NativeWorksiteCommandReacquisitionRequest {
-  const body = nativeReacquisitionBody(input), requestDigest = sha256Canonical(body);
+export function constructNativeWorksiteCommandReacquisitionRequest(input: Omit<NativeWorksiteCommandReacquisitionRequest, "kind" | "schemaVersion" | "requestRef" | "requestDigest">,
+  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): NativeWorksiteCommandReacquisitionRequest {
+  const body = nativeReacquisitionBody(input, ambient), requestDigest = sha256Canonical(body);
   return deepFreeze({ kind: "native_worksite_command_reacquisition_request", schemaVersion: SCHEMA_VERSION,
     requestRef: identity("native-work-command-reacquisition://abiogenesis", requestDigest), requestDigest, ...body });
 }
@@ -388,7 +406,7 @@ export function isNativeWorksiteCommandReacquisitionRequest(value: unknown): val
   if (!isRecord(value) || value.kind !== "native_worksite_command_reacquisition_request" || value.schemaVersion !== SCHEMA_VERSION) return false;
   try {
     const { kind, schemaVersion, requestRef, requestDigest, ...body } = value;
-    const expected = nativeReacquisitionBody(value as unknown as NativeWorksiteCommandReacquisitionRequest);
+    const expected = nativeReacquisitionBody(value as unknown as NativeWorksiteCommandReacquisitionRequest, null);
     return sameAdmitted(body, expected) && requestDigest === sha256Canonical(expected) &&
       requestRef === identity("native-work-command-reacquisition://abiogenesis", requestDigest as Sha256Digest);
   } catch { return false; }
@@ -407,7 +425,7 @@ function reacquisitionTaskMatches(input: NativeWorksiteCommandExecutionTaskInput
     same(proof.request.selectedSources, input.selectedSources) && same(proof.request.commands, input.commands) &&
     proof.request.outcomePredicates !== undefined && same(proof.request.outcomePredicates, input.outcomePredicates ?? []) && same(proof.request.allowedWriteTerritories, input.allowedWriteTerritories);
 }
-function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput) {
+function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput, ambient: WorksiteCommandAmbientEnvironment | null) {
   const source = input.sourceNativeWork;
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !isNativeWorkspaceWorkObservation(source) ||
@@ -428,7 +446,7 @@ function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput) {
     return { kind: "worksite_protected_observation" as const, schemaVersion: SCHEMA_VERSION, ordinal, sourceMemberRef, subject, observation };
   });
   const configuration = constructWorksiteCommandConfiguration({ ...input,
-    outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: protectedObservations.map(row => row.subject) });
+    outcomePredicates: input.outcomePredicates ?? [], protectedSubjects: protectedObservations.map(row => row.subject) }, ambient);
   const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
     capabilityGrant: input.capabilityGrant, sourceNativeWork: source,
     ...(input.sourceReacquisition === undefined ? {} : { sourceReacquisition: input.sourceReacquisition }),
@@ -439,8 +457,9 @@ function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput) {
     outcomePredicates: configuration.predicates, protectedObservations, allowedWriteTerritories: configuration.allowedWriteTerritories };
   return body;
 }
-export function constructNativeWorksiteCommandExecutionTask(input: NativeWorksiteCommandExecutionTaskInput): NativeWorksiteCommandExecutionTask {
-  const body = nativeCommandTaskBody(input), taskDigest = sha256Canonical(body);
+export function constructNativeWorksiteCommandExecutionTask(input: NativeWorksiteCommandExecutionTaskInput,
+  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): NativeWorksiteCommandExecutionTask {
+  const body = nativeCommandTaskBody(input, ambient), taskDigest = sha256Canonical(body);
   return deepFreeze({ kind: "worksite_command_execution_task", schemaVersion: SCHEMA_VERSION,
     taskRef: identity("worksite-command-execution-task://abiogenesis", taskDigest), taskDigest, ...body });
 }
@@ -449,7 +468,7 @@ export function isNativeWorksiteCommandExecutionTask(value: unknown): value is N
   try {
     const input = value as unknown as NativeWorksiteCommandExecutionTask;
     const expected = nativeCommandTaskBody({ ...input,
-      selectedSources: input.protectedObservations.map(row => ({ subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath })) });
+      selectedSources: input.protectedObservations.map(row => ({ subjectUri: row.subject.subjectUri, relativePath: row.subject.relativePath })) }, null);
     const { kind, schemaVersion, taskRef, taskDigest, ...body } = value;
     return sameAdmitted(body, expected) && taskDigest === sha256Canonical(expected) &&
       taskRef === identity("worksite-command-execution-task://abiogenesis", taskDigest as Sha256Digest);
@@ -457,7 +476,8 @@ export function isNativeWorksiteCommandExecutionTask(value: unknown): value is N
 }
 /** Pure construction only. ABG binds these file claims to the current admitted
  * root input; the existing physical owner re-observes them before effects. */
-export function constructObservedWorksiteCommandExecutionTask(input: ObservedWorksiteCommandExecutionTaskInput): ObservedWorksiteCommandExecutionTask {
+export function constructObservedWorksiteCommandExecutionTask(input: ObservedWorksiteCommandExecutionTaskInput,
+  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): ObservedWorksiteCommandExecutionTask {
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !Array.isArray(input.observedFiles) || input.observedFiles.length === 0 ||
     new Set(input.observedFiles.map(row => row.subject?.relativePath)).size !== input.observedFiles.length) {
@@ -475,7 +495,7 @@ export function constructObservedWorksiteCommandExecutionTask(input: ObservedWor
   });
   const sourceSetDigest = sha256Canonical(protectedObservations);
   const configuration = constructWorksiteCommandConfiguration({ ...input, outcomePredicates: input.outcomePredicates ?? [],
-    protectedSubjects: protectedObservations.map(row => row.subject) });
+    protectedSubjects: protectedObservations.map(row => row.subject) }, ambient);
   const body = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
     capabilityGrant: input.capabilityGrant, sourceObservedInput: { kind: "observed_worksite_input" as const,
       sourceSetRef: identity("observed-worksite-execution-source-set://abiogenesis", sourceSetDigest), sourceSetDigest },
@@ -492,7 +512,7 @@ export function isObservedWorksiteCommandExecutionTask(value: unknown): value is
   if (!isRecord(value) || value.kind !== "worksite_command_execution_task" || !Array.isArray(value.protectedObservations)) return false;
   try {
     const input = value as unknown as ObservedWorksiteCommandExecutionTask;
-    return sameAdmitted(value, constructObservedWorksiteCommandExecutionTask({ ...input, observedFiles: input.protectedObservations }));
+    return sameAdmitted(value, constructObservedWorksiteCommandExecutionTask({ ...input, observedFiles: input.protectedObservations }, null));
   } catch { return false; }
 }
 export function isC2WorksiteCommandExecutionTask(value: unknown): value is C2WorksiteCommandExecutionTask {
@@ -885,6 +905,7 @@ function safeRelativePath(value: unknown): value is string {
 
 function environmentEntries(
   value: WorksiteDeclaredCommandInput["environment"],
+  ambient: WorksiteCommandAmbientEnvironment | null,
 ): readonly WorksiteCommandEnvironmentEntry[] {
   const raw = value ?? {};
   const alreadyBound = Array.isArray(raw);
@@ -894,9 +915,9 @@ function environmentEntries(
       .map(([name, entryValue]) => ({ name, value: entryValue }));
   if (!alreadyBound) {
     for (const name of ["HOME", "TMPDIR", "LANG", "LC_ALL"] as const) {
-      const ambient = process.env[name];
-      if (ambient !== undefined && !declared.some((row) => row.name === name)) {
-        declared.push({ name, value: ambient });
+      const row = ambient?.find((entry) => entry.name === name);
+      if (row !== undefined && !declared.some((entry) => entry.name === name)) {
+        declared.push({ name, value: row.value });
       }
     }
   }
@@ -906,8 +927,10 @@ function environmentEntries(
   }
   const rows = declared.filter((row) => row.name !== "PATH_PREFIX");
   const suppliedPath = rows.find((row) => row.name === "PATH");
-  // The ambient PATH and its default are read only when no PATH is supplied.
-  const basePath = suppliedPath?.value ?? process.env.PATH ?? "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
+  // The ambient PATH and its default apply only to a declared environment
+  // without PATH; an already-bound environment never consults the rows.
+  const ambientPath = alreadyBound ? undefined : ambient?.find((entry) => entry.name === "PATH")?.value;
+  const basePath = suppliedPath?.value ?? ambientPath ?? "/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin";
   const normalizedPath: string = prefixRows[0] === undefined
     ? basePath
     : `${prefixRows[0].value}${pathDelimiter}${basePath}`;
@@ -934,7 +957,7 @@ function environmentEntries(
 /** Match explicit declaration constraints against an already captured environment.
  * The allowed ambient entries were selected at preparation, never at replay. */
 function declaredEnvironmentMatches(input: WorksiteDeclaredCommandInput["environment"], bound: readonly WorksiteCommandEnvironmentEntry[]): boolean {
-  if (!bound.some(row => row.name === "PATH") || !same(bound, environmentEntries(bound))) return false;
+  if (!bound.some(row => row.name === "PATH") || !same(bound, environmentEntries(bound, null))) return false;
   const declared = Array.isArray(input) ? input : Object.entries(input ?? {}).map(([name, value]) => ({ name, value }));
   if (new Set(declared.map(row => row.name)).size !== declared.length) return false;
   const prefix = declared.find(row => row.name === "PATH_PREFIX")?.value;
@@ -967,7 +990,7 @@ export function worksiteCommandConfigurationMatches(input: WorksiteCommandConfig
       if (!declaredEnvironmentMatches(declaration.launch.environment as WorksiteDeclaredCommandInput["environment"], environment)) throw new TypeError("changed explicit HTTP environment");
       return { ...predicate, declaration: { ...declaration, launch: { ...declaration.launch, environment } } };
     });
-    return same(bound, constructWorksiteCommandConfiguration({ ...input, commands, outcomePredicates }));
+    return same(bound, constructWorksiteCommandConfiguration({ ...input, commands, outcomePredicates }, null));
   } catch { return false; }
 }
 
@@ -994,7 +1017,8 @@ function isExpectedReport(value: unknown, ordinal: number): value is WorksiteExp
     value.ordinal === ordinal && nonempty(value.reportIdentity) && safeRelativePath(value.relativePath);
 }
 
-function constructCommand(input: WorksiteDeclaredCommandInput, ordinal: number): WorksiteDeclaredCommand {
+function constructCommand(input: WorksiteDeclaredCommandInput, ordinal: number,
+  ambient: WorksiteCommandAmbientEnvironment | null): WorksiteDeclaredCommand {
   if (!nonempty(input.commandId) || !nonempty(input.executable) ||
     !Array.isArray(input.args) || input.args.some((arg) =>
       typeof arg !== "string" || arg.includes("\0")
@@ -1018,7 +1042,7 @@ function constructCommand(input: WorksiteDeclaredCommandInput, ordinal: number):
     executable: input.executable,
     args: [...input.args],
     relativeCwd: input.relativeCwd,
-    environment: environmentEntries(input.environment),
+    environment: environmentEntries(input.environment, ambient),
     timeoutMs: input.timeoutMs,
     terminationGraceMs: input.terminationGraceMs,
     expectedReports,
@@ -1042,13 +1066,14 @@ function isCommand(value: unknown, ordinal: number): value is WorksiteDeclaredCo
       timeoutMs: value.timeoutMs as number,
       terminationGraceMs: value.terminationGraceMs as number,
       expectedReports: value.expectedReports as readonly WorksiteExpectedReport[],
-    }, ordinal));
+    }, ordinal, null));
   } catch {
     return false;
   }
 }
 
-function constructPredicate(input: WorksiteOutcomePredicateInput, ordinal: number): WorksiteOutcomePredicate {
+function constructPredicate(input: WorksiteOutcomePredicateInput, ordinal: number,
+  ambient: WorksiteCommandAmbientEnvironment | null): WorksiteOutcomePredicate {
   let declaration = admitIJsonValue(input.declaration, "outcome predicate declaration");
   if (input.predicateKind === "http_response_exact" && isRecord(declaration) &&
     isRecord(declaration.launch)) {
@@ -1058,6 +1083,7 @@ function constructPredicate(input: WorksiteOutcomePredicateInput, ordinal: numbe
         ...declaration.launch,
         environment: environmentEntries(
           declaration.launch.environment as WorksiteDeclaredCommandInput["environment"],
+          ambient,
         ),
       },
     }, "HTTP predicate declaration");
@@ -1170,7 +1196,7 @@ function isPredicate(value: unknown, ordinal: number): value is WorksiteOutcomeP
       predicateId: value.predicateId as string,
       predicateKind: value.predicateKind as string,
       declaration: declaration.value,
-    }, ordinal));
+    }, ordinal, null));
   } catch {
     return false;
   }
@@ -1420,7 +1446,8 @@ export function worksiteCommandConfigurationInputSchema(): Readonly<{
 }
 
 /** Pure pre-construction checks; no source result or observation is fabricated. */
-export function constructWorksiteCommandConfiguration(input: WorksiteCommandConfigurationInput): Readonly<{
+export function constructWorksiteCommandConfiguration(input: WorksiteCommandConfigurationInput,
+  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()): Readonly<{
   commands: readonly WorksiteDeclaredCommand[];
   predicates: readonly WorksiteOutcomePredicate[];
   allowedWriteTerritories: readonly WorksiteCommandWriteTerritory[];
@@ -1433,8 +1460,8 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     throw new TypeError("worksite command configuration requires exact A/W, subjects and explicit arrays");
   }
   const protectedSubjects = input.protectedSubjects;
-  const commands = input.commands.map(constructCommand);
-  const predicates = (input.outcomePredicates ?? []).map(constructPredicate);
+  const commands = input.commands.map((command, ordinal) => constructCommand(command, ordinal, ambient));
+  const predicates = (input.outcomePredicates ?? []).map((predicate, ordinal) => constructPredicate(predicate, ordinal, ambient));
   const allowedWriteTerritories = input.allowedWriteTerritories.map(constructWriteTerritory);
   const territoriesOverlap = allowedWriteTerritories.some((left, leftOrdinal) =>
     allowedWriteTerritories.some((right, rightOrdinal) => leftOrdinal !== rightOrdinal &&
@@ -1545,6 +1572,7 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
 
 export function constructWorksiteCommandExecutionTask(
   input: WorksiteCommandExecutionTaskInput,
+  ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment(),
 ): WorksiteCommandExecutionTask {
   if (!exactWorkspaceAuthorityJoin(
     input.workspaceAuthorityBasis,
@@ -1600,7 +1628,7 @@ export function constructWorksiteCommandExecutionTask(
     ...input,
     outcomePredicates: input.outcomePredicates ?? [],
     protectedSubjects: protectedObservations.map((row) => row.subject),
-  });
+  }, ambient);
   const body = {
     workspaceAuthorityBasis: input.workspaceAuthorityBasis,
     workspaceBinding: input.workspaceBinding,
@@ -1665,7 +1693,7 @@ export function isWorksiteCommandExecutionTask(value: unknown): value is Worksit
         (value.sourceConstructionResult as WorksiteConstructionResult).members.length),
       ...(Object.hasOwn(value, "readDependencyBasis") ? { readDependencyBasis: value.readDependencyBasis as WorksiteReadDependencyBasis } : {}),
       allowedWriteTerritories: value.allowedWriteTerritories as readonly WorksiteCommandWriteTerritory[],
-    });
+    }, null);
     return sameAdmitted(value, expected);
   } catch {
     return false;

@@ -11,7 +11,10 @@ import * as Effect from "effect/Effect";
 import * as Abg from "../abg/index.js";
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
 import { worksiteSelectedOccurrenceInputCurrent } from "../abg/event_calculus.js";
-import { selectedWorksiteCommandExecutionLimits } from "../abg/actor_process.js";
+import { selectedWorksiteCommandAmbientEnvironment, selectedWorksiteCommandExecutionLimits } from "../abg/actor_process.js";
+import { WORKSITE_PREPARATION_IDS } from "../product/worksite_preparation_contracts.js";
+import { WORKSITE_REVISION_IDS } from "../product/worksite_revision_identity.js";
+import { governanceRef } from "../product/default_library_identity.js";
 import { hasNoCompletedRetryExit } from "../abg/retry.js";
 import type {
   AbgEventStore,
@@ -68,6 +71,14 @@ import {
   projectOwnedExecutableTraversalCompletion as projectExecutableTraversalCompletion,
   type ExecutableTraversalCompletion,
 } from "./traversal_completion.js";
+
+/** The leaves that construct a command environment from a declared shape and
+ * receive the ambient rows on their occurrence. Other occurrences carry no
+ * member: the C2 occurrence admits exactly its coordinates. */
+function receivesCommandAmbientEnvironment(implementationRef: string): boolean {
+  return [WORKSITE_PREPARATION_IDS.prepareImplementationRef, WORKSITE_PREPARATION_IDS.prepareBranchImplementationRef,
+    WORKSITE_REVISION_IDS.prepareImplementationRef, governanceRef("implementation", "prepare-testing")].includes(implementationRef);
+}
 
 export interface ExecutableCCallContext {
   readonly store: AbgEventStore;
@@ -448,6 +459,9 @@ export function evaluateOwnedExecutableCCall(
     const lifecycleRef = input.programPublication === undefined ? undefined : semanticLifecycleRefForProgram(input.programPublication, input.program);
     const lifecyclePublication = lifecycleRef === undefined ? null : input.leafPort.semanticPublicationByDeclarationRef?.(lifecycleRef) ?? null;
     const semanticSourcePublication = lifecyclePublication === null ? null : lifecyclePublication.semanticJobLifecycle !== undefined ? lifecyclePublication : input.leafPort.sourcePublicationByDeclarationRef?.(lifecyclePublication.semanticLifecycle!.sourceDeclarationRef) ?? null;
+    // The operation boundary reads the ambient command environment once; a
+    // refusal is carried as `null`.
+    const commandAmbientEnvironment = (() => { try { return selectedWorksiteCommandAmbientEnvironment(); } catch { return null; } })();
     const semanticStageBasis = SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined && lifecyclePublication !== null && semanticSourcePublication !== null
       ? Abg.constructSemanticStageNativeBasis({ publication: input.programPublication,
           lifecyclePublication,
@@ -455,7 +469,8 @@ export function evaluateOwnedExecutableCCall(
           graphFunction: input.graphFunction, executionBasis: input.executionBasis, cCall: opened.cCall,
           cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix,
           declarationGraphFunctions: input.leafPort.declarationGraphFunctions?.() ?? [],
-          commandExecutionLimits: (() => { try { return selectedWorksiteCommandExecutionLimits(); } catch { return null; } })() }) : null;
+          commandExecutionLimits: (() => { try { return selectedWorksiteCommandExecutionLimits(); } catch { return null; } })(),
+          commandAmbientEnvironment }) : null;
     const worksitePreservedResultBasis = WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) && input.programPublication !== undefined
       ? Abg.constructWorksitePreservedResultNativeBasis({ publication: input.programPublication, graph: input.graph, graphFunction: input.graphFunction,
           executionBasis: input.executionBasis, cCall: opened.cCall, cursor: input.stop.cursor, predecessorPrefix: opened.successorPrefix }) : null;
@@ -488,6 +503,7 @@ export function evaluateOwnedExecutableCCall(
       ...(worksitePreservedResultBasis === null ? {} : { worksitePreservedResultBasis }),
       ...(semanticStageBasis === null ? {} : { semanticStageBasis }),
       ...(requirementHandoffBasis === null ? {} : { requirementHandoffBasis }),
+      ...(receivesCommandAmbientEnvironment(resolution.implementationRef) ? { commandAmbientEnvironment } : {}),
       cCallRef: opened.cCall.cCallRef,
       runId: opened.cCall.runId,
       graphCallId: opened.cCall.graphCallId,

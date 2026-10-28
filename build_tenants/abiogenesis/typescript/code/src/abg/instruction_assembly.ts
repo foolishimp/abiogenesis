@@ -130,9 +130,10 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
   const result = evaluateWorksiteNativeInstructionAssembly(basis, supplied);
   return result?.kind === "native_instruction_assembly" ? result : null;
 }
-/** The worksite assembly with its typed refusal: a native-work prompt over the
- * Run's declared bound refuses `declared_bound_overflow`; `null` is every other
- * refusal of this owner. */
+/** The worksite assembly with its typed refusal: a native-work, constructor or
+ * command-executor prompt over the Run's declared bound refuses
+ * `declared_bound_overflow` naming its role; `null` is every other refusal of
+ * this owner. */
 function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
   supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
   try {
@@ -236,10 +237,14 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
     const identity = assemblyIdentity("worksite-native", plan, owner,
       basis.predecessorPrefix, { nativeBasis, sections });
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
+    // The Run's declared bound applies to the rendered prompt of both worksite
+    // roles, as to the native-work prompt above.
+    const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
+    if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, role, ["maxPromptBytes"]);
     const manifest = { runEnvironment,
       basePromptDigest: sha256Canonical(base.prompt), sections: plan.sectionOrder.map(name => ({ name,
         disposition: "included_full", digest: sha256Canonical(sections[name as keyof typeof sections]) })) };
-    return finishInstructionAssembly(identity, manifest, { ...base, prompt });
+    return finishInstructionAssembly(identity, manifest, { ...base, prompt }, promptBytes);
   } catch { return null; }
 }
 

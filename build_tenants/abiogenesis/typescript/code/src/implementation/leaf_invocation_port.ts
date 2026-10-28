@@ -447,7 +447,8 @@ function nativeLeafProofOperations(
           context: import("../product/worksite_effect.js").WorksiteContextObservation,
           refusal?: Parameters<NonNullable<NativeLeafProofOperations["governanceTestingReacquisition"]>>[3]) => {
           exact(input, supplied);
-          return prepareGovernanceNativeWorkReacquisition(occurrence.nativeInstructionAssemblyBasis!, input, context, historicalSource, refusal);
+          return prepareGovernanceNativeWorkReacquisition(occurrence.nativeInstructionAssemblyBasis!, input, context, historicalSource, refusal,
+            occurrence.commandAmbientEnvironment);
         } } : {}),
     ...(implementationRef === qualificationIds.assessImplementation && preparation !== undefined ? { qualificationPreparation: (input: unknown, supplied: LeafExecutionOccurrence) => { exact(input, supplied); return preparation; } } : {}),
     ...(implementationRef === SELF_CONFORMANCE_IDS.implementationRef && basis?.cCallRef === occurrence.cCallRef

@@ -2746,3 +2746,344 @@ One lane moved: `t287-default-library`, from 21/18/0/3 to 22/19/0/3. That is ite
 **Lanes.** Before: R3's after column (`scratchpad/r3/lanes/after/summary.txt`, `compose-summary.txt`, `uat-harness.log`, `uat-continuation.log`), valid because the base's subtrees equal `0f6258433`'s. After, under the fifth amendment (the owner's agreement of 2026-10-28: the post-deploy sandbox test is the package's steel thread, the lanes prove the atoms the package changes): the named set only, checked first on the built tree: the lanes importing `worksite_command_execution`, `worksite_preparation`, `worksite_revision`, `instruction_assembly`, `default_library`, `declaration_application`, `materialization_definition_bindings`, `actor_process`, `semantic_stage`, `semantic_job`, `semantic_revision` or `native_work_reacquisition` (census by `git grep -l` over `test_env/tests`, run from `build_tenants/abiogenesis/typescript/`), the pin and manifest lanes (`r1-packed-artifact`, `t287-gtl-graph-law`, `a5-f02-canonical-gtl-identity`), the candidate basis consumers (`r2-clean-install`, `r3-workspace-binding`, `steel-basic-cli-public`, `t287-d1-requirement-handoff`), the map's 35 `installed_route` rows and three `unbounded` rows (`scratchpad/r2b/loadmap/index.tsv`, the `note` column), the two uat lanes and the compose scenario; each alone with the root set; the set listed in the Return with its count; no map-bound breadth and no whole suite (D5-a's). A lane the before column lacks runs once on the base build before your edits. The post-deploy test is the Executive's after your commit: the pack built from it and the rust-cli sandbox workload run live on it under the 6 October operator configuration; a non-pass there is triaged against your Return before acceptance. Equal before and after but the named cases; a moved lane named with its first error; the standing red `t287-st2a-g-capability-definition-graph` 4/2/2/0 known.
 
 **Return contract.** `## R3-b return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's reader, the reacher table (reacher, the member it passes, constructs or re-derives), the constructors' signatures, the `process.env` grep, the pin's old and new digest, byte count and offsets; item 2's kept projection and the relation each proved; item 3's branches bounded, the branch left and the cases; item 4's cases per site and any order correction; the regenerated files (M-4 table); the fixture's three fields; the lanes table (every lane, before and after; the moved lanes with their first error; the set's count); the gates; deviations; findings outside the grant; stops; what could not be verified. One commit on `main` by path, first line `R3-b: the ambient environment carried from the operation boundary on the basis; one governance-root projection; the Run prompt bound on every worksite assembly branch; the shared admission refusals cased` with ` (stops: …)` appended when any, body the Return's first paragraph, last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## R3-b return (Worker, Opus 5.5, 2026-10-28; base `490e3794395f78e58a77b4d316b985c9782f913d`)
+
+R3-b closes with two stops. Items 1, 3 and 4 landed. Item 1 carries the ambient environment from the operation boundary: one reader in `abg/actor_process.ts`, a member on the occurrence of the four constructing leaves and on the semantic stage basis, and the rows as a parameter of the constructors. `git grep -n 'process\.env' -- code/src/product` is empty. Item 1 stops on the re-deriving reachers that no basis or occurrence member reaches; they keep the ambient read, now through the one reader at the call. Item 2 stops because neither reader proves both relations. `owner` proves the index population of one root; `semanticJobRootAtPrefix` proves the ancestry walk. Keeping either one drops the relation that only the other proves, and a conjunction makes both admissions stricter. Either change alters what a reader admits, so it needs a ruling; it is not a realization refactor. Item 3 bounds the constructor and command-executor prompts; no manifest or identity digest moves. Item 4 cases every refusal at both sites, with one falsifier per site; no order correction was needed.
+
+**Base.** These subtree pairs are equal at the base and at R3's commit `0f6258433` (`git rev-parse <rev>:build_tenants/abiogenesis/typescript/<dir>`):
+
+| Subtree | Tree at the base and at `0f6258433` |
+|---|---|
+| `code` | `7a88d589b75dce5c07d8e6735f0423470fb8b173` |
+| `test_env` | `c7e36e7c0cc5581cf42c98641af2bec10f523f76` |
+| `contracts` | `b75f938360ffb6706fe08b9084a462909b843832` |
+| `scripts` | `66dfcf93d210db663970ba8540ad1b4b205ea9f5` |
+| `design` | `f64606667bdcabcdd84714436cb3d86603effbc5` |
+| the tenant | `7add8bbd5cdb8f66a64359fad5109cad0c2987a9` |
+
+One commit landed on `main` during the run: `f99f5b0ee` ("docs(t287): record the sixth amendment …"). It touches no path under `build_tenants/`: `git log 490e379..HEAD -- build_tenants` is empty, and the tenant tree at HEAD is still `7add8bbd…`. The record's headings are unchanged, and the R3-b activation is still the last section. I read no part of the record beyond the three permitted sections. I worked to the activation as written, so I applied no part of the amendment that the activation does not carry.
+
+**Item 1: the ambient environment carried from the operation boundary (landed; stop on the re-derivers).**
+
+*Reader.* `abg/actor_process.ts:708` `selectedWorksiteCommandAmbientEnvironment(): WorksiteCommandAmbientEnvironment`, beside `selectedWorksiteCommandExecutionLimits`:
+- it returns HOME, TMPDIR, LANG, LC_ALL and PATH, in that order, as `deepFreeze`d `{ name, value }` rows;
+- an absent variable has no row, and no default is applied;
+- a present value that is not one string without NUL throws `TypeError`.
+
+The type `WorksiteCommandAmbientEnvironment` is in `product/worksite_command_execution.ts:91`. It is not added to any index, so no Public export name moves.
+
+*Members.* The members are set once per C-call open in `hog/ccall_lifecycle.ts:464`, from the reader inside `try`/`catch`; when the reader refuses, the member is `null`.
+- `LeafExecutionOccurrence.commandAmbientEnvironment?` (`implementation/contracts.ts:117`) is set only when `receivesCommandAmbientEnvironment` (`hog/ccall_lifecycle.ts:78`) holds. That covers the three prepare leaves (`WORKSITE_PREPARATION_IDS.prepareImplementationRef`, `.prepareBranchImplementationRef` and `WORKSITE_REVISION_IDS.prepareImplementationRef`) and governance `prepare-testing`. The member is conditional for two reasons:
+  - `exactAuthorityFreeOccurrence` (`implementation/worksite_command_execution.ts:139-169`) admits exactly the eight coordinates on a C2 occurrence;
+  - that object is digested into the launch manifest's `occurrenceDigest`.
+- `SemanticStageNativeBasis.commandAmbientEnvironment?` (`abg/semantic_stage.ts:54`) is set beside `commandExecutionLimits`. It is optional because result admission rebuilds the basis in `abg/c_call_outcome.ts:1293-1301`, which is outside the grant.
+- There is no member on `NativeInstructionAssemblyBasis`. That basis is spread into the recorded `native-work` and `worksite-native` envelopes (`abg/instruction_assembly.ts:176`, `:235`), so a member there would move identity digests.
+
+*Constructors.*
+- Internal, rows required, no `process.env`: `environmentEntries(value, ambient: WorksiteCommandAmbientEnvironment | null)` (`:906`), `constructCommand(input, ordinal, ambient)` (`:1020`), `constructPredicate(input, ordinal, ambient)` (`:1075`), `nativeReacquisitionBody(input, ambient)` (`:368`) and `nativeCommandTaskBody(input, ambient)` (`:428`).
+  - A declared environment takes HOME/TMPDIR/LANG/LC_ALL from the rows when they are not declared.
+  - It takes the rows' PATH as the base of an undeclared PATH, otherwise the default chain.
+  - An already-bound array never consults the rows.
+- Exported, with one trailing `ambient: WorksiteCommandAmbientEnvironment | null = callTimeAmbientEnvironment()`: `constructWorksiteCommandConfiguration` (`:1449`), `constructWorksiteCommandExecutionTask` (`:1573`), `constructNativeWorksiteCommandExecutionTask` (`:460`), `constructObservedWorksiteCommandExecutionTask` (`:479`) and `constructNativeWorksiteCommandReacquisitionRequest` (`:399`).
+  - `callTimeAmbientEnvironment` (`:98`) is the one reader, called at the call; it gives `null` when the reader refuses.
+  - The default exists for the stopped reachers below, most of which are outside the grant.
+- Pass-throughs, `ambient?: … | null`:
+  - `product/worksite_preparation.ts` `prepareWorksiteCommandTask(input, ambient?)`;
+  - `product/worksite_revision.ts` `constructWorksiteRevisionCommandExecutionTask(input, ambient?)`;
+  - `abg/default_library.ts` `projectGovernanceTestingTask` (internal overload, after `refusal`) and `testingTask`;
+  - `abg/native_work_reacquisition.ts` `prepareGovernanceNativeWorkReacquisition` (internal overload, after `refusal`);
+  - `implementation/worksite_command_execution.ts` `realizePreparation(…, occurrence?)` and the three prepare leaves `(input, occurrence?)`.
+
+*Reacher table.*
+
+| Reacher | Member passed | Constructs or re-derives |
+|---|---|---|
+| `implementation/worksite_command_execution.ts` `prepareWorksiteCommands`, `prepareWorksiteBranchCommands`, `prepareWorksiteRevisionCommands` → `realizePreparation:817` → `product/worksite_preparation.ts` `prepareWorksiteCommandTask` (`:194`, `:197`) → `product/worksite_revision.ts:130`, `:143` | `occurrence.commandAmbientEnvironment` | constructs |
+| `implementation/default_library.ts` `prepareObservedTestingTask` → `abg/default_library.ts` `projectGovernanceTestingTask` → `testingTask` (`:292` observed, `:300` native) | `occurrence.commandAmbientEnvironment` | constructs |
+| `implementation/leaf_invocation_port.ts:450` (the governance reacquisition operation) → `abg/native_work_reacquisition.ts:244` `prepareGovernanceNativeWorkReacquisition` | `occurrence.commandAmbientEnvironment` | constructs |
+| `abg/semantic_stage.ts:372` `projectSemanticEvidenceInput` | `basis.commandAmbientEnvironment` (absent on the result-admission rebuild: the call-time read) | re-derives |
+| `abg/semantic_job.ts:374` `projectSemanticJobEvidence` | `basis.commandAmbientEnvironment` (as above) | re-derives |
+| `abg/semantic_revision.ts:1009` `revisionEvidenceComponentsAtBasis` | `basis.commandAmbientEnvironment` (as above) | re-derives |
+| `product/worksite_preparation.ts:72` `validConfiguration` (every `isWorksitePreparation*Input`); `abg/semantic_job.ts:232` `planInput` | `null` | validation only; the result is discarded |
+| bound arrays: `abg/native_work_reacquisition.ts:87`, `:202`, `:270`, `:360`; `product/worksite_revision.ts:163`; in `product/worksite_command_execution.ts`, `isCommand`, `isPredicate`, `declaredEnvironmentMatches`, `worksiteCommandConfigurationMatches` (`:993`) and the four `is*` task and request validators (`:448`, `:497`, `:515`, `:1682`) | `null` | re-derives from the bound environment; the rows are unused |
+| `abg/default_library.ts:390` `governanceResultMatches` (result admission, from `c_call_outcome.ts:1269` with no occurrence) | none: call-time read (stop) | re-derives |
+| `product/worksite_preparation.ts:232` (the preparation judgment relation's `evaluate(input, output)`) | none: call-time read (stop) | re-derives |
+| `abg/worksite_input_provenance.ts:506` `projectSameRunWorksiteCommandSourceAtPrefix` (prefix only; callers `invocation_admission.ts:642` and `worksite_command_forward.ts:104`) | none: call-time read (stop) | re-derives |
+| Outside the grant: `product/builtin_semantics.ts:879`, `:977`; `product/semantic_job.ts:951` `constructNativeSemanticExecutionTask` (live from `abg/semantic_job.ts:585`, whose basis member cannot be passed into it) and its re-derivers `:854`, `:986`, `:995`; `product/semantic_revision.ts:350` | none: call-time read (stop) | constructs (`:951` from `:585`) or re-derives |
+| Outside the grant: `product/worksite_command_forward.ts:150` | none (a bound array; the rows are unused) | re-derives from bound |
+
+*`process.env`.*
+- `git grep -n 'process\.env' -- code/src/product` is empty (exit 1).
+- For command construction, the five variables are read only by the reader (`abg/actor_process.ts:711`).
+- The other `process.env` reads in `code/src` construct no command environment: the execution limits (`abg/actor_process.ts:697-698`) and the worker-transport environment (`abg/transport_contracts.ts`, `abg/worker_transport.ts`).
+- The launch environment `Object.freeze({ ...process.env })` is unchanged at `abg/actor_process.ts:865` (base `:847`).
+
+*Falsifiers* (`t287-c2-core-environment`, two new cases):
+- The five rows with a declared input without PATH give entries equal to the rows. PATH is normalized: equal to the rows' PATH, or `PATH_PREFIX:` followed by it. A declared HOME keeps its value.
+- No rows give `[{PATH: default chain}]`, or the prefixed default chain, and no HOME/TMPDIR/LANG/LC_ALL entry, whatever the process environment holds.
+- An already-bound input ignores the rows: the bound environment re-binds equal under other rows and under `null`, and a PATH-less bound array takes the default chain, not the rows' PATH.
+- No argument equals the reader's rows, taken at the call.
+- The reader returns the present variables in order, frozen, with no default, and `[]` when all five are absent. The case sets `process.env` and restores it in `finally`.
+
+*Pin* (`gtl/worksite_command_execution.ts:36-39`, `:61`): computed by R3's `pin.mjs` and applied by `apply-pin.py`, both copied to `scratchpad/r3b/tools/`; then verified by `npm run build` (rc 0).
+
+| Coordinate | Old | New |
+|---|---|---|
+| member digest | `sha256:45f238bfb1b4ef718d951058d239e8a826d0df3ba1a7cffcb572b5babe2abf29` | `sha256:e37aef8a3e86c90f548f30a019fbf4ce6d57f57ecf2a1a26223e0812734994cd` |
+| byte count | 115627 | 116679 |
+| startByte / endByte | 105542 / 107974 | 106594 / 109026 |
+| span digest | `sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` | unchanged (the renderer text did not move) |
+
+**Item 2: one governance-root projection (stop).** The two readers prove different relations:
+- `abg/default_library.ts` `owner` (`:46-49`) reads the one root-class `basis_admitted` event in the invocation's selector index (`invocation:<invocationRef>`) whose invocation admission and root implementation set equal the owned execution's. It proves population one over that index. It does not walk the owned execution's ancestry.
+- `abg/semantic_job.ts` `semanticJobRootAtPrefix` (`:52-66`) walks `parentExecutionBasisRef` through `rehydrateExecutionBasisAtPrefix`. Each step must be the same job invocation (admission, invocation, program, root implementation set and workspace binding), and a cycle refuses. It proves ancestry. It does not prove the index population.
+
+Neither proves both, so the activation's premise (keep the one that proves both) fails:
+- Making either reader a call to the other drops the relation that only it proves, which weakens that reader's admission.
+- One projection that proves both, with both readers calling it, makes both admissions stricter.
+
+Either change alters what a reader admits, so it needs a ruling. It is not a `realization_refactor`.
+
+The offered shape is one projection that requires the index population of one, plus the ancestry walk to that same root. `owner` and `semanticJobRootAtPrefix` would both call it, and both names would be kept.
+
+The cost is restating `t287-default-library`'s setup:
+- the lane supplies `owner`'s root through a substituted `indexedRuntimeEvents` (`:330`, `:630`, `:687`, `:849`, `:963`, `:1039`), over execution fixtures that carry no `parentExecutionBasisRef` and no `rawInputValue`;
+- it supplies the walk through a substituted `rehydrateExecutionBasisAtPrefix` (R3's bound case and the two item 3 cases).
+
+Both readers are left as they were, with no source change.
+
+**Item 3: the Run prompt bound on every worksite branch (landed).**
+- In `evaluateWorksiteNativeInstructionAssembly`, the constructor and command-executor branch now applies `declaredRunPromptBound(owner)` after every existing `null` and after `renderInstructionSections` (`abg/instruction_assembly.ts:240-243`). The lines between the bound and `finishInstructionAssembly` (`:244-246`) only build the manifest value; they do not refuse. This is the same placement as R3's native-work bound (`:179-181`). An overflow refuses `assemblyRefusal("declared_bound_overflow", null, role, ["maxPromptBytes"])`.
+- The rendered `promptBytes` are passed to `finishInstructionAssembly`. They equal its default, `Buffer.from(request.prompt, "utf8")` (`abg/instruction_assembly.ts:85`), so no manifest, plan, envelope or identity digest moves. The new cases assert that an assembly under a bound equal to its byte count deep-equals the unbounded one. `t288-instruction-assembly-owner`'s retained-assembly replay is environment-gated and skipped, before and after.
+- Three prompt-rendering branches are now bounded: native-work (R3), constructor and command executor. No branch renders an assembly without a prompt, so no branch was left; the `null` returns render nothing.
+- The `uat` producer sentence (`abg/default_library.ts:235`) and the lane's `PRODUCER` literal are unchanged.
+
+Cases: two in `t287-default-library`, one per newly bound role, beside R3's case:
+- the command-executor case uses a real observed C2 task over the C2 publication graph;
+- the constructor case uses a real `WorksiteConstructionTask` over the construction publication's one constructor-family leaf.
+
+Each case checks four things: an unbounded root assembles; a bound equal to `manifest.promptByteCount` assembles unchanged; one byte lower gives `null`; and `require…` throws the refusal with the role named.
+
+**Item 4: the shared admission's refusals cased (landed; no order correction).** Both sites take the shared function's first refusal in its order (locator, locus, bytes, dialect):
+- the catalog site maps each check to its message;
+- the materialization site maps every check to `"contract"`.
+
+No source changed.
+- *Catalog-application site*: `r4-catalog-admission`, one new case. `declaration_application.js` is linked with supplied lower premises: catalog, view, environment, publication digest, install coordinate, raw admission and toolchain identity. Its schema loop and `admitInstalledSchemaAsset` run over one installed root.
+  - Falsifier: the admitted asset passes every check and the application is constructed.
+  - Refusals, each `unready` with the site's message:
+    - locator, media type `application/json`: "schema asset has no compatible installed locator";
+    - locator, row version `4.0.0` against the declaration's `5.0.0`: the same message;
+    - locus, `../outside.schema.json`: "schema locator escapes its installed owner";
+    - dialect, a draft-07 document with matching digests: "unsupported or crossed schema dialect/identity".
+- *Materialization site*: `t287-required-operation-bindings`, one new top-level component case, outside the installed run. It reaches the binding's request admission `ADMIT_REQUEST` through one export appended to the built module's text, over a supplied bound environment with one installed root.
+  - Falsifier: the admitted asset gives the `configuration` packet, and the `context_bootstrap` packet; an invalid value gives `input_mismatch` at `/inputs`.
+  - Five refusals: locator (media type), locator (absent locator), locus, bytes (a changed file under the digest) and dialect. Each lands as `"contract"`:
+    - `configuration` gives `contract_mismatch` at `/configurationContract`;
+    - `context_bootstrap` gives `input_mismatch` at `/contextInputs/0/contract`.
+
+**M-4: regenerated files** (`npm run build`; no hand edit under `contracts/`; SHA-256 of each file):
+
+| File | Old | New | What moved |
+|---|---|---|---|
+| `contracts/capabilities/capability-definition-graph.json` | `3467dac9d5647f6ebd688910a53735764af7772be71c4e1db5f9adb0b57f6f1e` | `31b17b958ebd73a142e76161740827374360941ee7da5d1771a3f907da064ed8` | 551 leaves: `graphDigest` `5bee1f88…` → `974efa65…`, 241 `productContentDigest`, 241 `catalogDigest`, 34 `capabilityDefinitionRef`/`Digest` |
+| `contracts/worksite/command-execution-context.inventory.json` | `3431aac4a0b62b7ee867df9169c59206f49aa8ea507d569a2602aeeb04323930` | `aad60b05e4dfe217077ac3f827d6fc5ed3c63ce87ac440e28736411ee1326094` | 1 leaf: the member digest `45f238bf…` → `e37aef8a…` (the pin) |
+| `product-toolchain-manifest.json` | `4c85b8b7737a92b82652319652e1bbf735b64b7c3f0e7199d1926219d71f343c` | `38dabd87a5b9ccc610d2f3d88c162825bec82cb2ea0c20e78e52cbe6189d2d01` | 373 leaves: 282 `declarationDigest`, 48 `provenanceRef`, 21 `contractDigest` (`native_typed_group` rows 2–12, 14, 16–24, the same 21 rows that R3's closure moved), the 10 `publicationBinding` digests, `productContentDigest`, the contribution-manifest identities and the graph asset `contentDigest` |
+
+No other file under `contracts/` moved. The declaration closure is seven `.d.ts` files, the same class as R3's closure:
+- `abg/actor_process`;
+- `abg/semantic_stage`;
+- `implementation/contracts`;
+- `implementation/worksite_command_execution`;
+- `product/worksite_command_execution`;
+- `product/worksite_preparation`;
+- `product/worksite_revision`.
+
+Their diffs are the added type, the two optional members, the reader, and the optional trailing parameters. No schema and no declared input contract moved.
+
+**Candidate basis fixture** (`test_env/fixtures/abi5-root-candidate-basis.json`). `node scripts/refresh-candidate-basis.mjs` ran once, after the final build and before the after pass. Its three fields:
+
+| Field | Old | New |
+|---|---|---|
+| `artifactDigest` | `sha256:85e5a21861dced529a14048cc8cd40b71e4e15c9dbb1166cfb0e363142686d16` | `sha256:56175e03cf4b147c16252fb8ad2282f774be48b419f82b93423f0be16a109934` |
+| `productContentDigest` | `sha256:d2c597acb5d4271af4ff0d0f4fba226b1f27395845d2dc94cda7cfbc728168e2` | `sha256:d83b39e5580f4285a6506d14fe32eedd6c8f3c9c7b2b37ee3f10c9f58f80935e` |
+| `manifestDigest` | `sha256:1a8353dbab040460e265df541850aeb3cfe917bcc2ce5cbd491eef111dd99f24` | `sha256:d59dac13212aa00fa0f3934b68dcc43ea73b194740fe03b0750d82f4bd535907` |
+
+**Lanes.** The named set is 84 test lanes. With `uat-harness` and `uat-continuation` that makes 86 summary rows, and with the compose scenario 87 runs. Each ran alone with `ABI5_EVIDENCE_ROOT` set, on the final built tree after the refresh. The set is the activation's census, deduplicated (`scratchpad/r3b/set/named.txt`):
+- the lanes importing any of the twelve named modules (`git grep -l` over `test_env/tests`);
+- the three pin and manifest lanes;
+- the four candidate-basis consumers;
+- the load map's 35 `installed_route` rows and three `unbounded` rows.
+
+The after summary lists exactly these 86 rows. None of R3's 17 lanes outside this set ran (deviation 5).
+
+The before column is R3's after column for 77 lanes and for the uat and compose rows. The seven lanes R3 did not run ran once on the base build.
+
+After totals over the 86 rows, the two uat lanes included: 608 tests, 516 pass, 0 fail, 92 skipped. Every lane exits 0 with nothing cancelled. Each lane's skip count equals its before count.
+
+Four lanes moved, each by its named new cases only, and each new case passes, so there is no first error:
+
+| Lane | Before | After | New cases |
+|---|---|---|---|
+| `t287-c2-core-environment` | 3/3/0/0 | 5/5/0/0 | item 1: the rows, the null rows and the bound input; the reader |
+| `t287-default-library` | 22/19/0/3 | 24/21/0/3 | item 3: command executor, constructor |
+| `r4-catalog-admission` | 6/6/0/0 | 7/7/0/0 | item 4, catalog site |
+| `t287-required-operation-bindings` | 7/7/0/0 | 8/8/0/0 | item 4, materialization site |
+
+The set has no red. The standing red, `t287-st2a-g-capability-definition-graph` (4/2/2/0), is outside the named set and was not run. The four item 2 lanes (`t287-default-library`, `t287-declared-testing-capability`, `t287-governance-covered-source-use`, `t287-native-semantic-job`) are equal except for `t287-default-library`'s two item 3 cases.
+
+| Lane | Before (column) | After |
+|---|---|---|
+| `a5-f02-canonical-gtl-identity` | 7/7/0/0 (R3) | 7/7/0/0 |
+| `d2-acknowledgment` | 3/3/0/0 (R3) | 3/3/0/0 |
+| `d2-binding-query-reuse` | 7/7/0/0 (R3) | 7/7/0/0 |
+| `hello-product-boundary` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `installed-language-smoke` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `m5-installed-graph-edge` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `m5-terminal-quiescence-owner` | 7/7/0/0 (base build) | 7/7/0/0 |
+| `m5-worker-transport` | 23/23/0/0 (R3) | 23/23/0/0 |
+| `r1-packed-artifact` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `r2-clean-install` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `r3-workspace-binding` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `r4-catalog-admission` | 6/6/0/0 (R3) | 7/7/0/0 |
+| `steel-basic-cli-c2` | 6/0/0/6 (R3) | 6/0/0/6 |
+| `steel-basic-cli-projection` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `steel-basic-cli-public` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `steel-consumer-authority` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `steel-consumer-declaration` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-c0-post-publication-failure` | 31/31/0/0 (R3) | 31/31/0/0 |
+| `t287-c2-core-environment` | 3/3/0/0 (R3) | 5/5/0/0 |
+| `t287-c2a-fp-source-contract` | 4/4/0/0 (base build) | 4/4/0/0 |
+| `t287-calculus-fold` | 18/18/0/0 (base build) | 18/18/0/0 |
+| `t287-common-computational-library` | 17/17/0/0 (R3) | 17/17/0/0 |
+| `t287-continuation-causation` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `t287-d1-requirement-handoff` | 5/2/0/3 (R3) | 5/2/0/3 |
+| `t287-d1-semantic-stage` | 3/1/0/2 (R3) | 3/1/0/2 |
+| `t287-declared-testing-capability` | 7/3/0/4 (R3) | 7/3/0/4 |
+| `t287-default-library` | 22/19/0/3 (R3) | 24/21/0/3 |
+| `t287-default-library-fulfillment` | 7/7/0/0 (R3) | 7/7/0/0 |
+| `t287-environment-projection-conservation` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-event-body-encoding` | 14/14/0/0 (R3) | 14/14/0/0 |
+| `t287-exact-construction-intent` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `t287-f04a-probabilistic-result-candidate` | 2/2/0/0 (base build) | 2/2/0/0 |
+| `t287-generic-job-lifecycle` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-generic-job-meaning` | 5/3/0/2 (R3) | 5/3/0/2 |
+| `t287-generic-job-parent-foldback` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-generic-job-read-dependency` | 2/1/0/1 (R3) | 2/1/0/1 |
+| `t287-generic-job-revision` | 4/1/0/3 (R3) | 4/1/0/3 |
+| `t287-governance-covered-source-use` | 9/3/0/6 (R3) | 9/3/0/6 |
+| `t287-gtl-graph-law` | 9/9/0/0 (R3) | 9/9/0/0 |
+| `t287-gtl-serialization-publication` | 9/9/0/0 (base build) | 9/9/0/0 |
+| `t287-installed-qualification-conservation` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-lifecycle-failure-carrier` | 5/5/0/0 (base build) | 5/5/0/0 |
+| `t287-management-context` | 14/12/0/2 (R3) | 14/12/0/2 |
+| `t287-multi-candidate-admission` | 75/75/0/0 (R3) | 75/75/0/0 |
+| `t287-native-assembly-retained-input` | 1/0/0/1 (base build) | 1/0/0/1 |
+| `t287-native-c2-instruction-assembly` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `t287-native-owner-reuse` | 3/0/0/3 (R3) | 3/0/0/3 |
+| `t287-native-registered-selection` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-native-selection-profile-scope` | 4/4/0/0 (R3) | 4/4/0/0 |
+| `t287-native-semantic-evidence` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-native-semantic-job` | 9/9/0/0 (R3) | 9/9/0/0 |
+| `t287-native-semantic-revision` | 7/7/0/0 (R3) | 7/7/0/0 |
+| `t287-native-work-currentness-consumers` | 6/6/0/0 (R3) | 6/6/0/0 |
+| `t287-native-work-reacquisition` | 9/6/0/3 (R3) | 9/6/0/3 |
+| `t287-native-work-reacquisition-normalization` | 2/1/0/1 (R3) | 2/1/0/1 |
+| `t287-native-work-unknown-effect` | 10/10/0/0 (R3) | 10/10/0/0 |
+| `t287-native-worksite-execution` | 6/3/0/3 (R3) | 6/3/0/3 |
+| `t287-native-workspace-work` | 38/37/0/1 (R3) | 38/37/0/1 |
+| `t287-observed-worksite-command` | 8/8/0/0 (R3) | 8/8/0/0 |
+| `t287-owned-native-proof` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-owned-process-lifetime` | 18/18/0/0 (R3) | 18/18/0/0 |
+| `t287-predecessor-context` | 3/0/0/3 (R3) | 3/0/0/3 |
+| `t287-qual056-material` | 7/7/0/0 (R3) | 7/7/0/0 |
+| `t287-qualification-fp-proof-delivery` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-qualification-parent-alias` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-recursive-registered-selection` | 4/3/0/1 (R3) | 4/3/0/1 |
+| `t287-registered-graph-selection` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `t287-required-operation-bindings` | 7/7/0/0 (R3) | 8/8/0/0 |
+| `t287-result-evidence-lineage-type-contract` | 1/1/0/0 (R3) | 1/1/0/0 |
+| `t287-retained-installed-consumer` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-runtime-failure-diagnostic` | 21/21/0/0 (R3) | 21/21/0/0 |
+| `t287-s03-automatic` | 2/0/0/2 (R3) | 2/0/0/2 |
+| `t287-selected-action` | 1/0/0/1 (R3) | 1/0/0/1 |
+| `t287-selected-action-authority` | 3/2/0/1 (R3) | 3/2/0/1 |
+| `t287-st1-installed-cross-owner-hello` | 2/2/0/0 (R3) | 2/2/0/0 |
+| `t287-stdo-environment-citation` | 2/0/0/2 (R3) | 2/0/0/2 |
+| `t287-stdo-run-environment` | 2/0/0/2 (R3) | 2/0/0/2 |
+| `t287-w2-05-static-binding-algebra` | 5/3/0/2 (R3) | 5/3/0/2 |
+| `t287-worksite-command-execution` | 10/10/0/0 (R3) | 10/10/0/0 |
+| `t288-instruction-assembly-owner` | 6/4/0/2 (R3) | 6/4/0/2 |
+| `uat-continuation` | 4/0/0/4 (R3) | 4/0/0/4 |
+| `uat-harness` | 34/31/0/3 (R3) | 34/31/0/3 |
+| `w2-steel-serial-branch-installed` | 2/0/0/2 (R3) | 2/0/0/2 |
+| `w2-steel-single-start` | 8/7/0/1 (R3) | 8/7/0/1 |
+| `w2-steel-single-start-closure` | 8/0/0/8 (R3) | 8/0/0/8 |
+| `w2-steel-single-start-installed` | 1/0/0/1 (R3) | 1/0/0/1 |
+| compose (`t287-calculus-state-transfer`, `ABI5_CALCULUS_CASES=compose`, `real admitted compose`) | 2/2/0/0 (R3) | 2/2/0/0 |
+
+**Gates** (on the final tree):
+
+| Gate | Result |
+|---|---|
+| `tsc` | 0 |
+| `tsc --noUnusedLocals` | 0 |
+| `lint:imports` | 0 (28 shared modules; the 3 forbidden pairs hold) |
+| `lint:lifecycle` | 0 (288 modules, 7 allow-listed, no offender) |
+| `lint:evidence` | 0 (691 roots, no new copy) |
+| `lint:calculus` | 0 (6 modules, no offender) |
+| `npm run build` | 0 (the generator verified the pin) |
+
+Two further checks:
+- Every built entry imports in a fresh process: 15 of 15, plus the touched modules.
+- The Public export-name set is 4952 names, equal to the base.
+
+**Deviations.**
+1. The pin was computed by script (R3's `pin.mjs` and `apply-pin.py`, by the C-4 precedent), not by hand, and verified by the build.
+2. The four lanes with new cases were run during development by test-name pattern before the fixture refresh: `t287-c2-core-environment` 2/2, `r4-catalog-admission` 1/1, `t287-default-library` 2/2, `t287-required-operation-bindings` 1/1. The two passes in the lanes table are the only recorded runs.
+3. The five exported constructors default the rows to the call-time read through the one reader. Their declared signatures gain one optional trailing parameter; no name moves. Without the default, the stopped reachers below, most outside the grant, would need edits.
+4. Two case seams:
+   - the materialization case reaches `ADMIT_REQUEST` through one export appended to the built module's text, evaluated in the test;
+   - the catalog case links `declaration_application.js` with supplied lower premises.
+   No product source exposes either.
+5. The after list briefly held R3's 17 lanes outside this set. I cut it to the named set while the run was on its ninth lane, before any of the 17 ran; none of them appears in the after summary.
+6. Two edge behaviours moved:
+   - Validators now pass `null`. A malformed ambient PATH therefore refuses at the constructing leaf, not at input validation.
+   - A PATH-less bound environment now takes the default chain, not the ambient PATH. No such bound array validates, either before or after.
+7. New value-import edges:
+   - `product/worksite_command_execution` → `abg/actor_process`, inside an existing cycle;
+   - `hog/ccall_lifecycle` → the three identity modules, which its first import already reaches.
+   Neither edge adds a strongly connected component or changes evaluation order. The leaf-ref set is a hoisted function, not a module-level constant.
+8. The launch-environment citation moved from `abg/actor_process.ts:847` to `:865` because the reader was inserted above it; the line itself is unchanged.
+
+**Findings outside the grant.**
+1. Result admission re-derives the command task from declared shapes, under a different law per branch:
+   - `abg/default_library.ts:390` `governanceResultMatches` (native branch) re-constructs the task;
+   - the observed branch uses the bound law `worksiteCommandConfigurationMatches`.
+   As a result, the native branch's equality depends on the admitting process's ambient environment equalling the constructing process's. Re-deriving from the bound task on the recorded basis would remove the read.
+2. `abg/c_call_outcome.ts:1293-1301` rebuilds `SemanticStageNativeBasis` as a fresh literal with no `commandAmbientEnvironment`. The three semantic re-derivers therefore read the call-time environment at result admission.
+3. `product/semantic_job.ts:951` `constructNativeSemanticExecutionTask` constructs a command task live from `abg/semantic_job.ts:585` and takes no rows parameter. Its re-derivers `:854`, `:986` and `:995`, `product/builtin_semantics.ts:879` and `:977`, and `product/semantic_revision.ts:350` are the same shape.
+
+**Stops.**
+1. *Item 1: reachers that no member can reach.* These keep the ambient read, now through the one reader called at the call:
+   - `abg/default_library.ts:390` `governanceResultMatches`: result admission from `abg/c_call_outcome.ts:1269`; it has no occurrence, and the basis it holds is the recorded assembly basis, which carries no member.
+   - `product/worksite_preparation.ts:232`: the judgment relation's `evaluate(input, output)` receives only the two values.
+   - `abg/worksite_input_provenance.ts:506` `projectSameRunWorksiteCommandSourceAtPrefix`: it is prefix only; its callers are `abg/invocation_admission.ts:642` and `abg/worksite_command_forward.ts:104`.
+   - The three semantic re-derivers on the result-admission basis rebuild (`abg/c_call_outcome.ts:1293-1301`), where the member is absent.
+   - Outside the grant: `product/builtin_semantics.ts:879` and `:977`; `product/semantic_job.ts:951` (live from `abg/semantic_job.ts:585`), `:854`, `:986` and `:995`; `product/semantic_revision.ts:350`.
+2. *Item 2: the premise fails.* Neither governance-root reader proves both relations:
+   - `owner` proves index population one;
+   - `semanticJobRootAtPrefix` proves ancestry.
+   Keeping either one drops a relation, and a conjunction makes both admissions stricter. Either change alters what a reader admits, so it needs the Executive's ruling. The offered shape and its lane-setup cost are under item 2. No source changed.
+
+None of the other three stop classes was met:
+- the bound moved no recorded manifest or identity digest;
+- item 4 needed no order correction;
+- no Public export name, declared input contract or schema moved. The 21 `contractDigest` moves in M-4 are declaration-closure digests: the same 21 rows that R3's closure moved. The optional trailing parameters behind them are deviation 3.
+
+**What could not be verified.**
+1. No lane separates the member from the call-time read. Both come from one process environment, so a lane passes whether a constructing leaf takes the member or falls back to the default. The member path is shown by tsc and by the reacher table, not by a differential run.
+2. The reader's refusal (a non-string or NUL value) is not cased: POSIX `process.env` cannot hold either. The `null` row of the falsifiers is cased only through the constructors.
+3. The post-deploy sandbox is the Executive's.
+4. Every reading and run here was by one model family (Opus 5.5). No Codex or Fable reader saw the change.

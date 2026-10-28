@@ -348,3 +348,60 @@ test('T-287 R2-b result.assess through the installed transport: the declared res
     assert.equal(await readFile(contentPath, 'utf8'), '{}\n');
   });
 });
+
+// The materialization site of the shared schema-asset admission: the binding's
+// own request admission over one supplied bound environment. The admission,
+// `admitInstalledSchemaAsset` and the refusal mapping run as built; the module's
+// request admission is reached by one appended export of its own constant.
+test('T-287 R3-b product.materialize lands each schema-asset admission refusal as the contract member', async t => {
+  const { mkdtemp, mkdir, rm } = await import('node:fs/promises');
+  const { tmpdir } = await import('node:os');
+  const { dirname, resolve } = await import('node:path');
+  const { SourceTextModule, SyntheticModule } = await import('node:vm');
+  const { sha256Bytes, sha256Canonical: hash } = await import('../../build/code/src/shared/digests.js');
+  const installedRoot = await mkdtemp(join(tmpdir(), 't287-r3b-materialize-'));
+  t.after(() => rm(installedRoot, { recursive: true, force: true }));
+  const contractId = 'abg.schema.r3b-configuration', productId = 'product://abiogenesis/r3b-materialize@5';
+  const documentBytes = dialect => Buffer.from(JSON.stringify({ $schema: dialect, $id: contractId, type: 'array', items: { type: 'string' } }));
+  const current = documentBytes('https://json-schema.org/draft/2020-12/schema'), draft07 = documentBytes('http://json-schema.org/draft-07/schema#');
+  await mkdir(join(installedRoot, 'schemas'), { recursive: true });
+  await writeFile(join(installedRoot, 'schemas/configuration.schema.json'), current);
+  await writeFile(join(installedRoot, 'schemas/draft07.schema.json'), draft07);
+  await writeFile(join(installedRoot, 'schemas/changed.schema.json'), Buffer.concat([current, Buffer.from('\n')]));
+  const contractRow = (locator, bytes = current) => ({ contractKind: 'schema_asset', contractId, owningProduct: productId, contractVersion: '5.0.0',
+    contractDigest: sha256Bytes(bytes), ...(locator === null ? {} : { assetLocator: { mediaType: 'application/schema+json',
+      path: 'schemas/configuration.schema.json', contentDigest: sha256Bytes(bytes), ...locator } }) });
+  const binding = { bindingId: 'binding://abiogenesis/r3b-materialize@5', bindingDigest: hash('binding') };
+  const environment = row => ({ kind: 'exact_prefix_workspace_environment', workspaceBinding: binding,
+    workspaceAuthorityBasis: { workspaceId: 'workspace://abiogenesis/r3b-materialize@5', authorityBasisDigest: hash('authority') },
+    productInstalls: [{ productId, installedRoot, publicContracts: [row] }] });
+  const file = fileURLToPath(new URL('../../build/code/src/product/materialization_definition_bindings.js', import.meta.url));
+  const site = new SourceTextModule(`${await readFile(file, 'utf8')}\nexport { ADMIT_REQUEST as componentAdmitRequest };\n`, { identifier: file });
+  await site.link(async specifier => {
+    const actual = await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(file), specifier)).href : specifier);
+    return new SyntheticModule(Object.keys(actual), function () { for (const [k, v] of Object.entries(actual)) this.setExport(k, v); });
+  });
+  await site.evaluate();
+  const admit = site.namespace.componentAdmitRequest, pair = { ref: binding.bindingId, digest: binding.bindingDigest };
+  const configuration = (row, inputs = ['ruling']) => admit.configuration({ configurationContract: { ref: contractId, digest: row.contractDigest },
+    binding: pair, inputs }, environment(row));
+  const context = (row, value = ['ruling']) => admit.context_bootstrap({ workspace: { ref: 'workspace://abiogenesis/r3b-materialize@5', digest: hash('authority') },
+    binding: pair, contextInputs: [{ name: 'r3b/input', contract: { ref: contractId, digest: row.contractDigest }, value }] }, environment(row));
+  // The falsifier: the admitted asset passes every check; only the value then decides.
+  const admitted = configuration(contractRow({}));
+  assert.equal(admitted.kind, 'packet', JSON.stringify(admitted));
+  assert.deepEqual(admitted.packet.configurationContract, contractRow({}));
+  assert.deepEqual(configuration(contractRow({}), [1]), { kind: 'refusal', code: 'input_mismatch', path: '/inputs' });
+  assert.equal(context(contractRow({})).kind, 'packet');
+  const refusals = {
+    'locator (media type)': contractRow({ mediaType: 'application/json' }),
+    'locator (absent)': contractRow(null),
+    locus: contractRow({ path: '../outside.schema.json' }),
+    bytes: contractRow({ path: 'schemas/changed.schema.json' }),
+    dialect: contractRow({ path: 'schemas/draft07.schema.json' }, draft07),
+  };
+  for (const [check, row] of Object.entries(refusals)) {
+    assert.deepEqual(configuration(row), { kind: 'refusal', code: 'contract_mismatch', path: '/configurationContract' }, check);
+    assert.deepEqual(context(row), { kind: 'refusal', code: 'input_mismatch', path: '/contextInputs/0/contract' }, check);
+  }
+});
