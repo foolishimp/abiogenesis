@@ -1,0 +1,37 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "configurationSha256": "7649241469e4ac05acb002e637bf35352b36693f5a878ba1aa142ae5b769814e",
+  "runnerSha256": "a184966c2756f905858969be3f6202177e407cf67453569f3139695a48e42e9b",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "candidate",
+  "lanes": [
+    "public-preparation"
+  ],
+  "maxNativePositiveCalls": 0,
+  "resources": {
+    "public-preparation": {
+      "evidence": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/evidence",
+      "host": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/host",
+      "scratchParent": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/scratchParent",
+      "worksite": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/worksite"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": {
+    "activation": "T287_RELEASE_RESUMPTION_01/phase_d.md ## D1/D4-c activation, head 3d33d558452a80ecf7a0055343f5322710fb8a23",
+    "grant": "owner decision 2 of 2026-10-24 and the sixth amendment's item 4 (2026-10-28): the combined build, P1, P5, P4 and their dependents on the cut",
+    "cut": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+    "prerequisites": [],
+    "configurationChangeScope": [
+      "status",
+      "activationFile",
+      "method (STDO 3.0.2 basis, drift item 2)",
+      "sourceRoot",
+      "sourceManifest",
+      "subject",
+      "requiredEvidence",
+      "lanes (this lane only, new roots)"
+    ]
+  }
+}

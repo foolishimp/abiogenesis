@@ -1,0 +1,84 @@
+{
+  "kind": "d14c_inventories",
+  "cut": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+  "stage": {
+    "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage",
+    "from": "git archive fd38e8227 -- .gitattributes .gitignore .grok AGENTS.md CLAUDE.md README.md build_tenants docs pyproject.toml release_snapshots specification stdo_abiogenesis.json",
+    "trackedFiles": 1793,
+    "symlinks": 0,
+    "stageTenant": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript"
+  },
+  "inventories": [
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/combined-source-manifest.json",
+      "sha256": "c5f5f5bb64f7947f730dbdea69b9d88b91d72c129c9c70b2adbcfde342d23e98",
+      "rowCount": 1793,
+      "rowKey": "files",
+      "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage"
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/generated-and-dependency-manifest.json",
+      "sha256": "ec86a75e98723066330180de82aa1959b386c8e988eb17f959f16557565af190",
+      "rowCount": 5365,
+      "rowKey": "files",
+      "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript"
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/candidate-package-inventory.json",
+      "sha256": "5b192882f60338c19acbeba5503d37cb4f9d2f0c50f9856dc6a7fd7cb12b48de",
+      "rowCount": 5317,
+      "rowKey": "files"
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/inventories/toolchain.json",
+      "sha256": "deeb06ea923f882067a5e64d29e49ccbab8c04367bc166d0b37cd1b7bb50a155",
+      "rowCount": 3,
+      "rowKey": "commands"
+    }
+  ],
+  "counts": {
+    "buildEmissions": 789,
+    "nodeModulesEntries": 4576,
+    "dependencyPackages": 16,
+    "sourceRowsUnchangedAfterBuildAndPack": true
+  },
+  "archive": {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6",
+    "bytes": 10914938,
+    "memberCount": 5317,
+    "unpackedBytes": 71618700,
+    "executiveArchive": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/packs/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "executiveSha256": "550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6",
+    "equal": true,
+    "byteEqualByCmp": true,
+    "membersEqualToStageFiles": true
+  },
+  "manifest": {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/stage/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "sha256": "d00532a5d351837b9bf414b43adb415efa00b40988b95e74389277cf7e9f4467"
+  },
+  "dependencyRoute": "offline: npm ci --offline --ignore-scripts --no-audit --no-fund in the stage tenant from the local npm cache (16 packages); no copy of the main tree node_modules",
+  "toolchain": {
+    "node": {
+      "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "realpath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "version": "v24.7.0",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f"
+    },
+    "npm": {
+      "path": "/opt/homebrew/bin/npm",
+      "realpath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "version": "11.5.1",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7"
+    },
+    "typescript": "5.9.2",
+    "packageLockSha256": "df8d50ad51f46c58d9a38bcc3dd864de0e43337dc8990886b93ad46ab298ef12"
+  },
+  "build": {
+    "tsc": "node node_modules/typescript/bin/tsc -p tsconfig.json: rc 0, 7.75 s real",
+    "generate": "node scripts/generate-product-manifest.mjs: rc 0, 22.65 s real",
+    "pack": "npm pack --ignore-scripts --json --pack-destination <scratch>/d14c/artifacts: rc 0, 3.75 s real, entryCount 5317",
+    "npmCi": "rc 0, 0.73 s real"
+  }
+}
