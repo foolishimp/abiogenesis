@@ -1,0 +1,504 @@
+{
+ "kind": "d1d4b_library_completion_condition",
+ "base": "9e5d1383f12d97e585e25fcfe39e403939508120",
+ "design": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md §10 (lines 599-693)",
+ "designSha256": "sha256:2c0f9b02386377a41eb9c99414691589128d90d879ed298c3e35f81dedc6acc5",
+ "rows": [
+  {
+   "row": "§10.1 row 1",
+   "condition": "shared/refusal.ts; the three moves of §2; the three upward imports retired",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/refusal.ts:8-33",
+    "code/src/abg/exact_prefix_bindings.ts:98,154",
+    "code/src/shared/select/exact_match.ts (code/src/product/exact_match.ts absent)",
+    "code/src/public/binding/ holds the five binding modules; none under code/src/shared/"
+   ],
+   "carriers": [
+    "lint:imports (28 modules, 3 pairs hold)",
+    "t287-common-computational-library 17/17/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.1 row 2",
+   "condition": "shared/admit/ atoms; the NUL-joined key-set bodies and inline v.safeParse in bindStaticOwner retired",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/admit/record.ts:6,20",
+    "code/src/shared/admit/json.ts:332",
+    "code/src/shared/admit/contract.ts:17,42",
+    "NUL-joined key-set bodies: 0 (35 files at 0b1187c40)",
+    "safeParse in code/src/public/binding/: 0"
+   ],
+   "carriers": [
+    "t287-common-computational-library 17/17/0/0 (D04, C-3, C-15 cases)",
+    "forward-command-contracts 10/10/0/0"
+   ],
+   "note": "the remaining \"\\0\" composite keys (product/catalog.ts:819, stdo_environment, gtl/stdo_run_environment.ts:71,203) predate the census (ad2a39f40, 785cfa9cc) and are not key-set bodies"
+  },
+  {
+   "row": "§10.1 row 3",
+   "condition": "shared/value/ atoms; the sameCanonical* bodies retired",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/value/equality.ts:16",
+    "code/src/shared/value/record.ts:22,46",
+    "sameCanonical*: 0 (12 at 0b1187c40)"
+   ],
+   "carriers": [
+    "t287-value-equality 5/5/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.1 row 4",
+   "condition": "shared/select/ atoms; the local one() helpers retired",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/select/exact_match.ts:25,33,49,68",
+    "code/src/shared/select/exact_record.ts:45-54",
+    "local one(): 0 (12 at 0b1187c40)"
+   ],
+   "carriers": [
+    "t287-select-family 7/7/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.1 row 5",
+   "condition": "abg/calculus/: effectOf, foldStep, holdsAt, ROOT_DERIVED_RULES with four rules; advance over foldStep",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/calculus/fold.ts:113 (effectOf), :275 (foldStep), :287-293 (holdsAt)",
+    "code/src/abg/calculus/rules.ts:200 (terminal_run_census, process_cleanup, liveness, actor_process_lifecycle)",
+    "code/src/abg/event_calculus.ts:242 (advance applies only applyStep)"
+   ],
+   "carriers": [
+    "t287-calculus-fold 18/18/0/0",
+    "lint:calculus (6 modules, 0 offenders)"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.1 row 6",
+   "condition": "shared/process/ classifier and facts; owners report the three terminal outcomes through the classifier",
+   "holds": "holds by reading; its physical-owner lane is red in this run (see stops)",
+   "sites": [
+    "code/src/shared/process/facts.ts:14,20,58",
+    "code/src/abg/replay.ts:2483-2485 reads terminationConfirmed through the fluent"
+   ],
+   "carriers": [
+    "t287-lifecycle-failure-carrier 5/5/0/0",
+    "lint:lifecycle (288 modules, 7 allow-listed, no offender)",
+    "t287-owned-process-lifetime 18/16/2/0 under shared load, 18/16/2/0 alone (R3-c after column 18/18/0/0)",
+    "t287-worksite-command-execution 10/4/0/0 (cancelled 6) under shared load, 10/4/0/0 (cancelled 6) alone (R3-c after column 10/10/0/0)"
+   ],
+   "note": null
+  },
+  {
+   "row": "D0",
+   "condition": "process failure facts pass in memory; no failure or process-facts file",
+   "holds": "holds",
+   "sites": [
+    "no process-facts or failure file is written or read in the Source tree"
+   ],
+   "carriers": [
+    "t287-lifecycle-failure-carrier 5/5/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "D1",
+   "condition": "every contextual effect in ROOT_DERIVED_RULES; liveness over the calculus",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/calculus/rules.ts:102 deriveLiveness over code/src/abg/calculus/liveness.ts"
+   ],
+   "carriers": [
+    "lint:calculus",
+    "t287-calculus-fold 18/18/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "D2",
+   "condition": "digest leg of checkExactRecord after projection",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/select/exact_record.ts:45-54"
+   ],
+   "carriers": [
+    "t287-select-family D2 case"
+   ],
+   "note": null
+  },
+  {
+   "row": "D3",
+   "condition": "no equality variant or encoder parameter",
+   "holds": "holds",
+   "sites": [
+    "canonicalEquals(left, right) only (code/src/shared/value/equality.ts:16)"
+   ],
+   "carriers": [
+    "t287-value-equality 5/5/0/0"
+   ],
+   "note": null
+  },
+  {
+   "row": "D4",
+   "condition": "throwing I-JSON entry kept as a lift for nine callers",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/i_json.ts:112",
+    "validator/raw_admission.ts:184",
+    "product/worksite_command_execution.ts:1101,1104,2103,2156",
+    "abg/event_store.ts:1731,2593",
+    "abg/project_read_ports.ts:1642",
+    "implementation/worksite_command_execution.ts:166",
+    "no IJsonAdmissionError catch at those sites (the one catch, probabilistic_result.ts:512, is an admitIJsonText caller)"
+   ],
+   "carriers": [
+    "reading",
+    "tsc --noEmit 0"
+   ],
+   "note": null
+  },
+  {
+   "row": "D5",
+   "condition": "terminationConfirmed copies checked at fold time",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/calculus/rules.ts:192-197",
+    "code/src/abg/event_store.ts:1181-1183 isKnownRootEventContractDigest",
+    "code/src/abg/event_store.ts:3704-3705 reopen stamp check"
+   ],
+   "carriers": [
+    "t287-lifecycle-failure-carrier D5 case"
+   ],
+   "note": "design citations event_store.ts:1189 and :3608 have drifted"
+  },
+  {
+   "row": "O-TYPE",
+   "condition": "decided at every cast site whose value feeds canonicalEquals, canonicalRecordDigest, writeCanonicalRecord, sha256Canonical, canonicalJson or an admit* atom; no moved casts",
+   "holds": "does not hold as recorded",
+   "sites": [
+    "16 new casts since a692fb4b9 (TD-15 + TD-16): 23 there, 39 at the cut",
+    "C-14 57e39894e: abg/execution_basis.ts:1332,1374; abg/project_read_ports.ts:289; abg/worksite_revision.ts:421",
+    "C-18a a0829a298: abg/execution_basis.ts:1208,1285,1336,1378; product/declaration_exports.ts:527,529",
+    "M-5b 94e923d75: validator/qualification.ts:57; validator/qualification_catalogs.ts:67 (feeds sha256Canonical directly),86",
+    "R2-c 19700d8f7: abg/artifact_truth.ts:249,270; product/materialization_definition_bindings.ts:403",
+    "no (T), (I), (A) or keep-until decision for them in design §10.3 or the register"
+   ],
+   "carriers": [
+    "cast census at a692fb4b9 and at the cut (git blame)"
+   ],
+   "note": "owner: the §10.3 O-TYPE owner with the introducing packages C-14, C-18a, M-5b, R2-c"
+  },
+  {
+   "row": "O-RESOURCE",
+   "condition": "no self-comparison encodability probe; checked data for unknown inputs",
+   "holds": "holds",
+   "sites": [
+    "no self-compare probe",
+    "code/src/product/project_read_definition_bindings.ts:128 admitJson"
+   ],
+   "carriers": [
+    "reading"
+   ],
+   "note": null
+  },
+  {
+   "row": "O-SHAPE",
+   "condition": "shallow guards retired into isRecord; isJsonRecord guards gone",
+   "holds": "holds",
+   "sites": [
+    "isJsonRecord: 0",
+    "code/src/abg/retry.ts:586 admitJson"
+   ],
+   "carriers": [
+    "reading"
+   ],
+   "note": null
+  },
+  {
+   "row": "O-CODEC",
+   "condition": "restored unknown event bodies left for Event Store validation",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/event_body_encoding.ts:28,157"
+   ],
+   "carriers": [
+    "reading"
+   ],
+   "note": null
+  },
+  {
+   "row": "O-SCHEMA",
+   "condition": "admission at the raw owner boundary",
+   "holds": "holds",
+   "sites": [
+    "code/src/product/semantics.ts:512,530,620"
+   ],
+   "carriers": [
+    "t287-common-computational-library O-SCHEMA cases"
+   ],
+   "note": null
+  },
+  {
+   "row": "O-KEY",
+   "condition": "each retired NUL-joined body binds its owner's outcomes",
+   "holds": "holds",
+   "sites": [
+    "code/src/product/default_library.ts:134 (register :133)",
+    "code/src/abg/traversal_transition.ts:93-112",
+    "code/src/abg/artifact_truth.ts:213,415,427"
+   ],
+   "carriers": [
+    "t287-common-computational-library D04 case"
+   ],
+   "note": null
+  },
+  {
+   "row": "E04",
+   "condition": "no new parser or filesystem traversal capability",
+   "holds": "holds",
+   "sites": [
+    "no parser module added since c8d3f8ecd; the ustar reader dates from 29846fc36, before 0b1187c40"
+   ],
+   "carriers": [
+    "git log"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-EQUAL",
+   "condition": "canonicalEquals equals canonical text equality; the C2 production comparator reached",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/execution_basis.ts:724 exactC2SourceEnvironment, called at :982 and :1892"
+   ],
+   "carriers": [
+    "t287-value-equality P-EQUAL and C2 cases"
+   ],
+   "note": "design site citations have drifted"
+  },
+  {
+   "row": "P-INGRESS",
+   "condition": "no derive or select export takes unknown",
+   "holds": "holds",
+   "sites": [
+    "no export of code/src/shared/value/ or code/src/shared/select/ takes unknown"
+   ],
+   "carriers": [
+    "tsc --noEmit 0",
+    "signature grep"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-KEYS",
+   "condition": "hasExactKeys agrees with own-key set equality; NUL counterexample",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/admit/record.ts"
+   ],
+   "carriers": [
+    "t287-common-computational-library D04 case"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-SELECT",
+   "condition": "cardinality equals the filter-length classification",
+   "holds": "holds",
+   "sites": [
+    "code/src/shared/select/exact_match.ts"
+   ],
+   "carriers": [
+    "t287-select-family two P-SELECT cases"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-RECORD (whole path)",
+   "condition": "malformed null-digest partitions invalid; adapter maps invalid to its refusal",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/calculus/execution_basis_record.ts:101 (design cites invocation_execution_truth.ts:671: drift)"
+   ],
+   "carriers": [
+    "t287-select-family three P-RECORD cases",
+    "reading"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-FOLD",
+   "condition": "advance and foldStep* agree on every admitted prefix; cold equals warm",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/calculus/fold.ts"
+   ],
+   "carriers": [
+    "t287-calculus-fold 18/18/0/0 including the streaming case"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-LIFECYCLE (whole path)",
+   "condition": "counterexamples A and B; worker negatives; no-child launch failure",
+   "holds": "A, B and the worker negatives hold; the physical-owner lane is red in this run (see stops)",
+   "sites": [
+    "code/src/abg/calculus/rules.ts",
+    "code/src/shared/process/facts.ts"
+   ],
+   "carriers": [
+    "t287-calculus-fold counterexamples A and B",
+    "t287-lifecycle-failure-carrier 5/5/0/0",
+    "t287-owned-process-lifetime 18/16/2/0 under shared load, 18/16/2/0 alone"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-BIND",
+   "condition": "binders typecheck after admitContract; one Effect.run* site",
+   "holds": "holds (3 of 5 cases ran)",
+   "sites": [
+    "code/src/shared/effect_definition.ts:95 the one Effect.run* site (register :102)",
+    "code/src/public/binding/static_definition_bindings.ts:48,67 admitContract"
+   ],
+   "carriers": [
+    "t287-w2-05-static-binding-algebra 5/3/0/2 (two skips: ABI5_PREPARATION_RESOLVE_CALL unset)"
+   ],
+   "note": null
+  },
+  {
+   "row": "P-LAYER",
+   "condition": "no upward import from shared/; lifecycle boundary",
+   "holds": "holds",
+   "sites": [],
+   "carriers": [
+    "lint:imports",
+    "lint:lifecycle"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.6 row 5 U(B)",
+   "condition": "emission premise: every actor_process_exited reported for a confirmed boundary",
+   "holds": "holds",
+   "sites": [
+    "code/src/abg/actor_process.ts:1361, the single emitter, via processTerminalEvent"
+   ],
+   "carriers": [
+    "reading"
+   ],
+   "note": null
+  },
+  {
+   "row": "§10.7",
+   "condition": "every added or moved function declares its disposition",
+   "holds": "holds",
+   "sites": [
+    "constitution §16.14 lists every disposition; constitution §10 catalog row exact-match at shared/select/exact_match.ts"
+   ],
+   "carriers": [
+    "reading"
+   ],
+   "note": "Table 5.6.3-B N05's location cell still names only shared/i_json.ts::admitIJsonValue"
+  }
+ ],
+ "lanes": {
+  "shared": {
+   "t287-value-equality": {
+    "rc": 0,
+    "testsPassFailSkip": "5/5/0/0",
+    "cancelled": "0",
+    "durationMs": "8533.690875",
+    "wallS": 9
+   },
+   "t287-common-computational-library": {
+    "rc": 0,
+    "testsPassFailSkip": "17/17/0/0",
+    "cancelled": "0",
+    "durationMs": "5918.587791",
+    "wallS": 7
+   },
+   "t287-select-family": {
+    "rc": 0,
+    "testsPassFailSkip": "7/7/0/0",
+    "cancelled": "0",
+    "durationMs": "903.035584",
+    "wallS": 2
+   },
+   "t287-calculus-fold": {
+    "rc": 0,
+    "testsPassFailSkip": "18/18/0/0",
+    "cancelled": "0",
+    "durationMs": "38442.762959",
+    "wallS": 38
+   },
+   "t287-lifecycle-failure-carrier": {
+    "rc": 0,
+    "testsPassFailSkip": "5/5/0/0",
+    "cancelled": "0",
+    "durationMs": "6707.435417",
+    "wallS": 7
+   },
+   "t287-owned-process-lifetime": {
+    "rc": 1,
+    "testsPassFailSkip": "18/16/2/0",
+    "cancelled": "0",
+    "durationMs": "11819.553834",
+    "wallS": 13
+   },
+   "t287-w2-05-static-binding-algebra": {
+    "rc": 0,
+    "testsPassFailSkip": "5/3/0/2",
+    "cancelled": "0",
+    "durationMs": "11883.304208",
+    "wallS": 12
+   },
+   "forward-command-contracts": {
+    "rc": 0,
+    "testsPassFailSkip": "10/10/0/0",
+    "cancelled": "0",
+    "durationMs": "9824.511542",
+    "wallS": 11
+   },
+   "t287-worksite-command-execution": {
+    "rc": 1,
+    "testsPassFailSkip": "10/4/0/0",
+    "cancelled": "6",
+    "durationMs": "3510182.368125",
+    "wallS": 3511
+   }
+  },
+  "alone": {
+   "t287-owned-process-lifetime": {
+    "rc": 1,
+    "testsPassFailSkip": "18/16/2/0",
+    "cancelled": "0",
+    "durationMs": "13449.980417",
+    "wallS": 14
+   },
+   "t287-worksite-command-execution": {
+    "rc": 1,
+    "testsPassFailSkip": "10/4/0/0",
+    "cancelled": "6",
+    "durationMs": "1893427.426625",
+    "wallS": 1894
+   }
+  }
+ },
+ "gates": {
+  "tsc --noEmit -p tsconfig.json": "rc 0, 0 lines",
+  "tsc --noEmit --noUnusedLocals": "rc 0, 0 lines",
+  "lint:imports": "rc 0, 28 modules, 3 pairs hold",
+  "lint:lifecycle": "rc 0, 288 modules, 7 allow-listed, no offender",
+  "lint:evidence": "rc 0, 691 roots, no new copy",
+  "lint:calculus": "rc 0, 6 modules, no offender",
+  "build": "rc 0"
+ }
+}

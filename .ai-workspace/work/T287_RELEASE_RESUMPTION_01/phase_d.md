@@ -3564,3 +3564,249 @@ The pin also checks by script against the built module: 117920 bytes, `sha256:de
 **Stops.** A delta needing a code, contract, design or test change; a §10 proof that does not hold at the cut; a Source44 claim the candidate neither renews nor supersedes. Write the stop into the Return and keep the rest moving.
 
 **Return contract.** `## D1/D4-b return (Worker, Opus 5.5, 2026-10-28; base \`<hash>\`)` appended once, after a blank line, before the commit so the commit carries it: the first sentence; the subtree pairs; item 1's table; item 2's counts and the pack digest; item 3's table and the release-relations paragraph; item 4's list; the record directory's files and digests; the gates; deviations; findings outside the grant; stops; what could not be verified. One commit on `main`, staged by path (the record and the record directory's files), first line `D1/D4-b: the comparison at the cut: the library design's completion condition re-read, the Source44 procedure rerun on the candidate, the delta from Source44 named with its owners and evidence`, with any gap stated in place; last line `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`.
+
+## D1/D4-b return (Worker, Opus 5.5, 2026-10-28; base `9e5d1383f12d97e585e25fcfe39e403939508120`)
+
+No: the candidate re-establishes every Source44 release relation the procedure measures (288/576 correspondence, pack `sha256:f94e1a1d…c612` equal to the Executive's, 5,317 exact installed bodies with the same two CLI modes, strict consumer typing, all ten current Public setup calls `result`), but the library design's completion condition does not hold in full at the cut: O-TYPE has 16 undecided new casts, and `t287-owned-process-lifetime` and `t287-worksite-command-execution` are red under shared load; and of the 313 paths that differ from Source44, 15 have no owning package and one (`test_env/uat/continuation.mjs`) has no evidence.
+
+**Subtree pairs.** HEAD `9e5d1383f` and R3-c `bf7119489` carry the same tenant trees: `code` `7112fffad94f4b1380332ace1a7a69a7d417892b`, `test_env` `f63df92944afdbdc41d6fb958df6f3e8fadaa1bd`, `contracts` `9da8b3d81a6f9e61360ce9b939b6e8d7de42d516`. No commit landed on `main` during the run (HEAD `9e5d1383f` at start and before the append).
+
+### Item 1: the completion condition of design §10 at the cut
+
+Read against `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` §10 (lines 599-693). Lanes ran with `ABI5_EVIDENCE_ROOT=/Users/jim/src/apps/abiogenesis/.ai-workspace` and `--test-concurrency=1 --test-timeout=600000`, one at a time; figures are tests/pass/fail/skip.
+
+| Row | Holds | Site at the cut | Carrier |
+|---|---|---|---|
+| §10.1 row 1 | holds | shared/refusal.ts:8-33; abg/exact_prefix_bindings.ts:98,154; shared/select/exact_match.ts (product/exact_match.ts absent); public/binding/ holds the five binding modules; none under shared/ | lint:imports (28 modules, 3 pairs hold); t287-common-computational-library 17/17/0/0 |
+| §10.1 row 2 | holds | shared/admit/record.ts:6,20; shared/admit/json.ts:332; shared/admit/contract.ts:17,42; NUL-joined key-set bodies: 0 (35 files at 0b1187c40) … | t287-common-computational-library 17/17/0/0 (D04, C-3, C-15 cases); forward-command-contracts 10/10/0/0 |
+| §10.1 row 3 | holds | shared/value/equality.ts:16; shared/value/record.ts:22,46; sameCanonical*: 0 (12 at 0b1187c40) | t287-value-equality 5/5/0/0 |
+| §10.1 row 4 | holds | shared/select/exact_match.ts:25,33,49,68; shared/select/exact_record.ts:45-54; local one(): 0 (12 at 0b1187c40) | t287-select-family 7/7/0/0 |
+| §10.1 row 5 | holds | abg/calculus/fold.ts:113 (effectOf), :275 (foldStep), :287-293 (holdsAt); abg/calculus/rules.ts:200 (terminal_run_census, process_cleanup, liveness, actor_process_lifecycle); abg/event_calculus.ts:242 (advance applies only applyStep) | t287-calculus-fold 18/18/0/0; lint:calculus (6 modules, 0 offenders) |
+| §10.1 row 6 | holds by reading; its physical-owner lane is red in this run (see stops) | shared/process/facts.ts:14,20,58; abg/replay.ts:2483-2485 reads terminationConfirmed through the fluent | t287-lifecycle-failure-carrier 5/5/0/0; lint:lifecycle (288 modules, 7 allow-listed, no offender); t287-owned-process-lifetime 18/16/2/0 under shared load, 18/16/2/0 alone (R3-c after column 18/18/0/0); t287-worksite-command-execution 10/4/0/0 (cancelled 6) under shared load, 10/4/0/0 (cancelled 6) alone (R3-c after column 10/10/0/0) |
+| D0 | holds | no process-facts or failure file is written or read in the Source tree | t287-lifecycle-failure-carrier 5/5/0/0 |
+| D1 | holds | abg/calculus/rules.ts:102 deriveLiveness over abg/calculus/liveness.ts | lint:calculus; t287-calculus-fold 18/18/0/0 |
+| D2 | holds | shared/select/exact_record.ts:45-54 | t287-select-family D2 case |
+| D3 | holds | canonicalEquals(left, right) only (shared/value/equality.ts:16) | t287-value-equality 5/5/0/0 |
+| D4 | holds | shared/i_json.ts:112; validator/raw_admission.ts:184; product/worksite_command_execution.ts:1101,1104,2103,2156; abg/event_store.ts:1731,2593 … | reading; tsc --noEmit 0 |
+| D5 | holds | abg/calculus/rules.ts:192-197; abg/event_store.ts:1181-1183 isKnownRootEventContractDigest; abg/event_store.ts:3704-3705 reopen stamp check | t287-lifecycle-failure-carrier D5 case |
+| O-TYPE | does not hold as recorded | 16 new casts since a692fb4b9 (TD-15 + TD-16): 23 there, 39 at the cut; C-14 57e39894e: abg/execution_basis.ts:1332,1374; abg/project_read_ports.ts:289; abg/worksite_revision.ts:421; C-18a a0829a298: abg/execution_basis.ts:1208,1285,1336,1378; product/declaration_exports.ts:527,529; M-5b 94e923d75: validator/qualification.ts:57; validator/qualification_catalogs.ts:67 (feeds sha256Canonical directly),86 … | cast census at a692fb4b9 and at the cut (git blame) |
+| O-RESOURCE | holds | no self-compare probe; product/project_read_definition_bindings.ts:128 admitJson | reading |
+| O-SHAPE | holds | isJsonRecord: 0; abg/retry.ts:586 admitJson | reading |
+| O-CODEC | holds | abg/event_body_encoding.ts:28,157 | reading |
+| O-SCHEMA | holds | product/semantics.ts:512,530,620 | t287-common-computational-library O-SCHEMA cases |
+| O-KEY | holds | product/default_library.ts:134 (register :133); abg/traversal_transition.ts:93-112; abg/artifact_truth.ts:213,415,427 | t287-common-computational-library D04 case |
+| E04 | holds | no parser module added since c8d3f8ecd; the ustar reader dates from 29846fc36, before 0b1187c40 | git log |
+| P-EQUAL | holds | abg/execution_basis.ts:724 exactC2SourceEnvironment, called at :982 and :1892 | t287-value-equality P-EQUAL and C2 cases |
+| P-INGRESS | holds | no export of shared/value/ or shared/select/ takes unknown | tsc --noEmit 0; signature grep |
+| P-KEYS | holds | shared/admit/record.ts | t287-common-computational-library D04 case |
+| P-SELECT | holds | shared/select/exact_match.ts | t287-select-family two P-SELECT cases |
+| P-RECORD (whole path) | holds | abg/calculus/execution_basis_record.ts:101 (design cites invocation_execution_truth.ts:671: drift) | t287-select-family three P-RECORD cases; reading |
+| P-FOLD | holds | abg/calculus/fold.ts | t287-calculus-fold 18/18/0/0 including the streaming case |
+| P-LIFECYCLE (whole path) | A, B and the worker negatives hold; the physical-owner lane is red in this run (see stops) | abg/calculus/rules.ts; shared/process/facts.ts | t287-calculus-fold counterexamples A and B; t287-lifecycle-failure-carrier 5/5/0/0; t287-owned-process-lifetime 18/16/2/0 under shared load, 18/16/2/0 alone |
+| P-BIND | holds (3 of 5 cases ran) | shared/effect_definition.ts:95 the one Effect.run* site (register :102); public/binding/static_definition_bindings.ts:48,67 admitContract | t287-w2-05-static-binding-algebra 5/3/0/2 (two skips: ABI5_PREPARATION_RESOLVE_CALL unset) |
+| P-LAYER | holds | - | lint:imports; lint:lifecycle |
+| §10.6 row 5 U(B) | holds | abg/actor_process.ts:1361, the single emitter, via processTerminalEvent | reading |
+| §10.7 | holds | constitution §16.14 lists every disposition; constitution §10 catalog row exact-match at shared/select/exact_match.ts | reading |
+
+Findings with their sites:
+- **O-TYPE does not hold as recorded.** 16 new casts of the census forms (`as JsonValue`, `as unknown as JsonValue`, `as Readonly<Record<string, JsonValue>>`) since TD-15 + TD-16 (`a692fb4b9`: 23; the cut: 39). C-14 `57e39894e`: `abg/execution_basis.ts:1332,1374`, `abg/project_read_ports.ts:289`, `abg/worksite_revision.ts:421`. C-18a `a0829a298`: `abg/execution_basis.ts:1208,1285,1336,1378`, `product/declaration_exports.ts:527,529`. M-5b `94e923d75`: `validator/qualification.ts:57`, `validator/qualification_catalogs.ts:67` (feeds `sha256Canonical` directly), `:86`. R2-c `19700d8f7`: `abg/artifact_truth.ts:249,270`, `product/materialization_definition_bindings.ts:403`. No (T), (I), (A) or keep-until decision is recorded for them in §10.3 or the register. Owner: the §10.3 O-TYPE owner, with the four introducing packages.
+- **`t287-owned-process-lifetime` is red at the cut in this environment** (18/16/2/0 under shared load, 18/16/2/0 alone): `:521` physical HTTP owner, ENOENT on `response.pid` at about 400 ms; `:560` the HTTP owner's capture is empty where `leader-output` is expected. Both run through `runHttpProbe`, which stops observing the port file after `min(launch.timeoutMs, request.timeoutMs)` = 300 ms (`implementation/worksite_command_helper.ts`, the `requestTimer` after the spawn). A fresh `node` plus `/bin/ps` measured 310-470 ms here at load average about 37, so the fixture child cannot write its pid and port files inside the deadline. No socket path is involved (the server listens on TCP 127.0.0.1). R3-c's after column on the same subtrees is 18/18/0/0. Owner: P-LIFECYCLE and §10.1 row 6; the code path is the checkpoint-only `shared/owned_process_lifetime.ts` (item 3, F1).
+- **`t287-worksite-command-execution` is red at the cut in this environment** (10/4/0/0 (cancelled 6) under shared load, 10/4/0/0 (cancelled 6) alone): the six installed C2 cases (`:1144`, `:1151`, `:1405`, `:1409`, `:1590`, `:1594`) each `test timed out after 180000ms`, at 508-643 s of wall time each under shared load and 192-386 s on the rerun, which is the time their installed setup takes at this load (the prepare's product-install-0 took 1,016 s). The four uninstalled cases pass. R3-c's after column on the same subtrees is 10/10/0/0. Owner: §10.1 row 6 and D0 (the helper failure reaching result admission with its subject inline).
+- Notes, not findings: design citations drifted (`event_store.ts:1189` and `:3608` now `:1181-1183` and `:3704-3705`; `invocation_execution_truth.ts:671` now `abg/calculus/execution_basis_record.ts:101`; the P-EQUAL comparator now `abg/execution_basis.ts:724`, called at `:982` and `:1892`); the register's `default_library.ts:133` is `:134` and `effect_definition.ts:102` is `:95`; constitution Table 5.6.3-B N05's location cell still names only `shared/i_json.ts::admitIJsonValue`.
+
+### Item 2: the Source44 procedure on the candidate
+
+- (a) `npm run build` rc 0 in 32 s. 288 `.ts` Source files, 576 outputs (288 `.js`, 288 `.d.ts`), none missing or extra, by Continuation16's check-02 relation (Continuation16: 264/528). Source population `sha256:d8c05d10…6d48e92`, emission population `sha256:80b9801a…6dc54`. Against cut 44: Source 48 equal, 208 changed, 32 added, 8 removed; emissions 181 equal, 331 changed, 64 added, 16 removed.
+- (b) `npm pack --ignore-scripts --json` into scratch: `sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612`, 10,914,695 B, 5,317 entries; equal to the Executive's `uat/candidate-bf7119489/pack.sha256` and to the fixture's `artifactDigest`; productContentDigest `sha256:ea9740752bfd8389749eaa5bfdfb5a77436513cca47dab76e3065d6bc6656a4d` equals the fixture's (Continuation16: `sha256:192356a4…34b5`, 10,676,374 B).
+- (c) Clean install, `npm install --prefix <scratch> --ignore-scripts --offline --no-audit --no-fund <tgz>`, rc 0. 5,317 archive members (node_modules 4,330, build 789, contracts 196, root 2); every installed body byte-exact; installed set equals the archive set; two mode differences, `build/code/src/public/cli.js` and `codex_cli.js` (0644 to 0755), the two Continuation16 named (Continuation16: 5,267). Against the Continuation16 archive: 4,890 equal, 354 changed, 73 added, 23 removed; node_modules all 4,330 equal.
+- (d) Continuation16's `consumer.mts` (byte-equal) under `tsc --strict --noEmit --skipLibCheck false --module nodenext --moduleResolution nodenext --target es2022`: rc 0; closure 480 files, 214 of them the installed tenant's `build/` declarations, 102 bundled-dependency declarations, 58 `@types/node`. TypeScript 5.9.2, Node v24.7.0, npm 11.5.1.
+- (e) `node scripts/sandbox-uat.mjs prepare` with the provider disabled, case basic-cli, archive in scratch: rc 0 in 4,557 s; status `prepared` ("Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result"); 10 of 10 current setup calls exit 0 with outcome kind `result`; sealed with its prepared Definition call. Setup identity: installed archive `sha256:f94e1a1d…c612` admitted, resolved lock `sha256:96371501…7e3d`, workspace binding `sha256:d8e9b357…a1d6`, catalog basis `sha256:4289274b…6b5e`, catalog view `sha256:e6ed9f76…ae4b`, Program `program://abi5-tests/sandbox-uat/lifecycle@5`.
+
+| Label | Exit | Wall | Outcome | outcome.json |
+|---|---|---|---|---|
+| workspace-create | 0 | 20 s | result | `sha256:a2324f9f41d91a08…` |
+| product-verify-0 | 0 | 39 s | result | `sha256:a3be42b19d1d23c1…` |
+| product-verify-1 | 0 | 311 s | result | `sha256:ab2be27df6201178…` |
+| product-resolve | 0 | 457 s | result | `sha256:c57817fe2f086eee…` |
+| product-install-0 | 0 | 1016 s | result | `sha256:a71991bc89c93eef…` |
+| product-install-1 | 0 | 653 s | result | `sha256:a922807a998f9a3f…` |
+| workspace-bind | 0 | 413 s | result | `sha256:23aa623d23dcc303…` |
+| catalog-admit | 0 | 460 s | result | `sha256:7d462f2f162e30de…` |
+| catalog-view | 0 | 429 s | result | `sha256:d4fa4672a03fb545…` |
+| program-conformance | 0 | 444 s | result | `sha256:a1fa9ddf64a74964…` |
+
+Continuation16's 12 labels against the current 10: eight matched (product-verify-0, -1, product-resolve, product-install-0, -1, workspace-bind, catalog-admit, catalog-view); two new (workspace-create, program-conformance); four with no current counterpart (witness-34, -37, -40, -43). The activation's "twelve" counts Continuation16's labels; its 11 `currentSetup` members are identity values, not outcomes.
+
+### Item 3: the delta from Source44 to the candidate
+
+Baseline: Source44's `code/src` from `dependency-cut-44-inputs.json` (264 files); `contracts/` and root `package.json` from the Continuation16 archive members; `scripts/`, `test_env/uat/`, `test_env/fixtures/` from `0b1187c40` blobs (Source44's working-tree bytes there are unrecorded); the three postimages. Candidate: HEAD blobs. Owners: `git log --no-renames --name-only 0b1187c40..HEAD -- build_tenants/abiogenesis/typescript`. `build/` and `product-toolchain-manifest.json` derive at prepack and are compared in item 2.
+
+| Directory | Equal | Changed | Added | Removed |
+|---|---|---|---|---|
+| code/src | 48 | 208 | 32 | 8 |
+| contracts | 166 | 21 | 9 | 7 |
+| (postimage extra) | 0 | 2 | 0 | 0 |
+| scripts | 6 | 2 | 4 | 0 |
+| test_env/fixtures | 54 | 10 | 1 | 1 |
+| test_env/uat | 2 | 5 | 2 | 0 |
+| package.json | 0 | 1 | 0 | 0 |
+
+313 non-equal paths; every one has an owning commit. One table grouped by package (a path counts under every package that touched it; "last changed" sums to 313):
+
+| Package | Commits | Paths touched | Paths last changed |
+|---|---|---|---|
+| checkpoint (no package) | 2e74fcd8c, 400d763d1, 67c333799, 727f1dbca | 134 | 15 |
+| T-287 library Step 2 | 69132360f | 43 | 8 |
+| T-287 library Step 3 | a2516dbdc | 78 | 7 |
+| T-287 library Step 4 | 5f4a1d4c9 | 130 | 5 |
+| T-287 library Step 5 | 10efed8b2 | 38 | 3 |
+| T-287 library Step 6 | c2432eb85 | 10 | 2 |
+| T-287 library Step 6 repair | 8eede7fdb | 2 | 0 |
+| T-287 library Step 7 | ffb767171 | 12 | 1 |
+| T-287 library Step 7 repair | dddb05dfd | 3 | 0 |
+| T-287 library Step 8a | 37ef7d760 | 9 | 1 |
+| T-287 library Step 8a-2 | cac7802b2 | 5 | 0 |
+| T-287 library Step 8 repair | 562d4515a | 2 | 0 |
+| T-287 library Step 8b | c8d3f8ecd | 2 | 0 |
+| T-287 library Post-close repair A | a1349e50b | 4 | 0 |
+| T-287 library Post-close repair C | 99b80d6f5 | 195 | 43 |
+| T-287 library Post-close repair B | d8cf6b5d9 | 8 | 0 |
+| T-287 library Post-close repair D | 0eacd4668 | 10 | 0 |
+| T-287 library Post-close repair E | 280f5777f | 6 | 0 |
+| T-287 library Post-close repair F | 195b65ddb | 6 | 0 |
+| T-287 library Post-close repair H | 46ed04895 | 2 | 1 |
+| T-290 TD-06 | 94ca67abf | 3 | 1 |
+| T-290 TD-07 | ea18189e3 | 11 | 2 |
+| T-290 TD-17 | 4bc5a945a | 2 | 0 |
+| T-290 TD-13 | 50301d557 | 13 | 1 |
+| T-290 TD-14 | 8387f70b3 | 19 | 4 |
+| T-290 TD-04 + TD-05 | bf117cf92 | 1 | 0 |
+| T-290 TD-11 | 3c91f5200 | 1 | 1 |
+| Executive record | 7e2425376 | 1 | 0 |
+| T-290 TD-08 | f6bdf13bd | 2 | 1 |
+| T-290 TD-15 + TD-16 | a692fb4b9 | 16 | 0 |
+| T-290 TD-23 | bc7135549 | 2 | 0 |
+| T-290 Phase C C-1 | 2c9878c3b | 2 | 0 |
+| T-290 Phase C C-2 | b8f66ef4b | 9 | 2 |
+| T-290 Phase C C-3 | 8566b228e | 11 | 3 |
+| T-290 Phase C C-4 | cc8e796a6 | 8 | 0 |
+| T-290 Phase C C-5 | afcb3be58 | 3 | 2 |
+| T-290 Phase C C-6 | 229b1e034 | 3 | 0 |
+| T-290 Phase C C-7 | 2acb06fcf | 3 | 0 |
+| T-290 Phase C C-8 | 8282938dc | 2 | 0 |
+| T-290 Phase C C-9 | 695a63e94 | 2 | 0 |
+| T-290 Phase C C-10 | 457b5632a | 2 | 1 |
+| T-290 Phase C C-11 | 5caf0149d | 4 | 0 |
+| T-290 Phase C C-12 | c4f279a1e | 3 | 1 |
+| T-290 Phase C C-12b | 9bedf89db | 3 | 0 |
+| T-290 Phase C C-12c | 0ca045919 | 9 | 3 |
+| T-290 Phase C C-13 | 39aebe727 | 8 | 2 |
+| T-290 Phase C C-15 | ee7c49721 | 18 | 2 |
+| T-290 Phase C C-15b | 6071e6936 | 10 | 3 |
+| T-290 Phase C C-16 | cd6fc7e55 | 10 | 3 |
+| T-290 Phase C C-17 | c2f1cfa3d | 14 | 4 |
+| T-290 Phase C C-14 | 57e39894e | 12 | 1 |
+| T-291 M-4 | e9e74fb74 | 5 | 1 |
+| T-291 M-5 | 661294535 | 5 | 0 |
+| T-291 M-5b | 94e923d75 | 12 | 2 |
+| T-291 M-6 | ae84e2099 | 8 | 0 |
+| T-290 Phase C C-18a | a0829a298 | 127 | 98 |
+| T-290 Phase C C-18b | 811bb8f85 | 5 | 3 |
+| T-290 Phase C C-19 | d61cfd90f | 5 | 3 |
+| T-290 Phase C C-20 | acb5200a8 | 2 | 2 |
+| Phase D D0 | 529ffa0f6 | 45 | 19 |
+| Phase D D1/D4-a | 93119c1b2 | 4 | 2 |
+| Phase D R2 | c01b63c4f | 1 | 1 |
+| Phase D R2-b | 6e7a5246d | 5 | 2 |
+| Phase D R2-c | 19700d8f7 | 7 | 4 |
+| Phase D U1-b | 9ec6c22f1 | 3 | 0 |
+| Phase D S1 | e71ae8a5c | 22 | 19 |
+| Phase D R3 | 0f6258433 | 18 | 8 |
+| Phase D R3-b | b78409e76 | 19 | 6 |
+| Phase D R3-c | bf7119489 | 20 | 20 |
+
+Evidence by package: T-287 library steps and repairs, T-290 TD and Phase C packages, T-291 M packages and D0: each Return's lane column (not re-read here), with their tree carried by D1/D4-a's after column at `93119c1b2` (195 lanes, 1,161/990/4/167, compose 2/2/0/0). D1/D4-a: that column (phase_d.md 730-753). R2 and R2-b: named only (their dispositions are outside this read grant); their tree is carried by the sandbox runs on `19700d8f7`. R2-c: Sandbox UAT on `19700d8f7` (1565-1582). U1-b: retest on `9ec6c22f1` (1790-1808). S1: 179 lanes and rust-cli on `e71ae8a5c` (2308-2319). R3: 695/594/0/101 and rust-cli on its pack (2704-2725). R3-b: 608/516/0/92 and rust-cli (3091-3106). R3-c: 679/579/0/100, pack `f94e1a1d…c612` and rust-cli (3528-3543), and item 2 here. Per-package evidence is in `delta.json`.
+
+Findings:
+- **The baseline premise is false.** `0b1187c40` plus the three postimages is not Source44: 99 of cut 44's 264 Source files differ from `0b1187c40` and a 100th, `abg/runtime_history.ts`, is absent there; the two postimage extras differ; three contracts of the Continuation16 archive differ from `0b1187c40` (`capabilities/capability-definition-graph.json`, `schemas/native-runtime-observation.json`, `worksite/command-execution-context.inventory.json`). All 105 landed, in checkpoint `67c333799` (93) or `727f1dbca` (12); none never landed.
+- **F1, 15 paths with no owning package commit.** Their only owners are the checkpoints `727f1dbca`, `67c333799`, `400d763d1`, `2e74fcd8c`: `code/src/shared/owned_process_lifetime.ts` (added), `code/src/shared/rooted_topology_partition.ts`, `contracts/default-library/stdo/standards/ASSURANCE.md` (added), `contracts/default-library/stdo/standards/STDO_REFERENCE_FRAME_BASELINE.md` (removed), `design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`, `test_env/fixtures/language-smoke/leaf.mjs`, `test_env/fixtures/language-structural/leaf.mjs`, `test_env/fixtures/sandbox-uat/data-mapper-full/request.json`, `test_env/fixtures/sandbox-uat/independent-oracle.mjs`, `test_env/fixtures/sandbox-uat/scenarios.json`, `test_env/uat/README.md`, `test_env/uat/config.example.json`, `test_env/uat/continuation.mjs` (added), `test_env/uat/public-setup.mjs`, `test_env/uat/runner.mjs`. Later package evidence exercises eleven of them (`delta.json` `checkpointOnly`): `owned_process_lifetime.ts` by `t287-owned-process-lifetime` (18/16/2/0 under shared load, 18/16/2/0 alone); `rooted_topology_partition.ts` by `t287-tv5-rooted-topology-partition`; ASSURANCE.md by `t287-default-library`, whose member list also excludes the removed baseline file (absent from the candidate archive); the language fixtures by `installed-language-smoke`, `a5-f02-canonical-gtl-identity`, `m5-installed-graph-edge`, `t287-gtl-graph-law`; runner, public-setup, scenarios, oracle and the data-mapper request by the sandbox runs and this prepare. The eight under `test_env/uat/` and `test_env/fixtures/sandbox-uat/` owned only by `727f1dbca` or `67c333799` may carry Source44's own unrecorded dirty bytes; for those the finding may be the baseline's, not a delta.
+- **F2, a changed relation with no evidence:** `test_env/uat/continuation.mjs`. `uat-continuation` is 4/0/0/4, all skipped, and `runner.mjs` does not import it (D5-a's intake). The design file, `test_env/uat/README.md` and `config.example.json` carry no release relation (note).
+
+Release relations. Source44 with Continuation16 established: Source/output correspondence of a frozen cut; one archive identity with its content digest; archive/installed body correspondence with only the two CLI modes differing; strict external typing of the installed declarations; the Public setup reaching `result` on each step; a normal preparation close. The candidate re-establishes each at its own size: 288/576; `f94e1a1d…c612` with content `ea974075…6a4d`, equal to the Executive's record and the fixture; 5,317 exact with the same two modes; `consumer.mts` rc 0; ten current Public setup calls `result` and a sealed preparation. It does not re-establish what Continuation16 tied to the original37 producer: the Program `80475497…`, its source result and basis, current-use `7805da0d…`, the target covers and the witness outcomes; the provider-backed runs on `19700d8f7` through `bf7119489` supersede those. Neither line earned the C2 red/repair/green, restart, full Replay with nativeLiveness, capacity or the Data Mapper workload. Whether this comparison, its findings and the provider-backed runs on the candidate archive suffice to release it is the D1/D4-c grant's subject.
+
+### Item 4: the authentic setup evidence
+
+"The sandbox runs" below: the ten passing sandbox runs: 19700d8f7 (R2-c) basic-cli, js-tenant-test, js-sdlc-bootstrap; 9ec6c22f1 (U1-b) rust-cli, rust-service, parallel-js; e71ae8a5c (S1) rust-cli; and rust-cli on the packs of R3 (0f6258433), R3-b (b78409e76) and R3-c (bf7119489, archive f94e1a1d…c612); `setup-outcomes.json` digests their `summary.json` files with the rust-cli failure at `19700d8f7` and the data-mapper-full refusal at `9ec6c22f1`.
+- C16-01, ordinary build passed; all 264 Source and 528 outputs match cut 44: renewed by item 2(a): build rc 0; 288 Source, 576 outputs (288 .js, 288 .d.ts), none missing or extra.
+- C16-02, sole payload body delta versus Continuation15 is abg/native_work_reacquisition.js; graph and manifest derive freshly: historical, superseded by item 2(a) and item 3: the candidate's payload is rebuilt from its own Source; its delta from Source44 is item 3.
+- C16-03, actual content sha256:6fb24fc7…, archive sha256:192356a4…34b5, 10,676,374 B: renewed by item 2(b): archive sha256:f94e1a1d…c612, 10,914,695 B, content sha256:ea974075…6a4d; equal to the Executive's pack.sha256 and the fixture's artifactDigest.
+- C16-04, direct pack, clean install and external strict TypeScript passed; 5,267 archive/installed bodies exact; two installed CLI modes differ: renewed by item 2(b)-(d): 5,317 bodies exact; the same two CLI modes (0644 to 0755); consumer.mts rc 0 under --strict.
+- C16-05, 936 generated preimages have exact Continuation15 archive homes; no old tree copied: historical, superseded by item 2(a) and 2(c): a fresh build and a clean install from the candidate archive.
+- C16-06, the unsupported product/… checker path preserved with its Root-selected abg/… correction: historical, superseded by item 2(a): correspondence recomputed from the check-02 relation over the candidate's own tree.
+- C16-07, Original37 parent/native producer and whole Program 80475497… authenticated: historical, superseded by the sandbox runs.
+- C16-08, the actual fresh44 pair: historical, superseded by item 2(b): the candidate archive itself.
+- C16-09, 12 Public setup outcomes, all result: renewed by item 2(e): the eight matched labels all result; workspace-create and program-conformance are new.
+- C16-09w, witness-34, witness-37, witness-40, witness-43 outcomes: historical, superseded by the sandbox runs, whose current Public setup (test_env/uat/public-setup.mjs) runs no witnesses.
+- C16-10, four target covers: historical, superseded by the sandbox runs.
+- C16-11, current-use sha256:7805da0d…: historical, superseded by the sandbox runs.
+- C16-12, normal preparation close: renewed by item 2(e): the prepare seals its prepared Definition call.
+- C16-13, real post-close private callback: historical, superseded by the sandbox runs.
+- C16-14, Helper07, workload and controlled local responder exact; driver 72547b2a…: historical, superseded by the sandbox runs (provider-backed; no controlled responder).
+- C16-15, latest native close lifecycle-start.close.json and the one bounded owned selected read: historical, superseded by the sandbox runs; t287-worksite-command-execution's large-log case in R3-c's column (10/10/0/0; it timed out under load here).
+- C16-16, candidate broken\n, three inputs exact, locks absent, both owned processes ESRCH: historical, superseded by the sandbox runs.
+- C16-17, first native runtime_failed: transport-identity-mismatch@5 at ordinal 1235: historical, superseded by the sandbox runs: C2 completes in the passing runs.
+- C16-18, two closing documentary locator errors: historical, superseded by this comparison's own record.
+- C16-19, readiness currentSetup identity (11 members): renewed by item 2(e) and 2(d) for the installed root, workspace binding, resolved lock, catalog basis, catalog view and consumer; historical, superseded by the sandbox runs for the Program, sourceResultRef, sourceBasisRef, current-use and target covers.
+- Not claims: C2 red/repair/green, restart, full Replay with nativeLiveness and raw comparisons, and original capacity were stated unearned; the helper heap and RSS samples were stated not to be peaks; the original Data Mapper was untouched (data-mapper-full refused at `9ec6c22f1`).
+
+No Continuation16 claim is left neither renewed nor superseded.
+
+### Record directory
+
+- `.ai-workspace/comments/claude/20261028T090837Z_D1D4B_COMPARISON/README.md`: `sha256:af6c5923e7fb38887634155344c929281837f15da28870041829605207f32ec0`, 33,663 B
+- `.ai-workspace/comments/claude/20261028T090837Z_D1D4B_COMPARISON/completion-condition.json`: `sha256:7aa86ca846b8f4be1d16d5044288ec836e810c720e787f0b33a4430708910fb7`, 15,058 B
+- `.ai-workspace/comments/claude/20261028T090837Z_D1D4B_COMPARISON/correspondence.json`: `sha256:fc6587076f6b3941bd0d97267b14510f52c8e43363bc961962d85bd58d03ed12`, 7,027 B
+- `.ai-workspace/comments/claude/20261028T090837Z_D1D4B_COMPARISON/delta.json`: `sha256:6de7269d2a921e9c1737bd6327bc6351981c3457c79931f6d4d01c853d0c7bc6`, 349,148 B
+- `.ai-workspace/comments/claude/20261028T090837Z_D1D4B_COMPARISON/setup-outcomes.json`: `sha256:4e882001ccec8c4637089e6c87b71cb36e1b041a424211151ea6741cf297da65`, 23,150 B
+
+Each file holds digests, counts and paths only; no evidence copy. The twelve sandbox `summary.json` files cited are digested in `setup-outcomes.json`.
+
+### Gates
+
+`npx tsc --noEmit -p tsconfig.json` rc 0, 0 lines; with `--noUnusedLocals` rc 0, 0 lines; `lint:imports` 28 modules, 3 pairs hold; `lint:lifecycle` 288 modules, 7 allow-listed, no offender; `lint:evidence` 691 roots, no new copy; `lint:calculus` 6 modules, no offender; `npm run build` rc 0. Carrier lanes: `t287-value-equality` 5/5/0/0; `t287-common-computational-library` 17/17/0/0; `t287-select-family` 7/7/0/0; `t287-calculus-fold` 18/18/0/0; `t287-lifecycle-failure-carrier` 5/5/0/0; `t287-owned-process-lifetime` 18/16/2/0 under shared load, 18/16/2/0 alone; `t287-w2-05-static-binding-algebra` 5/3/0/2; `forward-command-contracts` 10/10/0/0; `t287-worksite-command-execution` 10/4/0/0 (cancelled 6) under shared load, 10/4/0/0 (cancelled 6) alone. `git status --short -- build_tenants/abiogenesis/typescript` is empty before the build, after the build, pack and prepare, and before the commit.
+
+### Deviations
+
+1. The first clean install ran from a directory with no `package.json`, so npm walked up to the scratchpad root. It removed a pre-existing non-directory `node_modules` entry there (probably a symlink; its target is unknown and cannot be restored) and created `package.json`, `package-lock.json` and `node_modules` there, which I deleted. No tool under `r2b/tools/`, `r3/` or `r3c/tools/` references it. The install was redone with its own `package.json` and `--prefix`. It is outside the repository; if an Executive scratch tool resolved modules through it, the D3 sweep or whole suite would show it.
+2. The first carrier-lane run overlapped my prepare and runs not mine (the Executive's D3 sweep among them; load average about 37), so it was not alone on the machine. The two red lanes were rerun one after the other once my prepare had ended; runs not mine still held the load near 37; both figures are reported.
+3. Lanes and the prepare ran with `TMPDIR` in scratch and `npm_config_logs_dir` in scratch; the consumer compile took `--typeRoots` from the tenant's `node_modules/@types`.
+4. Build and pack ran before item 1's lanes, which need a built tree.
+5. The prepare used case basic-cli, recursionBound 12 and processTimeoutMs 3,600,000.
+6. The clean install kept npm's default bin links; the Product's installer uses `--bin-links=false`.
+7. I read the R3-c activation (phase_d.md 3107-3134) beyond the R3-b disposition, and T-287 record lines 5520-5523 and 5531-5533 beyond the matched lines.
+8. The twelve sandbox `summary.json` files were read by exact run-id prefix under the tenant's `test_env/test_runs/sandbox-uat/`, not under `.ai-workspace/`.
+9. Item 3 adds root `package.json` (packed bytes equal its source blob on both sides) to the five named directories.
+
+### Findings outside the grant
+
+- Continuation16's `publication/archive-correspondence.json` records `modeDifferences: []` while its return names the two installed CLI modes; this run measures the two.
+- The activation's "twelve Public setup outcomes" and the 11 `currentSetup` identity members are different sets; item 2(e) maps both.
+- `t287-w2-05-static-binding-algebra` skips two P-BIND cases unless `ABI5_PREPARATION_RESOLVE_CALL` is set.
+- D1/D4-a's after column, cited as evidence for the packages before it, carries 4 failures (1,161/990/4/167).
+
+### Stops
+
+- O-TYPE (item 1): 16 undecided new casts. It is a §10.3 owner obligation, not a §10.5 proof; listed here so the Executive rules on it.
+- `t287-owned-process-lifetime` red (18/16/2/0 under shared load, 18/16/2/0 alone): a P-LIFECYCLE and row-6 carrier that does not hold in this run. Diagnosis: timing under shared load, as above. The Executive rules whether a run on a quiet machine stands in.
+- `t287-worksite-command-execution` red (10/4/0/0 (cancelled 6) under shared load, 10/4/0/0 (cancelled 6) alone): six installed C2 cases time out at 180 s under shared load. The Executive rules whether a run on a quiet machine stands in.
+- A delta needing a test change: `test_env/uat/continuation.mjs` (F2) is added with no exercising evidence; it needs a test that runs it or its removal (D5-a's intake).
+- No Source44 claim is left neither renewed nor superseded.
+
+### What could not be verified
+
+- Source44's working-tree bytes for `scripts/`, `test_env/uat/` and `test_env/fixtures/`: unrecorded; `0b1187c40` stands in.
+- The R2 and R2-b dispositions and the pre-Phase-D Returns were not read; their evidence is cited by name and by the later columns that carry their tree.
+- The Executive's D3 sweep and whole suite: not mine to read.
+- The prepare ran with the provider disabled, so no Testing run on this archive is mine; R3-c's rust-cli run is the provider-backed run on `f94e1a1d…c612`.
+- The two red carrier lanes on a quiet machine: both reds track the shared load (load average about 37, not mine to lower); R3-c's columns on the same subtrees are green.
+- The reading is one model's, with an advisor; no Codex reading.

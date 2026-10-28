@@ -1,0 +1,541 @@
+{
+ "kind": "d1d4b_setup_outcomes_and_authentic_setup_evidence",
+ "base": "9e5d1383f12d97e585e25fcfe39e403939508120",
+ "prepare": {
+  "command": "node scripts/sandbox-uat.mjs prepare <scratch>/prepare/config.json",
+  "case": "basic-cli",
+  "providerEnabled": false,
+  "configSha256": "sha256:72237ba650f8e209af436f5732cd0b27821ccf78e673a102f1b3975dd11f5308",
+  "rc": 0,
+  "wallS": 4557,
+  "summary": {
+   "mode": "prepare",
+   "status": "prepared",
+   "uatPass": false,
+   "reason": "Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result"
+  },
+  "archive": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a",
+  "outcomes": [
+   {
+    "label": "workspace-create",
+    "exitCode": 0,
+    "wallMs": 19750,
+    "timedOut": false,
+    "commandResultSha256": "sha256:259571da84e47e64444001e0366cb85c3ce6c7fd5390bf22b588092c458fc1ff",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:a2324f9f41d91a086113ef29454df301139e9a5e45e55b9eb0ae133a881c4df6",
+    "continuation16": "no counterpart"
+   },
+   {
+    "label": "product-verify-0",
+    "exitCode": 0,
+    "wallMs": 39196,
+    "timedOut": false,
+    "commandResultSha256": "sha256:2eb33edb1c1b6c23a528b9a410cb1a7f75ac7d5fde97e43ebc4715a9b39b7da6",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:a3be42b19d1d23c19b51e9340e62cd96b9aaa8cd24b81dae7684a62a7f0a8192",
+    "continuation16": "result"
+   },
+   {
+    "label": "product-verify-1",
+    "exitCode": 0,
+    "wallMs": 311477,
+    "timedOut": false,
+    "commandResultSha256": "sha256:309cc463bdd6c82c585e464e8b6833120350a034679af02d1662390c9e4f651c",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:ab2be27df6201178ba0dd75dc85420eab36bb8850ba2c19adb7934827d8e3304",
+    "continuation16": "result"
+   },
+   {
+    "label": "product-resolve",
+    "exitCode": 0,
+    "wallMs": 457481,
+    "timedOut": false,
+    "commandResultSha256": "sha256:9c95d4337fb766339c3e46fa33fffa27d8d9eda2160a08211cd1201c7eca45b7",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:c57817fe2f086eeeef726894f0455f56d139e0ed643cfbcbc5ed01d56c146003",
+    "continuation16": "result"
+   },
+   {
+    "label": "product-install-0",
+    "exitCode": 0,
+    "wallMs": 1015743,
+    "timedOut": false,
+    "commandResultSha256": "sha256:9459f39eda28c2db87bc941bd397ef45b3452a58a06e71674b87098e479d8bf6",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:a71991bc89c93eef38ffea21aa89ab5e24e1ac6f0097dc4119a583c6bcb6777b",
+    "continuation16": "result"
+   },
+   {
+    "label": "product-install-1",
+    "exitCode": 0,
+    "wallMs": 652764,
+    "timedOut": false,
+    "commandResultSha256": "sha256:419ab5d57c8a31941824d5ebc8f8292e5926a0c4012e33fa683e324bd240788c",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:a922807a998f9a3fbca26e1e292309552e81f7ed7b594b39eab2252ebfd0abea",
+    "continuation16": "result"
+   },
+   {
+    "label": "workspace-bind",
+    "exitCode": 0,
+    "wallMs": 412509,
+    "timedOut": false,
+    "commandResultSha256": "sha256:74a34d2fc42f5ba56d836e63c811f4fd1d0877e0bc543ac7892c94291ed2a177",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:23aa623d23dcc303f8f8538afea5475e0e59da149ef0b254cabc13fb3d3f3aba",
+    "continuation16": "result"
+   },
+   {
+    "label": "catalog-admit",
+    "exitCode": 0,
+    "wallMs": 459950,
+    "timedOut": false,
+    "commandResultSha256": "sha256:407710b662e18305d0add6d3e056bb3b14641818be0f8cd95256447a91647114",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:7d462f2f162e30dec2f7fbc489d45f32b7e381445291ad72c848b2a8dfdedaf1",
+    "continuation16": "result"
+   },
+   {
+    "label": "catalog-view",
+    "exitCode": 0,
+    "wallMs": 429317,
+    "timedOut": false,
+    "commandResultSha256": "sha256:fcc54fff0d487d430e925ac9bf0407d8983db38118a796ba44317c3618ce18cd",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:d4fa4672a03fb54560f8249c4b9ebfd5bd11e0f97b7e4ab9367867f4394a91c1",
+    "continuation16": "result"
+   },
+   {
+    "label": "program-conformance",
+    "exitCode": 0,
+    "wallMs": 444105,
+    "timedOut": false,
+    "commandResultSha256": "sha256:e16c9d6c68fc28ea1bc39ae9e8842f70fc4d3e3188f46ccf5475f1a65a08bccd",
+    "outcomeKind": "result",
+    "outcomeSha256": "sha256:a1fa9ddf64a749641d5723fb05434c9aa220a61cfd4ec2b662b3a324aac2c6d5",
+    "continuation16": "no counterpart"
+   }
+  ],
+  "files": {
+   "summary.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/summary.json",
+    "sha256": "sha256:3748b2653114f1f8bbef4f9cb3c67a533bea520c3cba22b3541cee96e58127d8"
+   },
+   "setup-identity.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/setup-identity.json",
+    "sha256": "sha256:875bcb666859206c1e4e5d61b7f00f46ffa12e7f275628787ec598e67a35dfb7"
+   },
+   "prepared-definition-call.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/prepared-definition-call.json",
+    "sha256": "sha256:44cf7fe0a516ce1d11a13f586b7666b754920c05d9d02c430fb2efda956ea593"
+   },
+   "final-close-handoff.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/final-close-handoff.json",
+    "sha256": "sha256:7a120ad4bbae640f4a4dcdd9961eebf5e8ddbf87b5a5b58be9541e931e37c219"
+   },
+   "SEALED.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/SEALED.json",
+    "sha256": "sha256:e64307993f0fcc541382f533a5c66c7b2015331f737e690de83564073f2e9467"
+   },
+   "run.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/run.json",
+    "sha256": "sha256:c9c974018c30fc3c23fec4b491b2e293df1f48af827ce2792eeb3cee828faa1b"
+   },
+   "preflight.json": {
+    "path": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/preflight.json",
+    "sha256": "sha256:ec53b58520b9037633bd75f9e6748f4a473d893f3f1d05462d9a54f2fd920b28"
+   }
+  },
+  "setupIdentity": {
+   "installations": [
+    {
+     "kind": "product_install",
+     "disposition": "admitted",
+     "artifactDigest": "sha256:f94e1a1dab24fc2567f5aeff31945516d405a3cc92ce3506615d60459d43c612",
+     "productContentDigest": "sha256:ea9740752bfd8389749eaa5bfdfb5a77436513cca47dab76e3065d6bc6656a4d",
+     "manifestDigest": "sha256:ce284cbbc8bb7ab2e925f22d0a96f6eb21305e99de033b6d6d8be9f5382fe2c9",
+     "catalogDigest": "sha256:b0df08b8cb880a6e42aa02a7956dfa26e1ed4d57183ac1083c409d5588970bd4",
+     "contributionManifestDigest": "sha256:5e3c05fb96b630c83ea921688d77bca6d13ca5eeff759745370f5f42e01faa72",
+     "resolvedLockDigest": "sha256:96371501873629b27e30f95e6e6add251a2bd3a4d9a05a7ff58a7f0fe5247e3d",
+     "admissionEventRef": "event://abiogenesis/31745c896c42be60b364016dcc87fcc23fa4597e56af7d2dc9d5da7944d90137",
+     "capabilityDefinitionGraphContentDigest": "sha256:69e38ea86edda3a3b3744c329418a368a1051fde3bcd157dccbf88013c55c8b3",
+     "installedRoot": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant"
+    },
+    {
+     "kind": "product_install",
+     "disposition": "admitted",
+     "artifactDigest": "sha256:ce796077f46ef98b96c93ffa0572b349d686109f42afde2745c87404edb04acb",
+     "productContentDigest": "sha256:ba3f071b75d3af8035427a96c03b454c76d3412dc4c58b87355662667ff04b00",
+     "manifestDigest": "sha256:9bdc59482bd1aa4b1431cd6c998d81ba5a99e9663b0a8c6376259378aa1ddecf",
+     "catalogDigest": "sha256:34d92e0cbbd64914e8d3cf5f14efb59e82077a6ecd6b3cb26d34037eecd40f29",
+     "contributionManifestDigest": "sha256:0079ff1585e88aa9f6cc7c006eef8b0c4655530e0046fb7026758c4af1d2e396",
+     "resolvedLockDigest": "sha256:96371501873629b27e30f95e6e6add251a2bd3a4d9a05a7ff58a7f0fe5247e3d",
+     "admissionEventRef": "event://abiogenesis/f933e86d4cef0a725620f0c4007a3d19afd3f0dff8c73784d9350d480b80991b",
+     "capabilityDefinitionGraphContentDigest": "sha256:f664ed939704a5573a2f5151eccb86532c777eda6d5b927454f65ca839363bd0",
+     "installedRoot": "<scratch>/prepare/runs/basic-cli/2026-10-28T07-17-01-223Z-8d6e5460-4849-4858-9051-999b89cf093a/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat"
+    }
+   ],
+   "resolvedLock": {
+    "lockDigest": "sha256:96371501873629b27e30f95e6e6add251a2bd3a4d9a05a7ff58a7f0fe5247e3d",
+    "nativeContractClosureDigest": "sha256:45774696a9cd09896c16f4104d0fc2e2436f615e43f643b8a97b975746c7c1ab"
+   },
+   "workspaceAuthority": {
+    "authorityManifestDigest": "sha256:333e68ca6bff3c970f9db9191c0e4176c15fa7df546926dba1a812a5e91b3608",
+    "authorityBasisDigest": "sha256:7cb1e8e48e187d78ea7b59e4458900eb86d2022596d9e20b1d74a08bd9243e3e"
+   },
+   "workspaceBinding": "sha256:d8e9b357d35db70640173cb1ea07c8420a1fb3cd368dbf55527bb37dd0c7a1d6",
+   "catalogBasisDigest": "sha256:4289274b3b0e0ffda2fc85ae5d0e31d5a10be5729cded7fbfdacc0e80b5b6b5e",
+   "catalogViewDigest": "sha256:e6ed9f76a2ece4fa4666d676f9278912b5d5b6bd369eddd788d2a4062c1eae4b",
+   "program": {
+    "kind": "gtl_program",
+    "programRef": "program://abi5-tests/sandbox-uat/lifecycle@5",
+    "moduleRef": "module://abi5-tests/sandbox-uat/consumer@5",
+    "closureContractRef": "contract://abiogenesis/default-library/closure-run@5"
+   },
+   "fixture": {
+    "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+    "packageName": "@abi5-tests/sandbox-uat",
+    "packageVersion": "5.0.0",
+    "artifactDigest": "sha256:ce796077f46ef98b96c93ffa0572b349d686109f42afde2745c87404edb04acb",
+    "manifestDigest": "sha256:9bdc59482bd1aa4b1431cd6c998d81ba5a99e9663b0a8c6376259378aa1ddecf",
+    "productContentDigest": "sha256:ba3f071b75d3af8035427a96c03b454c76d3412dc4c58b87355662667ff04b00"
+   },
+   "classification": "Prepared installed generic path; no application UAT pass or provider dispatch"
+  }
+ },
+ "continuation16Labels": [
+  "product-verify-0",
+  "product-verify-1",
+  "product-resolve",
+  "product-install-0",
+  "product-install-1",
+  "workspace-bind",
+  "catalog-admit",
+  "catalog-view",
+  "witness-34",
+  "witness-37",
+  "witness-40",
+  "witness-43"
+ ],
+ "currentLabels": [
+  "workspace-create",
+  "product-verify-0",
+  "product-verify-1",
+  "product-resolve",
+  "product-install-0",
+  "product-install-1",
+  "workspace-bind",
+  "catalog-admit",
+  "catalog-view",
+  "program-conformance"
+ ],
+ "mapping": {
+  "matched": [
+   "product-verify-0",
+   "product-verify-1",
+   "product-resolve",
+   "product-install-0",
+   "product-install-1",
+   "workspace-bind",
+   "catalog-admit",
+   "catalog-view"
+  ],
+  "new": [
+   "workspace-create",
+   "program-conformance"
+  ],
+  "noCurrentCounterpart": [
+   "witness-34",
+   "witness-37",
+   "witness-40",
+   "witness-43"
+  ]
+ },
+ "sandboxRuns": "the ten passing sandbox runs: 19700d8f7 (R2-c) basic-cli, js-tenant-test, js-sdlc-bootstrap; 9ec6c22f1 (U1-b) rust-cli, rust-service, parallel-js; e71ae8a5c (S1) rust-cli; and rust-cli on the packs of R3 (0f6258433), R3-b (b78409e76) and R3-c (bf7119489, archive f94e1a1d…c612)",
+ "sandboxSummaries": [
+  {
+   "candidateCommit": "19700d8f7",
+   "package": "R2-c",
+   "case": "basic-cli",
+   "runId": "2026-10-27T16-35-14-097Z-b2ea4165-3f1e-4bce-9cdb-4126a4b15ed6",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/basic-cli/2026-10-27T16-35-14-097Z-b2ea4165-3f1e-4bce-9cdb-4126a4b15ed6/summary.json",
+   "sha256": "sha256:865c0b438fd53efbf3b362fe44804b22646db789b70b50d85ce4be37280233bd",
+   "bytes": 531,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "19700d8f7",
+   "package": "R2-c",
+   "case": "js-tenant-test",
+   "runId": "2026-10-27T17-25-53-880Z-7e043ae1-55c5-40aa-8a4f-3aae165b89ad",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-tenant-test/2026-10-27T17-25-53-880Z-7e043ae1-55c5-40aa-8a4f-3aae165b89ad/summary.json",
+   "sha256": "sha256:f99cae33d939ebe374d7d4aedd4431753abda56a58830e98028e5900302911d8",
+   "bytes": 541,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "19700d8f7",
+   "package": "R2-c",
+   "case": "js-sdlc-bootstrap",
+   "runId": "2026-10-27T17-48-50-168Z-d88ea160-b9d7-410c-b79f-4d8249ad7389",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-27T17-48-50-168Z-d88ea160-b9d7-410c-b79f-4d8249ad7389/summary.json",
+   "sha256": "sha256:76e9677d4e646a0c72f45d6f91e5b3997d15ce248a0fb78cac2c3e2f6e5b4d0f",
+   "bytes": 547,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "19700d8f7",
+   "package": "R2-c",
+   "case": "rust-cli",
+   "runId": "2026-10-27T18-03-55-623Z-d512c06e-e638-4c56-9744-063cbe6c41f7",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-27T18-03-55-623Z-d512c06e-e638-4c56-9744-063cbe6c41f7/summary.json",
+   "sha256": "sha256:22d074594a6fcd475b3c5c638e1b1a8dd7660502c8434c80cdbc0c6ebc29ed6c",
+   "bytes": 538,
+   "status": "failed",
+   "uatPass": false,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "9ec6c22f1",
+   "package": "U1-b",
+   "case": "rust-cli",
+   "runId": "2026-10-27T20-44-45-190Z-7729355a-04e0-4a8b-8263-9ffde296b700",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-27T20-44-45-190Z-7729355a-04e0-4a8b-8263-9ffde296b700/summary.json",
+   "sha256": "sha256:d64565ed103d4218be2f25cb8d846206ba41e39d5d4cae046ac50b89b54ebba3",
+   "bytes": 529,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "9ec6c22f1",
+   "package": "U1-b",
+   "case": "rust-service",
+   "runId": "2026-10-27T20-56-39-285Z-3525ca50-e91b-4935-b56b-992bff388712",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-service/2026-10-27T20-56-39-285Z-3525ca50-e91b-4935-b56b-992bff388712/summary.json",
+   "sha256": "sha256:6570e6196971eb86f66a86ee835bd12d5f03756a95791223cc58d3c3257d12a5",
+   "bytes": 537,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "9ec6c22f1",
+   "package": "U1-b",
+   "case": "parallel-js",
+   "runId": "2026-10-27T21-14-33-151Z-8ccb7ab8-444d-4cf1-881a-eadda14bd882",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/parallel-js/2026-10-27T21-14-33-151Z-8ccb7ab8-444d-4cf1-881a-eadda14bd882/summary.json",
+   "sha256": "sha256:d549cb7f8619119819c791d91885f698e36ce5a9569633722c7dd0e30671c3cc",
+   "bytes": 535,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "9ec6c22f1",
+   "package": "U1-b",
+   "case": "data-mapper-full",
+   "runId": "2026-10-27T21-27-01-448Z-6fd35515-3d34-44f6-90ba-d29928ae8a0f",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/data-mapper-full/2026-10-27T21-27-01-448Z-6fd35515-3d34-44f6-90ba-d29928ae8a0f/summary.json",
+   "sha256": "sha256:261e27cb2fa3be0ec8b3a5ff1c9acdd7040685a4fe0083793894853757058a72",
+   "bytes": 3351,
+   "status": "refused",
+   "uatPass": false,
+   "runtimeDisposition": null,
+   "independentOracle": null
+  },
+  {
+   "candidateCommit": "e71ae8a5c",
+   "package": "S1",
+   "case": "rust-cli",
+   "runId": "2026-10-28T00-13-33-189Z-45f34950-d191-4907-92ea-ebc0aaabdc94",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T00-13-33-189Z-45f34950-d191-4907-92ea-ebc0aaabdc94/summary.json",
+   "sha256": "sha256:82a41b8a557ca6ad529df03424b76dc019bd7a7bafb0ec3337f5b0aead50592d",
+   "bytes": 529,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "0f6258433",
+   "package": "R3",
+   "case": "rust-cli",
+   "runId": "2026-10-28T02-21-12-772Z-1af8655f-4b54-48a8-81bb-afa58e42c5e7",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T02-21-12-772Z-1af8655f-4b54-48a8-81bb-afa58e42c5e7/summary.json",
+   "sha256": "sha256:545081a32656d6042830da39e86e502a8a48b2732528c9a74db55c209645a3bd",
+   "bytes": 529,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "b78409e76",
+   "package": "R3-b",
+   "case": "rust-cli",
+   "runId": "2026-10-28T04-22-26-284Z-9f03bb85-253e-449e-818d-226adb486947",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T04-22-26-284Z-9f03bb85-253e-449e-818d-226adb486947/summary.json",
+   "sha256": "sha256:e5704638806d98a7d5a9ed9b4306264406ad1e6286b1c84da83996a1fd4fb64c",
+   "bytes": 529,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  },
+  {
+   "candidateCommit": "bf7119489",
+   "package": "R3-c",
+   "case": "rust-cli",
+   "runId": "2026-10-28T06-37-24-748Z-9e0891e5-e0c2-4db6-917b-dc2e0e5712b4",
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/rust-cli/2026-10-28T06-37-24-748Z-9e0891e5-e0c2-4db6-917b-dc2e0e5712b4/summary.json",
+   "sha256": "sha256:56c4500ea378ba46d27fb7604fcf3ed69791a4f17f1daf8fc4a64894c4889106",
+   "bytes": 529,
+   "status": "passed",
+   "uatPass": true,
+   "runtimeDisposition": "result",
+   "independentOracle": "satisfied"
+  }
+ ],
+ "claims": [
+  {
+   "id": "C16-01",
+   "claim": "ordinary build passed; all 264 Source and 528 outputs match cut 44",
+   "disposition": "renewed by",
+   "evidence": "item 2(a): build rc 0; 288 Source, 576 outputs (288 .js, 288 .d.ts), none missing or extra"
+  },
+  {
+   "id": "C16-02",
+   "claim": "sole payload body delta versus Continuation15 is abg/native_work_reacquisition.js; graph and manifest derive freshly",
+   "disposition": "historical, superseded by",
+   "evidence": "item 2(a) and item 3: the candidate's payload is rebuilt from its own Source; its delta from Source44 is item 3"
+  },
+  {
+   "id": "C16-03",
+   "claim": "actual content sha256:6fb24fc7…, archive sha256:192356a4…34b5, 10,676,374 B",
+   "disposition": "renewed by",
+   "evidence": "item 2(b): archive sha256:f94e1a1d…c612, 10,914,695 B, content sha256:ea974075…6a4d; equal to the Executive's pack.sha256 and the fixture's artifactDigest"
+  },
+  {
+   "id": "C16-04",
+   "claim": "direct pack, clean install and external strict TypeScript passed; 5,267 archive/installed bodies exact; two installed CLI modes differ",
+   "disposition": "renewed by",
+   "evidence": "item 2(b)-(d): 5,317 bodies exact; the same two CLI modes (0644 to 0755); consumer.mts rc 0 under --strict"
+  },
+  {
+   "id": "C16-05",
+   "claim": "936 generated preimages have exact Continuation15 archive homes; no old tree copied",
+   "disposition": "historical, superseded by",
+   "evidence": "item 2(a) and 2(c): a fresh build and a clean install from the candidate archive"
+  },
+  {
+   "id": "C16-06",
+   "claim": "the unsupported product/… checker path preserved with its Root-selected abg/… correction",
+   "disposition": "historical, superseded by",
+   "evidence": "item 2(a): correspondence recomputed from the check-02 relation over the candidate's own tree"
+  },
+  {
+   "id": "C16-07",
+   "claim": "Original37 parent/native producer and whole Program 80475497… authenticated",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs"
+  },
+  {
+   "id": "C16-08",
+   "claim": "the actual fresh44 pair",
+   "disposition": "historical, superseded by",
+   "evidence": "item 2(b): the candidate archive itself"
+  },
+  {
+   "id": "C16-09",
+   "claim": "12 Public setup outcomes, all result",
+   "disposition": "renewed by",
+   "evidence": "item 2(e): the eight matched labels all result; workspace-create and program-conformance are new"
+  },
+  {
+   "id": "C16-09w",
+   "claim": "witness-34, witness-37, witness-40, witness-43 outcomes",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs, whose current Public setup (test_env/uat/public-setup.mjs) runs no witnesses"
+  },
+  {
+   "id": "C16-10",
+   "claim": "four target covers",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs"
+  },
+  {
+   "id": "C16-11",
+   "claim": "current-use sha256:7805da0d…",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs"
+  },
+  {
+   "id": "C16-12",
+   "claim": "normal preparation close",
+   "disposition": "renewed by",
+   "evidence": "item 2(e): the prepare seals its prepared Definition call"
+  },
+  {
+   "id": "C16-13",
+   "claim": "real post-close private callback",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs"
+  },
+  {
+   "id": "C16-14",
+   "claim": "Helper07, workload and controlled local responder exact; driver 72547b2a…",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs (provider-backed; no controlled responder)"
+  },
+  {
+   "id": "C16-15",
+   "claim": "latest native close lifecycle-start.close.json and the one bounded owned selected read",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs; t287-worksite-command-execution's large-log case in R3-c's column (10/10/0/0; it timed out under load here)"
+  },
+  {
+   "id": "C16-16",
+   "claim": "candidate broken\\n, three inputs exact, locks absent, both owned processes ESRCH",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs"
+  },
+  {
+   "id": "C16-17",
+   "claim": "first native runtime_failed: transport-identity-mismatch@5 at ordinal 1235",
+   "disposition": "historical, superseded by",
+   "evidence": "the sandbox runs: C2 completes in the passing runs"
+  },
+  {
+   "id": "C16-18",
+   "claim": "two closing documentary locator errors",
+   "disposition": "historical, superseded by",
+   "evidence": "this comparison's own record"
+  },
+  {
+   "id": "C16-19",
+   "claim": "readiness currentSetup identity (11 members)",
+   "disposition": "renewed by item 2(e) and 2(d) for the installed root, workspace binding, resolved lock, catalog basis, catalog view and consumer; historical, superseded by the sandbox runs for the Program, sourceResultRef, sourceBasisRef, current-use and target covers",
+   "evidence": ""
+  }
+ ],
+ "notClaims": [
+  "C2 red/repair/green, restart, full 26 Replay with nativeLiveness and raw comparisons, original capacity: stated unearned by Continuation16; neither Source44 nor this comparison earns them",
+  "helper samples max heap 2,493,101,816 B / RSS 2,961,801,216 B: stated not peaks or allocator attribution",
+  "Data Mapper: the original Data Mapper was untouched; data-mapper-full refused at 9ec6c22f1"
+ ]
+}
