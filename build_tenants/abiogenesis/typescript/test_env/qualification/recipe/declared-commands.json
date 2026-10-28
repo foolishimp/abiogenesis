@@ -1,0 +1,573 @@
+{
+  "kind": "qualification_declared_commands",
+  "schemaVersion": "1",
+  "purpose": "The declared C2 command input of the verification recipe; verification-recipe.json binds its constructed digests. The C2 helper runs the commands in its snapshot sandbox (the protected inputs materialized under the binding archive root, worksite_command_helper.ts:596-621), so commands use relative paths. Three environment values are absolute paths outside that sandbox: ABI5_EVIDENCE_ROOT and the ABI5_UAT_CONTINUATION_* inputs are read there, unprotected by the recipe; ABI5_UAT_UNIT_ROOT is written there, outside the declared write territories.",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/qualification/setup",
+      "role": "setup",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "test_env/qualification/recipe/install-dependencies.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 20000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/build-typescript",
+      "role": "build",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "node_modules/typescript/bin/tsc",
+        "-p",
+        "tsconfig.json"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 45000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/build-product-manifest",
+      "role": "build",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/generate-product-manifest.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin",
+        "npm_config_offline": "true",
+        "npm_config_update_notifier": "false"
+      },
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/lint",
+      "role": "lint",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "scripts/lint-verification.mjs",
+        "test_env/qualification/recipe/verification-recipe.json"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 45000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-vector",
+      "role": "test",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-timeout=600000",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "test_env/tests/hog-operator-support.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/r10-child-proof.test.mjs",
+        "test_env/tests/r10-projection-contracts.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs",
+        "test_env/tests/retained-route-cursor-transition.test.mjs",
+        "test_env/tests/t287-c2-child-program.test.mjs",
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t287-event-body-encoding.test.mjs",
+        "test_env/tests/t287-gtl-graph-law.test.mjs",
+        "test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-multi-candidate-admission.test.mjs",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "test_env/tests/t287-native-semantic-job.test.mjs",
+        "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+        "test_env/tests/t287-public-preparation.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs",
+        "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs",
+        "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+        "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin",
+        "ABI5_EVIDENCE_ROOT": "/Users/jim/src/apps/abiogenesis/.ai-workspace"
+      },
+      "timeoutMs": 240000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-uat-harness",
+      "role": "test",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-timeout=600000",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/uat/harness.test.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-uat-continuation",
+      "role": "test",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-timeout=600000",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "test_env/uat/continuation.test.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin",
+        "ABI5_UAT_CONTINUATION_INSTALLED_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+        "ABI5_UAT_CONTINUATION_NATIVE_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/abg-acquisition.json",
+        "ABI5_UAT_CONTINUATION_CONSUMER_ACQUISITION": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/sandbox-uat/js-sdlc-bootstrap/2026-10-28T15-49-00-793Z-a668d062-3e5d-407c-abd5-6b7794dd427a/consumer-acquisition.json",
+        "ABI5_UAT_UNIT_ROOT": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification-units",
+        "ABI5_UAT_CONTINUATION_LOCK_REF": "product-lock://abiogenesis/c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6",
+        "ABI5_UAT_CONTINUATION_LOCK_DIGEST": "sha256:c035d3c07622d182a92ef2bc5cd55f02e51f53a4f92d4e9f939ee918f836eeb6"
+      },
+      "timeoutMs": 120000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-compose",
+      "role": "test",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "--experimental-vm-modules",
+        "--test",
+        "--test-concurrency=1",
+        "--test-timeout=600000",
+        "--test-reporter=./scripts/node-test-evidence-reporter.mjs",
+        "--test-name-pattern=real admitted compose",
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin",
+        "ABI5_CALCULUS_CASES": "compose"
+      },
+      "timeoutMs": 180000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/compare",
+      "role": "compare",
+      "executable": "/opt/homebrew/bin/node",
+      "args": [
+        "test_env/qualification/recipe/compare-generated.mjs"
+      ],
+      "relativeCwd": ".",
+      "environment": {
+        "PATH": "/opt/homebrew/bin:/usr/bin:/bin"
+      },
+      "timeoutMs": 30000,
+      "terminationGraceMs": 1000,
+      "expectedReports": []
+    }
+  ],
+  "outcomePredicates": [
+    {
+      "predicateId": "predicate://abiogenesis/qualification/candidate-pack-reproduced",
+      "predicateKind": "stdout_exact",
+      "declaration": {
+        "validationCommandId": "command://abiogenesis/qualification/compare",
+        "equals": "candidate pack reproduced: 5317 files\n"
+      }
+    }
+  ],
+  "allowedWriteTerritories": [
+    {
+      "pathKind": "subtree",
+      "relativePath": "node_modules"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "build"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "contracts/public-functions"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "contracts/public-operations"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "contracts/schemas/operations"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "contracts/vocabularies"
+    },
+    {
+      "pathKind": "file",
+      "relativePath": "contracts/schemas/consensus.schema.json"
+    },
+    {
+      "pathKind": "file",
+      "relativePath": "product-toolchain-manifest.json"
+    },
+    {
+      "pathKind": "subtree",
+      "relativePath": "test_env/test_runs"
+    }
+  ],
+  "lint": {
+    "commandId": "command://abiogenesis/qualification/lint",
+    "files": [
+      {
+        "path": "test_env/tests/r4-catalog-admission.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-structural-gates.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/witness-run-stopped-definition-binding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-public-preparation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-multi-candidate-admission.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2-child-program.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-calculus-fold.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-event-body-encoding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-contraction.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qual056-material.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-scopes.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-release-acceptance.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-semantic-job.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/m5-worker-transport.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/hog-operator-support.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-gtl-graph-law.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/retained-route-cursor-transition.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-child-proof.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/r10-projection-contracts.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/consumer.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/continuation.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/continuation.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/harness.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/public-setup.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/runner.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/uat/scenarios.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-calculus-state-transfer.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/generate-product-manifest.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/lint-verification.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "scripts/node-test-evidence-reporter.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/recipe/install-dependencies.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/recipe/compare-generated.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "package.json",
+        "kind": "json"
+      },
+      {
+        "path": "package-lock.json",
+        "kind": "json"
+      },
+      {
+        "path": "tsconfig.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/recipe/dependencies.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/recipe/expected-output-inventory.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/recipe/declared-commands.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/build-resources.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/support/exact-candidate-qualification.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/classification.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/material-selection.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/tenant-manifest.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/resources.json",
+        "kind": "json"
+      },
+      {
+        "path": "test_env/qualification/recipe/verification-recipe.json",
+        "kind": "json"
+      }
+    ]
+  },
+  "tests": [
+    {
+      "commandId": "command://abiogenesis/qualification/test-vector",
+      "files": [
+        "test_env/tests/a5-f02-canonical-gtl-identity.test.mjs",
+        "test_env/tests/hog-operator-support.test.mjs",
+        "test_env/tests/m5-retry-lifecycle-authority.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/r10-child-proof.test.mjs",
+        "test_env/tests/r10-projection-contracts.test.mjs",
+        "test_env/tests/r4-catalog-admission.test.mjs",
+        "test_env/tests/retained-route-cursor-transition.test.mjs",
+        "test_env/tests/t287-c2-child-program.test.mjs",
+        "test_env/tests/t287-c2a-fp-source-contract.test.mjs",
+        "test_env/tests/t287-calculus-fold.test.mjs",
+        "test_env/tests/t287-event-body-encoding.test.mjs",
+        "test_env/tests/t287-gtl-graph-law.test.mjs",
+        "test_env/tests/t287-gtl-language-corpus.test.mjs",
+        "test_env/tests/t287-malformed-gtl-gate.test.mjs",
+        "test_env/tests/t287-multi-candidate-admission.test.mjs",
+        "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+        "test_env/tests/t287-native-semantic-job.test.mjs",
+        "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-pfc-f08a-product-verification-boundary.test.mjs",
+        "test_env/tests/t287-public-preparation.test.mjs",
+        "test_env/tests/t287-qual056-material.test.mjs",
+        "test_env/tests/t287-qualification-contraction.test.mjs",
+        "test_env/tests/t287-qualification-producer-context.test.mjs",
+        "test_env/tests/t287-qualification-scopes.test.mjs",
+        "test_env/tests/t287-r6-retry-success-exit.test.mjs",
+        "test_env/tests/t287-release-acceptance.test.mjs",
+        "test_env/tests/t287-runtime-activity-quiescence.test.mjs",
+        "test_env/tests/t287-runtime-failure-diagnostic.test.mjs",
+        "test_env/tests/t287-st2a-g-capability-definition-graph.test.mjs",
+        "test_env/tests/t287-wave2-owner-contract-source-set.test.mjs",
+        "test_env/tests/t288-initial-cursor-entry.test.mjs",
+        "test_env/tests/t291-m6-admission-refusal-surface.test.mjs",
+        "test_env/tests/witness-reprice-definition-binding.test.mjs",
+        "test_env/tests/witness-run-stopped-definition-binding.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-uat-harness",
+      "files": [
+        "test_env/uat/harness.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-uat-continuation",
+      "files": [
+        "test_env/uat/continuation.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-compose",
+      "files": [
+        "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ]
+    }
+  ]
+}

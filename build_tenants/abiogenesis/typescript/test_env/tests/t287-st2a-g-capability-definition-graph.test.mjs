@@ -256,14 +256,37 @@ test("ST-2A-G publishes one exact immutable capability graph", async () => {
       registerRow.capabilityId,
     );
   }
+  // Cardinality law (design ABI5_REALIZATION_CONSTITUTION.md section 16.11,
+  // which supersedes the universal non-empty reading; REQ-P-PUBLIC-CONTRACTS-003
+  // requires the field, not a member): each catalog row carries exactly the
+  // register's projection for its contract, possibly empty. Locator kind does
+  // not partition emptiness: under contractLocatorLaw (verify_product.ts) the
+  // native-only kind native_typed_group, the asset-and-native kind
+  // serialized_native_contract and the asset-only kind schema_asset all carry
+  // exact empty projections. Capability rows exist exactly for declared
+  // Public-operation capabilities, so non-emptiness is asserted for every
+  // contract a register row owns, and every owned contract is a catalog row.
+  const ownedContractIds = new Set(product.DS1_CAPABILITY_CONTRACT_REGISTER
+    .flatMap(({ owningPublicContractIds }) => owningPublicContractIds));
   for (const row of manifest.publicContractCatalog.rows) {
-    assert.ok(
-      row.capabilityIdentities.length > 0,
-      `missing capability projection for ${row.contractId}`,
-    );
     assert.deepEqual(
       row.capabilityIdentities,
       product.capabilityRefsForContract(row.contractId),
+      row.contractId,
+    );
+    if (ownedContractIds.has(row.contractId)) {
+      assert.ok(
+        row.capabilityIdentities.length > 0,
+        `missing capability projection for owned ${row.contractId}`,
+      );
+    }
+  }
+  for (const contractId of ownedContractIds) {
+    assert.ok(
+      manifest.publicContractCatalog.rows.some((row) =>
+        row.contractId === contractId
+      ),
+      `owned contract ${contractId} is absent from the catalog`,
     );
   }
 });
@@ -366,14 +389,15 @@ test("ST-2A-G rejects crossed catalog coordinates, selectors, dependencies, and 
     ),
   );
   assert.ok(nativeContractWithoutProjection);
+  // The projection is exact, possibly empty (section 16.11): an emptied
+  // capabilityIdentities set is a unique set and the row parses with it.
   nativeContractWithoutProjection.capabilityIdentities = [];
-  assert.equal(
-    product.parseProductPublicContract(
-      nativeContractWithoutProjection,
-      manifest.productId,
-    ),
-    null,
+  const parsedWithoutProjection = product.parseProductPublicContract(
+    nativeContractWithoutProjection,
+    manifest.productId,
   );
+  assert.notEqual(parsedWithoutProjection, null);
+  assert.deepEqual(parsedWithoutProjection.capabilityIdentities, []);
 });
 
 test("ST-2A-G conserves the graph through packed verification, lock, install, and provenance", async (context) => {

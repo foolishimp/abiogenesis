@@ -95,100 +95,27 @@ test('Eventless read conservation hashes bounded chunks and detects tampering, a
   assert.notEqual(replaced.inode,initial.inode,'same bytes cannot substitute a different resource');
   await rm(path);await symlink(replacement,path);await assert.rejects(eventResourceIdentity(path));
 });
-test('One authentic cold read supplies caller artifact/environment/read preparation without another physical decode',
-  {skip:!process.env.ABI5_AUTHENTIC_READ_HISTORY},async t=>{
-  const bytes=await readFile(process.env.ABI5_AUTHENTIC_READ_HISTORY);
-  assert.equal(digest(bytes),process.env.ABI5_AUTHENTIC_READ_HISTORY_DIGEST,'pinned existing admitted history');
-  const root=await mkdtemp(join(tmpdir(),'uat-owned-read-'));t.after(()=>rm(root,{recursive:true,force:true}));
-  const path=join(root,'events.jsonl');await writeFile(path,bytes,{flag:'wx'});const node=await stat(path);
-  const body={kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:pathToFileURL(path).href,
-    prefixLength:bytes.length,prefixDigest:digest(bytes),storeIdentity:{device:node.dev,inode:node.ino,eventContractDigest:abg.ROOT_EVENT_CONTRACT_DIGEST}};
-  const prefix={...body,coordinateDigest:product.sha256Canonical(body)},caller=publicCaller({root,runtime:{product,abg,api:{}},
-    native:{verified:{}},config:{runId:'authenticated-read-source'},record:async()=>{},command:()=>assert.fail('No Public/native dispatch')});
-  caller.state.closeHandoff={prefix};
-  let source;
-  const originalRead=fs.readSync;let physicalReads=0;
-  fs.readSync=(...args)=>{physicalReads++;return originalRead(...args);};syncBuiltinESMExports();
-  t.after(()=>{fs.readSync=originalRead;syncBuiltinESMExports();});
-  const events=await readOracleEvents(abg,prefix,async()=>{},owned=>{source=owned;});
-  assert.ok(physicalReads>0);const acquiredReads=physicalReads;
-  const truth=abg.projectOwnedPrefixArtifactTruth(source);assert.equal(truth.kind,'exact_prefix_artifact_truth_projection');
-  const binding=truth.rows.find(row=>row.operationId==='abg.operation.workspace.bind').artifact;
-  caller.state.binding={ref:binding.bindingId,digest:binding.bindingDigest};
-  const environment=caller.refresh(source);assert.equal(environment.kind,'exact_prefix_workspace_environment');
-  assert.equal(environment.artifactTruth,truth);
-  assert.equal(caller.refresh(),environment,'internal preparation borrows the actual owner projection');
-  assert.equal(physicalReads,acquiredReads,'complete source is decoded once');
-  const cold=abg.projectExactPrefixWorkspaceEnvironment(structuredClone(prefix),caller.state.binding);
-  assert.deepEqual(cold,environment);assert.ok(physicalReads>acquiredReads,'copied source reconstructs cold');
-  assert.equal(events.length,434);assert.equal(Object.isFrozen(events),true);
-  assert.deepEqual(await readFile(path),bytes);
-});
-test('Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations',
-  {skip:!process.env.ABI5_AUTHENTIC_C2_EVENT},async()=>{
-  const bytes=await readFile(process.env.ABI5_AUTHENTIC_C2_EVENT);
-  assert.equal(digest(bytes),process.env.ABI5_AUTHENTIC_C2_EVENT_DIGEST,'exact previously authenticated native event');
-  const event=JSON.parse(bytes),value=event.payload.value;
-  const provenance=JSON.parse(await readFile(process.env.ABI5_AUTHENTIC_C2_PROVENANCE));
-  assert.equal(event.runId,provenance.runRef);assert.equal(event.admissionOrdinal,provenance.admissionOrdinal);
-  const execution={receipt:{resources:{run:{ref:event.runId}},ownerOutput:{outcomeKind:'result',value:{terminalResult:null}}}};
-  const owner=commandObservationOwner(product,execution);assert.equal(owner.runId,event.runId);
-  const {root,rows}=await loadScenarios(fixtures),selected=await acquireScenario(root,rows.find(row=>row.key==='data-mapper-full'));
-  const checker=await import(pathToFileURL(fixturePath(root,selected.row.oracleModule)).href);
-  const relation=product.resolveWorksiteCommandExecutionJudgmentRelation(product.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
-  assert.equal(relation.evaluate(value.task,value),true,'existing published owner validates retained native C2 observation');
-  // The original acquired request remains unchanged. Its resolved command
-  // plan is the actual retained native task, including the accepted five-hour
-  // caller policy and toolchain binding; no new command or execution is made.
-  const request={...selected.request,testing:{...selected.request.testing,commands:value.task.commands}};
-  const evaluate=overrides=>checker.evaluate({worksiteRoot:provenance.worksiteRoot,runArchive:dirname(provenance.worksiteRoot),
-    source:selected.row,request,events:[event],observationOwner:owner,
-    validateObservation:observation=>relation.evaluate(observation.task,observation),...overrides});
-  const result=await evaluate();
-  const executionCriterion=result.criteria.find(row=>row.id==='execution:'+value.task.commands[0].commandId);
-  assert.equal(executionCriterion.disposition,'unmet','genuine red is attributed rather than discarded for null terminal');
-  assert.ok(executionCriterion.evidenceRefs.length>0);assert.notEqual(result.disposition,'satisfied','one retained red cannot complete original UAT');
-  const completed=structuredClone(execution);completed.receipt.ownerOutput.value.terminalResult={producer:{runRef:event.runId}};
-  assert.deepEqual(commandObservationOwner(product,completed),owner);
-  completed.receipt.ownerOutput.value.terminalResult.producer.runRef='run://foreign/producer';
-  assert.throws(()=>commandObservationOwner(product,completed),error=>error.stage==='oracle-source');
-  for(const overrides of [{observationOwner:{...owner,runId:'run://foreign/receipt'}},{validateObservation:()=>false},
-    {events:[]},{events:[{...event,payload:{...event.payload,cCallRef:'c-call:foreign'}}]}]) {
-    const refused=await evaluate(overrides);
-    assert.equal(refused.criteria.find(row=>row.id===executionCriterion.id).disposition,'indeterminate');
-  }
-  const fabricated=structuredClone(event);fabricated.payload.value.commandResults[0].args=['fabricated'];
-  assert.equal(relation.evaluate(fabricated.payload.value.task,fabricated.payload.value),false);
-  assert.equal((await evaluate({events:[fabricated]})).criteria.find(row=>row.id===executionCriterion.id).disposition,'indeterminate');
-});
-test('Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT',
-  {skip:!process.env.ABI5_AUTHENTIC_XML_STORE},async()=>{
-  const bytes=Buffer.alloc(Number(process.env.ABI5_AUTHENTIC_XML_BYTES));
-  const handle=await fs.promises.open(process.env.ABI5_AUTHENTIC_XML_STORE,'r');
-  try {assert.equal((await handle.read(bytes,0,bytes.length,Number(process.env.ABI5_AUTHENTIC_XML_OFFSET))).bytesRead,bytes.length);}
-  finally {await handle.close();}
-  assert.equal(digest(bytes),process.env.ABI5_AUTHENTIC_XML_DIGEST);
-  const event=JSON.parse(bytes),value=event.payload.value;
-  const {root,rows}=await loadScenarios(fixtures),selected=await acquireScenario(root,rows.find(row=>row.key==='data-mapper-full'));
-  const checker=await import(pathToFileURL(fixturePath(root,selected.row.oracleModule)).href);
-  const relation=product.resolveWorksiteCommandExecutionJudgmentRelation(product.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
-  assert.equal(relation.evaluate(value.task,value),true,'published owner authenticates the exact native task/result');
-  const owner=commandObservationOwner(product,{receipt:{resources:{run:{ref:event.runId}},ownerOutput:{outcomeKind:'result',value:{terminalResult:null}}}});
-  const request={...selected.request,testing:{...selected.request.testing,commands:value.task.commands}};
-  const input={worksiteRoot:process.env.ABI5_AUTHENTIC_XML_WORKSITE,source:selected.row,request,events:[event],observationOwner:owner,
-    validateObservation:o=>relation.evaluate(o.task,o)};
-  for(const report of value.commandResults[0].reports)await assert.rejects(readFile(fixturePath(input.worksiteRoot,report.relativePath)),{code:'ENOENT'});
-  const result=await checker.evaluate(input);
-  assert.equal(result.criteria.filter(row=>row.id.startsWith('xml:')).length,8);
-  assert.ok(result.criteria.filter(row=>row.id.startsWith('xml:')).every(row=>row.disposition==='satisfied'));
-  for(const id of ['original-eight-xml-reports','original-scala-test-floor','all-eight-concerns-five-earned-depth-classes'])
-    assert.equal(result.criteria.find(row=>row.id===id).disposition,'satisfied',id);
-  assert.notEqual(result.disposition,'satisfied','a genuine green baseline does not prove sixteen mutant episodes/full original UAT');
-  const changed=structuredClone(event);changed.payload.value.commandResults[0].reports[0].digest=product.sha256Canonical('wrong-report');
-  assert.equal(relation.evaluate(changed.payload.value.task,changed.payload.value),false);
-  for(const overrides of [{events:[]},{events:[changed]},{observationOwner:{...owner,runId:'run://foreign/xml'}},{validateObservation:()=>false}])
-    assert.equal((await checker.evaluate({...input,...overrides})).criteria.find(row=>row.id==='original-eight-xml-reports').disposition,'unmet');
-});
+// Retired case (D5 intake, rule ii: historical input), name kept:
+// 'One authentic cold read supplies caller artifact/environment/read preparation without another physical decode'.
+// It read a 434-event admitted history named only by ABI5_AUTHENTIC_READ_HISTORY and pinned only by the
+// digest the caller supplied in ABI5_AUTHENTIC_READ_HISTORY_DIGEST; the repository pins no such history, and
+// the histories it was written for are earlier candidates' run archives. Current carriers of the same read
+// law: 'Oracle event acquisition records the authentic prefix without serializing or changing complete owner
+// events' above, test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs, and the installed
+// sandbox UAT runs' fresh run_result and run_replay readbacks (runner.mjs freshReadbacks).
+// Retired case (D5 intake, rule ii: historical input), name kept:
+// 'Terminal-null admitted Run retains genuine C2 partial evidence and refuses foreign, invalid or fabricated observations'.
+// It read one native C2 event of an earlier candidate's data-mapper-full run through ABI5_AUTHENTIC_C2_EVENT,
+// _DIGEST and _PROVENANCE, all supplied by the caller and none pinned in the repository. Current carriers of
+// the C2 observation law: test_env/tests/t287-observed-worksite-command.test.mjs,
+// test_env/tests/t287-worksite-command-execution.test.mjs and the live C2 observations of the installed
+// sandbox UAT runs; the full data-mapper-full evaluation is owned independently (PRODUCT.md A5-F17).
+// Retired case (D5 intake, rule ii: historical input), name kept:
+// 'Owned XML acquisition consumes authentic C2 reports outside the application without earning full UAT'.
+// It read an event of an earlier candidate's data-mapper-full event store at a caller-supplied byte offset
+// (ABI5_AUTHENTIC_XML_STORE, _BYTES, _OFFSET, _DIGEST, _WORKSITE); the repository pins no such store. Current
+// carriers of the owned XML acquisition law: the four 'Owned XML ...' cases below over the controlled report
+// fixture; the full data-mapper-full evaluation is owned independently (PRODUCT.md A5-F17).
 
 async function controlledReportFixture() {
   const scratch=(await newArchive(policyUnits,'controlled-report-consumer')).path;

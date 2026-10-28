@@ -1,0 +1,25 @@
+{
+  "kind": "qualification_material_selection",
+  "schemaVersion": "1",
+  "purpose": "Declares the material each F11 assessment slot carries for the pre-RC candidate, by role, from the bound scope (classification.json partitions), the rule catalog and the role policy. It selects bytes for J; it supplies no authority and no judgment.",
+  "promptBoundBytes": 1048576,
+  "promptBoundSource": "T-287 Phase D, D5 activation: a prompt above 1,048,576 bytes is a stop",
+  "roleSources": {
+    "rule": "QUALIFICATION_ROLE_POLICY.authoritySourceRefs (REQ-P-SELF-CONFORMANCE.md, REQ-P-QUAL.md), as catalog sources with their bytes, in every slot (validator/qualification.ts:476-481)",
+    "refs": ["repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md", "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"]
+  },
+  "roles": [
+    { "roleRef": "qualification-role://abiogenesis/catalog@5", "coverage": "ruleRef = one rule group, surfaceRef = the rule catalog ref, evidenceRole = catalog_fidelity (validator/qualification.ts:409-412)",
+      "material": "the role sources, the rule group's source bytes and every published rule row of that source (qualificationSelectedSubject, :424-441)" },
+    { "roleRef": "qualification-role://abiogenesis/inventory@5", "coverage": "ruleRef = the inventory ref, surfaceRef = one surface group, evidenceRole = inventory_coverage or inventory_classification (:408)",
+      "material": "the role sources, every member of the surface group and the group's source refs (classification.json) (:398-405, :413-420)" },
+    { "roleRef": "qualification-role://abiogenesis/rule@5", "coverage": "ruleRef = one rule group, surfaceRef = one surface group of that rule group's domain, evidenceRole = semantic_assessment (:400-407)",
+      "material": "the role sources, the rule group's source bytes and every member of the surface group (:413-420)" },
+    { "roleRef": "qualification-role://abiogenesis/tenant@5", "coverage": "the tenant conformance manifest's claims",
+      "material": "the role sources, tenant-manifest.json and the subject members the claims cite" },
+    { "roleRef": "qualification-role://abiogenesis/coverage@5", "coverage": "the published coverage catalog's claims",
+      "material": "the role sources, contracts/qualification/coverage.json and the subject members the claims cite" }
+  ],
+  "fit": "A slot's material is the sum of its role sources, its rule or catalog sources and its surface group members, as base64 bodies inside the rendered prompt. A surface group or a single member whose bytes exceed the bound cannot be carried by one slot; the qualification driver's prepare mode measures every group and member against the bound and projects the slot count and cost before any provider dispatch.",
+  "provenance": "The pre-RC subject was constructed outside ABG across many sessions and commits. F11 J over tenant and inventory attribution requires an external_construction provenance (activation, preimage, delta and closure records per chain; qualification_contracts.ts:132-140). No resource of this directory carries it; it is named a gap, not constructed."
+}
