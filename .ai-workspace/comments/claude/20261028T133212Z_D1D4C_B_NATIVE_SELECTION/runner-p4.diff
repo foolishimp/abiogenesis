@@ -1,0 +1,11 @@
+--- run-installed-d14c.mjs	2026-10-28 23:46:10
++++ run-installed-d14c-p4.mjs	2026-10-29 00:27:58
+@@ -334,7 +334,7 @@
+   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
+   await acquisitionNegatives({environment,selectedEnvironment,selected,helpers,publicApi,eventResource:resource()});
+   const actorEnvironment={...runEnvironment,...(providerCredential===undefined?{}:{CLAUDE_CODE_OAUTH_TOKEN:providerCredential}),ABG_TS_CLAUDE_COMMAND:configuration.provider.executable,
+-    ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(['--model','claude-opus-5-5','--effort','xhigh','--tools','']),
++    ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(['--model','claude-opus-5-5','--effort','xhigh']),
+     ABG_TS_FP_TIMEOUT_MS:'120000',ABG_TS_FP_ABSOLUTE_TIMEOUT_MS:'600000',ABG_TS_FP_TERMINATION_GRACE_MS:'1000'};
+   await record('native-input.json',NATIVE_TASK);await record('native-expected.json',NATIVE_EXPECTED);
+   await record('native-environment.json',providerCredential===undefined?actorEnvironment:{...actorEnvironment,CLAUDE_CODE_OAUTH_TOKEN:'[withheld]'});

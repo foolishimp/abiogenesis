@@ -1,0 +1,43 @@
+{
+  "kind": "d14cb_measurements",
+  "runnerMeasurements": {
+    "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/measurements.json",
+    "sha256": "4e9fe5ccfc3189d071f70f506c35cd8223b2af84cf3b14e87f18f4aeb63bdb85"
+  },
+  "headlineIntervalsMs": {
+    "bootstrap-install": 6153.3,
+    "native-fixture-preparation": 31396.7,
+    "one-native-positive": 10631.1,
+    "fresh-run_result": 1161.7,
+    "fresh-run_replay": 1194.5,
+    "whole-lane": 56632.4
+  },
+  "nativeCall": {
+    "runnerOneNativePositiveMs": 10631.1,
+    "installedCliRequestWallMs": 10545.6,
+    "actorProcessStartedToExitedMs": 6367.0,
+    "actorInvocationStartedToClosedMs": 6411.0,
+    "actorProcessStartedUtc": "2026-10-28T13:31:06.576Z",
+    "actorProcessExitedUtc": "2026-10-28T13:31:12.943Z",
+    "providerDurationMs": 5336,
+    "providerDurationApiMs": 5042,
+    "numTurns": 2,
+    "totalCostUsd": 0.057788,
+    "model": [
+      "claude-opus-5-5"
+    ]
+  },
+  "process": {
+    "exitCode": 0,
+    "realS": 64.04,
+    "userS": 66.54,
+    "sysS": 11.26,
+    "maxRssBytes": 3428597760,
+    "peakMemoryFootprintBytes": 3442922336,
+    "startUtc": "2026-10-28T13:30:16Z",
+    "endUtc": "2026-10-28T13:31:20Z",
+    "loadAverage1mStart": 14.41,
+    "loadAverage1mEnd": 8.63
+  },
+  "restrictions": "measured with other machine load beside (1-minute load averages at start and end recorded); no inference beyond the run"
+}

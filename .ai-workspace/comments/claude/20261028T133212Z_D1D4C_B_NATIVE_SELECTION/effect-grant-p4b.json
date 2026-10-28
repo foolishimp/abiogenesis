@@ -1,0 +1,74 @@
+{
+  "kind": "t287_installed_proof_effect_grant",
+  "status": "granted",
+  "configurationSha256": "9db7b02957342d9dcf2ad7aec2fa6cd8ff58c261e8e9be2d861ea5be3031d07d",
+  "runnerSha256": "b539d704710b13bab40ef7ab3821379d338d8eb562a19ea9535832858c9b5371",
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "subjectId": "candidate",
+  "lanes": [
+    "stdo3-native-selection"
+  ],
+  "maxNativePositiveCalls": 1,
+  "resources": {
+    "stdo3-native-selection": {
+      "evidence": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence",
+      "host": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/host",
+      "scratchParent": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/scratchParent",
+      "sourceMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/sourceMirror",
+      "unavailableMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/unavailableMirror",
+      "recordMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/recordMirror",
+      "memberMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/memberMirror",
+      "missingMemberMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/missingMemberMirror"
+    }
+  },
+  "issuedBy": "/root",
+  "requiredEvidence": {
+    "activation": "T287_RELEASE_RESUMPTION_01/phase_d.md ## D1/D4-c-b activation, head 0da2b1e7e359f768ad10f50a876f648e6f969d19",
+    "disposition": "T287_RELEASE_RESUMPTION_01/phase_d.md ## D1/D4-c disposition (Worker commit 4ac3b8b36): P4 re-granted as D1/D4-c-b; the runner-appended --tools removed in the second successor runner",
+    "grant": "owner decision 2 of 2026-10-24 and the sixth amendment's item 4 (2026-10-28): the combined build, P1, P5, P4 and their dependents on the cut",
+    "cut": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+    "runner": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed-d14c-p4.mjs",
+      "sha256": "b539d704710b13bab40ef7ab3821379d338d8eb562a19ea9535832858c9b5371",
+      "predecessor": {
+        "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed-d14c.mjs",
+        "sha256": "a184966c2756f905858969be3f6202177e407cf67453569f3139695a48e42e9b"
+      }
+    },
+    "prerequisites": [
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/evidence/result.json",
+        "sha256": "26ba130f6aafeb1ea4b0e9b655846e88e0b9a11c69b32e98f4f938edafd3bf2f",
+        "obligations": [
+          "P1"
+        ]
+      },
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p2/evidence/result.json",
+        "sha256": "70e367504f869220c092f495d1935892f5a010a0d7e9c97ae75ee61a5ee79707",
+        "obligations": [
+          "P2"
+        ]
+      },
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p3/evidence/result.json",
+        "sha256": "f05559a3bd18d13367cbf20882b97e732e8b6952593e0f45ab3765e08311a8e7",
+        "obligations": [
+          "P3"
+        ]
+      },
+      {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p5/result.json",
+        "sha256": "5dbc42711f834e191753e2858f8a3d5a10e2cd3c2896d7b5242ce5bccee1d738",
+        "obligations": [
+          "P5-physical",
+          "P5-U1"
+        ]
+      }
+    ],
+    "configurationChangeScope": [
+      "activationFile (this grant)",
+      "lanes (this lane only: new runId, new roots)"
+    ]
+  }
+}

@@ -1,0 +1,231 @@
+{
+  "kind": "d14cb_results",
+  "cut": "fd38e82276801ddb0599f29ad8e28f80b107c195",
+  "base": "0da2b1e7e359f768ad10f50a876f648e6f969d19",
+  "archiveSha256": "550b48cc9a0d81af85ff89f61f89cfe28951c829c6d5d24a251768887b743df6",
+  "runner": {
+    "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed-d14c-p4.mjs",
+    "sha256": "b539d704710b13bab40ef7ab3821379d338d8eb562a19ea9535832858c9b5371",
+    "predecessor": {
+      "path": ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/proof/run-installed-d14c.mjs",
+      "sha256": "a184966c2756f905858969be3f6202177e407cf67453569f3139695a48e42e9b"
+    },
+    "changedLine": 337,
+    "removed": "'--tools',''",
+    "diff": {
+      "recordCopy": "runner-p4.diff",
+      "sha256": "607787dfd78739629cb415dd89f4613d112e307d047eed8cc3d23243dd48c832"
+    },
+    "nodeCheckExit": 0
+  },
+  "oracleSha256": "dee13b0b642c9b3184d5ed27a5ee1bbd07a951c19b7481469bc4a681aff995dc",
+  "lane": {
+    "id": "P4",
+    "lane": "stdo3-native-selection",
+    "runId": "t287-candidate-p4b-70cd1bfe859740b1",
+    "evidenceRoot": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence",
+    "roots": {
+      "evidence": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence",
+      "host": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/host",
+      "scratchParent": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/scratchParent",
+      "sourceMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/sourceMirror",
+      "unavailableMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/unavailableMirror",
+      "recordMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/recordMirror",
+      "memberMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/memberMirror",
+      "missingMemberMirror": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/missingMemberMirror"
+    },
+    "configuration": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/config/configuration-p4b.json",
+      "sha256": "9db7b02957342d9dcf2ad7aec2fa6cd8ff58c261e8e9be2d861ea5be3031d07d",
+      "recordCopy": "configuration-p4b.json"
+    },
+    "grant": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/config/effect-grant-p4b.json",
+      "sha256": "20e80b896036232375eb0a3fde4963380c2d2cc2760d6db52e0cf4bca0a8e2f6",
+      "recordCopy": "effect-grant-p4b.json"
+    },
+    "command": {
+      "exitCode": 0,
+      "realS": 64.04,
+      "userS": 66.54,
+      "sysS": 11.26,
+      "maxRssBytes": 3428597760,
+      "peakMemoryFootprintBytes": 3442922336,
+      "startUtc": "2026-10-28T13:30:16Z",
+      "endUtc": "2026-10-28T13:31:20Z",
+      "loadAverage1mStart": 14.41,
+      "loadAverage1mEnd": 8.63,
+      "stdout": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/logs/p4b.stdout",
+        "sha256": "94d2ac216dad925666caab071dbdf672bfc1efd1bb52f714c28b3e9f7e9ed028"
+      },
+      "stderr": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/logs/p4b.stderr",
+        "sha256": "e711332ce9fbd0dc31005b00c9c501f12520342645960e1ae83c92192a5ea13c"
+      }
+    },
+    "status": "satisfied",
+    "result": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/result.json",
+      "sha256": "639a620abf2fc9fe89b4dc7379277c5e6104b1fa77bc534cb1705da6bde495ed"
+    },
+    "oracle": {
+      "predicate": "P4 one native machine recipient and retained source context",
+      "satisfied": true,
+      "population": 1
+    },
+    "nativeCalls": 1,
+    "actorInvocationStarts": 1,
+    "choice": {
+      "graphFunctionRef": "graph-function://registered-selection/A@5",
+      "definitionDigest": "sha256:0d69f911ea9f653cac5d2a33d68ae2c60fbb2465efc0de314314af62a186f06a",
+      "expected": "graph-function://registered-selection/A@5"
+    },
+    "terminalValue": {
+      "child": "A",
+      "kind": "selection_rendered_record",
+      "rendered": "{\"service\":\"Atlas\",\"status\":\"healthy\"}",
+      "schemaVersion": "5.0.0"
+    },
+    "transportArgsTail": [
+      "--safe-mode",
+      "--tools",
+      "--model",
+      "claude-opus-5-5",
+      "--effort",
+      "xhigh"
+    ],
+    "providerObservation": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/provider-observation.json",
+      "sha256": "2602a5508aee0ae654c9d72f53f6b95ed365badbc5b10939088f2d44c589e387",
+      "models": [
+        "claude-opus-5-5"
+      ],
+      "promptBytes": 7904,
+      "invocationStarts": 1
+    },
+    "transportStdout": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/native-files/stdout-fp-84bddeceec9657d5-stdout.log",
+      "sha256": "ee09232c35dd28d6e6e704c64939353ba029e7c40b70d07ba04332cd3dd7b64f",
+      "initModel": "claude-opus-5-5",
+      "initTools": [
+        "StructuredOutput"
+      ],
+      "resultSubtype": "success",
+      "isError": false,
+      "numTurns": 2,
+      "totalCostUsd": 0.057788,
+      "durationMs": 5336,
+      "durationApiMs": 5042,
+      "modelUsageModels": [
+        "claude-opus-5-5"
+      ]
+    },
+    "nativeExecution": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/native-execution.json",
+      "sha256": "40a61631ba279bae2975257e1d7105efe7c43f9f00de1a0c7e755c6ad8784b0d",
+      "disposition": "completed"
+    },
+    "nativeEvents": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/native-events.json",
+      "sha256": "72c1149cc0d4baa5487e2fe2244e1b3977a2c2f65127379fdcc45cd9993cd7ee",
+      "count": 214
+    },
+    "sourceUnavailable": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/source-unavailable.json",
+      "sha256": "e4719ab6a252823bc9dac03711a2557ed57c1a2e88353a8653a16c94f68e13c1"
+    },
+    "roleBeforeAfter": {
+      "roleBefore": "e06de1a33578601d4dde3d558bcd8b650f567107113dbdcdffa0a48f56bb9f81",
+      "roleAfter": "e06de1a33578601d4dde3d558bcd8b650f567107113dbdcdffa0a48f56bb9f81",
+      "equal": true
+    },
+    "freshReadsAfterSourceUnavailable": {
+      "t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_replay-call.json": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/reads/t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_replay-call.json",
+        "sha256": "8ea9a6e6470543371cd9855bde16b143763ec0e8e2f4720fb8e5678323efda1c"
+      },
+      "t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_replay.json": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/reads/t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_replay.json",
+        "sha256": "e7bfcb2c642f562ca7f812dba9d0704db89b0de3e52d364db50ff9143787c902",
+        "outcomeKind": "result",
+        "wallMs": 1194.1
+      },
+      "t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_result-call.json": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/reads/t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_result-call.json",
+        "sha256": "01484e1e4f62aa9dbd1fc7ab7304b2b751a028e3f7a028c8cbc71a143fd788a3"
+      },
+      "t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_result.json": {
+        "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/reads/t287-candidate-p4b-70cd1bfe859740b1-source-unavailable-run_result.json",
+        "sha256": "54025ed468f5c847eef03917c1912d49b9ef73f4fbdd7c820262d311065d21e5",
+        "outcomeKind": "result",
+        "wallMs": 1161.5
+      }
+    },
+    "unavailableSourceRefusal": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/unavailable-outcome.json",
+      "sha256": "fb3ff960e0308821c2732995d3525ab3cc2d4260b7eda0c026b35a4c24227c51",
+      "outcomeKind": "refusal",
+      "code": "invalid_capability",
+      "issuePaths": [
+        "/runEnvironmentResources",
+        "/runEnvironment/cause/access_unavailable"
+      ],
+      "wallMs": 2275.4
+    },
+    "finalHandoff": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/final-handoff.json",
+      "sha256": "92f7a0d97bcf5fad81b0241f791bb6bee8ad69b101ba60c946a10debd08409ed"
+    },
+    "nativeEnvironment": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/l4/p4/evidence/native-environment.json",
+      "sha256": "ccdb723db43b0b7e2d04aa21b681d77c11e757f3c8412085f228db1da26f65a8",
+      "credentialField": "withheld"
+    },
+    "credentialScan": {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb/logs/p4b.credential-scan.txt",
+      "matchingFiles": 0,
+      "scope": [
+        "l4/p4",
+        "l4/config",
+        "logs",
+        "tools"
+      ],
+      "root": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14cb",
+      "notScanned": "HOME (the provider CLI ran with HOME=/Users/jim and may keep its own files there)"
+    }
+  },
+  "prerequisitesAsCited": [
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p1/evidence/result.json",
+      "sha256": "26ba130f6aafeb1ea4b0e9b655846e88e0b9a11c69b32e98f4f938edafd3bf2f",
+      "obligations": [
+        "P1"
+      ]
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p2/evidence/result.json",
+      "sha256": "70e367504f869220c092f495d1935892f5a010a0d7e9c97ae75ee61a5ee79707",
+      "obligations": [
+        "P2"
+      ]
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p3/evidence/result.json",
+      "sha256": "f05559a3bd18d13367cbf20882b97e732e8b6952593e0f45ab3765e08311a8e7",
+      "obligations": [
+        "P3"
+      ]
+    },
+    {
+      "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d14c/l4/p5/result.json",
+      "sha256": "5dbc42711f834e191753e2858f8a3d5a10e2cd3c2896d7b5242ce5bccee1d738",
+      "obligations": [
+        "P5-physical",
+        "P5-U1"
+      ]
+    }
+  ],
+  "prerequisitesSource": "D1/D4-c record 20261028T124519Z_D1D4C_INSTALLED_PROOF/configuration-p4.json; re-verified by digest before and after this run",
+  "retention": "every evidence and physical root retained in the scratch; none cleaned; no retry"
+}
