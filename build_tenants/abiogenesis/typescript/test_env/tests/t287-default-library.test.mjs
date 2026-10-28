@@ -134,11 +134,11 @@ test('declared wrapper judgments advance actual observations, including red C2, 
 
 test('default role content is the exact packaged STDO3 subset with capability instructions separate',async()=>{
   const {DEFAULT_LIBRARY_STDO_SOURCE:source}=await import('../../build/code/src/gtl/default_library.js');
-  assert.equal(source.basisRef,'stdo://releases/v3.0.1-rc.1/');
+  assert.equal(source.basisRef,'stdo://releases/v3.0.2/');
   const manifest=await readFile(join(packageRoot,source.manifest.assetPath));
-  assert.equal(product.sha256Bytes(manifest),'sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8');
+  assert.equal(product.sha256Bytes(manifest),'sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477');
   const released=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifest),packaged=new Map();
-  const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
+  const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a',
     'standards/ASSURANCE.md':'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca'};
   for(const member of Object.values(source.members)){
     const bytes=await readFile(join(packageRoot,member.assetPath));packaged.set(member.path,bytes);
@@ -153,8 +153,8 @@ test('default role content is the exact packaged STDO3 subset with capability in
   assert.equal(environment.corpusAccess,null);assert.deepEqual(environment.accesses,[]);
   assert.throws(()=>gtl.constructStdoRunEnvironmentDeclaration(structuredClone(environment)),/STDO requires exact source/,
     'a generic packaged subset does not masquerade as the specialized complete-source manifest');
-  const expectedSpans={selector:[[83537,89094]],constructor:[[89094,92075],[96708,109201]],
-    assessor:[[92075,96708],[34042,63245]],command_executor:[[89094,92075],[34042,63245]]};
+  const expectedSpans={selector:[[84076,89633]],constructor:[[89633,92614],[97247,109740]],
+    assessor:[[92614,97247],[34042,63245]],command_executor:[[89633,92614],[34042,63245]]};
   assert.deepEqual(environment.roles.map(role=>role.role),Object.keys(expectedSpans));
   for(const role of environment.roles){
     assert.deepEqual(role.sourceBindings.map(span=>[span.startByte,span.endByte]),expectedSpans[role.role]);
@@ -788,7 +788,7 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
 });
 
 test('UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations',async t=>{
-  const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is bounded only by the declared `maxPromptBytes`, whose overflow refuses `declared_bound_overflow`, so nothing is withheld silently. Reacquire all mandatory selected source and assessment material through the declared reads.";
+  const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is carried whole, nothing withheld. Reacquire all mandatory selected source and assessment material through the declared reads.";
   const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
   const fixtures=await scenarios.loadScenarios(join(packageRoot,'test_env/fixtures/sandbox-uat'));
   const acquired=await scenarios.acquireScenario(fixtures.root,fixtures.rows.find(r=>r.key==='rust-cli'));

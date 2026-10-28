@@ -79,19 +79,19 @@ export function defaultGovernanceGraphFunctions(options: { purposes?: readonly G
 // Exact released bytes are packaged as a generic source subset. The original
 // manifest proves provenance; only the two selected members supply role context.
 export const DEFAULT_LIBRARY_STDO_SOURCE = {
-  "basisRef": "stdo://releases/v3.0.1-rc.1/",
-  "manifestDigest": "sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8",
+  "basisRef": "stdo://releases/v3.0.2/",
+  "manifestDigest": "sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
   "manifest": {
     "path": "manifest.json",
     "assetPath": "contracts/default-library/stdo/manifest.json",
-    "byteCount": 13792
+    "byteCount": 14286
   },
   "members": {
     "executive": {
       "path": "standards/EXECUTIVE_BASELINE.md",
       "assetPath": "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
-      "byteCount": 156797,
-      "digest": "sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e"
+      "byteCount": 157336,
+      "digest": "sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a"
     },
     "assurance": {
       "path": "standards/ASSURANCE.md",
@@ -106,8 +106,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "8-derived-executive-frame"
       ],
-      "startByte": 83537,
-      "endByte": 89094,
+      "startByte": 84076,
+      "endByte": 89633,
       "spanDigest": "sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"
     },
     "worker": {
@@ -115,8 +115,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "9-derived-worker-frame"
       ],
-      "startByte": 89094,
-      "endByte": 92075,
+      "startByte": 89633,
+      "endByte": 92614,
       "spanDigest": "sha256:41c60108a27d41f3f5dc0f533207973f1d58bfed75e99b4b9016bd7d23f00453"
     },
     "reviewer": {
@@ -124,8 +124,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "10-derived-reviewer-frame"
       ],
-      "startByte": 92075,
-      "endByte": 96708,
+      "startByte": 92614,
+      "endByte": 97247,
       "spanDigest": "sha256:fc549bf2e55ffaabad86b4fd3b9290d9043f8716f2ed21b28c0410c643c3911c"
     },
     "specialists": {
@@ -133,8 +133,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "11-derived-generic-specialist-frame-set"
       ],
-      "startByte": 96708,
-      "endByte": 109201,
+      "startByte": 97247,
+      "endByte": 109740,
       "spanDigest": "sha256:6498d934efff03cc742689e12295555928f4f0d975077744b12120f119f53189"
     },
     "testing": {

@@ -334,8 +334,9 @@ Release version is not the same thing as object identity (P3). Under the release
 
 - an immutable release cut is the only exact operative release
   identifier;
-- the mutable version-line selector only names the highest-ordinal
-  published immutable cut on its line (FOUNDATIONS §2);
+- an RC-profile mutable version-line selector only names the highest-ordinal
+  published immutable cut on its line (FOUNDATIONS §2); a stable profile
+  discovers its immutable tag directly under RELEASE §2;
 - release version is a release-process fact; and
 - release version is not the live constitutional identity of every
   object in the project.

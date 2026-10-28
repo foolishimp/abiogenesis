@@ -5,13 +5,13 @@ export {ref,contract,version,packageName};
 // source. This is declaration data for the shared current environment constructor.
 export const NATIVE_SELECTION_STDO3_ROLE=Object.freeze({
   graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',
-  frameRefs:['stdo://releases/v3.0.1-rc.1/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame'],
+  frameRefs:['stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#8-derived-executive-frame'],
   policy:{policyRef:ref('policy','native-suitability'),text:"Under the declared bounded Executive frame, judge whether one permitted registered capability serves the supplied task and recipient requirements. Respect the declared purpose, conditions, input, result and effect contracts. This computation produces a suitability finding and permitted choice or gap; it does not confer operation authority or claim a wider STDO disposition. Supplied observations are current request facts, not independently verified workspace state. A missing suitable capability or required support remains an explicit gap. Do not generate capabilities, repair input, inspect the workspace or treat capability presence as success.",
     digest:"sha256:4edda6c26a4fb54b24e005051b96d7457b94b77041557ba1c8a238e96924eeb2"},
   contextPolicy:{policyRef:ref('policy','native-context'),selectors:['full_source','active_binding_semantics']},
   accessRefs:[],sourceBindings:[{contextRef:ref('context','stdo3-executive'),memberRef:ref('member','standards/EXECUTIVE_BASELINE.md'),
-    memberDigest:"sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e",
-    startByte:83537,endByte:89094,spanDigest:"sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"}],
+    memberDigest:"sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+    startByte:84076,endByte:89633,spanDigest:"sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"}],
 });
 export const bindings=baseBindings.map(binding=>({...binding,modulePath:'build/native.mjs',computeRegime:binding.bindingRef===ref('binding','select')?'F_P':'F_D'}));
 const descriptor=binding=>{const {kind,bindingRef,...body}=binding;return {kind:'packaged_leaf_implementation_descriptor',schemaVersion:version,...body,descriptorDigest:hash(body)};};

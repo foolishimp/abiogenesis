@@ -245,13 +245,13 @@ and consumers select one complete immutable release. The source library in
 the methodology's source repository is the authoring library for the next
 method cut; mutable source governs no consumer before publication and
 explicit selection. The shared versioned STDO store holds each installed
-distribution of one selected immutable RC cut. A product definition
+distribution of one selected immutable release cut. A product definition
 addresses that distribution by an exact logical release URI and
 installed-manifest digest, independent of the machine-local store path; a
 project-local copy is optional and is not the default (P6, P3;
 [PRODUCT_DEFINITION §4](PRODUCT_DEFINITION.md#4-shared-installed-release-basis-and-toolchain-manager)).
 
-The selected immutable RC is consumer authority. Installed bytes must
+The selected immutable cut is consumer authority. Installed bytes must
 match that cut; mutable source and the moving version-line selector cannot
 silently repair, replace or outrank it. A mismatch is an adoption defect,
 resolved by selecting and installing one complete released cut and not
@@ -1662,7 +1662,7 @@ The method is stronger when the product can walk itself (P0, P6).
 A release version is not constitutional graph truth; it belongs to the
 release process and release metadata. The graph-native method concerns
 current assets, current vectors, current closures and current authority.
-Immutable RC publication, version-line selector advancement and exact-cut
+Immutable publication, applicable RC selector advancement and exact-cut
 acceptance stay a separate process surface, [RELEASE](RELEASE.md) (P3,
 P6).
 

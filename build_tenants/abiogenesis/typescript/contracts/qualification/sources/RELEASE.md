@@ -3,7 +3,7 @@
 Tier 2. Owns release publication: the release-publication bounded
 context, release identities, project-qualified refs and the project
 subtree, historical ref conservation, the three phases with candidate
-construction, immutable RC publication, exact-cut qualification and
+construction, immutable RC or stable publication, exact-cut qualification and
 monotonic version-line advancement, the selector and its relation to
 consumer adoption, naming, release-scoped assets and the Product subject,
 coordinated release-matched asset cohorts, acceptance, external
@@ -43,29 +43,20 @@ specification defines the current constitutional truth of the project.
 Release process defines how one published point-in-time cut is evaluated,
 bounded, named, published and made discoverable (P3).
 
-The product-local cut name is always:
+The release authority selects one of two disjoint cut profiles (P3, P6):
 
-```text
-v<version>-rc.<n>
-```
+- RC: product-local `v<version>-rc.<n>`, with a mutable `v<version>`
+  version-line selector naming the greatest published positive RC ordinal;
+- stable-v1: product-local `v<major>.<minor>.<patch>`, with no RC suffix and
+  no separate mutable selector at that ref, under
+  [§2 Stable cuts](#stable-cuts).
 
-In a release source carrying one independently released project, that
-name may also be the Git tag name. In a shared release source it is the
-suffix of the project-qualified Git ref of §2. Equal product-local cut
-names do not collapse releases owned by different projects (P3).
-
-The product-local version-line selector name is:
-
-```text
-v<version>
-```
-
-It denotes a mutable version-line selector (FOUNDATIONS §2). The selector
-points to the latest published immutable RC cut on that line, where latest
-means the greatest positive RC ordinal published for that project and
-version line. It is convenient discovery, not immutable identity and not
-sufficient as an exact constitutional, dependency, evidence or replay
-basis (P3, P6).
+Both profiles identify immutable published releases. The RC suffix does not
+make a published release provisional or require a second final cut. The
+stable profile is an explicit naming and discovery choice, not stronger
+semantic qualification. Equal product-local names do not collapse different
+Products. A mutable RC selector remains discovery, never an exact
+constitutional, dependency, evidence or replay basis (P3, P6).
 
 Release handling is downstream of intake triage. A bug, feature,
 regression or release blocker first receives its change class, lawful
@@ -163,9 +154,10 @@ The release-publication context distinguishes (P3):
   source-project state constructing a possible successor;
 - RC Branch: a mutable project-qualified carrier for the current
   candidate window;
-- Immutable RC Cut: an annotated project-qualified Git tag plus its exact
-  Product release subject (FOUNDATIONS §2), naming one published candidate
-  and, once accepted, one released Product; it realises the release cut;
+- Immutable Release Cut: an annotated project-qualified Git tag plus its
+  exact Product release subject (FOUNDATIONS §2), under the selected RC or
+  stable profile; publication, qualification and acceptance retain their
+  respective meanings; it realises the release cut;
 - Version-Line Selector: the mutable project-qualified tag alias naming
   the highest-ordinal published immutable RC cut for that project and
   version line; it realises the version-line selector of FOUNDATIONS §2;
@@ -174,7 +166,7 @@ The release-publication context distinguishes (P3):
   carrier aligned to the same latest-published commit as the selector.
 
 Equal version text does not collapse these identities. Branches and the
-version-line selector may move. An immutable RC tag never moves (P3).
+version-line selector may move. An immutable release tag never moves (P3).
 
 ### Project-qualified Git refs
 
@@ -185,7 +177,7 @@ assigned by the Product release authority. A directory name, display name,
 definition label, package name or matching version cannot infer or
 reassign it (P3, P6).
 
-A shared release source uses these exact ref shapes for every future
+A shared release source uses these exact ref shapes for an RC-profile
 publication (P3):
 
 ```text
@@ -210,6 +202,45 @@ For the Specification Stack shared source, the allocated namespaces are
 `specification_methodology`, `axiom_indexer` and `stdo_representation`.
 These keys distinguish release refs; they do not merge the three Products
 or imply a dependency or composition relation (P3, P6).
+
+### Stable cuts
+
+The `stable-v1` profile publishes an immutable release directly as
+`refs/tags/<project>/v<major>.<minor>.<patch>`. Each numeric component is a
+nonnegative decimal integer, with no leading zero except the single digit
+`0`. The tag is annotated, targets a commit and contains exactly one
+standalone annotation line (P3):
+
+```text
+STDO-Release-Profile: stable-v1
+```
+
+Its exact release declaration names the same stable cut, declared payload,
+source selection and predecessor. The installed manifest records
+`release.profile = "stable-v1"` alongside the complete identity of
+[Project-subtree release identity](#project-subtree-release-identity).
+An RC manifest retains its prior shape; adding stable support must not
+change the canonical bytes of a historical release manifest (P3, P4b).
+
+The stable coordinate is available only on a fresh version line with no
+same-version RC tag in either the historical or project-qualified namespace
+and no historical unqualified bare-version tag. The stable tag itself is
+create-only. A same-line collision or a missing, duplicated or different
+profile marker refuses stable acquisition; bare spelling or annotation alone
+cannot turn an RC selector into an immutable cut (P3, P5).
+
+There is no separate version-line selector or RC branch for this profile.
+A channel `stdo://channels/<major>.<minor>.<patch>` may discover that exact
+immutable stable tag; its cut ordinal is absent (`null`), and resolution
+must verify the stable profile and complete identity. That channel route
+creates neither another tag nor mutable alias semantics. Consumer adoption
+still follows §4 (P3, P6).
+
+A published stable tag never moves. Any change to its qualifying bytes
+requires a new version and a new immutable cut, not an RC added to the
+already stable line. Historical RC lines keep their selector semantics,
+refs, objects, peels and URIs; this profile neither finalises nor renames
+them. An RC-labelled published release remains a proper release (P3, P4b).
 
 ### Project-subtree release identity
 
@@ -250,8 +281,9 @@ remains the same object regardless of which preserving ref reaches it
 (P3, P4b).
 
 Product-local cut names and public logical release URIs also remain
-unchanged. In particular, a logical STDO release remains
-`stdo://releases/v<version>-rc.<n>/`; the project-qualified Git ref is
+unchanged. An RC logical STDO release remains
+`stdo://releases/v<version>-rc.<n>/`; a stable release uses
+`stdo://releases/v<major>.<minor>.<patch>/`. The project-qualified Git ref is
 transport identity and is not inserted into that URI. Resolution binds
 the public logical cut to its exact historical or project-qualified Git
 ref and fails closed if one project-local coordinate names different tag
@@ -269,15 +301,16 @@ source; it is not force-moved to imitate the qualified namespace (P3).
 The release process has three phases (P0, P3, P6):
 
 1. mutable candidate construction;
-2. immutable RC publication and monotonic version-line advancement; and
+2. immutable publication under the selected profile, with RC selector
+   advancement only for an RC line; and
 3. exact-cut qualification, acceptance and explicit consumer adoption.
 
-There is no second final cut after an accepted RC. Publication immediately
-makes the new highest ordinal discoverable through the version-line
-selector; acceptance remains a verdict over the exact immutable RC rather
-than a second carrier. If any byte capable of affecting the Product or a
-release-scoped claim changes, the project publishes and reviews a higher
-immutable RC cut instead (P3, P6).
+An accepted RC needs no second final cut. RC publication immediately makes
+the new highest ordinal discoverable through its selector. Stable publication
+makes its one exact tag discoverable under the stable profile. Acceptance is
+a verdict over the exact immutable subject, not a second carrier. A change
+to qualifying bytes requires a higher RC on an applicable RC line or a new
+version after a stable cut (P3, P6).
 
 ### Mutable candidate construction
 
@@ -285,12 +318,12 @@ During candidate construction (P0, P6):
 
 - bounded fixes are allowed after intake triage;
 - qualification and operator review may continue;
-- release notes may remain draft until RC publication;
-- the RC branch may move; and
+- release notes may remain draft until publication;
+- the candidate branch may move; and
 - mutable source is explicitly non-operative for released consumers.
 
 The intended Product boundary, release-scoped claims, excluded
-source-project state and qualification basis become explicit before RC
+source-project state and qualification basis become explicit before
 publication. A material scope change is repriced instead of being silently
 absorbed (P2, P6).
 
@@ -325,11 +358,25 @@ repair. A published higher RC without matching selector advancement is an
 invalid, fail-closed release state; it never authorises resolution of the
 older cut as the version-line latest (P3, P5).
 
+### Immutable stable publication
+
+Stable publication applies the same scope, source reconciliation, proportionate
+checks, exact carrier, subtree and inventory obligations as RC publication.
+It instead creates one stable-v1 annotated tag and any explicitly selected
+release branch, with no RC branch or separate selector. Before publication,
+verify the fresh-line conditions of [Stable cuts](#stable-cuts), bind remote
+absence for the immutable tag and bind every mutable destination's expected
+object. Publish the selected refs atomically where supported; a changed
+expectation stops publication for reconciliation. Read back the remote tag
+object, commit, subtree and declared assets. The release is publicly classified
+as a normal published release; release-host flags do not replace exact identity
+or qualification evidence (P3, P5, P6).
+
 ### Exact-cut qualification
 
 Qualification binds (P6, P3):
 
-- the Project Release Namespace, qualified immutable RC ref, annotated tag
+- the Project Release Namespace, qualified immutable release ref, annotated tag
   object, peeled commit, repository tree, Project Subtree root and tree,
   and declared Product member set;
 - the exact release-scoped claim bytes;
@@ -343,16 +390,15 @@ installed behaviour; packaging equivalence does not prove semantic
 behaviour; artifact presence does not prove usability unless presence is
 the exact claim (P6, P1; EVALUATION §1 is the generic claim law).
 
-An RC is accepted only when the required exact-cut review and operator
+A cut is accepted only when the required exact-cut review and operator
 checks are complete and the human authority accepts that exact subject. If
-review requires any qualifying-byte change, the verdict remains attached
-to the old RC and a higher RC is published. The selector already
-advertises the highest published RC; acceptance does not move it, rewrite
-it or create another final carrier (P6, P3).
+review requires a qualifying-byte change, the verdict stays on its original
+subject and the applicable successor rule is used. Acceptance does not move
+an immutable tag or create another final carrier (P6, P3).
 
 ### Monotonic version-line advancement
 
-Version-line advancement makes the newly published highest RC for one
+On an RC-profile line, version-line advancement makes the newly published highest RC for one
 Project Release Namespace discoverable (P3, P5):
 
 1. identify the exact new immutable RC tag, ordinal and peeled commit;
@@ -381,7 +427,7 @@ rolling the selector backward. The selector is therefore equivalent to
 
 ## 4. Selector and consumer adoption
 
-The version-line selector answers only (P6, P3):
+An RC-profile version-line selector answers only (P6, P3):
 
 > Which highest-ordinal published immutable RC cut currently exists on
 > this version line?
@@ -392,16 +438,17 @@ It never answers:
 
 A Product Definition may retain `stdo://channels/<version>` as its
 discovery selector, but its operative basis is the exact
-`stdo://releases/v<version>-rc.<n>/` URI and installed-manifest digest,
+`stdo://releases/v<version>-rc.<n>/` or stable
+`stdo://releases/v<major>.<minor>.<patch>/` URI and installed-manifest digest,
 the installed release basis of PRODUCT_DEFINITION §4. Moving the Git
 version-line selector does not update any consumer. Adoption is a separate
 explicit Product-Definition transition that resolves, presents, installs,
-verifies and pins the selected immutable RC. Resolution requires an
+verifies and pins the selected immutable cut. RC resolution requires an
 annotated selector with a distinct peeled commit; absence of a peeled
 selector ref fails closed and cannot be interpreted as a lightweight
 selector whose tag object is its commit (P6, P3, P5).
 
-Channel resolution enumerates the published RC tags for the selected
+For an RC line, channel resolution enumerates the published RC tags for the selected
 Project Release Namespace, including preserved unqualified historical cuts
 during a namespace transition, selects the greatest positive ordinal,
 requires that cut and the current selector to be annotated tags peeling to
@@ -411,6 +458,11 @@ is below the Product Definition's current exact basis. A consumer that
 intentionally retains an older cut names that immutable RC URI and digest
 explicitly and uses exact-basis operations such as `sync`; it does not
 express that choice through the latest-version channel (P5, P6).
+
+For a stable line, channel resolution returns its verified stable-v1 cut
+without ordinal comparison or a separate selector. A legacy bare selector is
+never admitted as a stable exact basis; an ambiguous profile is refused. The
+same digest-bound adoption operation applies to either profile (P3, P5, P6).
 
 Presentation and mutation are separate invocations. The read-only plan,
 the Adoption Plan of PRODUCT_DEFINITION §4, binds the current Product
@@ -431,14 +483,14 @@ explicit adoption (P2, P3, P6).
 
 ## 5. Naming
 
-The shared-source naming shape is (P3):
+The shared-source RC-profile naming shape is (P3):
 
 - RC branch: `rc/<project>/<version>`;
 - immutable RC tag: `<project>/v<version>-rc.<n>`;
 - optional release branch: `release/<project>/<version>`; and
 - mutable version-line selector tag: `<project>/v<version>`.
 
-For example:
+For example, on an RC line:
 
 - candidate branch: `rc/example/3.0.0`;
 - first immutable cut: `example/v3.0.0-rc.1`;
@@ -446,7 +498,10 @@ For example:
 - latest-release branch: `release/example/3.0.0`; and
 - latest-published selector: `example/v3.0.0`.
 
-The unqualified profile remains lawful only under the single-project and
+A stable example is `example/v3.0.2`, with the stable-v1 marker and no
+separate selector. The published tag is immutable.
+
+The unqualified RC profile remains lawful only under the single-project and
 historical-conservation conditions of §2. Projects may choose another
 spelling only in a release source whose ref policy proves collision
 freedom and preserves the same project namespace, mutable carrier,
@@ -456,7 +511,7 @@ immutable cut and mutable selector distinctions (P3).
 
 ### Release-scoped assets
 
-An immutable RC cut may carry release-scoped surfaces such as (P3, P6):
+An immutable release cut may carry release-scoped surfaces such as (P3, P6):
 
 - release notes;
 - release and installed-distribution manifests;
@@ -465,13 +520,13 @@ An immutable RC cut may carry release-scoped surfaces such as (P3, P6):
 - qualification receipts; and
 - branch and tag identity declarations.
 
-Before RC publication, each used surface is reconciled to the exact RC
-subject. After publication, changing one of those bytes creates a
-different candidate and therefore requires a higher RC tag. The
+Before publication, each used surface is reconciled to the exact cut
+subject. After publication, changing one of those bytes requires the
+applicable immutable successor: a higher RC or a new version after stable. The
 version-line selector has no content-reconciliation phase because it adds
 no new Product bytes (P3).
 
-Exact version and RC identity belong in release-scoped carriers and
+Exact version and cut identity belong in release-scoped carriers and
 consumer basis bindings (P3). How a live constitutional surface, Product
 and requirements surfaces included, uses version labels is the
 [SPEC_METHOD §2 Specification surface rule](SPEC_METHOD.md#specification-surface-rule).
@@ -489,10 +544,10 @@ Before qualification, the project declares (P3, P6):
 A repository commit carries those declared sets but does not make every
 co-located file or sibling Project Subtree a Product member. The exact
 Project Subtree tree and Product member inventory distinguish the subject
-from the wider carrier. Once the immutable RC is published, no post-review
+from the wider carrier. Once the immutable cut is published, no post-review
 carrier delta is admitted into that cut. Publication-caused ticket or
 source-work bookkeeping is recorded afterward on the continuing source
-branch and cannot move the immutable RC tag (P3, P6).
+branch and cannot move the immutable cut tag (P3, P6).
 
 ## 7. Coordinated release-matched asset cohorts
 
@@ -504,7 +559,7 @@ dependency, its owning authorities, the qualification boundary and the
 publication transaction. Path co-location, equal version text or a common
 actor cannot infer the relation (P3, P6).
 
-Every required member of one cohort uses one exact cohort version suffix
+For the existing RC-profile cohort, every required member uses one exact version suffix
 `<version>-rc.<n>`. Product-local cut names and refs render it as
 `v<version>-rc.<n>`; embedded asset-version fields render the same suffix
 without `v`. Qualification normalises only that leading cut-name marker
@@ -603,16 +658,16 @@ Normal successor publication uses the atomic cohort process above (P3,
 P6).
 
 Adding or changing this cohort law changes qualifying bytes of this
-member. It governs only a higher immutable RC that contains those bytes
+member. It governs only an immutable successor that contains those bytes
 and cannot retroactively make an earlier cut a coordinated cohort (P3).
 
 ## 8. Acceptance
 
 ### Acceptance criteria
 
-An RC may be accepted when (P6, P3):
+A release cut may be accepted when (P6, P3):
 
-- pre-RC qualification passed for the declared subject;
+- proportionate prepublication qualification passed for the declared subject;
 - independent exact-cut review passed where required;
 - required operator review is complete;
 - the intended release scope and successor relation are stable;
@@ -620,7 +675,7 @@ An RC may be accepted when (P6, P3):
 - all release-blocking gaps, including the findings that block promotion
   under [EVALUATION §5 When a finding blocks promotion](EVALUATION.md#when-a-finding-blocks-promotion),
   are closed or the claimed scope is explicitly narrowed; and
-- the human Product authority accepted the exact immutable RC identity.
+- the human Product authority accepted the exact immutable cut identity.
 
 Each criterion is a mandatory gate in the sense of
 [FOUNDATIONS §4 Change impact and evidence reuse](FOUNDATIONS.md#change-impact-and-evidence-reuse):
@@ -628,7 +683,7 @@ it applies irrespective of any selection of checks after a change, and
 retained evidence satisfies it only under the validity conditions stated
 there (P6).
 
-Acceptance attaches to that immutable RC identity. It neither advances
+Acceptance attaches to that immutable cut identity. It neither advances
 nor rolls back the version-line selector. Consumer adoption separately
 evaluates the exact latest target presented by the channel and mutates
 only after its digest-bound plan is accepted (P6, P3; EVALUATION §5 is
@@ -650,7 +705,7 @@ healthy dependency or narrowed before acceptance (P6, P5).
 
 ## 9. Successor baseline conservation (STDO-UP-015)
 
-A successor identifies the exact predecessor immutable RC whose semantic
+A successor identifies the exact predecessor immutable cut whose semantic
 claims it evolves. That origin remains immutable for the candidate. Every
 predecessor claim capable of affecting the successor receives one semantic
 disposition (P4b, P3, P6):

@@ -4,10 +4,10 @@ import { join } from 'node:path';
 import { ref } from '../fixtures/registered-selection-product/index.mjs';
 
 export const STDO3_SOURCE = Object.freeze({
-  basisRef: 'stdo://releases/v3.0.1-rc.1/',
-  manifestDigest: 'sha256:60356364a412dbde8cffe68fe0eda4e2749b0162acce93495534eee13b223df8',
+  basisRef: 'stdo://releases/v3.0.2/',
+  manifestDigest: 'sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477',
   memberPath: 'standards/EXECUTIVE_BASELINE.md',
-  memberDigest: 'sha256:fcef434630e270d216f494de97ee727ad46690db89a4b73edac4b88ff921c62e',
+  memberDigest: 'sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a',
 });
 
 const policyText = 'Under the declared bounded Executive frame, select only a permitted registered renderer satisfying the supplied task and recipient requirements, or preserve an explicit gap. Respect each declared purpose, conditions, input, result and effect contract. Supplied observations are current request facts, not independently verified workspace state. Do not generate capabilities, inspect or mutate the workspace, repair input, confer operation authority or claim wider acceptance.';
