@@ -4,7 +4,7 @@
 //               application domains, the law, the tenant manifest, the coverage catalog, one construction
 //               provenance per distinct slot subject (provenance.mjs taskProvenance: records as material
 //               selections), the verification recipe and the material (law sources, the whole inventory's
-//               bytes, typed manifests, records, and the observed C2 execution material when supplied)
+//               bytes, typed manifests, records, and the observed C2's two compact entries when supplied)
 //   slots       the five roles of QUALIFICATION_ROLE_POLICY, each criterion in exactly one slot
 //               (sharedCoverage disjoint); the rule role per domain key (D5-b disposition G-1): the key's
 //               members once per slot, the role sources and the classification, and the governing rule
@@ -14,8 +14,9 @@
 //               re-partitioned; every slot's construction attribution checked by the installed check
 //               (projectExternalConstructionAttribution) over its resolved provenance with established
 //               attributions; the cost at the declared prices
-// The slots that require the observed C2 execution material (coverage, and the rule group that governs
-// REQ-P-QUAL-056) carry the material supplied (the measured stand-in before the C2 run, the C2 Result after).
+// The verification-bound slots carry the compact material (RP-1 P1, design §QUAL-056 material selection): the coverage
+// slot the C2 Result's execution entry, the rule slots of the group that governs REQ-P-QUAL-056 the verification
+// material entry (the measured stand-in's entries before the C2 run, the C2 Result's after); never the C2's streams.
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { Q, RECIPE_PATH, TENANT_ROOT, constructApplicationDomains, constructApplications, sha256 } from './build-resources.mjs';
@@ -39,8 +40,10 @@ export async function materialSelection(root = TENANT_ROOT) { return readJson(jo
 
 /** The domains, the applications and the material over one basis: the law sources (packaged bytes), the whole
  * inventory's bytes, the typed tenant manifest and coverage catalog, the construction records and, when supplied, the
- * observed C2 execution material (the C2 Result's material, or the measured stand-in before the C2 run). */
-export async function constructAssessmentMaterial(q, { declaration, inventory, law, tenant, basis, scope, provenance, declarationProof, executionMaterial = null, sourceRoot = TENANT_ROOT }) {
+ * observed C2's execution entry and verification material entry (the C2 Result's, or the measured stand-in's before
+ * the C2 run). */
+export async function constructAssessmentMaterial(q, { declaration, inventory, law, tenant, basis, scope, provenance, declarationProof, executionMaterial = null,
+  verificationMaterial = null, sourceRoot = TENANT_ROOT }) {
   const hash = q.product.sha256Canonical;
   const typed = (ref, value) => material(ref, ref, Buffer.from(q.product.canonicalJson(value)));
   const normalized = q.deep.qualificationResources.normalizeQualificationScope(scope);
@@ -61,13 +64,14 @@ export async function constructAssessmentMaterial(q, { declaration, inventory, l
   const tenantMaterial = typed(tenant.manifestRef, tenant), coverageMaterial = typed(law.coverage.catalogRef, law.coverage);
   const recipe = members.find(m => m.ref === declaration.memberRefPrefix + RECIPE_PATH);
   const byRef = new Map();
-  for (const m of [...authority, ...members, tenantMaterial, coverageMaterial, ...provenance.records, ...(executionMaterial === null ? [] : [executionMaterial])]) {
+  for (const m of [...authority, ...members, tenantMaterial, coverageMaterial, ...provenance.records, ...(executionMaterial === null ? [] : [executionMaterial]),
+    ...(verificationMaterial === null ? [] : [verificationMaterial])]) {
     if (byRef.has(m.ref)) throw new TypeError('material ref names two entries: ' + m.ref);
     byRef.set(m.ref, m);
   }
   const declarationSelection = { catalogBasisDigest: declarationProof.catalog.basisDigest, readinessBasisDigest: declarationProof.catalog.readinessBasisDigest,
     viewDigest: declarationProof.catalogView.viewDigest, proofDigest: hash(declarationProof) };
-  return { normalized, domains, applications, authority, members, byRef, tenantMaterial, coverageMaterial, recipe, executionMaterial, declarationSelection, declarationProof,
+  return { normalized, domains, applications, authority, members, byRef, tenantMaterial, coverageMaterial, recipe, executionMaterial, verificationMaterial, declarationSelection, declarationProof,
     basisValue: basis, subjectBasis: coord(basis.basisRef, basis.basisDigest), lawBasis: law.lawBasis, inventoryCoordinate: coord(inventory.inventoryRef, inventory.inventoryDigest),
     catalogCoordinate: coord(law.catalog.catalogRef, law.catalogDigest), scope, inventory, law, tenant, provenance, declaration };
 }
@@ -110,7 +114,7 @@ export function acquireAssessmentResources(q, base, specified) {
 /** The non-rule roles' slot specifications and the rule role's domain keys (packed by packRuleRole once the resources are
  * acquired: its pack estimate calibrates against the installed renderer). */
 export function constructSlotSpecifications(q, base, selection) {
-  const { declaration, inventory, law, tenant, scope, domains, byRef, tenantMaterial, coverageMaterial, executionMaterial } = base;
+  const { declaration, inventory, law, tenant, scope, domains, byRef, tenantMaterial, coverageMaterial } = base;
   const plan = selection.plan, members = new Map(inventory.members.map(m => [m.ref, m]));
   const sources = new Map(law.catalog.sources.map(s => [s.ref, s]));
   const roleSources = q.preparation.QUALIFICATION_ROLE_POLICY.authoritySourceRefs;
@@ -124,15 +128,17 @@ export function constructSlotSpecifications(q, base, selection) {
   const verificationGroups = new Set(scope.ruleGroups.filter(g => g.ruleRefs.some(ref => law.catalog.rules.find(r => r.ruleRef === ref)?.governedClaim === 'REQ-P-QUAL-056'))
     .map(g => g.groupRef));
   const specs = [];
-  const spec = (role, key, coverage, subjectRefs, materialRefs, execution = false) => { const subjects = [...new Set(subjectRefs)];
-    const s = { role, key, coverage, subjectRefs: subjects, execution, executionMissing: execution && executionMaterial === null, subjectKey: subjectKey(subjects),
-      materialRefs: [...new Set([...roleSources, ...materialRefs, ...(execution && executionMaterial !== null ? [executionMaterial.ref] : [])])] };
+  // A verification-bound slot's entry: the rule role's the verification material entry, the coverage role's the execution entry.
+  const carried = role => role === 'rule' ? base.verificationMaterial : base.executionMaterial;
+  const spec = (role, key, coverage, subjectRefs, materialRefs, execution = false) => { const subjects = [...new Set(subjectRefs)], entry = execution ? carried(role) : null;
+    const s = { role, key, coverage, subjectRefs: subjects, execution, executionMissing: execution && entry === null, subjectKey: subjectKey(subjects),
+      materialRefs: [...new Set([...roleSources, ...materialRefs, ...(entry === null ? [] : [entry.ref])])] };
     specs.push(s); return s; };
   const pack = (rows, size, limit) => { const out = []; let cur = [], bytes = 0;
     for (const row of rows) { const n = size(row); if (cur.length > 0 && bytes + n > limit) { out.push(cur); cur = []; bytes = 0; } cur.push(row); bytes += n; }
     if (cur.length > 0) out.push(cur); return out; };
   const sourceBytes = g => g.sourceRefs.reduce((s, ref) => s + sources.get(ref).byteCount, 0);
-  const carried = refs => refs.filter(ref => members.get(ref).byteCount <= plan.memberCarryBytes);
+  const carriedRefs = refs => refs.filter(ref => members.get(ref).byteCount <= plan.memberCarryBytes);
 
   // catalog: one criterion per rule group; the rule catalog member is the assessed subject (its rows of the
   // selected sources are rendered by the owner's selected subject); the slot carries the groups' sources.
@@ -147,7 +153,7 @@ export function constructSlotSpecifications(q, base, selection) {
   const fitting = scope.surfaceGroups.filter(g => groupBytes(g) <= plan.inventoryCarryBytes), over = scope.surfaceGroups.filter(g => groupBytes(g) > plan.inventoryCarryBytes);
   const inventoryCriteria = g => ['inventory_coverage', 'inventory_classification'].map(role => criterion('inventory', inventory.inventoryRef, g.groupRef, role));
   for (const [n, groups] of pack(fitting, groupBytes, plan.inventoryCarryBytes).entries())
-    spec('inventory', 'inventory/' + n, groups.flatMap(inventoryCriteria), groups.flatMap(g => g.memberRefs), [...classificationRefs, ...carried(groups.flatMap(g => g.memberRefs))]);
+    spec('inventory', 'inventory/' + n, groups.flatMap(inventoryCriteria), groups.flatMap(g => g.memberRefs), [...classificationRefs, ...carriedRefs(groups.flatMap(g => g.memberRefs))]);
   for (const g of over) spec('inventory', 'inventory/' + g.groupRef.slice(PREFIX.length), inventoryCriteria(g), g.memberRefs, classificationRefs);
 
   // rule: the domain keys. A key (a governed part, or a role's complement) names the same member set under every rule
@@ -155,13 +161,13 @@ export function constructSlotSpecifications(q, base, selection) {
   const ruleGroups = new Map(scope.ruleGroups.map(g => [g.groupRef, g])), byKey = new Map();
   for (const d of domains) for (const group of d.surfaceGroups) {
     const key = group.groupRef.slice(PREFIX.length).split('/').slice(2).join('/'), governed = d.governedRefs.includes(group.groupRef);
-    const row = byKey.get(key) ?? { key, governed, memberRefs: group.memberRefs, carriedRefs: governed ? carried(group.memberRefs) : [], pairs: [] };
+    const row = byKey.get(key) ?? { key, governed, memberRefs: group.memberRefs, carriedRefs: governed ? carriedRefs(group.memberRefs) : [], pairs: [] };
     if (row.memberRefs.join('\n') !== group.memberRefs.join('\n') || row.governed !== governed) throw new TypeError('a domain key names two member sets: ' + key);
     row.pairs.push({ ruleGroup: ruleGroups.get(d.ruleGroupRef), group }); byKey.set(key, row);
   }
 
   // tenant: the manifest's realization; coverage: every behavior of the published coverage catalog, with the
-  // requirement sources its claims cite and the execution material.
+  // requirement sources its claims cite and the C2 Result's execution entry.
   spec('tenant', 'tenant', [criterion('tenant', tenant.manifestRef, tenant.manifestRef, 'tenant_realization')],
     [memberRef(Q + '/tenant-manifest.json')], [tenantMaterial.ref]);
   const claims = law.coverage.claims, coverageMember = memberRef('contracts/qualification/coverage.json');
@@ -176,7 +182,7 @@ export function constructSlotSpecifications(q, base, selection) {
  * members' bytes up to memberCarryBytes, a complement its members' metadata), the role sources and the classification,
  * and the governing rule groups packed beside them in catalog order while the estimated prompt stays under the bound
  * less plan.rulePackMarginBytes; the key's pair criteria inside. The rule group governing REQ-P-QUAL-056 is packed
- * alone per key, with the verification recipe and the execution material. The estimate is the key's base (the key
+ * alone per key, with the verification recipe and the verification material entry. The estimate is the key's base (the key
  * rendered once by the installed renderer with its first rule group, less that group's share) plus each group's
  * share: its source as rendered SOURCE DATA with its two coordinates, its catalog rows, its rule group, its criterion
  * and the key's domain group as the criterion's listing. projectAssessment renders every slot and halves a pack over the bound. */
@@ -284,7 +290,7 @@ function outputModel(q, slot, chains, selection) {
 
 /** Render each slot with the installed renderer (a one-slot plan: the prompt renders the task, never the plan), check its
  * construction attribution with the installed check, re-partition a slot over the bound, and project the cost. A slot
- * that carries the execution material and stays over the bound after its partitions enters the plan up to
+ * that carries a C2 entry and stays over the bound after its partitions enters the plan up to
  * EXECUTION_CLASS_BOUND_BYTES (the execution-material class); above it, it is reported over its bound. */
 export function projectAssessment(q, built, specified, selection, { ownerActorRef, onSlot = () => {} }) {
   const bound = PROMPT_BOUND_BYTES, admitted = [], irreducible = [];
@@ -333,7 +339,7 @@ export function projectAssessment(q, built, specified, selection, { ownerActorRe
       providedMembers: providedMembers.length, unprovidedMembers: slot.subjectRefs.length - providedMembers.length,
       materialMembers: slot.materialRefs.length, providedMemberBytes: bytesOf(providedMembers),
       lawSourceBytes: bytesOf(slot.materialRefs.filter(ref => sourceRefs.has(ref))), execution: slot.execution, executionMissing: slot.executionMissing === true,
-      executionMaterialBytes: slot.execution && built.executionMaterial !== null ? built.executionMaterial.byteCount : 0,
+      executionMaterialBytes: slot.execution ? (slot.role === 'rule' ? built.verificationMaterial : built.executionMaterial)?.byteCount ?? 0 : 0,
       renderedPromptBytes: rendered, promptBytes: total, executionClass, overBound: total > limit, promptDigest,
       taskDigest: input.task.taskDigest, inputDigest: q.product.sha256Canonical(input),
       inputTokens, outputBytes: output.bytes, outputAttributionBytes: output.attributionBytes, outputTokens,

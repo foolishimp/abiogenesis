@@ -8,16 +8,20 @@
 // installed constructor (constructQualificationVerificationMaterial). It is a measurement, never an admitted C2: no C
 // call, Result or event exists for it.
 //
-// What verification.execution.ref names (abg/qualification_proof.ts:779-846; validator/qualification.ts:130-243): the
-// execution selection's Result coordinate, whose material is the canonical JSON of the C2 Result, its judgment and its
-// evidence, the Result value being the whole observation (task, command results with their base64 streams, predicate
-// observations, worksite and product deltas, snapshot members). The compact verification material is the fold's own
-// reduction, never a task material. The stand-in is that material over the measured observation, under the envelope
-// (result, judgment, evidence) of an observed C2 Result of the installed candidate (the D3 sandbox run).
+// The two entries a verification-bound slot carries (RP-1 P1, design §QUAL-056 material selection), each by the
+// installed constructor: the execution entry of the C2 Result (abg/qualification_proof.ts qualificationExecutionEntry:
+// the Result coordinate with its contract ref and result class, the judgment, the evidence by class and refs, and the
+// observation in place of the value as its command outcomes by stream digest and length, its parsed test summaries and
+// its product delta; no stream payload) for the coverage slot, and the verification material entry
+// (validator/qualification.ts qualificationVerificationMaterialEntry: the compact verification material, its ref
+// derived from the execution selection ref) for the REQ-P-QUAL-056 rule slots. verification.execution.ref names the
+// execution selection's Result coordinate; the observed C2 Result stays reacquirable by it. The stand-in is the
+// execution entry over the measured observation, under the envelope (result, judgment, evidence) of an observed C2
+// Result of the installed candidate (the D3 sandbox run).
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { RECIPE_PATH, sha256 } from './build-resources.mjs';
+import { RECIPE_PATH } from './build-resources.mjs';
 
 const MEASUREMENT = 'abiogenesis/t287/d5c/helper-measurement';
 
@@ -73,8 +77,12 @@ export async function c2Envelope(eventLogPath, cCallRef) {
     observedValueBytes: Buffer.byteLength(JSON.stringify(result.payload.value)) };
 }
 
-/** The execution material over a value under an envelope, as the fold resolves it (abg/qualification_proof.ts:832-846: the
- * state's result is the admitted payload with its admission fields, stateAt :242-252). */
+/** The SOURCE DATA bytes one material entry renders as (validator/qualification.ts qualificationWorkerRequest). */
+export const renderedEntryBytes = entry => Buffer.byteLength(JSON.stringify(Buffer.from(entry.contentBase64, 'base64').toString('utf8')));
+
+/** The execution entry over a value under an envelope, as the fold resolves it (abg/qualification_proof.ts
+ * resolveQualificationExecutionMaterial: the state's result is the admitted payload with its admission fields, stateAt
+ * :242-252), by the installed constructor. The stand-in's ref is derived from the whole state's digest. */
 export function executionMaterial(q, envelope, value, ref) {
   const hash = q.product.sha256Canonical;
   const result = { ...envelope.result.payload, value, valueDigest: hash(value), kind: 'admitted_c_call_result', schemaVersion: '5.0.0',
@@ -82,18 +90,24 @@ export function executionMaterial(q, envelope, value, ref) {
   const judgment = { ...envelope.judgment.payload, kind: 'admitted_c_call_judgment', schemaVersion: '5.0.0', disposition: 'admitted',
     admissionEventRef: envelope.judgment.eventId };
   const evidence = envelope.evidence.map(e => ({ ...e.payload, admissionEventRef: e.eventId }));
-  const raw = Buffer.from(q.product.canonicalJson({ result, judgment, evidence }));
-  const digest = sha256(raw), materialRef = ref ?? 'result://abiogenesis/t287/d5c/measured-stand-in/' + digest.slice(7);
-  return { material: { ref: materialRef, path: materialRef, digest, byteCount: raw.length, contentBase64: raw.toString('base64') },
+  const stateDigest = hash({ result, judgment, evidence }), materialRef = ref ?? 'result://abiogenesis/t287/d5c/measured-stand-in/' + stateDigest.slice(7);
+  const material = { ...q.deep.qualificationProof.qualificationExecutionEntry(materialRef, { result, judgment, evidence }) };
+  return { material,
     parts: { valueBytes: Buffer.byteLength(q.product.canonicalJson(value)), resultEnvelopeBytes: Buffer.byteLength(q.product.canonicalJson({ ...result, value: null })),
       judgmentBytes: Buffer.byteLength(q.product.canonicalJson(judgment)), evidenceBytes: Buffer.byteLength(q.product.canonicalJson(evidence)), evidenceRows: evidence.length,
-      renderedSourceDataBytes: Buffer.byteLength(JSON.stringify(raw.toString('utf8'))) } };
+      wholeStateBytes: Buffer.byteLength(q.product.canonicalJson({ result, judgment, evidence })), stateDigest,
+      entryBytes: material.byteCount, renderedSourceDataBytes: renderedEntryBytes(material) } };
 }
 
 /** The verification material by the installed constructor, over the recipe member and the measured observation. */
 export function verificationMaterial(q, { basis, inventory, recipe, execution, cCall, observation, executionSelectionRef }) {
   return q.deep.qualification.constructQualificationVerificationMaterial({ basis, inventory,
     selection: { executionSelectionRef, recipe, recipePath: RECIPE_PATH }, execution, cCall, observation });
+}
+
+/** The verification material's entry by the installed constructor (null for no material). */
+export function verificationEntry(q, verification) {
+  return verification === null ? null : { ...q.deep.qualification.qualificationVerificationMaterialEntry(verification) };
 }
 
 /** The observation's parts by canonical JSON size. */

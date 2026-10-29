@@ -17,10 +17,11 @@
 //   helper-realize      (D5-c item 3) over a prepared archive: the observed C2 task constructed and realized by the
 //                       installed leaf (its manifests in the prepared sandbox's archive root) and the helper command
 //                       recorded, for the operator to run from a shell with the recorded setup environment. No C call.
-//   execution-material  (D5-c item 3) over a prepared archive whose helper ran: the helper artifact admitted, the
-//                       observation and the verification material by the installed constructors, the stand-in
-//                       execution material under an observed C2 envelope of the candidate, and one REQ-P-QUAL-056 rule
-//                       slot and the coverage slot rendered with them. A measurement, never an admitted C2.
+//   execution-material  (D5-c item 3; RP-1 P1) over a prepared archive whose helper ran: the helper artifact admitted,
+//                       the observation and the verification material by the installed constructors, the stand-in
+//                       execution entry under an observed C2 envelope of the candidate and the verification material
+//                       entry (the compact entries, execution-material.mjs), and one REQ-P-QUAL-056 rule slot and the
+//                       coverage slot rendered with them. A measurement, never an admitted C2.
 //   dry                 (D5-c item 5) over a prepared archive: the construction provenance with the inherited-base
 //                       chain, the re-packed plan over the stand-in with every slot rendered and its construction
 //                       attribution checked, and every C call's input admitted in process (the observed C2 start, each
@@ -50,8 +51,8 @@ import { EXECUTION_CLASS_BOUND_BYTES, PRICE, PROMPT_BOUND_BYTES, acquireAssessme
   constructSlotSpecifications, materialSelection, packRuleRole, projectAssessment, ruleInputFloor } from '../qualification/assessment-plan.mjs';
 import { PROGRAMS, RUN_ENVIRONMENT_SUPPORT, SELECTION_PREFIX, acknowledgmentRequest, admitCall, dispatchLive, observedC2Task, proofResource,
   selfConformanceInput, startCall } from '../qualification/dispatch.mjs';
-import { c2Envelope, constructMeasuredObservation, executionMaterial, observationParts, realizeForMeasurement,
-  verificationMaterial } from '../qualification/execution-material.mjs';
+import { c2Envelope, constructMeasuredObservation, executionMaterial, observationParts, realizeForMeasurement, renderedEntryBytes,
+  verificationEntry, verificationMaterial } from '../qualification/execution-material.mjs';
 import { d3Calls, fitLatency, projectTime } from '../qualification/time-projection.mjs';
 
 // Claude Code 2.1.306 (the provider lane's CLI): Bash default 120000 ms, maximum 600000 ms, unless
@@ -456,12 +457,13 @@ function groundProvenance(q, resources, runId) {
   return { provenance, value };
 }
 
-/** The plan over the re-packed slots (assessment-plan.mjs) over one execution material: the material, the slot
- * specifications, the resource manifest, the rule role packed per surface part, every slot rendered and its
- * construction attribution checked, then the plan over the admitted slots in their order. */
-async function planOver(q, caller, resources, provenance, execution, { onSlot } = {}) {
+/** The plan over the re-packed slots (assessment-plan.mjs) over the C2's two entries (execution: the execution entry the
+ * coverage slot carries; verification: the verification material entry the REQ-P-QUAL-056 rule slots carry): the
+ * material, the slot specifications, the resource manifest, the rule role packed per surface part, every slot rendered
+ * and its construction attribution checked, then the plan over the admitted slots in their order. */
+async function planOver(q, caller, resources, provenance, { execution, verification }, { onSlot } = {}) {
   const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
-  const base = await constructAssessmentMaterial(q, { ...resources, provenance, declarationProof, executionMaterial: execution });
+  const base = await constructAssessmentMaterial(q, { ...resources, provenance, declarationProof, executionMaterial: execution, verificationMaterial: verification });
   const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection);
   const built = acquireAssessmentResources(q, base, specified);
   const calibration = packRuleRole(q, built, specified, selection, { ownerActorRef: caller.actorRef });
@@ -493,7 +495,7 @@ export async function helperRealize(config, archivePath) {
  * material by the installed constructors, the stand-in execution material (the observation under the envelope of an
  * observed C2 Result of the candidate), and one REQ-P-QUAL-056 rule slot and the coverage slot rendered with them. */
 export async function executionMaterialMode(config, archivePath, { helperArchive, helperElapsedMs = null }) {
-  const r = await reopenArchive(config, archivePath, 'execution-material', 'D5-c item 3: the helper artifact, the observation, the verification material and the stand-in execution material, and the two execution slot classes rendered with them; a measurement, never an admitted C2');
+  const r = await reopenArchive(config, archivePath, 'execution-material', 'D5-c item 3, RP-1 P1: the helper artifact, the observation, the verification material, the stand-in execution entry and the verification material entry, and the two verification-bound slot classes rendered with them; a measurement, never an admitted C2');
   return sealed(r, 'execution-material', async () => {
     const { q, caller, record } = r, hash = q.product.sha256Canonical, json = value => Buffer.byteLength(q.product.canonicalJson(value));
     const helper = await readJson(join(helperArchive, 'helper-plan.json'));
@@ -509,25 +511,28 @@ export async function executionMaterialMode(config, archivePath, { helperArchive
     const recipe = { ref: recipeMember.ref, path: recipeMember.path, digest: recipeMember.digest, byteCount: recipeMember.byteCount, contentBase64: recipeBytes.toString('base64') };
     const executionSelectionRef = SELECTION_PREFIX + 'execution/c2', cCallRef = 'c-call://abiogenesis/t287/d5c/helper-measurement/' + r.archive.runId;
     const verification = verificationMaterial(q, { basis: r.resources.basis, inventory: r.resources.inventory, recipe,
-      execution: { ref: stand.material.ref, digest: stand.material.digest }, cCall: { ref: cCallRef, digest: hash({ cCallRef }) }, observation: measured.observation, executionSelectionRef });
+      execution: { ref: stand.material.ref, digest: stand.parts.stateDigest }, cCall: { ref: cCallRef, digest: hash({ cCallRef }) }, observation: measured.observation, executionSelectionRef });
+    const entry = verificationEntry(q, verification);
     await record('stand-in-material.json', stand.material); await record('verification-material.json', verification);
-    // The two slot classes that carry the execution material, rendered by the installed renderer over the stand-in.
+    // The two verification-bound slot classes, rendered by the installed renderer over the stand-in's entries.
     const policy = q.preparation.QUALIFICATION_ROLE_POLICY;
     const constructed = constructChains(chainCommits(execFileSync('git', ['-C', REPOSITORY_ROOT, 'rev-parse', 'HEAD']).toString('utf8').trim()), policy.authorityRef);
     const provenance = constructProvenance(q.product, { inventory: r.resources.inventory, ...constructed });
     const declarationProof = { kind: 'abg_historical_declaration_proof', schemaVersion: '5.0.0', catalog: caller.state.catalog, catalogView: caller.state.catalogView };
-    const base = await constructAssessmentMaterial(q, { ...r.resources, provenance, declarationProof, executionMaterial: stand.material });
+    const base = await constructAssessmentMaterial(q, { ...r.resources, provenance, declarationProof, executionMaterial: stand.material, verificationMaterial: entry });
     const selection = await materialSelection(), specified = constructSlotSpecifications(q, base, selection), built = acquireAssessmentResources(q, base, specified);
     packRuleRole(q, built, specified, selection, { ownerActorRef: caller.actorRef });
     const render = spec => { const { inputs } = constructPlan(q, built, [spec], caller.actorRef);
       const prompt = Buffer.from(q.preparation.prepareQualificationAssessment(inputs[0], built.acquired).request.prompt, 'utf8');
+      const carried = spec.role === 'rule' ? entry : stand.material;
       return { slotRef: inputs[0].task.slotRef, key: spec.key, criteria: spec.coverage.length, subjectMembers: spec.subjectRefs.length, materialMembers: spec.materialRefs.length,
+        carriedEntry: carried === null ? null : { ref: carried.ref, digest: carried.digest, byteCount: carried.byteCount, renderedSourceDataBytes: renderedEntryBytes(carried) },
         promptBytes: prompt.length, promptDigest: sha256(prompt), overPromptBound: prompt.length > PROMPT_BOUND_BYTES, overExecutionClassBound: prompt.length > EXECUTION_CLASS_BOUND_BYTES,
-        withoutExecutionMaterialBytes: prompt.length - stand.parts.renderedSourceDataBytes }; };
+        withoutExecutionMaterialBytes: prompt.length - (carried === null ? 0 : renderedEntryBytes(carried)) }; };
     const rule056 = specified.specs.find(s => s.role === 'rule' && s.execution), coverage = specified.specs.find(s => s.role === 'coverage');
     const slots = { rule056: render(rule056), coverage: render(coverage), rule056Slots: specified.specs.filter(s => s.role === 'rule' && s.execution).length };
     const findings = [slots.rule056, slots.coverage].filter(s => s.overExecutionClassBound).map(s => ({ slotRef: s.slotRef, promptBytes: s.promptBytes,
-      finding: 'Product finding (owner question): the slot carries the execution material and exceeds the execution-material class bound of ' + EXECUTION_CLASS_BOUND_BYTES + ' bytes; recorded, not repaired' }));
+      finding: 'Product finding (owner question): the slot carries a C2 entry and exceeds the execution-material class bound of ' + EXECUTION_CLASS_BOUND_BYTES + ' bytes; recorded, not repaired' }));
     const value = { kind: 'qualification_execution_material_measurement', runId: r.archive.runId, sourceArchive: archivePath, helperArchive,
       task: { ref: task.taskRef, digest: task.taskDigest }, helperPlan: { attemptRef: helperPlan.attemptRef, toolCommand: helperPlan.toolCommand, artifactPath: helperPlan.artifactPath },
       helperElapsedMs, artifact: { ref: measured.artifact.artifactRef, digest: measured.artifact.artifactDigest, byteCount: measured.artifactBytes },
@@ -535,8 +540,9 @@ export async function executionMaterialMode(config, archivePath, { helperArchive
       envelope: { run: STAND_IN_ENVELOPE.run, cCallRef: STAND_IN_ENVELOPE.cCallRef, observedValueBytes: envelope.observedValueBytes, evidenceRows: envelope.evidence.length },
       standIn: { ref: stand.material.ref, digest: stand.material.digest, byteCount: stand.material.byteCount, parts: stand.parts },
       verificationMaterial: verification === null ? null : { digest: hash(verification), byteCount: json(verification), keys: Object.keys(verification).sort() },
-      verificationExecutionRef: { resolvesTo: 'the execution selection\'s Result coordinate (selection.result.ref); its material is the canonical JSON of the C2 Result state (the admitted Result payload with the whole observation as value), its judgment and its evidence rows (abg/qualification_proof.ts:779-846); here the stand-in ref ' + stand.material.ref,
-        materialBytes: stand.material.byteCount, valueBytes: stand.parts.valueBytes },
+      verificationEntry: entry === null ? null : { ref: entry.ref, digest: entry.digest, byteCount: entry.byteCount, renderedSourceDataBytes: renderedEntryBytes(entry) },
+      verificationExecutionRef: { resolvesTo: 'the execution selection\'s Result coordinate (selection.result.ref); its entry is the compact rendering of the C2 Result state (abg/qualification_proof.ts qualificationExecutionEntry: the Result coordinate, contract ref and result class, the judgment, the evidence by class and refs, and the observation\'s command outcomes by stream digest and length, parsed test summaries and product delta in place of the value); here the stand-in ref ' + stand.material.ref,
+        materialBytes: stand.material.byteCount, wholeStateBytes: stand.parts.wholeStateBytes, valueBytes: stand.parts.valueBytes },
       bounds: { promptBoundBytes: PROMPT_BOUND_BYTES, executionClassBoundBytes: EXECUTION_CLASS_BOUND_BYTES }, slots, findings,
       classification: 'A measurement: the helper run by the operator from a shell, the observation constructed over a synthetic actor observation; never an admitted C2 (no C call, Result or event exists for it)' };
     await record('execution-material.json', value);
@@ -588,6 +594,8 @@ export async function dryRun(config, archivePath, { executionArchive }) {
     const executed = await readJson(join(executionArchive, 'execution-material.json'));
     const stand = await readJson(join(executionArchive, 'stand-in-material.json')), verification = await readJson(join(executionArchive, 'verification-material.json'));
     if (sha256(Buffer.from(stand.contentBase64, 'base64')) !== stand.digest || stand.digest !== executed.standIn.digest) throw new TypeError('the stand-in differs from its record');
+    const entry = verificationEntry(q, verification);
+    if (entry?.digest !== executed.verificationEntry?.digest) throw new TypeError('the verification material entry differs from its record');
     const admitted = [], cache = new Map();
     const admit = async (label, program, input, options = {}) => {
       const t = performance.now(), start = await startCall(caller, program, input, { ...options, label, cache });
@@ -606,7 +614,7 @@ export async function dryRun(config, archivePath, { executionArchive }) {
     await admit('c2', PROGRAMS.c2, c2Task.task);
     // The plan over the stand-in; every slot rendered and its attribution checked.
     let rendered = 0;
-    const planned = await planOver(q, caller, r.resources, grounded.provenance, stand, { onSlot: () => { rendered += 1; } });
+    const planned = await planOver(q, caller, r.resources, grounded.provenance, { execution: stand, verification: entry }, { onSlot: () => { rendered += 1; } });
     const invoking = { ...planned.built.assertion, declarationProofs: [] };
     const finals = [];
     // Every program kind before the long assess@5 loop. The owner's acknowledgment request of every slot's provenance view (the ruling the fold requires when J's
@@ -653,23 +661,21 @@ export async function dryRun(config, archivePath, { executionArchive }) {
     // the C2 prompt with 1,000 output tokens (an approximation; the C2 Worker's relay turns are not two-turn calls).
     const c2Prompt = executed.helperPlan === undefined ? null : await readJson(join(executed.helperArchive, 'helper-plan.json'));
     const c2ProviderMs = c2Prompt === null ? 0 : Math.max(0, model.interceptMs + model.perPromptByteMs * c2Prompt.prompt.byteCount + model.perOutputTokenMs * 1000);
-    const time = projectTime(projection.rows, model, { c2Ms: executed.helperElapsedMs === null ? null : Math.round(executed.helperElapsedMs + c2ProviderMs) });
+    // The preparation each start pays in process before its provider spawn, as measured here (startCall and
+    // ProductRunInvocationPort.prepare per assess@5 input): the mean measured start enters the projection.
+    const starts = admitted.filter(row => row.label.startsWith('assess-')).map(row => row.ms);
+    const time = projectTime(projection.rows, model, { c2Ms: executed.helperElapsedMs === null ? null : Math.round(executed.helperElapsedMs + c2ProviderMs),
+      startMs: starts.length === 0 ? null : starts.reduce((n, ms) => n + ms, 0) / starts.length });
     time.c2 = { helperElapsedMs: executed.helperElapsedMs, providerShareMs: Math.round(c2ProviderMs), promptBytes: c2Prompt?.prompt.byteCount ?? null,
       basis: 'the measured helper wall time plus the latency model over the C2 prompt with 1,000 output tokens' };
-    // The preparation each start pays in process before its provider spawn, as measured here (the qualification
-    // resource assertion canonicalized and digested per call).
-    const preparationMs = admitted.filter(row => row.label.startsWith('assess-')).reduce((n, row) => n + row.ms, 0);
-    time.preparation = { assessStarts: admitted.filter(row => row.label.startsWith('assess-')).length, ms: preparationMs,
-      basis: 'the measured in-process start admissions of every assess@5 input (startCall and ProductRunInvocationPort.prepare)' };
-    time.sequentialWithPreparationMs = time.sequentialMs + preparationMs;
-    time.sequentialWithPreparationHours = Number((time.sequentialWithPreparationMs / 3.6e6).toFixed(1));
     const irreducible = planned.projection.irreducible.map(({ slot, total, executionClass }) => ({ slotRef: 'slot://abiogenesis/typescript-tenant/qualification/' + slot.key, role: slot.role,
       criteria: slot.coverage.length, promptBytes: total, executionClass, finding: executionClass ? 'Product finding (owner question): over the execution-material class bound' : 'over the prompt bound with no lawful partition' }));
     await record('projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, writtenBeforeDispatch: true, price: PRICE,
       bounds: { promptBoundBytes: PROMPT_BOUND_BYTES, executionClassBoundBytes: EXECUTION_CLASS_BOUND_BYTES },
-      method: 'Every slot of the plan rendered by the installed prepareQualificationAssessment from the plan\'s own input; the rule role packed per surface part (G-1; assessment-plan.mjs packRuleRole); a slot over the bound re-partitioned; input tokens = prompt bytes / 4; output by material-selection.json plan.outputModel; the execution slots carry the item 3 stand-in',
+      method: 'Every slot of the plan rendered by the installed prepareQualificationAssessment from the plan\'s own input; the rule role packed per surface part (G-1; assessment-plan.mjs packRuleRole); a slot over the bound re-partitioned; input tokens = prompt bytes / 4; output by material-selection.json plan.outputModel; the verification-bound slots carry the item 3 stand-in\'s compact entries',
       resource: planned.built.resource, plan: { ref: planned.plan.planRef, digest: planned.plan.planDigest }, provenanceSelections: planned.built.provenanceEntries.size,
-      standIn: { ref: stand.ref, digest: stand.digest, byteCount: stand.byteCount }, specifications: planned.specified.specs.length, renderedDuringPartition: rendered,
+      standIn: { ref: stand.ref, digest: stand.digest, byteCount: stand.byteCount }, verificationEntry: entry === null ? null : { ref: entry.ref, digest: entry.digest, byteCount: entry.byteCount },
+      specifications: planned.specified.specs.length, renderedDuringPartition: rendered,
       calibration: { keys: planned.calibration.length, minRoomBytes: Math.min(...planned.calibration.map(c => c.roomBytes)), negativeRoom: planned.calibration.filter(c => c.roomBytes <= 0).map(c => c.key) },
       slots: projection.slots, criteria: projection.criteria, byRole: projection.byRole,
       totals: { promptBytes: projection.promptBytes, inputTokens: projection.inputTokens, outputTokens: projection.outputTokens, usd: projection.usd },
@@ -745,7 +751,8 @@ export async function liveRun(config, archivePath, { capUsd, executionArchive })
       return { gates, stop: planned.projection.usd > capUsd || invalid > 0 || irreducible > 0 }; };
     // The plan's gates over the measured stand-in, before the C2 dispatch spends a provider call.
     const stand = await readJson(join(executionArchive, 'stand-in-material.json'));
-    const pre = await planOver(q, caller, r.resources, grounded.provenance, stand), preGates = gatesOf(pre);
+    const standEntry = verificationEntry(q, await readJson(join(executionArchive, 'verification-material.json')));
+    const pre = await planOver(q, caller, r.resources, grounded.provenance, { execution: stand, verification: standEntry }), preGates = gatesOf(pre);
     await record('pre-dispatch-projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, standIn: { ref: stand.ref, digest: stand.digest, byteCount: stand.byteCount },
       plan: { ref: pre.plan.planRef, digest: pre.plan.planDigest }, byRole: pre.projection.byRole, usd: pre.projection.usd, gates: preGates.gates });
     if (preGates.stop) return { status: 'blocked', reason: 'a gate held the run before the C2 dispatch: ' + JSON.stringify(preGates.gates), dispatched: 0 };
@@ -753,10 +760,16 @@ export async function liveRun(config, archivePath, { capUsd, executionArchive })
     let dispatched = 0;
     const ctx = { caller, q, config, record, c2Task: c2Task.task,
       applyProviderEnvironment: () => { Object.assign(process.env, workerEnvironment(config)); },
-      executionMaterialOf: async c2Result => { const envelope = await c2Envelope(r.eventLog, c2Result.producer.cCallRef);
-        return executionMaterial(q, envelope, envelope.result.payload.value, c2Result.result.ref).material; },
-      planOver: async execution => {
-        const planned = await planOver(q, caller, r.resources, grounded.provenance, execution), { gates, stop } = gatesOf(planned);
+      // The C2 Result's two entries as F11's native join constructs them (abg/qualification_proof.ts
+      // resolveQualificationExecutionMaterial): the execution entry, and the verification material over its observation.
+      executionMaterialOf: async (c2Result, executionSelectionRef) => { const envelope = await c2Envelope(r.eventLog, c2Result.producer.cCallRef);
+        const value = envelope.result.payload.value, member = r.resources.inventory.members.find(m => m.ref === r.resources.declaration.memberRefPrefix + RECIPE_PATH);
+        const recipe = { ref: member.ref, path: member.path, digest: member.digest, byteCount: member.byteCount, contentBase64: (await readFile(join(TENANT_ROOT, RECIPE_PATH))).toString('base64') };
+        const cCallRef = c2Result.producer.cCallRef, verification = verificationMaterial(q, { basis: r.resources.basis, inventory: r.resources.inventory, recipe,
+          execution: c2Result.result, cCall: { ref: cCallRef, digest: cCallRef.slice('c-call:'.length) }, observation: value, executionSelectionRef });
+        return { execution: executionMaterial(q, envelope, value, c2Result.result.ref).material, verification: verificationEntry(q, verification) }; },
+      planOver: async entries => {
+        const planned = await planOver(q, caller, r.resources, grounded.provenance, entries), { gates, stop } = gatesOf(planned);
         await record('projection.json', { kind: 'qualification_assessment_projection', runId: r.archive.runId, plan: { ref: planned.plan.planRef, digest: planned.plan.planDigest },
           resource: planned.built.resource, byRole: planned.projection.byRole, usd: planned.projection.usd, gates, rows: planned.projection.rows });
         return { ...planned, stop, gates, reason: stop ? 'a gate held the assessments: ' + JSON.stringify(gates) : null }; },
@@ -782,7 +795,8 @@ async function coldReadsOfRun(config, runArchive) {
       ['constructionChains', String(archivedProvenance.chains), String(provenance.chains.length)]];
     if (run.mode === 'dry') {
       const dry = await readJson(join(runArchive, 'dry-run.json')), stand = await readJson(join(dry.executionArchive, 'stand-in-material.json'));
-      const planned = await planOver(q, caller, r.resources, provenance, stand);
+      const entry = verificationEntry(q, await readJson(join(dry.executionArchive, 'verification-material.json')));
+      const planned = await planOver(q, caller, r.resources, provenance, { execution: stand, verification: entry });
       rows.push(['resource', dry.resource.digest, planned.built.resource.digest], ['plan', dry.plan.digest, planned.plan.planDigest]);
     }
     const compared = rows.map(([name, archivedDigest, rederived]) => ({ name, archivedDigest, rederived, equal: archivedDigest === rederived }));

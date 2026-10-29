@@ -27,7 +27,7 @@ import {
   type QualificationAssessmentInput, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
   type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment, type QualificationConstructionProvenance,
   type QualificationCoverageCatalog, type QualificationVerdictInput,
-  type ExactCandidateQualification, type QualificationOwnerRuling,
+  type ExactCandidateQualification, type QualificationOwnerRuling, type QualificationMaterial,
 } from "./qualification_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { executingQualificationCatalogs } from "./qualification_catalogs.js";
@@ -240,6 +240,34 @@ export function constructQualificationVerificationMaterial(input: {
       execution: input.execution, cCall: input.cCall, observation: coordinate(observation.observationRef, observation.observationDigest),
       commandOutcomes, predicateOutcomes, lintOutcome, testSummaries, disposition, diagnostics });
   } catch { return null; }
+}
+/** The ref form of a verification material entry: derived from its execution selection ref. */
+export const QUALIFICATION_VERIFICATION_MATERIAL_REF_PREFIX = "qualification-verification-material://abiogenesis/";
+/** The compact verification material as the material entry a verification-bound slot carries (design
+ * §QUAL-056 material selection): the ref derived from the execution selection ref, the path equal to the ref, the
+ * bytes the material's canonical JSON, the digest over the bytes. The material schema admits it as it admits any
+ * material entry (a ref-form rule, no new material kind): the form is this constructor's, and F11 admits a task's
+ * entry only when it is canonically equal to the entry its own native join constructs. */
+export function qualificationVerificationMaterialEntry(material: QualificationVerificationMaterial): QualificationMaterial {
+  const ref = QUALIFICATION_VERIFICATION_MATERIAL_REF_PREFIX + hash(material.executionSelectionRef).slice("sha256:".length);
+  const bytes = Buffer.from(canonicalJson(material as unknown as JsonValue));
+  return deepFreeze({ ref, path: ref, digest: sha256Bytes(bytes), byteCount: bytes.length, contentBase64: bytes.toString("base64") });
+}
+/** The files one command's stdout reports when it is a node-test-events-jsonl@1 report (its per-file summary rows);
+ * null for any other stream. */
+function reportedTestFiles(command: WorksiteCommandResult): string[] | null {
+  try {
+    const rows = streamText(command, "stdout").split("\n").filter(line => line.length > 0).map(line => JSON.parse(line) as unknown);
+    const begin = rows[0];
+    if (!isRecord(begin) || begin.type !== "begin" || begin.format !== "node-test-events-jsonl@1") return null;
+    return [...new Set(rows.flatMap(r => isRecord(r) && r.type === "summary" && typeof r.file === "string" ? [r.file] : []))].sort();
+  } catch { return null; }
+}
+/** The parsed test summaries of an observed worksite execution: one per command whose stdout is a node test report,
+ * over the files that report names. Pure over the observation; the recipe-bound summaries are the verification
+ * material's (`constructQualificationVerificationMaterial`). */
+export function observedQualificationTestSummaries(observation: { readonly commandResults: readonly WorksiteCommandResult[] }): QualificationTestSummary[] {
+  return observation.commandResults.flatMap(c => { const files = reportedTestFiles(c); return files === null ? [] : [parseQualificationTestReport(c, files)]; });
 }
 export function isMalformedGtlAssessmentInput(value: unknown, catalogs?: AdmittedQualificationCoverageCatalog): value is MalformedGtlAssessmentInput {
   return v.is(MALFORMED_GTL_ASSESSMENT_INPUT_SCHEMA, value) &&
@@ -498,22 +526,43 @@ export function qualificationMaterialMatches(task: QualificationEmbeddedTask, no
       return b.toString("base64") === x.contentBase64 && b.byteLength === x.byteCount && sha256Bytes(b) === x.digest;
     });
 }
-/** Completeness is only over explicitly admitted, finite slots; it is not semantic sufficiency. */
+/** The plan checks already answered in this process, by verified plan digest. Derived and disposable: an entry is
+ * consulted only after `qualificationIdentity` has bound the digest to the plan's bytes, so an entry answers for
+ * exactly the plan it was computed over; it is bounded and never persisted. */
+const planMatchMemo = new Map<string, boolean>();
+const PLAN_MATCH_MEMO_BOUND = 64;
+/** Completeness is only over explicitly admitted, finite slots; it is not semantic sufficiency. Criteria are
+ * compared by their canonical keys (`qualificationHash`: equal keys exactly when canonically equal), through sets. */
 export function qualificationPlanMatches(plan: QualificationAssessmentPlan): boolean {
-  if (!qualificationIdentity(plan, "planRef", "planDigest", "qualification-plan://abiogenesis/") ||
-      !unique(plan.slots.map(x => x.slotRef)) || !unique(plan.slots.map(x => String(x.taskOrdinal))) ||
-      !unique(plan.coverage.map(hash)) || plan.coverage.length === 0 || plan.slots.length === 0) return false;
-  const all = plan.slots.flatMap(s => s.coverage);
-  if (plan.coverage.some(c => !all.some(a => canonicalEquals(a, c))) || all.some(a => !plan.coverage.some(c => canonicalEquals(a, c)))) return false;
-  if (plan.sharedCoverage === "disjoint" && !unique(all.map(hash))) return false;
+  if (!qualificationIdentity(plan, "planRef", "planDigest", "qualification-plan://abiogenesis/")) return false;
+  const memo = planMatchMemo.get(plan.planDigest);
+  if (memo !== undefined) return memo;
+  const matches = planMatchesOverKeys(plan);
+  if (planMatchMemo.size >= PLAN_MATCH_MEMO_BOUND) planMatchMemo.delete(planMatchMemo.keys().next().value!);
+  planMatchMemo.set(plan.planDigest, matches);
+  return matches;
+}
+function planMatchesOverKeys(plan: QualificationAssessmentPlan): boolean {
+  if (!unique(plan.slots.map(x => x.slotRef)) || !unique(plan.slots.map(x => String(x.taskOrdinal))) ||
+      plan.coverage.length === 0 || plan.slots.length === 0) return false;
+  const planKeys = plan.coverage.map(hash), planSet = new Set(planKeys);
+  if (planSet.size !== planKeys.length) return false;
+  const slotKeys = plan.slots.map(s => s.coverage.map(hash)), allSet = new Set(slotKeys.flat());
+  // The plan's coverage equals the slots' union, both ways.
+  for (const key of planSet) if (!allSet.has(key)) return false;
+  for (const key of allSet) if (!planSet.has(key)) return false;
+  if (plan.sharedCoverage === "disjoint" && allSet.size !== slotKeys.reduce((n, keys) => n + keys.length, 0)) return false;
   if (plan.sharedCoverage === "declared_independent_peers") {
-    for (const pair of plan.coverage) {
-      const peers = plan.slots.filter(s => s.coverage.some(c => canonicalEquals(c, pair)));
+    // Each slot counts once per criterion it carries.
+    const peersByKey = new Map<string, (typeof plan.slots)[number][]>();
+    plan.slots.forEach((s, n) => { for (const key of new Set(slotKeys[n])) { const peers = peersByKey.get(key) ?? []; peers.push(s); peersByKey.set(key, peers); } });
+    for (const key of planKeys) {
+      const peers = peersByKey.get(key) ?? [];
       if (peers.length < 2 || !unique(peers.map(s => s.role.actorRef)) ||
           peers.some(s => s.role.independence !== "author_and_peer_distinct")) return false;
     }
   }
-  return plan.slots.every(s => unique(s.coverage.map(hash)) &&
+  return plan.slots.every((s, n) => new Set(slotKeys[n]).size === slotKeys[n]!.length &&
     s.coverage.length > 0 && s.role.sourceBindings.length > 0);
 }
 export function isQualificationAssessmentInput(value: unknown, catalogs?: AdmittedQualificationRuleCatalog): value is QualificationAssessmentInput {
