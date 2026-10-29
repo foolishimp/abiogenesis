@@ -106,6 +106,15 @@ command outcomes alone cannot establish sufficiency. F11 conserves those
 bodies for the authenticated AF22 summary and AF25's output-only snapshot.
 Missing prior material is incomplete and is never synthesized from local logs.
 
+For a verification-bound criterion (a REQ-P-QUAL-056 rule application, and the
+coverage role's execution evidence) the material a slot carries is the compact
+verification material: the subject and law bases, the recipe coordinate, the
+execution, C-call and observation coordinates, each command outcome with its
+stream digests and byte lengths, the lint outcome, the predicate outcomes, the
+parsed test summaries and the material's disposition. The observed C2 Result
+stays admitted by coordinate through the execution selection and is
+reacquirable by its ref; its rendered state never enters a slot.
+
 ## Evaluation Relation
 
 1. Admit the exact qualification and law basis, catalog, inventory and tenant
