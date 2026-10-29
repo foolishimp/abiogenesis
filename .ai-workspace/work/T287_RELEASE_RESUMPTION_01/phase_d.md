@@ -5860,3 +5860,174 @@ the frozen-artifact variables unset. Its preflight, resume and recover branches 
 **Lanes.** `npm run build` before lanes; each lane alone with the evidence root; the named set: `t287-qual056-material`, `t287-qualification-scopes`, `t287-qualification-contraction`, `t287-installed-qualification-conservation`, `t287-release-publication`, the qualification units under `test_env/qualification/` and `test_env/uat/continuation.test.mjs`, and every lane under `test_env/tests/` that `git grep -l` finds referencing a changed module or a changed export; the gates `tsc`, `tsc --noUnusedLocals`, the four lints, `npm run build`, the tree clean by path after the build. Before column: the suite's column on `92498a2d2` (prove the base equality; no before pass). After: the named set once on the final built tree. The whole suite is the Executive's, in the background on your commit 1.
 
 **Exit.** Commit 1 (code, contracts as the generator leaves them, test territory; marker: write its hash to `.../scratchpad/rp1/commit1.txt`), the Executive's suite on it; the record commit last. Return contract: `## RP-1 return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)`; first sentence: closed or the stops, with the two slot sizes, the per-start time before and after, and item 3's identity finding. Commit 1 first line: `RP-1: the fold names the compact verification material; the plan check by hashed sets; the independence compare over one identity`. The record commit first line: `RP-1: record (056 slot <bytes>, coverage slot <bytes>; assess start <s> s; census)`. Stops: item 3 (b)'s missing identity fact (the other items continue); an item 1 (d) consumer outside the grant that needs a contract key (that consumer stops, named; the rest continues). A slot still over 1,048,576 bytes after item 1 is a finding with the figure, recorded, not a stop.
+
+## RP-1 return (Worker, Opus 5.5, 2026-10-29; base `8a1d1759a642104e4055d1c3e43bf9a5c2384b38`)
+
+RP-1 has two stops and closes the rest.
+- **Item 3 stops at the trace.** No admitted fact states the assessor's identity.
+- **Item 2's 5 s target is missed.** The 056 rule slot fell from 8,444,138 to 567,941 bytes and the coverage slot from 8,242,250 to 345,475 bytes. Both are under 1,048,576. The assess start fell from 280,197 ms to 14,082 ms with the memo cold and 13,123 ms with it warm. In the dry mode's single run over the whole plan, the median start is 11,888 ms and the mean 27,363 ms. On the D5-c plan, the plan check fell from 59,457 ms to 55 ms. The remaining 8.8 s of each start is the provenance record-set rehash in `validator/qualification_resources.ts`, which is outside the code grant.
+
+**Commits.**
+- Commit 1: `8db237d2a379e39be100f4fd7f0cd9f7e02525ac`.
+- Record commit: the one carrying this section.
+
+**Record.** `.ai-workspace/comments/claude/20261029T112420Z_RP1_QUALIFICATION_LAW/` holds `README.md`, `sizes.json`, `timing.json`, `census.json`, `dry-run.json` and `cost.json` (0 USD; no provider call).
+
+### Item 1 (P1)
+
+**Realization.**
+- `validator/qualification.ts` `qualificationVerificationMaterialEntry` builds the entry: ref `qualification-verification-material://abiogenesis/<hash of the execution selection ref>`, path equal to the ref, bytes the canonical JSON.
+- `abg/qualification_proof.ts` `resolveQualificationExecutionMaterial` builds it and returns `{evidence, verification, verificationEntry}`.
+- In `validator/self_conformance.ts`, F11 admits the entry by canonical equality. A 056 rule slot requires the recipe ref and the entry ref, and its criterion's `evidenceRefs` name the entry ref.
+- `qualificationExecutionEntry` renders each execution entry compactly. A C2 observation is carried as command outcomes by stream digest and length, test summaries and product delta, with no stream payload.
+
+**(e) A ref-form rule; no material kind and no key.** The owner generator leaves `contracts/qualification/**` identical.
+
+**(d) Consumers.** No module outside the code grant was edited for item 1.
+- Product, edited: `resolveQualificationExecutionMaterial` and `resolveQualificationExecutionEvidence`, the `abg/index.ts` export, in `abg/qualification_proof.ts`; `evaluateSelfConformance` in `validator/self_conformance.ts`; `validator/qualification.ts`.
+- Product, unaffected: `validator/qualification_contracts.ts`; `implementation/release_publication.ts`, whose verification material schema is unchanged; `validator/self_conformance_contracts.ts` and its schema asset.
+- Test territory: `execution-material.mjs`, `assessment-plan.mjs`, `build-resources.mjs`, `dispatch.mjs` and `exact-candidate-qualification.mjs`.
+- Lanes that assert the entry shape: `t287-qualification-contraction`, `-producer-context`, `-qual056-material` and `-qualification-scopes`, all green. Two more read it for diagnostics only: `-parent-alias` and `-producer-acquisition-reuse`.
+
+**(f) Sizes.**
+- Before: 8,444,138 and 8,242,250 bytes, reproduced exactly on the base build.
+- After: 567,941 and 345,475 bytes.
+- The execution entry is 128,378 bytes, against a 7,528,927-byte whole state. The verification entry is 146,788 bytes.
+- The class-bound findings go from 2 to 0.
+
+**(g)** The four seeded tasks are each `blocked_incomplete` with `J_required`. The honest task passes with provenance `J`.
+
+### Item 2 (P2)
+
+**Realization.** The check uses hashed sets. Its 10 refusals each have a falsifier, and so does the memo, with a forged plan under the same digest.
+
+**On the exact D5-c plan.** The plan is `502196d7…`, with 408 slots and 5,690 criteria. Each figure is the median of five fresh processes.
+- `qualificationPlanMatches` fell from 59,457 ms to 55 ms cold and 24 ms warm. `qualificationIdentity` costs 26 ms.
+- `isQualificationAssessmentInput` fell from 53,104 ms to 31 ms.
+
+**The whole start.**
+- Before: 280,197 ms (five runs, 278,984 to 284,332), on the base build and the D5-c plan.
+- After, memo cold: 14,082 ms (five fresh processes, 13,971 to 14,298), on the RP-1 plan of 478 slots and 5,825 criteria.
+- After, memo warm: 13,123 ms.
+- The plans differ because 70 of the 77 slots that were outside the D5-c plan now fit.
+- In the dry mode's single run: 478 starts, median 11,888 ms, mean 27,363 ms. The distribution is bimodal under heap pressure; Item 5 has the detail.
+
+**The other scans, per start.**
+- `startCall`: 1.65 s (catalog admission).
+- `admitCall`: 11.95 s. Of that, `acquireQualificationResources` takes 10.23 s:
+  - the provenance record-set rehash, 8.78 s;
+  - the manifest identity, 0.75 s;
+  - `validateEntry`, 0.32 s;
+  - the linear `entries.find` in `value()`, 0.26 s.
+- The granted modules carry under 0.5 s.
+
+**Stop.**
+- `qualification_resources.ts:64-67` and `:179-186` are outside the grant. The class also says complete views are "never inferred from another invocation", so a fix is a design question.
+- Sketch of a fix: a per-process memo of verified record sets, keyed by each record's ref, path, digest and byteCount. It would bring the warm start to about 4.7 s. It needs a grant, and possibly a design ruling.
+
+### Item 3 (P3): stop at the trace
+
+The assessor is named only by `actorRef`, `workerBindingRef` and the transport binding ref and digest. These carry it:
+- the role policy (`validator/qualification_contracts.ts:110-121`);
+- the judgment source;
+- the evidence lineage metadata (`abg/result_evidence_lineage_contracts.ts:13-23`);
+- the transport binding payload (`abg/actor_process.ts:924-1003`, `abg/event_store.ts:580`).
+
+The model reaches only the transport's arguments: `ABG_TS_CLAUDE_APPEND_ARGS` (`abg/transport_contracts.ts:242-270`, `:338-356`; `test_env/uat/runner.mjs:102`) passes `--model claude-opus-5-5`. That string also differs in form from the provenance identity `claude-opus-5.5`.
+
+**Recommendation.** An `actorIdentityRef` declared on the assessor's worker binding or transport binding. That is a contract addition the owner decides.
+
+3 (a) and (c) stop; 3 (d) holds trivially.
+
+### Item 4: the census
+
+Method: 23 chains, 16 by Opus and 7 by Fable. The inherited-base scope comes from `ls-tree` at `51bc5d2d8`, 1,170 members, so the ticket is not read.
+
+| Identity set | Members |
+| --- | --- |
+| Predecessor only | 1,060 |
+| Predecessor and Opus | 100 |
+| Predecessor and Fable | 2 |
+| All three | 2 |
+| Opus only | 26 |
+| Fable only | 1 |
+| Both models without the predecessor | 0 |
+| **Total** | **1,191** |
+
+**Members Fable covers (5).**
+- `design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md` and `design/ABI5_STDO3_COMPUTATIONAL_BINDING.md`. These two are the members both models cover.
+- `design/ABI5_REALIZATION_CONSTITUTION.md`
+- `design/T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN.md`
+- `release-claim.md`
+
+**Last constructing chain:** predecessor 1,060, Opus 126, Fable 5.
+
+### Item 5
+
+The dry mode was re-proved on a fresh prepare archive of the RP-1 build, through the scratch after driver. Archives are under `test_env/test_runs/qualification/`:
+- prepare `2026-10-29T06-25-38-407Z-13117fa7…`;
+- dry `2026-10-29T06-38-05-311Z-b56d89b8…`.
+
+**Outcome:** `undispatched`. Every input is admitted, and so is every start: C2, 120 rulings, F11 and AF22 over placeholders, and 478 assess@5. All 478 owner prompts are equal.
+
+**`dispatchReady` is false, for two causes:**
+- **7 slots outside the plan.** The `rule/complement/proof/{1,2,4,5,6,7,8}` slots are 1.08 to 1.20 MB each, over the prompt bound with no lawful partition. They were already among D5-c's 77 outside slots.
+- **44 invalid attributions.** RP-1's changed members were uncommitted when the archive was prepared. Commit 1 adds the chain that covers them.
+
+**Starts in the run.**
+- The median is 11,888 ms and the mean 27,363 ms. They split into two groups: 333 starts under 20 s, and 134 at 50 to 85 s.
+- The slow starts are on the heaviest provenance views.
+- On slot 302: 25.8 s fresh; 81.3 s after planOver; 67 to 70 s with a 2.45 GB ballast; 19 to 37 s with the same ballast and `--max-old-space-size=16384`.
+- The cause is garbage collection near the default 4.5 GB heap limit, amplified by the acquisition rehash, which allocates over 4.33 GB of view records, 233 MB of them distinct.
+
+**Time projection.** With the measured start, the 478 starts add 3.6 h of preparation, at 27,363 ms each. Sequential time is 34.2 h with preparation and 30.6 h without. The projected cost is 597.37 USD.
+
+The five test-territory modules are restated. `projectTime` takes `startMs`.
+
+### Gates and lanes
+
+**Gates.** All green:
+- `tsc` and `tsc --noUnusedLocals`;
+- `npm run lint -- test_env/qualification/recipe/verification-recipe.json`: 62 passed;
+- `lint:imports`, `lint:lifecycle`, `lint:evidence`, `lint:calculus`;
+- `npm run build`;
+- the owner generator: contracts identical;
+- the tree clean by path.
+
+**Build-left outputs.** Committed as the build leaves them: `contracts/capabilities/capability-definition-graph.json` and `product-toolchain-manifest.json`.
+
+**Outside the test grant.** `test_env/fixtures/abi5-root-candidate-basis.json` was regenerated by its owner script, `scripts/refresh-candidate-basis.mjs`. The code change moves the product content digest that about 40 installed lanes read. Every prior code commit in the range refreshed it.
+
+**Lanes.** The named set is 20 lanes, each run alone. Load was 14.3 falling to 10.0.
+- All equal their before column, with two exceptions: `t287-qual056-material` went 7 → 8 and `t287-qualification-scopes` went 17 → 18, each from its added case.
+- `r1-packed-artifact` is 1/1/0/0 with the refreshed fixture.
+- No lane regressed, and none is red.
+
+### Deviations
+
+- I ran `ls -la` and `shasum` once on the operator config's path, which is not a permitted read. Its digest matched.
+- The scratch harnesses changed nothing in the deliverable driver:
+  - the timing hook;
+  - the after driver, which installs the scratch pack and records the two prepare equalities `inventoryEqualsCommitted` and `tenantManifestEqualsCommitted` without gating on them;
+  - the plan bench.
+- A second serialization run on the before archives froze the exact D5-c plan.
+- The first after prepare failed on a scratch patch error, and was rerun.
+- Scratch experiments on the after archive: a run serializing slots 276, 302 and 326; a profile of slot 302; two heap-ballast runs.
+- The census computed the inherited-base scope with `git ls-tree` in place of the module's ticket read.
+
+### Findings outside the grant
+
+- **F1.** `validator/qualification_resources.ts` re-hashes every provenance view's record set on each acquisition. This costs 8.8 s of each fresh start, and is the dominant cost.
+- **F2.** Heap pressure under the default heap limit makes 134 of the 478 in-run starts take 50 to 85 s. The levers are the operator's node heap flag and F1.
+- **F3.** The 7 `rule/complement/proof` slots over the prompt bound have no lawful partition. They predate RP-1.
+
+### Stops
+
+- Item 3 at the trace.
+- Item 2's target. The repair is outside the code grant (F1). Heap pressure (F2) is a separate lever.
+
+### What could not be verified
+
+- The whole suite. The Executive's watcher runs it on commit 1.
+- A live dispatch: no provider was called.
+- The 7 slots still outside the plan were not repaired. They are listed in `dry-run.json`.
