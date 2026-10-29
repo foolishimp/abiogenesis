@@ -62,7 +62,7 @@ export const TRAVERSAL_ROSTER = Object.freeze({
   compute: ['F_D', 'F_P', 'F_H', 'mixed'],
   structural: ['atomic call', 'flat composition', 'edge program', 'adaptive declared selection', 'batch', 'transparent child traversal', 'graph recursion', 'retry'],
   consequence: ['same_edge_retry', 'depth_traversal', 'graph_span_reentry', 'public_start_reentry', 'ticket_traversal', 'fh_input_required', 'escalation_or_reprice', 'gap_stop', 'non_admit'],
-  disposition: ['advance_vector', 'close', 'retry_same_edge', 'repair', 're_enter', 'yield_continuation', 'inspect_runtime_archive', 'reprice', 'human_assurance_required', 'escalate', 'gap_stop', 'block', 'non_admit'],
+  disposition: ['advance_vector', 'close', 'retry_same_edge', 'repair', 're_enter', 'inspect_runtime_archive', 'reprice', 'human_assurance_required', 'escalate', 'gap_stop', 'block', 'non_admit'],
   public: ['advancing the next lawful work', 'targeting a published GraphFunction', 'targeting a published asset', 'bounded traversal until', 'direct or lawfully proxied', 'direct or supervised root control'],
 });
 export function qualificationSchema() {

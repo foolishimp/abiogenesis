@@ -5,17 +5,17 @@
 - goal: GOAL-035
 - owner: abiogenesis
 - build_tenant: typescript
-- updated_at: 2026-10-24
+- updated_at: 2026-10-30
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
-- current_activation: T287_RELEASE_RESUMPTION_01 (Phase D; RP-1 accepted at `e284bc577` 2026-10-29 (P1 closed, P2 in part with F1 and F2 ruled into the next package, P3 stopped on the missing assessor-identity fact, Q23 to the owner; the census; the suite on `8db237d2a` (199 lanes, 1,229 tests, 1,058 pass, 0 fail, 171 skipped: the column on `92498a2d2` plus the two added cases)); Phase D stood down at the RP-1 close by the owner's order of 2026-10-29; the refactor plan approved by the owner 2026-10-29 (Q19 reserve, Q20 declared selections, Q21 repair cut, Q22 gate kept); RP-1 activated at `6088b251dc647a9880337de8cce09286fd72b52a` 2026-10-29 (P1, P2, P3 on the candidate's tree; the census; 0 USD); D3-a-b accepted at `7da76d7d7` 2026-10-29; D5 accepted in part at `81c09e960` 2026-10-29 (the test territory, the resources and the prepare run; no verdict: stopped before the native run on the provider's 120 s Bash default, ruled a configuration; stop B withdrawn); D5-b accepted in part at `ac6dc9d79` 2026-10-29 (no verdict: the projection stop at 1,295.6 USD against 60; the attribution gate confirmed; the coverage catalog's eight unevidenced behaviors found (Q19, Product contract); the run's cap the owner's (Q20)); D5-c accepted at `e1a041fd9` 2026-10-29 (not dispatch-ready: six Product findings P1 to P6 (the execution material renders the whole C2 Result, 7.5 MB; the quadratic plan check; the independence check never matches; seven complement slots without a lawful partition; sequential provider calls; the coverage catalog claims the unrealized `yield_continuation`); Phase D stopped for the owner's decisions Q19 to Q22); D5-c activated 2026-10-29 (no provider: the inherited-base chain, the rule role re-packed per surface part with real rendered bytes, the real execution material, the eight behaviors analysed, the dispatch path with a dry mode, the sibling operator configuration); D5 activated 2026-10-29 (the gate roster, the vector's intake, the standing red restated to the cardinality law, the qualification resources and verification recipe in test territory, the native F11 and the sole AF22 verdict through the installed pack with the live assessor); D3 recorded 2026-10-29 (the js-sdlc-bootstrap rerun passed on the unchanged pack: six of six Hello workloads on `550b48cc…3df6`); the whole suite on `7da76d7d7` running in the background)
-- current_activation_status: library delivered and closed; T-290 Phases A, B and C closed (`46ed04895`, `a8937b837`, `acb5200a89e49e0336173d8841ff5cbc43b546a6`); L5 accepted 2026-10-24; Phase D started at the Phase C close
+- current_activation: T287_RELEASE_RESUMPTION_01 / T287-RP2-CODEX-20261029T130722Z; RP-2 admitted on owner resume and Codex Executive assignment; base 08ace99187eaa7a2a35b4e1629095df7ba7d9cca. RP-1 remains accepted (P1 closed, P2 partial, P3 stopped Q23); exact history in the Phase D ledger.
+- current_activation_status: RP-2 active; Codex Executive coordinates, separate Codex gpt-6-astra Worker writes; Fable stood down.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md
-- current_next_work: stood down by the owner's order of 2026-10-29 16:30 at the RP-1 close; nothing runs until the owner resumes. On resume: RP-2 (the yield reservation, the seven carriers, the Q20 selections, the P4 bound; item 0 added: F1's record-set memo and the driver's heap flag, the start re-measured), O2 (the cut at a higher RC), D1/D4-c, D2 and D3 on the cut under inheritance, D5-d-prep (the projection under declared selections, the probe, the assessor arrangement), D5-d, D6. Owner questions: Q23 (the assessor's `actorIdentityRef` declaration site, a contract addition; the worker binding recommended); Q20's budget and the assessor choice at D5-d-prep (Fable 5.1 lawful for 1,186 of 1,191 members, Opus 5.5 for 1,061, a third identity for the two design members both cover); 15 to 18 open, none blocking
+- current_next_work: RP-2 items 0-4 and truthful construction attribution under the activation in phase_d.md; one exact candidate and Return to Executive. No O2 activation. Q23 remains open; Q20 budget and assessor choice remain for D5-d-prep.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
-- current_runtime_frontier: candidate_fd38e8227_L4_complete_D2_D3_six_of_six_Hello_RP1_accepted_8db237d2a_P1_closed_P2_part_P3_stop_Q23_stood_down_RP2_awaits_owner
+- current_runtime_frontier: RP1_accepted_8db237d2a_P1_closed_P2_partial_P3_stop_Q23; RP2_active_on_08ace9918_owner_resume
 - current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
 - change_class: goal_reprice
 - derived_change_classes: product_reprice
@@ -23,10 +23,10 @@
 
 ## Current disposition
 
-Status: active, at `aa9f5ac86` (2026-10-24). This section is the ticket's one
-current status; the [Current Delivery Plan](#current-delivery-plan) is the
-delivery schedule. Every later section is a record at its own cut and supplies
-no current status or grant.
+Historical disposition at `aa9f5ac86` (2026-10-24), retained below. Current
+status is the header above and the [Phase D ledger](#phase-d-ledger), with the
+exact RP-2 activation in `phase_d.md`. This historical text does not reinstate
+the superseded stand-down or next-work selection.
 
 Delivered and closed:
 - The common computational library, on local `main` at the cut the
@@ -361,6 +361,7 @@ Amendment of 2026-10-29, seventh (the owner's approval of the refactor plan, "in
 | 2026-10-29 | D5-c | `92498a2d2`, `e1a041fd9` | | accepted (0 USD; the whole inventory grounded by 24 chains; the re-packed plan 408 slots, 520 to 952 USD, about 27 h sequential provider time plus 33 h of quadratic plan checks; 77 slots outside the plan; the execution material 7,528,927 bytes, the 056 and coverage slots at 8.4 and 8.2 MB; the dry mode admitted the C2, 119 rulings, F11, AF22 and three assess slots and ended undispatched; eight behaviors: seven authorable, `yield_continuation` unrealized; suite 1,227/1,056/0/171). Product findings P1 to P6; the candidate cannot be released under the Product's own law without a repair cut; Phase D stopped for Q19 to Q22) |
 | 2026-10-29 | plan | | | the refactor plan: the owner approved the D5-c recommendations and the Codex post's as the refactor plan (Q19 reserve `yield_continuation` to 5.1 and author the seven carriers; Q20 declared selections, the budget on the measured projection; Q21 the repair cut: RP-1, RP-2, O2, then D1/D4-c, D2, D3 under inheritance, D5-d-prep, D5-d, D6; Q22 the gate kept); the Executive ruled P4 (the complement bound 1,300,000 bytes with a live probe at D5-d-prep), P5 (measured after P1 and P2) and the two-package split; the assessor-identity consequence of P3 surfaced to the owner (`phase_d.md` `## Refactor plan`) |
 | 2026-10-29 | RP-1 | | | activated (P1 the compact verification material named by the fold and the compact execution evidence; P2 the plan check by hashed sets, memoized; P3 the independence compare over one identity with the assessor-identity trace; the author-identity census; the driver restated and the dry mode re-proven; 0 USD; the suite on commit 1 in the background) |
+| 2026-10-30 | RP-2 activation | `08ace99187eaa7a2a35b4e1629095df7ba7d9cca` | | owner resumed (“ok start”); Codex Executive takeover, separate Worker grant `T287-RP2-CODEX-20261029T130722Z`; items 0-4 plus truthful Codex attribution; no provider or O2; P3/Q23 remains stopped; exact activation in `phase_d.md` |
 | 2026-10-29 | RP-1 | `8db237d2a`, `e284bc577` | | accepted (0 USD; P1 closed: the 056 rule slot 8,444,138 to 567,941 bytes, the coverage slot 8,242,250 to 345,475, a ref-form rule, contracts identical, four seeded negatives blocked; P2 in part: the plan check 59,457 ms to 55 ms, the start 280 s to 14 s, the remainder F1 (the provenance rehash in `qualification_resources.ts`, outside the grant) and F2 (heap pressure), both ruled into the next package's item 0; P3 stopped: no admitted fact states the assessor's identity, Q23 to the owner (an `actorIdentityRef` on the worker binding recommended); the census: Fable 5.1 covers 5 members, both models 2; the dry mode undispatched, 478 starts admitted; 20 lanes equal plus two added cases; the suite on `8db237d2a` (199 lanes, 1,229 tests, 1,058 pass, 0 fail, 171 skipped: the column on `92498a2d2` plus the two added cases)); Phase D stood down at this close by the owner's order of 2026-10-29; RP-2 awaits the owner's resume |
 
 ### Design and proof controls
@@ -485,19 +486,19 @@ above supersede them.
 - current_method_manifest_sha256: 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782
 - method_repin_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#stdo-251-rc2-repin
 - retriaged_at: 2026-09-28
-- updated_at: 2026-10-06
+- updated_at: 2026-10-30
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_SANDBOX_UAT_RUN_02
+- current_activation: T287_RELEASE_RESUMPTION_01 / T287-RP2-CODEX-20261029T130722Z; RP-2 admitted on owner resume and Codex Executive assignment; base 08ace99187eaa7a2a35b4e1629095df7ba7d9cca. RP-1 remains accepted (P1 closed, P2 partial, P3 stopped Q23); exact history in the Phase D ledger.
 - prior_genuine_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
-- current_activation_status: ACTIVE_config_only_budget06_correction_accepted_exact_candidate05_clean_retest06_dispatched_outcome_pending
+- current_activation_status: RP-2 active; Codex Executive coordinates, separate Codex gpt-6-astra Worker writes; Fable stood down.
 - prior_boundary_repair_status: CLOSED_ACCEPT_Hello_expunction_generic_Source_package_and_bounded_installed_language_proof
 - prior_boundary_repair_acceptance: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/acceptance.json
 - current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/plan.md
 - current_sandbox_uat_acceptance: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
 - current_sandbox_uat_live_results: 0_passes_original_preRun_refusal_and_second_genuine_failed_Run_retained_budgetcorrected_retest06_dispatched_remaining6_UNEXECUTED_at_release
 - current_disk_cleanup_receipt: .ai-workspace/work/T287_SANDBOX_UAT_01/disk-recovery/receipt.json
-- current_next_work: ordered_single_case_clean_UAT_basic_cli_js_tenant_test_js_sdlc_bootstrap_rust_cli_rust_service_parallel_js_data_mapper_full_stop_nonpass_triangulate_framework_fix_successor_redeploy_retest
+- current_next_work: RP-2 items 0-4 and truthful construction attribution under the activation in phase_d.md; one exact candidate and Return to Executive. No O2 activation. Q23 remains open; Q20 budget and assessor choice remain for D5-d-prep.
 - prior_genuine_activation_status: CLOSED_ACCEPT_genuine07_original_J_native_F11_one_closed_Run_four_fresh_reads
 - current_boundary_repair_plan: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/plan.md
 - current_boundary_repair_reentry: product_reprice_requirement_reprice_design_reframe_then_bounded_realization_refactor

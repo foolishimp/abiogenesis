@@ -22,13 +22,13 @@
       "roleRef": "qualification-role://abiogenesis/inventory@5",
       "coverage": "ruleRef = the inventory ref, surfaceRef = one global surface group, evidenceRole = inventory_coverage and inventory_classification (:408)",
       "subject": "every member of the slot's surface groups (:413-420)",
-      "material": "the role sources, the groups' source refs (classification.json) and the members' bytes; groups whose bytes fit plan.inventoryCarryBytes packed together, a larger group alone with its members' metadata only"
+      "material": "The role sources, classification and each selected group's declared actual representative sourceRefs; complete member metadata remains present. No representative or metadata establishes omitted source conformity."
     },
     {
       "roleRef": "qualification-role://abiogenesis/rule@5",
       "coverage": "ruleRef = one rule group, surfaceRef = one group of that rule group's declared domain (classification.json applicationDomains), evidenceRole = semantic_assessment (:400-407)",
       "subject": "the domain group's members; a domain key (a governed part or a role's complement) names the same members under every rule group whose domain has it, so one slot covers several rule groups' pairs over one key",
-      "material": "D5-b disposition G-1: per domain key, slots that each carry the key's members once (a governed part its members' bytes, a member above plan.memberCarryBytes as metadata only; a complement its members' metadata only, its applications declared inapplicable), the role sources and the classification, and the governing rule groups' sources packed beside them in catalog order while the estimated prompt stays under the bound less plan.rulePackMarginBytes; the key's pair criteria inside. The estimate is the key's base, rendered once by the installed renderer, plus each rule group's share (its source as rendered SOURCE DATA, its catalog rows, its rule group, its criterion and listing); every slot is then rendered and a pack over the bound halved. The rule group governing REQ-P-QUAL-056 is packed alone per key and carries the verification recipe and the observed C2 execution material (validator/self_conformance.ts:107)"
+      "material": "Declared actual representative sourceRefs of the complete memberRefs domain, the classification and role/rule sources; grouping adequacy is J judgment and may remain unknown. Full source refs are retained for reacquisition; each criterion remains whole in one disjoint slot."
     },
     {
       "roleRef": "qualification-role://abiogenesis/tenant@5",
@@ -46,7 +46,6 @@
   "provenance": "Every task carries the construction provenance of its subject members (provenance.mjs taskProvenance): the inherited-base chain of the tree at the Phase C close (D5-b disposition G-2) and one chain per commit touching the tenant after it, each subject member under the last chain that constructed it (its postimage digest is the member's current digest), each chain restricted to those members with exactly their records, its attribution spans the whole activation, the closure's header and the closure rows of those members. One provenance entry per distinct slot subject set. The installed attribution check (validator/qualification.ts:743-805) is run over every slot's resolved provenance with established attributions before dispatch; a slot whose attribution is invalid holds dispatch.",
   "execution": "The observed C2 execution material is the C2 Result's material (abg/qualification_proof.ts:832-846: canonical JSON of the result, its judgment and its evidence). Before the C2 run, the projection and the dry mode carry a measured stand-in: the observation constructed by the installed owner from a direct run of the prepared C2 task's helper command in the prepared sandbox, under the envelope of an observed C2 Result (exact-candidate-qualification.mjs, execution-material.mjs), marked as such.",
   "plan": {
-    "memberCarryBytes": 600000,
     "inventoryCarryBytes": 500000,
     "catalogPackSourceBytes": 300000,
     "ruleSlotTargetBytes": 720000,
@@ -60,5 +59,7 @@
     },
     "rulePackMarginBytes": 16384
   },
-  "fit": "The projection renders every slot's prompt with the installed renderer and measures it against the bound before any dispatch (assessment-plan.mjs projectAssessment); ruleInputFloor states the rule role's input that no partition lowers under this selection."
+  "fit": "The projection renders every slot's prompt with the installed renderer and measures it against the bound before any dispatch (assessment-plan.mjs projectAssessment); ruleInputFloor states the rule role's input that no partition lowers under this selection.",
+  "proofComplementBoundBytes": 1300000,
+  "proofComplementBoundSource": "RP-2 / approved P4: only rule/complement/proof slots; rendered bytes measured, no criterion split under sharedCoverage disjoint. The live window probe and owner budget remain D5-d-prep obligations."
 }

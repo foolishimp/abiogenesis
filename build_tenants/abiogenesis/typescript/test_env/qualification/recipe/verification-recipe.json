@@ -3299,6 +3299,14 @@
       "relativePath": "test_env/qualification/execution-material.mjs"
     },
     {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/fixtures/rp2-correction-product.mjs",
+      "relativePath": "test_env/qualification/fixtures/rp2-correction-product.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/fixtures/rp2-probabilistic-product.mjs",
+      "relativePath": "test_env/qualification/fixtures/rp2-probabilistic-product.mjs"
+    },
+    {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/material-selection.json",
       "relativePath": "test_env/qualification/material-selection.json"
     },
@@ -3493,6 +3501,10 @@
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
       "relativePath": "test_env/support/root-installed-environment.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/run-exact-candidate-qualification.sh",
+      "relativePath": "test_env/support/run-exact-candidate-qualification.sh"
     },
     {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/serial-branch-worksite-program.mjs",
@@ -4227,6 +4239,26 @@
       "relativePath": "test_env/tests/t287-route-reconstruction.test.mjs"
     },
     {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+      "relativePath": "test_env/tests/t287-rp2-behavior-carriers.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-correction-carriers.test.mjs",
+      "relativePath": "test_env/tests/t287-rp2-correction-carriers.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+      "relativePath": "test_env/tests/t287-rp2-fibre-substitution.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-material-selection.test.mjs",
+      "relativePath": "test_env/tests/t287-rp2-material-selection.test.mjs"
+    },
+    {
+      "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-resource-memo.test.mjs",
+      "relativePath": "test_env/tests/t287-rp2-resource-memo.test.mjs"
+    },
+    {
       "memberRef": "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/tests/t287-runtime-activity-quiescence.test.mjs",
       "relativePath": "test_env/tests/t287-runtime-activity-quiescence.test.mjs"
     },
@@ -4513,7 +4545,7 @@
       "byteCount": 184447
     }
   ],
-  "commandConfigurationDigest": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
+  "commandConfigurationDigest": "sha256:5437b5ae111c0c12474340bd5fef2be13a3388a96c205af9697f6c677c391de1",
   "predicateConfigurationDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
   "writeTerritoriesDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
   "commands": [
@@ -4547,6 +4579,10 @@
     },
     {
       "commandId": "command://abiogenesis/qualification/test-compose",
+      "role": "test"
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-rp2-behavior",
       "role": "test"
     },
     {
@@ -4804,6 +4840,46 @@
       {
         "path": "test_env/qualification/recipe/verification-recipe.json",
         "kind": "json"
+      },
+      {
+        "path": "test_env/tests/t287-selected-action.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-rp2-material-selection.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/tests/t287-rp2-resource-memo.test.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/fixtures/rp2-correction-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/fixtures/rp2-probabilistic-product.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/assessment-plan.mjs",
+        "kind": "mjs"
+      },
+      {
+        "path": "test_env/qualification/provenance.mjs",
+        "kind": "mjs"
       }
     ]
   },
@@ -4865,6 +4941,17 @@
       "commandId": "command://abiogenesis/qualification/test-compose",
       "files": [
         "test_env/tests/t287-calculus-state-transfer.test.mjs"
+      ]
+    },
+    {
+      "commandId": "command://abiogenesis/qualification/test-rp2-behavior",
+      "files": [
+        "test_env/tests/t287-selected-action.test.mjs",
+        "test_env/tests/t287-rp2-behavior-carriers.test.mjs",
+        "test_env/tests/t287-rp2-correction-carriers.test.mjs",
+        "test_env/tests/t287-rp2-fibre-substitution.test.mjs",
+        "test_env/tests/t287-rp2-material-selection.test.mjs",
+        "test_env/tests/t287-rp2-resource-memo.test.mjs"
       ]
     }
   ],

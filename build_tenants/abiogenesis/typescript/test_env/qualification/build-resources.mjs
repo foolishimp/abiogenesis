@@ -4,6 +4,7 @@
 // resource index and, last, the subject inventory. Run from the tenant root:
 //   node test_env/qualification/build-resources.mjs --package <installed package root>
 //     --install-record <installed/0/identity.json of a Public install of the same pack> --scratch <empty scratch directory>
+// To refresh only the recipe before O2, pass --recipe-only true and omit --install-record.
 // The run-specific resources (the basis, the bound scope, the resource manifest
 // and the verification material) bind the install and the workspace binding of
 // one run; test_env/support/exact-candidate-qualification.mjs constructs them.
@@ -90,7 +91,9 @@ export function constructScope(runtime, declaration, { inventory, catalog, catal
   const ruleGroups = catalog.sources.map((source, ordinal) => ({ groupRef: 'qualification-rule-group://abiogenesis/typescript-tenant/' + ordinal,
     ruleRefs: catalog.rules.filter(rule => rule.sourceRef === source.ref).map(rule => rule.ruleRef), sourceRefs: [source.ref] }))
     .filter(group => group.ruleRefs.length > 0);
-  const surfaceGroups = [...groups.values()].sort((a, b) => a.groupRef < b.groupRef ? -1 : a.groupRef > b.groupRef ? 1 : 0);
+  const members = new Map(inventory.members.map(m => [m.ref, m]));
+  const surfaceGroups = [...groups.values()].map(g => ({ ...g, sourceRefs: representativeSources(declaration, g.memberRefs, members) }))
+    .sort((a, b) => a.groupRef < b.groupRef ? -1 : a.groupRef > b.groupRef ? 1 : 0);
   const applicationDomains = declaration.applicationDomains === undefined ? undefined
     : constructApplicationDomains(declaration, { inventory, ruleGroups, surfaceGroups }).map(({ ruleGroupRef, surfaceGroups }) => ({ ruleGroupRef, surfaceGroups }));
   const scope = runtime.preparation.constructQualificationIdentity({ kind: 'qualification_scope', subjectBasis, lawBasis,
@@ -107,6 +110,18 @@ export function domainFamily(declaration, sourceRef) {
   return family;
 }
 
+/** Declared material selection only: complete coverage remains in memberRefs.
+ * No filename, count or selected example establishes the omitted members' law. */
+export function representativeSources(declaration, memberRefs, members) {
+  const selection = declaration.surfaceGroups.representativeSelection;
+  if (selection === undefined) return [...declaration.surfaceGroups.sourceRefs];
+  if (selection.kind !== 'first_and_last_member_within_byte_limit' || !Number.isSafeInteger(selection.maxMemberBytes) || selection.maxMemberBytes <= 0)
+    throw new TypeError('unknown declared representative selection');
+  if (memberRefs.length === 0 || memberRefs.some(ref => !members.has(ref))) throw new TypeError('representative member absent');
+  const eligible = memberRefs.filter(ref => members.get(ref).byteCount <= selection.maxMemberBytes);
+  return eligible.length === 0 ? [memberRefs[0]] : [...new Set([eligible[0], eligible.at(-1)])];
+}
+
 /** A governed global group's parts: its members in inventory order, cut before a part would exceed chunkBytes (a member
  * larger than chunkBytes is a part alone). One part keeps the group's key; several are keyed <key>/part-<n>. */
 export function domainParts(declaration, group, members) {
@@ -118,7 +133,7 @@ export function domainParts(declaration, group, members) {
     part.push(ref); bytes += size;
   }
   if (part.length > 0) parts.push(part);
-  return parts.map((memberRefs, n) => ({ ...group, memberRefs, partKey: parts.length === 1 ? '' : '/part-' + n }));
+  return parts.map((memberRefs, n) => ({ ...group, memberRefs, sourceRefs: representativeSources(declaration, memberRefs, members), partKey: parts.length === 1 ? '' : '/part-' + n }));
 }
 
 /** Each rule group's domain (classification.json applicationDomains): the governed global groups re-keyed in byte-bounded
@@ -140,7 +155,7 @@ export function constructApplicationDomains(declaration, { inventory, ruleGroups
       ownerRefs: [...declaration.surfaceGroups.ownerRefs], sourceRefs: [...declaration.surfaceGroups.sourceRefs] }));
     if (rest.some(m => members.get(m.ref).surfaceRoles.length !== 1)) throw new TypeError('a complement member carries other than one surface role');
     return { ruleGroupRef: rule.groupRef, familyId: family.id, governedRefs: parts.map(g => rekey(g).groupRef),
-      surfaceGroups: [...parts.map(rekey), ...complement] };
+      surfaceGroups: [...parts.map(rekey), ...complement.map(g => ({ ...g, sourceRefs: representativeSources(declaration, g.memberRefs, members) }))] };
   });
 }
 
@@ -188,10 +203,10 @@ export const commandInput = declared => declared.commands.map(({ role: _role, ..
 async function main(argv) {
   const options = {};
   for (let i = 0; i < argv.length; i += 2) {
-    if (!['--package', '--install-record', '--scratch'].includes(argv[i]) || argv[i + 1] === undefined) throw new TypeError('Unknown argument: ' + argv[i]);
+    if (!['--package', '--install-record', '--scratch', '--recipe-only'].includes(argv[i]) || argv[i + 1] === undefined) throw new TypeError('Unknown argument: ' + argv[i]);
     options[argv[i].slice(2)] = argv[i + 1];
   }
-  if (!options.package || !options['install-record'] || !options.scratch) throw new TypeError('Usage: build-resources.mjs --package DIR --install-record FILE --scratch DIR');
+  if (!options.package || (!options['install-record'] && options['recipe-only'] !== 'true') || !options.scratch) throw new TypeError('Usage: build-resources.mjs --package DIR --install-record FILE --scratch DIR');
   const runtime = await installedExports(options.package), { product, valibot, validator, deep } = runtime;
   const ambient = deep.actorProcess.selectedWorksiteCommandAmbientEnvironment();
   const declaration = await classification();
@@ -233,6 +248,15 @@ async function main(argv) {
   // is independent of the protected set and differs between bindings only by the root path lengths.
   const helperPlan = product.worksiteCommandExecutionHelperPlan(task, 'attempt://abiogenesis/qualification/prompt-measure');
   const prompt = Buffer.from(product.renderWorksiteCommandExecutionPrompt(task, helperPlan), 'utf8');
+
+  // Recipe construction is independent of a new candidate install. This bounded mode
+  // refreshes only that generated carrier; O2 still owns candidate resource regeneration.
+  if (options['recipe-only'] === 'true') {
+    process.stdout.write(JSON.stringify({ kind: 'qualification_recipe_generated', qualification: false,
+      digest: sha256(recipeBytes), byteCount: recipeBytes.length, sourceInputs: recipe.sourceInputs.length,
+      commandConfigurationDigest: recipe.commandConfigurationDigest, budget }) + '\n');
+    return 0;
+  }
 
   // 2. Law basis, rule catalog and coverage catalog by coordinate; the tenant manifest from the pack's install record.
   const law = await lawAndCoverage(runtime);

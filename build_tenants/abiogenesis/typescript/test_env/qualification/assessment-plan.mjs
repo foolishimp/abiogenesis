@@ -23,6 +23,9 @@ import { Q, RECIPE_PATH, TENANT_ROOT, constructApplicationDomains, constructAppl
 import { establishedAttributions, taskProvenance } from './provenance.mjs';
 
 export const PROMPT_BOUND_BYTES = 1_048_576;
+export const PROOF_COMPLEMENT_BOUND_BYTES = 1_300_000;
+export const slotPromptBound = slot => slot.role === 'rule' && slot.key.startsWith('rule/complement/proof/')
+  ? PROOF_COMPLEMENT_BOUND_BYTES : PROMPT_BOUND_BYTES;
 export const PRICE = Object.freeze({ inputUsdPerMillionTokens: 5, outputUsdPerMillionTokens: 25, bytesPerToken: 4 });
 export const PACKAGE_CAP_USD = 60;
 /** The execution-material class bound (D5-b disposition G-3): a slot over 1,048,576 bytes only by the execution material it must carry enters the plan up to this bound; above it the slot is a Product finding. */
@@ -138,7 +141,6 @@ export function constructSlotSpecifications(q, base, selection) {
     for (const row of rows) { const n = size(row); if (cur.length > 0 && bytes + n > limit) { out.push(cur); cur = []; bytes = 0; } cur.push(row); bytes += n; }
     if (cur.length > 0) out.push(cur); return out; };
   const sourceBytes = g => g.sourceRefs.reduce((s, ref) => s + sources.get(ref).byteCount, 0);
-  const carriedRefs = refs => refs.filter(ref => members.get(ref).byteCount <= plan.memberCarryBytes);
 
   // catalog: one criterion per rule group; the rule catalog member is the assessed subject (its rows of the
   // selected sources are rendered by the owner's selected subject); the slot carries the groups' sources.
@@ -147,22 +149,22 @@ export function constructSlotSpecifications(q, base, selection) {
     spec('catalog', 'catalog/' + n, groups.map(g => criterion('catalog', g.groupRef, law.catalog.catalogRef, 'catalog_fidelity')), [catalogMember],
       groups.flatMap(g => g.sourceRefs));
 
-  // inventory: both criteria of each global surface group; groups packed while their bytes fit the carry bound,
-  // a group above it alone with its members' metadata only.
+  // inventory: both criteria of each global surface group, with complete member
+  // metadata and declared representative bodies; packing retains the existing group bound.
   const groupBytes = g => g.memberRefs.reduce((s, ref) => s + members.get(ref).byteCount, 0);
   const fitting = scope.surfaceGroups.filter(g => groupBytes(g) <= plan.inventoryCarryBytes), over = scope.surfaceGroups.filter(g => groupBytes(g) > plan.inventoryCarryBytes);
   const inventoryCriteria = g => ['inventory_coverage', 'inventory_classification'].map(role => criterion('inventory', inventory.inventoryRef, g.groupRef, role));
   for (const [n, groups] of pack(fitting, groupBytes, plan.inventoryCarryBytes).entries())
-    spec('inventory', 'inventory/' + n, groups.flatMap(inventoryCriteria), groups.flatMap(g => g.memberRefs), [...classificationRefs, ...carriedRefs(groups.flatMap(g => g.memberRefs))]);
-  for (const g of over) spec('inventory', 'inventory/' + g.groupRef.slice(PREFIX.length), inventoryCriteria(g), g.memberRefs, classificationRefs);
+    spec('inventory', 'inventory/' + n, groups.flatMap(inventoryCriteria), groups.flatMap(g => g.memberRefs), [...classificationRefs, ...groups.flatMap(g => g.sourceRefs)]);
+  for (const g of over) spec('inventory', 'inventory/' + g.groupRef.slice(PREFIX.length), inventoryCriteria(g), g.memberRefs, [...classificationRefs, ...g.sourceRefs]);
 
   // rule: the domain keys. A key (a governed part, or a role's complement) names the same member set under every rule
   // group whose domain has it; its pairs are packed by packRuleRole.
   const ruleGroups = new Map(scope.ruleGroups.map(g => [g.groupRef, g])), byKey = new Map();
   for (const d of domains) for (const group of d.surfaceGroups) {
     const key = group.groupRef.slice(PREFIX.length).split('/').slice(2).join('/'), governed = d.governedRefs.includes(group.groupRef);
-    const row = byKey.get(key) ?? { key, governed, memberRefs: group.memberRefs, carriedRefs: governed ? carriedRefs(group.memberRefs) : [], pairs: [] };
-    if (row.memberRefs.join('\n') !== group.memberRefs.join('\n') || row.governed !== governed) throw new TypeError('a domain key names two member sets: ' + key);
+    const row = byKey.get(key) ?? { key, governed, memberRefs: group.memberRefs, carriedRefs: group.sourceRefs, pairs: [] };
+    if (row.memberRefs.join('\n') !== group.memberRefs.join('\n') || row.governed !== governed || row.carriedRefs.join('\n') !== group.sourceRefs.join('\n')) throw new TypeError('a domain key names two member sets: ' + key);
     row.pairs.push({ ruleGroup: ruleGroups.get(d.ruleGroupRef), group }); byKey.set(key, row);
   }
 
@@ -178,8 +180,8 @@ export function constructSlotSpecifications(q, base, selection) {
     ruleGroupOf: ref => ruleGroups.get(ref), memberBytes: ref => members.get(ref)?.byteCount ?? null };
 }
 
-/** The rule role per domain key (D5-b disposition G-1). Each slot carries the key's members once (a governed part its
- * members' bytes up to memberCarryBytes, a complement its members' metadata), the role sources and the classification,
+/** The rule role per domain key (D5-b disposition G-1, RP-2 Q20 selection). Each slot carries complete
+ * member metadata and its declared representative bodies, the role sources and the classification,
  * and the governing rule groups packed beside them in catalog order while the estimated prompt stays under the bound
  * less plan.rulePackMarginBytes; the key's pair criteria inside. The rule group governing REQ-P-QUAL-056 is packed
  * alone per key, with the verification recipe and the verification material entry. The estimate is the key's base (the key
@@ -319,8 +321,8 @@ export function projectAssessment(q, built, specified, selection, { ownerActorRe
   };
   const queue = [...specified.specs];
   while (queue.length > 0) {
-    const slot = queue.shift(), measured = render(slot);
-    if (measured.total <= bound) { admitted.push({ slot, ...measured, executionClass: false }); onSlot(admitted.length, slot, measured); continue; }
+    const slot = queue.shift(), measured = render(slot), slotBound = slotPromptBound(slot);
+    if (measured.total <= slotBound) { admitted.push({ slot, ...measured, executionClass: false }); onSlot(admitted.length, slot, measured); continue; }
     const parts = split(slot);
     if (parts !== null) { queue.unshift(...parts); continue; }
     if (slot.execution && !slot.executionMissing && measured.total <= EXECUTION_CLASS_BOUND_BYTES) { admitted.push({ slot, ...measured, executionClass: true }); onSlot(admitted.length, slot, measured); }
@@ -333,14 +335,14 @@ export function projectAssessment(q, built, specified, selection, { ownerActorRe
     const inputTokens = tokens(total), outputTokens = tokens(output.bytes);
     const providedMembers = slot.materialRefs.filter(ref => slot.subjectRefs.includes(ref)), sourceRefs = new Set(built.law.catalog.sources.map(x => x.ref));
     const bytesOf = refs => refs.reduce((n, ref) => n + built.byRef.get(ref).byteCount, 0);
-    const limit = executionClass ? EXECUTION_CLASS_BOUND_BYTES : bound;
+    const limit = executionClass ? EXECUTION_CLASS_BOUND_BYTES : slotPromptBound(slot);
     return { slotRef: 'slot://abiogenesis/typescript-tenant/qualification/' + slot.key, role: slot.role, criteria: slot.coverage.length,
       ruleGroups: [...new Set(slot.coverage.map(c => c.ruleRef))].length, subjectMembers: slot.subjectRefs.length,
       providedMembers: providedMembers.length, unprovidedMembers: slot.subjectRefs.length - providedMembers.length,
       materialMembers: slot.materialRefs.length, providedMemberBytes: bytesOf(providedMembers),
       lawSourceBytes: bytesOf(slot.materialRefs.filter(ref => sourceRefs.has(ref))), execution: slot.execution, executionMissing: slot.executionMissing === true,
       executionMaterialBytes: slot.execution ? (slot.role === 'rule' ? built.verificationMaterial : built.executionMaterial)?.byteCount ?? 0 : 0,
-      renderedPromptBytes: rendered, promptBytes: total, executionClass, overBound: total > limit, promptDigest,
+      renderedPromptBytes: rendered, promptBytes: total, promptBoundBytes: limit, executionClass, overBound: total > limit, promptDigest,
       taskDigest: input.task.taskDigest, inputDigest: q.product.sha256Canonical(input),
       inputTokens, outputBytes: output.bytes, outputAttributionBytes: output.attributionBytes, outputTokens,
       usd: Number((inputTokens * price.inputUsdPerMillionTokens / 1e6 + outputTokens * price.outputUsdPerMillionTokens / 1e6).toFixed(4)),
@@ -356,26 +358,23 @@ export function projectAssessment(q, built, specified, selection, { ownerActorRe
     promptBytes: sum(rows, r => r.promptBytes) };
 }
 
-/** A floor of the rule role's input that no partition lowers, under this material selection (a governed pair carries
- * its members' bytes up to memberCarryBytes, every slot the role sources and the classification). For a surface role r
- * with carried bytes G(r) and governing rule sources S(r), every (member byte, source byte) pair must share a slot; a
- * slot carrying c member bytes and s source bytes within the room B left by the fixed material holds at most c*s
- * <= (c + s) * B / 4 such pairs, so the slots' input is at least the sum over r of max(4 * G(r) * S(r) / B, G(r)).
- * Catalog rows, criteria, metadata, attribution context, JSON escaping, output and the other roles add to it. */
-export function ruleInputFloor(q, base, selection) {
-  const sources = new Map(base.law.catalog.sources.map(s => [s.ref, s.byteCount])), groups = new Map(base.scope.ruleGroups.map(g => [g.groupRef, g]));
-  const fixed = [...q.preparation.QUALIFICATION_ROLE_POLICY.authoritySourceRefs.map(ref => sources.get(ref)),
-    ...base.declaration.surfaceGroups.sourceRefs.map(ref => base.inventory.members.find(m => m.ref === ref).byteCount)].reduce((a, b) => a + b, 0);
-  const room = PROMPT_BOUND_BYTES - fixed, roles = new Map();
-  for (const d of base.domains) {
-    const sourceBytes = groups.get(d.ruleGroupRef).sourceRefs.reduce((n, ref) => n + sources.get(ref), 0);
-    const governedRoles = new Set(d.surfaceGroups.filter(g => d.governedRefs.includes(g.groupRef)).flatMap(g => g.surfaceRoles));
-    for (const role of governedRoles) roles.set(role, (roles.get(role) ?? 0) + sourceBytes);
+/** Conservative input floor for the declared representative selection: for each
+ * indivisible domain key, its selected member bodies and every governing source
+ * must occur at least once. Count their union once per key, not the omitted
+ * bodies. Metadata, attribution, JSON framing and repeated sources add to it. */
+export function ruleInputFloor(q, base) {
+  const groups = new Map(base.scope.ruleGroups.map(g => [g.groupRef, g]));
+  const fixed = [...q.preparation.QUALIFICATION_ROLE_POLICY.authoritySourceRefs, ...base.declaration.surfaceGroups.sourceRefs];
+  const keys = new Map();
+  for (const domain of base.domains) for (const group of domain.surfaceGroups) {
+    const key = group.groupRef.slice(PREFIX.length).split('/').slice(2).join('/');
+    const refs = keys.get(key) ?? new Set(fixed);
+    for (const ref of [...group.sourceRefs, ...groups.get(domain.ruleGroupRef).sourceRefs]) refs.add(ref);
+    keys.set(key, refs);
   }
-  const rows = [...roles].map(([role, sourceBytes]) => {
-    const carriedBytes = base.inventory.members.filter(m => m.surfaceRoles.includes(role) && m.byteCount <= selection.plan.memberCarryBytes).reduce((n, m) => n + m.byteCount, 0);
-    return { role, governingSourceBytes: sourceBytes, carriedBytes, pairBound: Math.ceil(4 * carriedBytes * sourceBytes / room) };
-  });
-  const floorBytes = rows.reduce((n, r) => n + Math.max(r.pairBound, r.carriedBytes), 0), tokens = Math.ceil(floorBytes / PRICE.bytesPerToken);
-  return { roomBytes: room, floorBytes, inputTokens: tokens, usd: Number((tokens * PRICE.inputUsdPerMillionTokens / 1e6).toFixed(2)), roles: rows };
+  const rows = [...keys].map(([key, refs]) => ({ key, materialRefs: [...refs],
+    bytes: [...refs].reduce((n, ref) => n + base.byRef.get(ref).byteCount, 0) }));
+  const floorBytes = rows.reduce((n, row) => n + row.bytes, 0), inputTokens = Math.ceil(floorBytes / PRICE.bytesPerToken);
+  return { kind: 'declared_material_union_floor', floorBytes, inputTokens,
+    usd: Number((inputTokens * PRICE.inputUsdPerMillionTokens / 1e6).toFixed(2)), keys: rows };
 }
