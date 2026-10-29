@@ -2,7 +2,8 @@
 // @abiogenesis/typescript-tenant 5.0.0-rc.1, and its dry mode.
 //   live  (authored, not run in D5-c) the observed C2 of the recipe (run.invoke start of
 //         program://abiogenesis/worksite/command-execution@5 over the observed task, provider lane); the C2 Result's
-//         execution material; the assessment plan over the re-packed slots with its gates; assess@5 per slot in plan
+//         two compact entries (its execution entry and its verification material entry, RP-1 P1); the assessment plan
+//         over the re-packed slots with its gates; assess@5 per slot in plan
 //         order, sequentially (the durable event sink holds one exclusive append lock, abg/event_store.ts:1594-1597);
 //         each judgment's construction attribution checked; for an insufficient attribution, the owner's acknowledgment
 //         requested through ruling@5 (F_H), one request per provenance view, and the run stopped until the owner
@@ -229,8 +230,8 @@ export async function dispatchLive(ctx) {
   const executionSelection = { kind: 'execution_selection', selectionRef: SELECTION_PREFIX + 'execution/c2', slotRef: product.WORKSITE_COMMAND_EXECUTION_IDS.nodeRef,
     programRef: c2Result.producer.program.ref, invocationAdmissionRef: c2Result.producer.invocationAdmissionRef, result: c2Result.result };
   await record('selections/execution.json', executionSelection);
-  // 2. The plan over the C2 Result's execution material, with its gates.
-  const planned = await ctx.planOver(await ctx.executionMaterialOf(c2Result));
+  // 2. The plan over the C2 Result's two entries, with its gates.
+  const planned = await ctx.planOver(await ctx.executionMaterialOf(c2Result, executionSelection.selectionRef));
   if (planned.stop) return { status: 'stopped', reason: planned.reason, gates: planned.gates };
   const { built, plan, inputs } = planned, invoking = { ...built.assertion, declarationProofs: [] };
   // 3. assess@5 per slot, in plan order, sequentially.

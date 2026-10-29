@@ -37,9 +37,12 @@ export async function installedExports(packageRoot) {
     // Not package exports (named substitutions): the ambient reader (abg/actor_process.ts:708), the C2
     // configuration constructor and budget projection (product/worksite_command_execution.ts:166, :1474),
     // the basis readiness, verification material and attribution projection (validator/qualification.ts:130, :669, :743),
-    // and the scope's interned form (validator/qualification_resources.ts:234).
+    // the verification material entry (validator/qualification.ts qualificationVerificationMaterialEntry), the compact
+    // execution entry (abg/qualification_proof.ts qualificationExecutionEntry), and the scope's interned form
+    // (validator/qualification_resources.ts:234).
     deep: { actorProcess: await deep('abg/actor_process.js'), c2: await deep('product/worksite_command_execution.js'),
-      qualification: await deep('validator/qualification.js'), qualificationResources: await deep('validator/qualification_resources.js') } };
+      qualification: await deep('validator/qualification.js'), qualificationProof: await deep('abg/qualification_proof.js'),
+      qualificationResources: await deep('validator/qualification_resources.js') } };
 }
 
 export async function classification(root = TENANT_ROOT) { return readJson(join(root, Q, 'classification.json')); }

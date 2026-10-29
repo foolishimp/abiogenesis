@@ -9,7 +9,10 @@ import { pathToFileURL } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import * as p from '../../build/code/src/product/index.js';
 import { constructQualificationIdentity as identity } from '../../build/code/src/validator/qualification_contracts.js';
-import { parseQualificationTestReport, constructQualificationVerificationMaterial, reduceExactCandidateQualification } from '../../build/code/src/validator/qualification.js';
+import { parseQualificationTestReport, constructQualificationVerificationMaterial, reduceExactCandidateQualification,
+  qualificationVerificationMaterialEntry, parseQualificationRuleCatalog } from '../../build/code/src/validator/qualification.js';
+import { QUALIFICATION_ROLE_POLICY as policy } from '../../build/code/src/validator/qualification_contracts.js';
+import { createHash } from 'node:crypto';
 import { readSelfConformanceCatalog } from '../../build/code/src/validator/self_conformance.js';
 import { nativeJoinFixture, coverage, publication, ids } from '../support/malformed-gtl-native-fixture.mjs';
 import { SELF_CONFORMANCE_IDS as self } from '../../build/code/src/gtl/self_conformance.js';
@@ -159,5 +162,73 @@ test('F11 conserves selected passed, failed and incomplete predicates through na
  const verdict=reduceExactCandidateQualification(verdictInput,consumer.basis);assert.equal(verdict.disposition,expected);assert.deepEqual(verdict.selfConformance.verification,verification);
  const forged=clone(verdictInput);forged.selfConformance.verification.predicateOutcomes[0].observation.observedValue='caller replacement';
  assert.equal(native.owner.qualificationHasNativeSelfConformance(forged,consumer.basis),false);
+ }
+});
+
+// REQ-P-SELF-CONFORMANCE-009 seeded negatives over the fold's verification material entry (RP-1 P1). Component
+// premises: a small published catalog whose rule group governs REQ-P-QUAL-056, the native join's honest entries and
+// admitted J supplied explicitly (as the scoped-assessment lane supplies them); each task carries a seeded entry.
+async function verificationFold(t){
+ const real=constructQualificationVerificationMaterial(await materialFixture(t));assert.equal(real.disposition,'passed');
+ const digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex'),coord=(ref,d=hash(ref))=>({ref,digest:d}),plain=m=>({ref:m.ref,path:m.path,digest:m.digest,byteCount:m.byteCount});
+ const canon=v=>Array.isArray(v)?v.map(canon):v&&typeof v==='object'?Object.fromEntries(Object.keys(v).sort().map(k=>[k,canon(v[k])])):v;
+ const bytes=(ref,text,path=ref)=>{const b=Buffer.from(text);return {ref,path,digest:digest(b),byteCount:b.length,contentBase64:b.toString('base64')};};
+ const mat=(ref,value)=>bytes(ref,JSON.stringify(canon(value)));
+ const installed=JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/rule-catalog.json',import.meta.url)));
+ const roleSources=policy.authoritySourceRefs.map(ref=>installed.sources.find(s=>s.ref===ref));
+ const authority=roleSources.map(s=>({...s,contentBase64:fs.readFileSync(new URL('../../'+s.path,import.meta.url)).toString('base64')}));
+ const source=[0,1,2].map(i=>({...bytes('source://member/'+i,'export const value'+i+' = '+i+';\n','member-'+i+'.mjs'),surfaceRoles:[['code','public_contract','proof'][i]],classificationEvidenceRefs:['classification://premise']}));
+ const inventory=identity({kind:'qualification_subject_inventory',selectedRoots:['root://candidate'],coverage:'complete_claim',members:source.map(({contentBase64,...m})=>m)},'inventoryRef','inventoryDigest','qualification-inventory://abiogenesis/');
+ const rules=[0,1].map(i=>({ruleRef:'rule://verification/'+i,version:'1',sourceRef:authority[i%2].ref,sourceDigest:authority[i%2].digest,startByte:0,endByte:authority[i%2].byteCount,spanDigest:authority[i%2].digest,governedClaim:i===0?'REQ-P-QUAL-056':'component-law-'+i,applicability:'requires_admitted_judgment',requiredEvidenceRoles:['semantic_assessment'],computableRelation:'source_span_integrity',diagnostic:'semantic_assessment_required'}));
+ const catalog={kind:'qualification_rule_catalog',schemaVersion:'5.0.0',catalogRef:'catalog://verification-component',catalogVersion:'1',ownerRef:'owner://component',method:installed.method,sources:roleSources,rules,coverageClaim:'finite_candidate_unassessed',requiredCatalogEvidenceRoles:['catalog_fidelity']};
+ const catalogBytes=Buffer.from(JSON.stringify(catalog)),catalogDigest=digest(catalogBytes);
+ const law=identity({kind:'qualification_law_basis',...catalog.method,catalog:{ref:catalog.catalogRef,digest:catalogDigest,ownerRef:catalog.ownerRef,version:catalog.catalogVersion,assetPath:'contracts/qualification/rule-catalog.json'},sources:catalog.sources},'lawBasisRef','lawBasisDigest','qualification-law://abiogenesis/');
+ const tenant=identity({kind:'tenant_conformance_manifest',schemaVersion:'5.0.0',productId:'product://component',capabilityDefinitionGraph:coord('capability://component'),publicContractCatalog:coord('public://component'),claims:[{claimRef:'claim://component',capabilityRef:'capability://one',publicContractRefs:['contract://one'],evidenceRefs:['evidence://one']}]},'manifestRef','manifestDigest','tenant-manifest://abiogenesis/');
+ const coverage=identity({kind:'qualification_coverage_catalog',lawBasis:coord(law.lawBasisRef,law.lawBasisDigest),authoritySources:roleSources,claims:[{coverageRef:'coverage://one',behaviors:['behavior://one'],requirementRefs:[authority[1].ref+'#REQ'],evidenceRoles:['behavioral_coverage']}]},'catalogRef','catalogDigest','qualification-coverage://abiogenesis/');
+ const catalogs={rules:parseQualificationRuleCatalog(catalogBytes),coverage};
+ const basis=identity({kind:'exact_candidate_qualification',projection:'basis',schemaVersion:'5.0.0',subjectKind:'installed_rc',productId:tenant.productId,productVersion:'5.0.0-rc.1',sourceInventory:coord(inventory.inventoryRef,inventory.inventoryDigest),artifact:coord('artifact://component'),productManifest:coord('manifest://component'),productContentDigest:hash('content'),toolchain:coord('manifest://component'),installedProduct:coord('install://component'),workspaceBinding:coord('workspace://component'),prospectiveRelease:{productId:tenant.productId,namespace:'abiogenesis',profile:'one_project_unqualified',projectSubtree:'.',versionLine:'5.0.0',ordinal:1,version:'5.0.0-rc.1',releaseClaim:coord('release-claim://component')},tenantManifest:coord(tenant.manifestRef,tenant.manifestDigest),coverageCatalog:coord(coverage.catalogRef,coverage.catalogDigest),lawBasis:coverage.lawBasis},'basisRef','basisDigest','qualification-basis://abiogenesis/');
+ const scope=identity({kind:'qualification_scope',subjectBasis:coord(basis.basisRef,basis.basisDigest),lawBasis:basis.lawBasis,catalog:coord(catalog.catalogRef,catalogDigest),inventory,ruleGroups:[{groupRef:'group://rules',ruleRefs:rules.map(r=>r.ruleRef),sourceRefs:roleSources.map(s=>s.ref)}],surfaceGroups:[{groupRef:'group://surfaces',memberRefs:source.map(s=>s.ref),rootRefs:inventory.selectedRoots,surfaceRoles:[...new Set(source.flatMap(s=>s.surfaceRoles))],ownerRefs:['owner://component'],sourceRefs:[source[0].ref]}]},'scopeRef','scopeDigest','qualification-scope://abiogenesis/');
+ const sourceMembers=source.map(({surfaceRoles,classificationEvidenceRefs,...m})=>m);
+ // The native join's honest premise: the execution entry, and the real verification material rebased onto this basis
+ // with the recipe as an inventory member; its entry is the product constructor's.
+ const execution=mat('execution://actual-premise',{kind:'component_native_execution_premise'});
+ const verification={...clone(real),subjectBasis:scope.subjectBasis,lawBasis:basis.lawBasis,recipe:coord(sourceMembers[2].ref,sourceMembers[2].digest),execution:coord(execution.ref,execution.digest)};
+ const entry=qualificationVerificationMaterialEntry(verification);
+ const owner={installId:basis.installedProduct.ref,installDigest:basis.installedProduct.digest,artifactDigest:basis.artifact.digest,productId:basis.productId,productVersion:basis.productVersion,productContentDigest:basis.productContentDigest,manifestDigest:basis.productManifest.digest,publicationDigest:hash('publication'),workspaceBinding:basis.workspaceBinding,executionBasis:coord('execution-basis://component'),cCallDigest:hash('call'),nativeBasis:{cCallRef:'c-call://F11',predecessorPrefix:{kind:'durable_prefix_coordinate',schemaVersion:'5.0.0',eventLogRef:'file:///synthetic-no-resource',prefixLength:0,prefixDigest:hash('prefix'),storeIdentity:{device:1,inode:2,eventContractDigest:hash('event')},coordinateDigest:hash('coordinate')}},catalogDigest,catalogRef:catalog.catalogRef,catalogVersion:catalog.catalogVersion,catalogAssetPath:law.catalog.assetPath};
+ const input={kind:'self_conformance_input',schemaVersion:'5.0.0',basis,law,inventory,tenantManifest:tenant,scope,authorityMembers:authority,applications:[{ruleRef:'group://rules',surfaceRef:'group://surfaces',applicability:'applicable',premiseEvidenceRefs:[],evaluationEvidenceRefs:[],rulingEvidenceRefs:[]}],evidenceCitations:[],qualification:{plan:{subjectBasis:scope.subjectBasis,lawBasis:basis.lawBasis},proof:{selections:[]},sourceMembers,coverageCatalog:coverage}};
+ const declarations=[{ref:catalog.catalogRef,path:law.catalog.assetPath,digest:catalogDigest,byteCount:catalogBytes.length,contentBase64:catalogBytes.toString('base64')},mat(inventory.inventoryRef,inventory),mat(tenant.manifestRef,tenant),mat(law.lawBasisRef,law),mat(coverage.catalogRef,coverage)];
+ const judgments=[];
+ const judgment=(role,evidenceRole,ruleRef,surfaceRef,{evidenceRefs=role==='coverage'?[execution.ref]:[],material=[...declarations,...authority,...sourceMembers,execution]}={})=>{
+  const n=judgments.length,c={criterionRef:'criterion://'+n,ruleRef,surfaceRef,evidenceRole,disposition:'satisfied',applicability:'applicable',grouping:'justified',reason:'Supplied independent component premise',sourceRefs:[sourceMembers[0].ref],evidenceRefs,residuals:[]};
+  const j={task:{inventory:basis.sourceInventory,catalog:scope.catalog,scope,subjectMembers:sourceMembers.map(plain),material,role:{roleRef:'qualification-role://abiogenesis/'+role+'@5'},coverage:[c],slotRef:'slot://'+n,provenance:{kind:'native_construction'}},raw:{criteria:[c],residuals:[]},source:{actorRef:policy.actorRefs[0]}};
+  judgments.push(j);input.qualification.proof.selections.push({kind:'judgment_selection',slotRef:j.task.slotRef,result:coord('judgment://'+n)});return j;};
+ // The verification-bound rule slot carries the recipe member and the material entry, and its criterion cites the entry.
+ const evaluate=async seeded=>{judgments.length=0;input.qualification.proof.selections=[];
+  judgment('catalog','catalog_fidelity','group://rules',catalog.catalogRef);judgment('inventory','inventory_coverage',inventory.inventoryRef,'group://surfaces');judgment('inventory','inventory_classification',inventory.inventoryRef,'group://surfaces');
+  judgment('rule','semantic_assessment','group://rules','group://surfaces',{evidenceRefs:[seeded.cited??entry.ref],material:[...declarations,...authority,...sourceMembers,execution,...(seeded.entry===null?[]:[seeded.entry??entry])]});
+  judgment('tenant','tenant_realization','tenant',tenant.manifestRef);judgment('coverage','behavioral_coverage',coverage.claims[0].coverageRef,coverage.claims[0].behaviors[0]);
+  const m=await privateOwner('validator/self_conformance.js',[],{'../abg/qualification_proof.js':{resolveQualificationAssessments:()=>judgments,
+   resolveQualificationExecutionMaterial:()=>({evidence:[execution],verification,verificationEntry:entry}),qualificationTenantClaimsMatch:()=>true}});
+  const out=m.evaluateSelfConformance(input,owner,undefined,catalogs);
+  return {out,rule:out.findings.find(x=>x.diagnostic==='semantic_assessment_required'&&x.ruleRef==='group://rules')};};
+ return {verification,entry,execution,evaluate};
+}
+test('REQ-P-SELF-CONFORMANCE-009: seeded verification material entries never discharge a REQ-P-QUAL-056 rule application',async t=>{
+ const f=await verificationFold(t);
+ assert(f.entry.ref.startsWith('qualification-verification-material://abiogenesis/'));assert.equal(f.entry.path,f.entry.ref);
+ assert.equal(f.entry.digest,bytesHash(Buffer.from(f.entry.contentBase64,'base64')));assert.deepEqual(JSON.parse(Buffer.from(f.entry.contentBase64,'base64')),f.verification);
+ const honest=await f.evaluate({});assert.equal(honest.out.disposition,'passed',JSON.stringify(honest.out.findings.filter(x=>x.disposition!=='passed')));
+ assert.equal(honest.rule.disposition,'passed');assert.equal(honest.rule.provenance,'J');
+ const restream=clone(f.verification);restream.commandOutcomes[0].stdout.digest=bytesHash(Buffer.from('another stream'));
+ const other=clone(f.verification);other.execution={ref:'result://another-execution',digest:hash('another execution')};
+ for(const [name,seeded] of [
+  ['a material whose stream digest differs from the admitted observation',{entry:qualificationVerificationMaterialEntry(restream)}],
+  ['a material entry missing from the task',{entry:null}],
+  ['a material over a different execution coordinate',{entry:qualificationVerificationMaterialEntry(other)}],
+  ['a criterion citing the execution coordinate in place of the material entry',{cited:f.verification.execution.ref}],
+ ]){
+  if(seeded.entry)assert.equal(seeded.entry.ref,f.entry.ref,name+': the seeded entry keeps the selection-derived ref');
+  const {out,rule}=await f.evaluate(seeded);
+  assert.notEqual(out.disposition,'passed',name);assert(rule,name);assert.equal(rule.disposition,'blocked_incomplete',name);assert.equal(rule.provenance,'J_required',name);
  }
 });

@@ -14,7 +14,7 @@ import { projectExactPrefixArtifactTruth, runtimePrefixFromArtifactTruth, type E
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
-  type RehydratedAdmittedCCallState, type AdmittedCCallEvidence } from "./c_call.js";
+  type RehydratedAdmittedCCallState, type AdmittedCCallEvidence, type AdmittedCCallResult, type AdmittedCCallJudgment } from "./c_call.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { readRuntimeEventsAtDurablePrefix, assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { selectValidatedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix, runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
@@ -22,7 +22,7 @@ import { projectFhContinuations } from "./fh_continuation_projection.js";
 import { deriveRuntimeEventCalculusProjection } from "./event_calculus.js";
 import { GraphCallProjectionPort, projectRunTruthAtDurablePrefix } from "./project_read_ports.js";
 import { isWorksiteCandidateBundle, WORKSITE_CONSTRUCTION_IDS } from "../product/worksite_construction.js";
-import { isObservedWorksiteCommandExecutionObservation, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
+import { isObservedWorksiteCommandExecutionObservation, isWorksiteExecutionObservation, WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution.js";
 import type { AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
   qualificationHash as hash, uniqueQualificationRefs as unique,
@@ -38,7 +38,8 @@ import {
   type QualificationVerificationSelection, type QualificationVerificationMaterial, type QualificationSubjectInventory,
 } from "../validator/qualification_contracts.js";
 import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationRawMatches,
-  qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial } from "../validator/qualification.js";
+  qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial,
+  qualificationVerificationMaterialEntry, observedQualificationTestSummaries } from "../validator/qualification.js";
 import { projectExternalConstructionAttribution,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
@@ -767,6 +768,34 @@ function executionSourceProofs(proof: QualificationProofResource, basis: ExactCa
   }
   return out;
 }
+/** The compact material entry of one selected execution state, as a slot carries it (design §QUAL-056 material
+ * selection): the Result coordinate with its contract ref and result class, the judgment, the evidence entries by
+ * class and refs, and the origin block of a selection from another run's source. A worksite execution observation's
+ * value is replaced by its observation coordinate, its command outcomes by stream digest and byte length, its parsed
+ * test summaries and its product delta; any other value is carried. No stream payload enters the entry: the observed
+ * Result stays admitted by coordinate through its execution selection and is reacquirable by its ref. Pure over its
+ * arguments, so every path that resolves the selection renders the same bytes. */
+export function qualificationExecutionEntry(ref: string, state: { readonly result: AdmittedCCallResult; readonly judgment: AdmittedCCallJudgment;
+  readonly evidence: readonly AdmittedCCallEvidence[] }, origin?: JsonValue): QualificationMaterial {
+  const { result, judgment, evidence } = state, value = result.value;
+  const execution = isWorksiteExecutionObservation(value) ? {
+    observation: coord(value.observationRef, value.observationDigest),
+    commandOutcomes: value.commandResults.map(c => ({ commandId: c.commandId, observation: coord(c.observationRef, c.observationDigest),
+      exitStatus: c.exitStatus, timedOut: c.timedOut, processSignal: c.processSignal, signalSequence: [...c.signalSequence],
+      terminationConfirmed: c.terminationConfirmed, stdout: { digest: c.stdout.digest, byteLength: c.stdout.byteLength },
+      stderr: { digest: c.stderr.digest, byteLength: c.stderr.byteLength } })),
+    testSummaries: observedQualificationTestSummaries(value), productDelta: value.productDelta,
+  } : null;
+  const raw = Buffer.from(canonicalJson({
+    result: { resultRef: result.resultRef, resultDigest: result.resultDigest, contractRef: result.contractRef, resultClass: result.resultClass,
+      ...(execution === null ? { value } : { execution }) },
+    judgment,
+    evidence: evidence.map(e => Object.fromEntries(Object.entries(e).filter(([key, x]) =>
+      key === "evidenceClass" || key === "evidenceDigest" || key.endsWith("Ref") && (typeof x === "string" || x === null)))),
+    ...(origin === undefined ? {} : { origin }),
+  } as unknown as JsonValue));
+  return { ref, path: ref, digest: sha256Bytes(raw), byteCount: raw.length, contentBase64: raw.toString("base64") };
+}
 /** Existing native Result/C/J ownership is shared evidence, not a new gate.
  * Material includes actual disposition and evidence; F11 independently judges
  * its applicability and sufficiency for each source-grounded coverage claim. */
@@ -780,7 +809,8 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
   basis: ExactCandidateQualification<"basis">, consumer: QualificationNativeBasis,
   verificationSelection?: QualificationVerificationSelection,
   inventory?: QualificationSubjectInventory | null, resources?: QualificationResources,
-  catalogs?: QualificationCatalogs): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null } | null {
+  catalogs?: QualificationCatalogs): { evidence: readonly QualificationMaterial[]; verification: QualificationVerificationMaterial | null;
+    verificationEntry: QualificationMaterial | null } | null {
   try {
     proof = ownedProof(proof, resources, catalogs);
     if (!isQualificationProofResource(proof) || !proofWithin(proof, consumer)) return null;
@@ -834,19 +864,16 @@ export function resolveQualificationExecutionMaterial(proof: QualificationProofR
         verification = constructQualificationVerificationMaterial({ basis, inventory, selection: verificationSelection,
           execution: selection.result, cCall: coord(selected.state.cCall.cCallRef, selected.state.cCall.cCallDigest), observation: value });
       }
-      const raw = Buffer.from(canonicalJson({ result: selected.state.result, judgment: selected.state.judgment,
-        evidence: selected.state.evidence, ...(selection.source === undefined ? {} : { origin: {
-          subjectBasis: coord(basis.basisRef, basis.basisDigest), lawBasis: basis.lawBasis, sourceBasis,
-          prefix: sourceProof.prefix, cCall: selection.source.cCall, executionBasis: selection.source.executionBasis,
-          programRef: selected.owner.execution.programRef, invocationAdmissionRef: selected.owner.execution.invocationAdmissionRef,
-          graphFunction: selection.source.graphFunction, input: selected.owner.input,
-          catalogBasisDigest: selected.owner.proof.catalog.basisDigest,
-          catalogViewDigest: selected.owner.proof.catalogView.viewDigest,
-        } }) }));
-      material.push({ ref: selection.result.ref, path: selection.result.ref, digest: sha256Bytes(raw),
-        byteCount: raw.length, contentBase64: raw.toString("base64") });
+      material.push(qualificationExecutionEntry(selection.result.ref, selected.state, selection.source === undefined ? undefined : {
+        subjectBasis: coord(basis.basisRef, basis.basisDigest), lawBasis: basis.lawBasis, sourceBasis,
+        prefix: sourceProof.prefix, cCall: selection.source.cCall, executionBasis: selection.source.executionBasis,
+        programRef: selected.owner.execution.programRef, invocationAdmissionRef: selected.owner.execution.invocationAdmissionRef,
+        graphFunction: selection.source.graphFunction, input: selected.owner.input,
+        catalogBasisDigest: selected.owner.proof.catalog.basisDigest,
+        catalogViewDigest: selected.owner.proof.catalogView.viewDigest,
+      } as unknown as JsonValue));
     }
-    return deepFreeze({ evidence: material, verification });
+    return deepFreeze({ evidence: material, verification, verificationEntry: verification === null ? null : qualificationVerificationMaterialEntry(verification) });
   } catch { return null; }
 }
 /** One whole F11 result replaces the per-behavior owning-result adapters.

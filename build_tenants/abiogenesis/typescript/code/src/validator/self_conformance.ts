@@ -73,7 +73,10 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
   ];
   const executionProof = input.qualification === undefined ? null : resolveQualificationExecutionMaterial(
     input.qualification.proof, basis, owner.nativeBasis, input.qualification.verification, input.inventory, resources, catalogs);
-  const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null;
+  // The verification material entry: what a verification-bound slot carries and its criteria cite (design §QUAL-056
+  // material selection); the native join constructs it beside the material (abg/qualification_proof.ts).
+  const executionMaterial = executionProof?.evidence ?? null, verification = executionProof?.verification ?? null,
+    verificationEntry = executionProof?.verificationEntry ?? null;
   const coverage = input.qualification?.coverageCatalog;
   const coverageBound = coverage !== undefined && qualificationCoverageIsPublished(coverage, catalogs) &&
     canonicalEquals(basis.coverageCatalog, { ref: coverage.catalogRef, digest: coverage.catalogDigest }) && canonicalEquals(basis.lawBasis, coverage.lawBasis);
@@ -85,7 +88,7 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
       canonicalEquals(j.task.inventory, basis.sourceInventory) && (j.task.scope === undefined ? scope === undefined : scope !== undefined && j.task.scope.scopeRef === scope.scopeRef && j.task.scope.scopeDigest === scope.scopeDigest) && input.law !== null && canonicalEquals(j.task.catalog, { ref: input.law.catalog.ref, digest: input.law.catalog.digest }) &&
       j.task.subjectMembers.every(m => input.inventory?.members.some(i => canonicalEquals(m, { ref: i.ref, path: i.path, digest: i.digest, byteCount: i.byteCount }))) &&
       j.task.material.every(m => [...declarationMaterials, ...input.authorityMembers, ...input.qualification!.sourceMembers,
-        ...(executionMaterial ?? []),
+        ...(executionMaterial ?? []), ...(verificationEntry === null ? [] : [verificationEntry]),
         ...(j.task.provenance.kind === "external_construction" ? j.task.provenance.records : [])].some(a => canonicalEquals(a, m)))) ?? null;
   type AssessmentRow = { j: NonNullable<typeof assessment>[number]; c: NonNullable<typeof assessment>[number]["raw"]["criteria"][number] };
   const assessmentIndex = new Map<string, AssessmentRow[]>();
@@ -104,17 +107,17 @@ export function evaluateSelfConformance(rawInput: SelfConformanceInput, owner: S
           const required = scope !== undefined && role === "catalog" ? rule?.sourceRefs ?? []
             : scope !== undefined && role === "inventory" ? surface?.sourceRefs ?? []
             : scope !== undefined && role === "rule" ? [...(surface?.sourceRefs ?? []), ...(rule?.sourceRefs ?? []),
-              ...(verificationRule ? [verification?.recipe.ref, verification?.execution.ref] : [])]
+              ...(verificationRule ? [verification?.recipe.ref, verificationEntry?.ref] : [])]
             : role === "catalog" ? [catalog.catalogRef, ...catalog.sources.map(s => s.ref)]
             : evidenceRole === "inventory_coverage" ? [input.inventory?.inventoryRef, ...(input.inventory?.members.map(m => m.ref) ?? [])]
             : role === "tenant" ? [input.tenantManifest?.manifestRef]
             : role === "coverage" ? [coverage?.catalogRef, ...(coverage?.claims.find(claim => claim.coverageRef === c.ruleRef)?.requirementRefs.map(ref => ref.split("#")[0]!) ?? [])]
             : role === "rule" ? [c.surfaceRef, ruleByRef.get(c.ruleRef)?.sourceRef,
-              ...(verificationRule ? [verification?.recipe.ref, verification?.execution.ref] : [])]
+              ...(verificationRule ? [verification?.recipe.ref, verificationEntry?.ref] : [])]
             : [c.surfaceRef];
           return (scope === undefined || c.grouping !== undefined) &&
             (scope === undefined || role !== "rule" && role !== "inventory" || surface !== undefined && surface.memberRefs.every(ref => j.task.subjectMembers.some(m => m.ref === ref))) &&
-            (!verificationRule || verification !== null && c.evidenceRefs.includes(verification.execution.ref)) &&
+            (!verificationRule || verification !== null && verificationEntry !== null && c.evidenceRefs.includes(verificationEntry.ref)) &&
             (role !== "coverage" || c.evidenceRefs.some(ref => executionMaterial?.some(m => m.ref === ref)) &&
             c.evidenceRefs.every(ref => executionMaterial?.some(m => m.ref === ref) && j.task.material.some(m => m.ref === ref))) && required.every(ref => ref !== undefined && j.task.material.some(m => m.ref === ref)) &&
             (scope !== undefined || required.filter(ref => ref !== undefined && inventoryRefs.has(ref)).every(ref => j.task.subjectMembers.some(m => m.ref === ref)));

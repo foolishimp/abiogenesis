@@ -8,7 +8,7 @@ import {createHash} from 'node:crypto';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {qualificationHash as hash, constructQualificationIdentity as identity, QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
-import {projectExternalConstructionAttribution,parseQualificationRuleCatalog} from '../../build/code/src/validator/qualification.js';
+import {projectExternalConstructionAttribution,parseQualificationRuleCatalog,qualificationPlanMatches} from '../../build/code/src/validator/qualification.js';
 import {acquireQualificationResources,resolveQualificationAssessment} from '../../build/code/src/validator/qualification_resources.js';
 const clone=x=>structuredClone(x),coord=(ref,digest=hash(ref))=>({ref,digest}),digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 const plainSource=m=>({ref:m.ref,path:m.path,digest:m.digest,byteCount:m.byteCount});
@@ -378,4 +378,38 @@ test('six-member discriminator keeps four rule domains when unrelated classifica
   measurements.push({globalClassifications:f.scope.surfaceGroups.length,globalPairs:f.scope.surfaceGroups.length*2,actualRuleCriteria:result.ruleApplications.length,coveredMemberRelations:12,selectedPromptBytes:Buffer.byteLength(request.prompt)});
  }
  assert.equal(measurements[0].selectedPromptBytes,measurements[1].selectedPromptBytes);t.diagnostic(JSON.stringify({actualOwnerDiscriminator:measurements,claim:'C conservation and representation; supplied J/native premises'}));
+});
+
+// RP-1 P2: the plan check compares precomputed canonical keys through sets. Each refusal of the pairwise check keeps a
+// falsifier; the in-process memo answers only for a plan whose digest its bytes bind.
+test('plan check by hashed sets keeps every refusal and its memo answers only for the verified plan bytes',()=>{
+ const roleSources=policy.authoritySourceRefs.map(ref=>installedCatalog.sources.find(s=>s.ref===ref));
+ const crit=n=>({criterionRef:'criterion://plan/'+n,ruleRef:'rule://plan/'+n,surfaceRef:'surface://plan/'+n,evidenceRole:'semantic_assessment'});
+ const role=(actorRef,independence='author_distinct')=>({roleRef:policy.roleRefs[3],authorityRef:policy.authorityRef,sourceBindings:roleSources,actorRef,workerBindingRef:policy.workerBindingRef,rendererRef:policy.rendererRef,materializationPlanRef:policy.materializationPlanRef,independence});
+ const slot=(n,coverage,r=role(policy.actorRefs[0]))=>({slotRef:'slot://plan/'+n,task:coord('task://plan/'+n),taskOrdinal:n,graphFunctionRef:'graph-function://assessment',programLocusRef:'locus://assessment',role:r,coverage});
+ const planOf=(slots,coverage,sharedCoverage='disjoint')=>identity({kind:'qualification_assessment_plan',subjectBasis:coord('basis://plan'),lawBasis:coord('law://plan'),slots,coverage,sharedCoverage,ownerAuthorityRef:policy.authorityRef,ownerActorRef:'actor://owner'},'planRef','planDigest','qualification-plan://abiogenesis/');
+ const reordered=c=>({evidenceRole:c.evidenceRole,surfaceRef:c.surfaceRef,ruleRef:c.ruleRef,criterionRef:c.criterionRef});
+ const [a,b,c]=[crit(0),crit(1),crit(2)];
+ const peer=(independence='author_and_peer_distinct')=>[slot(0,[a],role(policy.actorRefs[0],independence)),slot(1,[a],role(policy.actorRefs[1],independence))];
+ // The positives: a disjoint plan whose criteria match canonically under another key order, and declared independent peers.
+ assert.equal(qualificationPlanMatches(planOf([slot(0,[a,b]),slot(1,[reordered(c)])],[a,b,c])),true,'disjoint plan, criteria equal canonically');
+ assert.equal(qualificationPlanMatches(planOf(peer(),[a],'declared_independent_peers')),true,'two distinct independent peers');
+ for(const [name,plan] of [
+  ['missing: a plan criterion no slot carries',planOf([slot(0,[a])],[a,b])],
+  ['extra: a slot criterion the plan lacks',planOf([slot(0,[a,b])],[a])],
+  ['duplicate across slots under disjoint',planOf([slot(0,[a]),slot(1,[reordered(a)])],[a])],
+  ['duplicate plan criterion',planOf([slot(0,[a])],[a,reordered(a)])],
+  ['duplicate within one slot',planOf([slot(0,[a,reordered(a)])],[a])],
+  ['one peer under declared independent peers',planOf([slot(0,[a],role(policy.actorRefs[0],'author_and_peer_distinct')),slot(1,[b],role(policy.actorRefs[1],'author_and_peer_distinct'))],[a,b],'declared_independent_peers')],
+  ['non-unique peers',planOf([slot(0,[a],role(policy.actorRefs[0],'author_and_peer_distinct')),slot(1,[a],role(policy.actorRefs[0],'author_and_peer_distinct'))],[a],'declared_independent_peers')],
+  ['peer independence not declared',planOf(peer('author_distinct'),[a],'declared_independent_peers')],
+  ['empty slot coverage',planOf([slot(0,[a]),slot(1,[])],[a])],
+  ['duplicate slot ref',planOf([slot(0,[a]),{...slot(1,[b]),slotRef:'slot://plan/0'}],[a,b])],
+ ])assert.equal(qualificationPlanMatches(plan),false,name);
+ // The memo: a verified plan answered true; the same digest over other bytes is refused before the memo is consulted.
+ const valid=planOf([slot(0,[a]),slot(1,[b])],[a,b]);assert.equal(qualificationPlanMatches(valid),true);assert.equal(qualificationPlanMatches(valid),true,'memoized answer');
+ const forged=clone(valid);forged.slots[1].coverage=[c];assert.equal(forged.planDigest,valid.planDigest);
+ assert.equal(qualificationPlanMatches(forged),false,'changed slot under the memoized digest');
+ const extra=clone(valid);extra.slots[0].coverage.push(b);assert.equal(qualificationPlanMatches(extra),false,'duplicate under the memoized digest');
+ assert.equal(qualificationPlanMatches(planOf(clone(forged).slots,[a,c])),true,'the changed plan under its own digest is answered on its own bytes');
 });

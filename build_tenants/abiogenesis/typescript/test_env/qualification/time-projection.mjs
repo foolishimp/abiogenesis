@@ -62,13 +62,19 @@ export function fitLatency(calls) {
       allCallsDurationMs: calls.reduce((s, c) => s + (c.durationMs ?? 0), 0) } };
 }
 
-/** The plan's time: each slot one structured response with its prompt bytes and modelled output tokens, sequential. */
-export function projectTime(rows, model, { c2Ms = null } = {}) {
+/** The plan's time: each slot one structured response with its prompt bytes and modelled output tokens, sequential;
+ * with startMs, each assess@5 start also pays its measured in-process preparation (the input admission and
+ * ProductRunInvocationPort.prepare over the plan) before its provider spawn. */
+export function projectTime(rows, model, { c2Ms = null, startMs = null } = {}) {
   const perSlot = rows.map(r => Math.max(0, model.interceptMs + model.perPromptByteMs * r.promptBytes + model.perOutputTokenMs * r.outputTokens));
   const assessMs = perSlot.reduce((s, ms) => s + ms, 0), sequentialMs = assessMs + (c2Ms ?? 0);
   const largest = Math.max(...rows.map(r => r.promptBytes));
   return { calls: rows.length + (c2Ms === null ? 0 : 1), assessCalls: rows.length, perSlotMs: { min: Math.round(Math.min(...perSlot)), max: Math.round(Math.max(...perSlot)),
     mean: Math.round(assessMs / rows.length) }, assessMs: Math.round(assessMs), c2Ms, sequentialMs: Math.round(sequentialMs), sequentialHours: Number((sequentialMs / 3.6e6).toFixed(1)),
     extrapolation: { largestSlotPromptBytes: largest, largestObservedPromptBytes: model.observed.promptBytes.max, ratio: Number((largest / model.observed.promptBytes.max).toFixed(1)) },
+    preparation: startMs === null ? null : { perAssessStartMs: Math.round(startMs), assessStarts: rows.length, ms: Math.round(startMs * rows.length),
+      basis: 'the measured assess@5 start (the input admission and ProductRunInvocationPort.prepare) times the slots' },
+    sequentialWithPreparationMs: startMs === null ? null : Math.round(sequentialMs + startMs * rows.length),
+    sequentialWithPreparationHours: startMs === null ? null : Number(((sequentialMs + startMs * rows.length) / 3.6e6).toFixed(1)),
     parallelism4: { permitted: false, reason: 'One exclusive append lock on the durable event sink (abg/event_store.ts:1594-1597): a second assess@5 run against the same event resource is refused while one holds the lock; the F11 fold reads every judgment from that one prefix (abg/qualification_proof.ts:507-511, :677-700)' } };
 }
