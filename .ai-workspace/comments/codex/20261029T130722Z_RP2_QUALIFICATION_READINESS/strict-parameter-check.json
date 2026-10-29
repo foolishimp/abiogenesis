@@ -1,0 +1,83 @@
+{
+  "command": "tsc -p tsconfig.json --noEmit --noUnusedLocals --noUnusedParameters",
+  "status": 2,
+  "diagnostics": [
+    "code/src/abg/c_call.ts(3849,3): error TS6133: 'request' is declared but its value is never read.",
+    "code/src/abg/c_call.ts(4084,3): error TS6133: 'predecessorPrefix' is declared but its value is never read.",
+    "code/src/abg/c_call_outcome.ts(1004,3): error TS6133: 'priorDerivation' is declared but its value is never read.",
+    "code/src/abg/execution_basis.ts(682,3): error TS6133: 'programModuleRef' is declared but its value is never read.",
+    "code/src/abg/execution_basis.ts(683,3): error TS6133: 'programRef' is declared but its value is never read.",
+    "code/src/abg/retry.ts(5160,3): error TS6133: 'predecessorPrefix' is declared but its value is never read.",
+    "code/src/abg/semantic_stage.ts(82,31): error TS6133: 'events' is declared but its value is never read.",
+    "code/src/abg/witness_admission_operation.ts(677,3): error TS6133: 'packet' is declared but its value is never read.",
+    "code/src/abg/worksite_revision.ts(337,101): error TS6133: 'work' is declared but its value is never read.",
+    "code/src/hog/route_proposal.ts(200,3): error TS6133: 'boundInput' is declared but its value is never read.",
+    "code/src/hog/route_proposal.ts(1043,3): error TS6133: 'boundInput' is declared but its value is never read.",
+    "code/src/hog/route_proposal.ts(1044,3): error TS6133: 'definitionDigests' is declared but its value is never read.",
+    "code/src/implementation/worksite_command_helper.ts(372,3): error TS6133: 'manifest' is declared but its value is never read.",
+    "code/src/implementation/worksite_construction.ts(151,3): error TS6133: 'task' is declared but its value is never read.",
+    "code/src/product/contracts.ts(196,47): error TS6133: 'T' is declared but its value is never read.",
+    "code/src/product/result_assessment_operation.ts(34,22): error TS6133: 'T' is declared but its value is never read.",
+    "code/src/shared/public_invocation.ts(9,28): error TS6133: 'T' is declared but its value is never read.",
+    "code/src/validator/qualification.ts(455,72): error TS6133: 'normalized' is declared but its value is never read."
+  ],
+  "affectedFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_command_helper.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_construction.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/public_invocation.ts",
+      "identicalToBase": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "identicalToBase": true
+    }
+  ],
+  "disposition": "optional stricter noUnusedParameters finds inherited diagnostics; required RP1 noUnusedLocals check run separately; no unrelated repair"
+}

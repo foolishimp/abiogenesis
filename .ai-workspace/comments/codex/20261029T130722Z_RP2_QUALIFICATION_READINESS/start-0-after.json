@@ -1,0 +1,71 @@
+{
+  "kind": "rp2_start_measurement",
+  "ownerRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript",
+  "sourceArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-12-16-676Z-ded67901-c23f-4220-b5e7-2662f287f244",
+  "inputPath": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/after/start-input.json",
+  "inputDigest": "sha256:2d2c254ae40d204510b23396368e7a83cf2622c6c1ec0070dfc762f7fd8c105b",
+  "slotRef": "slot://abiogenesis/typescript-tenant/qualification/catalog/0",
+  "plan": {
+    "ref": "qualification-plan://abiogenesis/c9f1f09bb0c9ba284b5c6a469229fe9957e0c9069d2ae448a57641f192674c35",
+    "digest": "sha256:c9f1f09bb0c9ba284b5c6a469229fe9957e0c9069d2ae448a57641f192674c35"
+  },
+  "resourceDigest": "sha256:4a74781b40eb3f2bd20bfe91d07b28002f7e9010e1adfd38bb48ccc033b8ee3b",
+  "heapLimitBytes": 17381195776,
+  "node": "v24.7.0",
+  "ownerKind": "current source owner over RP-1 admitted context",
+  "runs": [
+    {
+      "run": 0,
+      "cache": "cold",
+      "startCallMs": 2533.9597079999985,
+      "admitCallMs": 12244.446082999999,
+      "totalMs": 14778.405790999997,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "memoryBefore": {
+        "rss": 2195292160,
+        "heapTotal": 1775648768,
+        "heapUsed": 1653346256,
+        "external": 237337483,
+        "arrayBuffers": 234935362
+      },
+      "memoryAfter": {
+        "rss": 3368435712,
+        "heapTotal": 1001209856,
+        "heapUsed": 871789432,
+        "external": 31855290,
+        "arrayBuffers": 12398705
+      },
+      "uptimeBefore": "0:23  up 24 days, 10:41, 10 users, load averages: 5.00 6.36 6.53",
+      "uptimeAfter": "0:23  up 24 days, 10:42, 10 users, load averages: 4.69 6.22 6.48"
+    },
+    {
+      "run": 1,
+      "cache": "warm",
+      "startCallMs": 1626.820332999996,
+      "admitCallMs": 3088.3797919999997,
+      "totalMs": 4715.200124999996,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "memoryBefore": {
+        "rss": 3368435712,
+        "heapTotal": 1001209856,
+        "heapUsed": 871932536,
+        "external": 31855422,
+        "arrayBuffers": 12398837
+      },
+      "memoryAfter": {
+        "rss": 3628924928,
+        "heapTotal": 1317830656,
+        "heapUsed": 1206515088,
+        "external": 69269923,
+        "arrayBuffers": 9218646
+      },
+      "uptimeBefore": "0:23  up 24 days, 10:42, 10 users, load averages: 4.69 6.22 6.48",
+      "uptimeAfter": "0:24  up 24 days, 10:42, 10 users, load averages: 4.64 6.19 6.47"
+    }
+  ],
+  "eventLogUnchanged": true,
+  "providerCalls": 0,
+  "qualification": false
+}

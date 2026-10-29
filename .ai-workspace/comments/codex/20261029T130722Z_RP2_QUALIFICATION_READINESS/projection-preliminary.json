@@ -1,0 +1,140 @@
+{
+  "qualification": false,
+  "discardedForFinalProjection": true,
+  "reason": "measurement harness used generic owner authority instead of existing qualification role-policy authority; all attribution results invalid; final owner-policy render required",
+  "projectionSha256": "f57585720acfef372efcf824cf0171bcba70c0b5995a550b3d4efb128fc63ac9",
+  "head": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+  "slots": 447,
+  "criteria": 5831,
+  "irreducible": [
+    {
+      "key": "inventory/manifest/product-toolchain-manifest.json",
+      "bytes": 3541053
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/0",
+      "bytes": 3545642
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/1",
+      "bytes": 3575082
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/2",
+      "bytes": 3687357
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/3",
+      "bytes": 3619523
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/4",
+      "bytes": 3556931
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/5",
+      "bytes": 3589972
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/6",
+      "bytes": 3626807
+    },
+    {
+      "key": "rule/manifest/product-toolchain-manifest.json/7",
+      "bytes": 4040839
+    },
+    {
+      "key": "rule/complement/code/1",
+      "bytes": 1090525
+    },
+    {
+      "key": "rule/complement/code/2",
+      "bytes": 1171044
+    },
+    {
+      "key": "rule/complement/code/4",
+      "bytes": 1130033
+    },
+    {
+      "key": "rule/complement/code/5",
+      "bytes": 1135497
+    },
+    {
+      "key": "rule/complement/code/6",
+      "bytes": 1048672
+    },
+    {
+      "key": "rule/complement/code/7",
+      "bytes": 1151938
+    },
+    {
+      "key": "rule/complement/code/8",
+      "bytes": 1084920
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-3/0",
+      "bytes": 3405627
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-3/1",
+      "bytes": 3517902
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-3/2",
+      "bytes": 3399364
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-3/3",
+      "bytes": 3411966
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-3/4",
+      "bytes": 3420517
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-4/0",
+      "bytes": 1240114
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-4/1",
+      "bytes": 1352389
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-4/2",
+      "bytes": 1233851
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-4/3",
+      "bytes": 1246453
+    },
+    {
+      "key": "rule/public-contract/contracts/schemas/part-4/4",
+      "bytes": 1255004
+    },
+    {
+      "key": "rule/qualification-law/contracts/qualification/part-1/0",
+      "bytes": 2013786
+    },
+    {
+      "key": "rule/qualification-law/contracts/qualification/part-1/1",
+      "bytes": 2126061
+    },
+    {
+      "key": "rule/qualification-law/contracts/qualification/part-1/2",
+      "bytes": 1995635
+    },
+    {
+      "key": "rule/qualification-law/contracts/qualification/part-1/3",
+      "bytes": 2065511
+    },
+    {
+      "key": "rule/qualification-resources/test_env/qualification/part-1/1",
+      "bytes": 1157243
+    },
+    {
+      "key": "rule/qualification-resources/test_env/qualification/part-1/3",
+      "bytes": 1096693
+    }
+  ],
+  "modelUsd": 605.63
+}
