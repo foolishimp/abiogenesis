@@ -18,6 +18,24 @@ import { SELF_CONFORMANCE_REFERENCE_INPUT_SCHEMA, type SelfConformanceInput, typ
 import { canonicalEquals } from "../shared/value/index.js";
 const coord = (ref: string, digest: string): QualificationCoordinate => ({ ref, digest });
 const unique = (xs: readonly unknown[]) => new Set(xs).size === xs.length;
+// A disposable cache of a derived hash, never a resource/view or admission.
+// Every acquisition first authenticates each strict material's canonical base64
+// bytes against its digest and length. Only then do these four fields identify
+// the complete material value, including its bytes. Preserve record order.
+// This avoids serializing the same large record bodies for every provenance
+// view; cold acquisition, changed bytes and all other admission checks remain.
+const verifiedRecordSetDigests = new Map<string, string>();
+const RECORD_SET_MEMO_LIMIT = 256;
+function verifiedRecordSetDigest(records: readonly QualificationMaterial[]): string {
+  const key = hash(records.map(({ ref, path, digest, byteCount }) => ({ ref, path, digest, byteCount })));
+  const known = verifiedRecordSetDigests.get(key);
+  if (known !== undefined) return known;
+  const digest = hash(records);
+  if (verifiedRecordSetDigests.size >= RECORD_SET_MEMO_LIMIT)
+    verifiedRecordSetDigests.delete(verifiedRecordSetDigests.keys().next().value!);
+  verifiedRecordSetDigests.set(key, digest);
+  return digest;
+}
 export function isQualificationReferenceForm(value: unknown): value is { representation: "resource_refs_v1" } {
   return value !== null && typeof value === "object" && "representation" in value && value.representation === "resource_refs_v1";
 }
@@ -182,7 +200,7 @@ export class QualificationResources {
     const key = selection.resource.ref + ":" + selection.entry.ref, prior = this.provenanceViews.get(key);
     if (prior !== undefined) return prior;
     const m = this.manifest(selection.resource), records = p.records.map(s => this.value<QualificationMaterial>(this.selection(m, s.entryKind, s.entry), "material"));
-    if (!unique(records.map(x => x.ref)) || hash(records) !== p.recordSet.digest) throw new TypeError("qualification_provenance_record_set");
+    if (!unique(records.map(x => x.ref)) || verifiedRecordSetDigest(records) !== p.recordSet.digest) throw new TypeError("qualification_provenance_record_set");
     const view = deepFreeze({ ...p, records }); this.provenanceViews.set(key, view); return view;
   }
 }

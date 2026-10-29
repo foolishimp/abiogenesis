@@ -1,15 +1,15 @@
 {
   "kind": "qualification_coverage_catalog",
   "lawBasis": {
-    "ref": "qualification-law://abiogenesis/e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85",
-    "digest": "sha256:e682cf626506399d166a4c374822e65a8217541b3f6fe3ca78564697c6a8cc85"
+    "ref": "qualification-law://abiogenesis/196a7fc4d751428b0a8b86b0c1eaaf26967126155950c25e350f6a71ff86b43a",
+    "digest": "sha256:196a7fc4d751428b0a8b86b0c1eaaf26967126155950c25e350f6a71ff86b43a"
   },
   "authoritySources": [
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:6b7266fadd990fc4bfa4c6dd134cb740c4fa7bfb18b62b1458c2a653f890e25e",
-      "byteCount": 97704
+      "digest": "sha256:d1ee5ef43b4d66b12cb02bdcdb7bb0e3c4fa72c236b9e12d7924537d22c8a511",
+      "byteCount": 98195
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
@@ -133,7 +133,6 @@
         "traversal/disposition/retry_same_edge",
         "traversal/disposition/repair",
         "traversal/disposition/re_enter",
-        "traversal/disposition/yield_continuation",
         "traversal/disposition/inspect_runtime_archive",
         "traversal/disposition/reprice",
         "traversal/disposition/human_assurance_required",
@@ -319,6 +318,6 @@
       ]
     }
   ],
-  "catalogRef": "qualification-coverage://abiogenesis/dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789",
-  "catalogDigest": "sha256:dcb55ba8941a326f672317bf6779699d0c5c6d883fc9d3b9abc386273cef7789"
+  "catalogRef": "qualification-coverage://abiogenesis/9b27430d8b16e1624b8e627d5e28484a1e10569d1192b5f4a65839f13ddeafa1",
+  "catalogDigest": "sha256:9b27430d8b16e1624b8e627d5e28484a1e10569d1192b5f4a65839f13ddeafa1"
 }

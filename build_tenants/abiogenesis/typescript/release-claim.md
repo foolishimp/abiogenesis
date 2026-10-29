@@ -45,6 +45,10 @@ workload runs at the installed-candidate qualification.
 
 ## What the cut does not claim
 
+- Production of `yield_continuation` is reserved for 5.1 under Product Release
+  Boundaries. Its conserved type and dormant branches remain; other admitted
+  continuation, restart and recovery promises retain their 5.0 applicability.
+
 - `A5-F08`, standalone Consensus free-construction qualification, and
   `A5-F12`, the dedicated replay-grounded observer and tuner Product, are
   reserved 5.1 outcomes. The native human-response portions of F03, F06, F07

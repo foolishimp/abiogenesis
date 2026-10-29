@@ -42,6 +42,7 @@ const text = args => git(args).toString('utf8');
 /** Trailer identities (D5 disposition F-4): Opus 5.5 a Worker, Fable 5.1 the Executive, no trailer the owner;
  * the inherited base (D5-b disposition G-2) the predecessor line's construction accepted at the Phase C close. */
 export const CONSTRUCTION_IDENTITIES = Object.freeze({
+  'Codex gpt-6-astra': { authorRef: 'actor://abiogenesis/t287/codex-worker', actorIdentityRef: 'actor-identity://openai/gpt-6-astra' },
   'Claude Opus 5.5': { authorRef: 'actor://abiogenesis/t287/worker', actorIdentityRef: 'actor-identity://anthropic/claude-opus-5.5' },
   'Claude Fable 5.1': { authorRef: 'actor://abiogenesis/t287/executive', actorIdentityRef: 'actor-identity://anthropic/claude-fable-5.1' },
   owner: { authorRef: 'actor://abiogenesis/product-owner', actorIdentityRef: 'actor-identity://abiogenesis/product-owner' },
@@ -74,7 +75,7 @@ function blobs(oids) {
 function treeBlobs(rev, paths = null) {
   const rows = text(['ls-tree', '-r', '--full-tree', rev, '--', TENANT_PATH]).trim().split('\n').filter(Boolean).map(line => {
     const [meta, path] = line.split('\t'), [mode, type, oid] = meta.split(' ');
-    if (type !== 'blob' || mode !== '100644') throw new TypeError('unsupported tree entry at ' + rev + ': ' + line);
+    if (type !== 'blob' || !['100644', '100755'].includes(mode)) throw new TypeError('unsupported tree entry at ' + rev + ': ' + line);
     return { path, oid };
   });
   const map = new Map(rows.map(r => [r.path, r.oid]));

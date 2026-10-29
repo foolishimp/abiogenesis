@@ -429,6 +429,10 @@ block
 non_admit
 ```
 
+Production of `yield_continuation` is reserved for 5.1. Its conserved type and
+dormant derivation branches remain; 5.0 does not claim an admitted same-edge
+yield producer. The other dispositions retain their 5.0 applicability.
+
 These outcomes may project into more specific contract variants, but none may
 be erased into a generic success/failure flag. A lower-priority retry fallback
 cannot override a typed block, reprice, human hold, yield, or re-entry fact.
@@ -1132,6 +1136,7 @@ planner or runtime and is not assigned a release by this definition.
 |---|---|---|
 | Local Consequence | Evaluation supplies evidence; Consequence proposes advance, bounded retry/repair, declared local re-entry, or truthful block. ABG admits the transition; HoG executes it. | Autonomous upstream/out-of-traversal A.0 routing. |
 | Graph recursion | Declared child GraphFunctions and the selected recursive Executive overlay use the same HoG, explicit bounds, admitted foldback and parent re-evaluation, including declared cross-branch scope. Child completion does not establish parent completion. | Autonomous upstream/out-of-traversal coordination and the distinct F12/S04 Product. |
+| Same-edge yield | Existing admitted continuation, restart/recovery and typed stop behavior remain required; no `yield_continuation` production claim. | Production of the conserved `yield_continuation` disposition from an admitted same-edge continuation fact. |
 | Human boundary | Required human input produces typed block/hold and a human-readable handoff; external entry outside the current admitted traversal requires F_H authority. | Native response admission and response-driven same-run resumption, including evaluation of changed basis and lawful re-entry. |
 | Observation | Progress, timeout, interruption, causal events and replay-derived liveness/disposition remain required runtime truth. Selected governance graphs consume bounded event/workspace observations under their declared frames. | Dedicated observer/tuner drafts, ratification and public surfaces under A5-F12/S04. |
 | Consensus | Ordinary composition, recursion, attribution, admission and replay remain generic runtime obligations. Existing Consensus code and exact evidence are preserved without a dedicated release-complete claim. | Standalone F08/S05 qualification, including agreement/dispute and multi-workspace campaigns. |

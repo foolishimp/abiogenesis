@@ -23,8 +23,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:6b7266fadd990fc4bfa4c6dd134cb740c4fa7bfb18b62b1458c2a653f890e25e",
-      "byteCount": 97704
+      "digest": "sha256:d1ee5ef43b4d66b12cb02bdcdb7bb0e3c4fa72c236b9e12d7924537d22c8a511",
+      "byteCount": 98195
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",

@@ -5,6 +5,8 @@
 // harness's exports for the installed Public path, and the installed package's exports for the qualification
 // resources (test_env/qualification/build-resources.mjs).
 //
+// Operator launch: sh test_env/support/run-exact-candidate-qualification.sh <mode> ...
+// The launcher fixes this driver process to --max-old-space-size=16384 (16 GiB).
 // Modes:
 //   prepare             the admission check, with no provider dispatch: the pack verified, resolved, installed and
 //                       bound through fresh installed CLI processes; the qualification programs (with the owner
