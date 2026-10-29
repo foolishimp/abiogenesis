@@ -1,0 +1,73 @@
+{
+  "implementation": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+  "author": "Codex gpt-6-astra <noreply@openai.com>\nRepair RP-2 qualification readiness and add admitted behavior carriers\n\nAdd verified record-set memoization and explicit driver heap configuration; reserve yield production to 5.1; declare representative assessment material and the bounded proof-complement class; execute and replay the seven retained behavior carriers through owner paths.\n\nWriter: Codex / gpt-6-astra, requested effort xhigh. Native qualification, Q23 identity, O2 and publication remain open.\n\nCo-Authored-By: Codex gpt-6-astra <noreply@openai.com>\n\n",
+  "subtrees": {
+    "code": "b6a53dfd650bbcf1d8a7b62b2f77650dfd70d6ee",
+    "contracts": "49e27c1fdf61467693affd7bc5dada39383dae34",
+    "test_env": "98397297cf96601debaed38dc381116fe7c54df3"
+  },
+  "coverage": {
+    "removed": [
+      "traversal/disposition/yield_continuation"
+    ],
+    "added": [],
+    "before": 66,
+    "after": 65
+  },
+  "checks": [
+    {
+      "command": "npm run build",
+      "exitCode": 0
+    },
+    {
+      "command": "tsc -p tsconfig.json --noEmit --noUnusedLocals",
+      "exitCode": 0
+    },
+    {
+      "command": "check-import-direction / lifecycle / evidence / calculus",
+      "exitCodes": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "command": "lint-verification verification-recipe.json",
+      "exitCode": 0,
+      "selectedFiles": 72
+    }
+  ],
+  "testRuns": [
+    {
+      "log": "focused.log",
+      "pass": 29,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "carriers-final.log",
+      "pass": 3,
+      "fail": 0,
+      "skip": 1,
+      "skipClosedBy": "selected-final.log"
+    },
+    {
+      "log": "selected-final.log",
+      "pass": 1,
+      "fail": 0,
+      "skip": 0
+    },
+    {
+      "log": "law-regression.log",
+      "pass": 14,
+      "fail": 0,
+      "skip": 4,
+      "skipReason": "exact historical/current staging fixtures not supplied"
+    }
+  ],
+  "nativeQualification": false,
+  "providerCalls": 0,
+  "nativeProviderUsd": 0,
+  "agentExecutionCost": null
+}

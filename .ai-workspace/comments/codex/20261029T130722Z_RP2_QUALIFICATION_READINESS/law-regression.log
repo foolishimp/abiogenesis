@@ -1,0 +1,31 @@
+(node:42757) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ actual execution evidence is authenticated once, with foreign, substituted, aliased and ambiguous producers refused (302.061666ms)
+✔ green execution cannot replace independent coverage judgment; shared evidence must actually be in each selected task (40.946875ms)
+✔ whole native F11 assessment feeds sole AF22 directly; development/foreign/missing/duplicate evidence remains non-green (127.532083ms)
+✔ AF22 shares its exact owner through separate installed realization, success validation and cloned judgment; cold and changed bases stay checked (530.601875ms)
+ℹ {"warm":{"catalog":1,"execution":8,"state":1,"assessment":0,"verdict":1,"terminal":0,"replay":0,"sourceRead":17,"environment":2},"cold":{"catalog":2,"execution":21,"state":3,"assessment":0,"verdict":2,"terminal":0,"replay":0,"sourceRead":31,"environment":5},"premises":"Existing nativeJoinFixture supplies lower admission/environment facts; invoking boundary, separate installed URLs, raw Result clone and proof construction are real. Genuine cold ownership is covered by held-prefix tests and the installed composition."}
+(node:42774) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ qualification law and every rule span bind the selected frozen source bytes (8.949375ms)
+✔ coverage declarations preserve retained behavior without execution slots or fabricated results (0.768958ms)
+﹣ authority staging and ordinary reproduction bind retainedRC1's exact Definition-selected release (0.120875ms) # ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied
+﹣ authority staging and ordinary reproduction bind selectedRC2's exact Definition-selected release (0.033792ms) # ABG_QUALIFICATION_STAGE_FIXTURES unset; exact historical/current staging fixtures not supplied
+﹣ authority staging refuses wrong manifest and altered selected member before writing (0.07275ms) # ABG_QUALIFICATION_SOURCE_ROOT or ABG_QUALIFICATION_RELEASE_ROOT unset; exact installed source acquisition roots not supplied
+﹣ authority staging refuses a crossed release identity or member-set even with a matching manifest byte digest (0.092834ms) # ABG_QUALIFICATION_STAGE_FIXTURES unset; exact current staging fixture not supplied
+✔ leaf admission reads both catalogs once from the owner install and refuses bytes that differ from the recorded digest at authority_verification (34.466458ms)
+✔ a typed failure of an F_D qualification leaf arrives through the port boundary with its evidence (2.902875ms)
+✔ O1 (A): parseQualificationCatalogs refuses a coverage catalog outside I-JSON on its throw (8.1045ms)
+✔ O1 (A): an install manifest outside I-JSON is refused at the coverage catalog it binds (13.981333ms)
+✔ O1 (A): an installed coverage catalog outside I-JSON is refused at its path (20.138917ms)
+✔ declared representative sources are actual members while every domain conserves full coverage (2.31825ms)
+✔ proof complement alone receives the approved rendered-byte bound and Codex attribution is explicit (0.1055ms)
+✔ verified record-set reuse still authenticates changed bytes and complete ordered material identity (4.821375ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 4
+ℹ todo 0
+ℹ duration_ms 1783.387208

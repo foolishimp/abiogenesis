@@ -1,0 +1,19 @@
+{
+  "kind": "rp2_projection_attempt",
+  "implementation": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+  "pid": 52861,
+  "psIdentity": "Fri Oct 30 01:08:55 2026     31:10 node --max-old-space-size=16384 .ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/render-projection.mjs /private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/after/start-input.json .ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/projection.json",
+  "observedAtUtc": "2026-10-29T14:40:05.196044+00:00",
+  "executiveDisposition": "Preserve frozen cut and oversized-slot residual; do not substitute unrelated/out-of-group representatives. This one lawful projection may run to 45 minutes elapsed; then stop and preserve partial evidence if unfinished. No rerun or further optimization.",
+  "elapsedLimitSeconds": 2700,
+  "qualification": false,
+  "providerCalls": 0,
+  "harnessSha256": "749b7b13c62c7b86a5656d6767772ad393c8c6af6c864b9781ab403e8227fafe",
+  "status": "completed",
+  "startedAtUtc": "2026-10-29T14:08:55Z",
+  "deadlineUtc": "2026-10-29T14:53:55Z",
+  "exitCode": 0,
+  "elapsedMs": 2036672.1219590001,
+  "completedBeforeExecutiveLimit": true,
+  "projectionSha256": "bff8a8cbec970dea531e72fe58c38fa88cd9ce0b1cb78da870810ee21136b5b6"
+}

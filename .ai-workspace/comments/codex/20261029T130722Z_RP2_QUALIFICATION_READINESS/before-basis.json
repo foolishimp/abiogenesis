@@ -1,0 +1,12 @@
+{
+  "8db237d2a379e39be100f4fd7f0cd9f7e02525ac": {
+    "code": "17d966d8d1b72f0ab5836e466d9b4e02c2004b0e",
+    "contracts": "7c31e789b5b8b52d14aa37492433223c41257a53",
+    "test_env": "4ffb3e71388bc099c35abf5df4cda0ac14c25d7d"
+  },
+  "08ace99187eaa7a2a35b4e1629095df7ba7d9cca": {
+    "code": "17d966d8d1b72f0ab5836e466d9b4e02c2004b0e",
+    "contracts": "7c31e789b5b8b52d14aa37492433223c41257a53",
+    "test_env": "4ffb3e71388bc099c35abf5df4cda0ac14c25d7d"
+  }
+}

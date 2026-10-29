@@ -1,0 +1,12 @@
+✔ RP-2 declared ticket and asset starts, with actual admission, closure and fresh replay (48995.490625ms)
+✔ RP-2 actual child correction evidence drives archive-inspection and escalation stops without human response (43988.22725ms)
+✔ RP-2 F_P to equivalent F_D substitution conserves graph and C-call spine through installed execution (75932.119333ms)
+﹣ complete selected-action acquisition, occurrence and cold-proof composition (0.265208ms) # ABI5_SELECTED_ACTION_EVIDENCE_ROOT unset; requires the selected-action evidence root
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 170325.478375

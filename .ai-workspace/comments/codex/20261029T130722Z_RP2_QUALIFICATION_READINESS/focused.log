@@ -1,0 +1,46 @@
+✔ real Node report conserves complete multi-file, nested-suite and ordinary test outcomes (94.484916ms)
+✔ real skip, todo, failure, import error, process crash and cancellation never yield green material (374.14ms)
+✔ missing, truncated, duplicated, malformed, mismatched and signalled reports retain non-green outcomes (61.914917ms)
+✔ finite lint checks actual selected MJS and JSON and reports failures without executing tests (95.026292ms)
+✔ observed C2 material binds exact inventory, recipe, policy and command bodies; snapshot copies unchanged (150.52575ms)
+✔ selected zero-exit stdout contradiction fails while exact match and indeterminate predicates retain their meaning (861.788875ms)
+(node:34761) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ F11 conserves selected passed, failed and incomplete predicates through native summary and AF22 (873.377708ms)
+✔ REQ-P-SELF-CONFORMANCE-009: seeded verification material entries never discharge a REQ-P-QUAL-056 rule application (158.782042ms)
+(node:34870) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ small whole subject grouped and singleton semantics agree under explicit independent/native premises (21.687708ms)
+✔ required group/member/root/domain omissions, duplicate and crossed basis never receive a complete assessment (25.9755ms)
+✔ unknown and falsified grouping/applicability are conserved; incomplete context and foreign J cannot discharge scope (53.934458ms)
+✔ G1 multi-root assessment conserves failure and citations beside missing judgment (64.505792ms)
+✔ grouped representation grows by explicit members/rules, not Cartesian semantic rows or findings (191.825375ms)
+ℹ {"representation":[{"members":3,"rules":3,"applications":1,"findings":10,"serializedBytes":10055,"avoidedCartesianRows":9},{"members":100,"rules":100,"applications":1,"findings":10,"serializedBytes":36508,"avoidedCartesianRows":10000}],"claim":"component representation only; independent/native facts supplied"}
+✔ reference-form attribution consumes canonical resolved provenance and preserves original judgment bytes (7.21675ms)
+✔ reference attribution retains missing crossed record scope and independence refusals (5.528334ms)
+✔ actual renderer states supplied scope/material and original attribution spans without quoting unprovided source or base64 records (7.632792ms)
+ℹ {"scopedPromptBytes":57205,"singletonWholeMaterialPromptBytes":52555,"providedBodies":3,"assessedMembers":3,"attributionSpans":2,"retainedRecordBodies":7,"rawSchemaBytes":1972,"claim":"actual constructor/renderer sizes on finite synthetic scope; no token quota or semantic sufficiency inference"}
+✔ scoped constructor refuses missing material, changed byte/span, foreign basis and waived independence (8.784333ms)
+✔ fresh process conserves grouped result identities and refuses changed grouped bytes (60.027708ms)
+✔ explicit justified inapplicability conserves singleton meaning and cannot erase a falsified obligation (12.732625ms)
+✔ catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations (8.696292ms)
+ℹ {"catalogTaskPromptBytes":56353,"selectedCriterionRules":1,"providedCatalogRows":2,"totalCatalogRows":3,"fullCatalogBodies":0,"scope":"actual renderer; source-completeness union under explicit catalog component premise"}
+✔ catalog and rule prompts expose changed governed claims, evidence duties and source-span mappings; stale catalog refuses (11.582208ms)
+✔ inventory renderer exposes per-member role and classification-evidence swaps despite identical bytes and group-role union (7.517417ms)
+✔ per-rule complete member domains preserve flat semantics and do not split unrelated rule work (55.610375ms)
+ℹ {"perRuleDomains":[{"splits":2,"criteria":3,"promptBytes":57600,"memberBodies":3,"assessedMembers":4},{"splits":3,"criteria":4,"promptBytes":57600,"memberBodies":3,"assessedMembers":4}],"globalSplitRows":[4,6],"claim":"actual owner/renderer; J/native premises supplied"}
+✔ domain omission overlap foreign members and incomplete rule domains refuse; scoped J uncertainty survives (32.825916ms)
+✔ six-member discriminator keeps four rule domains when unrelated classification refinement would grow six global pairs to eight (40.921625ms)
+ℹ {"actualOwnerDiscriminator":[{"globalClassifications":3,"globalPairs":6,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":58067},{"globalClassifications":4,"globalPairs":8,"actualRuleCriteria":4,"coveredMemberRelations":12,"selectedPromptBytes":58067}],"claim":"C conservation and representation; supplied J/native premises"}
+✔ plan check by hashed sets keeps every refusal and its memo answers only for the verified plan bytes (1.453333ms)
+✔ declared representative sources are actual members while every domain conserves full coverage (2.495958ms)
+✔ proof complement alone receives the approved rendered-byte bound and Codex attribution is explicit (0.120375ms)
+✔ verified record-set reuse still authenticates changed bytes and complete ordered material identity (5.179209ms)
+ℹ tests 29
+ℹ suites 0
+ℹ pass 29
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4003.55325

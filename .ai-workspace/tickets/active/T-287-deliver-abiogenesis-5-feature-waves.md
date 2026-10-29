@@ -9,13 +9,13 @@
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: T287_RELEASE_RESUMPTION_01 / T287-RP2-CODEX-20261029T130722Z; RP-2 admitted on owner resume and Codex Executive assignment; base 08ace99187eaa7a2a35b4e1629095df7ba7d9cca. RP-1 remains accepted (P1 closed, P2 partial, P3 stopped Q23); exact history in the Phase D ledger.
-- current_activation_status: RP-2 active; Codex Executive coordinates, separate Codex gpt-6-astra Worker writes; Fable stood down.
+- current_activation_status: RP-2 returned on f8396e6bc5edcba290e4b8dae23af4d2015e271d; independent Reviewer/Executive evaluation pending; Worker stopped.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md
-- current_next_work: RP-2 items 0-4 and truthful construction attribution under the activation in phase_d.md; one exact candidate and Return to Executive. No O2 activation. Q23 remains open; Q20 budget and assessor choice remain for D5-d-prep.
+- current_next_work: bounded RP-2 Return evaluation and Executive selection of the next qualification/release steel-thread blocker. Q23, oversized material and Public disposition fidelity remain unresolved. No O2 or out-of-group representative substitution.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
-- current_runtime_frontier: RP1_accepted_8db237d2a_P1_closed_P2_partial_P3_stop_Q23; RP2_active_on_08ace9918_owner_resume
+- current_runtime_frontier: RP1_accepted; RP2_frozen_f8396e6bc_bounded_carriers_and_repairs_returned_readiness_partial_Q23_and_32_oversized_slots
 - current_qualification: OPEN_fifteen_families_F11_sole_AF22_pre_RC_installed_RC_and_human_acceptance
 - change_class: goal_reprice
 - derived_change_classes: product_reprice
@@ -361,8 +361,9 @@ Amendment of 2026-10-29, seventh (the owner's approval of the refactor plan, "in
 | 2026-10-29 | D5-c | `92498a2d2`, `e1a041fd9` | | accepted (0 USD; the whole inventory grounded by 24 chains; the re-packed plan 408 slots, 520 to 952 USD, about 27 h sequential provider time plus 33 h of quadratic plan checks; 77 slots outside the plan; the execution material 7,528,927 bytes, the 056 and coverage slots at 8.4 and 8.2 MB; the dry mode admitted the C2, 119 rulings, F11, AF22 and three assess slots and ended undispatched; eight behaviors: seven authorable, `yield_continuation` unrealized; suite 1,227/1,056/0/171). Product findings P1 to P6; the candidate cannot be released under the Product's own law without a repair cut; Phase D stopped for Q19 to Q22) |
 | 2026-10-29 | plan | | | the refactor plan: the owner approved the D5-c recommendations and the Codex post's as the refactor plan (Q19 reserve `yield_continuation` to 5.1 and author the seven carriers; Q20 declared selections, the budget on the measured projection; Q21 the repair cut: RP-1, RP-2, O2, then D1/D4-c, D2, D3 under inheritance, D5-d-prep, D5-d, D6; Q22 the gate kept); the Executive ruled P4 (the complement bound 1,300,000 bytes with a live probe at D5-d-prep), P5 (measured after P1 and P2) and the two-package split; the assessor-identity consequence of P3 surfaced to the owner (`phase_d.md` `## Refactor plan`) |
 | 2026-10-29 | RP-1 | | | activated (P1 the compact verification material named by the fold and the compact execution evidence; P2 the plan check by hashed sets, memoized; P3 the independence compare over one identity with the assessor-identity trace; the author-identity census; the driver restated and the dry mode re-proven; 0 USD; the suite on commit 1 in the background) |
-| 2026-10-30 | RP-2 activation | `08ace99187eaa7a2a35b4e1629095df7ba7d9cca` | | owner resumed (“ok start”); Codex Executive takeover, separate Worker grant `T287-RP2-CODEX-20261029T130722Z`; items 0-4 plus truthful Codex attribution; no provider or O2; P3/Q23 remains stopped; exact activation in `phase_d.md` |
 | 2026-10-29 | RP-1 | `8db237d2a`, `e284bc577` | | accepted (0 USD; P1 closed: the 056 rule slot 8,444,138 to 567,941 bytes, the coverage slot 8,242,250 to 345,475, a ref-form rule, contracts identical, four seeded negatives blocked; P2 in part: the plan check 59,457 ms to 55 ms, the start 280 s to 14 s, the remainder F1 (the provenance rehash in `qualification_resources.ts`, outside the grant) and F2 (heap pressure), both ruled into the next package's item 0; P3 stopped: no admitted fact states the assessor's identity, Q23 to the owner (an `actorIdentityRef` on the worker binding recommended); the census: Fable 5.1 covers 5 members, both models 2; the dry mode undispatched, 478 starts admitted; 20 lanes equal plus two added cases; the suite on `8db237d2a` (199 lanes, 1,229 tests, 1,058 pass, 0 fail, 171 skipped: the column on `92498a2d2` plus the two added cases)); Phase D stood down at this close by the owner's order of 2026-10-29; RP-2 awaits the owner's resume |
+| 2026-10-30 | RP-2 activation | `08ace99187eaa7a2a35b4e1629095df7ba7d9cca` | | owner resumed (“ok start”); Codex Executive takeover, separate Worker grant `T287-RP2-CODEX-20261029T130722Z`; items 0-4 plus truthful Codex attribution; no provider or O2; P3/Q23 remains stopped; exact activation in `phase_d.md` |
+| 2026-10-30 | RP-2 Worker Return | `f8396e6bc5edcba290e4b8dae23af4d2015e271d` | | bounded memo/heap/yield and seven ABG carriers delivered; 447-slot structural projection, 5,831 whole criteria, proof-complement max 1,240,281 under 1,300,000; 32 other irreducibles remain (max 4,040,862), model 605.88 USD, no native spend. Warm complete starts 4.715/4.554 s; cold 14.778/14.210 s. Q23 stopped, Public disposition fidelity partial. Review/Executive acceptance pending; no O2. Exact Return/evidence/skill record linked in phase_d.md. |
 
 ### Design and proof controls
 
@@ -486,19 +487,19 @@ above supersede them.
 - current_method_manifest_sha256: 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782
 - method_repin_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#stdo-251-rc2-repin
 - retriaged_at: 2026-09-28
-- updated_at: 2026-10-30
+- updated_at: 2026-10-06
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: T287_RELEASE_RESUMPTION_01 / T287-RP2-CODEX-20261029T130722Z; RP-2 admitted on owner resume and Codex Executive assignment; base 08ace99187eaa7a2a35b4e1629095df7ba7d9cca. RP-1 remains accepted (P1 closed, P2 partial, P3 stopped Q23); exact history in the Phase D ledger.
+- current_activation: T287_SANDBOX_UAT_RUN_02
 - prior_genuine_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
-- current_activation_status: RP-2 active; Codex Executive coordinates, separate Codex gpt-6-astra Worker writes; Fable stood down.
+- current_activation_status: ACTIVE_config_only_budget06_correction_accepted_exact_candidate05_clean_retest06_dispatched_outcome_pending
 - prior_boundary_repair_status: CLOSED_ACCEPT_Hello_expunction_generic_Source_package_and_bounded_installed_language_proof
 - prior_boundary_repair_acceptance: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/acceptance.json
 - current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/plan.md
 - current_sandbox_uat_acceptance: .ai-workspace/work/T287_SANDBOX_UAT_01/acceptance.md
 - current_sandbox_uat_live_results: 0_passes_original_preRun_refusal_and_second_genuine_failed_Run_retained_budgetcorrected_retest06_dispatched_remaining6_UNEXECUTED_at_release
 - current_disk_cleanup_receipt: .ai-workspace/work/T287_SANDBOX_UAT_01/disk-recovery/receipt.json
-- current_next_work: RP-2 items 0-4 and truthful construction attribution under the activation in phase_d.md; one exact candidate and Return to Executive. No O2 activation. Q23 remains open; Q20 budget and assessor choice remain for D5-d-prep.
+- current_next_work: ordered_single_case_clean_UAT_basic_cli_js_tenant_test_js_sdlc_bootstrap_rust_cli_rust_service_parallel_js_data_mapper_full_stop_nonpass_triangulate_framework_fix_successor_redeploy_retest
 - prior_genuine_activation_status: CLOSED_ACCEPT_genuine07_original_J_native_F11_one_closed_Run_four_fresh_reads
 - current_boundary_repair_plan: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/plan.md
 - current_boundary_repair_reentry: product_reprice_requirement_reprice_design_reframe_then_bounded_realization_refactor
