@@ -5578,3 +5578,202 @@ No commits landed on `main` during the run: HEAD was `603404b6` until commit 1, 
 **Grant.** As D5-b's (the driver and `test_env/support/` modules, `test_env/qualification/**`), plus nothing. No lane, code, contracts, design, specification, scripts, package.json, fixture or operator-config edit (the sibling configuration is the Executive's; you read it). The record directory `.ai-workspace/comments/claude/<UTC>_D5C_DISPATCH_READY/` (`README.md`, `provenance.json`, `projection.json`, `execution-material.json`, `coverage-analysis.json`, `dry-run.json`, `cost.json` (0), `cold-reads.json`); the record; your scratch `.../scratchpad/d5c/`. No provider; no network; no token read.
 
 **Exit.** Commit 1 (test territory; marker to `.../scratchpad/d5c/commit1.txt`), the Executive's suite on it; the record commit last. Return contract: `## D5-c return (Worker, Opus 5.5, 2026-10-29; base \`<hash>\`)`; first sentence: dispatch-ready or not, with the projection's cost and call count, the real execution material's size, and the eight behaviors' summary. Commit 1 first line: `D5-c (test territory): the inherited-base chain, the rule role packed per surface part, the real execution material, the dispatch path with its dry mode`. The record commit first line: `D5-c: the native qualification made dispatch-ready without a provider call (projection <USD>, <calls> calls; execution material <bytes>; eight behaviors analysed)`. Stops: a chain set that cannot be held; a dry mode that cannot admit an input against its contract (a Product finding, recorded).
+
+## D5-c return (Worker, Opus 5.5, 2026-10-29; base `56015068371277c8efed53f0f40d1e53bdee79ea`)
+
+No, the native qualification is not dispatch-ready: the re-packed plan projects 520.21 USD for 409 provider calls (408
+assess@5 slots and the observed C2) with 77 slots outside it, the real execution material is 7,528,927 bytes (all 70
+execution-class slots over both bounds), and of the eight behaviors 7 are authorable without provider or human
+response (2 with a 5.1 portion reserved) and 1 (`yield_continuation`) is unrealized.
+
+No provider call was made (0 USD). No stop of the activation's occurred. The chain set held. Every input that was
+admitted was admitted against its contract, and none was refused.
+
+**Commits and record**
+
+- Commit 1 (test territory) is `92498a2d29eca294d851557753cbda2fe047c357`. It changes 10 files, all inside the grant;
+  its parent is the base. The record commit carries this Return.
+- The record directory is `.ai-workspace/comments/claude/20261029T003734Z_D5C_DISPATCH_READY/`, with eight files.
+- No other commit landed on `main` during the run: `git rev-list --count 56015068..HEAD` = 1 before the record commit.
+
+**Projection (item 2).** The bounded run is `2026-10-28T23-54-30-734Z-c8028df5…`. Prices are 5 and 25 USD per million
+tokens at 4 bytes per token.
+
+| Role | Slots | Criteria | Rendered bytes | USD |
+|---|---|---|---|---|
+| catalog | 7 | 95 | 3,931,485 | 5.70 |
+| inventory | 15 | 56 | 5,776,729 | 8.92 |
+| rule | 385 | 5,538 | 350,168,444 | 505.50 |
+| tenant | 1 | 1 | 66,192 | 0.10 |
+| coverage | 0 | 0 | 0 | 0.00 |
+| in the plan | 408 | 5,690 | 359,942,850 | 520.21 |
+| outside the plan | 77 | 142 | 618,542,068 | 778.59 |
+
+- The 77 slots outside the plan are 70 execution class and 7 complement.
+- 484 specifications gave 485 slots, each rendered by the installed `prepareQualificationAssessment`.
+  - The rule role is packed per surface part (G-1).
+  - The largest in-plan prompt is 1,041,033 bytes.
+  - A full-plan render of slot 0 is byte-equal to its one-slot render, as are the smoke run's 8.
+- The in-plan tokens are 89,985,866 in and 2,811,389 out.
+- At the D3 calls' observed 2.042 prompt bytes per input token, the plan costs 951.63 USD. The rule-input floor is
+  82.08 USD.
+
+**Time.** Sequential only.
+
+- A parallelism of four is not permitted: the event sink holds one exclusive append lock
+  (`abg/event_store.ts:1594-1597`).
+- Provider time is 27.1 h over 409 calls.
+  - The latency model is fitted on the 18 D3 two-turn calls: −1,290 ms intercept, 0.1902 ms per prompt byte,
+    10.51 ms per output token.
+  - Its mean is 238,922 ms per slot, an extrapolation 13.7 times past the largest D3 prompt.
+  - The C2 takes 232,357 ms: the measured helper run plus its modelled relay.
+- The start preparation measured in process adds 408 × 291,235 ms = 33.0 h, for **60.1 h** in total.
+
+**Provenance (item 1).** The run is dry-4, the committed driver at commit 1.
+
+- **Chains.** 24 chains: the inherited base and 23 commits (`51bc5d2d8` exclusive to `92498a2d2` inclusive).
+- **The inherited base.**
+  - Its delta is the empty tree to `51bc5d2d8` over the tenant: 1,170 members, 1,174 records, 66,681,626 bytes.
+  - It was grounded alone in 74.9 s.
+  - `authorRef` is `author://abiogenesis/t287/inherited-base@51bc5d2d8` and `actorIdentityRef` is
+    `actor-identity://abiogenesis/t287/predecessor-construction`.
+  - Its activation is the ticket's Phase C close rows (12, 48, 272, 305, 306, 312).
+- **All chains together.**
+  - 1,520 records, 196,618,944 bytes (262,160,604 as base64). Every chain was grounded alone.
+  - The whole inventory is grounded: 1,191 members, all current.
+  - The heap was 1.37 GB used of a 16.98 GB limit; the set held.
+- **Every slot is valid.** 485 slots are `grounded` (408 in the plan, 77 outside), 0 `insufficient`, 0 `invalid`.
+- **Cross-process check.** The bounded run, a second process, re-derived the record set `7606c3fe…` equal.
+
+**Execution material (item 3).** Item 3 has four parts:
+
+- **The direct helper run.**
+  - The prepared C2 task's ABI-owned helper ran in prepare-4's sandbox, from the shell, with the recorded setup
+    environment: exit 0, 222,495 ms, 9 commands exit 0.
+  - This is a measurement, not an admitted C2.
+- **The observation.**
+  - The observation value is 7,521,691 bytes: the worksite delta 4,625,771 (7,312 rows), the task 2,032,174, and the
+    snapshot 675,430.
+  - The helper artifact is 7,177,262 bytes. The compact verification material is 144,757 bytes.
+- **What `verification.execution.ref` resolves to.**
+  - It names the execution selection's Result coordinate.
+  - Its material is the canonical JSON of the C2 Result state, `{result, judgment, evidence}`, with the whole
+    observation as value (`abg/qualification_proof.ts:779-846`, by source reading). That is 7,528,927 bytes.
+  - It is not the compact material.
+- **The two slot classes.**
+  - The REQ-P-QUAL-056 slot `rule/manifest/.gitignore/1` renders at 8,444,138 bytes (406,069 without the material).
+  - The coverage slot renders at 8,242,250 bytes (204,181 without).
+  - Both are over 1,048,576 and over 3,500,000.
+  - Across the plan, all 70 execution-class slots (69 056 slots and the coverage slot) are 8,242,250 to
+    9,278,835 bytes.
+  - This is a Product finding (owner question), recorded, not repaired.
+
+**The eight behaviors (item 4).** No lane was authored and no claim was edited. Every claim has the evidence roles
+`execution_evidence`, `behavioral_coverage` and `release_applicability`.
+
+| Behavior | Realization | Carrier today | Class | Effort |
+|---|---|---|---|---|
+| `graph_span_reentry` | `hog/route_proposal.ts`, `abg/traversal_route.ts:437, 3946-4027, 4609-4639` | `t287-selected-action` (env-gated, model-free F_D, not in the recipe) | authorable (5.0); A.0 routing reserved for 5.1 (PRODUCT.md:396, 1133) | the existing lane's fresh path plus a recipe change, or about 150-250 lines new |
+| `ticket_traversal` | an ordinary Program start (PRODUCT.md:398); fixture ticket Program | none | authorable | about 120-200 lines |
+| `re_enter` | `abg/traversal_route.ts`, `hog/route_proposal.ts` | as `graph_span_reentry` | authorable | shared with `graph_span_reentry` |
+| `yield_continuation` | the derivation branch only; no fact supplies `continuationRef` (`abg/calculus/liveness.ts:798, 828`) | none | unrealized (not reserved: PRODUCT.md:1136) | owner question: realize the same-edge continuation fact, or re-enter Product |
+| `inspect_runtime_archive` | the stop route (`abg/traversal_route.ts:277-292, 1300-1320, 1871-1905, 2515-2532`) | `t287-multi-candidate-admission` drives `repair` only | authorable | owner level about 20-40 lines; installed about 150-250 lines (shared with `escalate`) |
+| `escalate` | the same stop route, a typed stop | as above | authorable (5.0); F_H response resolution reserved for 5.1 (PRODUCT.md:356, 399, 1135) | shared |
+| `targeting_a_published_asset` | `gtl/public_start.ts:101-126`, `abg/invocation_admission.ts:1107-1122` | identity and refusal cases only | authorable | about 40-80 lines (owner) or 120-200 (installed) |
+| `shape-preserving-fibre-substitution` | binding selection (`abg/c_call_outcome.ts:239-250`) | none; no differential | authorable with the `ABG_TS_CLAUDE_COMMAND` stand-in | about 200-300 lines |
+
+`ABI5_SELECTED_ACTION_EVIDENCE_ROOT` requires a writable directory, which the lane fills itself. Its fresh path needs
+the frozen-artifact variables unset. Its preflight, resume and recover branches need retained prior records.
+
+**Dry mode (item 5).** It ran at three scales:
+
+- **At full scale (dry-4, the committed driver on commit 1).**
+  - Every row's input and start were admitted: the observed C2 (3.4 s), all 119 owner acknowledgment requests
+    (166.2 s), F11 and AF22 over placeholder selections (14.4 s and 13.4 s), and assess 0 to 2 (287,942,
+    287,733 and 288,612 ms).
+  - I stopped it after assess-0002. At about 390 s per slot, the loop would have run about 44 h.
+  - The proof is by reads, since no `dry-run.json` was written:
+    - no `sentinel/executed`;
+    - no transport archive;
+    - the event log unchanged (`df1d9685…`, 3,196,589 bytes, inode 658004020);
+    - only `runtime.events.jsonl` in the events directory.
+- **The bounded run.**
+  - This is the committed dry mode through its plan, copied and patched in scratch to end there.
+  - It recorded the digests of all 530 C-call inputs (digest of digests `44bc9500…8f2897`).
+  - It measured one assess@5 start: 59.5 s of input admission and 241.1 s of preparation. It ended `undispatched`
+    with the event log unchanged.
+- **End to end over an 8-slot plan (the smoke run).**
+  - `undispatched`; all 16 inputs admitted; transports 0 of 0; the sentinel never ran; owner prompts equal 8 of 8.
+  - Its cold reads matched 4 of 4, plan included.
+- **Cold reads of prepare-4 after every run.** 7 of 7 equal; the event log unchanged.
+- **The live mode is authored and was not run.** Its order is: the plan gate over the stand-in, then the observed C2,
+  the plan over its Result, assess@5 per slot, owner acknowledgments, F11, the sole AF22, and cold reads.
+
+**G-4 (item 6).**
+
+- `--config operator-config.qualification.json` (`fd0d0687…1dcb`).
+- The setup environment carries `npm_config_update_notifier=false` and `npm_config_offline=true`.
+- The provider environment the transport would receive carries both npm keys and `BASH_DEFAULT_TIMEOUT_MS=900000`
+  and `BASH_MAX_TIMEOUT_MS=900000`.
+  - The configuration names the two limits in `provider.inheritEnvironment`; the operator's process supplies the
+    values.
+  - The live gate requires both above the recipe's 855,250 ms.
+- No credential value was read.
+
+**Why not dispatch-ready**
+
+- **The 70 execution-class slots.** This is a Product finding (owner question).
+- **The seven complement slots.**
+  - The slots are `rule/complement/proof/{1,2,4,5,6,7,8}`: 1,077,868 to 1,200,240 bytes, one rule group and one domain
+    key each, 347 subject members, none carried.
+  - G-1's "split by member" needs a criterion for a member sub-part. The scope does not declare one, and the plan's
+    `disjoint` coverage refuses one criterion in two slots (`validator/qualification.ts:508`).
+  - This is a ruling question, not repaired.
+  - Commit 1 realizes G-1's member clause as metadata-only carriage of any member above 600,000 bytes
+    (`material-selection.json` `memberCarryBytes`), not as a split. No governed part is over the bound; only
+    these complement slots are.
+- **The assess@5 start cost.**
+  - The cost is 291,235 ms per start before any spawn. 92 to 93 % of it is `qualificationPlanMatches`
+    (`validator/qualification.ts:507`): a pairwise `canonicalEquals` over the plan's 5,690 criteria, about 55 s a
+    check and about five checks per start.
+  - The plan is 4,038,447 of each assess input's 4,073,457 bytes.
+  - F11 and AF22 carry the same plan and admitted in about 14 s.
+  - This is a Product realization finding, outside the grant.
+
+**Deviations**
+
+- **The full-scale dry was stopped.** dry-4 was stopped after assess-0002, so 405 assess admissions are projected, not
+  run. The full-scale proof is by reads, and the projection comes from the bounded scratch harness, not from the
+  committed driver's own `projection.json`.
+- **Prepare cycles and fixes.** Four prepare cycles and two diagnostic scratch runs (the probe and the smoke) ran before
+  commit 1. Their fixes are in commit 1:
+  - the C2 start's run-environment resources;
+  - the owner refusal code field;
+  - input admission `!== null`;
+  - the ruling root authority's interaction rows;
+  - the C2 time term.
+
+  The abandoned gitignored archives are listed in the README.
+- **Two changes to the live mode.** It gained a pre-dispatch gate over the measured stand-in, and it drops the
+  per-slot in-process admission.
+- **A concurrent suite.** A suite process (`t287-c0-post-publication-failure`) ran concurrently with dry-4 and the
+  bounded run.
+
+**Findings outside the grant**
+
+- The execution class (above).
+- The assess@5 start cost (above).
+- **F11 independence is vacuous by source reading.** `abg/qualification_proof.ts:674` returns `actor-identity://`
+  refs. `:696` tests them against `judgment.source.actorRef`, an `actor://` ref.
+- **`yield_continuation` is unrealized** (`abg/calculus/liveness.ts:798, 828`).
+- **Token sensitivity.** At the observed bytes per token, the projection is 1.8 times higher.
+
+**Not verified**
+
+- **The ruling resume path is not authored.** The live mode stops at `awaiting_owner_rulings`. At plan time, 0 slots
+  are insufficient.
+- **The execution-material reconstruction is a source reading.** No admitted C2 Result exists.
+- **The 405 unrun assess admissions rest on the plan's determinism.** That determinism rests on a second process and
+  the smoke cold reads.
+- **The provider time is an extrapolation** (13.7 times).
+- **The inherited-base activation is the ticket's current text** at the matched rows.

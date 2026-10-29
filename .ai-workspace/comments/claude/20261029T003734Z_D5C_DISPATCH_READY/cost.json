@@ -1,0 +1,22 @@
+{
+ "kind": "qualification_run_cost",
+ "package": "D5-c",
+ "providerCalls": 0,
+ "turns": 0,
+ "usd": 0,
+ "capUsd": 0,
+ "source": "No mode dispatched: prepare, helper-realize, execution-material, the dry mode, the bounded harness and the cold reads make no transport call and spawn no provider; the live mode was authored and not run",
+ "tokenHandling": "Every driver run used env -u CLAUDE_CODE_OAUTH_TOKEN -u ANTHROPIC_API_KEY; no credential value was read or exported; no zsh -ic",
+ "runCosts": [
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T23-54-30-734Z-c8028df5-346e-4bcc-9d32-e97ab2aa8e05/cost.json",
+   "digest": "sha256:75b586db19eeff29fff3f8b0bd0941669f11aa5b9a30f4886f07a6ac07b862e6",
+   "byteCount": 246
+  },
+  {
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T22-41-35-571Z-add3aef0-ed77-475f-80e5-544290c3e776/cost.json",
+   "digest": "sha256:368fbfce21935d13052de0a49454139700b859efcd006b3e37b64cc12d2d2211",
+   "byteCount": 249
+  }
+ ]
+}
