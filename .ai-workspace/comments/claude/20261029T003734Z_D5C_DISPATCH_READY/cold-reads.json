@@ -1,0 +1,143 @@
+{
+ "kind": "d5c_cold_reads",
+ "prepare": {
+  "note": "A fresh process after every D5-c run: the prepare records of prepare-4 re-derived from the sealed archive, the event log and the tenant files at commit 1",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T22-28-58-717Z-097a7a42-e10b-4367-b5b6-4ff597da86bf",
+  "runId": "2026-10-28T22-28-58-717Z-097a7a42-e10b-4367-b5b6-4ff597da86bf",
+  "process": {
+   "pid": 62968,
+   "argv": [
+    "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/support/exact-candidate-qualification.mjs",
+    "cold-reads",
+    "--config",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/uat/candidate-fd38e8227/operator-config.qualification.json",
+    "--archive",
+    "test_env/test_runs/qualification/2026-10-28T22-28-58-717Z-097a7a42-e10b-4367-b5b6-4ff597da86bf",
+    "--out",
+    "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5c/cold/root",
+    "--json",
+    "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5c/cold/prepare-cold-reads.json"
+   ],
+   "node": "v24.7.0"
+  },
+  "eventLog": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T22-28-58-717Z-097a7a42-e10b-4367-b5b6-4ff597da86bf/resources/events/runtime.events.jsonl",
+  "identityBefore": {
+   "device": 16777231,
+   "inode": 658004020,
+   "byteCount": 3196589,
+   "digest": "sha256:df1d9685102c81d09f78ac5f42f247a71461531d2c24ab241eab81cfdfe3b87f"
+  },
+  "identityAfter": {
+   "device": 16777231,
+   "inode": 658004020,
+   "byteCount": 3196589,
+   "digest": "sha256:df1d9685102c81d09f78ac5f42f247a71461531d2c24ab241eab81cfdfe3b87f"
+  },
+  "identityUnchanged": true,
+  "environmentKind": "exact_prefix_workspace_environment",
+  "observedMismatches": [],
+  "scopeCorrespondenceErrors": [],
+  "basisReady": true,
+  "rows": [
+   {
+    "name": "basis",
+    "archivedDigest": "sha256:453ac4c7352f1b96c472e7097e7742776705c770b9e35df0f92a3887db4be631",
+    "rederived": "sha256:453ac4c7352f1b96c472e7097e7742776705c770b9e35df0f92a3887db4be631",
+    "equal": true
+   },
+   {
+    "name": "scope",
+    "archivedDigest": "sha256:6352674dbf09e6163d356b9dedb113805fae0c2a245c7e72a61efabbb48e78f4",
+    "rederived": "sha256:6352674dbf09e6163d356b9dedb113805fae0c2a245c7e72a61efabbb48e78f4",
+    "equal": true
+   },
+   {
+    "name": "inventory",
+    "archivedDigest": "sha256:832e4c7c9d73dcc9ee9e56935488b5b3909b51cf476405b742072ac57e8bc543",
+    "rederived": "sha256:832e4c7c9d73dcc9ee9e56935488b5b3909b51cf476405b742072ac57e8bc543",
+    "equal": true
+   },
+   {
+    "name": "tenantManifest",
+    "archivedDigest": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+    "rederived": "sha256:5fdbfdb7144add84ca3e670ef2c444b84c825a099f222cae01abebbc9967ebc5",
+    "equal": true
+   },
+   {
+    "name": "commandConfiguration",
+    "archivedDigest": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
+    "rederived": "sha256:27484fd76b69ed0835aa29eff48031e2ce675b857a1016497808297749b3223a",
+    "equal": true
+   },
+   {
+    "name": "predicateConfiguration",
+    "archivedDigest": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+    "rederived": "sha256:1873d3425d6551401ce938ab7472820698682279bf59e0a8365fb56b639b1a7f",
+    "equal": true
+   },
+   {
+    "name": "writeTerritories",
+    "archivedDigest": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+    "rederived": "sha256:4c29c3329786a5ea4605d9ab3805f58a2ed8f0087bcfe752b1ebdfcaed14b51b",
+    "equal": true
+   }
+  ],
+  "allEqual": true,
+  "output": {
+   "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/d5c/cold/prepare-cold-reads.json",
+   "digest": "sha256:1b4334e7d1fea95ff42f6a807b524c5ef894d677d634484418ea378a31688310",
+   "byteCount": 3949
+  }
+ },
+ "dryEndToEnd": {
+  "run": "2026-10-28T22-47-59-209Z-364515be-4eaa-4eda-96de-42d020054df7",
+  "note": "cold reads of the smoke dry archive in a fresh process: the construction record set, chains, resource and plan re-derived",
+  "runArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T22-41-35-571Z-add3aef0-ed77-475f-80e5-544290c3e776",
+  "mode": "dry",
+  "rows": [
+   {
+    "name": "constructionRecordSet",
+    "archivedDigest": "sha256:55c2fe926df3e1f0159f6278f16dbace0982740d479f68878110940f4e4822b0",
+    "rederived": "sha256:55c2fe926df3e1f0159f6278f16dbace0982740d479f68878110940f4e4822b0",
+    "equal": true
+   },
+   {
+    "name": "constructionChains",
+    "archivedDigest": "23",
+    "rederived": "23",
+    "equal": true
+   },
+   {
+    "name": "resource",
+    "archivedDigest": "sha256:6a84caf9273940bdce50411a011057219db78de8a20862704daa13fb551576f3",
+    "rederived": "sha256:6a84caf9273940bdce50411a011057219db78de8a20862704daa13fb551576f3",
+    "equal": true
+   },
+   {
+    "name": "plan",
+    "archivedDigest": "sha256:069798d3a48144eae541d3539c7f570830c018ee8155e2623ba7081cc2f05c4a",
+    "rederived": "sha256:069798d3a48144eae541d3539c7f570830c018ee8155e2623ba7081cc2f05c4a",
+    "equal": true
+   }
+  ],
+  "identityUnchanged": true,
+  "allEqual": true,
+  "archiveFile": {
+   "path": "build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-28T22-47-59-209Z-364515be-4eaa-4eda-96de-42d020054df7/cold-reads.json",
+   "digest": "sha256:3d5918f424170f9cd4a824577d3880c635a0595dc9d4c685dbb921af2b0a06a8",
+   "byteCount": 2743
+  }
+ },
+ "provenanceAcrossProcesses": {
+  "dry4": {
+   "ref": "qualification-record-set://abiogenesis/construction/7606c3fee392c4048c26447984679d49230dda4976c22d15bf694bbc7b80c52c",
+   "digest": "sha256:7606c3fee392c4048c26447984679d49230dda4976c22d15bf694bbc7b80c52c"
+  },
+  "bounded": {
+   "ref": "qualification-record-set://abiogenesis/construction/7606c3fee392c4048c26447984679d49230dda4976c22d15bf694bbc7b80c52c",
+   "digest": "sha256:7606c3fee392c4048c26447984679d49230dda4976c22d15bf694bbc7b80c52c"
+  },
+  "equal": true
+ }
+}

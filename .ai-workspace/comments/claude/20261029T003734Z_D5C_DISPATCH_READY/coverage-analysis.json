@@ -1,0 +1,393 @@
+{
+ "kind": "d5c_coverage_analysis",
+ "package": "D5-c item 4",
+ "method": "source reading of the tenant at the commit-1 tree; no lane authored, no claim edited",
+ "recipe": {
+  "path": "build_tenants/abiogenesis/typescript/test_env/qualification/recipe/verification-recipe.json",
+  "testVectorFiles": 36,
+  "note": "none of the carriers that exercise these behaviors is among the recipe test files except t287-multi-candidate-admission (repair only), a5-f02 and t287-c2-child-program"
+ },
+ "behaviors": [
+  {
+   "behavior": "traversal/consequence/graph_span_reentry",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:396 (5.0: re-enter a declared span or vector target within the current admitted traversal; autonomous upstream/out-of-traversal A.0 routing reserved for 5.1)",
+    "PRODUCT.md:1133 (Local Consequence row: declared local re-entry is 5.0; A.0 routing is 5.1)",
+    "PRODUCT.md:483-487 (a 5.1 portion needs a scoped intentionally_removed disposition with its owner ruling)"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts (graph-span re-entry cursor; refusal graph_span_reentry_not_declared at 72, 501, 789, 797, 885)",
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts:437 (graph_span_reentry_mismatch), 3946-4027 and 4609-4639 (re_enter route admission)"
+   ],
+   "carriers": [
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+     "host": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:30-31",
+     "exercises": "refresh-model graph_span_selection with disposition re_enter (phase 0), then continue",
+     "gate": "skipped unless ABI5_SELECTED_ACTION_EVIDENCE_ROOT names a writable evidence directory (t287-selected-action.test.mjs:12-13)",
+     "evidenceRootRequires": [
+      "a writable directory: the lane and its spawned host write environment.json, opened.json, handoffs, receipts and composition-result.json into it",
+      "fresh path (no RESUME_FROM/RECOVER_FROM): ABI5_WAVE1_FROZEN_ARTIFACT_PATH, ABI5_WAVE1_FROZEN_INSTALL_HOST and ABI5_WAVE1_FROZEN_ARTIFACT_SHA256 unset (line 208); the host installs a packed artifact, is SIGKILLed and recovered",
+      "ABI5_SELECTED_ACTION_PREFLIGHT=1 branch reads retained September Codex records under .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE (not read by this package)",
+      "ABI5_SELECTED_ACTION_RESUME_FROM / RECOVER_FROM / OBSERVER_PREFLIGHT / RESUME_PREFLIGHT branches need a retained prior evidence root"
+     ],
+     "provider": "none: proofClass \"one exact installed model-free F_D population\" (composition-result.json)",
+     "inRecipe": false
+    },
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+     "support": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:85-91",
+     "exercises": "traversal_route_admitted with routeKind re_enter (exactly one) and c_call_result_admitted graph_span_selection re_enter, then continue",
+     "gate": "ABI5_S03_EVIDENCE_ROOT with ../s7-pending-consumer-01/selected-action-09/same-basis/environment.json and oracle.json retained; Phase B also ABI5_S03_PHASE_B_RELEASE=ROOT_RELEASED_PHASE_B",
+     "inRecipe": false
+    }
+   ],
+   "status": "realized_5_0_portion; 5_1_portion_reserved",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "route": "the existing selected-action lane, fresh path, is model-free F_D; it covers the 5.0 portion once its evidence root is set and the recipe runs it (no new lane lines; a recipe and write-territory change, which item 4 does not author)",
+    "newLaneEstimate": "a focused installed lane over the root CLI harness with a declared span: about 150-250 lines, plus a nearest-invalid case (undeclared span refused graph_span_reentry_not_declared)",
+    "reservedPortion": "A.0 upstream/out-of-traversal routing: an intentionally_removed disposition with an owner ruling, not a lane"
+   }
+  },
+  {
+   "behavior": "traversal/consequence/ticket_traversal",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/consequence@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:398 (invoke product-declared ticket work through an owning GraphFunction or Program; ABG owns no ticket storage or meaning)"
+   ],
+   "sites": [
+    "no ticket-specific ABG or HoG site, by the Product definition: an ordinary Program/GraphFunction start",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts:30-43, 346-360 (fixture ticket Program program://developer.example/ticket/work@5, F_D implementation, developer_ticket_work_input)"
+   ],
+   "carriers": [
+    {
+     "lane": null,
+     "note": "no lane starts the fixture ticket Program (no consumer outside the fixture)"
+    }
+   ],
+   "status": "realized_by_ordinary_start; no carrier",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "newLaneEstimate": "an installed lane that starts the fixture ticket Program through public start, observes the ordinary run, and refuses an undeclared ticket target: about 120-200 lines over the root CLI harness"
+   }
+  },
+  {
+   "behavior": "traversal/disposition/re_enter",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:421 (conserved disposition)",
+    "PRODUCT.md:433-435 (not erased; a retry fallback cannot override a re-entry fact)"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts:142, 213, 1001, 3946, 3980, 4027, 4609-4639",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts"
+   ],
+   "carriers": [
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+     "host": "build_tenants/abiogenesis/typescript/test_env/support/t287-selected-action-host.mjs:30-31",
+     "exercises": "refresh-model graph_span_selection with disposition re_enter (phase 0), then continue",
+     "gate": "skipped unless ABI5_SELECTED_ACTION_EVIDENCE_ROOT names a writable evidence directory (t287-selected-action.test.mjs:12-13)",
+     "evidenceRootRequires": [
+      "a writable directory: the lane and its spawned host write environment.json, opened.json, handoffs, receipts and composition-result.json into it",
+      "fresh path (no RESUME_FROM/RECOVER_FROM): ABI5_WAVE1_FROZEN_ARTIFACT_PATH, ABI5_WAVE1_FROZEN_INSTALL_HOST and ABI5_WAVE1_FROZEN_ARTIFACT_SHA256 unset (line 208); the host installs a packed artifact, is SIGKILLed and recovered",
+      "ABI5_SELECTED_ACTION_PREFLIGHT=1 branch reads retained September Codex records under .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE (not read by this package)",
+      "ABI5_SELECTED_ACTION_RESUME_FROM / RECOVER_FROM / OBSERVER_PREFLIGHT / RESUME_PREFLIGHT branches need a retained prior evidence root"
+     ],
+     "provider": "none: proofClass \"one exact installed model-free F_D population\" (composition-result.json)",
+     "inRecipe": false
+    },
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-s03-automatic.test.mjs",
+     "support": "build_tenants/abiogenesis/typescript/test_env/support/t287-s03-automatic.mjs:85-91",
+     "exercises": "traversal_route_admitted with routeKind re_enter (exactly one) and c_call_result_admitted graph_span_selection re_enter, then continue",
+     "gate": "ABI5_S03_EVIDENCE_ROOT with ../s7-pending-consumer-01/selected-action-09/same-basis/environment.json and oracle.json retained; Phase B also ABI5_S03_PHASE_B_RELEASE=ROOT_RELEASED_PHASE_B",
+     "inRecipe": false
+    }
+   ],
+   "status": "realized; carriers outside the recipe and env-gated",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "route": "the same lane as graph_span_reentry: one execution supports both claims (PRODUCT.md:470-472)",
+    "newLaneEstimate": "shared with graph_span_reentry"
+   }
+  },
+  {
+   "behavior": "traversal/disposition/yield_continuation",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:422 (conserved disposition)",
+    "PRODUCT.md:434 (a retry fallback cannot override a yield fact)",
+    "PRODUCT.md:1136 (Observation is 5.0: replay-derived liveness/disposition required); not reserved"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts:690, 693, 700 (yield_continuation only when budget.continuationRef !== null)",
+    "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts:798, 828 (projectRuntimeRetryBudgetFacts, the only budget source, always returns continuationRef: null; reconstruction at 462-466 uses it)",
+    "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts:213-233 (public deriveRuntimeLiveness accepts a caller-selected candidate budget, \"not admission authority\"); runtime callers pass none (runtime_liveness.ts:367, liveness.ts:516)",
+    "build_tenants/abiogenesis/typescript/design/M03_RUNTIME_CONTINUATION_TRANSITION_DERIVATION.md:71, 73 (traversal action yield_same_edge_continuation and assurance qualified_defer map to yield_continuation; neither name occurs in code/src)",
+    "build_tenants/abiogenesis/typescript/design/T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md:189-201 (typed same-edge continuation facts outrank the retry fallback; vocabulary of eight derived values)"
+   ],
+   "carriers": [
+    {
+     "lane": null,
+     "note": "no lane derives yield_continuation"
+    }
+   ],
+   "status": "unrealized as an admitted runtime outcome: the derivation branch exists; no admitted fact supplies a continuationRef",
+   "lane": {
+    "authorableWithoutProviderOrHuman": false,
+    "reason": "a lane over deriveRuntimeLiveness with a caller-selected budget (about 40-80 lines) exercises a candidate input, not an admitted runtime fact, so it cannot carry behavioral coverage; the producer of the same-edge continuation fact is absent",
+    "ownerQuestion": "realize the same-edge continuation fact (design_reframe or realization) or re-enter Product for the disposition"
+   }
+  },
+  {
+   "behavior": "traversal/disposition/inspect_runtime_archive",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:423 (conserved disposition)"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts:277-292 (NoActionDisposition), 1300-1320 (edge_closure_decision correctionDisposition), 1871-1905 (stop route correction delta), 2515-2532 and 2677-2690 (runtimeArchiveInspection evidence)",
+    "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts:3236",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts:569"
+   ],
+   "carriers": [
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-multi-candidate-admission.test.mjs",
+     "inRecipe": true,
+     "note": "drives the no-action stop route only with correctionDisposition repair (support/multi-candidate-admission-owner.mjs:276-318)"
+    },
+    {
+     "fixture": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts:509-587",
+     "note": "maps changeAuthorityState runtime_archive_inspection_required to inspect_runtime_archive; no lane sets that state"
+    }
+   ],
+   "status": "realized; no carrier exercises it",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "ownerLevelEstimate": "parameterize the multi-candidate stop-route cases over correctionDisposition: about 20-40 lines (owner admission and nearest-invalid only)",
+    "installedEstimate": "the fixture changeAuthorityState through the provider-free f09 harness (falsifiers/runtime-f09*.mjs, own JSON worker): about 150-250 lines, with HoG path, ABG events and replay"
+   }
+  },
+  {
+   "behavior": "traversal/disposition/escalate",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/disposition@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:426 (conserved disposition)",
+    "PRODUCT.md:399 (escalation_or_reprice through declared policy and F_H; a worker cannot apply it)",
+    "PRODUCT.md:356, 1135 (F_H response admission and response-driven resumption reserved for 5.1)"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts:277-292, 1300-1320, 1871-1905, 2515-2532",
+    "build_tenants/abiogenesis/typescript/code/src/hog/route_proposal.ts:569"
+   ],
+   "carriers": [
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-multi-candidate-admission.test.mjs",
+     "inRecipe": true,
+     "note": "repair only"
+    },
+    {
+     "fixture": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts:509-587",
+     "note": "escalation_required maps to escalate; no lane sets it"
+    }
+   ],
+   "status": "realized as a typed stop (5.0); its F_H response resolution reserved for 5.1",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "note": "the typed escalate stop needs no response; the lane stops at the handoff",
+    "ownerLevelEstimate": "shared with inspect_runtime_archive (about 20-40 lines together)",
+    "installedEstimate": "shared with inspect_runtime_archive (about 150-250 lines together)",
+    "reservedPortion": "the F_H response resolution: an intentionally_removed disposition with an owner ruling"
+   }
+  },
+  {
+   "behavior": "traversal/public/targeting_a_published_asset",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/conservation/public@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064",
+     "repo://abiogenesis/specification/PRODUCT.md#conservation-proof",
+     "repo://abiogenesis/specification/PRODUCT.md#50-and-51-release-boundaries"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:445 (targeting a published asset through its owning Program or GraphFunction)",
+    "PRODUCT.md:451-453 (the asset is non-callable; its owner is the executable target)"
+   ],
+   "sites": [
+    "build_tenants/abiogenesis/typescript/code/src/gtl/public_start.ts:101-126 (resolveProgramStart asset:<handle>)",
+    "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts:1107-1122",
+    "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts:558",
+    "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts:520 (publicAssetTargets schema)"
+   ],
+   "carriers": [
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/a5-f02-canonical-gtl-identity.test.mjs:83-91, 343",
+     "inRecipe": true,
+     "note": "canonical identity of publicAssetTargets; no start"
+    },
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c2-child-program.test.mjs:57",
+     "inRecipe": true,
+     "note": "resolveProgramStart refusal only"
+    },
+    {
+     "lane": "build_tenants/abiogenesis/typescript/test_env/tests/r5-invocation-admission.test.mjs:750",
+     "inRecipe": false,
+     "note": "absent asset target refused"
+    },
+    {
+     "fixture": "build_tenants/abiogenesis/typescript/test_env/fixtures/developer-mini-product/src/index.ts:3815-3820",
+     "note": "declares the greeting asset target; no lane starts it"
+    }
+   ],
+   "status": "realized; positive start not exercised",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "ownerLevelEstimate": "positive resolveProgramStart and admitInvocation over an asset handle beside the r5 refusal: about 40-80 lines",
+    "installedEstimate": "public start of the fixture greeting asset through the root CLI harness: about 120-200 lines"
+   }
+  },
+  {
+   "behavior": "shape-preserving-fibre-substitution",
+   "claim": {
+    "coverageRef": "qualification-coverage-claim://abiogenesis/fibre-substitution@5",
+    "requirementRefs": [
+     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md#REQ-P-QUAL-064"
+    ],
+    "evidenceRoles": [
+     "execution_evidence",
+     "behavioral_coverage",
+     "release_applicability"
+    ],
+    "declaredAt": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json"
+   },
+   "product": [
+    "PRODUCT.md:360-365 (replacing F_P by an equivalent F_D changes interior and evidence class, not topology, C-call locus, event-spine shape or continuation law)",
+    "PRODUCT.md:462-464 (a mandatory differential)",
+    "PRODUCT.md:1325 (ABG5-S02)"
+   ],
+   "sites": [
+    "no named site; realized by implementation-binding fibre selection: build_tenants/abiogenesis/typescript/code/src/abg/c_call_outcome.ts:239-250, 329 (c_call_fibre_selected)",
+    "build_tenants/abiogenesis/typescript/design/M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN.md:175 (invariant), 1044 (row \"differential proof | pass | T-270 proof\"), 1151"
+   ],
+   "carriers": [
+    {
+     "lane": null,
+     "note": "no lane names fibre substitution; no test cites T-270; m5-c-algebra-validation substitution cases are graph-vector substitution (substituteGraphFunction), not fibre"
+    }
+   ],
+   "status": "realized by binding selection; differential absent",
+   "lane": {
+    "authorableWithoutProviderOrHuman": true,
+    "newLaneEstimate": "one Program run twice, an F_P leaf through the ABG_TS_CLAUDE_COMMAND stand-in used by existing lanes (e.g. t287-worksite-construction.test.mjs) and an F_D binding of the same locus; compare topology, C-call locus, event-spine kinds and order, continuation; refuse a substitute that changes the locus: about 200-300 lines"
+   }
+  }
+ ],
+ "summary": {
+  "authorableWithoutProviderOrHuman": [
+   "traversal/consequence/graph_span_reentry",
+   "traversal/consequence/ticket_traversal",
+   "traversal/disposition/re_enter",
+   "traversal/disposition/inspect_runtime_archive",
+   "traversal/disposition/escalate",
+   "traversal/public/targeting_a_published_asset",
+   "shape-preserving-fibre-substitution"
+  ],
+  "unrealized": [
+   "traversal/disposition/yield_continuation"
+  ],
+  "reservedPortions": {
+   "traversal/consequence/graph_span_reentry": "PRODUCT.md:396, 1133",
+   "traversal/disposition/escalate": "PRODUCT.md:356, 399, 1135"
+  },
+  "wholeBehaviorReserved": []
+ }
+}
