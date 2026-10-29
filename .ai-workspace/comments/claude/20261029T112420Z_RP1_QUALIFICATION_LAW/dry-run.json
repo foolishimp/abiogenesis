@@ -1,0 +1,245 @@
+{
+ "kind": "rp1_dry_run",
+ "item": "RP-1 item 5",
+ "build": {
+  "package": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/pack/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+  "sha256": "sha256:97e10eb1801afe307fb76e4f11b3539718b4eeef7f72bd7bed70708a6fdab632",
+  "note": "the RP-1 build packed from the working tree after npm run build (npm pack --ignore-scripts by scripts/refresh-candidate-basis.mjs; the same bytes the build leaves)"
+ },
+ "driver": "the committed driver (test_env/support/exact-candidate-qualification.mjs) copied to scratch with two patches: config.package replaced in memory by the RP-1 pack, and the prepare records inventoryEqualsCommitted and tenantManifestEqualsCommitted without gating on them (no pack but the candidate's and no changed tree can meet them; their regeneration is D5-d-prep's)",
+ "archives": {
+  "prepare": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-25-38-407Z-13117fa7-8f35-4fcd-9158-a9fe37882af7",
+  "helperRealize": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-32-16-525Z-e280d42b-15f9-4494-9e6a-39835390c631",
+  "executionMaterial": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-36-37-048Z-5c803b1e-10c2-48d8-b3d3-0c56d12b56c4",
+  "dry": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-38-05-311Z-b56d89b8-bc49-4a48-b3cc-e58cfb4d1bc3"
+ },
+ "prepare": {
+  "status": "prepared",
+  "checks": {
+   "inventoryEqualsCommitted": false,
+   "tenantManifestEqualsCommitted": false,
+   "artifactJoinsInstall": true,
+   "releaseClaim": {
+    "ref": "repo://abiogenesis/build_tenants/abiogenesis/typescript/release-claim.md",
+    "digest": "sha256:c388d2f3714f10449e2225e98526452f31482eb3024b5f771e566b7f8de34b90",
+    "byteCount": 3649,
+    "surfaceRoles": [
+     "release_claim"
+    ]
+   },
+   "basisReady": true,
+   "prospectiveReleaseJoinsInstall": true,
+   "scopeCorrespondenceErrors": []
+  }
+ },
+ "executionMaterial": {
+  "rule056PromptBytes": 567948,
+  "coveragePromptBytes": 345482,
+  "standInBytes": 128385,
+  "findings": 0,
+  "eventLogUnchanged": true
+ },
+ "dry": {
+  "status": "undispatched",
+  "proof": {
+   "transports": {
+    "inProcess": 0,
+    "cli": 0
+   },
+   "sentinel": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-38-05-311Z-b56d89b8-bc49-4a48-b3cc-e58cfb4d1bc3/sentinel/provider-sentinel.sh",
+    "executed": false
+   },
+   "transportArchives": {
+    "before": 0,
+    "after": 0,
+    "unchanged": true
+   },
+   "eventLog": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-25-38-407Z-13117fa7-8f35-4fcd-9158-a9fe37882af7/resources/events/runtime.events.jsonl",
+    "before": {
+     "device": 16777231,
+     "inode": 661874906,
+     "byteCount": 3196589,
+     "digest": "sha256:63ded4ca3a10d4bfc3113fe9f9a21443059033d6fda416479e952111d84a6904"
+    },
+    "after": {
+     "device": 16777231,
+     "inode": 661874906,
+     "byteCount": 3196589,
+     "digest": "sha256:63ded4ca3a10d4bfc3113fe9f9a21443059033d6fda416479e952111d84a6904"
+    },
+    "unchanged": true
+   },
+   "undispatched": true
+  },
+  "plan": {
+   "ref": "qualification-plan://abiogenesis/cc9fdece70ce5deb4bfb06601381dfd3baa5c814463ba37852bcba04bda88f21",
+   "digest": "sha256:cc9fdece70ce5deb4bfb06601381dfd3baa5c814463ba37852bcba04bda88f21",
+   "slots": 478
+  },
+  "byProgram": {
+   "program://abiogenesis/worksite/command-execution@5": {
+    "inputs": 1,
+    "inputAdmitted": 1,
+    "startAdmitted": 1,
+    "ms": 3308,
+    "refusals": []
+   },
+   "program://abiogenesis/qualification/assess@5": {
+    "inputs": 478,
+    "inputAdmitted": 478,
+    "startAdmitted": 478,
+    "ms": 13079591,
+    "refusals": []
+   },
+   "program://abiogenesis/qualification/ruling@5": {
+    "inputs": 120,
+    "inputAdmitted": 120,
+    "startAdmitted": 120,
+    "ms": 169618,
+    "refusals": []
+   },
+   "program://abiogenesis/qualification/self-conformance@5": {
+    "inputs": 1,
+    "inputAdmitted": 1,
+    "startAdmitted": 1,
+    "ms": 14894,
+    "refusals": []
+   },
+   "program://abiogenesis/qualification/exact-candidate@5": {
+    "inputs": 1,
+    "inputAdmitted": 1,
+    "startAdmitted": 1,
+    "ms": 12800,
+    "refusals": []
+   }
+  },
+  "refusedByContract": [],
+  "refusedStart": [],
+  "ownerPromptEqual": 478,
+  "assessPreparationMs": {
+   "calls": 478,
+   "total": 13079591,
+   "max": 85062,
+   "note": "ProductRunInvocationPort.prepare per assess@5 start (the live mode pays it per call before the provider spawn)"
+  },
+  "dispatchReady": false,
+  "notReady": [
+   "7 slots outside the plan (0 execution-class slots over 3500000 bytes: a Product finding, owner question); the live mode stops at its plan gate",
+   "44 slots with an invalid construction attribution (a member no chain covers); the live mode stops at its gate"
+  ],
+  "uptimeBefore": "17:38  up 24 days,  3:56, 10 users, load averages: 7.47 8.41 8.25",
+  "uptimeAfter": "22:04  up 24 days,  8:22, 10 users, load averages: 8.92 10.33 9.85"
+ },
+ "notReadyCauses": {
+  "irreducible": {
+   "slots": [
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/1",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1119721,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/2",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1200240,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/4",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1159229,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/5",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1164693,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/6",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1077868,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/7",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1181134,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/complement/proof/8",
+     "role": "rule",
+     "criteria": 1,
+     "promptBytes": 1114116,
+     "executionClass": false,
+     "finding": "over the prompt bound with no lawful partition"
+    }
+   ],
+   "reading": "7 single-criterion rule/complement/proof slots over the 1,048,576-byte prompt bound with no lawful partition and no execution material; present before RP-1 (7 of the D5-c plan's 77 outside slots); not repaired here"
+  },
+  "invalidAttribution": {
+   "slots": 44,
+   "reading": "the chains end at the committed head; RP-1's changed members are uncommitted in the prepared tree, so a slot embedding one has a member no chain covers; commit 1 adds the chain that covers them",
+   "example": {
+    "status": "invalid",
+    "chains": 4,
+    "records": 30,
+    "spans": 14,
+    "authors": []
+   }
+  }
+ },
+ "projection": {
+  "time": {
+   "calls": 479,
+   "assessCalls": 478,
+   "perSlotMs": {
+    "min": 18730,
+    "max": 386307,
+    "mean": 230036
+   },
+   "assessMs": 109957310,
+   "c2Ms": 246093,
+   "sequentialMs": 110203403,
+   "sequentialHours": 30.6,
+   "preparation": {
+    "perAssessStartMs": 27363,
+    "assessStarts": 478,
+    "ms": 13079591,
+    "basis": "the measured assess@5 start (the input admission and ProductRunInvocationPort.prepare) times the slots"
+   },
+   "sequentialWithPreparationMs": 123282994,
+   "sequentialWithPreparationHours": 34.2
+  },
+  "totals": {
+   "promptBytes": 419204774,
+   "inputTokens": 104801372,
+   "outputTokens": 2934689,
+   "usd": 597.37
+  },
+  "attribution": {
+   "grounded": 434,
+   "insufficient": 0,
+   "invalid": 44
+  },
+  "slots": 478
+ },
+ "inRunStart": "see timing.json inRun: the 478 starts, median 11,888 ms, mean 27,363 ms, bimodal under heap pressure"
+}

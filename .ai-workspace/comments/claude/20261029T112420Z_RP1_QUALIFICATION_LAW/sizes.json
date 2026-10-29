@@ -1,0 +1,135 @@
+{
+ "kind": "rp1_slot_sizes",
+ "item": "RP-1 item 1 (f)",
+ "bound": {
+  "promptBoundBytes": 1048576,
+  "executionClassBoundBytes": 3500000
+ },
+ "method": "the driver's execution-material mode over a fresh prepare archive: the 056 rule slot and the coverage slot rendered by the installed prepareQualificationAssessment, each carrying the entry the plan gives it (assessment-plan.mjs); before = the base build (candidate fd38e8227 pack), after = the RP-1 build (scratch pack)",
+ "previous": {
+  "recordedByActivation": {
+   "rule056PromptBytes": 8444138,
+   "coveragePromptBytes": 8242250
+  },
+  "reproducedOnBase": {
+   "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T04-34-29-049Z-81c75d62-2f39-4047-b49b-8e49057e7421",
+   "rule056PromptBytes": 8444138,
+   "coveragePromptBytes": 8242250,
+   "standIn": {
+    "byteCount": 7528927,
+    "renderedSourceDataBytes": 8038069
+   },
+   "rule056": {
+    "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/manifest/.gitignore/1",
+    "criteria": 1,
+    "materialMembers": 6,
+    "promptBytes": 8444138,
+    "promptDigest": "sha256:54b8876ffc2ffcf26acfb5b277f86782f05f179449389f5752af740da362edeb",
+    "overPromptBound": true,
+    "overExecutionClassBound": true,
+    "withoutExecutionMaterialBytes": 406069
+   },
+   "coverage": {
+    "slotRef": "slot://abiogenesis/typescript-tenant/qualification/coverage",
+    "criteria": 66,
+    "materialMembers": 6,
+    "promptBytes": 8242250,
+    "promptDigest": "sha256:865b4bed310c94ec3182bf1329858053881f6d9c0cd73d7221f1c95aed39371e",
+    "overPromptBound": true,
+    "overExecutionClassBound": true,
+    "withoutExecutionMaterialBytes": 204181
+   },
+   "rule056Slots": 69,
+   "findings": [
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/manifest/.gitignore/1",
+     "promptBytes": 8444138,
+     "finding": "Product finding (owner question): the slot carries the execution material and exceeds the execution-material class bound of 3500000 bytes; recorded, not repaired"
+    },
+    {
+     "slotRef": "slot://abiogenesis/typescript-tenant/qualification/coverage",
+     "promptBytes": 8242250,
+     "finding": "Product finding (owner question): the slot carries the execution material and exceeds the execution-material class bound of 3500000 bytes; recorded, not repaired"
+    }
+   ]
+  }
+ },
+ "after": {
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-23-13-363Z-18fba6f8-be01-4207-a2a3-12c688d742ba",
+  "package": {
+   "path": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/pack/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+   "sha256": "sha256:97e10eb1801afe307fb76e4f11b3539718b4eeef7f72bd7bed70708a6fdab632"
+  },
+  "rule056PromptBytes": 567941,
+  "coveragePromptBytes": 345475,
+  "underBound": {
+   "rule056": true,
+   "coverage": true
+  },
+  "executionEntry": {
+   "ref": "result://abiogenesis/t287/d5c/measured-stand-in/9e3b6107dcc53ce71feacc5c80e3e3aafcc06724a15515b7885425f1b3e95343",
+   "digest": "sha256:1899f8c1052a6d7271a10008f13d10d135c698ac1fab9d282b02d371129f0826",
+   "byteCount": 128378,
+   "parts": {
+    "valueBytes": 7525557,
+    "resultEnvelopeBytes": 835,
+    "judgmentBytes": 1037,
+    "evidenceBytes": 5333,
+    "evidenceRows": 1,
+    "wholeStateBytes": 7532793,
+    "stateDigest": "sha256:9e3b6107dcc53ce71feacc5c80e3e3aafcc06724a15515b7885425f1b3e95343",
+    "entryBytes": 128378,
+    "renderedSourceDataBytes": 141296
+   }
+  },
+  "verificationEntry": {
+   "ref": "qualification-verification-material://abiogenesis/3e94d12a2760bb48262e00bf854f2c2c0a4db6974c90056c390da44fb3c26c8f",
+   "digest": "sha256:3441faa9b1110d94a69c278f1f55b6b90f099ca64af7dbeb11df3d411157b54e",
+   "byteCount": 146788,
+   "renderedSourceDataBytes": 161864
+  },
+  "rule056": {
+   "slotRef": "slot://abiogenesis/typescript-tenant/qualification/rule/manifest/.gitignore/1",
+   "criteria": 1,
+   "materialMembers": 6,
+   "promptBytes": 567941,
+   "promptDigest": "sha256:871be0bc86f78065589f9784705932cddb5243364e600c012a3f41b7a9250ab8",
+   "overPromptBound": false,
+   "overExecutionClassBound": false,
+   "withoutExecutionMaterialBytes": 406077,
+   "carriedEntry": {
+    "ref": "qualification-verification-material://abiogenesis/3e94d12a2760bb48262e00bf854f2c2c0a4db6974c90056c390da44fb3c26c8f",
+    "digest": "sha256:3441faa9b1110d94a69c278f1f55b6b90f099ca64af7dbeb11df3d411157b54e",
+    "byteCount": 146788,
+    "renderedSourceDataBytes": 161864
+   }
+  },
+  "coverage": {
+   "slotRef": "slot://abiogenesis/typescript-tenant/qualification/coverage",
+   "criteria": 66,
+   "materialMembers": 6,
+   "promptBytes": 345475,
+   "promptDigest": "sha256:3c1f5712ddbf6819417d5776070e491579a9baed21c504a45c8d527c7e835d17",
+   "overPromptBound": false,
+   "overExecutionClassBound": false,
+   "withoutExecutionMaterialBytes": 204179,
+   "carriedEntry": {
+    "ref": "result://abiogenesis/t287/d5c/measured-stand-in/9e3b6107dcc53ce71feacc5c80e3e3aafcc06724a15515b7885425f1b3e95343",
+    "digest": "sha256:1899f8c1052a6d7271a10008f13d10d135c698ac1fab9d282b02d371129f0826",
+    "byteCount": 128378,
+    "renderedSourceDataBytes": 141296
+   }
+  },
+  "rule056Slots": 69,
+  "findings": []
+ },
+ "afterRepeat": {
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-36-37-048Z-5c803b1e-10c2-48d8-b3d3-0c56d12b56c4",
+  "rule056PromptBytes": 567948,
+  "coveragePromptBytes": 345482,
+  "standInBytes": 128385,
+  "observationBytes": 7525565,
+  "findings": 0,
+  "note": "the second fresh prepare (the dry mode's); its helper run's observation is 8 bytes longer, so each slot is 7 bytes longer"
+ }
+}

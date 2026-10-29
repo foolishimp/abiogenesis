@@ -1,0 +1,6 @@
+{
+ "kind": "rp1_cost",
+ "usd": 0,
+ "providerCalls": 0,
+ "note": "no claude or codex invocation, no token read; every driver process ran in its prepare, helper-realize, execution-material or dry mode with CLAUDE_CODE_OAUTH_TOKEN and ANTHROPIC_API_KEY unset; the C2 helper ran the declared recipe commands locally"
+}

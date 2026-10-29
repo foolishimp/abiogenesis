@@ -1,0 +1,660 @@
+{
+ "kind": "rp1_assess_start_timing",
+ "item": "RP-1 item 2",
+ "target": "the assess@5 start under 5 s",
+ "definitions": {
+  "start": "one assess@5 start of slot 0 as the dry mode pays it before any provider spawn: startCall (the input admission, dispatch.mjs:101) then admitCall (the installed ProductRunInvocationPort.prepare, dispatch.mjs:137); undispatched (sentinel unexecuted, no transport, the event log unchanged)",
+  "cold": "the first start in a fresh process (the plan-check memo empty)",
+  "warm": "the second start in the same process (the memo answers after qualificationIdentity)"
+ },
+ "exactD5cPlan": {
+  "what": "qualificationPlanMatches over the identical serialized D5-c plan (the before archives' slot-0 input, RP1_SERIALIZE), each run a fresh process; base = the candidate fd38e8227 pack's validator (the before prepare's bootstrap), after = the RP-1 build",
+  "plan": {
+   "ref": "qualification-plan://abiogenesis/502196d765cc48fd40a20112f1ac7d65f6d144534a479fe3f8cb4ea9a8e868f8",
+   "digest": "sha256:502196d765cc48fd40a20112f1ac7d65f6d144534a479fe3f8cb4ea9a8e868f8",
+   "slots": 408,
+   "criteria": 5690
+  },
+  "input": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/before-serialize/start-input.json",
+  "base": {
+   "runs": [
+    {
+     "label": "base-1",
+     "identityMs": 27,
+     "coldMatches": true,
+     "coldMs": 59333,
+     "warmMatches": true,
+     "warmMs": 59074,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 52937
+    },
+    {
+     "label": "base-2",
+     "identityMs": 27,
+     "coldMatches": true,
+     "coldMs": 60139,
+     "warmMatches": true,
+     "warmMs": 60027,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 53692
+    },
+    {
+     "label": "base-3",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 58661,
+     "warmMatches": true,
+     "warmMs": 59768,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 53104
+    },
+    {
+     "label": "base-4",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 59457,
+     "warmMatches": true,
+     "warmMs": 60689,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 53103
+    },
+    {
+     "label": "base-5",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 60426,
+     "warmMatches": true,
+     "warmMs": 60273,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 53952
+    }
+   ],
+   "medianColdMs": 59457,
+   "medianInputAdmissionMs": 53104
+  },
+  "after": {
+   "runs": [
+    {
+     "label": "after-1",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 55,
+     "warmMatches": true,
+     "warmMs": 24,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 31
+    },
+    {
+     "label": "after-2",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 56,
+     "warmMatches": true,
+     "warmMs": 24,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 32
+    },
+    {
+     "label": "after-3",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 55,
+     "warmMatches": true,
+     "warmMs": 24,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 31
+    },
+    {
+     "label": "after-4",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 53,
+     "warmMatches": true,
+     "warmMs": 24,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 30
+    },
+    {
+     "label": "after-5",
+     "identityMs": 26,
+     "coldMatches": true,
+     "coldMs": 57,
+     "warmMatches": true,
+     "warmMs": 25,
+     "inputAdmitted": true,
+     "inputAdmissionAfterPlanCheckMs": 32
+    }
+   ],
+   "medianColdMs": 55,
+   "medianWarmMs": 24,
+   "medianIdentityMs": 26,
+   "medianInputAdmissionMs": 31
+  },
+  "loads": [
+   "base-1 exit 0 load_before=[9.45 5.20 4.29] load_after=[12.35 7.18 5.22]",
+   "base-2 exit 0 load_before=[12.35 7.18 5.22] load_after=[7.22 7.42 5.73]",
+   "base-3 exit 0 load_before=[7.22 7.42 5.73] load_after=[7.62 8.63 6.62]",
+   "base-4 exit 0 load_before=[7.62 8.63 6.62] load_after=[8.29 9.43 7.36]",
+   "base-5 exit 0 load_before=[8.29 9.43 7.36] load_after=[14.98 10.51 8.08]",
+   "after-1 exit 0 load_before=[14.98 10.51 8.08] load_after=[14.98 10.51 8.08]",
+   "after-2 exit 0 load_before=[14.98 10.51 8.08] load_after=[14.98 10.51 8.08]",
+   "after-3 exit 0 load_before=[14.98 10.51 8.08] load_after=[14.98 10.51 8.08]",
+   "after-4 exit 0 load_before=[14.98 10.51 8.08] load_after=[14.98 10.51 8.08]",
+   "after-5 exit 0 load_before=[14.98 10.51 8.08] load_after=[14.98 10.51 8.08]"
+  ],
+  "note": "base has no memo: its second call repeats the whole check; isQualificationAssessmentInput runs the plan check again inside (base) or hits the memo (after)"
+ },
+ "fullStart": {
+  "before": {
+   "build": "base (candidate fd38e8227 pack)",
+   "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T04-35-58-161Z-4ce79f50-9892-49e7-b68b-9b5fa93534df",
+   "plan": {
+    "ref": "qualification-plan://abiogenesis/502196d765cc48fd40a20112f1ac7d65f6d144534a479fe3f8cb4ea9a8e868f8",
+    "digest": "sha256:502196d765cc48fd40a20112f1ac7d65f6d144534a479fe3f8cb4ea9a8e868f8"
+   },
+   "sizes": {
+    "inputBytes": 4073457,
+    "planBytes": 4038447,
+    "taskBytes": 34929,
+    "planSlots": 408,
+    "planCriteria": 5690,
+    "outsidePlan": 77
+   },
+   "runs": [
+    {
+     "run": 0,
+     "startCallMs": 55603,
+     "admitCallMs": 226867,
+     "totalMs": 282471,
+     "inputAdmitted": true,
+     "startAdmitted": true,
+     "uptimeBefore": "16:08  up 24 days,  2:26, 10 users, load averages: 3.59 4.18 4.74",
+     "uptimeAfter": "16:13  up 24 days,  2:31, 10 users, load averages: 4.70 4.21 4.58"
+    },
+    {
+     "run": 1,
+     "startCallMs": 55473,
+     "admitCallMs": 224725,
+     "totalMs": 280197,
+     "inputAdmitted": true,
+     "startAdmitted": true,
+     "uptimeBefore": "16:13  up 24 days,  2:31, 10 users, load averages: 4.70 4.21 4.58",
+     "uptimeAfter": "16:17  up 24 days,  2:35, 10 users, load averages: 3.47 3.74 4.25"
+    },
+    {
+     "run": 2,
+     "startCallMs": 54614,
+     "admitCallMs": 224369,
+     "totalMs": 278984,
+     "inputAdmitted": true,
+     "startAdmitted": true,
+     "uptimeBefore": "16:17  up 24 days,  2:35, 10 users, load averages: 3.47 3.74 4.25",
+     "uptimeAfter": "16:22  up 24 days,  2:40, 10 users, load averages: 4.19 3.96 4.19"
+    },
+    {
+     "run": 3,
+     "startCallMs": 55369,
+     "admitCallMs": 228963,
+     "totalMs": 284332,
+     "inputAdmitted": true,
+     "startAdmitted": true,
+     "uptimeBefore": "16:22  up 24 days,  2:40, 10 users, load averages: 4.19 3.96 4.19",
+     "uptimeAfter": "16:27  up 24 days,  2:45, 10 users, load averages: 4.42 4.28 4.27"
+    },
+    {
+     "run": 4,
+     "startCallMs": 54124,
+     "admitCallMs": 225671,
+     "totalMs": 279795,
+     "inputAdmitted": true,
+     "startAdmitted": true,
+     "uptimeBefore": "16:27  up 24 days,  2:45, 10 users, load averages: 4.42 4.28 4.27",
+     "uptimeAfter": "16:31  up 24 days,  2:49, 10 users, load averages: 3.55 3.82 4.06"
+    }
+   ],
+   "medianTotalMs": 280197,
+   "note": "five starts in one process; the base has no memo, so each equals a fresh-process start; D5-c recorded 59,516 + 241,135 ms"
+  },
+  "after": {
+   "build": "RP-1 (scratch pack sha256:97e10eb1801afe307fb76e4f11b3539718b4eeef7f72bd7bed70708a6fdab632)",
+   "preparedArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-12-16-676Z-ded67901-c23f-4220-b5e7-2662f287f244",
+   "plan": {
+    "ref": "qualification-plan://abiogenesis/c9f1f09bb0c9ba284b5c6a469229fe9957e0c9069d2ae448a57641f192674c35",
+    "digest": "sha256:c9f1f09bb0c9ba284b5c6a469229fe9957e0c9069d2ae448a57641f192674c35"
+   },
+   "sizes": {
+    "rp1": "sizes",
+    "inputBytes": 4248861,
+    "planBytes": 4213851,
+    "taskBytes": 34929,
+    "planSlots": 478,
+    "planCriteria": 5825,
+    "outsidePlan": 7
+   },
+   "input": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/after/start-input.json",
+   "processes": [
+    {
+     "process": 1,
+     "runId": null,
+     "cold": {
+      "startCallMs": 1697,
+      "admitCallMs": 12385,
+      "totalMs": 14082,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:02  up 24 days,  4:21, 10 users, load averages: 6.21 5.99 6.30",
+      "uptimeAfter": "18:03  up 24 days,  4:21, 10 users, load averages: 5.52 5.84 6.25"
+     },
+     "warm": {
+      "startCallMs": 1645,
+      "admitCallMs": 11686,
+      "totalMs": 13332,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:03  up 24 days,  4:21, 10 users, load averages: 5.52 5.84 6.25",
+      "uptimeAfter": "18:03  up 24 days,  4:21, 10 users, load averages: 6.41 6.03 6.30"
+     },
+     "status": "undispatched",
+     "undispatched": true
+    },
+    {
+     "process": 2,
+     "runId": null,
+     "cold": {
+      "startCallMs": 1646,
+      "admitCallMs": 12325,
+      "totalMs": 13971,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:03  up 24 days,  4:21, 10 users, load averages: 7.48 6.31 6.40",
+      "uptimeAfter": "18:04  up 24 days,  4:22, 10 users, load averages: 6.97 6.26 6.38"
+     },
+     "warm": {
+      "startCallMs": 1584,
+      "admitCallMs": 11461,
+      "totalMs": 13045,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:04  up 24 days,  4:22, 10 users, load averages: 6.97 6.26 6.38",
+      "uptimeAfter": "18:04  up 24 days,  4:22, 10 users, load averages: 6.58 6.20 6.36"
+     },
+     "status": "undispatched",
+     "undispatched": true
+    },
+    {
+     "process": 3,
+     "runId": null,
+     "cold": {
+      "startCallMs": 1678,
+      "admitCallMs": 12527,
+      "totalMs": 14205,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:04  up 24 days,  4:22, 10 users, load averages: 6.94 6.33 6.40",
+      "uptimeAfter": "18:04  up 24 days,  4:22, 10 users, load averages: 6.63 6.28 6.38"
+     },
+     "warm": {
+      "startCallMs": 1655,
+      "admitCallMs": 11684,
+      "totalMs": 13339,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:04  up 24 days,  4:22, 10 users, load averages: 6.63 6.28 6.38",
+      "uptimeAfter": "18:05  up 24 days,  4:23, 10 users, load averages: 6.27 6.22 6.36"
+     },
+     "status": "undispatched",
+     "undispatched": true
+    },
+    {
+     "process": 4,
+     "runId": null,
+     "cold": {
+      "startCallMs": 1650,
+      "admitCallMs": 12375,
+      "totalMs": 14024,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:05  up 24 days,  4:23, 10 users, load averages: 6.68 6.32 6.39",
+      "uptimeAfter": "18:05  up 24 days,  4:23, 10 users, load averages: 6.32 6.25 6.36"
+     },
+     "warm": {
+      "startCallMs": 1621,
+      "admitCallMs": 11462,
+      "totalMs": 13083,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:05  up 24 days,  4:23, 10 users, load averages: 6.32 6.25 6.36",
+      "uptimeAfter": "18:05  up 24 days,  4:23, 10 users, load averages: 5.59 6.09 6.30"
+     },
+     "status": "undispatched",
+     "undispatched": true
+    },
+    {
+     "process": 5,
+     "runId": null,
+     "cold": {
+      "startCallMs": 1715,
+      "admitCallMs": 12583,
+      "totalMs": 14298,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:06  up 24 days,  4:24, 10 users, load averages: 5.55 6.05 6.29",
+      "uptimeAfter": "18:06  up 24 days,  4:24, 10 users, load averages: 6.03 6.13 6.31"
+     },
+     "warm": {
+      "startCallMs": 1592,
+      "admitCallMs": 11531,
+      "totalMs": 13123,
+      "inputAdmitted": true,
+      "startAdmitted": true,
+      "uptimeBefore": "18:06  up 24 days,  4:24, 10 users, load averages: 6.03 6.13 6.31",
+      "uptimeAfter": "18:06  up 24 days,  4:24, 10 users, load averages: 6.07 6.14 6.31"
+     },
+     "status": "undispatched",
+     "undispatched": true
+    }
+   ],
+   "coldTotalsMs": [
+    14082,
+    13971,
+    14205,
+    14024,
+    14298
+   ],
+   "medianColdTotalMs": 14082,
+   "warmTotalsMs": [
+    13332,
+    13045,
+    13339,
+    13083,
+    13123
+   ],
+   "medianWarmTotalMs": 13123,
+   "notCounted": {
+    "inPipelineStartMs": 15302,
+    "inPipelineNote": "the first start after planOver in the serializing process",
+    "profiledRunMs": [
+     14402,
+     13470
+    ]
+   },
+   "serializingArchive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-24-38-506Z-9c866d87-2aa8-4420-82e3-24927f721530"
+  },
+  "plansDiffer": "the after plan is the RP-1 plan of the same candidate: 478 slots and 5,825 criteria against 408 and 5,690; 70 of the 77 slots outside the D5-c plan (the 69 REQ-P-QUAL-056 rule slots and the coverage slot, over the execution-class bound with the whole C2 Result) now fit; 7 remain outside",
+  "targetMet": false
+ },
+ "profile": {
+  "what": "node --cpu-prof of one fresh after process (two starts, the reopen included); per-start shares are the frames under prepareProductRunInvocation divided by two and the measured startCall",
+  "file": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/prof1/CPU.20261029.175817.37371.0.001.cpuprofile",
+  "perStartMs": {
+   "startCall": 1650,
+   "admitCall": 11950,
+   "admitCall.acquireQualificationResources": 10230,
+   "admitCall.acquireQualificationResources.provenanceRecordSetRehash": 8780,
+   "admitCall.acquireQualificationResources.manifestIdentity": 745,
+   "admitCall.acquireQualificationResources.validateEntry": 320,
+   "admitCall.acquireQualificationResources.valueEntriesFind": 260,
+   "admitCall.qualificationPlanMatches": 118,
+   "admitCall.isQualificationAssessmentInput": 143,
+   "admitCall.establishQualificationAssessment": 157,
+   "admitCall.resolveProductExecution": 510
+  },
+  "dominant": "validator/qualification_resources.ts QualificationResources: the constructor (:64-67) resolves every provenance entry and provenance() (:179-186) re-serializes and re-hashes each view's whole record set (hash(records) against p.recordSet.digest) on every acquisition; 8.8 s of each start; outside the code grant",
+  "granted": "the granted modules (qualification.ts, self_conformance.ts, qualification_contracts.ts, abg/qualification_proof.ts) carry under 0.5 s of a start: the plan check, the input admission, the assessment establishment"
+ },
+ "inRun": {
+  "what": "every assess@5 start of the re-proved dry mode (dry-run.json admitted rows), one process over the whole plan after planOver and the 120 ruling starts; default heap limit 4,496,293,888 bytes",
+  "archive": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/qualification/2026-10-29T06-38-05-311Z-b56d89b8-bc49-4a48-b3cc-e58cfb4d1bc3",
+  "starts": 478,
+  "medianMs": 11888.0,
+  "meanMs": 27363,
+  "minMs": 11327,
+  "maxMs": 85062,
+  "histogram10s": {
+   "10": 333,
+   "20": 3,
+   "30": 6,
+   "40": 2,
+   "50": 26,
+   "60": 84,
+   "70": 23,
+   "80": 1
+  },
+  "byGroup": {
+   "rule/complement/manifest": {
+    "slots": 4,
+    "meanMs": 76514,
+    "minMs": 73021,
+    "maxMs": 85062
+   },
+   "rule/qualification-law/contracts": {
+    "slots": 4,
+    "meanMs": 66897,
+    "minMs": 64279,
+    "maxMs": 69796
+   },
+   "rule/qualification-resources/test_env": {
+    "slots": 6,
+    "meanMs": 65995,
+    "minMs": 63781,
+    "maxMs": 68507
+   },
+   "rule/public-contract/contracts": {
+    "slots": 12,
+    "meanMs": 65836,
+    "minMs": 12169,
+    "maxMs": 72269
+   },
+   "rule/release-claim/release-claim.md": {
+    "slots": 2,
+    "meanMs": 65424,
+    "minMs": 64049,
+    "maxMs": 66798
+   },
+   "rule/complement/design": {
+    "slots": 41,
+    "meanMs": 61484,
+    "minMs": 12020,
+    "maxMs": 71992
+   },
+   "rule/proof/test_env": {
+    "slots": 144,
+    "meanMs": 38665,
+    "minMs": 11327,
+    "maxMs": 79132
+   },
+   "catalog": {
+    "slots": 7,
+    "meanMs": 11990,
+    "minMs": 11394,
+    "maxMs": 13600
+   },
+   "rule/complement/code": {
+    "slots": 8,
+    "meanMs": 11980,
+    "minMs": 11626,
+    "maxMs": 12418
+   },
+   "coverage": {
+    "slots": 1,
+    "meanMs": 11899,
+    "minMs": 11899,
+    "maxMs": 11899
+   },
+   "tenant": {
+    "slots": 1,
+    "meanMs": 11886,
+    "minMs": 11886,
+    "maxMs": 11886
+   },
+   "inventory": {
+    "slots": 15,
+    "meanMs": 11825,
+    "minMs": 11395,
+    "maxMs": 12115
+   },
+   "rule/complement/public_contract": {
+    "slots": 7,
+    "meanMs": 11797,
+    "minMs": 11615,
+    "maxMs": 12027
+   },
+   "rule/design/design": {
+    "slots": 60,
+    "meanMs": 11731,
+    "minMs": 11359,
+    "maxMs": 12250
+   },
+   "rule/manifest/.gitignore": {
+    "slots": 2,
+    "meanMs": 11718,
+    "minMs": 11669,
+    "maxMs": 11768
+   },
+   "rule/complement/constitutional": {
+    "slots": 8,
+    "meanMs": 11684,
+    "minMs": 11535,
+    "maxMs": 11825
+   },
+   "rule/code/code": {
+    "slots": 132,
+    "meanMs": 11667,
+    "minMs": 11345,
+    "maxMs": 12067
+   },
+   "rule/complement/proof": {
+    "slots": 2,
+    "meanMs": 11622,
+    "minMs": 11603,
+    "maxMs": 11642
+   },
+   "rule/manifest/package-lock.json": {
+    "slots": 2,
+    "meanMs": 11615,
+    "minMs": 11532,
+    "maxMs": 11698
+   },
+   "rule/manifest/package.json": {
+    "slots": 2,
+    "meanMs": 11576,
+    "minMs": 11527,
+    "maxMs": 11626
+   },
+   "rule/complement/execution_contract": {
+    "slots": 2,
+    "meanMs": 11556,
+    "minMs": 11458,
+    "maxMs": 11655
+   },
+   "rule/manifest/product-toolchain-manifest.json": {
+    "slots": 2,
+    "meanMs": 11494,
+    "minMs": 11484,
+    "maxMs": 11504
+   },
+   "rule/manifest/tsconfig.json": {
+    "slots": 2,
+    "meanMs": 11486,
+    "minMs": 11476,
+    "maxMs": 11496
+   },
+   "rule/complement/release_claim": {
+    "slots": 4,
+    "meanMs": 11482,
+    "minMs": 11392,
+    "maxMs": 11672
+   },
+   "rule/complement/qualification": {
+    "slots": 4,
+    "meanMs": 11456,
+    "minMs": 11385,
+    "maxMs": 11523
+   },
+   "rule/execution-contract/scripts": {
+    "slots": 4,
+    "meanMs": 11434,
+    "minMs": 11385,
+    "maxMs": 11493
+   }
+  },
+  "bimodal": "333 starts under 20 s (11.3 to 15.0 s), 11 between 20 and 50 s, 134 at 50 to 85 s, the slow ones in the slots whose provenance views carry the heaviest record sets (proof/test_env, complement/design, public-contract, qualification-law, release-claim, complement/manifest); the heaviest view holds 374 records, 109,578,218 bytes",
+  "cause": {
+   "finding": "heap pressure: the default 4.5 GB heap holds the plan, the built resources and each acquisition's detached copy and canonical JSON; the per-acquisition provenance rehash allocates over the 120 views' 4,327,873,704 record bytes (233,172,409 distinct)",
+   "experiments": {
+    "slot302Fresh": {
+     "input": "/private/tmp/claude-501/-Users-jim-src-apps-specification-methodology/c5e4c12f-3ef0-4d89-89e0-6d0073419181/scratchpad/rp1/slot302/start-input-302.json",
+     "runs": [
+      {
+       "run": 0,
+       "startCallMs": 1694,
+       "admitCallMs": 24069,
+       "totalMs": 25763,
+       "uptimeBefore": "22:11  up 24 days,  8:29, 10 users, load averages: 7.49 9.01 9.39"
+      }
+     ],
+     "note": "fresh process, profiled"
+    },
+    "slot302InProcessAfterPlanOver": {
+     "runs": [
+      {
+       "run": 0,
+       "startCallMs": 15122,
+       "admitCallMs": 66154,
+       "totalMs": 81277,
+       "uptimeBefore": "22:06  up 24 days,  8:24, 10 users, load averages: 8.90 9.72 9.66"
+      }
+     ],
+     "note": "the serializing process, after its planOver"
+    },
+    "slot302Ballast3DefaultHeap": {
+     "runs": [
+      {
+       "run": 0,
+       "startCallMs": 9065,
+       "admitCallMs": 61051,
+       "totalMs": 70116,
+       "uptimeBefore": "22:15  up 24 days,  8:33, 10 users, load averages: 9.69 9.23 9.38"
+      },
+      {
+       "run": 1,
+       "startCallMs": 10781,
+       "admitCallMs": 56190,
+       "totalMs": 66971,
+       "uptimeBefore": "22:16  up 24 days,  8:34, 10 users, load averages: 9.06 9.14 9.33"
+      }
+     ],
+     "note": "fresh process holding three detached copies of the resource assertion (heapUsed 2,454,597,408)"
+    },
+    "slot302Ballast3Heap16G": {
+     "runs": [
+      {
+       "run": 0,
+       "startCallMs": 1620,
+       "admitCallMs": 17263,
+       "totalMs": 18883,
+       "uptimeBefore": "22:19  up 24 days,  8:38, 10 users, load averages: 8.42 8.80 9.12"
+      },
+      {
+       "run": 1,
+       "startCallMs": 1620,
+       "admitCallMs": 35586,
+       "totalMs": 37206,
+       "uptimeBefore": "22:20  up 24 days,  8:38, 10 users, load averages: 9.73 9.12 9.24"
+      }
+     ],
+     "note": "the same with --max-old-space-size=16384 (heapUsed 2,795,464,064)"
+    }
+   },
+   "reading": "with the same live heap, the 16 GB limit takes the start from 67 to 70 s back to 19 to 37 s: the in-run slow starts are garbage collection near the default limit, amplified by the acquisition rehash; neither the operator's node heap flag nor qualification_resources.ts is in this grant"
+  }
+ },
+ "projection": {
+  "what": "time-projection.mjs projectTime with startMs = the dry mode's mean measured assess@5 start",
+  "perAssessStartMs": 27363,
+  "preparationHours": 3.6,
+  "sequentialHours": 30.6,
+  "sequentialWithPreparationHours": 34.2,
+  "d5cComparison": "the D5-c start of about 291 s over 408 slots would have added about 33 h of preparation"
+ }
+}
