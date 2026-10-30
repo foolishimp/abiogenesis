@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-30T16:31:00.373099+00:00",
+  "classification": "Observed trial effectiveness; no matched direct-agent baseline or causal skill attribution",
+  "demonstrated": [
+    "ABG-authored diagnostic change built and its two real focused tests passed.",
+    "ABG-authored early assessment role check built; five intake and six selected C2 guard cases passed without skips.",
+    "Separate native assessor returned satisfied for the bounded intake outcome and retained specific residuals.",
+    "Native selectors avoided repeat planning and unchanged failed or already-passing Testing.",
+    "Failed runs and cold-read results were preserved; no earlier failure was relabeled as success."
+  ],
+  "costsAndLimits": {
+    "providerReportedUsd": 18.322644,
+    "rootSessionCostUsd": null,
+    "attemptsStarted": 7,
+    "eventLogBytes": 1396841289,
+    "currentRunClosure": "pending",
+    "fullRc2Acceptance": false,
+    "wholeQualification": false
+  },
+  "operatorContribution": [
+    "Multiple input/scope mistakes caused retries; do not attribute those exclusively to framework logic.",
+    "Current grant missed three affected fixture cases; next bounded input includes both owner files and exact Product/design routes.",
+    "Read-only observer required streaming after exceeding Node whole-string limit."
+  ],
+  "assessment": "Evidence/control utility is demonstrated in bounded paths. Productivity benefit remains unproven; current end-to-end operating overhead is disproportionate to these small changes. Native context presence is not host skill activation proof.",
+  "next": "Finish current run closure, repair only the three affected fixtures through ABG, reconcile canonical generated outputs before any cut, and preserve release/qualification limits. No broader performance or architecture repair is activated."
+}

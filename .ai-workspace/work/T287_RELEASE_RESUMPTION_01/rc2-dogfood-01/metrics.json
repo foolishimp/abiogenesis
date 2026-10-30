@@ -1,13 +1,13 @@
 {
-  "checkpoint": "attempt-007-starting",
-  "at": "2026-10-30T15:20:46.811270+00:00",
+  "checkpoint": "attempt-007-assessor-satisfied-admission-pending",
+  "at": "2026-10-30T16:15:25.628302+00:00",
   "operator": "root Codex",
   "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
   "recordedCommandCount": 11,
   "recordedCommandWallMs": 236085.471127,
-  "nativeProviderCalls": 14,
-  "nativeProviderReportedCostUsd": 10.2141598,
+  "nativeProviderCalls": 20,
+  "nativeProviderReportedCostUsd": 18.322644,
   "operatorAndExecutiveCostUsd": null,
   "acceptedRc2ImplementationChanges": 0,
   "rawPreparationEvidenceBytes": 426785570,
@@ -50,7 +50,7 @@
   "productImplementationChangesAccepted": 0,
   "ownerApprovedBudgetUsd": 100,
   "operatorStopThresholdUsd": 90,
-  "latestRun": "run://abiogenesis/049e27f048aa0481485a808c00d41353f21cde03d562dbef41815f065c692b1f",
+  "latestRun": "run://abiogenesis/5279cf761e76b326630089b2f4c58e67c413feb87edd2155c3ed3d53ce0320f5",
   "attempt005WallMs": {
     "lifecycle-start": 2697869.3274999997,
     "run_result": 217237.944625,
@@ -71,5 +71,13 @@
     "lifecycle-start": 2628874.020583,
     "run_result": 129876.08433400001,
     "run_replay": 131130.26683300035
+  },
+  "operatorMonitorCorrection": "Stream event log after readFile exceeded Node string limit at approximately 561 MB; runtime unaffected.",
+  "assessmentIntakeTesting": {
+    "buildExit": 0,
+    "intakePass": 5,
+    "guardPass": 6,
+    "skip": 0,
+    "qualification": false
   }
 }

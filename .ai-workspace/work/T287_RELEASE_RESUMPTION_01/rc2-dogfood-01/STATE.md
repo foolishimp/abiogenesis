@@ -55,7 +55,7 @@ was admitted, but its helper build exceeded the declared 120 s limit. The
 native host backgrounded the helper and broke the expected exchange. Exact
 independent causes and limits are in `failure-005.json`. No candidate accepted.
 
-**Current: attempt 007 is starting**, session 76773, client
+**Current: attempt 007 Construction returned; runtime continuation active**, session 76773, client
 `operator-client/run-task-07.mjs`, records `attempt-007/assessment-intake-01-*`.
 It uses the actual closed attempt 006 handoff. The bounded new RC2 increment
 makes existing assessment role-separation rules reject at governance intake,
@@ -94,3 +94,34 @@ These raw records are local and untracked; preparation-evidence-index.json pins
 them. Use actual retained receipts and fresh owner reads, never reconstruct
 producer coordinates from a guessed path. The worktree's operator task/rubric
 inputs are supplied material, not a seeded source solution.
+
+Attempt 007 Construction Return is frozen with source hashes in
+construction-return-007.json. Product default_library.ts now checks the
+existing assessment role relation at intake; new test file has five cases.
+Worker no-output TypeScript and in-memory-loader checks are self-checks only.
+Three existing fixtures in t287-native-work-reacquisition.test.mjs and
+t287-native-work-currentness-consumers.test.mjs use overlapping roles and need
+a follow-up within ABG before a cut. No repair by Root. Current provider total
+$13.5498372 across 16 processes. Declared Testing and UAT remain pending.
+Monitor observe.mjs now streams the log and reports parse errors; its earlier
+whole-file string limit did not stop the runtime.
+
+Attempt 007 actual C2 Testing passed: build exit 0, intake 5/5, selected C2
+guards 6/6, no skips/cancellations. Admitted observation ordinal 5957;
+testing-return-007.json pins raw helper evidence and confirms current files
+still match the frozen Construction hashes. UAT remains pending; affected
+fixtures and prior full-suite timing remain open. Provider total $15.1121644.
+
+Native UAT Return: satisfied for the bounded intake repair (all six criteria),
+with explicit unresolved fixture maintenance, earlier full-suite timing,
+qualification and RC2 cut limits. assessment-return-007.json retains the full
+reason and residuals. Parent admission/termination/cold reads are pending;
+do not infer full acceptance from the provider Return. Spend $18.322644.
+
+Next fixture-repair-01 is prepared, not dispatched. Its final input is pinned
+by fixture-repair-01-preflight-02.json (491e3f00a2b58d4c66245727480083d698cec8a60eee6dbcb973bcc225de0e7a).
+Read scope includes both affected tests and explicit Product/owning design
+documents; write scope is only both test files plus note. Actual tests are the
+three named affected cases plus the five unchanged intake cases, with a fresh
+isolated build. Old owner-suite timeouts remain open. Wait for attempt 007
+closure and cold reads before any new Run.

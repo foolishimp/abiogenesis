@@ -1,0 +1,17 @@
+{
+  "assessmentSelection": "accepted by exact installed pure validator; prior real producer used only for shape check, no UAT admission",
+  "pendingConstruction": [],
+  "at": "2026-10-30T16:23:25.705Z",
+  "classification": "Pure exact installed configuration and physical input checks; no native task admission, model call, command execution or success evidence",
+  "inputSha256": "37078f59cd0f2cd584b33857ca10ff1cce3fa7df61e42f74737e9b378e88f2e3",
+  "commandConfiguration": "accepted",
+  "requiredExecutionBudgetMs": 1406250,
+  "limitsFit": true,
+  "commands": 5,
+  "protectedFiles": 637,
+  "readFiles": 639,
+  "readBytes": 18972499,
+  "sourceDigests": "matched",
+  "writeReadScope": "covered",
+  "contextBounds": "within"
+}

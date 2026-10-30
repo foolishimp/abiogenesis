@@ -9,7 +9,7 @@
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: RC1_TO_RC2_DOGFOOD_01; owner-selected RC1 release/deploy complete; root Codex is the sole ongoing operator proxy for RC2 construction through installed RC1
-- current_activation_status: RC1 released/deployed; $100 sole-proxy trial active. Attempt 006 closed failed: build and two diagnostic tests passed, full owner tests timed out, UAT input-role overlap refused. Spend $10.2141598. Attempt 007 starts bounded ABG-owned early assessment-role validation; prior failures retained. STATE.md owns exact evidence.
+- current_activation_status: RC1 released/deployed; $100 sole-proxy trial active. Attempt 007 actual build/5 intake/6 C2 checks passed; native UAT returned satisfied for bounded intake repair. Parent closure/cold reads pending; spend $18.322644. Two-file fixture repair prepared, not dispatched. STATE.md owns exact evidence and limits.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/STATE.md
 - current_next_work: Keep installed RC1 building RC2; monitor assessment-intake-01 Construction, Testing and UAT, preserve earlier owner-suite timing residual and generated-file reconciliation before any cut. $90 reported-spend stop; no external coding stream or RC1 mutation.
 - current_prerequisite_deliverable: common_computational_capability_library

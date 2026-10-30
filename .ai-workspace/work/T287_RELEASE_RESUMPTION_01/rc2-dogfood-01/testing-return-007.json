@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-30T16:04:15.906838+00:00",
+  "classification": "Actual C2 command observations admitted; not UAT or whole-product acceptance",
+  "helperRecord": "setup-001/resources/archives/worksite-command-execution/bd6088e9314d5b2830993ecc31ceeda25a7bcc7fa2b021278b71ef07babb797e/7258a65e61a0dc1f89c41ee511121702332fff6dcf17263fc181865f538f0432/result.json",
+  "recordSha256": "ae897b3bcc97b121bd870dd10cdfcbeeb6043270a00a08a13d46d2ec3d6d9d75",
+  "artifactRef": "worksite-command-helper-artifact://abiogenesis/8a9f9c45b59fffd1c1d3772bc4fe949d5e721f79fe1f0e1cd7a474e0d3854d65",
+  "artifactDigest": "sha256:8a9f9c45b59fffd1c1d3772bc4fe949d5e721f79fe1f0e1cd7a474e0d3854d65",
+  "admittedObservationOrdinal": 5957,
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/assessment-intake-01/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/58f2bf66c0cbe77369fa66d0204a6e7f4b2521d4e170e1f161d87c4ac6f41553",
+      "observationDigest": "sha256:58f2bf66c0cbe77369fa66d0204a6e7f4b2521d4e170e1f161d87c4ac6f41553"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/assessment-intake-01/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/729a5b3a3e595edc62ec20d81d611fd44ef4a94f19630eb7525329780ce6e1c6",
+      "observationDigest": "sha256:729a5b3a3e595edc62ec20d81d611fd44ef4a94f19630eb7525329780ce6e1c6"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/assessment-intake-01/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/5840197379e4f57b814bd7a4cc8e70c84573c2282f2f00b25d21696ab6b102f6",
+      "observationDigest": "sha256:5840197379e4f57b814bd7a4cc8e70c84573c2282f2f00b25d21696ab6b102f6"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/assessment-intake-01/intake-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/28798e8e3db73ff13000be3a4722f25b9e1f1b7aa27d8cc1972e20723b014cb9",
+      "observationDigest": "sha256:28798e8e3db73ff13000be3a4722f25b9e1f1b7aa27d8cc1972e20723b014cb9"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/assessment-intake-01/guard-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/35cd723b18bee8fe8ad432f0c56597567ddb74a835a9de57871632848bcd39e6",
+      "observationDigest": "sha256:35cd723b18bee8fe8ad432f0c56597567ddb74a835a9de57871632848bcd39e6"
+    }
+  ],
+  "intakeTests": {
+    "pass": 5,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0
+  },
+  "guardTests": {
+    "pass": 6,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0
+  },
+  "workerSourceHashesStillMatch": true,
+  "testStdout": {
+    "intake-tests": "\u2714 RC2 assessment intake valid disjoint roles stay constructible and valid (0.611333ms)\n\u2714 RC2 assessment intake refuses duplicate assessment sources (0.348042ms)\n\u2714 RC2 assessment intake refuses a source equal to candidatePath (0.162583ms)\n\u2714 RC2 assessment intake refuses a source equal to rubricPath, and removing only that source is accepted (0.248959ms)\n\u2714 RC2 assessment intake refuses candidatePath equal to rubricPath (0.12075ms)\n\u2139 tests 5\n\u2139 suites 0\n\u2139 pass 5\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 387.159291\n",
+    "guard-tests": "\u2714 C2 explicit zero write territory preserves array, report and HTTP port authorization (9.804292ms)\n\u2714 C2 finite host timer schema and constructor share bounds without changing grace (26.659792ms)\n\u2714 C2 RC2 diagnostic duplicate command identity is refused with an identity cause (1.82425ms)\n\u2714 C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause (1.880208ms)\n\u2714 C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries (0.358ms)\n\u2714 C2 helper failure subject is bound to the next undone operation of the completed prefix (66.857917ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 484.138209\n"
+  },
+  "residuals": [
+    "Resolve the three affected owner-test fixtures through ABG and reprove their affected claims.",
+    "Reconcile canonical generated outputs through ABG.",
+    "Retain earlier full owner-suite timing failures and qualification limits."
+  ]
+}

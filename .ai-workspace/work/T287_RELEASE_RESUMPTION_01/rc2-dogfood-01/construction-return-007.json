@@ -1,0 +1,32 @@
+{
+  "at": "2026-10-30T15:48:58.955143+00:00",
+  "workerArchive": "setup-001/resources/archives/fp-271642912a58a914-stdout.log",
+  "workerReturn": {
+    "summary": "Done: the governance intake now refuses all four invalid assessment role selections, and the new tests pass against the edited source on my own checks. The declared Testing plan hasn't run yet, and the change breaks three existing owner tests in files I'm not allowed to edit.\n\n**What changed (only granted files):**\n- `code/src/product/default_library.ts`: added a private helper `governanceAssessmentRolesDistinct` (line 68) and added it to `isGovernanceWorkState` (line 76). It rejects duplicate `assessment.sources`, a source equal to `candidatePath`, a source equal to `rubricPath`, and `candidatePath` equal to `rubricPath`.\n  - `constructGovernanceWorkState` already calls this predicate before returning, so it now throws at construction, before any graph work. The refusal is the existing `TypeError` with its existing message.\n  - The native rule at `native_workspace_assessment.ts:67-71` can't be called at intake: it needs digests, a producer and a schema asset that only exist at UAT preparation. So the same relation is restated over the same path strings, which pass unchanged into the native selection (`abg/default_library.ts:247-252`).\n  - No schema key, failure class, controller or bypass was added, and the native check is unchanged.\n- New `test_env/tests/rc2-assessment-intake.test.mjs` has 5 cases, all prefixed `RC2 assessment intake`:\n  - one valid control that stays constructible with the same state shape, plus a two-source variant;\n  - duplicate sources;\n  - a source equal to `candidatePath`;\n  - a source equal to `rubricPath` (the RC1 case), plus a check that removing only that source is accepted;\n  - `candidatePath` equal to `rubricPath`.\n\n  Each invalid case checks that only `assessment` differs from the control, that the predicate returns false, and that the constructor throws. Fixtures are in memory and reuse only `assessmentContract`, `assessmentSchema` and `witnessRef` from `test_env/support/default-library.mjs`. I didn't use `witnessInput`, because it reads from a historic comments path.\n- `.ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md`: appended a section on this task.\n- The earlier C2 diagnostic files and the GTL pin are untouched.\n\n**My own checks (not Testing evidence, not acceptance):**\n- `tsc --noEmit -p tsconfig.json`: exit 0, no files written.\n- New tests against the old, unedited `build/`: 1 pass, 4 fail, 0 skipped. Only the valid control passes, so the cases do tell the old and new behavior apart.\n- The same test file against the edited source, through an in-memory loader that swaps in the edited module: 5 pass, 0 fail, 0 skipped. This is not the declared isolated build.\n- I ran no build and wrote no generated files in the canonical worktree. One type-check command had a stray `> /tmp/../dev/null` redirect, which failed to open, so it created no file.",
+    "gaps": [
+      "Needs an owner fix outside my grant: three existing tests build fixtures that use the same path as source, candidate and rubric through `constructGovernanceWorkState`, so they will now throw at construction. They are `test_env/tests/t287-native-work-reacquisition.test.mjs:85` (cases at :214 and :268) and `test_env/tests/t287-native-work-currentness-consumers.test.mjs:161` (case U1-P5-02 at :596). Their fixtures need disjoint role paths. I found this by reading the source and didn't run those cases. They are not among the six C2 cases in the declared plan.",
+      "The declared Testing plan (isolated build, the new intake tests, the six C2 guard/budget cases) hasn't run. My results above came from the old canonical build and an in-memory loader, not that plan.",
+      "The refusal still uses the generic governance-input message rather than one that names the role overlap. A more specific message is a separate usability item and wasn't in scope.",
+      "Retained governance states that already have overlapping roles, such as the RC1-OP-006 run, will now fail `isGovernanceWorkState` wherever that check runs. This matches the recorded recovery (submit a corrected new input).",
+      "Still open from before, not claimed: the earlier owner-file criterion (two installed integration tests hit their 180 s deadlines and the 600 s outer command expired), full fifteen-family qualification, model-identity independence, full owner-suite acceptance, RC2 release readiness, and reconciling the old generated-file deletions in the canonical worktree."
+    ]
+  },
+  "exactFiles": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "eaff034ba23ec0d3c5abadc8b8b207a3348d96419f7389f82d6b4ba25dcb4f44",
+      "bytes": 34522
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/rc2-assessment-intake.test.mjs",
+      "sha256": "60efacdced3262c80c6e6b373ac06266dad064c88967f5938a317089ea501bb4",
+      "bytes": 4705
+    }
+  ],
+  "rootReadOnlyReview": "The added predicate implements the existing native role-separation relation over paths; five tests discriminate old and new behavior according to the Worker Return. Existing tests with overlapping role fixtures are confirmed by source inspection. Declared C2 build/test and UAT pending; no overall acceptance.",
+  "requiredBeforeCut": [
+    "Resolve the three affected owner-test fixtures through ABG and reprove their affected claims.",
+    "Reconcile canonical generated outputs through ABG.",
+    "Retain earlier full owner-suite timing failures and qualification limits."
+  ]
+}
