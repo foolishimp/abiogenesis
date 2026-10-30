@@ -1,0 +1,113 @@
+{
+  "at": "2026-10-30T17:59:28.516566+00:00",
+  "classification": "Actual C2 build/package/test outputs, hashes independently read by proxy; native UAT and lifecycle closure pending",
+  "helperResult": "setup-001/resources/archives/worksite-command-execution/e800400653fe6dafb44ade9e93af95b56d9ca7d0dc29d6df350d5affb3f3ff02/c62b87eaa34a5728d6bd8ef616af1b37cb8d331bb70d532d3bf5d6a77ae4699c/result.json",
+  "helperResultSha256": "sha256:629265ec26608e0ba3a61a62a24f6bc720a991f4649269ea8e7e8f9d86a35bf1",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/95607393604a380202fadf6b60201549b505f62758047df8f04231be1d638ba2",
+  "helperArtifactDigest": "sha256:95607393604a380202fadf6b60201549b505f62758047df8f04231be1d638ba2",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/dc19c9125e8801a404a457669982e4aef8c28642fb6d35d2e603ef00d866ef05",
+      "observationDigest": "sha256:dc19c9125e8801a404a457669982e4aef8c28642fb6d35d2e603ef00d866ef05",
+      "stdout": "",
+      "stderr": "",
+      "counts": {}
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/3beff1ff1b7d6143be02a7b691e53eb069c2d127ffd6b0cd3d8ce13a01c13fa5",
+      "observationDigest": "sha256:3beff1ff1b7d6143be02a7b691e53eb069c2d127ffd6b0cd3d8ce13a01c13fa5",
+      "stdout": "",
+      "stderr": "",
+      "counts": {}
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/18e8180c798abd79ed5377a27ba176ebc27513f4c17b037a633affe8c8039dc2",
+      "observationDigest": "sha256:18e8180c798abd79ed5377a27ba176ebc27513f4c17b037a633affe8c8039dc2",
+      "stdout": "\n> @abiogenesis/typescript-tenant@5.0.0-rc.2 build\n> npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs\n\n\n> @abiogenesis/typescript-tenant@5.0.0-rc.2 clean\n> node scripts/clean.mjs\n\n",
+      "stderr": "",
+      "counts": {}
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/package",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/ff05b86e25f134c523dded687107e190fbfebd392fb16b2e98dade142365a3b8",
+      "observationDigest": "sha256:ff05b86e25f134c523dded687107e190fbfebd392fb16b2e98dade142365a3b8",
+      "stdout": "{\"kind\":\"abi5_root_candidate_basis\",\"schemaVersion\":\"5.0.0\",\"artifactDigest\":\"sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528\",\"productContentDigest\":\"sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8\",\"manifestDigest\":\"sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d\",\"productId\":\"product://abiogenesis/typescript-tenant@5.0.0-rc.2\",\"packageName\":\"@abiogenesis/typescript-tenant\",\"packageVersion\":\"5.0.0-rc.2\"}\n",
+      "stderr": "",
+      "counts": {}
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/focused-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/d57226320b47edae1a30d57cd2a4ffd7c6951cdf0b1dfb672e5ee6fc0ed139cc",
+      "observationDigest": "sha256:d57226320b47edae1a30d57cd2a4ffd7c6951cdf0b1dfb672e5ee6fc0ed139cc",
+      "stdout": "\u2714 RC2 assessment intake valid disjoint roles stay constructible and valid (0.604ms)\n\u2714 RC2 assessment intake refuses duplicate assessment sources (0.346209ms)\n\u2714 RC2 assessment intake refuses a source equal to candidatePath (0.171708ms)\n\u2714 RC2 assessment intake refuses a source equal to rubricPath, and removing only that source is accepted (0.252584ms)\n\u2714 RC2 assessment intake refuses candidatePath equal to rubricPath (0.14375ms)\n\u2714 C2 RC2 diagnostic duplicate command identity is refused with an identity cause (8.836417ms)\n\u2714 C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause (2.510792ms)\n\u2139 tests 7\n\u2139 suites 0\n\u2139 pass 7\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 761.390958\n",
+      "stderr": "",
+      "counts": {
+        "tests": 7,
+        "pass": 7,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/fixture-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/5057e7b13d0358fb3df035e57b5e61fb53c97a8b6e5b6eab996ddd4d8f356b9e",
+      "observationDigest": "sha256:5057e7b13d0358fb3df035e57b5e61fb53c97a8b6e5b6eab996ddd4d8f356b9e",
+      "stdout": "(node:61419) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 U1-P5-02 actual C0 successor and every affected currentness consumer (1892.429417ms)\n\u2139 [{\"owner\":\"Product replaceWorksiteFile -> EventStore -> EventCalculus\",\"case\":\"admitted C0 successor\"},{\"owner\":\"execution_basis.hasExactWorksiteCommandLeafSourceAtDurablePrefix -> exactC2SourceEnvironment; worksite_input_provenance.projectObservedWorksiteCommandChildAtPrefix\",\"case\":\"paired observed C2 source and preparation provenance\",\"mapping\":{\"before\":[true,\"projection\"],\"affectedAfter\":[false,null],\"unaffectedAfter\":[true,\"same preparation projection\"]}},{\"owner\":\"default_library source gate 187 and parent gate 310\",\"case\":\"paired governance dependencies\",\"mapping\":{\"before\":[\"native task\",\"terminal true\"],\"affectedAfter\":[null,\"terminal false with original unresolved supports\"],\"unaffectedAfter\":[\"same task\",\"terminal true\"]}},{\"owner\":\"semantic_job.nativeStageSource -> projectNativeSemanticFold\",\"case\":\"affected\",\"before\":\"valid SemanticJobEnvelope\",\"after\":null},{\"owner\":\"semantic_job.nativeStageSource -> projectNativeSemanticFold\",\"case\":\"sibling\",\"before\":\"valid SemanticJobEnvelope\",\"after\":\"same SemanticJobEnvelope\"},{\"owner\":\"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake\",\"case\":\"affected\",\"before\":\"valid selection input\",\"after\":\"native_revision_source_invalidated\"},{\"owner\":\"semantic_revision.nativeIntakeFacts -> prepareNativeSemanticRevisionIntake\",\"case\":\"sibling\",\"before\":\"valid selection input\",\"after\":\"same selection input\"},{\"owner\":\"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject\",\"case\":\"affected\",\"before\":\"authenticated retained-evidence subject\",\"after\":null},{\"owner\":\"semantic_revision.nativeJobRevisionSubject -> projectOwnedJobRevisionSubject\",\"case\":\"sibling\",\"before\":\"authenticated retained-evidence subject\",\"after\":\"same retained evidence and acquisition\"}]\n(node:61442) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 library prepare-testing reuses the invoking private operation and its actual F_D origin (134.48775ms)\n\u2139 Canonical module-publication definition and leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; raw/foreign/tampered definition and materialization identities refuse. Physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.\n\u2714 library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards (52.763292ms)\n\u2139 Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 2832.622709\n",
+      "stderr": "",
+      "counts": {
+        "tests": 3,
+        "pass": 3,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/candidate-rc2-01/artifact-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "observationRef": "worksite-command-observation://abiogenesis/036007eb58a004312ccbda75cd3fa369efbbf74d38b685fe0ca096b9617c3716",
+      "observationDigest": "sha256:036007eb58a004312ccbda75cd3fa369efbbf74d38b685fe0ca096b9617c3716",
+      "stdout": "\u2714 Hello World is an external minimal GTL program through installed Public execution and fresh reads (39575.396083ms)\n\u2714 R1 verifies exact packed bytes without a source import (24977.558125ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 65080.853958\n",
+      "stderr": "",
+      "counts": {
+        "tests": 2,
+        "pass": 2,
+        "fail": 0,
+        "cancelled": 0,
+        "skipped": 0
+      }
+    }
+  ],
+  "candidateBasis": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "productContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+    "manifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.2"
+  },
+  "artifactPath": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/e800400653fe6dafb44ade9e93af95b56d9ca7d0dc29d6df350d5affb3f3ff02/c62b87eaa34a5728d6bd8ef616af1b37cb8d331bb70d532d3bf5d6a77ae4699c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+  "artifactBytes": 10902612,
+  "currentSourceIdentities": "All five Construction outputs and seven preserved source/test hashes match their frozen records",
+  "qualification": false,
+  "acceptancePending": true
+}

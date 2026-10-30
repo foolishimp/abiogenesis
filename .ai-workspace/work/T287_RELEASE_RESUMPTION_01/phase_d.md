@@ -6233,3 +6233,35 @@ completion credit. Root remains the sole proxy. Next: inspect admitted progress,
 cost, actual worksite effects and fresh reads; continue supported work under
 the approved budget. Small checkpoints and raw evidence locations are in
 `rc2-dogfood-01/STATE.md`.
+
+
+### RC1-to-RC2 bounded build trial checkpoint — 2026-10-31
+
+Root, the owner's sole proxy, records local source checkpoint `d1e4527db`
+on `codex/rc2-dogfood-01` and the exact RC2 artifact in
+`rc2-dogfood-01/candidate-009.json`. Installed released RC1 authored the Product
+changes through native Construction and produced the build/package through C2.
+Actual build and 12 selected tests passed. All 839 protected snapshot inputs
+matched their observed and current bytes. The proxy materialized exact generated
+outputs with preimages retained; no Product implementation was authored outside ABG.
+
+Native assessment is **unmet** and Run 009 is **blocked**, with no terminal
+Result. Cold result returned not_found; replay returned and the log stayed
+unchanged. The assessor found all six original criteria satisfied but treated a
+selector-added stdout-path requirement as a blocker. Root's
+`executive-disposition-009.json` preserves that verdict and accepts only local
+unqualified candidate delivery after `artifact-reconciliation-009.json` resolved
+the existing producer, snapshot, input-digest and actual artifact correspondence.
+No native success, model independence, whole-product qualification, RC2 tag,
+publication, deployment or push is claimed.
+
+The exact candidate is a 10,902,612-byte tarball, SHA-256
+`36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528`.
+Provider-reported total is $35.6671188 across 32 processes under the $100
+allocation; proxy/session cost is unknown. About 6.52 hours elapsed from workspace
+preparation. No trial worker remains active. Earlier failures and owner-suite
+timeouts, diagnostic visibility and review-condition drift, and RC1-specific
+qualification/test fixtures remain in the existing carrier. The experiment
+shows bounded evidence/control utility and an actual produced candidate; it
+does not establish a productivity benefit or causal skill efficacy. This
+checkpoint selects no further native run or broader architecture repair.

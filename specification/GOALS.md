@@ -30,6 +30,17 @@ development preview. Final fifteen-family/native qualification and stable
 reviewable artifact and local owner installation before Root dispatches exact
 external publication; no automatic green verdict or native snapshot is implied.
 
+
+Observed checkpoint, 2026-10-31: RC1 is published and deployed. Its bounded
+single-proxy build trial produced local unqualified RC2 candidate `d1e4527db`,
+with a passing build and twelve selected tests. Native UAT remains unmet and
+the Run blocked; the Executive accepted only local candidate delivery after
+reconciling existing artifact evidence against the original criteria. This is
+not native qualification or RC2 publication. The [candidate receipt](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/candidate-009.json)
+and [disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/executive-disposition-009.json)
+retain those boundaries, the $35.6671188 reported provider cost, unknown proxy
+cost and surviving obligations. No trial worker remains active.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

@@ -1,0 +1,117 @@
+{
+  "at": "2026-10-30T18:29:35.501013+00:00",
+  "kind": "rc1_built_rc2_local_unqualified_candidate",
+  "status": "built_tested_retained_local_candidate",
+  "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+  "sourceTree": "db5c2010e503c4bbdab2e11de6338b16e34df58b",
+  "sourceBranch": "codex/rc2-dogfood-01",
+  "sourceWorktree": "/Users/jim/src/apps/abiogenesis-rc2-dogfood",
+  "trackedSourceClean": true,
+  "artifact": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "digest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "bytes": 10902612
+  },
+  "candidateBasis": {
+    "kind": "abi5_root_candidate_basis",
+    "schemaVersion": "5.0.0",
+    "artifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "productContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+    "manifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.2"
+  },
+  "builder": {
+    "product": "5.0.0-rc.1",
+    "artifactDigest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+    "installedBeforeAfterMatch": true,
+    "proof": "attempt-009/installed-content-before-run.json and installed-content-after-run.json"
+  },
+  "changes": [
+    "Distinct C2 refusal diagnostics for duplicate command identity and protected-subject/write overlap.",
+    "Existing assessment role-separation relation checked at governance intake.",
+    "Two dependent fixture declarations repaired; RC2 identity/claim and exact generated outputs reconciled."
+  ],
+  "tests": {
+    "buildExit": 0,
+    "allSevenCommandExits": 0,
+    "focused": 7,
+    "affectedFixtures": 3,
+    "artifactAndInstalledLanguage": 2,
+    "totalPass": 12,
+    "fail": 0,
+    "skip": 0,
+    "cancelled": 0,
+    "evidence": "testing-return-009.json"
+  },
+  "nativeRun": {
+    "ended": "2026-10-30T18:27:36.989Z",
+    "exitCode": 0,
+    "outcomeKind": "result",
+    "disposition": "blocked",
+    "run": {
+      "digest": "sha256:3ffb1ca957f7a4572a13ca2ebc7853fc936697a8cec3176327e6714299f3c2ae",
+      "ref": "run://abiogenesis/2f3078f2d9d818a6baf5679fba7bc0f2315ed0c695e45c390d9ae0c91ad52b7e"
+    },
+    "terminal": null,
+    "reads": [
+      {
+        "memberKey": "run_result",
+        "outcomeKind": "refusal"
+      },
+      {
+        "memberKey": "run_replay",
+        "outcomeKind": "result"
+      }
+    ],
+    "qualification": false
+  },
+  "nativeAssessment": {
+    "disposition": "unmet",
+    "record": "assessment-return-009.json",
+    "reason": "All original rubric criteria found satisfied, but a selector-added requirement for a tarball path in stdout was unmet."
+  },
+  "externalDisposition": {
+    "decision": "accept_local_unqualified_candidate_only",
+    "record": "executive-disposition-009.json",
+    "reconciliation": "artifact-reconciliation-009.json",
+    "matchedProtectedInputs": 839
+  },
+  "materialization": {
+    "record": "materialization-009.json",
+    "files": 987,
+    "remainingTrackedGeneratedDeletions": 0,
+    "proxyAuthoredProductSource": false
+  },
+  "coldReads": [
+    {
+      "member": "run_result",
+      "outcomeKind": "refusal",
+      "code": "not_found"
+    },
+    {
+      "member": "run_replay",
+      "outcomeKind": "result",
+      "code": null
+    }
+  ],
+  "logUnchangedAcrossColdReads": true,
+  "nativeFullyAccepted": false,
+  "wholeProductQualified": false,
+  "independentModelAssessment": false,
+  "published": false,
+  "pushed": false,
+  "deployedRc2": false,
+  "reportedNativeProviderUsd": 35.6671188,
+  "ownerNativeBudgetUsd": 100,
+  "proxySessionCostUsd": null,
+  "activeTrialWorkers": 0,
+  "limits": [
+    "Native candidate Run remains blocked and its UAT unmet; external disposition does not rewrite that outcome.",
+    "Earlier owner-suite timeouts, installed-CLI early-refusal proof, full qualification and model-identity independence remain open.",
+    "Other owner-test and qualification fixtures still carry RC1-specific identities and were not qualified on RC2.",
+    "Diagnostic visibility and review-condition drift require a separately selected correction; no runtime redesign was undertaken."
+  ],
+  "evidenceRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01"
+}

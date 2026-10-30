@@ -1,0 +1,31 @@
+{
+  "at": "2026-10-30T17:36:51.710255+00:00",
+  "disposition": "not_accepted_blocked_run",
+  "run": {
+    "digest": "sha256:9cd8965d66e79806754f75422bcf12a1cf31949def3dac840ace291c381d56f1",
+    "ref": "run://abiogenesis/23d17651ecb95aa5efddeb884864eb6a627f03e396dfc07ecca17b49fb86a92a"
+  },
+  "lifecycleWallMs": 2131979.3587909997,
+  "actualOutcome": "attempt-008/fixture-repair-01-outcome-summary.json",
+  "coldReads": [
+    {
+      "member": "run_result",
+      "outcomeKind": "refusal",
+      "code": "not_found",
+      "projection": null
+    },
+    {
+      "member": "run_replay",
+      "outcomeKind": "result",
+      "code": null,
+      "projection": null
+    }
+  ],
+  "unchangedLogCheck": "passed by freshReadbacks",
+  "testing": "testing-return-008.json",
+  "diagnosis": "diagnosis-return-008.json",
+  "failure": "failure-008.json",
+  "qualification": false,
+  "reportedCumulativeProviderUsd": 26.5028048,
+  "next": "Corrected input and fresh affected-case proof combined with RC2 candidate packaging in attempt 009; no fixture acceptance or terminal Result invented."
+}

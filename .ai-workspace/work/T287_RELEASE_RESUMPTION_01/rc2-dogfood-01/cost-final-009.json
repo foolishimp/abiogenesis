@@ -1,0 +1,232 @@
+{
+  "at": "2026-10-30T18:29:35.501013+00:00",
+  "reportedNativeProviderUsd": 35.6671188,
+  "processes": 32,
+  "proxySessionCostUsd": null,
+  "rows": [
+    {
+      "providerLog": "setup-001/resources/archives/fp-54f4531166615afd-stdout.log",
+      "reportedCostUsd": 0.6878986,
+      "durationMs": 94026,
+      "turns": 13,
+      "error": true
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-3afad3ff2bb428d3-stdout.log",
+      "reportedCostUsd": 1.6685581999999997,
+      "durationMs": 200122,
+      "turns": 33,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-22e11d350d0f8bbd-stdout.log",
+      "reportedCostUsd": 1.339132,
+      "durationMs": 159974,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-7eaea9517214fe6f-stdout.log",
+      "reportedCostUsd": 1.8528996,
+      "durationMs": 237415,
+      "turns": 21,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-bb180522c5163e2d-stdout.log",
+      "reportedCostUsd": 2.219621,
+      "durationMs": 309036,
+      "turns": 26,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-ca729b3486230a87-stdout.log",
+      "reportedCostUsd": 1.765436,
+      "durationMs": 77766,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-16b79d48a52cee88-stdout.log",
+      "reportedCostUsd": 1.495288,
+      "durationMs": 60216,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-bf6f65b51c7de655-stdout.log",
+      "reportedCostUsd": 0,
+      "durationMs": 55802,
+      "turns": 1,
+      "error": true
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-6f208586290b6f27-stdout.log",
+      "reportedCostUsd": 1.7233342000000003,
+      "durationMs": 190368,
+      "turns": 27,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-271642912a58a914-stdout.log",
+      "reportedCostUsd": 2.2006533999999998,
+      "durationMs": 444561,
+      "turns": 39,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-3a9bc86fc8202cba-stdout.log",
+      "reportedCostUsd": 1.447084,
+      "durationMs": 102003,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-2a01f8893d00a74b-stdout.log",
+      "reportedCostUsd": 0.3533256,
+      "durationMs": 72139,
+      "turns": 3,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-a84a9f9e1ba04542-stdout.log",
+      "reportedCostUsd": 1.209592,
+      "durationMs": 70313,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-a7ff33c824c70edc-stdout.log",
+      "reportedCostUsd": 1.1350239999999998,
+      "durationMs": 140788,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-2b925d6c6c6342b1-stdout.log",
+      "reportedCostUsd": 1.2073919999999998,
+      "durationMs": 126216,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-2ebe572690112747-stdout.log",
+      "reportedCostUsd": 0.36934659999999997,
+      "durationMs": 1180666,
+      "turns": 3,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-31011e39e85dc231-stdout.log",
+      "reportedCostUsd": 1.1873120000000001,
+      "durationMs": 76817,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-26d72d8a2e17204c-stdout.log",
+      "reportedCostUsd": 1.3478006000000002,
+      "durationMs": 424300,
+      "turns": 32,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-97f42c3c71b5c060-stdout.log",
+      "reportedCostUsd": 1.0796278000000004,
+      "durationMs": 139640,
+      "turns": 26,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-237de2c08789f039-stdout.log",
+      "reportedCostUsd": 1.144844,
+      "durationMs": 139847,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-270bf1d3ee0a9e51-stdout.log",
+      "reportedCostUsd": 1.249484,
+      "durationMs": 80297,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-6ef4e7fa79ece97a-stdout.log",
+      "reportedCostUsd": 0.3574414,
+      "durationMs": 149152,
+      "turns": 3,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-e00b9a55dafcb593-stdout.log",
+      "reportedCostUsd": 0.35273519999999997,
+      "durationMs": 80851,
+      "turns": 3,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-0c410d20a356620f-stdout.log",
+      "reportedCostUsd": 0.43486800000000003,
+      "durationMs": 150424,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-e74620c1fd2d17cd-stdout.log",
+      "reportedCostUsd": 1.273632,
+      "durationMs": 136306,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-050bf3d69a3e4be1-stdout.log",
+      "reportedCostUsd": 0.2416116,
+      "durationMs": 85552,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-9089f34a7e227219-stdout.log",
+      "reportedCostUsd": 0.369124,
+      "durationMs": 140182,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-9da37741a915dc09-stdout.log",
+      "reportedCostUsd": 0.42935059999999997,
+      "durationMs": 8037,
+      "turns": 3,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-4abb51254a726727-stdout.log",
+      "reportedCostUsd": 1.582964,
+      "durationMs": 79041,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-c927717cbe06d6d0-stdout.log",
+      "reportedCostUsd": 1.35758,
+      "durationMs": 75579,
+      "turns": 2,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-7968932b2618e4e8-stdout.log",
+      "reportedCostUsd": 2.2946264000000003,
+      "durationMs": 232362,
+      "turns": 26,
+      "error": false
+    },
+    {
+      "providerLog": "setup-001/resources/archives/fp-101e8d3fda59bd33-stdout.log",
+      "reportedCostUsd": 0.289532,
+      "durationMs": 90284,
+      "turns": 2,
+      "error": false
+    }
+  ]
+}

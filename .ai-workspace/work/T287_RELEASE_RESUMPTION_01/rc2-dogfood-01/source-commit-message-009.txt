@@ -1,0 +1,15 @@
+Preserve ABG-built RC2 development candidate
+
+Installed RC1 native workers authored the C2 diagnostics, assessment-intake
+guard, tests, fixture maintenance, identity and claim changes. The proxy only
+materialized exact ABG-generated outputs and records this source checkpoint.
+
+The native candidate build and 12 selected tests passed. Native UAT returned
+unmet for a selector-added stdout-path condition despite finding the original
+rubric satisfied. That verdict and the blocked native Run remain unchanged.
+The external executive accepted only the local unqualified candidate after
+matching all 839 protected inputs and the actual produced tarball.
+
+Artifact SHA256: 36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528
+Evidence: T287_RELEASE_RESUMPTION_01/rc2-dogfood-01 on the operator worktree.
+No whole-product qualification, native acceptance, publication or push.

@@ -1,15 +1,15 @@
 {
-  "checkpoint": "attempt-008-testing-input-omission-native-diagnosis-active",
-  "at": "2026-10-30T17:21:29.001641+00:00",
+  "checkpoint": "local-rc2-candidate-retained-native-acceptance-blocked",
+  "at": "2026-10-30T18:29:35.501013+00:00",
   "operator": "root Codex",
-  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
   "recordedCommandCount": 11,
   "recordedCommandWallMs": 236085.471127,
-  "nativeProviderCalls": 26,
-  "nativeProviderReportedCostUsd": 24.2831838,
+  "nativeProviderCalls": 32,
+  "nativeProviderReportedCostUsd": 35.6671188,
   "operatorAndExecutiveCostUsd": null,
-  "acceptedRc2ImplementationChanges": 1,
+  "acceptedRc2ImplementationChanges": 2,
   "rawPreparationEvidenceBytes": 426785570,
   "largestRawRecords": [
     {
@@ -47,7 +47,7 @@
     "Provider result costs use the last cumulative result per process, not the sum of multiple final rows."
   ],
   "operatorSetupFailures": 6,
-  "productImplementationChangesAccepted": 1,
+  "productImplementationChangesAccepted": 2,
   "ownerApprovedBudgetUsd": 100,
   "operatorStopThresholdUsd": 90,
   "latestRun": "run://abiogenesis/5279cf761e76b326630089b2f4c58e67c413feb87edd2155c3ed3d53ce0320f5",
@@ -91,7 +91,7 @@
     "record": "attempt-007/assessment-intake-01-fresh-reads.json"
   },
   "attempt008Construction": "construction-return-008.json",
-  "currentEventLogBytes": 1687804488,
+  "currentEventLogBytes": 3364043670,
   "fixtureTesting": {
     "buildExit": 0,
     "intakePass": 5,
@@ -100,5 +100,18 @@
     "failureCategory": "operator_snapshot_input_omission",
     "acceptance": false,
     "record": "testing-return-008.json"
-  }
+  },
+  "attempt008Disposition": "blocked at declared recursion bound; cold run_result not_found, run_replay returned; no terminal Result or fixture acceptance",
+  "attempt008LifecycleWallMs": 2131979.3587909997,
+  "attempt009Input": "workload-candidate-rc2-01.json",
+  "attempt009Preflight": "candidate-rc2-01-preflight.json",
+  "attempt009Construction": "construction-return-009.json",
+  "nativeCompletedAcceptedCycles": 1,
+  "externallyAcceptedLocalRc2Candidate": true,
+  "nativeRc2Acceptance": false,
+  "activeTrialWorkers": 0,
+  "attempt009LifecycleWallMs": 2526363.6585,
+  "trialElapsedMinutes": 391.2971002166667,
+  "candidateReceipt": "candidate-009.json",
+  "remainingNativeBudgetUsd": 64.3328812
 }

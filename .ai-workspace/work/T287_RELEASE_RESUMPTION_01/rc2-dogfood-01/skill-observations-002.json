@@ -1,0 +1,51 @@
+{
+  "at": "2026-10-30T18:27:08.297140+00:00",
+  "basis": "stdo://releases/v3.0.2/",
+  "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "observations": [
+    {
+      "behavior": "Proportional entry and bounded effects",
+      "evidence": [
+        "construction-return-008.json",
+        "construction-return-009.json"
+      ],
+      "observed": "Native selectors reused existing Product/design, workers preserved protected hashes and returned out-of-scope dependencies without editing Product beyond their grants."
+    },
+    {
+      "behavior": "Diagnostic material sufficiency",
+      "evidence": [
+        "failure-008.json",
+        "diagnosis-return-008.json"
+      ],
+      "observed": "Planning projection dropped the actual Node failure despite a short stream. Construction could not read the full stream, causing a paid diagnostic pass that could not resolve the cause."
+    },
+    {
+      "behavior": "Review scope and executive disposition",
+      "evidence": [
+        "assessment-return-009.json",
+        "executive-disposition-009.json",
+        "artifact-reconciliation-009.json"
+      ],
+      "observed": "The native assessor found the original rubric satisfied but rejected a selector-added stdout-path condition. The external Executive preserved that verdict, rejected the added condition as a local-delivery blocker and reconciled existing producer facts without rerunning tests."
+    },
+    {
+      "behavior": "Honest outcome separation",
+      "evidence": [
+        "acceptance-007.json",
+        "disposition-008.json",
+        "executive-disposition-009.json"
+      ],
+      "observed": "Native completed acceptance, native blocked outcomes and external limited candidate acceptance remain separate; no native success was fabricated."
+    }
+  ],
+  "limitations": [
+    "Native host skill activation has not been demonstrated; earlier provider initialization reported skills []. Packaged STDO context and applying its rules are distinct from host trigger proof.",
+    "No matched comparison establishes that skills caused improvement.",
+    "Root input and scope omissions materially increased retries and cost.",
+    "Root/session cost is unavailable."
+  ],
+  "selectedSkills": [
+    "plugins/spec/skills/stdo-work/SKILL.md",
+    "plugins/spec/skills/stdo-ticket/SKILL.md"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-30T18:17:43.186388+00:00",
+  "actor": "root Codex, owner-authorized sole proxy and executive evaluator",
+  "productFrame": {
+    "product": "ABIogenesis fixed 5.0 feature set",
+    "selectedOutcome": "Use installed released RC1 to build and check a local unqualified RC2 development-preview candidate; observe real failures and costs",
+    "authority": "Owner RC1-to-RC2 direction and $100 trial; T-287 current activation; OPERATOR.md and workload-candidate-rc2-01.json",
+    "boundary": "ABG authors Product implementation; proxy supplies inputs, evaluates, preserves exact outputs and records status. No full qualification, model independence, native-success rewrite or publication."
+  },
+  "method": {
+    "basis": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "verified": true,
+    "skills": [
+      "plugins/spec/skills/stdo-work/SKILL.md",
+      "plugins/spec/skills/stdo-ticket/SKILL.md"
+    ],
+    "dispositionOwner": "standards/EXECUTIVE_BASELINE.md section 12 step 7; AGENTS.md Evidence Ordering, Steel Threads, And Deferred Assurance",
+    "executiveMemberSha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a"
+  },
+  "subject": {
+    "artifact": {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/e800400653fe6dafb44ade9e93af95b56d9ca7d0dc29d6df350d5affb3f3ff02/c62b87eaa34a5728d6bd8ef616af1b37cb8d331bb70d532d3bf5d6a77ae4699c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+      "digest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+      "bytes": 10902612
+    },
+    "candidateBasis": {
+      "kind": "abi5_root_candidate_basis",
+      "schemaVersion": "5.0.0",
+      "artifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+      "productContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+      "manifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+      "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+      "packageName": "@abiogenesis/typescript-tenant",
+      "packageVersion": "5.0.0-rc.2"
+    },
+    "sourceSnapshot": "construction-return-009.json"
+  },
+  "consumedResults": [
+    "construction-return-009.json",
+    "testing-return-009.json",
+    "assessment-return-009.json",
+    "artifact-reconciliation-009.json"
+  ],
+  "nativeVerdict": "unmet, preserved verbatim; the native lifecycle is not declared satisfied or complete by this disposition",
+  "findings": [
+    {
+      "id": "D09-1",
+      "relation": "Original acceptance criteria versus selector-added reporting requirement",
+      "evidence": "The native assessor explicitly finds all six original rubric criteria satisfied, including criterion 4 as written, but makes its overall verdict unmet because the selector asked for a tarball path in a command stream. Original criterion 4 requires actual package identities and passing artifact/installed-language tests; criterion 6 requires producer and tarball identity, not a specific stdout rendering.",
+      "disposition": "Reject the added stdout-location condition as a blocker to local candidate delivery. Preserve it as a native coordination/assessment scope finding. No original criterion is removed."
+    },
+    {
+      "id": "D09-2",
+      "relation": "Proof availability versus proof generation",
+      "evidence": "The existing helper result names snapshotRoot, snapshotRef, snapshotDigest and snapshotMembers. Its task has 839 protected observations. Read-only reconciliation found all 839 current and snapshot bytes equal to their recorded digests. The located tarball hashes to the actual packaging digest. The installed-before-run record binds unchanged RC1 bytes and the helper launch binds packageVersion 5.0.0-rc.1. These facts were not all carried into the assessor view.",
+      "disposition": "Resolve the bounded delivery correspondence gaps using existing producer evidence and a direct byte comparison. No test rerun, source repair or substitute runtime event."
+    }
+  ],
+  "disposition": "accept_local_unqualified_candidate_only",
+  "nativeAcceptance": false,
+  "wholeProductQualified": false,
+  "publicationAuthorizedByThisRecord": false,
+  "survivingObligations": [
+    "Native UAT remains unmet and the run remains subject to its actual blocked/closure result; no fully successful native build-to-acceptance cycle is claimed for RC2.",
+    "Diagnostic visibility and derived-review-condition drift remain logged framework findings.",
+    "Earlier full owner-suite timeouts, installed-CLI early-refusal proof, model-identity independence and whole-product qualification remain open.",
+    "RC1 literals in other owner tests and the qualification recipe remain explicit unexecuted dependencies.",
+    "Canonical generated-byte materialization and final run reconciliation remain to be completed."
+  ],
+  "nextBoundedOperatorAction": "After the native run closes, materialize the exact ABG-produced generated bytes and retain the exact tarball and claim with correspondence receipts. Record/freeze the local source candidate, preserving native failures and no push. This is the owner-authorized single-proxy operator/bookkeeping allocation; no Product source authorship by Root."
+}
