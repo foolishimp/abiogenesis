@@ -1,0 +1,61 @@
+{
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "build": {
+    "passed": true,
+    "trackedGeneratedDelta": false,
+    "log": "build-frozen.log"
+  },
+  "typecheck": {
+    "passed": true,
+    "noUnusedLocals": true
+  },
+  "lints": {
+    "imports": 0,
+    "lifecycle": 0,
+    "calculus": 0,
+    "evidence": 0,
+    "syntax": 0
+  },
+  "focused": {
+    "tests": 39,
+    "passed": 34,
+    "failed": 0,
+    "skipped": 5,
+    "log": "focused.log"
+  },
+  "installedSmoke": {
+    "passed": true,
+    "artifactDigest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+    "payloadMembers": 5317,
+    "actualAdmittedResultAndClosure": true,
+    "freshResultAndReplay": true,
+    "originalLogUnchanged": true,
+    "providerCalls": 0
+  },
+  "qualification": false,
+  "setupFailures": [
+    {
+      "log": "stage-authorities.log",
+      "cause": "Authority staging preceded compilation; missing compiled module. Root accepted preparation-order correction."
+    },
+    {
+      "log": "build-initial.log",
+      "cause": "Shared dependency symlink violated exact package-root containment. Root accepted copying pinned dependencies locally; package-lock SHA-256 unchanged."
+    }
+  ],
+  "costs": {
+    "preparationElapsedMinutesEstimate": 39,
+    "historicalInventoryRefreshMinutesEstimate": "18-19",
+    "deterministicDeploymentAndSmokeMinutesEstimate": 5,
+    "providerCalls": 0,
+    "providerSpendUsd": 0,
+    "workerModelUsageAndCost": null,
+    "proxyCampaignStarted": false
+  },
+  "limits": [
+    "Five retained-fixture tests skipped; no inherited qualification transfer.",
+    "Zero provider spend does not mean zero Worker/proxy cost; its model usage/cost telemetry is unavailable.",
+    "Setup failures are tooling costs, not demonstrated RC1 runtime bugs.",
+    "Canonical physical install and the smoke native install/lock/context are distinct, sharing the exact verified artifact."
+  ]
+}

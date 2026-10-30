@@ -1,0 +1,11 @@
+{
+  "verifiedAt": "2026-10-30T11:40:22.840153+00:00",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "remote": "https://github.com/foolishimp/abiogenesis.git",
+  "refs": {
+    "refs/tags/v5.0.0": "70cec304a1468dec58c665e7324ef5ed2e7269aa",
+    "refs/tags/v5.0.0^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+    "refs/tags/v5.0.0-rc.1": "29a22e18c43caa53bff9fab35926f8ec7f7c5508",
+    "refs/tags/v5.0.0-rc.1^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb"
+  }
+}

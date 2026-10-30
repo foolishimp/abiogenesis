@@ -1,0 +1,71 @@
+{
+  "kind": "rc1_preview_publication_receipt",
+  "verifiedAt": "2026-10-30T11:42:24.478837+00:00",
+  "url": "https://github.com/foolishimp/abiogenesis/releases/tag/v5.0.0-rc.1",
+  "releaseId": 428963499,
+  "publishedAt": "2026-10-30T11:40:40Z",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "sourceTree": "f8f71e3fddcd192469ae911bd4a04cf5161857ac",
+  "githubTargetCommitishMetadata": "main",
+  "sourceTargetProof": "Existing annotated immutable tag and selector both peel to exact source commit; remote refs checked after publication.",
+  "remoteRefs": {
+    "refs/tags/v5.0.0": "70cec304a1468dec58c665e7324ef5ed2e7269aa",
+    "refs/tags/v5.0.0^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+    "refs/tags/v5.0.0-rc.1": "29a22e18c43caa53bff9fab35926f8ec7f7c5508",
+    "refs/tags/v5.0.0-rc.1^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb"
+  },
+  "prerelease": true,
+  "draft": false,
+  "latestStableTag": null,
+  "assets": [
+    {
+      "name": "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+      "bytes": 10920962,
+      "digest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz"
+    },
+    {
+      "name": "deployment-receipt.json",
+      "bytes": 27680,
+      "digest": "sha256:3f12446f640d2990071c607ef26d80d0f40f0224962b8426fee1bdfe4d9b4715",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/deployment-receipt.json"
+    },
+    {
+      "name": "payload-correspondence.json",
+      "bytes": 1054829,
+      "digest": "sha256:9213074a680bcf553cc01be85fb81e0eca53d77e310e3f675ea448d99aa21611",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/payload-correspondence.json"
+    },
+    {
+      "name": "release-claim.md",
+      "bytes": 3058,
+      "digest": "sha256:d3e9cb7068eceb6ad1945a264d9db2995a74ef5a295e4ba32052fa0b3c07be21",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/release-claim.md"
+    },
+    {
+      "name": "SHA256SUMS",
+      "bytes": 462,
+      "digest": "sha256:0958569f8b0c676077d4d9b8f50c6f3e96e3669dd3aa958f88b2c23c63945e1a",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/SHA256SUMS"
+    },
+    {
+      "name": "verification.json",
+      "bytes": 16047618,
+      "digest": "sha256:a0127cc446c935638e1a930611f009cc5741a7072205bbde9e4070f38b18adce",
+      "url": "https://github.com/foolishimp/abiogenesis/releases/download/v5.0.0-rc.1/verification.json"
+    }
+  ],
+  "download": {
+    "path": "/private/tmp/t287-rc1-published-download-u6n44o38/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "bytes": 10920962,
+    "digest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+    "matchesFrozenArtifact": true,
+    "downloads": 1
+  },
+  "canonicalInstalledRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1/node_modules/@abiogenesis/typescript-tenant",
+  "installedCli": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "nativeQualification": false,
+  "providerCalls": 0,
+  "mainPushed": false,
+  "scope": "Exactly two refs and six assets; no force, retag, repack or smoke rerun."
+}

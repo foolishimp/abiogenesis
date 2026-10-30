@@ -1,0 +1,64 @@
+{
+  "kind": "owner_directed_development_preview_packet",
+  "status": "published_prerelease_and_locally_deployed",
+  "qualification": false,
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "sourceTree": "f8f71e3fddcd192469ae911bd4a04cf5161857ac",
+  "projectSubtree": ".",
+  "namespace": "abiogenesis",
+  "refProfile": "one_project_unqualified",
+  "prospectiveImmutableRef": "v5.0.0-rc.1",
+  "prospectiveSelector": "v5.0.0",
+  "selectorMeaning": "Annotated discovery selector for greatest published RC ordinal, not stable acceptance. First publication creates both refs at the same source commit; no existing ref is overwritten.",
+  "tagObjects": null,
+  "githubRelease": null,
+  "sourceAndArtifactFrozen": true,
+  "artifact": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "digest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+    "bytes": 10920962
+  },
+  "claim": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/release-claim.md",
+    "digest": "sha256:d3e9cb7068eceb6ad1945a264d9db2995a74ef5a295e4ba32052fa0b3c07be21"
+  },
+  "install": {
+    "host": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1/node_modules/@abiogenesis/typescript-tenant",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.1/976dd42595870124d8cb9a601e687bba7e32a8003d36aa35cff6968374fdd1bc/b0cc9c61c1d7a1450a91a836c363779a951db472b9839a1f352c7732599249e1",
+    "productContentDigest": "sha256:976dd42595870124d8cb9a601e687bba7e32a8003d36aa35cff6968374fdd1bc",
+    "manifestDigest": "sha256:9e23bbb9d58f43872f4b6711f5ba6a32ac0f7ac210c61c113fe0e45af882caed"
+  },
+  "deploymentReceipt": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/deployment-receipt.json",
+  "retainedSmokeRoot": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/test_runs/rc1-preview/20261030-exact-artifact/smoke/abi5-root-env-8XyI5p",
+  "method": {
+    "basis": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+  },
+  "operatorProxy": "Root; separate RC2 activation after publication, no additional proxy agent",
+  "recordCommitMeaning": "This is preparation/local deployment only; Root creates actual publication/remote receipts later. Source cut and artifact identity are fixed independently of documentary record commits.",
+  "assets": [
+    "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "SHA256SUMS",
+    "release-claim.md",
+    "deployment-receipt.json",
+    "verification.json",
+    "payload-correspondence.json"
+  ],
+  "publicationGrant": "T287-RC1-PREVIEW-PUBLISH-01; exact Root grant after independent artifact rehash and owner-proof acceptance",
+  "publishedRelease": {
+    "url": "https://github.com/foolishimp/abiogenesis/releases/tag/v5.0.0-rc.1",
+    "releaseId": 428963499,
+    "publishedAt": "2026-10-30T11:40:40Z",
+    "remoteRefs": {
+      "refs/tags/v5.0.0": "70cec304a1468dec58c665e7324ef5ed2e7269aa",
+      "refs/tags/v5.0.0^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+      "refs/tags/v5.0.0-rc.1": "29a22e18c43caa53bff9fab35926f8ec7f7c5508",
+      "refs/tags/v5.0.0-rc.1^{}": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb"
+    },
+    "prerelease": true,
+    "exactAssetSetVerified": true,
+    "remoteDownloadDigest": "sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9"
+  },
+  "recordCommitBinding": "Separate local Git bookkeeping commit containing this record; its identity is returned separately to avoid a self-referential commit field."
+}

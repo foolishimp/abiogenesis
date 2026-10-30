@@ -1,0 +1,9 @@
+{
+  "basis": "stdo://releases/v3.0.2/",
+  "cut": "v3.0.2",
+  "definition_id": "urn:stdo:product-definition:abiogenesis",
+  "manifest_sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "installed": true,
+  "valid": true,
+  "failures": []
+}

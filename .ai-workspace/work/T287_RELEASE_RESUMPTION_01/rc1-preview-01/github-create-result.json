@@ -1,0 +1,26 @@
+{
+  "exitCode": 0,
+  "argv": [
+    "gh",
+    "release",
+    "create",
+    "v5.0.0-rc.1",
+    "--repo",
+    "foolishimp/abiogenesis",
+    "--prerelease",
+    "--latest=false",
+    "--verify-tag",
+    "--title",
+    "ABIogenesis 5.0.0-rc.1 development preview",
+    "--notes-file",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/RELEASE_NOTES.md",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/SHA256SUMS",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/release-claim.md",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/deployment-receipt.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/verification.json",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/payload-correspondence.json"
+  ],
+  "noMainPush": true,
+  "providerCalls": 0
+}

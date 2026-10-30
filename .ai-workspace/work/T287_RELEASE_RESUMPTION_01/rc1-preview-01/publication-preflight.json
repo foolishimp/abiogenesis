@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-30T11:38:29.792885+00:00",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "archiveSha256": "1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+  "claimMatchesFrozenSource": true,
+  "localRcAndSelectorAbsent": true,
+  "originRcAndSelectorAbsent": true,
+  "githubRc1Absent": true,
+  "sixExpectedAssetsChecked": [
+    "abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "SHA256SUMS",
+    "release-claim.md",
+    "deployment-receipt.json",
+    "verification.json",
+    "payload-correspondence.json"
+  ],
+  "targetedReceiptSecretCheck": "passed; expected owner receipts only, no unrelated logs/bootstrap",
+  "grant": "T287-RC1-PREVIEW-PUBLISH-01",
+  "providerCalls": 0
+}

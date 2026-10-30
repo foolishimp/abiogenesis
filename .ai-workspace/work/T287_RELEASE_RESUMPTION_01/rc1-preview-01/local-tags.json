@@ -1,0 +1,17 @@
+{
+  "createdAt": "2026-10-30T11:39:25.470729+00:00",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "tags": [
+    {
+      "ref": "refs/tags/v5.0.0-rc.1",
+      "annotatedObject": "29a22e18c43caa53bff9fab35926f8ec7f7c5508",
+      "peeledCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb"
+    },
+    {
+      "ref": "refs/tags/v5.0.0",
+      "annotatedObject": "70cec304a1468dec58c665e7324ef5ed2e7269aa",
+      "peeledCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb"
+    }
+  ],
+  "remoteEffect": "push pending"
+}
