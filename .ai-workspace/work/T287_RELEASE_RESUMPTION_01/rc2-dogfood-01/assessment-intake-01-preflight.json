@@ -1,0 +1,19 @@
+{
+  "assessmentSelection": "accepted by exact installed pure validator; prior real producer used only for shape check, no UAT admission",
+  "pendingConstruction": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/rc2-assessment-intake.test.mjs"
+  ],
+  "at": "2026-10-30T15:18:54.527Z",
+  "classification": "Pure exact installed configuration and physical input checks; no native task admission, model call, command execution or success evidence",
+  "inputSha256": "c5d7ae844ef96a1ba4aa899a566af9851aeaf16bcf53069c2e4aa62ef6148f02",
+  "commandConfiguration": "accepted",
+  "requiredExecutionBudgetMs": 866250,
+  "limitsFit": true,
+  "commands": 5,
+  "protectedFiles": 635,
+  "readFiles": 637,
+  "readBytes": 18775572,
+  "sourceDigests": "matched",
+  "writeReadScope": "covered",
+  "contextBounds": "within"
+}

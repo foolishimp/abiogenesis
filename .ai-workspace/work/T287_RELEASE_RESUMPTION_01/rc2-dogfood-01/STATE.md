@@ -55,19 +55,38 @@ was admitted, but its helper build exceeded the declared 120 s limit. The
 native host backgrounded the helper and broke the expected exchange. Exact
 independent causes and limits are in `failure-005.json`. No candidate accepted.
 
-**Current: attempt 006 is preparing/starting**, session 39018, client
-`operator-client/run-task-06.mjs`, records `attempt-006/diagnostic-04-*`.
-It uses the actual attempt 005 close handoff and a new Run; failed earlier
-Runs are preserved. It tests the existing ABG-authored candidate and grants
-no source edits. Diagnostic-04 preflight passed with 633 protected files and
-1406250 ms complete command budget. Budget-004 retains $100/$5/$90 and uses
-per-run documented foreground-host settings and larger build/test limits.
-Reported provider spend through attempt 005: **$7.3608372** (11 processes).
+**Current: attempt 007 is starting**, session 76773, client
+`operator-client/run-task-07.mjs`, records `attempt-007/assessment-intake-01-*`.
+It uses the actual closed attempt 006 handoff. The bounded new RC2 increment
+makes existing assessment role-separation rules reject at governance intake,
+before paid work. ABG may edit only Product default_library.ts, a new
+rc2-assessment-intake.test.mjs, and the existing task note. Earlier C2 source,
+tests and GTL pin must remain unchanged. No root-authored Product edits.
 
-Next: inspect admitted progress and actual command/UAT evidence, reported spend
-and fresh reads. Root is the sole operator. ABG performs implementation; no
-external coding stream, RC1 mutation or whole-product qualification credit.
-Do not duplicate dispatch: reconcile session, PID and retained receipts first.
+Preflight passed: 635 protected files; new test is an explicit Construction
+prerequisite; 866250 ms complete C2 command budget; exact installed assessment
+selection accepted. Testing builds and runs the new intake cases plus six
+selected fast C2 guards. This is a new bounded claim, not a declaration that
+the prior full owner suite passed. All prior failures remain retained.
+
+Attempt 006 completed with runtime_failed; cold reads confirm failed / no
+terminal Result. Build and both focused diagnostic tests passed. Owner file
+hit its 600 s bound after two cases reached internal 180 s limits. UAT then
+failed before any assessor because the operator placed rubricPath in
+assessment.sources as well. Removing only that duplicate passes the exact
+installed selection validator. See failure-006.json, failure-007.json and
+assessment-configuration-discriminator-001.json. The native helper completed
+one foreground Bash invocation and one acknowledgment, and its observations
+were admitted: the supported host workaround reached its intended boundary.
+
+Reported provider total through attempt 006: **$10.2141598**, 14 processes.
+Root/session cost unknown. No RC2 full acceptance, package or release yet.
+The canonical RC2 worktree still has prior generated-file deletions from the
+failed early build; ABG must reconcile them before a cut. The six-case full
+installed owner integration/timing claim remains open. Keep all failures.
+
+Next: monitor attempt 007, evaluate ABG's bounded patch, actual command evidence
+and UAT. Preserve the $100/$5/$90 controls. No parallel writer or duplicate run.
 
 `setup-001/` retains actual operation requests/outcomes, owner coordinates,
 event log, workspace manifest, prepared input/call and cold-resumption material.

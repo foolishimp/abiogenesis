@@ -1,0 +1,19 @@
+{
+  "id": "RC1-OP-006",
+  "at": "2026-10-30T15:14:36.791817+00:00",
+  "stage": "Attempt 006 UAT preparation",
+  "classification": "Operator input role overlap; late Product detection and generic diagnostic are separate usability observations",
+  "cause": "assessment.sources includes the same rubric path selected by rubricPath; native assessment requires source, candidate and rubric roles to be distinct",
+  "discriminator": "assessment-configuration-discriminator-001.json",
+  "result": "Original rejected; removing only rubric from sources accepted by exact installed selection validator",
+  "limits": "Pure selection validation does not establish full UAT task admission or an assessor verdict. No model dispatched for UAT. Prior build/two focused passes remain bounded facts; owner suite and full acceptance remain open.",
+  "missedRelation": "Operator preflight checked scope, file identity, C2 configuration and enclosing budgets, but omitted assessment role separation. Initial governance constructor accepts the overlapping selection, exposing it only after paid work.",
+  "smallestRecovery": "Correct new operator assessment input; preserve original failed Run and actual Testing coordinates. Reuse admitted evidence only through supported source-use relations, never edit event history or fabricate a continuation.",
+  "potentialRc2Improvement": "Early validation of already-required assessment role separation, without new contract keys or changed valid-input behavior. Requires normal ABG-owned implementation and focused proof.",
+  "coldReadback": {
+    "record": "attempt-006/diagnostic-04-outcome-summary.json",
+    "ended": "2026-10-30T15:17:02.372Z",
+    "lifecycleDisposition": "runtime_failed",
+    "terminalResult": null
+  }
+}

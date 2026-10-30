@@ -1,13 +1,13 @@
 {
-  "checkpoint": "attempt-006-starting",
-  "at": "2026-10-30T14:21:00Z",
+  "checkpoint": "attempt-007-starting",
+  "at": "2026-10-30T15:20:46.811270+00:00",
   "operator": "root Codex",
   "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
   "recordedCommandCount": 11,
   "recordedCommandWallMs": 236085.471127,
-  "nativeProviderCalls": 11,
-  "nativeProviderReportedCostUsd": 7.3608372,
+  "nativeProviderCalls": 14,
+  "nativeProviderReportedCostUsd": 10.2141598,
   "operatorAndExecutiveCostUsd": null,
   "acceptedRc2ImplementationChanges": 0,
   "rawPreparationEvidenceBytes": 426785570,
@@ -46,8 +46,30 @@
     "Attempt 005 includes both an operator build time limit and a native host/helper exchange failure; no exclusive root cause inferred.",
     "Provider result costs use the last cumulative result per process, not the sum of multiple final rows."
   ],
-  "operatorSetupFailures": 5,
+  "operatorSetupFailures": 6,
   "productImplementationChangesAccepted": 0,
   "ownerApprovedBudgetUsd": 100,
-  "operatorStopThresholdUsd": 90
+  "operatorStopThresholdUsd": 90,
+  "latestRun": "run://abiogenesis/049e27f048aa0481485a808c00d41353f21cde03d562dbef41815f065c692b1f",
+  "attempt005WallMs": {
+    "lifecycle-start": 2697869.3274999997,
+    "run_result": 217237.944625,
+    "run_replay": 243668.34187499993
+  },
+  "candidateBuild": "passed in actual C2 snapshot",
+  "candidateFocusedTests": {
+    "pass": 2,
+    "fail": 0
+  },
+  "candidateOwnerTests": {
+    "exit": 124,
+    "pass": 6,
+    "cancelled": 3,
+    "complete": false
+  },
+  "attempt006WallMs": {
+    "lifecycle-start": 2628874.020583,
+    "run_result": 129876.08433400001,
+    "run_replay": 131130.26683300035
+  }
 }

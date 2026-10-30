@@ -1,0 +1,79 @@
+{
+  "id": "RC2-TEST-001",
+  "at": "2026-10-30T15:01:32.530010+00:00",
+  "classification": "Observed test timing failure; candidate remains unaccepted; native Run outcome pending",
+  "helperRecord": "setup-001/resources/archives/worksite-command-execution/e6b25cb101fe1ae9c777fde068f0bd586f892a393b6a64d8f16d0019ad72bf2b/f67eb8bfd58f91f326a0bacb8dfb5880d4f1252bd5996e5496cdd2c6571401ec/result.json",
+  "recordSha256": "17fc9d3fb073b5dab4dd772700612eb3c825597a8558e9cbe8a7b553b7202e99",
+  "artifactRef": "worksite-command-helper-artifact://abiogenesis/87b29d1f5fc9573c8b9436407d407cb1205759d7cf71c8919cc99502ba51e4e0",
+  "artifactDigest": "sha256:87b29d1f5fc9573c8b9436407d407cb1205759d7cf71c8919cc99502ba51e4e0",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-04/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "timeoutMs": 60000,
+      "observationRef": "worksite-command-observation://abiogenesis/264f467b1252a803bd08d69ae24c621a52635977472eed7f08f1a4f9e63b3e27",
+      "observationDigest": "sha256:264f467b1252a803bd08d69ae24c621a52635977472eed7f08f1a4f9e63b3e27"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-04/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "timeoutMs": 30000,
+      "observationRef": "worksite-command-observation://abiogenesis/728c648437cf1ff776d289839a17f971d3a27396d13c8c57cdecc282f8066866",
+      "observationDigest": "sha256:728c648437cf1ff776d289839a17f971d3a27396d13c8c57cdecc282f8066866"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-04/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "timeoutMs": 600000,
+      "observationRef": "worksite-command-observation://abiogenesis/d01406e4783e5f76d1fa31ba3d9fe6514e845740829bd29f9c1729c8b0516daf",
+      "observationDigest": "sha256:d01406e4783e5f76d1fa31ba3d9fe6514e845740829bd29f9c1729c8b0516daf"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-04/diagnostic-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "timeoutMs": 60000,
+      "observationRef": "worksite-command-observation://abiogenesis/8d9670100cb17dbee9a053c7b09e17d06e3412f72c2cbfdb1182541b64a127de",
+      "observationDigest": "sha256:8d9670100cb17dbee9a053c7b09e17d06e3412f72c2cbfdb1182541b64a127de"
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-04/owner-tests",
+      "exitStatus": 124,
+      "timedOut": true,
+      "processSignal": null,
+      "timeoutMs": 600000,
+      "observationRef": "worksite-command-observation://abiogenesis/29b8da609527ef6583cb73e556da9c5f94ab94bce7ee4b6038fb1f0b0b87373d",
+      "observationDigest": "sha256:29b8da609527ef6583cb73e556da9c5f94ab94bce7ee4b6038fb1f0b0b87373d"
+    }
+  ],
+  "focused": {
+    "tests": 2,
+    "pass": 2,
+    "fail": 0
+  },
+  "ownerReported": {
+    "tests": 9,
+    "pass": 6,
+    "fail": 0,
+    "cancelled": 3,
+    "skip": 0,
+    "completeSuite": false
+  },
+  "triage": {
+    "Product": "Distinct diagnostic guards have actual focused passes; full guard-preservation acceptance remains open. No Product contract change proposed.",
+    "Integration": "Two existing installed C2 integration tests reached their own 180000 ms deadlines; owner command later hit 600000 ms. No assertion failure or exclusive causal attribution established.",
+    "Effect": "No source-write grant in attempt 006. Generated build/test effects confined to isolated snapshot.",
+    "Lifecycle": "Helper completed its observation and provider returned one actual acknowledgment after one Bash call; parent admission still pending.",
+    "Proof": "Build exit 0 and focused two passes are bounded evidence; helper success denotes observations, not owner-suite success.",
+    "Recovery": "Do not repeat the unchanged suite, skip failing cases, or enlarge only its outer timeout. Next task must distinguish intrinsic case budgets and fixture/runtime latency before a bounded repair and reproof.",
+    "PriorCheckLimit": "Input preflight checked commands and enclosing budgets, not internal test-case deadlines; original incomplete build never reached these real integration paths."
+  },
+  "ownerStdout": "\u2714 C2 explicit zero write territory preserves array, report and HTTP port authorization (154.874792ms)\n\u2714 C2 finite host timer schema and constructor share bounds without changing grace (270.100291ms)\n\u2714 C2 RC2 diagnostic duplicate command identity is refused with an identity cause (22.281333ms)\n\u2714 C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause (40.946625ms)\n\u2716 T-287 C2 compact acknowledgment preserves installed large-log observation and replay (289223.262791ms)\n\u2716 T-287 C2 helper failure after launch reaches result admission with its subject inline (187053.408625ms)\n\u2714 C2 complete cleanup budget displays per-operation drain and strict enclosing boundaries (0.653125ms)\n\u2714 C2 helper failure subject is bound to the next undone operation of the completed prefix (68.265875ms)\n\u2716 test_env/tests/t287-worksite-command-execution.test.mjs (599648.996792ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 3\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 599675.216792\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-worksite-command-execution.test.mjs:1190:1\n\u2716 T-287 C2 compact acknowledgment preserves installed large-log observation and replay (289223.262791ms)\n  'test timed out after 180000ms'\n\ntest at test_env/tests/t287-worksite-command-execution.test.mjs:1197:1\n\u2716 T-287 C2 helper failure after launch reaches result admission with its subject inline (187053.408625ms)\n  'test timed out after 180000ms'\n\ntest at test_env/tests/t287-worksite-command-execution.test.mjs:1:1\n\u2716 test_env/tests/t287-worksite-command-execution.test.mjs (599648.996792ms)\n  'Promise resolution is still pending but the event loop has already resolved'\n"
+}

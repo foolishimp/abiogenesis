@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-30T15:13:07.063Z",
+  "classification": "Pure exact installed assessment-selection comparison; no UAT task admission or assessor verdict",
+  "producer": {
+    "resultRef": "result://abiogenesis/17d2bfc0a198201d6e1c75ac027ca5f6414ba12f2a234b2eea92e035cae12f3b",
+    "resultDigest": "sha256:17d2bfc0a198201d6e1c75ac027ca5f6414ba12f2a234b2eea92e035cae12f3b",
+    "cCallRef": "c-call:sha256:3172bb3a49ce263a848dbb3586668b96aae101d7ede19c7731e9b51e9304c78d",
+    "actorInvocationRef": "actor-invocation://abiogenesis/13e696d7ac3e897d6e21573780ad107f452f4a516e116b9b436805f035c7efc8"
+  },
+  "originalAccepted": false,
+  "onlyRubricRemovedFromSourcesAccepted": true,
+  "originalSourcePaths": [
+    "rc2-operator-inputs/diagnostic-04/task.md",
+    "rc2-operator-inputs/diagnostic-04/rubric.json"
+  ],
+  "correctedSourcePaths": [
+    "rc2-operator-inputs/diagnostic-04/task.md"
+  ],
+  "rubricPath": "rc2-operator-inputs/diagnostic-04/rubric.json"
+}
