@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-30T17:04:13.150740+00:00",
+  "classification": "Native Construction return and current source snapshot; Testing and UAT pending",
+  "provider": "fp-6f208586290b6f27",
+  "rawProviderLog": "setup-001/resources/archives/fp-6f208586290b6f27-stdout.log",
+  "nativeReturn": {
+    "summary": "I repaired both fixture helpers so source, candidate and rubric are now distinct. Nothing has been executed: Testing has not run the three cases or the five intake cases. My checks were read-only or in memory.\n\n**What changed:**\n- **`t287-native-work-reacquisition.test.mjs`, `declarationFixture` (library branch, line 86):** the roles went from `source.txt` for all three to `sources:['source.txt']`, `candidatePath:'candidate.txt'`, `rubricPath:'rubric.json'`. The assessment source still equals the declared original source. I added one comment line.\n- **`t287-native-work-currentness-consumers.test.mjs`, `governanceInput` (line 162):** the roles went from `path` for all three to `sources:[path+'.source']`, `candidatePath:path`, `rubricPath:path+'.rubric'`. This is the same selection `governanceConsumers` already creates as real files and digests, so its override and assessment checks are unchanged. I added one comment line.\n- **`NOTES.md`:** I appended a section headed \"Fixture-repair-01 Construction\".\n\nNo owner call, currentness check, provenance check, assertion, trace count, timeout, skip or mock changed, and I added no new input files.\n\n**Why no new input files:** the owners only read, digest or check these role paths when preparing UAT (`abg/default_library.ts:218-252`). The Testing and observed-C2 owners the three cases use read only the declared sources, read roots, context limits and test settings. They see the roles only through the intake check `isGovernanceWorkState`. The one place that does prepare UAT already writes and observes its own disjoint files. Adding files to the other fixtures would change their file lists and context (the reacquisition fixture allows only one file) without testing anything new.\n\n**My own checks (not Testing evidence, not acceptance):**\n- `node --check` passes on both edited files.\n- I took the exact `governanceAssessmentRolesDistinct` text from the current `default_library.ts`, stripped the types and ran it in memory. Both old selections return false. The repaired reacquisition selection and the repaired `target.txt` and `keep.txt` selections return true.\n- All five protected files still match the hashes in `evidence.json` (eaff034\u2026, 60efacd\u2026, 0d9a133\u2026, edeb385\u2026, 1c02eada\u2026).\n- `git diff` shows only the two role lines and two comment lines.\n\nI did not run the three cases: their fixtures create temporary worksites, and the canonical `build/` predates the intake check. I ran no build, wrote no generated output and made no writes outside the grant.",
+    "gaps": [
+      "The declared Testing plan has not run: the toolchain and seed copies, the isolated build, the five intake cases and the three named cases. Whether those three cases pass is still unobserved.",
+      "The repaired role paths (`candidate.txt`, `rubric.json`, `<path>.source`, `<path>.rubric`) are not created as files in the reacquisition fixture or the observed-consumer part of U1-P5-02, because no owner those cases exercise reads them. `governanceConsumers` still creates its own. UAT should confirm this is acceptable for criterion 1.",
+      "Earlier open items, none claimed here: the full owner-file run timed out (two 180 s cases and the 600 s outer limit), the canonical generated-file deletions still need reconciliation through ABG, and full owner-suite acceptance, fifteen-family qualification, model-identity independence, the installed-CLI early-refusal proof and RC2 release readiness are all still open."
+    ]
+  },
+  "reportedCostUsd": 1.7233342000000003,
+  "files": {
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs": "sha256:b79d5265dcf83d76792e3035bb4b76f8082b5bb8edf7320edd6ee524ccf3c609",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs": "sha256:3a05a43285e7247ce8120742c43f1e8cc4021d180a94b24b0ad3ead81f05bb88",
+    ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md": "sha256:e23710e36d7954e7e7ba7c5b05c76471c81c9cb6dd013b3ee94a4304745af571"
+  },
+  "testingAccepted": false,
+  "qualification": false
+}

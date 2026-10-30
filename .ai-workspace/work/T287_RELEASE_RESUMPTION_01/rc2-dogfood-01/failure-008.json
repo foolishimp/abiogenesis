@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-30T17:20:34.911535+00:00",
+  "classification": "Observed operator omission and runtime diagnostic visibility cost; no Product source repair selected",
+  "run": "run://abiogenesis/23d17651ecb95aa5efddeb884864eb6a627f03e396dfc07ecca17b49fb86a92a",
+  "testingResult": "result://abiogenesis/3607433aa2790c7a2e0bdd0b49f7a3b1bc54687844c3d5bcc2c9dfad931a1968",
+  "evidence": "testing-return-008.json",
+  "primaryCause": "The proxy supplied testing.selectedPaths without t287-native-semantic-revision.test.mjs; a support loader reads that test source as fixture material. Two affected cases passed and one failed ENOENT.",
+  "frameworkObservation": "The next selector reports that its view omits the full 4616-byte stdout, showing only a VM warning and closing brace. It could see exit 1 and pass count 2 but not the missing-file cause, so it selected another Construction diagnosis.",
+  "selectorProvider": "fp-3a9bc86fc8202cba",
+  "limits": "The failure is not a proven Product behavior defect. The selector correctly withheld acceptance. The visibility observation identifies an extra handoff cost, not a completed diagnosis or performance repair.",
+  "correction": "After the actual run closes, include the complete test source directory in the next isolated snapshot and repeat all three fixture cases in the RC2 candidate packaging run. Preserve test logic and all failed evidence.",
+  "diagnosticWorkerObservation": {
+    "provider": "fp-bb180522c5163e2d",
+    "status": "returned, no fixture edit",
+    "record": "diagnosis-return-008.json",
+    "observed": "Full Testing stream unavailable to Construction; only note changed.",
+    "independentSourceCheck": [
+      "code/src/product/default_library.ts planningStream selects only *** and [error] matches plus first/last lines under the 8192-byte bound.",
+      "code/src/abg/default_library.ts returns the ordinary work task before the UAT-only complete producer-stream attachment."
+    ],
+    "limit": "Source and actual native report corroborate the missing diagnostic material. No independent security enforcement or proposed repair was tested."
+  },
+  "deferredRepairCandidate": "Retain useful failing command diagnostics in the bounded planning/Construction material, including a full stream when it is already below the display limit. Requires a separate declared patch and targeted proof; not activated in the current candidate packaging task."
+}

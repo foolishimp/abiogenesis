@@ -1,5 +1,9 @@
 # RC1 → RC2 operator checkpoint
 
+Current: attempt 008 is active in a second Construction pass to diagnose its failed Testing command. Build and five intake cases passed; two affected cases passed and one failed ENOENT because the proxy omitted test fixture source t287-native-semantic-revision.test.mjs. Source repair is unaccepted. Attempt 007 remains the one accepted bounded increment. Reported provider spend is $24.2831838 before the active diagnosis. failure-008.json and testing-return-008.json own the evidence. After actual closure/cold reads, the prepared RC2 packaging input will include complete test sources and repeat all three fixture cases, plus package checks; it does not require or assume acceptance of 008. No new Run, RC2 cut or publication has happened.
+
+The entries below retain the historical sequence; this current paragraph supersedes their pending/next statements.
+
 RC1 is published and locally deployed. Root Codex is the single ongoing human
 proxy; external release helpers have stopped. The RC2 live-source worktree is
 `/Users/jim/src/apps/abiogenesis-rc2-dogfood` on `codex/rc2-dogfood-01`, initially
@@ -143,3 +147,11 @@ handoff; do not launch a duplicate. It grants only two affected fixture files
 and the task note. Native reported spend remains $18.322644 before its first
 provider call. Next: inspect actual Construction, Testing and UAT; then have
 ABG reconcile canonical generated outputs and prepare the RC2 artifact.
+
+Attempt 008 Construction returned from fp-6f208586290b6f27; only two fixture
+role declarations, two comments and the note changed. construction-return-008.json
+freezes the Return and file hashes. Product source and prior tests remain
+unchanged. Testing and UAT are pending; no acceptance inferred from self-checks.
+Reported provider spend through this Return: $21.2332902. A candidate packaging
+input assembler and exact installed preflight are prepared but not executed;
+they require acceptance-008.json. No additional Run has started.

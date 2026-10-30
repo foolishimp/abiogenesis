@@ -1,0 +1,58 @@
+{
+  "at": "2026-10-30T17:19:08.129383+00:00",
+  "subject": "Completed bounded intake run 007",
+  "acceptance": "acceptance-007.json",
+  "providers": [
+    {
+      "role": "selector-before-construction",
+      "provider": "fp-a7ff33c824c70edc",
+      "reportedCostUsd": 1.1350239999999998,
+      "providerReportedDurationMs": 140788,
+      "turns": 2
+    },
+    {
+      "role": "construction",
+      "provider": "fp-271642912a58a914",
+      "reportedCostUsd": 2.2006533999999998,
+      "providerReportedDurationMs": 444561,
+      "turns": 39
+    },
+    {
+      "role": "selector-before-testing",
+      "provider": "fp-a84a9f9e1ba04542",
+      "reportedCostUsd": 1.209592,
+      "providerReportedDurationMs": 70313,
+      "turns": 2
+    },
+    {
+      "role": "command-runner",
+      "provider": "fp-e00b9a55dafcb593",
+      "reportedCostUsd": 0.35273519999999997,
+      "providerReportedDurationMs": 80851,
+      "turns": 3
+    },
+    {
+      "role": "selector-before-uat",
+      "provider": "fp-c927717cbe06d6d0",
+      "reportedCostUsd": 1.35758,
+      "providerReportedDurationMs": 75579,
+      "turns": 2
+    },
+    {
+      "role": "uat",
+      "provider": "fp-7eaea9517214fe6f",
+      "reportedCostUsd": 1.8528996,
+      "providerReportedDurationMs": 237415,
+      "turns": 21
+    }
+  ],
+  "totalProviderReportedCostUsd": 8.1084842,
+  "providerReportedDurationSumMs": 1049507,
+  "lifecycleWallMs": 4249197.44875,
+  "lifecycleWallMinusProviderDurationSumMs": 3199690.4487500004,
+  "limits": [
+    "Durations are provider-reported process durations, not CPU profiles. The wall-time difference is unattributed elapsed time outside these six provider durations; its exact causes are not established.",
+    "Cold reads and external proxy preparation are additional to the lifecycle command wall.",
+    "Root/session cost is unavailable. No matched direct-agent baseline or causal skill comparison exists."
+  ]
+}

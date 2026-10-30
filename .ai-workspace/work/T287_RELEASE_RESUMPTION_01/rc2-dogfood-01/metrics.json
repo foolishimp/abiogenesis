@@ -1,13 +1,13 @@
 {
-  "checkpoint": "attempt-007-accepted-bounded-attempt-008-preparing",
-  "at": "2026-10-30T16:52:49.843415+00:00",
+  "checkpoint": "attempt-008-testing-input-omission-native-diagnosis-active",
+  "at": "2026-10-30T17:21:29.001641+00:00",
   "operator": "root Codex",
   "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
   "recordedCommandCount": 11,
   "recordedCommandWallMs": 236085.471127,
-  "nativeProviderCalls": 20,
-  "nativeProviderReportedCostUsd": 18.322644,
+  "nativeProviderCalls": 26,
+  "nativeProviderReportedCostUsd": 24.2831838,
   "operatorAndExecutiveCostUsd": null,
   "acceptedRc2ImplementationChanges": 1,
   "rawPreparationEvidenceBytes": 426785570,
@@ -89,5 +89,16 @@
     "run_replay": "result",
     "logUnchanged": true,
     "record": "attempt-007/assessment-intake-01-fresh-reads.json"
+  },
+  "attempt008Construction": "construction-return-008.json",
+  "currentEventLogBytes": 1687804488,
+  "fixtureTesting": {
+    "buildExit": 0,
+    "intakePass": 5,
+    "fixturePass": 2,
+    "fixtureFail": 1,
+    "failureCategory": "operator_snapshot_input_omission",
+    "acceptance": false,
+    "record": "testing-return-008.json"
   }
 }

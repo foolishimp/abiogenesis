@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-30T17:14:28.550088+00:00",
+  "classification": "Actual C2 helper output; failed fixture command, parent continuation pending",
+  "artifactRef": "worksite-command-helper-artifact://abiogenesis/ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5",
+  "artifactDigest": "sha256:ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5",
+  "helperResult": "setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/result.json",
+  "helperResultSha256": "b2d43b8976ca84d9202661bf8a6a8422f5279d0a375db1791e7cae82959fc2f8",
+  "commandResults": [
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/fixture-repair-01/toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/fixture-repair-01/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/fixture-repair-01/build",
+      "exitStatus": 0,
+      "timedOut": false,
+      "stdout": "\n> @abiogenesis/typescript-tenant@5.0.0-rc.1 build\n> npm run clean && tsc -p tsconfig.json && node scripts/generate-product-manifest.mjs\n\n\n> @abiogenesis/typescript-tenant@5.0.0-rc.1 clean\n> node scripts/clean.mjs\n\n",
+      "stderr": ""
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/fixture-repair-01/intake-tests",
+      "exitStatus": 0,
+      "timedOut": false,
+      "stdout": "\u2714 RC2 assessment intake valid disjoint roles stay constructible and valid (0.57225ms)\n\u2714 RC2 assessment intake refuses duplicate assessment sources (0.327917ms)\n\u2714 RC2 assessment intake refuses a source equal to candidatePath (0.155333ms)\n\u2714 RC2 assessment intake refuses a source equal to rubricPath, and removing only that source is accepted (0.369458ms)\n\u2714 RC2 assessment intake refuses candidatePath equal to rubricPath (0.162125ms)\n\u2139 tests 5\n\u2139 suites 0\n\u2139 pass 5\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 392.623292\n",
+      "stderr": ""
+    },
+    {
+      "commandId": "command://abiogenesis/rc2-dogfood/fixture-repair-01/fixture-tests",
+      "exitStatus": 1,
+      "timedOut": false,
+      "stdout": "(node:33288) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (442.969542ms)\n(node:33304) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n\u2714 library prepare-testing reuses the invoking private operation and its actual F_D origin (134.407791ms)\n\u2139 Canonical module-publication definition and leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; raw/foreign/tampered definition and materialization identities refuse. Physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.\n\u2714 library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards (53.463ms)\n\u2139 Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 1\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 1381.965583\n\n\u2716 failing tests:\n\ntest at test_env/tests/t287-native-work-currentness-consumers.test.mjs:597:1\n\u2716 U1-P5-02 actual C0 successor and every affected currentness consumer (442.969542ms)\n  Error: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs'\n      at async open (node:internal/fs/promises:642:25)\n      at async Object.readFile (node:internal/fs/promises:1279:14)\n      at async semanticFixtureHelpers (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs:364:17)\n      at async semanticData (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:375:19)\n      at async Object.semanticFoldConsumer [as semanticFold] (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:464:18)\n      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:601:39)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    errno: -2,\n    code: 'ENOENT',\n    syscall: 'open',\n    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs'\n  }\n",
+      "stderr": ""
+    }
+  ],
+  "intake": {
+    "pass": 5,
+    "fail": 0
+  },
+  "fixtures": {
+    "pass": 2,
+    "fail": 1,
+    "cancelled": 0,
+    "skipped": 0
+  },
+  "failureCategory": "operator_snapshot_input_omission",
+  "missingPath": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+  "owningLoader": "test_env/support/t287-native-work-currentness-consumers.mjs:363-364",
+  "productDefectEstablished": false,
+  "acceptance": false,
+  "qualification": false
+}
