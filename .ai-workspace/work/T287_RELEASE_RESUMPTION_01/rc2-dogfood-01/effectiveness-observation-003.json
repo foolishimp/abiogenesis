@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-30T16:53:41.252347+00:00",
+  "classification": "One completed bounded native cycle; productivity and causal skill value remain unproven",
+  "acceptedIncrement": "acceptance-007.json",
+  "demonstrated": [
+    "ABG authored the assessment-intake repair, actual isolated build passed, five intake and six selected C2 guards passed, native UAT satisfied the six bounded criteria.",
+    "Public returned completed and cold run_result/run_replay returned results without changing the event log.",
+    "Earlier failures and explicit owner-suite and qualification limits remain recorded."
+  ],
+  "measured": {
+    "reportedNativeProviderUsd": 18.322644,
+    "ownerBudgetUsd": 100,
+    "operatorExecutiveCostUsd": null,
+    "completedAttempts": 7,
+    "acceptedBoundedIncrements": 1,
+    "attempt007LifecycleMs": 4249197.44875,
+    "attempt007ColdResultMs": 80905,
+    "attempt007ColdReplayMs": 83265,
+    "eventLogApproxBytes": 1396824114,
+    "matchedDirectAgentBaseline": false
+  },
+  "assessment": "Control and evidence utility demonstrated. Current time and operator effort are disproportionate to small single-machine development changes; no productivity or cost advantage established. Input and scope mistakes by the proxy contributed materially and must not be assigned exclusively to framework logic.",
+  "skills": "Packaged STDO 3.0.2 context and bounded operating behaviors observed; native host skill activation and causal benefit not demonstrated.",
+  "next": "Attempt 008 repairs the three known dependent fixture cases through ABG; canonical generated output reconciliation and an RC2 candidate artifact remain outstanding. No broader runtime or architecture repair activated."
+}

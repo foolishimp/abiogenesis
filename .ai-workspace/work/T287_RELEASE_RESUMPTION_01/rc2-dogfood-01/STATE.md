@@ -125,3 +125,21 @@ documents; write scope is only both test files plus note. Actual tests are the
 three named affected cases plus the five unchanged intake cases, with a fresh
 isolated build. Old owner-suite timeouts remain open. Wait for attempt 007
 closure and cold reads before any new Run.
+
+Attempt 007 Public call returned completed with a typed terminal governance
+state. All selected support refs are resolved; final observation is the
+bounded satisfied UAT. Lifecycle call wall time was 4249197 ms (~70.82 min).
+Its actual after-run handoff exists. Cold result/replay verification is running
+under session 76773; do not dispatch attempt 008 until it completes. The
+one-second sampler did not attach because the CLI process had already exited;
+no profile was collected. Next client run-task-08.mjs is syntax-checked and
+points to attempt-007/assessment-intake-01-after-run-resume.json.
+
+Attempt 007 cold result and replay both returned results; unchanged-log verification
+passed. acceptance-007.json records one accepted bounded intake increment. The
+full owner suite and whole Product are not accepted. Attempt 008 client is now
+running (operator PID 18969), preparing fixture-repair-01 from the actual 007
+handoff; do not launch a duplicate. It grants only two affected fixture files
+and the task note. Native reported spend remains $18.322644 before its first
+provider call. Next: inspect actual Construction, Testing and UAT; then have
+ABG reconcile canonical generated outputs and prepare the RC2 artifact.

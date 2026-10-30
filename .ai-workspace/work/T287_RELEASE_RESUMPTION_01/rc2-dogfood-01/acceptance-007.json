@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-30T16:48:49.209998+00:00",
+  "disposition": "accepted_bounded_increment",
+  "subject": "Early assessment role separation at governance intake",
+  "run": {
+    "digest": "sha256:e35ccda118c59a1226a5666d463e54c548bbf0c2933136365953de9d78220978",
+    "ref": "run://abiogenesis/5279cf761e76b326630089b2f4c58e67c413feb87edd2155c3ed3d53ce0320f5"
+  },
+  "terminalResult": {
+    "digest": "sha256:3e82953e7cbf6d2cfd8dc3e7fe1c0ba8aeb1d51f9b9673369f9a5a02e9cd41d8",
+    "ref": "result://abiogenesis/3e82953e7cbf6d2cfd8dc3e7fe1c0ba8aeb1d51f9b9673369f9a5a02e9cd41d8"
+  },
+  "terminal": true,
+  "uatDisposition": "satisfied",
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "result"
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result"
+    }
+  ],
+  "coldReadbackRecord": "attempt-007/assessment-intake-01-fresh-reads.json",
+  "sourceAndWorker": "construction-return-007.json",
+  "testing": "testing-return-007.json",
+  "assessment": "assessment-return-007.json",
+  "fullOwnerSuiteAccepted": false,
+  "wholeProductQualified": false,
+  "rc2Released": false,
+  "requiredBeforeCut": [
+    "Three affected cases in two owner-test fixture files remain to be repaired through ABG.",
+    "Canonical generated outputs remain to be reconciled through ABG.",
+    "Earlier full owner-suite timing and qualification residuals remain explicit."
+  ]
+}

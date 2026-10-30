@@ -1,6 +1,6 @@
 {
-  "checkpoint": "attempt-007-assessor-satisfied-admission-pending",
-  "at": "2026-10-30T16:15:25.628302+00:00",
+  "checkpoint": "attempt-007-accepted-bounded-attempt-008-preparing",
+  "at": "2026-10-30T16:52:49.843415+00:00",
   "operator": "root Codex",
   "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
@@ -9,7 +9,7 @@
   "nativeProviderCalls": 20,
   "nativeProviderReportedCostUsd": 18.322644,
   "operatorAndExecutiveCostUsd": null,
-  "acceptedRc2ImplementationChanges": 0,
+  "acceptedRc2ImplementationChanges": 1,
   "rawPreparationEvidenceBytes": 426785570,
   "largestRawRecords": [
     {
@@ -47,7 +47,7 @@
     "Provider result costs use the last cumulative result per process, not the sum of multiple final rows."
   ],
   "operatorSetupFailures": 6,
-  "productImplementationChangesAccepted": 0,
+  "productImplementationChangesAccepted": 1,
   "ownerApprovedBudgetUsd": 100,
   "operatorStopThresholdUsd": 90,
   "latestRun": "run://abiogenesis/5279cf761e76b326630089b2f4c58e67c413feb87edd2155c3ed3d53ce0320f5",
@@ -79,5 +79,15 @@
     "guardPass": 6,
     "skip": 0,
     "qualification": false
+  },
+  "attempt007LifecycleWallMs": 4249197.44875,
+  "acceptanceRecord": "acceptance-007.json",
+  "wholeProductQualified": false,
+  "rc2Released": false,
+  "attempt007ColdReads": {
+    "run_result": "result",
+    "run_replay": "result",
+    "logUnchanged": true,
+    "record": "attempt-007/assessment-intake-01-fresh-reads.json"
   }
 }
