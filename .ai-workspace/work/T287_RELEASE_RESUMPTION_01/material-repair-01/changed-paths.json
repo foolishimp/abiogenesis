@@ -1,0 +1,19 @@
+{
+  "implementation": "4742e4929edf75ed010420399675cbbcdf0f0c23",
+  "base": "082c5807e31bd2f0f79111bd6e88558246dfa61d",
+  "paths": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/material-repair-01/measure.mjs",
+    ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md",
+    "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+    "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+    "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/assessment-plan.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/build-resources.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/classification.json",
+    "build_tenants/abiogenesis/typescript/test_env/qualification/material-selection.json",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-rp2-material-selection.test.mjs"
+  ]
+}
