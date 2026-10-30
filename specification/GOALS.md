@@ -19,6 +19,17 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 ## Current Selection
 
+Owner selection, 2026-10-30: release and deploy explicitly unqualified
+development `5.0.0-rc.1`, then use installed RC1 to build RC2 with one honestly
+identified agent operator proxy. The proxy observes failures, logs bugs and
+recovery, keeps remaining RC2 work progressing, and measures accepted output,
+time, intervention and actual cost including its own contribution. This
+supersedes the earlier pre-publication sequencing only for the selected
+development preview. Final fifteen-family/native qualification and stable
+5.0 acceptance remain open. T-287's `T287-RC1-PREVIEW-PREP-01` freezes the
+reviewable artifact and local owner installation before Root dispatches exact
+external publication; no automatic green verdict or native snapshot is implied.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

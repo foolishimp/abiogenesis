@@ -2,6 +2,34 @@
 
 Status: Executive-accepted release identity and EVENTS-032 artifact-admission design. Native implementation and qualification remain open. [Artifact-admission acceptance](../../../../.ai-workspace/comments/codex/20260911_D6_NATIVE_ARTIFACT_ADMISSION_APPLICATION_10/root-acceptance.md). [Release-identity acceptance](../../../../.ai-workspace/comments/codex/20260911_D6_RC6_RELEASE_RECONCILIATION/application-03/executive-acceptance.md).
 
+## Owner-selected RC1 development-preview procedure (2026-10-30)
+
+Product Release Boundaries selects an explicitly unqualified external
+owner/operator publication of `5.0.0-rc.1` before complete native qualification.
+This bounded procedure does not invoke or modify AF25, its snapshot gate,
+AF22, event admission or the qualified lifecycle below. Publication/deployment
+records are external evidence, never fabricated runtime or qualification truth.
+
+Resolve the unused local/remote RC ordinal and absent GitHub release; preserve
+any existing identity. Freeze the source/claim commit. Build and pack in an
+isolated checkout, retain one exact tarball with SHA-256 and its payload
+inventory, then use Product verify -> resolved lock -> Product install and
+installed-byte correspondence checks. Run the deterministic installed-language
+smoke against that exact tarball and installed Public CLI, retaining admitted
+result/closure and fresh result/replay with unchanged log bytes. No repack
+occurs during proof. Store source commit, artifact, install and later external
+release-record identities separately. Root evaluates the concrete local
+candidate before separately dispatching the exact annotated tag/selector push
+and GitHub prerelease/assets; npm registry publication is not selected.
+
+The release claim and notes explicitly retain Public typed stops, Q23 and
+contributor attribution, material sufficiency and full fifteen-family/native
+qualification as open. An immutable RC1 artifact/install is separate from the
+mutable RC2 workspace. The subsequent single agent operator proxy is recorded
+under its actual identity and costs; bug/recovery and accepted-output/time/
+intervention/cost evidence uses existing T-287 carriers. Its contribution is not
+a human response or an AF22 verdict. Root owns that separate activation.
+
 ## Current composition dependency: QUAL-056
 
 QUAL-056 material is a nested relation in the existing qualification family.
