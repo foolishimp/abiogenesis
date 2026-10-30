@@ -63,9 +63,17 @@ const stateSchema = v.strictObject({ kind: v.literal("governance_work_state"), s
 export type GovernanceWorkState = v.InferOutput<typeof stateSchema>;
 export type GovernanceObservation = GovernanceWorkState["observations"][number];
 export type GovernanceOriginal = GovernanceWorkState["original"];
+/** The native assessment selection's existing role rule (isNativeWorkspaceAssessmentSelection)
+ * over the same path strings, held at intake before any graph work or provider call. */
+function governanceAssessmentRolesDistinct(assessment: GovernanceOriginal["assessment"]): boolean {
+  const { sources, candidatePath, rubricPath } = assessment;
+  return new Set(sources).size === sources.length && !sources.some(path => path === candidatePath || path === rubricPath) &&
+    candidatePath !== rubricPath;
+}
 export function isGovernanceWorkState(value: unknown): value is GovernanceWorkState {
   return v.is(stateSchema, value) && new Set(value.original.requiredSupportRefs).size === value.original.requiredSupportRefs.length &&
     new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length &&
+    governanceAssessmentRolesDistinct(value.original.assessment) &&
     (value.original.fulfillment === undefined ? value.fulfillment === undefined && value.observations.every(o => o.fulfillmentEvidence === undefined) &&
       (value.terminal ? value.unresolvedSupportRefs.length === 0 : isDeepStrictEqual(value.unresolvedSupportRefs, value.original.requiredSupportRefs)) :
       value.fulfillment !== undefined && governanceFulfillmentStateMatches(value.original.fulfillment, value.fulfillment) &&

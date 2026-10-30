@@ -158,7 +158,8 @@ async function governanceInput(f, path) {
     workOrders: { construction: order, testing: order, uat: order }, testing: { selectedPaths: [path],
       commands: [{ commandId: 'command://u1/check', executable: process.execPath, args: ['--version'], relativeCwd: '.', environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] }],
       outcomePredicates: [], allowedWriteTerritories: [] },
-    assessment: { sources: [path], candidatePath: path, rubricPath: path, resultContract: assessmentContract,
+    // Disjoint roles as governanceConsumers materializes them; the observed consumers read none of them.
+    assessment: { sources: [path + '.source'], candidatePath: path, rubricPath: path + '.rubric', resultContract: assessmentContract,
       schemaAsset: { productId: 'product://u1/consumer', contractId: assessmentContract.contractRef,
         bytesBase64: Buffer.from(JSON.stringify(assessmentSchema) + '\n').toString('base64') }, verdictField: 'disposition', satisfiedValue: 'satisfied' } });
   const subject = product.constructWorksiteSubject({ ...f, relativePath: path, subjectUri: pathToFileURL(join(f.canonicalRoot, path)).href });

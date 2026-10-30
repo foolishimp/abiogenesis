@@ -1575,8 +1575,23 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     input.workspaceAuthorityBasis,
     input.workspaceBinding,
   ));
-  if (new Set(commands.map((row) => row.commandId)).size !== commands.length ||
-    new Set(predicates.map((row) => row.predicateId)).size !== predicates.length ||
+  const duplicateCommand = commands.find((row, ordinal) =>
+    commands.findIndex((other) => other.commandId === row.commandId) !== ordinal);
+  if (duplicateCommand !== undefined) {
+    throw new TypeError(
+      `worksite command identities must be unique; commandId ${JSON.stringify(duplicateCommand.commandId)} is declared more than once`,
+    );
+  }
+  const writableProtectedSubject = protectedSubjects.find((row) =>
+    worksitePathIsAllowed(row.relativePath, allowedWriteTerritories));
+  if (writableProtectedSubject !== undefined) {
+    const territory = allowedWriteTerritories.find((row) =>
+      worksitePathIsAllowed(writableProtectedSubject.relativePath, [row]))!;
+    throw new TypeError(
+      `worksite command protected subject ${JSON.stringify(writableProtectedSubject.relativePath)} overlaps allowed write territory ${territory.pathKind} ${JSON.stringify(territory.relativePath)}; protected subjects cannot be command write targets`,
+    );
+  }
+  if (new Set(predicates.map((row) => row.predicateId)).size !== predicates.length ||
     new Set(protectedSubjects.map((row) => row.subjectRef)).size !== protectedSubjects.length ||
     new Set(allowedWriteTerritories.map((row) => `${row.pathKind}:${row.relativePath}`)).size !== allowedWriteTerritories.length ||
     territoriesOverlap ||
@@ -1585,7 +1600,6 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     !referencedCommandsAreExact || !reportCountsHaveOneBase || !declaredReportPathsAreObserved ||
     !modulePredicatesAreProtected || childInputsExposeWorkspace ||
     declaredPathsEnterProtectedRoots || !httpPortFilesAreAuthorized ||
-    protectedSubjects.some((row) => worksitePathIsAllowed(row.relativePath, allowedWriteTerritories)) ||
     commands.some((command) => command.expectedReports.some((report) =>
       !worksitePathIsAllowed(report.relativePath, allowedWriteTerritories)
     ))) {
