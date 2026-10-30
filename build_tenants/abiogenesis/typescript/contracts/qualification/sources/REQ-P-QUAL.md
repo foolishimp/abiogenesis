@@ -164,6 +164,15 @@ qualification or excuse missing current installed evidence.
 
 ## Release Snapshot Bundles
 
+Scope clarification under the Product owner's 2026-10-30 development RC1
+preview direction: the external owner/operator preview publication selected by
+Product Release Boundaries is explicitly unqualified and is not an
+`AF-25`/`release.snapshot` output or a completed S07 qualification claim.
+Its source/artifact/install identity, declared claim, known gaps and actual
+mechanical checks are recorded without an invented green verdict. The native
+green-gated snapshot and final acceptance requirements below remain unchanged;
+the preview supplies no credit toward missing qualification.
+
 Release snapshot bundles are release-process output artifacts. They record one
 already-qualified published RC cut; later acceptance reports that same cut.
 They do not make a version identifier live constitutional project truth or

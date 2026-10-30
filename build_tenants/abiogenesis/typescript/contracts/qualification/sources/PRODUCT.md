@@ -1117,6 +1117,38 @@ design and qualification surfaces. Fifteen feature families are selected for
 families exclude the reserved portions below.
 Historical or lower-level text does not restore a deferred release obligation.
 
+**Owner-selected development RC1 preview.**
+
+Owner direction, 2026-10-30: publish and deploy `5.0.0-rc.1` as an explicitly
+unqualified development preview, then use that installed immutable RC1 as the
+substrate for building RC2. This is a scoped operator publication before full
+native qualification, not completion or acceptance of ABIogenesis 5.0. The
+fifteen-family destination, S07's qualified native release path and all final
+5.0 qualification promises remain unchanged. Existing Q22 sequencing does not
+block this expressly selected preview.
+
+The preview's exact claim and publication/deployment receipts retain known
+Public typed-stop projection defects, Q23/assessor identity and contributor
+attribution gaps, material-sufficiency limits and incomplete fifteen-family
+qualification. Historical qualification and Hello results do not transfer to a
+new package digest. The operator preserves exact source, artifact, install and
+readback identities; it neither fabricates AF22 green nor bypasses or changes
+the native automatic release-snapshot gate. The preview publication is an
+explicit external owner/operator procedure, not a native qualified snapshot.
+
+One agent acts as an explicitly identified operator proxy for subsequent RC2
+work, observes RC1 failures, logs bugs and lawful recovery while preserving
+remaining work, and measures accepted outputs, elapsed/operator time,
+interventions and actual costs including the proxy. Agent contributions remain
+agent contributions; they cannot impersonate a human response or exercise
+reserved human authority. RC2 has a separate mutable workspace and its own
+evidence and release decision. No monitoring service, controller or additional
+runtime follows from this allocation.
+Only accepted changes actually executed through ABG count as accepted output;
+failures, workarounds, retries and proxy interventions remain visible. Missing
+usage/cost telemetry remains unknown. A tiny first success establishes its
+executed path, not overall productivity.
+
 The selected 5.0 Executive/default-library increment is ordinary framed GTL
 composition under F02/F03/F04/F07/F09/F10/F17, qualified through S02/S03/S06.
 It includes declared cross-branch observation/evaluation and recursive

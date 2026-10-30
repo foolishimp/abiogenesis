@@ -6249,7 +6249,7 @@
         "contracts"
       ],
       "paths": 188,
-      "pathsAtHead": 188,
+      "pathsAtHead": 182,
       "pathsDuplicated": 186,
       "bytes": 7652335,
       "cut": null,
@@ -6678,7 +6678,7 @@
         "test_env"
       ],
       "paths": 4531,
-      "pathsAtHead": 688,
+      "pathsAtHead": 682,
       "pathsDuplicated": 1302,
       "bytes": 110511624,
       "cut": null,
@@ -6891,7 +6891,7 @@
         "test_env"
       ],
       "paths": 192,
-      "pathsAtHead": 191,
+      "pathsAtHead": 185,
       "pathsDuplicated": 191,
       "bytes": 7871692,
       "cut": null,
@@ -7722,7 +7722,7 @@
         "test_env"
       ],
       "paths": 682,
-      "pathsAtHead": 594,
+      "pathsAtHead": 588,
       "pathsDuplicated": 682,
       "bytes": 48636333,
       "cut": null,
@@ -7763,7 +7763,7 @@
         "test_env"
       ],
       "paths": 100,
-      "pathsAtHead": 100,
+      "pathsAtHead": 94,
       "pathsDuplicated": 100,
       "bytes": 3093393,
       "cut": null,
@@ -7882,7 +7882,7 @@
         "specification"
       ],
       "paths": 1210,
-      "pathsAtHead": 1122,
+      "pathsAtHead": 1116,
       "pathsDuplicated": 1209,
       "bytes": 62605992,
       "cut": null,
@@ -7996,7 +7996,7 @@
         "test_env"
       ],
       "paths": 682,
-      "pathsAtHead": 594,
+      "pathsAtHead": 588,
       "pathsDuplicated": 682,
       "bytes": 48713199,
       "cut": null,
@@ -8489,7 +8489,7 @@
         "contracts"
       ],
       "paths": 452,
-      "pathsAtHead": 434,
+      "pathsAtHead": 428,
       "pathsDuplicated": 452,
       "bytes": 15397888,
       "cut": null,
@@ -8827,7 +8827,7 @@
         "test_env"
       ],
       "paths": 769,
-      "pathsAtHead": 684,
+      "pathsAtHead": 678,
       "pathsDuplicated": 769,
       "bytes": 22437140,
       "cut": null,
@@ -9188,7 +9188,7 @@
         "contracts"
       ],
       "paths": 38,
-      "pathsAtHead": 38,
+      "pathsAtHead": 37,
       "pathsDuplicated": 38,
       "bytes": 6372273,
       "cut": null,
@@ -10277,7 +10277,7 @@
         "contracts"
       ],
       "paths": 191,
-      "pathsAtHead": 190,
+      "pathsAtHead": 184,
       "pathsDuplicated": 191,
       "bytes": 7828594,
       "cut": null,
@@ -10481,7 +10481,7 @@
         "contracts"
       ],
       "paths": 191,
-      "pathsAtHead": 190,
+      "pathsAtHead": 184,
       "pathsDuplicated": 191,
       "bytes": 7828594,
       "cut": null,
@@ -10626,7 +10626,7 @@
         "contracts"
       ],
       "paths": 191,
-      "pathsAtHead": 190,
+      "pathsAtHead": 184,
       "pathsDuplicated": 191,
       "bytes": 7828594,
       "cut": null,
@@ -10954,7 +10954,7 @@
         "contracts"
       ],
       "paths": 191,
-      "pathsAtHead": 190,
+      "pathsAtHead": 184,
       "pathsDuplicated": 191,
       "bytes": 7837049,
       "cut": null,
@@ -11531,7 +11531,7 @@
         "contracts"
       ],
       "paths": 191,
-      "pathsAtHead": 190,
+      "pathsAtHead": 184,
       "pathsDuplicated": 191,
       "bytes": 7837049,
       "cut": {
@@ -12487,7 +12487,7 @@
         "specification"
       ],
       "paths": 1307,
-      "pathsAtHead": 1210,
+      "pathsAtHead": 1204,
       "pathsDuplicated": 1307,
       "bytes": 63640282,
       "cut": {
@@ -12584,7 +12584,7 @@
         "specification"
       ],
       "paths": 1306,
-      "pathsAtHead": 1209,
+      "pathsAtHead": 1203,
       "pathsDuplicated": 1306,
       "bytes": 60450852,
       "cut": {
@@ -12684,7 +12684,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1314,
       "bytes": 60242694,
       "cut": {
@@ -12723,7 +12723,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1314,
       "bytes": 60242694,
       "cut": {
@@ -12770,7 +12770,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1314,
       "bytes": 60242756,
       "cut": {
@@ -12808,7 +12808,7 @@
         "specification"
       ],
       "paths": 1315,
-      "pathsAtHead": 1218,
+      "pathsAtHead": 1212,
       "pathsDuplicated": 1313,
       "bytes": 63432299,
       "cut": {
@@ -12855,7 +12855,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1314,
       "bytes": 60242756,
       "cut": {
@@ -12899,7 +12899,7 @@
         "specification"
       ],
       "paths": 1315,
-      "pathsAtHead": 1218,
+      "pathsAtHead": 1212,
       "pathsDuplicated": 1313,
       "bytes": 63432376,
       "cut": {
@@ -13011,7 +13011,7 @@
         "specification"
       ],
       "paths": 1316,
-      "pathsAtHead": 1219,
+      "pathsAtHead": 1213,
       "pathsDuplicated": 1315,
       "bytes": 63438586,
       "cut": {
@@ -13227,7 +13227,7 @@
         "specification"
       ],
       "paths": 1316,
-      "pathsAtHead": 1219,
+      "pathsAtHead": 1213,
       "pathsDuplicated": 1315,
       "bytes": 63439501,
       "cut": {
@@ -13330,7 +13330,7 @@
         "specification"
       ],
       "paths": 1313,
-      "pathsAtHead": 1216,
+      "pathsAtHead": 1210,
       "pathsDuplicated": 1313,
       "bytes": 60557541,
       "cut": {
@@ -13372,7 +13372,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1312,
       "bytes": 63747161,
       "cut": {
@@ -13692,7 +13692,7 @@
         "specification"
       ],
       "paths": 1315,
-      "pathsAtHead": 1218,
+      "pathsAtHead": 1212,
       "pathsDuplicated": 1315,
       "bytes": 60712711,
       "cut": {
@@ -13742,7 +13742,7 @@
         "specification"
       ],
       "paths": 1316,
-      "pathsAtHead": 1219,
+      "pathsAtHead": 1213,
       "pathsDuplicated": 1314,
       "bytes": 63902331,
       "cut": {
@@ -13839,7 +13839,7 @@
         "specification"
       ],
       "paths": 1314,
-      "pathsAtHead": 1217,
+      "pathsAtHead": 1211,
       "pathsDuplicated": 1314,
       "bytes": 60206926,
       "cut": {
@@ -13896,7 +13896,7 @@
         "specification"
       ],
       "paths": 1315,
-      "pathsAtHead": 1218,
+      "pathsAtHead": 1212,
       "pathsDuplicated": 1313,
       "bytes": 63396546,
       "cut": {
@@ -14170,7 +14170,7 @@
         "specification"
       ],
       "paths": 1311,
-      "pathsAtHead": 1214,
+      "pathsAtHead": 1208,
       "pathsDuplicated": 1311,
       "bytes": 63775923,
       "cut": {
@@ -14393,7 +14393,7 @@
         "specification"
       ],
       "paths": 1309,
-      "pathsAtHead": 1212,
+      "pathsAtHead": 1206,
       "pathsDuplicated": 1309,
       "bytes": 63687870,
       "cut": {
@@ -14857,7 +14857,7 @@
         "specification"
       ],
       "paths": 1310,
-      "pathsAtHead": 1213,
+      "pathsAtHead": 1207,
       "pathsDuplicated": 1310,
       "bytes": 63664727,
       "cut": {
@@ -15027,7 +15027,7 @@
         "specification"
       ],
       "paths": 1309,
-      "pathsAtHead": 1212,
+      "pathsAtHead": 1206,
       "pathsDuplicated": 1307,
       "bytes": 63697249,
       "cut": {
@@ -15172,7 +15172,7 @@
         "specification"
       ],
       "paths": 699,
-      "pathsAtHead": 684,
+      "pathsAtHead": 678,
       "pathsDuplicated": 699,
       "bytes": 22243100,
       "cut": {
@@ -15205,7 +15205,7 @@
         "test_env"
       ],
       "paths": 591,
-      "pathsAtHead": 576,
+      "pathsAtHead": 570,
       "pathsDuplicated": 590,
       "bytes": 18246838,
       "cut": {
@@ -15249,7 +15249,7 @@
         "test_env"
       ],
       "paths": 591,
-      "pathsAtHead": 576,
+      "pathsAtHead": 570,
       "pathsDuplicated": 590,
       "bytes": 18251042,
       "cut": {
@@ -15322,7 +15322,7 @@
         "specification"
       ],
       "paths": 704,
-      "pathsAtHead": 689,
+      "pathsAtHead": 683,
       "pathsDuplicated": 704,
       "bytes": 22431706,
       "cut": {
@@ -15506,7 +15506,7 @@
         "specification"
       ],
       "paths": 1307,
-      "pathsAtHead": 1210,
+      "pathsAtHead": 1204,
       "pathsDuplicated": 1307,
       "bytes": 63641107,
       "cut": {
@@ -15974,7 +15974,7 @@
         "specification"
       ],
       "paths": 1310,
-      "pathsAtHead": 1213,
+      "pathsAtHead": 1207,
       "pathsDuplicated": 1310,
       "bytes": 63660018,
       "cut": {
@@ -16124,7 +16124,7 @@
         "specification"
       ],
       "paths": 1311,
-      "pathsAtHead": 1214,
+      "pathsAtHead": 1208,
       "pathsDuplicated": 1311,
       "bytes": 63821623,
       "cut": {
@@ -16196,7 +16196,7 @@
         "specification"
       ],
       "paths": 1311,
-      "pathsAtHead": 1214,
+      "pathsAtHead": 1208,
       "pathsDuplicated": 1311,
       "bytes": 63824436,
       "cut": {
@@ -16261,7 +16261,7 @@
         "specification"
       ],
       "paths": 1311,
-      "pathsAtHead": 1214,
+      "pathsAtHead": 1208,
       "pathsDuplicated": 1311,
       "bytes": 63798896,
       "cut": {
@@ -16357,7 +16357,7 @@
         "build_tenants"
       ],
       "paths": 479,
-      "pathsAtHead": 461,
+      "pathsAtHead": 455,
       "pathsDuplicated": 479,
       "bytes": 15917551,
       "cut": null,
@@ -16382,7 +16382,7 @@
         "build_tenants"
       ],
       "paths": 479,
-      "pathsAtHead": 461,
+      "pathsAtHead": 455,
       "pathsDuplicated": 479,
       "bytes": 15917551,
       "cut": null,
@@ -16440,7 +16440,7 @@
         "specification"
       ],
       "paths": 1217,
-      "pathsAtHead": 1129,
+      "pathsAtHead": 1123,
       "pathsDuplicated": 1216,
       "bytes": 62993094,
       "cut": null,
@@ -16500,7 +16500,7 @@
         "specification"
       ],
       "paths": 1217,
-      "pathsAtHead": 1129,
+      "pathsAtHead": 1123,
       "pathsDuplicated": 1216,
       "bytes": 62998560,
       "cut": null,
@@ -16565,7 +16565,7 @@
         "specification"
       ],
       "paths": 1217,
-      "pathsAtHead": 1128,
+      "pathsAtHead": 1122,
       "pathsDuplicated": 1216,
       "bytes": 62795776,
       "cut": null,
@@ -16608,7 +16608,7 @@
         "specification"
       ],
       "paths": 1137,
-      "pathsAtHead": 1049,
+      "pathsAtHead": 1043,
       "pathsDuplicated": 1137,
       "bytes": 61843608,
       "cut": null,
@@ -16651,7 +16651,7 @@
         "specification"
       ],
       "paths": 1137,
-      "pathsAtHead": 1049,
+      "pathsAtHead": 1043,
       "pathsDuplicated": 1137,
       "bytes": 61843673,
       "cut": null,
@@ -16693,7 +16693,7 @@
         "specification"
       ],
       "paths": 1217,
-      "pathsAtHead": 1129,
+      "pathsAtHead": 1123,
       "pathsDuplicated": 1216,
       "bytes": 63002243,
       "cut": null,
@@ -16900,7 +16900,7 @@
         "build_tenants"
       ],
       "paths": 1130,
-      "pathsAtHead": 1042,
+      "pathsAtHead": 1036,
       "pathsDuplicated": 1130,
       "bytes": 61759498,
       "cut": null,
@@ -16929,7 +16929,7 @@
         "build_tenants"
       ],
       "paths": 478,
-      "pathsAtHead": 460,
+      "pathsAtHead": 454,
       "pathsDuplicated": 478,
       "bytes": 15892843,
       "cut": null,
@@ -17004,7 +17004,7 @@
         "build_tenants"
       ],
       "paths": 478,
-      "pathsAtHead": 460,
+      "pathsAtHead": 454,
       "pathsDuplicated": 477,
       "bytes": 15892879,
       "cut": null,
@@ -17036,7 +17036,7 @@
         "build_tenants"
       ],
       "paths": 478,
-      "pathsAtHead": 460,
+      "pathsAtHead": 454,
       "pathsDuplicated": 478,
       "bytes": 15892811,
       "cut": null,
@@ -17270,7 +17270,7 @@
         "contracts"
       ],
       "paths": 195,
-      "pathsAtHead": 194,
+      "pathsAtHead": 188,
       "pathsDuplicated": 195,
       "bytes": 8539983,
       "cut": {
@@ -17422,7 +17422,7 @@
         "contracts"
       ],
       "paths": 194,
-      "pathsAtHead": 193,
+      "pathsAtHead": 187,
       "pathsDuplicated": 193,
       "bytes": 8515740,
       "cut": {
@@ -18680,7 +18680,7 @@
         "contracts"
       ],
       "paths": 457,
-      "pathsAtHead": 448,
+      "pathsAtHead": 442,
       "pathsDuplicated": 456,
       "bytes": 15555124,
       "cut": {
@@ -18833,7 +18833,7 @@
         "contracts"
       ],
       "paths": 194,
-      "pathsAtHead": 193,
+      "pathsAtHead": 187,
       "pathsDuplicated": 193,
       "bytes": 8515803,
       "cut": {
@@ -19052,7 +19052,7 @@
         "contracts"
       ],
       "paths": 194,
-      "pathsAtHead": 193,
+      "pathsAtHead": 187,
       "pathsDuplicated": 194,
       "bytes": 8515803,
       "cut": {
@@ -19079,7 +19079,7 @@
         "contracts"
       ],
       "paths": 458,
-      "pathsAtHead": 449,
+      "pathsAtHead": 443,
       "pathsDuplicated": 458,
       "bytes": 15885625,
       "cut": {
@@ -19113,7 +19113,7 @@
         "contracts"
       ],
       "paths": 458,
-      "pathsAtHead": 449,
+      "pathsAtHead": 443,
       "pathsDuplicated": 457,
       "bytes": 15904513,
       "cut": {
@@ -19152,7 +19152,7 @@
         "test_env"
       ],
       "paths": 668,
-      "pathsAtHead": 591,
+      "pathsAtHead": 585,
       "pathsDuplicated": 668,
       "bytes": 49279250,
       "cut": {
@@ -19214,7 +19214,7 @@
         "test_env"
       ],
       "paths": 668,
-      "pathsAtHead": 591,
+      "pathsAtHead": 585,
       "pathsDuplicated": 668,
       "bytes": 49301053,
       "cut": {
@@ -22167,8 +22167,8 @@
       }
     },
     "oversize": {
-      "paths": 1737,
-      "bytes": 40368255570,
+      "paths": 1738,
+      "bytes": 40375360911,
       "outsideWorkspace": 0
     }
   },
@@ -37090,6 +37090,19 @@
         ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/s7-pending-consumer-01/source-use-installed-01/readback.mjs",
         ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/commentary-analysis-inventory.json",
         ".ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/checkpoint/initial-inventory.jsonl"
+      ]
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/implementation.diff",
+      "bytes": 7105341,
+      "readers": [
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/after-status.json",
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/before-status.json",
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/raw.jsonl",
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/result.json",
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/reviewer-prompt.txt",
+        ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/reviewer.md",
+        ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/material-repair-01/checks.json"
       ]
     },
     {

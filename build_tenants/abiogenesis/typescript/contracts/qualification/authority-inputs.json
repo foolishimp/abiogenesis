@@ -23,8 +23,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:d1ee5ef43b4d66b12cb02bdcdb7bb0e3c4fa72c236b9e12d7924537d22c8a511",
-      "byteCount": 98195
+      "digest": "sha256:7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+      "byteCount": 100202
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -515,8 +515,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
       "path": "contracts/qualification/sources/REQ-P-QUAL.md",
-      "digest": "sha256:0366cdd8f4392f94e7a1f3fbfc91e265133dcd23cb0ebe13db4167e57fbe8c5b",
-      "byteCount": 35987
+      "digest": "sha256:ac0e868285c37da143c286fcf1aae18be625707630b3a7f3b3b6085d4f280a28",
+      "byteCount": 36574
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/product/REQ-P-SCENARIOS.md",
