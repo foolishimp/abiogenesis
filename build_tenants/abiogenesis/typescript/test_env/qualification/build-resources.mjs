@@ -112,7 +112,21 @@ export function domainFamily(declaration, sourceRef) {
 
 /** Declared material selection only: complete coverage remains in memberRefs.
  * No filename, count or selected example establishes the omitted members' law. */
-export function representativeSources(declaration, memberRefs, members) {
+export function declaredEvidenceSelection(declaration, memberRefs, context = {}) {
+  const sameRefs = (a, b) => a.length === b.length && a.every((ref, n) => ref === b[n]);
+  const explicit = (declaration.evidenceSelections ?? []).filter(row => row.ruleSourceRefs.includes(context.ruleSourceRef) &&
+    (row.groupKey !== undefined && row.groupKey === context.groupKey || row.subjectMemberRefs !== undefined && sameRefs(row.subjectMemberRefs, memberRefs)));
+  if (explicit.length > 1) throw new TypeError('ambiguous declared evidence selection');
+  return explicit[0];
+}
+export function representativeSources(declaration, memberRefs, members, context = {}) {
+  const row = declaredEvidenceSelection(declaration, memberRefs, context);
+  if (row !== undefined) {
+    if (typeof row.argument !== 'string' || row.argument.trim().length === 0 || row.sourceRefs.length === 0 ||
+      new Set(row.sourceRefs).size !== row.sourceRefs.length || row.sourceRefs.some(ref => !members.has(ref)))
+      throw new TypeError('declared derivation evidence absent or unbound');
+    return [...row.sourceRefs];
+  }
   const selection = declaration.surfaceGroups.representativeSelection;
   if (selection === undefined) return [...declaration.surfaceGroups.sourceRefs];
   if (selection.kind !== 'first_and_last_member_within_byte_limit' || !Number.isSafeInteger(selection.maxMemberBytes) || selection.maxMemberBytes <= 0)
@@ -124,7 +138,7 @@ export function representativeSources(declaration, memberRefs, members) {
 
 /** A governed global group's parts: its members in inventory order, cut before a part would exceed chunkBytes (a member
  * larger than chunkBytes is a part alone). One part keeps the group's key; several are keyed <key>/part-<n>. */
-export function domainParts(declaration, group, members) {
+export function domainParts(declaration, group, members, context = {}) {
   const limit = declaration.applicationDomains.chunkBytes, parts = [];
   let part = [], bytes = 0;
   for (const ref of group.memberRefs) {
@@ -133,7 +147,7 @@ export function domainParts(declaration, group, members) {
     part.push(ref); bytes += size;
   }
   if (part.length > 0) parts.push(part);
-  return parts.map((memberRefs, n) => ({ ...group, memberRefs, sourceRefs: representativeSources(declaration, memberRefs, members), partKey: parts.length === 1 ? '' : '/part-' + n }));
+  return parts.map((memberRefs, n) => ({ ...group, memberRefs, sourceRefs: representativeSources(declaration, memberRefs, members, context), partKey: parts.length === 1 ? '' : '/part-' + n }));
 }
 
 /** Each rule group's domain (classification.json applicationDomains): the governed global groups re-keyed in byte-bounded
@@ -146,7 +160,8 @@ export function constructApplicationDomains(declaration, { inventory, ruleGroups
     const governed = surfaceGroups.filter(g => g.surfaceRoles.every(role => family.governedRoles.includes(role)));
     if (governed.length === 0) throw new TypeError('empty domain: ' + rule.groupRef);
     const rekey = ({ partKey, ...g }) => ({ ...g, groupRef: prefix + 'domain/' + ordinal + '/' + g.groupRef.slice(prefix.length) + partKey });
-    const parts = governed.flatMap(g => domainParts(declaration, g, members));
+    const context = { ruleSourceRef: rule.sourceRefs[0] };
+    const parts = governed.flatMap(g => domainParts(declaration, g, members, context));
     const inside = new Set(governed.flatMap(g => g.memberRefs)), rest = inventory.members.filter(m => !inside.has(m.ref));
     const roles = [...new Set(rest.flatMap(m => members.get(m.ref).surfaceRoles))].sort();
     const complement = roles.map(role => ({ groupRef: prefix + 'domain/' + ordinal + '/complement/' + role,
@@ -155,7 +170,8 @@ export function constructApplicationDomains(declaration, { inventory, ruleGroups
       ownerRefs: [...declaration.surfaceGroups.ownerRefs], sourceRefs: [...declaration.surfaceGroups.sourceRefs] }));
     if (rest.some(m => members.get(m.ref).surfaceRoles.length !== 1)) throw new TypeError('a complement member carries other than one surface role');
     return { ruleGroupRef: rule.groupRef, familyId: family.id, governedRefs: parts.map(g => rekey(g).groupRef),
-      surfaceGroups: [...parts.map(rekey), ...complement.map(g => ({ ...g, sourceRefs: representativeSources(declaration, g.memberRefs, members) }))] };
+      surfaceGroups: [...parts.map(rekey), ...complement.map(g => ({ ...g, sourceRefs: representativeSources(declaration, g.memberRefs, members,
+        { ...context, groupKey: 'complement/' + g.surfaceRoles[0] }) }))] };
   });
 }
 
