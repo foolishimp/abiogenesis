@@ -1,0 +1,47 @@
+{
+  "checkpoint": "prepared-not-dispatched",
+  "at": "2026-10-30T23:14:17.945376+11:00",
+  "operator": "root Codex",
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
+  "recordedCommandCount": 11,
+  "recordedCommandWallMs": 236085.471127,
+  "nativeProviderCalls": 0,
+  "nativeProviderReportedCostUsd": 0,
+  "operatorAndExecutiveCostUsd": null,
+  "acceptedRc2ImplementationChanges": 0,
+  "rawPreparationEvidenceBytes": 426785570,
+  "largestRawRecords": [
+    {
+      "path": "setup-001/operator-resume-material.json",
+      "bytes": 73449608,
+      "sha256": "36f96641c6dddcdfb19b238c56ba1f50a3517afe9460eb0569c5a403cdff0410"
+    },
+    {
+      "path": "setup-001/calls/program-conformance.request.jsonl",
+      "bytes": 37136012,
+      "sha256": "f6c2b61da80a23351d110deff19f5ea19515dd8f97a317ed338ba25d9f7d5c79"
+    },
+    {
+      "path": "setup-001/calls/catalog-view.request.jsonl",
+      "bytes": 36579131,
+      "sha256": "91db9a3f15f982724c842f4bde8fea218bbd0c12c3d6b187fa48f2ea79e28669"
+    },
+    {
+      "path": "setup-001/calls/catalog-admit.request.jsonl",
+      "bytes": 35758166,
+      "sha256": "7e222808a4acb4879910cbbdaed1d191cf5740de7dfd1efa3654fdbf5c9844e8"
+    },
+    {
+      "path": "setup-001/calls/product-install-0.request.jsonl",
+      "bytes": 32169402,
+      "sha256": "f220bf5794e6e604cc3df3084428ca66e742eaa0f5b0f602cd57845f5f2fd969"
+    }
+  ],
+  "baseline": "No matched direct-agent productivity baseline",
+  "limitations": [
+    "Raw evidence bytes include repeated request/response/log representations; not all are event-log storage.",
+    "Setup and operator overhead are included as observations; no productivity gain is inferred.",
+    "The full-worktree ENOSPC was an operator/repository setup failure, not an RC1 runtime failure."
+  ]
+}

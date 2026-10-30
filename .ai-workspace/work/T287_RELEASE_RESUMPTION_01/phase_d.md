@@ -6173,3 +6173,39 @@ Published [ABIogenesis 5.0.0-rc.1 development preview](https://github.com/foolis
 Exactly six expected uploaded assets were verified: `abiogenesis-typescript-tenant-5.0.0-rc.1.tgz`, `SHA256SUMS`, `release-claim.md`, `deployment-receipt.json`, `verification.json`, `payload-correspondence.json`. The notes are plain developer-facing wording, link the frozen claim for internal details, report actual checks and known gaps, and name Root Codex as the single operator proxy with unknown Root/session cost. No bootstrap tree or raw logs were uploaded. GitHub's reported asset digests match their exact local files. One archive was downloaded into fresh `/private/tmp/t287-rc1-published-download-u6n44o38/`; its 10920962 bytes hash to `sha256:1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9`. No repack, install mutation or smoke rerun occurred. Actual publication/ref/asset/download identities are in [publication.json](rc1-preview-01/publication.json), raw GitHub metadata and exact command receipts; source/artifact/publication and this separate local bookkeeping commit remain distinct.
 
 The canonical installed Public CLI is `/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.1/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js`. Invoke through its pinned Node interpreter with the declared JSONL request. Earlier owner install/payload and actual admitted result/closure/fresh-read proof retain their same-digest bounded standing; no native/full qualification or human acceptance is added. The release helper performed no RC2 implementation or provider calls, and stops after the one local bookkeeping commit. Root takes sole ongoing proxy operation. Existing final/stable qualification, Public/identity/attribution/material residuals and 5.1 deferrals remain open as the immutable claim states.
+
+
+### RC1 → RC2: sole operator-proxy checkpoint (2026-10-30)
+
+Owner clarified that root Codex alone operates RC1 over the RC2 build, observes
+failures, logs supported recovery and evaluates progress/value. Release helper
+has stopped. RC1 is published/deployed; source, tag, artifact and receipts remain
+those of the preceding release Return. No further external coding Worker is active.
+
+The actual RC2 worktree is `codex/rc2-dogfood-01` at
+`/Users/jim/src/apps/abiogenesis-rc2-dogfood`. Full checkout hit ENOSPC in historical
+evidence mirrors and Git cleaned it up; a same-commit sparse live-source checkout
+succeeded (46 MB before pinned dependency provisioning). No existing worktree,
+RC1 artifact or install was altered. This is setup overhead, not an RC1 runtime bug.
+
+Installed RC1 completed ten Public workspace/Product/binding/catalog/conformance
+operations against the imported RC2 source worksite. The first real source task,
+`task://abiogenesis/rc2-dogfood/diagnostic-01`, preserves validation law while
+distinguishing the retained C2 configuration diagnostic causes. Its actual call
+is prepared as `invocation://abiogenesis/c5e5bedb60c669bf42250a696888af9563f2c06870f419b0f804ded7c197ff36`.
+No source solution was seeded. Native calls, accepted RC2 code changes and native
+provider cost are zero; root/session cost is unknown. Initial provider budget
+selection is still pending; no approval is inferred from elapsed time.
+
+`rc2-dogfood-01/OPERATOR.md` is frozen authority input. `STATE.md`, workload,
+baseline pins, client-source record, metrics and the preparation evidence index
+retain the handoff. Raw request/result/event material is local and untracked,
+with exact paths/hashes in that index, not a published qualification claim. The
+client reuses frozen generic setup helpers; only its existing workspace-create
+selection is adapted to imported/preserve-all. No runtime or event writer was added.
+
+Next is the budget-bound native invocation and operator evaluation/recovery.
+Whole-product qualification, Q23/contributor independence, Public fidelity and
+remaining material obligations remain open; a first path success cannot close them
+or establish overall productivity. STDO work/ticket role and exact-subject
+discipline are retained under the owner's explicit single-proxy assignment.

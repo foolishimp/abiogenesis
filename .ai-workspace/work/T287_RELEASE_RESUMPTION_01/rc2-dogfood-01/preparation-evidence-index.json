@@ -1,0 +1,437 @@
+{
+  "classification": "Local operator preparation evidence; no native dispatch or RC2 implementation credit",
+  "recordRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01",
+  "gitTrackedRawEvidence": false,
+  "files": [
+    {
+      "path": "setup-001/abg-acquisition.json",
+      "bytes": 16775429,
+      "sha256": "925cef01e658c2903725a46452ceecb717ee2d03ef1cb4fb0511739e1918172e"
+    },
+    {
+      "path": "setup-001/calls/catalog-admit.close.json",
+      "bytes": 1314,
+      "sha256": "215e35b85977d4d8065903ba8df14c5663d027475751a92b8f2be48a3117ba3a"
+    },
+    {
+      "path": "setup-001/calls/catalog-admit.outcome.json",
+      "bytes": 174142,
+      "sha256": "1d5399d88bebed4fb36be15e5d2cadc16f9ace8d19775b5c3b838bc2899bf6db"
+    },
+    {
+      "path": "setup-001/calls/catalog-admit.request.jsonl",
+      "bytes": 35758166,
+      "sha256": "7e222808a4acb4879910cbbdaed1d191cf5740de7dfd1efa3654fdbf5c9844e8"
+    },
+    {
+      "path": "setup-001/calls/catalog-view.outcome.json",
+      "bytes": 2266,
+      "sha256": "bbd8fe419fe708e943f5601186102555eb4ec9a6ad80953374604704b0a57b21"
+    },
+    {
+      "path": "setup-001/calls/catalog-view.request.jsonl",
+      "bytes": 36579131,
+      "sha256": "91db9a3f15f982724c842f4bde8fea218bbd0c12c3d6b187fa48f2ea79e28669"
+    },
+    {
+      "path": "setup-001/calls/product-install-0.close.json",
+      "bytes": 1314,
+      "sha256": "cdff879f2bc3c4c606a704f153650aef3120b4dcba63f2fa8594c75b831e4b91"
+    },
+    {
+      "path": "setup-001/calls/product-install-0.outcome.json",
+      "bytes": 6642,
+      "sha256": "16c86f55b812a54ab39dca88591d46ee94b6a1e2cc9c46c7f09876d6b0db11c4"
+    },
+    {
+      "path": "setup-001/calls/product-install-0.request.jsonl",
+      "bytes": 32169402,
+      "sha256": "f220bf5794e6e604cc3df3084428ca66e742eaa0f5b0f602cd57845f5f2fd969"
+    },
+    {
+      "path": "setup-001/calls/product-install-1.close.json",
+      "bytes": 1314,
+      "sha256": "cc865227989e9f113f7c114391717b78ecc80e2d61cf2969247fd8f4634414db"
+    },
+    {
+      "path": "setup-001/calls/product-install-1.outcome.json",
+      "bytes": 6677,
+      "sha256": "09d9dacb2426fc0d31906e09e03157a32362eefed2f48ca30b06542cb9aef689"
+    },
+    {
+      "path": "setup-001/calls/product-install-1.request.jsonl",
+      "bytes": 17693385,
+      "sha256": "38e426dae522fb9981e7eef80ae982947b64fdfb2bbbb9988026aa4ba016c3cd"
+    },
+    {
+      "path": "setup-001/calls/product-resolve.outcome.json",
+      "bytes": 5354,
+      "sha256": "608d78ee252a0b38f2da55d7fce85d0fde71970e2c85b8436df2236b2c58958a"
+    },
+    {
+      "path": "setup-001/calls/product-resolve.request.jsonl",
+      "bytes": 29136999,
+      "sha256": "f61ec13b5f89c635a13d3eeff6f85593dc942ce92c21aa2d4672696f02178964"
+    },
+    {
+      "path": "setup-001/calls/product-verify-0.outcome.json",
+      "bytes": 257175,
+      "sha256": "7c170599e6eb443d815c070e2b7ea70a4afe4eda86790a87868656c4e13ffc08"
+    },
+    {
+      "path": "setup-001/calls/product-verify-0.request.jsonl",
+      "bytes": 28982795,
+      "sha256": "6ebcdac5778848a12a4363d42909245bec9f6d623c1866a1016c78ce596c7492"
+    },
+    {
+      "path": "setup-001/calls/product-verify-1.outcome.json",
+      "bytes": 2088,
+      "sha256": "5e7d1e4abed19f1b041e29b8fbdecf759ffee66ad907bada1ada41d44c138bbe"
+    },
+    {
+      "path": "setup-001/calls/product-verify-1.request.jsonl",
+      "bytes": 14505536,
+      "sha256": "bdcb95784dfdbd740a47b68a667b1e0c7560378a58aaed9f0ffbd9c56e724a29"
+    },
+    {
+      "path": "setup-001/calls/program-conformance.outcome.json",
+      "bytes": 2462,
+      "sha256": "fcb2bd52278daf8593dbc574714a9d472269024ff0165e8cb22418cf1ff947f5"
+    },
+    {
+      "path": "setup-001/calls/program-conformance.request.jsonl",
+      "bytes": 37136012,
+      "sha256": "f6c2b61da80a23351d110deff19f5ea19515dd8f97a317ed338ba25d9f7d5c79"
+    },
+    {
+      "path": "setup-001/calls/workspace-bind.close.json",
+      "bytes": 1314,
+      "sha256": "215e35b85977d4d8065903ba8df14c5663d027475751a92b8f2be48a3117ba3a"
+    },
+    {
+      "path": "setup-001/calls/workspace-bind.outcome.json",
+      "bytes": 7385,
+      "sha256": "30680baaf626adc59d5a6a11c878ffdca7ad2d9e193caa7d014ef8aebe8a931c"
+    },
+    {
+      "path": "setup-001/calls/workspace-bind.request.jsonl",
+      "bytes": 20876958,
+      "sha256": "07dc6a3e5fd5a7c3068db0a76a920b6b2e65ba874ad032984c96b2825fd44659"
+    },
+    {
+      "path": "setup-001/calls/workspace-create.outcome.json",
+      "bytes": 2190,
+      "sha256": "c9b1d3517386baa8fb6dcd7f143510f5a0dbd55b89fa7a84e37d11a7d5d0fdf7"
+    },
+    {
+      "path": "setup-001/calls/workspace-create.request.jsonl",
+      "bytes": 14496502,
+      "sha256": "9cd7a32b5006e3561b572e4957df1c84e65648afe5e30e630d2d138c3cdfb1a1"
+    },
+    {
+      "path": "setup-001/commands/catalog-admit.request.json",
+      "bytes": 641,
+      "sha256": "39fcaea52c4fd2ace2ef7013a41fa07608ddcd453448449205059b15b1e288fc"
+    },
+    {
+      "path": "setup-001/commands/catalog-admit.result.json",
+      "bytes": 143867,
+      "sha256": "42c86772bec72fb730f4f9f17eb204f41160c14f42af5a28c2aa105f1323831c"
+    },
+    {
+      "path": "setup-001/commands/catalog-admit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/catalog-admit.stdout",
+      "bytes": 137295,
+      "sha256": "d97bb61b9910fc92a8db4bc54fc6f5bae71c6415516ef3cba9d6bbc8e7233c7e"
+    },
+    {
+      "path": "setup-001/commands/catalog-view.request.json",
+      "bytes": 640,
+      "sha256": "764098b24fd4388a14ebdfef1a0e72f14855d2086752b31dcbe995ca1d077c80"
+    },
+    {
+      "path": "setup-001/commands/catalog-view.result.json",
+      "bytes": 2771,
+      "sha256": "0ec61be2cbb4a1c5a866b8d8a7862a7fe8fba71dad1748c3c27b9d9d0e673a85"
+    },
+    {
+      "path": "setup-001/commands/catalog-view.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/catalog-view.stdout",
+      "bytes": 1857,
+      "sha256": "bbb5a26f74a160d414f57ec80998c3439ca96cbf22eec98c3727fa2561efd2de"
+    },
+    {
+      "path": "setup-001/commands/pack-consumer.request.json",
+      "bytes": 563,
+      "sha256": "6ed16b8c90db22eb0fdbf73be7438bece3a17528505234cbc3ffd51f99d3de10"
+    },
+    {
+      "path": "setup-001/commands/pack-consumer.result.json",
+      "bytes": 2078,
+      "sha256": "8b26a7b735ad36dcc4b2d6c6ee174f957a7936ac3b89d2f0ff064d7a5d9b4fcd"
+    },
+    {
+      "path": "setup-001/commands/pack-consumer.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/pack-consumer.stdout",
+      "bytes": 1213,
+      "sha256": "812e1e5e48616c7c3e72bae0a13a52bec897752ecf516a0a20920166d339d400"
+    },
+    {
+      "path": "setup-001/commands/product-install-0.request.json",
+      "bytes": 645,
+      "sha256": "a4465c856b84b57bbbe30d2dbcf914cb22f754c560f23f3c3924dd941f0bce22"
+    },
+    {
+      "path": "setup-001/commands/product-install-0.result.json",
+      "bytes": 6571,
+      "sha256": "4fbf8ac70f7b2cf20037b21932098b761e6206639243d500f46325b2b3afde9c"
+    },
+    {
+      "path": "setup-001/commands/product-install-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/product-install-0.stdout",
+      "bytes": 5474,
+      "sha256": "c5c690e7e5b7ffd755d2d018a34e8b447ba2dc4c59f4152945ec5547afebd201"
+    },
+    {
+      "path": "setup-001/commands/product-install-1.request.json",
+      "bytes": 645,
+      "sha256": "b675b0a255d2da9559af6be98287332d310889dac620545bbfe97befe8dc936d"
+    },
+    {
+      "path": "setup-001/commands/product-install-1.result.json",
+      "bytes": 6612,
+      "sha256": "3e0c8f8a77bb874257f74c388c27b12301b1582e08e5286558bacdf595780bc9"
+    },
+    {
+      "path": "setup-001/commands/product-install-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/product-install-1.stdout",
+      "bytes": 5509,
+      "sha256": "64eb56d0528adda2bc2f069aed498f8cbbd30ce8a74c77d76ab0dd895308332e"
+    },
+    {
+      "path": "setup-001/commands/product-resolve.request.json",
+      "bytes": 643,
+      "sha256": "5805a0981e2d4442c82c6ef0fc2daa5c02af9b72c59eabd4ef6c581bcc9e8c6b"
+    },
+    {
+      "path": "setup-001/commands/product-resolve.result.json",
+      "bytes": 4998,
+      "sha256": "09f35cba84d4d8a1920dd3b05ad5d51fc3500ef287f4f0acfcda9ca90cd343fd"
+    },
+    {
+      "path": "setup-001/commands/product-resolve.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/product-resolve.stdout",
+      "bytes": 3940,
+      "sha256": "5c5a271f72f1cd4c0ca6995d7b1a0aefde6c9d7f2fda92cfd7135da3dbf7d0ef"
+    },
+    {
+      "path": "setup-001/commands/product-verify-0.request.json",
+      "bytes": 644,
+      "sha256": "237e1d6f11133c7c026975dcdd5bf64ee1167eb06848621819b162c97904dae1"
+    },
+    {
+      "path": "setup-001/commands/product-verify-0.result.json",
+      "bytes": 159003,
+      "sha256": "706d4e71025842905e97308536992614ce7b20d012dba34b9a100622bfede7b0"
+    },
+    {
+      "path": "setup-001/commands/product-verify-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/product-verify-0.stdout",
+      "bytes": 146509,
+      "sha256": "3bed62ad034dace274174cca54c6c01d4af24b0eebc6267b218ad4e75ec26fcb"
+    },
+    {
+      "path": "setup-001/commands/product-verify-1.request.json",
+      "bytes": 644,
+      "sha256": "a4f9f3118b1258fd181b7d736d666b3e3ce9b5c242e8fbed6c4b4e38a976008e"
+    },
+    {
+      "path": "setup-001/commands/product-verify-1.result.json",
+      "bytes": 2620,
+      "sha256": "484f71bf1a4cfcb142da0c3134fdf3ab772ecf42d921230f2117fac8101ef4f5"
+    },
+    {
+      "path": "setup-001/commands/product-verify-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/product-verify-1.stdout",
+      "bytes": 1694,
+      "sha256": "cee1c13a5292d6805eae637fec4df702348625a2e6485b35d58bd225742faf19"
+    },
+    {
+      "path": "setup-001/commands/program-conformance.request.json",
+      "bytes": 647,
+      "sha256": "1eee0fb1e5daea2d6b9e4ced46adfb10f876fa07ccd5ffd9f50f52a9c02e5427"
+    },
+    {
+      "path": "setup-001/commands/program-conformance.result.json",
+      "bytes": 2905,
+      "sha256": "e3179110c83625fd42ffb8dd637fdf70a3987e21166a6639b228508aaf8ba8e6"
+    },
+    {
+      "path": "setup-001/commands/program-conformance.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/program-conformance.stdout",
+      "bytes": 1959,
+      "sha256": "9b6e9623aaab76481b91fa5841f32b425630c0b5bc9b10bde3622adb830683dd"
+    },
+    {
+      "path": "setup-001/commands/workspace-bind.request.json",
+      "bytes": 642,
+      "sha256": "67414b69ea1e808981e9f43981c892fc5409ea1756675f4ef28cf5473117fdde"
+    },
+    {
+      "path": "setup-001/commands/workspace-bind.result.json",
+      "bytes": 7017,
+      "sha256": "02d06dc2af97290f3676a011bf492afd5bb7c92f663fee91134e50fbf54c1109"
+    },
+    {
+      "path": "setup-001/commands/workspace-bind.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/workspace-bind.stdout",
+      "bytes": 5889,
+      "sha256": "f8d6a3f365c27a9b6a86b0796471dca84bfebf03627aebf87a86dd5bcc21e63d"
+    },
+    {
+      "path": "setup-001/commands/workspace-create.request.json",
+      "bytes": 644,
+      "sha256": "8dc17925c15554fa007b183d5c619c2536bccc36473037ee1a80cf603767231f"
+    },
+    {
+      "path": "setup-001/commands/workspace-create.result.json",
+      "bytes": 2698,
+      "sha256": "2afb0012c2b08ece33b39bc55c8e9cf2e2eb40bb017a3f0b7ff484de8d2ea44d"
+    },
+    {
+      "path": "setup-001/commands/workspace-create.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "setup-001/commands/workspace-create.stdout",
+      "bytes": 1766,
+      "sha256": "31466eeb96ce8288d108cbcef1dd81f5103b4b677db3bbd9e06ac9669ad9ae5b"
+    },
+    {
+      "path": "setup-001/consumer-acquisition.json",
+      "bytes": 10108,
+      "sha256": "47913bd918a1006daa1b64b9d8047481176b08f92810e25ee885214ce8d3981d"
+    },
+    {
+      "path": "setup-001/diagnostic-01-input.json",
+      "bytes": 30958,
+      "sha256": "531298907b4bb1829f25a095e19ad3c1be5084f150f39eb6c07bdde080e6f93f"
+    },
+    {
+      "path": "setup-001/diagnostic-01-preparation.json",
+      "bytes": 408,
+      "sha256": "b55d5297d7cef3b7f9516e356039422f7b51d12fc98bafd4633e0a362f955632"
+    },
+    {
+      "path": "setup-001/diagnostic-01-prepared-call.json",
+      "bytes": 29688852,
+      "sha256": "9812af110342ddaa09733053ac387b0873fe1b63d2a5115647be9da8ec643821"
+    },
+    {
+      "path": "setup-001/installed/0/identity.json",
+      "bytes": 4415687,
+      "sha256": "5ee260ff496182f8dce61fe58b07ad43a60d78a835ea4ce56431cd97272da6fe"
+    },
+    {
+      "path": "setup-001/installed/0/installer-manifest-reference.json",
+      "bytes": 907,
+      "sha256": "1c12018fe05c7e07789be9d5ee61916cf622b063dfd47fc8de2949a20ae08f18"
+    },
+    {
+      "path": "setup-001/installed/0/product-toolchain-manifest.json",
+      "bytes": 4430698,
+      "sha256": "2ac9e891f266fd50d7032716972d1599ec1d1936139d9c713821cd29db83bd5a"
+    },
+    {
+      "path": "setup-001/installed/1/identity.json",
+      "bytes": 13321,
+      "sha256": "b016e731cfc39da4f46f6268e57dd2819c2786b483c6b62c7dec8ff73ed25e8d"
+    },
+    {
+      "path": "setup-001/installed/1/installer-manifest-reference.json",
+      "bytes": 907,
+      "sha256": "2dcd7b7566156326593114be1de274c3dc4a2e537e6579643e00495040f872db"
+    },
+    {
+      "path": "setup-001/installed/1/product-toolchain-manifest.json",
+      "bytes": 5845,
+      "sha256": "17c2fd1cbb4a0235c3701197303618eb3afe84b40f94c2de7330138aba4ee434"
+    },
+    {
+      "path": "setup-001/operator-resume-material.json",
+      "bytes": 73449608,
+      "sha256": "36f96641c6dddcdfb19b238c56ba1f50a3517afe9460eb0569c5a403cdff0410"
+    },
+    {
+      "path": "setup-001/resources/events/runtime.events.jsonl",
+      "bytes": 3195599,
+      "sha256": "6a254668a62bfef544f311e035152dd6d176e87d87de7776080f719af0aceabe"
+    },
+    {
+      "path": "setup-001/run.json",
+      "bytes": 1208,
+      "sha256": "70d900ab96ae87824924c76a6500f8d86bb552a55ea9eb00b3ff3e938970cbc9"
+    },
+    {
+      "path": "setup-001/setup-identity.json",
+      "bytes": 9517160,
+      "sha256": "e1e0e31d2493c0e15d1264c5c3ac920603b6513068f1111c2a69d0e80af492e6"
+    },
+    {
+      "path": "setup-001/summary.json",
+      "bytes": 3691,
+      "sha256": "8be58782f67afcf9c714f283e2bc9ba7298799f97c346a816aed8a18d63026c6"
+    },
+    {
+      "path": "setup-001/task-preparation-abg-acquisition.json",
+      "bytes": 16775429,
+      "sha256": "925cef01e658c2903725a46452ceecb717ee2d03ef1cb4fb0511739e1918172e"
+    },
+    {
+      "path": "setup-001/workspace-manifest.json",
+      "bytes": 1989,
+      "sha256": "937513d0b5ebf3644e1991786d60818191764e7dae3c2c890d07fc6c747cc8c3"
+    }
+  ]
+}

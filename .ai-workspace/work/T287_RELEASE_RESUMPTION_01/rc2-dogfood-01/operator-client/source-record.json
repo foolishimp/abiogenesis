@@ -1,0 +1,33 @@
+{
+  "classification": "Frozen external Public client helpers; not RC2 implementation, runtime authority or qualification",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+      "sourceSha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "clientSha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "adaptation": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+      "sourceSha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "clientSha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "adaptation": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+      "sourceSha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "clientSha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "adaptation": null
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+      "sourceSha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18",
+      "clientSha256": "85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f",
+      "adaptation": "existing imported workspace operation"
+    }
+  ]
+}

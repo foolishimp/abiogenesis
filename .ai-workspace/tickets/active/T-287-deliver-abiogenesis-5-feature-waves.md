@@ -8,10 +8,10 @@
 - updated_at: 2026-10-30
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
-- current_activation: T287_RELEASE_RESUMPTION_01 / T287-RC1-PREVIEW-PUBLISH-01; exact Root publication grant under owner release/deploy instruction, source 5b793c65e5c85ad76cf7eb45bef98263f95c00cb; publication complete and release helper stopped. Exact prior dispositions remain in the Phase D ledger.
-- current_activation_status: RC1 development preview published and locally deployed under T287-RC1-PREVIEW-PUBLISH-01; source 5b793c65e5c85ad76cf7eb45bef98263f95c00cb, artifact SHA256 1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9. Annotated immutable RC1/discovery selector, prerelease flag, six assets and one fresh remote archive download verified. Release helper returns and stops; full/native qualification remains open.
-- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md
-- current_next_work: Root itself is the sole ongoing operator proxy keeping installed immutable RC1 driving ABG's RC2 build and evaluating progress; no separate proxy agent is selected. Only accepted changes executed through ABG count; bugs/recovery/retries/interventions/time/available cost remain visible, unknown telemetry unknown. Native green/final qualification, Q23/contributor attribution and Public fidelity remain open. Release helper performed no RC2 work and is stopped.
+- current_activation: RC1_TO_RC2_DOGFOOD_01; owner-selected RC1 release/deploy complete; root Codex is the sole ongoing operator proxy for RC2 construction through installed RC1
+- current_activation_status: RC1 published and deployed at 5b793c65e; RC2 imported worktree and first diagnostic task prepared through installed Public operations; no native provider dispatch or RC2 implementation change; trial budget pending
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/STATE.md
+- current_next_work: Bind the owner-selected initial provider budget, dispatch the prepared diagnostic-01 call through RC1, inspect admitted progress and fresh readback, log failures/recovery, continue supported RC2 work and evaluate accepted output plus total observed overhead. No external coding stream or RC1 mutation.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
@@ -20,7 +20,6 @@
 - change_class: goal_reprice
 - derived_change_classes: product_reprice
 - re_entry_point: specification/GOALS.md#current-selection
-
 ## Current disposition
 
 Historical disposition at `aa9f5ac86` (2026-10-24), retained below. Current

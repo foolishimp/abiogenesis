@@ -1,0 +1,15 @@
+{
+  "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
+  "files": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "ebbc877da4ead7754f00a8b56df06c24d164db354cf327cd4d05a485511cae72"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "e7e894a722593424d7bf88423a106bc7099dcd0fdfe82027e1fd6f2576455b09"
+    }
+  ],
+  "solutionSeeded": false,
+  "providerCalls": 0
+}

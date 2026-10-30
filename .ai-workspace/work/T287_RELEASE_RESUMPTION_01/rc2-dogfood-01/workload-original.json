@@ -1,0 +1,260 @@
+{
+  "taskRef": "task://abiogenesis/rc2-dogfood/diagnostic-01",
+  "task": "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+  "sources": [
+    {
+      "path": "rc2-operator-inputs/diagnostic-01/task.md",
+      "digest": "sha256:45c57c3112d91e49fb09a0b17e45ac90d0e0df6a359d4ab8521eca68d3677903"
+    },
+    {
+      "path": "rc2-operator-inputs/diagnostic-01/rubric.json",
+      "digest": "sha256:10fc077778e155e67d8cee890b87c99f00c2e7cb724c74530640b5b35e6f3357"
+    }
+  ],
+  "requiredSupportRefs": [
+    "support://abiogenesis/rc2-dogfood/diagnostic-01/actual-source-and-tests"
+  ],
+  "authorityRefs": [
+    "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/OPERATOR.md"
+  ],
+  "readRoots": [
+    "rc2-operator-inputs/diagnostic-01/task.md",
+    "rc2-operator-inputs/diagnostic-01/rubric.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+    ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md",
+    "AGENTS.md"
+  ],
+  "maxContextFiles": 32,
+  "maxContextBytes": 600000,
+  "maxPromptBytes": 1048576,
+  "workOrders": {
+    "induction": {
+      "outcome": "Retain the existing bug and bounded owner outcome.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md"
+      ],
+      "checks": []
+    },
+    "specification": {
+      "outcome": "Reuse existing validation law and the supplied acceptance rubric without a Product change.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md"
+      ],
+      "checks": []
+    },
+    "design": {
+      "outcome": "Choose the smallest truthful diagnostic change preserving all validation guards.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md"
+      ],
+      "checks": []
+    },
+    "construction": {
+      "outcome": "Implement the bounded RC2 source/test change.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+        ".ai-workspace/work/RC2_DOGFOOD_DIAGNOSTIC_01/NOTES.md"
+      ],
+      "checks": []
+    },
+    "testing": {
+      "outcome": "Execute the declared checks against actual RC2 source and retain observations.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [],
+      "checks": []
+    },
+    "uat": {
+      "outcome": "Assess the complete bounded rubric against actual changes and admitted command evidence.",
+      "instructions": [
+        "Repair the existing C2 worksite-command configuration diagnostic in ABIogenesis RC2 using the installed RC1 default lifecycle. The constructor currently reports that command and predicate identities must be unique for many different invalid configurations. Preserve its validation/refusal behavior, TypeError class, public contracts, accepted configurations and all current guards. Make duplicate command identities distinguishable from a protected subject overlapping an allowed write territory, with truthful human-readable diagnostics. Add two focused tests in the existing worksite-command test file, with test names beginning \"C2 RC2 diagnostic\", that exercise those actual distinct failures and check TypeError and meaningful different cause messages. Preserve existing tests. Do not implement a new error class, public contract field, runtime, controller, or broader refactor. Reuse the existing fixture and accepted Product invariants. Source construction must be performed by ABG, not by the external operator. The operator has supplied task/rubric and a frozen RC1 source checkout, not a solution. The optional task note may record reuse of existing specification/design and the bounded change; do not rewrite Product/requirements or manufacture additional stage obligations. Run the declared owner build and focused test commands, and retain failing/incomplete outcomes truthfully.",
+        "Do not weaken a failed criterion or count a skipped test as a pass. Native assessment is not whole-product qualification or proven model independence."
+      ],
+      "readFirst": [
+        "rc2-operator-inputs/diagnostic-01/task.md",
+        "rc2-operator-inputs/diagnostic-01/rubric.json",
+        "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+        "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs"
+      ],
+      "writeRoots": [],
+      "checks": []
+    }
+  },
+  "testing": {
+    "selectedPaths": [
+      "rc2-operator-inputs/diagnostic-01/task.md",
+      "rc2-operator-inputs/diagnostic-01/rubric.json",
+      "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "AGENTS.md"
+    ],
+    "commands": [
+      {
+        "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/build",
+        "executable": "/opt/homebrew/bin/npm",
+        "args": [
+          "run",
+          "build"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc2-dogfood/build_tenants/abiogenesis/typescript/test_env/test_runs/rc2-dogfood/tmp",
+          "PATH": "/Users/jim/.pyenv/versions/3.11.5/bin:/opt/homebrew/Cellar/pyenv/2.6.7/libexec:/opt/homebrew/Cellar/pyenv/2.6.7/plugins/python-build/bin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/Library/TeX/texbin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter:/opt/homebrew/bin/flutter"
+        },
+        "timeoutMs": 900000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/diagnostic-tests",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "--test",
+          "--test-name-pattern",
+          "C2 RC2 diagnostic",
+          "test_env/tests/t287-worksite-command-execution.test.mjs"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc2-dogfood/build_tenants/abiogenesis/typescript/test_env/test_runs/rc2-dogfood/tmp",
+          "PATH": "/Users/jim/.pyenv/versions/3.11.5/bin:/opt/homebrew/Cellar/pyenv/2.6.7/libexec:/opt/homebrew/Cellar/pyenv/2.6.7/plugins/python-build/bin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/Library/TeX/texbin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter:/opt/homebrew/bin/flutter"
+        },
+        "timeoutMs": 300000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      },
+      {
+        "commandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/owner-tests",
+        "executable": "/opt/homebrew/bin/node",
+        "args": [
+          "--test",
+          "test_env/tests/t287-worksite-command-execution.test.mjs"
+        ],
+        "relativeCwd": "build_tenants/abiogenesis/typescript",
+        "environment": {
+          "TMPDIR": "/Users/jim/src/apps/abiogenesis-rc2-dogfood/build_tenants/abiogenesis/typescript/test_env/test_runs/rc2-dogfood/tmp",
+          "PATH": "/Users/jim/.pyenv/versions/3.11.5/bin:/opt/homebrew/Cellar/pyenv/2.6.7/libexec:/opt/homebrew/Cellar/pyenv/2.6.7/plugins/python-build/bin:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/Library/TeX/texbin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/shims:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/pkg/env/global/bin:/Library/Apple/usr/bin:/Library/TeX/texbin:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0X67Y0x:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.166.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0wbuDmp:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.165.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0q1V18U:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.164.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0-macos/codex-arg0DTH1zz:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.163.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0sKXW4o:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0Xt8qH8:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0hiQE8Z:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.161.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0cX0Ug4:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.1-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0b7sntn:/Users/jim/.codex-alt/packages/app-server-daemon/releases/0.160.0-aarch64-apple-darwin/codex-path:/Users/jim/.codex-alt/tmp/arg0/codex-arg0dSRd60:/opt/homebrew/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/jim/.grok/bin:/Users/jim/.bun/bin:/Users/jim/google-cloud-sdk/bin:/opt/homebrew/opt/openjdk/bin:/Users/jim/bin:/usr/local/opt/openjdk@17/bin:/Users/jim/.pyenv/bin:/opt/homebrew/opt/curl/bin:/opt/homebrew/opt/openssl/bin:/Users/jim/.local/bin:/opt/homebrew/bin:/Users/jim/.cargo/bin:/Applications/iTerm.app/Contents/Resources/utilities:/opt/homebrew/bin/flutter:/opt/homebrew/bin/flutter"
+        },
+        "timeoutMs": 300000,
+        "terminationGraceMs": 5000,
+        "expectedReports": []
+      }
+    ],
+    "outcomePredicates": [
+      {
+        "predicateId": "predicate://abiogenesis/rc2-dogfood/diagnostic-01/build-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/build",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis/rc2-dogfood/diagnostic-01/diagnostic-tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/diagnostic-tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis/rc2-dogfood/diagnostic-01/owner-tests-exit",
+        "predicateKind": "process_exit",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/owner-tests",
+          "equals": 0
+        }
+      },
+      {
+        "predicateId": "predicate://abiogenesis/rc2-dogfood/diagnostic-01/focused-count",
+        "predicateKind": "test_pass_count",
+        "declaration": {
+          "validationCommandId": "command://abiogenesis/rc2-dogfood/diagnostic-01/diagnostic-tests",
+          "greaterThanOrEqual": 2
+        }
+      }
+    ],
+    "allowedWriteTerritories": [
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/build"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/contracts"
+      },
+      {
+        "pathKind": "subtree",
+        "relativePath": "build_tenants/abiogenesis/typescript/test_env/test_runs"
+      },
+      {
+        "pathKind": "file",
+        "relativePath": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+      }
+    ]
+  },
+  "assessment": {
+    "sources": [
+      "rc2-operator-inputs/diagnostic-01/task.md",
+      "rc2-operator-inputs/diagnostic-01/rubric.json"
+    ],
+    "candidatePath": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+    "rubricPath": "rc2-operator-inputs/diagnostic-01/rubric.json"
+  }
+}
