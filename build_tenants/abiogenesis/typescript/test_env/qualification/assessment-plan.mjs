@@ -19,7 +19,7 @@
 // material entry (the measured stand-in's entries before the C2 run, the C2 Result's after); never the C2's streams.
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { Q, RECIPE_PATH, TENANT_ROOT, constructApplicationDomains, constructApplications, sha256 } from './build-resources.mjs';
+import { Q, RECIPE_PATH, TENANT_ROOT, constructApplicationDomains, constructApplications, declaredEvidenceSelection, sha256 } from './build-resources.mjs';
 import { establishedAttributions, taskProvenance } from './provenance.mjs';
 
 export const PROMPT_BOUND_BYTES = 1_048_576;
@@ -160,13 +160,26 @@ export function constructSlotSpecifications(q, base, selection) {
 
   // rule: the domain keys. A key (a governed part, or a role's complement) names the same member set under every rule
   // group whose domain has it; its pairs are packed by packRuleRole.
-  const ruleGroups = new Map(scope.ruleGroups.map(g => [g.groupRef, g])), byKey = new Map();
+  const ruleGroups = new Map(scope.ruleGroups.map(g => [g.groupRef, g])), byKey = new Map(), originalKeys = new Map();
   for (const d of domains) for (const group of d.surfaceGroups) {
-    const key = group.groupRef.slice(PREFIX.length).split('/').slice(2).join('/'), governed = d.governedRefs.includes(group.groupRef);
+    const groupKey = group.groupRef.slice(PREFIX.length).split('/').slice(2).join('/'), governed = d.governedRefs.includes(group.groupRef);
+    // Evidence differs only for an explicit declaration; scope/member/criterion meaning is unchanged.
+    const evidence = declaredEvidenceSelection(declaration, group.memberRefs,
+      { ruleSourceRef: ruleGroups.get(d.ruleGroupRef).sourceRefs[0], groupKey });
+    const key = groupKey + (evidence === undefined ? '' : '/evidence/' + evidence.id);
     const row = byKey.get(key) ?? { key, governed, memberRefs: group.memberRefs, carriedRefs: group.sourceRefs, pairs: [] };
     if (row.memberRefs.join('\n') !== group.memberRefs.join('\n') || row.governed !== governed || row.carriedRefs.join('\n') !== group.sourceRefs.join('\n')) throw new TypeError('a domain key names two member sets: ' + key);
-    row.pairs.push({ ruleGroup: ruleGroups.get(d.ruleGroupRef), group }); byKey.set(key, row);
+    const pair = { ruleGroup: ruleGroups.get(d.ruleGroupRef), group };
+    row.pairs.push(pair); byKey.set(key, row);
+    const original = originalKeys.get(groupKey) ?? []; original.push(pair); originalKeys.set(groupKey, original);
   }
+  // Criterion identity follows the original domain-key order and ordinary/check order, independently
+  // of evidence-specific packing keys. Splitting display material cannot rename a criterion.
+  const ruleCriteria = new Map(), verification = new Set(verificationGroups);
+  for (const pairs of originalKeys.values()) for (const p of [...pairs.filter(p => !verification.has(p.ruleGroup.groupRef)),
+    ...pairs.filter(p => verification.has(p.ruleGroup.groupRef))])
+    ruleCriteria.set(p.ruleGroup.groupRef + '\n' + p.group.groupRef,
+      criterion('rule', p.ruleGroup.groupRef, p.group.groupRef, 'semantic_assessment'));
 
   // tenant: the manifest's realization; coverage: every behavior of the published coverage catalog, with the
   // requirement sources its claims cite and the C2 Result's execution entry.
@@ -177,6 +190,7 @@ export function constructSlotSpecifications(q, base, selection) {
     [coverageMember], [coverageMaterial.ref, ...claims.flatMap(c => c.requirementRefs.map(ref => ref.split('#')[0]))], true);
   for (const s of specs) for (const ref of s.materialRefs) if (!byRef.has(ref)) throw new TypeError('slot material absent from the resource: ' + ref);
   return { specs, criteria, criterion, spec, ruleKeys: [...byKey.values()], verificationGroups: [...verificationGroups], classificationRefs,
+    ruleCriterion: p => ruleCriteria.get(p.ruleGroup.groupRef + '\n' + p.group.groupRef),
     ruleGroupOf: ref => ruleGroups.get(ref), memberBytes: ref => members.get(ref)?.byteCount ?? null };
 }
 
@@ -208,7 +222,7 @@ export function packRuleRole(q, built, specified, selection, { ownerActorRef }) 
     const material = p => [...specified.classificationRefs, ...p.flatMap(x => x.ruleGroup.sourceRefs), ...k.carriedRefs];
     const ordinary = k.pairs.filter(p => !verification.has(p.ruleGroup.groupRef)), checks = k.pairs.filter(p => verification.has(p.ruleGroup.groupRef));
     const emit = (pairs, n, execution) => specified.spec('rule', 'rule/' + k.key + '/' + n,
-      pairs.map(p => specified.criterion('rule', p.ruleGroup.groupRef, p.group.groupRef, 'semantic_assessment')), k.memberRefs,
+      pairs.map(p => specified.ruleCriterion(p)), k.memberRefs,
       [...material(pairs), ...(execution ? [recipe.ref] : [])], execution);
     let n = 0;
     if (ordinary.length > 0) {

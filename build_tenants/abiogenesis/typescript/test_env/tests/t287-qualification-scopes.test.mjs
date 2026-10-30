@@ -256,6 +256,28 @@ function roleAssessment(f,role){
  a.raw.criteria=[{...a.raw.criteria[0],...c}];return resign(a);
 }
 function promptScope(request){const label='SCOPE AND COMPUTED CORRESPONDENCE (C, not semantic satisfaction): ';return JSON.parse(request.prompt.split('\n\n').find(x=>x.startsWith(label)).slice(label.length));}
+function expandMemberDisplay(value,context){
+ if(Array.isArray(value))return value.map(v=>expandMemberDisplay(v,context));
+ if(value===null||typeof value!=='object')return value;
+ if(value.memberTable==='selectedSubject.inventoryMembers')return value.ordinals.map(n=>{
+  const member=context.selectedSubject.inventoryMembers[n];assert(member,'display ordinal must resolve');
+  return value.projection==='ref'?member.ref:plainSource(member);
+ });
+ return Object.fromEntries(Object.entries(value).map(([k,v])=>[k,expandMemberDisplay(v,context)]));
+}
+test('factored prompt reconstructs exact member listings and attribution while preserving full declarations',async()=>{
+ const f=fixture(100,3),q=await f.assessmentModule(),a=assessment(f),before=hash(a.input),request=q.qualificationWorkerRequest(a.input);
+ const context=promptScope(request),expanded=expandMemberDisplay(context,context);
+ assert.deepEqual(context.selectedSubject.inventoryMembers,f.input.inventory.members);
+ assert.deepEqual(expanded.assessedMembers,a.input.task.subjectMembers);
+ assert.deepEqual(expanded.surfaceGroups,a.input.task.coverage.map(c=>({ruleGroupRef:c.ruleRef,...a.input.task.scope.surfaceGroups.find(g=>g.groupRef===c.surfaceRef)})));
+ assert.deepEqual(expanded.unprovidedAssessedMemberRefs,a.input.task.subjectMembers.filter(m=>!a.input.task.material.some(x=>x.ref===m.ref)).map(m=>m.ref));
+ const label='CONSTRUCTION ATTRIBUTION (assess; do not blindly trust): ',display=JSON.parse(request.prompt.split('\n\n').find(x=>x.startsWith(label)).slice(label.length));
+ const construction=expandMemberDisplay(display,context),original=a.input.task.provenance;
+ assert.deepEqual(construction.chains,original.chains);assert.deepEqual(construction.records,original.records.map(({contentBase64,...m})=>m));
+ for(const span of construction.providedAttributionSpans){const source=original.records.find(m=>m.ref===span.sourceRef);assert.equal(span.text,Buffer.from(source.contentBase64,'base64').subarray(span.startByte,span.endByte).toString('utf8'));}
+ assert.equal(hash(a.input),before);assert(!request.prompt.includes('contentBase64'));
+});
 function reidentifyScope(a){a.input.task.scope=bodyIdentity(a.input.task.scope,'scopeRef','scopeDigest','qualification-scope://abiogenesis/');return resign(a);}
 
 test('catalog renderer supplies complete selected-source rows across groups without repeating unrelated catalog declarations',async t=>{

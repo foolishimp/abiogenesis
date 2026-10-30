@@ -28,7 +28,7 @@
       "roleRef": "qualification-role://abiogenesis/rule@5",
       "coverage": "ruleRef = one rule group, surfaceRef = one group of that rule group's declared domain (classification.json applicationDomains), evidenceRole = semantic_assessment (:400-407)",
       "subject": "the domain group's members; a domain key (a governed part or a role's complement) names the same members under every rule group whose domain has it, so one slot covers several rule groups' pairs over one key",
-      "material": "Declared actual representative sourceRefs of the complete memberRefs domain, the classification and role/rule sources; grouping adequacy is J judgment and may remain unknown. Full source refs are retained for reacquisition; each criterion remains whole in one disjoint slot."
+      "material": "Declared actual sourceRefs of the complete memberRefs domain, the classification and role/rule sources. classification.json evidenceSelections declares two bounded diagnosed-case arguments by exact rule source and subject/group; their actual generator/definition evidence may be outside the assessed group but must bind to the complete inventory. Other selections keep their existing meaning. Grouping adequacy is J judgment and may remain unknown; generated-byte reproduction is not semantic compliance. Full source refs are retained for reacquisition; each criterion remains whole in one disjoint slot."
     },
     {
       "roleRef": "qualification-role://abiogenesis/tenant@5",
