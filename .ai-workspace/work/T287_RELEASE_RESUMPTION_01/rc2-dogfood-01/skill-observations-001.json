@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-30T13:02:33.920998+00:00",
+  "basis": "STDO v3.0.2",
+  "observations": [
+    {
+      "relation": "Proportional entry",
+      "evidence": "fp-050bf3d69a3e4be1 and fp-101e8d3fda59bd33 native selector results",
+      "result": "Construction selected directly from existing specification/design; no redundant planning stages."
+    },
+    {
+      "relation": "Honest partial Return and effect boundary",
+      "evidence": "fp-26d72d8a2e17204c native Return",
+      "result": "Reports failed build, 6/12 owner failures, generated-output damage and out-of-scope source pin; did not silently author the pin."
+    },
+    {
+      "relation": "Executive intake sufficiency",
+      "result": "Operator failed to include the full generated identity dependency and supplied a forbidden command TMPDIR. These are intervention costs and shortcomings in applying the frame, not successful skill efficacy."
+    },
+    {
+      "relation": "Native host skill activation",
+      "result": "Provider init lists skills []; closed/native lanes consume packaged STDO 3.0.2 context. That proves context presence, not host skill-trigger execution."
+    }
+  ],
+  "causalAttribution": "No controlled comparison; these behaviors do not establish that skills caused improvement. Root/session cost unavailable."
+}

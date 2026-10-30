@@ -1,0 +1,14 @@
+{
+  "id": "OP-004",
+  "at": "2026-10-30T13:22:26.707957+00:00",
+  "classification": "Operator executable-input envelope incomplete",
+  "actualFailure": "Attempt 004 selected Construction then prepare-native refused because generated write roots were not within observed read roots; no Construction actor dispatched.",
+  "additionalPreflightFindings": [
+    "C2 materializes only selected protected files, so the prior changed-files-only selection could not perform a whole tenant build.",
+    "C2 requires its summed command, termination, drain and owner allowance strictly below both native time limits; prior long command declarations did not fit."
+  ],
+  "nextInput": "diagnostic-03 includes 633 protected source/build seed files; native Construction only maintains the GTL pin and note using the actual partial compiled Product file. Isolated Testing copies the fixed offline toolchain and immutable RC1 contract seeds, builds and runs existing tests. No Product source authored by operator.",
+  "preflight": "diagnostic-03-preflight-02.json: exact installed configuration accepted, 596250ms required execution budget fits 900000/1200000ms, sources matched and scope covered. No native or build pass claim.",
+  "trialCostUsdBeforeNext": 3.3708348,
+  "rc1Unchanged": true
+}

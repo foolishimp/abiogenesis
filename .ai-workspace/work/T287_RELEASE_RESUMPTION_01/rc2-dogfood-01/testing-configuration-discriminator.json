@@ -1,0 +1,18 @@
+{
+  "at": "2026-10-30T12:59:40.212Z",
+  "classification": "Pure installed RC1 configuration discriminator; no commands, model calls or event admissions",
+  "results": [
+    {
+      "variant": "original",
+      "result": "refused",
+      "name": "TypeError",
+      "message": "product.constructWorksiteCommandConfiguration is not a function"
+    },
+    {
+      "variant": "without-command-TMPDIR",
+      "result": "refused",
+      "name": "TypeError",
+      "message": "product.constructWorksiteCommandConfiguration is not a function"
+    }
+  ]
+}

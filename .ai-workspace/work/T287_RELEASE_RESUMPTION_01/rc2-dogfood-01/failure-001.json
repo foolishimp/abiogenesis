@@ -1,0 +1,19 @@
+{
+  "id": "OP-001",
+  "recordedAt": "2026-10-30T12:34:01.569139+00:00",
+  "classification": "operator launch configuration failure",
+  "cause": "Provider OAuth environment key omitted by operator config; authenticated parent shell, unauthenticated native child. No credential values retained.",
+  "providerCalls": 1,
+  "modelRequests": 0,
+  "providerReportedCostUsd": 0,
+  "productObservation": "Transport error retained in provider archive and event evidence; top-level native selector exchange mismatch loses actionable authentication cause.",
+  "replay": "failed; run_result not_found; no terminal Result",
+  "repair": "Use existing provider.inheritEnvironment option for CLAUDE_CODE_OAUTH_TOKEN. Start a new declared Run from actual latest event prefix with the same task; no fabricated continuation, no source repair.",
+  "evidence": [
+    "setup-001/resources/archives/fp-bf6f65b51c7de655-stdout.log",
+    "setup-001/diagnostic-01-outcome-summary.json",
+    "setup-001/diagnostic-01-fresh-reads.json"
+  ],
+  "priorRun": "run://abiogenesis/e9704b1870bb6fbcba0cf9ff174ffca1483362c61e5fd26cd6bfb573a2ff97df",
+  "openProductObservation": "Consider diagnostic propagation in RC2 after a useful construction outcome; no RC1 edit selected."
+}

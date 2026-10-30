@@ -1,0 +1,36 @@
+{
+  "id": "OP-003",
+  "at": "2026-10-30T12:56:11.879738+00:00",
+  "status": "new-input-prepared",
+  "classification": "operator task omitted a required source-context maintenance effect",
+  "originatingRelation": "Editing the C2 Product source changes its compiled byte digest and offsets; GTL pins that compiled module as context, and the manifest generator verifies exact member/span identity. Original write grant excluded the owning GTL declaration.",
+  "evidence": [
+    "setup-001/resources/archives/fp-26d72d8a2e17204c-stdout.log",
+    "/Users/jim/src/apps/abiogenesis-rc2-dogfood/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs:99",
+    "/Users/jim/src/apps/abiogenesis-rc2-dogfood/build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts:36"
+  ],
+  "observations": {
+    "focusedTests": {
+      "pass": 2,
+      "fail": 0,
+      "basis": "partial compiled output only"
+    },
+    "ownerTests": {
+      "pass": 6,
+      "fail": 6,
+      "cause": "manifest missing after rejected generation"
+    },
+    "build": "tsc passed; manifest generation failed; clean left 83 tracked generated files deleted"
+  },
+  "frames": {
+    "Product": "Keep refusal semantics, TypeError, public contracts and installed RC1 immutable. Context identity rejection is expected fail-closed behavior.",
+    "DesignIntegration": "GTL context source member and span must follow the actual rebuilt Product source. Native graph/program behavior and renderer policy are unchanged.",
+    "Effect": "New task must grant the single dependent GTL source pin plus owner-generated build/contracts/manifest/test output, preserving existing source edits for fresh evaluation.",
+    "Proof": "Rebuild and rerun focused plus owner tests; prior partial tests are not successful build or acceptance evidence."
+  },
+  "nextInput": "Grant only measured digest/byteCount/span maintenance in code/src/gtl/worksite_command_execution.ts and owner-generated outputs. Do not alter renderer text, Program shape, public schemas or guards. Use supported VM flag for installed test helpers. Preserve old task/rubric and old Runs; create a new input and Run, not fabricated continuation.",
+  "deferred": "Qualification expected-output-inventory successor belongs to later RC2 cut; this task cannot claim full release qualification.",
+  "rootImplementationEffects": 0,
+  "terminalFailure": "prepare-testing configuration refused the absolute original-workspace TMPDIR; removing only that key passes the exact installed pure constructor (testing-configuration-discriminator-02.json).",
+  "trialReportedCostUsd": 3.0017108
+}

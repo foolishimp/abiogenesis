@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-30T13:00:10.968Z",
+  "classification": "Read-only diagnostic against exact installed module; pure construction, no commands/model calls/event admissions. Earlier probe used missing aggregate export and has no validation credit.",
+  "results": [
+    {
+      "variant": "original",
+      "result": "refused",
+      "name": "TypeError",
+      "message": "worksite command and predicate identities must be unique"
+    },
+    {
+      "variant": "without-command-TMPDIR",
+      "result": "accepted"
+    }
+  ]
+}

@@ -6209,3 +6209,27 @@ Whole-product qualification, Q23/contributor independence, Public fidelity and
 remaining material obligations remain open; a first path success cannot close them
 or establish overall productivity. STDO work/ticket role and exact-subject
 discipline are retained under the owner's explicit single-proxy assignment.
+
+### RC2 operator trial: approved budget and first real failure (2026-10-30)
+
+The owner approved `$100`. Root uses $5 per-provider-process limits and stops
+new work at $90 reported spend with margin; aggregate budget enforcement and
+Root/session cost are not native telemetry. `rc2-dogfood-01/budget-001.json`
+records the exact controls.
+
+Attempt 001 reached a real installed Run and failed because the operator
+omitted the existing Claude OAuth environment key. The child reports
+authentication failure, zero model requests and $0 cost. The event log retains
+the failed actor evidence; fresh replay projects failed and Result reads
+`not_found` because no terminal Result exists. The top-level selector-exchange
+message is less actionable than the preserved provider cause. This is logged
+in `failure-001.json`; no RC1 repair or RC2 source change was made.
+
+Attempt 002 uses the existing `provider.inheritEnvironment` option with only
+the credential key name retained, constructs a new invocation from the actual
+latest prefix, and has dispatched through the unchanged installed RC1. It is
+a new Run on the same frozen task, not same-Run continuation or inherited
+completion credit. Root remains the sole proxy. Next: inspect admitted progress,
+cost, actual worksite effects and fresh reads; continue supported work under
+the approved budget. Small checkpoints and raw evidence locations are in
+`rc2-dogfood-01/STATE.md`.

@@ -12,19 +12,62 @@ historically test-named, but this run binds real RC2 sources and claims no UAT
 qualification. OPERATOR.md is frozen authority input; do not edit it after its
 importAuthority digest was used. Later budget/operating decisions are new records.
 
-The diagnostic task input and native call are prepared, not dispatched:
-`invocation://abiogenesis/c5e5bedb60c669bf42250a696888af9563f2c06870f419b0f804ded7c197ff36`.
-Native provider calls: **0**. RC2 source implementation changes: **0**.
-Budget selection is pending; no budget approval is inferred from elapsed time.
-The earlier asynchronous choices were $25 / $50 / $100 for the initial trial.
-Root/session cost is unknown, not zero.
+The owner approved **$100** for the initial trial (`budget-001.json`). Native
+provider processes use a $5 limit; the operator stops new work at $90 reported
+spend with margin. These are per-process controls, not an aggregate native cap.
+Root/session cost remains unknown.
 
-Next: bind the selected provider budget to the prepared task, use explicit
-Claude Opus 5.5 / requested xhigh native controls, operate installed RC1,
-inspect admitted effects and fresh reads, log failures/recovery and evaluate
-accepted output against the frozen rubric. Do not launch another external
-proxy/coding stream, alter RC1, fabricate continuation, or turn setup into
-productivity or whole-product qualification credit.
+Attempt 001 returned `runtime_failed`: the operator omitted the existing OAuth
+environment key. Claude recorded authentication failure, zero model requests,
+and $0 reported spend. `run_replay` projects failed; `run_result` is `not_found`
+with no terminal Result. Exact failure and the limited Product diagnostic
+observation are in `failure-001.json`; no RC2 source change resulted.
+
+Attempt 002 failed at native Construction's provider turn limit before source
+changes. It reported $0.6878986; the preceding selector reported $0.289532,
+for **$0.9774306** total. Executive selected the proportional Construction →
+Testing → UAT path, reusing the supplied specification/design. `failure-002.json`
+preserves the cause, exact evidence and limits of that observation.
+
+Attempt 003 produced ABG-authored source/tests and an honest partial Return.
+Two focused cases passed against partial compiled output. The build failed
+because its context pin lives outside the original grant; six installed owner
+tests then failed for a missing generated manifest. The actual Run ended in
+`runtime_failed` at `prepare-testing`: the operator's absolute command TMPDIR
+exposed the original workspace root. An exact installed pure-constructor
+comparison confirms original refused / only TMPDIR removed accepted. The first
+probe failed to load the constructor and has no validation credit. Details are
+in `failure-003.json` and `testing-configuration-discriminator-02.json`.
+
+**Total reported provider cost: $3.0017108** through attempt 003. All three
+failed Runs and raw evidence remain. No RC2 change is accepted yet.
+
+Attempt 004 failed before a Construction actor: generated write roots were not
+covered by read roots. Preflight also found the isolated Testing snapshot lacked
+the complete build inputs and prior command budgets did not fit native limits.
+`failure-004.json` records those operator omissions. Spend through attempt 004:
+**$3.3708348**. Product source/test edits remain unaccepted.
+
+Attempt 005 completed with `runtime_failed`; cold replay confirms `failed`,
+run_result is `not_found`, and no terminal Result exists. The Construction
+actor updated only the dependent GTL context pin and note. Testing preparation
+was admitted, but its helper build exceeded the declared 120 s limit. The
+native host backgrounded the helper and broke the expected exchange. Exact
+independent causes and limits are in `failure-005.json`. No candidate accepted.
+
+**Current: attempt 006 is preparing/starting**, session 39018, client
+`operator-client/run-task-06.mjs`, records `attempt-006/diagnostic-04-*`.
+It uses the actual attempt 005 close handoff and a new Run; failed earlier
+Runs are preserved. It tests the existing ABG-authored candidate and grants
+no source edits. Diagnostic-04 preflight passed with 633 protected files and
+1406250 ms complete command budget. Budget-004 retains $100/$5/$90 and uses
+per-run documented foreground-host settings and larger build/test limits.
+Reported provider spend through attempt 005: **$7.3608372** (11 processes).
+
+Next: inspect admitted progress and actual command/UAT evidence, reported spend
+and fresh reads. Root is the sole operator. ABG performs implementation; no
+external coding stream, RC1 mutation or whole-product qualification credit.
+Do not duplicate dispatch: reconcile session, PID and retained receipts first.
 
 `setup-001/` retains actual operation requests/outcomes, owner coordinates,
 event log, workspace manifest, prepared input/call and cold-resumption material.

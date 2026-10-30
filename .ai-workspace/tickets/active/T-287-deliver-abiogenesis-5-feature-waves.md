@@ -5,13 +5,13 @@
 - goal: GOAL-035
 - owner: abiogenesis
 - build_tenant: typescript
-- updated_at: 2026-10-30
+- updated_at: 2026-10-31
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: RC1_TO_RC2_DOGFOOD_01; owner-selected RC1 release/deploy complete; root Codex is the sole ongoing operator proxy for RC2 construction through installed RC1
-- current_activation_status: RC1 published and deployed at 5b793c65e; RC2 imported worktree and first diagnostic task prepared through installed Public operations; no native provider dispatch or RC2 implementation change; trial budget pending
+- current_activation_status: RC1 released/deployed; $100 sole-proxy trial active. Attempt 005 returned runtime failure; final cold replay pending. Reported provider cost $7.3608372. ABG source/test/pin edits remain unaccepted. Diagnostic-04 passes installed input preflight; attempt 006 waits for reconciliation. STATE.md owns exact evidence.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/STATE.md
-- current_next_work: Bind the owner-selected initial provider budget, dispatch the prepared diagnostic-01 call through RC1, inspect admitted progress and fresh readback, log failures/recovery, continue supported RC2 work and evaluate accepted output plus total observed overhead. No external coding stream or RC1 mutation.
+- current_next_work: Operate installed RC1 on the RC2 diagnostic task, now diagnostic-04 test-first; inspect admitted progress, spend and fresh reads; record failures/recovery, accepted output and operator overhead. $90 reported-spend stop; no external coding stream or RC1 mutation.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families

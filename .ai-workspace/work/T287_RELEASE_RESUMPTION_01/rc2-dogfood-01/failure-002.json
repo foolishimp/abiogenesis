@@ -1,0 +1,15 @@
+{
+  "id": "OP-002",
+  "recordedAt": "2026-10-30T12:41:10.553625+00:00",
+  "classification": "operator provider turn budget exhausted before implementation",
+  "cause": "Native construction used 12 allowed turns for existing authority/source/fixture inspection; provider returned error_max_turns, num_turns 13. No source change visible.",
+  "providerReportedCostUsd": 0.6878986,
+  "trialReportedCostUsd": 0.9774306,
+  "productOutcome": "runtime_failed, native-work transport_failure; replay failed, no terminal Result",
+  "repair": "Increase supported provider.maxTurns to 60 at unchanged $5 per-process budget. New Run from actual latest prefix; same task, no fabricated continuation or inherited completion credit.",
+  "evidence": [
+    "setup-001/resources/archives/fp-54f4531166615afd-stdout.log",
+    "attempt-002/diagnostic-01-outcome-summary.json"
+  ],
+  "assessment": "Task proportionality was correct: Executive selected construction/testing/UAT without redoing specification or design. Twelve provider turns were insufficient even to finish inspection."
+}

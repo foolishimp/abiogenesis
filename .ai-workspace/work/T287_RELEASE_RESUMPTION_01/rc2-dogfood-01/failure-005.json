@@ -1,0 +1,29 @@
+{
+  "id": "RC1-INT-001",
+  "at": "2026-10-30T14:07:48.363373+00:00",
+  "classification": "Observed native Claude/helper integration failure plus independent operator build-time limit",
+  "runtimeFailure": "worksite_command_execution_failure; diagnostic://abiogenesis/worksite/command-execution/transport-identity-mismatch@5 (admitted ordinal 4376)",
+  "observedChain": [
+    "Claude Bash invoked the exact declared helper once.",
+    "After 120 seconds the host backgrounded it. The actor used Read on the task-output file, contrary to the one-tool exchange, and emitted an interim final response without structured output.",
+    "A later background notification produced a second result carrying the real helper acknowledgment. The admitted exchange still failed transport identity. The extra tool call and multiple-result host behavior are both retained; individual validator contribution is not isolated.",
+    "The helper finished and wrote its actual artifact; no helper process remained in the exact task-path scan.",
+    "Both offline input-copy commands exited 0. Build was terminated at its declared 120-second timeout with exit 124. Focused/owner tests exited 1 on missing compiled public/index.js. The helper artifact success disposition means observation completed, not tests passed."
+  ],
+  "evidence": [
+    "setup-001/resources/archives/fp-9da37741a915dc09-stdout.log",
+    "setup-001/resources/archives/worksite-command-execution/ec4e650e91586cc30ec23570b8bd3459924fdf50f670e8b5527b3dbde6a0f6e6/7febaa086bbe7d90bcdb365b988ff5b3eb31f7692256d9ad92ca6de8791c442e/result.json"
+  ],
+  "supportedOperatorRecovery": "Use documented per-launch CLAUDE_CODE_DISABLE_BACKGROUND_TASKS=1 and BASH_DEFAULT_TIMEOUT_MS/BASH_MAX_TIMEOUT_MS enclosing the helper; enlarge actual build/test limits and enclosing native limits consistently, retain dollar caps and cold-prefix new-Run semantics. Do not alter RC1 or admit the old acknowledgment manually.",
+  "hostDocumentation": "https://code.claude.com/docs/en/env-vars",
+  "trialReportedProviderCostUsd": 7.3608372,
+  "qualification": false,
+  "coldReadback": {
+    "record": "attempt-005/diagnostic-03-outcome-summary.json",
+    "ended": "2026-10-30T14:20:04.118Z",
+    "lifecycleDisposition": "runtime_failed",
+    "runResult": "not_found",
+    "runReplayStatus": "failed",
+    "terminalResult": null
+  }
+}

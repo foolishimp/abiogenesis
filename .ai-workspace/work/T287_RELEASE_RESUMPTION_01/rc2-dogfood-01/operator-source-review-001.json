@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-30T13:33:04.648456+00:00",
+  "frame": "Bounded operator evaluation of ABG-authored RC2 diagnostic candidate; full acceptance pending",
+  "subjects": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "sha256": "0d9a1332eeef34e065275fa17da41729bd21a52e725a8a70b13f9b3c66c29edf"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "sha256": "1c02eada9753ef982fc744e6dd8e2b0652c7040b26f60116c9def17b2a636efd"
+    }
+  ],
+  "findings": [
+    "The duplicate command-id and protected-subject overlap refusal conditions are retained as separate TypeError checks; remaining original refusal conditions remain in the shared check. Accepted configurations appear conserved by the boolean structure.",
+    "Two real regression tests reuse the owner fixture, assert TypeError and cause-specific messages, and also exercise accepted configurations.",
+    "Duplicate-id lookup now uses find/findIndex instead of Set, introducing quadratic comparisons. No measured harm on this small command plan; retain as a performance residual for larger plans, not a new repair campaign during this discriminator."
+  ],
+  "limits": "Read-only code inspection, not whole-product acceptance or native build/test proof. Exact GTL maintenance and subsequent native Testing/UAT remain to be checked."
+}

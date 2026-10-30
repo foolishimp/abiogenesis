@@ -1,0 +1,28 @@
+{
+  "kind": "owner_trial_budget",
+  "approvedAt": "2026-10-30T12:27:50.016887+00:00",
+  "ownerMessage": "$100",
+  "ownerApprovedUsd": 100,
+  "operatorStopThresholdUsd": 90,
+  "operator": "root Codex",
+  "operatorAndExecutiveCostUsd": null,
+  "scope": "Initial RC1-to-RC2 trial; observed native provider costs counted, unavailable session cost remains unknown",
+  "limitations": [
+    "Per-provider-process caps are not a hard aggregate runtime budget. Root monitors cumulative reported cost and preserves margin.",
+    "Effort is requested xhigh; actual effort telemetry may be unavailable."
+  ],
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "model": "claude-opus-5-5",
+    "maxTurns": 12,
+    "maxBudgetUsd": 5,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inactivityTimeoutMs": 180000,
+    "absoluteTimeoutMs": 900000
+  }
+}

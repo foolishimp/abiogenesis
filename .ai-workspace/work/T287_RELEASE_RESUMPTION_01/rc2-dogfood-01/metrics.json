@@ -1,13 +1,13 @@
 {
-  "checkpoint": "prepared-not-dispatched",
-  "at": "2026-10-30T23:14:17.945376+11:00",
+  "checkpoint": "attempt-006-starting",
+  "at": "2026-10-30T14:21:00Z",
   "operator": "root Codex",
   "sourceCommit": "5b793c65e5c85ad76cf7eb45bef98263f95c00cb",
   "workspacePreparationStarted": "2026-10-30T11:58:17.675Z",
   "recordedCommandCount": 11,
   "recordedCommandWallMs": 236085.471127,
-  "nativeProviderCalls": 0,
-  "nativeProviderReportedCostUsd": 0,
+  "nativeProviderCalls": 11,
+  "nativeProviderReportedCostUsd": 7.3608372,
   "operatorAndExecutiveCostUsd": null,
   "acceptedRc2ImplementationChanges": 0,
   "rawPreparationEvidenceBytes": 426785570,
@@ -42,6 +42,12 @@
   "limitations": [
     "Raw evidence bytes include repeated request/response/log representations; not all are event-log storage.",
     "Setup and operator overhead are included as observations; no productivity gain is inferred.",
-    "The full-worktree ENOSPC was an operator/repository setup failure, not an RC1 runtime failure."
-  ]
+    "The full-worktree ENOSPC was an operator/repository setup failure, not an RC1 runtime failure.",
+    "Attempt 005 includes both an operator build time limit and a native host/helper exchange failure; no exclusive root cause inferred.",
+    "Provider result costs use the last cumulative result per process, not the sum of multiple final rows."
+  ],
+  "operatorSetupFailures": 5,
+  "productImplementationChangesAccepted": 0,
+  "ownerApprovedBudgetUsd": 100,
+  "operatorStopThresholdUsd": 90
 }
