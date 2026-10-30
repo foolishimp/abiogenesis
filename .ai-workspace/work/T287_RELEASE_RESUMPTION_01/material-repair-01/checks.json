@@ -1,0 +1,80 @@
+{
+  "implementation": "4742e4929edf75ed010420399675cbbcdf0f0c23",
+  "qualification": false,
+  "commands": [
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "log": "build.log"
+    },
+    {
+      "command": "tsc -p tsconfig.json --noEmit --noUnusedLocals",
+      "exitCode": 0,
+      "log": "typecheck.log"
+    },
+    {
+      "command": "check-import-direction.mjs",
+      "exitCode": 0,
+      "log": "lint-imports.log"
+    },
+    {
+      "command": "check-lifecycle-boundary.mjs",
+      "exitCode": 0,
+      "log": "lint-lifecycle.log"
+    },
+    {
+      "command": "check-calculus-boundary.mjs",
+      "exitCode": 0,
+      "log": "lint-calculus.log"
+    },
+    {
+      "command": "check-evidence-mirrors.mjs",
+      "exitCode": 1,
+      "log": "lint-evidence.log",
+      "inheritedFrom": "082c5807e31bd2f0f79111bd6e88558246dfa61d",
+      "offendingPath": ".ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/implementation.diff",
+      "bytes": 7105341,
+      "fixedBound": 6000000,
+      "ownerInventory": ".ai-workspace/evidence/TREE_MIRROR_INVENTORY.json",
+      "existingOwnerMechanism": "node scripts/check-evidence-mirrors.mjs --write; no action taken by this Worker"
+    },
+    {
+      "command": "lint-verification.mjs test_env/qualification/recipe/verification-recipe.json",
+      "exitCode": 0,
+      "files": 72,
+      "log": "lint-recipe.log"
+    },
+    {
+      "command": "node --experimental-vm-modules --test --test-concurrency=1 [seven named affected lanes]",
+      "exitCode": 0,
+      "tests": 46,
+      "pass": 33,
+      "fail": 0,
+      "skip": 13,
+      "log": "focused.log"
+    },
+    {
+      "command": "node --max-old-space-size=16384 [this record]/measure.mjs",
+      "exitCode": 0,
+      "actualRequests": 2,
+      "calibrationProbes": 2,
+      "fullProjection": false,
+      "log": "measurement.log"
+    },
+    {
+      "command": "build-resources.mjs --package . --recipe-only true --scratch [temporary recipe fixture]",
+      "exitCode": 0,
+      "log": "recipe.log"
+    },
+    {
+      "command": "refresh-candidate-basis.mjs",
+      "exitCode": 0,
+      "log": "candidate-refresh.log"
+    }
+  ],
+  "limits": [
+    "Focused tests ran after the renderer/selection change; the later packing allocation adjustment is exercised by the exact whole-criterion comparison and the two actual requests, not a full projection.",
+    "Thirteen skips name absent retained/full carrier fixtures in focused.log; no installed/native conservation credit.",
+    "No native Run/provider/semantic qualification; no full suite; evidence-lint gate remains red until Root dispositions its inherited documentary cause."
+  ]
+}

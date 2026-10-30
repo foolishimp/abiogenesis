@@ -1,0 +1,2 @@
+.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z/implementation.diff: 7105341 bytes, over the 6000000-byte bound, not listed under oversize
+check-evidence-mirrors: 1 tracked path(s) exceed the 6000000-byte bound and are not listed under oversize; keep the bytes under the evidence root and name them by path and digest instead

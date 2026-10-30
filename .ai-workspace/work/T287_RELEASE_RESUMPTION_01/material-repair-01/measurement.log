@@ -1,0 +1,117 @@
+{
+  "kind": "t287_two_request_material_discriminator",
+  "head": "4742e4929edf75ed010420399675cbbcdf0f0c23",
+  "baseline": "082c5807e31bd2f0f79111bd6e88558246dfa61d",
+  "qualification": false,
+  "providerCalls": 0,
+  "nativeRuns": 0,
+  "fullProjection": false,
+  "basis": "stdo://releases/v3.0.2/",
+  "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "invariants": {
+    "criteria": 5831,
+    "criterionDigest": "sha256:795f5e4880a9eb4b54ef4ac5e1b59e5fc0e4a861f8d3d8fa0ec05b07b1a7cd14",
+    "beforeCriterionDigest": "sha256:795f5e4880a9eb4b54ef4ac5e1b59e5fc0e4a861f8d3d8fa0ec05b07b1a7cd14",
+    "exactCriterionIdentities": true,
+    "exactMemberRoleRootDomains": true,
+    "exactApplicabilityDeclarations": true,
+    "globalSurfaceGroupsUnchanged": true,
+    "ruleApplications": 5614
+  },
+  "rows": [
+    {
+      "beforeKey": "rule/manifest/product-toolchain-manifest.json/0",
+      "key": "rule/manifest/product-toolchain-manifest.json/evidence/diagnosed-generated-toolchain-manifest-definition/0",
+      "before": {
+        "bytes": 3545665,
+        "promptDigest": "sha256:207ee6692f12f81e0b4eac2055d4cca37c27c4d28ea915bb70a6b9d904ecbe97"
+      },
+      "after": {
+        "bytes": 142324,
+        "promptDigest": "sha256:f5b5303108fc1ec64b18d6a050b0140a828505f1bd76cca0213059351200039b",
+        "inputDigest": "sha256:6f6ba939c04226da539899b4ef010d52502bd7eb5736e94e66d41de6686b094b",
+        "taskDigest": "sha256:a950e27e060c6abaae0486691c120babe89cb3c408b39ab5bad0bcfa1049160e"
+      },
+      "bound": 1048576,
+      "criteria": [
+        {
+          "criterionRef": "criterion://abiogenesis/typescript-tenant/qualification/rule/213",
+          "ruleRef": "qualification-rule-group://abiogenesis/typescript-tenant/0",
+          "surfaceRef": "qualification-surface-group://abiogenesis/typescript-tenant/domain/0/manifest/product-toolchain-manifest.json",
+          "evidenceRole": "semantic_assessment"
+        }
+      ],
+      "subjectMembers": 1,
+      "sourceRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json",
+        "repo://abiogenesis/stdo_abiogenesis.json",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/package.json"
+      ],
+      "fullDeclarationsReconstructed": true,
+      "attributionChainsReconstructed": true,
+      "originalSpansPreserved": true,
+      "missingDiagnostic": "qualification resource material/scope correspondence differs",
+      "crossedDiagnostic": "qualification_resource_entry_missing_or_crossed",
+      "scopeBytes": 5514,
+      "attributionBytes": 5936,
+      "responseSchemaBytes": 1972
+    },
+    {
+      "beforeKey": "rule/complement/design/43",
+      "key": "rule/complement/design/evidence/diagnosed-design-complement-argument/0",
+      "before": {
+        "bytes": 990789,
+        "promptDigest": "sha256:a82f9405482e3465ecf6d8c62ce397e9b6053581a531464534e9fe3589963d70"
+      },
+      "after": {
+        "bytes": 645308,
+        "promptDigest": "sha256:2b696733d4fa0ce1c8552b11415ff956cbb40be08b5d6994a450ed2001cfb1f6",
+        "inputDigest": "sha256:d3a9a8f9e2e51a0961c3fc6634b5c863b1dacf7c035aac39e4a0e17199c9aa47",
+        "taskDigest": "sha256:4d687aea6cac7c49c722ba86c5ff1d53a83b4d176200e5463dc1f0b47a2e4d93"
+      },
+      "bound": 1048576,
+      "criteria": [
+        {
+          "criterionRef": "criterion://abiogenesis/typescript-tenant/qualification/rule/5515",
+          "ruleRef": "qualification-rule-group://abiogenesis/typescript-tenant/77",
+          "surfaceRef": "qualification-surface-group://abiogenesis/typescript-tenant/domain/77/complement/design",
+          "evidenceRole": "semantic_assessment"
+        },
+        {
+          "criterionRef": "criterion://abiogenesis/typescript-tenant/qualification/rule/5516",
+          "ruleRef": "qualification-rule-group://abiogenesis/typescript-tenant/78",
+          "surfaceRef": "qualification-surface-group://abiogenesis/typescript-tenant/domain/78/complement/design",
+          "evidenceRole": "semantic_assessment"
+        }
+      ],
+      "subjectMembers": 326,
+      "sourceRefs": [
+        "repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
+        "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/test_env/qualification/classification.json",
+        "repo://abiogenesis/specification/requirements/mapping/REQ-M-GTL3-PROVENANCE.md",
+        "repo://abiogenesis/specification/requirements/product/README.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER.md",
+        "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/adrs/ADR-047-reflective-optimization-is-gtl-over-replay.md"
+      ],
+      "fullDeclarationsReconstructed": true,
+      "attributionChainsReconstructed": true,
+      "originalSpansPreserved": true,
+      "missingDiagnostic": "qualification resource material/scope correspondence differs",
+      "crossedDiagnostic": "qualification_resource_entry_missing_or_crossed",
+      "scopeBytes": 179045,
+      "attributionBytes": 371970,
+      "responseSchemaBytes": 1972
+    }
+  ],
+  "limits": [
+    "Retained RP-1 basis/declaration/tenant coordinates and D5-c measured C2 stand-ins are structural measurement context only.",
+    "Two diagnosed requests only; all other slots and semantic sufficiency remain unverified.",
+    "Attribution/contributor semantics unchanged; no independence qualification or contributor-union closure.",
+    "Prompt bytes exclude separate schema, host and transport context; no actual token count or cost claim.",
+    "Generator evidence and a derivation argument do not establish semantic compliance or authenticated output reproduction."
+  ]
+}

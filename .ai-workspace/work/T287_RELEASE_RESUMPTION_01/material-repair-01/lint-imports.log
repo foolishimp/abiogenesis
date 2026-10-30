@@ -1,0 +1,2 @@
+check-import-direction: 28 modules under code/src/shared/ import only code/src/shared/ and packages
+check-import-direction: 3 forbidden owner pair(s) hold
