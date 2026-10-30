@@ -59,3 +59,13 @@ The Codex commits carry `Co-Authored-By: Codex gpt-6-astra`, mapped to `actor-id
 3. Then O2, the inherited reruns, and D5-d-prep's projection on the frozen cut, with the 2.04 bytes-per-token rate beside the model rate.
 
 On the calendar: the owner's two decisions and the package above are about one working day; O2 through D5-d-prep another; the run itself five to eight hours if the selection is argued. A green first verdict puts 5.0.0 at 3 to 4 November; a non-green first verdict with one repair round, 5 to 6 November. Codex's 2 to 4 November holds only if the run is bought on the present selection, which I advise against.
+
+## Addendum (2026-10-30 18:50 local): reconciliation with the Opus 5.5 review Codex commissioned
+
+Codex's root Executive ran an Opus 5.5 max review of RP-2 at 03:10 local (uncommitted, under the RP-2 record's `review/opus55-max-20261029T155641Z/`, 3.89 USD, read-only). Verdict "falsified (narrow)". Where the two reviews stand:
+
+- **Agree:** the correction carrier pins the Public `runtime_failed` erasure as its pass predicate (its F1, my item 2). Opus proposes a non-pinning predicate and a recorded residual; I hold that the erasure itself is a 5.0 Product defect to repair before O2, which needs the owner's contract decision. Both can be done: the predicate fix now, the contract repair in the cut.
+- **Opus adds, and I accept:** the driver's projection header omits the proof-complement bound (F2, one line); no test pins the memo's key fields to the material schema's fields, so a future schema field would fail open (A2); the `re_enter` and `ticket_traversal` lanes do not assert an admitted route kind, only completion and construction-intent events (A3, A4), so that evidence is weaker than the roster's consequence class implies.
+- **Not in the Opus review (it had no execution and did not read the projection rows):** the positional selection's predictable `unknown`, the 58 percent framing share, the 25 plus 7 decomposition of the oversized slots, and the doubling of the cost figure at the observed token rate. Those stand as this review's findings.
+
+Neither review has been dispositioned by the root Executive as of 18:45 local; the repository has not moved since 03:51.
