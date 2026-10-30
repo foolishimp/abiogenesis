@@ -1,0 +1,132 @@
+{
+  "state": "completed",
+  "operator": "/root/rp2_review_operator",
+  "model_requested": "claude-opus-5-5",
+  "effort_requested": "max",
+  "model_reported": "claude-opus-5-5",
+  "effort_reported": null,
+  "budget_usd": 5,
+  "wall_limit_seconds": 1500,
+  "packet": "/Users/jim/src/apps/abiogenesis/.ai-workspace/comments/codex/20261029T130722Z_RP2_QUALIFICATION_READINESS/review/opus55-max-20261029T155641Z",
+  "cli_version": "2.1.306 (Claude Code)",
+  "implementation": "f8396e6bc5edcba290e4b8dae23af4d2015e271d",
+  "head": "31917f66a63c94cd76627c630acd05ca57d3cb0e",
+  "native_product_provider_calls": 0,
+  "product_tests_executed": 0,
+  "command": [
+    "claude",
+    "--print",
+    "--model",
+    "claude-opus-5-5",
+    "--effort",
+    "max",
+    "--max-budget-usd",
+    "5",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--permission-mode",
+    "plan",
+    "--permission-prompts",
+    "none",
+    "--tools",
+    "Read,Glob,Grep",
+    "--allowedTools",
+    "Read,Glob,Grep",
+    "--restricted",
+    "--safe-mode",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "{\"mcpServers\":{}}",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--no-chrome",
+    "--add-dir",
+    "/Users/jim/Library/Application Support/STDO/releases/v3.0.2"
+  ],
+  "started_at": "2026-10-29T15:57:43.161730+00:00",
+  "pid": 18940,
+  "ended_at": "2026-10-29T16:10:24.336682+00:00",
+  "elapsed_seconds": 761.176,
+  "exit_status": 0,
+  "timed_out": false,
+  "tools_reported": [
+    "Glob",
+    "Grep",
+    "Read"
+  ],
+  "permission_mode_reported": "plan",
+  "response_models": [
+    "claude-opus-5-5"
+  ],
+  "result_subtype": "success",
+  "is_error": false,
+  "cost_usd_reported": 3.8884438000000006,
+  "usage_reported": {
+    "input_tokens": 100,
+    "cache_creation_input_tokens": 223260,
+    "cache_read_input_tokens": 7198199,
+    "output_tokens": 65614,
+    "output_tokens_details": {
+      "thinking_tokens": 45172
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6608,
+      "ephemeral_5m_input_tokens": 216652
+    },
+    "inference_geo": "global",
+    "iterations": [
+      {
+        "input_tokens": 2,
+        "output_tokens": 12147,
+        "cache_read_input_tokens": 218605,
+        "cache_creation_input_tokens": 7878,
+        "cache_creation": {
+          "ephemeral_5m_input_tokens": 7878,
+          "ephemeral_1h_input_tokens": 0
+        },
+        "type": "message"
+      }
+    ],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "model_usage_reported": {
+    "claude-opus-5-5": {
+      "inputTokens": 100,
+      "outputTokens": 65614,
+      "cacheReadInputTokens": 7198199,
+      "cacheCreationInputTokens": 223260,
+      "webSearchRequests": 0,
+      "costUSD": 3.8884438000000006,
+      "contextWindow": 1000000,
+      "maxOutputTokens": 128000,
+      "thinkingTokens": 45172,
+      "canonicalModel": "claude-opus-5-5",
+      "provider": "firstParty",
+      "costBasis": "list"
+    }
+  },
+  "permission_denials": [],
+  "frozen_product_implementation_unchanged": true,
+  "new_untracked_outside_write_territory": [],
+  "reviewer_verdict": "falsified (narrow)",
+  "reviewer_findings": [
+    {
+      "id": "F1",
+      "severity": "S3",
+      "summary": "Correction carrier pins known Public runtime_failed coarsening as its pass predicate."
+    },
+    {
+      "id": "F2",
+      "severity": "S4",
+      "summary": "O2 driver projection header omits proof-complement class bound."
+    }
+  ],
+  "reviewer_report_sha256": "818c94c085a2dc1332ca0920efaf7d2fba4a051f9437f8d3808be37d0086ed0f"
+}
