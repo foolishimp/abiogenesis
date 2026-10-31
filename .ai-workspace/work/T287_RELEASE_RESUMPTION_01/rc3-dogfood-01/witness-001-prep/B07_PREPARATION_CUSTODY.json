@@ -1,0 +1,93 @@
+{
+  "kind": "b07_native_lookup_operator_preparation",
+  "recordedAt": "2026-10-31T18:40:45.742049+00:00",
+  "authority": "Root explicit operator-only grant; independent review and actual native activation remain Root-owned",
+  "basis": {
+    "definition": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.2/",
+    "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "inputs": [
+    {
+      "path": "verify-c2-b07.py",
+      "bytes": 8475,
+      "sha256": "a95c1c8990bf77b0c4b3a1f18fded5dbb75a54bbcd9cddc7cdeb1cddb9d6cb3e"
+    },
+    {
+      "path": "make-gc03-candidate-b07.py",
+      "bytes": 8828,
+      "sha256": "6dd001411a188572f941c4a7d9ce6b7ee838caa64a6ccb1e1e46734a34ed7a55"
+    },
+    {
+      "path": "make-activation-template-b07.py",
+      "bytes": 4602,
+      "sha256": "dc8179aeee93337464bb938af4db943e61c4d3a61352d421b1f35178670a54b5"
+    },
+    {
+      "path": "consumer-b07.mjs",
+      "bytes": 13657,
+      "sha256": "51b87793f4a9659bee5f24b22981f3cedf6a5289102c3739a04f45f8439a0c58"
+    },
+    {
+      "path": "public-setup-b07.mjs",
+      "bytes": 28884,
+      "sha256": "a83604859219679a207ff8b11747a1c91009c6c8594007f3b7be1758d9b6d0ef"
+    },
+    {
+      "path": "bootstrap-b07.mjs",
+      "bytes": 9992,
+      "sha256": "f630b9cf1ccfcfcdb5d1013cef6bcce6e3f83308c88d7649ee8424f0218a7cbb"
+    },
+    {
+      "path": "workload-b07.mjs",
+      "bytes": 1997,
+      "sha256": "ae991256de5cc65ae6ea4bc5077e20c2691ac9031211824f12642caaf93232b4"
+    },
+    {
+      "path": "prepare-call-b07.mjs",
+      "bytes": 1873,
+      "sha256": "4f79a2a9b58eb68c05452006f4d951435787ac845f0235e1a1a185e7ca166a6d"
+    },
+    {
+      "path": "run-b07.mjs",
+      "bytes": 2428,
+      "sha256": "eeb402121d76f2ab21c3967ed814f3e459e6a5c60a438433e2e93250f640cd72"
+    },
+    {
+      "path": "selected-c2-b07.TEMPLATE.json",
+      "bytes": 1398,
+      "sha256": "6a2ac5b8bc5d19e3cf2467c51eccadc92baf09b806a7d27166e1091b4668c371"
+    },
+    {
+      "path": "B07_HANDOFF.md",
+      "bytes": 5287,
+      "sha256": "24477c2acd6f60386e481cf7d40effc9bbbf48e917c59b6ebefd0c8c320d8ce7"
+    },
+    {
+      "path": "task.md",
+      "bytes": 905,
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+    },
+    {
+      "path": "rubric.json",
+      "bytes": 1196,
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+    },
+    {
+      "path": "fixture.txt",
+      "bytes": 4616,
+      "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+    },
+    {
+      "path": "dependency-resources.mjs",
+      "bytes": 1750,
+      "sha256": "ea6d5dabf87e5d77296c90f4f64ebb9ea48fc6b29f3b927c91827982850a25b6"
+    }
+  ],
+  "status": "pending actual admitted B07 C2 artifact and Root activation",
+  "effects": "only new versioned operator inputs in witness-001-prep; no runtime/provider/Product execution",
+  "unchangedCriteria": "rubric.json W1-W5"
+}

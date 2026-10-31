@@ -1,0 +1,49 @@
+{
+  "kind": "rc3_b07_c2_selected_producer_v1",
+  "status": "PENDING_ACTUAL_B07_C2_AND_ROOT_SELECTION",
+  "producer": {
+    "runRef": null,
+    "resultRef": null,
+    "resultDigest": null,
+    "admissionEvidencePath": null,
+    "admissionEvidenceSha256": null,
+    "helperResultPath": null,
+    "helperResultSha256": null,
+    "helperArtifactRef": null,
+    "helperArtifactDigest": null,
+    "artifactRelativePath": null,
+    "namedTestAcceptance": {
+      "name": "GC03 real owner allowed denied cold tamper",
+      "disposition": null,
+      "skipped": null,
+      "todo": null,
+      "stdoutDigest": null,
+      "passLine": null,
+      "evidencePath": null,
+      "evidenceSha256": null
+    }
+  },
+  "artifact": {
+    "sha256": null,
+    "bytes": null,
+    "productId": null,
+    "packageName": null,
+    "packageVersion": null,
+    "productContentDigest": null,
+    "manifestDigest": null,
+    "manifestByteSha256": null
+  },
+  "operator": {
+    "authorityPath": null,
+    "authoritySha256": null,
+    "consumerModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/consumer-b07.mjs",
+    "consumerModuleSha256": null,
+    "nodePath": null,
+    "nodeSha256": null,
+    "npmPath": null,
+    "npmSha256": null,
+    "taskSha256": null,
+    "rubricSha256": null,
+    "policyRef": "member://abi5-tests/gc03/private-policy@5"
+  }
+}
