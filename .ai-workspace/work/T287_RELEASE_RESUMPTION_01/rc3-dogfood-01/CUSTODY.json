@@ -1,11 +1,17 @@
 {
   "kind": "rc3_operator_preparation_custody",
-  "status": "RC2_SETUP_COMPLETED_INCREMENT_A_NOT_DISPATCHED",
-  "meaning": "Compact operator evidence. Large original setup/install resources remain at named local paths; RC2_SETUP_RETURN hashes their deciding receipts.",
+  "status": "A01_CALL_PREPARED_NOT_ADMITTED",
+  "meaning": "Compact operator evidence; large original setup/install resources and exact prepared call remain locally retained under these hashes.",
   "rawRetained": [
     "setup-001/",
     "runtime-activation-001/"
   ],
+  "localOnlyFiles": {
+    "attempt-001/prepared-call.json": {
+      "sha256": "10331d7dd94ff6b9510e2aa1943fbfcaf4db79982f711cdf04eeafc035492c36",
+      "bytes": 30115930
+    }
+  },
   "files": {
     "GC03_LOCAL_RELEASE.md": {
       "sha256": "cd56518a2881c914eddb37338633d4a9c38ff20985cb20d191d24599f9fabd41",
@@ -38,6 +44,58 @@
     "archive-census.json": {
       "sha256": "a63af49ad7c04fe3fd9b1fd66af1419c5d7d18941a385190bec74afebc2df43f",
       "bytes": 459
+    },
+    "attempt-001/ACTIVATE_A01.json": {
+      "sha256": "a5a042f87a3e1d94a46d7fcf89033b1206dba2b8045584b016a25b750b02ba87",
+      "bytes": 5872
+    },
+    "attempt-001/PREPARATION_MANIFEST.json": {
+      "sha256": "da67aa0f1c746d20e6c8b604197f2007c25a743f3e13c3b71d4082cc82d651d0",
+      "bytes": 7600
+    },
+    "attempt-001/PREPARED_CALL.json": {
+      "sha256": "0bcd4a96dd84de5f0b9386cf50be85dd23ee633076dfac7ceaef59489d5b33fe",
+      "bytes": 1512
+    },
+    "attempt-001/RETURN.md": {
+      "sha256": "ca3a73ab6188b95da18028d6cd987fa74bc3befd3d4603cea09a734136203a82",
+      "bytes": 4361
+    },
+    "attempt-001/current-preflight.log": {
+      "sha256": "e95aa9b4b38b1dd84d8f0a2d89c57a3c607a25867186b7914e123902a42b5655",
+      "bytes": 2420
+    },
+    "attempt-001/dispatch.mjs": {
+      "sha256": "2617e300c37863d78ed5db4104e96e74f11be3aa88a13e268894d5628f753b5a",
+      "bytes": 6928
+    },
+    "attempt-001/input.json": {
+      "sha256": "1475f2f6026c918530ec9f287bf7eabaccb6fe94c1862d974da2b0ef5b487431",
+      "bytes": 225889
+    },
+    "attempt-001/monitor-budget.py": {
+      "sha256": "8ee36b8428cadc405036b50f9548ad506997173cbae934f2783e84d650f78203",
+      "bytes": 2583
+    },
+    "attempt-001/monitor-test.log": {
+      "sha256": "b46f03e81b55c8e3e5346c92e758f4c7d14b2a8aaf448b8e37d369250f991678",
+      "bytes": 96
+    },
+    "attempt-001/prepare-call.log": {
+      "sha256": "11b0584dc7bcf3ce59d65c1f583ec84af3287c36e27127c5d1152663f19567c8",
+      "bytes": 1430
+    },
+    "attempt-001/prepare-call.mjs": {
+      "sha256": "14de38399cf8fc5d12353cc182ecfb3e07f399612ca19c48cae0920285a3c0a7",
+      "bytes": 4482
+    },
+    "attempt-001/run.json": {
+      "sha256": "ec49c1ea26de7a5d09b9f39a15335f227c3f71c1c3f869ffc89f4741522b5d29",
+      "bytes": 403
+    },
+    "attempt-001/test_monitor_budget.py": {
+      "sha256": "c774af596ee9ef7aa6182639b6a6681afc01fd6fcb23a89d725a49b77a91208d",
+      "bytes": 1192
     },
     "gc03-install.log": {
       "sha256": "4e326f9236bce562d633bf5b1eb796e0f6ee7d340d3d6eee0ccd3b32bab08a23",
@@ -78,6 +136,10 @@
     "increment-a-01/method-3.0.2/.claude/skills/stdo-work/SKILL.md": {
       "sha256": "3465f25f6357c8186ee325377cd4db97872272a7993f3995ccdf57a4ae8ef76a",
       "bytes": 11186
+    },
+    "increment-a-01/method-3.0.2/CUSTODY.json": {
+      "sha256": "dc6015d3102c8bcbec7c36418288f7b00eacca6ae2907c19e92665592c8839a3",
+      "bytes": 2081
     },
     "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/manifest.json": {
       "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
