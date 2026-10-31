@@ -1,0 +1,18 @@
+{
+  "classification": "controlled synthetic diagnostic only; no native authority, admission or installed witness",
+  "kind": "b05_controlled_adapter_probe_custody",
+  "rows": [
+    {
+      "bytes": 672,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-06/b05-probe-diagnostic-result.json",
+      "sha256": "b7bf7e91b732551d28f6c3652ef20174833c5b88de4733537477882818f5366f",
+      "source": "/private/tmp/gc03-b05-diagnostic-grksxzbi/diagnostic-result.json"
+    },
+    {
+      "bytes": 9384,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-06/b05-probe-gc03-policy.json",
+      "sha256": "ecd9946b162bf5696c227bf55ec840de1b3ed137f31c9c6e1af8fcc742bb28dd",
+      "source": "/private/tmp/gc03-b05-diagnostic-grksxzbi/gc03-policy.json"
+    }
+  ]
+}

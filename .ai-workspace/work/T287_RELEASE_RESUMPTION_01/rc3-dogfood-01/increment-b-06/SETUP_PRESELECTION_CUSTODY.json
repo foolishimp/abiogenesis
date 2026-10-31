@@ -1,0 +1,60 @@
+{
+  "builderArchive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "sha256": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528"
+  },
+  "builderInventoryReceipt": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/payload-correspondence.json",
+    "sha256": "sha256:b6a6f2107b61e40e1bba8a2cba9b857e313efc9f19fe47f434f514e2205b5678"
+  },
+  "builderPayloadFilesChecked": 5315,
+  "changedPaths": 14,
+  "conservativeUsd": "88.3403847999999986",
+  "kind": "b06_fresh_setup_readonly_preselection_custody",
+  "limits": [
+    "No old event-log rescan, native admission, provider call, new store or Result",
+    "B05 blocked remains historical; fresh store inherits no native Results"
+  ],
+  "liveWorkspaceBasis": {
+    "digest": "sha256:f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "ref": "workspace-authority://abiogenesis/f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da"
+  },
+  "manifestAuthority": {
+    "digest": "sha256:509389e6dbc780e0e660c0d139b441ac5916775827cbd4f4942764be64775020",
+    "ref": "workspace-authority://abiogenesis/509389e6dbc780e0e660c0d139b441ac5916775827cbd4f4942764be64775020"
+  },
+  "previousDispatcherAbsent": true,
+  "previousDispatcherPid": 95696,
+  "previousDisposition": "blocked",
+  "previousPrefix": {
+    "coordinateDigest": "sha256:ee91a22ebad5c365d231d4148bb69d751120cd3fcc0d61541e347f8a5855e70d",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:a8aab586707e23f5b6c3bfae64c8d54714bf595547c85df99ce1a73c4f143453",
+    "prefixLength": 3150436978,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 667201988
+    }
+  },
+  "previousRun": {
+    "digest": "sha256:336eb64bb914ecf29ba3800a3a99a3df253149fcc50bdce57ba9137cbb5826ea",
+    "ref": "run://abiogenesis/1a85796e98a130f7fd27cc930e784d6cc919e3d3f6454b908475cb62bc4e750f"
+  },
+  "readbackCloseCoordinatesMatched": true,
+  "sourceCustody": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/B05_PARTIAL_CUSTODY.json",
+    "sha256": "sha256:4ccd46ddb6fc252a1ca12ea31f8df225111e8e81db7d4ad8d35836a702281e3e"
+  },
+  "sourcePathsChecked": 23,
+  "status": "actual bytes checked; no native setup or new Run",
+  "unknownB03ReserveUsd": "8",
+  "usageReportedUsd": "80.3403847999999986",
+  "workspaceManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/.abiogenesis/workspace-manifest.json",
+    "sha256": "sha256:94b9c6fb90bd8f257b7a92897ce1d1f4edb27476b6162f2f5713fdfc64c1c268"
+  },
+  "workspaceRef": "workspace://abiogenesis/b87f55b5ce957c59dc88e99aca41e0c25ce659376a7b53712c3b78df8d19db18"
+}

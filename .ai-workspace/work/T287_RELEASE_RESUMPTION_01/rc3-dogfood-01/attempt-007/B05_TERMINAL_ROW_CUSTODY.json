@@ -1,0 +1,10 @@
+{
+  "kind": "b05_exact_provider_terminal_row_custody",
+  "rawStream": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b75611088e92b2b6-stdout.log",
+  "rawStreamSha256": "18cefeced34e2c116b1600bf9e731fa21a4247d5d97da998f93fb3655c5b54ff",
+  "reportedCostUsd": 4.015721399999999,
+  "status": "provider terminal row only; not native admission or accepted feature",
+  "terminalRowBytes": 14513,
+  "terminalRowPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-007/B05_CONSTRUCTION_TERMINAL.jsonl",
+  "terminalRowSha256": "fe013eadfd864ea7a2685c59a6a9738841839299c08013d0ef8ff6a62b45cbbf"
+}

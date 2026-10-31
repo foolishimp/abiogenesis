@@ -1,0 +1,5 @@
+# B06 bounded proof realization
+
+Use the existing B05 native owner and GC03 adapter, not a new Program or lifecycle. The named integration test is first and must enter the real owner chain from genuine same-Run admitted C2 evidence, including existing full-member Program policy and activation source bindings. Reuse installed test fixtures and their controlled provider transport; the test locally generates and verifies all declared policy/dependency bytes. Retained request/response correspondence must cover actual fixed-client execution, allow and deny, cold joins and a tamper refusal. Current source's narrow 8,192-byte intersection and refusal of excess requests stay intact.
+
+Only fix a concrete failure exposed by the deciding test. No broad scratch proof; final admitted nine-command C2 owns build, package, source-correspondence and broader tests. Preserve actual provider/public/native outputs and report gaps. The separate real installed-RC3 native witness and release selection are not done by this package.

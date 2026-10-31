@@ -1,0 +1,17 @@
+{
+  "scope": "synthetic adapter/API diagnostic only; no ABG/native authority or admission",
+  "scratch": "/private/tmp/gc03-b05-diagnostic-grksxzbi",
+  "adapterSha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+  "exitCode": 0,
+  "callbacks": {
+    "resolve_artifact": 46,
+    "reacquire": 2
+  },
+  "allowed": true,
+  "bytes": 4616,
+  "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+  "exactFixture": true,
+  "publication": "not_performed",
+  "contextDigest": "d012a71464445c2c828d9789b497f7fa7881f6bb754da2bc5436a16f44c29174",
+  "recheckDigest": "b7aeb645288b9a172bf6f12ba07dbc5ca33a84afcd2014c3b316f45f297e18f5"
+}

@@ -1,0 +1,33 @@
+{
+  "budget": {
+    "automaticRetry": false,
+    "effectiveConservativeUsd": "88.3403848",
+    "maximumB06Usd": "7.50",
+    "maximumPaidProcesses": 3,
+    "otherCharges": "unknown",
+    "perProcessUsd": "2.50",
+    "preWitnessStopUsd": "96",
+    "reportedNativeTotalUsd": "80.3403848",
+    "reviewCheckpointsUsd": [
+      "90",
+      "94"
+    ],
+    "unknownB03ReserveUsd": "8",
+    "userAllocationUsd": "100",
+    "witnessReserveUsd": "4"
+  },
+  "executive": "/root",
+  "interpretation": "Root selected bounded local fresh RC2 store against the same canonical worksite after B05 closure; not native admission, external release or inherited Result",
+  "kind": "b06_fresh_store_executive_selection",
+  "limits": [
+    "This selects local model-free Public setup only; Root operates it",
+    "Separate actual prepared native call and Root dispatch remain future",
+    "No whole-Product qualification or release"
+  ],
+  "ownerInstruction": "review, fix, and continue on using rc2 being used to build rc3",
+  "preselectionCustodySha256": "sha256:f925a74137d8acd6b095cb3e2336a9d250505d1f92038c3a4ad832bafe5eb53f",
+  "providerDispatch": false,
+  "recursionBound": 3,
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "status": "SELECTED"
+}

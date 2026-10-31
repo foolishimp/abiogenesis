@@ -1,0 +1,43 @@
+{
+  "kind": "b06_current_historical_input_projection",
+  "status": "actual final B04/B05 dispositions supersede prior draft state",
+  "removedHistoricalOperatorInputs": [
+    "rc3-operator-inputs/increment-b-02/HOW.md",
+    "rc3-operator-inputs/increment-b-02/task.md",
+    "rc3-operator-inputs/increment-b-03/B02_DISPOSITION.md",
+    "rc3-operator-inputs/increment-b-03/B02_STRUCTURED_RETURN.json",
+    "rc3-operator-inputs/increment-b-03/DECISION.md",
+    "rc3-operator-inputs/increment-b-03/HOW.md",
+    "rc3-operator-inputs/increment-b-03/task.md",
+    "rc3-operator-inputs/increment-b-04/B03_DISPOSITION.md",
+    "rc3-operator-inputs/increment-b-04/EXAMPLE_CUSTODY.json",
+    "rc3-operator-inputs/increment-b-04/HISTORICAL_ERRATA.md",
+    "rc3-operator-inputs/increment-b-04/HOW.md",
+    "rc3-operator-inputs/increment-b-04/task.md",
+    "rc3-operator-inputs/increment-b-05/B04_CONSTRUCTION_RETURN.json",
+    "rc3-operator-inputs/increment-b-05/B04_DISPOSITION.DRAFT.md",
+    "rc3-operator-inputs/increment-b-05/B04_SELECTOR_RETURN.json",
+    "rc3-operator-inputs/increment-b-05/B04_SOURCE_CUSTODY.json",
+    "rc3-operator-inputs/increment-b-05/B04_THREE_STREAM_CUSTODY.json",
+    "rc3-operator-inputs/increment-b-05/DECLARATION_CUSTODY.json",
+    "rc3-operator-inputs/increment-b-05/HOW.md",
+    "rc3-operator-inputs/increment-b-05/NAMED_INTEGRATION_CHECK.json",
+    "rc3-operator-inputs/increment-b-05/declared-gc03/GC03_DECLARATION.md",
+    "rc3-operator-inputs/increment-b-05/fp-7039f62840e47eb4-structured-return.json",
+    "rc3-operator-inputs/increment-b-05/task.md"
+  ],
+  "preserved": [
+    "original Increment A and B01 criteria and grant",
+    "full Product/source/test closure and both C2 readRoots and selectedPaths",
+    "exact GC03 examples, policy templates and pinned toolchain census",
+    "earlier files and native evidence remain unchanged in their original custody"
+  ],
+  "evidence": {
+    "checkedReferenceCommand": "rg -n rc3-operator-inputs/increment-b-0[2345] build_tenants/abiogenesis/typescript/test_env build_tenants/abiogenesis/typescript/code --glob *.{mjs,ts,py,json}",
+    "result": "no matching references"
+  },
+  "limits": [
+    "No historical native verdict altered",
+    "This removes superseded operator status documents, not Product/test dependencies or criteria"
+  ]
+}
