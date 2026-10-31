@@ -1,0 +1,84 @@
+{
+  "wallMs": 1194.3786250000003,
+  "cliPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/public/cli.js",
+  "requestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/successor-observation-001/st4-superseded-refusal-request.jsonl",
+  "output": {
+    "acquisitionKind": "reopen",
+    "kind": "installed_definition_call_transport_result",
+    "receipt": {
+      "definitionKey": {
+        "memberKey": "current_intent",
+        "operationId": "abg.operation.run.continue"
+      },
+      "exitCode": 1,
+      "failure": null,
+      "invocationRef": "invocation://abiogenesis/4de49227318db5dcc93be56f70dda06e75d87e7306ca3e8400ed842babe3041e",
+      "kind": "definition_host_receipt",
+      "ownerOutput": {
+        "outcomeKind": "refusal",
+        "value": {
+          "code": "resolved_continuation",
+          "evidenceRefs": [],
+          "issuePaths": [
+            "/continuation"
+          ]
+        }
+      },
+      "resources": {
+        "eventResource": {
+          "acquisitionKind": "reopen",
+          "closeHandoff": {
+            "prefix": {
+              "coordinateDigest": "sha256:291018d3844ade7a405f6c3b9bd4414c3e5d978e4af5608662177baa1c42c95d",
+              "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+              "kind": "durable_prefix_coordinate",
+              "prefixDigest": "sha256:28fd418f9ec56008eccc7d07bac5c0d9cba61e05972c5a77d0a62e8edd789b56",
+              "prefixLength": 4213611,
+              "schemaVersion": "5.0.0",
+              "storeIdentity": {
+                "device": 16777231,
+                "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+                "inode": 667779192
+              }
+            },
+            "reopenAuthority": {
+              "authorityDigest": "sha256:b1a7afd000d2beb7e7cbb5d2b0997c7dd0029a477f642474bd848f5e2916f284",
+              "device": 16777231,
+              "durableByteLength": 4213611,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "eventLogDigest": "sha256:28fd418f9ec56008eccc7d07bac5c0d9cba61e05972c5a77d0a62e8edd789b56",
+              "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+              "inode": 667779192,
+              "kind": "event_store_reopen_authority",
+              "schemaVersion": "5.0.0"
+            }
+          },
+          "entryPrefix": {
+            "coordinateDigest": "sha256:291018d3844ade7a405f6c3b9bd4414c3e5d978e4af5608662177baa1c42c95d",
+            "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+            "kind": "durable_prefix_coordinate",
+            "prefixDigest": "sha256:28fd418f9ec56008eccc7d07bac5c0d9cba61e05972c5a77d0a62e8edd789b56",
+            "prefixLength": 4213611,
+            "schemaVersion": "5.0.0",
+            "storeIdentity": {
+              "device": 16777231,
+              "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+              "inode": 667779192
+            }
+          },
+          "kind": "abg_event_resource_receipt",
+          "receiptDigest": "sha256:7c5773ad55d3eee23eea8fd4bffabfebe15f02e10228406c69ece75d5f473ee4",
+          "schemaVersion": "5.0.0"
+        },
+        "invocationAdmission": null,
+        "kind": "run_invocation_resource_receipt",
+        "productExecutionResolution": null,
+        "replay": null,
+        "run": null,
+        "schemaVersion": "5.0.0"
+      },
+      "schemaVersion": "5.0.0"
+    },
+    "schemaVersion": "5.0.0"
+  }
+}

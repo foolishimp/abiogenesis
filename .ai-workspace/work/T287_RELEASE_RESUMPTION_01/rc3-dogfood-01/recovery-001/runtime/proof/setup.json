@@ -1,0 +1,29 @@
+{
+  "scratch": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/consumer/node_modules/@abiogenesis/typescript-tenant",
+  "artifactPaths": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/registered-selection-artifacts/abiogenesis-fixtures-registered-selection-5.0.0.tgz"
+  ],
+  "archiveDigests": [
+    "sha256:9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d",
+    "sha256:c01bca607cf13fa6079d4b115f0ad4b576a833325d0e951e42fe03b457c22cbe"
+  ],
+  "setupMs": 49037.254417,
+  "accounting": {
+    "wallMs": {
+      "bootstrap_owner_loading_and_candidate_preparation": 374.3182079999999,
+      "provisioning_verify_artifact": 22086.863416,
+      "provisioning_install": 9356.818416999999,
+      "provisioning_installed_content_check": 3551.0083339999983,
+      "provisioning_additional_products": 9316.477790999998,
+      "installed_owner_loading": 713.4787920000017,
+      "environment_install_and_workspace_admission": 2001.377708,
+      "execution_preparation_publication_program_and_catalog": 484.641082999995,
+      "execution_preparation_resolution_and_program_validation": 306.0666249999995,
+      "execution_preparation_invocation_admission": 721.2909169999984,
+      "execution_preparation_graph_and_implementation_resolution": 94.82683299999917,
+      "execution_preparation_basis_and_leaf_port": 21.373749999998836
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "kind": "recovery_001_observation",
+  "classification": "observed identity assertion stop; cause and recovery claim unresolved",
+  "rootObservedOperatorExitCode": 1,
+  "failurePoint": "continue.mjs line 32: deep equality of returned resources.run and prepared checkpoint.run",
+  "expectedRun": {
+    "ref": "run://abiogenesis/660918a5008533d404273249582ea4a43bc02ae3ea5d5e9fc66629477ccd27ae",
+    "digest": "sha256:660918a5008533d404273249582ea4a43bc02ae3ea5d5e9fc66629477ccd27ae"
+  },
+  "returnedResourceRun": {
+    "digest": "sha256:1f5608705f7e552753b8e057e2a8c7638a800184c9f315eb43bfd5a3b4091d13",
+    "ref": "run://abiogenesis/2b6d94428e86aa9d0b3160d45960a63ed1569c5ef597c6da80fe4d2157ad1d0f"
+  },
+  "returnedValueRun": {
+    "digest": "sha256:1f5608705f7e552753b8e057e2a8c7638a800184c9f315eb43bfd5a3b4091d13",
+    "ref": "run://abiogenesis/2b6d94428e86aa9d0b3160d45960a63ed1569c5ef597c6da80fe4d2157ad1d0f"
+  },
+  "publicReceipt": {
+    "failure": null,
+    "ownerOutputKind": "result",
+    "disposition": "completed",
+    "wallMs": 19113.020916999998,
+    "terminalResultPresent": false
+  },
+  "provider": {
+    "stream": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/workspace/.ai-workspace/archive/fp-f3dd8ffa6c89948a-stdout.log",
+      "bytes": 14485,
+      "sha256": "594b25e724063325bd34fce3cdef954ce20e62860b290d977f01cbb138155f62"
+    },
+    "subtype": "success",
+    "reportedUsd": 0.035116,
+    "result": "{\"kind\":\"fixture_consumed\",\"schemaVersion\":\"5.0.0\",\"payload\":\"preserved producer\"}"
+  },
+  "evidence": {
+    "preparedCheckpoint": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/proof/prepared-checkpoint.json",
+      "bytes": 9876,
+      "sha256": "28f1fe3701eddf3acc54938bf432be788b3060c448d8f4da6933a2db9344a7ab"
+    },
+    "continueReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/proof/continue-receipt.json",
+      "bytes": 45153,
+      "sha256": "a57f6635b8e65b912a3ab070640dc2d15e0bce46aaeb6436b7261b8bc7b27963"
+    },
+    "dispatchStarted": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/proof/CONTINUATION_DISPATCH_STARTED.json",
+      "bytes": 347,
+      "sha256": "71fbc846a0bf6ee54cd36e1532ae01abe75f4c619c77f34a024dcd06d0962a5a"
+    }
+  },
+  "returnedPrefix": {
+    "coordinateDigest": "sha256:291018d3844ade7a405f6c3b9bd4414c3e5d978e4af5608662177baa1c42c95d",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:28fd418f9ec56008eccc7d07bac5c0d9cba61e05972c5a77d0a62e8edd789b56",
+    "prefixLength": 4213611,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 667779192
+    }
+  },
+  "costs": {
+    "cumulativeReportedNativeUsd": "89.1941966",
+    "b03UnknownReserveUsd": "8",
+    "reportedPlusReserveUsd": "97.1941966",
+    "formerLimit": "removed by owner"
+  },
+  "notReached": [
+    "fresh run_result and run_replay readbacks",
+    "consumed continuation negative check",
+    "post-continuation event-join proof"
+  ],
+  "limits": [
+    "No retry was made",
+    "Provider success and completed Public disposition do not establish same-Run recovery",
+    "Cause under independent triage"
+  ]
+}

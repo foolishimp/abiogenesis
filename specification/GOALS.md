@@ -78,6 +78,13 @@ one-Run evaluation-directed traversal claim after independent review. The
 retains exact evidence and limitations. Cold recovery, repeatability, GC03 and
 whole-Product qualification and release acceptance remain open.
 
+Bounded recovery checkpoint, 2026-11-01: Root accepted controlled cold
+continuation through explicit replacement-Run lineage after independent review;
+the successor result/replay closed and a superseded request refused. The
+[recovery disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/RECOVERY_DISPOSITION.md)
+does not establish physical-crash recovery, correction, repeatability or
+broader Product qualification.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

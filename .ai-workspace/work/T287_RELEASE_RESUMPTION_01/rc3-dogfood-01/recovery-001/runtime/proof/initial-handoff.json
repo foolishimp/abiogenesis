@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "kind": "durable_prefix_coordinate",
+    "schemaVersion": "5.0.0",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+    "prefixLength": 3649942,
+    "prefixDigest": "sha256:1f4c7bd7b256d75a85d00c32abdde3c0a45b01d7d1dcf08471aa83ad599cb5e8",
+    "storeIdentity": {
+      "device": 16777231,
+      "inode": 667779192,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64"
+    },
+    "coordinateDigest": "sha256:1391d841bcd425fba576e0734a8f487e4e0fc8884494b5672b65a5b0d4b64d64"
+  },
+  "reopenAuthority": {
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+    "device": 16777231,
+    "inode": 667779192,
+    "eventLogDigest": "sha256:1f4c7bd7b256d75a85d00c32abdde3c0a45b01d7d1dcf08471aa83ad599cb5e8",
+    "durableByteLength": 3649942,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "authorityDigest": "sha256:9acc0a4ccea0226ed64269a41dfa1a28dc59f1e10c999968b7b2bc18c56345df"
+  }
+}

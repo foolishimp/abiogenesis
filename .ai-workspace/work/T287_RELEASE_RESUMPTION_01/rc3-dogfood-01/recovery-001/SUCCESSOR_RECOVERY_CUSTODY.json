@@ -1,0 +1,60 @@
+{
+  "kind": "successor_recovery_followup_input_custody",
+  "recordedAt": "2026-10-31T18:04:29.941826+00:00",
+  "authority": "Root selected post-execution observation; no original native continuation/provider rerun",
+  "historicalFrozenManifestSha256": "68f8e172cce68593a275ef222276d0f51bc86249a6190dc593585164f0cf87e9",
+  "inputs": [
+    {
+      "path": "finish-observation.mjs",
+      "bytes": 10365,
+      "sha256": "baf9baa9c606bad2c76244e30948d0a86d0d7ea2447b310ce0953fb808529497"
+    },
+    {
+      "path": "SUCCESSOR_RECOVERY_ADMISSION.md",
+      "bytes": 3313,
+      "sha256": "b8f0e60694271b5c461299fbdf28af073cf5b60e068c36c97252c3893ae500b2"
+    },
+    {
+      "path": "INPUT_MANIFEST.json",
+      "bytes": 5247,
+      "sha256": "68f8e172cce68593a275ef222276d0f51bc86249a6190dc593585164f0cf87e9"
+    },
+    {
+      "path": "config.json",
+      "bytes": 3233,
+      "sha256": "93a673d1160d6d712088f2c8edf71d08d815dd5eb4760fca428c81cd0f8a4040"
+    },
+    {
+      "path": "runtime/proof/continue-receipt.json",
+      "bytes": 45153,
+      "sha256": "a57f6635b8e65b912a3ab070640dc2d15e0bce46aaeb6436b7261b8bc7b27963"
+    },
+    {
+      "path": "runtime/proof/prepared-checkpoint.json",
+      "bytes": 9876,
+      "sha256": "28f1fe3701eddf3acc54938bf432be788b3060c448d8f4da6933a2db9344a7ab"
+    },
+    {
+      "path": "runtime/proof/prepared-relation.json",
+      "bytes": 33639,
+      "sha256": "81750c5043c2ae4a284e1d76439c77646adedc2ed0ec628d56690a25e26e6d8f"
+    },
+    {
+      "path": "runtime/proof/PREPARED_CUSTODY.json",
+      "bytes": 1454,
+      "sha256": "9d3e8b35878cbbb06b37f6fd45935178616049c17ffd2f5624c2715e8ac7f6aa"
+    },
+    {
+      "path": "runtime/proof/read-environment.json",
+      "bytes": 20876745,
+      "sha256": "e2b03896d8b45f52c108809fe683122bd65e04c3554f60486b6548dbb696f6fe"
+    },
+    {
+      "path": "runtime/proof/consumed-call.json",
+      "bytes": 28064022,
+      "sha256": "96ee0d9763bf5add942ae84b4a15ee6d22daa4efbe994842b09ca28a22f37c5b"
+    }
+  ],
+  "claims": "prospective until Root execution; original failed same-Run assertion retained",
+  "effectsDuringPreparation": "filesystem writes to three new follow-up input files only; no Product/Public/provider invocation"
+}

@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-31T17:58:28.303Z",
+  "files": [
+    {
+      "path": "continue-call.json",
+      "bytes": 28064022,
+      "sha256": "aa966f11c9477cffe853cd449cf5d2e02f97a9c4738a96eb5fd78edb06b84821"
+    },
+    {
+      "path": "consumed-call.json",
+      "bytes": 28064022,
+      "sha256": "96ee0d9763bf5add942ae84b4a15ee6d22daa4efbe994842b09ca28a22f37c5b"
+    },
+    {
+      "path": "prepared-checkpoint.json",
+      "bytes": 9876,
+      "sha256": "28f1fe3701eddf3acc54938bf432be788b3060c448d8f4da6933a2db9344a7ab"
+    },
+    {
+      "path": "read-environment.json",
+      "bytes": 20876745,
+      "sha256": "e2b03896d8b45f52c108809fe683122bd65e04c3554f60486b6548dbb696f6fe"
+    },
+    {
+      "path": "initial-handoff.json",
+      "bytes": 1352,
+      "sha256": "057df89cfadc92c87be1a6ac0738e2a14f6c502c03d504a9a529c73bc9258534"
+    },
+    {
+      "path": "prepared-relation.json",
+      "bytes": 33639,
+      "sha256": "81750c5043c2ae4a284e1d76439c77646adedc2ed0ec628d56690a25e26e6d8f"
+    }
+  ],
+  "eventFile": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/runtime/tmp/abi5-root-env-Lgv56o/runtime/events.jsonl",
+    "device": "16777231",
+    "inode": "667779192",
+    "bytes": 3649942,
+    "sha256": "1f4c7bd7b256d75a85d00c32abdde3c0a45b01d7d1dcf08471aa83ad599cb5e8"
+  },
+  "classification": "genuine undispatched preparation frontier; no arbitrary crash or model claim"
+}

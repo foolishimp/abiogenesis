@@ -95,8 +95,10 @@ After checkpoint 1, select a lawful nonterminal interruption in a new Run or
 other owner-supported continuation subject; do not reopen a terminal Run. Stop
 and reacquire from that subject's actual held log in a fresh process. The
 existing owners derive the current cursor, admitted Results and remaining
-eligible work from the selected prefix and continue it
-under existing currentness, ownership, idempotency and saga law. Show the
+eligible work from the selected prefix and continue under existing currentness,
+ownership, idempotency and saga law. If the owner creates a replacement Run,
+retain its explicit lineage and conserved producer/intent; do not require the
+original Run identity where Product law permits replacement. Show the
 pre/post prefix identities, reconstructed state, chosen continuation, admitted
 consequence and resulting observation without inventing a side store or
 re-authoring events. Retain any interruption, refusal, duplicate-effect or

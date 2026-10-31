@@ -1,0 +1,7 @@
+# Recovery 001: triage after the identity assertion
+
+Root reports a closed author and independent max-effort review of the failure recorded in [RECOVERY_OBSERVATION_01](RECOVERY_OBSERVATION_01.md). The reviewed conclusion is that the harness's unconditional same-Run identity assertion was an unsupported extra condition; it is not, on that evidence, a Product bug. Product `specification/PRODUCT.md:827–834` and `CONTINUATION-003–004` permit a replacement Run that preserves causal history.
+
+Root reports the actual log contains original-Run supersession at ordinal 139, the old-to-new Run link at ordinal 140, one producer and one actor, and closure of successor Run `run://abiogenesis/2b6d94428e86aa9d0b3160d45960a63ed1569c5ef597c6da80fe4d2157ad1d0f` at ordinal 282; original Run `run://abiogenesis/660918a5008533d404273249582ea4a43bc02ae3ea5d5e9fc66629477ccd27ae` is stopped. These are Root-reported review observations, not fresh reads performed by this Writer in this record.
+
+Root withdraws only the extra same-identity predicate and preserves the failed harness and original observation unchanged. Cold readback of the actual successor and refusal for the superseded identity remain pending. A later proof must still establish causality, continuation and idempotency under the Product-owned law; neither the triage nor provider success alone closes recovery. No native rerun is selected by this record.

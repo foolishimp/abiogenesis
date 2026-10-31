@@ -9,9 +9,9 @@
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: SUNNY_DAY_TRAVERSAL_AND_RECOVERY_PLAN_01; owner selects sunny-day HoG iteration, declared evaluation and consequence before cold event-log recovery; Root remains sole ABI operator proxy.
-- current_activation_status: Root accepted the bounded one-Run sunny-day checkpoint after independent review: three HoG executive-step calls, two prior-Result-directed selections, terminal Result and independent basic-cli oracle satisfied. Recovery, repeatability, GC03 and Product qualification remain open; the prior B06 and RC2 failed-Run standings remain preserved. Owner removed the previous spending limit.
-- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/SUNNY_DAY_DISPOSITION.md
-- current_next_work: Prove cold reconstruction and continuation from an actually interrupted nonterminal Run under the existing event owner, currentness, idempotency and saga law. Preserve original acceptance, GC03, qualification and release obligations.
+- current_activation_status: Root accepted the bounded one-Run sunny-day checkpoint and controlled cold continuation through explicit replacement-Run lineage after independent reviews; successor result/replay and superseded-request refusal are retained. Prior B06 and RC2 failed-Run standings remain preserved. Owner removed the previous spending limit.
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md
+- current_next_work: The two foundation checkpoints are complete. Root selects one bounded mechanical B07 increment to repair the known GC03 integration-test harness defects and the selected C2 STDO PATH; preserve the original RC3 context-delivery objective and all native witness, repeatability, qualification and release obligations.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
