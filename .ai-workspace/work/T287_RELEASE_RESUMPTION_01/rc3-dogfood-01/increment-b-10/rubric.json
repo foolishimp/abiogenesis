@@ -1,0 +1,30 @@
+{
+  "criteria": [
+    {
+      "criterion": "The correspondence owner scans only string input.command for invocation markers; narrative-only StructuredOutput summary/client+endpoint mentions and unrelated Bash description mentions do not create extra invocation candidates when all real exchanges join.",
+      "id": "B10-1"
+    },
+    {
+      "criterion": "Existing exact Bash-command matching and stray marked-command refusal remain: extra unmatched Bash, non-Bash command impostor, executable/client/endpoint/request-wire/response substitutions and missing/duplicate/error/tampered evidence still refuse under existing codes; meaningful direct and cold regression evidence covers reporting-only metadata with real matched exchanges.",
+      "id": "B10-2"
+    },
+    {
+      "criterion": "Changes are limited to governed_context.ts, the existing t287-governed-context.test.mjs, and localized owning HOW wording in T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md; no new Public contract, schema, refusal class, calculus, authority, runtime/service/store or broader governing/design meaning is introduced.",
+      "id": "B10-3"
+    },
+    {
+      "criterion": "All nine declared C2 commands exit0 without timeout; complete focused output shows new regressions and unchanged GC03 real owner allowed denied cold tamper passed without skip/todo, current source correspondence/build/package and affected-owner/artifact checks pass with the exact selected offline toolchain and STDO installation.",
+      "id": "B10-4"
+    }
+  ],
+  "kind": "b10_bounded_correspondence_repair_acceptance_basis",
+  "notCriteria": [
+    "Future external Root inspection/acceptance",
+    "Later live installed governed-lookup W1-W5 witness",
+    "Reclassifying prior failed/indeterminate Runs",
+    "Whole-Product qualification or release"
+  ],
+  "outcome": "The minimal three-path RC3 correspondence repair distinguishes reporting-only data from actual command-bearing invocations, preserving all exact execution and cold-evidence gates.",
+  "separateHistory": "B07 max-turn failure, B08 C2 missing-input failure, B09 native UAT indeterminate, witness001 pre-Run refusal and witness002 correspondence refusal remain unchanged.",
+  "status": "ROOT_SELECTED_BOUNDED_CRITERIA"
+}

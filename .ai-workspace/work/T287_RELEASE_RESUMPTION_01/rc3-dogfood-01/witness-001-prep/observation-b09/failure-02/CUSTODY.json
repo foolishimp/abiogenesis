@@ -1,0 +1,111 @@
+{
+  "kind": "native_witness_correspondence_refusal_custody",
+  "status": "runtime_failed_no_construction_result",
+  "runRef": "run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4",
+  "runDigest": "sha256:fb0a537a8ef7e9e9dcaa0c5dd09d39ec5fcc5328c5ee50eedfaf17b1c78fc165",
+  "testingResultRef": "result://abiogenesis/42711f7d021a51ca61da12006d26a6949c692122c4e8effa254cc503fb6b21a9",
+  "runtimeFailure": "governed context correspondence refused: substituted: a tool_use names the fixed client or endpoint without an owner-retained exchange",
+  "traceDiscriminator": "four endpoint exchanges and four fixed-client Bash uses; StructuredOutput tool-use input also contains client marker in its summary; owner marker scan treats all tool input kinds as candidates. Causality subject to independent review.",
+  "reportedProviderCosts": [
+    0.2634838,
+    0.3539758,
+    0.3044,
+    1.1918262
+  ],
+  "reportedIncrement": 2.1136858,
+  "cumulativeReported": 124.1324492,
+  "unknownB03Reserve": 8,
+  "limits": [
+    "No admitted Construction Result or cold-join proof",
+    "Provider response is not native admission",
+    "Raw Testing source and actual three pages/denial observed in transport",
+    "W1-W5 and native witness not accepted",
+    "No retry or Product write"
+  ],
+  "records": [
+    {
+      "path": "witness-001-prep/runtime-b09-002/NATIVE_LAUNCH_STARTED.json",
+      "bytes": 364,
+      "sha256": "3a1eda0e2babdcf89c3924e9098bb420f3f280aa52d0b842b3ed78be88b52c06",
+      "copy": "witness-001-prep/observation-b09/failure-02/NATIVE_LAUNCH_STARTED.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/witness-call.json",
+      "bytes": 29560408,
+      "sha256": "1fa5bd26caacb105642ebbb15e07838ddffbc4a4bd913d7136901fd59da8f7c8"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/native-execution.json",
+      "bytes": 33864983,
+      "sha256": "ab0ace6e8a17d2fb7ac159cb89ff7c7a6ab25c58063e3ebb36b3792496ab17f2"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/native-final-close.json",
+      "bytes": 1362,
+      "sha256": "6ca6a6c66ca27b875ae4f908a86212c14c03cd59954737695204b7f455a5387e",
+      "copy": "witness-001-prep/observation-b09/failure-02/native-final-close.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-stdout.log",
+      "bytes": 1226714,
+      "sha256": "1cbebb4ec836dbf06f8b45c31156d7a74e896df15c67a20cbb224e10e90d6931"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-governed-context.json",
+      "bytes": 20934,
+      "sha256": "81f1b32e48739c339fefec5adfe00143ec8508a927397e8e1dbd96bea4ce2f3f",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-721dc43e5de376b9-governed-context.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-output.txt",
+      "bytes": 9126,
+      "sha256": "9aa74ac1c2e8611f357675e010f0c5d3f941e68d7fd12922064a141c0efbfdc1",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-721dc43e5de376b9-output.txt"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-transport.json",
+      "bytes": 1374706,
+      "sha256": "1369c7c405f73a9ea8003d38e6092540580049fe42910b77e3f117221adbe185"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b09/failure-02/event-5603.jsonl",
+      "ordinal": 5603,
+      "eventRef": "event://abiogenesis/248affe4c7624e5c137e1a4ff61987319340c76dc45bc2fd52917ae5d961dfe7",
+      "bytes": 2251,
+      "sha256": "aa964cb0d0b7b8d5f0f06195301fb9061e734906fdd14fb8c95ce1631c1c1b1a"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b09/failure-02/event-5605.jsonl",
+      "ordinal": 5605,
+      "eventRef": "event://abiogenesis/99bdea708b8860f7682f38c6fdf9563e53a2299d06e6a19f5cb879ebeb7c73e4",
+      "bytes": 5076,
+      "sha256": "17caf5665c0c052dd68ee8c7b872cf3825979d393df9dec18570c9275b0e7243"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-697f9bd725dfa166-stdout.log",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-697f9bd725dfa166-result.jsonl",
+      "bytes": 12126,
+      "sha256": "14747ff5b74b360516aeda64d9c477383eda8006e3ed4c3bf3a81f5f7a7a0967"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-e4bc87c78d45de45-stdout.log",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-e4bc87c78d45de45-result.jsonl",
+      "bytes": 2930,
+      "sha256": "317044dcbbd35400a55a765ef54f17dd28742a942045da728d98e83410b22dc3"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-1c0f8eed9565bef3-stdout.log",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-1c0f8eed9565bef3-result.jsonl",
+      "bytes": 15292,
+      "sha256": "d8ce79e3ba0da5aa42728ceef8890a09ec63c45ed2ea64cd56d4b9c08c7ba65b"
+    },
+    {
+      "path": "witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-stdout.log",
+      "copy": "witness-001-prep/observation-b09/failure-02/fp-721dc43e5de376b9-result.jsonl",
+      "bytes": 20164,
+      "sha256": "593cdf17d01793b64a218ea884ac65300fe94a4a1238fb9d985897a59657c2b2"
+    }
+  ]
+}

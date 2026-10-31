@@ -1,0 +1,5 @@
+# Witness admission refusal
+
+Root's one-shot B09 witness launch returned wrapper exit 0, but the actual installed Public CLI returned exit 1 and `invalid_capability` with issue paths `/runEnvironmentResources` and `/runEnvironment/cause/access_unavailable`. It refused before any provider stream; no native Testing, Construction or W1–W5 witness was exercised. The returned closeHandoff equals the original setup handoff. This is an admission failure record, not a Product qualification or a diagnosis of its cause. Root has selected no retry; author and reviewer are examining the binding.
+
+Exact launch, call, receipt and close identities are in [custody](CUSTODY.json). Raw lifecycle receipt/stdout/stderr and close are copied byte-for-byte here; full call and native execution remain in their original local runtime files. Observed native provider calls and reported native provider cost are zero for this attempt. Prior cumulative reported native cost remains $122.0187634 plus the separate $8 unknown B03 reserve; other charges remain unknown.

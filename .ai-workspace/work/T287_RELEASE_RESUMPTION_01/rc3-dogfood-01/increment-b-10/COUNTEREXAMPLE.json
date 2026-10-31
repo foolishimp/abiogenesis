@@ -1,0 +1,194 @@
+{
+  "actualCommandToolResults": [
+    {
+      "content": "{\"kind\":\"governed_context_page\",\"schemaVersion\":\"5.0.0\",\"requestId\":\"gc03-w-task-p0\",\"key\":\"late/0\",\"maxBytes\":8192,\"occurrence\":{\"runId\":\"run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4\",\"cCallRef\":\"c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9\"},\"bindingDigest\":\"sha256:2fd9e153e240aa47db64fcadcbb827cd15f6986580341f5a5b91cc45cdcd7add\",\"prefixDigest\":\"sha256:5fc2da9a6a6721264dbb691c1a9b6cdf0b061b864890a9454b0d832ee1b73553\",\"source\":{\"role\":\"original_task\",\"sourceKey\":\"task.md\",\"digest\":\"sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955\"},\"offset\":0,\"length\":905,\"totalBytes\":905,\"pageDigest\":\"sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955\",\"complete\":true,\"nextOffset\":null,\"encoding\":\"base64\",\"content\":\"IyBOYXRpdmUgZ292ZXJuZWQtbG9va3VwIHdpdG5lc3MKCkZpcnN0IHJ1biB0aGUgZGVjbGFyZWQgVGVzdGluZyBjb21tYW5kIG9uIHRoZSBwcm92aWRlZCBkaWFnbm9zdGljIGZpeHR1cmUgd2l0aG91dCBjbGFpbWluZyBhbiBlYXJsaWVyIHN1YmplY3QgUmVzdWx0LiBUaGVuLCBpbiBuYXRpdmUgQ29uc3RydWN0aW9uLCB1c2UgdGhlIGluc3RhbGxlZCBnb3Zlcm5lZC1sb29rdXAgY2xpZW50IHRvIHJldHJpZXZlIHRoZSBjdXJyZW50IFJ1bidzIGFkbWl0dGVkIFRlc3Rpbmcgc3Rkb3V0LCB0aGUgb3JpZ2luYWwgdGFzayBhbmQgdGhlIG9yaWdpbmFsIHJ1YnJpYy4gUmVhZCB0aGUgY29tcGxldGUgcGVybWl0dGVkIHNvdXJjZSBieXRlcyBpbiBib3VuZGVkIHBhZ2VzIGFuZCB1c2UgdGhlaXIgYWN0dWFsIGNvbnRlbnRzIHRvIGRlc2NyaWJlIHRoZSBvYnNlcnZlZCBmYWlsdXJlLiBSZXF1ZXN0IGEgZGVuaWVkIGtleSBhbmQgcmVwb3J0IHRoZSByZWZ1c2FsIHdpdGhvdXQgZmFsbGluZyBiYWNrIHRvIGFub3RoZXIgc291cmNlIG9yIHdpZGVuaW5nIGF1dGhvcml0eS4gUHJlc2VydmUgdGhlIG9yaWdpbmFsIHRhc2sgYW5kIHJ1YnJpYyB3aGVuIGV4cGxhaW5pbmcgdGhlIHJlc3VsdC4KCklmIGEgc291cmNlLCBwZXJtaXNzaW9uLCBmaXhlZCBjbGllbnQsIGNvbXBsZXRlIHJlc3BvbnNlLCBvciBwcm9kdWNlciByZWxhdGlvbnNoaXAgaXMgdW5hdmFpbGFibGUsIHJlcG9ydCB0aGUgc3BlY2lmaWMgZ2FwOyBkbyBub3QgZ3Vlc3MuIElkZW50aWZ5IHRoZSBjdXJyZW50IFJ1bidzIFRlc3RpbmcgUmVzdWx0IGFuZCBwcm9kdWNlciBmcm9tIHRoZSBkZWxpdmVyZWQgZXZpZGVuY2UuIFJlcG9ydCB3aGF0IHRoZSByZXRyaWV2ZWQgYnl0ZXMgc3VwcG9ydCBhbmQgd2hhdCByZW1haW5zIHVucHJvdmVuLgo=\",\"gc03\":{\"identity\":\"urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1\",\"publication\":\"not_performed\",\"contextSha256\":\"a8f179ae63055b9f8345d3c74fab808b29f2461d62cd09d96ddf5666369c7922\",\"recheckSha256\":\"6846fba89518ed9bb4c9b272e42d41cf4e46c6ae3a1fe1cca377c62ec69c444f\"}}",
+      "is_error": false,
+      "tool_use_id": "toolu_01WFYThwSrD3acuFbp9jKifc",
+      "type": "tool_result"
+    },
+    {
+      "content": "{\"kind\":\"governed_context_page\",\"schemaVersion\":\"5.0.0\",\"requestId\":\"gc03-w-rubric-p0\",\"key\":\"late/1\",\"maxBytes\":8192,\"occurrence\":{\"runId\":\"run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4\",\"cCallRef\":\"c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9\"},\"bindingDigest\":\"sha256:2fd9e153e240aa47db64fcadcbb827cd15f6986580341f5a5b91cc45cdcd7add\",\"prefixDigest\":\"sha256:5fc2da9a6a6721264dbb691c1a9b6cdf0b061b864890a9454b0d832ee1b73553\",\"source\":{\"role\":\"original_rubric\",\"sourceKey\":\"rubric.json\",\"digest\":\"sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25\"},\"offset\":0,\"length\":1196,\"totalBytes\":1196,\"pageDigest\":\"sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25\",\"complete\":true,\"nextOffset\":null,\"encoding\":\"base64\",\"content\":\"ewogICJvdXRjb21lIjogIkEgYm91bmRlZCBuYXRpdmUgQ29uc3RydWN0aW9uIGxvb2t1cCBvdmVyIHRoZSBjdXJyZW50IFJ1bidzIGFkbWl0dGVkIGRpYWdub3N0aWMgZXZpZGVuY2UgYW5kIG9yaWdpbmFsIHRhc2sgYmFzaXMiLAogICJjcml0ZXJpYSI6IFsKICAgIHsiaWQiOiJXMSIsImNyaXRlcmlvbiI6IlRoZSBmaXJzdCBzZWxlY3RlZCBUZXN0aW5nIGNhbGwgaGFzIG5vIGNsYWltZWQgcHJpb3Igc3ViamVjdCBSZXN1bHQgYW5kIG1lYXN1cmVzIHRoZSBleGFjdCBwcm92aWRlZCBkaWFnbm9zdGljIGZpeHR1cmUgYXMgaXRzIGFjdHVhbCBzdGRvdXQgaW4gdGhpcyBSdW4uIn0sCiAgICB7ImlkIjoiVzIiLCJjcml0ZXJpb24iOiJOYXRpdmUgQ29uc3RydWN0aW9uIHVzZXMgdGhlIGZpeGVkIGluc3RhbGxlZCBsb29rdXAgY2xpZW50IHRvIHJldHJpZXZlIHRoZSBjb21wbGV0ZSBjdXJyZW50LVJ1biBUZXN0aW5nIHN0ZG91dCBhbmQgb3JpZ2luYWwgdGFzayBhbmQgcnVicmljLCB3aXRoIHRoZWlyIGFjdHVhbCBwcm9kdWNlciwgc291cmNlIGFuZCBieXRlIGlkZW50aXRpZXMuIn0sCiAgICB7ImlkIjoiVzMiLCJjcml0ZXJpb24iOiJBbiBleHBsaWNpdGx5IGRlbmllZCBrZXkgaXMgcmVmdXNlZCwgd2l0aG91dCBhdXRob3JpdHkgd2lkZW5pbmcgb3IgZmFsbGJhY2s7IGNvbXBsZXRlIHJlcXVlc3QgYW5kIHJlc3BvbnNlIGJ5dGVzIGFuZCB0aGVpciBDbGF1ZGUgdG9vbC1yZXN1bHQgY29ycmVzcG9uZGVuY2UgYXJlIHJldGFpbmVkIGFuZCBjb2xkLWpvaW5hYmxlLiJ9LAogICAgeyJpZCI6Ilc0IiwiY3JpdGVyaW9uIjoiVGhlIGFjdG9yIGlkZW50aWZpZXMgdGhlIGFjdHVhbCBmYWlsdXJlIHN1cHBvcnRlZCBieSB0aGUgcmV0cmlldmVkIGJ5dGVzLCBjb25zZXJ2ZXMgdGhlIG9yaWdpbmFsIHRhc2sgYW5kIHJ1YnJpYywgYW5kIGRpc3Rpbmd1aXNoZXMgb2JzZXJ2YXRpb24gZnJvbSB1bnByb3ZlbiBiZWhhdmlvci4ifSwKICAgIHsiaWQiOiJXNSIsImNyaXRlcmlvbiI6IkFjdHVhbCBhZG1pdHRlZCBUZXN0aW5nLCBDb25zdHJ1Y3Rpb24gYW5kIHRyYW5zcG9ydCBldmlkZW5jZSBpcyBwcmVzZXJ2ZWQgd2l0aCBob25lc3QgZ2FwcyBhbmQgbmF0aXZlIHBhcmVudCBzdGF0dXM7IHRoZSB3aXRuZXNzIGRvZXMgbm90IGNsYWltIG92ZXJhbGwgVUFUIG9yIFByb2R1Y3QgcXVhbGlmaWNhdGlvbi4ifQogIF0KfQo=\",\"gc03\":{\"identity\":\"urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1\",\"publication\":\"not_performed\",\"contextSha256\":\"a8f179ae63055b9f8345d3c74fab808b29f2461d62cd09d96ddf5666369c7922\",\"recheckSha256\":\"6846fba89518ed9bb4c9b272e42d41cf4e46c6ae3a1fe1cca377c62ec69c444f\"}}",
+      "is_error": false,
+      "tool_use_id": "toolu_01D2RJXqpGn3KukYrz1puy35",
+      "type": "tool_result"
+    },
+    {
+      "content": "{\"kind\":\"governed_context_page\",\"schemaVersion\":\"5.0.0\",\"requestId\":\"gc03-w-testing-p0\",\"key\":\"late/2\",\"maxBytes\":8192,\"occurrence\":{\"runId\":\"run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4\",\"cCallRef\":\"c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9\"},\"bindingDigest\":\"sha256:2fd9e153e240aa47db64fcadcbb827cd15f6986580341f5a5b91cc45cdcd7add\",\"prefixDigest\":\"sha256:5fc2da9a6a6721264dbb691c1a9b6cdf0b061b864890a9454b0d832ee1b73553\",\"source\":{\"role\":\"testing_result_field\",\"sourceKey\":\"result://abiogenesis/42711f7d021a51ca61da12006d26a6949c692122c4e8effa254cc503fb6b21a9#[\\\"commandResults\\\",0,\\\"stdout\\\"]\",\"digest\":\"sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6\",\"producer\":{\"cCallRef\":\"c-call:sha256:7f89fca79ef7a8b9a1b0fb210808a26f9a9ef937334fe4df3e845b56f609cff6\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/88c4e649ea0c35906d5d0f05d4120fdb0cd70fdad83a29c4dce8ba4e92777642\"},\"provenance\":[\"event://abiogenesis/07457cc1a2d0b88554a3f8a7c2bd5b7a5e2baee20e583c4f20b264441486fd85\"]},\"offset\":0,\"length\":4616,\"totalBytes\":4616,\"pageDigest\":\"sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6\",\"complete\":true,\"nextOffset\":null,\"encoding\":\"base64\",\"content\":\"KG5vZGU6MzMyODgpIEV4cGVyaW1lbnRhbFdhcm5pbmc6IFZNIE1vZHVsZXMgaXMgYW4gZXhwZXJpbWVudGFsIGZlYXR1cmUgYW5kIG1pZ2h0IGNoYW5nZSBhdCBhbnkgdGltZQooVXNlIGBub2RlIC0tdHJhY2Utd2FybmluZ3MgLi4uYCB0byBzaG93IHdoZXJlIHRoZSB3YXJuaW5nIHdhcyBjcmVhdGVkKQrinJYgVTEtUDUtMDIgYWN0dWFsIEMwIHN1Y2Nlc3NvciBhbmQgZXZlcnkgYWZmZWN0ZWQgY3VycmVudG5lc3MgY29uc3VtZXIgKDQ0Mi45Njk1NDJtcykKKG5vZGU6MzMzMDQpIEV4cGVyaW1lbnRhbFdhcm5pbmc6IFZNIE1vZHVsZXMgaXMgYW4gZXhwZXJpbWVudGFsIGZlYXR1cmUgYW5kIG1pZ2h0IGNoYW5nZSBhdCBhbnkgdGltZQooVXNlIGBub2RlIC0tdHJhY2Utd2FybmluZ3MgLi4uYCB0byBzaG93IHdoZXJlIHRoZSB3YXJuaW5nIHdhcyBjcmVhdGVkKQrinJQgbGlicmFyeSBwcmVwYXJlLXRlc3RpbmcgcmV1c2VzIHRoZSBpbnZva2luZyBwcml2YXRlIG9wZXJhdGlvbiBhbmQgaXRzIGFjdHVhbCBGX0Qgb3JpZ2luICgxMzQuNDA3NzkxbXMpCuKEuSBDYW5vbmljYWwgbW9kdWxlLXB1YmxpY2F0aW9uIGRlZmluaXRpb24gYW5kIGxlYWYvZGVzY3JpcHRvciBiaW5kaW5nIHdpdGggYWN0dWFsIGxpYnJhcnkgcHJlcGFyYXRpb24vbWF0Y2hlciBhbmQgY29sZCBGX0QgUmVzdWx0L0ovZXZpZGVuY2UgcmVsYXRpb25zOyByYXcvZm9yZWlnbi90YW1wZXJlZCBkZWZpbml0aW9uIGFuZCBtYXRlcmlhbGl6YXRpb24gaWRlbnRpdGllcyByZWZ1c2UuIFBoeXNpY2FsIGNvbnN0cnVjdG9ycyBhcmUgcmVhbC4gU291cmNlL2Vudmlyb25tZW50L2NvdmVyL0NDYWxsIGFuZCBpbXBsZW1lbnRhdGlvbi1zZXQgbG9va3VwcyBhcmUgY29udHJvbGxlZCBsb3dlciBwcmVtaXNlcywgbm90IG5ldyBuYXRpdmUgb3IgaW5zdGFsbGVkIGFkbWlzc2lvbi4K4pyUIGxpYnJhcnkgVGVzdGluZyBmaXJzdC1yZWZ1c2FsIGRpYWdub3N0aWNzIGRpc3Rpbmd1aXNoIGFjdHVhbCBudWxsYWJsZSBvd25lciByZWxhdGlvbnMgd2l0aG91dCBjaGFuZ2luZyBndWFyZHMgKDUzLjQ2M21zKQrihLkgQWN0dWFsIGxpYnJhcnkvdGFzay9uYXRpdmUgb2NjdXJyZW5jZS9kZWNsYXJhdGlvbi9jbG9zZWQtc291cmNlIGNvZGUgYW5kIHBoeXNpY2FsIGNvbnRleHQgY2hlY2tzLiBTeW50aGV0aWMgaW52b2NhdGlvbi1yb290IHBsdXMgc291cmNlL2Vudmlyb25tZW50L2NvdmVyL0NDYWxsL3NldC90ZXJtaW5hbCBwcmVtaXNlcyBhcmUgY29udHJvbGxlZDsgdGhlIGVudGVyZWQtcmVmdXNlZCBjYWxsYmFjayBjYXNlIHRlc3RzIG9ubHkgaXRzIGhhbmRvZmYgY29udHJhY3QuIE5vIGluc3RhbGxlZCBUZXN0aW5nL0MyLCBhY3R1YWwgZmlyc3QtbnVsbCBvciBuby1lZmZlY3RzIGNsYWltLgrihLkgdGVzdHMgMwrihLkgc3VpdGVzIDAK4oS5IHBhc3MgMgrihLkgZmFpbCAxCuKEuSBjYW5jZWxsZWQgMArihLkgc2tpcHBlZCAwCuKEuSB0b2RvIDAK4oS5IGR1cmF0aW9uX21zIDEzODEuOTY1NTgzCgrinJYgZmFpbGluZyB0ZXN0czoKCnRlc3QgYXQgdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6NTk3OjEK4pyWIFUxLVA1LTAyIGFjdHVhbCBDMCBzdWNjZXNzb3IgYW5kIGV2ZXJ5IGFmZmVjdGVkIGN1cnJlbnRuZXNzIGNvbnN1bWVyICg0NDIuOTY5NTQybXMpCiAgRXJyb3I6IEVOT0VOVDogbm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeSwgb3BlbiAnL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtc2VtYW50aWMtcmV2aXNpb24udGVzdC5tanMnCiAgICAgIGF0IGFzeW5jIG9wZW4gKG5vZGU6aW50ZXJuYWwvZnMvcHJvbWlzZXM6NjQyOjI1KQogICAgICBhdCBhc3luYyBPYmplY3QucmVhZEZpbGUgKG5vZGU6aW50ZXJuYWwvZnMvcHJvbWlzZXM6MTI3OToxNCkKICAgICAgYXQgYXN5bmMgc2VtYW50aWNGaXh0dXJlSGVscGVycyAoZmlsZTovLy9Vc2Vycy9qaW0vc3JjL2FwcHMvYWJpb2dlbmVzaXMvLmFpLXdvcmtzcGFjZS93b3JrL1QyODdfUkVMRUFTRV9SRVNVTVBUSU9OXzAxL3JjMi1kb2dmb29kLTAxL3NldHVwLTAwMS9yZXNvdXJjZXMvYXJjaGl2ZXMvd29ya3NpdGUtY29tbWFuZC1leGVjdXRpb24vMTQ5YWM5MWE5MGY2OWMzYjRmNDBjNTg1ZWNjYmVjYTlhZmQ4MjAzYzA3ZDQ2MDVkNmE3OTczNmU1NjllY2JjZS81MWI3NTM3Mjg3Y2RmM2U1NTUyMmYxMjAwNDgyZTgxNTI2YTNkNjA4ZDYyYzU5ZTk4YjJiZWQyZWYwZmUyNDU1L3NhbmRib3gvYnVpbGRfdGVuYW50cy9hYmlvZ2VuZXNpcy90eXBlc2NyaXB0L3Rlc3RfZW52L3N1cHBvcnQvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMubWpzOjM2NDoxNykKICAgICAgYXQgYXN5bmMgc2VtYW50aWNEYXRhIChmaWxlOi8vL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6Mzc1OjE5KQogICAgICBhdCBhc3luYyBPYmplY3Quc2VtYW50aWNGb2xkQ29uc3VtZXIgW2FzIHNlbWFudGljRm9sZF0gKGZpbGU6Ly8vVXNlcnMvamltL3NyYy9hcHBzL2FiaW9nZW5lc2lzLy5haS13b3Jrc3BhY2Uvd29yay9UMjg3X1JFTEVBU0VfUkVTVU1QVElPTl8wMS9yYzItZG9nZm9vZC0wMS9zZXR1cC0wMDEvcmVzb3VyY2VzL2FyY2hpdmVzL3dvcmtzaXRlLWNvbW1hbmQtZXhlY3V0aW9uLzE0OWFjOTFhOTBmNjljM2I0ZjQwYzU4NWVjY2JlY2E5YWZkODIwM2MwN2Q0NjA1ZDZhNzk3MzZlNTY5ZWNiY2UvNTFiNzUzNzI4N2NkZjNlNTU1MjJmMTIwMDQ4MmU4MTUyNmEzZDYwOGQ2MmM1OWU5OGIyYmVkMmVmMGZlMjQ1NS9zYW5kYm94L2J1aWxkX3RlbmFudHMvYWJpb2dlbmVzaXMvdHlwZXNjcmlwdC90ZXN0X2Vudi90ZXN0cy90Mjg3LW5hdGl2ZS13b3JrLWN1cnJlbnRuZXNzLWNvbnN1bWVycy50ZXN0Lm1qczo0NjQ6MTgpCiAgICAgIGF0IGFzeW5jIFRlc3RDb250ZXh0Ljxhbm9ueW1vdXM+IChmaWxlOi8vL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6NjAxOjM5KQogICAgICBhdCBhc3luYyBUZXN0LnJ1biAobm9kZTppbnRlcm5hbC90ZXN0X3J1bm5lci90ZXN0OjExMTM6NykKICAgICAgYXQgYXN5bmMgc3RhcnRTdWJ0ZXN0QWZ0ZXJCb290c3RyYXAgKG5vZGU6aW50ZXJuYWwvdGVzdF9ydW5uZXIvaGFybmVzczozNTg6MykgewogICAgZXJybm86IC0yLAogICAgY29kZTogJ0VOT0VOVCcsCiAgICBzeXNjYWxsOiAnb3BlbicsCiAgICBwYXRoOiAnL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtc2VtYW50aWMtcmV2aXNpb24udGVzdC5tanMnCiAgfQo=\",\"gc03\":{\"identity\":\"urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1\",\"publication\":\"not_performed\",\"contextSha256\":\"a8f179ae63055b9f8345d3c74fab808b29f2461d62cd09d96ddf5666369c7922\",\"recheckSha256\":\"6846fba89518ed9bb4c9b272e42d41cf4e46c6ae3a1fe1cca377c62ec69c444f\"}}",
+      "is_error": false,
+      "tool_use_id": "toolu_01AGSbSmbQqxMgN5FTizEumd",
+      "type": "tool_result"
+    },
+    {
+      "content": "{\"kind\":\"governed_context_refusal\",\"schemaVersion\":\"5.0.0\",\"stage\":\"active\",\"code\":\"key_denied\",\"request\":{\"requestId\":\"gc03-w-denied-p0\",\"key\":\"late/3\",\"offset\":0,\"maxBytes\":8192},\"occurrence\":{\"runId\":\"run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4\",\"cCallRef\":\"c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9\"},\"message\":\"key is absent from this governed Context\"}",
+      "is_error": false,
+      "tool_use_id": "toolu_01EPi1RBaocBSfqq6xsMnwLx",
+      "type": "tool_result"
+    }
+  ],
+  "actualCommandToolUses": [
+    {
+      "caller": {
+        "type": "direct"
+      },
+      "id": "toolu_01WFYThwSrD3acuFbp9jKifc",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js' '{\"requestId\":\"gc03-w-task-p0\",\"key\":\"late/0\",\"offset\":0,\"maxBytes\":8192}'",
+        "description": "Fetch original task via governed client"
+      },
+      "name": "Bash",
+      "type": "tool_use"
+    },
+    {
+      "caller": {
+        "type": "direct"
+      },
+      "id": "toolu_01D2RJXqpGn3KukYrz1puy35",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js' '{\"requestId\":\"gc03-w-rubric-p0\",\"key\":\"late/1\",\"offset\":0,\"maxBytes\":8192}'",
+        "description": "Fetch original rubric via governed client"
+      },
+      "name": "Bash",
+      "type": "tool_use"
+    },
+    {
+      "caller": {
+        "type": "direct"
+      },
+      "id": "toolu_01AGSbSmbQqxMgN5FTizEumd",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js' '{\"requestId\":\"gc03-w-testing-p0\",\"key\":\"late/2\",\"offset\":0,\"maxBytes\":8192}'",
+        "description": "Fetch Testing stdout via governed client"
+      },
+      "name": "Bash",
+      "type": "tool_use"
+    },
+    {
+      "caller": {
+        "type": "direct"
+      },
+      "id": "toolu_01EPi1RBaocBSfqq6xsMnwLx",
+      "input": {
+        "command": "'/opt/homebrew/Cellar/node/24.7.0/bin/node' '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js' '{\"requestId\":\"gc03-w-denied-p0\",\"key\":\"late/3\",\"offset\":0,\"maxBytes\":8192}'",
+        "description": "Request a denied key via governed client"
+      },
+      "name": "Bash",
+      "type": "tool_use"
+    }
+  ],
+  "actualRefusal": {
+    "bytes": 5076,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/event-5605.jsonl",
+    "sha256": "17caf5665c0c052dd68ee8c7b872cf3825979d393df9dec18570c9275b0e7243"
+  },
+  "actualReportOnlyToolUse": {
+    "caller": {
+      "type": "direct"
+    },
+    "id": "toolu_01RgBmLjJKgvd68D2cofwPym",
+    "input": {
+      "gaps": [
+        "Unproven: no test suite ran in this Run. The parent-admitted view records the Testing command as /bin/cat fixture.txt (exit 0). The stdout digest bee000fc\u2026 equals the worksite fixture.txt digest, so the node:test failure is fixture content. When, where and against which source it originally ran cannot be determined: the bytes carry no timestamp or run id.",
+        "Unproven: I did not check whether t287-native-semantic-revision.test.mjs exists under the rc2-dogfood-01/setup-001/... archive sandbox path. It is outside my readable scope. Why it was missing (archive pruning, path mismatch, incomplete sandbox materialization or other) is unknown. The path names rc2-dogfood-01 while this witness runs under rc3-dogfood-01, and how the two relate is unproven.",
+        "Unproven: whether U1-P5-02 or the two passing tests would pass or fail on current source, and any root cause beyond the recorded ENOENT.",
+        "Producer unavailable: the client returned role, sourceKey and digest for task.md (late/0) and rubric.json (late/1) but no producer or provenance field, so the producer of the original sources cannot be confirmed through the client.",
+        "Run membership not independently shown: the producer object for late/2 has no runId, and the parent-admitted observation also lacks one. That result 42711f7d\u2026 belongs to run://abiogenesis/462dca6c\u2026 is implied only by the owner's binding of this governed Context.",
+        "Not resolvable with permitted keys: provenance event://abiogenesis/07457cc1\u2026, synthesisResultRef bcde089c\u2026, selectedGraphFunctionRef graph-function://abiogenesis/default-library/testing@5, and the predicate evidence body for predicate://abi5-tests/gc03-witness/exact-fixture@5. None were checked.",
+        "W1 facts not rechecked through the client: executable /bin/cat, args fixture.txt, exit 0, empty stderr, subjectEvidenceRef null and the predicate outcome come only from the parent context view. The client exposes only commandResults[0].stdout.",
+        "Retention: writeRoots is empty, so I persisted no request or response bytes. They exist only as tool results in this native session (T1\u2013T4, matched by order and requestId). I cannot see tool_use ids, and I have not verified that the platform captures these results in a cold-joinable form.",
+        "Not independently verifiable: the returned bindingDigest, prefixDigest, gc03 contextSha256 and recheckSha256. gc03 publication is 'not_performed'.",
+        "Paging: each source fit in one 8192-byte page (offset 0, length equal to totalBytes, nextOffset null). Multi-page continuation was not exercised.",
+        "Refusal scope: I tested one denied key (late/3). The refusal text says 'key is absent from this governed Context'. Other denied key forms, such as raw paths or other sourceKeys, were not tested.",
+        "Local auxiliary checks: node -e decoding re-entered the returned base64 as argv, and the matching digests confirm it was copied correctly. The Read-tool reads of task.md and rubric.json and the shasum of fixture.txt were direct worksite reads within readable scope, not governed lookups, and do not replace them. I know of no writes outside scope; platform transcript and cache files are the platform's responsibility.",
+        "No independent verdict: this report is not UAT or acceptance, and parent outcome support://abi5-tests/gc03-witness/W1-W5@5 remains unresolved."
+      ],
+      "summary": "Native Construction ran using only the fixed installed client (.../sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js) with the prescribed command form. It wrote no bytes. Client-reported Construction occurrence: runId run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4, cCallRef c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52, actorInvocationRef actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9.\n\nTRANSPORT. Four client Bash tool calls were sent in one parallel batch. Each response is the complete stdout of that call's tool result.\nT1 request {\"requestId\":\"gc03-w-task-p0\",\"key\":\"late/0\",\"offset\":0,\"maxBytes\":8192} -> governed_context_page. Source {role:original_task, sourceKey:task.md, digest:sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955}, offset 0, length 905, totalBytes 905, pageDigest equal to the source digest, complete:true, nextOffset:null. No producer or provenance field.\nT2 request {\"requestId\":\"gc03-w-rubric-p0\",\"key\":\"late/1\",\"offset\":0,\"maxBytes\":8192} -> page. Source {original_rubric, rubric.json, sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25}, 0/1196/1196, complete:true, nextOffset:null. No producer or provenance field.\nT3 request {\"requestId\":\"gc03-w-testing-p0\",\"key\":\"late/2\",\"offset\":0,\"maxBytes\":8192} -> page. Source {testing_result_field, sourceKey result://abiogenesis/42711f7d021a51ca61da12006d26a6949c692122c4e8effa254cc503fb6b21a9#[\"commandResults\",0,\"stdout\"], digest sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6, producer {cCallRef c-call:sha256:7f89fca79ef7a8b9a1b0fb210808a26f9a9ef937334fe4df3e845b56f609cff6, actorInvocationRef actor-invocation://abiogenesis/88c4e649ea0c35906d5d0f05d4120fdb0cd70fdad83a29c4dce8ba4e92777642}, provenance [event://abiogenesis/07457cc1a2d0b88554a3f8a7c2bd5b7a5e2baee20e583c4f20b264441486fd85]}, 0/4616/4616, complete:true, nextOffset:null.\nAll three pages share bindingDigest sha256:2fd9e153e240aa47db64fcadcbb827cd15f6986580341f5a5b91cc45cdcd7add, prefixDigest sha256:5fc2da9a6a6721264dbb691c1a9b6cdf0b061b864890a9454b0d832ee1b73553, and gc03 {identity urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1, publication not_performed, contextSha256 a8f179ae63055b9f8345d3c74fab808b29f2461d62cd09d96ddf5666369c7922, recheckSha256 6846fba89518ed9bb4c9b272e42d41cf4e46c6ae3a1fe1cca377c62ec69c444f}.\nT4 DENIED request {\"requestId\":\"gc03-w-denied-p0\",\"key\":\"late/3\",\"offset\":0,\"maxBytes\":8192} -> returned exactly: {\"kind\":\"governed_context_refusal\",\"schemaVersion\":\"5.0.0\",\"stage\":\"active\",\"code\":\"key_denied\",\"request\":{\"requestId\":\"gc03-w-denied-p0\",\"key\":\"late/3\",\"offset\":0,\"maxBytes\":8192},\"occurrence\":{\"runId\":\"run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4\",\"cCallRef\":\"c-call:sha256:4823ba293f6ccbef398065bb2b2510adf75c59eac8182e3354a97e07c7f51e52\",\"actorInvocationRef\":\"actor-invocation://abiogenesis/1f84145f9522d3280ba8ae92490d502b92288ccf3cdc710e8a3df2b343b83ab9\"},\"message\":\"key is absent from this governed Context\"}. I made no fallback, retry or authority widening.\n\nBYTE IDENTITY. I decoded the three returned base64 bodies in memory with node -e, writing nothing. They gave 905, 1196 and 4616 bytes with sha256 1c1adfe5\u2026, 540d2997\u2026 and bee000fc\u2026. These equal the client's source digest and pageDigest for each. Each body is strict UTF-8 and base64 round-trips. A read-only shasum of worksite task.md, rubric.json and fixture.txt gives the same three digests and sizes.\n\nPRODUCER CHECK. The producer the client returned for late/2 matches the parent-admitted observation exactly: actorInvocationRef 88c4e649\u20267642 and cCallRef 7f89fca7\u2026cff6. Its resultRef 42711f7d\u2026 and stdout digest/length bee000fc\u2026/4616 also match. The Construction occurrence (4823ba29\u2026 and 1f84145f\u2026) is distinct from the Testing producer.\n\nOBSERVED FAILURE (from the retrieved stdout bytes only). The stdout is a node:test report: tests 3, suites 0, pass 2, fail 1, cancelled 0, skipped 0, todo 0, duration_ms 1381.965583. The failing test is U1-P5-02 \"actual C0 successor and every affected currentness consumer\" (442.969542ms) at test_env/tests/t287-native-work-currentness-consumers.test.mjs:597:1. It threw Error ENOENT (errno -2, syscall open, code 'ENOENT') opening /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a\u2026ecbce/51b75372\u20262455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs. Call chain: fs/promises readFile <- semanticFixtureHelpers (test_env/support/t287-native-work-currentness-consumers.mjs:364:17) <- semanticData (test file :375:19) <- semanticFoldConsumer [as semanticFold] (:464:18) <- TestContext callback (:601:39). Passing tests: \"library prepare-testing reuses the invoking private operation and its actual F_D origin\" (134.407791ms) and \"library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards\" (53.463ms). Two \"VM Modules\" ExperimentalWarnings (pids 33288 and 33304) appear but did not fail anything.\n\nCONSERVATION. The original task.md and rubric.json W1\u2013W5 were retrieved byte-exact and left unchanged and uninterpreted. This work unit is evidence toward W2\u2013W4 and part of W5. It is not independent acceptance, UAT or Product qualification. Parent outcome support://abi5-tests/gc03-witness/W1-W5@5 remains unresolved pending independent assessment."
+    },
+    "name": "StructuredOutput",
+    "type": "tool_use"
+  },
+  "failureCustody": {
+    "bytes": 5416,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/CUSTODY.json",
+    "sha256": "bbe38d4464bec1f656a5310e96d6384844ff99d7ac235cb46a4da0131f144e58"
+  },
+  "failureRunRef": "run://abiogenesis/462dca6c3a36a4096efd8ab2c71dc5ffa45cb1b3474109f25d8f36156aae82e4",
+  "invocation": {
+    "client": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js",
+    "endpoint": "/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-gc-ZR94QO/s",
+    "executable": "/opt/homebrew/Cellar/node/24.7.0/bin/node"
+  },
+  "kind": "b10_actual_counterexample_projection",
+  "limits": [
+    "No previously failed Construction Result is imported",
+    "Full raw transport, sidecar and failure event remain exact referenced custody",
+    "Reduced regression must preserve real command rejection and exact byte/owner joins"
+  ],
+  "ownerCause": "verifyGovernedContextCorrespondence scans JSON.stringify(all input); a StructuredOutput summary names the client but has no input.command; all four actual commands already have owner exchanges",
+  "ownerSidecar": {
+    "bytes": 20934,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/fp-721dc43e5de376b9-governed-context.json",
+    "sha256": "81f1b32e48739c339fefec5adfe00143ec8508a927397e8e1dbd96bea4ce2f3f"
+  },
+  "rawStdout": {
+    "bytes": 1226714,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/resources/archives/fp-721dc43e5de376b9-stdout.log",
+    "sha256": "1cbebb4ec836dbf06f8b45c31156d7a74e896df15c67a20cbb224e10e90d6931"
+  },
+  "retainedExchangeCount": 4,
+  "selectedRepair": "scan string input.command, retain exact Bash matching and stray marked command refusal; narrative-only tool data is not an invocation",
+  "sidecarExchangeSummary": [
+    {
+      "disposition": "page",
+      "ordinal": 1,
+      "request": {
+        "key": "late/0",
+        "maxBytes": 8192,
+        "offset": 0,
+        "requestId": "gc03-w-task-p0"
+      },
+      "requestDigest": "sha256:e4b85b82a33d713be1ef9de94390626911a37cddd26860d0274b2be054821211",
+      "responseDigest": "sha256:5d65f92e00db342e7a2e930bf1365ae5f88dc63d415285e65cd6a3157151df8f",
+      "stage": "active"
+    },
+    {
+      "disposition": "page",
+      "ordinal": 2,
+      "request": {
+        "key": "late/1",
+        "maxBytes": 8192,
+        "offset": 0,
+        "requestId": "gc03-w-rubric-p0"
+      },
+      "requestDigest": "sha256:b4f285363a3fb0b17be449f74f8168165c1ebbe53df8ab94bd8f59536fa01cbe",
+      "responseDigest": "sha256:f64bc69c49a743d0f9660841e50e00c88b83559e191ed98b0375d042e4646dc5",
+      "stage": "active"
+    },
+    {
+      "disposition": "page",
+      "ordinal": 3,
+      "request": {
+        "key": "late/2",
+        "maxBytes": 8192,
+        "offset": 0,
+        "requestId": "gc03-w-testing-p0"
+      },
+      "requestDigest": "sha256:bfa555323e1a5e50c1e82a1dde15029f5b979a794bf23f83d2e3bbde5375b9ef",
+      "responseDigest": "sha256:4dfee92b6a6b8a0065642b4bb397a453f668adc9e5992ae5bf8fe4a61192efd5",
+      "stage": "active"
+    },
+    {
+      "disposition": "refusal",
+      "ordinal": 4,
+      "request": {
+        "key": "late/3",
+        "maxBytes": 8192,
+        "offset": 0,
+        "requestId": "gc03-w-denied-p0"
+      },
+      "requestDigest": "sha256:18e83ba58d6038125b2ce9d675129938113bcb08ad078ee70d30c1c111e166f2",
+      "responseDigest": "sha256:db51b308d448aae38f5f7c6d7c8cef348753f0aef3c4ce44ce1538eaaaa9a38a",
+      "stage": "active"
+    }
+  ],
+  "standing": "Root-selected observational input from actual failed002 transport, not a native Construction Result or new authority"
+}

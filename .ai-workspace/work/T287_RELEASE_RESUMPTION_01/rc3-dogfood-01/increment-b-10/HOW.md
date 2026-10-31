@@ -1,0 +1,9 @@
+# B10 bounded owner/design trace and return instruction
+
+Root's exact selected repair is string input.command marker detection, with the existing exact Bash matcher and stray COMMAND refusal retained. Actual counterexample and full custody references are in COUNTEREXAMPLE.json. Do not generalize the gate to a generic tool dispatcher or ignore all non-Bash commands.
+
+Deciding owners (canonical worktree build_tenants/abiogenesis/typescript): code/src/abg/governed_context.ts519–588; existing correspondence test176–240 and top-level real owner test619 onward; design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md1207–1213. Existing actor_process.ts invokes the same correspondence gate before Construction Result admission; coldVerifyGovernedContext reruns that owner function. Read those caller references as needed, do not edit them. Complete response bytes, per-request single tool-use/result correspondence and authenticated owner/occurrence remain authoritative.
+
+Only the three Root-selected original-territory paths are writable. Preserve all other Product/source identities. All actual focused/negative evidence needed by native UAT must come from current C2/source; future Root review and live witness are outside this four-criterion rubric. Full historic raw traces are cited, not treated as an admitted successful prior Result.
+
+Use at most focused correspondence/regression checks plus one necessary build during native authoring. Then return the required native Work response immediately; native Testing owns the full nine-command campaign. Stop and report a narrow gap instead of repeating broad scratch suites or exhausting160+ turns. No nested provider or paid test call. Existing native C2 uses the conserved961-file snapshot and all9 command objects/environments; extra task/rubric/HOW/counterexample reads are declaration-only assessment inputs outside that producer set.

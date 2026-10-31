@@ -1,0 +1,30 @@
+{
+  "kind": "b10_operator_materialization_observation",
+  "authority": "Root reports materializing these four operator inputs before provider-free setup005.",
+  "inspection": "This record independently compared current destination bytes with reviewed carrier originals; it is not a captured materializer execution receipt.",
+  "destination": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/rc3-operator-inputs/increment-b-10",
+  "files": [
+    {
+      "name": "task.md",
+      "bytes": 4446,
+      "sha256": "a139cda9471fb6ae86bcb49fa1ffddcefa2e855c9f0c6542e5e01020e29405df"
+    },
+    {
+      "name": "HOW.md",
+      "bytes": 1895,
+      "sha256": "8fcf0eb0ec5c4bc1c781edd1812e852955197d07ba50ab6dff88efb4a7027d5f"
+    },
+    {
+      "name": "rubric.json",
+      "bytes": 2244,
+      "sha256": "1cb96f88b460b4eaa28cfce24e6d47481719f15c7ad5a53de5435f83615101d3"
+    },
+    {
+      "name": "COUNTEREXAMPLE.json",
+      "bytes": 31074,
+      "sha256": "c8f5b96f303c7d5802dfc9d849d3f84d09a597146fde9a0c47968f578856076d"
+    }
+  ],
+  "productSourceWrites": "none reported by Root; this observer performed no Product writes",
+  "setup": "setup005 active as reported by Root; no setup outcome asserted"
+}

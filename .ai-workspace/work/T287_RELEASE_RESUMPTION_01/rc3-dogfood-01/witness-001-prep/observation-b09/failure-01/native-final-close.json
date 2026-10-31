@@ -1,0 +1,26 @@
+{
+  "prefix": {
+    "coordinateDigest": "sha256:7a237b233cc25c82641f1697caec3f6bb4f68e2b0813f0ef59ac9536c1e13d95",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:668e3532489ef676469058de42f888bd93e87513571e0ea93174fe37a0056cb6",
+    "prefixLength": 3195951,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 668496780
+    }
+  },
+  "reopenAuthority": {
+    "authorityDigest": "sha256:d8ddcdfd848036d5e8edda624e9c68f7099de65bef674e23e998b3b4c1d9ae01",
+    "device": 16777231,
+    "durableByteLength": 3195951,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "eventLogDigest": "sha256:668e3532489ef676469058de42f888bd93e87513571e0ea93174fe37a0056cb6",
+    "eventLogPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/resources/events/runtime.events.jsonl",
+    "inode": 668496780,
+    "kind": "event_store_reopen_authority",
+    "schemaVersion": "5.0.0"
+  }
+}

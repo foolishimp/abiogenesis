@@ -1,0 +1,46 @@
+{
+  "ProductWriteRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+  ],
+  "executive": "/root",
+  "kind": "b10_fresh_store_executive_selection",
+  "limits": [
+    "Prospective only; no Public/provider call",
+    "Same961 C2 snapshot;965 finite governance readRoots after Root materialization of4 operator inputs",
+    "No old Results/observations/synthesis carried",
+    "Three children then terminal evaluation needs bound4; actual native choices remain observed"
+  ],
+  "ownerInstruction": "Root explicitly selected task/HOW/four bounded criteria as written,3-path Construction scope,maxTurns80,bound4,and4 prospective operator reads outside961 producer dependencies. Root reviews actual final invocation before launch.",
+  "providerDispatch": false,
+  "recursionBound": 4,
+  "selectedHow": {
+    "bytes": 1895,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/HOW.md",
+    "sha256": "sha256:8fcf0eb0ec5c4bc1c781edd1812e852955197d07ba50ab6dff88efb4a7027d5f"
+  },
+  "selectedProviderBinding": {
+    "bytes": 1298,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/PROVIDER_BINDING.json",
+    "sha256": "sha256:6cbb3d084dcc6dc455d2b4a64222658bc3677dcb68d1fd923eeb2dde4a20f021"
+  },
+  "selectedRubric": {
+    "bytes": 2244,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/rubric.json",
+    "sha256": "sha256:1cb96f88b460b4eaa28cfce24e6d47481719f15c7ad5a53de5435f83615101d3"
+  },
+  "selectedTask": {
+    "bytes": 4446,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/task.md",
+    "sha256": "sha256:a139cda9471fb6ae86bcb49fa1ffddcefa2e855c9f0c6542e5e01020e29405df"
+  },
+  "sourceBasis": "none",
+  "sourceBinding": {
+    "bytes": 20253,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/SOURCE_AND_ELIGIBILITY.json",
+    "sha256": "sha256:c9105a369fe330bf023dac018a30ed1a8b9b668b1e5a6325d8bfe9d7bd09dd01"
+  },
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "status": "PREPARED_FOR_ROOT_OPERATION"
+}

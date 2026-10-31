@@ -89,8 +89,17 @@ B07 observation, 2026-11-01: the bounded GC03 mechanical Construction
 ended `runtime_failed` at its provider turn limit without a terminal Result or
 admitted C2; a named scratch test passed but is not native acceptance. The
 [disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/B07_DISPOSITION.md)
-retains the frozen source and pending independent review. A separate fresh
-Testing → UAT Run is being prepared without carrying a prior Construction Result.
+retains the frozen source and independent-review context. The later B09
+Testing → UAT Run did not carry a prior Construction Result.
+
+B09 and witness observation, 2026-11-01: all nine native B09 C2 commands
+passed, but native UAT was indeterminate and the Run blocked. A separate actual
+fixed-client witness reached the lookup, then failed native Construction admission
+on a StructuredOutput marker false positive; no Construction Result was admitted.
+The [failure disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/DISPOSITION.md)
+retains the exact counterexample. Root selected a bounded three-path B10 repair;
+provider-free setup005 is active. The two preceding foundation acceptances and
+all broader qualification and release obligations keep their stated bounds.
 
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)

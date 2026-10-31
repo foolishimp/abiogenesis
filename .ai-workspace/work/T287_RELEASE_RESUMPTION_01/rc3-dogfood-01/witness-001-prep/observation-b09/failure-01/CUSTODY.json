@@ -1,0 +1,71 @@
+{
+  "kind": "b09_witness_admission_refusal",
+  "status": "actual_witness_refused_before_provider",
+  "launchManifestSha256": "93e8ba4029238bde8b04d30269aa966e2fa6660e22925f14b94fc723f2fd9aca",
+  "rootLaunchSessionExit": 0,
+  "nativeCliExit": 1,
+  "outcome": "refusal",
+  "code": "invalid_capability",
+  "issuePaths": [
+    "/runEnvironmentResources",
+    "/runEnvironment/cause/access_unavailable"
+  ],
+  "nativeWallMs": 2806.71425,
+  "timeout": false,
+  "truncated": false,
+  "returnedCloseHandoffEqualsInitial": true,
+  "closePrefixDigest": "sha256:668e3532489ef676469058de42f888bd93e87513571e0ea93174fe37a0056cb6",
+  "observedNativeProviderStreams": 0,
+  "reportedNativeProviderCost": 0,
+  "limitations": [
+    "W1-W5 not exercised",
+    "no native Testing or Construction Result",
+    "no product qualification",
+    "unknown non-provider costs not estimated",
+    "cause under investigation; no retry"
+  ],
+  "items": [
+    {
+      "source": "witness-001-prep/runtime-b09-001/NATIVE_LAUNCH_STARTED.json",
+      "copy": "witness-001-prep/observation-b09/failure-01/NATIVE_LAUNCH_STARTED.json",
+      "bytes": 364,
+      "sha256": "4ba87d47098b5f9a576807c52a58507287f5f36eec77b32ad883dd5cf68924b8"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/native-final-close.json",
+      "copy": "witness-001-prep/observation-b09/failure-01/native-final-close.json",
+      "bytes": 1360,
+      "sha256": "037bbc000015bf0222e72c889a3c00b51071136a1701252e7827b55b644d67bd"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/commands/lifecycle-start.result.json",
+      "copy": "witness-001-prep/observation-b09/failure-01/lifecycle-start.result.json",
+      "bytes": 4268,
+      "sha256": "93af3aee9f72dc073e410bc09d4ede9a59ba9f1b36f670742173ce0d236981b6"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/commands/lifecycle-start.stdout",
+      "copy": "witness-001-prep/observation-b09/failure-01/lifecycle-start.stdout",
+      "bytes": 2782,
+      "sha256": "10fff5ee173593880d8a3254771b391d237e5b918fccce6b7eda772da81a3e43"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/commands/lifecycle-start.stderr",
+      "copy": "witness-001-prep/observation-b09/failure-01/lifecycle-start.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/witness-call.json",
+      "bytes": 29560408,
+      "sha256": "f32e3c75f0f743be8e9b0ef88f42128f61e33beab70e37cf4a4ef3a00e486f6a",
+      "retention": "full raw local file; not copied"
+    },
+    {
+      "source": "witness-001-prep/runtime-b09-001/native-execution.json",
+      "bytes": 30218494,
+      "sha256": "3df3603cb9d8a2fa9a2d7e458e11670afdfb3af01d72c55e5de88579b5b51e93",
+      "retention": "full raw local file; not copied"
+    }
+  ]
+}

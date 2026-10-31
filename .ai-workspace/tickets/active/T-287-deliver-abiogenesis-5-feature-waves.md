@@ -9,9 +9,9 @@
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: SUNNY_DAY_TRAVERSAL_AND_RECOVERY_PLAN_01; owner selects sunny-day HoG iteration, declared evaluation and consequence before cold event-log recovery; Root remains sole ABI operator proxy.
-- current_activation_status: Two foundation checkpoints accepted within their bounds. B07 native Construction reached the turn limit and the Run returned runtime_failed/no terminal; scratch pass and partial source are unaccepted and under independent review. Root is preparing a fresh Testing → UAT Run with source basis none, without carrying a prior Construction Result. Owner removed the earlier spending limit.
+- current_activation_status: Two foundation checkpoints accepted within their bounds. B09 actual C2 passed all nine commands but native UAT was indeterminate and its Run blocked. Witness002 used actual fixed-client lookup, then runtime_failed without a Construction Result on the independently confirmed StructuredOutput marker false positive; B10 provider-free setup005 is active.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md
-- current_next_work: Independently assess the exact B07 source and conditional actor authority change; prepare a fresh native Testing → UAT selection against current source with both focused and affected commands bound to the selected STDO environment. Retain separate installed-RC3 context witness, original A/B, repeatability, qualification and release obligations.
+- current_next_work: Complete the Root-selected bounded B10 native correspondence repair and its affected proof, then reassess the separate live witness. Preserve B07/B08/B09 and witness002 failed history, original A/B obligations, repeatability, whole qualification and release.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
