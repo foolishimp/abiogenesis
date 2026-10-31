@@ -97,9 +97,11 @@ passed, but native UAT was indeterminate and the Run blocked. A separate actual
 fixed-client witness reached the lookup, then failed native Construction admission
 on a StructuredOutput marker false positive; no Construction Result was admitted.
 The [failure disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/DISPOSITION.md)
-retains the exact counterexample. Root selected a bounded three-path B10 repair;
-provider-free setup005 is active. The two preceding foundation acceptances and
-all broader qualification and release obligations keep their stated bounds.
+retains the exact counterexample. Root accepted the bounded three-path B10 repair after native C2 and satisfied
+UAT; its parent completed and fresh result/replay agree. The [B10 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_DISPOSITION.md)
+retains the exact evidence and limits. Root selected its tested artifact for a
+separate W1–W5 witness. Foundation acceptances and broader qualification and
+release obligations retain their stated bounds.
 
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)

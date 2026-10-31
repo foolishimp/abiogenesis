@@ -1,0 +1,108 @@
+{
+  "kind": "b10_terminal_and_fresh_read_custody",
+  "run": {
+    "digest": "sha256:97edc842f7deb6c07461a41cb508a266204a853a579c16d331c966e40701f4d7",
+    "ref": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d"
+  },
+  "outcomeKind": "result",
+  "disposition": "completed",
+  "terminal": {
+    "kind": "abg_typed_terminal_result",
+    "result": {
+      "digest": "sha256:b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036",
+      "ref": "result://abiogenesis/b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036"
+    },
+    "valueDigest": "sha256:9eb9fb5eecebdf2ff4cb22190b8737f5956b2c84d914a26e563e5df63b6b79a3",
+    "producer": {
+      "cCallRef": "c-call:sha256:c695799533280aecb0617c6dc6c91942bcdbeb7f1faba79b40fa7b2096fb3573",
+      "executionBasis": {
+        "digest": "sha256:cc071641e2f30edd72d31fbea55fdcb7b993c528584d5439e363895dffbd042c",
+        "ref": "execution-basis://abiogenesis/cc071641e2f30edd72d31fbea55fdcb7b993c528584d5439e363895dffbd042c"
+      },
+      "graphCallRef": "graph-call://abiogenesis/529253c9784963e44fffc79632f5e9dc5557f74646daa67c5aa7cf2a510b2ba6",
+      "graphFunction": {
+        "digest": "sha256:684c7aa41674fbabc30abe27397136b7bb7df8015ffc29114b9d88e05453f189",
+        "ref": "graph-function://abi5-tests/sandbox-uat/executive@5"
+      },
+      "invocationAdmissionRef": "invocation-admission://abiogenesis/a5b1fc2157418497946a8127b5da9ae57246a34afbabbd8ed57c8e4b2c7ad78c",
+      "judgmentAdmissionEventRef": "event://abiogenesis/2afde0c5fb470c75f2ad7874b59d95836a27c70ed450c05a9f1275c7e202327f",
+      "judgmentRef": "judgment://abiogenesis/a5074afc7243789096fa6b7cbb9ae35773f8a247c1b5e35fa299ec2aec6f7a56",
+      "program": {
+        "digest": "sha256:7d00f39926dfd2a8a38fe9c7e8c8c642955f269c5b5edde42241856976e00fd9",
+        "ref": "program://abi5-tests/sandbox-uat/lifecycle@5"
+      },
+      "resultAdmissionEventRef": "event://abiogenesis/5a4ef29afa2cd138e1f646c97e0d4080c824a28dfc4c53184e804a7076c72146",
+      "runRef": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d",
+      "terminalRoute": {
+        "digest": "sha256:a3538d495dbda6db08847abcb95eebb0069656b9d1d668280b548b7bb575e10f",
+        "ref": "traversal-route://abiogenesis/a3538d495dbda6db08847abcb95eebb0069656b9d1d668280b548b7bb575e10f"
+      }
+    }
+  },
+  "freshReads": [
+    {
+      "memberKey": "run_result",
+      "outcomeKind": "result",
+      "source": {
+        "digest": "sha256:97edc842f7deb6c07461a41cb508a266204a853a579c16d331c966e40701f4d7",
+        "ref": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d"
+      },
+      "terminalResult": {
+        "digest": "sha256:b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036",
+        "ref": "result://abiogenesis/b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036"
+      },
+      "terminalValueDigest": "sha256:9eb9fb5eecebdf2ff4cb22190b8737f5956b2c84d914a26e563e5df63b6b79a3",
+      "replayStatus": null
+    },
+    {
+      "memberKey": "run_replay",
+      "outcomeKind": "result",
+      "source": {
+        "digest": "sha256:97edc842f7deb6c07461a41cb508a266204a853a579c16d331c966e40701f4d7",
+        "ref": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d"
+      },
+      "terminalResult": {
+        "digest": "sha256:b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036",
+        "ref": "result://abiogenesis/b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036"
+      },
+      "terminalValueDigest": "sha256:9eb9fb5eecebdf2ff4cb22190b8737f5956b2c84d914a26e563e5df63b6b79a3",
+      "replayStatus": "closed"
+    }
+  ],
+  "closedEvent": {
+    "ordinal": 4747,
+    "eventRef": "event://abiogenesis/78ac063ab69f178b9bbff16082d192e8c0c2a7a9a38578dfccf570a4f35e56e9",
+    "eventTime": "2026-10-31T22:07:16.465Z"
+  },
+  "executionWallMs": 2464980.792375,
+  "startedUtc": "2026-10-31T21:27:33.689Z",
+  "endedUtc": "2026-10-31T22:12:32.239Z",
+  "eventLogInitialBytes": 3195635,
+  "eventLogClosedBytesObserved": 1341342857,
+  "sourceFiles": [
+    {
+      "path": "attempt-012/execution.json",
+      "bytes": 34894629,
+      "sha256": "6626e4f5823b46e3e6bd65a6dab94714534cbf25f8da0b6037575512fc3b0d92",
+      "retention": "complete local raw file"
+    },
+    {
+      "path": "attempt-012/after-run-resume.json",
+      "bytes": 34452581,
+      "sha256": "33aec99f80a0e4a324dddbbbf2224f50b7db3dcd3fbbd3599a89d97bdbbd3494",
+      "retention": "complete local raw file"
+    },
+    {
+      "path": "attempt-012/outcome-summary.json",
+      "bytes": 354177,
+      "sha256": "f882060c55f838a89be8c0ea9096301ca4a5657b8416dbee9022c860992afc26",
+      "retention": "complete local raw file"
+    },
+    {
+      "path": "attempt-012/fresh-reads.json",
+      "bytes": 1504847,
+      "sha256": "261d7c1f9a1a3660923ebae3ec0852e8d56e9c59a4ffab66eefa11623efd6260",
+      "retention": "complete local raw file"
+    }
+  ]
+}

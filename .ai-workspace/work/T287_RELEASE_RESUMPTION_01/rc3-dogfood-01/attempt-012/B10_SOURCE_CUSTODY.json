@@ -1,0 +1,34 @@
+{
+  "kind": "b10_incremental_source_observation",
+  "standing": "native Construction provider returned; no C2 or acceptance implied",
+  "preArchive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/b07-partial-source-local.tar",
+  "preArchiveSha256": "59bc45b84e657bae7d3adbd633318bf04015a7e869d855e8b1058df17e223617",
+  "patch": "attempt-012/B10_INCREMENTAL_DIFF.patch",
+  "patchSha256": "d9462fecc2257d639ad4cbecaf351250a804018a269ffac4041cb7039f884964",
+  "paths": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "preBytes": 75964,
+      "preSha256": "0d405a5f41f0066983523028318e7dcb229a851d18842e6fd9e4fe34534629b3",
+      "postBytes": 76228,
+      "postSha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "preBytes": 95580,
+      "preSha256": "c7c2ed1a7fde7daed74526702f7fd942348d6f45799c95e26293f3334d9b1531",
+      "postBytes": 100940,
+      "postSha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06",
+      "changed": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "preBytes": 84899,
+      "preSha256": "5e17973559f6c33c0c8e411ba51eff8a76ac584c694bc5aafd524a6a6ebe6cfd",
+      "postBytes": 85136,
+      "postSha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14",
+      "changed": true
+    }
+  ]
+}

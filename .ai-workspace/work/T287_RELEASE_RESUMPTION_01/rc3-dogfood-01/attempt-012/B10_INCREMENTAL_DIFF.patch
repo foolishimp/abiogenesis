@@ -1,0 +1,118 @@
+--- pre/build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts
++++ post/build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts
+@@ -522,9 +522,13 @@
+  * refused, must have exactly one Bash tool_use whose command is exactly the
+  * owner-named fixed-client executable, client path and the four request
+  * members, whose wire bytes equal that request, and whose single tool_result
+- * content equals the complete response bytes. Any other tool_use naming the
+- * client, its environment or the endpoint is a substitution. Pure over raw
+- * stdout and the owner transcript, so cold verification reruns it unchanged.
++ * content equals the complete response bytes. Invocation candidates are
++ * command-bearing invocations only: tool_uses, of any tool name, whose string
++ * input.command names the client, its environment or the endpoint. Narrative
++ * input such as a StructuredOutput summary or a Bash description is not an
++ * invocation. Any other command-bearing invocation is a substitution. Pure
++ * over raw stdout and the owner transcript, so cold verification reruns it
++ * unchanged.
+  */
+ export function verifyGovernedContextCorrespondence(stdout: string, transcript: readonly GovernedContextExchange[],
+   invocation: GovernedContextInvocation): GovernedContextCorrespondence {
+@@ -539,9 +543,9 @@
+     if (!Array.isArray(content)) continue;
+     for (const block of content as Record<string, unknown>[]) {
+       if (row.type === "assistant" && block?.type === "tool_use" && typeof block.id === "string") {
+-        const input = JSON.stringify(block.input ?? null);
+-        if (markers.some(marker => input.includes(marker)))
+-          uses.push({ id: block.id, name: block.name, command: (block.input as Record<string, unknown> | undefined)?.command });
++        const command = (block.input as Record<string, unknown> | null | undefined)?.command;
++        if (typeof command === "string" && markers.some(marker => command.includes(marker)))
++          uses.push({ id: block.id, name: block.name, command });
+       } else if (row.type === "user" && block?.type === "tool_result" && typeof block.tool_use_id === "string") {
+         const c = block.content;
+         const text = typeof c === "string" ? c : Array.isArray(c) && c.every(p => (p as Record<string, unknown>)?.type === "text" && typeof (p as Record<string, unknown>).text === "string")
+@@ -585,7 +589,7 @@
+     joined.push({ ordinal: exchange.ordinal, requestId: request.requestId, toolUseId: use.id, disposition, responseDigest: exchange.responseDigest });
+   }
+   const stray = uses.find(u => !claimed.has(u.id));
+-  if (stray !== undefined) return correspondenceRefusal("substituted", null, "a tool_use names the fixed client or endpoint without an owner-retained exchange");
++  if (stray !== undefined) return correspondenceRefusal("substituted", null, "a command-bearing invocation names the fixed client or endpoint without an owner-retained exchange");
+   return Object.freeze({ kind: "governed_context_correspondence" as const, exchanges: Object.freeze(joined.map(j => Object.freeze(j))) });
+ }
+ 
+--- pre/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs
++++ post/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs
+@@ -242,6 +242,54 @@
+   owner.result.resultDigest = sha("superseded-after-occurrence");
+   assert.equal(syncCode(() => gc.reacquireOwnedContextLookupCold(authority)), "binding_stale", "cold reacquisition repeats the owner Result join");
+   assert.equal(cold().code, "stale", "a previously reacquired owner still rejoins current held truth");
++});
++
++test("correspondence scans only command-bearing invocations: reporting-only and description-only marker mentions join directly and cold", async () => {
++  const { authority } = governedFixture(gc), lookup = gc.constructOwnedContextLookup(authority), endpoint = await gc.reserveGovernedContextEndpoint();
++  endpoint.bind(lookup, lookup.occurrence); endpoint.activate("event://actor-process-started");
++  const request = { requestId: "corr-1", key: "late/2", offset: 0, maxBytes: 4096 }, deniedRequest = { requestId: "corr-2", key: "late/9", offset: 0, maxBytes: 1 };
++  const bytes = await ask(endpoint.path, gc.governedContextWire(request) + "\n"), deniedBytes = await ask(endpoint.path, gc.governedContextWire(deniedRequest) + "\n");
++  const transcript = endpoint.transcript(), inv = endpoint.invocation;
++  await endpoint.close("completed");
++  const rows = [{ toolUseId: "toolu_1", request, result: bytes.toString("utf8") }, { toolUseId: "toolu_2", request: deniedRequest, result: deniedBytes.toString("utf8") }];
++  // Extra tool blocks go before the final result line, as the provider emits a StructuredOutput report last.
++  const tool = (id, name, input, result) => [{ type: "assistant", message: { role: "assistant", content: [{ type: "tool_use", id, name, input }] } },
++    ...(result === undefined ? [] : [{ type: "user", message: { role: "user", content: [{ type: "tool_result", tool_use_id: id, content: result }] } }])];
++  const withTools = (stream, lines) => { const all = stream.trimEnd().split("\n");
++    return [...all.slice(0, -1), ...lines.map(line => JSON.stringify(line)), all.at(-1)].join("\n") + "\n"; };
++  const narrative = `Ran ${inv.client} (${gc.GOVERNED_CONTEXT_CLIENT_MARKER}) over ${inv.endpoint} (${gc.GOVERNED_CONTEXT_ENDPOINT_ENV}) for ${request.requestId} and ${deniedRequest.requestId}`;
++  const reportOnly = tool("toolu_report", "StructuredOutput", { summary: narrative, gaps: [`request bytes for ${inv.client} via ${inv.endpoint} are platform-retained`] },
++    "Structured output provided successfully");
++  const describedOnly = tool("toolu_status", "Bash", { command: "git status --short", description: narrative }, "");
++  const verdict = (lines, r = rows) => gc.verifyGovernedContextCorrespondence(withTools(capturedStream(r, inv, gc), lines), transcript, inv);
++  const plain = verdict([]);
++  assert.equal(plain.kind, "governed_context_correspondence");
++  for (const [lines, label] of [[reportOnly, "narrative-only StructuredOutput summary naming client and endpoint"],
++    [describedOnly, "unrelated Bash command whose description names client and endpoint"], [[...reportOnly, ...describedOnly], "both together"]]) {
++    const joined = verdict(lines);
++    assert.equal(joined.kind, "governed_context_correspondence", label);
++    assert.deepEqual(joined.exchanges, plain.exchanges, `${label}: the same exact exchanges join and nothing else is claimed`);
++  }
++  // Reporting data never stands in for a call, and a command-bearing invocation stays a candidate whatever its tool name.
++  assert.equal(verdict(reportOnly, rows.slice(1)).code, "unjoinable", "a report naming the client and requestId does not replace the missing call");
++  assert.equal(verdict(tool("toolu_report", "StructuredOutput", { summary: narrative, command: gc.governedContextCommand(inv, request) })).code, "substituted",
++    "a non-Bash tool_use carrying the fixed-client command is a stray command-bearing invocation");
++  assert.equal(verdict(tool("toolu_peek", "Bash", { command: `ls -l '${inv.endpoint}'`, description: "list files" }, "")).code, "substituted",
++    "an unmatched Bash command naming the endpoint is a substitution");
++  assert.equal(verdict([...reportOnly, ...tool("toolu_3", "Bash", { command: gc.governedContextCommand(inv, { ...request, requestId: "corr-3" }) }, bytes.toString("utf8"))]).code,
++    "substituted", "an extra fixed-client Bash call without an owner exchange still refuses beside a report");
++  // Cold owner join over admitted stdout that carries the reporting-only additions next to the real exchanges.
++  const durable = gc.encodeGovernedContextTranscript({ occurrence: lookup.occurrence, bindingDigest: lookup.bindingDigest, invocation: inv, exchanges: transcript });
++  const ownerFacts = { occurrence: lookup.occurrence, invocation: inv, lookup: gc.reacquireOwnedContextLookupCold(authority) };
++  const cold = stdout => gc.coldVerifyGovernedContext({ stdout, stdoutDigest: sha(stdout), transcript: durable, owner: ownerFacts });
++  const reported = Buffer.from(withTools(capturedStream(rows, inv, gc), [...reportOnly, ...describedOnly]));
++  const okCold = cold(reported);
++  assert.equal(okCold.kind, "governed_context_correspondence", "cold owner join with reporting-only additions");
++  assert.deepEqual(okCold.exchanges, plain.exchanges);
++  assert.deepEqual(okCold.exchanges.map(e => [e.requestId, e.toolUseId, e.disposition]), [["corr-1", "toolu_1", "page"], ["corr-2", "toolu_2", "refusal"]]);
++  assert.equal(cold(Buffer.from(withTools(capturedStream(rows.slice(1), inv, gc), reportOnly))).code, "unjoinable", "cold: a report does not replace the missing call");
++  assert.equal(cold(Buffer.from(withTools(capturedStream(rows, inv, gc),
++    tool("toolu_report", "StructuredOutput", { summary: narrative, command: gc.governedContextCommand(inv, request) })))).code, "substituted", "cold: command-bearing impostor");
+ });
+ 
+ test("owner selection authenticates one private Program policy member through the RunEnvironment owner", async () => {
+--- pre/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md
++++ post/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md
+@@ -1207,10 +1207,13 @@
+ every retained exchange must have exactly one `Bash` `tool_use`. Its command
+ must equal `governedContextCommand`: the owner-named executable, client path
+ and canonical four-member request. Its wire bytes must equal that request, and
+-its single `tool_result` content must equal the complete response bytes. A
+-`tool_use` that names the client, its environment or the endpoint without
+-such an exchange is a substitution. Marker or requestId substrings do not
+-establish the call. Missing, substituted, truncated, errored or unjoinable
++its single `tool_result` content must equal the complete response bytes.
++Invocation candidates are command-bearing invocations only: a `tool_use` of
++any tool name whose string `input.command` names the client, its environment
++or the endpoint. Narrative tool input, such as a `StructuredOutput` summary or
++a `Bash` description, is not an invocation. A command-bearing invocation
++without such an exchange is a substitution. Marker or requestId substrings do
++not establish the call. Missing, substituted, truncated, errored or unjoinable
+ evidence refuses with the existing `actor_process_invocation_refused` class.
+ Each exchange's disposition must equal the one derived from its exact response
+ bytes. The transcript is written beside the raw stdout artifact. Cold proof

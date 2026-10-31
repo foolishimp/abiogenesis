@@ -1,0 +1,19 @@
+{
+  "kind": "b10_admitted_uat_review",
+  "runRef": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d",
+  "resultRef": "result://abiogenesis/1dfe0fe7435b514e79b53c7b11914115a4bddd45afcfe23fa2dbaf5e23e39178",
+  "resultDigest": "sha256:1dfe0fe7435b514e79b53c7b11914115a4bddd45afcfe23fa2dbaf5e23e39178",
+  "admissionOrdinal": 4662,
+  "eventRef": "event://abiogenesis/cf8f46b09beff5d9e41b62b3203c97f5669596c9a5578438659c62636ffce94b",
+  "eventLogOffset": 1104262443,
+  "eventLineBytesIncludingNewline": 117958101,
+  "eventLineSha256": "1e8e730b28149f192b6eda099daedcb3c3a37d50e9125bcefd5ea9f34acc07b4",
+  "providerOutputPath": "setup-005/resources/archives/fp-3aa8d2daa9e72a57-output.txt",
+  "providerOutputBytes": 6327,
+  "providerOutputSha256": "d208cca7e94ec0c45860d86cc685e81f8c9a208ca7acd2e160c11afac741c09a",
+  "disposition": "satisfied",
+  "unresolvedCriteria": [],
+  "independentReview": "Reviewer verified admitted UAT bytes, event and input digests; Root accepted bounded three-path repair, not whole Product or release. Parent/fresh reads pending.",
+  "cCallRef": "c-call:sha256:b1793bd506ce0ce57569058f825ee4203cc60f5f88fe5ff41937999d8b947b1d",
+  "actorInvocationRef": "actor-invocation://abiogenesis/42ddb8ee5387098d591d1b0098a9d193fae065d360e4185dd1e0745df2de0220"
+}
