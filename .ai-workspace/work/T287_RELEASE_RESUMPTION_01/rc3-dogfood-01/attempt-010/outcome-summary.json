@@ -1,0 +1,13 @@
+{
+  "ended": "2026-10-31T19:57:46.933Z",
+  "exitCode": 0,
+  "outcomeKind": "result",
+  "disposition": "blocked",
+  "run": {
+    "digest": "sha256:d74a3fb39d77dbfb0e9806452349f58a0e47f7c073592c6fb21ff42dc170e022",
+    "ref": "run://abiogenesis/8f5436e6b96265a95b009ac22574bd45e3b6e20747673131d4d17b3f379cf6bb"
+  },
+  "terminal": null,
+  "failedB07Unchanged": true,
+  "qualification": false
+}
