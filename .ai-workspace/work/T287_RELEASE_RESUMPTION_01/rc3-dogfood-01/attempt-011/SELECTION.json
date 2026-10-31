@@ -1,0 +1,55 @@
+{
+  "ProductWriteRoots": [],
+  "additionalSource": {
+    "bytes": 3136,
+    "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/stdo_abiogenesis.json",
+    "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28"
+  },
+  "authority": "Root authorized fresh Testing\u2192UAT on identical B07-authored source, adding only missing root definition; reviewer confirmed existing setup004/catalog/event store supports a distinct new Public start after actual B08 close/resource release.",
+  "commandConservation": "All nine command objects, including B08 command IDs, remain byte-for-byte equal in the parsed workload; their new Results will belong only to the fresh admitted Run.",
+  "criteria": {
+    "bytes": 2218,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/rubric.json",
+    "sha256": "c8409de7aca6a8128312365d7dca9a40f65a19940bc6ff9a6237526765be0c5e"
+  },
+  "initialSetupResume": {
+    "bytes": 73343901,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-004/operator-resume-material.json",
+    "sha256": "898644ae4ee835685c3ee5be09ced6c2dd07bf24566bb8764cf35d84da6b913b"
+  },
+  "kind": "b09_minimal_testing_uat_operator_selection",
+  "launcherRepair": {
+    "bytes": 3839,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/EXECUTABLE_CLOSURE_REPAIR.json",
+    "sha256": "8773f355bf05fa660fe2a4c70c02c1896dd574211a494e92ca8a2b806903420a"
+  },
+  "nativeActionsByWriter": "none",
+  "pending": [
+    "final reviewer check of finite host prerequisites and prospective inputs",
+    "actual B08 return/closeHandoff and physical prefix",
+    "Root selection of actual receipt digests; no prefix inferred from a running process",
+    "fresh input/call preparation and final manifest review"
+  ],
+  "priorB08Custody": {
+    "bytes": 6557,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/B08_PREPARATION_CUSTODY.json",
+    "sha256": "6bc2258b0e485dd54574bd333bc012e87fe9fc75af6078627d8a092367aa841e"
+  },
+  "priorB08Manifest": {
+    "bytes": 12358,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/PREPARATION_MANIFEST.json",
+    "sha256": "315124a3fe8179d4abd0d9b188b021bba6bcd95a32e9da7f64d7d1b521937889"
+  },
+  "priorB08Workload": {
+    "bytes": 265065,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/workload.json",
+    "sha256": "0ea56cb916c98ccf980c3dde12e5348f9501c210bd9677699a8da59d8c7cf946"
+  },
+  "sourceAndTools": {
+    "bytes": 17275,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/SOURCE_AND_ELIGIBILITY.json",
+    "sha256": "7f4e018779b6f559ef84eade99dd204ad8296bea19b32a37cdabbc6f11a5fea9"
+  },
+  "sourceBasis": "none",
+  "status": "PROSPECTIVE_PREFIX_PENDING_B08_CLOSE"
+}

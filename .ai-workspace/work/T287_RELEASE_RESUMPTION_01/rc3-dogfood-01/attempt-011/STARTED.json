@@ -1,0 +1,24 @@
+{
+  "startedUtc": "2026-10-31T20:03:10.535Z",
+  "pid": 49415,
+  "sourceBasis": "none",
+  "ProductWriteRoots": [],
+  "provider": {
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "maxTurns": 160,
+    "maxBudgetUsd": null
+  },
+  "automaticRetry": false,
+  "failedB07Unchanged": true,
+  "offlineDependencyVerification": {
+    "kind": "offline_dependency_tree_census",
+    "root": "/Users/jim/Library/Application Support/ABIogenesis/toolchains/rc2-dogfood-01/node_modules",
+    "entries": 4576,
+    "regularFiles": 4574,
+    "symlinks": 2,
+    "bytes": 58290948,
+    "canonicalInventorySha256": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+    "meaning": "Exact local offline test dependency preimage, not a Product or native admission"
+  }
+}
