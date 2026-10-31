@@ -1,0 +1,381 @@
+{
+  "adapterSha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+  "baseCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "changedPaths": 14,
+  "deltaFromB05": [
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs"
+  ],
+  "grantPaths": 23,
+  "kind": "b06_partial_construction_source_and_trace_custody",
+  "limits": [
+    "Current partial source is not accepted B outcome or native C2",
+    "Git final-state status cannot establish absence of transient effects",
+    "Provider terminal success does not imply owner admission or completed feature"
+  ],
+  "outsideGrant": [],
+  "reportedUsd": 2.2424226,
+  "rows": [
+    {
+      "beforeB06": {
+        "bytes": 77289,
+        "sha256": "6e51c530e25f3d02ca835b36e2b88bd65605be168df8c331149c2994da5948f7",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 77289,
+        "sha256": "6e51c530e25f3d02ca835b36e2b88bd65605be168df8c331149c2994da5948f7",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+    },
+    {
+      "beforeB06": {
+        "bytes": 84899,
+        "sha256": "5e17973559f6c33c0c8e411ba51eff8a76ac584c694bc5aafd524a6a6ebe6cfd",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 84899,
+        "sha256": "5e17973559f6c33c0c8e411ba51eff8a76ac584c694bc5aafd524a6a6ebe6cfd",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+    },
+    {
+      "beforeB06": {
+        "bytes": 46520,
+        "sha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 46520,
+        "sha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 79749,
+        "sha256": "9a1c003b989db089c63d6ee56667b187bd60b142d0f2236cc5415807ab76d673",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 79749,
+        "sha256": "9a1c003b989db089c63d6ee56667b187bd60b142d0f2236cc5415807ab76d673",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 36280,
+        "sha256": "8c075866f3e2b016cbe8808f3bfecb269163e96b7f808c228be362529ffa6d3f",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 36280,
+        "sha256": "8c075866f3e2b016cbe8808f3bfecb269163e96b7f808c228be362529ffa6d3f",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 129875,
+        "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 129875,
+        "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 119884,
+        "sha256": "da2a636c6e8ea7cc0845abcd6f01ca429c104b7c9d644a3dc3cac1bf4c469824",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 119884,
+        "sha256": "da2a636c6e8ea7cc0845abcd6f01ca429c104b7c9d644a3dc3cac1bf4c469824",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 82281,
+        "sha256": "8901e6682a62a39fe57d8f9d8302cdc83196e63d63120e603254115a0f8a24b6",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 82281,
+        "sha256": "8901e6682a62a39fe57d8f9d8302cdc83196e63d63120e603254115a0f8a24b6",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 20097,
+        "sha256": "48c53298d8046e250230fb5f9c771fc2e80c8cb071b5911394107fe6d1873e33",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 20097,
+        "sha256": "48c53298d8046e250230fb5f9c771fc2e80c8cb071b5911394107fe6d1873e33",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 36043,
+        "sha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 36043,
+        "sha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 51632,
+        "sha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 51632,
+        "sha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 13499,
+        "sha256": "841b8c597cbadc7f23d1324fddb25529f2c3a5fae87c92a273ddf3def0aa3ed9",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 13499,
+        "sha256": "841b8c597cbadc7f23d1324fddb25529f2c3a5fae87c92a273ddf3def0aa3ed9",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md"
+    },
+    {
+      "beforeB06": {
+        "bytes": 212273,
+        "sha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 212273,
+        "sha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 88910,
+        "sha256": "18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 88910,
+        "sha256": "18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 75056,
+        "sha256": "2453064c90a1a9a80cb0d1e7cda3f9d7915a3c14f04468371e690c9184ae1f6e",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 75056,
+        "sha256": "2453064c90a1a9a80cb0d1e7cda3f9d7915a3c14f04468371e690c9184ae1f6e",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 16306,
+        "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 16306,
+        "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 6432,
+        "sha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 6432,
+        "sha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 1831,
+        "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 1831,
+        "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 75964,
+        "sha256": "0d405a5f41f0066983523028318e7dcb229a851d18842e6fd9e4fe34534629b3",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 75964,
+        "sha256": "0d405a5f41f0066983523028318e7dcb229a851d18842e6fd9e4fe34534629b3",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 2960,
+        "sha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 2960,
+        "sha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts"
+    },
+    {
+      "beforeB06": {
+        "bytes": 10822,
+        "sha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 10822,
+        "sha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py"
+    },
+    {
+      "beforeB06": {
+        "bytes": 42962,
+        "sha256": "223d30bc86cac6ee0aa03a1bb31513319c5c0600f75120c6fe10589d18442ebf",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 58246,
+        "sha256": "5222cbcd5e517407439bfd7ded2e4efc63bace661effd0e907ae029e465ae591",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs"
+    },
+    {
+      "beforeB06": {
+        "bytes": 11252,
+        "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+        "state": "file"
+      },
+      "current": {
+        "bytes": 11252,
+        "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs"
+    }
+  ],
+  "sourceArchive": {
+    "bytes": 778240,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/b06-partial-source-local.tar",
+    "sha256": "4faad39ec30e0df30e48ff4d9e24deb82b8f5391561bcc800f35537b15966460"
+  },
+  "status": "provider-return and source captured; native admission, final handoff and readbacks not inferred",
+  "structuredReturn": {
+    "bytes": 6462,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/B06_CONSTRUCTION_RETURN.json",
+    "sha256": "3352ff338a54870568c0d167aec5c28dc5d2216b39391e08b427e0ef4760eae7"
+  },
+  "terminalRows": 1,
+  "terminalSubtype": "success",
+  "traceArtifacts": [
+    {
+      "bytes": 1563629,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/fp-0b8666dc78d03ebe-stdout.log",
+      "sha256": "3d32ddd72673b58435b4cb947216cf5fc6d147644c45883cb3ad8e4ae57838c6"
+    },
+    {
+      "bytes": 0,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/fp-0b8666dc78d03ebe-stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 131963,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/fp-0b8666dc78d03ebe-prompt.txt",
+      "sha256": "12fc64314dfa78e170ff1ed99acade02665dafa95674935158871e53a2cb7224"
+    },
+    {
+      "bytes": 6404,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/fp-0b8666dc78d03ebe-output.txt",
+      "sha256": "60f096fdf861dfbc0893847d69fee6212867e32364d029de17754b21323284c5"
+    },
+    {
+      "bytes": 1723893,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/fp-0b8666dc78d03ebe-transport.json",
+      "sha256": "168b8e283c84fba2315005b9d7243823c99f2d6f1a09ffea23328ba5cda26ac6"
+    }
+  ]
+}

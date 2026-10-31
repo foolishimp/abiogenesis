@@ -1,0 +1,75 @@
+{
+  "interpretation": "B06 is a fresh Run, and its one permitted Construction has finished. Its admitted Result is 5d49aa06…. That Construction wrote the top-level node:test case 'GC03 real owner allowed denied cold tamper' at the end of test_env/tests/t287-governed-context.test.mjs, which now measures 58246 bytes, up from 42962. It added only the imports the test needs. It changed no Product source and did not edit the support module. The named test failed on all four runs, every time during installed setup and before any Run, Testing or Construction call happened. The stopping point is setupInstalledRootCatalog at root-installed-environment.mjs:509, which finds no root Program validation; the likely cause is the missing `additionalCorePublicationConstructors` option. The test's own pieces are also unfinished. Its GC03 policy is minimal, its activation template is a placeholder, the fake provider's reply and event shapes are unverified, and its role/permission join has never run end to end. All the failures so far are in how the test is set up, not in Product code. So none of the work is accepted: the owner chain was never traversed, the allowed, denied, cold-check and tamper assertions never ran, and B05's host-lookup work stays as it was. The original task fixes the native sequence as one Construction, then the existing fixed C2, then report the native boundary and stop. It forbids a second Construction and any paid UAT or provider assessment. It also says a refusal or incomplete case remains a refusal or gap. All selected paths are observed files, so Testing's prerequisite is met. Testing is therefore the only remaining lawful member. It will measure the actual post-Construction snapshot unchanged. The focused-owner-chain command is expected to show the named test present and failing, and C2 must record that faithfully. C2 success or failure is a measurement, not acceptance.",
+  "contributions": [
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "contribution": "Run the existing fixed C2 unchanged against the actual post-Construction snapshot, with the Construction Result 5d49aa06… as the measured subject. Run all nine declared commands in order: fixture-current-measurement, source-correspondence, toolchain, contract-seeds, build, package, focused-owner-chain, affected-owner-tests and artifact-tests. Evaluate all twelve declared predicates. Keep every command's actual exit status, full stdout and stderr with byte length and SHA-256, timing and predicate observations, including nonzero exits, failures, skips and todos. Do not weaken, filter or reorder anything. Keep the source-correspondence output, which binds the changed t287-governed-context.test.mjs and the 22 other granted sources to the measured snapshot. Keep the complete authenticated focused-owner-chain stdout, so Root can check the exact top-level test name against the admitted source and see whether it passed, failed, was skipped or was marked todo. Record the build command's actual exit. Construction's tsc exit was never captured, so this is the first real one.",
+      "reason": "The original task says that after the one Construction the native selector picks the existing fixed C2, keeping all nine commands, the original criteria and the exact source-correspondence evidence, and then reports the native boundary. Construction has completed. Its Result shows the named test written but failing during setup, and no Product change was made. C2 is the declared way to measure that candidate honestly, including the failing named test, the build and package, and any regressions in the affected owner and artifact tests. Every selected path is an observed file (missingSelectedPaths is empty), so Testing can run now. NAMED_INTEGRATION_CHECK says the aggregate pass count cannot decide the named criterion, which is why the full streams must be kept. A failing measurement stays a failure or gap and is never acceptance.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06",
+        "worksite-context-observation://abiogenesis/b0854e6ef72cb9c8cbfcc0f2c9fb06d1fce954fce162abb6598d769fef83cc2e",
+        "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a",
+        "result://abiogenesis/e2a10f216b03f13cc77cc4621dfb91a5bc4554345a195b08554e5bc7f9000206"
+      ],
+      "dependsOn": []
+    }
+  ],
+  "gaps": [
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "The decisive named test 'GC03 real owner allowed denied cold tamper' has never passed. It stops in installed setup at setupInstalledRootCatalog (root-installed-environment.mjs:509) with no root Program validation, and the likely cause is the missing `additionalCorePublicationConstructors` option. None of these has been exercised: the real held event store, genuine same-Run C2 Testing admission, the deterministic Testing-then-Construction selection, the HoG/prepared leaf/native actor owner, the fixed installed client, the released GC03 adapter, or the allowed, denied, cold-rejoin and tamper assertions.",
+      "evidenceRefs": [
+        "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a",
+        "task://abiogenesis/rc3-dogfood/increment-b-06"
+      ]
+    },
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "The test itself is unfinished, by Construction's own report. Its GC03 policy covers only schema, id and limits, without the sources, principals, grants, executors or method profile that a test-local recipe must produce. The activation template is a placeholder, so deriveGc03HostLookup cannot succeed yet. The match between the policy's role/permission and the real Construction call is untested. The fake provider's selector-reply, result-ref, transcript, cold-check and binding-event formats are unverified guesses. No Product failure has been exposed, so the 23-path grant has not been used for a repair.",
+      "evidenceRefs": [
+        "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a"
+      ]
+    },
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "The original task forbids a second Construction in this Run, so finishing the test setup and fixing any failure it later exposes cannot be selected here. That work returns to Root as an explicit re-entry, still under the original A1–A5/B1–B5 criteria and the exact 23-path grant. B05's partial source remains unaccepted Product behavior. A02, B03, B04 and B05 keep their historical native dispositions.",
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06",
+        "result://abiogenesis/e2a10f216b03f13cc77cc4621dfb91a5bc4554345a195b08554e5bc7f9000206"
+      ]
+    },
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "By the task's own terms, two things stay outside this Run: the separate installed-RC3 native witness, which B4's actual delivery needs, and any independent or paid UAT or provider assessment. After C2, the native boundary is reported and the Run stops. C2 results are not application acceptance, qualification or release.",
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06"
+      ]
+    }
+  ],
+  "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+  "nextReason": "The one permitted Construction has completed, and the task allows no second Construction and no paid UAT. Its declared next native step is the existing fixed nine-command C2 against the actual post-Construction candidate. Every selected path is an observed file and the full command and predicate plan is available. Running it gives the authenticated native boundary that the task says must be reported before stopping: whether the named test is present and passing, the build, package and source correspondence, and the affected-test regressions. A failing named test is recorded as a failure, never as acceptance.",
+  "nextEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-06",
+    "worksite-context-observation://abiogenesis/b0854e6ef72cb9c8cbfcc0f2c9fb06d1fce954fce162abb6598d769fef83cc2e",
+    "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a"
+  ],
+  "subjectEvidenceRef": "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a",
+  "revisionReason": "The previous judgment (e2a10f21…) chose Construction to write and run the named test and then fix only a Product failure that test exposed, with Testing depending on that Construction. The actual Construction Result (5d49aa06…) wrote the test, which now appears in the observed 58246-byte file. The test failed every time during its own installed setup, before any owner-chain step ran, and no Product failure was exposed or fixed. Construction is now completed earlier work, so it is cited through evidenceRefs rather than dependsOn. No Construction row is included, because the task forbids a second one. Testing is kept as the sole and next member, and its subject is the actual Construction Result. Expectations for C2 are lowered: the named test is present but failing, so the result stays an unresolved gap and C2 is a measurement only.",
+  "revisionEvidenceRefs": [
+    "result://abiogenesis/5d49aa060091d0a489525fb3bf18511da4c6145ab062a09dc6e789e7051ade0a",
+    "result://abiogenesis/e2a10f216b03f13cc77cc4621dfb91a5bc4554345a195b08554e5bc7f9000206",
+    "worksite-context-observation://abiogenesis/b0854e6ef72cb9c8cbfcc0f2c9fb06d1fce954fce162abb6598d769fef83cc2e",
+    "task://abiogenesis/rc3-dogfood/increment-b-06"
+  ]
+}

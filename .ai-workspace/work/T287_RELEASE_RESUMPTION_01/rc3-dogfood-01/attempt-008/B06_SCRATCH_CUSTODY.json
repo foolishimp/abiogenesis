@@ -1,0 +1,30 @@
+{
+  "kind": "b06_named_test_scratch_custody",
+  "status": "diagnostic only; not native C2",
+  "logs": [
+    {
+      "source": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b06-gc03.MBgYeZjn/named-run-1.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/retained-scratch-diagnostics/named-run-1.log",
+      "bytes": 1314,
+      "sha256": "1299a56a72ea139550c3bda1efaa798b5160358e612ed860f4fb2e95f99e171a"
+    },
+    {
+      "source": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b06-gc03.MBgYeZjn/named-run-2.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/retained-scratch-diagnostics/named-run-2.log",
+      "bytes": 1527,
+      "sha256": "96fc63491e7160e83ee31a05a70da5d28fff339fa67af580e07162df47ac38d4"
+    },
+    {
+      "source": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b06-gc03.MBgYeZjn/named-run-3.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/retained-scratch-diagnostics/named-run-3.log",
+      "bytes": 1550,
+      "sha256": "3edabacddff97b54c7ec6de0f1066cb8e202b8765ce75dff8a99161b644ef136"
+    },
+    {
+      "source": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b06-gc03.MBgYeZjn/named-run-4.log",
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/retained-scratch-diagnostics/named-run-4.log",
+      "bytes": 1109,
+      "sha256": "8a37a37864086e0c79714a92ebe1570c8cccf0a5d27352c37e4b90546eee159a"
+    }
+  ]
+}

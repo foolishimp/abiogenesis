@@ -1,0 +1,65 @@
+{
+  "interpretation": "This is a fresh B06 native Run on the canonical worksite. It inherits no earlier Run or Result. Original A1–A5/B1–B5 criteria and the exact 23-path Product write grant still govern. The worksite preimage is B05's final partial source custody (adapter sha256 1eb6de41…). B05 left a real gap: it never produced the decisive owner-chain test or a B05 C2, and its final native outcome stays blocked. The worksite observation confirms t287-governed-context.test.mjs is present (42962 bytes), but presence does not show it contains the named test. B05_FINAL_DISPOSITION says the twelve focused tests are not that test. The original task gives a fixed order: one bounded Construction writes and runs the top-level node:test case 'GC03 real owner allowed denied cold tamper' through the real held EventStore → genuinely admitted same-Run C2 Testing Result → HoG/prepared leaf/native actor owner → fixed installed client → released Python/GC03 adapter, with controlled non-provider transport. Construction fixes only the concrete failure that test exposes, inside the 23-path cone, then reruns the test and the unfiltered pinned offline TypeScript compile. After that, the existing fixed nine-command C2 measures the result unchanged. The inner Testing → Construction sequence in the test is test-local and separate from this outer Construction → C2 plan. No second Construction, paid UAT, provider assessment, new authority or new schema is selected. All selected paths are observed, so Testing's file prerequisite is met. Testing's meaning still depends on the Construction candidate. A C2 pass will be a measurement only, not acceptance.",
+  "contributions": [
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "contribution": "Write the decisive top-level node:test case 'GC03 real owner allowed denied cold tamper' in test_env/tests/t287-governed-context.test.mjs, plus support in test_env/support/t287-governed-context.mjs only if needed. Run it first. Adapt the existing installed-harness patterns: setupInstalledRootCatalog, prepareRegisteredSelectionProduct, libraryConsumerDeclaration, constructInstalledStartCall and runInstalledCliRequest, together with runInstalledDefinitionCallTransport and controlled transport. Enter the real held store and genuine same-Run C2 Testing admission. Deterministically select Testing first with no prior subject, then Construction from its admitted Result. Materialize both private Program keys, with full policy/activation sourceBindings and verified dependencies, through actual installed owner admission in a temporary workspace. Regenerate the test-local declaration, adapter and dependency pins from the actual candidate bytes; never copy the stale pin. Assert exact allowed task/rubric/Testing bytes, a denied-key reply, cold owner rejoin and tampered-delivery refusal, with authenticated role/policy/dependency/source/producer/occurrence/currentness joins. Do not inject lookups, mock admission, fabricate events or use permission booleans. Then fix only the specific failure the test exposes, inside the 23-path grant. Preserve B05's host-lookup path, invocation-admission digest, bounded 8192-byte page refusal and released adapter assembly. Rerun the named test and the unfiltered TypeScript compile with the pinned offline toolchain. Use only an exclusive disposable scratch directory for derived outputs. Describe the task subject as the admitted input identity or a named CCall-task projection. Report the actual boundary, including any refusal or gap.",
+      "reason": "The task names this one Construction as the first action. B05 did not deliver the deciding test, and no current observation shows it present or passing. The construction work order and its 23 write roots cover this scope. The test has to expose the real cause before any source repair, and without it C2 would measure a candidate with no basis for the named check.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06",
+        "worksite-context-observation://abiogenesis/50618c0fc9049f289b21bf8ab832f72f0a4e16453255f6d0d540d6caf6afcb0d"
+      ],
+      "dependsOn": []
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "contribution": "Run the existing fixed C2 unchanged against the actual post-Construction snapshot: all nine commands (fixture-current-measurement, source-correspondence, toolchain, contract-seeds, build, package, focused-owner-chain, affected-owner-tests, artifact-tests) and all twelve declared predicates. Keep the complete commands, streams, exits and predicate observations, including failures and skips. Keep the exact source-correspondence evidence. Retain the full authenticated focused-owner-chain stdout so Root can check the named test against the admitted source: present, passing, not skipped or todo, zero failures, exit 0, and real owner-chain assertions.",
+      "reason": "The task says the native selector picks the existing fixed C2 after the one Construction, with all nine commands, the original criteria and source-correspondence evidence preserved. NAMED_INTEGRATION_CHECK says the aggregate pass count alone cannot decide the named criterion, so full streams must be retained. This depends on Construction because the measured candidate and named test come from it.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06",
+        "worksite-context-observation://abiogenesis/50618c0fc9049f289b21bf8ab832f72f0a4e16453255f6d0d540d6caf6afcb0d"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/construction@5"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "The tested-candidate support is unresolved. There is no current-Run Construction Result, no C2 measurement, and no observed passing 'GC03 real owner allowed denied cold tamper' test. B05's partial source is not accepted Product behavior.",
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06",
+        "worksite-context-observation://abiogenesis/50618c0fc9049f289b21bf8ab832f72f0a4e16453255f6d0d540d6caf6afcb0d"
+      ]
+    },
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "Two things stay outside this Run's completion by the task's terms: the separate installed-RC3 native witness and an independent UAT/provider assessment. B4's actual native installed delivery remains pending. After C2, report the native boundary and stop; a C2 pass is not application acceptance or qualification.",
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-06"
+      ]
+    }
+  ],
+  "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+  "nextReason": "The original task requires the decisive named owner-chain test to be written and run first. Only a failure it actually exposes may then be fixed inside the 23-path grant. Nothing shows that test exists or passes; B05 explicitly did not produce it. Running C2 first would measure an unchanged partial preimage without the deciding check.",
+  "nextEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-06",
+    "worksite-context-observation://abiogenesis/50618c0fc9049f289b21bf8ab832f72f0a4e16453255f6d0d540d6caf6afcb0d"
+  ],
+  "subjectEvidenceRef": null,
+  "revisionReason": "This is the first mapping for the fresh B06 Run, so there is no prior judgment or current-Run observation to revise. B02–B05 native dispositions and costs are kept only as historical facts and are not inherited as Results.",
+  "revisionEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-06"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "attemptRef": "worksite-command-attempt://abiogenesis/21eece187bf6da308612366334ea28c1df8dafde57c9ecc3901bec3c0c1b37d8",
+  "helperArtifactDigest": "sha256:7d74876f6088afab30f7e8bb3f4f26560a2b338ce103eaa2f56fae2c2812717c",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/7d74876f6088afab30f7e8bb3f4f26560a2b338ce103eaa2f56fae2c2812717c",
+  "kind": "worksite_command_execution_worker_result",
+  "schemaVersion": "5.0.0",
+  "taskDigest": "sha256:e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb",
+  "taskRef": "worksite-command-execution-task://abiogenesis/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb"
+}

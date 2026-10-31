@@ -53,6 +53,15 @@ qualify the whole Product, revise native Run 009's blocked result or unmet UAT,
 or itself activate a provider or an ABI runtime. Preserve the original
 acceptance criteria and surviving native and qualification obligations.
 
+Observed continuation, 2026-11-01: RC2 was used to build a local RC3 artifact,
+but the required real-owner governed-context test failed during test setup.
+Five separate STDO tests failed because `stdo` was unavailable on the C2 PATH;
+neither result establishes a Product regression. The RC3 worktree and artifact
+remain unqualified and unreleased, and the native Run closed blocked. Root
+stopped further paid coding and the installed witness; the earlier 03:30–04:30
+AEDT release ETA is withdrawn. The [delivery status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/DELIVERY_STATUS.md)
+records the actual C2, costs, preserved RC2 verdict and remaining obligations.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The
