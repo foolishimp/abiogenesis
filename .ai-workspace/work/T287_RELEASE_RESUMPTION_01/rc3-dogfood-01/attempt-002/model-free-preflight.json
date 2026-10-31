@@ -1,0 +1,59 @@
+{
+  "kind": "rc3_increment_a02_model_free_preflight",
+  "status": "prepared_not_dispatched",
+  "selectedRuntime": {
+    "artifactPath": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "artifactRef": "file:///Users/jim/Library/Application%20Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "expectedArtifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "expectedProductContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+    "expectedManifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "expectedProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "expectedPackageName": "@abiogenesis/typescript-tenant",
+    "expectedPackageVersion": "5.0.0-rc.2"
+  },
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+  "priorAfterRunSha256": "dd5b1fcfed59f7f022271a645ddfbbd7c3082688923e2b5d483d4aedde0428bf",
+  "removedInlineSources": [
+    "rc3-operator-inputs/increment-a-01/stdo/manifest.json",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md"
+  ],
+  "workloadSha256": "4e579ee48f6913c2a05685e1b064afcbc239393998f174e43adb59d172adacc3",
+  "protectedFiles": 904,
+  "readBytes": 27271859,
+  "commandCount": 6,
+  "criteria": [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5"
+  ],
+  "uatOutcome": "An ABG-authored unqualified RC3 Increment A that preserves original UAT meaning and complete short diagnostic visibility",
+  "requiredExecutionBudgetMs": 1656500,
+  "candidateTimeoutLimits": {
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 2100000
+  },
+  "offlineToolchain": "6aba0391382aae398fe2ddc62536491ed189d45aa1b36d896fe226a09e409049",
+  "freshSetupEventLog": {
+    "bytes": 40919211,
+    "sha256": "894ce68f8de7cd0ae023db2a01bb095461a81c27c02be5647d66777163ff9d59",
+    "unchanged": true
+  },
+  "observations": [
+    "actual RC2 pure governance and worksite-configuration owners accepted inputs on the A01 after-run prefix",
+    "all 904 selected tracked test inputs and exact witness/contract seed preimages checked",
+    "no call or provider was prepared, admitted or dispatched"
+  ],
+  "limits": [
+    "Future actual producer/assessment evidence must be authenticated by its native owner",
+    "Candidate timeout values are a comparison with historical limits, not a selected provider configuration",
+    "Existing gated historical tests may skip; they cannot count as this increment's required proof",
+    "Native Claude tool allowlist excludes Skill; exact method bytes are supplied for declared reads, no Skill invocation claimed"
+  ]
+}

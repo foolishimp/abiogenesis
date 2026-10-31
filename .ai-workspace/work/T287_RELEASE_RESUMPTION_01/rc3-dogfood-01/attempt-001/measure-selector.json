@@ -1,0 +1,37 @@
+{
+  "classification": "installed RC2 selector renderer with controlled authority/role premises and exact retained A01 task; no admission or model call",
+  "originalRef": "result://abiogenesis/0ea0c3ddbd421c88a68b79378164227daaad6af1fbf259893e8a9ed432f62b2e",
+  "promptBound": 1048576,
+  "original": {
+    "promptBytes": 1054319,
+    "resultKind": "native_instruction_assembly_refusal",
+    "cause": "declared_bound_overflow",
+    "taskProjectionBytes": 1034505
+  },
+  "revised": {
+    "promptBytes": 373360,
+    "resultKind": "native_instruction_assembly",
+    "cause": null,
+    "taskProjectionBytes": 353546
+  },
+  "removedInlineSources": [
+    "rc3-operator-inputs/increment-a-01/stdo/manifest.json",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md",
+    "rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md"
+  ],
+  "preserved": [
+    "full original task",
+    "all work orders and outcomes",
+    "all assessment sources and rubric",
+    "all read roots",
+    "all 904 selected testing paths",
+    "method copies and verified runtime method basis"
+  ],
+  "limits": [
+    "controlled authority/role premises; not actual new Run admission",
+    "current input only; later history or material changes require fresh measurement"
+  ]
+}

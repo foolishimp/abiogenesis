@@ -1,0 +1,65 @@
+{
+  "ref": "result://abiogenesis/0ea0c3ddbd421c88a68b79378164227daaad6af1fbf259893e8a9ed432f62b2e",
+  "ordinal": 40,
+  "maxPromptBytes": 1048576,
+  "projectionJsonBytes": 1034505,
+  "worksiteJsonBytes": 931928,
+  "sources": [
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md",
+      "bytes": 177893
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md",
+      "bytes": 150158
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md",
+      "bytes": 143996
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md",
+      "bytes": 104870
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md",
+      "bytes": 88029
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/stdo/manifest.json",
+      "bytes": 15444
+    },
+    {
+      "path": ".claude/skills/stdo-work/SKILL.md",
+      "bytes": 11383
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/retained-stdout.txt",
+      "bytes": 4654
+    },
+    {
+      "path": ".claude/references/PRODUCT_BASIS.md",
+      "bytes": 4027
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/HOW.md",
+      "bytes": 3220
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/method-custody.json",
+      "bytes": 2221
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/rubric.json",
+      "bytes": 1751
+    },
+    {
+      "path": "rc3-operator-inputs/increment-a-01/retained-stdout-custody.json",
+      "bytes": 1633
+    }
+  ],
+  "workOrdersBytes": 11149,
+  "testingBytes": 84919,
+  "declaredSourceCount": 13,
+  "observedFileCount": 904
+}

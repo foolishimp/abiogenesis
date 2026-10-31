@@ -1,6 +1,6 @@
 {
   "kind": "rc3_operator_preparation_custody",
-  "status": "A01_CALL_PREPARED_NOT_ADMITTED",
+  "status": "A01_FAILED_A02_PREPARED_NOT_DISPATCHED",
   "meaning": "Compact operator evidence; large original setup/install resources and exact prepared call remain locally retained under these hashes.",
   "rawRetained": [
     "setup-001/",
@@ -277,5 +277,10 @@
       "sha256": "91745b36b62eb53e8dbbb9a1ba33f2d15a3d58b7d5debb2ccca9fc2b387ff140",
       "bytes": 351
     }
+  },
+  "subsequentEvidence": {
+    "path": "attempt-002/A02_CUSTODY.json",
+    "sha256": "7b85d3435b7537cbf61af70479e8537a01d9b0838f9d20061af638f54b54a0ea",
+    "meaning": "Later A01 failure and separate A02 preparation; previous file projections remain historical"
   }
 }
