@@ -71,6 +71,13 @@ separates controlled graph mechanics from bounded live `F_P` evidence. This
 changes sequencing, not Product law or the preceding failed-Run standing; it
 does not activate a provider or waive remaining qualification and release work.
 
+Bounded checkpoint, 2026-11-01: the selected basic-cli Run completed with an
+actual terminal Result and independent oracle satisfied. Root accepted its
+one-Run evaluation-directed traversal claim after independent review. The
+[disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/SUNNY_DAY_DISPOSITION.md)
+retains exact evidence and limitations. Cold recovery, repeatability, GC03 and
+whole-Product qualification and release acceptance remain open.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

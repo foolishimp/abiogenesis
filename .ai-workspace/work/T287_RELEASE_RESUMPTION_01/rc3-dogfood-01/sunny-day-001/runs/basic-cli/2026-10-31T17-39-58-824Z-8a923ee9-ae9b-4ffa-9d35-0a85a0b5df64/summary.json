@@ -1,0 +1,12 @@
+{
+  "scenario": "basic-cli",
+  "runId": "2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64",
+  "mode": "run",
+  "status": "passed",
+  "uatPass": true,
+  "runtimeDisposition": "result",
+  "terminalAvailable": true,
+  "independentOracle": "satisfied",
+  "reason": "Selected original obligations and exact terminal/readbacks agree"
+}

@@ -1,0 +1,13 @@
+{
+  "coordinateDigest": "sha256:e4d1a4154f4332f49d9d9082c07b79be287844a68c764ab54d07c2198e1245ac",
+  "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/resources/events/runtime.events.jsonl",
+  "kind": "durable_prefix_coordinate",
+  "prefixDigest": "sha256:d08d3ee4c44fd8dd7bfb1c1ed9b38d2f480eccfe6a5059f41a8d683a34f39b1d",
+  "prefixLength": 23532557,
+  "schemaVersion": "5.0.0",
+  "storeIdentity": {
+    "device": 16777231,
+    "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+    "inode": 667698100
+  }
+}

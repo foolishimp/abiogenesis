@@ -1,0 +1,40 @@
+{
+  "kind": "sunny_day_checkpoint1_executive_disposition",
+  "decision": "ACCEPT_BOUNDED_ONE_RUN",
+  "authority": "Root Executive on independent max-effort read-only review and own reads",
+  "proofSha256": "2e1775a4c9b450ca92c7e48cf74447bfc0df5e1d8b904b58b92c60365c5c9b4c",
+  "runId": "run://abiogenesis/2e32df52318626683bc2973ab49400213dedd8c32c9cf96b78b638002b3402b1",
+  "terminalResult": "result://abiogenesis/c2411e47a8382c6ad9c03626458104eb7843cbb3648593656a1ea96df7bf1164",
+  "eventPrefix": {
+    "coordinateDigest": "sha256:e4d1a4154f4332f49d9d9082c07b79be287844a68c764ab54d07c2198e1245ac",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-39-58-824Z-8a923ee9-ae9b-4ffa-9d35-0a85a0b5df64/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:d08d3ee4c44fd8dd7bfb1c1ed9b38d2f480eccfe6a5059f41a8d683a34f39b1d",
+    "prefixLength": 23532557,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 667698100
+    }
+  },
+  "evidence": {
+    "executiveStepCalls": 3,
+    "evidenceDirectedParentSelectionJoins": 2,
+    "oracleCriteriaSatisfied": 14,
+    "originalTestsPassed": 2,
+    "providerStreams": 6,
+    "reportedProviderUsd": "2.4045848",
+    "runElapsedMs": 803097,
+    "lifecycleCommandElapsedMs": 503468.52575,
+    "sourcesConserved": 3,
+    "freshResultReplay": "same closed terminal"
+  },
+  "limits": [
+    "Single Run only; no repeatability or recovery conclusion",
+    "Same-model separate UAT role is not model independence",
+    "No correction was required or claimed",
+    "No GC03 qualification or whole-Product/release acceptance",
+    "Owner removed prior $100 spending limit; prior B03 cost remains unknown"
+  ]
+}

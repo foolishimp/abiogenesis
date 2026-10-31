@@ -1,0 +1,17 @@
+[
+  {
+    "path": "source/basic-cli/source.original.txt",
+    "expected": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+    "observed": "sha256:ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f"
+  },
+  {
+    "path": "source/basic-cli/obligations.json",
+    "expected": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+    "observed": "sha256:271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1"
+  },
+  {
+    "path": "source/basic-cli/oracle.json",
+    "expected": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+    "observed": "sha256:028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585"
+  }
+]
