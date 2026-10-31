@@ -1,0 +1,150 @@
+{
+  "kind": "frozen_recovery_operator_input_inventory",
+  "files": [
+    {
+      "path": "ADAPTATION.patch",
+      "bytes": 11887,
+      "sha256": "fbbdbea8650b7b2eb8a82d4f3c88ca0d91f1d376c666272636f9a8e76beb43c9"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4825,
+      "sha256": "82a4702413ce57e684ea86da9d55ab77b6eb653716ae5da9ed995d1cd21cd506"
+    },
+    {
+      "path": "SOURCE_CUSTODY.json",
+      "bytes": 4407,
+      "sha256": "638735ef1e5d25087dbcc12254cf34e1886744efa28c0a49b3d82596a2030495"
+    },
+    {
+      "path": "config.json",
+      "bytes": 3233,
+      "sha256": "93a673d1160d6d712088f2c8edf71d08d815dd5eb4760fca428c81cd0f8a4040"
+    },
+    {
+      "path": "continue.mjs",
+      "bytes": 8768,
+      "sha256": "e94cd2f151697446c669654d5305bb89d2977ef1a864602637804b86455cc915"
+    },
+    {
+      "path": "frozen/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "2e8d89e1b3684ebe1b4f3c8b9e8ee1014e9da54ebb5303ec7ce3db01747d623f"
+    },
+    {
+      "path": "frozen/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": "frozen/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2704,
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87"
+    },
+    {
+      "path": "frozen/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "frozen/test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 10128,
+      "sha256": "c4e275dccf6a90126512fe8f96b350154503cce946fc411c1d48cf55ec06f498"
+    },
+    {
+      "path": "frozen/test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "path": "frozen/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "frozen/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21849,
+      "sha256": "713fa17e5f5a0d9c5275ef067a1fe1c92c1dae3d9a0bec84b5432704f100e225"
+    },
+    {
+      "path": "frozen/test_env/support/root-installed-environment.mjs",
+      "bytes": 40946,
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761"
+    },
+    {
+      "path": "frozen/test_env/tests/recovery-prepare.mjs",
+      "bytes": 10813,
+      "sha256": "122d92491be1855e8eda654c5519731807ccc602ad29c3f7cd0d3c06bdb8f65b"
+    },
+    {
+      "path": "frozen/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 14634,
+      "sha256": "c4551dec5535c93cfde34b771952cf4f43d6d0cc6ee23b65bbaff978f75a59ca"
+    },
+    {
+      "path": "installed-payload.json",
+      "bytes": 997382,
+      "sha256": "9aecb64d7a1e79e714b595c314f718599f9eee01d3dc375f922cc5b85845f7a2"
+    },
+    {
+      "path": "original/test_env/fixtures/abi5-root-candidate-basis.json",
+      "bytes": 515,
+      "sha256": "2e8d89e1b3684ebe1b4f3c8b9e8ee1014e9da54ebb5303ec7ce3db01747d623f"
+    },
+    {
+      "path": "original/test_env/fixtures/exact-intent-product/index.mjs",
+      "bytes": 15792,
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1"
+    },
+    {
+      "path": "original/test_env/fixtures/language-smoke/leaf.mjs",
+      "bytes": 2704,
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87"
+    },
+    {
+      "path": "original/test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "original/test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9876,
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+    },
+    {
+      "path": "original/test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "path": "original/test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "original/test_env/support/registered-graph-selection.mjs",
+      "bytes": 21826,
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9"
+    },
+    {
+      "path": "original/test_env/support/root-installed-environment.mjs",
+      "bytes": 40946,
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761"
+    },
+    {
+      "path": "original/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "bytes": 14634,
+      "sha256": "c4551dec5535c93cfde34b771952cf4f43d6d0cc6ee23b65bbaff978f75a59ca"
+    },
+    {
+      "path": "prepare.mjs",
+      "bytes": 1607,
+      "sha256": "e964eece6ed17604ea9232f1246d1f68b5352f72f7fcb28c5b6c9785cd7c1b13"
+    },
+    {
+      "path": "verify-inputs.mjs",
+      "bytes": 1530,
+      "sha256": "889ff4abb8ec933c6bef03e143dfae739cbee4c731ad06f5d98416cd78ca5cbe"
+    }
+  ]
+}

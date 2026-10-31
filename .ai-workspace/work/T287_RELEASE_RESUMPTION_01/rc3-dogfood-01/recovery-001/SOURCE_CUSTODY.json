@@ -1,0 +1,73 @@
+{
+  "kind": "recovery_operator_input_custody",
+  "runtimeArtifact": {
+    "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "artifactSha256": "sha256:9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d",
+    "installHost": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs/basic-cli/2026-10-31T17-34-15-413Z-73ecc497-fcc6-41cd-ad03-fcb3c3bbd061/sandbox/installed/abg"
+  },
+  "installedPayloadCount": 5321,
+  "originalFiles": [
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "path": "original/test_env/support/root-installed-environment.mjs",
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761",
+      "bytes": 40946
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/support/candidate-basis.mjs",
+      "path": "original/test_env/support/candidate-basis.mjs",
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd",
+      "bytes": 1177
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/support/language-smoke-fixture.mjs",
+      "path": "original/test_env/support/language-smoke-fixture.mjs",
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41",
+      "bytes": 7276
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "path": "original/test_env/support/registered-graph-selection.mjs",
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9",
+      "bytes": 21826
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/program.mjs",
+      "path": "original/test_env/fixtures/language-smoke/program.mjs",
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23",
+      "bytes": 8359
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/fixtures/language-smoke/leaf.mjs",
+      "path": "original/test_env/fixtures/language-smoke/leaf.mjs",
+      "sha256": "9ee35f0cacaacff06581007aa89d7a8814dd873c0ae42a3b848e914090089b87",
+      "bytes": 2704
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/fixtures/registered-selection-product/index.mjs",
+      "path": "original/test_env/fixtures/registered-selection-product/index.mjs",
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4",
+      "bytes": 9876
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/fixtures/exact-intent-product/index.mjs",
+      "path": "original/test_env/fixtures/exact-intent-product/index.mjs",
+      "sha256": "65e802111c4ff1cb54e4a4f11d489813b72033f29aa32f2c35284a2876f0c9e1",
+      "bytes": 15792
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "path": "original/test_env/fixtures/abi5-root-candidate-basis.json",
+      "sha256": "2e8d89e1b3684ebe1b4f3c8b9e8ee1014e9da54ebb5303ec7ce3db01747d623f",
+      "bytes": 515
+    },
+    {
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "path": "original/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "sha256": "c4551dec5535c93cfde34b771952cf4f43d6d0cc6ee23b65bbaff978f75a59ca",
+      "bytes": 14634
+    }
+  ],
+  "oracle": "original exact-intent fixture evaluate/finish and original test result assertions; no fixture semantics changed",
+  "noRuntimeOrProviderExecuted": true
+}
