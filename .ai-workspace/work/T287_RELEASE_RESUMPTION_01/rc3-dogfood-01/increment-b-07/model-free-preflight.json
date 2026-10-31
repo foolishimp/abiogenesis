@@ -1,0 +1,35 @@
+{
+  "kind": "rc3_b07_model_free_preflight",
+  "status": "prepared_not_dispatched",
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "workloadSha256": "3298e45232302111ae2e92444b5c88dc7149fcda06450e14bc266708a1fe6dca",
+  "priorAfterRunSha256": "337ab966c0f745700a10f16621e22fbb0fb4d1e3263e5e2631dcf9c6391c993a",
+  "priorEvent": {
+    "bytes": 3195635,
+    "sha256": "82f8360d045fc026aec869b4ac506a8a8100c398e040e5665b32636d5c7a8bff",
+    "coordinateDigest": "sha256:abf7880178cc1a01c564ffa745dc9a7b9365dc5ff5c8632f8519dbd045723a97",
+    "unchanged": true
+  },
+  "selectedPaths": 960,
+  "present": 960,
+  "absent": 0,
+  "actualObservedEntries": 960,
+  "contextDigest": "sha256:f8ec9f0af88a160ce5700fec6011ff96101f3cf502f340c2a9ac37f461d17cc4",
+  "commandCount": 9,
+  "requiredExecutionBudgetMs": 2167250,
+  "candidateTimeoutLimits": {
+    "inactivityTimeoutMs": 2400000,
+    "absoluteTimeoutMs": 2700000
+  },
+  "controlledSelector": {
+    "classification": "actual installed RC2 renderer, current real observed Context, controlled owner/role premises; no native B admission",
+    "promptBytes": 489490,
+    "promptBound": 1048576,
+    "resultKind": "native_instruction_assembly"
+  },
+  "limits": [
+    "No native B07 Run or owner assembly admission created",
+    "Current B06 partial source is not accepted B outcome; post-Construction C2 must observe exact sources",
+    "Only predictive initial rendering; later content and history can change size"
+  ]
+}

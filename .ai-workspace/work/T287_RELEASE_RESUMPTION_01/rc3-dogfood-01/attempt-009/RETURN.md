@@ -1,0 +1,17 @@
+# B07 native mechanical increment: prepared, not admitted
+
+Setup-003 completed as a fresh RC2 store and same-worksite binding with recursion bound 12 and zero provider calls. Its actual 3,195,635-byte prefix SHA-256 is `82f8360d045fc026aec869b4ac506a8a8100c398e040e5665b32636d5c7a8bff`, coordinate digest `sha256:abf7880178cc1a01c564ffa745dc9a7b9365dc5ff5c8632f8519dbd045723a97`. No earlier Result was imported. B06's blocked Run and 14 dirty Product paths remain preserved.
+
+The prepared call SHA-256 is `ce7068f87d785e98b126a95db985c4fb6651abb8a3cfd64e4b3f5fa418212e2b`. The exact manifest is `c08d07040b01abd15bd42417ca1fde04621f845b0fb71f06aafaa0ebc45c5a4f`; dispatch script SHA-256 is `117a28954013e4ac810cfff0477c3aa3e78f9db1dc8d35f7b362092022a68c92`. Root's one-shot command from this carrier is:
+
+```sh
+NODE_OPTIONS='--max-old-space-size=8192' /opt/homebrew/bin/node attempt-009/dispatch.mjs c08d07040b01abd15bd42417ca1fde04621f845b0fb71f06aafaa0ebc45c5a4f
+```
+
+The actual model-free predictive preflight acquired 960 selected files and measured 489,490 bytes against a 1,048,576-byte prompt bound. The existing owner calculated 2,167,250 ms for the nine C2 commands, within selected 2,400,000 ms inactivity and 2,700,000 ms absolute limits. Only the focused test timeout rises to 600,000 ms; the affected tests bind the selected STDO PATH, HOME and STDO_STORE. Retained preflight validation reuses the installed observer, checks current physical identities and STDO entrypoint/interpreter/source/manifest pins, and does not claim a preflight rerun or native admission.
+
+B07-1 through B07-5 are the only acceptance criteria of this bounded Run and native UAT. Original A/B criteria and failed historical Runs remain preserved upstream. The named real-owner test is the primary Product write. A demonstrated mechanical mismatch permits minimal additional repair within the original 23-path territory, with counterexample, owner/design trace and affected proof. The native write-root carrier cannot mechanically enforce that conditional. New Public contracts, failure classes, authority, store/runtime or Product/design meaning require Root triage. The native Worker may use focused offline self-checks and disposable scratch, but no paid nested providers; only native C2 supplies final command evidence.
+
+The first predictive input was refused because the rubric appeared both as a source and as the dedicated rubric. That actual operator error and its rejected input are retained. The selected rubric's selection-time pending label was then made stable, without changing its outcome or criteria; the earlier preflight/call and setup-time rubric preimage remain separately retained. The final manifest binds corrected current bytes. No Public dispatch, native B07 admission, provider call or Product change was made by the preparation helper.
+
+Provider configuration is Claude Opus 5.5 at xhigh, 160 turns, with no per-process dollar cap under the owner's removed spending limit. The retained baseline is $89.1941966 reported plus an $8 reserve for B03's unknown charge; other costs remain unknown. Root monitors actual costs; no automatic aggregate cap or retry is asserted. The exact named test must be present and pass in complete authenticated native C2 stdout and source, not merely satisfy a generic pass count. A live installed-RC3 governed-context witness and whole-Product qualification remain separate.

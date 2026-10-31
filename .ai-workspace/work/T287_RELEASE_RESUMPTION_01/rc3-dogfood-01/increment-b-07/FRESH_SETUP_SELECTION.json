@@ -1,0 +1,41 @@
+{
+  "budget": {
+    "automaticRetry": false,
+    "effort": "xhigh",
+    "maxTurnsPerProcess": 160,
+    "otherCharges": "unknown",
+    "previousAggregateCap": "removed by owner",
+    "reportedNativeTotalUsd": "89.19419659999999880",
+    "unknownB03ReserveUsd": "8"
+  },
+  "executive": "/root",
+  "interpretation": "Root selected one bounded GC03 mechanical test/PATH increment and fresh RC2 store against same canonical worksite; Root alone performs actual setup and native dispatch",
+  "kind": "b07_fresh_store_executive_selection",
+  "limits": [
+    "This is operator setup preparation; no Public operation has been performed",
+    "Native admission remains future and fresh store inherits no Result",
+    "No Product qualification, witness or release implied"
+  ],
+  "ownerInstruction": "review, fix, and continue on using rc2 being used to build rc3; owner later removed spending limit and authorized continuation",
+  "preselectionCustodySha256": "sha256:57a3ec0fe3f080584e590bc01929609fb52db46d77b2668ac0664dcbe75c497e",
+  "providerDispatch": false,
+  "recursionBound": 12,
+  "selectedHow": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-07/HOW.md",
+    "sha256": "sha256:66f25d9f9e4e2c7b608eeab4b8d7d6c78492fa2b7f472f977b322efe56b7cba9"
+  },
+  "selectedRubric": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-07/rubric.json",
+    "sha256": "sha256:611e8bb4b72fc6744af50c0aa45fc4e8abb6b60ee772a02426e2c36f114514f9"
+  },
+  "selectedTask": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-07/task.md",
+    "sha256": "sha256:7a6a7cc3939ce3cc08dbd263f3b47d9407b68a0a70a16ac40939e7c2488367a2"
+  },
+  "sourceBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-07/B07_SOURCE_BINDINGS.json",
+    "sha256": "sha256:f836b5593277672609bc7979065895d22c197c1714b25af52be45b16f6f5d27d"
+  },
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "status": "PREPARED_FOR_ROOT_OPERATION"
+}

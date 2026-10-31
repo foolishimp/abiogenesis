@@ -1,0 +1,159 @@
+{
+  "kind": "b07_cross_store_usage_projection",
+  "reportedTotalUsd": "89.19419659999999880",
+  "unknownB03ReserveUsd": "8",
+  "reportedPlusB03ReserveUsd": "97.19419659999999880",
+  "otherUnknownStreams": [],
+  "streams": [
+    {
+      "archive": "setup-001",
+      "stream": "fp-0a6e158a20c312e0-stdout.log",
+      "reportedUsd": "1.684452",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-25fe5e4f91079651-stdout.log",
+      "reportedUsd": "4.9741874",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-28892d06774fc613-stdout.log",
+      "reportedUsd": "1.96198",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-7039f62840e47eb4-stdout.log",
+      "reportedUsd": "2.0387931999999998",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-7e1b1b843f520577-stdout.log",
+      "reportedUsd": "5.818089399999999",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-91c8dc01ceb1afa5-stdout.log",
+      "reportedUsd": null,
+      "terminalRows": 0
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-95e0c01a4a6ac5c9-stdout.log",
+      "reportedUsd": "2.9622148000000004",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-96925bcf5960b9f9-stdout.log",
+      "reportedUsd": "1.7854",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-ad5197359cbfc781-stdout.log",
+      "reportedUsd": "1.8684040000000002",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-b35290ed2a921c20-stdout.log",
+      "reportedUsd": "2.074176",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-b75611088e92b2b6-stdout.log",
+      "reportedUsd": "4.015721399999999",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-b7fe7cfccbbf3cfd-stdout.log",
+      "reportedUsd": "2.448316",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-001",
+      "stream": "fp-d99f15da2fe9e513-stdout.log",
+      "reportedUsd": "2.3127240000000002",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-002",
+      "stream": "fp-0b8666dc78d03ebe-stdout.log",
+      "reportedUsd": "2.2424226",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-002",
+      "stream": "fp-550cd0b6ca302d95-stdout.log",
+      "reportedUsd": "1.8613840000000001",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-002",
+      "stream": "fp-5fa064a20b93d284-stdout.log",
+      "reportedUsd": "1.9426800000000002",
+      "terminalRows": 1
+    },
+    {
+      "archive": "setup-002",
+      "stream": "fp-fce3c59ebc79ba4e-stdout.log",
+      "reportedUsd": "0.36762439999999996",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-0e75343c3f500656-stdout.log",
+      "reportedUsd": "0.26395599999999997",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-382823102ffc5acf-stdout.log",
+      "reportedUsd": "0.309676",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-9806b48e110cd925-stdout.log",
+      "reportedUsd": "0.5917676",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-a5cde95eb7e310e7-stdout.log",
+      "reportedUsd": "0.3592872",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-e9810a044dff8c6a-stdout.log",
+      "reportedUsd": "0.498766",
+      "terminalRows": 1
+    },
+    {
+      "archive": "sunny-day",
+      "stream": "fp-fb6ea2901d176e90-stdout.log",
+      "reportedUsd": "0.38113199999999997",
+      "terminalRows": 1
+    },
+    {
+      "archive": "recovery-001",
+      "stream": "fp-f3dd8ffa6c89948a-stdout.log",
+      "reportedUsd": "0.035116",
+      "terminalRows": 1
+    }
+  ],
+  "previous100DollarLimit": "removed by owner",
+  "limits": [
+    "Unknown B03 reserve is not a known charge",
+    "Unreported streams and other host charges remain unknown",
+    "No automatic spend cap, retry or provider control"
+  ]
+}

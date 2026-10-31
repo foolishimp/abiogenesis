@@ -1,0 +1,19 @@
+{
+  "kind": "b07_named_integration_root_acceptance_check",
+  "status": "REQUIRED_AFTER_ACTUAL_NATIVE_C2",
+  "testName": "GC03 real owner allowed denied cold tamper",
+  "testSource": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+  "commandId": "command://abiogenesis/rc3-dogfood/increment-b-07/focused-owner-chain",
+  "checks": [
+    "actual C2 source correspondence binds exact final test source",
+    "complete authenticated focused stdout has exact top-level test passing, not skip/todo",
+    "real held-store, admitted same-Run Testing Result, actual owner/actor and released GC03; no injected lookup or fake provenance",
+    "allowed exact task/rubric/Testing bytes, denied key, owner-derived cold rejoin and tamper refusal are asserted",
+    "all nine native C2 commands exit 0; affected tests actually resolve exact pinned STDO method manifest",
+    "native UAT judges only B07-1 through B07-5; original A/B remain upstream/residual"
+  ],
+  "limits": [
+    "Generic pass count is insufficient",
+    "Separate actual installed-RC3 native witness and whole Product qualification remain open"
+  ]
+}

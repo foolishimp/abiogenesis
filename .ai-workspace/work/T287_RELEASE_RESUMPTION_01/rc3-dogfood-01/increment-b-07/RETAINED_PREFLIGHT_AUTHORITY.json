@@ -1,0 +1,61 @@
+{
+  "kind": "rc3_b07_retained_preflight_authority",
+  "classification": "RC2 setup-prefix owner projection, re-observed and matched to the successful current preflight; predictive only",
+  "sourceSetupPrefix": {
+    "coordinateDigest": "sha256:abf7880178cc1a01c564ffa745dc9a7b9365dc5ff5c8632f8519dbd045723a97",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:82f8360d045fc026aec869b4ac506a8a8100c398e040e5665b32636d5c7a8bff",
+    "prefixLength": 3195635,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+      "inode": 667783921
+    }
+  },
+  "workspaceAuthorityBasis": {
+    "authorityBasisDigest": "sha256:f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "authorityBasisId": "workspace-authority://abiogenesis/f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "authorityManifestDigest": "sha256:f1c71afd6cdc08a8c401f8fbf6f19807125b301fbf6940fc31efdfee46256d56",
+    "authorityManifestRef": "authority://abi5-tests/sandbox-uat/rc3-dogfood-01-setup-001/workspace",
+    "authorityMode": "trusted_developer",
+    "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+    "canonicalRoot": "/Users/jim/src/apps/abiogenesis-rc3-dogfood",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/b87f55b5ce957c59dc88e99aca41e0c25ce659376a7b53712c3b78df8d19db18"
+  },
+  "workspaceBinding": {
+    "kind": "workspace_binding",
+    "authorityBasisDigest": "sha256:f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "authorityBasisId": "workspace-authority://abiogenesis/f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "authorizedActorRef": "actor://abiogenesis/operator/codex-root",
+    "bindingDigest": "sha256:048669f5f36c2fe62b2b88dc32ebaafc11833a5f0383e12cae4585a4e4e69b5b",
+    "bindingId": "workspace-binding://abiogenesis/048669f5f36c2fe62b2b88dc32ebaafc11833a5f0383e12cae4585a4e4e69b5b",
+    "lockDigest": "sha256:6fa412c52de1a9bcd6ae1852118da7020eda4e44c737a5dbd1a674f9af6e2266",
+    "lockId": "product-lock://abiogenesis/6fa412c52de1a9bcd6ae1852118da7020eda4e44c737a5dbd1a674f9af6e2266",
+    "productSetDigest": "sha256:5434b7b33b4973e133ae4d930a239b8047b6433fcab352d77feed734812125e7",
+    "productSetId": "product-set://abiogenesis/5434b7b33b4973e133ae4d930a239b8047b6433fcab352d77feed734812125e7",
+    "roots": {
+      "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/archives",
+      "eventLogRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/events",
+      "productRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat",
+      "projectionRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/projections",
+      "runtimeStateRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/resources/runtime",
+      "toolchainRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/abg"
+    },
+    "schemaVersion": "5.0.0",
+    "workspaceId": "workspace://abiogenesis/b87f55b5ce957c59dc88e99aca41e0c25ce659376a7b53712c3b78df8d19db18",
+    "admissionEventRef": "event://abiogenesis/29d76d46436423025a9c73c1c0045521257922eb118d6403c05f243fd336a876"
+  },
+  "protectedInstallRoots": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-003/sandbox/installed/test-consumer/node_modules/@abi5-tests/sandbox-uat"
+  ],
+  "matchedPreflightContextDigest": "sha256:f8ec9f0af88a160ce5700fec6011ff96101f3cf502f340c2a9ac37f461d17cc4",
+  "limits": [
+    "No current native admission or Result created",
+    "Actual B07 native invocation authenticates its own current owner and grant"
+  ]
+}
