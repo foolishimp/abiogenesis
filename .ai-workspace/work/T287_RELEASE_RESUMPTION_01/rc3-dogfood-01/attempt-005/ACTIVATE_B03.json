@@ -1,0 +1,154 @@
+{
+  "authorityInterpretation": "Root selected focused B03 continuation from B02 admitted partial Construction under original B design and 23-path grant; this is not native B03 admission.",
+  "b02SourceArchive": {
+    "bytes": 645120,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/b02-source-local.tar",
+    "sha256": "99033c4600da91a555a9dcc2bac02498f3f78cee816213a6b3d9b97c5eb1d886"
+  },
+  "b02SourceCustody": {
+    "bytes": 12225,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/B02_SOURCE_CUSTODY.json",
+    "sha256": "12bad33a222a3575c4fefe23e11bc1fc25e64030deeb18f84161be4993144181"
+  },
+  "b02StructuredReturn": {
+    "bytes": 5822,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/B02_STRUCTURED_RETURN.json",
+    "sha256": "0b3bcecfdc3a66dd5c8d65e6affee41834926fce7c5aa4179cbc0e233870c0d8"
+  },
+  "budget": {
+    "automaticRetry": false,
+    "bFamilyReportedUsd": "16.224108799999999",
+    "bFamilyTargetUsd": 32,
+    "baselineObservation": {
+      "bytes": 1574,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/B03_BUDGET_BASELINE.json",
+      "sha256": "a6a82385b0aed0e9add1143e133fce78cca3b544cbd22ce3c921bdaf307b2a69"
+    },
+    "historicalPreBReportedUsd": 46.3959266,
+    "maxTurns": 120,
+    "maxUsdPerProcess": 8,
+    "otherCharges": "unknown",
+    "reservedLaterWitnessUsd": 6,
+    "reviewCheckpointAggregateUsd": 76,
+    "rootAggregateStopUsd": 90,
+    "totalReportedUsd": "62.620035399999999",
+    "userAllocationUsd": 100
+  },
+  "constructionWriteRoots": [
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "build_tenants/abiogenesis/typescript/release-claim.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+    "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs"
+  ],
+  "executingArtifactSha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+  "executingManifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+  "executive": "/root",
+  "grant": {
+    "bytes": 2686,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-01/grant.json",
+    "sha256": "4ac5639ff41d149df16d4838e3b85f99e01233563165a2c0620eb846a5e76b25"
+  },
+  "initialEventLog": {
+    "bytes": 2000589327,
+    "coordinateDigest": "sha256:6762b31e0d7c5f13d259167c21db6bda95311b9ab5d556a1d85222873c9d65b3",
+    "sha256": "b74c810afbab02264a3febcd4334c5a461105a65f4e42f23d665f60c6f21bf90",
+    "unchanged": true
+  },
+  "kind": "rc3_increment_b03_executive_activation",
+  "limits": [
+    "B02 Construction was an admitted partial Result, not accepted B implementation",
+    "Actual GC03 native installed witness remains a later Root-controlled Run",
+    "Dispatch re-observes installed Product Context and validates retained actual preflight against unchanged inputs; this is not a preflight rerun or current admission",
+    "Controlled selector renderer is predictive only; genuine B03 admission and assembly remain native and fail closed",
+    "No provider or lifecycle call was dispatched"
+  ],
+  "methodBasis": "stdo://releases/v3.0.2/",
+  "methodManifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "offlineToolchain": {
+    "bytes": 425,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.json",
+    "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+  },
+  "operatorAuthority": {
+    "bytes": 1623,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OPERATOR.md",
+    "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896"
+  },
+  "ownerInstruction": "review, fix, and continue on using rc2 being used to build rc3",
+  "physicalBoundary": {
+    "bytes": 2435,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/PHYSICAL_BOUNDARY.json",
+    "sha256": "f84c336895f3815cfef42b4b83bd083c731f3dee17e87929d5fb6f8adae2cfea"
+  },
+  "preflight": {
+    "bytes": 1473,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/model-free-preflight.json",
+    "sha256": "595884c8b7cb331eadecd065037e356c90100f6abbf2174bf89159a7c71e07bb"
+  },
+  "previousFreshReads": "pending Root read-only projection at preparation time",
+  "previousRunExecution": {
+    "bytes": 31486868,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/execution.json",
+    "sha256": "62ef92bf945c9818ba2a075aef5dcc4bfa5763dc391e0b0c599fe13e9d0fd482"
+  },
+  "previousRunResume": {
+    "bytes": 34526689,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/after-run-resume.json",
+    "sha256": "7af27b4555ff93cceb48734d451e0e65c44887e8db0bd9cb87ca93b01978cc49"
+  },
+  "protectedCensus": {
+    "bytes": 216653,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/snapshot-census.json",
+    "sha256": "92179f368aa52eb13e7240041803cd40890a3acc8480deff39ad56d566b43a69"
+  },
+  "providerCustody": {
+    "bytes": 3941,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-01/provider-custody.json",
+    "sha256": "09ba6b5f6881fc6e997047f5437cddb8a13368fb8c970ec8df829f43e6c453b2"
+  },
+  "retainedPreflightAuthority": {
+    "bytes": 4551,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/RETAINED_PREFLIGHT_AUTHORITY.json",
+    "sha256": "7966eeae684ab23aa73748674627e5d7b6177619294a098f129dfcd4570cd054"
+  },
+  "runtime": {
+    "absoluteMs": 2100000,
+    "bashDefaultMs": 1800000,
+    "bashMaximumMs": 1800000,
+    "inactivityMs": 1800000,
+    "note": "Configured bounds only; no worst-case-duration execution claimed.",
+    "retainedInputCheckTimeoutMs": 300000
+  },
+  "setupResume": {
+    "bytes": 73449608,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/operator-resume-material.json",
+    "sha256": "d5f55f3b753f22a5684c4712e85dd3ed1119269a3720e4b3107aebfb223a1ceb"
+  },
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "status": "SELECTED_FOR_MODEL_FREE_CALL_PREPARATION_ONLY",
+  "workload": {
+    "bytes": 274410,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-03/workload.json",
+    "sha256": "886ced78b9d8e491f1befd14614d34007f2959d0491f57f7d37ddb0e8c433504"
+  },
+  "writer": "/root/context_capability"
+}

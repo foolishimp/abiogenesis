@@ -1,0 +1,8 @@
+{
+  "runId": "rc3-dogfood-01-increment-b-03",
+  "kind": "selected_rc3_increment_b01",
+  "operator": "actor://abiogenesis/operator/codex-root",
+  "activationSha256": "48eebe9a6791dbb48c45befa05e5a0a2a0a2a0c94f4524047cb5a1e48bbd3648",
+  "workloadSha256": "886ced78b9d8e491f1befd14614d34007f2959d0491f57f7d37ddb0e8c433504",
+  "classification": "model-free preparation; no Run admitted or provider dispatched"
+}

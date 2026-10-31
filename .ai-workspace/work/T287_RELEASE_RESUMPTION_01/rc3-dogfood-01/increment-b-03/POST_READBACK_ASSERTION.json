@@ -1,0 +1,31 @@
+{
+  "coordinateDigest": "sha256:6762b31e0d7c5f13d259167c21db6bda95311b9ab5d556a1d85222873c9d65b3",
+  "custody": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/calls/run_replay.close.json": "e92776e0d605c6bba37cfa242b4f0317fd011c7c51dcbc7b866d57a89837b422",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/calls/run_result.close.json": "e92776e0d605c6bba37cfa242b4f0317fd011c7c51dcbc7b866d57a89837b422",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/commands/run_replay.result.json": "b53da85737b9c6da9f9c7e4d42894d735b1f0bdd291c7d106eeac26729ab8957",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/commands/run_result.result.json": "4c8d199b535b442fc02950cf33154fe44448b1963b73073b0b69892a9d04d278",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/fresh-reads.json": "dc8d614504b685ccc3c213d26410794a76f24dc892a074bcc1c322773d46db73",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-004/outcome-summary.json": "5dbd7343d269e45c2d9a8a657bb175e5e1a52e71515c74bb8973a630a87eb917"
+  },
+  "eventBytes": 2000589327,
+  "eventSha256": "b74c810afbab02264a3febcd4334c5a461105a65f4e42f23d665f60c6f21bf90",
+  "kind": "b02_post_readback_prefix_assertion",
+  "limits": [
+    "No B03 admission or provider call",
+    "The frozen historical label error is superseded by ERRATA.md"
+  ],
+  "readbacks": [
+    {
+      "member": "run_result",
+      "outcome": "refusal",
+      "projectionStatus": null
+    },
+    {
+      "member": "run_replay",
+      "outcome": "result",
+      "projectionStatus": "blocked"
+    }
+  ],
+  "status": "actual_full_event_sha_size_and_both_close_coordinates_checked_after_readbacks"
+}
