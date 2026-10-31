@@ -1,0 +1,27 @@
+{
+  "kind": "local_rc2_development_install",
+  "qualification": false,
+  "published": false,
+  "providerCalls": 0,
+  "source": {
+    "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+    "artifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "productContentDigest": "sha256:828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8",
+    "manifestDigest": "sha256:4cbec075adc577e9a7544167ac858e04a4d9340e4c2eb18ccb752128c4da623d",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.2"
+  },
+  "installHost": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.2",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.2/node_modules/@abiogenesis/typescript-tenant",
+  "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.2/828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8/e0747f1b86a545444ccf8f90720765e7ed88d7ec6c1262fb0d7058875d7fa80f",
+  "bootstrap": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/bootstrap",
+  "archiveMembers": 5315,
+  "node": "v24.7.0",
+  "platform": "darwin",
+  "arch": "arm64",
+  "limitations": [
+    "Product install candidate only; no native run or acceptance",
+    "fresh RC2 runtime resources required separately"
+  ]
+}

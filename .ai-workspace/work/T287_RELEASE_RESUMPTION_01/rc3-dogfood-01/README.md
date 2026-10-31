@@ -1,11 +1,13 @@
 # RC2-to-RC3 prepared operator entry
 
-Status: RC2 runtime preparation only; GC-03 was subsequently released and
-installed locally under the [decision record](GC03_LOCAL_RELEASE.md). Root
-selects RC2 installation and runtime activation. See [OPERATOR.md](OPERATOR.md) for the exact owner instruction and
+Status: the selected local RC2 installation and fresh Public setup have
+completed; [RC2_SETUP_RETURN.json](RC2_SETUP_RETURN.json) indexes the retained
+receipts. No F_P task has been dispatched. GC-03 was released and installed
+locally under the [decision record](GC03_LOCAL_RELEASE.md). See
+[OPERATOR.md](OPERATOR.md) for the exact owner instruction and
 [PREPARATION.md](PREPARATION.md) for the bounded authority, identities, planned
 GC-03 local release, prior native failure and protected evidence. No provider
-or ABI runtime has been invoked by this preparation.
+has been invoked by this setup.
 
 The frozen RC2 tarball was rehashed and all 5,315 members read: they are unique,
 regular, within `package/`, and total 71,560,529 uncompressed bytes. The exact
@@ -16,8 +18,8 @@ paths are retained in [preparation-observation.json](preparation-observation.jso
 The first full checkout was interrupted on identifying the prior no-space
 failure; Git removed its partial checkout. The new sparse worktree is 46 MB.
 
-After Root selects the exact RC2 candidate and activation, the local operator
-installation entry is:
+The following installation entry was run once after Root's selection. Its
+destination now exists; do not rerun or overwrite it:
 
 ```sh
 /opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/install-rc2.mjs
@@ -30,10 +32,10 @@ the exact RC2 archive bootstrap; uses `verifyProduct`, a resolved lock and
 It creates and preserves fresh evidence. A failure may leave a partial new
 activation or install directory; inspect and preserve it, return for triage,
 and do not automatically retry or erase it. It does not run native work or
-call a provider. The code has been syntax-checked, not executed.
+call a provider. The completed operation is recorded in the setup return.
 
-After the selected installation has succeeded and Root separately selects
-fresh Public workspace setup, the prepared entry is:
+The following fresh Public workspace setup was run once after that installation.
+Its output now exists; do not rerun or overwrite it:
 
 ```sh
 /opt/homebrew/bin/node /Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/prepare-worksite.mjs
@@ -42,8 +44,8 @@ fresh Public workspace setup, the prepared entry is:
 It checks the actual installation and manifest, re-verifies the exact RC2
 archive, and creates fresh Public workspace, consumer, lock, catalog, install
 and event resources. It records only inherited environment **names** in its
-setup records. It does not invoke an LLM provider. This entry is also only
-syntax-checked. It relies on byte-identical copies of the four existing RC1-era
+setup records. It did not invoke an LLM provider. It relies on byte-identical
+copies of the four existing RC1-era
 generic Public helpers; the new entry explicitly supplies the RC2 root and
 fresh coordinates. Preserve ABI schema-version `5.0.0`, `@5` contracts and
 consumer test Product identity; they are not RC1 selectors. Do not call the
@@ -53,8 +55,10 @@ Select explicit paths and regenerate the consumer for RC2.
 Before any actual task, bind its original owner outcome, original criteria,
 protected source/basis, exact mutable territory, and the complete dynamic test
 and source closure in its actual snapshot. The sparse checkout and tarball do
-not by themselves prove that closure. No RC3 repair contract, adapter, model
-budget, or provider call is selected by these preparation commands.
+not by themselves prove that closure. The proposed first
+[RC3 repair contract](increment-a-01/RETURN.md) passed model-free preflight
+but remains unadmitted and undispatched. No adapter or provider call follows
+automatically from the completed setup.
 
 Read-only source inspection found RC1 package-version literals in the existing
 `t287-default-library` and `t287-default-library-fulfillment` owner fixtures,

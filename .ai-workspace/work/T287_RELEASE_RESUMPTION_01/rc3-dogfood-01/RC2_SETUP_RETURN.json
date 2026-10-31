@@ -1,0 +1,186 @@
+{
+  "kind": "rc2_local_bootstrap_and_public_setup_return",
+  "status": "setup_completed_no_fp_dispatch",
+  "sourceCommit": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+  "artifactSha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+  "nativeQualified": false,
+  "providerCalls": 0,
+  "physicalInstall": {
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.2/828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8/e0747f1b86a545444ccf8f90720765e7ed88d7ec6c1262fb0d7058875d7fa80f",
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.2/node_modules/@abiogenesis/typescript-tenant",
+    "payloadMembers": 5315,
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/activation-summary.json",
+      "bytes": 1470,
+      "sha256": "c1b39ab41b17b92bcc99d51fc26c4199952ff9882a7fc1da965ff2c8e6aefc81"
+    },
+    "verification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/verification.json",
+      "bytes": 16047618,
+      "sha256": "9ee8aa6d3df59edfdda84dcf7d43c1e19a628276544037c1c01e09e5ff4a8521"
+    },
+    "lock": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/resolved-lock.json",
+      "bytes": 4574927,
+      "sha256": "084e86b4e4bc533159c16963ce72a3fb5fab5ba362b12cdd162411f2021c90d9"
+    },
+    "installation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/installation.json",
+      "bytes": 4242784,
+      "sha256": "8aa6c7869137b803fa749b1b37aa9b4c26a04d52d7005c9286b3b56737887d30"
+    },
+    "payloadCorrespondence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/runtime-activation-001/payload-correspondence.json",
+      "bytes": 1033205,
+      "sha256": "b6a6f2107b61e40e1bba8a2cba9b857e313efc9f19fe47f434f514e2205b5678"
+    }
+  },
+  "freshPublicSetup": {
+    "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+    "installId": "product-install://@abiogenesis/typescript-tenant/5.0.0-rc.2/828e886a98f6342c6d9ffff1eeb2aa02739c669af85b482df1eb35ba4820ead8/bc448960e31383fe2b006c82d44a1e2346fcebf96d4ee9d9f4d3e0ad30aea21f",
+    "lockId": "product-lock://abiogenesis/bc448960e31383fe2b006c82d44a1e2346fcebf96d4ee9d9f4d3e0ad30aea21f",
+    "workspaceAuthorityId": "workspace-authority://abiogenesis/f384bcb5ad9497eded884a220833d32103a0e4e3c4e535aa8f2ef6bc9a5779da",
+    "workspaceBinding": {
+      "digest": "sha256:7cac7b9033739c2ee53774c9c18835a9914f8692e5eb3177fe0bf79308a87ac8",
+      "ref": "workspace-binding://abiogenesis/7cac7b9033739c2ee53774c9c18835a9914f8692e5eb3177fe0bf79308a87ac8"
+    },
+    "catalog": {
+      "basisDigest": "sha256:8cd8a237662aba9ad390f3cbd9b006bfc91a88b47ef387e8625edb2ade5eeb5b"
+    },
+    "eventLog": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/events/runtime.events.jsonl",
+      "bytes": 3195599,
+      "sha256": "297e1dd25ab2626403357e567e1140e03eb0b6bd4a6cb4c2ad120c74c3ac8b8c"
+    },
+    "eventPrefixLength": 3195599,
+    "eventPrefixDigest": "sha256:297e1dd25ab2626403357e567e1140e03eb0b6bd4a6cb4c2ad120c74c3ac8b8c",
+    "setupIdentity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/setup-identity.json",
+      "bytes": 9517160,
+      "sha256": "00287da163d4930b2f975e72e5f36ad6857c941f59b97ab78cf9fe1f8dac48e9"
+    },
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/summary.json",
+      "bytes": 3691,
+      "sha256": "c31c28a8e37b6039385203de3a9b9907b7dce83cacf818f3026d6dde0a175848"
+    },
+    "resumeMaterial": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/operator-resume-material.json",
+      "bytes": 73449608,
+      "sha256": "d5f55f3b753f22a5684c4712e85dd3ed1119269a3720e4b3107aebfb223a1ceb"
+    },
+    "operations": [
+      {
+        "label": "workspace-create",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.workspace.create",
+          "memberKey": "imported"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/3c1daa910f89a006daf492cf3b1ba61a949d383520706cbec8d99f91a25e9bae"
+      },
+      {
+        "label": "product-verify-0",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/77496d2ad7eac76a68d2d90255a20ef3488b5f45c743570b1853dbe886230e86"
+      },
+      {
+        "label": "product-verify-1",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.verify",
+          "memberKey": "verify"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/8385cceea15fbb74b3173118c5c00e772d9dd9a1dec87efc1c28aa77cec8df6e"
+      },
+      {
+        "label": "product-resolve",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.resolve",
+          "memberKey": "resolve"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/02db842851c8758054be681b9e4ead34074eac3471ec2e4befd0eeaf51985d0f"
+      },
+      {
+        "label": "product-install-0",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.install",
+          "memberKey": "install"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/04bc86daa10b0c08faa32f3a6873da892e2e8b7b4d4bdf89f4dfca985fd6b143"
+      },
+      {
+        "label": "product-install-1",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.product.install",
+          "memberKey": "install"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/b0fc342acc03cb2fde54616c135f7244493d877ca7ec4806852e4c1a6a06804d"
+      },
+      {
+        "label": "workspace-bind",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.workspace.bind",
+          "memberKey": "bind"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/405724f289aa6f75275db4de6c389c8eeafe5586106e3c0c32ab55cf97e67052"
+      },
+      {
+        "label": "catalog-admit",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.catalog.admit",
+          "memberKey": "admit"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/b5b7eb901f2d5bb99855a713021b5ebecdce1af42bbd5faf74ea44908e656db5"
+      },
+      {
+        "label": "catalog-view",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.catalog.view",
+          "memberKey": "allowlist"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/72446f0f2e8d4805e0b7c824fac598b9b5e59244425a5555dc6bf79b673bfe9e"
+      },
+      {
+        "label": "program-conformance",
+        "exitCode": 0,
+        "definitionKey": {
+          "operationId": "abg.operation.conformance.evaluate",
+          "memberKey": "gtl_program"
+        },
+        "outcomeKind": "result",
+        "invocationRef": "invocation://abiogenesis/7e7252615a5c26160a520a2d074908b426dc32c39dbb0b883abcb41b0feeb7fd"
+      }
+    ]
+  },
+  "reviewEvidence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/rc2-review-installed-language.tap",
+    "bytes": 236,
+    "sha256": "d4ea581554bbfd7ff969df825812e0194cf6f5643cdb47210dd1e86ba4198086"
+  },
+  "limits": [
+    "Local RC2 bootstrap only; prior Run 009 blocked and native UAT unmet remain unchanged",
+    "No F_P provider call, RC3 task admission or qualification",
+    "Full raw setup/install artifacts remain in their named local paths; this index is not a substitute for raw receipts",
+    "Historical independent smoke cleanup removed its raw runtime evidence; current setup has its own retained event log"
+  ]
+}

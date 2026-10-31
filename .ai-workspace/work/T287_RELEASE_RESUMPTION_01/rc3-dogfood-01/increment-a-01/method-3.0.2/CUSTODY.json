@@ -1,0 +1,40 @@
+{
+  "kind": "verified_stdo_method_source_projection",
+  "basis": "stdo://releases/v3.0.2/",
+  "manifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "files": {
+    ".claude/references/PRODUCT_BASIS.md": {
+      "installedSource": "plugins/spec/references/PRODUCT_BASIS.md",
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
+    },
+    ".claude/skills/stdo-work/SKILL.md": {
+      "installedSource": "plugins/spec/skills/stdo-work/SKILL.md",
+      "sha256": "3465f25f6357c8186ee325377cd4db97872272a7993f3995ccdf57a4ae8ef76a"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/manifest.json": {
+      "installedSource": "manifest.json",
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md": {
+      "installedSource": "standards/ACTIVATION.md",
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md": {
+      "installedSource": "standards/DESIGN_MODULE.md",
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md": {
+      "installedSource": "standards/EVALUATION.md",
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md": {
+      "installedSource": "standards/REFERENCE_FRAME.md",
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64"
+    },
+    "rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md": {
+      "installedSource": "standards/SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e"
+    }
+  },
+  "limit": "Native Claude lane disables slash commands and excludes Skill from its explicit tool allowlist. These exact bytes are available for Read; no actual Skill invocation is claimed."
+}

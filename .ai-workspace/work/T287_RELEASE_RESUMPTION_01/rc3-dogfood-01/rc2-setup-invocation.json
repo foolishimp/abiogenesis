@@ -1,0 +1,11 @@
+{
+  "kind": "operator_public_setup_invocation",
+  "operator": "root Codex via delegated Writer command",
+  "executable": "/opt/homebrew/bin/node",
+  "script": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/prepare-worksite.mjs",
+  "parentOnlyEnvironment": {"NODE_OPTIONS": "--max-old-space-size=8192"},
+  "childEnvironment": "Prepared script's existing HOME/PATH/TMPDIR/LANG/LC_ALL allowlist; NODE_OPTIONS is not forwarded by that script",
+  "providerCallsAuthorized": false,
+  "automaticRetry": false,
+  "meaning": "Actual selected fresh Public resource setup; no F_P provider or task dispatch"
+}

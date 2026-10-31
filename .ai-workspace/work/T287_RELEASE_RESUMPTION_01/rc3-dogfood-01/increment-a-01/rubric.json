@@ -1,0 +1,10 @@
+{
+  "outcome": "An ABG-authored unqualified RC3 Increment A that preserves original UAT meaning and complete short diagnostic visibility",
+  "criteria": [
+    {"id":"A1","criterion":"The native UAT task retains the exact original declared UAT outcome and original rubric/criteria; a planner contribution is separate advisory context and cannot add a governing requirement. Unmet and indeterminate original criteria remain visible."},
+    {"id":"A2","criterion":"A strict UTF-8 observed stream of at most 8192 bytes appears completely and byte-exactly in the bounded planning view, including the supplied authentic 4616-byte failure stream and its ENOENT; no line ending, BOM or Unicode is lost."},
+    {"id":"A3","criterion":"Larger or binary streams retain truthful byte bounds, omissions and original Result/source identities without false completeness or broken Unicode; existing failure/refusal classes, provenance, admitted event and replay truth are conserved."},
+    {"id":"A4","criterion":"Owning design and meaningful affected tests demonstrate the repair and preserve the original assertions; the actual Testing snapshot includes dynamically read source closure, including t287-native-semantic-revision.test.mjs. Required checks actually execute and pass; unrelated existing skips are identified and never counted as success."},
+    {"id":"A5","criterion":"Actual isolated build and selected checks identify an unqualified 5.0.0-rc.3 candidate through the existing candidate identity mechanism. Any affected current fixture binds actual candidate identity; historical identities and earlier Run 009 remain unchanged. No publication or whole-product qualification is claimed."}
+  ]
+}

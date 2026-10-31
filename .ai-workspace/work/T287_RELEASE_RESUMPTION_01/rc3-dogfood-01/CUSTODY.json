@@ -1,6 +1,11 @@
 {
   "kind": "rc3_operator_preparation_custody",
-  "status": "GC03_LOCAL_RELEASED_RC2_NOT_ACTIVATED",
+  "status": "RC2_SETUP_COMPLETED_INCREMENT_A_NOT_DISPATCHED",
+  "meaning": "Compact operator evidence. Large original setup/install resources remain at named local paths; RC2_SETUP_RETURN hashes their deciding receipts.",
+  "rawRetained": [
+    "setup-001/",
+    "runtime-activation-001/"
+  ],
   "files": {
     "GC03_LOCAL_RELEASE.md": {
       "sha256": "cd56518a2881c914eddb37338633d4a9c38ff20985cb20d191d24599f9fabd41",
@@ -18,9 +23,17 @@
       "sha256": "1e787e4e37550ed29a1e96d4abd5d11887bc20449f6ca93785c4ca904a49edda",
       "bytes": 5073
     },
+    "RC2_EXECUTIVE_SELECTION.md": {
+      "sha256": "991243cbef73cdcdcdd895d68264022144625b24d34b3b8132939a825d6baa85",
+      "bytes": 2078
+    },
+    "RC2_SETUP_RETURN.json": {
+      "sha256": "f7c505e701a55d17cbb486b2f211ecfbe7f640d26854691d7da7f41c2cc38744",
+      "bytes": 8701
+    },
     "README.md": {
-      "sha256": "93408f7141096e5086394dbe515c7873ccb3d3ae316af20dd9962fcb890745f2",
-      "bytes": 4279
+      "sha256": "184d9bbbfa5968c98f48839e3d7ef89abdd82ae69d4a8cd5b5107982925b1c42",
+      "bytes": 4454
     },
     "archive-census.json": {
       "sha256": "a63af49ad7c04fe3fd9b1fd66af1419c5d7d18941a385190bec74afebc2df43f",
@@ -45,6 +58,110 @@
     "gc03-reverify.log": {
       "sha256": "695351bac836156ccb6c5136f80c6c9698e7b250b15cbf6399d089f0c170f334",
       "bytes": 658
+    },
+    "increment-a-01/HOW.md": {
+      "sha256": "a009a8a665ee035be72ef6feb5edda03f9968e17421c5d5cac0a4927ee3caf2f",
+      "bytes": 3172
+    },
+    "increment-a-01/RETURN.md": {
+      "sha256": "e773699e5e69384f54a65efb04579fcd3be8c0bb877424d0492e6c9f4a0315e7",
+      "bytes": 4582
+    },
+    "increment-a-01/factory.py": {
+      "sha256": "483eea2c997abe02422bee9f304f246550d6358375f96e8a9f320eb7a609814e",
+      "bytes": 9664
+    },
+    "increment-a-01/method-3.0.2/.claude/references/PRODUCT_BASIS.md": {
+      "sha256": "d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979",
+      "bytes": 3947
+    },
+    "increment-a-01/method-3.0.2/.claude/skills/stdo-work/SKILL.md": {
+      "sha256": "3465f25f6357c8186ee325377cd4db97872272a7993f3995ccdf57a4ae8ef76a",
+      "bytes": 11186
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/manifest.json": {
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+      "bytes": 14286
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/standards/ACTIVATION.md": {
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "bytes": 142205
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/standards/DESIGN_MODULE.md": {
+      "sha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "bytes": 175366
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/standards/EVALUATION.md": {
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "bytes": 87317
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/standards/REFERENCE_FRAME.md": {
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "bytes": 103687
+    },
+    "increment-a-01/method-3.0.2/rc3-operator-inputs/increment-a-01/stdo/standards/SPEC_METHOD.md": {
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "bytes": 148190
+    },
+    "increment-a-01/model-free-preflight.json": {
+      "sha256": "0bf3b30ddc2f50242d1aade3d753928172f677eb48bec833f555827a0f5e1163",
+      "bytes": 2645
+    },
+    "increment-a-01/preflight-01-failure.log": {
+      "sha256": "990b4a2da8102692d66c0fd9636d1df9de0d710697957cfb80e3b72067458536",
+      "bytes": 529
+    },
+    "increment-a-01/preflight-02-owner-refusal.log": {
+      "sha256": "f17cafb234af56d64ff589d289c328f0f7d2473600b324c80ad5c398112f5c26",
+      "bytes": 856
+    },
+    "increment-a-01/preflight-check-only.log": {
+      "sha256": "e95aa9b4b38b1dd84d8f0a2d89c57a3c607a25867186b7914e123902a42b5655",
+      "bytes": 2420
+    },
+    "increment-a-01/preflight.log": {
+      "sha256": "e95aa9b4b38b1dd84d8f0a2d89c57a3c607a25867186b7914e123902a42b5655",
+      "bytes": 2420
+    },
+    "increment-a-01/preflight.mjs": {
+      "sha256": "4e8935e47e910f512516457df72d98bf4a256b4619101210cc571142c8d33497",
+      "bytes": 8092
+    },
+    "increment-a-01/retained-stdout-custody.json": {
+      "sha256": "888beff5d875be720bf2fb5244189bbdf44b4d5f5193baf836451e0107951e94",
+      "bytes": 1550
+    },
+    "increment-a-01/retained-stdout.txt": {
+      "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+      "bytes": 4616
+    },
+    "increment-a-01/rubric.json": {
+      "sha256": "dec998782642002b0fb22ed1b038babd497e220d1e43a5b071906b649b5b1b05",
+      "bytes": 1693
+    },
+    "increment-a-01/snapshot-census.json": {
+      "sha256": "6ffa2c243b5b6b750b26d6109e408fa0c761034793eba437d0698f1f57df1ddb",
+      "bytes": 210703
+    },
+    "increment-a-01/task.md": {
+      "sha256": "21f15071c79101d1f34e25f201fe2c876dd63b94171848408883f69e70f0f986",
+      "bytes": 3736
+    },
+    "increment-a-01/toolchain-census.json": {
+      "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030",
+      "bytes": 425
+    },
+    "increment-a-01/toolchain-census.py": {
+      "sha256": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024",
+      "bytes": 1736
+    },
+    "increment-a-01/workload-before-owner-refusal.json": {
+      "sha256": "aff2a7613adf90aa0423283918cc1632f801856f2990411b2e0d4e26e8de8d72",
+      "bytes": 219970
+    },
+    "increment-a-01/workload.json": {
+      "sha256": "5b27f6ed16f82e2f3f8016f5cbd4609b3ec61168111c3ff907934edc45a59164",
+      "bytes": 219963
     },
     "install-rc2.mjs": {
       "sha256": "ce84541a0523a58bc1a64c49d8a247ebc8b18a450b3f120fb34c6ea2ccf799c0",
@@ -73,6 +190,30 @@
     "preparation-observation.json": {
       "sha256": "c242f35501ae247a20a6ad7fdabace5521b6ef8ea4e41e5c0c6a6996d6df2c20",
       "bytes": 4860
+    },
+    "rc2-install-summary.json": {
+      "sha256": "c1b39ab41b17b92bcc99d51fc26c4199952ff9882a7fc1da965ff2c8e6aefc81",
+      "bytes": 1470
+    },
+    "rc2-install.log": {
+      "sha256": "2c7e2ca795dfba05bec5ea2e325e053ba7fba2e09da6d04a226beaa05a89b157",
+      "bytes": 485
+    },
+    "rc2-public-setup-summary.json": {
+      "sha256": "c31c28a8e37b6039385203de3a9b9907b7dce83cacf818f3026d6dde0a175848",
+      "bytes": 3691
+    },
+    "rc2-review-installed-language.tap": {
+      "sha256": "d4ea581554bbfd7ff969df825812e0194cf6f5643cdb47210dd1e86ba4198086",
+      "bytes": 236
+    },
+    "rc2-setup-invocation.json": {
+      "sha256": "250643d8757bf60c218a972eef422e29c91cc9836687e5a784830aea4f83c1bc",
+      "bytes": 661
+    },
+    "rc2-setup.log": {
+      "sha256": "91745b36b62eb53e8dbbb9a1ba33f2d15a3d58b7d5debb2ccca9fc2b387ff140",
+      "bytes": 351
     }
   }
 }
