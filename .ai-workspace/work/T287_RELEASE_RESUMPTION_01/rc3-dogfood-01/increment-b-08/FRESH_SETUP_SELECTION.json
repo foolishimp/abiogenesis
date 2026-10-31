@@ -1,0 +1,36 @@
+{
+  "ProductWriteRoots": [],
+  "executive": "/root",
+  "kind": "b08_fresh_store_executive_selection",
+  "limits": [
+    "Root must replace pending status only after source review and exact setup selection",
+    "No prior Results are imported; failed B07 remains failed"
+  ],
+  "ownerInstruction": "Root explicitly selected fresh B08 Testing\u2192UAT after independent source review for testing eligibility only; no Construction/Product write permission; sourceBasis none.",
+  "providerDispatch": false,
+  "recursionBound": 3,
+  "selectedHow": {
+    "bytes": 1750,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/HOW.md",
+    "sha256": "sha256:dcd0dc2b7932337fa8d48d874a07450448252c664b93e4458e2706fb133e13e4"
+  },
+  "selectedRubric": {
+    "bytes": 2218,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/rubric.json",
+    "sha256": "sha256:c8409de7aca6a8128312365d7dca9a40f65a19940bc6ff9a6237526765be0c5e"
+  },
+  "selectedTask": {
+    "bytes": 2530,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/task.md",
+    "sha256": "sha256:98ab51e0e473edadaebbe2b6ba5433bf7b6dc3adad89fec1089afa2f164379fe"
+  },
+  "sourceBasis": "none",
+  "sourceBinding": {
+    "bytes": 17275,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/SOURCE_AND_ELIGIBILITY.json",
+    "sha256": "sha256:7f4e018779b6f559ef84eade99dd204ad8296bea19b32a37cdabbc6f11a5fea9"
+  },
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "sourceReview": "Root accepted independent B07 source review on exact custody fd38f865e077d7fb8423daf90e5ae7ac03120b444fa5c4e13d356ba010a40d0f; source acceptance remains bounded to testing eligibility",
+  "status": "PREPARED_FOR_ROOT_OPERATION"
+}

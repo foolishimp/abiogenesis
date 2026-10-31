@@ -1,0 +1,67 @@
+{
+  "audit": "Root/reviewer separately verified all 960 selected files with 23 current preimages and all 5315 installed payload files. No additional subject repair selected. Historical B07 pins matched reused runner/scenarios/consumer and the census/Python. Actual shared public-setup is additionally included through runner imports.",
+  "authority": "Root authorized only transitive launcher closure, existing offline dependency verification, and npm pin verification; no Product/native/setup/Result changes",
+  "effects": "Operator file hashing/static preparation only; no verification process, tests, Public/provider/native/setup call executed by writer",
+  "kind": "b08_operator_executable_closure_repair",
+  "offlineDependencyVerification": {
+    "arguments": [
+      "-I",
+      "-B",
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.py",
+      "--verify"
+    ],
+    "inventory": {
+      "bytes": 425,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.json",
+      "sha256": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+    },
+    "python": {
+      "bytes": 152096,
+      "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+      "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539"
+    },
+    "script": {
+      "bytes": 1736,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/toolchain-census.py",
+      "sha256": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024"
+    }
+  },
+  "preservedPreparedInputs": [
+    {
+      "bytes": 2401,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/ACTIVATE_B08.json",
+      "sha256": "d74c601368b48d3acc0d8dd174893dc68700a2bf8150b9b2f03a6a33a2c2d45c"
+    },
+    {
+      "bytes": 1557,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/PREPARED_CALL.json",
+      "sha256": "91243f8de78d1c785cabaa716eebd5a746728e0c001f6e7384aa10498c210d4b"
+    },
+    {
+      "bytes": 30121436,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/prepared-call.json",
+      "sha256": "25c25e7413ad8fc4fa9abda9716541c7de73c1b0101053cc770608d9c6dd091f"
+    },
+    {
+      "bytes": 272361,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/input.json",
+      "sha256": "72988e78c08cc5c555537bf0a4743ea70707f06a7a84fab6a51da6eb9ae89a54"
+    },
+    {
+      "bytes": 408,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/run.json",
+      "sha256": "6dd76e8ea1e34b18c1b577ba56780c9d43b3329cfb92b6aa675aad22251e8bb1"
+    }
+  ],
+  "reason": "Prior 26-pin manifest omitted actual reused executable closure and prior offline dependency verification; npm was pinned but not checked. Superseded manifest must not dispatch.",
+  "supersededCustody": {
+    "bytes": 5622,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/B08_PREPARATION_CUSTODY.superseded-executable-closure.json",
+    "sha256": "696f83717b66bd3ab9edde0a4984a1627dcc3158767ebda7122310a6da10132a"
+  },
+  "supersededManifest": {
+    "bytes": 6994,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-010/PREPARATION_MANIFEST.superseded-executable-closure.json",
+    "sha256": "051d75e54d507262f7d1384eb76a548b51b96968aedbbcab3aa6c2ab2d6cecbf"
+  }
+}

@@ -1,0 +1,7 @@
+# B08 Root activation
+
+Root selected and launched one fresh B08 Testing → UAT Run at 2026-10-31 19:40:29 UTC, after independent exact-call review of manifest SHA-256 `315124a3fe8179d4abd0d9b188b021bba6bcd95a32e9da7f64d7d1b521937889`. The prepared call and input have no prior Results, source basis `none` and no Product write roots. Root is the sole Public operator; no helper provider or Public action occurred. Actual native results and independent assessment are pending.
+
+The first 26-pin dispatch cut was not ready: review found that the shared runner's executable closure, existing offline toolchain verification and selected npm identity needed binding. `EXECUTABLE_CLOSURE_REPAIR.json` and the superseded manifest/custody preserve that review and correction. The final accepted manifest binds the repaired operator closure; no fresh setup or prepared-call reconstruction was claimed for that repair.
+
+The exact current B07 partial source is unaccepted and its historical `runtime_failed` Run is not relabeled. Native Testing must establish the actual nine-command result, including the exact named owner-chain case and source identity; UAT and any terminal Run are separate actual observations. The separate installed-RC3 live GC03 witness and broader qualification remain open. The prior reported native baseline is $107.2601610, with $8 reserved for B03's unknown cost; the owner removed the previous spending cap.

@@ -1,0 +1,33 @@
+{
+  "kind": "b07_bounded_mechanical_acceptance_basis",
+  "status": "ROOT_SELECTED_BOUNDED_CRITERIA",
+  "outcome": "An ABG-authored bounded RC3 mechanical increment repairs the real-owner GC03 test and C2 environment with truthful deciding evidence.",
+  "governingOriginalBasis": "A1-A5 and B1-B5 in increment-b-01/rubric.json remain upstream governing outcomes and residual obligations; their historical dispositions are unchanged. The five B07 criteria alone are this bounded Run and native UAT acceptance basis.",
+  "criteria": [
+    {
+      "id": "B07-1",
+      "criterion": "The exact named test enters the real held-store and genuine same-Run Testing Result through installed HoG/owner/native actor to the fixed client and released GC03; both complete policy and activation dependencies have genuine owner admission."
+    },
+    {
+      "id": "B07-2",
+      "criterion": "Exact task, rubric and decoded admitted Testing bytes are returned through allowed reads; a denied key, cold owner rejoin and tampered/substituted response are checked without fake provenance or injected lookup."
+    },
+    {
+      "id": "B07-3",
+      "criterion": "Actual authenticated complete focused C2 stdout shows the exact top-level named case passed, not skipped or todo, with exit 0 and zero failures; Root inspects the selected test source and full output."
+    },
+    {
+      "id": "B07-4",
+      "criterion": "All nine declared C2 commands exit 0, the affected-owner suite actually resolves the exact selected STDO installation and its pinned release manifest, and build/package and source correspondence measure current candidate bytes."
+    },
+    {
+      "id": "B07-5",
+      "criterion": "Primary Product change is the named test; any other change within the original 23-path territory has a genuine test counterexample, owner/design trace and affected reproof. No new Public contract, failure class, authority, runtime or governing meaning is introduced."
+    }
+  ],
+  "limits": [
+    "A native C2 pass is not the separate live installed-RC3 governed lookup witness",
+    "Native UAT and Product/qualification/release acceptance remain separately assessed",
+    "No mechanized pass-count alone proves the named case"
+  ]
+}
