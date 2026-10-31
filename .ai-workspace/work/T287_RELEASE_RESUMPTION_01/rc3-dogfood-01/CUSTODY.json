@@ -1,7 +1,15 @@
 {
   "kind": "rc3_operator_preparation_custody",
-  "status": "PREPARED_NOT_ACTIVATED",
+  "status": "GC03_LOCAL_RELEASED_RC2_NOT_ACTIVATED",
   "files": {
+    "GC03_LOCAL_RELEASE.md": {
+      "sha256": "cd56518a2881c914eddb37338633d4a9c38ff20985cb20d191d24599f9fabd41",
+      "bytes": 1938
+    },
+    "NEXT_ACTIVATION_LIMITS.md": {
+      "sha256": "868774513dda62c1b9bc8a22d21476dc32df0784a691cea802571b88ee7e13aa",
+      "bytes": 792
+    },
     "OPERATOR.md": {
       "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
       "bytes": 1623
@@ -11,16 +19,32 @@
       "bytes": 5073
     },
     "README.md": {
-      "sha256": "d66c3f6a5327ec1ba422d304406735c34b2e3ab4ff5f067c2feb10e7c51eb6fb",
-      "bytes": 4166
+      "sha256": "93408f7141096e5086394dbe515c7873ccb3d3ae316af20dd9962fcb890745f2",
+      "bytes": 4279
     },
     "archive-census.json": {
       "sha256": "a63af49ad7c04fe3fd9b1fd66af1419c5d7d18941a385190bec74afebc2df43f",
       "bytes": 459
     },
+    "gc03-install.log": {
+      "sha256": "4e326f9236bce562d633bf5b1eb796e0f6ee7d340d3d6eee0ccd3b32bab08a23",
+      "bytes": 403
+    },
+    "gc03-install.py": {
+      "sha256": "59ca84175df0f10b17e6fe2043095d8cf6116cf3eb64273cb10ddb874b6adf3e",
+      "bytes": 4721
+    },
+    "gc03-local-release-installation.json": {
+      "sha256": "ca0e977a7cdb8c889cc87b70b95eb12d30f83734b4c32f6589a3bac5bbf8a467",
+      "bytes": 2310
+    },
     "gc03-local-release-proposal.json": {
       "sha256": "213c7975dc8dafe89ad3769ad4beb7f954ee889397b32acf284e25329dadabaf",
       "bytes": 2436
+    },
+    "gc03-reverify.log": {
+      "sha256": "695351bac836156ccb6c5136f80c6c9698e7b250b15cbf6399d089f0c170f334",
+      "bytes": 658
     },
     "install-rc2.mjs": {
       "sha256": "ce84541a0523a58bc1a64c49d8a247ebc8b18a450b3f120fb34c6ea2ccf799c0",

@@ -1,0 +1,35 @@
+{
+  "archiveBytes": 309431,
+  "archiveSha256": "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35",
+  "archiveSource": "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/release-candidate/ac-governed-context-gc03-adb3d8ee-draft.tar.gz",
+  "authority": {
+    "executiveInterpretation": "Root selects this exact reviewed GC-03 local development release and installation as necessary dependency under the owner continuation and previously approved shared capability plan.",
+    "executiveSelectionActor": "/root",
+    "installationActor": "/root/context_capability (delegated Writer)",
+    "ownerInstruction": "review, fix, and continue on using rc2 being used to build rc3",
+    "timestampUtc": "2026-10-31T06:27:53.729030+00:00"
+  },
+  "freshVerification": {
+    "logSha256": "695351bac836156ccb6c5136f80c6c9698e7b250b15cbf6399d089f0c170f334",
+    "sourceChecked": true,
+    "tests": 12
+  },
+  "identity": "urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1",
+  "installedArchive": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/archive.tgz",
+  "installedMembers": 38,
+  "installedRoot": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1",
+  "inventorySha256": "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003",
+  "kind": "a_c_local_development_supplement_release_and_installation",
+  "limits": [
+    "Local development supplement only; no tag or external publication",
+    "Not an STDO method release or whole-a_c Product release",
+    "No ABG runtime admission, Product integration, host confinement or atomic publication claim",
+    "GC-02 Skills and native witnesses remain bound to provider 03245674",
+    "Archive embedded draft status is historical; this later local release record does not alter archive bytes",
+    "Selected formal gates and unqualified composition evidence remain unsupported as described in the archived design"
+  ],
+  "scope": "governed context shared lookup, trusted-host library seam and lossless presentation",
+  "sourceCommit": "adb3d8ee18ecd307162cad098a8ff5f03cbcc77f",
+  "sourceReview": "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/GC03_EXECUTIVE_DISPOSITION.md",
+  "status": "RELEASED"
+}

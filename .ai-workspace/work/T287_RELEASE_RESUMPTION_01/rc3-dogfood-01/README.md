@@ -1,7 +1,8 @@
 # RC2-to-RC3 prepared operator entry
 
-Status: preparation only. Root selects any actual installation and runtime
-activation. See [OPERATOR.md](OPERATOR.md) for the exact owner instruction and
+Status: RC2 runtime preparation only; GC-03 was subsequently released and
+installed locally under the [decision record](GC03_LOCAL_RELEASE.md). Root
+selects RC2 installation and runtime activation. See [OPERATOR.md](OPERATOR.md) for the exact owner instruction and
 [PREPARATION.md](PREPARATION.md) for the bounded authority, identities, planned
 GC-03 local release, prior native failure and protected evidence. No provider
 or ABI runtime has been invoked by this preparation.
@@ -62,8 +63,8 @@ identity questions if selected, not established RC2 runtime regressions. Do
 not globally rewrite history. The existing `refresh-candidate-basis.mjs`
 derives candidate package identity from the actual generated manifest.
 
-The [GC-03 release proposal](gc03-local-release-proposal.json) names the exact
-reviewed archive and a proposed local identity and no-clobber destination. Its
-status and null decision/install records are intentional. An actual owner
-release decision, retained installation and the separate ABG runtime binding
-remain distinct future effects; do not treat this proposal as an admission.
+The [GC-03 release proposal](gc03-local-release-proposal.json) is the preserved
+pre-decision record. Its null decision/install fields describe that earlier
+state. The later local release receipt and exact-byte installation are recorded
+in [GC03_LOCAL_RELEASE.md](GC03_LOCAL_RELEASE.md). A separate ABG runtime
+binding remains future work; do not treat the local release as an admission.
