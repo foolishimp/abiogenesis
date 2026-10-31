@@ -1,0 +1,20 @@
+✖ GC03 real owner allowed denied cold tamper (63402.946708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 63523.275708
+
+✖ failing tests:
+
+test at test_env/tests/t287-governed-context.test.mjs:619:1
+✖ GC03 real owner allowed denied cold tamper (63402.946708ms)
+  ReferenceError [Error]: product is not defined
+      at file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:722:85
+      at Array.filter (<anonymous>)
+      at TestContext.<anonymous> (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:721:57)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

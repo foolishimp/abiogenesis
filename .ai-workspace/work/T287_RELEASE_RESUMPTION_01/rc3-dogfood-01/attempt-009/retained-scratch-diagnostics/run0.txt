@@ -1,0 +1,19 @@
+✖ GC03 real owner allowed denied cold tamper (34575.605834ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 34707.737333
+
+✖ failing tests:
+
+test at test_env/tests/t287-governed-context.test.mjs:434:1
+✖ GC03 real owner allowed denied cold tamper (34575.605834ms)
+  TypeError [Error]: Cannot read properties of undefined (reading 'kind')
+      at setupInstalledRootCatalog (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs:509:36)
+      at async TestContext.<anonymous> (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:448:15)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)

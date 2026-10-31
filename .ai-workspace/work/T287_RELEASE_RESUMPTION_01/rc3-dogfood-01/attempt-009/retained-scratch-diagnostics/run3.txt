@@ -1,0 +1,26 @@
+DEBUGOUT {"acquisitionKind":"reopen","kind":"installed_definition_call_transport_result","receipt":{"definitionKey":{"memberKey":"start","operationId":"abg.operation.run.invoke"},"exitCode":1,"failure":null,"invocationRef":"invocation://abiogenesis/2eb03b59eea23846934625d4cb393201d3ed3930de3821b622a003e791d159a6","kind":"definition_host_receipt","ownerOutput":{"outcomeKind":"refusal","value":{"code":"invalid_capability","evidenceRefs":[],"issuePaths":["/runEnvironmentResources","/runEnvironment/cause/access_unavailable"]}},"resources":{"eventResource":{"acquisitionKind":"reopen","closeHandoff":{"prefix":{"coordinateDigest":"sha256:4353f22757a58176145af9e1629e9128253bbe316b3123f1f715b043c5f9d3f7","eventLogRef":"file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-acrBm4/runtime/events.jsonl","kind":"durable_prefix_coordinate","prefixDigest":"sha256:7024e7a3444cef4e582c56005de0789dfd4a32f51bdd544bfe15e6e4b3840f0b","prefixLength":3194463,"schemaVersion":"5.0.0","storeIdentity":{"device":16777231,"eventContractDigest":"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64","inode":668001607}},"reopenAuthority":{"authorityDigest":"sha256:6491d315dc4d3ab578442b56bc894abf7ec8911c42f8840e6b47a4a9b7a54d4f","device":16777231,"durableByteLength":3194463,"eventContractDigest":"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64","eventLogDigest":"sha256:7024e7a3444cef4e582c56005de0789dfd4a32f51bdd544bfe15e6e4b3840f0b","eventLogPath":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-acrBm4/runtime/events.jsonl","inode":668001607,"kind":"event_store_reopen_authority","schemaVersion":"5.0.0"}},"entryPrefix":{"coordinateDigest":"sha256:4353f22757a58176145af9e1629e9128253bbe316b3123f1f715b043c5f9d3f7","eventLogRef":"file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-root-env-acrBm4/runtime/events.jsonl","kind":"durable_prefix_coordinate","prefixDigest":"sha256:7024e7a3444cef4e582c56005de0789dfd4a32f51bdd544bfe15e6e4b3840f0b","prefixLength":3194463,"schemaVersion":"5.0.0","storeIdentity":{"device":16777231,"eventContractDigest":"sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64","inode":668001607}},"kind":"abg_event_resource_receipt","receiptDigest":"sha256:3f7a457fa912208f0a5edf53137f0f9de9f971549e9e4217962016158aa7529f","schemaVersion":"5.0.0"},"invocationAdmission":null,"kind":"run_invocation_resource_receipt","productExecutionResolution":null,"replay":null,"run":null,"schemaVersion":"5.0.0"},"schemaVersion":"5.0.0"},"schemaVersion":"5.0.0"}
+✖ GC03 real owner allowed denied cold tamper (39421.482208ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39547.900958
+
+✖ failing tests:
+
+test at test_env/tests/t287-governed-context.test.mjs:434:1
+✖ GC03 real owner allowed denied cold tamper (39421.482208ms)
+  Error: ENOENT: no such file or directory, open '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-gc03-owner-j0ombF/transport.jsonl'
+      at async open (node:internal/fs/promises:642:25)
+      at async readFile (node:internal/fs/promises:1279:14)
+      at async TestContext.<anonymous> (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:515:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-gc03-owner-j0ombF/transport.jsonl'
+  }

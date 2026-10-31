@@ -1,0 +1,25 @@
+✖ GC03 real owner allowed denied cold tamper (56819.985875ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 56942.082333
+
+✖ failing tests:
+
+test at test_env/tests/t287-governed-context.test.mjs:619:1
+✖ GC03 real owner allowed denied cold tamper (56819.985875ms)
+  AssertionError [ERR_ASSERTION]: Construction ran with the governed endpoint: [{"kind":"selector","n":0,"pick":"graph-function://abiogenesis/default-library/testing@5","graphs":["graph-function://abiogenesis/default-library/construction@5","graph-function://abiogenesis/default-library/testing@5"],"results":[]},{"kind":"testing","status":0},{"kind":"selector","n":1,"pick":"graph-function://abiogenesis/default-library/construction@5","graphs":["graph-function://abiogenesis/default-library/construction@5","graph-function://abiogenesis/default-library/testing@5"],"results":["result://abiogenesis/48a1cf78a71842f2f9cdb915a6af3ee57fe48c395907d6640281d2ff22316884","result://abiogenesis/21a4e3d34e48ede8dc8c85d401c464a12584e317489cced11e4b5e5a800e8099"]}]
+      at TestContext.<anonymous> (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:718:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

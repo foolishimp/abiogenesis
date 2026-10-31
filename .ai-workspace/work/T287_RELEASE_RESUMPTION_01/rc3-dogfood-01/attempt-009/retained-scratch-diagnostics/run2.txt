@@ -1,0 +1,25 @@
+✖ GC03 real owner allowed denied cold tamper (39166.19975ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 39296.061125
+
+✖ failing tests:
+
+test at test_env/tests/t287-governed-context.test.mjs:434:1
+✖ GC03 real owner allowed denied cold tamper (39166.19975ms)
+  Error: ENOENT: no such file or directory, open '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-gc03-owner-7ec904/transport.jsonl'
+      at async open (node:internal/fs/promises:642:25)
+      at async readFile (node:internal/fs/promises:1279:14)
+      at async TestContext.<anonymous> (file:///private/tmp/b07-scratch.N6mDEb/repo/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs:514:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -2,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: '/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-gc03-owner-7ec904/transport.jsonl'
+  }

@@ -85,6 +85,13 @@ the successor result/replay closed and a superseded request refused. The
 does not establish physical-crash recovery, correction, repeatability or
 broader Product qualification.
 
+B07 observation, 2026-11-01: the bounded GC03 mechanical Construction
+ended `runtime_failed` at its provider turn limit without a terminal Result or
+admitted C2; a named scratch test passed but is not native acceptance. The
+[disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/B07_DISPOSITION.md)
+retains the frozen source and pending independent review. A separate fresh
+Testing → UAT Run is being prepared without carrying a prior Construction Result.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

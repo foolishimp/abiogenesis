@@ -1,0 +1,605 @@
+--- B06/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts
++++ B07/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts
+@@ -929,8 +929,11 @@
+       const testing = testingAt(worksiteOwner.prefix);
+       if (testing === null) throw new TypeError("governed context refused: binding_stale: no unique current same-Run admitted Testing Result field");
+       const files = new Map(task.context.entries.flatMap(e => e.state === "file" ? [[e.relativePath, e.digest] as const] : []));
++      // The native capability grant names the authenticated invoking actor of
++      // this execution (native work law), never the F_P worker actor; the
++      // worker actor is bound by the GC03 principal and activation template.
+       const permit = gateGovernedContextExecution(selection, { role: "constructor", graphFunctionRef: call.graphFunctionRef,
+-        implementationRef: input.request.implementationRef, actorRef: input.request.actorRef, capabilityGrantActorRef: task.capabilityGrant.actorRef,
++        implementationRef: input.request.implementationRef, actorRef: execution.actorRef, capabilityGrantActorRef: task.capabilityGrant.actorRef,
+         occurrenceCurrent: call.cCallRef === input.cCall.cCallRef && governedOccurrenceOpen, readableFiles: new Set(files.keys()) });
+       const testingKey = `${testing.resultRef}#${JSON.stringify(testing.fieldPath)}`;
+       const sourceKeys = Object.freeze([policy.sources.task, policy.sources.rubric, ...policy.sources.worksite, testingKey]);
+--- B06/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs
++++ B07/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs
+@@ -1,10 +1,10 @@
+ import assert from "node:assert/strict";
+-import { execFile } from "node:child_process";
++import { execFile, execFileSync } from "node:child_process";
+ import { createHash } from "node:crypto";
+-import { existsSync, realpathSync } from "node:fs";
++import { existsSync, readFileSync, realpathSync } from "node:fs";
+ import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+ import { homedir, tmpdir } from "node:os";
+-import { join } from "node:path";
++import { basename, dirname, join } from "node:path";
+ import test from "node:test";
+ import { pathToFileURL } from "node:url";
+ 
+@@ -427,135 +427,487 @@
+   assert.match(gc.governedContextPrompt({ executable: "/n", client: "/c", endpoint: "/e" }, [], 8192), /maxBytes \(1\.\.8192; a larger value is refused/u);
+ });
+ 
+-// Decisive owner-chain case. Real held store, installed owner admission and
+-// HoG/native actor; only the provider is replaced by a controlled stand-in
+-// that selects Testing, then Construction from Testing's admitted Result, and
+-// in Construction runs the injected fixed client against the live endpoint.
++// Declared B05 GC03 recipe (make-gc03-candidate.py, make-activation-template.py):
++// pinned host prerequisites, the released method profile, the native work
++// identities and the custody digests of its released STDO and operator sources.
++const GC03_RECIPE = Object.freeze({
++  python: "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
++  pythonSha256: "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539", pythonVersion: "3.12.8",
++  release: join(homedir(), ".local/share/a_c/development-supplements/gc03-adb3d8ee-1"),
++  profile: "urn:a-c:fd-support:method:stdo-3.0.2:executive:1",
++  actor: "actor://abiogenesis/worksite/native-work@5", graph: "graph-function://abiogenesis/worksite/native-work@5",
++  implementation: "implementation://abiogenesis/worksite/native-work-fp@5",
++  principal: "constructor", grant: "witness-context-read", executor: "gc03-python-host-adapter",
++  modules: ["ac_support_core", "ac_support_composition", "ac_graph", "ac_formal_gate", "ac_support_effects", "ac_support", "ac_context_presentation"],
++  standards: { "ACTIVATION.md": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
++    "EVALUATION.md": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
++    "AXIOMATIC_CALCULUS.md": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5" },
++  authority: { "OPERATOR.md": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
++    "GC03_DELEGATION.md": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
++    "task.md": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
++    "rubric.json": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25" },
++});
++// The recipe's operator authority sources, byte-exact with the custody digests above.
++const GC03_OPERATOR_SOURCES = Object.freeze({
++  "OPERATOR.md": ["# RC2 builds RC3: current operator allocation",
++    "",
++    "Exact owner instruction: “review, fix, and continue on using rc2 being used to",
++    "build rc3”. Root's interpretation is selection of necessary local RC2",
++    "development deployment and the reviewed GC-03 dependency, then a bounded",
++    "RC2-built RC3 repair. No external publication or whole-product/native",
++    "qualification is inferred. The GC-03 exact local release/install decision is",
++    "separately recorded when actually made; a prepared plan is not that decision.",
++    "",
++    "Root Codex is the sole ABI operator proxy. This carrier supplies declarations",
++    "and exact-bound operator tooling; ABG must author any Product change through",
++    "its own admitted lifecycle. The proxy does not fabricate native success,",
++    "human responses, events, independence, or acceptance. The original RC2 native",
++    "Run 009 remains blocked and its UAT unmet; the local candidate remains",
++    "unqualified. Preserve all original criteria, existing failures, earlier",
++    "preimages, observations, cost and unknowns.",
++    "",
++    "The [preparation contract](PREPARATION.md) names the Product basis, exact",
++    "source/artifact, retained evidence, write scope and excluded effects. Fresh",
++    "RC2 install, verification, runtime setup, lock, catalog, workspace authority,",
++    "resources and event histories must bind RC2, not a renamed RC1 configuration.",
++    "No actual install, runtime setup, native call or provider launch is authorized",
++    "by this file alone; Executive selection precedes those effects. When the repair",
++    "contract is written, distinguish the verbatim owner instruction from",
++    "Root-derived acceptance criteria and do not add a selector requirement to the",
++    "original outcome.",
++    ""].join("\n"),
++  "GC03_DELEGATION.md": ["# Operator declaration for the governed-lookup witness",
++    "",
++    "Owner instruction: “review, fix, and continue on using rc2 being used to build rc3”.",
++    "",
++    "Root selected completing the GC03 policy/executor input through the existing verified ABG Program-policy member, preserving native event authority and without fabricated a_c preflight, observations or receipts. The bounded witness reads the native current-Run Testing stdout, the original task and original rubric with denied-key refusal; it preserves their original criteria and obtains actual native currentness and permissions from the owner.",
++    "",
++    "This is a source-backed operator selection, not an admitted native grant, event, Result, provider preflight, publication, Product acceptance or release. The native owner must authenticate the actual occurrence, actor, grant, source and installed executor; the GC03 callback prepares acquisition evidence only.",
++    ""].join("\n"),
++  "task.md": ["# Native governed-lookup witness",
++    "",
++    "First run the declared Testing command on the provided diagnostic fixture without claiming an earlier subject Result. Then, in native Construction, use the installed governed-lookup client to retrieve the current Run's admitted Testing stdout, the original task and the original rubric. Read the complete permitted source bytes in bounded pages and use their actual contents to describe the observed failure. Request a denied key and report the refusal without falling back to another source or widening authority. Preserve the original task and rubric when explaining the result.",
++    "",
++    "If a source, permission, fixed client, complete response, or producer relationship is unavailable, report the specific gap; do not guess. Identify the current Run's Testing Result and producer from the delivered evidence. Report what the retrieved bytes support and what remains unproven.",
++    ""].join("\n"),
++  "rubric.json": ["{",
++    "  \"outcome\": \"A bounded native Construction lookup over the current Run's admitted diagnostic evidence and original task basis\",",
++    "  \"criteria\": [",
++    "    {\"id\":\"W1\",\"criterion\":\"The first selected Testing call has no claimed prior subject Result and measures the exact provided diagnostic fixture as its actual stdout in this Run.\"},",
++    "    {\"id\":\"W2\",\"criterion\":\"Native Construction uses the fixed installed lookup client to retrieve the complete current-Run Testing stdout and original task and rubric, with their actual producer, source and byte identities.\"},",
++    "    {\"id\":\"W3\",\"criterion\":\"An explicitly denied key is refused, without authority widening or fallback; complete request and response bytes and their Claude tool-result correspondence are retained and cold-joinable.\"},",
++    "    {\"id\":\"W4\",\"criterion\":\"The actor identifies the actual failure supported by the retrieved bytes, conserves the original task and rubric, and distinguishes observation from unproven behavior.\"},",
++    "    {\"id\":\"W5\",\"criterion\":\"Actual admitted Testing, Construction and transport evidence is preserved with honest gaps and native parent status; the witness does not claim overall UAT or Product qualification.\"}",
++    "  ]",
++    "}",
++    ""].join("\n"),
++});
++
++/**
++ * The declared B05 recipe, ported into one fresh test-local directory. Every
++ * source is copied from its owner and verified there: the tracked Product
++ * definition, the resolved STDO 3.0.2 release, the installed released GC03
++ * inventory and the embedded operator authority. Python and the candidate
++ * adapter are re-pinned from their actual bytes. The late task and rubric are
++ * the actual original sources of this Run; late/2 stays an owner-filled null.
++ */
++async function materializeGc03Recipe({ root, repoRoot, stdoRoot, adapterPath, product, ids, task, rubric }) {
++  const R = GC03_RECIPE, hex = bytes => createHash("sha256").update(bytes).digest("hex"), canonical = value => Buffer.from(product.canonicalJson(value), "utf8");
++  assert.deepEqual([ids.workerActorRef, ids.graphFunctionRef, ids.implementationRef], [R.actor, R.graph, R.implementation], "recipe names the actual native work identities");
++  const sources = join(root, "governed-context-sources"), held = new Map();
++  const place = async (rootId, path, bytes, expected) => {
++    if (expected !== undefined) assert.equal(hex(bytes), expected, `${rootId}/${path} differs from its custody digest`);
++    const target = join(sources, rootId, path); await mkdir(dirname(target), { recursive: true }); await writeFile(target, bytes, { flag: "wx" });
++    held.set(`${rootId}/${path}`, hex(bytes));
++  };
++  await place("abg", "stdo_abiogenesis.json", await readFile(join(repoRoot, "stdo_abiogenesis.json")));
++  await place("abg", "specification/PRODUCT.md", await readFile(join(repoRoot, "specification/PRODUCT.md")));
++  for (const [name, digest] of Object.entries(R.standards)) await place("method", name, await readFile(join(stdoRoot, "standards", name)), digest);
++  // Installed released GC03: installation record, inventory, design sources and code members.
++  const release = realpathSync(R.release); assert.equal(release, R.release, "installed GC03 root is canonical");
++  const installation = JSON.parse(await readFile(join(release, "release-installation.json"), "utf8")), inventoryBytes = await readFile(join(release, "contents/INVENTORY.json"));
++  assert.deepEqual([installation.identity, installation.status, installation.inventorySha256, hex(inventoryBytes)],
++    [gc.GC03_SELECTED_RELEASE.identity, "RELEASED", gc.GC03_SELECTED_RELEASE.inventorySha256, gc.GC03_SELECTED_RELEASE.inventorySha256], "selected released GC03");
++  const inventory = JSON.parse(inventoryBytes.toString("utf8")).files;
++  const released = async member => { const bytes = await readFile(join(release, "contents", member));
++    assert.equal(hex(bytes), inventory[member]?.sha256, `released GC03 member ${member}`); return bytes; };
++  await place("method", "fd-method-stdo-3.0.2.json", await released("a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json"));
++  await place("authority", "fd-support-host-lookup.md", await released("a_c/build_tenants/graphify/design/fd-support-host-lookup.md"));
++  for (const [name, text] of Object.entries(GC03_OPERATOR_SOURCES)) await place("authority", name, Buffer.from(text, "utf8"), R.authority[name]);
++  const gcPaths = ["release-installation.json", "contents/INVENTORY.json", ...R.modules.map(n => `contents/a_c/build_tenants/graphify/code/${n}.py`)];
++  for (const path of gcPaths.slice(2)) await released(path.slice("contents/".length));
++  const pythonBytes = await readFile(R.python), adapterBytes = await readFile(adapterPath);
++  assert.equal(realpathSync(R.python), R.python, "pinned Python path is canonical"); assert.equal(hex(pythonBytes), R.pythonSha256, "selected Python bytes");
++  const fileRef = (rootId, path, digest) => ({ engine: "workspace-regular-file", root: rootId, path, object: null, sha256: digest, selector: null });
++  const ref = (rootId, path) => fileRef(rootId, path, held.get(`${rootId}/${path}`));
++  const method = ref("method", "fd-method-stdo-3.0.2.json"), role = ref("method", "ACTIVATION.md"), definition = ref("abg", "stdo_abiogenesis.json"),
++    owner = ref("abg", "specification/PRODUCT.md"), authority = ref("authority", "GC03_DELEGATION.md"), outcome = ref("authority", "task.md"),
++    host = ref("authority", "fd-support-host-lookup.md"), evaluation = ref("method", "EVALUATION.md"), algebra = ref("method", "AXIOMATIC_CALCULUS.md");
++  const releaseRefs = await Promise.all(gcPaths.map(async path => fileRef("gc03", path, hex(await readFile(join(release, path))))));
++  const workspace = (path, paths) => ({ path, read_scope: paths.map(p => ({ path: p, kind: "file" })), kind: "workspace", writable: false });
++  const evidence = join(root, "runtime-001/resources/archives/gc03-host-only"), worksite = join(root, "runtime-001/worksite");
++  const mechanism = { id: "abiogenesis-native-held-store/1", source: host, implementation_sha256: hex(adapterBytes) };
++  const policy = { schema: "a_c.fd-support.policy/1", id: "urn:abiogenesis:witness:gc03-policy:1",
++    product: { definition_id: "urn:stdo:product-definition:abiogenesis", definition, authority_binding: { definition_locator: "/reference_frame_bases/0/authority/0",
++      owner_record: owner, mechanism, result_surface: { root: evidence, namespace: "prepared-lookup", consumer: "native-abg-owner" },
++      scope: "native host-owned prepared context.read; no provider preflight" } },
++    method_profile: { id: R.profile, sha256: method.sha256, source: method },
++    sources: { abg: workspace(join(sources, "abg"), ["stdo_abiogenesis.json", "specification/PRODUCT.md"]),
++      method: workspace(join(sources, "method"), ["fd-method-stdo-3.0.2.json", "ACTIVATION.md", "EVALUATION.md", "AXIOMATIC_CALCULUS.md"]),
++      authority: workspace(join(sources, "authority"), ["OPERATOR.md", "GC03_DELEGATION.md", "task.md", "rubric.json", "fd-support-host-lookup.md"]),
++      python: workspace(dirname(R.python), [basename(R.python)]), adapter: workspace(dirname(adapterPath), [basename(adapterPath)]), gc03: workspace(release, gcPaths) },
++    principals: { [R.principal]: { actor_id: R.actor, role: "Worker", family: "abiogenesis-native-work", authorship: "native-construction",
++      operations: ["context.assemble", "context.read"], role_binding: role, role_transition: null } },
++    grants: { [R.grant]: { id: R.grant, authority_sources: [authority], outcome: { id: "witness-original-task", source: outcome }, principals: [R.principal],
++      targets: [R.principal], operations: ["context.read"], tools: ["context.read"], executors: [R.executor], territory: [], preconditions: [],
++      admission: { mechanism_id: mechanism.id, mechanism_source: host, authority_source: authority, required_predicates: [], allowed_override_sources: [] },
++      notification_sink: null } },
++    predicates: {}, operators: {},
++    executors: { [R.executor]: { id: R.executor, executable: { path: R.python, sha256: R.pythonSha256 }, argv: [R.python, "-I", "-S", "-B", adapterPath],
++      dependencies: [fileRef("python", basename(R.python), R.pythonSha256), fileRef("adapter", basename(adapterPath), hex(adapterBytes)), ...releaseRefs],
++      cwd: worksite, environment: {}, actor_id: R.actor, settings: {}, tools: ["context.read"],
++      effect_scope: { cooperative: true, filesystem: "host-mediated", unknowns: ["native owner controls actual publication"] }, stdin_mode: "context-utf8",
++      stdout_decoder: { format: "json", pointer: null, decode_json_string: false }, observers: [{ kind: "process-end" }] } },
++    event_sinks: {}, independence_policy: null, evidence_root: evidence,
++    limits: { max_message_bytes: 16000000, max_files: 128, max_bytes: 8192, max_history_records: 10000, max_wait_ms: 1000 }, authority_sources: [authority] };
++  const policyBytes = canonical(policy), output = join(root, "candidate"), policyPath = join(output, "gc03-policy.json");
++  await mkdir(output); await mkdir(evidence, { recursive: true }); await mkdir(worksite, { recursive: true });
++  await writeFile(policyPath, policyBytes, { flag: "wx" });
++  const privateMember = canonical({ kind: gc.GOVERNED_CONTEXT_POLICY_KIND, schemaVersion: "5.0.0",
++    release: { identity: gc.GC03_SELECTED_RELEASE.identity, inventorySha256: gc.GC03_SELECTED_RELEASE.inventorySha256, installedRoot: release, policyPath,
++      policyDigest: "sha256:" + hex(policyBytes) },
++    python: { path: R.python, digest: "sha256:" + R.pythonSha256, version: R.pythonVersion }, adapter: { path: adapterPath, digest: "sha256:" + hex(adapterBytes) },
++    invocation: { argv: ["-I", "-S", "-B", adapterPath], environment: {}, timeoutMs: 30000 }, principal: { principalId: R.principal, grantId: R.grant },
++    permission: { role: "constructor", graphFunctionRef: R.graph, implementationRef: R.implementation, execution: gc.GOVERNED_CONTEXT_EXECUTION },
++    sources: { task: task.path, rubric: rubric.path, worksite: [], testing: { purpose: "testing", fieldPath: [...TESTING_FIELD] } } });
++  const lateTask = { ...gc.gc03RetainedSourceRef(task.path, task.digest) }, lateRubric = { ...gc.gc03RetainedSourceRef(rubric.path, rubric.digest) };
++  const packet = { activation: { id: null, revision: "1", configuration: authority },
++    frame: { id: null, revision: "1", declaration: role, evaluation, result_algebra: algebra },
++    subject_basis: { subject: null, method_profile: { id: policy.method_profile.id, sha256: policy.method_profile.sha256 },
++      product: { id: policy.product.definition_id, definition }, observations: null, dependencies: [definition, authority],
++      time_basis: "actual current native occurrence supplied by trusted host" },
++    attention: { material_relations: [lateTask, lateRubric], invariants: [authority], semantic_sources: [lateTask, lateRubric], exclusions: [],
++      prohibited_assumptions: ["do not replace original task or rubric criteria"] },
++    actor_authority: { actor_id: R.actor, role: "Worker", capability: authority, semantic: null, evaluation, operation: authority, decision: null, acceptance: null,
++      publication: null, territory: [], tools: ["context.read"] },
++    evidence_relations: { admissible_evidence: [lateTask, lateRubric], acquisition: [authority], dependencies: [definition, owner, role], conjunction: null,
++      translation: null, consumer: "native-abg-owner", return_contract: lateTask },
++    stop_change: { invalidators: [], stop_conditions: [], residuals: [], re_entry: [], reconfiguration: [] },
++    profile_additions: { worker: { operation_grant_id: R.grant, mutation_subject: null, territory: [] } } };
++  const template = Buffer.from(JSON.stringify({ kind: gc.GC03_ACTIVATION_TEMPLATE_KIND, status: "INCOMPLETE_NOT_ADMITTED", policySha256: hex(policyBytes),
++    request: { schema: "a_c.fd-support.request/1", id: null, operation: "context.assemble", arguments: { packet, models: [], sources: [],
++      late_acquisition: [lateTask, lateRubric, null], envelope: { capacity_bytes: null, boundary: "executor-stdin-utf8", host_context: { state: "unknown", bytes: null, evidence: null } } } },
++    requiredCurrentBindings: { "request.id": "fresh correlation label; not a receipt", "packet.activation.id": "current host-admitted activation identifier",
++      "packet.frame.id": "current host-selected frame identifier",
++      "packet.subject_basis.subject": "exact Identity of current native task; same Identity also fills packet.profile_additions.worker.mutation_subject",
++      "packet.subject_basis.observations": "supported a_c Observation ArtifactRefs only; explicit empty list if none selected; keep native ABG event and Result provenance in owner_coordinates and authenticated source joins",
++      "arguments.late_acquisition[2]": "retained-evidence SourceRef for unique current same-Run admitted Testing Result commandResults[0].stdout, with actual Result-derived id and stream digest" },
++    requiredOwnerFacts: ["authenticate actual principal/actor/native capability and current occurrence independently before deriving the Context",
++      "reacquire original task, original rubric, selected Testing producer and exact byte identities",
++      "bind exact executor and policy, and project currentness before actual host publication"],
++    limits: ["No a_c provider preflight, native Result, observation, receipt, delivery or admission is supplied",
++      "Source labels and original criteria preserve user text; no semantic judgment is automated",
++      "Future installed adapter and GC03 policy path require a fresh candidate with exact installed bytes"] }, null, 2) + "\n");
++  return { policyPath, policyBytes, privateMember, template, adapterDigest: "sha256:" + hex(adapterBytes) };
++}
++
++// Decisive owner-chain case. Real held store, installed owner admission,
++// HoG/prepared native leaf and actor, installed fixed client and released GC03;
++// only the provider is a controlled non-provider stand-in. It selects Testing,
++// then Construction citing Testing's admitted Result; in Construction it pages
++// the three granted keys and one denied key through the fixed client.
+ test("GC03 real owner allowed denied cold tamper", { timeout: 1_800_000 }, async t => {
+   const { setupInstalledRootCatalog } = await import("../support/root-installed-environment.mjs");
+   const { prepareRegisteredSelectionProduct, constructInstalledStartCall, runInstalledCliRequest } = await import("../support/registered-graph-selection.mjs");
+   const { libraryConsumerDeclaration, libraryEnvironment, witnessInput } = await import("../support/default-library.mjs");
+-  const witnessRoot = join(packageRoot, "../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness");
++  const repoRoot = join(packageRoot, "../../.."), witnessRoot = join(repoRoot, ".ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness");
+   const selection = JSON.parse(await readFile(join(witnessRoot, "selection.json"), "utf8"));
+   const local = realpathSync(await mkdtemp(join(tmpdir(), "abg-gc03-owner-"))); t.after(() => rm(local, { recursive: true, force: true }));
+   const log = join(local, "transport.jsonl"), counter = join(local, "selector-count");
+-  // Test-local pins regenerated from the actual candidate bytes in this tree.
+-  const adapterBytes = await readFile(existsSync(packagedAdapterPath) ? packagedAdapterPath : trackedAdapterPath);
+-  const pythonPath = "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12", gc03Root = join(homedir(), ".local/share/a_c/development-supplements/gc03-adb3d8ee-1");
+-  assert.ok(existsSync(pythonPath) && existsSync(gc03Root), "pinned Python and installed released GC03 are host prerequisites");
+-  const adapterPath = join(local, "dependency/host_adapter.py"); await mkdir(join(local, "dependency")); await writeFile(adapterPath, adapterBytes);
++  // The Product Definition selects its exact STDO basis; the toolchain resolves that installed release.
++  const basis = JSON.parse(await readFile(join(repoRoot, "stdo_abiogenesis.json"), "utf8")).constitution.stdo.basis;
++  const resolved = JSON.parse(execFileSync("stdo", ["resolve", basis.uri], { encoding: "utf8" }));
++  assert.equal(resolved.uri, basis.uri, "stdo resolves the selected release");
++  const stdoRoot = realpathSync(resolved.path), manifest = await readFile(join(stdoRoot, "manifest.json"));
++  assert.equal(sha(manifest), "sha256:" + basis.manifest_sha256, "resolved STDO manifest is the pinned Product basis");
++  assert.ok(manifest.equals(await readFile(join(packageRoot, "contracts/default-library/stdo/manifest.json"))), "resolved manifest is the packaged pinned manifest");
++  const original = path => ({ path, digest: "sha256:" + selection.seedFiles[path].sha256 });
++  const task = original("source/original-basic-cli.txt"), rubric = original("source/basic-cli.oracle.json");
+   let selectedEnvironment, governed;
++  const owners = await loadOwners();
+   const env = await setupInstalledRootCatalog(t, packageRoot, { candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
++    programRef: owners.product.WORKSITE_CONSTRUCTION_IDS.programRef,
++    additionalCorePublicationConstructors: ["constructDefaultGovernanceLibraryModulePublication", "constructNativeWorkspaceWorkModulePublication",
++      "constructWorksiteCommandExecutionModulePublication"],
+     prepareAdditionalProducts: async setup => {
+       const { gtl, product } = setup;
+       selectedEnvironment = await libraryEnvironment({ ...setup, packageRoot: setup.bootstrapPackage });
+-      const ids = product.NATIVE_WORKSPACE_WORK_IDS;
+-      const gc03Policy = Buffer.from(JSON.stringify({ schema: "a_c.fd-support.policy/1", id: "urn:abiogenesis:test:gc03-policy:1",
+-        limits: { max_message_bytes: 16000000, max_files: 128, max_bytes: 8192, max_history_records: 10000, max_wait_ms: 1000 } }));
+-      const gc03PolicyPath = join(local, "gc03-policy.json"); await writeFile(gc03PolicyPath, gc03Policy);
+-      const policyBytes = Buffer.from(JSON.stringify({ ...governedPolicyValue(gc, { pythonPath, pythonDigest: sha(await readFile(pythonPath)), adapterPath, adapterDigest: sha(adapterBytes),
+-        implementationRef: ids.implementationRef, gc03PolicyPath, gc03PolicyDigest: sha(gc03Policy) }),
+-        permission: { role: "constructor", graphFunctionRef: ids.graphFunctionRef, implementationRef: ids.implementationRef, execution: gc.GOVERNED_CONTEXT_EXECUTION },
+-        sources: { task: "source/original-basic-cli.txt", rubric: "source/basic-cli.oracle.json", worksite: [], testing: { purpose: "testing", fieldPath: [...TESTING_FIELD] } } }));
+-      const r = JSON.parse(policyBytes); r.release.installedRoot = gc03Root; const policyFinal = Buffer.from(JSON.stringify(r));
+-      const templateBytes = Buffer.from(JSON.stringify({ kind: "gc03_activation_template", operation: "context.assemble" }));
++      // The packed candidate adapter is the tracked candidate source named by the packaged selection.
++      const packaged = JSON.parse(await readFile(join(setup.bootstrapPackage, "contracts/governed-context/selection.json"), "utf8"));
++      const adapterPath = realpathSync(join(setup.bootstrapPackage, packaged.adapter.path)), adapterDigest = sha(await readFile(adapterPath));
++      assert.equal(adapterDigest, packaged.adapter.sha256); assert.equal(adapterDigest, sha(await readFile(trackedAdapterPath)));
++      assert.deepEqual(packaged.gc03, { ...gc.GC03_SELECTED_RELEASE });
++      const recipe = await materializeGc03Recipe({ root: join(local, "gc03"), repoRoot, stdoRoot, adapterPath, product, ids: product.NATIVE_WORKSPACE_WORK_IDS, task, rubric });
+       const basisRef = "support://abiogenesis/governed-context/", contextRef = "context://abiogenesis/governed-context";
+-      const files = [["governed-context/activation.json", templateBytes], ["governed-context/policy.json", policyFinal]];
++      const files = [["governed-context/activation.json", recipe.template], ["governed-context/policy.json", recipe.privateMember]];
+       const members = files.map(([path, bytes]) => ({ digest: product.sha256Bytes(bytes), path, target: null, type: "file" }));
+-      const recordBytes = Buffer.from(JSON.stringify(members)); assert.equal(product.sha256Bytes(recordBytes), product.sha256Canonical(members), "record bytes are canonical");
+-      const depRoot = join(local, "governed-dependency"); for (const [path, bytes] of files) { await mkdir(join(depRoot, "governed-context"), { recursive: true }); await writeFile(join(depRoot, path), bytes); }
+-      await writeFile(join(depRoot, "inventory.json"), recordBytes);
++      // The owner's member_inventory@1 record over both members.
++      const recordBytes = Buffer.from(product.canonicalJson({ kind: "run_environment_member_inventory", schemaVersion: "5.0.0", members }) + "\n");
++      assert.deepEqual(product.runEnvironmentRecordMembers("member_inventory@1", recordBytes), members, "the RunEnvironment owner decodes the record");
++      const depRoot = join(local, "governed-dependency"); await mkdir(join(depRoot, "governed-context"), { recursive: true });
++      for (const [path, bytes] of files) await writeFile(join(depRoot, path), bytes, { flag: "wx" });
++      await writeFile(join(depRoot, "inventory.json"), recordBytes, { flag: "wx" });
+       const cm = files.map(([path, bytes], i) => ({ memberRef: `member://abiogenesis/governed-context/${path.split("/")[1]}@5`, path, byteCount: bytes.length, digest: members[i].digest }));
+       const d = structuredClone(selectedEnvironment.declaration); delete d.declarationDigest;
+-      d.dependencies.push({ dependencyRef: "dependency://abiogenesis/governed-context", basisRef, recordRef: basisRef + "inventory.json", recordDigest: product.sha256Canonical(members),
+-        recordFormat: "member_inventory@1", inventoryDigest: gtl.stdoInventoryDigest(members), members });
++      d.dependencies.push({ dependencyRef: "dependency://abiogenesis/governed-context", basisRef, recordRef: basisRef + "inventory.json",
++        recordDigest: product.sha256Bytes(recordBytes), recordFormat: "member_inventory@1", inventoryDigest: gtl.stdoInventoryDigest(members), members });
+       d.contexts.push({ contextRef, sourceLocator: basisRef, inventoryDigest: product.sha256Canonical(cm), members: cm });
+       const constructors = d.roles.filter(role => role.role === "constructor"); assert.ok(constructors.length >= 1, "default library declares a constructor role");
+       for (const role of constructors) role.sourceBindings.push(...cm.map(m => ({ contextRef, memberRef: m.memberRef, memberDigest: m.digest, startByte: 0, endByte: m.byteCount, spanDigest: m.digest })));
+       const declaration = gtl.constructRunEnvironmentDeclaration(d), base = selectedEnvironment;
+       selectedEnvironment = { declaration, resources: async input => {
+-        const built = await base.resources(input), coordinates = { dependencies: [...built.dependencies, { dependencyRef: "dependency://abiogenesis/governed-context", root: depRoot, recordPath: join(depRoot, "inventory.json") }],
+-          pythonPath: null, temporaryRoot: built.temporaryRoot };
++        const built = await base.resources(input), coordinates = { dependencies: [...built.dependencies,
++          { dependencyRef: "dependency://abiogenesis/governed-context", root: depRoot, recordPath: join(depRoot, "inventory.json") }], pythonPath: null, temporaryRoot: built.temporaryRoot };
+         return product.constructRunEnvironmentResources({ kind: "run_environment_resources", schemaVersion: "5.0.0", ...coordinates,
+           permission: { ...built.permission, environmentDigest: product.sha256Canonical(declaration), ...coordinates } }); } };
+-      governed = { policyRef: cm[1].memberRef, templateRef: cm[0].memberRef, policyDigest: members[1].digest, files };
+-      const library = gtl.constructDefaultGovernanceLibraryModulePublication({ productId: product.ABI5_PRODUCT_ID, artifactDigest: "sha256:" + "1".repeat(64), productContentDigest: "sha256:" + "2".repeat(64), productManifestDigest: "sha256:" + "3".repeat(64), packageName: setup.abiPublication.productSemanticsBinding.packageName,
+-        packageVersion: setup.abiPublication.productSemanticsBinding.packageVersion });
++      governed = { policyRef: cm[1].memberRef, templateRef: cm[0].memberRef, privateMember: recipe.privateMember, adapterDigest };
++      const library = gtl.constructDefaultGovernanceLibraryModulePublication({ productId: product.ABI5_PRODUCT_ID, artifactDigest: "sha256:" + "1".repeat(64),
++        productContentDigest: "sha256:" + "2".repeat(64), productManifestDigest: "sha256:" + "3".repeat(64),
++        packageName: setup.abiPublication.productSemanticsBinding.packageName, packageVersion: setup.abiPublication.productSemanticsBinding.packageVersion });
+       return [await prepareRegisteredSelectionProduct({ ...setup, abiPackageArchivePath: setup.abiPackageArchivePath, declarationFactory: g => {
+         const consumer = libraryConsumerDeclaration(g, library, declaration, { purposes: ["construction", "testing"] });
+         consumer.programs[0].policies = { ...consumer.programs[0].policies, [gc.GOVERNED_CONTEXT_POLICY_KEY]: governed.policyRef, [gc.GOVERNED_CONTEXT_ACTIVATION_KEY]: governed.templateRef };
+         return consumer; },
+         fixtureFiles: [{ path: "build/index.mjs", source: new URL("../fixtures/default-library-product/index.mjs", import.meta.url) }] })];
+     } });
+-  // Both private keys survive actual installed owner admission into the admitted publication.
++  // Both private keys survive installed owner admission into the admitted publication.
+   const admitted = env.additionalPublications[0].programs[0];
+   assert.equal(admitted.policies[gc.GOVERNED_CONTEXT_POLICY_KEY], governed.policyRef); assert.equal(admitted.policies[gc.GOVERNED_CONTEXT_ACTIVATION_KEY], governed.templateRef);
++  // The installed identity carries the same adapter and the fixed client named by its selection.
++  const installedSelection = JSON.parse(await readFile(join(env.installedRoot, "contracts/governed-context/selection.json"), "utf8"));
++  const installedClient = realpathSync(join(env.installedRoot, installedSelection.client.path));
++  assert.equal(sha(await readFile(installedClient)), installedSelection.client.sha256, "installed fixed client bytes");
++  assert.equal(sha(await readFile(join(env.installedRoot, installedSelection.adapter.path))), governed.adapterDigest, "installed adapter is the pinned candidate adapter");
+   const worksite = env.workspaceBinding.canonicalRoot ?? env.workspaceAuthority?.canonicalRoot ?? join(env.scratch, "workspace");
+   await cp(join(witnessRoot, "seed"), worksite, { recursive: true });
++  for (const source of [task, rubric]) assert.equal(sha(await readFile(join(worksite, source.path))), source.digest, `seeded ${source.path}`);
+   const input = await witnessInput({ product: env.product, selection, seedRoot: worksite });
+   env.catalogView = env.product.narrowGraphFunctionCatalog(env.catalog, admitted.callableMembership);
+   const load = path => import(pathToFileURL(join(env.installedRoot, `build/code/src/${path}.js`)).href);
+   const publicApi = await load("public/index"), storeOwner = await load("abg/event_store");
+   let handoff = env.store.projectReopenAuthorityAndClose();
+   const resource = () => ({ kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff: handoff, handoffDigest: env.product.sha256Canonical(handoff) });
+-  const start = await constructInstalledStartCall({ environment: env, publicApi, eventResource: resource(), input, identity: "default-library", runEnvironmentResourceFactory: selectedEnvironment.resources });
++  const start = await constructInstalledStartCall({ environment: env, publicApi, eventResource: resource(), input, identity: "default-library",
++    runEnvironmentResourceFactory: selectedEnvironment.resources });
++  // The witness Program, with both private keys, validates through the real resolution owner.
++  assert.equal(start.resolution.programValidation.kind, "program_validation"); assert.equal(start.resolution.programValidation.programRef, admitted.programRef);
++  assert.equal(start.resolution.program.policies[gc.GOVERNED_CONTEXT_POLICY_KEY], governed.policyRef);
+   const fake = join(local, "claude.mjs");
+-  await writeFile(fake, `#!${process.execPath}\n` + controlledProvider({ log, counter, clientPath: join(env.installedRoot, "build/code/src/abg/governed_context_client.js") }), { mode: 0o755 });
++  await writeFile(fake, `#!${process.execPath}\n` + controlledProvider({ log, counter, pageBytes: 4096 }), { mode: 0o755 });
+   const before = storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
+-  const execution = await runInstalledCliRequest({ scratch: env.scratch, installedRoot: env.installedRoot, identity: "default-library", acquisition: { kind: "reopen", closeHandoff: handoff },
+-    call: start.call, expectedExitCode: null, environment: { ...process.env, ABG_TS_CLAUDE_COMMAND: fake } });
++  const cliEnvironment = { ...process.env, ABG_TS_CLAUDE_COMMAND: fake };
++  const execution = await runInstalledCliRequest({ scratch: env.scratch, installedRoot: env.installedRoot, identity: "default-library",
++    acquisition: { kind: "reopen", closeHandoff: handoff }, call: start.call, expectedExitCode: null, environment: cliEnvironment });
+   const receipt = execution.output.receipt; assert.ok(receipt, JSON.stringify(execution.output).slice(0, 4000));
+   handoff = receipt.resources.eventResource.closeHandoff;
+   const events = storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).slice(before);
+-  const rows = (await readFile(log, "utf8")).trim().split("\n").map(l => JSON.parse(l));
+-  const testingResult = events.find(e => e.kind === "c_call_result_admitted" && e.payload.value?.commandResults !== undefined);
+-  assert.ok(testingResult, "same-Run Testing Result admitted before Construction");
+-  const governedRow = rows.find(r => r.kind === "construction"); assert.ok(governedRow, "Construction ran with the governed endpoint: " + JSON.stringify(rows).slice(0, 2000));
+-  const seed = p => readFile(join(worksite, p));
+-  assert.deepEqual(Buffer.from(governedRow.allowed[0], "base64"), await seed("source/original-basic-cli.txt"), "exact task bytes");
+-  assert.deepEqual(Buffer.from(governedRow.allowed[1], "base64"), await seed("source/basic-cli.oracle.json"), "exact rubric bytes");
+-  assert.equal(sha(Buffer.from(governedRow.allowed[2], "base64")), sha(Buffer.from(String(testingResult.payload.value.commandResults[0].stdout))), "exact admitted Testing field bytes");
+-  assert.equal(page(Buffer.from(governedRow.denied, "base64")).code, "key_denied", "denied key replies with refusal");
+-  const binding = events.find(e => e.kind === "actor_transport_binding_admitted" && JSON.stringify(e.payload).includes(gc.GOVERNED_CONTEXT_ENDPOINT_ENV));
+-  assert.ok(binding, "governed Construction transport binding admitted");
+-  const stdout = await readFile(binding.payload.paths.stdoutPath ?? binding.payload.paths.stdout);
+-  const transcriptEvent = events.find(e => JSON.stringify(e.payload ?? {}).includes("abg.governed_context.transcript"));
+-  assert.ok(transcriptEvent, "retained governed transcript event");
+-  const cold = gc.coldVerifyGovernedContext({ stdout, stdoutDigest: sha(stdout), transcript: Buffer.from(transcriptEvent.payload.transcript, "base64"), ...transcriptEvent.payload.coordinates });
+-  assert.equal(cold.kind, "governed_context_corresponds", "cold owner rejoin from durable bytes");
+-  const tampered = Buffer.from(stdout.toString("utf8").replace(governedRow.allowed[0].slice(0, 8), "AAAAAAAA"));
+-  assert.notEqual(gc.coldVerifyGovernedContext({ stdout: tampered, stdoutDigest: sha(tampered), transcript: Buffer.from(transcriptEvent.payload.transcript, "base64"), ...transcriptEvent.payload.coordinates }).kind,
+-    "governed_context_corresponds", "tampered delivery refuses");
+-});
+-
+-function controlledProvider({ log, counter, clientPath: client }) {
+-  return `import { appendFileSync, existsSync, readFileSync, writeFileSync } from "node:fs";
+-import { execFileSync } from "node:child_process";
+-const argv = process.argv.slice(2), stdin = (() => { try { return readFileSync(0, "utf8"); } catch { return ""; } })(), text = argv.join("\\n") + "\\n" + stdin;
+-const out = line => process.stdout.write(JSON.stringify(line) + "\\n"), log = row => appendFileSync(${JSON.stringify(log)}, JSON.stringify(row) + "\\n");
+-const prompt = argv[argv.indexOf("--append-system-prompt") + 1];
+-if (argv.includes("--append-system-prompt") && process.env.ABG_GOVERNED_CONTEXT_ENDPOINT) {
+-  const exe = process.env.ABG_GOVERNED_CONTEXT_EXECUTABLE, cli = process.env.ABG_GOVERNED_CONTEXT_CLIENT;
+-  const ask = (i, key) => { const wire = JSON.stringify({ requestId: "r" + i, key, offset: 0, maxBytes: 8192 });
+-    try { return execFileSync(exe, [cli, wire], { env: process.env }); } catch (e) { return e.stdout ?? Buffer.alloc(0); } };
+-  const rows = [["late/0"], ["late/1"], ["late/2"], ["late/99"]].map(([key], i) => ({ key, i, bytes: ask(i, key) }));
+-  out({ type: "system", subtype: "init", tools: ["Bash"] });
+-  for (const r of rows) { const command = [exe, cli, JSON.stringify({ requestId: "r" + r.i, key: r.key, offset: 0, maxBytes: 8192 })].map(s => "'" + s.replaceAll("'", "'\\\\''") + "'").join(" ");
+-    out({ type: "assistant", message: { role: "assistant", content: [{ type: "tool_use", id: "t" + r.i, name: "Bash", input: { command } }] } });
+-    out({ type: "user", message: { role: "user", content: [{ type: "tool_result", tool_use_id: "t" + r.i, content: r.bytes.toString("utf8") }] } }); }
+-  const pageOf = b => { try { return JSON.parse(b.toString("utf8")); } catch { return {}; } };
+-  log({ kind: "construction", prompt, client: cli, allowed: rows.slice(0, 3).map(r => Buffer.from(pageOf(r.bytes).bytes ?? "", "base64").toString("base64")), denied: rows[3].bytes.toString("base64") });
+-  out({ type: "result", subtype: "success", is_error: false, result: JSON.stringify({ summary: "read governed context", gaps: [] }), structured_output: { summary: "read governed context", gaps: [] } });
+-} else {
+-  const n = existsSync(${JSON.stringify(counter)}) ? Number(readFileSync(${JSON.stringify(counter)}, "utf8")) : 0; writeFileSync(${JSON.stringify(counter)}, String(n + 1));
+-  const results = [...new Set(text.match(/result:\\/\\/abiogenesis\\/[0-9a-f]{64}/g) ?? [])];
+-  const pick = argv.includes("--tools") ? null : n === 0 ? "testing" : results.length > 0 && n === 1 ? "construction" : null;
+-  const value = argv.includes("--tools") ? { summary: "testing", gaps: [] } : { interpretation: "controlled deterministic selection",
+-    contributions: pick === null ? [] : [{ contribution: "Perform the selected " + pick + " work.", dependsOn: [], evidenceRefs: pick === "construction" ? results : [],
+-      graphFunctionRef: "graph-function://abiogenesis/default-library/" + pick + "@5", reason: "controlled", supportRefs: [] }],
+-    nextReason: "controlled", nextEvidenceRefs: [] };
+-  log({ kind: "selector", n, pick, results, args: argv.filter(a => a.startsWith("--")) });
+-  out({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(value), structured_output: value });
++  const rows = (await readFile(log, "utf8")).trim().split("\n").map(line => JSON.parse(line));
++  assert.deepEqual(rows.map(r => r.kind === "selector" ? r.pick?.split("/").at(-1) ?? null : r.kind), ["testing@5", "testing", "construction@5", "construction", null],
++    "Testing, then Construction citing its Result, then a lawful gap: " + JSON.stringify(rows).slice(0, 2000));
++  const governedRow = rows.find(r => r.kind === "construction");
++  const at = kind => events.filter(e => e.kind === kind), one = (list, why) => { assert.equal(list.length, 1, why); return list[0]; };
++  // The native leaf's own Result names its occurrence and transport binding (the wrapper folds the same
++  // observation into its own Result).
++  const construction = one(at("c_call_result_admitted").filter(e => e.payload.value?.kind === "native_workspace_work_observation" && e.payload.resultClass === "success" &&
++    e.aggregateId === e.payload.value.provenance.cCallRef && e.graphFunctionRef === env.product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef), "one admitted native Construction leaf Result");
++  const provenance = construction.payload.value.provenance, nativeTask = construction.payload.value.task;
++  assert.ok(env.product.isNativeWorkspaceWorkTask(nativeTask) && nativeTask.assessment === undefined, "admitted native Construction task");
++  const binding = one(at("actor_transport_binding_admitted").filter(e => e.aggregateId === provenance.transportBindingRef), "admitted transport binding of the Result");
++  assert.deepEqual([binding.payload.transportBindingRef, binding.payload.transportBindingDigest], [provenance.transportBindingRef, provenance.transportBindingDigest]);
++  const started = one(at("actor_invocation_started").filter(e => e.payload.actorInvocationRef === provenance.actorInvocationRef), "admitted actor start");
++  const opened = one(at("c_call_opened").filter(e => e.aggregateId === provenance.cCallRef), "admitted Construction CCall");
++  const artifact = one(at("actor_result_artifact_observed").filter(e => e.payload.actorInvocationRef === provenance.actorInvocationRef), "admitted result artifact");
++  assert.equal(started.payload.transportBindingRef, binding.aggregateId); assert.equal(binding.payload.cCallRef, provenance.cCallRef);
++  assert.equal(binding.payload.actorRef, env.product.NATIVE_WORKSPACE_WORK_IDS.workerActorRef);
++  const occurrence = { runId: construction.runId, cCallRef: provenance.cCallRef, actorInvocationRef: provenance.actorInvocationRef };
++  // Same-Run Testing Result, admitted before the Construction actor started; its stream field decodes exactly.
++  const testingPage = page(Buffer.from(governedRow.exchanges.find(x => x.request.key === "late/2").response, "base64"));
++  const testingEvent = one(events.filter(e => e.eventId === testingPage.source.provenance[0]), "Testing provenance is one admitted event");
++  const [resultRef, fieldText] = testingPage.source.sourceKey.split("#");
++  assert.equal(testingEvent.kind, "c_call_result_admitted"); assert.equal(testingEvent.runId, occurrence.runId); assert.equal(testingEvent.payload.resultRef, resultRef);
++  assert.equal(testingEvent.payload.resultClass, "success"); assert.deepEqual(JSON.parse(fieldText), [...TESTING_FIELD]);
++  assert.ok(rows.find(r => r.kind === "selector" && r.n === 1).results.includes(resultRef), "Construction was selected citing the admitted Testing Result");
++  assert.ok(testingEvent.admissionOrdinal < started.admissionOrdinal, "Testing Result admitted before the Construction actor started");
++  assert.deepEqual(testingPage.source.producer, { cCallRef: testingEvent.aggregateId, actorInvocationRef: testingEvent.payload.value.provenance.actorInvocationRef });
++  const stream = testingEvent.payload.value.commandResults[0].stdout, admittedStdout = Buffer.from(stream.payload, "base64");
++  assert.equal(admittedStdout.toString("base64"), stream.payload); assert.equal(admittedStdout.length, stream.byteLength); assert.equal(sha(admittedStdout), stream.digest);
++  // Allowed reads: complete pages reassemble exact task, rubric and admitted Testing bytes with their joins.
++  const pages = governedRow.exchanges.map(x => ({ request: x.request, bytes: Buffer.from(x.response, "base64"), value: page(Buffer.from(x.response, "base64")) }));
++  const read = key => {
++    const own = pages.filter(p => p.request.key === key && p.value.kind === "governed_context_page");
++    for (const [i, p] of own.entries()) {
++      assert.equal(p.value.offset, i === 0 ? 0 : own[i - 1].value.offset + own[i - 1].value.length); assert.equal(p.value.requestId, p.request.requestId);
++      assert.equal(sha(Buffer.from(p.value.content, "base64")), p.value.pageDigest); assert.equal(Buffer.from(p.value.content, "base64").length, p.value.length);
++      assert.deepEqual(p.value.occurrence, occurrence); assert.equal(p.value.bindingDigest, pages[0].value.bindingDigest);
++      assert.deepEqual(p.value.gc03.identity, gc.GC03_SELECTED_RELEASE.identity); assert.equal(p.value.gc03.publication, "not_performed");
++      assert.match(p.value.gc03.contextSha256, /^[0-9a-f]{64}$/u); assert.match(p.value.gc03.recheckSha256, /^[0-9a-f]{64}$/u);
++    }
++    assert.equal(own.at(-1).value.nextOffset, null);
++    const bytes = Buffer.concat(own.map(p => Buffer.from(p.value.content, "base64")));
++    assert.equal(bytes.length, own[0].value.totalBytes); assert.equal(sha(bytes), own[0].value.source.digest);
++    return { bytes, source: own[0].value.source, pages: own.length };
++  };
++  const late0 = read("late/0"), late1 = read("late/1"), late2 = read("late/2");
++  assert.ok(late0.bytes.equals(await readFile(join(witnessRoot, "seed", task.path))), "exact original task bytes");
++  assert.ok(late1.bytes.equals(await readFile(join(witnessRoot, "seed", rubric.path))), "exact original rubric bytes");
++  assert.ok(late2.bytes.equals(admittedStdout), "exact decoded admitted Testing stdout bytes"); assert.equal(late2.source.digest, stream.digest);
++  assert.equal(late0.pages, 2, "the task is delivered in bounded pages");
++  assert.deepEqual([late0.source, late1.source].map(s => [s.role, s.sourceKey, s.digest]), [["original_task", task.path, task.digest], ["original_rubric", rubric.path, rubric.digest]]);
++  // Denied key: one owner refusal naming this occurrence and request, with no bytes.
++  const denied = pages.at(-1);
++  assert.deepEqual([denied.value.kind, denied.value.code, denied.value.stage], ["governed_context_refusal", "key_denied", "active"]);
++  assert.deepEqual(denied.value.occurrence, occurrence); assert.deepEqual(denied.value.request, denied.request); assert.equal("content" in denied.value, false);
++  // Cold owner: reacquired from the admitted Construction Result, its execution basis, role evidence and
++  // Testing join through the installed owners; no transcript field is authority.
++  const owner = await load("abg/governed_context"), prefixOwner = await load("abg/event_prefix"), basisOwner = await load("abg/execution_basis");
++  const libraryOwner = await load("abg/default_library"), environmentOwner = await load("abg/stdo_environment"), transportOwner = await load("abg/transport_contracts");
++  const prefix = prefixOwner.readOwnedRuntimeEventPrefixAtDurablePrefix(handoff.prefix);
++  const constructionBasis = basisOwner.rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
++  assert.ok(constructionBasis !== null && constructionBasis.basisRef === binding.basisId, "Construction execution basis rehydrates at the held prefix");
++  const publication = one(env.catalog.boundPublications.filter(p => p.programs.some(q => q.programRef === constructionBasis.programRef)), "one bound publication");
++  const program = publication.programs.find(q => q.programRef === constructionBasis.programRef);
++  const selected = owner.selectOwnedGovernedContext({ constructionTask: true, publication, program,
++    roleEvidence: environmentOwner.projectRunEnvironmentRoleEvidenceAtPrefix(prefix, constructionBasis.invocationAdmissionRef, publication, constructionBasis.programRef,
++      opened.graphFunctionRef, opened.payload.programLocusRef, "constructor") });
++  assert.equal(selected.kind, "governed_context_selected", JSON.stringify(selected));
++  assert.equal(selected.policyRef, governed.policyRef); assert.equal(selected.policyDigest, sha(governed.privateMember));
++  const policy = selected.policy, testing = libraryOwner.projectGovernedContextTestingAtPrefix(prefix, constructionBasis, nativeTask, occurrence.runId, policy.sources.testing.fieldPath);
++  assert.ok(testing !== null && testing.eventRef === testingEvent.eventId && testing.bytes.equals(admittedStdout), "owner Testing join");
++  const files = new Map(nativeTask.context.entries.flatMap(e => e.state === "file" ? [[e.relativePath, e.digest]] : []));
++  const testingKey = `${testing.resultRef}#${JSON.stringify(testing.fieldPath)}`, sourceKeys = [policy.sources.task, policy.sources.rubric, ...policy.sources.worksite, testingKey];
++  const grantDigest = env.product.sha256Canonical({ policyRef: selected.policyRef, policyDigest: selected.policyDigest, principal: policy.principal, sourceKeys });
++  const root = nativeTask.workspaceAuthorityBasis.canonicalRoot;
++  const held = { runId: occurrence.runId, prefixDigest: env.product.sha256Canonical({ runId: occurrence.runId, testingEventRef: testing.eventRef, resultDigest: testing.resultDigest }),
++    admittedResult: ref => ref !== testing.resultRef ? null : { resultDigest: testing.resultDigest, cCallRef: testing.cCallRef, actorInvocationRef: testing.actorInvocationRef,
++      field: path => JSON.stringify(path) === JSON.stringify(testing.fieldPath) ? testing.bytes : null } };
++  assert.ok(pages.filter(p => p.value.kind === "governed_context_page").every(p => p.value.prefixDigest === held.prefixDigest), "pages carry the owner held Testing prefix");
++  const pageBound = owner.gc03PolicyPageBound(policy.release.policyPath, policy.release.policyDigest);
++  const authority = { occurrence: { ...occurrence, actorRef: binding.payload.actorRef, attempt: opened.payload.attempt }, role: selected.role,
++    context: { observationRef: nativeTask.context.observationRef, readRoots: nativeTask.context.readRoots,
++      entries: nativeTask.context.entries.map(e => ({ relativePath: e.relativePath, state: e.state })) },
++    original: { task: { path: policy.sources.task, digest: files.get(policy.sources.task) }, rubric: { path: policy.sources.rubric, digest: files.get(policy.sources.rubric) } },
++    worksiteSources: [...policy.sources.worksite].sort().map(path => ({ path, digest: files.get(path) })),
++    testing: { resultRef: testing.resultRef, resultDigest: testing.resultDigest, fieldPath: testing.fieldPath,
++      producer: { cCallRef: testing.cCallRef, actorInvocationRef: testing.actorInvocationRef }, provenance: [testing.eventRef] },
++    grant: { principalId: policy.principal.principalId, grantId: policy.principal.grantId, grantDigest, sourceKeys }, pageBound,
++    release: { identity: policy.release.identity, inventorySha256: policy.release.inventorySha256, pythonDigest: policy.python.digest,
++      pythonVersion: policy.python.version, adapterDigest: policy.adapter.digest, policyDigest: policy.release.policyDigest },
++    reacquire: { prefix: () => held, occurrenceActive: () => false, grantDigest: () => grantDigest,
++      worksiteSource: path => { try { return readFileSync(join(root, path)); } catch { return null; } } },
++    host: async () => { throw new Error("a cold owner lookup never serves"); } };
++  const lookup = owner.reacquireOwnedContextLookupCold(authority);
++  assert.equal(lookup.closed, "completed"); assert.equal(lookup.bindingDigest, pages[0].value.bindingDigest, "cold owner binding equals the delivered binding");
++  // Invocation from installed identity and the admitted prompt; the endpoint is authenticated by the admitted environment digest.
++  const sidecar = await readFile(binding.payload.paths.stdout.replace(/-stdout\.log$/u, "-governed-context.json")), index = JSON.parse(sidecar.toString("utf8"));
++  const invocation = { executable: process.execPath, client: installedClient, endpoint: index.invocation.endpoint };
++  const args = binding.payload.args, systemPrompt = args[args.indexOf("--append-system-prompt") + 1];
++  assert.equal(args.filter(a => a === "--append-system-prompt").length, 1);
++  assert.equal(systemPrompt, owner.governedContextPrompt(invocation, lookup.keys, pageBound), "admitted prompt names the installed executable, client and keys");
++  assert.equal(governedRow.prompt, systemPrompt);
++  const transport = transportOwner.constructKnownWorkerTransportContract("claude", { command: fake, environment: cliEnvironment });
++  const endpointEnvironment = { [gc.GOVERNED_CONTEXT_ENDPOINT_ENV]: invocation.endpoint, [gc.GOVERNED_CONTEXT_CLIENT_ENV]: invocation.client,
++    [gc.GOVERNED_CONTEXT_EXECUTABLE_ENV]: invocation.executable };
++  assert.equal(env.product.sha256Canonical(transportOwner.sanitizeWorkerTransportEnvironment(transport, { ...cliEnvironment, ...endpointEnvironment })),
++    binding.payload.environmentDigest, "the endpoint is the one in the admitted transport environment");
++  const stdout = await readFile(binding.payload.paths.stdout), stdoutDigest = artifact.payload.artifactDigests.stdout;
++  assert.equal(sha(stdout), stdoutDigest, "raw stdout is the admitted artifact");
++  const cold = input => owner.coldVerifyGovernedContext({ stdout, stdoutDigest, transcript: sidecar, owner: { occurrence, invocation, lookup }, ...input });
++  const joined = cold({});
++  assert.equal(joined.kind, "governed_context_correspondence", JSON.stringify(joined));
++  assert.deepEqual(joined.exchanges.map(x => [x.requestId, x.disposition]), pages.map(p => [p.request.requestId, p.value.kind === "governed_context_page" ? "page" : "refusal"]));
++  assert.deepEqual(joined.exchanges.map(x => x.responseDigest), pages.map(p => sha(p.bytes)));
++  // Tampered or substituted responses refuse.
++  const served = pages[0].value.content, forged = (served[0] === "A" ? "B" : "A") + served.slice(1);
++  const tampered = Buffer.from(stdout.toString("utf8").replace(served, forged));
++  assert.notDeepEqual(tampered, stdout);
++  const code = result => result.kind === "governed_context_correspondence" ? "accepted" : result.code;
++  assert.equal(code(cold({ stdout: tampered })), "altered", "tampered stdout differs from its admitted digest");
++  assert.equal(code(cold({ stdout: tampered, stdoutDigest: sha(tampered) })), "altered", "tampered tool_result differs from the retained response");
++  const reindex = edit => { const copy = structuredClone(index); edit(copy); return Buffer.from(JSON.stringify(copy)); };
++  const substitute = Buffer.from(Buffer.from(index.exchanges[0].responseBytes, "base64").toString("utf8").replace(served, forged));
++  assert.equal(code(cold({ transcript: reindex(x => { x.exchanges[0].responseBytes = substitute.toString("base64"); x.exchanges[0].responseDigest = sha(substitute); }) })),
++    "altered", "substituted retained response refuses");
++  assert.equal(code(cold({ transcript: reindex(x => { x.exchanges[4].disposition = "page"; }) })), "altered", "relabelled disposition refuses");
++  assert.equal(code(cold({ transcript: reindex(x => { x.invocation.endpoint = join(local, "other"); }) })), "substituted", "substituted endpoint refuses");
++  assert.equal(code(cold({ transcript: reindex(x => { x.bindingDigest = sha("other binding"); }) })), "stale", "foreign binding refuses");
++  assert.equal(code(cold({ owner: { occurrence, invocation: { ...invocation, client: clientPath }, lookup } })), "substituted", "a non-installed client refuses");
++});
++
++/**
++ * Controlled non-provider stand-in for the Claude stream-json profile. The
++ * selector branch answers the closed schema it receives with lawful references
++ * from its own enums; the governed Construction branch runs the installed fixed
++ * client against the live owner endpoint and reports each exchange as one exact
++ * Bash tool_use/tool_result pair.
++ */
++function controlledProvider(config) {
++  return `import * as fs from "node:fs";\nimport * as childProcess from "node:child_process";\n(${controlledProviderMain.toString()})(${JSON.stringify(config)}, fs, childProcess);\n`;
+ }
+-`;
++function controlledProviderMain(config, fs, { execFileSync, spawnSync }) {
++  const argv = process.argv.slice(2), out = row => process.stdout.write(JSON.stringify(row) + "\n");
++  const log = row => fs.appendFileSync(config.log, JSON.stringify(row) + "\n");
++  let prompt = ""; try { prompt = fs.readFileSync(0, "utf8"); } catch { /* the prompt arrives on stdin */ }
++  const flag = name => argv.includes(name) ? argv[argv.indexOf(name) + 1] : undefined;
++  const schemaText = flag("--json-schema"), schema = schemaText === undefined ? null : JSON.parse(schemaText);
++  const finish = value => out({ type: "result", subtype: "success", is_error: false, result: JSON.stringify(value), structured_output: value });
++  const endpoint = process.env.ABG_GOVERNED_CONTEXT_ENDPOINT;
++  if (endpoint !== undefined && flag("--append-system-prompt") !== undefined) {
++    const executable = process.env.ABG_GOVERNED_CONTEXT_EXECUTABLE, client = process.env.ABG_GOVERNED_CONTEXT_CLIENT, exchanges = [];
++    const quote = text => "'" + text.replaceAll("'", "'\\''") + "'";
++    out({ type: "system", subtype: "init", tools: ["Bash"] });
++    const call = (key, offset, maxBytes) => {
++      const ordinal = exchanges.length + 1, request = { requestId: "q" + ordinal, key, offset, maxBytes }, wire = JSON.stringify(request), id = "toolu_q" + ordinal;
++      let response;
++      try { response = execFileSync(executable, [client, wire], { env: process.env }); } catch (error) { response = error.stdout ?? Buffer.alloc(0); }
++      out({ type: "assistant", message: { role: "assistant", content: [{ type: "tool_use", id, name: "Bash", input: { command: [executable, client, wire].map(quote).join(" ") } }] } });
++      out({ type: "user", message: { role: "user", content: [{ type: "tool_result", tool_use_id: id, content: response.toString("utf8") }] } });
++      exchanges.push({ request, response: response.toString("base64") });
++      return JSON.parse(response.toString("utf8"));
++    };
++    for (const key of ["late/0", "late/1", "late/2"])
++      for (let offset = 0; offset !== null;) { const page = call(key, offset, config.pageBytes); offset = page.kind === "governed_context_page" ? page.nextOffset : null; }
++    call("late/3", 0, 1);
++    log({ kind: "construction", prompt: flag("--append-system-prompt"), executable, client, endpoint, exchanges });
++    finish({ summary: "Read the governed task, rubric and Testing stdout; the ungranted key was refused.", gaps: [] });
++  } else if (schema?.properties?.nextGraphFunctionRef !== undefined) {
++    const n = fs.existsSync(config.counter) ? Number(fs.readFileSync(config.counter, "utf8")) : 0; fs.writeFileSync(config.counter, String(n + 1));
++    const p = schema.properties, enumOf = s => (s !== null && typeof s === "object" && Array.isArray(s.enum) ? s.enum : []);
++    const graphs = enumOf(p.nextGraphFunctionRef).filter(g => g !== null), evidence = enumOf(p.contributions.items.properties.evidenceRefs.items);
++    const support = enumOf(p.gaps.items.properties.supportRefs.items), results = evidence.filter(r => r.startsWith("result://"));
++    const subjects = new Map((schema.anyOf ?? []).map(a => [a.properties.nextGraphFunctionRef.const, a.properties.subjectEvidenceRef]));
++    const pick = n === 0 ? graphs.find(g => g.endsWith("/testing@5")) ?? null : n === 1 && results.length > 0 ? graphs.find(g => g.endsWith("/construction@5")) ?? null : null;
++    const allowed = pick === null ? [null] : enumOf(subjects.get(pick));
++    const value = { interpretation: "Controlled deterministic selection over the admitted mapping.",
++      contributions: pick === null ? [] : [{ graphFunctionRef: pick, contribution: "Perform the selected work.", reason: "Controlled selection.", supportRefs: [],
++        evidenceRefs: pick.endsWith("/construction@5") ? results : [], dependsOn: [] }],
++      gaps: pick === null ? [{ supportRefs: support.slice(0, 1), reason: "The controlled stand-in ends the bounded selection.", evidenceRefs: [] }] : [],
++      nextGraphFunctionRef: pick, nextReason: "Controlled selection.", nextEvidenceRefs: [], subjectEvidenceRef: allowed.includes(null) ? null : allowed[0] ?? null,
++      revisionReason: "Current admitted evidence.", revisionEvidenceRefs: [], ...(p.requirementProposals === undefined ? {} : { requirementProposals: [] }) };
++    log({ kind: "selector", n, pick, graphs, results });
++    finish(value);
++  } else if (schema?.properties?.kind?.const === "worksite_command_execution_worker_result") {
++    // Testing launcher: run exactly the owner-emitted helper command once and return its acknowledgment.
++    const objects = text => text.split("\n").flatMap(line => { try { const v = JSON.parse(line); return v !== null && typeof v === "object" ? [v] : []; } catch { return []; } });
++    const input = [...objects(prompt), ...objects(prompt).flatMap(v => typeof v.ownerPrompt === "string" ? objects(v.ownerPrompt) : [])]
++      .find(v => typeof v.command === "string" && v.command.includes("worksite_command_helper.js"));
++    if (input === undefined) throw new Error("exact helper command absent");
++    out({ type: "assistant", message: { role: "assistant", content: [{ type: "tool_use", id: "toolu_testing", name: "Bash", input }] } });
++    const ran = spawnSync("/bin/sh", ["-c", input.command], { encoding: "utf8", maxBuffer: 32 * 1024 * 1024 });
++    out({ type: "user", message: { role: "user", content: [{ type: "tool_result", tool_use_id: "toolu_testing", content: ran.stdout }] } });
++    log({ kind: "testing", status: ran.status });
++    finish(JSON.parse(ran.stdout));
++  } else {
++    log({ kind: "other", flags: argv.filter(a => a.startsWith("--")), schema: schema === null ? null : Object.keys(schema.properties ?? {}) });
++    finish({ summary: "The controlled stand-in performed no work.", gaps: [] });
++  }
+ }
