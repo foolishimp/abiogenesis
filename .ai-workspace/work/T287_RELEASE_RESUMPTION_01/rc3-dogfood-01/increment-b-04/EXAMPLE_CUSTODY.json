@@ -1,0 +1,23 @@
+{
+  "archiveSha256": "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35",
+  "releaseIdentity": "urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1",
+  "equality": "archive member = installed member = selected copy",
+  "examples": [
+    {
+      "member": "a_c/build_tenants/graphify/test_env/test_ac_context_host.py",
+      "sha256": "f30c4c48f23293c0f36a30e252beb4612780c5fe3fbcc0c6d1c8904ad38eb6f8",
+      "bytes": 18524,
+      "selectedPath": "rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_context_host.py"
+    },
+    {
+      "member": "a_c/build_tenants/graphify/test_env/test_ac_support_core.py",
+      "sha256": "482531eb8dfa43f44bc5ca4f3d34d5a72c93db4f64bfca6362d943d4dd56174a",
+      "bytes": 113644,
+      "selectedPath": "rc3-operator-inputs/increment-b-04/gc03/a_c/build_tenants/graphify/test_env/test_ac_support_core.py"
+    }
+  ],
+  "toolchainCensus": {
+    "toolchain-census.py": "ede46567623c3e8cf6adf9a1a4c359cff071afadfb234cfdb55b036251081024",
+    "toolchain-census.json": "08bd785ff5aa9795b4b042f477d24cf312e0a9f0525f8366bc6f26252bb80030"
+  }
+}

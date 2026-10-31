@@ -1,0 +1,9 @@
+# B03 actual partial source and transport
+
+The actual native Public owner output has disposition `runtime_failed`; no successful Construction Result or provider terminal cost row was produced. Transport records failure/transport_failure, absolute timeout, termination confirmed and native result absent; do not infer physical termination cause or exact instant. The configured 35-minute threshold was observed, not proven wall-clock containment. Final readback classification belongs to retained actual readbacks.
+
+Fourteen changed/new Product paths were captured within the existing 23-path grant on source base `927b8c0b84915ea2c926115902c2ceeef6df26a3`; custody `attempt-005/B03_PARTIAL_CUSTODY.json` SHA256 `6fa662a13939d5c6b7c57c7676d9eaf3563f7aa7ca0b0312faa2b52bd7cc3b28`, source archive SHA256 `6c2cb3906481356556fca02bddfc515b80e228f67c28d82bb55da585a626bf2f`. This is partial source, not a successful or qualified Product.
+
+Scratch evidence recorded build exit 0; governed tests 11 pass, default tests 23 pass/3 skip, native tests 39 pass/1 skip, STDO 5 pass and installed Hello 1 pass. R1 failed `artifact_digest_mismatch` against a stale RC2 basis; M5 transport runs recorded 21 pass/2 fail then 17 pass/6 fail. No complete final package/installed C2 proof follows. Scratch dependency equality to the pinned C2 tree was not established. B04 must not repeat broad suites in Construction.
+
+Known reported native total $64.4884394, including pre-B $46.3959266 and B-family $18.0925128; B03 Construction has no terminal cost row and remains unknown with an $8 reserve, giving conservative decision baseline $72.4884394. Provider telemetry is not verified billed spend; other charges remain unknown. B04 per process $6, 120 turns/xhigh, review conservative total $82, Root stop $90, user allocation $100 and $6 reserved for later witness. No aggregate hard-cap claim or automatic retry.

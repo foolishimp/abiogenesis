@@ -1,0 +1,65 @@
+{
+  "kind": "retained_unadmitted_scratch_diagnostics",
+  "atUtc": "2026-10-31T11:28:19.804562+00:00",
+  "classification": "unadmitted diagnostic scratch; not native C2 proof",
+  "sourceEvidenceSha256": "8f03d2c7b5aa4b5bef62457c6645d1e59f977a3952b7e0e4d17ce2482c53c3c6",
+  "rows": [
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/build2.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/build2.txt",
+      "bytes": 215,
+      "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-governed-context.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-t287-governed-context.txt",
+      "bytes": 1388,
+      "sha256": "e14b00a01379f3a85e5dd1f5e1e263d672596a8f5dacb6659cb6c6c5b1f2d1fb"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-default-library.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-t287-default-library.txt",
+      "bytes": 3790,
+      "sha256": "11d333c6df86698b7754e64eb673b5436bbf6db1ec533de4e0abd0f7d04b7dc8"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-native-workspace-work.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-t287-native-workspace-work.txt",
+      "bytes": 7775,
+      "sha256": "9cbaeb68a015773d60c081a624ab2a238c8aab19ed532421b32c7461086ab8dc"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-m5-worker-transport.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-m5-worker-transport.txt",
+      "bytes": 5219,
+      "sha256": "c78af3b7a5096940fa052009a497aa49b210be2764f74fd102e518033798172a"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out3-m5.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out3-m5.txt",
+      "bytes": 8344,
+      "sha256": "7d6d4521e89d4862dd90e70eff52bec575884e8533968832b8459e519a86c66b"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-stdo3-run-environment.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-t287-stdo3-run-environment.txt",
+      "bytes": 708,
+      "sha256": "c6ff7e42be5391497b6f529bff4a9c0abd288ef0d04ee481ec5ba87d7c85c329"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-installed-language-smoke.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-installed-language-smoke.txt",
+      "bytes": 236,
+      "sha256": "90ab2b70a8a13b53f265642b8ad5bc7f6857e51876fb505c740f271f41aaf7be"
+    },
+    {
+      "producerPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-r1-packed-artifact.txt",
+      "retainedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-005/retained-scratch-diagnostics/out2-r1-packed-artifact.txt",
+      "bytes": 1315,
+      "sha256": "ee6071661284b3f768ec54c9c61194fa5e5333d2bb31c386ade40a6139bc4346"
+    }
+  ],
+  "limits": [
+    "Copies preserve existing diagnostic logs only; no test rerun, native C2 proof or package qualification."
+  ]
+}

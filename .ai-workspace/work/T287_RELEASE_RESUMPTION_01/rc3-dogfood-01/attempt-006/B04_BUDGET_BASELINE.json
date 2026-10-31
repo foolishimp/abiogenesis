@@ -1,0 +1,73 @@
+{
+  "kind": "rc3_b04_usage_projection",
+  "atUtc": "2026-10-31T11:13:57.032825+00:00",
+  "streams": [
+    {
+      "stream": "fp-0a6e158a20c312e0-stdout.log",
+      "bytes": 240961,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.684452",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-25fe5e4f91079651-stdout.log",
+      "bytes": 4009634,
+      "terminalResultRows": 1,
+      "reportedUsd": "4.9741874",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-28892d06774fc613-stdout.log",
+      "bytes": 437285,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.96198",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-7e1b1b843f520577-stdout.log",
+      "bytes": 3104381,
+      "terminalResultRows": 1,
+      "reportedUsd": "5.818089399999999",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-91c8dc01ceb1afa5-stdout.log",
+      "bytes": 3278594,
+      "terminalResultRows": 0,
+      "reportedUsd": null,
+      "classification": "ended_transport_unknown_cost"
+    },
+    {
+      "stream": "fp-96925bcf5960b9f9-stdout.log",
+      "bytes": 254504,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.7854",
+      "classification": "reported"
+    },
+    {
+      "stream": "fp-ad5197359cbfc781-stdout.log",
+      "bytes": 270051,
+      "terminalResultRows": 1,
+      "reportedUsd": "1.8684040000000002",
+      "classification": "reported"
+    }
+  ],
+  "knownReportedBFamilyUsd": "18.0925127999999992",
+  "historicalPreBUsd": "46.3959266",
+  "allReportedNativeTotalUsd": "64.4884393999999992",
+  "endedB03UnknownCostReserveUsd": "8",
+  "effectiveConservativeTotalUsd": "72.4884393999999992",
+  "b03RecordedTransportTerminated": true,
+  "activeOrAmbiguousNewStreams": [],
+  "otherUnresolvedStreams": [],
+  "startedWithoutObservedNewStream": false,
+  "rootAction": "MONITOR",
+  "aggregateStopUsd": "90",
+  "perActiveB04ProcessReserveUsd": "6",
+  "laterWitnessReserveUsd": "6",
+  "limits": [
+    "Unknown B03 cost is reserved, not estimated as billed or active",
+    "Other charges and active process costs remain unknown",
+    "This is a manual monitoring projection, not an enforced aggregate cap"
+  ]
+}

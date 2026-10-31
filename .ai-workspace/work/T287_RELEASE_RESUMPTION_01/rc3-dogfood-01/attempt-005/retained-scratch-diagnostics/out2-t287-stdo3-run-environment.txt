@@ -1,0 +1,13 @@
+✔ K11 current public specialization admits exact standalone STDO3 and conserves explicit source identity (177.829625ms)
+✔ ordinary selector data uses complete Executive source while the P4 default remains exact (14.348667ms)
+✔ K11 every standalone role binds native STDO material while additional generic material remains explicit (25.060125ms)
+✔ K11 explicit corpus construction still requires every source, companion and role-access join (24.309958ms)
+✔ K11 actual Product acquisition checks manifest, complete source inventory, spans and permission without Python (427.498125ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2933.664542

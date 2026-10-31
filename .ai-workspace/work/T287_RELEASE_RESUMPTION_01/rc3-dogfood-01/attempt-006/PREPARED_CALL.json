@@ -1,0 +1,22 @@
+{
+  "kind": "rc3_b04_prepared_call_binding",
+  "status": "prepared_not_admitted",
+  "activationSha256": "5384a5bd3615e1743a0cb1d146780b259c09d72b0b31ac19f30c7312590758ca",
+  "workloadSha256": "a6aad59d1d5838323b03bdd38416a195d46801c0c77e8e2131956489a51fbc4d",
+  "inputFileSha256": "f4712e70af974cf41aa826688f821a7001c51116a5a30d385b1a79ab64394a9b",
+  "inputCanonicalDigest": "sha256:990a71c0b37640ab48b71605c871436328b3e922513d0d2025b3a087ac91034e",
+  "callFileSha256": "acccce42d69074c400ab14fbb0f6986fd97fba9942dbb31adbd164548a63d239",
+  "callCanonicalDigest": "sha256:408ec3ef1e3ffa02f426447d4f6f66455fdf7f73cd3addaba1f93f66c62ec4ff",
+  "invocationRef": "invocation://abiogenesis/7ebd94aa242aeff6b478112c5eafb24aacc4f1c6605184d460ff081c621ae27a",
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant",
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+  "eventLogSha256": "091f3e45d7479ddc2c315394d63081f0126ace0f81b8d25b411e2f8944d2d117",
+  "eventLogBytes": 2274146710,
+  "environmentBasis": "fresh selected RC2 setup and exact B03 after-run closeHandoff",
+  "sourceAndRolePreflight": "model-free-preflight.json",
+  "limits": [
+    "No actual run admission, runtime event, F_P call or provider spend was created",
+    "Root controls one later dispatch and budget monitoring"
+  ]
+}

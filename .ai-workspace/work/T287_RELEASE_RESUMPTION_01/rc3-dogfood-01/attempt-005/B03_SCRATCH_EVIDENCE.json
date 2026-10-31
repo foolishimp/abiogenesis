@@ -1,0 +1,263 @@
+{
+  "build": {
+    "commandEvidenceToolUseId": "toolu_01LC6ja6mCWYGFTRfmm5KPgV",
+    "dependencyCaveat": "Trace shows later copying node_modules from main abiogenesis checkout; equality to the selected pinned offline dependency inventory has not been established.",
+    "earlierSymlinkAttempt": {
+      "exit": 1,
+      "failure": "bundled dependency resolves outside its exact package root: @standard-schema/spec",
+      "toolUseId": "toolu_01YXnmQRCCxrcD1PEXLfhBrw"
+    },
+    "observedBuildExit": 0
+  },
+  "classification": "unadmitted diagnostic scratch; not native C2 proof",
+  "kind": "b03_existing_worker_scratch_observations",
+  "limits": [
+    "No tests were rerun during capture",
+    "Scratch results are not admitted C2 or B03 Construction Result",
+    "Scratch source differs from current worksite in three design/claim documents; code/test parity is per-row only, not a complete snapshot equivalence",
+    "Installed smoke log alone does not establish selected final RC3 package identity or retained native evidence",
+    "M5 failures and timing differences remain unresolved observations; no cause is inferred"
+  ],
+  "logs": [
+    {
+      "bytes": 215,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/build2.txt",
+      "sha256": "4b917a1e8bc682a17f9a5221bd1f465f674b712c01a8d41f58467feb608a92be",
+      "summary": {}
+    },
+    {
+      "bytes": 1388,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-governed-context.txt",
+      "sha256": "e14b00a01379f3a85e5dd1f5e1e263d672596a8f5dacb6659cb6c6c5b1f2d1fb",
+      "summary": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 11,
+        "skipped": 0,
+        "tests": 11,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 3790,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-default-library.txt",
+      "sha256": "11d333c6df86698b7754e64eb673b5436bbf6db1ec533de4e0abd0f7d04b7dc8",
+      "summary": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 23,
+        "skipped": 3,
+        "tests": 26,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 7775,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-native-workspace-work.txt",
+      "sha256": "9cbaeb68a015773d60c081a624ab2a238c8aab19ed532421b32c7461086ab8dc",
+      "summary": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 39,
+        "skipped": 1,
+        "tests": 40,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 5219,
+      "failureLines": [
+        "\u2716 M5 ABG transport does not renew from unacknowledged output (178.22675ms)",
+        "\u2716 M5 ABG transport excludes descendant output emitted after direct-process exit (163.237584ms)",
+        "\u2716 failing tests:",
+        "\u2716 M5 ABG transport does not renew from unacknowledged output (178.22675ms)",
+        "\u2716 M5 ABG transport excludes descendant output emitted after direct-process exit (163.237584ms)"
+      ],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-m5-worker-transport.txt",
+      "sha256": "c78af3b7a5096940fa052009a497aa49b210be2764f74fd102e518033798172a",
+      "summary": {
+        "cancelled": 0,
+        "fail": 2,
+        "pass": 21,
+        "skipped": 0,
+        "tests": 23,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 8344,
+      "failureLines": [
+        "\u2716 M5 ABG transport force-terminates a worker that ignores SIGTERM (556.331292ms)",
+        "\u2716 M5 ABG transport renews its inactivity lease only from observed progress (161.742458ms)",
+        "\u2716 M5 ABG transport does not renew from unacknowledged output (218.4645ms)",
+        "\u2716 M5 ABG transport excludes semantic output emitted after its timeout boundary (191.022125ms)",
+        "\u2716 owned process groups retain descendant cleanup after normal and TERM leader exits (3914.140042ms)",
+        "\u2716 M5 ABG transport excludes descendant output emitted after direct-process exit (457.52ms)",
+        "\u2716 failing tests:",
+        "\u2716 M5 ABG transport force-terminates a worker that ignores SIGTERM (556.331292ms)",
+        "\u2716 M5 ABG transport renews its inactivity lease only from observed progress (161.742458ms)",
+        "\u2716 M5 ABG transport does not renew from unacknowledged output (218.4645ms)",
+        "\u2716 M5 ABG transport excludes semantic output emitted after its timeout boundary (191.022125ms)",
+        "\u2716 owned process groups retain descendant cleanup after normal and TERM leader exits (3914.140042ms)"
+      ],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out3-m5.txt",
+      "sha256": "7d6d4521e89d4862dd90e70eff52bec575884e8533968832b8459e519a86c66b",
+      "summary": {
+        "cancelled": 0,
+        "fail": 6,
+        "pass": 17,
+        "skipped": 0,
+        "tests": 23,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 708,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-t287-stdo3-run-environment.txt",
+      "sha256": "c6ff7e42be5391497b6f529bff4a9c0abd288ef0d04ee481ec5ba87d7c85c329",
+      "summary": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 5,
+        "skipped": 0,
+        "tests": 5,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 236,
+      "failureLines": [],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-installed-language-smoke.txt",
+      "sha256": "90ab2b70a8a13b53f265642b8ad5bc7f6857e51876fb505c740f271f41aaf7be",
+      "summary": {
+        "cancelled": 0,
+        "fail": 0,
+        "pass": 1,
+        "skipped": 0,
+        "tests": 1,
+        "todo": 0
+      }
+    },
+    {
+      "bytes": 1315,
+      "failureLines": [
+        "\u2716 R1 verifies exact packed bytes without a source import (44702.415708ms)",
+        "\u2716 failing tests:",
+        "\u2716 R1 verifies exact packed bytes without a source import (44702.415708ms)"
+      ],
+      "path": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/out2-r1-packed-artifact.txt",
+      "sha256": "ee6071661284b3f768ec54c9c61194fa5e5333d2bb31c386ade40a6139bc4346",
+      "summary": {
+        "cancelled": 0,
+        "fail": 1,
+        "pass": 0,
+        "skipped": 0,
+        "tests": 1,
+        "todo": 0
+      }
+    }
+  ],
+  "r1": {
+    "artifactPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/repo/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "artifactSha256": "7a4efc56b672a63cf76055ce63fafa04020259304313a481d2b2ae3a3b55342c",
+    "basisArtifactDigest": "sha256:36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "basisPath": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/repo/build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+    "basisProductId": "product://abiogenesis/typescript-tenant@5.0.0-rc.2",
+    "basisSha256": "2e8d89e1b3684ebe1b4f3c8b9e8ee1014e9da54ebb5303ec7ce3db01747d623f",
+    "failure": "artifact_digest_mismatch",
+    "limit": "The scratch basis declares RC2; no refreshed RC3 basis was demonstrated in this trace.",
+    "observedExit": 1
+  },
+  "scratchRoot": "/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr",
+  "sourceParity": [
+    {
+      "byteEqual": false,
+      "currentSha256": "ee1e0145932d70b0f3f543ab160cdf0d463cb08784712b322c40b0d752bb638d",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "scratchSha256": "3fe2f325651076926be82ca47d7eb89abe5bc0a93a23d228c59f9b591696901b"
+    },
+    {
+      "byteEqual": false,
+      "currentSha256": "374b3d4177a7230726012651cdc479a34f9092db308aec0e1828d55e848952c5",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "scratchSha256": "c99b3890b7354773d2cfa1ad2df6f08ebca78b28e1df10938524fd1f9871274e"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "scratchSha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "deec617e8c510fccc3efe7e75b8ae8750d6ab16bda901a9b547839bc05084746",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "scratchSha256": "deec617e8c510fccc3efe7e75b8ae8750d6ab16bda901a9b547839bc05084746"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "scratchSha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "scratchSha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780"
+    },
+    {
+      "byteEqual": false,
+      "currentSha256": "25dcfdb70e59d14cf498ad6b1452f32e7af8dace4fda08f1cdddf8a1e13bf6c5",
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "scratchSha256": "53a15accea66ba23a21f2241f5e5755479b8d8f57576aa552dff28917a7c9fa8"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "scratchSha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+      "scratchSha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "8b9752abc55060557e1aa7e3cd030201920363fdb0ad3e89b28bee960c8955f4",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "scratchSha256": "8b9752abc55060557e1aa7e3cd030201920363fdb0ad3e89b28bee960c8955f4"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+      "scratchSha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "a859a02b67e3f70d8740f291616b24b09f7d72f394287e36edbb15c8600b1519",
+      "path": "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py",
+      "scratchSha256": "a859a02b67e3f70d8740f291616b24b09f7d72f394287e36edbb15c8600b1519"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "7ae763325f7db122bea7fdeb1d4a5a157d22baf458091c5bc9e8e8b073d7f65e",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "scratchSha256": "7ae763325f7db122bea7fdeb1d4a5a157d22baf458091c5bc9e8e8b073d7f65e"
+    },
+    {
+      "byteEqual": true,
+      "currentSha256": "8aecef0893126086ca1cde8e114a406d85dc91dd07933d7b85ac7143e5e1c4ea",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs",
+      "scratchSha256": "8aecef0893126086ca1cde8e114a406d85dc91dd07933d7b85ac7143e5e1c4ea"
+    }
+  ]
+}

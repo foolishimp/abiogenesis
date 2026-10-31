@@ -1,0 +1,55 @@
+(node:93431) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ post-effect channel conflict retains admitted native failure scope without a fabricated exchange (1041.815042ms)
+ℹ {"kind":"u1_local_process_retained_facts","worker":"/private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abi5-generic-worksite-fixture-KuOvmx/conflicting-native.mjs","processFacts":[{"eventId":"event://native-tail/12","admissionOrdinal":12,"kind":"actor_process_started","payload":{"actorInvocationRef":"actor-invocation://abiogenesis/26137924cc95aec1dcc04fd40b24361d0e1a2c24fd4f31842ecac591549ba203","processRef":"process://abiogenesis/9d9cc352f6c81e8c398d8ccd3f26aadbb376ce425417efdbc294b56e081922ac","processId":93453,"cCallRef":"c-call:sha256:4c3b306e214d4227bef321b9cf3799f95f3179f2b553e2a1dabdc73d36a2acf0"}},{"eventId":"event://native-tail/13","admissionOrdinal":13,"kind":"actor_process_stdout_observed","payload":{"actorInvocationRef":"actor-invocation://abiogenesis/26137924cc95aec1dcc04fd40b24361d0e1a2c24fd4f31842ecac591549ba203","processRef":"process://abiogenesis/9d9cc352f6c81e8c398d8ccd3f26aadbb376ce425417efdbc294b56e081922ac","streamOrdinal":1,"byteLength":114,"chunkDigest":"sha256:2908a96d196eb0c062a1ed65620a19b92317be16f003b795b9be02692f361cc2"}},{"eventId":"event://native-tail/14","admissionOrdinal":14,"kind":"actor_process_exited","payload":{"actorInvocationRef":"actor-invocation://abiogenesis/26137924cc95aec1dcc04fd40b24361d0e1a2c24fd4f31842ecac591549ba203","processRef":"process://abiogenesis/9d9cc352f6c81e8c398d8ccd3f26aadbb376ce425417efdbc294b56e081922ac","status":0,"signal":null}},{"eventId":"event://native-tail/15","admissionOrdinal":15,"kind":"actor_invocation_failed","payload":{"actorInvocationRef":"actor-invocation://abiogenesis/26137924cc95aec1dcc04fd40b24361d0e1a2c24fd4f31842ecac591549ba203","processRef":"process://abiogenesis/9d9cc352f6c81e8c398d8ccd3f26aadbb376ce425417efdbc294b56e081922ac","cCallRef":"c-call:sha256:4c3b306e214d4227bef321b9cf3799f95f3179f2b553e2a1dabdc73d36a2acf0","disposition":"failure","failureClass":"transport_exception","transportBindingRef":"transport-binding://abiogenesis/dc4739afbc7688404e98e624f2afb5d570857cb81504b6ed0a568c6b375b025f","transportBindingDigest":"sha256:dc4739afbc7688404e98e624f2afb5d570857cb81504b6ed0a568c6b375b025f","diagnosticDigest":"sha256:24cd9e3b31b46d76f70d2cb28d927a48ef9ae5071a29a2461c3d3a6da87446c3"}}],"currentProcesses":[{"pid":93453,"leader":"absent","group":"absent"}],"targetContent":"partial native work\n","groupConfirmedBeforeConflict":true,"actorDisposition":"actor_process_effect_refusal","actorMessage":"distinct worker output channels disagree; no first/last result selection"}
+ℹ Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording, physical-prefix access and liveness admission are controlled doubles. Exact prefix validation and cold basis/invocation/implementation/currentness owners exercised; no live provider, installed Run, probe, assessment, full native/Public admission or UAT credit.
+✔ native work publishes one ordinary callable effect with run and child closure (6.065292ms)
+✔ native task conserves read-only scope and refuses malformed or wider input (22.184917ms)
+✔ owner refuses stale context before assembly/dispatch (54.035833ms)
+✔ actual observation remains independent of report and consumer judgment (68.060208ms)
+✔ native timeout retains actual partial edit and refuses success (123.698167ms)
+✔ native malformed-report retains actual partial edit and refuses success (50.536833ms)
+✔ native read-only-change retains actual partial edit and refuses success (42.573ms)
+✔ read-only native assessment returns observed assets and an empty change set (46.36275ms)
+✔ unavailable after observation retains unknown and original native failure (110.018917ms)
+▶ unknown native after-state retires only potentially writable C0 facts
+  ✔ unknown exact and subtree (208.296292ms)
+  ✔ unknown whole root (261.421792ms)
+  ✔ unknown read-only (163.14525ms)
+  ✔ known exact change within wider scope (109.701292ms)
+✔ unknown native after-state retires only potentially writable C0 facts (744.288209ms)
+✔ observed partial failure retires touched C0 facts but preserves unchanged and absent paths (79.387125ms)
+✔ native publication agrees with actual generated artifact manifest identity (268.817833ms)
+✔ native implementation without physical authority refuses before loading (54.104291ms)
+﹣ admitted pure consumer evaluates a native task as data without physical authority (0.126417ms) # ABI5_NATIVE_WORK_RETAINED_ROOT unset; requires the retained installed consumer first-leaf failure
+✔ native and assessment renders preserve scope and explain observation limits (49.795959ms)
+✔ assessment declaration selects an independent assessor role; ordinary constructor stays unchanged (1.057209ms)
+✔ assessment schema must match its unique declared installed owner and immutable schema asset (212.443ms)
+✔ assessment schema defaults to fixed 2020 without changing declared validation or accepting conflicting markers (179.065083ms)
+✔ exact assessment resolution, native completion and result checks share one compilation without accepting changed schema or installed bytes (287.624083ms)
+ℹ {"ownerPreparationCount":1,"coldAndChangedCompiles":4,"coverage":"Exact installed-byte resolver -> response-schema projection -> result parser -> native completion -> observation/result predicates. Fixture supplies lower authority/assembly/exchange; no provider or native admission claim."}
+✔ typed read-only assessment retains F_P source and exact observed basis, not a work report (184.799542ms)
+✔ native assessment ordinary-report cannot produce semantic success (81.841625ms)
+✔ native assessment malformed cannot produce semantic success (78.062625ms)
+✔ native assessment empty cannot produce semantic success (133.28325ms)
+✔ native assessment duplicate-keys cannot produce semantic success (131.276417ms)
+✔ native assessment undeclared-field cannot produce semantic success (151.947833ms)
+✔ native assessment same-author cannot produce semantic success (131.715083ms)
+✔ native assessment failed-transport cannot produce semantic success (86.454375ms)
+✔ native assessment mutating cannot produce semantic success (100.25825ms)
+✔ assessment accepts a different declared verdict shape without core identity fields (102.580916ms)
+✔ assessment treats a consumer-declared basisDigest as schema-owned data without rewriting it (116.374083ms)
+✔ assessment task refuses mutable scope and mismatched source/rubric coordinates before work (69.221792ms)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch (463.265167ms)
+✔ complete assessment preparation joins assessor context, declared schema and exact native owner without dispatch with generated fulfillment (497.609125ms)
+ℹ Generated support anyOf bytes conserved through exact schema asset resolution, actual owned assembly/render, leaf preparation and explicitly selected result_text transport input. Full schema remains bound; controlled lower occurrence/role admission only; dispatch prohibited.
+✔ O1 (I): an implementation_admitted event with a non-record payload rehydrates no implementation set (the existing null) (1.369708ms)
+✔ O1 (I): an implementation_admitted event with a non-record payload rehydrates no interaction set (the existing null) (2.153917ms)
+ℹ tests 40
+ℹ suites 0
+ℹ pass 39
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 7718.209292

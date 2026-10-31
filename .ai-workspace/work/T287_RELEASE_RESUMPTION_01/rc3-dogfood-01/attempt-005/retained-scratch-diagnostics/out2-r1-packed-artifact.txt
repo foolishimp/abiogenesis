@@ -1,0 +1,31 @@
+✖ R1 verifies exact packed bytes without a source import (44702.415708ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 45133.404875
+
+✖ failing tests:
+
+test at test_env/tests/r1-packed-artifact.test.mjs:18:1
+✖ R1 verifies exact packed bytes without a source import (44702.415708ms)
+  AssertionError [ERR_ASSERTION]: {"kind":"product_verification_refusal","schemaVersion":"5.0.0","disposition":"refused","code":"artifact_digest_mismatch","message":"artifact bytes differ from the externally expected artifact identity","artifactRef":"abiogenesis-typescript-tenant-5.0.0-rc.3.tgz"}
+  + actual - expected
+  
+  + 'refused'
+  - 'verified'
+  
+      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/repo/build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs:48:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'refused',
+    expected: 'verified',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

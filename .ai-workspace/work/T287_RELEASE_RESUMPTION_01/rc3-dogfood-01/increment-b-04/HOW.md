@@ -1,0 +1,7 @@
+# B04 selected realization and proof
+
+Continue the selected B private policy/verified Context/source binding, live native occurrence and execution gate, finite key manifest, authenticated source and grant checks, exact client/request/response correspondence and cold-owner reconstruction. Preserve the existing release boundary and original criteria; this is a scoped bridge correction, not a new Public schema or Product reframe.
+
+The current transform is observably incompatible with the selected released API. Use the full exact released selection and Recheck, an actual valid Context packet and correct `{id,sha256}` retained resolver; all facts must be freshly derived and rechecked by the native owner. The earliest meaningful proof is the actual production chain with admitted same-Run Testing evidence and authentic configured policy, allowed and denied bytes, owner cold rejoin and tamper. Disposition comes from response bytes, not a transcript assertion. A direct fixture-injected lookup, mocked success, or Python import test does not satisfy this discriminator.
+
+Construction validation is limited to this focused test and an unfiltered compile; no broad suites or package checks. Selected C2 owns the full nine commands, actual source correspondence, final package, refreshed basis, and recorded tests. Future native installed-RC3 delivery is separately pending. Retain current failures and unknowns honestly.

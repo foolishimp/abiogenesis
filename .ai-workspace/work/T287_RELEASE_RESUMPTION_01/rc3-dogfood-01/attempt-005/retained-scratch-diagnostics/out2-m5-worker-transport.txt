@@ -1,0 +1,72 @@
+✔ M5 B-001 preserves lane-owned Claude execution posture (4.727459ms)
+✔ M5 native report keeps its original host schema presentation (0.489416ms)
+✔ M5 schema literal placeholders remain opaque while ordinary templates and append positions expand (3.919125ms)
+✔ M5 requested structured output uses only the final carrier and preserves raw/schema refusal (226.873666ms)
+✔ M5 B-001 bounds append arguments for all four transport contracts (10.675041ms)
+✔ M5 B-001 gives agent-specific sandbox binding precedence (1.74ms)
+✔ M5 transport identity changes with parser and prompt-delivery semantics (77.283875ms)
+✔ M5 B-001 crosses a real worker process, parser, tool event, and archive (147.158334ms)
+✔ M5 Bash tool identity ignores only optional string description metadata (2246.462709ms)
+✔ M5 B-001 rejects tool activity only in the closed-prompt lane (186.244667ms)
+✔ M5 closed-prompt proof does not misclassify declared StructuredOutput as a capability tool (626.646209ms)
+✔ M5 selected result text cannot admit a valid file without its final carrier (918.703333ms)
+✔ M5 ABG transport force-terminates a worker that ignores SIGTERM (445.177375ms)
+✔ M5 ABG transport renews its inactivity lease only from observed progress (371.016084ms)
+✖ M5 ABG transport does not renew from unacknowledged output (178.22675ms)
+✔ M5 ABG transport excludes semantic output emitted after its timeout boundary (180.788042ms)
+(node:93674) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ owned process groups retain descendant cleanup after normal and TERM leader exits (3853.921541ms)
+✖ M5 ABG transport excludes descendant output emitted after direct-process exit (163.237584ms)
+✔ M5 admitted long inactivity, absolute and grace values do not become one-millisecond timeouts (181.321291ms)
+✔ M5 a finite native wakeup above the host timer domain does not fire before its owner deadline (226.637083ms)
+ℹ Controlled owner wakeup value with a real local process; no native provider or admitted native threshold claim.
+✔ M5 an actual early stdin close rejects EPIPE after cleanup and leaves the isolated host alive (543.48625ms)
+ℹ {"exit":{"code":0,"signal":null},"deadlineExpired":false,"hostPid":93853,"identity":{"pid":93855,"pgid":93855},"stdout":"","stderr":"","owner":{"kind":"rejected","name":"Error","code":"EPIPE","errno":-32,"syscall":"write","message":"write EPIPE","stack":"Error: write EPIPE\n    at WriteWrap.onWriteComplete [as oncomplete] (node:internal/stream_base_commons:87:19)"},"finalized":{"directExit":{"status":null,"signal":"SIGKILL"},"launchFailure":null,"noChildEstablished":false,"scopeKind":"posix_process_group","scopeAbsence":"absent","closeObserved":true,"streamsDisposed":true,"drainExpired":false,"firstError":{"name":"Error","code":"EPIPE","message":"write EPIPE"},"cleanupDeadlineNs":"2275740990067083","cleanupElapsedMs":7.060334,"probeCount":4,"signalAttempts":1},"survived":{"survived":true,"pid":93853},"samples":[{"group":"absent","pid":"absent"}]}
+✔ TD-11: the incremental tool projection equals the head projection at every cut (20404.83075ms)
+✔ TD-11: old tool rows are not revisited per chunk; visits per observe are independent of N (1938.800083ms)
+ℹ TD-11 visit counts {"1":{"headTotal":0,"headLast":0,"afterTotal":1,"afterMax":1},"64":{"headTotal":43680,"headLast":2016,"afterTotal":64,"afterMax":1},"512":{"headTotal":22369536,"headLast":130816,"afterTotal":512,"afterMax":1}}
+ℹ tests 23
+ℹ suites 0
+ℹ pass 21
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 35524.570625
+
+✖ failing tests:
+
+test at test_env/tests/m5-worker-transport.test.mjs:780:1
+✖ M5 ABG transport does not renew from unacknowledged output (178.22675ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  false !== true
+  
+      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:814:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at test_env/tests/m5-worker-transport.test.mjs:942:1
+✖ M5 ABG transport excludes descendant output emitted after direct-process exit (163.237584ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  null !== 47
+  
+      at TestContext.<anonymous> (file:///private/var/folders/rz/r6wxvr0n15d906k2s0jw8j2h0000gn/T/abg-b03-worker-scratch.mi9eYtAr/repo/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:994:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: null,
+    expected: 47,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,36 @@
+✔ default library preserves cumulative wrapper bindings and rejects duplicate carried refs (110.726083ms)
+✔ installed root publication precondition rejects a bad non-selected publication (58.517958ms)
+✔ default catalogue publishes conditional purposes over fixed native/C2 children and mandatory parent evaluation (96.917959ms)
+✔ independent consumer restricts choices while preserving actual native role and schema owners (165.46625ms)
+✔ retention and execution share root, imported and exact external semantics owner selection (76.772166ms)
+✔ declared wrapper judgments advance actual observations, including red C2, without satisfying parent state (349.617041ms)
+✔ default role content is the exact packaged STDO3 subset with capability instructions separate (18.968791ms)
+✔ framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe (1022.347417ms)
+(node:93201) ExperimentalWarning: VM Modules is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+✔ framed synthesis binds imported contracts, exact raw judgment and compact choice provenance (666.724708ms)
+✔ selector planning preserves provenance, adverse values and bounded Unicode diagnostic ranges (241.970458ms)
+✔ selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions (35.477083ms)
+✔ native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses (168.904083ms)
+✔ worksite command-executor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses (242.511916ms)
+✔ worksite constructor assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses (146.529334ms)
+﹣ selector planning fits captured eighteen and realistic fifty-one complete owned assemblies (0.130875ms) # ABI5_PLANNING_PROJECTION_CAPTURE unset; requires the captured planning-projection fixture
+﹣ native observation facts preserve captured history through preparation admission and complete assembly (0.040375ms) # ABI5_NATIVE_OBSERVATION_CAPTURE unset; requires the captured native observation fixture
+✔ fold and assessment consume actual native, C2 and assessment carriers with exact retained origin (2550.636958ms)
+✔ UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations (900.523292ms)
+✔ C2 assessment binds a separate current DataMapper dossier without changing its twenty-six measured sources (4210.96575ms)
+✔ parent conservation joins the pre-Run root basis through exact invocation and root implementation set (56.981834ms)
+✔ one governance-root projection: the ancestry owner and the governance owner refuse two indexed roots and an ancestry that misses the indexed root (18.611041ms)
+✔ DataMapper caller separates author territories and baseline inputs from future final proof (10.436584ms)
+✔ consumer-authored source and scope remain exact application data; no solution is in library (5.839292ms)
+✔ observed child provenance joins the current preparation and rejects crossed or missing causal facts (238.158833ms)
+✔ observed command correspondence conserves explicit input across empty and different process environments (6843.236ms)
+﹣ one installed Public default-library invocation reuses observed files, corrects actual work and independently closes (0.251959ms) # ABI5_DEFAULT_LIBRARY_LIVE is not '1'; selects the installed Public default-library invocation
+ℹ tests 26
+ℹ suites 0
+ℹ pass 23
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 3
+ℹ todo 0
+ℹ duration_ms 20729.096916

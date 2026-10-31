@@ -1,0 +1,11 @@
+# B03 bounded timeout and control observation
+
+This is a custody note while the parent Run is closing, not a performance repair, root-cause finding or terminal Run verdict.
+
+The read-only activation agent reported an admitted `actor_process_timeout_observed` at event ordinal 10096, event `event://abiogenesis/401dac4203f61bd7902ab4f1de34901c22566ef15a3a194bfc5330f3b46ffa33`, event time `2026-10-31T10:54:59.784Z`, `timeoutClass:absolute`, declared `timeoutMs:2100000`, sampled `elapsedMs:2101155.7967499997`. The preceding stdout/activity sample at ordinal 10094/10095 had event time `10:54:55.128Z` and elapsed `2096499.60875` ms. The event names actor `c91745636606446aabac125605fe2afbd47be2402b8c5bf229a34819461ad4e3`, process `cebfabc26f343ffb8dd2896f8d4dce6b37690a7e57f1c823ef8b60d8de7df508`, and clock `703b8a183def0c2cafbfd4e9209ff0800a84941202b7bfdd8e8adfab3cda6fd6`.
+
+At that earlier observation, the event-log file was 2,159,312,643 bytes with filesystem mtime `10:58:36.172274Z`; that metadata is not an independently captured append-syscall time. The bounded tail contained no subsequent lifecycle probe/signal event then. Root later reported provider PID 73599 no longer present around 11:03 UTC. These observations alone do not determine the exact physical exit instant or signal delivery.
+
+The subsequently retained `fp-91c8dc01ceb1afa5-transport.json` reports `disposition:failure`, `failureClass:transport_failure`, `timedOut:true`, `timeoutClass:absolute`, direct `status:0`/`signal:null`, `terminationConfirmed:true`, and native result assessment `absent`. The stdout has no provider terminal Result or cost row. Those are the transport's recorded fields; the final parent Run/cold outcome is still pending, and they do not establish a complete causal account of termination.
+
+The activation agent identified synchronous owner projection between timeout observation and the transport termination request as a possible delay mechanism in RC2 source. Current stack and time partition were not profiled. The configured 35-minute policy was observed; a 35-minute wall-clock containment guarantee was not established. Existing raw event and transport custody remains at the native paths; no provider call or process control was performed for this note.

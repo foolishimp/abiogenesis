@@ -1,0 +1,19 @@
+✔ permitted keys return exact source bytes, identities, producer and provenance with paging (12.968542ms)
+✔ denied or unknown keys, extra members, invalid pages and duplicate requests refuse (2.618625ms)
+✔ owner construction fails closed on wrong role, foreign or tampered binding and unsupported composition (8.72575ms)
+✔ source, grant, Testing producer and occurrence drift refuse on request; GC03 can only narrow (7.604166ms)
+✔ the lookup is module-owned and nonserializable (10.630542ms)
+✔ endpoint is reserved inert, bound only to its actual occurrence, activated by process start, and retains every exchange (107.634916ms)
+✔ the fixed installed client forwards exactly the four members and prints exact response bytes (1004.166167ms)
+✔ Claude stream-json correspondence binds the exact fixed-client command and complete tool-result bytes, and rejoins cold from durable bytes (21.93925ms)
+✔ owner selection authenticates one private Program policy member through the RunEnvironment owner (2643.649333ms)
+✔ owner execution gate verifies pinned bytes and invocation and intersects live role, capability, grant and currentness (67.064375ms)
+✔ pinned adapter verifies the installed released GC03 and never falls back to a checkout (2178.342708ms)
+ℹ tests 11
+ℹ suites 0
+ℹ pass 11
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 6392.158083
