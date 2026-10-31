@@ -1,0 +1,48 @@
+{
+  "kind": "witness003_exact_operator_input_copies",
+  "records": [
+    {
+      "source": "witness-001-prep/runtime-b10-003/gc03-policy/abg-private-policy-member.json",
+      "copy": "witness-001-prep/observation-b10/custody/policy/abg-private-policy-member.json",
+      "bytes": 1844,
+      "sha256": "d0edb68a7796ac37c1123eb0acdeb894a7f7c4a0c33c1dc81e55ee45a6c6608f"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/gc03-policy/activation-request.template.json",
+      "copy": "witness-001-prep/observation-b10/custody/policy/activation-request.template.json",
+      "bytes": 11360,
+      "sha256": "e4c49c0f254cde548e1ee959ee4d55347ea1172390ecd842e72571b7e62aaa03"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/gc03-policy/gc03-policy.json",
+      "copy": "witness-001-prep/observation-b10/custody/policy/gc03-policy.json",
+      "bytes": 9814,
+      "sha256": "cb2799c4df3df7210d778582f24817bf1ac19b53a668591e7b6026bf9e1410a0"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/gc03-policy/inventory.json",
+      "copy": "witness-001-prep/observation-b10/custody/policy/inventory.json",
+      "bytes": 388,
+      "sha256": "cf7761e5e811e2c9220d8833d9b43498c706b04798991516be465c7df5637739"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/gc03-policy/operator-binding.json",
+      "copy": "witness-001-prep/observation-b10/custody/policy/operator-binding.json",
+      "bytes": 1674,
+      "sha256": "76fdf504538b57188ec9b206ae28ddddf340a7884048ce224191bc8054f53a31"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/witness-workload.json",
+      "copy": "witness-001-prep/observation-b10/custody/witness-workload.json",
+      "bytes": 13168,
+      "sha256": "d3327f0c4a020c915c866f909059d7381f69c520eaebbce3c880dacbb64f4d41"
+    },
+    {
+      "source": "witness-001-prep/runtime-b10-003/ACTIVATION_PENDING.json",
+      "copy": "witness-001-prep/observation-b10/custody/ACTIVATION_PENDING.json",
+      "bytes": 246,
+      "sha256": "d34c8605d0f925dd8bf519fd1c77390698e8a8fcfe1c2958784110508f9121a0"
+    }
+  ],
+  "limit": "Byte-identical operator input copies; no native authority or proof conferred."
+}

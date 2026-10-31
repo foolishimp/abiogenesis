@@ -100,8 +100,16 @@ The [failure disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-d
 retains the exact counterexample. Root accepted the bounded three-path B10 repair after native C2 and satisfied
 UAT; its parent completed and fresh result/replay agree. The [B10 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_DISPOSITION.md)
 retains the exact evidence and limits. Root selected its tested artifact for a
-separate W1–W5 witness. Foundation acceptances and broader qualification and
-release obligations retain their stated bounds.
+separate W1–W5 witness. Its Testing and Construction Results were admitted,
+but the bounded parent blocked without a terminal. Root accepted bounded W1,
+W2, W4 and W5; W3 cold authentication remains open because the endpoint is
+only in an unadmitted sidecar and the admitted environment digest cannot be
+reconstructed from retained inputs. Prospective B11 selects JSON-escaped
+nonsecret endpoint identity in the existing admitted prompt; design review is
+pending and future cold evidence requires a new artifact and Run. The original
+witness remains unproven; see the [witness disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md).
+Foundation acceptances and broader qualification and release obligations
+retain their stated bounds.
 
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)

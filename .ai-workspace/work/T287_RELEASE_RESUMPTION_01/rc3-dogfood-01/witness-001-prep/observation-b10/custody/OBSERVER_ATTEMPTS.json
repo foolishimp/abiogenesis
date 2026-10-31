@@ -1,0 +1,30 @@
+{
+  "kind": "root_reported_operator_observer_attempts",
+  "source": "Root conversation report; no filesystem receipts or raw stdout captured",
+  "observerPath": "witness-001-prep/observation-b09/observe.mjs",
+  "observerSha256": "8c25fdcc1699172864d7bcf902c93ff7c138be92ed224cc033e2da7e13225452",
+  "attempts": [
+    {
+      "invocation": "Root invoked observer without required --observe-after-return; full argv not retained",
+      "exitCode": 1,
+      "failure": "usage assertion at line 16",
+      "conversationChunk": "def1cb",
+      "proofWritten": false
+    },
+    {
+      "invocation": "NODE_OPTIONS=--max-old-space-size=8192 /opt/homebrew/bin/node observation-b09/observe.mjs --observe-after-return",
+      "exitCode": 1,
+      "failure": "admitted environment digest mismatch at line 115",
+      "admittedEnvironmentDigest": "sha256:d22eb5285f8c162bcd8a138d62b3d5af4029fdb62acc0b07bb996c97e69da23c",
+      "observerEnvironmentDigest": "sha256:3ece86184eb72dedf141f1df2760e0f8bf46592133927c724e04cf41c5138593",
+      "conversationChunk": "e16ef8",
+      "proofWritten": false
+    }
+  ],
+  "limits": [
+    "Operator observation only, not a Product failure",
+    "No fabricated raw receipt",
+    "No cold correspondence proof claimed",
+    "No rerun for custody"
+  ]
+}

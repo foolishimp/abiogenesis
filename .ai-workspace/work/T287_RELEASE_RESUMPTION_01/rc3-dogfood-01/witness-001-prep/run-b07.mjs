@@ -10,7 +10,7 @@ for(const name of ['node','claude','npm']){const pin=profile.executablePins[name
 assert.equal(profile.provider.command,profile.executablePins.claude.configuredPath);assert(!Object.hasOwn(profile.provider,'maxBudgetUsd'));
 const {installedModules,publicCaller}=await import('./public-setup-b07.mjs');
 const {commandRecorder,exclusiveRecord,invokeLifecycle,workerEnvironment}=await import('../operator-client/runner.mjs');
-const root=join(fileURLToPath(new URL('.',import.meta.url)),'runtime-b09-002'),record=(p,v,raw=false)=>exclusiveRecord(root,p,v,raw);
+const root=join(fileURLToPath(new URL('.',import.meta.url)),'runtime-b10-003'),record=(p,v,raw=false)=>exclusiveRecord(root,p,v,raw);
 const saved=JSON.parse(await readFile(join(root,'operator-resume-material.json'),'utf8')),call=JSON.parse(await readFile(join(root,'witness-call.json'),'utf8'));
 const runtime=await installedModules(saved.installedRoot),config={...saved.config,...profile,worksiteRoot:saved.config.worksiteRoot,dependencyResources:saved.config.dependencyResources};
 const launch=workerEnvironment(config),caller=publicCaller({root,runtime,native:saved.native,command:commandRecorder(root,{environment:launch,timeoutMs:profile.processTimeoutMs,maxOutputBytes:profile.maxProcessOutputBytes}),record,config,actorRef:'actor://abiogenesis/operator/codex-root'});

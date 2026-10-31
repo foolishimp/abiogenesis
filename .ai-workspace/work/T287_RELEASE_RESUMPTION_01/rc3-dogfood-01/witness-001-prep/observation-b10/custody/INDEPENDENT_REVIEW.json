@@ -1,0 +1,36 @@
+{
+  "kind": "bounded_witness003_independent_review_projection",
+  "source": "Root and independent reviewer conversation reports; no reviewer-signed artifact implied",
+  "runRef": "run://abiogenesis/8ddffa7b063e50b1bf261ce6b519dbc0ef14d186e937861b0c940b40746ba54e",
+  "testing": {
+    "resultRef": "result://abiogenesis/16d98c25b07cb862987b8d0a0333909d8f8f8f73acfb63499191776adad1737e",
+    "ordinal": 1521,
+    "eventRef": "event://abiogenesis/74637d4923137e5596e246289f90ce4d247f8bdfbfc87fcfed71c26b710ebaa9",
+    "eventLineOffset": 8792291,
+    "eventLineBytes": 43763,
+    "eventLineSha256": "d8366120133071560c2a3571895c83d43010b3a0fa8a05e0d78609428e6a27fe",
+    "firstChoiceOrdinal": 1239,
+    "subjectEvidenceRef": null,
+    "initialObservations": []
+  },
+  "construction": {
+    "resultRef": "result://abiogenesis/49def9c72cc2523ed1ba9b92d0237ae9e32146f800f969a0bd7972b443372612",
+    "ordinal": 5021,
+    "eventRef": "event://abiogenesis/04f1af9fedd686c4a734be4aa50d0d7c3debf14d346869e1f80253a7545383ca",
+    "eventLineOffset": 20626842,
+    "eventLineBytes": 77025,
+    "eventLineSha256": "6bb221b1627a9765330719311f9556ea9c3d54ac626654b556874f311f43b59b",
+    "actorOutputBytes": 11358,
+    "actorOutputSha256": "63ddbae63b34807a7f8b2a866799a190dace2ed5f4d6f8a3458be5a841638ce8",
+    "stdoutBytes": 951077,
+    "stdoutSha256": "7e9625ddc278ece474b842d442bf9d432721f93a1af8680a093182bf29f2c1a6",
+    "transportSha256": "76236f9e91df051d49fc5898d643281e4dcf91fdf6617124d0381811b70d8455",
+    "changedPaths": []
+  },
+  "boundedFindings": [
+    "Admitted actor report matches raw output and correctly distinguishes fixture ENOENT, historical 2 pass/1 fail and current cat from current test execution; original task and rubric conserved.",
+    "Four request/response joins observed; after denied late/3 actor compared delivered content with the three permitted worksite files; no denied-source replacement, retry or grant widening observed. Direct reads disclosed.",
+    "Cold owner reconstruction remains pending observer environment rehydration. No claim of exclusive mediation or host-wide confinement."
+  ],
+  "parent": "result/blocked/no terminal; no UAT or Product qualification"
+}

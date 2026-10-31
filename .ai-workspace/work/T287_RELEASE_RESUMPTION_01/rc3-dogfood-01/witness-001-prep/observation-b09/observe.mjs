@@ -6,7 +6,7 @@ import { createHash } from 'node:crypto';
 import { join, resolve, sep } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
-const dir=fileURLToPath(new URL('.',import.meta.url)), parent=resolve(dir,'..'), root=join(parent,'runtime-b09-002');
+const dir=fileURLToPath(new URL('.',import.meta.url)), parent=resolve(dir,'..'), root=join(parent,'runtime-b10-003');
 const must=(v,m)=>assert.ok(v,m), one=(a,m)=>{assert.equal(a.length,1,m);return a[0];};
 const bytes=async p=>readFile(p), json=async p=>JSON.parse((await bytes(p)).toString('utf8'));
 const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
@@ -25,8 +25,8 @@ const output=execution?.receipt?.ownerOutput;
 must(execution?.receipt?.exitCode===0 && output?.outcomeKind==='result' && output.value?.run?.ref,'actual native result/run required');
 must(close?.prefix && close?.reopenAuthority,'actual returned closeHandoff required');
 const runId=output.value.run.ref;
-const manifestBytes=await bytes(join(parent,'B09_002_LAUNCH_MANIFEST.json'));
-assert.equal(sha(manifestBytes),'sha256:d1c33105e2dc054074bcae75cf6cf05306ca7c0bffc78b2e32064ceb62bc8f8f','selected launch manifest');
+const manifestBytes=await bytes(join(parent,'B10_003_LAUNCH_MANIFEST.json'));
+assert.equal(sha(manifestBytes),'sha256:43b6c56267334c16e0a5f0c9fbfa7eaba048c8619ee76fe27fdcd2d3dfa89c4e','selected launch manifest');
 const manifest=JSON.parse(manifestBytes);
 const saved=await json(join(root,'operator-resume-material.json'));
 const profileBytes=await bytes(join(parent,'provider-profile-b09.json'));
@@ -132,12 +132,12 @@ for(const d of denials){assert.deepEqual(d.value.occurrence,occurrence);assert.d
 // Exact actor result line is a review aid, not an automatic semantic judgment.
 const terminalLines=stdout.toString('utf8').split('\n').filter(Boolean).flatMap(line=>{try{const v=JSON.parse(line);return v.type==='result'?[{line,value:v}]:[]}catch{return []}});
 const terminal=one(terminalLines,'one Claude terminal result');
-const proof={kind:'b09_native_witness_observation',status:'mechanical_cold_correspondence_only',run:output.value.run,parentDisposition:output.value.disposition,terminalResult:output.value.terminalResult,
+const proof={kind:'b10_native_witness_observation',status:'mechanical_cold_correspondence_only',run:output.value.run,parentDisposition:output.value.disposition,terminalResult:output.value.terminalResult,
  occurrence,events:{construction:construction.eventId,testing:testingEvent.eventId,started:started.eventId,opened:opened.eventId,binding:binding.eventId,artifact:artifact.eventId},
  testing:{resultRef:testing.resultRef,resultDigest:testing.resultDigest,producer:{cCallRef:testing.cCallRef,actorInvocationRef:testing.actorInvocationRef},fieldPath:testing.fieldPath,bytes:fixture.length,digest:sha(fixture)},
  stdout:hashFields(stdoutPath,stdout),sidecar:hashFields(sidecarPath,sidecar),sourcePages:[a,b,c].map((x,i)=>({key:'late/'+i,pages:x.pages,source:x.source,bytes:x.bytes.length,digest:sha(x.bytes)})),
  actorReportedResult:{terminalLineSha256:sha(Buffer.from(terminal.line)),subtype:terminal.value.subtype,result:terminal.value.result},
  correspondence:{kind:joined.kind,exchanges:joined.exchanges},denied:denials.map(x=>({request:x.request,responseDigest:sha(x.response)})),
  limits:['W1 null-subject and selector-to-Testing relationship require independent native-event review','W4 diagnosis and any unmediated fallback require review of complete raw actor output and trace','reconstructed prefix/grant formulas mirror native owner; compare against installed actor_process','environment digest depends on matching actual inherited values; values are not recorded','not Product qualification or host-wide confinement']};
-const target=join(dir,'proof.json');await writeFile(target,JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
+const target=join(parent,'observation-b10','proof.json');await writeFile(target,JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
 console.log(JSON.stringify({status:proof.status,proof:target,runId,testingResult:testing.resultRef,pages:proof.sourcePages.map(x=>x.pages),denied:denials.length}));

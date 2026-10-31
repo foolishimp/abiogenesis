@@ -1,0 +1,123 @@
+{
+  "activationGate": "Root selected artifact for provider-free fresh003 setup only. Actual installed policy/resource/input/call and exact launch manifest require independent final review before Root sole native launch; no automatic retry.",
+  "artifact": {
+    "bytes": 10936726,
+    "manifestByteSha256": "sha256:b3d67aa29e08589224cf27114d53d153a0051f76439721328504e58b38aafefd",
+    "manifestDigest": "sha256:d165f43cf177dbe67687bf70ac8e1415ecf15b54f97ce298c681bd99a574162f",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": "sha256:bbc9e936d5608bec37e0f17e3595c651e84051ddffb55addc01b4b46847c2aa1",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "sha256:5b81bd64d6114b853cf63322ea16604d158342b300565852afce56ffb3ef4744"
+  },
+  "candidateSources": {
+    "rows": [
+      {
+        "bytes": 76228,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c"
+      },
+      {
+        "bytes": 100940,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06"
+      },
+      {
+        "bytes": 85136,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14"
+      }
+    ],
+    "sourceCustodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_SOURCE_CUSTODY.json",
+    "sourceCustodySha256": "sha256:b83adc71cd6029c7da6798505aaf348ba836b4aa414ec80878bc114af3dc93af",
+    "standing": "Native author Return/source observation; must equal actual C2 source-correspondence and snapshot; not whole acceptance."
+  },
+  "custody": {
+    "actualC2Helper": {
+      "bytes": 10236,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_C2_CUSTODY.json",
+      "sha256": "147a2ded3981a8ac8df85daaec68581dd15726f4c4e3bb3e6b87026f66f861ce"
+    },
+    "actualFocusedOutput": {
+      "bytes": 1738,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/c2-output/06-focused-owner-chain-stdout.txt",
+      "sha256": "c88fb9f411784fcdd70c994d34a1c976bef6a92fad4bc73594dd9cbb5f889f46"
+    },
+    "conservedCommandPrefix": "command://abiogenesis/rc3-dogfood/increment-b-08/",
+    "observedBuildManifest": {
+      "bytes": 3274041,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/resources/archives/worksite-command-execution/61ed9667fad5a311b47b08dbb2d3e0673ebd25d2c1bd9509cdf6a2ce81e51b4f/eebe6060f96695f1657503318dfa081ef10e405990ac9845ae2b0f148d093063/sandbox/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "b3d67aa29e08589224cf27114d53d153a0051f76439721328504e58b38aafefd"
+    },
+    "standing": "Actual native B10 repair/C2/UAT/completed parent/fresh closed readbacks accepted by Root within bounded scope; actual5b81\u2026 selected only for unchanged new W1-W5 witness. Prior broader/failed histories remain unchanged.",
+    "unchangedWitness": "task.md/rubric.json W1-W5/fixture.txt; corrected typed inventory/private policy/permissions/profile reused"
+  },
+  "finalNativeOutcome": {
+    "disclosedLimitsPreserved": true,
+    "disposition": "completed",
+    "freshReplay": "result/closed",
+    "freshResult": "result",
+    "outcomeKind": "result",
+    "sourceRecords": [
+      {
+        "bytes": 3711,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_DISPOSITION.md",
+        "sha256": "c25728aa19eb1979ff12a141b26c397c066b405a84b15170fa2239f7d3abfc20"
+      },
+      {
+        "bytes": 1310,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_UAT_CUSTODY.json",
+        "sha256": "69e783864f571f5ee862f3b5c0468770a8bc3abd2299814249748e35c0b2ec61"
+      },
+      {
+        "bytes": 4989,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_TERMINAL_CUSTODY.json",
+        "sha256": "3b53379e790e258c56d6dfc1e70cb5058d080f4802e12a7181ccfe2bae6b55ff"
+      }
+    ],
+    "terminalResult": {
+      "digest": "sha256:b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036",
+      "ref": "result://abiogenesis/b6a0a39e45a2c4ebd6e8869bfc0907fef8b799c41ddf109af97e55d986b79036"
+    },
+    "terminalValueDigest": "sha256:9eb9fb5eecebdf2ff4cb22190b8737f5956b2c84d914a26e563e5df63b6b79a3",
+    "uatDisposition": "satisfied",
+    "uatResultRef": "result://abiogenesis/1dfe0fe7435b514e79b53c7b11914115a4bddd45afcfe23fa2dbaf5e23e39178"
+  },
+  "kind": "rc3_b10_c2_selected_producer_v1",
+  "operator": {
+    "authorityPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B10_003_ROOT_SELECTION_ADMISSION.md",
+    "authoritySha256": "sha256:c0524c7c711de4ef78020e591027eaab665becdda223df98454c224fa1a5df70",
+    "consumerModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/consumer-b07.mjs",
+    "consumerModuleSha256": "sha256:f46db4526a626c7e09ef25cc6056057ec398301be4356b25f43bbe334fa8b195",
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "nodeSha256": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "npmPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "npmSha256": "sha256:8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "policyRef": "member://abi5-tests/gc03/private-policy@5",
+    "rubricSha256": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+    "taskSha256": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+  },
+  "producer": {
+    "admissionEvidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B10_003_ADMITTED_TESTING_COORDINATES.json",
+    "admissionEvidenceSha256": "sha256:2e235a9fec82da863f78ad744c6ade34d4b429ed293ceeebf30896ae3f642745",
+    "artifactRelativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "helperArtifactDigest": "sha256:4d9460eed15bbde8fd825bac3f729cc36aeacef2448958db6c8e9194c39cfee3",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/4d9460eed15bbde8fd825bac3f729cc36aeacef2448958db6c8e9194c39cfee3",
+    "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/resources/archives/worksite-command-execution/61ed9667fad5a311b47b08dbb2d3e0673ebd25d2c1bd9509cdf6a2ce81e51b4f/eebe6060f96695f1657503318dfa081ef10e405990ac9845ae2b0f148d093063/result.json",
+    "helperResultSha256": "sha256:c1ab23ff16b67d1e3eb2b22ec60b18d9d7b08dd501baced5908dc8e0372441f8",
+    "namedTestAcceptance": {
+      "disposition": "passed",
+      "evidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B10_003_NAMED_TEST_ACCEPTANCE.json",
+      "evidenceSha256": "sha256:512a57dadb8fb66ab69028b3a58ba57dbee74e5f9e57a10cfe3acea01f34519e",
+      "name": "GC03 real owner allowed denied cold tamper",
+      "passLine": "\u2714 GC03 real owner allowed denied cold tamper (64467.255959ms)",
+      "skipped": false,
+      "stdoutDigest": "sha256:c88fb9f411784fcdd70c994d34a1c976bef6a92fad4bc73594dd9cbb5f889f46",
+      "todo": false
+    },
+    "resultDigest": "sha256:48a645a7dc3c7a347c6db122e9817e4cf2245a605e3c4f0efde459619a8ea509",
+    "resultRef": "result://abiogenesis/48a645a7dc3c7a347c6db122e9817e4cf2245a605e3c4f0efde459619a8ea509",
+    "runRef": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d"
+  },
+  "status": "ROOT_SELECTED_B10_C2_FOR_WITNESS"
+}

@@ -3,7 +3,7 @@
 from pathlib import Path
 import hashlib,json,os,stat,sys
 HERE=Path(__file__).resolve().parent
-MANIFEST=HERE/'B09_002_LAUNCH_MANIFEST.json'
+MANIFEST=HERE/'B10_003_LAUNCH_MANIFEST.json'
 def sha(p):
  h=hashlib.sha256()
  with p.open('rb')as f:
@@ -14,7 +14,7 @@ def require(ok,message):
 try:
  require(len(sys.argv)==2,'usage: pinned-python -I -B guard-b09-launch.py MANIFEST_BARE_SHA256')
  require(sha(MANIFEST)==sys.argv[1],'launch manifest pin mismatch')
- m=json.loads(MANIFEST.read_text());require(m['kind']=='b09_exact_prepared_witness_launch','wrong manifest kind')
+ m=json.loads(MANIFEST.read_text());require(m['kind']=='b10_exact_prepared_witness_launch','wrong manifest kind')
  for row in m['files']:
   p=Path(row['path']);s=p.lstat();require(str(p.resolve(strict=True))==str(p) and stat.S_ISREG(s.st_mode),'noncanonical or nonregular frozen file: '+str(p))
   require(s.st_size==row['bytes'] and sha(p)==row['sha256'],'frozen file changed: '+str(p))
@@ -27,4 +27,4 @@ try:
  # This guard supplies no authority/Result, mutates no prepared bytes, and retries nothing.
  os.execv(m['node'],[m['node'],m['launcher'],m['profile'],'sha256:'+m['profileSha256']])
 except (ValueError,KeyError,OSError,TypeError,json.JSONDecodeError)as e:
- print(json.dumps({'kind':'b09_frozen_launch_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)
+ print(json.dumps({'kind':'b10_frozen_launch_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)

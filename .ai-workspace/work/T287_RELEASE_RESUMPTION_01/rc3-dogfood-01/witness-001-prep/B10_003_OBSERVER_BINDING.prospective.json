@@ -1,0 +1,47 @@
+{
+  "actualLaunchManifestSha256": null,
+  "actualRunRef": null,
+  "candidateArtifact": {
+    "bytes": 10936726,
+    "manifestByteSha256": "sha256:b3d67aa29e08589224cf27114d53d153a0051f76439721328504e58b38aafefd",
+    "manifestDigest": "sha256:d165f43cf177dbe67687bf70ac8e1415ecf15b54f97ce298c681bd99a574162f",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": "sha256:bbc9e936d5608bec37e0f17e3595c651e84051ddffb55addc01b4b46847c2aa1",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "sha256:5b81bd64d6114b853cf63322ea16604d158342b300565852afce56ffb3ef4744"
+  },
+  "candidateSources": {
+    "rows": [
+      {
+        "bytes": 76228,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c"
+      },
+      {
+        "bytes": 100940,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06"
+      },
+      {
+        "bytes": 85136,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14"
+      }
+    ],
+    "sourceCustodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_SOURCE_CUSTODY.json",
+    "sourceCustodySha256": "sha256:b83adc71cd6029c7da6798505aaf348ba836b4aa414ec80878bc114af3dc93af",
+    "standing": "Native author Return/source observation; must equal actual C2 source-correspondence and snapshot; not whole acceptance."
+  },
+  "existingObserver": {
+    "bytes": 16326,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/observe.mjs",
+    "sha256": "51f1f1b6d27cfe6f7586d5d424590caa5c3362290d923412b884934fc0fce71e"
+  },
+  "instruction": "After actual Root launch/freeze exists, retarget only runtime and exact final manifest pin with narrow independent review. Existing actual native Return/current producer/response/correspondence/cold checks stay; no invented launch/source/Result or old fallback.",
+  "kind": "b10_third_witness_prospective_observer_binding",
+  "owner": "Existing observer owner; no observer code/evidence changed by preparation writer",
+  "prospectiveLaunchManifestPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B10_003_LAUNCH_MANIFEST.json",
+  "prospectiveRuntimeRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b10-003",
+  "status": "PENDING_ACTUAL_LAUNCH_AND_OWNER_RETARGET"
+}

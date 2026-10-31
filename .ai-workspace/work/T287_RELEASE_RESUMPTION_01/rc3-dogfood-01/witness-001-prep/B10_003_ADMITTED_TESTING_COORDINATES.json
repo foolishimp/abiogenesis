@@ -1,0 +1,30 @@
+{
+  "admissionOrdinal": 3053,
+  "cCallRef": "c-call:sha256:70effc8315792de782d4b50f1b3e07cf04e5f1d1bc09bff9aa8026e04ff2bbf6",
+  "eventRange": {
+    "bytes": 124300730,
+    "offset": 689591054,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-005/resources/events/runtime.events.jsonl",
+    "sha256": "5dffb2d90dfb9aa574119c8d84efbab31e0939942a02a3b4cede5c3e1b47f86e"
+  },
+  "eventRef": "event://abiogenesis/4700f95a0f0cbb3b82d931652207937219d75e875773af9a9a92d64e19f3f3cd",
+  "helperArtifactDigest": "sha256:4d9460eed15bbde8fd825bac3f729cc36aeacef2448958db6c8e9194c39cfee3",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/4d9460eed15bbde8fd825bac3f729cc36aeacef2448958db6c8e9194c39cfee3",
+  "helperResultSha256": "c1ab23ff16b67d1e3eb2b22ec60b18d9d7b08dd501baced5908dc8e0372441f8",
+  "kind": "b10_native_testing_admission_coordinate_custody",
+  "notAcceptedHere": [
+    "B10 native UAT/final verdict",
+    "Root witness artifact/launch selection",
+    "Live W1-W5 proof or Product qualification/release"
+  ],
+  "resultDigest": "sha256:48a645a7dc3c7a347c6db122e9817e4cf2245a605e3c4f0efde459619a8ea509",
+  "resultRef": "result://abiogenesis/48a645a7dc3c7a347c6db122e9817e4cf2245a605e3c4f0efde459619a8ea509",
+  "rootAcceptedFacts": [
+    "Exact native Testing/command-execution frame/cCall/Result/helper join",
+    "961 protected files unchanged;3 authored source posthashes/27 correspondence rows match",
+    "Compiled command-only fix and all9C2 commands green; actual archive5b81bd64\u2026"
+  ],
+  "runRef": "run://abiogenesis/62f3d41579611e7c5d50e3210c9597710cf35e72a25ed35c4d3e37041d885e7d",
+  "standing": "Exact retained event-range bytes independently authenticated by reviewer and accepted by Root; this compact observation does not mint native admission or replace the event log",
+  "verification": "Helper streamed only this exact offset/length and matched the reviewer-provided SHA256; no whole-log parse, event mutation, Public/provider/test/owner operation or new store."
+}
