@@ -105,8 +105,9 @@ but the bounded parent blocked without a terminal. Root accepted bounded W1,
 W2, W4 and W5; W3 cold authentication remains open because the endpoint is
 only in an unadmitted sidecar and the admitted environment digest cannot be
 reconstructed from retained inputs. Prospective B11 selects JSON-escaped
-nonsecret endpoint identity in the existing admitted prompt; design review is
-pending and future cold evidence requires a new artifact and Run. The original
+nonsecret endpoint identity in the existing admitted prompt; Root dispatched
+the independently reviewed native call and its outcome is pending. Future cold
+evidence requires a new artifact and Run. The original
 witness remains unproven; see the [witness disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md).
 Foundation acceptances and broader qualification and release obligations
 retain their stated bounds.

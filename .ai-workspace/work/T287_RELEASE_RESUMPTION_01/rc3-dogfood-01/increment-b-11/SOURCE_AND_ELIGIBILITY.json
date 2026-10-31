@@ -1,0 +1,429 @@
+{
+  "C2Snapshot": {
+    "commands": 9,
+    "conservation": "Same nine B08 command objects/IDs, env/bounds/predicates/territories; current source measured anew.",
+    "selectedPaths": 961,
+    "workload": {
+      "bytes": 232059,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/workload.json",
+      "sha256": "8d4f99f3da2d332e54c5c5c9d6be2a199f515dcef61741252edae714e7d798d1"
+    }
+  },
+  "ProductWriteRoots": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+  ],
+  "actualFailureCustody": {
+    "bytes": 3879,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md",
+    "sha256": "3dbe21f7c7fc60b0096571aa52c9f18884b37bf495f951ae7d0d8c71a24197f6"
+  },
+  "beforeArchiveCustody": {
+    "bytes": 1415,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_PREIMAGE_ARCHIVE.json",
+    "sha256": "c20b10edc1faf6df516eb6f34bfd966dca27bde33a6e74c0626893b2ea0e6e25"
+  },
+  "candidateRows": [
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 79977,
+        "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 46520,
+        "sha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 129875,
+        "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts"
+    },
+    {
+      "basis": "B10_postimage",
+      "current": {
+        "bytes": 76228,
+        "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 2960,
+        "sha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 119884,
+        "sha256": "da2a636c6e8ea7cc0845abcd6f01ca429c104b7c9d644a3dc3cac1bf4c469824",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 36280,
+        "sha256": "8c075866f3e2b016cbe8808f3bfecb269163e96b7f808c228be362529ffa6d3f",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 20097,
+        "sha256": "48c53298d8046e250230fb5f9c771fc2e80c8cb071b5911394107fe6d1873e33",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 82281,
+        "sha256": "8901e6682a62a39fe57d8f9d8302cdc83196e63d63120e603254115a0f8a24b6",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 36043,
+        "sha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 10822,
+        "sha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 77289,
+        "sha256": "6e51c530e25f3d02ca835b36e2b88bd65605be168df8c331149c2994da5948f7",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md"
+    },
+    {
+      "basis": "B10_postimage",
+      "current": {
+        "bytes": 85136,
+        "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 13499,
+        "sha256": "841b8c597cbadc7f23d1324fddb25529f2c3a5fae87c92a273ddf3def0aa3ed9",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 51632,
+        "sha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 11252,
+        "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 1831,
+        "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 75056,
+        "sha256": "2453064c90a1a9a80cb0d1e7cda3f9d7915a3c14f04468371e690c9184ae1f6e",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 6432,
+        "sha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 212273,
+        "sha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31",
+        "state": "file"
+      },
+      "gitStatus": " M",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs"
+    },
+    {
+      "basis": "B10_postimage",
+      "current": {
+        "bytes": 100940,
+        "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06",
+        "state": "file"
+      },
+      "gitStatus": "??",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 88910,
+        "sha256": "18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs"
+    },
+    {
+      "basis": "B10_selected_preimage_unchanged",
+      "current": {
+        "bytes": 16306,
+        "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5",
+        "state": "file"
+      },
+      "gitStatus": "  ",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs"
+    }
+  ],
+  "counterexample": {
+    "bytes": 5737,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-11/COUNTEREXAMPLE.json",
+    "sha256": "9676e19799c734f5fb39d39754f3e7365fdc66a823524437ffdc4eb3e57a3f47"
+  },
+  "currentBoundedAcceptance": {
+    "bytes": 2496,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-11/rubric.json",
+    "sha256": "27c769adc3eda771530df65f18c2496e67973578f0254e809d7bd8a10f00ca71"
+  },
+  "eligibility": {
+    "Construction": "Root final B11 design ruling selected3 existing paths only; immediate native Return with syntax-only limits",
+    "Testing": "Full current9C2 commands/961 paths after genuine new authoring Return",
+    "UAT": "Only4 selected B11 local criteria/current admitted producer; future external Root/live proof excluded",
+    "status": "Prospective packet pending exact review before Root materialization/setup006/call"
+  },
+  "failedRunStatus": {
+    "bytes": 3831,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/B07_FINAL_STATUS.json",
+    "sha256": "cc6770a386f8a2c863a386f23deb64651b569654b98a78ff7d9599edda5047ee"
+  },
+  "historicalBoundedAcceptance": {
+    "bytes": 2218,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-08/rubric.json",
+    "sha256": "c8409de7aca6a8128312365d7dca9a40f65a19940bc6ff9a6237526765be0c5e"
+  },
+  "initialState": {
+    "observations": [],
+    "sourceBasis": "none",
+    "synthesis": null
+  },
+  "initialSubject": "Accepted B10 source/23 exact current preimages/14 dirty Product files preserved; B11 changes only3 paths. No old Result imported.",
+  "kind": "b11_exact_baseline_and_endpoint_binding_work_basis",
+  "noSourceCensusRewrite": true,
+  "notClaimed": [
+    "Product fix/native authoring/C2/UAT/newliveproof",
+    "Old003 environment or endpoint identity recovered",
+    "Whole qualification/release or OS confinement"
+  ],
+  "ownerAndDesignPreimages": [
+    {
+      "bytes": 76228,
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c"
+    },
+    {
+      "bytes": 100940,
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06"
+    },
+    {
+      "bytes": 85136,
+      "path": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14"
+    }
+  ],
+  "sameSourceClosure": {
+    "bytes": 222487,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-07/snapshot-census.json",
+    "sha256": "bbded3fafa67ebc1344d0d071893d271f913f9b1d30ac98272796553ee2a5c79"
+  },
+  "selectedPathsUnchanged": true,
+  "setupEligibility": {
+    "recursionBound": 4,
+    "route": "Root selected fresh setup006 via existing same-owner flow on same canonical root; sourceBasisnone/emptyobservations/nullsynthesis"
+  },
+  "sourceArchive": {
+    "bytes": 266240,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/b11-before-source-local.tar",
+    "sha256": "1fb15ef0a6ce42b69664b786b52dbb9c3439ebef0091438e8914f85ad32b728c"
+  },
+  "sourceCustody": {
+    "bytes": 8320,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_SOURCE_BASELINE.json",
+    "sha256": "acacd474b978410e09614471993f49335483d77aefc7f7dc2f82939c7e890c40"
+  },
+  "stdo": {
+    "configuredPath": "/Users/jim/.local/bin/stdo",
+    "explicitAffectedTestEnvironment": {
+      "HOME": "/Users/jim",
+      "PATH": "/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/jim/.local/bin",
+      "STDO_STORE": "/Users/jim/Library/Application Support/STDO"
+    },
+    "interpreter": {
+      "bytes": 52640,
+      "path": "/opt/homebrew/Cellar/python@3.13/3.13.7/Frameworks/Python.framework/Versions/3.13/bin/python3.13",
+      "sha256": "a708f6e9f4803b806b29146c4e0feecfd9bf2d9eb60f3e15b850cd7cb56f200b"
+    },
+    "limits": [
+      "Module source and interpreter pins are not a full standard-library or transitive-package memory/isolation proof",
+      "Native C2 must actually run affected tests and validate exact method manifest"
+    ],
+    "releaseManifest": {
+      "bytes": 14286,
+      "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/manifest.json",
+      "sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+    },
+    "resolvedEntrypoint": {
+      "bytes": 203,
+      "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/bin/stdo",
+      "sha256": "dd2fb1a3e5e946dc09132a180e3d8fbb4db1f09aa9c2958a802cf56d439c2fb4"
+    },
+    "toolchainModuleSources": [
+      {
+        "bytes": 149,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/__init__.py",
+        "sha256": "cd7002239875e9cd822ddaacc0fd55631c6ac848594a9ad2cf7d7c88ab86cf42"
+      },
+      {
+        "bytes": 13237,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cli.py",
+        "sha256": "7501055cbc5ffc48190bf66bc5d51cc5c579fc3a1c265c479eb17b06d28bdd06"
+      },
+      {
+        "bytes": 9190,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_assets.py",
+        "sha256": "0ab00000697afb5bd5ab8bb71d56f310be466ac5a7782908f287374293747bff"
+      },
+      {
+        "bytes": 38674,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/cohort_update.py",
+        "sha256": "e00eff22e8938a672c48e3554ee6b194c397cc88d54046c652412283109a13af"
+      },
+      {
+        "bytes": 26259,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/composition.py",
+        "sha256": "f9c15e022627c12a1a9c8b7cbaf642fc396101fd2b0314e14b988456afff76d1"
+      },
+      {
+        "bytes": 1872,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/constants.py",
+        "sha256": "865976bc3726e27a3f48c6f895d9238b507d1ccf132cfc3cd3622e88db3313e1"
+      },
+      {
+        "bytes": 149,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/errors.py",
+        "sha256": "2fcb25411f230ffdb1dfb38a1994b47e23b3516d79cfde7e5bc10d6580a01982"
+      },
+      {
+        "bytes": 25167,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/git_source.py",
+        "sha256": "64b1a7f3c1a179cfea56303ecf900378fc0152ea0767018498c5914f9251ce50"
+      },
+      {
+        "bytes": 16332,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/manifest.py",
+        "sha256": "c7b53d36ffd6970cf4bc1d5c626ec17b429e86edbe5f519e73d6ff9ba3033885"
+      },
+      {
+        "bytes": 25849,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/product_definition.py",
+        "sha256": "7c2d81ea1d3cff5769a0a5f1cdb2ca7d4bf37890262090cab071215343c2a077"
+      },
+      {
+        "bytes": 761,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/references.py",
+        "sha256": "b230307a0c81d9896e3d98e83c17e0aa3f6a6fcf085a33c480027446a1e01a40"
+      },
+      {
+        "bytes": 17752,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/store.py",
+        "sha256": "24dd080d0daced716e1284733c30089cb4768983e174441aae8eebc0e8f4e74d"
+      },
+      {
+        "bytes": 2101,
+        "path": "/Users/jim/.local/pipx/venvs/stdo-toolchain/lib/python3.13/site-packages/stdo_toolchain/util.py",
+        "sha256": "51508fc8878db4211abb58265b4dd7824ed92d3125b98b8e392797ccbc68d7c0"
+      }
+    ]
+  }
+}

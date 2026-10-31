@@ -1,0 +1,30 @@
+{
+  "kind": "b11_exact_three_path_before_archive",
+  "sourceBaseline": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_SOURCE_BASELINE.json",
+  "sourceBaselineSha256": "acacd474b978410e09614471993f49335483d77aefc7f7dc2f82939c7e890c40",
+  "archive": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/b11-before-source-local.tar",
+  "archiveBytes": 266240,
+  "archiveSha256": "1fb15ef0a6ce42b69664b786b52dbb9c3439ebef0091438e8914f85ad32b728c",
+  "members": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "bytes": 76228,
+      "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "bytes": 85136,
+      "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "bytes": 100940,
+      "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06"
+    }
+  ],
+  "limits": [
+    "Content preimages only; normalized tar metadata",
+    "No Product source writes, tests, Public or provider calls",
+    "Unrelated dirty and untracked work preserved"
+  ]
+}

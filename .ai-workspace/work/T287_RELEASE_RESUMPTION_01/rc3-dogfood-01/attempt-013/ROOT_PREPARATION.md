@@ -1,0 +1,3 @@
+# B11 provider-free setup and prepared call
+
+Root materialized four operator inputs and completed fresh setup006 with zero provider calls. The [setup summary](../setup-006/summary.json) retains its actual identity and operation statuses. The actual B11 call is prepared, not admitted; [manifest](PREPARATION_MANIFEST.json) SHA-256 `3a9aac0a14544504b7dda98ae73de5de679572124fc0ddd9d5bef41281a620e2` binds the selected source, preimages, environment and initial event prefix. Independent exact-call review remains pending. No Product outcome, provider execution or qualification is implied by preparation.

@@ -11,7 +11,7 @@
 - current_activation: SUNNY_DAY_TRAVERSAL_AND_RECOVERY_PLAN_01; owner selects sunny-day HoG iteration, declared evaluation and consequence before cold event-log recovery; Root remains sole ABI operator proxy.
 - current_activation_status: Two foundation checkpoints and bounded B10 correspondence repair are accepted. Live witness003 admitted Testing and Construction; its parent blocked without terminal. Root accepted bounded W1/W2/W4/W5; W3 cold authentication and full W1–W5 remain open because the endpoint is only in an unadmitted sidecar and the admitted environment digest cannot be reconstructed from retained inputs.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md
-- current_next_work: Complete independent review of prospective B11: render the existing nonsecret endpoint as JSON-escaped identity in the admitted prompt, without new contracts, fields, events, grants, commands or stores. Future cold evidence requires a new artifact and Run; no implementation is claimed. Preserve original A/B, W3 cold authentication, repeatability, qualification and release obligations.
+- current_next_work: Monitor the Root-dispatched B11 native endpoint-identity repair and assess its actual C2/UAT. Future cold evidence requires a new artifact and Run; preserve prior witness003 standing. Preserve original A/B, W3 cold authentication, repeatability, qualification and release obligations.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families

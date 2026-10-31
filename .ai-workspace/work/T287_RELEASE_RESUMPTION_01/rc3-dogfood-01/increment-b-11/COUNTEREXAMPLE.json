@@ -1,0 +1,95 @@
+{
+  "actualWitness003": {
+    "admittedEnvironmentDigest": "sha256:d22eb5285f8c162bcd8a138d62b3d5af4029fdb62acc0b07bb996c97e69da23c",
+    "coldGap": "Sidecar endpoint lacks independent admitted authentication when launch-time full environment preimage cannot be reconstructed; witness003 remains unproven.",
+    "constructionResultRef": "result://abiogenesis/49def9c72cc2523ed1ba9b92d0237ae9e32146f800f969a0bd7972b443372612",
+    "disposition": {
+      "bytes": 3879,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md",
+      "sha256": "3dbe21f7c7fc60b0096571aa52c9f18884b37bf495f951ae7d0d8c71a24197f6"
+    },
+    "environmentDiagnostic": {
+      "bytes": 4928,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/ENVIRONMENT_REHYDRATION_DIAGNOSTIC.md",
+      "sha256": "277f7c4d7c63ed56c48d982325451eb95de4ea7bde5710e5d8629d9f5ff86e32"
+    },
+    "limits": "Native Return/admitted Construction and bounded joins do not recover the full launch environment or authenticate a sidecar-only endpoint. No environment values/credentials retained here.",
+    "observerSource": {
+      "bytes": 16347,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/observe.mjs",
+      "sha256": "8c25fdcc1699172864d7bcf902c93ff7c138be92ed224cc033e2da7e13225452"
+    },
+    "strictObserverDigest": "sha256:3ece86184eb72dedf141f1df2760e0f8bf46592133927c724e04cf41c5138593",
+    "testingResultRef": "result://abiogenesis/16d98c25b07cb862987b8d0a0333909d8f8f8f73acfb63499191776adad1737e",
+    "witnessDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md",
+    "witnessRunRef": "run://abiogenesis/8ddffa7b063e50b1bf261ce6b519dbc0ef14d186e937861b0c940b40746ba54e"
+  },
+  "beforeArchive": {
+    "bytes": 266240,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/b11-before-source-local.tar",
+    "sha256": "1fb15ef0a6ce42b69664b786b52dbb9c3439ebef0091438e8914f85ad32b728c"
+  },
+  "kind": "b11_endpoint_prompt_identity_counterexample",
+  "mandatoryNegative": "Co-substitute BOTH transcript endpoint and candidate expected endpoint; original actual admitted prompt must fail receiver reconstruction before calling corecold. Missing/altered identity or duplicate append prompts must fail that same boundary.",
+  "owningTrace": [
+    {
+      "lines": "312;402-407;968-979",
+      "meaning": "Existing invocation already has endpoint; actual owner reserves it, but current prompt ignores it.",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts"
+    },
+    {
+      "lines": "1007-1030;1076;1120",
+      "meaning": "Owner renders actual reserved invocation and admits append-system-prompt in existing transport args; read-only call-seam, no edit.",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts"
+    },
+    {
+      "lines": "624-658",
+      "meaning": "Core cold verifier requires a trusted owner-reconstructed invocation; it accepts neither prompt nor environment as input.",
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts"
+    },
+    {
+      "lines": "858-889",
+      "meaning": "Real-owner test currently authenticates endpoint through known controlled environment; add independent exact-one-admitted-prompt receiver proof and co-substitution negative.",
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs"
+    }
+  ],
+  "rootPureInstalledObservation": {
+    "endpointA": "/tmp/endpoint-a",
+    "endpointB": "/tmp/endpoint-b",
+    "filesystemReceipt": null,
+    "keyNames": [
+      "late/0"
+    ],
+    "meaning": "Actual installed old renderer output ignores the only differing endpoint field; this is a Root tool observation, not a newly invented artifact.",
+    "ownerArtifactSha256": "5b81bd64d6114b853cf63322ea16604d158342b300565852afce56ffb3ef4744",
+    "pageBound": 4096,
+    "promptsEqual": true,
+    "samePinnedExecutableAndClient": true,
+    "source": "Root explicit session report",
+    "toolChunk": "60ffb5"
+  },
+  "selectedFix": "One JSON.stringify(endpoint) nonsecret identity line in existing owner-rendered prompt; unchanged signature/client command/env/policy/authority/event/schema. New artifact/Run only; never retrofit003.",
+  "sourceBaseline": {
+    "bytes": 8320,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_SOURCE_BASELINE.json",
+    "sha256": "acacd474b978410e09614471993f49335483d77aefc7f7dc2f82939c7e890c40"
+  },
+  "standing": "Root-selected exact design/actual003 operator-proof counterexample; no fabricated saved receipt or retroactive native proof",
+  "threePathPreimages": [
+    {
+      "bytes": 76228,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c"
+    },
+    {
+      "bytes": 85136,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14"
+    },
+    {
+      "bytes": 100940,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06"
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "kind": "b11_before_source_custody",
+  "sourceRoot": "/Users/jim/src/apps/abiogenesis-rc3-dogfood",
+  "head": "927b8c0b84915ea2c926115902c2ceeef6df26a3",
+  "count": 23,
+  "dirtyProductFiles": 14,
+  "preserved": "Existing dirty work preserved; no Product file was changed or staged.",
+  "sourceBasis": {
+    "b10Eligibility": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-10/SOURCE_AND_ELIGIBILITY.json",
+    "b10SourceCustody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_SOURCE_CUSTODY.json",
+    "b10C2Custody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_C2_CUSTODY.json",
+    "b10AcceptedDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_DISPOSITION.md",
+    "b10ArtifactSha256": "5b81bd64d6114b853cf63322ea16604d158342b300565852afce56ffb3ef4744"
+  },
+  "counterexample": {
+    "witnessDisposition": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md",
+    "witnessRunRef": "run://abiogenesis/8ddffa7b063e50b1bf261ce6b519dbc0ef14d186e937861b0c940b40746ba54e",
+    "testingResultRef": "result://abiogenesis/16d98c25b07cb862987b8d0a0333909d8f8f8f73acfb63499191776adad1737e",
+    "constructionResultRef": "result://abiogenesis/49def9c72cc2523ed1ba9b92d0237ae9e32146f800f969a0bd7972b443372612",
+    "coldGap": "Sidecar endpoint lacks independent admitted authentication when launch-time full environment preimage cannot be reconstructed; witness003 remains unproven."
+  },
+  "rows": [
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "bytes": 79977,
+      "sha256": "d2e29a5fb054952e544e252c588621cbd095d6f4c59c5a46e9f6f448c1858faf",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "bytes": 46520,
+      "sha256": "e73fbfd7c329be060e1af642922b2d4ec0e815ce0d0d061771724162eb1fd357",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "bytes": 129875,
+      "sha256": "2811b8363e2fbd3117509f4ef9bfba54b0bb4060bf4003094a357f6c93e5933b",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "bytes": 76228,
+      "sha256": "55aab416b4b14299d484e502c6b21c20076463a246fdbfaa8bd2402b3952494c",
+      "gitStatus": "??",
+      "basis": "B10_postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+      "bytes": 2960,
+      "sha256": "a181da8b35a5e242325600eed33fae9278219b7ed687bb6e94ad5763a5093691",
+      "gitStatus": "??",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "bytes": 119884,
+      "sha256": "da2a636c6e8ea7cc0845abcd6f01ca429c104b7c9d644a3dc3cac1bf4c469824",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "bytes": 36280,
+      "sha256": "8c075866f3e2b016cbe8808f3bfecb269163e96b7f808c228be362529ffa6d3f",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "bytes": 20097,
+      "sha256": "48c53298d8046e250230fb5f9c771fc2e80c8cb071b5911394107fe6d1873e33",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "bytes": 82281,
+      "sha256": "8901e6682a62a39fe57d8f9d8302cdc83196e63d63120e603254115a0f8a24b6",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "bytes": 36043,
+      "sha256": "98f34b90dd41b016d7c0e04d26cf5491d9b4a62f3cfca8843bd21072176d6a54",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py",
+      "bytes": 10822,
+      "sha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+      "gitStatus": "??",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "bytes": 77289,
+      "sha256": "6e51c530e25f3d02ca835b36e2b88bd65605be168df8c331149c2994da5948f7",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "bytes": 85136,
+      "sha256": "bccac00b8e1be2052130cde1286bc0066bd476d9181211b953e1559e289eec14",
+      "gitStatus": " M",
+      "basis": "B10_postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "bytes": 13499,
+      "sha256": "841b8c597cbadc7f23d1324fddb25529f2c3a5fae87c92a273ddf3def0aa3ed9",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "bytes": 51632,
+      "sha256": "e2cf1d57b23b7f80b034df3f06c51d33e806feaa4d26e363c5540e3811d2e780",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs",
+      "bytes": 11252,
+      "sha256": "635c2dde9099488b8512ba348f17044a28220d8bd1bee682474a41a45bf9e562",
+      "gitStatus": "??",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 75056,
+      "sha256": "2453064c90a1a9a80cb0d1e7cda3f9d7915a3c14f04468371e690c9184ae1f6e",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+      "bytes": 6432,
+      "sha256": "01ce983fbe2045e91395f7f3280515ddb8895e8a169bab8d5c8b1cede50c6a03",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "bytes": 212273,
+      "sha256": "9dfee75df15788d4ff53f44c188055a3732cf3f4d72d568e0ed39a2b0df70d31",
+      "gitStatus": " M",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "bytes": 100940,
+      "sha256": "67e6a733dfcf7385d15f2a642b190712f3c0d56d654d0c916e2c2dbd43a35a06",
+      "gitStatus": "??",
+      "basis": "B10_postimage"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 88910,
+      "sha256": "18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "bytes": 16306,
+      "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5",
+      "gitStatus": "  ",
+      "basis": "B10_selected_preimage_unchanged"
+    }
+  ]
+}

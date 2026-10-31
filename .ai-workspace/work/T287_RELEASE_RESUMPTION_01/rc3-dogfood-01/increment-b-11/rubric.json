@@ -1,0 +1,34 @@
+{
+  "criteria": [
+    {
+      "criterion": "governedContextPrompt includes exact JSON-escaped owner-selected endpoint identity; direct endpointA/B-only variation differs and would fail the old renderer; quote/newline escaping is tested, with unchanged existing signature, client command and environment behavior.",
+      "id": "B11-1"
+    },
+    {
+      "criterion": "The real-owner bind/serve/close/cold test authenticates installed executable/client and an untrusted candidate endpoint by exactly ONE actual admitted whole owner-rendered prompt with owner keys/page bound before corecold. Co-substituting BOTH sidecar and expected endpoint fails the unchanged admitted prompt; missing/altered endpoint identity and duplicate append prompts refuse before corecold. Corecold is not claimed to consume prompt/env; exchanges are nonempty actual allowed+denied evidence.",
+      "id": "B11-2"
+    },
+    {
+      "criterion": "Only the three authorized existing paths change for prompt/meaningful regressions/localized HOW. All B10 narrative/description positives, unmatched/non-Bash command negatives and existing invocation/wire/response/digest/source/grant/occurrence/cold gates remain. No new event/API/schema/refusal/authority/controller/store or changed command/environment/policy behavior; no legacy fallback or retroactive003 proof.",
+      "id": "B11-3"
+    },
+    {
+      "criterion": "All nine conserved C2 commands exit0 without timeout; full focused output shows new endpoint-binding/receiver negatives and unchanged real-owner case passed without skip/todo; current source correspondence/build/package and affected-owner/artifact checks pass under the exact selected offline toolchain/STDO environment.",
+      "id": "B11-4"
+    }
+  ],
+  "kind": "b11_bounded_endpoint_prompt_binding_acceptance_basis",
+  "limits": [
+    "Full environmentDigest is retained but its preimage is not claimed reconstructed",
+    "Author syntax checks are not C2 execution evidence",
+    "No OS confinement or authority from endpoint possession"
+  ],
+  "notCriteria": [
+    "Future Root inspection/acceptance",
+    "Later fresh installed live witness/observer verdict",
+    "Reclassifying prior003 cold gap or other histories",
+    "Whole Product qualification/release"
+  ],
+  "outcome": "Existing owner-rendered admitted prompt binds exact nonsecret endpoint identity and supports authentic receiver reconstruction for cold lookup under unchanged contracts.",
+  "status": "ROOT_SELECTED_BOUNDED_CRITERIA"
+}
