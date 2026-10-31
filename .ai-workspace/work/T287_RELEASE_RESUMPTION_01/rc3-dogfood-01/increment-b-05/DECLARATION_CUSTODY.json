@@ -1,0 +1,125 @@
+{
+  "kind": "b05_selected_declaration_copy_custody",
+  "classification": "operator declaration copied for future native admission; not native authority or an installed artifact",
+  "rows": [
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/GC03_DECLARATION.md",
+      "bytes": 3349,
+      "sha256": "c5118fc9c635a4522d55c302bd84541a3ab5c100ddf7df5d084435d244fe55e4"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/fixture.txt",
+      "bytes": 4616,
+      "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/abg-private-policy-member.json",
+      "bytes": 1638,
+      "sha256": "4e8f851d762cafd7b8539332bd5b3f3679aebbbd6a451a17d6c411bf976b34e7"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/activation-request.template.json",
+      "bytes": 11360,
+      "sha256": "b3803ea9cdcb1f945ff5a3b7d8573a246280a8e714f8ddfafd9e000f6502bf6c"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/gc03-policy.json",
+      "bytes": 9594,
+      "sha256": "234716d1c8498b3a180130dc8ec99a18edef58be3d8eb679b8b0413d3b03d3cf"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/gc03-candidate-b04-source-001/host-derivation.json",
+      "bytes": 3995,
+      "sha256": "59e834fae8746caa80eafea710257d95861f2ae4faceb30cd8f7374f204c6890"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/SOURCE_CUSTODY.json",
+      "bytes": 3329,
+      "sha256": "72e20ae8031f06d674692ec1f9dcce63b097ad02fd6a2373387975c02a7c72b9"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/specification/PRODUCT.md",
+      "bytes": 100202,
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/abg/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/GC03_DELEGATION.md",
+      "bytes": 903,
+      "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/OPERATOR.md",
+      "bytes": 1623,
+      "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/fd-support-host-lookup.md",
+      "bytes": 5207,
+      "sha256": "7ff7384e8a41c87439985c58a1949a8dd205ffbae40cc19a4892fa2b6c5d33ab"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/rubric.json",
+      "bytes": 1196,
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/authority/task.md",
+      "bytes": 905,
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/ACTIVATION.md",
+      "bytes": 142205,
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/AXIOMATIC_CALCULUS.md",
+      "bytes": 92360,
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/EVALUATION.md",
+      "bytes": 87317,
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/governed-context-sources/method/fd-method-stdo-3.0.2.json",
+      "bytes": 4751,
+      "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/make-activation-template.py",
+      "bytes": 4579,
+      "sha256": "500783e1748f7edc9b69e3498db1166c50dfaf9dccf9a512f1d6c4491bccdf98"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/make-gc03-candidate.py",
+      "bytes": 8797,
+      "sha256": "fda95daaead1d7df70e9cbb4fc246eb78d0dbebf0f5c02265a43eb4138518f78"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/rubric.json",
+      "bytes": 1196,
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/task.md",
+      "bytes": 905,
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+    },
+    {
+      "path": "rc3-operator-inputs/increment-b-05/declared-gc03/validate-gc03-candidate.py",
+      "bytes": 2908,
+      "sha256": "0a56827a7fd81e3d038bb532b74cd4ac2e0372a6d0d6719785126926a9fef973"
+    }
+  ],
+  "limits": [
+    "current checkout adapter path in the copied candidate is historical example only; re-materialize with exact actual candidate artifact bytes",
+    "B04 final source and handoff not yet selected"
+  ]
+}

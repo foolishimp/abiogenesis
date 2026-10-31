@@ -1,0 +1,10 @@
+{
+  "kind": "native_lookup_witness_fixture_preparation",
+  "status": "historical bytes selected for future fresh C2 measurement; no new Result",
+  "sourcePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/retained-stdout.txt",
+  "sourceSha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+  "bytes": 4616,
+  "historicalCustodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-a-01/retained-stdout-custody.json",
+  "historicalCustodySha256": "888beff5d875be720bf2fb5244189bbdf44b4d5f5193baf836451e0107951e94",
+  "futureProducer": "unknown until same-Run Testing is admitted; do not reuse historical producer coordinates"
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "a_c.fd-support.method-binding/1",
+  "id": "urn:a-c:fd-support:method:stdo-3.0.2:executive:1",
+  "status": "bounded-native-binding-candidate",
+  "method": {
+    "name": "STDO3.0.2",
+    "uri": "stdo://releases/v3.0.2/",
+    "manifest_sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+    "source_commit": "23ca9c0929d7be8570edafaf30542e3daeb8dc1f",
+    "package": "specification_methodology/v3/",
+    "selected_profiles": [
+      "EXECUTIVE_BASELINE.md"
+    ]
+  },
+  "builder": {
+    "uri": "stdo://releases/v2.5.1-rc.2/",
+    "manifest_sha256": "3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782"
+  },
+  "members": [
+    {
+      "member": "REFERENCE_FRAME.md",
+      "sha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "clauses": [
+        "11-the-activation-packet",
+        "13-minimal-declarations",
+        "rf-016-implementation-neutrality"
+      ]
+    },
+    {
+      "member": "ACTIVATION.md",
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "clauses": [
+        "intake",
+        "admission",
+        "3-step-results-and-disposition",
+        "7-closed-result-and-reuse"
+      ]
+    },
+    {
+      "member": "FOUNDATIONS.md",
+      "sha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "clauses": [
+        "results",
+        "assertions-and-observation",
+        "change-impact-and-evidence-reuse"
+      ]
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "sha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "clauses": [
+        "19-baseline-specific-basis-and-activation-additions",
+        "no-mutation-while-executive"
+      ]
+    },
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "clauses": [
+        "5-traversals-and-functor-kinds"
+      ]
+    },
+    {
+      "member": "EVALUATION.md",
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "clauses": [
+        "3-independent-assessment"
+      ]
+    },
+    {
+      "member": "SPEC_METHOD.md",
+      "sha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "clauses": [
+        "11-build-tenant-binding"
+      ]
+    },
+    {
+      "member": "PRODUCT_DEFINITION.md",
+      "sha256": "7ee46438de5e4cb33cd8920814ecc90cfef95fb5eaee269f6f1a4fa389f4e523",
+      "clauses": [
+        "9-recursive-discovery-and-explicit-composition",
+        "pc-03--the-edges-contract-and-authority-record",
+        "pc-04--recursive-authority-and-information-eligibility",
+        "pc-05--context-construction-and-clean-room-conditions"
+      ]
+    }
+  ],
+  "carrier": "Existing a_c.fd-support /1 carriers; this profile supplies the native semantic binding, not new method law.",
+  "mapping": {
+    "packet": "REFERENCE_FRAME section11; existing groups preserve required native coordinates. Native intake outcome/admission/shared machinery are supplied as exact sources in packet relations and grant.",
+    "admission": "ACTIVATION Admission; existing Product-located mechanism and exact contract evidence remain necessary; profile selection supplies no grant.",
+    "work_result": "ACTIVATION Construction availability: candidate_ready/satisfied, incomplete/falsified, refused/falsified, re_entry_requested cause determines out_of_frame or invalid_basis; no assessment manufactured.",
+    "return": "ACTIVATION section7; original evaluations/not_performed/residuals/invalidators remain distinct, and currentness is consumer-relative.",
+    "operation_outcome": "B(op) is output/effect-evidence payload availability, not physical completion, semantic success or admission. Existing cause-tagged mapping is retained under native FOUNDATIONS Results.",
+    "classification": "Named read, render, launch and write operations are not universally classified F_D; pure finite declared predicate checks retain their narrow evidence claim. External execution and F_P meaning remain separate.",
+    "composition": "PRODUCT_DEFINITION section 9 PC-01 through PC-05 and REFERENCE_FRAME section 11: explicit route-specific composition and eligibility via existing selected composition fragment; semantic adequacy and unmediated host access remain outside this binding."
+  },
+  "unsupported": [
+    "results.conjoin: no native operator qualification",
+    "arbitrary method profiles or translations",
+    "semantic context sufficiency certification",
+    "universal F_D classification or full calculus conformance",
+    "OS sandboxing or actor/provider qualification",
+    "cross-Product disclosure without an explicitly selected supported composition binding"
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "$schema": "stdo://releases/v3.0.2/standards/schemas/product-definition.schema.json",
+  "kind": "stdo.product-definition",
+  "product": {
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "name": "ABIogenesis",
+    "source_project": "./",
+    "bounded_context": null
+  },
+  "constitution": {
+    "stdo": {
+      "source": {
+        "repository": "https://github.com/foolishimp/specification_methodology.git"
+      },
+      "selector": "stdo://channels/3.0.2",
+      "basis": {
+        "uri": "stdo://releases/v3.0.2/",
+        "manifest_sha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477"
+      }
+    },
+    "additional_authorities": [],
+    "entrypoints": [
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/frames/bootstrap.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/SPEC_METHOD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/REFERENCE_FRAME.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/EXECUTIVE_BASELINE.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/ODD.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/IDENTITY.md"
+      },
+      {
+        "basis": "#/constitution/stdo/basis",
+        "uri": "standards/RELEASE.md"
+      }
+    ],
+    "agent_bootstrap": {
+      "entrypoint": "#/constitution/entrypoints/0",
+      "targets": [
+        "./AGENTS.md",
+        "./CLAUDE.md"
+      ]
+    }
+  },
+  "local_constitution": {
+    "axioms": [],
+    "overrides": [],
+    "disambiguations": []
+  },
+  "reference_frame_bases": [
+    {
+      "uri": "./build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md#abiogenesis-project-reference-frame-basis",
+      "authority": [
+        "./specification/PRODUCT.md#governance-and-release-boundary",
+        "./specification/GOALS.md#current-selection"
+      ],
+      "applies_to": [
+        "./.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md#lawful-re-entry"
+      ]
+    }
+  ],
+  "what": {
+    "intent": "./specification/INTENT.md",
+    "product": "./specification/PRODUCT.md",
+    "specification": [
+      "./specification/requirements/"
+    ]
+  },
+  "how": {
+    "common": [],
+    "build_tenants": [
+      {
+        "id": "urn:abiogenesis:build-tenant:typescript",
+        "root": "./build_tenants/abiogenesis/typescript/",
+        "design": [
+          "./build_tenants/abiogenesis/typescript/design/"
+        ],
+        "implementation": [
+          "./build_tenants/abiogenesis/typescript/code/"
+        ]
+      }
+    ]
+  },
+  "ticketing": {
+    "goals": "./specification/GOALS.md",
+    "tickets": {
+      "root": "./.ai-workspace/tickets/",
+      "lanes": {
+        "backlog": "./.ai-workspace/tickets/backlog/",
+        "active": "./.ai-workspace/tickets/active/",
+        "completed": "./.ai-workspace/tickets/completed/"
+      }
+    },
+    "comments": {
+      "root": "./.ai-workspace/comments/"
+    }
+  },
+  "composition": []
+}

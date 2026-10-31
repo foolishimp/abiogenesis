@@ -1,0 +1,309 @@
+{
+  "kind": "abiogenesis_gc03_host_activation_request_template",
+  "status": "INCOMPLETE_NOT_ADMITTED",
+  "policySha256": "234716d1c8498b3a180130dc8ec99a18edef58be3d8eb679b8b0413d3b03d3cf",
+  "request": {
+    "schema": "a_c.fd-support.request/1",
+    "id": null,
+    "operation": "context.assemble",
+    "arguments": {
+      "packet": {
+        "activation": {
+          "id": null,
+          "revision": "1",
+          "configuration": {
+            "engine": "workspace-regular-file",
+            "root": "authority",
+            "path": "GC03_DELEGATION.md",
+            "object": null,
+            "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+            "selector": null
+          }
+        },
+        "frame": {
+          "id": null,
+          "revision": "1",
+          "declaration": {
+            "engine": "workspace-regular-file",
+            "root": "method",
+            "path": "ACTIVATION.md",
+            "object": null,
+            "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+            "selector": null
+          },
+          "evaluation": {
+            "engine": "workspace-regular-file",
+            "root": "method",
+            "path": "EVALUATION.md",
+            "object": null,
+            "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+            "selector": null
+          },
+          "result_algebra": {
+            "engine": "workspace-regular-file",
+            "root": "method",
+            "path": "AXIOMATIC_CALCULUS.md",
+            "object": null,
+            "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+            "selector": null
+          }
+        },
+        "subject_basis": {
+          "subject": null,
+          "method_profile": {
+            "id": "urn:a-c:fd-support:method:stdo-3.0.2:executive:1",
+            "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4"
+          },
+          "product": {
+            "id": "urn:stdo:product-definition:abiogenesis",
+            "definition": {
+              "engine": "workspace-regular-file",
+              "root": "abg",
+              "path": "stdo_abiogenesis.json",
+              "object": null,
+              "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+              "selector": null
+            }
+          },
+          "observations": null,
+          "dependencies": [
+            {
+              "engine": "workspace-regular-file",
+              "root": "abg",
+              "path": "stdo_abiogenesis.json",
+              "object": null,
+              "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+              "selector": null
+            },
+            {
+              "engine": "workspace-regular-file",
+              "root": "authority",
+              "path": "GC03_DELEGATION.md",
+              "object": null,
+              "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+              "selector": null
+            }
+          ],
+          "time_basis": "actual current native occurrence supplied by trusted host"
+        },
+        "attention": {
+          "material_relations": [
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "task.md",
+              "object": null,
+              "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+              "selector": null
+            },
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "rubric.json",
+              "object": null,
+              "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+              "selector": null
+            }
+          ],
+          "invariants": [
+            {
+              "engine": "workspace-regular-file",
+              "root": "authority",
+              "path": "GC03_DELEGATION.md",
+              "object": null,
+              "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+              "selector": null
+            }
+          ],
+          "semantic_sources": [
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "task.md",
+              "object": null,
+              "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+              "selector": null
+            },
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "rubric.json",
+              "object": null,
+              "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+              "selector": null
+            }
+          ],
+          "exclusions": [],
+          "prohibited_assumptions": [
+            "do not replace original task or rubric criteria"
+          ]
+        },
+        "actor_authority": {
+          "actor_id": "actor://abiogenesis/worksite/native-work@5",
+          "role": "Worker",
+          "capability": {
+            "engine": "workspace-regular-file",
+            "root": "authority",
+            "path": "GC03_DELEGATION.md",
+            "object": null,
+            "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+            "selector": null
+          },
+          "semantic": null,
+          "evaluation": {
+            "engine": "workspace-regular-file",
+            "root": "method",
+            "path": "EVALUATION.md",
+            "object": null,
+            "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+            "selector": null
+          },
+          "operation": {
+            "engine": "workspace-regular-file",
+            "root": "authority",
+            "path": "GC03_DELEGATION.md",
+            "object": null,
+            "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+            "selector": null
+          },
+          "decision": null,
+          "acceptance": null,
+          "publication": null,
+          "territory": [],
+          "tools": [
+            "context.read"
+          ]
+        },
+        "evidence_relations": {
+          "admissible_evidence": [
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "task.md",
+              "object": null,
+              "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+              "selector": null
+            },
+            {
+              "engine": "retained-evidence",
+              "root": "evidence",
+              "path": "rubric.json",
+              "object": null,
+              "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+              "selector": null
+            }
+          ],
+          "acquisition": [
+            {
+              "engine": "workspace-regular-file",
+              "root": "authority",
+              "path": "GC03_DELEGATION.md",
+              "object": null,
+              "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+              "selector": null
+            }
+          ],
+          "dependencies": [
+            {
+              "engine": "workspace-regular-file",
+              "root": "abg",
+              "path": "stdo_abiogenesis.json",
+              "object": null,
+              "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+              "selector": null
+            },
+            {
+              "engine": "workspace-regular-file",
+              "root": "abg",
+              "path": "specification/PRODUCT.md",
+              "object": null,
+              "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+              "selector": null
+            },
+            {
+              "engine": "workspace-regular-file",
+              "root": "method",
+              "path": "ACTIVATION.md",
+              "object": null,
+              "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+              "selector": null
+            }
+          ],
+          "conjunction": null,
+          "translation": null,
+          "consumer": "native-abg-owner",
+          "return_contract": {
+            "engine": "retained-evidence",
+            "root": "evidence",
+            "path": "task.md",
+            "object": null,
+            "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+            "selector": null
+          }
+        },
+        "stop_change": {
+          "invalidators": [],
+          "stop_conditions": [],
+          "residuals": [],
+          "re_entry": [],
+          "reconfiguration": []
+        },
+        "profile_additions": {
+          "worker": {
+            "operation_grant_id": "witness-context-read",
+            "mutation_subject": null,
+            "territory": []
+          }
+        }
+      },
+      "models": [],
+      "sources": [],
+      "late_acquisition": [
+        {
+          "engine": "retained-evidence",
+          "root": "evidence",
+          "path": "task.md",
+          "object": null,
+          "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+          "selector": null
+        },
+        {
+          "engine": "retained-evidence",
+          "root": "evidence",
+          "path": "rubric.json",
+          "object": null,
+          "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+          "selector": null
+        },
+        null
+      ],
+      "envelope": {
+        "capacity_bytes": null,
+        "boundary": "executor-stdin-utf8",
+        "host_context": {
+          "state": "unknown",
+          "bytes": null,
+          "evidence": null
+        }
+      }
+    }
+  },
+  "requiredCurrentBindings": {
+    "request.id": "fresh correlation label; not a receipt",
+    "packet.activation.id": "current host-admitted activation identifier",
+    "packet.frame.id": "current host-selected frame identifier",
+    "packet.subject_basis.subject": "exact Identity of current native task; same Identity also fills packet.profile_additions.worker.mutation_subject",
+    "packet.subject_basis.observations": "supported a_c Observation ArtifactRefs only; explicit empty list if none selected; keep native ABG event and Result provenance in owner_coordinates and authenticated source joins",
+    "arguments.late_acquisition[2]": "retained-evidence SourceRef for unique current same-Run admitted Testing Result commandResults[0].stdout, with actual Result-derived id and stream digest"
+  },
+  "requiredOwnerFacts": [
+    "authenticate actual principal/actor/native capability and current occurrence independently before deriving the Context",
+    "reacquire original task, original rubric, selected Testing producer and exact byte identities",
+    "bind exact executor and policy, and project currentness before actual host publication"
+  ],
+  "limits": [
+    "No a_c provider preflight, native Result, observation, receipt, delivery or admission is supplied",
+    "Source labels and original criteria preserve user text; no semantic judgment is automated",
+    "Future installed adapter and GC03 policy path require a fresh candidate with exact installed bytes"
+  ]
+}

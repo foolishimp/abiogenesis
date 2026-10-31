@@ -1,0 +1,39 @@
+{
+  "kind": "abiogenesis_gc03_host_derivation_declaration",
+  "status": "CANDIDATE_NOT_ADMITTED",
+  "policySha256": "234716d1c8498b3a180130dc8ec99a18edef58be3d8eb679b8b0413d3b03d3cf",
+  "profile": "urn:a-c:fd-support:method:stdo-3.0.2:executive:1",
+  "principalId": "constructor",
+  "actorId": "actor://abiogenesis/worksite/native-work@5",
+  "grantId": "witness-context-read",
+  "executorId": "gc03-python-host-adapter",
+  "operation": "context.read",
+  "activationRequestTemplate": "activation-request.template.json",
+  "lateKeys": [
+    {"key": "late/0", "source": "task.md", "ownerRole": "original_task"},
+    {"key": "late/1", "source": "rubric.json", "ownerRole": "original_rubric"},
+    {"key": "late/2", "source": "unique admitted same-Run Testing Result field", "fieldPath": ["commandResults", 0, "stdout"], "ownerRole": "testing_result_field"}
+  ],
+  "assembly": {
+    "entry": "ac_support_core.execute_read(runtime, context.assemble request)",
+    "context": "unique returned artifact of kind context, its payload; keep all artifacts ephemeral until actual native owner publication",
+    "subject": "exact native host-selected subject Identity; use the same value in worker mutation_subject",
+    "observations": "supported a_c Observation ArtifactRefs only; an explicit empty list is valid when none are selected; native ABG Result and event provenance remains in owner_coordinates and authenticated source joins",
+    "lateResolver": "trusted held-owner resolver accepts exactly {id,sha256}; task/rubric ids and admitted Result field id must map to current selected bytes"
+  },
+  "recheck": {
+    "entry": "ac_support_core._recheck(runtime, sources, observations, executor_dependencies)",
+    "sources": ["_all_source_refs(context.packet)", "_context_material_sources(context)", "grant.authority_sources", "grant.outcome.source", "grant.admission.mechanism_source", "grant.admission.authority_source", "product.authority_binding.owner_record", "applicable composition material (the released _recheck adds selected composition material)"],
+    "observations": "supported a_c Observation ArtifactRefs from context.packet.subject_basis.observations plus any supported ArtifactRef grant preconditions; never raw native event or Result references",
+    "executorDependencies": "the exact selected policy executor.dependencies: Python, selected adapter, release record, inventory and seven GC03 modules",
+    "verification": "_host_recheck_coverage and check_preconditions must succeed; no preflight is created"
+  },
+  "selection": {
+    "schema": "HostLookupSelection (closed released object, no standalone schema field)",
+    "owner": null, "admission": null, "owner_coordinates": null, "context": null, "subject": null, "basis": null, "epoch": null,
+    "principal_id": "constructor", "actor_id": "actor://abiogenesis/worksite/native-work@5", "grant_id": "witness-context-read", "executor_id": "gc03-python-host-adapter", "operation": "context.read",
+    "policy_sha256": "234716d1c8498b3a180130dc8ec99a18edef58be3d8eb679b8b0413d3b03d3cf", "recheck_sha256": null
+  },
+  "remainingOwnerBindings": ["owner, admission, subject and epoch must be the exact authenticated native current coordinates", "context is Identity containing digest of the actual assembled Context; recheck_sha256 is digest of actual Recheck", "owner_coordinates retain actual admitted Run, CCall, invocation, actor, source Result/producer and byte provenance", "callback must reacquire all of these facts and compare them after computation and before host publication", "the current policy selects a checkout adapter solely as an unqualified candidate; regenerate against the exact installed RC3 adapter and bind its Program-policy member before native use"],
+  "limits": ["No native admission, provider preflight, observation, durable receipt or Result is created by this declaration", "No provider dispatch or source filesystem fallback", "No aggregate-context fit, host confinement or atomic-publication claim"]
+}

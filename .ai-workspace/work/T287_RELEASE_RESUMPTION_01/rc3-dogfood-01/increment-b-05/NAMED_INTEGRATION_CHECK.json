@@ -1,0 +1,21 @@
+{
+  "kind": "b05_named_integration_root_acceptance_check",
+  "status": "REQUIRED_AFTER_ACTUAL_C2_NOT_YET_RUN",
+  "testName": "GC03 real owner allowed denied cold tamper",
+  "testSource": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+  "commandId": "command://abiogenesis/rc3-dogfood/increment-b-05/focused-owner-chain",
+  "contractDiscriminator": "RC2 predicate kinds process_exit/stdout_exact/test_pass_count do not support named TAP regex; preserve full existing command and Root performs exact name and source check",
+  "checks": [
+    "actual C2 source correspondence binds test source to selected final snapshot",
+    "full unfiltered command stdout is available and authenticated by complete byteLength and SHA256",
+    "exact top-level test name appears as passed; not skipped, todo, truncated or only a diagnostic label",
+    "actual test source enters real held store, genuine C2 admission, HoG/prepared leaf/actor and released GC03 fixed client without injected lookup/permission booleans",
+    "test asserts allowed bytes, denied reply, cold rejoin and tamper refusal",
+    "command exitStatus is 0 and test output reports zero failures"
+  ],
+  "limits": [
+    "No new Product predicate, schema or acceptance ruling",
+    "Aggregate test_pass_count alone cannot decide this criterion",
+    "Installed native witness remains later"
+  ]
+}

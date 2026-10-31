@@ -1,0 +1,130 @@
+{
+  "interpretation": "B04 Construction returned an admitted Result (805f…). It changed 6 paths inside the 23-path grant:\n- It removed the shortened GC03 shapes.\n- It added `gc03Digest`, `gc03RetainedSourceRef`, the exact `{id,sha256}` resolver and `deriveGc03HostLookup`.\n- A configured native Construction now refuses dispatch with `authority_missing` before any endpoint is reserved. Unconfigured RC2 behavior is reported as untouched.\n\nIt did not write the required first red→green test through the production chain. Its focused test covers only owner-side derivation, using a GC03 Context supplied by the test, so it checks shape only. It returned a precise boundary instead. The released `HostLookupBinding` needs three things that no native owner fact supplies and that no Root-selected authority in scope grants:\n- a Context packet assembled by GC03 `context.assemble` under a GC03 executive principal;\n- a granted `executor_id`;\n- an `a_c.fd-support.recheck/1` projection.\n\nAlso, a Context pinned in advance cannot bind the Testing digest, because that digest exists only inside the Run.\n\nThis matches the first revision condition in the prior judgment and the task's instruction to \"return the precise boundary\". So I stop with this gap and do not test.\n\n- **Testing:** C2 now would measure a candidate whose required test is absent and whose configured path refuses by design. The `focused-owner-chain-pass ≥1` predicate could pass on the shape-only test, so it cannot decide B2, B3 or B4.\n- **UAT:** an assessment now would predictably leave B2–B4 unmet or indeterminate.\n\nNeither step can resolve an authority boundary that only Root can decide.\n\nExecutive projection:\n- **Disposition:** `re_enter` at Root's authority and design boundary.\n- **Priority:** blocker for B2 and B4.\n- **Current-boundary effect:** B04's outcome is not complete, and Increment B stays incomplete.\n\nThe Worker's scratch commands were the census verify (exit 0), scratch equality (True), red, and green (build exit 0, focused test 1 pass). These are Worker self-checks, not C2 measurement or acceptance. The boundary is the Worker's own report, and no independent review of it exists. I keep it as an attributed claim and do not rewrite it.\n\nThe following stay as they are:\n- A02 remains blocked/indeterminate.\n- The M5 failures and the stale R1 `artifact_digest_mismatch` remain diagnostics.\n- The future native installed-RC3 witness is still pending.\n- `publication: not_performed` is unchanged.",
+  "contributions": [
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/design@5",
+      "contribution": "Future step, only after Root rules on the authority boundary, for example by selecting a GC03 provider policy and executive principal for ABG. Describe the realizable bounded change against the actual worksite and the released GC03 `ac_support_core.py` (around 755–761 and 1124–1328), `fd-support-host-lookup.md` and the pinned `test_ac_context_host.py` and `test_ac_support_core.py` shapes. Cover these points:\n- the owner-authenticated channel that carries a GC03 `context.assemble` packet, the granted `executor_id` and the `a_c.fd-support.recheck/1` projection to the actor owner, without native facts minting them;\n- how the in-Run same-Run Testing digest and the late acquisition SourceRefs are bound, given that a pre-pinned Context cannot bind them;\n- whether the derived admission digest (sha256Canonical over the admission ref, the CCall and the grant digest) is an acceptable owner identity;\n- an executable proof plan for the required production-chain test: allowed read, denied reply bytes, owner cold rejoin and adapter-level tamper refusal.\n\nNo new Public schema, registry, store, permission, fixture authority or `admitted:true`.",
+      "reason": "Construction reports that closing the boundary needs design re-entry. Design cannot supply the missing Root authority, so it is not executable until Root rules on the gap.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+        "worksite-context-observation://abiogenesis/6388d10de2132efa7f82ab1f4b135c260d6039b9274eef30e9921704b262c264"
+      ],
+      "dependsOn": []
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "contribution": "Future re-entry within the existing 23-path grant, starting from the B04 source:\n- Realize the selected channel and replace the `authority_missing` refusal with the authenticated configured path.\n- MANDATORY FIRST: write the deciding red→green test. It runs from a real held store and a genuinely admitted same-Run C2 Result, through HoG, the prepared leaf and the actor owner, into the fixed installed client and the released Python/GC03 adapter over controlled transport. It must cover an allowed read, exact denied reply bytes, owner cold reconstruction and at least one tamper refusal.\n- Add a behavioral test of the `actor_process` refusal through the actor owner.\n- Run an unfiltered compile only, in verified pinned scratch.\n- Make HOW and `release-claim.md` truthful.",
+      "reason": "The required deciding test and the B2/B4 production chain remain unbuilt. Re-entry needs the design and authority above first. A retry under unchanged authority would hit the same boundary.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+        "result://abiogenesis/c4efaa8d6d6919f7921cecea6963c28ddf093cb0abed98c40f2316aa0c966ba1"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/design@5"
+      ]
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "contribution": "Run the unchanged nine-command native C2 plan on the post-Construction snapshot and evaluate all twelve predicates. Retain every command, stream, exit and failure, including the M5 and R1 diagnostics. The full selected source closure and dynamic test dependencies must be included.",
+      "reason": "C2 is the final recorded proof, but it is decision-relevant only once a candidate containing the deciding production-chain test exists. Measuring the current B04 candidate cannot satisfy B2 or B4.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "worksite-context-observation://abiogenesis/6388d10de2132efa7f82ab1f4b135c260d6039b9274eef30e9921704b262c264"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/construction@5"
+      ]
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "contribution": "Independently assess the exact candidate `release-claim.md` against the original sources and the A1–A5/B1–B5 rubric, using the current admitted C2 measurement as observation provenance. Keep unmet and indeterminate criteria visible, including the pending native installed-RC3 witness (B4) and A02's blocked/indeterminate standing.",
+      "reason": "Only an independent read-only assessment of a measured candidate can give the rubric verdict. It has no useful subject until C2 has measured a candidate that contains the production chain.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/testing@5"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "reason": "Authority boundary returned to Root. No Root-selected GC03 provider policy or executive principal for ABG exists. There is also no owner-authenticated channel through which a GC03-assembled Context packet, a granted `executor_id` and an `a_c.fd-support.recheck/1` projection reach the actor owner. The in-Run Testing digest cannot be bound by a Context pinned in advance. Root must select that authority or revise the B design or scope. Inventing a schema, registry, store, permission, fixture authority or `admitted:true` is prohibited.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f"
+      ]
+    },
+    {
+      "reason": "The boundary is an attributed Worker report, not an independent assessment. Before selecting authority or accepting the design gap, Root should confirm it against the released GC03 `_validate_packet`, `composition.context`, `HostLookupBinding` and Recheck requirements, and against the pinned host tests. It should also rule on whether the derived admission digest (sha256Canonical over the admission ref, the CCall and the grant digest) is an acceptable owner identity.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+        "worksite-context-observation://abiogenesis/6388d10de2132efa7f82ab1f4b135c260d6039b9274eef30e9921704b262c264"
+      ]
+    },
+    {
+      "reason": "Required first deciding test not written. None of these has been exercised through the production chain: an allowed read, denied reply bytes, owner cold rejoin or adapter-level tamper refusal. The `actor_process` refusal is checked by compile only. A configured native Construction now refuses with `authority_missing`, so the retained B03 endpoint, lookup and correspondence code cannot run in production. B2 and B4 are unmet and B3 is partial.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f"
+      ]
+    },
+    {
+      "reason": "No C2 measurement exists for the B04 candidate. These remain unmeasured:\n- the final package;\n- the refreshed R1 basis;\n- conservation of A1–A5 and B1;\n- B5;\n- unconfigured RC2 compatibility.\n\nThe earlier M5 timing failures and the stale R1 `artifact_digest_mismatch` remain diagnostics, and A02 remains blocked/indeterminate. The Worker's scratch build and test results are self-checks, not C2 evidence or acceptance.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+        "result://abiogenesis/c4efaa8d6d6919f7921cecea6963c28ddf093cb0abed98c40f2316aa0c966ba1"
+      ]
+    },
+    {
+      "reason": "The future native installed-RC3 delivery witness is still pending and under Root's control. The B04 Construction cost is not reported in the Result. Root must review cumulative B-family spend against the $82 review checkpoint, the $90 stop and the $100 allocation. No automatic retry and no aggregate hard cap are claimed.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04"
+      ]
+    }
+  ],
+  "nextGraphFunctionRef": null,
+  "nextReason": "No member is chosen. Construction returned a precise authority boundary that existing authority cannot express: the GC03 provider policy and principal, and the channel for the Context, `executor_id` and Recheck. The prior judgment and the original task both require stopping with that gap rather than testing.\n\nRunning Testing or UAT now would only measure or assess a candidate that lacks the required deciding test and refuses by design. That cannot decide B2–B4. A retried Construction or Design under unchanged authority would hit the same boundary. Root must rule first.",
+  "nextEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-04",
+    "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+    "result://abiogenesis/c4efaa8d6d6919f7921cecea6963c28ddf093cb0abed98c40f2316aa0c966ba1"
+  ],
+  "subjectEvidenceRef": null,
+  "revisionReason": "Revise this mapping in any of these cases:\n- Root selects a GC03 provider policy, principal and owner channel for ABG. Design becomes the next member, followed by Construction with the required test.\n- Root reviews the boundary and rejects it. Re-enter Construction within the grant, starting with the required production-chain test.\n- Root explicitly asks for a measurement of the current B04 candidate. Testing becomes the next member, with a null subject over supplied files. Its results cannot satisfy B2 or B4.\n- Root revises the B criteria or scope.\n- The observed source, grant, toolchain census or selected command plan changes materially.",
+  "revisionEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-04",
+    "result://abiogenesis/805f22b9f6fb550e8383b0f9003e27665f78ce724d34aa235ed15bbab23d705f",
+    "worksite-context-observation://abiogenesis/6388d10de2132efa7f82ab1f4b135c260d6039b9274eef30e9921704b262c264"
+  ]
+}

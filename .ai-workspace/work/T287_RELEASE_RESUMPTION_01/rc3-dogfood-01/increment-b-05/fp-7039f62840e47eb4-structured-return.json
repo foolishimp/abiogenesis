@@ -1,0 +1,71 @@
+{
+  "interpretation": "B04 is a bounded Construction continuation under the existing B design and the exact 23-path grant. B03 timed out with runtime_failed and produced no Construction Result. Its 14-path source is retained partial work, not an accepted outcome. The task observes that the production bridge in actor_process.ts (around lines 945–959) is incompatible with released GC03. It passes an abbreviated selection {grantId, sourceKeys}, an abbreviated Context {sourceKeys} and a string recheck, and it resolves {sourceKey,digest} where GC03 requests {id,sha256}. No prior judgment, admitted observation or current native-work/C2 Result exists for this mapping, so UAT has no subject. All selected paths are observed files, so Testing could start now. But it would only measure source that is known to be incompatible, and it would come before the mandatory first deciding real-owner red→green test, which Construction owns. Earlier M5 failures and the stale R1 basis stay as diagnostics only. A02 stays blocked/indeterminate. The future native installed-RC3 witness stays pending.",
+  "contributions": [
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+      "contribution": "Work only within the existing 23-path grant and start from the retained B03 partial source; do not restart. Finish the released GC03 bridge in actor_process.ts and governed_context.ts / host_adapter.py as needed. Derive the complete exact HostLookupSelection, a valid Context packet with late-acquisition SourceRefs, a structured Recheck and an {id,sha256} retained-artifact resolver. All of these come from authenticated owner/occurrence/role/grant/Result/source/currentness facts, following the shapes in the pinned test_ac_context_host.py, test_ac_support_core.py and ac_support_core.py (around lines 755–761 and 1124–1328), and fd-support-host-lookup.md. Those files define shapes only, never authority. Keep publication:not_performed until actual native owner delivery. Preserve unconfigured RC2 compatibility. Deny foreign, stale and missing facts. Retain exact allowed and denied response bytes and verified cold joins. MANDATORY FIRST: write a deciding red→green integration test in t287-governed-context.test.mjs (and its support module). It must run from a real held store and a genuinely admitted same-Run C2 Result, through HoG, the prepared leaf and the actor owner, into the fixed installed client and the released Python/GC03 adapter over controlled transport. It must cover an allowed read, a denied reply, owner-based cold reconstruction and at least one tamper refusal. Supply authentic policy, dependency and native facts. Do not use an injected lookup, fixture authority, permission booleans or a paid provider. After that, run only an unfiltered compile. No broad suites, package checks, timing-test repetition or supervision repair. Use a fresh disposable scratch directory with the pinned offline C2 dependencies. Verify scratch dependency-tree equality with the pinned toolchain-census.py/json. Report the actual unfiltered commands, outputs and exits. Amend the owning HOW and release-claim.md truthfully and give a structured return. If native policy cannot honor a needed operation, return that precise boundary; do not invent a schema, registry, store, permission or admitted:true.",
+      "reason": "This is the exact selected work order, and the existing artifacts do not suffice. No Construction Result exists, and the observed bridge is incompatible with the released API. The decisive production-chain discriminator belongs to Construction and must come before any broader proof.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "worksite-context-observation://abiogenesis/b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0"
+      ],
+      "dependsOn": []
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/testing@5",
+      "contribution": "After Construction, run the unchanged nine-command native C2 plan on the post-Construction snapshot. The plan is: fixture-current-measurement, source-correspondence, toolchain, contract-seeds, build, package/refresh-candidate-basis, focused-owner-chain, affected-owner-tests and artifact-tests. Evaluate all twelve declared predicates and retain every command, stream, exit and failure. The full selected source closure must include the new paths and dynamic test dependencies. This measurement owns full tests and the refreshed artifact basis. Earlier M5/R1 diagnostics are not acceptance.",
+      "reason": "Native C2 is the final recorded proof for the B04 candidate. It needs the Construction output first, because measuring the B03 partial now would only record known-incompatible bytes and would bypass the required first deciding test.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "worksite-context-observation://abiogenesis/b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/construction@5"
+      ]
+    },
+    {
+      "graphFunctionRef": "graph-function://abiogenesis/default-library/uat@5",
+      "contribution": "Independently assess the exact candidate release-claim.md against the original sources and the Increment B rubric (A1–A5, B1–B5), using the current admitted C2 measurement Result as observation provenance. Keep unmet and indeterminate criteria visible, including the still-pending future native installed-RC3 witness (B4) and A02's historical blocked/indeterminate standing.",
+      "reason": "Only an independent read-only assessment of the measured candidate can establish the rubric verdict. A future C2 measurement Result must exist before it has a subject.",
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04"
+      ],
+      "dependsOn": [
+        "graph-function://abiogenesis/default-library/testing@5"
+      ]
+    }
+  ],
+  "gaps": [
+    {
+      "supportRefs": [
+        "support://abiogenesis/rc3-dogfood/increment-b-01/tested-candidate"
+      ],
+      "reason": "Actual delivery by a future native installed-RC3 occurrence is a separate witness under Root's control and is not part of this Run. B4 native delivery stays pending regardless of controlled-protocol test outcomes. A02 stays blocked/indeterminate. B03 Construction cost is still unknown, and no aggregate spend cap or automatic retry is claimed.",
+      "evidenceRefs": [
+        "task://abiogenesis/rc3-dogfood/increment-b-04",
+        "worksite-context-observation://abiogenesis/b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0"
+      ]
+    }
+  ],
+  "nextGraphFunctionRef": "graph-function://abiogenesis/default-library/construction@5",
+  "nextReason": "The bridge defect is concrete and the selected B04 work order assigns its repair, plus the mandatory first deciding real-owner red→green test, to Construction. There is no Construction Result to test or assess yet. Testing the retained B03 partial would measure source known to be incompatible and would violate the required test order.",
+  "nextEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-04",
+    "worksite-context-observation://abiogenesis/b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0"
+  ],
+  "subjectEvidenceRef": null,
+  "revisionReason": "Revise this mapping if any of these happens: Construction returns a precise native policy or owner boundary that the existing authority cannot express (then stop with that gap rather than test); the deciding test stays red or the compile fails (re-enter Construction within the grant); the observed source, grant, toolchain census or selected command plan changes materially; or an admitted Construction Result makes Testing the lawful next member.",
+  "revisionEvidenceRefs": [
+    "task://abiogenesis/rc3-dogfood/increment-b-04",
+    "worksite-context-observation://abiogenesis/b7f74a887aca170e638016832cf8b30fd310bab5665e31fd498abd0a878578b0"
+  ]
+}

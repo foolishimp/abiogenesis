@@ -1,0 +1,31 @@
+{
+  "coordinateDigest": "sha256:ba50cad82b6e5f3f8c6cbd84b23cde6149df90753a6c0c151b53541f51eb91ad",
+  "custody": {
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/calls/run_replay.close.json": "af58bf21a376fb81b061f93215c58cd485047eb87c2f2e6d1c41b27aa889f74f",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/calls/run_result.close.json": "af58bf21a376fb81b061f93215c58cd485047eb87c2f2e6d1c41b27aa889f74f",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/commands/run_replay.result.json": "af4a8a53eda7d89941632277f757ba3b4522bd26deba853db0b4406503b3a059",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/commands/run_result.result.json": "b037b0792620792a70ccabf500acc9c518dee94ecc4f3128e8fcdecb1637a5d2",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/fresh-reads.json": "edd72750c0264f8c512023e744628820052f1c4654b61a242f726c0d38c75d26",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-006/outcome-summary.json": "3939d51d07458fecd68a0f842ede9f768efc729b62124f1dc1cf6a751b55f50d"
+  },
+  "eventBytes": 2706321376,
+  "eventSha256": "5bf94f7575506833a346a0c85d0d9af3d4394b539e77f1f016e98d28ad0806da",
+  "kind": "b04_post_readback_prefix_assertion",
+  "limits": [
+    "No B05 admission or provider call",
+    "B04 source remains partial and unqualified"
+  ],
+  "readbacks": [
+    {
+      "member": "run_result",
+      "outcome": "refusal",
+      "projectionStatus": null
+    },
+    {
+      "member": "run_replay",
+      "outcome": "result",
+      "projectionStatus": "blocked"
+    }
+  ],
+  "status": "actual_full_event_sha_size_and_both_close_coordinates_checked_after_readbacks"
+}

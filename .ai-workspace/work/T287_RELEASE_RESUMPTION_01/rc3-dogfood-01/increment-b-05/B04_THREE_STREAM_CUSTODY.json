@@ -1,0 +1,127 @@
+{
+  "effectiveConservativeUsdRounded": "79.5636234",
+  "kind": "b04_three_stream_cost_and_trace_custody",
+  "limits": [
+    "Provider telemetry is not billed-spend proof",
+    "Root-reported native Result remains pending final independent handoff",
+    "No other provider may be assumed absent from the final telemetry audit"
+  ],
+  "otherCharges": "unknown",
+  "reportedB04UsdRounded": "7.075184",
+  "reportedNativeTotalUsdRounded": "71.5636234",
+  "status": "actual provider telemetry; native handoff and final readbacks pending",
+  "streams": [
+    {
+      "artifacts": [
+        {
+          "bytes": 397006,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-7039f62840e47eb4-stdout.log",
+          "sha256": "a3ef0de6d77357cf3e4d3dce100895c350d9b4560544bec8636532bfa5b7a463"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-7039f62840e47eb4-stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 481717,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-7039f62840e47eb4-prompt.txt",
+          "sha256": "db921e63ad3584221031a95be15d556b47e332c2e31dcfd3929250ed2836c7c8"
+        },
+        {
+          "bytes": 7949,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-7039f62840e47eb4-output.txt",
+          "sha256": "76b914e1df07a217d47333bc62e39ffdb0a77153b22454a3e6e094493c1ec453"
+        },
+        {
+          "bytes": 454932,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-7039f62840e47eb4-transport.json",
+          "sha256": "5576acfcc4e65e626989262318401661cb4ee53837ea88b30a347c0bb851527d"
+        }
+      ],
+      "costUsdExactTelemetry": "2.0387931999999998",
+      "reportedUsdRounded": "2.0387932",
+      "stem": "fp-7039f62840e47eb4",
+      "structuredReturn": {
+        "bytes": 8414,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-05/fp-7039f62840e47eb4-structured-return.json",
+        "sha256": "932ea91c6af096b171d8f221d17278ab4d911502decba350b6133360307bfd05"
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 1946695,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-95e0c01a4a6ac5c9-stdout.log",
+          "sha256": "006c06a0552d04e9137872016af2cfbebfc1a495af34f49bc15b0c3845260675"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-95e0c01a4a6ac5c9-stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 125710,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-95e0c01a4a6ac5c9-prompt.txt",
+          "sha256": "50a0cb891942f8d6dc9f6a5f2e9bc62d6f5b15a73b2479dc0f3888a4b2136cbe"
+        },
+        {
+          "bytes": 6633,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-95e0c01a4a6ac5c9-output.txt",
+          "sha256": "9de7f68aa5261a862e373cdc2257abbca67dda67427a45d67253de673ed0586a"
+        },
+        {
+          "bytes": 2130486,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-95e0c01a4a6ac5c9-transport.json",
+          "sha256": "e21e9b0c7aba8f75e0e24a706ff360191a366abbba93d4e825a43e26a783745d"
+        }
+      ],
+      "costUsdExactTelemetry": "2.9622148000000004",
+      "reportedUsdRounded": "2.9622148",
+      "stem": "fp-95e0c01a4a6ac5c9",
+      "structuredReturn": {
+        "bytes": 6691,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-05/fp-95e0c01a4a6ac5c9-structured-return.json",
+        "sha256": "0dbb997e4de0709120eb8391441e3eb1ba3debe3b6cce1d4669c0658a621bdc9"
+      }
+    },
+    {
+      "artifacts": [
+        {
+          "bytes": 432831,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b35290ed2a921c20-stdout.log",
+          "sha256": "60d7125a51fc91a023a33c62656f96a3a666e7f29ae69ed85580bf3f3de02e03"
+        },
+        {
+          "bytes": 0,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b35290ed2a921c20-stderr.log",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "bytes": 498678,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b35290ed2a921c20-prompt.txt",
+          "sha256": "d729053d01e61f93f43928d0fc9ad9f36e29a891bcff1bbd41e7fafdc59b7f33"
+        },
+        {
+          "bytes": 12946,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b35290ed2a921c20-output.txt",
+          "sha256": "80f05984a0dbcad80460109870a1d6405e2e14baac20e36278b3d50cf5be6697"
+        },
+        {
+          "bytes": 497649,
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/fp-b35290ed2a921c20-transport.json",
+          "sha256": "ab75a6c7096964fe146f323162130706e5f1f774a0fea13853214f114618060d"
+        }
+      ],
+      "costUsdExactTelemetry": "2.074176",
+      "reportedUsdRounded": "2.074176",
+      "stem": "fp-b35290ed2a921c20",
+      "structuredReturn": {
+        "bytes": 13854,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/increment-b-05/fp-b35290ed2a921c20-structured-return.json",
+        "sha256": "cc095d3a6901fe837531275f045f2409a9e01aa72454692749e5b92275de8bae"
+      }
+    }
+  ],
+  "unknownB03ReserveUsd": "8"
+}

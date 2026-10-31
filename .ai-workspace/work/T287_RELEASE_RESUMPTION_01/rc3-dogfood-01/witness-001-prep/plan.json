@@ -1,0 +1,23 @@
+{
+  "kind": "future_native_lookup_witness_operator_plan",
+  "status": "incomplete_not_admitted_not_dispatched",
+  "plannedWorksiteFiles": ["task.md", "rubric.json", "fixture.txt"],
+  "fixture": {"bytes": 4616, "sha256": "bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"},
+  "plannedTesting": {
+    "selection": "first child, Testing, subjectEvidenceRef null",
+    "command": {"executable": "/bin/cat", "args": ["fixture.txt"], "relativeCwd": "."},
+    "expectedOutput": "the exact fixture bytes as current Testing stdout; actual Result and producer identities are unknown until admission"
+  },
+  "plannedConstruction": "second child; use selected installed owner/client against the admitted same-Run Testing field and original task/rubric, plus a denied key",
+  "recursionBound": 3,
+  "expectedParentBoundary": "a blocked parent after two child selections is an honest bounded witness, not UAT closure; record actual behavior",
+  "unresolved": [
+    "reviewed and selected exact RC3 artifact, installed manifest and fresh Public setup",
+    "actual RC3 private Program policy reference and Context member, dependency resource mapping and policy/grant/principal",
+    "actual native capability and Python execution permission, and exact Python/adapter/client identities",
+    "actual finite key labels, denied key, request/response shape and native retained/cold evidence coordinates",
+    "actual selector/task input construction and command budget accepted by the installed owner",
+    "Root-selected host settings, budget and execution decision"
+  ],
+  "limits": ["No historical Result is relabeled as current", "No native admission, provider invocation or Product qualification is implied", "Mediated lookup proof is not host-wide confinement"]
+}

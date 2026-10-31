@@ -1,0 +1,75 @@
+{
+  "kind": "witness_gc03_operator_source_custody",
+  "sources": [
+    {
+      "copy": "abg/stdo_abiogenesis.json",
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/stdo_abiogenesis.json",
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "bytes": 3136
+    },
+    {
+      "copy": "abg/specification/PRODUCT.md",
+      "source": "/Users/jim/src/apps/abiogenesis-rc3-dogfood/specification/PRODUCT.md",
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+      "bytes": 100202
+    },
+    {
+      "copy": "method/ACTIVATION.md",
+      "source": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/ACTIVATION.md",
+      "sha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "bytes": 142205
+    },
+    {
+      "copy": "method/fd-method-stdo-3.0.2.json",
+      "source": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/contents/a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json",
+      "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4",
+      "bytes": 4751
+    },
+    {
+      "copy": "authority/fd-support-host-lookup.md",
+      "source": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/contents/a_c/build_tenants/graphify/design/fd-support-host-lookup.md",
+      "sha256": "7ff7384e8a41c87439985c58a1949a8dd205ffbae40cc19a4892fa2b6c5d33ab",
+      "bytes": 5207
+    },
+    {
+      "copy": "authority/OPERATOR.md",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OPERATOR.md",
+      "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
+      "bytes": 1623
+    },
+    {
+      "copy": "authority/task.md",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/task.md",
+      "sha256": "1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955",
+      "bytes": 905
+    },
+    {
+      "copy": "authority/rubric.json",
+      "source": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/rubric.json",
+      "sha256": "540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+      "bytes": 1196
+    },
+    {
+      "copy": "method/EVALUATION.md",
+      "source": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/EVALUATION.md",
+      "sha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "bytes": 87317
+    },
+    {
+      "copy": "method/AXIOMATIC_CALCULUS.md",
+      "source": "/Users/jim/Library/Application Support/STDO/releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "sha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "bytes": 92360
+    },
+    {
+      "copy": "authority/GC03_DELEGATION.md",
+      "source": "Root instruction in active collaboration; exact owner quote from OPERATOR.md",
+      "sha256": "cc2cc76da9c74c19a098b3401a8addc8317b8bc1afebd2b5ccdbf5dac5eb4196",
+      "bytes": 903
+    }
+  ],
+  "limits": [
+    "Byte-identical source copies; no native admission, grant, Context or Result created",
+    "Witness task and rubric are operator input, not original ABG Product meaning"
+  ]
+}
