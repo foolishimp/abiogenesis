@@ -41,6 +41,18 @@ and [disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-0
 retain those boundaries, the $35.6671188 reported provider cost, unknown proxy
 cost and surviving obligations. No trial worker remains active.
 
+Owner continuation, 2026-10-31: “review, fix, and continue on using rc2 being
+used to build rc3”. The Executive interprets this as selecting the necessary
+local development deployment of the RC2 candidate subject to its current review
+and the reviewed GC-03 shared-context dependency, followed by a bounded
+RC2-built RC3 effort.
+Preparation, exact subjects and activation stops are retained in the
+[RC3 operator carrier](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/PREPARATION.md).
+Root remains the sole ABI operator proxy. This selection does not publish RC2,
+qualify the whole Product, revise native Run 009's blocked result or unmet UAT,
+or itself activate a provider or an ABI runtime. Preserve the original
+acceptance criteria and surviving native and qualification obligations.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

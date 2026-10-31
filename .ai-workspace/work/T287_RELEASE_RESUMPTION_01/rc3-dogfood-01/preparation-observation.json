@@ -1,0 +1,99 @@
+{
+  "kind": "rc3_operator_preparation_observation",
+  "timestamp": "2026-10-31T06:25:39.899606+00:00",
+  "runtimeActivated": false,
+  "providerCalls": 0,
+  "productSourceAuthored": false,
+  "source": {
+    "worktree": "/Users/jim/src/apps/abiogenesis-rc3-dogfood",
+    "head": "d1e4527dbbc0b9ca1a929122c62ca225184f3341",
+    "tree": "db5c2010e503c4bbdab2e11de6338b16e34df58b",
+    "trackedStatus": "",
+    "sparsePatterns": "/*\n!/*/\n/specification/\n/build_tenants/abiogenesis/typescript/\n!/build_tenants/abiogenesis/typescript/test_env/test_runs/\n!/build_tenants/abiogenesis/typescript/artifacts/\n/.ai-workspace/tickets/\n/.ai-workspace/evidence/TREE_MIRROR_INVENTORY.json\n/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/phase_d.md"
+  },
+  "rc2Archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.2/abiogenesis-typescript-tenant-5.0.0-rc.2.tgz",
+    "sha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+    "bytes": 10902612
+  },
+  "rc1Preimage": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.1/abiogenesis-typescript-tenant-5.0.0-rc.1.tgz",
+    "sha256": "1ab469106e27a693c1720f3e0a76e605a3ba03168d89f49dd7dee4c2665696e9",
+    "bytes": 10920962
+  },
+  "gc03Archive": {
+    "path": "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/release-candidate/ac-governed-context-gc03-adb3d8ee-draft.tar.gz",
+    "sha256": "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35",
+    "bytes": 309431
+  },
+  "tools": {
+    "node": {
+      "version": "v24.7.0",
+      "executable": {
+        "path": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+        "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+        "bytes": 86104016
+      }
+    },
+    "npm": {
+      "version": "11.5.1",
+      "resolvedPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js"
+    },
+    "python": "3.12.8"
+  },
+  "files": {
+    "OPERATOR.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OPERATOR.md",
+      "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
+      "bytes": 1623
+    },
+    "PREPARATION.md": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/PREPARATION.md",
+      "sha256": "1e787e4e37550ed29a1e96d4abd5d11887bc20449f6ca93785c4ca904a49edda",
+      "bytes": 5073
+    },
+    "install-rc2.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/install-rc2.mjs",
+      "sha256": "ce84541a0523a58bc1a64c49d8a247ebc8b18a450b3f120fb34c6ea2ccf799c0",
+      "bytes": 5228
+    },
+    "operator-client/prepare-worksite.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/prepare-worksite.mjs",
+      "sha256": "165599129f56606dcb155bfe7d8714dbcec0b8aafbf314f6569377c8498ea3e7",
+      "bytes": 5125
+    },
+    "operator-client/consumer.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/consumer.mjs",
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "bytes": 11420
+    },
+    "operator-client/public-setup.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/public-setup.mjs",
+      "sha256": "85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f",
+      "bytes": 28050
+    },
+    "operator-client/runner.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "bytes": 36805
+    },
+    "operator-client/scenarios.mjs": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/operator-client/scenarios.mjs",
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "bytes": 7569
+    }
+  },
+  "fixedPreimages": {
+    "installHostExists": false,
+    "activationExists": false,
+    "freshSetupExists": false,
+    "gc03DestinationExists": false
+  },
+  "limits": [
+    "Pre-activation observations, not runtime admission or source closure",
+    "Selected workload dynamic source and test closure has not yet been computed",
+    "Full original RC2 history retained outside this new carrier",
+    "No credentials or values of inherited environment variables were read for this record"
+  ],
+  "filesFinalizationNote": "Prepared entrypoints explicitly select /usr/bin/git; final code remains syntax-only, not activated."
+}

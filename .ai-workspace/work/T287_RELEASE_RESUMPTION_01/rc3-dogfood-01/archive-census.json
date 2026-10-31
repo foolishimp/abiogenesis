@@ -1,0 +1,10 @@
+{
+  "kind": "rc2_candidate_archive_readonly_census",
+  "archiveSha256": "36e02dd927066db2f64d71446334982d65b9b8b4ab1c7666d83d04c530aca528",
+  "regularMembers": 5315,
+  "duplicates": 0,
+  "nonregularOrEscaping": 0,
+  "inventoryCanonicalSha256": "741159c098d3956b7f244b1a8fe1e8db6c68d8dc2eff22bd6e29073c3882fbd6",
+  "unpackedMemberBytes": 71560529,
+  "meaning": "Read-only complete archive member census; not installation, runtime admission or qualification"
+}

@@ -1,0 +1,54 @@
+{
+  "kind": "rc3_operator_preparation_custody",
+  "status": "PREPARED_NOT_ACTIVATED",
+  "files": {
+    "OPERATOR.md": {
+      "sha256": "894892f17553b4c7c7781aacae7e436f92c43365edeb5399b10cfba0f7ddd896",
+      "bytes": 1623
+    },
+    "PREPARATION.md": {
+      "sha256": "1e787e4e37550ed29a1e96d4abd5d11887bc20449f6ca93785c4ca904a49edda",
+      "bytes": 5073
+    },
+    "README.md": {
+      "sha256": "d66c3f6a5327ec1ba422d304406735c34b2e3ab4ff5f067c2feb10e7c51eb6fb",
+      "bytes": 4166
+    },
+    "archive-census.json": {
+      "sha256": "a63af49ad7c04fe3fd9b1fd66af1419c5d7d18941a385190bec74afebc2df43f",
+      "bytes": 459
+    },
+    "gc03-local-release-proposal.json": {
+      "sha256": "213c7975dc8dafe89ad3769ad4beb7f954ee889397b32acf284e25329dadabaf",
+      "bytes": 2436
+    },
+    "install-rc2.mjs": {
+      "sha256": "ce84541a0523a58bc1a64c49d8a247ebc8b18a450b3f120fb34c6ea2ccf799c0",
+      "bytes": 5228
+    },
+    "operator-client/consumer.mjs": {
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551",
+      "bytes": 11420
+    },
+    "operator-client/prepare-worksite.mjs": {
+      "sha256": "165599129f56606dcb155bfe7d8714dbcec0b8aafbf314f6569377c8498ea3e7",
+      "bytes": 5125
+    },
+    "operator-client/public-setup.mjs": {
+      "sha256": "85781ebc5dddde17356c3f1a9ddc815c9bc982040a809be19c1b93e1f0c1811f",
+      "bytes": 28050
+    },
+    "operator-client/runner.mjs": {
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9",
+      "bytes": 36805
+    },
+    "operator-client/scenarios.mjs": {
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa",
+      "bytes": 7569
+    },
+    "preparation-observation.json": {
+      "sha256": "c242f35501ae247a20a6ad7fdabace5521b6ef8ea4e41e5c0c6a6996d6df2c20",
+      "bytes": 4860
+    }
+  }
+}

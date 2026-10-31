@@ -8,10 +8,10 @@
 - updated_at: 2026-10-31
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
-- current_activation: RC1_TO_RC2_DOGFOOD_01; owner-selected RC1 release/deploy complete; root Codex is the sole ongoing operator proxy for RC2 construction through installed RC1
-- current_activation_status: Bounded RC1-to-RC2 trial produced local unqualified RC2 candidate d1e4527db; build and 12 tests passed, exact artifact retained. Native UAT unmet / Run blocked preserved; external Executive accepted only local candidate after evidence reconciliation. $35.6671188 native spend; proxy cost unknown; no active trial workers or RC2 publication. candidate-009.json and STATE.md own exact evidence/limits.
-- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/STATE.md
-- current_next_work: Bounded build trial delivered. Retain native diagnostic/evidence visibility and review-condition drift findings for the next selected repair; RC2-specific owner/qualification fixtures, full native qualification and release acceptance remain open. No additional native run, RC2 publication or push is selected by this checkpoint.
+- current_activation: RC2_TO_RC3_DOGFOOD_01; owner instruction “review, fix, and continue on using rc2 being used to build rc3”; root Codex remains the sole ABI operator proxy
+- current_activation_status: Preparation only; Executive selects necessary local RC2 development deployment and reviewed GC-03 dependency under that instruction. Local unqualified RC2 candidate d1e4527db retains its original native UAT unmet / Run blocked; review or local deployment does not rewrite them. No native run, RC2 publication, or whole-Product qualification is implied.
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/PREPARATION.md
+- current_next_work: Freeze exact RC2 and dependency setup, then Root selects activation and a bounded RC3 repair contract preserving original owner intent and all criteria. Retain diagnostic/evidence visibility and review-condition drift findings; RC2-specific qualification fixtures, native qualification and final release acceptance remain open.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families

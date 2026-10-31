@@ -1,0 +1,20 @@
+{
+  "kind": "a_c_local_development_release_proposal",
+  "status": "PREPARED_NOT_ACTIVATED",
+  "ownerInstruction": "review, fix, and continue on using rc2 being used to build rc3",
+  "authorityInterpretation": "Root interprets the owner instruction as selecting necessary local RC2 development deployment and reviewed GC-03 dependency; actual exact release/install record has not been enacted by this proposal.",
+  "proposedReleaseId": "urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1",
+  "sourceCommit": "adb3d8ee18ecd307162cad098a8ff5f03cbcc77f",
+  "archivePath": "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/release-candidate/ac-governed-context-gc03-adb3d8ee-draft.tar.gz",
+  "archiveSha256": "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35",
+  "archiveBytes": 309431,
+  "sourceReview": "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/GC03_EXECUTIVE_DISPOSITION.md",
+  "verificationCommand": ["/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12", "-B", "/Users/jim/src/apps/specification_methodology-context/a_c/.ai-workspace/work/GOVERNED_CONTEXT_01/release-candidate/verify.py", "--sha256", "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35", "--source-check"],
+  "proposedDestination": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1/",
+  "proposedEffects": ["reverify exact archive, source and unpacked checks", "create new destination exclusively", "retain exact archive and safe verified members", "record actual decision, owner authority, source/proof identities and installed member verification only after success"],
+  "requiredRecordFields": ["actualOperator", "actualExecutionTime", "ownerInstruction", "executiveSelection", "proposedReleaseId", "sourceCommit", "archiveSha256", "installedPath", "installedInventory", "verificationEvidence", "boundedScope", "exclusions"],
+  "currentDecisionRecord": null,
+  "currentInstallation": null,
+  "exclusions": ["No external publication or global installation", "No ABI runtime admission or ABG adapter", "No whole-a_c or STDO method release", "No host confinement or atomic publication claim", "Prior Skills witnesses belong to provider 03245674"],
+  "rollback": "Preserve selected immutable bytes; select an appropriate existing or successor candidate through owner-controlled process."
+}
