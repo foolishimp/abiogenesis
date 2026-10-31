@@ -1,0 +1,88 @@
+{
+  "archivePacketMetadata": "Archive draft status is historical; the separate local release-installation record is the later owner-selected status.",
+  "archiveSha256": "cf6b1fcdebda5c6c90a644f17f7d1d01b298f53e6e0b17051b38971b14703a35",
+  "boundary": "These are byte-verified declared read inputs, not runtime release selection or admission. Runtime must select and verify the installed release; no source-checkout fallback.",
+  "files": {
+    "HOW.md": {
+      "bytes": 4453,
+      "sha256": "f2819769484cf6ca61bcf594044817659bd8664e96b8ee1fa40c6be81897f379"
+    },
+    "gc03/INVENTORY.json": {
+      "bytes": 7906,
+      "sha256": "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_context_presentation.py": {
+      "bytes": 5949,
+      "sha256": "7ad34e41cbf110b16bfab60252d4f7100b972ebe62ad14c14505e40960c16d15"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_formal_gate.py": {
+      "bytes": 22488,
+      "sha256": "d37de63f2b809e7a02d88d560b29b4900e8cda6217cfbc32e5796f40065659b8"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_graph.py": {
+      "bytes": 49166,
+      "sha256": "2f5de4d600e13904dc8cba3791ebdd83fe6ebb0c339654c86392baf9c2bd3667"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_support.py": {
+      "bytes": 21703,
+      "sha256": "f65efad15fd770075650ce0484df5b1cea14612047a82918d35fdc4f870deafa"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_support_composition.py": {
+      "bytes": 52468,
+      "sha256": "4afc9ff5ca9c4b68c201dbd24348d02e09d7896d084d5e8666da3138e09f52cc"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_support_core.py": {
+      "bytes": 245598,
+      "sha256": "34b40d039f7d1e2f36cf01f4c73cf90c760a8b67f21681e9f79543715a9ea4cc"
+    },
+    "gc03/a_c/build_tenants/graphify/code/ac_support_effects.py": {
+      "bytes": 100830,
+      "sha256": "5d2f4cd9ef2a450f895dad61a136756e05bc443717644268f66db127dfb684af"
+    },
+    "gc03/a_c/build_tenants/graphify/design/fd-composition.md": {
+      "bytes": 12961,
+      "sha256": "00a0449a5d2fd75eb091f487ba08377815567d3db42e95a8702063785aa88f07"
+    },
+    "gc03/a_c/build_tenants/graphify/design/fd-method-stdo-3.0.2.json": {
+      "bytes": 4751,
+      "sha256": "764dcc931f968791df8d26043e5642c4f3cfe915a9e7a16e69c72c6e3af001b4"
+    },
+    "gc03/a_c/build_tenants/graphify/design/fd-support-host-lookup.md": {
+      "bytes": 5207,
+      "sha256": "7ff7384e8a41c87439985c58a1949a8dd205ffbae40cc19a4892fa2b6c5d33ab"
+    },
+    "gc03/a_c/build_tenants/graphify/design/fd-support-stdo-3.0.2.md": {
+      "bytes": 4873,
+      "sha256": "b5e0a042e1d32451d28c3e029d8f8ef23badb3e14def8317fb16424a9a39bdae"
+    },
+    "gc03/a_c/build_tenants/graphify/design/fd-support.md": {
+      "bytes": 293789,
+      "sha256": "3f59bf94f2e9846098602de360aed447e1a18a52670e498ebc12af1886fec8f4"
+    },
+    "gc03/release-installation.json": {
+      "bytes": 2310,
+      "sha256": "ca0e977a7cdb8c889cc87b70b95eb12d30f83734b4c32f6589a3bac5bbf8a467"
+    },
+    "grant.json": {
+      "bytes": 2686,
+      "sha256": "4ac5639ff41d149df16d4838e3b85f99e01233563165a2c0620eb846a5e76b25"
+    },
+    "rubric.json": {
+      "bytes": 5933,
+      "sha256": "2800f0c9f633bba98c3f58ae923af96195ce1b0fa44decdf449548addee103e5"
+    },
+    "task.md": {
+      "bytes": 4184,
+      "sha256": "52a0446d638ad6e1d4ce4acff1f7728bbf6e353a6b3e974f9353783f5e8a9d06"
+    }
+  },
+  "installedRoot": "/Users/jim/.local/share/a_c/development-supplements/gc03-adb3d8ee-1",
+  "inventorySha256": "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003",
+  "kind": "rc3_b_verified_released_gc03_read_inputs",
+  "python": {
+    "path": "/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12",
+    "sha256": "a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539",
+    "version": "Python 3.12.8"
+  },
+  "releaseIdentity": "urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1"
+}

@@ -1,0 +1,34 @@
+{
+  "kind": "rc3_increment_b_construction_write_grant_proposal",
+  "root": "build_tenants/abiogenesis/typescript",
+  "authority": "Root-selected bounded B design and exact child grant under the original owner instruction; actual work requires native admission",
+  "existingPaths": [
+    "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+    "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+    "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+    "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+    "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+    "build_tenants/abiogenesis/typescript/release-claim.md",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "newPaths": [
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+    "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+    "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py",
+    "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+    "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs"
+  ],
+  "newPathPreimages": "Each absent before Construction; included in native readRoots, Construction writeRoots and planned C2 selectedPaths, not readFirst; required present and checked in the post-Construction C2 snapshot.",
+  "limits": "The listed files only, limited to selected HOW and repairs. Generated contracts/build remain declared C2 output, not Construction source authority. No new Public operation, outcome or event schema."
+}

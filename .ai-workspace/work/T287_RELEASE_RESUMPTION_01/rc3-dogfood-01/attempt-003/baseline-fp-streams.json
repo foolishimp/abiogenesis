@@ -1,0 +1,12 @@
+{
+  "kind": "b01_preexisting_stdout_names",
+  "source": "A02 completed before B dispatch",
+  "names": [
+    "fp-26400bc4a7e2137f-stdout.log",
+    "fp-4f2543b9b9f371db-stdout.log",
+    "fp-c6f4c73e4aa8ff81-stdout.log",
+    "fp-cc44a463398e3970-stdout.log",
+    "fp-d3c017380abc2aa1-stdout.log",
+    "fp-ee784fe02ef68480-stdout.log"
+  ]
+}

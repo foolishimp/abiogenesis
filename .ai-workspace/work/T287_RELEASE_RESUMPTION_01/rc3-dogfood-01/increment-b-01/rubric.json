@@ -1,0 +1,69 @@
+{
+  "outcome": "An ABG-authored unqualified RC3 Increment B that conserves Increment A and implements the selected private governed lookup",
+  "originalIncrementAOutcome": "An ABG-authored unqualified RC3 Increment A that preserves original UAT meaning and complete short diagnostic visibility",
+  "originalIncrementACriteria": [
+    {
+      "id": "A1",
+      "criterion": "The native UAT task retains the exact original declared UAT outcome and original rubric/criteria; a planner contribution is separate advisory context and cannot add a governing requirement. Unmet and indeterminate original criteria remain visible."
+    },
+    {
+      "id": "A2",
+      "criterion": "A strict UTF-8 observed stream of at most 8192 bytes appears completely and byte-exactly in the bounded planning view, including the supplied authentic 4616-byte failure stream and its ENOENT; no line ending, BOM or Unicode is lost."
+    },
+    {
+      "id": "A3",
+      "criterion": "Larger or binary streams retain truthful byte bounds, omissions and original Result/source identities without false completeness or broken Unicode; existing failure/refusal classes, provenance, admitted event and replay truth are conserved."
+    },
+    {
+      "id": "A4",
+      "criterion": "Owning design and meaningful affected tests demonstrate the repair and preserve the original assertions; the actual Testing snapshot includes dynamically read source closure, including t287-native-semantic-revision.test.mjs. Required checks actually execute and pass; unrelated existing skips are identified and never counted as success."
+    },
+    {
+      "id": "A5",
+      "criterion": "Actual isolated build and selected checks identify an unqualified 5.0.0-rc.3 candidate through the existing candidate identity mechanism. Any affected current fixture binds actual candidate identity; historical identities and earlier Run 009 remain unchanged. No publication or whole-product qualification is claimed."
+    }
+  ],
+  "criteria": [
+    {
+      "id": "A1",
+      "criterion": "The native UAT task retains the exact original declared UAT outcome and original rubric/criteria; a planner contribution is separate advisory context and cannot add a governing requirement. Unmet and indeterminate original criteria remain visible."
+    },
+    {
+      "id": "A2",
+      "criterion": "A strict UTF-8 observed stream of at most 8192 bytes appears completely and byte-exactly in the bounded planning view, including the supplied authentic 4616-byte failure stream and its ENOENT; no line ending, BOM or Unicode is lost."
+    },
+    {
+      "id": "A3",
+      "criterion": "Larger or binary streams retain truthful byte bounds, omissions and original Result/source identities without false completeness or broken Unicode; existing failure/refusal classes, provenance, admitted event and replay truth are conserved."
+    },
+    {
+      "id": "A4",
+      "criterion": "Owning design and meaningful affected tests demonstrate the repair and preserve the original assertions; the actual Testing snapshot includes dynamically read source closure, including t287-native-semantic-revision.test.mjs. Required checks actually execute and pass; unrelated existing skips are identified and never counted as success."
+    },
+    {
+      "id": "A5",
+      "criterion": "Actual isolated build and selected checks identify an unqualified 5.0.0-rc.3 candidate through the existing candidate identity mechanism. Any affected current fixture binds actual candidate identity; historical identities and earlier Run 009 remain unchanged. No publication or whole-product qualification is claimed."
+    },
+    {
+      "id": "B1",
+      "criterion": "Conserve the complete original Increment A outcome and A1\u2013A5 core behavior and historical native blocked/indeterminate standing. The authentic 4616-byte fixture and historical citation are self-contained in the existing test; complete:true requires valid matching length and digest, with missing-metadata counterexamples. Do not retroactively mark A02 satisfied or require unrelated RC2 replay/Run009 qualification."
+    },
+    {
+      "id": "B2",
+      "criterion": "The private native owner binds finite keys to authenticated current occurrence, permitted Context, original task/rubric, exact selected released GC03/Python/policy/grant, and an admitted same-Run Testing Result and field. Allowed reads return exact source bytes and identities with currentness rechecks; no grant is minted by the adapter."
+    },
+    {
+      "id": "B3",
+      "criterion": "Denied or unknown key, wrong or tampered binding, changed source or grant, invalid page, unavailable or interrupted endpoint, and unsupported selected composition refuse; the endpoint closes with the actor and callers cannot choose authority."
+    },
+    {
+      "id": "B4",
+      "criterion": "The selected Claude-profile implementation requires a real fixed-client request and complete exact tool-result bytes before admission and supports cold rejoin; model-free or captured-protocol tests discriminate missing, altered and truncated evidence. Actual delivery by a native installed RC3 occurrence is a separate future witness and remains pending."
+    },
+    {
+      "id": "B5",
+      "criterion": "The packed candidate contains the fixed client and adapter and resolves the exact selected released GC03 dependency without source fallback. Actual selected isolated build and tests pass without paid providers, with complete source closure, explicit skips and truthful unqualified standing; selector zero-tool behavior remains unchanged."
+    }
+  ],
+  "scopeInterpretation": "A1\u2013A5 remain verbatim governing historical A requirements, with their behavior and evidence conserved. The earlier A-only nine-file grant and capability limitation do not override the separately selected B grant or private additions. B cannot alter the A02 native blocked/indeterminate verdict or qualify Run009."
+}

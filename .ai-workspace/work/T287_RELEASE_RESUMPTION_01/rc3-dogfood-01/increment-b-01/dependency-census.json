@@ -1,0 +1,1266 @@
+{
+  "kind": "rc3_increment_b_static_test_import_lower_bound",
+  "typescript": "5.9.2",
+  "entryTests": [
+    "test_env/tests/t287-default-library.test.mjs",
+    "test_env/tests/t287-default-library-fulfillment.test.mjs",
+    "test_env/tests/t287-native-semantic-revision.test.mjs",
+    "test_env/tests/t287-native-workspace-work.test.mjs",
+    "test_env/tests/m5-worker-transport.test.mjs",
+    "test_env/tests/t287-stdo3-run-environment.test.mjs",
+    "test_env/tests/r1-packed-artifact.test.mjs",
+    "test_env/tests/installed-language-smoke.test.mjs"
+  ],
+  "files": [
+    {
+      "path": "test_env/fixtures/forward-command/input.mjs",
+      "bytes": 7677,
+      "sha256": "cba6471264602fd95e465b2079809ac4a03c2b7b261ed79e687a3855b12b9793"
+    },
+    {
+      "path": "test_env/fixtures/language-smoke/program.mjs",
+      "bytes": 8359,
+      "sha256": "7192c72ea035249fa6bccfbf1c23df206d729f191e8265895b278da7d91b7a23"
+    },
+    {
+      "path": "test_env/fixtures/native-semantic-revision/declarations.mjs",
+      "bytes": 21165,
+      "sha256": "f95df8511a4d56148a80bac009ea41bceeb17907f59488bd6b24a39281d6fd59"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/index.mjs",
+      "bytes": 9876,
+      "sha256": "db016f96fad6f2e4256f5b0df6cd1604def14fa5ef4882907cb27cfb1d78f0b4"
+    },
+    {
+      "path": "test_env/fixtures/registered-selection-product/native.mjs",
+      "bytes": 7982,
+      "sha256": "a0e5f4cca8631a21bdd37fbaabf7a55e14e39303ec81c8893d890f624363a7e7"
+    },
+    {
+      "path": "test_env/support/candidate-basis.mjs",
+      "bytes": 1177,
+      "sha256": "8859410e2fa686d48072d967f032f44cc18ecfca789f0e9a8b19b4446f4da7bd"
+    },
+    {
+      "path": "test_env/support/d2-binding-harness.mjs",
+      "bytes": 25378,
+      "sha256": "a2418e6bc0f7eedb4c209d1e9eecefa056b13378e38178ed2264cfae9af9b1eb"
+    },
+    {
+      "path": "test_env/support/d2-bounded-harness.mjs",
+      "bytes": 9495,
+      "sha256": "38a31ced9807ad9c4c70c977b13851eac922774120ba6f3372b9b51e8ea1cf74"
+    },
+    {
+      "path": "test_env/support/default-library-fulfillment.mjs",
+      "bytes": 8912,
+      "sha256": "33036a01200ce7782657113bc2730bcd8ecffaba5d8283361cd6e943bbfbaf18"
+    },
+    {
+      "path": "test_env/support/default-library.mjs",
+      "bytes": 7324,
+      "sha256": "d615fa0bd09282c0e79d9850afb808290e0d35f24407f4528f598e520eec3155"
+    },
+    {
+      "path": "test_env/support/evidence-root.mjs",
+      "bytes": 2031,
+      "sha256": "92f9faa3ec401fd80309b17f546a79354ae36b1869780c55fa5332110171a9d2"
+    },
+    {
+      "path": "test_env/support/forward-command-harness.mjs",
+      "bytes": 3319,
+      "sha256": "85f0228f77adc6407390cdf50c51ca254b979e716b95123cb6daa35547685c7e"
+    },
+    {
+      "path": "test_env/support/forward-observation-carrier.mjs",
+      "bytes": 4889,
+      "sha256": "a47f67cc01a55d363358a69a768f202e94cbca627b3f3fd6918a5a949425c051"
+    },
+    {
+      "path": "test_env/support/installed-language-test.mjs",
+      "bytes": 4500,
+      "sha256": "34d91efdba0602ad47d375fb46a85015eabd7d816a63eba68b3f113559986f95"
+    },
+    {
+      "path": "test_env/support/installed-public-definition-call.mjs",
+      "bytes": 99,
+      "sha256": "e17e8fe15cc061708ae0a69520e5b46195549762f9ca2c7f8ed2f2d086cea633"
+    },
+    {
+      "path": "test_env/support/language-smoke-fixture.mjs",
+      "bytes": 7276,
+      "sha256": "e386f64cea03221bb45486d1793aaa42965f90ac8ab4f936b1a92a1b457c1f41"
+    },
+    {
+      "path": "test_env/support/language-test-gtl.mjs",
+      "bytes": 538,
+      "sha256": "6d6df752d02fc5cacee702dc693febd3e8dce2d073a9842bfff5897992f50f7a"
+    },
+    {
+      "path": "test_env/support/new-empty-append-sink.mjs",
+      "bytes": 12780,
+      "sha256": "05b4c66807a5650ec6283901c5ee315c19320d90365cd59a9176e266395bb39b"
+    },
+    {
+      "path": "test_env/support/registered-graph-selection.mjs",
+      "bytes": 21826,
+      "sha256": "ea43305c5d514fa4cb8889b67e1a8dbcc8f7db2acfdffd4428467084cfdd02f9"
+    },
+    {
+      "path": "test_env/support/root-installed-environment.mjs",
+      "bytes": 40946,
+      "sha256": "75a744779ec76a9f68a836977d0b0553204919b21cf4b3654eb6251d85d63761"
+    },
+    {
+      "path": "test_env/support/stdo3-run-environment.mjs",
+      "bytes": 5746,
+      "sha256": "63d4dbf75197cdc9e85585cfa5409b46afe25e2f8647df05ec62969b97b5ae72"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-intake.mjs",
+      "bytes": 26756,
+      "sha256": "a201ca84a06a7bed61ab16796dfed1221b84723e3dd29d0c597f66c0e9131879"
+    },
+    {
+      "path": "test_env/support/t287-generic-job-worksite.mjs",
+      "bytes": 9623,
+      "sha256": "70b54d629c52dafeb22b99498ee12c0273c0bc93d62636b1173224d6efd6bfa0"
+    },
+    {
+      "path": "test_env/tests/installed-language-smoke.test.mjs",
+      "bytes": 1831,
+      "sha256": "ecda0215f8dfb85b22332f199482edbfd1ccf164415caaeb776892581e923e77"
+    },
+    {
+      "path": "test_env/tests/m5-worker-transport.test.mjs",
+      "bytes": 75056,
+      "sha256": "2453064c90a1a9a80cb0d1e7cda3f9d7915a3c14f04468371e690c9184ae1f6e"
+    },
+    {
+      "path": "test_env/tests/r1-packed-artifact.test.mjs",
+      "bytes": 4866,
+      "sha256": "60ce32386c0d26eb8a1e12034d71e3f43cccc7ed11529022b81d18fb6444e6e7"
+    },
+    {
+      "path": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "bytes": 45877,
+      "sha256": "f7f5799852f2168a0097991911c1b29a19dbf4fb855be7e425bf6b7c70ed7872"
+    },
+    {
+      "path": "test_env/tests/t287-default-library.test.mjs",
+      "bytes": 202863,
+      "sha256": "a671019ef8a7a04fee44f2078a5f04d28abafc222c7a84e5ebbb8462deb7b52e"
+    },
+    {
+      "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "bytes": 66844,
+      "sha256": "1decb0f01f9eefec7cf2ea4ce955217ea240da01d7c497d3f87117eec0582f1a"
+    },
+    {
+      "path": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "bytes": 88910,
+      "sha256": "18941e48a57166d48ea0f65500c67301d376be72ba47e8714a0531c5f9453f71"
+    },
+    {
+      "path": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "bytes": 16306,
+      "sha256": "c2a581f4fd0d686d1774fff9b9d5da901f4cfaa5deddebf9e811cd9886d80cd5"
+    },
+    {
+      "path": "test_env/uat/consumer.mjs",
+      "bytes": 11420,
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "path": "test_env/uat/scenarios.mjs",
+      "bytes": 7569,
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    }
+  ],
+  "totalBytes": 769216,
+  "missing": [],
+  "dynamic": [
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 21,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 23,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 24,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 43,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 44,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 144,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 151,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 157,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 195,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 196,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 252,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 253,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 266,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 267,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 282,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 309,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 344,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 345,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 435,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 442,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 443,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 447,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 448,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 497,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 498,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 534,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 535,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 535,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 535,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 535,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 590,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 591,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 593,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 608,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 609,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 632,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 633,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 637,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 670,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 671,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 696,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 697,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 699,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 715,
+      "kind": "filesystem or process access requires review",
+      "call": "fd.open"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 740,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 741,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 764,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 766,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 819,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 820,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 834,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 837,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1000,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1003,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1117,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1120,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1179,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1190,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1194,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1195,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1205,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1215,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1216,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1269,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1272,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1272,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1279,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1280,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1294,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1295,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1318,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1319,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1344,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1346,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1350,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1361,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1368,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1368,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1371,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1376,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1376,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1380,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1381,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1383,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1390,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1420,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1420,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1424,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1426,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1431,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library.test.mjs",
+      "line": 1432,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 16,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 16,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 131,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 132,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 135,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 139,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 189,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 189,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "line": 244,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 12,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 70,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 71,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 335,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "line": 436,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 135,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 136,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 153,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 158,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 277,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 396,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 396,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 440,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 441,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 829,
+      "kind": "filesystem or process access requires review",
+      "call": "fs.readFile"
+    },
+    {
+      "file": "test_env/tests/t287-native-workspace-work.test.mjs",
+      "line": 830,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 286,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 412,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 413,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 662,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 871,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 876,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 894,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 913,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 925,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 930,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 1046,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 1047,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 1065,
+      "kind": "filesystem or process access requires review",
+      "call": "spawn"
+    },
+    {
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "line": 1085,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "line": 17,
+      "kind": "filesystem or process access requires review",
+      "call": "execFileSync"
+    },
+    {
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "line": 20,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "line": 26,
+      "kind": "filesystem or process access requires review",
+      "call": "copyFile"
+    },
+    {
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "line": 123,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "line": 180,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "line": 37,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "line": 40,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "line": 53,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "line": 66,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/r1-packed-artifact.test.mjs",
+      "line": 71,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/tests/installed-language-smoke.test.mjs",
+      "line": 6,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/support/t287-generic-job-worksite.mjs",
+      "line": 10,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 219,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 229,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 232,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 248,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 343,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 344,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 345,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 346,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 347,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 350,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/root-installed-environment.mjs",
+      "line": 353,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/registered-graph-selection.mjs",
+      "line": 12,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/support/registered-graph-selection.mjs",
+      "line": 65,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/support/registered-graph-selection.mjs",
+      "line": 220,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/default-library.mjs",
+      "line": 35,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/default-library.mjs",
+      "line": 52,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/default-library.mjs",
+      "line": 53,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/uat/scenarios.mjs",
+      "line": 7,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/uat/scenarios.mjs",
+      "line": 20,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/uat/scenarios.mjs",
+      "line": 48,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/default-library-fulfillment.mjs",
+      "line": 19,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/default-library-fulfillment.mjs",
+      "line": 20,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/t287-generic-job-intake.mjs",
+      "line": 14,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/t287-generic-job-intake.mjs",
+      "line": 19,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/t287-generic-job-intake.mjs",
+      "line": 23,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/t287-generic-job-intake.mjs",
+      "line": 185,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/d2-bounded-harness.mjs",
+      "line": 9,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/d2-bounded-harness.mjs",
+      "line": 89,
+      "kind": "filesystem or process access requires review",
+      "call": "readFileSync"
+    },
+    {
+      "file": "test_env/support/d2-bounded-harness.mjs",
+      "line": 93,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 185,
+      "kind": "filesystem or process access requires review",
+      "call": "readFileSync"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 187,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 193,
+      "kind": "filesystem or process access requires review",
+      "call": "readFileSync"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 196,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 213,
+      "kind": "filesystem or process access requires review",
+      "call": "readFileSync"
+    },
+    {
+      "file": "test_env/support/d2-binding-harness.mjs",
+      "line": 234,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/new-empty-append-sink.mjs",
+      "line": 172,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/stdo3-run-environment.mjs",
+      "line": 20,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/stdo3-run-environment.mjs",
+      "line": 24,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/candidate-basis.mjs",
+      "line": 6,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 24,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 39,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 48,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 48,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 53,
+      "kind": "filesystem or process access requires review",
+      "call": "readFile"
+    },
+    {
+      "file": "test_env/support/installed-language-test.mjs",
+      "line": 53,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/support/language-smoke-fixture.mjs",
+      "line": 30,
+      "kind": "filesystem or process access requires review",
+      "call": "cp"
+    },
+    {
+      "file": "test_env/support/language-smoke-fixture.mjs",
+      "line": 30,
+      "kind": "URL-derived resource requires review"
+    },
+    {
+      "file": "test_env/support/language-smoke-fixture.mjs",
+      "line": 74,
+      "kind": "computed module load"
+    },
+    {
+      "file": "test_env/support/evidence-root.mjs",
+      "line": 27,
+      "kind": "filesystem or process access requires review",
+      "call": "readFileSync"
+    }
+  ],
+  "limits": "Literal relative module imports within test_env only. Computed paths, filesystem APIs, subprocesses, generated files, fixture assets, owner-selected testSources, new unwritten tests, and imports outside test_env require separate closure proof. This is not a narrowed C2 snapshot."
+}

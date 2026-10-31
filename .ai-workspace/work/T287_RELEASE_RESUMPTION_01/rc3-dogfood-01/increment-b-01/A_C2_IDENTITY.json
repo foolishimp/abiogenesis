@@ -1,0 +1,127 @@
+{
+  "artifactBytes": 10903444,
+  "artifactC2Delta": {
+    "after": {
+      "byteLength": 10903444,
+      "digest": "sha256:754c4d0735327d29925eb38befb8c98195c76a1dd1fdf645f795089c3503202c",
+      "kind": "worksite_path_observation",
+      "nodeKind": "file",
+      "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+      "schemaVersion": "5.0.0",
+      "symlinkTarget": null
+    },
+    "before": null,
+    "changeKind": "created",
+    "kind": "worksite_path_delta",
+    "matchedTerritoryRef": "worksite-command-write-territory://abiogenesis/c1b49553ce817e61d5d60af5ccc02add93ea6fbf66710bb92e4ddd28bef91856",
+    "ordinal": 1,
+    "relativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "schemaVersion": "5.0.0"
+  },
+  "artifactPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/worksite-command-execution/5ef35a3d98191cde4badd5c7ba38e856c0771c3a5fe5d96bfbd7f5c0a31c5f03/f93bc5c02013c38501b7cd8304c51cf4edec6903902d4cc3b76875bac1ec9e03/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+  "artifactSha256": "754c4d0735327d29925eb38befb8c98195c76a1dd1fdf645f795089c3503202c",
+  "commands": [
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/toolchain",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/contract-seeds",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/build",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/package",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/affected-owner-tests",
+      "exitStatus": 0
+    },
+    {
+      "commandId": "command://abiogenesis/rc3-dogfood/increment-a-01/artifact-tests",
+      "exitStatus": 0
+    }
+  ],
+  "helperArtifactDigest": "sha256:8bc082d446063403ee997537b4a280bacf691fd019ae7278514fbf2fc04fa5c5",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/8bc082d446063403ee997537b4a280bacf691fd019ae7278514fbf2fc04fa5c5",
+  "helperResult": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-001/resources/archives/worksite-command-execution/5ef35a3d98191cde4badd5c7ba38e856c0771c3a5fe5d96bfbd7f5c0a31c5f03/f93bc5c02013c38501b7cd8304c51cf4edec6903902d4cc3b76875bac1ec9e03/result.json",
+  "helperResultSha256": "2a0963a10ab9735bbc4706085b5c06e97415455cf39403738579e98717fe259b",
+  "kind": "rc3_a02_c2_snapshot_current_source_and_artifact_correspondence",
+  "limits": [
+    "This checked C2 result is not by itself a new native UAT ruling or whole-product qualification",
+    "RC3 archive remains at the exact C2 producer path; no source-checkout replacement"
+  ],
+  "rows": [
+    {
+      "bytes": 42408,
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "sha256": "8c600ffbda66264b4ee639596e72c0b4ce48e4e335e324bf7de39e63e4585147",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/ea8f770426d01adfa2d79844d4d9a5bef73d4ce6cf63a8bfc2c48208edd4a3c3",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/845423c568d921f74d185816b377f04a5ad2eafeeb6c25b03b1f0ecb8f9f15cb"
+    },
+    {
+      "bytes": 13080,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "sha256": "ed665e03de6cef8b93d54c298b80128e6911d3d155b75379b5735c8881d347c7",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/698a4b48945bb0df4146938fa7bff55678910636311ef71f9bd1641edc31528d",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/3877bfe1df033f7a26a4dfba2257844fbcce2dcba4fab448b41672581c2a56b3"
+    },
+    {
+      "bytes": 35765,
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "sha256": "e37b675f549e5a8351dd477187e64652a8947907bfba6b8925ea42a84d9eae87",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/6e3ed2c4b93fc5f55c76f84aaca5c38646de20f9d179acc608152c9d5ec24a8b",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/0efcacdfe247efbcab44f41e8b02f2e446de48fb2f1cb85c84ffe9df3d07f04e"
+    },
+    {
+      "bytes": 66265,
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "sha256": "67fc3c0ac0ee9e5f09c88809ccd23c744ec41f9ff64094527d6c73c03d4060eb",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/730c98993f9ba06ec2e2d98debb65ac4dd145ea98e5a90021e80023ca60133f6",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/9ef40fda501ddc3d8b91a639f491d40ad267fe37e6eede980656aa5b52740d16"
+    },
+    {
+      "bytes": 8001,
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "sha256": "d7d6c706bba57775e6ee775dc82e6095acc8f0764c16be61fdc6bc9367022471",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/6bb2e27bf7523753dd999555cd47edd0dcb4792fda3088edda5c4a93a2cdca1d",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/89344c2794330dc09ffc461eac2eecda9a0656c17ae0f9780b1f00f546cfdea0"
+    },
+    {
+      "bytes": 10003,
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "sha256": "9efb911e450196243dec704592b6d515ba6e877340fd4e1008ee5dcc1c0ff2de",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/d6db0ace84e1f3d93866b38dec4290827eead9d9a1ccedece37444c95eb4847f",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/023b474b411a42cb4fcf04862a16f1d1a346d6c2df6db3801a907a647c6bf1e9"
+    },
+    {
+      "bytes": 6186,
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "sha256": "bd501159e8ddcdf0af13906c714fc038e076c12826cabf64cbbcabfb43f10bb1",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/0e688b077c9d018e58729267a6aa460daebdd17392a71f418cfed1131bb9d117",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/5f66e56dc09698f9936d4536d7330de9c78980ec0edb863f54e91f4c956b545f"
+    },
+    {
+      "bytes": 45877,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "sha256": "f7f5799852f2168a0097991911c1b29a19dbf4fb855be7e425bf6b7c70ed7872",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/818772a2cfdb067591565782cf311a0f96c1d400f777a32a6ff6bcdd228f7492",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/f9ba6da0c6b6a95120db4322f455d8604c571b783477cdca9787af8570f2eea4"
+    },
+    {
+      "bytes": 202863,
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "sha256": "a671019ef8a7a04fee44f2078a5f04d28abafc222c7a84e5ebbb8462deb7b52e",
+      "snapshotMemberRef": "native-work-execution-source://abiogenesis/a1e7a9dce0a80e0066ee01f33a680f42c7e170def3cb9271ef5a9f02c4b0cce5",
+      "snapshotObservationRef": "worksite-observation://abiogenesis/c8bd27843efeb3dc0e45320bdc056dadab74a72434a0a6038dede2726d44a165"
+    }
+  ],
+  "snapshotCount": 904,
+  "snapshotDigest": "sha256:57d92d633e4d9176ef4b717ada31cfa5d3c48f5f5f9b19d45d32e9d421ced5e1",
+  "snapshotRef": "worksite-command-snapshot://abiogenesis/57d92d633e4d9176ef4b717ada31cfa5d3c48f5f5f9b19d45d32e9d421ced5e1",
+  "status": "historical C2 producer correspondence; native UAT indeterminate, candidate unqualified"
+}
