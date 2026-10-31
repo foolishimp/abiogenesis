@@ -23,7 +23,7 @@ const packageRoot=process.env.ABI5_DEFAULT_LIBRARY_BUILD_ROOT??canonicalPackageR
 const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/index.js')).href);
 const governanceRoot=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
 const witnessRoot=join(governanceRoot,'default-library-witness');
-const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
+const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 const constructors=['constructDefaultGovernanceLibraryModulePublication','constructNativeWorkspaceWorkModulePublication','constructWorksiteCommandExecutionModulePublication'];
 function validation(publication,program,publications){
   requirePublicationValidations(validator,publications);
@@ -470,11 +470,19 @@ function planningFactCorrespondence(task,view) {
       for(const lane of ['stdout','stderr']){
         const stream=row[lane],display=command[lane];if(!stream||!['utf8','base64'].includes(stream.encoding)){assert.deepEqual(display,stream);continue;}
         const raw=stream.encoding==='utf8'?Buffer.from(stream.text):Buffer.from(stream.payload,'base64');
-        assert.deepEqual(display.rawBody,{resultRef:source.resultRef,resultDigest:source.resultDigest,fieldPath:['commandResults',j,lane],omittedFromPlanningView:true});
+        const strict=(()=>{try{new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(raw);return true;}catch{return false;}})();
+        // A strict UTF-8 stream within the 8192-byte allowance is the whole cited body; any other stream is an explicit omission.
+        const whole=strict&&raw.length<=8192&&(stream.byteLength===undefined||stream.byteLength===raw.length)&&(stream.digest===undefined||stream.digest===product.sha256Bytes(raw));
+        assert.deepEqual(display.rawBody,{resultRef:source.resultRef,resultDigest:source.resultDigest,fieldPath:['commandResults',j,lane],omittedFromPlanningView:!whole});
         assert.equal(display.digest,stream.digest);assert.equal(display.byteLength,stream.byteLength);assert.equal(display.displayOnly,true);
         assert.ok(!Object.hasOwn(display,'text')&&!Object.hasOwn(display,'payload'));
+        assert.equal(display.complete,whole);
+        if(!strict){assert.equal(display.displayUnavailable,'not_utf8');assert.deepEqual(display.excerpts,[]);assert.equal(display.omittedByteCount,raw.length);continue;}
         let count=0;for(const excerpt of display.excerpts){assert.equal(raw.subarray(excerpt.startByte,excerpt.endByte).toString(),excerpt.text);count+=excerpt.endByte-excerpt.startByte;}
         assert.equal(count,display.displayedByteCount);assert.ok(count<=8192&&display.excerpts.length<=32);
+        assert.equal(display.omittedByteCount,raw.length-count);
+        if(whole){assert.equal(count,raw.length);assert.equal(display.omittedCandidates,0);assert.ok(Buffer.from(display.excerpts.map(e=>e.text).join('')).equals(raw),'the whole cited bytes');}
+        else if(raw.length>8192)assert.ok(display.omittedByteCount>0,'a longer stream never claims completeness');
       }
     }
     for(const[j,row]of source.value.predicateObservations.entries()){
@@ -520,6 +528,62 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   const bound=product.bindFramedSynthesisResult(task,assembly.envelope.targetBindings,assembly.envelope.boundBasis,raw);assert.ok(bound);assert.deepEqual(bound.state,state);assert.deepEqual(bound.judgment,raw);
   const oversized=structuredClone(task);oversized.state.original.task='x'.repeat(state.original.maxPromptBytes+1);
   assert.equal((await planningAssemblyFor(oversized)).cause,'declared_bound_overflow');
+});
+test('selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions',async()=>{
+  // Retained RC2 witness: the actual 4616-byte strict UTF-8 stdout whose ENOENT the cue display dropped.
+  const operatorInputs=new URL('../../../../../rc3-operator-inputs/increment-a-01/',import.meta.url);
+  const custody=JSON.parse(await readFile(new URL('retained-stdout-custody.json',operatorInputs),'utf8')),witness=await readFile(new URL('retained-stdout.txt',operatorInputs));
+  assert.equal(witness.length,4616);assert.equal(witness.length,custody.streamBytes);assert.equal(product.sha256Bytes(witness),custody.declaredStreamDigest);
+  const stream=(bytes,encoding='base64',digest=product.sha256Bytes(bytes))=>({kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding,
+    ...(encoding==='utf8'?{text:bytes.toString()}:{payload:bytes.toString('base64')}),byteLength:bytes.length,digest});
+  // Constructed planning carrier over the retained producer coordinates; no new admission or event is claimed.
+  const project=(stdout,stderr=stream(Buffer.alloc(0)))=>{
+    const observation={purpose:'testing',resultRef:custody.admittedTestingResult,resultDigest:'sha256:'+custody.admittedTestingResult.slice(-64),cCallRef:'call:retained',
+      actorInvocationRef:'actor:retained',selectedGraphFunctionRef:product.governanceRef('graph-function','testing'),synthesisResultRef:'result:selection',
+      value:{commandResults:[{commandId:custody.commandId,ordinal:custody.ordinal,observationRef:custody.observationRef,observationDigest:custody.observationDigest,
+        exitStatus:1,timedOut:false,processSignal:null,terminationConfirmed:true,unknownStatus:null,stdout,stderr}],
+        predicateObservations:[{predicateId:'predicate:exit',predicateKind:'process_exit',observedValue:1,evidenceRefs:[custody.observationRef],evidence:[{opaque:'full proof'}]},
+          {predicateId:'predicate:unknown',predicateKind:'unknown',observedValue:null,evidenceRefs:[],evidence:[]}]}};
+    const state={original:{},observations:[observation]},before=product.sha256Canonical(state),facts=product.projectGovernanceObservationFacts(state,{entries:[]});
+    assert.equal(product.sha256Canonical(state),before);assert.equal(facts.length,1);
+    for(const key of ['resultRef','resultDigest','cCallRef','actorInvocationRef','purpose','selectedGraphFunctionRef','synthesisResultRef'])assert.equal(facts[0][key],observation[key]);
+    const row=facts[0].observed.commandResults[0];
+    for(const key of ['commandId','ordinal','observationRef','observationDigest','exitStatus','timedOut','processSignal','terminationConfirmed','unknownStatus'])assert.deepEqual(row[key],observation.value.commandResults[0][key]);
+    for(const[j,p]of facts[0].observed.predicateObservations.entries()){const{evidence,...rest}=observation.value.predicateObservations[j];
+      assert.deepEqual(p,{...rest,evidenceBody:{resultRef:observation.resultRef,resultDigest:observation.resultDigest,fieldPath:['predicateObservations',j,'evidence'],omittedFromPlanningView:true}});}
+    for(const lane of ['stdout','stderr']){assert.equal(row[lane].digest,observation.value.commandResults[0][lane].digest);assert.equal(row[lane].byteLength,observation.value.commandResults[0][lane].byteLength);
+      assert.deepEqual(row[lane].rawBody,{resultRef:observation.resultRef,resultDigest:observation.resultDigest,fieldPath:['commandResults',0,lane],omittedFromPlanningView:!row[lane].complete});
+      assert.ok(!Object.hasOwn(row[lane],'text')&&!Object.hasOwn(row[lane],'payload'));}
+    return row;};
+  const whole=(shown,bytes)=>{assert.equal(shown.complete,true);assert.equal(shown.displayedByteCount,bytes.length);assert.equal(shown.omittedByteCount,0);assert.equal(shown.omittedCandidates,0);
+    assert.deepEqual(shown.excerpts,bytes.length===0?[]:[{startByte:0,endByte:bytes.length,text:shown.excerpts[0].text}]);
+    assert.ok(Buffer.from(shown.excerpts.map(e=>e.text).join('')).equals(bytes),'byte-exact whole stream');};
+  const omitted=(shown,bytes)=>{assert.equal(shown.complete,false);assert.ok(shown.omittedByteCount>0);
+    if(shown.displayUnavailable==='not_utf8'){assert.deepEqual(shown.excerpts,[]);assert.equal(shown.omittedByteCount,bytes.length);return;}
+    let count=0;for(const e of shown.excerpts){assert.ok(Buffer.from(e.text).equals(bytes.subarray(e.startByte,e.endByte)),'exact excerpt range');assert.ok(!e.text.includes('�'));count+=e.endByte-e.startByte;}
+    assert.equal(count,shown.displayedByteCount);assert.ok(count<=8192&&shown.excerpts.length<=32);assert.equal(shown.omittedByteCount,bytes.length-count);};
+  for(const encoding of ['base64','utf8']){
+    const shown=project(stream(witness,encoding)).stdout;whole(shown,witness);
+    assert.ok(shown.excerpts[0].text.includes('Error: ENOENT: no such file or directory')&&shown.excerpts[0].text.includes("code: 'ENOENT'"),'the retained diagnostic survives');
+    assert.ok(shown.excerpts[0].text.includes('t287-native-semantic-revision.test.mjs'));
+  }
+  // BOM, CRLF and multi-byte Unicode, including a split-sensitive four-byte scalar at the 8192/8193 boundary.
+  const unicode=Buffer.from('﻿first Ω\r\n😀 second\r\n\r\nlast without newline é');whole(project(stream(unicode),stream(unicode,'utf8')).stdout,unicode);
+  assert.equal(project(stream(unicode)).stdout.excerpts[0].text.codePointAt(0),0xFEFF);
+  const at8192=Buffer.from('a'.repeat(8188)+'😀'),at8193=Buffer.from('a'.repeat(8189)+'😀');assert.equal(at8192.length,8192);assert.equal(at8193.length,8193);
+  whole(project(stream(at8192)).stdout,at8192);
+  const clipped=project(stream(at8193)).stdout;omitted(clipped,at8193);
+  assert.deepEqual(clipped.excerpts.map(e=>[e.startByte,e.endByte]),[[0,8189]],'a clipped range stops before the split scalar');assert.equal(clipped.omittedByteCount,4);
+  // A long stream keeps the cue display and its exact citation; a mid-stream ENOENT without a cue is not claimed shown.
+  const long=Buffer.concat([witness,Buffer.from('[error] exact application red\n'),witness]);const longShown=project(stream(long)).stdout;omitted(longShown,long);
+  assert.ok(longShown.excerpts.some(e=>e.text.includes('[error] exact application red')));
+  // Binary or invalid UTF-8, short and long: no excerpt, the whole length omitted.
+  for(const bytes of [Buffer.from([0x48,0x69,0xff,0xfe,0x0a]),Buffer.concat([Buffer.from('ok\n'),Buffer.from([0xf0,0x9f,0x98])]),Buffer.concat([Buffer.alloc(9000,0x61),Buffer.from([0xc3])])]){
+    const shown=project(stream(bytes)).stdout;assert.equal(shown.displayUnavailable,'not_utf8');omitted(shown,bytes);}
+  // A short body that is not the cited stream (declared digest mismatch) never claims completeness.
+  const unverified=project(stream(unicode,'base64',product.sha256Bytes(Buffer.from('other')))).stdout;assert.equal(unverified.complete,false);assert.equal(unverified.rawBody.omittedFromPlanningView,true);
+  // An empty strict stream is complete with nothing to display.
+  whole(project(stream(Buffer.alloc(0))).stderr,Buffer.alloc(0));
 });
 test('native-work assembly is bounded by the Run declared prompt bound: a fitting prompt assembles, an overflowing one refuses',async t=>{
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
@@ -784,7 +848,10 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
     const order=state.original.workOrders.uat,selected=state.original.assessment,b=at('uat','prepare-native',state);
     const task=await m.namespace.projectGovernanceNativeTask(b,state);assert.ok(nativeOwner.isNativeWorkspaceWorkTask(task));
     const contribution=state.synthesis.judgment.contributions.find(c=>c.graphFunctionRef===b.graphFunction.name);
-    assert.notEqual(contribution.contribution,order.outcome);assert.equal(task.outcome,contribution.contribution,'the selected UAT outcome still identifies its work');
+    assert.notEqual(contribution.contribution,order.outcome);assert.equal(task.outcome,order.outcome,'UAT keeps its original declared outcome over a competing planner contribution');
+    const advisory=task.instructions.filter(i=>i.includes(contribution.contribution));assert.ok(advisory.length>0);
+    assert.ok(advisory.every(i=>i.startsWith('Advisory planner selection (non-governing context;')),'planner text is carried only as separately labelled advisory context');
+    assert.ok(task.instructions.some(i=>i.includes('The advisory planner selection adds no governing criterion')));
     assert.ok(task.instructions.includes('Governing full-original assessment outcome: '+order.outcome));
     assert.ok(task.instructions.includes('Conserved original task: '+state.original.task));
     assert.ok(task.instructions.some(i=>i.includes('all current criteria govern this independent assessment')&&i.includes('preserving every unmet or indeterminate criterion')));
@@ -951,8 +1018,8 @@ test('UAT preparation carries its full authenticated producer: whole streams in 
   const stream=bytes=>({kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding:'base64',payload:bytes.toString('base64'),byteLength:bytes.length,digest:product.sha256Bytes(bytes)});
   const strict=bytes=>{try{new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(bytes);return true;}catch{return false;}};
   // The cli stdout is not strict UTF-8. The node:test stdout has the failed
-  // rust-cli run's shape: its middle lines, `ℹ fail 0` among them, are what the
-  // planning view withholds. The stderr keeps a leading BOM.
+  // rust-cli run's shape: a short strict stream, so the planning view carries
+  // it whole, `ℹ fail 0` among its middle lines. The stderr keeps a leading BOM.
   const cliOut=Buffer.concat([Buffer.from('Hello, world!\n'),Buffer.from([0xff,0xfe,0x80,0x0a])]);
   const testOut=Buffer.from(['✔ component: cargo run --quiet exits 0 and prints exactly Hello, world! with one newline (398.074917ms)',
     '✔ component: src/main.rs defines main() (0.204542ms)','✔ uat: user runs cargo run --quiet and sees exactly Hello, world! (136.536791ms)',
@@ -1003,12 +1070,14 @@ test('UAT preparation carries its full authenticated producer: whole streams in 
   assert.ok(whole.commandResults[1].stdout.text.includes('ℹ fail 0\n'));
   assert.deepEqual(whole.predicateObservations,admitted.predicateObservations);
   assert.equal(whole.predicateObservations.length,4);assert.ok(whole.predicateObservations.every(p=>p.evidence.length>0));
-  // The shared bounded view is the unchanged Product projection and withholds what the producer carries.
+  // The shared bounded view is the unchanged Product projection: whole short strict streams, explicit omission otherwise.
   const facts=product.projectGovernanceObservationFacts(uat,prepared.context);
   assert.deepEqual(prepared.instructions.filter(i=>i.startsWith('Actual admitted observations: ')),['Actual admitted observations: '+JSON.stringify(facts)]);
   const bounded=facts.find(row=>row.resultRef===producer.payload.resultRef).observed;
-  assert.equal(bounded.commandResults[1].stdout.excerpts.some(e=>e.text.includes('ℹ fail 0')),false,'the planning view withholds the middle lines');
-  assert.equal(bounded.commandResults[0].stdout.displayUnavailable,'not_utf8');
+  assert.equal(bounded.commandResults[1].stdout.complete,true);assert.deepEqual(bounded.commandResults[1].stdout.excerpts,[{startByte:0,endByte:testOut.length,text:testOut.toString()}],'a short strict stream is whole, middle lines included');
+  assert.equal(bounded.commandResults[1].stderr.excerpts[0].text.codePointAt(0),0xFEFF);assert.ok(Buffer.from(bounded.commandResults[1].stderr.excerpts[0].text).equals(bomErr));
+  assert.equal(bounded.commandResults[0].stdout.displayUnavailable,'not_utf8');assert.equal(bounded.commandResults[0].stdout.complete,false);
+  assert.equal(bounded.commandResults[0].stdout.omittedByteCount,cliOut.length);assert.equal(bounded.commandResults[0].stdout.rawBody.omittedFromPlanningView,true);
   assert.ok(bounded.predicateObservations.every(p=>!Object.hasOwn(p,'evidence')&&p.evidenceBody.omittedFromPlanningView===true));
   // Falsifiers: the producer removed, or the planning view substituted for its streams or predicate evidence.
   const replaced=value=>({...prepared,instructions:prepared.instructions.map(i=>i===carried[0]?PRODUCER+' '+JSON.stringify(value):i)});

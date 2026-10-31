@@ -14,7 +14,7 @@ import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-wor
 import {libraryEnvironment,witnessRef} from '../support/default-library.mjs';
 import {prepareFulfillmentSeed,fulfillmentWitnessInput,fulfillmentAssessmentSchema,fulfillmentConsumerDeclaration,freshLifecyclePaths} from '../support/default-library-fulfillment.mjs';
 const packageRoot=new URL('../..',import.meta.url).pathname,records=process.env.ABI5_FULFILLMENT_RECORDS_ROOT??new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
-const hash=product.sha256Canonical,basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
+const hash=product.sha256Canonical,basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 async function fixture(t){const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   const files=await prepareFulfillmentSeed({seedRoot:join(records,'default-library-witness/seed'),caseContractPath:join(records,'s6-witness-contract.md'),destination:f.canonicalRoot});
   const state=fulfillmentWitnessInput({product,files}),observe=()=>physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:128,maxBytes:131072});

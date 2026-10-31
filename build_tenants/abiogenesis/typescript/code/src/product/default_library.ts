@@ -2,6 +2,7 @@ import * as v from "valibot";
 import { isDeepStrictEqual } from "node:util";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { sha256Bytes } from "../shared/digests.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
@@ -175,7 +176,7 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   const record = (item: JsonValue | undefined): item is Readonly<Record<string, JsonValue>> =>
     item !== null && typeof item === "object" && !Array.isArray(item);
   if (!record(value)) return value;
-  let bytes: Buffer, text: string;
+  let bytes = Buffer.alloc(0), text: string;
   try {
     if (value.encoding === "utf8" && typeof value.text === "string") bytes = Buffer.from(value.text, "utf8");
     else if (value.encoding === "base64" && typeof value.payload === "string") bytes = Buffer.from(value.payload, "base64");
@@ -184,8 +185,18 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   } catch {
     return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
       rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
-      displayOnly: true, excerpts: [], displayUnavailable: "not_utf8" };
+      displayOnly: true, excerpts: [], displayUnavailable: "not_utf8", complete: false, omittedByteCount: bytes.length };
   }
+  // A short strict UTF-8 stream is its own whole display: one exact range over
+  // the cited bytes, BOM and line endings included. Completeness is claimed
+  // only when the carried body is the cited stream's declared length/digest.
+  if (bytes.length <= 8192 && (value.byteLength === undefined || value.byteLength === bytes.length) &&
+      (value.digest === undefined || value.digest === sha256Bytes(bytes)))
+    return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
+      rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: false },
+      displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 },
+      excerpts: bytes.length === 0 ? [] : [{ startByte: 0, endByte: bytes.length, text }],
+      displayedByteCount: bytes.length, omittedCandidates: 0, complete: true, omittedByteCount: 0 };
   let offset = 0;
   const lines = text.split("\n").map((line, index, all) => {
     const startByte = offset; offset += Buffer.byteLength(line + (index < all.length - 1 ? "\n" : ""));
@@ -213,7 +224,8 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   }
   return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
     rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
-    displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates };
+    displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates,
+    complete: false, omittedByteCount: bytes.length - displayedByteCount };
 }
 /** Parent-context presentation; full admitted bodies and authority stay in their owners. */
 export function projectGovernanceObservationFacts(state: GovernanceWorkState, context: WorksiteContextObservation) {
@@ -309,7 +321,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
     assessment: { sources: original.assessment.sources, candidatePath: original.assessment.candidatePath,
       rubricPath: original.assessment.rubricPath, resultContract: original.assessment.resultContract,
       verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
-    fulfillment, observations: evidence, planningEvidenceMeaning: "Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
+    fulfillment, observations: evidence, planningEvidenceMeaning: "A strict UTF-8 stream of at most 8192 bytes is shown whole as one exact excerpt marked complete. Longer or non-UTF-8 streams and detailed predicate proof are explicitly omitted from this selector view, with byte counts, and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
   });
   if (view.kind !== "ok" || !isRecord(view.value)) throw new TypeError("framed synthesis selector view is not I-JSON");

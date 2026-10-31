@@ -198,18 +198,20 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
   const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
     `Conserved original task: ${state.original.task}`, `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
     `Actual admitted observations: ${JSON.stringify(projectGovernanceObservationFacts(state, context))}`,
-    "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. Complete raw stream and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
+    "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. A strict UTF-8 stream of at most 8192 bytes appears whole as one exact excerpt marked complete; longer or non-UTF-8 stream bodies and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
   const synthesis = state.synthesis, judgment = synthesis?.judgment;
   const selectedContribution = judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)
     ? judgment.contributions.find(c => c.graphFunctionRef === judgment.nextGraphFunctionRef) : undefined;
-  const outcome = selectedContribution?.contribution ?? order.outcome;
+  // UAT keeps its original declared outcome; a selected UAT contribution is
+  // advisory planner context and cannot add, narrow or replace its criteria.
+  const outcome = purpose === "uat" ? order.outcome : selectedContribution?.contribution ?? order.outcome;
   if (synthesis !== null && judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)) instructions.push(
     purpose === "uat" ? `Governing full-original assessment outcome: ${order.outcome}` : `Supplied purpose outcome (parent context): ${order.outcome}`,
-    `Current admitted selection for this work unit: ${JSON.stringify({ resultRef: synthesis.resultRef, resultDigest: synthesis.resultDigest,
+    `${purpose === "uat" ? "Advisory planner selection (non-governing context; it cannot add, narrow, replace or reword any original outcome, criterion, rubric or subject)" : "Current admitted selection for this work unit"}: ${JSON.stringify({ resultRef: synthesis.resultRef, resultDigest: synthesis.resultDigest,
       interpretation: judgment.interpretation, contributions: judgment.contributions.filter(c => c.graphFunctionRef === judgment.nextGraphFunctionRef),
       nextReason: judgment.nextReason, nextEvidenceRefs: judgment.nextEvidenceRefs })}`,
     purpose === "uat"
-      ? "The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment, including unmet and unresolved outcomes. Assess the exact declared subject against all of them. Return one consumer assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. A judgment about only the selected contribution cannot establish full-original satisfaction."
+      ? "The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment, including unmet and unresolved outcomes. Assess the exact declared subject against all of them. Return one consumer assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. A judgment about only the selected contribution cannot establish full-original satisfaction. The advisory planner selection adds no governing criterion: a condition that appears only there is not an assessment criterion."
       : "This native task's outcome is the selected bounded contribution. The supplied purpose outcome, conserved original task and unresolved outcomes are parent context. Work within the supplied order and write roots; return a truthful partial report with remaining gaps for parent reassessment when this work unit does not complete the parent obligations.");
   if (state.original.fulfillment !== undefined) instructions.push(`Active source-grounded paired obligations: ${JSON.stringify(governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!))}`);
   if (purpose !== "uat") return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, outcome, instructions });

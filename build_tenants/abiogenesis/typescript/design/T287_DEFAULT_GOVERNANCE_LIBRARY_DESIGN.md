@@ -172,18 +172,21 @@ ordinary admitted C-call Results. Folded observations identify their synthesis
 Result and selected registered GraphFunction, conserving revision attribution
 without a second event ledger.
 
-**Selected native-work handoff (T287 Run02 repair12/13):** the existing wrapper
-projects the exact selected contribution into `NativeWorkspaceWorkTask.outcome`
-and its current admitted interpretation, contribution/reason and
-`nextReason`/evidence into that task's instructions. For authoring, the caller's
-original purpose outcome/task and unresolved outcomes remain conserved parent
-context; a bounded work unit may return useful partial work and gaps. For UAT,
-the full original outcome, complete sources, exact consumer rubric and all
-current criteria remain the governing assessment basis. The selected outcome
-identifies the assessment work, never permission for selected-only satisfaction;
-the return is the exact declared consumer assessment, preserving unmet and
-indeterminate criteria. The same task adaptation owns preparation and later
-observation correspondence.
+**Selected native-work handoff (T287 Run02 repair12/13):** for authoring, the
+existing wrapper projects the exact selected contribution into
+`NativeWorkspaceWorkTask.outcome` and its current admitted interpretation,
+contribution/reason and `nextReason`/evidence into that task's instructions; the
+caller's original purpose outcome/task and unresolved outcomes remain conserved
+parent context; a bounded work unit may return useful partial work and gaps.
+For UAT, `NativeWorkspaceWorkTask.outcome` is the exact original declared
+`workOrders.uat.outcome` whether or not a selection exists. The full original
+outcome, complete sources, exact consumer rubric and all current criteria remain
+the governing assessment basis. A selected UAT contribution and its reason are
+carried only as separately labelled advisory planner context: they cannot add,
+narrow, replace or reword a governing criterion, outcome or subject, and they
+never permit selected-only satisfaction. The return is the exact declared
+consumer assessment, preserving unmet and indeterminate original criteria. The
+same task adaptation owns preparation and later observation correspondence.
 Selected meaning does not widen the supplied order, write roots or typed grant.
 Direct calls without a current selection retain their original outcome/order. Native
 assessment independence/currentness and Testing's actual-file prerequisites
@@ -796,9 +799,24 @@ resource, lookup authority or automatic external read. Assessment still consumes
 the complete authenticated producer through its existing owner.
 
 Literal display excerpts retain exact UTF-8 byte ranges against the cited stream
-digest. Display selects lines containing the literal rendering cue `***`, then
-`[error]` lines, then boundary lines, within 8192 bytes and 32 excerpts per stream;
-omission is explicit. These are verbatim diagnostics, not parsed failure names,
+digest. A cited stream whose bytes decode as strict UTF-8 and number at most the
+8192-byte per-stream allowance is delivered whole: one excerpt `[0, byteLength)`
+whose text re-encodes to exactly the cited bytes, `complete: true`,
+`displayedByteCount` equal to the byte length, `omittedByteCount` and
+`omittedCandidates` zero, and its `rawBody` citation marked not omitted. Line
+endings, a leading BOM and every Unicode scalar are kept; no cue selection
+applies. A larger strict UTF-8 stream keeps cue display: lines containing the
+literal rendering cue `***`, then `[error]` lines, then boundary lines, within
+8192 bytes and 32 excerpts per stream; a clipped range never splits an encoded
+character. It reports `complete: false`, `omittedByteCount` (byte length minus
+displayed bytes) and `omittedCandidates`, and its `rawBody` citation is marked
+omitted. A stream that is not strict UTF-8 shows no excerpt,
+`displayUnavailable: "not_utf8"`, `complete: false` and its whole byte length
+as omitted. Every form keeps the stream's own digest and byte length and the
+cited Result, Result digest and field path. `complete` states only that the
+cited admitted stream body is wholly present in this view; it is not a
+producer-capture, relevance or adequacy claim, and a partial display never
+claims it. These are verbatim diagnostics, not parsed failure names,
 derived verdicts or adequacy judgments. Actual retained failure-name lines and
 citations must survive the focused discriminator, including mid-stream lines.
 C2 process success never implies application success. Canonical input, fold,
@@ -827,6 +845,18 @@ observation/sixteen-mutant history discriminate fact correspondence and complete
 prompt fit. They are mechanical readiness, not native mutation detection or UAT.
 Writer29's lossless-sharing counterexample remains frozen; genuine excess still
 refuses.
+
+Whole short streams count against the unchanged per-stream allowance and the
+unchanged complete-assembly prompt bound; a history that no longer fits refuses
+as `declared_bound_overflow` rather than shortening a stream or claiming a
+partial body complete. The focused discriminator for the whole-short-stream
+rule is the retained RC2 4,616-byte strict UTF-8 stdout whose ENOENT for the
+omitted `t287-native-semantic-revision.test.mjs` input the earlier cue display
+dropped, plus BOM, CRLF and multi-byte cases, the 8,192/8,193-byte boundary
+with a four-byte scalar at the clip, longer streams, invalid UTF-8 and a body
+that does not match its declared digest. Its fixtures carry no Product
+judgment; the retained witness stays a snapshot-omission observation, not
+Product behaviour failure.
 
 ### Native parent-context observation correspondence (Run02 repair138)
 
