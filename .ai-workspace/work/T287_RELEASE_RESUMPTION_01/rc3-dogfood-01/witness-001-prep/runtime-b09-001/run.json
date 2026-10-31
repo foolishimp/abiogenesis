@@ -1,0 +1,20 @@
+{
+  "kind": "rc3_witness_public_setup",
+  "classification": "local setup only; no native witness, Product release or qualification",
+  "operator": "actor://abiogenesis/operator/codex-root",
+  "producer": {
+    "runRef": "run://abiogenesis/0005b61adcdb8d09b124791fa65be8f964aeb1e71e8560498b502941a90d1e29",
+    "resultRef": "result://abiogenesis/b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8",
+    "resultDigest": "sha256:b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8"
+  },
+  "consumerModuleSha256": "sha256:51b87793f4a9659bee5f24b22981f3cedf6a5289102c3739a04f45f8439a0c58",
+  "policyRef": "member://abi5-tests/gc03/private-policy@5",
+  "environmentNames": [
+    "HOME",
+    "LANG",
+    "LC_ALL",
+    "PATH",
+    "TMPDIR"
+  ],
+  "providerCalls": 0
+}

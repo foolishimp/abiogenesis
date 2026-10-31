@@ -1,0 +1,59 @@
+{
+  "kind": "b09_witness_prospective_selection_supersession",
+  "pending": [
+    "actual B09 return/resource release before any witness setup/launch",
+    "independent review of this amended prospective selection and executable pins",
+    "fresh installed adapter/root and generated policy/activation/call digest review"
+  ],
+  "previousGitCommit": "5a9742d3a1f4d8c24946b22ddf64ab86276e8e54",
+  "previousPreparationCustody": {
+    "bytes": 3036,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B07_PREPARATION_CUSTODY.json",
+    "sha256": "83bb0071da9ea6e04c30f2fe1948c6e3e9d254859c15deffa320943ddcc3c858"
+  },
+  "reason": "B07 failed without a C2 Result and B08 C2 missed one declared file; neither supplies witness authority. Existing witness scaffold now selects only independently authenticated actual B09 Testing with conserved B08 command IDs. Existing -b07 filenames are reused compatibility names.",
+  "recordedAt": "2026-10-31T20:13:13.381147+00:00",
+  "rootBindingChange": "Only runtime-b07-001\u2192runtime-b09-001 path/Run labels changed in existing bootstrap/preparation/launch/policy generators; Context/permission/dependency mapping shapes conserved.",
+  "runtimeEffects": "none; operator edits/hash/tar reads only",
+  "supersededExecutablePins": [
+    {
+      "bytes": 8475,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/verify-c2-b07.py",
+      "sha256": "a95c1c8990bf77b0c4b3a1f18fded5dbb75a54bbcd9cddc7cdeb1cddb9d6cb3e"
+    },
+    {
+      "bytes": 9992,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/bootstrap-b07.mjs",
+      "sha256": "f630b9cf1ccfcfcdb5d1013cef6bcce6e3f83308c88d7649ee8424f0218a7cbb"
+    },
+    {
+      "bytes": 1873,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/prepare-call-b07.mjs",
+      "sha256": "4f79a2a9b58eb68c05452006f4d951435787ac845f0235e1a1a185e7ca166a6d"
+    },
+    {
+      "bytes": 2428,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/run-b07.mjs",
+      "sha256": "eeb402121d76f2ab21c3967ed814f3e459e6a5c60a438433e2e93250f640cd72"
+    },
+    {
+      "bytes": 8828,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/make-gc03-candidate-b07.py",
+      "sha256": "6dd001411a188572f941c4a7d9ce6b7ee838caa64a6ccb1e1e46734a34ed7a55"
+    },
+    {
+      "bytes": 4602,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/make-activation-template-b07.py",
+      "sha256": "dc8179aeee93337464bb938af4db943e61c4d3a61352d421b1f35178670a54b5"
+    }
+  ],
+  "unchanged": [
+    "task.md",
+    "rubric.json",
+    "fixture.txt",
+    "consumer-b07.mjs",
+    "public-setup-b07.mjs",
+    "dependency-resources.mjs",
+    "workload-b07.mjs"
+  ]
+}

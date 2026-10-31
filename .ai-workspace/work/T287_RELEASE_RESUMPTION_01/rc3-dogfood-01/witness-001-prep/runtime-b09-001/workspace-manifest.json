@@ -1,0 +1,37 @@
+{
+  "authorityBasis": {
+    "authorityDigest": "sha256:fb0a4e723090a300aecb0fee9f40e517862942a57c089f128c40e2fb2d919f06",
+    "authorityRef": "workspace-authority://abiogenesis/fb0a4e723090a300aecb0fee9f40e517862942a57c089f128c40e2fb2d919f06",
+    "importAuthorityDigest": "sha256:ac388a642d05c62fee1fb00ca21437e7c695814be91b6943fb3673419b473b9b",
+    "importAuthorityRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B09_WITNESS_SELECTION_ADMISSION.md",
+    "kind": "workspace_authority_basis",
+    "schemaVersion": "5.0.0",
+    "source": "admitted_import"
+  },
+  "authorityMode": "imported",
+  "bindingDigest": null,
+  "bindingRef": null,
+  "canonicalRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/worksite",
+  "configurationDigest": null,
+  "configurationRef": null,
+  "creationManifestDigest": "sha256:d41af3bd00fcba224fedad9de04b53ecbb8a7acdfe5a870de512478c2a7e8128",
+  "creationManifestRef": "workspace-creation://abiogenesis/d41af3bd00fcba224fedad9de04b53ecbb8a7acdfe5a870de512478c2a7e8128",
+  "kind": "workspace_manifest",
+  "preservationPolicy": "preserve_existing_project_truth",
+  "preservationState": "preserved",
+  "provenance": [
+    {
+      "provenanceDigest": "sha256:ac388a642d05c62fee1fb00ca21437e7c695814be91b6943fb3673419b473b9b",
+      "provenanceRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B09_WITNESS_SELECTION_ADMISSION.md"
+    },
+    {
+      "provenanceDigest": "sha256:d41af3bd00fcba224fedad9de04b53ecbb8a7acdfe5a870de512478c2a7e8128",
+      "provenanceRef": "workspace-creation://abiogenesis/d41af3bd00fcba224fedad9de04b53ecbb8a7acdfe5a870de512478c2a7e8128"
+    }
+  ],
+  "scaffoldPolicy": "not_applicable",
+  "scaffoldState": "preserved_project_authority",
+  "schemaVersion": "5.0.0",
+  "workspaceDigest": "sha256:aa9faf9451e6303662e308779b52e09d271c2886d1734125ff03a0943ce5d95f",
+  "workspaceRef": "workspace://abiogenesis/aa9faf9451e6303662e308779b52e09d271c2886d1734125ff03a0943ce5d95f"
+}

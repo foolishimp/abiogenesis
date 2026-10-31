@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url';
 import {installedModules,publicCaller,constructLifecycleCall} from './public-setup-b07.mjs';
 import {commandRecorder,exclusiveRecord} from '../operator-client/runner.mjs';
 import {witnessInput} from './workload-b07.mjs';
-const here=fileURLToPath(new URL('.',import.meta.url)),root=join(here,'runtime-b07-001');
+const here=fileURLToPath(new URL('.',import.meta.url)),root=join(here,'runtime-b09-001');
 const saved=JSON.parse(await readFile(join(root,'operator-resume-material.json'),'utf8'));
 const runtime=await installedModules(saved.installedRoot),record=(p,v,raw=false)=>exclusiveRecord(root,p,v,raw);
 const environment=Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(k=>process.env[k]!==undefined).map(k=>[k,process.env[k]]));

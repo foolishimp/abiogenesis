@@ -1,0 +1,16 @@
+{
+  "policyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/gc03-policy/gc03-policy.json",
+  "policySha256": "9fd89bb63f6359028c519c638b87ef1e5c71a5f78977955a6a4e046340348ca2",
+  "privatePolicyMember": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/gc03-policy/abg-private-policy-member.json",
+  "privateMemberSha256": "43a8e1bfcaa3d817511185ec3c4afd4b187aa3464fa09d463ff9c5e286a0feda",
+  "executorId": "gc03-python-host-adapter",
+  "principalId": "constructor",
+  "actorId": "actor://abiogenesis/worksite/native-work@5",
+  "adapterSha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+  "status": "candidate only; no native admission or activated grant",
+  "limits": [
+    "No provider preflight or observation generated",
+    "Actor and executor must match actual native occurrence and verified installed artifact",
+    "Source roles and original governing criteria remain host-owned"
+  ]
+}

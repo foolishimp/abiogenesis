@@ -4,7 +4,7 @@ import json,hashlib,sys
 from pathlib import Path
 base=Path(__file__).resolve().parent
 if len(sys.argv)!=2:raise SystemExit('usage: make-activation-template.py ABSOLUTE_POLICY_DIRECTORY')
-dir=Path(sys.argv[1]);assert dir.is_absolute() and dir==base/'runtime-b07-001/gc03-policy'
+dir=Path(sys.argv[1]);assert dir.is_absolute() and dir==base/'runtime-b09-001/gc03-policy'
 policy=json.loads((dir/'gc03-policy.json').read_bytes());h=lambda x:hashlib.sha256(x.read_bytes()).hexdigest()
 def r(root,rel):return {'engine':'workspace-regular-file','root':root,'path':rel,'object':None,'sha256':h(base/'governed-context-sources'/root/rel),'selector':None}
 def retained(path):return {'engine':'retained-evidence','root':'evidence','path':path,'object':None,'sha256':h(base/path),'selector':None}

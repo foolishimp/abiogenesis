@@ -21,7 +21,8 @@ def strings(x):
  elif isinstance(x,dict):
   for v in x.values(): yield from strings(v)
 def verify(selection,extract=None):
- if selection.get('kind')!='rc3_b07_c2_selected_producer_v1': fail('selected producer kind required')
+ if selection.get('kind')!='rc3_b09_c2_selected_producer_v1': fail('selected producer kind required')
+ if selection.get('status')!='ROOT_SELECTED_B09_C2_FOR_WITNESS':fail('actual Root B09 artifact selection remains pending')
  p=selection['producer']; a=selection['artifact']; op=selection['operator']
  for key in ('runRef','resultRef','helperArtifactRef'):
   if not isinstance(p.get(key),str) or not p[key]:fail('missing producer coordinate '+key)
@@ -32,7 +33,7 @@ def verify(selection,extract=None):
  helper_path=path(p['helperResultPath']);helper=json.loads(readpin(str(helper_path),p['helperResultSha256']))
  if helper.get('disposition')!='success' or helper.get('artifactRef')!=p['helperArtifactRef'] or helper.get('artifactDigest')!=p['helperArtifactDigest']:fail('C2 helper identity or disposition mismatch')
  ids=['fixture-current-measurement','source-correspondence','toolchain','contract-seeds','build','package','focused-owner-chain','affected-owner-tests','artifact-tests']
- commands=helper.get('commandResults');expected=['command://abiogenesis/rc3-dogfood/increment-b-07/'+x for x in ids]
+ commands=helper.get('commandResults');expected=['command://abiogenesis/rc3-dogfood/increment-b-08/'+x for x in ids]
  if not isinstance(commands,list) or [x.get('commandId') for x in commands]!=expected or any(x.get('exitStatus')!=0 or x.get('timedOut') is not False or x.get('processSignal') is not None or x.get('terminationConfirmed') is not True for x in commands):fail('C2 command outcome mismatch')
  named=p.get('namedTestAcceptance')
  if not isinstance(named,dict) or named.get('name')!='GC03 real owner allowed denied cold tamper' or named.get('disposition')!='passed' or named.get('skipped') is not False or named.get('todo') is not False:fail('Root-selected exact named-test acceptance required')
@@ -89,10 +90,10 @@ def verify(selection,extract=None):
    f=target/name;f.parent.mkdir(parents=True,exist_ok=True)
    with f.open('xb') as out:out.write(content)
    os.chmod(f,mode & 0o755)
- return {'kind':'b07_c2_archive_verified_for_bootstrap','artifactPath':str(archive_path),'artifactSha256':a['sha256'],'artifactBytes':len(archive),'manifest':m,'manifestByteSha256':a['manifestByteSha256'],'manifestDigest':a['manifestDigest'],'producer':p,'sourceCorrespondenceCount':len(rows),'members':[{'path':n[len('package/'):],'sha256':sha(c)} for n,c,_ in files],'fileCount':len(files),'nativeAdmission':'operator-selected evidence coordinates checked; authenticated owner admission must be independently established','qualification':False}
+ return {'kind':'b09_c2_archive_verified_for_bootstrap','artifactPath':str(archive_path),'artifactSha256':a['sha256'],'artifactBytes':len(archive),'manifest':m,'manifestByteSha256':a['manifestByteSha256'],'manifestDigest':a['manifestDigest'],'producer':p,'sourceCorrespondenceCount':len(rows),'members':[{'path':n[len('package/'):],'sha256':sha(c)} for n,c,_ in files],'fileCount':len(files),'nativeAdmission':'operator-selected evidence coordinates checked; authenticated owner admission must be independently established','qualification':False}
 if __name__=='__main__':
  try:
   if len(sys.argv) not in (3,5) or (len(sys.argv)==5 and sys.argv[3]!='--extract'):fail('usage: verify-c2.py SELECTION SHA256 [--extract ABSENT_ROOT]')
   config=json.loads(readpin(sys.argv[1],sys.argv[2]));print(json.dumps(verify(config,sys.argv[4] if len(sys.argv)==5 else None),sort_keys=True))
  except (ValueError,KeyError,OSError,TypeError,tarfile.TarError,json.JSONDecodeError) as e:
-  print(json.dumps({'kind':'b07_c2_input_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)
+  print(json.dumps({'kind':'b09_c2_input_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)

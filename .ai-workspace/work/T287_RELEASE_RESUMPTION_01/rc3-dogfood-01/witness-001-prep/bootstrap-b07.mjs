@@ -10,7 +10,7 @@ import {exclusiveRecord,commandRecorder} from '../operator-client/runner.mjs';
 import {IDS} from '../operator-client/consumer.mjs';
 async function main(){
 const here=fileURLToPath(new URL('.',import.meta.url));
-const runtime=join(here,'runtime-b07-001'),python='/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12';
+const runtime=join(here,'runtime-b09-001'),python='/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12';
 const sha=bytes=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
 // Same JSON primitive/array/key ordering used by the installed Product digest.
 const canonical=x=>x===null||typeof x!=='object'?JSON.stringify(x):Array.isArray(x)?'['+x.map(canonical).join(',')+']':'{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}';
@@ -28,7 +28,7 @@ const locators=checked.manifest.productRelativeLocators;assert(Array.isArray(loc
 const inventory=locators.map(path=>{assert.equal(typeof path,'string');assert(members.has(path),'missing declared payload: '+path);return {path,sha256:members.get(path)};}).sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
 assert.equal(sha(canonical(inventory)),selection.artifact.productContentDigest,'selected Product content mismatch');
 const authority=await readFile(selection.operator.authorityPath);assert.equal(sha(authority),selection.operator.authoritySha256);
-assert.equal(selection.operator.consumerModulePath,join(here,'consumer-b07.mjs'),'B07 witness requires this exact consumer');
+assert.equal(selection.operator.consumerModulePath,join(here,'consumer-b07.mjs'),'B09 witness requires this exact reused consumer');
 assert.equal(selection.operator.policyRef,'member://abi5-tests/gc03/private-policy@5');
 const consumerBytes=await readFile(selection.operator.consumerModulePath);assert.equal(sha(consumerBytes),selection.operator.consumerModuleSha256);
 assert.equal(await (await import('node:fs/promises')).realpath(process.execPath),selection.operator.nodePath,'selected Node executable mismatch');
@@ -57,7 +57,7 @@ try{
  assert.equal(actual.product.sha256Canonical(manifest),a.manifestDigest);
  // This module is operator-selected and byte-pinned. It is trusted executable operator code,
  // not a model choice, capability grant, or proof that the resulting policy is admitted.
- const adapter=join(installed.installedRoot,'build/code/support/governed-context/host_adapter.py');
+ const adapter=join(installed.installedRoot,'contracts/governed-context/host_adapter.py');
  const adapterDigest=sha(await readFile(adapter)).slice(7),policyRoot=join(runtime,'gc03-policy');
  const generated=JSON.parse(execFileSync(python,['-B',join(here,'make-gc03-candidate-b07.py'),'--adapter',adapter,'--adapter-sha256',adapterDigest,'--out-dir',policyRoot],{encoding:'utf8'}));
  execFileSync(python,['-B',join(here,'make-activation-template-b07.py'),policyRoot],{encoding:'utf8'});
@@ -67,7 +67,7 @@ try{
  assert.equal(typeof consumer.prepareConsumer,'function');assert.deepEqual(consumer.IDS,IDS);
  const worksite=join(runtime,'worksite');await mkdir(worksite);for(const f of fixtureFiles)await writeFile(join(worksite,f),await readFile(join(here,f)),{flag:'wx'});
  const env=Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(k=>process.env[k]!==undefined).map(k=>[k,process.env[k]]));
- const config={runId:'rc3-governed-lookup-witness-b07-001',bootstrapRoot:installed.installedRoot,worksiteRoot:worksite,nodePath:selection.operator.nodePath,
+ const config={runId:'rc3-governed-lookup-witness-b09-001',bootstrapRoot:installed.installedRoot,worksiteRoot:worksite,nodePath:selection.operator.nodePath,
   toolchains:{npm:{executable:selection.operator.npmPath}},recursionBound:3,setupEnvironment:env,
   importAuthority:{ref:pathToFileURL(selection.operator.authorityPath).href,digest:selection.operator.authoritySha256}};
  await record('run.json',{kind:'rc3_witness_public_setup',classification:'local setup only; no native witness, Product release or qualification',
