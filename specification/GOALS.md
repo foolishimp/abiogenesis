@@ -62,6 +62,15 @@ stopped further paid coding and the installed witness; the earlier 03:30–04:30
 AEDT release ETA is withdrawn. The [delivery status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/DELIVERY_STATUS.md)
 records the actual C2, costs, preserved RC2 verdict and remaining obligations.
 
+Owner selection, 2026-11-01: prioritize a lawful installed sunny-day graph
+that performs work, evaluation and consequence across at least two causally
+joined iterations to an independently checked useful output and terminal
+Result; then prove cold recovery and continuation from admitted event truth.
+The [sunny-day plan](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/SUNNY_DAY_PLAN.md)
+separates controlled graph mechanics from bounded live `F_P` evidence. This
+changes sequencing, not Product law or the preceding failed-Run standing; it
+does not activate a provider or waive remaining qualification and release work.
+
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)
 is a prerequisite deliverable before returning to the 5.0 release. The

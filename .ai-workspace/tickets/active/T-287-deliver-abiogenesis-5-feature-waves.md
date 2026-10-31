@@ -5,13 +5,13 @@
 - goal: GOAL-035
 - owner: abiogenesis
 - build_tenant: typescript
-- updated_at: 2026-10-31
+- updated_at: 2026-11-01
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
-- current_activation: RC2_TO_RC3_DOGFOOD_01; owner instruction “review, fix, and continue on using rc2 being used to build rc3”; root Codex remains the sole ABI operator proxy
-- current_activation_status: RC2 locally used to build an unqualified RC3 artifact; B06 Run blocked without a terminal Result. The required real-owner integration test failed during setup, and five separate STDO tests failed because stdo was absent from the C2 PATH; neither finding alone establishes a Product regression. Further paid coding and the installed witness are stopped; the earlier 03:30–04:30 AEDT release ETA is withdrawn. Prior RC2 Run 009 remains blocked with native UAT unmet.
-- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/DELIVERY_STATUS.md
-- current_next_work: No activation is implied. Remaining obligations include the real-owner allowed/denied/cold/tamper integration proof and any failure-specific fixes, complete C2 evidence, the separate installed-RC3 native witness, and original acceptance and qualification obligations.
+- current_activation: SUNNY_DAY_TRAVERSAL_AND_RECOVERY_PLAN_01; owner selects sunny-day HoG iteration, declared evaluation and consequence before cold event-log recovery; Root remains sole ABI operator proxy.
+- current_activation_status: Planning only under the selected existing Product law; the existing basic-cli route is selected, while exact installed subject, finite bound and costed dispatch configuration remain to be bound under the existing owner instruction. Preserve B06 blocked/no-terminal Run, unqualified RC3 artifact, withdrawn 03:30–04:30 AEDT ETA and stopped prior paid-coding/witness effort; prior RC2 Run 009 remains blocked with native UAT unmet.
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/SUNNY_DAY_PLAN.md
+- current_next_work: Freeze the selected basic-cli installed subject, source/oracle and finite bound, and bind the costed dispatch configuration under the existing owner instruction. Prove controlled graph mechanics and separately bounded live F_P work through two evaluation-directed iterations and terminal Result; then prove cold event-log reconstruction and continuation. Original GC03 and qualification/release obligations remain open.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
