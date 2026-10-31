@@ -1,0 +1,53 @@
+{
+  "files": [
+    {
+      "bytes": 30218494,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/native-execution.json",
+      "sha256": "3df3603cb9d8a2fa9a2d7e458e11670afdfb3af01d72c55e5de88579b5b51e93"
+    },
+    {
+      "bytes": 1360,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/native-final-close.json",
+      "sha256": "037bbc000015bf0222e72c889a3c00b51071136a1701252e7827b55b644d67bd"
+    },
+    {
+      "bytes": 364,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/NATIVE_LAUNCH_STARTED.json",
+      "sha256": "4ba87d47098b5f9a576807c52a58507287f5f36eec77b32ad883dd5cf68924b8"
+    },
+    {
+      "bytes": 22187761,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/calls/lifecycle-start.request.jsonl",
+      "sha256": "140346604bde2247f5943ff6e84aeb5e020a09fadd7b97c3edc5fc033cd71540"
+    },
+    {
+      "bytes": 3574,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/calls/lifecycle-start.outcome.json",
+      "sha256": "975951e48bd0cf495c276bebea80c36a8851f2e4a130ed78ae57f58dbdd8868d"
+    },
+    {
+      "bytes": 1360,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001/calls/lifecycle-start.close.json",
+      "sha256": "037bbc000015bf0222e72c889a3c00b51071136a1701252e7827b55b644d67bd"
+    }
+  ],
+  "invocationAdmission": null,
+  "invocationRef": "invocation://abiogenesis/6a36e207cfea6d3427391d4ded51dc7463c2dca493c5e4b4921321d1f7a0584a",
+  "kind": "preserved_first_witness_refusal_custody",
+  "meaning": "Compact custody only; large raw request/native execution remain unchanged local files and are not staged. Existing owner decoder failure and Root-selected repair are in B09_002_PREPARATION_ADMISSION.md.",
+  "ownerOutput": {
+    "outcomeKind": "refusal",
+    "value": {
+      "code": "invalid_capability",
+      "evidenceRefs": [],
+      "issuePaths": [
+        "/runEnvironmentResources",
+        "/runEnvironment/cause/access_unavailable"
+      ]
+    }
+  },
+  "prefixUnchanged": true,
+  "publicChildExitCode": 1,
+  "run": null,
+  "standing": "Actual pre-Run refusal, separate from corrected002; no success or provider credit"
+}

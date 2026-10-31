@@ -10,7 +10,7 @@ import {exclusiveRecord,commandRecorder} from '../operator-client/runner.mjs';
 import {IDS} from '../operator-client/consumer.mjs';
 async function main(){
 const here=fileURLToPath(new URL('.',import.meta.url));
-const runtime=join(here,'runtime-b09-001'),python='/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12';
+const runtime=join(here,'runtime-b09-002'),python='/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12';
 const sha=bytes=>'sha256:'+createHash('sha256').update(bytes).digest('hex');
 // Same JSON primitive/array/key ordering used by the installed Product digest.
 const canonical=x=>x===null||typeof x!=='object'?JSON.stringify(x):Array.isArray(x)?'['+x.map(canonical).join(',')+']':'{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}';
@@ -67,7 +67,7 @@ try{
  assert.equal(typeof consumer.prepareConsumer,'function');assert.deepEqual(consumer.IDS,IDS);
  const worksite=join(runtime,'worksite');await mkdir(worksite);for(const f of fixtureFiles)await writeFile(join(worksite,f),await readFile(join(here,f)),{flag:'wx'});
  const env=Object.fromEntries(['HOME','PATH','TMPDIR','LANG','LC_ALL'].filter(k=>process.env[k]!==undefined).map(k=>[k,process.env[k]]));
- const config={runId:'rc3-governed-lookup-witness-b09-001',bootstrapRoot:installed.installedRoot,worksiteRoot:worksite,nodePath:selection.operator.nodePath,
+ const config={runId:'rc3-governed-lookup-witness-b09-002',bootstrapRoot:installed.installedRoot,worksiteRoot:worksite,nodePath:selection.operator.nodePath,
   toolchains:{npm:{executable:selection.operator.npmPath}},recursionBound:3,setupEnvironment:env,
   importAuthority:{ref:pathToFileURL(selection.operator.authorityPath).href,digest:selection.operator.authoritySha256}};
  await record('run.json',{kind:'rc3_witness_public_setup',classification:'local setup only; no native witness, Product release or qualification',

@@ -38,8 +38,8 @@ def generate(adapter,outdir,expected_adapter):
  sources={k:{'path':str(HERE/'governed-context-sources'/k),'read_scope':[{'path':p,'kind':'file'} for p in paths],'kind':'workspace','writable':False} for k,paths in {'abg':['stdo_abiogenesis.json','specification/PRODUCT.md'],'method':['fd-method-stdo-3.0.2.json','ACTIVATION.md','EVALUATION.md','AXIOMATIC_CALCULUS.md'],'authority':['OPERATOR.md','GC03_DELEGATION.md','task.md','rubric.json','fd-support-host-lookup.md']}.items()}
  sources.update({'python':{'path':str(PYTHON.parent),'read_scope':[{'path':PYTHON.name,'kind':'file'}],'kind':'workspace','writable':False},'adapter':{'path':str(adapter.parent),'read_scope':[{'path':adapter.name,'kind':'file'}],'kind':'workspace','writable':False},'gc03':{'path':str(RELEASE),'read_scope':[{'path':p,'kind':'file'} for p in gcpaths],'kind':'workspace','writable':False}})
  output=Path(outdir)
- if not output.is_absolute() or output!=HERE/'runtime-b09-001/gc03-policy' or output.name in ('','.') or output.exists():raise ValueError('new output directory directly beneath witness-001-prep required')
- evidence=HERE/'runtime-b09-001/resources/archives/gc03-host-only';mechanism={'id':'abiogenesis-native-held-store/1','source':host,'implementation_sha256':digest}
+ if not output.is_absolute() or output!=HERE/'runtime-b09-002/gc03-policy' or output.name in ('','.') or output.exists():raise ValueError('new output directory directly beneath witness-001-prep required')
+ evidence=HERE/'runtime-b09-002/resources/archives/gc03-host-only';mechanism={'id':'abiogenesis-native-held-store/1','source':host,'implementation_sha256':digest}
  surface={'root':str(evidence),'namespace':'prepared-lookup','consumer':'native-abg-owner'}
  policy={'schema':'a_c.fd-support.policy/1','id':'urn:abiogenesis:witness:gc03-policy:1','product':{'definition_id':'urn:stdo:product-definition:abiogenesis','definition':definition,
   'authority_binding':{'definition_locator':'/reference_frame_bases/0/authority/0','owner_record':product,'mechanism':mechanism,'result_surface':surface,'scope':'native host-owned prepared context.read; no provider preflight'}},
@@ -49,7 +49,7 @@ def generate(adapter,outdir,expected_adapter):
     'operations':['context.read'],'tools':['context.read'],'executors':[EXECUTOR],'territory':[],'preconditions':[],
     'admission':{'mechanism_id':mechanism['id'],'mechanism_source':host,'authority_source':authority,'required_predicates':[],'allowed_override_sources':[]},'notification_sink':None}},
   'predicates':{},'operators':{},'executors':{EXECUTOR:{'id':EXECUTOR,'executable':{'path':str(PYTHON),'sha256':pin(PYTHON)},
-    'argv':[str(PYTHON),'-I','-S','-B',str(adapter)],'dependencies':[pyref,adref,*release_refs],'cwd':str(HERE/'runtime-b09-001/worksite'),'environment':{},'actor_id':ACTOR,
+    'argv':[str(PYTHON),'-I','-S','-B',str(adapter)],'dependencies':[pyref,adref,*release_refs],'cwd':str(HERE/'runtime-b09-002/worksite'),'environment':{},'actor_id':ACTOR,
     'settings':{},'tools':['context.read'],'effect_scope':{'cooperative':True,'filesystem':'host-mediated','unknowns':['native owner controls actual publication']},
     'stdin_mode':'context-utf8','stdout_decoder':{'format':'json','pointer':None,'decode_json_string':False},'observers':[{'kind':'process-end'}]}},
   'event_sinks':{},'independence_policy':None,'evidence_root':str(evidence),'limits':{'max_message_bytes':16000000,'max_files':128,'max_bytes':8192,'max_history_records':10000,'max_wait_ms':1000},'authority_sources':[authority]}

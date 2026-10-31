@@ -1,0 +1,10 @@
+{
+  "status": "prepared_not_dispatched",
+  "recursionBound": 3,
+  "onlyPermittedPurposes": [
+    "testing",
+    "construction"
+  ],
+  "requires": "Root review and exact pinned provider-profile JSON before run-b07.mjs",
+  "qualification": false
+}

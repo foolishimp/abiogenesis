@@ -1,0 +1,21 @@
+{
+  "installedRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/bootstrap-install/node_modules/@abiogenesis/typescript-tenant",
+  "adapter": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/bootstrap-install/node_modules/@abiogenesis/typescript-tenant/contracts/governed-context/host_adapter.py",
+  "adapterDigest": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+  "generated": {
+    "policyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/gc03-policy/gc03-policy.json",
+    "policySha256": "21a6d99254eb408b656940f76ff76f05958ef14d8318d8bdd8b9fac6faca94d5",
+    "privatePolicyMember": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002/gc03-policy/abg-private-policy-member.json",
+    "privateMemberSha256": "7c4785e45a23d6a6da77862fb7a81145f3bbdc341506e790a8efdb6fce4d6f32",
+    "executorId": "gc03-python-host-adapter",
+    "principalId": "constructor",
+    "actorId": "actor://abiogenesis/worksite/native-work@5",
+    "adapterSha256": "1eb6de41473ee6158c2a830d5188e98449c1ef2ea455644017b66217651eb6f3",
+    "status": "candidate only; no native admission or activated grant",
+    "limits": [
+      "No provider preflight or observation generated",
+      "Actor and executor must match actual native occurrence and verified installed artifact",
+      "Source roles and original governing criteria remain host-owned"
+    ]
+  }
+}

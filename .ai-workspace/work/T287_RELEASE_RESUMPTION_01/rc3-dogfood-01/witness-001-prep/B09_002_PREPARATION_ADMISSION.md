@@ -1,0 +1,11 @@
+# Root: second bounded GC03 witness preparation
+
+Root explicitly selected the independently confirmed operator-only member_inventory@1 envelope repair and fresh runtime-b09-002. Preserve runtime-b09-001, its failed call/receipts/launch and prior custodies byte-identically. No Product change, broader access or replacement history is authorized or supplied.
+
+The previous Public call refused before Run/invocation admission because its dependency inventory was a top-level array; the installed RunEnvironment record owner requires {kind:"run_environment_member_inventory",schemaVersion:"5.0.0",members}. Use that exact existing envelope over the same selected members and owner-decode it before writing/packaging. Preserve read_context, corpusAccess:null, accesses:[], resource pythonPath:null and separate existing private-policy execution permission. This is record syntax repair, not a capability widening.
+
+Root's original bounded B09 C2 artifact/named-test/source acceptance in B09_WITNESS_SELECTION_ADMISSION.md remains the basis: Run run://abiogenesis/0005b61adcdb8d09b124791fa65be8f964aeb1e71e8560498b502941a90d1e29; Result result://abiogenesis/b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8, digest sha256:b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8. Exact selected RC3 archive d4c3b041d1852b87022defb73dbba82740d79ed2c2f890629e5eddd8cc50e2e1 is unchanged. Its Result selects the executing artifact; the future witness must create its own fresh Testing Result before Construction. No old witness/producer Result is substituted.
+
+Same W1-W5, task/rubric/4616B fixture, Opus5.5 xhigh finite profile/no dollar cap. Regenerate the consumer/publication/catalog and prepared call through the same supported setup in fresh002. Root alone performs reviewed provider-free setup and later actual activation; no setup/Public/provider/test/launch by preparation writer. Actual installed/dependency/policy/call identities and a new exact launch manifest remain pending until Root setup/preparation succeeds.
+
+Superseded operator script bytes are preserved in Git be45a2603858f2334750cbeaff31db9655905c1b; old selection/profile/custodies/launch-manifest and failed runtime are retained unchanged. This record claims neither live witness success, release nor qualification.

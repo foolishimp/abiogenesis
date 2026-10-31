@@ -3,7 +3,7 @@
 from pathlib import Path
 from urllib.parse import urlparse,unquote
 import hashlib,json,re,stat
-HERE=Path(__file__).resolve().parent;ROOT=HERE/'runtime-b09-001'
+HERE=Path(__file__).resolve().parent;ROOT=HERE/'runtime-b09-002'
 def sha(p):
  h=hashlib.sha256()
  with p.open('rb')as f:
@@ -24,7 +24,7 @@ prefix=saved['state']['closeHandoff']['prefix'];event=Path(unquote(urlparse(pref
 assert ep['bytes']==prefix['prefixLength'] and 'sha256:'+ep['sha256']==prefix['prefixDigest']
 assert es.st_dev==prefix['storeIdentity']['device'] and es.st_ino==prefix['storeIdentity']['inode']
 marker=ROOT/'NATIVE_LAUNCH_STARTED.json';assert not marker.exists()
-files={HERE/'guard-b09-launch.py',HERE/'freeze-b09-launch.py',HERE/'provider-profile-b09.json',HERE/'selected-c2-b09.json',HERE/'B09_PREPARATION_CUSTODY.json',event}
+files={HERE/'guard-b09-launch.py',HERE/'freeze-b09-launch.py',HERE/'provider-profile-b09.json',HERE/'selected-c2-b09-002.json',HERE/'B09_002_PREPARATION_CUSTODY.json',event}
 files.update(ROOT/n for n in ['operator-resume-material.json','witness-call.json','witness-workload.json','ACTIVATION_PENDING.json','dependency-resources.json','generated-policy.json','selected-producer.json','workspace-manifest.json','summary.json','run.json','bootstrap-installation.json','bootstrap-lock.json','bootstrap-verification.json'])
 files.update((ROOT/'worksite'/n)for n in ['task.md','rubric.json','fixture.txt'])
 files.update(p for p in (ROOT/'gc03-policy').iterdir()if p.is_file())
@@ -68,6 +68,6 @@ for name,row in profile['executablePins'].items():
  assert str(Path(row['configuredPath']).resolve())==row['realPath'];p=Path(row['realPath']);assert sha(p)==row['sha256'];files.add(p);aliases.append({'configuredPath':row['configuredPath'],'realPath':row['realPath']})
 python=Path('/Library/Frameworks/Python.framework/Versions/3.12/bin/python3.12');assert sha(python)=='a7f5b535d61d1c7326824204ac80f045a97a652abb154421e2c74fcc365a3539';files.add(python)
 manifest={'kind':'b09_exact_prepared_witness_launch','status':'PREPARED_NOT_LAUNCHED','files':[pin(p)for p in sorted(files)],'eventResource':{**ep,'device':es.st_dev,'inode':es.st_ino,'coordinateDigest':prefix['coordinateDigest']},'installedPayloads':installed,'operatorExecutableClosure':[{'path':str(p),'localImports':[str(q)for q in graph[p]]}for p in sorted(graph)],'executableAliases':aliases,'python':str(python),'node':profile['executablePins']['node']['realPath'],'launcher':str(HERE/'run-b07.mjs'),'profile':str(HERE/'provider-profile-b09.json'),'profileSha256':sha(HERE/'provider-profile-b09.json'),'startMarker':str(marker),'limits':['Existing prepared input/call/resume/policy/profile bytes unchanged','No new runtime/admission authority or Result','Guard verifies then execs existing launcher once; no retry','Root alone controls launch after actual policy/call review']}
-p=HERE/'B09_LAUNCH_MANIFEST.json'
+p=HERE/'B09_002_LAUNCH_MANIFEST.json'
 with p.open('x')as f:json.dump(manifest,f,indent=2,sort_keys=True);f.write('\n')
 print(json.dumps({'manifestPath':str(p),'sha256':sha(p),'files':len(files),'operatorModules':len(graph),'eventBytes':ep['bytes']}))

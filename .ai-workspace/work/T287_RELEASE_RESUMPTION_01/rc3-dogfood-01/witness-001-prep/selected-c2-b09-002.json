@@ -1,0 +1,70 @@
+{
+  "activationGate": "Root must independently review corrected prospective002 selection/scripts; actual setup/input/call and exact new launch freeze must be reviewed before native launch.",
+  "artifact": {
+    "bytes": 10936514,
+    "manifestByteSha256": "sha256:69c823d508f7cefc0988a83757161b912571266738688b603fee8e59c0f684b1",
+    "manifestDigest": "sha256:1298c8106a02cbf2498bdba776a55c89772ab83477fcbe5d44976d32c4cf88e7",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": "sha256:7bdb0d0a1059c83c8890c1ef76c6b232eab34393702d9efbdd6407c09a5d7fda",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "sha256:d4c3b041d1852b87022defb73dbba82740d79ed2c2f890629e5eddd8cc50e2e1"
+  },
+  "custody": {
+    "actualC2Helper": {
+      "bytes": 9505,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-011/B09_C2_CUSTODY.json",
+      "sha256": "2e6c51edb82656c900cbb14200d57bceed708fe9e39b9a3bde606523acf36148"
+    },
+    "conservedCommandPrefix": "command://abiogenesis/rc3-dogfood/increment-b-08/",
+    "retryBasis": {
+      "correction": "Exact member_inventory@1 envelope/owner-decode guard only; new002 roots and regenerated consumer identities; no grant widening",
+      "failedRuntime": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-001",
+      "originalSelection": {
+        "bytes": 4620,
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/selected-c2-b09.json",
+        "sha256": "c556e7bbe97f44509cce5632aa3f2b1c5762d25b4635f651f5764b116c2e05f3"
+      },
+      "prospectiveRuntime": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b09-002"
+    },
+    "standing": "Actual B09 C2/native admission/source/archive join independently reviewed; Root bounded artifact and exact named-test selection recorded. B09 return and actual W1-W5 witness remain pending.",
+    "unchangedWitness": "task.md/rubric.json W1-W5/fixture.txt"
+  },
+  "kind": "rc3_b09_c2_selected_producer_v1",
+  "operator": {
+    "authorityPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B09_002_PREPARATION_ADMISSION.md",
+    "authoritySha256": "sha256:2f4cb70b766df3157c38b3daf3d4622aeb8ab5a6fe61db944e5bb36531d14e8d",
+    "consumerModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/consumer-b07.mjs",
+    "consumerModuleSha256": "sha256:f46db4526a626c7e09ef25cc6056057ec398301be4356b25f43bbe334fa8b195",
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "nodeSha256": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "npmPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "npmSha256": "sha256:8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "policyRef": "member://abi5-tests/gc03/private-policy@5",
+    "rubricSha256": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+    "taskSha256": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+  },
+  "producer": {
+    "admissionEvidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/b09-admitted-testing-event.json",
+    "admissionEvidenceSha256": "sha256:f593d1fe5433e4c143675ef6b1cf10959076548a90ab4eecc8abf7ae708bdd0b",
+    "artifactRelativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "helperArtifactDigest": "sha256:d0d6d61b910fb5820ded3c0eea9dda47285b5cbbf2cc13ed5ef7a4dddcb0c200",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/d0d6d61b910fb5820ded3c0eea9dda47285b5cbbf2cc13ed5ef7a4dddcb0c200",
+    "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-004/resources/archives/worksite-command-execution/a97641c89f20f4d1c2feac5df724a74bdf27971c35bf0dba9e47cdf0a25f9ffb/de49084f7d53e647f8b7ae1d08089053a42439e0fd661373c9790ab52af28e92/result.json",
+    "helperResultSha256": "sha256:453ad5f00b2e94b4192d1519f54e4eb397af191115a64551565157b6f56114ec",
+    "namedTestAcceptance": {
+      "disposition": "passed",
+      "evidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B09_NAMED_TEST_ACCEPTANCE.json",
+      "evidenceSha256": "sha256:ba81a783b4b8888822c57ef3bbc17dba2ad3b63e4a403564580d21897749571a",
+      "name": "GC03 real owner allowed denied cold tamper",
+      "passLine": "\u2714 GC03 real owner allowed denied cold tamper (63963.815834ms)",
+      "skipped": false,
+      "stdoutDigest": "sha256:02242c852014847133db9a0f5666bbaf5bc52bdc9e6f4306561cd15b3d06f607",
+      "todo": false
+    },
+    "resultDigest": "sha256:b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8",
+    "resultRef": "result://abiogenesis/b8740d525c2965c7ae93f41567fe8ae0c2e12f005aebda023ff5ddc5eef803b8",
+    "runRef": "run://abiogenesis/0005b61adcdb8d09b124791fa65be8f964aeb1e71e8560498b502941a90d1e29"
+  },
+  "status": "ROOT_SELECTED_B09_C2_FOR_WITNESS"
+}

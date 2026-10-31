@@ -1,3 +1,4 @@
+import assert from 'node:assert/strict';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { basename, dirname, join } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -66,7 +67,9 @@ export async function prepareConsumer({root,product,gtl,verified,archivePath,npm
   const assets=await Promise.all(names.map(async name=>({name,bytes:await readFile(join(policyRoot,name))})));
   const dependencyRef='dependency://abi5-tests/gc03/policy@5',basisRef='support://abi5-tests/gc03/',contextRef='context://abi5-tests/gc03/policy@5';
   const members=assets.map(a=>({digest:product.sha256Bytes(a.bytes),path:a.name,target:null,type:'file'})).sort((a,b)=>a.path.localeCompare(b.path));
-  const record=product.canonicalJson(members);await writeFile(join(policyRoot,'inventory.json'),record,{flag:'wx'});
+  const record=Buffer.from(product.canonicalJson({kind:'run_environment_member_inventory',schemaVersion:'5.0.0',members})+'\n');
+  assert.deepEqual(product.runEnvironmentRecordMembers('member_inventory@1',record),members,'owner must decode the exact policy member record before packaging');
+  await writeFile(join(policyRoot,'inventory.json'),record,{flag:'wx'});
   const cm=assets.map(a=>({memberRef:a.name===names[0]?'member://abi5-tests/gc03/private-policy@5':'member://abi5-tests/gc03/activation@5',path:a.name,byteCount:a.bytes.length,digest:product.sha256Bytes(a.bytes)}));
   const d=structuredClone(data.runEnvironments[0]);delete d.declarationDigest;
   d.dependencies.push({dependencyRef,basisRef,recordRef:basisRef+'inventory.json',recordDigest:product.sha256Bytes(Buffer.from(record)),recordFormat:'member_inventory@1',inventoryDigest:gtl.stdoInventoryDigest(members),members});

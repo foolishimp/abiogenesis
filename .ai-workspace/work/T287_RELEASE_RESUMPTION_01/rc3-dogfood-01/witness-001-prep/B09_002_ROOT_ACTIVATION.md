@@ -1,0 +1,7 @@
+# Root activation: corrected second witness
+
+Root reports the independently reviewed corrected002 guard was launched once at2026-10-31T20:50:30Z, session55583, after final review READY. Selected manifest: B09_002_LAUNCH_MANIFEST.json SHA256 d1c33105e2dc054074bcae75cf6cf05306ca7c0bffc78b2e32064ceb62bc8f8f. Existing launcher retained NATIVE_LAUNCH_STARTED.json at2026-10-31T20:50:31.600Z with profile SHA256 d7ae7f9db390f9f637d288c695471fddc3061547cea966f33880b267a38bdd1a. Root reports a first provider stream, establishing progress past001's pre-Run environment-record refusal; native W1–W5 outcomes remain pending here.
+
+Actual002 setup, typed two-member inventory, installed payload identities, Context/resource maps, fresh empty input/sourceBasis:none, prepared call,5389 frozen file pins and seven local executable modules were independently reviewed READY. Same selected B09 RC3 artifact, W1–W5/fixture/profile and unchanged empty/null generic access bindings. Root remains sole native operator. No provider/native call was made by the preparation/commit writer.
+
+Failed001 remains separate, unchanged history. Its child Public call refused invalid_capability/access_unavailable before Run/invocation admission because the operator inventory was a bare array. Corrected002 uses the owner's existing member_inventory@1 envelope and pure decoder guard; no wider permission or Product change. This activation records an actual launch, not a witness pass, native UAT success, release or qualification.
