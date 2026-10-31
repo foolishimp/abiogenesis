@@ -39,11 +39,14 @@ tests, all seven required artifacts and all original obligations. Reacquire and 
 artifact, source/worksite identity, oracle and operator binding before use; the
 old C2 RC3 artifact remains unqualified.
 
-Prospective route: Construction → parent reevaluation → Testing → admitted
-measurement → revised selection → second Construction → fresh Testing →
-independent UAT → terminal Result. Native selection and assessment must remain
-real, not scripted. Select a finite recursion bound sufficient for that full
-path and a repair; bound 3 permits only two children and is insufficient. The
+The basic route may be Construction → parent reevaluation → Testing → admitted
+measurement → independent UAT → terminal Result, if admitted results actually
+drive at least two evaluation-directed iterations. If real assessment finds an
+unmet condition, a second Construction and fresh Testing can provide separate
+correction evidence; never inject a failure to force that path. Native selection
+and assessment stay real, not scripted. Bound 12 permits up to 11 child
+selections, covering this prospective path and room for correction; bound 3
+permits only two children and is insufficient. The
 ordinary consumer may lawfully omit the optional GC03 private policy; doing so
 neither deletes nor qualifies its unfinished source. A generic-job test using
 actor doubles is mechanical evidence only.
@@ -120,8 +123,9 @@ Retain elapsed time, iteration count, provider calls and reported cost, operator
 interventions and independently checked useful output. One successful Run,
 repeatability and practical value are separate claims.
 
-The existing $100 allocation is not reset: $86.7544958 reported, plus an $8
-reserve for B03's unknown charge, gives $94.7544958 conservative; the reserve is
-not a known charge and other costs remain unknown. The existing owner instruction
-authorizes proof within that allocation; this planning record dispatches nothing
-and claims no automatic aggregate cap.
+The owner has removed the earlier $100 spending limit and authorized roughly
+seven hours of overnight continuation from 17:30 UTC on 2026-10-31. The prior
+ledger remains: $86.7544958 reported plus the separate $8 B03 unknown-cost
+reserve; that reserve is not a known charge, and other costs remain unknown.
+Record actual further usage without treating the former limit as a stop. This
+planning record dispatches nothing and claims no automatic aggregate cap.

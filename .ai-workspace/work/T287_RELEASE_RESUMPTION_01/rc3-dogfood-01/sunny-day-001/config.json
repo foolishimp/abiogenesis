@@ -1,0 +1,59 @@
+{
+  "package": {
+    "archivePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "sha256": "sha256:9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d"
+  },
+  "sourceCommit": "927b8c0b84915ea2c926115902c2ceeef6df26a3 plus B06 uncommitted 14-path C2 snapshot; artifact SHA-256 is authoritative",
+  "archiveRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/runs",
+  "fixtureRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures",
+  "nodePath": "/opt/homebrew/bin/node",
+  "recursionBound": 12,
+  "processTimeoutMs": 25200000,
+  "maxProcessOutputBytes": 536870912,
+  "inheritEnvironment": [
+    "HOME",
+    "PATH",
+    "TMPDIR",
+    "LANG",
+    "LC_ALL"
+  ],
+  "toolchainEnvironment": {
+    "NODE_OPTIONS": "--max-old-space-size=8192",
+    "BASH_DEFAULT_TIMEOUT_MS": "1800000",
+    "BASH_MAX_TIMEOUT_MS": "1800000",
+    "CLAUDE_CODE_DISABLE_BACKGROUND_TASKS": "1"
+  },
+  "toolchains": {
+    "node": {
+      "executable": "/opt/homebrew/bin/node",
+      "versionArgs": [
+        "--version"
+      ]
+    },
+    "npm": {
+      "executable": "/opt/homebrew/bin/npm",
+      "versionArgs": [
+        "--version"
+      ]
+    }
+  },
+  "provider": {
+    "enabled": true,
+    "agent": "claude",
+    "command": "/Users/jim/.local/bin/claude",
+    "versionArgs": [
+      "--version"
+    ],
+    "model": "claude-opus-5-5",
+    "maxTurns": 160,
+    "inactivityTimeoutMs": 1800000,
+    "absoluteTimeoutMs": 5400000,
+    "appendArgs": [
+      "--effort",
+      "xhigh"
+    ],
+    "inheritEnvironment": [
+      "CLAUDE_CODE_OAUTH_TOKEN"
+    ]
+  }
+}

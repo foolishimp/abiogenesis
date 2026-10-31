@@ -1,0 +1,58 @@
+{
+  "authority": "owner removed prior spending limit and selected approximately seven hours overnight continuation; Executive delegates setup and retains sole Public operation",
+  "basis": "stdo://releases/v3.0.2/",
+  "basisManifestSha256": "f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "classification": "owner-selected local development proof preparation; no dispatch",
+  "executables": {
+    "claude": {
+      "bytes": 272984176,
+      "configuredPath": "/Users/jim/.local/bin/claude",
+      "realPath": "/Users/jim/.local/share/claude/versions/2.1.306",
+      "sha256": "b5d795b7760032d79954b55a9cd1876dcf3a8dc9608fd6bb9f618593f69fd44b",
+      "version": "2.1.306 (Claude Code)"
+    },
+    "node": {
+      "bytes": 86104016,
+      "configuredPath": "/opt/homebrew/bin/node",
+      "realPath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "sha256": "fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+      "version": "v24.7.0"
+    },
+    "npm": {
+      "bytes": 54,
+      "configuredPath": "/opt/homebrew/bin/npm",
+      "realPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+      "sha256": "8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+      "version": "11.5.1"
+    }
+  },
+  "files": {
+    "INPUT_CUSTODY.json": {
+      "bytes": 6130,
+      "configuredPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/INPUT_CUSTODY.json",
+      "realPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/INPUT_CUSTODY.json",
+      "sha256": "5c7fd222052ee0a24c83ed579c34746395728bf6cc81cc4b3d2b39fa2eac2075"
+    },
+    "config.json": {
+      "bytes": 2018,
+      "configuredPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/config.json",
+      "realPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/config.json",
+      "sha256": "c3a3731ded920673d47112112cda1d495205141507f11eedd0fafb0cfddaa327"
+    },
+    "verify-inputs.py": {
+      "bytes": 1683,
+      "configuredPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/verify-inputs.py",
+      "realPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/verify-inputs.py",
+      "sha256": "91058b7662d42e31af2d02a71a1de409c8248a53512e9a266ab97f1ce916b73b"
+    }
+  },
+  "kind": "sunny_day_activation_custody",
+  "noProviderOrPublicCall": true,
+  "priorCosts": {
+    "b03UnknownReserveUsd": "8",
+    "otherCosts": "unknown",
+    "prior100Limit": "superseded by owner",
+    "reportedUsd": "86.7544958"
+  },
+  "provider": "single runner profile globally xhigh; role-specific independent assessor effort not separately expressible through this config"
+}

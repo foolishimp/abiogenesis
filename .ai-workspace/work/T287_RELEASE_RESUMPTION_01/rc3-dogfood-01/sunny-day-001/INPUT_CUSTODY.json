@@ -1,0 +1,102 @@
+{
+  "fixtures": [
+    {
+      "bytes": 34763,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/scenarios.json",
+      "path": "scenarios.json",
+      "sha256": "666afea3643b5fcb8cf226d61bfa2022e249ad28620246e7c93387f1d9cca843",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/scenarios.json"
+    },
+    {
+      "bytes": 4325,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/basic-cli/source.original.txt",
+      "path": "basic-cli/source.original.txt",
+      "sha256": "ce602ce2cc0fcefaba288623a675a770d11bc14d224b90045aebbe031330172f",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/source.original.txt"
+    },
+    {
+      "bytes": 4916,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/basic-cli/obligations.json",
+      "path": "basic-cli/obligations.json",
+      "sha256": "271ea32556323a0d1bf3f2a86b2694b3ddc938e0fb1c37f521dec6a840f395f1",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/obligations.json"
+    },
+    {
+      "bytes": 1112,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/basic-cli/oracle.json",
+      "path": "basic-cli/oracle.json",
+      "sha256": "028073e4cb24bd7444dd15d48b0e16d37df236edf7a003cb3ca26286aca6c585",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/oracle.json"
+    },
+    {
+      "bytes": 23299,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/basic-cli/request.json",
+      "path": "basic-cli/request.json",
+      "sha256": "340c8a331d41d4b0160131be7ba700ab2833d9a3ea10ae62df4febce40e50219",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/basic-cli/request.json"
+    },
+    {
+      "bytes": 26966,
+      "copy": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/fixtures/independent-oracle.mjs",
+      "path": "independent-oracle.mjs",
+      "sha256": "a0887ed7a583fbc5f1805adae97118451a98e7f7e44814db9b0146a6e55b3c11",
+      "source": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/fixtures/sandbox-uat/independent-oracle.mjs"
+    }
+  ],
+  "helperResult": {
+    "artifactDigest": "sha256:7d74876f6088afab30f7e8bb3f4f26560a2b338ce103eaa2f56fae2c2812717c",
+    "artifactRef": "worksite-command-helper-artifact://abiogenesis/7d74876f6088afab30f7e8bb3f4f26560a2b338ce103eaa2f56fae2c2812717c",
+    "bytes": 6244823,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/result.json",
+    "sha256": "ad225be79c5fd5356f59c9a797e7129d3829720cfe62696541922ed6818cafc1"
+  },
+  "kind": "sunny_day_selected_inputs",
+  "producer": {
+    "eventId": "event://abiogenesis/9e3694ab43ab81c0c21c161adab47dff5cfb9a7e6d00f5ac697427ca8066d76a",
+    "ordinal": 3216,
+    "resultDigest": "sha256:f4c73b483e8416d8c2efa1a11f5ecc5660b1669930e25d3e67b8a6927de5a325",
+    "resultRef": "result://abiogenesis/f4c73b483e8416d8c2efa1a11f5ecc5660b1669930e25d3e67b8a6927de5a325"
+  },
+  "productArtifact": {
+    "bytes": 10936399,
+    "contentDigest": "sha256:434a317b1bd4c4c348ca74a9685d10609b6d3b3de45252544da4c245d9fcd08b",
+    "manifestDigest": "sha256:fbb50339c5cc59e4a6225323feb1ac1f555cbc2d94f65a7c94b4bc5728fd9c65",
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-002/resources/archives/worksite-command-execution/e1d42323c72c154c0c9ddb3a6d59e237629b76fd14194167f2079f527e06c2cb/fafa41d54cea85cfc03354774c712d4cb4571a450aecf4e866c524737380126c/sandbox/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "9b6440795b600ce822b54ec35c468d35af6fdd07a251f5c0bdb6c1d3ccfc253d"
+  },
+  "runnerFiles": [
+    {
+      "bytes": 182,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/scripts/sandbox-uat.mjs",
+      "sha256": "9a88014f68f50ee592190b00d14f3b58ba5f744ec794cd017ce9e0b6a4fc1576"
+    },
+    {
+      "bytes": 36805,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "sha256": "705bbdc4192fc694ef7f70a8925fd8c2b1c5685adc24e71b19cda3530b6ec4c9"
+    },
+    {
+      "bytes": 27984,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "sha256": "29abada25c16efff12bbd7bf995645e3aa68bb043eb59d67c988311a705aac18"
+    },
+    {
+      "bytes": 11420,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/consumer.mjs",
+      "sha256": "9498c59817305c4206b0769ba8745ae572cd7b1464e72a6e5ae4340b54dc5551"
+    },
+    {
+      "bytes": 7569,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/scenarios.mjs",
+      "sha256": "ad71cadb5cf636e47cb581342990707080e14f56bd67b8a11a605ec89ac7c1aa"
+    },
+    {
+      "bytes": 40162,
+      "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "sha256": "7e75e8953fb05538c41a9e7e78c3525fdfdcebfb5bd489d2f720d7a71d236f2e"
+    }
+  ],
+  "scope": "basic-cli only; acquisition checks selected pins; no prior Results inherited",
+  "status": "prepared_not_dispatched"
+}
