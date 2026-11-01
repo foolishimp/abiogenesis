@@ -8,6 +8,7 @@ import {SourceTextModule,SyntheticModule} from 'node:vm';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
+import * as v from 'valibot';
 import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
@@ -22,6 +23,23 @@ function environmentDeclaration(){
     contexts:[{contextRef:'context:frame',sourceLocator:'generic://frame/',inventoryDigest:hash([contextMember]),members:[contextMember]}],corpusAccess:null,accesses:[],
     roles:[{graphFunctionRef:ref('graph-function','root'),programLocusRef:ref('node','select'),role:'selector',frameRefs:['frame:executive'],policy:{policyRef:'policy:frame',text,digest},contextPolicy:{policyRef:'policy:context',selectors:['full_source','active_binding_semantics']},accessRefs:[],sourceBindings:[{contextRef:'context:frame',memberRef:contextMember.memberRef,memberDigest:digest,startByte:0,endByte:Buffer.byteLength(text),spanDigest:digest}]}]});
 }
+test('run.continue current-execution arms are exclusive request alternatives under one closed continuationKind domain',()=>{
+  const c=r=>({ref:r,digest:'sha256:'+'1'.repeat(64)}),current=product.RUN_OPERATION_CONTRACTS.continue.current_intent,selected=product.RUN_OPERATION_CONTRACTS.continue.selected_action;
+  const base={run:c('run://x'),continuation:c('continuation://x'),continuationInput:c('result://x'),expectedBasis:c('execution-basis://x')},ok=(schema,value)=>v.safeParse(schema,value).success;
+  assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x')}),true,'construction-intent arm');
+  assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x')}),true,'pending-execution arm');
+  assert.equal(ok(current.requestSchema,{...base,currentIntent:c('intent://x'),pendingCursor:c('cursor://x')}),false,'mixed arm refuses');
+  assert.equal(ok(current.requestSchema,base),false,'no arm refuses');
+  assert.equal(ok(current.requestSchema,{...base,pendingCursor:c('cursor://x'),selectedAction:c('action://x')}),false,'no action field on the pending arm');
+  assert.equal(ok(selected.requestSchema,{...base,pendingCursor:c('cursor://x')}),false,'the pending arm is not a selected_action request');
+  assert.deepEqual(current.metadata.closedDomains.continuationKind,['current_intent','pending_execution']);
+  assert.deepEqual(selected.metadata.closedDomains.continuationKind,['selected_action']);
+  const result={run:c('run://x'),graphCall:null,admittedIntent:null,successor:c('continuation://x'),disposition:'completed',evidence:[c('evidence://x')],replay:c('replay://x')};
+  for(const kind of ['current_intent','pending_execution'])assert.equal(ok(current.resultSchema,{...result,continuationKind:kind}),true,kind);
+  assert.equal(ok(current.resultSchema,{...result,continuationKind:'selected_action'}),false,'selected_action is not a current-execution result');
+  assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'selected_action'}),true);
+  assert.equal(ok(selected.resultSchema,{...result,admittedIntent:c('intent://x'),continuationKind:'pending_execution'}),false,'pending_execution is not a selected_action result');
+});
 test('recursive fixture declares a valid bounded Program with one native selector',()=>{
   const digest='sha256:'+'1'.repeat(64),d=declarations(gtl,environmentDeclaration());
   const publication=gtl.modulePublication({kind:'module_publication',moduleVersion:'5.0.0',...d,artifactDigest:digest,productContentDigest:digest,productManifestDigest:digest,contributions:d.contributions.map(c=>({...c,provenanceRefs:[digest]}))});
@@ -350,7 +368,9 @@ test('one installed Public start revises native choice from child evidence and r
 // or closure is admitted. The occurrence is then derived cold, refused for
 // crossed coordinates, consumed once by one admitted current_intent-member
 // pending_execution operation and resumed by HoG in the same Run.
-test('interrupted recursive workflow resumes its exact pending execution once in the same Run',async t=>{
+// One controlled interruption shared by the owner-path and Public-path tests:
+// the process boundary stops before the second workflow leaf opens its call.
+async function interruptedRecursiveRun(){
   const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-pending-execution-source-'));
   const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
   const input=initialState();input.task={...input.task,scenario:'success'};input.taskDigest=hash(input.task);
@@ -383,6 +403,10 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   assert.equal(interrupted,1);
   const runId=opened.run.runId,interruptedEvents=env.store.readAll(),runAt=events=>events.filter(e=>e.runId===runId);
   assert.equal(runAt(interruptedEvents).some(e=>['run_closed','runtime_failure_observed','run_stopped'].includes(e.kind)),false,'interruption admits no terminal or failure truth');
+  return {env,load,cc,storeOwner,runtime,time,opened,runId,interruptedEvents,runAt};
+}
+test('interrupted recursive workflow resumes its exact pending execution once in the same Run',async t=>{
+  const {env,load,cc,storeOwner,runtime,time,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun();
   const cold=async()=>env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(join(env.scratch,'runtime','events.jsonl'))));
   const [p,...extra]=cc.projectPendingExecutionContinuations(await cold(),runId);
   assert.equal(extra.length,0);assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow'],'unfinished recursive and workflow returns');
@@ -431,9 +455,21 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   assert.equal(cc.projectPendingExecutionContinuations(afterUse,runId)[0].status,'consumed');
   assert.deepEqual(cc.selectPendingExecutionUse(afterUse,request),{kind:'refused',code:'resolved_continuation',path:'/continuation'},'one use');
   assert.ok(cc.projectPendingExecutionOperation(afterUse,operation),'cold operation correspondence');
-  // Duplicate Public invocation truth over this operation is not asserted here:
-  // projectFhEffectfulPublicInvocationFacts (outside this change) still claims
-  // every other run.continue operation as F_H and reports invalid_history.
+  // Combined Public invocation truth: the continuation owner, not F_H, claims the
+  // pending_execution operation; the same invocation is a duplicate, another is available.
+  const fh=await load('abg/fh_continuation_projection'),effectful=await load('abg/effectful_invocation_truth');
+  assert.deepEqual(fh.projectFhEffectfulPublicInvocationFacts(afterUse),{disposition:'valid',facts:[]},'pending_execution is not an F_H arm');
+  const duplicate=effectful.projectEffectfulPublicInvocationTruthAtPrefix(afterUse,'public-invocation://pending-execution/1');
+  assert.equal(duplicate.disposition,'duplicate',JSON.stringify(duplicate.disposition==='invalid_history'?duplicate:null));
+  assert.equal(duplicate.priorAdmission.publicOperationEventRef,operation.eventId);assert.equal(duplicate.priorAdmission.operationId,'abg.operation.run.continue');
+  assert.equal(effectful.projectEffectfulPublicInvocationTruthAtPrefix(afterUse,'public-invocation://pending-execution/2').disposition,'available');
+  // Mixed-arm payloads fail their owner projection; a construction kind never reaches F_H.
+  const crossed=patch=>({...operation,payload:{...operation.payload,...patch}});
+  assert.equal(cc.projectPendingExecutionOperation(afterUse,crossed({memberKey:'selected_action'})),null,'pending kind under the selected_action member');
+  assert.equal(cc.projectPendingExecutionOperation(afterUse,crossed({variant:'current_intent'})),null,'pending kind under the construction-intent variant');
+  assert.equal(cc.projectSelectedActionOperation(afterUse,crossed({continuationKind:'selected_action'})),null,'selected-action kind over a pending payload');
+  assert.equal(cc.isConstructionContinuationKind('pending_execution'),true);assert.equal(cc.isConstructionContinuationKind('fh_interaction'),false);
+  assert.equal(cc.isConstructionContinuationKind(undefined),false,'a malformed or unknown kind stays with F_H, which refuses it');
   const completedBefore=runAt(env.store.readAll()).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
   const hog=await load('hog/graph_execute');
   const result=await hog.executeGraphTraversal({pendingExecutionResume:true,continuation:{runId,continuationRef:p.continuationRef,continuationDigest:p.continuationDigest},
@@ -453,6 +489,7 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   assert.deepEqual(cc.projectPendingExecutionContinuations(finalCold,runId),[],'no pending execution remains');
   assert.ok(cc.projectPendingExecutionOperation(finalCold,operation),'cold operation correspondence after completion');
   assert.deepEqual(cc.selectPendingExecutionUse(finalCold,request),{kind:'refused',code:'resolved_continuation',path:'/continuation'},'duplicate after completion');
+  assert.equal(effectful.projectEffectfulPublicInvocationTruthAtPrefix(finalCold,'public-invocation://pending-execution/1').disposition,'duplicate','duplicate invocation after completion');
   const handoff=env.store.projectReopenAuthorityAndClose(),reopenedStore=env.abg.reopenEventStore(structuredClone(handoff.reopenAuthority));
   const reads=await load('abg/project_read_ports');
   const replay=reads.prepareRunReadAtDurablePrefix(reopenedStore.prefix,'run_replay',runId).project(),runResult=reads.prepareRunReadAtDurablePrefix(reopenedStore.prefix,'run_result',runId).project();
@@ -460,4 +497,96 @@ test('interrupted recursive workflow resumes its exact pending execution once in
   reopenedStore.store.projectReopenAuthorityAndClose();
   t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:final.length,
     proofLimit:'In-process controlled interruption at a durable undispatched boundary; installed owners and the actual cut log; ABG/HoG owner path, not the Public CLI. Root installed fresh-process witness remains separate.'}));
+});
+
+// The same controlled interruption, then a cold reopen through the real installed
+// Public CLI and the run.continue current-execution member's pending_execution
+// arm: crossed refusal, one consumed use, duplicate and second-use refusals, and
+// cold run_result/run_replay reads. Generic recursion fixture; the default-library
+// pending-Testing topology and Root's installed fresh-process witness remain separate.
+test('interrupted recursive workflow resumes once through the cold Public run.continue pending_execution arm',async t=>{
+  const {env,load,cc,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun();
+  const {product}=env,publicApi=await load('public/index'),projectReadContracts=await load('abg/project_read_operation_contracts');
+  const prefix=env.abg.selectValidatedRuntimeEventPrefix(env.store.readAll());
+  const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
+  assert.equal(extra.length,0);assert.equal(p.phase,'undispatched');assert.equal(p.status,'open');
+  const coordinate=(ref,digest)=>({ref,digest}),zero='sha256:'+'0'.repeat(64);
+  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??opened.scope;
+  const request={run:coordinate(runId,rootScope.runDigest),continuation:coordinate(p.continuationRef,p.continuationDigest),
+    pendingCursor:coordinate(p.pendingCursorRef,p.pendingCursorDigest),continuationInput:coordinate(p.progressedInputRef,p.progressedInputDigest),
+    expectedBasis:coordinate(p.chain[0].basisRef,p.chain[0].basisDigest)};
+  // Read-only selection supplies the exact input-slot values the owner will recheck.
+  const use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
+  const publications=env.executionResolution.declarationPublications;
+  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,env.programValidation);
+  assert.ok(pendingInput,'pending input carrier projects');assert.equal(pendingInput.input.inputRef,p.progressedInputRef);
+  const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
+  const producer=runAt(interruptedEvents).find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
+  const completedBefore=runAt(interruptedEvents).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
+  let handoff=env.store.projectReopenAuthorityAndClose();
+  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId;
+  const grant=product.constructCapabilityGrant(env.policy,env.actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
+  const makeCall=(identity,patch={})=>{
+    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
+    const r=env.executionResolution.resolution,steering=product.sha256Canonical(eventResource);
+    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
+      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
+      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
+      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
+      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
+      session_policy:{ref:env.policy.policyRef,digest:env.policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
+      actor:{actor:{ref:env.actorRef,digest:product.sha256Canonical({actorRef:env.actorRef})},attribution:{ref:env.invocationAuthority.authorityRef,digest:env.invocationAuthority.authorityDigest}},
+      transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,
+      execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
+    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
+    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
+      request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'}},
+      requestRef:`public-request://pending-execution-public/${identity}`,correlationRef:`correlation://pending-execution-public/${identity}`,eventTime:'2026-11-02T00:01:00.000Z',provenanceRefs:[ref('provenance','fixture')]});
+  };
+  const cli=async(identity,call)=>{
+    const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${identity}-${Math.random().toString(16).slice(2)}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
+    const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
+    if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;
+    return receipt;
+  };
+  const storeOwner=await load('abg/event_store'),storeOwnerRead=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+  const before=storeOwnerRead().length;
+  const crossed=await cli('crossed',makeCall('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
+  assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
+  assert.equal(storeOwnerRead().length,before,'a refused crossed request admits nothing');
+  const continueCall=makeCall('continue');
+  const continued=await cli('continue',continueCall);
+  assert.equal(continued.ownerOutput.outcomeKind,'result',JSON.stringify(continued.ownerOutput));
+  assert.equal(continued.ownerOutput.value.continuationKind,'pending_execution');assert.equal(continued.ownerOutput.value.admittedIntent,null);
+  assert.equal(continued.ownerOutput.value.disposition,'completed');assert.equal(continued.ownerOutput.value.run.ref,runId,'same Run');
+  const afterContinue=storeOwnerRead().length;
+  // A literal resend of the consumed Public invocation, with the acquisition it names.
+  const duplicateExecution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:'pending-duplicate',
+    acquisition:{kind:'reopen',closeHandoff:continueCall.resources.eventResource.closeHandoff},call:continueCall,expectedExitCode:null});
+  // Its identity binds the exact prefix it named; the advanced log refuses it at
+  // acquisition, before any owner admission. Owner-level duplicate truth over the
+  // same invocation is asserted in the owner-path test above.
+  const resend=duplicateExecution.output.receipt;
+  assert.equal(resend.invocationRef,continued.invocationRef,'the literal resend is the consumed Public invocation');
+  assert.equal(resend.ownerOutput,null);assert.equal(resend.failure.fault.stage,'resource_acquisition');assert.equal(resend.failure.fault.code,'acquisition_refused');
+  assert.match(resend.failure.fault.message,/durable_log_mismatch/);
+  const second=await cli('second-use',makeCall('second-use'));
+  assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');
+  assert.equal(storeOwnerRead().length,afterContinue,'duplicate and second use admit nothing');
+  const final=runAt(storeOwnerRead());
+  assert.equal(final.filter(e=>e.kind==='c_call_opened'&&completedBefore.includes(e.payload.cursorRef)).length,completedBefore.length,'no completed position reopened');
+  const resumed=final.filter(e=>e.kind==='c_call_opened'&&!completedBefore.includes(e.payload.cursorRef));
+  assert.equal(resumed[0].payload.cursorRef,p.pendingCursorRef,'the first resumed call is the exact pending position');
+  assert.equal(final.filter(e=>e.kind==='run_closed').length,1);assert.equal(final.some(e=>e.kind==='runtime_failure_observed'),false);
+  assert.deepEqual(final.find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef),producer,'original producer Result unchanged');
+  assert.equal(storeOwnerRead().filter(e=>e.kind==='public_operation_admitted'&&e.payload.continuationKind==='pending_execution').length,1,'one consumed use');
+  const reads={};
+  for(const memberKey of ['run_result','run_replay']){
+    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
+    const {call:readCall}=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:1024},source:continued.resources.run,eventResource,identity:`pending-${memberKey}`});
+    const read=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null});
+    assert.equal(read.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(read.output).slice(0,4000));reads[memberKey]=read.output.receipt.ownerOutput.value;
+  }
+  t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:storeOwnerRead().length,
+    replay:continued.ownerOutput.value.replay,proofLimit:'Cold reopen through the installed Public CLI pending_execution arm over the generic recursion fixture; not the default-library pending-Testing topology; not Root installed fresh-process witness.'}));
 });

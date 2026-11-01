@@ -40,6 +40,7 @@ import {
   type TraversalCursorCandidate,
 } from "./traversal_cursor.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { isConstructionContinuationKind } from "./construction_continuation.js";
 
 export type ReplayContinuationState = {
   readonly continuationRef: string;
@@ -294,7 +295,7 @@ function exactLifecycleEnvelope(
   opened: RuntimeEvent,
   basisId: string,
 ): boolean {
-  return event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind)))) &&
+  return event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind)) &&
     event.aggregateId === opened.aggregateId &&
     event.parentAggregateId === opened.frameId &&
     event.workflowVersion === "5.0.0" && event.scopeClass === "run" &&
@@ -566,7 +567,7 @@ export function projectFhContinuations(
 ): readonly ReplayContinuationState[] {
   const allEvents = runtimeEventBodiesAtPrefix(prefix);
   const events = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
-    event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
+    event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind))
   );
   const refs = [...new Set(events.map((event) => event.aggregateId))];
   return refs.map((continuationRef) => {
@@ -828,7 +829,7 @@ export function projectFhEffectfulPublicInvocationFacts(
   const events = runtimeEventBodiesAtPrefix(prefix);
   const publicEvents = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted").filter((event) =>
     event.kind === "public_operation_admitted" &&
-    isRecord(event.payload) && !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))) &&
+    isRecord(event.payload) && !isConstructionContinuationKind(event.payload.continuationKind) &&
     (
       event.payload.operationId === "abg.operation.interaction.respond" ||
       event.payload.operationId === "abg.operation.run.continue"
@@ -848,7 +849,7 @@ export function projectFhEffectfulPublicInvocationFacts(
   }>[];
   try {
     const continuationEvents = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
-      event.aggregateType === "continuation" && (!isRecord(event.payload) || !(["construction_intent", "selected_action"].includes(String(event.payload.continuationKind))))
+      event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind))
     );
     const continuationRefs = [
       ...new Set(continuationEvents.map((event) => event.aggregateId)),

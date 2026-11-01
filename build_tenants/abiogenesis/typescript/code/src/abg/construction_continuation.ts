@@ -10,6 +10,13 @@ import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRun
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
 
+/** The closed continuation kinds this owner validates. F_H classifies every
+ * other continuation row and run.continue operation, and refuses a malformed or
+ * unknown kind itself; a kind here is never an F_H arm. */
+export function isConstructionContinuationKind(value: unknown): value is "construction_intent" | "selected_action" | "pending_execution" {
+  return value === "construction_intent" || value === "selected_action" || value === "pending_execution";
+}
+
 /** A projection of an actual selected but undispatched consumer. It grants no
  * execution. Declaration, support, input and current-operation admission remain
  * required before any replacement scope can be opened. */

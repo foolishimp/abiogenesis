@@ -580,13 +580,21 @@ actor, judgment and assessment status unchanged in R.
 
 The occurrence is resumed in R; no replacement Run is opened. The recursion
 return obligation is the termination leaf's judged deferred application in R.
-A replacement Run could restore it only by rerunning `evaluate-parent`
-(CONTINUATION-015 forbids that) or by relabelling R's Result as current
-(forbidden). No lawful carrier of a historical leaf outcome in another Run
-exists without an event-family change. R is not terminal, so continuing it
-relabels nothing. CONTINUATION-003/-004 replacement rules govern retry,
-correction and supersession, none of which applies here. Every Run-local
-identity is preserved; new calls are new occurrences in R.
+R is not terminal, so continuing it relabels nothing. Every Run-local identity
+is preserved; new calls are new occurrences in R.
+
+Supported scope: this arm restores an exclusively acquired, nonterminal,
+interrupted Run whose deepest position is an undispatched admitted cursor. It
+does not decide whether a replacement Run could carry a historical recursion
+return obligation; that question is unproved and is not answered by claiming
+an event-family requirement. A failed or closed Run is refused here
+(`missing_continuation`). Replacement-Run continuation remains the existing
+`construction_intent` relation (CONTINUATION-003/-004/-015): the admitted
+`constructionContinuationUse` binds the pending cursor to its successful
+producer and judgment, the Public operation binds the replacement root basis
+and exact source Run/bases/cursor/intent, and reentry preserves source
+position. Predecessor retained-context reads in a replacement Run follow that
+admitted use (below). No event family is added for either relation.
 
 Admission (`admitPendingExecutionContinuationOperation`) uses
 `constructionContinuationOperationCandidate` to admit one workspace
@@ -634,10 +642,24 @@ prepare-testing reobserves W. The existing currentness
 unknown-effect owners decide refresh of affected dependencies only. Unaffected
 completed support and required independent judgment remain.
 
-The earlier cross-Run relation is retired: `projectContinuedContextHoldersAtPrefix`
-and `WorksiteContextBodyUse.continuedHolders`. With no replacement Run it has no
-lawful qualifier and no consumer. The resolver again refuses every other-Run
-holder as `foreign`.
+The same-Run arm needs no cross-Run read. The earlier progressed-input-wide
+relation (`projectContinuedContextHoldersAtPrefix`,
+`WorksiteContextBodyUse.continuedHolders`) is removed: it admitted every member
+held by one progressed Result without the admitted continuation use, so it was
+not the required authentication, and it had no production consumer. The
+resolver refuses every other-Run holder as `foreign`.
+
+Predecessor-Run retained context (the replacement-Run relation) remains
+required. At the foreign-context member reader it authenticates: current
+admitted call/basis/cursor -> admitted `constructionContinuationUse` ->
+exact historical pending input -> the production `GovernanceWorkState`
+selected native Result/task/context -> exact member -> committed holder.
+`sourceResultBasis` and `hasAdmittedGovernanceSourceUse` serve fresh retained
+work and substitute for no link. The `current_intent` scalar/no-effect/F_D
+restriction is extended only for the selected native case through the existing
+currentness, provenance and unknown-effect owners. Holder admission, digest,
+coordinate, inline-birth, binding, path/version and read-grant refusals are
+unchanged. This relation is not yet realized (see Realization status).
 
 ### Serialized correspondence
 
@@ -660,35 +682,49 @@ ancestry gains the recursion re-entry relation in its own owner.
 Survivors: the construction-intent arm (F_P undispatched discriminator,
 replacement Run with one fresh workflow parent, `constructionResume`) and
 `selected_action`. Both are distinct supported variants, not survivors of a
-retired mechanism.
+retired mechanism. The F_H projection's four inline kind lists are replaced by
+the owner's `isConstructionContinuationKind`; effectful invocation truth's three
+per-kind loops become one owner-kind dispatch. The `selected_action` member keeps
+its single-literal `continuationKind` serialization; only the current-execution
+member's closed domain gains `pending_execution`.
 
 ### Realization status
 
-Recorded by the RC4 native Worker, attempt 002, over `5559656d3`.
+Recorded by the RC4 native Worker, attempt 003, over `6dffbc0ad`. Not qualified.
 
 Realized with model-free tests: the projection, use selection, one-use
 admission, cold operation projection, the contract-domain arm and owner, HoG
-same-Run restoration and resume, and recursion re-entry cursor ancestry. The
-end-to-end proof is a controlled interruption of an actual installed
-recursion/workflow Run at an undispatched boundary, resumed once to closure with
-no completed position reopened. The same-Run resolver proof covers the
-`GovernanceWorkState` selection chain.
+same-Run restoration and resume, recursion re-entry cursor ancestry, and the
+F_H boundary. `isConstructionContinuationKind` is the one classifier of this
+owner's kinds; F_H claims only other continuation rows and run.continue
+operations and still refuses malformed or unknown kinds; combined Public
+invocation truth dispatches each owner kind to its own cold projection, so a
+kind-crossed payload refuses. Generic recursion fixture proofs: an in-process
+controlled interruption resumed once to closure with duplicate invocation truth
+and refusals, and a cold reopen through the installed Public CLI arm (crossed
+refusal, one consumed use, second-use refusal, run_result/run_replay reads; a
+literal resend of the consumed invocation is refused at resource acquisition
+because its identity binds the prefix it named).
 
 Open:
 
-- `abg/fh_continuation_projection.ts` (outside this grant) claims every
-  `run.continue` operation whose `continuationKind` is not `construction_intent`
-  or `selected_action` as F_H. After an admitted `pending_execution` use,
-  effectful invocation truth therefore reports `invalid_history`. The required
-  change adds `pending_execution` to its four exclusion lists. Until then, the
-  arm must not be used on a real workspace.
-- The Public CLI path of the arm, the default-library executive pending-Testing
-  run (F_P selection, native C2) and the registered-selection `entryRouteRef`
-  case are not exercised model-free.
+- The default-library executive pending-Testing discriminator (actual
+  subjectEvidence/native observation/task/context selection, interruption at
+  Testing's entered first cursor before prepare-testing opens, cold Public arm,
+  C2 and parent returns) is not exercised. A model-free run of that topology
+  needs scripted selector and native actors; the only full-topology test is
+  live-provider gated.
+- Predecessor-Run retained context (above) is not realized. The construction
+  intent arm admits only an admitted ConstructionIntent under a declared
+  construction composition, while `GovernanceWorkState` native selection
+  belongs to the default library, which declares none. The topology that joins
+  the two needs an owner-selected design before the reader is authenticated.
+- The registered-selection `entryRouteRef` case is not exercised; route-only
+  targets without entered input remain refused residuals.
 - An interruption during an active dispatch (`effect_unknown`) is not resumable
   by this alternative.
 - Root's installed interrupted default-library witness remains separately
-  required. Nothing here is qualified.
+  required.
 
 All continuation variants use the construction-continuation owner's shared
 workspace operation envelope. Its causes are the admitted workspace invocation

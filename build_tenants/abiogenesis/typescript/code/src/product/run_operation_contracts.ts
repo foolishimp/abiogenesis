@@ -190,6 +190,8 @@ const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const
 function continueContract<const TMember extends
   "current_intent" | "selected_action">(member: TMember) {
   const kinds = member === "current_intent" ? CURRENT_EXECUTION_KINDS : [member] as const;
+  // The unchanged selected_action member keeps its exact single-literal serialization.
+  const kindSchema = member === "current_intent" ? v.picklist(CURRENT_EXECUTION_KINDS) : v.literal(member);
   const request = member === "current_intent"
     ? v.union([
       v.strictObject({
@@ -220,7 +222,7 @@ function continueContract<const TMember extends
       ]),
     });
   const result = v.strictObject({
-    continuationKind: v.picklist(kinds),
+    continuationKind: kindSchema,
     run: refDigestSchema,
     graphCall: v.nullable(refDigestSchema),
     admittedIntent: member === "selected_action"
@@ -232,7 +234,7 @@ function continueContract<const TMember extends
     replay: refDigestSchema,
   });
   const nonTerminal = v.strictObject({
-    continuationKind: v.picklist(kinds),
+    continuationKind: kindSchema,
     disposition: v.picklist(["held", "gap_stop"]),
     run: refDigestSchema,
     continuation: refDigestSchema,
