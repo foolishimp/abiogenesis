@@ -2,7 +2,7 @@ import { isDeepStrictEqual } from "node:util";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
   type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
-import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from "./worksite_effect.js";
 import { isRecord, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import {
   delimiter as pathDelimiter,
@@ -375,7 +375,7 @@ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionR
       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
       currentContext.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
       currentContext.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
-      !same(currentContext.entries, original.after.entries) || !same(currentContext.readRoots, original.after.readRoots) ||
+      !same(currentContext.entries.map(worksiteContextIdentityEntry), original.after.entries.map(worksiteContextIdentityEntry)) || !same(currentContext.readRoots, original.after.readRoots) ||
       currentContext.maxFiles !== original.after.maxFiles || currentContext.maxBytes !== original.after.maxBytes ||
       !Array.isArray(input.selectedSources) || input.selectedSources.length === 0 ||
       new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length ||

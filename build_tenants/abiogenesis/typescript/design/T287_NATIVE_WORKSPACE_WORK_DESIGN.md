@@ -120,8 +120,9 @@ read roots, bounds and ordered path/state/file-identity/length/content-digest
 entries. `observationRef`/`observationDigest` hash exactly those facts; the
 storage location of a file body is not part of identity. Before/after
 comparison, `changedPaths` and currentness compare these facts. The C2
-reacquisition request keeps its exact entry relation; its preparation owner
-presents the fresh context in the source `after` carriage for unchanged facts.
+reacquisition request owner compares the physical identity entries of the
+freshly observed context with the source `after` entries. The request keeps
+that fresh observation; no owner substitutes the source carriage.
 
 `observeWorksiteContext` births every file body inline. A file entry is either
 inline (`encoding: "base64"`, `bytes`) or an admitted member
@@ -161,10 +162,23 @@ Current limits: the observation's `task` is the exact admitted input and the C2
 owners `abg/native_worksite_execution.ts` and `abg/execution_basis.ts`. Those
 copies carry metadata and any inline births of the copied value. A direct native
 task whose context is itself a birth repeats those bodies in its observation.
-Holders are same-Run only; a replacement Run births its first context.
-The packaged C2 renderer `product/worksite_command_execution.ts` is a pinned
-run-environment member (`gtl/worksite_command_execution.ts`), so any change
-to it needs that pin re-entered first.
+Holders are same-Run only; a replacement Run observes and births its own first
+context. A pending native context whose members name predecessor-Run holders
+refuses `foreign` and stays an unsupported residual. Exact-intent payload
+recovery carries no native task context and is a separate proof. The packaged
+C2 renderer `product/worksite_command_execution.ts` is a pinned run-environment
+member. `gtl/worksite_command_execution.ts` pins its full emitted digest and
+length and the renderer span, and the manifest generator verifies both before
+publication. Any change to the renderer source reconciles those pins against
+the actually emitted member.
+
+Pre-P1 context values hashed their identity over inline bytes. They are not
+current validated inputs. For the native work input, the instruction-assembly
+owner refuses such a value `unsupported_selection` before any actor
+([M03 boundary](./M03_INSTRUCTION_ASSEMBLY_DERIVATION.md#current-native-binding-and-material-lifetime)).
+No schema version, decoder, failure class or history migration applies, and
+generic history reads are not promised to reject every embedded pre-P1 value.
+Pre-P1 logs remain readable with their pinned earlier builder.
 
 ## Consumer judgment and qualification
 

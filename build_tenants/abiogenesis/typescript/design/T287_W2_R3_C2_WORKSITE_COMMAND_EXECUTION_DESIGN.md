@@ -342,13 +342,19 @@ exact `witness.admit#reprice` binding cover for the source child's execution
 basis; equal file bytes alone never cover changed binding authority. The current
 context has the original complete after-observation entries, read roots and
 limits with current A/W coordinates, not only the C2 snapshot subset. The
-request contract keeps its exact entry relation. The governance preparation
-owner presents the fresh context in the source `after` carriage: an entry with
-the same path/state/file identity/length/digest takes the admitted source entry,
-and any changed, new or absent entry keeps its fresh observation and is refused.
-Body carriage never changes context identity. The pre-effect currentness gate
-reobserves W and compares context identity. The packaged C2 renderer source is
-a pinned run-environment member, so this relation is not realized inside it.
+request owner (`product/worksite_command_execution.ts`) compares the physical
+identity entries (path, state, file identity, length and digest) of the freshly
+observed current context with the original `after` entries. Body carriage is
+excluded on both sides, so an inline fresh entry joins an admitted-member source
+entry with the same facts. Any changed, new or absent entry refuses. The request
+keeps the fresh observation unchanged; the governance preparation owner passes
+it through and adopts no source carriage. Body carriage never changes context
+identity. The pre-effect currentness gate reobserves W and compares context
+identity. That owner's source is the packaged C2 renderer, a pinned
+run-environment member: `gtl/worksite_command_execution.ts` pins its full
+emitted digest and length and the renderer span, and the manifest generator
+verifies both before publication. A change to the source reconciles those pins
+with the actually emitted member.
 
 The ABI-owned F_D preparation authenticates its actual admitted occurrence,
 implementation, invocation and current grant. It checks historical native

@@ -12,9 +12,8 @@ import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
 import { isGovernanceWorkState, governanceTestingConfiguration, governanceRef } from "../product/default_library.js";
 import { constructNativeWorksiteCommandReacquisitionRequest, constructWorksiteCommandConfiguration,
   worksiteCommandConfigurationMatches } from "../product/worksite_command_execution.js";
-import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity, worksiteContextIdentityEntry,
+import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity,
   type WorksiteContextObservation } from "../product/worksite_effect.js";
-import { deepFreeze } from "../shared/immutable.js";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { nativeWorkReacquisitionGraphFunction } from "../gtl/worksite_command_execution.js";
@@ -207,23 +206,6 @@ function governanceReacquisitionRequestMatches(prefix: RuntimeEventPrefix, execu
   return matches;
 }
 
-/** The request contract keeps its exact retained-context entry relation. A fresh
- * entry whose observed physical facts equal the source `after` entry takes that
- * admitted entry and its body carriage; a changed, new or absent member keeps its
- * own fresh observation, which the request contract refuses. Identity is unchanged. */
-function inSourceContextCarriage(context: WorksiteContextObservation, after: WorksiteContextObservation): WorksiteContextObservation {
-  const source = new Map(after.entries.map(entry => [entry.relativePath, entry] as const));
-  let adopted = false;
-  const entries = context.entries.map(entry => {
-    const held = source.get(entry.relativePath);
-    if (held === undefined || isDeepStrictEqual(held, entry) ||
-      !same(worksiteContextIdentityEntry(held), worksiteContextIdentityEntry(entry))) return entry;
-    adopted = true;
-    return held;
-  });
-  return adopted ? deepFreeze({ ...context, entries }) : context;
-}
-
 /** Private invoking-owner operation for the existing prepare-testing F_D leaf.
  * The explicit resource is resolved before any retained establishment facts. */
 export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
@@ -262,8 +244,7 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
     stage = "native_request_construction";
     const request = constructNativeWorksiteCommandReacquisitionRequest({
       workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
-      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"],
-      currentContext: inSourceContextCarriage(context, value.after),
+      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"], currentContext: context,
       source: { prefix: basis.predecessorPrefix, graphCallRef: source.sourceResult.graphCallId!, declarationReference: reference },
       selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath,
         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),

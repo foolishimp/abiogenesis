@@ -23,6 +23,7 @@ import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
+import { isWorksiteContextObservation } from "../product/worksite_effect.js";
 import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
@@ -95,6 +96,18 @@ function assemblyRefusal(cause: NativeInstructionAssemblyRefusal["cause"], polic
   role: string | null, unresolvedRefs: readonly string[]): Readonly<NativeInstructionAssemblyRefusal> {
   return deepFreeze({ kind: "native_instruction_assembly_refusal", cause, policy, role, unresolvedRefs });
 }
+/** Pre-P1 Context value-use boundary of the native work input. An admitted
+ * native task presenting a Context that fails the current validator, such as a
+ * pre-P1 observation identified over its inline bytes, is not a supported
+ * selection and refuses before any actor. No format is decoded or migrated;
+ * generic history reads and other carriers are unaffected. */
+function unsupportedNativeContextSelection(call: AssemblyOwner["call"], supplied: unknown): Readonly<NativeInstructionAssemblyRefusal> | null {
+  if (call.implementationRef !== nativeIds.implementationRef || !isRecord(supplied) || supplied.kind !== "native_workspace_work_task") return null;
+  const context = supplied.context;
+  if (!isRecord(context) || context.kind !== "worksite_context_observation" || isWorksiteContextObservation(context)) return null;
+  return assemblyRefusal("unsupported_selection", null, supplied.assessment === undefined ? "constructor" : "assessor",
+    [typeof context.observationRef === "string" ? context.observationRef : nativeIds.taskContractRef]);
+}
 function selectedNativeContextRole(basis: SemanticStageNativeBasis, locus: string) {
   const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term)).filter(leaf => leaf.programLocusRef === locus);
   const leaf = onlyExactMatch(leaves);
@@ -130,10 +143,11 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
   const result = evaluateWorksiteNativeInstructionAssembly(basis, supplied);
   return result?.kind === "native_instruction_assembly" ? result : null;
 }
-/** The worksite assembly with its typed refusal: a native-work, constructor or
+/** The worksite assembly with its typed refusals: a native-work, constructor or
  * command-executor prompt over the Run's declared bound refuses
- * `declared_bound_overflow` naming its role; `null` is every other refusal of
- * this owner. */
+ * `declared_bound_overflow` naming its role; an admitted native task whose
+ * Context is not a current validated observation refuses `unsupported_selection`;
+ * `null` is every other refusal of this owner. */
 function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
   supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
   try {
@@ -142,6 +156,8 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
     if (owner === null || owner.call.regime !== "F_P" || admittedSupplied.kind !== "ok" ||
       sha256Canonical(admittedSupplied.value) !== owner.inputDigest ||
       !canonicalEquals(owner.inputValue, admittedSupplied.value)) return null;
+    const unsupported = unsupportedNativeContextSelection(owner.call, supplied);
+    if (unsupported !== null) return unsupported;
     if (isNativeWorkspaceWorkTask(supplied)) {
       if (owner.call.implementationRef !== nativeIds.implementationRef || owner.call.graphFunctionRef !== nativeWorkspaceWorkGraphFunctionRef(supplied) ||
         owner.call.inputContractRef !== nativeIds.taskContractRef || owner.call.outputContractRef !== nativeIds.observationContractRef ||

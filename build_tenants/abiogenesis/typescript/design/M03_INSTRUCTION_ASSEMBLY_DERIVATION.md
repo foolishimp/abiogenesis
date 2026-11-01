@@ -237,6 +237,21 @@ declared source body through the held-prefix reader for its own Run and grant;
 an unavailable member refuses the assembly. Semantic evidence and worksite views
 require inline births and refuse an admitted member.
 
+The worksite assembly owner (`abg/instruction_assembly.ts`) is the pre-P1
+Context value-use boundary for the native work input. A pre-P1 worksite context
+derived its observation digest over its inline bytes, so it fails the current
+context validator. After the owner authenticates the admitted input of a
+native-work occurrence, a `native_workspace_work_task` presenting a
+`worksite_context_observation` that fails that validator refuses
+`unsupported_selection`. The refusal names the constructor or assessor role and
+the presented context ref. It occurs before role evidence, prompt rendering and
+actor transport; actor preparation fails and the actor invocation refuses
+without a transport. A fresh current-format task over the same files assembles
+unchanged. The boundary selects only this carrier and this existing cause. It
+adds no schema version, decoder, failure class or history migration. It does
+not make generic history reads reject every embedded pre-P1 value. Pre-P1 logs
+remain readable with their pinned earlier builder.
+
 ## Candidate Design Surfaces
 
 | Candidate | Prime status | Rationale |

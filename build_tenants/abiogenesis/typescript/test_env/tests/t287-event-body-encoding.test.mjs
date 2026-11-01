@@ -9,7 +9,7 @@ import test from "node:test";
 import * as storeOwner from "../../build/code/src/abg/event_store.js";
 import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
-  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix } from "../../build/code/src/abg/event_prefix.js";
+  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
 import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
 import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
@@ -591,16 +591,23 @@ test("native context bodies are born inline once, referenced by unchanged handof
   }
   assert.equal(worksiteContextBodyAcquisitionsAtPrefix(prefix), acquired, "selected reads reuse the established holder acquisitions");
 
-  const refuse = (context, path, expected, at = prefix, consumer = use) => {
+  const causes = new Set(), refuse = (context, path, expected, at = prefix, consumer = use) => {
     const read = resolveWorksiteContextBodyAtPrefix(at, context, path, consumer);
     assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason);
+    causes.add(read.code);
   };
   const withEntry = (context, path, change) => ({ ...context, entries: context.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
   const member = (path, change) => withEntry(after.context, path, e => { change(e.member); return e; });
   refuse(member("src/a.txt", m => { delete m.resultDigest; }), "src/a.txt", "malformed");
   refuse(withEntry(after.context, "src/a.txt", e => ({ ...e, member: "result://unstructured" })), "src/a.txt", "malformed");
   refuse(member("src/a.txt", m => { m.resultRef = "result://body-fixture/never-admitted"; }), "src/a.txt", "pending");
-  refuse(after.context, "src/b.txt", "pending", selectValidatedRuntimeEventPrefix(events.slice(0, events.findIndex(e => e.eventId === changed.event.eventId))));
+  // The owned immutable cut just before the changed holder's admission.
+  const earlier = validatedRuntimeEventPrefixBeforeEvent(prefix, changed.event.eventId);
+  assert.equal(typeof changed.event.eventId, "string");
+  refuse(after.context, "src/b.txt", "pending", earlier);
+  const held = resolveWorksiteContextBodyAtPrefix(earlier, after.context, "src/a.txt", use);
+  assert.equal(held.kind, "worksite_context_body", "the earlier cut still holds the birth Result");
+  assert.equal(held.bytes.toString(), text["src/a.txt"]);
   refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
   refuse(member("src/a.txt", m => { m.path = ["context", "entries", 0]; }), "src/a.txt", "tampered");
   refuse(member("src/a.txt", m => { m.path = ["after", "entries", 1]; }), "src/a.txt", "tampered");
@@ -617,6 +624,8 @@ test("native context bodies are born inline once, referenced by unchanged handof
   const foreignRef = withEntry(after.context, "src/a.txt", e => ({ ...e, member: { resultRef: foreign.payload.resultRef,
     resultDigest: foreign.payload.resultDigest, path: ["context", "entries", e.member.path[2]] } }));
   refuse(foreignRef, "src/a.txt", "foreign", selectRuntimeEventPrefixFromStore(f.store));
+  assert.deepEqual([...causes].sort(), ["denied", "foreign", "malformed", "missing", "pending", "stale", "tampered"],
+    "every existing resolver refusal cause is executed");
   const unchanged = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), use);
   assert.deepEqual(carriage(unchanged), carriage(after.context), "another Run's holder never becomes this Run's producer");
 
