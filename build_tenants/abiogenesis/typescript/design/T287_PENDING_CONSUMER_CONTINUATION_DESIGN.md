@@ -669,8 +669,9 @@ unchanged. This relation is not yet realized (see Realization status).
 | `abg/event_store.ts` `public_operation_admitted` | Current root event profile digest | One payload variant |
 
 No basis member, reentry-link value, capability row or Public key is added. The
-existing generator emits these assets in owned scratch or C2. Generated assets
-are never written by hand.
+existing generator emits these assets in owned scratch or C2; the checked-in
+`contracts/` and `product-toolchain-manifest.json` are copied whole from that
+output. Generated assets are never written by hand.
 
 ### Consolidation
 
@@ -687,6 +688,10 @@ the owner's `isConstructionContinuationKind`; effectful invocation truth's three
 per-kind loops become one owner-kind dispatch. The `selected_action` member keeps
 its single-literal `continuationKind` serialization; only the current-execution
 member's closed domain gains `pending_execution`.
+The pending-Testing discriminator keeps its own interrupting host because its
+stop predicate, the first entered Testing wrapper cursor, differs from the
+selected-action host's. Both use the same fsync observation and
+`recoverInterruptedEventStore` recovery.
 
 ### Realization status
 
@@ -706,14 +711,31 @@ refusal, one consumed use, second-use refusal, run_result/run_replay reads; a
 literal resend of the consumed invocation is refused at resource acquisition
 because its identity binds the prefix it named).
 
+Attempt 005, over `becc45851`, adds no Product owner change. The default-library
+executive pending-Testing discriminator
+(`t287-default-library.test.mjs`, "durable entered Testing cursor") runs the
+installed default-library Program through the Public start and `run.continue`
+CLI with a scripted stand-in for the model process (`ABG_TS_CLAUDE_COMMAND`).
+The stand-in reads only the presented schema and prompt; the C2 role runs the
+exact owner `toolCommand` as its one Bash tool use. Native Construction
+completes, the selector binds Testing to that native-work Result as
+`subjectEvidence`, and the host is SIGKILLed at the first durable Testing
+wrapper `traversal_cursor_entered` with no call opened. Exclusive recovery and
+a cold projection give root/recursion/workflow `undispatched` at that cursor. A
+crossed `pendingCursor` refuses with no admission. The Public arm resumes the
+same Run at prepare-testing without repeating Construction or the selector. The
+prepared C2 task carries the unchanged producer as `sourceNativeWork`. C2,
+workflow, recursion and parent returns close with UAT satisfied, and a second
+use refuses as `resolved_continuation`. Cold run_result and run_replay agree
+with the continued Run. The recursive fixture tests own their installed
+environments through `node:test` context teardown.
+
 Open:
 
-- The default-library executive pending-Testing discriminator (actual
-  subjectEvidence/native observation/task/context selection, interruption at
-  Testing's entered first cursor before prepare-testing opens, cold Public arm,
-  C2 and parent returns) is not exercised. A model-free run of that topology
-  needs scripted selector and native actors; the only full-topology test is
-  live-provider gated.
+- The pending-Testing discriminator uses a scripted model stand-in. It is not
+  a live-provider run, not Root's installed witness and not R2. The live
+  default-library test stays provider-gated; its setup still passes a no-op
+  `after` and predates `rootPublicationKind`.
 - Predecessor-Run retained context (above) is not realized. The construction
   intent arm admits only an admitted ConstructionIntent under a declared
   construction composition, while `GovernanceWorkState` native selection

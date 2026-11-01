@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {mkdir,mkdtemp,readFile,writeFile,readdir,copyFile} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,writeFile,readdir,copyFile,rm} from 'node:fs/promises';
 import {join,basename,dirname,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 import {pathToFileURL} from 'node:url';
@@ -146,6 +146,7 @@ async function retainedDiagnosticCCallOwner(env,load,diagnosticRef){
 }
 test('authenticated recursive child failure preserves its diagnostic, prior work and cold failed truth',async t=>{
   let prepared;const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-recursive-failure-source-'));
+  t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));
   const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
   const sourceCode=await readFile(join(packageRoot,'build/code/src/hog/recursion_lifecycle.js'),'utf8');
   const opaqueDiagnostic='diagnostic://registered-selection/original-child-failure@5',mismatch='diagnostic://abiogenesis/hog/application-foldback-mismatch@5';
@@ -155,7 +156,7 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
   // preserves the child diagnostic, which every failure scenario asserts.
   for(const scenario of ['failure','retained-diagnostic','retained-null','success']){
     const input=initialState();input.task={...input.task,scenario:scenario==='success'?'success':'failure'};input.taskDigest=hash(input.task);
-    const env=await setupInstalledRootExecutionBasis({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+    const env=await setupInstalledRootExecutionBasis(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
       programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
       prepareAdditionalProducts:async basis=>{
         if(!prepared){
@@ -286,14 +287,14 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
     proofLimit:'Genuine installed lower admission/storage/read owners with in-memory HoG linkage; retained lanes use a disclosed controlled F_D realizer through invokeLeafOwnerBoundary and unchanged declared fibre/contracts. Installed F_P exception reachability is source-proven separately; no installed145/F_P-to-HoG join, provider, DataMapper, UAT or semantic adequacy claim.'}));
 });
 
-test('one installed Public start revises native choice from child evidence and reevaluates its parent',{skip:process.env.ABI5_RECURSIVE_SELECTION_LIVE!=='1'&&"ABI5_RECURSIVE_SELECTION_LIVE is not '1'; selects the installed Public recursive selection run"},async()=>{
+test('one installed Public start revises native choice from child evidence and reevaluates its parent',{skip:process.env.ABI5_RECURSIVE_SELECTION_LIVE!=='1'&&"ABI5_RECURSIVE_SELECTION_LIVE is not '1'; selects the installed Public recursive selection run"},async t=>{
   const evidence=process.env.ABI5_RECURSIVE_SELECTION_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-recursive-selection-'));
   await mkdir(evidence,{recursive:true});const save=(n,v)=>writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n',{flag:'wx'});
   const provider=JSON.parse(await readFile(process.env.ABI5_NATIVE_SELECTION_PROVIDER,'utf8'));
   assert.equal(provider.requestedModel,'claude-opus-5-5');assert.equal(provider.requestedEffort,'xhigh');assert.equal(await product.sha256File(provider.executable),provider.sha256);
   await save('provider.json',provider);
   let selectedEnvironment;const accounting={wallMs:{}};
-  const env=await setupInstalledRootCatalog({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
+  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,setupAccounting:accounting,
     prepareAdditionalProducts:async basis=>{
       selectedEnvironment=await stdo3RunEnvironment({...basis,sourceRoot:process.env.ABI5_STDO3_SOURCE_ROOT,selectorRole:NATIVE_SELECTION_STDO3_ROLE});
       const abiPackageArchivePath=basis.abiPackageArchivePath;
@@ -370,12 +371,13 @@ test('one installed Public start revises native choice from child evidence and r
 // pending_execution operation and resumed by HoG in the same Run.
 // One controlled interruption shared by the owner-path and Public-path tests:
 // the process boundary stops before the second workflow leaf opens its call.
-async function interruptedRecursiveRun(){
+async function interruptedRecursiveRun(t){
   const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-pending-execution-source-'));
+  t.after(()=>rm(fixtureRoot,{force:true,recursive:true}));
   const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
   const input=initialState();input.task={...input.task,scenario:'success'};input.taskDigest=hash(input.task);
   let prepared;
-  const env=await setupInstalledRootExecutionBasis({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+  const env=await setupInstalledRootExecutionBasis(t,packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
     programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
     prepareAdditionalProducts:async basis=>{
       const artifact=process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH??join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
@@ -406,7 +408,7 @@ async function interruptedRecursiveRun(){
   return {env,load,cc,storeOwner,runtime,time,opened,runId,interruptedEvents,runAt};
 }
 test('interrupted recursive workflow resumes its exact pending execution once in the same Run',async t=>{
-  const {env,load,cc,storeOwner,runtime,time,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun();
+  const {env,load,cc,storeOwner,runtime,time,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun(t);
   const cold=async()=>env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(join(env.scratch,'runtime','events.jsonl'))));
   const [p,...extra]=cc.projectPendingExecutionContinuations(await cold(),runId);
   assert.equal(extra.length,0);assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow'],'unfinished recursive and workflow returns');
@@ -505,7 +507,7 @@ test('interrupted recursive workflow resumes its exact pending execution once in
 // cold run_result/run_replay reads. Generic recursion fixture; the default-library
 // pending-Testing topology and Root's installed fresh-process witness remain separate.
 test('interrupted recursive workflow resumes once through the cold Public run.continue pending_execution arm',async t=>{
-  const {env,load,cc,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun();
+  const {env,load,cc,opened,runId,interruptedEvents,runAt}=await interruptedRecursiveRun(t);
   const {product}=env,publicApi=await load('public/index'),projectReadContracts=await load('abg/project_read_operation_contracts');
   const prefix=env.abg.selectValidatedRuntimeEventPrefix(env.store.readAll());
   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
