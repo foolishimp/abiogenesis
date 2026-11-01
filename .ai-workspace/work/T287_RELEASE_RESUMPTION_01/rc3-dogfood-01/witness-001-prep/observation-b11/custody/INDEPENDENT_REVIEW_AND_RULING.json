@@ -1,0 +1,23 @@
+{
+  "kind": "witness004_independent_review_and_root_ruling",
+  "source": "Root and independent reviewer conversation reports; no reviewer-signed artifact implied",
+  "runRef": "run://abiogenesis/12abfe7b8530497f45396f8251fac385b7c755b7730acdeed537a9a43ec401c0",
+  "testingResultRef": "result://abiogenesis/3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be",
+  "constructionResultRef": "result://abiogenesis/09d9dea859b5a470d861cb93ac45c3fe3e59675945dbf8ca202805b34660a148",
+  "proofSha256": "3f95572c448000f58dab85ccc50dabfa76d235e8917eb2bde34b03c2c93e72a1",
+  "observerSha256": "d6af661cc4351f92d263745a0db4728576ba62f29350474e468137b712f6689d",
+  "rootDisposition": "ACCEPT bounded original W1\u2013W5 for fresh Constructor host-mediated Run",
+  "findings": [
+    "Actual W1 null-subject and same-Run Testing producer authenticated.",
+    "Admitted Construction report, prompt, stdout and transport joined; correct historical fixture ENOENT/current-cat distinction.",
+    "Five exact client exchanges, complete sources [1,1,2] pages and content-free denied-key response joined through cold proof.",
+    "Direct permitted task/rubric reads disclosed; post-denial Node command read only those sources for comparison, with no denied-source fallback observed.",
+    "Closed prefix before/after observer identical: 19441942 bytes SHA256 9c8523e4daeb9efdc2c68bd35f9c04b2f12a9a3efda32ff11f1d25c2620169d0."
+  ],
+  "limits": [
+    "Parent blocked on recursion bound; no terminal Result or overall native UAT.",
+    "No Product-wide qualification, OS or all-role confinement, model independence, or native Skill-tool qualification.",
+    "Full environment digest retained but not reproduced.",
+    "Witness003 remains historically cold-unproven."
+  ]
+}

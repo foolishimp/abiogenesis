@@ -1,0 +1,81 @@
+{
+  "activationGate": "Do not bootstrap/prepare/launch until genuine B11 admitted Testing/source/helper/archive, native outcome, independent review and Root named-test/artifact selection are recorded. Null/pending fields refuse; no prior artifact or Result fallback.",
+  "artifact": {
+    "bytes": null,
+    "manifestByteSha256": null,
+    "manifestDigest": null,
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": null,
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": null
+  },
+  "candidateSources": {
+    "rows": [
+      {
+        "bytes": 76639,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "sha256": "6c328e506f8c7423df5b5cdfdb76efd86a06d0d785557263db71819d14c7ba03"
+      },
+      {
+        "bytes": 86253,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098"
+      },
+      {
+        "bytes": 108269,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "sha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427"
+      }
+    ],
+    "sourceCustodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_SOURCE_CUSTODY.json",
+    "sourceCustodySha256": "sha256:ce566dda9a51b23844b30c030d4e39714051b6cfbb5be695b72e64517ac2504c",
+    "standing": "Actual native Construction returned; exact source postimages observed and pinned. Independent source review/C2 source correspondence/snapshot/native outcome/Root artifact acceptance remain pending; no C2 or acceptance inferred."
+  },
+  "custody": {
+    "actualC2Helper": null,
+    "actualFocusedOutput": null,
+    "conservedCommandPrefix": "command://abiogenesis/rc3-dogfood/increment-b-08/",
+    "observedBuildManifest": null,
+    "standing": "B11 actual C2/source/admission/archive and Root selection pending; no carried Result or source identity.",
+    "unchangedWitness": "Same W1-W5/task/rubric/fixture, typed2member inventory/privatepolicy/maps/grants/profile/bound3"
+  },
+  "finalNativeOutcome": null,
+  "kind": "rc3_b11_c2_selected_producer_v1",
+  "operator": {
+    "authorityPath": null,
+    "authoritySha256": null,
+    "consumerModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/consumer-b07.mjs",
+    "consumerModuleSha256": "sha256:f46db4526a626c7e09ef25cc6056057ec398301be4356b25f43bbe334fa8b195",
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "nodeSha256": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "npmPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "npmSha256": "sha256:8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "policyRef": "member://abi5-tests/gc03/private-policy@5",
+    "rubricSha256": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+    "taskSha256": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+  },
+  "producer": {
+    "admissionEvidencePath": null,
+    "admissionEvidenceSha256": null,
+    "artifactRelativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "helperArtifactDigest": null,
+    "helperArtifactRef": null,
+    "helperResultPath": null,
+    "helperResultSha256": null,
+    "namedTestAcceptance": {
+      "disposition": null,
+      "evidencePath": null,
+      "evidenceSha256": null,
+      "name": "GC03 real owner allowed denied cold tamper",
+      "passLine": null,
+      "skipped": null,
+      "stdoutDigest": null,
+      "todo": null
+    },
+    "resultDigest": null,
+    "resultRef": null,
+    "runRef": null
+  },
+  "status": "PENDING_B11_ACTUAL_TESTING_SOURCE_ARTIFACT_AND_ROOT_SELECTION"
+}

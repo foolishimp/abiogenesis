@@ -1,0 +1,93 @@
+{
+  "activationGate": "Do not bootstrap/prepare/launch until genuine B11 admitted Testing/source/helper/archive, native outcome, independent review and Root named-test/artifact selection are recorded. Null/pending fields refuse; no prior artifact or Result fallback.",
+  "artifact": {
+    "bytes": 10936961,
+    "manifestByteSha256": "sha256:2550575617433a93c7a31b01edb086feb9fffb8935423755ef08064193febdb7",
+    "manifestDigest": "sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": "sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c"
+  },
+  "candidateSources": {
+    "rows": [
+      {
+        "bytes": 76639,
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+        "sha256": "6c328e506f8c7423df5b5cdfdb76efd86a06d0d785557263db71819d14c7ba03"
+      },
+      {
+        "bytes": 86253,
+        "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+        "sha256": "2883a6df78ac9c632b22bd6ce395e95dddea553ef885c0292aa8e6b666663098"
+      },
+      {
+        "bytes": 108269,
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+        "sha256": "947813b7e0a9f60ab2adc7a6ae95fa972b3774351d961eb2e4bad48f30417427"
+      }
+    ],
+    "sourceCustodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_SOURCE_CUSTODY.json",
+    "sourceCustodySha256": "sha256:ce566dda9a51b23844b30c030d4e39714051b6cfbb5be695b72e64517ac2504c",
+    "standing": "Actual native Construction postimages pinned; helper C2 reports same current snapshot source and all9 green. Authenticated Testing admission/independent join/native outcome/Root acceptance remain pending; helper is not admission authority."
+  },
+  "custody": {
+    "actualC2Helper": {
+      "bytes": 9290,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_C2_CUSTODY.json",
+      "sha256": "784c20b5931fa6c579f70e7b2e7074e0cd73c06aa64b1f8be79c358a7dd7c576"
+    },
+    "actualFocusedOutput": {
+      "bytes": 1865,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/c2-output/06-focused-owner-chain-stdout.txt",
+      "sha256": "7f3144874f8755424ac3588e550c30775682f588adcc7af9ac8957c63fc8f4e5"
+    },
+    "conservedCommandPrefix": "command://abiogenesis/rc3-dogfood/increment-b-08/",
+    "observedBuildManifest": {
+      "bytes": 3274041,
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/sandbox/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "sha256": "2550575617433a93c7a31b01edb086feb9fffb8935423755ef08064193febdb7"
+    },
+    "standing": "Actual helper reports all nine commands exit0 and full focused15/15; helper/archive/source observations only. Testing admission, native UAT/final, independent join/Root named-test/artifact selection remain pending.",
+    "unchangedWitness": "Same W1-W5/task/rubric/fixture, typed2member inventory/privatepolicy/maps/grants/profile/bound3"
+  },
+  "finalNativeOutcome": null,
+  "kind": "rc3_b11_c2_selected_producer_v1",
+  "operator": {
+    "authorityPath": null,
+    "authoritySha256": null,
+    "consumerModulePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/consumer-b07.mjs",
+    "consumerModuleSha256": "sha256:f46db4526a626c7e09ef25cc6056057ec398301be4356b25f43bbe334fa8b195",
+    "nodePath": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+    "nodeSha256": "sha256:fe1c0128a4c0163b034ec06b8b290494830ccb49922b5ce9ca4edf497a083e5f",
+    "npmPath": "/opt/homebrew/lib/node_modules/npm/bin/npm-cli.js",
+    "npmSha256": "sha256:8e5f6f3429f8cdbe693cdc29904e9d5a7b127a494bd15c804bd54c7403bfcbe7",
+    "policyRef": "member://abi5-tests/gc03/private-policy@5",
+    "rubricSha256": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25",
+    "taskSha256": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+  },
+  "producer": {
+    "admissionEvidencePath": null,
+    "admissionEvidenceSha256": null,
+    "artifactRelativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "helperArtifactDigest": "sha256:1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+    "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/result.json",
+    "helperResultSha256": "sha256:61aa606a81088347af61e07978414b2bb2bb169edf718c875ed2187cc9a0ddf6",
+    "namedTestAcceptance": {
+      "disposition": null,
+      "evidencePath": null,
+      "evidenceSha256": null,
+      "name": "GC03 real owner allowed denied cold tamper",
+      "passLine": "\u2714 GC03 real owner allowed denied cold tamper (64348.395333ms)",
+      "skipped": null,
+      "stdoutDigest": "sha256:7f3144874f8755424ac3588e550c30775682f588adcc7af9ac8957c63fc8f4e5",
+      "todo": null
+    },
+    "resultDigest": null,
+    "resultRef": null,
+    "runRef": null
+  },
+  "status": "PENDING_B11_ACTUAL_TESTING_SOURCE_ARTIFACT_AND_ROOT_SELECTION"
+}

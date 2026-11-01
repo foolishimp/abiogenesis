@@ -1,0 +1,187 @@
+{
+  "kind": "b11_witness_native_return_custody",
+  "standing": "Root accepted bounded W1\u2013W5 after independent actual event/trace and cold proof review; native parent blocked/no terminal",
+  "runRef": "run://abiogenesis/12abfe7b8530497f45396f8251fac385b7c755b7730acdeed537a9a43ec401c0",
+  "testingResultRef": "result://abiogenesis/3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be",
+  "constructionResultRef": "result://abiogenesis/09d9dea859b5a470d861cb93ac45c3fe3e59675945dbf8ca202805b34660a148",
+  "source": "Root one-shot native Return, actual helper/transport and event bytes; no Result fabricated",
+  "providerCosts": [
+    0.2019,
+    0.3537662,
+    0.303384,
+    0.8984844
+  ],
+  "reportedIncrement": 1.7575346,
+  "cumulativeReported": 149.3606206,
+  "unknownB03Reserve": 8,
+  "limits": [
+    "Native parent blocked, no parent UAT or Product qualification",
+    "Direct permitted-source reads are retained for W3 behavior assessment",
+    "No broad host confinement or Skill invocation claim",
+    "Cold proof uses admitted whole prompt; full environment digest not reproduced"
+  ],
+  "records": [
+    {
+      "path": "witness-001-prep/runtime-b11-004/NATIVE_LAUNCH_STARTED.json",
+      "bytes": 364,
+      "sha256": "2e9c56a4b5993a3ef652e59046d1f26796187abdd3cc283e675b5b6b87c29394",
+      "copy": "witness-001-prep/observation-b11/custody/NATIVE_LAUNCH_STARTED.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/witness-call.json",
+      "bytes": 29560408,
+      "sha256": "4287659ee02fd3ae70e25a79fe313db8ff3157ca319edfdb0d568b6c65accdd4"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/native-execution.json",
+      "bytes": 33196111,
+      "sha256": "0085386973419c896eff9c7d9d8876ac06473ac113a8610984bc41194125439f"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/native-final-close.json",
+      "bytes": 1362,
+      "sha256": "6df999788889bab947fe670dad134818bd9b6fd5b5592427696ccea7c9edc31e",
+      "copy": "witness-001-prep/observation-b11/custody/native-final-close.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-stdout.log",
+      "bytes": 777158,
+      "sha256": "8fd615622a966c74a03c94845691c2b1a6dea2ed4eb3d7de3d56d20c9ad91d3e"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-governed-context.json",
+      "bytes": 23399,
+      "sha256": "ff60982d5aca10f3a27d25837070fa61d41365b2607f8d611a9d5f30b4aa6da4",
+      "copy": "witness-001-prep/observation-b11/custody/fp-24fcfa8a1a4ab29a-governed-context.json"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-output.txt",
+      "bytes": 5932,
+      "sha256": "d66b0d79399f3d12efe021d87963670379e8dbe5d7310bb6f2b2090556b8f311",
+      "copy": "witness-001-prep/observation-b11/custody/fp-24fcfa8a1a4ab29a-output.txt"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-transport.json",
+      "bytes": 873081,
+      "sha256": "510a53921bba74ca6d84976bbbf48a987648c4451d5ee6769dc2542d9c4d295c"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/worksite-command-execution/a2db0c109bf20822a852b217efd748946583a259aaa8de4b119569bb393c7f3c/73c3ed74b31ee8e5dd818247a0a98084500ea4a5a972075bef76d365d4d5ee3b/result.json",
+      "copy": "witness-001-prep/observation-b11/custody/testing-helper-result.json",
+      "bytes": 22636,
+      "sha256": "52aed89c4204c6bc3f0edfdf076b70ba5301c8f0584297d844c45e7a8eb53ea3"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-6b1cd887ad0e9802-stdout.log",
+      "copy": "witness-001-prep/observation-b11/custody/fp-6b1cd887ad0e9802-result.jsonl",
+      "bytes": 12410,
+      "sha256": "27726efe3dcf46da5a003f8b89fd0b6fe6df0cf2f9994b09c3f7fa1a52d599eb"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-41615bd808b5dbbd-stdout.log",
+      "copy": "witness-001-prep/observation-b11/custody/fp-41615bd808b5dbbd-result.jsonl",
+      "bytes": 2930,
+      "sha256": "8ba363e2708f6666eb417c6fa7de83af77cc8787ed354933ee93613c1a4cce27"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-26611c55317047f0-stdout.log",
+      "copy": "witness-001-prep/observation-b11/custody/fp-26611c55317047f0-result.jsonl",
+      "bytes": 14430,
+      "sha256": "e6987734b5dd590aae1c14e3be41a5a713cd7e9e1878f28c4b5a4a1e1ab54b8a"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-stdout.log",
+      "copy": "witness-001-prep/observation-b11/custody/fp-24fcfa8a1a4ab29a-result.jsonl",
+      "bytes": 13590,
+      "sha256": "1730914f8abca30d11ea5271c898d2c8a0c6bb70c69dee7e6f7edad1eeb92331"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-40.jsonl",
+      "ordinal": 40,
+      "eventRef": "event://abiogenesis/4f696051c24b6ecaaa49f7f6c800515a0b6567dd5562551830754108604bbb96",
+      "bytes": 24585,
+      "sha256": "0b5607a6459b75bd5bbeffc66a281b751562b1b1ca7174c4552bd1f305edc941"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-770.jsonl",
+      "ordinal": 770,
+      "eventRef": "event://abiogenesis/4b33463c67413d1798a3f0ec837dd252f6adf735c9026d04215a8461ada81f7b",
+      "bytes": 20248,
+      "sha256": "68d770938bce3935a6432dd12cd9faf0f794225ae50e4af327dfe63538a34818"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-791.jsonl",
+      "ordinal": 791,
+      "eventRef": "event://abiogenesis/0541de3f3041e22206423e8a2c1e547edec5e612857f153d50dccf2012611885",
+      "bytes": 21923,
+      "sha256": "4596d502d20e7ff2487f985ad1739949d1c185df7a99468339a919bc252751ed"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-799.jsonl",
+      "ordinal": 799,
+      "eventRef": "event://abiogenesis/aab5addf9a6c559c243b9b2e7dc0a65702913eab3140549ae40553e3a1897af9",
+      "bytes": 2678,
+      "sha256": "2f9d10b4eb65c483658f7381a8e19114023da469777bf141a31322a5d0f15759"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-826.jsonl",
+      "ordinal": 826,
+      "eventRef": "event://abiogenesis/1f6162ac3d3def32e1b747f746c1f6095d10ed49e372eeb6651edae9971181a4",
+      "bytes": 2701,
+      "sha256": "5f8f7a84fba690edce8fc395d3b8f04916a8da2a1fc875c75f8c4528e7f05f74"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-1131.jsonl",
+      "ordinal": 1131,
+      "eventRef": "event://abiogenesis/d4013f427d4073ed2079e6df41f13e1e44e90d24979bd789751a182ff993c0fd",
+      "bytes": 43763,
+      "sha256": "e17713713b23d6b6d40a7d67f38b0570b67a8861145aa60242e6cb393c1d4670"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-2287.jsonl",
+      "ordinal": 2287,
+      "eventRef": "event://abiogenesis/cd1a281e1a0658600009307952f884aead77ccd2f58405abb4d31189edeb9f39",
+      "bytes": 234847,
+      "sha256": "447a70679c0e9781ec5b9fec615b2605b0d09bb22b20b9ae8e0b4a8bdb30964b"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-2288.jsonl",
+      "ordinal": 2288,
+      "eventRef": "event://abiogenesis/1641cee6d121e1a32ef8d8f731c1b0419f53ac2ba0e1d44c8d5fb17e462e4bb7",
+      "bytes": 2605,
+      "sha256": "442c0eda1a5ed9743748a000ff2617c345d7394faf83fdc2e6b73ba72a39e7a3"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-4489.jsonl",
+      "ordinal": 4489,
+      "eventRef": "event://abiogenesis/0d263a03d02cfd8721911baf774536244fbca23953d48fcce7df4d32765b923a",
+      "bytes": 14046,
+      "sha256": "9cfe70819f36a90534789f169d18da6db20da7964c6fde9db1ade21181295530"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-4495.jsonl",
+      "ordinal": 4495,
+      "eventRef": "event://abiogenesis/fde600e10caf02a96d258c5d939caecf58b5663b8a01ffde07193a214fe8fdfb",
+      "bytes": 70839,
+      "sha256": "4661ba03e01fbbd3af748138b15019046cd034abcdb73f57ffa3f41b8f56bf42"
+    },
+    {
+      "path": "witness-001-prep/runtime-b11-004/resources/events/runtime.events.jsonl",
+      "copy": "witness-001-prep/observation-b11/custody/event-4576.jsonl",
+      "ordinal": 4576,
+      "eventRef": "event://abiogenesis/1864f5be3e3c8125f95a8a4443282abac8b520a335067998e65175fd42440bf7",
+      "bytes": 1834,
+      "sha256": "346aa4b8091d26baef82cbc60c7ee37a096a15f7e8be0e368c5c2d7067d28854"
+    }
+  ]
+}

@@ -21,8 +21,8 @@ def strings(x):
  elif isinstance(x,dict):
   for v in x.values(): yield from strings(v)
 def verify(selection,extract=None):
- if selection.get('kind')!='rc3_b10_c2_selected_producer_v1': fail('selected producer kind required')
- if selection.get('status')!='ROOT_SELECTED_B10_C2_FOR_WITNESS':fail('actual Root B10 artifact selection remains pending')
+ if selection.get('kind')!='rc3_b11_c2_selected_producer_v1': fail('selected producer kind required')
+ if selection.get('status')!='ROOT_SELECTED_B11_C2_FOR_WITNESS':fail('actual Root B11 artifact selection remains pending')
  p=selection['producer']; a=selection['artifact']; op=selection['operator']
  for key in ('runRef','resultRef','helperArtifactRef'):
   if not isinstance(p.get(key),str) or not p[key]:fail('missing producer coordinate '+key)
@@ -54,13 +54,13 @@ def verify(selection,extract=None):
  for row in rows:
   member=members.get(row.get('path'));d=row.get('sha256');
   if not isinstance(d,str) or not re.fullmatch(r'[0-9a-f]{64}',d) or not member or member.get('digest')!='sha256:'+d or member.get('byteLength')!=row.get('bytes'):fail('source correspondence differs from C2 snapshot')
- # B10 selection additionally binds the exact three native-authored candidate preimages.
+ # B11 selection additionally binds the exact three native-authored candidate preimages.
  candidate=selection['candidateSources'];source_custody=json.loads(readpin(candidate['sourceCustodyPath'],candidate['sourceCustodySha256']))
  expected=candidate['rows'];declared=[{'path':r['path'],'bytes':r['postBytes'],'sha256':r['postSha256']}for r in source_custody['paths']]
- if len(expected)!=3 or expected!=declared:fail('selected B10 source custody differs')
+ if len(expected)!=3 or expected!=declared:fail('selected B11 source custody differs')
  actual={r['path']:r for r in rows}
  for row in expected:
-  if actual.get(row['path'])!={'path':row['path'],'bytes':row['bytes'],'sha256':row['sha256']}:fail('B10 candidate source differs from actual C2 correspondence')
+  if actual.get(row['path'])!={'path':row['path'],'bytes':row['bytes'],'sha256':row['sha256']}:fail('B11 candidate source differs from actual C2 correspondence')
  rel=p.get('artifactRelativePath');q=PurePosixPath(rel or '')
  if not rel or q.is_absolute() or any(x in ('','.','..') for x in rel.split('/')) or not rel.endswith('.tgz'):fail('unsafe artifact relative path')
  candidates=[x for x in helper.get('worksiteDelta',[]) if x.get('relativePath')==rel];
@@ -97,10 +97,10 @@ def verify(selection,extract=None):
    f=target/name;f.parent.mkdir(parents=True,exist_ok=True)
    with f.open('xb') as out:out.write(content)
    os.chmod(f,mode & 0o755)
- return {'kind':'b10_c2_archive_verified_for_bootstrap','artifactPath':str(archive_path),'artifactSha256':a['sha256'],'artifactBytes':len(archive),'manifest':m,'manifestByteSha256':a['manifestByteSha256'],'manifestDigest':a['manifestDigest'],'producer':p,'sourceCorrespondenceCount':len(rows),'members':[{'path':n[len('package/'):],'sha256':sha(c)} for n,c,_ in files],'fileCount':len(files),'nativeAdmission':'operator-selected evidence coordinates checked; authenticated owner admission must be independently established','qualification':False}
+ return {'kind':'b11_c2_archive_verified_for_bootstrap','artifactPath':str(archive_path),'artifactSha256':a['sha256'],'artifactBytes':len(archive),'manifest':m,'manifestByteSha256':a['manifestByteSha256'],'manifestDigest':a['manifestDigest'],'producer':p,'sourceCorrespondenceCount':len(rows),'members':[{'path':n[len('package/'):],'sha256':sha(c)} for n,c,_ in files],'fileCount':len(files),'nativeAdmission':'operator-selected evidence coordinates checked; authenticated owner admission must be independently established','qualification':False}
 if __name__=='__main__':
  try:
   if len(sys.argv) not in (3,5) or (len(sys.argv)==5 and sys.argv[3]!='--extract'):fail('usage: verify-c2.py SELECTION SHA256 [--extract ABSENT_ROOT]')
   config=json.loads(readpin(sys.argv[1],sys.argv[2]));print(json.dumps(verify(config,sys.argv[4] if len(sys.argv)==5 else None),sort_keys=True))
  except (ValueError,KeyError,OSError,TypeError,tarfile.TarError,json.JSONDecodeError) as e:
-  print(json.dumps({'kind':'b10_c2_input_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)
+  print(json.dumps({'kind':'b11_c2_input_refused','reason':str(e)}),file=sys.stderr);sys.exit(2)

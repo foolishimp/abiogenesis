@@ -106,8 +106,11 @@ W2, W4 and W5; W3 cold authentication remains open because the endpoint is
 only in an unadmitted sidecar and the admitted environment digest cannot be
 reconstructed from retained inputs. Root accepted bounded B11 JSON-escaped endpoint-prompt repair after native C2,
 satisfied UAT, completed parent and matching fresh reads; see the [B11 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_DISPOSITION.md).
-Root selected its tested artifact solely for a fresh W1–W5 witness. The original
-witness cold join remains unproven; see the [witness disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md).
+Root selected its tested artifact solely for a fresh W1–W5 witness. Witness004
+admitted Testing and Construction and produced a mechanical cold-correspondence
+proof; Root accepted original bounded W1–W5 for that fresh Constructor
+host-mediated Run after independent trace and cold-proof review. Its parent
+blocked without a terminal, and the original witness003 cold join remains unproven; see the [witness disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md).
 Foundation acceptances and broader qualification and release obligations
 retain their stated bounds.
 

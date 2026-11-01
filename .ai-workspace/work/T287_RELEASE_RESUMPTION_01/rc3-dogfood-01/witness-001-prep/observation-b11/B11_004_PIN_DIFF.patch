@@ -1,0 +1,13 @@
+--- prospective/observe.mjs
++++ bound/observe.mjs
+@@ -9,8 +9,8 @@
+ const dir=fileURLToPath(new URL('.',import.meta.url)), parent=resolve(dir,'..'), root=join(parent,'runtime-b11-004');
+ // PENDING: Root must bind actual accepted B11 artifact, selected input and 004 launch manifest after native outcome.
+ // Every value is mandatory; this module refuses before reading or importing the future runtime while any is null.
+-const REQUIRED=Object.freeze({manifestName:null,manifestSha256:null,selectionName:null,selectionSha256:null,
+- artifactSha256:null,productContentDigest:null,productManifestDigest:null,selectionStatus:null});
++const REQUIRED=Object.freeze({manifestName:'B11_004_LAUNCH_MANIFEST.json',manifestSha256:'sha256:8f1b4b005658917e0920872ef25dddbf8f4d129bf7ff212563c62168833b31a4',selectionName:'selected-c2-b11-004.json',selectionSha256:'sha256:6f66ebb195146f727db22a983cae775b7b6bf3004207f5b51a354efff545ff83',
++ artifactSha256:'sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c',productContentDigest:'sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951',productManifestDigest:'sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700',selectionStatus:'ROOT_SELECTED_B11_C2_FOR_WITNESS'});
+ const must=(v,m)=>assert.ok(v,m), one=(a,m)=>{assert.equal(a.length,1,m);return a[0];};
+ const bytes=async p=>readFile(p), json=async p=>JSON.parse((await bytes(p)).toString('utf8'));
+ const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');

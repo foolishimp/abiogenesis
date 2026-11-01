@@ -9,9 +9,9 @@
 - current_method_basis: stdo://releases/v3.0.2/ (S1, `e71ae8a5c`, the owner's decision of 2026-10-27; before it `stdo://releases/v3.0.1-rc.1/` from T-291 M-1, `72384fe07`, with the runtime default library and the frozen qualification authorities on it since D0, `529ffa0f6`)
 - current_method_manifest_sha256: f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477
 - current_activation: SUNNY_DAY_TRAVERSAL_AND_RECOVERY_PLAN_01; owner selects sunny-day HoG iteration, declared evaluation and consequence before cold event-log recovery; Root remains sole ABI operator proxy.
-- current_activation_status: Two foundation checkpoints and bounded B10/B11 repairs are accepted. B11 native C2 and satisfied UAT preceded a completed parent and matching fresh result/replay. Witness003 admitted Testing and Construction but its parent blocked; Root accepted bounded W1/W2/W4/W5 while W3 cold authentication remains open.
+- current_activation_status: Two foundation checkpoints, bounded B10/B11 repairs and original W1–W5 for fresh witness004 Constructor host-mediated lookup are accepted. Witness parent blocked without terminal; broader qualification and release remain open.
 - current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md
-- current_next_work: Prepare the Root-selected fresh W1–W5 witness on the tested B11 artifact and assess its own actual admitted-prompt cold evidence; preserve prior witness003 standing. Preserve original A/B, W3 cold authentication, repeatability, qualification and release obligations.
+- current_next_work: Focus future tuning on measured setup and handoff overhead; no additional provider or repair package selected. Preserve witness003 cold-gap standing and original A/B, repeatability, whole qualification and release obligations.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families

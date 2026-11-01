@@ -3,7 +3,7 @@
 from pathlib import Path
 import hashlib,json,os,stat,sys
 HERE=Path(__file__).resolve().parent
-MANIFEST=HERE/'B10_003_LAUNCH_MANIFEST.json'
+MANIFEST=HERE/'B11_004_LAUNCH_MANIFEST.json'
 def sha(p):
  h=hashlib.sha256()
  with p.open('rb')as f:

@@ -1,0 +1,44 @@
+{
+  "kind": "witness004_cold_observer_operation",
+  "authority": "Root independently selected and invoked the reviewed d6af661c\u2026 observer after native Return and admitted Construction.",
+  "session": "31907",
+  "exitCode": 0,
+  "observerSha256": "d6af661cc4351f92d263745a0db4728576ba62f29350474e468137b712f6689d",
+  "stdout": {
+    "path": "witness-001-prep/observation-b11/observer-run-004.stdout.log",
+    "bytes": 420,
+    "sha256": "703e45327d65475157ff31b7cb848908098923752c559b8b1fd7c7152a2500b4"
+  },
+  "stderr": {
+    "path": "witness-001-prep/observation-b11/observer-run-004.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "proof": {
+    "path": "witness-001-prep/observation-b11/proof.json",
+    "bytes": 15594,
+    "sha256": "3f95572c448000f58dab85ccc50dabfa76d235e8917eb2bde34b03c2c93e72a1"
+  },
+  "closedPrefixAfterObservation": {
+    "bytes": 19441942,
+    "sha256": "9c8523e4daeb9efdc2c68bd35f9c04b2f12a9a3efda32ff11f1d25c2620169d0",
+    "matchesReturnedPrefix": true
+  },
+  "result": "mechanical_cold_correspondence_only",
+  "endpointAuthentication": "exact_one_whole_admitted_owner_rendered_prompt",
+  "admittedEnvironmentDigest": "sha256:4bd5304425056a7d766e2c773f6c1e7f91a126cea254aee039f78e912ae8ca8c",
+  "environmentDigestReproduced": false,
+  "pages": [
+    1,
+    1,
+    2
+  ],
+  "deniedCount": 1,
+  "limits": [
+    "No provider, Public operation, host service or event append from observer",
+    "No universal read confinement or qualification claim",
+    "Witness003 remains separately unproven"
+  ],
+  "independentReview": "Reviewer independently joined actual events, admitted prompt, five response digests and full source coverage; Root accepted original bounded W1\u2013W5 for this fresh Constructor host-mediated Run.",
+  "acceptance": "bounded_W1_W5_accepted_not_whole_product"
+}

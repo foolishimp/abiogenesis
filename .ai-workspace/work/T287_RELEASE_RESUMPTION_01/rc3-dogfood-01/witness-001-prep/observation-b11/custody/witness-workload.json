@@ -1,0 +1,132 @@
+{
+  "kind": "governance_work_state",
+  "schemaVersion": "5.0.0",
+  "original": {
+    "taskRef": "task://abi5-tests/gc03-witness/original@5",
+    "task": "# Native governed-lookup witness\n\nFirst run the declared Testing command on the provided diagnostic fixture without claiming an earlier subject Result. Then, in native Construction, use the installed governed-lookup client to retrieve the current Run's admitted Testing stdout, the original task and the original rubric. Read the complete permitted source bytes in bounded pages and use their actual contents to describe the observed failure. Request a denied key and report the refusal without falling back to another source or widening authority. Preserve the original task and rubric when explaining the result.\n\nIf a source, permission, fixed client, complete response, or producer relationship is unavailable, report the specific gap; do not guess. Identify the current Run's Testing Result and producer from the delivered evidence. Report what the retrieved bytes support and what remains unproven.\n",
+    "sources": [
+      {
+        "path": "task.md",
+        "digest": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+      },
+      {
+        "path": "rubric.json",
+        "digest": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+      },
+      {
+        "path": "fixture.txt",
+        "digest": "sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+      }
+    ],
+    "requiredSupportRefs": [
+      "support://abi5-tests/gc03-witness/W1-W5@5"
+    ],
+    "authorityRefs": [
+      "authority://abi5-tests/gc03-witness/owner-selected@5"
+    ],
+    "readRoots": [
+      "task.md",
+      "rubric.json",
+      "fixture.txt"
+    ],
+    "maxContextFiles": 8,
+    "maxContextBytes": 65536,
+    "maxPromptBytes": 1048576,
+    "workOrders": {
+      "testing": {
+        "outcome": "# Native governed-lookup witness\n\nFirst run the declared Testing command on the provided diagnostic fixture without claiming an earlier subject Result. Then, in native Construction, use the installed governed-lookup client to retrieve the current Run's admitted Testing stdout, the original task and the original rubric. Read the complete permitted source bytes in bounded pages and use their actual contents to describe the observed failure. Request a denied key and report the refusal without falling back to another source or widening authority. Preserve the original task and rubric when explaining the result.\n\nIf a source, permission, fixed client, complete response, or producer relationship is unavailable, report the specific gap; do not guess. Identify the current Run's Testing Result and producer from the delivered evidence. Report what the retrieved bytes support and what remains unproven.\n",
+        "instructions": [
+          "Preserve every W1-W5 criterion in rubric.json. Testing must measure supplied fixture.txt with subjectEvidenceRef null before Construction; Construction must use the actual installed governed client and its owner-supplied keys, including one denied key. Retain honest gaps; do not treat parent bound exhaustion as UAT."
+        ],
+        "readFirst": [
+          "task.md",
+          "rubric.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "construction": {
+        "outcome": "# Native governed-lookup witness\n\nFirst run the declared Testing command on the provided diagnostic fixture without claiming an earlier subject Result. Then, in native Construction, use the installed governed-lookup client to retrieve the current Run's admitted Testing stdout, the original task and the original rubric. Read the complete permitted source bytes in bounded pages and use their actual contents to describe the observed failure. Request a denied key and report the refusal without falling back to another source or widening authority. Preserve the original task and rubric when explaining the result.\n\nIf a source, permission, fixed client, complete response, or producer relationship is unavailable, report the specific gap; do not guess. Identify the current Run's Testing Result and producer from the delivered evidence. Report what the retrieved bytes support and what remains unproven.\n",
+        "instructions": [
+          "Preserve every W1-W5 criterion in rubric.json. Testing must measure supplied fixture.txt with subjectEvidenceRef null before Construction; Construction must use the actual installed governed client and its owner-supplied keys, including one denied key. Retain honest gaps; do not treat parent bound exhaustion as UAT."
+        ],
+        "readFirst": [
+          "task.md",
+          "rubric.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      },
+      "uat": {
+        "outcome": "# Native governed-lookup witness\n\nFirst run the declared Testing command on the provided diagnostic fixture without claiming an earlier subject Result. Then, in native Construction, use the installed governed-lookup client to retrieve the current Run's admitted Testing stdout, the original task and the original rubric. Read the complete permitted source bytes in bounded pages and use their actual contents to describe the observed failure. Request a denied key and report the refusal without falling back to another source or widening authority. Preserve the original task and rubric when explaining the result.\n\nIf a source, permission, fixed client, complete response, or producer relationship is unavailable, report the specific gap; do not guess. Identify the current Run's Testing Result and producer from the delivered evidence. Report what the retrieved bytes support and what remains unproven.\n",
+        "instructions": [
+          "Preserve every W1-W5 criterion in rubric.json. Testing must measure supplied fixture.txt with subjectEvidenceRef null before Construction; Construction must use the actual installed governed client and its owner-supplied keys, including one denied key. Retain honest gaps; do not treat parent bound exhaustion as UAT."
+        ],
+        "readFirst": [
+          "task.md",
+          "rubric.json"
+        ],
+        "writeRoots": [],
+        "checks": []
+      }
+    },
+    "testing": {
+      "selectedPaths": [
+        "task.md",
+        "rubric.json",
+        "fixture.txt"
+      ],
+      "commands": [
+        {
+          "commandId": "command://abi5-tests/gc03-witness/current-fixture",
+          "executable": "/bin/cat",
+          "args": [
+            "fixture.txt"
+          ],
+          "relativeCwd": ".",
+          "environment": {},
+          "timeoutMs": 10000,
+          "terminationGraceMs": 1000,
+          "expectedReports": []
+        }
+      ],
+      "outcomePredicates": [
+        {
+          "predicateId": "predicate://abi5-tests/gc03-witness/exact-fixture@5",
+          "predicateKind": "stdout_exact",
+          "declaration": {
+            "validationCommandId": "command://abi5-tests/gc03-witness/current-fixture",
+            "equals": "(node:33288) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✖ U1-P5-02 actual C0 successor and every affected currentness consumer (442.969542ms)\n(node:33304) ExperimentalWarning: VM Modules is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)\n✔ library prepare-testing reuses the invoking private operation and its actual F_D origin (134.407791ms)\nℹ Canonical module-publication definition and leaf/descriptor binding with actual library preparation/matcher and cold F_D Result/J/evidence relations; raw/foreign/tampered definition and materialization identities refuse. Physical constructors are real. Source/environment/cover/CCall and implementation-set lookups are controlled lower premises, not new native or installed admission.\n✔ library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards (53.463ms)\nℹ Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.\nℹ tests 3\nℹ suites 0\nℹ pass 2\nℹ fail 1\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 1381.965583\n\n✖ failing tests:\n\ntest at test_env/tests/t287-native-work-currentness-consumers.test.mjs:597:1\n✖ U1-P5-02 actual C0 successor and every affected currentness consumer (442.969542ms)\n  Error: ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs'\n      at async open (node:internal/fs/promises:642:25)\n      at async Object.readFile (node:internal/fs/promises:1279:14)\n      at async semanticFixtureHelpers (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/support/t287-native-work-currentness-consumers.mjs:364:17)\n      at async semanticData (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:375:19)\n      at async Object.semanticFoldConsumer [as semanticFold] (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:464:18)\n      at async TestContext.<anonymous> (file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs:601:39)\n      at async Test.run (node:internal/test_runner/test:1113:7)\n      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {\n    errno: -2,\n    code: 'ENOENT',\n    syscall: 'open',\n    path: '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs'\n  }\n"
+          }
+        }
+      ],
+      "allowedWriteTerritories": []
+    },
+    "assessment": {
+      "sources": [
+        "task.md"
+      ],
+      "candidatePath": "fixture.txt",
+      "rubricPath": "rubric.json",
+      "resultContract": {
+        "contractRef": "contract://abi5-tests/sandbox-uat/assessment@5",
+        "contractVersion": "5.0.0",
+        "contractKind": "output",
+        "valueKind": "sandbox_uat_assessment"
+      },
+      "schemaAsset": {
+        "productId": "product://abi5-tests/sandbox-uat@5.0.0",
+        "contractId": "contract://abi5-tests/sandbox-uat/assessment@5",
+        "bytesBase64": "eyIkc2NoZW1hIjoiaHR0cHM6Ly9qc29uLXNjaGVtYS5vcmcvZHJhZnQvMjAyMC0xMi9zY2hlbWEiLCIkaWQiOiJjb250cmFjdDovL2FiaTUtdGVzdHMvc2FuZGJveC11YXQvYXNzZXNzbWVudEA1IiwidHlwZSI6Im9iamVjdCIsImFkZGl0aW9uYWxQcm9wZXJ0aWVzIjpmYWxzZSwicmVxdWlyZWQiOlsia2luZCIsImRpc3Bvc2l0aW9uIiwicmVhc29uIiwidW5yZXNvbHZlZENyaXRlcmlhIl0sInByb3BlcnRpZXMiOnsia2luZCI6eyJjb25zdCI6InNhbmRib3hfdWF0X2Fzc2Vzc21lbnQifSwiZGlzcG9zaXRpb24iOnsidHlwZSI6InN0cmluZyIsImVudW0iOlsic2F0aXNmaWVkIiwidW5tZXQiLCJpbmRldGVybWluYXRlIl19LCJyZWFzb24iOnsidHlwZSI6InN0cmluZyIsIm1pbkxlbmd0aCI6MX0sInVucmVzb2x2ZWRDcml0ZXJpYSI6eyJ0eXBlIjoiYXJyYXkiLCJpdGVtcyI6eyJ0eXBlIjoic3RyaW5nIn19fX0K"
+      },
+      "verdictField": "disposition",
+      "satisfiedValue": "satisfied"
+    }
+  },
+  "synthesis": null,
+  "observations": [],
+  "unresolvedSupportRefs": [
+    "support://abi5-tests/gc03-witness/W1-W5@5"
+  ],
+  "terminal": false
+}

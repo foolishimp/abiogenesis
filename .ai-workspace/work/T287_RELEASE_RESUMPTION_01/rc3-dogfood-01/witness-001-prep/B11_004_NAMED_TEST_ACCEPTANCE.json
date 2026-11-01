@@ -1,0 +1,27 @@
+{
+  "authority": "Root final explicit bounded B11 source/C2/admitted satisfied UAT/terminal acceptance; actual archive selected for unchanged W1-W5 fresh004 only",
+  "authorityRecord": {
+    "bytes": 3441,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B11_004_ROOT_SELECTION_ADMISSION.md",
+    "sha256": "5037caddacf6cbcad33761acf25448a3de4d5c08b9a19d8477f8fa46dbedad23"
+  },
+  "disposition": "passed",
+  "fullFocusedOutput": {
+    "bytes": 1865,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/c2-output/06-focused-owner-chain-stdout.txt",
+    "sha256": "7f3144874f8755424ac3588e550c30775682f588adcc7af9ac8957c63fc8f4e5"
+  },
+  "kind": "root_exact_b11_named_case_acceptance",
+  "limits": [
+    "Bounded B11 repair accepted with recorded native UAT limitations",
+    "Fresh004 live/cold proof, whole qualification and release remain open; no003retrocredit"
+  ],
+  "name": "GC03 real owner allowed denied cold tamper",
+  "passLine": "\u2714 GC03 real owner allowed denied cold tamper (64348.395333ms)",
+  "resultDigest": "sha256:6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "resultRef": "result://abiogenesis/6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+  "skipped": false,
+  "stdoutDigest": "sha256:7f3144874f8755424ac3588e550c30775682f588adcc7af9ac8957c63fc8f4e5",
+  "todo": false
+}

@@ -1,0 +1,190 @@
+{
+  "kind": "b11_native_witness_observation",
+  "status": "mechanical_cold_correspondence_only",
+  "selectedArtifact": {
+    "bytes": 10936961,
+    "manifestByteSha256": "sha256:2550575617433a93c7a31b01edb086feb9fffb8935423755ef08064193febdb7",
+    "manifestDigest": "sha256:14d5b7d1379ba17f6f425bbf3766c1b4ff524cfc4b25dbeedc30e64b5d03c700",
+    "packageName": "@abiogenesis/typescript-tenant",
+    "packageVersion": "5.0.0-rc.3",
+    "productContentDigest": "sha256:34cfb9f8b401178dd170bac58c8b74f2f57689b2501b5d1d28687622f21de951",
+    "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.3",
+    "sha256": "sha256:0f77694c1930b069477afd39f0f33bcd53d1e60522b45c32da75b93b1628ac2c"
+  },
+  "selectedProducer": {
+    "admissionEvidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B11_004_ADMITTED_TESTING_COORDINATES.json",
+    "admissionEvidenceSha256": "sha256:736cdb1a16e1ab3127a87c266244362ba9bc973bfe0bf7025eb91e5fa0afe446",
+    "artifactRelativePath": "build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.3.tgz",
+    "helperArtifactDigest": "sha256:1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+    "helperResultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/archives/worksite-command-execution/3c63b42f209f533e11d3616825e89c96a367c4a484c18bb926492282c5518642/b1efb8bf6fd93329acd263e3dde7011e38941914daa2590836cbf42cd7704876/result.json",
+    "helperResultSha256": "sha256:61aa606a81088347af61e07978414b2bb2bb169edf718c875ed2187cc9a0ddf6",
+    "namedTestAcceptance": {
+      "disposition": "passed",
+      "evidencePath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/B11_004_NAMED_TEST_ACCEPTANCE.json",
+      "evidenceSha256": "sha256:b1e50bbf46888bb59e13bc07e5fa3804dbde3c5342f4a37207f844f68b4c08f1",
+      "name": "GC03 real owner allowed denied cold tamper",
+      "passLine": "✔ GC03 real owner allowed denied cold tamper (64348.395333ms)",
+      "skipped": false,
+      "stdoutDigest": "sha256:7f3144874f8755424ac3588e550c30775682f588adcc7af9ac8957c63fc8f4e5",
+      "todo": false
+    },
+    "resultDigest": "sha256:6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+    "resultRef": "result://abiogenesis/6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+    "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa"
+  },
+  "launchManifestDigest": "sha256:8f1b4b005658917e0920872ef25dddbf8f4d129bf7ff212563c62168833b31a4",
+  "selectionDigest": "sha256:6f66ebb195146f727db22a983cae775b7b6bf3004207f5b51a354efff545ff83",
+  "run": {
+    "digest": "sha256:3b0de1860d4319fae237bc2e61be20b25faa9ce57a76923777bff2ff72fba09a",
+    "ref": "run://abiogenesis/12abfe7b8530497f45396f8251fac385b7c755b7730acdeed537a9a43ec401c0"
+  },
+  "parentDisposition": "blocked",
+  "terminalResult": null,
+  "occurrence": {
+    "runId": "run://abiogenesis/12abfe7b8530497f45396f8251fac385b7c755b7730acdeed537a9a43ec401c0",
+    "cCallRef": "c-call:sha256:d56e1252d959420787efdbf26f69769c7b75d94017550e055e185f65fd3822f5",
+    "actorInvocationRef": "actor-invocation://abiogenesis/d0260ca24a5fc2d22e86d95b17b357f1b8270f7979562ffa86f1b319d3db0534"
+  },
+  "events": {
+    "construction": "event://abiogenesis/fde600e10caf02a96d258c5d939caecf58b5663b8a01ffde07193a214fe8fdfb",
+    "testing": "event://abiogenesis/d4013f427d4073ed2079e6df41f13e1e44e90d24979bd789751a182ff993c0fd",
+    "started": "event://abiogenesis/1641cee6d121e1a32ef8d8f731c1b0419f53ac2ba0e1d44c8d5fb17e462e4bb7",
+    "opened": "event://abiogenesis/f90365b02eb90fea5c953d0a22ed93c955caee2f875929ef70d06fd6528bc138",
+    "binding": "event://abiogenesis/cd1a281e1a0658600009307952f884aead77ccd2f58405abb4d31189edeb9f39",
+    "artifact": "event://abiogenesis/0d263a03d02cfd8721911baf774536244fbca23953d48fcce7df4d32765b923a"
+  },
+  "testing": {
+    "resultRef": "result://abiogenesis/3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be",
+    "resultDigest": "sha256:3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be",
+    "producer": {
+      "cCallRef": "c-call:sha256:28faf7d339b8e2eab31e7e0fe3a5e19dd1f8455d16e3e302c725af7994cd7a52",
+      "actorInvocationRef": "actor-invocation://abiogenesis/d0c0d07b55188c6808798dbe8674ce0dedca10aeba9df58a0a3cb1bf9bb9fda4"
+    },
+    "fieldPath": [
+      "commandResults",
+      0,
+      "stdout"
+    ],
+    "bytes": 4616,
+    "digest": "sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+  },
+  "stdout": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-stdout.log",
+    "bytes": 777158,
+    "sha256": "sha256:8fd615622a966c74a03c94845691c2b1a6dea2ed4eb3d7de3d56d20c9ad91d3e"
+  },
+  "sidecar": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/runtime-b11-004/resources/archives/fp-24fcfa8a1a4ab29a-governed-context.json",
+    "bytes": 23399,
+    "sha256": "sha256:ff60982d5aca10f3a27d25837070fa61d41365b2607f8d611a9d5f30b4aa6da4"
+  },
+  "endpointAuthentication": "exact_one_whole_admitted_owner_rendered_prompt",
+  "admittedEnvironmentDigest": "sha256:4bd5304425056a7d766e2c773f6c1e7f91a126cea254aee039f78e912ae8ca8c",
+  "environmentDigestReproduced": false,
+  "sourcePages": [
+    {
+      "key": "late/0",
+      "pages": 1,
+      "source": {
+        "role": "original_task",
+        "sourceKey": "task.md",
+        "digest": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+      },
+      "bytes": 905,
+      "digest": "sha256:1c1adfe5421360f707960ff792ece7b30991ad96eed6ef30f0a985d6f59c5955"
+    },
+    {
+      "key": "late/1",
+      "pages": 1,
+      "source": {
+        "role": "original_rubric",
+        "sourceKey": "rubric.json",
+        "digest": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+      },
+      "bytes": 1196,
+      "digest": "sha256:540d29973a92bcb1dd2782dac8be66ce9f602846e5aa60917169a9ab8f35ab25"
+    },
+    {
+      "key": "late/2",
+      "pages": 2,
+      "source": {
+        "role": "testing_result_field",
+        "sourceKey": "result://abiogenesis/3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be#[\"commandResults\",0,\"stdout\"]",
+        "digest": "sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6",
+        "producer": {
+          "cCallRef": "c-call:sha256:28faf7d339b8e2eab31e7e0fe3a5e19dd1f8455d16e3e302c725af7994cd7a52",
+          "actorInvocationRef": "actor-invocation://abiogenesis/d0c0d07b55188c6808798dbe8674ce0dedca10aeba9df58a0a3cb1bf9bb9fda4"
+        },
+        "provenance": [
+          "event://abiogenesis/d4013f427d4073ed2079e6df41f13e1e44e90d24979bd789751a182ff993c0fd"
+        ]
+      },
+      "bytes": 4616,
+      "digest": "sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6"
+    }
+  ],
+  "actorReportedResult": {
+    "terminalLineSha256": "sha256:e0d7974496e16ddac58bab5f54874caca010fd28ab49c73013e18d0bad485691",
+    "subtype": "success",
+    "result": "{\"summary\":\"Native Construction lookup finished for the selected contribution (W2 to W4 work). No files were written.\\n\\nClient and occurrence: I made 5 calls to the fixed installed client at sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/governed_context_client.js. Each call was one unpiped Bash call in the given form. Every response reports the same occurrence: run 12abfe7b…c401c0, C-call sha256:d56e1252…22f5, actor invocation d0260ca2…0534. Every response also carries bindingDigest sha256:27a226b5…68a2, prefixDigest sha256:f27072c6…5883, and gc03 identity urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1 with publication \\\"not_performed\\\".\\n\\nRequests and responses (the complete request and response bytes are in the tool results of this transcript):\\n- r1: late/2, offset 0, maxBytes 4096. Page of 4096 bytes, pageDigest 95dfc97f…, nextOffset 4096.\\n- r2: late/0, offset 0, maxBytes 8192. Original task: 905/905 bytes, digest sha256:1c1adfe5…5955, complete.\\n- r3: late/1, offset 0, maxBytes 8192. Original rubric: 1196/1196 bytes, digest sha256:540d2997…ab25, complete.\\n- r4: late/2, offset 4096, maxBytes 4096. Page of 520 bytes, pageDigest 9abaa2a0…, nextOffset null.\\n- r5: late/3, which is denied, offset 0, maxBytes 1024. Refused: kind governed_context_refusal, stage active, code key_denied, message \\\"key is absent from this governed Context\\\". I did not retry and did not fall back to fixture.txt or any other source. No authority was widened.\\n\\nIdentity checks: I decoded the base64 in process memory with one auxiliary `node -e` call and hashed it there.\\n- The two stdout pages together are 4096 + 520 = 4616 bytes, sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6, valid UTF-8. This matches the delivered evidence.\\n- Retrieved task.md is 905 bytes, sha256:1c1adfe5…, byte-identical to the worksite task.md.\\n- Retrieved rubric.json is 1196 bytes, sha256:540d2997…, byte-identical to the worksite rubric.json.\\n- The original task and rubric are unchanged.\\n\\nProducer: the owner response for late/2 names source result://abiogenesis/3db1d8bc37a01f214965c12bcdfce72bdd48deb8afee4142e4844f26285257be#[\\\"commandResults\\\",0,\\\"stdout\\\"]. It names producer actor invocation d0c0d07b55188c6808798dbe8674ce0dedca10aeba9df58a0a3cb1bf9bb9fda4 and C-call sha256:28faf7d339b8e2eab31e7e0fe3a5e19dd1f8455d16e3e302c725af7994cd7a52, with provenance event d4013f42…c0fd. These match the delivered Testing Result: purpose testing, graph-function testing@5, command /bin/cat fixture.txt, exit 0, stderr 0 bytes.\\n\\nWhat the retrieved bytes show:\\n- This is Node test-runner output: tests 3, pass 2, fail 1, cancelled/skipped/todo 0, duration_ms 1381.965583.\\n- Two ExperimentalWarning lines about VM Modules come from node pids 33288 and 33304.\\n- Passing tests: \\\"library prepare-testing reuses the invoking private operation and its actual F_D origin\\\" and \\\"library Testing first-refusal diagnostics distinguish actual nullable owner relations without changing guards\\\".\\n- Failing test: \\\"U1-P5-02 actual C0 successor and every affected currentness consumer\\\" (442.969542ms), declared at test_env/tests/t287-native-work-currentness-consumers.test.mjs:597:1.\\n- The failure is ENOENT (errno -2, syscall open) from fs/promises readFile. The path it could not open is …/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a…bcce/51b75372…2455/sandbox/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs.\\n- Call chain: test body (test.mjs:601:39) → semanticFoldConsumer [as semanticFold] (test.mjs:464:18) → semanticData (test.mjs:375:19) → semanticFixtureHelpers (support/t287-native-work-currentness-consumers.mjs:364:17) → readFile.\\n\\nThis report is a work result only, not acceptance. No UAT or Product qualification is claimed, and the parent outcome W1–W5 remains open for independent assessment.\",\"gaps\":[\"Unproven: why t287-native-semantic-revision.test.mjs is missing at the archived rc2-dogfood-01/setup-001 sandbox path. The bytes show only the ENOENT. I did not inspect that path because it is outside the readable scope.\",\"Unproven: whether U1-P5-02 fails outside this fixture. The delivered evidence says the Testing command was /bin/cat fixture.txt, so the stdout is a recorded diagnostic, not a test run executed in this Run. Nothing was re-executed.\",\"Unproven: the intent of semanticFixtureHelpers (for example, whether it is meant to read another test file's source). Only its name, its call site and the failed readFile are observed.\",\"Protocol ambiguity: the final stdout page (r4) reports complete:false with nextOffset:null, while offset+length equals totalBytes (4096+520=4616). It appears 'complete' means 'this one page holds the whole source'. Completeness was instead established from nextOffset null, the total length and my independent sha256 match. The client's field meaning is unconfirmed.\",\"W3 retention and cold-joinability of request/response bytes depend on the platform transcript and transport capture. With write scope empty, this actor cannot persist or prove that retention itself. The request/response correspondence is r1–r5 in tool-call order in this transcript.\",\"The stdout_exact predicate evidence body (predicateObservations[0].evidence) was not retrievable through the permitted keys and was not examined.\",\"W1 is covered by the previously admitted Testing Result. It was not rerun or independently re-evaluated here. W5 and the overall W1–W5 outcome remain open for independent UAT and the parent. No acceptance is claimed.\",\"Disclosure: I used one auxiliary `node -e` process to decode and hash the retrieved base64 in memory and to read the worksite task.md and rubric.json read-only for byte comparison. It created no files. I did not read fixture.txt.\"]}"
+  },
+  "correspondence": {
+    "kind": "governed_context_correspondence",
+    "exchanges": [
+      {
+        "ordinal": 1,
+        "requestId": "r1",
+        "toolUseId": "toolu_017uSybqBvfzwN7WCE5StgJm",
+        "disposition": "page",
+        "responseDigest": "sha256:087e58a0bb8310e618c209a7ba8242c5012b228fb0cd597cccd4b8107495fa01"
+      },
+      {
+        "ordinal": 2,
+        "requestId": "r2",
+        "toolUseId": "toolu_018EVTQvCihEnM3c3byWB7sa",
+        "disposition": "page",
+        "responseDigest": "sha256:e32c3c7e5db2ae9dadbff9e126844b18219b762c881060103a370a50eaf77150"
+      },
+      {
+        "ordinal": 3,
+        "requestId": "r3",
+        "toolUseId": "toolu_01JEN3cTv8DwqfqXcAfqmFEU",
+        "disposition": "page",
+        "responseDigest": "sha256:0204c14520fc899f851a0e4997989482c85732eb31f91e7823d3771acd43d029"
+      },
+      {
+        "ordinal": 4,
+        "requestId": "r4",
+        "toolUseId": "toolu_01E8JSf9ez4rpQf7AzedgB13",
+        "disposition": "page",
+        "responseDigest": "sha256:4fbb21bdb041911928082c8824e67437a4f865d2f1988a4295a0fb77773bcce4"
+      },
+      {
+        "ordinal": 5,
+        "requestId": "r5",
+        "toolUseId": "toolu_01TjUPU81RdDGNjMgEUhH9p6",
+        "disposition": "refusal",
+        "responseDigest": "sha256:01a0ebab4124bab5b1641d96f204c040bf5de61b4551571b83f3dcd3758338fc"
+      }
+    ]
+  },
+  "denied": [
+    {
+      "request": {
+        "requestId": "r5",
+        "key": "late/3",
+        "offset": 0,
+        "maxBytes": 1024
+      },
+      "responseDigest": "sha256:01a0ebab4124bab5b1641d96f204c040bf5de61b4551571b83f3dcd3758338fc"
+    }
+  ],
+  "limits": [
+    "W1 null-subject and selector-to-Testing relationship require independent native-event review",
+    "W4 diagnosis and any unmediated fallback require review of complete raw actor output and trace",
+    "reconstructed prefix/grant formulas mirror native owner; compare against installed actor_process",
+    "the admitted environment digest is retained as a transport fact; its full preimage was not reconstructed or verified",
+    "not Product qualification or host-wide confinement"
+  ]
+}

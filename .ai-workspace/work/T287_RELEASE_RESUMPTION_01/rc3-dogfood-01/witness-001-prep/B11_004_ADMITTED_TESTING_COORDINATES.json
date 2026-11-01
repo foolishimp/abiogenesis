@@ -1,0 +1,38 @@
+{
+  "admissionOrdinal": 2982,
+  "cCallRef": "c-call:sha256:340e2d118249ffa5e144ff0bde326a29224ba8c3ec68c640e116824f8a88534f",
+  "eventRange": {
+    "bytes": 124233329,
+    "offset": 688934717,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/setup-006/resources/events/runtime.events.jsonl",
+    "sha256": "ec97d13f1c27bbaa451e3cc7626db84c1397c6f0b498c053f741a94cef0a7b32"
+  },
+  "eventRef": "event://abiogenesis/8445ea8ef201a851f529de4a23e819f1c91296bbdbc0927a8554989c5a714774",
+  "helperArtifactDigest": "sha256:1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/1bb42ef546f4d09a608fdfd8f60cab555cce3d36c983dcef3b45e349c4fc54df",
+  "helperResultSha256": "61aa606a81088347af61e07978414b2bb2bb169edf718c875ed2187cc9a0ddf6",
+  "kind": "b11_native_testing_admission_coordinate_custody",
+  "notAcceptedHere": [
+    "Native B11 UAT/final",
+    "Root witness artifact/named-test selection or launch",
+    "Actual004 live W1-W5 or whole qualification/release"
+  ],
+  "resultDigest": "sha256:6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "resultRef": "result://abiogenesis/6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "rootAcceptedFacts": [
+    "Independent exact native Testing/CCall/Result/helper/source/archive join; all9C2 green and focused15/15 accepted as bounded evidence"
+  ],
+  "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+  "sourceAdmissionRecord": {
+    "bytes": 1336,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_TESTING_ADMISSION.json",
+    "sha256": "b2df1d4534cb7f5a0e6ab7015307e4bf0f3d1d687be6527dd75de6333862ec77"
+  },
+  "sourceHelperRecord": {
+    "bytes": 9290,
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_C2_CUSTODY.json",
+    "sha256": "784c20b5931fa6c579f70e7b2e7074e0cd73c06aa64b1f8be79c358a7dd7c576"
+  },
+  "standing": "Compact routing custody of independently authenticated and Root-accepted event coordinates; it does not mint admission or replace the event log",
+  "verification": "Read stable writer admission/helper records and Root/reviewer exact report only. No repeated event-range read/source/archive census or runtime action."
+}
