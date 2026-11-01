@@ -1,0 +1,17 @@
+{
+  "kind": "b11_testing_admission_coordinate",
+  "standing": "Root accepted bounded native C2 after independent event/producer/helper/source/archive join; native UAT and final remain pending",
+  "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+  "resultRef": "result://abiogenesis/6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "resultDigest": "sha256:6a33512a7df328ba9452f1aaf8ef5085ae9ab89ba1be67c094d9ea2693f69167",
+  "admissionOrdinal": 2982,
+  "eventRef": "event://abiogenesis/8445ea8ef201a851f529de4a23e819f1c91296bbdbc0927a8554989c5a714774",
+  "cCallRef": "c-call:sha256:340e2d118249ffa5e144ff0bde326a29224ba8c3ec68c640e116824f8a88534f",
+  "eventLog": "setup-006/resources/events/runtime.events.jsonl",
+  "eventByteOffset": 688934717,
+  "eventLineBytesIncludingNewline": 124233329,
+  "eventLineSha256": "ec97d13f1c27bbaa451e3cc7626db84c1397c6f0b498c053f741a94cef0a7b32",
+  "helperCustody": "attempt-013/B11_C2_CUSTODY.json",
+  "helperCustodySha256": "784c20b5931fa6c579f70e7b2e7074e0cd73c06aa64b1f8be79c358a7dd7c576",
+  "independentReview": "Reviewer recomputed event/payload/value/result digests and joined admitted helper, task, normalized commands, environment and predicates to exact selected workload. Conversation report; no signed artifact implied."
+}

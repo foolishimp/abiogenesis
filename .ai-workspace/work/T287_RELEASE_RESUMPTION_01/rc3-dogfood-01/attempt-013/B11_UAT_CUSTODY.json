@@ -1,0 +1,26 @@
+{
+  "kind": "b11_admitted_uat_review",
+  "runRef": "run://abiogenesis/4e1de2e9334620f62f9bb725d24517d6ea6ecfe3f68c5e064795561ffa5d20aa",
+  "resultRef": "result://abiogenesis/b0c1d28f1d05f4890d67423a5bcb831699b94d4c895d6b92240d772e33668033",
+  "resultDigest": "sha256:b0c1d28f1d05f4890d67423a5bcb831699b94d4c895d6b92240d772e33668033",
+  "admissionOrdinal": 4440,
+  "eventRef": "event://abiogenesis/2bbb686296abfaf5247cd278c274e3dd6a3686ec6df3987d35a6bd54362ce61b",
+  "cCallRef": "c-call:sha256:a6fd9ca0a8dcaf914afeeed95881bd476281f552bc4c53f076df8525378fc258",
+  "actorInvocationRef": "actor-invocation://abiogenesis/515b642db8df378470af1d231706ed30822a03cfe3d20f8a2af05b89e637f038",
+  "eventLogOffset": 1102896987,
+  "eventLineBytesIncludingNewline": 117900335,
+  "eventLineSha256": "3ab5ff6ccf27b388deaacbd1e8308a12881b6b26fb64bb13c9ccef497d4a8be2",
+  "providerOutputPath": "setup-006/resources/archives/fp-633b1e0401f7c4dd-output.txt",
+  "disposition": "satisfied",
+  "unresolvedCriteria": [],
+  "independentReview": "Reviewer authenticated actual event/payload/value/Result and actor report against admitted Testing and original rubric; Root accepted bounded three-path repair; parent completed and fresh reads match.",
+  "limits": [
+    "six pre-existing affected-suite skips",
+    "UAT did not read preimage archive or old command declarations; Root independent review supplies those joins",
+    "sibling HOW omits endpoint; localized documentation debt",
+    "receiver is test-local; core cold API receives no prompt",
+    "witness003 and full environment preimage remain unproven"
+  ],
+  "providerOutputBytes": 6382,
+  "providerOutputSha256": "dc8fbec5acace2acb6c866334d911c3be2b62fb855d1da477cc0c2ce74995683"
+}

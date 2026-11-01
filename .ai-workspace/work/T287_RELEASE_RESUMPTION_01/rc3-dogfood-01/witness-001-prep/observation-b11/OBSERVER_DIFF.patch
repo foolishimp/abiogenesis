@@ -1,0 +1,114 @@
+--- witness-001-prep/observation-b11/observe.pre-b11.mjs	2026-11-01 10:24:05
++++ witness-001-prep/observation-b11/observe.mjs	2026-11-01 10:24:28
+@@ -6,7 +6,11 @@
+ import { join, resolve, sep } from 'node:path';
+ import { fileURLToPath, pathToFileURL } from 'node:url';
+ 
+-const dir=fileURLToPath(new URL('.',import.meta.url)), parent=resolve(dir,'..'), root=join(parent,'runtime-b10-003');
++const dir=fileURLToPath(new URL('.',import.meta.url)), parent=resolve(dir,'..'), root=join(parent,'runtime-b11-004');
++// PENDING: Root must bind actual accepted B11 artifact, selected input and 004 launch manifest after native outcome.
++// Every value is mandatory; this module refuses before reading or importing the future runtime while any is null.
++const REQUIRED=Object.freeze({manifestName:null,manifestSha256:null,selectionName:null,selectionSha256:null,
++ artifactSha256:null,productContentDigest:null,productManifestDigest:null,selectionStatus:null});
+ const must=(v,m)=>assert.ok(v,m), one=(a,m)=>{assert.equal(a.length,1,m);return a[0];};
+ const bytes=async p=>readFile(p), json=async p=>JSON.parse((await bytes(p)).toString('utf8'));
+ const sha=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
+@@ -15,6 +19,13 @@
+ const fail=m=>{throw new Error(m)};
+ assert.equal(process.argv.length,3,'usage: node observe.mjs --observe-after-return');
+ assert.equal(process.argv[2],'--observe-after-return');
++for(const [key,value] of Object.entries(REQUIRED))
++ assert.ok(typeof value==='string'&&value.length>0,'PENDING actual Root-selected B11 binding: '+key);
++assert.equal(REQUIRED.manifestName,'B11_004_LAUNCH_MANIFEST.json','only the new 004 launch manifest');
++assert.equal(REQUIRED.selectionName,'selected-c2-b11-004.json','only the selected B11 producer input');
++assert.equal(REQUIRED.selectionStatus,'ROOT_SELECTED_B11_C2_FOR_WITNESS','only Root-selected B11 standing');
++for(const value of [REQUIRED.manifestSha256,REQUIRED.selectionSha256,REQUIRED.artifactSha256,REQUIRED.productContentDigest,REQUIRED.productManifestDigest])
++ assert.match(value,/^sha256:[0-9a-f]{64}$/u,'exact SHA-256 binding');
+ // Refuse before imports or any output if the actual one-shot Return and closed handoff are absent.
+ for(const n of ['NATIVE_LAUNCH_STARTED.json','native-execution.json','native-final-close.json'])
+  try {await lstat(join(root,n))} catch {fail('PENDING: missing actual '+n)}
+@@ -25,15 +36,29 @@
+ must(execution?.receipt?.exitCode===0 && output?.outcomeKind==='result' && output.value?.run?.ref,'actual native result/run required');
+ must(close?.prefix && close?.reopenAuthority,'actual returned closeHandoff required');
+ const runId=output.value.run.ref;
+-const manifestBytes=await bytes(join(parent,'B10_003_LAUNCH_MANIFEST.json'));
+-assert.equal(sha(manifestBytes),'sha256:43b6c56267334c16e0a5f0c9fbfa7eaba048c8619ee76fe27fdcd2d3dfa89c4e','selected launch manifest');
++const manifestBytes=await bytes(join(parent,REQUIRED.manifestName));
++assert.equal(sha(manifestBytes),REQUIRED.manifestSha256,'selected launch manifest');
+ const manifest=JSON.parse(manifestBytes);
++const selectionPath=join(parent,REQUIRED.selectionName), selectionBytes=await bytes(selectionPath);
++assert.equal(sha(selectionBytes),REQUIRED.selectionSha256,'selected B11 producer selection');
++assert.ok(manifest.files.some(x=>x.path===selectionPath && 'sha256:'+x.sha256===REQUIRED.selectionSha256),'selection is in the exact frozen launch manifest');
++const selection=JSON.parse(selectionBytes);
++assert.equal(selection.status,REQUIRED.selectionStatus,'actual Root selection standing');
++assert.equal(selection.artifact.sha256,REQUIRED.artifactSha256,'selected actual B11 artifact');
++assert.equal(selection.artifact.productContentDigest,REQUIRED.productContentDigest,'selected Product content');
++assert.equal(selection.artifact.manifestDigest,REQUIRED.productManifestDigest,'selected Product manifest');
++assert.equal(selection.finalNativeOutcome.outcomeKind,'result');
++assert.equal(selection.finalNativeOutcome.disposition,'completed');
++assert.equal(selection.finalNativeOutcome.uatDisposition,'satisfied');
+ const saved=await json(join(root,'operator-resume-material.json'));
+ const profileBytes=await bytes(join(parent,'provider-profile-b09.json'));
+ assert.equal(sha(profileBytes),'sha256:d7ae7f9db390f9f637d288c695471fddc3061547cea966f33880b267a38bdd1a','selected provider profile changed');
+ const profile=JSON.parse(profileBytes); assert.equal(start.profileDigest,sha(profileBytes));
+ const installedRoot=await realpath(saved.installedRoot);
+ assert.equal(installedRoot,await realpath(join(root,'sandbox/installed/abg/node_modules/@abiogenesis/typescript-tenant')),'installed identity');
++const installed=one(manifest.installedPayloads.filter(x=>x.root===installedRoot),'one exact installed B11 payload');
++assert.equal(installed.productContentDigest,REQUIRED.productContentDigest,'installed B11 content');
++assert.equal(installed.manifestDigest,REQUIRED.productManifestDigest,'installed B11 manifest');
+ assert.equal(await realpath(process.execPath),profile.executablePins.node.realPath,'observer must use selected Node');
+ assert.equal(await digestFile(process.execPath),'sha256:'+profile.executablePins.node.sha256,'selected Node changed');
+ // Verify frozen installed file bytes before importing them; verify task/rubric/fixture against launch pins.
+@@ -45,9 +70,9 @@
+ for(const pin of selectedPins){const st=await lstat(pin.path);must(st.isFile()&&!st.isSymbolicLink()&&st.size===pin.bytes,'selected member changed');assert.equal(await digestFile(pin.path),'sha256:'+pin.sha256,'selected member digest changed')}
+ 
+ const load=async p=>import(pathToFileURL(join(installedRoot,'build/code/src',p+'.js')).href);
+-const [store,prefixOwner,basisOwner,library,envOwner,owner,transport,product]=await Promise.all([
++const [store,prefixOwner,basisOwner,library,envOwner,owner,product]=await Promise.all([
+  load('abg/event_store'),load('abg/event_prefix'),load('abg/execution_basis'),load('abg/default_library'),load('abg/stdo_environment'),
+- load('abg/governed_context'),load('abg/transport_contracts'),load('product/index')]);
++ load('abg/governed_context'),load('product/index')]);
+ const prefix=prefixOwner.readOwnedRuntimeEventPrefixAtDurablePrefix(close.prefix);
+ const events=store.readRuntimeEventsAtDurablePrefix(close.prefix).filter(e=>e.runId===runId);
+ const at=k=>events.filter(e=>e.kind===k);
+@@ -104,16 +129,15 @@
+ const sidecarPath=stdoutPath.replace(/-stdout\.log$/u,'-governed-context.json');
+ const stdout=await bytes(stdoutPath), sidecar=await bytes(sidecarPath), index=JSON.parse(sidecar.toString('utf8'));
+ const stdoutDigest=artifact.payload.artifactDigests.stdout;assert.equal(sha(stdout),stdoutDigest,'admitted stdout digest');
+-const invocation={executable:profile.executablePins.node.realPath,client:join(installedRoot,'build/code/src/abg/governed_context_client.js'),endpoint:index.invocation.endpoint};
+-// The endpoint is an untrusted candidate until BOTH admitted prompt and environment digest match.
++const endpoint=index?.invocation?.endpoint;
++must(typeof endpoint==='string'&&endpoint.length>0,'untrusted sidecar endpoint must be a nonempty string');
++const invocation={executable:profile.executablePins.node.realPath,client:join(installedRoot,'build/code/src/abg/governed_context_client.js'),endpoint};
++// Candidate endpoint has no authority until the installed owner renderer matches the one whole admitted prompt.
+ const args=binding.payload.args,atPrompt=args.indexOf('--append-system-prompt');must(atPrompt>=0 && args.lastIndexOf('--append-system-prompt')===atPrompt,'single admitted prompt');
+ assert.equal(args[atPrompt+1],owner.governedContextPrompt(invocation,lookup.keys,pageBound),'admitted owner-rendered prompt');
+-const {workerEnvironment}=await import('../../operator-client/runner.mjs');
+-const launch=workerEnvironment({...saved.config,...profile});
+-const endpointEnv={ABG_GOVERNED_CONTEXT_ENDPOINT:invocation.endpoint,ABG_GOVERNED_CONTEXT_CLIENT:invocation.client,ABG_GOVERNED_CONTEXT_EXECUTABLE:invocation.executable};
+-const contract=transport.constructKnownWorkerTransportContract('claude',{command:profile.provider.command,environment:{...launch,...endpointEnv}});
+-assert.equal(product.sha256Canonical(transport.sanitizeWorkerTransportEnvironment(contract,{...launch,...endpointEnv})),binding.payload.environmentDigest,
+- 'actual admitted environment digest; changed/missing inherited values refuse, never printed');
++// The full admitted environment digest remains a retained transport fact. Its launch-time preimage is not reconstructed here.
++const admittedEnvironmentDigest=binding.payload.environmentDigest;
++must(typeof admittedEnvironmentDigest==='string' && /^sha256:[0-9a-f]{64}$/u.test(admittedEnvironmentDigest),'admitted environment digest absent');
+ const joined=owner.coldVerifyGovernedContext({stdout,stdoutDigest,transcript:sidecar,owner:{occurrence,invocation,lookup}});
+ assert.equal(joined.kind,'governed_context_correspondence','exact Claude fixed-client response correspondence');
+ const parsed=index.exchanges.map(e=>({request:e.request,response:Buffer.from(e.responseBytes,'base64'),value:JSON.parse(Buffer.from(e.responseBytes,'base64').toString('utf8'))}));
+@@ -132,12 +156,12 @@
+ // Exact actor result line is a review aid, not an automatic semantic judgment.
+ const terminalLines=stdout.toString('utf8').split('\n').filter(Boolean).flatMap(line=>{try{const v=JSON.parse(line);return v.type==='result'?[{line,value:v}]:[]}catch{return []}});
+ const terminal=one(terminalLines,'one Claude terminal result');
+-const proof={kind:'b10_native_witness_observation',status:'mechanical_cold_correspondence_only',run:output.value.run,parentDisposition:output.value.disposition,terminalResult:output.value.terminalResult,
++const proof={kind:'b11_native_witness_observation',status:'mechanical_cold_correspondence_only',selectedArtifact:selection.artifact,selectedProducer:selection.producer,launchManifestDigest:REQUIRED.manifestSha256,selectionDigest:REQUIRED.selectionSha256,run:output.value.run,parentDisposition:output.value.disposition,terminalResult:output.value.terminalResult,
+  occurrence,events:{construction:construction.eventId,testing:testingEvent.eventId,started:started.eventId,opened:opened.eventId,binding:binding.eventId,artifact:artifact.eventId},
+  testing:{resultRef:testing.resultRef,resultDigest:testing.resultDigest,producer:{cCallRef:testing.cCallRef,actorInvocationRef:testing.actorInvocationRef},fieldPath:testing.fieldPath,bytes:fixture.length,digest:sha(fixture)},
+- stdout:hashFields(stdoutPath,stdout),sidecar:hashFields(sidecarPath,sidecar),sourcePages:[a,b,c].map((x,i)=>({key:'late/'+i,pages:x.pages,source:x.source,bytes:x.bytes.length,digest:sha(x.bytes)})),
++ stdout:hashFields(stdoutPath,stdout),sidecar:hashFields(sidecarPath,sidecar),endpointAuthentication:'exact_one_whole_admitted_owner_rendered_prompt',admittedEnvironmentDigest,environmentDigestReproduced:false,sourcePages:[a,b,c].map((x,i)=>({key:'late/'+i,pages:x.pages,source:x.source,bytes:x.bytes.length,digest:sha(x.bytes)})),
+  actorReportedResult:{terminalLineSha256:sha(Buffer.from(terminal.line)),subtype:terminal.value.subtype,result:terminal.value.result},
+  correspondence:{kind:joined.kind,exchanges:joined.exchanges},denied:denials.map(x=>({request:x.request,responseDigest:sha(x.response)})),
+- limits:['W1 null-subject and selector-to-Testing relationship require independent native-event review','W4 diagnosis and any unmediated fallback require review of complete raw actor output and trace','reconstructed prefix/grant formulas mirror native owner; compare against installed actor_process','environment digest depends on matching actual inherited values; values are not recorded','not Product qualification or host-wide confinement']};
+-const target=join(parent,'observation-b10','proof.json');await writeFile(target,JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
++ limits:['W1 null-subject and selector-to-Testing relationship require independent native-event review','W4 diagnosis and any unmediated fallback require review of complete raw actor output and trace','reconstructed prefix/grant formulas mirror native owner; compare against installed actor_process','the admitted environment digest is retained as a transport fact; its full preimage was not reconstructed or verified','not Product qualification or host-wide confinement']};
++const target=join(dir,'proof.json');await writeFile(target,JSON.stringify(proof,null,2)+'\n',{flag:'wx'});
+ console.log(JSON.stringify({status:proof.status,proof:target,runId,testingResult:testing.resultRef,pages:proof.sourcePages.map(x=>x.pages),denied:denials.length}));
