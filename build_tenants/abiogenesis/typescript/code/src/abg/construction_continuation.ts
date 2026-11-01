@@ -193,6 +193,128 @@ export function projectConstructionIntentContinuations(prefix: RuntimeEventPrefi
     }));
 }
 
+/** One unfinished return obligation of a pending execution, root-first. A
+ * `recursion` level is an open child of an admitted non-terminal termination
+ * leaf; a `workflow` level is an open child of an unreturned workflow call. */
+export type PendingExecutionReturn = Readonly<{
+  relation: "root" | "workflow" | "recursion";
+  basisRef: string;
+  basisDigest: Sha256Digest;
+  frameId: string;
+  graphCallId: string;
+  parentCCallRef: string | null;
+  entryRouteRef: string | null;
+}>;
+/** Replay-derived pending execution of a Run without construction composition
+ * (registered selection/recursion). It grants no execution; the phase records
+ * whether the pending call already has dispatch or evidence facts. */
+export type PendingExecutionContinuation = Readonly<{
+  continuationKind: "pending_execution";
+  continuationRef: string;
+  continuationDigest: Sha256Digest;
+  runId: string;
+  chain: readonly PendingExecutionReturn[];
+  pendingCCallRef: string | null;
+  pendingCursorRef: string;
+  pendingCursorDigest: Sha256Digest;
+  progressedInputRef: string | null;
+  progressedInputDigest: Sha256Digest | null;
+  phase: "undispatched" | "effect_unknown";
+  causedByEventRef: string;
+  openedEventRef: string;
+  terminalEventRef: string | null;
+  status: "open" | "superseded";
+}>;
+
+/** Indexed cold projection over existing basis, frame, cursor, CCall, route and
+ * foldback facts. Closed, failed, composed, fanned-out, ambiguous or
+ * between-phase Runs (closed child without foldback, terminal without closure)
+ * yield no candidate. */
+function derivePendingExecutionContinuations(prefix: RuntimeEventPrefix, runId: string): readonly PendingExecutionContinuation[] {
+  const rows = indexedRuntimeEvents(prefix, "run:" + runId);
+  const openedRun = exactOrNull(onlyExactMatch(rows.filter(e => e.kind === "run_segment_opened")));
+  if (openedRun === null || openedRun.basisId === undefined) return [];
+  const root = projectExactExecutionBasisAtPrefix(prefix, openedRun.basisId);
+  if (root?.basisClass !== "root" || root.constructionComposition != null ||
+    indexedRuntimeEvents(prefix, "kind:run_closed").some(e => e.runId === runId) ||
+    rows.some(e => e.kind === "runtime_failure_observed" && e.aggregateType === "run")) return [];
+  const payload = (e: RuntimeEvent) => isRecord(e.payload) ? e.payload : {};
+  const closedFrames = new Set(rows.filter(e => e.kind === "frame_closed").map(e => e.aggregateId));
+  const terminalFrames = new Set(rows.filter(e => e.kind === "terminal_reached").map(e => e.aggregateId));
+  const frameOf = (basisRef: string) => exactOrNull(onlyExactMatch(rows.filter(e => e.kind === "frame_opened" && e.basisId === basisRef)));
+  const returned = new Set(rows.filter(e => e.kind === "c_call_result_admitted").map(e => e.aggregateId));
+  const folded = new Set(rows.filter(e => e.kind === "child_foldback_admitted").map(e => payload(e).childExecutionBasisRef));
+  const routeTo = (cursorRef: unknown) => rows.filter(e => e.kind === "traversal_route_admitted" && payload(e).targetCursorRef === cursorRef);
+  const chain: PendingExecutionReturn[] = [];
+  let basis: NonNullable<typeof root> = root, relation: PendingExecutionReturn["relation"] = "root";
+  let parentCCallRef: string | null = null, entryRouteRef: string | null = null;
+  for (let depth = 0; depth <= rows.length; depth++) {
+    const frame = frameOf(basis.basisRef);
+    if (frame === null || closedFrames.has(frame.aggregateId) || terminalFrames.has(frame.aggregateId) ||
+      typeof frame.graphCallId !== "string") return [];
+    chain.push(Object.freeze({ relation, basisRef: basis.basisRef, basisDigest: basis.basisDigest, frameId: frame.aggregateId,
+      graphCallId: frame.graphCallId, parentCCallRef, entryRouteRef }));
+    const calls = rows.filter(e => e.kind === "c_call_opened" && e.frameId === frame.aggregateId);
+    const children = rows.filter(e => e.kind === "basis_admitted" && e.aggregateId === frame.aggregateId &&
+      payload(e).basisClass === "child" && !folded.has(payload(e).basisRef));
+    if (children.length > 1) return [];
+    if (children.length === 1) {
+      const child = projectExactExecutionBasisAtPrefix(prefix, String(payload(children[0]!).basisRef));
+      const parentCall = child === null ? null : exactOrNull(onlyExactMatch(calls.filter(c => c.aggregateId === child.parentCCallRef)));
+      if (child === null || child.basisClass !== "child" || parentCall === null) return [];
+      const p = payload(parentCall);
+      relation = p.callClass === "workflow" && !returned.has(parentCall.aggregateId) ? "workflow"
+        : p.callClass === "leaf" && p.stageRole === "termination" && returned.has(parentCall.aggregateId) ? "recursion" : "root";
+      const entry = routeTo(p.cursorRef);
+      if (relation === "root" || entry.length > 1) return [];
+      parentCCallRef = parentCall.aggregateId; entryRouteRef = entry[0]?.eventId ?? null; basis = child;
+      continue;
+    }
+    const open = calls.filter(c => !returned.has(c.aggregateId));
+    if (open.length > 1) return [];
+    const consumed = new Set(calls.map(c => payload(c).cursorRef));
+    const positions = open.length === 1 ? open : [
+      ...rows.filter(e => e.kind === "traversal_cursor_entered" && e.aggregateId === frame.aggregateId && !consumed.has(payload(e).cursorRef)),
+      ...rows.filter(e => e.kind === "traversal_route_admitted" && e.aggregateId === frame.aggregateId &&
+        typeof payload(e).targetCursorRef === "string" && !consumed.has(payload(e).targetCursorRef))];
+    const position = exactOrNull(onlyExactMatch(positions));
+    if (position === null) return [];
+    const pp = payload(position), pendingCCallRef = open.length === 1 ? position.aggregateId : null;
+    // A returned (folded) child under the pending call is the later Result phase, not a pending dispatch.
+    if (pendingCCallRef !== null && rows.some(e => e.kind === "basis_admitted" && payload(e).parentCCallRef === pendingCCallRef)) return [];
+    const cursorRef = position.kind === "traversal_route_admitted" ? pp.targetCursorRef : pp.cursorRef;
+    const cursorDigest = position.kind === "traversal_route_admitted" ? pp.targetCursorDigest : pp.cursorDigest;
+    if (typeof cursorRef !== "string" || typeof cursorDigest !== "string") return [];
+    const entered = exactOrNull(onlyExactMatch(rows.filter(e => e.kind === "traversal_cursor_entered" && payload(e).cursorRef === cursorRef)));
+    const ep = entered === null ? null : payload(entered);
+    const progressedInputRef = typeof ep?.inputRef === "string" ? ep.inputRef : null;
+    const progressedInputDigest = typeof ep?.inputDigest === "string" ? ep.inputDigest as Sha256Digest : null;
+    // Dispatch, evidence or a started actor is another phase: its effect stays unknown.
+    const phase = pendingCCallRef !== null && rows.some(e => e.aggregateId === pendingCCallRef && e.kind === "c_call_evidenced" ||
+      e.kind === "actor_invocation_started" && payload(e).cCallRef === pendingCCallRef) ? "effect_unknown" as const : "undispatched" as const;
+    const body = { continuationKind: "pending_execution" as const, runId, chain: Object.freeze(chain), pendingCCallRef,
+      pendingCursorRef: cursorRef, pendingCursorDigest: cursorDigest as Sha256Digest, progressedInputRef, progressedInputDigest,
+      phase, causedByEventRef: position.eventId };
+    const continuationDigest = hash(body as unknown as JsonValue), continuationRef = `continuation://abiogenesis/${continuationDigest.slice(7)}`;
+    const links = indexedRuntimeEvents(prefix, "kind:continuation_reentry_link_admitted").filter(e =>
+      isRecord(e.payload) && e.payload.continuationKind === "pending_execution" && e.payload.predecessorContinuationId === continuationRef);
+    if (links.length > 1) throw new TypeError("pending execution continuation has duplicate reentry admissions");
+    return Object.freeze([deepFreeze({ ...body, continuationRef, continuationDigest, openedEventRef: position.eventId,
+      terminalEventRef: links[0]?.eventId ?? null, status: links.length === 0 ? "open" as const : "superseded" as const })]);
+  }
+  return [];
+}
+
+export function projectPendingExecutionContinuations(prefix: ValidatedRuntimeEventPrefix,
+  runId: string): readonly PendingExecutionContinuation[];
+/** @internal */
+export function projectPendingExecutionContinuations(prefix: RuntimeEventPrefix,
+  runId: string): readonly PendingExecutionContinuation[];
+export function projectPendingExecutionContinuations(prefix: RuntimeEventPrefix,
+  runId: string): readonly PendingExecutionContinuation[] {
+  return derivePendingExecutionContinuations(prefix, runId);
+}
+
 import type { LoadedProductExecutionResolution } from "../product/execution_resolution.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";

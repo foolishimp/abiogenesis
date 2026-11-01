@@ -3,7 +3,9 @@
 **Status**: Accepted HOW with S7-PC01 contraction; bounded retained-work
 implementation selected by T287_S7_RETAINED_WORK_IMPLEMENT_01. Replaces the
 overbroad pending-consumer implementation plan,
-not CONTINUATION-015 or the existing Product foundation.
+not CONTINUATION-015 or the existing Product foundation. The RC4 point-one
+registered-selection pending-execution alternative is recorded below under
+Root's structural admission; its realization is partial.
 **Authority**: Product Execution And Context Calculus; CONTINUATION-011/-012/-013/
 -014/-015/-016; RUN-002/-005/-008; PROJECTION-002/-004/-025/-026; EVENTS-018/-024/
 -027/-031; ITERATION-004/-008/-010. The EC derivation owns the complete phase,
@@ -490,6 +492,197 @@ selection/cursor transaction is durable, retains the complete prefix, then uses
 existing physical resource recovery and cold Public continuation. Fixture injection
 must not truncate history, invent failure truth or alter the model's answer.
 
+
+## Registered-Selection Pending Execution Continuation
+
+Root's RC4 point-one structural admission (2026-11-01) selects one bounded
+alternative inside existing `run.continue` under Product 810–847,
+CONTINUATION-002/-003/-004/-015/-016 and REQ-P-POLICY-024. The default library
+has no `constructionComposition`; its executive root recurses over
+`executive-step`, whose admitted registered selection enters a purpose wrapper
+(`testing/invoke` -> prepare-testing -> C2 work -> fold). `current_intent` and
+`selected_action` each require an actual ConstructionIntent and keep their
+meanings unchanged. Neither is extended, and no intent, construction
+composition, One Surface substitute or fresh retained-work invocation stands in
+for this alternative.
+
+### Typed member
+
+`run.continue/pending_execution` (`continuationKind: "pending_execution"`).
+Request, all `{ref, digest}`:
+
+| Field | Exact owner-projected meaning |
+|---|---|
+| `run` | Native predecessor Run identity, as for selected-action source Runs |
+| `continuation` | Replay-derived pending-execution continuation identity (below) |
+| `pendingCursor` | Admitted cursor of the pending occurrence |
+| `continuationInput` | Admitted progressed input origin at that cursor (producer Result or retained input) |
+| `expectedBasis` | ExecutionBasis of the pending occurrence |
+
+Result: `{continuationKind, run, graphCall, admittedIntent: null, successor,
+disposition, evidence, replay}`; non-terminal: `{continuationKind, disposition:
+held|gap_stop, run, continuation, evidence, replay}`. Refusal reuses the shared
+`run.continue` refusal schema; the failure-code set is unchanged. Metadata,
+authority slots, grant and adapter exit map equal the other two members except
+`closedDomains.continuationKind` and `cliCoordinate run continue --mode
+pending_execution`. The operation's own `run.continue` capability grant is
+required; the original invoke grant is provenance only.
+
+| Cause | Existing code | Issue path |
+|---|---|---|
+| No pending occurrence, closed/completed Run, ambiguous chain | `missing_continuation` | `/continuation` |
+| Occurrence already consumed or duplicate operation | `resolved_continuation` | `/continuation`, `/invocation` |
+| Cursor or progressed input differs from the projection | `response_mismatch` | `/pendingCursor`, `/continuationInput` |
+| Program/view/binding/basis/grant/slot differs, uncovered authority change | `basis_mismatch` | `/expectedBasis`, `/invocationAuthority` |
+| Malformed, tampered or foreign history or retained context; unknown effect phase | `replay_mismatch` | `/run`, `/continuation/effect`, `/continuation/context` |
+| Changed dependency whose refresh the owners cannot establish | `stale_action` | `/continuationInput` |
+
+### Pending relation
+
+The cold projection `projectPendingExecutionContinuations(prefix, runId)`
+derives, from existing basis, scope, cursor, CCall, route and recursion owners:
+
+1. Predecessor Run R has no `run_closed` and no admitted terminal success.
+   Interruption is established only by the Public owner's exclusive event
+   resource acquisition (existing abandoned-lock recovery); a live appender
+   cannot coexist with that lease.
+2. The chain is walked root-first through open frames. Each level has exactly
+   one unfolded child basis whose frame is open and not terminal. That child's
+   `parentCCallRef` is either an unreturned workflow call (`workflow`) or an
+   admitted non-terminal `termination` leaf (`recursion`). Each level records
+   `{relation, basisRef, basisDigest, frameId, graphCallId, parentCCallRef,
+   entryRouteRef}`, where `entryRouteRef` is the admitted route, if any, that
+   produced the parent call's cursor. At the deepest frame the pending position
+   is exactly one of two cases: one unreturned CCall with no child basis, or one
+   admitted cursor (entered or route target) that no call has consumed. The
+   progressed input is the entered cursor's `inputRef/inputDigest`. For a
+   route-target cursor it is null here, and the existing cursor-input owner
+   derives it at preparation.
+3. Preparation, with the resolved Program, checks that an `entryRouteRef` on
+   the chain is the admitted `registered_selection` application route that
+   entered the pending wrapper. It also checks that recursion obligations keep
+   their iteration ordinal and consumed allowance. These values are conserved,
+   never reset.
+4. Phase: `undispatched` when the pending CCall has no `c_call_evidenced` or
+   `actor_invocation_started` fact. Otherwise it is `effect_unknown`, which
+   preparation consumes through `native_work_effect.ts`. Unknown or
+   unsafe-to-repeat effects refuse (`replay_mismatch`) and stay unknown. These
+   cases yield no candidate: a closed, failed or composed Run; fan-out or any
+   other ambiguity; an admitted Result awaiting judgment; a closed child awaiting
+   foldback; and a folded child awaiting its parent Result.
+5. Continuation identity is `sha256` of `{continuationKind, runId, chain,
+   pendingCursor, progressedInput, causedByEventRef}`; `causedByEventRef` is the
+   pending cursor's admission event (CONTINUATION-002). Status is `open` until
+   one `continuation_reentry_link_admitted` with `continuationKind:
+   "pending_execution"` names it; more than one is invalid history.
+
+Completed Construction is not a pending position. It is the admitted producer of
+the progressed input (the folded `GovernanceWorkState`), with its Result, call,
+actor, judgment and assessment status unchanged in R.
+
+### Use and replacement
+
+Admission reuses `constructionContinuationOperationCandidate` and
+`admitConstructionContinuationReentry`: one transaction admits the
+`public_operation_admitted` workspace operation and the reentry link, consuming
+the occurrence once. The replacement Run root basis carries
+`pendingExecutionUse: {sourceRunId, continuationRef, continuationDigest,
+progressedInputRef, progressedInputDigest}` in the existing
+`execution_basis_admitted` payload. Each return obligation receives a new
+Run-local basis, scope, CCall and cursor whose payload names its predecessor
+coordinate. No new event kind, store or controller. Historical references stay
+in checked payload bindings; cross-Run envelope causation remains refused.
+
+HoG opens current waiting parents through ordinary `openCCall` for each
+obligation, root-first, then resumes the deepest child at the pending cursor with
+the progressed input (`resume`), distinct from each basis's graph-entry input.
+Completion uses ordinary child foldback, the registered-selection parent's
+remaining stages, recursion foldback and `evaluate-parent` termination, and Run
+closure predicates. No historical Result or judgment is relabelled as current.
+Generic HoG receives only the chain; default-library names never appear there.
+
+Default-library guards (`owner`, `result`, `subjectEvidence`,
+`projectGovernanceFold`, `projectGovernanceParent`) accept a predecessor-Run
+Result only when it is named by the progressed state of the admitted
+`pendingExecutionUse` on the current root basis. That is a separate predicate
+from `hasAdmittedGovernanceSourceUse`, which stays unchanged.
+
+### Retained context bytes
+
+Retained bodies are authorized only through the selected authenticated context
+-> member -> committed holder relation. `projectContinuedContextHoldersAtPrefix`
+(owner: `abg/event_prefix.ts`) takes the exact admitted progressed-input Result
+of R. It enumerates each declared native context coordinate in that value, and
+admits each `admitted_member` entry only when the unchanged resolver accepts it
+under `{runId: R}`. The holder may be an earlier prepare-selection or
+prepare-native Result that is not a `GovernanceWorkState` observation. The
+result is an owner-branded, frozen relation bound to one source Run and one
+distinct replacement Run. Its exact tuples `(holderEventRef, resultRef,
+resultDigest, memberPath, authorityScope, relativePath, digest, byteLength)` are
+held privately by the owner. The relation exposes only a frozen inspection copy.
+
+`WorksiteContextBodyUse.continuedHolders` carries that relation. The resolver
+accepts a holder in another Run only when the branded relation names that
+holder's Run as source, the consumer's Run as target, and the exact tuple. Every other check and refusal cause is unchanged:
+committed holder, exact single admission, digest, declared coordinate, scope,
+path, stale version, inline bytes and the consumer's read roots and grant. An
+unbranded or copied relation, another source Run, another member path or
+another version refuses `foreign`, `tampered` or `stale` as before. Producer
+carriage (`reuseWorksiteContextBodiesAtPrefix`) stays same-Run: new contexts
+birth inline and no cross-Run producer search exists. There is no boolean
+foreign bypass and no ancestor grant.
+
+Retained bytes establish historical identity, not current W. prepare-testing
+reobserves W. The existing currentness, native reacquisition and unknown-effect
+owners decide refresh of affected dependencies only. Unaffected completed
+support and required independent judgment remain.
+
+### Serialized correspondence
+
+| Canonical source | Generated or profile asset | Change |
+|---|---|---|
+| `product/run_operation_contracts.ts` `continue.pending_execution` | `contracts/public-operations/run/continue/operation-contract.json` | One new member |
+| same | `schemas/operations/run/continue/{request,result,non-terminal}.schema.json` | One new arm each; `refusal.schema.json` byte-unchanged |
+| `shared/capability_contracts.ts` member row | `public-functions/adapter-projection.json`, `capabilities/capability-definition-graph.json` | One member capability ref |
+| `abg/execution_basis.ts` `pendingExecutionUse`; reentry `continuationKind` | `schemas/native-runtime-observation.json` | One optional basis member; one link enum value |
+| `schemas/public-operation.schema.json` | generic | Unchanged unless the generator enumerates members |
+
+The existing generator emits these assets in owned scratch or C2. Generated
+assets are never written by hand.
+
+### Consolidation
+
+The pending-chain walk replaces the depth-one parent/child joins in
+`prepareConstructionIntentContinuation` and the single-cursor resume in the
+selected-action preparation only where those owners share an identical
+computation. `current_intent` keeps its F_P undispatched discriminator and
+`selected_action` keeps its occurrence semantics: both are distinct supported
+variants, not survivors of a retired mechanism. Each moved caller is named in
+the realization record. A retired duplicate is removed only when it has no
+supported consumer.
+
+### Realization status
+
+Recorded by the RC4 native Construction Worker on source `bcb1faf63`.
+
+Realized in this cut, with model-free tests:
+
+- `projectContinuedContextHoldersAtPrefix` and the resolver's continued-holder
+  acceptance (`abg/event_prefix.ts`).
+- `projectPendingExecutionContinuations` (`abg/construction_continuation.ts`),
+  proved on retained log bytes cut at durable boundaries of an actual installed
+  recursion/workflow Run.
+
+Neither has a production consumer yet. Their removal trigger is abandonment of
+this alternative.
+
+Open, not implemented: the Public `pending_execution` member and its generated
+publication; preparation, with the registered-selection route check and effect
+owner consumption; `pendingExecutionUse` and one-use admission; the multi-level
+HoG replacement entry; the default-library predecessor guards; and the
+pending-Testing, one-use and no-duplicate-Construction proofs over the default
+library itself. All of these remain unqualified. Root's installed interrupted
+default-library witness remains separately required.
 
 Both continuation variants use the construction-continuation owner's shared
 workspace operation envelope. Its causes are the admitted workspace invocation

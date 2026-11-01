@@ -162,9 +162,14 @@ Current limits: the observation's `task` is the exact admitted input and the C2
 owners `abg/native_worksite_execution.ts` and `abg/execution_basis.ts`. Those
 copies carry metadata and any inline births of the copied value. A direct native
 task whose context is itself a birth repeats those bodies in its observation.
-Holders are same-Run only; a replacement Run observes and births its own first
-context. A pending native context whose members name predecessor-Run holders
-refuses `foreign` and stays an unsupported residual. Exact-intent payload
+Producer carriage holders are same-Run only; a replacement Run observes and
+births its own first context. A pending native context whose members name
+predecessor-Run holders is read only through the owner-branded
+`continuedHolders` relation of `WorksiteContextBodyUse`. That relation consists
+of exact context -> member -> committed-holder tuples, derived from the admitted
+progressed input of a `run.continue/pending_execution` use
+([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-context-bytes)).
+Without that exact tuple the read still refuses `foreign`. Exact-intent payload
 recovery carries no native task context and is a separate proof. The packaged
 C2 renderer `product/worksite_command_execution.ts` is a pinned run-environment
 member. `gtl/worksite_command_execution.ts` pins its full emitted digest and

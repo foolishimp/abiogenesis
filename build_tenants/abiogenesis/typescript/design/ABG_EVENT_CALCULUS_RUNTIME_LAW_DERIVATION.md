@@ -217,6 +217,19 @@ remain unchanged. Unsupported phases/effects/support remain explicit refusals.
 This owner relation does not change fresh retained-work semantics or existing
 F_H response meaning, and supplies no qualification by declaration alone.
 
+The registered-selection pending-execution alternative
+([HOW](T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#registered-selection-pending-execution-continuation))
+applies the same law without a ConstructionIntent. Its pending truth is the
+deepest admitted open cursor reached through an admitted registered-selection
+route, together with every open ancestor return obligation (workflow,
+registered-selection and recursion), including consumed recursion allowance.
+Interruption is established by exclusive resource acquisition, not by absence
+of events. One reentry link consumes the occurrence. Replacement bases, scopes,
+CCalls and cursors are new Run-local identities with predecessor payload
+bindings. Completed producers remain historical Results; no producer reruns.
+A started dispatch without Result stays unknown under the existing effect owner
+and refuses resumption.
+
 ## Totality And Selection
 
 Existing ITERATION-004/-008/-010 govern precedence and the constructors

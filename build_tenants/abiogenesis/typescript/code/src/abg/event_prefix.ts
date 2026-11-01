@@ -822,13 +822,22 @@ export function runtimeEventPrefixDigest(prefix: RuntimeEventPrefix): Sha256Dige
 
 /** Typed fail-closed cause of one native context body read. */
 export type WorksiteContextBodyRefusalCode = "malformed" | "missing" | "pending" | "foreign" | "tampered" | "stale" | "denied";
-/** The consumer's own Run and read grant; a body never widens either. */
-export type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean }>;
+/** The consumer's own Run and read grant; a body never widens either. A
+ * continued use may additionally carry the owner-derived exact relation of one
+ * admitted pending-execution continuation; it names members, not a Run grant. */
+export type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relativePath: string) => boolean;
+  continuedHolders?: ContinuedContextHolders }>;
+/** Exact selected context -> member -> committed holder tuples of one admitted
+ * progressed input in its source Run. Only this owner constructs it; `members`
+ * is an inspection copy, the authoritative tuple set stays owner-private. */
+export type ContinuedContextHolders = Readonly<{ kind: "continued_context_holders"; sourceRunId: string;
+  targetRunId: string; inputEventRef: string; members: readonly string[] }>;
 export type WorksiteContextBodyResolution = Readonly<{ kind: "worksite_context_body"; relativePath: string; digest: Sha256Digest;
   byteLength: number; bytes: Buffer; holder: Readonly<{ eventRef: string; resultRef: string; resultDigest: Sha256Digest }> | null }> |
   Readonly<{ kind: "worksite_context_body_refusal"; code: WorksiteContextBodyRefusalCode; relativePath: string; reason: string }>;
 
 const HELD_CONTEXT_BODIES = Symbol("held_native_context_bodies");
+const CONTINUED_CONTEXT_HOLDERS = new WeakMap<object, ReadonlySet<string>>();
 type HeldContextBodies = { readonly events: Map<string, RuntimeEvent | null>; readonly members: Map<string, Map<string, readonly (string | number)[]>>;
   acquisitions: number };
 const contextScope = (c: Pick<WorksiteContextObservation, "workspaceAuthorityBasisRef" | "workspaceAuthorityBasisDigest" | "workspaceBindingIdentity" | "workspaceBindingDigest">) =>
@@ -867,6 +876,13 @@ function heldMembers(event: RuntimeEvent, held: HeldContextBodies): Map<string, 
 }
 function admittedHolderEnvelopes(prefix: RuntimeEventPrefix, key: string) {
   return indexedRuntimeEventEnvelopes(prefix, key).filter(row => row.kind === "c_call_result_admitted");
+}
+/** One exact member tuple: holder admission, member locator, context authority
+ * scope and the consumer-visible path/version. */
+function continuedHolderKey(holderEventRef: string, member: WorksiteContextBodyMember, scope: string,
+  entry: Readonly<{ relativePath: string; digest: string; byteLength: number }>): string {
+  return canonicalJson([holderEventRef, member.resultRef, member.resultDigest, [...member.path], scope,
+    entry.relativePath, entry.digest, entry.byteLength]);
 }
 
 /** @internal Producer carriage at the held-prefix owner. Each inline body that
@@ -936,7 +952,13 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
     const rows = admittedHolderEnvelopes(committed, "payload:resultRef:" + member.resultRef);
     if (rows.length === 0) return refuse("pending", "referenced Result is not admitted at this prefix");
     if (rows.length !== 1) return refuse("tampered", "referenced Result is not one exact admission");
-    if (rows[0]!.runId !== use.runId) return refuse("foreign", "referenced Result belongs to another Run");
+    // Another Run's holder is readable only through the branded relation of
+    // one admitted continuation from exactly that source Run.
+    const continued = rows[0]!.runId !== use.runId ? use.continuedHolders : null;
+    const selected = continued === undefined || continued === null ? undefined : CONTINUED_CONTEXT_HOLDERS.get(continued);
+    if (continued === undefined || continued !== null && (selected === undefined ||
+      continued.sourceRunId !== rows[0]!.runId || continued.targetRunId !== use.runId))
+      return refuse("foreign", "referenced Result belongs to another Run");
     const held = heldContextBodies(committed), event = heldResultEvent(committed, held, rows[0]!.eventId);
     const payload = event?.payload as Readonly<Record<string, JsonValue>> | undefined;
     if (event === null || payload === undefined) return refuse("pending", "referenced Result body is unavailable");
@@ -953,10 +975,52 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
       return refuse("tampered", "referenced member is not one inline body of this path");
     if (source.digest !== entry.digest || source.byteLength !== entry.byteLength) return refuse("stale", "referenced member holds another version of this path");
     const bytes = verify(entry, source.bytes);
-    return bytes === null ? refuse("tampered", "held body differs from its digest or length") : Object.freeze({ kind: "worksite_context_body",
+    if (bytes === null) return refuse("tampered", "held body differs from its digest or length");
+    if (continued !== null && selected?.has(continuedHolderKey(event.eventId, member, contextScope(context), entry)) !== true)
+      return refuse("foreign", "member is not selected by the admitted continuation's context relation");
+    return Object.freeze({ kind: "worksite_context_body",
       relativePath, digest: entry.digest, byteLength: entry.byteLength, bytes,
       holder: Object.freeze({ eventRef: event.eventId, resultRef: member.resultRef, resultDigest: member.resultDigest }) });
   } catch (error) { return refuse("malformed", `native context body read failed: ${String(error)}`); }
+}
+/** @internal The exact context -> member -> committed holder relation of one
+ * admitted progressed input in its source Run. Every `admitted_member` entry at a
+ * declared native context coordinate of that Result must be accepted by the
+ * unchanged resolver under the source Run; the holder may be any earlier
+ * committed Result of that Run (for example a preparation Result), independent of
+ * governance observations. Any refusal refuses the whole relation with its cause.
+ * Inline entries need no holder. The relation is bound to one replacement Run
+ * and grants no other member, consumer Run or source Run. */
+export function projectContinuedContextHoldersAtPrefix(prefix: RuntimeEventPrefix, sourceRunId: string,
+  inputEventRef: string, targetRunId: string): ContinuedContextHolders | Extract<WorksiteContextBodyResolution, { kind: "worksite_context_body_refusal" }> {
+  const refuse = (code: WorksiteContextBodyRefusalCode, relativePath: string, reason: string) =>
+    Object.freeze({ kind: "worksite_context_body_refusal" as const, code, relativePath, reason });
+  if (typeof targetRunId !== "string" || targetRunId === sourceRunId) return refuse("malformed", "", "a continued use names one distinct replacement Run");
+  const committed = committedBodyPrefix(prefix);
+  if (committed === undefined) return refuse("pending", "", "no committed predecessor prefix");
+  const input = runtimeEventAtPrefix(committed, inputEventRef);
+  if (input === undefined) return refuse("pending", "", "progressed input Result is not admitted at this prefix");
+  const payload = input.payload as Readonly<Record<string, JsonValue>> | undefined;
+  if (input.kind !== "c_call_result_admitted" || typeof payload !== "object" || payload === null || typeof payload.resultRef !== "string" ||
+    (payload.resultClass !== "success" && payload.resultClass !== "failure")) return refuse("malformed", "", "progressed input is not one committed Result");
+  if (input.runId !== sourceRunId) return refuse("foreign", "", "progressed input belongs to another Run");
+  const admissions = admittedHolderEnvelopes(committed, "payload:resultRef:" + payload.resultRef);
+  if (admissions.length !== 1 || admissions[0]!.eventId !== input.eventId) return refuse("tampered", "", "progressed input is not one exact admission");
+  const members = new Set<string>();
+  for (const holder of nativeContextBodyHolders(payload.value)) {
+    const context = holder.context as unknown as WorksiteContextObservation;
+    for (const entry of context.entries) {
+      if (entry.state !== "file" || entry.encoding === "base64") continue;
+      const read = resolveWorksiteContextBodyAtPrefix(committed, context, entry.relativePath, { runId: sourceRunId });
+      if (read.kind === "worksite_context_body_refusal") return read;
+      if (read.holder === null) return refuse("malformed", entry.relativePath, "admitted member resolved without a holder");
+      members.add(continuedHolderKey(read.holder.eventRef, entry.member, contextScope(context), entry));
+    }
+  }
+  const relation: ContinuedContextHolders = Object.freeze({ kind: "continued_context_holders", sourceRunId, targetRunId,
+    inputEventRef: input.eventId, members: Object.freeze([...members]) });
+  CONTINUED_CONTEXT_HOLDERS.set(relation, members);
+  return relation;
 }
 /** @internal One consumer's selected-body reader over one context at this prefix. */
 export function worksiteContextBodyReaderAtPrefix(prefix: RuntimeEventPrefix, context: WorksiteContextObservation,

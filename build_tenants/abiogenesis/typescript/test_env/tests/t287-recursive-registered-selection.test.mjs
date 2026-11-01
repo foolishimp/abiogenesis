@@ -195,6 +195,37 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
       interactionSet:env.executionBasisAdmission.interactionSet,leafPort:env.leafPort,actorRuntimeBinding:{workspaceBinding:env.workspaceBinding,artifactTruth:env.artifactTruth},
       input:env.input,inputDigest:env.rawInput.subjectDigest,closureContract:env.closureContract,eventTime:'2026-07-21T00:00:00.000Z',correlationId:'correlation://recursive-failure/'+scenario});
     const events=env.store.readAll(),runEvents=events.filter(e=>e.runId===opened.run.runId),failures=runEvents.filter(e=>e.kind==='runtime_failure_observed');
+    if(scenario==='success'){
+      // Model-free pending-execution premise: retained log bytes cut at durable
+      // event boundaries of this actual installed recursion/workflow Run.
+      const continuation=await load('abg/construction_continuation'),storeOwner=await load('abg/event_store');
+      const lines=(await readFile(join(env.scratch,'runtime','events.jsonl'))).toString('utf8').split('\n');
+      const coldAt=event=>{const i=lines.findIndex(l=>l.includes('"eventId":"'+event.eventId+'"'));assert.ok(i>=0,'durable boundary row');
+        return env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(Buffer.from(lines.slice(0,i+1).join('\n')+'\n')));};
+      const pending=event=>continuation.projectPendingExecutionContinuations(coldAt(event),opened.run.runId);
+      const leaves=runEvents.filter(e=>e.kind==='c_call_opened'&&e.payload.programLocusRef===ref('node','A'));
+      assert.equal(leaves.length,2,'one completed and one later leaf occurrence');
+      const [done,later]=leaves,row=kind=>runEvents.find(e=>e.aggregateId===later.aggregateId&&e.kind===kind);
+      const [p]=pending(row('c_call_fibre_selected'));
+      assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow'],'unfinished recursive and workflow returns');
+      assert.equal(p.status,'open');assert.equal(p.phase,'undispatched');assert.equal(p.pendingCCallRef,later.aggregateId);
+      assert.equal(p.pendingCursorRef,later.payload.cursorRef);assert.equal(p.pendingCursorDigest,later.payload.cursorDigest);
+      assert.notEqual(p.pendingCCallRef,done.aggregateId,'completed work is not a pending position');
+      const termination=runEvents.find(e=>e.kind==='c_call_opened'&&e.aggregateId===p.chain[1].parentCCallRef);
+      assert.equal(termination.payload.stageRole,'termination');
+      assert.ok(runEvents.some(e=>e.kind==='c_call_result_admitted'&&e.aggregateId===termination.aggregateId),'non-terminal parent evaluation is admitted');
+      const producer=runEvents.find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
+      assert.equal(producer?.payload.resultClass,'success','progressed input is an admitted producer Result');
+      assert.equal(producer.payload.valueDigest,p.progressedInputDigest);
+      assert.notEqual(p.progressedInputRef,env.executionBasis.rawInputAdmissionRef,'progressed input is not graph-entry input');
+      assert.deepEqual(pending(row('c_call_fibre_selected')),[p],'cold acquisition is deterministic');
+      assert.match(p.continuationRef,/^continuation:\/\/abiogenesis\//);assert.equal(p.continuationDigest,(await load('shared/digests')).sha256Canonical((({continuationRef,continuationDigest,openedEventRef,terminalEventRef,status,...body})=>body)(p)));
+      assert.equal(pending(row('c_call_evidenced'))[0].phase,'effect_unknown','evidence without Result keeps its effect unknown');
+      assert.deepEqual(pending(row('c_call_result_admitted')),[],'an admitted Result awaiting judgment is another phase');
+      const fold=runEvents.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.parentCCallRef===p.chain[2].parentCCallRef);
+      assert.equal(fold.length,1);assert.deepEqual(pending(fold[0]),[],'a folded child awaiting its parent Result is another phase');
+      assert.deepEqual(pending(runEvents.find(e=>e.kind==='run_closed')),[],'a closed Run has no pending execution');
+    }
     const parentResults=runEvents.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===ref('graph-function','recursive-parent'));
     assert.equal(parentResults[1].payload.value.measurements[0].accepted,false);assert.deepEqual(parentResults[1].payload.value.task,input.task);
     assert.equal(runEvents.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.applicationRef!==undefined).length,scenario==='success'?2:1);
