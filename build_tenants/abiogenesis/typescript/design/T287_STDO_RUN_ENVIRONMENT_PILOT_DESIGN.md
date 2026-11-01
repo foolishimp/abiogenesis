@@ -1167,3 +1167,95 @@ automatic retry, universal STDO enforcement, new frame interpreter,
 qualification or release work is selected. Executive `/root` consumes the
 frozen requirement/design delta and its evidence manifest. Only its later
 bounded grant, after required independent review, can activate implementation.
+
+## Governed Context Endpoint, Fixed Client, Adapter And Correspondence (RC3 Increment B)
+
+The per-occurrence endpoint is a finite request/reply Unix-domain socket
+owned by the individual native actor lifecycle. `reserveGovernedContextEndpoint`
+reserves its coordinates inert, before transport identity exists, so the
+endpoint, client and executable enter the bound actor environment; every
+request then refuses with `endpoint_inactive`. After intent admission the
+owner binds the lookup it constructed for the actual admitted occurrence
+(foreign occurrences and copies refuse). Only the admitted
+`actor_process_started` event activates it. The endpoint closes on
+interruption, completion and failure, and later requests refuse or find no
+socket. Each connection carries one JSON line of exactly
+`{requestId,key,offset,maxBytes}`. Every exchange, served or refused, is
+retained with its complete request and response bytes and their digests. The
+actor supplies no authority, path, grant or Context.
+
+`abg/governed_context_client.ts` is the fixed installed client
+(`build/code/src/abg/governed_context_client.js`). It forwards only the four
+request members and writes the exact response bytes to stdout without a
+trailing newline, so the provider's tool-result content can be compared
+byte for byte.
+
+`support/governed-context/host_adapter.py` is copied by the build to
+`contracts/governed-context/host_adapter.py` and inventoried with the fixed
+client. Per request the owner starts it short-lived with an exact Python
+executable (`python -I -S -B`, so no bytecode is written into the installed release). It verifies the installed released GC03
+supplement `urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1`
+by its `INVENTORY.json` SHA-256
+`fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003` and each
+imported member digest under the installed root, imports only from that root,
+and refuses any source checkout or ambient `sys.path` fallback. It calls
+`HostLookupBinding.read` with live owner callbacks over its stdio and mints no
+grant. The product manifest records the adapter and client digests, the GC03
+identity and inventory digest, and the required Python major version.
+
+For the Claude `stream-json` profile, before the existing Result is admitted,
+every retained exchange must have exactly one `Bash` `tool_use`. Its command
+must equal `governedContextCommand`: the owner-named executable, client path
+and canonical four-member request. Its wire bytes must equal that request, and
+its single `tool_result` content must equal the complete response bytes.
+Invocation candidates are command-bearing invocations only: a `tool_use` of
+any tool name whose string `input.command` names the client, its environment
+or the endpoint. Narrative tool input, such as a `StructuredOutput` summary or
+a `Bash` description, is not an invocation. A command-bearing invocation
+without such an exchange is a substitution. Marker or requestId substrings do
+not establish the call. Missing, substituted, truncated, errored or unjoinable
+evidence refuses with the existing `actor_process_invocation_refused` class.
+Each exchange's disposition must equal the one derived from its exact response
+bytes. The transcript is written beside the raw stdout artifact.
+
+The owner passes its actual reserved invocation to `governedContextPrompt`,
+which renders the fixed-client command form, one endpoint identity line
+carrying `JSON.stringify(invocation.endpoint)` and the permitted keys; the
+owner appends exactly one such prompt to the admitted transport arguments. The
+endpoint is nonsecret Unix-socket metadata already supplied in the actor
+environment. Naming it grants no authority and claims no OS confinement. The
+command form, client and environment are unchanged.
+
+Cold proof (`coldVerifyGovernedContext`) requires reacquired owner facts: a
+closed cold lookup (`reacquireOwnedContextLookupCold`), the occurrence and the
+fixed-client invocation. The receiver reconstructs that invocation before cold
+proof: the install-selected executable and client plus the candidate endpoint
+from the unadmitted transcript must reproduce, by exact whole equality, the one
+admitted `--append-system-prompt` value under the owner keys and page bound. A
+missing, altered or co-substituted endpoint, a prompt without the endpoint
+identity line, and zero or several appended prompts refuse there; there is no
+fallback. `coldVerifyGovernedContext` receives no prompt or environment and
+assumes the authenticated invocation. The transcript is an index only; its
+occurrence, binding and invocation must equal the owner's, every page passes
+the owner cold join, and a page relabelled as refusal refuses. Without owner
+facts cold proof refuses. The admitted transport `environmentDigest` remains a
+transport fact; this route does not reconstruct its full preimage.
+
+RunEnvironment carries the governed-context policy as ordinary Context data. A
+private `Program.policies["abg.governed_context"]` value names one Context
+member; the constructor role binds its complete bytes through a source binding
+backed by one dependency inventory row. Selection authenticates that chain over
+the existing declaration and role-evidence owners; the declaration schema,
+`corpusAccess`, accesses, resources and `pythonPath` are unchanged, and
+`read_context` grants no Python execution. Python starts only through the
+owner execution gate's permit for the policy's pinned executable, adapter and
+fixed invocation. The adapter receives the owner's `deriveGc03HostLookup`
+derivation (the full released `context.assemble` request and the owner
+selection members), runs the released assembly and `_recheck` in process, and
+passes the raw complete Context and Recheck to the released
+`HostLookupResolution` and `HostLookupBinding.read`. It forwards GC03's
+`{id,sha256}` retained-evidence requests to `resolveGc03RetainedArtifact`
+(T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN, released GC03 bridge). No provider
+preflight or persisted Context is required. Tests use model-free and captured-protocol data only. Actual fixed-client delivery by a native
+installed RC3 occurrence is a separate Root-controlled witness and is not
+claimed here.

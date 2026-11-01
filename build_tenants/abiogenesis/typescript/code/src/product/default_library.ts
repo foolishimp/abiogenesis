@@ -189,9 +189,12 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   }
   // A short strict UTF-8 stream is its own whole display: one exact range over
   // the cited bytes, BOM and line endings included. Completeness is claimed
-  // only when the carried body is the cited stream's declared length/digest.
-  if (bytes.length <= 8192 && (value.byteLength === undefined || value.byteLength === bytes.length) &&
-      (value.digest === undefined || value.digest === sha256Bytes(bytes)))
+  // only when the carried body has a valid declared length and digest and
+  // both match it; missing or malformed metadata keeps the bounded display.
+  const declaredLength = typeof value.byteLength === "number" && Number.isSafeInteger(value.byteLength) && value.byteLength >= 0;
+  const declaredDigest = typeof value.digest === "string" && /^sha256:[0-9a-f]{64}$/u.test(value.digest);
+  if (bytes.length <= 8192 && declaredLength && value.byteLength === bytes.length &&
+      declaredDigest && value.digest === sha256Bytes(bytes))
     return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
       rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: false },
       displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 },

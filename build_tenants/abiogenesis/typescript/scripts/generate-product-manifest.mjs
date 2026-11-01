@@ -1,5 +1,6 @@
 import { constructDefaultGovernanceLibraryModulePublication, DEFAULT_LIBRARY_CONTEXT_INVENTORY, DEFAULT_LIBRARY_STDO_SOURCE } from "../build/code/src/gtl/default_library.js";
 import { DEFAULT_LIBRARY_POLICY } from "../build/code/src/product/default_library.js";
+import { GC03_SELECTED_RELEASE } from "../build/code/src/abg/governed_context.js";
 import { NATIVE_SEMANTIC_ASSESSMENT_CONTRACT, NATIVE_SEMANTIC_ASSESSMENT_SCHEMA_TEXT } from "../build/code/src/product/semantic_job.js";
 import { constructSelfConformanceAssetRows } from "../build/code/src/product/public_contract_publication.js";
 import * as v from "valibot";
@@ -437,6 +438,25 @@ for (const locator of bundledDependencyClosure(bundledDependencyNames)) {
   await listFiles(expectedRoot);
 }
 
+// Governed context (RC3 Increment B): the tracked pinned adapter is copied into
+// the generated contracts before inventory; the fixed client is the compiled
+// build member. The selection records the exact released GC03 identity and the
+// Python contract; the runtime owner binds the exact executable digest. No GC03
+// source is bundled and no source checkout is a fallback.
+const GOVERNED_CONTEXT_ADAPTER_PATH = "contracts/governed-context/host_adapter.py";
+const GOVERNED_CONTEXT_CLIENT_PATH = "build/code/src/abg/governed_context_client.js";
+const GOVERNED_CONTEXT_SELECTION_PATH = "contracts/governed-context/selection.json";
+await mkdir(join(root, "contracts/governed-context"), { recursive: true });
+await copyFile(join(root, "code/support/governed-context/host_adapter.py"), join(root, GOVERNED_CONTEXT_ADAPTER_PATH));
+await writeFile(join(root, GOVERNED_CONTEXT_SELECTION_PATH), `${canonicalJson({
+  kind: "abg_governed_context_selection", schemaVersion: "5.0.0",
+  adapter: { path: GOVERNED_CONTEXT_ADAPTER_PATH, sha256: await sha256File(join(root, GOVERNED_CONTEXT_ADAPTER_PATH)) },
+  client: { path: GOVERNED_CONTEXT_CLIENT_PATH, sha256: await sha256File(join(root, GOVERNED_CONTEXT_CLIENT_PATH)) },
+  gc03: { ...GC03_SELECTED_RELEASE },
+  python: { major: 3, invocation: ["-I", "-S", "-B"], executableBinding: "exact canonical path, executable digest and reported version bound by the native owner per request" },
+  sourceCheckoutFallback: false,
+})}\n`, "utf8");
+
 // The immutable development cut is the package npm actually projects, not a
 // separately predicted traversal of the mutable source and dependency trees.
 // Placeholders keep the two subsequently generated mandatory members visible
@@ -468,6 +488,9 @@ if (
   !projectedPaths.includes(CAPABILITY_DEFINITION_GRAPH_ASSET_PATH)
 ) {
   throw new Error("npm pack projection omits a mandatory Product cut member");
+}
+for (const path of [GOVERNED_CONTEXT_ADAPTER_PATH, GOVERNED_CONTEXT_CLIENT_PATH, GOVERNED_CONTEXT_SELECTION_PATH]) {
+  if (!projectedPaths.includes(path)) throw new Error(`npm pack projection omits governed-context member ${path}`);
 }
 const productRelativeLocators = projectedPaths.filter(
   (path) =>

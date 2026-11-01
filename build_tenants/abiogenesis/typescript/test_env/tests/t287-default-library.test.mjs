@@ -18,6 +18,45 @@ import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/
 import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
+// Authentic retained RC2 stdout (4616 bytes, sha256 bee000fc…87b6) and its historical producer citation from
+// rc3-operator-inputs/increment-a-01/retained-stdout-custody.json, embedded so this test reads no untracked operator path.
+const RETAINED_STDOUT_CUSTODY=Object.freeze({"sourcePath":"/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/setup-001/resources/archives/worksite-command-execution/149ac91a90f69c3b4f40c585eccbeca9afd8203c07d4605d6a79736e569ecbce/51b7537287cdf3e55522f1200482e81526a3d608d62c59e98b2bed2ef0fe2455/result.json","sourceSha256":"b2d43b8976ca84d9202661bf8a6a8422f5279d0a375db1791e7cae82959fc2f8","sourceBytes":5484013,"helperArtifactRef":"worksite-command-helper-artifact://abiogenesis/ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","helperArtifactDigest":"sha256:ce43471cd42e48566357375ad44f9c35d6daa8c68c1840e5575a3c472e4222e5","commandId":"command://abiogenesis/rc2-dogfood/fixture-repair-01/fixture-tests","ordinal":4,"observationRef":"worksite-command-observation://abiogenesis/10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","observationDigest":"sha256:10718e7ba44510b0d85985fd4bdd87b433da4b0d461829b7e7164215a3fdf4eb","stream":"stdout","streamSha256":"bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","streamBytes":4616,"declaredStreamDigest":"sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6","admittedTestingResult":"result://abiogenesis/3607433aa2790c7a2e0bdd0b49f7a3b1bc54687844c3d5bcc2c9dfad931a1968","resultSource":"failure-008.json","scope":"Byte-identical extraction with supplied producer coordinates; no new ABG event or semantic judgment"});
+const RETAINED_STDOUT_BASE64=[
+  'KG5vZGU6MzMyODgpIEV4cGVyaW1lbnRhbFdhcm5pbmc6IFZNIE1vZHVsZXMgaXMgYW4gZXhwZXJpbWVudGFsIGZlYXR1cmUgYW5kIG1pZ2h0IGNoYW5nZSBhdCBhbnkgdGltZQooVXNlIGBub2RlIC0tdHJhY2Utd2FybmluZ3MgLi4uYCB0',
+  'byBzaG93IHdoZXJlIHRoZSB3YXJuaW5nIHdhcyBjcmVhdGVkKQrinJYgVTEtUDUtMDIgYWN0dWFsIEMwIHN1Y2Nlc3NvciBhbmQgZXZlcnkgYWZmZWN0ZWQgY3VycmVudG5lc3MgY29uc3VtZXIgKDQ0Mi45Njk1NDJtcykKKG5vZGU6MzMz',
+  'MDQpIEV4cGVyaW1lbnRhbFdhcm5pbmc6IFZNIE1vZHVsZXMgaXMgYW4gZXhwZXJpbWVudGFsIGZlYXR1cmUgYW5kIG1pZ2h0IGNoYW5nZSBhdCBhbnkgdGltZQooVXNlIGBub2RlIC0tdHJhY2Utd2FybmluZ3MgLi4uYCB0byBzaG93IHdo',
+  'ZXJlIHRoZSB3YXJuaW5nIHdhcyBjcmVhdGVkKQrinJQgbGlicmFyeSBwcmVwYXJlLXRlc3RpbmcgcmV1c2VzIHRoZSBpbnZva2luZyBwcml2YXRlIG9wZXJhdGlvbiBhbmQgaXRzIGFjdHVhbCBGX0Qgb3JpZ2luICgxMzQuNDA3NzkxbXMp',
+  'CuKEuSBDYW5vbmljYWwgbW9kdWxlLXB1YmxpY2F0aW9uIGRlZmluaXRpb24gYW5kIGxlYWYvZGVzY3JpcHRvciBiaW5kaW5nIHdpdGggYWN0dWFsIGxpYnJhcnkgcHJlcGFyYXRpb24vbWF0Y2hlciBhbmQgY29sZCBGX0QgUmVzdWx0L0ov',
+  'ZXZpZGVuY2UgcmVsYXRpb25zOyByYXcvZm9yZWlnbi90YW1wZXJlZCBkZWZpbml0aW9uIGFuZCBtYXRlcmlhbGl6YXRpb24gaWRlbnRpdGllcyByZWZ1c2UuIFBoeXNpY2FsIGNvbnN0cnVjdG9ycyBhcmUgcmVhbC4gU291cmNlL2Vudmly',
+  'b25tZW50L2NvdmVyL0NDYWxsIGFuZCBpbXBsZW1lbnRhdGlvbi1zZXQgbG9va3VwcyBhcmUgY29udHJvbGxlZCBsb3dlciBwcmVtaXNlcywgbm90IG5ldyBuYXRpdmUgb3IgaW5zdGFsbGVkIGFkbWlzc2lvbi4K4pyUIGxpYnJhcnkgVGVz',
+  'dGluZyBmaXJzdC1yZWZ1c2FsIGRpYWdub3N0aWNzIGRpc3Rpbmd1aXNoIGFjdHVhbCBudWxsYWJsZSBvd25lciByZWxhdGlvbnMgd2l0aG91dCBjaGFuZ2luZyBndWFyZHMgKDUzLjQ2M21zKQrihLkgQWN0dWFsIGxpYnJhcnkvdGFzay9u',
+  'YXRpdmUgb2NjdXJyZW5jZS9kZWNsYXJhdGlvbi9jbG9zZWQtc291cmNlIGNvZGUgYW5kIHBoeXNpY2FsIGNvbnRleHQgY2hlY2tzLiBTeW50aGV0aWMgaW52b2NhdGlvbi1yb290IHBsdXMgc291cmNlL2Vudmlyb25tZW50L2NvdmVyL0ND',
+  'YWxsL3NldC90ZXJtaW5hbCBwcmVtaXNlcyBhcmUgY29udHJvbGxlZDsgdGhlIGVudGVyZWQtcmVmdXNlZCBjYWxsYmFjayBjYXNlIHRlc3RzIG9ubHkgaXRzIGhhbmRvZmYgY29udHJhY3QuIE5vIGluc3RhbGxlZCBUZXN0aW5nL0MyLCBh',
+  'Y3R1YWwgZmlyc3QtbnVsbCBvciBuby1lZmZlY3RzIGNsYWltLgrihLkgdGVzdHMgMwrihLkgc3VpdGVzIDAK4oS5IHBhc3MgMgrihLkgZmFpbCAxCuKEuSBjYW5jZWxsZWQgMArihLkgc2tpcHBlZCAwCuKEuSB0b2RvIDAK4oS5IGR1cmF0',
+  'aW9uX21zIDEzODEuOTY1NTgzCgrinJYgZmFpbGluZyB0ZXN0czoKCnRlc3QgYXQgdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6NTk3OjEK4pyWIFUxLVA1LTAyIGFjdHVh',
+  'bCBDMCBzdWNjZXNzb3IgYW5kIGV2ZXJ5IGFmZmVjdGVkIGN1cnJlbnRuZXNzIGNvbnN1bWVyICg0NDIuOTY5NTQybXMpCiAgRXJyb3I6IEVOT0VOVDogbm8gc3VjaCBmaWxlIG9yIGRpcmVjdG9yeSwgb3BlbiAnL1VzZXJzL2ppbS9zcmMv',
+  'YXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8x',
+  'NDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJv',
+  'eC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtc2VtYW50aWMtcmV2aXNpb24udGVzdC5tanMnCiAgICAgIGF0IGFzeW5jIG9wZW4gKG5vZGU6aW50ZXJuYWwvZnMvcHJv',
+  'bWlzZXM6NjQyOjI1KQogICAgICBhdCBhc3luYyBPYmplY3QucmVhZEZpbGUgKG5vZGU6aW50ZXJuYWwvZnMvcHJvbWlzZXM6MTI3OToxNCkKICAgICAgYXQgYXN5bmMgc2VtYW50aWNGaXh0dXJlSGVscGVycyAoZmlsZTovLy9Vc2Vycy9q',
+  'aW0vc3JjL2FwcHMvYWJpb2dlbmVzaXMvLmFpLXdvcmtzcGFjZS93b3JrL1QyODdfUkVMRUFTRV9SRVNVTVBUSU9OXzAxL3JjMi1kb2dmb29kLTAxL3NldHVwLTAwMS9yZXNvdXJjZXMvYXJjaGl2ZXMvd29ya3NpdGUtY29tbWFuZC1leGVj',
+  'dXRpb24vMTQ5YWM5MWE5MGY2OWMzYjRmNDBjNTg1ZWNjYmVjYTlhZmQ4MjAzYzA3ZDQ2MDVkNmE3OTczNmU1NjllY2JjZS81MWI3NTM3Mjg3Y2RmM2U1NTUyMmYxMjAwNDgyZTgxNTI2YTNkNjA4ZDYyYzU5ZTk4YjJiZWQyZWYwZmUyNDU1',
+  'L3NhbmRib3gvYnVpbGRfdGVuYW50cy9hYmlvZ2VuZXNpcy90eXBlc2NyaXB0L3Rlc3RfZW52L3N1cHBvcnQvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMubWpzOjM2NDoxNykKICAgICAgYXQgYXN5bmMgc2VtYW50',
+  'aWNEYXRhIChmaWxlOi8vL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZl',
+  'cy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhk',
+  'NjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6Mzc1',
+  'OjE5KQogICAgICBhdCBhc3luYyBPYmplY3Quc2VtYW50aWNGb2xkQ29uc3VtZXIgW2FzIHNlbWFudGljRm9sZF0gKGZpbGU6Ly8vVXNlcnMvamltL3NyYy9hcHBzL2FiaW9nZW5lc2lzLy5haS13b3Jrc3BhY2Uvd29yay9UMjg3X1JFTEVB',
+  'U0VfUkVTVU1QVElPTl8wMS9yYzItZG9nZm9vZC0wMS9zZXR1cC0wMDEvcmVzb3VyY2VzL2FyY2hpdmVzL3dvcmtzaXRlLWNvbW1hbmQtZXhlY3V0aW9uLzE0OWFjOTFhOTBmNjljM2I0ZjQwYzU4NWVjY2JlY2E5YWZkODIwM2MwN2Q0NjA1',
+  'ZDZhNzk3MzZlNTY5ZWNiY2UvNTFiNzUzNzI4N2NkZjNlNTU1MjJmMTIwMDQ4MmU4MTUyNmEzZDYwOGQ2MmM1OWU5OGIyYmVkMmVmMGZlMjQ1NS9zYW5kYm94L2J1aWxkX3RlbmFudHMvYWJpb2dlbmVzaXMvdHlwZXNjcmlwdC90ZXN0X2Vu',
+  'di90ZXN0cy90Mjg3LW5hdGl2ZS13b3JrLWN1cnJlbnRuZXNzLWNvbnN1bWVycy50ZXN0Lm1qczo0NjQ6MTgpCiAgICAgIGF0IGFzeW5jIFRlc3RDb250ZXh0Ljxhbm9ueW1vdXM+IChmaWxlOi8vL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlv',
+  'Z2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zvb2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkw',
+  'ZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1MzcyODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90',
+  'ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtd29yay1jdXJyZW50bmVzcy1jb25zdW1lcnMudGVzdC5tanM6NjAxOjM5KQogICAgICBhdCBhc3luYyBUZXN0LnJ1biAobm9kZTppbnRl',
+  'cm5hbC90ZXN0X3J1bm5lci90ZXN0OjExMTM6NykKICAgICAgYXQgYXN5bmMgc3RhcnRTdWJ0ZXN0QWZ0ZXJCb290c3RyYXAgKG5vZGU6aW50ZXJuYWwvdGVzdF9ydW5uZXIvaGFybmVzczozNTg6MykgewogICAgZXJybm86IC0yLAogICAg',
+  'Y29kZTogJ0VOT0VOVCcsCiAgICBzeXNjYWxsOiAnb3BlbicsCiAgICBwYXRoOiAnL1VzZXJzL2ppbS9zcmMvYXBwcy9hYmlvZ2VuZXNpcy8uYWktd29ya3NwYWNlL3dvcmsvVDI4N19SRUxFQVNFX1JFU1VNUFRJT05fMDEvcmMyLWRvZ2Zv',
+  'b2QtMDEvc2V0dXAtMDAxL3Jlc291cmNlcy9hcmNoaXZlcy93b3Jrc2l0ZS1jb21tYW5kLWV4ZWN1dGlvbi8xNDlhYzkxYTkwZjY5YzNiNGY0MGM1ODVlY2NiZWNhOWFmZDgyMDNjMDdkNDYwNWQ2YTc5NzM2ZTU2OWVjYmNlLzUxYjc1Mzcy',
+  'ODdjZGYzZTU1NTIyZjEyMDA0ODJlODE1MjZhM2Q2MDhkNjJjNTllOThiMmJlZDJlZjBmZTI0NTUvc2FuZGJveC9idWlsZF90ZW5hbnRzL2FiaW9nZW5lc2lzL3R5cGVzY3JpcHQvdGVzdF9lbnYvdGVzdHMvdDI4Ny1uYXRpdmUtc2VtYW50',
+  'aWMtcmV2aXNpb24udGVzdC5tanMnCiAgfQo='].join('');
 const canonicalPackageRoot=new URL('../..',import.meta.url).pathname;
 const packageRoot=process.env.ABI5_DEFAULT_LIBRARY_BUILD_ROOT??canonicalPackageRoot;
 const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/index.js')).href);
@@ -530,10 +569,11 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   assert.equal((await planningAssemblyFor(oversized)).cause,'declared_bound_overflow');
 });
 test('selector planning delivers a short strict UTF-8 stream whole and keeps longer, binary or unverified streams as explicit omissions',async()=>{
-  // Retained RC2 witness: the actual 4616-byte strict UTF-8 stdout whose ENOENT the cue display dropped.
-  const operatorInputs=new URL('../../../../../rc3-operator-inputs/increment-a-01/',import.meta.url);
-  const custody=JSON.parse(await readFile(new URL('retained-stdout-custody.json',operatorInputs),'utf8')),witness=await readFile(new URL('retained-stdout.txt',operatorInputs));
+  // Retained RC2 witness, self-contained: the actual 4616-byte strict UTF-8 stdout whose ENOENT the cue display dropped,
+  // with its historical producer citation. No operator path is read; the digest check binds these bytes to the citation.
+  const custody=RETAINED_STDOUT_CUSTODY,witness=Buffer.from(RETAINED_STDOUT_BASE64,'base64');
   assert.equal(witness.length,4616);assert.equal(witness.length,custody.streamBytes);assert.equal(product.sha256Bytes(witness),custody.declaredStreamDigest);
+  assert.equal(custody.declaredStreamDigest,'sha256:bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6');assert.equal(custody.streamSha256,custody.declaredStreamDigest.slice(7));
   const stream=(bytes,encoding='base64',digest=product.sha256Bytes(bytes))=>({kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding,
     ...(encoding==='utf8'?{text:bytes.toString()}:{payload:bytes.toString('base64')}),byteLength:bytes.length,digest});
   // Constructed planning carrier over the retained producer coordinates; no new admission or event is claimed.
@@ -582,6 +622,14 @@ test('selector planning delivers a short strict UTF-8 stream whole and keeps lon
     const shown=project(stream(bytes)).stdout;assert.equal(shown.displayUnavailable,'not_utf8');omitted(shown,bytes);}
   // A short body that is not the cited stream (declared digest mismatch) never claims completeness.
   const unverified=project(stream(unicode,'base64',product.sha256Bytes(Buffer.from('other')))).stdout;assert.equal(unverified.complete,false);assert.equal(unverified.rawBody.omittedFromPlanningView,true);
+  // Completeness needs a valid declared byte length and digest that both match: missing, malformed or mismatched metadata never claims it.
+  const withMeta=(bytes,patch)=>{const s={...stream(bytes),...patch};for(const[k,v]of Object.entries(patch))if(v===undefined)delete s[k];return s;};
+  for(const bytes of [witness,unicode])for(const patch of [{byteLength:undefined},{digest:undefined},{byteLength:undefined,digest:undefined},{byteLength:bytes.length+1},{byteLength:bytes.length-1},
+    {byteLength:String(bytes.length)},{byteLength:-1},{byteLength:1.5},{digest:product.sha256Bytes(bytes).toUpperCase()},{digest:product.sha256Bytes(bytes).slice(7)},{digest:null},{byteLength:null}]){
+    const shown=project(withMeta(bytes,patch)).stdout;assert.equal(shown.complete,false,JSON.stringify(Object.keys(patch)));assert.equal(shown.rawBody.omittedFromPlanningView,true);
+    assert.ok(shown.omittedByteCount>0);}
+  // The truncated witness carried under the witness's own length/digest is not the cited stream.
+  assert.equal(project(withMeta(witness.subarray(0,4615),{byteLength:4616,digest:custody.declaredStreamDigest})).stdout.complete,false);
   // An empty strict stream is complete with nothing to display.
   whole(project(stream(Buffer.alloc(0))).stderr,Buffer.alloc(0));
 });
