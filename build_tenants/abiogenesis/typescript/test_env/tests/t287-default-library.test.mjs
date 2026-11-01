@@ -853,7 +853,7 @@ test('native observation facts preserve captured history through preparation adm
         for(const line of lines)assert.ok(facts[i].observed.commandResults[j].stdout.excerpts.some(e=>e.text.includes(line)),line);
       }
       const next=fullAssembly(task),priorAssembly=fullAssembly(prior);assert.deepEqual(next.request.responseJsonSchema,priorAssembly.request.responseJsonSchema);
-      assert.deepEqual(next.plan,priorAssembly.plan);assert.equal(next.envelope.inputDigest,product.sha256Canonical(task));assert.deepEqual(next.envelope.task,task);
+      assert.deepEqual(next.plan,priorAssembly.plan);assert.equal(next.envelope.inputDigest,product.sha256Canonical(task));assert.equal(Object.hasOwn(next.envelope,'task'),false,'the envelope binds the admitted task by input digest, not a second whole copy');
       assert.ok(Buffer.byteLength(next.request.prompt)<Buffer.byteLength(priorAssembly.request.prompt));assert.equal(product.sha256Canonical(input),before);
       metrics.push({name,observations:input.observations.length,oldCompletePromptBytes:Buffer.byteLength(priorAssembly.request.prompt),newCompletePromptBytes:Buffer.byteLength(next.request.prompt),factsBytes:Buffer.byteLength(JSON.stringify(facts)),namedFailureLines:namedLines});
     }

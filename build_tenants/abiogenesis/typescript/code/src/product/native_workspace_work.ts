@@ -6,7 +6,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { isWorkspaceAuthorityBasis, type WorkspaceAuthorityBasis, type WorkspaceBinding } from "./environment.js";
 import { isCapabilityGrantValue, type CapabilityGrant } from "./invocation.js";
-import { exactWorkspaceBinding, isWorksiteContextObservation, normalizeWorksiteRelativePath, type WorksiteContextObservation,
+import { exactWorkspaceBinding, isWorksiteContextObservation, normalizeWorksiteRelativePath, worksiteContextIdentityEntry, type WorksiteContextObservation,
   type WorksiteEffectRefusal } from "./worksite_effect.js";
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import type { LeafExecutionAuthority } from "../implementation/contracts.js";
@@ -130,8 +130,9 @@ export function nativeWorkspaceWorkAuthorityMatches(task: NativeWorkspaceWorkTas
     a.actorRef === e.actorRef && a.capabilityGrantRef === task.capabilityGrant.grantRef &&
     a.capabilityGrantDigest === task.capabilityGrant.grantDigest && canonicalEquals(task, e.rawInputValue);
 }
+/** Physical facts only: body carriage never makes a path changed. */
 export function nativeWorkspaceChangedPaths(before: WorksiteContextObservation, after: WorksiteContextObservation): readonly string[] {
-  const rows = (context: WorksiteContextObservation) => new Map(context.entries.map(e => [e.relativePath, e]));
+  const rows = (context: WorksiteContextObservation) => new Map(context.entries.map(e => [e.relativePath, worksiteContextIdentityEntry(e)]));
   const a = rows(before), b = rows(after);
   return [...new Set([...a.keys(), ...b.keys()])].sort().filter(path => !canonicalEquals(a.get(path) ?? null, b.get(path) ?? null));
 }

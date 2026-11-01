@@ -264,6 +264,35 @@ test('actual observation remains independent of report and consumer judgment',as
     evidenceClass:'probabilistic_transport',cCallRef:p.call.cCallRef,transportDigest:value.provenance.transportDigest,outputDigest:product.sha256Canonical(value)}]}),true);
   assert.equal(native.isNativeWorkspaceWorkObservation({...value,changedPaths:[]}),false);
 });
+// The member below is a controlled lower premise standing for one the held-prefix
+// owner issued; the native effect owner neither resolves nor re-hashes it.
+test('admitted-member task context keeps unchanged bodies by reference and births changed bytes inline once',async t=>{
+  const env=await fixture(t),inline=env.task.context,keep=inline.entries.findIndex(e=>e.relativePath==='keep.txt');
+  const member={resultRef:'result://native-owner/holder',resultDigest:digest('holder'),path:['context','entries',keep]};
+  const compact=deepFreeze({...inline,entries:inline.entries.map((e,i)=>{if(i!==keep)return e;const {bytes:_b,encoding:_e,...facts}=e;return {...facts,encoding:'admitted_member',member};})});
+  assert.equal(product.isWorksiteContextObservation(compact),true);assert.equal(product.sameWorksiteContextIdentity(compact,inline),true);
+  const task=native.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,
+    capabilityGrant:env.capabilityGrant,context:compact,outcome:'Perform the declared local work',instructions:['Read the selected input.'],
+    readFirst:['target.txt'],writeRoots:['target.txt'],checks:[]});
+  assert.equal(native.isNativeWorkspaceWorkTask(task),true);
+  const p=await prepare(t,{...env,task});
+  // Physical currentness remains the effect owner's fresh observation, also for a member-carried file.
+  await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'outside change\n');
+  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>({request:p.request})),/stale/);
+  await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
+  await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
+  const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
+  const result=await p.prepared.complete(exchange),value=result.resultCandidate;
+  assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,['target.txt'],'body carriage never makes a path changed');
+  assert.equal(value.before,task.context,'before is the admitted task context, not a second observed body copy');
+  const after=Object.fromEntries(value.after.entries.filter(e=>e.state==='file').map(e=>[e.relativePath,e]));
+  assert.deepEqual(after['keep.txt'].member,member,'unchanged member keeps the task carriage');
+  assert.equal(after['target.txt'].encoding,'base64');assert.equal(Buffer.from(after['target.txt'].bytes,'base64').toString(),'actual edit\n');
+  assert.equal(native.isNativeWorkspaceWorkObservation(value),true);
+  assert.equal(native.nativeWorkspaceWorkResultMatches(task,value,p.call.cCallRef,exchange.observation),true);
+  const tampered={...value,after:{...value.after,entries:value.after.entries.map(e=>e.relativePath==='target.txt'?{...e,bytes:Buffer.from('forged\n').toString('base64')}:e)}};
+  assert.equal(native.isNativeWorkspaceWorkObservation(tampered),false,'an inline birth is still checked against its digest');
+});
 for (const mode of ['timeout','malformed-report','read-only-change']) test(`native ${mode} retains actual partial edit and refuses success`,async t=>{
   const env=await fixture(t,mode==='read-only-change'?[]:['target.txt']);const p=await prepare(t,env);
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'partial edit\n');

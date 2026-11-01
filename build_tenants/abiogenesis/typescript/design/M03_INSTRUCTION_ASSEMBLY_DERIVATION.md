@@ -230,6 +230,13 @@ version 1 histories remain readable. A location or
 digest alone cannot replace required content. No Proxy/getter body, alternate
 renderer, live-cache authority or new quota is introduced.
 
+The native-work envelope binds its admitted task through `inputRef` and
+`inputDigest` and carries no second whole task. Its plan keeps the context
+ref/digest, read roots and write roots. The framed-synthesis selector reads each
+declared source body through the held-prefix reader for its own Run and grant;
+an unavailable member refuses the assembly. Semantic evidence and worksite views
+require inline births and refuse an admitted member.
+
 ## Candidate Design Surfaces
 
 | Candidate | Prime status | Rationale |

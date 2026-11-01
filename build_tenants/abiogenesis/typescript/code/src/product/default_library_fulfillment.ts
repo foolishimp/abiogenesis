@@ -4,7 +4,7 @@ import { isDeepStrictEqual as same } from "node:util";
 import { CONTEXT_DECLARATION_SCHEMA, REQUIREMENT_TERM_SCHEMA, GTL_CONTRACT_FULFILLMENT_BINDING_SCHEMA } from "../gtl/requirement_handoff.js";
 import { POLICY_SCHEMA, SHAPE_SCHEMA } from "../gtl/semantic_stage.js";
 import type { ContractDeclaration, GtlProgram } from "../gtl/contracts.js";
-import type { WorksiteContextObservation } from "./worksite_effect.js";
+import { inlineWorksiteContextBody, type WorksiteContextBodyReader, type WorksiteContextObservation } from "./worksite_effect.js";
 import { sha256Canonical, sha256Bytes } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -95,13 +95,16 @@ export function governanceFulfillmentContractsMatch(d: GovernanceFulfillmentDecl
   return [...new Set(d.bindings.flatMap(b => [b.realizationContractRef, b.proofContractRef]).filter((r): r is string => r !== null))]
     .every(r => contract(r)?.contractKind === "output") && contract(d.assessmentContractRef)?.contractKind === "output";
 }
-/** First source acquisition only; subsequent internal owners retain this binding. */
-export function governanceFulfillmentSourceMatches(d: GovernanceFulfillmentDeclaration, context: WorksiteContextObservation): boolean {
+/** First source acquisition only; subsequent internal owners retain this binding.
+ * Only the declared members' bodies are read, through the context's reader. */
+export function governanceFulfillmentSourceMatches(d: GovernanceFulfillmentDeclaration, context: WorksiteContextObservation,
+  read: WorksiteContextBodyReader = inlineWorksiteContextBody): boolean {
   if (hash(d.context.members) !== d.context.inventoryDigest) return false;
   return d.context.members.every(m => {
     const e = context.entries.find(e => e.relativePath === m.path);
     if (e?.state !== "file" || e.digest !== m.digest || e.byteLength !== m.byteCount) return false;
-    const bytes = Buffer.from(e.bytes, "base64");
+    const bytes = read(e);
+    if (bytes === null) return false;
     return d.terms.every(t => t.sourceBindings.filter(b => b.memberRef === m.memberRef).every(b => sha256Bytes(bytes.subarray(b.startByte, b.endByte)) === b.spanDigest));
   });
 }
@@ -119,7 +122,7 @@ export function governanceFulfillmentStateMatches(d: GovernanceFulfillmentDeclar
 }
 export function deriveGovernanceObligations(d: GovernanceFulfillmentDeclaration, prior: GovernanceFulfillmentState,
   proposals: readonly GovernanceRequirementProposal[], taskRef: string, sourceResultRef: string, context: WorksiteContextObservation,
-  evidenceRefs: readonly string[]): GovernanceFulfillmentState | null {
+  evidenceRefs: readonly string[], read: WorksiteContextBodyReader = inlineWorksiteContextBody): GovernanceFulfillmentState | null {
   if (!unique(proposals.map(p => p.candidateRef))) return null;
   const additions = [...prior.additions], active = governanceFulfillmentActive(d, prior);
   for (const p of proposals) {
@@ -130,8 +133,9 @@ export function deriveGovernanceObligations(d: GovernanceFulfillmentDeclaration,
     if (known) { if (known.proposalDigest !== proposalDigest) return null; continue; }
     const sourceBindings = p.sourceQuotes.map(q => {
       const m = d.context.members.find(m => m.memberRef === q.memberRef), e = context.entries.find(e => e.relativePath === m?.path);
-      return m !== undefined && e?.state === "file" && e.digest === m.digest
-        ? groundBoundSourceQuote(d.context.contextRef, { memberRef: m.memberRef, digest: m.digest, base64: e.bytes }, q.quote) : null;
+      const file = m !== undefined && e?.state === "file" && e.digest === m.digest ? e : undefined, bytes = file === undefined ? null : read(file);
+      return m !== undefined && file !== undefined && bytes !== null
+        ? groundBoundSourceQuote(d.context.contextRef, { memberRef: m.memberRef, digest: file.digest, base64: bytes.toString("base64") }, q.quote) : null;
     });
     if (sourceBindings.some(b => b === null)) return null;
     const id = hash({ taskRef, proposal: p, sourceBindings }).slice(7), requirementRef = governanceRef("requirement", id), obligationRef = governanceRef("obligation", id);

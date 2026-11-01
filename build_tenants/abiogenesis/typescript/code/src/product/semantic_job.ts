@@ -24,7 +24,7 @@ import type { WorksiteCommandPreparationInput } from "./worksite_preparation_con
 import { projectWorksiteCommandExecutionBudget, worksiteCommandExecutionBudgetFits,
   type WorksiteCommandExecutionLimits, type WorksiteDeclaredCommandInput, type WorksiteOutcomePredicateInput } from "./worksite_command_execution.js";
 import { isWorksiteContextObservation, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
-  constructWorksiteSubject, constructWorksiteObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+  constructWorksiteSubject, constructWorksiteObservation, inlineWorksiteContextBytes, type WorksiteContextObservation } from "./worksite_effect.js";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { SEMANTIC_STAGE_IDS as ids } from "../gtl/semantic_stage_identity.js";
@@ -647,9 +647,10 @@ export function deriveSemanticJobPreparation(envelope: SemanticJobEnvelope, work
           role: row.role, text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(row.base64, "base64")) })),
         currentReadOnlyDependencies: (readDependencyBasis?.members ?? []).map(row => {
           const entry = envelope.context!.entries.find(entry => entry.relativePath === row.subject.relativePath);
-          if (entry?.state !== "file") throw new TypeError("missing read dependency bytes");
+          const base64 = inlineWorksiteContextBytes(entry);
+          if (base64 === null) throw new TypeError("missing read dependency bytes");
           return { memberRef: row.sourceMemberRef, relativePath: row.subject.relativePath, observationRef: row.observation.observationRef,
-            text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(entry.bytes, "base64")) };
+            text: new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(Buffer.from(base64, "base64")) };
         }),
         commands: design.commands, outcomePredicates: design.outcomePredicates, ...(revision === undefined ? {} : { revisionFeedback: revision.feedback,
           retainedReadOnlyPaths: design.targets.filter(t => !revision.selectedPaths.includes(t.relativePath)).map(t => t.relativePath) }) })].join("\n\n");
@@ -788,10 +789,11 @@ export function nativeSemanticPaths(envelope: SemanticJobEnvelope) {
     !all.every(path => semanticJobPathWithin(path, envelope.job.worksiteScope.readRoots))) throw new TypeError("distinct protected source, rubric and stage territories required");
   return { assets, rubricPath: selection.rubricPath };
 }
+/** Semantic native contexts are born inline; an admitted member here refuses. */
 function nativeSemanticFile(context: WorksiteContextObservation, path: string) {
-  const rows = context.entries.filter(e => e.relativePath === path && e.state === "file");
-  if (rows.length !== 1 || rows[0]!.state !== "file") throw new TypeError("one observed native semantic file required: " + path);
-  return rows[0]!;
+  const rows = context.entries.filter(e => e.relativePath === path && e.state === "file"), row = rows.length === 1 ? rows[0] : undefined;
+  if (row?.state !== "file" || row.encoding !== "base64") throw new TypeError("one inline observed native semantic file required: " + path);
+  return row;
 }
 export function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation, admittedRevision = false): boolean {
   try {
@@ -863,7 +865,9 @@ export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, v
       const snapshot = value.snapshotMembers.filter(m => m.relativePath === selected.relativePath &&
         m.digest === observed.digest && m.byteLength === observed.byteLength);
       if (snapshot.length !== 1 || snapshot[0]!.sourceObservationRef !== row.observation.observationRef) throw new TypeError("exact native C2 snapshot required");
-      return { subjectRef: row.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64: observed.bytes,
+      const base64 = inlineWorksiteContextBytes(observed);
+      if (base64 === null) throw new TypeError("native evidence target body is not inline");
+      return { subjectRef: row.subject.subjectRef, observationRef: snapshot[0]!.sourceObservationRef, base64,
         role: selected.role === "verifier" ? "verifier_artifact" as const : "realization" as const };
     }));
   } catch { return null; }

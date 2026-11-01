@@ -113,6 +113,59 @@ of absence inside that scope. Facts outside the writable scope and facts under
 an empty read-only scope remain unaffected. Unknown after-state and the
 original failure remain explicit; no successor observation is manufactured.
 
+## Context body carriage (P1)
+
+A worksite context's identity is its workspace authority basis and binding,
+read roots, bounds and ordered path/state/file-identity/length/content-digest
+entries. `observationRef`/`observationDigest` hash exactly those facts; the
+storage location of a file body is not part of identity. Before/after
+comparison, `changedPaths` and currentness compare these facts. The C2
+reacquisition request keeps its exact entry relation; its preparation owner
+presents the fresh context in the source `after` carriage for unchanged facts.
+
+`observeWorksiteContext` births every file body inline. A file entry is either
+inline (`encoding: "base64"`, `bytes`) or an admitted member
+(`encoding: "admitted_member"`, `member: {resultRef, resultDigest, path}`). A
+member names one earlier inline entry of a committed `c_call_result_admitted`
+value at a declared native context coordinate: `framed_synthesis_task.context`,
+`native_workspace_work_task.context`, and `task.context`/`after` of a native
+observation or failure. The pure guard hashes inline bodies once per immutable
+value and checks member shape only.
+
+The held Event Store prefix owner (`abg/event_prefix.ts`) derives an in-memory
+selector `native-context-body:<digest>` from those coordinates of committed
+success/failure Results. It is a hint, never read authority. After a producer
+reobserves current W, `reuseWorksiteContextBodiesAtPrefix` replaces each inline
+body already held inline by an earlier committed Result of the same Run, path,
+digest, authority basis and binding with that member; changed and new bodies
+stay inline and are born by the Result that admits the context. Validation
+candidates are never holders; an unavailable derivation keeps bodies inline.
+`resolveWorksiteContextBodyAtPrefix` reads one selected member at a raw ingress,
+presentation or cold-recovery boundary. It rejoins the committed Result, its
+digest and Run, the declared coordinate, holder basis/binding, the consumer's
+path, digest, read roots and grant, and the held bytes, and otherwise refuses
+with `malformed`, `missing`, `pending`, `foreign`, `tampered`, `stale` or
+`denied`.
+
+The native implementation reobserves W before dispatch and compares identity.
+`before` is the admitted task context. `after` keeps the task's members for
+unchanged files and births changed bytes inline once. The governance
+preparation owner (`abg/default_library.ts`) applies producer carriage to its
+fresh observation; selector source matching, obligation quoting and the
+selector presentation read declared members through the owner reader for their
+own Run. Semantic job/revision contexts remain inline births; their byte
+consumers refuse a member.
+
+Current limits: the observation's `task` is the exact admitted input and the C2
+`sourceNativeWork` is the exact admitted observation, by the exact-equality
+owners `abg/native_worksite_execution.ts` and `abg/execution_basis.ts`. Those
+copies carry metadata and any inline births of the copied value. A direct native
+task whose context is itself a birth repeats those bodies in its observation.
+Holders are same-Run only; a replacement Run births its first context.
+The packaged C2 renderer `product/worksite_command_execution.ts` is a pinned
+run-environment member (`gtl/worksite_command_execution.ts`), so any change
+to it needs that pin re-entered first.
+
 ## Consumer judgment and qualification
 
 ### Supported post-dispatch refusal (RC2 crosscut R02)

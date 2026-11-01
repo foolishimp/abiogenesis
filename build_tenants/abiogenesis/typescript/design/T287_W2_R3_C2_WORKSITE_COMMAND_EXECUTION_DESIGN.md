@@ -173,6 +173,12 @@ same-Run composition, a consumer pure leaf may construct this task; C2 child
 admission requires the exact earlier closed native producer in the same
 invocation and Run, the actual declared C2 workflow call and original grant.
 No fixed consumer preparation implementation or cumulative envelope is added.
+
+Protected observations use only the selected `after` entries' path, file
+identity, length and digest. A selected entry may be inline or an admitted
+member ([context body carriage](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1));
+C2 resolves no context body. The helper reads its snapshot bytes from W at its
+process boundary and checks them against these facts.
 Ordinary HoG input routing and graph membership still govern that call.
 
 The private native task/source projection retains successful applicability
@@ -335,7 +341,14 @@ A and actor remain the original authority. A changed W requires the existing
 exact `witness.admit#reprice` binding cover for the source child's execution
 basis; equal file bytes alone never cover changed binding authority. The current
 context has the original complete after-observation entries, read roots and
-limits with current A/W coordinates, not only the C2 snapshot subset.
+limits with current A/W coordinates, not only the C2 snapshot subset. The
+request contract keeps its exact entry relation. The governance preparation
+owner presents the fresh context in the source `after` carriage: an entry with
+the same path/state/file identity/length/digest takes the admitted source entry,
+and any changed, new or absent entry keeps its fresh observation and is refused.
+Body carriage never changes context identity. The pre-effect currentness gate
+reobserves W and compares context identity. The packaged C2 renderer source is
+a pinned run-environment member, so this relation is not realized inside it.
 
 The ABI-owned F_D preparation authenticates its actual admitted occurrence,
 implementation, invocation and current grant. It checks historical native

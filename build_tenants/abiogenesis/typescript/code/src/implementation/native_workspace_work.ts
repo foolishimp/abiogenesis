@@ -4,7 +4,7 @@ import { NATIVE_WORKSPACE_WORK_IDS as ids, isNativeWorkspaceWorkTask, nativeWork
   nativeWorkspaceChangedPaths, nativeWorkspaceWorkProvenance, constructNativeWorkspaceWorkObservation,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkFailure } from "../product/native_workspace_work.js";
 import { observeWorksiteContext } from "../product/worksite_operations.js";
-import { isWorksiteContextObservation } from "../product/worksite_effect.js";
+import { carryWorksiteContextBodies, isWorksiteContextObservation, sameWorksiteContextIdentity } from "../product/worksite_effect.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
 import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
 import { type JsonValue } from "../shared/canonical_json.js";
@@ -31,9 +31,11 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
     throw new TypeError("native workspace work requires its exact admitted effect authority and assembly");
   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
     readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
-  const before = await observeWorksiteContext(observationInput);
-  if (!isWorksiteContextObservation(before) || !canonicalEquals(before, input.context))
+  // Fresh physical currentness; the admitted task keeps its own body carriage.
+  const current = await observeWorksiteContext(observationInput);
+  if (!isWorksiteContextObservation(current) || !sameWorksiteContextIdentity(current, input.context))
     throw new TypeError("native workspace input context is unavailable or stale before dispatch");
+  const before = input.context;
   const workerRequest = prepareAssembly().request;
   if (workerRequest.implementationRef !== ids.implementationRef || workerRequest.inputDigest !== sha256Canonical(input) ||
     workerRequest.transportLane !== "worker_executes" || workerRequest.resultContractRef !== nativeWorkspaceWorkResultContractRef(input) ||
@@ -44,8 +46,10 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
     async complete(exchange) {
       // Observe even after timeout, nonzero exit, absent/malformed report or
       // an exchange-identity failure. Authorized partial work is not rollback.
+      // Unchanged after bodies keep the task's admitted members; changed bytes
+      // are born inline once in this Result.
       const observed = await observeWorksiteContext(observationInput);
-      const after = isWorksiteContextObservation(observed) ? observed : null;
+      const after = isWorksiteContextObservation(observed) ? carryWorksiteContextBodies(observed, before) : null;
       const report = input.assessment === undefined ? parseNativeWorkspaceWorkReport(exchange.observation.finalOutput) : null;
       const assessment = input.assessment === undefined ? null : parseNativeWorkspaceAssessmentResult(nativeWorkspaceWorkResponseSchema(input), exchange.observation.finalOutput);
       const sameExchange = canonicalEquals(exchange.request, workerRequest);

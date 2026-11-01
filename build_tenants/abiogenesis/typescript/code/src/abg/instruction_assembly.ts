@@ -18,7 +18,7 @@ import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/diges
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
@@ -173,8 +173,10 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
         programLocusRef: owner.call.programLocusRef, contextRef: supplied.context.observationRef,
         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
         readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role, ...presentation };
+      // The admitted input binds the task by inputRef/inputDigest; the envelope
+      // carries no second whole task or context body.
       const identity = assemblyIdentity("native-work", plan, owner,
-        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied });
+        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] } });
       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
       const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
       if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, selectedRole, ["maxPromptBytes"]);
@@ -401,7 +403,8 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
       carrierResponseSchemaDigest: sha256Canonical(carrier) };
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
-      choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response };
+      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, { runId: owner.call.runId })),
+      evidence: { declaredAccess: role.accessContent }, response };
     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
       sectionOrder: ["role", "choices", "task", "evidence", "response"] };
@@ -862,6 +865,7 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => {
           if (e.state !== "file") return e;
+          if (e.encoding !== "base64") throw new TypeError("semantic worksite view requires its inline observed body");
           const { bytes, encoding, ...identity } = e;
           return { ...identity, sourceEncoding: encoding, textView: observedText(bytes, e.digest, e.byteLength) };
         }) } },
@@ -967,6 +971,8 @@ export function renderNativeRevisionSelectionDecisionView(
   const contextView = (context: Row): Row => ({ ...context,
     entries: (context.entries as readonly Row[]).map(entry => {
       if (entry.state !== "file") return entry;
+      // Semantic evidence contexts are inline births; a member reference refuses this view.
+      if (entry.encoding !== "base64" || typeof entry.bytes !== "string") throw new TypeError("semantic evidence view requires inline context bodies");
       const { bytes, encoding, ...identity } = entry;
       return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes as string, entry.digest as Sha256Digest, entry.byteLength as number) };
     }) });

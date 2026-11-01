@@ -57,6 +57,8 @@ import {
   isWorksiteFileParentsRequest,
   isWorksiteFileParentsAuthorization,
   isWorksiteContextObservation,
+  worksiteContextIdentityDigest,
+  worksiteContextObservationRef,
   normalizeWorksiteRelativePath,
   worksiteFileParentPaths,
   worksiteFileParentsFailure,
@@ -1076,7 +1078,8 @@ export interface WorksiteContextInput extends WorksiteReadBasis {
   readonly maxBytes: number;
 }
 
-/** Complete for its declared read roots or refused; replay consumes these bytes. */
+/** Complete for its declared read roots or refused. Every file body is born
+ * inline here; a later owner may carry an unchanged one by admitted member. */
 export async function observeWorksiteContext(input: WorksiteContextInput): Promise<WorksiteContextObservation | WorksiteEffectRefusal> {
   if (!Array.isArray(input.readRoots) || input.readRoots.length === 0 || new Set(input.readRoots).size !== input.readRoots.length ||
     input.readRoots.some(path => normalizeWorksiteRelativePath(path, true) !== path) || !Number.isSafeInteger(input.maxFiles) || input.maxFiles < 1 ||
@@ -1162,9 +1165,9 @@ export async function observeWorksiteContext(input: WorksiteContextInput): Promi
       readRoots: input.readRoots, maxFiles: input.maxFiles, maxBytes: input.maxBytes,
       entries: [...entries.values()].sort((a, b) => a.relativePath < b.relativePath ? -1 : a.relativePath > b.relativePath ? 1 : 0),
     };
-    const observationDigest = sha256Canonical(body);
+    const observationDigest = worksiteContextIdentityDigest(body);
     const observation = deepFreeze({ kind: "worksite_context_observation" as const, schemaVersion: "5.0.0" as const,
-      observationRef: `worksite-context-observation://abiogenesis/${observationDigest.slice("sha256:".length)}`, observationDigest, ...body });
+      observationRef: worksiteContextObservationRef(observationDigest), observationDigest, ...body });
     return isWorksiteContextObservation(observation) ? observation : worksiteRefusal("stale_observation", "worksite context did not produce a complete closed observation");
   } catch (error) { return worksiteRefusal("filesystem_refused", `worksite context observation failed: ${String(error)}`, null, errnoCode(error)); }
 }

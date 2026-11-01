@@ -544,6 +544,40 @@ export function runtimeHistoryPayload(selection: RuntimeHistorySelection, index:
   return event.payload;
 }
 
+/** @internal Declared native context positions of admitted Result values whose
+ * inline file bodies are retained there. The derived index below names only
+ * these member coordinates; it is a hint, never read authority. */
+export const NATIVE_CONTEXT_BODY_POSITIONS: Readonly<Record<string, readonly (readonly string[])[]>> = Object.freeze({
+  framed_synthesis_task: Object.freeze([Object.freeze(["context"])]),
+  native_workspace_work_task: Object.freeze([Object.freeze(["context"])]),
+  native_workspace_work_observation: Object.freeze([Object.freeze(["task", "context"]), Object.freeze(["after"])]),
+  native_workspace_work_failure: Object.freeze([Object.freeze(["task", "context"]), Object.freeze(["after"])]),
+});
+export const NATIVE_CONTEXT_BODY_KEY = "native-context-body:";
+type HeldContext = Readonly<{ path: readonly string[]; context: Readonly<Record<string, JsonValue>>; entries: readonly JsonValue[] }>;
+/** @internal Shape-only enumeration of the declared context positions of one value. */
+export function nativeContextBodyHolders(value: unknown): readonly HeldContext[] {
+  const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
+  if (!record(value) || typeof value.kind !== "string" || !Object.hasOwn(NATIVE_CONTEXT_BODY_POSITIONS, value.kind)) return [];
+  const held: HeldContext[] = [];
+  for (const path of NATIVE_CONTEXT_BODY_POSITIONS[value.kind]!) {
+    let cursor: unknown = value;
+    for (const step of path) cursor = record(cursor) ? cursor[step] : undefined;
+    if (record(cursor) && cursor.kind === "worksite_context_observation" && Array.isArray(cursor.entries))
+      held.push({ path, context: cursor, entries: cursor.entries });
+  }
+  return held;
+}
+/** @internal Digests of the inline file bodies a committed Result holds. */
+export function nativeContextHeldBodyDigests(value: unknown): readonly string[] {
+  const digests = new Set<string>();
+  for (const { entries } of nativeContextBodyHolders(value)) for (const entry of entries) {
+    const e = typeof entry === "object" && entry !== null && !Array.isArray(entry) ? entry as Readonly<Record<string, JsonValue>> : undefined;
+    if (e?.state === "file" && e.encoding === "base64" && typeof e.digest === "string") digests.add(e.digest);
+  }
+  return [...digests];
+}
+
 /** @internal The existing prefix selector vocabulary, shared by materialized
  * and body-location histories. Keys select rows; they do not validate payloads. */
 export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string[] {
@@ -571,6 +605,8 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
         (payload.value.kind === "worksite_file_replace_output" || payload.value.kind === "native_workspace_work_observation" || payload.value.kind === "native_workspace_work_failure" ||
           (payload.value.kind === "worksite_effect_refusal" && payload.value.phase === "post_publication")))
       keys.push("worksite-observation-dependency");
+    if (event.kind === "c_call_result_admitted" && (payload.resultClass === "success" || payload.resultClass === "failure"))
+      for (const digest of nativeContextHeldBodyDigests(payload.value)) keys.push(NATIVE_CONTEXT_BODY_KEY + digest);
     if (event.kind === "c_call_fibre_selected" &&
         payload.callClass === "leaf" && payload.regime === "F_D")
       keys.push("worksite-observation-dependency");

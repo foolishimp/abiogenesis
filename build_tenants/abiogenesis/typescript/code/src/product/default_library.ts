@@ -7,7 +7,7 @@ import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
 import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
-import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { inlineWorksiteContextBody, isWorksiteContextObservation, type WorksiteContextBodyReader, type WorksiteContextObservation } from "./worksite_effect.js";
 import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
   isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
   deriveGovernanceObligations, governanceFulfillmentActive } from "./default_library_fulfillment.js";
@@ -264,17 +264,21 @@ export function projectGovernanceObservationFacts(state: GovernanceWorkState, co
         producerActorRef: fact.producerActorRef } }) };
   }));
 }
-/** Presentation over the already-bound task; canonical proof stays in its owner. */
-export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
+/** Presentation over the already-bound task; canonical proof stays in its owner.
+ * Declared source bodies are read through the task context's reader; an
+ * unavailable body refuses the presentation rather than omitting the source. */
+export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
+  read: WorksiteContextBodyReader = inlineWorksiteContextBody): Readonly<Record<string, JsonValue>> {
   const { state, context } = task, original = state.original;
   const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
     ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
   const sourceTextsInTask = new Set<string>();
   const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
-    const bytes = Buffer.from(entry.bytes, "base64");
+    const bytes = read(entry);
+    if (bytes === null) throw new TypeError("declared source body is unavailable to this presentation");
     let text: string;
     try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
-    catch { return { encoding: "base64", content: entry.bytes }; }
+    catch { return { encoding: "base64", content: bytes.toString("base64") }; }
     // Exact containment only. The actor receives the complete text in this
     // same prompt, not a locator that would require a forbidden file read.
     const start = text.length === 0 ? -1 : original.task.indexOf(text);

@@ -18,7 +18,7 @@ import { isSemanticJobInput, isSemanticJobEnvelope, constructSemanticJobEnvelope
   semanticJobPathWithin, type SemanticJobEnvelope, type SemanticJobContractIssue } from "../product/semantic_job.js";
 import { constructWorksiteSubject, constructWorksiteTerritory, 
   constructWorksiteFileParentsRequest, isWorksiteFileParentsRequest, isWorksiteFileParentsSuccess,
-  isWorksiteContextObservation, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
+  isWorksiteContextObservation, inlineWorksiteContextBytes, type WorksiteFileParentsRequest, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { observeWorksiteContext, observeWorksiteFileParents, observeWorksiteSubject } from "../product/worksite_operations.js";
 import { constructWorksiteConstructionTask, WORKSITE_CONSTRUCTION_IDS, isWorksiteConstructionResult } from "../product/worksite_construction.js";
 import { isWorksiteCommandExecutionObservation, constructWorksiteCommandConfiguration, isWorksiteReadDependencyBasis,
@@ -218,7 +218,8 @@ export function semanticJobContextCurrent(basis: SemanticStageNativeBasis, input
         if (entry.state === "absent" || stat.isSymbolicLink() || realpathSync(path) !== path || `${stat.dev}:${stat.ino}` !== entry.fileIdentity) return false;
         if (entry.state === "directory") return stat.isDirectory() && canonicalEquals(readdirSync(path).sort(), entry.members);
         const bytes = readFileSync(path);
-        return stat.isFile() && stat.nlink === 1 && bytes.length === entry.byteLength && sha256Bytes(bytes) === entry.digest && bytes.toString("base64") === entry.bytes;
+        const inline = inlineWorksiteContextBytes(entry);
+        return stat.isFile() && stat.nlink === 1 && bytes.length === entry.byteLength && sha256Bytes(bytes) === entry.digest && (inline === null || bytes.toString("base64") === inline);
       } catch (error) { return entry.state === "absent" && (error as NodeJS.ErrnoException).code === "ENOENT"; }
     });
   } catch { return false; }
@@ -326,7 +327,7 @@ async function observeDesignWorksite(basis: SemanticStageNativeBasis, input: unk
     // relation (`semanticJobSavedWorksite`) reads them; the live subject
     // observation is admitted only when it names those exact bytes.
     const entry = original.context?.entries.find(e => e.relativePath === target.relativePath);
-    const base64 = observation.state === "absent" ? "" : entry?.state === "file" ? entry.bytes : null;
+    const base64 = observation.state === "absent" ? "" : inlineWorksiteContextBytes(entry);
     if (base64 === null) return null;
     const bytes = Buffer.from(base64, "base64");
     if (observation.state === "file" && (observation.fileDigest !== sha256Bytes(bytes) || observation.byteLength !== bytes.length)) return null;
@@ -361,7 +362,7 @@ export function semanticJobSavedWorksite(original: SemanticJobEnvelope, value: u
   const rows = task.targets.map(target => {
     const selected = design.targets.find(t => t.relativePath === target.subject.relativePath);
     const entry = original.context?.entries.find(e => e.relativePath === target.subject.relativePath);
-    const base64 = target.predecessorObservation.state === "absent" ? "" : entry?.state === "file" ? entry.bytes : null;
+    const base64 = target.predecessorObservation.state === "absent" ? "" : inlineWorksiteContextBytes(entry);
     return selected === undefined || base64 === null || (target.predecessorObservation.state === "file" &&
       (sha256Bytes(Buffer.from(base64, "base64")) !== target.predecessorObservation.fileDigest)) ? null : { target, base64, role: selected.role };
   });

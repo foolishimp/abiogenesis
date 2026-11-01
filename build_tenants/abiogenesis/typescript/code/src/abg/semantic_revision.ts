@@ -49,7 +49,7 @@ import { isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkObservation }
 import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
 import { isSemanticJobInput, constructNativeSemanticConstructionTask } from "../product/semantic_job.js";
 import { semanticJobContextMatches, semanticJobContextCurrent } from "./semantic_job.js";
-import { isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
+import { inlineWorksiteContextBytes, isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
 import { observeWorksiteContext } from "../product/worksite_operations.js";
 
@@ -178,10 +178,11 @@ function operationalPreparationFailure(prefix: RuntimeEventPrefix,
   return { role, stageRef: stages[0]!.declarationRef, evidenceRef, evidenceAdmissionEventRef: rows[0]!.eventId,
     ownerObservation: observation, refusal } as const;
 }
+/** Same physical facts under another binding; body carriage is not compared. */
 function contextCorresponds(a: WorksiteContextObservation, b: WorksiteContextObservation) {
-  const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, ...left } = a;
-  const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, ...right } = b;
-  return canonicalEquals(left, right);
+  const { observationRef: _ar, observationDigest: _ad, workspaceBindingIdentity: _aw, workspaceBindingDigest: _awd, entries: ae, ...left } = a;
+  const { observationRef: _br, observationDigest: _bd, workspaceBindingIdentity: _bw, workspaceBindingDigest: _bwd, entries: be, ...right } = b;
+  return canonicalEquals(left, right) && canonicalEquals(ae.map(worksiteContextIdentityEntry), be.map(worksiteContextIdentityEntry));
 }
 /** Discovery occurs only at the declared intake. Consumers use its admitted
  * result and exact references; they never choose a later or similar failure. */
@@ -975,7 +976,7 @@ export function projectRevisionEvidenceInput(basis: SemanticStageNativeBasis, in
       const row = original.current.worksite!.targets.find(t => t.target.subject.relativePath === source?.subject.relativePath);
       const read = isSemanticJobRevisionEnvelope(original) ? original.current.context?.entries.find(entry =>
         entry.relativePath === source?.subject.relativePath && entry.state === "file") : undefined;
-      const expectedBytes = row?.base64 ?? (read?.state === "file" ? read.bytes : null);
+      const expectedBytes = row?.base64 ?? inlineWorksiteContextBytes(read);
       if (source === undefined || expectedBytes === null || source.designTargetRef !== member.designTargetRef ||
         !canonicalEquals(source.source, member.source) || (source.source.kind === "retained_dependency" && expectedBytes !== bytes.toString("base64"))) throw new TypeError("snapshot dependency or source tag changed");
       return { subjectRef: source.subject.subjectRef, observationRef: member.sourceObservationRef, base64: bytes.toString("base64"), role: row?.role === "verifier" ? "verifier_artifact" as const : "realization" as const };

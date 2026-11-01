@@ -12,7 +12,9 @@ import { canonicalizeAuthoredGtlCarrier } from "../gtl/canonicalization.js";
 import { isGovernanceWorkState, governanceTestingConfiguration, governanceRef } from "../product/default_library.js";
 import { constructNativeWorksiteCommandReacquisitionRequest, constructWorksiteCommandConfiguration,
   worksiteCommandConfigurationMatches } from "../product/worksite_command_execution.js";
-import { constructWorksiteSubject, type WorksiteContextObservation } from "../product/worksite_effect.js";
+import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity, worksiteContextIdentityEntry,
+  type WorksiteContextObservation } from "../product/worksite_effect.js";
+import { deepFreeze } from "../shared/immutable.js";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { nativeWorkReacquisitionGraphFunction } from "../gtl/worksite_command_execution.js";
@@ -205,6 +207,23 @@ function governanceReacquisitionRequestMatches(prefix: RuntimeEventPrefix, execu
   return matches;
 }
 
+/** The request contract keeps its exact retained-context entry relation. A fresh
+ * entry whose observed physical facts equal the source `after` entry takes that
+ * admitted entry and its body carriage; a changed, new or absent member keeps its
+ * own fresh observation, which the request contract refuses. Identity is unchanged. */
+function inSourceContextCarriage(context: WorksiteContextObservation, after: WorksiteContextObservation): WorksiteContextObservation {
+  const source = new Map(after.entries.map(entry => [entry.relativePath, entry] as const));
+  let adopted = false;
+  const entries = context.entries.map(entry => {
+    const held = source.get(entry.relativePath);
+    if (held === undefined || isDeepStrictEqual(held, entry) ||
+      !same(worksiteContextIdentityEntry(held), worksiteContextIdentityEntry(entry))) return entry;
+    adopted = true;
+    return held;
+  });
+  return adopted ? deepFreeze({ ...context, entries }) : context;
+}
+
 /** Private invoking-owner operation for the existing prepare-testing F_D leaf.
  * The explicit resource is resolved before any retained establishment facts. */
 export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructionAssemblyBasis, input: unknown,
@@ -243,7 +262,8 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
     stage = "native_request_construction";
     const request = constructNativeWorksiteCommandReacquisitionRequest({
       workspaceAuthorityBasis: environment.workspaceAuthorityBasis, workspaceBinding: environment.workspaceBinding,
-      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"], currentContext: context,
+      capabilityGrant: invocation.capabilityGrants[0]!, sourceNativeWork: value as NativeWorksiteCommandExecutionTask["sourceNativeWork"],
+      currentContext: inSourceContextCarriage(context, value.after),
       source: { prefix: basis.predecessorPrefix, graphCallRef: source.sourceResult.graphCallId!, declarationReference: reference },
       selectedSources: input.original.testing.selectedPaths.map(relativePath => ({ relativePath,
         subjectUri: pathToFileURL(resolve(environment.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
@@ -287,11 +307,13 @@ function deriveAuthenticatedNativeWorkReacquisition(basis: NativeWorkReacquisiti
   if (derived.source.sourceResult.runId === occurrence.call.runId) return refused(refusal, "native_source_run", "historical_run", { sourceResultEventRef: derived.source.sourceResult.eventId });
   return { ...occurrence, task: derived.task };
 }
-/** Read-only existing physical observation owner; all read-scope files, not just C2 sources. */
+/** Read-only existing physical observation owner; all read-scope files, not just C2 sources.
+ * Fresh physical facts are compared by identity, independent of body carriage. */
 export async function nativeWorkReacquisitionContextCurrent(request: NativeWorksiteCommandReacquisitionRequest): Promise<boolean> {
   const { readRoots, maxFiles, maxBytes } = request.currentContext;
-  return same(await observeWorksiteContext({ workspaceAuthorityBasis: request.workspaceAuthorityBasis,
-    workspaceBinding: request.workspaceBinding, readRoots, maxFiles, maxBytes }), request.currentContext);
+  const current = await observeWorksiteContext({ workspaceAuthorityBasis: request.workspaceAuthorityBasis,
+    workspaceBinding: request.workspaceBinding, readRoots, maxFiles, maxBytes });
+  return isWorksiteContextObservation(current) && sameWorksiteContextIdentity(current, request.currentContext);
 }
 /** The optional owner coordinate only reidentifies an already authenticated
  * historical preparation cut; it confers no current-source or effect authority. */
