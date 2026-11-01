@@ -101,9 +101,22 @@ export interface ResumeConstructionIntentInput {
   readonly current: InitialOrNonRetryExecuteGraphTraversalInput;
   readonly parentSuspensions: readonly HeldWorkflowSuspension[];
 }
+/** Same-Run resumption of one consumed pending execution. The caller supplies
+ * the root runtime and the occurrence identity only; HoG restores the pending
+ * cursor, progressed input and every open return from admitted truth. */
+export interface ResumePendingExecutionInput {
+  readonly pendingExecutionResume: true;
+  readonly root: ExecuteGraphTraversalCommonInput;
+  readonly continuation: Readonly<{
+    runId: string;
+    continuationRef: string;
+    continuationDigest: `sha256:${string}`;
+  }>;
+}
 export type ExecuteGraphTraversalRequest =
   | ExecuteGraphTraversalInput
-  | ResumeConstructionIntentInput;
+  | ResumeConstructionIntentInput
+  | ResumePendingExecutionInput;
 
 export interface GraphTraversalEntryRefusal {
   readonly kind: "graph_traversal_entry_refusal";

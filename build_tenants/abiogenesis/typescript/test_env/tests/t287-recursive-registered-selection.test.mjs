@@ -8,7 +8,7 @@ import {SourceTextModule,SyntheticModule} from 'node:vm';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
-import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
+import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
 import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
@@ -208,7 +208,7 @@ test('authenticated recursive child failure preserves its diagnostic, prior work
       const [done,later]=leaves,row=kind=>runEvents.find(e=>e.aggregateId===later.aggregateId&&e.kind===kind);
       const [p]=pending(row('c_call_fibre_selected'));
       assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow'],'unfinished recursive and workflow returns');
-      assert.equal(p.status,'open');assert.equal(p.phase,'undispatched');assert.equal(p.pendingCCallRef,later.aggregateId);
+      assert.equal(p.status,'open');assert.equal(p.phase,'effect_unknown','an opened call has no attested absence of dispatch');assert.equal(p.pendingCCallRef,later.aggregateId);
       assert.equal(p.pendingCursorRef,later.payload.cursorRef);assert.equal(p.pendingCursorDigest,later.payload.cursorDigest);
       assert.notEqual(p.pendingCCallRef,done.aggregateId,'completed work is not a pending position');
       const termination=runEvents.find(e=>e.kind==='c_call_opened'&&e.aggregateId===p.chain[1].parentCCallRef);
@@ -342,4 +342,122 @@ test('one installed Public start revises native choice from child evidence and r
     const read=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`recursive-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:call.call,expectedExitCode:0});await save(`read-${memberKey}.json`,read);
     assert.deepEqual(read.output.receipt.resources.eventResource.closeHandoff.prefix,handoff.prefix);assert.deepEqual(read.output.receipt.ownerOutput.value.projection.terminalResult,receipt.ownerOutput.value.terminalResult);assert.deepEqual(read.output.receipt.ownerOutput.value.projection.replay,receipt.resources.replay);
   }
+});
+
+// Model-free same-Run pending execution over the actual installed
+// recursion/workflow owners. A controlled interruption stops the process
+// boundary before the second workflow leaf opens its call: no Result, failure
+// or closure is admitted. The occurrence is then derived cold, refused for
+// crossed coordinates, consumed once by one admitted current_intent-member
+// pending_execution operation and resumed by HoG in the same Run.
+test('interrupted recursive workflow resumes its exact pending execution once in the same Run',async t=>{
+  const fixtureRoot=await mkdtemp(join(tmpdir(),'abi5-pending-execution-source-'));
+  const fixturePath=join(fixtureRoot,'failure.mjs');await writeFile(fixturePath,failureFixtureSource);
+  const input=initialState();input.task={...input.task,scenario:'success'};input.taskDigest=hash(input.task);
+  let prepared;
+  const env=await setupInstalledRootExecutionBasis({after:()=>{}},packageRoot,{candidateBasisSource:'packed_artifact',workspaceProductIndex:1,
+    programRef:ref('program','root'),graphFunctionRef:ref('graph-function','recursive-parent'),input,
+    prepareAdditionalProducts:async basis=>{
+      const artifact=process.env.ABI5_WAVE1_FROZEN_ARTIFACT_PATH??join(basis.scratch,'artifacts',(await readdir(join(basis.scratch,'artifacts'))).find(p=>p.endsWith('.tgz')));
+      prepared??=await prepareRegisteredSelectionProduct({...basis,abiPackageArchivePath:artifact,declarationFactory:failureDeclarations,
+        fixtureFiles:[...['index','native','recursive'].map(n=>({path:'build/'+n+'.mjs',source:new URL('../fixtures/registered-selection-product/'+n+'.mjs',import.meta.url)})),{path:'build/failure.mjs',source:fixturePath}]});
+      return [prepared];
+    }});
+  const load=relative=>import(pathToFileURL(join(env.installedRoot,'build/code/src',relative+'.js')).href);
+  const cc=await load('abg/construction_continuation'),storeOwner=await load('abg/event_store');
+  const ccall=await load('hog/ccall_lifecycle');let interrupted=0;
+  const interrupting={...ccall,evaluateOwnedExecutableCCall(context){
+    if(context.stop.programLocusRef===ref('node','A')&&context.input.measurements.length>0){interrupted++;throw new Error('controlled process interruption');}
+    return ccall.evaluateOwnedExecutableCCall(context);
+  }};
+  const graph=await linkedOwner(env,'hog/graph_execute',await readFile(join(env.installedRoot,'build/code/src/hog/graph_execute.js'),'utf8'),{'./ccall_lifecycle.js':interrupting});
+  const time='2026-11-02T00:00:00.000Z';
+  const opened=env.abg.openTraversalScope(env.store,env.durablePrefix,{kind:'root',executionBasis:env.executionBasis},{eventTime:time,correlationId:'correlation://pending-execution/open',causationEventRefs:[]});
+  assert.equal(opened.kind,'traversal_scope_open_admission');
+  const runtime={program:env.program,programPublication:env.executionResolution.programPublication,programValidation:env.programValidation,
+    graphFunction:env.graphFunction,graph:env.graph,graphValidation:env.graphValidation,implementationSet:env.implementationSet,
+    interactionSet:env.executionBasisAdmission.interactionSet,leafPort:env.leafPort,actorRuntimeBinding:{workspaceBinding:env.workspaceBinding,artifactTruth:env.artifactTruth},
+    closureContract:env.closureContract,eventTime:time};
+  await assert.rejects(graph.executeGraphTraversal({...runtime,store:env.store,predecessorPrefix:opened.successorPrefix,executionBasis:env.executionBasis,
+    openedTraversalScope:opened.scope,input:env.input,inputDigest:env.rawInput.subjectDigest,correlationId:'correlation://pending-execution/original'}),/controlled process interruption/);
+  assert.equal(interrupted,1);
+  const runId=opened.run.runId,interruptedEvents=env.store.readAll(),runAt=events=>events.filter(e=>e.runId===runId);
+  assert.equal(runAt(interruptedEvents).some(e=>['run_closed','runtime_failure_observed','run_stopped'].includes(e.kind)),false,'interruption admits no terminal or failure truth');
+  const cold=async()=>env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(join(env.scratch,'runtime','events.jsonl'))));
+  const [p,...extra]=cc.projectPendingExecutionContinuations(await cold(),runId);
+  assert.equal(extra.length,0);assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow'],'unfinished recursive and workflow returns');
+  assert.equal(p.phase,'undispatched');assert.equal(p.pendingCCallRef,null);assert.equal(p.status,'open');
+  const producer=runAt(interruptedEvents).find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
+  assert.equal(producer?.payload.resultClass,'success','progressed input is an admitted producer Result');assert.equal(producer.payload.valueDigest,p.progressedInputDigest);
+  assert.notEqual(p.progressedInputRef,env.executionBasis.rawInputAdmissionRef,'progressed input is not graph-entry input');
+  assert.equal(producer.payload.value.measurements.length,1,'the completed first child measurement is the progressed input');
+  const termination=runAt(interruptedEvents).find(e=>e.kind==='c_call_opened'&&e.aggregateId===p.chain[1].parentCCallRef);
+  assert.equal(termination.payload.stageRole,'termination');
+  assert.equal(termination.payload.attempt,runAt(interruptedEvents).filter(e=>e.kind==='c_call_opened'&&e.payload.stageRole==='termination').length,
+    'the pending recursion level is under the latest parent evaluation; its consumed allowance is that admitted attempt');
+  // An earlier cut at the first leaf's opened call is another phase: its effect is unknown and refuses.
+  const firstLeaf=runAt(interruptedEvents).find(e=>e.kind==='c_call_fibre_selected'&&runAt(interruptedEvents).some(o=>o.kind==='c_call_opened'&&o.aggregateId===e.aggregateId&&o.payload.programLocusRef===ref('node','A')));
+  const lines=(await readFile(join(env.scratch,'runtime','events.jsonl'))).toString('utf8').split('\n');
+  const cut=lines.findIndex(l=>l.includes('"eventId":"'+firstLeaf.eventId+'"'));assert.ok(cut>0);
+  const early=env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(Buffer.from(lines.slice(0,cut+1).join('\n')+'\n')));
+  const [unknown]=cc.projectPendingExecutionContinuations(early,runId);assert.equal(unknown.phase,'effect_unknown');
+  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(await cold(),p.chain[0].frameId)??opened.scope;
+  const coordinate=(ref,digest)=>({ref,digest});
+  const requestFor=o=>({run:coordinate(runId,rootScope.runDigest),continuation:coordinate(o.continuationRef,o.continuationDigest),
+    pendingCursor:coordinate(o.pendingCursorRef,o.pendingCursorDigest),continuationInput:coordinate(o.progressedInputRef??'none',o.progressedInputDigest??hash('none')),
+    expectedBasis:coordinate(o.chain[0].basisRef,o.chain[0].basisDigest)});
+  const request=requestFor(p),zero='sha256:'+'0'.repeat(64);
+  assert.deepEqual(cc.selectPendingExecutionUse(early,requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
+  const count=env.store.readAll().length,now=env.abg.selectValidatedRuntimeEventPrefix(env.store.readAll());
+  for(const [name,patch,code,path] of [['continuation',{continuation:coordinate(p.continuationRef,zero)},'missing_continuation','/continuation'],
+    ['run',{run:coordinate(runId,zero)},'basis_mismatch','/run'],['basis',{expectedBasis:coordinate(p.chain[0].basisRef,zero)},'basis_mismatch','/expectedBasis'],
+    ['cursor',{pendingCursor:coordinate(p.pendingCursorRef,zero)},'response_mismatch','/pendingCursor'],
+    ['input',{continuationInput:coordinate(env.executionBasis.rawInputAdmissionRef,env.executionBasis.rawInputDigest)},'response_mismatch','/continuationInput']])
+    assert.deepEqual(cc.selectPendingExecutionUse(now,{...request,...patch}),{kind:'refused',code,path},name);
+  assert.equal(env.store.readAll().length,count,'refusals admit nothing');
+  const use=cc.selectPendingExecutionUse(now,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
+  assert.equal(use.source.continuationRef,p.continuationRef);assert.equal(use.rootBasis.basisRef,env.executionBasis.basisRef);
+  const packet=env.product.RUN_OPERATION_CONTRACTS.continue.current_intent;
+  assert.deepEqual(packet.metadata.closedDomains.continuationKind,['current_intent','pending_execution']);
+  const grant=env.product.constructCapabilityGrant(env.policy,env.actorRef,'abg.operation.run.continue',packet.metadata.capabilityRefs[0],
+    {admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
+  const operationBasis=n=>({...publicOperationBasis(env.product,'abg.operation.run.continue',env.workspaceBinding.bindingId,env.workspaceBinding.bindingDigest,
+    'public-invocation://pending-execution/'+n,[],'current_intent'),eventTime:time,correlationId:'correlation://pending-execution/use/'+n});
+  assert.throws(()=>cc.admitPendingExecutionContinuationOperation(env.store,storeOwner.selectHeldEventStoreDurablePrefix(env.store),{...use},grant,operationBasis(0)),/exact occurrence/,'an unselected copy grants no use');
+  const admitted=cc.admitPendingExecutionContinuationOperation(env.store,storeOwner.selectHeldEventStoreDurablePrefix(env.store),use,grant,operationBasis(1));
+  const operation=env.store.readAll().find(e=>e.kind==='public_operation_admitted'&&e.payload.continuationKind==='pending_execution');
+  assert.equal(operation.payload.memberKey,'current_intent');assert.equal(operation.payload.variant,'pending_execution');assert.equal(operation.runId,undefined,'a workspace operation, not a Run event');
+  const afterUse=env.abg.selectValidatedRuntimeEventPrefix(env.store.readAll());
+  assert.equal(cc.projectPendingExecutionContinuations(afterUse,runId)[0].status,'consumed');
+  assert.deepEqual(cc.selectPendingExecutionUse(afterUse,request),{kind:'refused',code:'resolved_continuation',path:'/continuation'},'one use');
+  assert.ok(cc.projectPendingExecutionOperation(afterUse,operation),'cold operation correspondence');
+  // Duplicate Public invocation truth over this operation is not asserted here:
+  // projectFhEffectfulPublicInvocationFacts (outside this change) still claims
+  // every other run.continue operation as F_H and reports invalid_history.
+  const completedBefore=runAt(env.store.readAll()).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
+  const hog=await load('hog/graph_execute');
+  const result=await hog.executeGraphTraversal({pendingExecutionResume:true,continuation:{runId,continuationRef:p.continuationRef,continuationDigest:p.continuationDigest},
+    root:{...runtime,store:env.store,predecessorPrefix:admitted.successorPrefix,executionBasis:use.rootBasis,openedTraversalScope:use.rootScope,correlationId:'correlation://pending-execution/resume'}});
+  assert.equal(result.disposition,'closed',JSON.stringify(result));assert.equal(result.resultValue.terminal,true);
+  const final=runAt(env.store.readAll()),reopened=final.filter(e=>e.kind==='c_call_opened'&&completedBefore.includes(e.payload.cursorRef));
+  assert.equal(reopened.length,completedBefore.length,'no completed position is reopened or redispatched');
+  const resumed=final.filter(e=>e.kind==='c_call_opened'&&!completedBefore.includes(e.payload.cursorRef));
+  assert.equal(resumed[0].payload.cursorRef,p.pendingCursorRef,'the first resumed call is the exact pending position');
+  assert.equal(final.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.applicationRef!==undefined).length,2,'workflow and recursion returns complete');
+  assert.equal(final.filter(e=>e.kind==='run_closed').length,1);assert.equal(final.some(e=>e.kind==='runtime_failure_observed'),false);
+  assert.equal(new Set(final.map(e=>e.runId)).size,1,'same Run identity');
+  assert.deepEqual(final.find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef),producer,'original producer Result unchanged');
+  const parentResults=final.filter(e=>e.kind==='c_call_result_admitted'&&e.aggregateId!==undefined&&final.some(o=>o.kind==='c_call_opened'&&o.aggregateId===e.aggregateId&&o.payload.stageRole==='termination'));
+  assert.equal(parentResults.at(-1).payload.value.measurements.length,2);assert.deepEqual(parentResults.at(-1).payload.value.measurements[0],producer.payload.value.measurements[0],'completed child measurement conserved');
+  const finalCold=await cold();
+  assert.deepEqual(cc.projectPendingExecutionContinuations(finalCold,runId),[],'no pending execution remains');
+  assert.ok(cc.projectPendingExecutionOperation(finalCold,operation),'cold operation correspondence after completion');
+  assert.deepEqual(cc.selectPendingExecutionUse(finalCold,request),{kind:'refused',code:'resolved_continuation',path:'/continuation'},'duplicate after completion');
+  const handoff=env.store.projectReopenAuthorityAndClose(),reopenedStore=env.abg.reopenEventStore(structuredClone(handoff.reopenAuthority));
+  const reads=await load('abg/project_read_ports');
+  const replay=reads.prepareRunReadAtDurablePrefix(reopenedStore.prefix,'run_replay',runId).project(),runResult=reads.prepareRunReadAtDurablePrefix(reopenedStore.prefix,'run_result',runId).project();
+  assert.equal(replay.disposition,'projected');assert.equal(replay.value.runtimeStatus,'closed');assert.equal(runResult.disposition,'projected');
+  reopenedStore.store.projectReopenAuthorityAndClose();
+  t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:final.length,
+    proofLimit:'In-process controlled interruption at a durable undispatched boundary; installed owners and the actual cut log; ABG/HoG owner path, not the Public CLI. Root installed fresh-process witness remains separate.'}));
 });

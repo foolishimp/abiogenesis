@@ -552,6 +552,20 @@ function projectCursorAncestry(prefix: RuntimeEventPrefix, graph: Readonly<GtlGr
         if (relation?.disposition !== "selected" || relation.applicationRef !== payload.registeredSelectionApplicationRef) return null;
         target = { kind: "c_traversal_target" as const, nodeRef: relation.nodeRef, termPath: relation.termPath,
           taskOrdinal: null, attempt: 1, retryPath: [], inputRef: admittedInput.admissionRef, inputDigest: admittedInput.subjectDigest };
+      } else if (payload.routeKind === "advance" && typeof payload.cCallRef === "string" &&
+        graph.template.applications.some(a => a.applicationRef === payload.declarationRef && a.relationKind === "recurse")) {
+        // HoG's deriveRecursionReentryCursor relation, read cold: the same term at
+        // the next bounded attempt, input = the consumed foldback's child Result.
+        const application = graph.template.applications.find(a => a.applicationRef === payload.declarationRef)!;
+        const consumed = Array.isArray(payload.consumedAvailabilityRefs) ? payload.consumedAvailabilityRefs : [];
+        const fold = exactOrUndefined(onlyExactMatch(indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").filter(e =>
+          e.admissionOrdinal < event.admissionOrdinal && e.runId === selected.runId && e.frameId === selected.frameId &&
+          isRecord(e.payload) && e.payload.parentCCallRef === payload.cCallRef && consumed.includes(e.payload.foldbackRef as JsonValue))));
+        const folded = fold === undefined || !isRecord(fold.payload) ? null : inputCoordinate(fold.payload.childResultRef, fold.payload.outputDigest);
+        if (folded === null || application.relationKind !== "recurse" || current.position !== "at_term" ||
+          current.attempt >= application.bound) return null;
+        target = { kind: "c_traversal_target" as const, nodeRef: current.currentNodeRef, termPath: current.termPath,
+          taskOrdinal: current.taskOrdinal, attempt: current.attempt + 1, retryPath: current.retryPath, ...folded };
       } else if (payload.routeKind === "advance") {
         const completed = routeCompletedInput(prefix, event, current);
         if (completed === null) return null;

@@ -721,6 +721,72 @@ function beginRecursionApplicationUsing(
     };
 }
 
+/** @internal Restore one existing recursion return from admitted same-Run
+ * truth: the termination leaf's judged deferred application (the same
+ * `restoreOwnedDeferredRecursion` owner) and its already admitted child basis
+ * and scope. No leaf, child preparation or route is repeated; a terminal,
+ * bound-exhausted or crossed child yields no frame. */
+export function rehydrateOwnedRecursionChildFoldFrame(input: Readonly<{
+  traversalInput: CompleteExecutableTraversalInput<
+    Readonly<Record<string, JsonValue>>
+  >;
+  parentClock: ExecutionClock;
+  application: Readonly<RecurseApplication>;
+  graphEntryInput: Readonly<Record<string, JsonValue>>;
+  graphEntryInputDigest: `sha256:${string}`;
+  leafOrdinal: number;
+  childExecutionBasis: PreparedChildTraversal["executionBasis"];
+  childTraversalScope: PreparedChildTraversal["openedTraversalScope"];
+}>): OwnedRecursionChildFoldFrame | null {
+  const { traversalInput, application } = input;
+  const child = input.childExecutionBasis, scope = input.childTraversalScope;
+  const cCallRef = child.parentCCallRef;
+  if (cCallRef === null || cCallRef === undefined) return null;
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(traversalInput.predecessorPrefix);
+  const judged = indexedRuntimeEvents(prefix, "related:" + cCallRef).filter(event =>
+    event.kind === "c_call_judged" && event.aggregateId === cCallRef && isRecord(event.payload) &&
+    event.payload.cCallRef === cCallRef && event.payload.resultRef === child.rawInputAdmissionRef &&
+    typeof event.payload.judgmentRef === "string");
+  if (judged.length !== 1 || !isRecord(judged[0]!.payload)) return null;
+  const restoration: RestoreDeferredRecursionInput = {
+    traversalInput,
+    application,
+    cCallRef,
+    resultRef: child.rawInputAdmissionRef,
+    judgmentRef: judged[0]!.payload.judgmentRef as string,
+  };
+  const restored = restoreOwnedDeferredRecursion(restoration);
+  if (
+    restored === null || restored.cCallRef !== cCallRef ||
+    restored.resultRef !== child.rawInputAdmissionRef || !isRecord(restored.resultValue) ||
+    recursionTerminationDecision(application, restored.resultValue) !== false ||
+    traversalInput.traversalStop.cursor.attempt >= application.bound ||
+    child.basisClass !== "child" ||
+    child.parentExecutionBasisRef !== traversalInput.executionBasis.basisRef ||
+    child.parentTraversalScopeRef !== traversalInput.openedTraversalScope.scopeRef ||
+    child.graphFunctionRef !== application.graphFunctionRef ||
+    child.rawInputDigest !== sha256Canonical(restored.resultValue) ||
+    scope.executionBasisRef !== child.basisRef ||
+    scope.runId !== traversalInput.openedTraversalScope.runId
+  ) return null;
+  return {
+    kind: "recursion_child_fold_frame",
+    parentClock: input.parentClock,
+    parentScopeClass: traversalInput.completionScopeClass,
+    traversalInput,
+    application,
+    restored,
+    restoration,
+    graphEntryInput: input.graphEntryInput,
+    graphEntryInputDigest: input.graphEntryInputDigest,
+    leafOrdinal: input.leafOrdinal,
+    childExecutionBasis: child,
+    childTraversalScope: scope,
+    childInput: child.rawInputValue as PreparedChildTraversal["input"],
+    childInputDigest: child.rawInputDigest,
+  };
+}
+
 function projectFailedRecursionChildTruth(
   frame: OwnedRecursionChildFoldFrame,
   state: DeferredApplicationState,

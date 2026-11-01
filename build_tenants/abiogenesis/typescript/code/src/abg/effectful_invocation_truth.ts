@@ -1,7 +1,7 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { projectSelectedActionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
+import { projectSelectedActionOperation, projectPendingExecutionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -232,6 +232,12 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
   for (const operation of events.filter(e => e.kind === "public_operation_admitted" &&
     isRecord(e.payload) && e.payload.continuationKind === "selected_action")) {
     const fact = projectSelectedActionOperation(validatedPrefix, operation);
+    if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
+    facts.push(fact);
+  }
+  for (const operation of events.filter(e => e.kind === "public_operation_admitted" &&
+    isRecord(e.payload) && e.payload.continuationKind === "pending_execution")) {
+    const fact = projectPendingExecutionOperation(validatedPrefix, operation);
     if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
     facts.push(fact);
   }

@@ -206,8 +206,9 @@ export type PendingExecutionReturn = Readonly<{
   entryRouteRef: string | null;
 }>;
 /** Replay-derived pending execution of a Run without construction composition
- * (registered selection/recursion). It grants no execution; the phase records
- * whether the pending call already has dispatch or evidence facts. */
+ * (registered selection/recursion). It grants no execution. Only an admitted
+ * cursor without an opened call is `undispatched`; an opened call has no
+ * attested absence of dispatch, so its effect stays `effect_unknown`. */
 export type PendingExecutionContinuation = Readonly<{
   continuationKind: "pending_execution";
   continuationRef: string;
@@ -223,7 +224,7 @@ export type PendingExecutionContinuation = Readonly<{
   causedByEventRef: string;
   openedEventRef: string;
   terminalEventRef: string | null;
-  status: "open" | "superseded";
+  status: "open" | "consumed";
 }>;
 
 /** Indexed cold projection over existing basis, frame, cursor, CCall, route and
@@ -289,20 +290,25 @@ function derivePendingExecutionContinuations(prefix: RuntimeEventPrefix, runId: 
     const ep = entered === null ? null : payload(entered);
     const progressedInputRef = typeof ep?.inputRef === "string" ? ep.inputRef : null;
     const progressedInputDigest = typeof ep?.inputDigest === "string" ? ep.inputDigest as Sha256Digest : null;
-    // Dispatch, evidence or a started actor is another phase: its effect stays unknown.
-    const phase = pendingCCallRef !== null && rows.some(e => e.aggregateId === pendingCCallRef && e.kind === "c_call_evidenced" ||
-      e.kind === "actor_invocation_started" && payload(e).cCallRef === pendingCCallRef) ? "effect_unknown" as const : "undispatched" as const;
+    // An opened call may have dispatched, evidenced or started an actor without a
+    // durable Result; no owner attests its absence, so its effect stays unknown.
+    const phase = pendingCCallRef === null ? "undispatched" as const : "effect_unknown" as const;
     const body = { continuationKind: "pending_execution" as const, runId, chain: Object.freeze(chain), pendingCCallRef,
       pendingCursorRef: cursorRef, pendingCursorDigest: cursorDigest as Sha256Digest, progressedInputRef, progressedInputDigest,
       phase, causedByEventRef: position.eventId };
     const continuationDigest = hash(body as unknown as JsonValue), continuationRef = `continuation://abiogenesis/${continuationDigest.slice(7)}`;
-    const links = indexedRuntimeEvents(prefix, "kind:continuation_reentry_link_admitted").filter(e =>
-      isRecord(e.payload) && e.payload.continuationKind === "pending_execution" && e.payload.predecessorContinuationId === continuationRef);
-    if (links.length > 1) throw new TypeError("pending execution continuation has duplicate reentry admissions");
+    const uses = pendingExecutionOperations(prefix, continuationRef);
+    if (uses.length > 1) throw new TypeError("pending execution continuation has duplicate use admissions");
     return Object.freeze([deepFreeze({ ...body, continuationRef, continuationDigest, openedEventRef: position.eventId,
-      terminalEventRef: links[0]?.eventId ?? null, status: links.length === 0 ? "open" as const : "superseded" as const })]);
+      terminalEventRef: uses[0]?.eventId ?? null, status: uses.length === 0 ? "open" as const : "consumed" as const })]);
   }
   return [];
+}
+
+/** The one admitted same-Run use of an occurrence is its Public operation. */
+function pendingExecutionOperations(prefix: RuntimeEventPrefix, continuationRef: string): readonly RuntimeEvent[] {
+  return indexedRuntimeEvents(prefix, "kind:public_operation_admitted").filter(e => isRecord(e.payload) &&
+    e.payload.continuationKind === "pending_execution" && e.payload.continuationRef === continuationRef);
 }
 
 export function projectPendingExecutionContinuations(prefix: ValidatedRuntimeEventPrefix,
@@ -2226,4 +2232,214 @@ export function projectSelectedActionOperation(prefix: RuntimeEventPrefix, opera
   return { operationId: "abg.operation.run.continue" as const, publicInvocationRef: p.invocationRef,
     ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
     publicOperationEventRef: operation.eventId, admissionEventRef: operation.eventId };
+}
+
+/** A same-Run use of one replay-derived pending execution. The request names
+ * the exact occurrence, its pending cursor, its progressed input and the root
+ * basis; it supplies no frame, cursor, input or return obligation. */
+export type PendingExecutionUseRequest = Readonly<{ run: SelectedCoordinate; continuation: SelectedCoordinate;
+  pendingCursor: SelectedCoordinate; continuationInput: SelectedCoordinate; expectedBasis: SelectedCoordinate }>;
+export type PendingExecutionUseRefusal = Readonly<{ kind: "refused";
+  code: "missing_continuation" | "resolved_continuation" | "response_mismatch" | "basis_mismatch" | "replay_mismatch"; path: string }>;
+export type PendingExecutionUse = Readonly<{ kind: "pending_execution_use"; source: PendingExecutionContinuation;
+  rootBasis: ExecutionBasis; rootScope: OpenedTraversalScope; invocation: import("./invocation_admission.js").InvocationAdmission;
+  request: PendingExecutionUseRequest; predecessorDigest: Sha256Digest }>;
+
+const pendingExecutionUses = new WeakSet<object>();
+/** Same owner predicate for new admission and cold operation correspondence.
+ * The occurrence stays in its own Run: no replacement basis, scope, cursor or
+ * cross-Run holder relation is constructed. */
+export function selectPendingExecutionUse(prefix: ValidatedRuntimeEventPrefix,
+  request: PendingExecutionUseRequest): PendingExecutionUse | PendingExecutionUseRefusal;
+/** @internal */
+export function selectPendingExecutionUse(prefix: RuntimeEventPrefix,
+  request: PendingExecutionUseRequest): PendingExecutionUse | PendingExecutionUseRefusal;
+export function selectPendingExecutionUse(prefix: RuntimeEventPrefix,
+  request: PendingExecutionUseRequest): PendingExecutionUse | PendingExecutionUseRefusal {
+  const refuse = (code: PendingExecutionUseRefusal["code"], path: string): PendingExecutionUseRefusal =>
+    Object.freeze({ kind: "refused" as const, code, path });
+  if (pendingExecutionOperations(prefix, request.continuation.ref).length !== 0) return refuse("resolved_continuation", "/continuation");
+  const source = projectPendingExecutionContinuations(prefix, request.run.ref).find(c =>
+    c.continuationRef === request.continuation.ref && c.continuationDigest === request.continuation.digest);
+  if (source === undefined) return refuse("missing_continuation", "/continuation");
+  const root = source.chain[0]!, rootScope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, root.frameId);
+  if (rootScope === null || rootScope.runId !== source.runId || rootScope.runDigest !== request.run.digest) return refuse("basis_mismatch", "/run");
+  if (request.expectedBasis.ref !== root.basisRef || request.expectedBasis.digest !== root.basisDigest) return refuse("basis_mismatch", "/expectedBasis");
+  // An opened call's dispatch is not attested absent; its unknown effect is kept.
+  if (source.phase !== "undispatched") return refuse("replay_mismatch", "/continuation/effect");
+  if (request.pendingCursor.ref !== source.pendingCursorRef || request.pendingCursor.digest !== source.pendingCursorDigest)
+    return refuse("response_mismatch", "/pendingCursor");
+  if (source.progressedInputRef === null || request.continuationInput.ref !== source.progressedInputRef ||
+    request.continuationInput.digest !== source.progressedInputDigest) return refuse("response_mismatch", "/continuationInput");
+  const rootBasis = rehydrateExecutionBasisAtPrefix(prefix, root.basisRef);
+  const invocation = rootBasis === null ? null : projectExactInvocationAdmissionAtPrefix(prefix, rootBasis.invocationAdmissionRef);
+  if (rootBasis === null || rootBasis.basisClass !== "root" || rootBasis.basisDigest !== root.basisDigest ||
+    rootBasis.constructionContinuationUse !== undefined || invocation === null) return refuse("basis_mismatch", "/invocationAuthority");
+  const use: PendingExecutionUse = Object.freeze({ kind: "pending_execution_use" as const, source, rootBasis, rootScope, invocation,
+    request: Object.freeze({ ...request }), predecessorDigest: runtimeEventPrefixDigest(prefix) });
+  pendingExecutionUses.add(use);
+  return use;
+}
+
+/** Admit the one workspace use. Its payload binds the occurrence, pending
+ * cursor, progressed input and root basis; Run truth stays with HoG/ABG owners. */
+export function admitPendingExecutionContinuationOperation(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
+  use: PendingExecutionUse, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
+  const { invocation, source, rootBasis, request } = use;
+  if (!pendingExecutionUses.has(use) || runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix))) !== use.predecessorDigest ||
+    validatePublicOperationBasis(basis, "abg.operation.run.continue", "current_intent") !== null ||
+    !isCapabilityGrantValue(grant) || grant.operationId !== "abg.operation.run.continue" || grant.actorRef !== invocation.actorRef ||
+    grant.policyRef !== invocation.policyRef || basis.authorityScopeRef !== invocation.workspaceBindingId ||
+    basis.authorityScopeDigest !== invocation.workspaceBindingDigest)
+    throw new TypeError("pending-execution use requires its exact occurrence and separate operation authority");
+  return admitRuntimeEventTransactionAtDurablePrefix(store, predecessorPrefix, () => admitRuntimeEvent(store,
+    constructionContinuationOperationCandidate(invocation, grant, basis, {
+      operationId: "abg.operation.run.continue", memberKey: "current_intent", variant: "pending_execution",
+      continuationKind: "pending_execution", continuationRef: source.continuationRef, continuationDigest: source.continuationDigest,
+      sourceRunId: source.runId, sourceRunDigest: request.run.digest,
+      pendingCursorRef: source.pendingCursorRef, pendingCursorDigest: source.pendingCursorDigest,
+      continuationInputRef: request.continuationInput.ref, continuationInputDigest: request.continuationInput.digest,
+      executionBasisRef: rootBasis.basisRef, executionBasisDigest: rootBasis.basisDigest,
+    })));
+}
+
+/** Cold validation consumes the same use predicate at the operation's actual predecessor. */
+export function projectPendingExecutionOperation(prefix: ValidatedRuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null;
+/** @internal */
+export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null;
+export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, operation: RuntimeEvent): {
+    operationId: "abg.operation.run.continue";
+    publicInvocationRef: string;
+    ownerInvocationRef: string;
+    ownerInvocationDigest: Sha256Digest;
+    publicOperationEventRef: string;
+    admissionEventRef: string;
+} | null {
+  const p = operation.payload;
+  const text = (key: string) => isRecord(p) && typeof p[key] === "string" ? p[key] as string : null;
+  if (operation.kind !== "public_operation_admitted" || !isRecord(p) || p.continuationKind !== "pending_execution" ||
+    p.operationId !== "abg.operation.run.continue" || p.memberKey !== "current_intent" || p.variant !== "pending_execution" ||
+    ["sourceRunId", "sourceRunDigest", "continuationRef", "continuationDigest", "pendingCursorRef", "pendingCursorDigest",
+      "continuationInputRef", "continuationInputDigest", "executionBasisRef", "executionBasisDigest", "invocationRef", "invocationDigest"]
+      .some(key => text(key) === null) || !isCapabilityGrantValue(p.capabilityGrant)) return null;
+  const before = validatedRuntimeEventPrefixBeforeEvent(prefix, operation.eventId);
+  const use = selectPendingExecutionUse(before, { run: { ref: text("sourceRunId")!, digest: text("sourceRunDigest")! },
+    continuation: { ref: text("continuationRef")!, digest: text("continuationDigest")! },
+    pendingCursor: { ref: text("pendingCursorRef")!, digest: text("pendingCursorDigest")! },
+    continuationInput: { ref: text("continuationInputRef")!, digest: text("continuationInputDigest")! },
+    expectedBasis: { ref: text("executionBasisRef")!, digest: text("executionBasisDigest")! } });
+  if (use.kind !== "pending_execution_use" ||
+    p.authorityRef !== use.invocation.authorityRef || p.authorityDigest !== use.invocation.authorityDigest ||
+    p.policyRef !== use.invocation.policyRef || p.policyDigest !== use.invocation.policyDigest ||
+    p.actorRef !== use.invocation.actorRef || p.capabilityGrant.actorRef !== use.invocation.actorRef ||
+    p.capabilityGrant.policyRef !== use.invocation.policyRef || p.capabilityGrant.operationId !== "abg.operation.run.continue" ||
+    !continuationOperationWorkspaceCorresponds(operation, use.invocation)) return null;
+  return { operationId: "abg.operation.run.continue" as const, publicInvocationRef: text("invocationRef")!,
+    ownerInvocationRef: text("invocationRef")!, ownerInvocationDigest: text("invocationDigest") as Sha256Digest,
+    publicOperationEventRef: operation.eventId, admissionEventRef: operation.eventId };
+}
+
+const pendingPreparations = new WeakSet<object>();
+/** Root runtime truth for one selected use: the admitted root basis, scope and
+ * root sets, with the root graph rematerialized against the loaded Product
+ * resolution. Child levels stay admitted truth restored by HoG. */
+export function preparePendingExecutionContinuation(prefix: ValidatedRuntimeEventPrefix,
+  use: PendingExecutionUse, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: PendingExecutionUse;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+  }> | null;
+/** @internal */
+export function preparePendingExecutionContinuation(prefix: RuntimeEventPrefix,
+  use: PendingExecutionUse, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: PendingExecutionUse;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+  }> | null;
+export function preparePendingExecutionContinuation(prefix: RuntimeEventPrefix,
+  use: PendingExecutionUse, resolution: LoadedProductExecutionResolution): Readonly<{
+    use: PendingExecutionUse;
+    root: ExecutionBasis;
+    graph: Readonly<import("../index.js").GtlGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation;
+    scope: OpenedTraversalScope;
+    implementationSet: import("./execution_basis.js").AdmittedImplementationSet;
+    interactionSet: import("./execution_basis.js").AdmittedInteractionSet;
+    resolution: LoadedProductExecutionResolution;
+  }> | null {
+  const root = use.rootBasis;
+  if (!pendingExecutionUses.has(use) || root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
+    root.programValidationRef !== resolution.programValidation.validationRef || root.graphFunctionRef !== resolution.graphFunction.name) return null;
+  const coordinates = { invocationAdmissionRef: root.invocationAdmissionRef, admittedInputRef: root.rawInputAdmissionRef,
+    admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue };
+  const graph = materializeGraph(resolution.graphFunction, coordinates);
+  const graphValidation = validateGraph(graph, resolution.programValidation, resolution.graphFunction, coordinates);
+  const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, root.rootImplementationSetRef);
+  const interactionSet = rehydrateAdmittedInteractionSetAtPrefix(prefix, root.rootInteractionSetRef);
+  if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
+    graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest ||
+    implementationSet === null || interactionSet === null) return null;
+  const result = Object.freeze({ use, root, graph, graphValidation, scope: use.rootScope, implementationSet, interactionSet, resolution });
+  pendingPreparations.add(result);
+  return result;
+}
+
+/** The deepest pending level's actual input carrier and progressed input, for
+ * joining exact Public input authority before admission. */
+export function projectPendingExecutionInputAtPrefix(prefix: ValidatedRuntimeEventPrefix, use: PendingExecutionUse,
+  graphFunctionByRef: (graphFunctionRef: string) => Readonly<import("../gtl/contracts.js").GraphFunction> | null,
+  programValidation: import("../validator/validation.js").ProgramValidation): Readonly<{
+    inputCarrierRef: string; input: import("./traversal_cursor.js").TraversalInputOrigin }> | null;
+/** @internal */
+export function projectPendingExecutionInputAtPrefix(prefix: RuntimeEventPrefix, use: PendingExecutionUse,
+  graphFunctionByRef: (graphFunctionRef: string) => Readonly<import("../gtl/contracts.js").GraphFunction> | null,
+  programValidation: import("../validator/validation.js").ProgramValidation): Readonly<{
+    inputCarrierRef: string; input: import("./traversal_cursor.js").TraversalInputOrigin }> | null;
+export function projectPendingExecutionInputAtPrefix(prefix: RuntimeEventPrefix, use: PendingExecutionUse,
+  graphFunctionByRef: (graphFunctionRef: string) => Readonly<import("../gtl/contracts.js").GraphFunction> | null,
+  programValidation: import("../validator/validation.js").ProgramValidation): Readonly<{
+    inputCarrierRef: string; input: import("./traversal_cursor.js").TraversalInputOrigin }> | null {
+  const level = use.source.chain.at(-1)!;
+  const basis = rehydrateExecutionBasisAtPrefix(prefix, level.basisRef);
+  const graphFunction = basis === null ? null : graphFunctionByRef(basis.graphFunctionRef);
+  if (!pendingExecutionUses.has(use) || basis === null || graphFunction === null || basis.basisDigest !== level.basisDigest) return null;
+  const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,
+    admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };
+  const graph = materializeGraph(graphFunction, coordinates);
+  const validation = validateGraph(graph, programValidation, graphFunction, coordinates);
+  const scope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, level.frameId);
+  if (validation.kind !== "graph_validation" || validation.validationRef !== basis.graphValidationRef ||
+    graph.materializationRef !== basis.graphRef || graph.materializationDigest !== basis.graphDigest || scope === null) return null;
+  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: use.source.pendingCursorRef,
+    cursorDigest: use.source.pendingCursorDigest, executionBasisRef: basis.basisRef, runId: use.source.runId,
+    graphCallId: scope.graphCallId, frameId: scope.frameId });
+  const input = cursor === null ? null : projectTraversalInputAtPrefix(prefix, graph, basis, cursor);
+  const term = cursor === null ? null : resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
+  if (cursor === null || input === null || term === null || !("inputCarrierRef" in term) || typeof term.inputCarrierRef !== "string" ||
+    !isRecord(input.value) || input.inputRef !== use.source.progressedInputRef || input.inputDigest !== use.source.progressedInputDigest) return null;
+  return Object.freeze({ inputCarrierRef: term.inputCarrierRef, input });
 }

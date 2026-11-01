@@ -9,8 +9,7 @@ import test from "node:test";
 import * as storeOwner from "../../build/code/src/abg/event_store.js";
 import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
-  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent,
-  projectContinuedContextHoldersAtPrefix } from "../../build/code/src/abg/event_prefix.js";
+  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
 import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
 import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
@@ -643,94 +642,87 @@ test("native context bodies are born inline once, referenced by unchanged handof
     logicalResultValueBytes: logical, physicalLogBytes: log.length, nativeAdmission: false }));
 });
 
-// Model-free continued-context discriminator. Real EventStore admission,
-// worksite observation and held-prefix carriage; the source Run's holder is an
-// earlier native task (preparation-shaped) Result, not a governance observation.
-// This proves only the context -> member -> holder relation, not a continuation.
-test("a continued Run reads predecessor-held bodies only through the exact admitted context relation", async t => {
+// Model-free same-Run pending-input discriminator. Real EventStore admission,
+// worksite observation and held-prefix carriage. The progressed input is a
+// governance-state-shaped Result: it carries no native context body position.
+// Its selected native Result (subjectEvidenceRef -> observation row -> admitted
+// Result) carries the context whose members name an earlier preparation-shaped
+// holder. A pending-execution use stays in this Run, so the unchanged resolver
+// authenticates context -> member -> committed holder; no cross-Run relation exists.
+test("a pending execution reads its selected native context through the unchanged same-Run resolver only", async t => {
   const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
-  const { w, write, observe } = await contextFixture(t, text), source = "run://body-fixture", next = "run://body-fixture/continued";
-  const handoff = async (label, runId = source) => {
+  const { w, write, observe } = await contextFixture(t, text), run = "run://body-fixture", other = "run://body-fixture/other";
+  const handoff = async (label, runId = run) => {
     const context = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), { runId });
     return { context, event: result(f.store, label, nativeTask(label, context), runId) };
   };
-  const prepare = await handoff("prepare-native"), progressed = await handoff("progressed");
-  assert.equal(prepare.event.payload.value.kind, "native_workspace_work_task", "the holder is not a governance observation");
-  assert.deepEqual(carriage(progressed.context), { "src/a.txt": prepare.event.payload.resultRef, "src/b.txt": prepare.event.payload.resultRef });
-  const prefix = selectRuntimeEventPrefixFromStore(f.store);
-  const plain = resolveWorksiteContextBodyAtPrefix(prefix, progressed.context, "src/a.txt", { runId: next });
-  assert.equal(plain.code, "foreign", "without the relation another Run's holder still refuses");
-
-  const relation = projectContinuedContextHoldersAtPrefix(prefix, source, progressed.event.eventId, next);
-  assert.equal(relation.kind, "continued_context_holders", JSON.stringify(relation));
-  assert.equal(relation.sourceRunId, source); assert.equal(relation.targetRunId, next); assert.equal(relation.members.length, 2);
-  assert.ok(Object.isFrozen(relation) && Object.isFrozen(relation.members));
-  assert.throws(() => relation.members.push("forged"), TypeError, "the inspection copy cannot widen the relation");
-  const use = { runId: next, continuedHolders: relation };
-  for (const e of fileEntries(progressed.context)) {
-    const read = resolveWorksiteContextBodyAtPrefix(prefix, progressed.context, e.relativePath, use);
+  const prepare = await handoff("prepare-native"), selected = await handoff("selected-native-work");
+  assert.deepEqual(carriage(prepare.context), { "src/a.txt": "inline", "src/b.txt": "inline" }, "the preparation Result is the inline birth");
+  assert.deepEqual(carriage(selected.context), { "src/a.txt": prepare.event.payload.resultRef, "src/b.txt": prepare.event.payload.resultRef });
+  const sp = selected.event.payload;
+  const state = { kind: "governance_work_state", schemaVersion: "5.0.0",
+    observations: [{ purpose: "construction", resultRef: sp.resultRef, resultDigest: sp.resultDigest, cCallRef: selected.event.aggregateId }],
+    synthesis: { judgment: { subjectEvidenceRef: sp.resultRef } } };
+  const progressed = result(f.store, "progressed-state", state);
+  const before = f.store.readAll().length;
+  // Follow the authenticated selection: state -> observation row -> exact same-Run admitted Result -> its declared context.
+  const selectedContext = at => {
+    const ref = progressed.payload.value.synthesis.judgment.subjectEvidenceRef;
+    const rows = progressed.payload.value.observations.filter(o => o.resultRef === ref);
+    assert.equal(rows.length, 1, "one selected observation row");
+    const admitted = at.events.filter(e => e.kind === "c_call_result_admitted" && e.runId === progressed.runId &&
+      e.payload.resultRef === rows[0].resultRef && e.payload.resultDigest === rows[0].resultDigest && e.aggregateId === rows[0].cCallRef);
+    assert.equal(admitted.length, 1, "the selected native Result is admitted in the same Run");
+    return admitted[0].payload.value.context;
+  };
+  const prefix = selectRuntimeEventPrefixFromStore(f.store), context = selectedContext({ events: f.store.readAll() });
+  assert.equal(Object.hasOwn(progressed.payload.value, "context"), false, "the progressed state is not a native task");
+  const use = { runId: run };
+  for (const e of fileEntries(context)) {
+    const read = resolveWorksiteContextBodyAtPrefix(prefix, context, e.relativePath, use);
     assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
     assert.equal(read.bytes.toString(), text[e.relativePath]);
     assert.equal(read.holder.eventRef, prepare.event.eventId, "the earlier preparation Result is the committed holder");
   }
-
-  const causes = new Set(), refuse = (context, path, expected, consumer = use, at = prefix) => {
-    const read = resolveWorksiteContextBodyAtPrefix(at, context, path, consumer);
+  const causes = new Set(), refuse = (ctx, path, expected, consumer = use, at = prefix) => {
+    const read = resolveWorksiteContextBodyAtPrefix(at, ctx, path, consumer);
     assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason);
     causes.add(read.code);
   };
-  const withEntry = (context, path, change) => ({ ...context, entries: context.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
-  const member = (path, change) => withEntry(progressed.context, path, e => { change(e.member); return e; });
-  refuse(progressed.context, "src/a.txt", "foreign", { runId: next, continuedHolders: { ...relation } });
-  refuse(progressed.context, "src/a.txt", "foreign", { runId: next, continuedHolders: structuredClone(relation) });
-  refuse(progressed.context, "src/a.txt", "foreign", { runId: next, continuedHolders: Object.freeze({ ...relation, members: [...relation.members] }) });
-  refuse(progressed.context, "src/a.txt", "foreign", { runId: "run://body-fixture/other", continuedHolders: relation });
+  const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+  const member = (path, change) => withEntry(context, path, e => { change(e.member); return e; });
+  // Another Run has no permission, whatever extra carrier it presents.
+  refuse(context, "src/a.txt", "foreign", { runId: other });
+  refuse(context, "src/a.txt", "foreign", { runId: other, continuedHolders: { kind: "continued_context_holders", sourceRunId: run, targetRunId: other,
+    inputEventRef: progressed.eventId, members: fileEntries(context).map(e => e.member.resultRef) } });
   refuse(member("src/a.txt", m => { delete m.resultDigest; }), "src/a.txt", "malformed");
   refuse(member("src/a.txt", m => { m.resultRef = "result://body-fixture/never-admitted"; }), "src/a.txt", "pending");
-  refuse(progressed.context, "src/a.txt", "pending", use, validatedRuntimeEventPrefixBeforeEvent(prefix, prepare.event.eventId));
+  refuse(context, "src/a.txt", "pending", use, validatedRuntimeEventPrefixBeforeEvent(prefix, prepare.event.eventId));
   refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
-  refuse({ ...progressed.context, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
-  refuse(progressed.context, "src/a.txt", "denied", { ...use, readable: path => path !== "src/a.txt" });
-  refuse(progressed.context, "src/none.txt", "missing");
-
-  // A later source-Run version of b is held by another Result; the admitted
-  // progressed input selected only the earlier member.
+  refuse({ ...context, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
+  refuse(context, "src/a.txt", "denied", { ...use, readable: path => path !== "src/a.txt" });
+  refuse(context, "src/none.txt", "missing");
+  assert.equal(f.store.readAll().length, before, "resolution and refusals admit no events");
+  // A later version of b is held by another Result; the selected context keeps the earlier member.
   text["src/b.txt"] = "changed beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
   const changed = await handoff("changed"), after = await handoff("after-change"), now = selectRuntimeEventPrefixFromStore(f.store);
   assert.equal(after.context.entries.find(e => e.relativePath === "src/b.txt").member.resultRef, changed.event.payload.resultRef);
-  refuse(after.context, "src/b.txt", "foreign", use, now);
-  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: progressed.context.entries.find(x => x.relativePath === "src/b.txt").member })),
+  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: context.entries.find(x => x.relativePath === "src/b.txt").member })),
     "src/b.txt", "stale", use, now);
-  assert.equal(resolveWorksiteContextBodyAtPrefix(now, after.context, "src/a.txt", use).kind, "worksite_context_body",
-    "an unchanged selected member stays readable from a later context value");
+  assert.equal(resolveWorksiteContextBodyAtPrefix(now, context, "src/b.txt", use).bytes.toString(), "beta ".repeat(3000),
+    "the selected member stays readable after a later change");
   assert.deepEqual([...causes].sort(), ["denied", "foreign", "malformed", "missing", "pending", "stale", "tampered"],
-    "every existing resolver refusal cause survives the continued relation");
-
-  const projection = (at, runId, eventRef, target = next) => projectContinuedContextHoldersAtPrefix(at, runId, eventRef, target);
-  assert.equal(projection(now, "run://body-fixture/third", progressed.event.eventId).code, "foreign", "the input must belong to the named source Run");
-  assert.equal(projection(now, source, progressed.event.eventId, source).code, "malformed", "the replacement is a distinct Run");
-  assert.equal(projection(now, source, "event://never-admitted").code, "pending");
-  assert.equal(projection(now, source, f.store.readAll()[0].eventId).code, "malformed", "a non-Result event is no progressed input");
-  const otherRun = await handoff("other-run-input", "run://body-fixture/third");
-  assert.deepEqual(carriage(otherRun.context), { "src/a.txt": "inline", "src/b.txt": "inline" }, "a new Run births its own first context");
-  const third = projection(selectRuntimeEventPrefixFromStore(f.store), "run://body-fixture/third", otherRun.event.eventId);
-  assert.equal(third.sourceRunId, "run://body-fixture/third");
-  assert.equal(third.kind, "continued_context_holders"); assert.equal(third.members.length, 0, "inline entries need no holder");
-  refuse(progressed.context, "src/a.txt", "foreign", { runId: next, continuedHolders: third }, selectRuntimeEventPrefixFromStore(f.store));
-  const tampered = result(f.store, "tampered-input", nativeTask("tampered-input", member("src/a.txt", m => { m.resultDigest = sha256Canonical("x"); })));
-  assert.equal(projection(selectRuntimeEventPrefixFromStore(f.store), source, tampered.eventId).code, "tampered",
-    "a progressed input whose member does not resolve refuses the whole relation");
-
-  const carried = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), use);
-  assert.deepEqual(carriage(carried), { "src/a.txt": "inline", "src/b.txt": "inline" }, "producer carriage never shares across Runs");
-
-  // Cold: the relation is rederived from retained log bytes; the worksite is gone.
+    "every existing resolver refusal cause survives");
+  // Producer carriage never shares across Runs: another Run births its own bodies.
+  assert.deepEqual(carriage(reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), { runId: other })),
+    { "src/a.txt": "inline", "src/b.txt": "inline" });
+  // Cold: the same relation is rederived from retained log bytes; the worksite is gone.
   await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
   const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
-  const coldRelation = projectContinuedContextHoldersAtPrefix(cold, source, progressed.event.eventId, next);
-  assert.equal(coldRelation.kind, "continued_context_holders"); assert.deepEqual(coldRelation.members, relation.members);
-  for (const e of fileEntries(progressed.context)) assert.equal(resolveWorksiteContextBodyAtPrefix(cold, progressed.context, e.relativePath,
-    { runId: next, continuedHolders: coldRelation }).bytes.toString(), e.relativePath === "src/a.txt" ? text["src/a.txt"] : "beta ".repeat(3000));
+  const coldContext = selectedContext({ events: storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)) });
+  assert.deepEqual(coldContext, context);
+  for (const e of fileEntries(coldContext)) assert.equal(resolveWorksiteContextBodyAtPrefix(cold, coldContext, e.relativePath, use).bytes.toString(),
+    e.relativePath === "src/a.txt" ? text["src/a.txt"] : "beta ".repeat(3000));
 });
 
 // Fixed model-free workload: 965 context entries (src, 4 directories, 960 files)

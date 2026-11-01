@@ -224,11 +224,12 @@ deepest admitted open cursor reached through an admitted registered-selection
 route, together with every open ancestor return obligation (workflow,
 registered-selection and recursion), including consumed recursion allowance.
 Interruption is established by exclusive resource acquisition, not by absence
-of events. One reentry link consumes the occurrence. Replacement bases, scopes,
-CCalls and cursors are new Run-local identities with predecessor payload
-bindings. Completed producers remain historical Results; no producer reruns.
-A started dispatch without Result stays unknown under the existing effect owner
-and refuses resumption.
+of events. One admitted `public_operation_admitted` use consumes the
+occurrence; the interrupted Run continues in place, restoring its admitted
+return frames and resuming the deepest cursor with its admitted progressed
+input. Completed producers remain historical Results; no producer reruns. An
+opened CCall without Result stays unknown under the existing effect owner and
+refuses resumption.
 
 ## Totality And Selection
 

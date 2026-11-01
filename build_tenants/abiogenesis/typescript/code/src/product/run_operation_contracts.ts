@@ -182,16 +182,31 @@ const continueRefusalSchema = refusalSchema([
   "reprice_mismatch",
 ]);
 
+// The current-execution member's contract domain has two explicit, exclusive
+// alternatives: the current construction intent, and a replay-derived pending
+// execution (registered selection/recursion) with no intent or action field.
+const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
+
 function continueContract<const TMember extends
   "current_intent" | "selected_action">(member: TMember) {
+  const kinds = member === "current_intent" ? CURRENT_EXECUTION_KINDS : [member] as const;
   const request = member === "current_intent"
-    ? v.strictObject({
-      run: refDigestSchema,
-      continuation: refDigestSchema,
-      currentIntent: refDigestSchema,
-      continuationInput: refDigestSchema,
-      expectedBasis: refDigestSchema,
-    })
+    ? v.union([
+      v.strictObject({
+        run: refDigestSchema,
+        continuation: refDigestSchema,
+        currentIntent: refDigestSchema,
+        continuationInput: refDigestSchema,
+        expectedBasis: refDigestSchema,
+      }),
+      v.strictObject({
+        run: refDigestSchema,
+        continuation: refDigestSchema,
+        pendingCursor: refDigestSchema,
+        continuationInput: refDigestSchema,
+        expectedBasis: refDigestSchema,
+      }),
+    ])
     : v.strictObject({
       run: refDigestSchema,
       continuation: refDigestSchema,
@@ -205,7 +220,7 @@ function continueContract<const TMember extends
       ]),
     });
   const result = v.strictObject({
-    continuationKind: v.literal(member),
+    continuationKind: v.picklist(kinds),
     run: refDigestSchema,
     graphCall: v.nullable(refDigestSchema),
     admittedIntent: member === "selected_action"
@@ -217,7 +232,7 @@ function continueContract<const TMember extends
     replay: refDigestSchema,
   });
   const nonTerminal = v.strictObject({
-    continuationKind: v.literal(member),
+    continuationKind: v.picklist(kinds),
     disposition: v.picklist(["held", "gap_stop"]),
     run: refDigestSchema,
     continuation: refDigestSchema,
@@ -259,7 +274,7 @@ function continueContract<const TMember extends
       ],
       capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.continue", memberKey: member }),
       defaults: {},
-      closedDomains: { continuationKind: [member] },
+      closedDomains: { continuationKind: [...kinds] },
       sdkCoordinate: "sdk.run.continue",
       cliCoordinate: `run continue --mode ${member}`,
       adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,

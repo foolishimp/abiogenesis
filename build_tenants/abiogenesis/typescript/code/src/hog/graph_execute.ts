@@ -1,4 +1,9 @@
-import { admitPendingConstructionIntentContinuation } from "../abg/construction_continuation.js";
+import { admitPendingConstructionIntentContinuation, projectPendingExecutionContinuations } from "../abg/construction_continuation.js";
+import { projectOpenedCCallCarrierAtPrefix } from "../abg/c_call.js";
+import { rehydrateExecutionBasisAtPrefix } from "../abg/execution_basis.js";
+import { projectOpenedTraversalScopeForFrameAtPrefix } from "../abg/open_call.js";
+import { materializeGraph } from "../gtl/materialize.js";
+import { validateGraph } from "../validator/graph.js";
 import { isRecord } from "../shared/admit/index.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
@@ -9,8 +14,8 @@ import {
   projectOpenedTraversalScopeClassAtDurablePrefix,
   selectAdmittedImplementationResolution,
 } from "../abg/index.js";
-import { projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
-import { projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
+import { indexedRuntimeEvents, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
+import { projectAdmittedTraversalCursorAtPrefix, projectTraversalInputAtPrefix } from "../abg/traversal_cursor.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import { resolveCProgramTermAtSourcePath } from "../gtl/source_path.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -41,6 +46,7 @@ import {
 import {
   beginOwnedRecursionApplication as beginRecursionApplication,
   completeOwnedRecursionChild as completeRecursionChild,
+  rehydrateOwnedRecursionChildFoldFrame,
   recursionApplication,
   type CompleteExecutableTraversalInput,
 } from "./recursion_lifecycle.js";
@@ -73,6 +79,7 @@ import type {
   GraphTraversalFailureResult,
   InitialOrNonRetryExecuteGraphTraversalInput,
   ResumeConstructionIntentInput,
+  ResumePendingExecutionInput,
 } from "./traversal_contract.js";
 import {
   type ExecutableTraversalCompletion,
@@ -260,6 +267,22 @@ function recursionTraversalInput(
   context: ExecutableCCallContext,
   completion: OwnedExecutableTraversalCompletion,
 ): CompleteExecutableTraversalInput<Readonly<Record<string, JsonValue>>> {
+  return recursionTraversalInputAt(frame, context, completion.successorPrefix) ?? failFrame(
+    frame,
+    completion.successorPrefix,
+    `recursion-resolution-${frame.ordinal}`,
+    "diagnostic://abiogenesis/implementation/admitted-row-absent@5",
+    context.stop,
+  );
+}
+
+/** The one termination-leaf input shape, shared by ordinary descent and the
+ * pending-execution restoration of an existing recursion return. */
+function recursionTraversalInputAt(
+  frame: MachineEvaluationFrame,
+  context: ExecutableCCallContext,
+  predecessorPrefix: ExecuteGraphTraversalCommonInput["predecessorPrefix"],
+): CompleteExecutableTraversalInput<Readonly<Record<string, JsonValue>>> | null {
   const resolution = selectAdmittedImplementationResolution(
     context.implementationSet,
     {
@@ -269,18 +292,10 @@ function recursionTraversalInput(
       implementationBindingRef: context.stop.implementationBindingRef,
     },
   );
-  if (resolution === null) {
-    return failFrame(
-      frame,
-      completion.successorPrefix,
-      `recursion-resolution-${frame.ordinal}`,
-      "diagnostic://abiogenesis/implementation/admitted-row-absent@5",
-      context.stop,
-    );
-  }
+  if (resolution === null) return null;
   return Object.freeze({
     store: context.store,
-    predecessorPrefix: completion.successorPrefix,
+    predecessorPrefix,
     executionBasis: context.executionBasis,
     openedTraversalScope: context.openedTraversalScope,
     program: context.program,
@@ -908,6 +923,184 @@ function exactParentReturns(
     )));
 }
 
+type PendingExecutionLevel = Readonly<{
+  runtime: ExecuteGraphTraversalCommonInput;
+  scopeClass: "root" | "child";
+}>;
+
+function pendingRestorationRefusal(stage: string, candidate: JsonValue): GraphTraversalEntryRefusal {
+  return resumeEntryRefusal("owner_refusal", `pending execution could not be restored: ${stage}`,
+    "diagnostic://abiogenesis/hog/pending-execution-restoration-mismatch@5", { stage, candidate });
+}
+
+/** The parent position of one open return: the cursor at which its admitted
+ * parent call opened, with that cursor's admitted input. */
+function pendingParentFrame(
+  prefix: ReturnType<typeof projectOwnedRuntimeEventPrefixAtDurablePrefix>,
+  level: PendingExecutionLevel,
+  parentCCallRef: string,
+): MachineEvaluationFrame | string {
+  const { runtime } = level;
+  const opened = indexedRuntimeEvents(prefix, "related:" + parentCCallRef).filter(event =>
+    event.kind === "c_call_opened" && event.aggregateId === parentCCallRef &&
+    event.runId === runtime.openedTraversalScope.runId && event.frameId === runtime.openedTraversalScope.frameId &&
+    event.basisId === runtime.executionBasis.basisRef && isRecord(event.payload));
+  const payload = opened.length === 1 && isRecord(opened[0]!.payload) ? opened[0]!.payload : null;
+  if (payload === null || typeof payload.cursorRef !== "string" || typeof payload.cursorDigest !== "string") return "parent-call";
+  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, runtime.graph, {
+    cursorRef: payload.cursorRef, cursorDigest: payload.cursorDigest as `sha256:${string}`,
+    executionBasisRef: runtime.executionBasis.basisRef, runId: runtime.openedTraversalScope.runId,
+    graphCallId: runtime.openedTraversalScope.graphCallId, frameId: runtime.openedTraversalScope.frameId,
+  });
+  const origin = cursor === null ? null : projectTraversalInputAtPrefix(prefix, runtime.graph, runtime.executionBasis, cursor);
+  if (cursor === null) return "parent-cursor";
+  if (origin === null || !isRecord(origin.value) || origin.inputDigest !== cursor.inputDigest) return "parent-input";
+  return Object.freeze({
+    runtime,
+    scopeClass: level.scopeClass,
+    graphEntryInput: runtime.executionBasis.rawInputValue,
+    graphEntryInputDigest: runtime.executionBasis.rawInputDigest,
+    cursor: cursor as TraversalCursor,
+    input: origin.value,
+    ordinal: cursor.taskOrdinal ?? 0,
+    structuralOrdinal: 0,
+  });
+}
+
+/** Restore the exact consumed pending execution of this Run. Each child level
+ * is the already admitted basis/scope, rematerialized and checked against its
+ * admitted graph; workflow returns use the existing parent rehydration owner;
+ * recursion returns use the existing deferred-application restoration. The
+ * deepest frame re-enters only its admitted pending cursor and progressed input. */
+async function pendingExecutionState(
+  input: ResumePendingExecutionInput,
+): Promise<Extract<OwnedTraversalMachineState, { stateKind: "evaluate" }> | GraphTraversalEntryRefusal> {
+  const root = input.root;
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(root.predecessorPrefix);
+  const pending = projectPendingExecutionContinuations(prefix, input.continuation.runId).find(candidate =>
+    candidate.continuationRef === input.continuation.continuationRef &&
+    candidate.continuationDigest === input.continuation.continuationDigest);
+  const head = pending?.chain[0];
+  if (pending === undefined || head === undefined || pending.status !== "consumed" || pending.phase !== "undispatched" ||
+    pending.terminalEventRef === null || head.basisRef !== root.executionBasis.basisRef ||
+    head.frameId !== root.openedTraversalScope.frameId || root.openedTraversalScope.runId !== pending.runId)
+    return pendingRestorationRefusal("occurrence", { continuationRef: input.continuation.continuationRef });
+  const levels: PendingExecutionLevel[] = [Object.freeze({ runtime: root, scopeClass: "root" as const })];
+  for (const link of pending.chain.slice(1)) {
+    const parent = levels.at(-1)!.runtime;
+    const basis = rehydrateExecutionBasisAtPrefix(prefix, link.basisRef);
+    const scope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, link.frameId);
+    const graphFunction = basis === null ? null : root.leafPort.graphFunctionByRef(basis.graphFunctionRef);
+    if (basis === null || scope === null || graphFunction === null || basis.basisDigest !== link.basisDigest ||
+      basis.basisClass !== "child" || basis.parentCCallRef !== link.parentCCallRef ||
+      basis.parentExecutionBasisRef !== parent.executionBasis.basisRef ||
+      basis.parentTraversalScopeRef !== parent.openedTraversalScope.scopeRef ||
+      scope.executionBasisRef !== basis.basisRef || scope.runId !== pending.runId)
+      return pendingRestorationRefusal("child-basis", { basisRef: link.basisRef });
+    const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,
+      admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };
+    const graph = materializeGraph(graphFunction, coordinates);
+    const graphValidation = validateGraph(graph, root.programValidation, graphFunction, coordinates);
+    const closureContractRef = graphFunction.declarations["abg.child_closure_contract"];
+    const closureContract = closureContractRef === undefined ? null : root.leafPort.closureContractByRef(closureContractRef);
+    const leafPort = await root.leafPort.forGraphFunction(graphFunction.name);
+    if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== basis.graphValidationRef ||
+      graph.materializationRef !== basis.graphRef || graph.materializationDigest !== basis.graphDigest ||
+      closureContract === null || leafPort === null)
+      return pendingRestorationRefusal("child-graph", { basisRef: link.basisRef });
+    // Ordinary descent: a non-fan-out workflow child and a recursion child both
+    // inherit the parent's deferFailedRunStop, carried by the spread below.
+    levels.push(Object.freeze({ scopeClass: "child" as const, runtime: Object.freeze({
+      ...parent,
+      executionBasis: basis,
+      openedTraversalScope: scope,
+      graphFunction,
+      graph,
+      graphValidation,
+      closureContract,
+      leafPort,
+      ...(parent.continuationProductBasis === undefined ? {} : {
+        continuationProductBasis: { ...parent.continuationProductBasis, programValidation: root.programValidation, graphValidation },
+      }),
+      correlationId: `${root.correlationId}/pending/${levels.length}`,
+    }) }));
+  }
+  const base: InitialOrNonRetryExecuteGraphTraversalInput = Object.freeze({
+    ...root, input: root.executionBasis.rawInputValue, inputDigest: root.executionBasis.rawInputDigest });
+  const returns: OwnedMachineReturnFrame[] = [];
+  for (let depth = 1; depth < levels.length; depth++) {
+    const parentLevel = levels[depth - 1]!, child = levels[depth]!.runtime, link = pending.chain[depth]!;
+    const parentFrame = link.parentCCallRef === null ? "parent-call" : pendingParentFrame(prefix, parentLevel, link.parentCCallRef);
+    if (typeof parentFrame === "string" || link.parentCCallRef === null)
+      return pendingRestorationRefusal("parent-position", { basisRef: link.basisRef, reason: String(parentFrame) });
+    const parent = parentLevel.runtime;
+    if (link.relation === "workflow") {
+      const parentCCall = projectOpenedCCallCarrierAtPrefix(prefix, parent.graph, link.parentCCallRef, parentFrame.cursor,
+        parent.graphFunction, child.graphFunction, root.programValidation);
+      if (parentCCall === null) return pendingRestorationRefusal("workflow-call", { cCallRef: link.parentCCallRef });
+      const suspension: HeldWorkflowSuspension = Object.freeze({
+        kind: "held_workflow_suspension" as const, schemaVersion: "5.0.0" as const,
+        parentExecutionBasisRef: parent.executionBasis.basisRef, parentTraversalScope: parent.openedTraversalScope,
+        parentGraph: parent.graph, parentClosureContract: parent.closureContract, parentCCall, application: null,
+        sourceCursor: parentFrame.cursor, parentGraphInput: parentFrame.graphEntryInput as Readonly<Record<string, JsonValue>>,
+        parentGraphInputDigest: parentFrame.graphEntryInputDigest, parentInput: parentFrame.input as Readonly<Record<string, JsonValue>>,
+        parentInputDigest: parentFrame.cursor.inputDigest, childExecutionBasisRef: child.executionBasis.basisRef,
+        childTraversalScopeRef: child.openedTraversalScope.scopeRef,
+        childInput: child.executionBasis.rawInputValue as Readonly<Record<string, JsonValue>>,
+        childInputDigest: child.executionBasis.rawInputDigest,
+        terminalMode: parentLevel.scopeClass === "root" ? "close_run" as const : "return_to_parent" as const,
+      });
+      const exact = rehydrateParentReturnFrames({ predecessorPrefix: root.predecessorPrefix, program: root.program,
+        programValidation: root.programValidation, implementationSet: root.implementationSet, leafPort: parent.leafPort,
+        currentChildExecutionBasis: child.executionBasis, currentChildTraversalScope: child.openedTraversalScope,
+        suspensions: [suspension] });
+      if (exact.kind === "parent_rehydration_refusal" || exact.frames.length !== 1)
+        return pendingRestorationRefusal("workflow-return", { stage: exact.kind === "parent_rehydration_refusal" ? exact.stage : "frames" });
+      returns.push(machineWorkflowReturn({ ...base, ...parent, input: base.input, inputDigest: base.inputDigest },
+        exact.frames[0]!, root.predecessorPrefix, depth - 1));
+      continue;
+    }
+    const term = resolveTraversalTerm(parent.graph, parentFrame.cursor);
+    const stop = term.kind !== "c_of" ? null : traverseFromCursor(traversalBasis(parent), parentFrame.cursor, term);
+    if (stop === null || stop.kind !== "traversal_stop_ref" || stop.stopClass !== "executable")
+      return pendingRestorationRefusal("recursion-leaf", { cCallRef: link.parentCCallRef });
+    const application = recursionApplication(parent.graph, stop.compositionRef);
+    const context = executableContext(parentFrame, stop);
+    const traversalInput = recursionTraversalInputAt(parentFrame, context, root.predecessorPrefix);
+    const outputValueKind = parent.leafPort.contractValueKind(stop.outputContractRef, "output");
+    const recursion = application === null || traversalInput === null ? null : rehydrateOwnedRecursionChildFoldFrame({
+      traversalInput, application, parentClock: { eventTime: parent.eventTime, correlationId: parent.correlationId },
+      graphEntryInput: parentFrame.graphEntryInput as Readonly<Record<string, JsonValue>>,
+      graphEntryInputDigest: parentFrame.graphEntryInputDigest, leafOrdinal: parentFrame.ordinal,
+      childExecutionBasis: child.executionBasis, childTraversalScope: child.openedTraversalScope,
+    });
+    if (recursion === null || outputValueKind === null)
+      return pendingRestorationRefusal("recursion-return", { cCallRef: link.parentCCallRef });
+    returns.push(Object.freeze({ kind: "recursion_return" as const, parent: parentFrame, recursion, outputValueKind,
+      outputContractRef: stop.outputContractRef }));
+  }
+  const deepest = levels.at(-1)!.runtime;
+  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, deepest.graph, {
+    cursorRef: pending.pendingCursorRef, cursorDigest: pending.pendingCursorDigest,
+    executionBasisRef: deepest.executionBasis.basisRef, runId: pending.runId,
+    graphCallId: deepest.openedTraversalScope.graphCallId, frameId: deepest.openedTraversalScope.frameId,
+  });
+  const origin = cursor === null ? null : projectTraversalInputAtPrefix(prefix, deepest.graph, deepest.executionBasis, cursor);
+  if (cursor === null || origin === null || !isRecord(origin.value) || origin.inputRef !== pending.progressedInputRef ||
+    origin.inputDigest !== pending.progressedInputDigest)
+    return pendingRestorationRefusal("pending-cursor", { cursorRef: pending.pendingCursorRef });
+  return Object.freeze({
+    stateKind: "evaluate" as const,
+    frame: enterTraversal({
+      ...deepest,
+      input: deepest.executionBasis.rawInputValue as Readonly<Record<string, JsonValue>>,
+      inputDigest: deepest.executionBasis.rawInputDigest,
+      resume: { cursor, input: origin.value, inputDigest: origin.inputDigest },
+    }),
+    returns: Object.freeze(returns),
+  });
+}
+
 function traversalProgram(
   input: ExecuteGraphTraversalRequest,
 ): Effect.Effect<ExecuteOwnedGraphTraversalResult, GraphTraversalFailure> {
@@ -915,6 +1108,11 @@ function traversalProgram(
     ExecuteOwnedGraphTraversalResult,
     GraphTraversalFailure
   > => {
+    if ("pendingExecutionResume" in input) {
+      return Effect.flatMap(Effect.promise(() => pendingExecutionState(input)),
+        (state): Effect.Effect<ExecuteOwnedGraphTraversalResult, GraphTraversalFailure> =>
+          "kind" in state ? Effect.succeed(state) : evaluateTraversalProgram(state));
+    }
     if ("constructionResume" in input) {
       const parents = preflightParentReturns(input, input.current);
       if (parents.kind === "graph_traversal_entry_refusal") return Effect.succeed(parents);
@@ -940,7 +1138,7 @@ export function executeOwnedGraphTraversalEffect(
     (failure) => Effect.succeed(projectGraphTraversalFailure(failure)),
   ).pipe(Effect.map(result => {
     if (!("successorPrefix" in result)) return result;
-    const current = "current" in input ? input.current : input;
+    const current = "current" in input ? input.current : "pendingExecutionResume" in input ? input.root : input;
     const successorPrefix = admitPendingConstructionIntentContinuation(current.store, result.successorPrefix,
       current.openedTraversalScope.runId, current.eventTime, `${current.correlationId}/pending-construction`);
     return successorPrefix === result.successorPrefix ? result : Object.freeze({ ...result, successorPrefix });
