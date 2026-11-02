@@ -1578,8 +1578,10 @@ test('one installed Public default-library invocation reuses observed files, cor
 // reports satisfaction. ABI5_SCRIPTED_ACTOR_PHASE=gap-after-construction makes
 // the selector report a gap once a native Result exists; the prompt directory,
 // when supplied, receives each selector prompt as delivered.
+// ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R, when supplied, names one worksite-relative
+// file the native worker also writes in its granted W outside observed R.
 const SCRIPTED_ACTOR=`
-import {readFileSync,writeFileSync,existsSync,appendFileSync} from 'node:fs';import {spawnSync} from 'node:child_process';
+import {readFileSync,writeFileSync,existsSync,appendFileSync,mkdirSync} from 'node:fs';import {spawnSync} from 'node:child_process';import {dirname} from 'node:path';
 const args=process.argv.slice(2),at=args.indexOf('--json-schema'),prompt=readFileSync(0,'utf8');
 // C2 executor: its owner prompt carries the one exact helper command; run it through one Bash tool use.
 const tasks=prompt.split('\\n\\n').filter(x=>x.startsWith('## task\\n'));let c2=null;
@@ -1605,6 +1607,7 @@ if('interpretation' in props){
 }else if('summary' in props&&'gaps' in props){
  if(!existsSync('generated/hello-world.mjs')){process.stderr.write('scripted worker expects the worksite cwd\\n');process.exit(1);}
  writeFileSync('generated/hello-world.mjs','console.log("Hello, world!");\\n');role='native';output={summary:'Scripted construction repaired the candidate.',gaps:[]};
+ const outside=process.env.ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R;if(outside){mkdirSync(dirname(outside),{recursive:true});writeFileSync(outside,'scripted disposable tooling\\n');extra={wOutsideR:outside};}
 }else{role='assess';extra={schemaKeys:Object.keys(props),schema:at>=0};output={kind:props.kind?.const??'consumer_outcome_assessment',disposition:'satisfied',reason:'Scripted assessment.',unresolvedCriteria:[]};}
 appendFileSync(log,JSON.stringify({role,pid:process.pid,...extra})+'\\n');
 console.log(JSON.stringify({type:'system',subtype:'init'}));
@@ -1656,7 +1659,9 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const keep=async(n,v)=>{if(evidence)await writeFile(join(evidence,n),JSON.stringify(v,null,2)+'\n');};
   const actor=join(proof,'scripted-actor.mjs'),actorLog=join(proof,'scripted-actor.jsonl');
   await writeFile(actor,'#!'+process.execPath+'\n'+SCRIPTED_ACTOR);await chmod(actor,0o755);await writeFile(join(proof,'host.mjs'),INTERRUPTING_HOST);
-  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog};
+  // W outside R: Construction is also granted one disposable root beyond the observed seed files.
+  const outsideRoot='native-tools',outsideFile=outsideRoot+'/scratch.txt';selection.applicationWriteRoots=[...selection.applicationWriteRoots,outsideRoot];
+  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog,ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R:outsideFile};
   const worksite=env.workspaceBinding.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
   await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
   for(const [path,row] of Object.entries(selection.seedFiles))assert.equal(await product.sha256File(join(worksite,path)),'sha256:'+row.sha256);
@@ -1702,6 +1707,19 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   assert.deepEqual(choiceRefs(run0),[product.governanceRef('graph-function','construction'),testingRef],'admitted Construction then Testing selection');
   const testingChoice=results(run0).filter(e=>e.payload.value?.kind==='registered_graph_choice').at(-1);
   assert.equal(testingChoice.payload.value.input.value.synthesis.judgment.subjectEvidenceRef,constructionResults[0].payload.resultRef,'Testing subjectEvidence is the actual native-work Result');
+  // W outside R through the installed protected-root preflight: actor, physical effect, unobserved Result and shared currentness.
+  const nativeValue=constructionResults[0].payload.value,nativeRows=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l)).filter(r=>r.role==='native');
+  assert.deepEqual(nativeRows.map(r=>r.wOutsideR),[outsideFile],'the one scripted native actor wrote in W\\R');
+  assert.equal(await readFile(join(worksite,outsideFile),'utf8'),'scripted disposable tooling\n','the W\\R effect is physical');
+  assert.ok(nativeValue.task.writeRoots.includes(outsideRoot),'the admitted task grants the root');
+  assert.equal(nativeValue.task.context.readRoots.some(r=>r==='.'||outsideFile===r||outsideFile.startsWith(r+'/')),false,'the root lies outside observed R');
+  assert.deepEqual(nativeValue.changedPaths,['generated/hello-world.mjs'],'W\\R writes are unobserved, never changedPaths');
+  assert.equal(nativeValue.after.entries.some(e=>e.relativePath.startsWith(outsideRoot+'/')),false);
+  const effectOwner=await load('abg/native_work_effect'),currentness=await load('abg/native_worksite_execution');
+  const impact=effectOwner.nativeWorkImpact(nativeValue.task,nativeValue.changedPaths),unchangedR='source/witness-contract.md';
+  assert.deepEqual([outsideFile,outsideRoot,'generated/hello-world.mjs',unchangedR].map(path=>effectOwner.nativeWorkImpactOverlaps(impact,path)),[true,true,true,false]);
+  assert.deepEqual([[outsideFile],['generated/hello-world.mjs'],[unchangedR]].map(paths=>currentness.worksiteCommandSourcesInvalidatedAfter(prefix,constructionResults[0].admissionOrdinal-1,
+    nativeValue.task.workspaceAuthorityBasis.canonicalRoot,paths)),[true,true,false],'currentness retires W\\R and the changed candidate, never unchanged R');
   // 3. Cold pending-execution projection over the interrupted Run.
   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
   assert.equal(extra.length,0);assert.ok(p,'one pending execution');assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow']);
@@ -1773,7 +1791,7 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const terminal=reads.run_result.projection.terminalResult,closing=parent.at(-1).payload;
   assert.deepEqual([terminal?.producer.runRef,terminal?.producer.graphCallRef,terminal?.result],[value.run.ref,value.graphCall.ref,{ref:closing.resultRef,digest:closing.resultDigest}],'cold run_result agrees with the continued Run and its admitted terminal Result');
   assert.deepEqual(reads.run_replay.projection.replay,value.replay,`cold replay agrees: ${JSON.stringify(reads.run_replay.projection.replay)?.slice(0,600)}`);
-  const summary={runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),pendingCursorRef:p.pendingCursorRef,progressedInputRef:p.progressedInputRef,
+  const summary={runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),pendingCursorRef:p.pendingCursorRef,progressedInputRef:p.progressedInputRef,wOutsideR:{root:outsideRoot,file:outsideFile,changedPaths:nativeValue.changedPaths},
     constructionResultRef:constructionResults[0].payload.resultRef,choices:choiceRefs(final),actorRoles,interruption,eventsInterrupted:interrupted.length,eventsFinal:all.length,
     interruptedPrefixSha256:product.sha256Bytes(bytes),finalLogSha256:product.sha256Bytes(await readFile(eventLogPath)),resumeWallMs:performance.now()-resumedAt,hostWallMs:resumedAt-hostStarted,
     proofLimit:'Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Same-Run only: no predecessor-Run R2 recovery, no live provider, no Root installed witness.'};
@@ -1846,17 +1864,16 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   assert.deepEqual(row&&[row.purpose,row.resultDigest,row.cCallRef],['construction',N.payload.resultDigest,N.aggregateId],'the retained state names A\'s native Result');
   const inputB=installed.retainedGovernanceWorkInput(S.sourceResultValue);assert.ok(inputB);
   // 2. B: a separately authorized Public start over A's retained state, killed at its durable Testing entry.
-  const A0=startA.call.invocation,startResource=resource(),steering=product.sha256Canonical(startResource);
-  const boundInput={contract:A0.request.input.contract,valueRef:'value://default-library-witness/retained-b/input',valueDigest:product.sha256Canonical(inputB),value:inputB};
-  const startB=publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,
-    contractCatalog:env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===A0.definitionKey.operationId).members.find(m=>m.memberKey==='start').slots.request.contractCatalog,
-    operationId:A0.definitionKey.operationId,memberKey:'start',
-    request:{...A0.request,input:boundInput,sourceBasis:{kind:'admitted_source_result',projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest},sourceResult:{ref:S.sourceResultRef,digest:S.sourceResultDigest}}},
-    slots:{...A0.invocationAuthority.slots,input_contract:boundInput,transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering}},
-    resources:{...startA.call.resources,eventResource:startResource,source:{kind:'admitted_source_result',basis:S}},
-    requestRef:'public-request://retained-source/b-start',correlationRef:'correlation://retained-source/b-start',eventTime:'2026-11-02T00:02:00.000Z',provenanceRefs:['provenance://default-library-witness/retained-source@5']});
+  // The shared start support assembles B: same Program, A's admitted source result, B's own resource and identity.
+  const A0=startA.call.invocation;
+  const startB=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b',runEnvironmentResourceFactory:selectedEnvironment.resources,
+    sourceResult:{basis:S,projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
+  const B0=startB.call.invocation;
+  assert.deepEqual([B0.request.program,B0.request.target,B0.request.input.contract,B0.request.input.value],[A0.request.program,A0.request.target,A0.request.input.contract,inputB],'B keeps A\'s Program and start over the retained input');
+  assert.deepEqual(B0.request.sourceBasis,{kind:'admitted_source_result',projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest},sourceResult:{ref:S.sourceResultRef,digest:S.sourceResultDigest}});
+  assert.deepEqual(startB.call.resources.source,{kind:'admitted_source_result',basis:S});
   const requestPath=join(proof,'start-request.jsonl'),eventLogPath=fileURLToPath(handoff.prefix.eventLogRef);
-  await writeFile(requestPath,JSON.stringify({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:handoff},invocation:startB})+'\n');
+  await writeFile(requestPath,JSON.stringify({kind:'abg_cli_transport_request',schemaVersion:'5.0.0',acquisition:{kind:'reopen',closeHandoff:handoff},invocation:startB.call})+'\n');
   await writeFile(join(proof,'host-input.json'),JSON.stringify({installedRoot:env.installedRoot,requestPath,eventLogPath,proof,closeHandoff:handoff,
     profileDigest:handoff.prefix.storeIdentity.eventContractDigest,testingGraphFunctionRef:testingRef}));
   const hostStarted=performance.now(),host=spawn(process.execPath,['--experimental-vm-modules',join(proof,'host.mjs')],{cwd:env.scratch,env:{...actorEnvironment(logB),ABI5_PENDING_TESTING_HOST:join(proof,'host-input.json')}});

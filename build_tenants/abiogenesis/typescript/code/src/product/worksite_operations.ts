@@ -60,6 +60,7 @@ import {
   worksiteContextIdentityDigest,
   worksiteContextObservationRef,
   normalizeWorksiteRelativePath,
+  protectedWorksiteWriteRoot,
   worksiteFileParentPaths,
   worksiteFileParentsFailure,
   type WorksiteFileParentsRequestInput,
@@ -967,6 +968,51 @@ function checkedWorksitePath(root: string, protectedRoots: readonly string[], pa
     return worksiteRefusal("subject_outside_territory", "worksite path escapes A or enters a protected install/runtime root");
   }
   return target;
+}
+
+/** Where a planned write root lies physically: an existing file through its
+ * canonical parent, a directory or missing path through
+ * `plannedCanonicalPath`. A link at any existing component refuses. */
+async function plannedWriteRootPath(target: string): Promise<string> {
+  try {
+    const status = await lstat(target);
+    if (status.isSymbolicLink()) throw new TypeError("worksite write root is a symlink");
+    if (!status.isDirectory()) return resolve(await plannedCanonicalPath(dirname(target)), basename(target));
+  } catch (error) {
+    if (errnoCode(error) !== "ENOENT") throw error;
+  }
+  return plannedCanonicalPath(target);
+}
+
+export interface WorksiteWriteRootsInput extends WorksiteReadBasis {
+  readonly writeRoots: readonly string[];
+}
+
+/** Planned write roots W against the protected roots context observation
+ * uses: binding roots by declared path, binding and install roots by resolved
+ * location. A root that equals, encloses or lies inside a protected root
+ * refuses; read roots are not consulted. Reads only. */
+export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): Promise<WorksiteEffectRefusal | null> {
+  const resolved = await worksiteReadRoots(input);
+  if ("kind" in resolved) return resolved;
+  const overlap = () => worksiteRefusal("subject_outside_territory", "worksite write root overlaps a protected install/runtime root");
+  for (const writeRoot of input.writeRoots) {
+    const target = checkedWorksitePath(resolved.root, resolved.protectedRoots, writeRoot);
+    if (typeof target !== "string") return target;
+    const territory = constructWorksiteTerritory({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
+      workspaceBinding: input.workspaceBinding, relativeRoot: writeRoot, territoryUri: pathToFileURL(target).href });
+    if (territory.kind !== "worksite_territory") return territory;
+    if (protectedWorksiteWriteRoot(input.workspaceAuthorityBasis, input.workspaceBinding, writeRoot)) return overlap();
+    let planned: string;
+    try {
+      planned = await plannedWriteRootPath(target);
+    } catch (error) {
+      return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
+    }
+    if (!confined(resolved.root, planned) ||
+      resolved.protectedRoots.some(protectedRoot => confined(protectedRoot, planned) || confined(planned, protectedRoot))) return overlap();
+  }
+  return null;
 }
 
 /** Read only: no directory prerequisite is manufactured by observation. */

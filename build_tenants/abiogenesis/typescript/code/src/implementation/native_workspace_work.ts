@@ -3,7 +3,8 @@ import { NATIVE_WORKSPACE_WORK_IDS as ids, isNativeWorkspaceWorkTask, nativeWork
   nativeWorkspaceWorkResponseSchema, nativeWorkspaceWorkResultContractRef, parseNativeWorkspaceWorkReport, nativeWorkspaceScopeViolations,
   nativeWorkspaceChangedPaths, nativeWorkspaceWorkProvenance, constructNativeWorkspaceWorkObservation,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkFailure } from "../product/native_workspace_work.js";
-import { observeWorksiteContext } from "../product/worksite_operations.js";
+import { checkWorksiteWriteRoots, observeWorksiteContext } from "../product/worksite_operations.js";
+import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import { carryWorksiteContextBodies, isWorksiteContextObservation, sameWorksiteContextIdentity } from "../product/worksite_effect.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
 import { isLeafExecutionAuthority } from "./leaf_execution_authority.js";
@@ -29,6 +30,18 @@ export async function realizeNativeWorkspaceWork(input: Readonly<NativeWorkspace
   if (!isNativeWorkspaceWorkTask(input) || !isLeafExecutionAuthority(authority) ||
     !nativeWorkspaceWorkAuthorityMatches(input, authority) || prepareAssembly === undefined)
     throw new TypeError("native workspace work requires its exact admitted effect authority and assembly");
+  // Protected roots: the exact-prefix environment names the install roots; the
+  // worksite owner refuses any W overlapping them or the binding roots.
+  const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix,
+    { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });
+  if (environment.kind !== "exact_prefix_workspace_environment" || !canonicalEquals(environment.workspaceBinding, input.workspaceBinding) ||
+    !canonicalEquals(environment.workspaceAuthorityBasis, input.workspaceAuthorityBasis))
+    throw new TypeError("native workspace work requires its exact admitted workspace environment");
+  const protectedWrite = await checkWorksiteWriteRoots({ workspaceAuthorityBasis: input.workspaceAuthorityBasis,
+    workspaceBinding: input.workspaceBinding, protectedInstallRoots: environment.productInstalls.map(install => install.installedRoot),
+    writeRoots: input.writeRoots });
+  if (protectedWrite !== null)
+    throw new TypeError(`native workspace write roots refuse before dispatch: ${protectedWrite.code}: ${protectedWrite.message}`);
   const observationInput = { workspaceAuthorityBasis: input.workspaceAuthorityBasis, workspaceBinding: input.workspaceBinding,
     readRoots: input.context.readRoots, maxFiles: input.context.maxFiles, maxBytes: input.context.maxBytes };
   // Fresh physical currentness; the admitted task keeps its own body carriage.

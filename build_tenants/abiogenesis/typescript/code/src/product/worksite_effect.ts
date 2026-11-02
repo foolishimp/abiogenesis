@@ -514,6 +514,19 @@ function protectedWorksitePath(
   );
 }
 
+/** A planned write root meets a declared binding root when either path
+ * contains the other: exact, enclosing or inside. Territory and subject
+ * construction keep containment only, so a read territory may enclose one. */
+export function protectedWorksiteWriteRoot(
+  authority: WorkspaceAuthorityBasis,
+  workspace: WorkspaceBinding,
+  relativeRoot: string,
+): boolean {
+  const candidate = resolve(authority.canonicalRoot, ...relativeRoot.split("/"));
+  return protectedWorksitePath(authority, workspace, relativeRoot) ||
+    Object.values(workspace.roots).some((root) => containsPath(candidate, root));
+}
+
 function exactExecutionBasis(value: ExecutionBasis): boolean {
   if (
     value.kind !== "execution_basis" ||

@@ -10,7 +10,7 @@ import * as product from '../../build/code/src/product/index.js';
 import * as validator from '../../build/code/src/validator/index.js';
 import * as v from 'valibot';
 import {setupInstalledRootCatalog,setupInstalledRootExecutionBasis,publicOperationBasis} from '../support/root-installed-environment.mjs';
-import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {stdo3RunEnvironment} from '../support/stdo3-run-environment.mjs';
 import {NATIVE_SELECTION_STDO3_ROLE} from '../fixtures/registered-selection-product/native.mjs';
 import {declarations,initialState,validState,evaluatedState,selectionTask,executeA,executeB,SEMANTICS,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
@@ -513,38 +513,19 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
   assert.equal(extra.length,0);assert.equal(p.phase,'undispatched');assert.equal(p.status,'open');
   const coordinate=(ref,digest)=>({ref,digest}),zero='sha256:'+'0'.repeat(64);
-  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??opened.scope;
-  const request={run:coordinate(runId,rootScope.runDigest),continuation:coordinate(p.continuationRef,p.continuationDigest),
-    pendingCursor:coordinate(p.pendingCursorRef,p.pendingCursorDigest),continuationInput:coordinate(p.progressedInputRef,p.progressedInputDigest),
-    expectedBasis:coordinate(p.chain[0].basisRef,p.chain[0].basisDigest)};
-  // Read-only selection supplies the exact input-slot values the owner will recheck.
-  const use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
-  const publications=env.executionResolution.declarationPublications;
-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,env.programValidation);
-  assert.ok(pendingInput,'pending input carrier projects');assert.equal(pendingInput.input.inputRef,p.progressedInputRef);
-  const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
+  const request=await pendingExecutionUseRequest({environment:env,prefix,runId,pending:p});
   const producer=runAt(interruptedEvents).find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
   const completedBefore=runAt(interruptedEvents).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
   let handoff=env.store.projectReopenAuthorityAndClose();
-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId;
-  const grant=product.constructCapabilityGrant(env.policy,env.actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
-  const makeCall=(identity,patch={})=>{
-    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
-    const r=env.executionResolution.resolution,steering=product.sha256Canonical(eventResource);
-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
-      session_policy:{ref:env.policy.policyRef,digest:env.policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
-      actor:{actor:{ref:env.actorRef,digest:product.sha256Canonical({actorRef:env.actorRef})},attribution:{ref:env.invocationAuthority.authorityRef,digest:env.invocationAuthority.authorityDigest}},
-      transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,
-      execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
-      request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'}},
-      requestRef:`public-request://pending-execution-public/${identity}`,correlationRef:`correlation://pending-execution-public/${identity}`,eventTime:'2026-11-02T00:01:00.000Z',provenanceRefs:[ref('provenance','fixture')]});
-  };
+  // The shared support assembles the cold Public pending_execution call. This
+  // Run's root admission names the fixture's admitted invocation authority and
+  // execution resolution; that is the start basis supplied, with no run-environment resources.
+  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,
+    start:{workAuthority:env.invocationAuthority,resolution:env.executionResolution,capabilityBasis:{policy:env.policy,actorRef:env.actorRef},call:{resources:{}}},
+    eventResource:()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)}),
+    identityScope:'pending-execution-public',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:ref('provenance','fixture')});
+  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.pendingInput.input.inputRef,p.progressedInputRef);
+  const makeCall=pending.call;
   const cli=async(identity,call)=>{
     const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${identity}-${Math.random().toString(16).slice(2)}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));

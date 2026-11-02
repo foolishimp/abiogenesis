@@ -8,7 +8,7 @@ import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-si
 import * as native from '../../build/code/src/product/native_workspace_work.js';
 import { constructNativeWorkspaceWorkModulePublication } from '../../build/code/src/gtl/index.js';
 import { ABI5_NATIVE_WORKSPACE_WORK_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
-import { realizeNativeWorkspaceWork } from '../../build/code/src/implementation/native_workspace_work.js';
+import { isDeepStrictEqual } from 'node:util';
 import { constructLeafExecutionAuthority } from '../../build/code/src/implementation/leaf_execution_authority.js';
 import { createNewEmptyAppendSink } from '../../build/code/src/abg/index.js';
 import { eventCalculusEffect, projectNativeWorkRetiredObservations } from '../../build/code/src/abg/event_calculus.js';
@@ -28,6 +28,27 @@ import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
 const product = await loadWorksiteOwner();
+// Component frontier: the exact-prefix workspace environment is a controlled
+// premise keyed by each fixture's exact binding and authority prefix. The
+// actual protected-root owner, observation and assembly checks run; the
+// installed same-Run case in t287-default-library reads the genuine environment.
+const environments = new Map();
+const realizeNativeWorkspaceWork = await (async () => {
+  const path = resolve(import.meta.dirname, '../../build/code/src/implementation/native_workspace_work.js');
+  const module = new SourceTextModule(await fs.readFile(path, 'utf8'), {identifier: path});
+  const premise = {projectExactPrefixWorkspaceEnvironment: (prefix, coordinate) => {
+    const row = environments.get(coordinate.ref);
+    return row !== undefined && isDeepStrictEqual(row.prefix, prefix) && row.environment.workspaceBinding.bindingDigest === coordinate.digest
+      ? row.environment : {kind: 'exact_prefix_workspace_environment_refusal', code: 'controlled_premise_absent'};
+  }};
+  await module.link(async specifier => {
+    const imported = await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
+    const values = {...imported, ...(specifier === '../abg/environment_admission.js' ? premise : {})};
+    return new SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); });
+  });
+  await module.evaluate();
+  return module.namespace.realizeNativeWorkspaceWork;
+})();
 const ids = native.NATIVE_WORKSPACE_WORK_IDS;
 const digest = label => product.sha256Canonical({ label });
 const publication = constructNativeWorkspaceWorkModulePublication({productId:'product://native-owner/test',
@@ -172,21 +193,44 @@ test('post-effect channel conflict retains admitted native failure scope without
   assert.deepEqual(projectNativeWorkRetiredObservations({...failed,runId:'run://foreign'},prior),[]);
   t.diagnostic('Actual local process/group completion, supported structured_output/file conflict and partial file effects; lower installation/admission recording, physical-prefix access and liveness admission are controlled doubles. Exact prefix validation and cold basis/invocation/implementation/currentness owners exercised; no live provider, installed Run, probe, assessment, full native/Public admission or UAT credit.');
 });
-async function fixture(t, writeRoots = ['target.txt']) {
+async function fixture(t, writeRoots = ['target.txt'], {roots = null, readRoots = ['.'], installRoots = () => []} = {}) {
   const env = await worksiteFixture(product);
   t.after(() => fs.rm(env.scratch, {recursive:true, force:true}));
+  if (roots !== null) Object.assign(env, rebind(env, roots(env.canonicalRoot)));
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'before\n');
   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
   const read = {workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding:env.workspaceBinding,
-    readRoots:['.'], maxFiles:20, maxBytes:10000};
+    readRoots, maxFiles:20, maxBytes:10000};
   const context = await product.observeWorksiteContext(read);
   const task = native.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding:env.workspaceBinding,
     capabilityGrant:env.capabilityGrant, context, outcome:'Perform the declared local work', instructions:['Read the selected input.'],
     readFirst:['target.txt'],writeRoots,checks:[]});
-  return {...env,read,task};
+  const productInstalls = installRoots(env.canonicalRoot).map(installedRoot => ({productId:'product://native-owner/protected-install', installedRoot}));
+  return {...env,read,task,productInstalls};
+}
+// The worksiteFixture coordinates for a binding whose declared roots differ:
+// binding, grant scope, execution basis and C-call digests are all recomputed.
+function rebind(env, roots) {
+  const hash = product.sha256Canonical, id = (scheme, value) => `${scheme}://abiogenesis/${value.slice(7)}`;
+  const {kind,schemaVersion,bindingId,bindingDigest,admissionEventRef,...bindingBody} = env.workspaceBinding;
+  bindingBody.roots = {...bindingBody.roots, ...roots};
+  const bd = hash(bindingBody), workspaceBinding = {kind,schemaVersion,bindingId:id('workspace-binding',bd),bindingDigest:bd,...bindingBody,admissionEventRef};
+  const {kind:gk,schemaVersion:gs,grantRef,grantDigest,...grantBody} = env.capabilityGrant;
+  Object.assign(grantBody, {scopeRef:workspaceBinding.bindingId, scopeDigest:bd});
+  const gd = hash(grantBody), capabilityGrant = {kind:gk,schemaVersion:gs,grantRef:id('capability-grant',gd),grantDigest:gd,...grantBody};
+  const {kind:ek,schemaVersion:es,disposition,basisRef,basisDigest,admissionEventRef:ea,...basisBody} = env.executionBasis;
+  Object.assign(basisBody, {workspaceBindingId:workspaceBinding.bindingId, workspaceBindingDigest:bd});
+  const ed = hash(basisBody), executionBasis = {kind:ek,schemaVersion:es,disposition,basisRef:id('execution-basis',ed),basisDigest:ed,...basisBody,admissionEventRef:ea};
+  const c = env.cCall, callBody = {basisId:executionBasis.basisRef, graphCallId:c.graphCallId, frameId:c.frameId, vectorIndex:c.vectorIndex,
+    stageRole:c.stageRole, taskOrdinal:c.taskOrdinal, attempt:c.attempt, programLocusRef:c.programLocusRef, retryPath:c.retryPath};
+  const cd = hash(callBody), cCall = {...c, ...callBody, cCallRef:`c-call:${cd}`, cCallDigest:cd};
+  const territory = product.constructWorksiteTerritory({workspaceAuthorityBasis:env.workspaceAuthorityBasis, workspaceBinding,
+    relativeRoot:'.', territoryUri:pathToFileURL(env.canonicalRoot).href});
+  assert.equal(territory.kind, 'worksite_territory');
+  return {workspaceBinding, capabilityGrant, executionBasis, cCall, territory};
 }
 // These are cold owner coordinates, not ABG admission or installed/native proof.
-async function prepare(t, env) {
+async function prepare(t, env, realize = true) {
   const graphFunctionRef = native.nativeWorkspaceWorkGraphFunctionRef(env.task);
   const sink = await acquireNewEmptyAppendSinkFixture(t, createNewEmptyAppendSink);
   const {kind,schemaVersion,disposition,leafResolutionCandidateRef,leafResolutionCandidateDigest,...oldBody}=env.implementationSet.rows[0];
@@ -221,7 +265,9 @@ async function prepare(t, env) {
     resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task),
     ...(env.task.assessment===undefined?{}:{responsePresentation:'result_text'})};
   const occurrence={...call,executionAuthority:authority};
-  const prepared=await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request}));
+  environments.set(env.workspaceBinding.bindingId,{prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
+    workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}});
+  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request})):null;
   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
     inputDigest:request.inputDigest,transportLane:'worker_executes',actorInvocationRef:'actor-invocation://native-owner/test',
     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
@@ -253,6 +299,52 @@ test('owner refuses stale context before assembly/dispatch',async t=>{
   await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{calls++;return {request:p.request};}),/stale/);
   assert.equal(calls,0);
   await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>({request:p.request})),/authority/);
+});
+test('protected write roots refuse exact, enclosing and inside overlap before assembly/dispatch; R and W outside R stay admitted',async t=>{
+  // Path controls: a declared binding root inside A. Physical controls: an
+  // install root inside A named only by the environment, and link aliases.
+  const options={roots:root=>({runtimeStateRoot:join(root,'state/runtime')}),readRoots:['target.txt','keep.txt'],installRoots:root=>[join(root,'vendor/install')]};
+  const port=await import('../../build/code/src/implementation/leaf_invocation_port.js');
+  const attempt=async(writeRoots,setup=async()=>{})=>{
+    const env=await fixture(t,writeRoots,options);await setup(env);
+    const p=await prepare(t,env,false),authority=p.occurrence.executionAuthority;let assemblies=0;
+    const assemble=()=>{assemblies++;return {request:p.request};};
+    const direct=await realizeNativeWorkspaceWork(env.task,p.occurrence,assemble).then(prepared=>({prepared}),error=>({error}));
+    const viaPort=await port.invokeLeafOwnerBoundary({resolution:authority.implementationResolution,value:env.task,inputDigest:product.sha256Canonical(env.task),
+      failureValueKind:'native_workspace_work_failure',verifyAuthority:()=>native.nativeWorkspaceWorkAuthorityMatches(env.task,authority),validateSuccess:native.isNativeWorkspaceWorkObservation,
+      resolveWorkerContracts:(r,input)=>semantics.resolveProbabilisticWorkerContracts({inputContractRef:r.inputContractRef,outputContractRef:r.outputContractRef,input}),
+      occurrence:p.occurrence,loadImplementation:async()=>(value,occurrence)=>realizeNativeWorkspaceWork(value,occurrence,assemble)});
+    return {env,direct,viaPort,assemblies:()=>assemblies};
+  };
+  const refuses=async(label,writeRoots,setup)=>{
+    const r=await attempt(writeRoots,setup);
+    assert.match(String(r.direct.error?.message),/write roots refuse before dispatch/,label);
+    assert.equal(r.viaPort.ownerObservation?.stage,'preparation',label);assert.equal(r.viaPort.ownerObservation?.reason,'thrown',label);
+    assert.equal(r.assemblies(),0,label+' refuses before assembly, so no provider request exists');
+  };
+  for(const [label,writeRoots] of [['binding exact',['state/runtime']],['binding enclosing',['state']],['binding inside',['state/runtime/cache']],
+    ['install exact',['vendor/install']],['install enclosing',['vendor']],['install inside',['vendor/install/pkg']],['one overlapping root among ordinary roots',['target.txt','tools','vendor']]])
+    await refuses(label,writeRoots);
+  const alias=(name,target)=>async env=>{await fs.mkdir(target(env),{recursive:true});await fs.symlink(target(env),join(env.canonicalRoot,name));};
+  await refuses('link alias exact',['alias'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));
+  await refuses('link alias inside',['alias/inner'],alias('alias',env=>env.workspaceBinding.roots.archiveRoot));
+  await refuses('link alias enclosing',['up'],alias('up',env=>env.scratch));
+  for(const [label,writeRoots] of [['W outside R',['target.txt','tools']],['binding prefix sibling',['state/runtime-tools']],
+    ['install prefix sibling',['vendor/install-cache']],['read-only',[]]]){
+    const r=await attempt(writeRoots);
+    assert.equal(r.direct.error,undefined,label+': '+r.direct.error?.message);assert.equal(r.direct.prepared.kind,'prepared_probabilistic_leaf_invocation',label);
+    assert.equal(r.viaPort.kind,'prepared_probabilistic_leaf_owner_invocation',label);assert.equal(r.assemblies(),2,label+' assembles once per admitted preflight');
+  }
+  // The two readings: declared binding roots by path; install roots only physically, from the environment.
+  const env=await fixture(t,['target.txt'],options),protectedInstallRoots=env.productInstalls.map(i=>i.installedRoot);
+  const owner=(writeRoots,installs=protectedInstallRoots)=>product.checkWorksiteWriteRoots({workspaceAuthorityBasis:env.workspaceAuthorityBasis,
+    workspaceBinding:env.workspaceBinding,protectedInstallRoots:installs,writeRoots});
+  assert.deepEqual(['state/runtime','state','state/runtime/cache','vendor/install','vendor','vendor/install/pkg','tools','state/runtime-tools']
+    .map(w=>product.protectedWorksiteWriteRoot(env.workspaceAuthorityBasis,env.workspaceBinding,w)),[true,true,true,false,false,false,false,false]);
+  for(const w of ['state/runtime','state','state/runtime/cache','vendor/install','vendor','vendor/install/pkg'])
+    assert.equal((await owner([w]))?.code,'subject_outside_territory',w);
+  assert.equal(await owner(['vendor'],[]),null,'install protection comes only from the exact environment');
+  assert.equal(await owner(['tools','target.txt']),null);
 });
 test('actual observation remains independent of report and consumer judgment',async t=>{
   const env=await fixture(t);const p=await prepare(t,env);
@@ -437,6 +529,8 @@ test('known native result retires unobserved W\\R facts, present and absent, and
       predecessorObservation,replacementBytes:Buffer.from('future\n')});
   }));
   assert.ok(requests.every(product.isWorksiteFileReplaceRequest));
+  // The protected-root preflight admits ordinary W outside R; currentness below runs through it.
+  assert.equal(await product.checkWorksiteWriteRoots({...env.read,writeRoots:env.task.writeRoots}),null);
   const p=await prepare(t,env);
   // Actual local tool write in W\R; R stays unchanged, so the owner observes no change.
   await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'tool output\n');

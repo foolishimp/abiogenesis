@@ -236,10 +236,14 @@ export async function constructInstalledStartCall({
   declaredStartRef,
   assetHandle,
   inputFactory,
+  sourceResult,
 }) {
   // One selection: next, one declared start, or one published asset handle.
   assert.ok(declaredStartRef === undefined || assetHandle === undefined, "start and asset selections are mutually exclusive");
   if (assetHandle !== undefined) assert.ok(typeof assetHandle === "string" && assetHandle.length > 0, "asset selection names one handle");
+  // A retained-source start names one owner-derived source-result basis and
+  // the Public authority it was projected under; otherwise the source is none.
+  if (sourceResult !== undefined) assert.ok(sourceResult.basis && sourceResult.projectionAuthority, "a source start names its basis and projection authority");
   const {
     product,
     abg,
@@ -355,7 +359,11 @@ export async function constructInstalledStartCall({
     input: contractBoundInput,
     fhMode: "direct",
     rootMode,
-    sourceBasis: Object.freeze({ kind: "none" }),
+    sourceBasis: sourceResult === undefined ? Object.freeze({ kind: "none" }) : Object.freeze({
+      kind: "admitted_source_result",
+      projectionAuthority: Object.freeze({ ref: sourceResult.projectionAuthority.ref, digest: sourceResult.projectionAuthority.digest }),
+      sourceResult: Object.freeze({ ref: sourceResult.basis.sourceResultRef, digest: sourceResult.basis.sourceResultDigest }),
+    }),
   });
   const steeringDigest = product.sha256Canonical(eventResource);
   const slots = Object.freeze({
@@ -424,7 +432,8 @@ export async function constructInstalledStartCall({
     catalog,
     catalogView,
     applications: Object.freeze([]),
-    source: Object.freeze({ kind: "none" }),
+    source: sourceResult === undefined ? Object.freeze({ kind: "none" })
+      : Object.freeze({ kind: "admitted_source_result", basis: sourceResult.basis }),
     ...(runEnvironmentResourceFactory === undefined ? {} : {runEnvironmentResources:await runEnvironmentResourceFactory({authority,program:resolution.program,workspaceBinding,product})}),
   });
   return {

@@ -127,6 +127,102 @@ entries. Native after-state stays available in the ordinary admitted result and
 replay. Unknown after-state and the original failure remain explicit; no
 successor observation is manufactured.
 
+## Protected write roots
+
+Protected roots P are the WorkspaceBinding roots plus the `installedRoot` of
+each Product install in the exact-prefix workspace environment. A write root
+w ∈ W overlaps P when w equals, encloses or lies inside some p ∈ P. All three
+overlap classes refuse the task before assembly and provider dispatch. R keeps
+its existing legitimacy and observation. An ordinary w outside R that meets no
+p is admitted.
+
+The relation has a path reading and a physical reading, both in the existing
+worksite owners:
+
+- Path (`product/worksite_effect.ts`): `constructWorksiteTerritory` checks the
+  binding join and territory URI, and refuses containment in a declared
+  binding root. `protectedWorksiteWriteRoot` adds the enclosing direction.
+  Read territories keep containment only, so R = `.` stays valid.
+- Physical (`product/worksite_operations.ts`): `checkWorksiteWriteRoots`
+  resolves P through `worksiteReadRoots`, which covers binding and install roots
+  through `plannedCanonicalPath`. It checks the lexical target with
+  `checkedWorksitePath`. It then resolves w physically and refuses either
+  containment direction:
+  - an existing file resolves through its canonical parent;
+  - a directory or missing path resolves through `plannedCanonicalPath`;
+  - a link at any existing component refuses.
+
+```text
+LeafPort ─► realizeNativeWorkspaceWork(task, occurrence, prepareAssembly)
+  realize: task ∧ leaf authority ∧ nativeWorkspaceWorkAuthorityMatches
+  realize ─► projectExactPrefixWorkspaceEnvironment(predecessorPrefix, binding ref/digest)
+          ◄─ environment (binding, authority basis, productInstalls) | refusal
+  realize ─► checkWorksiteWriteRoots({basis, binding, protectedInstallRoots, writeRoots: W})
+    ─► worksiteReadRoots: territory "." ; plannedCanonicalPath(P)
+    ─► per w: checkedWorksitePath ─► constructWorksiteTerritory(w)
+              ─► protectedWorksiteWriteRoot(w) ─► physical w vs P
+          ◄─ null | WorksiteEffectRefusal
+  realize ─► observeWorksiteContext(R) (unchanged currentness check)
+  realize ─► prepareAssembly() ─► request checks ─► prepared invocation (dispatch)
+```
+
+The following throw before `prepareAssembly`:
+
+- an environment refusal;
+- an environment whose binding or authority basis differs from the task;
+- a write-root refusal.
+
+The leaf port records each one as the existing undispatched owner refusal
+(`implementation_exception`, stage `preparation`). The refusal value is the
+existing `WorksiteEffectRefusal` with its existing codes. The physical owner
+and the installed dispatch path share this one preflight. Every native dispatch
+passes it.
+
+The guard preserves these invariants:
+
+- The task schema, `isNativeWorkspaceWorkTask`, native failure classes,
+  refusal codes and the shared impact relation stay unchanged. W\R stays
+  unobserved and is impacted whole. Observed-unchanged R facts stay current.
+  Present and absent facts retire alike.
+- Instruction assembly, its authenticated current-execution binding bytes and
+  shared W/R currentness stay unchanged. The guard runs before assembly and
+  adds no prompt section.
+- The guard only reads. It adds no store, controller, sandbox, scanner,
+  failure code or post-dispatch check, and `complete()` observation is
+  unchanged.
+
+The effect grant covers three files:
+
+- `product/worksite_effect.ts` for the path relation;
+- `product/worksite_operations.ts` for the physical guard;
+- `implementation/native_workspace_work.ts` for the preflight call.
+
+No ABG, instruction-assembly or currentness owner changes.
+
+The proof plan has two parts:
+
+- Component (`t287-native-workspace-work`):
+  - Each overlap class refuses before assembly, through both direct realize
+    and the leaf port, with no dispatch. Path controls declare a binding root
+    inside A. Physical controls use an install root inside A from the
+    environment and a link alias to a protected root.
+  - Prefix-sibling names and W outside R are admitted.
+  - W\R present/absent retirement and R-unchanged currentness hold through the
+    guarded path.
+  - The exact-prefix environment is a controlled premise keyed by the
+    fixture binding.
+- Installed (`t287-default-library` same-Run case): the construction work
+  order adds a W root outside R, and the scripted provider-free native actor
+  writes one file there. The installed realize reads the genuine exact-prefix
+  environment, admits the root, and the Run completes. Assertions cover:
+  - the actor log;
+  - the physical bytes;
+  - the native Result: `changedPaths` excludes the W\R file, and the task's
+    W contains the root while R does not;
+  - currentness: the shared impact and `worksiteCommandSourcesInvalidatedAfter`
+    hold for the W\R file and the changed candidate, but not for an unchanged
+    R source.
+
 ## Context body carriage (P1)
 
 A worksite context's identity is its workspace authority basis and binding,
