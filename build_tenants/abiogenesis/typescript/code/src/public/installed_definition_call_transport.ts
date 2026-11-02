@@ -11,10 +11,14 @@ import {
 } from "../shared/effect_definition.js";
 import {
   OWNER_CONTRACT_SOURCES,
+  type OwnerCallableDefinitionMember,
+  type OwnerDefinitionMemberOf,
 } from "./binding/owner_contract_source_set.js";
 import type {
   OwnerContractSourceDeclaration,
+  OwnerRequestOf,
 } from "../shared/public_function_contracts.js";
+import type { PublicDefinitionKeyLike } from "../shared/public_invocation.js";
 import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
@@ -42,16 +46,57 @@ export type InstalledDefinitionCallTransportRefusal = {
   readonly message: string;
 };
 
-export type InstalledDefinitionCallTransportResult = {
+export type InstalledDefinitionCallTransportResult<
+  TPacket extends OwnerContractSourceDeclaration =
+    OwnerContractSourceDeclaration,
+  TResourceReceipt = unknown,
+> = {
   readonly kind: "installed_definition_call_transport_result";
   readonly schemaVersion: "5.0.0";
   readonly acquisitionKind: "eventless" | "new" | "reopen" | "acquired";
-  readonly receipt: DefinitionHostReceipt;
+  readonly receipt: DefinitionHostReceipt<TPacket, TResourceReceipt>;
 };
 
-export type InstalledDefinitionCallTransportOutcome =
-  | InstalledDefinitionCallTransportResult
+export type InstalledDefinitionCallTransportOutcome<
+  TPacket extends OwnerContractSourceDeclaration =
+    OwnerContractSourceDeclaration,
+  TResourceReceipt = unknown,
+> =
+  | InstalledDefinitionCallTransportResult<TPacket, TResourceReceipt>
   | InstalledDefinitionCallTransportRefusal;
+
+type CandidateDefinitionMember<C> = C extends Readonly<{
+  invocation: Readonly<{ definitionKey: infer K extends PublicDefinitionKeyLike }>;
+}> ? OwnerDefinitionMemberOf<K>
+  : never;
+
+/** A typed candidate of one declared member must carry that member's own
+ * request and installed callable resources; raw input stays unconstrained. */
+export type InstalledDefinitionCallCandidateCheck<C> =
+  [CandidateDefinitionMember<C>] extends [never] ? unknown
+    : CandidateDefinitionMember<C> extends infer M
+      ? M extends OwnerCallableDefinitionMember
+        ? C extends Readonly<{
+          invocation: Readonly<{ request: OwnerRequestOf<M["packet"]> }>;
+          resources: M["binding"]["resources"];
+        }> ? unknown
+        : never
+      : unknown
+    : never;
+
+/** A typed callable member keeps its owner output and resource receipt; an
+ * unavailable member can only be refused; raw input keeps the raw outcome. */
+export type InstalledDefinitionCallTransportOutcomeOf<C> =
+  [CandidateDefinitionMember<C>] extends [never]
+    ? InstalledDefinitionCallTransportOutcome
+    : CandidateDefinitionMember<C> extends infer M
+      ? M extends OwnerCallableDefinitionMember
+        ? InstalledDefinitionCallTransportOutcome<
+          M["packet"],
+          M["binding"]["resourceReceipt"]
+        >
+      : InstalledDefinitionCallTransportRefusal
+    : never;
 
 type InstalledModulePath = "./product" | "./abg" | "./validator";
 type InstalledModule = Readonly<Record<string, unknown>>;
@@ -292,7 +337,18 @@ function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
   return detached;
 }
 
-export async function runInstalledDefinitionCallTransport(
+/** The selected installed owner and its exact receipt follow the candidate's
+ * own definition key; the raw transport admits every candidate unchanged. */
+export function runInstalledDefinitionCallTransport<C = unknown>(
+  acquisition: InstalledDefinitionCallAcquisition,
+  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
+): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
+  return transportInstalledDefinitionCall(acquisition, candidate) as Promise<
+    InstalledDefinitionCallTransportOutcomeOf<C>
+  >;
+}
+
+async function transportInstalledDefinitionCall(
   acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
@@ -336,7 +392,17 @@ export async function runInstalledDefinitionCallTransport(
 
 /** Thin native carrier: semantic data is detached, while the exact owner-issued
  * physical selection survives. The same installed callable admits and executes it. */
-export async function runInstalledDefinitionCallWithResource(
+export function runInstalledDefinitionCallWithResource<C = unknown>(
+  resource: abg.AcquiredAbgEventResourceSelection,
+  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
+): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
+  return transportInstalledDefinitionCallWithResource(
+    resource,
+    candidate,
+  ) as Promise<InstalledDefinitionCallTransportOutcomeOf<C>>;
+}
+
+async function transportInstalledDefinitionCallWithResource(
   resource: abg.AcquiredAbgEventResourceSelection,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {

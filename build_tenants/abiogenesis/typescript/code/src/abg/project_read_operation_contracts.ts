@@ -62,24 +62,25 @@ function withNativeLiveness<const E extends v.ObjectEntries>(fields: E) {
   })]);
 }
 
-function subjectStatusProjectionSchema(
-  kind: "run_status_projection" | "graph_call_status_projection",
-) {
-  const fields = {
+// Each projection helper keeps its member's literal kind and its own
+// additional fields, so every packet type is exactly its runtime schema.
+function subjectStatusProjectionSchema<
+  const K extends "run_status_projection" | "graph_call_status_projection",
+  const E extends v.ObjectEntries,
+>(kind: K, additional: E) {
+  return withNativeLiveness({
     kind: v.literal(kind),
     subject: refDigestSchema,
     status: runtimeStatusSchema,
     replay: refDigestSchema,
     activeFluents: refDigestSetSchema,
-  };
-  return kind === "run_status_projection"
-    ? withNativeLiveness({ ...fields, executionBasis: refDigestSchema })
-    : withNativeLiveness(fields);
+    ...additional,
+  });
 }
 
-function subjectResultProjectionSchema(
-  kind: "run_result_projection" | "graph_call_result_projection",
-) {
+function subjectResultProjectionSchema<
+  const K extends "run_result_projection" | "graph_call_result_projection",
+>(kind: K) {
   return v.strictObject({
     kind: v.literal(kind),
     subject: refDigestSchema,
@@ -90,7 +91,7 @@ function subjectResultProjectionSchema(
   });
 }
 
-function subjectEvidenceProjectionSchema(kind: string) {
+function subjectEvidenceProjectionSchema<const K extends string>(kind: K) {
   return v.strictObject({
     kind: v.literal(kind),
     subject: refDigestSchema,
@@ -100,22 +101,30 @@ function subjectEvidenceProjectionSchema(kind: string) {
   });
 }
 
-function subjectReplayProjectionSchema(kind: string, terminalSummary = false) {
-  const fields = {
+function subjectReplayProjectionSchema<
+  const K extends string,
+  const E extends v.ObjectEntries,
+>(kind: K, additional: E) {
+  return withNativeLiveness({
     kind: v.literal(kind),
     subject: refDigestSchema,
     replay: refDigestSchema,
     fromOrdinal: safeNonNegativeIntegerSchema,
     limit: safePositiveIntegerSchema,
-  };
-  return terminalSummary
-    ? withNativeLiveness({ ...fields, status: runtimeStatusSchema, terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA) })
-    : withNativeLiveness(fields);
+    ...additional,
+  });
 }
 
-function subjectGapProjectionSchema(
-  kind: "workspace_gap_projection" | "run_gap_projection",
-) {
+function terminalSummaryFields() {
+  return {
+    status: runtimeStatusSchema,
+    terminalResult: v.nullable(ABG_TYPED_TERMINAL_RESULT_SCHEMA),
+  };
+}
+
+function subjectGapProjectionSchema<
+  const K extends "workspace_gap_projection" | "run_gap_projection",
+>(kind: K) {
   return withNativeLiveness({
     kind: v.literal(kind),
     subject: refDigestSchema,
@@ -179,36 +188,52 @@ const cCallReplaySelectorSchema = v.strictObject({
   cCall: refDigestSchema,
 });
 
-function readRefusal(replay: boolean) {
-  const common = [
-    "unknown_source",
-    "source_kind_mismatch",
-    "source_digest_mismatch",
-    "projection_basis_mismatch",
-    "projection_unsupported",
-    "not_found",
-    "not_ready",
-  ] as const;
-  return replay
-    ? refusalSchema([...common, "cursor_invalid", "range_invalid"])
-    : refusalSchema([...common]);
-}
+const READ_REFUSAL_COMMON = [
+  "unknown_source",
+  "source_kind_mismatch",
+  "source_digest_mismatch",
+  "projection_basis_mismatch",
+  "projection_unsupported",
+  "not_found",
+  "not_ready",
+] as const;
+
+const readRefusalFactories = {
+  terminal: () => refusalSchema([...READ_REFUSAL_COMMON]),
+  replay: () =>
+    refusalSchema([...READ_REFUSAL_COMMON, "cursor_invalid", "range_invalid"]),
+};
+type ReadRefusal = {
+  readonly [M in keyof typeof readRefusalFactories]: ReturnType<
+    (typeof readRefusalFactories)[M]
+  >;
+};
+const READ_REFUSALS: {
+  readonly [M in keyof ReadRefusal]: () => ReadRefusal[M];
+} = readRefusalFactories;
+type ReadRefusalKey<TReplay extends boolean> = TReplay extends true ? "replay"
+  : "terminal";
 
 function abgReadContract<
   const TCase extends AbgReadCase,
   const TSourceKind extends string,
   const TSelector extends v.GenericSchema,
   const TProjection extends v.GenericSchema,
+  const TReplay extends boolean = false,
 >(input: Readonly<{
   caseKey: TCase;
   sourceKind: TSourceKind;
   selector: TSelector;
   projection: TProjection;
   abstractModule: string;
-  replay?: boolean;
+  replay?: TReplay;
 }>) {
   const authorityRef =
     `authority://abiogenesis/project-read/${input.caseKey}@5`;
+  const refusalKey = (input.replay === true ? "replay" : "terminal") as
+    ReadRefusalKey<TReplay>;
+  const refusal: ReadRefusal[ReadRefusalKey<TReplay>] =
+    READ_REFUSALS[refusalKey]();
   return ownerContractPacket(
     {
       operationId: "abg.operation.project.read",
@@ -233,7 +258,7 @@ function abgReadContract<
       projectionBasis: refDigestSchema,
       projection: input.projection,
     }),
-    readRefusal(input.replay === true),
+    refusal,
     null,
     {
       abstractModule: input.abstractModule,
@@ -274,14 +299,16 @@ const runStatus = abgReadContract({
   caseKey: "run_status",
   sourceKind: "run",
   selector: noSelectorSchema,
-  projection: subjectStatusProjectionSchema("run_status_projection"),
+  projection: subjectStatusProjectionSchema("run_status_projection", {
+    executionBasis: refDigestSchema,
+  }),
   abstractModule: "ABG.RunProjection",
 });
 const graphCallStatus = abgReadContract({
   caseKey: "graph_call_status",
   sourceKind: "graph_call",
   selector: noSelectorSchema,
-  projection: subjectStatusProjectionSchema("graph_call_status_projection"),
+  projection: subjectStatusProjectionSchema("graph_call_status_projection", {}),
   abstractModule: "ABG.GraphCallProjection",
 });
 const runResult = abgReadContract({
@@ -339,7 +366,7 @@ const workspaceReplay = abgReadContract({
   caseKey: "workspace_replay",
   sourceKind: "workspace_binding",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("workspace_replay_projection"),
+  projection: subjectReplayProjectionSchema("workspace_replay_projection", {}),
   abstractModule: "ABG.WorkspaceProjection",
   replay: true,
 });
@@ -347,7 +374,7 @@ const runReplay = abgReadContract({
   caseKey: "run_replay",
   sourceKind: "run",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("run_replay_projection", true),
+  projection: subjectReplayProjectionSchema("run_replay_projection", terminalSummaryFields()),
   abstractModule: "ABG.RunProjection",
   replay: true,
 });
@@ -355,7 +382,7 @@ const graphCallReplay = abgReadContract({
   caseKey: "graph_call_replay",
   sourceKind: "graph_call",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("graph_call_replay_projection", true),
+  projection: subjectReplayProjectionSchema("graph_call_replay_projection", terminalSummaryFields()),
   abstractModule: "ABG.GraphCallProjection",
   replay: true,
 });
@@ -363,7 +390,7 @@ const interactionReplay = abgReadContract({
   caseKey: "interaction_replay",
   sourceKind: "fh_interaction",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("interaction_replay_projection"),
+  projection: subjectReplayProjectionSchema("interaction_replay_projection", {}),
   abstractModule: "ABG.InteractionProjection",
   replay: true,
 });
@@ -371,7 +398,7 @@ const continuationReplay = abgReadContract({
   caseKey: "continuation_replay",
   sourceKind: "continuation",
   selector: replaySelectorSchema,
-  projection: subjectReplayProjectionSchema("continuation_replay_projection"),
+  projection: subjectReplayProjectionSchema("continuation_replay_projection", {}),
   abstractModule: "ABG.ContinuationProjection",
   replay: true,
 });
@@ -379,7 +406,7 @@ const cCallReplay = abgReadContract({
   caseKey: "c_call_replay",
   sourceKind: "c_program_atom_receipt",
   selector: cCallReplaySelectorSchema,
-  projection: subjectReplayProjectionSchema("c_call_replay_projection"),
+  projection: subjectReplayProjectionSchema("c_call_replay_projection", {}),
   abstractModule: "ABG.CCallProjection",
   replay: true,
 });

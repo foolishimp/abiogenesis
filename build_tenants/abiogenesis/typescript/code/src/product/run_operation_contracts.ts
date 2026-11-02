@@ -187,13 +187,13 @@ const continueRefusalSchema = refusalSchema([
 // execution (registered selection/recursion) with no intent or action field.
 const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
 
-function continueContract<const TMember extends
-  "current_intent" | "selected_action">(member: TMember) {
-  const kinds = member === "current_intent" ? CURRENT_EXECUTION_KINDS : [member] as const;
-  // The unchanged selected_action member keeps its exact single-literal serialization.
-  const kindSchema = member === "current_intent" ? v.picklist(CURRENT_EXECUTION_KINDS) : v.literal(member);
-  const request = member === "current_intent"
-    ? v.union([
+// Each continuation member constructs only its own variant, so the packet type
+// of each member is exactly its runtime schema.
+const continueVariantFactories = {
+  current_intent: () => ({
+    kinds: CURRENT_EXECUTION_KINDS,
+    kindSchema: v.picklist(CURRENT_EXECUTION_KINDS),
+    request: v.union([
       v.strictObject({
         run: refDigestSchema,
         continuation: refDigestSchema,
@@ -208,8 +208,14 @@ function continueContract<const TMember extends
         continuationInput: refDigestSchema,
         expectedBasis: refDigestSchema,
       }),
-    ])
-    : v.strictObject({
+    ]),
+    admittedIntent: v.null(),
+  }),
+  // The unchanged selected_action member keeps its exact single-literal serialization.
+  selected_action: () => ({
+    kinds: ["selected_action"] as const,
+    kindSchema: v.literal("selected_action"),
+    request: v.strictObject({
       run: refDigestSchema,
       continuation: refDigestSchema,
       selectedAction: refDigestSchema,
@@ -220,14 +226,33 @@ function continueContract<const TMember extends
           coveringReprice: refDigestSchema,
         }),
       ]),
-    });
+    }),
+    admittedIntent: refDigestSchema,
+  }),
+};
+type ContinueVariant = {
+  readonly [M in keyof typeof continueVariantFactories]: ReturnType<
+    (typeof continueVariantFactories)[M]
+  >;
+};
+const CONTINUE_VARIANTS: {
+  readonly [M in keyof ContinueVariant]: () => ContinueVariant[M];
+} = continueVariantFactories;
+
+function continueContract<const TMember extends
+  "current_intent" | "selected_action">(member: TMember) {
+  const variant = CONTINUE_VARIANTS[member]();
+  // Indexed annotations keep each member's own variant instead of the union.
+  const kinds: ContinueVariant[TMember]["kinds"] = variant.kinds;
+  const kindSchema: ContinueVariant[TMember]["kindSchema"] = variant.kindSchema;
+  const request: ContinueVariant[TMember]["request"] = variant.request;
+  const admittedIntent: ContinueVariant[TMember]["admittedIntent"] =
+    variant.admittedIntent;
   const result = v.strictObject({
     continuationKind: kindSchema,
     run: refDigestSchema,
     graphCall: v.nullable(refDigestSchema),
-    admittedIntent: member === "selected_action"
-      ? refDigestSchema
-      : v.null(),
+    admittedIntent,
     successor: refDigestSchema,
     disposition: v.picklist(["completed", "blocked", "runtime_failed"]),
     evidence: nonemptyRefDigestSetSchema,

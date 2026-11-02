@@ -11,17 +11,21 @@ import type {
 } from "./binding/public_function_family.js";
 import type { PublicProjectionPayloads } from "./binding/public_function_projections.js";
 import type {
-  InvocationAuthorityCandidateSlots,
+  AdmittedPublicInvocation,
+  InvocationAuthoritySlotName,
+  InvocationAuthoritySlotsOf,
   PublicContractCatalogCoordinate,
   PublicContractCoordinate,
   PublicContractSlot,
+  PublicDefinitionKeyLike,
 } from "../shared/public_invocation.js";
+import type {
+  OwnerCallableDefinitionMember,
+  OwnerDefinitionRequestOf,
+} from "./binding/owner_contract_source_set.js";
 
 /** Explicit installed inputs for pure construction; no input is admitted here. */
-export interface InstalledPublicDefinitionCallInput<
-  TRequest extends Readonly<Record<string, JsonValue>>,
-  TResources,
-> {
+export interface InstalledPublicDefinitionCallEnvironment {
   readonly product: Readonly<{
     canonicalJson: (value: JsonValue) => string;
     sha256Canonical: (value: JsonValue) => Sha256Digest;
@@ -35,21 +39,96 @@ export interface InstalledPublicDefinitionCallInput<
   readonly definitionContractCoordinates:
     CompleteDefinitionContractCoordinateMap | null;
   readonly contractCatalog: PublicContractCatalogCoordinate;
-  readonly operationId: string;
-  readonly memberKey: string;
-  readonly request: TRequest;
-  readonly slots: InvocationAuthorityCandidateSlots;
-  readonly resources: TResources;
   readonly requestRef: string;
   readonly correlationRef: string;
   readonly eventTime: string;
   readonly provenanceRefs: readonly string[];
 }
 
-type ConstructionProduct = InstalledPublicDefinitionCallInput<
-  Readonly<Record<string, JsonValue>>,
-  unknown
->["product"];
+type RequiredAuthoritySlotNames<K extends PublicDefinitionKeyLike, R> = {
+  readonly [S in InvocationAuthoritySlotName]:
+    [InvocationAuthoritySlotsOf<K, R>[S]] extends [null] ? never : S;
+}[InvocationAuthoritySlotName];
+
+type SameSlotNames<A, B> = [A] extends [B] ? [B] extends [A] ? true : false
+  : false;
+
+type RequestPropertyVariant<R, P extends keyof R> = R[P] extends infer V
+  ? V extends unknown ? { readonly [Q in keyof R]: Q extends P ? V : R[Q] }
+  : never
+  : never;
+
+// A request property is split only when one of its variants changes the
+// required authority-slot set; other unions stay whole.
+type SlotRelevantRequestKeys<K extends PublicDefinitionKeyLike, R> = {
+  readonly [P in keyof R]-?: RequestPropertyVariant<R, P> extends infer V
+    ? V extends unknown
+      ? SameSlotNames<
+        RequiredAuthoritySlotNames<K, V>,
+        RequiredAuthoritySlotNames<K, R>
+      > extends true ? never
+      : P
+    : never
+    : never;
+}[keyof R];
+
+type LastOfUnion<U> =
+  (U extends unknown ? (value: () => U) => void : never) extends
+    (value: infer I) => void ? I extends () => infer L ? L : never
+    : never;
+
+type SplitRequestAt<R, P> = [P] extends [never] ? R
+  : LastOfUnion<P> extends infer L extends keyof R
+    ? RequestPropertyVariant<R, L> extends infer V
+      ? V extends unknown ? SplitRequestAt<V, Exclude<P, L>> : never
+    : never
+  : never;
+
+/** Concrete request variants distribute before the conditional slot law. */
+type SlotRequestVariants<K extends PublicDefinitionKeyLike, R> = R extends
+  unknown ? SplitRequestAt<R, SlotRelevantRequestKeys<K, R>>
+  : never;
+
+type InstalledPublicDefinitionCallSelectionOf<
+  M extends OwnerCallableDefinitionMember,
+  R,
+> = {
+  readonly operationId: M["definitionKey"]["operationId"];
+  readonly memberKey: M["definitionKey"]["memberKey"];
+  readonly request: R;
+  readonly slots: InvocationAuthoritySlotsOf<M["definitionKey"], R>;
+  readonly resources: M["binding"]["resources"];
+};
+
+/** One callable member, one owner request variant, its exact authority slots
+ * and its installed callable resource assertion. */
+export type InstalledPublicDefinitionCallSelection<
+  M extends OwnerCallableDefinitionMember = OwnerCallableDefinitionMember,
+> = M extends unknown
+  ? SlotRequestVariants<M["definitionKey"], OwnerDefinitionRequestOf<M>> extends
+    infer R ? R extends unknown ? InstalledPublicDefinitionCallSelectionOf<M, R>
+    : never
+  : never
+  : never;
+
+export type InstalledPublicDefinitionCallInput<
+  S extends InstalledPublicDefinitionCallSelection =
+    InstalledPublicDefinitionCallSelection,
+> = InstalledPublicDefinitionCallEnvironment & S;
+
+/** The constructed envelope keeps the selected key, request and resources. */
+export type InstalledPublicDefinitionCall<
+  S extends InstalledPublicDefinitionCallSelection =
+    InstalledPublicDefinitionCallSelection,
+> = Readonly<{
+  invocation: AdmittedPublicInvocation<
+    Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
+    S["request"] & Readonly<Record<string, JsonValue>>
+  >;
+  resources: S["resources"];
+}>;
+
+type ConstructionProduct = InstalledPublicDefinitionCallEnvironment["product"];
 
 function exact<T>(
   values: readonly T[],
@@ -120,8 +199,7 @@ function requireSlot({
  * the invocation, authority, request and resources before any execution.
  */
 export function constructInstalledPublicDefinitionCall<
-  TRequest extends Readonly<Record<string, JsonValue>>,
-  TResources,
+  S extends InstalledPublicDefinitionCallSelection,
 >({
   product,
   installedPublic,
@@ -136,7 +214,7 @@ export function constructInstalledPublicDefinitionCall<
   correlationRef,
   eventTime,
   provenanceRefs,
-}: InstalledPublicDefinitionCallInput<TRequest, TResources>) {
+}: InstalledPublicDefinitionCallInput<S>): InstalledPublicDefinitionCall<S> {
   if (definitionContractCoordinates === null) {
     throw new TypeError(
       "installed Public DefinitionCall requires verified definition coordinates",
@@ -254,6 +332,8 @@ export function constructInstalledPublicDefinitionCall<
     provenanceRefs: Object.freeze([...provenanceRefs]),
   });
   const invocationDigest = product.sha256Canonical(invocationBody as unknown as JsonValue);
+  // The exact installed selection above is the selected key; request, slots
+  // and resources keep their supplied identity.
   return Object.freeze({
     invocation: Object.freeze({
       ...invocationBody,
@@ -262,5 +342,5 @@ export function constructInstalledPublicDefinitionCall<
       invocationDigest,
     }),
     resources,
-  });
+  }) as unknown as InstalledPublicDefinitionCall<S>;
 }

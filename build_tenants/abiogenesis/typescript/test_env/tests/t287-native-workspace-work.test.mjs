@@ -27,6 +27,7 @@ import { deriveRuntimeEventCalculusProjection, holdsAt, constructRuntimeFluent }
 import { ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { rehydrateAdmittedImplementationSetAtPrefix } from '../../build/code/src/abg/execution_basis.js';
+import { modulePublicationSemanticDigest } from '../../build/code/src/product/publication.js';
 const product = await loadWorksiteOwner();
 // Component frontier: the exact-prefix workspace environment is a controlled
 // premise keyed by each fixture's exact binding and authority prefix. The
@@ -51,6 +52,28 @@ const realizeNativeWorkspaceWork = await (async () => {
 })();
 const ids = native.NATIVE_WORKSPACE_WORK_IDS;
 const digest = label => product.sha256Canonical({ label });
+// Component frontier: the owned assembly basis is a controlled premise keyed by
+// the exact basis each fixture constructs, and the STDO role read supplies one
+// assessor role and no constructor role. The actual NativeInstructionAssembly
+// producer renders and returns the complete worker request.
+const assemblyOwners = new WeakMap();
+const assessorRole = deepFreeze({frameRefs:['frame://fixture/reviewer'],policy:{policyRef:'policy://fixture/reviewer',text:'Independent assessment',digest:digest('reviewer-policy')},
+  contextPolicy:{policyRef:'policy://fixture/read-only',selectors:['current_worksite','current_candidate','full_source']},sourceContent:[],accessContent:[]});
+const instructionAssembly = await (async () => {
+  const path = resolve(import.meta.dirname, '../../build/code/src/abg/instruction_assembly.js');
+  const module = new SourceTextModule(await fs.readFile(path, 'utf8'), {identifier: path});
+  const premises = {
+    './execution_basis.js': {authenticateOwnedNativeInstructionAssemblyBasis: basis => assemblyOwners.get(basis) ?? null},
+    './stdo_environment.js': {projectRunEnvironmentRoleEvidenceAtPrefix: (...args) => args.at(-1) === 'assessor' ? assessorRole : null},
+  };
+  await module.link(async specifier => {
+    const imported = await import(specifier.startsWith('node:') || !specifier.startsWith('.') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href);
+    const values = {...imported, ...premises[specifier]};
+    return new SyntheticModule(Object.keys(values), function () { for (const [key, value] of Object.entries(values)) this.setExport(key, value); });
+  });
+  await module.evaluate();
+  return module.namespace;
+})();
 const publication = constructNativeWorkspaceWorkModulePublication({productId:'product://native-owner/test',
   artifactDigest:digest('artifact'), productContentDigest:digest('content'), productManifestDigest:digest('manifest'),
   packageName:'@abiogenesis/typescript-tenant', packageVersion:'5.0.0-dev.286'});
@@ -261,19 +284,39 @@ async function prepare(t, env, realize = true) {
     implementationRef:row.implementationRef,implementationOwnerRef:row.implementationOwnerProductId,
     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
-  const request={implementationRef:ids.implementationRef,inputDigest:product.sha256Canonical(env.task),transportLane:'worker_executes',
-    resultContractRef:native.nativeWorkspaceWorkResultContractRef(env.task),responseJsonSchema:native.nativeWorkspaceWorkResponseSchema(env.task),
-    ...(env.task.assessment===undefined?{}:{responsePresentation:'result_text'})};
+  // The assessor additionally reads its exact schema owner install and the
+  // root graph's declared raw result contract, as the installed Product declares.
+  const a=env.task.assessment;
+  let assemblyPublication=publication,assemblyInstalls=env.productInstalls??[];
+  if(a!==undefined){
+    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),root=publication.graphFunctions[0];
+    await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
+    assemblyPublication={...publication,contracts:[...publication.contracts,a.resultContract],graphFunctions:[{...root,
+      declarations:{...root.declarations,'abg.raw_result_contract':a.resultContract.contractRef}},...publication.graphFunctions.slice(1)]};
+    assemblyInstalls=[...assemblyInstalls,{productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{
+      contractKind:'schema_asset',contractId:a.schemaAsset.contractId,contractVersion:'5.0.0',owningProduct:publication.owningProductId,
+      contractDigest:product.sha256Bytes(schemaBytes),assetLocator:{path:'native-assessment-schema.json',mediaType:'application/schema+json',contentDigest:product.sha256Bytes(schemaBytes)}}],
+      artifactDigest:assemblyPublication.artifactDigest,productContentDigest:assemblyPublication.productContentDigest,manifestDigest:assemblyPublication.productManifestDigest,
+      contributionManifest:{publicationBindings:[{moduleRef:assemblyPublication.moduleRef,publicationDigest:modulePublicationSemanticDigest(assemblyPublication)}]}}];
+  }
+  const assemblyBasis={publication:assemblyPublication,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
+    executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
+  assemblyOwners.set(assemblyBasis,{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
+    call,execution:authority.executionBasis,program:assemblyPublication.programs[0],events:[],prefix:authority.predecessorPrefix,
+    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls}});
+  const assembly=instructionAssembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,env.task);
+  assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request');
+  const request=assembly.request;
   const occurrence={...call,executionAuthority:authority};
   environments.set(env.workspaceBinding.bindingId,{prefix:sink.prefix,environment:{kind:'exact_prefix_workspace_environment',
     workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,productInstalls:env.productInstalls??[]}});
-  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>({request})):null;
+  const prepared=realize?await realizeNativeWorkspaceWork(env.task,occurrence,()=>assembly):null;
   const exchange=(finalOutput,disposition='success')=>({request,observation:{implementationRef:ids.implementationRef,
     inputDigest:request.inputDigest,transportLane:'worker_executes',actorInvocationRef:'actor-invocation://native-owner/test',
     transportBindingRef:'transport-binding://native-owner/test',transportBindingDigest:digest('transport-binding'),
     promptDigest:digest('prompt'),transportDigest:digest('transport'),finalOutput,disposition,
     failureClass:disposition==='success'?null:'absolute_timeout'}});
-  return {prepared,exchange,occurrence,request,call};
+  return {prepared,exchange,occurrence,request,call,assembly};
 }
 test('native work publishes one ordinary callable effect with run and child closure',()=>{
   assert.equal(rawAdmitValue(publication,'module_publication','contract://abiogenesis/gtl/module-publication@5').kind,'raw_admitted_value');
@@ -296,9 +339,9 @@ test('native task conserves read-only scope, admits explicit write roots outside
 test('owner refuses stale context before assembly/dispatch',async t=>{
   const env=await fixture(t);const p=await prepare(t,env);
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'outside change\n');let calls=0;
-  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{calls++;return {request:p.request};}),/stale/);
+  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{calls++;return p.assembly;}),/stale/);
   assert.equal(calls,0);
-  await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>({request:p.request})),/authority/);
+  await assert.rejects(realizeNativeWorkspaceWork(env.task,{...p.occurrence,executionAuthority:null},()=>p.assembly),/authority/);
 });
 test('protected write roots refuse exact, enclosing and inside overlap before assembly/dispatch; R and W outside R stay admitted',async t=>{
   // Path controls: a declared binding root inside A. Physical controls: an
@@ -308,7 +351,7 @@ test('protected write roots refuse exact, enclosing and inside overlap before as
   const attempt=async(writeRoots,setup=async()=>{})=>{
     const env=await fixture(t,writeRoots,options);await setup(env);
     const p=await prepare(t,env,false),authority=p.occurrence.executionAuthority;let assemblies=0;
-    const assemble=()=>{assemblies++;return {request:p.request};};
+    const assemble=()=>{assemblies++;return p.assembly;};
     const direct=await realizeNativeWorkspaceWork(env.task,p.occurrence,assemble).then(prepared=>({prepared}),error=>({error}));
     const viaPort=await port.invokeLeafOwnerBoundary({resolution:authority.implementationResolution,value:env.task,inputDigest:product.sha256Canonical(env.task),
       failureValueKind:'native_workspace_work_failure',verifyAuthority:()=>native.nativeWorkspaceWorkAuthorityMatches(env.task,authority),validateSuccess:native.isNativeWorkspaceWorkObservation,
@@ -373,7 +416,7 @@ test('admitted-member task context keeps unchanged bodies by reference and birth
   const p=await prepare(t,{...env,task});
   // Physical currentness remains the effect owner's fresh observation, also for a member-carried file.
   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'outside change\n');
-  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>({request:p.request})),/stale/);
+  await assert.rejects(realizeNativeWorkspaceWork(task,p.occurrence,()=>p.assembly),/stale/);
   await fs.writeFile(join(env.canonicalRoot,'keep.txt'),'unchanged\n');
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
   const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
@@ -888,8 +931,10 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
   const wrongFormat=await p.prepared.complete(p.exchange(JSON.stringify({...JSON.parse(verdict()),residuals:['not an email']})));
   assert.equal(wrongFormat.disposition,'failure');assert.equal(wrongFormat.resultCandidate.failureClass,'result_contract_failure','native completion still applies full format validation');
   const {responsePresentation,...omittedPresentation}=p.request;
-  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:omittedPresentation})),/assembly differs from its owner contract/);
-  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
+  // Malformed controls mutate the complete actual request of the actual assembly.
+  assert.equal(Object.keys(p.request).length,12);assert.equal(typeof p.request.prompt,'string');
+  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({...p.assembly,request:omittedPresentation})),/assembly differs from its owner contract/);
+  await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({...p.assembly,request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'changed after assessment\n');
   const current=await product.observeWorksiteContext(env.read);
   assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,current),false,'changed candidate cannot reuse the verdict');
@@ -968,7 +1013,7 @@ test('assessment task refuses mutable scope and mismatched source/rubric coordin
   assert.equal(native.isNativeWorkspaceWorkTask({...env.task,assessment:{...env.task.assessment,
     sources:[{...env.task.assessment.sources[0],digest:digest('wrong')}]}}),false);
   const p=await prepare(t,env);await fs.writeFile(join(env.canonicalRoot,'rubric.md'),'changed rubric\n');let assemblies=0;
-  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{assemblies++;return {request:p.request};}),/stale/);
+  await assert.rejects(realizeNativeWorkspaceWork(env.task,p.occurrence,()=>{assemblies++;return p.assembly;}),/stale/);
   assert.equal(assemblies,0);
 });
 

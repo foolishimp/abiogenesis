@@ -77,6 +77,22 @@ type AnyReadCallable = ExactDefinitionCallable<
   AbgProjectReadResourceAssertion,
   AbgProjectReadResourceReceipt
 >;
+type ExactReadCallable<TPacket extends AnyReadPacket> = ExactDefinitionCallable<
+  TPacket,
+  AbgProjectReadResourceAssertion,
+  AbgProjectReadResourceReceipt
+>;
+type ExactReadBindings<K extends AbgProjectReadMemberKey> = {
+  readonly [M in K]: ExactReadCallable<(typeof ABG_PROJECT_READ_CONTRACTS)[M]>;
+};
+
+/** Each read callable is constructed over its own packet and projects only
+ * that packet's owner output; the shared body is typed over the packet set. */
+function exactReadCallable<TPacket extends AnyReadPacket>(
+  callable: AnyReadCallable,
+): ExactReadCallable<TPacket> {
+  return callable as unknown as ExactReadCallable<TPacket>;
+}
 
 type RunReadMemberKey = "run_status" | "run_result" | "run_replay" | "run_gaps" | "graph_call_result" | "graph_call_replay";
 
@@ -570,10 +586,10 @@ export function projectAbgReadOutput(
 
 /** One authority/currentness relation shared by the Run reads and their two
  * typed GraphCall companions. Declaration evidence reaches the native owner. */
-function runReadKernel(
-  packet: AnyReadPacket,
-): AnyReadCallable {
-  return (call) => Effect.try({
+function runReadKernel<TPacket extends AnyReadPacket>(
+  packet: TPacket,
+): ExactReadCallable<TPacket> {
+  return exactReadCallable<TPacket>((call) => Effect.try({
     try: () => {
       const acquired = acquireAbgEventResource(call.resources.eventResource);
       if (acquired.kind !== "acquired_abg_event_resource") {
@@ -746,14 +762,14 @@ function runReadKernel(
         String(cause),
       );
     },
-  });
+  }));
 }
 
-function binding(
-  packet: AnyReadPacket,
+function binding<TPacket extends AnyReadPacket>(
+  packet: TPacket,
   memberKey: AbgProjectReadMemberKey,
-): AnyReadCallable {
-  return (call) => Effect.try({
+): ExactReadCallable<TPacket> {
+  return exactReadCallable<TPacket>((call) => Effect.try({
     try: (): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> => {
       if (
         !hasExactKeys(call.resources, ["eventResource", "kind", "schemaVersion"]) ||
@@ -844,7 +860,7 @@ function binding(
         String(cause),
       );
     },
-  });
+  }));
 }
 
 const legacyBindings = Object.fromEntries(
@@ -856,7 +872,7 @@ const legacyBindings = Object.fromEntries(
           binding(packet, memberKey as AbgProjectReadMemberKey),
         ]]
   ),
-) as Readonly<Partial<Record<AbgProjectReadMemberKey, AnyReadCallable>>>;
+) as ExactReadBindings<Exclude<AbgProjectReadMemberKey, RunReadMemberKey>>;
 
 const RUN_READ_DEFINITION_BINDINGS = Object.freeze({
   run_status: bindExactPrefixRead(

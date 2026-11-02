@@ -23,10 +23,15 @@ import { deepFreeze } from "../../shared/immutable.js";
 import {
   type OwnerContractSourceDeclaration,
   type OwnerDefinitionMetadata,
+  type OwnerRequestOf,
   projectStrictJsonSchema,
   type RuntimeContractSchema,
 } from "../../shared/public_function_contracts.js";
 import type { PublicDefinitionKeyLike } from "../../shared/public_invocation.js";
+import type * as Effect from "effect/Effect";
+import type * as AbgOwnerModule from "../../abg/index.js";
+import type * as ProductOwnerModule from "../../product/index.js";
+import type * as ValidatorOwnerModule from "../../validator/index.js";
 
 export const EXACT_OWNER_CONTRACT_KEY_SET_DIGEST =
   "sha256:61077d017dbbe0bd071f312066d27bc6535a732aa9da00cd543a70506ec24a4f" as const;
@@ -222,6 +227,160 @@ export const OWNER_CONTRACT_MODULE_SOURCES = Object.freeze([
     contractRoot: RELEASE_OPERATION_CONTRACTS,
   }),
 ] as const satisfies readonly OwnerContractModuleSource[]);
+
+// The native type family is a type projection of the same source relation:
+// each row's contract root supplies the declared packets, and the row's actual
+// package-export binding supplies the callable resource and receipt types at
+// the same member path. No operation, request or resource roster is restated.
+interface InstalledOwnerModuleTypes {
+  readonly "./product": typeof ProductOwnerModule;
+  readonly "./abg": typeof AbgOwnerModule;
+  readonly "./validator": typeof ValidatorOwnerModule;
+}
+
+type OwnerContractModuleSourceRow =
+  (typeof OWNER_CONTRACT_MODULE_SOURCES)[number];
+
+/** Every declaration leaf of one contract root, with its member path. */
+type OwnerContractLeaf<TRoot, TPath extends readonly string[] = readonly []> =
+  TRoot extends OwnerContractSourceDeclaration
+    ? readonly [TPath, TRoot]
+    : TRoot extends object
+    ? {
+      readonly [K in keyof TRoot & string]: OwnerContractLeaf<
+        TRoot[K],
+        readonly [...TPath, K]
+      >;
+    }[keyof TRoot & string]
+    : never;
+
+type ExportMemberAt<TValue, TPath extends readonly string[]> = TPath extends
+  readonly [infer THead extends string, ...infer TRest extends readonly string[]]
+  ? TValue extends object
+    ? THead extends keyof TValue ? ExportMemberAt<TValue[THead], TRest> : undefined
+    : undefined
+  : TValue;
+
+type BindingExportOf<TRow extends OwnerContractModuleSourceRow> =
+  TRow["definitionBindingExportName"] extends
+    keyof InstalledOwnerModuleTypes[TRow["packageExportPath"]]
+    ? InstalledOwnerModuleTypes[TRow["packageExportPath"]][
+      TRow["definitionBindingExportName"]
+    ]
+    : undefined;
+
+/** One actual installed callable: its resource assertion and resource receipt. */
+export interface OwnerCallableDefinitionBinding<TResources, TResourceReceipt> {
+  readonly kind: "callable";
+  readonly resources: TResources;
+  readonly resourceReceipt: TResourceReceipt;
+}
+
+/** A declared member without an installed callable; transport refuses it. */
+export interface OwnerUnavailableDefinitionBinding {
+  readonly kind: "installed_binding_unavailable";
+}
+
+// An absent leaf is unavailable. A present leaf that is not an exact callable
+// for its own packet key is `never`, so the member disappears and the finite
+// family proof fails instead of reclassifying the binding.
+type OwnerDefinitionBindingOf<
+  TCallable,
+  TPacket extends OwnerContractSourceDeclaration,
+> = [TCallable] extends [undefined] ? OwnerUnavailableDefinitionBinding
+  : [TCallable] extends [
+    (call: infer TCall) => Effect.Effect<infer TReturn, infer _TFault, never>,
+  ]
+    ? [TCall, TReturn] extends [
+      Readonly<{
+        invocation: Readonly<{ definitionKey: infer TKey }>;
+        resources: infer TResources;
+      }>,
+      Readonly<{ resources: infer TResourceReceipt }>,
+    ]
+      ? [TKey] extends [TPacket["definitionKey"]]
+        ? [TPacket["definitionKey"]] extends [TKey]
+          ? OwnerCallableDefinitionBinding<TResources, TResourceReceipt>
+        : never
+      : never
+    : never
+  : never;
+
+type OwnerDefinitionMembersOf<TRow extends OwnerContractModuleSourceRow> =
+  OwnerContractLeaf<TRow["contractRoot"]> extends infer TLeaf
+    ? TLeaf extends readonly [
+      infer TPath extends readonly string[],
+      infer TPacket extends OwnerContractSourceDeclaration,
+    ] ? OwnerDefinitionBindingOf<
+        ExportMemberAt<BindingExportOf<TRow>, TPath>,
+        TPacket
+      > extends infer TBinding
+      ? [TBinding] extends [never] ? never
+      : {
+        readonly definitionKey: TPacket["definitionKey"];
+        readonly memberPath: TPath;
+        readonly packageExportPath: TRow["packageExportPath"];
+        readonly definitionBindingExportName:
+          TRow["definitionBindingExportName"];
+        readonly packet: TPacket;
+        readonly binding: TBinding;
+      }
+      : never
+    : never
+    : never;
+
+/** The fifty-six declared packet members with their binding leaves. */
+export type OwnerDefinitionMember = OwnerContractModuleSourceRow extends
+  infer TRow ? TRow extends OwnerContractModuleSourceRow
+    ? OwnerDefinitionMembersOf<TRow>
+  : never
+  : never;
+
+export type OwnerCallableDefinitionMember = Extract<
+  OwnerDefinitionMember,
+  Readonly<{ binding: Readonly<{ kind: "callable" }> }>
+>;
+
+export type OwnerUnavailableDefinitionMember = Extract<
+  OwnerDefinitionMember,
+  Readonly<{ binding: OwnerUnavailableDefinitionBinding }>
+>;
+
+export type OwnerDefinitionKey = OwnerDefinitionMember["definitionKey"];
+
+export type OwnerDefinitionCompositeKey<
+  TMember extends OwnerDefinitionMember = OwnerDefinitionMember,
+> = TMember extends unknown
+  ? `${TMember["definitionKey"]["operationId"]}#${TMember["definitionKey"]["memberKey"]}`
+  : never;
+
+/** The declared member one literal key selects; a widened key selects none. */
+export type OwnerDefinitionMemberOf<K extends PublicDefinitionKeyLike> =
+  string extends K["operationId"] ? never
+    : string extends K["memberKey"] ? never
+    : Extract<
+      OwnerDefinitionMember,
+      Readonly<{
+        definitionKey: Readonly<{
+          operationId: K["operationId"];
+          memberKey: K["memberKey"];
+        }>;
+      }>
+    >;
+
+type RequestVariantKeys<TRequest> = TRequest extends unknown ? keyof TRequest
+  : never;
+
+/** The owner request alias. Strict-object variants of one request union carry
+ * no field of a sibling variant, as their runtime schemas already require. */
+export type OwnerDefinitionRequestOf<TMember extends OwnerDefinitionMember> =
+  OwnerRequestOf<TMember["packet"]> extends infer TRequest
+    ? [RequestVariantKeys<TRequest>] extends [keyof TRequest] ? TRequest
+    : TRequest extends unknown ? TRequest & {
+        readonly [K in Exclude<RequestVariantKeys<OwnerRequestOf<TMember["packet"]>>, keyof TRequest>]?: never;
+      }
+    : never
+    : never;
 
 export interface ResolvedOwnerContractSource {
   readonly sourceModulePath: string;
