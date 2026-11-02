@@ -1,7 +1,8 @@
-// T287 HC1 owner-derived native call typing. Real compiler checks of the
-// canonical and packed package declarations, packed-runtime inventory and raw
-// refusals, and a per-slot schema comparison with the exact014 baseline. Not
-// HC2 population, installed Run proof, qualification or release evidence.
+// T287 HC1 owner-derived native call typing and the HC2 shipped constructor
+// types. Real compiler checks of the canonical and packed package
+// declarations, packed-runtime inventory and raw refusals, and a per-slot
+// schema comparison with the exact014 baseline. Not HC2 runtime population,
+// installed Run proof, qualification or release evidence.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -19,7 +20,8 @@ const BASELINE_SHA256 = 'b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd9
 const PACKAGE_NAME = '@abiogenesis/typescript-tenant';
 const CANONICAL_IMPORTS = /^@abiogenesis\/typescript-tenant\/(public|product|abg|validator)$/;
 const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',
-  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf'];
+  'InstalledPublicDefinitionCallSelection', 'InstalledDefinitionCallTransportOutcomeOf',
+  'InstalledStartCallSelection', 'InstalledPendingCallSelection', 'InstalledRunReadCallSelection'];
 const SLOTS = ['request', 'result', 'refusal', 'nonTerminal'];
 
 const proofText = fs.readFileSync(proofPath, 'utf8');
@@ -167,6 +169,8 @@ test('HC1 proof source uses only canonical package imports and no proof-erasing 
   assert.equal(proofText.match(/@ts-expect-error/g).length, markers.length, 'every expected error is a named HC1 negative');
   assert.equal(new Set(markers.map(m => m.name)).size, markers.length);
   assert.ok(markers.length >= 17);
+  // The shipped constructors' crossed operation/variant pairings.
+  assert.ok(markers.filter(m => m.name.startsWith('hc2-')).length >= 11);
   assert.equal(oracle('DECLARED').length, 56);
   assert.equal(oracle('UNAVAILABLE').length, 9);
 });
@@ -240,43 +244,73 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an
   assert.equal(callable.length, 47);
   assert.deepEqual(unavailable.sort(), [...oracle('UNAVAILABLE')].sort());
 
-  // A structurally exact witness attest call reaches its absent binding.
+  // Every unavailable member sends one structurally exact call through the raw
+  // transport and reaches its absent binding; the finite request table is
+  // scenario data per declared member, its slots follow the member's own
+  // declared authority-slot requirements.
   const api = pkg.public, hash = pkg.product.sha256Canonical, ref = label => ({ref: label, digest: hash({label})});
-  const definition = definitions.find(row => keyOf(row) === 'abg.operation.witness.admit#attest');
-  const projection = api.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(row => row.operationId === definition.definitionKey.operationId)
-    .definitions.find(row => row.definitionKey.memberKey === definition.definitionKey.memberKey);
-  const asset = api.PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.find(row => row.operationId === definition.definitionKey.operationId);
   const contractCatalog = {productId: 'product://hc1-proof/catalog', productContentDigest: hash('hc1-content'),
     catalogId: 'catalog://hc1-proof/public', catalogVersion: '5.0.0', catalogDigest: hash('hc1-catalog')};
-  const coordinate = (slot, definitionRef) => ({contractCatalog, flatRow: {contractId: definition.definitionKey.operationId,
-    contractVersion: '5.0.0', contractDigest: asset.contentDigest}, nestedSelector: {selectorKind: 'operation_definition_slot',
-    definitionKey: definition.definitionKey, slot, definitionRef}});
-  const slots = Object.fromEntries(['workspace_binding', 'product_set', 'dependency_lock', 'catalog_scope', 'execution_program',
-    'graph_function', 'input_contract', 'session_policy', 'capability_grants', 'actor', 'transport_steering',
-    'verification_references', 'execution_basis'].map(slot => [slot, null]));
-  Object.assign(slots, {workspace_binding: ref('workspace-binding://hc1'), product_set: [ref('product://hc1')],
+  const respond = (responseKind, choice) => ({interaction: ref('interaction://hc1'), responseContract: ref('contract://hc1/response'),
+    responseKind, choice, value: {response: responseKind}, evidence: [ref('evidence://hc1')], currentBasis: ref('basis://hc1')});
+  const witness = (act, subjectKind, context) => ({subjectKind, subject: ref(`subject://hc1/${act}`), act,
+    content: {kind: 'typed_reason', contentContract: ref('contract://hc1/reason'), value: {reason: 'hc1'}},
+    context, evidence: [ref('evidence://hc1')], provenance: [ref('provenance://hc1')]});
+  const UNAVAILABLE_REQUESTS = {
+    'abg.operation.interaction.respond#answer_escalation': respond('answer_escalation', null),
+    'abg.operation.interaction.respond#approve': respond('approve', null),
+    'abg.operation.interaction.respond#assess': respond('assess', null),
+    'abg.operation.interaction.respond#reject': respond('reject', null),
+    'abg.operation.interaction.respond#select': respond('select', ref('choice://hc1')),
+    'abg.operation.witness.admit#attest': witness('attest', 'evidence_claim', {kind: 'basis', basis: ref('basis://hc1')}),
+    'abg.operation.witness.admit#hygiene-stamp': witness('hygiene-stamp', 'workspace', {kind: 'workspace', workspace: ref('workspace://hc1')}),
+    'abg.operation.witness.admit#intake': witness('intake', 'intake_item', {kind: 'segment', run: ref('run://hc1'), segment: ref('segment://hc1')}),
+    'abg.operation.witness.admit#run-resumed': witness('run-resumed', 'run', {kind: 'run', run: ref('run://hc1'), basis: ref('basis://hc1')}),
+  };
+  assert.deepEqual(Object.keys(UNAVAILABLE_REQUESTS).sort(), [...oracle('UNAVAILABLE')].sort());
+  const SLOT_VALUES = {workspace_binding: ref('workspace-binding://hc1'), product_set: [ref('product://hc1')],
     dependency_lock: ref('lock://hc1'), actor: {actor: ref('actor://hc1'), attribution: ref('attribution://hc1')},
-    capability_grants: {requiredCapabilityRefs: [...definition.capabilityRefs], grants: [ref('grant://hc1')]}});
-  const call = api.constructInstalledPublicDefinitionCall({product: pkg.product, installedPublic: api, contractCatalog,
-    definitionContractCoordinates: {operations: [{operationId: definition.definitionKey.operationId, members: [{memberKey: 'attest',
-      slots: {request: coordinate('request', projection.requestContract.definitionRef), result: coordinate('result', projection.resultContract.definitionRef),
-        refusal: coordinate('refusal', projection.refusalContract.definitionRef), nonTerminal: null}}]}]},
-    operationId: 'abg.operation.witness.admit', memberKey: 'attest',
-    request: {subjectKind: 'evidence_claim', subject: ref('claim://hc1'), act: 'attest',
-      content: {kind: 'typed_reason', contentContract: ref('contract://hc1/reason'), value: {reason: 'hc1'}},
-      context: {kind: 'basis', basis: ref('basis://hc1')}, evidence: [ref('evidence://hc1')], provenance: [ref('provenance://hc1')]},
-    slots, resources: {}, requestRef: 'request://hc1/attest', correlationRef: 'correlation://hc1/attest',
-    eventTime: '2026-11-03T00:00:00.000Z', provenanceRefs: []});
-  const refused = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, call);
-  assert.equal(refused.kind, 'installed_definition_call_transport_refusal', JSON.stringify(refused));
-  assert.equal(refused.code, 'installed_binding_unavailable', refused.message);
+    execution_basis: ref('execution-basis://hc1')};
+  const SLOT_NAMES = ['workspace_binding', 'product_set', 'dependency_lock', 'catalog_scope', 'execution_program',
+    'graph_function', 'input_contract', 'session_policy', 'capability_grants', 'actor', 'transport_steering',
+    'verification_references', 'execution_basis'];
+  const unavailableCalls = [];
+  for (const [key, request] of Object.entries(UNAVAILABLE_REQUESTS)) {
+    const definition = definitions.find(row => keyOf(row) === key);
+    const {operationId, memberKey} = definition.definitionKey;
+    const projection = api.PUBLIC_OPERATION_CONTRACT_PROJECTIONS.find(row => row.operationId === operationId)
+      .definitions.find(row => row.definitionKey.memberKey === memberKey);
+    const asset = api.PUBLIC_PROJECTION_PAYLOADS.operationContractAssets.find(row => row.operationId === operationId);
+    const coordinate = (slot, definitionRef) => ({contractCatalog, flatRow: {contractId: operationId,
+      contractVersion: '5.0.0', contractDigest: asset.contentDigest}, nestedSelector: {selectorKind: 'operation_definition_slot',
+      definitionKey: definition.definitionKey, slot, definitionRef}});
+    const required = new Set(definition.authoritySlotRequirements);
+    const slots = Object.fromEntries(SLOT_NAMES.map(slot => [slot, !required.has(slot) ? null
+      : slot === 'capability_grants' ? {requiredCapabilityRefs: [...definition.capabilityRefs], grants: [ref('grant://hc1')]}
+      : SLOT_VALUES[slot]]));
+    for (const slot of required) assert.ok(slots[slot] !== null, `${key} ${slot} has scenario data`);
+    const call = api.constructInstalledPublicDefinitionCall({product: pkg.product, installedPublic: api, contractCatalog,
+      definitionContractCoordinates: {operations: [{operationId, members: [{memberKey,
+        slots: {request: coordinate('request', projection.requestContract.definitionRef), result: coordinate('result', projection.resultContract.definitionRef),
+          refusal: coordinate('refusal', projection.refusalContract.definitionRef),
+          nonTerminal: projection.nonTerminalContract === null ? null : coordinate('non_terminal', projection.nonTerminalContract.definitionRef)}}]}]},
+      operationId, memberKey, request, slots, resources: {}, requestRef: `request://hc1/${memberKey}`,
+      correlationRef: `correlation://hc1/${memberKey}`, eventTime: '2026-11-03T00:00:00.000Z', provenanceRefs: []});
+    const refused = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, call);
+    assert.equal(refused.kind, 'installed_definition_call_transport_refusal', `${key}: ${JSON.stringify(refused)}`);
+    assert.equal(refused.code, 'installed_binding_unavailable', `${key}: ${refused.message}`);
+    unavailableCalls.push(call);
+  }
+  assert.equal(unavailableCalls.length, 9);
+  const [call] = unavailableCalls;
   const unknown = await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call,
     invocation: {...call.invocation, definitionKey: {operationId: 'abg.operation.witness.admit', memberKey: 'absent'}}});
   assert.equal(unknown.code, 'unknown_definition');
   assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, null)).code, 'invalid_definition_call');
   assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'eventless'}, {...call, request: call.invocation.request})).code, 'invalid_definition_call');
   assert.equal((await api.runInstalledDefinitionCallTransport({kind: 'new', eventLogPath: '/hc1/absent.jsonl'}, call)).code, 'acquisition_mismatch');
-  t.diagnostic(JSON.stringify({kind: 'hc1_packed_runtime_inventory', declared: definitions.length, callable: callable.length, unavailable}));
+  t.diagnostic(JSON.stringify({kind: 'hc1_packed_runtime_inventory', declared: definitions.length, callable: callable.length, unavailable,
+    rawUnavailableRefusals: unavailableCalls.map(row => `${row.invocation.definitionKey.operationId}#${row.invocation.definitionKey.memberKey}`)}));
 });
 
 test('per-slot owner schemas equal the exact014 baseline archive', async t => {

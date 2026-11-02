@@ -52,7 +52,15 @@ export {
   type PublicSdkMemberProjection,
 } from "./binding/public_function_projections.js";
 export {
+  constructInstalledPendingCall,
   constructInstalledPublicDefinitionCall,
+  constructInstalledRunReadCall,
+  constructInstalledStartCall,
+  type InstalledCallEnvelopeIdentity,
+  type InstalledPendingCallSelection,
+  type InstalledRunCallResourceIntent,
+  type InstalledRunReadCallSelection,
+  type InstalledStartCallSelection,
   type InstalledPublicDefinitionCall,
   type InstalledPublicDefinitionCallEnvironment,
   type InstalledPublicDefinitionCallInput,

@@ -2269,6 +2269,30 @@ export type PendingExecutionUse = Readonly<{ kind: "pending_execution_use"; sour
   rootBasis: ExecutionBasis; rootScope: OpenedTraversalScope; invocation: import("./invocation_admission.js").InvocationAdmission;
   request: PendingExecutionUseRequest; predecessorDigest: Sha256Digest }>;
 
+/** The use request naming one projected pending position: its Run with the
+ * opened root scope's digest, its cursor, its progressed input and its root
+ * basis. A position without progressed input (an effect_unknown cut) names the
+ * literal `none` coordinate; the use refuses that position on its effect first. */
+export function projectPendingExecutionUseRequest(prefix: ValidatedRuntimeEventPrefix,
+  pending: PendingExecutionContinuation): PendingExecutionUseRequest | null;
+/** @internal */
+export function projectPendingExecutionUseRequest(prefix: RuntimeEventPrefix,
+  pending: PendingExecutionContinuation): PendingExecutionUseRequest | null;
+export function projectPendingExecutionUseRequest(prefix: RuntimeEventPrefix,
+  pending: PendingExecutionContinuation): PendingExecutionUseRequest | null {
+  const root = pending.chain[0];
+  const scope = root === undefined ? null : projectOpenedTraversalScopeForFrameAtPrefix(prefix, root.frameId);
+  if (root === undefined || scope === null) return null;
+  const coordinate = (ref: string, digest: string) => Object.freeze({ ref, digest });
+  return Object.freeze({
+    run: coordinate(pending.runId, scope.runDigest),
+    continuation: coordinate(pending.continuationRef, pending.continuationDigest),
+    pendingCursor: coordinate(pending.pendingCursorRef, pending.pendingCursorDigest),
+    continuationInput: coordinate(pending.progressedInputRef ?? "none", pending.progressedInputDigest ?? sha256Canonical("none")),
+    expectedBasis: coordinate(root.basisRef, root.basisDigest),
+  });
+}
+
 const pendingExecutionUses = new WeakSet<object>();
 /** Same owner predicate for new admission and cold operation correspondence.
  * The occurrence stays in its own Run: no replacement basis, scope, cursor or

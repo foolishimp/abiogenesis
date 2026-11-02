@@ -1,4 +1,11 @@
 import { admitJson } from "../shared/admit/index.js";
+import { isRecord } from "../shared/admission_predicates.js";
+import * as abg from "../abg/index.js";
+import * as product from "../product/index.js";
+import { PUBLIC_FUNCTION_DEFINITION_FAMILY, PUBLIC_OPERATION_CONTRACT_PROJECTIONS } from "./binding/public_function_family.js";
+import { PUBLIC_PROJECTION_PAYLOADS } from "./binding/public_function_projections.js";
+import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
+import { OWNER_CONTRACT_SOURCES } from "./binding/owner_contract_source_set.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import type {
@@ -116,17 +123,20 @@ export type InstalledPublicDefinitionCallInput<
     InstalledPublicDefinitionCallSelection,
 > = InstalledPublicDefinitionCallEnvironment & S;
 
-/** The constructed envelope keeps the selected key, request and resources. */
+/** The constructed envelope keeps the selected key, request and resources.
+ * A union of selections stays a union of calls: each alternative keeps its
+ * own key, request variant, slots and resources. */
 export type InstalledPublicDefinitionCall<
   S extends InstalledPublicDefinitionCallSelection =
     InstalledPublicDefinitionCallSelection,
-> = Readonly<{
+> = S extends unknown ? Readonly<{
   invocation: AdmittedPublicInvocation<
     Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
     S["request"] & Readonly<Record<string, JsonValue>>
   >;
   resources: S["resources"];
-}>;
+}>
+  : never;
 
 type ConstructionProduct = InstalledPublicDefinitionCallEnvironment["product"];
 
@@ -343,4 +353,333 @@ export function constructInstalledPublicDefinitionCall<
     }),
     resources,
   }) as unknown as InstalledPublicDefinitionCall<S>;
+}
+
+/** Explicit envelope identity of one constructed installed call. */
+export interface InstalledCallEnvelopeIdentity {
+  readonly definitionContractCoordinates: CompleteDefinitionContractCoordinateMap;
+  readonly requestRef: string;
+  readonly correlationRef: string;
+  readonly eventTime: string;
+  readonly provenanceRefs: readonly string[];
+}
+
+const INSTALLED_PUBLIC = Object.freeze({
+  PUBLIC_FUNCTION_DEFINITION_FAMILY,
+  PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
+  PUBLIC_PROJECTION_PAYLOADS,
+});
+
+/** The verified request-slot contract catalog of one exact member. */
+function verifiedContractCatalog(
+  coordinates: CompleteDefinitionContractCoordinateMap,
+  operationId: string,
+  memberKey: string,
+): PublicContractCatalogCoordinate {
+  const member = exact(
+    exact(coordinates.operations, (row) => row.operationId === operationId, "verified operation coordinates").members,
+    (row) => row.memberKey === memberKey,
+    "verified member coordinates",
+  );
+  if (member.slots.request === null) {
+    throw new TypeError(`${operationId}#${memberKey} lacks its verified request coordinate`);
+  }
+  return member.slots.request.contractCatalog;
+}
+
+type CallableMemberAt<O extends string, K extends string> = Extract<
+  OwnerCallableDefinitionMember,
+  Readonly<{ definitionKey: Readonly<{ operationId: O; memberKey: K }> }>
+>;
+
+type MemberSelection<O extends string, K extends string> =
+  InstalledPublicDefinitionCallSelection<CallableMemberAt<O, K>>;
+
+/** The `run.invoke` alternative one selection intent names: the start
+ * variant of its target kind, or the direct GraphFunction member. */
+export type InstalledStartCallSelection<
+  S extends product.ProductRunInvocationSelectionIntent =
+    product.ProductRunInvocationSelectionIntent,
+> = S extends Readonly<{ memberKey: "start"; target: Readonly<{ kind: infer T }> }>
+  ? Extract<
+    MemberSelection<"abg.operation.run.invoke", "start">,
+    Readonly<{ request: Readonly<{ target: Readonly<{ kind: T }> }> }>
+  >
+  : MemberSelection<"abg.operation.run.invoke", "invoke">;
+
+/** The `run.continue` alternative one continuation intent names. */
+export type InstalledPendingCallSelection<
+  S extends product.RunContinuationSelectionIntent =
+    product.RunContinuationSelectionIntent,
+> = S extends Readonly<{ kind: "selected_action" }>
+  ? MemberSelection<"abg.operation.run.continue", "selected_action">
+  : Extract<
+    MemberSelection<"abg.operation.run.continue", "current_intent">,
+    Readonly<{
+      request: S extends Readonly<{ kind: "pending_execution" }>
+        ? Readonly<{ pendingCursor: unknown }>
+        : Readonly<{ currentIntent: unknown }>;
+    }>
+  >;
+
+type RunReadCallSelections = {
+  readonly [K in abg.AbgRunReadMemberKey]:
+    MemberSelection<"abg.operation.project.read", K>;
+};
+
+/** The `project.read` member one run-read key names. */
+export type InstalledRunReadCallSelection<
+  K extends abg.AbgRunReadMemberKey = abg.AbgRunReadMemberKey,
+> = RunReadCallSelections[K];
+
+/**
+ * The checked boundary between owner population and the correlated call
+ * type. Product and ABG own the populated request and slots; the constructed
+ * invocation is typed as the selected member and variant only after it
+ * satisfies that installed member's own exact invocation contract (key,
+ * request schema, the variant's conditional slots, digests and coordinates)
+ * and names the requested variant. A crossed population is an owner defect,
+ * never a call. The transport and the owner still admit the call, its
+ * resources, authority and currentness; this check admits nothing.
+ */
+function checkedInstalledCall<S extends InstalledPublicDefinitionCallSelection>(
+  envelope: InstalledCallEnvelopeIdentity,
+  key: Readonly<{ operationId: S["operationId"]; memberKey: S["memberKey"] }>,
+  population: Readonly<{ request: JsonValue; slots: unknown; resources: unknown }>,
+  variant: (request: Readonly<Record<string, unknown>>) => boolean,
+): InstalledPublicDefinitionCall<S> {
+  // The one typing step: bound to S here and released below only after the
+  // member contract and variant checks.
+  const selection = {
+    operationId: key.operationId,
+    memberKey: key.memberKey,
+    request: population.request,
+    slots: population.slots,
+    resources: population.resources,
+  } as unknown as S;
+  const environment: InstalledPublicDefinitionCallEnvironment = {
+    product: product,
+    installedPublic: INSTALLED_PUBLIC,
+    definitionContractCoordinates: envelope.definitionContractCoordinates,
+    contractCatalog: verifiedContractCatalog(envelope.definitionContractCoordinates, key.operationId, key.memberKey),
+    requestRef: envelope.requestRef,
+    correlationRef: envelope.correlationRef,
+    eventTime: envelope.eventTime,
+    provenanceRefs: envelope.provenanceRefs,
+  };
+  const call = constructInstalledPublicDefinitionCall<S>({ ...environment, ...selection });
+  const sources = OWNER_CONTRACT_SOURCES.filter(({ packet }) =>
+    packet.definitionKey.operationId === key.operationId &&
+    packet.definitionKey.memberKey === key.memberKey
+  );
+  const request: unknown = call.invocation.request;
+  if (
+    sources.length !== 1 ||
+    admitExactDefinitionCall(call, sources[0]!.declaration) === null ||
+    !isRecord(request) || !variant(request)
+  ) {
+    throw new TypeError(
+      `${key.operationId}#${key.memberKey} population differs from its installed member contract or variant`,
+    );
+  }
+  return call;
+}
+
+/** Optional run resources the caller supplies explicitly; none is defaulted. */
+export interface InstalledRunCallResourceIntent {
+  readonly runEnvironmentResources?:
+    | product.RunEnvironmentResources
+    | ((populated: Readonly<{
+        authority: Readonly<{ authorityRef: string; authorityDigest: Sha256Digest; actorRef: string }>;
+        program: product.LoadedProductExecutionResolution["program"];
+        workspaceBinding: product.WorkspaceBinding;
+      }>) => product.RunEnvironmentResources | Promise<product.RunEnvironmentResources>);
+  readonly applicationResources?: readonly product.CatalogApplicationResources[];
+  readonly historicalSource?: NonNullable<product.ProductRunInvocationResourceAssertion["historicalSource"]>;
+  readonly qualificationResources?: NonNullable<product.ProductRunInvocationResourceAssertion["qualificationResources"]>;
+}
+
+async function runResources(
+  intent: InstalledRunCallResourceIntent,
+  populated: Parameters<Exclude<InstalledRunCallResourceIntent["runEnvironmentResources"], undefined | product.RunEnvironmentResources>>[0],
+) {
+  const environment = typeof intent.runEnvironmentResources === "function"
+    ? await intent.runEnvironmentResources(populated)
+    : intent.runEnvironmentResources;
+  return Object.freeze({
+    ...(environment === undefined ? {} : { runEnvironmentResources: environment }),
+    ...(intent.applicationResources === undefined ? {} : { applicationResources: Object.freeze([...intent.applicationResources]) }),
+    ...(intent.historicalSource === undefined ? {} : { historicalSource: intent.historicalSource }),
+    ...(intent.qualificationResources === undefined ? {} : { qualificationResources: intent.qualificationResources }),
+  });
+}
+
+/**
+ * Construct one installed `run.invoke` call: a `start` (next, graph_function,
+ * asset or declared_start) or a direct GraphFunction `invoke`. The Product
+ * run owner populates the request and authority slots from the explicit
+ * selection, input and source intent; this shell assembles the resource
+ * assertion and the exact Public envelope. The installed binding still admits
+ * everything; a population refusal is returned unchanged.
+ */
+export async function constructInstalledStartCall<
+  S extends product.ProductRunInvocationSelectionIntent,
+>(input: Omit<product.ProductRunInvocationPopulationInput<S>, "transportResourceAssertion"> &
+  InstalledRunCallResourceIntent & Readonly<{
+    eventResource: abg.AbgEventResourceInput;
+    envelope: InstalledCallEnvelopeIdentity;
+  }>): Promise<
+  | Readonly<{
+      kind: "installed_start_call";
+      call: InstalledPublicDefinitionCall<InstalledStartCallSelection<S>>;
+      population: product.PopulatedProductRunInvocation<S["memberKey"]>;
+    }>
+  | product.ProductRunInvocationPreparationRefusal<S["memberKey"]>
+> {
+  const population = await product.populateProductRunInvocation({
+    ...input,
+    transportResourceAssertion: input.eventResource as unknown as JsonValue,
+  });
+  if (population.kind !== "populated_product_run_invocation") return population;
+  const resources = Object.freeze({
+    kind: "run_invocation_resource_assertion" as const,
+    schemaVersion: "5.0.0" as const,
+    eventResource: input.eventResource,
+    catalog: input.catalog,
+    catalogView: input.catalogView,
+    applications: Object.freeze([...input.applications]),
+    source: population.sourceAssertion,
+    ...await runResources(input, {
+      authority: population.authority,
+      program: population.resolution.program,
+      workspaceBinding: input.workspaceBinding,
+    }),
+  });
+  const selection: product.ProductRunInvocationSelectionIntent = input.selection;
+  if (population.memberKey !== selection.memberKey) {
+    throw new TypeError("run.invoke population differs from its selected member");
+  }
+  return Object.freeze({
+    kind: "installed_start_call" as const,
+    call: checkedInstalledCall<InstalledStartCallSelection<S>>(
+      input.envelope,
+      { operationId: "abg.operation.run.invoke", memberKey: population.memberKey },
+      { request: population.request, slots: population.slots, resources },
+      (request) => selection.memberKey === "invoke" ||
+        isRecord(request.target) && request.target.kind === selection.target.kind,
+    ),
+    population,
+  });
+}
+
+/**
+ * Construct one installed `run.continue` call for the current-intent,
+ * pending-execution or selected-action variant at the reopened event
+ * resource's exact durable prefix. ABG and Product owners reconstruct the
+ * continuation, resolution, policy, grant and attribution from the log; no
+ * prior start object supplies authority.
+ */
+export async function constructInstalledPendingCall<
+  S extends product.RunContinuationSelectionIntent,
+>(input: InstalledRunCallResourceIntent & Readonly<{
+  selection: S;
+  catalog: product.ReadyGraphFunctionCatalog;
+  catalogView: product.GraphFunctionCatalogView;
+  applications: readonly product.DeclarationApplication[];
+  eventResource: abg.ReopenedAbgEventResourceInput;
+  envelope: InstalledCallEnvelopeIdentity;
+}>): Promise<
+  | Readonly<{
+      kind: "installed_pending_call";
+      call: InstalledPublicDefinitionCall<InstalledPendingCallSelection<S>>;
+      population: product.PopulatedRunContinuation;
+    }>
+  | product.RunContinuationPopulationRefusal
+> {
+  const population = await product.populateRunContinuationAtDurablePrefix({
+    selection: input.selection,
+    prefix: abg.abgEventResourceInputPrefix(input.eventResource),
+    catalog: input.catalog,
+    catalogView: input.catalogView,
+    applications: input.applications,
+    transportResourceAssertion: input.eventResource as unknown as JsonValue,
+  });
+  if (population.kind !== "populated_run_continuation") return population;
+  const resources = Object.freeze({
+    kind: "run_invocation_resource_assertion" as const,
+    schemaVersion: "5.0.0" as const,
+    eventResource: input.eventResource,
+    catalog: input.catalog,
+    catalogView: input.catalogView,
+    applications: Object.freeze([...input.applications]),
+    source: Object.freeze({ kind: "none" as const }),
+    ...await runResources(input, {
+      authority: population.authority,
+      program: population.resolution.program,
+      workspaceBinding: population.workspaceBinding,
+    }),
+  });
+  const selection: product.RunContinuationSelectionIntent = input.selection;
+  const memberKey = selection.kind === "selected_action" ? "selected_action" : "current_intent";
+  if (population.memberKey !== memberKey) {
+    throw new TypeError("run.continue population differs from its selected member");
+  }
+  return Object.freeze({
+    kind: "installed_pending_call" as const,
+    call: checkedInstalledCall<InstalledPendingCallSelection<S>>(
+      input.envelope,
+      { operationId: "abg.operation.run.continue", memberKey },
+      { request: population.request, slots: population.slots, resources },
+      (request) => selection.kind === "selected_action" ||
+        Object.hasOwn(request, selection.kind === "pending_execution" ? "pendingCursor" : "currentIntent"),
+    ),
+    population,
+  });
+}
+
+/**
+ * Construct one installed run read (`run_status`, `run_result`,
+ * `run_replay`, `run_gaps`, `graph_call_result` or `graph_call_replay`) at
+ * the reopened event resource's exact durable prefix. ABG populates the
+ * source coordinate and the same authority the read kernel admits.
+ */
+export function constructInstalledRunReadCall<K extends abg.AbgRunReadMemberKey>(input: Readonly<{
+  memberKey: K;
+  workspaceBinding: Readonly<{ ref: string; digest: Sha256Digest }>;
+  sourceRef: string;
+  selector: JsonValue;
+  eventResource: Extract<abg.AbgEventResourceInput, { readonly kind: "reopen_abg_event_resource" }>;
+  declarationProof?: abg.AbgHistoricalDeclarationProof;
+  envelope: InstalledCallEnvelopeIdentity;
+}>):
+  | Readonly<{
+      kind: "installed_run_read_call";
+      call: InstalledPublicDefinitionCall<InstalledRunReadCallSelection<K>>;
+      population: Extract<ReturnType<typeof abg.populateRunReadAtDurablePrefix<K>>, { readonly kind: "populated_run_read" }>;
+    }>
+  | Extract<ReturnType<typeof abg.populateRunReadAtDurablePrefix<K>>, { readonly kind: "run_read_population_refusal" }> {
+  const population = abg.populateRunReadAtDurablePrefix({
+    memberKey: input.memberKey,
+    prefix: abg.abgEventResourceInputPrefix(input.eventResource),
+    workspaceBinding: input.workspaceBinding,
+    sourceRef: input.sourceRef,
+    selector: input.selector,
+  });
+  if (population.kind !== "populated_run_read") return population;
+  const resources = Object.freeze({
+    kind: "abg_project_read_resource_assertion" as const,
+    schemaVersion: "5.0.0" as const,
+    eventResource: input.eventResource,
+    ...(input.declarationProof === undefined ? {} : { declarationProof: input.declarationProof }),
+  });
+  return Object.freeze({
+    kind: "installed_run_read_call" as const,
+    call: checkedInstalledCall<InstalledRunReadCallSelection<K>>(
+      input.envelope,
+      { operationId: population.packet.definitionKey.operationId, memberKey: population.memberKey },
+      { request: population.request, slots: population.slots, resources },
+      () => true,
+    ),
+    population,
+  });
 }

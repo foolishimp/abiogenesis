@@ -70,19 +70,28 @@ type CandidateDefinitionMember<C> = C extends Readonly<{
 }> ? OwnerDefinitionMemberOf<K>
   : never;
 
-/** A typed candidate of one declared member must carry that member's own
- * request and installed callable resources; raw input stays unconstrained. */
-export type InstalledDefinitionCallCandidateCheck<C> =
-  [CandidateDefinitionMember<C>] extends [never] ? unknown
+/** One candidate alternative against its own declared member: `true` when it
+ * is raw/undeclared, unavailable (refused at runtime), or carries every
+ * selectable member's own request and callable resources. */
+type CandidateAlternativeHolds<C> = C extends unknown
+  ? [CandidateDefinitionMember<C>] extends [never] ? true
     : CandidateDefinitionMember<C> extends infer M
       ? M extends OwnerCallableDefinitionMember
         ? C extends Readonly<{
           invocation: Readonly<{ request: OwnerRequestOf<M["packet"]> }>;
           resources: M["binding"]["resources"];
-        }> ? unknown
-        : never
-      : unknown
-    : never;
+        }> ? true
+        : false
+      : true
+    : false
+  : never;
+
+/** A typed candidate of one declared member must carry that member's own
+ * request and installed callable resources; raw input stays unconstrained.
+ * Every alternative of a candidate union is checked against its own member;
+ * one crossed alternative refuses the whole union. */
+export type InstalledDefinitionCallCandidateCheck<C> =
+  false extends CandidateAlternativeHolds<C> ? never : unknown;
 
 /** A typed callable member keeps its owner output and resource receipt; an
  * unavailable member can only be refused; raw input keeps the raw outcome. */

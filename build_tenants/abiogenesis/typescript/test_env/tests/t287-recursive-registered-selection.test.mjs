@@ -517,15 +517,13 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   const producer=runAt(interruptedEvents).find(e=>e.kind==='c_call_result_admitted'&&e.payload.resultRef===p.progressedInputRef);
   const completedBefore=runAt(interruptedEvents).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef);
   let handoff=env.store.projectReopenAuthorityAndClose();
-  // The shared support assembles the cold Public pending_execution call. This
-  // Run's root admission names the fixture's admitted invocation authority and
-  // execution resolution; that is the start basis supplied, with no run-environment resources.
-  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,
-    start:{workAuthority:env.invocationAuthority,resolution:env.executionResolution,capabilityBasis:{policy:env.policy,actorRef:env.actorRef},call:{resources:{}}},
+  // The shared support assembles the cold Public pending_execution call through
+  // the shipped constructor. This Run's root admission names the fixture's
+  // admitted invocation authority (asserted only); no run-environment resources.
+  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,expectedAuthority:env.invocationAuthority,
     eventResource:()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)}),
     identityScope:'pending-execution-public',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:ref('provenance','fixture')});
-  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.pendingInput.input.inputRef,p.progressedInputRef);
-  const makeCall=pending.call;
+  assert.equal(pending.use.source.continuationRef,p.continuationRef);assert.equal(pending.population.slots.input_contract.valueRef,p.progressedInputRef);
   const cli=async(identity,call)=>{
     const execution=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${identity}-${Math.random().toString(16).slice(2)}`,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null});
     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
@@ -534,10 +532,10 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   };
   const storeOwner=await load('abg/event_store'),storeOwnerRead=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
   const before=storeOwnerRead().length;
-  const crossed=await cli('crossed',makeCall('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
+  const crossed=await cli('crossed',pending.replay('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
   assert.equal(storeOwnerRead().length,before,'a refused crossed request admits nothing');
-  const continueCall=makeCall('continue');
+  const continueCall=await pending.call('continue');
   const continued=await cli('continue',continueCall);
   assert.equal(continued.ownerOutput.outcomeKind,'result',JSON.stringify(continued.ownerOutput));
   assert.equal(continued.ownerOutput.value.continuationKind,'pending_execution');assert.equal(continued.ownerOutput.value.admittedIntent,null);
@@ -553,7 +551,7 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   assert.equal(resend.invocationRef,continued.invocationRef,'the literal resend is the consumed Public invocation');
   assert.equal(resend.ownerOutput,null);assert.equal(resend.failure.fault.stage,'resource_acquisition');assert.equal(resend.failure.fault.code,'acquisition_refused');
   assert.match(resend.failure.fault.message,/durable_log_mismatch/);
-  const second=await cli('second-use',makeCall('second-use'));
+  const second=await cli('second-use',pending.replay('second-use'));
   assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');
   assert.equal(storeOwnerRead().length,afterContinue,'duplicate and second use admit nothing');
   const final=runAt(storeOwnerRead());

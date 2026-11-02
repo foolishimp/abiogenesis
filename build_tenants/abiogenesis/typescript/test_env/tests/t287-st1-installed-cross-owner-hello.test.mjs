@@ -390,6 +390,8 @@ function forgeDependencyGraph(product, installs) {
   }));
 }
 
+/** The ST-1 start through the shipped SDK constructor: the Product run owner
+ * populates the request and authority slots; this test supplies scenario data. */
 async function constructInstalledStartCall({
   environment,
   publicApi,
@@ -398,7 +400,6 @@ async function constructInstalledStartCall({
   identity = "st-1",
 }) {
   const {
-    product,
     abg,
     catalog,
     catalogView,
@@ -406,187 +407,29 @@ async function constructInstalledStartCall({
     workspaceBinding,
     additionalProducts: [languageFixture],
   } = environment;
-  const resolution = await product.ProductExecutionResolutionPort.resolve({
-    catalog,
-    catalogView,
-    admittedInstalls,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-    programRef: languageFixture.ids.programRef,
+  const constructed = await publicApi.constructInstalledStartCall({
     selection: Object.freeze({
-      kind: "start",
-      scope: "program",
-      target: "next",
-      until: "converged",
+      memberKey: "start",
+      target: Object.freeze({ kind: "next" }),
       rootMode: "direct",
+      fhMode: "direct",
     }),
-  });
-  assert.equal(
-    resolution.kind,
-    "loaded_product_execution_resolution",
-    JSON.stringify(resolution),
-  );
-  const admittedInput = product.admitInstalledProductInput(
-    resolution.productSemantics,
-    resolution.resolution.inputContract.contractRef,
-    input,
-  );
-  assert.ok(admittedInput);
-  const inputContract = Object.freeze({
-    ref: resolution.resolution.inputContract.contractRef,
-    digest: resolution.resolution.inputContractDigest,
-  });
-  const contractBoundInput = Object.freeze({
-    contract: inputContract,
-    valueRef: `value://abi5-tests/${identity}/hello-input`,
-    valueDigest: product.sha256Canonical(input),
-    value: input,
-  });
-  const declaredRegimes = new Set([
-    ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
-    ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
-  ]);
-  const policy = product.constructRootInvocationPolicy(
-    workspaceBinding,
-    resolution.program,
-    resolution.programValidation.interactionLeafRows.map((row) => ({
-      requirementKey: row.requirementKey,
-      requirementKeyDigest: row.requirementKeyDigest,
-      actorCapabilityRef: row.requirement.actorCapabilityRef,
-    })),
-    ["F_D", "F_P", "F_H"].filter((regime) => declaredRegimes.has(regime)),
-    [],
-  );
-  const actorRef = workspaceBinding.authorizedActorRef;
-  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
-  const grants = Object.freeze([
-    product.constructCapabilityGrant(
-      policy,
-      actorRef,
-      operationId,
-      product.DIRECT_INVOKE_CAPABILITY,
-      {
-        admittedInstalls,
-        workspaceBinding,
-        fixedPacket,
-      },
-    ),
-  ]);
-  const authority = product.constructInvocationAuthority(
-    actorRef,
-    workspaceBinding,
-    catalogView,
-    resolution.program.programRef,
-    resolution.selectedCatalogEntry,
-    policy,
-    grants,
-    {
-      admittedInstalls,
-      workspaceBinding,
-      fixedPacket,
-    },
-  );
-  const program = Object.freeze({
-    ref: resolution.resolution.programRef,
-    digest: resolution.resolution.programDigest,
-  });
-  const view = Object.freeze({
-    ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice("sha256:".length)}`,
-    digest: catalogView.viewDigest,
-  });
-  const request = Object.freeze({
-    program,
-    scope: "program",
-    target: Object.freeze({ kind: "next" }),
-    until: "converged",
-    catalogView: view,
-    allowlist: Object.freeze([...catalogView.allowlist]),
-    input: contractBoundInput,
-    fhMode: "direct",
-    rootMode: "direct",
-    sourceBasis: Object.freeze({ kind: "none" }),
-  });
-  const steeringDigest = product.sha256Canonical(eventResource);
-  const slots = Object.freeze({
-    workspace_binding: Object.freeze({
-      ref: workspaceBinding.bindingId,
-      digest: workspaceBinding.bindingDigest,
-    }),
-    product_set: Object.freeze(admittedInstalls.map(product.productInstallCoordinate)),
-    dependency_lock: Object.freeze({
-      ref: workspaceBinding.lockId,
-      digest: workspaceBinding.lockDigest,
-    }),
-    catalog_scope: Object.freeze({
-      catalog: Object.freeze({
-        ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice("sha256:".length)}`,
-        digest: catalog.basisDigest,
-      }),
-      view,
-      allowlist: request.allowlist,
-    }),
-    execution_program: program,
-    graph_function: null,
-    input_contract: contractBoundInput,
-    session_policy: Object.freeze({
-      ref: policy.policyRef,
-      digest: policy.policyDigest,
-    }),
-    capability_grants: Object.freeze({
-      requiredCapabilityRefs: Object.freeze([
-        ...product.RUN_OPERATION_CONTRACTS.invoke.start.metadata.capabilityRefs,
-      ]),
-      grants: Object.freeze(grants.map((grant) => Object.freeze({
-        ref: grant.grantRef,
-        digest: grant.grantDigest,
-      }))),
-    }),
-    actor: Object.freeze({
-      actor: Object.freeze({
-        ref: actorRef,
-        digest: product.sha256Canonical({ actorRef }),
-      }),
-      attribution: Object.freeze({
-        ref: authority.authorityRef,
-        digest: authority.authorityDigest,
-      }),
-    }),
-    transport_steering: Object.freeze({
-      ref: `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`,
-      digest: steeringDigest,
-    }),
-    verification_references: null,
-    execution_basis: null,
-  });
-  const contractCatalog = environment.verified.definitionContractCoordinates
-    ?.operations.find((candidate) => candidate.operationId === operationId)
-    ?.members.find((candidate) => candidate.memberKey === "start")
-    ?.slots.request.contractCatalog;
-  assert.ok(
-    contractCatalog,
-    "verified ABIogenesis truth must issue the installed start contract catalog",
-  );
-  const resources = Object.freeze({
-    kind: "run_invocation_resource_assertion",
-    schemaVersion,
-    eventResource,
+    programRef: languageFixture.ids.programRef,
     catalog,
     catalogView,
     applications: Object.freeze([]),
+    admittedInstalls,
+    workspaceBinding,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: workspaceBinding.authorizedActorRef,
+    input: Object.freeze({ value: input }),
+    inputValueRef: `value://abi5-tests/${identity}/hello-input`,
     source: Object.freeze({ kind: "none" }),
-  });
-  return {
-    call: constructInstalledPublicDefinitionCall({
-      product,
-      installedPublic: publicApi,
+    eventResource,
+    envelope: Object.freeze({
       definitionContractCoordinates:
         environment.verified.definitionContractCoordinates,
-      contractCatalog,
-      operationId,
-      memberKey: "start",
-      request,
-      slots,
-      resources,
       requestRef: `public-request://abi5-tests/${identity}/run-start`,
       correlationRef: `correlation://abi5-tests/${identity}/run-start`,
       eventTime: identity === "st-1"
@@ -594,14 +437,21 @@ async function constructInstalledStartCall({
         : "2026-08-22T01:00:00.000Z",
       provenanceRefs: [`provenance://abi5-tests/${identity}-worker`],
     }),
-    resolution,
+  });
+  if (constructed.kind !== "installed_start_call") {
+    assert.fail(JSON.stringify(constructed));
+  }
+  const { population } = constructed;
+  return {
+    call: constructed.call,
+    resolution: population.resolution,
     capabilityBasis: Object.freeze({
-      actorRef,
-      capabilityGrants: grants,
-      policy,
+      actorRef: workspaceBinding.authorizedActorRef,
+      capabilityGrants: population.grants,
+      policy: population.policy,
       productInstalls: admittedInstalls,
-      program: resolution.program,
-      programValidation: resolution.programValidation,
+      program: population.resolution.program,
+      programValidation: population.resolution.programValidation,
       workspaceBinding,
     }),
   };
@@ -616,41 +466,12 @@ function reopenedReadResource(product, closeHandoff) {
   });
 }
 
-function readAuthoritySlots(environment, packet, grants) {
-  const { admittedInstalls, product, workspaceBinding } = environment;
-  return Object.freeze({
-    workspace_binding: Object.freeze({
-      ref: workspaceBinding.bindingId,
-      digest: workspaceBinding.bindingDigest,
-    }),
-    product_set: Object.freeze(admittedInstalls.map(product.productInstallCoordinate)),
-    dependency_lock: Object.freeze({
-      ref: workspaceBinding.lockId,
-      digest: workspaceBinding.lockDigest,
-    }),
-    catalog_scope: null,
-    execution_program: null,
-    graph_function: null,
-    input_contract: null,
-    session_policy: null,
-    capability_grants: Object.freeze({
-      requiredCapabilityRefs: Object.freeze([...packet.metadata.capabilityRefs]),
-      grants: Object.freeze(grants.map((grant) => Object.freeze({
-        ref: grant.grantRef,
-        digest: grant.grantDigest,
-      }))),
-    }),
-    actor: null,
-    transport_steering: null,
-    verification_references: null,
-    execution_basis: null,
-  });
-}
-
+/** One run read through the shipped SDK constructor. A falsifier patches the
+ * canonical population explicitly and re-envelopes it; a substituted event
+ * resource replaces only the resource the population was constructed at. */
 function constructInstalledRunReadCall({
   environment,
   publicApi,
-  projectReadContracts,
   memberKey,
   selector,
   source,
@@ -658,78 +479,71 @@ function constructInstalledRunReadCall({
   identity,
   contractCatalogOverride = null,
   definitionContractCoordinatesOverride = null,
-  mutateRequest = (request) => request,
-  mutateSlots = (slots) => slots,
+  mutateRequest = null,
+  mutateSlots = null,
+  eventResourceOverride = null,
 }) {
-  const { product, admittedInstalls, workspaceBinding } = environment;
-  const packet = projectReadContracts.ABG_PROJECT_READ_CONTRACTS[memberKey];
-  const grantBasis = Object.freeze({
-    admittedInstalls,
-    workspaceBinding,
-    fixedPacket: packet,
+  const { product, workspaceBinding } = environment;
+  const envelope = Object.freeze({
+    definitionContractCoordinates:
+      environment.verified.definitionContractCoordinates,
+    requestRef: `public-request://abi5-tests/st-2b/${identity}`,
+    correlationRef: `correlation://abi5-tests/st-2b/${identity}`,
+    eventTime: "2026-08-22T00:00:00.000Z",
+    provenanceRefs: ["provenance://abi5-tests/st-2b-worker"],
   });
-  const grants = Object.freeze(packet.metadata.capabilityRefs.map(
-    (capabilityRef) => product.constructCapabilityGrant(
-      environment.workspaceAuthority,
-      workspaceBinding.authorizedActorRef,
-      packet.definitionKey.operationId,
-      capabilityRef,
-      grantBasis,
-    ),
-  ));
-  const request = mutateRequest(Object.freeze({
-    caseKey: memberKey,
-    source: Object.freeze({
-      sourceKind: "run",
-      sourceRef: source.ref,
-      sourceDigest: source.digest,
+  const constructed = publicApi.constructInstalledRunReadCall({
+    memberKey,
+    workspaceBinding: Object.freeze({
+      ref: workspaceBinding.bindingId,
+      digest: workspaceBinding.bindingDigest,
     }),
-    projectionBasis: Object.freeze({
-      projectionBasisRef: eventResource.closeHandoff.prefix.eventLogRef,
-      projectionBasisDigest:
-        eventResource.closeHandoff.prefix.coordinateDigest,
-    }),
+    sourceRef: source.ref,
     selector,
-  }));
-  const slots = mutateSlots(
-    readAuthoritySlots(environment, packet, grants),
-    grants,
+    eventResource,
+    envelope,
+  });
+  if (constructed.kind !== "installed_run_read_call") {
+    assert.fail(`${memberKey} ${JSON.stringify(constructed)}`);
+  }
+  const { population } = constructed;
+  assert.deepEqual(
+    [population.source.ref, population.source.digest],
+    [source.ref, source.digest],
+    `${memberKey} populated source`,
   );
-  const installedContractCatalog =
-    environment.verified.definitionContractCoordinates
-    ?.operations.find((candidate) =>
-      candidate.operationId === packet.definitionKey.operationId
-    )
-    ?.members.find((candidate) => candidate.memberKey === memberKey)
-    ?.slots.request.contractCatalog;
-  assert.ok(
-    installedContractCatalog,
-    `${memberKey} requires its installed contract catalog coordinate`,
-  );
-  const contractCatalog = contractCatalogOverride ?? installedContractCatalog;
+  const patched = mutateRequest !== null || mutateSlots !== null ||
+    contractCatalogOverride !== null ||
+    definitionContractCoordinatesOverride !== null ||
+    eventResourceOverride !== null;
   return Object.freeze({
-    packet,
-    grants,
-    call: constructInstalledPublicDefinitionCall({
+    packet: population.packet,
+    grants: population.grants,
+    call: !patched ? constructed.call : constructInstalledPublicDefinitionCall({
       product,
       installedPublic: publicApi,
       definitionContractCoordinates:
         definitionContractCoordinatesOverride ??
-          environment.verified.definitionContractCoordinates,
-      contractCatalog,
-      operationId: packet.definitionKey.operationId,
+          envelope.definitionContractCoordinates,
+      contractCatalog: contractCatalogOverride ??
+        constructed.call.invocation.contractCatalog,
+      operationId: population.packet.definitionKey.operationId,
       memberKey,
-      request,
-      slots,
-      resources: Object.freeze({
-        kind: "abg_project_read_resource_assertion",
-        schemaVersion,
-        eventResource,
-      }),
-      requestRef: `public-request://abi5-tests/st-2b/${identity}`,
-      correlationRef: `correlation://abi5-tests/st-2b/${identity}`,
-      eventTime: "2026-08-22T00:00:00.000Z",
-      provenanceRefs: ["provenance://abi5-tests/st-2b-worker"],
+      request: (mutateRequest ?? ((request) => request))(population.request),
+      slots: (mutateSlots ?? ((slots) => slots))(
+        population.slots,
+        population.grants,
+      ),
+      resources: eventResourceOverride === null
+        ? constructed.call.resources
+        : Object.freeze({
+            ...constructed.call.resources,
+            eventResource: eventResourceOverride,
+          }),
+      requestRef: envelope.requestRef,
+      correlationRef: envelope.correlationRef,
+      eventTime: envelope.eventTime,
+      provenanceRefs: envelope.provenanceRefs,
     }),
   });
 }
@@ -1196,7 +1010,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     const { packet, call: readCall } = constructInstalledRunReadCall({
       environment,
       publicApi,
-      projectReadContracts,
       memberKey,
       selector,
       source: terminalRun,
@@ -1517,9 +1330,13 @@ test("ST-1 executes an independently authored minimal GTL test through installed
       contractCatalogOverride: alternateContractCatalog,
       definitionContractCoordinatesOverride:
         alternateDefinitionContractCoordinates,
-      source: Object.freeze({
-        ref: "run://abiogenesis/st2b-catalog-owner-must-not-run",
-        digest: readFalsifierDigest,
+      mutateRequest: (request) => Object.freeze({
+        ...request,
+        source: Object.freeze({
+          ...request.source,
+          sourceRef: "run://abiogenesis/st2b-catalog-owner-must-not-run",
+          sourceDigest: readFalsifierDigest,
+        }),
       }),
       expectedCode: "projection_basis_mismatch",
       expectedIssuePaths: ["/contractCatalog"],
@@ -1536,7 +1353,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     const { call: falsifiedCall } = constructInstalledRunReadCall({
       environment: callEnvironment,
       publicApi,
-      projectReadContracts,
       memberKey: "run_status",
       selector: Object.freeze({ kind: "none" }),
       source: terminalRun,
@@ -1577,14 +1393,16 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     readHandoff = refused.resources.eventResource.closeHandoff;
   }
 
+  // The Run is absent at the setup prefix, so canonical population at the
+  // current handoff precedes the explicit stale-resource substitution.
   const staleRead = constructInstalledRunReadCall({
     environment,
     publicApi,
-    projectReadContracts,
     memberKey: "run_status",
     selector: Object.freeze({ kind: "none" }),
     source: terminalRun,
-    eventResource: reopenedReadResource(product, setupHandoff),
+    eventResource: reopenedReadResource(product, readHandoff),
+    eventResourceOverride: reopenedReadResource(product, setupHandoff),
     identity: "stale-resource-prefix",
   });
   const staleFault = await Effect.runPromise(Effect.flip(
@@ -1735,7 +1553,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     const { call: st4ReadCall } = constructInstalledRunReadCall({
       environment,
       publicApi,
-      projectReadContracts,
       memberKey,
       selector,
       source: st4Run,
@@ -1803,7 +1620,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
   const flipReadCall = constructInstalledRunReadCall({
     environment,
     publicApi,
-    projectReadContracts,
     memberKey: "run_status",
     selector: Object.freeze({ kind: "none" }),
     source: st4Run,
@@ -1956,7 +1772,6 @@ test("ST-1 executes an independently authored minimal GTL test through installed
   const crossedRead = constructInstalledRunReadCall({
     environment,
     publicApi,
-    projectReadContracts,
     memberKey: "run_status",
     selector: Object.freeze({ kind: "none" }),
     source: st4Run,
@@ -2018,5 +1833,270 @@ test("ST-1 executes an independently authored minimal GTL test through installed
   }
   context.diagnostic(
     "ST-4: 1 fresh CLI start, 3 chained CLI reads, 1 one-snapshot flip-getter read, 1 pre-owner crossed-handoff refusal, DefinitionHostReceipt path, 0 read bytes",
+  );
+
+  // Shipped SDK constructors populate a direct GraphFunction invoke and every
+  // run read from their owners; this composition supplies scenario data only.
+  const sdkEnvelope = (identity) => Object.freeze({
+    definitionContractCoordinates:
+      environment.verified.definitionContractCoordinates,
+    requestRef: `public-request://abi5-tests/sdk/${identity}`,
+    correlationRef: `correlation://abi5-tests/sdk/${identity}`,
+    eventTime: "2026-08-23T00:00:00.000Z",
+    provenanceRefs: ["provenance://abi5-tests/sdk-worker"],
+  });
+  let sdkHandoff =
+    acquisitionFlipOutcome.receipt.resources.eventResource.closeHandoff;
+  const invokeConstruction = await publicApi.constructInstalledStartCall({
+    selection: Object.freeze({
+      memberKey: "invoke",
+      catalogHandle: languageFixture.ids.graphFunctionRef,
+    }),
+    programRef: languageFixture.ids.programRef,
+    catalog,
+    catalogView,
+    applications: Object.freeze([]),
+    admittedInstalls,
+    workspaceBinding,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: workspaceBinding.authorizedActorRef,
+    input: Object.freeze({ value: gtl.constructLanguageTestInput("World") }),
+    inputValueRef: "value://abi5-tests/sdk/direct-invoke-input",
+    source: Object.freeze({ kind: "none" }),
+    eventResource: reopenedReadResource(product, sdkHandoff),
+    envelope: sdkEnvelope("direct-invoke"),
+  });
+  if (invokeConstruction.kind !== "installed_start_call") {
+    assert.fail(JSON.stringify(invokeConstruction));
+  }
+  assert.deepEqual(invokeConstruction.call.invocation.definitionKey, {
+    operationId,
+    memberKey: "invoke",
+  });
+  const invokeOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
+    invokeConstruction.call,
+  );
+  assert.equal(
+    invokeOutcome.kind,
+    "installed_definition_call_transport_result",
+    JSON.stringify(invokeOutcome).slice(0, 4000),
+  );
+  assert.equal(
+    invokeOutcome.receipt.ownerOutput.outcomeKind,
+    "result",
+    JSON.stringify(invokeOutcome.receipt.ownerOutput).slice(0, 4000),
+  );
+  assert.equal(invokeOutcome.receipt.ownerOutput.value.disposition, "completed");
+  const invokeRun = invokeOutcome.receipt.resources.run;
+  assert.ok(invokeRun);
+  assert.notEqual(invokeRun.ref, st4Run.ref, "direct invoke opens its own Run");
+  assert.notEqual(invokeRun.ref, terminalRun.ref, "direct invoke opens its own Run");
+  sdkHandoff = invokeOutcome.receipt.resources.eventResource.closeHandoff;
+  // The invoke owner names its GraphCall; the durable log opens exactly that
+  // one GraphCall for the direct-invoke Run.
+  const invokeGraphCall = invokeOutcome.receipt.ownerOutput.value.graphCall;
+  assert.ok(invokeGraphCall, "the direct invoke result names its GraphCall");
+  assert.deepEqual(
+    abg.readRuntimeEventsAtDurablePrefix(sdkHandoff.prefix)
+      .filter((event) =>
+        event.kind === "graph_call_opened" && event.runId === invokeRun.ref
+      )
+      .map((event) => event.graphCallId),
+    [invokeGraphCall.ref],
+    "the direct-invoke Run opens exactly its result GraphCall",
+  );
+  const declarationProof = Object.freeze({
+    kind: "abg_historical_declaration_proof",
+    schemaVersion,
+    catalog,
+    catalogView,
+  });
+  const sdkReadRows = [
+    ["run_status", invokeRun.ref, Object.freeze({ kind: "none" })],
+    ["run_result", invokeRun.ref, Object.freeze({ kind: "none" })],
+    ["run_replay", invokeRun.ref, Object.freeze({
+      kind: "ordinal_page",
+      fromOrdinal: 0,
+      limit: 1024,
+    })],
+    ["run_gaps", invokeRun.ref, Object.freeze({ kind: "none" })],
+    ["graph_call_result", invokeGraphCall.ref, Object.freeze({
+      kind: "none",
+    })],
+    ["graph_call_replay", invokeGraphCall.ref, Object.freeze({
+      kind: "ordinal_page",
+      fromOrdinal: 0,
+      limit: 1024,
+    })],
+  ];
+  assert.deepEqual(
+    sdkReadRows.map(([memberKey]) => memberKey).sort(),
+    [...abg.ABG_RUN_READ_MEMBER_KEYS].sort(),
+    "the composition reads every run read member",
+  );
+  const sdkLogBytes = await readFile(new URL(sdkHandoff.prefix.eventLogRef));
+  const sdkReadOutputs = new Map();
+  for (const [memberKey, sourceRef, selector] of sdkReadRows) {
+    const construction = publicApi.constructInstalledRunReadCall({
+      memberKey,
+      workspaceBinding: Object.freeze({
+        ref: workspaceBinding.bindingId,
+        digest: workspaceBinding.bindingDigest,
+      }),
+      sourceRef,
+      selector,
+      eventResource: reopenedReadResource(product, sdkHandoff),
+      ...(memberKey.startsWith("graph_call") ? { declarationProof } : {}),
+      envelope: sdkEnvelope(`read-${memberKey}`),
+    });
+    if (construction.kind !== "installed_run_read_call") {
+      assert.fail(`${memberKey} ${JSON.stringify(construction)}`);
+    }
+    assert.equal(
+      construction.population.source.ref,
+      sourceRef,
+      `${memberKey} populated source`,
+    );
+    const readOutcome = await publicApi.runInstalledDefinitionCallTransport(
+      Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
+      construction.call,
+    );
+    assert.equal(
+      readOutcome.kind,
+      "installed_definition_call_transport_result",
+      memberKey,
+    );
+    const output = readOutcome.receipt.ownerOutput;
+    assert.equal(
+      output.outcomeKind,
+      "result",
+      `${memberKey} ${JSON.stringify(output).slice(0, 4000)}`,
+    );
+    assert.equal(output.value.caseKey, memberKey);
+    assert.deepEqual(
+      [output.value.source.ref, output.value.source.digest],
+      [construction.population.source.ref, construction.population.source.digest],
+      `${memberKey} reads its populated source`,
+    );
+    assert.deepEqual(
+      readOutcome.receipt.resources.eventResource.closeHandoff.prefix,
+      sdkHandoff.prefix,
+      `${memberKey} keeps the prefix`,
+    );
+    sdkReadOutputs.set(memberKey, output.value.projection);
+    sdkHandoff = readOutcome.receipt.resources.eventResource.closeHandoff;
+  }
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(sdkHandoff.prefix.eventLogRef)),
+      sdkLogBytes,
+    ),
+    0,
+    "shipped-constructor reads append zero bytes",
+  );
+  assert.deepEqual(sdkReadOutputs.get("run_status").subject, invokeRun);
+  assert.equal(sdkReadOutputs.get("run_status").status, "closed");
+  assert.deepEqual(
+    sdkReadOutputs.get("run_result").result,
+    invokeOutcome.receipt.ownerOutput.value.result,
+  );
+
+  // The shipped start constructor populates the graph_function and asset
+  // starts from the same owner. The language Program publishes no asset
+  // target, so the asset start meets the existing invalid_target class.
+  const sdkStart = (identity, target) => publicApi.constructInstalledStartCall({
+    selection: Object.freeze({
+      memberKey: "start",
+      target,
+      rootMode: "direct",
+      fhMode: "direct",
+    }),
+    programRef: languageFixture.ids.programRef,
+    catalog,
+    catalogView,
+    applications: Object.freeze([]),
+    admittedInstalls,
+    workspaceBinding,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: workspaceBinding.authorizedActorRef,
+    input: Object.freeze({ value: gtl.constructLanguageTestInput("World") }),
+    inputValueRef: `value://abi5-tests/sdk/${identity}-input`,
+    source: Object.freeze({ kind: "none" }),
+    eventResource: reopenedReadResource(product, sdkHandoff),
+    envelope: sdkEnvelope(identity),
+  });
+  const graphStartTarget = Object.freeze({
+    kind: "graph_function",
+    handle: languageFixture.ids.graphFunctionRef,
+  });
+  const graphStart = await sdkStart("graph-function-start", graphStartTarget);
+  if (graphStart.kind !== "installed_start_call") {
+    assert.fail(JSON.stringify(graphStart));
+  }
+  assert.deepEqual(graphStart.call.invocation.definitionKey, {
+    operationId,
+    memberKey: "start",
+  });
+  assert.deepEqual(graphStart.call.invocation.request.target, graphStartTarget);
+  assert.ok(
+    graphStart.call.invocation.invocationAuthority.slots.graph_function,
+    "a graph_function start carries its GraphFunction slot",
+  );
+  const graphStartOutcome = await publicApi.runInstalledDefinitionCallTransport(
+    Object.freeze({ kind: "reopen", closeHandoff: sdkHandoff }),
+    graphStart.call,
+  );
+  assert.equal(
+    graphStartOutcome.kind,
+    "installed_definition_call_transport_result",
+    JSON.stringify(graphStartOutcome).slice(0, 4000),
+  );
+  assert.equal(
+    graphStartOutcome.receipt.ownerOutput.outcomeKind,
+    "result",
+    JSON.stringify(graphStartOutcome.receipt.ownerOutput).slice(0, 4000),
+  );
+  assert.equal(graphStartOutcome.receipt.ownerOutput.value.disposition, "completed");
+  const graphStartRun = graphStartOutcome.receipt.resources.run;
+  assert.ok(graphStartRun);
+  assert.notEqual(graphStartRun.ref, invokeRun.ref, "the graph_function start opens its own Run");
+  sdkHandoff = graphStartOutcome.receipt.resources.eventResource.closeHandoff;
+  const graphStartGraphCall = graphStartOutcome.receipt.ownerOutput.value.graphCall;
+  assert.ok(graphStartGraphCall, "the graph_function start result names its GraphCall");
+  assert.deepEqual(
+    abg.readRuntimeEventsAtDurablePrefix(sdkHandoff.prefix)
+      .filter((event) =>
+        event.kind === "graph_call_opened" && event.runId === graphStartRun.ref
+      )
+      .map((event) => event.graphCallId),
+    [graphStartGraphCall.ref],
+    "the graph_function start Run opens exactly its result GraphCall",
+  );
+  const assetLogBytes = await readFile(new URL(sdkHandoff.prefix.eventLogRef));
+  const assetStart = await sdkStart("asset-start", Object.freeze({
+    kind: "asset",
+    handle: "asset-handle://abi5-tests/language-smoke/unpublished@5",
+  }));
+  assert.equal(
+    assetStart.kind,
+    "product_run_invocation_preparation_refusal",
+    JSON.stringify(assetStart).slice(0, 4000),
+  );
+  assert.equal(assetStart.ownerOutput.outcomeKind, "refusal");
+  assert.equal(assetStart.ownerOutput.value.code, "invalid_target");
+  assert.deepEqual(assetStart.ownerOutput.value.issuePaths, ["/program"]);
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(sdkHandoff.prefix.eventLogRef)),
+      assetLogBytes,
+    ),
+    0,
+    "an unpublished asset start appends zero bytes",
+  );
+  context.diagnostic(
+    "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 6 run reads and 1 invalid_target asset start, 0 read bytes",
   );
 });

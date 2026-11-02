@@ -25,8 +25,13 @@ import {
   type AbgEventResourceReceipt,
   type AcquiredAbgEventResource,
 } from "./definition_event_resource.js";
-import { projectExactPrefixWorkspaceEnvironment } from
-  "./environment_admission.js";
+import {
+  projectExactPrefixWorkspaceEnvironment,
+  projectWorkspaceEnvironmentFromArtifactTruth,
+  type ExactPrefixWorkspaceEnvironment,
+} from "./environment_admission.js";
+import { projectOwnedPrefixArtifactTruth } from "./artifact_truth.js";
+import type { DurablePrefixCoordinate } from "./event_store.js";
 import { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
 import { ABG_HISTORICAL_DECLARATION_PROOF_SCHEMA, isAbgTypedTerminalResult, type AbgHistoricalDeclarationProof } from "./terminal_result_contracts.js";
 import {
@@ -586,6 +591,131 @@ export function projectAbgReadOutput(
 
 /** One authority/currentness relation shared by the Run reads and their two
  * typed GraphCall companions. Declaration evidence reaches the native owner. */
+/** The exact run-read authority one admitted prefix environment determines:
+ * the source binding, its ProductSet and lock, and the read grants over the
+ * workspace authority basis. The run-read kernel compares supplied slots with
+ * these values; installed construction populates them. */
+export function expectedRunReadAuthority<TPacket extends AnyReadPacket>(
+  packet: TPacket,
+  environment: ExactPrefixWorkspaceEnvironment,
+) {
+  const grantBasis = {
+    admittedInstalls: environment.productInstalls,
+    workspaceBinding: environment.workspaceBinding,
+    fixedPacket: packet,
+  } as const;
+  const grants = packet.metadata.capabilityRefs.map(
+    (capabilityRef) => constructCapabilityGrant(
+      environment.workspaceAuthorityBasis,
+      environment.workspaceBinding.authorizedActorRef,
+      packet.definitionKey.operationId,
+      capabilityRef,
+      grantBasis,
+    ),
+  );
+  return Object.freeze({
+    grantBasis,
+    grants: Object.freeze(grants),
+    slots: Object.freeze({
+      workspace_binding: Object.freeze({
+        ref: environment.workspaceBinding.bindingId,
+        digest: environment.workspaceBinding.bindingDigest,
+      }),
+      product_set: Object.freeze(environment.productInstalls.map(productInstallCoordinate)),
+      dependency_lock: Object.freeze({
+        ref: environment.resolvedProductLock.lockId,
+        digest: environment.resolvedProductLock.lockDigest,
+      }),
+      catalog_scope: null,
+      execution_program: null,
+      graph_function: null,
+      input_contract: null,
+      session_policy: null,
+      capability_grants: Object.freeze({
+        requiredCapabilityRefs: Object.freeze([...packet.metadata.capabilityRefs]),
+        grants: Object.freeze(grants.map((grant) => Object.freeze({
+          ref: grant.grantRef,
+          digest: grant.grantDigest,
+        }))),
+      }),
+      actor: null,
+      transport_steering: null,
+      verification_references: null,
+      execution_basis: null,
+    }),
+  });
+}
+
+/** The run-read members the exact-prefix kernel serves. */
+export const ABG_RUN_READ_MEMBER_KEYS = RUN_READ_MEMBER_KEYS;
+export type AbgRunReadMemberKey = RunReadMemberKey;
+
+/**
+ * Populate one exact run-read request, authority slots and source coordinate
+ * at the supplied durable prefix through the existing owners: authenticated
+ * artifact truth, the source workspace environment, the read port's source
+ * preparation and the shared expected read authority. Typed refusal keeps the
+ * owner cause; construction admits nothing and appends nothing.
+ */
+export function populateRunReadAtDurablePrefix<K extends RunReadMemberKey>(input: Readonly<{
+  memberKey: K;
+  prefix: DurablePrefixCoordinate;
+  workspaceBinding: Readonly<{ ref: string; digest: Sha256Digest }>;
+  sourceRef: string;
+  selector: JsonValue;
+}>):
+  | Readonly<{
+      kind: "populated_run_read";
+      memberKey: K;
+      packet: (typeof ABG_PROJECT_READ_CONTRACTS)[K];
+      request: Readonly<Record<string, JsonValue>>;
+      slots: ReturnType<typeof expectedRunReadAuthority>["slots"];
+      grants: ReturnType<typeof expectedRunReadAuthority>["grants"];
+      source: Readonly<{ ref: string; digest: Sha256Digest }>;
+    }>
+  | Readonly<{
+      kind: "run_read_population_refusal";
+      code: "artifact_truth_invalid" | "projection_basis_mismatch" | "unknown_source";
+      issuePath: string;
+    }> {
+  const packet = ABG_PROJECT_READ_CONTRACTS[input.memberKey];
+  const refusal = (code: "artifact_truth_invalid" | "projection_basis_mismatch" | "unknown_source", issuePath: string) =>
+    Object.freeze({ kind: "run_read_population_refusal" as const, code, issuePath });
+  const artifactTruth = projectOwnedPrefixArtifactTruth(input.prefix);
+  if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
+    return refusal("artifact_truth_invalid", "/projectionBasis");
+  }
+  const environment = projectWorkspaceEnvironmentFromArtifactTruth(artifactTruth, input.workspaceBinding);
+  if (environment.kind !== "exact_prefix_workspace_environment") {
+    return refusal("projection_basis_mismatch", "/invocationAuthority/slots/workspace_binding");
+  }
+  const truth = prepareRunReadAtDurablePrefix(input.prefix, input.memberKey, input.sourceRef, environment.artifactTruth);
+  if (truth === null) return refusal("unknown_source", "/source/sourceRef");
+  const expected = expectedRunReadAuthority(packet, environment);
+  return Object.freeze({
+    kind: "populated_run_read" as const,
+    memberKey: input.memberKey,
+    packet,
+    request: Object.freeze({
+      caseKey: input.memberKey,
+      source: Object.freeze({
+        // The member's own contract closes its source kind.
+        sourceKind: packet.metadata.closedDomains.sourceKind![0]!,
+        sourceRef: truth.source.ref,
+        sourceDigest: truth.source.digest,
+      }),
+      projectionBasis: Object.freeze({
+        projectionBasisRef: input.prefix.eventLogRef,
+        projectionBasisDigest: input.prefix.coordinateDigest,
+      }),
+      selector: input.selector,
+    }),
+    slots: expected.slots,
+    grants: expected.grants,
+    source: Object.freeze({ ref: truth.source.ref, digest: truth.source.digest }),
+  });
+}
+
 function runReadKernel<TPacket extends AnyReadPacket>(
   packet: TPacket,
 ): ExactReadCallable<TPacket> {
@@ -631,20 +761,9 @@ function runReadKernel<TPacket extends AnyReadPacket>(
             ),
           );
         }
-        const grantBasis = {
-          admittedInstalls: environment.productInstalls,
-          workspaceBinding: environment.workspaceBinding,
-          fixedPacket: packet,
-        } as const;
-        const expectedGrants = packet.metadata.capabilityRefs.map(
-          (capabilityRef) => constructCapabilityGrant(
-            environment.workspaceAuthorityBasis,
-            environment.workspaceBinding.authorizedActorRef,
-            packet.definitionKey.operationId,
-            capabilityRef,
-            grantBasis,
-          ),
-        );
+        const expected = expectedRunReadAuthority(packet, environment);
+        const grantBasis = expected.grantBasis;
+        const expectedGrants = expected.grants;
         // The loaded reader owns its current contract. Historical grants below
         // remain permission over the source binding, not the reader's Product.
         const executingContract = projectProductManifestOperationCoordinate(
@@ -659,24 +778,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
             refusalOutput(packet, "projection_basis_mismatch", "/contractCatalog"),
           );
         }
-        const expectedAuthority = {
-          workspace_binding: {
-            ref: environment.workspaceBinding.bindingId,
-            digest: environment.workspaceBinding.bindingDigest,
-          },
-          product_set: environment.productInstalls.map(productInstallCoordinate),
-          dependency_lock: {
-            ref: environment.resolvedProductLock.lockId,
-            digest: environment.resolvedProductLock.lockDigest,
-          },
-          capability_grants: {
-            requiredCapabilityRefs: packet.metadata.capabilityRefs,
-            grants: expectedGrants.map((grant) => ({
-              ref: grant.grantRef,
-              digest: grant.grantDigest,
-            })),
-          },
-        } as const;
+        const expectedAuthority = expected.slots;
         if (
           slots.actor !== null ||
           !canonicalEquals(slots.workspace_binding, expectedAuthority.workspace_binding) ||

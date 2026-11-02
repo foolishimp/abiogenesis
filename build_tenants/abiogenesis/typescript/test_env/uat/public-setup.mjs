@@ -37,13 +37,9 @@ export async function authorizeInstalledOperation({runtime,native,actorRef,packe
     row.definitionKey.operationId===packet.definitionKey.operationId&&row.definitionKey.memberKey===packet.definitionKey.memberKey);
   if(!definition)throw new BoundaryFailure('installed-definition',packet.definitionKey);
   const slots={...emptyAuthoritySlots(),...supplied};
-  const data={kind:'admission_capability_data',schemaVersion:version,
-    definition:{definitionKey:definition.definitionKey,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,
-      owner:{ref:packet.owner.authorityRef,digest:packet.owner.authorityDigest}},
-    ownerArtifact:{request:native.request,verified},request,
-    resourceScope:{resourcesDigest:hash(resources),authoritySlots:product.admissionAuthoritySlots(slots)},
-    boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:
-      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)};
+  const data=product.constructAdmissionCapabilityData({fixedPacket:packet,ownerArtifact:{request:native.request,verified},request,resources,
+    authoritySlots:slots,boundEnvironment:packet.metadata.workspaceBindingRequirement==='forbidden'?null:
+      product.admissionEnvironmentSelection(prefix,slots.workspace_binding)});
   const coordinate=(ref,value)=>({ref,digest:hash(value)});
   const authorityValue={actorRef,authorityMode:'trusted_developer'};
   const approvalValue={decision:'allow',actorRef,definitionRef:definition.definitionRef,definitionDigest:definition.definitionDigest,

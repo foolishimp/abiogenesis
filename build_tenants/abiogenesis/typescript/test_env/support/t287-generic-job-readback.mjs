@@ -5,7 +5,6 @@ import { basename, join } from "node:path";
 import { tmpdir } from "node:os";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
-import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
 const exec = promisify(execFile);
 
 /** Existing installed CLI read operations in fresh processes. The retained
@@ -22,26 +21,19 @@ export async function readGenericJobThroughFreshPublic({ scratch, installedRoot,
     expectedProductContentDigest: abi.productContentDigest, expectedManifestDigest: abi.manifestDigest });
   assert.equal(verified.disposition, "verified");
   const outputRoot = await mkdtemp(join(tmpdir(), "generic-job-public-readback-"));
-  const originalSlots = call.invocation.invocationAuthority.slots, reads = {};
+  const reads = {};
   for (const memberKey of ["run_result", "run_replay"]) {
-    const packet = abg.ABG_PROJECT_READ_CONTRACTS[memberKey], definition = installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d =>
-      d.definitionKey.operationId === packet.definitionKey.operationId && d.definitionKey.memberKey === memberKey);
-    assert.ok(definition);
-    const grants = packet.metadata.capabilityRefs.map(capabilityRef => product.constructCapabilityGrant(environment.workspaceAuthorityBasis,
-      environment.workspaceBinding.authorizedActorRef, packet.definitionKey.operationId, capabilityRef,
-      { admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding, fixedPacket: packet }));
-    const slots = Object.fromEntries(Object.keys(originalSlots).map(key => [key, null]));
-    Object.assign(slots, { workspace_binding: bindingCoordinate, product_set: originalSlots.product_set, dependency_lock: originalSlots.dependency_lock,
-      capability_grants: { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) } });
-    const readCall = constructInstalledPublicDefinitionCall({ product, installedPublic, definitionContractCoordinates: verified.definitionContractCoordinates,
-      contractCatalog: call.invocation.contractCatalog, ...packet.definitionKey,
-      request: { caseKey: memberKey, source: { sourceKind: "run", sourceRef: outcome.ownerOutput.value.run.ref, sourceDigest: outcome.ownerOutput.value.run.digest },
-        projectionBasis: { projectionBasisRef: closed.prefix.eventLogRef, projectionBasisDigest: closed.prefix.coordinateDigest },
-        selector: memberKey === "run_replay" ? { kind: "ordinal_page", fromOrdinal: 0, limit: 10000 } : { kind: "none" } },
-      slots, resources: { kind: "abg_project_read_resource_assertion", schemaVersion: "5.0.0", eventResource: {
-        kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) } },
-      requestRef: `public-request://generic-job-mechanics.example/read/${memberKey}`,
-      correlationRef: "correlation://generic-job-mechanics.example/fresh-read", eventTime: "2026-09-18T00:00:00.000Z", provenanceRefs: ["proof://generic-job-mechanics/fresh-public"] });
+    // The shipped SDK constructor populates source and read authority at the closed prefix.
+    const constructed = installedPublic.constructInstalledRunReadCall({ memberKey, workspaceBinding: bindingCoordinate,
+      sourceRef: outcome.ownerOutput.value.run.ref,
+      selector: memberKey === "run_replay" ? { kind: "ordinal_page", fromOrdinal: 0, limit: 10000 } : { kind: "none" },
+      eventResource: { kind: "reopen_abg_event_resource", schemaVersion: "5.0.0", closeHandoff: closed, handoffDigest: product.sha256Canonical(closed) },
+      envelope: { definitionContractCoordinates: verified.definitionContractCoordinates,
+        requestRef: `public-request://generic-job-mechanics.example/read/${memberKey}`,
+        correlationRef: "correlation://generic-job-mechanics.example/fresh-read", eventTime: "2026-09-18T00:00:00.000Z", provenanceRefs: ["proof://generic-job-mechanics/fresh-public"] } });
+    assert.equal(constructed.kind, "installed_run_read_call", constructed.kind === "installed_run_read_call" ? "" : JSON.stringify(constructed));
+    assert.deepEqual(constructed.population.source, outcome.ownerOutput.value.run);
+    const readCall = constructed.call;
     const path = join(outputRoot, memberKey + ".jsonl");
     await writeFile(path, JSON.stringify({ kind: "abg_cli_transport_request", schemaVersion: "5.0.0",
       acquisition: { kind: "reopen", closeHandoff: closed }, invocation: readCall }) + "\n", { flag: "wx" });

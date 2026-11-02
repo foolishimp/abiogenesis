@@ -1,9 +1,13 @@
-// T287 HC1 owner-derived native call typing. Compiler proof only: canonical
-// package declarations, no source or private import, no cast that erases the
-// relation. Each negative is one statement on the line after its marker; the
-// marker names the diagnostic codes that make the case a real refusal.
+// T287 HC1 owner-derived native call typing and the HC2 shipped constructor
+// types. Compiler proof only: canonical package declarations, no source or
+// private import, no cast that erases the relation. Each negative is one
+// statement on the line after its marker; the marker names the diagnostic
+// codes that make the case a real refusal.
 import {
+  constructInstalledPendingCall,
   constructInstalledPublicDefinitionCall,
+  constructInstalledRunReadCall,
+  constructInstalledStartCall,
   runInstalledDefinitionCallTransport,
   type InstalledDefinitionCallAcquisition,
   type InstalledDefinitionCallTransportOutcome,
@@ -21,7 +25,10 @@ import {
 import type {
   ExactDirectRunInvocationRequest,
   ExactStartRunInvocationRequest,
+  ProductRunInvocationSelectionIntent,
+  RunContinuationSelectionIntent,
 } from "@abiogenesis/typescript-tenant/product";
+import type { AbgRunReadMemberKey } from "@abiogenesis/typescript-tenant/abg";
 
 type Equal<A, B> = (<T>() => T extends A ? 1 : 2) extends
   (<T>() => T extends B ? 1 : 2) ? true : false;
@@ -153,6 +160,7 @@ type PairHolds<M extends OwnerCallableDefinitionMember> = [
 export type PairProof = Assert<Equal<{ readonly [K in CallableKey]: PairHolds<CallableMemberOf<K>> }[CallableKey], true>>;
 
 type StartMember = CallableMemberOf<"abg.operation.run.invoke#start">;
+type RunStatusMember = CallableMemberOf<"abg.operation.project.read#run_status">;
 type DirectMember = CallableMemberOf<"abg.operation.run.invoke#invoke">;
 export type RunAliasProof = [
   Assert<Mutual<ExactStartRunInvocationRequest, OwnerDefinitionRequestOf<StartMember>>>,
@@ -285,6 +293,12 @@ export async function typedTransport(): Promise<void> {
   }
   const rawOutcome: InstalledDefinitionCallTransportOutcome = await runInstalledDefinitionCallTransport(acquisition, raw);
   void rawOutcome;
+  // A union of valid alternatives keeps each alternative's own owner outcome.
+  const unionOutcome = await runInstalledDefinitionCallTransport(acquisition, validUnion);
+  if (unionOutcome.kind === "installed_definition_call_transport_result") {
+    const unionKey: StartMember["packet"]["definitionKey"] | RunStatusMember["packet"]["definitionKey"] = unionOutcome.receipt.definitionKey;
+    void unionKey;
+  }
   for (const call of [...verifyCalls, ...continueCalls, nextCall, directCall, runStoppedCall]) {
     await runInstalledDefinitionCallTransport(acquisition, call);
   }
@@ -292,6 +306,12 @@ export async function typedTransport(): Promise<void> {
 
 declare const pendingWithoutCursor: Omit<PendingExecution["request"], "pendingCursor">;
 declare const forgedStart: Omit<typeof startCall, "resources"> & { readonly resources: RunStatus["resources"] };
+declare const forgedRequestStart: Omit<typeof startCall, "invocation"> & { readonly invocation: Omit<typeof startCall.invocation, "request"> & { readonly request: typeof runStatusCall.invocation.request } };
+// Each alternative is checked against its own member: valid unions transport;
+// one crossed alternative refuses the whole union.
+declare const validUnion: typeof startCall | typeof runStatusCall;
+declare const mixedResourceUnion: typeof startCall | typeof forgedStart;
+declare const mixedRequestUnion: typeof runStatusCall | typeof forgedRequestStart;
 
 export function negatives(): void {
   // @ts-expect-error HC1-NEG wrong-key 2322 2345 2769
@@ -326,4 +346,149 @@ export function negatives(): void {
   constructInstalledPublicDefinitionCall({ ...environment, ...reprice, memberKey: "attest", request: { ...reprice.request, act: "attest", subjectKind: "evidence_claim" } });
   // @ts-expect-error HC1-NEG transport-refuses-forged-typed-resources 2345
   void runInstalledDefinitionCallTransport(acquisition, forgedStart);
+  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-resources 2345
+  void runInstalledDefinitionCallTransport(acquisition, mixedResourceUnion);
+  // @ts-expect-error HC1-NEG transport-refuses-mixed-union-crossed-request 2345
+  void runInstalledDefinitionCallTransport(acquisition, mixedRequestUnion);
+}
+
+// HC2 shipped constructors. Each returns the operation- and variant-correlated
+// alternative its selection names; the typed transport accepts that output,
+// narrows its key and keeps the member's own owner receipt.
+type AssetIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "asset"; handle: string }>; rootMode: "direct"; fhMode: "direct" }>;
+type GraphIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "graph_function"; handle: string }>; rootMode: "direct"; fhMode: "direct" }>;
+type NextIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "next" }>; rootMode: "direct"; fhMode: "direct" }>;
+type DeclaredIntent = Readonly<{ memberKey: "start"; target: Readonly<{ kind: "declared_start"; startRef: string }>; rootMode: "supervised"; fhMode: "human-proxy" }>;
+type DirectIntent = Readonly<{ memberKey: "invoke"; catalogHandle: string }>;
+type CurrentIntentKey = Extract<RunContinuationSelectionIntent, { readonly kind: "current_intent" }>;
+type PendingKey = Extract<RunContinuationSelectionIntent, { readonly kind: "pending_execution" }>;
+type SelectedKey = Extract<RunContinuationSelectionIntent, { readonly kind: "selected_action" }>;
+type ShippedStartCall<S extends ProductRunInvocationSelectionIntent> =
+  Extract<Awaited<ReturnType<typeof constructInstalledStartCall<S>>>, { readonly kind: "installed_start_call" }>["call"];
+type ShippedPendingCall<S extends RunContinuationSelectionIntent> =
+  Extract<Awaited<ReturnType<typeof constructInstalledPendingCall<S>>>, { readonly kind: "installed_pending_call" }>["call"];
+type ShippedReadCall<K extends AbgRunReadMemberKey> =
+  Extract<ReturnType<typeof constructInstalledRunReadCall<K>>, { readonly kind: "installed_run_read_call" }>["call"];
+type ShippedOutcomeHolds<C, K extends CallableKey> = Mutual<
+  InstalledDefinitionCallTransportOutcomeOf<C>,
+  InstalledDefinitionCallTransportOutcome<CallableMemberOf<K>["packet"], CallableMemberOf<K>["binding"]["resourceReceipt"]>
+>;
+type SlotOf<C, S extends "graph_function"> = C extends { readonly invocation: { readonly invocationAuthority: { readonly slots: infer T extends Readonly<Record<S, unknown>> } } } ? T[S] : never;
+type TargetKindOf<C> = C extends { readonly invocation: { readonly request: { readonly target: { readonly kind: infer T } } } } ? T : never;
+type ReadMember = CallableMemberOf<"abg.operation.project.read#run_status">;
+
+export type ShippedConstructorProof = [
+  Assert<Equal<ShippedStartCall<AssetIntent>["invocation"]["definitionKey"]["operationId"], "abg.operation.run.invoke">>,
+  Assert<Equal<ShippedStartCall<AssetIntent>["invocation"]["definitionKey"]["memberKey"], "start">>,
+  Assert<Equal<TargetKindOf<ShippedStartCall<AssetIntent>>, "asset">>,
+  Assert<Equal<TargetKindOf<ShippedStartCall<GraphIntent>>, "graph_function">>,
+  Assert<Equal<TargetKindOf<ShippedStartCall<NextIntent>>, "next">>,
+  Assert<Equal<TargetKindOf<ShippedStartCall<DeclaredIntent>>, "declared_start">>,
+  Assert<Equal<SlotOf<ShippedStartCall<AssetIntent>, "graph_function">, null>>,
+  Assert<Equal<SlotOf<ShippedStartCall<NextIntent>, "graph_function">, null>>,
+  Assert<Equal<SlotOf<ShippedStartCall<GraphIntent>, "graph_function"> extends null ? true : false, false>>,
+  Assert<Equal<SlotOf<ShippedStartCall<DirectIntent>, "graph_function"> extends null ? true : false, false>>,
+  Assert<Equal<ShippedStartCall<DirectIntent>["invocation"]["definitionKey"]["memberKey"], "invoke">>,
+  Assert<Equal<ShippedStartCall<ProductRunInvocationSelectionIntent>["invocation"]["definitionKey"]["memberKey"], "start" | "invoke">>,
+  Assert<Equal<ShippedStartCall<AssetIntent>["resources"], StartMember["binding"]["resources"]>>,
+  Assert<ShippedOutcomeHolds<ShippedStartCall<AssetIntent>, "abg.operation.run.invoke#start">>,
+  Assert<ShippedOutcomeHolds<ShippedStartCall<DeclaredIntent>, "abg.operation.run.invoke#start">>,
+  Assert<ShippedOutcomeHolds<ShippedStartCall<DirectIntent>, "abg.operation.run.invoke#invoke">>,
+  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
+  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["definitionKey"]["memberKey"], "current_intent">>,
+  Assert<Equal<ShippedPendingCall<SelectedKey>["invocation"]["definitionKey"]["memberKey"], "selected_action">>,
+  Assert<Equal<ShippedPendingCall<CurrentIntentKey>["invocation"]["request"] extends { readonly currentIntent: unknown } ? true : false, true>>,
+  Assert<Equal<ShippedPendingCall<PendingKey>["invocation"]["request"] extends { readonly pendingCursor: unknown } ? true : false, true>>,
+  Assert<ShippedOutcomeHolds<ShippedPendingCall<PendingKey>, "abg.operation.run.continue#current_intent">>,
+  Assert<ShippedOutcomeHolds<ShippedPendingCall<SelectedKey>, "abg.operation.run.continue#selected_action">>,
+  Assert<Equal<{ readonly [K in AbgRunReadMemberKey]: ShippedOutcomeHolds<ShippedReadCall<K>, `abg.operation.project.read#${K}`> }[AbgRunReadMemberKey], true>>,
+  Assert<Equal<ShippedReadCall<"graph_call_replay">["invocation"]["definitionKey"]["memberKey"], "graph_call_replay">>,
+  Assert<Equal<ShippedReadCall<"run_status">["resources"], ReadMember["binding"]["resources"]>>,
+];
+
+declare const assetStartInput: Parameters<typeof constructInstalledStartCall<AssetIntent>>[0];
+declare const graphStartInput: Parameters<typeof constructInstalledStartCall<GraphIntent>>[0];
+declare const directInput: Parameters<typeof constructInstalledStartCall<DirectIntent>>[0];
+declare const anyStartInput: Parameters<typeof constructInstalledStartCall<ProductRunInvocationSelectionIntent>>[0];
+declare const pendingInput: Parameters<typeof constructInstalledPendingCall<PendingKey>>[0];
+declare const selectedInput: Parameters<typeof constructInstalledPendingCall<SelectedKey>>[0];
+declare const anyPendingInput: Parameters<typeof constructInstalledPendingCall<RunContinuationSelectionIntent>>[0];
+declare const replayInput: Parameters<typeof constructInstalledRunReadCall<"graph_call_replay">>[0];
+
+export async function shippedTransport(): Promise<void> {
+  const asset = await constructInstalledStartCall(assetStartInput);
+  if (asset.kind === "installed_start_call") {
+    const operationId: "abg.operation.run.invoke" = asset.call.invocation.definitionKey.operationId;
+    void operationId;
+    const outcome = await runInstalledDefinitionCallTransport(acquisition, asset.call);
+    if (outcome.kind === "installed_definition_call_transport_result") {
+      const key: StartMember["packet"]["definitionKey"] = outcome.receipt.definitionKey;
+      void key;
+    }
+  }
+  const graph = await constructInstalledStartCall(graphStartInput);
+  if (graph.kind === "installed_start_call") await runInstalledDefinitionCallTransport(acquisition, graph.call);
+  const direct = await constructInstalledStartCall(directInput);
+  if (direct.kind === "installed_start_call") {
+    const outcome = await runInstalledDefinitionCallTransport(acquisition, direct.call);
+    if (outcome.kind === "installed_definition_call_transport_result") {
+      const key: DirectMember["packet"]["definitionKey"] = outcome.receipt.definitionKey;
+      void key;
+    }
+  }
+  // An unselected intent yields the union of start and invoke alternatives;
+  // each alternative is checked against its own member.
+  const any = await constructInstalledStartCall(anyStartInput);
+  if (any.kind === "installed_start_call") await runInstalledDefinitionCallTransport(acquisition, any.call);
+  for (const input of [pendingInput, selectedInput, anyPendingInput]) {
+    const pending = await constructInstalledPendingCall(input);
+    if (pending.kind === "installed_pending_call") {
+      const operationId: "abg.operation.run.continue" = pending.call.invocation.definitionKey.operationId;
+      void operationId;
+      await runInstalledDefinitionCallTransport(acquisition, pending.call);
+    }
+  }
+  const replay = constructInstalledRunReadCall(replayInput);
+  if (replay.kind === "installed_run_read_call") {
+    const outcome = await runInstalledDefinitionCallTransport(acquisition, replay.call);
+    if (outcome.kind === "installed_definition_call_transport_result" && outcome.receipt.ownerOutput?.outcomeKind === "result") {
+      const kind: "graph_call_replay_projection" = outcome.receipt.ownerOutput.value.projection.kind;
+      void kind;
+    }
+  }
+}
+
+declare const shippedAsset: ShippedStartCall<AssetIntent>;
+declare const shippedNext: ShippedStartCall<NextIntent>;
+declare const shippedPending: ShippedPendingCall<PendingKey>;
+declare const shippedSelected: ShippedPendingCall<SelectedKey>;
+declare const shippedStatus: ShippedReadCall<"run_status">;
+declare const shippedStartWithReadResources: Omit<ShippedStartCall<AssetIntent>, "resources"> & { readonly resources: ShippedReadCall<"run_status">["resources"] };
+declare const shippedCrossedUnion: ShippedStartCall<AssetIntent> | typeof shippedStartWithReadResources;
+declare const pendingSelection: PendingKey;
+
+export function shippedNegatives(): void {
+  // @ts-expect-error HC1-NEG hc2-asset-start-is-not-graph-function-start 2322 2719
+  const assetAsGraph: ShippedStartCall<GraphIntent> = shippedAsset;
+  // @ts-expect-error HC1-NEG hc2-next-start-is-not-direct-invoke 2322
+  const nextAsDirect: ShippedStartCall<DirectIntent> = shippedNext;
+  // @ts-expect-error HC1-NEG hc2-start-operation-is-not-continue 2322
+  const startOperation: "abg.operation.run.continue" = shippedAsset.invocation.definitionKey.operationId;
+  // @ts-expect-error HC1-NEG hc2-pending-execution-is-not-current-intent 2322
+  const pendingAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedPending;
+  // @ts-expect-error HC1-NEG hc2-selected-action-is-not-current-intent 2322
+  const selectedAsCurrent: ShippedPendingCall<CurrentIntentKey> = shippedSelected;
+  // @ts-expect-error HC1-NEG hc2-run-status-read-is-not-run-result 2322
+  const statusAsResult: ShippedReadCall<"run_result"> = shippedStatus;
+  // @ts-expect-error HC1-NEG hc2-read-is-not-start 2322
+  const readAsStart: ShippedStartCall<NextIntent> = shippedStatus;
+  // @ts-expect-error HC1-NEG hc2-start-constructor-refuses-continuation-selection 2322 2345 2769
+  void constructInstalledStartCall({ ...assetStartInput, selection: pendingSelection });
+  // @ts-expect-error HC1-NEG hc2-read-constructor-refuses-non-run-read-member 2322 2345 2769
+  void constructInstalledRunReadCall({ ...replayInput, memberKey: "run_lawful_actions" });
+  // @ts-expect-error HC1-NEG hc2-transport-refuses-shipped-start-with-read-resources 2345
+  void runInstalledDefinitionCallTransport(acquisition, shippedStartWithReadResources);
+  // @ts-expect-error HC1-NEG hc2-transport-refuses-shipped-union-with-crossed-alternative 2345
+  void runInstalledDefinitionCallTransport(acquisition, shippedCrossedUnion);
+  void [assetAsGraph, nextAsDirect, startOperation, pendingAsCurrent, selectedAsCurrent, statusAsResult, readAsStart];
 }

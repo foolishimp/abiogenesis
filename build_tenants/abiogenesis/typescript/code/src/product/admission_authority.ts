@@ -26,6 +26,7 @@ import { constructAdmissionCapabilityGrants, type CapabilityGrant } from "./invo
 import { productInstallCoordinate } from "./environment.js";
 import type { VerifiedProductArtifact } from "./contracts.js";
 import { readExecutingToolchainIdentity } from "./declaration_exports.js";
+import { selectIntrinsicPublicFunctionDefinition } from "../public/binding/public_function_family.js";
 
 import {
   acquireAbgEventResource, abandonAbgEventResource, validateAbgEventResourceInput, isAcquiredAbgEventResourceSelection,
@@ -216,6 +217,49 @@ export function admissionAuthoritySlots(slots: unknown): JsonValue {
   const admitted = admitAuthoritySlots(slots);
   if (admitted.kind !== "ok") throw admissionRefusalError(admitted);
   return admitted.value;
+}
+
+/**
+ * Construct the exact AdmissionCapabilityData of one fixed admission owner
+ * from its installed intrinsic definition, the verified owner artifact and
+ * its verification request, the operation request, resource assertion,
+ * authority slots and optional bound-environment selection. Construction
+ * only: `ResolvedAdmissionAuthority` and its approval remain explicit supplied
+ * authority, `constructAdmissionCapabilityGrants` remains the grant producer
+ * and `validateAdmissionCapabilityBasis` the admission. No receipt or approval
+ * is minted here.
+ */
+export function constructAdmissionCapabilityData(input: Readonly<{
+  fixedPacket: OwnerContractSourceDeclaration;
+  ownerArtifact: Readonly<{ request: v.InferOutput<typeof verificationRequestSchema>; verified: VerifiedProductArtifact }>;
+  request: JsonValue;
+  resources: JsonValue;
+  authoritySlots: unknown;
+  boundEnvironment: AdmissionEnvironmentSelection | null;
+}>): AdmissionCapabilityData {
+  const definition = selectIntrinsicPublicFunctionDefinition(input.fixedPacket.definitionKey);
+  if (definition === null ||
+      definition.semanticAuthorityRef !== input.fixedPacket.owner.authorityRef ||
+      definition.semanticAuthorityDigest !== input.fixedPacket.owner.authorityDigest) {
+    throw new TypeError("admission capability data requires the installed definition of its fixed owner packet");
+  }
+  return deepFreeze({
+    kind: "admission_capability_data" as const,
+    schemaVersion: "5.0.0" as const,
+    definition: {
+      definitionKey: definition.definitionKey,
+      definitionRef: definition.definitionRef,
+      definitionDigest: definition.definitionDigest,
+      owner: { ref: input.fixedPacket.owner.authorityRef, digest: input.fixedPacket.owner.authorityDigest },
+    },
+    ownerArtifact: { request: input.ownerArtifact.request, verified: input.ownerArtifact.verified },
+    request: input.request,
+    resourceScope: {
+      resourcesDigest: sha256Canonical(input.resources),
+      authoritySlots: admissionAuthoritySlots(input.authoritySlots),
+    },
+    boundEnvironment: input.boundEnvironment,
+  }) as AdmissionCapabilityData;
 }
 
 const ADMISSION_OPERATIONS = new Set([

@@ -108,12 +108,9 @@ export function openRetainedInstalledConsumer({runtime, ownerRequest, verificati
         execution_program: null, graph_function: null, input_contract: null, session_policy: null,
         capability_grants: {requiredCapabilityRefs: [...definition.capabilityRefs], grants: []}, actor,
         transport_steering: null, verification_references: null, execution_basis: null, ...supplied};
-      const basis = {kind: 'admission_capability_data', schemaVersion,
-        definition: {definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,
-          definitionDigest: definition.definitionDigest, owner: {ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest}},
-        ownerArtifact: {request: ownerRequest, verified}, request,
-        resourceScope: {resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots)},
-        boundEnvironment: product.admissionEnvironmentSelection(selection.prefix, slots.workspace_binding)};
+      const basis = product.constructAdmissionCapabilityData({fixedPacket: packet, ownerArtifact: {request: ownerRequest, verified},
+        request, resources, authoritySlots: slots,
+        boundEnvironment: product.admissionEnvironmentSelection(selection.prefix, slots.workspace_binding)});
       const authorityValue = {actorRef: setup.currentActor, authorityMode: 'trusted_developer'};
       const approvalValue = {decision: 'allow', actorRef: setup.currentActor, definitionRef: definition.definitionRef,
         definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(basis).digest};

@@ -311,6 +311,136 @@ function sourceBasis(
     : false;
 }
 
+/** The session policy one run operation is admitted under: the exact
+ * resolution's declared regimes and interaction leaves over the bound
+ * workspace and applications. Population and every run owner share it. */
+export function constructRunOperationPolicy(
+  workspaceBinding: WorkspaceBinding,
+  resolution: LoadedProductExecutionResolution,
+  applications: readonly DeclarationApplication[],
+): ReturnType<typeof constructRootInvocationPolicy> {
+  const declaredRegimes = new Set<ComputeRegime>([
+    ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
+    ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
+  ]);
+  return constructRootInvocationPolicy(
+    workspaceBinding,
+    resolution.program,
+    resolution.programValidation.interactionLeafRows.map((row) => ({
+      requirementKey: row.requirementKey,
+      requirementKeyDigest: row.requirementKeyDigest,
+      actorCapabilityRef: row.requirement.actorCapabilityRef,
+    })),
+    (["F_D", "F_P", "F_H"] as const).filter((regime) =>
+      declaredRegimes.has(regime)
+    ),
+    applications,
+  );
+}
+
+/** The grants and invocation authority of one run.invoke member over the
+ * exact policy; shared by population and preparation. */
+function constructRunInvocationAuthorityBasis<M extends RunInvocationMemberKey>(
+  memberKey: M,
+  actorRef: string,
+  workspaceBinding: WorkspaceBinding,
+  admittedInstalls: readonly ProductInstall[],
+  catalogView: GraphFunctionCatalogView,
+  resolution: LoadedProductExecutionResolution,
+  policy: ReturnType<typeof constructRootInvocationPolicy>,
+): Readonly<{
+  grants: readonly CapabilityGrant[];
+  authority: ReturnType<typeof constructInvocationAuthority>;
+}> {
+  const fixedPacket = packet(memberKey);
+  const grants = Object.freeze([
+    constructCapabilityGrant(
+      policy,
+      actorRef,
+      "abg.operation.run.invoke",
+      DIRECT_INVOKE_CAPABILITY,
+      { admittedInstalls, workspaceBinding, fixedPacket },
+    ),
+  ]);
+  const authority = constructInvocationAuthority(
+    actorRef,
+    workspaceBinding,
+    catalogView,
+    resolution.program.programRef,
+    resolution.selectedCatalogEntry,
+    policy,
+    grants,
+    { admittedInstalls, workspaceBinding, fixedPacket },
+  );
+  return Object.freeze({ grants, authority });
+}
+
+type RunOperationKey =
+  | Readonly<{ operationId: "abg.operation.run.invoke"; memberKey: RunInvocationMemberKey }>
+  | Readonly<{ operationId: "abg.operation.run.continue"; memberKey: "current_intent" | "selected_action" }>;
+
+type Coordinate = Readonly<{ ref: string; digest: Sha256Digest }>;
+
+/** The expected run-operation authority coordinates one exact resolution,
+ * binding, catalog scope, policy, grants and attribution determine. Population
+ * emits them; `runOperationAuthorityMatches` compares the supplied slots with
+ * the same values. Input and execution-basis slots stay with their owners. */
+export function expectedRunOperationAuthoritySlots(
+  key: RunOperationKey,
+  graphFunctionSelected: boolean,
+  resources: Pick<ProductRunInvocationResourceAssertion, "catalog" | "catalogView">,
+  resolution: LoadedProductExecutionResolution,
+  workspaceBinding: WorkspaceBinding,
+  admittedInstalls: readonly ProductInstall[],
+  policy: ReturnType<typeof constructRootInvocationPolicy>,
+  grants: readonly CapabilityGrant[],
+  authority: Pick<InvocationAuthority, "authorityRef" | "authorityDigest">,
+  transportResourceAssertion: JsonValue,
+) {
+  const requiredCapabilityRefs = key.operationId === "abg.operation.run.continue"
+    ? RUN_OPERATION_CONTRACTS.continue[key.memberKey].metadata.capabilityRefs
+    : packet(key.memberKey).metadata.capabilityRefs;
+  const steeringDigest = sha256Canonical(transportResourceAssertion);
+  const coordinate = (ref: string, digest: Sha256Digest): Coordinate =>
+    Object.freeze({ ref, digest });
+  return Object.freeze({
+    workspace_binding: coordinate(workspaceBinding.bindingId, workspaceBinding.bindingDigest),
+    product_set: Object.freeze(admittedInstalls.map(productInstallCoordinate)),
+    dependency_lock: coordinate(workspaceBinding.lockId, workspaceBinding.lockDigest),
+    catalog_scope: Object.freeze({
+      catalog: coordinate(catalogRef(resources.catalog.basisDigest), resources.catalog.basisDigest),
+      view: coordinate(catalogViewRef(resources.catalogView.viewDigest), resources.catalogView.viewDigest),
+      allowlist: Object.freeze([...resources.catalogView.allowlist]),
+    }),
+    execution_program: coordinate(resolution.resolution.programRef, resolution.resolution.programDigest),
+    graph_function: graphFunctionSelected
+      ? Object.freeze({
+          graphFunction: coordinate(resolution.resolution.graphFunctionRef, resolution.resolution.graphFunctionDigest),
+          membership: coordinate(
+            resolution.resolution.programGraphFunctionMembership.ref,
+            resolution.resolution.programGraphFunctionMembership.digest,
+          ),
+        })
+      : null,
+    session_policy: coordinate(policy.policyRef, policy.policyDigest),
+    capability_grants: Object.freeze({
+      requiredCapabilityRefs: Object.freeze([...requiredCapabilityRefs]),
+      grants: Object.freeze(grants.map((grant) => coordinate(grant.grantRef, grant.grantDigest))),
+    }),
+    actor: Object.freeze({
+      actor: coordinate(
+        workspaceBinding.authorizedActorRef,
+        sha256Canonical({ actorRef: workspaceBinding.authorizedActorRef }),
+      ),
+      attribution: coordinate(authority.authorityRef, authority.authorityDigest),
+    }),
+    transport_steering: coordinate(
+      `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`,
+      steeringDigest,
+    ),
+  });
+}
+
 export function runOperationAuthorityMatches(
   invocation: ExactDirectRunInvocation | ExactStartRunInvocation | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.current_intent, unknown>["invocation"] | import("../shared/effect_definition.js").DefinitionCall<typeof RUN_OPERATION_CONTRACTS.continue.selected_action, unknown>["invocation"],
   resources: ProductRunInvocationResourceAssertion,
@@ -334,9 +464,6 @@ export function runOperationAuthorityMatches(
   const capabilities = slots.capability_grants;
   const steering = slots.transport_steering;
   const isContinue = invocation.definitionKey.operationId === "abg.operation.run.continue";
-  const requiredCapabilities = (isContinue ? RUN_OPERATION_CONTRACTS.continue[invocation.definitionKey.memberKey as "current_intent" | "selected_action"]
-    : packet(invocation.definitionKey.memberKey as RunInvocationMemberKey)).metadata.capabilityRefs;
-  const steeringDigest = sha256Canonical(transportResourceAssertion);
   const authorityRequest = invocation.request;
   const inputSlot = slots.input_contract;
   // The public binder authenticates slot syntax/digests; this owner joins the
@@ -357,51 +484,56 @@ export function runOperationAuthorityMatches(
     : null;
   const requiresGraphFunction = isContinue || invocation.definitionKey.memberKey ===
       "invoke" || requestTarget?.kind === "graph_function";
-  const exactGraphFunctionAuthority = requiresGraphFunction
+  const expected = expectedRunOperationAuthoritySlots(
+    invocation.definitionKey as RunOperationKey,
+    requiresGraphFunction,
+    resources,
+    resolution,
+    workspaceBinding,
+    admittedInstalls,
+    policy,
+    grants,
+    authority,
+    transportResourceAssertion,
+  );
+  const exactGraphFunctionAuthority = expected.graph_function !== null
     ? graphFunction !== null &&
-      graphFunction.graphFunction.ref ===
-        resolution.resolution.graphFunctionRef &&
-      graphFunction.graphFunction.digest ===
-        resolution.resolution.graphFunctionDigest &&
-      graphFunction.membership.ref ===
-        resolution.resolution.programGraphFunctionMembership.ref &&
-      graphFunction.membership.digest ===
-        resolution.resolution.programGraphFunctionMembership.digest
+      graphFunction.graphFunction.ref === expected.graph_function.graphFunction.ref &&
+      graphFunction.graphFunction.digest === expected.graph_function.graphFunction.digest &&
+      graphFunction.membership.ref === expected.graph_function.membership.ref &&
+      graphFunction.membership.digest === expected.graph_function.membership.digest
     : graphFunction === null;
-  return workspace !== null && workspace.ref === workspaceBinding.bindingId &&
-    workspace.digest === workspaceBinding.bindingDigest &&
-    lock !== null && lock.ref === workspaceBinding.lockId &&
-    lock.digest === workspaceBinding.lockDigest &&
-    productSet !== null && productSet.length === admittedInstalls.length &&
-    admittedInstalls.map(productInstallCoordinate).every((install) => productSet.some((row) =>
+  return workspace !== null && workspace.ref === expected.workspace_binding.ref &&
+    workspace.digest === expected.workspace_binding.digest &&
+    lock !== null && lock.ref === expected.dependency_lock.ref &&
+    lock.digest === expected.dependency_lock.digest &&
+    productSet !== null && productSet.length === expected.product_set.length &&
+    expected.product_set.every((install) => productSet.some((row) =>
       row.ref === install.ref && row.digest === install.digest
     )) &&
     catalogScope !== null && "view" in catalogScope &&
-    catalogScope.catalog.ref === catalogRef(resources.catalog.basisDigest) &&
-    catalogScope.catalog.digest === resources.catalog.basisDigest &&
-    catalogScope.view.ref === catalogViewRef(resources.catalogView.viewDigest) &&
-    catalogScope.view.digest === resources.catalogView.viewDigest &&
-    canonicalEquals(catalogScope.allowlist, resources.catalogView.allowlist) &&
-    program !== null && program.ref === resolution.resolution.programRef &&
-    program.digest === resolution.resolution.programDigest &&
+    catalogScope.catalog.ref === expected.catalog_scope.catalog.ref &&
+    catalogScope.catalog.digest === expected.catalog_scope.catalog.digest &&
+    catalogScope.view.ref === expected.catalog_scope.view.ref &&
+    catalogScope.view.digest === expected.catalog_scope.view.digest &&
+    canonicalEquals(catalogScope.allowlist, expected.catalog_scope.allowlist) &&
+    program !== null && program.ref === expected.execution_program.ref &&
+    program.digest === expected.execution_program.digest &&
     exactGraphFunctionAuthority && exactInputAuthority &&
-    sessionPolicy !== null && sessionPolicy.ref === policy.policyRef &&
-    sessionPolicy.digest === policy.policyDigest &&
+    sessionPolicy !== null && sessionPolicy.ref === expected.session_policy.ref &&
+    sessionPolicy.digest === expected.session_policy.digest &&
     capabilities !== null &&
-    canonicalEquals(capabilities.requiredCapabilityRefs, requiredCapabilities) &&
-    capabilities.grants.length === grants.length &&
-    grants.every((grant) => capabilities.grants.some((row) =>
-      row.ref === grant.grantRef && row.digest === grant.grantDigest
+    canonicalEquals(capabilities.requiredCapabilityRefs, expected.capability_grants.requiredCapabilityRefs) &&
+    capabilities.grants.length === expected.capability_grants.grants.length &&
+    expected.capability_grants.grants.every((grant) => capabilities.grants.some((row) =>
+      row.ref === grant.ref && row.digest === grant.digest
     )) &&
-    actor !== null && actor.actor.ref === workspaceBinding.authorizedActorRef &&
-    actor.actor.digest === sha256Canonical({
-      actorRef: workspaceBinding.authorizedActorRef,
-    }) &&
-    actor.attribution.ref === authority.authorityRef &&
-    actor.attribution.digest === authority.authorityDigest &&
-    steering !== null && steering.digest === steeringDigest &&
-    steering.ref ===
-      `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`;
+    actor !== null && actor.actor.ref === expected.actor.actor.ref &&
+    actor.actor.digest === expected.actor.actor.digest &&
+    actor.attribution.ref === expected.actor.attribution.ref &&
+    actor.attribution.digest === expected.actor.attribution.digest &&
+    steering !== null && steering.digest === expected.transport_steering.digest &&
+    steering.ref === expected.transport_steering.ref;
 }
 
 /** @internal Finite raw/cold acquisition before dependent invocation effects.
@@ -566,51 +698,20 @@ export async function prepareProductRunInvocation<
   if (rawInput.kind !== "raw_admitted_value") {
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
   }
-  const declaredRegimes = new Set<ComputeRegime>([
-    ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
-    ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
-  ]);
-  const policy = constructRootInvocationPolicy(
+  const policy = constructRunOperationPolicy(
     input.workspaceBinding,
-    resolution.program,
-    resolution.programValidation.interactionLeafRows.map((row) => ({
-      requirementKey: row.requirementKey,
-      requirementKeyDigest: row.requirementKeyDigest,
-      actorCapabilityRef: row.requirement.actorCapabilityRef,
-    })),
-    (["F_D", "F_P", "F_H"] as const).filter((regime) =>
-      declaredRegimes.has(regime)
-    ),
+    resolution,
     resources.applications,
   );
   const actorRef = invocation.invocationAuthority.slots.actor?.actor.ref ?? "";
-  const fixedPacket = packet(memberKey);
-  const grants = Object.freeze([
-    constructCapabilityGrant(
-      policy,
-      actorRef,
-      "abg.operation.run.invoke",
-      DIRECT_INVOKE_CAPABILITY,
-      {
-        admittedInstalls: input.admittedInstalls,
-        workspaceBinding: input.workspaceBinding,
-        fixedPacket,
-      },
-    ),
-  ]);
-  const authority = constructInvocationAuthority(
+  const { grants, authority } = constructRunInvocationAuthorityBasis(
+    memberKey,
     actorRef,
     input.workspaceBinding,
+    input.admittedInstalls,
     resources.catalogView,
-    resolution.program.programRef,
-    resolution.selectedCatalogEntry,
+    resolution,
     policy,
-    grants,
-    {
-      admittedInstalls: input.admittedInstalls,
-      workspaceBinding: input.workspaceBinding,
-      fixedPacket,
-    },
   );
   if (
     authority.kind !== "invocation_authority" ||
@@ -693,6 +794,244 @@ export async function prepareProductRunInvocation<
     grants,
     authority,
     candidate,
+  });
+}
+
+/** One explicit run.invoke selection: a start target with its explicit
+ * root and F_H modes, or one direct GraphFunction catalog handle. */
+export type ProductRunInvocationSelectionIntent =
+  | Readonly<{
+      memberKey: "start";
+      target:
+        | Readonly<{ kind: "next" }>
+        | Readonly<{ kind: "graph_function"; handle: string }>
+        | Readonly<{ kind: "asset"; handle: string }>
+        | Readonly<{ kind: "declared_start"; startRef: string }>;
+      rootMode: "direct" | "supervised";
+      fhMode: "direct" | "human-proxy";
+    }>
+  | Readonly<{ memberKey: "invoke"; catalogHandle: string }>;
+
+/** The caller's source intent: none, or one owner-derived admitted source
+ * result with the Public projection authority it was read under. */
+export type ProductRunInvocationSourceIntent =
+  | Readonly<{ kind: "none" }>
+  | Readonly<{
+      kind: "admitted_source_result";
+      basis: ProductInvocationSourceResultBasis;
+      projectionAuthority: Readonly<{ ref: string; digest: Sha256Digest }>;
+    }>;
+
+export type ProductRunInvocationInputIntent =
+  | Readonly<{ value: JsonValue }>
+  | Readonly<{
+      factory: (resolved: Readonly<{
+        resolution: LoadedProductExecutionResolution;
+        workspaceBinding: WorkspaceBinding;
+        grants: readonly CapabilityGrant[];
+      }>) => JsonValue | Promise<JsonValue>;
+    }>;
+
+export interface ProductRunInvocationPopulationInput<
+  S extends ProductRunInvocationSelectionIntent = ProductRunInvocationSelectionIntent,
+> {
+  readonly selection: S;
+  readonly programRef: string;
+  readonly catalog: ReadyGraphFunctionCatalog;
+  readonly catalogView: GraphFunctionCatalogView;
+  readonly applications: readonly DeclarationApplication[];
+  readonly admittedInstalls: readonly ProductInstall[];
+  readonly workspaceBinding: WorkspaceBinding;
+  readonly verifyInstallAdmission: (install: ProductInstall) => boolean;
+  readonly actorRef: string;
+  readonly input: ProductRunInvocationInputIntent;
+  readonly inputValueRef: string;
+  readonly source: ProductRunInvocationSourceIntent;
+  /** The exact event-resource assertion the constructed call carries. */
+  readonly transportResourceAssertion: JsonValue;
+}
+
+export interface PopulatedProductRunInvocation<M extends RunInvocationMemberKey> {
+  readonly kind: "populated_product_run_invocation";
+  readonly memberKey: M;
+  readonly request: ExactRunInvocation<M>["request"];
+  readonly slots: ExactRunInvocation<M>["invocationAuthority"]["slots"];
+  readonly sourceAssertion: ProductRunInvocationSourceAssertion;
+  readonly resolution: LoadedProductExecutionResolution;
+  readonly admittedInput: Readonly<Record<string, JsonValue>>;
+  readonly policy: ReturnType<typeof constructRootInvocationPolicy>;
+  readonly grants: readonly CapabilityGrant[];
+  readonly authority: InvocationAuthority;
+}
+
+export type ProductRunInvocationPopulation<M extends RunInvocationMemberKey> =
+  | PopulatedProductRunInvocation<M>
+  | ProductRunInvocationPreparationRefusal<M>;
+
+/**
+ * Populate one exact run.invoke request and its authority slots from the
+ * caller's explicit selection, input and source intent through the existing
+ * Product owners: execution resolution, installed input admission, the shared
+ * run policy, grant and authority construction, and the expected authority
+ * slots `runOperationAuthorityMatches` compares. Construction only: the
+ * installed binding still admits the call, its resources and currentness.
+ */
+export async function populateProductRunInvocation<
+  S extends ProductRunInvocationSelectionIntent,
+>(
+  input: ProductRunInvocationPopulationInput<S>,
+): Promise<ProductRunInvocationPopulation<S["memberKey"]>> {
+  type M = S["memberKey"];
+  const selectionIntent: ProductRunInvocationSelectionIntent = input.selection;
+  const memberKey = selectionIntent.memberKey as M;
+  const startTarget = selectionIntent.memberKey === "start"
+    ? selectionIntent.target.kind === "declared_start"
+      ? { kind: "declared_start", start: { ref: selectionIntent.target.startRef } }
+      : selectionIntent.target
+    : null;
+  // The start request's own selection law selects for population as for preparation.
+  const selection: ProductExecutionSelection | null = selectionIntent.memberKey === "invoke"
+    ? selectionIntent.catalogHandle.length === 0
+      ? null
+      : { kind: "direct", catalogHandle: selectionIntent.catalogHandle }
+    : startSelection({
+        scope: "program",
+        target: startTarget,
+        until: "converged",
+        rootMode: selectionIntent.rootMode,
+      } as unknown as ExactStartRunInvocation["request"]);
+  if (selection === null) {
+    return preparationRefusal(memberKey, "invalid_target", ["/target"]);
+  }
+  const resolution = await ProductExecutionResolutionPort.resolve({
+    catalog: input.catalog,
+    catalogView: input.catalogView,
+    admittedInstalls: input.admittedInstalls,
+    verifyInstallAdmission: input.verifyInstallAdmission,
+    programRef: input.programRef,
+    selection,
+  });
+  if (resolution.kind !== "loaded_product_execution_resolution") {
+    return preparationRefusal(memberKey, resolutionRefusalCode(resolution), ["/program"]);
+  }
+  // Policy and grants depend on the resolved declaration only; an input
+  // factory may name the grant it observes under.
+  const policy = constructRunOperationPolicy(input.workspaceBinding, resolution, input.applications);
+  // Grants, authority and the actor slot name one actor: the binding's
+  // authorized actor, which `runOperationAuthorityMatches` compares.
+  if (input.actorRef !== input.workspaceBinding.authorizedActorRef) {
+    return preparationRefusal(memberKey, "invalid_capability", ["/invocationAuthority"]);
+  }
+  const { grants, authority } = constructRunInvocationAuthorityBasis(
+    memberKey,
+    input.actorRef,
+    input.workspaceBinding,
+    input.admittedInstalls,
+    input.catalogView,
+    resolution,
+    policy,
+  );
+  if (authority.kind !== "invocation_authority") {
+    return preparationRefusal(memberKey, "invalid_capability", ["/invocationAuthority"]);
+  }
+  const value = "value" in input.input
+    ? input.input.value
+    : await input.input.factory(Object.freeze({ resolution, workspaceBinding: input.workspaceBinding, grants }));
+  const inputContractRef = resolution.resolution.inputContract.contractRef;
+  const admittedInput = admitInstalledProductInput(resolution.productSemantics, inputContractRef, value);
+  if (admittedInput === null) {
+    return preparationRefusal(memberKey, "invalid_input", ["/input"]);
+  }
+  const coordinate = (ref: string, digest: Sha256Digest) => Object.freeze({ ref, digest });
+  const program = coordinate(resolution.resolution.programRef, resolution.resolution.programDigest);
+  const view = coordinate(catalogViewRef(input.catalogView.viewDigest), input.catalogView.viewDigest);
+  const allowlist = Object.freeze([...input.catalogView.allowlist]);
+  const inputContract = coordinate(inputContractRef, resolution.resolution.inputContractDigest);
+  const sourceBasisRequest = input.source.kind === "none"
+    ? Object.freeze({ kind: "none" as const })
+    : Object.freeze({
+        kind: "admitted_source_result" as const,
+        projectionAuthority: coordinate(input.source.projectionAuthority.ref, input.source.projectionAuthority.digest),
+        sourceResult: coordinate(input.source.basis.sourceResultRef, input.source.basis.sourceResultDigest),
+      });
+  const sourceAssertion: ProductRunInvocationSourceAssertion = input.source.kind === "none"
+    ? Object.freeze({ kind: "none" })
+    : Object.freeze({ kind: "admitted_source_result", basis: input.source.basis });
+  const contractBoundInput = Object.freeze({
+    contract: inputContract,
+    valueRef: input.inputValueRef,
+    valueDigest: sha256Canonical(value),
+    value,
+  });
+  let request: Readonly<Record<string, JsonValue>>;
+  let graphFunctionSelected: boolean;
+  if (selectionIntent.memberKey === "invoke") {
+    graphFunctionSelected = true;
+    request = Object.freeze({
+      program,
+      catalogHandle: selectionIntent.catalogHandle,
+      inputContract,
+      input: value,
+      catalogView: view,
+      allowlist,
+      sourceBasis: sourceBasisRequest,
+    });
+  } else {
+    const target = selectionIntent.target;
+    graphFunctionSelected = target.kind === "graph_function";
+    const resolvedStart = resolution.resolvedProgramStart;
+    if (target.kind === "declared_start" && (resolvedStart === null || resolvedStart.start.startRef !== target.startRef)) {
+      return preparationRefusal(memberKey, "invalid_target", ["/target"]);
+    }
+    request = Object.freeze({
+      program,
+      scope: "program",
+      target: target.kind === "declared_start"
+        ? Object.freeze({
+            kind: "declared_start",
+            start: coordinate(resolvedStart!.start.startRef, sha256Canonical(resolvedStart!.start as unknown as JsonValue)),
+          })
+        : Object.freeze({ ...target }),
+      until: "converged",
+      catalogView: view,
+      allowlist,
+      input: contractBoundInput,
+      fhMode: selectionIntent.fhMode,
+      rootMode: selectionIntent.rootMode,
+      sourceBasis: sourceBasisRequest,
+    });
+  }
+  const expected = expectedRunOperationAuthoritySlots(
+    { operationId: "abg.operation.run.invoke", memberKey },
+    graphFunctionSelected,
+    { catalog: input.catalog, catalogView: input.catalogView },
+    resolution,
+    input.workspaceBinding,
+    input.admittedInstalls,
+    policy,
+    grants,
+    authority,
+    input.transportResourceAssertion,
+  );
+  const slots = Object.freeze({
+    ...expected,
+    input_contract: selectionIntent.memberKey === "invoke"
+      ? Object.freeze({ contract: inputContract, valueRef: input.inputValueRef, valueDigest: sha256Canonical(value), value })
+      : contractBoundInput,
+    verification_references: null,
+    execution_basis: null,
+  });
+  return Object.freeze({
+    kind: "populated_product_run_invocation" as const,
+    memberKey,
+    request: request as unknown as ExactRunInvocation<M>["request"],
+    slots: slots as unknown as ExactRunInvocation<M>["invocationAuthority"]["slots"],
+    sourceAssertion,
+    resolution,
+    admittedInput,
+    policy,
+    grants,
+    authority,
   });
 }
 

@@ -4,7 +4,6 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { basename, dirname, join } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import { promisify } from "node:util";
-import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
 const exec = promisify(execFile);
 
 /** Rehydrate the existing owners at each actual pre-dispatch cut. This does not
@@ -193,194 +192,30 @@ export function ordinaryJob(product, gtl, text, { readRoots = ["app"] } = {}) {
     taskData: {}, evaluationData: {}, worksiteScope: { readRoots, writeRoots: ["app"], parentWriteRoots: ["app"], evidenceWriteRoots: ["proof"],
       executableCapabilities: [{ executable: process.execPath, relativeCwdRoots: ["."], environment: {}, maxTimeoutMs: 5000, maxTerminationGraceMs: 1000 }] } });
 }
+/** One generic intake start through the shipped SDK constructor; the Product
+ * run owner populates request and authority, an input factory may name the
+ * populated grant. Support supplies scenario data only. */
 export async function constructGenericIntakeStart({ environment, publicApi, eventResource, input, inputFactory, identity, programRef }) {
-const operationId = "abg.operation.run.invoke";
-  const {
-    product,
-    abg,
-    catalog,
-    catalogView,
-    admittedInstalls,
-    workspaceBinding,
-    additionalProducts: [fixture],
-  } = environment;
-  const resolution = await product.ProductExecutionResolutionPort.resolve({
-    catalog,
-    catalogView,
-    admittedInstalls,
-    verifyInstallAdmission: (install) =>
-      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-    programRef: programRef ?? fixture.ids.programRef,
-    selection: Object.freeze({
-      kind: "start",
-      scope: "program",
-      target: "next",
-      until: "converged",
-      rootMode: "direct",
-    }),
-  });
-  assert.equal(
-    resolution.kind,
-    "loaded_product_execution_resolution",
-    JSON.stringify(resolution),
-  );
-  const declaredRegimes = new Set([
-    ...resolution.programValidation.executableLeafRows.map((row) => row.fibre),
-    ...resolution.programValidation.interactionLeafRows.map((row) => row.fibre),
-  ]);
-  const policy = product.constructRootInvocationPolicy(
-    workspaceBinding,
-    resolution.program,
-    resolution.programValidation.interactionLeafRows.map((row) => ({
-      requirementKey: row.requirementKey,
-      requirementKeyDigest: row.requirementKeyDigest,
-      actorCapabilityRef: row.requirement.actorCapabilityRef,
-    })),
-    ["F_D", "F_P", "F_H"].filter((regime) => declaredRegimes.has(regime)),
-    [],
-  );
-  const actorRef = workspaceBinding.authorizedActorRef;
-  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
-  const grants = Object.freeze([
-    product.constructCapabilityGrant(
-      policy,
-      actorRef,
-      operationId,
-      product.DIRECT_INVOKE_CAPABILITY,
-      {
-        admittedInstalls,
-        workspaceBinding,
-        fixedPacket,
-      },
-    ),
-  ]);
+  const { abg, catalog, catalogView, admittedInstalls, workspaceBinding, additionalProducts: [fixture] } = environment;
   assert.ok(inputFactory === undefined || input === undefined, "one input source per native start");
-  const selectedInput = inputFactory === undefined ? input : await inputFactory({ grants, resolution });
-  const admittedInput = product.admitInstalledProductInput(
-    resolution.productSemantics, resolution.resolution.inputContract.contractRef, selectedInput,
-  );
-  assert.ok(admittedInput);
-  const inputContract = Object.freeze({ ref: resolution.resolution.inputContract.contractRef,
-    digest: resolution.resolution.inputContractDigest });
-  const contractBoundInput = Object.freeze({ contract: inputContract,
-    valueRef: `value://generic-job-mechanics.example/${identity}/job-input`,
-    valueDigest: product.sha256Canonical(selectedInput), value: selectedInput });
-  const authority = product.constructInvocationAuthority(
-    actorRef,
-    workspaceBinding,
-    catalogView,
-    resolution.program.programRef,
-    resolution.selectedCatalogEntry,
-    policy,
-    grants,
-    {
-      admittedInstalls,
-      workspaceBinding,
-      fixedPacket,
-    },
-  );
-  const program = Object.freeze({
-    ref: resolution.resolution.programRef,
-    digest: resolution.resolution.programDigest,
-  });
-  const view = Object.freeze({
-    ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice("sha256:".length)}`,
-    digest: catalogView.viewDigest,
-  });
-  const request = Object.freeze({
-    program,
-    scope: "program",
-    target: Object.freeze({ kind: "next" }),
-    until: "converged",
-    catalogView: view,
-    allowlist: Object.freeze([...catalogView.allowlist]),
-    input: contractBoundInput,
-    fhMode: "direct",
-    rootMode: "direct",
-    sourceBasis: Object.freeze({ kind: "none" }),
-  });
-  const steeringDigest = product.sha256Canonical(eventResource);
-  const slots = Object.freeze({
-    workspace_binding: Object.freeze({
-      ref: workspaceBinding.bindingId,
-      digest: workspaceBinding.bindingDigest,
-    }),
-    product_set: Object.freeze(admittedInstalls.map(product.productInstallCoordinate)),
-    dependency_lock: Object.freeze({
-      ref: workspaceBinding.lockId,
-      digest: workspaceBinding.lockDigest,
-    }),
-    catalog_scope: Object.freeze({
-      catalog: Object.freeze({
-        ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice("sha256:".length)}`,
-        digest: catalog.basisDigest,
-      }),
-      view,
-      allowlist: request.allowlist,
-    }),
-    execution_program: program,
-    graph_function: null,
-    input_contract: contractBoundInput,
-    session_policy: Object.freeze({
-      ref: policy.policyRef,
-      digest: policy.policyDigest,
-    }),
-    capability_grants: Object.freeze({
-      requiredCapabilityRefs: Object.freeze([
-        ...product.RUN_OPERATION_CONTRACTS.invoke.start.metadata.capabilityRefs,
-      ]),
-      grants: Object.freeze(grants.map((grant) => Object.freeze({
-        ref: grant.grantRef,
-        digest: grant.grantDigest,
-      }))),
-    }),
-    actor: Object.freeze({
-      actor: Object.freeze({
-        ref: actorRef,
-        digest: product.sha256Canonical({ actorRef }),
-      }),
-      attribution: Object.freeze({
-        ref: authority.authorityRef,
-        digest: authority.authorityDigest,
-      }),
-    }),
-    transport_steering: Object.freeze({
-      ref: `transport-steering://abiogenesis/${steeringDigest.slice("sha256:".length)}`,
-      digest: steeringDigest,
-    }),
-    verification_references: null,
-    execution_basis: null,
-  });
-  const contractCatalog = environment.verified.definitionContractCoordinates
-    ?.operations.find((candidate) => candidate.operationId === operationId)
-    ?.members.find((candidate) => candidate.memberKey === "start")
-    ?.slots.request.contractCatalog;
-  assert.ok(
-    contractCatalog,
-    "verified ABIogenesis truth must issue the installed start contract catalog",
-  );
-  const resources = Object.freeze({
-    kind: "run_invocation_resource_assertion",
-    schemaVersion,
-    eventResource,
+  const constructed = await publicApi.constructInstalledStartCall({
+    selection: Object.freeze({ memberKey: "start", target: Object.freeze({ kind: "next" }), rootMode: "direct", fhMode: "direct" }),
+    programRef: programRef ?? fixture.ids.programRef,
     catalog,
     catalogView,
     applications: Object.freeze([]),
-    applicationResources: Object.freeze([]),
+    admittedInstalls,
+    workspaceBinding,
+    verifyInstallAdmission: (install) => abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: workspaceBinding.authorizedActorRef,
+    input: inputFactory === undefined ? Object.freeze({ value: input })
+      : Object.freeze({ factory: ({ grants, resolution }) => inputFactory({ grants, resolution }) }),
+    inputValueRef: `value://generic-job-mechanics.example/${identity}/job-input`,
     source: Object.freeze({ kind: "none" }),
-  });
-  return {
-    call: constructInstalledPublicDefinitionCall({
-      product,
-      installedPublic: publicApi,
-      definitionContractCoordinates:
-        environment.verified.definitionContractCoordinates,
-      contractCatalog,
-      operationId,
-      memberKey: "start",
-      request,
-      slots,
-      resources,
+    applicationResources: Object.freeze([]),
+    eventResource,
+    envelope: Object.freeze({
+      definitionContractCoordinates: environment.verified.definitionContractCoordinates,
       requestRef: `public-request://generic-job-mechanics.example/${identity}/run-start`,
       correlationRef: `correlation://generic-job-mechanics.example/${identity}/run-start`,
       eventTime: identity === "st-1"
@@ -388,14 +223,19 @@ const operationId = "abg.operation.run.invoke";
         : "2026-08-22T01:00:00.000Z",
       provenanceRefs: [`provenance://generic-job-mechanics.example/${identity}-worker`],
     }),
-    resolution,
+  });
+  if (constructed.kind !== "installed_start_call") assert.fail(JSON.stringify(constructed));
+  const { population } = constructed;
+  return {
+    call: constructed.call,
+    resolution: population.resolution,
     capabilityBasis: Object.freeze({
-      actorRef,
-      capabilityGrants: grants,
-      policy,
+      actorRef: workspaceBinding.authorizedActorRef,
+      capabilityGrants: population.grants,
+      policy: population.policy,
       productInstalls: admittedInstalls,
-      program: resolution.program,
-      programValidation: resolution.programValidation,
+      program: population.resolution.program,
+      programValidation: population.resolution.programValidation,
       workspaceBinding,
     }),
   };

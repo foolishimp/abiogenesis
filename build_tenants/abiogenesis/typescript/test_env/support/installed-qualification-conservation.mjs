@@ -65,13 +65,10 @@ export function createCaller({root, native, binding = null, closeHandoff = null,
       d.definitionKey.operationId === packet.definitionKey.operationId && d.definitionKey.memberKey === packet.definitionKey.memberKey);
     assert(definition);
     const selected = {...slots(), capability_grants: {requiredCapabilityRefs: [...definition.capabilityRefs], grants: []}, ...supplied};
-    const data = {kind: 'admission_capability_data', schemaVersion,
-      definition: {definitionKey: definition.definitionKey, definitionRef: definition.definitionRef,
-        definitionDigest: definition.definitionDigest, owner: {ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest}},
-      ownerArtifact: {request: ownerRequest, verified}, request,
-      resourceScope: {resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(selected)},
+    const data = product.constructAdmissionCapabilityData({fixedPacket: packet, ownerArtifact: {request: ownerRequest, verified},
+      request, resources, authoritySlots: selected,
       boundEnvironment: packet.metadata.workspaceBindingRequirement === 'forbidden' ? null
-        : product.admissionEnvironmentSelection(state.closeHandoff.prefix, selected.workspace_binding)};
+        : product.admissionEnvironmentSelection(state.closeHandoff.prefix, selected.workspace_binding)});
     const authorityValue = {actorRef, authorityMode: 'trusted_developer'};
     const approvalValue = {decision: 'allow', actorRef, definitionRef: definition.definitionRef,
       definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(data).digest};
@@ -381,51 +378,25 @@ async function restoreSetup(caller, {originalRoot, old, started}) {
   return {install, publications, elapsedMs: performance.now() - started};
 }
 
+/** One graph_function start through the shipped SDK constructor; the Product
+ * run owner populates request and authority from the selection and input. */
 export async function constructStart(caller, programRef, graphFunctionRef, input, qualificationResources) {
   const {state, native: {verified}} = caller;
-  const environment = caller.refresh(), admittedInstalls = environment.productInstalls, workspaceBinding = environment.workspaceBinding;
-  const resolution = await product.ProductExecutionResolutionPort.resolve({catalog: state.catalog, catalogView: state.catalogView,
-    admittedInstalls, verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install),
-    programRef, selection: {kind: 'start', scope: 'program', target: 'graph_function', graphFunctionHandle: graphFunctionRef,
-      until: 'converged', rootMode: 'direct'}});
-  assert.equal(resolution.kind, 'loaded_product_execution_resolution', resolution.code);
-  const regimes = new Set(resolution.programValidation.executableLeafRows.map(row => row.fibre));
-  assert.equal(resolution.programValidation.interactionLeafRows.length, 0);
-  const policy = product.constructRootInvocationPolicy(workspaceBinding, resolution.program, [],
-    ['F_D', 'F_P', 'F_H'].filter(regime => regimes.has(regime)), []);
-  const fixedPacket = product.RUN_OPERATION_CONTRACTS.invoke.start;
-  const grants = [product.constructCapabilityGrant(policy, caller.actorRef, fixedPacket.definitionKey.operationId,
-    product.DIRECT_INVOKE_CAPABILITY, {admittedInstalls, workspaceBinding, fixedPacket})];
-  const authority = product.constructInvocationAuthority(caller.actorRef, workspaceBinding, state.catalogView, programRef,
-    resolution.selectedCatalogEntry, policy, grants, {admittedInstalls, workspaceBinding, fixedPacket});
-  assert(product.admitInstalledProductInput(resolution.productSemantics, resolution.resolution.inputContract.contractRef, input));
-  const boundInput = {contract: {ref: resolution.resolution.inputContract.contractRef, digest: resolution.resolution.inputContractDigest},
-    valueRef: 'input://abiogenesis/t287/installed-conservation/' + hash(input).slice(7), valueDigest: hash(input), value: input};
-  const program = {ref: resolution.resolution.programRef, digest: resolution.resolution.programDigest};
-  const view = {ref: 'graph-function-catalog-view://abiogenesis/' + state.catalogView.viewDigest.slice(7), digest: state.catalogView.viewDigest};
-  const eventResource = caller.reopen(), steering = hash(eventResource);
-  const request = {program, scope: 'program', target: {kind: 'graph_function', handle: graphFunctionRef}, until: 'converged',
-    catalogView: view, allowlist: [...state.catalogView.allowlist], input: boundInput, fhMode: 'direct', rootMode: 'direct', sourceBasis: {kind: 'none'}};
-  const selected = {...slots(), workspace_binding: state.binding,
-    product_set: admittedInstalls.map(product.productInstallCoordinate),
-    dependency_lock: {ref: workspaceBinding.lockId, digest: workspaceBinding.lockDigest},
-    catalog_scope: {catalog: {ref: 'graph-function-catalog://abiogenesis/' + state.catalog.basisDigest.slice(7), digest: state.catalog.basisDigest},
-      view, allowlist: request.allowlist}, execution_program: program,
-    graph_function: {graphFunction: {ref: resolution.resolution.graphFunctionRef, digest: resolution.resolution.graphFunctionDigest},
-      membership: resolution.resolution.programGraphFunctionMembership}, input_contract: boundInput,
-    session_policy: {ref: policy.policyRef, digest: policy.policyDigest},
-    capability_grants: {requiredCapabilityRefs: [...fixedPacket.metadata.capabilityRefs], grants: grants.map(g => ({ref: g.grantRef, digest: g.grantDigest}))},
-    actor: {actor: coordinate(caller.actorRef, {actorRef: caller.actorRef}), attribution: {ref: authority.authorityRef, digest: authority.authorityDigest}},
-    transport_steering: {ref: 'transport-steering://abiogenesis/' + steering.slice(7), digest: steering}};
-  const contractCatalog = verified.definitionContractCoordinates.operations.find(value => value.operationId === fixedPacket.definitionKey.operationId)
-    .members.find(value => value.memberKey === 'start').slots.request.contractCatalog;
-  return installedPublic.constructInstalledPublicDefinitionCall({product, installedPublic,
-    definitionContractCoordinates: verified.definitionContractCoordinates, contractCatalog, ...fixedPacket.definitionKey,
-    request, slots: selected, resources: {kind: 'run_invocation_resource_assertion', schemaVersion, eventResource,
-      catalog: state.catalog, catalogView: state.catalogView, applications: [], applicationResources: [], qualificationResources, source: {kind: 'none'}},
-    requestRef: 'request://abiogenesis/t287/installed-conservation/' + programRef.split('/').at(-1),
-    correlationRef: 'correlation://abiogenesis/t287/installed-conservation', eventTime: new Date().toISOString(),
-    provenanceRefs: [pathToFileURL(join(caller.root, 'activation.json')).href]});
+  const environment = caller.refresh();
+  const constructed = await installedPublic.constructInstalledStartCall({
+    selection: {memberKey: 'start', target: {kind: 'graph_function', handle: graphFunctionRef}, rootMode: 'direct', fhMode: 'direct'},
+    programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [],
+    admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding,
+    verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: caller.actorRef, input: {value: input},
+    inputValueRef: 'input://abiogenesis/t287/installed-conservation/' + hash(input).slice(7),
+    source: {kind: 'none'}, applicationResources: [], qualificationResources, eventResource: caller.reopen(),
+    envelope: {definitionContractCoordinates: verified.definitionContractCoordinates,
+      requestRef: 'request://abiogenesis/t287/installed-conservation/' + programRef.split('/').at(-1),
+      correlationRef: 'correlation://abiogenesis/t287/installed-conservation', eventTime: new Date().toISOString(),
+      provenanceRefs: [pathToFileURL(join(caller.root, 'activation.json')).href]}});
+  assert.equal(constructed.kind, 'installed_start_call', constructed.ownerOutput?.value?.code);
+  return constructed.call;
 }
 
 export async function prepareNative(caller, call) {
@@ -461,24 +432,19 @@ export function terminal(observation, valueKind) {
 }
 
 export async function freshRead(caller, selection, memberKey, originalProjectionBasis) {
-  const env = caller.refresh(), packet = abg.ABG_PROJECT_READ_CONTRACTS[memberKey];
-  const grants = packet.metadata.capabilityRefs.map(cap => product.constructCapabilityGrant(env.workspaceAuthorityBasis,
-    caller.actorRef, packet.definitionKey.operationId, cap, {admittedInstalls: env.productInstalls,
-      workspaceBinding: env.workspaceBinding, fixedPacket: packet}));
-  const selected = {...slots(), workspace_binding: selection.slots.workspace_binding, product_set: selection.slots.product_set,
-    dependency_lock: selection.slots.dependency_lock,
-    capability_grants: {requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map(g => ({ref: g.grantRef, digest: g.grantDigest}))}};
+  caller.refresh();
   const before = caller.state.closeHandoff.prefix;
-  const request = {caseKey: memberKey, source: {sourceKind: 'run', sourceRef: selection.run.ref, sourceDigest: selection.run.digest},
-    projectionBasis: {projectionBasisRef: before.eventLogRef, projectionBasisDigest: before.coordinateDigest},
-    selector: memberKey === 'run_replay' ? {kind: 'ordinal_page', fromOrdinal: 0, limit: 1000} : {kind: 'none'}};
-  const call = installedPublic.constructInstalledPublicDefinitionCall({product, installedPublic,
-    definitionContractCoordinates: caller.native.verified.definitionContractCoordinates, contractCatalog: caller.contractCatalog,
-    ...packet.definitionKey, request, slots: selected,
-    resources: {kind: 'abg_project_read_resource_assertion', schemaVersion, eventResource: caller.reopen()},
-    requestRef: 'request://abiogenesis/t287/installed-conservation/read/' + selection.label + '/' + memberKey,
-    correlationRef: 'correlation://abiogenesis/t287/installed-conservation/read', eventTime: new Date().toISOString(),
-    provenanceRefs: [pathToFileURL(join(caller.root, 'activation.json')).href]});
+  // The shipped SDK constructor populates source and read authority at the current prefix.
+  const constructed = installedPublic.constructInstalledRunReadCall({memberKey, workspaceBinding: selection.slots.workspace_binding,
+    sourceRef: selection.run.ref, selector: memberKey === 'run_replay' ? {kind: 'ordinal_page', fromOrdinal: 0, limit: 1000} : {kind: 'none'},
+    eventResource: caller.reopen(),
+    envelope: {definitionContractCoordinates: caller.native.verified.definitionContractCoordinates,
+      requestRef: 'request://abiogenesis/t287/installed-conservation/read/' + selection.label + '/' + memberKey,
+      correlationRef: 'correlation://abiogenesis/t287/installed-conservation/read', eventTime: new Date().toISOString(),
+      provenanceRefs: [pathToFileURL(join(caller.root, 'activation.json')).href]}});
+  assert.equal(constructed.kind, 'installed_run_read_call', constructed.code);
+  assert.deepEqual(constructed.population.source, selection.run);
+  const call = constructed.call;
   const result = await caller.invoke('read-' + selection.label + '-' + memberKey, call);
   const value = result.receipt.ownerOutput.value;
   const terminal = value.projection.terminalResult;

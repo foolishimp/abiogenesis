@@ -1731,28 +1731,40 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const zero='sha256:'+'0'.repeat(64);
   const request=await pendingExecutionUseRequest({environment:env,prefix,runId,pending:p});
   // 4. Cold Public run.continue current_intent pending_execution arm, through the shared support assembly.
-  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,start,eventResource:resource,
+  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,expectedAuthority:start.workAuthority,
+    runEnvironmentResources:start.call.resources.runEnvironmentResources,eventResource:resource,
     identityScope:'pending-testing',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:'provenance://default-library-witness/pending-testing@5'});
   assert.equal(pending.use.source.continuationRef,p.continuationRef);
-  const makeCall=pending.call;
   const cli=async(identity,call)=>{
     const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
     if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;return {receipt,wallMs:execution.wallMs};
   };
   const read=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
-  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;
+  const crossed=(await cli('crossed',pending.replay('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;
   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
   assert.equal(read().length,interrupted.length,'a crossed request admits nothing');
-  const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'));
+  // The pending execution is Run-scoped: a Run that does not hold it, or its Run under another digest, is refused.
+  for(const [name,run,code,path] of [['wrong-run',{ref:`${runId}/absent`,digest:zero},'missing_continuation','/continuation'],['wrong-run-digest',{ref:runId,digest:zero},'basis_mismatch','/run']]){
+    const out=(await cli(name,pending.replay(name,{run}))).receipt;
+    assert.equal(out.ownerOutput.outcomeKind,'refusal',name);assert.equal(out.ownerOutput.value.code,code,name);assert.deepEqual(out.ownerOutput.value.issuePaths,[path],name);
+    assert.equal(read().length,interrupted.length,`${name} admits nothing`);
+  }
+  // Populated at the pre-continue handoff, executed after the use: the superseded prefix is refused at acquisition.
+  const staleHandoff=handoff,staleCall=await pending.call('stale-prefix');
+  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'));
   assert.equal(continued.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(continued.receipt.ownerOutput).slice(0,4000));
   const value=continued.receipt.ownerOutput.value;assert.equal(value.continuationKind,'pending_execution');assert.equal(value.admittedIntent,null);
   if(value.disposition!=='completed')await keep('resumed-trace.json',read().slice(interrupted.length).map(e=>({kind:e.kind,graphFunctionRef:e.graphFunctionRef,resultClass:e.payload?.resultClass,valueKind:e.payload?.value?.kind,
     cursor:e.payload?.cursorRef,locus:e.payload?.programLocusRef,diagnosticRef:e.payload?.diagnosticRef??e.payload?.value?.diagnosticRef,actorFailure:e.kind==='actor_invocation_failed'?e.payload.failureClass:undefined})));
   assert.equal(value.disposition,'completed',JSON.stringify(value).slice(0,4000));assert.equal(value.run.ref,runId,'same Run');
-  const afterContinue=read().length,second=(await cli('second-use',makeCall('second-use'))).receipt;
+  const afterContinue=read().length,second=(await cli('second-use',pending.replay('second-use'))).receipt;
   assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.deepEqual(second.ownerOutput.value.issuePaths,['/continuation'],'one use');
   assert.equal(read().length,afterContinue,'second use admits nothing');
+  const staleExecution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity:'stale-prefix',acquisition:{kind:'reopen',closeHandoff:staleHandoff},call:staleCall,expectedExitCode:null,environment:actorEnvironment});
+  const staleFault=staleExecution.output.receipt?.failure?.fault;
+  assert.deepEqual([staleFault?.stage,staleFault?.code],['resource_acquisition','acquisition_refused'],JSON.stringify(staleExecution.output).slice(0,4000));
+  assert.equal(read().length,afterContinue,'a stale prefix admits nothing');
   // 5. Conservation over the completed same Run.
   const all=read(),final=runAt(all.slice(before)),finalPrefix=env.abg.selectValidatedRuntimeEventPrefix(all);
   const interruptedCalls=new Set(runAt(run0).filter(e=>e.kind==='c_call_opened').map(e=>e.payload.cursorRef));
@@ -1866,6 +1878,12 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   // 2. B: a separately authorized Public start over A's retained state, killed at its durable Testing entry.
   // The shared start support assembles B: same Program, A's admitted source result, B's own resource and identity.
   const A0=startA.call.invocation;
+  // A start whose historical source Result the log does not hold is refused at source observation and admits nothing.
+  const missingSource=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b-missing-source',
+    sourceResult:{basis:{...S,sourceResultRef:`${S.sourceResultRef}/absent`},projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
+  const beforeMissing=read().length,missing=(await cli('retained-b-missing-source',missingSource.call,actorEnvironment(logB))).receipt;
+  assert.equal(missing.ownerOutput.outcomeKind,'refusal',JSON.stringify(missing.ownerOutput).slice(0,4000));assert.equal(missing.ownerOutput.value.code,'invalid_input');
+  assert.equal(read().length,beforeMissing,'a missing historical source admits nothing');
   const startB=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input:inputB,identity:'retained-b',runEnvironmentResourceFactory:selectedEnvironment.resources,
     sourceResult:{basis:S,projectionAuthority:{ref:A0.invocationRef,digest:S.publicAuthorityDigest}}});
   const B0=startB.call.invocation;
@@ -1907,16 +1925,16 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   assert.deepEqual(cc.selectPendingExecutionUse(early,await requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
   // 4. Cold Public run.continue current_intent pending_execution arm through the shared support assembly; source none:
   // B's admission already carries the use. B's root admission names A's start authority (same root, separately admitted).
-  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),start:startA,eventResource:resource,
+  const pending=await constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),expectedAuthority:startA.workAuthority,
+    runEnvironmentResources:startA.call.resources.runEnvironmentResources,eventResource:resource,
     identityScope:'retained-source',eventTime:'2026-11-02T00:03:00.000Z',provenanceRef:'provenance://default-library-witness/retained-source@5'});
   assert.equal(pending.use.invocation.invocationAdmissionRef,rootB.payload.invocationAdmissionRef,'the use resumes B\'s own admission');
-  const makeCall=identity=>pending.call(identity);
-  const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'),actorEnvironment(logB));
+  const resumedAt=performance.now(),continued=await cli('continue',await pending.call('continue'),actorEnvironment(logB));
   assert.equal(continued.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(continued.receipt.ownerOutput).slice(0,4000));
   const value=continued.receipt.ownerOutput.value;assert.equal(value.continuationKind,'pending_execution');assert.equal(value.admittedIntent,null);
   if(value.disposition!=='completed')await keep('resumed-trace.json',trace(read().slice(interrupted.length)));
   assert.equal(value.disposition,'completed',JSON.stringify(value).slice(0,4000));assert.equal(value.run.ref,B,'same B Run');
-  const afterContinue=read().length,second=(await cli('second-use',makeCall('second-use'),actorEnvironment(logB))).receipt;
+  const afterContinue=read().length,second=(await cli('second-use',pending.replay('second-use'),actorEnvironment(logB))).receipt;
   assert.equal(second.ownerOutput.outcomeKind,'refusal');assert.equal(second.ownerOutput.value.code,'resolved_continuation');assert.equal(read().length,afterContinue,'second use admits nothing');
   // 5. Conservation: no reacquisition or reinvocation of A, no replacement Run, B's Testing and selector are not repeated.
   const all=read(),finalPrefix=env.abg.selectValidatedRuntimeEventPrefix(all),finalB=all.slice(before+rowsA.length).filter(e=>e.runId===B);
