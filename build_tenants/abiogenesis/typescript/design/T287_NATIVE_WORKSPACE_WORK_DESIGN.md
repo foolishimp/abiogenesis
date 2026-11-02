@@ -64,6 +64,8 @@ of off-scope writes. Contrary disclosures and unknown scope remain material to
 independent judgment. This presentation adds no containment guarantee, effect
 scanner, transcript interpretation or deterministic semantic verdict.
 
+The canonical worker request is the request returned by `NativeInstructionAssembly`. Native preparation and controlled fixtures consume that complete owner-produced value; they do not redeclare a reduced worker request. The shared handoff realization is bound by [Installed Public DefinitionCall construction](T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md#owner-derived-native-call-typing-hc1). Existing effect, observation, protected-root and currentness law is unchanged.
+
 The existing ABG instruction owner derives one request from the exact selected
 C-call and admitted input. Where a run environment is selected, its existing
 constructor role/context policy supplies the selected immutable standards and

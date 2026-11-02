@@ -521,6 +521,8 @@ weaker native type.
 
 #### 4.2.1 Exact Owner-Contract Source Map
 
+Owner-derived native construction typing, canonical population and its bounded proof are specified by [Installed Public DefinitionCall construction](T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md#owner-derived-native-call-typing-hc1). This refinement applies to the common invocation/outcome relation (§4.5) and realization boundary (§11.1). The declared family and raw owner admission remain unchanged; declared membership is not proof of installed callability.
+
 There is one closed build-time source relation:
 
 ```text
