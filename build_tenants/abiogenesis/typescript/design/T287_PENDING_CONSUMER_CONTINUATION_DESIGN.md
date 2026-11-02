@@ -730,6 +730,18 @@ use refuses as `resolved_continuation`. Cold run_result and run_replay agree
 with the continued Run. The recursive fixture tests own their installed
 environments through `node:test` context teardown.
 
+Attempt 009, over `365d2ed2b`, makes two owner changes, neither of them a
+continuation mechanism.
+
+- The C2 child source basis now names the authenticated native producer's own
+  invocation and Run in every source arm (`T287_NATIVE_WORKSPACE_WORK_DESIGN.md`).
+  This repairs the observed 008 unchanged-context retained-source refusal. It is
+  fresh retained work under `hasAdmittedGovernanceSourceUse`, not recovery.
+  `t287-native-worksite-execution.test.mjs` fails on 365 and passes on the
+  candidate, with wrong, foreign, stale and parentless controls.
+- The write-only `pendingPreparations` WeakSet is retired. Nothing read it, and
+  `pendingExecutionUses` still authenticates the use that preparation consumes.
+
 Open:
 
 - The pending-Testing discriminator uses a scripted model stand-in. It is not
@@ -741,6 +753,17 @@ Open:
   construction composition, while `GovernanceWorkState` native selection
   belongs to the default library, which declares none. The topology that joins
   the two needs an owner-selected design before the reader is authenticated.
+  Attempt 009 found no production reader that meets a predecessor-Run holder
+  inside the grant. Default-library carriage
+  (`reuseWorksiteContextBodiesAtPrefix`) reuses only same-Run holders, so its
+  current contexts carry no foreign member. The C2 prompt presents historical
+  native contexts as inventory only (`historical_inventory_not_selected`). The
+  one cross-Run reader that remains is the selector presentation in
+  `instruction_assembly.ts`, which passes only `{runId}`. That file is outside
+  this grant, so a resolver relation without a consuming reader would repeat
+  the removed `continuedHolders` debt. `event_prefix.ts` therefore keeps its
+  fail-closed `foreign` refusal. Realization needs both the topology decision
+  above and an admitted grant for that reader.
 - The registered-selection `entryRouteRef` case is not exercised; route-only
   targets without entered input remain refused residuals.
 - An interruption during an active dispatch (`effect_unknown`) is not resumable

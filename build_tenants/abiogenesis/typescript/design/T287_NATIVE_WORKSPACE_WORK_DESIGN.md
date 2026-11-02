@@ -391,4 +391,17 @@ source grant, producer identity, assessment independence or consumer criterion.
 
 The existing native observation authentication is shared with the semantic source adapter described in `T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md`. It accepts only the declared native author/assessment graph, exact admitted actor/result/J and closed child; each consumer still checks its same-Run and current-subject conditions. C2 remains construction-only and retains its existing currentness duties. No second projector, cache, lifetime or authority is introduced.
 
+The C2 child source basis (`deriveSameRunWorksiteCommandSourceBasisAtPrefix`)
+names the native producer's own invocation and Run. `projectSameRunNativeWorkCommandSourceAtPrefix`
+first joins that producer to the consumer through exactly one arm: same Run and
+invocation, explicit `sourceReacquisition`, or the consumer invocation's
+admitted retained-source use (`hasAdmittedGovernanceSourceUse`, fresh retained
+work with unchanged context). In every arm the consumer's admitted C2 workflow
+parent call, its single capability grant, binding and native currentness
+(`worksiteCommandSourcesInvalidatedAfter`) are checked unchanged. The source
+Result is then rederived in its producer Run. Consumer coordinates are never
+substituted for a retained producer's; that substitution was the observed 008
+C2 refusal. Fresh retained use is not continuation or recovery of the
+producer's Run.
+
 The native work brief renders only the supported current task, source/current-asset paths, focused contract and (for the independent assessor) evaluation data. Internal computed semantic envelopes and native-basis proof bodies are not rendered or written as model input. The unique assessment schema owner comes from the authenticated execution closure, retaining exact installed publication and schema-byte checks.

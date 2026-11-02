@@ -307,3 +307,110 @@ test('native source currentness includes admitted failed-write residue after the
     laterFailureOrdinal: residue.admissionOrdinal, selectedPath, historicalCutAccepts: true, latestHeldPrefixRefuses: true,
     limit: 'Pure owner projection over canonical counterexample event fixtures; no new runtime admission or physical write.' }));
 });
+
+// Unchanged-context retained-source C2 admission (observed 008 refusal): the
+// consumer's admitted retained-source use selects a native producer from an
+// earlier Run with no reacquisition. Real event rows, native source owner,
+// hasAdmittedGovernanceSourceUse, currentness and the C2 source-basis owner run
+// unchanged; invocation/basis lookup and the Run replay guard are disclosed
+// premises keyed by exact refs. No new Run, child admission or native call.
+test('unchanged-context retained native source admits C2 with its producer coordinates; wrong, foreign, stale and parentless sources refuse',async t=>{
+  const { ROOT_EVENT_CONTRACT_DIGEST } = await import('../../build/code/src/abg/event_store.js');
+  const env=await fixture(t),task=p.constructNativeWorksiteCommandExecutionTask(env.input),source=env.source,native=p.NATIVE_WORKSPACE_WORK_IDS;
+  assert.equal(task.sourceReacquisition,undefined,'fresh retained work, not reacquisition');
+  const producerRun='run://retained/producer',consumerRun='run://retained/consumer';
+  const producerBasis={basisRef:'execution-basis://retained/producer',graphFunctionRef:native.graphFunctionRef,rawInputValue:source.task,
+    workspaceBindingId:env.workspaceBinding.bindingId,workspaceBindingDigest:env.workspaceBinding.bindingDigest,
+    invocationAdmissionRef:'invocation-admission://retained/producer',invocationRef:'invocation://retained/producer',
+    rootImplementationSetRef:'implementation-set://retained/producer',rootImplementationSetDigest:hash('producer set'),closureContractRef:'closure://retained/native'};
+  const parentBasis={...producerBasis,basisRef:'execution-basis://retained/consumer-parent',graphFunctionRef:p.governanceRef('graph-function','testing'),rawInputValue:null,
+    invocationAdmissionRef:'invocation-admission://retained/consumer',invocationRef:'invocation://retained/consumer',
+    rootImplementationSetRef:'implementation-set://retained/consumer',rootImplementationSetDigest:hash('consumer set')};
+  let ordinal=0;const rows=[];
+  const event=(kind,payload,extra={})=>{const e={eventId:'event://retained/'+(++ordinal),admissionOrdinal:ordinal,payloadDigest:hash(payload),eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST,
+    aggregateType:'c_call',aggregateId:source.provenance.cCallRef,parentAggregateId:'frame://retained/producer',correlationId:'correlation://retained',eventTime:'2026-11-02T00:00:00.000Z',
+    workflowVersion:'5.0.0',scopeClass:'run',basisId:producerBasis.basisRef,runId:producerRun,graphCallId:'graph-call://retained/producer',frameId:'frame://retained/producer',
+    graphFunctionRef:native.graphFunctionRef,causationEventRefs:[],kind,payload,...extra};rows.push(e);return e;};
+  const opened=event('c_call_opened',{cCallRef:source.provenance.cCallRef,cCallDigest:hash('source call'),callClass:'leaf'});
+  const fibre=event('c_call_fibre_selected',{cCallRef:source.provenance.cCallRef,callClass:'leaf',armId:'arm://retained',regime:'F_P',
+    implementationRef:native.implementationRef,implementationBindingRef:native.implementationBindingRef},{causationEventRefs:[opened.eventId]});
+  const evidence=event('c_call_evidenced',{cCallRef:source.provenance.cCallRef,contractRef:native.observationContractRef,evidenceRef:'evidence://retained',
+    evidenceDigest:hash('evidence'),evidenceClass:'probabilistic_transport',implementationRef:native.implementationRef,inputDigest:hash(source.task),
+    transportDigest:source.provenance.transportDigest,outputDigest:hash(source)},{causationEventRefs:[fibre.eventId]});
+  const result=event('c_call_result_admitted',{cCallRef:source.provenance.cCallRef,resultClass:'success',contractRef:native.observationContractRef,
+    value:source,valueDigest:hash(source),evidenceRefs:['evidence://retained'],resultRef:'result://retained/native',resultDigest:hash('retained result')},{causationEventRefs:[evidence.eventId]});
+  const judgment=event('c_call_judged',{cCallRef:source.provenance.cCallRef,judgmentRef:'judgment://retained/native',judgmentDigest:hash('judgment'),
+    resultRef:result.payload.resultRef,resultDigest:result.payload.resultDigest,judgment:'advance',retryAttemptRef:null},{causationEventRefs:[result.eventId]});
+  const frame=event('frame_closed',{frameId:'frame://retained/producer',terminalReachedEventRef:judgment.eventId},
+    {aggregateType:'frame',aggregateId:'frame://retained/producer',causationEventRefs:[judgment.eventId]});
+  event('graph_call_closed',{closureContractRef:producerBasis.closureContractRef,graphCallId:'graph-call://retained/producer',frameClosedEventRef:frame.eventId},
+    {aggregateType:'graph_call',aggregateId:'graph-call://retained/producer',causationEventRefs:[frame.eventId]});
+  const parentCCallRef='c-call://retained/consumer-c2';
+  const parent=()=>event('c_call_opened',{cCallRef:parentCCallRef,cCallDigest:hash('parent'),callClass:'workflow',childGraphFunctionRef:ids.graphFunctionRef},
+    {aggregateId:parentCCallRef,parentAggregateId:'frame://retained/consumer',basisId:parentBasis.basisRef,runId:consumerRun,graphCallId:'graph-call://retained/consumer',
+      frameId:'frame://retained/consumer',graphFunctionRef:parentBasis.graphFunctionRef});
+  const beforeParent=deepFreeze([...rows]);parent();const admitted=deepFreeze([...rows]);
+  // Fresh retained-source use: the consumer invocation's admitted source state lists the exact producer row.
+  const row={resultRef:result.payload.resultRef,resultDigest:result.payload.resultDigest,cCallRef:source.provenance.cCallRef};
+  const state=rowsOf=>({kind:'governance_work_state',observations:rowsOf,synthesis:null});
+  const premise={source:{sourceResultContractRef:p.governanceContract('state'),sourceResultValue:state([row])}};
+  const invocations=()=>({[producerBasis.invocationAdmissionRef]:{invocationAdmissionRef:producerBasis.invocationAdmissionRef,invocationRef:producerBasis.invocationRef,
+      publicRequestDigest:hash('producer request'),workspaceId:env.workspaceAuthorityBasis.workspaceId,workspaceBindingId:env.workspaceBinding.bindingId,
+      workspaceBindingDigest:env.workspaceBinding.bindingDigest,capabilityGrants:[task.capabilityGrant],sourceResultBasis:null},
+    [parentBasis.invocationAdmissionRef]:{invocationAdmissionRef:parentBasis.invocationAdmissionRef,invocationRef:parentBasis.invocationRef,
+      publicRequestDigest:hash('consumer request'),workspaceId:env.workspaceAuthorityBasis.workspaceId,workspaceBindingId:env.workspaceBinding.bindingId,
+      workspaceBindingDigest:env.workspaceBinding.bindingDigest,capabilityGrants:[task.capabilityGrant],sourceResultBasis:premise.source}});
+  const runOf=new Map([[producerBasis.invocationAdmissionRef,producerRun],[parentBasis.invocationAdmissionRef,consumerRun]]);
+  const actual=await import('../../build/code/src/abg/event_prefix.js'),scopes=new WeakMap(),asked=[];
+  const truth={projectExactExecutionBasisAtPrefix:(_p,ref)=>ref===producerBasis.basisRef?producerBasis:ref===parentBasis.basisRef?parentBasis:null,
+    projectExactInvocationAdmissionAtPrefix:(_p,ref)=>invocations()[ref]??null,
+    hasExactInvocationRunBindingAtPrefix:(_p,admission,runId)=>runOf.get(admission.invocationAdmissionRef)===runId};
+  const overrides={
+    './invocation_execution_truth.js':truth,
+    './event_prefix.js':{selectRuntimeEventPrefixFromAuthority:(prefix,scope)=>{const selected=actual.selectRuntimeEventPrefixFromAuthority(prefix,scope);
+      scopes.set(selected,scope.runId);asked.push(scope.runId);return selected;}},
+    './replay.js':{projectRuntimeReplayGuard:runPrefix=>({runId:scopes.get(runPrefix),replayRef:'replay://retained/'+scopes.get(runPrefix),replayDigest:hash(scopes.get(runPrefix)??null),
+        runtimeStatus:'failed',runtimeFailureEventRef:'event://retained/failure',runStoppedEventRef:null,runClosedEventRef:null}),
+      projectReplayCCallGuardAtPrefix:(runPrefix,cCallRef)=>scopes.get(runPrefix)===producerRun&&cCallRef===source.provenance.cCallRef?{cCallRef,status:'judged',judgment:'advance',
+        resultRef:result.payload.resultRef,resultDigest:result.payload.resultDigest,resultContractRef:native.observationContractRef,resultClass:'success',judgmentRef:'judgment://retained/native'}:
+        {cCallRef,status:'opened',judgment:null,resultRef:null,resultDigest:null,resultContractRef:null,resultClass:null,judgmentRef:null}}};
+  async function load(file,extra={}){const url=new URL(file,import.meta.url),module=new SourceTextModule(await fs.readFile(url,'utf8'),{identifier:url.pathname});
+    await module.link(async specifier=>{const real=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(url.pathname),specifier)).href);
+      const values={...real,...overrides[specifier],...extra[specifier]};
+      return new SyntheticModule(Object.keys(values),function(){for(const[key,value]of Object.entries(values))this.setExport(key,value);});});
+    await module.evaluate();return module.namespace;}
+  const sourceOwner=await load('../../build/code/src/abg/native_worksite_execution.js');
+  const admission=await load('../../build/code/src/abg/invocation_admission.js',{'./native_worksite_execution.js':sourceOwner});
+  const input={parentBasis,parentCCallRef,runId:consumerRun,task};
+  const derive=events=>admission.deriveSameRunWorksiteCommandSourceBasisAtPrefix(selectValidatedRuntimeEventPrefix(deepFreeze(events)),input);
+  asked.length=0;const basis=derive(admitted);
+  assert(basis,'authenticated unchanged-context retained source admits C2 (observed 008 C2 refusal)');
+  assert.deepEqual([basis.sourceRunId,basis.sourceInvocationAdmissionRef,basis.sourceInvocationRef],[producerRun,producerBasis.invocationAdmissionRef,producerBasis.invocationRef],
+    'source basis carries the producer invocation/Run, not consumer coordinates');
+  assert.deepEqual([basis.sourceResultAdmissionEventRef,basis.sourceResultJudgmentEventRef,basis.sourceCCallRef,basis.sourceResultRef],
+    [result.eventId,judgment.eventId,source.provenance.cCallRef,result.payload.resultRef]);
+  assert.equal(asked.includes(consumerRun),false,'the producer Result is never sought in the consumer Run');
+  assert.equal(semantics.validateInvocationBasis({input:task,sourceResultBasis:basis,workspaceId:task.workspaceBinding.workspaceId,
+    workspaceBindingId:task.workspaceBinding.bindingId,workspaceBindingDigest:task.workspaceBinding.bindingDigest}),true,'C2 semantics accept the producer-bound basis');
+  // Wrong: the admitted retained state names another result digest / no producer row.
+  for(const rowsOf of [[{...row,resultDigest:hash('other result')}],[{...row,cCallRef:'c-call://retained/other'}],[]]){
+    premise.source={...premise.source,sourceResultValue:state(rowsOf)};assert.equal(derive(admitted),null,'wrong retained source refuses');}
+  // Foreign: no admitted source use, or another workspace binding on the consumer parent.
+  premise.source=null;assert.equal(derive(admitted),null,'cross-Run source without admitted source use refuses');
+  premise.source={sourceResultContractRef:p.governanceContract('state'),sourceResultValue:state([row])};
+  input.parentBasis={...parentBasis,workspaceBindingId:'workspace-binding://foreign'};assert.equal(derive(admitted),null,'foreign binding refuses');
+  input.parentBasis=parentBasis;
+  // Consumer parent retained: no admitted C2 workflow call, or one opened before the producer closed.
+  assert.equal(derive(beforeParent),null,'missing consumer parent call refuses');
+  // Stale: a later admitted native write touching a selected file invalidates the retained source.
+  const later=constructNativeWorkspaceWorkObservation(source.task,source.after,source.report,{...source.provenance,cCallRef:'c-call://retained/later-writer'});
+  event('c_call_result_admitted',{cCallRef:later.provenance.cCallRef,resultClass:'success',contractRef:native.observationContractRef,value:later,valueDigest:hash(later),
+    evidenceRefs:[],resultRef:'result://retained/later',resultDigest:hash('later')},{aggregateId:later.provenance.cCallRef,runId:consumerRun,basisId:parentBasis.basisRef,
+      graphCallId:'graph-call://retained/consumer',frameId:'frame://retained/consumer'});
+  assert.ok(later.changedPaths.includes('changed.txt'));
+  assert.equal(derive(rows),null,'stale retained source refuses');
+  assert(derive(admitted),'the unchanged admitted cut still admits');
+  t.diagnostic(JSON.stringify({kind:'retained_source_c2_admission',producerRun,consumerRun,sourceRunId:basis.sourceRunId,
+    controls:['wrong_digest','wrong_call','no_row','no_source_use','foreign_binding','missing_parent','stale_write'],
+    premises:'Invocation/basis lookup, invocation-Run binding and Run replay guard keyed by exact refs; event rows, native source owner, source-use, currentness and C2 basis owner execute.'}));
+});

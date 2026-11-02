@@ -2360,7 +2360,6 @@ export function projectPendingExecutionOperation(prefix: RuntimeEventPrefix, ope
     publicOperationEventRef: operation.eventId, admissionEventRef: operation.eventId };
 }
 
-const pendingPreparations = new WeakSet<object>();
 /** Root runtime truth for one selected use: the admitted root basis, scope and
  * root sets, with the root graph rematerialized against the loaded Product
  * resolution. Child levels stay admitted truth restored by HoG. */
@@ -2410,9 +2409,7 @@ export function preparePendingExecutionContinuation(prefix: RuntimeEventPrefix,
   if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
     graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest ||
     implementationSet === null || interactionSet === null) return null;
-  const result = Object.freeze({ use, root, graph, graphValidation, scope: use.rootScope, implementationSet, interactionSet, resolution });
-  pendingPreparations.add(result);
-  return result;
+  return Object.freeze({ use, root, graph, graphValidation, scope: use.rootScope, implementationSet, interactionSet, resolution });
 }
 
 /** The deepest pending level's actual input carrier and progressed input, for

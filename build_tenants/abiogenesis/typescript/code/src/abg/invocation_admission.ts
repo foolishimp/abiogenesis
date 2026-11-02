@@ -618,8 +618,10 @@ export function deriveInvocationSourceResultBasisAtPrefix(
   return deriveSourceResultBasisAtPrefix(prefix, input, true);
 }
 
-/** @internal A current preparation route proves either a same-Run source or
- * explicit reacquisition of a historical closed child. Public closed-Run law is unchanged. */
+/** @internal A current preparation route proves a same-Run source, explicit
+ * reacquisition of a historical closed child, or the invocation's admitted
+ * retained-source use; the basis names the producer's own coordinates.
+ * Public closed-Run law is unchanged. */
 export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
@@ -640,16 +642,22 @@ export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   const source = nativeTask !== null
     ? projectSameRunNativeWorkCommandSourceAtPrefix(prefix, { ...input, task: nativeTask }, currentOwnerPrefix)
     : projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
-  const reacquired = nativeTask !== null && nativeTask.sourceReacquisition !== undefined;
-  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, reacquired && source !== null
+  if (source === null) return null;
+  // A native source Result is basis-bound to its own producer invocation and
+  // Run. The owner above has joined that producer to this consumer's parent
+  // call, grant and currentness through one arm: same Run, explicit
+  // reacquisition, or the invocation's admitted retained-source use. A source
+  // retained from another Run is never relabelled with consumer coordinates.
+  const producerRunId = nativeTask !== null ? source.sourceResult.runId : input.runId;
+  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, nativeTask !== null
     ? source.sourceBasis.invocationAdmissionRef : input.parentBasis.invocationAdmissionRef);
-  if (source === null || invocation === null || !isRecord(source.sourceResult.payload) ||
+  if (invocation === null || typeof producerRunId !== "string" || !isRecord(source.sourceResult.payload) ||
     typeof source.sourceResult.payload.resultRef !== "string") return null;
   const result = deriveSourceResultBasisAtPrefix(prefix, {
     publicAuthorityDigest: invocation.publicRequestDigest,
     invocationAdmissionRef: invocation.invocationAdmissionRef,
     runtimeInvocationRef: invocation.invocationRef,
-    runId: reacquired ? source.sourceResult.runId! : input.runId, resultRef: source.sourceResult.payload.resultRef,
+    runId: producerRunId, resultRef: source.sourceResult.payload.resultRef,
   }, false);
   return result !== null && result.sourceResultAdmissionEventRef === source.sourceResult.eventId &&
     result.sourceResultJudgmentEventRef === source.sourceJudgment.eventId &&
