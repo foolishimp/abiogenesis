@@ -242,22 +242,18 @@ export async function freshReadbacks(caller,execution) {
     if(receipt.ownerOutput.outcomeKind==='refusal')throw new BoundaryFailure('lifecycle-start',receipt.ownerOutput);
     throw new BoundaryFailure('readback-source','No admitted Run coordinate');
   }
-  const {product,abg,api}=caller.runtime,env=caller.refresh(),hash=product.sha256Canonical;
+  const {product,abg,api}=caller.runtime,hash=product.sha256Canonical;caller.refresh();
   const prefix=caller.state.closeHandoff.prefix,identityBefore=await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),reads=[];
   for(const memberKey of ['run_result','run_replay']) {
-    const packet=abg.ABG_PROJECT_READ_CONTRACTS[memberKey],grants=packet.metadata.capabilityRefs.map(cap=>product.constructCapabilityGrant(
-      env.workspaceAuthorityBasis,caller.actorRef,packet.definitionKey.operationId,cap,{admittedInstalls:env.productInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet}));
-    const slots={...Object.fromEntries(Object.keys(execution.call.invocation.invocationAuthority.slots).map(key=>[key,null])),
-      workspace_binding:caller.state.binding,product_set:env.productInstalls.map(product.productInstallCoordinate),
-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
-      capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))}};
-    const request={caseKey:memberKey,source:{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest},
-      projectionBasis:{projectionBasisRef:prefix.eventLogRef,projectionBasisDigest:prefix.coordinateDigest},
-      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'}};
-    const call=api.constructInstalledPublicDefinitionCall({product,installedPublic:api,definitionContractCoordinates:caller.native.verified.definitionContractCoordinates,
-      contractCatalog:caller.contractCatalog,...packet.definitionKey,request,slots,resources:{kind:'abg_project_read_resource_assertion',schemaVersion:'5.0.0',eventResource:caller.reopen()},
-      requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+memberKey,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
-      eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]});
+    // ABG populates the read request and authority at the reopened prefix.
+    const constructed=api.constructInstalledRunReadCall({memberKey,workspaceBinding:caller.state.binding,sourceRef:run.ref,
+      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
+      envelope:{definitionContractCoordinates:caller.native.verified.definitionContractCoordinates,
+        requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+memberKey,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
+        eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]}});
+    if(constructed.kind!=='installed_run_read_call')throw new BoundaryFailure(memberKey+'-read-population',constructed);
+    if(constructed.population.source.ref!==run.ref||constructed.population.source.digest!==run.digest)throw new BoundaryFailure(memberKey+'-read-source',{run,source:constructed.population.source});
+    const call=constructed.call;
     const observed=await caller.invoke(memberKey,call,{runtimeRoot:caller.installedRoot,expectResult:false});
     const projection=observed.receipt.ownerOutput.value?.projection;
     if(hash(caller.state.closeHandoff.prefix)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');

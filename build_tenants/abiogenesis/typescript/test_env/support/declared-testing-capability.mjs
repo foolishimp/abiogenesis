@@ -4,7 +4,7 @@ import { chmod, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
-import { prepareStdoNoteProduct, pilotResources, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
+import { prepareStdoNoteProduct, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
 export { stdoInstallsSkip };
 import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
 import { expectedVerificationIdentity } from "./candidate-basis.mjs";
@@ -489,13 +489,9 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
         provenanceRefs: ["provenance://declared-testing.example/proof"] } });
     assert.equal(constructed.kind, "installed_start_call", constructed.kind === "installed_start_call" ? "" : JSON.stringify(constructed));
     const input = constructed.call.invocation.request.input.value;
-    let call = constructed.call;
-    if (program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment) {
-      // The pilot's run-environment resource stays explicit test data on the constructed call.
-      const temporaryRoot = join(binding.roots.archiveRoot, "stdo-access-support"); await mkdir(temporaryRoot, { recursive: true });
-      call = { invocation: call.invocation, resources: { ...call.resources,
-        stdoEnvironmentResources: pilotResources(product, fixture.env, constructed.population.authority, program, await realpath(temporaryRoot)) } };
-    }
+    // The canonical constructed call is dispatched unchanged; the legacy RC7
+    // pilot environment population is deferred (T287-HC2-LEGACY-STDO-PILOT-01).
+    const call = constructed.call;
     const native = program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment;
     if (native) assert.equal(typeof transport, executionConfig.live ? "undefined" : "string",
       "mechanical mode requires a disclosed double; live mode forbids one");

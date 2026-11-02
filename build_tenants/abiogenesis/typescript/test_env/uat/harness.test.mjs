@@ -661,34 +661,49 @@ test('Caller run-environment support is canonical, strictly contained and admitt
   const graphFunctions=[...publication.graphFunctions,...gtl.constructNativeWorkspaceWorkModulePublication(artifact).graphFunctions,
     ...gtl.constructWorksiteCommandExecutionModulePublication(artifact).graphFunctions];
   const actorRef='actor://controlled/uat-caller',authority={actorRef,authorityRef:'authority://controlled/uat-caller',authorityDigest:hash('controlled-authority')};
-  const packet=product.RUN_OPERATION_CONTRACTS.invoke.start;
-  // Resolution, authority and Public transport are controlled premises. The
+  const coordinates={operations:[]},workspaceBinding={roots:{archiveRoot}},resolution={kind:'loaded_product_execution_resolution',program};
+  // Population, authority and Public transport are controlled premises. The
   // actual caller, canonical resources constructor and containment owner run.
-  let supplied;
+  let supplied,population=null;
   const caller={root:scratch,installedRoot:fileURLToPath(new URL('../../',import.meta.url)),actorRef,config:{runId:'controlled-environment'},
-    state:{binding:{ref:'binding://controlled',digest:hash('binding')},resolvedLock:{lockId:'lock://controlled',lockDigest:hash('lock')},
-      catalog:{basisDigest:hash('catalog'),boundPublications:[publication]},catalogView:{viewDigest:hash('view'),allowlist:[IDS.graphFunctionRef]}},
-    native:{verified:{definitionContractCoordinates:{operations:[{operationId:packet.definitionKey.operationId,
-      members:[{memberKey:packet.definitionKey.memberKey,slots:{request:{contractCatalog:null}}}]}]}}},
-    runtime:{product:{...product,
-      ProductExecutionResolutionPort:{async resolve(){return {kind:'loaded_product_execution_resolution',productSemantics:null,program,
-        programValidation:{executableLeafRows:[]},selectedCatalogEntry:null,
-        resolution:{inputContract:{contractRef:'contract://controlled/input'},inputContractDigest:hash('input-contract'),
-          programRef:program.programRef,programDigest:hash(program)}};}},
-      admitInstalledProductInput:()=>true,
-      constructRootInvocationPolicy:()=>({policyRef:'policy://controlled',policyDigest:hash('policy')}),
-      constructCapabilityGrant:()=>({grantRef:'grant://controlled',grantDigest:hash('grant')}),
-      constructInvocationAuthority:()=>authority},
-      abg:{hasAdmittedProductInstall:()=>true},api:{constructInstalledPublicDefinitionCall(value){supplied=value;return value;}}},
-    refresh:()=>({productInstalls:[],workspaceBinding:{roots:{archiveRoot}}}),reopen:()=>({kind:'controlled-event-resource'})};
-  await constructLifecycleCall(caller,{kind:'controlled-input'});
-  assert.deepEqual(supplied.request.sourceBasis,{kind:'none'});
-  assert.deepEqual(supplied.resources.source,{kind:'none'});
-  const resources=supplied.resources.runEnvironmentResources,temporaryRoot=resources.temporaryRoot;
+    state:{catalog:{basisDigest:hash('catalog'),boundPublications:[publication]},catalogView:{viewDigest:hash('view'),allowlist:[IDS.graphFunctionRef]}},
+    native:{verified:{definitionContractCoordinates:coordinates}},
+    runtime:{product,abg:{hasAdmittedProductInstall:()=>true},api:{async constructInstalledStartCall(value){
+      supplied=value;if(population)return population;
+      const runEnvironmentResources=await value.runEnvironmentResources({authority,program,workspaceBinding:value.workspaceBinding});
+      return {kind:'installed_start_call',population:{resolution},call:{invocation:{request:{sourceBasis:{kind:'none'}}},
+        resources:{kind:'run_invocation_resource_assertion',source:{kind:'none'},runEnvironmentResources}}};
+    }}},
+    refresh:()=>({productInstalls:[],workspaceBinding}),reopen:()=>({kind:'controlled-event-resource'})};
+  // A population refusal is preserved before any support root exists.
+  population={kind:'product_run_invocation_preparation_refusal',memberKey:'start',
+    ownerOutput:{outcomeKind:'refusal',value:{code:'invalid_input',issuePaths:['/input'],evidenceRefs:[]}}};
+  await assert.rejects(constructLifecycleCall(caller,{kind:'controlled-input'}),error=>{
+    assert.equal(error.stage,'lifecycle-input-admission');assert.deepEqual(error.observation,population.ownerOutput);return true;
+  });
+  await assert.rejects(stat(join(archiveRoot,'run-environment-support')),{code:'ENOENT'});
+  population=null;
+  const prepared=await constructLifecycleCall(caller,{kind:'controlled-input'});
+  assert.deepEqual(supplied.selection,{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'});
+  assert.equal(supplied.programRef,IDS.programRef);assert.equal(supplied.actorRef,actorRef);
+  assert.equal(supplied.catalog,caller.state.catalog);assert.equal(supplied.catalogView,caller.state.catalogView);
+  assert.deepEqual(supplied.applications,[]);assert.deepEqual(supplied.admittedInstalls,[]);assert.equal(supplied.workspaceBinding,workspaceBinding);
+  assert.equal(typeof supplied.verifyInstallAdmission,'function');
+  assert.deepEqual(supplied.input,{value:{kind:'controlled-input'}});
+  assert.equal(supplied.inputValueRef,'value://abi5-tests/sandbox-uat/controlled-environment/input');
+  assert.deepEqual(supplied.source,{kind:'none'});assert.deepEqual(supplied.eventResource,{kind:'controlled-event-resource'});
+  assert.equal(supplied.envelope.definitionContractCoordinates,coordinates);
+  assert.equal(supplied.envelope.requestRef,'request://abi5-tests/sandbox-uat/controlled-environment/start');
+  assert.equal(supplied.envelope.correlationRef,'correlation://abi5-tests/sandbox-uat/controlled-environment');
+  assert.equal(prepared.resolution,resolution);
+  assert.deepEqual(prepared.call.invocation.request.sourceBasis,{kind:'none'});
+  assert.deepEqual(prepared.call.resources.source,{kind:'none'});
+  const resources=prepared.call.resources.runEnvironmentResources,temporaryRoot=resources.temporaryRoot;
   assert.notEqual(temporaryRoot,archiveRoot);
   assert.equal(temporaryRoot,await realpath(join(archiveRoot,'run-environment-support')));
   assert.equal((await stat(temporaryRoot)).isDirectory(),true);
   assert.equal(resources.permission.temporaryRoot,temporaryRoot);
+  assert.equal(resources.permission.authorityRef,authority.authorityRef);assert.equal(resources.permission.authorityDigest,authority.authorityDigest);
   const input={publication,program,graphFunctions,authority,archiveRoot,resources};
   assert.equal((await product.observeRunEnvironment(input)).kind,'run_environment_observed');
   for(const forbiddenRoot of [archiveRoot,scratch]) {
@@ -717,15 +732,18 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
   for(const status of ['failed','blocked']) {
     const eventPath=join(scratch,status+'.events.jsonl'),bytes=Buffer.from('controlled admitted '+status+' Run premise\n');
     await writeFile(eventPath,bytes,{flag:'wx'});
-    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[];
-    // Run admission and Public projection are controlled premises. The actual
-    // two-read caller uses canonical read packets and checks physical bytes.
+    const prefix={eventLogRef:pathToFileURL(eventPath).href,coordinateDigest:hash(status)},calls=[],constructed=[];
+    const run={ref:'run://controlled/'+status,digest:hash(status)},coordinates={operations:[]};
+    let population=null;
+    // Run admission, read population and Public projection are controlled
+    // premises. The actual two-read caller checks source and physical bytes.
     const caller={root:scratch,installedRoot:'/controlled/installed',actorRef:'actor://controlled/readback',config:{runId:status},
-      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix}},native:{verified:{definitionContractCoordinates:null}},contractCatalog:null,
-      runtime:{product:{...product,constructCapabilityGrant:()=>({grantRef:'grant://controlled',grantDigest:hash('grant')})},abg,
-        api:{constructInstalledPublicDefinitionCall:value=>value}},
-      refresh:()=>({workspaceAuthorityBasis:null,productInstalls:[],workspaceBinding:{lockId:'lock://controlled',lockDigest:hash('lock')}}),
-      reopen:()=>({kind:'controlled-event-resource'}),
+      state:{binding:{ref:'binding://controlled',digest:hash('binding')},closeHandoff:{prefix}},native:{verified:{definitionContractCoordinates:coordinates}},
+      runtime:{product,abg,api:{constructInstalledRunReadCall(input){
+        constructed.push(input);
+        return population??{kind:'installed_run_read_call',call:{controlled:input.memberKey},population:{source:{ref:run.ref,digest:run.digest}}};
+      }}},
+      refresh:()=>({}),reopen:()=>({kind:'controlled-event-resource'}),
       async invoke(memberKey,call){
         calls.push({memberKey,call});
         return {receipt:{ownerOutput:memberKey==='run_result'?{outcomeKind:'refusal',value:{code:'absent_terminal_result'}}:
@@ -733,14 +751,24 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
       }};
     const ownerOutput=status==='failed'?{outcomeKind:'refusal',value:{code:'controlled_failure'}}:
       {outcomeKind:'result',value:{kind:'governance_work_state',terminal:false}};
-    const run={ref:'run://controlled/'+status,digest:hash(status)};
     const execution={receipt:{exitCode:1,resources:{run},ownerOutput},call:{invocation:{invocationAuthority:{slots:{}}}}};
     const reads=await freshReadbacks(caller,execution);
     assert.deepEqual(calls.map(row=>row.memberKey),['run_result','run_replay']);
     assert.equal(reads.length,2);assert.equal(reads[0].ownerOutput.outcomeKind,'refusal');assert.equal(reads[1].projection.status,status);
-    for(const {memberKey,call}of calls) {
-      assert.equal(call.operationId,abg.ABG_PROJECT_READ_CONTRACTS[memberKey].definitionKey.operationId);
-      assert.deepEqual(call.request.source,{sourceKind:'run',sourceRef:run.ref,sourceDigest:run.digest});
+    assert.deepEqual(constructed.map(row=>row.memberKey),['run_result','run_replay']);
+    for(const [i,input] of constructed.entries()) {
+      assert.equal(input.workspaceBinding,caller.state.binding);assert.equal(input.sourceRef,run.ref);
+      assert.deepEqual(input.selector,input.memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'});
+      assert.deepEqual(input.eventResource,{kind:'controlled-event-resource'});assert.equal(input.envelope.definitionContractCoordinates,coordinates);
+      assert.equal(input.envelope.requestRef,'request://abi5-tests/sandbox-uat/'+status+'/'+input.memberKey);
+      assert.deepEqual(calls[i].call,{controlled:input.memberKey});
+    }
+    // A population refusal or a foreign source dispatches no read.
+    for(const [refused,stage] of [[{kind:'run_read_population_refusal',code:'unknown_source',issuePath:'/source/sourceRef'},'run_result-read-population'],
+      [{kind:'installed_run_read_call',call:{controlled:'foreign'},population:{source:{ref:run.ref,digest:hash('foreign')}}},'run_result-read-source']]) {
+      population=refused;calls.length=0;
+      await assert.rejects(freshReadbacks(caller,execution),error=>error.stage===stage);
+      assert.deepEqual(calls,[]);
     }
     assert.deepEqual(await readFile(eventPath),bytes);assert.deepEqual(caller.state.closeHandoff.prefix,prefix);
   }

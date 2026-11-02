@@ -235,46 +235,33 @@ export async function populateSandbox(caller) {
 }
 
 export async function constructLifecycleCall(caller,input) {
-  const {runtime,state,native,actorRef}=caller,{product,abg,api}=runtime,hash=product.sha256Canonical;
+  const {runtime,state,native,actorRef,config}=caller,{product,abg,api}=runtime,hash=product.sha256Canonical;
   const environment=caller.refresh(),admittedInstalls=environment.productInstalls,workspaceBinding=environment.workspaceBinding;
-  const resolution=requireKind(await product.ProductExecutionResolutionPort.resolve({catalog:state.catalog,catalogView:state.catalogView,admittedInstalls,
-    verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),programRef:IDS.programRef,
-    selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}}),'loaded_product_execution_resolution','default-library-resolution');
-  if(!product.admitInstalledProductInput(resolution.productSemantics,resolution.resolution.inputContract.contractRef,input))throw new BoundaryFailure('lifecycle-input-admission',input.kind);
-  const fixedPacket=product.RUN_OPERATION_CONTRACTS.invoke.start;
-  const regimes=new Set(resolution.programValidation.executableLeafRows.map(row=>row.fibre));
-  const policy=product.constructRootInvocationPolicy(workspaceBinding,resolution.program,[],['F_D','F_P','F_H'].filter(regime=>regimes.has(regime)),[]);
-  const grants=[product.constructCapabilityGrant(policy,actorRef,fixedPacket.definitionKey.operationId,product.DIRECT_INVOKE_CAPABILITY,{admittedInstalls,workspaceBinding,fixedPacket})];
-  const authority=product.constructInvocationAuthority(actorRef,workspaceBinding,state.catalogView,IDS.programRef,resolution.selectedCatalogEntry,policy,grants,{admittedInstalls,workspaceBinding,fixedPacket});
-  const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},
-    valueRef:'value://abi5-tests/sandbox-uat/'+caller.config.runId+'/input',valueDigest:hash(input),value:input};
-  const program={ref:resolution.resolution.programRef,digest:resolution.resolution.programDigest},
-    view={ref:'graph-function-catalog-view://abiogenesis/'+state.catalogView.viewDigest.slice(7),digest:state.catalogView.viewDigest};
-  const eventResource=caller.reopen(),steering=hash(eventResource),lock={ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest};
-  const request={program,scope:'program',target:{kind:'next'},until:'converged',catalogView:view,allowlist:[...state.catalogView.allowlist],
-    input:boundInput,fhMode:'direct',rootMode:'direct',sourceBasis:{kind:'none'}};
-  const slots={...emptyAuthoritySlots(),workspace_binding:state.binding,product_set:admittedInstalls.map(product.productInstallCoordinate),dependency_lock:lock,
-    catalog_scope:{catalog:{ref:'graph-function-catalog://abiogenesis/'+state.catalog.basisDigest.slice(7),digest:state.catalog.basisDigest},view,allowlist:request.allowlist},
-    execution_program:program,input_contract:boundInput,session_policy:{ref:policy.policyRef,digest:policy.policyDigest},
-    capability_grants:{requiredCapabilityRefs:[...fixedPacket.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))},
-    actor:{actor:{ref:actorRef,digest:hash({actorRef})},attribution:{ref:authority.authorityRef,digest:authority.authorityDigest}},
-    transport_steering:{ref:'transport-steering://abiogenesis/'+steering.slice(7),digest:steering}};
   const declaration=state.catalog.boundPublications.find(value=>value.moduleRef===IDS.moduleRef)?.runEnvironments[0];
   if(!declaration)throw new BoundaryFailure('default-library-environment','missing declaration');
-  const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');
-  await mkdir(supportRoot,{recursive:true});
-  const temporaryRoot=await realpath(supportRoot);
-  const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));
-  const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));
-  const coordinates={dependencies,pythonPath:null,temporaryRoot};
-  const runEnvironmentResources=product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,...coordinates,
-    permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef,programRef:IDS.programRef,
-      environmentRef:declaration.declarationRef,environmentDigest:hash(declaration),operations:['read_context'],...coordinates}});
-  const contractCatalog=native.verified.definitionContractCoordinates.operations.find(value=>value.operationId===fixedPacket.definitionKey.operationId).members.find(value=>value.memberKey==='start').slots.request.contractCatalog;
-  const call=api.constructInstalledPublicDefinitionCall({product,installedPublic:api,definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog,
-    ...fixedPacket.definitionKey,request,slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:version,eventResource,
-      catalog:state.catalog,catalogView:state.catalogView,applications:[],source:{kind:'none'},runEnvironmentResources},
-    requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/start',correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
-    eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]});
-  return {call,resolution};
+  const namespace='abi5-tests/sandbox-uat/'+config.runId;
+  // The shipped run owner populates request, slots, policy, grants and
+  // authority; the scenario input and run-environment support stay explicit.
+  const constructed=await api.constructInstalledStartCall({
+    selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},
+    programRef:IDS.programRef,catalog:state.catalog,catalogView:state.catalogView,applications:[],admittedInstalls,workspaceBinding,
+    verifyInstallAdmission:install=>abg.hasAdmittedProductInstall(environment.artifactTruth,install),actorRef,
+    input:{value:input},inputValueRef:'value://'+namespace+'/input',source:{kind:'none'},
+    async runEnvironmentResources({authority}) {
+      const supportRoot=join(workspaceBinding.roots.archiveRoot,'run-environment-support');
+      await mkdir(supportRoot,{recursive:true});
+      const temporaryRoot=await realpath(supportRoot);
+      const dependencyRoot=await realpath(join(caller.installedRoot,'contracts/default-library/stdo'));
+      const dependencies=declaration.dependencies.map(dependency=>({dependencyRef:dependency.dependencyRef,root:dependencyRoot,recordPath:join(dependencyRoot,'context.inventory.json')}));
+      const coordinates={dependencies,pythonPath:null,temporaryRoot};
+      return product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:version,...coordinates,
+        permission:{authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,actorRef,programRef:IDS.programRef,
+          environmentRef:declaration.declarationRef,environmentDigest:hash(declaration),operations:['read_context'],...coordinates}});
+    },
+    eventResource:caller.reopen(),
+    envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:'request://'+namespace+'/start',
+      correlationRef:'correlation://'+namespace,eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]}});
+  if(constructed.kind!=='installed_start_call')throw new BoundaryFailure(
+    constructed.ownerOutput?.value?.code==='invalid_input'?'lifecycle-input-admission':'lifecycle-start-population',constructed.ownerOutput??constructed);
+  return {call:constructed.call,resolution:constructed.population.resolution};
 }

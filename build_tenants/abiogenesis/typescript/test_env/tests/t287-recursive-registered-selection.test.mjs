@@ -535,6 +535,12 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
   const crossed=await cli('crossed',pending.replay('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}));
   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
   assert.equal(storeOwnerRead().length,before,'a refused crossed request admits nothing');
+  // The pending execution is Run-scoped: a Run that does not hold it, or its Run under another digest, is refused.
+  for(const [name,run,code,path] of [['wrong-run',{ref:`${runId}/absent`,digest:zero},'missing_continuation','/continuation'],['wrong-run-digest',{ref:runId,digest:zero},'basis_mismatch','/run']]){
+    const out=await cli(name,pending.replay(name,{run}));
+    assert.equal(out.ownerOutput.outcomeKind,'refusal',name);assert.equal(out.ownerOutput.value.code,code,name);assert.deepEqual(out.ownerOutput.value.issuePaths,[path],name);
+    assert.equal(storeOwnerRead().length,before,`${name} admits nothing`);
+  }
   const continueCall=await pending.call('continue');
   const continued=await cli('continue',continueCall);
   assert.equal(continued.ownerOutput.outcomeKind,'result',JSON.stringify(continued.ownerOutput));
@@ -568,6 +574,32 @@ test('interrupted recursive workflow resumes once through the cold Public run.co
     const read=await runInstalledCliRequest({scratch:env.scratch,installedRoot:env.installedRoot,identity:`pending-${memberKey}`,acquisition:{kind:'reopen',closeHandoff:handoff},call:readCall,expectedExitCode:null});
     assert.equal(read.output.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(read.output).slice(0,4000));reads[memberKey]=read.output.receipt.ownerOutput.value;
   }
+  // An actual closed child GraphCall of this Run, neither its root GraphCall nor a missing Run: its typed
+  // Result reads only under the historical declaration proof; omitting the proof refuses. Neither read appends.
+  const graphCalls=final.filter(e=>e.kind==='graph_call_opened'),roots=graphCalls.filter(e=>e.payload.parentFrameId===undefined).map(e=>e.graphCallId);
+  assert.ok(roots.length>0,'the Run opened its root GraphCall');
+  const child=graphCalls.find(e=>e.payload.parentFrameId!==undefined&&final.some(c=>c.kind==='graph_call_closed'&&c.graphCallId===e.graphCallId));
+  assert.ok(child&&!roots.includes(child.graphCallId),'a closed child GraphCall, not the root GraphCall');
+  const declarationProof={kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:env.catalog,catalogView:env.catalogView};
+  const childRead=async(identity,proof)=>{
+    const eventResource={kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)};
+    const constructed=publicApi.constructInstalledRunReadCall({memberKey:'graph_call_result',
+      workspaceBinding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},sourceRef:child.graphCallId,selector:{kind:'none'},eventResource,
+      ...(proof===undefined?{}:{declarationProof:proof}),
+      envelope:{definitionContractCoordinates:env.verified.definitionContractCoordinates,requestRef:`public-request://pending-execution-public/${identity}`,
+        correlationRef:`correlation://pending-execution-public/${identity}`,eventTime:'2026-11-02T00:02:00.000Z',provenanceRefs:[ref('provenance','fixture')]}});
+    assert.equal(constructed.kind,'installed_run_read_call',JSON.stringify(constructed));
+    assert.equal(constructed.population.source.ref,child.graphCallId);
+    assert.equal(Object.hasOwn(constructed.call.resources,'declarationProof'),proof!==undefined);
+    return cli(identity,constructed.call);
+  };
+  const beforeChildReads=storeOwnerRead().length;
+  const proved=await childRead('child-graph-call-proof',declarationProof);
+  assert.equal(proved.ownerOutput.outcomeKind,'result',JSON.stringify(proved.ownerOutput).slice(0,4000));
+  assert.deepEqual([proved.ownerOutput.value.projection.terminalResult.producer.runRef,proved.ownerOutput.value.projection.terminalResult.producer.graphCallRef],[runId,child.graphCallId]);
+  const omitted=await childRead('child-graph-call-omitted-proof');
+  assert.equal(omitted.ownerOutput.outcomeKind,'refusal');assert.equal(omitted.ownerOutput.value.code,'projection_basis_mismatch');assert.deepEqual(omitted.ownerOutput.value.issuePaths,[]);
+  assert.equal(storeOwnerRead().length,beforeChildReads,'child GraphCall reads append zero events');
   t.diagnostic(JSON.stringify({runId,continuationRef:p.continuationRef,chain:p.chain.map(c=>c.relation),eventsBefore:interruptedEvents.length,eventsAfter:storeOwnerRead().length,
     replay:continued.ownerOutput.value.replay,proofLimit:'Cold reopen through the installed Public CLI pending_execution arm over the generic recursion fixture; not the default-library pending-Testing topology; not Root installed fresh-process witness.'}));
 });

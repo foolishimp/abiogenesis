@@ -53,11 +53,12 @@ export async function rootResolution(caller, { programRef, graphFunctionRef }, c
 
 /** The canonical run.invoke start population of one Program's graph function over a factory-built input: the Product
  * run owner resolves, constructs the policy and grants, and hands them to the factory before it admits the input. */
-function populateStart(caller, root, program, factory) {
-  const { product, abg } = caller.runtime, state = caller.state, { environment, admittedInstalls, workspaceBinding } = root;
+function populateStart(caller, environment, program, factory) {
+  const { product, abg } = caller.runtime, state = caller.state;
   return product.populateProductRunInvocation({
     selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },
-    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,
+    programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [],
+    admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding,
     verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,
     input: { factory }, inputValueRef: 'input://abiogenesis/t287/qualification/' + caller.config.runId + '/population', source: { kind: 'none' },
     transportResourceAssertion: caller.reopen() });
@@ -97,25 +98,33 @@ export async function runEnvironmentResources(caller, root) {
       operations: [...new Set(['read_context', ...declaration.accesses.map(a => a.operation)])].sort(), ...coordinates } });
 }
 
-/** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. */
-export async function startCall(caller, program, input, { qualificationResources, label, cache }) {
+/** The run.invoke start call of one Program's graph function over one input, through the shipped SDK constructor. The
+ * canonical start population resolves the root and admits the input under the Program's input contract; its factory
+ * returns the explicit input and retains the resolution it observed, so no preliminary resolution runs. The population's
+ * input refusal is the inputAdmitted false result (as admitsInput); any other refusal stops the caller. A supplied cache
+ * has no use here. */
+export async function startCall(caller, program, input, { qualificationResources, label }) {
   const { product, abg, api } = caller.runtime, state = caller.state, hash = product.sha256Canonical;
-  const root = await rootResolution(caller, program, cache), { resolution, admittedInstalls, workspaceBinding, environment } = root;
-  const inputAdmitted = admitsInput(caller, resolution, input);
-  if (!inputAdmitted) return { root, inputAdmitted, call: null };
+  const environment = caller.refresh(), admittedInstalls = environment.productInstalls, workspaceBinding = environment.workspaceBinding;
+  let resolution = null;
+  const root = () => ({ environment, admittedInstalls, workspaceBinding, resolution });
   const constructed = await api.constructInstalledStartCall({
     selection: { memberKey: 'start', target: { kind: 'graph_function', handle: program.graphFunctionRef }, rootMode: 'direct', fhMode: 'direct' },
     programRef: program.programRef, catalog: state.catalog, catalogView: state.catalogView, applications: [], admittedInstalls, workspaceBinding,
     verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef: caller.actorRef,
-    input: { value: input }, inputValueRef: 'input://abiogenesis/t287/qualification/' + hash(input).slice(7), source: { kind: 'none' },
+    input: { factory: resolved => { resolution = resolved.resolution; return input; } },
+    inputValueRef: 'input://abiogenesis/t287/qualification/' + hash(input).slice(7), source: { kind: 'none' },
     applicationResources: [], ...(qualificationResources === undefined ? {} : { qualificationResources }),
-    runEnvironmentResources: ({ authority }) => runEnvironmentResources(caller, { ...root, authority }),
+    runEnvironmentResources: ({ authority }) => runEnvironmentResources(caller, { ...root(), authority }),
     eventResource: caller.reopen(),
     envelope: { definitionContractCoordinates: caller.native.verified.definitionContractCoordinates,
       requestRef: 'request://abiogenesis/t287/qualification/' + caller.config.runId + '/' + label, correlationRef: 'correlation://abiogenesis/t287/qualification/' + caller.config.runId,
       eventTime: new Date().toISOString(), provenanceRefs: [pathToFileURL(join(caller.root, 'run.json')).href] } });
-  if (constructed.kind !== 'installed_start_call') throw new TypeError('start population of ' + program.programRef + ': ' + constructed.ownerOutput.value.code);
-  return { root, inputAdmitted, call: constructed.call };
+  if (constructed.kind === 'installed_start_call') return { root: { ...root(), resolution: constructed.population.resolution }, inputAdmitted: true, call: constructed.call };
+  const refused = constructed.ownerOutput.value;
+  if (resolution !== null && refused.code === 'invalid_input' && refused.issuePaths.length === 1 && refused.issuePaths[0] === '/input')
+    return { root: root(), inputAdmitted: false, call: null };
+  throw new TypeError('start population of ' + program.programRef + ': ' + refused.code);
 }
 
 /** The in-process admission of one start call by the installed run invocation preparation (no dispatch, no event). */
@@ -137,13 +146,16 @@ export async function admitCall(caller, call) {
  * commands, predicates and write territories, and the C2 Program's root invocation grant. The canonical start
  * population constructs that grant and hands it to the task factory; the population is not dispatched. */
 export async function observedC2Task(caller, q, c2, declared, ambient) {
-  const root = await rootResolution(caller, PROGRAMS.c2);
-  let task;
-  const population = await populateStart(caller, root, PROGRAMS.c2, ({ workspaceBinding, grants }) =>
-    task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: root.environment.workspaceAuthorityBasis,
+  const environment = caller.refresh();
+  let task, resolution = null;
+  const population = await populateStart(caller, environment, PROGRAMS.c2, ({ resolution: resolved, workspaceBinding, grants }) => {
+    resolution = resolved;
+    return task = q.product.constructObservedWorksiteCommandExecutionTask({ workspaceAuthorityBasis: environment.workspaceAuthorityBasis,
       workspaceBinding, capabilityGrant: grants[0], observedFiles: c2.subjects.map((subject, n) => ({ subject, observation: c2.observations[n] })),
-      commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient));
+      commands: commandInput(declared), outcomePredicates: declared.outcomePredicates, allowedWriteTerritories: declared.allowedWriteTerritories }, ambient);
+  });
   if (task === undefined) throw new TypeError('the C2 start population refused before its task: ' + JSON.stringify(population.ownerOutput?.value ?? population.kind));
+  const root = { environment, admittedInstalls: environment.productInstalls, workspaceBinding: environment.workspaceBinding, resolution };
   return { task, root, observed: q.deep.c2.isObservedWorksiteCommandExecutionTask(task) };
 }
 

@@ -10,6 +10,10 @@ import * as Effect from "effect/Effect";
 
 import { prepareLanguageSmokeFixture } from
   "../support/language-smoke-fixture.mjs";
+import { prepareDeveloperMiniProduct } from
+  "../support/developer-mini-product.mjs";
+import * as qualification from "../qualification/dispatch.mjs";
+import { installedModules, publicCaller } from "../uat/public-setup.mjs";
 import { constructInstalledPublicDefinitionCall } from
   "../support/installed-public-definition-call.mjs";
 import {
@@ -2098,5 +2102,244 @@ test("ST-1 executes an independently authored minimal GTL test through installed
   );
   context.diagnostic(
     "SDK: shipped constructors populate 1 direct invoke, 1 graph_function start, 6 run reads and 1 invalid_target asset start, 0 read bytes",
+  );
+});
+
+// The unchanged developer mini Product: one installed setup and two explicit
+// STARTs. Its ticket graph_function START goes through the qualification
+// wrapper; its published greeting asset START through the shipped factory.
+// Neither patches a target or writes a fixture, publication or asset.
+test("ST-1 starts the developer mini Product's graph_function and published asset targets through installed owners", async (context) => {
+  const environment = await setupInstalledRootCatalog(context, packageRoot, {
+    candidateBasisSource: "packed_artifact",
+    workspaceProductIndex: 1,
+    prepareAdditionalProducts: async ({ scratch }) => {
+      const prepared = await prepareDeveloperMiniProduct(packageRoot, scratch);
+      prepared.loadInstalledPublication = async ({ installedRoot, verified }) => {
+        const module = await import(
+          pathToFileURL(join(installedRoot, "build/index.js")).href
+        );
+        return module.constructDeveloperMiniPublication({
+          productId: verified.productId,
+          artifactDigest: verified.artifactDigest,
+          productContentDigest: verified.productContentDigest,
+          productManifestDigest: verified.manifestDigest,
+          packageName: verified.packageName,
+          packageVersion: verified.packageVersion,
+        });
+      };
+      return [prepared];
+    },
+  });
+  const {
+    product,
+    abg,
+    catalog,
+    admittedInstalls,
+    workspaceBinding,
+    additionalProducts: [miniProduct],
+  } = environment;
+  const ids = miniProduct.ids;
+  const catalogView = product.narrowGraphFunctionCatalog(
+    catalog,
+    [ids.graphFunctionRef, ids.ticketGraphFunctionRef],
+  );
+  assert.equal(
+    catalogView.kind,
+    "graph_function_catalog_view",
+    JSON.stringify(catalogView),
+  );
+  const runtime = await installedModules(environment.installedRoot);
+  const publicApi = runtime.api;
+  const caller = publicCaller({
+    root: environment.scratch,
+    runtime,
+    native: { verified: environment.verified },
+    command: () => {
+      throw new Error("no provider dispatch");
+    },
+    record: async () => {},
+    config: { runId: "st-1-developer-mini" },
+    actorRef: workspaceBinding.authorizedActorRef,
+  });
+  caller.installedRoot = environment.installedRoot;
+  Object.assign(caller.state, {
+    binding: {
+      ref: workspaceBinding.bindingId,
+      digest: workspaceBinding.bindingDigest,
+    },
+    resolvedLock: environment.lock,
+    catalog,
+    catalogView,
+    closeHandoff: environment.store.projectReopenAuthorityAndClose(),
+  });
+  const dispatch = async (identity, call) => {
+    const before = caller.state.closeHandoff;
+    const outcome = await publicApi.runInstalledDefinitionCallTransport(
+      Object.freeze({ kind: "reopen", closeHandoff: before }),
+      call,
+    );
+    assert.equal(
+      outcome.kind,
+      "installed_definition_call_transport_result",
+      `${identity} ${JSON.stringify(outcome).slice(0, 4000)}`,
+    );
+    const { receipt } = outcome;
+    assert.equal(
+      receipt.ownerOutput.outcomeKind,
+      "result",
+      `${identity} ${JSON.stringify(receipt.ownerOutput).slice(0, 4000)}`,
+    );
+    assert.equal(receipt.ownerOutput.value.disposition, "completed", identity);
+    caller.state.closeHandoff = receipt.resources.eventResource.closeHandoff;
+    const run = receipt.resources.run;
+    assert.ok(run, `${identity} admits a Run`);
+    assert.deepEqual(
+      abg.readRuntimeEventsAtDurablePrefix(caller.state.closeHandoff.prefix)
+        .filter((event) =>
+          event.kind === "graph_call_opened" && event.runId === run.ref
+        )
+        .map((event) => event.graphCallId),
+      [receipt.ownerOutput.value.graphCall.ref],
+      `${identity} Run opens exactly its result GraphCall`,
+    );
+    return receipt;
+  };
+
+  // The qualification wrapper's input refusal comes from the canonical
+  // population, retains the resolution it observed and appends zero bytes.
+  const ticketProgram = Object.freeze({
+    programRef: ids.ticketProgramRef,
+    graphFunctionRef: ids.ticketGraphFunctionRef,
+  });
+  const ticketInput = Object.freeze({
+    kind: "developer_ticket_work_input",
+    schemaVersion,
+    ticketRef: "ticket://abi5-tests/st-1/developer-mini",
+    requestedOutcome: "preserve the declared ticket outcome",
+  });
+  const refusedLogBytes = await readFile(
+    new URL(caller.state.closeHandoff.prefix.eventLogRef),
+  );
+  const refusedInput = Object.freeze({ ...ticketInput, requestedOutcome: "" });
+  const refusedStart = await qualification.startCall(
+    caller,
+    ticketProgram,
+    refusedInput,
+    { label: "developer-mini-ticket-refused" },
+  );
+  assert.equal(refusedStart.inputAdmitted, false);
+  assert.equal(refusedStart.call, null);
+  assert.equal(
+    refusedStart.root.resolution.resolution.programRef,
+    ids.ticketProgramRef,
+  );
+  assert.equal(
+    qualification.admitsInput(caller, refusedStart.root.resolution, refusedInput),
+    false,
+  );
+  assert.equal(
+    Buffer.compare(
+      await readFile(new URL(caller.state.closeHandoff.prefix.eventLogRef)),
+      refusedLogBytes,
+    ),
+    0,
+    "a refused qualification input appends zero bytes",
+  );
+
+  const ticketStart = await qualification.startCall(
+    caller,
+    ticketProgram,
+    ticketInput,
+    { label: "developer-mini-ticket" },
+  );
+  assert.equal(ticketStart.inputAdmitted, true);
+  assert.equal(
+    ticketStart.root.resolution.resolution.programRef,
+    ids.ticketProgramRef,
+  );
+  assert.equal(
+    qualification.admitsInput(caller, ticketStart.root.resolution, ticketInput),
+    true,
+  );
+  assert.deepEqual(ticketStart.call.invocation.definitionKey, {
+    operationId,
+    memberKey: "start",
+  });
+  assert.deepEqual(ticketStart.call.invocation.request.target, {
+    kind: "graph_function",
+    handle: ids.ticketGraphFunctionRef,
+  });
+  assert.deepEqual(ticketStart.call.invocation.request.input.value, ticketInput);
+  assert.ok(
+    ticketStart.call.invocation.invocationAuthority.slots.graph_function,
+    "a graph_function start carries its GraphFunction slot",
+  );
+  const ticketReceipt = await dispatch("ticket", ticketStart.call);
+  assert.deepEqual(ticketReceipt.ownerOutput.value.terminalResult.value, {
+    kind: "developer_ticket_work_output",
+    schemaVersion,
+    ticketRef: ticketInput.ticketRef,
+    disposition: "completed",
+    summary: `Completed: ${ticketInput.requestedOutcome}`,
+  });
+
+  // The published asset target is the Program's own predeclared handle.
+  const assetTarget = Object.freeze({
+    kind: "asset",
+    handle: ids.greetingAssetHandle,
+  });
+  const greetingInput = Object.freeze({
+    kind: "developer_greeting_input",
+    schemaVersion,
+    name: "ST1",
+  });
+  const assetStart = await publicApi.constructInstalledStartCall({
+    selection: Object.freeze({
+      memberKey: "start",
+      target: assetTarget,
+      rootMode: "direct",
+      fhMode: "direct",
+    }),
+    programRef: ids.programRef,
+    catalog,
+    catalogView,
+    applications: Object.freeze([]),
+    admittedInstalls,
+    workspaceBinding,
+    verifyInstallAdmission: (install) =>
+      abg.hasAdmittedProductInstall(environment.artifactTruth, install),
+    actorRef: workspaceBinding.authorizedActorRef,
+    input: Object.freeze({ value: greetingInput }),
+    inputValueRef: "value://abi5-tests/st-1-developer-mini/greeting-input",
+    source: Object.freeze({ kind: "none" }),
+    eventResource: reopenedReadResource(product, caller.state.closeHandoff),
+    envelope: Object.freeze({
+      definitionContractCoordinates:
+        environment.verified.definitionContractCoordinates,
+      requestRef: "public-request://abi5-tests/st-1-developer-mini/asset-start",
+      correlationRef: "correlation://abi5-tests/st-1-developer-mini/asset-start",
+      eventTime: "2026-08-24T00:00:00.000Z",
+      provenanceRefs: ["provenance://abi5-tests/st-1-developer-mini-worker"],
+    }),
+  });
+  if (assetStart.kind !== "installed_start_call") {
+    assert.fail(JSON.stringify(assetStart));
+  }
+  assert.deepEqual(assetStart.call.invocation.request.target, assetTarget);
+  assert.equal(assetStart.population.resolution.resolution.programRef, ids.programRef);
+  assert.equal(
+    assetStart.call.invocation.invocationAuthority.slots.graph_function,
+    null,
+    "an asset start carries no GraphFunction slot",
+  );
+  const assetReceipt = await dispatch("asset", assetStart.call);
+  assert.notEqual(assetReceipt.resources.run.ref, ticketReceipt.resources.run.ref);
+  assert.equal(
+    assetReceipt.ownerOutput.value.terminalResult.value.message,
+    "Welcome ST1.",
+  );
+  context.diagnostic(
+    "ST-1 developer mini: 1 installed setup, 1 qualification graph_function START with 1 zero-byte input refusal, 1 shipped-factory published asset START",
   );
 });
