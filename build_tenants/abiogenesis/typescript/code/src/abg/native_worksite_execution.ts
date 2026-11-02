@@ -2,7 +2,7 @@ import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, isValidationRuntimeEve
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isDeepStrictEqual } from "node:util";
 import { projectWorksiteSelectedOccurrence, worksiteSelectedOccurrenceDependencies, projectWorksiteFailureResultRequest, worksiteFailureResultDependencies } from "./c_call_outcome.js";
-import { nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
+import { nativeWorkImpact, nativeWorkImpactOverlaps, nativeWorkUnknownEffectDependencies, projectNativeWorkUnknownEffectTask } from "./native_work_effect.js";
 import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_reacquisition.js";
 /** Native-work source alternative at the existing C2 admission boundary. */
 import { type JsonValue } from "../shared/canonical_json.js";
@@ -221,7 +221,9 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
     : nativeWorkspacePathWithin(path, readRoots);
   // A later admitted mutation invalidates only the selected files it touches.
   // Physical currentness is additionally checked by the unchanged C2 owner
-  // before creating manifests and immediately before helper launch.
+  // before creating manifests and immediately before helper launch. Native
+  // causes use the shared EC impact relation over exact paths or subtrees.
+  const queried = readRoots ?? selectedPaths;
   return indexedRuntimeEvents(prefix, "worksite-observation-dependency").some(e => {
     if (e.admissionOrdinal <= afterOrdinal || !record(e.payload)) return false;
     if (e.kind === "actor_process_termination_unconfirmed" || e.kind === "actor_invocation_failed") {
@@ -229,9 +231,8 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
       if (dependencies.length === 0) return false;
       const task = projectNativeWorkUnknownEffectTask(e, dependencies, validatedRuntimeEventPrefixBeforeEvent(prefix, e.eventId));
       if (task === null || task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
-      return readRoots === undefined ? selectedPaths.some(path => nativeWorkspacePathWithin(path, task.writeRoots))
-        : readRoots.some(path => nativeWorkspacePathWithin(path, task.writeRoots) ||
-          task.writeRoots.some(root => nativeWorkspacePathWithin(root, [path])));
+      const impact = nativeWorkImpact(task, null);
+      return queried.some(path => nativeWorkImpactOverlaps(impact, path));
     }
     if (e.kind === "c_call_fibre_selected") {
       const selectedOccurrence = projectWorksiteSelectedOccurrence(e, worksiteSelectedOccurrenceDependencies(prefix, e));
@@ -248,12 +249,11 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
         invalidates(request.subject.relativePath);
     }
     const value = e.kind === "c_call_result_admitted" ? e.payload.value : null;
-    return (isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) &&
-      e.aggregateId === value.provenance.cCallRef &&
-      (e.graphFunctionRef === native.graphFunctionRef || e.graphFunctionRef === native.assessmentGraphFunctionRef) &&
-      value.task.workspaceAuthorityBasis.canonicalRoot === canonicalRoot &&
-      (value.changedPaths === null ? (readRoots ?? [...selected]).some(path =>
-        nativeWorkspacePathWithin(path, value.task.writeRoots) || value.task.writeRoots.some(root => nativeWorkspacePathWithin(root, [path]))) :
-        value.changedPaths.some(invalidates));
+    if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
+      e.aggregateId !== value.provenance.cCallRef ||
+      (e.graphFunctionRef !== native.graphFunctionRef && e.graphFunctionRef !== native.assessmentGraphFunctionRef) ||
+      value.task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
+    const impact = nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths);
+    return queried.some(path => nativeWorkImpactOverlaps(impact, path));
   });
 }

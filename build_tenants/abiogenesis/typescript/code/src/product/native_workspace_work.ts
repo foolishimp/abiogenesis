@@ -41,7 +41,9 @@ export function isNativeWorkspaceWorkTask(value: unknown): value is NativeWorksp
     g.operationId === "abg.operation.run.invoke" && g.scopeRef === w.bindingId && g.scopeDigest === w.bindingDigest &&
     c.workspaceAuthorityBasisRef === a.authorityBasisId && c.workspaceAuthorityBasisDigest === a.authorityBasisDigest &&
     c.workspaceBindingIdentity === w.bindingId && c.workspaceBindingDigest === w.bindingDigest &&
-    unique(t.readFirst) && unique(t.writeRoots) && t.writeRoots.every(p => nativeWorkspacePathWithin(p, c.readRoots)) &&
+    // W and R are distinct: R is the observed commissioned scope; W may name
+    // disposable territory outside it, whose effects stay unobserved.
+    unique(t.readFirst) && unique(t.writeRoots) &&
     t.readFirst.every(p => c.entries.some(e => e.relativePath === p && e.state !== "absent")) &&
     (t.assessment === undefined || (t.writeRoots.length === 0 && nativeWorkspaceAssessmentSubjectMatches(t.assessment, c) &&
       [...t.assessment.sources, t.assessment.candidate, t.assessment.rubric].every(asset => t.readFirst.includes(asset.path))));

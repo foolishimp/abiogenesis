@@ -20,7 +20,6 @@ import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
 import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
 import { governanceContextBodyUse, hasExactInvocationRunBindingAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
-import { resolveProgramStart } from "../gtl/public_start.js";
 import type { RecurseApplication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
@@ -30,7 +29,7 @@ import { isWorksiteContextObservation } from "../product/worksite_effect.js";
 import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
-import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { registeredSelectionTargets } from "../gtl/registered_selection.js";
 import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
@@ -402,6 +401,45 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
   }
   return { owner, role, profile, bindings, choices, rawContractRef, input };
 }
+/** Current execution facts for the selector, projected from the exact
+ * invocation admission, its Run segment, the governance root ancestry and the
+ * root definition named by the admitted digest. The retained-source
+ * predecessor stays a separate fact. A bound is shown only where the root
+ * declares one recursion to the executing GraphFunction. Null fails closed. */
+function currentExecutionBinding(owner: NonNullable<ReturnType<typeof synthesisContext>>["owner"],
+  basis: NativeInstructionAssemblyBasis): Readonly<Record<string, JsonValue>> | null {
+  const execution = owner.execution, runId = owner.call.runId;
+  const admission = projectExactInvocationAdmissionAtPrefix(owner.prefix, execution.invocationAdmissionRef);
+  const root = semanticJobRootAtPrefix(owner.prefix, execution);
+  if (admission === null || root === null || typeof runId !== "string" ||
+    !hasExactInvocationRunBindingAtPrefix(owner.prefix, admission, runId) ||
+    execution.invocationRef !== admission.invocationRef || execution.programRef !== admission.programRef ||
+    root.basisClass !== "root" || root.invocationAdmissionRef !== admission.invocationAdmissionRef ||
+    root.programRef !== admission.programRef || root.graphFunctionRef !== admission.graphFunctionRef ||
+    root.graphFunctionDigest !== admission.graphFunctionDigest) return null;
+  const start = admission.publicStart, source = admission.sourceResultBasis;
+  if (start !== null && (start.programRef !== admission.programRef || start.graphFunctionRef !== admission.graphFunctionRef)) return null;
+  const definitions = basis.declarationGraphFunctions.filter(g => g.name === root.graphFunctionRef && sha256Canonical(g) === root.graphFunctionDigest);
+  const recursions = definitions.length !== 1 || execution.basisRef === root.basisRef ? [] : definitions[0]!.template.applications
+    .filter((a): a is RecurseApplication => a.relationKind === "recurse" && a.graphFunctionRef === execution.graphFunctionRef);
+  const recursion = recursions.length === 1 ? recursions[0]! : null;
+  return {
+    meaning: "Current admitted execution facts. They identify the Run, invocation, root, start and executing GraphFunction now; they carry no task meaning and select no next member. The predecessor, when present, is a retained earlier source, not the current root or Run.",
+    runId,
+    invocation: { invocationAdmissionRef: admission.invocationAdmissionRef, invocationRef: admission.invocationRef,
+      invocationVariant: admission.invocationVariant },
+    programRef: admission.programRef,
+    root: { basisRef: root.basisRef, graphFunctionRef: root.graphFunctionRef, graphFunctionDigest: root.graphFunctionDigest },
+    start: start === null ? null : { startRef: start.startRef, target: start.target, until: start.until, rootMode: start.rootMode },
+    executing: { basisRef: execution.basisRef, graphFunctionRef: execution.graphFunctionRef },
+    declaredRecursion: recursion === null ? null : { applicationRef: recursion.applicationRef,
+      graphFunctionRef: recursion.graphFunctionRef, bound: recursion.bound },
+    predecessor: source === null ? null : { sourceRunId: source.sourceRunId,
+      sourceInvocationAdmissionRef: source.sourceInvocationAdmissionRef, sourceInvocationRef: source.sourceInvocationRef,
+      sourceGraphFunctionRef: source.sourceGraphFunctionRef, sourceResultRef: source.sourceResultRef,
+      sourceResultDigest: source.sourceResultDigest },
+  };
+}
 function synthesisBoundBasis(context: NonNullable<ReturnType<typeof synthesisContext>>): FramedSynthesisBasis {
   const { owner, role, input } = context;
   return { inputRef: owner.inputRef, inputDigest: owner.inputDigest, taskRef: input.state.original.taskRef,
@@ -414,6 +452,9 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
     const context = synthesisContext(basis, input, contractByRef);
     if (context === null) return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]);
     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
+    // active_binding_semantics: unknown, foreign or inconsistent current facts refuse before dispatch.
+    const binding = currentExecutionBinding(owner, basis);
+    if (binding === null) return assemblyRefusal("unknown_dependency", null, "selector", [owner.execution.invocationAdmissionRef]);
     // Inline bodies need no permission; member reads use this Run and the
     // invocation's admitted retained-source use (`governanceContextBodyUse`).
     const bodyUse = task.context.entries.some(e => e.state === "file" && e.encoding === "admitted_member")
@@ -428,15 +469,15 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
       choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),
-      evidence: { declaredAccess: role.accessContent }, response };
+      binding, evidence: { declaredAccess: role.accessContent }, response };
     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
-      sectionOrder: ["role", "choices", "task", "evidence", "response"] };
+      sectionOrder: ["role", "choices", "task", "binding", "evidence", "response"] };
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
     if (Buffer.byteLength(prompt) > task.state.original.maxPromptBytes) return assemblyRefusal("declared_bound_overflow", null, "selector", [owner.inputRef]);
     const identity = assemblyIdentity("framed-synthesis", plan, owner, basis.predecessorPrefix,
       { sections, targetBindings: bindings, boundBasis });
-    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
+    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas, bindingDigest: sha256Canonical(binding) }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
       implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: plan.rendererRef,
       instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: carrier });
   } catch { return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]); }

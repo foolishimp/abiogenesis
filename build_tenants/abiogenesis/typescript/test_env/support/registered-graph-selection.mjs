@@ -234,8 +234,12 @@ export async function constructInstalledStartCall({
   programRef,
   rootMode = "direct",
   declaredStartRef,
+  assetHandle,
   inputFactory,
 }) {
+  // One selection: next, one declared start, or one published asset handle.
+  assert.ok(declaredStartRef === undefined || assetHandle === undefined, "start and asset selections are mutually exclusive");
+  if (assetHandle !== undefined) assert.ok(typeof assetHandle === "string" && assetHandle.length > 0, "asset selection names one handle");
   const {
     product,
     abg,
@@ -255,7 +259,7 @@ export async function constructInstalledStartCall({
     selection: Object.freeze({
       kind: "start",
       scope: "program",
-      target: declaredStartRef ?? "next",
+      target: assetHandle === undefined ? declaredStartRef ?? "next" : `asset:${assetHandle}`,
       ...(declaredStartRef === undefined ? {} : { startRef: declaredStartRef }),
       until: "converged",
       rootMode,
@@ -338,12 +342,13 @@ export async function constructInstalledStartCall({
   const request = Object.freeze({
     program,
     scope: "program",
-    target: declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
-      kind: "declared_start", start: Object.freeze({
-        ref: resolution.resolvedProgramStart.start.startRef,
-        digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
+    target: assetHandle !== undefined ? Object.freeze({ kind: "asset", handle: assetHandle })
+      : declaredStartRef === undefined ? Object.freeze({ kind: "next" }) : Object.freeze({
+        kind: "declared_start", start: Object.freeze({
+          ref: resolution.resolvedProgramStart.start.startRef,
+          digest: product.sha256Canonical(resolution.resolvedProgramStart.start),
+        }),
       }),
-    }),
     until: "converged",
     catalogView: view,
     allowlist: Object.freeze([...catalogView.allowlist]),
@@ -453,6 +458,88 @@ export async function constructInstalledStartCall({
       workspaceBinding,
     }),
   };
+}
+
+/** The typed pending_execution use request for one projected pending position,
+ * with the Run digest of its opened root scope at `prefix`. A position without
+ * progressed input (an effect_unknown cut) carries the literal `none`
+ * coordinate; the owner refuses that position on its effect first. */
+export async function pendingExecutionUseRequest({ environment, prefix, runId, pending }) {
+  const { product, abg } = environment, root = pending.chain[0];
+  const coordinate = (ref, digest) => Object.freeze({ ref, digest });
+  const scope = abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix, root.frameId) ??
+    (await import(pathToFileURL(join(environment.installedRoot, "build/code/src/abg/open_call.js")).href))
+      .projectOpenedTraversalScopeForFrameAtPrefix(prefix, root.frameId);
+  return Object.freeze({
+    run: coordinate(runId, scope.runDigest),
+    continuation: coordinate(pending.continuationRef, pending.continuationDigest),
+    pendingCursor: coordinate(pending.pendingCursorRef, pending.pendingCursorDigest),
+    continuationInput: coordinate(pending.progressedInputRef ?? "none", pending.progressedInputDigest ?? product.sha256Canonical("none")),
+    expectedBasis: coordinate(root.basisRef, root.basisDigest),
+  });
+}
+
+/** One cold Public `run.continue` `current_intent` pending_execution call
+ * factory over the existing owners: use selection, pending input projection,
+ * the declared input contract and the capability-grant constructor. `start` is
+ * the actual Public start (resolution, capability basis, work authority and
+ * run-environment resources) whose authority the pending root admission
+ * names. `call(identity, requestPatch)` acquires a fresh event resource per
+ * call. Semantic and negative assertions stay with the caller. */
+export function constructInstalledPendingCall({ environment, publicApi, continuation, prefix, request, start,
+  eventResource, identityScope, eventTime, provenanceRef }) {
+  const { product, admittedInstalls, workspaceBinding, catalog, catalogView } = environment;
+  const use = continuation.selectPendingExecutionUse(prefix, request);
+  assert.equal(use.kind, "pending_execution_use", JSON.stringify(use));
+  assert.deepEqual([use.invocation.authorityRef, use.invocation.authorityDigest],
+    [start.workAuthority.authorityRef, start.workAuthority.authorityDigest], "the pending root admission names the supplied start authority");
+  const publications = start.resolution.declarationPublications;
+  const pendingInput = continuation.projectPendingExecutionInputAtPrefix(prefix, use,
+    (ref) => publications.flatMap((x) => x.graphFunctions).find((g) => g.name === ref) ?? null, start.resolution.programValidation);
+  assert.ok(pendingInput, "pending input carrier projects");
+  const inputDeclaration = publications.flatMap((x) => x.contracts).find((c) => c.contractRef === pendingInput.inputCarrierRef);
+  assert.ok(inputDeclaration, "pending input carrier has one declared contract");
+  const packet = product.RUN_OPERATION_CONTRACTS.continue.current_intent, pendingOperationId = packet.definitionKey.operationId;
+  const { policy, actorRef } = start.capabilityBasis;
+  const grant = product.constructCapabilityGrant(policy, actorRef, pendingOperationId, packet.metadata.capabilityRefs[0],
+    { admittedInstalls, workspaceBinding, fixedPacket: packet });
+  const r = start.resolution.resolution;
+  const contractCatalog = environment.verified.definitionContractCoordinates.operations
+    .find((o) => o.operationId === pendingOperationId).members.find((m) => m.memberKey === "current_intent").slots.request.contractCatalog;
+  const call = (identity, requestPatch = {}) => {
+    const resource = eventResource(), steering = product.sha256Canonical(resource);
+    const slots = {
+      workspace_binding: { ref: workspaceBinding.bindingId, digest: workspaceBinding.bindingDigest },
+      product_set: admittedInstalls.map(product.productInstallCoordinate),
+      dependency_lock: { ref: workspaceBinding.lockId, digest: workspaceBinding.lockDigest },
+      catalog_scope: {
+        catalog: { ref: `graph-function-catalog://abiogenesis/${catalog.basisDigest.slice(7)}`, digest: catalog.basisDigest },
+        view: { ref: `graph-function-catalog-view://abiogenesis/${catalogView.viewDigest.slice(7)}`, digest: catalogView.viewDigest },
+        allowlist: catalogView.allowlist,
+      },
+      execution_program: { ref: r.programRef, digest: r.programDigest },
+      graph_function: { graphFunction: { ref: r.graphFunctionRef, digest: r.graphFunctionDigest }, membership: r.programGraphFunctionMembership },
+      input_contract: { contract: { ref: inputDeclaration.contractRef, digest: product.sha256Canonical(inputDeclaration) },
+        valueRef: pendingInput.input.inputRef, valueDigest: pendingInput.input.inputDigest, value: pendingInput.input.value },
+      session_policy: { ref: policy.policyRef, digest: policy.policyDigest },
+      capability_grants: { requiredCapabilityRefs: packet.metadata.capabilityRefs, grants: [{ ref: grant.grantRef, digest: grant.grantDigest }] },
+      actor: { actor: { ref: actorRef, digest: product.sha256Canonical({ actorRef }) },
+        attribution: { ref: start.workAuthority.authorityRef, digest: start.workAuthority.authorityDigest } },
+      transport_steering: { ref: `transport-steering://abiogenesis/${steering.slice(7)}`, digest: steering },
+      verification_references: null,
+      execution_basis: request.expectedBasis,
+    };
+    return publicApi.constructInstalledPublicDefinitionCall({
+      product, installedPublic: publicApi, definitionContractCoordinates: environment.verified.definitionContractCoordinates,
+      contractCatalog, operationId: pendingOperationId, memberKey: "current_intent", request: { ...request, ...requestPatch }, slots,
+      resources: { kind: "run_invocation_resource_assertion", schemaVersion, eventResource: resource, catalog, catalogView,
+        applications: [], source: { kind: "none" },
+        ...(start.call.resources?.runEnvironmentResources === undefined ? {} : { runEnvironmentResources: start.call.resources.runEnvironmentResources }) },
+      requestRef: `public-request://${identityScope}/${identity}`, correlationRef: `correlation://${identityScope}/${identity}`,
+      eventTime, provenanceRefs: [provenanceRef],
+    });
+  };
+  return Object.freeze({ use, pendingInput, inputDeclaration, call });
 }
 
 function readAuthoritySlots(environment, packet, grants) {

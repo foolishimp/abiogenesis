@@ -43,9 +43,15 @@ F_P leaf, `graph-function://abiogenesis/worksite/native-work@5`, with the declar
 closure relations. `constructNativeWorkspaceWorkTask` binds the exact admitted
 workspace authority, binding, invocation capability grant, and actual bounded
 context observation to consumer data: outcome, instructions, read-first paths,
-write roots and checks. All paths are normalized, inside the observed readable
-scope; required read-first assets exist. Empty write roots permit independent
-read-only assessment. Instructions and checks cannot widen typed write scope.
+write roots and checks. All paths are normalized worksite-relative paths under
+the existing canonical path guard. Read-first paths lie inside the observed
+readable scope R (`context.readRoots`) and exist. Write roots W are a distinct
+declared territory, not forced inside R: R covers the commissioned
+Product/generated/evidence paths whose before/after facts the owner observes;
+disposable tooling may be explicit W outside R. The context observation keeps
+its protected binding/install roots. Empty write roots permit independent
+read-only assessment, and assessment requires them. Instructions and checks
+cannot widen typed write scope.
 
 Actor-created temporary files, shell redirections and probe fixtures are writes,
 including when subsequently deleted. Auxiliary checks use process memory, pipes
@@ -88,8 +94,9 @@ The output carries task, before/after observations, actual changed paths,
 short report and exact C-call/authority/transport provenance. Directory
 membership changes caused by permitted descendant writes are supported;
 unrelated changed files remain scope violations. With empty write roots every
-change is a violation. Observation failure retains an explicit unknown after
-state, not an invented unchanged state or rollback.
+change is a violation. Writes in W\R are not observed; they are neither
+`changedPaths` nor violations. Observation failure retains an explicit unknown
+after state, not an invented unchanged state or rollback.
 
 Timeout, native nonzero exit, missing/malformed report, observation failure or
 scope violation remains failure, with available partial edits retained. A
@@ -100,18 +107,25 @@ uses the existing undispatched owner-refusal route. Durable admission failures
 retain the existing failure behavior; physical work is not represented as an
 atomic rollback.
 
-An admitted native success or failure with observed edits retires earlier C0
-current-observation facts only for exact changed file paths at the same
-workspace binding. It does not manufacture C0 effect provenance or C0
-successors. Unchanged/absent paths retain their facts. Native after-state stays
-available in the ordinary admitted result and replay. An unavailable after
-observation is not evidence that any particular file changed or remained
-unchanged. The same authenticated result retires earlier C0 observations in
-the task's declared writable scope at the same workspace binding, using the
-existing exact-path/descendant/root scope relation. This includes observations
-of absence inside that scope. Facts outside the writable scope and facts under
-an empty read-only scope remain unaffected. Unknown after-state and the
-original failure remain explicit; no successor observation is manufactured.
+One conservative impact relation in `abg/native_work_effect.ts` defines what an
+authenticated native cause may have changed at its canonical worksite root:
+impact = observed changed paths ∪ (W\R). A known after-state supplies
+`changedPaths` inside R; W\R is unobserved territory and is impacted whole. An
+unavailable after observation and an admitted post-start unknown
+process/transport effect impact all of W. That relation is not evidence that
+any particular file changed or remained unchanged. EC (`abg/calculus/axioms.ts`)
+and the currentness gate (`abg/native_worksite_execution.ts`) both consume it
+with exact path/subtree overlap. An exact fact path is impacted by an equal
+changed path or by lying in W\R. A selected subtree is impacted by a changed
+path inside it or by intersecting W\R. An impact retires the affected earlier
+C0 current-observation facts at the same canonical root. Facts of presence and
+facts of absence are retired alike, because immutable bindings do not partition
+a file. Observed-unchanged R facts and territory outside the impact remain
+current, including every fact under an empty read-only scope. The relation
+does not manufacture C0 effect provenance, C0 successors or `changedPaths`
+entries. Native after-state stays available in the ordinary admitted result and
+replay. Unknown after-state and the original failure remain explicit; no
+successor observation is manufactured.
 
 ## Context body carriage (P1)
 
@@ -199,8 +213,9 @@ also an effect-tail boundary. Its existing actor/transport/C-call lineage must
 join the unique admitted native task, implementation, workspace binding and
 grant. When no valid transport exchange reaches `complete`, that lineage
 supplies scope-qualified **unknown**, not an unchanged worksite or a new native
-Result. EC retires prior C0 current observations only inside that task's typed
-write roots at the same binding; unrelated and read-only facts survive. The
+Result. The shared impact relation maps it to all of that task's typed write
+roots W. EC and the currentness gate retire prior C0 current observations only
+inside W at the same canonical root; unrelated and read-only facts survive. The
 original refusal, partial physical work and diagnostic remain. No post-work
 observation, rollback, report or assessment credit is claimed. Ordinary valid
 exchanges still use the owner's actual before/after observation above.

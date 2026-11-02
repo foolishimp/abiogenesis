@@ -12,7 +12,7 @@ import { realizeNativeWorkspaceWork } from '../../build/code/src/implementation/
 import { constructLeafExecutionAuthority } from '../../build/code/src/implementation/leaf_execution_authority.js';
 import { createNewEmptyAppendSink } from '../../build/code/src/abg/index.js';
 import { eventCalculusEffect, projectNativeWorkRetiredObservations } from '../../build/code/src/abg/event_calculus.js';
-import { projectNativeWorkUnknownEffectTask } from '../../build/code/src/abg/native_work_effect.js';
+import { projectNativeWorkUnknownEffectTask, nativeWorkImpact, nativeWorkImpactOverlaps } from '../../build/code/src/abg/native_work_effect.js';
 import { worksiteCommandSourcesInvalidatedAfter } from '../../build/code/src/abg/native_worksite_execution.js';
 import { rawAdmitValue } from '../../build/code/src/validator/raw_admission.js';
 import { validateActorProcessCarrierPair } from '../../build/code/src/abg/actor_process.js';
@@ -235,14 +235,17 @@ test('native work publishes one ordinary callable effect with run and child clos
   assert.equal(publication.closureContracts.find(x=>x.closureContractRef===ids.childClosureContractRef).closureScope,'graph_call');
   assert.equal(publication.implementationBindings[0].computeRegime,'F_P');
 });
-test('native task conserves read-only scope and refuses malformed or wider input',async t=>{
+test('native task conserves read-only scope, admits explicit write roots outside R and refuses malformed input',async t=>{
   const env=await fixture(t,[]);
   assert.equal(native.isNativeWorkspaceWorkTask(env.task),true);
   assert.deepEqual(env.task.writeRoots,[]);
   for(const patch of [{writeRoots:['../outside']},{readFirst:['missing']},{workspaceBinding:null},{context:{...env.task.context,maxBytes:1}}])
     assert.equal(native.isNativeWorkspaceWorkTask({...env.task,...patch}),false);
+  // W and R are distinct: disposable territory may be explicit W outside R; read-first stays observed in R.
   const scoped=await product.observeWorksiteContext({...env.read,readRoots:['target.txt']});
-  assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['keep.txt']}),false);
+  assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['keep.txt']}),true);
+  for(const patch of [{writeRoots:['keep.txt','keep.txt']},{writeRoots:['../tools']},{writeRoots:['/tmp/tools']},{readFirst:['keep.txt']}])
+    assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:scoped,...patch}),false,JSON.stringify(patch));
 });
 test('owner refuses stale context before assembly/dispatch',async t=>{
   const env=await fixture(t);const p=await prepare(t,env);
@@ -417,6 +420,57 @@ test('observed partial failure retires touched C0 facts but preserves unchanged 
   assert.deepEqual(projectNativeWorkRetiredObservations({...event,payload:{...event.payload,
     value:retainedFailure,valueDigest:product.sha256Canonical(retainedFailure)}},prior),[requests[0].predecessorObservation.observationRef]);
   assert.deepEqual(projectNativeWorkRetiredObservations({...event,payload:{...event.payload,evidenceRefs:[]}},prior),[]);
+});
+
+test('known native result retires unobserved W\\R facts, present and absent, and preserves observed-unchanged R and unrelated facts',async t=>{
+  const env=await fixture(t);
+  await fs.mkdir(join(env.canonicalRoot,'tools'));await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'cache\n');
+  await fs.writeFile(join(env.canonicalRoot,'other.txt'),'other\n');
+  // R covers the commissioned files; disposable tooling is explicit W outside R.
+  const scoped=await product.observeWorksiteContext({...env.read,readRoots:['target.txt','keep.txt']});
+  env.task=native.constructNativeWorkspaceWorkTask({...env.task,context:scoped,writeRoots:['target.txt','tools']});
+  const paths=['target.txt','keep.txt','tools/cache.txt','tools/absent.txt','other.txt','absent.txt'];
+  const requests=await Promise.all(paths.map(async relativePath=>{
+    const subject=product.constructWorksiteSubject({...env.read,relativePath,subjectUri:pathToFileURL(join(env.canonicalRoot,relativePath)).href});
+    const predecessorObservation=await product.observeWorksiteSubject(env.workspaceAuthorityBasis,env.workspaceBinding,subject);
+    return product.constructWorksiteFileReplaceRequest({...env.read,capabilityGrant:env.capabilityGrant,subject,territory:env.territory,
+      predecessorObservation,replacementBytes:Buffer.from('future\n')});
+  }));
+  assert.ok(requests.every(product.isWorksiteFileReplaceRequest));
+  const p=await prepare(t,env);
+  // Actual local tool write in W\R; R stays unchanged, so the owner observes no change.
+  await fs.writeFile(join(env.canonicalRoot,'tools/cache.txt'),'tool output\n');
+  const exchange=p.exchange(JSON.stringify({summary:'tooling only',gaps:[]})),result=await p.prepared.complete(exchange),value=result.resultCandidate;
+  assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,[],'W\\R writes are unobserved, never changedPaths');
+  assert.ok(native.isNativeWorkspaceWorkObservation(value));
+  assert.ok(native.nativeWorkspaceWorkResultMatches(env.task,value,p.call.cCallRef,exchange.observation));
+  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,payload:{resultClass:'success',value,contractRef:ids.observationContractRef,
+    valueDigest:product.sha256Canonical(value),evidenceRefs:['evidence://test/outside-read']}};
+  const prior=requests.map(rawInputValue=>({kind:'basis_admitted',payload:{rawInputValue}}));
+  prior.push({kind:'c_call_evidenced',aggregateId:p.call.cCallRef,payload:{evidenceRef:'evidence://test/outside-read',
+    evidenceClass:'probabilistic_transport',implementationRef:ids.implementationRef,transportDigest:value.provenance.transportDigest,
+    outputDigest:event.payload.valueDigest}});
+  const retiredFor=retired=>requests.filter(r=>retired.includes(r.subject.relativePath)).map(r=>r.predecessorObservation.observationRef);
+  const expected=retiredFor(['tools/cache.txt','tools/absent.txt']);
+  assert.deepEqual(projectNativeWorkRetiredObservations(event,prior),expected,'W\\R presence and absence retire; observed-unchanged R and unrelated facts survive');
+  assert.deepEqual(eventCalculusEffect(event,prior).terminates.filter(f=>f.name==='worksite_observation_current').map(f=>f.identity),expected);
+  // One shared relation: exact paths and selected subtrees.
+  const known=nativeWorkImpact(value.task,value.changedPaths),unknown=nativeWorkImpact(value.task,null),readOnly=nativeWorkImpact({...value.task,writeRoots:[]},[]);
+  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(known,path)),[false,false,true,true,false,false]);
+  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(unknown,path)),[true,false,true,true,false,false],'unknown after-state impacts all of W');
+  assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(readOnly,path)),[false,false,false,false,false,false]);
+  assert.deepEqual(['.','tools','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(known,root)),[true,true,false,false],'subtree overlap meets W\\R');
+  assert.deepEqual(['.','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(nativeWorkImpact(value.task,['target.txt']),root)),[true,false,true],'observed changes stay exact');
+  // An observed R change still retires exactly, alongside W\R.
+  const changed=native.constructNativeWorkspaceWorkObservation(env.task,await product.observeWorksiteContext({...env.read,readRoots:scoped.readRoots}),value.report,value.provenance);
+  assert.deepEqual(changed.changedPaths,[]);
+  await fs.writeFile(join(env.canonicalRoot,'target.txt'),'edited\n');
+  const edited=native.constructNativeWorkspaceWorkObservation(env.task,await product.observeWorksiteContext({...env.read,readRoots:scoped.readRoots}),value.report,value.provenance);
+  assert.deepEqual(edited.changedPaths,['target.txt']);
+  const editedEvent={...event,payload:{...event.payload,value:edited,valueDigest:product.sha256Canonical(edited)}};
+  const editedPrior=[...prior.slice(0,-1),{...prior.at(-1),payload:{...prior.at(-1).payload,outputDigest:editedEvent.payload.valueDigest}}];
+  assert.deepEqual(projectNativeWorkRetiredObservations(editedEvent,editedPrior),retiredFor(['target.txt','tools/cache.txt','tools/absent.txt']));
+  assert.deepEqual(projectNativeWorkRetiredObservations({...event,payload:{...event.payload,evidenceRefs:[]}},prior),[],'unauthenticated causes retire nothing');
 });
 
 // The artifact owns publication identity; this assertion uses its actual built

@@ -1036,6 +1036,42 @@ test('U1 physical target scope successor across bindings and native Result scope
       for (let i = 0; i < selected.length; i++) { assert.equal(projected.facts[i].indexed, expected[i], selected[i].label); assert.equal(gates[i], !expected[i]); }
       assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
     }
+    {
+      // W and R are distinct. A known native Result impacts observed changes ∪ (W\R): EC and the
+      // currentness gate retire unobserved W\R facts, present and absent, and keep observed-unchanged R facts.
+      const label = 'known-outside-read', writeRoots = ['target.txt', 'nested'];
+      const f = await make(writeRoots, { taskFactory: async env => constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
+        workspaceBinding: env.workspaceBinding, capabilityGrant: env.capabilityGrant,
+        context: await product.observeWorksiteContext({ ...env, readRoots: ['target.txt', 'keep.txt'], maxFiles: 30, maxBytes: 10000 }),
+        outcome: 'Bounded test work with disposable tooling', instructions: ['Use only the declared scope.'], readFirst: ['target.txt'], writeRoots, checks: [] }) });
+      assert.deepEqual([f.task.context.readRoots, f.task.writeRoots], [['target.txt', 'keep.txt'], writeRoots]);
+      const b2 = await addTargets(f, ['target.txt', 'keep.txt', 'nested/file.txt', 'nested/absent.txt']);
+      const selected = [...b2.targets.map(({ request }) => observation('b2 ' + request.subject.relativePath, request)), ...controls(f)];
+      const before = await views(f, label + ' before', selected); assert.ok(before.facts.every(row => row.indexed));
+      const after = await product.observeWorksiteContext({ workspaceAuthorityBasis: f.workspaceAuthorityBasis, workspaceBinding: f.workspaceBinding,
+        readRoots: f.task.context.readRoots, maxFiles: f.task.context.maxFiles, maxBytes: f.task.context.maxBytes });
+      physicalEffects.push({ label, owner: 'actual Product observeWorksiteContext over R only', after }); await retention();
+      const report = { summary: 'Controlled component native Result outside R', gaps: [] };
+      const provenance = { cCallRef: f.process.payload.cCallRef, executionAuthorityRef: 'authority://u1/' + label,
+        executionAuthorityDigest: hash(label), actorInvocationRef: f.actorRef, transportBindingRef: f.binding.aggregateId,
+        transportBindingDigest: f.binding.payload.transportBindingDigest, promptDigest: hash(['prompt', label]), transportDigest: hash(['transport', label]) };
+      const value = constructNativeWorkspaceWorkObservation(f.task, after, report, provenance);
+      assert.deepEqual(value.changedPaths, [], 'R is observed unchanged; W\\R is never reported as changed');
+      const event = await nativeResult(f, label, value, report), projected = await views(f, label + ' after', selected);
+      const afterOrdinal = before.rows.at(-1).admissionOrdinal;
+      const gates = selected.map(o => nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), afterOrdinal, o.root, [o.path]));
+      // b2 target (R∩W), b2 keep (R\W), b2 nested present and absent (W\R), b1 target, same-root sibling, other root.
+      const expected = [true, true, false, false, true, true, true];
+      await capture(label + ' Result scope', { event, gates, expected,
+        retired: calculus.projectNativeWorkRetiredObservations(event, f.rows().filter(row => row.admissionOrdinal < event.admissionOrdinal)) });
+      for (let i = 0; i < selected.length; i++) {
+        assert.equal(projected.facts[i].indexed, expected[i], selected[i].label);
+        assert.equal(gates[i], !expected[i], selected[i].label + ' native gate');
+      }
+      assert.deepEqual(['nested', 'keep.txt', '.'].map(root => nativeOwner.worksiteCommandSourcesInvalidatedAfter(f.prefix(), afterOrdinal, f.canonicalRoot, [], [root])),
+        [true, false, true], 'selected read-root subtrees overlap W\\R exactly');
+      assert.deepEqual(calculus.deriveRuntimeEventCalculusProjection(before.prefix), before.projection);
+    }
     for (const crossed of [false, true]) {
       const label = crossed ? 'E1 re-signed G2 task versus G1 invocation' : 'E1 matched G1 control';
       const f = await make(['target.txt'], { taskFactory: async env => {
@@ -1082,9 +1118,9 @@ test('U1 physical target scope successor across bindings and native Result scope
     }
     await failC0AfterPublication();
     await capture('selected proof complete', { cases: ['cross-binding predecessor', 'actual C0 successor', 'empty-write C0 successor',
-      'known-off-scope', 'known-empty', 'after-unavailable', 'E1 matched G1', 'E1 re-signed G2', 'next C0 successor',
+      'known-off-scope', 'known-empty', 'after-unavailable', 'known-outside-read', 'E1 matched G1', 'E1 re-signed G2', 'next C0 successor',
       'actual C0 post-publication unavailable'], result: 'satisfied under declared premises' });
-    t.diagnostic('Ten selected physical-scope/C0 cases completed; no native/command actor, no installed claim.');
+    t.diagnostic('Eleven selected physical-scope/C0 cases completed; no native/command actor, no installed claim.');
   } catch (error) {
     await capture('first unexpected failure', { error: { name: error.name, message: error.message, stack: error.stack }, dependentCasesStopped: true }); throw error;
   } finally {

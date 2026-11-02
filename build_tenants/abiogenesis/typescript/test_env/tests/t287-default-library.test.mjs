@@ -16,7 +16,8 @@ import * as validator from '../../build/code/src/validator/index.js';
 import {observedGovernanceTaskMatches} from '../../build/code/src/abg/default_library.js';
 import {projectObservedWorksiteCommandChildAtPrefix} from '../../build/code/src/abg/worksite_input_provenance.js';
 import {setupInstalledRootCatalog,requirePublicationValidations} from '../support/root-installed-environment.mjs';
-import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest,
+  pendingExecutionUseRequest,constructInstalledPendingCall} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentSchema,schemaPath} from '../support/default-library.mjs';
 // Authentic retained RC2 stdout (4616 bytes, sha256 bee000fc…87b6) and its historical producer citation from
 // rc3-operator-inputs/increment-a-01/retained-stdout-custody.json, embedded so this test reads no untracked operator path.
@@ -296,19 +297,61 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const node=graph.template.nodes.find(n=>n.term.programLocusRef===product.governanceRef('node','select')),role=library.runEnvironments[0].roles.find(r=>r.role==='selector');
   const supplied={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state,context};
   const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']);
-  const events=[],call={regime:'F_P',cCallRef:'call:unit',cCallDigest:product.sha256Canonical('call'),graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
+  const events=[],call={regime:'F_P',cCallRef:'call:unit',cCallDigest:product.sha256Canonical('call'),runId:'run:unit',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
+  // The executing step's root declares its recursion; the current binding projects that exact relation.
+  const executive=library.graphFunctions.find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name)),recurse=executive.template.applications.find(a=>a.relationKind==='recurse');
   const execution={programRef:library.programs[0].programRef,basisRef:'basis:unit',basisDigest:product.sha256Canonical('basis'),invocationAdmissionRef:'invocation:unit',registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
-  const owner={events,call,execution,graph:{template:graph.template},inputValue:supplied,inputDigest:product.sha256Canonical(supplied),inputRef:'input:unit',program:library.programs[0]};
+  // The assembly owner's execution is the executing step under one root; later projection premises keep `execution`.
+  const currentExecution={...execution,basisClass:'child',parentExecutionBasisRef:'basis:root-current',invocationRef:'invocation-ref:unit',graphFunctionRef:graph.name};
+  const owner={events,call,execution:currentExecution,graph:{template:graph.template},inputValue:supplied,inputDigest:product.sha256Canonical(supplied),inputRef:'input:unit',program:library.programs[0]};
   const candidate={publication:{...library,contracts:[]},graphFunction:graph,declarationGraphFunctions:library.graphFunctions,executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
+  // Controlled current-binding premises: one exact admission, its one Run segment and the governance root.
+  const currentAdmission={invocationAdmissionRef:currentExecution.invocationAdmissionRef,invocationRef:currentExecution.invocationRef,invocationVariant:'direct',programRef:execution.programRef,
+    graphFunctionRef:executive.name,graphFunctionDigest:product.sha256Canonical(executive),sourceResultBasis:null,
+    publicStart:{kind:'public_start_identity',schemaVersion:'5.0.0',programRef:execution.programRef,graphFunctionRef:executive.name,startRef:'start:unit',scope:'program',target:'next',until:'converged',rootMode:'direct'}};
+  const currentRoot={basisClass:'root',basisRef:currentExecution.parentExecutionBasisRef,parentExecutionBasisRef:null,invocationAdmissionRef:currentAdmission.invocationAdmissionRef,
+    invocationRef:currentAdmission.invocationRef,programRef:execution.programRef,graphFunctionRef:executive.name,graphFunctionDigest:currentAdmission.graphFunctionDigest};
+  let currentRun=call.runId;
   // Controlled authenticated occurrence/role premises; actual task/context and
   // declaration/result owners are exercised here. Installed proof owns ingress.
   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owner}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:'invocation:unit',environmentRef:'environment:unit',environmentDigest:product.sha256Canonical('environment'),evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent:[],accessContent:[]})}:
+      specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===currentAdmission.invocationAdmissionRef?currentAdmission:null,
+        hasExactInvocationRunBindingAtPrefix:(_p,admission,runId)=>admission===currentAdmission&&runId===currentRun}:
+      specifier==='./semantic_job.js'?{semanticJobRootAtPrefix:(_p,e)=>e.parentExecutionBasisRef===currentRoot.basisRef&&e.invocationAdmissionRef===currentRoot.invocationAdmissionRef?currentRoot:null}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const lookup=ref=>library.contracts.find(c=>c.contractRef===ref)??null;
   const assembly=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
   const rendered=assembly.request.prompt, response=assembly.request.responseJsonSchema;
+  // Current binding: exact current facts in their own bound section, separate from the conserved task.
+  const shown=assembly.envelope.sections.binding;assert.deepEqual(assembly.plan.sectionOrder,['role','choices','task','binding','evidence','response']);
+  assert.ok(rendered.includes('## binding\n'+product.canonicalJson(shown)));assert.equal(assembly.manifest.bindingDigest,product.sha256Canonical(shown));
+  assert.deepEqual({...shown,meaning:undefined},{meaning:undefined,runId:'run:unit',programRef:execution.programRef,
+    invocation:{invocationAdmissionRef:currentExecution.invocationAdmissionRef,invocationRef:currentExecution.invocationRef,invocationVariant:'direct'},
+    root:{basisRef:currentRoot.basisRef,graphFunctionRef:executive.name,graphFunctionDigest:currentAdmission.graphFunctionDigest},
+    start:{startRef:'start:unit',target:'next',until:'converged',rootMode:'direct'},executing:{basisRef:currentExecution.basisRef,graphFunctionRef:graph.name},
+    declaredRecursion:{applicationRef:recurse.applicationRef,graphFunctionRef:graph.name,bound:recurse.bound},predecessor:null});
+  // A retained-source predecessor stays separate from the current Run and root.
+  const sourceResultBasis={sourceRunId:'run:predecessor',sourceInvocationAdmissionRef:'invocation:predecessor',sourceInvocationRef:'invocation-ref:predecessor',
+    sourceGraphFunctionRef:executive.name,sourceCCallRef:'call:predecessor',sourceResultRef:'result:predecessor',sourceResultDigest:product.sha256Canonical('predecessor')};
+  currentAdmission.sourceResultBasis=sourceResultBasis;
+  const retainedBinding=m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup).envelope.sections.binding;currentAdmission.sourceResultBasis=null;
+  assert.deepEqual([retainedBinding.runId,retainedBinding.root,retainedBinding.invocation],[shown.runId,shown.root,shown.invocation],'the predecessor never becomes the current Run or root');
+  const {sourceCCallRef:_call,...predecessor}=sourceResultBasis;assert.deepEqual(retainedBinding.predecessor,predecessor);
+  // No invented bound: without the authenticated root definition the bound is absent, not defaulted.
+  const unbounded=m.namespace.evaluateFramedSynthesisInstructionAssembly({...candidate,declarationGraphFunctions:library.graphFunctions.filter(g=>g!==executive)},supplied,lookup);
+  assert.equal(unbounded.kind,'native_instruction_assembly');assert.equal(unbounded.envelope.sections.binding.declaredRecursion,null);
+  // Unknown, foreign or forged current facts refuse before dispatch with the existing cause.
+  const zeroDigest='sha256:'+'0'.repeat(64),swap=(target,key,value)=>{const old=target[key];target[key]=value;return ()=>{target[key]=old;};};
+  for(const [label,change] of [['foreign Run',()=>{const old=currentRun;currentRun='run:foreign';return ()=>{currentRun=old;};}],
+    ['unknown admission',()=>swap(currentAdmission,'invocationAdmissionRef','invocation:forged')],['forged root digest',()=>swap(currentRoot,'graphFunctionDigest',zeroDigest)],
+    ['crossed invocation',()=>swap(currentAdmission,'invocationRef','invocation-ref:forged')],['crossed start',()=>swap(currentAdmission.publicStart,'graphFunctionRef','graph:foreign')],
+    ['absent root',()=>swap(currentRoot,'basisRef','basis:other-root')]]){
+    const undo=change();try{assert.deepEqual(m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup),
+      {kind:'native_instruction_assembly_refusal',cause:'unknown_dependency',policy:null,role:'selector',unresolvedRefs:[execution.invocationAdmissionRef]},label);}finally{undo();}
+  }
+  assert.deepEqual(m.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,supplied,lookup),assembly,'the restored premises reproduce the same assembly');
   const canonical=assembly.envelope.sections.response;
   assert.deepEqual(canonical,product.framedSynthesisResponseSchema(supplied,assembly.envelope.targetBindings));assert.ok(canonical.anyOf.length>0,'canonical target/source constraints remain intact');
   assert.equal(assembly.plan.responsePresentation,undefined);assert.equal(assembly.request.responsePresentation,undefined);
@@ -460,10 +503,18 @@ async function planningAssemblyFor(task,{oldProjectorSource}={}) {
     contributions:data.contributions.map(c=>({...c,provenanceRefs:[basis.artifactDigest]}))});
   const graph=publication.graphFunctions.find(g=>g.name===IDS.stepRef),node=graph.template.nodes.find(n=>n.term.programLocusRef===product.governanceRef('node','select'));
   const targets=library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),role=publication.runEnvironments[0].roles.find(r=>r.role==='selector');
-  const call={regime:'F_P',cCallRef:'call:controlled-planning',cCallDigest:product.sha256Canonical('call'),graphFunctionRef:graph.name,
+  const call={regime:'F_P',cCallRef:'call:controlled-planning',cCallDigest:product.sha256Canonical('call'),runId:'run:controlled-planning',graphFunctionRef:graph.name,
     programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')};
-  const execution={programRef:IDS.programRef,basisRef:'basis:controlled-planning',basisDigest:product.sha256Canonical('basis'),
-    invocationAdmissionRef:'invocation:controlled-planning',registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
+  const execution={programRef:IDS.programRef,basisRef:'basis:controlled-planning',basisDigest:product.sha256Canonical('basis'),basisClass:'child',
+    parentExecutionBasisRef:'basis:controlled-planning-root',invocationAdmissionRef:'invocation:controlled-planning',invocationRef:'invocation-ref:controlled-planning',
+    graphFunctionRef:graph.name,registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,product.sha256Canonical(g)]))};
+  // Controlled current-binding premises: one exact admission, its Run segment and the governance root of the executing step.
+  const rootGraph=[...publication.graphFunctions,...library.graphFunctions].find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name));
+  const rootRef=rootGraph?.name??'graph-function:controlled-planning-root',rootDigest=product.sha256Canonical(rootGraph??rootRef);
+  const admission={invocationAdmissionRef:execution.invocationAdmissionRef,invocationRef:execution.invocationRef,invocationVariant:'direct',programRef:execution.programRef,
+    graphFunctionRef:rootRef,graphFunctionDigest:rootDigest,publicStart:null,sourceResultBasis:null};
+  const rootExecution={basisClass:'root',basisRef:execution.parentExecutionBasisRef,parentExecutionBasisRef:null,invocationAdmissionRef:admission.invocationAdmissionRef,
+    invocationRef:admission.invocationRef,programRef:execution.programRef,graphFunctionRef:rootRef,graphFunctionDigest:rootDigest};
   const owner={events:[],call,execution,graph:{template:graph.template},inputValue:task,inputDigest:product.sha256Canonical(task),inputRef:'input:controlled-planning',program:publication.programs[0]};
   const candidate={publication,graphFunction:graph,declarationGraphFunctions:[...publication.graphFunctions,...library.graphFunctions],
     executionBasis:execution,cCall:call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
@@ -489,6 +540,9 @@ async function planningAssemblyFor(task,{oldProjectorSource}={}) {
       s==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:execution.invocationAdmissionRef,
         environmentRef:publication.runEnvironments[0].declarationRef,environmentDigest:product.sha256Canonical(publication.runEnvironments[0]),
         evidenceDigest:product.sha256Canonical('evidence'),contextPolicyDigest:product.sha256Canonical(role.contextPolicy),sourceContent,accessContent:[]})}:
+      s==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===admission.invocationAdmissionRef?admission:null,
+        hasExactInvocationRunBindingAtPrefix:(_p,a,runId)=>a===admission&&runId===call.runId}:
+      s==='./semantic_job.js'?{semanticJobRootAtPrefix:(_p,e)=>e.parentExecutionBasisRef===rootExecution.basisRef?rootExecution:null}:
       s==='../product/default_library.js'&&oldProjector?{projectFramedSynthesisPromptTask:oldProjector}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
   await m.evaluate();const lookup=ref=>[...publication.contracts,...library.contracts].find(c=>c.contractRef===ref)??null;
@@ -1577,6 +1631,11 @@ syncBuiltinESMExports();save('recovery-origin.json',{lastCloseHandoff:input.clos
 const cliPath=join(input.installedRoot,'build/code/src/public/cli.js');process.argv=[process.execPath,cliPath,'--jsonl',input.requestPath];
 await import(pathToFileURL(cliPath).href);fs.fsyncSync=nativeFsync;syncBuiltinESMExports();save('unexpected-completion.json',{exitCode:process.exitCode??0});
 `;
+// The current-binding section of each admitted framed-synthesis selector
+// assembly, read from its delivered prompt and checked against its manifest.
+const selectorBindings=rows=>rows.filter(e=>e.kind==='actor_transport_binding_admitted'&&e.payload?.instructionAssembly?.plan?.variant==='framed-synthesis').map(e=>{
+  const a=e.payload.instructionAssembly,section=a.request.prompt.split('\n\n').find(x=>x.startsWith('## binding\n'));assert.ok(section,'the selector prompt presents its current binding');
+  const binding=JSON.parse(section.slice('## binding\n'.length));assert.equal(product.sha256Canonical(binding),a.manifest.bindingDigest,'prompt and manifest bind the same facts');return binding;});
 test('default-library Run interrupted at the durable entered Testing cursor resumes once in the same Run through the cold Public pending_execution arm',async t=>{
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   // The consumer Program is validated over its Product-resolved declaration
@@ -1651,41 +1710,20 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const testingBasis=run0.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===p.chain[2].basisRef);assert.equal(testingBasis?.graphFunctionRef,testingRef);
   assert.notEqual(p.progressedInputRef,start.call.invocation?.input?.valueRef??null);
   const rootBasis=run0.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===p.chain[0].basisRef);assert.notEqual(p.progressedInputRef,rootBasis.payload.rawInputAdmissionRef,'progressed input is not graph-entry input');
-  const coordinate=(ref,digest)=>({ref,digest}),zero='sha256:'+'0'.repeat(64);
-  const rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??(await load('abg/open_call')).projectOpenedTraversalScopeForFrameAtPrefix(prefix,p.chain[0].frameId);
-  const request={run:coordinate(runId,rootScope.runDigest),continuation:coordinate(p.continuationRef,p.continuationDigest),
-    pendingCursor:coordinate(p.pendingCursorRef,p.pendingCursorDigest),continuationInput:coordinate(p.progressedInputRef,p.progressedInputDigest),expectedBasis:coordinate(p.chain[0].basisRef,p.chain[0].basisDigest)};
-  const use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
-  const publications=start.resolution.declarationPublications;
-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,start.resolution.programValidation);
-  assert.ok(pendingInput,'pending input carrier projects');const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
-  // 4. Cold Public run.continue current_intent pending_execution arm.
-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId,{policy,actorRef}=start.capabilityBasis;
-  const grant=product.constructCapabilityGrant(policy,actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
-  const r=start.resolution.resolution;
-  const makeCall=(identity,patch={})=>{
-    const eventResource=resource(),steering=product.sha256Canonical(eventResource);
-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
-      session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
-      actor:{actor:{ref:actorRef,digest:product.sha256Canonical({actorRef})},attribution:{ref:start.workAuthority.authorityRef,digest:start.workAuthority.authorityDigest}},
-      transport_steering:{ref:`transport-steering://abiogenesis/${steering.slice(7)}`,digest:steering},verification_references:null,execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
-      request:{...request,...patch},slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'},
-        ...(start.call.resources?.runEnvironmentResources===undefined?{}:{runEnvironmentResources:start.call.resources.runEnvironmentResources})},
-      requestRef:`public-request://pending-testing/${identity}`,correlationRef:`correlation://pending-testing/${identity}`,eventTime:'2026-11-02T00:01:00.000Z',provenanceRefs:['provenance://default-library-witness/pending-testing@5']});
-  };
+  const zero='sha256:'+'0'.repeat(64);
+  const request=await pendingExecutionUseRequest({environment:env,prefix,runId,pending:p});
+  // 4. Cold Public run.continue current_intent pending_execution arm, through the shared support assembly.
+  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request,start,eventResource:resource,
+    identityScope:'pending-testing',eventTime:'2026-11-02T00:01:00.000Z',provenanceRef:'provenance://default-library-witness/pending-testing@5'});
+  assert.equal(pending.use.source.continuationRef,p.continuationRef);
+  const makeCall=pending.call;
   const cli=async(identity,call)=>{
     const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
     const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
     if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;return {receipt,wallMs:execution.wallMs};
   };
   const read=()=>storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
-  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:coordinate(p.pendingCursorRef,zero)}))).receipt;
+  const crossed=(await cli('crossed',makeCall('crossed',{pendingCursor:{ref:p.pendingCursorRef,digest:zero}}))).receipt;
   assert.equal(crossed.ownerOutput.outcomeKind,'refusal');assert.equal(crossed.ownerOutput.value.code,'response_mismatch');assert.deepEqual(crossed.ownerOutput.value.issuePaths,['/pendingCursor']);
   assert.equal(read().length,interrupted.length,'a crossed request admits nothing');
   const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'));
@@ -1715,6 +1753,11 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const parent=results(final).filter(e=>e.graphFunctionRef===witnessRef('graph-function','executive'));assert.equal(parent.at(-1).payload.value.terminal,true);
   assert.equal(final.filter(e=>e.kind==='run_closed').length,1);assert.equal(final.some(e=>e.kind==='runtime_failure_observed'),false);
   assert.equal(new Set(final.map(e=>e.runId)).size,1,'one Run identity');
+  // Each selector, before and after the resumption, presents this Run, its root admission and the declared bound; no predecessor.
+  const bindings=selectorBindings(final),stepRef=witnessRef('graph-function','executive-step');assert.equal(bindings.length,3,'three selector assemblies');
+  for(const b of bindings){assert.deepEqual([b.runId,b.predecessor,b.invocation.invocationAdmissionRef,b.root.basisRef,b.root.graphFunctionRef],
+    [runId,null,rootBasis.payload.invocationAdmissionRef,p.chain[0].basisRef,witnessRef('graph-function','executive')]);
+    assert.deepEqual([b.executing.graphFunctionRef,b.declaredRecursion?.graphFunctionRef,b.declaredRecursion?.bound],[stepRef,stepRef,8]);assert.equal(b.start?.rootMode,'direct');}
   assert.deepEqual(cc.projectPendingExecutionContinuations(finalPrefix,runId),[],'no pending execution remains');
   const operations=all.filter(e=>e.kind==='public_operation_admitted'&&e.payload.continuationKind==='pending_execution');assert.equal(operations.length,1,'one consumed use');
   assert.ok(cc.projectPendingExecutionOperation(finalPrefix,operations[0]),'cold operation correspondence');
@@ -1840,37 +1883,17 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,B);
   assert.equal(extra.length,0);assert.ok(p,'one pending execution');assert.equal(p.phase,'undispatched');assert.equal(p.pendingCursorRef,interruption.entered[0].cursorRef);
   assert.equal(p.chain[0].basisRef,rootB.payload.basisRef);
-  const coordinate=(ref,digest)=>({ref,digest}),rootScope=env.abg.projectOpenedTraversalScopeForFrameAtPrefix?.(prefix,p.chain[0].frameId)??(await load('abg/open_call')).projectOpenedTraversalScopeForFrameAtPrefix(prefix,p.chain[0].frameId);
-  const requestFor=o=>({run:coordinate(B,rootScope.runDigest),continuation:coordinate(o.continuationRef,o.continuationDigest),pendingCursor:coordinate(o.pendingCursorRef,o.pendingCursorDigest),
-    continuationInput:coordinate(o.progressedInputRef??'none',o.progressedInputDigest??product.sha256Canonical('none')),expectedBasis:coordinate(o.chain[0].basisRef,o.chain[0].basisDigest)});
+  const requestFor=o=>pendingExecutionUseRequest({environment:env,prefix,runId:B,pending:o});
   const lastSelected=rowsB.filter(e=>e.kind==='c_call_fibre_selected').at(-1),lines=bytes.toString('utf8').split('\n'),cut=lines.findIndex(l=>l.includes('"eventId":"'+lastSelected.eventId+'"'));
   const early=env.abg.selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(Buffer.from(lines.slice(0,cut+1).join('\n')+'\n')));
   const [unknown]=cc.projectPendingExecutionContinuations(early,B);assert.equal(unknown?.phase,'effect_unknown','a dispatched call without its Result has an unknown effect');
-  assert.deepEqual(cc.selectPendingExecutionUse(early,requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
-  const request=requestFor(p),use=cc.selectPendingExecutionUse(prefix,request);assert.equal(use.kind,'pending_execution_use',JSON.stringify(use));
-  const publications=startA.resolution.declarationPublications;
-  const pendingInput=cc.projectPendingExecutionInputAtPrefix(prefix,use,ref=>publications.flatMap(x=>x.graphFunctions).find(g=>g.name===ref)??null,startA.resolution.programValidation);
-  assert.ok(pendingInput);const inputDeclaration=publications.flatMap(x=>x.contracts).find(c=>c.contractRef===pendingInput.inputCarrierRef);assert.ok(inputDeclaration);
-  // 4. Cold Public run.continue current_intent pending_execution arm; source none: B's admission already carries the use.
-  const packet=product.RUN_OPERATION_CONTRACTS.continue.current_intent,operationId=packet.definitionKey.operationId,{policy,actorRef}=startA.capabilityBasis;
-  const grant=product.constructCapabilityGrant(policy,actorRef,operationId,packet.metadata.capabilityRefs[0],{admittedInstalls:env.admittedInstalls,workspaceBinding:env.workspaceBinding,fixedPacket:packet});
-  const r=startA.resolution.resolution;
-  const makeCall=identity=>{
-    const eventResource=resource(),steer=product.sha256Canonical(eventResource);
-    const slots={workspace_binding:{ref:env.workspaceBinding.bindingId,digest:env.workspaceBinding.bindingDigest},product_set:env.admittedInstalls.map(product.productInstallCoordinate),
-      dependency_lock:{ref:env.workspaceBinding.lockId,digest:env.workspaceBinding.lockDigest},
-      catalog_scope:{catalog:{ref:`graph-function-catalog://abiogenesis/${env.catalog.basisDigest.slice(7)}`,digest:env.catalog.basisDigest},view:{ref:`graph-function-catalog-view://abiogenesis/${env.catalogView.viewDigest.slice(7)}`,digest:env.catalogView.viewDigest},allowlist:env.catalogView.allowlist},
-      execution_program:{ref:r.programRef,digest:r.programDigest},graph_function:{graphFunction:{ref:r.graphFunctionRef,digest:r.graphFunctionDigest},membership:r.programGraphFunctionMembership},
-      input_contract:{contract:{ref:inputDeclaration.contractRef,digest:product.sha256Canonical(inputDeclaration)},valueRef:pendingInput.input.inputRef,valueDigest:pendingInput.input.inputDigest,value:pendingInput.input.value},
-      session_policy:{ref:policy.policyRef,digest:policy.policyDigest},capability_grants:{requiredCapabilityRefs:packet.metadata.capabilityRefs,grants:[{ref:grant.grantRef,digest:grant.grantDigest}]},
-      actor:{actor:{ref:actorRef,digest:product.sha256Canonical({actorRef})},attribution:{ref:startA.workAuthority.authorityRef,digest:startA.workAuthority.authorityDigest}},
-      transport_steering:{ref:`transport-steering://abiogenesis/${steer.slice(7)}`,digest:steer},verification_references:null,execution_basis:{ref:p.chain[0].basisRef,digest:p.chain[0].basisDigest}};
-    const contractCatalog=env.verified.definitionContractCoordinates.operations.find(o=>o.operationId===operationId).members.find(m=>m.memberKey==='current_intent').slots.request.contractCatalog;
-    return publicApi.constructInstalledPublicDefinitionCall({product,installedPublic:publicApi,definitionContractCoordinates:env.verified.definitionContractCoordinates,contractCatalog,operationId,memberKey:'current_intent',
-      request,slots,resources:{kind:'run_invocation_resource_assertion',schemaVersion:'5.0.0',eventResource,catalog:env.catalog,catalogView:env.catalogView,applications:[],source:{kind:'none'},
-        ...(startA.call.resources?.runEnvironmentResources===undefined?{}:{runEnvironmentResources:startA.call.resources.runEnvironmentResources})},
-      requestRef:`public-request://retained-source/${identity}`,correlationRef:`correlation://retained-source/${identity}`,eventTime:'2026-11-02T00:03:00.000Z',provenanceRefs:['provenance://default-library-witness/retained-source@5']});
-  };
+  assert.deepEqual(cc.selectPendingExecutionUse(early,await requestFor(unknown)),{kind:'refused',code:'replay_mismatch',path:'/continuation/effect'});
+  // 4. Cold Public run.continue current_intent pending_execution arm through the shared support assembly; source none:
+  // B's admission already carries the use. B's root admission names A's start authority (same root, separately admitted).
+  const pending=constructInstalledPendingCall({environment:env,publicApi,continuation:cc,prefix,request:await requestFor(p),start:startA,eventResource:resource,
+    identityScope:'retained-source',eventTime:'2026-11-02T00:03:00.000Z',provenanceRef:'provenance://default-library-witness/retained-source@5'});
+  assert.equal(pending.use.invocation.invocationAdmissionRef,rootB.payload.invocationAdmissionRef,'the use resumes B\'s own admission');
+  const makeCall=identity=>pending.call(identity);
   const resumedAt=performance.now(),continued=await cli('continue',makeCall('continue'),actorEnvironment(logB));
   assert.equal(continued.receipt.ownerOutput.outcomeKind,'result',JSON.stringify(continued.receipt.ownerOutput).slice(0,4000));
   const value=continued.receipt.ownerOutput.value;assert.equal(value.continuationKind,'pending_execution');assert.equal(value.admittedIntent,null);
@@ -1898,6 +1921,14 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   // 6. Lineage: B admission -> A's retained state -> A's native Result -> its task context -> A holder.
   const admissionB=truth.projectExactInvocationAdmissionAtPrefix(finalPrefix,rootB.payload.invocationAdmissionRef);
   assert.deepEqual(admissionB.sourceResultBasis,S,'B\'s immutable admission carries A\'s retained state');
+  // B's selectors present B's Run, root and admission; A appears only as the separate retained predecessor.
+  const bindingsA=selectorBindings(rowsA.filter(e=>e.runId===A)),bindingsB=selectorBindings(finalB);
+  assert.equal(bindingsA.length,2);assert.equal(bindingsB.length,2);
+  for(const b of bindingsA)assert.deepEqual([b.runId,b.predecessor,b.invocation.invocationAdmissionRef],[A,null,admissionA.invocationAdmissionRef]);
+  for(const b of bindingsB){assert.deepEqual([b.runId,b.root.basisRef,b.invocation.invocationAdmissionRef,b.declaredRecursion?.bound],[B,rootB.payload.basisRef,rootB.payload.invocationAdmissionRef,8]);
+    assert.notEqual(b.invocation.invocationAdmissionRef,admissionA.invocationAdmissionRef,'the current admission is not A\'s');
+    assert.deepEqual(b.predecessor,{sourceRunId:S.sourceRunId,sourceInvocationAdmissionRef:S.sourceInvocationAdmissionRef,sourceInvocationRef:S.sourceInvocationRef,
+      sourceGraphFunctionRef:S.sourceGraphFunctionRef,sourceResultRef:S.sourceResultRef,sourceResultDigest:S.sourceResultDigest});assert.equal(b.predecessor.sourceRunId,A);}
   const useB=truth.governanceContextBodyUse(admissionB,B);
   assert.ok(useB.sourceResults.some(x=>x.resultRef===N.payload.resultRef&&x.resultDigest===N.payload.resultDigest&&x.cCallRef===N.aggregateId));
   const postTesting=results(finalB).filter(e=>e.payload.value?.kind==='framed_synthesis_task'&&e.admissionOrdinal>commands[0].admissionOrdinal);

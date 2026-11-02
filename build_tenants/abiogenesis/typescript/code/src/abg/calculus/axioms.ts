@@ -24,9 +24,9 @@ import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
   type RuntimeInvocationScope } from "../runtime_liveness_contracts.js";
 import { projectWorksiteBasisObservation, projectWorksiteSelectedOccurrence, projectWorksiteFailureResultRequest } from "../c_call_outcome.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
-  isNativeWorkspaceWorkFailure,
-  nativeWorkspacePathWithin } from "../../product/native_workspace_work.js";
-import { projectNativeWorkUnknownEffectTask } from "../native_work_effect.js";
+  isNativeWorkspaceWorkFailure } from "../../product/native_workspace_work.js";
+import { nativeWorkImpact, nativeWorkImpactOverlaps, projectNativeWorkUnknownEffectTask,
+  type NativeWorkImpact } from "../native_work_effect.js";
 
 interface EventCalculusEffectRefs {
   readonly initiates: readonly string[];
@@ -500,8 +500,8 @@ function worksiteTransitionForResult(
   };
 }
 
-/** Known native changes retire exact paths; unknown after-state retires the
- * declared writable scope. Neither case manufactures C0 provenance or successors. */
+/** The shared native impact (observed changes ∪ W\R; unknown after-state: all
+ * W) retires affected facts. Neither case manufactures C0 provenance or successors. */
 export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[]): readonly string[];
 /** @internal */
 export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix): readonly string[];
@@ -511,10 +511,11 @@ export function projectNativeWorkRetiredObservations(event: RuntimeEvent, priorE
 }
 function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], ownedPrefix?: RuntimeEventPrefix):
   { canonicalRoot: string; affectsPath: (path: string) => boolean } | null {
+  const scope = (impact: NativeWorkImpact) => ({ canonicalRoot: impact.canonicalRoot,
+    affectsPath: (path: string) => nativeWorkImpactOverlaps(impact, path) });
   if (event.kind === "actor_invocation_failed" || event.kind === "actor_process_termination_unconfirmed") {
     const task = projectNativeWorkUnknownEffectTask(event, priorEvents, ownedPrefix);
-    return task === null ? null : { canonicalRoot: task.workspaceAuthorityBasis.canonicalRoot,
-      affectsPath: path => nativeWorkspacePathWithin(path, task.writeRoots) };
+    return task === null ? null : scope(nativeWorkImpact(task, null));
   }
   if (event.kind !== "c_call_result_admitted" || !isRecord(event.payload)) return null;
   const value = event.payload.value;
@@ -530,9 +531,7 @@ function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly Runt
     evidenceRefs.includes(row.payload.evidenceRef as string) && row.payload.evidenceClass === "probabilistic_transport" &&
     row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
     row.payload.outputDigest === valueDigest)) return null;
-  const changed = value.after === null || value.changedPaths === null ? null : new Set(value.changedPaths);
-  return { canonicalRoot: value.task.workspaceAuthorityBasis.canonicalRoot,
-    affectsPath: path => changed === null ? nativeWorkspacePathWithin(path, value.task.writeRoots) : changed.has(path) };
+  return scope(nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths));
 }
 
 /** One worksite cause as the support pass read it. */
