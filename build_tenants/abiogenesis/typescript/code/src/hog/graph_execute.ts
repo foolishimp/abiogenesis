@@ -1,9 +1,8 @@
-import { admitPendingConstructionIntentContinuation, projectPendingExecutionContinuations } from "../abg/construction_continuation.js";
+import { admitPendingConstructionIntentContinuation, projectPendingCursorInputAtPrefix, projectPendingExecutionContinuations,
+  rematerializeAdmittedBasisGraph } from "../abg/construction_continuation.js";
 import { projectOpenedCCallCarrierAtPrefix } from "../abg/c_call.js";
 import { rehydrateExecutionBasisAtPrefix } from "../abg/execution_basis.js";
 import { projectOpenedTraversalScopeForFrameAtPrefix } from "../abg/open_call.js";
-import { materializeGraph } from "../gtl/materialize.js";
-import { validateGraph } from "../validator/graph.js";
 import { isRecord } from "../shared/admit/index.js";
 import * as Cause from "effect/Cause";
 import * as Effect from "effect/Effect";
@@ -997,17 +996,13 @@ async function pendingExecutionState(
       basis.parentTraversalScopeRef !== parent.openedTraversalScope.scopeRef ||
       scope.executionBasisRef !== basis.basisRef || scope.runId !== pending.runId)
       return pendingRestorationRefusal("child-basis", { basisRef: link.basisRef });
-    const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,
-      admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };
-    const graph = materializeGraph(graphFunction, coordinates);
-    const graphValidation = validateGraph(graph, root.programValidation, graphFunction, coordinates);
+    const rematerialized = rematerializeAdmittedBasisGraph(basis, graphFunction, root.programValidation);
     const closureContractRef = graphFunction.declarations["abg.child_closure_contract"];
     const closureContract = closureContractRef === undefined ? null : root.leafPort.closureContractByRef(closureContractRef);
     const leafPort = await root.leafPort.forGraphFunction(graphFunction.name);
-    if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== basis.graphValidationRef ||
-      graph.materializationRef !== basis.graphRef || graph.materializationDigest !== basis.graphDigest ||
-      closureContract === null || leafPort === null)
+    if (rematerialized === null || closureContract === null || leafPort === null)
       return pendingRestorationRefusal("child-graph", { basisRef: link.basisRef });
+    const { graph, graphValidation } = rematerialized;
     // Ordinary descent: a non-fan-out workflow child and a recursion child both
     // inherit the parent's deferFailedRunStop, carried by the spread below.
     levels.push(Object.freeze({ scopeClass: "child" as const, runtime: Object.freeze({
@@ -1080,15 +1075,9 @@ async function pendingExecutionState(
       outputContractRef: stop.outputContractRef }));
   }
   const deepest = levels.at(-1)!.runtime;
-  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, deepest.graph, {
-    cursorRef: pending.pendingCursorRef, cursorDigest: pending.pendingCursorDigest,
-    executionBasisRef: deepest.executionBasis.basisRef, runId: pending.runId,
-    graphCallId: deepest.openedTraversalScope.graphCallId, frameId: deepest.openedTraversalScope.frameId,
-  });
-  const origin = cursor === null ? null : projectTraversalInputAtPrefix(prefix, deepest.graph, deepest.executionBasis, cursor);
-  if (cursor === null || origin === null || !isRecord(origin.value) || origin.inputRef !== pending.progressedInputRef ||
-    origin.inputDigest !== pending.progressedInputDigest)
-    return pendingRestorationRefusal("pending-cursor", { cursorRef: pending.pendingCursorRef });
+  const entered = projectPendingCursorInputAtPrefix(prefix, pending, deepest.graph, deepest.executionBasis, deepest.openedTraversalScope);
+  if (entered === null) return pendingRestorationRefusal("pending-cursor", { cursorRef: pending.pendingCursorRef });
+  const { cursor, input: origin } = entered;
   return Object.freeze({
     stateKind: "evaluate" as const,
     frame: enterTraversal({

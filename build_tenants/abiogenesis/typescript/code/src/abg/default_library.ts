@@ -8,7 +8,7 @@ import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasi
 import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
 import { sha256Bytes } from "../shared/digests.js";
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
-  hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
+  hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import { invocationRootAtPrefix } from "./semantic_job.js";
 import { worksiteCommandSourcesInvalidatedAfter, projectNativeWorkspaceWorkSourceAtPrefix } from "./native_worksite_execution.js";
@@ -94,8 +94,9 @@ async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, o
   const observed = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
   if (!isWorksiteContextObservation(observed)) return testingRefused(refusal, "testing_context", "context_observation");
   // Current W is reobserved above; unchanged bodies already held by this Run's
-  // admitted Results are carried by member reference, changed bytes inline.
-  const context = reuseWorksiteContextBodiesAtPrefix(o.prefix, observed, { runId: o.call.runId });
+  // admitted Results, or declared by its admitted retained source's native
+  // task context, are carried by member reference, changed bytes inline.
+  const context = reuseWorksiteContextBodiesAtPrefix(o.prefix, observed, governanceContextBodyUse(o.invocation, o.call.runId));
   if (!contextMatches(o, state, context)) return testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
   const current = operating(o), observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
   for (const relativePath of observedPaths) {
@@ -122,7 +123,7 @@ function sourceResult(o: Owner, input: unknown) {
 }
 /** One consumer's selected-body reader for an admitted context at this owner's prefix. */
 function bodies(o: Owner, context: WorksiteContextObservation) {
-  return worksiteContextBodyReaderAtPrefix(o.prefix, context, { runId: o.call.runId });
+  return worksiteContextBodyReaderAtPrefix(o.prefix, context, governanceContextBodyUse(o.invocation, o.call.runId));
 }
 /** Selection task construction over the admitted context; reads no worksite. */
 function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {

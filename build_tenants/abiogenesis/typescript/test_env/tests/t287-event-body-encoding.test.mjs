@@ -11,7 +11,8 @@ import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
   reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
-import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
+import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from "../../build/code/src/abg/invocation_execution_truth.js";
+import { governanceContract } from "../../build/code/src/product/default_library_identity.js";
 import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
@@ -723,6 +724,103 @@ test("a pending execution reads its selected native context through the unchange
   assert.deepEqual(coldContext, context);
   for (const e of fileEntries(coldContext)) assert.equal(resolveWorksiteContextBodyAtPrefix(cold, coldContext, e.relativePath, use).bytes.toString(),
     e.relativePath === "src/a.txt" ? text["src/a.txt"] : "beta ".repeat(3000));
+});
+
+// Model-free component discriminator for retained-source context bodies. Real
+// EventStore admission, worksite observation and held-prefix carriage; the
+// native Result is a declared-coordinate fixture shape, not installed native
+// work. Run A holds the bodies; a consumer in Run B carries the source use that
+// its invocation admission would transport. Only A's selected native Result's
+// task context declares which A members B may read. The installed A -> B
+// integration with real owners is in t287-default-library.test.mjs.
+test("an admitted retained-source use reads exactly the selected native Result's task-context members across Runs", async t => {
+  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  const { w, write, observe } = await contextFixture(t, text), A = "run://body-fixture/a", B = "run://body-fixture/b";
+  const carry = async (use, ctx) => reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), ctx ?? await observe(), use);
+  // A: preparation birth, then one native work Result whose task context carries members of it and births d inline.
+  const prepare = result(f.store, "a-prepare", nativeTask("a-prepare", await carry({ runId: A })), A);
+  text["src/d.txt"] = "delta ".repeat(3000); await write("src/d.txt", text["src/d.txt"]);
+  const raw = await observe(), nativeContext = await carry({ runId: A }, raw);
+  const native = result(f.store, "a-native-work", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+    task: nativeTask("a-native-work", nativeContext), after: nativeContext }, A);
+  // Undeclared A holders: one holds the same a bytes inline, one holds an unselected version of b.
+  const duplicate = result(f.store, "a-duplicate", nativeTask("a-duplicate", raw), A);
+  text["src/b.txt"] = "unselected beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const sibling = result(f.store, "a-sibling", nativeTask("a-sibling", await carry({ runId: A })), A);
+  text["src/b.txt"] = "beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const P = e => e.payload.resultRef, row = { resultRef: P(native), resultDigest: native.payload.resultDigest, cCallRef: native.aggregateId };
+  const at = (event, path) => event.payload.value.context.entries.findIndex(x => x.relativePath === path);
+  assert.deepEqual(carriage(nativeContext), { "src/a.txt": P(prepare), "src/b.txt": P(prepare), "src/d.txt": "inline" });
+  assert.equal(sibling.payload.value.context.entries[at(sibling, "src/b.txt")].encoding, "base64", "the sibling holds its version inline");
+  // The owner transports the source state's observation rows from the admitted invocation; nothing else selects.
+  const state = { kind: "governance_work_state", observations: [{ purpose: "construction", ...row }] };
+  const invocation = { invocationAdmissionRef: "invocation-admission://b", sourceResultBasis: { sourceResultContractRef: governanceContract("state"), sourceResultValue: state } };
+  const use = governanceContextBodyUse(invocation, B);
+  assert.deepEqual(use, { runId: B, sourceResults: [row] });
+  assert.deepEqual(governanceContextBodyUse({ ...invocation, sourceResultBasis: null }, B), { runId: B }, "fresh input has no source use");
+  assert.deepEqual(governanceContextBodyUse(null, B), { runId: B });
+  assert.deepEqual(governanceContextBodyUse({ ...invocation, sourceResultBasis: { ...invocation.sourceResultBasis, sourceResultContractRef: "contract://other" } }, B), { runId: B });
+  // B carriage: A members exactly as the selected native task context declares them; d's holder is that native Result.
+  const consumer = await carry(use), dIndex = nativeContext.entries.findIndex(e => e.relativePath === "src/d.txt");
+  assert.deepEqual(carriage(consumer), { "src/a.txt": P(prepare), "src/b.txt": P(prepare), "src/d.txt": P(native) });
+  assert.deepEqual(consumer.entries.find(e => e.relativePath === "src/d.txt").member.path, ["task", "context", "entries", dIndex]);
+  assert.deepEqual(carriage(await carry({ runId: B })), { "src/a.txt": "inline", "src/b.txt": "inline", "src/d.txt": "inline" },
+    "without source use another Run's holder is never carried");
+  const consumerEvent = result(f.store, "b-selection", nativeTask("b-selection", consumer), B), prefix = selectRuntimeEventPrefixFromStore(f.store);
+  const before = f.store.readAll().length;
+  for (const e of fileEntries(consumer)) {
+    const read = resolveWorksiteContextBodyAtPrefix(prefix, consumer, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read)); assert.equal(read.bytes.toString(), text[e.relativePath]);
+    assert.equal(read.holder.eventRef, (e.relativePath === "src/d.txt" ? native : prepare).eventId);
+  }
+  const causes = new Set(), refuse = (ctx, path, expected, consumerUse = use, atPrefix = prefix) => {
+    const read = resolveWorksiteContextBodyAtPrefix(atPrefix, ctx, path, consumerUse);
+    assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason); causes.add(read.code);
+  };
+  const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+  const member = (path, change) => withEntry(consumer, path, e => { change(e.member); return e; });
+  const selection = source => ({ runId: B, sourceResults: [{ resultRef: P(source), resultDigest: source.payload.resultDigest, cCallRef: source.aggregateId }] });
+  // No source use, an empty or inexact one, or a holder named directly is no permission.
+  refuse(consumer, "src/a.txt", "foreign", { runId: B });
+  refuse(consumer, "src/a.txt", "foreign", { runId: B, sourceResults: [] });
+  refuse(consumer, "src/a.txt", "foreign", selection(prepare));
+  for (const patch of [{ resultDigest: sha256Canonical("other") }, { cCallRef: "c-call://foreign" }, { resultRef: "result://body-fixture/never-admitted" }])
+    refuse(consumer, "src/a.txt", "foreign", { runId: B, sourceResults: [{ ...row, ...patch }] });
+  // The same bytes or another version from an A holder the selected task context does not declare.
+  refuse(member("src/a.txt", m => { Object.assign(m, { resultRef: P(duplicate), resultDigest: duplicate.payload.resultDigest, path: ["context", "entries", at(duplicate, "src/a.txt")] }); }),
+    "src/a.txt", "foreign");
+  const unselected = sibling.payload.value.context.entries[at(sibling, "src/b.txt")];
+  refuse(withEntry(consumer, "src/b.txt", e => ({ ...e, digest: unselected.digest, byteLength: unselected.byteLength,
+    member: { resultRef: P(sibling), resultDigest: sibling.payload.resultDigest, path: ["context", "entries", at(sibling, "src/b.txt")] } })), "src/b.txt", "foreign");
+  // Every existing resolver guard stays ahead of the relation.
+  refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
+  refuse(member("src/a.txt", m => { m.path = ["context", "entries", 99]; }), "src/a.txt", "tampered");
+  refuse(withEntry(consumer, "src/a.txt", e => ({ ...e, digest: sha256Canonical("other version") })), "src/a.txt", "stale");
+  refuse({ ...consumer, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
+  refuse(consumer, "src/a.txt", "denied", { ...use, readable: path => path !== "src/a.txt" });
+  refuse(consumer, "outside/a.txt", "denied");
+  refuse(consumer, "src/none.txt", "missing");
+  refuse(consumer, "src/d.txt", "pending", use, validatedRuntimeEventPrefixBeforeEvent(prefix, native.eventId));
+  assert.equal(f.store.readAll().length, before, "resolution and refusals admit no events");
+  const assessed = result(f.store, "a-assessment", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+    task: { ...nativeTask("a-assessment", nativeContext), assessment: { resultContract: "contract://assessment" } }, after: nativeContext }, A);
+  refuse(consumer, "src/d.txt", "foreign", selection(assessed), selectRuntimeEventPrefixFromStore(f.store));
+  assert.deepEqual([...causes].sort(), ["denied", "foreign", "missing", "pending", "stale", "tampered"]);
+  assert.equal(consumerEvent.runId, B);
+  // A later B state keeps the immutable permission; once B holds a changed body, B's own holder is carried.
+  assert.deepEqual(carriage(await carry(use)), carriage(consumer), "B holds only members, so its later context keeps the A holders");
+  text["src/a.txt"] = "changed alpha ".repeat(3000); await write("src/a.txt", text["src/a.txt"]);
+  const bBirth = result(f.store, "b-change", nativeTask("b-change", await carry(use)), B);
+  assert.deepEqual(carriage(await carry(use)), { "src/a.txt": P(bBirth), "src/b.txt": P(prepare), "src/d.txt": P(native) },
+    "changed bytes are born in B and then carried from B");
+  // Cold: retained log bytes only; the mutable worksite is gone.
+  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
+  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
+  for (const e of fileEntries(consumer)) {
+    const read = resolveWorksiteContextBodyAtPrefix(cold, consumer, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body"); assert.equal(read.holder.resultRef, e.member.resultRef);
+    assert.equal(read.bytes.toString(), e.relativePath === "src/a.txt" ? "alpha ".repeat(3000) : text[e.relativePath]);
+  }
 });
 
 // Fixed model-free workload: 965 context entries (src, 4 directories, 960 files)

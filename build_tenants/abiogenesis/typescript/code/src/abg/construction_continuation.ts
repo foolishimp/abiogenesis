@@ -339,6 +339,35 @@ import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPr
   rehydrateAdmittedInteractionSetAtPrefix } from "./execution_basis.js";
 import { rehydrateConstructionIntentForCursorAtPrefix } from "./traversal_route.js";
 
+/** @internal One admitted basis's graph, rematerialized from its own admitted
+ * input coordinates and checked against its admitted graph and validation refs.
+ * The one rule for every continuation preparation and HoG restoration. */
+export function rematerializeAdmittedBasisGraph(basis: ExecutionBasis, graphFunction: Readonly<import("../gtl/contracts.js").GraphFunction>,
+  programValidation: import("../validator/validation.js").ProgramValidation): Readonly<{ graph: ReturnType<typeof materializeGraph>;
+    graphValidation: import("../validator/graph.js").GraphValidation }> | null {
+  const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,
+    admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };
+  const graph = materializeGraph(graphFunction, coordinates);
+  const graphValidation = validateGraph(graph, programValidation, graphFunction, coordinates);
+  return graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== basis.graphValidationRef ||
+    graph.materializationRef !== basis.graphRef || graph.materializationDigest !== basis.graphDigest ? null
+    : Object.freeze({ graph, graphValidation });
+}
+
+/** @internal The occurrence's admitted pending cursor at its deepest level and
+ * the input that cursor entered, which must be the projected progressed input.
+ * Shared by the Public input join and HoG restoration. */
+export function projectPendingCursorInputAtPrefix(prefix: RuntimeEventPrefix, pending: PendingExecutionContinuation,
+  graph: ReturnType<typeof materializeGraph>, basis: ExecutionBasis, scope: Pick<OpenedTraversalScope, "graphCallId" | "frameId">) {
+  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: pending.pendingCursorRef,
+    cursorDigest: pending.pendingCursorDigest, executionBasisRef: basis.basisRef, runId: pending.runId,
+    graphCallId: scope.graphCallId, frameId: scope.frameId });
+  const input = cursor === null ? null : projectTraversalInputAtPrefix(prefix, graph, basis, cursor);
+  return cursor === null || input === null || !isRecord(input.value) || input.inputRef !== pending.progressedInputRef ||
+    input.inputDigest !== pending.progressedInputDigest ? null
+    : Object.freeze({ cursor, input: input as typeof input & { readonly value: Readonly<Record<string, JsonValue>> } });
+}
+
 const preparedRelations = new WeakSet<object>();
 /** Exact declaration/application preflight. Only immutable pure producer
  * support is selected here; mutable/opaque dependency claims need their owning
@@ -923,18 +952,11 @@ export function prepareConstructionIntentContinuation(
   // hidden composite allowances. F_P means judgment, not native effect authority.
   if (childFunction.effects.length !== 0 || childFunction.template.applications.length !== 0 ||
     childFunction.template.nodes.length !== 1) return null;
-  const rootGraph = materializeGraph(resolution.graphFunction, { invocationAdmissionRef: root.invocationAdmissionRef,
-    admittedInputRef: root.rawInputAdmissionRef, admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
-  const childGraph = materializeGraph(childFunction, { invocationAdmissionRef: child.invocationAdmissionRef,
-    admittedInputRef: child.rawInputAdmissionRef, admittedInputDigest: child.rawInputDigest, admittedInput: child.rawInputValue });
-  const validate = (graph: typeof rootGraph, fn: typeof childFunction, basis: typeof child) => {
-    const validation = validateGraph(graph, resolution.programValidation, fn, { invocationAdmissionRef: basis.invocationAdmissionRef,
-      admittedInputRef: basis.rawInputAdmissionRef, admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue });
-    return validation.kind === "graph_validation" && validation.validationRef === basis.graphValidationRef &&
-      graph.materializationRef === basis.graphRef && graph.materializationDigest === basis.graphDigest ? validation : null;
-  };
-  const rootValidation = validate(rootGraph, resolution.graphFunction, root), childValidation = validate(childGraph, childFunction, child);
-  if (rootValidation === null || childValidation === null) return null;
+  const rootRematerialized = rematerializeAdmittedBasisGraph(root, resolution.graphFunction, resolution.programValidation);
+  const childRematerialized = rematerializeAdmittedBasisGraph(child, childFunction, resolution.programValidation);
+  if (rootRematerialized === null || childRematerialized === null) return null;
+  const { graph: rootGraph, graphValidation: rootValidation } = rootRematerialized;
+  const { graph: childGraph, graphValidation: childValidation } = childRematerialized;
   const pending = projectOpenedCCallTraversalInputAtPrefix(prefix, childGraph, current.cCallRef);
   const parent = projectOpenedCCallTraversalInputAtPrefix(prefix, rootGraph, current.parentCCallRef);
   if (pending === null || parent === null || pending.execution.basisRef !== child.basisRef ||
@@ -2126,14 +2148,9 @@ export function prepareSelectedActionContinuation(prefix: RuntimeEventPrefix,
   if (root === null || root.basisClass !== "root" || root.constructionContinuationUse !== undefined ||
     root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
     root.programValidationRef !== resolution.programValidation.validationRef || root.graphFunctionRef !== resolution.graphFunction.name) return null;
-  const graph = materializeGraph(resolution.graphFunction, { invocationAdmissionRef: root.invocationAdmissionRef,
-    admittedInputRef: root.rawInputAdmissionRef, admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
-  const graphValidation = validateGraph(graph, resolution.programValidation, resolution.graphFunction, {
-    invocationAdmissionRef: root.invocationAdmissionRef, admittedInputRef: root.rawInputAdmissionRef,
-    admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue });
-  if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
-    graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest) return null;
-  const selected = use.current;
+  const rematerialized = rematerializeAdmittedBasisGraph(root, resolution.graphFunction, resolution.programValidation);
+  if (rematerialized === null) return null;
+  const { graph, graphValidation } = rematerialized, selected = use.current;
   const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: selected.heldCursorRef,
     cursorDigest: selected.heldCursorDigest, executionBasisRef: root.basisRef, runId: selected.runId,
     graphCallId: selected.graphCallId, frameId: selected.frameId });
@@ -2400,16 +2417,12 @@ export function preparePendingExecutionContinuation(prefix: RuntimeEventPrefix,
   const root = use.rootBasis;
   if (!pendingExecutionUses.has(use) || root.programRef !== resolution.program.programRef || root.programDigest !== hash(resolution.program) ||
     root.programValidationRef !== resolution.programValidation.validationRef || root.graphFunctionRef !== resolution.graphFunction.name) return null;
-  const coordinates = { invocationAdmissionRef: root.invocationAdmissionRef, admittedInputRef: root.rawInputAdmissionRef,
-    admittedInputDigest: root.rawInputDigest, admittedInput: root.rawInputValue };
-  const graph = materializeGraph(resolution.graphFunction, coordinates);
-  const graphValidation = validateGraph(graph, resolution.programValidation, resolution.graphFunction, coordinates);
+  const rematerialized = rematerializeAdmittedBasisGraph(root, resolution.graphFunction, resolution.programValidation);
   const implementationSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, root.rootImplementationSetRef);
   const interactionSet = rehydrateAdmittedInteractionSetAtPrefix(prefix, root.rootInteractionSetRef);
-  if (graphValidation.kind !== "graph_validation" || graphValidation.validationRef !== root.graphValidationRef ||
-    graph.materializationRef !== root.graphRef || graph.materializationDigest !== root.graphDigest ||
-    implementationSet === null || interactionSet === null) return null;
-  return Object.freeze({ use, root, graph, graphValidation, scope: use.rootScope, implementationSet, interactionSet, resolution });
+  if (rematerialized === null || implementationSet === null || interactionSet === null) return null;
+  return Object.freeze({ use, root, graph: rematerialized.graph, graphValidation: rematerialized.graphValidation, scope: use.rootScope,
+    implementationSet, interactionSet, resolution });
 }
 
 /** The deepest pending level's actual input carrier and progressed input, for
@@ -2431,19 +2444,11 @@ export function projectPendingExecutionInputAtPrefix(prefix: RuntimeEventPrefix,
   const basis = rehydrateExecutionBasisAtPrefix(prefix, level.basisRef);
   const graphFunction = basis === null ? null : graphFunctionByRef(basis.graphFunctionRef);
   if (!pendingExecutionUses.has(use) || basis === null || graphFunction === null || basis.basisDigest !== level.basisDigest) return null;
-  const coordinates = { invocationAdmissionRef: basis.invocationAdmissionRef, admittedInputRef: basis.rawInputAdmissionRef,
-    admittedInputDigest: basis.rawInputDigest, admittedInput: basis.rawInputValue };
-  const graph = materializeGraph(graphFunction, coordinates);
-  const validation = validateGraph(graph, programValidation, graphFunction, coordinates);
+  const rematerialized = rematerializeAdmittedBasisGraph(basis, graphFunction, programValidation);
   const scope = projectOpenedTraversalScopeForFrameAtPrefix(prefix, level.frameId);
-  if (validation.kind !== "graph_validation" || validation.validationRef !== basis.graphValidationRef ||
-    graph.materializationRef !== basis.graphRef || graph.materializationDigest !== basis.graphDigest || scope === null) return null;
-  const cursor = projectAdmittedTraversalCursorAtPrefix(prefix, graph, { cursorRef: use.source.pendingCursorRef,
-    cursorDigest: use.source.pendingCursorDigest, executionBasisRef: basis.basisRef, runId: use.source.runId,
-    graphCallId: scope.graphCallId, frameId: scope.frameId });
-  const input = cursor === null ? null : projectTraversalInputAtPrefix(prefix, graph, basis, cursor);
-  const term = cursor === null ? null : resolveCProgramTermAtSourcePath(graph.template, cursor.currentNodeRef, cursor.termPath);
-  if (cursor === null || input === null || term === null || !("inputCarrierRef" in term) || typeof term.inputCarrierRef !== "string" ||
-    !isRecord(input.value) || input.inputRef !== use.source.progressedInputRef || input.inputDigest !== use.source.progressedInputDigest) return null;
-  return Object.freeze({ inputCarrierRef: term.inputCarrierRef, input });
+  const pending = rematerialized === null || scope === null ? null
+    : projectPendingCursorInputAtPrefix(prefix, use.source, rematerialized.graph, basis, scope);
+  const term = pending === null ? null : resolveCProgramTermAtSourcePath(rematerialized!.graph.template, pending.cursor.currentNodeRef, pending.cursor.termPath);
+  if (pending === null || term === null || !("inputCarrierRef" in term) || typeof term.inputCarrierRef !== "string") return null;
+  return Object.freeze({ inputCarrierRef: term.inputCarrierRef, input: pending.input });
 }

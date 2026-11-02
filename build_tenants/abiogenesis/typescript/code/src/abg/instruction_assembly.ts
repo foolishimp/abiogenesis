@@ -19,6 +19,7 @@ import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
 import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
+import { governanceContextBodyUse, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
@@ -411,6 +412,11 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
     const context = synthesisContext(basis, input, contractByRef);
     if (context === null) return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]);
     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
+    // Inline bodies need no permission; member reads use this Run and the
+    // invocation's admitted retained-source use (`governanceContextBodyUse`).
+    const bodyUse = task.context.entries.some(e => e.state === "file" && e.encoding === "admitted_member")
+      ? governanceContextBodyUse(projectExactInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef), owner.call.runId)
+      : { runId: owner.call.runId };
     const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);
     const runEnvironment = selectorRunEnvironmentIdentity(role);
     const carrier = { type: response.type!, properties: response.properties!, required: response.required!,
@@ -419,7 +425,7 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
       carrierResponseSchemaDigest: sha256Canonical(carrier) };
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
-      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, { runId: owner.call.runId })),
+      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),
       evidence: { declaredAccess: role.accessContent }, response };
     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,

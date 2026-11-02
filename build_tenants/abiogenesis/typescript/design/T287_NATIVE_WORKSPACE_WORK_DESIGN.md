@@ -138,8 +138,10 @@ selector `native-context-body:<digest>` from those coordinates of committed
 success/failure Results. It is a hint, never read authority. After a producer
 reobserves current W, `reuseWorksiteContextBodiesAtPrefix` replaces each inline
 body already held inline by an earlier committed Result of the same Run, path,
-digest, authority basis and binding with that member; changed and new bodies
-stay inline and are born by the Result that admits the context. Validation
+digest, authority basis and binding with that member. A holder in another Run
+is used only when the consumer's admitted retained-source use declares that
+exact member (below). Changed and new bodies stay inline and are born by the
+Result that admits the context. Validation
 candidates are never holders; an unavailable derivation keeps bodies inline.
 `resolveWorksiteContextBodyAtPrefix` reads one selected member at a raw ingress,
 presentation or cold-recovery boundary. It rejoins the committed Result, its
@@ -154,7 +156,8 @@ unchanged files and births changed bytes inline once. The governance
 preparation owner (`abg/default_library.ts`) applies producer carriage to its
 fresh observation; selector source matching, obligation quoting and the
 selector presentation read declared members through the owner reader for their
-own Run. Semantic job/revision contexts remain inline births; their byte
+own Run and, under admitted retained-source use, for the selected source
+members (`governanceContextBodyUse`). Semantic job/revision contexts remain inline births; their byte
 consumers refuse a member.
 
 Current limits: the observation's `task` is the exact admitted input and the C2
@@ -162,12 +165,16 @@ Current limits: the observation's `task` is the exact admitted input and the C2
 owners `abg/native_worksite_execution.ts` and `abg/execution_basis.ts`. Those
 copies carry metadata and any inline births of the copied value. A direct native
 task whose context is itself a birth repeats those bodies in its observation.
-Holders are same-Run only; a replacement Run observes and births its own first
-context, and a predecessor-Run holder refuses `foreign`. A registered-selection
-pending execution resumes in its own Run, so its selected native context ->
-member -> committed holder resolves through the unchanged same-Run resolver
+A replacement Run observes and births its own first context, and a
+predecessor-Run holder refuses `foreign`. A registered-selection pending
+execution resumes in its own Run, so its selected native context -> member ->
+committed holder resolves through the unchanged same-Run resolver
 ([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-context-bytes-and-default-library-consumers)).
-No cross-Run holder relation exists. Exact-intent payload
+The one cross-Run holder relation is retained-source use: the consumer's
+admitted `sourceResultBasis` state -> a selected native observation Result ->
+its `task.context` member -> committed holder
+([HOW](./T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md#retained-source-context-bodies-across-runs-r2)).
+`after` declares no member for another Run. Exact-intent payload
 recovery carries no native task context and is a separate proof. The packaged
 C2 renderer `product/worksite_command_execution.ts` is a pinned run-environment
 member. `gtl/worksite_command_execution.ts` pins its full emitted digest and
