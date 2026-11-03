@@ -1,17 +1,17 @@
 {
   "kind": "qualification_authority_inputs",
-  "definitionDigest": "sha256:6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+  "definitionDigest": "sha256:b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
   "method": {
-    "releaseRef": "stdo://releases/v3.0.2/",
-    "methodVersion": "3.0.2",
-    "installedManifestDigest": "sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
-    "memberSetDigest": "sha256:644e5f6a509e0d79a2077ece8f1c25fc72e6abb5f03a95075b6e5b6eb565eb9d"
+    "releaseRef": "stdo://releases/v3.0.4/",
+    "methodVersion": "3.0.4",
+    "installedManifestDigest": "sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466"
   },
   "sources": [
     {
       "ref": "repo://abiogenesis/stdo_abiogenesis.json",
       "path": "contracts/qualification/sources/stdo_abiogenesis.json",
-      "digest": "sha256:6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "digest": "sha256:b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
       "byteCount": 3136
     },
     {
@@ -23,8 +23,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
-      "byteCount": 100202
+      "digest": "sha256:979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "byteCount": 100324
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -35,8 +35,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/README.md",
       "path": "contracts/qualification/sources/specification__requirements__README.md",
-      "digest": "sha256:ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b",
-      "byteCount": 8953
+      "digest": "sha256:a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c",
+      "byteCount": 9076
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/README.md",
@@ -531,49 +531,49 @@
       "byteCount": 6687
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/AXIOMATIC_CALCULUS.md",
+      "ref": "stdo://releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md",
       "path": "contracts/qualification/sources/AXIOMATIC_CALCULUS.md",
       "digest": "sha256:b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
       "byteCount": 92360
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md",
+      "ref": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
       "path": "contracts/qualification/sources/EXECUTIVE_BASELINE.md",
-      "digest": "sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
-      "byteCount": 157336
+      "digest": "sha256:ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "byteCount": 165730
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/IDENTITY.md",
+      "ref": "stdo://releases/v3.0.4/standards/IDENTITY.md",
       "path": "contracts/qualification/sources/IDENTITY.md",
       "digest": "sha256:c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08",
       "byteCount": 29087
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/ODD.md",
+      "ref": "stdo://releases/v3.0.4/standards/ODD.md",
       "path": "contracts/qualification/sources/ODD.md",
       "digest": "sha256:06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
       "byteCount": 126573
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md",
+      "ref": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
       "path": "contracts/qualification/sources/REFERENCE_FRAME.md",
       "digest": "sha256:4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
       "byteCount": 103687
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/RELEASE.md",
+      "ref": "stdo://releases/v3.0.4/standards/RELEASE.md",
       "path": "contracts/qualification/sources/RELEASE.md",
       "digest": "sha256:b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
       "byteCount": 62982
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/SPEC_METHOD.md",
+      "ref": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md",
       "path": "contracts/qualification/sources/SPEC_METHOD.md",
       "digest": "sha256:06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
       "byteCount": 148190
     },
     {
-      "ref": "stdo://releases/v3.0.2/standards/frames/bootstrap.md",
+      "ref": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
       "path": "contracts/qualification/sources/bootstrap.md",
       "digest": "sha256:9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
       "byteCount": 94520
