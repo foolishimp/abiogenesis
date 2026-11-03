@@ -3,7 +3,7 @@ import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { RuntimeDerivationSource } from "./runtime_derivation.js";
 import { captureRuntimeEventCandidate, decodeEventBody, encodeEventBody, inlineEventBody, inlineEventBodyCoordinate, inlineEventBodyKey, inlineEventBodyValue,
-  type InlineBody, type InlineBodyReader, type InlineEventBodies } from "./event_body_encoding.js";
+  type EarlierAdmittedEvents, type InlineBody, type InlineBodyReader, type InlineEventBodies } from "./event_body_encoding.js";
 import { RuntimeHistory, RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistoryRow, runtimeHistorySelectorKeys,
   type RuntimeEventBodyLocation } from "./runtime_history.js";
 import {
@@ -2316,11 +2316,18 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
       events.some((event, index) => event.admissionOrdinal !== committedCount + index + 1))
     throw new TypeError("durable append lacks its exact private admitted history");
   const stagedBodies: InlineEventBodies = new Map(), selectedBodies = new Map<string, RuntimeEvent>();
+  // Earlier members only: this batch's preceding events, then committed rows.
+  const batchEvents = new Map<string, RuntimeEvent>(), committedRow = (ref: string) => {
+    const row = history.rowById(ref); return row !== undefined && row.envelope.admissionOrdinal <= committedCount ? row : undefined;
+  };
+  const earlier: EarlierAdmittedEvents = { envelope: ref => batchEvents.get(ref) ?? committedRow(ref)?.envelope,
+    event: ref => batchEvents.get(ref) ?? history.event(committedRow(ref)!.envelope.admissionOrdinal - 1, selectedBodies) };
   const successorHash = state.durableHash!.copy();
   let nextByteLength = priorByteLength;
   const rows = events.map(event => {
     const encoded = encodeEventBody(event, state.inlineBodies, stagedBodies, coordinate =>
-      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
+      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate), earlier);
+    batchEvents.set(event.eventId, event);
     const bytes = Buffer.from(encoded, "utf8"), offset = nextByteLength;
     successorHash.update(bytes); nextByteLength += bytes.length;
     const location: RuntimeEventBodyLocation = { offset, byteLength: bytes.length, physicalDigest: sha256Bytes(bytes),
@@ -3413,6 +3420,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
   }
   const admitted: RuntimeEvent[] = [];
   const eventsById = new Map<string, RuntimeEvent>();
+  const earlier: EarlierAdmittedEvents = { envelope: ref => eventsById.get(ref), event: ref => eventsById.get(ref)! };
   let profile: Sha256Digest | null = null;
   for (const [row] of new DurableHistoryLines().read(encoded)) {
     const line = row.toString("utf8", 0, row.length - 1);
@@ -3429,7 +3437,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
     ) {
       throw new TypeError("durable ABG event log contains a noncanonical event");
     }
-    const representation = decodeEventBody(physical, inlineByEvent), decoded = representation.event;
+    const representation = decodeEventBody(physical, inlineByEvent, undefined, earlier), decoded = representation.event;
     if (!isRecord(decoded) || !hasOnlyRuntimeEventKeys(decoded)) throw new TypeError("durable ABG event log contains an invalid logical event");
     const {
       eventId,
@@ -3624,12 +3632,16 @@ function constructRuntimeHistory(source: RuntimeHistoryPhysicalSource, inlineByE
     const line = bytes.toString("utf8", 0, bytes.length - 1), physical: JsonValue = JSON.parse(line);
     if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
       throw new TypeError("selected durable body is not the authenticated canonical row");
+    const earlierRow = (ref: string) => {
+      const selected = history.rowById(ref);
+      return selected !== undefined && selected.envelope.admissionOrdinal < row.envelope.admissionOrdinal ? selected : undefined;
+    };
     const representation = decodeEventBody(physical, inlineByEvent, coordinate => {
-      const selected = history.rowById(coordinate.eventRef);
-      if (selected === undefined || selected.envelope.admissionOrdinal >= row.envelope.admissionOrdinal)
-        throw new TypeError("selected reference lacks its exact earlier inline source");
+      const selected = earlierRow(coordinate.eventRef);
+      if (selected === undefined) throw new TypeError("selected reference lacks its exact earlier inline source");
       return runtimeInlineBodyValue(history.event(selected.envelope.admissionOrdinal - 1, selectedBodies), coordinate);
-    });
+    }, { envelope: ref => earlierRow(ref)?.envelope,
+      event: ref => history.event(earlierRow(ref)!.envelope.admissionOrdinal - 1, selectedBodies) });
     const value = representation.event;
     if (!isRecord(value) || !hasOnlyRuntimeEventKeys(value)) throw new TypeError("selected logical event is invalid");
     const { payload, ...envelope } = value;
@@ -3694,8 +3706,10 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
     if (!isRecord(physical) ||  !Buffer.from(canonicalJson(physical) + "\n", "utf8").equals(bytes))
       throw new TypeError("durable ABG event log contains a noncanonical event");
     const selectedBodies = new Map<string, RuntimeEvent>();
+    // The history holds only rows before this one while it is being decoded.
     const representation = decodeEventBody(physical, inlineByEvent, coordinate =>
-      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate));
+      runtimeInlineBodyValue(history.event(coordinate.admissionOrdinal - 1, selectedBodies), coordinate),
+    { envelope: ref => history.rowById(ref)?.envelope, event: ref => history.eventById(ref, selectedBodies)! });
     const decoded = representation.event;
     if (!isRecord(decoded) || !hasOnlyRuntimeEventKeys(decoded)) throw new TypeError("durable ABG event log contains an invalid logical event");
     const { eventId, admissionOrdinal, payloadDigest, eventContractDigest, ...candidate } = decoded;
