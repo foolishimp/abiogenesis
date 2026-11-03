@@ -15,9 +15,67 @@ Goals -> Intent -> Product -> Requirements -> Design -> Code
 
 | Goal ID | Goal | Success signal | Status |
 |---|---|---|---|
-| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.2 (the source-development pin of 2026-10-27; the runtime default-library snapshot moves at T-287 Phase D's S1). The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is closed on `main` at `46ed04895` ([T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md) Phase A, after the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md) and eight post-close repairs): every owner obligation O-RESOURCE to O-TYPE is closed with its sites and the design's proofs hold; the lifecycle law is realized as the rule `actor_process_lifecycle` in the one fold. The registered debt wave (T-290 Phase B, twelve packages, each accepted with its record and closed in the register) is closed at `a8937b837`. This is not a release: L5 delivery acceptance is recorded (the owner, 2026-10-24, on an independent review with no S0 to S2); the Phase C packages ruled by the log principle, the complete source conjunction, the combined candidate/P1/P5/P4, the fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
+| `GOAL-035` | Deliver one usable installed GTL/HoG/ABG runtime that executes declared work, evaluation and consequence and supports native agents producing working, correctable software through outcomes in the workspace. | The selected installed lifecycle satisfies its independent outcome contract; all fifteen Product families, applicable scenarios, exact qualification and human release acceptance close on their declared subjects. | Active under STDO 3.0.4 (the source-development pin of 2026-11-03; the retained RC4 runtime default-library and qualification snapshot remains on 3.0.2). The common computational library precedes release work. The [operator-family library design](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md) supersedes the [design conjunction’s](../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/common-consolidation-conjunction-01/decision.md) bounded contracts and withdraws its cross-consumer handoff. The library is closed on `main` at `46ed04895` ([T-290](../.ai-workspace/tickets/active/T-290-close-the-common-library-and-retire-the-registered-debt.md) Phase A, after the [eight-step plan](../.ai-workspace/comments/claude/20261021T162409Z_PLAN_library_consolidation_pen.md) and eight post-close repairs): every owner obligation O-RESOURCE to O-TYPE is closed with its sites and the design's proofs hold; the lifecycle law is realized as the rule `actor_process_lifecycle` in the one fold. The registered debt wave (T-290 Phase B, twelve packages, each accepted with its record and closed in the register) is closed at `a8937b837`. This is not a release: L5 delivery acceptance is recorded (the owner, 2026-10-24, on an independent review with no S0 to S2); the Phase C packages ruled by the log principle, the complete source conjunction, the combined candidate/P1/P5/P4, the fifteen-family lifecycle, F11/sole AF22, qualification and RC1 remain open. T288/T289 remain closed. |
 
 ## Current Selection
+
+Current selection, 2026-11-03: **RC5_APPROVED_PREPARING**. The owner approved the bounded [RC5 performance/reproducibility campaign](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/ROOT_SELECTION.md): runtime STDO3.0.4 migration, measured private retained-route carriage repair, reproducible inputs/evidence and separate actual RC4 setup/worker-launch/between-task timing. T-287 owns execution; installed RC4 remains immutable and unqualified. One ABG coding Worker at a time, with proportional independent max review. No stable release, publication, global selector change or repetition of completed qualification.
+
+Completed source-pin selection, 2026-11-03 AEDT: **STDO_304_SOURCE_PIN_INSTALL_COMPLETE**. The owner selects STDO 3.0.4 for ABIogenesis source development before the RC4-to-RC5 campaign. The exact Definition pin and installed native skills are verified in the [adoption record](../.ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md). RC4 source3c113133d and its installed local unqualified artifact retain their original STDO 3.0.2 basis and accepted evidence. Runtime default-library/qualification restaging and RC5 scope/campaign bindings remain separate work; no native coding activation is selected by this pin.
+
+Completed RC4 delivery selection, 2026-11-03 AEDT: **BOUNDED_LOCAL_RC4_CUT_INSTALL_COMPLETE**. Root install79955/251333 exited0 on source3c113133d96d013743c1c1ec77d562abb0b2c05b/tree6ff1f9c51c6353abfaf01ced28a2f243a7a54d4d and archivef59. Actual LOCAL_CUT_RECORD1e93fb57, all11 SHA256SUMS entries and5,321 installed payload bytes verified; FINAL_INSTALL_VERIFICATION9402371f. Source tracked clean/index empty. Final handoff .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/HANDOFF.md retains accepted setup/source/C2/UAT/closure, prior bounded005/consolidation and one matched application pair. Local unqualified candidate only: publishedfalse/qualifiedfalse/selectorChangedfalse, no push/tag/merge or stable release; no further activation selected. Cold-history performance, ambient-env and whole qualification limits remain; prior019red/020failure preserved.
+
+Historical selection, 2026-11-03 09:38 AEDT: **ATTEMPT017_CLOSED_BLOCKED_SELECTOR_GAP_SOURCE_HELD**. Native Result0dbcfc05/after2215e31c and all35 exact file snapshots remain held in subject001 ae9c9bea;7 MJS caller/proof changes, code/src unchanged. Subsequent selector stopped the Run at27349/22:34:18.546Z with default-library/gap@5; no C2 task/actor or UAT executed. Frozen workload has eight C2 selected native-recovery-16 input paths versus readRoots17 and stale Testing prose saying11 versus actual12 commands; exact selector output b1c10dcc retained. This is operator preparation evidence, not a Product failure or failed test. Actual outcome ended22:34:56.212Z exit0/blocked/terminalnull; fresh result not_found/replay blocked agree. Genuine after-run-resume10a2b22b binds427935724B/a148ba46 prefix. Attempt017 USD21.1508972/3F_P/196 reported turns; native40m49.447s, host50m04.046s, with11m46.354s recorded author-tool/operator search intervals, no causal runtime efficiency claim. Root delta review/disposition and exact next selection remain required; no source commit or retry selected. Provisional005 setup remains bounded accepted only; final candidate, C2/UAT, real paid witness, empirical/qualification/release obligations remain open.
+
+Historical selection, 2026-11-03 08:35 AEDT: **ATTEMPT016_R1_OUTER_TIMEOUT_C3_PARTIAL_CUSTODY**. Wrapper/CLI timed out at21:28:05Z (10800084.571584ms), empty return/no final closeHandoff; Root graceful TERM of exact orphan C2 actor/helper groups completed quiescence21:29:43Z. C3 NativeResult2364a233/after7977d9d7 and all34 source files are held in SUBJECT0032262dcfe; only28 tracked changes were preserved as unaccepted custody commit0a8d330a32d5f577b424394c0424a1cd9abe519b/tree37256c94ccc68050275bfdd5e67f322911d48fc7, tracked clean. Physical third C2 package4589f5c5/all34 sandbox sources retained in C2_INTERRUPTED_CUSTODY187ff7ba; no final helper result/admitted third C2 verdict/UAT. Root accepts bounded C3 strict packed factory-chain closure (independent receipt11d5d973, zero diagnostics), and earlier002 caller corrections/all11 green C2 separately; whole HC2 remains partial. Existing owner resource-recovery packet is prepared for Root execution; no recovery yet claimed. External017 is limited to remaining UAT callers/harness, legacy patch removal and selected asset/child-history proof, inheriting reviewed C3. Prior014/015/first-C2 failures remain immutable. Fresh005, empirical proof, generated adoption, whole qualification/release remain open.
+
+Current selection,2026-11-03 AEDT: **ATTEMPT015_R1_STOPPED_BLOCKED_BOUND_EXHAUSTED**. On source5331/operationalRC3/runtime002, first native Construction produced the held13-file HC1 subject; first C2 was red7/8 predicates because its schema-baseline fixture read the wrong environment key. The same Run lawfully selected and admitted a bounded repair: Result4bf2551f… at29420/17:35:15.338Z, after91155f34…, with only the proof test changed among the13 held files. Additive review-subject-002 preserves that exact return. Run stopped29501/17:37:14.594Z with recursion/bound-exhausted under unchanged bound4, before another Testing or UAT. Outcome ended17:38:08.175Z exit0/blocked/terminalnull; fresh result not_found and replay blocked agree. Six provider calls cost USD33.855755; cumulative native USD233.2309482/45F_P excludes practical004 USD0.8784886/3F_P. First C2 red and independent strict/schema proof retain their separate standing; no HC1 acceptance is inferred. Root disposition and source preservation precede HC2 canonical population/caller retirement, inherited bounded proof repairs and fresh005.015 preflight refusal/014 unmet evidence remain preserved; empirical, qualification, generated adoption and release obligations remain open.
+
+Root disposition, 2026-11-02: **ATTEMPT011_CLOSED_COMPLETED / BOUNDED_R1–R5_CODE_AND_NATIVE_PROOF_ACCEPTED**, exact source4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e/tree d136d90f44921b2944579bf89fbac0075052920b. Root conjoins completed independent physical-source review with no blocker, all52 exact source-correspondence rows, actual9 C2 commands exit0/12 predicates (115pass/0fail/12skip focused,105/0/6 affected,2/0/0 artifact:222pass/0fail/18skip), admitted satisfied UAT with unresolvedCriteria[], and independently checked fresh run_result/run_replay/outcome terminal equality, equal replay coordinates and closed status. Session20849 exited0; native completion07:47:13.885Z. Acquisition had zero Product/generated changes. This accepts bounded code/native proof, not the distinct real-provider practical interruption witness, empirical comparison, S7 (unexecuted), whole qualification or release. Scripted installed integration retains its bounded standing;010 failed observation/null after and exact custody are unchanged. No new code/architecture/review cycle is selected. Practical real-provider witness packet is ready for Root setup/preflight review, with no setup/provider admission by Writer. Closed reported costs through011:USD126.2536854/25F_P (011USD16.8180892/6F_P); no practical-witness spend included. [Native outcome](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/execution/outcome-summary.json); [C2 correspondence](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-011/C2_OBSERVED_SUMMARY.json); [practical packet](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/practical-witness-001/HANDOFF.md).
+
+Closed010 preservation, 2026-11-02: **ATTEMPT010_CLOSED_RUNTIME_FAILED / UNADMITTED_PHYSICAL_CANDIDATE_PRESERVED**. Successful provider report was followed by post-work observation failure symlink_forbidden (Result36055); after/changedPaths/lastObservation are null, Run runtime_failed at36087, no terminal or formal C2/UAT. Exact12receipt-matched Product changes are preserved at4fda33bb60eaa3d5f105beebbbaea19d6fa7fe5e/tree d136d90f44921b2944579bf89fbac0075052920b, parent7e914327. Root-selected cleanup removed only scratch10/repo and tmp contents after proof custody/quiescence; tmp inode678358047 remains empty. File-only projection1310entries/42,385,214B has no forbidden symlinks; this is feasibility, not native admission. This closed010 preservation preceded the now-dispatched011 acquisition; no native010 after-observation is inferred. Formal C2/UAT, R2/practical witness/empirical acceptance/qualification remain open. [Physical checkpoint](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/PARTIAL_CHECKPOINT.json); [cleanup/custody](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-010/physical-candidate-001/CLEANUP_RECEIPT.json).
+
+Attempt005 closed, 2026-11-02: **PARTIAL_PRESERVED / ROOT_TRIAGE_REQUIRED**, source `365d2ed2b` (tree `d3d223915`). Native Construction succeeded; main Testing preparation failed at event25008, then host resource completion failed with a missing runtime lease and the wrapper exited1. No main native C2/UAT or fresh readbacks; `after-run-resume.json` retains stale attempt003 prefix208880619 and must not be used as a successor handoff. Root triages environment/preparation/re-entry; no next packet/runtime selected. Original R2/full campaign, practical witness and qualification remain open; 10:00–14:00 AEDT ETA is under review. [Exact checkpoint](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/PARTIAL_CHECKPOINT.json).
+
+Current dispatch, 2026-11-01T16:40:51.168Z: attempt005 **DISPATCHED_AWAITING_NATIVE_PROGRESS**, Root session31474/pid19519, on partial `becc45851` with pinned RC3. [Exact handoff](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-005/HANDOFF.md) and [monitor status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/STATUS.md) own current routing. Attempt004 refused during preparation with zero Run admissions/provider cost; operator overhead remains measured separately. No actor completion, original predecessor R2/full-campaign closure, practical-witness acceptance or qualification follows.
+
+Root attempt003 dispatch, 2026-11-01T15:26:40.082Z (2026-11-02 02:26 AEDT): **DISPATCHED_AWAITING_NATIVE_PROGRESS**, session2245/pid63011, after installed RC3 preflight and exact generated-call review. [Latest handoff](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-003/HANDOFF.md) and [monitor status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/STATUS.md) retain actual evidence. Partial preimage `6dffbc0ad`, failed attempts and frozen inputs remain preserved. Whole R1–R5/predecessor recovery/practical installed proof remain required; no native completion, qualification or efficiency claim follows from this dispatch.
+
+Root attempt002 dispatch, 2026-11-01T13:40:26.808Z (2026-11-02 00:40 AEDT): **DISPATCHED_AWAITING_NATIVE_PROGRESS**, session39186/pid80968, after successful installed RC3 preflight and exact generated-call review. [STARTED](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/execution/STARTED.json) and [monitor status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/STATUS.md) own the subsequent observations. Source is still partial `5559656d3`; this snapshot claims no native Construction start/completion, recovery acceptance or qualification.
+
+Current selection, 2026-11-02: RC4 attempt001 is closed `runtime_failed` after partial native Construction. Local PARTIAL checkpoint `5559656d3` preserves the eight changed files without acceptance. [The next concrete packet](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/attempt-002/HANDOFF.md) is **PREPARED_FOR_ROOT_REVIEW** for current-state completion using pinned installed RC3; no new runtime start. Editable HOW stays live, invariant sources are disjoint from writable scope, and the Worker chooses development/rollback methods within the same causal grant. R1–R5, C2/UAT, actual installed interruption recovery, efficiency and qualification remain open.
+
+Root passive observation, 2026-11-01T12:29:16.728Z: **NATIVE_CONSTRUCTION_RUNNING**. Native Construction invocation/process starts are recorded at ordinals1190/1191 (process23031); Root session46412 is still running. [Status and exact Run](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/STATUS.md) supersede the awaiting-progress snapshot below. Source/task result, Testing/UAT and the real installed interruption witness remain pending; this is progress, not completion or qualification.
+
+Root dispatch, 2026-11-01T12:27:38.511Z: the campaign is **DISPATCHED_AWAITING_NATIVE_PROGRESS**, using pinned installed RC3 toward RC4. Root launched the one-shot reviewed native call (session46412, pid21991); [current status and evidence](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/STATUS.md) supersede the PREPARING snapshot below. Native coding actor progress and output have not yet been observed in this snapshot. Actual measurements continue; no recovery completion, qualification or release is claimed.
+
+Owner selection, 2026-11-01: the exact installed local RC3 (`bcb1faf63` / archive `70de04c3`) is pinned as the operational builder for the [RC4 native recovery campaign](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/ROOT_SELECTION.md). Begin point-one retained native-context recovery, consolidation and affected debt retirement; current stage **PREPARING**, awaiting exact preparation and Root admission before dispatch. Actual use measures wall time, provider use, tokens, event bytes and reuse, with like-workload comparisons only. RC3 remains local and unqualified; its immutable artifact, RC2 and historical evidence are preserved. This campaign selection changes no global selector, selects no publication, and closes no existing Product or efficiency obligation.
+
+Root local-cut completion, 2026-11-01: source `bcb1faf63cfb39bd7ccf7e14b48b133d1163216b` / archive `70de04c36e5716fd37d23e00daa37ab9f5bc079f51aec2544f8f0eb1c40649cd` is now a bounded LOCAL, unqualified RC3 development candidate with completed owner installation ([actual handoff](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/local-cut-01/HANDOFF.md)). Root session37197 exited0; verification/install/full 5,321-file payload equality and all retained checksums/identities agree, with zero provider calls. Narrow native N1–N4 and actual installed C→T→UAT/14-check oracle/fresh closure/source conservation/cold read retain their accepted exact-subject standing. F4 stays deferred P1 (`T287-P1-F4-ROUTE-CARRIAGE-01`); body-once overall, F5/965 scaling, native-context predecessor-member recovery and whole qualification remain open. The exact release directory is frozen. No external publication/tag/push, default-selector change or stable release was performed or selected. Earlier dated not-cut statements remain historical.
+
+Owner budget direction, 2026-11-01: authorized R&D development may exceed the
+previous dollar allocation and budget-only stop thresholds. Continue tracking
+reported actual costs and unknown charges; budget enforcement applies once the
+Product is stable. The [current operator guidance](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md)
+supersedes earlier R&D monetary limits. This changes no work scope, authority,
+qualification or release obligation and does not itself activate a provider.
+
+Current P1 reprice, Root admission2026-11-01T05:18UTC: [P1-03 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-03/ROOT_DISPOSITION.md) selects the prospective N1–N4 ten-owner narrow completion at source9c4a5c5e, superseding the undispatched53-path completion packets. Restore first renderer physical-facts relation/exact C2 pin, remove compensating carriage, execute the resolver fixture/refusals and declare the existing typed pre-P1 value-use boundary. No blanket coordinate/nativeidentity/crossRun holder rewrite. Original full P1/native-context continuation remains partial/open; generic exact-intent payload recovery is separate. Root alone dispatches after exact review; worker controls strategy within declared effects. Later one same-workload14/14 composition/resource observation is separate; no arbitrary10%B11 or release claim. Initial intake and prior proofs remain retained below.
+
+Owner instruction and Root admission, 2026-11-01: fix the confirmed single-machine
+context-carriage P1 through the existing admitted-body and owner-reference path.
+The bounded [design and activation](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/DESIGN_AND_ACTIVATION.md),
+[prospective amendment](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/AMENDMENT_01.md)
+and [admitted native preparation grant](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/single-machine-p1-01/NATIVE_GRANT_ADMITTED.json)
+select the exact97406077 checkpoint and isolated successor worktree. ABG native
+Worker alone authors Product HOW/code/tests; Root alone selects the final reviewed
+call and provider dispatch. Preserve the one log, saga, currentness, typed refusals
+and cold recovery; retire redundant carriage/check paths without a new store,
+service, controller, generic registry or legacy branch. This selects the actual
+repair after bounded design admission, not a preview cut/release or a claim of
+efficiency already achieved. All earlier accepted/failed/partial proofs,
+witness003 gap and qualification obligations retain their original standing.
+
 
 Owner selection, 2026-10-30: release and deploy explicitly unqualified
 development `5.0.0-rc.1`, then use installed RC1 to build RC2 with one honestly
@@ -29,6 +87,90 @@ development preview. Final fifteen-family/native qualification and stable
 5.0 acceptance remain open. T-287's `T287-RC1-PREVIEW-PREP-01` freezes the
 reviewable artifact and local owner installation before Root dispatches exact
 external publication; no automatic green verdict or native snapshot is implied.
+
+
+Observed checkpoint, 2026-10-31: RC1 is published and deployed. Its bounded
+single-proxy build trial produced local unqualified RC2 candidate `d1e4527db`,
+with a passing build and twelve selected tests. Native UAT remains unmet and
+the Run blocked; the Executive accepted only local candidate delivery after
+reconciling existing artifact evidence against the original criteria. This is
+not native qualification or RC2 publication. The [candidate receipt](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/candidate-009.json)
+and [disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc2-dogfood-01/executive-disposition-009.json)
+retain those boundaries, the $35.6671188 reported provider cost, unknown proxy
+cost and surviving obligations. No trial worker remains active.
+
+Owner continuation, 2026-10-31: “review, fix, and continue on using rc2 being
+used to build rc3”. The Executive interprets this as selecting the necessary
+local development deployment of the RC2 candidate subject to its current review
+and the reviewed GC-03 shared-context dependency, followed by a bounded
+RC2-built RC3 effort.
+Preparation, exact subjects and activation stops are retained in the
+[RC3 operator carrier](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/PREPARATION.md).
+Root remains the sole ABI operator proxy. This selection does not publish RC2,
+qualify the whole Product, revise native Run 009's blocked result or unmet UAT,
+or itself activate a provider or an ABI runtime. Preserve the original
+acceptance criteria and surviving native and qualification obligations.
+
+Observed continuation, 2026-11-01: RC2 was used to build a local RC3 artifact,
+but the required real-owner governed-context test failed during test setup.
+Five separate STDO tests failed because `stdo` was unavailable on the C2 PATH;
+neither result establishes a Product regression. The RC3 worktree and artifact
+remain unqualified and unreleased, and the native Run closed blocked. Root
+stopped further paid coding and the installed witness; the earlier 03:30–04:30
+AEDT release ETA is withdrawn. The [delivery status](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-008/DELIVERY_STATUS.md)
+records the actual C2, costs, preserved RC2 verdict and remaining obligations.
+
+Owner selection, 2026-11-01: prioritize a lawful installed sunny-day graph
+that performs work, evaluation and consequence across at least two causally
+joined iterations to an independently checked useful output and terminal
+Result; then prove cold recovery and continuation from admitted event truth.
+The [sunny-day plan](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/SUNNY_DAY_PLAN.md)
+separates controlled graph mechanics from bounded live `F_P` evidence. This
+changes sequencing, not Product law or the preceding failed-Run standing; it
+does not activate a provider or waive remaining qualification and release work.
+
+Bounded checkpoint, 2026-11-01: the selected basic-cli Run completed with an
+actual terminal Result and independent oracle satisfied. Root accepted its
+one-Run evaluation-directed traversal claim after independent review. The
+[disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/sunny-day-001/SUNNY_DAY_DISPOSITION.md)
+retains exact evidence and limitations. Cold recovery, repeatability, GC03 and
+whole-Product qualification and release acceptance remain open.
+
+Bounded recovery checkpoint, 2026-11-01: Root accepted controlled cold
+continuation through explicit replacement-Run lineage after independent review;
+the successor result/replay closed and a superseded request refused. The
+[recovery disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/recovery-001/RECOVERY_DISPOSITION.md)
+does not establish physical-crash recovery, correction, repeatability or
+broader Product qualification.
+
+B07 observation, 2026-11-01: the bounded GC03 mechanical Construction
+ended `runtime_failed` at its provider turn limit without a terminal Result or
+admitted C2; a named scratch test passed but is not native acceptance. The
+[disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-009/B07_DISPOSITION.md)
+retains the frozen source and independent-review context. The later B09
+Testing → UAT Run did not carry a prior Construction Result.
+
+B09 and witness observation, 2026-11-01: all nine native B09 C2 commands
+passed, but native UAT was indeterminate and the Run blocked. A separate actual
+fixed-client witness reached the lookup, then failed native Construction admission
+on a StructuredOutput marker false positive; no Construction Result was admitted.
+The [failure disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b09/failure-02/DISPOSITION.md)
+retains the exact counterexample. Root accepted the bounded three-path B10 repair after native C2 and satisfied
+UAT; its parent completed and fresh result/replay agree. The [B10 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-012/B10_DISPOSITION.md)
+retains the exact evidence and limits. Root selected its tested artifact for a
+separate W1–W5 witness. Its Testing and Construction Results were admitted,
+but the bounded parent blocked without a terminal. Root accepted bounded W1,
+W2, W4 and W5; W3 cold authentication remains open because the endpoint is
+only in an unadmitted sidecar and the admitted environment digest cannot be
+reconstructed from retained inputs. Root accepted bounded B11 JSON-escaped endpoint-prompt repair after native C2,
+satisfied UAT, completed parent and matching fresh reads; see the [B11 disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/attempt-013/B11_DISPOSITION.md).
+Root selected its tested artifact solely for a fresh W1–W5 witness. Witness004
+admitted Testing and Construction and produced a mechanical cold-correspondence
+proof; Root accepted original bounded W1–W5 for that fresh Constructor
+host-mediated Run after independent trace and cold-proof review. Its parent
+blocked without a terminal, and the original witness003 cold join remains unproven; see the [witness disposition](../.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/witness-001-prep/observation-b10/WITNESS_003_DISPOSITION.md).
+Foundation acceptances and broader qualification and release obligations
+retain their stated bounds.
 
 Owner selection, 2026-10-21: ABG's
 [library of common computational capabilities](../build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)

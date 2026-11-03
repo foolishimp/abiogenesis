@@ -78,6 +78,23 @@ through declared extension points.
 - Escalate only for Product, requirement, exact Public-family, or materially
   different authority changes.
 
+## Native STDO Skills
+
+For current source-development work, use the native skills from the exact
+installed STDO basis selected by `stdo_abiogenesis.json`. The current plugin
+root is `/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec`.
+Read `skills/stdo-work/SKILL.md`, `skills/stdo-review/SKILL.md`,
+`skills/stdo-status/SKILL.md`, `skills/stdo-ticket/SKILL.md` or
+`skills/stdo-help/SKILL.md` there for the applicable task, with its relative
+references intact. Resolve and verify that installed root through `stdo`;
+a separately loaded host plugin must match its complete manifest inventory.
+This is direct file loading, with no claim of host plugin registration.
+
+Source pinning preserves released builders and historical Runs at their original
+method bases. The [3.0.4 adoption record](.ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md)
+binds the current source selection; runtime-library and qualification restaging
+require their own selected successor work.
+
 <!-- STDO_BOOTSTRAP_START -->
 ## STDO Bootstrap
 

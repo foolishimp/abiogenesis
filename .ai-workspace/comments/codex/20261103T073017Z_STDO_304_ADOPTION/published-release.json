@@ -1,0 +1,33 @@
+{
+  "tag_name": "specification_methodology/v3.0.4",
+  "draft": false,
+  "prerelease": false,
+  "published_at": "2026-11-03T04:15:16Z",
+  "html_url": "https://github.com/foolishimp/specification_methodology/releases/tag/specification_methodology/v3.0.4",
+  "assets": [
+    {
+      "name": "stdo-v3.0.4-manifest.json",
+      "size": 18022,
+      "digest": "sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.4/stdo-v3.0.4-manifest.json"
+    },
+    {
+      "name": "stdo-v3.0.4-manifest.json.sha256",
+      "size": 92,
+      "digest": "sha256:42f8f699faef0cc8b754c1a260cbfe4ae739eb599797e8f5d325c8356ea9a300",
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.4/stdo-v3.0.4-manifest.json.sha256"
+    },
+    {
+      "name": "stdo_toolchain-0.1.6-py3-none-any.whl",
+      "size": 61549,
+      "digest": "sha256:ef726f780220a4be93c8ce014e2838d140851ec0e3d47902ea2ddd36a26c3242",
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.4/stdo_toolchain-0.1.6-py3-none-any.whl"
+    },
+    {
+      "name": "stdo_toolchain-0.1.6-py3-none-any.whl.sha256",
+      "size": 104,
+      "digest": "sha256:5a2ff8ed8195de385542ab37f2150401f1c7d9444ba5aac003518f57c6a3e6e6",
+      "browser_download_url": "https://github.com/foolishimp/specification_methodology/releases/download/specification_methodology/v3.0.4/stdo_toolchain-0.1.6-py3-none-any.whl.sha256"
+    }
+  ]
+}

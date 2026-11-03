@@ -23,13 +23,13 @@ deterministic interpreter of open-world frame meaning.
 
 - sole operative selection:
   `repo://abiogenesis/stdo_abiogenesis.json#/constitution/stdo/basis`;
-- method: `stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md`,
+- method: `stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md`,
   heading `3. Laws`;
 - engagement profile:
-  `stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md`,
+  `stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md`,
   heading `1. Canonical compression`;
 - Executive, Worker, and Reviewer:
-  `stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md`;
+  `stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md`;
 - ABI local frame atlas:
   `repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas`;
 - admitting authority: `repo://abiogenesis/specification/PRODUCT.md#governance-and-release-boundary`
@@ -172,7 +172,7 @@ This development/review frame specializes the selected STDO evaluations below wi
 the ABI [frame atlas](./ABI5_REALIZATION_CONSTITUTION.md#53-six-frame-atlas)
 and [SP-01..09 seam/proof law](./ABI5_REALIZATION_CONSTITUTION.md#532-compounded-frame-scenario-proof-law).
 It is a local extension under
-`stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement`,
+`stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement`,
 not adoption of mutable methodology source, a replacement engagement profile,
 a runtime environment declaration, or a change to the fifteen-family Product.
 
@@ -182,10 +182,10 @@ what has actually been demonstrated? Keep four claims distinct:
 
 | Claim | ABI evaluation and source route |
 |---|---|
-| Contract/context sufficiency | The declared input, success or candidate output, refusal, domain and supplied context make each participant's responsibility usable. Design/Public Boundary/Owner/Proof families: `stdo://releases/v3.0.2/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set`. |
-| Actual producer-consumer congruence | Both actual participants and material translations preserve the selected contract over the bounded interaction population. `stdo://releases/v3.0.2/standards/ASSURANCE.md#integration-frame`. |
-| Exact native path | The exact installed subject realizes the selected entry-to-outcome chain, including required owner effects, admission, closure and fresh projections. `stdo://releases/v3.0.2/standards/ASSURANCE.md#end-to-end-frame`. |
-| Ordinary-user/LLM usability | The declared caller obtains the independently specified outcome using its ordinary information and capabilities, with live external compute when claimed. `stdo://releases/v3.0.2/standards/ASSURANCE.md#user-acceptance-frame`. |
+| Contract/context sufficiency | The declared input, success or candidate output, refusal, domain and supplied context make each participant's responsibility usable. Design/Public Boundary/Owner/Proof families: `stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set`. |
+| Actual producer-consumer congruence | Both actual participants and material translations preserve the selected contract over the bounded interaction population. `stdo://releases/v3.0.4/standards/ASSURANCE.md#integration-frame`. |
+| Exact native path | The exact installed subject realizes the selected entry-to-outcome chain, including required owner effects, admission, closure and fresh projections. `stdo://releases/v3.0.4/standards/ASSURANCE.md#end-to-end-frame`. |
+| Ordinary-user/LLM usability | The declared caller obtains the independently specified outcome using its ordinary information and capabilities, with live external compute when claimed. `stdo://releases/v3.0.4/standards/ASSURANCE.md#user-acceptance-frame`. |
 
 **Subject and basis.** Bind the T-287 outcome and independently fixed oracle,
 governing Product/requirement/HOW, exact source checkpoint or artifact/install,

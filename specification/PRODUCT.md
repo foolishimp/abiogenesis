@@ -12,7 +12,8 @@
 `.ai-workspace/comments/codex/20260720T021524Z_DECISION_fh_accept_t283_and_authorize_m2.md`
 **Method adoption authority**: direct Product-owner `F_H` ruling and bounded
 `product_reprice` recorded in
-[STDO 3.0.2 adoption](../.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION/README.md), after the
+[STDO 3.0.4 source-development adoption](../.ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md), after the
+[STDO 3.0.2 adoption](../.ai-workspace/comments/claude/20261027T224556Z_STDO_302_ADOPTION/README.md), the
 [STDO 3.0.1 adoption](../.ai-workspace/comments/claude/20261025T022614Z_STDO_301_ADOPTION/README.md) and the
 [STDO 3.0.0 RC1 adoption](../.ai-workspace/comments/codex/20261021_STDO_300_RC1_ADOPTION/README.md).
 **Release-scope ruling**: [2026-09-13 boundary amendment](../.ai-workspace/comments/codex/20260913_ABG5_ARCHITECTURE_FIXES/release-boundaries.md).
@@ -666,7 +667,7 @@ the owning evaluation family, subject/basis, material relations, criteria,
 authority, admissible evidence, exclusions, result relation, invalidation and
 actor capability envelope. Role, question, scope, required inputs and response
 contract are its usable projection, not a replacement definition. Under STDO,
-[Reference Frame](stdo://releases/v3.0.2/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit)
+[Reference Frame](stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit)
 owns that meaning. General GTL Programs need not adopt STDO to declare their
 own evaluation contracts.
 
@@ -1603,7 +1604,7 @@ its composition selects any additional Development Products. The direct
 Product-owner ruling selects the published standalone V3 method and supplied
 plugin payload recorded in the linked adoption evidence for resumed source
 work. Its exact identity is owned by the Definition, not independently selected
-by this document. The published cut retains its prerelease qualification scope.
+by this document. The published cut retains its declared qualification scope.
 Self-conformance, qualification, and release must bind that same exact basis.
 Another STDO version cannot substitute without lawful Product re-entry and an
 F_H disposition. Mutable methodology source and candidate work are authoring
@@ -1632,8 +1633,8 @@ atlas, and grants no implementation, mutation, admission, or release
 authority.
 
 The TypeScript realization applies the selected release's
-[software-design profile](stdo://releases/v3.0.2/standards/DESIGN_MODULE.md)
-and [build-tenant binding law](stdo://releases/v3.0.2/standards/SPEC_METHOD.md#11-build-tenant-binding).
+[software-design profile](stdo://releases/v3.0.4/standards/DESIGN_MODULE.md)
+and [build-tenant binding law](stdo://releases/v3.0.4/standards/SPEC_METHOD.md#11-build-tenant-binding).
 The [STDO 3 computational binding](../build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md)
 records their application to the existing Product and requirement owners.
 Algorithmic description, informational interpretation and computational

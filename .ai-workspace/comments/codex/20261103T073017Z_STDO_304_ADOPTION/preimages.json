@@ -1,0 +1,79 @@
+{
+  "sourceHead": "228f6b96a3db3cf9376914504aca3b93d14126de",
+  "initialTrackedStatus": "## main...origin/main [ahead 260]\n M .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md\n M .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md\n M .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md\n M specification/GOALS.md\n",
+  "files": [
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "6d4caf2b6c6dd4c6e6386aba751e0967749103f2d19d96dfba36eaa68f8f7d28",
+      "headBlob": "626639c0c66ae99a57e12d20074f53ccdffd01cb"
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 11923,
+      "sha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+      "headBlob": "766ae37f79de146cd51195cffc12f01ecc056ce8"
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 5297,
+      "sha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+      "headBlob": "c591b56aa518c8cae370b3707827ecf0a179716b"
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 100202,
+      "sha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+      "headBlob": "5348c5af59105a22c0210d282a033c92ec091115"
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 109397,
+      "sha256": "6c3e742022a4101bfb0a2bfb73bb198f18b21acf9eaf9b1a13c5c4ddfad486e2",
+      "headBlob": "4bdcdb48477cf2473a85d10e821ad509e985f69c"
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "bytes": 8953,
+      "sha256": "ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b",
+      "headBlob": "62a0bc2f2c8be89e9ad3df047e51595b1ffefc08"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "a5598f28da632275333a0102aa27640ef188265f41ff71f8c8f7a05d71f4b8f6",
+      "headBlob": "2a61f73a0dca5f7a179a848eec77e4173b300500"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "bytes": 101349,
+      "sha256": "69da4fb4ad234862ddb52832c44e41ffced669f1e3ac3b64903c0424cb382035",
+      "headBlob": "48705208d75707fc3f1b60c1227a58e2dd0fbf4d"
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 133955,
+      "sha256": "2870abc5bf337029c7210854e7bc01042ab6953886876e53afb39fc1846d6e48",
+      "headBlob": "aff23427fd878c936df6a88593c4adbb7dfd4b40"
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 667664,
+      "sha256": "acbcaefcd5e6a17068fea8095eba6f5f376b615ae5f6a8e4249870ee6d3d6bee",
+      "headBlob": "963cd347c6a281235da4bd002e9eb12976574375"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+      "bytes": 2333,
+      "sha256": "50b1f502f2bd3a9fe4922391915e37e07ab472fc76b3e292219173cf0e266fbd",
+      "headBlob": "2f23a9fbfa7e8d3a9567673fcd0ae60ec35539c2"
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md",
+      "bytes": 4031,
+      "sha256": "d67161759a997b1471691a19dccc33c8ee6b10bf916ee075532086c0ca35d96c",
+      "headBlob": "a56d9b3bb504fa49c249033f72ebed26cc399022"
+    }
+  ],
+  "note": "Identities only; unrelated dirty and untracked work retained in place."
+}

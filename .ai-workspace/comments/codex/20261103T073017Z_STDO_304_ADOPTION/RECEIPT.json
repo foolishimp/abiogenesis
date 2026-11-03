@@ -1,0 +1,105 @@
+{
+  "activation": "T287_STDO_304_SOURCE_PIN_01",
+  "status": "completed",
+  "completedAt": "2026-11-03T07:37:03.933714+00:00",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "roleTransition": "Writer -> Executive after the bounded return",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 6084,
+      "sha256": "e16054896add3393fb1f2780c757fb45b8fca295af54136300fa72ac8418ebc0"
+    },
+    {
+      "path": "adoption-plan.json",
+      "bytes": 1066,
+      "sha256": "3754974a753aa1d34c727a30cff9cea816534ca3192f9d085894f984b93562fc"
+    },
+    {
+      "path": "adoption-plan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "adoption-result.json",
+      "bytes": 1152,
+      "sha256": "8c859fb240523fd462d26c34317c79e2246f67af5b3c2d0cdf3708e9ddd6b090"
+    },
+    {
+      "path": "adoption-result.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "bootstrap-final-plan.json",
+      "bytes": 318,
+      "sha256": "2a148cb03cd82e3d61859820d0993790a4e5c45e062b7e53fc2de2992c544bd7"
+    },
+    {
+      "path": "bootstrap-plan.json",
+      "bytes": 318,
+      "sha256": "2a148cb03cd82e3d61859820d0993790a4e5c45e062b7e53fc2de2992c544bd7"
+    },
+    {
+      "path": "bootstrap-plan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "install.stdout.json",
+      "bytes": 954,
+      "sha256": "bb91d599e92778b6b88ef95e72ed59623177165ac8adc0b8f6214892aa806f70"
+    },
+    {
+      "path": "preimages.json",
+      "bytes": 3504,
+      "sha256": "5ed6f5d5c15e4d6b92cc6f7f7c3ec7eaa228c3f8189a8269ff124c5e2421ba27"
+    },
+    {
+      "path": "published-release.json",
+      "bytes": 1676,
+      "sha256": "39b1fbe035dfad028325faa8b264019dc56d6d16fb113095e195fa8f807754f9"
+    },
+    {
+      "path": "source-route-edits.json",
+      "bytes": 2225,
+      "sha256": "9941e344660dbb0adb1e3b283d0f49ba71ddaab08b87ce1f95487dd04e5da831"
+    },
+    {
+      "path": "status-after-adoption.json",
+      "bytes": 14702,
+      "sha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c"
+    },
+    {
+      "path": "status-after-adoption.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "stdo-status.json",
+      "bytes": 14702,
+      "sha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c"
+    },
+    {
+      "path": "stdo-v3.0.4-manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b"
+    },
+    {
+      "path": "stdo-v3.0.4-manifest.json.sha256",
+      "bytes": 92,
+      "sha256": "42f8f699faef0cc8b754c1a260cbfe4ae739eb599797e8f5d325c8356ea9a300"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 16027,
+      "sha256": "74b5506742f9158daca3e9616fd2cba7154821b09563e5ed1ef9c39cbd0b9c67"
+    }
+  ]
+}
