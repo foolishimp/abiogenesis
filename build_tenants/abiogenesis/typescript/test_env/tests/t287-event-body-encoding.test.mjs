@@ -9,7 +9,7 @@ import test from "node:test";
 import * as storeOwner from "../../build/code/src/abg/event_store.js";
 import { persistEventLog } from "../../build/code/src/abg/event_log.js";
 import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
-  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent } from "../../build/code/src/abg/event_prefix.js";
+  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent, indexedRuntimeEvents } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
 import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from "../../build/code/src/abg/invocation_execution_truth.js";
 import { governanceContract } from "../../build/code/src/product/default_library_identity.js";
@@ -17,8 +17,10 @@ import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/c
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 import { constructWorksiteCommandExecutionModulePublication } from '../../build/code/src/gtl/worksite_command_execution.js';
-import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/index.js';
-import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
+import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, RETAINED_GRAPH_INPUT_CONTRACT,
+  constructRetainedGraphInput } from '../../build/code/src/product/index.js';
+import { rawAdmitValue } from '../../build/code/src/validator/index.js';
+import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey, encodeEventBody, decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
 import { loadWorksiteOwner, worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
 
@@ -911,4 +913,296 @@ test("965-member native context carriage is byte-equivalent to the expanded stru
     ...measured, holderAcquisitions: acquisitions, warm, cold,
     baselineLabel: "structural/serialization projection of B11 shapes; not an executed old runtime and no old CPU/RSS/wall",
     methodLimits: "single unrepeated local run; OS page cache holds the just-written log for the cold process; cold/warm cover the owner decode/resolve path only, not native Work or C2; no end-to-end speedup claim" }));
+});
+
+// RC5 retained-route carriage. Real EventStore stamping, admission, durable
+// encoding, rollback and cold decode. Result and route envelopes are controlled
+// lower premises in the traversal owner's retained shape (owner constructor and
+// raw admission for the bound input); this is not traversal admission authority,
+// which m5-installed-graph-edge exercises through an installed candidate.
+const retainedContractRef = RETAINED_GRAPH_INPUT_CONTRACT.contractRef;
+const retainedEntry = { kind: "data_input", schemaVersion: "5.0.0", subject: "retained entry; ".repeat(64) };
+const retainedSource = { kind: "body_fixture_output", schemaVersion: "5.0.0", text: "consumed retained source; ".repeat(2000) };
+function route(store, label, source, { runId = "run://body-fixture", causes = [] } = {}) {
+  const boundInput = rawAdmitValue(constructRetainedGraphInput(retainedEntry, source), "invocation_input", retainedContractRef);
+  assert.equal(boundInput.kind, "raw_admitted_value", JSON.stringify(boundInput));
+  const body = { routeKind: "advance", cCallRef: "c-call://body-fixture/" + label, boundInput,
+    sourceCursorRef: "traversal-cursor://body-fixture/" + label, targetCursorRef: "traversal-cursor://body-fixture/" + label + "/next" };
+  const routeDigest = sha256Canonical(body);
+  return storeOwner.admitRuntimeEvent(store, envelope("traversal_route_admitted",
+    { routeRef: "traversal-route://body-fixture/" + routeDigest.slice(7), routeDigest, ...body },
+    { aggregateType: "frame", aggregateId: "frame://" + label, parentAggregateId: "graph-call://" + label, scopeClass: "run",
+      runId, graphCallId: "graph-call://" + label, frameId: "frame://" + label, causationEventRefs: causes }));
+}
+// The consumed Result is itself already physically referenced (v1 to the child).
+function retainedHistory(store, source = retainedSource) {
+  const child = result(store, "child", source), parent = result(store, "parent", source);
+  return { child, parent, used: route(store, "parent", source, { causes: [parent.eventId] }) };
+}
+const physicalId = row => (row.kind === "abg_admitted_body_reference_record" ? row.event : row).eventId;
+const rowIndex = (rows, event) => rows.findIndex(row => physicalId(row) === event.eventId);
+const withoutSource = event => {
+  const { source: _source, ...value } = event.payload.boundInput.value;
+  return { ...event, payload: { ...event.payload, boundInput: { ...event.payload.boundInput, value } } };
+};
+function assertRouteNamesResult(rows, used, consumed) {
+  const row = rows[rowIndex(rows, used)];
+  assert.equal(row.kind, "abg_admitted_body_reference_record"); assert.equal(row.codecVersion, 3);
+  assert.deepEqual(row.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(used.payload.boundInput.value.source) });
+  assert.deepEqual(row.event, withoutSource(used), "only the nested retained source is omitted");
+  assert.deepEqual(Object.keys(row.event.payload.boundInput.value).sort(), ["entry", "kind", "schemaVersion"]);
+}
+// The same workload without the v3 form: the route row written inline.
+function routeInlineBytes(bytes, rows, used) {
+  const row = rows[rowIndex(rows, used)];
+  return bytes.length - Buffer.byteLength(canonicalJson(row) + "\n") + Buffer.byteLength(canonicalJson(used) + "\n");
+}
+async function reopenBytes(t, dir, name, bytes, authority) {
+  const eventLogPath = join(dir, name);
+  await writeFile(eventLogPath, bytes);
+  const info = await stat(eventLogPath), { authorityDigest: _old, ...body } = authority;
+  Object.assign(body, { eventLogPath, device: info.dev, inode: info.ino, durableByteLength: bytes.length, eventLogDigest: sha256Bytes(bytes) });
+  const reopened = storeOwner.reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
+  if (reopened.kind === "reopened_event_store_context") t.after(() => reopened.store.closeDurableLog());
+  return reopened;
+}
+
+test("RC5 retained route names its exact already-referenced Result and reconstructs full, selected and descriptor reads", async t => {
+  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(rows[rowIndex(rows, child)].kind, "c_call_result_admitted");
+  assert.equal(rows[rowIndex(rows, parent)].codecVersion, 1, "the consumed Result is already physically referenced");
+  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, child.eventId);
+  assertRouteNamesResult(rows, used, parent);
+  assert.deepEqual(used.payload.boundInput.value.source, retainedSource);
+  assert.deepEqual(used.causationEventRefs, [parent.eventId]);
+  assert.ok(isDeeplyFrozen(events));
+  const cold = storeOwner.validateHistoricalEvents(bytes);
+  assert.deepEqual(cold, events); assert.deepEqual(storeOwner.validateHistoricalEvents(encode(events)), events);
+  // Synthetic routes are storage premises without traversal replay facts; the
+  // installed m5 case checks fresh run result/replay over a real retained route.
+  assert.equal(sha256Canonical(cold), sha256Canonical(events));
+  const coldRoute = cold.find(e => e.eventId === used.eventId), coldParent = cold.find(e => e.eventId === parent.eventId);
+  assert.equal(coldRoute.payload.boundInput.value.source, coldParent.payload.value, "full decode restores the acquired Result body");
+  const current = storeOwner.selectHeldEventStoreDurablePrefix(f.store);
+  const cut = storeOwner.durableRuntimeEventPrefixThroughEvent(current, used.eventId);
+  assert.equal(cut.prefixDigest, sha256Bytes(bytes.subarray(0, cut.prefixLength)));
+  assert.equal(storeOwner.runtimeEventPhysicalPrefix(events).digest, sha256Bytes(bytes));
+  const closed = f.store.projectReopenAuthorityAndClose();
+  assert.deepEqual(storeOwner.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(cut))), events.slice(0, used.admissionOrdinal));
+  const reopened = storeOwner.reopenEventStore(JSON.parse(JSON.stringify(closed.reopenAuthority)));
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  t.after(() => reopened.store.closeDurableLog());
+  // Selected read of the route row alone acquires its Result, then that Result's v1 source.
+  assert.deepEqual(indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(reopened.store), "id:" + used.eventId), [used]);
+  assert.deepEqual(reopened.store.readAll(), events);
+  // The reopened owner encodes against a committed Result it must reacquire from bytes.
+  const later = result(reopened.store, "after-reopen", retainedSource);
+  const laterRoute = route(reopened.store, "after-reopen", retainedSource, { causes: [later.eventId] });
+  const after = await readFile(f.eventLogPath), afterRows = decodeRows(after), all = reopened.store.readAll();
+  assert.equal(afterRows[rowIndex(afterRows, later)].codecVersion, 1);
+  assertRouteNamesResult(afterRows, laterRoute, later);
+  assert.deepEqual(storeOwner.validateHistoricalEvents(after), all);
+  const fresh = execFileSync(process.execPath, ["--input-type=module", "-e", `
+    import {readFileSync} from 'node:fs';
+    import {validateHistoricalEvents} from './build/code/src/abg/event_store.js';
+    import {sha256Canonical} from './build/code/src/shared/digests.js';
+    const events=validateHistoricalEvents(readFileSync(process.argv[1])), route=events.find(e=>e.eventId===process.argv[2]);
+    console.log(JSON.stringify({events:sha256Canonical(events),source:sha256Canonical(route.payload.boundInput.value.source)}));
+  `, f.eventLogPath, laterRoute.eventId], { cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000 });
+  assert.deepEqual(JSON.parse(fresh), { events: sha256Canonical(all), source: sha256Canonical(retainedSource) });
+  const beforeBytes = routeInlineBytes(bytes, rows, used);
+  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "component-retained-history", beforeBytes,
+    afterBytes: bytes.length, netSavedBytes: beforeBytes - bytes.length, logicalUnchanged: true, logicalEvents: events.length,
+    sourceBytes: Buffer.byteLength(canonicalJson(retainedSource)), consumedResultPhysicalForm: "v1_reference" }));
+});
+
+test("RC5 retained route distinguishes exact consumed Result membership from same-valued basis and foreign occurrences", async t => {
+  const f = await resource(t);
+  const sameValuedBasis = storeOwner.admitRuntimeEvent(f.store, basis(retainedSource, "same-valued-basis"));
+  const foreignCall = result(f.store, "foreign-call", retainedSource);
+  const foreignRun = result(f.store, "parent", retainedSource, "run://foreign-occurrence");
+  const parent = result(f.store, "parent", retainedSource);
+  const unbacked = route(f.store, "unbacked", retainedSource);
+  const used = route(f.store, "parent", retainedSource, { causes: [parent.eventId] });
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(foreignRun.aggregateId, parent.aggregateId, "the foreign occurrence carries the same CCall reference");
+  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, sameValuedBasis.eventId,
+    "the Result body dependency may be an equal basis through v1");
+  assertRouteNamesResult(rows, used, parent);
+  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "equal bodies without the route's own Result stay inline");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  const closed = f.store.projectReopenAuthorityAndClose(), target = rowIndex(rows, used);
+  for (const [name, decoy] of Object.entries({ sameValuedBasis, foreignCall, foreignRun, unbackedRoute: unbacked })) {
+    const changed = structuredClone(rows);
+    changed[target].bodyReference = { ...changed[target].bodyReference, sourceEventRef: decoy.eventId, sourcePayloadDigest: decoy.payloadDigest };
+    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), /exact earlier consumed Result/, name);
+    const refused = await reopenBytes(t, f.dir, `decoy-${name}.jsonl`, encode(changed), closed.reopenAuthority);
+    assert.equal(refused.code, "invalid_event_history", name); assert.match(refused.message, /exact earlier consumed Result/, name);
+  }
+});
+
+test("RC5 retained route refuses missing, forward, tampered, mixed and uncommitted sources before exposing history", async t => {
+  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
+  const later = storeOwner.admitRuntimeEvent(f.store, basis(input, "after-route"));
+  // Storage probe only: the CCall phase owner refuses a second Result for one CCall.
+  const laterResult = result(f.store, "parent", retainedSource);
+  const committed = await readFile(f.eventLogPath);
+  let rolledBack;
+  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    rolledBack = result(f.store, "uncommitted", retainedSource);
+    route(f.store, "uncommitted", retainedSource, { causes: [rolledBack.eventId] });
+    throw Error("selected rollback");
+  }), /selected rollback/);
+  assert.deepEqual(await readFile(f.eventLogPath), committed, "rollback publishes neither Result nor route");
+  const unbacked = route(f.store, "uncommitted", retainedSource);
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "a rolled-back Result supplies no source");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  const target = rowIndex(rows, used), resultRow = rowIndex(rows, parent), childRow = rowIndex(rows, child), unbackedRow = rowIndex(rows, unbacked);
+  const reference = (sourceEventRef, sourcePayloadDigest) => ({ sourceEventRef, sourcePayloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(retainedSource) });
+  const mutations = {
+    missing: [r => { r[target].bodyReference.sourceEventRef = "event://missing"; }, /exact earlier consumed Result/],
+    self: [r => { r[target].bodyReference = reference(used.eventId, used.payloadDigest); }, /exact earlier consumed Result/],
+    forwardResult: [r => { r[target].bodyReference = reference(laterResult.eventId, laterResult.payloadDigest); }, /exact earlier consumed Result/],
+    forwardOther: [r => { r[target].bodyReference = reference(later.eventId, later.payloadDigest); }, /exact earlier consumed Result/],
+    deletedResult: [r => { r.splice(resultRow, 1); }, /exact earlier consumed Result/],
+    childOccurrence: [r => { r[target].bodyReference = reference(child.eventId, child.payloadDigest); }, /exact earlier consumed Result/],
+    wrongPayload: [r => { r[target].bodyReference.sourcePayloadDigest = child.payloadDigest; }, /exact earlier consumed Result/],
+    wrongSlot: [r => { r[target].bodyReference.sourceSlot = "basis_input"; }, /exact earlier consumed Result/],
+    wrongBody: [r => { r[target].bodyReference.bodyDigest = sha256Canonical("changed"); }, /differs from its exact consumed Result/],
+    tamperedRouteCall: [r => { r[target].event.payload.cCallRef = child.aggregateId; }, /exact earlier consumed Result/],
+    tamperedRouteRun: [r => { r[target].event.runId = "run://foreign-occurrence"; }, /exact earlier consumed Result/],
+    tamperedEntry: [r => { r[target].event.payload.boundInput.value.entry.subject = "changed"; }, /inconsistent history/],
+    tamperedResultReference: [r => { r[resultRow].bodyReference.bodyDigest = sha256Canonical("changed"); }, /body reference/],
+    tamperedSourceBody: [r => { r[childRow].payload.value.text = "changed"; }, /inconsistent history/],
+    mixed: [r => { r[target].event.payload.boundInput.value.source = retainedSource; }, /exact earlier consumed Result/],
+    v1Route: [r => { r[target].codecVersion = 1; }, /body reference/],
+    v3Result: [r => { r[resultRow].codecVersion = 3; }, /exact earlier consumed Result/],
+    malformed: [r => { r[target].bodyReference.extra = true; }, /malformed/],
+    uncommitted: [r => { r[unbackedRow] = { kind: "abg_admitted_body_reference_record", codecVersion: 3, event: withoutSource(unbacked),
+      bodyReference: reference(rolledBack.eventId, rolledBack.payloadDigest) }; }, /exact earlier consumed Result/],
+  };
+  const closed = f.store.projectReopenAuthorityAndClose();
+  for (const [name, [mutate, refusal]] of Object.entries(mutations)) {
+    const changed = structuredClone(rows); mutate(changed);
+    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), refusal, name);
+    const refused = await reopenBytes(t, f.dir, `negative-${name}.jsonl`, encode(changed), closed.reopenAuthority);
+    assert.equal(refused.kind, "event_store_reopen_refusal", name); assert.match(refused.message, refusal, name);
+  }
+});
+
+test("RC5 retained route mixes inline, v1 and v3 rows and keeps small, unequal or unavailable sources inline", async t => {
+  const f = await resource(t), { parent, used } = retainedHistory(f.store);
+  const small = { kind: "small_source", schemaVersion: "5.0.0", n: 1 };
+  const smallResult = result(f.store, "small", small), smallRoute = route(f.store, "small", small, { causes: [smallResult.eventId] });
+  const unequalResult = result(f.store, "unequal", retainedSource);
+  const unequalRoute = route(f.store, "unequal", { ...retainedSource, text: "unequal retained source; ".repeat(2000) }, { causes: [unequalResult.eventId] });
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assertRouteNamesResult(rows, used, parent);
+  assert.equal(rows[rowIndex(rows, smallRoute)].kind, "traversal_route_admitted", "a reference larger than its source stays inline");
+  assert.equal(rows[rowIndex(rows, unequalRoute)].kind, "traversal_route_admitted", "a source unequal to the consumed Result stays inline");
+  assert.deepEqual(new Set(rows.map(row => row.kind === "abg_admitted_body_reference_record" ? "v" + row.codecVersion : "inline")),
+    new Set(["inline", "v1", "v3"]));
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  // A pre-RC5 all-inline history stays readable; a new route may name its physically inline Result.
+  const closed = f.store.projectReopenAuthorityAndClose();
+  const historical = await openInlineCopy(t, f.dir, events, closed.reopenAuthority);
+  assert.deepEqual(historical.store.readAll(), events);
+  const appended = route(historical.store, "parent", retainedSource, { causes: [parent.eventId] });
+  const after = await readFile(historical.eventLogPath), afterRows = decodeRows(after);
+  assert.equal(afterRows[rowIndex(afterRows, parent)].kind, "c_call_result_admitted");
+  assertRouteNamesResult(afterRows, appended, parent);
+  assert.deepEqual(storeOwner.validateHistoricalEvents(after), historical.store.readAll());
+  assert.equal(sha256Canonical(historical.store.readAll().slice(0, events.length)), sha256Canonical(events));
+});
+
+test("RC5 retained route publishes nothing on rollback or failed fsync, poisons on failed restoration and keeps committed same-batch sources", async t => {
+  const f = await resource(t), child = result(f.store, "child", retainedSource);
+  const committed = storeOwner.selectHeldEventStoreDurablePrefix(f.store), before = await readFile(f.eventLogPath), prior = f.store.readAll();
+  const pair = label => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    const consumed = result(f.store, label, retainedSource);
+    return { consumed, used: route(f.store, label, retainedSource, { causes: [consumed.eventId] }) };
+  });
+  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    const consumed = result(f.store, "rolled-back", retainedSource);
+    route(f.store, "rolled-back", retainedSource, { causes: [consumed.eventId] });
+    throw Error("selected rollback");
+  }), /selected rollback/);
+  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
+  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
+  const original = fs.fsyncSync; let calls = 0;
+  fs.fsyncSync = descriptor => { if (++calls === 1) throw Error("injected retained-route fsync failure"); return original(descriptor); };
+  syncBuiltinESMExports();
+  try { assert.throws(() => pair("failed-fsync"), /injected retained-route fsync failure/); }
+  finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
+  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
+  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
+  // One committed transaction: the Result and its route share one durable batch.
+  const { consumed, used } = pair("committed");
+  const rows = decodeRows(await readFile(f.eventLogPath)), events = f.store.readAll();
+  assert.equal(rows[rowIndex(rows, consumed)].bodyReference.sourceEventRef, child.eventId);
+  assertRouteNamesResult(rows, used, consumed);
+  const closed = f.store.projectReopenAuthorityAndClose(), reopened = storeOwner.reopenEventStore(closed.reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  assert.deepEqual(reopened.store.readAll(), events);
+  // Failed write fsync and failed restoration poison ownership; no later effect proceeds.
+  const good = await readFile(f.eventLogPath);
+  fs.fsyncSync = () => { throw Error("injected retained-route restoration failure"); }; syncBuiltinESMExports();
+  try {
+    assert.throws(() => storeOwner.admitRuntimeEventTransaction(reopened.store, () => {
+      const poisoned = result(reopened.store, "poisoned", retainedSource);
+      route(reopened.store, "poisoned", retainedSource, { causes: [poisoned.eventId] });
+    }), /could not be restored/);
+  } finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
+  assert.throws(() => route(reopened.store, "after-poison", retainedSource));
+  try { reopened.store.closeDurableLog(); } catch { /* poisoned ownership is already released */ }
+  assert.deepEqual(await readFile(f.eventLogPath), good, "restored extent holds no partial Result or route");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(good), events);
+});
+
+test("RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction", async t => {
+  const samplePath = process.env.ABG_RC5_ROUTE_SAMPLE_FILE;
+  if (samplePath === undefined) { t.skip("ABG_RC5_ROUTE_SAMPLE_FILE names the pinned captured sample"); return; }
+  const sample = JSON.parse(await readFile(samplePath, "utf8"));
+  assert.equal(sample.kind, "rc5_retained_route_captured_codec_sample");
+  const physical = sample.rows.map(row => {
+    const line = canonicalJson(row.physical) + "\n";
+    assert.equal(Buffer.byteLength(line), row.bytes, "captured row keeps its exact physical length");
+    assert.equal(sha256Bytes(line).slice(7), row.physicalLineSha256, "captured row keeps its exact physical bytes");
+    return { row, line };
+  });
+  const [inlineRow, resultRow, routeRow] = physical;
+  // Existing v1 decode of the captured inline body and its already-referenced Result.
+  const inlineByEvent = new Map(), byId = new Map();
+  for (const { row } of [inlineRow, resultRow]) {
+    const { event: decoded, physicallyInline } = decodeEventBody(row.physical, inlineByEvent);
+    assert.equal(sha256Canonical(decoded.payload), decoded.payloadDigest, "captured logical payload digest");
+    if (physicallyInline) inlineByEvent.set(decoded.eventId, inlineEventBody(decoded));
+    byId.set(decoded.eventId, decoded);
+  }
+  const consumed = byId.get(resultRow.row.eventRef), used = routeRow.row.physical;
+  assert.equal(resultRow.row.physical.codecVersion, 1, "the sample Result is already physically referenced");
+  assert.equal(consumed.payload.resultRef, sample.resultRef); assert.equal(used.payload.cCallRef, consumed.aggregateId);
+  // Three-row custody, not an admitted history: the codec sees only these earlier rows.
+  const earlier = { envelope: ref => byId.get(ref), event: ref => byId.get(ref),
+    cCallEvents: ref => [...byId.values()].filter(e => e.aggregateType === "c_call" && e.aggregateId === ref).map(e => e.eventId) };
+  const encoded = encodeEventBody(used, new Map(), new Map(), undefined, earlier), record = JSON.parse(encoded);
+  assert.equal(record.codecVersion, 3);
+  assert.deepEqual(record.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: consumed.payload.valueDigest });
+  assert.equal(encoded, canonicalJson(record) + "\n", "encoded record is canonical under the same newline convention");
+  const restored = decodeEventBody(record, inlineByEvent, undefined, { envelope: earlier.envelope, event: earlier.event }).event;
+  assert.equal(canonicalJson(restored) + "\n", routeRow.line, "restored route equals the captured logical route");
+  assert.equal(sha256Canonical(restored.payload), used.payloadDigest);
+  assert.equal(sha256Canonical(restored.payload.boundInput.value.source), consumed.payload.valueDigest);
+  const beforeBytes = physical.reduce((total, { line }) => total + Buffer.byteLength(line), 0);
+  const afterBytes = Buffer.byteLength(inlineRow.line) + Buffer.byteLength(resultRow.line) + Buffer.byteLength(encoded);
+  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "captured-route-37961", beforeBytes, afterBytes,
+    netSavedBytes: beforeBytes - afterBytes, logicalUnchanged: true, rows: physical.length,
+    routeBeforeBytes: Buffer.byteLength(routeRow.line), routeAfterBytes: Buffer.byteLength(encoded),
+    grossSourceBytes: sample.grossSourceBytes, sourceStoreRowOrdinals: [37940, 37953, 37961],
+    limits: "three captured physical rows only; no complete admitted history, campaign saving or latency claim" }));
 });

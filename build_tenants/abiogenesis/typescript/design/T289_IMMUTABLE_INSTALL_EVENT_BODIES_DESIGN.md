@@ -168,3 +168,103 @@ its precise allocating site remains unproved. Focused live/cold/physical,
 rollback and canonical compatibility checks plus a bounded authentic-body
 constrained-heap discriminator are mechanical readiness. They do not earn a
 new Run, retained-state continuation, application completion or UAT result.
+
+## Retained-route source carriage (T-287 / RC5 F4)
+
+Root selected this private durable representation change under the owner's
+approved RC5 scope and the F4 re-entry. Product meaning, the logical
+RuntimeEvent, every value/payload/event/route identity, lineage, currentness,
+refusal and the public event contract stay unchanged. It is the codec's third
+physical form; v1 input/Result and v2 native-definition forms keep their
+meaning above.
+
+The measured RC3-building-RC4 history held 15 retained routes whose nested
+source equalled the earlier Result of the same Run and CCall: 155,009,467 gross
+bytes. Every one of those Results was itself a v1 body reference, so a form
+limited to physically inline sources saves nothing there. The form below
+therefore names the consumed Result and acquires that Result's own earlier body
+dependency through the durable owner.
+
+### Eligible event and source membership
+
+Only a `traversal_route_admitted` event whose `payload.boundInput` is a
+`raw_admitted_value` holding exactly `{entry, kind: "retained_graph_input",
+schemaVersion, source}` is eligible; only `boundInput.value.source` may be
+omitted. Every other route field, `entry` and the bound-input stamps stay in
+the row.
+
+The source is the exact earlier admitted Result the route consumes: a
+`c_call_result_admitted` event in this stream, earlier by admission ordinal,
+with the route's `runId`, `basisId`, `graphCallId` and `frameId`, aggregate
+`c_call` and aggregate id equal to the route's `payload.cCallRef`, payload
+`cCallRef` equal to it, and `resultClass: "success"`. This is the same
+membership relation [worksite_input_provenance.ts](../code/src/abg/worksite_input_provenance.ts)
+`projectRetainedWorksiteInputAtPrefix` uses to find the route's source Result.
+New routes also cite that Result as a cause
+([traversal_route.ts](../code/src/abg/traversal_route.ts) retention causes);
+membership does not depend on that edge, so earlier retained routes have the
+same eligibility. A basis or another Result with an equal value, another
+occurrence of the CCall reference in a different Run or scope, a later or
+uncommitted event, and the route itself never qualify. A route is a consumer:
+it never becomes a body source for any later row, and the form adds no
+causation edge.
+
+### Physical record
+
+The closed record is `{kind: "abg_admitted_body_reference_record",
+codecVersion: 3, event, bodyReference}`. `event` is the complete logical route
+with only `payload.boundInput.value.source` absent. `bodyReference` carries the
+existing four keys: `sourceEventRef` (the Result's event id),
+`sourcePayloadDigest` (its admitted payload digest), `sourceSlot:
+"c_call_result_value"` and `bodyDigest` (canonical digest of the omitted body).
+
+The encoder in `appendDurablyBatch` uses the existing `aggregate:c_call:<ref>`
+history index over committed rows plus earlier events of the same durable
+batch. It encodes only when exactly one earlier event satisfies the envelope
+membership above, the reference row is smaller than the inline row, and the
+owner-acquired Result value is canonically equal to the route's source. Any
+other case writes the ordinary inline row; inline fallback is always valid.
+The size check precedes body acquisition, so small routes acquire nothing.
+
+### Decoding and acquisition
+
+All three readers decode the same way: full history
+(`decodeHistoricalEvents`), selected rows (`constructRuntimeHistory`'s reader)
+and descriptor decode (`decodeRuntimeHistoryDescriptor`). Each supplies only
+events before the route. The named source must satisfy the membership above
+and the reference's payload digest and slot. Its logical event is acquired
+through the same owner's existing body acquisition. That Result may itself be
+physically inline or a v1 reference; its own earlier body dependency resolves
+through its own v1 rule. The restored source must hash to `bodyDigest`. The
+store then validates the complete restored route exactly as for an inline row:
+envelope, ordinal, stamps and payload digest. A missing, forward, foreign,
+wrong-kind/slot/digest, tampered or mixed (source present) record refuses
+before logical history is exposed. Decoding checks only named membership; it
+does not count candidates, so all three readers agree on every byte sequence.
+The encoder's exactly-one condition is a producer policy. The CCall phase
+projection in [c_call.ts](../code/src/abg/c_call.ts) already refuses more than
+one Result per CCall.
+
+### Atomicity, compatibility and limits
+
+The record depends only on event identity, so v3 adds no staged source table.
+Append stages the encoded rows and publishes history, prefix and SHA
+continuation only after write and fsync. A failed write or fsync truncates to
+the prior extent, and a failed truncation poisons ownership, as for v1/v2. A
+rolled-back Result is absent from the history, so no committed route can name
+it. Historical files are never rewritten: legacy, v1 and v2 histories remain
+readable and may supply Results to new v3 rows. Readers older than this form do
+not read v3 rows. Physical lengths and prefix digests describe encoded bytes
+and differ from an all-inline encoding, while logical events and replay stay
+equal.
+
+Focused component cases distinguish exact membership from body equality: a
+real Result that is already physically referenced; same-valued basis and
+foreign-occurrence decoys; missing, forward, tampered and uncommitted sources;
+mixed forms; rollback and failed fsync; full, selected and descriptor cold
+reconstruction; and the captured-route-37961 three-row sample. The sample
+measures net bytes with reference overhead included. One installed case runs a
+`c_workflow` child into a retained E/S/T consumer and checks the physical
+reference with fresh result/replay. These cases prove only representation,
+reconstruction and that installed path. They establish no latency, capacity,
+campaign-wide saving or qualification claim.

@@ -2321,7 +2321,13 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
     const row = history.rowById(ref); return row !== undefined && row.envelope.admissionOrdinal <= committedCount ? row : undefined;
   };
   const earlier: EarlierAdmittedEvents = { envelope: ref => batchEvents.get(ref) ?? committedRow(ref)?.envelope,
-    event: ref => batchEvents.get(ref) ?? history.event(committedRow(ref)!.envelope.admissionOrdinal - 1, selectedBodies) };
+    event: ref => {
+      const event = batchEvents.get(ref), row = event === undefined ? committedRow(ref) : undefined;
+      if (event === undefined && row === undefined) throw new TypeError("durable body reference lacks its exact earlier source");
+      return event ?? history.event(row!.envelope.admissionOrdinal - 1, selectedBodies);
+    },
+    cCallEvents: ref => [...history.indices("aggregate:c_call:" + ref, committedCount).map(index => history.row(index)!.envelope.eventId),
+      ...[...batchEvents.values()].filter(event => event.aggregateType === "c_call" && event.aggregateId === ref).map(event => event.eventId)] };
   const successorHash = state.durableHash!.copy();
   let nextByteLength = priorByteLength;
   const rows = events.map(event => {
