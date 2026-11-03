@@ -794,7 +794,10 @@ test('preparation resolution retains its established native link and raw lock re
     ...call, resources,
   }));
   assert.equal(links, 1, 'one actual link, reused by the output projection');
-  const prior = JSON.parse(await readFile(preparationCallPath.replace('/calls/', '/receipts/'), 'utf8'));
+  // The genuine setup proof retains the call's returned source receipt beside it.
+  const receiptPath = preparationCallPath.replace(/-call\.json$/u, '-receipt.json');
+  assert.notEqual(receiptPath, preparationCallPath, 'retained call requires its sibling returned receipt');
+  const prior = JSON.parse(await readFile(receiptPath, 'utf8'));
   assert.deepEqual(value.ownerOutput, prior.receipt.ownerOutput);
   assert.deepEqual(value.resources, prior.receipt.resources);
   const artifacts = resources.verifiedPreimages.map(x => x.verifiedArtifact);

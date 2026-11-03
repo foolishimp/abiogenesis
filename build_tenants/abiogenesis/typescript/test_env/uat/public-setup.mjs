@@ -60,9 +60,30 @@ export async function authorizeInstalledOperation({runtime,native,actorRef,packe
     requestRef,correlationRef,eventTime:new Date().toISOString(),provenanceRefs});
 }
 
+/** The transport acquisition named by the call's own event resource. */
+export function transportAcquisition(call) {
+  const resource=call.resources.eventResource;
+  return !resource?{kind:'eventless'}:resource.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resource.eventLogPath}
+    :{kind:'reopen',closeHandoff:resource.closeHandoff};
+}
+
 /** CLI framing is a single JSON line; canonical encoding preserves the owner's value. */
 export function cliTransportJsonl(product,call,acquisition) {
   return product.canonicalJson({kind:'abg_cli_transport_request',schemaVersion:version,acquisition,invocation:call})+'\n';
+}
+
+// Installation runs npm in the ambient process environment and the event
+// resource lock namespace follows TMPDIR: serial setup runs under the
+// configured values, and the ambient values return in finally.
+const SETUP_ENVIRONMENT_KEYS=['PATH','TMPDIR'];
+async function withSetupEnvironment(environment,body) {
+  if(environment===null||typeof environment!=='object')throw new BoundaryFailure('setup-environment','Explicit setup environment required');
+  const ambient=SETUP_ENVIRONMENT_KEYS.map(key=>[key,process.env[key]]);
+  const assign=([key,value])=>{if(value===undefined)delete process.env[key];else process.env[key]=value;};
+  try {
+    for(const key of SETUP_ENVIRONMENT_KEYS)assign([key,environment[key]]);
+    return await body();
+  }finally {ambient.forEach(assign);}
 }
 
 export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest},record,label) {
@@ -103,29 +124,35 @@ export function publicCaller({root,runtime,native,command,record,config,actorRef
       correlationRef:'correlation://abi5-tests/sandbox-uat/'+config.runId,
       authorityRef:'authority://abi5-tests/sandbox-uat/'+config.runId,provenanceRefs:[pathToFileURL(join(root,'run.json')).href]});
   }
-  async function invoke(label,call,{runtimeRoot=config.bootstrapRoot,environment=config.setupEnvironment,expectResult=true}={}) {
-    const resources=call.resources.eventResource;
-    const acquisition=!resources?{kind:'eventless'}:resources.kind==='new_abg_event_resource'?{kind:'new',eventLogPath:resources.eventLogPath}
-      :{kind:'reopen',closeHandoff:resources.closeHandoff};
-    const requestPath=join(root,'calls',label+'.request.jsonl');
-    await record('calls/'+label+'.request.jsonl',cliTransportJsonl(product,call,acquisition),true);
-    const execution=await command(label,config.nodePath,[join(runtimeRoot,'build/code/src/public/cli.js'),'--jsonl',requestPath],{cwd:root,environment});
-    let outcome;
-    try{const lines=execution.stdout.trim().split(/\r?\n/u);if(lines.length!==1)throw new Error('Expected one CLI outcome');outcome=JSON.parse(lines[0]);}
-    catch(error){throw new BoundaryFailure(label+'-transport',{...execution,parseError:String(error)});}
+  /** The installed SDK transport receives the actual constructed call in this
+   * module instance; records are compact evidence, never re-ingested. */
+  async function invoke(label,call,{expectResult=true}={}) {
+    const acquisition=transportAcquisition(call),invocation=call.invocation,resources=call.resources;
+    await record('calls/'+label+'.request.json',{kind:'installed_setup_call_coordinates',label,acquisitionKind:acquisition.kind,
+      definitionKey:invocation.definitionKey,invocationRef:invocation.invocationRef,invocationDigest:invocation.invocationDigest,
+      requestDigest:hash(invocation.request),resourceKind:resources.kind,resourcesDigest:hash(resources),
+      eventResource:resources.eventResource?{kind:resources.eventResource.kind,digest:hash(resources.eventResource)}:null});
+    const started=new Date().toISOString(),startedMs=performance.now();
+    const outcome=await api.runInstalledDefinitionCallTransport(acquisition,call);
+    const wallMs=performance.now()-startedMs;
     await record('calls/'+label+'.outcome.json',outcome);
     const receipt=outcome.receipt, handoff=receipt?.resources?.eventResource?.closeHandoff;
     if(handoff){state.closeHandoff=handoff;await record('calls/'+label+'.close.json',handoff);}
-    state.calls.push({label,exitCode:execution.exitCode,definitionKey:call.invocation.definitionKey,
-      outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:call.invocation.invocationRef});
+    state.calls.push({label,exitCode:receipt?.exitCode??null,definitionKey:invocation.definitionKey,
+      outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:invocation.invocationRef,
+      acquisitionKind:acquisition.kind,closeDigest:handoff?hash(handoff):null,started,wallMs});
     requireKind(outcome,'installed_definition_call_transport_result',label+'-transport');
-    if(expectResult&&(execution.exitCode!==0||receipt?.ownerOutput?.outcomeKind!=='result'))throw new BoundaryFailure(label,receipt);
-    return {call,outcome,receipt,execution};
+    if(expectResult&&(receipt.exitCode!==0||receipt.ownerOutput?.outcomeKind!=='result'))throw new BoundaryFailure(label,receipt);
+    return {call,outcome,receipt};
   }
   return {root,runtime,native,config,record,command,state,actorRef,actor,contractCatalog,reopen,refresh,boundSlots,authorize,invoke};
 }
 
 export async function populateSandbox(caller) {
+  return withSetupEnvironment(caller.config.setupEnvironment,()=>populateInstalledSetup(caller));
+}
+
+async function populateInstalledSetup(caller) {
   const {root,runtime,native,config,record,state,actor,actorRef,authorize,invoke}=caller;
   const {product,abg,gtl,validator}=runtime, hash=product.sha256Canonical;
   const created=await invoke('workspace-create',await authorize(product.WORKSPACE_OPERATION_SOURCE_DECLARATIONS.create.clean,

@@ -124,6 +124,40 @@ reappend, immutable prior prefixes and refusal isolation remain binding.
 Recovery reconstructs; a handoff or query within the live lifetime is not itself
 a reason to reconstruct history. No competing persistent state is introduced.
 
+### Maintained setup owner reuse (RC4 setup020)
+
+Maintained setup composes the canonical installed calls in one installed module
+instance. `publicCaller.invoke` hands the actual constructed DefinitionCall to
+that instance's `runInstalledDefinitionCallTransport`, which retains the actual
+owner-verified artifact and its exact request relation through authorization,
+verification, resolution and installation and detaches every other caller
+value. Setup records compact request/resource coordinates, the actual SDK
+outcome, close handoff and timing as evidence; it never re-ingests a persisted
+projection. Cold/raw ingress and new target Products still verify,
+installations keep their physical checks and locks, and owners retain
+permissions, currentness, close and reopen. There is no alternate legacy mode,
+cache, service or receipt authority.
+
+Installation runs npm in the ambient process environment and the event-resource
+lock namespace follows `TMPDIR`, so the caller scopes the configured setup
+`PATH` and `TMPDIR` over the complete serial setup and authorization and
+restores the ambient values in `finally`. Lifecycle supervision and fresh Run
+reads keep one explicitly named cold entry: one canonical JSONL request to a
+fresh installed CLI process under its declared environment. Setup adds no
+timeout race that could abandon an active owner.
+
+```mermaid
+sequenceDiagram
+  participant Setup as populateSandbox
+  participant SDK as installed module instance
+  participant Owner as fixed Product/ABG owner
+  Setup->>SDK: authorize(packet, request, owned verified values)
+  SDK-->>Setup: constructed DefinitionCall
+  Setup->>SDK: runInstalledDefinitionCallTransport(acquisition, call)
+  SDK->>Owner: detached call with retained verifier bodies
+  Owner-->>Setup: receipt and close handoff (recorded as evidence only)
+```
+
 ### Authenticated read-source handoff (T287/Writer51)
 
 One cold read authenticates the detached immutable durable coordinate and its

@@ -7,7 +7,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 import { isDeepStrictEqual } from 'node:util';
 import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, inside, loadScenarios, readJson, selectScenarios, snapshotScenario } from './scenarios.mjs';
 import { assessmentSelection } from './consumer.mjs';
-import { BoundaryFailure, constructLifecycleCall, installedModules, populateSandbox, publicCaller, requireKind, verifyArtifact } from './public-setup.mjs';
+import { BoundaryFailure, cliTransportJsonl, constructLifecycleCall, installedModules, populateSandbox, publicCaller, requireKind, transportAcquisition, verifyArtifact } from './public-setup.mjs';
 
 const tenantRoot=fileURLToPath(new URL('../..',import.meta.url));
 const defaultFixtures=join(tenantRoot,'test_env/fixtures/sandbox-uat');
@@ -236,6 +236,27 @@ export async function preflight(config,selected,root) {
   return {disposition:issues.length?'blocked':'ready',issues,observations,providerReachability:'Not dispatched or network-qualified',selectedCases:selected.map(row=>row.key)};
 }
 
+// The one explicitly named cold entry. Lifecycle supervision and fresh Run
+// reads cross a fresh installed CLI process: one canonical JSONL request under
+// the declared environment and one parsed outcome. Maintained setup uses the
+// installed SDK transport in its own module instance instead.
+export async function invokeColdInstalledEntry(caller,label,call,{runtimeRoot,environment=caller.config.setupEnvironment}) {
+  const {root,record,command,config,state}=caller,acquisition=transportAcquisition(call);
+  const requestPath=join(root,'calls',label+'.request.jsonl');
+  await record('calls/'+label+'.request.jsonl',cliTransportJsonl(caller.runtime.product,call,acquisition),true);
+  const execution=await command(label,config.nodePath,[join(runtimeRoot,'build/code/src/public/cli.js'),'--jsonl',requestPath],{cwd:root,environment});
+  let outcome;
+  try{const lines=execution.stdout.trim().split(/\r?\n/u);if(lines.length!==1)throw new Error('Expected one CLI outcome');outcome=JSON.parse(lines[0]);}
+  catch(error){throw new BoundaryFailure(label+'-transport',{...execution,parseError:String(error)});}
+  await record('calls/'+label+'.outcome.json',outcome);
+  const receipt=outcome.receipt, handoff=receipt?.resources?.eventResource?.closeHandoff;
+  if(handoff){state.closeHandoff=handoff;await record('calls/'+label+'.close.json',handoff);}
+  state.calls.push({label,exitCode:execution.exitCode,definitionKey:call.invocation.definitionKey,
+    outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:call.invocation.invocationRef});
+  requireKind(outcome,'installed_definition_call_transport_result',label+'-transport');
+  return {call,outcome,receipt,execution};
+}
+
 export async function freshReadbacks(caller,execution) {
   const receipt=execution.receipt,run=receipt.resources.run,terminal=receipt.ownerOutput.value?.terminalResult;
   if(!run) {
@@ -254,7 +275,7 @@ export async function freshReadbacks(caller,execution) {
     if(constructed.kind!=='installed_run_read_call')throw new BoundaryFailure(memberKey+'-read-population',constructed);
     if(constructed.population.source.ref!==run.ref||constructed.population.source.digest!==run.digest)throw new BoundaryFailure(memberKey+'-read-source',{run,source:constructed.population.source});
     const call=constructed.call;
-    const observed=await caller.invoke(memberKey,call,{runtimeRoot:caller.installedRoot,expectResult:false});
+    const observed=await invokeColdInstalledEntry(caller,memberKey,call,{runtimeRoot:caller.installedRoot});
     const projection=observed.receipt.ownerOutput.value?.projection;
     if(hash(caller.state.closeHandoff.prefix)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');
     reads.push({memberKey,projection,source:observed.receipt.ownerOutput.value?.source,ownerOutput:observed.receipt.ownerOutput});
@@ -327,7 +348,7 @@ async function checkInstalledIdentity(caller,installations,phase) {
 export async function invokeLifecycle(caller,installations,call,environment) {
   await checkInstalledIdentity(caller,installations,'before-run');
   try {
-    return await caller.invoke('lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment,expectResult:false});
+    return await invokeColdInstalledEntry(caller,'lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment});
   }finally {
     await checkInstalledIdentity(caller,installations,'after-run');
   }
