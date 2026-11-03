@@ -8,10 +8,10 @@
 - updated_at: 2026-11-03
 - current_method_basis: stdo://releases/v3.0.4/ (source-development adoption, owner instruction 2026-11-03; retained RC4 artifacts and Runs keep their exact 3.0.2 basis)
 - current_method_manifest_sha256: 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b
-- current_activation: T287_RC5_PERFORMANCE_01; approved bounded RC5 successor, preparation in progress.
-- current_activation_status: PREPARING isolated successor and exact RC4 campaign owner bindings; no native coding dispatch yet.
-- current_handoff: .ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md; accepted RC4 handoff remains .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/HANDOFF.md.
-- current_next_work: Execute approved RC5 runtime STDO 3.0.4 migration, measured F4 codec repair, reproducible evidence and separately timed native workflow under .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/ROOT_SELECTION.md.
+- current_activation: T287_RC5_BOUNDED_CANDIDATE_ACCEPTED_LOCAL_CUT_SELECTED; nativeResultc39dfcf7; C2a2a62ff6; terminal1cb1898a.
+- current_activation_status: Bounded source/artifact proof accepted:37 current passes,18 retained method passes, independent review and nativeUAT satisfied, fresh result/replay equal; source/evidence custody and separate local cut selected.
+- current_handoff: .ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/README.md; exact local cut/install coordinates are recorded separately after clean reproduction.
+- current_next_work: Root exact source/generated/evidence checkpoint, isolated byte-equal build/pack, then fresh local unqualified RC5 install; no further Product coding selected.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
@@ -22,7 +22,7 @@
 - re_entry_point: specification/GOALS.md#current-selection
 ## Current disposition
 
-Current selection, 2026-11-03: **RC5_APPROVED_PREPARING**. Owner “approved - go” selects the bounded [RC5 campaign](../../work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/ROOT_SELECTION.md), using installed RC4 from exact source3c113133d. Source development uses verified STDO3.0.4; runtime migration is explicit successor work. Native coding remains serial and owner-admitted; max independent review targets frozen subjects. Setup, worker launch and between-task latency have separate measurements. Preserve accepted RC4/reviewer evidence and all historical failures; no push/global selector/stable-release claim or completed qualification rerun.
+Current selection, 2026-11-03: **RC5_BOUNDED_CANDIDATE_ACCEPTED_LOCAL_CUT_SELECTED**. [Bounded acceptance](../../work/T287_RC5_LOCAL_EVIDENCE_01/ACCEPTANCE.json) conjoins the frozen native repair, unchanged method/codec subjects,37 current passes and18 retained method passes, independent max review, satisfied native UAT and equal fresh result/replay terminal1cb1898a. Three excluded skips add no credit. [Evidence custody](../../work/T287_RC5_LOCAL_EVIDENCE_01/README.md) retains inputs and every historical failure. Root now owns source/generated custody, clean reproduction and the separate local cut/install. Whole qualification remains open; no push/tag/merge/global selector or stable-release claim. The successful native workflow including fresh reads took64m28s; setup, launch and between-stage costs are separately recorded. Earlier dated records remain historical.
 
 Current selection, 2026-11-03 AEDT: **STDO_304_SOURCE_PIN_INSTALL_COMPLETE**. The owner selects STDO 3.0.4 for ABIogenesis source development before the RC4-to-RC5 campaign. The exact Definition pin and installed native skills are verified in the [adoption record](../../comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md). RC4 source3c113133d and its installed local unqualified artifact retain their original STDO 3.0.2 basis and accepted evidence. Runtime default-library/qualification restaging and RC5 scope/campaign bindings remain separate work; no native coding activation is selected by this pin.
 

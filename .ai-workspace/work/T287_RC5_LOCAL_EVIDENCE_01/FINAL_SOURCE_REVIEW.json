@@ -1,0 +1,38 @@
+{
+  "kind": "root_attributed_independent_review_projection",
+  "recordedUtc": "2026-11-03T12:16:14.872959+00:00",
+  "reviewer": "/root/rc5_method_review",
+  "effort": "max",
+  "projectionAuthor": "Root; records the actual independent reviewer return, not reviewer-authored filesystem output",
+  "subjectSha256": "6dcb7b4dd0eb84b8d5706c3e50a3cf3576796f0bc77418fcd3ee68ee85e6dbee",
+  "nativeResultRef": "result://abiogenesis/c39dfcf7ed519a1e0aab19121b3862fd57783d67ded22cd05c31012a7512a2de",
+  "eventOrdinal": 23573,
+  "reviewBaseCommit": "1ad6b9f8549e9a81bf0b045f835ea0d12192584e",
+  "disposition": "satisfied",
+  "triage": "not_applicable",
+  "findings": [],
+  "productFrame": "GOAL035/T287 bounded RC5 F4 witness repair within fixed fifteen5.0 families. Test preparation is deterministic construction/observation; existing Product/Catalog/Validator/HoG/ABG authority remains. Source304; retainedRC4runtime302.",
+  "verified": [
+    "Three frozen files, preimages, admitted after-image bytes and diff hash",
+    "Native Result event23573 and frozen return/readiness admitted bytes",
+    "Held f4-02 codec/store exact hashes still match preimage1ad6"
+  ],
+  "relations": [
+    "Opt-in defers local root validation until genuine Catalog then uses Product declaration closure, authenticated validation-input constructor and Validator; all successes required, no bypass/rival inventory",
+    "Existing callers retain local validation; pairing by Program exposes typed refusal instead of undefined success dereference",
+    "Fixture exports missing descriptor, supplies canonical ABI CommandExecution and asserts exact T owner in both actual resolved closures",
+    "Actual consumer implementation/descriptor assertions and parent v1Result -> v3route -> consumer -> closure -> fresh result/replay preserved",
+    "Existing M5 test body unchanged"
+  ],
+  "priorFindingDisposition": "RC5-F4-INSTALLED-FIXTURE-01 source counterexamples corrected on exact successor; original failure remains historical",
+  "readScopeDisposition": "Disclosed read-only reference acquisition outside enumerated observation list falls within permitted control intake; observation coverage remains bounded",
+  "limits": [
+    "No reviewer edits, tests, builds or provider calls",
+    "Admitted source changes only3 granted paths; scratch effects author-reported, no global filesystem audit",
+    "Author installed1pass on unchanged4c098c82 is feedback, not C2",
+    "Current C2/nativeUAT/fresh closure and Root acceptance open",
+    "Held codec/store result conjoined; no ten-file rereview",
+    "Nonauthor same-family Coordinator limitation; not family-diverse assurance",
+    "Material subject, basis, owner-contract or contrary evidence changes invalidate affected conclusions"
+  ]
+}

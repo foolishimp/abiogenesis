@@ -83,6 +83,8 @@ function rc5RetainedRouteSource(product) {
     "leaf.mjs": [
       ["import {canonicalJson as canonical,sha256Canonical as hash} from '@abiogenesis/typescript-tenant/product';",
         "import {canonicalJson as canonical,sha256Canonical as hash,isRetainedGraphInput} from '@abiogenesis/typescript-tenant/product';"],
+      // The packaged implementation owner resolves only exported descriptors.
+      ["WORKER_PASS_DESCRIPTOR=descriptor('workerPass');", "WORKER_PASS_DESCRIPTOR=descriptor('workerPass'),RC5_CONSUMER_DESCRIPTOR=descriptor('rc5Consumer');"],
       ["export const atomic=input=>", "export const rc5Consumer=input=>candidate('rc5Consumer',input,value('data_output',{message:input.source.message}));\nexport const atomic=input=>"],
       ["function valid(kind,v){", "function valid(kind,v){\n if(kind==='retained_graph_input')return isRetainedGraphInput(v)&&valid('data_input',v.entry)&&valid('data_output',v.source);"],
       ["const relation=(input,output)=>{", "const relation=(input,output)=>{\n if(input?.kind==='retained_graph_input')return isRetainedGraphInput(input)&&output?.kind==='data_output'&&input.source.message===input.entry.subject.trim()&&output.message===input.source.message;"],
@@ -99,12 +101,47 @@ test("RC5 retained route carries an installed c_workflow source as a physical re
     programRef: RC5_IDS.programRef,
     catalogHandle: RC5_IDS.graphFunctionRef,
     allowlist: [RC5_IDS.graphFunctionRef],
+    // T is published only by the canonical ABI CommandExecution module.
+    additionalCorePublicationConstructors: ["constructWorksiteCommandExecutionModulePublication"],
+    crossPublicationProgram: true,
     input,
     identity: "rc5-retained-route",
   });
   assert.equal(proof.receipt.exitCode, 0);
   assert.equal(proof.receipt.ownerOutput.outcomeKind, "result");
-  const { events, reads, handoff, environment } = proof;
+  const { events, reads, handoff, environment, resolution } = proof;
+  const { product } = environment;
+  // Owner truth: the Product-resolved closures name T's actual ABI CommandExecution owner.
+  const T = product.RETAINED_GRAPH_INPUT_CONTRACT.contractRef;
+  const [fixture] = environment.additionalProducts;
+  assert.equal(environment.additionalPublications[0].contracts.some(contract => contract.contractRef === T), false);
+  const abiCommandExecution = environment.publications.filter(publication =>
+    publication.owningProductId === environment.verified.productId &&
+    publication.moduleRef === product.WORKSITE_COMMAND_EXECUTION_IDS.moduleRef);
+  assert.equal(abiCommandExecution.length, 1);
+  assert.deepEqual(abiCommandExecution[0].contracts.filter(contract => contract.contractRef === T), [product.RETAINED_GRAPH_INPUT_CONTRACT]);
+  for (const closure of [resolution.programDeclarationClosure, resolution.declarationClosure]) {
+    const owners = closure.contractOwners.filter(owner => owner.declarationRef === T);
+    assert.equal(owners.length, 1, closure.closureScope);
+    assert.deepEqual(owners[0], { declarationKind: "contract", declarationRef: T, productId: environment.verified.productId,
+      installId: environment.admittedInstall.installId, moduleRef: product.WORKSITE_COMMAND_EXECUTION_IDS.moduleRef,
+      publicationDigest: product.modulePublicationSemanticDigest(abiCommandExecution[0]) }, closure.closureScope);
+  }
+  assert.equal(environment.programValidation.programRef, RC5_IDS.programRef);
+  assert.equal(resolution.programValidation.programRef, RC5_IDS.programRef);
+  // The consumer resolves to the fixture's exported packaged descriptor.
+  const consumerRows = resolution.implementationSetCandidate.rows.filter(row => row.namedSymbol === "rc5Consumer");
+  assert.equal(consumerRows.length, 1);
+  const [consumerRow] = consumerRows;
+  assert.equal(consumerRow.implementationOwnerProductId, fixture.basis.productId);
+  assert.equal(consumerRow.inputContractRef, T);
+  assert.equal(consumerRow.outputContractRef, STRUCTURAL_IDS.outputContractRef);
+  const consumerDescriptors = resolution.packagedImplementations.filter(descriptor =>
+    descriptor.descriptorDigest === consumerRow.implementationDescriptorDigest);
+  assert.equal(consumerDescriptors.length, 1);
+  assert.equal(consumerDescriptors[0].namedSymbol, "rc5Consumer");
+  assert.equal(consumerDescriptors[0].packageName, fixture.basis.packageName);
+  assert.equal(consumerDescriptors[0].modulePath, "build/leaf.mjs");
   const S = { kind: "data_output", schemaVersion: "5.0.0", message: subject };
   const retained = events.filter(event => event.kind === "traversal_route_admitted" &&
     event.payload.boundInput?.value?.kind === "retained_graph_input");

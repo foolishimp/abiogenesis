@@ -2,11 +2,13 @@
 
 This source identifies `5.0.0-rc.5` as a **local, unqualified
 development-preview candidate** for the bounded T-287 / GOAL-035 RC5 scope.
-It is built through ABG on the installed RC4 runtime. It is not cut, tagged,
-published or deployed. It is not stable ABIogenesis 5.0, an accepted release,
-whole-product or fifteen-family qualification, human acceptance, an AF22 green
-verdict or an AF25 qualified release snapshot. Whether this candidate becomes
-an immutable RC5 is a separate owner/operator decision.
+The native source was built and assessed through ABG on immutable installed RC4.
+Root accepted the bounded source/artifact proof and selected a clean source
+reproduction and local cut/install. The separate local cut record binds their
+actual completion, source commit/tree, archive and installed payloads.
+This is not stable ABIogenesis 5.0, an accepted public release, whole-product or
+fifteen-family qualification, human release acceptance, an AF22 green verdict
+or an AF25 qualified release snapshot. No tag, push or selector change is selected.
 
 | Coordinate | Value |
 |---|---|
@@ -17,9 +19,9 @@ an immutable RC5 is a separate owner/operator decision.
 | Discovery selector | `v5.0.0`; not moved by this candidate; not an artifact or qualification identity |
 | Builder substrate | installed `5.0.0-rc.4` acting as Development Product |
 | Predecessor | immutable RC4 source `3c113133d` |
-| Source root | checkpoint `53acfe7c6`; the F4 retained-route repair and the rc.5 identity are uncommitted worksite source on it |
+| Source root | native custody through `1ad6b9f854` plus exact native Result `c39dfcf7`; the final checkpoint containing this claim is named by the separate local cut record |
 | Method | `stdo://releases/v3.0.4/` (manifest `102817a3…`); frozen RC4 and historical Runs keep their exact 3.0.2 bases |
-| Distribution | none; no tag, push, registry or external publication |
+| Distribution | selected local cut/install only; receipts recorded separately; no tag, push, registry or external publication |
 
 ## Delta from 5.0.0-rc.4
 
@@ -53,11 +55,23 @@ of new histories may differ.
 
 ## Evidence standing
 
-When this claim was written, no isolated build, packed artifact, C2 Testing,
-installed run or native UAT had run on this candidate, and this claim reports
-no result for them. Artifact, Product content and manifest identities come
-only from actual packaging output and are recorded outside this file. RC4
-evidence does not transfer to a new package digest.
+[Root bounded acceptance](../../../.ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/ACCEPTANCE.json)
+joins the exact native source, independent max source review, actual seven-command
+C2 Result `a2a62ff6`, satisfied native UAT, and fresh result/replay agreement on
+terminal `1cb1898a`. Current tests passed37 with0 failures and3 declared exclusions;
+18 method passes are retained through exact source/helper joins, not rerun.
+The previously omitted selector-planning case and both installed M5/RC5 cases ran.
+
+The actual C2 artifact is `sha256:4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8`.
+Its manifest is `sha256:0a897768a558df57842b47a9ec2947562f6c7e7730bc711fa85f791655e90db0`;
+Product content is `sha256:95d6634615c069e41c6b1ddd950454995f69d75cf03d3a43a8c9cbce97547b7c`.
+Exact generated outputs are adopted from that C2. Independent clean source
+reproduction and local installation remain separate gates recorded by the cut.
+The [evidence index](../../../.ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/INDEX.json)
+preserves operator inputs, native evidence and all earlier failed/indeterminate
+attempts. RC4 evidence retains its original subject; no old Run is relabelled.
+
+### Historical author feedback before final proof
 
 The F4 Worker's own checks used an in-memory TypeScript loader that wrote no
 build output. They are author feedback, not C2 Testing or acceptance:
@@ -76,24 +90,17 @@ history, a campaign saving or a latency result.
 
 ## Open limits
 
-- The installed `RC5 retained route` case in
-  `m5-installed-graph-edge.test.mjs` has not run. It needs the C2-packed
-  candidate.
-- The rest of `t287-event-body-encoding.test.mjs`, the route-reconstruction
-  suite and the omitted non-capture selector-planning case have not run on
-  this source.
-- The 3.0.4 method candidate's native UAT is indeterminate (M3 open). Final
-  C2 and a new native UAT over the whole RC5 scope are pending.
+- Historical method UAT indeterminate and F4 turn-cap, installed-fixture,
+  preparation and selector-bound failures remain preserved. Current proof
+  closes only this successor's bounded criteria.
 - Readers older than this candidate cannot read codec-v3 rows. Histories
   written by this candidate need an RC5-or-later reader. Earlier inline, v1 and
   v2 histories remain readable here.
 - No setup, launch or between-task latency change is made or claimed. No
   capacity threshold or universal performance improvement is claimed.
-- The generated `product-toolchain-manifest.json` and
-  `test_env/fixtures/abi5-root-candidate-basis.json` still name `5.0.0-rc.4`
-  until actual build and packaging regenerate or reconcile them. Canonical
-  generated outputs (`contracts/`, `product-toolchain-manifest.json`) are
-  reconciled only by traced materialization of accepted ABG-generated bytes.
+- `test_env/fixtures/abi5-root-candidate-basis.json` retains its historical RC4
+  identity. Current RC5 artifact coordinates come from the actual C2 manifest
+  and separate local cut, not that historical qualification fixture.
 - These remain excluded: the broader capsule's crash/saga cases, the capture
   and live lanes listed in `PROOF_EXCLUSIONS.json`, and whole fifteen-family,
   F11/AF22, GC03 host-adapter and stable-release qualification.
