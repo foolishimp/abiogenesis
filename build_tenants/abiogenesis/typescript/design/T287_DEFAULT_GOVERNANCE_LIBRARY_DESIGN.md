@@ -1,5 +1,81 @@
 # T-287 Default Governance Library
 
+## RC5 STDO 3.0.4 successor source and skill selection — 2026-11-03
+
+Owner-approved RC5 scope, grant `T287_RC5_METHOD_01`, `realization_refactor`
+under unchanged Product and requirements. This section supersedes the 3.0.2
+member, span and role-source coordinates below for the successor declaration.
+Installed RC4, its generated contracts and every prior Run keep their exact
+`stdo://releases/v3.0.2/` identities; Root adopts regenerated contracts only
+through the existing source-correspondence procedure.
+
+**Source.** `DEFAULT_LIBRARY_STDO_SOURCE` declares `stdo://releases/v3.0.4/`
+with original manifest SHA-256
+`102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`
+(18,022 bytes) and six released members. Each member and the manifest are
+packed byte-for-byte at `contracts/default-library/stdo/<release path>`, the
+root of the generated `member_inventory@1` record:
+
+| Member key | Release path | Bytes |
+|---|---|---|
+| `executive` | `standards/EXECUTIVE_BASELINE.md` | 165,730 |
+| `assurance` | `standards/ASSURANCE.md` (unchanged from 3.0.2) | 87,324 |
+| `work-skill` | `plugins/spec/skills/stdo-work/SKILL.md` | 13,369 |
+| `review-skill` | `plugins/spec/skills/stdo-review/SKILL.md` | 8,074 |
+| `handoff` | `plugins/spec/references/COORDINATED_HANDOFF.md` | 22,028 |
+| `product-basis` | `plugins/spec/references/PRODUCT_BASIS.md` | 3,947 |
+
+**Span rule.** A span starts at the heading line whose GitHub slug is its first
+anchor and ends at the next heading of the same or higher level outside fenced
+code, or at end of file. Consecutive same-level anchors may share one span.
+Recomputed on 3.0.4, the Executive §8–§11 spans keep their 3.0.2 bytes at
+offsets shifted by 4,880; the ASSURANCE §7–§12 span is unchanged. A skill span
+starts at its H1 and excludes the YAML front matter, which is host-registration
+metadata.
+
+**Finite role-to-source selection.** The four existing run-environment roles
+keep their Executive, Worker, Reviewer and Assurance frame spans. Each adds one
+native skill and only the reference sections that skill's procedure enters for
+that role. Bindings appear in this order:
+
+| Role (existing leaf) | Retained frame spans | Native skill | Reference closure |
+|---|---|---|---|
+| `selector` (Executive step `select`) | EXECUTIVE_BASELINE §8 | `stdo-work` as selector and issuer | COORDINATED_HANDOFF Control Intake, Issue, Evaluate The Return, Review Flow From The Selected Basis; PRODUCT_BASIS |
+| `constructor` (native work) | EXECUTIVE_BASELINE §9, §11 | `stdo-work` as receiving constructor | COORDINATED_HANDOFF Control Intake, Receive; PRODUCT_BASIS |
+| `command_executor` (C2) | EXECUTIVE_BASELINE §9; ASSURANCE §7–§12 | `stdo-work` as receiving command executor | COORDINATED_HANDOFF Control Intake, Receive; PRODUCT_BASIS |
+| `assessor` (native assessment) | EXECUTIVE_BASELINE §10; ASSURANCE §7–§12 | `stdo-review` | COORDINATED_HANDOFF Control Intake, Receive, Review Flow From The Selected Basis; PRODUCT_BASIS |
+
+Not selected: `stdo-help`, `stdo-status`, `stdo-ticket`, `claude-skills/refresh`,
+GETTING_STARTED, REFRESH, HOST_BINDING, the COORDINATED_HANDOFF sections Host
+Binding, Compact Source Acquisition and Invocation Examples, plugin scripts,
+plugin manifests and LICENSE. No role holds ticket mutation or refresh
+authority. The native host and the pinned GC03 supplement own host binding, and
+the run-environment acquisition owner already supplies the exact selected
+source; COORDINATED_HANDOFF names these as the already-declared equivalents.
+
+Skills are role-context source under the governing STDO basis. They confer no
+Product meaning, grant, actor, operation, host registration or acceptance, and
+cannot widen a role's policy, capability grant or contract. `DEFAULT_LIBRARY_POLICY`
+remains the separate capability instruction.
+
+**Owners and checks.** The successor reuses the existing declaration
+(`defaultLibraryRunEnvironment` through `constructRunEnvironmentDeclaration`),
+inventory record, Product acquisition (`observeRunEnvironment`) and role
+evidence assembly. `constructStdoRunEnvironmentDeclaration` still refuses this
+generic subset, so specialized full-source validation is unchanged. The product
+generator checks, for every declared member including plugin members: membership
+and digest in the original manifest, `assetPath` equal to the inventory root plus
+release path, byte count and digest, span digest, and complete-heading span
+anchors. Missing or mismatched selected bytes refuse. Acquisition refuses
+altered bytes (`identity_mismatch`), a missing member (`access_unavailable`) and
+crossed permission (`access_not_permitted`).
+
+**Cost.** Role source grows from 5,557/15,474/32,184/33,836 bytes to
+35,598/37,054/53,764/53,233 bytes for selector/constructor/command executor/
+assessor. The selector's 131,072-byte Run bound is unchanged; overflow remains
+an explicit refusal. Invocation environment evidence carries the six member
+bodies.
+
 ## Later accepted STDO 3 source and role amendment — 2026-10-21
 
 Root accepts D1–D3 of the [source/role HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md)

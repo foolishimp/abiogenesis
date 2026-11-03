@@ -106,19 +106,43 @@ for (const member of commandEnvironment.contexts.flatMap(context => context.memb
       throw new Error("C2 declared context span differs from its Product-owned renderer");
   }
 }
-const defaultSource = DEFAULT_LIBRARY_STDO_SOURCE;
+// The original manifest owns standards and plugin membership alike. Each packed
+// file sits at its release path under the inventory root that acquisition reads;
+// each span is the complete strict-UTF-8 heading section its anchors name.
+const defaultSource = DEFAULT_LIBRARY_STDO_SOURCE, defaultRoot = dirname(DEFAULT_LIBRARY_CONTEXT_INVENTORY.path);
 const defaultManifestBytes = await readFile(join(root, defaultSource.manifest.assetPath));
-if (defaultManifestBytes.length !== defaultSource.manifest.byteCount || sha256Bytes(defaultManifestBytes) !== defaultSource.manifestDigest)
+if (defaultSource.manifest.assetPath !== defaultRoot + "/" + defaultSource.manifest.path ||
+    defaultManifestBytes.length !== defaultSource.manifest.byteCount || sha256Bytes(defaultManifestBytes) !== defaultSource.manifestDigest)
   throw new Error("default library original STDO manifest differs from its exact released basis");
 const defaultReleaseMembers = runEnvironmentRecordMembers("stdo_source_manifest@1", defaultManifestBytes);
+function markdownHeadings(bytes) {
+  const rows = []; let start = 0, fenced = false;
+  for (const line of new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes).split("\n")) {
+    const heading = /^(#{1,6}) (.+)$/u.exec(line);
+    if (/^(?:```|~~~)/u.test(line)) fenced = !fenced;
+    else if (!fenced && heading) rows.push({ start, level: heading[1].length,
+      slug: heading[2].trim().toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, "").replace(/\s/gu, "-") });
+    start += Buffer.byteLength(line) + 1;
+  }
+  return rows;
+}
+function completeHeadingSpan(headings, byteCount, span) {
+  const first = headings.find(heading => heading.start === span.startByte);
+  if (first === undefined) return false;
+  const named = headings.filter(heading => heading.start >= span.startByte && heading.start < span.endByte && heading.level <= first.level);
+  return named.length === span.anchors.length && named.every((heading, index) => heading.level === first.level && heading.slug === span.anchors[index]) &&
+    (span.endByte === byteCount || headings.some(heading => heading.start === span.endByte && heading.level <= first.level));
+}
 for (const [key, member] of Object.entries(defaultSource.members)) {
-  if (!defaultReleaseMembers.some(row => row.path === member.path && row.type === "file" && row.digest === member.digest))
+  if (member.assetPath !== defaultRoot + "/" + member.path ||
+      !defaultReleaseMembers.some(row => row.path === member.path && row.type === "file" && row.digest === member.digest))
     throw new Error("default library source member is absent from its exact released manifest: " + member.path);
   const bytes = await readFile(join(root, member.assetPath));
   if (bytes.length !== member.byteCount || sha256Bytes(bytes) !== member.digest ||
       Object.values(defaultSource.spans).filter(span => span.member === key).some(span =>
         span.startByte < 0 || span.startByte >= span.endByte || span.endByte > bytes.length ||
-        sha256Bytes(bytes.subarray(span.startByte, span.endByte)) !== span.spanDigest))
+        sha256Bytes(bytes.subarray(span.startByte, span.endByte)) !== span.spanDigest ||
+        !completeHeadingSpan(markdownHeadings(bytes), bytes.length, span)))
     throw new Error("default library member or role span differs from selected STDO source: " + member.path);
 }
 await mkdir(dirname(join(root, DEFAULT_LIBRARY_CONTEXT_INVENTORY.path)), { recursive: true });

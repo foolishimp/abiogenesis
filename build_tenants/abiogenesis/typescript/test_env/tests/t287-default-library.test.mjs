@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import {readFile,writeFile,mkdir,mkdtemp,copyFile,cp,rm,symlink,stat,chmod} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,mkdtemp,copyFile,cp,rm,symlink,stat,chmod,realpath,rename} from 'node:fs/promises';
 import {join,basename,resolve,dirname} from 'node:path';
 import {SourceTextModule,SyntheticModule} from 'node:vm';
 import {execFile,spawn} from 'node:child_process';
@@ -185,42 +185,74 @@ test('declared wrapper judgments advance actual observations, including red C2, 
   assert.equal(product.governanceVerdict(state),false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
 });
 
-test('default role content is the exact packaged STDO3 subset with capability instructions separate',async()=>{
+// Selected RC5 source (T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN, RC5 successor selection):
+// exact STDO 3.0.4 members, complete heading spans and the finite per-role skill
+// closure. The retained 3.0.2 declaration stays the identity of RC4 and its Runs.
+const STDO304=Object.freeze({basisRef:'stdo://releases/v3.0.4/',manifestBytes:18022,
+  manifestDigest:'sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b'});
+const EB='standards/EXECUTIVE_BASELINE.md',AS='standards/ASSURANCE.md',WORK='plugins/spec/skills/stdo-work/SKILL.md',
+  REVIEW='plugins/spec/skills/stdo-review/SKILL.md',HANDOFF='plugins/spec/references/COORDINATED_HANDOFF.md',BASIS='plugins/spec/references/PRODUCT_BASIS.md';
+const STDO304_MEMBERS=Object.freeze({[EB]:'sha256:ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff',
+  [AS]:'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca',
+  [WORK]:'sha256:9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35',
+  [REVIEW]:'sha256:b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df',
+  [HANDOFF]:'sha256:e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00',
+  [BASIS]:'sha256:d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979'});
+const INTAKE=[HANDOFF,877,3062,'## Control Intake'],RECEIVE=[HANDOFF,8965,11322,'## Receive'],REVIEW_FLOW=[HANDOFF,13146,16237,'## Review Flow From The Selected Basis'],
+  PRODUCT_BASIS=[BASIS,0,3947,'# Product Basis Selection'],WORK_SKILL=[WORK,278,13369,'# STDO Work'];
+const STDO304_ROLES=Object.freeze({
+  selector:[[EB,88956,94513,'## 8. Derived Executive frame'],WORK_SKILL,INTAKE,[HANDOFF,3062,8965,'## Issue'],
+    [HANDOFF,11322,13146,'## Evaluate The Return'],REVIEW_FLOW,PRODUCT_BASIS],
+  constructor:[[EB,94513,97494,'## 9. Derived Worker frame'],[EB,102127,114620,'## 11. Derived generic specialist frame set'],WORK_SKILL,INTAKE,RECEIVE,PRODUCT_BASIS],
+  assessor:[[EB,97494,102127,'## 10. Derived Reviewer frame'],[AS,34042,63245,'## 7. Product testing frame set'],[REVIEW,257,8074,'# STDO Review'],
+    INTAKE,RECEIVE,REVIEW_FLOW,PRODUCT_BASIS],
+  command_executor:[[EB,94513,97494,'## 9. Derived Worker frame'],[AS,34042,63245,'## 7. Product testing frame set'],WORK_SKILL,INTAKE,RECEIVE,PRODUCT_BASIS]});
+const memberOf=(environment,binding)=>environment.contexts.find(context=>context.contextRef===binding.contextRef).members.find(member=>member.memberRef===binding.memberRef);
+test('RC5 STDO 3.0.4 default role content is the exact packaged subset with its selected skill closure and capability instructions separate',async()=>{
   const {DEFAULT_LIBRARY_STDO_SOURCE:source}=await import('../../build/code/src/gtl/default_library.js');
-  assert.equal(source.basisRef,'stdo://releases/v3.0.2/');
+  assert.equal(source.basisRef,STDO304.basisRef);assert.equal(source.manifestDigest,STDO304.manifestDigest);
   const manifest=await readFile(join(packageRoot,source.manifest.assetPath));
-  assert.equal(product.sha256Bytes(manifest),'sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477');
+  assert.equal(product.sha256Bytes(manifest),STDO304.manifestDigest);assert.equal(manifest.length,STDO304.manifestBytes);
   const released=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifest),packaged=new Map();
-  const expectedMembers={'standards/EXECUTIVE_BASELINE.md':'sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a',
-    'standards/ASSURANCE.md':'sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca'};
   for(const member of Object.values(source.members)){
     const bytes=await readFile(join(packageRoot,member.assetPath));packaged.set(member.path,bytes);
-    assert.equal(product.sha256Bytes(bytes),expectedMembers[member.path]);assert.equal(bytes.length,member.byteCount);
-    assert.ok(released.some(row=>row.path===member.path&&row.type==='file'&&row.digest===member.digest));
+    assert.equal(member.assetPath,'contracts/default-library/stdo/'+member.path,'packed at its release path under the inventory root');
+    assert.equal(product.sha256Bytes(bytes),STDO304_MEMBERS[member.path]);assert.equal(bytes.length,member.byteCount);
+    assert.ok(released.some(row=>row.path===member.path&&row.type==='file'&&row.digest===member.digest),'original manifest lists '+member.path);
   }
-  assert.deepEqual([...packaged.keys()].sort(),Object.keys(expectedMembers).sort());
+  assert.deepEqual([...packaged.keys()].sort(),Object.keys(STDO304_MEMBERS).sort());
+  for(const unselected of ['plugins/spec/skills/stdo-help/SKILL.md','plugins/spec/skills/stdo-status/SKILL.md','plugins/spec/skills/stdo-ticket/SKILL.md','plugins/spec/references/HOST_BINDING.md'])
+    assert.ok(released.some(row=>row.path===unselected)&&!packaged.has(unselected),'released but unselected: '+unselected);
   const environment=gtl.defaultLibraryRunEnvironment(),dependency=environment.dependencies[0];
-  assert.equal(dependency.recordFormat,'member_inventory@1');
-  assert.deepEqual(dependency.members.map(member=>member.path),['manifest.json','standards/ASSURANCE.md','standards/EXECUTIVE_BASELINE.md']);
+  assert.equal(dependency.recordFormat,'member_inventory@1');assert.equal(dependency.basisRef,STDO304.basisRef);
+  assert.deepEqual(dependency.members.map(member=>member.path),['manifest.json',...Object.keys(STDO304_MEMBERS).sort()]);
   assert.equal(dependency.members[0].digest,product.sha256Bytes(manifest));
   assert.equal(environment.corpusAccess,null);assert.deepEqual(environment.accesses,[]);
   assert.throws(()=>gtl.constructStdoRunEnvironmentDeclaration(structuredClone(environment)),/STDO requires exact source/,
     'a generic packaged subset does not masquerade as the specialized complete-source manifest');
-  const expectedSpans={selector:[[84076,89633]],constructor:[[89633,92614],[97247,109740]],
-    assessor:[[92614,97247],[34042,63245]],command_executor:[[89633,92614],[34042,63245]]};
-  assert.deepEqual(environment.roles.map(role=>role.role),Object.keys(expectedSpans));
+  assert.deepEqual(environment.roles.map(role=>role.role),Object.keys(STDO304_ROLES));
   for(const role of environment.roles){
-    assert.deepEqual(role.sourceBindings.map(span=>[span.startByte,span.endByte]),expectedSpans[role.role]);
+    const expected=STDO304_ROLES[role.role];
+    assert.deepEqual(role.sourceBindings.map(span=>[memberOf(environment,span).path,span.startByte,span.endByte]),expected.map(([path,start,end])=>[path,start,end]));
     assert.equal(role.policy.text,product.DEFAULT_LIBRARY_POLICY);assert.deepEqual(role.accessRefs,[]);
     assert.deepEqual(role.contextPolicy.selectors,role.role==='selector'?['full_source','active_binding_semantics']:['current_worksite','admitted_execution_evidence']);
-    assert.ok(role.frameRefs.every(ref=>Object.keys(expectedMembers).some(path=>ref.startsWith(source.basisRef+path+'#'))));
-    for(const span of role.sourceBindings){
-      const member=environment.contexts.find(context=>context.contextRef===span.contextRef).members.find(member=>member.memberRef===span.memberRef);
-      const bytes=packaged.get(member.path).subarray(span.startByte,span.endByte);
-      assert.equal(product.sha256Bytes(bytes),span.spanDigest);assert.match(bytes.toString(),/^## (?:7|8|9|10|11)\. /);assert.notEqual(bytes.toString(),role.policy.text);
+    assert.ok(role.frameRefs.every(ref=>Object.keys(STDO304_MEMBERS).some(path=>ref.startsWith(source.basisRef+path+'#'))));
+    const skill=role.role==='assessor'?['stdo-review',REVIEW]:['stdo-work',WORK];
+    assert.deepEqual(role.frameRefs.filter(ref=>ref.includes('/skills/')),[source.basisRef+skill[1]+'#'+skill[0]],'one native skill for '+role.role);
+    for(const[index,span]of role.sourceBindings.entries()){
+      const member=memberOf(environment,span),bytes=packaged.get(member.path),selected=bytes.subarray(span.startByte,span.endByte);
+      const text=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(selected),level=/^#+/.exec(text)[0].length;
+      assert.equal(product.sha256Bytes(selected),span.spanDigest);assert.equal(span.memberDigest,STDO304_MEMBERS[member.path]);
+      assert.ok(text.startsWith(expected[index][3]+'\n'),role.role+' '+expected[index][3]);assert.notEqual(text,role.policy.text);
+      // A complete heading section: its own headings of that level, then end of file or the next same-or-higher heading.
+      const rest=bytes.subarray(span.endByte).toString();
+      assert.ok(rest===''||new RegExp('^#{1,'+level+'} ').test(rest),'complete section '+expected[index][3]);
+      assert.equal(text.split('\n').filter(line=>new RegExp('^#{1,'+level+'} ').test(line)).length,member.path===AS?6:1);
     }
+    const skillSpan=role.sourceBindings.find(span=>memberOf(environment,span).path===skill[1]),skillBytes=packaged.get(skill[1]);
+    assert.ok(skillBytes.subarray(0,skillSpan.startByte).toString().startsWith('---\nname: '+skill[0]+'\n'),'host-registration front matter stays outside role context');
     if(role.role==='assessor'||role.role==='command_executor'){
-      const testing=role.sourceBindings.at(-1),body=packaged.get('standards/ASSURANCE.md').subarray(testing.startByte,testing.endByte).toString();
+      const testing=role.sourceBindings[1],body=packaged.get(AS).subarray(testing.startByte,testing.endByte).toString();
       for(const section of ['## 7.','## 8.','## 9.','## 10.','## 11.','## 12.'])assert.ok(body.includes(section));
       assert.ok(!body.includes('## 13.'));assert.equal(role.frameRefs.filter(ref=>ref.includes('/ASSURANCE.md#')).length,6);
     }
@@ -230,6 +262,77 @@ test('default role content is the exact packaged STDO3 subset with capability in
   assert.deepEqual(selected.declaration,expected,'witness changes only the two accepted identities');
   await assert.rejects(libraryEnvironment({gtl,product}),/explicit exact packageRoot/);
 });
+
+test('RC5 STDO 3.0.4 actual acquisition delivers each role its selected skill closure and refuses altered, missing and unpermitted members',async t=>{
+  const {projectRunEnvironmentRoleEvidence,isRunEnvironmentEvidence}=await import(pathToFileURL(resolve(packageRoot,'build/code/src/abg/stdo_environment.js')).href);
+  // A disposable copy of the packaged subset is the only mutation target.
+  const scratch=await realpath(await mkdtemp(join(tmpdir(),'t287-stdo304-')));t.after(()=>rm(scratch,{recursive:true,force:true}));
+  const sourceRoot=join(scratch,'source'),archiveRoot=join(scratch,'archive'),temporaryRoot=join(archiveRoot,'default-library-context');
+  await cp(join(packageRoot,'contracts/default-library/stdo'),sourceRoot,{recursive:true});await mkdir(temporaryRoot,{recursive:true});
+  const pubs=constructors.map(n=>gtl[n](basis)),publication=pubs[0],program=publication.programs[0],declaration=publication.runEnvironments[0];
+  assert.deepEqual(declaration,gtl.defaultLibraryRunEnvironment());
+  const dependency=declaration.dependencies[0],recordPath=join(sourceRoot,'context.inventory.json');
+  const authority={authorityRef:'authority:rc5-stdo304',authorityDigest:product.sha256Canonical('rc5-stdo304'),actorRef:'actor:rc5-stdo304'};
+  const coordinates={dependencies:[{dependencyRef:dependency.dependencyRef,root:sourceRoot,recordPath}],pythonPath:null,temporaryRoot};
+  const resourcesFor=d=>product.constructRunEnvironmentResources({kind:'run_environment_resources',schemaVersion:'5.0.0',...coordinates,
+    permission:{...authority,programRef:program.programRef,environmentRef:d.declarationRef,environmentDigest:product.sha256Canonical(d),operations:['read_context'],...coordinates}});
+  const resources=resourcesFor(declaration),input={publication,program,authority,graphFunctions:pubs.flatMap(p=>p.graphFunctions),archiveRoot,resources};
+  const observed=await product.observeRunEnvironment(input);
+  assert.equal(observed.kind,'run_environment_observed',JSON.stringify(observed));assert.ok(isRunEnvironmentEvidence(observed.evidence));
+  assert.deepEqual(observed.evidence.contexts[0].members.map(member=>[member.path,member.digest]).sort(),Object.entries(STDO304_MEMBERS).sort());
+  const events=[{kind:'invocation_admitted',payload:{invocationAdmissionRef:'invocation:rc5-stdo304',...authority,runEnvironment:observed.evidence}}];
+  for(const role of declaration.roles){
+    const evidence=projectRunEnvironmentRoleEvidence(events,'invocation:rc5-stdo304',publication,program.programRef,role.graphFunctionRef,role.programLocusRef,role.role);
+    assert.ok(evidence&&Array.isArray(evidence.sourceContent),'role evidence for '+role.role);
+    const expected=STDO304_ROLES[role.role];
+    assert.deepEqual(evidence.sourceContent.map(row=>[row.path,row.startByte,row.endByte]),expected.map(([path,start,end])=>[path,start,end]));
+    for(const[index,row]of evidence.sourceContent.entries()){
+      const bytes=await readFile(join(packageRoot,'contracts/default-library/stdo',row.path));
+      assert.equal(row.sourceLocator,STDO304.basisRef);assert.equal(row.memberDigest,STDO304_MEMBERS[row.path]);
+      assert.equal(row.text,bytes.subarray(row.startByte,row.endByte).toString('utf8'));assert.ok(row.text.startsWith(expected[index][3]+'\n'));
+    }
+    assert.deepEqual(evidence.sourceContent.filter(row=>row.path.includes('/skills/')).map(row=>row.path),[role.role==='assessor'?REVIEW:WORK]);
+    assert.ok(evidence.sourceContent.every(row=>!row.text.includes('\n## Host Binding\n')),'host binding stays with its native owner');
+  }
+  // Altered selected skill bytes refuse; restored bytes observe identically.
+  const work=join(sourceRoot,WORK),workBytes=await readFile(work);await chmod(work,0o600);
+  await writeFile(work,Buffer.concat([workBytes,Buffer.from('\naltered selected skill')]));
+  assert.deepEqual(await product.observeRunEnvironment(input),{kind:'run_environment_refusal',cause:'identity_mismatch',
+    issuePath:'/runEnvironmentResources/member/'+dependency.dependencyRef+'/'+WORK});
+  await writeFile(work,workBytes);
+  const manifestPath=join(sourceRoot,'manifest.json'),manifestBytes=await readFile(manifestPath);await chmod(manifestPath,0o600);
+  await writeFile(manifestPath,Buffer.concat([manifestBytes,Buffer.from(' ')]));
+  assert.equal((await product.observeRunEnvironment(input)).cause,'identity_mismatch','the original manifest is a selected member');
+  await writeFile(manifestPath,manifestBytes);
+  // A missing selected reference refuses.
+  const handoff=join(sourceRoot,HANDOFF);await rename(handoff,handoff+'.unavailable');
+  try{assert.equal((await product.observeRunEnvironment(input)).cause,'access_unavailable');}
+  finally{await rename(handoff+'.unavailable',handoff);}
+  // Crossed or widened permission refuses before any read.
+  const crossed=structuredClone(resources);crossed.permission.actorRef='actor:crossed';
+  assert.deepEqual(await product.observeRunEnvironment({...input,resources:crossed}),{kind:'run_environment_refusal',cause:'access_not_permitted',issuePath:'/runEnvironmentResources/permission'});
+  const widened=structuredClone(resources);widened.permission.operations=['project','read_context'];
+  assert.equal((await product.observeRunEnvironment({...input,resources:widened})).cause,'access_not_permitted');
+  // An unselected released skill beside the subset is no member and no role context.
+  const ticketPath='plugins/spec/skills/stdo-ticket/SKILL.md',ticket=product.runEnvironmentRecordMembers('stdo_source_manifest@1',manifestBytes).find(row=>row.path===ticketPath);
+  await mkdir(dirname(join(sourceRoot,ticketPath)),{recursive:true});await writeFile(join(sourceRoot,ticketPath),'co-located unselected skill\n');
+  assert.deepEqual(await product.observeRunEnvironment(input),observed,'co-location selects no member');
+  // Binding that skill requires a membership the packed record does not grant.
+  const extended=structuredClone(declaration),contextMember={memberRef:product.governanceRef('member',ticketPath),path:ticketPath,byteCount:7866,digest:ticket.digest};
+  extended.dependencies[0].members=[...extended.dependencies[0].members,{path:ticketPath,type:'file',digest:ticket.digest,target:null}].sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
+  extended.dependencies[0].inventoryDigest=gtl.stdoInventoryDigest(extended.dependencies[0].members);
+  extended.contexts[0].members=[...extended.contexts[0].members,contextMember].sort((a,b)=>a.path<b.path?-1:a.path>b.path?1:0);
+  extended.contexts[0].inventoryDigest=product.sha256Canonical(extended.contexts[0].members);
+  extended.roles[0].sourceBindings.push({contextRef:extended.contexts[0].contextRef,memberRef:contextMember.memberRef,memberDigest:ticket.digest,startByte:0,endByte:7866,spanDigest:ticket.digest});
+  const extendedDeclaration=gtl.constructRunEnvironmentDeclaration(extended);
+  assert.deepEqual(await product.observeRunEnvironment({...input,publication:{...publication,runEnvironments:[extendedDeclaration]},resources:resourcesFor(extendedDeclaration)}),
+    {kind:'run_environment_refusal',cause:'identity_mismatch',issuePath:'/runEnvironmentResources/dependencies/'+dependency.dependencyRef+'/record'});
+  const unlisted=structuredClone(declaration);unlisted.contexts[0].members.push(contextMember);
+  unlisted.contexts[0].inventoryDigest=product.sha256Canonical(unlisted.contexts[0].members);
+  assert.throws(()=>gtl.constructRunEnvironmentDeclaration(unlisted),/invalid exact run environment declaration/,'context membership stays within the declared inventory');
+  assert.deepEqual(await product.observeRunEnvironment(input),observed);
+});
+
 test('framed Testing prerequisite keeps the full plan and future mapping while refusing an absent-file probe',async t=>{
   const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));

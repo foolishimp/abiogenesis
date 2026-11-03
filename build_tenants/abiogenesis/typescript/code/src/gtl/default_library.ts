@@ -77,27 +77,52 @@ export function defaultGovernanceGraphFunctions(options: { purposes?: readonly G
 }
 
 // Exact released bytes are packaged as a generic source subset. The original
-// manifest proves provenance; only the two selected members supply role context.
+// manifest proves provenance; only the six selected members supply role context.
+// Spans are complete heading sections of those released bytes.
 export const DEFAULT_LIBRARY_STDO_SOURCE = {
-  "basisRef": "stdo://releases/v3.0.2/",
-  "manifestDigest": "sha256:f7f3f824ee1ac3e048d1b1ea86ce3aae84866e2e9d5010fe5eda2e38e12f4477",
+  "basisRef": "stdo://releases/v3.0.4/",
+  "manifestDigest": "sha256:102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
   "manifest": {
     "path": "manifest.json",
     "assetPath": "contracts/default-library/stdo/manifest.json",
-    "byteCount": 14286
+    "byteCount": 18022
   },
   "members": {
     "executive": {
       "path": "standards/EXECUTIVE_BASELINE.md",
       "assetPath": "contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
-      "byteCount": 157336,
-      "digest": "sha256:064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a"
+      "byteCount": 165730,
+      "digest": "sha256:ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff"
     },
     "assurance": {
       "path": "standards/ASSURANCE.md",
       "assetPath": "contracts/default-library/stdo/standards/ASSURANCE.md",
       "byteCount": 87324,
       "digest": "sha256:5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    },
+    "work-skill": {
+      "path": "plugins/spec/skills/stdo-work/SKILL.md",
+      "assetPath": "contracts/default-library/stdo/plugins/spec/skills/stdo-work/SKILL.md",
+      "byteCount": 13369,
+      "digest": "sha256:9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    },
+    "review-skill": {
+      "path": "plugins/spec/skills/stdo-review/SKILL.md",
+      "assetPath": "contracts/default-library/stdo/plugins/spec/skills/stdo-review/SKILL.md",
+      "byteCount": 8074,
+      "digest": "sha256:b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    "handoff": {
+      "path": "plugins/spec/references/COORDINATED_HANDOFF.md",
+      "assetPath": "contracts/default-library/stdo/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "byteCount": 22028,
+      "digest": "sha256:e06139911583717a1d18994aee314db3aa29a0b5ebab61f3c6cfd11e37030e00"
+    },
+    "product-basis": {
+      "path": "plugins/spec/references/PRODUCT_BASIS.md",
+      "assetPath": "contracts/default-library/stdo/plugins/spec/references/PRODUCT_BASIS.md",
+      "byteCount": 3947,
+      "digest": "sha256:d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
     }
   },
   "spans": {
@@ -106,8 +131,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "8-derived-executive-frame"
       ],
-      "startByte": 84076,
-      "endByte": 89633,
+      "startByte": 88956,
+      "endByte": 94513,
       "spanDigest": "sha256:beac5c3e7dd7bb8ed27914271b1953bce37e8d83e9f8e082cc30b4f57e190545"
     },
     "worker": {
@@ -115,8 +140,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "9-derived-worker-frame"
       ],
-      "startByte": 89633,
-      "endByte": 92614,
+      "startByte": 94513,
+      "endByte": 97494,
       "spanDigest": "sha256:41c60108a27d41f3f5dc0f533207973f1d58bfed75e99b4b9016bd7d23f00453"
     },
     "reviewer": {
@@ -124,8 +149,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "10-derived-reviewer-frame"
       ],
-      "startByte": 92614,
-      "endByte": 97247,
+      "startByte": 97494,
+      "endByte": 102127,
       "spanDigest": "sha256:fc549bf2e55ffaabad86b4fd3b9290d9043f8716f2ed21b28c0410c643c3911c"
     },
     "specialists": {
@@ -133,8 +158,8 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "anchors": [
         "11-derived-generic-specialist-frame-set"
       ],
-      "startByte": 97247,
-      "endByte": 109740,
+      "startByte": 102127,
+      "endByte": 114620,
       "spanDigest": "sha256:6498d934efff03cc742689e12295555928f4f0d975077744b12120f119f53189"
     },
     "testing": {
@@ -150,6 +175,78 @@ export const DEFAULT_LIBRARY_STDO_SOURCE = {
       "startByte": 34042,
       "endByte": 63245,
       "spanDigest": "sha256:4abfd834bf7bac3273899d417c571bac0795966b0ec41084e6e37a86eaf6d981"
+    },
+    "work-skill": {
+      "member": "work-skill",
+      "anchors": [
+        "stdo-work"
+      ],
+      "startByte": 278,
+      "endByte": 13369,
+      "spanDigest": "sha256:4a79c928ed63d70c5362f67735f997b89edc4698b0e351e777a513b23f6532df"
+    },
+    "review-skill": {
+      "member": "review-skill",
+      "anchors": [
+        "stdo-review"
+      ],
+      "startByte": 257,
+      "endByte": 8074,
+      "spanDigest": "sha256:278e6fc320217e8c3e2b26d28c0769e125aa51db3a8aeba5d65d18604a63c9aa"
+    },
+    "control-intake": {
+      "member": "handoff",
+      "anchors": [
+        "control-intake"
+      ],
+      "startByte": 877,
+      "endByte": 3062,
+      "spanDigest": "sha256:5dc56964a5401cab6067411cff9e946b24739f8739b45b37582f7d45577b8736"
+    },
+    "issue": {
+      "member": "handoff",
+      "anchors": [
+        "issue"
+      ],
+      "startByte": 3062,
+      "endByte": 8965,
+      "spanDigest": "sha256:41f02b8f8fea5cdb0adeafec3ece7d4604f2be052c354ccdfa6e2714ea7112be"
+    },
+    "receive": {
+      "member": "handoff",
+      "anchors": [
+        "receive"
+      ],
+      "startByte": 8965,
+      "endByte": 11322,
+      "spanDigest": "sha256:a390f6b33ba32362bc792cd43eaef8e7dbf0eac74ea7f597138e801c49ffcdff"
+    },
+    "evaluate-return": {
+      "member": "handoff",
+      "anchors": [
+        "evaluate-the-return"
+      ],
+      "startByte": 11322,
+      "endByte": 13146,
+      "spanDigest": "sha256:b82012f97f16a488aa8340a17e3fb30019ac1a9d9e6ae09bb390d24d00605f4d"
+    },
+    "review-flow": {
+      "member": "handoff",
+      "anchors": [
+        "review-flow-from-the-selected-basis"
+      ],
+      "startByte": 13146,
+      "endByte": 16237,
+      "spanDigest": "sha256:e6cb938dd695291f557fe8f07a4cc493678232dcc733ef266bd5cec88c7b348d"
+    },
+    "product-basis": {
+      "member": "product-basis",
+      "anchors": [
+        "product-basis-selection"
+      ],
+      "startByte": 0,
+      "endByte": 3947,
+      "spanDigest": "sha256:d4d1528af1af32e6951cc42e83ce8c55f0b95cfd3594e85a85493ef871ea1979"
     }
   }
 } as const;
@@ -163,8 +260,13 @@ export function defaultLibraryRunEnvironment(): RunEnvironmentDeclaration {
   const source = DEFAULT_LIBRARY_STDO_SOURCE, contextRef = ref("context", "stdo-frames");
   const members = Object.values(source.members).map(member => ({ memberRef: ref("member", member.path), path: member.path,
     byteCount: member.byteCount, digest: member.digest })).sort((a, b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0);
-  const selections = { selector: ["executive"], constructor: ["worker", "specialists"],
-    assessor: ["reviewer", "testing"], command_executor: ["worker", "testing"] } as const;
+  // Finite role-to-source selection owned by T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN:
+  // retained frame spans, then the role's native skill, then its reference closure.
+  const selections = {
+    selector: ["executive", "work-skill", "control-intake", "issue", "evaluate-return", "review-flow", "product-basis"],
+    constructor: ["worker", "specialists", "work-skill", "control-intake", "receive", "product-basis"],
+    assessor: ["reviewer", "testing", "review-skill", "control-intake", "receive", "review-flow", "product-basis"],
+    command_executor: ["worker", "testing", "work-skill", "control-intake", "receive", "product-basis"] } as const;
   return constructRunEnvironmentDeclaration({ kind: "run_environment_declaration", schemaVersion: "5.0.0", declarationRef: ref("environment", "default"),
     dependencies: [{ dependencyRef: ref("dependency", "stdo-frames"), basisRef: source.basisRef, recordRef: ref("record", "selected-stdo-member-inventory"),
       recordDigest: sha256Bytes(Buffer.from(DEFAULT_LIBRARY_CONTEXT_INVENTORY.content)), recordFormat: "member_inventory@1", inventoryDigest: stdoInventoryDigest(frameMembers), members: frameMembers }],
