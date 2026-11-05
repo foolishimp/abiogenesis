@@ -114,7 +114,6 @@ import {
   captureDurablePrefixCoordinate,
   durableRuntimeEventPrefixThroughEvent,
   durableCutCorrespondsToValidatedPrefix,
-  readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
@@ -122,9 +121,8 @@ import {
   type RuntimeEvent,
 } from "./event_store.js";
 import {
-  runtimeEventsFromValidatedPrefix,
   runtimeEventAtPrefix,
-  isOwnedRuntimeEventPrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
   type RuntimeEventPrefix,
   selectValidatedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent,
@@ -224,17 +222,10 @@ class NativeAssemblyBasisDerivation {
     return typeof proof === "object" && proof !== null && #basis in proof && proof.#basis === basis ? proof.#value : undefined;
   }
 }
-/** Pure helpers consume the constructed immutable basis. Raw/copy inputs retain
- * fresh durable acquisition; this value never grants an effect or current worksite. */
-export function authenticateNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
-  const owner = authenticateOwnedNativeInstructionAssemblyBasis(basis);
-  if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix") return null;
-  const events = isOwnedRuntimeEventPrefix(owner.prefix) ? owner.prefix.selection.materialize() :
-    runtimeEventsFromValidatedPrefix(owner.prefix);
-  return { ...owner, events, prefix: isOwnedRuntimeEventPrefix(owner.prefix)
-    ? selectValidatedRuntimeEventPrefix(events) : owner.prefix };
-}
-/** @internal Ordinary consumers borrow the same authenticated facts without a full-history output. */
+/** @internal Pure helpers consume the constructed immutable basis and borrow
+ * its authenticated facts; no consumer receives a complete-history output. Raw/copy
+ * inputs retain fresh durable acquisition; this value never grants an effect or
+ * current worksite. */
 export function authenticateOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
   try { return NativeAssemblyBasisDerivation.value(basis) ?? deriveOwnedNativeInstructionAssemblyBasis(basis); }
   catch { return null; }
@@ -958,22 +949,24 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
 ): boolean {
   if (!isRecord(value)) return false;
   try {
-    const events = readRuntimeEventsAtDurablePrefix(predecessor, { requireCurrent: true });
-    const prefix = selectValidatedRuntimeEventPrefix(events);
+    // The owned current cut keeps the requireCurrent physical check; the C-call
+    // relations below read their indexed rows instead of a complete-history copy.
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessor, { requireCurrent: true });
+    const related = indexedRuntimeEvents(prefix, "related:" + cCallRef);
     const nativeTask = admittedNativeTask(prefix, value);
     if (nativeTask === null && !isWorksiteExecutionTask(value)) return false;
     const task = (nativeTask ?? value) as unknown as WorksiteExecutionTask & Readonly<Record<string, JsonValue>>;
-    const opens = events.filter((event) => event.kind === "c_call_opened" && event.aggregateId === cCallRef &&
+    const opens = related.filter((event) => event.kind === "c_call_opened" && event.aggregateId === cCallRef &&
       event.graphFunctionRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef : WORKSITE_REVISION_IDS.graphFunctionRef) && isRecord(event.payload));
     if (opens.length !== 1 || opens[0]!.basisId === null) return false;
     const opened = opens[0]!;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId!);
-    const fibres = events.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef &&
+    const fibres = related.filter((event) => event.kind === "c_call_fibre_selected" && event.aggregateId === cCallRef &&
       event.basisId === opened.basisId && event.runId === opened.runId && isRecord(event.payload) &&
       event.payload.implementationRef === worksiteExecutionImplementationRef(task) &&
       event.payload.implementationBindingRef === (value.kind === "worksite_command_execution_task" ? WORKSITE_COMMAND_EXECUTION_IDS.implementationBindingRef : WORKSITE_REVISION_IDS.implementationBindingRef) && event.payload.regime === "F_P");
     if (execution === null || fibres.length !== 1 || !canonicalEquals(execution.rawInputValue, value) ||
-      events.some((event) => event.aggregateId === cCallRef && (event.kind === "c_call_evidenced" || event.kind === "c_call_result_admitted")) ||
+      related.some((event) => event.aggregateId === cCallRef && (event.kind === "c_call_evidenced" || event.kind === "c_call_result_admitted")) ||
       exactWorksiteEnvironmentAtPrefix(predecessor, worksiteAuthorityCarrier(task)!) === null) return false;
     // The native source branch below conjoins provenance and currentness once.
     if (nativeTask === null && !isObservedWorksiteCommandExecutionTask(value) && !worksiteExecutionSourcesCurrent(prefix, task)) return false;
@@ -982,7 +975,7 @@ export function hasExactWorksiteCommandLeafSourceAtDurablePrefix(
     if (execution.basisClass === "root") return exactC2SourceEnvironment(predecessor, prefix, invocation, task);
     if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null || typeof opened.runId !== "string") return false;
     const parent = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
-    const basisEvent = events.find((event) => event.eventId === execution.admissionEventRef);
+    const basisEvent = runtimeEventAtPrefix(prefix, execution.admissionEventRef);
     if (parent === null || basisEvent === undefined) return false;
     if (isObservedWorksiteCommandExecutionTask(value)) return projectObservedWorksiteCommandChildAtPrefix(prefix, {
       parentBasis: parent, parentCCallRef: execution.parentCCallRef, runId: opened.runId, task: value }) !== null;
@@ -2756,7 +2749,7 @@ export function admitConstructionContinuationExecutionBasis(
   store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
   plan: PreparedConstructionContinuationOperation, basis: RuntimeAdmissionBasis,
 ): Readonly<{ executionBasis: ExecutionBasis; successorPrefix: DurablePrefixCoordinate; operation: RuntimeEvent }> {
-  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
   if (!isPreparedConstructionContinuationOperation(plan) || runtimeEventPrefixDigest(prefix) !== plan.predecessorDigest ||
     !hasAdmittedExecutionBasisAtPrefix(prefix, plan.prepared.root))
     throw new TypeError("continued basis requires its exact prepared operation and durable predecessor");

@@ -1,4 +1,6 @@
-import { indexedRuntimeEvents, type RuntimeEventPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix,
+  runtimeEventPrefixDigest, runtimeEventPrefixExtent, runtimeEventPrefixLastEnvelope, runtimeEventPrefixesHaveSameOwnedCut,
+  selectRuntimeEventPrefixFromAuthority, validatedRuntimeEventPrefixThroughEvent, type RuntimeEventPrefix } from "./event_prefix.js";
 /** One native forward relation. Historical coordinates never become current-Run causation. */
 import type { GraphFunction, GtlGraph, ModulePublication } from "../gtl/contracts.js";
 import { isWorksiteCommandForwardGraphFunction } from "../gtl/worksite_command_forward.js";
@@ -14,8 +16,8 @@ import type { WorkspaceBinding } from "../product/environment.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, type DurablePrefixCoordinate } from "./event_store.js";
-import { runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { authenticateRuntimePrefixAncestry, type DurablePrefixCoordinate } from "./event_store.js";
+import { type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { hasExactInvocationRunBindingAtPrefix, projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { projectExactPrefixWorkspaceEnvironment, projectAdmittedProductInstallByAdmissionEventRef } from "./environment_admission.js";
 import { projectOpenedCCallCarrierAtPrefix, projectAdmittedCCallStateAtPrefix, projectCCallCarrierPhaseAtPrefix, type CCall } from "./c_call.js";
@@ -35,15 +37,26 @@ const record=(v:unknown):v is Record<string,JsonValue>=>v!==null&&typeof v==="ob
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
 /** Actor ownership is native parent/child lineage, not a guessed payload on
  * each process/stream event. A dispatch intent alone consumes this eligibility. */
-export function hasWorksiteCommandForwardDispatchAtPrefix(prefix:ValidatedRuntimeEventPrefix,cCallRef:string):boolean {
-  const events=runtimeEventsFromValidatedPrefix(prefix);
-  const actors=events.filter(e=>e.kind==="actor_invocation_started"&&
-    (e.parentAggregateId===cCallRef||(record(e.payload)&&e.payload.cCallRef===cCallRef)));
-  return actors.length!==0||events.some(e=>
-    (e.kind==="actor_transport_binding_admitted"&&(e.parentAggregateId===cCallRef||
-      (record(e.payload)&&e.payload.cCallRef===cCallRef)))||
-    (e.kind==="c_call_evidenced"&&e.aggregateId===cCallRef&&record(e.payload)&&e.payload.evidenceClass==="probabilistic_transport")||
-    (e.kind.startsWith("actor_")&&actors.some(a=>e.aggregateId===a.aggregateId||e.parentAggregateId===a.aggregateId)));
+export function hasWorksiteCommandForwardDispatchAtPrefix(prefix:ValidatedRuntimeEventPrefix,cCallRef:string):boolean;
+/** @internal Same dispatch relation on the owner-selected prefix. */
+export function hasWorksiteCommandForwardDispatchAtPrefix(prefix:RuntimeEventPrefix,cCallRef:string):boolean;
+export function hasWorksiteCommandForwardDispatchAtPrefix(prefix:RuntimeEventPrefix,cCallRef:string):boolean {
+  // Kind and aggregate selections hold every row the predicates can accept;
+  // with no started actor, no other actor row can belong to one.
+  const owned=(e:{parentAggregateId?:string|null|undefined;payload:unknown})=>e.parentAggregateId===cCallRef||(record(e.payload)&&e.payload.cCallRef===cCallRef);
+  return indexedRuntimeEvents(prefix,"kind:actor_invocation_started").some(owned)||
+    indexedRuntimeEvents(prefix,"kind:actor_transport_binding_admitted").some(owned)||
+    indexedRuntimeEvents(prefix,"related:"+cCallRef).some(e=>e.kind==="c_call_evidenced"&&e.aggregateId===cCallRef&&
+      record(e.payload)&&e.payload.evidenceClass==="probabilistic_transport");
+}
+/** Exact decoded-history ancestry of an owned historical cut within the current
+ * cut: one owner cut relation, or the canonical event-vector digest when cold. */
+function historicalPrefixOf(historical:RuntimeEventPrefix,current:RuntimeEventPrefix):boolean {
+  const extent=runtimeEventPrefixExtent(historical),last=runtimeEventPrefixLastEnvelope(historical);
+  if(last===undefined)return extent.count===0;
+  const cut=validatedRuntimeEventPrefixThroughEvent(current,last.eventId),through=runtimeEventPrefixExtent(cut);
+  return through.count===extent.count&&through.lastOrdinal===extent.lastOrdinal&&
+    (runtimeEventPrefixesHaveSameOwnedCut(historical,cut)||runtimeEventPrefixDigest(historical)===runtimeEventPrefixDigest(cut));
 }
 function graphFor(basis:ExecutionBasis,gf:GraphFunction) {
   if(gf.name!==basis.graphFunctionRef||hash(gf)!==basis.graphFunctionDigest)return null;
@@ -64,11 +77,19 @@ function nativeLeaf(prefix:RuntimeEventPrefix,ref:string,gf:GraphFunction) {
 }
 /** Pure authentic historical proof. No filesystem worksite observation occurs here. */
 export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwardRequest) {
+  const source=forwardSourceAt(request);
+  if(source===null)return null;
+  const {prefix:_prefix,...proof}=source;
+  return proof;
+}
+/** The owner-selected historical prefix stays private to this owner's relations. */
+function forwardSourceAt(request:WorksiteCommandForwardRequest) {
   try{
     if(!isWorksiteCommandForwardRequest(request))return null;
-    const s=request.source,events=readRuntimeEventsAtDurablePrefix(s.prefix),prefix=selectValidatedRuntimeEventPrefix(events);
+    const s=request.source,prefix=projectOwnedRuntimeEventPrefixAtDurablePrefix(s.prefix);
     const invocation=projectExactInvocationAdmissionAtPrefix(prefix,s.invocationAdmissionRef);
-    const opened=exactOrNull(resolveExactMatch(events,e=>e.kind==="c_call_opened"&&e.aggregateId===s.failedCCallRef&&e.runId===s.runId));
+    const opened=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"aggregate:c_call:"+s.failedCCallRef),
+      e=>e.kind==="c_call_opened"&&e.aggregateId===s.failedCCallRef&&e.runId===s.runId));
     const sourceBasis=opened?.basisId===undefined?null:projectExactExecutionBasisAtPrefix(prefix,opened.basisId);
     if(invocation===null||invocation.invocationRef!==s.invocationRef||sourceBasis===null||
       sourceBasis.invocationAdmissionRef!==s.invocationAdmissionRef||sourceBasis.invocationRef!==s.invocationRef||
@@ -90,7 +111,8 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
       return publication===null?null:exactOrNull(resolveExactMatch(publication.graphFunctions,g=>g.name===ref));
     };
     const gf=definition(sourceBasis.graphFunctionRef),failed=gf===null?null:nativeLeaf(prefix,s.failedCCallRef,gf);
-    const failure=exactOrNull(resolveExactMatch(events,e=>e.eventId===s.failureEventRef)),runFailure=exactOrNull(resolveExactMatch(events,e=>e.eventId===s.runFailureEventRef));
+    const failure=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"id:"+s.failureEventRef),e=>e.eventId===s.failureEventRef));
+    const runFailure=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"id:"+s.runFailureEventRef),e=>e.eventId===s.runFailureEventRef));
     if(failed===null||failed.cCall.regime!=="F_P"||failed.cCall.implementationRef!==C2.implementationRef||
       failed.cCall.implementationBindingRef!==C2.implementationBindingRef||failed.result.resultClass==="success"||failed.judgment.judgment==="advance"||
       failure===null||failure.kind!=="c_call_evidenced"||failure.aggregateId!==s.failedCCallRef||failure.runId!==s.runId||
@@ -98,7 +120,7 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
       !failed.result.evidenceRefs.includes(String(failure.payload.evidenceRef))||!failed.resultEvent.causationEventRefs.includes(failure.eventId)||
       runFailure===null||runFailure.kind!=="runtime_failure_observed"||runFailure.runId!==s.runId||
       runFailure.admissionOrdinal<=failed.judgmentEvent.admissionOrdinal||
-      projectRuntimeReplayStatus(selectValidatedRuntimeEventPrefix(events,{runId:s.runId}),prefix).runtimeStatus!=="failed"||
+      projectRuntimeReplayStatus(selectRuntimeEventPrefixFromAuthority(prefix,{runId:s.runId}),prefix).runtimeStatus!=="failed"||
       hasWorksiteCommandForwardDispatchAtPrefix(prefix,s.failedCCallRef))return null;
     const parent=projectExactExecutionBasisAtPrefix(prefix,sourceBasis.parentExecutionBasisRef);
     const retained=parent===null?null:projectSameRunWorksiteCommandSourceAtPrefix(prefix,{
@@ -113,35 +135,34 @@ export function projectWorksiteCommandForwardSource(request:WorksiteCommandForwa
     if(preparation===null||preparation.result.resultClass!=="success"||preparation.judgment.judgment!=="advance"||
       preparation.resultEvent.eventId!==s.preparationResultEventRef||!canonicalEquals(preparation.result.value, originalTask))return null;
     // Count actual declared preparation producers only, not their workflow aliases.
-    const producers=events.filter(e=>e.kind==="c_call_opened"&&e.basisId===parent!.basisRef).flatMap(e=>{
+    const producers=indexedRuntimeEventEnvelopes(prefix,"basis:"+parent!.basisRef).filter(e=>e.kind==="c_call_opened"&&e.basisId===parent!.basisRef).flatMap(e=>{
       const candidate=preparationGF===null?null:nativeLeaf(prefix,e.aggregateId,preparationGF);
       return candidate!==null&&candidate.cCall.implementationRef===preparation.cCall.implementationRef&&
         candidate.cCall.programLocusRef===preparation.cCall.programLocusRef&&candidate.result.resultClass==="success"&&
         candidate.judgment.judgment==="advance"?[candidate]:[];
     });
     if(producers.length!==1||producers[0]!.cCall.cCallRef!==preparation.cCall.cCallRef)return null;
-    return {prefix,events,originalTask,construction,preparation,failed,bases:[sourceBasis,parent!,retained.sourceBasis],
+    return {prefix,originalTask,construction,preparation,failed,bases:[sourceBasis,parent!,retained.sourceBasis],
       installedRoots:environment.productInstalls.map(i=>i.installedRoot)};
   }catch{return null;}
 }
 
 /** A failed successor does not reserve the original obligation forever. This
  * proof only removes consumption; it never selects or admits another attempt. */
-function isFailedUndispatchedForwardSuccessor(prefix:ValidatedRuntimeEventPrefix,
+function isFailedUndispatchedForwardSuccessor(prefix:RuntimeEventPrefix,
   invocation:NonNullable<ReturnType<typeof projectExactInvocationAdmissionAtPrefix>>,basis:ExecutionBasis):boolean {
   try{
-    const events=runtimeEventsFromValidatedPrefix(prefix);
     if(basis.basisClass!=="root"||basis.invocationAdmissionRef!==invocation.invocationAdmissionRef||
       basis.invocationRef!==invocation.invocationRef||basis.graphFunctionRef!==F.graphFunctionRef)return false;
-    const runOpen=exactOrNull(resolveExactMatch(events,e=>e.kind==="run_segment_opened"&&(e.basisId===basis.basisRef||
+    const runOpen=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"kind:run_segment_opened"),e=>e.kind==="run_segment_opened"&&(e.basisId===basis.basisRef||
       (record(e.payload)&&e.payload.invocationAdmissionRef===invocation.invocationAdmissionRef))));
     if(runOpen?.runId===undefined||runOpen.basisId!==basis.basisRef||!record(runOpen.payload)||
       runOpen.payload.executionBasisRef!==basis.basisRef||runOpen.payload.executionBasisDigest!==basis.basisDigest||
       !hasExactInvocationRunBindingAtPrefix(prefix,invocation,runOpen.runId))return false;
-    const runPrefix=selectValidatedRuntimeEventPrefix(events,{runId:runOpen.runId});
-    const runEvents=runtimeEventsFromValidatedPrefix(runPrefix),replayed=projectRuntimeReplayRouteRefsAndCCalls(runPrefix,prefix);
-    const terminal=exactOrNull(resolveExactMatch(runEvents,e=>e.runId===runOpen.runId&&
-      (e.kind==="runtime_failure_observed"||e.kind==="run_stopped"||e.kind==="run_closed")));
+    const runPrefix=selectRuntimeEventPrefixFromAuthority(prefix,{runId:runOpen.runId});
+    const replayed=projectRuntimeReplayRouteRefsAndCCalls(runPrefix,prefix);
+    const terminal=exactOrNull(resolveExactMatch((["runtime_failure_observed","run_stopped","run_closed"] as const).flatMap(kind=>
+      indexedRuntimeEventEnvelopes(runPrefix,"kind:"+kind)),e=>e.runId===runOpen.runId));
     if(replayed.runId!==runOpen.runId||replayed.runtimeStatus!=="failed"||replayed.runClosedEventRef!==null||
       replayed.activeFluents.includes(runtimeFluentKey(constructRunActiveFluent(runOpen.runId)))||
       terminal===null||terminal.aggregateType!=="run"||terminal.aggregateId!==runOpen.runId||
@@ -149,27 +170,31 @@ function isFailedUndispatchedForwardSuccessor(prefix:ValidatedRuntimeEventPrefix
       (terminal.eventId!==replayed.runtimeFailureEventRef&&terminal.eventId!==replayed.runStoppedEventRef))return false;
     // Native Run membership also catches an orphaned/ambiguous dispatch; the
     // CCall owner preserves parent/child transport and evidence lineage.
-    if(runEvents.some(e=>e.runId===runOpen.runId&&
-      (e.kind==="actor_invocation_started"||e.kind==="actor_transport_binding_admitted")))return false;
+    if((["actor_invocation_started","actor_transport_binding_admitted"] as const).some(kind=>
+      indexedRuntimeEventEnvelopes(runPrefix,"kind:"+kind).some(e=>e.runId===runOpen.runId)))return false;
     return !replayed.cCalls.some(call=>hasWorksiteCommandForwardDispatchAtPrefix(prefix,call.cCallRef)||
       isWorksiteCommandForwardObservation(call.resultValue)||
-      (call.resultClass==="success"&&runEvents.some(e=>e.kind==="c_call_fibre_selected"&&
+      (call.resultClass==="success"&&indexedRuntimeEvents(runPrefix,"related:"+call.cCallRef).some(e=>e.kind==="c_call_fibre_selected"&&
         e.aggregateId===call.cCallRef&&record(e.payload)&&e.payload.regime==="F_P")));
   }catch{return false;}
 }
 
 /** Current-prefix consumption; coordinates in another invocation are never aliases of this one. */
 export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPrefix,request:WorksiteCommandForwardRequest,
+  currentInvocationRef:string|null):boolean;
+/** @internal Same consumption relation on the owner-selected prefix. */
+export function worksiteCommandForwardUnconsumed(prefix:RuntimeEventPrefix,request:WorksiteCommandForwardRequest,
+  currentInvocationRef:string|null):boolean;
+export function worksiteCommandForwardUnconsumed(prefix:RuntimeEventPrefix,request:WorksiteCommandForwardRequest,
   currentInvocationRef:string|null):boolean {
-  const events=runtimeEventsFromValidatedPrefix(prefix);
-  return !events.some(e=>{
+  return !indexedRuntimeEvents(prefix,"kind:invocation_admitted").some(e=>{
     if(e.kind!=="invocation_admitted"||!record(e.payload)||typeof e.payload.invocationAdmissionRef!=="string"||
       e.payload.invocationAdmissionRef===currentInvocationRef)return false;
     const invocation=projectExactInvocationAdmissionAtPrefix(prefix,e.payload.invocationAdmissionRef);
     if(invocation===null)return e.payload.graphFunctionRef===F.graphFunctionRef&&
       e.payload.workspaceId===request.workspaceBinding.workspaceId;
     if(invocation.graphFunctionRef!==F.graphFunctionRef)return false;
-    const basisEvent=exactOrNull(resolveExactMatch(events,row=>row.kind==="basis_admitted"&&record(row.payload)&&row.payload.basisClass==="root"&&row.payload.invocationAdmissionRef===invocation.invocationAdmissionRef));
+    const basisEvent=exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix,"payload:invocationAdmissionRef:"+invocation.invocationAdmissionRef),row=>row.kind==="basis_admitted"&&record(row.payload)&&row.payload.basisClass==="root"&&row.payload.invocationAdmissionRef===invocation.invocationAdmissionRef));
     const basis=basisEvent!==null&&record(basisEvent.payload)&&typeof basisEvent.payload.basisRef==="string"
       ?projectExactExecutionBasisAtPrefix(prefix,basisEvent.payload.basisRef):null;
     // An admitted but not yet based forward invocation is unresolved, not an
@@ -186,11 +211,12 @@ export function worksiteCommandForwardUnconsumed(prefix:ValidatedRuntimeEventPre
 export function projectWorksiteCommandForwardRelation(current:DurablePrefixCoordinate,request:WorksiteCommandForwardRequest,
   currentInvocationRef:string|null=null,physical=false) {
   try{
-    const events=readRuntimeEventsAtDurablePrefix(current),prefix=selectValidatedRuntimeEventPrefix(events),s=request.source;
+    const prefix=readOwnedRuntimeEventPrefixAtDurablePrefix(current),s=request.source;
     if(!isWorksiteCommandForwardRequest(request)||!authenticateRuntimePrefixAncestry(s.prefix,current)||
       !worksiteCommandForwardUnconsumed(prefix,request,currentInvocationRef))return null;
-    const source=projectWorksiteCommandForwardSource(request);
-    if(source===null||!source.events.every((e,i)=>events[i] !== undefined && canonicalEquals(e, events[i])))return null;
+    const owned=forwardSourceAt(request);
+    if(owned===null||!historicalPrefixOf(owned.prefix,prefix))return null;
+    const {prefix:_sourcePrefix,...source}=owned;
     const environment=projectExactPrefixWorkspaceEnvironment(current,{ref:request.workspaceBinding.bindingId,digest:request.workspaceBinding.bindingDigest});
     if(environment.kind!=="exact_prefix_workspace_environment"||!canonicalEquals(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis)||
       !canonicalEquals(environment.workspaceBinding, request.workspaceBinding))return null;
@@ -198,7 +224,7 @@ export function projectWorksiteCommandForwardRelation(current:DurablePrefixCoord
     if(retained===null)return null;
     const task=constructWorksiteCommandForwardTask({request,originalTask:source.originalTask,...retained});
     if(physical&&!retainedWorksitePhysicalMatches(request.workspaceAuthorityBasis,task.snapshotSources))return null;
-    return {task,source,prefix,installedRoots:[...new Set([...source.installedRoots,...environment.productInstalls.map(i=>i.installedRoot)])]};
+    return {task,source,installedRoots:[...new Set([...source.installedRoots,...environment.productInstalls.map(i=>i.installedRoot)])]};
   }catch{return null;}
 }
 export function worksiteCommandForwardEntryDisposition(prefix:DurablePrefixCoordinate,gf:GraphFunction,input:unknown,
@@ -216,7 +242,7 @@ export interface WorksiteCommandForwardNativeBasis {
 }
 export function authenticateWorksiteCommandForwardBasis(basis:WorksiteCommandForwardNativeBasis,physical=false) {
   try{
-    const events=readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix),prefix=selectValidatedRuntimeEventPrefix(events);
+    const prefix=readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix);
     const execution=projectExactExecutionBasisAtPrefix(prefix,basis.executionBasis.basisRef);
     if(execution===null||!canonicalEquals(execution, basis.executionBasis)||!isWorksiteCommandForwardGraphFunction(basis.graphFunction))return null;
     const graph=graphFor(execution,basis.graphFunction),call=graph===null?null:projectOpenedCCallCarrierAtPrefix(prefix,graph,basis.cCall.cCallRef);
@@ -243,7 +269,7 @@ export function authenticateWorksiteCommandForwardBasis(basis:WorksiteCommandFor
         call.programLocusRef!==F.prepareNodeRef||basis.cursor.inputDigest!==hash(request))return null;
     }else if(!worksiteCommandForwardChildSourceAtPrefix(prefix,basis.predecessorPrefix,execution.parentExecutionBasisRef,
       execution.parentCCallRef,execution.rawInputValue,false))return null;
-    return {relation,execution,call,prefix};
+    return {relation,execution,call};
   }catch{return null;}
 }
 export function constructWorksiteCommandForwardNativeBasis(basis:WorksiteCommandForwardNativeBasis) {

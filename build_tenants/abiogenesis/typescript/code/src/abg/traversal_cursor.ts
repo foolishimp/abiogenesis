@@ -27,13 +27,15 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtDurablePrefix,
-  readActiveRuntimeTransactionAtDurablePrefix,
+  selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   checkedRecordAtPrefix,
+  indexedRuntimeEventEnvelopes,
   indexedRuntimeEvents,
-  selectValidatedRuntimeEventPrefix,
+  selectOwnedRuntimeEventPrefix,
+  selectRuntimeEventPrefixFromAuthority,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -763,10 +765,10 @@ function admitTraversalFrameCursor(
     store,
     predecessorPrefix,
     () => {
-  const durableEvents = readActiveRuntimeTransactionAtDurablePrefix(
+  // The held transaction's owned durable predecessor; no complete history vector.
+  const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(
     store, predecessorPrefix, { durableOnly: true },
-  );
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
+  ));
   if (!hasAdmittedExecutionBasisAtPrefix(authorityPrefix, executionBasis)) {
     return refusal("basis_mismatch", "cursor admission requires the exact admitted ExecutionBasis");
   }
@@ -829,12 +831,12 @@ function admitTraversalFrameCursor(
   }
   if (
     traversalCursorAdmissionEventRefAtPrefix(authorityPrefix, cursor) !== null ||
-    durableEvents.some((event) =>
+    indexedRuntimeEventEnvelopes(authorityPrefix, "related:" + scope.frameId).some((event) =>
       event.kind === "traversal_cursor_entered" && event.aggregateId === scope.frameId)
   ) {
     return refusal("cursor_repeated", "one frame cannot admit a second initial traversal cursor");
   }
-  const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
+  const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
     runId: scope.runId,
   });
   if (

@@ -12,9 +12,11 @@ import { jsonValueSchema, nonblankSchema } from "../shared/public_function_contr
 import type { ReferenceDigest } from "../shared/public_invocation.js";
 import { rawAdmitValue } from "../validator/raw_admission.js";
 import {
-  readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate,
+  validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixDigest, runtimeEventPrefixExtent,
+  runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixThroughEvent, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { projectAdmittedProductInstall, projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import {
   admitGraphFunctionCatalog, applyCatalogDeclaration, narrowGraphFunctionCatalog,
@@ -265,10 +267,20 @@ export function reconstructCatalogApplication(
   if (!sameJson(resources.validationReceipt, reconstructed.resources.validationReceipt)) fail("invalid_validation_receipt", "validation receipt is crossed");
   if (!sameJson(resources.contributor, reconstructed.resources.contributor)) fail("invalid_contributor", "contributor provenance is crossed");
   if (currentPrefix !== undefined) {
-    const earlier = readRuntimeEventsAtDurablePrefix(resources.construction.prefix);
-    const current = readRuntimeEventsAtDurablePrefix(currentPrefix);
-    if (resources.construction.prefix.eventLogRef !== currentPrefix.eventLogRef ||
-        earlier.length > current.length || !sameJson(earlier, current.slice(0, earlier.length))) {
+    // Same-log logical prefix: the earlier cut's canonical digest equals the
+    // digest of the current history through the earlier cut's final event at
+    // the same extent. No ancestry, device or profile condition is added.
+    const earlier = readOwnedRuntimeEventPrefixAtDurablePrefix(resources.construction.prefix);
+    const current = readOwnedRuntimeEventPrefixAtDurablePrefix(currentPrefix);
+    const earlierCount = runtimeEventPrefixExtent(earlier).count, currentCount = runtimeEventPrefixExtent(current).count;
+    const earlierLast = runtimeEventPrefixLastEnvelope(earlier);
+    let currentCut: RuntimeEventPrefix | null | undefined = null;
+    try { if (earlierLast !== undefined) currentCut = validatedRuntimeEventPrefixThroughEvent(current, earlierLast.eventId); }
+    catch { currentCut = undefined; }
+    if (resources.construction.prefix.eventLogRef !== currentPrefix.eventLogRef || earlierCount > currentCount ||
+        currentCut === undefined ||
+        (currentCut !== null && (runtimeEventPrefixExtent(currentCut).count !== earlierCount ||
+          runtimeEventPrefixDigest(currentCut) !== runtimeEventPrefixDigest(earlier)))) {
       return fail("unready", "application prefix is not an exact predecessor of this invocation");
     }
   }

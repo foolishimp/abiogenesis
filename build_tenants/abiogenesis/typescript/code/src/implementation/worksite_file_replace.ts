@@ -15,9 +15,8 @@ import {
   rehydrateExecutionBasisAtPrefix,
 } from "../abg/execution_basis.js";
 import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
-import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority } from "../abg/event_prefix.js";
 import {
-  readRuntimeEventsAtDurablePrefix,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
@@ -330,12 +329,13 @@ export async function realizeWorksiteFileReplace(
   let conservationRoots: readonly string[] = [];
   let protectedInstallRoots: readonly string[] = [];
   try {
-    const events = readRuntimeEventsAtDurablePrefix(
+    // Pre-effect currentness stays explicit; the owned reader borrows only
+    // the active owner and authenticates any other coordinate cold.
+    const authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
       authority.predecessorPrefix,
       { requireCurrent: true },
     );
-    const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-    const runtimePrefix = selectValidatedRuntimeEventPrefix(events, {
+    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
       runId: authority.cCall.runId,
     });
     const projectedExecutionBasis = rehydrateExecutionBasisAtPrefix(
@@ -693,9 +693,8 @@ export async function realizeWorksiteFileParents(
   let localSet;
   try {
     const { validateWorksiteFileParentsPlanAtPrefix } = await import("../abg/semantic_job.js");
-    const events = readRuntimeEventsAtDurablePrefix(authority.predecessorPrefix, { requireCurrent: true });
-    const prefix = selectValidatedRuntimeEventPrefix(events);
-    const runtimePrefix = selectValidatedRuntimeEventPrefix(events, { runId: authority.cCall.runId });
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(authority.predecessorPrefix, { requireCurrent: true });
+    const runtimePrefix = selectRuntimeEventPrefixFromAuthority(prefix, { runId: authority.cCall.runId });
     localBasis = rehydrateExecutionBasisAtPrefix(prefix, authority.executionBasisRef);
     localSet = rehydrateAdmittedImplementationSetAtPrefix(prefix, authority.implementationSetRef);
     const environment = projectExactPrefixWorkspaceEnvironment(authority.predecessorPrefix, { ref: authority.workspaceBindingIdentity, digest: authority.workspaceBindingDigest });

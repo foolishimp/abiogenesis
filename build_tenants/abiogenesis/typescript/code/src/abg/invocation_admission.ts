@@ -91,10 +91,10 @@ import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   assertHeldEventStoreAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
   runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -670,11 +670,10 @@ export function rehydrateInvocationSourceResultBasisAtDurablePrefix(
   asserted: ProductInvocationSourceResultBasis,
 ): ProductInvocationSourceResultBasis | null {
   if (!isInvocationSourceResultBasis(asserted)) return null;
-  let validatedPrefix: ValidatedRuntimeEventPrefix;
+  let validatedPrefix: RuntimeEventPrefix;
   try {
-    validatedPrefix = selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(prefix),
-    );
+    // Borrows only an active owner; a raw or copied coordinate is cold.
+    validatedPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
   } catch {
     return null;
   }
@@ -917,12 +916,10 @@ function admitInvocationWithRequest(
       "invocation workspace and artifact truth differ from the exact ABG-owned prefix environment",
     );
   }
-  let predecessorPrefix: ValidatedRuntimeEventPrefix;
+  let predecessorPrefix: RuntimeEventPrefix;
   try {
     assertHeldEventStoreAtDurablePrefix(store, input.artifactTruth.prefix);
-    predecessorPrefix = selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(input.artifactTruth.prefix),
-    );
+    predecessorPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(input.artifactTruth.prefix);
   } catch {
     return refusal(
       "authority_mismatch",

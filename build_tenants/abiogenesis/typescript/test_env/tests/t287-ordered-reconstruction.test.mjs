@@ -13,7 +13,11 @@ import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { sha256Canonical } from '../../build/code/src/shared/digests.js';
 import { admitIJsonValue } from '../../build/code/src/shared/i_json.js';
 import { projectRunTruthAtDurablePrefix } from '../../build/code/src/abg/project_read_ports.js';
-import { projectOwnedPrefixArtifactTruth, projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection, runtimePrefixFromArtifactTruth } from '../../build/code/src/abg/artifact_truth.js';
+import { projectOwnedPrefixArtifactTruth, projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection, runtimePrefixFromOwnedArtifactTruth } from '../../build/code/src/abg/artifact_truth.js';
+import { writeRuntimeEventPrefixValue } from '../../build/code/src/abg/event_prefix.js';
+// The existing canonical prefix writer is the complete-value boundary; an owned
+// handle is never compared through its own JSON.
+const completeEvents=prefix=>{let out='';writeRuntimeEventPrefixValue(prefix,part=>{out+=part;});return JSON.parse(out).events;};
 const counts=()=>({...globalThis.p0Work});
 const delta=(before,after)=>Object.fromEntries([...new Set([...Object.keys(before),...Object.keys(after)])].map(k=>[k,(after[k]??0)-(before[k]??0)]));
 const select=(events,runId)=>{const authority=prefixOwner.selectValidatedRuntimeEventPrefix(events);return {authority,run:prefixOwner.selectRuntimeEventPrefixFromAuthority(authority,{runId})};};
@@ -84,7 +88,7 @@ test('cold acquisition receipt detaches caller input and preserves pure, copied,
     // M05_S06 design :361: "equal prefix reconstructs equal result"; object
     // identity supports mechanics only (constitution :136), so the pure
     // projections are equal to the acquired rows, not the same vector.
-    assert.deepEqual(runtimePrefixFromArtifactTruth(truth).events,rows);
+    assert.deepEqual(completeEvents(runtimePrefixFromOwnedArtifactTruth(truth)),rows);
     assert.deepEqual(storeOwner.projectRuntimeEventsAtDurablePrefix(captured),rows,'pure projection reconstructs the acquired rows');
     const fresh=storeOwner.readRuntimeEventsAtDurablePrefix(captured,{requireCurrent:true});
     assert.deepEqual(fresh,rows);assert.notEqual(fresh,rows,'explicit physical read reacquires');

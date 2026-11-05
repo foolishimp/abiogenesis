@@ -74,7 +74,7 @@ export async function projectionHarness(){
     // (`authenticateOwnedSemanticStageBasis`, 67c333799); both names are the
     // one stage-owner assumption; the basis input is compared by the owner's
     // input-equality reader (`semanticInputAtBasisEquals`).
-    "./semantic_stage.js":{authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:b=>b.input,
+    "./semantic_stage.js":{authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:b=>b.input,
       semanticInputAtBasisEquals:(b,value)=>product.sha256Canonical(b.input)===product.sha256Canonical(value),
       projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>states.get(ref)??null},
     "./execution_basis.js":{rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>executions.get(ref)??null},
@@ -97,7 +97,7 @@ export async function projectionHarness(){
   await module.evaluate();
   // Historical bytes and table-based currentness only; no fresh physical check
   // is claimed. Installed dispatch keeps its separate actual observation gate.
-  function select(parent,cause){basis.input=selectionInput(parent,cause);owner.call.implementationRef=ids.selectionImplementationRef;return module.namespace.projectRevisionSelectionSubject(basis,basis.input,false);}
+  function select(parent,cause){basis.input=selectionInput(parent,cause);owner.call.implementationRef=ids.selectionImplementationRef;return module.namespace.projectOwnedRevisionSelectionSubject(basis,basis.input,false);}
   function project(request){basis.input=request;owner.call.implementationRef=ids.projectionImplementationRef;return module.namespace.projectSemanticRevision(basis,request,false);}
   return {product,revisionProduct,ids,stage,current,states,executions,lookupOrder,owner,basis,root,oldCause,first,partial,second,state,revision,select,project,originCalls,oldCommand,newCommand,module};
 }

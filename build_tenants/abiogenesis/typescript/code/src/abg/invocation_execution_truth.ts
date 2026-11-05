@@ -595,7 +595,7 @@ export function projectExactRunInvocationFactsAtPrefix(
       admissionEventRef: admission.admissionEventRef,
     }));
   }
-  const publicRunEventRefs = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted")
+  const publicRunEventRefs = indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.invoke")
     .filter((event) =>
       event.kind === "public_operation_admitted" &&
       isRecord(event.payload) &&

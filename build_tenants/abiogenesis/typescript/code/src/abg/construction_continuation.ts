@@ -5,8 +5,8 @@ import { isRecord } from "../shared/admission_predicates.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isUndispatchedOwnerObservation } from "./event_contract_profiles.js";
-import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventAtPrefix, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
-import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, readRuntimeEventsAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { admitRuntimeEvent, admitRuntimeEventTransactionAtDurablePrefix, type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { canonicalEquals, presentMember } from "../shared/value/index.js";
 
@@ -54,10 +54,12 @@ const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" 
 function deriveConstructionIntentContinuations(
   prefix: RuntimeEventPrefix, runId: string,
 ): readonly ConstructionIntentContinuation[] {
-  const rows = indexedRuntimeEvents(prefix, "run:" + runId);
-  const openedRun = exactOrNull(onlyExactMatch(rows.filter(e => e.kind === "run_segment_opened")));
+  // The Run-open envelope selects the composition before any Run body is decoded.
+  const openedRun = exactOrNull(onlyExactMatch(indexedRuntimeEventEnvelopes(prefix, "run:" + runId)
+    .filter(e => e.kind === "run_segment_opened")));
   if (openedRun === null || openedRun.basisId === undefined ||
     projectExactExecutionBasisAtPrefix(prefix, openedRun.basisId)?.constructionComposition == null) return [];
+  const rows = indexedRuntimeEvents(prefix, "run:" + runId);
   const terminal = rows.filter(e => e.kind === "runtime_failure_observed")
     .filter(e => e.runId === runId && e.aggregateType === "run").at(-1) ??
     rows.filter(e => e.kind === "run_stopped").filter(e => e.runId === runId).at(-1);
@@ -137,7 +139,7 @@ function deriveConstructionIntentContinuations(
  * not a retry decision. It can be opened after Run activity has terminated. */
 export function admitPendingConstructionIntentContinuation(store: AbgEventStore,
   predecessorPrefix: DurablePrefixCoordinate, runId: string, eventTime: string, correlationId: string): DurablePrefixCoordinate {
-  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
   const candidate = deriveConstructionIntentContinuations(prefix, runId)[0];
   if (candidate === undefined || indexedRuntimeEvents(prefix, "kind:construction_continuation_opened")
     .some(e => e.aggregateId === candidate.continuationRef)) return predecessorPrefix;
@@ -1705,7 +1707,7 @@ import type { CCall } from "./c_call.js";
 export function admitConstructionContinuationReentry(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
   operation: PreparedConstructionContinuationOperation, root: ExecutionBasis, rootScope: OpenedTraversalScope,
   child: ExecutionBasis, childScope: OpenedTraversalScope, parentCall: CCall, cursor: TraversalCursorCandidate, basis: RuntimeAdmissionBasis) {
-  const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
+  const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
   const old = projectConstructionIntentContinuations(prefix, operation.prepared.continuation.runId)
     .find(c => c.continuationRef === operation.prepared.continuation.continuationRef);
   const cursorEventRef = traversalCursorAdmissionEventRefAtPrefix(prefix, cursor);
@@ -2172,7 +2174,7 @@ export type PreparedSelectedActionContinuation = NonNullable<ReturnType<typeof p
 export function admitSelectedActionContinuationOperation(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
   prepared: PreparedSelectedActionContinuation, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
   const { use } = prepared, { invocation, source, current } = use;
-  if (!selectedPreparations.has(prepared) || runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix))) !== prepared.predecessorDigest || validatePublicOperationBasis(basis, "abg.operation.run.continue", "selected_action") !== null ||
+  if (!selectedPreparations.has(prepared) || runtimeEventPrefixDigest(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix)) !== prepared.predecessorDigest || validatePublicOperationBasis(basis, "abg.operation.run.continue", "selected_action") !== null ||
     !isCapabilityGrantValue(grant) || grant.operationId !== "abg.operation.run.continue" || grant.actorRef !== invocation.actorRef ||
     grant.policyRef !== invocation.policyRef || basis.authorityScopeRef !== invocation.workspaceBindingId ||
     basis.authorityScopeDigest !== invocation.workspaceBindingDigest)
@@ -2334,7 +2336,7 @@ export function selectPendingExecutionUse(prefix: RuntimeEventPrefix,
 export function admitPendingExecutionContinuationOperation(store: AbgEventStore, predecessorPrefix: DurablePrefixCoordinate,
   use: PendingExecutionUse, grant: CapabilityGrant, basis: PublicOperationAdmissionBasis) {
   const { invocation, source, rootBasis, request } = use;
-  if (!pendingExecutionUses.has(use) || runtimeEventPrefixDigest(selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix))) !== use.predecessorDigest ||
+  if (!pendingExecutionUses.has(use) || runtimeEventPrefixDigest(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix)) !== use.predecessorDigest ||
     validatePublicOperationBasis(basis, "abg.operation.run.continue", "current_intent") !== null ||
     !isCapabilityGrantValue(grant) || grant.operationId !== "abg.operation.run.continue" || grant.actorRef !== invocation.actorRef ||
     grant.policyRef !== invocation.policyRef || basis.authorityScopeRef !== invocation.workspaceBindingId ||

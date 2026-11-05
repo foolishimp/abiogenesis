@@ -113,9 +113,10 @@ limit S2's broader admitted typed-input relation.
 
 ## Assembly and admission
 
-Reuse `authenticateNativeInstructionAssemblyBasis` in `abg/execution_basis.ts`:
+Reuse `authenticateOwnedNativeInstructionAssemblyBasis` in `abg/execution_basis.ts`:
 it already authenticates publication, Program, materialization, CCall, selected
-implementation, input and prefix. Reuse `projectRunEnvironmentRoleEvidence` in
+implementation, input and prefix, and returns the borrowed owned prefix rather
+than a complete-history copy. Reuse `projectRunEnvironmentRoleEvidence` in
 `abg/stdo_environment.ts:284` for exact frame source slices, policy, context
 selectors and actual corpus access evidence. Do not revive the historical RC7
 pilot's declaration or Public call shape.

@@ -1,4 +1,3 @@
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { NATIVE_SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js";
@@ -662,11 +661,4 @@ export function projectNativeSemanticEvidence(basis: SemanticStageNativeBasis, i
       constructionResult: source,
       executionObservation: execution, artifacts } });
   } catch { return null; }
-}
-
-export function authenticateSemanticJobBasis(basis: SemanticStageNativeBasis) {
-  const owner = authenticateOwnedSemanticJobBasis(basis);
-  if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix") return null;
-  const events = runtimeEventBodiesAtPrefix(owner.prefix).materialize();
-  return { ...owner, events, prefix: selectValidatedRuntimeEventPrefix(events) };
 }

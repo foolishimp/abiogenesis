@@ -48,7 +48,7 @@ export async function verifyRetainedGenericIntakes(proof) {
     assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
     const basis = { publication, lifecyclePublication: publication, sourcePublication: publication, graph, graphFunction,
       declarationGraphFunctions, executionBasis: execution, cCall, cursor, predecessorPrefix: durable };
-    assert.ok(jobs.authenticateSemanticJobBasis(basis));
+    assert.ok(jobs.authenticateOwnedSemanticJobBasis(basis));
     assert.deepEqual(jobs.projectSemanticJobIntake(basis, row.input), row.intake.payload.value);
     assert.equal(jobs.semanticJobResultMatchesBasis(basis, row.input, row.intake.payload.value), true);
     owners.push({ basis, row });
@@ -59,7 +59,7 @@ export async function verifyRetainedGenericIntakes(proof) {
     assert.equal(jobs.semanticJobResultMatchesBasis(basis, row.input, other.intake.payload.value), false, "cross-job envelope substitution refuses");
     const changed = structuredClone(row.input); changed.worksiteScope.writeRoots.push("outside");
     assert.equal(jobs.projectSemanticJobIntake(basis, changed), null, "changed scope cannot retain admitted input identity");
-    assert.equal(jobs.authenticateSemanticJobBasis({ ...basis, executionBasis: owners[(index + 1) % owners.length].basis.executionBasis }), null,
+    assert.equal(jobs.authenticateOwnedSemanticJobBasis({ ...basis, executionBasis: owners[(index + 1) % owners.length].basis.executionBasis }), null,
       "another job's execution basis cannot authenticate this child");
   }
   return { jobs: owners.length, exactNativeRederivations: owners.length, crossJobRefusals: owners.length * 4, paidCalls: 0 };

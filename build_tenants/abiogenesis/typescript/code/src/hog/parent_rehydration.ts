@@ -8,11 +8,11 @@ import {
   projectCurrentChildParentCCallAtPrefix,
   rehydrateWorkflowCCallAtPrefix,
 } from "../abg/c_call.js";
+import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import {
-  readRuntimeEventsAtDurablePrefix,
-  type DurablePrefixCoordinate,
-} from "../abg/event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  type RuntimeEventPrefix,
+} from "../abg/event_prefix.js";
 import {
   projectOpenedTraversalScopeClassAtPrefix,
   rehydrateOpenedTraversalScopeAtPrefix,
@@ -91,7 +91,7 @@ function rehydrationFailure(stage: string): ParentRehydrationRefusal {
 
 function exactParentTraversal(
   input: RehydrateParentReturnFramesInput,
-  prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>,
+  prefix: RuntimeEventPrefix,
   suspension: HeldParentTraversalSuspension,
   executionBasis: ExecutionBasis,
   scope: OpenedTraversalScope,
@@ -152,7 +152,7 @@ function exactParentTraversal(
 
 function exactWorkflowReturn(
   input: RehydrateParentReturnFramesInput,
-  prefix: ReturnType<typeof selectValidatedRuntimeEventPrefix>,
+  prefix: RuntimeEventPrefix,
   suspension: HeldWorkflowSuspension,
   parentExecutionBasis: ExecutionBasis,
   parentScope: OpenedTraversalScope,
@@ -240,9 +240,8 @@ function exactWorkflowReturn(
 export function rehydrateParentReturnFrames(
   input: RehydrateParentReturnFramesInput,
 ): ParentReturnFramesRehydration {
-  const prefix = selectValidatedRuntimeEventPrefix(
-    readRuntimeEventsAtDurablePrefix(input.predecessorPrefix),
-  );
+  // A held predecessor borrows its owner selection; a copied one is read cold.
+  const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(input.predecessorPrefix);
   let childExecutionBasis = rehydrateExecutionBasisAtPrefix(
     prefix,
     input.currentChildExecutionBasis.basisRef,

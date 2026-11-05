@@ -8,7 +8,7 @@ import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_worksp
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
   nativeWorkspaceWorkReportSchema, nativeWorkspaceWorkGraphFunctionRef, nativeWorkspaceWorkResultContractRef } from "../product/native_workspace_work.js";
-import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from "./semantic_job.js";
+import { authenticateOwnedSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from "./semantic_job.js";
 import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, semanticJobSourceText, projectSemanticJobActorMaterial, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
 import { isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, isSemanticRevisionSelection, semanticRevisionSelectionSchema, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { semanticRevisionInputMatchesBasis, projectOwnedRevisionSelectionSubject, projectRevisionHistoricalContext,
@@ -26,7 +26,7 @@ import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { isWorksiteContextObservation } from "../product/worksite_effect.js";
-import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
+import { authenticateOwnedSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
@@ -663,7 +663,7 @@ export function evaluateNativeInstructionAssembly(basis: SemanticStageNativeBasi
     if ((basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined)
       return (basis.cCall.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef
         ? constructRevisionSelectionAssembly(basis, supplied, readPhysical) : constructJobInstructionAssembly(basis, supplied, readPhysical)) ?? assemblyRefusal("stale_basis", null, null, []);
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef)
       return constructRevisionSelectionAssembly(basis, supplied, readPhysical) ??
         assemblyRefusal("stale_basis", "current_inventory", "selection", [owner.inputRef]);
@@ -789,7 +789,7 @@ export function evaluateNativeInstructionAssembly(basis: SemanticStageNativeBasi
 
 /** Closed job arm of this same authenticated assembly owner. */
 function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, supplied: unknown, readPhysical: boolean): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
-  const owner = authenticateSemanticJobBasis(basis);
+  const owner = authenticateOwnedSemanticJobBasis(basis);
   const revision = isSemanticJobRevisionEnvelope(supplied) ? supplied : null;
   if (owner === null || owner.role === null || owner.stage === undefined ||
     (revision === null ? !semanticJobInputMatchesBasis(basis, supplied) : !semanticJobRevisionInputMatchesBasis(basis, revision))) return null;
@@ -1209,7 +1209,7 @@ export function nativeInstructionRequestMatches(basis: SemanticStageNativeBasis,
 export function semanticInstructionResultMatches(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   try {
     const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-      ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+      ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
     if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef) {
       if (!isSemanticRevisionSelection(output)) return false;
       const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);

@@ -1073,6 +1073,10 @@ async function constructP1Environment(input) {
     environment.installedRoot,
     "build/code/src/abg/retry.js",
   )).href);
+  const replayOwner = await import(pathToFileURL(join(
+    environment.installedRoot,
+    "build/code/src/abg/replay.js",
+  )).href);
   const cCallOwner = await import(pathToFileURL(join(
     environment.installedRoot,
     "build/code/src/hog/ccall_lifecycle.js",
@@ -1155,6 +1159,7 @@ async function constructP1Environment(input) {
       graphValidation,
     },
     retryOwner,
+    replayOwner,
     cCallOwner,
     structuralOwner,
     eventStoreOwner,
@@ -1220,7 +1225,7 @@ async function rejectAttempt(
     JSON.stringify(lifecycle),
   );
   const admitted = lifecycle.outcome;
-  const transitionPrefix = abg.projectRuntimeTruthAtDurablePrefix(
+  const transitionPrefix = environment.replayOwner.projectOwnedRuntimeTruthAtDurablePrefix(
     admitted.successorPrefix,
     stop.cursor.runId,
   ).authorityPrefix;
@@ -1314,7 +1319,14 @@ async function advanceRetry(environment, attemptResult) {
   const beforeFailureDigest = store.digest();
   const beforeFailureBytes = await readFile(environment.eventLogPath, "utf8");
   // The route admission reads the store once (its frame liveness); that read
-  // sees no events, so the route is refused inside its transaction.
+  // sees no events, so the route is refused inside its transaction. A durable
+  // store answers that read from its owned history, so inside the route the
+  // store presents its snapshot route, whose read is the one faulted here.
+  const originalDurableLogPath = storePrototype.configuredDurableLogPath;
+  storePrototype.configuredDurableLogPath = function routeFailureSnapshot(...args) {
+    if (this === store && new Error().stack?.includes("admitRoute")) return null;
+    return originalDurableLogPath.apply(this, args);
+  };
   storePrototype.readAll = function routeFailureRead() {
     if (this !== store) return originalReadAll.call(this);
     if (new Error().stack?.includes("admitRoute")) return Object.freeze([]);
@@ -1327,6 +1339,7 @@ async function advanceRetry(environment, attemptResult) {
     runtime,
   });
   storePrototype.readAll = originalReadAll;
+  storePrototype.configuredDurableLogPath = originalDurableLogPath;
   assert.equal(routeFailure.kind, "projected_retry_resume_refusal");
   assert.equal(routeFailure.code, "retry_route_refused");
   assert.deepEqual(store.readAll(), beforeFailureEvents);

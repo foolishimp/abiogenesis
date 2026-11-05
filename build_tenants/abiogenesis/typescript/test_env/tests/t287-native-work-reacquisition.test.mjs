@@ -167,7 +167,7 @@ async function declarationFixture(t, inline=false, library=false, compact=false)
 
 test('reference preparation resolves exact dependencies in leaf and builtin fallbacks',async t=>{
   const f=await declarationFixture(t),occurrence={cCallRef:f.call.cCallRef,nativeWorkReacquisitionBasis:f.nativeBasis};
-  assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request),null);
+  assert.equal(f.owner.authenticateOwnedNativeWorkReacquisition(f.nativeBasis,f.request),null);
   const candidate=await f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,f.resource);
   assert.deepEqual(candidate.resultCandidate,f.task);assert.equal(f.state.declarationReads,1);
   const relation=f.builtin.ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.resolveJudgmentRelation(ids.predicateRef);
@@ -178,7 +178,7 @@ test('reference preparation resolves exact dependencies in leaf and builtin fall
   assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,f.resource).nativeWorkReacquisition(),true);
   for(const resource of [undefined,{...f.resource,declarationDependencies:[]},{...f.resource,declarationDependencies:[f.declaration,f.declaration]},
     {...f.resource,declarationDependencies:[{...f.declaration,catalogView:{...f.declaration.catalogView,viewDigest:hash('crossed')}}]}]) {
-    assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request,false,resource),null);
+    assert.equal(f.owner.authenticateOwnedNativeWorkReacquisition(f.nativeBasis,f.request,false,resource),null);
     assert.equal(relation.evaluate(f.request,f.task,undefined,undefined,resource),false);
     assert.equal(f.leaf.nativeLeafProofOperations(ids.implementationRef,f.request,occurrence,resource).nativeOwnedWorkReacquisition(f.request,occurrence),null);
     assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,resource).nativeWorkReacquisition(),false);
@@ -400,7 +400,7 @@ test('actual closed child survives blocked parent without acquiring closed-Run s
   assert.equal(deriveInvocationSourceResultBasisAtPrefix(a.prefix,{publicAuthorityDigest:invocation.publicRequestDigest,
     invocationAdmissionRef:invocation.invocationAdmissionRef,runtimeInvocationRef:invocation.invocationRef,runId:a.result.runId,resultRef:a.result.payload.resultRef}),null,
     'legacy Public terminal-Run source law remains closed');
-  assert.equal(reacquire.authenticateNativeWorkReacquisition(a.nativeBasis,a.request),null,'caller-created task supplies no admitted F_D occurrence');
+  assert.equal(reacquire.authenticateOwnedNativeWorkReacquisition(a.nativeBasis,a.request),null,'caller-created task supplies no admitted F_D occurrence');
   assert.equal(reacquire.nativeWorkReacquisitionResultMatches(a.request,task),false);
   t.diagnostic(JSON.stringify({readParseMs:a.readMs,sourceJoinAnd35FileObservationMs:performance.now()-begin,eventCount:a.events.length,
     originalResult:a.result.eventId,originalValueDigest:a.result.payload.valueDigest,sourceGraphCall:a.result.graphCallId,

@@ -1,0 +1,174 @@
+{
+  "recordedUtc": "2026-11-04T15:04:41.170Z",
+  "status": "ACTUAL_SELECTED_C2_PREDICATES_SATISFIED",
+  "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/99cc82f5c159c83a76cc9d6a6bf2ab43277d02af03091ddffc547dc40cfaf033",
+  "helperArtifactDigest": "sha256:99cc82f5c159c83a76cc9d6a6bf2ab43277d02af03091ddffc547dc40cfaf033",
+  "helperPhysicalSha256": "c71a1eaa0b16ed3db891bdfc006ba70524850714a560565f2707144a4e792fe4",
+  "helperProducer": {
+    "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a/de3d543178a2e11d245075ba72c4da2218cb2acabf7946cb13076479dc4ad769",
+    "taskRef": "worksite-command-execution-task://abiogenesis/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a",
+    "taskDigest": "sha256:9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a",
+    "coordinates": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/C2_HELPER_COORDINATES.json",
+      "bytes": 3729,
+      "sha256": "8cf213bf022034a791f12f826b53885bf17e82e8db97eb800be54ec90e01c563"
+    }
+  },
+  "commands": [
+    {
+      "ordinal": 0,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/source-correspondence",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 29321,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 1,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/offline-toolchain",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 2,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/contract-seeds",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 3,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/compile",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 4,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/generate",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 0,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 5,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/pack",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 45,
+      "stderrBytes": 0
+    },
+    {
+      "ordinal": 6,
+      "commandId": "command://abiogenesis/single-address-space/proof-10/affected-proof",
+      "exitStatus": 0,
+      "timedOut": false,
+      "processSignal": null,
+      "terminationConfirmed": true,
+      "stdoutBytes": 1968,
+      "stderrBytes": 0
+    }
+  ],
+  "predicateObservedValues": [
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/source-correspondence/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/offline-toolchain/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/contract-seeds/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/compile/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/generate/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/pack/exit",
+      "observedValue": 0
+    },
+    {
+      "predicateId": "command://abiogenesis/single-address-space/proof-10/affected-proof/exit",
+      "observedValue": 0
+    }
+  ],
+  "sourceCorrespondence": {
+    "count": 160,
+    "allEqualFrozenSourceAndHandoff": true,
+    "subjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+    "record": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+      "bytes": 81744,
+      "sha256": "d2eb450420230a2c0f3cae69c45f2f959da6305f38fab366f6df16777f84d8f9"
+    }
+  },
+  "protectedInputCount": 986,
+  "protectedBeforeEqualsAfter": true,
+  "productDelta": [],
+  "lanes": [
+    {
+      "id": "single-address-space-whole-path",
+      "files": [
+        "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+      ],
+      "exitCode": 0,
+      "signal": null,
+      "error": null,
+      "pass": 12,
+      "fail": 0,
+      "skipped": 0,
+      "wallMs": 497369.56016700005,
+      "stdoutSha256": "0fa8977f18b50611b120ca5b1b8458ca6e346703d82af1267758f8c044c66a6a",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "unmet": []
+    }
+  ],
+  "tally": {
+    "pass": 12,
+    "fail": 0,
+    "skipped": 0
+  },
+  "retainedEvidenceVerification": null,
+  "retainedPriorEvidence": [],
+  "retainedEvidenceStanding": "Prior rows are not included in newly executed tally and receive credit only if exact correspondence succeeded.",
+  "nativeProof": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a/de3d543178a2e11d245075ba72c4da2218cb2acabf7946cb13076479dc4ad769/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-proof-10/single-address-space-proof.json",
+    "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a/de3d543178a2e11d245075ba72c4da2218cb2acabf7946cb13076479dc4ad769/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+    "bytes": 195681,
+    "sha256": "d9d38825be09fc49ed1cc21b71658248cf265102d877bf9bf910320ce5b4b59b",
+    "producerLanePassed": true,
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/single-address-space-proof.json",
+      "bytes": 195681,
+      "sha256": "d9d38825be09fc49ed1cc21b71658248cf265102d877bf9bf910320ce5b4b59b"
+    }
+  },
+  "failure": [],
+  "unrunLanes": [],
+  "priorEvidencePreserved": true
+}

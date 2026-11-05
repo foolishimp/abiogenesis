@@ -1,7 +1,7 @@
 import { SEMANTIC_STAGE_IDS as ids } from "../gtl/semantic_stage_identity.js";
 import { semanticStageImplementationBindings } from "../gtl/semantic_stage_publication.js";
 import { requireNativeInstructionAssembly, type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
-import { authenticateSemanticStageBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput } from "../abg/semantic_stage.js";
+import { authenticateOwnedSemanticStageBasis, projectSemanticWorksitePreparation, projectSemanticEvidenceInput, projectSemanticEnvelopeOutput } from "../abg/semantic_stage.js";
 import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope, type SemanticActorSource } from "../product/semantic_stage.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, ABI5_PRODUCT_ID } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
@@ -9,7 +9,7 @@ import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabi
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSemanticExecution, projectNativeSemanticEvidence, authenticateSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge,
+import { projectNativeSemanticTask, projectNativeSemanticFold, projectNativeSemanticExecution, projectNativeSemanticEvidence, authenticateOwnedSemanticJobBasis, projectSemanticJobContext, projectSemanticJobPlan, projectSemanticJobBridge,
   projectSemanticJobEvidence, semanticJobInputMatchesBasis } from "../abg/semantic_job.js";
 import { isSemanticJobEnvelope, deriveSemanticJobAsset, deriveSemanticJobAssessment, evaluateSemanticJobActorCandidate,
   semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, type SemanticJobContractIssue } from "../product/semantic_job.js";
@@ -60,7 +60,7 @@ function semanticActor(input: Readonly<Record<string, JsonValue>>, occurrence: R
   Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   const basis = occurrence.semanticStageBasis;
   const owner = basis === undefined ? null : (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-    ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+    ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
   const assembly = basis === undefined ? null : (prepareAssembly === undefined ? requireNativeInstructionAssembly(basis, input) : prepareAssembly());
   if (owner === null || owner.role !== role || assembly === null || owner.stage === undefined || (!isSemanticStageEnvelope(input) && !isSemanticJobEnvelope(input))) {
     throw new TypeError("semantic actor requires current native instruction assembly and declared role");

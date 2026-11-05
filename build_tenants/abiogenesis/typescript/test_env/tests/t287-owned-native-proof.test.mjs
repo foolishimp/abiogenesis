@@ -89,16 +89,16 @@ async function fixture(request){
 test('20–24 MB native carrier: preparation -> Result clone -> judgment/foldback -> C2 conserves proof and current invalidators', {skip:!inputPath&&'ABI5_OWNED_PROOF_NATIVE_REQUEST unset; requires the 20–24 MB native carrier request'},async t=>{
   const start=performance.now(),packet=JSON.parse(fs.readFileSync(inputPath,'utf8'));
   const request=packet.kind==='native_worksite_command_reacquisition_request'?packet:packet.invocation.invocation.request.input.value;
-  const h=await fixture(request),prepared=h.owner.authenticateNativeWorkReacquisition(h.basis,request,true);assert(prepared,JSON.stringify(h.counts));
+  const h=await fixture(request),prepared=h.owner.authenticateOwnedNativeWorkReacquisition(h.basis,request,true);assert(prepared,JSON.stringify(h.counts));
   const task=prepared.task,bytes=Buffer.byteLength(canonicalJson(task));assert(bytes>=20_000_000&&bytes<=25_000_000,bytes);
   // Returned wrappers retain their historical mutability; only the distinct
   // private retained record owns proof. Large immutable bodies stay shared.
   assert.equal(Object.isFrozen(prepared),false);
   prepared.task={...task,taskDigest:hash('caller-changed task')};
-  const next=h.owner.authenticateNativeWorkReacquisition(h.basis,request,true);assert(next);
+  const next=h.owner.authenticateOwnedNativeWorkReacquisition(h.basis,request,true);assert(next);
   assert.notEqual(next,prepared);assert.strictEqual(next.task,task);
   next.task={...task,taskDigest:hash('second changed view')};
-  assert.strictEqual(h.owner.authenticateNativeWorkReacquisition(h.basis,request,true).task,task);
+  assert.strictEqual(h.owner.authenticateOwnedNativeWorkReacquisition(h.basis,request,true).task,task);
   const sourceView=h.nativeSource.projectNativeWorkCommandSourceAtPrefix(h.prefix(),task);assert(sourceView);
   assert.equal(Object.isFrozen(sourceView),true,'source projection already declares a Readonly wrapper');
   assert.throws(()=>{sourceView.sourceResult=null;},TypeError);
@@ -120,7 +120,7 @@ test('20–24 MB native carrier: preparation -> Result clone -> judgment/foldbac
   const warm={...h.counts};assert.equal(warm.task,1);assert.equal(warm.catalog,1);assert.equal(warm.terminal,1);assert.equal(warm.cold,0);
   h.cover(false);assert.equal(h.owner.projectReacquiredNativeWorkCommandSourceAtPrefix(h.prefix(),input,h.coordinate()),null);h.cover(true);
   const changed={...value,taskDigest:hash('wrong')};assert.equal(h.owner.nativeWorkReacquisitionResultMatches(request,changed,h.coordinate()),false);
-  assert.equal(h.owner.authenticateNativeWorkReacquisition(h.basis,request,true),null,'stale preparation cut');
+  assert.equal(h.owner.authenticateOwnedNativeWorkReacquisition(h.basis,request,true),null,'stale preparation cut');
   const cold=h.owner.nativeWorkReacquisitionResultMatches(request,clone(value),clone(h.coordinate()));assert(cold);assert(h.counts.cold>0);
   h.cold();assert(h.owner.nativeWorkReacquisitionResultMatches(request,clone(value),h.coordinate()));h.warm();
   const afterCold={...h.counts};

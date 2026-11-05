@@ -10,7 +10,29 @@ const worker = resolve(
   "../falsifiers/runtime-retained-projections-worker.mjs",
 );
 
-function observeRetained(abg, product, store, requests, durablePrefix) {
+// Runtime-truth rows select the existing direct replay owner of the installed
+// package. Its owned prefixes and replay guard cross this proof boundary only
+// as complete values from the canonical prefix writer and the replay-guard
+// materializer; an owned handle is never compared through its own JSON.
+async function loadDirectOwners(installedPackageRoot) {
+  const at = (path) => import(pathToFileURL(join(installedPackageRoot, "build/code/src/abg", path)).href);
+  return { replay: await at("replay.js"), prefixes: await at("event_prefix.js") };
+}
+
+function completeRuntimeTruth({ replay, prefixes }, truth) {
+  const prefix = (value) => {
+    let out = "";
+    prefixes.writeRuntimeEventPrefixValue(value, (part) => { out += part; });
+    return JSON.parse(out);
+  };
+  return {
+    authorityPrefix: prefix(truth.authorityPrefix),
+    runtimePrefix: prefix(truth.runtimePrefix),
+    replayState: replay.materializeRuntimeReplayGuard(truth.replayState),
+  };
+}
+
+function observeRetained(abg, product, direct, store, requests, durablePrefix) {
   return requests.map((request) => {
     if (request.availability === "blocked_migration") {
       return {
@@ -20,14 +42,15 @@ function observeRetained(abg, product, store, requests, durablePrefix) {
         reason: request.reason,
       };
     }
-    const owner = request.owner === "product" ? product : abg;
+    const owner = request.owner === "product" ? product
+      : request.owner === "replay" ? direct.replay : abg;
     const projector = owner[request.exportName];
     assert.equal(
       typeof projector,
       "function",
       `installed ABG export ${request.exportName} is unavailable`,
     );
-    const projection = request.owner === "product"
+    const projected = request.owner === "product"
       ? projector(...(request.args ?? []))
       : request.input === "durable_prefix"
       ? projector(durablePrefix, ...(request.args ?? []))
@@ -40,6 +63,8 @@ function observeRetained(abg, product, store, requests, durablePrefix) {
           ...(request.args ?? []),
         )
       : projector(store, ...(request.args ?? []));
+    const projection = request.owner === "replay"
+      ? completeRuntimeTruth(direct, projected) : projected;
     return {
       rowId: request.rowId,
       availability: "available",
@@ -170,6 +195,7 @@ export async function proveFreshProcessRuntimeProjectionEquality({
   const retainedRows = observeRetained(
     abg,
     product,
+    await loadDirectOwners(installedPackageRoot),
     store,
     requests,
     closeHandoff.prefix,

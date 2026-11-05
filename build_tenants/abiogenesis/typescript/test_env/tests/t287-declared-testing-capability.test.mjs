@@ -193,6 +193,7 @@ test("declared checker composition uses native owners and independently rederive
     context = await setupTestingInvocation({ packageRoot, scratch, inputRoot, deadline, executionConfig });
     const { product, gtl, abg, fixture, consumerPublications, environment } = context;
     const environmentDeclarations = await import(pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/gtl/stdo_run_environment.js")).href);
+    const executions = await import(pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/execution_basis.js")).href);
     const publication = consumerPublications.find(p => p.programs.some(x => x.programRef === fixture.ids.programRef));
     const program = publication.programs.find(p => p.programRef === fixture.ids.programRef);
     const graphs = context.catalog.boundPublications.flatMap(p => p.graphFunctions);
@@ -247,7 +248,7 @@ test("declared checker composition uses native owners and independently rederive
       const worksiteAssemblies = assemblies.filter(a => a.plan.variant === "worksite");
       assert.deepEqual(worksiteAssemblies.map(a => a.plan.role), ["constructor", "command_executor"]);
       for (const assembly of worksiteAssemblies) {
-        const basis = assembly.envelope.nativeBasis, owner = abg.authenticateNativeInstructionAssemblyBasis(basis);
+        const basis = assembly.envelope.nativeBasis, owner = executions.authenticateOwnedNativeInstructionAssemblyBasis(basis);
         assert.ok(owner);
         assert.deepEqual(abg.constructWorksiteNativeInstructionAssembly(basis, owner.inputValue), assembly);
         assert.equal(abg.constructWorksiteNativeInstructionAssembly(basis, { ...owner.inputValue, prompt: "stale input" }), null);
@@ -284,13 +285,14 @@ test("declared checker composition uses native owners and independently rederive
       assemblies: b.assemblies.filter(a => a.plan.variant === "worksite"), externalRoots: Object.values(fixture.env.roots).filter(p => typeof p === "string") };
     const packetPath = join(scratch, "fresh-request-rederivation-input.json"); await writeFile(packetPath, JSON.stringify(packet));
     const moduleUrl = pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/index.js")).href;
+    const executionUrl = pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/execution_basis.js")).href;
     const script = `import assert from 'node:assert/strict'; import {readFile} from 'node:fs/promises';
-const packet=JSON.parse(await readFile(process.argv[1],'utf8')),abg=await import(process.argv[2]);
+const packet=JSON.parse(await readFile(process.argv[1],'utf8')),abg=await import(process.argv[2]),executions=await import(process.argv[3]);
 assert.equal(process.permission.has('child'),false);
 const denied=packet.externalRoots.map(path=>({path,readAllowed:process.permission.has('fs.read',path)}));assert.ok(denied.every(r=>r.readAllowed===false));
 const rows=[];
 for(const saved of packet.assemblies){
- const basis=saved.envelope.nativeBasis,owner=abg.authenticateNativeInstructionAssemblyBasis(basis);assert.ok(owner);
+ const basis=saved.envelope.nativeBasis,owner=executions.authenticateOwnedNativeInstructionAssemblyBasis(basis);assert.ok(owner);
  const actual=abg.constructWorksiteNativeInstructionAssembly(basis,owner.inputValue);assert.deepEqual(actual,saved);
  const changed=structuredClone(saved);changed.manifest.promptDigest='sha256:'+'f'.repeat(64);assert.notDeepEqual(actual,changed);
  const environment=abg.projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix,{ref:owner.execution.workspaceBindingId,digest:owner.execution.workspaceBindingDigest});
@@ -307,7 +309,7 @@ for(const saved of packet.assemblies){
 const events=abg.readRuntimeEventsAtDurablePrefix(packet.prefix),prefix=abg.selectValidatedRuntimeEventPrefix(events);
 assert.deepEqual(abg.projectRunSemanticReplayProjection(prefix,packet.runId),packet.expectedReplay);
 console.log(JSON.stringify({kind:'fresh_request_rederivation_and_replay',rows,externalAccess:denied,childProcessAllowed:false}));`;
-    const fresh = await exec(process.execPath, ["--permission", "--allow-fs-read=" + scratch, "--input-type=module", "-e", script, packetPath, moduleUrl],
+    const fresh = await exec(process.execPath, ["--permission", "--allow-fs-read=" + scratch, "--input-type=module", "-e", script, packetPath, moduleUrl, executionUrl],
       { cwd: scratch, env: { ...process.env, NODE_OPTIONS: "" }, timeout: Math.min(executionConfig.freshReadbackBudgetMs, Date.parse(deadline) - Date.now()), maxBuffer: 40 * 1024 * 1024 });
     evidence.freshProcess = JSON.parse(fresh.stdout); evidence.predecessorReplayDigest = product.sha256Canonical(aReplay);
     evidence.artifactDigest = context.abiArtifact.artifactDigest; evidence.consumerArtifactDigest = fixture.basis.artifactDigest;

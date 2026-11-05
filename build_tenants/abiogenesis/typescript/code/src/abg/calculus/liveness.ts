@@ -16,8 +16,8 @@ import { checkExactRecord, resolveExactMatch, type ExactMatch, type RecordCheck 
 import { canonicalEquals } from "../../shared/value/index.js";
 import type { RuntimeEventPrefix, ValidatedRuntimeEventPrefix } from "../event_prefix.js";
 import { indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventEnvelopesAtPrefix, runtimeEventPrefixExtent,
-  runtimeEventAtPrefix, runtimePrefixComputation, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
-  selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
+  runtimeEventAtPrefix, indexedRuntimeEventEnvelopes, runtimePrefixComputation, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
+  runtimeEventValidationBase, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
   validatedRuntimeEventPrefixBeforeEvent } from "../event_prefix.js";
 import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
 import {
@@ -56,12 +56,14 @@ function livenessContextFacts(context: RuntimeLivenessContext | null): RuntimeLi
   return { context, scopeDigest };
 }
 /** Reconstruct predeclared actor probes from admitted owner coordinates, never from observed paths. */
+// Each declaration lookup reads the `related:` bucket of the aggregate it
+// compares: a superset of its exact matches in the same ordinal order.
 function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
   try {
-    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_invocation_started"), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
+    const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + actorInvocationRef), e => e.kind === "actor_invocation_started" && e.aggregateId === actorInvocationRef));
     if (started === null || !record(started.payload)) return null;
     const p = started.payload;
-    const bindingEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:actor_transport_binding_admitted"), e => e.kind === "actor_transport_binding_admitted" &&
+    const bindingEvent = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.transportBindingRef)), e => e.kind === "actor_transport_binding_admitted" &&
       e.aggregateId === p.transportBindingRef && e.admissionOrdinal < started.admissionOrdinal));
     const b = bindingEvent?.payload;
     if (bindingEvent === null || !record(b) || !isRuntimeLivenessBinding(b.livenessBinding) ||
@@ -76,8 +78,8 @@ function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationR
     if (digest(bindingBody) !== b.transportBindingDigest ||
         b.transportBindingRef !== `transport-binding://abiogenesis/${String(b.transportBindingDigest).slice(7)}`) return null;
     const basis = rehydrateExecutionBasisAtPrefix(prefix, started.basisId);
-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef));
-    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef));
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.cCallRef)), e => e.kind === "c_call_opened" && e.aggregateId === p.cCallRef));
+    const fibre = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(p.cCallRef)), e => e.kind === "c_call_fibre_selected" && e.aggregateId === p.cCallRef));
     if (basis === null || opened === null || fibre === null || !record(opened.payload) || !record(fibre.payload) ||
         opened.basisId !== basis.basisRef || fibre.payload.regime !== "F_P" || fibre.payload.callClass !== "leaf" ||
         fibre.payload.implementationRef !== b.implementationRef ||
@@ -130,8 +132,8 @@ const NON_ACTOR_SOURCES = Object.freeze([
  * register a source, borrow an actor clock, or supply an undeclared timeout. */
 function deriveCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null {
   try {
-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_opened"), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
-    const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:c_call_fibre_selected"), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
+    const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
     if (opened === null || selected === null || !record(opened.payload) || !record(selected.payload) ||
         selected.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || selected.payload.regime === "F_P" ||
         selected.admissionOrdinal <= opened.admissionOrdinal || !selected.causationEventRefs.includes(opened.eventId) ||
@@ -167,10 +169,10 @@ export const FRAME_PRODUCERS: ReadonlySet<string> = new Set([
 /** The opening fact declares the occurrence; a probe never registers it. */
 function deriveFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
   try {
-    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:frame_opened"), e => e.kind === "frame_opened" && e.aggregateId === frameId));
+    const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + frameId), e => e.kind === "frame_opened" && e.aggregateId === frameId));
     if (opened === null || !record(opened.payload) || opened.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
     const p = opened.payload;
-    const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "kind:graph_call_opened"), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
+    const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(opened.graphCallId)), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
     const basis = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
     if (graph === null || !record(graph.payload) || basis === null || !opened.causationEventRefs.includes(graph.eventId) ||
         graph.admissionOrdinal >= opened.admissionOrdinal || graph.runId !== opened.runId || graph.basisId !== opened.basisId ||
@@ -320,87 +322,152 @@ export function probeObservationMatches(context: RuntimeLivenessContext,
 /** Disposable indexes subordinate to this exact admitted value. Declarations
  * and retry law cannot change at a stdout/stderr/probe row. Reconstruct their
  * owner facts once per structural cut; look up producers and fold observations
- * directly without constructing a pair of historical prefixes per event. */
+ * directly without constructing a pair of historical prefixes per event.
+ * A prospective candidate forks its admitted predecessor's reconstruction, as
+ * the Event Calculus derivation does: it reads the base through the base cut
+ * and advances only its own rows, so the admitted indexes and folds never see
+ * a candidate. Values at a cut at or before the base are admitted-history
+ * facts, so the fork delegates those cut computations to the base owner. */
+type LivenessEnvelope = Omit<RuntimeEvent, "payload">;
+/** The one envelope identity each terminal liveness query compares. */
+const TERMINAL_IDENTITY: Readonly<Partial<Record<RuntimeEvent["kind"], "aggregateId" | "runId" | "graphCallId" | "frameId">>> = Object.freeze({
+  actor_invocation_closed: "aggregateId", actor_invocation_failed: "aggregateId", c_call_judged: "aggregateId",
+  run_closed: "runId", run_stopped: "runId", runtime_failure_observed: "runId",
+  graph_call_closed: "graphCallId", frame_closed: "frameId",
+});
+const DECLARATION_KINDS: ReadonlySet<string> = new Set(["actor_invocation_started", "actor_transport_binding_admitted", "c_call_opened",
+  "c_call_fibre_selected", "basis_admitted", "frame_opened", "graph_call_opened"]);
+const BUDGET_KINDS: ReadonlySet<string> = new Set(["c_call_opened", "retry_attempt_opened", "retry_progress_recorded"]);
+const OBSERVED_KINDS: ReadonlySet<string> = new Set(["runtime_activity_probe_observed", "runtime_external_interruption_observed", "actor_process_timeout_observed"]);
+function copyFold(fold: RuntimeLivenessHistoryFold): RuntimeLivenessHistoryFold {
+  return { ...fold, obligations: [...fold.obligations], seen: new Map(fold.seen), sourceTimes: new Map(fold.sourceTimes),
+    coverage: new Set(fold.coverage), evidenceRefs: [...fold.evidenceRefs], systemActivity: new Map(fold.systemActivity) };
+}
 /** @internal */
 export class RuntimeLivenessReconstruction {
   private processed = 0;
   private lastOrdinal = 0;
+  private base: RuntimeLivenessReconstruction | undefined;
+  private baseOrdinal = 0;
   prefix: RuntimeEventPrefix;
-  readonly sampleHistory = new Map<string, { ordinal: number; sample: RuntimeLivenessSample }[]>();
-  readonly declarations: Omit<RuntimeEvent, "payload">[] = [];
-  readonly declarationsByIdentity = new Map<string, Omit<RuntimeEvent, "payload">[]>();
-  readonly duplicateDeclarationAt: number[] = [0];
-  readonly byId = new Map<string, Omit<RuntimeEvent, "payload">>();
-  readonly byOrdinal = new Map<number, Omit<RuntimeEvent, "payload">>();
-  readonly byKind = new Map<RuntimeEvent["kind"], Omit<RuntimeEvent, "payload">[]>();
-  readonly declarationAt: number[] = [0];
-  readonly budgetAt: number[] = [0];
-  readonly observations = new Map<string, Omit<RuntimeEvent, "payload">[]>();
-  readonly structural: Omit<RuntimeEvent, "payload">[] = [];
-  readonly structuralAt: number[] = [0];
+  private readonly sampleHistory = new Map<string, { ordinal: number; sample: RuntimeLivenessSample }[]>();
+  private readonly declarationsByIdentity = new Map<string, LivenessEnvelope[]>();
+  private readonly duplicateDeclarationAt: number[] = [0];
+  private readonly byId = new Map<string, LivenessEnvelope>();
+  private readonly byOrdinal = new Map<number, LivenessEnvelope>();
+  private readonly byKind = new Map<RuntimeEvent["kind"], LivenessEnvelope[]>();
+  // Terminal kinds by their compared envelope identity; process starts by the
+  // actor their body names. Rows enter in ordinal order with their kind bucket.
+  private readonly byIdentity = new Map<string, LivenessEnvelope[]>();
+  private readonly declarationAt: number[] = [0];
+  private readonly budgetAt: number[] = [0];
+  private readonly observations = new Map<string, LivenessEnvelope[]>();
   readonly folds: RuntimeLivenessHistoryFolds = new Map();
   // Earlier reads have their own disposable progress. They cannot rewind or
   // mutate the later-cut fold, but an ordered historical walk need not restart.
   readonly historicalFolds: RuntimeLivenessHistoryFolds = new Map();
-  readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
-  readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
+  private readonly contexts = new Map<string, RuntimeLivenessContextFacts | null>();
+  private readonly budgets = new Map<string, RuntimeLivenessBudgetFacts>();
 
   constructor(prefix: RuntimeEventPrefix) { this.prefix = prefix; this.advance(prefix); }
+  /** A disposable candidate fork at the exact admitted `cut`. */
+  forkAt(cut: RuntimeEventPrefix): RuntimeLivenessReconstruction {
+    const extent = runtimeEventPrefixExtent(cut);
+    if (extent.count > this.processed) throw new TypeError("a liveness fork requires its advanced admitted base");
+    const fork = new RuntimeLivenessReconstruction(selectValidatedRuntimeEventPrefix(Object.freeze([])));
+    fork.base = this; fork.baseOrdinal = extent.lastOrdinal;
+    fork.processed = extent.count; fork.lastOrdinal = extent.lastOrdinal; fork.prefix = cut;
+    return fork;
+  }
+  private inBase(ordinal: number): boolean { return this.base !== undefined && ordinal <= this.baseOrdinal; }
+  private ordinalAt(values: readonly number[], ordinal: number, read: (base: RuntimeLivenessReconstruction) => number): number {
+    return this.inBase(ordinal) ? read(this.base!) : values[ordinal] ?? 0;
+  }
+  declarationOrdinal(ordinal: number): number { return this.ordinalAt(this.declarationAt, ordinal, base => base.declarationOrdinal(ordinal)); }
+  budgetOrdinal(ordinal: number): number { return this.ordinalAt(this.budgetAt, ordinal, base => base.budgetOrdinal(ordinal)); }
+  duplicateDeclarationOrdinal(ordinal: number): number {
+    return this.ordinalAt(this.duplicateDeclarationAt, ordinal, base => base.duplicateDeclarationOrdinal(ordinal));
+  }
+  private layered(read: (owner: RuntimeLivenessReconstruction) => readonly LivenessEnvelope[] | undefined): readonly LivenessEnvelope[] | undefined {
+    const own = read(this);
+    if (this.base === undefined) return own;
+    const inherited = (this.base.layered(read) ?? []).filter(row => row.admissionOrdinal <= this.baseOrdinal);
+    return inherited.length === 0 ? own : own === undefined ? inherited : [...inherited, ...own];
+  }
+  private declarationsFor(identity: string): readonly LivenessEnvelope[] {
+    return this.layered(owner => owner.declarationsByIdentity.get(identity)) ?? [];
+  }
+  /** The envelope at an exact admitted ordinal of this cut. */
+  envelopeAt(ordinal: number): LivenessEnvelope | undefined {
+    return this.inBase(ordinal) ? this.base!.envelopeAt(ordinal) : this.byOrdinal.get(ordinal);
+  }
+  private envelope(ref: string): LivenessEnvelope | undefined {
+    const own = this.byId.get(ref);
+    if (own !== undefined || this.base === undefined) return own;
+    const inherited = this.base.envelope(ref);
+    return inherited !== undefined && inherited.admissionOrdinal <= this.baseOrdinal ? inherited : undefined;
+  }
+  private lastSample(scope: string): RuntimeLivenessSample | undefined {
+    return this.sampleHistory.get(scope)?.at(-1)?.sample ?? (this.base === undefined ? undefined : this.base.sample(this.baseOrdinal, scope) ?? undefined);
+  }
   advance(prefix: RuntimeEventPrefix): void {
     const extent = runtimeEventPrefixExtent(prefix);
     if (extent.count <= this.processed) return;
     const processed = this.processed;
-    let declaration = this.declarationAt[this.lastOrdinal] ?? 0;
-    let budget = this.budgetAt[this.lastOrdinal] ?? 0;
-    let duplicateDeclaration = this.duplicateDeclarationAt[this.lastOrdinal] ?? 0;
+    let declaration = this.declarationOrdinal(this.lastOrdinal);
+    let budget = this.budgetOrdinal(this.lastOrdinal);
+    let duplicateDeclaration = this.duplicateDeclarationOrdinal(this.lastOrdinal);
     this.prefix = prefix;
+    const add = (target: Map<string, LivenessEnvelope[]>, key: string, event: LivenessEnvelope) => {
+      const rows = target.get(key) ?? []; rows.push(event); target.set(key, rows);
+    };
     for (const event of runtimeEventEnvelopesAtPrefix(prefix, processed)) {
       this.byId.set(event.eventId, event);
       this.byOrdinal.set(event.admissionOrdinal, event);
-      const family = this.byKind.get(event.kind) ?? [];
-      family.push(event); this.byKind.set(event.kind, family);
+      add(this.byKind as Map<string, LivenessEnvelope[]>, event.kind, event);
+      const field = TERMINAL_IDENTITY[event.kind];
+      const identity = field === undefined ? undefined : event[field];
+      if (typeof identity === "string") add(this.byIdentity, event.kind + "\0" + identity, event);
       // Exactly the declarations read by the three context owners and their
       // execution-basis owner. Duplicate declarations change this cut too.
-      if (["actor_invocation_started", "actor_transport_binding_admitted", "c_call_opened",
-           "c_call_fibre_selected", "basis_admitted", "frame_opened", "graph_call_opened"].includes(event.kind)) { declaration = event.admissionOrdinal; this.declarations.push(event);
+      if (DECLARATION_KINDS.has(event.kind)) { declaration = event.admissionOrdinal;
         const identities = new Set([event.aggregateId]);
         if (event.kind === "frame_opened" && event.frameId !== undefined) identities.add(event.frameId);
         if (event.kind === "basis_admitted" && event.basisId !== undefined) identities.add(event.basisId);
         for (const identity of identities) {
-          const rows = this.declarationsByIdentity.get(identity) ?? [];
-          if (rows.some(row => row.kind === event.kind)) duplicateDeclaration = event.admissionOrdinal;
-          rows.push(event); this.declarationsByIdentity.set(identity, rows);
+          if (this.declarationsFor(identity).some(row => row.kind === event.kind)) duplicateDeclaration = event.admissionOrdinal;
+          add(this.declarationsByIdentity, identity, event);
         } }
-      if (["c_call_opened", "retry_attempt_opened", "retry_progress_recorded"].includes(event.kind)) budget = event.admissionOrdinal;
+      if (BUDGET_KINDS.has(event.kind)) budget = event.admissionOrdinal;
       this.declarationAt[event.admissionOrdinal] = declaration;
       this.duplicateDeclarationAt[event.admissionOrdinal] = duplicateDeclaration;
       this.budgetAt[event.admissionOrdinal] = budget;
-      const observed = ["runtime_activity_probe_observed", "runtime_external_interruption_observed", "actor_process_timeout_observed"].includes(event.kind)
+      const observed = OBSERVED_KINDS.has(event.kind) || event.kind === "actor_process_started"
         ? runtimeEventAtPrefix(prefix, event.eventId) : undefined;
       const payload = observed?.payload;
-      if ((event.kind === "runtime_activity_probe_observed" || event.kind === "runtime_external_interruption_observed") &&
-          record(payload) && isRuntimeProbeObservation(payload.observation)) {
-        const key = payload.observation.scopeDigest;
-        const rows = this.observations.get(key) ?? [];
-        rows.push(event); this.observations.set(key, rows);
+      if (event.kind === "actor_process_started") {
+        if (record(payload) && typeof payload.actorInvocationRef === "string")
+          add(this.byIdentity, event.kind + "\0" + payload.actorInvocationRef, event);
+        continue;
       }
-      if (!["runtime_activity_probe_observed", "runtime_external_interruption_observed",
-            "actor_process_stdout_observed", "actor_process_stderr_observed"].includes(event.kind)) this.structural.push(event);
-      this.structuralAt[event.admissionOrdinal] = this.structural.length;
+      if ((event.kind === "runtime_activity_probe_observed" || event.kind === "runtime_external_interruption_observed") &&
+          record(payload) && isRuntimeProbeObservation(payload.observation)) add(this.observations, payload.observation.scopeDigest, event);
       if (record(payload)) {
         const observation = payload.observation, threshold = payload.thresholdObservation;
         const scopes = new Set<string>();
         if (isRuntimeProbeObservation(observation)) scopes.add(observation.scopeDigest);
         if (isRuntimeThresholdObservation(threshold)) scopes.add(threshold.scopeDigest);
         for (const scope of scopes) {
-          const rows = this.sampleHistory.get(scope) ?? [];
-          let sample = rows.at(-1)?.sample;
+          let sample = this.lastSample(scope);
           if (isRuntimeProbeObservation(observation) && observation.scopeDigest === scope &&
               (sample === undefined || observation.elapsedMs > sample.elapsedMs))
             sample = { clockOriginRef: observation.clockOriginRef, elapsedMs: observation.elapsedMs, eventRef: event.eventId };
           if (isRuntimeThresholdObservation(threshold) && threshold.scopeDigest === scope)
             sample = { clockOriginRef: threshold.clockOriginRef, elapsedMs: threshold.elapsedMs, eventRef: event.eventId };
-          if (sample !== undefined) { rows.push({ ordinal: event.admissionOrdinal, sample }); this.sampleHistory.set(scope, rows); }
+          if (sample !== undefined) {
+            const rows = this.sampleHistory.get(scope) ?? [];
+            rows.push({ ordinal: event.admissionOrdinal, sample }); this.sampleHistory.set(scope, rows);
+          }
         }
       }
     }
@@ -410,42 +477,57 @@ export class RuntimeLivenessReconstruction {
     return runtimeEventBodiesAtPrefix(this.cut(ordinal));
   }
   declarationRows(identity: string): readonly RuntimeEvent[] {
-    return (this.declarationsByIdentity.get(identity) ?? []).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
+    return this.declarationsFor(identity).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
+  }
+  /** Observation envelopes of one scope in ordinal order; undefined when none was admitted. */
+  observationEnvelopes(scope: string): readonly LivenessEnvelope[] | undefined {
+    return this.layered(owner => owner.observations.get(scope));
   }
   observationRows(scope: string, ordinal: number): readonly RuntimeEvent[] {
-    return (this.observations.get(scope) ?? []).filter(row => row.admissionOrdinal <= ordinal).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
+    return (this.observationEnvelopes(scope) ?? []).filter(row => row.admissionOrdinal <= ordinal).map(row => runtimeEventAtPrefix(this.prefix, row.eventId)!);
   }
   some(ordinal: number, kinds: readonly RuntimeEvent["kind"][], predicate: (event: RuntimeEvent) => boolean): boolean {
-    return kinds.some(kind => {
-      for (const event of this.byKind.get(kind) ?? []) {
-        if (event.admissionOrdinal > ordinal) break;
-        if (predicate(runtimeEventAtPrefix(this.prefix, event.eventId)!)) return true;
-      }
-      return false;
-    });
+    return kinds.some(kind => this.someRows(this.layered(owner => owner.byKind.get(kind)) ?? [], ordinal, predicate));
+  }
+  /** The same query, selecting each kind's rows by the one envelope (or, for
+   * process starts, body) identity its predicate compares before any body
+   * read. A non-string identity keeps the complete kind bucket. */
+  someIdentified(ordinal: number, selectors: readonly (readonly [RuntimeEvent["kind"], unknown])[],
+    predicate: (event: RuntimeEvent) => boolean): boolean {
+    return selectors.some(([kind, identity]) => typeof identity === "string" && (TERMINAL_IDENTITY[kind] !== undefined || kind === "actor_process_started")
+      ? this.someRows(this.layered(owner => owner.byIdentity.get(kind + "\0" + identity)) ?? [], ordinal, predicate)
+      : this.some(ordinal, [kind], predicate));
+  }
+  private someRows(rows: readonly LivenessEnvelope[], ordinal: number, predicate: (event: RuntimeEvent) => boolean): boolean {
+    for (const event of rows) {
+      if (event.admissionOrdinal > ordinal) break;
+      if (predicate(runtimeEventAtPrefix(this.prefix, event.eventId)!)) return true;
+    }
+    return false;
   }
   event(ref: string, ordinal: number): RuntimeEvent | undefined {
-    const event = this.byId.get(ref);
+    const event = this.envelope(ref);
     return event !== undefined && event.admissionOrdinal <= ordinal ? runtimeEventAtPrefix(this.prefix, ref) : undefined;
   }
   cut(ordinal: number): RuntimeEventPrefix {
-    return ordinal === 0 ? selectValidatedRuntimeEventPrefix(Object.freeze([])) :
-      validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
+    if (ordinal === 0) return selectValidatedRuntimeEventPrefix(Object.freeze([]));
+    if (this.inBase(ordinal)) return this.base!.cut(ordinal);
+    return validatedRuntimeEventPrefixThroughEvent(this.prefix, this.byOrdinal.get(ordinal)!.eventId);
   }
   sample(ordinal: number, scopeDigest: string): RuntimeLivenessSample | null {
     const rows = this.sampleHistory.get(scopeDigest) ?? [];
     let low = 0, high = rows.length;
     while (low < high) { const middle = (low + high) >>> 1; if (rows[middle]!.ordinal <= ordinal) low = middle + 1; else high = middle; }
-    return rows[low - 1]?.sample ?? null;
+    return rows[low - 1]?.sample ?? (this.base === undefined ? null : this.base.sample(Math.min(ordinal, this.baseOrdinal), scopeDigest));
   }
   contextStamp(ordinal: number, occurrenceRef: string): string {
-    const own = (this.declarationsByIdentity.get(occurrenceRef) ?? []).filter(e => e.admissionOrdinal <= ordinal);
+    const own = this.declarationsFor(occurrenceRef).filter(e => e.admissionOrdinal <= ordinal);
     const header = own.find(e => ["actor_invocation_started", "c_call_opened", "frame_opened"].includes(e.kind));
     const opened = header === undefined ? undefined : runtimeEventAtPrefix(this.prefix, header.eventId);
     if (opened === undefined || !record(opened.payload)) return occurrenceRef + "/" + own.map(e => e.eventId).join("/");
     const identities = [occurrenceRef, opened.basisId, opened.payload.cCallRef, opened.payload.transportBindingRef];
     if (opened.kind === "frame_opened") identities.push(opened.graphCallId, opened.payload.parentFrameId);
-    const rows = [...new Set(identities.flatMap(identity => typeof identity === "string" ? this.declarationsByIdentity.get(identity) ?? [] : []))]
+    const rows = [...new Set(identities.flatMap(identity => typeof identity === "string" ? this.declarationsFor(identity) : []))]
       .filter(e => e.admissionOrdinal <= ordinal).sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
     return occurrenceRef + "/" + rows.map(e => e.eventId).join("/");
   }
@@ -454,13 +536,18 @@ export class RuntimeLivenessReconstruction {
     return this.contextFacts(ordinal, occurrenceRef)?.context ?? null;
   }
   contextFacts(ordinal: number, occurrenceRef: string): RuntimeLivenessContextFacts | null {
+    // No candidate declaration at or before `ordinal`: the base's own cut decides.
+    if (this.base !== undefined && this.declarationOrdinal(ordinal) <= this.baseOrdinal)
+      return this.base.contextFacts(Math.min(ordinal, this.baseOrdinal), occurrenceRef);
     const key = this.contextStamp(ordinal, occurrenceRef);
     if (!this.contexts.has(key)) this.contexts.set(key,
-      livenessContextFacts(contextForOccurrence(this.cut(this.declarationAt[ordinal] ?? 0), occurrenceRef)));
+      livenessContextFacts(contextForOccurrence(this.cut(this.declarationOrdinal(ordinal)), occurrenceRef)));
     return this.contexts.get(key)!;
   }
   budget(ordinal: number, context: RuntimeLivenessContext): RuntimeLivenessBudgetFacts {
-    const at = this.budgetAt[ordinal] ?? 0, key = at + "/" + digest(context.scope);
+    const at = this.budgetOrdinal(ordinal);
+    if (this.base !== undefined && at <= this.baseOrdinal) return this.base.budget(Math.min(ordinal, this.baseOrdinal), context);
+    const key = at + "/" + digest(context.scope);
     let budget = this.budgets.get(key);
     if (budget === undefined) {
       budget = projectRuntimeRetryBudgetFacts(this.cut(at), context.scope);
@@ -468,12 +555,25 @@ export class RuntimeLivenessReconstruction {
     }
     return budget;
   }
+  /** A disposable copy of the admitted base fold through the base cut; the
+   * base's own lane is never advanced by a candidate. */
+  inheritedFold(key: string): RuntimeLivenessHistoryFold | undefined {
+    const base = this.base;
+    if (base === undefined) return undefined;
+    const fold = base.folds.get(key) ?? base.inheritedFold(key);
+    if (fold === undefined || fold.rowCount === 0) return undefined;
+    const rows = base.observationEnvelopes(key.slice(key.lastIndexOf("/") + 1)) ?? [];
+    return rows[fold.rowCount - 1] !== undefined && rows[fold.rowCount - 1]!.admissionOrdinal <= this.baseOrdinal ? copyFold(fold) : undefined;
+  }
 }
 
 const LIVENESS_DERIVATION = Symbol("ordered_runtime_liveness_derivation");
 /** @internal */
 export function livenessReconstruction(prefix: RuntimeEventPrefix): RuntimeLivenessReconstruction {
-  const reconstruction = runtimePrefixComputation(prefix, LIVENESS_DERIVATION, () => new RuntimeLivenessReconstruction(prefix));
+  const reconstruction = runtimePrefixComputation(prefix, LIVENESS_DERIVATION, () => {
+    const base = runtimeEventValidationBase(prefix);
+    return base === undefined ? new RuntimeLivenessReconstruction(prefix) : livenessReconstruction(base).forkAt(base);
+  });
   reconstruction.advance(prefix); return reconstruction;
 }
 
@@ -506,7 +606,7 @@ export function decideRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Ru
     if (context === null || event.runId !== context.scope.runId || event.basisId !== context.scope.basisRef ||
         event.graphCallId !== context.scope.graphCallId || event.frameId !== context.scope.frameId ||
         event.graphFunctionRef !== context.scope.graphFunctionRef ||
-        actor !== null && reconstruction.some(ordinal, ["actor_invocation_closed", "actor_invocation_failed"], e => e.aggregateId === actor)) return false;
+        actor !== null && reconstruction.someIdentified(ordinal, [["actor_invocation_closed", actor], ["actor_invocation_failed", actor]], e => e.aggregateId === actor)) return false;
     if (event.kind === "actor_process_timeout_observed") {
       const t = p.thresholdObservation;
       prefix = reconstruction.cut(ordinal);
@@ -518,7 +618,7 @@ export function decideRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Ru
       return projection?.projectionDigest === t.projectionDigest && projection.disposition.disposition === "controlled_terminate" &&
         p.timeoutClass === (projection.hardCapReached ? "absolute" : "inactivity") &&
         p.timeoutMs === (projection.hardCapReached ? context.binding.policy.hardCapMs : context.binding.policy.inactivityMs) &&
-        reconstruction.some(ordinal, ["actor_process_started"], e => e.kind === "actor_process_started" && e.aggregateId === p.processRef && record(e.payload) && e.payload.actorInvocationRef === actor);
+        reconstruction.someIdentified(ordinal, [["actor_process_started", actor]], e => e.kind === "actor_process_started" && e.aggregateId === p.processRef && record(e.payload) && e.payload.actorInvocationRef === actor);
     }
     if (probe === null || !isRuntimeProbeObservation(p.observation) ||
         p.observation.scopeDigest !== digest(context.scope) ||
@@ -528,14 +628,19 @@ export function decideRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Ru
         (p.observation.signal === "external_interruption") !== (event.kind === "runtime_external_interruption_observed")) return false;
     const underlyingEventRef = p.observation.underlyingEventRef;
     const frameOccurrence = context.scope.actorInvocationRef === null && context.scope.cCallRef === null;
-    const previousEvent = reconstruction.byOrdinal.get(ordinal);
+    const previousEvent = reconstruction.envelopeAt(ordinal);
     const terminalFrameSample = frameOccurrence && previousEvent?.kind === "frame_closed" &&
       previousEvent?.eventId === underlyingEventRef && previousEvent?.frameId === context.scope.frameId;
     const frameScopeDigest = frameOccurrence ? digest(context.scope) : null;
     if (frameOccurrence && (reconstruction.observationRows(frameScopeDigest!, ordinal)).some(e => e.admissionOrdinal <= ordinal && e.kind === "runtime_activity_probe_observed" && record(e.payload) &&
         isRuntimeProbeObservation(e.payload.observation) && e.payload.observation.scopeDigest === frameScopeDigest &&
         e.payload.observation.underlyingEventRef === underlyingEventRef)) return false;
-    if (reconstruction.some(ordinal, ["run_closed", "run_stopped", "graph_call_closed", "frame_closed", "runtime_failure_observed", "c_call_judged"], e => (e.kind === "run_closed" || e.kind === "run_stopped") && e.runId === context.scope.runId ||
+    // Each kind is selected by the identity its disjunct compares; a kind no
+    // disjunct can match for this occurrence is not read.
+    if (reconstruction.someIdentified(ordinal, [["run_closed", context.scope.runId], ["run_stopped", context.scope.runId],
+        ["graph_call_closed", context.scope.graphCallId], ["frame_closed", context.scope.frameId],
+        ...(frameOccurrence ? [["runtime_failure_observed", context.scope.runId] as const] : []),
+        ...(context.scope.cCallRef !== null ? [["c_call_judged", context.scope.cCallRef] as const] : [])], e => (e.kind === "run_closed" || e.kind === "run_stopped") && e.runId === context.scope.runId ||
         e.kind === "graph_call_closed" && e.graphCallId === context.scope.graphCallId ||
         e.kind === "frame_closed" && e.frameId === context.scope.frameId && !terminalFrameSample ||
         frameOccurrence && frameFailureApplies(e, context.scope) ||
@@ -596,16 +701,16 @@ function deriveRuntimeLivenessSemantics(
         !(budget.continuationRef === null || typeof budget.continuationRef === "string" && budget.continuationRef.length > 0) ||
         !["block", "escalate", "reprice_policy"].includes(budget.terminalPolicy) ||
         budget.remaining !== null && (!Number.isSafeInteger(budget.remaining) || budget.remaining < 0)) return null;
-    const rows = reconstruction.observations.get(scopeDigest) ?? events().filter(e =>
+    const rows = reconstruction.observationEnvelopes(scopeDigest) ?? events().filter(e =>
       (e.kind === "runtime_activity_probe_observed" || e.kind === "runtime_external_interruption_observed") &&
       record(e.payload) && isRuntimeProbeObservation(e.payload.observation) && e.payload.observation.scopeDigest === scopeDigest);
     const foldKey = (context.scope.actorInvocationRef === null && context.scope.cCallRef === null
-      ? reconstruction.contextStamp(ordinal, occurrence) + "/duplicates:" + (reconstruction.duplicateDeclarationAt[ordinal] ?? 0)
+      ? reconstruction.contextStamp(ordinal, occurrence) + "/duplicates:" + reconstruction.duplicateDeclarationOrdinal(ordinal)
       : reconstruction.contextStamp(ordinal, occurrence)) + "/" + scopeDigest;
     const later = reconstruction.folds.get(foldKey);
     const historical = later !== undefined && later.rowCount > 0 && rows[later.rowCount - 1]!.admissionOrdinal > ordinal;
     const folds = historical ? reconstruction.historicalFolds : reconstruction.folds;
-    const previous = folds.get(foldKey);
+    const previous = folds.get(foldKey) ?? (historical ? undefined : reconstruction.inheritedFold(foldKey));
     folds.delete(foldKey);
     // The index owns the immutable sequence. A reverse read starts a fresh fold
     // in its selected lane; successful increasing cuts retain that lane's work.
@@ -657,19 +762,19 @@ function deriveRuntimeLivenessSemantics(
     obligations.push(...rowObligations);
     folds.set(foldKey, { rowCount, obligations: rowObligations, seen, sourceTimes, coverage, evidenceRefs, systemActivity,
       lastElapsed, maxElapsed, lastActivity, interrupted, lastArtifactObservationRef, artifactState });
-    const any = (kinds: readonly RuntimeEvent["kind"][], predicate: (event: RuntimeEvent) => boolean) =>
-      reconstruction.some(ordinal, kinds, predicate);
+    const any = (selectors: readonly (readonly [RuntimeEvent["kind"], unknown])[], predicate: (event: RuntimeEvent) => boolean) =>
+      reconstruction.someIdentified(ordinal, selectors, predicate);
     const policy = context.binding.policy;
     const leaseDeadlineElapsedMs = policy === null ? null : lastActivity === null ? policy.startupMs : lastActivity + policy.inactivityMs;
     const hardCapReached = policy !== null && sample.elapsedMs >= policy.hardCapMs;
     const leaseExpired = leaseDeadlineElapsedMs !== null && sample.elapsedMs >= leaseDeadlineElapsedMs;
     const completeCoverage = context.probes.every(p => !p.required || coverage.has(p.probeRef));
     const actorRef = context.scope.actorInvocationRef;
-    const actorDone = actorRef !== null && any(["actor_invocation_closed", "actor_invocation_failed"], e => e.aggregateId === actorRef);
+    const actorDone = actorRef !== null && any([["actor_invocation_closed", actorRef], ["actor_invocation_failed", actorRef]], e => e.aggregateId === actorRef);
     const frameOccurrence = actorRef === null && context.scope.cCallRef === null;
-    if (frameOccurrence && any(["run_stopped", "runtime_failure_observed"], e => (e.kind === "run_stopped" && e.runId === context.scope.runId) ||
+    if (frameOccurrence && any([["run_stopped", context.scope.runId], ["runtime_failure_observed", context.scope.runId]], e => (e.kind === "run_stopped" && e.runId === context.scope.runId) ||
         frameFailureApplies(e, context.scope))) interrupted = true;
-    const occurrenceDone = actorDone || actorRef === null && any(["frame_closed", "c_call_judged"], e => frameOccurrence
+    const occurrenceDone = actorDone || actorRef === null && any(frameOccurrence ? [["frame_closed", context.scope.frameId]] : [["c_call_judged", context.scope.cCallRef]], e => frameOccurrence
       ? e.kind === "frame_closed" && e.frameId === context.scope.frameId
       : e.kind === "c_call_judged" && e.aggregateId === context.scope.cCallRef);
     // Process liveness is the fold's actor_process_live, read by the caller:
@@ -678,7 +783,7 @@ function deriveRuntimeLivenessSemantics(
     // event); in the public path at the prefix itself. The start event only
     // binds processRef.
     const started = { processRef: null as string | null };
-    const processLive = actorRef !== null && any(["actor_process_started"], e => {
+    const processLive = actorRef !== null && any([["actor_process_started", actorRef]], e => {
       if (!record(e.payload) || e.payload.actorInvocationRef !== actorRef) return false;
       started.processRef = e.aggregateId; return true;
     }) && !actorDone && started.processRef !== null && processLiveAt(started.processRef);
@@ -786,6 +891,23 @@ const RETRY_PROGRESS_RECORD: RecordCheck<RuntimeEvent, DigestedRecord> = Object.
   digest: DIGESTED_RECORD_DIGEST,
 });
 
+/** Bodies of one kind in the basis bucket whose envelope matches the scope's
+ * Run, GraphCall and frame, in ordinal order. Envelope conjuncts are a subset
+ * of each caller's predicate, so exact-match outcomes are unchanged; an
+ * irregular id that does not read back at its envelope ordinal keeps the
+ * original bucket bodies. */
+function basisBodiesOfKind(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope, kind: string): readonly RuntimeEvent[] {
+  const key = "basis:" + scope.basisRef;
+  const bodies: RuntimeEvent[] = [];
+  for (const envelope of indexedRuntimeEventEnvelopes(prefix, key)) {
+    if (envelope.kind !== kind || envelope.basisId !== scope.basisRef || envelope.runId !== scope.runId ||
+        envelope.graphCallId !== scope.graphCallId || envelope.frameId !== scope.frameId) continue;
+    const body = runtimeEventAtPrefix(prefix, envelope.eventId);
+    if (body === undefined || body.admissionOrdinal !== envelope.admissionOrdinal) return indexedRuntimeEvents(prefix, key);
+    bodies.push(body);
+  }
+  return bodies;
+}
 /** Descriptive budget facts from existing native CRetry records. This helper
  * deliberately calls neither replay nor eligibility nor liveness. Actual retry
  * admission still verifies the full declared frontier, cursor and failure.
@@ -796,11 +918,15 @@ export function projectRuntimeRetryBudgetFacts(prefix: ValidatedRuntimeEventPref
 export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts;
 export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope: RuntimeInvocationScope): RuntimeLivenessBudgetFacts {
   const absent: RuntimeLivenessBudgetFacts = { remaining: null, retryEligible: false, continuationRef: null, terminalPolicy: "block" };
+  // A frame or actor scope carries no CCall, and no lawful `c_call_opened`
+  // has a null aggregate: the null-parent bucket can only yield `absent`.
+  // The extent read keeps the prefix's authenticity and generation checks.
+  if (scope.cCallRef === null) { runtimeEventPrefixExtent(prefix); return absent; }
   const opened = indexedRuntimeEvents(prefix, "related:" + scope.cCallRef).find(event => event.kind === "c_call_opened" && event.aggregateId === scope.cCallRef &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId);
   if (opened === undefined || !isRecord(opened.payload) || !Array.isArray(opened.payload.retryPath) || opened.payload.retryPath.length === 0) return absent;
   const retryPath = opened.payload.retryPath;
-  const attempt = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
+  const attempt = checkExactRecord(resolveExactMatch(basisBodiesOfKind(prefix, scope, "retry_attempt_opened"), event => event.kind === "retry_attempt_opened" && isRecord(event.payload) &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId &&
     event.frameId === scope.frameId && event.admissionOrdinal < opened.admissionOrdinal &&
     event.payload.attempt === scope.attempt && event.payload.taskOrdinal === scope.taskOrdinal && Array.isArray(event.payload.retryPath) &&
@@ -811,7 +937,7 @@ export function projectRuntimeRetryBudgetFacts(prefix: RuntimeEventPrefix, scope
   if (attemptRef !== `retry-attempt://abiogenesis/${String(attemptDigest).slice(7)}` ||
       !Number.isSafeInteger(body.budget) || Number(body.budget) < scope.attempt) return absent;
   const remaining = Number(body.budget) - scope.attempt;
-  const progressRecord = checkExactRecord(resolveExactMatch(indexedRuntimeEvents(prefix, "basis:" + scope.basisRef), event => event.kind === "retry_progress_recorded" && isRecord(event.payload) &&
+  const progressRecord = checkExactRecord(resolveExactMatch(basisBodiesOfKind(prefix, scope, "retry_progress_recorded"), event => event.kind === "retry_progress_recorded" && isRecord(event.payload) &&
     event.basisId === scope.basisRef && event.runId === scope.runId && event.graphCallId === scope.graphCallId && event.frameId === scope.frameId &&
     event.payload.attemptRef === attemptRef && event.payload.cCallRef === scope.cCallRef), RETRY_PROGRESS_RECORD);
   let retryEligible = false;

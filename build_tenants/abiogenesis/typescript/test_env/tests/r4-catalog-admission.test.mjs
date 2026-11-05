@@ -436,4 +436,72 @@ test("R4 catalog application lands each schema-asset admission refusal in its un
   unready(schemaRow({ contractVersion: "4.0.0" }), "schema asset has no compatible installed locator");
   unready(schemaRow({}, current, "../outside.schema.json"), "schema locator escapes its installed owner");
   unready(schemaRow({}, draft07, "schemas/draft07.schema.json"), "unsupported or crossed schema dialect/identity", draft07);
+
+  // Declaration predecessor relation over genuine Event Store coordinates and
+  // the actual owned readers. The catalog, view, environment and coordinate
+  // validation above stay explicit premises; each earlier cut receives its own
+  // consistent resources through the actual constructor.
+  await context.test("R4 catalog application predecessor is the same-log exact earlier cut", async (t) => {
+    const events = await import("../../build/code/src/abg/event_store.js");
+    const { readFileSync, writeFileSync, statSync } = await import("node:fs");
+    const scratch = await mkdtemp(join(tmpdir(), "r4-predecessor-"));
+    t.after(() => rm(scratch, { recursive: true, force: true }));
+    const candidate = (n) => ({ kind: "public_operation_admitted", eventTime: "2026-11-03T00:00:00.000Z", aggregateType: "workspace",
+      aggregateId: "invocation://r4-predecessor/" + n, parentAggregateId: null, causationEventRefs: [], correlationId: "correlation://r4-predecessor/" + n,
+      workflowVersion: "5.0.0", scopeClass: "workspace", basisId: "basis://r4-predecessor",
+      payload: { invocationDigest: sha256Canonical(n), invocationRef: "invocation://r4-predecessor/" + n, operationId: "abg.operation.project.read", variant: "status" } });
+    const sinks = [];
+    const sink = (name) => {
+      const acquired = createNewEmptyAppendSink({ kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: join(scratch, name + ".jsonl") });
+      assert.ok("store" in acquired, JSON.stringify(acquired)); sinks.push(acquired.store); return acquired;
+    };
+    t.after(() => { for (const store of sinks) try { store.closeDurableLog(); } catch {} });
+    const append = (acquired, prefix, n) => events.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store, prefix,
+      () => events.admitRuntimeEvent(acquired.store, candidate(n))).successorPrefix;
+    const primary = sink("primary"), empty = primary.prefix, one = append(primary, empty, "one"), two = append(primary, one, "two");
+    const foreign = sink("foreign"), foreignOne = append(foreign, foreign.prefix, "one");
+    const resourcesAt = (prefix) => {
+      install = { productId, installedRoot, publicContracts: [schemaRow()] };
+      return site.namespace.constructCatalogApplicationResources({ catalog, catalogView: view, catalogRow: row,
+        construction: { prefix, programRef, targetRef: programRef, value: { kind: "r4_application_value" },
+          schemaAssets: [{ productId, contractId, bytesBase64: current.toString("base64") }] } }).resources;
+    };
+    // Test oracle: the original same-log ordered-prefix relation over complete
+    // authenticated histories; complete materialization is this boundary's output.
+    const oracle = (earlier, now) => {
+      const a = events.readRuntimeEventsAtDurablePrefix(earlier), b = events.readRuntimeEventsAtDurablePrefix(now);
+      return earlier.eventLogRef === now.eventLogRef && a.length <= b.length && sha256Canonical(b.slice(0, a.length)) === sha256Canonical(a);
+    };
+    const logical = "application prefix is not an exact predecessor of this invocation";
+    const decide = (earlier, now) => {
+      try { return site.namespace.reconstructCatalogApplication(resourcesAt(earlier), now).kind; }
+      catch (error) { return error.code === "unready" && error.message === logical ? "logical_refusal" : "physical_refusal:" + error.message; }
+    };
+    const cases = [["empty/equal", empty, empty], ["empty/nonempty", empty, two], ["exact predecessor", one, two], ["equal nonempty", two, two],
+      ["current shorter than earlier", two, one], ["foreign log", foreignOne, two], ["copied earlier coordinate", structuredClone(one), two],
+      ["copied current coordinate", one, structuredClone(two)]];
+    const rows = cases.map(([name, earlier, now]) => ({ name, oracle: oracle(earlier, now), decision: decide(earlier, now) }));
+    for (const row of rows) assert.equal(row.decision, row.oracle ? "declaration_application" : "logical_refusal", row.name);
+    assert.deepEqual(rows.filter((row) => !row.oracle).map((row) => row.name), ["current shorter than earlier", "foreign log"]);
+    // A tampered or reordered physical resource is refused by authentication
+    // before the logical comparison. That boundary is recorded as physical; it
+    // is not evidence for the later digest-inequality branch, and a same-log
+    // divergent history is not constructible over one append-only log.
+    const bytes = readFileSync(new URL(two.eventLogRef)), lines = bytes.toString("utf8").trimEnd().split("\n");
+    const resource = (name, text) => {
+      const path = join(scratch, name + ".jsonl"); writeFileSync(path, text, { flag: "wx" }); const stat = statSync(path);
+      const body = { ...two, eventLogRef: pathToFileURL(path).href, storeIdentity: { ...two.storeIdentity, device: stat.dev, inode: stat.ino } };
+      delete body.coordinateDigest; return { ...body, coordinateDigest: sha256Canonical(body) };
+    };
+    const altered = resource("altered", lines[0] + "\n" + lines[1].replace("r4-predecessor/two", "r4-predecessor/2wo") + "\n");
+    const reordered = resource("reordered", lines[1] + "\n" + lines[0] + "\n");
+    const physical = [["altered earlier bytes", altered, two], ["reordered earlier bytes", reordered, two], ["altered current bytes", one, altered]]
+      .map(([name, earlier, now]) => { const decision = decide(earlier, now); assert.match(decision, /^physical_refusal:/, name);
+        assert.doesNotMatch(decision, new RegExp(logical), name); return { name, decision }; });
+    // The closed owner keeps no authority: both cuts authenticate cold.
+    primary.store.closeDurableLog();
+    assert.equal(decide(one, two), "declaration_application", "closed-owner predecessor authenticates cold");
+    assert.equal(decide(two, one), "logical_refusal", "closed-owner shorter current cut");
+    t.diagnostic(JSON.stringify({ kind: "r4_declaration_predecessor", rows, physical, sameLogDivergentHistory: "not constructible over one append-only log; unclaimed" }));
+  });
 });

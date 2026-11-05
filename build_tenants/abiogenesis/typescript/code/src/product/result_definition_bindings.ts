@@ -31,10 +31,10 @@ import {
 import type { ExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import {
   authenticateRuntimePrefixAncestry,
-  readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent } from "../abg/event_prefix.js";
 import {
   definitionFault,
   isDefinitionFault,
@@ -162,11 +162,13 @@ function assessTransitionCorresponds(
     if (assessment === null) return successor.coordinateDigest === entry.coordinateDigest;
     if (!sameJson(entry.storeIdentity, successor.storeIdentity) ||
         !authenticateRuntimePrefixAncestry(entry, successor)) return false;
-    const before = readRuntimeEventsAtDurablePrefix(entry).length;
-    const after = readRuntimeEventsAtDurablePrefix(successor);
-    const last = after.at(-1);
+    // One-event increment over owned extents, then the exact final event.
+    const before = runtimeEventPrefixExtent(readOwnedRuntimeEventPrefixAtDurablePrefix(entry)).count;
+    const afterPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(successor);
+    const afterCount = runtimeEventPrefixExtent(afterPrefix).count;
+    const last = runtimeEventAtPrefixIndex(afterPrefix, afterCount - 1);
     const payload = last?.payload as Record<string, unknown> | undefined;
-    return after.length === before + 1 && last?.kind === "assessed" &&
+    return afterCount === before + 1 && last?.kind === "assessed" &&
       payload?.assessmentRef === assessment.ref && payload?.assessmentDigest === assessment.digest;
   } catch {
     return false;

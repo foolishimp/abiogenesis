@@ -6,7 +6,7 @@ import { acquireAbgEventResource,closeAbgEventResource,abandonAbgEventResource,v
  type AbgEventResourceAssertion,type AbgEventResourceReceipt,type AcquiredAbgEventResource } from "../abg/definition_event_resource.js";
 import { admitArtifact,projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import { projectEffectfulPublicInvocationTruthAtPrefix } from "../abg/effectful_invocation_truth.js";
-import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { canonicalJson,type JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
@@ -51,7 +51,7 @@ const owner=(call:Parameters<ExactDefinitionCallable<Packet,ReleasePublicationRe
   if(environment.kind!=="exact_prefix_workspace_environment"||!sameJson(slots.product_set,environment.productInstalls.map(productInstallCoordinate))||
     !sameJson(slots.dependency_lock,{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest}))return refuse("identity_mismatch","release Product set/lock differs from current native environment");
   if(environment.productInstalls.some(i=>[resources.effectGrant.snapshotRoot,resources.effectGrant.artifactOutputRoot,resources.effectGrant.sourceRoot].some(p=>within(i.installedRoot,p))))return refuse("identity_mismatch","release effects may not target an installed Product");
-  const scope=releaseAuthorityScope(request,resources.proof,resources.selection,resources.effectGrant),truth=projectExactPrefixArtifactTruth(acquired.entryPrefix);
+  const scope=releaseAuthorityScope(request,resources.proof,resources.selection,resources.effectGrant),truth=projectOwnedPrefixArtifactTruth(acquired.entryPrefix);
   const prior=projectEffectfulPublicInvocationTruthAtPrefix(acquired.entryPrefix,call.invocation.invocationRef);
   if(prior.disposition!=="available")return refuse("duplicate_invocation","invocation must be fresh in valid native history");
   if(truth.kind!=="exact_prefix_artifact_truth_projection"||truth.rows.some(row=>row.authorityScopeRef===scope.ref))return refuse("artifact_conflict","release scope already has native truth or history is invalid");
@@ -120,7 +120,7 @@ const tappedOwner=(call:Parameters<ExactDefinitionCallable<TappedPacket,ReleaseA
   if(environment.kind!=="exact_prefix_workspace_environment"||!sameJson(slots.product_set,environment.productInstalls.map(productInstallCoordinate))||
    !sameJson(slots.dependency_lock,{ref:environment.resolvedProductLock.lockId,digest:environment.resolvedProductLock.lockDigest})||
    environment.productInstalls.some(i=>[grant.addendumRoot,grant.artifactOutputRoot].some(p=>within(i.installedRoot,p))))return refuse("identity_mismatch","acceptance environment or effect territory differs from admitted scope");
-  const truth=projectExactPrefixArtifactTruth(acquired.entryPrefix),scope=releaseAcceptanceScope(request,resources.proof,resources.selection,grant);
+  const truth=projectOwnedPrefixArtifactTruth(acquired.entryPrefix),scope=releaseAcceptanceScope(request,resources.proof,resources.selection,grant);
   const prior=projectEffectfulPublicInvocationTruthAtPrefix(acquired.entryPrefix,call.invocation.invocationRef);
   if(prior.disposition!=="available")return refuse("duplicate_invocation","invocation must be fresh in valid native history");
   if(truth.kind!=="exact_prefix_artifact_truth_projection"||truth.rows.some(r=>r.authorityScopeRef===scope.ref))return refuse("artifact_conflict","acceptance scope already has native truth or history is invalid");

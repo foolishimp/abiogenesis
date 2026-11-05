@@ -117,7 +117,7 @@ re-read the current filesystem; pre-dispatch/effect checks do.
 Intake combines source handoff and initial-envelope construction in one native
 leaf variant. It does not accept a caller-created source declaration as installed
 law. Common basis authentication remains in
-abg/execution_basis.ts::authenticateNativeInstructionAssemblyBasis. The new
+abg/execution_basis.ts::authenticateOwnedNativeInstructionAssemblyBasis. The new
 handoff basis adds the actual cursor/declaration GraphFunctions and resolved
 source/lifecycle owner publications using existing HoG declaration-owner lookup.
 It rehydrates root ancestry, actual child raw input, resolution, contracts,

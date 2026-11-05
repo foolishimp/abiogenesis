@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
-import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, projectOwnedRuntimeEventPrefixAtDurablePrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
 import { selectActiveRuntimeTransactionHistoryAtDurablePrefix } from "./event_store.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
@@ -63,7 +64,6 @@ import {
   assertRuntimeEventTransactionActive,
   isRuntimeEventTransactionActive,
   projectRuntimeEventFromValidatedHistory,
-  readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   ROOT_EVENT_CONTRACT_DIGEST,
   type DurablePrefixCoordinate,
@@ -85,7 +85,7 @@ import {
 } from "./event_calculus.js";
 import {
   type ReplayState,
-  type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, materializeRuntimeReplayGuard, writeRuntimeReplayGuardValue,
+  type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, writeRuntimeReplayGuardValue,
 } from "./replay.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
@@ -4670,8 +4670,8 @@ export function projectAdmittedLeafCCallOutcomeAtPrefix(
   predecessorPrefix: DurablePrefixCoordinate,
   input: AdmittedLeafCCallOutcomeProjectionInput,
 ): RehydratedAdmittedCCallState | null {
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
-  return projectAdmittedLeafCCallOutcomeFromPrefix(authorityPrefix, input);
+  // The physical-reader meaning stays; the authenticated cut is not copied.
+  return projectAdmittedLeafCCallOutcomeFromPrefix(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix), input);
 }
 
 /** @internal Reuse the current owned cut; the selected outcome keeps all leaf guards. */
@@ -7341,7 +7341,7 @@ export function completeRejectedCCall(
     resultEventRef = resultEvent.eventId;
   }
 
-  const rejectionAuthority = selectValidatedRuntimeEventPrefix(store.readAll());
+  const rejectionAuthority = selectRuntimeEventPrefixFromStore(store);
   const rejectionReplay = projectRuntimeReplayGuard(
     selectRuntimeEventPrefixFromAuthority(rejectionAuthority, { runId: cCall.runId }), rejectionAuthority);
   const retryAttemptRef = activeRetryAttemptRef;
@@ -7422,13 +7422,6 @@ function pendingInteractionBodyDigest(
     else writeCanonicalJson(member!,write);
   }, (part) => { hash.update(part); });
   return `sha256:${hash.digest("hex")}`;
-}
-export function planPendingInteractionAdmission(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
-  cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,
-  basis: RuntimeAdmissionBasis): PendingInteractionAdmissionPlan {
-  const plan=planOwnedPendingInteractionAdmission(store,graph,graphFunction,cursor,cCall,request,expectedInputDigest,basis);
-  return deepFreeze({...plan,projectedPrefix:selectValidatedRuntimeEventPrefix(Object.freeze([...runtimeEventBodiesAtPrefix(plan.projectedPrefix)])),
-    replayState:materializeRuntimeReplayGuard(plan.replayState)});
 }
 export function admitPlannedPendingInteraction(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,

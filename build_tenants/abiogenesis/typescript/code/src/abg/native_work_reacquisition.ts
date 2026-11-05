@@ -1,4 +1,4 @@
-import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
+import { isOwnedRuntimeEventPrefix, projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isDeepStrictEqual } from "node:util";
@@ -23,7 +23,7 @@ import { NATIVE_WORK_REACQUISITION_IDS as ids, constructNativeWorksiteCommandExe
 import { observeWorksiteContext } from "../product/worksite_operations.js";
 import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate,
   runtimeEventPhysicalPrefix, type DurablePrefixCoordinate } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix, 
+import { runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
   validatedRuntimeEventPrefixThroughEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectClosedGraphCallTerminalAtDurablePrefix } from "./project_read_ports.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix, hasAdmittedGovernanceSourceUse,
@@ -33,7 +33,7 @@ import { projectWorksiteRevisionBindingCover } from "./worksite_revision.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix } from "./c_call.js";
 import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { projectNativeWorkCommandSourceAtPrefix, projectNativeWorkspaceWorkSourceAtPrefix } from "./native_worksite_execution.js";
-import { authenticateNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
 import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarationDependencies,
   type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
@@ -110,16 +110,10 @@ export function projectNativeWorkReacquisitionTask(current: DurablePrefixCoordin
     return deriveNativeWorkReacquisitionTask(current, prefix, request, nativeBasis, declarationProof)?.task ?? null;
   } catch { return null; }
 }
-/** Immutable preparation facts survive ordinary Result copying only inside
- * the existing authenticated prefix lineage. Current C2 invalidators remain
- * in projectNativeWorkCommandSourceAtPrefix and its same-Run join. */
-export function authenticateNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: unknown, requireCurrent = false,
-  historicalSource?: AbgHistoricalGraphCallSourceResource) {
-  const owner = authenticateOwnedNativeWorkReacquisition(basis, input, requireCurrent, historicalSource);
-  return owner === null ? null : { ...owner,
-    prefix: selectValidatedRuntimeEventPrefix(Object.freeze([...runtimeEventBodiesAtPrefix(owner.prefix)])) };
-}
-/** @internal The ordinary consumer borrows selected bodies rather than requesting a complete Public prefix. */
+/** @internal Immutable preparation facts survive ordinary Result copying only
+ * inside the existing authenticated prefix lineage; the consumer borrows
+ * selected bodies of that owner prefix. Current C2 invalidators remain in
+ * projectNativeWorkCommandSourceAtPrefix and its same-Run join. */
 export function authenticateOwnedNativeWorkReacquisition(basis: NativeWorkReacquisitionBasis, input: unknown, requireCurrent = false,
   historicalSource?: AbgHistoricalGraphCallSourceResource) {
   try {
@@ -219,9 +213,11 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
   refusal?: GovernanceTestingRefusal, ambient?: WorksiteCommandAmbientEnvironment | null): NativeWorksiteCommandExecutionTask | null {
   let stage = "native_preparation_owner";
   try {
-    const owned = authenticateNativeInstructionAssemblyBasis(basis);
+    // Borrow the owner-authenticated facts; neither consumer reads a complete-history output.
+    const owned = authenticateOwnedNativeInstructionAssemblyBasis(basis);
     const admittedInput = admitJson(input);
-    if (owned === null || admittedInput.kind !== "ok" || !same(owned.inputValue, admittedInput.value) || !isGovernanceWorkState(input) ||
+    if (owned === null || owned.prefix.kind === "runtime_validation_event_prefix" || admittedInput.kind !== "ok" ||
+        !same(owned.inputValue, admittedInput.value) || !isGovernanceWorkState(input) ||
         owned.call.implementationRef !== governanceRef("implementation", "prepare-testing")) return refused(refusal, stage, "assembly_input_implementation");
     stage = "native_historical_declaration";
     if (historicalSource === undefined) return refused(refusal, stage, "resource_absent");
@@ -262,9 +258,9 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
  * admitted covered-use fact, not a copied resource or self-certified task. */
 export function governanceNativeWorkReacquisitionResultMatches(basis: NativeInstructionAssemblyBasis, input: unknown, value: unknown): boolean {
   try {
-    const owned = authenticateNativeInstructionAssemblyBasis(basis);
+    const owned = authenticateOwnedNativeInstructionAssemblyBasis(basis);
     const admittedInput = admitJson(input);
-    if (owned === null || admittedInput.kind !== "ok" || admitJson(value).kind !== "ok" ||
+    if (owned === null || owned.prefix.kind === "runtime_validation_event_prefix" || admittedInput.kind !== "ok" || admitJson(value).kind !== "ok" ||
         !same(owned.inputValue, admittedInput.value) || !record(value) || !record(value.sourceReacquisition)) return false;
     const task = value as unknown as NativeWorksiteCommandExecutionTask, proof = task.sourceReacquisition;
     if (proof === undefined || !same(proof.nativeBasis, { predecessorPrefix: basis.predecessorPrefix, cCallRef: owned.call.cCallRef }) ||
@@ -320,14 +316,19 @@ function sameEventResource(a: DurablePrefixCoordinate, b: DurablePrefixCoordinat
 /** Recover an exact recorded cut from already decoded physical coordinates.
  * No declaration resource or second journal read enters admitted consumption. */
 function preparationCut(prefix: RuntimeEventPrefix, coordinate: DurablePrefixCoordinate): RuntimeEventPrefix | null {
-  const authority = unscopedRuntimeEventPrefix(prefix), events = runtimeEventBodiesAtPrefix(authority);
-  let low = 1, high = events.length;
+  const authority = unscopedRuntimeEventPrefix(prefix);
+  // An owned cut reads each probed row's recorded physical prefix; only an
+  // explicit validated vector is sliced and checked through its event receipts.
+  const owned = isOwnedRuntimeEventPrefix(authority) ? authority.selection : undefined;
+  const events = owned === undefined ? runtimeEventBodiesAtPrefix(authority) : undefined;
+  let low = 1, high = owned?.length ?? events!.length;
   while (low <= high) {
-    const count = (low + high) >>> 1, physical = runtimeEventPhysicalPrefix(events.slice(0, count));
+    const count = (low + high) >>> 1, physical = owned !== undefined
+      ? runtimeEventPhysicalPrefix(owned.cut(count)) : runtimeEventPhysicalPrefix(events!.slice(0, count));
     if (physical.byteLength < coordinate.prefixLength) low = count + 1;
     else if (physical.byteLength > coordinate.prefixLength) high = count - 1;
     else return physical.digest === coordinate.prefixDigest
-      ? validatedRuntimeEventPrefixThroughEvent(authority, events.at(count - 1)!.eventId) : null;
+      ? validatedRuntimeEventPrefixThroughEvent(authority, owned?.row(count - 1)!.envelope.eventId ?? events!.at(count - 1)!.eventId) : null;
   }
   return null;
 }

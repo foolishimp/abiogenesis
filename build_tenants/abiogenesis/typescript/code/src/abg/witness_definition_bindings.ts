@@ -36,10 +36,11 @@ import {
   type ReopenedAbgEventResourceInput,
   type AbgEventResourceOutcome,
 } from "./definition_event_resource.js";
-import { authenticateRuntimePrefixAncestry, projectRootEventProfileSchedule, readRuntimeEventsAtDurablePrefix,
+import { authenticateRuntimePrefixAncestry,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST, type DurablePrefixCoordinate } from "./event_store.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent,
+  runtimeEventProfileScheduleFromValidatedPrefix } from "./event_prefix.js";
 import { projectRunIdentityAtPrefix } from "./replay.js";
 import {
   admitWitnessedAct,
@@ -153,9 +154,11 @@ function witnessPrefixTransitionCorrespond(
   try {
     if (!authenticateRuntimePrefixAncestry(entry, next)) return false;
     if (boundaryEventRef === null) return sameJson(entry.storeIdentity, next.storeIdentity);
-    const events = readRuntimeEventsAtDurablePrefix(next);
-    const schedule = projectRootEventProfileSchedule(events);
-    const boundary = events.at(-1), p = boundary?.payload as Record<string, unknown> | undefined;
+    // Complete authentication of `next`, then only its final selected body.
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(next);
+    const schedule = runtimeEventProfileScheduleFromValidatedPrefix(prefix);
+    const boundary = runtimeEventAtPrefixIndex(prefix, runtimeEventPrefixExtent(prefix).count - 1),
+      p = boundary?.payload as Record<string, unknown> | undefined;
     return entry.storeIdentity.eventContractDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST &&
       next.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
       schedule.boundaryEventRef === boundaryEventRef && boundary?.eventId === boundaryEventRef &&
@@ -239,7 +242,7 @@ function witnessOwner(
         // coordinate is resolved by its current-prefix owner, not a caller
         // alias or a digest extracted from the Run URI.
         const runIdentity = member === "run-stopped" ? projectRunIdentityAtPrefix(
-          selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(resource.entryPrefix)), request.subject.ref,
+          readOwnedRuntimeEventPrefixAtDurablePrefix(resource.entryPrefix), request.subject.ref,
         ) : null;
         const runMatches = member === "reprice" || request.context.kind === "run" && runIdentity !== null &&
           sameJson(request.subject, runIdentity.run) && sameJson(request.context.run, runIdentity.run) &&
@@ -305,8 +308,8 @@ function witnessOwner(
         if (native.kind === "witness_admission_refusal") {
           ownerOutput = refusalOutput(packet, native);
         } else {
-          const events = readRuntimeEventsAtDurablePrefix(native.successorPrefix);
-          const matches = events.filter((event) => event.eventId === native.admittedEventRef);
+          const matches = indexedRuntimeEvents(readOwnedRuntimeEventPrefixAtDurablePrefix(native.successorPrefix), "id:" + native.admittedEventRef)
+            .filter((event) => event.eventId === native.admittedEventRef);
           const event = matches[0];
           if (matches.length !== 1 || event?.kind !== (member === "reprice" ? "declaration_reprice_admitted" : "run_stopped")) {
             throw definitionFault(packet.definitionKey, "abg_projection", "witness_event_projection_mismatch",

@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-05T02:00:53.600235+00:00",
+  "kind": "operator_preparation_refusal",
+  "command": "git diff --cached --check",
+  "exit": 2,
+  "failure": "Whitespace linter treated byte-preserved source.diff evidence as new source text",
+  "cause": "Raw patch context and removed lines contain trailing spaces by design; changing those bytes would destroy exact evidence custody.",
+  "effects": "Exact source and evidence staged in isolated worktree; no commit/release/install yet.",
+  "reentry": "Apply source whitespace check to source and documentary metadata; preserve exact patch bytes. No Product edit or predicate waiver.",
+  "scriptSha256": "95712bcc30310e022e5213336e69861c0f7c0ee4f4901d839713ebdea652152a"
+}

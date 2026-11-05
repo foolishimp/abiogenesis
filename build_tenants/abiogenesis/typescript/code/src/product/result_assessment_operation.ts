@@ -10,12 +10,12 @@ import { deepFreeze } from "../shared/immutable.js";
 import {
   assertHeldEventStoreAtDurablePrefix,
   compareAndAppendExpectedPrefix,
-  readRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "../abg/event_store.js";
-import { runtimeEventPrefixDigest, selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { indexedRuntimeEventEnvelopes, indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix,
+  runtimeEventPrefixDigest, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import {
   rehydrateExecutionBasisAtPrefix,
   type ExecutionBasis,
@@ -389,10 +389,10 @@ function exactAssessmentContract(
 }
 
 function runtimeResultAtPrefix(
-  events: readonly RuntimeEvent[],
+  prefix: RuntimeEventPrefix,
   coordinate: RefDigest<RuntimeResult>,
 ): Readonly<{ result: RuntimeResult; event: RuntimeEvent }> | null {
-  const matches = events.filter((event) =>
+  const matches = indexedRuntimeEvents(prefix, "payload:resultRef:" + coordinate.ref).filter((event) =>
     event.kind === "c_call_result_admitted" &&
     isRecord(event.payload) &&
     event.payload.resultRef === coordinate.ref &&
@@ -424,12 +424,13 @@ function runtimeResultAtPrefix(
 }
 
 function exactEvidenceEvents(
-  events: readonly RuntimeEvent[],
+  prefix: RuntimeEventPrefix,
   cCallRef: string,
   evidence: readonly RefDigest[],
 ): readonly RuntimeEvent[] | null {
+  const evidenced = indexedRuntimeEvents(prefix, "related:" + cCallRef);
   const rows = evidence.map((coordinate) => {
-    const matches = events.filter((event) =>
+    const matches = evidenced.filter((event) =>
       event.kind === "c_call_evidenced" &&
       event.aggregateId === cCallRef &&
       isRecord(event.payload) &&
@@ -552,13 +553,14 @@ export function assessResult(
     );
   }
 
-  let events: readonly RuntimeEvent[];
+  let ownedPrefix: RuntimeEventPrefix;
   try {
     assertHeldEventStoreAtDurablePrefix(context.store, context.predecessorPrefix);
-    events = readRuntimeEventsAtDurablePrefix(context.predecessorPrefix);
+    ownedPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(context.predecessorPrefix);
+    // The held store's canonical digest against the owner's prefix digest.
     if (
       context.store.digest() !==
-        sha256Canonical(events)
+        runtimeEventPrefixDigest(ownedPrefix)
     ) throw new TypeError("held store differs from predecessor event truth");
   } catch {
     return refusal(
@@ -568,16 +570,8 @@ export function assessResult(
     );
   }
 
-  let prefix;
-  try {
-    prefix = selectValidatedRuntimeEventPrefix(events);
-  } catch {
-    return refusal(
-      "basis_mismatch",
-      "result assessment requires one valid immutable runtime prefix",
-      ["/currentBasis"],
-    );
-  }
+  // The owned reader already authenticated one immutable runtime prefix.
+  const prefix = ownedPrefix;
   const currentBasis = rehydrateExecutionBasisAtPrefix(
     prefix,
     packet.currentBasis.ref,
@@ -593,7 +587,7 @@ export function assessResult(
       ["/currentBasis", "/invocationAuthority/actor"],
     );
   }
-  const projectedResult = runtimeResultAtPrefix(events, packet.expectedResult);
+  const projectedResult = runtimeResultAtPrefix(prefix, packet.expectedResult);
   if (projectedResult === null) {
     return refusal(
       "result_mismatch",
@@ -623,7 +617,7 @@ export function assessResult(
   const graphCallId = projectedResult.event.graphCallId;
   const frameId = projectedResult.event.frameId;
   const evidenceEvents = exactEvidenceEvents(
-    events,
+    prefix,
     projectedResult.result.cCallRef,
     packet.evidence,
   );
@@ -647,7 +641,7 @@ export function assessResult(
   const assessmentDigest = sha256Canonical(truth);
   const assessmentRef =
     `result-assessment://abiogenesis/${assessmentDigest.slice("sha256:".length)}`;
-  const prior = events.filter((event) =>
+  const prior = indexedRuntimeEvents(prefix, "kind:assessed").filter((event) =>
     event.kind === "assessed" &&
     isRecord(event.payload) &&
     event.payload.assessmentRef === assessmentRef
@@ -669,7 +663,7 @@ export function assessResult(
   const causationEventRefs = [...new Set(requiredCauses)];
   if (
     causationEventRefs.some((eventRef) =>
-      !events.some((event) => event.eventId === eventRef)
+      indexedRuntimeEventEnvelopes(prefix, "id:" + eventRef).length === 0
     )
   ) {
     return refusal(

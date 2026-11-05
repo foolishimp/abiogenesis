@@ -271,8 +271,8 @@ test("T-287 C1 traverses one installed real-Claude candidate through C0 and fres
     store: environment.store,
     requests: [{
       rowId: "c1-live-worksite-construction-runtime-truth",
-      owner: "abg",
-      exportName: "projectRuntimeTruthAtDurablePrefix",
+      owner: "replay",
+      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
       input: "durable_prefix",
       args: [opened.scope.runId],
     }],

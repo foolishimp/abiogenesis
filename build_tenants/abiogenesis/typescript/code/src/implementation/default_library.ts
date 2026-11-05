@@ -8,7 +8,7 @@ import type { PackagedLeafImplementationDescriptor } from "../product/implementa
 import type { LeafExecutionOccurrence, LeafRealizationCandidate, PreparedProbabilisticLeafInvocation, NativeLeafProofOperations } from "./contracts.js";
 import type { NativeInstructionAssembly } from "../abg/instruction_assembly.js";
 import { projectGovernanceSelection, projectGovernanceNativeTask, projectGovernanceTestingTask, projectGovernanceFold, projectGovernanceParent, projectGovernanceChoice as projectChoice } from "../abg/default_library.js";
-import { sha256Canonical } from "../shared/digests.js";
+import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { constructRuntimeFailureDiagnosticRef } from "../abg/runtime_failure.js";
@@ -24,11 +24,14 @@ export const GOVERNANCE_NATIVE_TASK_DESCRIPTOR = descriptors[3]!;
 export const GOVERNANCE_TESTING_TASK_DESCRIPTOR = descriptors[4]!;
 export const GOVERNANCE_FOLD_DESCRIPTOR = descriptors[5]!;
 export const GOVERNANCE_CHOICE_DESCRIPTOR = descriptors[6]!;
-function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonValue, output: Readonly<Record<string, JsonValue>> | null, refusalDiagnosticRef?: string): LeafRealizationCandidate {
+/** `inputDigest` is the F_D port's checked digest of this exact input (the
+ * fourth argument of its call contract); a caller outside that port computes it. */
+function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonValue, output: Readonly<Record<string, JsonValue>> | null,
+  refusalDiagnosticRef?: string, inputDigest?: Sha256Digest): LeafRealizationCandidate {
   const diagnosticRef = refusalDiagnosticRef ?? ref("diagnostic", "missing-owned-" + operation), success = output !== null;
   const resultCandidate: Readonly<Record<string, JsonValue>> = output ?? { kind: "governance_failure", schemaVersion: "5.0.0", diagnosticRef };
   const evidenceCandidates = operation === "select" ? [] : [{ kind: "deterministic_evidence_candidate" as const, schemaVersion: "5.0.0" as const,
-    implementationRef: ref("implementation", operation), inputDigest: hash(input), outputDigest: hash(resultCandidate) }];
+    implementationRef: ref("implementation", operation), inputDigest: inputDigest ?? hash(input), outputDigest: hash(resultCandidate) }];
   return success ? { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success", resultCandidate, evidenceCandidates }
     : { kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "failure", resultCandidate, evidenceCandidates, diagnosticRef };
 }
@@ -42,21 +45,24 @@ function realized(operation: typeof GOVERNANCE_OPERATIONS[number], input: JsonVa
  * one typed outcome per input. The deterministic evidence binds the carried
  * observation through the output digest.
  */
-export async function prepareGovernanceSelection(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("prepare-selection", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceSelection(occurrence.nativeInstructionAssemblyBasis, input));
+export async function prepareGovernanceSelection(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, inputDigest?: Sha256Digest) {
+  return realized("prepare-selection", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceSelection(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
 }
-export async function prepareGovernanceNativeTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("prepare-native", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceNativeTask(occurrence.nativeInstructionAssemblyBasis, input));
+export async function prepareGovernanceNativeTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, inputDigest?: Sha256Digest) {
+  return realized("prepare-native", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : await projectGovernanceNativeTask(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
 }
 export async function prepareObservedTestingTask(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
-  _resolution?: unknown, _inputDigest?: unknown, proof?: NativeLeafProofOperations) {
+  _resolution?: unknown, inputDigest?: Sha256Digest, proof?: NativeLeafProofOperations) {
   let diagnosticRef: string | undefined;
+  const checkedInputDigest = inputDigest ?? hash(input);
   const refusal: GovernanceTestingRefusal = (stage, relation, selectors = {}, error) => {
     if (diagnosticRef !== undefined) return;
     const caught = relation === "caught" && !types.isProxy(error) ? error : null;
     diagnosticRef = constructRuntimeFailureDiagnosticRef({
       diagnosticClassRef: ref("diagnostic", "missing-owned-prepare-testing"), computeRegime: "F_D",
-      implementationRef: ref("implementation", "prepare-testing"), inputDigest: hash(input),
+      implementationRef: ref("implementation", "prepare-testing"), inputDigest: checkedInputDigest,
       occurrence: { cCallRef: occurrence.cCallRef, runId: occurrence.runId ?? null, graphCallId: occurrence.graphCallId ?? null,
         frameId: occurrence.frameId ?? null, programLocusRef: occurrence.programLocusRef ?? null,
         taskOrdinal: occurrence.taskOrdinal ?? null, attempt: occurrence.attempt ?? null },
@@ -69,16 +75,19 @@ export async function prepareObservedTestingTask(input: Readonly<Record<string, 
     proof?.governanceTestingReacquisition === undefined ? undefined :
       (context, report) => proof.governanceTestingReacquisition!(input, occurrence, context, report), refusal,
     occurrence.commandAmbientEnvironment);
-  return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined);
+  return realized("prepare-testing", input, output, output === null ? diagnosticRef : undefined, checkedInputDigest);
 }
-export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("fold", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceFold(occurrence.nativeInstructionAssemblyBasis, input));
+export function foldGovernanceWork(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, inputDigest?: Sha256Digest) {
+  return realized("fold", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceFold(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
 }
-export function evaluateGovernanceParent(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("evaluate-parent", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceParent(occurrence.nativeInstructionAssemblyBasis, input));
+export function evaluateGovernanceParent(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, inputDigest?: Sha256Digest) {
+  return realized("evaluate-parent", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectGovernanceParent(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
 }
-export function projectGovernanceChoice(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence) {
-  return realized("project-choice", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectChoice(occurrence.nativeInstructionAssemblyBasis, input));
+export function projectGovernanceChoice(input: Readonly<Record<string, JsonValue>>, occurrence: LeafExecutionOccurrence,
+  _resolution?: unknown, inputDigest?: Sha256Digest) {
+  return realized("project-choice", input, occurrence.nativeInstructionAssemblyBasis === undefined ? null : projectChoice(occurrence.nativeInstructionAssemblyBasis, input), undefined, inputDigest);
 }
 export function selectGovernanceWork(input: Readonly<Record<string, JsonValue>>, _occurrence: LeafExecutionOccurrence,
   prepareAssembly: () => NativeInstructionAssembly): PreparedProbabilisticLeafInvocation<LeafRealizationCandidate> {

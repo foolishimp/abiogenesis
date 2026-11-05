@@ -1,17 +1,25 @@
 # T-287 - Deliver ABIogenesis 5.0 Native Runtime and Default Library
 
+Current selection, 2026-11-05T01:56:36.961413+00:00: **RC6_LOCAL_CUT_INSTALL_SELECTED**. The owner instructed "lets move to RC6" after bounded targeted-refactor acceptance. The separate operator Writer is preparing an isolated source checkpoint, mechanical RC6 identity, reproducible package and existing-owner local installation. Frozen source38933d61515b and proof10 acceptance remain the evidence basis; historical failures and wider qualification/performance limits remain. No new native coding or qualification campaign is selected. Final source/artifact/install coordinates will be recorded in the local cut handoff.
+
+Current Root continuation, 2026-11-04T15:50:15.539018+00:00: **TARGETED_INTERFACE_REFACTOR_ACCEPTED**. The selected IR-01/IR-02 refactor is complete with bounded T1-T5 acceptance: three historical cuts and seven ordinary call expressions use existing owners, four obsolete wrappers are retired, and affected fixtures/HOW are migrated. Actual proof10 is12/0/0 with all7 commands exit0,160 source/handoff matches and986 protected inputs unchanged. Independent source/completion reviews and native UAT are satisfied. The lifecycle completed; fresh result/replay agree; final source160 is unchanged and host exit0. Actual09 failures/skips and N9-RETAINED-FIXTURE-01 remain preserved. No other functionality or next work is selected. [Final handoff](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/HANDOFF.md); [Root conjunction](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ROOT_CONJUNCTION.json); [status](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json).
+
+Registered technical debt **N9-RETAINED-FIXTURE-01**: the native semantic revision component fixture retains the same4/1/2 first-test failure at preimage/candidate/actual09. It is not a new source regression or a passing lane. The later assertions remain unverified. Its current-reader test premise must be selected before the next D2 proof/qualification claim that depends on that suffix; no fixture repair is selected in this refactor. The owning frame, exact evidence, no-block rationale, trigger, dependent boundary, re-entry, falsifier, closure evidence and owner are retained in [Root deferred-assurance disposition](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ROOT_SOURCE_AND_EVIDENCE_DISPOSITION.json).
+
+Historical Root continuation, 2026-11-03T16:11:11.965648+00:00: Independent max review is complete: SAS-01/02/03 reject whole-path closure while preserving the 24-file held implementation. [Selection 02](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_02.md) selects only residual callers, obsolete-adapter retirement and harness/proof reconciliation. [Native-02 preparation](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-02/PACKET_PREPARATION_COMPLETE.json) preserves all R1-R7 obligations and the actual failed-run close. No new native dispatch yet; actual C2/UAT are pending. Older stage statements below retain their dated scope.
+
 - id: T-287
 - status: active
 - goal: GOAL-035
 - owner: abiogenesis
 - build_tenant: typescript
-- updated_at: 2026-11-03
+- updated_at: 2026-11-05
 - current_method_basis: stdo://releases/v3.0.4/ (source-development adoption, owner instruction 2026-11-03; retained RC4 artifacts and Runs keep their exact 3.0.2 basis)
 - current_method_manifest_sha256: 102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b
-- current_activation: T287_RC5_BOUNDED_CANDIDATE_ACCEPTED_LOCAL_CUT_SELECTED; nativeResultc39dfcf7; C2a2a62ff6; terminal1cb1898a.
-- current_activation_status: Bounded source/artifact proof accepted:37 current passes,18 retained method passes, independent review and nativeUAT satisfied, fresh result/replay equal; source/evidence custody and separate local cut selected.
-- current_handoff: .ai-workspace/work/T287_RC5_LOCAL_EVIDENCE_01/README.md; exact local cut/install coordinates are recorded separately after clean reproduction.
-- current_next_work: Root exact source/generated/evidence checkpoint, isolated byte-equal build/pack, then fresh local unqualified RC5 install; no further Product coding selected.
+- current_activation: T287_TARGETED_INTERFACE_REFACTOR_09_WITH_PROOF_10; immutable installed builder RC5 f49e7533e; successor source uncommitted.
+- current_activation_status: TARGETED_INTERFACE_REFACTOR_ACCEPTED; selected T1-T5 complete with recorded coverage limits; no next activation selected.
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/HANDOFF.md and ROOT_CONJUNCTION.json; current source subject38933d61515b.
+- current_next_work: None selected. Wider consolidation, new-source workflow performance, successor cut/install and qualification remain outside the completed targeted refactor; registered fixture debt retains its trigger.
 - current_prerequisite_deliverable: common_computational_capability_library
 - current_release_resumption_gate: OPEN_L5_accepted_2026-10-24; Phase D in progress from 2026-10-27
 - current_product_target: ABIogenesis_5.0.0_fixed_fifteen_families
@@ -22,7 +30,16 @@
 - re_entry_point: specification/GOALS.md#current-selection
 ## Current disposition
 
-Current selection, 2026-11-03: **RC5_BOUNDED_CANDIDATE_ACCEPTED_LOCAL_CUT_SELECTED**. [Bounded acceptance](../../work/T287_RC5_LOCAL_EVIDENCE_01/ACCEPTANCE.json) conjoins the frozen native repair, unchanged method/codec subjects,37 current passes and18 retained method passes, independent max review, satisfied native UAT and equal fresh result/replay terminal1cb1898a. Three excluded skips add no credit. [Evidence custody](../../work/T287_RC5_LOCAL_EVIDENCE_01/README.md) retains inputs and every historical failure. Root now owns source/generated custody, clean reproduction and the separate local cut/install. Whole qualification remains open; no push/tag/merge/global selector or stable-release claim. The successful native workflow including fresh reads took64m28s; setup, launch and between-stage costs are separately recorded. Earlier dated records remain historical.
+Current selection, 2026-11-04 AEDT: **TARGETED_INTERFACE_REFACTOR_ONLY**. Owner narrows active native09 to IR-01 three historical cuts and IR-02 seven ordinary semantic call expressions plus two expanding authenticators/two obsolete complete-subject wrappers, with complete affected test/support migration and existing-owner behavior/work verification. No added functionality. Native08 evidence/failures and all earlier implementation remain preserved. Wider R1-R7/C1-C5, workflow performance, successor cut/install and qualification remain outstanding outside this activation. Stage **NATIVE09_TARGETED_CODING_RUNNING**, native coding active, PID93704; source return and verification pending. [Targeted T1-T5 selection](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md); [status](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json).
+
+Historical selection, 2026-11-04 AEDT: **SINGLE_ADDRESS_SPACE_CAUSAL_CONSOLIDATION**. The original owner outcome remains complete affected caller migration onto existing common-library owners, deletion of redundant paths/carriage, preservation of required work information and actual boundary checks, and measured proof for all R1–R7. Current stage **NATIVE04_COMPLETION_CONTINUATION_DISPATCHED**: native-03 exact frozen partial source is retained on independent max static review; no S0–S2 source regression was found. Actual native-03 build/pack and all91 source hashes passed, but C2 failed on an omitted output territory and report-path loss; no lane tally/UAT/terminal credit follows. [Selection04](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_REENTRY_SELECTION_04.md) and [closed conjunction](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-03/ROOT_CONJUNCTION.json) select remaining callers, retirement of unconsumed wrappers, witness proof reconciliation and residual repeated-scan attribution. The [native-04 dispatch](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-04/execution/STARTED.json) uses the genuine prior close and corrected operator packet; one native coding Worker, xhigh. Reviews use frozen subjects at max. Full consolidation, actual C2/UAT and fresh closure remain open; all historical evidence and failures remain preserved. [Current status](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json); [whole-path map](../../work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/CONTEXT_AND_CAUSAL_MAP.md).
+
+Completed RC5 delivery, 2026-11-04 AEDT: **BOUNDED_LOCAL_RC5_CUT_INSTALL_COMPLETE**. Source f49e7533ebedff0946383cb0c5380a6ecac7889d, archive4c098c827c9c2c1eb0022d8c205b09690c4c5a722e2b3881599f5602f06640a8; clean rebuild byte-equal and all5,325 installed payloads verified. Bounded37 current passes,18 retained method passes, independent source review, satisfied native UAT and fresh result/replay agreement retain their exact scope. STDO3.0.4 runtime inputs are staged. Local and unqualified; no push/tag/merge/selector/stable claim. Completed evidence and all failures remain preserved. [Handoff](../../work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/local-cut-rc5-01/HANDOFF.md).
+
+
+Historical selections below retain their original wording and evidence. Their “current” labels refer to the recorded dates; the selection above, the current T-287 header and its linked status govern ongoing work.
+
+Current selection, 2026-11-03: **RC5_APPROVED_PREPARING**. Owner “approved - go” selects the bounded [RC5 campaign](../../work/T287_RELEASE_RESUMPTION_01/rc5-performance-01/ROOT_SELECTION.md), using installed RC4 from exact source3c113133d. Source development uses verified STDO3.0.4; runtime migration is explicit successor work. Native coding remains serial and owner-admitted; max independent review targets frozen subjects. Setup, worker launch and between-task latency have separate measurements. Preserve accepted RC4/reviewer evidence and all historical failures; no push/global selector/stable-release claim or completed qualification rerun.
 
 Current selection, 2026-11-03 AEDT: **STDO_304_SOURCE_PIN_INSTALL_COMPLETE**. The owner selects STDO 3.0.4 for ABIogenesis source development before the RC4-to-RC5 campaign. The exact Definition pin and installed native skills are verified in the [adoption record](../../comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md). RC4 source3c113133d and its installed local unqualified artifact retain their original STDO 3.0.2 basis and accepted evidence. Runtime default-library/qualification restaging and RC5 scope/campaign bindings remain separate work; no native coding activation is selected by this pin.
 
@@ -539,12 +556,12 @@ above supersede them.
 - current_method_manifest_sha256: 3d860ff4c1746f06ac25295a9e205cffb8e7725869615ac77cf2304b70ff2782
 - method_repin_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/execution.md#stdo-251-rc2-repin
 - retriaged_at: 2026-09-28
-- updated_at: 2026-10-06
+- updated_at: 2026-11-05
 - prior_environment_change_class: product_reprice_with_requirement_reprice
 - prior_environment_re_entry_point: specification/PRODUCT.md#stdo-governed-run-environment
-- current_activation: BOUNDED_LOCAL_RC4_CUT_INSTALL_COMPLETE; source3c113133d/tree6ff1f9c; archivef59; local unqualified installation verified.
+- current_activation: T287_RC5_F4_03_R1_FROZEN_REVIEW_AND_C2; preimage1ad6b9f854; native3file repair returned and frozen subject6dcb7b4d.
 - prior_genuine_activation: T287_GENUINE_CONTEXT_ASSESSMENT_07
-- current_activation_status: Root completed selected local cut/install; all5321 payloads conserved, source tracked clean. No publication/qualification/global-selector claim.
+- current_activation_status: NATIVE09_SOURCE_ACCEPTED_C2_FAILED_PROOF_ONLY_COMPLETION_PREPARING; IR-01/IR-02 source conformance accepted only; no new coding; actual09 UAT/close and proof-only12-case completion pending.
 - prior_boundary_repair_status: CLOSED_ACCEPT_Hello_expunction_generic_Source_package_and_bounded_installed_language_proof
 - prior_boundary_repair_acceptance: .ai-workspace/work/T287_HELLO_EXPUNCTION_01/acceptance.json
 - current_sandbox_uat_plan: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/plan.md
@@ -597,7 +614,7 @@ above supersede them.
 - current_g2_core_review_status: CLOSED_GO_SOURCE_COMPONENT_CORE_PACKAGE_ONLY_Root_ACCEPT
 - current_library_closure_record: .ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/rc1-library-closure-controls-01/return.md
 - current_library_source_status: G1_G3_G2_eight_groups_and_G2_GTL_core_CLOSED_independent_GO_Root_ACCEPT_Source_component_package_only_installed_and_semantic_proof_OPEN
-- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc4-native-recovery-01/local-cut-rc4-01/HANDOFF.md; FINAL_INSTALL_VERIFICATION9402371f/LOCAL_CUT_RECORD1e93fb57; source3c113133d, no next activation.
+- current_handoff: .ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json -> native-08/review-subject-001/SUBJECT.json, ACTUAL_C2_SUMMARY.json, INDEPENDENT_FH_PROOF_REVIEW.json, NATIVE_UAT_CLOSED_RESULT.json, ACTUAL_FINAL_CLOSE_COORDINATES.json and INTERFACE_RECONCILIATION.json; Root triage before further dispatch.
 - prior_delivery_handoff: .ai-workspace/comments/codex/20261002_HANDOFF_ABG_5_RC1_STEEL_THREAD.md
 - current_candidate_record: .ai-workspace/work/T287_SANDBOX_UAT_RUN_02/executive-retest-05.md
 - current_candidate_archive_sha256: ca7feb52ca90ad581cc0b07d62a26c57526cd50d04814c54e9bcef770300be09

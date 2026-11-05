@@ -134,8 +134,6 @@ export interface NativeLeafProofOperations {
     ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
   readonly qualificationAssessment?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
-  readonly nativeWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
-    ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateNativeWorkReacquisition>;
   /** @internal Selected-body operation of the same invoking owner. */
   readonly nativeOwnedWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateOwnedNativeWorkReacquisition>;

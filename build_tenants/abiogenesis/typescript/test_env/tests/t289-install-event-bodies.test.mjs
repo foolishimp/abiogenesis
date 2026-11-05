@@ -3,13 +3,17 @@ import { execFileSync } from "node:child_process";
 import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 import { Session } from "node:inspector";
 import { filePrefix, loadProjectionOwners, sha256 } from "../support/t287-exact-prefix-projection-reuse.mjs";
+import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
+import { prepareLanguageSmokeFixture } from "../support/language-smoke-fixture.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
-const owners = await loadProjectionOwners(root);
+// Every owner value comes from the one installed module family that produced
+// the history; the cold child loads the same installed root.
+let owners;
 const project = (coordinate) => owners.artifact.projectExactPrefixArtifactTruth(coordinate);
 const asCandidate = (event) => {
   const { eventId, admissionOrdinal, payloadDigest, eventContractDigest, ...candidate } = event;
@@ -53,7 +57,7 @@ async function measuredAdmission(action) {
     let consumerWork;
     if (value.kind === "artifact_owner_result" && value.value.kind === "product_install") {
       const truth = value.artifactTruth;
-      assert.ok(owners.artifact.runtimePrefixFromArtifactTruth(truth), "append returns the actual owner derivation");
+      assert.ok(owners.artifact.runtimePrefixFromOwnedArtifactTruth(truth), "append returns the actual owner derivation");
       const row = truth.rows.find(row => row.admissionEventRef === value.admissionEventRef);
       const installed = owners.environment.projectAdmittedProductInstall(truth, row.artifact, row.invocationRef);
       coverage = await post("Profiler.takePreciseCoverage");
@@ -64,7 +68,7 @@ async function measuredAdmission(action) {
 
       assert.deepEqual(installed, value.value);
       const copy = structuredClone(truth);
-      assert.equal(owners.artifact.runtimePrefixFromArtifactTruth(copy), null);
+      assert.equal(owners.artifact.runtimePrefixFromOwnedArtifactTruth(copy), null);
       assert.deepEqual(owners.environment.projectAdmittedProductInstall(copy, row.artifact, row.invocationRef), installed);
       coverage = await post("Profiler.takePreciseCoverage");
       consumerWork.copiedProjectionValidations = calls("/abg/artifact_truth.js", "validateExactPrefixArtifactTruthProjection");
@@ -81,6 +85,7 @@ async function measuredAdmission(action) {
 
 if (process.argv[2] === "--cold") {
   const input = JSON.parse(await readFile(process.argv[3], "utf8"));
+  owners = await loadProjectionOwners(input.installedRoot);
   const expected = JSON.parse(await readFile(input.expectedPath, "utf8"));
   const outcomes = [];
   for (const entry of input.histories) {
@@ -124,20 +129,35 @@ if (process.argv[2] === "--cold") {
   const ownedProofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT === undefined;
   const proofRoot = process.env.ABI5_INSTALL_BODY_PROOF_ROOT ?? await mkdtemp(join(tmpdir(), "t289-install-body-proof-"));
   if (ownedProofRoot) test.after(() => rm(proofRoot, { recursive: true, force: true }));
-  const historyRequired = "ABI5_INSTALL_BODY_HISTORY and ABI5_INSTALL_BODY_HISTORY_SHA256 unset; requires the owner's digest-bound retained install history";
-  const historyOptions = { skip: !(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256) && historyRequired };
-  test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", historyOptions, async () => {
-    const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
-    assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
+  // The current producer: setupInstalledRootCatalog admits both genuine install
+  // candidates against one resolved lock, then the workspace binding. Its
+  // candidates, lock, authority and owner-produced history are the inputs.
+  const cleanups = [];
+  test.after(async () => { for (const cleanup of cleanups.reverse()) await cleanup(); });
+  let installedSetup;
+  const installed = () => installedSetup ??= (async () => {
+    const env = await setupInstalledRootCatalog({ after: (cleanup) => cleanups.push(cleanup) }, root, {
+      candidateBasisSource: "packed_artifact", workspaceProductIndex: 1,
+      prepareAdditionalProducts: async (candidateBasis) => [await prepareLanguageSmokeFixture(candidateBasis)],
+    });
+    owners = await loadProjectionOwners(env.installedRoot);
+    const historyPath = join(env.scratch, "runtime", "events.jsonl");
+    const original = env.store.readAll().slice(0, 3);
+    assert.deepEqual(original.map((event) => event.payload.operationId),
+      ["abg.operation.product.install", "abg.operation.product.install", "abg.operation.workspace.bind"]);
+    assert.equal(env.installCandidates.length, 2);
+    return { env, historyPath, historySha256: sha256(await readFile(historyPath)), original,
+      candidates: env.installCandidates, lock: env.lock, bindingCandidate: env.bindingCandidate, authority: env.workspaceAuthority };
+  })();
+  const timeout = { timeout: 900_000 };
+  test("T289 owner serialization and cold historical/reference reconstruction preserve exact install truth", timeout, async () => {
+    const { env, historyPath, historySha256, original, candidates, lock, bindingCandidate, authority } = await installed();
     await mkdir(proofRoot, { recursive: true });
     const historyBytes = await readFile(historyPath);
-    assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
-    const original = historyBytes.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
-    assert.equal(original[0].payload.operationId, "abg.operation.product.install");
-    assert.equal(original[1].payload.operationId, "abg.operation.product.install");
-    assert.equal(original[2].payload.operationId, "abg.operation.workspace.bind");
-    assert.deepEqual(original[0].payload.resolvedLock, original[1].payload.resolvedLock);
-    const lock = original[0].payload.resolvedLock;
+    // Current serialization: the first install embeds the lock and the second
+    // references that admitted body.
+    assert.deepEqual(original[0].payload.resolvedLock, lock);
+    assert.equal(original[1].payload.resolvedLock.kind, "resolved_product_lock_reference");
     const path = join(proofRoot, "owner-produced.jsonl");
     const acquisition = owners.events.createNewEmptyAppendSink({
       kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
@@ -145,12 +165,13 @@ if (process.argv[2] === "--cold") {
     assert.ok(acquisition.store);
     const { store } = acquisition;
     try {
-      const firstAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, original[0].payload.artifact,
+      const firstAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, candidates[0],
         basis(original[0], acquisition.prefix), lock));
       const first = firstAdmission.value;
       assert.equal(first.kind, "artifact_owner_result");
       const firstEvent = store.readAll()[0];
-      const firstPrefix = owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll());
+      // Retained identity is a claim of the owned store lineage only.
+      const firstPrefix = owners.prefix.selectRuntimeEventPrefixFromStore(store);
       const firstTruth = owners.artifact.projectArtifactTruth(firstPrefix);
       const predecessorTruth = project(first.successorPrefix);
       const prepared = owners.events.projectRuntimeEventFromValidatedHistory(store.readAll(), asCandidate(original[1]));
@@ -226,7 +247,7 @@ if (process.argv[2] === "--cold") {
         const event = { ...eventBody, eventId: "event://abiogenesis/" + owners.digests.sha256Canonical(eventBody).slice(7) };
         negativeHistories.push({ name, events: [firstEvent, event], valid: false });
       }
-      const secondAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, original[1].payload.artifact,
+      const secondAdmission = await measuredAdmission(() => owners.environment.admitProductInstall(store, candidates[1],
         basis(original[1], first.successorPrefix), lock));
       const second = secondAdmission.value;
       assert.equal(second.kind, "artifact_owner_result", JSON.stringify(second));
@@ -239,42 +260,36 @@ if (process.argv[2] === "--cold") {
       const beforeBinding = await readFile(path);
       const stale = owners.environment.admitArtifact(store, basis(original[2], first.successorPrefix),
         "abg.operation.workspace.bind", original[2].payload.artifactRef,
-        original[2].payload.artifactDigest, { artifact: original[2].payload.artifact,
-          workspaceAuthorityBasis: original[2].payload.workspaceAuthorityBasis });
+        original[2].payload.artifactDigest, { artifact: bindingCandidate, workspaceAuthorityBasis: authority });
       assert.equal(stale.disposition, "coordinate_refused");
       assert.deepEqual(await readFile(path), beforeBinding);
-      const bindingAdmission = await measuredAdmission(() => owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
-        basis(original[2], second.successorPrefix, [firstEvent.eventId, secondEvent.eventId]),
-        original[2].payload.workspaceAuthorityBasis));
+      const bindingAdmission = await measuredAdmission(() => owners.environment.admitWorkspaceBinding(store, bindingCandidate,
+        basis(original[2], second.successorPrefix, [firstEvent.eventId, secondEvent.eventId]), authority));
       const binding = bindingAdmission.value;
       assert.equal(binding.kind, "artifact_owner_result");
       assert.deepEqual(owners.artifact.projectArtifactTruth(firstPrefix), firstTruth,
         "a successful later binding cannot change an immutable prior prefix");
-      const currentTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
+      const currentTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectRuntimeEventPrefixFromStore(store));
       assert.strictEqual(currentTruth.artifacts.find(row => row.admissionEventRef === firstEvent.eventId), firstTruth.artifacts[0],
         "successful suffixes retain the established first-install fact");
-      if (process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS) {
-        assert.deepEqual(await readFile(path), await readFile(process.env.ABI5_LOCK_REUSE_EXPECTED_EVENTS),
-          "the established-lock path emits exactly the predecessor's event bytes");
-      }
+      // A copied selection is not the owned lineage: equal value, no identity.
+      const copiedTruth = owners.artifact.projectArtifactTruth(owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll()));
+      assert.notStrictEqual(copiedTruth.artifacts.find(row => row.admissionEventRef === firstEvent.eventId), firstTruth.artifacts[0]);
+      assert.deepEqual(copiedTruth, currentTruth);
+      assert.deepEqual(store.readAll(), original, "the same owner inputs emit exactly the producer's events");
+      assert.deepEqual(await readFile(path), historyBytes.subarray(0, (await readFile(path)).length),
+        "the established-lock path emits exactly the producer's event bytes");
       const liveProjectionPath = join(proofRoot, "live-projection.json");
       await writeFile(liveProjectionPath, JSON.stringify(binding.artifactTruth));
-      const expected = original.map((event) => ({ artifactRef: event.payload.artifactRef,
-        artifactDigest: event.payload.artifactDigest, artifact: event.payload.artifact,
-        resolvedLock: event.payload.resolvedLock ?? null }));
+      const semantic = [...candidates, bindingCandidate];
+      const expected = original.map((event, index) => ({ artifactRef: event.payload.artifactRef,
+        artifactDigest: event.payload.artifactDigest, artifact: semantic[index], resolvedLock: index < 2 ? lock : null }));
+      for (const row of binding.artifactTruth.rows) {
+        const expectedRow = expected.find((item) => item.artifactRef === row.artifactRef);
+        assert.deepEqual([row.artifact, row.resolvedLock ?? null], [expectedRow.artifact, expectedRow.resolvedLock], row.artifactRef);
+      }
       const expectedPath = join(proofRoot, "expected.json");
       await writeFile(expectedPath, JSON.stringify(expected));
-      const mixedSecond = asCandidate(secondEvent);
-      mixedSecond.causationEventRefs = [original[0].eventId];
-      mixedSecond.payload = { ...mixedSecond.payload, causationEventRefs: mixedSecond.causationEventRefs,
-        resolvedLock: { ...goodReference, admissionEventRef: original[0].eventId,
-          admissionEventDigest: original[0].payloadDigest } };
-      const mixed = [original[0]];
-      mixed.push(owners.events.projectRuntimeEventFromValidatedHistory(mixed, mixedSecond));
-      const mixedBinding = asCandidate(store.readAll()[2]);
-      mixedBinding.causationEventRefs = mixed.map((event) => event.eventId);
-      mixedBinding.payload = { ...mixedBinding.payload, causationEventRefs: mixedBinding.causationEventRefs };
-      mixed.push(owners.events.projectRuntimeEventFromValidatedHistory(mixed, mixedBinding));
       // A reference-bearing event cannot supply the embedded source, even when
       // the referenced lock is equal. Use a distinct envelope to reach this check.
       const chainCandidate = asCandidate(secondEvent);
@@ -285,9 +300,8 @@ if (process.argv[2] === "--cold") {
       const chained = owners.events.projectRuntimeEventFromValidatedHistory(store.readAll().slice(0, 2), chainCandidate);
       const histories = [];
       for (const entry of [
-        { name: "historical", events: original, valid: true },
+        { name: "installed producer", events: original, valid: true },
         { name: "new owner-produced", events: store.readAll(), valid: true },
-        { name: "mixed historical/new projection probe", events: mixed, valid: true },
         { name: "reference chain", events: [...store.readAll().slice(0, 2), chained], valid: false },
         ...negativeHistories,
       ]) {
@@ -296,7 +310,7 @@ if (process.argv[2] === "--cold") {
         histories.push({ name: entry.name, path: file, valid: entry.valid });
       }
       const coldInputPath = join(proofRoot, "cold-input.json");
-      await writeFile(coldInputPath, JSON.stringify({ expectedPath, histories, liveProjectionPath, livePath: path }, null, 2));
+      await writeFile(coldInputPath, JSON.stringify({ installedRoot: env.installedRoot, expectedPath, histories, liveProjectionPath, livePath: path }, null, 2));
       store.projectReopenAuthorityAndClose();
       const coldResult = JSON.parse(execFileSync(process.execPath,
         [fileURLToPath(import.meta.url), "--cold", coldInputPath], { encoding: "utf8", maxBuffer: 1024 * 1024 }));
@@ -308,7 +322,7 @@ if (process.argv[2] === "--cold") {
       await writeFile(path, corrupt);
       assert.equal(project(coordinate).code, "prefix_digest_mismatch");
       await writeFile(path, before);
-      assert.equal(sha256(await readFile(historyPath)), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
+      assert.equal(sha256(await readFile(historyPath)), historySha256);
       await writeFile(join(proofRoot, "result.json"), JSON.stringify({
         retainedInput: { path: historyPath, sha256: sha256(historyBytes) },
         ownerEvents: store.readAll().length, historicalPrefixBytes: encode(original).length,
@@ -319,18 +333,16 @@ if (process.argv[2] === "--cold") {
         completeLiveColdProjectionEqual: true,
         candidateDeltaColdCases: deltaCases.length,
         physicalMutationRefused: true, retainedInputUnchanged: true,
-        scope: "Owner and cold-reader regression; synthetic histories are explicitly projection/refusal probes, not installed qualification.",
+        scope: "Owner and cold-reader regression over setupInstalledRootCatalog inputs; synthetic histories are explicitly refusal probes, not installed qualification.",
       }, null, 2) + "\n");
     } finally {
       store.closeDurableLog();
     }
   });
 
-  test("T289 live state recovers after rollback without changing earlier artifact prefixes", historyOptions, async () => {
-    assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
-    const historyBytes = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
-    assert.equal(sha256(historyBytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
-    const original = historyBytes.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
+  test("T289 live state recovers after rollback without changing earlier artifact prefixes", timeout, async () => {
+    const { original, candidates, lock, bindingCandidate, authority } = await installed();
+    await mkdir(proofRoot, { recursive: true });
     const path = join(proofRoot, "rollback.jsonl");
     const acquired = owners.events.createNewEmptyAppendSink({
       kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
@@ -338,12 +350,10 @@ if (process.argv[2] === "--cold") {
     const { store } = acquired;
     assert.ok(store);
     try {
-      const first = owners.environment.admitProductInstall(store, original[0].payload.artifact,
-        basis(original[0], acquired.prefix), original[0].payload.resolvedLock);
+      const first = owners.environment.admitProductInstall(store, candidates[0], basis(original[0], acquired.prefix), lock);
       const earlierPrefix = owners.prefix.selectValidatedRuntimeEventPrefix(store.readAll());
       const earlierTruth = owners.artifact.projectArtifactTruth(earlierPrefix);
-      const second = owners.environment.admitProductInstall(store, original[1].payload.artifact,
-        basis(original[1], first.successorPrefix), original[1].payload.resolvedLock);
+      const second = owners.environment.admitProductInstall(store, candidates[1], basis(original[1], first.successorPrefix), lock);
       const accepted = project(second.successorPrefix);
       const bytes = await readFile(path);
       const marker = {
@@ -364,9 +374,8 @@ if (process.argv[2] === "--cold") {
       assert.deepEqual(project(second.successorPrefix), accepted);
       assert.deepEqual(owners.artifact.projectArtifactTruth(earlierPrefix), earlierTruth,
         "invalidated computation still reconstructs the same immutable prior prefix");
-      const binding = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
-        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)),
-        original[2].payload.workspaceAuthorityBasis);
+      const binding = owners.environment.admitWorkspaceBinding(store, bindingCandidate,
+        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)), authority);
       assert.equal(binding.kind, "artifact_owner_result", JSON.stringify(binding));
       assert.equal(store.readAll().length, 3);
       assert.equal(store.readAll().at(-1).kind, "public_operation_artifact_admitted");
@@ -380,30 +389,24 @@ if (process.argv[2] === "--cold") {
     }
   });
 
-  test("T289 established causal installs and binding admit a new lock without changing prior truth", historyOptions, async () => {
-    const product = await import("../../build/code/src/product/environment.js");
-    const coordinate = await import("../../build/code/src/shared/operation_definition_coordinate.js");
-    assert.ok(process.env.ABI5_INSTALL_BODY_HISTORY && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
-    const history = await readFile(process.env.ABI5_INSTALL_BODY_HISTORY);
-    assert.equal(sha256(history), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
-    const original = history.toString().trimEnd().split("\n").slice(0, 3).map(JSON.parse);
+  test("T289 established causal installs and binding admit a new lock without changing prior truth", timeout, async () => {
+    const { env, original, candidates, lock, bindingCandidate, authority } = await installed();
+    const product = await import(pathToFileURL(join(env.installedRoot, "build/code/src/product/environment.js")).href);
+    const coordinate = await import(pathToFileURL(join(env.installedRoot, "build/code/src/shared/operation_definition_coordinate.js")).href);
+    await mkdir(proofRoot, { recursive: true });
     const path = join(proofRoot, "new-lock-append.jsonl");
     const { store, prefix } = owners.events.createNewEmptyAppendSink({
       kind: "new_empty_append_sink_request", schemaVersion: "5.0.0", eventLogPath: path,
     });
     assert.ok(store);
     try {
-      const lock = original[0].payload.resolvedLock;
       assert.equal(product.isResolvedProductLock(lock), true);
-      const first = owners.environment.admitProductInstallInResolvedLock(store, original[0].payload.artifact,
-        basis(original[0], prefix), lock);
+      const first = owners.environment.admitProductInstallInResolvedLock(store, candidates[0], basis(original[0], prefix), lock);
       assert.equal(first.kind, "artifact_owner_result");
-      const second = owners.environment.admitProductInstallInResolvedLock(store, original[1].payload.artifact,
-        basis(original[1], first.successorPrefix), lock);
+      const second = owners.environment.admitProductInstallInResolvedLock(store, candidates[1], basis(original[1], first.successorPrefix), lock);
       assert.equal(second.kind, "artifact_owner_result");
-      const bound = owners.environment.admitWorkspaceBinding(store, original[2].payload.artifact,
-        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)),
-        original[2].payload.workspaceAuthorityBasis);
+      const bound = owners.environment.admitWorkspaceBinding(store, bindingCandidate,
+        basis(original[2], second.successorPrefix, store.readAll().map(event => event.eventId)), authority);
       assert.equal(bound.kind, "artifact_owner_result");
       const prior = bound.artifactTruth;
       const priorEvents = store.readAll();
@@ -412,9 +415,9 @@ if (process.argv[2] === "--cold") {
       nextLock.lockDigest = owners.digests.sha256Canonical({ rows: nextLock.rows,
         dependencyEdges: nextLock.dependencyEdges, nativeContractClosureDigest: nextLock.nativeContractClosureDigest });
       nextLock.lockId = "product-lock://abiogenesis/" + nextLock.lockDigest.slice(7);
-      const candidate = { ...original[0].payload.artifact,
+      const candidate = { ...candidates[0],
         resolvedLockId: nextLock.lockId, resolvedLockDigest: nextLock.lockDigest,
-        installId: original[0].payload.artifact.installId.replace(lock.lockDigest.slice(7), nextLock.lockDigest.slice(7)) };
+        installId: candidates[0].installId.replace(lock.lockDigest.slice(7), nextLock.lockDigest.slice(7)) };
       const nextBasis = { ...basis(original[0], bound.successorPrefix),
         ...coordinate.constructExactOperationInvocationCoordinate({ operationId: "abg.operation.product.install",
           memberKey: "install", definitionDigest: original[0].payload.definitionDigest },
@@ -441,14 +444,11 @@ if (process.argv[2] === "--cold") {
   // RETIRED (C-5 stop 2): the ABI5_INSTALL_BODY_PREDECESSOR_ROOT arm and the
   // predecessor/successor refusal equality are claims about the change from
   // that predecessor build. The current build's structured raw refusal stays.
-  test("T289 raw install eligibility returns its structured refusal without appending", historyOptions, async () => {
-    const historyPath = process.env.ABI5_INSTALL_BODY_HISTORY;
-    assert.ok(historyPath && process.env.ABI5_INSTALL_BODY_HISTORY_SHA256, historyRequired);
-    const bytes = await readFile(historyPath);
-    assert.equal(sha256(bytes), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
-    const original = JSON.parse(bytes.toString().split("\n")[0]);
+  test("T289 raw install eligibility returns its structured refusal without appending", timeout, async () => {
+    const { env, historyPath, historySha256, original: [original], candidates, lock } = await installed();
+    await mkdir(proofRoot, { recursive: true });
     const results = [];
-    for (const [label, selectedOwners, packageRoot] of [["successor", owners, root]]) {
+    for (const [label, selectedOwners, packageRoot] of [["successor", owners, env.installedRoot]]) {
       for (const malformed of [false, true]) {
         const path = join(proofRoot, `raw-${label}-${malformed ? "null" : "valid"}.jsonl`);
         const { store, prefix } = selectedOwners.events.createNewEmptyAppendSink({
@@ -456,8 +456,7 @@ if (process.argv[2] === "--cold") {
         });
         assert.ok(store);
         try {
-          const metadata = structuredClone({ artifact: original.payload.artifact,
-            resolvedLock: original.payload.resolvedLock });
+          const metadata = structuredClone({ artifact: candidates[0], resolvedLock: lock });
           if (malformed) metadata.artifact.productContentDigest = null;
           let result;
           assert.doesNotThrow(() => {
@@ -474,8 +473,8 @@ if (process.argv[2] === "--cold") {
           } else {
             assert.equal(result.disposition, "admitted", label);
             assert.equal(store.readAll().length, 1, label);
-            assert.deepEqual(result.artifactTruth.rows[0].artifact, original.payload.artifact, label);
-            assert.deepEqual(result.artifactTruth.rows[0].resolvedLock, original.payload.resolvedLock, label);
+            assert.deepEqual(result.artifactTruth.rows[0].artifact, candidates[0], label);
+            assert.deepEqual(result.artifactTruth.rows[0].resolvedLock, lock, label);
             assert.equal(store.readAll()[0].payload.artifact.kind, "product_install_lock_row", label);
           }
           results.push({ label, malformed, root: packageRoot, returned: true,
@@ -488,10 +487,10 @@ if (process.argv[2] === "--cold") {
         }
       }
     }
-    assert.equal(sha256(await readFile(historyPath)), process.env.ABI5_INSTALL_BODY_HISTORY_SHA256);
+    assert.equal(sha256(await readFile(historyPath)), historySha256);
     await writeFile(join(proofRoot, "raw-refusal-comparison.json"), JSON.stringify({
       mutation: "artifact.productContentDigest = null; all other candidate, lock and invocation fields retained",
-      history: historyPath, historySha256: sha256(bytes), results,
+      history: historyPath, historySha256, results,
     }, null, 2) + "\n");
   });
 }

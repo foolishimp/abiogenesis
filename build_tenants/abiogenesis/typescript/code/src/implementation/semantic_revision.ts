@@ -2,8 +2,8 @@ import { SEMANTIC_REVISION_IDS as ids } from "../gtl/semantic_revision_identity.
 import { SEMANTIC_STAGE_IDS as old } from "../gtl/semantic_stage_identity.js";
 import { semanticRevisionImplementationBindings } from "../gtl/semantic_revision_publication.js";
 import { requireNativeInstructionAssembly, type NativeInstructionAssembly } from "../abg/instruction_assembly.js";
-import { authenticateSemanticStageBasis, type SemanticStageNativeBasis } from "../abg/semantic_stage.js";
-import { authenticateSemanticJobBasis } from "../abg/semantic_job.js";
+import { authenticateOwnedSemanticStageBasis, type SemanticStageNativeBasis } from "../abg/semantic_stage.js";
+import { authenticateOwnedSemanticJobBasis } from "../abg/semantic_job.js";
 import { projectSemanticRevision, semanticRevisionInputMatchesBasis, projectRevisionWorksitePreparation, projectRevisionEvidenceInput, semanticRevisionSelectionMatchesBasis,
   prepareNativeSemanticRevisionIntake, projectNativeSemanticRevisionRequest, projectNativeRevisionConstructionTask, projectNativeRevisionExecutionTask, projectNativeRevisionEvidence,
   projectSemanticJobRevision, semanticJobRevisionInputMatchesBasis, projectJobRevisionPreparation, jobRevisionSelectionMatchesBasis } from "../abg/semantic_revision.js";
@@ -57,7 +57,7 @@ function actor(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<
   Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   const basis = occurrence.semanticStageBasis;
   const owner = basis === undefined ? null : (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-    ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+    ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
   const assembly = basis === undefined ? null : (prepareAssembly === undefined ? requireNativeInstructionAssembly(basis, input) : prepareAssembly());
   if (owner === null || owner.role !== role || owner.stage === undefined || assembly === null ||
     (!isSemanticRevisionEnvelope(input) && !isSemanticJobRevisionEnvelope(input))) throw new TypeError("revision actor requires native basis and assembly");
@@ -96,7 +96,7 @@ export function realizeSemanticRevisionTerminal(input: Readonly<Record<string, J
 
 export function realizeSemanticRevisionSelection(input: Readonly<Record<string, JsonValue>>, occurrence: Readonly<LeafExecutionOccurrence>, prepareAssembly?: () => Readonly<NativeInstructionAssembly>): Readonly<PreparedProbabilisticLeafInvocation<Readonly<LeafRealizationCandidate>>> {
   const basis = occurrence.semanticStageBasis, job = basis !== undefined && (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined;
-  const owner = basis === undefined ? null : job ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+  const owner = basis === undefined ? null : job ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
   const assembly = basis === undefined ? null : (prepareAssembly === undefined ? requireNativeInstructionAssembly(basis, input) : prepareAssembly());
   if (owner === null || basis === undefined || owner.call.implementationRef !== ids.selectionImplementationRef || assembly === null) throw new TypeError("selection requires native admitted parent and cause");
   return deepFreeze({ kind: "prepared_probabilistic_leaf_invocation", schemaVersion: "5.0.0", workerRequest: assembly.request,

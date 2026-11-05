@@ -21,13 +21,13 @@ import {
   admitRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   projectRuntimeEventFromValidatedHistory,
-  readHeldRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidate,
 } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { indexedRuntimeEvents, runtimeEventBodiesAtPrefix, runtimeEventPrefixExtent,
+  selectRuntimeEventPrefixFromAuthority, selectRuntimeEventPrefixFromStore, type RuntimeEventPrefix } from "./event_prefix.js";
 import { projectRuntimeReplayRouteRefsAndCCalls } from "./replay.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
@@ -601,10 +601,10 @@ function eventPayload(event: RuntimeEvent): Readonly<Record<string, JsonValue>> 
 }
 
 function hasExactBasis(
-  events: readonly RuntimeEvent[],
+  prefix: RuntimeEventPrefix,
   basis: ReferenceDigest,
 ): boolean {
-  return events.some((event) => {
+  return indexedRuntimeEvents(prefix, "payload:basisRef:" + basis.ref).some((event) => {
     const payload = eventPayload(event);
     return event.kind === "basis_admitted" &&
       payload?.basisRef === basis.ref && payload.basisDigest === basis.digest;
@@ -612,11 +612,11 @@ function hasExactBasis(
 }
 
 function selectRunOpen(
-  events: readonly RuntimeEvent[],
+  prefix: RuntimeEventPrefix,
   run: ReferenceDigest,
   basis: ReferenceDigest,
 ): RuntimeEvent | null {
-  const matches = events.filter((event) => {
+  const matches = indexedRuntimeEvents(prefix, "kind:run_segment_opened").filter((event) => {
     const payload = eventPayload(event);
     return event.kind === "run_segment_opened" &&
       event.runId === run.ref &&
@@ -727,7 +727,7 @@ type PreparedSemanticEvent = Readonly<{
 function prepareSemanticEvent(
   packet: WitnessAdmitPacket,
   authority: WitnessAdmissionAuthority,
-  events: readonly RuntimeEvent[],
+  prefix: RuntimeEventPrefix,
   publicOperationEventRef: string,
 ): PreparedSemanticEvent | WitnessAdmissionRefusal {
   const body = witnessedActBody(packet);
@@ -785,7 +785,7 @@ function prepareSemanticEvent(
       if (
         packet.context.kind !== "basis" ||
         !sameCoordinate(packet.subject, packet.context.basis) ||
-        !hasExactBasis(events, packet.context.basis)
+        !hasExactBasis(prefix, packet.context.basis)
       ) {
         return refusal(
           packet.memberKey,
@@ -817,7 +817,7 @@ function prepareSemanticEvent(
     case "attest": {
       if (
         packet.context.kind !== "basis" ||
-        !hasExactBasis(events, packet.context.basis) ||
+        !hasExactBasis(prefix, packet.context.basis) ||
         packet.subject.ref !== packet.prefix.eventLogRef ||
         packet.subject.digest !== packet.prefix.prefixDigest
       ) {
@@ -828,15 +828,18 @@ function prepareSemanticEvent(
           "replay attestation subject must be the exact selected durable prefix",
         );
       }
+      // The attestation genuinely hashes the exact complete canonical chain;
+      // only this member acquires every selected body.
       const chainDigest = sha256Canonical({
         kind: "canonical_replay_chain",
         schemaVersion: "5.0.0",
-        events,
+        events: [...runtimeEventBodiesAtPrefix(prefix)],
       });
+      const eventCount = runtimeEventPrefixExtent(prefix).count;
       const attestationBody = {
         basisId: packet.context.basis.ref,
         chainDigest,
-        eventCount: events.length,
+        eventCount,
         attestedBy: packet.actor.ref,
       };
       return {
@@ -849,7 +852,7 @@ function prepareSemanticEvent(
             attestationRef:
               `replay-attestation:${sha256Canonical(attestationBody)}`,
             chainDigest,
-            eventCount: events.length,
+            eventCount,
             attestedBy: packet.actor.ref,
           },
         ),
@@ -875,7 +878,7 @@ function prepareSemanticEvent(
       }>[];
       const rows: JsonValue[] = [];
       for (const observation of observations) {
-        const admitted = events.filter((event) => {
+        const admitted = indexedRuntimeEvents(prefix, "payload:artifactRef:" + observation.artifactRef).filter((event) => {
           const payload = eventPayload(event);
           return event.kind === "public_operation_artifact_admitted" &&
             payload?.artifactRef === observation.artifactRef;
@@ -957,7 +960,7 @@ function prepareSemanticEvent(
         );
       }
       const runOpen = selectRunOpen(
-        events,
+        prefix,
         packet.context.run,
         authority.executionBasis,
       );
@@ -974,12 +977,11 @@ function prepareSemanticEvent(
           "defect intake segment differs from admitted Run truth",
         );
       }
-      const fullPrefix = selectValidatedRuntimeEventPrefix(events);
       const replay = projectRuntimeReplayRouteRefsAndCCalls(
-        selectValidatedRuntimeEventPrefix(events, {
+        selectRuntimeEventPrefixFromAuthority(prefix, {
           runId: packet.context.run.ref,
         }),
-        fullPrefix,
+        prefix,
       );
       if (!["blocked", "failed", "gap_stopped", "stopped"].includes(
         replay.runtimeStatus,
@@ -1055,7 +1057,7 @@ function prepareSemanticEvent(
         authority.executionBasis === null ||
         !sameCoordinate(packet.subject, packet.context.run) ||
         !sameCoordinate(packet.context.basis, authority.executionBasis) ||
-        selectRunOpen(events, packet.context.run, packet.context.basis) === null
+        selectRunOpen(prefix, packet.context.run, packet.context.basis) === null
       ) {
         return refusal(
           packet.memberKey,
@@ -1064,7 +1066,7 @@ function prepareSemanticEvent(
           "operator lifecycle act requires the exact admitted Run and execution basis",
         );
       }
-      const runPrefix = selectValidatedRuntimeEventPrefix(events, {
+      const runPrefix = selectRuntimeEventPrefixFromAuthority(prefix, {
         runId: packet.context.run.ref,
       });
       const current = packet.memberKey === "run-stopped"
@@ -1124,8 +1126,12 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
   }
   // I-JSON admission deliberately copies the packet. Authority validation has
   // already joined that coordinate to this live owner; retain that relation.
-  const events = readHeldRuntimeEventsAtDurablePrefix(dependencies.eventStore, packet.prefix);
-  const duplicates = events.filter((event) => {
+  // The held store supplies currentness and admitted correspondence; its
+  // authenticated cut then serves indexed member facts without a second cold
+  // acquisition or a complete-history materialization.
+  assertHeldEventStoreAtDurablePrefix(dependencies.eventStore, packet.prefix);
+  const prefix = selectRuntimeEventPrefixFromStore(dependencies.eventStore);
+  const duplicates = indexedRuntimeEvents(prefix, "invocation:" + authority.operationBasis.invocationRef).filter((event) => {
     const payload = eventPayload(event);
     return event.kind === "public_operation_admitted" &&
       payload?.invocationRef === authority.operationBasis.invocationRef;
@@ -1142,13 +1148,13 @@ export function admitWitnessedAct<K extends WitnessAdmissionMemberKey>(
   try {
     const publicCandidate = publicOperationCandidate(packet, authority);
     const projectedPublicOperationEvent = projectRuntimeEventFromValidatedHistory(
-      events,
+      runtimeEventBodiesAtPrefix(prefix),
       publicCandidate,
     );
     const prepared = prepareSemanticEvent(
       packet,
       authority,
-      events,
+      prefix,
       projectedPublicOperationEvent.eventId,
     );
     if ("kind" in prepared && prepared.kind === "witness_admission_refusal") {

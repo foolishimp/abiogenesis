@@ -19,7 +19,8 @@ import {
   indexedRuntimeEvents,
   runtimeEventPrefixDigest,
   runtimeEventPrefixExtent,
-  selectValidatedRuntimeEventPrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectRuntimeEventPrefixFromAuthority,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import type {
@@ -34,7 +35,6 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
@@ -273,9 +273,8 @@ export function admitRuntimeFailure(
     diagnosticRef,
     basis,
   } = input;
-  const predecessorEvents = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
-  const runPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+  const authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
+  const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
     runId: scope.runId,
   });
   if (
@@ -343,7 +342,9 @@ export function admitRuntimeFailure(
     ...body,
     admissionEventRef: transaction.value.eventId,
   }) as RuntimeFailureAdmission;
-  const successorEvents = readRuntimeEventsAtDurablePrefix(
+  // The receipt keeps its complete selected-Run replay over the committed
+  // successor's owned prefixes.
+  const successor = readOwnedRuntimeEventPrefixAtDurablePrefix(
     transaction.successorPrefix,
   );
   return deepFreeze({
@@ -351,8 +352,8 @@ export function admitRuntimeFailure(
     schemaVersion: "5.0.0" as const,
     admission,
     replayState: replayValidatedRuntimeEventPrefix(
-      selectValidatedRuntimeEventPrefix(successorEvents, { runId: scope.runId }),
-      selectValidatedRuntimeEventPrefix(successorEvents),
+      selectRuntimeEventPrefixFromAuthority(successor, { runId: scope.runId }),
+      successor,
     ),
     successorPrefix: transaction.successorPrefix,
   });

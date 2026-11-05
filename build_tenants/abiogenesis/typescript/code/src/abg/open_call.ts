@@ -1,4 +1,5 @@
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
@@ -26,8 +27,8 @@ import {
   AbgEventStore,
   admitRuntimeEvent,
   admitRuntimeEventTransactionAtExpectedPrefix,
-  readHeldRuntimeEventsAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
+  assertHeldEventStoreAtDurablePrefix,
+  selectHeldEventStoreDurablePrefix,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
@@ -397,9 +398,7 @@ export function projectOpenedTraversalScopeClassAtDurablePrefix(
   scope: OpenedTraversalScope,
 ): "root" | "child" | null {
   return projectOpenedTraversalScopeClassAtPrefix(
-    selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(predecessorPrefix),
-    ),
+    readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix),
     scope,
   );
 }
@@ -409,7 +408,7 @@ export function rehydrateOpenedTraversalScope(
   value: Readonly<Record<string, JsonValue>>,
 ): OpenedTraversalScope | null {
   return rehydrateOpenedTraversalScopeAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     value,
   );
 }
@@ -477,9 +476,8 @@ export function openTraversalScope(
   subject: TraversalScopeOpenSubject,
   basis: RuntimeAdmissionBasis,
 ): OpenTraversalScopeResult {
-  let snapshot: readonly import("./event_store.js").RuntimeEvent[];
   try {
-    snapshot = readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix);
+    assertHeldEventStoreAtDurablePrefix(store, predecessorPrefix);
   } catch {
     return scopeOpenRefusal(
       subject.kind === "root"
@@ -488,9 +486,10 @@ export function openTraversalScope(
       "scope opening requires one exact durable predecessor prefix",
     );
   }
-  let authorityPrefix: ValidatedRuntimeEventPrefix;
+  let authorityPrefix: RuntimeEventPrefix;
   try {
-    authorityPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+    // The held durable cut is borrowed; a missing owner binding reads it cold.
+    authorityPrefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(selectHeldEventStoreDurablePrefix(store));
   } catch {
     return scopeOpenRefusal(
       subject.kind === "root"

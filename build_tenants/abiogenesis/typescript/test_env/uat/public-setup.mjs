@@ -100,16 +100,32 @@ export async function verifyArtifact(runtime,{artifactPath,manifest,expectedArti
 
 export function publicCaller({root,runtime,native,command,record,config,actorRef:selectedActorRef}) {
   const {product,abg,api}=runtime, hash=product.sha256Canonical;
-  const state={closeHandoff:null,binding:null,environment:null,resolvedLock:null,catalog:null,catalogView:null,calls:[]};
+  const state={closeHandoff:null,resource:null,selection:null,binding:null,environment:null,resolvedLock:null,catalog:null,catalogView:null,calls:[]};
   const actorRef=selectedActorRef??'actor://abi5-tests/sandbox-uat/'+config.runId;
   const coordinate=(ref,value={ref})=>({ref,digest:hash(value)});
   const actor={actor:coordinate(actorRef),attribution:coordinate(actorRef+'/test-owner')};
   const verified=native.verified, contractCatalog={productId:verified.productId,productContentDigest:verified.productContentDigest,
     catalogId:verified.catalogId,catalogVersion:version,catalogDigest:verified.catalogDigest};
   const reopen=()=>({kind:'reopen_abg_event_resource',schemaVersion:version,closeHandoff:state.closeHandoff,handoffDigest:hash(state.closeHandoff)});
+  // While setup holds its one acquired resource, the borrowed selection is the
+  // current prefix; after the final close, the close handoff is.
+  const prefix=()=>state.selection?.prefix??state.closeHandoff?.prefix??null;
+  /** One outer acquisition for the setup interval; each call borrows its selection. */
+  const acquire=(assertion)=>{
+    if(state.resource!==null)throw new BoundaryFailure('setup-acquisition','Setup already holds its event resource');
+    const resource=requireKind(abg.acquireAbgEventResource(assertion),'acquired_abg_event_resource','setup-acquisition').resource;
+    state.resource=resource;state.selection=abg.selectAcquiredAbgEventResource(resource,resource.entryPrefix);
+    return state.selection;
+  };
+  /** The final close publishes the handoff that later genuine cold entries reopen. */
+  const close=(finalPrefix=state.selection.prefix)=>{
+    const receipt=abg.closeAbgEventResource(state.resource,finalPrefix);
+    state.resource=null;state.selection=null;state.closeHandoff=receipt.closeHandoff;
+    return receipt;
+  };
   const refresh=(readSource)=>{
-    const prefix=state.closeHandoff.prefix,retained=readSource??state.environment?.prefix;
-    const source=retained&&hash(retained)===hash(prefix)?retained:prefix;
+    const current=prefix(),retained=readSource??state.environment?.prefix;
+    const source=retained&&hash(retained)===hash(current)?retained:current;
     const truth=requireKind(abg.projectOwnedPrefixArtifactTruth(source),'exact_prefix_artifact_truth_projection','workspace-prefix-projection');
     if(!abg.validateExactPrefixArtifactTruthProjection(truth,{requireCurrent:true}))throw new BoundaryFailure('workspace-prefix-projection','Authenticated read source is not current');
     state.environment=requireKind(abg.projectWorkspaceEnvironmentFromArtifactTruth(truth,state.binding),
@@ -119,33 +135,43 @@ export function publicCaller({root,runtime,native,command,record,config,actorRef
   const boundSlots=()=>({workspace_binding:state.binding,product_set:state.environment.productInstalls.map(product.productInstallCoordinate),
     dependency_lock:{ref:state.resolvedLock.lockId,digest:state.resolvedLock.lockDigest},actor});
   async function authorize(packet,request,resources,supplied={}) {
+    // Grants bind the borrowed operation resource at the current prefix.
+    const resource=state.selection===null?null:
+      requireKind(abg.acquireAbgEventResource(state.selection),'acquired_abg_event_resource','borrow-current-resource').resource;
     return authorizeInstalledOperation({runtime,native,actorRef,packet,request,resources,supplied,
-      prefix:state.closeHandoff?.prefix??null,requestRef:'request://abi5-tests/sandbox-uat/'+config.runId+'/'+state.calls.length,
+      prefix:prefix(),resource,requestRef:'request://abi5-tests/sandbox-uat/'+config.runId+'/'+state.calls.length,
       correlationRef:'correlation://abi5-tests/sandbox-uat/'+config.runId,
       authorityRef:'authority://abi5-tests/sandbox-uat/'+config.runId,provenanceRefs:[pathToFileURL(join(root,'run.json')).href]});
   }
   /** The installed SDK transport receives the actual constructed call in this
-   * module instance; records are compact evidence, never re-ingested. */
+   * module instance; records are compact evidence, never re-ingested. Calls
+   * carrying the held selection or a bound environment run on the borrowed
+   * resource; forbidden-binding calls without an event resource stay eventless. */
   async function invoke(label,call,{expectResult=true}={}) {
-    const acquisition=transportAcquisition(call),invocation=call.invocation,resources=call.resources;
-    await record('calls/'+label+'.request.json',{kind:'installed_setup_call_coordinates',label,acquisitionKind:acquisition.kind,
+    const invocation=call.invocation,resources=call.resources,selection=state.selection;
+    const borrowed=selection!==null&&(resources.eventResource!==undefined||resources.admissionAuthority?.basis?.boundEnvironment!=null);
+    const acquisitionKind=borrowed?'borrowed':transportAcquisition(call).kind;
+    await record('calls/'+label+'.request.json',{kind:'installed_setup_call_coordinates',label,acquisitionKind,
       definitionKey:invocation.definitionKey,invocationRef:invocation.invocationRef,invocationDigest:invocation.invocationDigest,
       requestDigest:hash(invocation.request),resourceKind:resources.kind,resourcesDigest:hash(resources),
-      eventResource:resources.eventResource?{kind:resources.eventResource.kind,digest:hash(resources.eventResource)}:null});
+      eventResource:resources.eventResource?{kind:resources.eventResource.kind,digest:hash(resources.eventResource)}:null,
+      entryPrefix:borrowed?selection.prefix:null});
     const started=new Date().toISOString(),startedMs=performance.now();
-    const outcome=await api.runInstalledDefinitionCallTransport(acquisition,call);
+    const outcome=borrowed?await api.runInstalledDefinitionCallWithResource(selection,call)
+      :await api.runInstalledDefinitionCallTransport(transportAcquisition(call),call);
     const wallMs=performance.now()-startedMs;
     await record('calls/'+label+'.outcome.json',outcome);
-    const receipt=outcome.receipt, handoff=receipt?.resources?.eventResource?.closeHandoff;
-    if(handoff){state.closeHandoff=handoff;await record('calls/'+label+'.close.json',handoff);}
+    const receipt=outcome.receipt, completion=borrowed?receipt?.resources?.eventResource:undefined;
+    if(borrowed)state.selection=completion?requireKind(completion,'abg_event_resource_completion',label+'-completion').successor
+      :abg.selectAcquiredAbgEventResource(state.resource,abg.selectHeldEventStoreDurablePrefix(state.resource.store));
     state.calls.push({label,exitCode:receipt?.exitCode??null,definitionKey:invocation.definitionKey,
       outcomeKind:receipt?.ownerOutput?.outcomeKind??outcome.kind,invocationRef:invocation.invocationRef,
-      acquisitionKind:acquisition.kind,closeDigest:handoff?hash(handoff):null,started,wallMs});
+      acquisitionKind,prefixDigest:borrowed?hash(state.selection.prefix):null,started,wallMs});
     requireKind(outcome,'installed_definition_call_transport_result',label+'-transport');
     if(expectResult&&(receipt.exitCode!==0||receipt.ownerOutput?.outcomeKind!=='result'))throw new BoundaryFailure(label,receipt);
     return {call,outcome,receipt};
   }
-  return {root,runtime,native,config,record,command,state,actorRef,actor,contractCatalog,reopen,refresh,boundSlots,authorize,invoke};
+  return {root,runtime,native,config,record,command,state,actorRef,actor,contractCatalog,reopen,prefix,acquire,close,refresh,boundSlots,authorize,invoke};
 }
 
 export async function populateSandbox(caller) {
@@ -192,73 +218,86 @@ async function populateInstalledSetup(caller) {
   if(hash(resolved.receipt.ownerOutput.value.resolvedLock)!==hash(lock))throw new BoundaryFailure('resolved-lock-identity',resolved.receipt);
   const eventLogPath=join(root,'resources/events/runtime.events.jsonl');await mkdir(dirname(eventLogPath),{recursive:true});
   const installations=[];
-  for(let i=0;i<natives.length;i++) {
-    const item=natives[i],packed=packedArtifacts[i],eventResource=i===0?{kind:'new_abg_event_resource',schemaVersion:version,eventLogPath,
-      locatorDigest:hash({kind:'abg_event_log_locator',eventLogPath:resolve(eventLogPath)})}:caller.reopen();
-    const result=await invoke('product-install-'+i,await authorize(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
-      {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:packed.descriptor,contributionManifest:packed.contributionManifest,
-        resolvedLock:lock,targetRoot:join(root,'sandbox/installed',i===0?'abg':'test-consumer'),installPolicy:'clean'},
-      {kind:'product_install_resource_assertion',schemaVersion:version,eventResource,packedArtifact:packed,verifiedArtifact:item.verified,resolvedLock},
-      {dependency_lock:lock,verification_references:[verificationRefs[i]],actor}));
-    const artifactTruth=abg.projectExactPrefixArtifactTruth(state.closeHandoff.prefix);
-    const admitted=abg.projectAdmittedProductInstallByInvocationRef(artifactTruth,result.call.invocation.invocationRef);
-    if(!admitted?.install)throw new BoundaryFailure('installed-event-projection',admitted);
-    installations.push(admitted.install);
-    await record('installed/'+i+'/product-toolchain-manifest.json',JSON.parse(await readFile(result.receipt.resources.installManifest.ref,'utf8')));
-    const installerManifest=result.receipt.resources.installerManifest;
-    await record('installed/'+i+'/installer-manifest-reference.json',{installerManifest,prefix:state.closeHandoff.prefix});
-    if(installerManifest?.ref!==artifactTruth.projectionRef||installerManifest?.digest!==artifactTruth.projectionDigest)throw new BoundaryFailure('installer-manifest-projection',installerManifest);
-    await record('installed/'+i+'/identity.json',{install:admitted.install,receipt:result.receipt});
+  // Setup acquires the new event resource once at the first install, borrows
+  // its current selection for each history-dependent call and closes it once.
+  try {
+    for(let i=0;i<natives.length;i++) {
+      const item=natives[i],packed=packedArtifacts[i],eventResource=i===0?caller.acquire({kind:'new_abg_event_resource',schemaVersion:version,eventLogPath,
+        locatorDigest:hash({kind:'abg_event_log_locator',eventLogPath:resolve(eventLogPath)})}):state.selection;
+      const result=await invoke('product-install-'+i,await authorize(product.PRODUCT_INSTALL_SOURCE_DECLARATIONS.install,
+        {verifiedArtifact:item.verification.coordinates.verifiedArtifact,descriptor:packed.descriptor,contributionManifest:packed.contributionManifest,
+          resolvedLock:lock,targetRoot:join(root,'sandbox/installed',i===0?'abg':'test-consumer'),installPolicy:'clean'},
+        {kind:'product_install_resource_assertion',schemaVersion:version,eventResource,packedArtifact:packed,verifiedArtifact:item.verified,resolvedLock},
+        {dependency_lock:lock,verification_references:[verificationRefs[i]],actor}));
+      const artifactTruth=abg.projectOwnedPrefixArtifactTruth(caller.prefix());
+      const admitted=abg.projectAdmittedProductInstallByInvocationRef(artifactTruth,result.call.invocation.invocationRef);
+      if(!admitted?.install)throw new BoundaryFailure('installed-event-projection',admitted);
+      installations.push(admitted.install);
+      await record('installed/'+i+'/product-toolchain-manifest.json',JSON.parse(await readFile(result.receipt.resources.installManifest.ref,'utf8')));
+      const installerManifest=result.receipt.resources.installerManifest;
+      await record('installed/'+i+'/installer-manifest-reference.json',{installerManifest,prefix:caller.prefix()});
+      if(installerManifest?.ref!==artifactTruth.projectionRef||installerManifest?.digest!==artifactTruth.projectionDigest)throw new BoundaryFailure('installer-manifest-projection',installerManifest);
+      await record('installed/'+i+'/identity.json',{install:admitted.install,receipt:result.receipt});
+    }
+    caller.installedRoot=installations[0].installedRoot;
+    const authorityManifest={workspaceId:workspaceManifest.workspaceRef,canonicalRoot:workspaceManifest.canonicalRoot,
+      authorityMode:'trusted_developer',authorizedActorRef:actorRef};
+    const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,
+      authorityManifestRef:'authority://abi5-tests/sandbox-uat/'+config.runId+'/workspace',authorityManifestDigest:hash(authorityManifest)});
+    caller.workspaceAuthority=workspaceAuthority;
+    const roots={toolchainRoot:join(root,'sandbox/installed','abg'),productRoot:installations[1].installedRoot,
+      eventLogRoot:dirname(eventLogPath),runtimeStateRoot:join(root,'resources/runtime'),projectionRoot:join(root,'resources/projections'),archiveRoot:join(root,'resources/archives')};
+    for(const path of [roots.runtimeStateRoot,roots.projectionRoot,roots.archiveRoot])await mkdir(path,{recursive:true});
+    const fields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
+    const bound=await invoke('workspace-bind',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
+      {workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:installations.map(product.productInstallCoordinate),
+        resolvedLock:lock,declaredRoots:Object.entries(fields).map(([rootKind,field])=>({rootKind,path:roots[field]}))},
+      {kind:'product_workspace_binding_resource_assertion',schemaVersion:version,eventResource:state.selection,workspaceAuthority,workspaceManifest,
+        admittedInstalls:installations,resolvedLock,declaredRoots:roots},{product_set:installations.map(product.productInstallCoordinate),dependency_lock:lock,actor}));
+    state.binding=bound.receipt.ownerOutput.value.binding;caller.refresh();
+    const core=native.verified;
+    const publications=corePublications(gtl,core).concat(fixture.publication);
+    const actualCore=publications.slice(0,-1).map(value=>[value.moduleRef,product.modulePublicationSemanticDigest(value)]).sort();
+    const manifestCore=core.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort();
+    if(hash(actualCore)!==hash(manifestCore))throw new BoundaryFailure('candidate-publication-identity',{actualCore,manifestCore});
+    const published=await invoke('catalog-admit',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
+      {workspaceBinding:state.binding,descriptors:packedArtifacts.map(item=>item.descriptor),contributionManifests:packedArtifacts.map(item=>item.contributionManifest),resolvedLock:lock},
+      {kind:'catalog_admission_resource_assertion',schemaVersion:version,eventResource:state.selection,workspaceBinding:state.environment.workspaceBinding,
+        resolvedLock,verifiedProducts:natives.map(item=>item.verified),admittedInstalls:state.environment.productInstalls,publications},
+      {...caller.boundSlots(),dependency_lock:lock}));
+    caller.refresh();
+    const installedProducts=state.environment.productInstalls.map(install=>abg.projectAdmittedProductInstallByAdmissionEventRef(state.environment.artifactTruth,install.admissionEventRef).candidate);
+    state.catalog=requireKind(product.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:version,memberKey:'admit',
+      readinessBasis:{workspaceBinding:state.environment.workspaceBindingCandidate,resolvedLock,verifiedProducts:natives.map(item=>item.verified),installedProducts,publications}}),'graph_function_catalog','catalog-projection');
+    if(published.receipt.ownerOutput.value.catalog.digest!==state.catalog.basisDigest)throw new BoundaryFailure('catalog-public-projection',published.receipt);
+    const selectedProgram=fixture.publication.programs[0],allowlist=[...selectedProgram.callableMembership].sort();
+    await invoke('catalog-view',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
+      {catalog:published.receipt.ownerOutput.value.catalog,allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:version,catalog:state.catalog},
+      {...caller.boundSlots(),dependency_lock:lock}));
+    state.catalogView=requireKind(product.narrowGraphFunctionCatalog(state.catalog,allowlist),'graph_function_catalog_view','catalog-view-projection');
+    const conformanceLaw={ref:'law://abiogenesis/validator/gtl-program@5',digest:hash({ref:'law://abiogenesis/validator/gtl-program@5'})};
+    const conformance=await invoke('program-conformance',await authorize(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
+      {program:{ref:selectedProgram.programRef,digest:hash(selectedProgram)},conformanceLaw,
+        inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(value=>({ref:value.moduleRef,digest:hash(value)})).sort((a,b)=>a.ref.localeCompare(b.ref))}},
+      {kind:'conformance_evaluation_resource_assertion',schemaVersion:version,
+        packet:{kind:'conformance_evaluate_packet',schemaVersion:version,memberKey:'gtl_program',publication:fixture.publication,program:selectedProgram},
+        conformanceLaw,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},
+      {...caller.boundSlots(),dependency_lock:lock}));
+    if(conformance.receipt.ownerOutput.value.disposition!=='passed')throw new BoundaryFailure('program-conformance',conformance.receipt);
+    await record('setup-close.json',caller.close());
+    await record('setup-identity.json',{installations,resolvedLock,workspaceAuthority,workspaceBinding:state.binding,
+      catalog:{basisDigest:state.catalog.basisDigest},catalogView:state.catalogView,program:selectedProgram,fixture:fixture.basis,
+      closeHandoff:state.closeHandoff,classification:'Prepared installed generic path; no application UAT pass or provider dispatch'});
+    return {fixture,publications,installations,workspaceAuthority};
+  }finally {
+    // Failure cleanup retains completed owner effects: close at the held
+    // durable prefix, or release the outer lock when that close refuses.
+    const resource=state.resource;
+    if(resource!==null) {
+      try{await record('setup-close.json',caller.close(abg.selectHeldEventStoreDurablePrefix(resource.store)));}
+      catch(error){abg.abandonAbgEventResource(resource);state.resource=null;state.selection=null;throw error;}
+    }
   }
-  caller.installedRoot=installations[0].installedRoot;
-  const authorityManifest={workspaceId:workspaceManifest.workspaceRef,canonicalRoot:workspaceManifest.canonicalRoot,
-    authorityMode:'trusted_developer',authorizedActorRef:actorRef};
-  const workspaceAuthority=product.constructWorkspaceAuthorityBasis({...authorityManifest,
-    authorityManifestRef:'authority://abi5-tests/sandbox-uat/'+config.runId+'/workspace',authorityManifestDigest:hash(authorityManifest)});
-  caller.workspaceAuthority=workspaceAuthority;
-  const roots={toolchainRoot:join(root,'sandbox/installed','abg'),productRoot:installations[1].installedRoot,
-    eventLogRoot:dirname(eventLogPath),runtimeStateRoot:join(root,'resources/runtime'),projectionRoot:join(root,'resources/projections'),archiveRoot:join(root,'resources/archives')};
-  for(const path of [roots.runtimeStateRoot,roots.projectionRoot,roots.archiveRoot])await mkdir(path,{recursive:true});
-  const fields={toolchain:'toolchainRoot',product:'productRoot',event_log:'eventLogRoot',runtime_state:'runtimeStateRoot',projection:'projectionRoot',archive:'archiveRoot'};
-  const bound=await invoke('workspace-bind',await authorize(product.PRODUCT_ENVIRONMENT_SOURCE_DECLARATIONS.bind,
-    {workspaceAuthority:{ref:workspaceAuthority.authorityBasisId,digest:workspaceAuthority.authorityBasisDigest},installedSet:installations.map(product.productInstallCoordinate),
-      resolvedLock:lock,declaredRoots:Object.entries(fields).map(([rootKind,field])=>({rootKind,path:roots[field]}))},
-    {kind:'product_workspace_binding_resource_assertion',schemaVersion:version,eventResource:caller.reopen(),workspaceAuthority,workspaceManifest,
-      admittedInstalls:installations,resolvedLock,declaredRoots:roots},{product_set:installations.map(product.productInstallCoordinate),dependency_lock:lock,actor}));
-  state.binding=bound.receipt.ownerOutput.value.binding;caller.refresh();
-  const core=native.verified;
-  const publications=corePublications(gtl,core).concat(fixture.publication);
-  const actualCore=publications.slice(0,-1).map(value=>[value.moduleRef,product.modulePublicationSemanticDigest(value)]).sort();
-  const manifestCore=core.contributionManifest.publicationBindings.map(value=>[value.moduleRef,value.publicationDigest]).sort();
-  if(hash(actualCore)!==hash(manifestCore))throw new BoundaryFailure('candidate-publication-identity',{actualCore,manifestCore});
-  const published=await invoke('catalog-admit',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.admit,
-    {workspaceBinding:state.binding,descriptors:packedArtifacts.map(item=>item.descriptor),contributionManifests:packedArtifacts.map(item=>item.contributionManifest),resolvedLock:lock},
-    {kind:'catalog_admission_resource_assertion',schemaVersion:version,eventResource:caller.reopen(),workspaceBinding:state.environment.workspaceBinding,
-      resolvedLock,verifiedProducts:natives.map(item=>item.verified),admittedInstalls:state.environment.productInstalls,publications},
-    {...caller.boundSlots(),dependency_lock:lock}));
-  caller.refresh();
-  const installedProducts=state.environment.productInstalls.map(install=>abg.projectAdmittedProductInstallByAdmissionEventRef(state.environment.artifactTruth,install.admissionEventRef).candidate);
-  state.catalog=requireKind(product.CatalogOperationPort.admit({kind:'catalog_admit_packet',schemaVersion:version,memberKey:'admit',
-    readinessBasis:{workspaceBinding:state.environment.workspaceBindingCandidate,resolvedLock,verifiedProducts:natives.map(item=>item.verified),installedProducts,publications}}),'graph_function_catalog','catalog-projection');
-  if(published.receipt.ownerOutput.value.catalog.digest!==state.catalog.basisDigest)throw new BoundaryFailure('catalog-public-projection',published.receipt);
-  const selectedProgram=fixture.publication.programs[0],allowlist=[...selectedProgram.callableMembership].sort();
-  await invoke('catalog-view',await authorize(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
-    {catalog:published.receipt.ownerOutput.value.catalog,allowlist},{kind:'catalog_view_resource_assertion',schemaVersion:version,catalog:state.catalog},
-    {...caller.boundSlots(),dependency_lock:lock}));
-  state.catalogView=requireKind(product.narrowGraphFunctionCatalog(state.catalog,allowlist),'graph_function_catalog_view','catalog-view-projection');
-  const conformanceLaw={ref:'law://abiogenesis/validator/gtl-program@5',digest:hash({ref:'law://abiogenesis/validator/gtl-program@5'})};
-  const conformance=await invoke('program-conformance',await authorize(validator.CONFORMANCE_OPERATION_CONTRACTS.evaluate.gtl_program,
-    {program:{ref:selectedProgram.programRef,digest:hash(selectedProgram)},conformanceLaw,
-      inventoryBasis:{kind:'declared_inventory',inventory:state.catalog.boundPublications.map(value=>({ref:value.moduleRef,digest:hash(value)})).sort((a,b)=>a.ref.localeCompare(b.ref))}},
-    {kind:'conformance_evaluation_resource_assertion',schemaVersion:version,
-      packet:{kind:'conformance_evaluate_packet',schemaVersion:version,memberKey:'gtl_program',publication:fixture.publication,program:selectedProgram},
-      conformanceLaw,declaredInventory:state.catalog.boundPublications,declarationCatalog:{catalog:state.catalog,catalogView:state.catalogView}},
-    {...caller.boundSlots(),dependency_lock:lock}));
-  if(conformance.receipt.ownerOutput.value.disposition!=='passed')throw new BoundaryFailure('program-conformance',conformance.receipt);
-  await record('setup-identity.json',{installations,resolvedLock,workspaceAuthority,workspaceBinding:state.binding,
-    catalog:{basisDigest:state.catalog.basisDigest},catalogView:state.catalogView,program:selectedProgram,fixture:fixture.basis,
-    closeHandoff:state.closeHandoff,classification:'Prepared installed generic path; no application UAT pass or provider dispatch'});
-  return {fixture,publications,installations,workspaceAuthority};
 }
 
 export async function constructLifecycleCall(caller,input) {

@@ -5,8 +5,9 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {setupInstalledRootExecutionBasis} from '../support/root-installed-environment.mjs';
-import {prepareRegisteredSelectionProduct,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
+import {prepareRegisteredSelectionProduct,constructInstalledRunReadCall,constructInstalledStartCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {declarations,ref,contract,actionCatalog} from '../fixtures/exact-intent-product/index.mjs';
+import {unrelatedWorkspaceEvent} from '../support/single-address-space-consolidation.mjs';
 const root=new URL('../..',import.meta.url).pathname;
 // The CLI and actor processes run in other directories: the fixture readyPath and fixed transport under this root stay absolute.
 const proof=resolve(process.env.ABI5_EXACT_INTENT_EVIDENCE_ROOT??await mkdtemp(join(tmpdir(),'abi5-exact-intent-proof-')));
@@ -111,6 +112,102 @@ test('actual One Surface producer, undispatched preparation frontier and current
  const continued=view.ownerFacts.find(v=>v.owner==='construction_continuation');
  assert.equal(continued.status,'resolved');assert.equal(continued.intentAdmissionEventRef,pending[0].intentAdmissionEventRef);
  await save('closed-correspondence.json',{closedRun,producer:prepared.producer,originalIntent:prepared.intent,continued,semanticReplayDigest:view.viewDigest,lifecycle:view.lifecycle});
+ // Complete current-intent pair: the actual current_intent Public operation and the unique admitted
+ // basis whose constructionContinuationUse names it are one combined effectful prior admission.
+ const truthOwner=await load('abg/effectful_invocation_truth'),fhOwner=await load('abg/fh_continuation_projection'),storeOwner=await load('abg/event_store');
+ const finalPrefix=abg.selectValidatedRuntimeEventPrefix(freeze(finalEvents));
+ const intentOperations=finalEvents.filter(v=>v.kind==='public_operation_admitted'&&v.payload.continuationKind==='construction_intent');
+ assert.equal(intentOperations.length,1,'one admitted current_intent Public operation');
+ const [operation]=intentOperations;
+ assert.deepEqual([operation.payload.operationId,operation.payload.memberKey],['abg.operation.run.continue','current_intent']);
+ const uses=finalEvents.filter(v=>v.kind==='basis_admitted'&&v.payload.constructionContinuationUse?.operationAdmissionEventRef===operation.eventId);
+ assert.equal(uses.length,1,'one admitted basis uses that operation');
+ assert.equal(uses[0].payload.constructionContinuationUse.sourceExecutionBasisRef,prepared.root.basisRef,'the use names the original root basis');
+ const priorAdmission={operationId:'abg.operation.run.continue',publicInvocationRef:operation.payload.invocationRef,ownerInvocationRef:operation.payload.invocationRef,
+  ownerInvocationDigest:operation.payload.invocationDigest,publicOperationEventRef:operation.eventId,admissionEventRef:uses[0].eventId};
+ const pairAt=(at,invocationRef=operation.payload.invocationRef)=>truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(at,invocationRef);
+ const duplicate=at=>({kind:'effectful_public_invocation_truth',schemaVersion:'5.0.0',disposition:'duplicate',invocationRef:operation.payload.invocationRef,prefix:at,priorAdmission});
+ const noFh={disposition:'valid',facts:[]};
+ // This process holds no receipt for these coordinates: each authenticates its file bytes cold.
+ const P=handoff.prefix,copiedP=structuredClone(P),historical=handoffs.consumed.prefix;
+ const pair={P:pairAt(P),copied:pairAt(copiedP),validated:pairAt(finalPrefix),historical:pairAt(historical),beforeContinue:pairAt(handoffs.continue.prefix)};
+ assert.deepEqual(pair.P,duplicate(P),'durable coordinate after the stale control');
+ assert.deepEqual(pair.copied,duplicate(copiedP),'copied coordinate');
+ assert.deepEqual(pair.validated,duplicate(finalPrefix),'validated final history');
+ assert.deepEqual(pair.historical,duplicate(historical),'retained prefix immediately after the continuation');
+ assert.deepEqual([pair.beforeContinue.kind,pair.beforeContinue.disposition],['effectful_public_invocation_truth','available'],'before the continuation the invocation is available');
+ assert.deepEqual(fhOwner.projectFhEffectfulPublicInvocationFacts(finalPrefix),noFh,'the construction arm has no F_H fact');
+ // A genuinely distinct second Run of the installed root Program, added while the history is valid.
+ const second=await constructInstalledStartCall({environment:e,publicApi,eventResource:resource(),identity:'exact-second-run',programRef:ref('program','root'),rootMode:'supervised',declaredStartRef:ref('start','root'),
+  input:{kind:'fixture_request',schemaVersion:'5.0.0',workspaceBinding:{workspaceBindingId:e.workspaceBinding.bindingId,workspaceBindingDigest:e.workspaceBinding.bindingDigest},actionCatalog,
+   task:{kind:'fixture_task',schemaVersion:'5.0.0',payload:'second distinct Run',readyPath:join(proof,'second-ready.txt')}}});
+ const secondExecution=await runInstalledCliRequest({scratch:e.scratch,installedRoot:e.installedRoot,identity:'exact-second-run',acquisition:{kind:'reopen',closeHandoff:handoff},call:second.call,expectedExitCode:null,environment:{ABG_TS_CLAUDE_COMMAND:command}});
+ await save('second-run-receipt.json',secondExecution);
+ const secondReceipt=secondExecution.output.receipt;
+ assert.equal(secondReceipt?.failure,null,JSON.stringify(secondExecution.output).slice(0,4000));
+ const Q=secondReceipt.resources.eventResource.closeHandoff.prefix,qEvents=storeOwner.readRuntimeEventsAtDurablePrefix(Q);
+ await save('second-run-events.json',qEvents.slice(finalEvents.length));
+ assert.deepEqual(qEvents.slice(0,finalEvents.length).map(v=>v.eventId),finalEvents.map(v=>v.eventId),'Q extends P');
+ const newRuns=qEvents.slice(finalEvents.length).filter(v=>v.kind==='run_segment_opened');
+ assert.equal(newRuns.length,1,'the start opened one Run');
+ assert.equal([opened.scope.runId,closedRun].includes(newRuns[0].runId),false,'a genuinely distinct Run');
+ const qPrefix=abg.selectValidatedRuntimeEventPrefix(freeze(qEvents)),copiedQ=structuredClone(Q);
+ assert.deepEqual(pairAt(Q),duplicate(Q),'the prior pair at Q');
+ assert.deepEqual(pairAt(copiedQ),duplicate(copiedQ),'the prior pair at a copied Q');
+ assert.deepEqual(pairAt(qPrefix),duplicate(qPrefix),'the prior pair over validated Q');
+ assert.deepEqual(pairAt(P),duplicate(P),'historical P is unchanged by growth');
+ assert.deepEqual(fhOwner.projectFhEffectfulPublicInvocationFacts(qPrefix),noFh,'growth adds no F_H fact');
+ // The second Run reaches its own undispatched preparation (its ready path is absent), stops and
+ // opens its own construction continuation: the first Run's frontier shape, in a distinct Run.
+ const grown=qEvents.slice(finalEvents.length),secondRun=newRuns[0].runId;
+ assert.equal(secondReceipt.ownerOutput.value.disposition,'runtime_failed',JSON.stringify(secondReceipt.ownerOutput).slice(0,2000));
+ assert.deepEqual(grown.filter(v=>['run_stopped','construction_continuation_opened'].includes(v.kind)).map(v=>[v.kind,v.runId]),
+  [['run_stopped',secondRun],['construction_continuation_opened',secondRun]]);
+ assert.equal(grown.some(v=>v.kind==='actor_invocation_started'),false,'the second Run dispatches no actor');
+ const [secondOperation]=grown.filter(v=>v.kind==='public_operation_admitted'),[secondInvocation]=grown.filter(v=>v.kind==='invocation_admitted');
+ assert.deepEqual([secondOperation.payload.operationId,secondOperation.payload.memberKey],['abg.operation.run.invoke','start']);
+ const secondRef=secondInvocation.payload.publicRequestInvocationRef,secondPair=pairAt(Q,secondRef);
+ await save('complete-pair.json',{priorAdmission,pair,second:{runId:secondRun,publicInvocationRef:secondRef,atQ:secondPair,atP:pairAt(P,secondRef),ownerOutput:secondReceipt.ownerOutput},Q});
+ assert.equal(secondPair.disposition,'duplicate',JSON.stringify(secondPair));
+ assert.deepEqual([secondPair.priorAdmission.operationId,secondPair.priorAdmission.publicInvocationRef,secondPair.priorAdmission.ownerInvocationRef,
+  secondPair.priorAdmission.publicOperationEventRef],['abg.operation.run.invoke',secondRef,secondOperation.payload.invocationRef,secondOperation.eventId],
+  'the second Run adds its own global Run fact');
+ assert.equal(pairAt(P,secondRef).disposition,'available','P does not hold the second Run');
+ // Ambiguity control: m5-event-store-reopen's cross-kind collision recipe, applied to this history as an
+ // explicit raw validated-history reader premise (never admitted, never a durable prefix). The second
+ // Run's owner admission is re-keyed so its Public request ref equals another fact's Public ref.
+ const candidateOf=event=>{const value=structuredClone(event);for(const key of ['admissionOrdinal','eventId','payloadDigest','eventContractDigest'])delete value[key];return value;};
+ const beforeOwner=qEvents.slice(0,secondInvocation.admissionOrdinal-1);
+ const install=finalEvents.filter(v=>v.kind==='public_operation_artifact_admitted'&&v.payload.operationId==='abg.operation.product.install')[0];
+ const collide=(publicRef)=>{
+  const candidate=candidateOf(secondInvocation);candidate.payload.publicRequestInvocationRef=publicRef;
+  const {invocationAdmissionDigest:_digest,invocationAdmissionRef:_ref,...body}=candidate.payload;
+  const digest=product.sha256Canonical(body),admissionRef=`invocation-admission://abiogenesis/${digest.slice(7)}`;
+  Object.assign(candidate,{basisId:admissionRef});Object.assign(candidate.payload,{invocationAdmissionDigest:digest,invocationAdmissionRef:admissionRef});
+  const event=storeOwner.projectRuntimeEventFromValidatedHistory(beforeOwner,candidate);
+  const rows=freeze([...beforeOwner,event]),premise=abg.selectValidatedRuntimeEventPrefix(rows);
+  assert.ok(abg.rehydrateInvocationAdmissionAtPrefix(premise,admissionRef),'the colliding Run fact is one complete owner-issued admission');
+  return {event,rows,premise};
+ };
+ const collisions={};
+ for(const [label,publicRef,first]of [['install',install.payload.invocationRef,[install.eventId]],['current-intent',operation.payload.invocationRef,[operation.eventId,uses[0].eventId]]]) {
+  const {event,rows,premise}=collide(publicRef),query='invocation://exact-intent/collision/unrelated';
+  const expected={kind:'effectful_public_invocation_truth_invalid_history',schemaVersion:'5.0.0',disposition:'invalid_history',code:'duplicate_outer_invocation',
+   invocationRef:query,prefix:premise,eventRefs:[...new Set([...first,secondOperation.eventId,event.eventId])].sort(),artifactTruthCode:null};
+  const warm=truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(premise,query);
+  assert.deepEqual(warm,expected,`${label}: duplicate_outer_invocation with the exact colliding refs in order`);
+  assert.deepEqual(truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(premise,query),expected,`${label}: warm repeat`);
+  assert.deepEqual(truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(premise,publicRef),{...expected,invocationRef:publicRef},`${label}: the colliding ref itself`);
+  const uncached=abg.selectValidatedRuntimeEventPrefix(freeze(structuredClone(rows)));
+  assert.deepEqual(truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(uncached,query),{...expected,prefix:uncached},`${label}: a fresh uncached selection`);
+  const copied=structuredClone(premise),copiedValue=truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(copied,query);
+  assert.deepEqual([copiedValue.disposition,copiedValue.code],['invalid_history','artifact_truth_invalid'],`${label}: a copied prefix object is not a selection`);
+  const growth=storeOwner.projectRuntimeEventFromValidatedHistory(rows,unrelatedWorkspaceEvent(product.sha256Canonical,'collision-'+label));
+  const grownPrefix=abg.selectValidatedRuntimeEventPrefix(freeze([...rows,growth]));
+  assert.deepEqual(truthOwner.projectEffectfulPublicInvocationTruthAtPrefix(grownPrefix,query),{...expected,prefix:grownPrefix},`${label}: unrelated growth conserves the refusal`);
+  collisions[label]={eventRefs:expected.eventRefs,collisionEventRef:event.eventId,premiseEvents:rows.length};
+ }
+ await save('collision.json',{premise:'raw validated-history reader premise after m5-event-store-reopen:953-997; not admitted, not durable',collisions});
  await save('result.json',{status:'passed',results,transport:command,transportDigest:await product.sha256File(command),proofClass:'deterministic local subprocess through actual F_P owner; no live model',scope:'pure F_D producer and undispatched F_P preparation within scalar One Surface workflow'});
  } catch(error) {await save('failure.json',{message:error.message,stack:error.stack,scratch:e?.scratch??null});if(e){try{await save('failure-events.json',e.store.readAll());}catch{}}throw error;}
 });

@@ -10,16 +10,17 @@ import {tmpdir} from 'node:os';
 import {join,resolve} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
+import {gunzipSync} from 'node:zlib';
 import {nativeJoinFixture,coverage,hash,identity} from '../support/malformed-gtl-native-fixture.mjs';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {SELF_CONFORMANCE_IDS as self} from '../../build/code/src/gtl/self_conformance.js';
 import {QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
-// The copied producer history, its retained context and the historical owner
-// fixtures are named by their variables; the lane skips with the unset names
-// when any is absent.
-const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE'].filter(name=>!process.env[name]);
-const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context and the exact historical owner fixtures';
+// The copied producer history, its retained context, the historical owner
+// fixtures and the checked owner-copy record are named by their variables; the
+// lane skips with the unset names when any is absent.
+const unset=['ABI5_PRODUCER_HISTORY_FIXTURE','ABI5_PRODUCER_CONTEXT_FIXTURE','ABI5_PRODUCER_OWNER_FIXTURE','ABI5_PRODUCER_OWNER_SOURCE_FIXTURE','ABI5_PRODUCER_OWNER_COPY_FIXTURE'].filter(name=>!process.env[name]);
+const skip=unset.length>0&&unset.join(', ')+' unset; requires the finite copied producer history, its retained context, the exact historical owner fixtures and their checked owner copy';
 if(skip)test('T-287 qualification producer acquisition reuse over the copied producer history and the historical owner',{skip},()=>{});
 else await (async()=>{
 const root=resolve(import.meta.dirname,'../..'), c=(ref,digest=hash(ref))=>({ref,digest});
@@ -32,8 +33,29 @@ const contextBytes=fs.readFileSync(contextPath);assert.equal(digest(contextBytes
 const context=JSON.parse(contextBytes),bytes=allBytes.subarray(0,context.prefixLength);
 const ownerPins=JSON.parse(fs.readFileSync(ownerFixture)),sourcePins=JSON.parse(fs.readFileSync(ownerSourceFixture));
 assert.equal(ownerPins.ownerRoot,context.install.installedRoot);
+// The original installation is absent. Its exact released archive was copied
+// into one separately materialized package. Check the archive identity, every
+// original pin against both the archive member and the materialized file, and
+// load only that package's original-byte modules; the pin records stay unchanged.
+const copy=JSON.parse(fs.readFileSync(process.env.ABI5_PRODUCER_OWNER_COPY_FIXTURE));
+assert.equal(copy.originalOwnerRoot,ownerPins.ownerRoot);
+assert.equal(copy.archive.sha256,'dd76783f7fc92873d9d21ca66c7f91f9be0eaad77248954ada99f5e265a04dbe');
+const archiveBytes=fs.readFileSync(copy.archive.path);assert.equal(archiveBytes.length,copy.archive.bytes);assert.equal(digest(archiveBytes),'sha256:'+copy.archive.sha256);
+const members=new Map(),tar=gunzipSync(archiveBytes);
+for(let at=0;at+512<=tar.length&&tar[at]!==0;){
+ const field=(o,n)=>tar.subarray(at+o,at+o+n).toString('utf8').replace(/\0.*$/s,''),size=parseInt(field(124,12).trim()||'0',8);
+ const prefix=field(345,155),name=(prefix?prefix+'/':'')+field(0,100);
+ if(['0','\0',''].includes(field(156,1)))members.set(name,tar.subarray(at+512,at+512+size));at+=512+Math.ceil(size/512)*512;
+}
+const ownerRoot=copy.materializedOwnerRoot,located=path=>path.startsWith(copy.originalOwnerRoot+'/')?join(ownerRoot,path.slice(copy.originalOwnerRoot.length+1)):path;
+for(const entry of copy.verifiedSourceMap){
+ assert.equal(entry.materializedPath,located(entry.originalPath));const body=fs.readFileSync(entry.materializedPath);
+ assert.equal(body.length,entry.bytes);assert.equal(digest(body),'sha256:'+entry.sha256);
+ if(entry.originalPath!==entry.materializedPath)assert(members.get('package/'+entry.originalPath.slice(copy.originalOwnerRoot.length+1))?.equals(body),'archive member '+entry.originalPath);
+}
 for(const pin of [...ownerPins.readOnlySources,sourcePins.source,sourcePins.freeze]){
- const body=fs.readFileSync(pin.path);assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
+ const body=fs.readFileSync(located(pin.path));assert.equal(body.length,pin.bytes);assert.equal(digest(body),'sha256:'+pin.sha256);
+ if(located(pin.path)!==pin.path)assert(copy.verifiedSourceMap.some(e=>e.originalPath===pin.path&&e.sha256===pin.sha256),'mapped pin '+pin.path);
 }
 assert.equal(sourcePins.source.sha256,'ca7b451a4f0ff231434ef985e53c2a5d215e2fac23161591cbf4e3f2bb9884bf');
 assert.equal(sourcePins.freeze.sha256,'4b47285b95656c83dd07f0d6cbcf794738b8328404aacc35cb9e0111e62559a3');
@@ -43,7 +65,7 @@ const rows=bytes.toString('utf8').trim().split('\n').map(JSON.parse);
 const opened=rows.find(e=>e.kind==='c_call_opened'&&e.payload.callClass==='leaf');
 const basisRow=rows.find(e=>e.kind==='basis_admitted'&&e.payload.basisRef===opened.basisId).payload;
 const result=rows.find(e=>e.kind==='c_call_result_admitted'&&e.aggregateId===opened.aggregateId).payload;
-const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerPins.ownerRoot,'build/code/src/abg/event_store.js')).href;
+const modules={},historicalEventStoreUrl=pathToFileURL(join(ownerRoot,'build/code/src/abg/event_store.js')).href;
 // The original accepted component used this exact source owner for currentness.
 // Its one module URL preserves the historical package's ordinary import identity;
 // the consumer and realization below continue to load the current copied tenant.
@@ -52,12 +74,13 @@ const sourceHook=registerHooks({load(url,context,next){return url===historicalEv
  ?{format:'module',source:stripTypeScriptTypes(historicalSource,{mode:'transform',sourceUrl:url}),shortCircuit:true}:next(url,context);}});
 try{
  for(const name of ['abg/event_store','abg/event_prefix','abg/artifact_truth','abg/environment_admission','abg/invocation_execution_truth','abg/execution_basis','abg/c_call','product/declaration_closure'])
-  modules[name+'.js']={...await import(pathToFileURL(join(ownerPins.ownerRoot,'build/code/src',name+'.js')))};
+  modules[name+'.js']={...await import(pathToFileURL(join(ownerRoot,'build/code/src',name+'.js')))};
 }finally{sourceHook.deregister();}
 const events=modules['abg/event_store.js'],prefixes=modules['abg/event_prefix.js'],artifact=modules['abg/artifact_truth.js'];
 assert.equal(events.ROOT_EVENT_CONTRACT_DIGEST,'sha256:4196aaeb231aaf98b5d3da74c9d7eddaff17140cab0e6af5cfd94e3bd17590f0');
-const historicalMaterializerPath=join(ownerPins.ownerRoot,'build/code/src/gtl/materialize.js');
+const historicalMaterializerPath=join(ownerRoot,'build/code/src/gtl/materialize.js');
 assert.equal(digest(fs.readFileSync(historicalMaterializerPath)),'sha256:82e4abcb65d7cb92d28683173916348331da995f5cda11d8a4af22f7528550ea');
+assert(members.get('package/build/code/src/gtl/materialize.js')?.equals(fs.readFileSync(historicalMaterializerPath)),'archive materializer member');
 const historicalMaterializer=await import(pathToFileURL(historicalMaterializerPath));
 const catalog=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/rule-catalog.json'),'utf8'));
 const law=JSON.parse(fs.readFileSync(join(root,'contracts/qualification/law-basis.json'),'utf8'));
@@ -81,8 +104,13 @@ async function fixture(t){
     const owned=historicalMaterializer.rehydrateMaterializedGtlGraph(graph);assert(owned,'exact historical materialization');
     assert.deepEqual(owned,graph);assert.equal(owned.materializationDigest,graph.materializationDigest);
     return modules['abg/c_call.js'].projectOpenedCCallCarrierAtPrefix(prefix,owned,...args);}},
-  'abg/artifact_truth.js':{...artifact,projectExactPrefixArtifactTruth(p){const a=artifact.projectExactPrefixArtifactTruth(p);acquisitions.push(a);return a;},
-    runtimePrefixFromArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
+  // The current consumer selects the owned-prefix operations. This rc.1 owner
+  // family predates those names, so each test bridge calls the same-named
+  // historical owner acquisition and its own prefix accessor; nothing is
+  // reconstructed from equal JSON.
+  'abg/artifact_truth.js':{...artifact,projectOwnedPrefixArtifactTruth(p){const a=artifact.projectOwnedPrefixArtifactTruth(p);acquisitions.push(a);return a;},
+    runtimePrefixFromOwnedArtifactTruth(a){const p=artifact.runtimePrefixFromArtifactTruth(a);if(p)representations.add(prefixes.runtimeEventsFromValidatedPrefix(p));return p;}},
+  'abg/event_prefix.js':{...prefixes,readOwnedRuntimeEventPrefixAtDurablePrefix(p,o){return prefixes.selectValidatedRuntimeEventPrefix(events.readRuntimeEventsAtDurablePrefix(p,o));}},
   'abg/event_store.js':{...events,assertDurableRuntimePrefixCurrent(p){currentness++;return events.assertDurableRuntimePrefixCurrent(p);}},
   'abg/environment_admission.js':{...modules['abg/environment_admission.js'],projectWorkspaceEnvironmentFromArtifactTruth(a,w){
     const e=modules['abg/environment_admission.js'].projectWorkspaceEnvironmentFromArtifactTruth(a,w);environments.push(e);
@@ -121,9 +149,9 @@ async function fixture(t){
  // Execute the exact ordinary dispatch expression, retaining the actual owner
  // resolver; the unrelated dispatch/loading shell is outside this component.
  const dispatchSource=fs.readFileSync(join(root,'build/code/src/implementation/leaf_invocation_port.js'),'utf8');
- const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources\)/g);assert.equal(expression.length,1);
- const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','return '+expression[0]);
- const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined});
+ const expression=dispatchSource.match(/resolveSelfConformanceOwner\(qualificationOwnerBasis, call\.input, true, authority\.qualificationResources, qualificationCatalogs\)/g);assert.equal(expression.length,1);
+ const dispatch=Function('resolveSelfConformanceOwner','qualificationOwnerBasis','call','authority','qualificationCatalogs','return '+expression[0]);
+ const check=p=>dispatch(resolver.resolveSelfConformanceOwner,p.call.basis,{input:p.input},{qualificationResources:undefined},undefined);
  const occurrence=p=>({...p.call.call,executionAuthority:null,qualificationOwnerBasis:p.call.basis});
  const realize=(p,o=occurrence(p))=>port.invokeLeafOwnerBoundary({resolution:{implementationRef:self.implementationRef,computeRegime:'F_D',inputContractRef:self.inputContractRef,outputContractRef:self.outputContractRef},
   value:p.input,inputDigest:hash(p.input),occurrence:o,failureValueKind:'self_conformance_failure',verifyAuthority:()=>true,

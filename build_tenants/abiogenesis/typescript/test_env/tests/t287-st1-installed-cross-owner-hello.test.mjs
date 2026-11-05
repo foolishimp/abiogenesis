@@ -1733,10 +1733,12 @@ test("ST-1 executes an independently authored minimal GTL test through installed
     "acquisition flip-getter read appends zero bytes",
   );
 
-  const st4SemanticReplay = abg.projectRuntimeTruthAtDurablePrefix(
+  // The existing direct replay owner; its guard materializes the complete value.
+  const installedReplay = await import(pathToFileURL(join(environment.installedRoot, "build/code/src/abg/replay.js")).href);
+  const st4SemanticReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
     st4TerminalPrefix,
     st4Run.ref,
-  ).replayState;
+  ).replayState);
   assert.equal(st4SemanticReplay.replayRef, st4Replay.ref);
   assert.equal(st4SemanticReplay.replayDigest, st4Replay.digest);
   const [st4TerminalRoute] = st4SemanticReplay.routes.filter(

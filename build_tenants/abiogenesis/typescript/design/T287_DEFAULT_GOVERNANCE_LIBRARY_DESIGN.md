@@ -387,6 +387,16 @@ Result/fold and parent evaluation; no caller loop or prescribed schedule exists.
 
 The invoking leaf owner supplies the existing private proof-operation handoff only to the exact declared library `prepare-testing` implementation. It binds the admitted input object, occurrence object and native owner prefix, and resolves the already declared historical source resource. This is a nonserialized owner operation; a copied input/occurrence or a foreign implementation receives no such operation. Handler argument order and all other namespaces remain unchanged. Preparation runs at `selected_no_evidence`; result matching checks the same prepared task before admission; subsequent C2 consumption reconstructs the actual deterministic evidence, Result and advancing judgment. No pre-result operation can substitute for that later admitted lineage.
 
+The F_D port verifies `sha256Canonical(value) === inputDigest` before it calls
+a realization and passes that checked digest as the fourth argument of the call
+contract. Each default-library F_D realization (`prepare-selection`,
+`prepare-native`, `prepare-testing`, `fold`, `evaluate-parent`,
+`project-choice`) uses it for its deterministic evidence `inputDigest` and the
+Testing refusal diagnostic; it does not re-hash the same admitted input. A
+caller outside the port computes the digest. The F_P selector contract supplies
+no checked digest, so its observation check still hashes its input. Ingress,
+observer, effect and output-digest checks are unchanged.
+
 The ordinary retained-work arm in
 `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md` owns source ingress. Its same-app
 covered correspondence is shared by Product preparation, ABG invocation

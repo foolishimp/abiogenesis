@@ -90,7 +90,7 @@ test("saved native Design-to-plan counterexample uses the assessor result coordi
   assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
   const basis = { publication, lifecyclePublication: publication, sourcePublication: publication, graph, graphFunction,
     declarationGraphFunctions, executionBasis: execution, cCall, cursor, predecessorPrefix: durable };
-  const authenticated = jobs.authenticateSemanticJobBasis(basis); assert.ok(authenticated);
+  const authenticated = jobs.authenticateOwnedSemanticJobBasis(basis); assert.ok(authenticated);
   const oldRequest = events.find(e => e.kind === "c_call_result_admitted" && e.aggregateId === opened.aggregateId).payload.value;
   const previous = await import(pathToFileURL(join(scratch, "consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/semantic_job.js")).href);
   assert.deepEqual(await previous.projectSemanticJobPlan(basis, execution.rawInputValue), oldRequest, "actual previous owner reproduces its exact faulty request");

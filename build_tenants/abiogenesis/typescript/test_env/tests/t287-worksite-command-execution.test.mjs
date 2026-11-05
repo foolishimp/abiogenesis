@@ -1026,7 +1026,7 @@ async function installedC2Case(context, helperFailure = null) {
   const freshProof = await proveFreshProcessRuntimeProjectionEquality({
     abg, product, installedPackageRoot: environment.installedRoot, store: reopened.store,
     ...(proof === null ? {} : { ownedProcessProof: { evidenceRoot: join(proof.root, "fresh-replay") } }),
-    requests: [{ rowId: "c2-compact-ack-runtime", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
+    requests: [{ rowId: "c2-compact-ack-runtime", owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
   });
   if (proof !== null) await proof.write("fresh-proof.json", freshProof);
   const replay = freshProof.retainedRows[0].projection.replayState;

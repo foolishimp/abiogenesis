@@ -8,7 +8,7 @@ import test from "node:test";
 import ts from "typescript";
 
 import * as events from "../../build/code/src/abg/event_store.js";
-import { projectRuntimeTruthAtDurablePrefix } from "../../build/code/src/abg/replay.js";
+import { materializeRuntimeReplayGuard, projectOwnedRuntimeTruthAtDurablePrefix } from "../../build/code/src/abg/replay.js";
 import { projectExecutableTraversalCompletion } from "../../build/code/src/hog/traversal_completion.js";
 import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
 
@@ -88,7 +88,7 @@ test("deferred restoration preserves the exact native completion prefix includin
   const completionAt = prefix => {
     const projected = owner.projectDeferredApplicationAtPrefix(prefix, f.coordinates);
     assert.ok(projected);
-    const truth = projectRuntimeTruthAtDurablePrefix(prefix, runId);
+    const truth = { replayState: materializeRuntimeReplayGuard(projectOwnedRuntimeTruthAtDurablePrefix(prefix, runId).replayState) };
     assert.equal(projected.replayState.lastAdmissionOrdinal, truth.replayState.lastAdmissionOrdinal);
     assert.deepEqual(projected.replayState, truth.replayState);
     const values = {

@@ -1,5 +1,4 @@
-import type { RuntimeEventScan } from "./runtime_history.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, isOwnedRuntimeEventPrefix, runtimeEventAtPrefix, runtimeEventEnvelopesAtPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { ClosureContract } from "../gtl/contracts.js";
@@ -111,7 +110,7 @@ function digestField(event: RuntimeEvent, key: string): Sha256Digest | null {
 }
 
 function exactPublicOperation(
-  events: RuntimeEventScan,
+  prefix: RuntimeEventPrefix,
   continuationRef: string,
   operationEventRef: JsonValue | undefined,
   operationId:
@@ -123,11 +122,8 @@ function exactPublicOperation(
   successor: RuntimeEvent,
 ): RuntimeEvent | null {
   if (typeof operationEventRef !== "string") return null;
-  const event = events.find((candidate) =>
-    candidate.eventId === operationEventRef &&
-    candidate.kind === "public_operation_admitted"
-  );
-  if (event === undefined || !isRecord(event.payload)) return null;
+  const event = runtimeEventAtPrefix(prefix, operationEventRef);
+  if (event === undefined || event.kind !== "public_operation_admitted" || !isRecord(event.payload)) return null;
   const grants = event.payload.capabilityGrantRefs;
   return event.payload.operationId === operationId &&
       event.payload.continuationRef === continuationRef &&
@@ -382,10 +378,15 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
     const authorityEvents = runtimeEventBodiesAtPrefix(
       ownerAuthorityPrefix,
     );
+    // Gap-free order is an envelope fact; an owned cut reads its recorded
+    // physical predecessor instead of slicing bodies.
+    let expectedOrdinal = 0, gapFree = true;
+    for (const envelope of runtimeEventEnvelopesAtPrefix(ownerAuthorityPrefix)) {
+      if (envelope.admissionOrdinal !== ++expectedOrdinal) { gapFree = false; break; }
+    }
+    const ownedAuthority = isOwnedRuntimeEventPrefix(ownerAuthorityPrefix) ? ownerAuthorityPrefix.selection : undefined;
     if (
-      authorityEvents.some(
-        (event, index) => event.admissionOrdinal !== index + 1
-      ) ||
+      !gapFree ||
       resumeEvent.kind !== "fh_interaction_resume_admitted" ||
       resumeEvent.runId === undefined ||
       !isRecord(resumeEvent.payload)
@@ -436,14 +437,13 @@ export function validateExactFhResumeOwnerRelationAtPrefix(
       resumeEvent.eventTime !== publicOperation.eventTime ||
       resumeEvent.correlationId !== publicOperation.correlationId
     ) return false;
-    const predecessorEvents = authorityEvents.slice(
-      0,
-      publicOperation.admissionOrdinal - 1,
-    );
+    const predecessorCount = publicOperation.admissionOrdinal - 1;
     const durablePrefixDigest = digestField(resumeEvent, "durablePrefixDigest");
     if (
       durablePrefixDigest === null ||
-      runtimeEventPhysicalPrefix(predecessorEvents).digest !== durablePrefixDigest
+      (ownedAuthority !== undefined
+        ? runtimeEventPhysicalPrefix(ownedAuthority.cut(predecessorCount))
+        : runtimeEventPhysicalPrefix(authorityEvents.slice(0, predecessorCount))).digest !== durablePrefixDigest
     ) return false;
     const respondedAuthorityPrefix = validatedRuntimeEventPrefixThroughEvent(
       ownerAuthorityPrefix,
@@ -565,7 +565,6 @@ export function projectFhContinuations(
   eventCalculus: RuntimeHeldFluentProjection,
   authorityPrefix: RuntimeEventPrefix = prefix,
 ): readonly ReplayContinuationState[] {
-  const allEvents = runtimeEventBodiesAtPrefix(prefix);
   const events = indexedRuntimeEvents(prefix, "type:" + "continuation").filter((event) =>
     event.aggregateType === "continuation" && (!isRecord(event.payload) || !isConstructionContinuationKind(event.payload.continuationKind))
   );
@@ -623,7 +622,7 @@ export function projectFhContinuations(
         respondedPayload === null
       ? null
       : exactPublicOperation(
-          allEvents,
+          prefix,
           continuationRef,
           respondedPayload.publicOperationEventRef,
           "abg.operation.interaction.respond",
@@ -653,7 +652,7 @@ export function projectFhContinuations(
         resumedPayload === null || responded === undefined
       ? null
       : exactPublicOperation(
-          allEvents,
+          prefix,
           continuationRef,
           resumedPayload.publicOperationEventRef,
           "abg.operation.run.continue",
@@ -826,8 +825,12 @@ export function projectFhEffectfulPublicInvocationFacts(
 export function projectFhEffectfulPublicInvocationFacts(
   prefix: RuntimeEventPrefix,
 ): FhEffectfulPublicInvocationFactProjection {
-  const events = runtimeEventBodiesAtPrefix(prefix);
-  const publicEvents = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted").filter((event) =>
+  // The shared public-operation classification selects both F_H operation
+  // families; this owner's predicate is unchanged.
+  const publicEvents = [
+    ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.interaction.respond"),
+    ...indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.continue"),
+  ].sort((left, right) => left.admissionOrdinal - right.admissionOrdinal).filter((event) =>
     event.kind === "public_operation_admitted" &&
     isRecord(event.payload) && !isConstructionContinuationKind(event.payload.continuationKind) &&
     (
@@ -835,16 +838,16 @@ export function projectFhEffectfulPublicInvocationFacts(
       event.payload.operationId === "abg.operation.run.continue"
     )
   );
-  const ownerEvents = events.filter((event) =>
-    event.kind === "fh_interaction_responded" ||
-    event.kind === "fh_interaction_resume_admitted"
-  );
+  // Both owner kinds in admission order, selected through the kind index.
+  const ownerEvents = [
+    ...indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_responded"),
+    ...indexedRuntimeEvents(prefix, "kind:" + "fh_interaction_resume_admitted"),
+  ].sort((left, right) => left.admissionOrdinal - right.admissionOrdinal);
   const relevantEventRefs = [...publicEvents, ...ownerEvents]
     .map((event) => event.eventId)
     .sort();
   let continuationHistories: readonly Readonly<{
     authorityPrefix: RuntimeEventPrefix;
-    events: RuntimeEventScan;
     continuation: ReplayContinuationState;
   }>[];
   try {
@@ -898,7 +901,6 @@ export function projectFhEffectfulPublicInvocationFacts(
       }
       return {
         authorityPrefix: ownerAuthorityPrefix,
-        events: ownerEvents,
         continuation,
       };
     });
@@ -911,10 +913,8 @@ export function projectFhEffectfulPublicInvocationFacts(
   const facts: FhEffectfulPublicInvocationFact[] = [];
   for (const history of continuationHistories) {
     const { continuation } = history;
-    const opened = history.events.find((event) =>
-      event.eventId === continuation.openedEventRef &&
-      event.kind === "fh_interaction_opened"
-    );
+    const openedAt = runtimeEventAtPrefix(history.authorityPrefix, continuation.openedEventRef);
+    const opened = openedAt?.kind === "fh_interaction_opened" ? openedAt : undefined;
     const openedPayload = opened !== undefined && isRecord(opened.payload)
       ? opened.payload
       : null;
@@ -1002,12 +1002,8 @@ export function projectFhEffectfulPublicInvocationFacts(
           },
     ].filter((coordinate) => coordinate !== null);
     for (const coordinate of coordinates) {
-      const publicEvent = history.events.find((event) =>
-        event.eventId === coordinate.publicOperationEventRef
-      );
-      const ownerEvent = history.events.find((event) =>
-        event.eventId === coordinate.admissionEventRef
-      );
+      const publicEvent = runtimeEventAtPrefix(history.authorityPrefix, coordinate.publicOperationEventRef);
+      const ownerEvent = runtimeEventAtPrefix(history.authorityPrefix, coordinate.admissionEventRef);
       const publicPayload = publicEvent !== undefined &&
           isRecord(publicEvent.payload)
         ? publicEvent.payload

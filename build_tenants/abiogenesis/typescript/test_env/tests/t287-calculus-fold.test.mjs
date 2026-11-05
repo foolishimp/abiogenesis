@@ -10,7 +10,7 @@ import { constructRuntimeFluent, deriveRuntimeEventCalculusProjection, deriveRun
   runtimeFluentHoldsAtPrefix } from '../../build/code/src/abg/event_calculus.js';
 import { selectValidatedRuntimeEventPrefix, selectOwnedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
   runtimeEventAtPrefixIndex, runtimeEventPrefixExtent, validatedRuntimeEventPrefixBeforeEvent,
-  extendRuntimeEventPlanPrefixForValidation, isValidationRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
+  extendRuntimeEventPlanPrefixForValidation, isValidationRuntimeEventPrefix, isOwnedRuntimeEventPrefix } from '../../build/code/src/abg/event_prefix.js';
 import { projectActorProcessLifecycle } from '../../build/code/src/abg/actor_process.js';
 
 const LIFECYCLE = ['actor_cleanup_pending', 'actor_process_live', 'actor_process_spawn_failed',
@@ -702,11 +702,14 @@ test('C-12 fold law: a malformed native observation is refused by the fold with 
 // gives the attempt a wrong digest, so its record does not authenticate and
 // the derived budget is absent; `cite` names the budget whose projection the
 // threshold records: the one derived from the rows, or the well-formed one.
+// `attempts`/`progress` repeat the exact matching record; `related` adds
+// attempt and progress rows of other Runs under the same basis, and
+// `unrelated` adds workspace rows under another basis.
 const BUDGET_SIGNAL = 'signal://t290/c12b-budget';
 const WELL_FORMED_BUDGET = { remaining: 1, retryEligible: true, continuationRef: null, terminalPolicy: 'block', resultRejectionRef: BUDGET_SIGNAL };
 const ABSENT_BUDGET = { remaining: null, retryEligible: false, continuationRef: null, terminalPolicy: 'block' };
 
-function budgetLivenessFixture({ fault = null, cite = 'derived' } = {}) {
+function budgetLivenessFixture({ fault = null, cite = 'derived', attempts = 1, progress = 1, related = 0, unrelated = 0 } = {}) {
   const rows = [], hash = livenessDigest, tag = 'c12b-budget';
   const at = rows => selectValidatedRuntimeEventPrefix(livenessFreeze([...rows]));
   const add = (envelope, kind, aggregateType, aggregateId, parentAggregateId, payload, causationEventRefs = []) => {
@@ -732,7 +735,16 @@ function budgetLivenessFixture({ fault = null, cite = 'derived' } = {}) {
   const attemptBody = { attempt: 1, taskOrdinal: null, retryPath, budget: 2, retryBoundaryRef };
   const attemptDigest = fault === 'attempt-digest' ? hash({ ...attemptBody, budget: 3 }) : hash(attemptBody);
   const attemptRef = `retry-attempt://abiogenesis/${attemptDigest.slice(7)}`;
-  add(scope, 'retry_attempt_opened', 'retry_attempt', attemptRef, scope.frameId, { attemptRef, attemptDigest, ...attemptBody });
+  for (let i = 0; i < attempts; i++) add(scope, 'retry_attempt_opened', 'retry_attempt', attemptRef, scope.frameId, { attemptRef, attemptDigest, ...attemptBody });
+  for (let i = 0; i < related; i++) {
+    const other = { ...scope, runId: `run://t290/${tag}/related-${i}`, frameId: `frame://t290/${tag}/related-${i}` };
+    add(other, 'retry_attempt_opened', 'retry_attempt', attemptRef, other.frameId, { attemptRef, attemptDigest, ...attemptBody });
+    add(other, 'retry_progress_recorded', 'retry_progress', `retry-progress://t290/${tag}/related-${i}`, other.frameId,
+      { progressRef: `retry-progress://t290/${tag}/related-${i}`, progressDigest: hash(i), attemptRef, cCallRef: cCall });
+  }
+  for (let i = 0; i < unrelated; i++) add({ scopeClass: 'workspace', basisId: `basis://t290/${tag}/unrelated` }, 'public_operation_admitted',
+    'workspace', `invocation://t290/${tag}/unrelated-${i}`, null, { invocationRef: `invocation://t290/${tag}/unrelated-${i}`,
+      invocationDigest: hash(['unrelated', i]), operationId: 'abg.operation.project.read', variant: 'status' });
   const ids = { actorRef: `actor://t290/${tag}`, workerBindingRef: `worker-binding://t290/${tag}`,
     implementationRef: `implementation://t290/${tag}`, implementationBindingRef: `implementation-binding://t290/${tag}`,
     inputDigest: hash('input'), promptDigest: hash('prompt'), dispatchOrdinal: 1 };
@@ -777,7 +789,7 @@ function budgetLivenessFixture({ fault = null, cite = 'derived' } = {}) {
   const progressBody = { attemptRef, cCallRef: cCall, remainingBudget: 1, budget: 2, retryBoundaryRef, progressClass: 'retry',
     failureClass: 'contract_failure', failureSignalRef: BUDGET_SIGNAL };
   const progressDigest = hash(progressBody), progressRef = `retry-progress://abiogenesis/${progressDigest.slice(7)}`;
-  add(scope, 'retry_progress_recorded', 'retry_progress', progressRef, scope.frameId, { progressRef, progressDigest, ...progressBody });
+  for (let i = 0; i < progress; i++) add(scope, 'retry_progress_recorded', 'retry_progress', progressRef, scope.frameId, { progressRef, progressDigest, ...progressBody });
   const out = add(scope, 'actor_process_stdout_observed', 'process', processRef, actor,
     { actorInvocationRef: actor, processRef, chunkOrdinal: 1, chunkDigest: hash('chunk-1') }, [started.eventId]);
   probe('stdout', out, 200);
@@ -797,7 +809,7 @@ function budgetLivenessFixture({ fault = null, cite = 'derived' } = {}) {
   add(scope, 'actor_invocation_closed', 'actor_invocation', actor, cCall, { actorInvocationRef: actor, cCallRef: cCall, processRef },
     [actorStarted.eventId]);
   const absent = livenessProjection(before, context, sample, ABSENT_BUDGET);
-  return { rows, context, actor, processRef, timeout, derived, cited, absent };
+  return { rows, context, actor, processRef, timeout, derived, cited, absent, opened };
 }
 
 test('C-12b fold law: a threshold whose scope has an opened retry attempt and its progress carries the budget in its persisted digest and folds cold, warm, streaming and forked alike at every cut', t => {
@@ -892,6 +904,113 @@ test('C-12b fold law: a threshold citing a budget whose retry attempt has the wr
 // record law refuses the record, so no context has a basis and the relation
 // refuses the first probe that cites it. Its mutant with the right digest is
 // the C-12 fixture itself.
+import { projectRuntimeRetryBudgetFacts as budgetOwner } from '../../build/code/src/abg/calculus/liveness.js';
+import { runtimeEventSelectorExtent as selectorExtent } from '../../build/code/src/abg/event_prefix.js';
+import { openMeasurer } from '../support/single-address-space-consolidation.mjs';
+
+// R1 budget discriminators over the actual liveness owner. The synthetic rows
+// are the explicit lower-owner premise; no installed history is claimed.
+test('C-12b budget owner: null, missing, valid, many-match, irrelevant, stale and foreign scopes agree cold, warm, streaming and forked; unrelated growth visits no further rows', async t => {
+  const select = fixture => selectValidatedRuntimeEventPrefix(livenessFreeze([...fixture.rows]));
+  const base = budgetLivenessFixture(), source = select(base), scope = base.context.scope;
+  assert.equal(typeof scope.cCallRef, 'string', 'the actor scope names its CCall');
+  const PROGRESS_UNSET = { remaining: 1, retryEligible: false, continuationRef: null, terminalPolicy: 'block', resultRejectionRef: null };
+  const variants = {
+    valid: [base, scope, WELL_FORMED_BUDGET],
+    nullScope: [base, { ...scope, cCallRef: null }, ABSENT_BUDGET],
+    missingCall: [base, { ...scope, cCallRef: 'c-call://t290/c12b-budget/absent' }, ABSENT_BUDGET],
+    foreignRun: [base, { ...scope, runId: 'run://t290/c12b-budget/foreign' }, ABSENT_BUDGET],
+    foreignBasis: [base, { ...scope, basisRef: 'execution-basis://abiogenesis/' + '0'.repeat(64) }, ABSENT_BUDGET],
+    otherAttempt: [base, { ...scope, attempt: 2 }, ABSENT_BUDGET],
+    manyAttempts: [budgetLivenessFixture({ attempts: 2 }), scope, ABSENT_BUDGET],
+    manyProgress: [budgetLivenessFixture({ progress: 2 }), scope, PROGRESS_UNSET],
+    irrelevantScopes: [budgetLivenessFixture({ related: 8 }), scope, WELL_FORMED_BUDGET],
+    unrelatedGrowth: [budgetLivenessFixture({ unrelated: 8 }), scope, WELL_FORMED_BUDGET],
+  };
+  const folded = new Set();
+  for (const [label, [fixture, query, expected]] of Object.entries(variants)) {
+    const warm = select(fixture), cold = select(fixture);
+    assert.deepEqual(budgetOwner(warm, query), expected, `${label}: the owner value`);
+    assert.deepEqual(budgetOwner(warm, query), budgetOwner(cold, query), `${label}: warm equals cold`);
+    assert.deepEqual(budgetOwner(throughEach(select(fixture)).at(-1), query), expected, `${label}: streaming equals warm`);
+    if (!folded.has(fixture)) { assertFoldAgreement(warm, label); folded.add(fixture); }
+  }
+  // N6-R1-PROOF-01: each finite query and its full expected result asked on the
+  // actual validation-prefix extension forks and on successive streaming cuts.
+  // The rows are the explicit synthetic lower premise, so every prefix is the
+  // validated kind: neither an owned handle nor a validation receipt is claimed.
+  // Each answer must equal the cold answer of a fresh selection of the same rows.
+  const forkTally = {};
+  for (const [label, [fixture, query, expected]] of Object.entries(variants)) {
+    const rows = fixture.rows, n = rows.length;
+    const coldAt = rows.map((_, index) => budgetOwner(select({ rows: rows.slice(0, index + 1) }), query));
+    assert.deepEqual(coldAt.at(-1), expected, `${label}: the fresh full cut answers the expected result`);
+    const kindOf = prefix => [prefix.kind, isOwnedRuntimeEventPrefix(prefix), isValidationRuntimeEventPrefix(prefix)];
+    const streaming = select(fixture), streamed = throughEach(streaming);
+    streamed.forEach((cut, index) => {
+      assert.deepEqual(kindOf(cut), ['validated_runtime_event_prefix', false, false], `${label}: streaming cut ${index + 1} kind`);
+      assert.deepEqual(budgetOwner(cut, query), coldAt[index], `${label}: streaming cut ${index + 1}`);
+    });
+    assert.deepEqual(budgetOwner(streaming, query), expected, `${label}: the streamed whole selection`);
+    // One-row forks from every warm cut, then one chained fork from the middle.
+    const warm = select(fixture), cuts = throughEach(warm);
+    let forks = 0, changed = 0;
+    for (let index = 0; index < n - 1; index++) {
+      const base = cuts[index], before = budgetOwner(base, query);
+      const fork = extendRuntimeEventPlanPrefixForValidation(base, rows[index + 1]);
+      assert.deepEqual(kindOf(fork), ['validated_runtime_event_prefix', false, false], `${label}: fork ${index + 1}->${index + 2} kind`);
+      assert.equal(runtimeEventPrefixExtent(fork).count, index + 2);
+      const answer = budgetOwner(fork, query);
+      assert.deepEqual(answer, coldAt[index + 1], `${label}: fork ${index + 1}->${index + 2}`);
+      assert.deepEqual(budgetOwner(base, query), before, `${label}: the fork leaves its base answer unchanged at ${index + 1}`);
+      forks++; if (JSON.stringify(answer) !== JSON.stringify(before)) changed++;
+    }
+    let chained = cuts[Math.floor(n / 2) - 1];
+    for (let index = Math.floor(n / 2); index < n; index++) {
+      chained = extendRuntimeEventPlanPrefixForValidation(chained, rows[index]);
+      assert.deepEqual(kindOf(chained), ['validated_runtime_event_prefix', false, false]);
+      assert.deepEqual(budgetOwner(chained, query), coldAt[index], `${label}: chained fork through ${index + 1}`);
+    }
+    assert.deepEqual(budgetOwner(chained, query), expected, `${label}: the chained fork answers the expected result`);
+    forkTally[label] = { rows: n, streamingCuts: streamed.length, oneRowForks: forks, answerChanges: changed,
+      chainedFrom: Math.floor(n / 2) };
+  }
+  // Stale cuts: before the progress record the progress facts are unset; before
+  // the CCall opens there is no budget. Each cut answers for itself.
+  const cuts = throughEach(source), rows = events(source);
+  const progressAt = rows.findIndex(row => row.kind === 'retry_progress_recorded'), openedAt = rows.findIndex(row => row.kind === 'c_call_opened');
+  assert.deepEqual(budgetOwner(cuts[progressAt - 1], scope), PROGRESS_UNSET, 'the cut before the progress record');
+  assert.deepEqual(budgetOwner(cuts[openedAt - 1], scope), ABSENT_BUDGET, 'the cut before the CCall opens');
+  // Authenticity: a copied prefix is not an owned selection, null scope included.
+  for (const query of [scope, { ...scope, cCallRef: null }])
+    assert.throws(() => budgetOwner(structuredClone(source), query), `a copied prefix refuses for ${query.cCallRef}`);
+
+  // Visited work: the owner reads the CCall's related bucket and the basis
+  // bucket of its scope. Unrelated growth adds no bucket row, body read or
+  // index selection; related growth adds exactly its rows to the basis bucket.
+  const meter = openMeasurer([new URL('../../build', import.meta.url).pathname]);
+  t.after(() => meter.close());
+  const visited = async (label, fixture) => {
+    const prefix = select(fixture);
+    const buckets = { related: selectorExtent(prefix, 'related:' + scope.cCallRef).count, basis: selectorExtent(prefix, 'basis:' + scope.basisRef).count,
+      history: runtimeEventPrefixExtent(prefix).count };
+    const { value, measurement } = await meter.measure(label, () => budgetOwner(prefix, scope));
+    const calls = measurement.ownerCalls;
+    return { value, buckets, bodyReads: calls['abg/event_prefix.js#runtimeEventAtPrefix'], selections: calls['abg/event_prefix.js#indexedRuntimeEventEnvelopes'],
+      heapUsedDelta: measurement.heapUsedDelta };
+  };
+  const [baseWork, relatedWork, unrelatedWork] = [await visited('budget_base', base), await visited('budget_related_growth', variants.irrelevantScopes[0]),
+    await visited('budget_unrelated_growth', variants.unrelatedGrowth[0])];
+  assert.equal(unrelatedWork.buckets.history, baseWork.buckets.history + 8);
+  assert.deepEqual([unrelatedWork.buckets, unrelatedWork.bodyReads, unrelatedWork.selections], [{ ...baseWork.buckets, history: unrelatedWork.buckets.history },
+    baseWork.bodyReads, baseWork.selections], 'unrelated growth visits no further row');
+  assert.equal(relatedWork.buckets.basis, baseWork.buckets.basis + 16, 'related growth enters the scope basis bucket');
+  // Other Runs' rows are excluded at their envelopes, before any body read.
+  assert.deepEqual([relatedWork.bodyReads, relatedWork.selections], [baseWork.bodyReads, baseWork.selections], 'related rows are visited within the same selections');
+  assert.deepEqual([relatedWork.value, unrelatedWork.value], [baseWork.value, baseWork.value]);
+  t.diagnostic(JSON.stringify({ variants: Object.keys(variants), forkQueries: forkTally, base: baseWork, related: relatedWork, unrelated: unrelatedWork }));
+});
+
 import { projectExactExecutionBasisRecordAtPrefix as basisRecordLaw } from '../../build/code/src/abg/calculus/execution_basis_record.js';
 import { projectExactExecutionBasisAtPrefix as basisOwnerRead } from '../../build/code/src/abg/invocation_execution_truth.js';
 

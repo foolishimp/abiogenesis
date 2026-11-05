@@ -2,18 +2,20 @@ import assert from 'node:assert/strict';
 import { access, lstat, mkdir, mkdtemp, readFile, readdir, realpath, rename, rm, stat, symlink, writeFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import { createRequire, syncBuiltinESMExports } from 'node:module';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import test from 'node:test';
 import * as product from '../../build/code/src/product/index.js';
+import { sha256Canonical as candidateDigest } from '../../build/code/src/product/index.js';
 import * as c2 from '../../build/code/src/product/worksite_command_execution.js';
 import * as abg from '../../build/code/src/abg/index.js';
 import * as storeOwner from '../../build/code/src/abg/event_store.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import { assessmentSelection, consumerDeclaration, IDS } from './consumer.mjs';
 import { constructLifecycleCall, installedModules, populateSandbox, publicCaller, verifyArtifact } from './public-setup.mjs';
-import { readCandidateBasis } from '../support/candidate-basis.mjs';
 import { acquireArchivedScenario, acquireScenario, constructWorkloadInput, digest, fixturePath, loadScenarios, selectScenarios, snapshotScenario } from './scenarios.mjs';
 import { acquireResumeMaterial, applyCommandTimeoutOverrides, commandObservationOwner, commandObservationSourceUse, commandRecorder, configuration, eventResourceIdentity, exclusiveRecord, freshReadbacks, invokeLifecycle, main, newArchive, readOracleEvents, transferResumeMaterial, workerEnvironment } from './runner.mjs';
 
@@ -807,9 +809,7 @@ test('Admitted failed and blocked Runs retain both fresh reads and unchanged eve
 // does not exclude preliminary parsing. A PATH wrapper records the environment
 // the installation npm receives; only PATH and TMPDIR are scoped in-process.
 test('Maintained setup retains actual owner verification through ten native calls and preserves configured environment',async t=>{
-  const tenantRoot=fileURLToPath(new URL('../../',import.meta.url)),basis=await readCandidateBasis(tenantRoot);
-  const packagePath=join(tenantRoot,'artifacts',basis.packageName.replace(/^@/u,'').replace('/','-')+'-'+basis.packageVersion+'.tgz');
-  assert.equal(digest(await readFile(packagePath)),basis.artifactDigest,'the fresh package is the candidate basis artifact');
+  const tenantRoot=fileURLToPath(new URL('../../',import.meta.url));
   const archive=await newArchive(archives,'maintained-setup'),root=archive.path;
   const ambient={PATH:process.env.PATH,TMPDIR:process.env.TMPDIR};
   let realNpm=null;
@@ -817,6 +817,18 @@ test('Maintained setup retains actual owner verification through ten native call
     try{await access(join(directory,'npm'),fs.constants.X_OK);realNpm=join(directory,'npm');break;}catch{}
   }
   assert.ok(realNpm,'setup requires an npm executable on the ambient PATH');
+  // The candidate is this built tenant, freshly packed; its identity is the
+  // packed bytes and the built manifest, never a persisted earlier basis.
+  const packed=join(root,'candidate-artifact');await mkdir(packed);
+  const {stdout:packOutput}=await promisify(execFile)(realNpm,['pack','--ignore-scripts','--json','--pack-destination',packed],
+    {cwd:tenantRoot,maxBuffer:10*1024*1024});
+  const [packResult]=JSON.parse(packOutput),packagePath=join(packed,packResult.filename);
+  const candidateManifest=JSON.parse(await readFile(join(tenantRoot,'product-toolchain-manifest.json'),'utf8'));
+  const basis={artifactDigest:digest(await readFile(packagePath)),productContentDigest:candidateManifest.productContentDigest,
+    manifestDigest:candidateDigest(candidateManifest),productId:candidateManifest.productId,
+    packageName:candidateManifest.packageName,packageVersion:candidateManifest.packageVersion};
+  assert.deepEqual({name:packResult.name,version:packResult.version},{name:basis.packageName,version:basis.packageVersion},
+    'the fresh package carries the built candidate identity');
   const setupTmp=join(root,'setup-tmp'),setupBin=join(root,'setup-bin'),npmLog=join(root,'installation-npm-environment.log');
   await mkdir(setupTmp);await mkdir(setupBin);
   const quoted=value=>{assert.ok(!value.includes("'"),'shell-safe path');return "'"+value+"'";};
@@ -868,7 +880,7 @@ test('Maintained setup retains actual owner verification through ten native call
     return original.readFileSync.call(this,path,...rest);
   };
   syncBuiltinESMExports();
-  let runtime,native,caller,setup,compiler,warm;const observed=new Map();
+  let runtime,native,caller,setup,compiler,warm;const observed=new Map(),lifecycle=[];
   try {
     enter('installed-module-load');
     runtime=await installedModules(bootstrapRoot);
@@ -878,8 +890,13 @@ test('Maintained setup retains actual owner verification through ten native call
     native=await verifyArtifact(runtime,{artifactPath:packagePath,manifest,expectedArtifactDigest:basis.artifactDigest},record,'abg');
     caller=publicCaller({root,runtime,native,command,record,config:{runId:archive.runId,bootstrapRoot,worksiteRoot:join(root,'sandbox/worksite'),
       setupEnvironment,recursionBound:1000,nodePath:process.execPath,toolchains:{npm:{executable:realNpm}}}});
-    const nativeInvoke=caller.invoke;
-    caller.invoke=async(label,call,options)=>{const result=await nativeInvoke(label,call,options);observed.set(label,result);return result;};
+    const nativeInvoke=caller.invoke,nativeAcquire=caller.acquire,nativeClose=caller.close;
+    // Observation only: each call's entry selection, its successor, and every
+    // outer acquisition and close of the setup event resource.
+    caller.invoke=async(label,call,options)=>{const entry=caller.state.selection,result=await nativeInvoke(label,call,options);
+      observed.set(label,{...result,entry,successor:caller.state.selection});return result;};
+    caller.acquire=assertion=>{const selection=nativeAcquire(assertion);lifecycle.push({kind:'acquire',phase:phase.name,selection});return selection;};
+    caller.close=finalPrefix=>{const receipt=nativeClose(finalPrefix);lifecycle.push({kind:'close',phase:phase.name,receipt});return receipt;};
     setup=await populateSandbox(caller);
     enter('complete');
     assert.deepEqual({PATH:process.env.PATH,TMPDIR:process.env.TMPDIR},ambient,'ambient PATH/TMPDIR return after setup');
@@ -900,28 +917,44 @@ test('Maintained setup retains actual owner verification through ten native call
   }
   const {product,abg}=runtime,hash=product.sha256Canonical;
 
-  // Ten actual owner receipts, in one module instance, with chained actual closes.
+  // Ten actual owner receipts, in one module instance: eventless calls before
+  // the one acquisition, then borrowed calls chained successor to entry, and
+  // one final close of the held resource.
   const labels=['workspace-create','product-verify-0','product-verify-1','product-resolve','product-install-0','product-install-1',
     'workspace-bind','catalog-admit','catalog-view','program-conformance'];
   const setupCalls=caller.state.calls.slice(0,labels.length);
   assert.deepEqual(setupCalls.map(row=>row.label),labels);
-  let close=null;const closes=[];
-  for(const label of labels) {
-    const {call,outcome,receipt}=observed.get(label),resource=call.resources.eventResource,returned=receipt.resources?.eventResource?.closeHandoff;
+  const setupLifecycle=lifecycle.filter(row=>row.phase!=='restoration-control');
+  assert.deepEqual(setupLifecycle.map(row=>row.kind+':'+row.phase),['acquire:after:product-resolve','close:after:program-conformance'],
+    'setup acquires its event resource once and closes it once');
+  assert.equal(lifecycle.length,setupLifecycle.length,'the refused repeat setup acquires and closes nothing');
+  const acquired=setupLifecycle[0].selection,close=setupLifecycle[1].receipt.closeHandoff;
+  let held=null;const borrowedCalls=[];
+  for(const [i,label] of labels.entries()) {
+    const {call,outcome,receipt,entry,successor}=observed.get(label),resource=call.resources.eventResource,completion=receipt.resources?.eventResource;
     assert.equal(outcome.kind,'installed_definition_call_transport_result',label);
     assert.equal(receipt.exitCode,0,label);assert.equal(receipt.failure,null,label);assert.equal(receipt.ownerOutput.outcomeKind,'result',label);
     const owner=call.resources.admissionAuthority.basis.ownerArtifact;
     assert.equal(owner.verified,native.verified,label+' carries the actual verified owner');assert.deepEqual(owner.request,native.request,label+' keeps its exact request');
     assert.equal(product.selectOwnedProductVerification(owner.request,owner.verified),native.verified,label+' request selects the owned verification');
-    if(!resource){assert.equal(returned,undefined,label+' is eventless');continue;}
-    assert.ok(returned?.prefix,label+' returns its owner close');
-    if(resource.kind==='new_abg_event_resource')assert.equal(close,null,label);
-    else {assert.equal(resource.closeHandoff,close,label+' reopens the actual preceding close');assert.equal(resource.handoffDigest,hash(close));}
-    assert.equal(returned.prefix.eventLogRef,(close??returned).prefix.eventLogRef);
-    closes.push({label,acquisition:outcome.acquisitionKind,prefix:returned.prefix});close=returned;
+    assert.equal(entry,held===null&&label!=='product-install-0'?null:held??acquired,label+' enters at the held selection');
+    if(setupCalls[i].acquisitionKind==='eventless') {
+      assert.equal(resource,undefined,label+' is eventless');assert.equal(completion,undefined,label+' returns no event resource');
+      assert.equal(successor,entry,label+' leaves the held selection unchanged');continue;
+    }
+    assert.equal(setupCalls[i].acquisitionKind,'borrowed',label);
+    if(resource!==undefined)assert.equal(resource,entry,label+' names the borrowed selection as its event resource');
+    if(completion!==undefined) {
+      assert.equal(completion.kind,'abg_event_resource_completion',label);assert.equal(completion.successor,successor,label+' continues at its completion successor');
+    }
+    assert.equal(setupCalls[i].prefixDigest,hash(successor.prefix),label);
+    assert.equal(successor.prefix.eventLogRef,acquired.prefix.eventLogRef,label+' stays on the one acquired event log');
+    borrowedCalls.push({label,completion:completion?.kind??null,entryDigest:hash(entry.prefix),successorDigest:hash(successor.prefix)});held=successor;
   }
-  assert.deepEqual(closes.map(row=>row.label),['product-install-0','product-install-1','workspace-bind','catalog-admit']);
-  assert.equal(caller.state.closeHandoff,close);
+  assert.deepEqual(borrowedCalls.filter(row=>row.completion!==null).map(row=>row.label),['product-install-0','product-install-1','workspace-bind','catalog-admit']);
+  assert.equal(caller.state.resource,null);assert.equal(caller.state.selection,null);
+  assert.equal(caller.state.closeHandoff,close,'the final close is the published handoff');
+  assert.equal(hash(close.prefix),hash(held.prefix),'the final close is at the last borrowed successor');
   const eventLog=fileURLToPath(close.prefix.eventLogRef),identity=await eventResourceIdentity(eventLog);
   const events=abg.readRuntimeEventsAtDurablePrefix(abg.captureDurablePrefixCoordinate(close.prefix));
   assert.ok(events.length>0);assert.deepEqual(await eventResourceIdentity(eventLog),identity,'cold authentication of the final close changes nothing');
@@ -1025,11 +1058,12 @@ test('Maintained setup retains actual owner verification through ten native call
   const control=phases.find(row=>row.name==='warm-control'),wall=ms=>Math.round(ms*10)/10;
   assert.ok(setupEnd<=control.startMs,'the warm control starts after the complete serial setup interval');
   const resolved=observed.get('product-resolve');
-  const proof={kind:'maintained_setup_owner_reuse_proof',schemaVersion:'5.0.0',support:'support://abiogenesis/rc4/maintained-setup-owner-reuse',
-    package:{path:packagePath,artifactDigest:basis.artifactDigest,manifestDigest:basis.manifestDigest,productContentDigest:basis.productContentDigest},
-    archive:root,calls:setupCalls.map(({label,acquisitionKind,outcomeKind,exitCode,invocationRef,closeDigest,wallMs})=>
-      ({label,acquisitionKind,outcomeKind,exitCode,invocationRef,closeDigest,wallMs:Math.round(wallMs*10)/10})),
-    closes:closes.map(row=>({label:row.label,acquisition:row.acquisition,prefixDigest:hash(row.prefix)})),finalEventCount:events.length,
+  const proof={kind:'maintained_setup_owner_reuse_proof',schemaVersion:'5.0.0',support:'support://abiogenesis/maintained-setup-owner-reuse',
+    package:{path:packagePath,source:'fresh_pack',productId:basis.productId,packageVersion:basis.packageVersion,
+      artifactDigest:basis.artifactDigest,manifestDigest:basis.manifestDigest,productContentDigest:basis.productContentDigest},
+    archive:root,calls:setupCalls.map(({label,acquisitionKind,outcomeKind,exitCode,invocationRef,prefixDigest,wallMs})=>
+      ({label,acquisitionKind,outcomeKind,exitCode,invocationRef,prefixDigest,wallMs:Math.round(wallMs*10)/10})),
+    borrowedCalls,finalClose:{phase:setupLifecycle[1].phase,prefixDigest:hash(close.prefix)},finalEventCount:events.length,
     installs:setup.installations.map(install=>({productId:install.productId,installId:install.installId,contentMatches:true})),
     heavyEntries:counts,phases:timing,
     setupInterval:{fromPhase:'installed-module-load',toPhase:setupPhases.at(-1),wallMs:wall(setupEnd-setupStart),heavyEntries:counts},

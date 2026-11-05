@@ -593,6 +593,15 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
   if (typeof event.basisId === "string") keys.push("basis:" + event.basisId);
   if (typeof event.graphCallId === "string") keys.push("graph-call:" + event.graphCallId);
   if (payload !== undefined) {
+    // One shared classification of admitted public operations by the payload
+    // members their Run, F_H and construction consumers select on.
+    if (event.kind === "public_operation_admitted") {
+      if (typeof payload.operationId === "string") keys.push("public-operation:" + payload.operationId);
+      if (typeof payload.continuationKind === "string") keys.push("public-continuation:" + payload.continuationKind);
+    }
+    if (event.kind === "basis_admitted" && record(payload.constructionContinuationUse) &&
+        typeof payload.constructionContinuationUse.operationAdmissionEventRef === "string")
+      keys.push("construction-operation:" + payload.constructionContinuationUse.operationAdmissionEventRef);
     for (const field of ["resultRef", "parentCCallRef", "cursorRef", "sourceCursorRef", "routeRef", "invocationAdmissionRef", "progressRef", "implementationSetRef", "interactionSetRef", "basisRef", "artifactRef"] as const)
       if (typeof payload[field] === "string") keys.push("payload:" + field + ":" + payload[field]);
     for (const value of [payload.rawInputValue, payload.value])

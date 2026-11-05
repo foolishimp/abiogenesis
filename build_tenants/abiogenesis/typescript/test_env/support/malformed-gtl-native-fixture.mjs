@@ -135,6 +135,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   }
   const realDeclarations = await import('../../build/code/src/product/declaration_closure.js');
   const qualification = await import('../../build/code/src/validator/qualification.js');
+  const runtimeHistory = await import('../../build/code/src/abg/runtime_history.js');
   const stubs = {
     'validator/qualification.js': {...qualification, constructNativeRuntimeAssessment: (...args) => { counts.assessment++; return qualification.constructNativeRuntimeAssessment(...args); },
       reduceExactCandidateQualification: (...args) => { counts.verdict++; return qualification.reduceExactCandidateQualification(...args); }},
@@ -151,10 +152,17 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
       if (p.eventLogRef !== prefixBase.eventLogRef || p.storeIdentity.inode !== 2 || p.prefixLength > events.length ||
         prefixDigest(p.prefixLength) !== p.prefixDigest || options?.requireCurrent && p.prefixLength !== events.length) throw Error('foreign/stale mechanical prefix');
       return events.slice(0, p.prefixLength); } },
-    'abg/event_prefix.js': { selectValidatedRuntimeEventPrefix: e => e, runtimeEventsFromValidatedPrefix: p => p,
+    // The owned prefix is the fixture's admitted array. Its finite selector
+    // buckets use the actual runtime-history vocabulary, so joins keep their
+    // real keys while the lower owner's acquisition stays an explicit premise.
+    'abg/event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: (p, options) => stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p, options),
+      indexedRuntimeEvents: (p, key) => p.filter(e => runtimeHistory.runtimeHistorySelectorKeys(e).includes(key)),
+      // The admitted array names its own cut; a routed real source names its rows.
+      runtimeEventPrefixExtent: p => { const rows = Array.isArray(p) ? p : p.events;
+        return { count: rows.length, lastOrdinal: rows.at(-1)?.admissionOrdinal ?? 0 }; },
       runtimePrefixComputation: (_p,key,construct) => { if(!computations.has(key))computations.set(key,construct()); return computations.get(key); } },
-    'abg/artifact_truth.js': { projectExactPrefixArtifactTruth: p => ({kind:'exact_prefix_artifact_truth_projection',prefix:p,
-      fixtureEvents:stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p)}), runtimePrefixFromArtifactTruth: p => p.fixtureEvents },
+    'abg/artifact_truth.js': { projectOwnedPrefixArtifactTruth: p => ({kind:'exact_prefix_artifact_truth_projection',prefix:p,
+      fixtureEvents:stubs['abg/event_store.js'].readRuntimeEventsAtDurablePrefix(p)}), runtimePrefixFromOwnedArtifactTruth: p => p.fixtureEvents },
     'abg/invocation_execution_truth.js': { projectExactExecutionBasisAtPrefix: (_p, ref) => { counts.execution++; return executions.get(ref) ?? null; },
       projectExactInvocationAdmissionAtPrefix: (_p, ref) => invocations.get(ref) ?? null },
     'abg/environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => {counts.environment++;return environment;},

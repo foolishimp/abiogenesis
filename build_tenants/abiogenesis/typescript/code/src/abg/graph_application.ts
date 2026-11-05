@@ -1,4 +1,5 @@
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromAuthority,
+  selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord, isNonEmptyJsonString as isNonEmptyString, hasExactKeys } from "../shared/admission_predicates.js";
 import type {
@@ -21,13 +22,12 @@ import {
 import {
   AbgEventStore,
   admitRuntimeEventTransactionAtDurablePrefix,
-  readActiveRuntimeTransactionAtDurablePrefix,
+  selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   admitRuntimeEvent,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
   runtimeEventBodiesAtPrefix,
-  selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
@@ -305,7 +305,7 @@ export function isAdmittedApplicationChildFoldback(
   value: ApplicationChildFoldbackAdmission,
 ): value is ApplicationChildFoldbackAdmission {
   return isAdmittedApplicationChildFoldbackAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     value,
   );
 }
@@ -342,7 +342,7 @@ export function isAdmittedApplicationChildPreparationRefusal(
   value: ApplicationChildPreparationRefusalAdmission,
 ): value is ApplicationChildPreparationRefusalAdmission {
   return isAdmittedApplicationChildPreparationRefusalAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     value,
   );
 }
@@ -379,7 +379,7 @@ export function projectCurrentApplicationChildPreparationRefusal(
   coordinates: Readonly<{ runId: string; refusalRef: string }>,
 ): ApplicationChildPreparationRefusalAdmission | null {
   return projectApplicationChildPreparationRefusalAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll(), {
+    selectRuntimeEventPrefixFromStore(store, {
       runId: coordinates.runId,
     }),
     coordinates,
@@ -463,7 +463,7 @@ export function projectCurrentApplicationChildFoldback(
   coordinates: Readonly<{ runId: string; foldbackRef: string }>,
 ): ApplicationChildFoldbackAdmission | null {
   return projectApplicationChildFoldbackAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll(), {
+    selectRuntimeEventPrefixFromStore(store, {
       runId: coordinates.runId,
     }),
     coordinates,
@@ -534,10 +534,9 @@ export function projectCurrentApplicationChildRoute(
     judgmentRef: string;
   }>,
 ): ReplayRouteState | null {
-  const snapshot = store.readAll();
-  const fullPrefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const fullPrefix = selectRuntimeEventPrefixFromStore(store);
   return projectApplicationChildRouteAtPrefix(
-    selectValidatedRuntimeEventPrefix(snapshot, {
+    selectRuntimeEventPrefixFromAuthority(fullPrefix, {
       runId: coordinates.runId,
     }),
     fullPrefix,
@@ -663,11 +662,10 @@ function admitRecursiveApplicationChildPreparationRefusal(
     const committed = admitRuntimeEventTransactionAtDurablePrefix(
       store, predecessorPrefix, (): ApplicationChildPreparationRefusalAdmission | ApplicationChildPreparationRefusalRefusal => {
         entered = true;
-        const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(
+        const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(
           store, predecessorPrefix, { durableOnly: true },
-        );
-        const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
-        const ownerPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+        ));
+        const ownerPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
           runId: parentCCall.runId,
         });
         if (
@@ -767,7 +765,7 @@ function admitRecursiveApplicationChildPreparationRefusal(
           admissionEventRef: event.eventId,
         }) as ApplicationChildPreparationRefusalAdmission;
         const projected = projectApplicationChildPreparationRefusalAtPrefix(
-          selectValidatedRuntimeEventPrefix(store.readAll(), {
+          selectRuntimeEventPrefixFromStore(store, {
             runId: sourceCursor.runId,
           }),
           { runId: sourceCursor.runId, refusalRef },
@@ -830,11 +828,10 @@ function admitRecursiveApplicationChildFoldback(
     const committed = admitRuntimeEventTransactionAtDurablePrefix(
       store, predecessorPrefix, (): ApplicationChildFoldbackAdmission | ApplicationChildFoldbackRefusal => {
         entered = true;
-        const predecessorEvents = readActiveRuntimeTransactionAtDurablePrefix(
+        const authorityPrefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(
           store, predecessorPrefix, { durableOnly: true },
-        );
-        const authorityPrefix = selectValidatedRuntimeEventPrefix(predecessorEvents);
-        const prefix = selectValidatedRuntimeEventPrefix(predecessorEvents, {
+        ));
+        const prefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
           runId: sourceCursor.runId,
         });
         if (
@@ -1095,7 +1092,7 @@ function admitRecursiveApplicationChildFoldback(
           admissionEventRef: event.eventId,
         }) as ApplicationChildFoldbackAdmission;
         const projected = projectApplicationChildFoldbackAtPrefix(
-          selectValidatedRuntimeEventPrefix(store.readAll(), {
+          selectRuntimeEventPrefixFromStore(store, {
             runId: sourceCursor.runId,
           }),
           { runId: sourceCursor.runId, foldbackRef },

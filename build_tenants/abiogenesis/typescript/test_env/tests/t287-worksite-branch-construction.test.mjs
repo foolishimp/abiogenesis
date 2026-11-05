@@ -562,8 +562,8 @@ async function assertSuccessfulFixture(
     store: environment.store,
     requests: [{
       rowId: `c3-${label}-runtime-truth`,
-      owner: "abg",
-      exportName: "projectRuntimeTruthAtDurablePrefix",
+      owner: "replay",
+      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
       input: "durable_prefix",
       args: [opened.scope.runId],
     }],
@@ -757,8 +757,8 @@ test("T-287 C3 preserves outer and nested partial prefixes and never opens fan-i
     store: environment.store,
     requests: [{
       rowId: "c3-partial-runtime-truth",
-      owner: "abg",
-      exportName: "projectRuntimeTruthAtDurablePrefix",
+      owner: "replay",
+      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
       input: "durable_prefix",
       args: [opened.scope.runId],
     }],

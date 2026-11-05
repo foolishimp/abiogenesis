@@ -1,7 +1,7 @@
 import { selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
 import { projectRuntimeReplayGuard, materializeRuntimeReplayGuard, type RuntimeReplayGuard } from "./replay.js";
 import type { OwnedEffectfulPublicInvocationTruth } from "./effectful_invocation_truth.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { extendRuntimeEventPlanPrefixForValidation, extendRuntimeEventPrefixForValidation, indexedRuntimeEvents, runtimeEventAtPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type {
@@ -67,8 +67,8 @@ import {
   AbgEventStore,
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
-  admitRuntimeEvent,
   readHeldRuntimeEventsAtDurablePrefix,
+  admitRuntimeEvent,
   compareAndAppendExpectedPrefix,
   projectRuntimeEventFromValidatedHistory,
   type DurablePrefixCoordinate,
@@ -84,8 +84,7 @@ export function admitContinuationTerminal(
   candidateDigest: Sha256Digest,
   basis: RuntimeAdmissionBasis,
 ): RuntimeEvent {
-  const snapshot = store.readAll();
-  const prefix = selectValidatedRuntimeEventPrefix(snapshot);
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   const calculus = deriveRuntimeHeldFluentProjection(prefix);
   const current = projectFhContinuations(prefix, calculus).find((row) =>
     row.continuationRef === continuationRef
@@ -95,7 +94,7 @@ export function admitContinuationTerminal(
     throw new TypeError("continuation terminal admission requires one exact current continuation");
   }
   const predecessorRef = current.respondedEventRef ?? current.openedEventRef;
-  const predecessor = snapshot.find((event) => event.eventId === predecessorRef);
+  const predecessor = runtimeEventAtPrefix(prefix, predecessorRef);
   if (predecessor === undefined) {
     throw new TypeError("continuation terminal admission requires its exact predecessor event");
   }
@@ -771,7 +770,7 @@ export function projectFhInteractionSemanticBasis(
   readonly nextActionBasis: Readonly<Record<string, JsonValue>> | null;
 }> | null {
   return projectFhInteractionSemanticBasisAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     continuation,
   );
 }
@@ -1031,9 +1030,8 @@ export function prepareContinuationPublicOperation(
     },
   };
   const event = projectRuntimeEventFromValidatedHistory(events, candidate);
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...events, event]),
-  );
+  // A prospective suffix extends the borrowed base; it never recopies history.
+  const projectedPrefix = extendRuntimeEventPlanPrefixForValidation(prefix, event);
   const admitted = deepFreeze({
     kind: "continuation_public_operation_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -1128,7 +1126,7 @@ export function admitFhInteractionOpen(
   inputValue: Readonly<Record<string, JsonValue>>,
   basis: RuntimeAdmissionBasis,
 ): FhInteractionContinuation {
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   const cCall = pending.cCall;
   const constructionIntent: ConstructionIntentAdmission | null =
     rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
@@ -1538,9 +1536,8 @@ export function prepareFhInteractionResponse(
     },
   };
   const event = projectRuntimeEventFromValidatedHistory(events, candidate);
-  const projectedPrefix = selectValidatedRuntimeEventPrefix(
-    Object.freeze([...events, event]),
-  );
+  // The public validated input is extended in place of a cold full re-validation.
+  const projectedPrefix = extendRuntimeEventPrefixForValidation(prefix, event);
   const response = deepFreeze({
     kind: "fh_interaction_response_admission" as const,
     schemaVersion: "5.0.0" as const,
@@ -1577,6 +1574,8 @@ export function commitFhInteractionResponseAtExpectedPrefix(
   responseValue: Readonly<Record<string, JsonValue>>,
   responseBasis: RuntimeAdmissionBasis,
 ): CommittedFhInteractionResponseResult {
+  // Retained complete output: the committed F_H response result publishes this
+  // validated prefix (CommittedFhInteractionResponseResult); no 5.0 binding resumes F_H.
   const prefix = selectValidatedRuntimeEventPrefix(
     readHeldRuntimeEventsAtDurablePrefix(store, predecessorPrefix),
   );
@@ -1647,7 +1646,7 @@ export function deriveFhResumeSuccessorInput(
   successorCarrier: FhResumeSuccessorCarrier,
 ): FhResumeSuccessorInput {
   return deriveFhResumeSuccessorInputAtPrefix(
-    selectValidatedRuntimeEventPrefix(store.readAll()),
+    selectRuntimeEventPrefixFromStore(store),
     continuation,
     operation,
     executionBasis,

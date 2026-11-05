@@ -51,7 +51,7 @@ test("construction readiness rederives the exact retained native request and pre
   assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
   const basis = { publication, lifecyclePublication, sourcePublication, graph, graphFunction, declarationGraphFunctions: declarations,
     executionBasis: execution, cCall, cursor, predecessorPrefix: durable };
-  const owner = semantic.authenticateSemanticStageBasis(basis); assert.ok(owner, "actual shared owner authenticates saved native basis");
+  const owner = semantic.authenticateOwnedSemanticStageBasis(basis); assert.ok(owner, "actual shared owner authenticates saved native basis");
   const input = execution.rawInputValue;
   assert.equal(semantic.semanticInputMatchesBasis(basis, input), true);
   const predecessor = await import(pathToFileURL(join(process.env.ABI5_DESIGN_CONTEXT_PREDECESSOR, "build/code/src/abg/instruction_assembly.js")).href);

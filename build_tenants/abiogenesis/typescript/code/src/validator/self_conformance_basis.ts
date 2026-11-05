@@ -1,9 +1,8 @@
 import type { QualificationResources } from "./qualification_resources.js";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
+import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix } from "../abg/event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix } from "../abg/execution_basis.js";
 import { projectExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix } from "../abg/c_call.js";
@@ -33,9 +32,9 @@ export function resolveSelfConformanceOwner(basis: QualificationOwnerBasis, inpu
     // digest is compared with the root input digest, and a refusal is null.
     const admittedInput = admitJson(input);
     if (admittedInput.kind !== "ok") return null;
-    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
-    const prefix = selectValidatedRuntimeEventPrefix(events);
-    const opened = events.find(e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
+    // Native-owner currentness propagates to the owned reader; the opening is indexed.
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix as DurablePrefixCoordinate, { requireCurrent });
+    const opened = indexedRuntimeEvents(prefix, "related:" + basis.cCallRef).find(e => e.kind === "c_call_opened" && e.aggregateId === basis.cCallRef);
     if (opened === undefined) return null;
     const execution = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
     if (execution === null || execution.basisClass !== "root" || execution.programRef !== ids.programRef || execution.graphFunctionRef !== ids.graphFunctionRef || hash(admittedInput.value) !== execution.rawInputDigest) return null;

@@ -81,7 +81,7 @@ test('RC7 source citation boundary: real corpus access, both compiled role assem
   const module=new SourceTextModule(await readFile(modulePath,'utf8'),{identifier:modulePath});
   await module.link(async specifier=>{
     const native=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(modulePath),specifier)).href);
-    const values={...native,...(specifier==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}: {})};
+    const values={...native,...(specifier==='./semantic_stage.js'?{authenticateOwnedSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}: {})};
     return new SyntheticModule(Object.keys(values),function(){for(const [key,value]of Object.entries(values))this.setExport(key,value);});
   });await module.evaluate();
   const roles=[];

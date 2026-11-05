@@ -1,9 +1,9 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { runtimeEventBodiesAtPrefix } from "./event_prefix.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventBodiesAtPrefix } from "./event_prefix.js";
 import { projectWorksiteRevisionOrigins, worksiteRevisionPhysicalMatches, worksiteRevisionSeedMatches,
   worksiteRevisionEntryBindingDisposition, projectWorksiteRevisionBindingOrigin, worksiteRevisionMeaningMatches,
   retainedWorksitePhysicalMatches, worksiteRevisionOriginSurvives, worksiteExecutionSourcesCurrent, type WorksiteRevisionOriginProof } from "./worksite_revision.js";
-import { selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { validatedRuntimeEventPrefixBeforeEvent } from "./event_prefix.js";
 import { WORKSITE_REVISION_IDS, type WorksiteRevisionObservationOrigin } from "../product/worksite_revision.js";
 import { constructWorksiteRevisionCommandPreparationInput } from "../product/worksite_preparation.js";
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
@@ -21,7 +21,7 @@ import { deriveSemanticRevision, deriveRevisionAsset, deriveRevisionAssessment, 
   type SemanticRevisionEnvelope } from "../product/semantic_revision.js";
 import { isSemanticStageEnvelope, type SemanticStageEnvelope, type SemanticWorksiteBasis,
   deriveSemanticWorksiteConstructionConfiguration, projectSemanticWorksiteCoordinates } from "../product/semantic_stage.js";
-import { authenticateSemanticStageBasis, authenticateOwnedSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis, semanticInputAtBasisEquals,
+import { authenticateOwnedSemanticStageBasis, projectSemanticPredecessorAtPrefix, semanticInputValueAtBasis, semanticInputAtBasisEquals,
   type SemanticStageNativeBasis } from "./semantic_stage.js";
 import { rehydrateExecutionBasisAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
@@ -31,7 +31,7 @@ import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js"
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
 import { readFileSync, lstatSync, realpathSync } from "node:fs";
 import { resolve, relative, isAbsolute } from "node:path";
-import { authenticateSemanticJobBasis, authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
+import { authenticateOwnedSemanticJobBasis, semanticJobRootAtPrefix, semanticJobConstructionSourceAtPrefix } from "./semantic_job.js";
 import { projectWorksiteRevisionNativeResult } from "./worksite_revision.js";
 import { isSemanticJobEnvelope, deriveSemanticJobPreparation, deriveSemanticJobReadDependencies, projectSemanticJobBindings } from "../product/semantic_job.js";
 import { isSemanticJobRevisionEnvelope, deriveSemanticJobRevision, deriveJobRevisionAsset, deriveJobRevisionAssessment,
@@ -40,7 +40,7 @@ import { isNativeSemanticRevisionIntake, type NativeSemanticRevisionIntake, type
   constructNativeRevisionConstructionTask, constructNativeRevisionExecutionTask, rederiveNativeRevisionExecutionTask, deriveNativeRevisionEvidence,
   semanticJobRevisionNativeTargets } from "../product/semantic_revision.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis } from "./execution_basis.js";
-import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate, readRuntimeEventsAtDurablePrefix } from "./event_store.js";
+import { authenticateRuntimePrefixAncestry, reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
 import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
 import { projectRunIdentityAtPrefix } from "./replay.js";
 import { projectNativeWorkspaceWorkSourceAtPrefix, worksiteCommandSourcesInvalidatedAfter } from "./native_worksite_execution.js";
@@ -65,17 +65,15 @@ function resultCoordinate(state: NonNullable<ReturnType<typeof projectWorksiteRe
   return { cCallRef: state.cCall.cCallRef, resultRef: state.result.resultRef, resultDigest: state.result.resultDigest,
     resultAdmissionEventRef: state.result.admissionEventRef, judgmentEventRef: state.judgment.admissionEventRef };
 }
-function admittedLeaves(prefix: ValidatedRuntimeEventPrefix, runRef: string) {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
-  const judgments = new Map<string, (typeof events)[number]>();
-  for (const event of events) {
-    if (event.kind === "c_call_judged" && !judgments.has(event.aggregateId)) judgments.set(event.aggregateId, event);
-  }
-  return events.flatMap(event => {
+function admittedLeaves(prefix: RuntimeEventPrefix, runRef: string) {
+  // The selected Run's results through its index; each CCall's first judgment
+  // through the CCall's own related index.
+  return indexedRuntimeEvents(prefix, "run:" + runRef).flatMap(event => {
     // The leaf owner retains exact scope/uniqueness checks. A Result from a
     // different Run cannot yield a leaf in this Run, so do not reconstruct it.
     if (event.kind !== "c_call_result_admitted" || event.runId !== runRef || !recordJob(event.payload)) return [];
-    const judgment = judgments.get(event.aggregateId);
+    const judgment = indexedRuntimeEvents(prefix, "related:" + event.aggregateId)
+      .find(row => row.kind === "c_call_judged" && row.aggregateId === event.aggregateId);
     if (judgment === undefined) return [];
     const state = projectWorksiteRevisionNativeResult(prefix, { cCallRef: event.aggregateId,
       resultRef: event.payload.resultRef as string, resultDigest: event.payload.resultDigest as `sha256:${string}`,
@@ -104,7 +102,7 @@ function nativeRevisionAcquisitionAtPrefix(prefix: RuntimeEventPrefix,
 /** A correction can begin at a conserved pending assessment. Its accepted
  * predecessor then belongs to a prior Run, reachable only through the exact
  * admitted request/acquisition chain. No historical value search selects it. */
-function conservedNativeRevisionParent(prefix: ValidatedRuntimeEventPrefix,
+function conservedNativeRevisionParent(prefix: RuntimeEventPrefix,
   cause: ReturnType<typeof admittedLeaves>[number], sourceRoot: ExecutionBasis,
   eligible: (row: ReturnType<typeof admittedLeaves>[number]) => boolean) {
   let descendant = cause, root = sourceRoot;
@@ -195,7 +193,7 @@ function nativeIntakeFacts(basis: SemanticStageNativeBasis, input: NativeSemanti
       !canonicalEquals(owner.inputValue, input)) return refuse("intake_basis_mismatch");
     if (!authenticateRuntimePrefixAncestry(input.sourcePrefix, basis.predecessorPrefix)) return refuse("source_prefix_mismatch");
     const historical = reidentifyHistoricalDurablePrefixCoordinate(basis.predecessorPrefix, input.sourcePrefix);
-    const prefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(historical));
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(historical);
     const run = projectRunIdentityAtPrefix(prefix, input.sourceRun.ref);
     const sourceRoot = run === null ? null : rehydrateExecutionBasisAtPrefix(prefix, run.executionBasis.ref);
     if (run === null || !canonicalEquals(run.run, input.sourceRun) || sourceRoot === null || sourceRoot.parentExecutionBasisRef !== null) return refuse("source_run_mismatch");
@@ -391,14 +389,8 @@ export function projectNativeSemanticRevisionRequest(basis: SemanticStageNativeB
     causes:subject.request.causes, selection:resultCoordinate(decision.previous), selectionChoice, currentWorksite:null,
     nativeWorksite:{...subject.nativeWorksite, acquisition:resultCoordinate(subject.acquisition)} });
 }
-/** D2's job arm reuses this owner's parent/cause and physical-origin relations. */
-export function projectJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
-  const subject = projectOwnedJobRevisionSubject(basis, input, readPhysical);
-  if (subject === null) return null;
-  const owner = authenticateSemanticJobBasis(basis);
-  return owner === null ? null : { ...subject, owner };
-}
-/** @internal Ordinary consumers retain only the authenticated selected prefix. */
+/** @internal D2's job arm reuses this owner's parent/cause and physical-origin
+ * relations; consumers retain only the authenticated selected prefix. */
 export function projectOwnedJobRevisionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
   const request = isSemanticJobRevisionEnvelope(input) ? input.revisionBasis.request : input;
   if ((isSemanticRevisionSelectionInput(request) || isSemanticRevisionRequest(request)) && request.nativeWorksite !== undefined)
@@ -452,7 +444,7 @@ function jobRevisionSubjectAtBasis(basis: SemanticStageNativeBasis, input: unkno
       eligible.add(execution.invocationAdmissionRef);
     }
     const originCut = historicalBridge === undefined ? owner.prefix :
-      selectValidatedRuntimeEventPrefix(Object.freeze(owner.events.filter(e => e.admissionOrdinal < historicalBridge.event.admissionOrdinal)));
+      validatedRuntimeEventPrefixBeforeEvent(owner.prefix, historicalBridge.event.eventId);
     const origins = projectWorksiteRevisionOrigins(originCut,construction.seed,priorWorksite,current,[...eligible]);
     if (origins === null || readPhysical && !worksiteRevisionPhysicalMatches(current)) return null;
     // Later Evidence assets are context for correction, not a replacement for
@@ -719,7 +711,7 @@ function admitted(basis: SemanticStageNativeBasis, c: SemanticRevisionCoordinate
 }
 function revisionWorksiteProjection(basis: SemanticStageNativeBasis, parentCoordinate: SemanticRevisionCoordinate,
   prior: SemanticWorksiteBasis | null, current: SemanticWorksiteBasis | null,
-  readPhysical: boolean, causes: readonly SemanticRevisionCoordinate[], cut?: ValidatedRuntimeEventPrefix): readonly WorksiteRevisionOriginProof[] | null {
+  readPhysical: boolean, causes: readonly SemanticRevisionCoordinate[], cut?: RuntimeEventPrefix): readonly WorksiteRevisionOriginProof[] | null {
   if (prior === null || current === null) return prior === current ? [] : null;
   const owner = authenticateOwnedSemanticStageBasis(basis), parent = admitted(basis, parentCoordinate);
   if (owner === null || parent === null || !worksiteRevisionMeaningMatches(prior,current)) return null;
@@ -914,7 +906,7 @@ export function projectRevisionDesignCoordinates(basis: SemanticStageNativeBasis
       selectedTargetRefs: rows.filter(row => selectedSet.has(row.target.targetRef)).map(row => row.target.targetRef) });
   } catch { return null; }
 }
-function revisionPreparationAtBasis(basis: SemanticStageNativeBasis, input: SemanticRevisionEnvelope, readPhysical: boolean, cut?: ValidatedRuntimeEventPrefix) {
+function revisionPreparationAtBasis(basis: SemanticStageNativeBasis, input: SemanticRevisionEnvelope, readPhysical: boolean, cut?: RuntimeEventPrefix) {
   const owner=authenticateOwnedSemanticStageBasis(basis);
   if(owner===null)return null;
   const parent = admitted(basis, input.revisionBasis.request.parent);
@@ -1010,8 +1002,7 @@ function revisionEvidenceComponentsAtBasis(basis: SemanticStageNativeBasis,
       if (!isSemanticRevisionEnvelope(original) && !isSemanticJobRevisionEnvelope(original)) return null;
       const subject = isSemanticJobRevisionEnvelope(original) ? jobRevisionSubjectAtBasis(basis, original, false, bridge) : null;
       const expected = isSemanticJobRevisionEnvelope(original) ? subject === null ? null : jobRevisionPreparationFromSubject(subject, original)
-        : revisionPreparationAtBasis(basis, original, false,
-          selectValidatedRuntimeEventPrefix(Object.freeze(owner.events.filter(e => e.admissionOrdinal < bridge.event.admissionOrdinal))));
+        : revisionPreparationAtBasis(basis, original, false, validatedRuntimeEventPrefixBeforeEvent(owner.prefix, bridge.event.eventId));
       if (expected === null || !canonicalEquals(expected, value)) return null;
       return { original, expected, subject };
     }).filter((v): v is NonNullable<typeof v> => v !== null);
@@ -1030,13 +1021,7 @@ function revisionEvidenceComponentsAtBasis(basis: SemanticStageNativeBasis,
   } catch { return null; }
 }
 
-export function projectRevisionSelectionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
-  const subject = projectOwnedRevisionSelectionSubject(basis, input, readPhysical);
-  if (subject === null) return null;
-  const owner = authenticateSemanticStageBasis(basis);
-  return owner === null ? null : { ...subject, owner };
-}
-/** @internal The public complete owner remains an explicitly requested output. */
+/** @internal Consumers retain only the authenticated selected prefix. */
 export function projectOwnedRevisionSelectionSubject(basis: SemanticStageNativeBasis, input: unknown, readPhysical = false) {
   const owner = authenticateOwnedSemanticStageBasis(basis);
   if (owner === null || owner.call.implementationRef !== ids.selectionImplementationRef || !isSemanticRevisionSelectionInput(input) ||

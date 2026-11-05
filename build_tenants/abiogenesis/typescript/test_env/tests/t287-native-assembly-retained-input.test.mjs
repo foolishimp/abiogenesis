@@ -52,10 +52,10 @@ test('actual native author fold consumes its admitted retained pair; crossed bas
  const predecessor=await import(pathToFileURL(join(prepared.abiRoot,'build/code/src/abg/execution_basis.js')).href);
  assert.equal(predecessor.constructNativeInstructionAssemblyBasis(sample),null,'unchanged installed core15 reproduces missing retained-input join');
  const basis=semantic.constructSemanticStageNativeBasis(sample);assert.ok(basis,'actual source/route/native basis authenticates');
- const owner=native.authenticateNativeInstructionAssemblyBasis(basis);assert.ok(owner);
+ const owner=native.authenticateOwnedNativeInstructionAssemblyBasis(basis);assert.ok(owner);
  assert.equal(owner.inputRef,cursor.inputRef);assert.equal(owner.inputDigest,cursor.inputDigest);
  assert.equal(owner.inputValue.kind,'retained_graph_input');
- assert.equal(job.authenticateSemanticJobBasis(basis).role,'author');
+ assert.equal(job.authenticateOwnedSemanticJobBasis(basis).role,'author');
  const folded=job.projectNativeSemanticFold(basis,owner.inputValue);assert.ok(folded,'preserved paid candidate folds without another actor');
  assert.equal(folded.assets.length,1);assert.equal(folded.assets[0].assessment,null);
  assert.equal(folded.assets[0].source.cCallRef,owner.inputValue.source.provenance.cCallRef,'actual Fable native author is conserved');

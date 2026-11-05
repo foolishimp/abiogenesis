@@ -28,8 +28,8 @@ import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js"
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { authenticateWorksitePreservedResultBasis } from "../abg/worksite_construction_recovery.js";
 import type { GraphFunction } from "../gtl/contracts.js";
-import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
-import { authenticateSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from "../abg/semantic_job.js";
+import { authenticateOwnedSemanticStageBasis } from "../abg/semantic_stage.js";
+import { authenticateOwnedSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from "../abg/semantic_job.js";
 import { isWorksiteFileParentsRequest, constructWorksiteFileParentsAuthorization,
   WORKSITE_FILE_PARENTS_EFFECT_URI, WORKSITE_FILE_PARENTS_HANDLER_REF, WORKSITE_FILE_PARENTS_HANDLER_DIGEST } from "../product/worksite_effect.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
@@ -55,11 +55,13 @@ import {
   type AdmittedImplementationSet,
 } from "../abg/execution_basis.js";
 import {
-  selectValidatedRuntimeEventPrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectRuntimeEventPrefixFromAuthority,
+  type RuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "../abg/event_prefix.js";
 import {
-  readRuntimeEventsAtDurablePrefix, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate,
+  reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
@@ -678,7 +680,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       (!SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
         (input.occurrence.semanticStageBasis !== undefined &&
           ((input.occurrence.semanticStageBasis.lifecyclePublication ?? input.occurrence.semanticStageBasis.publication).semanticJobLifecycle !== undefined
-            ? authenticateSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&
+            ? authenticateOwnedSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateOwnedSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&
       (!WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
         (input.occurrence.worksitePreservedResultBasis !== undefined &&
           input.occurrence.worksitePreservedResultBasis.cCall.cCallRef === input.occurrence.cCallRef &&
@@ -925,16 +927,20 @@ export function hasOwnedDeclarationLookups(
   return declarationLookupPairs.get(graphFunctionByRef) === closureContractByRef;
 }
 
-export async function constructAdmittedLeafInvocationPort(authority: {
+type AdmittedLeafPortAuthority<P> = {
   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
   readonly qualificationResources?: QualificationResources;
-  readonly prefix: ValidatedRuntimeEventPrefix;
+  readonly prefix: P;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly implementationSet: AdmittedImplementationSet;
   readonly executionResolution: LoadedLeafExecutionAuthority;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
   readonly graphFunctionRef?: string;
-}): Promise<LeafInvocationPort> {
+};
+export function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<ValidatedRuntimeEventPrefix>): Promise<LeafInvocationPort>;
+/** @internal The owner's own prefix, owned or validated. */
+export function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<RuntimeEventPrefix>): Promise<LeafInvocationPort>;
+export async function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<RuntimeEventPrefix>): Promise<LeafInvocationPort> {
   const inspected = inspectProductLeafSemanticsProjection(
     authority.semanticsProjection,
   );
@@ -1138,15 +1144,16 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     const graphFunction = graphFunctionByRef(resolution.graphFunctionRef);
     if (owner === null || graphFunction === null) return false;
 
-    let authorityPrefix: ValidatedRuntimeEventPrefix;
-    let runtimePrefix: ValidatedRuntimeEventPrefix;
+    let authorityPrefix: RuntimeEventPrefix;
+    let runtimePrefix: RuntimeEventPrefix;
     try {
-      const events = readRuntimeEventsAtDurablePrefix(
+      // Pre-effect currentness stays explicit; the owned reader borrows only
+      // the active owner and authenticates any other coordinate cold.
+      authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
         executionAuthority.predecessorPrefix,
         { requireCurrent: true },
       );
-      authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-      runtimePrefix = selectValidatedRuntimeEventPrefix(events, {
+      runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
         runId: executionAuthority.cCall.runId,
       });
     } catch {

@@ -66,7 +66,6 @@ import {
 } from "./invocation_admission.js";
 import {
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
-  projectRuntimeEventsAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RootEventKind,
@@ -108,42 +107,6 @@ export type ReplayCCallState = {
   readonly judgment: string | null;
   readonly status: "fibre_selected" | "judged" | "opened" | "result_admitted";
 };
-
-export interface ActiveRuntimeTransactionProjection {
-  readonly authorityPrefix: ValidatedRuntimeEventPrefix;
-  readonly runtimePrefix: ValidatedRuntimeEventPrefix;
-  readonly replayState: ReplayState;
-}
-
-/** Prefix selection does not manufacture a discarded complete replay. */
-export function projectRuntimePrefixesAtDurablePrefix(
-  predecessorPrefix: DurablePrefixCoordinate,
-  runId: string,
-): Omit<ActiveRuntimeTransactionProjection, "replayState"> {
-  const events = projectRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-  return Object.freeze({
-    authorityPrefix,
-    runtimePrefix: selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId }),
-  });
-}
-
-export function projectRuntimeTruthAtDurablePrefix(
-  predecessorPrefix: DurablePrefixCoordinate,
-  runId: string,
-  priorDerivation?: ReplayState,
-): ActiveRuntimeTransactionProjection {
-  const { authorityPrefix, runtimePrefix } = projectRuntimePrefixesAtDurablePrefix(predecessorPrefix, runId);
-  return deepFreeze({
-    authorityPrefix,
-    runtimePrefix,
-    replayState: replayValidatedRuntimeEventPrefix(
-      runtimePrefix,
-      authorityPrefix,
-      priorDerivation,
-    ),
-  });
-}
 
 /** @internal The ordinary handoff retains guard/current coordinates, never a
  * complete historical ReplayState or a counterfeit of that Public output. */
@@ -1728,7 +1691,7 @@ function locateClosedTypedReferences(
 function relationEdges(
   events: RuntimeEventScan,
   correspondence: ReadonlyMap<string, string>,
-  fullEventIds: ReadonlySet<string>,
+  fullEventIds: Pick<ReadonlySet<string>, "has">,
   continuations: ReplayState["continuations"],
 ): readonly RunSemanticRelationEdge[] {
   const edges: RunSemanticRelationEdge[] = [];
@@ -1774,7 +1737,7 @@ function replaceClosedTypedReferences(
   spec: ClosedTypedReferencePath,
   path: readonly ClosedPathSegment[],
   correspondence: ReadonlyMap<string, string>,
-  fullEventIds: ReadonlySet<string>,
+  fullEventIds: Pick<ReadonlySet<string>, "has">,
   externalIntentRef: string | undefined,
   depth = 0,
   relation = "payload",
@@ -1865,7 +1828,7 @@ function continuedIntentReference(event: RuntimeEvent,
 function semanticPayloadDigest(
   event: RuntimeEvent,
   correspondence: ReadonlyMap<string, string>,
-  fullEventIds: ReadonlySet<string>,
+  fullEventIds: Pick<ReadonlySet<string>, "has">,
   externalIntentRef?: string,
 ): Sha256Digest {
   let payload = event.payload;
@@ -2141,7 +2104,7 @@ const EVENT_IDENTITY_FLUENT_NAMES = Object.freeze([
 function semanticHoldsAt(
   fluentRef: string,
   correspondence: ReadonlyMap<string, string>,
-  fullEventIds: ReadonlySet<string>,
+  fullEventIds: Pick<ReadonlySet<string>, "has">,
 ): JsonValue {
   for (const name of EVENT_IDENTITY_FLUENT_NAMES) {
     const prefix = `${name}(`;
@@ -2227,7 +2190,10 @@ function projectRunSemanticReplay(
   if (correspondence.size !== events.length) {
     throw new TypeError("run semantic relation requires unique event identities");
   }
-  const fullEventIds = new Set(fullEvents.map((event) => event.eventId));
+  // Membership is an indexed envelope fact; no unrelated body is read for it.
+  const fullEventIds: Pick<ReadonlySet<string>, "has"> = {
+    has: (eventRef: string) => indexedRuntimeEventEnvelopes(fullPrefix, "id:" + eventRef).length !== 0,
+  };
   const replayState = context?.replay ?? replayValidatedRuntimeEventPrefix(runPrefix, fullPrefix);
   if (replayState.runId !== runId) {
     throw new TypeError("run semantic relation differs from its selected Run");

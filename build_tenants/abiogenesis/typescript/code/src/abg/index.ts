@@ -143,7 +143,6 @@ export {
   type ImplementationResolutionSelection,
   type InteractionContractSelection,
   type RuntimeAdmissionBasis,
-  authenticateNativeInstructionAssemblyBasis,
   constructNativeInstructionAssemblyBasis,
   type NativeInstructionAssemblyBasis,
 } from "./execution_basis.js";
@@ -256,7 +255,6 @@ export {
   isCCall,
   constructCCallLocusCandidate,
   openCCall,
-  planPendingInteractionAdmission,
   projectAdmittedCCallOutcomeAtPrefix,
   projectAdmittedCCallResultAtPrefix,
   projectCCallCarrierPhaseAtPrefix,
@@ -329,8 +327,6 @@ export {
   type ReplayContinuationState,
 } from "./continuation.js";
 export {
-  projectRuntimeTruthAtDurablePrefix,
-  projectRuntimePrefixesAtDurablePrefix,
   projectRunQuiescence,
   projectRunSemanticReplayProjection,
   replay,
@@ -571,7 +567,7 @@ export { projectQualificationConsumer, projectQualificationJudgment, projectQual
   projectQualificationSelfConformance, resolveQualificationExecutionEvidence, qualificationHasNativeSelfConformance, projectQualificationVerdict, resolveQualificationAssessments,
   malformedGtlAssessmentHasNativeOwner } from "./qualification_proof.js";
 
-export { projectNativeWorkReacquisitionTask, authenticateNativeWorkReacquisition, nativeWorkReacquisitionContextCurrent,
+export { projectNativeWorkReacquisitionTask, nativeWorkReacquisitionContextCurrent,
   nativeWorkReacquisitionResultMatches } from "./native_work_reacquisition.js";
 export type { NativeWorkReacquisitionBasis } from "./native_work_reacquisition.js";
 

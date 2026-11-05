@@ -892,8 +892,8 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     store,
     requests: [{
       rowId: "c0-worksite-runtime-truth",
-      owner: "abg",
-      exportName: "projectRuntimeTruthAtDurablePrefix",
+      owner: "replay",
+      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
       input: "durable_prefix",
       args: [opened.scope.runId],
     }],
@@ -988,8 +988,8 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
     store: staleOwner.store,
     requests: [{
       rowId: "c0-stale-owner-runtime-truth",
-      owner: "abg",
-      exportName: "projectRuntimeTruthAtDurablePrefix",
+      owner: "replay",
+      exportName: "projectOwnedRuntimeTruthAtDurablePrefix",
       input: "durable_prefix",
       args: [staleOpened.scope.runId],
     }],
@@ -1150,10 +1150,12 @@ test("T-287 C0 reaches its owner, admits specialized evidence, and replays O1 fr
   // unadmitted O1 is not runtime truth (C0 design :612-620).
   assert.equal(abg.holdsAt(conflictCalculus, beforeFluent), false);
   assert.equal(abg.holdsAt(conflictCalculus, afterFluent), false);
-  const conflictReplay = abg.projectRuntimeTruthAtDurablePrefix(
+  // The existing direct replay owner; its guard materializes the complete value.
+  const installedReplay = await import(pathToFileURL(join(installedRoot, "build/code/src/abg/replay.js")).href);
+  const conflictReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
     abg.selectHeldEventStoreDurablePrefix(conflict.store),
     conflictOpened.scope.runId,
-  ).replayState;
+  ).replayState);
   assert.deepEqual(conflictReplay.currentWorksiteObservations, []);
 
   assert.ok(retainedConflict.call);

@@ -238,8 +238,9 @@ export async function preflight(config,selected,root) {
 
 // The one explicitly named cold entry. Lifecycle supervision and fresh Run
 // reads cross a fresh installed CLI process: one canonical JSONL request under
-// the declared environment and one parsed outcome. Maintained setup uses the
-// installed SDK transport in its own module instance instead.
+// the declared environment and one parsed outcome. Maintained setup instead
+// holds one acquired event resource in its own module instance, borrows it
+// through the installed SDK transport and closes it before this entry reopens.
 export async function invokeColdInstalledEntry(caller,label,call,{runtimeRoot,environment=caller.config.setupEnvironment}) {
   const {root,record,command,config,state}=caller,acquisition=transportAcquisition(call);
   const requestPath=join(root,'calls',label+'.request.jsonl');

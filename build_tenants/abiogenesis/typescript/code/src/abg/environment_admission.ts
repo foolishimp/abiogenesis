@@ -29,7 +29,7 @@ import {
   type ExactOperationInvocationCoordinate,
 } from "../shared/operation_definition_coordinate.js";
 import {
-  projectExactPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
   runtimePrefixFromOwnedArtifactTruth,
   prepareArtifactTruthCandidate,
   validateArtifactTruthProjectionValue,
@@ -53,7 +53,9 @@ import {
   type RuntimeEventCandidate,
 } from "./event_store.js";
 import {
+  runtimeEventBodiesAtPrefix,
   runtimePrefixComputation,
+  selectRuntimeEventPrefixFromStore,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
@@ -486,7 +488,7 @@ export function projectExactPrefixWorkspaceEnvironment(
   prefix: DurablePrefixCoordinate,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
-  const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+  const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
   if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
     return exactPrefixEnvironmentRefusal(
       "artifact_truth_invalid",
@@ -784,12 +786,6 @@ type ArtifactAdmissionResult =
           }>;
     }>;
 
-function projectArtifactTruthAtPrefix(
-  prefix: DurablePrefixCoordinate,
-): ExactPrefixArtifactTruthProjectionResult {
-  return projectExactPrefixArtifactTruth(prefix);
-}
-
 function predecessorCoordinateRefusal(error: unknown): EventStoreAppendRefusal {
   return deepFreeze({
     kind: "event_store_append_refusal" as const,
@@ -859,7 +855,7 @@ function admitArtifactFromOwner(
       refusal: invalidBasis,
     };
   }
-  const predecessorProjection = projectArtifactTruthAtPrefix(
+  const predecessorProjection = projectOwnedPrefixArtifactTruth(
     basis.predecessorPrefix,
   );
   if (
@@ -1014,7 +1010,8 @@ function admitArtifactFromOwner(
       refusal: predecessorCoordinateRefusal(error),
     };
   }
-  const predecessorEvents = store.readAll();
+  // The prospective event reads the held cut's owned bodies; nothing is copied.
+  const predecessorEvents = runtimeEventBodiesAtPrefix(selectRuntimeEventPrefixFromStore(store));
   let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
   let acceptPrepared: ReturnType<typeof prepareArtifactTruthCandidate>;
   try {
@@ -1235,7 +1232,7 @@ export function admitWorkspaceBinding(
       refusal: invalidBasis,
     };
   }
-  const predecessorProjection = projectExactPrefixArtifactTruth(
+  const predecessorProjection = projectOwnedPrefixArtifactTruth(
     basis.predecessorPrefix,
   );
   if (

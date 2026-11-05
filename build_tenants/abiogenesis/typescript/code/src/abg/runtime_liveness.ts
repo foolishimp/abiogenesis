@@ -1,17 +1,18 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import { extendRuntimeEventPrefixForValidation, indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventPrefixIsExactExtension } from "./event_prefix.js";
+import { extendRuntimeEventPrefixForValidation, indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventPrefixIsExactExtension,
+  runtimeEventPrefixExtent, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore } from "./event_prefix.js";
 import { readFileSync, lstatSync, realpathSync, type BigIntStats } from "node:fs";
 import { dirname } from "node:path";
 import { performance } from "node:perf_hooks";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { sha256Bytes, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { runtimeEventBodiesAtPrefix, runtimeEventProfileScheduleFromValidatedPrefix, unscopedRuntimeEventPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventEnvelopesAtPrefix, runtimeEventProfileScheduleFromValidatedPrefix, unscopedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix, admitNativeRuntimeLivenessEvent,
-  admitRuntimeEventTransactionAtDurablePrefix, readActiveRuntimeTransactionAtDurablePrefix, ROOT_EVENT_CONTRACT_DIGEST,
+  admitRuntimeEventTransactionAtDurablePrefix, selectActiveRuntimeTransactionHistoryAtDurablePrefix, ROOT_EVENT_CONTRACT_DIGEST,
   assertRuntimeEventTransactionActive,
   type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent, type RuntimeEventCandidate,
 } from "./event_store.js";
@@ -69,7 +70,7 @@ export function retainNativeFrameClock(store: AbgEventStore, opening: RuntimeEve
   if (opening.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return;
   const physical = frameSamples.get(sample);
   if (physical?.store !== store || physical.openingRef !== opening.eventId) throw new TypeError("frame clock requires its original opening capability");
-  const context = projectFrameLivenessContext(selectValidatedRuntimeEventPrefix(store.readAll()), opening.frameId!);
+  const context = projectFrameLivenessContext(selectRuntimeEventPrefixFromStore(store), opening.frameId!);
   if (context?.declarationEventRef !== opening.eventId) throw new TypeError("frame clock needs its exact committed opening");
   let clocks = frameClocks.get(store); if (clocks === undefined) { clocks = new Map(); frameClocks.set(store, clocks); }
   if (clocks.has(context.scope.frameId)) throw new TypeError("frame clock cannot restart");
@@ -85,7 +86,7 @@ export function observeNativeFrameLiveness(store: AbgEventStore, underlying: Run
   if (!FRAME_PRODUCERS.has(underlying.kind) || underlying.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return;
   const physical = frameSamples.get(sample);
   if (physical?.store !== store) throw new TypeError("foreign frame clock sample");
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e, underlying))) throw new TypeError("frame sample needs its admitted producer");
   const context = projectFrameLivenessContext(prefix, underlying.frameId!);
   if (context === null) throw new TypeError("frame sample lacks its native opening");
@@ -116,21 +117,21 @@ export function projectActorLivenessContext(prefix: ValidatedRuntimeEventPrefix,
 /** @internal */
 export function projectActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null;
 export function projectActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationRef: string): RuntimeLivenessContext | null {
-  try { const context = livenessReconstruction(prefix).context(runtimeEventBodiesAtPrefix(prefix).at(-1)?.admissionOrdinal ?? 0, actorInvocationRef);
+  try { const context = livenessReconstruction(prefix).context(runtimeEventPrefixExtent(prefix).lastOrdinal, actorInvocationRef);
     return context?.scope.actorInvocationRef === actorInvocationRef ? context : null; } catch { return null; }
 }
 export function projectCCallLivenessContext(prefix: ValidatedRuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null;
 /** @internal */
 export function projectCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null;
 export function projectCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeLivenessContext | null {
-  try { const context = livenessReconstruction(prefix).context(runtimeEventBodiesAtPrefix(prefix).at(-1)?.admissionOrdinal ?? 0, cCallRef);
+  try { const context = livenessReconstruction(prefix).context(runtimeEventPrefixExtent(prefix).lastOrdinal, cCallRef);
     return context?.scope.cCallRef === cCallRef && context.scope.actorInvocationRef === null ? context : null; } catch { return null; }
 }
 export function projectFrameLivenessContext(prefix: ValidatedRuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null;
 /** @internal */
 export function projectFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null;
 export function projectFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
-  try { const context = livenessReconstruction(prefix).context(runtimeEventBodiesAtPrefix(prefix).at(-1)?.admissionOrdinal ?? 0, frameId);
+  try { const context = livenessReconstruction(prefix).context(runtimeEventPrefixExtent(prefix).lastOrdinal, frameId);
     return context?.scope.frameId === frameId && context.scope.actorInvocationRef === null && context.scope.cCallRef === null ? context : null; } catch { return null; }
 }
 
@@ -140,7 +141,7 @@ const cCallClocks = new WeakMap<AbgEventStore, Map<string, Readonly<{ declaratio
 export function observeNativeCCallLiveness(store: AbgEventStore, underlying: RuntimeEvent): void {
   assertRuntimeEventTransactionActive(store);
   if (underlying.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return;
-  const prefix = selectValidatedRuntimeEventPrefix(store.readAll());
+  const prefix = selectRuntimeEventPrefixFromStore(store);
   if (!indexedRuntimeEvents(prefix, "id:" + underlying.eventId).some(e => canonicalEquals(e, underlying))) throw new TypeError("CCall progress needs its admitted native producer");
   const context = projectCCallLivenessContext(prefix, underlying.aggregateId);
   if (context === null) return;
@@ -186,8 +187,7 @@ export function validateRuntimeLivenessEventAtPrefix(prefix: RuntimeEventPrefix,
 export function validateRuntimeLivenessEventAtPrefix(prefix: RuntimeEventPrefix, event: RuntimeEvent,
   admittedAfter?: RuntimeEventPrefix): boolean {
   try {
-    const events = runtimeEventBodiesAtPrefix(prefix);
-    if (event.admissionOrdinal !== events.length + 1) return false;
+    if (event.admissionOrdinal !== runtimeEventPrefixExtent(prefix).count + 1) return false;
     const after = admittedAfter ?? extendRuntimeEventPrefixForValidation(prefix, event);
     if (!runtimeEventPrefixIsExactExtension(prefix, after, event)) return false;
     const obligations: NativeLivenessRouteObligation[] = [];
@@ -264,7 +264,7 @@ export function projectRuntimeLivenessAtPrefix(prefix: RuntimeEventPrefix, occur
 function projectRuntimeLivenessAtPrefixWithDigest(prefix: RuntimeEventPrefix, occurrenceRef: string,
   budget: RuntimeLivenessBudgetFacts | undefined, prefixDigest: () => Sha256Digest): RuntimeLivenessObserverProjection | null {
   const reconstruction = livenessReconstruction(prefix);
-  const ordinal = runtimeEventBodiesAtPrefix(prefix).at(-1)?.admissionOrdinal ?? 0;
+  const ordinal = runtimeEventPrefixExtent(prefix).lastOrdinal;
   const context = reconstruction.context(ordinal, occurrenceRef);
   if (context === null) return null;
   const sample = reconstruction.sample(ordinal, digest(context.scope));
@@ -274,11 +274,11 @@ export function projectRuntimeLivenessForScope(prefix: ValidatedRuntimeEventPref
 /** @internal */
 export function projectRuntimeLivenessForScope(prefix: RuntimeEventPrefix, runId: string | null, graphCallId?: string): readonly RuntimeLivenessObserverProjection[];
 export function projectRuntimeLivenessForScope(prefix: RuntimeEventPrefix, runId: string | null, graphCallId?: string): readonly RuntimeLivenessObserverProjection[] {
-  const events = runtimeEventBodiesAtPrefix(prefix);
   // Materialize one exact prefix digest for the batch. No caller supplies it.
   let selectedPrefixDigest: Sha256Digest | undefined;
   const prefixDigest = () => selectedPrefixDigest ??= runtimeEventPrefixDigest(prefix);
-  const actors = events.filter(e => (e.kind === "actor_invocation_started" || e.kind === "c_call_fibre_selected" || e.kind === "frame_opened") &&
+  // Occurrence selection reads envelope fields only; projection acquires its own bodies.
+  const actors = [...runtimeEventEnvelopesAtPrefix(prefix)].filter(e => (e.kind === "actor_invocation_started" || e.kind === "c_call_fibre_selected" || e.kind === "frame_opened") &&
     (runId === null || e.runId === runId) && (graphCallId === undefined || e.graphCallId === graphCallId));
   return Object.freeze(actors.flatMap(e => {
     const projection = projectRuntimeLivenessAtPrefixWithDigest(prefix, e.aggregateId, undefined, prefixDigest);
@@ -304,14 +304,15 @@ export function admitRuntimeActivityProbe(input: Readonly<{
   assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
   return admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
     if (input.predecessorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("P probes cannot append to an L acquisition");
-    const prefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true })), events = runtimeEventBodiesAtPrefix(prefix);
+    const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true })),
+      extent = runtimeEventPrefixExtent(prefix);
     if ((input.actorInvocationRef === undefined) === (input.cCallRef === undefined)) throw new TypeError("one native occurrence is required");
     const reconstruction = livenessReconstruction(prefix);
-    const context = reconstruction.context(events.at(-1)?.admissionOrdinal ?? 0, input.actorInvocationRef ?? input.cCallRef!);
+    const context = reconstruction.context(extent.lastOrdinal, input.actorInvocationRef ?? input.cCallRef!);
     const probe = context?.probes.find(p => p.source === input.source);
     const obligations: NativeLivenessRouteObligation[] = [];
     if (context === null || probe === undefined ||
-        !probeObservationMatches(context, probe, input.observation, events.length + 1, obligations, reconstruction) ||
+        !probeObservationMatches(context, probe, input.observation, extent.count + 1, obligations, reconstruction) ||
         !structuralRoutesHold(obligations)) throw new TypeError("probe source differs from the native declared occurrence");
     if (indexedRuntimeEvents(prefix, "related:" + input.actorInvocationRef).some(e => (e.kind === "actor_invocation_closed" || e.kind === "actor_invocation_failed") &&
         e.aggregateId === input.actorInvocationRef)) throw new TypeError("terminal invocation cannot be revived by a probe");
@@ -359,7 +360,7 @@ export function admitRuntimeThreshold(input: Readonly<{
   processRef: string; elapsedMs: number; eventTime: string; correlationId: string;
 }>) {
   const committed = admitRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
-    const prefix = selectValidatedRuntimeEventPrefix(readActiveRuntimeTransactionAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+    const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
     const context = projectActorLivenessContext(prefix, input.actorInvocationRef);
     if (context === null || context.binding.policy === null) throw new TypeError("threshold has no native declared actor context");
     const policy = context.binding.policy;
@@ -371,7 +372,7 @@ export function admitRuntimeThreshold(input: Readonly<{
     const observation: RuntimeThresholdObservation = {
       kind: "runtime_threshold_observation", schemaVersion: "5.0.0",
       clockOriginRef: sample.clockOriginRef, elapsedMs: sample.elapsedMs, policyRef: context.binding.policy.policyRef,
-      scopeDigest: digest(context.scope), evaluatedPrefixDigest: digest(prefix.events), projectionDigest: projection.projectionDigest,
+      scopeDigest: digest(context.scope), evaluatedPrefixDigest: runtimeEventPrefixDigest(prefix), projectionDigest: projection.projectionDigest,
     };
     const started = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + input.processRef), e => e.kind === "actor_process_started" && e.aggregateId === input.processRef &&
       record(e.payload) && e.payload.actorInvocationRef === input.actorInvocationRef));
@@ -391,7 +392,7 @@ export function admitRuntimeThreshold(input: Readonly<{
   });
   if (committed.value.kind === "runtime_threshold_not_reached") return committed.value;
   if (committed.successorPrefix === null) throw new TypeError("admitted threshold has no durable successor");
-  const admitted = projectRuntimeLivenessAtPrefix(selectValidatedRuntimeEventPrefix(input.store.readAll()), input.actorInvocationRef);
+  const admitted = projectRuntimeLivenessAtPrefix(selectRuntimeEventPrefixFromStore(input.store), input.actorInvocationRef);
   if (admitted?.disposition.disposition !== "controlled_terminate") throw new TypeError("admitted threshold no longer derives containment");
   return { kind: "runtime_threshold_admitted" as const, value: committed.value.event, successorPrefix: committed.successorPrefix, projection: admitted, timeoutClass: committed.value.timeoutClass };
 }

@@ -229,7 +229,7 @@ test("Design preparation refuses missing binding refs before transport while Req
   }
   const assembly = await component("abg/instruction_assembly", {
     "./execution_basis.js": { constructNativeInstructionAssemblyBasis: value => value },
-    "./semantic_job.js": { authenticateSemanticJobBasis: () => owner,
+    "./semantic_job.js": { authenticateOwnedSemanticJobBasis: () => owner,
       semanticJobInputMatchesBasis: (_, value) => value === selected && product.isSemanticJobEnvelope(value), semanticJobContextCurrent: () => true },
     "./stdo_environment.js": { projectRunEnvironmentRoleEvidenceAtPrefix: () => null },
   });

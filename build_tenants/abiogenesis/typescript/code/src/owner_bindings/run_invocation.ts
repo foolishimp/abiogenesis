@@ -1,7 +1,6 @@
 import { prepareRunQualificationResources } from "../product/run_invocation_operation.js";
 import { projectGovernanceCoveredSourceUse } from "../abg/invocation_execution_truth.js";
-import { selectValidatedRuntimeEventPrefix } from "../abg/event_prefix.js";
-import { readRuntimeEventsAtDurablePrefix } from "../abg/event_store.js";
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, readOwnedRuntimeEventPrefixAtDurablePrefix, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { QUALIFICATION_RESOURCE_ASSERTION_SCHEMA } from "../validator/qualification_contracts.js";
 import { ABG_HISTORICAL_GRAPH_CALL_SOURCE_RESOURCE_SCHEMA } from "../abg/terminal_result_contracts.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA } from "../gtl/requirement_handoff.js";
@@ -21,7 +20,7 @@ import {
 } from "../shared/capability_contracts.js";
 
 import {
-  projectExactPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
   type ExactPrefixArtifactTruthProjection,
 } from "../abg/artifact_truth.js";
 import {
@@ -64,7 +63,6 @@ import {
   type AbgRunTruthCoordinate,
   type AbgRunTruthProjection,
 } from "../abg/project_read_ports.js";
-import { projectRuntimePrefixesAtDurablePrefix } from "../abg/replay.js";
 import { materializeGraph } from "../gtl/materialize.js";
 import type {
   GraphFunction,
@@ -1141,7 +1139,7 @@ function projectSetupTruth(
   catalog: ReadyGraphFunctionCatalog,
 ): AdmittedSetupTruth | null {
   try {
-    const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+    const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
     if (artifactTruth.kind === "exact_prefix_artifact_truth_projection_refusal") {
       return null;
     }
@@ -1326,7 +1324,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
         transportResourceAssertion:
           call.resources.eventResource,
         deriveCurrentSourceUse: (basis, resolution) => projectGovernanceCoveredSourceUse(
-          selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(entryPrefix)), {
+          readOwnedRuntimeEventPrefixAtDurablePrefix(entryPrefix), {
             predecessorPrefix: entryPrefix, source: basis, workspaceBinding: setup.workspaceBinding,
             program: resolution.program, graphFunction: resolution.graphFunction,
             currentDeclaration: { kind: "abg_historical_declaration_proof", schemaVersion: "5.0.0", catalog: call.resources.catalog, catalogView: call.resources.catalogView },
@@ -1575,10 +1573,7 @@ function runInvocationOwner<TPacket extends InvocationPacket>(
     }
     const completePostOpen = Effect.gen(function* () {
       const authorityPrefix = yield* syncStage(call, "runtime_truth", () =>
-        projectRuntimePrefixesAtDurablePrefix(
-          opened.successorPrefix,
-          opened.scope.runId,
-        ).authorityPrefix
+        projectOwnedRuntimeEventPrefixAtDurablePrefix(opened.successorPrefix)
       );
       const leafPort = yield* asyncStage(call, "leaf_port", () =>
         constructAdmittedLeafInvocationPort(Object.freeze({
@@ -1778,7 +1773,7 @@ import { constructRunOperationPolicy, expectedRunOperationAuthoritySlots, runOpe
 import { projectPendingExecutionContinuations, projectPendingExecutionUseRequest } from "../abg/construction_continuation.js";
 import type { LoadedProductExecutionResolution } from "../product/execution_resolution.js";
 
-type ContinuationPrefix = ReturnType<typeof projectRuntimePrefixesAtDurablePrefix>["authorityPrefix"];
+type ContinuationPrefix = RuntimeEventPrefix;
 type ContinuationRefusal<C extends string> = Readonly<{ kind: "refused"; code: C; path: string }>;
 
 /** The fault stages one continuation selection runs under: each owner's own
@@ -1937,8 +1932,7 @@ function runCurrentIntentOwner(call: DefinitionCall<ContinuePacket, RunInvocatio
       !isRecord(request.continuationInput) || call.resources.source.kind !== "none") return yield* refuse("intent_mismatch", "/request");
     const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
     if (setup === null) return yield* refuse("basis_mismatch", "/workspace");
-    const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
-    const prefix = prefixes.authorityPrefix;
+    const prefix = yield* syncStage(call, "runtime_truth", () => projectOwnedRuntimeEventPrefixAtDurablePrefix(entryPrefix));
     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
     const selection = yield* selectConstructionIntentAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
@@ -2015,8 +2009,7 @@ function runSelectedActionOwner(call: DefinitionCall<SelectedActionPacket, RunIn
     if (!("selectedAction" in request) || call.resources.source.kind !== "none") return yield* refuse("action_mismatch", "/request");
     const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
     if (setup === null) return yield* refuse("basis_mismatch", "/workspace");
-    const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
-    const prefix = prefixes.authorityPrefix;
+    const prefix = yield* syncStage(call, "runtime_truth", () => projectOwnedRuntimeEventPrefixAtDurablePrefix(entryPrefix));
     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
     const selection = yield* selectSelectedActionAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
@@ -2094,8 +2087,7 @@ function runPendingExecutionOwner(call: DefinitionCall<ContinuePacket, RunInvoca
     if (!("pendingCursor" in request) || call.resources.source.kind !== "none") return yield* refuse("response_mismatch", "/request");
     const setup = yield* syncStage(call, "setup_truth", () => projectSetupTruth(entryPrefix, call.resources.catalog));
     if (setup === null) return yield* refuse("basis_mismatch", "/workspace");
-    const prefixes = yield* syncStage(call, "runtime_truth", () => projectRuntimePrefixesAtDurablePrefix(entryPrefix, request.run.ref));
-    const prefix = prefixes.authorityPrefix;
+    const prefix = yield* syncStage(call, "runtime_truth", () => projectOwnedRuntimeEventPrefixAtDurablePrefix(entryPrefix));
     const duplicate = projectEffectfulPublicInvocationTruthAtPrefix(prefix, call.invocation.invocationRef);
     if (duplicate.disposition !== "available") return yield* refuse(duplicate.disposition === "duplicate" ? "resolved_continuation" : "replay_mismatch", "/invocation");
     const selection = yield* selectPendingExecutionAtPrefix(ownerContinuationStages(call), setup, call.resources, prefix,
@@ -2215,7 +2207,7 @@ export async function populateRunContinuationAtDurablePrefix(input: Readonly<{
   const setup = projectSetupTruth(input.prefix, input.catalog);
   if (setup === null) return refuse("basis_mismatch", "/workspace");
   const runRef = selection.kind === "selected_action" ? selection.request.run.ref : selection.runRef;
-  const prefix = projectRuntimePrefixesAtDurablePrefix(input.prefix, runRef).authorityPrefix;
+  const prefix = projectOwnedRuntimeEventPrefixAtDurablePrefix(input.prefix);
   const resources = Object.freeze({ catalog: input.catalog, catalogView: input.catalogView });
   const inputContract = (resolution: import("../product/execution_resolution.js").LoadedProductExecutionResolution, contractRef: string) => {
     const contracts = resolution.declarationPublications.flatMap(p => p.contracts).filter(c => c.contractRef === contractRef);

@@ -1,0 +1,43 @@
+{
+  "recordedUtc": "2026-11-04T15:45:27.080643+00:00",
+  "kind": "actual_final_close_coordinates",
+  "actualResume": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/execution/after-run-resume.json",
+    "bytes": 73166418,
+    "sha256": "9ba852a8cb4bbd57b02dadd40b92e594380eac6432fc9b07c7c20fdf9b6018ad",
+    "savedUtc": "2026-11-04T15:44:51.747484+00:00"
+  },
+  "prefix": {
+    "coordinateDigest": "sha256:c958706cb07e1015bfd50ec145a7c46aa0367f4adbd347261aff5eeac795782a",
+    "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/events/runtime.events.jsonl",
+    "kind": "durable_prefix_coordinate",
+    "prefixDigest": "sha256:79bdf21ed2241a3478ce3e4e59c7efc6f4d89591e7c4725745d9edb56ebf5278",
+    "prefixLength": 896846621,
+    "schemaVersion": "5.0.0",
+    "storeIdentity": {
+      "device": 16777231,
+      "eventContractDigest": "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537",
+      "inode": 685986968
+    }
+  },
+  "runRef": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+  "standing": "Actual dispatcher final close after fresh reads; no reconstructed authority or acceptance.",
+  "predecessorReadbackRecovery": {
+    "kind": "actual_saved_invocation_close_recovered_through_existing_sdk_reads",
+    "sourceOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/calls/lifecycle-start.outcome.json",
+      "bytes": 1022246,
+      "sha256": "ee696af67777cd4845e5e4e0504adf0665faad68d695ceb751746c67708df60e"
+    },
+    "sourceClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/execution/calls/lifecycle-start.close.json",
+      "bytes": 1368,
+      "sha256": "974285215f3a66047b2a62c69bb1216580e458ef610105aa0ddeeeda75a67576"
+    },
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-07/readback-recovery-001",
+    "originalDispatcherHostFailed": true,
+    "nativeWorkRepeated": false,
+    "derivedEnvironment": "Rebuilt by the current owner for reads; omitted from persisted continuation",
+    "callHistory": "Previous retained call metadata plus recovered read calls; actual native invocation receipts remain separately pinned"
+  }
+}

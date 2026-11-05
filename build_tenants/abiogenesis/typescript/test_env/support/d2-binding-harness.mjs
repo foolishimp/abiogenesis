@@ -151,11 +151,16 @@ export async function bindingHarness(){
   // view, the selector index, checked records and the extent). Over the
   // lookup-only rows the substitutes are the real body view and the real
   // selector-key vocabulary (`runtimeHistorySelectorKeys`); a checked record is
-  // acquired on every read; nothing is admitted or validated.
+  // acquired on every read; nothing is admitted or validated. The historical
+  // cut (`validatedRuntimeEventPrefixBeforeEvent`) keeps the lookup rows before
+  // its exact boundary row and refuses an absent boundary.
   const {RuntimeEventBodyView,runtimeHistorySelectorKeys}=await load('build/code/src/abg/runtime_history.js');
   const {nativeWorkspacePathWithin}=await load('build/code/src/product/native_workspace_work.js');
   const overrides={
-    './event_prefix.js':{selectValidatedRuntimeEventPrefix:rows=>({assumption:'lookup-only',events:rows}),
+    './event_prefix.js':{validatedRuntimeEventPrefixBeforeEvent:(p,eventId)=>{
+        const boundary=p.events.find(e=>e.eventId===eventId);
+        if(boundary===undefined)throw new TypeError('historical event-prefix boundary requires one exact admitted event');
+        return {assumption:'lookup-only',events:p.events.filter(e=>e.admissionOrdinal<boundary.admissionOrdinal)};},
       runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),
       indexedRuntimeEvents:(p,key)=>p.events.filter(e=>runtimeHistorySelectorKeys(e).includes(key)),
       checkedRecordAtPrefix:(_p,_reader,_context,acquire)=>acquire(),
@@ -214,7 +219,7 @@ export async function bindingHarness(){
       const semanticOverrides={
         // The revision owner authenticates through the owned stage
         // authenticator (`authenticateOwnedSemanticStageBasis`, 67c333799).
-        './semantic_stage.js':{authenticateSemanticStageBasis:()=>semanticOwner,authenticateOwnedSemanticStageBasis:()=>semanticOwner,semanticInputValueAtBasis:b=>b.input,
+        './semantic_stage.js':{authenticateOwnedSemanticStageBasis:()=>semanticOwner,semanticInputValueAtBasis:b=>b.input,
           semanticInputAtBasisEquals:(b,value)=>hash(b.input)===hash(value),
           projectSemanticPredecessorAtPrefix:(p,_events,_publication,ref)=>{const c=calls.get(ref);return c===undefined?null:module.namespace.projectWorksiteRevisionNativeResult(p,c.coordinate);}},
         './execution_basis.js':{rehydrateExecutionBasisAtPrefix:(_p,ref)=>bases.get(ref)??null},
