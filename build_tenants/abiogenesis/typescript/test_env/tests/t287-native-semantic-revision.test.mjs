@@ -12,7 +12,7 @@ const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirn
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
  'product/native_workspace_work','product/worksite_operations','product/worksite_effect','abg/native_worksite_execution','abg/event_prefix','shared/immutable'].map(load));
-const {RuntimeEventBodyView}=await load('abg/runtime_history');
+const {RuntimeEventBodyView,runtimeHistorySelectorKeys}=await load('abg/runtime_history');
 const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
 const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
  artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
@@ -107,16 +107,24 @@ async function harness(env, options={}){
  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[options.current?.capabilityGrant??env.capabilityGrant]})};
  // The job and revision owners read the component prefix through the same
  // prefix premises; a historical cut selects that same component prefix.
+ // The revision intake reads its cut through the event-prefix owner's
+ // `readOwnedRuntimeEventPrefixAtDurablePrefix`: a lookup premise, not a read
+ // or admission. Only the declared intake coordinate denotes this component
+ // prefix; no journal is opened and any other coordinate has no cut. Its
+ // Run and related-CCall selectors are the history owner's own selector keys
+ // over these component events.
  // An invocation key reads the admission events of the root bases this
  // harness admits (the original and each invocation's root), the index premise
  // of the one governance-root projection; `bases` stays the rehydration premise.
  const rootAdmissions=key=>admittedRoots.filter(b=>'invocation:'+b.invocationRef===key).map(b=>({kind:'basis_admitted',eventId:b.admissionEventRef,
   payload:{basisClass:'root',basisRef:b.basisRef,invocationAdmissionRef:b.invocationAdmissionRef,implementationSetRef:b.rootImplementationSetRef,rawInputValue:b.rawInputValue}}));
- const prefixOverrides={validatedRuntimeEventPrefixBeforeEvent:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>key.startsWith('invocation:')?rootAdmissions(key):p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)};
+ const prefixOverrides={validatedRuntimeEventPrefixBeforeEvent:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>key.startsWith('invocation:')?rootAdmissions(key):p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId||
+  /^(run|related):/.test(key)&&runtimeHistorySelectorKeys(e).includes(key)),
+  readOwnedRuntimeEventPrefixAtDurablePrefix:c=>{if(hash(c)!==hash(intake.sourcePrefix))throw new Error('component: no durable cut at '+c?.eventLogRef);return prefix;}};
  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
-  '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
+  '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
   './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
