@@ -404,6 +404,25 @@ const catalogViews = new WeakMap<object, Readonly<{
   allowlist: string;
   view: GraphFunctionCatalogView;
 }>>();
+// §10.11 X5: the views this owner constructed over an admitted ready Catalog,
+// deeply frozen at construction.
+const admittedCatalogViews = new WeakSet<object>();
+
+/**
+ * @internal §10.11 X4/X5 owner fact: the exact ready Catalog this owner
+ * admitted and established deeply frozen. Membership is read first, so no
+ * code of any other value runs.
+ */
+export function isAdmittedReadyGraphFunctionCatalog(value: unknown): value is ReadyGraphFunctionCatalog {
+  return typeof value === "object" && value !== null && ownedCatalogs.has(value) &&
+    readyCatalogs.get((value as ReadyGraphFunctionCatalog).readinessBasis) === value;
+}
+
+/** @internal §10.11 X4/X5 owner fact: a view this owner constructed over an
+ * admitted ready Catalog and established deeply frozen. */
+export function isAdmittedGraphFunctionCatalogView(value: unknown): value is GraphFunctionCatalogView {
+  return typeof value === "object" && value !== null && admittedCatalogViews.has(value);
+}
 
 function canonicalPublication(publication: Readonly<ModulePublication>): Readonly<ModulePublication> {
   const retained = canonicalPublications.get(publication);
@@ -414,11 +433,22 @@ function canonicalPublication(publication: Readonly<ModulePublication>): Readonl
   return canonical;
 }
 
+/** Observation-only §10.11 counts: full Catalog admissions on a
+ * `readyCatalogs` miss and view constructions on a view miss. They select,
+ * cache and change nothing, and `product/index` does not export them. */
+const catalogWork = { fullAdmissions: 0, viewConstructions: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeCatalogWork(): Readonly<typeof catalogWork> {
+  return Object.freeze({ ...catalogWork });
+}
+
 export function admitGraphFunctionCatalog(
   basis: CatalogReadinessBasis,
 ): ReadyGraphFunctionCatalogResult {
   const retained = readyCatalogs.get(basis);
   if (retained !== undefined) return retained;
+  catalogWork.fullAdmissions++;
   const canonicalBasis: CatalogReadinessBasis = {
     workspaceBinding: basis.workspaceBinding,
     resolvedLock: basis.resolvedLock,
@@ -910,6 +940,7 @@ export function narrowGraphFunctionCatalog(
   const allowlistKey = canonicalJson(orderedAllowlist);
   const retained = ownedCatalogs.has(catalog) ? catalogViews.get(catalog) : undefined;
   if (retained?.allowlist === allowlistKey) return retained.view;
+  catalogWork.viewConstructions++;
   const entries = orderedAllowlist.flatMap((handle) => {
     const entry = catalog.byHandle[handle];
     return entry === undefined ? [] : [entry];
@@ -935,6 +966,7 @@ export function narrowGraphFunctionCatalog(
     viewDigest: sha256Canonical(body),
   }) as GraphFunctionCatalogView;
   if (ownedCatalogs.has(catalog)) catalogViews.set(catalog, { allowlist: allowlistKey, view });
+  if (isAdmittedReadyGraphFunctionCatalog(catalog) && isDeeplyFrozen(view)) admittedCatalogViews.add(view);
   return view;
 }
 

@@ -72,6 +72,8 @@ import { executeOwnedGraphTraversalEffect as executeGraphTraversalEffect } from 
 import { constructAdmittedLeafInvocationPort } from
   "../implementation/leaf_invocation_port.js";
 import {
+  isAdmittedGraphFunctionCatalogView,
+  isAdmittedReadyGraphFunctionCatalog,
   type DeclarationApplication,
   type GraphFunctionCatalogView,
   type ReadyGraphFunctionCatalog,
@@ -2283,11 +2285,19 @@ export async function populateRunContinuationAtDurablePrefix(input: Readonly<{
     coordinate(prepared.root.basisRef, prepared.root.basisDigest));
 }
 
+// §10.11 X4: the Catalog owner's established ready Catalog and view are the
+// canonical values of the structural `catalog` and `catalogView` members.
+const RUN_INVOCATION_ESTABLISHED_RESOURCE_MEMBERS = Object.freeze({
+  catalog: isAdmittedReadyGraphFunctionCatalog,
+  catalogView: isAdmittedGraphFunctionCatalogView,
+});
+
 const invoke = bindExactPrefixTransition(
   RUN_OPERATION_CONTRACTS.invoke.invoke,
   runInvocationOwner<InvokePacket>,
   RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA,
   RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+  RUN_INVOCATION_ESTABLISHED_RESOURCE_MEMBERS,
 );
 
 const start = bindExactPrefixTransition(
@@ -2295,13 +2305,16 @@ const start = bindExactPrefixTransition(
   runInvocationOwner<StartPacket>,
   RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA,
   RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+  RUN_INVOCATION_ESTABLISHED_RESOURCE_MEMBERS,
 );
 
 const current_intent = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.current_intent,
-  runCurrentIntentOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+  runCurrentIntentOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+  RUN_INVOCATION_ESTABLISHED_RESOURCE_MEMBERS);
 
 const selected_action = bindExactPrefixTransition(RUN_OPERATION_CONTRACTS.continue.selected_action,
-  runSelectedActionOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA);
+  runSelectedActionOwner, RUN_INVOCATION_RESOURCE_ASSERTION_SCHEMA, RUN_INVOCATION_RESOURCE_RECEIPT_SCHEMA,
+  RUN_INVOCATION_ESTABLISHED_RESOURCE_MEMBERS);
 
 export const RUN_DEFINITION_BINDINGS = Object.freeze({
   invoke: Object.freeze({ invoke, start }),

@@ -9,7 +9,7 @@ import {
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
-import { deepFreeze } from "../shared/immutable.js";
+import { deepFreeze, isDeeplyFrozen } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { isRecord } from "../shared/admit/index.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
@@ -951,6 +951,37 @@ function exactEnvironment(
   ));
 }
 
+/** Observation-only §10.11 counts of plan contract and schema copies, reuses
+ * and first-sight deep-frozen walks; no barrel exports them. */
+const workerTransportCopyWork = { contractCopies: 0, schemaCopies: 0, reuses: 0, deepFrozenChecks: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeWorkerTransportCopyWork(): Readonly<typeof workerTransportCopyWork> {
+  return Object.freeze({ ...workerTransportCopyWork });
+}
+
+// §10.11 X6: values the plan owner copied, or found deeply frozen when first
+// supplied. Identity carries the fact; a mutable value is copied every time.
+const planOwnedValues = new WeakSet<object>();
+
+function planOwned<T>(value: T, copies: "contractCopies" | "schemaCopies"): T {
+  if (typeof value === "object" && value !== null) {
+    if (planOwnedValues.has(value)) {
+      workerTransportCopyWork.reuses++;
+      return value;
+    }
+    if (Object.isFrozen(value) && (workerTransportCopyWork.deepFrozenChecks++, isDeeplyFrozen(value))) {
+      planOwnedValues.add(value);
+      workerTransportCopyWork.reuses++;
+      return value;
+    }
+  }
+  workerTransportCopyWork[copies]++;
+  const copy = deepFreeze(structuredClone(value));
+  if (typeof copy === "object" && copy !== null) planOwnedValues.add(copy);
+  return copy as T;
+}
+
 export async function prepareWorkerTransport(
   input: WorkerTransportRequest,
 ): Promise<PreparedWorkerTransport> {
@@ -971,9 +1002,10 @@ export async function prepareWorkerTransport(
   const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
   // The plan owns frozen copies: a later change to the caller's contract,
   // schema or appended arguments cannot alter the executed command, arguments
-  // or identity.
-  const contract: WorkerTransportContract = deepFreeze(structuredClone(input.contract));
-  const responseJsonSchema = input.responseJsonSchema === undefined ? undefined : deepFreeze(structuredClone(input.responseJsonSchema));
+  // or identity. An established immutable contract or schema is already that
+  // (§10.11 X6) and is reused by identity.
+  const contract: WorkerTransportContract = planOwned(input.contract, "contractCopies");
+  const responseJsonSchema = input.responseJsonSchema === undefined ? undefined : planOwned(input.responseJsonSchema, "schemaCopies");
   const explicitAppendArgs = input.explicitAppendArgs === undefined ? undefined : Object.freeze([...input.explicitAppendArgs]);
   const paths = deepFreeze({
     prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),

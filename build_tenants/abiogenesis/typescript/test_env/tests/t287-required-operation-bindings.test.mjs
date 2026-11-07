@@ -488,7 +488,7 @@ test('O1 (A): the materialization binding refuses an artifact body outside I-JSO
     './environment.js': { productInstallCoordinate: install => ({ productId: install.productId }) },
     '../abg/effectful_invocation_truth.js': { projectEffectfulPublicInvocationTruthAtPrefix: () => ({ disposition: 'available' }) },
     './materialization_operations.js': { materializeContextBootstrap: async () => native },
-    '../abg/artifact_truth.js': { projectExactPrefixArtifactTruth: () => ({ kind: 'exact_prefix_artifact_truth_projection', rows: [] }) },
+    '../abg/artifact_truth.js': { projectOwnedPrefixArtifactTruth: () => ({ kind: 'exact_prefix_artifact_truth_projection', rows: [] }) },
     '../abg/environment_admission.js': { admitArtifact: (...args) => { admissions.push(args); return { disposition: 'admitted' }; } },
     '../abg/definition_event_resource.js': { abandonAbgEventResource: () => {} },
   };

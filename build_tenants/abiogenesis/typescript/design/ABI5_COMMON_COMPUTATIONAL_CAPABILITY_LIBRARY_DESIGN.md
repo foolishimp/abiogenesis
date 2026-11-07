@@ -789,6 +789,15 @@ argument. `DurableHistoryDerivation.capture`, `selection` and
 consumers: raw or deserialized handoffs, reopen, recovery, body holders and
 historical cuts. They are retained unless the measured lane shows otherwise.
 
+**Held coverage and cold residuals.** R-B holds six reads: `run_status`,
+`run_result`, `run_replay`, `run_gaps`, `graph_call_result` and
+`graph_call_replay`. Twelve reads stay cold, reopen-only: `graph_call_status`,
+the five `*_evidence` reads, `workspace_replay`, `interaction_replay`,
+`continuation_replay`, `c_call_replay`, `workspace_gaps` and
+`run_lawful_actions`. A held session reaches them only across a close
+handoff. This section claims no held coverage for them, and no migration of
+them is selected.
+
 **Proof.** The proof is one held session over the installed fixture. It covers
 multiple warm calls and held `run_result` and `run_replay`. It shows one
 initial acquisition, zero added decodes and reopens during warm calls and
@@ -924,6 +933,114 @@ pending partial window drains before finalization with its last qualifying
 capture time. Missing, changed and truncated archive bytes are refused by the
 existing cold owners (E4). Each case is proof only when its selected lane passes
 on the final frozen source. No timing, release or qualification claim follows.
+
+### 10.11 Constructed-call reference preservation (RC8 REF-01)
+
+Root selection `rc8-reference-preservation-01` admits this
+`realization_refactor`. Product WHAT is unchanged: [Live State, Recovery And
+Valid Reuse](../../../../specification/PRODUCT.md#live-state-recovery-and-valid-reuse)
+requires owners to consume established facts with their exact subject and
+basis, and internal call boundaries create no new semantic proof obligation.
+PUBLIC-CONTRACTS-009/010 fix the declared defaults, the invocation identity
+and the owning semantic function; CATALOG-014/017/029/030 fix coherent owner
+readiness, exact idempotence, eventless construction and separate ABG runtime
+truth. An established object here is one exact in-process value whose owner
+produced it as its own admission output and established its deep immutability
+once. Its identity carries that fact. A copy, a different object of equal
+content, a mutable object or a serialized form is new data and takes the
+owner's full admission. A frozen input proves immutability only; it is not
+evidence that the input equals any schema's output. No relation adds a store,
+trust registry, wrapper library, event or runtime authority, and none skips a
+currentness, effect or semantic check.
+
+```mermaid
+sequenceDiagram
+  participant C as checkedInstalledCall
+  participant M as definition_binding_mechanics
+  participant T as native transport
+  participant B as bindStaticOwner
+  participant K as Catalog owner
+  participant R as run owner / Product prepare
+  C->>M: establishExactDefinitionCall(call, declaration)
+  M-->>C: canonical admitted invocation, deep immutability once, recorded
+  C->>R: establishCanonicalProductInput(population payload, canonical payload)
+  C-->>T: frozen call carrying that canonical invocation
+  T->>B: established call by reference (no detach, no reattachment)
+  B->>M: admitExactDefinitionCall: recorded canonical invocation returns itself
+  B->>K: catalog / catalogView member: owner fact by identity, before any gate
+  B->>B: remaining members: admitContract, canonical outputs and defaults
+  B->>R: invocation, request, Catalog and view are the constructed and setup objects
+  R->>R: readyCatalogs and view hit; canonical request payload is the recorded Product input; guard runs on it
+```
+
+| Relation | Owner | Realization |
+|---|---|---|
+| X1 Construction establishes the canonical invocation | `public/installed_public_definition_call.ts` `checkedInstalledCall`; `public/binding/definition_binding_mechanics.ts` `establishExactDefinitionCall` | The constructor builds the call exactly as before and hands it to `establishExactDefinitionCall` with the selected member's declaration. That runs the existing full `admitExactDefinitionCall` once and keeps its output: the canonical invocation with every schema default applied (a raw start without `fhMode` admits to `fhMode: "direct"`), whose request is the value its `requestDigest` names. One walk establishes that output's deep immutability: it freezes every own data container and descends through containers that are already frozen, which `deepFreeze` does not. An accessor, a symbol key or a non-plain prototype refuses establishment, and the constructor returns its original call on the ordinary path. Otherwise it returns a frozen call carrying the canonical invocation and the original resources, and the owner records that invocation against the selected definition and the declaration's request schema. The recorded object is the admission output; the raw input is never recorded. The walk runs at construction only. The canonical request schema rebuilds every container of the input payload (`jsonValueSchema` array and record branches), so the canonical request's input payload is a new object, not the value population admitted; X2 hands that exact nested payload to the Product input owner at this constructor. |
+| X2 Population detaches new input once | `product/run_invocation_operation.ts` `populateProductRunInvocation`; `product/semantics.ts` `admitInstalledProductInput` | Population admits the caller's input value through `admitInstalledProductInput` before it builds the request. That admission's `admitJson` output is a detached tree of fresh containers; the owner deep-freezes it and records it. The request and the `input_contract` slot carry that admitted value, so a caller's later mutation, including a mutable member under a frozen shell, cannot reach the call. Digests are canonical and unchanged. A later `admitInstalledProductInput` of a recorded value skips `admitJson` and still calls the Product's own `admitInput` guard. Any other value takes `admitJson` as before. **Constructor handoff.** `constructInstalledStartCall` is the only call site of the internal `establishCanonicalProductInput(admitted, canonical)` in `product/semantics.ts`. It calls it once after `checkedInstalledCall` returns an established call (`isEstablishedDefinitionCall`), passing the input payload population placed in its request (`request.input.value` for `start`, `request.input` for `invoke`) and the payload at the same path of the established canonical request. Preconditions, each checked by identity or one shallow test: `admitted` is a value this owner recorded; `canonical` is the payload of an invocation that `establishExactDefinitionCall` recorded and deep-froze (the call site passes it from that call), so it is the canonical schema's output for a request whose payload was `admitted`; `admitted` and `canonical` are distinct frozen objects (a primitive payload is never recorded; its admission is constant-size). On those preconditions the owner records `canonical`; it performs no `admitJson`, no walk and no digest or content comparison. A failed precondition records nothing, and the real consumer then admits the payload as any other value. The real consumer's `admitInstalledProductInput` of the canonical request payload is then a reuse, and the Product guard still runs on that exact object. A call established outside this constructor, including a raw, deserialized, copied or test-built call passed directly to `establishExactDefinitionCall`, is not handed off: its canonical payload is new data to this owner and takes one `admitJson`. No raw, frozen, digest-equal or structurally equal object is recorded. Construction work is unchanged and remains: one population `admitJson` copy of new caller input, the one canonical call admission that rebuilds the payload containers, and the one establishment walk. |
+| X3 Native transport carries established calls | `public/installed_definition_call_transport.ts` | A candidate whose invocation is recorded (X1) and whose call and resources shells are frozen is carried by reference: no `structuredClone`, no retained-verifier reattachment. The held path keeps its selection identity, currentness and bound-prefix checks first; an eventless bound call whose bound prefix is not the selection's own prefix object keeps the detaching path. Every other candidate, including every raw, deserialized, copied, stale, foreign or shell-mutable call, is detached exactly as before. Owner admission runs synchronously inside the callable before the first await, so the owner never observes a later caller change. The fact belongs to the invocation object, not to the shell: a frozen rebox that keeps the recorded invocation is carried by reference, and its resources still meet X4 member by member. |
+| X4 Static binder consumes owner member facts | `public/binding/static_definition_bindings.ts` `bindStaticOwner`; `abg/exact_prefix_bindings.ts`; `owner_bindings/run_invocation.ts` | `admitExactDefinitionCall` returns a recorded canonical invocation itself. A binder may receive, at module construction, a static table naming for some members of its strict-object resource schema the existing owner predicate that recognizes that owner's established values (`EstablishedResourceMembers`, a type declared beside the binder ABI). The prefix binders forward the table unchanged. The run binders name `isAdmittedReadyGraphFunctionCatalog` for `catalog` and `isAdmittedGraphFunctionCatalogView` for `catalogView`, both from `product/catalog.ts`. The binder reads the plain, non-Proxy resources shell by own data descriptors and asks each named predicate before any JSON copy, schema run or frozen walk. A member that the predicate accepts is passed by identity. When no member is accepted, or the shell has an accessor, a non-enumerable or symbol key, an unknown key, a Proxy or another prototype, the whole shell takes `admitContract` unchanged. Otherwise the remaining members are admitted together through `admitContract` with the same strict key law and I-JSON gate, and the output is assembled in the schema's entry order from the accepted members and that admission's output, so transforms and schema-created defaults are the canonical ones. Every refusal maps to the existing `invalid_resource_assertion` fault. No member value, frozen state or member-schema identity is retained or inferred by the binder; a binder without a table admits exactly as before X4. Receipt and owner-output admission are unchanged. |
+| X5 Product consumers hit by identity | `product/catalog.ts`, `product/execution_resolution.ts` | `admitGraphFunctionCatalog` records a ready Catalog under its canonical readiness basis only after `isDeeplyFrozen` holds at construction; `isAdmittedReadyGraphFunctionCatalog(value)` holds exactly for such a Catalog (`ownedCatalogs` membership, then `readyCatalogs.get(value.readinessBasis) === value`). `narrowGraphFunctionCatalog` records a view it constructs over such a Catalog, once deeply frozen at construction; `isAdmittedGraphFunctionCatalogView` holds exactly for those views. Each owner-built value is the I-JSON canonical value of the run binder's structural member contract. Unchanged relations: `admitGraphFunctionCatalog(catalog.readinessBasis)` hits `readyCatalogs`, the reconstructed Catalog is the input Catalog, and `narrowGraphFunctionCatalog` returns the retained view, so neither canonical comparison runs. Catalog/view coherence and installed module content verification per resolution remain owner checks. |
+| X6 Worker plan copies | `abg/worker_transport.ts` `prepareWorkerTransport` | The plan reuses a contract or response schema it already owns, or a supplied one that is frozen and deeply frozen when first seen, by identity. A mutable caller contract, schema or argument list is still copied and frozen, so the M5 Q23 prepared-plan stability is unchanged. |
+
+**Retired inference.** The RC8 stage-02 binder retained any deeply frozen
+member it had admitted under a member schema and later returned that raw
+member, or a raw member found deeply frozen, in place of the schema's output.
+Arbitrary member-schema identity is not an input-only or identity-preserving
+law: a transform, a schema-created default or a non-enumerable raw member
+changes the canonical outcome. That inference and its member and partial-schema
+memo are removed. Only the owner predicates of X4 and the recorded canonical
+invocation of X1 carry reuse.
+
+**Counters.** Observation-only test-mode counters, `@internal` and not
+exported from any barrel, count work at its actual site:
+`observeDefinitionCallWork` (full call admissions, invocation establishments
+and their deep-immutability walks, recorded-invocation reuses, binder resource
+gate runs, members passed through that gate, members accepted by an owner
+predicate, and per member key the gate passes as `gated.<key>`),
+`observeDefinitionTransportWork` (transport detaches, which `structuredClone`
+the whole call, retained-verifier reattachments into a detached clone, and
+established carries), `observeCatalogWork` (full Catalog admissions on a
+`readyCatalogs` miss and view constructions on a view miss),
+`observeExecutionResolutionWork` (full-Catalog and view canonical
+comparisons), `observeProductInputWork` (Product input `admitJson` copies) and
+`observeWorkerTransportCopyWork` (plan contract and schema copies and first
+deep-frozen checks). `observeRunPreparationSubjects` holds weak references to
+the last prepared invocation, request, Catalog and view so a test can compare
+identities. None selects, caches or changes an admission. A retained-verifier
+reattachment is a reference assignment into a clone; it is not native module
+or declaration loading or linking, which these counters do not observe.
+`admitJson` and `admitContract` calls by owners other than the binder are not
+counted; the binder count is the only gate site on this path that receives the
+resources.
+
+**Retained work.** Raw and CLI cold ingress, I-JSON and contract admission of
+new or changed data, owner currentness, prefix and effect checks, Product
+semantic guards, Catalog/view coherence and installed content verification
+keep their full paths. Setup establishes the Catalog and view once; the first
+and every later binder call over them reuses them through the X4 owner facts,
+with no binder JSON copy, schema run or frozen walk of either. §10.9's held
+reads and twelve cold residuals are unchanged.
+
+**Proof.** `t287-owned-call-reference.test.mjs` drives the real
+constructor, native transport, static binder and run owner over one held
+installed session. From the first post-setup call, the prepared invocation
+and its request are the constructed canonical objects, the Catalog and view
+are the setup objects, and there are zero transport detaches and
+reattachments, full call admissions, binder gate passes of `catalog` or
+`catalogView`, Catalog admissions, view constructions, canonical Catalog
+comparisons and Product input copies. A raw start without `fhMode` establishes
+to the canonical `direct` request whose digest its invocation names, and the
+real run owner receives that request. Against canonical `admitContract`, the
+binder keeps a member transform and a schema default with and without an
+owner-accepted member, and refuses a non-enumerable member. A frozen rebox
+reuses its recorded invocation and owned Catalog; a frozen structural copy of
+the Catalog earns no fact and takes the gate and full Catalog admission. A
+shallow-frozen input shell with a mutable member is detached at population and
+cannot change the call. Copied and mutable calls still detach and admit. The
+`binding`, `catalog`, `invocation`, `worker` and `held` lanes are
+regressions; the M5 Q23 prepared-plan case is the mutable-input falsifier
+for X6. Matched installed measurements and the CPU profile belong to the
+separate operator assignment.
 
 ## 11. Source-to-library-to-outcome paths
 

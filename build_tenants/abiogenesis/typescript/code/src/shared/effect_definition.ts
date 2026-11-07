@@ -71,6 +71,16 @@ export type ExactDefinitionCallable<
   never
 >;
 
+/**
+ * §10.11 X4: a module-static table naming, for members of a binder's strict
+ * resource contract, the existing owner predicate that recognizes exactly the
+ * values that owner established as that member's canonical value. Each entry is
+ * a direct import; the binder retains nothing.
+ */
+export type EstablishedResourceMembers<TResources> = Readonly<
+  Partial<Record<keyof TResources & string, (value: unknown) => boolean>>
+>;
+
 export type DefinitionHostFailure<K extends PublicDefinitionKeyLike = PublicDefinitionKeyLike> = {
   readonly failureKind: "typed_execution_fault" | "defect_or_interruption";
   readonly fault: DefinitionExecutionFault<K> | null;

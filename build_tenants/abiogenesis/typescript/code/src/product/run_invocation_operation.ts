@@ -52,6 +52,7 @@ import {
 import { RUN_OPERATION_CONTRACTS } from "./run_operation_contracts.js";
 import {
   admitInstalledProductInput,
+  admitInstalledProductInputValue,
   validateInstalledInvocationBasis,
   type ProductInvocationSourceResultBasis,
   type GovernanceCoveredSourceUse,
@@ -574,6 +575,34 @@ export function prepareRunQualificationResources(resources: ProductRunInvocation
     establish(value);
     return qualificationResources;
 }
+// Observation-only §10.11 identity probe: weak references to the subjects the
+// last preparation received. It retains nothing and changes no admission.
+let lastPreparationSubjects: Readonly<{
+  invocation: WeakRef<object>;
+  request: WeakRef<object>;
+  input: WeakRef<object> | null;
+  catalog: WeakRef<object>;
+  catalogView: WeakRef<object>;
+}> | null = null;
+
+/** @internal The subjects the last preparation received, while they live;
+ * `input` is the request payload it hands to Product input admission. */
+export function observeRunPreparationSubjects(): Readonly<{
+  invocation: object | undefined;
+  request: object | undefined;
+  input: object | undefined;
+  catalog: object | undefined;
+  catalogView: object | undefined;
+}> | null {
+  return lastPreparationSubjects === null ? null : Object.freeze({
+    invocation: lastPreparationSubjects.invocation.deref(),
+    request: lastPreparationSubjects.request.deref(),
+    input: lastPreparationSubjects.input?.deref(),
+    catalog: lastPreparationSubjects.catalog.deref(),
+    catalogView: lastPreparationSubjects.catalogView.deref(),
+  });
+}
+
 export async function prepareProductRunInvocation<
   M extends RunInvocationMemberKey,
 >(input: Readonly<{
@@ -588,6 +617,14 @@ export async function prepareProductRunInvocation<
   readonly deriveCurrentSourceUse?: (source: ProductInvocationSourceResultBasis, resolution: LoadedProductExecutionResolution) => GovernanceCoveredSourceUse | null;
 }>): Promise<ProductRunInvocationPreparation<M>> {
   const { memberKey, invocation, resources } = input;
+  const observedInput: unknown = memberKey === "invoke"
+    ? invocation.request.input
+    : isRecord(invocation.request.input) ? invocation.request.input.value : undefined;
+  lastPreparationSubjects = Object.freeze({ invocation: new WeakRef(invocation),
+    request: new WeakRef(invocation.request),
+    input: typeof observedInput === "object" && observedInput !== null ? new WeakRef(observedInput) : null,
+    catalog: new WeakRef(resources.catalog),
+    catalogView: new WeakRef(resources.catalogView) });
   if (
     invocation.definitionKey.memberKey !== memberKey ||
     !exactApplications(resources.catalogView, resources.applications)
@@ -934,14 +971,18 @@ export async function populateProductRunInvocation<
   if (authority.kind !== "invocation_authority") {
     return preparationRefusal(memberKey, "invalid_capability", ["/invocationAuthority"]);
   }
-  const value = "value" in input.input
+  const suppliedValue = "value" in input.input
     ? input.input.value
     : await input.input.factory(Object.freeze({ resolution, workspaceBinding: input.workspaceBinding, grants }));
   const inputContractRef = resolution.resolution.inputContract.contractRef;
-  const admittedInput = admitInstalledProductInput(resolution.productSemantics, inputContractRef, value);
-  if (admittedInput === null) {
+  // §10.11 X2: the request carries the detached admitted input, so a later
+  // change to the caller's value cannot reach the call; digests are canonical.
+  const inputAdmission = admitInstalledProductInputValue(resolution.productSemantics, inputContractRef, suppliedValue);
+  const admittedInput = inputAdmission?.admitted ?? null;
+  if (inputAdmission === null || admittedInput === null) {
     return preparationRefusal(memberKey, "invalid_input", ["/input"]);
   }
+  const value = inputAdmission.value;
   const coordinate = (ref: string, digest: Sha256Digest) => Object.freeze({ ref, digest });
   const program = coordinate(resolution.resolution.programRef, resolution.resolution.programDigest);
   const view = coordinate(catalogViewRef(input.catalogView.viewDigest), input.catalogView.viewDigest);

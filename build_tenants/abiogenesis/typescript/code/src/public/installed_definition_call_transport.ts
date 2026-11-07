@@ -19,7 +19,10 @@ import type {
   OwnerRequestOf,
 } from "../shared/public_function_contracts.js";
 import type { PublicDefinitionKeyLike } from "../shared/public_invocation.js";
-import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
+import {
+  admitExactDefinitionCall,
+  isEstablishedDefinitionCall,
+} from "./binding/definition_binding_mechanics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
 
@@ -296,10 +299,23 @@ function selectedCallable(
     );
 }
 
+/** Observation-only §10.11 counts: detached candidates (one `structuredClone`
+ * of the whole call each), retained-verifier values reattached by reference into
+ * that clone, and established calls carried by reference. A reattachment is not
+ * native module or declaration loading or linking, which is not counted here.
+ * They change no admission; no barrel exports them. */
+const definitionTransportWork = { detaches: 0, verifierReattachments: 0, establishedCarries: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeDefinitionTransportWork(): Readonly<typeof definitionTransportWork> {
+  return Object.freeze({ ...definitionTransportWork });
+}
+
 /** Detach mutable/raw input without copying an immutable verifier result first.
  * Only the verifier's existing exact request/result relation retains a body;
  * every receiving owner still admits the call and its additional relations. */
 function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
+  definitionTransportWork.detaches++;
   const resources = { ...original.resources as Readonly<Record<string, unknown>> };
   const retained: { readonly path: readonly (string | number)[]; readonly value: unknown }[] = [];
   const keep = (record: Record<string, unknown>, key: string, path: readonly (string | number)[], value: unknown): void => {
@@ -338,6 +354,7 @@ function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
     });
   }
   const detached = structuredClone({ invocation: original.invocation, resources });
+  definitionTransportWork.verifierReattachments += retained.length;
   for (const { path, value } of retained) {
     let parent: unknown = detached;
     for (const key of path.slice(0, -1)) parent = (parent as Record<string | number, unknown>)[key];
@@ -363,9 +380,14 @@ async function transportInstalledDefinitionCall(
 ): Promise<InstalledDefinitionCallTransportOutcome> {
   let detachedEnvelope: unknown;
   try {
+    // §10.11 X3: an established call is carried by reference; owner admission
+    // runs synchronously inside the callable before the first await.
+    const established = isInstalledDefinitionCallCandidate(candidate) &&
+      isEstablishedDefinitionCall(candidate);
+    if (established) definitionTransportWork.establishedCarries++;
     detachedEnvelope = {
       acquisition: structuredClone(acquisition),
-      candidate: isInstalledDefinitionCallCandidate(candidate)
+      candidate: established ? candidate : isInstalledDefinitionCallCandidate(candidate)
         ? detachDefinitionCall(candidate) : structuredClone(candidate),
     };
   } catch {
@@ -429,6 +451,13 @@ async function transportInstalledDefinitionCallWithResource(
   }
   try { abg.assertAcquiredAbgEventResourceSelectionCurrent(resource); }
   catch (cause) { return refusal("acquisition_mismatch", String(cause)); }
+  // §10.11 X3: an established call already names this exact selection, or its
+  // bound environment names the selection's own prefix object.
+  if (isEstablishedDefinitionCall(candidate) && (hasEventResource ||
+      isRecord(environment) && environment.prefix === resource.prefix)) {
+    definitionTransportWork.establishedCarries++;
+    return invokeInstalledDefinitionCall("acquired", candidate);
+  }
   let detached: AnyDefinitionCall;
   try {
     const { eventResource: _resource, ...resources } = candidate.resources;

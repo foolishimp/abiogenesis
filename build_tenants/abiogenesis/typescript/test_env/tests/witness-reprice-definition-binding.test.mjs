@@ -223,7 +223,7 @@ test('all six native witness members consume the admitted held history after raw
 function profileRequest(h){
   const request=h.request();request.content.value={declarationRef:profiles.ROOT_EVENT_PROFILE_DECLARATION_REF,beforeDigest:events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
     afterDigest:events.ROOT_EVENT_CONTRACT_DIGEST,changeClass:'design_reframe',owningTicketRef:'ticket://T-287',reason:profiles.ROOT_EVENT_PROFILE_UPGRADE_REASON};
-  request.evidence=[...request.evidence,{ref:profiles.ROOT_CURRENT_EVENT_PROFILE_REF,digest:events.ROOT_EVENT_CONTRACT_DIGEST}];return request;
+  request.evidence=[...request.evidence,{ref:profiles.ROOT_WINDOW_EVENT_PROFILE_REF,digest:events.ROOT_EVENT_CONTRACT_DIGEST}];return request;
 }
 
 test('Public profile reprice retains the exact L-to-P boundary and standalone cold content checks',async()=>{
@@ -238,7 +238,7 @@ test('Public profile reprice retains the exact L-to-P boundary and standalone co
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,structuredClone(result.resources),request.content.value),true);
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,result.resources,{...request.content.value,reason:'changed'}),false);
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,{...result.resources,boundaryEventRef:h.seed.eventId},request.content.value),false);
-  for(const change of [r=>{r.content.value.reason='wrong profile reason';},r=>{r.evidence=r.evidence.filter(e=>e.ref!==profiles.ROOT_CURRENT_EVENT_PROFILE_REF);}]){
+  for(const change of [r=>{r.content.value.reason='wrong profile reason';},r=>{r.evidence=r.evidence.filter(e=>e.ref!==profiles.ROOT_WINDOW_EVENT_PROFILE_REF);}]){
     const other=await witnessMechanics({legacyProfile:true}),bad=profileRequest(other),before=bytes(other);change(bad);
     const refused=await other.run(await other.call({request:bad}));assert.equal(refused.exitCode,70);assert.equal(refused.failure.fault.code,'sink_unavailable');assertClosedUnchanged(other,before);
   }

@@ -12,6 +12,7 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 import { FP_IDS, constructStructuralPublication } from "../fixtures/language-structural/program.mjs";
 import { worker as prepareStructuralWorker } from "../fixtures/language-structural/leaf.mjs";
 import { prepareLanguageStructuralFixture } from "../support/language-structural-fixture.mjs";
+import { composeStdoutComponentPremise } from "../support/stdout-component-fixture.mjs";
 const PROGRAM_REF = FP_IDS.programRef;
 const GRAPH_FUNCTION_REF = FP_IDS.graphFunctionRef;
 const INPUT_CONTRACT_REF = FP_IDS.inputContractRef;
@@ -192,7 +193,9 @@ function actorObservation(basis, overrides) {
 // Reuse the authentic installed F_P leaf port below. Physical child events,
 // prefix acquisition and event recording are controlled component premises;
 // assessment, worker parsing/persistence and actor admission ordering are real
-// installed owner code. This is not an installed Run or OS-process proof.
+// installed owner code. Current-profile stdout windows stage through the real
+// installed runtime-liveness owner over the same fixture transaction, recorder
+// rows and current prefix. This is not an installed Run or OS-process proof.
 async function finalizedArtifactCases(environment, basis, context) {
   const { SourceTextModule, SyntheticModule } = await import('node:vm');
   const { EventEmitter } = await import('node:events');
@@ -201,7 +204,7 @@ async function finalizedArtifactCases(environment, basis, context) {
   const physical = await import(pathToFileURL(installed('shared/owned_process_lifetime')).href);
   const transportContracts = await import(pathToFileURL(installed('abg/transport_contracts')).href);
   const events = await import(pathToFileURL(installed('abg/event_store')).href);
-  const { actorRuntimeProbeSources } = await import(pathToFileURL(installed('abg/runtime_liveness_contracts')).href);
+  const { projectExactExecutionBasisRecordAtPrefix } = await import(pathToFileURL(installed('abg/calculus/execution_basis_record')).href);
   const prefixes = await import(pathToFileURL(installed('abg/event_prefix')).href);
   const calculus = await import(pathToFileURL(installed('abg/event_calculus')).href);
   const { deepFreeze } = await import(pathToFileURL(installed('shared/immutable')).href);
@@ -220,7 +223,8 @@ async function finalizedArtifactCases(environment, basis, context) {
   for (const mode of ['valid', 'invalid', 'absent', 'unreadable', 'conflict', 'owner-unavailable',
     'artifact-refused', 'probe-refused', 'process-refused', 'plan-mismatch', 'unknown', 'present', 'normal']) {
     const first = Object.assign(new Error(`retained stream error: ${mode}`), { code: 'EPIPE' });
-    const rows = [], probes = [], store = {}, child = new EventEmitter();
+    const rows = [], probes = [], child = new EventEmitter();
+    const store = { configuredDurableLogPath: () => null, readAll: () => deepFreeze([...rows]) };
     let plan, lifetime, absent = false, caught = null, outputReads = 0, finalFacts = null, compositions = 0;
     let currentPrefix = { storeIdentity: { eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST }, coordinateDigest: hash(mode + ':0') };
     let predecessor;
@@ -276,24 +280,39 @@ async function finalizedArtifactCases(environment, basis, context) {
     const call = { ...basis.occurrence, implementationRef: basis.resolution.implementationRef,
       implementationBindingRef: basis.resolution.implementationBindingRef, outputContractRef: basis.resolution.outputContractRef,
       fibreSelectedEventRef: '' };
-    const fibre = append({ kind: 'c_call_fibre_selected', aggregateType: 'c_call', aggregateId: call.cCallRef,
-      parentAggregateId: call.frameId, causationEventRefs: [], eventTime: '2026-10-21T00:00:00.000Z',
-      correlationId: 'f04-finalized', workflowVersion: '5.0.0', scopeClass: 'run', basisId: environment.executionBasis.basisRef,
-      runId: call.runId, graphCallId: call.graphCallId, frameId: call.frameId, payload: { cCallRef: call.cCallRef } });
+    // The current history starts from the retained installed execution-basis
+    // prefix (its immutable event references, in order, in this mode's own rows
+    // array), then records this occurrence's CCall opening and complete leaf F_P fibre.
+    for (let index = 0; index < prefixes.runtimeEventPrefixExtent(basis.prefix).count; index++)
+      rows.push(prefixes.runtimeEventAtPrefixIndex(basis.prefix, index));
+    assert.equal(rows.at(-1)?.admissionOrdinal, rows.length, 'retained basis prefix keeps its admission ordinals');
+    const occurrenceEvent = { aggregateType: 'c_call', aggregateId: call.cCallRef, parentAggregateId: call.frameId,
+      eventTime: '2026-10-21T00:00:00.000Z', correlationId: 'f04-finalized', workflowVersion: '5.0.0', scopeClass: 'run',
+      basisId: environment.executionBasis.basisRef, runId: call.runId, graphFunctionRef: environment.executionBasis.graphFunctionRef,
+      graphCallId: call.graphCallId, frameId: call.frameId };
+    const opened = append({ kind: 'c_call_opened', ...occurrenceEvent, causationEventRefs: [], payload: { callClass: 'leaf',
+      cCallRef: call.cCallRef, programLocusRef: call.programLocusRef, taskOrdinal: call.taskOrdinal, vectorIndex: null, edgeRef: null,
+      attempt: call.attempt } });
+    const fibre = append({ kind: 'c_call_fibre_selected', ...occurrenceEvent, causationEventRefs: [opened.eventId], payload: {
+      cCallRef: call.cCallRef, callClass: 'leaf', regime: 'F_P', implementationRef: call.implementationRef,
+      implementationBindingRef: call.implementationBindingRef } });
     call.fibreSelectedEventRef = fibre.eventId;
+    assert.ok(projectExactExecutionBasisRecordAtPrefix(prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])),
+      environment.executionBasis.basisRef), 'retained exact execution basis precedes the occurrence');
     currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) }; predecessor = currentPrefix;
-    const contextAtActor = actorInvocationRef => ({ scope: { actorInvocationRef }, binding: { clockOriginRef: 'clock://f04-finalized' },
-      probes: actorRuntimeProbeSources(plan.parser).map(source => ({ source, probeRef: `probe://f04-finalized/${source}` })) });
+    let preflight = null;
+    const premise = await composeStdoutComponentPremise({ ownerRoot: join(environment.installedRoot, 'build/code/src'),
+      store, rows, append, durable: () => currentPrefix,
+      commit: () => (currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) }) });
     const actor = await component('abg/actor_process', {
-      './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => basis.prefix, selectRuntimeEventPrefixFromStore: () => basis.prefix },
+      // The actual pure-memory store route reads the current recorder rows.
+      './event_prefix.js': { readOwnedRuntimeEventPrefixAtDurablePrefix: () => prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])) },
       './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
-      './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, admitRuntimeEvent: (_store, candidate) => append(candidate),
-        admitNonEmptyRuntimeEventTransactionAtDurablePrefix: (_store, _prefix, action) => {
-          const value = action(); currentPrefix = { ...currentPrefix, coordinateDigest: hash(mode + ':' + rows.length) };
-          return { value, successorPrefix: currentPrefix };
-        } },
+      './event_store.js': { assertHeldEventStoreAtDurablePrefix: () => {}, ...premise.eventStore },
       './runtime_liveness.js': { captureNativeFrameBoundary: () => ({}), observeNativeFrameLiveness: () => {},
-        projectActorLivenessContext: (_prefix, actorInvocationRef) => contextAtActor(actorInvocationRef),
+        stageNativeStdoutWindow: premise.liveness.stageNativeStdoutWindow,
+        // ActorProcess and the window/probe owner share one actual projector.
+        projectActorLivenessContext: premise.liveness.projectActorLivenessContext,
         admitRuntimeActivityProbe: input => {
           if (mode === 'probe-refused' && input.observation.signal === 'artifact_admitted') throw new Error('controlled probe admission refusal');
           probes.push(input.observation.signal);
@@ -302,6 +321,10 @@ async function finalizedArtifactCases(environment, basis, context) {
       './worker_transport.js': { prepareWorkerTransport: async input => {
         plan = await worker.prepareWorkerTransport({ ...input, label: input.label + '-' + mode }); return plan;
       }, runPreparedWorkerTransport: async (prepared, observer) => {
+        // The real actor binding/start pair exists; the complete join must hold before transport.
+        const started = rows.find(row => row.kind === 'actor_invocation_started');
+        if (started === undefined || premise.liveness.projectActorLivenessContext(prefixes.selectRuntimeEventPrefixFromStore(store),
+          started.aggregateId) === null) throw (preflight = new assert.AssertionError({ message: `${mode}: complete real prefix/liveness prerequisite before transport` }));
         try { return await worker.runPreparedWorkerTransport(prepared, { ...observer, onProcessFinalized: facts => {
           finalFacts = facts; observer.onProcessFinalized(facts);
         } }); } catch (error) { caught = error; throw error; }
@@ -316,6 +339,10 @@ async function finalizedArtifactCases(environment, basis, context) {
       request: basis.request, dispatchOrdinal: 1, basis: { correlationId: 'f04-finalized' },
       ...(mode === 'owner-unavailable' ? {} : { rawResultOwner: { port: environment.leafPort, resolution: basis.resolution, input: basis.input } }),
     }, { request: basis.request });
+    if (preflight !== null) throw preflight;
+    context.diagnostic(`E03 ${mode} staged stdout windows: ${JSON.stringify(rows.filter(row => row.payload.stdoutWindow !== undefined)
+      .map(row => ({ eventId: row.eventId, byteLength: row.payload.byteLength, probes: rows.filter(event => event.kind === 'runtime_activity_probe_observed' &&
+        event.payload.observation.underlyingEventRef === row.eventId).map(event => event.payload.observation.signal) })))}`);
     const artifacts = rows.filter(row => row.kind === 'actor_result_artifact_observed');
     const terminal = rows.find(row => row.kind === 'actor_invocation_failed' || row.kind === 'actor_invocation_closed');
     const noArtifact = ['unreadable', 'conflict', 'owner-unavailable', 'artifact-refused', 'plan-mismatch', 'unknown', 'present'].includes(mode);

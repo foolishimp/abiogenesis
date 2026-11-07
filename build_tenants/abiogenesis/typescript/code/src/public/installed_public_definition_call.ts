@@ -4,7 +4,8 @@ import * as abg from "../abg/index.js";
 import * as product from "../product/index.js";
 import { PUBLIC_FUNCTION_DEFINITION_FAMILY, PUBLIC_OPERATION_CONTRACT_PROJECTIONS } from "./binding/public_function_family.js";
 import { PUBLIC_PROJECTION_PAYLOADS } from "./binding/public_function_projections.js";
-import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
+import { establishExactDefinitionCall, isEstablishedDefinitionCall } from "./binding/definition_binding_mechanics.js";
+import { establishCanonicalProductInput } from "../product/semantics.js";
 import { OWNER_CONTRACT_SOURCES } from "./binding/owner_contract_source_set.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
@@ -440,7 +441,10 @@ export type InstalledRunReadCallSelection<
  * request schema, the variant's conditional slots, digests and coordinates)
  * and names the requested variant. A crossed population is an owner defect,
  * never a call. The transport and the owner still admit the call, its
- * resources, authority and currentness; this check admits nothing.
+ * resources, authority and currentness. The one full admission here also
+ * establishes the call (§10.11 X1): the returned call carries that admission's
+ * canonical invocation, deeply immutable and admitted again by identity; an
+ * unestablishable call is returned as constructed on the ordinary path.
  */
 function checkedInstalledCall<S extends InstalledPublicDefinitionCallSelection>(
   envelope: InstalledCallEnvelopeIdentity,
@@ -467,17 +471,16 @@ function checkedInstalledCall<S extends InstalledPublicDefinitionCallSelection>(
     eventTime: envelope.eventTime,
     provenanceRefs: envelope.provenanceRefs,
   };
-  const call = constructInstalledPublicDefinitionCall<S>({ ...environment, ...selection });
+  const constructed = constructInstalledPublicDefinitionCall<S>({ ...environment, ...selection });
   const sources = OWNER_CONTRACT_SOURCES.filter(({ packet }) =>
     packet.definitionKey.operationId === key.operationId &&
     packet.definitionKey.memberKey === key.memberKey
   );
-  const request: unknown = call.invocation.request;
-  if (
-    sources.length !== 1 ||
-    admitExactDefinitionCall(call, sources[0]!.declaration) === null ||
-    !isRecord(request) || !variant(request)
-  ) {
+  const call = sources.length === 1
+    ? establishExactDefinitionCall(constructed, sources[0]!.declaration)
+    : null;
+  const request: unknown = call?.invocation.request;
+  if (call === null || !isRecord(request) || !variant(request)) {
     throw new TypeError(
       `${key.operationId}#${key.memberKey} population differs from its installed member contract or variant`,
     );
@@ -559,15 +562,28 @@ export async function constructInstalledStartCall<
   if (population.memberKey !== selection.memberKey) {
     throw new TypeError("run.invoke population differs from its selected member");
   }
+  const call = checkedInstalledCall<InstalledStartCallSelection<S>>(
+    input.envelope,
+    { operationId: "abg.operation.run.invoke", memberKey: population.memberKey },
+    { request: population.request, slots: population.slots, resources },
+    (request) => selection.memberKey === "invoke" ||
+      isRecord(request.target) && request.target.kind === selection.target.kind,
+  );
+  // §10.11 X2 constructor handoff: the canonical request schema rebuilt the
+  // payload population admitted. The Product input owner records that exact
+  // canonical payload, which the run owner later consumes.
+  if (isEstablishedDefinitionCall(call)) {
+    const payload = (request: unknown): JsonValue | undefined => !isRecord(request)
+      ? undefined
+      : population.memberKey === "invoke"
+      ? request.input as JsonValue
+      : isRecord(request.input) ? request.input.value as JsonValue : undefined;
+    const admitted = payload(population.request), canonical = payload(call.invocation.request);
+    if (admitted !== undefined && canonical !== undefined) establishCanonicalProductInput(admitted, canonical);
+  }
   return Object.freeze({
     kind: "installed_start_call" as const,
-    call: checkedInstalledCall<InstalledStartCallSelection<S>>(
-      input.envelope,
-      { operationId: "abg.operation.run.invoke", memberKey: population.memberKey },
-      { request: population.request, slots: population.slots, resources },
-      (request) => selection.memberKey === "invoke" ||
-        isRecord(request.target) && request.target.kind === selection.target.kind,
-    ),
+    call,
     population,
   });
 }

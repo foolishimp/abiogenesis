@@ -423,6 +423,20 @@ function closureRefusal(
   );
 }
 
+/** Observation-only §10.11 counts of full-Catalog and view canonical
+ * comparisons; `product/index` does not export them. */
+const executionResolutionWork = { catalogComparisons: 0, viewComparisons: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeExecutionResolutionWork(): Readonly<typeof executionResolutionWork> {
+  return Object.freeze({ ...executionResolutionWork });
+}
+
+function countedCanonicalEquals(kind: keyof typeof executionResolutionWork, left: unknown, right: unknown): boolean {
+  executionResolutionWork[kind]++;
+  return canonicalEquals(left as never, right as never);
+}
+
 async function resolveProductExecution(
   input: ProductExecutionResolutionInput,
 ): Promise<ProductExecutionResolutionResult> {
@@ -437,7 +451,8 @@ async function resolveProductExecution(
     reconstructedCatalog === null ||
     reconstructedCatalog.kind !== "graph_function_catalog" ||
     (reconstructedCatalog !== input.catalog &&
-      !canonicalEquals(
+      !countedCanonicalEquals(
+        "catalogComparisons",
         reconstructedCatalog,
         input.catalog,
       ))
@@ -462,7 +477,8 @@ async function resolveProductExecution(
     reconstructedView === null ||
     reconstructedView.kind !== "graph_function_catalog_view" ||
     (reconstructedView !== input.catalogView &&
-      !canonicalEquals(
+      !countedCanonicalEquals(
+        "viewComparisons",
         reconstructedView,
         input.catalogView,
       ))

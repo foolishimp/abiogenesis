@@ -51,6 +51,18 @@ const prefixBindings = (value, out = []) => {
   }
   return out;
 };
+// Retained history keeps its own exact profile: the measured coordinate of the
+// same log bytes names it. The current W profile never labels these bytes.
+const retainedProfile = (resources, baseline, events) => {
+  const {eventLogPath, eventLogSha256, eventLogBytes} = resources.value, {logSha256, coordinate} = baseline.value;
+  assert.equal(logSha256, eventLogSha256);
+  assert.equal(coordinate.eventLogRef, pathToFileURL(eventLogPath).href);
+  assert.equal(coordinate.prefixLength, eventLogBytes);
+  assert.equal(coordinate.prefixDigest, 'sha256:' + eventLogSha256);
+  const profile = coordinate.storeIdentity.eventContractDigest;
+  assert.equal(events.rootEventContractProfile(profile)?.current, false, 'the retained history keeps its non-current profile');
+  return profile;
+};
 
 test('retained RC5 history: the owned prefix of the migrated liveness callers preserves the measured context with fewer event-log bytes, no full snapshot and no immutability walk', {timeout: 600_000}, async t => {
   const {resources, baseline} = await consolidationInputs();
@@ -61,9 +73,10 @@ test('retained RC5 history: the owned prefix of the migrated liveness callers pr
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, liveness, derivation, digests] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'abg/runtime_liveness', 'abg/runtime_derivation', 'shared/digests'].map(load));
+  const eventContractDigest = retainedProfile(resources, baseline, events);
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href,
     prefixLength: identityBefore.size, prefixDigest: 'sha256:' + eventLogSha256,
-    storeIdentity: {device: identityBefore.device, inode: identityBefore.inode, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST}};
+    storeIdentity: {device: identityBefore.device, inode: identityBefore.inode, eventContractDigest}};
   assert.equal(body.storeIdentity.eventContractDigest, measured.coordinate.storeIdentity.eventContractDigest);
   const coordinate = {...body, coordinateDigest: digests.sha256Canonical(body)};
   const meter = openMeasurer([join(packageRoot, 'build')]);
@@ -130,17 +143,20 @@ test('retained RC5 history: the owned prefix of the migrated liveness callers pr
 });
 
 test('liveness candidate validation forks its admitted base: equal decisions and context, isolated siblings, unchanged base, no per-candidate rebuild', {timeout: 600_000}, async t => {
-  const {resources} = await consolidationInputs();
+  const {resources, baseline} = await consolidationInputs();
   const {eventLogPath, eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, liveness, digests, immutable] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'abg/runtime_liveness', 'shared/digests', 'shared/immutable'].map(load));
   const bytes = await readFile(eventLogPath);
   assert.equal(sha256Hex(bytes), eventLogSha256);
+  // The full log and its physical cut carry the retained profile; each keeps
+  // its own file identity, selected length and digest.
+  const eventContractDigest = retainedProfile(resources, baseline, events);
   const coordinateOf = async (path, selected) => {
     const identity = await fileIdentity(path);
     const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(path).href, prefixLength: selected.length,
-      prefixDigest: 'sha256:' + sha256Hex(selected), storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST}};
+      prefixDigest: 'sha256:' + sha256Hex(selected), storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest}};
     return {...body, coordinateDigest: digests.sha256Canonical(body)};
   };
   const full = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(await coordinateOf(eventLogPath, bytes));
@@ -252,14 +268,14 @@ test('liveness candidate validation forks its admitted base: equal decisions and
 });
 
 test('shared public-operation classification equals the complete class predicates of the retained history, with orphan and mixed-arm facts kept', {timeout: 600_000}, async t => {
-  const {resources} = await consolidationInputs();
+  const {resources, baseline} = await consolidationInputs();
   const {eventLogPath, eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, digests] = await Promise.all(['abg/event_store', 'abg/event_prefix', 'shared/digests'].map(load));
   const bytes = await readFile(eventLogPath), identity = await fileIdentity(eventLogPath);
   assert.equal(sha256Hex(bytes), eventLogSha256);
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href, prefixLength: bytes.length,
-    prefixDigest: 'sha256:' + eventLogSha256, storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST}};
+    prefixDigest: 'sha256:' + eventLogSha256, storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: retainedProfile(resources, baseline, events)}};
   const cold = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix({...body, coordinateDigest: digests.sha256Canonical(body)});
   // Test oracle: every admitted body of the classified kinds, through the
   // pre-existing kind index, with each consumer's own class predicate.
@@ -298,18 +314,20 @@ test('shared public-operation classification equals the complete class predicate
 });
 
 test('global run-invocation pairs stay history-wide on real earlier cuts, and a foreign Run stays distinct from a missing one', {timeout: 600_000}, async t => {
-  const {resources} = await consolidationInputs();
+  const {resources, baseline} = await consolidationInputs();
   const {eventLogPath, eventLogSha256} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, digests, invocations] = await Promise.all(
     ['abg/event_store', 'abg/event_prefix', 'shared/digests', 'abg/invocation_execution_truth'].map(load));
   const bytes = await readFile(eventLogPath), identity = await fileIdentity(eventLogPath);
   assert.equal(sha256Hex(bytes), eventLogSha256);
-  // Every cut is a same-log durable prefix of the read-only retained resource.
+  // Every cut is a same-log durable prefix of the read-only retained resource
+  // and carries that history's retained profile.
+  const eventContractDigest = retainedProfile(resources, baseline, events);
   const cut = end => {
     const selected = bytes.subarray(0, end);
     const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href, prefixLength: selected.length,
-      prefixDigest: 'sha256:' + sha256Hex(selected), storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST}};
+      prefixDigest: 'sha256:' + sha256Hex(selected), storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest}};
     return prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix({...body, coordinateDigest: digests.sha256Canonical(body)});
   };
   const through = ordinal => { let end = 0; for (let line = 0; line < ordinal; line++) end = bytes.indexOf(10, end) + 1; return cut(end); };
@@ -1176,7 +1194,7 @@ test('RAW F_H response pair: an explicit conditional root grant and one exact ba
 // The owned prefix of the complete retained history, as the revision and
 // semantic owners hold it, with the history owner's body-work counters.
 async function retainedOwnedPrefix(t) {
-  const {resources} = await consolidationInputs();
+  const {resources, baseline} = await consolidationInputs();
   const {eventLogPath, eventLogSha256, eventLogBytes} = resources.value;
   const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
   const [events, prefixes, history, digests] = await Promise.all(
@@ -1186,7 +1204,7 @@ async function retainedOwnedPrefix(t) {
   assert.equal(await fileSha256(eventLogPath), eventLogSha256, 'retained log identity before reads');
   const body = {kind: 'durable_prefix_coordinate', schemaVersion, eventLogRef: pathToFileURL(eventLogPath).href,
     prefixLength: identity.size, prefixDigest: 'sha256:' + eventLogSha256,
-    storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: events.ROOT_EVENT_CONTRACT_DIGEST}};
+    storeIdentity: {device: identity.device, inode: identity.inode, eventContractDigest: retainedProfile(resources, baseline, events)}};
   const coordinate = {...body, coordinateDigest: digests.sha256Canonical(body)};
   const owned = prefixes.readOwnedRuntimeEventPrefixAtDurablePrefix(coordinate);
   const meter = openMeasurer([join(packageRoot, 'build')]);

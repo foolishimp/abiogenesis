@@ -119,13 +119,114 @@ export function validatedOwnerOutput<
   return output;
 }
 
+// A module-static packet selects one fixed definition; the selection is
+// recorded per packet object, not recomputed per call.
+const selectedDefinitions = new WeakMap<object, IntrinsicPublicFunctionDefinition | null>();
+
 function selectedDefinition(
   packet: OwnerContractSourceDeclaration,
 ): IntrinsicPublicFunctionDefinition | null {
+  if (selectedDefinitions.has(packet)) return selectedDefinitions.get(packet)!;
   const selected = resolveExactMatch(PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions,
     (definition) => sameJson(definition.definitionKey, packet.definitionKey),
   );
-  return selected.kind === "one" ? selected.value : null;
+  const definition = selected.kind === "one" ? selected.value : null;
+  selectedDefinitions.set(packet, definition);
+  return definition;
+}
+
+/**
+ * Observation-only §10.11 counts at their actual sites: full call admissions,
+ * invocations established at construction with their deep-immutability walks,
+ * recorded invocations returned by identity, binder resource gate runs
+ * (`admitContract` over resources), the members passed through that gate, in
+ * total and per key as `gated.<key>`, and members an owner predicate accepted
+ * by identity. They select, cache and change no admission, and no barrel
+ * exports them.
+ */
+const definitionCallWork = { callAdmissions: 0, establishedInvocations: 0,
+  establishmentWalks: 0, invocationReuses: 0, resourceGates: 0, resourceMemberAdmissions: 0,
+  resourceMemberReuses: 0 };
+const gatedResourceMembers = new Map<string, number>();
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeDefinitionCallWork(): Readonly<Record<string, number>> {
+  return Object.freeze({ ...definitionCallWork,
+    ...Object.fromEntries([...gatedResourceMembers].map(([key, count]) => [`gated.${key}`, count])) });
+}
+
+/** @internal One binder resource gate run over `gated` members, with
+ * `accepted` members taken by owner predicate; the binder owns the decision. */
+export function countDefinitionResourceGate(gated: readonly string[], accepted: number): void {
+  definitionCallWork.resourceGates += 1;
+  definitionCallWork.resourceMemberAdmissions += gated.length;
+  definitionCallWork.resourceMemberReuses += accepted;
+  for (const key of gated) gatedResourceMembers.set(key, (gatedResourceMembers.get(key) ?? 0) + 1);
+}
+
+// §10.11 X1: one exact canonical invocation, the output of the full admission
+// at construction, with the definition and request schema it was admitted
+// against. Identity carries the fact; a copy, another object of equal content
+// or the raw input it was admitted from is new data.
+const establishedInvocations = new WeakMap<object, Readonly<{
+  definition: IntrinsicPublicFunctionDefinition;
+  requestSchema: unknown;
+}>>();
+
+/**
+ * Freezes every own data container of a plain JSON-shaped value and descends
+ * through containers that are already frozen, which `deepFreeze` does not.
+ * An accessor, a symbol key or a non-plain prototype refuses.
+ */
+function establishDeepImmutability(value: unknown, visited: Set<object>): boolean {
+  if (typeof value !== "object" || value === null) {
+    return typeof value !== "function" && typeof value !== "symbol";
+  }
+  if (visited.has(value)) return true;
+  visited.add(value);
+  const prototype: unknown = Object.getPrototypeOf(value);
+  if (prototype !== null && prototype !== Object.prototype && prototype !== Array.prototype) return false;
+  for (const key of Reflect.ownKeys(value)) {
+    if (typeof key !== "string") return false;
+    const descriptor = Object.getOwnPropertyDescriptor(value, key);
+    if (descriptor === undefined || !Object.hasOwn(descriptor, "value") ||
+        !establishDeepImmutability(descriptor.value, visited)) return false;
+  }
+  Object.freeze(value);
+  return true;
+}
+
+/**
+ * §10.11 X1. Admits one constructed call once against its exact declaration
+ * and keeps that admission's canonical invocation: every schema default is
+ * applied and its request is the value `requestDigest` names. One walk
+ * establishes that output's deep immutability. Returns a frozen call carrying
+ * the canonical invocation and the original resources, which later admissions
+ * for the same definition and request schema return by identity; the original
+ * call when the output cannot be established; `null` when admission refuses.
+ */
+export function establishExactDefinitionCall<
+  TCall extends Readonly<{ readonly invocation: unknown; readonly resources: unknown }>,
+>(
+  call: TCall,
+  packet: OwnerContractSourceDeclaration,
+): TCall | null {
+  const admitted = admitExactDefinitionCall(call, packet);
+  if (admitted === null) return null;
+  const definition = selectedDefinition(packet);
+  if (definition === null || !isRecord(call.resources) || !Object.isFrozen(call.resources)) return call;
+  definitionCallWork.establishmentWalks += 1;
+  if (!establishDeepImmutability(admitted, new Set())) return call;
+  establishedInvocations.set(admitted, { definition, requestSchema: packet.requestSchema });
+  definitionCallWork.establishedInvocations += 1;
+  return Object.freeze({ invocation: admitted, resources: call.resources }) as unknown as TCall;
+}
+
+/** §10.11 X3: a frozen call whose invocation construction established. */
+export function isEstablishedDefinitionCall(call: unknown): boolean {
+  return isRecord(call) && Object.isFrozen(call) && isRecord(call.invocation) &&
+    establishedInvocations.has(call.invocation) && isRecord(call.resources) &&
+    Object.isFrozen(call.resources);
 }
 
 function valueAtPath(value: unknown, path: readonly string[]): unknown {
@@ -343,6 +444,13 @@ export function admitExactDefinitionCall<
   >;
   const definition = selectedDefinition(packet);
   if (definition === null) return null;
+  const established = establishedInvocations.get(rawInvocation);
+  if (established !== undefined && established.definition === definition &&
+      established.requestSchema === packet.requestSchema) {
+    definitionCallWork.invocationReuses += 1;
+    return rawInvocation as unknown as DefinitionCall<TPacket, never>["invocation"];
+  }
+  definitionCallWork.callAdmissions += 1;
   const admittedRequest = admitRuntimeContract(
     packet.requestSchema,
     rawInvocation.request,

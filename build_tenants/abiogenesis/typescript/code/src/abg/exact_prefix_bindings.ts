@@ -19,7 +19,10 @@ import {
 import type { DurablePrefixCoordinate } from "./event_store.js";
 import { definitionFault } from "../public/binding/definition_binding_mechanics.js";
 import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
-import type { ExactDefinitionCallable } from "../shared/effect_definition.js";
+import type {
+  EstablishedResourceMembers,
+  ExactDefinitionCallable,
+} from "../shared/effect_definition.js";
 import { sha256Bytes } from "../shared/digests.js";
 import type { OwnerContractSourceDeclaration } from
   "../shared/public_function_contracts.js";
@@ -112,6 +115,7 @@ export function bindExactPrefixRead<
   owner: ExactDefinitionCallable<TPacket, TResources, TResourceReceipt>,
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
+  establishedResourceMembers?: EstablishedResourceMembers<TResources>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
   const readOwner: ExactDefinitionCallable<
     TPacket,
@@ -148,10 +152,12 @@ export function bindExactPrefixRead<
     readOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
+    establishedResourceMembers,
   );
 }
 
-/** Module-static specialization for an owner-admitted prefix transition. */
+/** Module-static specialization for an owner-admitted prefix transition. Both
+ * prefix binders forward the owner's established-member table (§10.11 X4). */
 export function bindExactPrefixTransition<
   TPacket extends OwnerContractSourceDeclaration,
   TResources extends Readonly<{
@@ -165,6 +171,7 @@ export function bindExactPrefixTransition<
   owner: ExactDefinitionCallable<TPacket, TResources, TResourceReceipt>,
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
+  establishedResourceMembers?: EstablishedResourceMembers<TResources>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
   const transitionOwner: ExactDefinitionCallable<
     TPacket,
@@ -201,5 +208,6 @@ export function bindExactPrefixTransition<
     transitionOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
+    establishedResourceMembers,
   );
 }
