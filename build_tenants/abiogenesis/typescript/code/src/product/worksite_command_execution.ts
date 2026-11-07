@@ -369,9 +369,10 @@ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionR
         ? isAbgHistoricalDeclarationProof(source.declarationProof)
         : source.declarationProof === undefined && exactKeys(source, ["prefix", "graphCallRef", "declarationReference"]) &&
           isAbgHistoricalDeclarationReference(source.declarationReference)) ||
-      !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+      !isNativeWorkspaceWorkObservation(original) || original.assessment !== undefined ||
       !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
-      !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
+      original.after.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
+      original.after.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest || !isWorksiteContextObservation(currentContext) ||
       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
       currentContext.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
       currentContext.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
@@ -425,8 +426,11 @@ function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput, a
   const source = input.sourceNativeWork;
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !isNativeWorkspaceWorkObservation(source) ||
-    source.task.assessment !== undefined || !same(source.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) ||
-    (input.sourceReacquisition === undefined ? !same(source.task.workspaceBinding, input.workspaceBinding) : !reacquisitionTaskMatches(input)) || !Array.isArray(input.selectedSources) ||
+    // The source task is its admitted basis input; the Result's observed context names its authority basis and binding.
+    source.assessment !== undefined || source.after.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
+    source.after.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
+    (input.sourceReacquisition === undefined ? source.after.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
+      source.after.workspaceBindingDigest !== input.workspaceBinding.bindingDigest : !reacquisitionTaskMatches(input)) || !Array.isArray(input.selectedSources) ||
     input.selectedSources.length === 0 || new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length) {
     throw new TypeError("native C2 requires exact A/W/grant, native work result and a complete unique source selection");
   }

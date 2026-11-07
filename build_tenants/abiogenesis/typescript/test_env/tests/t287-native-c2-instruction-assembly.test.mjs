@@ -13,11 +13,12 @@ import { worksiteCommandExecutionAttemptRef } from '../../build/code/src/abg/ins
 import { constructWorksiteCommandExecutionModulePublication } from '../../build/code/src/gtl/worksite_command_execution.js';
 import { worksiteCommandExecutionHelperPlan, worksiteCommandExecutionWorkerResultSchema } from '../../build/code/src/product/worksite_command_execution.js';
 const owner = await loadWorksiteOwner(), hash = p.sha256Canonical, ids = p.WORKSITE_COMMAND_EXECUTION_IDS;
-function inputFor(source, paths) {
-  return { workspaceAuthorityBasis: source.task.workspaceAuthorityBasis, workspaceBinding: source.task.workspaceBinding,
-    capabilityGrant: source.task.capabilityGrant, sourceNativeWork: source,
+// The source task is the native Result's admitted basis input, not a Result field.
+function inputFor(source, paths, task) {
+  return { workspaceAuthorityBasis: task.workspaceAuthorityBasis, workspaceBinding: task.workspaceBinding,
+    capabilityGrant: task.capabilityGrant, sourceNativeWork: source,
     selectedSources: paths.map(relativePath => ({ relativePath,
-      subjectUri: pathToFileURL(join(source.task.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
+      subjectUri: pathToFileURL(join(task.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
     commands: [{ commandId: 'command://native-c2/component', executable: 'node', args: ['--version'], relativeCwd: '.',
       environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] }],
     outcomePredicates: [{ predicateId: 'predicate://native-c2/exit', predicateKind: 'process_exit',
@@ -37,7 +38,7 @@ async function fixture(t) {
     cCallRef: 'c-call://native-c2/component', executionAuthorityRef: 'authority://native-c2/component', executionAuthorityDigest: hash({ a: 1 }),
     actorInvocationRef: 'actor-invocation://native-c2/component', transportBindingRef: 'transport://native-c2/component',
     transportBindingDigest: hash({ t: 1 }), promptDigest: hash({ p: 1 }), transportDigest: hash({ t: 2 }) });
-  return { ...env, source, input: inputFor(source, ['changed.txt', 'unchanged.txt']) };
+  return { ...env, source, task, input: inputFor(source, ['changed.txt', 'unchanged.txt'], task) };
 }
 
 test('declared command-executor assembly accepts native C2 and keeps exact task, owner and context refusals', async t => {

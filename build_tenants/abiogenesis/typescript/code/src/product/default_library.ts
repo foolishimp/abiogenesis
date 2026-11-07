@@ -55,9 +55,14 @@ const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pi
   assessment: v.strictObject({ sources: v.pipe(texts, v.minLength(1)), candidatePath: text, rubricPath: text,
     resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text }),
   fulfillment: v.exactOptional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)) });
+// A null synthesisResultRef records the RC7 fixed direct Testing/UAT route: no
+// selector occurred. The ABG owner alone authenticates that route at fold.
 const observationSchema = v.strictObject({ purpose: v.picklist(GOVERNANCE_PURPOSES), resultRef: text, resultDigest: digest,
-  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: text, selectedGraphFunctionRef: text, value: jsonRecord,
+  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: v.nullable(text), selectedGraphFunctionRef: text, value: jsonRecord,
   fulfillmentEvidence: v.exactOptional(GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA) });
+/** A selector-free row belongs only to the Testing or UAT wrapper of its own purpose. */
+const directObservationTyped = (row: v.InferOutput<typeof observationSchema>) => row.synthesisResultRef !== null ||
+  (row.purpose === "testing" || row.purpose === "uat") && row.selectedGraphFunctionRef === governanceRef("graph-function", row.purpose);
 const stateSchema = v.strictObject({ kind: v.literal("governance_work_state"), schemaVersion: v.literal("5.0.0"),
   original: originalSchema, synthesis: v.nullable(currentSynthesisSchema), observations: v.array(observationSchema), unresolvedSupportRefs: texts, terminal: v.boolean(),
   fulfillment: v.exactOptional(GOVERNANCE_FULFILLMENT_STATE_SCHEMA) });
@@ -73,7 +78,7 @@ function governanceAssessmentRolesDistinct(assessment: GovernanceOriginal["asses
 }
 export function isGovernanceWorkState(value: unknown): value is GovernanceWorkState {
   return v.is(stateSchema, value) && new Set(value.original.requiredSupportRefs).size === value.original.requiredSupportRefs.length &&
-    new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length &&
+    new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length && value.observations.every(directObservationTyped) &&
     governanceAssessmentRolesDistinct(value.original.assessment) &&
     (value.original.fulfillment === undefined ? value.fulfillment === undefined && value.observations.every(o => o.fulfillmentEvidence === undefined) &&
       (value.terminal ? value.unresolvedSupportRefs.length === 0 : isDeepStrictEqual(value.unresolvedSupportRefs, value.original.requiredSupportRefs)) :
@@ -94,6 +99,24 @@ export function retainedGovernanceWorkInput(value: unknown): Readonly<Governance
   if (!isGovernanceWorkState(value) || value.terminal || value.observations.length === 0 ||
     value.unresolvedSupportRefs.length === 0) return null;
   return value;
+}
+export const GOVERNANCE_DIRECT_PURPOSES = ["testing", "uat"] as const;
+export type GovernanceDirectPurpose = typeof GOVERNANCE_DIRECT_PURPOSES[number];
+export const GOVERNANCE_DIRECT_WRAPPERS: Readonly<Record<GovernanceDirectPurpose, string>> = deepFreeze({
+  testing: governanceRef("graph-function", "testing"), uat: governanceRef("graph-function", "uat") });
+/** The fixed direct route's finite state relation. Fresh Testing has source none
+ * and no observation. UAT has the admitted direct-Testing state Result as source:
+ * exactly its one selector-free Testing observation (its owners separately bind
+ * that source to the raw input). Open fulfillment or other declared work is open
+ * choice and refuses; there is no latest/eligible search. */
+export function governanceDirectFixedState(state: GovernanceWorkState, purpose: GovernanceDirectPurpose,
+  source: { readonly sourceGraphFunctionRef: string } | null): boolean {
+  const rows = state.observations;
+  if (state.synthesis !== null || state.original.fulfillment !== undefined ||
+    !Object.keys(state.original.workOrders).every(p => p === "testing" || p === "uat")) return false;
+  if (purpose === "testing") return source === null && rows.length === 0;
+  return source !== null && source.sourceGraphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing && rows.length === 1 &&
+    rows[0]!.purpose === "testing" && rows[0]!.synthesisResultRef === null && rows[0]!.selectedGraphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing;
 }
 export function governanceTestingConfiguration(state: GovernanceWorkState) {
   const t = state.original.testing;

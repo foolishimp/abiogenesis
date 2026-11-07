@@ -157,6 +157,16 @@ export interface NativeInstructionAssemblyBasis {
   readonly predecessorPrefix: Readonly<DurablePrefixCoordinate>;
 }
 
+/** The persisted native binding's basis coordinate. The admitted basis event
+ * owns `rawInputValue`; its ref and digest stay in the coordinate. */
+export type NativeExecutionBasisCoordinate = Omit<ExecutionBasis, "rawInputValue">;
+export function nativeExecutionBasisCoordinate(
+  basis: Readonly<ExecutionBasis> | Readonly<NativeExecutionBasisCoordinate>,
+): Readonly<NativeExecutionBasisCoordinate> {
+  const { rawInputValue: _owned, ...coordinate } = basis as ExecutionBasis;
+  return coordinate;
+}
+
 /** Shared by semantic and worksite assembly; specialized owners add their
  * own source/lifecycle/task law after this one exact authentication relation. */
 function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssemblyBasis) {
@@ -166,8 +176,12 @@ function deriveOwnedNativeInstructionAssemblyBasis(basis: NativeInstructionAssem
     if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") return null;
     const prefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
     if (prefix === null) return null;
+    // A persisted binding supplies the coordinate and the prefix supplies the
+    // complete basis; a supplied complete basis keeps complete equality.
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
-    if (execution === null || !canonicalEquals(execution, basis.executionBasis)) return null;
+    if (execution === null || !(Object.hasOwn(basis.executionBasis, "rawInputValue")
+      ? canonicalEquals(execution, basis.executionBasis)
+      : canonicalEquals(nativeExecutionBasisCoordinate(execution), basis.executionBasis))) return null;
     const program = basis.publication.programs.find(p => p.programRef === execution.programRef);
     const functions = basis.declarationGraphFunctions.filter(g => g.name === execution.graphFunctionRef &&
       hash(g) === execution.graphFunctionDigest);

@@ -14,14 +14,15 @@ test('retained native C2 evidence preserves file scope without constructing a le
  const extracted=JSON.parse(await readFile(selected,'utf8'));
  const retained=extracted.lastOwnerFacts.find(row=>row.ownerAtom==='r54271').retainedInput;
  assert.equal(hash.sha256Canonical(retained.value),retained.subjectDigest);
+ // The retained source Result keeps its original task; its original owner reads it.
  const {entry,source:execution}=retained.value,source=execution.task.sourceNativeWork;
  // Task rederivation uses the original declared command environment. This
  // process-local restoration has no effect on any retained or live process.
  const previousPath=process.env.PATH;process.env.PATH=execution.task.commands[0].environment.find(row=>row.name==='PATH').value;
  t.after(()=>{if(previousPath===undefined)delete process.env.PATH;else process.env.PATH=previousPath;});
  assert.equal(c2.isNativeWorksiteCommandExecutionObservation(execution),true);
- assert.equal(hash.sha256Canonical(job.constructNativeSemanticExecutionTask(entry,source)),hash.sha256Canonical(execution.task));
- const artifacts=job.nativeSemanticEvidenceArtifacts(entry,execution);assert.ok(artifacts);
+ assert.equal(hash.sha256Canonical(job.constructNativeSemanticExecutionTask(entry,source,source.task)),hash.sha256Canonical(execution.task));
+ const artifacts=job.nativeSemanticEvidenceArtifacts(entry,execution,source.task);assert.ok(artifacts);
  const targets=entry.assets.at(-1).candidate.design.targets;
  assert.equal(artifacts.length,targets.length);
  assert.deepEqual(source.task.writeRoots,targets.map(row=>row.relativePath));
@@ -36,7 +37,7 @@ test('retained native C2 evidence preserves file scope without constructing a le
   assert.throws(()=>construction.constructWorksiteConstructionTask({...source.task,prompt:'retained counterexample',
    targets:[{subject:row.subject,territory,predecessorObservation:row.observation}]}),/W-bound subject, territory/);
  }
- const mutate=fn=>{const changed=structuredClone(execution);fn(changed);assert.equal(job.nativeSemanticEvidenceArtifacts(entry,changed),null);};
+ const mutate=fn=>{const changed=structuredClone(execution);fn(changed);assert.equal(job.nativeSemanticEvidenceArtifacts(entry,changed,source.task),null);};
  mutate(value=>value.snapshotMembers.pop());
  mutate(value=>value.snapshotMembers[0].sourceObservationRef='test:wrong-predecessor');
  mutate(value=>value.task.protectedObservations[0].observation.fileDigest='sha256:'+'0'.repeat(64));
@@ -45,9 +46,9 @@ test('retained native C2 evidence preserves file scope without constructing a le
  mutate(value=>value.task.sourceNativeWork.task.writeRoots=['.']);
  mutate(value=>value.task.allowedWriteTerritories[0].relativePath=targets[0].relativePath);
  const crossed=structuredClone(entry);crossed.assets.at(-1).candidate.design.targets[0].relativePath='outside/other.mjs';
- assert.equal(job.nativeSemanticEvidenceArtifacts(crossed,execution),null,'different assessed target cannot borrow this C2');
+ assert.equal(job.nativeSemanticEvidenceArtifacts(crossed,execution,source.task),null,'different assessed target cannot borrow this C2');
  const outOfScope=structuredClone(entry);outOfScope.job.worksiteScope.writeRoots=['unrelated'];
- assert.equal(job.nativeSemanticEvidenceArtifacts(outOfScope,execution),null,'source construction outside governing scope refuses');
+ assert.equal(job.nativeSemanticEvidenceArtifacts(outOfScope,execution,source.task),null,'source construction outside governing scope refuses');
  const envelope={...entry,context:source.after,worksite:null,evidence:{kind:'semantic_worksite_evidence',
   constructionResultRef:'test:value-only-construction',constructionResultDigest:source.observationDigest,
   executionResultRef:'test:value-only-execution',executionResultDigest:execution.observationDigest,

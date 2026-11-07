@@ -284,26 +284,25 @@ async function prepare(t, env, realize = true) {
     implementationRef:row.implementationRef,implementationOwnerRef:row.implementationOwnerProductId,
     effectUri:ids.effectUri,handlerRef:ids.handlerRef,handlerDigest:native.NATIVE_WORKSPACE_WORK_HANDLER_DIGEST,
     capabilityGrantRef:env.capabilityGrant.grantRef,capabilityGrantDigest:env.capabilityGrant.grantDigest});
-  // The assessor additionally reads its exact schema owner install and the
-  // root graph's declared raw result contract, as the installed Product declares.
+  // The assessor's inner response dependency is the carried declaring
+  // publication under the admitted owner install, lock and this call's admitted
+  // resolution row; the Program publication stays the native one.
   const a=env.task.assessment;
-  let assemblyPublication=publication,assemblyInstalls=env.productInstalls??[];
+  let carried={},assessmentOwner={},assemblyInstalls=env.productInstalls??[];
   if(a!==undefined){
-    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),root=publication.graphFunctions[0];
+    const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64'),declaring=declaringAssessmentPublication(a.resultContract);
     await fs.writeFile(join(env.scratch,'native-assessment-schema.json'),schemaBytes);
-    assemblyPublication={...publication,contracts:[...publication.contracts,a.resultContract],graphFunctions:[{...root,
-      declarations:{...root.declarations,'abg.raw_result_contract':a.resultContract.contractRef}},...publication.graphFunctions.slice(1)]};
-    assemblyInstalls=[...assemblyInstalls,{productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{
-      contractKind:'schema_asset',contractId:a.schemaAsset.contractId,contractVersion:'5.0.0',owningProduct:publication.owningProductId,
-      contractDigest:product.sha256Bytes(schemaBytes),assetLocator:{path:'native-assessment-schema.json',mediaType:'application/schema+json',contentDigest:product.sha256Bytes(schemaBytes)}}],
-      artifactDigest:assemblyPublication.artifactDigest,productContentDigest:assemblyPublication.productContentDigest,manifestDigest:assemblyPublication.productManifestDigest,
-      contributionManifest:{publicationBindings:[{moduleRef:assemblyPublication.moduleRef,publicationDigest:modulePublicationSemanticDigest(assemblyPublication)}]}}];
+    const facts=assessmentDependencyFacts(declaring,{installedRoot:env.scratch,path:'native-assessment-schema.json',bytes:schemaBytes,
+      contractId:a.schemaAsset.contractId,assessorOwnerProductId:row.graphFunctionOwnerProductId});
+    assemblyInstalls=[...assemblyInstalls,facts.install];carried={assessmentPublication:declaring};
+    assessmentOwner={resolution:row,resolvedProductLock:facts.resolvedLock};
   }
-  const assemblyBasis={publication:assemblyPublication,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
+  const assemblyBasis={publication,...carried,graphFunction:publication.graphFunctions.find(g=>g.name===graphFunctionRef),
     executionBasis:authority.executionBasis,cCall:call,predecessorPrefix:authority.predecessorPrefix};
+  const {resolution:ownerResolution,resolvedProductLock}=assessmentOwner;
   assemblyOwners.set(assemblyBasis,{inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:native-work-input',
-    call,execution:authority.executionBasis,program:assemblyPublication.programs[0],events:[],prefix:authority.predecessorPrefix,
-    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls}});
+    call,execution:authority.executionBasis,program:publication.programs[0],...(ownerResolution===undefined?{}:{resolution:ownerResolution}),events:[],prefix:authority.predecessorPrefix,
+    environment:{kind:'exact_prefix_workspace_environment',productInstalls:assemblyInstalls,...(resolvedProductLock===undefined?{}:{resolvedProductLock})}});
   const assembly=instructionAssembly.constructWorksiteNativeInstructionAssembly(assemblyBasis,env.task);
   assert.equal(assembly?.kind,'native_instruction_assembly','the actual producer assembles the complete native worker request');
   const request=assembly.request;
@@ -422,7 +421,7 @@ test('admitted-member task context keeps unchanged bodies by reference and birth
   const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
   const result=await p.prepared.complete(exchange),value=result.resultCandidate;
   assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,['target.txt'],'body carriage never makes a path changed');
-  assert.equal(value.before,task.context,'before is the admitted task context, not a second observed body copy');
+  assert.equal(Object.hasOwn(value,'before'),false,'the pre-work context is the admitted task context, not a second body copy');
   const after=Object.fromEntries(value.after.entries.filter(e=>e.state==='file').map(e=>[e.relativePath,e]));
   assert.deepEqual(after['keep.txt'].member,member,'unchanged member keeps the task carriage');
   assert.equal(after['target.txt'].encoding,'base64');assert.equal(Buffer.from(after['target.txt'].bytes,'base64').toString(),'actual edit\n');
@@ -430,6 +429,72 @@ test('admitted-member task context keeps unchanged bodies by reference and birth
   assert.equal(native.nativeWorkspaceWorkResultMatches(task,value,p.call.cCallRef,exchange.observation),true);
   const tampered={...value,after:{...value.after,entries:value.after.entries.map(e=>e.relativePath==='target.txt'?{...e,bytes:Buffer.from('forged\n').toString('base64')}:e)}};
   assert.equal(native.isNativeWorkspaceWorkObservation(tampered),false,'an inline birth is still checked against its digest');
+});
+// RC7: each admitted body has one holder. The baseline Result serialized the
+// task (with its context) and a before copy, and the persisted binding carried
+// the basis raw input again. The admitted basis is now the one task holder.
+test('RC7 complete carriage: the basis holds the task once; Result, failure and binding carry no task, before, raw input or unchanged-after copy',async t=>{
+  const env=await fixture(t);const p=await prepare(t,env);
+  await fs.writeFile(join(env.canonicalRoot,'target.txt'),'actual edit\n');
+  const exchange=p.exchange(JSON.stringify({summary:'edited',gaps:[]}));
+  const result=await p.prepared.complete(exchange),value=result.resultCandidate;
+  const occurrences=(haystack,needle)=>{const h=canonicalJson(haystack),n=canonicalJson(needle);let c=0;for(let i=h.indexOf(n);i>=0;i=h.indexOf(n,i+n.length))c++;return c;};
+  const basis=p.occurrence.executionAuthority.executionBasis,binding=p.assembly.envelope.nativeBasis;
+  const keepIndex=env.task.context.entries.findIndex(e=>e.relativePath==='keep.txt'),keepBytes=env.task.context.entries[keepIndex].bytes;
+  const carriage={basisTask:occurrences(basis,env.task),bindingTask:occurrences(binding,env.task),resultTask:occurrences(value,env.task),
+    resultContext:occurrences(value,env.task.context),resultUnchangedBytes:occurrences(value,keepBytes),contextBytes:Buffer.byteLength(canonicalJson(env.task.context)),
+    basisBytes:Buffer.byteLength(canonicalJson(basis)),bindingBytes:Buffer.byteLength(canonicalJson(p.assembly)),resultBytes:Buffer.byteLength(canonicalJson(value))};
+  console.log(JSON.stringify({kind:'rc7_complete_carriage_component',...carriage}));
+  assert.equal(carriage.basisTask,1,'the admitted basis is the one raw-input holder');
+  assert.equal(carriage.bindingTask,0,'the persisted binding carries the basis coordinate, not its raw input');
+  assert.equal(carriage.resultTask,0,'the Result carries no task');assert.equal(carriage.resultContext,0,'nor any copy of the pre-work context');
+  assert.equal(carriage.resultUnchangedBytes,0,'unchanged after bytes are not copied');
+  assert.equal(Object.hasOwn(value,'task'),false);assert.equal(Object.hasOwn(value,'before'),false);
+  assert.equal(value.inputDigest,product.sha256Canonical(env.task));assert.equal(value.inputDigest,basis.rawInputDigest,'the Result names its CCall basis input');
+  // The binding coordinate keeps every basis identity except the owned body.
+  assert.equal(Object.hasOwn(binding.executionBasis,'rawInputValue'),false);
+  const {rawInputValue:_raw,...coordinate}=basis;
+  assert.deepEqual(binding.executionBasis,coordinate);assert.equal(binding.executionBasis.rawInputDigest,product.sha256Canonical(env.task));
+  assert.equal(p.assembly.envelope.inputDigest,product.sha256Canonical(env.task),'current input stays bound by ref/digest');
+  // Unchanged after bytes reference the admitted basis input; changed bytes are born inline once.
+  const after=Object.fromEntries(value.after.entries.filter(e=>e.state==='file').map(e=>[e.relativePath,e]));
+  assert.equal(after['keep.txt'].encoding,'admitted_member');
+  assert.deepEqual(after['keep.txt'].member,{basisRef:basis.basisRef,basisDigest:basis.basisDigest,path:['context','entries',keepIndex]});
+  assert.equal(after['keep.txt'].digest,env.task.context.entries[keepIndex].digest,'actual after facts are conserved');
+  assert.equal(after['target.txt'].encoding,'base64');assert.equal(Buffer.from(after['target.txt'].bytes,'base64').toString(),'actual edit\n');
+  // Actual after facts, changed paths and input-dependent checks are conserved.
+  assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,['target.txt']);
+  assert.equal(native.isNativeWorkspaceWorkObservation(value),true);
+  assert.equal(native.nativeWorkspaceWorkObservationMatchesTask(env.task,value),true);
+  assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,value,p.call.cCallRef,exchange.observation),true);
+  assert.equal(native.nativeWorkspaceWorkResultMatches({...env.task,outcome:'foreign'},value,p.call.cCallRef,exchange.observation),false,'a foreign input is refused');
+  // Original-contract history: a retained Result carrying task and before =
+  // task.context under its own digest keeps its meaning; it is never restamped.
+  const {observationRef:_ref,observationDigest:_digest,inputDigest:_input,...body}=value;
+  const sign=b=>{const d=product.sha256Canonical(b);return {...b,observationDigest:d,observationRef:'native-work-observation://abiogenesis/'+d.slice(7)};};
+  const retained=sign({...body,task:env.task,before:env.task.context});
+  assert.equal(native.isNativeWorkspaceWorkObservation(retained),true);
+  assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,retained,p.call.cCallRef,exchange.observation),true);
+  assert.notEqual(retained.observationDigest,value.observationDigest,'the new contract has its own identity');
+  assert.equal(native.isNativeWorkspaceWorkObservation({...retained,before:undefined}),false,'a retained digest cannot be restamped without its body');
+  assert.equal(native.isNativeWorkspaceWorkObservation(sign({...body,task:env.task,before:value.after})),false,'a retained before must equal its task context');
+  assert.equal(native.isNativeWorkspaceWorkObservation({...value,task:env.task}),false,'an injected task breaks the new digest');
+  assert.equal(native.isNativeWorkspaceWorkObservation({...value,before:env.task.context}),false,'an injected before breaks the new digest');
+  assert.equal(native.isNativeWorkspaceWorkObservation(sign({...body,inputDigest:value.inputDigest,before:env.task.context})),false,'a prospective Result has no before');
+  // Failure and unknown after keep their facts without a task or before copy.
+  const fenv=await fixture(t);const fp=await prepare(t,fenv);
+  await fs.writeFile(join(fenv.canonicalRoot,'target.txt'),'partial edit\n');
+  const fexchange=fp.exchange(JSON.stringify({summary:'partial',gaps:[]}),'failure');
+  const failure=(await fp.prepared.complete(fexchange)).resultCandidate;
+  assert.equal(Object.hasOwn(failure,'before'),false);assert.equal(Object.hasOwn(failure,'task'),false);
+  assert.equal(occurrences(failure,fenv.task.context),0);assert.equal(failure.inputDigest,product.sha256Canonical(fenv.task));
+  assert.equal(native.isNativeWorkspaceWorkFailure(failure),true);assert.deepEqual(failure.changedPaths,['target.txt']);
+  assert.equal(native.nativeWorkspaceWorkFailureMatchesTask(fenv.task,failure),true);
+  assert.equal(native.nativeWorkspaceWorkFailureMatchesTask(env.task,failure),false,'a crossed task refuses the failure');
+  assert.equal(native.isNativeWorkspaceWorkFailure({...failure,before:failure.after}),false);
+  const unknown={...failure,after:null,changedPaths:null,observationFailure:{kind:'worksite_effect_refusal',code:'observation_unavailable'}};
+  assert.equal(native.isNativeWorkspaceWorkFailure(unknown),true,'unknown after stays unknown');
+  assert.equal(native.isNativeWorkspaceWorkFailure({...unknown,observationFailure:null}),false);
 });
 for (const mode of ['timeout','malformed-report','read-only-change']) test(`native ${mode} retains actual partial edit and refuses success`,async t=>{
   const env=await fixture(t,mode==='read-only-change'?[]:['target.txt']);const p=await prepare(t,env);
@@ -509,10 +574,12 @@ test('unknown native after-state retires only potentially writable C0 facts',asy
     assert.equal(value.after===null,scenario.unknown);
     assert.deepEqual(value.changedPaths,scenario.unknown?null:['target.txt']);
     if(scenario.unknown) assert.equal(value.observationFailure.kind,'worksite_effect_refusal');
-    const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,payload:{resultClass:'failure',value,
+    const nativeBasis=p.occurrence.executionAuthority.executionBasis;
+    const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,basisId:nativeBasis.basisRef,payload:{resultClass:'failure',value,
       contractRef:ids.failureContractRef,valueDigest:product.sha256Canonical(value),evidenceRefs:['evidence://test/unknown-native']}};
     // Existing projection boundary: supplied admitted request/evidence rows; no runtime admission is claimed.
     const prior=requests.map(rawInputValue=>({kind:'basis_admitted',payload:{rawInputValue}}));
+    prior.push({kind:'basis_admitted',basisId:nativeBasis.basisRef,payload:{basisRef:nativeBasis.basisRef,basisDigest:nativeBasis.basisDigest,rawInputValue:env.task}});
     prior.push({kind:'c_call_evidenced',aggregateId:p.call.cCallRef,payload:{evidenceRef:'evidence://test/unknown-native',
       evidenceClass:'probabilistic_transport',implementationRef:ids.implementationRef,transportDigest:value.provenance.transportDigest,
       outputDigest:event.payload.valueDigest}});
@@ -543,9 +610,11 @@ test('observed partial failure retires touched C0 facts but preserves unchanged 
   assert.ok(requests.every(product.isWorksiteFileReplaceRequest));
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'partial\n');
   const value=(await p.prepared.complete(p.exchange('malformed'))).resultCandidate;
-  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,payload:{value,contractRef:ids.failureContractRef,
+  const nativeBasis=p.occurrence.executionAuthority.executionBasis;
+  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,basisId:nativeBasis.basisRef,payload:{value,contractRef:ids.failureContractRef,
     valueDigest:product.sha256Canonical(value),evidenceRefs:['evidence://test/native']}};
   const prior=requests.map(rawInputValue=>({kind:'basis_admitted',payload:{rawInputValue}}));
+    prior.push({kind:'basis_admitted',basisId:nativeBasis.basisRef,payload:{basisRef:nativeBasis.basisRef,basisDigest:nativeBasis.basisDigest,rawInputValue:env.task}});
   prior.push({kind:'c_call_evidenced',aggregateId:p.call.cCallRef,payload:{evidenceRef:'evidence://test/native',
     evidenceClass:'probabilistic_transport',implementationRef:ids.implementationRef,transportDigest:value.provenance.transportDigest,
     outputDigest:event.payload.valueDigest}});
@@ -581,9 +650,12 @@ test('known native result retires unobserved W\\R facts, present and absent, and
   assert.equal(result.disposition,'success');assert.deepEqual(value.changedPaths,[],'W\\R writes are unobserved, never changedPaths');
   assert.ok(native.isNativeWorkspaceWorkObservation(value));
   assert.ok(native.nativeWorkspaceWorkResultMatches(env.task,value,p.call.cCallRef,exchange.observation));
-  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,payload:{resultClass:'success',value,contractRef:ids.observationContractRef,
+  // The Result names its CCall basis; that admitted basis holds the task.
+  const nativeBasis=p.occurrence.executionAuthority.executionBasis;
+  const event={kind:'c_call_result_admitted',aggregateId:p.call.cCallRef,basisId:nativeBasis.basisRef,payload:{resultClass:'success',value,contractRef:ids.observationContractRef,
     valueDigest:product.sha256Canonical(value),evidenceRefs:['evidence://test/outside-read']}};
   const prior=requests.map(rawInputValue=>({kind:'basis_admitted',payload:{rawInputValue}}));
+  prior.push({kind:'basis_admitted',basisId:nativeBasis.basisRef,payload:{basisRef:nativeBasis.basisRef,basisDigest:nativeBasis.basisDigest,rawInputValue:env.task}});
   prior.push({kind:'c_call_evidenced',aggregateId:p.call.cCallRef,payload:{evidenceRef:'evidence://test/outside-read',
     evidenceClass:'probabilistic_transport',implementationRef:ids.implementationRef,transportDigest:value.provenance.transportDigest,
     outputDigest:event.payload.valueDigest}});
@@ -592,12 +664,12 @@ test('known native result retires unobserved W\\R facts, present and absent, and
   assert.deepEqual(projectNativeWorkRetiredObservations(event,prior),expected,'W\\R presence and absence retire; observed-unchanged R and unrelated facts survive');
   assert.deepEqual(eventCalculusEffect(event,prior).terminates.filter(f=>f.name==='worksite_observation_current').map(f=>f.identity),expected);
   // One shared relation: exact paths and selected subtrees.
-  const known=nativeWorkImpact(value.task,value.changedPaths),unknown=nativeWorkImpact(value.task,null),readOnly=nativeWorkImpact({...value.task,writeRoots:[]},[]);
+  const known=nativeWorkImpact(env.task,value.changedPaths),unknown=nativeWorkImpact(env.task,null),readOnly=nativeWorkImpact({...env.task,writeRoots:[]},[]);
   assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(known,path)),[false,false,true,true,false,false]);
   assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(unknown,path)),[true,false,true,true,false,false],'unknown after-state impacts all of W');
   assert.deepEqual(paths.map(path=>nativeWorkImpactOverlaps(readOnly,path)),[false,false,false,false,false,false]);
   assert.deepEqual(['.','tools','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(known,root)),[true,true,false,false],'subtree overlap meets W\\R');
-  assert.deepEqual(['.','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(nativeWorkImpact(value.task,['target.txt']),root)),[true,false,true],'observed changes stay exact');
+  assert.deepEqual(['.','keep.txt','target.txt'].map(root=>nativeWorkImpactOverlaps(nativeWorkImpact(env.task,['target.txt']),root)),[true,false,true],'observed changes stay exact');
   // An observed R change still retires exactly, alongside W\R.
   const changed=native.constructNativeWorkspaceWorkObservation(env.task,await product.observeWorksiteContext({...env.read,readRoots:scoped.readRoots}),value.report,value.provenance);
   assert.deepEqual(changed.changedPaths,[]);
@@ -790,6 +862,32 @@ async function assessmentFixture(t, schema = assessmentSchema) {
   const task = native.constructNativeWorkspaceWorkTask({...env.task, context, readFirst:['keep.txt','target.txt','rubric.md'],assessment});
   return {...env,task};
 }
+// Carried assessment dependency (native HOW, Declared typed assessment). The
+// declaring publication is the one the leaf port carries as
+// `assessmentPublication`: a Program-member callable declares the raw result
+// contract. Component frontier: its owner install and the resolved lock are
+// controlled premises built from these exact coordinates; the actual shared
+// relation runs over them. The lock holds the declaring owner, the resolution's
+// GraphFunction owner and the declaring owner's `requires` edge when they differ.
+function declaringAssessmentPublication(contract) {
+  const root = publication.graphFunctions[0];
+  return {...publication, contracts:[...publication.contracts, contract], graphFunctions:[{...root,
+    declarations:{...root.declarations, 'abg.raw_result_contract':contract.contractRef}}, ...publication.graphFunctions.slice(1)]};
+}
+function assessmentDependencyFacts(declaring, {installedRoot, path, bytes, contractId, assessorOwnerProductId}) {
+  const owner = declaring.owningProductId, distinct = assessorOwnerProductId !== owner;
+  const install = {productId:owner, installedRoot, publicContracts:[{contractKind:'schema_asset', contractId, contractVersion:'5.0.0', owningProduct:owner,
+      contractDigest:product.sha256Bytes(bytes), assetLocator:{path, mediaType:'application/schema+json', contentDigest:product.sha256Bytes(bytes)}}],
+    artifactDigest:declaring.artifactDigest, productContentDigest:declaring.productContentDigest, manifestDigest:declaring.productManifestDigest,
+    contributionManifest:{publicationBindings:[{moduleRef:declaring.moduleRef, publicationDigest:modulePublicationSemanticDigest(declaring)}]}};
+  const lockRow = ({productId, artifactDigest, productContentDigest, manifestDigest}) => ({productId, artifactDigest, productContentDigest, manifestDigest});
+  const rows = [lockRow(install), ...(distinct ? [lockRow({productId:assessorOwnerProductId, artifactDigest:digest('assessor-artifact'),
+    productContentDigest:digest('assessor-content'), manifestDigest:digest('assessor-manifest')})] : [])];
+  const dependencyEdges = distinct ? [{kind:'requires', fromProductId:owner, toProductId:assessorOwnerProductId}] : [];
+  const lockDigest = product.sha256Canonical({rows, dependencyEdges});
+  const resolvedLock = {kind:'resolved_product_lock', schemaVersion:'5.0.0', lockId:`product-lock://abiogenesis/${lockDigest.slice(7)}`, lockDigest, rows, dependencyEdges};
+  return {install:{...install, resolvedLockId:resolvedLock.lockId, resolvedLockDigest:lockDigest}, resolvedLock};
+}
 const verdict = () => JSON.stringify({kind:'fixture_assessment',
   criteria:[{criterionRef:'criterion://fixture/meaning',disposition:'satisfied',explanation:'Synthetic judgment for mechanical qualification only.'}],residuals:[]});
 
@@ -914,7 +1012,7 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
   assert.equal(observation.report,null);assert.equal(observation.assessment.kind,'fixture_assessment');
   assert.equal(Object.hasOwn(observation.assessment,'basisDigest'),false,'semantic result needs no core digest echo');
   assert.deepEqual(observation.assessment,JSON.parse(verdict()),'owner preserves raw semantic fields exactly');
-  assert.deepEqual(observation.task,env.task);assert.deepEqual(observation.before,env.task.context);
+  assert.equal(observation.inputDigest,product.sha256Canonical(env.task));assert.equal(Object.hasOwn(observation,'task'),false);assert.equal(Object.hasOwn(observation,'before'),false,'pre-work context is the basis task context');
   assert.match(native.nativeWorkspaceAssessmentBasisDigest(env.task),/^sha256:[a-f0-9]{64}$/,'public digest helper remains available');
   const changedTask={...env.task,assessment:{...env.task.assessment,producer:{...env.task.assessment.producer,resultDigest:digest('other-producer')}}};
   const retargeted=native.constructNativeWorkspaceWorkObservation(changedTask,observation.after,null,observation.provenance,observation.assessment);
@@ -923,11 +1021,11 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
   assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,rewritten,p.call.cCallRef,p.exchange(verdict()).observation),false,'a schema-valid rewrite cannot replace actual native output');
   assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,observation,p.call.cCallRef,{...p.exchange(verdict()).observation,inputDigest:digest('other-task')}),false,'native input identity remains exact');
   const sameCall=native.constructNativeWorkspaceWorkObservation(env.task,observation.after,null,{...observation.provenance,cCallRef:env.task.assessment.producer.cCallRef},observation.assessment);
-  assert.equal(native.isNativeWorkspaceWorkObservation(sameCall),false,'the assessor C-call must differ from the producer');
+  assert.equal(native.nativeWorkspaceWorkObservationMatchesTask(env.task,sameCall),false,'the assessor C-call must differ from its basis task producer');
   assert.deepEqual(observation.changedPaths,[]);assert.equal(observation.provenance.actorInvocationRef,'actor-invocation://native-owner/test');
   assert.equal(native.nativeWorkspaceWorkResultMatches(env.task,observation,p.call.cCallRef,p.exchange(verdict()).observation),true);
-  assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,env.task.context),true);
-  assert.equal(native.nativeWorkspaceAssessmentMatchesContext({...observation,report:{summary:'accepted',gaps:[]}},env.task.context),false);
+  assert.equal(native.nativeWorkspaceAssessmentMatchesContext(env.task,observation,env.task.context),true);
+  assert.equal(native.nativeWorkspaceAssessmentMatchesContext(env.task,{...observation,report:{summary:'accepted',gaps:[]}},env.task.context),false);
   const wrongFormat=await p.prepared.complete(p.exchange(JSON.stringify({...JSON.parse(verdict()),residuals:['not an email']})));
   assert.equal(wrongFormat.disposition,'failure');assert.equal(wrongFormat.resultCandidate.failureClass,'result_contract_failure','native completion still applies full format validation');
   const {responsePresentation,...omittedPresentation}=p.request;
@@ -937,7 +1035,7 @@ test('typed read-only assessment retains F_P source and exact observed basis, no
   await assert.rejects(()=>realizeNativeWorkspaceWork(env.task,p.occurrence,()=>({...p.assembly,request:{...p.request,responsePresentation:'structured_output'}})),/assembly differs from its owner contract/);
   await fs.writeFile(join(env.canonicalRoot,'target.txt'),'changed after assessment\n');
   const current=await product.observeWorksiteContext(env.read);
-  assert.equal(native.nativeWorkspaceAssessmentMatchesContext(observation,current),false,'changed candidate cannot reuse the verdict');
+  assert.equal(native.nativeWorkspaceAssessmentMatchesContext(env.task,observation,current),false,'changed candidate cannot reuse the verdict');
   assert.equal(native.isNativeWorkspaceWorkTask({...env.task,context:current}),false,'stale subject fails task construction');
 });
 
@@ -956,7 +1054,7 @@ for (const mode of ['ordinary-report','malformed','empty','duplicate-keys','unde
     const result=await p.prepared.complete(exchange);
     assert.equal(result.disposition,'failure');assert.equal(native.isNativeWorkspaceWorkFailure(result.resultCandidate),true);
     assert.equal(native.isNativeWorkspaceWorkObservation(result.resultCandidate),false);
-    assert.equal(native.nativeWorkspaceAssessmentMatchesContext(result.resultCandidate,env.task.context),false);
+    assert.equal(native.nativeWorkspaceAssessmentMatchesContext(env.task,result.resultCandidate,env.task.context),false);
     assert.equal(result.resultCandidate.failureClass,({ 'ordinary-report':'result_contract_failure',malformed:'result_contract_failure',
       empty:'result_contract_failure','duplicate-keys':'result_contract_failure','undeclared-field':'result_contract_failure','same-author':'assessment_independence_mismatch','failed-transport':'absolute_timeout',mutating:'write_scope_violation'})[mode]);
     if(mode==='mutating')assert.deepEqual(result.resultCandidate.changedPaths,['target.txt']);
@@ -1027,21 +1125,17 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   const selectedSchema=generated===null ? assessmentSchema : {...assessmentSchema,required:[...assessmentSchema.required,'fulfillment'],properties:{...assessmentSchema.properties,fulfillment:generated}};
   const env=await assessmentFixture(t,selectedSchema), p=await prepare(t,env), a=env.task.assessment;
   const schemaBytes=Buffer.from(a.schemaAsset.bytesBase64,'base64');await fs.writeFile(join(env.scratch,'schema.json'),schemaBytes);
-  const install={productId:publication.owningProductId,installedRoot:env.scratch,publicContracts:[{
-    contractKind:'schema_asset',contractId:assessmentContract.contractRef,contractVersion:'5.0.0',owningProduct:publication.owningProductId,
-    contractDigest:product.sha256Bytes(schemaBytes),assetLocator:{path:'schema.json',mediaType:'application/schema+json',contentDigest:product.sha256Bytes(schemaBytes)}}]};
-  const rootGraph={...publication.graphFunctions[0],declarations:{...publication.graphFunctions[0].declarations,'abg.raw_result_contract':assessmentContract.contractRef}};
-  const selectedPublication={...publication,contracts:[...publication.contracts,assessmentContract],graphFunctions:[rootGraph,...publication.graphFunctions.slice(1)]};
+  const selectedPublication=declaringAssessmentPublication(assessmentContract),rootGraph=selectedPublication.graphFunctions[0];
   const graphFunction=publication.graphFunctions.find(g=>g.name===ids.assessmentGraphFunctionRef);
-  const authority=p.occurrence.executionAuthority;
-  const {modulePublicationSemanticDigest}=await import('../../build/code/src/product/publication.js');
-  Object.assign(install,{artifactDigest:selectedPublication.artifactDigest,productContentDigest:selectedPublication.productContentDigest,
-    manifestDigest:selectedPublication.productManifestDigest,contributionManifest:{publicationBindings:[{moduleRef:selectedPublication.moduleRef,publicationDigest:modulePublicationSemanticDigest(selectedPublication)}]}});
-  let assessmentPublication;
-  let selectedPublicationForCall=selectedPublication;
+  const authority=p.occurrence.executionAuthority,resolution=authority.implementationResolution;
+  const facts=assessmentDependencyFacts(selectedPublication,{installedRoot:env.scratch,path:'schema.json',bytes:schemaBytes,
+    contractId:assessmentContract.contractRef,assessorOwnerProductId:resolution.graphFunctionOwnerProductId});
+  // The carried declaring publication; the call's Program publication is the native one.
+  let assessmentPublication=selectedPublication;
+  let selectedPublicationForCall=publication;
+  const environment={kind:'exact_prefix_workspace_environment',productInstalls:[facts.install],resolvedProductLock:facts.resolvedLock};
   const owner={inputDigest:product.sha256Canonical(env.task),inputValue:env.task,inputRef:'component:assessment-input',
-    call:p.call,execution:authority.executionBasis,program:selectedPublication.programs[0],events:[],
-    environment:{kind:'exact_prefix_workspace_environment',productInstalls:[install]}};
+    call:p.call,execution:authority.executionBasis,program:publication.programs[0],resolution,events:[],environment};
   const role={frameRefs:['frame://fixture/reviewer'],policy:{policyRef:'policy://fixture/reviewer',text:'Independent assessment',digest:digest('reviewer-policy')},
     contextPolicy:{policyRef:'policy://fixture/read-only',selectors:['current_worksite','current_candidate','full_source']},sourceContent:[],accessContent:[]};
   let roleSelection='assessor',requestedRole=null,dispatches=0,capturedTransport=null,capturedPlan=null;
@@ -1096,17 +1190,33 @@ for (const fulfillment of [false,true]) test('complete assessment preparation jo
   assert.equal(capturedPlan.promptDigest,product.sha256Canonical(prepared.workerRequest.prompt));
   assert.equal(capturedPlan.cwd,env.canonicalRoot);
   roleSelection='constructor';let refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation');assert.equal(refused.ownerObservation.reason,'thrown');
-  roleSelection='assessor';selectedPublicationForCall={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
+  roleSelection='assessor';assessmentPublication={...selectedPublication,graphFunctions:selectedPublication.graphFunctions.map(graph=>
     graph===rootGraph?{...rootGraph,declarations:{...rootGraph.declarations,'abg.raw_result_contract':ids.workerReportContractRef}}:graph)};
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','unselected raw contract refuses before dispatch');
-  // The root consumer declares the raw contract selection, while the exact
-  // closure-selected ABI publication owns the installed schema bytes.
-  selectedPublicationForCall={...selectedPublication,owningProductId:'product://component/consumer',contracts:publication.contracts};
+  // The carried declaring publication owns the installed schema bytes; another
+  // Program publication without the contract is not consulted.
+  selectedPublicationForCall={...publication,owningProductId:'product://component/consumer'};
   assessmentPublication=selectedPublication;
   const delegated=await invoke();assert.equal(delegated.kind,'prepared_probabilistic_leaf_owner_invocation');
   assert.deepEqual(delegated.workerRequest.responseJsonSchema,selectedSchema);
   assessmentPublication={...selectedPublication,owningProductId:'product://component/wrong-owner'};
-  refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation');
+  refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','crossed declaring owner');
+  assessmentPublication=selectedPublication;
+  // Crossed admitted lock and resolution facts refuse before dispatch; the
+  // owner is restored after each.
+  const lock=facts.resolvedLock,crossings=[
+    ['crossed lock digest',()=>{owner.environment={...environment,resolvedProductLock:{...lock,lockDigest:digest('crossed-lock')}};}],
+    ['crossed lock row',()=>{owner.environment={...environment,resolvedProductLock:{...lock,rows:lock.rows.map(r=>r.productId===a.schemaAsset.productId?{...r,manifestDigest:digest('crossed-row')}:r)}};}],
+    ['missing requires edge',()=>{owner.environment={...environment,resolvedProductLock:{...lock,dependencyEdges:[]}};}],
+    ['reverse requires edge',()=>{owner.environment={...environment,resolvedProductLock:{...lock,dependencyEdges:lock.dependencyEdges.map(e=>({...e,fromProductId:e.toProductId,toProductId:e.fromProductId}))}};}],
+    ['crossed assessor owner resolution',()=>{owner.resolution={...resolution,graphFunctionOwnerProductId:'product://component/other-assessor'};}],
+    ['missing admitted lock',()=>{const {resolvedProductLock:_lock,...withoutLock}=environment;owner.environment=withoutLock;}]];
+  assert.equal(lock.dependencyEdges.length,1,'the declaring owner requires the distinct assessor owner');
+  for(const [label,cross] of crossings){
+    cross();refused=await invoke();owner.environment=environment;owner.resolution=resolution;
+    assert.equal(refused.ownerObservation?.stage,'preparation',label);
+  }
+  assert.equal((await invoke()).kind,'prepared_probabilistic_leaf_owner_invocation','restored exact facts prepare again');
   assessmentPublication=undefined;
   refused=await invoke();assert.equal(refused.ownerObservation.stage,'preparation','no implicit foreign schema fallback');
   assert.equal(dispatches,0);

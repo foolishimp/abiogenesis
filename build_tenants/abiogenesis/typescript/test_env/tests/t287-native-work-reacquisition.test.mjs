@@ -109,7 +109,7 @@ async function declarationFixture(t, inline=false, library=false, compact=false)
     rootImplementationSetRef:call.implementationSetRef,rootImplementationSetDigest:hash('set'),graphFunctionRef:gf.name,graphFunctionDigest:hash(gf),rawInputValue:raw,rawInputDigest:hash(raw),rawInputAdmissionRef:'raw://prepare'};
   const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:raw});
   Object.assign(basis,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
-  const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source'},sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
+  const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source',rawInputValue:nativeTask,rawInputDigest:hash(nativeTask)},sourceTask:nativeTask,sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
   const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,binding:implementationBindingRef,declarationReads:0,reads:0,terminalError:null};
   const assemblyBasis={predecessorPrefix:nativeBasis.predecessorPrefix,cCall:call};
   const owned={prefix:heldPrefix,inputValue:raw,call,execution:basis,graphFunction:gf,program:libraryPublication.programs[0],

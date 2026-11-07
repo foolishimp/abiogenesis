@@ -1,5 +1,252 @@
 # T-287 Default Governance Library
 
+## RC7 fixed Testing/UAT direct wrapper route — 2026-11-06
+
+Root selection `RC7-LAUNCH-02`, grant `rc7-fixed-proof-author-01`,
+`design_reframe` of this library HOW/contract under unchanged Product and
+requirements. Fixed explicit Testing and UAT work needs no open-choice selector;
+Product makes the Executive optional. Open work and subject choice remain actual
+F_P judgment.
+
+**Route.** A caller invokes the existing Testing wrapper, then the existing UAT
+wrapper, through the Public `run.invoke` member `invoke` in the existing consumer
+Program. No Program, start target, selector, controller or bare native ingress is
+added. Product resolution of that invoke is an open dependency; see the F2
+subsection below.
+
+1. Testing input is the exact fresh `governance_work_state` (null synthesis, no
+   observation) with source `none`. The unchanged prepare-testing, C2 child and
+   fold run.
+2. `deriveInvocationSourceResultBasisAtPrefix` over the Testing invocation's own
+   admission, Run and returned state Result yields the existing
+   `ProductInvocationSourceResultBasis`. UAT input is
+   `retainedGovernanceWorkInput(basis.sourceResultValue)`, unchanged, under source
+   `admitted_source_result` and its existing rehydration.
+3. The unchanged UAT prepare-native, native assessment child and fold run.
+
+**Direct-route authentication.** The route applies only when the invoked wrapper
+is its invocation's root: `invocationRootAtPrefix` equals the leaf's execution
+basis, that basis has no parent, its GraphFunction is exactly the registered
+Testing or UAT wrapper, and the root state's synthesis is null. Null synthesis
+records that no selector occurred; nothing manufactures one. A selected state, at
+any basis position, keeps the selected-child relation and synthesis target guard.
+Other wrappers invoked at the root keep their existing relation; their
+selector-free fold still refuses.
+
+The shared owner checks one finite state relation before every preparation,
+preparation admission and fold of the route:
+
+- no fulfillment declaration and only `testing`/`uat` work orders; other
+  declared work is open choice and refuses as unsupported scope;
+- Testing: source `none` and no observation;
+- UAT: an admitted state source whose `sourceGraphFunctionRef` is the Testing
+  wrapper, holding exactly one observation: `purpose: testing`, null
+  `synthesisResultRef`, the Testing wrapper as `selectedGraphFunctionRef`.
+
+Zero, multiple, selected or foreign rows refuse. There is no latest or eligible
+search.
+
+**Single producer.** Direct UAT's subject is that one Testing observation. The
+existing subject-evidence owner still requires its exact admitted Result, digest,
+CCall, actor, source use and WorkspaceBinding or cover. The route adds that the C2
+Result is the actual child of the source direct Testing root: the source Run and
+invocation admission, and a C2 basis whose parent is that invocation's root
+Testing wrapper basis. The existing binding cover compares one GraphFunction
+across both invocations, so this route runs Testing and UAT on one
+WorkspaceBinding; a crossed binding refuses. Current dependency bytes, later invalidating effects,
+source/candidate/rubric digests, installed schema, STDO assessor role, a fresh
+independent actor and the declared prompt bound stay with their existing owners.
+
+**UAT instructions.** For UAT the governing full-original outcome and the
+full-original assessment instruction are unconditional. A selected UAT
+contribution stays separately labelled advisory context between them, so
+selected UAT tasks keep their existing bytes.
+
+**Fold and contract.** `observation.synthesisResultRef` is nullable. The fold
+writes null only on the authenticated direct route; selected folds keep their
+actual synthesis Result. Product typing admits a null row only for the Testing or
+UAT wrapper of its own purpose. The fold stays non-terminal: wrapper closure is
+not parent convergence, and red C2, unmet or indeterminate UAT remain open.
+Parent evaluation is unchanged.
+
+```mermaid
+sequenceDiagram
+  participant C as Caller (public-setup)
+  participant T as Testing wrapper (root)
+  participant S as Source-result owner
+  participant U as UAT wrapper (root)
+  participant A as Native assessor
+  C->>T: invoke(fresh state, source none)
+  T->>T: prepare-testing, C2 child, fold (synthesisResultRef null)
+  C->>S: derive basis (Testing admission, Run, state Result)
+  S-->>C: ProductInvocationSourceResultBasis
+  C->>U: invoke(retained state, admitted_source_result)
+  U->>U: one Testing producer: Result/CCall/actor/child/currentness
+  U->>A: full-original assessment task
+  A-->>U: actual assessment, unmet/indeterminate kept
+  U->>U: fold (synthesisResultRef null, terminal false)
+```
+
+**Owners.** `abg/default_library.ts` (`owner`, `subjectEvidence`, `nativeTask`,
+`projectGovernanceFold`); `product/default_library.ts` (observation schema and the
+shared direct relation); `abg/invocation_admission.ts` (the retained-state
+declared-entry clause below); the maintained caller `test_env/uat/public-setup.mjs`
+(`constructFixedTestingCall`, `deriveFixedTestingSource`, `constructFixedUatCall`).
+GTL wrappers, `consumer.mjs`, the Public SDK, Product execution resolution and
+native C2/assessment identities are unchanged.
+
+**Proof.** Author checks use the existing owner harness for direct-route
+positives and refusals, unchanged selected behavior and the caller. The installed
+fixed Testing → admitted state Result → native UAT run with zero selectors, its
+replay, cold readback and timing remain Root proof. No time saving is claimed.
+
+### Direct-UAT admission handshake — F2
+
+Root selection `rc7-fixed-proof-author-02`, `realization_refactor` with this
+bounded HOW amendment under unchanged Product and requirements.
+
+**Shared relation.** `product/default_library.ts` owns the finite relation above
+as `governanceDirectFixedState`, with `GOVERNANCE_DIRECT_PURPOSES` and
+`GOVERNANCE_DIRECT_WRAPPERS` naming the registered Testing and UAT wrappers. The
+ABG library owner and invocation admission import it; neither clones it. The
+Product module imports no ABG module.
+
+**Declared entry.** Retained-state source admission (source contract
+`governanceContract("state")`) keeps every existing check: the ABG-derived basis
+equals the supplied basis under its durable Public authority, the raw input is
+the complete retained source value, the rehydrated source invocation names the
+same Program and digest, and CatalogView/WorkspaceBinding are exact or the
+current covered source use matches. Its declared-entry clause admits exactly one
+of:
+
+- Executive: the invoked GraphFunction declares the governance fulfillment
+  profile. Unchanged.
+- Fixed UAT: the invoked GraphFunction is the registered UAT wrapper, the
+  rehydrated source invocation's GraphFunction is the registered Testing wrapper,
+  and `governanceDirectFixedState(retained, "uat", basis)` holds over the
+  ABG-derived basis.
+
+Identities come from the catalog-authenticated invoked GraphFunction, the
+rehydrated source admission and the derived basis; caller-supplied refs are only
+compared against them. Other wrappers over a retained state, a non-Testing source
+invocation, selected or multiple observations, other declared work and open
+fulfillment refuse `authority_mismatch`. Root-basis authentication, the single
+producer and the fold stay with the ABG library owner.
+
+```mermaid
+flowchart LR
+  B[derived basis = supplied basis] --> V[retained value = raw input]
+  V --> P[source Program, digest, view/binding or current use]
+  P --> E{declared entry}
+  E -->|fulfillment profile| X[Executive]
+  E -->|UAT wrapper, Testing source, direct relation| U[fixed UAT]
+  E -->|otherwise| R[authority_mismatch]
+```
+
+**Fixed-route Program (F2-PROGRAM-001).** A direct `invoke` or a GraphFunction
+`start` resolves one CatalogView row by handle. The row's `programMembershipRefs`
+and the Program's `callableMembership` must both name the invoked Program
+(`product/execution_resolution.ts`), and admission repeats the row check.
+Catalog law keeps a contributor's rows on its own Programs. The library wrapper
+rows therefore name only `program://abiogenesis/default-library/default@5`. A
+consumer Program cannot host the direct wrapper route: population refuses
+`wrong_owner` at the catalog stage, which Public reports as `invalid_target` at
+`/program`. The library publication contributes one Catalog row for every
+GraphFunction it publishes, including its local `executive-step`. That
+completes the library Program's Program-scope closure. The membership law,
+closure law and canonical handles do not change. Both fixed calls select this
+existing Program: direct Testing with source `none`, then UAT over that Run's
+admitted Testing state Result. Both use its current digest, its declared
+`abg.run_environment` declaration `environment://abiogenesis/default-library/default@5`,
+a run-environment permission over that Program and declaration, the session's
+workspace binding, and the Catalog view narrowed to that Program's
+`callableMembership`. The maintained caller reads the Program and declaration
+from the admitted Catalog's library publication. No alias, new Program,
+invented environment or fulfillment flag is added. The assessment, C2, source,
+root, capability and resolver guards stay in force. The consumer Program keeps
+the lifecycle `start`.
+
+**Fixed-route environment and assessment scope (HS2).** Run-environment
+acquisition (`observeRunEnvironment`) checks every Program F_P leaf against the
+declared roles. Its GraphFunction input is therefore the authenticated
+whole-Program declaration closure, `programDeclarationClosure.publications`.
+Direct Testing selects a callable whose execution closure omits the native-work
+publication, while the library Program still declares selector, constructor,
+assessor and command-executor roles. Execution and implementation resolution,
+the selected declaration closure and publications, owner installs and every
+role, permission and physical-binding guard keep the selected callable's scope.
+The UAT assessor's inner consumer response contract is not in the library
+Program's closure. The native assessment dependency relation
+(`T287_NATIVE_WORKSPACE_WORK_DESIGN.md`, Declared typed assessment) admits it
+over the admitted Catalog, installs and lock. The library declares no reverse
+dependency on a consumer. The maintained fixed test selects the installed
+sandbox consumer's `assessmentSelection`, and its scripted assessor answers that
+consumer's declared schema.
+
+**Setup Program binding (HS3).** Root selection `rc7-held-session-author-03`,
+`realization_refactor` of the maintained caller under unchanged Product,
+requirements and owner guards. The installed run owner requires
+`W.roots.productRoot == I_P.installedRoot` for the Program owner and for every
+child (`T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md` §3;
+`exactProgramOwnerInstall`, `exactChildOwnerInstallations`). A setup that binds
+the consumer root and then invokes library wrappers crosses that relation, and
+child preparation refuses at `basis_admission`. The caller therefore chooses its
+Program once, before workspace binding:
+
+| Selection | Program and publication | Use |
+|---|---|---|
+| `consumer` (default) | the sandbox consumer publication's Program | lifecycle `start` |
+| `library` | `program://abiogenesis/default-library/default@5` in the core library publication | fixed Testing and UAT |
+
+`populateSandbox(caller, {program})` takes the selection. Setup constructs the
+candidate publications, takes the unique publication holding the chosen Program,
+and takes the unique admitted install from `product-install` whose Product,
+artifact, content and manifest digests are the publication's and whose
+contribution manifest binds that publication's semantic digest exactly once.
+That install's `installedRoot` is `productRoot` in `workspace-bind`. The same
+Program and publication then drive the `catalog-view` allowlist (its
+`callableMembership`), the `program-conformance` packet and the `setup-identity`
+record. Setup checks that the admitted Catalog binds that exact publication.
+`state.programBinding` records the selection, Program, publication and owner
+install coordinates. The ProductSet, lock, both installs, the toolchain root and
+the run-environment dependency root (`caller.installedRoot`, the ABI install) do
+not change with the selection.
+
+Each call selector checks that binding before population. The library selector
+requires a `library` binding and returns the setup Catalog view. The consumer
+selector refuses a binding to another Program. An absent binding is the ordinary
+consumer default. A refusal raises `BoundaryFailure('setup-program-binding')`
+before any task, grant or invocation exists. Testing and UAT share the one
+library binding for the whole held session. Neither call rebinds, and neither
+rewrites a retained input, task or grant. A new binding needs a new setup and
+fresh work.
+
+Ownership stays separate. Program ownership moves `productRoot` only. The UAT
+assessment schema stays owned by the consumer, and the lock keeps its
+consumer→ABI `requires` edge, so the native assessment dependency relation is
+unchanged. Both installed roots stay in the ProductSet and stay protected.
+`exactProgramOwnerInstall`, `exactChildOwnerInstallations` and every
+authority, currentness, role and capability guard are unchanged. The caller adds
+no owner edge, schema fallback, controller or second Program.
+
+```mermaid
+sequenceDiagram
+  participant C as populateSandbox(program)
+  participant I as product-install x2
+  participant B as workspace-bind
+  participant K as catalog-admit / catalog-view
+  participant V as program-conformance
+  participant F as fixed Testing / UAT
+  C->>C: choose Program + publication
+  I-->>C: admitted installs (ABI, consumer)
+  C->>C: unique owner install of that publication
+  C->>B: productRoot = owner.installedRoot
+  C->>K: allowlist = Program.callableMembership
+  C->>V: same Program + publication
+  C->>C: setup-identity + programBinding
+  F->>C: check binding = library, reuse setup view
+```
+
 ## RC5 STDO 3.0.4 successor source and skill selection — 2026-11-03
 
 Owner-approved RC5 scope, grant `T287_RC5_METHOD_01`, `realization_refactor`
@@ -246,7 +493,8 @@ projection needs no new retained edge across consumer/library semantics owners.
 The projection discards that wrapper. Older complete mappings remain their
 ordinary admitted C-call Results. Folded observations identify their synthesis
 Result and selected registered GraphFunction, conserving revision attribution
-without a second event ledger.
+without a second event ledger. Only the RC7 direct route folds a null synthesis
+Result.
 
 **Selected native-work handoff (T287 Run02 repair12/13):** for authoring, the
 existing wrapper projects the exact selected contribution into
@@ -338,7 +586,8 @@ their existing native/C2 owners. Any author purpose may supply a native report;
 no construction-stage prerequisite or reduced Testing plan is introduced.
 
 `subjectEvidenceRef` explicitly selects an actual folded observation Result.
-Native evidence may come from any selected non-assessment native capability;
+Selector-free UAT on the RC7 direct route instead takes its declared single
+Testing producer; that is a fixed input relation, not a search. Native evidence may come from any selected non-assessment native capability;
 its purpose label does not restrict eligibility. Reuse the existing native
 source projection, same-invocation/binding facts and current candidate after
 observation. Testing with null subject evidence observes existing files; a
@@ -805,8 +1054,8 @@ remain admitted and leave obligations open. Malformed/crossed references refuse.
 The native-work after-context and C2 protected snapshots supply artifact facts;
 C2 command observations supply execution facts. Supplied files need no invented
 author. Pairing checks compatible actual **outer** native/C2 output contracts;
-the inner consumer assessment contract is separately checked by the existing
-native assessment/schema owner. Meaning and sufficiency of realization/verifier
+the inner consumer assessment contract is separately admitted by the native
+assessment dependency relation over the admitted environment. Meaning and sufficiency of realization/verifier
 roles belong to the independent F_P judgment; total checks enforce exact separate
 selected subjects, current dependency bytes and actor independence. A native
 report is never admitted verifier execution.

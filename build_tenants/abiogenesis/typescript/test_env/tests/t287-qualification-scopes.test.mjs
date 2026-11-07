@@ -8,8 +8,18 @@ import {createHash} from 'node:crypto';
 import {privateOwner} from '../support/r10-private-owner-harness.mjs';
 import {qualificationHash as hash, constructQualificationIdentity as identity, QUALIFICATION_ROLE_POLICY as policy} from '../../build/code/src/validator/qualification_contracts.js';
 import {isSelfConformanceResult} from '../../build/code/src/validator/self_conformance_contracts.js';
-import {projectExternalConstructionAttribution,parseQualificationRuleCatalog,qualificationPlanMatches} from '../../build/code/src/validator/qualification.js';
+import {decideQualificationDispatchEligibility,projectExternalConstructionAttribution,parseQualificationRuleCatalog,qualificationPlanMatches} from '../../build/code/src/validator/qualification.js';
 import {acquireQualificationResources,resolveQualificationAssessment} from '../../build/code/src/validator/qualification_resources.js';
+import {nativeJoinFixture,ids as qualificationIds,publication as qualificationPublication} from '../support/malformed-gtl-native-fixture.mjs';
+import {constructWorksiteConstructionModulePublication} from '../../build/code/src/gtl/worksite_construction.js';
+import {WORKSITE_CONSTRUCTION_IDS} from '../../build/code/src/product/worksite_construction.js';
+import {composeWorkerTransportArgs,constructKnownWorkerTransportContract,deriveConfiguredActorIdentity,projectDurableActorObservation,RETIRED_ACTOR_LIFECYCLE_COPY_KEYS} from '../../build/code/src/abg/transport_contracts.js';
+import {validateActorProcessCarrierPair} from '../../build/code/src/abg/actor_process.js';
+import {admitRuntimeEvent,createNewEmptyAppendSink,ROOT_EVENT_CONTRACT_DIGEST} from '../../build/code/src/abg/event_store.js';
+import {acquireNewEmptyAppendSinkFixture} from '../support/new-empty-append-sink.mjs';
+import os from 'node:os';
+import path from 'node:path';
+import {projectTransportBindingSelection} from '../../build/code/src/abg/c_call.js';
 const clone=x=>structuredClone(x),coord=(ref,digest=hash(ref))=>({ref,digest}),digest=b=>'sha256:'+createHash('sha256').update(b).digest('hex');
 const plainSource=m=>({ref:m.ref,path:m.path,digest:m.digest,byteCount:m.byteCount});
 const material=(ref,text,path=ref)=>{const b=Buffer.from(text);return {ref,path,digest:digest(b),byteCount:b.length,contentBase64:b.toString('base64')};};
@@ -57,7 +67,7 @@ function fixture(size=3,ruleCount=2,configureCatalog=()=>{},roots=['root://candi
   establishQualificationAssessment:(input,resources)=>m.establishQualificationAssessment(input,resources,catalogs),
   qualificationWorkerRequest:(input,established)=>m.qualificationWorkerRequest(input,established,catalogs),
   qualificationRawMatches:(input,raw,view)=>m.qualificationRawMatches(input,raw,view,catalogs)};}
- return {input,owner,catalog,catalogBytes,catalogDigest,scope,sourceMembers,authority,execution,verification,ownerModule,assessmentModule,populate,judgment,get judgments(){return judgments;}};
+ return {input,owner,catalogs,catalog,catalogBytes,catalogDigest,scope,sourceMembers,authority,execution,verification,ownerModule,assessmentModule,populate,judgment,get judgments(){return judgments;}};
 }
 
 test('small whole subject grouped and singleton semantics agree under explicit independent/native premises',async()=>{
@@ -434,4 +444,406 @@ test('plan check by hashed sets keeps every refusal and its memo answers only fo
  assert.equal(qualificationPlanMatches(forged),false,'changed slot under the memoized digest');
  const extra=clone(valid);extra.slots[0].coverage.push(b);assert.equal(qualificationPlanMatches(extra),false,'duplicate under the memoized digest');
  assert.equal(qualificationPlanMatches(planOf(clone(forged).slots,[a,c])),true,'the changed plan under its own digest is answered on its own bytes');
+});
+
+// Q23 configured identity over one native history. Labelled premises: the
+// worksite candidate-bundle guard answers for the supplied bundle only; the
+// lower admission/environment facts are nativeJoinFixture's; each cited start's
+// process, artifact and terminal joins are assumed. The selections are the
+// actual compose/derive results; the policy, author and binding joins, the
+// call-bound eligibility and the J readback are the real owners. No provider
+// ran, no store was written and no Q23/F11/QR02 claim follows.
+const assessLocus=qualificationPublication.graphFunctions.find(g=>g.name===qualificationIds.assessGraph).template.nodes[0].term.programLocusRef;
+function configured(agentKey,{model,append=[],environment={}}={}){
+ const env={...environment,...(agentKey==='codex'&&model!==undefined?{ABG_TS_CODEX_MODEL:model}:{})},contract=constructKnownWorkerTransportContract(agentKey,{environment:env});
+ const args=composeWorkerTransportArgs({contract,prompt:'synthetic prompt',outputPath:'/synthetic/output',lane:'worker_executes',environment:env,
+  explicitAppendArgs:agentKey==='claude'&&model!==undefined?['--model',model,...append]:append});
+ return {agentKey,promptTransport:contract.promptTransport,args,identity:deriveConfiguredActorIdentity(contract,args,env)};
+}
+const opus=()=>configured('claude',{model:'claude-opus-5-5'}),astra=()=>configured('codex',{model:'gpt-6-astra'});
+const legacy=c=>({...c,identity:undefined}),pick=d=>[d.disposition,d.reason];
+async function nativeHistory({author=astra(),authorTamper,independence='author_distinct',provenance='native',peer,peers=peer===undefined?undefined:[peer],ownerActorRef,
+ bundleMembers=m=>m,bundleBytes=m=>m.contentBase64,producerResult=r=>r}={}){
+ const f=fixture(),bundles=new Set();
+ const n=await nativeJoinFixture({runtime:true,sameRealm:true,consumerPublication:constructWorksiteConstructionModulePublication,
+  ownerPremises:{'product/worksite_construction.js':{isWorksiteCandidateBundle:v=>bundles.has(hash(v))}}});
+ const members=bundleMembers(f.sourceMembers),bundle={kind:'worksite_candidate_bundle',schemaVersion:'5.0.0',candidateBundleRef:'candidate-bundle://synthetic',
+  candidateBundleDigest:hash('synthetic candidate bundle premise'),task:{targets:members.map((m,i)=>({targetRef:'target://'+i,subject:{relativePath:m.path}}))},
+  files:members.map((m,i)=>({targetRef:'target://'+i,replacementBase64:bundleBytes(m)}))};
+ bundles.add(hash(bundle));
+ const producer=n.open(WORKSITE_CONSTRUCTION_IDS.graphFunctionRef,{kind:'synthetic_worksite_task_premise'},'construction-author',{regime:'F_P'});
+ const authorRef='actor://construction-author',authorBinding='worker-binding://construction-author';
+ const produced=n.complete(producer,bundle,{evidence:[n.actorTransport(producer,{...author,actorRef:authorRef,workerBindingRef:authorBinding,...(authorTamper?{tamper:authorTamper}:{})})]});
+ const a=clone(assessment(f));
+ if(provenance==='native'){a.input.task.provenance={kind:'native_construction',subjectInventory:f.input.basis.sourceInventory,producers:[{cCallRef:producer.call.cCallRef,
+  result:producerResult(coord(produced.resultRef,produced.resultDigest)),actorRef:authorRef,workerBindingRef:authorBinding,scopeRefs:members.map(m=>m.ref)}]};a.raw.attributions=[];}
+ a.input.task.role.independence=peers?'author_and_peer_distinct':independence;
+ // Each declared peer slot shares its own assessor criterion: the two published
+ // actor refs keep every criterion's peers distinct. One peer keeps the one criterion.
+ if(peers){const [c]=a.input.task.coverage,criteria=peers.map((_,i)=>i===0?c:{...c,criterionRef:c.criterionRef+'/'+i});a.input.task.coverage=criteria;a.input.plan.coverage=criteria;a.input.plan.slots[0].coverage=criteria;}
+ Object.assign(a.input.plan.slots[0],{graphFunctionRef:qualificationIds.assessGraph,programLocusRef:assessLocus});a.input.plan.ownerActorRef=ownerActorRef??n.root.actorRef;resign(a);
+ if(peers){
+  // Declared independent peer slots. A selection is an occurrence admitted before
+  // this one; 'unstarted' opens the peer's call with no actor start; 'absent' opens nothing.
+  const tasks=peers.map((_,i)=>bodyIdentity({...clone(a.input.task),slotRef:'slot://peer'+(i===0?'':'/'+i),taskOrdinal:i+1,coverage:[a.input.task.coverage[i]],role:{...a.input.task.role,actorRef:policy.actorRefs[1]}},'taskRef','taskDigest','qualification-task://abiogenesis/'));
+  const plan=clone(a.input.plan);for(const task of tasks)plan.slots.push({...plan.slots[0],slotRef:task.slotRef,task:coord(task.taskRef,task.taskDigest),taskOrdinal:task.taskOrdinal,role:task.role,coverage:task.coverage});
+  plan.sharedCoverage='declared_independent_peers';a.input.plan=bodyIdentity(plan,'planRef','planDigest','qualification-plan://abiogenesis/');
+  peers.forEach((spec,i)=>{if(spec==='absent')return;const task=tasks[i];
+   const peerCall=n.open(qualificationIds.assessGraph,{kind:'qualification_assessment_input',schemaVersion:'5.0.0',task,plan:a.input.plan},'peer-assessor'+(i===0?'':'-'+i),{regime:'F_P'});
+   if(spec!=='unstarted')n.event('c_call_evidenced',peerCall.call.cCallRef,n.actorTransport(peerCall,{...spec,actorRef:task.role.actorRef,workerBindingRef:task.role.workerBindingRef}));});
+ }
+ const assessor=n.open(qualificationIds.assessGraph,a.input,'assessor',{regime:'F_P'});
+ const op=n.owner.qualificationAssessorEligibility(assessor.basis,a.input,undefined,f.catalogs);
+ const request=(selection,over={})=>({cCallRef:assessor.call.cCallRef,inputDigest:hash(a.input),predecessorPrefix:assessor.basis.predecessorPrefix,
+  actorRef:a.input.task.role.actorRef,selection:{agentKey:selection.agentKey,identity:selection.identity??null},...over});
+ return {f,n,a,producer,assessor,op,request};
+}
+// The assessor's admitted occurrence and its J, cited by invocation and binding coordinates only.
+// Its copy-free artifact is a current-profile event and carries the exact current stamp.
+function admitJudgment(h,selection,{tamper,bindingExtra}={}){
+ const {n,a,assessor}=h,role=a.input.task.role,requestDigest=hash('synthetic request premise'),promptDigest=hash('synthetic prompt premise');
+ const transport=n.actorTransport(assessor,{...selection,actorRef:role.actorRef,workerBindingRef:role.workerBindingRef,started:{requestDigest,promptDigest},
+  evidence:{rendererRef:role.rendererRef,materializationPlanRef:role.materializationPlanRef,instructionContractRef:'contract://abiogenesis/qualification/assessment-input@5',
+   resultContractRef:'contract://abiogenesis/qualification/assessment-raw@5',requestDigest,promptDigest},...(tamper?{tamper}:{}),...(bindingExtra?{bindingExtra}:{})});
+ const observation={finalOutput:JSON.stringify(a.raw)};
+ n.event('actor_result_artifact_observed',transport.actorInvocationRef,{cCallRef:assessor.call.cCallRef,requestRef:'request://synthetic',requestDigest,...observation},
+  {aggregateType:'actor_invocation',parentAggregateId:assessor.call.cCallRef,eventContractDigest:ROOT_EVENT_CONTRACT_DIGEST});
+ const judgment=identity({kind:'qualification_judgment',schemaVersion:'5.0.0',task:a.input.task,plan:a.input.plan,raw:a.raw,nativeBasis:assessor.basis,
+  source:{cCallRef:assessor.call.cCallRef,inputDigest:hash(a.input),actorRef:role.actorRef,workerBindingRef:role.workerBindingRef,actorInvocationRef:transport.actorInvocationRef,
+   transportBindingRef:transport.transportBindingRef,transportBindingDigest:transport.transportBindingDigest,requestDigest,observationDigest:hash(observation),promptDigest,
+   rawValueDigest:hash(a.raw)}},'judgmentRef','judgmentDigest','qualification-judgment://abiogenesis/');
+ const result=n.complete(assessor,judgment,{evidence:[transport]});
+ const selected={kind:'judgment_selection',selectionRef:'selection://judgment',slotRef:a.input.task.slotRef,task:coord(a.input.task.taskRef,a.input.task.taskDigest),
+  programRef:assessor.execution.programRef,invocationAdmissionRef:assessor.execution.invocationAdmissionRef,result:coord(result.resultRef,result.resultDigest)};
+ const proof=()=>({...n.proof(),selections:[selected]});
+ const resolve=()=>n.owner.resolveQualificationAssessments(proof(),a.input.plan,{cCallRef:'c-call://consumer',predecessorPrefix:n.coordinate(n.events.length)},undefined,h.f.catalogs);
+ // The J relation alone, without the dispatch relation over its binding.
+ const project=()=>n.owner.projectQualificationJudgment(proof(),a.input.plan,selected,undefined,h.f.catalogs);
+ return {judgment,transport,resolve,project};
+}
+
+test('Q23 one native history: only the declared cross-family assessor is eligible before dispatch, and its J reads back through its single binding',async()=>{
+ const h=await nativeHistory(),{n,op,request}=h;
+ assert.equal(opus().identity.disposition,'established');assert.equal(astra().identity.model,'gpt-6-astra');
+ assert.equal(n.owner.isQualificationAssessorEligibility(op),true);
+ assert.equal(n.owner.isQualificationAssessorEligibility(()=>({disposition:'eligible'})),false,'a caller-made eligible decision is not the owner');
+ assert.equal(n.owner.isQualificationAssessorEligibility(r=>op(r)),false,'a wrapper is not the minted operation');
+ assert.deepEqual(op(request(opus())),{disposition:'eligible'});
+ for(const [name,selection,expected] of [
+  ['same declared family as the native author',astra(),['ineligible','author_same_declared_family']],
+  ['same provider family, an undeclared model',configured('codex',{model:'gpt-6'}),['unknown','assessor_profile_unlisted']],
+  ['another Anthropic model is not the declared profile',configured('claude',{model:'claude-fable-5-1'}),['unknown','assessor_profile_unlisted']],
+  ['a name prefix is not a family',configured('claude',{model:'claude-opus-5-5-preview'}),['unknown','assessor_profile_unlisted']],
+  ['the other family model renamed onto this agent',configured('claude',{model:'gpt-6-astra'}),['unknown','assessor_profile_unlisted']],
+  ['the declared model on the other agent',configured('codex',{model:'claude-opus-5-5'}),['unknown','assessor_profile_unlisted']],
+  ['no model selection',configured('claude'),['unknown','assessor_identity_unknown']],
+  ['selector-shaped data as the prompt operand',configured('claude',{append:['--append-system-prompt','--model=claude-opus-5-5']}),['unknown','assessor_identity_unknown']],
+  ['two model selections',configured('claude',{model:'claude-opus-5-5',append:['--model','claude-opus-5-5']}),['unknown','assessor_identity_unknown']],
+  ['a displacing settings option',configured('claude',{model:'claude-opus-5-5',append:['--settings','/synthetic/settings.json']}),['unknown','assessor_identity_unknown']],
+  ['a conflicting captured environment',configured('claude',{model:'claude-opus-5-5',environment:{ANTHROPIC_MODEL:'claude-sonnet-5-5'}}),['unknown','assessor_identity_unknown']],
+  ['no recorded identity',{agentKey:'claude',identity:null},['unknown','assessor_identity_absent']],
+ ])assert.deepEqual(pick(op(request(selection))),expected,name);
+ for(const [name,over] of [['another call',{cCallRef:'c-call://other'}],['another input',{inputDigest:hash('other input')}],
+  ['another prefix',{predecessorPrefix:n.coordinate(1)}],['a renamed role actor',{actorRef:policy.actorRefs[1]}]])
+  assert.deepEqual(pick(op(request(opus(),over))),['unknown','call_coordinates_crossed'],name);
+ const unbound=n.owner.qualificationAssessorEligibility({...h.assessor.basis,cCallRef:h.producer.call.cCallRef},h.a.input,undefined,h.f.catalogs);
+ assert.deepEqual(pick(unbound(request(opus(),{cCallRef:h.producer.call.cCallRef}))),['unknown','owner_connection_missing'],'an operation bound to a non-assessment call');
+ const warm=op(request(opus()));n.cold();
+ assert.deepEqual(op(request(opus())),warm,'cold reconstruction keeps the decision');
+ assert.deepEqual(pick(op(request(astra()))),['ineligible','author_same_declared_family'],'cold reconstruction keeps the refusal');
+ // The eligible occurrence: one binding with the identity, one J citing it.
+ const j=admitJudgment(h,opus()),out=j.resolve();
+ assert(out,'the eligible J reads back');assert.equal(out.length,1);assert.deepEqual(out[0],j.judgment);
+ const bindings=n.events.filter(e=>e.kind==='actor_transport_binding_admitted'&&e.parentAggregateId===h.assessor.call.cCallRef);
+ assert.equal(bindings.length,1);assert.equal(out[0].source.transportBindingRef,bindings[0].aggregateId);
+ assert.deepEqual(bindings[0].payload.configuredIdentity,opus().identity);
+ assert(!JSON.stringify(out[0]).includes('configured_actor_identity'),'J carries binding coordinates, never a copied identity body');
+ n.cold();assert.deepEqual(j.resolve(),out,'cold readback keeps the single binding reference');
+ assert.deepEqual(pick(op(request(opus()))),['unknown','owner_connection_missing'],'a stale or evidenced call has no owner connection');
+});
+
+test('Q23 J readback refuses legacy, mismatched, same-family, substituted, crossed and digest-changed bindings, warm and cold',async()=>{
+ const substitute=p=>{const {transportBindingRef:_r,transportBindingDigest:_d,...body}=p,s=astra(),other={...body,agentKey:s.agentKey,promptTransport:s.promptTransport,args:s.args,configuredIdentity:s.identity},d=hash(other);
+  return {transportBindingRef:'transport-binding://abiogenesis/'+d.slice(7),transportBindingDigest:d,...other};};
+ for(const [name,selection,options] of [
+  ['a legacy binding without identity',legacy(opus()),{}],
+  ['an identity that differs from its own arguments',{...opus(),identity:configured('claude',{model:'claude-fable-5-1'}).identity},{}],
+  ['a same-family assessor binding',astra(),{}],
+  ['a substituted binding body under its own valid digest',opus(),{tamper:substitute}],
+  ['a binding crossed from another call',opus(),{bindingExtra:{parentAggregateId:'c-call://construction-author'}}],
+  ['a digest-changed binding',opus(),{tamper:p=>({...p,args:[...p.args,'--verbose']})}],
+ ]){const h=await nativeHistory(),j=admitJudgment(h,selection,options);
+  assert.deepEqual(j.project(),j.judgment,name+': the J itself projects');
+  assert.equal(j.resolve(),null,name);h.n.cold();assert.equal(j.resolve(),null,name+' (cold)');}
+});
+
+test('Q23 authors, provenance, peers and owner connection refuse before dispatch; a waived assessment stays refused',async()=>{
+ for(const [name,options,expected] of [
+  ['a legacy author binding',{author:legacy(astra())},['unknown','author_identity_absent']],
+  ['an author of the assessor family',{author:opus()},['ineligible','author_same_declared_family']],
+  ['an unlisted author model',{author:configured('codex',{model:'gpt-5.5'})},['unknown','author_profile_unlisted']],
+  ['a digest-changed author binding',{authorTamper:p=>({...p,args:[...p.args,'--verbose']})},['unknown','author_identity_absent']],
+  ['an unresolved producer result',{producerResult:r=>({...r,digest:hash('other result')})},['unknown','prior_authorship_unresolved']],
+  ['producer bytes that do not correspond to the subject',{bundleBytes:m=>Buffer.from('other bytes').toString('base64')},['unknown','prior_authorship_unresolved']],
+  ['a producer that covers part of the subject',{bundleMembers:m=>m.slice(1)},['unknown','prior_authorship_unresolved']],
+  ['external attribution only a future J could ground',{provenance:'external'},['unknown','external_attribution_requires_future_judgment']],
+  ['a required peer the plan does not declare',{independence:'author_and_peer_distinct'},['unknown','required_peer_missing']],
+  ['an admitted peer of the assessor family',{peer:opus()},['ineligible','peer_same_declared_family']],
+  ['an admitted legacy peer',{peer:legacy(astra())},['unknown','peer_identity_absent']],
+  // Closed review Q23-SR-01: a declared peer slot with no actor start is missing
+  // required evidence, never an empty comparison set; alone or among several.
+  ['the only declared peer slot never opened',{peers:['absent']},['unknown','required_peer_missing']],
+  ['the only declared peer slot opened without an actor start',{peers:['unstarted']},['unknown','required_peer_missing']],
+  ['one admitted cross-family peer and one unstarted declared peer',{peers:[astra(),'unstarted']},['unknown','required_peer_missing']],
+  ['one admitted cross-family peer and one never-opened declared peer',{peers:[astra(),'absent']},['unknown','required_peer_missing']],
+  ['both declared peers missing',{peers:['unstarted','absent']},['unknown','required_peer_missing']],
+  ['an admitted same-family peer beside a missing one stays ineligible',{peers:[opus(),'absent']},['ineligible','peer_same_declared_family']],
+  ['a plan owner that is not the executing owner',{ownerActorRef:'actor://owner'},['unknown','owner_connection_missing']],
+ ]){const h=await nativeHistory(options);assert.deepEqual(pick(h.op(h.request(opus()))),expected,name);}
+ // Under the two declared profiles a cross-family peer leaves the native author in the assessor's family.
+ const peered=await nativeHistory({peer:astra()});
+ assert.deepEqual(peered.op(peered.request(opus())),{disposition:'eligible'},'peer and author conditions against the admitted peer');
+ assert.deepEqual(pick(peered.op(peered.request(astra()))),['ineligible','author_same_declared_family']);
+ // Every declared peer slot admitted: the same conditions hold against each one.
+ const both=await nativeHistory({peers:[astra(),astra()]});
+ assert.equal(both.a.input.plan.slots.length,3);
+ assert.deepEqual(both.op(both.request(opus())),{disposition:'eligible'},'both declared peer slots have admitted cross-family occurrences');
+ // The Validator decision itself: every declared peer slot is required.
+ const decide=(peers,independence='author_and_peer_distinct')=>pick(decideQualificationDispatchEligibility({independence,assessorActorRef:policy.actorRefs[0],
+  assessor:opus(),provenance:'native_construction',authors:[{actorRef:'actor://construction-author',selection:astra()}],peers}));
+ for(const [name,peers,expected] of [
+  ['no declared peer slot',null,['unknown','required_peer_missing']],
+  ['an empty slot population',[],['unknown','required_peer_missing']],
+  ['one declared slot without an occurrence',[{slotRef:'slot://peer',selections:[]}],['unknown','required_peer_missing']],
+  ['an observed subset of the declared slots',[{slotRef:'slot://peer',selections:[astra()]},{slotRef:'slot://peer/1',selections:[]}],['unknown','required_peer_missing']],
+  ['a same-family occurrence beside a missing slot',[{slotRef:'slot://peer',selections:[opus()]},{slotRef:'slot://peer/1',selections:[]}],['ineligible','peer_same_declared_family']],
+  ['a started peer without admitted evidence',[{slotRef:'slot://peer',selections:[null]}],['unknown','peer_identity_absent']],
+  ['every declared slot with a cross-family occurrence',[{slotRef:'slot://peer',selections:[astra()]},{slotRef:'slot://peer/1',selections:[astra()]}],['eligible',undefined]],
+ ])assert.deepEqual(decide(peers),expected,name);
+ assert.deepEqual(decide(null,'author_distinct'),['eligible',undefined],'an author-only role needs no peer');
+ // A waived assessment is not admitted input (existing rule); ordinary non-assessment calls never reach this owner.
+ const waived=await nativeHistory({independence:'not_required'});
+ assert.deepEqual(pick(waived.op(waived.request(opus()))),['unknown','owner_connection_missing']);
+ const foreign=await nativeHistory();
+ assert.deepEqual(pick(foreign.n.owner.qualificationAssessorEligibility(foreign.assessor.basis,{kind:'other'},undefined,foreign.f.catalogs)(foreign.request(opus()))),
+  ['unknown','owner_connection_missing'],'no admitted assessment input');
+});
+
+// Q23 actual pre-invocation join. The real emitted actor_process composes the
+// real transport plan and applies the call-bound owner operation before its
+// binding or any start. Labelled premises over lower owners, as in the
+// fixture: the workspace binding and invocation admission are admitted; the
+// event-store transaction and liveness/probe admission record in memory
+// instead of a physical store; `current` declares the fixture store to be the
+// current event profile; the minted operation is recognised by its own owner
+// instance. The provider is a real process whose every start appends one line.
+async function actorGate(h,{current=true}={}){
+ const {n,a,assessor}=h,role=a.input.task.role,call=assessor.call,admitted=[],transactions=[];
+ // Both entry points are already exported; no private name is added.
+ const owner=await privateOwner('abg/actor_process.js',[],{
+  './environment_admission.js':{hasAdmittedWorkspaceBinding:()=>true},
+  './invocation_admission.js':{rehydrateInvocationAdmissionAtPrefix:()=>({})},
+  './event_prefix.js':{readOwnedRuntimeEventPrefixAtDurablePrefix:()=>n.events,selectRuntimeEventPrefixFromStore:()=>n.events},
+  './event_store.js':{...(current?{ROOT_EVENT_CONTRACT_DIGEST:n.coordinate(0).storeIdentity.eventContractDigest}:{}),assertHeldEventStoreAtDurablePrefix:()=>{},
+   admitNonEmptyRuntimeEventTransactionAtDurablePrefix:(_s,prefix,admit)=>{const from=admitted.length,value=admit();transactions.push(admitted.slice(from));return {value,successorPrefix:prefix};},
+   admitRuntimeEvent:(_s,candidate)=>{const e={...candidate,eventId:'event://actor/'+(admitted.length+1),payloadDigest:hash(candidate.payload)};admitted.push(e);return e;}},
+  './runtime_liveness.js':{captureNativeFrameBoundary:()=>null,observeNativeFrameLiveness:()=>{},
+   projectActorLivenessContext:()=>({scope:{},binding:{clockOriginRef:'runtime-clock://q23'},probes:['stdout','stderr','structured_output','tool_progress','api_progress','process_lifecycle','archive','result_artifact']
+    .map(source=>({source,probeRef:'runtime-probe://q23/'+source,sourceRef:'/nonexistent/q23/'+source}))}),
+   admitRuntimeActivityProbe:({predecessorPrefix})=>({successorPrefix:predecessorPrefix,value:{eventId:'event://probe'}}),
+   admitRuntimeThreshold:()=>({kind:'runtime_threshold_not_reached',projection:{hardDeadlineElapsedMs:3_600_000,leaseDeadlineElapsedMs:3_600_000}})},
+  './qualification_proof.js':{isQualificationAssessorEligibility:n.owner.isQualificationAssessorEligibility},
+ });
+ const archiveRoot=path.join(h.scratch,'w','archive','fp');fs.mkdirSync(archiveRoot,{recursive:true});
+ const request={actorRef:role.actorRef,implementationRef:call.implementationRef,inputDigest:hash(a.input),instructionContractRef:'contract://abiogenesis/qualification/assessment-input@5',
+  materializationPlanRef:role.materializationPlanRef,prompt:'synthetic qualification prompt premise',rendererRef:role.rendererRef,responseJsonSchema:{type:'object'},
+  resultContractRef:'contract://abiogenesis/qualification/assessment-raw@5',transportLane:'worker_executes',workerBindingRef:role.workerBindingRef};
+ const occurrence={cCallRef:call.cCallRef,runId:call.runId,graphCallId:call.graphCallId,frameId:call.frameId,programLocusRef:call.programLocusRef,taskOrdinal:null,attempt:1};
+ const input=({implementationRef=call.implementationRef,actorRef=role.actorRef}={})=>({store:{},predecessorPrefix:assessor.basis.predecessorPrefix,
+  executionBasis:{basisRef:assessor.execution.basisRef,workspaceBindingId:'workspace://q23',workspaceBindingDigest:hash('W'),invocationAdmissionRef:assessor.execution.invocationAdmissionRef,
+   graphFunctionRef:call.graphFunctionRef,graphRef:assessor.execution.graphRef},
+  scope:{runId:call.runId,graphCallId:call.graphCallId,frameId:call.frameId},cCall:{...call,implementationRef,taskOrdinal:null,attempt:1,fibreSelectedEventRef:'event://fibre'},
+  expectedInputDigest:hash(a.input),occurrence,workerContracts:{instructionContractRef:request.instructionContractRef,resultContractRef:request.resultContractRef},
+  runtime:{artifactTruth:{},workspaceBinding:{bindingId:'workspace://q23',bindingDigest:hash('W'),roots:{archiveRoot}}},
+  request:{...request,implementationRef,actorRef},dispatchOrdinal:1,basis:{correlationId:'correlation://q23'}});
+ const starts=()=>fs.existsSync(h.marker)?fs.readFileSync(h.marker,'utf8').split('\n').filter(Boolean):[];
+ return async(eligibility,{model='claude-opus-5-5',environment={},standalone=false,...over}={})=>{
+  const keys=['ABG_TS_CLAUDE_COMMAND','ABG_TS_CLAUDE_APPEND_ARGS','ANTHROPIC_MODEL'],saved=keys.map(k=>process.env[k]);
+  process.env.ABG_TS_CLAUDE_COMMAND=h.provider;delete process.env.ANTHROPIC_MODEL;
+  if(model===null)delete process.env.ABG_TS_CLAUDE_APPEND_ARGS;else process.env.ABG_TS_CLAUDE_APPEND_ARGS=JSON.stringify(['--model',model]);
+  Object.assign(process.env,environment);
+  const before=starts().length;
+  try{
+   const effect=standalone?await owner.invokeActorProcess(input(over)):await owner.prepareActorProcessInvocation(a.input,occurrence,undefined,eligibility).invokeActorProcess(input(over));
+   return {effect,starts:starts().slice(before),transactions:transactions.splice(0)};
+  }finally{keys.forEach((k,i)=>saved[i]===undefined?delete process.env[k]:process.env[k]=saved[i]);}
+ };
+}
+const projectTransportBindingSelectionOf=(binding,started,cCallRef)=>projectTransportBindingSelection(binding,started,{cCallRef,
+ actorInvocationRef:started.aggregateId,transportBindingRef:binding.aggregateId,transportBindingDigest:binding.payload.transportBindingDigest});
+function providerScratch(t){
+ const scratch=fs.mkdtempSync(path.join(os.tmpdir(),'abg-q23-gate-')),marker=path.join(scratch,'provider-starts.log'),provider=path.join(scratch,'provider.sh');
+ fs.writeFileSync(provider,`#!/bin/sh\nprintf '%s\\n' "$*" >> '${marker}'\ncat > /dev/null\n`);fs.chmodSync(provider,0o755);
+ t.after(()=>fs.rmSync(scratch,{recursive:true,force:true}));return {scratch,marker,provider};
+}
+const refusedBeforeStart=(name,out,disposition,reason)=>{
+ assert.equal(out.effect.kind,'actor_process_effect_refusal',name);assert.equal(out.effect.code,'actor_process_invocation_refused',name);
+ assert.equal(out.effect.message,`qualification dispatch refused: ${disposition}: ${reason}`,name);
+ assert.deepEqual(out.effect.successorPrefix,out.effect.predecessorPrefix,name+': nothing admitted');
+ assert.deepEqual(out.transactions,[],name+': no binding or start transaction');assert.deepEqual(out.starts,[],name+': zero provider starts');
+};
+
+test('Q23 actor_process gates the actual prepared selection before binding or provider start; ordinary calls are unchanged',async t=>{
+ const io=providerScratch(t);
+ const h=Object.assign(await nativeHistory(),io),run=await actorGate(h);
+ // Eligible: one identity-bearing binding, its start, and exactly one provider process with the bound selection.
+ const ok=await run(h.op);
+ assert.equal(ok.starts.length,1,'the instrument observes the real provider start');
+ assert.match(ok.starts[0],/(^| )--model claude-opus-5-5( |$)/u);
+ if(ok.effect.kind==='actor_process_effect_refusal')assert.doesNotMatch(ok.effect.message,/qualification dispatch refused/u);
+ const bindings=ok.transactions.flat().filter(e=>e.kind==='actor_transport_binding_admitted');
+ assert.equal(bindings.length,1);const recorded=bindings[0].payload.configuredIdentity;
+ assert.deepEqual([recorded.disposition,recorded.model],['established','claude-opus-5-5'],'the binding records the identity once');
+ assert.deepEqual(recorded,deriveConfiguredActorIdentity(constructKnownWorkerTransportContract('claude',{environment:{}}),bindings[0].payload.args,{}),
+  'the recorded identity is the derivation of the bound final arguments');
+ assert.equal(bindings[0].payload.args[bindings[0].payload.configuredIdentity.source.argumentIndex],'claude-opus-5-5');
+ assert.deepEqual(ok.transactions[0].map(e=>e.kind),['actor_transport_binding_admitted','actor_invocation_started']);
+ assert.deepEqual(ok.transactions[0][1].causationEventRefs,[bindings[0].eventId]);
+ assert.equal(projectTransportBindingSelectionOf(bindings[0],ok.transactions[0][1],h.assessor.call.cCallRef)?.identity?.model,'claude-opus-5-5',
+  'the c_call owner reads back the same selection from the recorded rows');
+ // Required negatives over the same history: zero bindings and zero starts.
+ for(const [name,eligibility,options,expected] of [
+  ['standalone dispatch has no owner connection',undefined,{standalone:true},['unknown','owner_connection_missing']],
+  ['a caller-made eligible decision',()=>({disposition:'eligible'}),{},['unknown','owner_connection_missing']],
+  ['another model of the same agent',h.op,{model:'claude-fable-5-1'},['unknown','assessor_profile_unlisted']],
+  ['a prefixed model name',h.op,{model:'claude-opus-5-5-preview'},['unknown','assessor_profile_unlisted']],
+  ['no configured model',h.op,{model:null},['unknown','assessor_identity_unknown']],
+  // Closed review Q23-SR-02: selector-shaped prompt-option data and no real selector.
+  ['selector-shaped data as the prompt operand',h.op,{model:null,environment:{ABG_TS_CLAUDE_APPEND_ARGS:JSON.stringify(['--append-system-prompt','--model=claude-opus-5-5'])}},['unknown','assessor_identity_unknown']],
+  ['a conflicting captured environment',h.op,{environment:{ANTHROPIC_MODEL:'claude-sonnet-5-5'}},['unknown','assessor_identity_unknown']],
+  ['a renamed role actor',h.op,{actorRef:policy.actorRefs[1]},['unknown','call_coordinates_crossed']],
+ ])refusedBeforeStart(name,await run(eligibility,options),...expected);
+ // A legacy-profile store records no identity, so the assessor stays unknown.
+ refusedBeforeStart('a legacy-profile binding',await (await actorGate(h,{current:false}))(h.op),'unknown','assessor_identity_absent');
+ // Histories whose author, provenance or peer facts refuse.
+ for(const [name,options,expected] of [
+  ['an author of the assessor family',{author:opus()},['ineligible','author_same_declared_family']],
+  ['an unresolved prior author',{producerResult:r=>({...r,digest:hash('other result')})},['unknown','prior_authorship_unresolved']],
+  ['external attribution only a future J could ground',{provenance:'external'},['unknown','external_attribution_requires_future_judgment']],
+  ['a required peer the plan does not declare',{independence:'author_and_peer_distinct'},['unknown','required_peer_missing']],
+  ['an admitted peer of the assessor family',{peer:opus()},['ineligible','peer_same_declared_family']],
+  ['the only declared peer slot never opened',{peers:['absent']},['unknown','required_peer_missing']],
+  ['the only declared peer slot opened without an actor start',{peers:['unstarted']},['unknown','required_peer_missing']],
+  ['one of two declared peers admitted, the other unstarted',{peers:[astra(),'unstarted']},['unknown','required_peer_missing']],
+  ['both declared peers missing',{peers:['unstarted','absent']},['unknown','required_peer_missing']],
+ ]){const other=Object.assign(await nativeHistory(options),io);refusedBeforeStart(name,await (await actorGate(other))(other.op),...expected);}
+ // Complete declared peer evidence: the same gate admits one binding and one provider start.
+ for(const peers of [[astra()],[astra(),astra()]]){
+  const peered=Object.assign(await nativeHistory({peers}),io),out=await (await actorGate(peered))(peered.op);
+  assert.equal(out.starts.length,1,`${peers.length} admitted peer slot(s): the provider starts once`);
+  if(out.effect.kind==='actor_process_effect_refusal')assert.doesNotMatch(out.effect.message,/qualification dispatch refused/u);
+  const bound=out.transactions.flat().filter(e=>e.kind==='actor_transport_binding_admitted');
+  assert.equal(bound.length,1);assert.equal(bound[0].payload.configuredIdentity.model,'claude-opus-5-5');
+ }
+ // Ordinary non-assessment F_P work has no qualification obligation: the gate
+ // does not apply and the same provider starts once, with or without a model.
+ // Distinct refs give distinct attempt archives; the archive never overwrites.
+ for(const [implementationRef,model] of [['implementation://abiogenesis/ordinary-fp@5','claude-opus-5-5'],['implementation://abiogenesis/ordinary-unconfigured-fp@5',null]]){
+  const ordinary=await run(undefined,{standalone:true,implementationRef,model});
+  assert.equal(ordinary.starts.length,1,'ordinary dispatch starts its provider: '+JSON.stringify(ordinary.effect.message??ordinary.effect.kind));
+  if(ordinary.effect.kind==='actor_process_effect_refusal')assert.doesNotMatch(ordinary.effect.message,/qualification dispatch refused/u);
+  assert.equal(ordinary.transactions.flat().filter(e=>e.kind==='actor_transport_binding_admitted').length,1);
+ }
+});
+
+// M2 one current durable observation over one full live carrier. Labelled
+// premises: nativeJoinFixture's lower admission facts and the cited transport's
+// process/terminal joins; the native raw-contract verification preimage is well
+// formed, its authority is the result-contract owner's; an L artifact is placed
+// in the fixture history, not admitted by an L store, and like every L event it
+// carries no event-contract stamp. Real: the actor carrier
+// validation of the full live observation, the shared projection the actor
+// writer persists, the current event contract admitting that artifact in a new
+// empty store, the qualification completion producing J's source and the cold
+// J relation. No provider ran; this composes owners, it is not an actor Run.
+const legacyBody=live=>{const {nativeResultAssessment:_n,...body}=live;return body;};
+const lifecycleCopies=live=>Object.fromEntries(RETIRED_ACTOR_LIFECYCLE_COPY_KEYS.map(key=>[key,live[key]]));
+async function fullCarrier(t,{observationDigestOf,artifactOf,profile='current'}={}){
+ const h=await nativeHistory(),{n,a,assessor,f}=h,role=a.input.task.role;
+ const prepared=n.implementation.realizeQualificationAssessment(a.input,{cCallRef:assessor.call.cCallRef,qualificationOwnerBasis:assessor.basis,qualificationCatalogs:f.catalogs});
+ const request=prepared.workerRequest,requestDigest=hash(request),promptDigest=hash(request.prompt);
+ const transport=n.actorTransport(assessor,{...opus(),actorRef:role.actorRef,workerBindingRef:role.workerBindingRef,started:{requestDigest,promptDigest},
+  evidence:{rendererRef:role.rendererRef,materializationPlanRef:role.materializationPlanRef,instructionContractRef:request.instructionContractRef,
+   resultContractRef:request.resultContractRef,requestDigest,promptDigest}});
+ const finalOutput=JSON.stringify(a.raw),stdout=JSON.stringify({type:'result',result:finalOutput})+'\n',archive=digest('transport archive premise');
+ const preimage={contractCapabilityBasis:{installId:'install://mechanical',implementationSetRef:assessor.execution.implementationSetRef,
+   implementationSetDigest:assessor.execution.implementationSetDigest,publicationDigest:hash('publication premise')},implementationResolutionDigest:hash('resolution premise'),
+  implementationRef:request.implementationRef,inputContractRef:'contract://abiogenesis/qualification/assessment-input@5',targetOutputContractRef:'contract://abiogenesis/qualification/judgment@5',
+  instructionContractRef:request.instructionContractRef,rawResultContractRef:request.resultContractRef,inputDigest:request.inputDigest,rawResultDigest:hash(a.raw)},verificationDigest=hash(preimage);
+ const live={nativeResultAssessment:{kind:'native_worker_result_assessment',schemaVersion:'5.0.0',resultContractRef:request.resultContractRef,inputDigest:request.inputDigest,
+   rawOutputDigest:digest(finalOutput),disposition:'admitted',verification:{kind:'verified_probabilistic_result_contract_preimage',schemaVersion:'5.0.0',
+    verificationRef:'probabilistic-result-contract-preimage://abiogenesis/'+verificationDigest.slice(7),verificationDigest,...preimage}},
+  actorInvocationRef:transport.actorInvocationRef,actorRef:request.actorRef,workerBindingRef:request.workerBindingRef,implementationRef:request.implementationRef,
+  inputDigest:request.inputDigest,materializationPlanRef:request.materializationPlanRef,rendererRef:request.rendererRef,instructionContractRef:request.instructionContractRef,
+  resultContractRef:request.resultContractRef,processRef:'process://m2/full-carrier',transportBindingRef:transport.transportBindingRef,transportBindingDigest:transport.transportBindingDigest,
+  disposition:'success',failureClass:null,finalOutput,observedOutputDigest:digest(finalOutput),promptDigest,transportDigest:archive,transportLane:request.transportLane,
+  processStatus:0,processSignal:null,timeoutClass:null,timedOut:false,exitObserved:true,terminationConfirmed:true,signalSequence:[],
+  structuredEventCount:1,progressEventCount:0,toolCallCount:0,toolInvocations:[],apiRetryCount:0,stdoutByteLength:Buffer.byteLength(stdout),stderrByteLength:0,
+  artifactDigests:{output:digest(finalOutput),prompt:digest(request.prompt),stderr:digest(''),stdout:digest(stdout),transport:archive}};
+ const exchange=validateActorProcessCarrierPair(request,live),completion=prepared.complete(exchange),produced=completion.resultCandidate;
+ const durable=projectDurableActorObservation(live);
+ const judgment=observationDigestOf===undefined?produced:bodyIdentity({...produced,source:{...produced.source,observationDigest:observationDigestOf(live,durable)}},
+  'judgmentRef','judgmentDigest','qualification-judgment://abiogenesis/');
+ const {store}=await acquireNewEmptyAppendSinkFixture(t,createNewEmptyAppendSink,'abi5-m2-full-carrier-');
+ const candidate=payload=>({kind:'actor_result_artifact_observed',eventTime:'2026-11-06T00:00:00.000Z',aggregateType:'actor_invocation',
+  aggregateId:transport.actorInvocationRef,parentAggregateId:assessor.call.cCallRef,causationEventRefs:[],correlationId:'correlation://m2/full-carrier',
+  workflowVersion:'5.0.0',scopeClass:'run',basisId:assessor.call.basisId,runId:assessor.call.runId,graphFunctionRef:assessor.call.graphFunctionRef,
+  materializationRef:'materialization://m2/full-carrier',graphCallId:assessor.call.graphCallId,frameId:assessor.call.frameId,payload});
+ const envelope={cCallRef:assessor.call.cCallRef,requestRef:'probabilistic-request://abiogenesis/'+requestDigest.slice(7),requestDigest};
+ // The current contract refuses the full live body and admits the writer's projection.
+ const reinserted=(()=>{try{admitRuntimeEvent(store,candidate({...envelope,...live}));return null;}catch(error){return error;}})();
+ const admitted=admitRuntimeEvent(store,candidate({...envelope,...durable}));
+ const persisted=artifactOf===undefined?admitted.payload:artifactOf(admitted.payload,live);
+ const placed=n.event('actor_result_artifact_observed',transport.actorInvocationRef,persisted,{aggregateType:'actor_invocation',parentAggregateId:assessor.call.cCallRef,
+  ...(profile==='legacy'?{}:{eventContractDigest:admitted.eventContractDigest})});
+ const result=n.complete(assessor,judgment,{evidence:[transport]});
+ const selected={kind:'judgment_selection',selectionRef:'selection://judgment',slotRef:a.input.task.slotRef,task:coord(a.input.task.taskRef,a.input.task.taskDigest),
+  programRef:assessor.execution.programRef,invocationAdmissionRef:assessor.execution.invocationAdmissionRef,result:coord(result.resultRef,result.resultDigest)};
+ const project=()=>n.owner.projectQualificationJudgment({...n.proof(),selections:[selected]},a.input.plan,selected,undefined,f.catalogs);
+ return {n,request,live,durable,exchange,completion,produced,judgment,admitted,reinserted,placed,project};
+}
+
+test('M2 one current durable observation: full live carrier, admitted copy-free artifact, completion source and cold J agree; unilateral, stale, crossed, reinserted and profile-crossed relations refuse',async t=>{
+ const c=await fullCarrier(t);
+ assert.equal(c.exchange.kind,'actor_process_carrier_validation','the full live carrier stays valid');
+ assert.deepEqual(RETIRED_ACTOR_LIFECYCLE_COPY_KEYS.filter(key=>Object.hasOwn(c.exchange.observation,key)),[...RETIRED_ACTOR_LIFECYCLE_COPY_KEYS],'the live carrier keeps its four copies');
+ assert.notEqual(validateActorProcessCarrierPair(c.request,c.durable).kind,'actor_process_carrier_validation','the durable body is not a live carrier');
+ assert.match(String(c.reinserted?.message),/payload matches no admitted event-contract variant/u,'the current contract refuses the full live body');
+ assert.equal(c.admitted.eventContractDigest,ROOT_EVENT_CONTRACT_DIGEST);
+ assert.deepEqual(RETIRED_ACTOR_LIFECYCLE_COPY_KEYS.filter(key=>Object.hasOwn(c.admitted.payload,key)),[],'the admitted current artifact omits the copies');
+ const {cCallRef:_c,requestRef:_r,requestDigest:_d,...persistedBody}=c.admitted.payload;
+ assert.deepEqual(persistedBody,c.durable,'the admitted artifact body is the shared projection, every other member kept');
+ assert.equal(c.completion.disposition,'success');
+ assert.equal(c.produced.source.observationDigest,hash(c.durable),'the completion digests the same projection');
+ assert.notEqual(c.produced.source.observationDigest,hash(c.live),'not the full live observation');
+ assert.equal(c.placed.eventContractDigest,ROOT_EVENT_CONTRACT_DIGEST,'the current artifact carries the exact current stamp');
+ assert.deepEqual(c.project(),c.produced,'the cold J relation returns the exact produced J');
+ c.n.cold();assert.deepEqual(c.project(),c.produced,'cold');
+ // L keeps its exact old full preimage and digest meaning under its own unstamped envelope.
+ const legacyArtifact=(p,live)=>{const {nativeResultAssessment:_n,...kept}=p;return {...kept,...lifecycleCopies(live)};};
+ const l=await fullCarrier(t,{profile:'legacy',observationDigestOf:live=>hash(legacyBody(live)),artifactOf:legacyArtifact});
+ assert.equal(Object.hasOwn(l.placed,'eventContractDigest'),false,'the L artifact carries no stamp');
+ assert.deepEqual(l.project(),l.judgment,'an L artifact keeps its full preimage');
+ l.n.cold();assert.deepEqual(l.project(),l.judgment,'an L artifact keeps its full preimage (cold)');
+ for(const [name,options] of [
+  ['a unilateral full-live digest over the persisted projection',{observationDigestOf:live=>hash(live)}],
+  ['a stale digest of another live observation',{observationDigestOf:live=>hash(projectDurableActorObservation({...live,stdoutByteLength:live.stdoutByteLength+1}))}],
+  ['a persisted kept member changed under the retained digest',{artifactOf:p=>({...p,apiRetryCount:1})}],
+  ['a crossed kept native assessment',{artifactOf:p=>({...p,nativeResultAssessment:{...p.nativeResultAssessment,disposition:'rejected',verification:null}})}],
+  ['current copies reinserted into the persisted artifact',{artifactOf:(p,live)=>({...p,...lifecycleCopies(live)})}],
+  ['one current copy reinserted',{artifactOf:(p,live)=>({...p,timedOut:live.timedOut})}],
+  ['the current projection read as an L artifact',{profile:'legacy'}],
+ ]){const r=await fullCarrier(t,options);assert.equal(r.project(),null,name);}
+ const lp=await fullCarrier(t,{profile:'legacy',observationDigestOf:live=>hash(projectDurableActorObservation(legacyBody(live))),artifactOf:legacyArtifact});
+ assert.equal(lp.project(),null,'the current projection digest never reads an L artifact');
 });

@@ -544,9 +544,11 @@ export function runtimeHistoryPayload(selection: RuntimeHistorySelection, index:
   return event.payload;
 }
 
-/** @internal Declared native context positions of admitted Result values whose
- * inline file bodies are retained there. The derived index below names only
- * these member coordinates; it is a hint, never read authority. */
+/** @internal Declared native context positions of admitted Result values, and
+ * of admitted execution-basis raw inputs, whose inline file bodies are retained
+ * there. A prospective native Result holds only `after`; its task context is
+ * its basis's raw input. The derived index below names only these member
+ * coordinates; it is a hint, never read authority. */
 export const NATIVE_CONTEXT_BODY_POSITIONS: Readonly<Record<string, readonly (readonly string[])[]>> = Object.freeze({
   framed_synthesis_task: Object.freeze([Object.freeze(["context"])]),
   native_workspace_work_task: Object.freeze([Object.freeze(["context"])]),
@@ -616,6 +618,8 @@ export function runtimeHistorySelectorKeys(event: RuntimeEvent): readonly string
       keys.push("worksite-observation-dependency");
     if (event.kind === "c_call_result_admitted" && (payload.resultClass === "success" || payload.resultClass === "failure"))
       for (const digest of nativeContextHeldBodyDigests(payload.value)) keys.push(NATIVE_CONTEXT_BODY_KEY + digest);
+    if (event.kind === "basis_admitted")
+      for (const digest of nativeContextHeldBodyDigests(payload.rawInputValue)) keys.push(NATIVE_CONTEXT_BODY_KEY + digest);
     if (event.kind === "c_call_fibre_selected" &&
         payload.callClass === "leaf" && payload.regime === "F_D")
       keys.push("worksite-observation-dependency");

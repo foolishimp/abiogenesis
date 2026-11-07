@@ -6,8 +6,8 @@ import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
 import { projectSameRunNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
-import { retainedGovernanceWorkInput, isGovernanceWorkState, isFramedSynthesisResult,
-  governanceRef, governanceContract, type GovernanceWorkState } from "../product/default_library.js";
+import { retainedGovernanceWorkInput, isGovernanceWorkState, isFramedSynthesisResult, governanceDirectFixedState,
+  GOVERNANCE_DIRECT_WRAPPERS, governanceRef, governanceContract, type GovernanceWorkState } from "../product/default_library.js";
 import { GOVERNANCE_FULFILLMENT_PROFILE } from "../product/default_library_fulfillment.js";
 import { NATIVE_WORKSPACE_WORK_IDS } from "../product/native_workspace_work_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
@@ -1515,8 +1515,15 @@ function admitInvocationWithRequest(
         predecessorPrefix: input.artifactTruth.prefix, source: suppliedBasis, workspaceBinding: input.workspaceBinding,
         program: input.program, graphFunction: input.graphFunction, currentDeclaration: input.sourceUseDeclarations.current,
         historicalDeclarations: input.sourceUseDeclarations.historical });
+      // Declared entry: the Executive's fulfillment profile, or the fixed UAT
+      // wrapper over its direct Testing invocation's state Result. Identities are
+      // the authenticated invoked GraphFunction, rehydrated source and derived basis.
+      const fixedUat = retained !== null && sourceInvocation !== null &&
+        input.graphFunction.name === GOVERNANCE_DIRECT_WRAPPERS.uat &&
+        sourceInvocation.graphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing &&
+        governanceDirectFixedState(retained, "uat", suppliedBasis);
       if (retained === null || sourceInvocation === null ||
-        input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE ||
+        (input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE && !fixedUat) ||
         input.rawInput.contractRef !== governanceContract("state") ||
         !canonicalEquals(input.rawInput.value, retained) ||
         sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program) ||

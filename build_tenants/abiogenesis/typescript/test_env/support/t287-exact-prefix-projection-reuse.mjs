@@ -66,3 +66,19 @@ export async function measureRetainedEnvironment({packageRoot,eventPath,expected
   assert.equal(sha256(await readFile(eventPath)),expectedSha256);
   return {packageRoot,eventPath,eventSha256:expectedSha256,measurements,publicCalls:0,storeAcquisitions:0,eventAppends:0};
 }
+
+// Counts calls of named compiled owner functions over one synchronous call,
+// through the same precise-coverage seam as measuredEnvironment.
+export async function countedOwnerCalls(call, functions) {
+  const session = new Session();session.connect();
+  const post = (method,params={}) => new Promise((resolve,reject)=>session.post(method,params,(error,result)=>error?reject(error):resolve(result)));
+  await post('Profiler.enable');await post('Profiler.startPreciseCoverage',{callCount:true,detailed:false});
+  let result;
+  try { result=call(); }
+  finally {
+    var coverage=await post('Profiler.takePreciseCoverage');await post('Profiler.stopPreciseCoverage');session.disconnect();
+  }
+  const counts=Object.fromEntries(functions.map(([suffix,name])=>[name,coverage.result.filter(row=>row.url.endsWith(suffix))
+    .flatMap(row=>row.functions).filter(row=>row.functionName===name).reduce((n,row)=>n+row.ranges[0].count,0)]));
+  return {result,counts};
+}

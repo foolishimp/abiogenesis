@@ -70,7 +70,7 @@ import {
   projectRuntimeEventsAtDurablePrefix,
   readActiveRuntimeTransactionAtDurablePrefix,
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
-  ROOT_EVENT_CONTRACT_DIGEST,
+  runtimeEventProfile,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
@@ -4123,7 +4123,7 @@ export function admitRetryAttempt(
   // reads the previous attempt's admitted as-of projection; it samples no clock.
   if (frontier.latestFailure !== null) {
     const actors = indexedRuntimeEvents(prefix, "basis:" + executionBasis.basisRef).filter(event => event.kind === "actor_invocation_started" &&
-      event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST && isRecord(event.payload) &&
+      runtimeEventProfile(event)?.nativeLiveness === true && isRecord(event.payload) &&
       event.payload.cCallRef === frontier.latestFailure!.cCallRef && event.basisId === executionBasis.basisRef &&
       event.runId === cursor.runId && event.graphCallId === cursor.graphCallId && event.frameId === cursor.frameId);
     for (const actor of actors) {
@@ -4467,7 +4467,7 @@ export function planRetryRuntimeFailureTransition(
     );
   }
   const currentActors = indexedRuntimeEvents(prefix, "basis:" + executionBasis.basisRef).filter(event => event.kind === "actor_invocation_started" &&
-    event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST && isRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef &&
+    runtimeEventProfile(event)?.nativeLiveness === true && isRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef &&
     event.basisId === executionBasis.basisRef && event.runId === cursor.runId && event.graphCallId === cursor.graphCallId && event.frameId === cursor.frameId);
   for (const actor of currentActors) {
     // Exact native frontier facts are established above, independently of the

@@ -22,9 +22,11 @@ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
-import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, type CCall } from "./c_call.js";
+import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, projectAdmittedTransportEvidenceLifecycle,
+  type CCall } from "./c_call.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { authenticateRuntimePrefixAncestry, validateDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
+import { runtimeEventProfile, authenticateRuntimePrefixAncestry, validateDurablePrefixCoordinate, type DurablePrefixCoordinate,
+  type RuntimeEvent } from "./event_store.js";
 import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, readOwnedRuntimeEventPrefixAtDurablePrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
@@ -35,6 +37,7 @@ import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { classifyOwnedProcessTerminal, type OwnedProcessFacts } from "../shared/process/index.js";
 import { OWNED_PROCESS_FACT_MEMBERS } from "../shared/process/facts.js";
 import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
+import { archiveRangeMatchesStreamRow, durableActorObservationOfArtifact, isAdmittedActorArchiveFile } from "./transport_contracts.js";
 
 export interface WorksitePreservedResultNativeBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -66,6 +69,14 @@ function transportProcessFactsMatchExit(transport: Readonly<Record<string, JsonV
     record(facts.directExit) && hasExactKeys(facts.directExit, ["signal", "status"]) &&
     classifyOwnedProcessTerminal(facts as unknown as OwnedProcessFacts) === "exited" &&
     facts.directExit.status === transport.status && facts.directExit.signal === transport.signal;
+}
+/** A retained archive keeps all three lifecycle copies; a D5 archive omits all
+ * three and its own timeoutClass and encoded facts carry the completed exit. A
+ * partial set refuses. */
+function transportArchiveCompleted(transport: Readonly<Record<string, JsonValue>>): boolean {
+  const copies = ["timedOut", "exitObserved", "terminationConfirmed"].filter(key => Object.hasOwn(transport, key)).length;
+  return copies === 3 ? transport.timedOut === false && transport.exitObserved === true
+    : copies === 0 && transport.timeoutClass === null && transport.processFacts !== undefined;
 }
 function materialized(execution: ExecutionBasis, graphFunction: GraphFunction) {
   if (graphFunction.name !== execution.graphFunctionRef || hash(graphFunction) !== execution.graphFunctionDigest) return null;
@@ -242,8 +253,17 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
     const b = binding.payload, a = artifact.payload;
     const request = originalRequest(task), requestDigest = hash(request);
     const { transportBindingRef, transportBindingDigest, ...bindingBody } = b;
-    const observation = Object.fromEntries(Object.entries(a).filter(([k]) => k !== "cCallRef" && k !== "requestRef" && k !== "requestDigest"));
-    const pair = validateActorProcessCarrierPair(request, observation);
+    // The durable body under the artifact's own profile, completed by the CCall
+    // owner's lifecycle values for the Result's exact transport evidence (D5).
+    const evidence = selected(source.sourceCCallRef, e => e.kind === "c_call_evidenced" && e.aggregateId === source.sourceCCallRef &&
+      record(e.payload) && e.payload.evidenceClass === "probabilistic_transport" && e.payload.actorInvocationRef === source.actorInvocationRef);
+    const durable = durableActorObservationOfArtifact(a, runtimeEventProfile(artifact)?.lifecycleCopies === false);
+    const lifecycleValues = !record(evidence?.payload) || typeof evidence.payload.evidenceRef !== "string" ||
+      !old.result.evidenceRefs.includes(evidence.payload.evidenceRef) ? null
+      : projectAdmittedTransportEvidenceLifecycle(prefix, source.sourceCCallRef, evidence.payload);
+    if (durable === null || lifecycleValues === null || lifecycleValues.actorTerminalEventRef !== failed.eventId) return null;
+    const { actorTerminalEventRef: _actorTerminal, ...lifecycleCopies } = lifecycleValues;
+    const pair = validateActorProcessCarrierPair(request, { ...durable, ...lifecycleCopies });
     if (pair.kind !== "actor_process_carrier_validation" || pair.observation.disposition !== "failure" || pair.observation.failureClass !== "no_output" ||
       pair.observation.finalOutput !== "" || pair.observation.processStatus !== 0 || pair.observation.processSignal !== null ||
       pair.observation.timedOut || !actorProcessTerminated(prefix, pair.observation.processRef) || !pair.observation.exitObserved || pair.observation.toolCallCount !== 0 ||
@@ -269,10 +289,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
     const artifacts = {} as Record<"output" | "prompt" | "stderr" | "stdout" | "transport", Buffer>;
     for (const key of ["output", "prompt", "stderr", "stdout", "transport"] as const) {
       const path = b.paths[key];
-      if (typeof path !== "string" || resolve(path) !== path || realpathSync(path) !== path || relative(b.archiveRoot, path).startsWith("..") ||
-        isAbsolute(relative(b.archiveRoot, path))) return null;
-      const stat = lstatSync(path);
-      if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1) return null;
+      if (!isAdmittedActorArchiveFile(b.archiveRoot, path)) return null;
       artifacts[key] = readFileSync(path);
       if (sha256Bytes(artifacts[key]) !== pair.observation.artifactDigests[key]) return null;
     }
@@ -281,7 +298,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       artifacts.stdout.length !== pair.observation.stdoutByteLength || artifacts.stderr.length !== pair.observation.stderrByteLength ||
       transport.stdout !== artifacts.stdout.toString("utf8") || transport.stderr !== artifacts.stderr.toString("utf8") || transport.finalOutput !== "" ||
       transport.disposition !== "failure" || transport.failureClass !== "no_output" || transport.status !== 0 || transport.signal !== null ||
-      transport.toolCallCount !== 0 || transport.toolInvocations === undefined || !canonicalEquals(transport.toolInvocations, []) || transport.timedOut !== false || transport.exitObserved !== true ||
+      transport.toolCallCount !== 0 || transport.toolInvocations === undefined || !canonicalEquals(transport.toolInvocations, []) || !transportArchiveCompleted(transport) ||
       !actorProcessTerminated(prefix, pair.observation.processRef) || !transportProcessFactsMatchExit(transport)) return null;
     // Stream rows are selected by their payload claim, so a foreign process or
     // parent claiming this invocation still refuses; both kinds keep log order.
@@ -297,7 +314,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       const stream = event.kind === "actor_process_stdout_observed" ? "stdout" : "stderr";
       const offset = stream === "stdout" ? stdoutOffset : stderrOffset;
       const bytes = artifacts[stream].subarray(offset, offset + Number(event.payload.byteLength));
-      if (bytes.length !== event.payload.byteLength || hash(new TextDecoder("utf-8", { fatal: true }).decode(bytes)) !== event.payload.chunkDigest) return null;
+      if (!archiveRangeMatchesStreamRow(bytes, event.payload.byteLength, event.payload.chunkDigest)) return null;
       if (stream === "stdout") stdoutOffset += bytes.length; else stderrOffset += bytes.length;
     }
     const stdoutChunkEventRefs = chunks.filter(e => e.kind === "actor_process_stdout_observed").map(e => e.eventId);

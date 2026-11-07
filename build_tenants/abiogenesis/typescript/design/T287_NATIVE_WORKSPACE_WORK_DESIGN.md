@@ -388,15 +388,52 @@ current worksite access. The same F_P implementation, native tools, physical
 authority, transport and before/after observation owners apply.
 
 The consumer declares an output contract and immutable `schema_asset` through
-the existing Product install convention. Its selected root or a callable
-reachable in that root's execution closure declares that exact contract via
-`abg.raw_result_contract`. An unrelated callable's declaration is insufficient.
-The task selects the contract, schema owner and exact
-schema bytes; assembly matches these to the admitted Program publication and
-installed asset. The leaf's raw-result preimage check repeats the exact
-selection against the required closure before ordinary raw/result admission.
-Missing, ambiguous, different or invalid schema evidence refuses. This does
-not let a task invent an undeclared response contract.
+the existing Product install convention. A Program-member callable of the same
+consumer publication declares that exact contract via `abg.raw_result_contract`.
+The canonical assessment keeps its fixed outer task and observation contracts,
+static implementation, library Program membership, actual assessor authority
+and read-only scope. Its authenticated typed task selects one inner consumer
+response dependency: the contract, schema owner and exact schema bytes. That
+dependency is task input, not a member of the running Program's static
+execution closure, so a library Program can host the assessment without
+declaring any consumer contract.
+
+One Product relation, `resolveNativeWorkspaceAssessmentDependency`, admits the
+inner dependency over the actual admitted environment: candidate publications,
+admitted installs, the resolved lock and the assessment callable's owner. It
+requires all of the following:
+
+1. exactly one declaration of the contract among the candidate publications,
+   owned by the selected schema product and equal to the selected contract;
+2. a declaring callable in that publication that is a member of one of its
+   Programs;
+3. exactly one admitted install of the owner whose artifact, content and
+   manifest identities and contribution manifest bind exactly that
+   publication digest;
+4. that install's resolved lock equal to the environment lock, with exactly one
+   equal lock row;
+5. the owner equal to the assessment callable's owner, or exactly one lock
+   `requires` edge from the owner to that callable owner;
+6. exactly one admitted install publishing the selected `schema_asset`, whose
+   installed bytes equal the supplied bytes under the existing schema
+   admission and compile under the fixed validator below.
+
+Installation alone, supplied schema bytes alone, a declaration on another
+publication or a non-member callable, and a reverse library-to-consumer edge
+grant nothing.
+
+The leaf port applies the relation before dispatch over its authenticated ready
+Catalog publications, admitted installs and Catalog lock. It carries the selected
+publication in the existing `assessmentPublication` basis field. Instruction
+assembly applies the same relation to that carried publication against the
+exact-prefix admitted environment. Cold reconstruction repeats it from the
+persisted basis. The leaf's raw-result preimage repeats it over the Catalog
+before ordinary raw/result admission. Response completion consumes only the
+assembly-bound request schema. Only the canonical assessment implementation and
+callable receive this selection. Ordinary raw-result declarations and static
+`contractByRef` and `contractPublicationByRef` lookup stay closure-scoped and
+unchanged. Missing, ambiguous, crossed, stale or invalid evidence refuses before
+dispatch. A task cannot invent an undeclared response contract.
 
 Assessment schemas have the fixed draft-2020-12 interpretation. An absent
 `$schema` selects that default without adding a marker to the authored bytes;
@@ -524,4 +561,4 @@ substituted for a retained producer's; that substitution was the observed 008
 C2 refusal. Fresh retained use is not continuation or recovery of the
 producer's Run.
 
-The native work brief renders only the supported current task, source/current-asset paths, focused contract and (for the independent assessor) evaluation data. Internal computed semantic envelopes and native-basis proof bodies are not rendered or written as model input. The unique assessment schema owner comes from the authenticated execution closure, retaining exact installed publication and schema-byte checks.
+The native work brief renders only the supported current task, source/current-asset paths, focused contract and (for the independent assessor) evaluation data. Internal computed semantic envelopes and native-basis proof bodies are not rendered or written as model input. The unique assessment schema owner comes from the admitted-environment dependency relation in Declared typed assessment, retaining exact installed publication and schema-byte checks.

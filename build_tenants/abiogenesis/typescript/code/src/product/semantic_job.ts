@@ -2,7 +2,8 @@ import { isRetainedGraphInput } from "./worksite_preparation_contracts.js";
 import { groundBoundSourceQuote } from "./requirement_handoff.js";
 import { isSemanticJobRevisionEnvelope, type SemanticJobRevisionEnvelope } from "./semantic_revision.js";
 import { ABI5_PRODUCT_ID } from "./contracts.js";
-import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, nativeWorkspaceAssessmentMatchesContext,
+import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, nativeWorkspaceWorkObservationMatchesTask,
+  nativeWorkspaceWorkResultInputDigest,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
 import { constructNativeWorksiteCommandExecutionTask, boundWorksiteCommandDeclarations, isNativeWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionObservation,
   type NativeWorksiteCommandExecutionTask, type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
@@ -789,38 +790,50 @@ export function nativeSemanticPaths(envelope: SemanticJobEnvelope) {
     !all.every(path => semanticJobPathWithin(path, envelope.job.worksiteScope.readRoots))) throw new TypeError("distinct protected source, rubric and stage territories required");
   return { assets, rubricPath: selection.rubricPath };
 }
-/** Semantic native contexts are born inline; an admitted member here refuses. */
-function nativeSemanticFile(context: WorksiteContextObservation, path: string) {
+/** One observed native semantic file. Its physical identity is the digest and
+ * length; an unchanged after body is an admitted member of the basis input. */
+function nativeSemanticEntry(context: WorksiteContextObservation, path: string) {
   const rows = context.entries.filter(e => e.relativePath === path && e.state === "file"), row = rows.length === 1 ? rows[0] : undefined;
-  if (row?.state !== "file" || row.encoding !== "base64") throw new TypeError("one inline observed native semantic file required: " + path);
+  if (row?.state !== "file") throw new TypeError("one observed native semantic file required: " + path);
   return row;
 }
+/** Semantic byte consumers read an inline birth; an admitted member here refuses. */
+function nativeSemanticFile(context: WorksiteContextObservation, path: string) {
+  const row = nativeSemanticEntry(context, path);
+  if (row.encoding !== "base64") throw new TypeError("one inline observed native semantic file required: " + path);
+  return row;
+}
+const sameSemanticBytes = (row: { digest: Sha256Digest; byteLength: number }, base64: string) => {
+  const bytes = Buffer.from(base64, "base64");
+  return row.byteLength === bytes.length && row.digest === sha256Bytes(bytes);
+};
 export function nativeSemanticContextMatches(envelope: SemanticJobEnvelope, context: WorksiteContextObservation, admittedRevision = false): boolean {
   try {
     const paths = nativeSemanticPaths(envelope);
-    return envelope.job.members.every(member => nativeSemanticFile(context, member.path).bytes === member.base64) &&
-      nativeSemanticFile(context, paths.rubricPath).bytes === Buffer.from(canonicalJson(envelope.declaration) + "\n").toString("base64") &&
+    return envelope.job.members.every(member => sameSemanticBytes(nativeSemanticEntry(context, member.path), member.base64)) &&
+      sameSemanticBytes(nativeSemanticEntry(context, paths.rubricPath), Buffer.from(canonicalJson(envelope.declaration) + "\n").toString("base64")) &&
       envelope.assets.every(asset => asset.source.nativeWork === undefined ? admittedRevision :
-        nativeSemanticFile(context, asset.source.nativeWork.assetPath).digest === asset.source.nativeWork.assetDigest);
+        nativeSemanticEntry(context, asset.source.nativeWork.assetPath).digest === asset.source.nativeWork.assetDigest);
   } catch { return false; }
 }
 export function nativeSemanticAssetSource(envelope: SemanticJobEnvelope, stageRef: string,
   observation: NativeWorkspaceWorkObservation, adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest }): SemanticActorSource {
   const selected = nativeSemanticPaths(envelope).assets.find(row => row.stageRef === stageRef);
   if (selected === undefined) throw new TypeError("unknown native semantic stage");
-  const asset = nativeSemanticFile(observation.after, selected.path), p = observation.provenance;
-  return { cCallRef: p.cCallRef, inputDigest: hash(observation.task), actorInvocationRef: p.actorInvocationRef,
+  const asset = nativeSemanticEntry(observation.after, selected.path), p = observation.provenance;
+  return { cCallRef: p.cCallRef, inputDigest: nativeWorkspaceWorkResultInputDigest(observation), actorInvocationRef: p.actorInvocationRef,
     promptDigest: p.promptDigest, transportDigest: p.transportDigest,
     nativeWork: { adapterCCallRef: adapter.cCallRef, adapterInputDigest: adapter.inputDigest,
       observationRef: observation.observationRef, observationDigest: observation.observationDigest, assetPath: selected.path, assetDigest: asset.digest } };
 }
+/** The native task is the ABG fold owner's: it authenticates the Result against
+ * its basis input and the constructed stage task before this derivation. */
 export function deriveNativeSemanticAsset(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation,
   adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest },
   onContractIssues?: (issues: readonly SemanticJobContractIssue[]) => void): Readonly<SemanticJobEnvelope> | null {
   try {
-    if (!isNativeWorkspaceWorkObservation(observation) || observation.task.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after)) return null;
+    if (!isNativeWorkspaceWorkObservation(observation) || observation.assessment !== undefined || !nativeSemanticContextMatches(envelope, observation.after)) return null;
     const source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
-    if (!canonicalEquals(observation.task.writeRoots, [source.nativeWork!.assetPath])) return null;
     const raw = JSON.parse(Buffer.from(nativeSemanticFile(observation.after, source.nativeWork!.assetPath).bytes, "base64").toString("utf8"));
     const derived = deriveSemanticJobAsset(envelope, stageRef, raw, source, [], onContractIssues);
     return derived === null ? null : deepFreeze({ ...derived, context: observation.after });
@@ -829,17 +842,10 @@ export function deriveNativeSemanticAsset(envelope: SemanticJobEnvelope, stageRe
 export function deriveNativeSemanticAssessment(envelope: SemanticJobEnvelope, stageRef: string, observation: NativeWorkspaceWorkObservation,
   adapter: { readonly cCallRef: string; readonly inputDigest: Sha256Digest }): Readonly<SemanticJobEnvelope> | null {
   try {
-    if (!isNativeWorkspaceWorkObservation(observation) || !nativeWorkspaceAssessmentMatchesContext(observation, observation.after) ||
+    if (!isNativeWorkspaceWorkObservation(observation) || observation.assessment === undefined || observation.report !== null ||
       !nativeSemanticContextMatches(envelope, observation.after)) return null;
     const asset = envelope.assets.at(-1), source = nativeSemanticAssetSource(envelope, stageRef, observation, adapter);
-    if (asset?.stageRef !== stageRef || asset.source.nativeWork === undefined ||
-      observation.task.assessment?.candidate.path !== asset.source.nativeWork.assetPath ||
-      observation.task.assessment.candidate.digest !== asset.source.nativeWork.assetDigest ||
-      !canonicalEquals(
-        observation.task.assessment.producer,
-        { resultRef: asset.source.nativeWork.observationRef, resultDigest: asset.source.nativeWork.observationDigest,
-          cCallRef: asset.source.cCallRef, actorInvocationRef: asset.source.actorInvocationRef },
-      )) return null;
+    if (asset?.stageRef !== stageRef || asset.source.nativeWork === undefined) return null;
     const otherActors = envelope.assets.flatMap(a => [a.source.actorInvocationRef, ...(a.assessment ? [a.assessment.source.actorInvocationRef] : [])]);
     for (const value of [envelope.evidence?.constructionResult, envelope.evidence?.executionObservation]) {
       if (record(value) && record(value.provenance) && typeof value.provenance.actorInvocationRef === "string") otherActors.push(value.provenance.actorInvocationRef);
@@ -851,10 +857,11 @@ export function deriveNativeSemanticAssessment(envelope: SemanticJobEnvelope, st
 }
 /** Value projection only. ABG separately authenticates the native producers and
  * same-Run predecessor before admitting these observed artifact bytes. */
-export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown, revision?: NativeSemanticRevisionConstruction): SemanticEvidenceInput["artifacts"] | null {
+export function nativeSemanticEvidenceArtifacts(envelope: SemanticJobEnvelope, value: unknown, sourceTask: NativeWorkspaceWorkTask,
+  revision?: NativeSemanticRevisionConstruction): SemanticEvidenceInput["artifacts"] | null {
   try {
     if (!isNativeWorksiteCommandExecutionObservation(value) ||
-      !canonicalEquals(value.task, rederiveNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, value.task, revision))) return null;
+      !canonicalEquals(value.task, rederiveNativeSemanticExecutionTask(envelope, value.task.sourceNativeWork, sourceTask, value.task, revision))) return null;
     const source = value.task.sourceNativeWork, design = envelope.assets.at(-1)!.candidate.design!;
     return deepFreeze(design.targets.map(selected => {
       const rows = value.task.protectedObservations.filter(row => row.subject.relativePath === selected.relativePath);
@@ -948,32 +955,33 @@ export function constructNativeSemanticConstructionTask(envelope: SemanticJobEnv
 /** The live construction: the rows are the operation boundary's capture on the
  * semantic stage basis (`null` captures nothing). */
 export function constructNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation,
-  ambient: WorksiteCommandAmbientEnvironment | null, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask> {
-  return nativeSemanticExecutionTask(envelope, source, revision, declared => declared, ambient);
+  sourceTask: NativeWorkspaceWorkTask, ambient: WorksiteCommandAmbientEnvironment | null, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask> {
+  return nativeSemanticExecutionTask(envelope, source, sourceTask, revision, declared => declared, ambient);
 }
 /** A recorded native semantic execution task re-derived under the bound law:
  * the recorded task's bound rows in place of the Design's declared environment
  * (`boundWorksiteCommandDeclarations`), ambient `null`. */
 export function rederiveNativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation,
-  recorded: unknown, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask> {
-  return nativeSemanticExecutionTask(envelope, source, revision, declared => boundWorksiteCommandDeclarations(declared, recorded), null);
+  sourceTask: NativeWorkspaceWorkTask, recorded: unknown, revision?: NativeSemanticRevisionConstruction): Readonly<NativeWorksiteCommandExecutionTask> {
+  return nativeSemanticExecutionTask(envelope, source, sourceTask, revision, declared => boundWorksiteCommandDeclarations(declared, recorded), null);
 }
-function nativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation,
+/** `task` is the source Result's admitted basis input, resolved by the ABG owner. */
+function nativeSemanticExecutionTask(envelope: SemanticJobEnvelope, source: NativeWorkspaceWorkObservation, task: NativeWorkspaceWorkTask,
   revision: NativeSemanticRevisionConstruction | undefined,
   declarations: (declared: Pick<SemanticJobDesign, "commands" | "outcomePredicates">) =>
     Readonly<{ commands: readonly WorksiteDeclaredCommandInput[]; outcomePredicates: readonly WorksiteOutcomePredicateInput[] }>,
   ambient: WorksiteCommandAmbientEnvironment | null): Readonly<NativeWorksiteCommandExecutionTask> {
   const design = envelope.assets.at(-1)?.candidate.design;
-  if (!design || !isNativeWorkspaceWorkObservation(source) || !nativeSemanticContextMatches(envelope, source.after, revision !== undefined) ||
-    !canonicalEquals(source.task, constructNativeSemanticConstructionTask(envelope, source.task, source.before, revision))) throw new TypeError("exact current native construction required");
+  if (!design || !nativeWorkspaceWorkObservationMatchesTask(task, source) || !nativeSemanticContextMatches(envelope, source.after, revision !== undefined) ||
+    !canonicalEquals(task, constructNativeSemanticConstructionTask(envelope, task, task.context, revision))) throw new TypeError("exact current native construction required");
   const paths = nativeSemanticPaths(envelope), protectedPaths = [...envelope.job.members.map(m => m.path), paths.rubricPath, ...paths.assets.map(a => a.path)];
   if (envelope.job.worksiteScope.evidenceWriteRoots.some(root => protectedPaths.some(path => root === "." || path === root || path.startsWith(root + "/") || root.startsWith(path + "/"))))
     throw new TypeError("execution evidence cannot write governing source or semantic assets");
-  return constructNativeWorksiteCommandExecutionTask({ workspaceAuthorityBasis: source.task.workspaceAuthorityBasis,
-    workspaceBinding: source.task.workspaceBinding, capabilityGrant: source.task.capabilityGrant, sourceNativeWork: source,
+  return constructNativeWorksiteCommandExecutionTask({ workspaceAuthorityBasis: task.workspaceAuthorityBasis,
+    workspaceBinding: task.workspaceBinding, capabilityGrant: task.capabilityGrant, sourceNativeWork: source,
     // Dependencies remain protected read-only inputs; the evidence owner projects realization artifacts from design.targets only.
     selectedSources: [...new Set([...design.targets.map(t => t.relativePath), ...design.dependencyPaths])].map(relativePath =>
-      ({ relativePath, subjectUri: pathToFileURL(resolve(source.task.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
+      ({ relativePath, subjectUri: pathToFileURL(resolve(task.workspaceAuthorityBasis.canonicalRoot, relativePath)).href })),
     ...declarations({ commands: design.commands, outcomePredicates: design.outcomePredicates }),
     allowedWriteTerritories: envelope.job.worksiteScope.evidenceWriteRoots.map(relativePath => ({ pathKind: "subtree", relativePath })) }, ambient);
 }
@@ -987,7 +995,7 @@ export function evaluateNativeSemanticRelation(predicate: string, input: unknown
   if (!selected.includes(predicate)) return null;
   try {
     if (predicate === ids.nativeStepPredicateRef) {
-      if (isNativeWorkspaceWorkTask(input)) return isNativeWorkspaceWorkObservation(output) && canonicalEquals(input, output.task);
+      if (isNativeWorkspaceWorkTask(input)) return nativeWorkspaceWorkObservationMatchesTask(input, output);
       if (isNativeWorksiteCommandExecutionTask(input)) return isNativeWorksiteCommandExecutionObservation(output) && canonicalEquals(input, output.task);
       return [ids.nativeAuthorTaskPredicateRef, ids.nativeAuthorFoldPredicateRef, ids.nativeAssessorTaskPredicateRef,
         ids.nativeAssessorFoldPredicateRef, ids.nativeConstructionTaskPredicateRef, ids.nativeExecutionTaskPredicateRef,
@@ -1003,8 +1011,10 @@ export function evaluateNativeSemanticRelation(predicate: string, input: unknown
     }
     if (predicate === ids.nativeExecutionTaskPredicateRef) {
       if (!isRetainedGraphInput(input) || !isSemanticJobEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return false;
+      // The source task is the ABG execution owner's basis-input join; this consequence binds the exact source Result.
       const admittedOutput = admitJson(output);
-      return admittedOutput.kind === "ok" && canonicalEquals(admittedOutput.value, rederiveNativeSemanticExecutionTask(input.entry, input.source, admittedOutput.value));
+      return admittedOutput.kind === "ok" && isNativeWorksiteCommandExecutionTask(admittedOutput.value) &&
+        canonicalEquals(admittedOutput.value.sourceNativeWork, input.source);
     }
     if (!isSemanticJobEnvelope(output)) return false;
     const entry = isRetainedGraphInput(input) ? input.entry : input;
@@ -1013,7 +1023,7 @@ export function evaluateNativeSemanticRelation(predicate: string, input: unknown
       const execution = isRetainedGraphInput(input) ? input.source : output.evidence?.executionObservation;
       return isNativeWorksiteCommandExecutionObservation(execution) && output.evidence?.executionObservation !== undefined && canonicalEquals(execution, output.evidence?.executionObservation) &&
         canonicalEquals(entry.assets, output.assets) && canonicalEquals(entry.bindingVersions, output.bindingVersions) && canonicalEquals(entry.job, output.job) &&
-        canonicalEquals(execution.task, rederiveNativeSemanticExecutionTask(entry, execution.task.sourceNativeWork, execution.task));
+        isNativeWorkspaceWorkObservation(execution.task.sourceNativeWork);
     }
     const asset = output.assets.at(-1);
     if (asset === undefined) return false;

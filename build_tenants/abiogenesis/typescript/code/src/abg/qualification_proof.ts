@@ -12,7 +12,7 @@ import { projectExactPrefixWorkspaceEnvironment, projectWorkspaceEnvironmentFrom
 import { projectOwnedPrefixArtifactTruth, runtimePrefixFromOwnedArtifactTruth, type ExactPrefixArtifactTruthProjection } from "./artifact_truth.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
-import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix,
+import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, projectAdmittedTransportEvidenceSelection,
   type RehydratedAdmittedCCallState, type AdmittedCCallEvidence, type AdmittedCCallResult, type AdmittedCCallJudgment } from "./c_call.js";
 import { projectOpenedCCallTraversalInputAtPrefix } from "./traversal_cursor.js";
 import { assertDurableRuntimePrefixCurrent, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
@@ -39,7 +39,7 @@ import {
 import { isQualificationAssessmentInput, qualificationPlanMatches, qualificationRawMatches,
   qualificationRulingMatches, isQualificationVerdictInput, reduceExactCandidateQualification, constructQualificationVerificationMaterial,
   qualificationVerificationMaterialEntry, observedQualificationTestSummaries } from "../validator/qualification.js";
-import { projectExternalConstructionAttribution,
+import { projectExternalConstructionAttribution, decideQualificationDispatchEligibility,
   isMalformedGtlAssessmentInput, isMalformedGtlAssessment,
   isNativeRuntimeAssessmentInput, isNativeRuntimeAssessment, constructNativeRuntimeAssessment } from "../validator/qualification.js";
 import type { AdmittedQualificationCatalogs } from "../validator/qualification.js";
@@ -48,6 +48,8 @@ import { isSelfConformanceInput, isSelfConformanceResult, type SelfConformanceOw
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitJson } from "../shared/admit/index.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
+import { durableActorObservationOfArtifact, type ConfiguredActorSelection } from "./transport_contracts.js";
+import type { ActorDispatchEligibility } from "./actor_process.js";
 const ASSESS = "implementation://abiogenesis/qualification/assess-fp@5";
 const VERDICT = "implementation://abiogenesis/qualification/exact-candidate-fd@5";
 const SELF = "implementation://abiogenesis/qualification/self-conformance-fd@5";
@@ -613,8 +615,12 @@ export function projectQualificationJudgment(proof: QualificationProofResource, 
       if (artifact === null || !record(artifact.payload) || typeof artifact.payload.finalOutput !== "string") continue;
       const finalOutput: JsonValue = JSON.parse(artifact.payload.finalOutput);
       if (!canonicalEquals(finalOutput, value.raw)) continue;
-      const { cCallRef: _call, requestRef: _request, requestDigest: _digest, ...observation } = artifact.payload;
-      if (hash(observation) !== value.source.observationDigest || value.source.inputDigest !== hash(candidate.owner.input) ||
+      // The durable body under the artifact event's own profile: a current J
+      // digests the copy-free projection; an L J keeps its full preimage. An
+      // owned prefix admits only the L and current profiles, and its schedule
+      // stamps exactly the current events, so the stamp's presence selects it.
+      const observation = durableActorObservationOfArtifact(artifact.payload, artifact.eventContractDigest !== undefined);
+      if (observation === null || hash(observation) !== value.source.observationDigest || value.source.inputDigest !== hash(candidate.owner.input) ||
           value.source.actorRef !== transport.actorRef || value.source.workerBindingRef !== transport.workerBindingRef ||
           value.source.promptDigest !== transport.promptDigest) continue;
       eligible.push({ cCallRef: candidate.state.cCall.cCallRef, value });
@@ -642,40 +648,60 @@ export function projectQualificationOwnerRuling(proof: QualificationProofResourc
     return deepFreeze(row.responseValue as unknown as QualificationOwnerRuling);
   } catch { return null; }
 }
+/** The configured selection of one admitted occurrence's transport evidence,
+ * read through the c_call owner's actor/binding projection at its prefix. */
+function transportSelection(prefix: RuntimeEventPrefix, cCallRef: string, transport: AdmittedCCallEvidence): ConfiguredActorSelection | null {
+  const { admissionEventRef: _event, ...evidence } = transport as unknown as Record<string, JsonValue>;
+  return projectAdmittedTransportEvidenceSelection(prefix, cCallRef, evidence);
+}
+type NativeConstructionProvenance = Extract<QualificationJudgment["task"]["provenance"], { kind: "native_construction" }>;
+/** The actual native producing occurrences of a native construction subject,
+ * each with its authenticated actor and binding selection; null when any
+ * producer, its scope or the complete subject coverage fails. */
+function nativeConstructionAuthors(proof: QualificationProofResource, task: QualificationJudgment["task"], provenance: NativeConstructionProvenance) {
+  const authors: { actorRef: string; selection: ConfiguredActorSelection | null }[] = [], covered = new Set<string>();
+  if (!unique(provenance.producers.map(p => p.cCallRef))) return null;
+  for (const p of provenance.producers) {
+    const source = producerForResult(proof, p.result);
+    if (source === null || source.state.cCall.cCallRef !== p.cCallRef || source.state.result.resultClass !== "success" ||
+        source.state.judgment.judgment !== "advance" || source.state.cCall.implementationRef !== WORKSITE_CONSTRUCTION_IDS.candidateImplementationRef ||
+        !isWorksiteCandidateBundle(source.state.result.value)) return null;
+    // C1's actual admitted candidate owner establishes byte authorship,
+    // not C0 publication success. Scope derives from its typed target/file
+    // relation and this frozen subject, never from an unused caller label.
+    const bundle = source.state.result.value;
+    const actualScope = task.subjectMembers.filter(m => bundle.task.targets.some(t => {
+      if (t.subject.relativePath !== m.path) return false;
+      const files = bundle.files.filter(f => f.targetRef === t.targetRef);
+      if (files.length !== 1) return false;
+      const bytes = Buffer.from(files[0]!.replacementBase64, "base64");
+      return bytes.length === m.byteCount && sha256Bytes(bytes) === m.digest;
+    })).map(m => m.ref);
+    if (actualScope.length === 0 || !unique(p.scopeRefs) || !canonicalEquals([...actualScope].sort(), [...p.scopeRefs].sort())) return null;
+    const transport = exactOrNull(onlyExactMatch(source.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
+    if (transport === null || transport.actorRef !== p.actorRef || transport.workerBindingRef !== p.workerBindingRef) return null;
+    authors.push({ actorRef: p.actorRef, selection: transportSelection(source.owner.prefix, source.state.cCall.cCallRef, transport) });
+    actualScope.forEach(ref => covered.add(ref));
+  }
+  return task.subjectMembers.every(m => covered.has(m.ref)) ? authors : null;
+}
 /** Missing or conflicting attribution is blocked. This validates a concrete
  * record chain under the declared trusted-desktop authority; labels alone fail. */
 export function projectQualificationConstructionAuthors(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
   judgment: QualificationJudgment, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly string[] | null {
+  return constructionAuthorSet(proof, plan, judgment, resources, catalogs)?.actorRefs ?? null;
+}
+/** Native authors keep their actual occurrence selections; external authors
+ * are their established identity refs and carry no occurrence selection. */
+function constructionAuthorSet(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
+  judgment: QualificationJudgment, resources?: QualificationResources, catalogs?: QualificationCatalogs) {
   try {
     proof = ownedProof(proof, resources, catalogs);
     const provenance = resolveQualificationAssessment({ kind: "qualification_assessment_input", schemaVersion: "5.0.0", task: judgment.task, plan: judgment.plan }, resources ?? executionProofFacts.get(proof)?.resources).task.provenance;
     if (!canonicalEquals(provenance.subjectInventory, judgment.task.inventory)) return null;
     if (provenance.kind === "native_construction") {
-      const actors: string[] = [], covered = new Set<string>();
-      if (!unique(provenance.producers.map(p => p.cCallRef))) return null;
-      for (const p of provenance.producers) {
-        const source = producerForResult(proof, p.result);
-        if (source === null || source.state.cCall.cCallRef !== p.cCallRef || source.state.result.resultClass !== "success" ||
-            source.state.judgment.judgment !== "advance" || source.state.cCall.implementationRef !== WORKSITE_CONSTRUCTION_IDS.candidateImplementationRef ||
-            !isWorksiteCandidateBundle(source.state.result.value)) return null;
-        // C1's actual admitted candidate owner establishes byte authorship,
-        // not C0 publication success. Scope derives from its typed target/file
-        // relation and this frozen subject, never from an unused caller label.
-        const bundle = source.state.result.value;
-        const actualScope = judgment.task.subjectMembers.filter(m => bundle.task.targets.some(t => {
-          if (t.subject.relativePath !== m.path) return false;
-          const files = bundle.files.filter(f => f.targetRef === t.targetRef);
-          if (files.length !== 1) return false;
-          const bytes = Buffer.from(files[0]!.replacementBase64, "base64");
-          return bytes.length === m.byteCount && sha256Bytes(bytes) === m.digest;
-        })).map(m => m.ref);
-        if (actualScope.length === 0 || !unique(p.scopeRefs) || !canonicalEquals([...actualScope].sort(), [...p.scopeRefs].sort())) return null;
-        const transport = exactOrNull(onlyExactMatch(source.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport")));
-        if (transport === null || transport.actorRef !== p.actorRef || transport.workerBindingRef !== p.workerBindingRef) return null;
-        actors.push(p.actorRef);
-        actualScope.forEach(ref => covered.add(ref));
-      }
-      return judgment.task.subjectMembers.every(m => covered.has(m.ref)) ? [...new Set(actors)] : null;
+      const native = nativeConstructionAuthors(proof, judgment.task, provenance);
+      return native === null ? null : { actorRefs: [...new Set(native.map(a => a.actorRef))], native };
     }
     const attribution = projectExternalConstructionAttribution(judgment, plan, provenance);
     if (attribution.status === "invalid") return null;
@@ -693,8 +719,85 @@ export function projectQualificationConstructionAuthors(proof: QualificationProo
       const request = continuation === undefined ? null : graphOwner(proof.prefix as DurablePrefixCoordinate, continuation.cCallRef, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof))?.input;
       if (!record(request) || (request.recordSet === undefined || !canonicalEquals(request.recordSet, provenance.recordSet)) || (request.attributedIdentities === undefined || !canonicalEquals(request.attributedIdentities, identityPairs))) return null;
     }
-    return [...new Set(identityPairs.map(p => p.actorIdentityRef))];
+    return { actorRefs: [...new Set(identityPairs.map(p => p.actorIdentityRef))], native: null };
   } catch { return null; }
+}
+/** The assessor selection of one projected J: its own occurrence's unique
+ * transport evidence at the J's actual invocation and binding coordinates. */
+function judgmentSelection(proof: QualificationProofResource, judgment: QualificationJudgment): ConfiguredActorSelection | null {
+  const current = nativeState(proof, judgment.source.cCallRef);
+  if (current === null) return null;
+  const transport = exactOrNull(onlyExactMatch(current.state.evidence.filter(e => e.evidenceClass === "probabilistic_transport" &&
+    e.actorInvocationRef === judgment.source.actorInvocationRef && e.transportBindingRef === judgment.source.transportBindingRef &&
+    e.transportBindingDigest === judgment.source.transportBindingDigest)));
+  return transport === null ? null : transportSelection(current.owner.prefix, judgment.source.cCallRef, transport);
+}
+const coverageKeys = (slot: QualificationAssessmentPlan["slots"][number]) => new Set(slot.coverage.map(c => hash(c)));
+/** Peer slots of one slot: the other declared slots sharing a criterion. */
+function peerSlots(plan: QualificationAssessmentPlan, slotRef: string) {
+  const slot = plan.slots.find(s => s.slotRef === slotRef);
+  if (slot === undefined) return [];
+  const keys = coverageKeys(slot);
+  return plan.slots.filter(s => s.slotRef !== slotRef && [...coverageKeys(s)].some(k => keys.has(k)));
+}
+/** Already admitted peer occurrences of one assessment at its consumer prefix,
+ * kept per declared peer slot: each actual same-Program ASSESS start for that
+ * slot of the same plan, with the selection of its admitted transport evidence
+ * (null when absent). A declared slot without a start keeps an empty list. */
+function admittedPeerSelections(proof: QualificationProofResource, owner: NonNullable<ReturnType<typeof graphOwner>>,
+  plan: QualificationAssessmentPlan, slotRefs: readonly string[], catalogs?: QualificationCatalogs) {
+  const bySlot = new Map(slotRefs.map(slotRef => [slotRef, [] as (ConfiguredActorSelection | null)[]]));
+  for (const opened of indexedRuntimeEvents(owner.prefix, "kind:c_call_opened").filter(e => e.kind === "c_call_opened")) {
+    if (opened.aggregateId === owner.call.cCallRef) continue;
+    const peer = graphOwner(proof.prefix as DurablePrefixCoordinate, opened.aggregateId, proof.declarations as readonly AbgHistoricalDeclarationProof[], executionProofFacts.get(proof));
+    if (peer === null || peer.call.implementationRef !== ASSESS || peer.execution.programRef !== owner.execution.programRef ||
+        peer.execution.invocationAdmissionRef !== owner.execution.invocationAdmissionRef || !isQualificationAssessmentInput(peer.input, catalogs) ||
+        !canonicalEquals(peer.input.plan, plan) || !slotRefs.includes(peer.input.task.slotRef)) continue;
+    const related = indexedRuntimeEvents(peer.prefix, "related:" + peer.call.cCallRef);
+    for (const started of indexedRuntimeEvents(peer.prefix, "invocation:" + peer.call.cCallRef).filter(e =>
+      e.kind === "actor_invocation_started" && e.parentAggregateId === peer.call.cCallRef)) {
+      const evidence = exactOrNull(onlyExactMatch(related.filter(e => e.kind === "c_call_evidenced" && e.aggregateId === peer.call.cCallRef &&
+        record(e.payload) && e.payload.evidenceClass === "probabilistic_transport" && e.payload.actorInvocationRef === started.aggregateId)));
+      bySlot.get(peer.input.task.slotRef)!.push(evidence === null || !record(evidence.payload) ? null
+        : projectAdmittedTransportEvidenceSelection(peer.prefix, peer.call.cCallRef, evidence.payload));
+    }
+  }
+  return slotRefs.map(slotRef => ({ slotRef, selections: bySlot.get(slotRef)! }));
+}
+/** The call-bound dispatch eligibility of one admitted qualification
+ * assessment. The leaf owner binds it to the exact basis, input, resources
+ * and catalogs it authenticated; actor_process applies it to the actual
+ * prepared selection before the binding or any start. Its native joins are
+ * those replay applies; the decision is the Validator's. */
+export function qualificationAssessorEligibility(basis: QualificationNativeBasis, input: unknown,
+  resources?: QualificationResources, catalogs?: QualificationCatalogs): ActorDispatchEligibility {
+  const operation: ActorDispatchEligibility = request => {
+    const unknown = (reason: string) => deepFreeze({ disposition: "unknown" as const, reason });
+    try {
+      if (!isQualificationAssessmentInput(input, catalogs)) return unknown("owner_connection_missing");
+      if (request.cCallRef !== basis.cCallRef || request.predecessorPrefix.coordinateDigest !== basis.predecessorPrefix.coordinateDigest ||
+          request.inputDigest !== hash(input) || request.actorRef !== input.task.role.actorRef) return unknown("call_coordinates_crossed");
+      const owner = qualificationConsumerOwner(basis, input, true, resources, catalogs);
+      if (owner === null || owner.call.implementationRef !== ASSESS || owner.call.cCallRef !== request.cCallRef) return unknown("owner_connection_missing");
+      const view = resolveQualificationAssessment(input, resources), provenance = view.task.provenance;
+      if (!canonicalEquals(provenance.subjectInventory, input.task.inventory)) return unknown("source_correspondence_missing");
+      // The consumer's own authenticated declaration and prefix; no new acquisition.
+      const proof = { prefix: basis.predecessorPrefix, declarations: [owner.proof] } as unknown as QualificationProofResource;
+      executionProofFacts.set(proof, { prefix: owner.prefix, environments: new Map(), resources, catalogs });
+      const peers = peerSlots(input.plan, input.task.slotRef).map(s => s.slotRef);
+      return decideQualificationDispatchEligibility({ independence: input.task.role.independence, assessorActorRef: request.actorRef,
+        assessor: request.selection, provenance: provenance.kind,
+        authors: provenance.kind === "native_construction" ? nativeConstructionAuthors(proof, input.task, provenance) : null,
+        peers: peers.length === 0 ? null : admittedPeerSelections(proof, owner, input.plan, peers, catalogs) });
+    } catch { return unknown("owner_connection_missing"); }
+  };
+  mintedEligibility.add(operation);
+  return Object.freeze(operation);
+}
+// Only operations this owner minted decide a qualification dispatch.
+const mintedEligibility = new WeakSet<ActorDispatchEligibility>();
+export function isQualificationAssessorEligibility(value: unknown): value is ActorDispatchEligibility {
+  return typeof value === "function" && mintedEligibility.has(value as ActorDispatchEligibility);
 }
 export function resolveQualificationAssessments(proof: QualificationProofResource, plan: QualificationAssessmentPlan,
   consumer: QualificationNativeBasis, resources?: QualificationResources, catalogs?: QualificationCatalogs): readonly Readonly<QualificationJudgment>[] | null {
@@ -708,17 +811,31 @@ export function resolveQualificationAssessments(proof: QualificationProofResourc
     const inherited = executionProofFacts.get(proof);
     if (inherited !== undefined) executionProofFacts.set(currentProof, { ...inherited, prefix: readOwnedRuntimeEventPrefixAtDurablePrefix(consumer.predecessorPrefix as DurablePrefixCoordinate) });
     const out: QualificationJudgment[] = [];
+    const rows: { slot: QualificationAssessmentPlan["slots"][number]; judgment: QualificationJudgment;
+      authors: NonNullable<ReturnType<typeof constructionAuthorSet>>; selection: ConfiguredActorSelection | null }[] = [];
     for (const slot of plan.slots) {
       const selections = proof.selections.filter((s): s is Extract<QualificationEvidenceSelection, { kind: "judgment_selection" }> =>
         s.kind === "judgment_selection" && s.slotRef === slot.slotRef);
       if (selections.length !== 1) return null;
       const judgment = projectQualificationJudgment(currentProof, plan, selections[0]!, undefined, catalogs);
       if (judgment === null) return null;
-      const authors = projectQualificationConstructionAuthors(currentProof, plan, judgment, undefined, catalogs);
-      if (authors === null || slot.role.independence !== "not_required" && authors.includes(judgment.source.actorRef)) return null;
+      const authors = constructionAuthorSet(currentProof, plan, judgment, undefined, catalogs);
+      if (authors === null || slot.role.independence !== "not_required" && authors.actorRefs.includes(judgment.source.actorRef)) return null;
       out.push(judgment);
+      rows.push({ slot, judgment, authors, selection: slot.role.independence === "not_required" ? null : judgmentSelection(currentProof, judgment) });
     }
     if (plan.sharedCoverage === "declared_independent_peers" && !unique(out.map(j => j.source.actorInvocationRef))) return null;
+    // The dispatch relation again over the admitted bindings of the actual
+    // assessor, native authors and peer judgments.
+    for (const row of rows) {
+      const peers = peerSlots(plan, row.slot.slotRef).map(s => {
+        const peer = rows.find(r => r.slot.slotRef === s.slotRef);
+        return { slotRef: s.slotRef, selections: peer === undefined ? [] : [peer.selection] };
+      });
+      if (decideQualificationDispatchEligibility({ independence: row.slot.role.independence, assessorActorRef: row.judgment.source.actorRef,
+        assessor: row.selection, provenance: row.authors.native === null ? "external_construction" : "native_construction",
+        authors: row.authors.native, peers: peers.length === 0 ? null : peers }).disposition !== (row.slot.role.independence === "not_required" ? "not_required" : "eligible")) return null;
+    }
     return deepFreeze(out);
   } catch { return null; }
 }

@@ -27,8 +27,9 @@ import {
   type QualificationAssessmentInput, type QualificationEmbeddedTask, type QualificationInternedScope, type QualificationAssessmentPlan,
   type QualificationJudgment, type QualificationNativeBasis, type QualificationRawJudgment, type QualificationConstructionProvenance,
   type QualificationCoverageCatalog, type QualificationVerdictInput,
-  type ExactCandidateQualification, type QualificationOwnerRuling, type QualificationMaterial,
+  type ExactCandidateQualification, type QualificationOwnerRuling, type QualificationMaterial, type QualificationActorProfile,
 } from "./qualification_contracts.js";
+import type { ConfiguredActorSelection } from "../abg/transport_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { executingQualificationCatalogs } from "./qualification_catalogs.js";
 import { admitJson, isRecord } from "../shared/admit/index.js";
@@ -491,6 +492,80 @@ function qualificationConstructionContext(task: QualificationEmbeddedTask) {
   }));
   return { ...provenance, records: provenance.records.map(({ contentBase64: _body, ...coordinate }) => coordinate),
     providedAttributionSpans: spans, recordBodies: "retained for C; only these spans and explicitly selected SOURCE DATA bodies are provided to J" };
+}
+export type QualificationActorProfileResolution = Readonly<
+  | { kind: "declared"; profile: QualificationActorProfile }
+  | { kind: "unknown"; reason: "identity_absent" | "identity_unknown" | "profile_unlisted" | "profile_ambiguous" }>;
+/** The published profile of one admitted configured selection. Only an
+ * established identity whose transport agent and effective model equal exactly
+ * one declared profile resolves. A binding without identity, an unknown
+ * identity and every unlisted agent/model stay unknown; no label, role, model
+ * name or prefix is interpreted, so renaming creates no profile. */
+export function resolveQualificationActorProfile(selection: ConfiguredActorSelection | null): QualificationActorProfileResolution {
+  if (selection === null || selection.identity === null) return deepFreeze({ kind: "unknown" as const, reason: "identity_absent" as const });
+  const identity = selection.identity;
+  if (identity.disposition !== "established") return deepFreeze({ kind: "unknown" as const, reason: "identity_unknown" as const });
+  const matches = QUALIFICATION_ROLE_POLICY.actorProfiles.filter(p =>
+    p.transportAgentKey === selection.agentKey && p.effectiveConfiguredModel === identity.model);
+  return matches.length === 1 ? deepFreeze({ kind: "declared" as const, profile: matches[0]! })
+    : deepFreeze({ kind: "unknown" as const, reason: matches.length === 0 ? "profile_unlisted" as const : "profile_ambiguous" as const });
+}
+export type QualificationIndependenceRelation = Readonly<
+  | { relation: "permits_remaining_conditions" }
+  | { relation: "non_independent"; reason: "same_declared_family" }
+  | { relation: "unknown"; reason: string }>;
+/** The policy's default relation between two actual actors. The same declared
+ * family is non-independent; a different declared family only permits the
+ * remaining author, evidence and peer conditions. Either side unresolved is
+ * unknown. This relation alone never establishes independence. */
+export function qualificationProfileRelation(left: QualificationActorProfileResolution,
+  right: QualificationActorProfileResolution): QualificationIndependenceRelation {
+  if (left.kind !== "declared") return deepFreeze({ relation: "unknown" as const, reason: left.reason });
+  if (right.kind !== "declared") return deepFreeze({ relation: "unknown" as const, reason: right.reason });
+  return left.profile.declaredModelFamily === right.profile.declaredModelFamily
+    ? deepFreeze({ relation: QUALIFICATION_ROLE_POLICY.familyRelation.sameDeclaredFamily, reason: "same_declared_family" as const })
+    : deepFreeze({ relation: QUALIFICATION_ROLE_POLICY.familyRelation.differentDeclaredFamily });
+}
+export type QualificationDispatchDecision = Readonly<
+  | { disposition: "eligible" | "not_required" }
+  | { disposition: "ineligible" | "unknown"; reason: string }>;
+/** The published independence decision over facts the native proof owner
+ * joined: the actual assessor selection, the authenticated construction
+ * authors (null when unresolved) and, for peer-distinct roles, every declared
+ * peer slot with the selections of its admitted occurrences (null when the plan
+ * declares no peer). External construction attribution that only the future
+ * judgment could ground stays unknown. An unresolved fact is unknown; the
+ * assessor as author or a same declared family is ineligible. A declared peer
+ * slot without an admitted occurrence is missing required evidence, never an
+ * empty comparison. Eligible permits, never proves, independence. */
+export function decideQualificationDispatchEligibility(facts: Readonly<{
+  independence: QualificationAssessmentInput["task"]["role"]["independence"];
+  assessorActorRef: string;
+  assessor: ConfiguredActorSelection | null;
+  provenance: QualificationConstructionProvenance["kind"];
+  authors: readonly Readonly<{ actorRef: string; selection: ConfiguredActorSelection | null }>[] | null;
+  peers: readonly Readonly<{ slotRef: string; selections: readonly (ConfiguredActorSelection | null)[] }>[] | null;
+}>): QualificationDispatchDecision {
+  const refuse = (disposition: "ineligible" | "unknown", reason: string) => deepFreeze({ disposition, reason });
+  if (facts.independence === "not_required") return deepFreeze({ disposition: "not_required" as const });
+  const assessor = resolveQualificationActorProfile(facts.assessor);
+  if (assessor.kind !== "declared") return refuse("unknown", "assessor_" + assessor.reason);
+  if (facts.provenance !== "native_construction") return refuse("unknown", "external_attribution_requires_future_judgment");
+  if (facts.authors === null || facts.authors.length === 0) return refuse("unknown", "prior_authorship_unresolved");
+  for (const author of facts.authors) {
+    if (author.actorRef === facts.assessorActorRef) return refuse("ineligible", "assessor_is_author");
+    const relation = qualificationProfileRelation(assessor, resolveQualificationActorProfile(author.selection));
+    if (relation.relation !== "permits_remaining_conditions") return refuse(relation.relation === "non_independent" ? "ineligible" : "unknown", "author_" + relation.reason);
+  }
+  if (facts.independence === "author_and_peer_distinct") {
+    const slots = facts.peers ?? [];
+    for (const peer of slots.flatMap(slot => slot.selections)) {
+      const relation = qualificationProfileRelation(assessor, resolveQualificationActorProfile(peer));
+      if (relation.relation !== "permits_remaining_conditions") return refuse(relation.relation === "non_independent" ? "ineligible" : "unknown", "peer_" + relation.reason);
+    }
+    if (slots.length === 0 || slots.some(slot => slot.selections.length === 0)) return refuse("unknown", "required_peer_missing");
+  }
+  return deepFreeze({ disposition: "eligible" as const });
 }
 export function qualificationMaterialMatches(task: QualificationEmbeddedTask, normalized?: QualificationInternedScope,
   catalogs?: AdmittedQualificationRuleCatalog): boolean {

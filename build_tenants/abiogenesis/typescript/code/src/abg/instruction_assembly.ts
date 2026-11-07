@@ -3,8 +3,7 @@ import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisRespon
   governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { modulePublicationSemanticDigest } from "../product/publication.js";
-import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_workspace_assessment.js";
+import { resolveNativeWorkspaceAssessmentDependency } from "../product/native_workspace_assessment.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
   nativeWorkspaceWorkReportSchema, nativeWorkspaceWorkGraphFunctionRef, nativeWorkspaceWorkResultContractRef } from "../product/native_workspace_work.js";
@@ -29,7 +28,7 @@ import { isWorksiteContextObservation } from "../product/worksite_effect.js";
 import { authenticateOwnedSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
-import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, nativeExecutionBasisCoordinate, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { registeredSelectionTargets } from "../gtl/registered_selection.js";
 import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
@@ -77,6 +76,14 @@ function assemblyIdentity(domain: string, plan: Readonly<Record<string, JsonValu
     executionBasisRef: owner.execution.basisRef, executionBasisDigest: owner.execution.basisDigest,
     inputRef: owner.inputRef, inputDigest: owner.inputDigest, predecessorPrefix, ...content };
   return { planRef, planDigest, plan, envelope, envelopeDigest: sha256Canonical(envelope) };
+}
+
+/** The binding's read model of its basis: the selected graph, not an ambient
+ * all-catalog snapshot, and the execution-basis coordinate, whose admitted basis
+ * owns the raw input. Authentication rehydrates the complete basis. */
+function persistedNativeBasis(basis: NativeInstructionAssemblyBasis) {
+  return { ...basis, declarationGraphFunctions: [basis.graphFunction],
+    ...(basis.executionBasis === undefined ? {} : { executionBasis: nativeExecutionBasisCoordinate(basis.executionBasis) }) };
 }
 
 function renderInstructionSections(order: readonly string[], sections: Readonly<Record<string, JsonValue>>): string {
@@ -171,18 +178,16 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
       if (stdo === false || (assessment !== undefined && stdo === null) ||
         stdo !== null && !(stdo.contextPolicy.selectors as readonly string[]).includes("current_worksite")) return null;
       const resultContractRef = nativeWorkspaceWorkResultContractRef(supplied);
-      const declaredResult = assessment === undefined || basis.publication.graphFunctions.some(graph =>
-        owner.program.callableMembership.includes(graph.name) && graph.declarations["abg.raw_result_contract"] === resultContractRef);
-      const assessmentOwner = basis.assessmentPublication ?? basis.publication;
-      const exactSchemaOwner = assessment === undefined || owner.environment.kind === "exact_prefix_workspace_environment" &&
-        owner.environment.productInstalls.filter(install => install.productId === assessmentOwner.owningProductId &&
-          install.artifactDigest === assessmentOwner.artifactDigest && install.productContentDigest === assessmentOwner.productContentDigest &&
-          install.manifestDigest === assessmentOwner.productManifestDigest && install.contributionManifest.publicationBindings.filter(row =>
-            row.moduleRef === assessmentOwner.moduleRef && row.publicationDigest === modulePublicationSemanticDigest(assessmentOwner)).length === 1).length === 1;
-      const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema :
-        owner.environment.kind !== "exact_prefix_workspace_environment" || !exactSchemaOwner ? null :
-          resolveNativeWorkspaceAssessmentSchema(assessment, [assessmentOwner], owner.environment.productInstalls);
-      if (!declaredResult || schema === null || assessment?.producer.cCallRef === owner.call.cCallRef) return null;
+      // The inner consumer dependency is the carried selected publication under
+      // the shared admitted-environment relation; the Program closure is not consulted.
+      const dependency = assessment === undefined || basis.assessmentPublication === undefined ||
+        owner.environment.kind !== "exact_prefix_workspace_environment" ? null :
+        resolveNativeWorkspaceAssessmentDependency(assessment, { publications: [basis.assessmentPublication],
+          installs: owner.environment.productInstalls, resolvedLock: owner.environment.resolvedProductLock,
+          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId });
+      const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema : dependency?.schema ?? null;
+      if (schema === null || assessment !== undefined && resultContractRef !== assessment.resultContract.contractRef ||
+        assessment?.producer.cCallRef === owner.call.cCallRef) return null;
       const role = stdo === null ? null : { frameRefs: stdo.frameRefs, policy: stdo.policy, contextPolicy: stdo.contextPolicy,
         sourceContent: stdo.sourceContent, accessContent: stdo.accessContent };
       const presentation = assessment === undefined ? {} : { responsePresentation: "result_text" as const };
@@ -192,9 +197,9 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
         readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role, ...presentation };
       // The admitted input binds the task by inputRef/inputDigest; the envelope
-      // carries no second whole task or context body.
+      // carries no second whole task, context body or basis raw input.
       const identity = assemblyIdentity("native-work", plan, owner,
-        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] } });
+        basis.predecessorPrefix, { nativeBasis: persistedNativeBasis(basis) });
       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
       const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
       if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, selectedRole, ["maxPromptBytes"]);
@@ -253,7 +258,7 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
       sectionOrder: ["role", "evidence", "task", "response"], selectedContext: requiredSelectors };
     // Retain only the selected graph, not an ambient all-catalog snapshot. The
     // shared owner reauthenticates this read model against the saved prefix.
-    const nativeBasis = { ...basis, declarationGraphFunctions: [basis.graphFunction] };
+    const nativeBasis = persistedNativeBasis(basis);
     const identity = assemblyIdentity("worksite-native", plan, owner,
       basis.predecessorPrefix, { nativeBasis, sections });
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
@@ -602,14 +607,16 @@ function exactEvidenceText(base64: string, expectedDigest?: Sha256Digest, expect
  * constructor's input carrier. The admitted envelope remains complete; these
  * exact identities preserve the qualification of the selected observations. */
 function nativeEvidenceWorkView(value: import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation) {
-  const inventory = (context: typeof value.before) => ({ kind: context.kind, schemaVersion: context.schemaVersion,
+  const inventory = (context: typeof value.after) => ({ kind: context.kind, schemaVersion: context.schemaVersion,
     observationRef: context.observationRef, observationDigest: context.observationDigest,
     workspaceAuthorityBasisRef: context.workspaceAuthorityBasisRef, workspaceAuthorityBasisDigest: context.workspaceAuthorityBasisDigest,
     workspaceBindingIdentity: context.workspaceBindingIdentity, workspaceBindingDigest: context.workspaceBindingDigest,
     bodyDisposition: "historical_inventory_not_selected" });
-  return { ...value, task: { kind: value.task.kind, schemaVersion: value.task.schemaVersion,
-    taskDigest: sha256Canonical(value.task), bodyDisposition: "historical_constructor_input_not_selected" },
-    before: inventory(value.before), after: inventory(value.after) };
+  // Prospective Results carry only inputDigest; retained Results keep their original task.
+  const task = (value as { readonly task?: import("../product/native_workspace_work.js").NativeWorkspaceWorkTask }).task;
+  return { ...value, ...(task === undefined ? {} : { task: { kind: task.kind, schemaVersion: task.schemaVersion,
+    taskDigest: sha256Canonical(task), bodyDisposition: "historical_constructor_input_not_selected" }, before: inventory(task.context) }),
+    after: inventory(value.after) };
 }
 
 /** Deterministic projection of required admitted evidence. Artifact/log bytes
@@ -1054,8 +1061,8 @@ export function renderNativeRevisionSelectionDecisionView(
   const nativeWorkView = (value: Row): Row => isCompleted(value) ? {
     observationRef: value.observationRef!, observationDigest: value.observationDigest!,
     presentationRef: "#/worksite/construction/result/value", disposition: "same_admitted_construction_evidence" } : ({ ...value,
-      task: { ...row(value.task!), context: contextView(row(row(value.task!).context!)) },
-      before: contextView(row(value.before!)),
+      ...(Object.hasOwn(value, "task") ? { task: { ...row(value.task!), context: contextView(row(row(value.task!).context!)) } } : {}),
+      ...(Object.hasOwn(value, "before") ? { before: contextView(row(value.before!)) } : {}),
       after: value.after === null ? null : contextView(row(value.after!)) });
   const commandTaskView = (task: Row): Row => ({ ...task,
     ...(task.sourceNativeWork === undefined ? {} : { sourceNativeWork: nativeWorkView(row(task.sourceNativeWork)) }),

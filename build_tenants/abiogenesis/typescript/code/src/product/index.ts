@@ -576,7 +576,8 @@ export * from "./worksite_command_forward.js";
 export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
 
 export { NATIVE_WORKSPACE_WORK_IDS, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
-  isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure,
+  isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure, nativeWorkspaceWorkObservationMatchesTask,
+  nativeWorkspaceWorkFailureMatchesTask, nativeWorkspaceWorkResultInputDigest,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation, type NativeWorkspaceWorkFailure, type NativeWorkspaceWorkReport } from "./native_workspace_work.js";
 export { observeWorksiteContext, type WorksiteContextInput } from "./worksite_operations.js";
 export { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";

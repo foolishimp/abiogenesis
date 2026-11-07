@@ -61,6 +61,12 @@ const RETAINED_STDOUT_BASE64=[
 const canonicalPackageRoot=new URL('../..',import.meta.url).pathname;
 const packageRoot=process.env.ABI5_DEFAULT_LIBRARY_BUILD_ROOT??canonicalPackageRoot;
 const product=packageRoot===canonicalPackageRoot?canonicalProduct:await import(pathToFileURL(resolve(packageRoot,'build/code/src/product/index.js')).href);
+// Controlled basis-owner premise for these component seams: a native Result's
+// task is the admitted input of its own CCall basis, named by inputDigest. The
+// genuine join runs over real admission in t287-event-body-encoding (RC7 actual current input).
+const admittedNativeTasks=new Map();
+const heldNativeObservation=(owner,task,...rest)=>{admittedNativeTasks.set(product.sha256Canonical(task),task);return owner.constructNativeWorkspaceWorkObservation(task,...rest);};
+const nativeResultTaskPremise={projectNativeWorkspaceWorkResultTaskAtPrefix:(_p,event)=>admittedNativeTasks.get(event?.payload?.value?.inputDigest)??null};
 const governanceRoot=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
 const witnessRoot=join(governanceRoot,'default-library-witness');
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
@@ -114,7 +120,7 @@ test('default catalogue publishes conditional purposes over fixed native/C2 chil
   const pubs=constructors.map(n=>gtl[n](basis)),library=pubs[0];
   assert.deepEqual(library.runEnvironments[0].roles.find(r=>r.role==='selector').contextPolicy.selectors,['full_source','active_binding_semantics']);
   const contractRefs=pubs.flatMap(p=>p.contracts.map(c=>c.contractRef));assert.equal(new Set(contractRefs).size,contractRefs.length,'shared contracts retain one publication owner');
-  assert.equal(library.contributions.length,7);assert.equal(library.graphFunctions.length,8);
+  assert.equal(library.contributions.length,8,'one Catalog row per published GraphFunction');assert.equal(library.graphFunctions.length,8);
   const result=validation(library,library.programs[0],pubs);assert.equal(result.kind,'program_validation',JSON.stringify(result));
   assert.equal(result.executableLeafRows.filter(r=>r.fibre==='F_P').length,4);
   const app=library.graphFunctions.find(g=>g.name===product.governanceRef("graph-function","executive")).template.applications[0];assert.equal(app.foldback.requiresParentEvaluation,true);assert.equal(app.bound,12);
@@ -163,7 +169,7 @@ test('declared wrapper judgments advance actual observations, including red C2, 
   const context=await physical.observeWorksiteContext({...f,readRoots:['source.txt'],maxFiles:2,maxBytes:1000});
   const task=product.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,capabilityGrant:f.capabilityGrant,context,outcome:'Bounded check',instructions:['Read supplied source.'],readFirst:['source.txt'],writeRoots:[],checks:[]});
   const provenance={cCallRef:'call:component',executionAuthorityRef:'authority:component',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:component',transportBindingRef:'transport:component',transportBindingDigest:product.sha256Canonical('binding'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')};
-  const value=native.constructNativeWorkspaceWorkObservation(task,context,{summary:'Observed',gaps:[]},provenance);
+  const value=heldNativeObservation(native,task,context,{summary:'Observed',gaps:[]},provenance);
   for(const wrapper of library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']&&g.declarations['abg.default_library_purpose']!=='testing')){
     assert.equal(wrapper.declarations['abg.judgment_predicate'],product.NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef);
     const relation=semantics.resolveJudgmentRelation(wrapper.declarations['abg.judgment_predicate']);assert.equal(relation.evaluate(task,value),true);assert.equal(relation.evaluate({...task,outcome:'changed'},value),false);
@@ -528,7 +534,7 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const projectionIndex=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:[opened],projectionRoot=await rootProjection(projectionIndex,rootBasis(root,projectionOwner.execution));
   const projectionFile=resolve(packageRoot,'build/code/src/abg/default_library.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
   await projectionModule.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(projectionFile),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:projectionIndex}:specifier==='./semantic_job.js'?projectionRoot:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>projectionOwner}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:projectionIndex}:specifier==='./native_worksite_execution.js'?{...nativeResultTaskPremise}:specifier==='./semantic_job.js'?projectionRoot:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
   const projectionBasis={graphFunction:graph,cursor:{currentNodeRef:projection.nodeRef,termPath:gtl.rootCSourcePath(projection.nodeRef)}};
   const choice=projectionModule.namespace.projectGovernanceChoice(projectionBasis,bound);assert.ok(choice);assert.equal(choice.graphFunctionRef,raw.nextGraphFunctionRef);assert.equal(choice.reason,raw.nextReason);assert.deepEqual(choice.input.value.original,state.original);assert.deepEqual(choice.input.value.synthesis,current.resultRef==='result:unit'?current:{...current,resultRef:'result:unit'});
@@ -576,7 +582,7 @@ test('framed synthesis binds imported contracts, exact raw judgment and compact 
   const otherChoice={...selected,synthesis:choice.input.value.synthesis};
   const otherTask=await prepare(otherChoice);assert.deepEqual(otherTask.instructions,directTask.instructions,'an unrelated selected purpose is not imported');assert.equal(otherTask.outcome,order.outcome);
 
-  const partial=native.constructNativeWorkspaceWorkObservation(selectedTask,selectedTask.context,
+  const partial=heldNativeObservation(native,selectedTask,selectedTask.context,
     {summary:'Controlled bounded inspection report.',gaps:['Parent testing and independent acceptance remain.']},
     {cCallRef:'call:partial',executionAuthorityRef:'authority:unit',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:unit',transportBindingRef:'transport:unit',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')});
   const retained=product.constructRetainedGraphInput(selected,partial),partialEvent={kind:'c_call_result_admitted',runId:'run:unit',basisId:'basis:child',aggregateId:'call:partial',payload:{resultClass:'success',resultRef:'result:partial',resultDigest:product.sha256Canonical(partial),value:partial}};
@@ -1040,7 +1046,7 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   // Controlled admitted occurrence/index premises; all native/C2/assessment
   // values and worksite observations are their actual typed owner constructors.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>invalidated,projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>({sourceBasis,sourceTask:admittedNativeTasks.get(value?.inputDigest)}),...nativeResultTaskPremise}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Supplied work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -1091,12 +1097,12 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   // Conserve original definition at this controlled root; do not change live witness.
   root.payload.rawInputValue=product.constructGovernanceWorkState(nativeState.original);
   const task=await m.namespace.projectGovernanceNativeTask(at('design','prepare-native',nativeState),nativeState);assert.ok(task);
-  const native=nativeOwner.constructNativeWorkspaceWorkObservation(task,context,{summary:'Existing candidate inspected',gaps:['Parent testing and independent acceptance remain unresolved.']},provenance);
+  const native=heldNativeObservation(nativeOwner,task,context,{summary:'Existing candidate inspected',gaps:['Parent testing and independent acceptance remain unresolved.']},provenance);
   const nativeFold=fold(nativeState,'design',native),uatFromNative=synth(nativeFold,'uat',nativeFold.observations.at(-1).resultRef);
   assert.deepEqual(nativeFold.original,nativeState.original);assert.deepEqual(nativeFold.unresolvedSupportRefs,nativeState.unresolvedSupportRefs);
   assert.equal(nativeFold.terminal,false);assert.deepEqual(nativeFold.observations.at(-1).value.report,native.report,'truthful partial report is retained without parent satisfaction');
   const nativeAssessmentTask=await selectedReads(uatFromNative,nativeFold.observations.at(-1));
-  const nativeAssessment=nativeOwner.constructNativeWorkspaceWorkObservation(nativeAssessmentTask,context,null,{...provenance,cCallRef:'call:native-assessment',actorInvocationRef:'actor:native-assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Controlled native subject judgment',unresolvedCriteria:['behavior']});
+  const nativeAssessment=heldNativeObservation(nativeOwner,nativeAssessmentTask,context,null,{...provenance,cCallRef:'call:native-assessment',actorInvocationRef:'actor:native-assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Controlled native subject judgment',unresolvedCriteria:['behavior']});
   assert.equal(fold(uatFromNative,'uat',nativeAssessment).observations.at(-1).value.disposition,'unmet');
   root.payload.rawInputValue=originalState;
   const testing=synth(originalState,'testing'),commandTask=await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',testing),testing);assert.ok(commandTask?.sourceObservedInput);
@@ -1133,9 +1139,9 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   invalidated=true;assert.equal(await m.namespace.projectGovernanceNativeTask(b,uat),null);invalidated=false;
   const missing=synth(measured,'uat','result:missing');assert.equal(await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',missing),missing),null);
   const selectedBadTesting=synth(measured,'testing','result:missing');assert.equal(await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',selectedBadTesting),selectedBadTesting),null);assert.equal(observedGovernanceTaskMatches(selectedBadTesting,commandTask),false);
-  const assessment=nativeOwner.constructNativeWorkspaceWorkObservation(assessmentTask,context,null,{...provenance,cCallRef:'call:assessment',actorInvocationRef:'actor:assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Observed failures',unresolvedCriteria:['behavior']});
+  const assessment=heldNativeObservation(nativeOwner,assessmentTask,context,null,{...provenance,cCallRef:'call:assessment',actorInvocationRef:'actor:assessor'},{kind:'consumer_outcome_assessment',disposition:'unmet',reason:'Observed failures',unresolvedCriteria:['behavior']});
   assert.ok(nativeOwner.isNativeWorkspaceWorkObservation(assessment));const assessed=fold(uat,'uat',assessment);assert.equal(assessed.observations.at(-1).value.disposition,'unmet');assert.equal(assessed.terminal,false);
-  assert.equal(nativeOwner.isNativeWorkspaceWorkObservation(nativeOwner.constructNativeWorkspaceWorkObservation(assessmentTask,context,null,{...provenance,actorInvocationRef:'actor:measurement'},assessment.assessment)),false,'measurement actor cannot assess itself');
+  assert.equal(nativeOwner.nativeWorkspaceWorkObservationMatchesTask(assessmentTask,heldNativeObservation(nativeOwner,assessmentTask,context,null,{...provenance,actorInvocationRef:'actor:measurement'},assessment.assessment)),false,'measurement actor cannot assess itself');
 
   // One actual folded population exercises schema -> raw binder -> admitted
   // choice -> native/C2 preparation. Occurrence/index authenticity above is a
@@ -1181,6 +1187,354 @@ test('fold and assessment consume actual native, C2 and assessment carriers with
   assert.deepEqual(product.governanceSubjectEvidenceRefs({...population,observations:[{...nativeFold.observations.at(-1),value:{report:{summary:'malformed'},changedPaths:[]}}]},'testing'),[null]);
 });
 
+// RC7 fixed proof: the invoked Testing or UAT wrapper is its own invocation
+// root over a selector-free state; UAT's admitted source is that Testing Run's
+// state Result. Index, occurrence and basis rows are controlled premises; the
+// governance owner, native/C2 constructors and worksite observations are
+// actual. No installed Run, native actor or provider proof is claimed here.
+const RC7_TESTING=product.governanceRef('graph-function','testing'),RC7_UAT=product.governanceRef('graph-function','uat');
+const RC7_FULL_ORIGINAL='The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment';
+const RC7_PRODUCER='This independent assessment consumes its full authenticated producer';
+// HS3 bounded refusal record for a blocked integration Run, read before cleanup:
+// the receipt's owner fields and each admitted refusal/failure event's typed
+// coordinates. No task, context, provider text, credential or CLI metadata.
+const RC7_REFUSAL_EVENT_KINDS=['child_preparation_refused','runtime_failure_observed','actor_invocation_failed','run_stopped'];
+function rc7RefusalRecord(label,receipt,rows=[]){
+  const output=receipt?.ownerOutput,value=output?.value,clip=text=>typeof text==='string'?text.slice(0,240):null;
+  const pick=payload=>Object.fromEntries(['stage','code','failureClass','disposition','childGraphFunctionRef','message']
+    .filter(key=>typeof payload?.[key]==='string').map(key=>[key,clip(payload[key])]));
+  return JSON.stringify({label,exitCode:receipt?.exitCode??null,outcomeKind:output?.outcomeKind??null,disposition:clip(value?.disposition),code:clip(value?.code),
+    issuePaths:Array.isArray(value?.issuePaths)?value.issuePaths.slice(0,8):null,
+    failure:receipt?.failure?{stage:clip(receipt.failure.stage),code:clip(receipt.failure.code),message:clip(receipt.failure.message)}:null,
+    events:rows.filter(e=>RC7_REFUSAL_EVENT_KINDS.includes(e.kind)).slice(0,8).map(e=>({kind:e.kind,ordinal:e.admissionOrdinal??null,eventId:e.eventId??null,
+      graphFunctionRef:e.graphFunctionRef??null,...pick(e.payload)}))});
+}
+async function rc7FixedRoute(t){
+  const nativeOwner=await import('../../build/code/src/product/native_workspace_work.js'),c2=await import('../../build/code/src/product/worksite_command_execution.js');
+  const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
+  await cp(join(witnessRoot,'seed'),f.canonicalRoot,{recursive:true});
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
+  const witness=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}),{testing,uat}=witness.original.workOrders;
+  // The fixed route's finite scope: Testing and UAT work orders, no fulfillment.
+  const initial=product.constructGovernanceWorkState({...witness.original,workOrders:{testing,uat}});
+  const context=await physical.observeWorksiteContext({...f,readRoots:initial.original.readRoots,maxFiles:initial.original.maxContextFiles,maxBytes:initial.original.maxContextBytes});
+  const library=gtl.constructDefaultGovernanceLibraryModulePublication(basis),rows=[],refusals=[],bases=new Map();
+  const common={rootImplementationSetRef:'set:rc7',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
+  const provenance={cCallRef:'call:native',executionAuthorityRef:'authority:test',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:native',transportBindingRef:'transport:test',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')};
+  const x={nativeOwner,f,witness,initial,context,rows,refusals,bases,provenance,invalidated:false,invocation:null,root:null,
+    owned:{program:library.programs[0],prefix:{},events:rows,execution:null,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{},inputValue:null,inputRef:'input:rc7',inputOrigin:{}}};
+  const index=(_p,key)=>key==='invocation:'+x.invocation.invocationRef?[x.root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
+  const semantic=await rootProjection(index,(_p,ref)=>ref===x.root.payload.basisRef?{...x.owned.execution,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:x.root.payload.rawInputValue}:null);
+  const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
+  await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>x.owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>x.invocation,projectExactExecutionBasisAtPrefix:(_p,ref)=>bases.get(ref)??null}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?semantic:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:()=>x.invalidated,...nativeResultTaskPremise}:{};
+    const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});
+  await m.evaluate();x.m=m.namespace;
+  // One wrapper execution under its own invocation: the indexed root itself, or
+  // a child of it. `source` is that invocation's admitted source basis.
+  x.enter=({id,state,graphFunctionRef,source=null,child=false})=>{
+    const rootRef='basis:'+id+'-root';
+    x.invocation={invocationRef:'invocation:'+id,invocationAdmissionRef:'invocation-admission:'+id,capabilityGrants:[f.capabilityGrant],sourceResultBasis:source,rawInputDigest:product.sha256Canonical(state)};
+    x.owned.execution={...common,basisRef:child?'basis:'+id+'-child':rootRef,parentExecutionBasisRef:child?rootRef:null,graphFunctionRef,
+      invocationRef:x.invocation.invocationRef,invocationAdmissionRef:x.invocation.invocationAdmissionRef,rawInputValue:state};
+    x.root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:rootRef,invocationAdmissionRef:x.invocation.invocationAdmissionRef,implementationSetRef:common.rootImplementationSetRef,rawInputValue:state}};
+    bases.set(rootRef,{...common,basisRef:rootRef,parentExecutionBasisRef:null,invocationAdmissionRef:x.invocation.invocationAdmissionRef,
+      graphFunctionRef:child?product.governanceRef('graph-function','executive-step'):graphFunctionRef});
+    x.owned.call={runId:'run:'+id};x.owned.inputOrigin={};
+  };
+  x.at=(purpose,operation,input)=>{x.owned.inputValue=input;x.owned.call.implementationRef=product.governanceRef('implementation',operation);
+    return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
+  x.prepareTesting=async state=>{refusals.length=0;const b=x.at('testing','prepare-testing',state);
+    return {b,task:await x.m.projectGovernanceTestingTask(b,state,undefined,(...r)=>refusals.push(r))};};
+  x.prepareUat=async state=>{const b=x.at('uat','prepare-native',state);return {b,task:await x.m.projectGovernanceNativeTask(b,state)};};
+  // One admitted child Result of the entered wrapper execution, folded through
+  // its retained projection at that entry basis.
+  x.fold=(purpose,state,value)=>{
+    const input=product.constructRetainedGraphInput(state,value),b=x.at(purpose,'fold',input),n=rows.length;
+    const event={kind:'c_call_result_admitted',runId:x.owned.call.runId,basisId:x.owned.execution.basisRef+'-child-'+n,aggregateId:'call:rc7-'+purpose+'-'+n,admissionOrdinal:n+10,
+      payload:{resultRef:'result:rc7-'+purpose+'-'+n,resultDigest:product.sha256Canonical(value),resultClass:'success',value}};
+    rows.push(event);bases.set(event.basisId,{...common,basisRef:event.basisId,parentExecutionBasisRef:x.owned.execution.basisRef,invocationAdmissionRef:x.invocation.invocationAdmissionRef,
+      graphFunctionRef:purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef:product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef});
+    x.owned.inputOrigin={retainedProjection:{entryBasis:x.owned.execution,input:{admissionRef:x.owned.inputRef,value:input},sourceResult:event}};
+    return {b,input,event,folded:x.m.projectGovernanceFold(b,input)};
+  };
+  // An actual C2 observation of the prepared task: every command exits 1.
+  x.measure=(commandTask,actorInvocationRef='actor:rc7-measurement')=>{
+    const plan=c2.worksiteCommandExecutionHelperPlan(commandTask,'attempt:rc7');
+    const empty={kind:'worksite_observed_stream',schemaVersion:'5.0.0',encoding:'base64',payload:'',byteLength:0,digest:product.sha256Bytes(Buffer.alloc(0))};
+    const bytes=Buffer.from('not ok 1 - hello prints the declared greeting\n'),stdout={...empty,payload:bytes.toString('base64'),byteLength:bytes.length,digest:product.sha256Bytes(bytes)};
+    const commandResults=commandTask.commands.map(({kind,schemaVersion,expectedReports,...command})=>{const body={...command,exitStatus:1,timedOut:false,processSignal:null,signalSequence:[],terminationConfirmed:true,stdout,stderr:empty,reports:[],reportCount:0},digest=product.sha256Canonical(body);return {kind:'worksite_command_result',schemaVersion:'5.0.0',...body,observationRef:'worksite-command-observation://abiogenesis/'+digest.slice(7),observationDigest:digest};});
+    const members=commandTask.protectedObservations.map(row=>({kind:'worksite_snapshot_member',schemaVersion:'5.0.0',ordinal:row.ordinal,sourceMemberRef:row.sourceMemberRef,sourceObservationRef:row.observation.observationRef,sourceObservationDigest:row.observation.observationDigest,relativePath:row.subject.relativePath,byteLength:row.observation.byteLength,digest:row.observation.fileDigest})),snapshotDigest=product.sha256Canonical(members);
+    const artifact=c2.constructWorksiteExecutionHelperArtifact({task:commandTask,disposition:'success',commandResults,predicateObservations:[],worksiteDelta:[],productDelta:[],snapshotRoot:plan.sandboxRoot,snapshotRef:'worksite-command-snapshot://abiogenesis/'+snapshotDigest.slice(7),snapshotDigest,snapshotMembers:members,protectedBefore:commandTask.protectedObservations.map(r=>r.observation),protectedAfter:commandTask.protectedObservations.map(r=>r.observation)});
+    const acknowledgment={kind:'worksite_command_execution_worker_result',schemaVersion:'5.0.0',taskRef:commandTask.taskRef,taskDigest:commandTask.taskDigest,attemptRef:plan.attemptRef,helperArtifactRef:artifact.artifactRef,helperArtifactDigest:artifact.artifactDigest};
+    const actor={actorRef:commandTask.workerActorRef,workerBindingRef:commandTask.workerBindingRef,implementationRef:product.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef,inputDigest:product.sha256Canonical(commandTask),transportLane:'worker_executes',disposition:'success',toolCallCount:1,toolInvocations:[{kind:'worker_tool_invocation_evidence',schemaVersion:'5.0.0',ordinal:0,toolName:'Bash',toolUseRef:'tool:rc7',inputDigest:plan.toolInputDigest,inputByteLength:plan.toolInputByteLength}],processRef:'process:rc7',...provenance,actorInvocationRef};
+    return c2.constructWorksiteExecutionObservation(commandTask,acknowledgment,actor,artifact,plan);
+  };
+  // The fixed direct Testing Run: root Testing wrapper, source none, actual C2 measurement.
+  x.directTesting=async()=>{
+    x.enter({id:'rc7-testing',state:initial,graphFunctionRef:RC7_TESTING});
+    const {task}=await x.prepareTesting(initial),prepared=refusals.slice(),observed=x.measure(task);
+    return {task,prepared,observed,...x.fold('testing',initial,observed)};
+  };
+  // UAT's admitted source: the direct Testing Run's state Result, as the ABG derivation names it.
+  x.source=(state,over={})=>({kind:'invocation_source_result_basis',sourceResultContractRef:product.governanceContract('state'),sourceResultValueDigest:product.sha256Canonical(state),
+    sourceGraphFunctionRef:RC7_TESTING,sourceRunId:'run:rc7-testing',sourceInvocationAdmissionRef:'invocation-admission:rc7-testing',sourceResultValue:state,...over});
+  x.enterUat=(state,over={},options={})=>x.enter({id:'rc7-uat',state,graphFunctionRef:RC7_UAT,source:x.source(state,over),...options});
+  return x;
+}
+test('RC7 fixed proof: direct root Testing prepares the observed C2 task and folds one selector-free Testing observation',async t=>{
+  const x=await rc7FixedRoute(t),{initial}=x;
+  const {task,prepared,observed,b,input,event,folded}=await x.directTesting();
+  assert.deepEqual(prepared,[]);assert.ok(task?.sourceObservedInput,'fresh direct Testing keeps the existing observed C2 preparation');
+  assert.ok(folded,'the owner-authenticated direct route folds without a selector');
+  assert.equal(product.isGovernanceWorkState(folded),true);assert.equal(folded.terminal,false);assert.equal(folded.synthesis,null);
+  assert.deepEqual(folded.original,initial.original);assert.deepEqual(folded.unresolvedSupportRefs,initial.original.requiredSupportRefs);
+  assert.equal(folded.observations.length,1);
+  const row=folded.observations[0];
+  assert.deepEqual([row.purpose,row.resultRef,row.resultDigest,row.cCallRef,row.actorInvocationRef,row.synthesisResultRef,row.selectedGraphFunctionRef],
+    ['testing',event.payload.resultRef,event.payload.resultDigest,event.aggregateId,observed.provenance.actorInvocationRef,null,RC7_TESTING]);
+  assert.deepEqual(row.value.commandResults.map(r=>r.exitStatus),task.commands.map(()=>1));
+  assert.deepEqual(row.value.predicateObservations,observed.predicateObservations);
+  assert.equal(x.m.governanceResultMatches(b,input,folded),true);
+  assert.equal(product.retainedGovernanceWorkInput(folded),folded,'the folded Testing state is a retained source candidate');
+  // The retained projection at this entry basis remains the fold's only source.
+  const retained=x.owned.inputOrigin.retainedProjection;
+  x.owned.inputOrigin={};assert.equal(x.m.projectGovernanceFold(b,input),null);
+  x.owned.inputOrigin={retainedProjection:{...retained,entryBasis:{basisRef:'basis:foreign'}}};assert.equal(x.m.projectGovernanceFold(b,input),null);
+  assert.equal(x.m.governanceResultMatches(x.at('testing','prepare-testing',initial),initial,task),true);
+  // Product typing: a selector-free row names only its own Testing/UAT wrapper.
+  for(const bad of [{selectedGraphFunctionRef:RC7_UAT},{selectedGraphFunctionRef:'graph-function://foreign/testing@5'},
+    {purpose:'construction',selectedGraphFunctionRef:product.governanceRef('graph-function','construction')}])
+    assert.equal(product.isGovernanceWorkState({...folded,observations:[{...row,...bad}]}),false,JSON.stringify(bad));
+  assert.equal(product.isGovernanceWorkState({...folded,observations:[{...row,synthesisResultRef:'result:selection'}]}),true,'a selected row keeps its typing');
+});
+test('RC7 fixed proof: direct Testing refuses open scope, fabricated or retained input, and a selector-free fold off the root Testing wrapper',async t=>{
+  const x=await rc7FixedRoute(t),{initial,witness}=x,relations=()=>x.refusals.map(r=>r[1]);
+  const {folded,observed}=await x.directTesting();assert.ok(folded);
+  // Other declared work is open choice, refused before any worksite observation.
+  x.enter({id:'rc7-open',state:witness,graphFunctionRef:RC7_TESTING});
+  assert.equal((await x.prepareTesting(witness)).task,null);assert.deepEqual(relations(),['direct_fixed_route']);
+  // Observations without an admitted source keep the existing refusal.
+  x.enter({id:'rc7-fabricated',state:folded,graphFunctionRef:RC7_TESTING});
+  assert.equal((await x.prepareTesting(folded)).task,null);assert.deepEqual(relations(),['retained_root_state']);
+  // An admitted Testing source belongs to UAT, never to a second direct Testing.
+  x.enter({id:'rc7-retained-testing',state:folded,graphFunctionRef:RC7_TESTING,source:x.source(folded)});
+  assert.equal((await x.prepareTesting(folded)).task,null);assert.deepEqual(relations(),['direct_fixed_route']);
+  // Off the root Testing wrapper, preparation is unchanged and a selector-free fold refuses.
+  for(const [id,graphFunctionRef,child] of [['rc7-child',RC7_TESTING,true],['rc7-foreign','graph-function://foreign/testing@5',false]]){
+    x.enter({id,state:initial,graphFunctionRef,child});
+    const {task}=await x.prepareTesting(initial);assert.ok(task?.sourceObservedInput,id+' preparation');assert.deepEqual(x.refusals,[]);
+    assert.equal(x.fold('testing',initial,observed).folded,null,id+' selector-free fold');
+  }
+});
+test('RC7 fixed proof: direct UAT takes the admitted Testing state Result as its single producer and folds unmet and satisfied assessments without a selector',async t=>{
+  const x=await rc7FixedRoute(t),{nativeOwner,provenance}=x;
+  const {folded,event,observed}=await x.directTesting();assert.ok(folded);
+  const order=folded.original.workOrders.uat;
+  x.enterUat(folded);const {b,task}=await x.prepareUat(folded);
+  assert.ok(nativeOwner.isNativeWorkspaceWorkTask(task),'direct UAT prepares its native assessment');
+  assert.deepEqual(task.assessment.producer,{resultRef:event.payload.resultRef,resultDigest:event.payload.resultDigest,cCallRef:event.aggregateId,actorInvocationRef:observed.provenance.actorInvocationRef});
+  assert.equal(task.outcome,order.outcome);assert.deepEqual(task.writeRoots,[]);
+  // The full-original instructions govern unconditionally; no advisory or author text appears.
+  const i=task.instructions.indexOf('Governing full-original assessment outcome: '+order.outcome);
+  assert.ok(i>0);assert.ok(task.instructions[i-1].startsWith('This parent-context view retains'));
+  assert.ok(task.instructions[i+1].startsWith(RC7_FULL_ORIGINAL));assert.ok(task.instructions[i+2].startsWith(RC7_PRODUCER));assert.equal(task.instructions.length,i+3);
+  assert.equal(task.instructions.some(s=>s.startsWith('Advisory planner selection')||s.startsWith('Supplied purpose outcome')||s.includes('return a truthful partial report')),false);
+  const carried=JSON.parse(task.instructions[i+2].slice(task.instructions[i+2].indexOf('{"resultRef"')));
+  assert.deepEqual([carried.resultRef,carried.cCallRef,carried.actorInvocationRef],[event.payload.resultRef,event.aggregateId,observed.provenance.actorInvocationRef]);
+  assert.deepEqual(carried.commandResults.map(r=>r.exitStatus),observed.commandResults.map(r=>r.exitStatus));
+  assert.equal(x.m.governanceResultMatches(b,folded,task),true);
+  for(const [disposition,unresolvedCriteria] of [['unmet',['behavior']],['satisfied',[]]]){
+    x.enterUat(folded);
+    const assessment=heldNativeObservation(nativeOwner,task,task.context,null,{...provenance,cCallRef:'call:rc7-assessment',actorInvocationRef:'actor:rc7-assessor'},
+      {kind:'consumer_outcome_assessment',disposition,reason:'Controlled independent judgment',unresolvedCriteria});
+    assert.equal(nativeOwner.nativeWorkspaceWorkObservationMatchesTask(task,assessment),true,disposition+' assessor');
+    const {b:foldBasis,input,event:assessedEvent,folded:assessed}=x.fold('uat',folded,assessment);
+    assert.ok(assessed,disposition);assert.equal(product.isGovernanceWorkState(assessed),true);assert.equal(assessed.terminal,false,'only parent evaluation may close');
+    assert.deepEqual(assessed.observations.slice(0,1),folded.observations);assert.equal(assessed.observations.length,2);
+    const last=assessed.observations[1];
+    assert.deepEqual([last.purpose,last.resultRef,last.cCallRef,last.actorInvocationRef,last.synthesisResultRef,last.selectedGraphFunctionRef,last.value.disposition],
+      ['uat',assessedEvent.payload.resultRef,assessedEvent.aggregateId,'actor:rc7-assessor',null,RC7_UAT,disposition]);
+    assert.equal(x.m.governanceResultMatches(foldBasis,input,assessed),true);
+  }
+  // The measuring actor cannot assess its own producer.
+  assert.equal(nativeOwner.nativeWorkspaceWorkObservationMatchesTask(task,heldNativeObservation(nativeOwner,task,task.context,null,
+    {...provenance,cCallRef:'call:rc7-self',actorInvocationRef:observed.provenance.actorInvocationRef},
+    {kind:'consumer_outcome_assessment',disposition:'satisfied',reason:'Self assessment',unresolvedCriteria:[]})),false);
+});
+test('RC7 fixed proof: direct UAT refuses crossed source, row population, producer identity, currentness and off-root relations',async t=>{
+  const x=await rc7FixedRoute(t),{f,initial,witness,bases}=x;
+  const {folded,event}=await x.directTesting();assert.ok(folded);
+  const row=folded.observations[0],rowed=change=>({...folded,observations:[{...row,...change}]});
+  const uatTask=async(state,over={},options={})=>{x.enterUat(state,over,options);return (await x.prepareUat(state)).task;};
+  const refused=async(label,...args)=>assert.equal(await uatTask(...args),null,label);
+  assert.ok(await uatTask(folded),'positive control');
+  // The admitted source is exactly the direct Testing Run's state Result.
+  await refused('UAT source wrapper',folded,{sourceGraphFunctionRef:RC7_UAT});
+  await refused('executive source',folded,{sourceGraphFunctionRef:product.governanceRef('graph-function','executive-step')});
+  await refused('source value digest',folded,{sourceResultValueDigest:product.sha256Canonical('crossed')});
+  await refused('source contract',folded,{sourceResultContractRef:product.governanceContract('choice')});
+  await refused('source Run',folded,{sourceRunId:'run:rc7-other'});
+  await refused('source invocation',folded,{sourceInvocationAdmissionRef:'invocation-admission:rc7-other'});
+  // Exactly one selector-free Testing row of the fixed scope; no latest or eligible search.
+  await refused('zero rows',initial);
+  await refused('two rows',{...folded,observations:[row,{...row,resultRef:'result:rc7-second',cCallRef:'call:rc7-second'}]});
+  await refused('selected row',rowed({synthesisResultRef:'result:selection'}));
+  await refused('UAT row',rowed({purpose:'uat',selectedGraphFunctionRef:RC7_UAT}));
+  await refused('foreign wrapper row',rowed({selectedGraphFunctionRef:'graph-function://foreign/testing@5'}));
+  await refused('open scope',{...folded,original:witness.original});
+  // The row's producer identity joins the admitted C2 Result.
+  await refused('crossed CCall',rowed({cCallRef:'call:rc7-crossed'}));
+  await refused('crossed digest',rowed({resultDigest:product.sha256Canonical('crossed')}));
+  await refused('crossed actor',rowed({actorInvocationRef:'actor:rc7-other'}));
+  // Its one actual C2 child sits directly under the source invocation's root Testing wrapper.
+  const child=bases.get(event.basisId),root=bases.get(child.parentExecutionBasisRef);
+  for(const [label,ref,value] of [['child invocation',event.basisId,{...child,invocationAdmissionRef:'invocation-admission:rc7-other'}],
+    ['absent parent',event.basisId,{...child,parentExecutionBasisRef:'basis:rc7-absent'}],
+    ['non-root parent',child.parentExecutionBasisRef,{...root,parentExecutionBasisRef:'basis:rc7-above'}],
+    ['parent wrapper',child.parentExecutionBasisRef,{...root,graphFunctionRef:product.governanceRef('graph-function','executive-step')}],
+    ['parent invocation',child.parentExecutionBasisRef,{...root,invocationAdmissionRef:'invocation-admission:rc7-other'}]]){
+    const held=bases.get(ref);bases.set(ref,value);await refused(label,folded);bases.set(ref,held);
+  }
+  // Currentness: invalidated producer sources and changed producer dependency bytes refuse.
+  x.invalidated=true;await refused('invalidated producer sources',folded);x.invalidated=false;
+  const candidate=join(f.canonicalRoot,folded.original.assessment.candidatePath),bytes=await readFile(candidate);
+  await writeFile(candidate,Buffer.concat([bytes,Buffer.from('\n// changed after Testing\n')]));
+  await refused('changed producer dependency',folded);
+  await writeFile(candidate,bytes);assert.ok(await uatTask(folded),'restored dependency bytes are current again');
+  // Off the root UAT wrapper there is no selector-free producer.
+  await refused('UAT child',folded,{},{child:true});
+  await refused('foreign UAT root',folded,{},{graphFunctionRef:'graph-function://foreign/uat@5'});
+  await refused('Testing wrapper root',folded,{},{graphFunctionRef:RC7_TESTING});
+});
+test('RC7 fixed proof: selected children keep the synthesis target guard, selected Result ref and selected instruction order',async t=>{
+  const x=await rc7FixedRoute(t),{initial,witness,context}=x;
+  const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Supplied work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[]}}});
+  // A selected Testing child records its selection; a selection naming another wrapper refuses.
+  x.enter({id:'rc7-selected',state:initial,graphFunctionRef:RC7_TESTING,child:true});
+  const testing=synth(initial,'testing'),{task}=await x.prepareTesting(testing);assert.ok(task?.sourceObservedInput);
+  const observed=x.measure(task),measured=x.fold('testing',testing,observed).folded;
+  assert.ok(measured);assert.equal(measured.observations[0].synthesisResultRef,testing.synthesis.resultRef);assert.equal(measured.observations[0].selectedGraphFunctionRef,RC7_TESTING);
+  assert.equal(x.fold('testing',synth(initial,'uat'),observed).folded,null,'a selection naming UAT cannot fold Testing');
+  // A selected UAT child keeps the advisory selection between governing outcome and full-original instructions.
+  x.enter({id:'rc7-selected',state:initial,graphFunctionRef:RC7_UAT,child:true});
+  const order=initial.original.workOrders.uat,selected=synth(measured,'uat',measured.observations[0].resultRef),uatTask=(await x.prepareUat(selected)).task;
+  assert.ok(uatTask);assert.equal(uatTask.outcome,order.outcome);assert.equal(uatTask.assessment.producer.resultRef,measured.observations[0].resultRef);
+  const i=uatTask.instructions.indexOf('Governing full-original assessment outcome: '+order.outcome);
+  assert.ok(i>0);assert.ok(uatTask.instructions[i+1].startsWith('Advisory planner selection (non-governing context;'));
+  assert.ok(uatTask.instructions[i+2].startsWith(RC7_FULL_ORIGINAL));assert.ok(uatTask.instructions[i+3].startsWith(RC7_PRODUCER));assert.equal(uatTask.instructions.length,i+4);
+  assert.equal((await x.prepareUat({...measured,synthesis:null})).task,null,'selector-free UAT off the direct route has no producer');
+  // A selected author child keeps supplied outcome, current selection and author guidance in order;
+  // a selector-free author keeps its supplied goal.
+  x.enter({id:'rc7-author',state:witness,graphFunctionRef:product.governanceRef('graph-function','construction'),child:true});
+  const author=synth(witness,'construction'),construction=witness.original.workOrders.construction;
+  const authorTask=await x.m.projectGovernanceNativeTask(x.at('construction','prepare-native',author),author);
+  const j=authorTask.instructions.indexOf('Supplied purpose outcome (parent context): '+construction.outcome);
+  assert.ok(j>0);assert.ok(authorTask.instructions[j+1].startsWith('Current admitted selection for this work unit: '));
+  assert.ok(authorTask.instructions[j+2].startsWith("This native task's outcome is the selected bounded contribution."));assert.equal(authorTask.instructions.length,j+3);
+  assert.equal(authorTask.outcome,'Selected work');
+  const plain=await x.m.projectGovernanceNativeTask(x.at('construction','prepare-native',witness),witness);
+  assert.equal(plain.outcome,construction.outcome);
+  assert.equal(plain.instructions.some(s=>s.startsWith('Supplied purpose outcome')||s.startsWith('Current admitted selection')),false);
+});
+test('RC7 fixed proof: public-setup invokes Testing directly, derives its admitted state Result once and invokes UAT over exactly that source; the lifecycle start is unchanged',async()=>{
+  const setup=await import('../uat/public-setup.mjs'),{IDS}=await import('../uat/consumer.mjs'),hash=product.sha256Canonical;
+  // F2-PROGRAM-001: both fixed calls select the existing library Program, its
+  // declared run environment and a Catalog view of its callable membership.
+  const libraryProgramRef=product.governanceRef('program','default'),libraryMembership=[RC7_UAT,RC7_TESTING];
+  const narrowed=[],controlledProduct={...product,narrowGraphFunctionCatalog:(catalog,allowlist)=>{narrowed.push(allowlist);return {kind:'graph_function_catalog_view',allowlist};}};
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
+  const witness=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')}),{testing,uat}=witness.original.workOrders;
+  const initial=product.constructGovernanceWorkState({...witness.original,workOrders:{testing,uat}});
+  const row={purpose:'testing',resultRef:'result:rc7-c2',resultDigest:hash('c2'),cCallRef:'call:rc7-c2',actorInvocationRef:'actor:rc7-measurement',
+    synthesisResultRef:null,selectedGraphFunctionRef:RC7_TESTING,value:{commandResults:[],predicateObservations:[]}};
+  const tested={...initial,observations:[row]};assert.equal(product.retainedGovernanceWorkInput(tested),tested);
+  // Population, admission, prefix reads and derivation are controlled premises; the actual caller runs.
+  // HS3: setup bound the library Program once; its admitted view is the setup view.
+  const supplied=[],derived=[],admissions=new Map();let population=null,derive=null;
+  const libraryRow={programRef:libraryProgramRef,callableMembership:libraryMembership,policies:{'abg.run_environment':'environment:rc7-library'}};
+  const libraryBinding={selection:'library',programRef:libraryProgramRef,catalogProgramDigest:hash(libraryRow)};
+  const caller={root:'/controlled/rc7',installedRoot:'/controlled/rc7-install',actorRef:'actor://controlled/rc7',config:{runId:'rc7-fixed'},
+    state:{catalog:{boundPublications:[{moduleRef:IDS.moduleRef,runEnvironments:[{declarationRef:'environment:rc7',dependencies:[]}]},
+      {moduleRef:product.governanceRef('module','default'),programs:[libraryRow],
+        runEnvironments:[{declarationRef:'environment:rc7-library',dependencies:[]}]}]},
+      catalogView:{kind:'graph_function_catalog_view',allowlist:[...libraryMembership].sort(),viewDigest:hash('view')},programBinding:libraryBinding},
+    native:{verified:{definitionContractCoordinates:{operations:[]}}},
+    refresh:()=>({productInstalls:[],workspaceBinding:{workspaceId:'workspace:rc7'},artifactTruth:{}}),reopen:()=>({kind:'controlled-event-resource'}),
+    runtime:{product:controlledProduct,abg:{hasAdmittedProductInstall:()=>true,readRuntimeEventsAtDurablePrefix:prefix=>({read:prefix}),selectValidatedRuntimeEventPrefix:read=>({validated:read}),
+      rehydrateInvocationAdmissionAtPrefix:(_prefix,ref)=>admissions.get(ref)??null,deriveInvocationSourceResultBasisAtPrefix:(prefix,input)=>{derived.push({prefix,input});return derive(input);}},
+      api:{async constructInstalledStartCall(value){supplied.push(value);if(population)return population;const n=supplied.length;
+        return {kind:'installed_start_call',population:{resolution:{kind:'controlled-resolution'}},call:{invocation:{invocationRef:'public-invocation:rc7-'+n,invocationDigest:hash('public-invocation:'+n)}}};}}}};
+  const namespace='abi5-tests/sandbox-uat/rc7-fixed';
+  // Fixed calls without the one library setup binding refuse before population.
+  const unbound=binding=>({...caller,state:{...caller.state,programBinding:binding}});
+  for(const [label,binding] of [['absent',null],['consumer',{selection:'consumer',programRef:IDS.programRef,catalogProgramDigest:hash('consumer')}],
+    ['changed library Program',{...libraryBinding,catalogProgramDigest:hash('other-library-program')}]]){
+    await assert.rejects(setup.constructFixedTestingCall(unbound(binding),initial),error=>error.stage==='setup-program-binding',label);
+  }
+  assert.equal(supplied.length,0,'binding refusals construct no population, task or grant');
+  const testingCall=await setup.constructFixedTestingCall(caller,initial);
+  assert.deepEqual(supplied[0].selection,{memberKey:'invoke',catalogHandle:RC7_TESTING});assert.deepEqual(supplied[0].source,{kind:'none'});
+  assert.deepEqual(supplied[0].input,{value:initial});assert.equal(supplied[0].programRef,libraryProgramRef);
+  assert.equal(supplied[0].catalogView,caller.state.catalogView,'the setup library view');assert.deepEqual(narrowed,[],'no fixed call re-narrows the setup view');
+  assert.equal(supplied[0].inputValueRef,'value://'+namespace+'/fixed-testing/input');assert.equal(supplied[0].envelope.requestRef,'request://'+namespace+'/fixed-testing');
+  // The completed direct Testing Run's own terminal Result at its own close handoff.
+  const handoff={prefix:{eventLogRef:'file:///controlled/rc7/events.jsonl',prefixLength:7}},admissionRef='invocation-admission:rc7-testing';
+  admissions.set(admissionRef,{invocationRef:'invocation:rc7-testing',invocationAdmissionRef:admissionRef,graphFunctionRef:RC7_TESTING});
+  const receiptFor=(value={},producer={})=>({ownerOutput:{outcomeKind:'result',value:{invocationKind:'invoke',disposition:'completed',run:{ref:'run:rc7-testing'},result:{ref:'result:rc7-testing-state'},
+    terminalResult:{producer:{runRef:'run:rc7-testing',invocationAdmissionRef:admissionRef,graphFunction:{ref:RC7_TESTING},...producer}},...value}},
+    resources:{invocationAdmission:{ref:admissionRef},eventResource:{closeHandoff:handoff}}});
+  const basisFor=(input,over={})=>({kind:'invocation_source_result_basis',basisRef:'source-basis:rc7',publicAuthorityDigest:input.publicAuthorityDigest,sourceInvocationAdmissionRef:input.invocationAdmissionRef,
+    sourceRunId:input.runId,sourceGraphFunctionRef:RC7_TESTING,sourceResultRef:input.resultRef,sourceResultContractRef:product.governanceContract('state'),sourceResultValue:tested,...over});
+  derive=input=>basisFor(input);
+  const fixed=setup.deriveFixedTestingSource(caller,{call:testingCall.call,receipt:receiptFor()});
+  assert.deepEqual(derived,[{prefix:{validated:{read:handoff.prefix}},input:{publicAuthorityDigest:testingCall.call.invocation.invocationDigest,
+    runtimeInvocationRef:'invocation:rc7-testing',invocationAdmissionRef:admissionRef,runId:'run:rc7-testing',resultRef:'result:rc7-testing-state'}}]);
+  assert.equal(fixed.input,tested);
+  assert.deepEqual(fixed.source,{kind:'admitted_source_result',basis:basisFor(derived[0].input),
+    projectionAuthority:{ref:testingCall.call.invocation.invocationRef,digest:testingCall.call.invocation.invocationDigest}});
+  await setup.constructFixedUatCall(caller,fixed);
+  assert.deepEqual(supplied[1].selection,{memberKey:'invoke',catalogHandle:RC7_UAT});assert.equal(supplied[1].source,fixed.source,'UAT carries exactly the derived source');
+  assert.deepEqual(supplied[1].input,{value:tested});assert.equal(supplied[1].inputValueRef,'value://'+namespace+'/fixed-uat/input');
+  assert.equal(supplied[1].programRef,libraryProgramRef,'UAT selects the same library Program');assert.deepEqual(supplied[1].catalogView,supplied[0].catalogView);
+  // A held call's completion successor names the derivation boundary.
+  const successor={eventLogRef:'file:///controlled/rc7/events.jsonl',prefixLength:9},beforeHeld=derived.length;
+  setup.deriveFixedTestingSource(caller,{call:testingCall.call,receipt:{...receiptFor(),resources:{invocationAdmission:{ref:admissionRef},eventResource:{kind:'abg_event_resource_completion',successor:{prefix:successor}}}}});
+  assert.deepEqual(derived.slice(beforeHeld).map(row=>row.prefix),[{validated:{read:successor}}]);
+  assert.equal(supplied[1].envelope.requestRef,'request://'+namespace+'/fixed-uat');
+  // No other Result, Run, wrapper or state stands in for that one Testing Result.
+  const refusesAt=(stage,receipt,label)=>{const before=derived.length;
+    assert.throws(()=>setup.deriveFixedTestingSource(caller,{call:testingCall.call,receipt}),error=>error.stage===stage,label);return derived.length-before;};
+  assert.equal(refusesAt('fixed-testing-result',receiptFor({disposition:'blocked'}),'blocked Run'),0);
+  assert.equal(refusesAt('fixed-testing-result',receiptFor({result:null}),'no Result'),0);
+  assert.equal(refusesAt('fixed-testing-result',receiptFor({},{graphFunction:{ref:product.governanceRef('graph-function','executive-step')}}),'executive producer'),0);
+  assert.equal(refusesAt('fixed-testing-result',receiptFor({},{runRef:'run:rc7-other'}),'other Run producer'),0);
+  assert.equal(refusesAt('fixed-testing-result',receiptFor({},{invocationAdmissionRef:'invocation-admission:rc7-other'}),'other invocation producer'),0);
+  assert.equal(refusesAt('fixed-testing-result',{...receiptFor(),ownerOutput:{outcomeKind:'refusal',value:{code:'invalid_input'}}},'refusal'),0);
+  admissions.set(admissionRef,{invocationRef:'invocation:rc7-testing',invocationAdmissionRef:admissionRef,graphFunctionRef:RC7_UAT});
+  assert.equal(refusesAt('fixed-testing-admission',receiptFor(),'admitted invocation wrapper'),0);
+  admissions.set(admissionRef,{invocationRef:'invocation:rc7-testing',invocationAdmissionRef:admissionRef,graphFunctionRef:RC7_TESTING});
+  derive=()=>null;assert.equal(refusesAt('fixed-testing-source',receiptFor(),'underivable source'),1);
+  derive=input=>basisFor(input,{sourceGraphFunctionRef:product.governanceRef('graph-function','executive-step')});assert.equal(refusesAt('fixed-testing-source',receiptFor(),'executive source'),1);
+  derive=input=>basisFor(input,{sourceResultValue:initial});assert.equal(refusesAt('fixed-testing-state',receiptFor(),'unobserved state'),1);
+  derive=input=>basisFor(input,{sourceResultValue:{...tested,terminal:true,unresolvedSupportRefs:[]}});assert.equal(refusesAt('fixed-testing-state',receiptFor(),'terminal state'),1);
+  population={kind:'product_run_invocation_preparation_refusal',memberKey:'invoke',ownerOutput:{outcomeKind:'refusal',value:{code:'invalid_input',issuePaths:['/input'],evidenceRefs:[]}}};
+  await assert.rejects(setup.constructFixedUatCall(caller,fixed),error=>{assert.equal(error.stage,'fixed-uat-input-admission');assert.deepEqual(error.observation,population.ownerOutput);return true;});
+  population=null;
+  // The library binding does not host the consumer lifecycle start; no rebind.
+  const beforeStart=supplied.length;
+  await assert.rejects(setup.constructLifecycleCall(caller,initial),error=>error.stage==='setup-program-binding');
+  assert.equal(supplied.length,beforeStart);assert.equal(caller.state.programBinding,libraryBinding);
+  // The lifecycle start keeps its selection, source and refs under the ordinary
+  // consumer default (absent binding) and an explicit consumer binding.
+  for(const binding of [null,{selection:'consumer',programRef:IDS.programRef,catalogProgramDigest:hash('consumer')}]){
+    const consumerCaller=unbound(binding);
+    await setup.constructLifecycleCall(consumerCaller,initial);const start=supplied.at(-1);
+    assert.equal(start.programRef,IDS.programRef);assert.equal(start.catalogView,consumerCaller.state.catalogView);
+    assert.deepEqual(start.selection,{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'});assert.deepEqual(start.source,{kind:'none'});
+    assert.equal(start.inputValueRef,'value://'+namespace+'/input');assert.equal(start.envelope.requestRef,'request://'+namespace+'/start');
+  }
+});
 test('UAT preparation carries its full authenticated producer: whole streams in both presentations and whole predicate observations',async t=>{
   const PRODUCER="This independent assessment consumes its full authenticated producer, the admitted Testing Result cited here: its command streams complete, each as UTF-8 text when its admitted bytes decode as strict UTF-8, else the admitted base64 payload, each with its admitted byte length and digest, and its predicate observations complete. Field paths are relative to the cited admitted Result's value and confer no additional access or authority. The parent-context view above stays bounded; this producer is carried whole, nothing withheld, and the declared prompt bound refuses a prompt that overflows it. Reacquire all mandatory selected source and assessment material through the declared reads.";
   const scenarios=await import('../uat/scenarios.mjs'),consumer=await import('../uat/consumer.mjs');
@@ -1206,7 +1560,7 @@ test('UAT preparation carries its full authenticated producer: whole streams in 
   // Only occurrence authentication, indexing and invalidation are controlled;
   // physical contexts and typed task/artifact/observation/fold owners are real.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>({sourceBasis,sourceTask:admittedNativeTasks.get(value?.inputDigest)}),...nativeResultTaskPremise}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original rust-cli work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the full original against its measured producer',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -1293,7 +1647,7 @@ test('UAT preparation carries its full authenticated producer: whole streams in 
   assert.equal(m.namespace.governanceResultMatches(b,uat,replaced({...whole,predicateObservations:bounded.predicateObservations})),false,'the planning view substituted for the predicate evidence is refused');
   // A native producer gets no producer instruction: the bounded view carries its report whole.
   const nativeState=synth(initial,'construction'),nativeTask=await m.namespace.projectGovernanceNativeTask(at('construction','prepare-native',nativeState),nativeState);
-  const native=nativeOwner.constructNativeWorkspaceWorkObservation(nativeTask,context,{summary:'Controlled partial native observation',gaps:['Independent assessment unresolved']},provenance);
+  const native=heldNativeObservation(nativeOwner,nativeTask,context,{summary:'Controlled partial native observation',gaps:['Independent assessment unresolved']},provenance);
   const nativeFold=fold(nativeState,'construction',native),nativeUat=synth(nativeFold.state,'uat',nativeFold.event.payload.resultRef);
   const nativeAssessmentTask=await m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',nativeUat),nativeUat);
   assert.ok(nativeOwner.isNativeWorkspaceWorkTask(nativeAssessmentTask));assert.equal(nativeAssessmentTask.instructions.some(i=>i.startsWith(PRODUCER)),false);
@@ -1323,7 +1677,7 @@ test('C2 assessment binds a separate current DataMapper dossier without changing
   // Only occurrence authentication, indexing and invalidation are controlled;
   // physical contexts and typed task/artifact/observation/fold owners are real.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceBasis}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?await rootProjection(index,rootBasis(root,execution)):specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:(_p,_at,_root,paths)=>{checkedPaths=paths;return invalidated;},projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>({sourceBasis,sourceTask:admittedNativeTasks.get(value?.inputDigest)}),...nativeResultTaskPremise}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const synth=(state,purpose,subjectEvidenceRef=null)=>({...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:product.sha256Canonical(purpose),basis:{inputRef:'input:synthesis',inputDigest:product.sha256Canonical(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:product.sha256Canonical('environment'),frameEvidenceDigest:product.sha256Canonical('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Original DataMapper work',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Independently assess the current declared dossier',reason:'Current measurement support',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Declared independent assessment',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current context',revisionEvidenceRefs:[]}}});
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
@@ -1334,7 +1688,7 @@ test('C2 assessment binds a separate current DataMapper dossier without changing
   const nativeOwner=await import('../../build/code/src/product/native_workspace_work.js');
   const provenance={cCallRef:'call:native',executionAuthorityRef:'authority:test',executionAuthorityDigest:product.sha256Canonical('authority'),actorInvocationRef:'actor:native',transportBindingRef:'transport:test',transportBindingDigest:product.sha256Canonical('transport'),promptDigest:product.sha256Canonical('prompt'),transportDigest:product.sha256Canonical('transport')};
   const nativeState=synth(initial,'construction'),nativeTask=await m.namespace.projectGovernanceNativeTask(at('construction','prepare-native',nativeState),nativeState);
-  const native=nativeOwner.constructNativeWorkspaceWorkObservation(nativeTask,context,{summary:'Controlled partial native observation',gaps:['Independent assessment unresolved']},provenance);
+  const native=heldNativeObservation(nativeOwner,nativeTask,context,{summary:'Controlled partial native observation',gaps:['Independent assessment unresolved']},provenance);
   const nativeFold=fold(nativeState,'construction',native);
   const testing=synth(initial,'testing'),task=await m.namespace.projectGovernanceTestingTask(at('testing','prepare-testing',testing),testing);
   assert.equal(task.protectedObservations.length,26);assert.deepEqual(task.protectedObservations.map(p=>p.subject.relativePath),initial.original.testing.selectedPaths);
@@ -1367,7 +1721,7 @@ test('C2 assessment binds a separate current DataMapper dossier without changing
   assert.deepEqual(prepared.assessment.sources.map(s=>s.path),initial.original.assessment.sources);assert.equal(prepared.assessment.rubric.path,initial.original.assessment.rubricPath);
   assert.deepEqual(prepared.assessment.schemaAsset,initial.original.assessment.schemaAsset);assert.ok(prepared.instructions.includes('Conserved original task: '+initial.original.task));
   assert.equal(observed.task.protectedObservations.length,26);assert.equal(observed.task.protectedObservations.some(p=>p.subject.relativePath===candidatePath),false,'no retroactive measurement enrichment');
-  const assessment=nativeOwner.constructNativeWorkspaceWorkObservation(prepared,prepared.context,null,{...provenance,cCallRef:'call:independent-assessment',actorInvocationRef:'actor:independent-assessor'},
+  const assessment=heldNativeObservation(nativeOwner,prepared,prepared.context,null,{...provenance,cCallRef:'call:independent-assessment',actorInvocationRef:'actor:independent-assessor'},
     {kind:consumer.ASSESSMENT.valueKind,disposition:'unmet',reason:'Controlled negative measurement remains unmet',unresolvedCriteria:['original full criteria']});
   const assessed=fold(uat,'uat',assessment);assert.equal(assessed.state.observations.at(-1).value.disposition,'unmet');assert.equal(assessed.state.terminal,false);
   const prepare=()=>m.namespace.projectGovernanceNativeTask(at('uat','prepare-native',uat),uat);
@@ -1711,7 +2065,11 @@ if('interpretation' in props){
  if(!existsSync('generated/hello-world.mjs')){process.stderr.write('scripted worker expects the worksite cwd\\n');process.exit(1);}
  writeFileSync('generated/hello-world.mjs','console.log("Hello, world!");\\n');role='native';output={summary:'Scripted construction repaired the candidate.',gaps:[]};
  const outside=process.env.ABI5_SCRIPTED_ACTOR_W_OUTSIDE_R;if(outside){mkdirSync(dirname(outside),{recursive:true});writeFileSync(outside,'scripted disposable tooling\\n');extra={wOutsideR:outside};}
-}else{role='assess';extra={schemaKeys:Object.keys(props),schema:at>=0};output={kind:props.kind?.const??'consumer_outcome_assessment',disposition:'satisfied',reason:'Scripted assessment.',unresolvedCriteria:[]};}
+}else{
+ // Result-text assessors receive no --json-schema; answer the kind of the exact declared schema the work order displays.
+ const declared=prompt.split('\\n').find(l=>l.startsWith('Exact declared response JSON Schema: '));
+ const kind=props.kind?.const??(declared===undefined?undefined:JSON.parse(declared.slice(declared.indexOf('{'))).properties?.kind?.const)??'consumer_outcome_assessment';
+ role='assess';extra={schemaKeys:Object.keys(props),schema:at>=0,kind};output={kind,disposition:'satisfied',reason:'Scripted assessment.',unresolvedCriteria:[]};}
 appendFileSync(log,JSON.stringify({role,pid:process.pid,...extra})+'\\n');
 console.log(JSON.stringify({type:'system',subtype:'init'}));
 console.log(JSON.stringify({type:'result',subtype:'success',is_error:false,result:JSON.stringify(output),structured_output:output}));
@@ -1811,18 +2169,22 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
   const testingChoice=results(run0).filter(e=>e.payload.value?.kind==='registered_graph_choice').at(-1);
   assert.equal(testingChoice.payload.value.input.value.synthesis.judgment.subjectEvidenceRef,constructionResults[0].payload.resultRef,'Testing subjectEvidence is the actual native-work Result');
   // W outside R through the installed protected-root preflight: actor, physical effect, unobserved Result and shared currentness.
-  const nativeValue=constructionResults[0].payload.value,nativeRows=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l)).filter(r=>r.role==='native');
+  // The native Result binds its task by digest; the native owner joins it to the raw input of the Result's own admitted basis.
+  const effectOwner=await load('abg/native_work_effect'),currentness=await load('abg/native_worksite_execution');
+  const nativeValue=constructionResults[0].payload.value,nativeTask=currentness.projectNativeWorkspaceWorkResultTaskAtPrefix(prefix,constructionResults[0]);
+  const nativeBasis=run0.find(e=>e.kind==='basis_admitted'&&e.basisId===constructionResults[0].basisId&&e.payload.basisRef===constructionResults[0].basisId);
+  assert.ok(nativeTask,'the native Result joins its admitted task');assert.deepEqual(nativeTask,nativeBasis?.payload.rawInputValue,'the task is the raw input of the Result\'s own admitted basis');
+  const nativeRows=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l)).filter(r=>r.role==='native');
   assert.deepEqual(nativeRows.map(r=>r.wOutsideR),[outsideFile],'the one scripted native actor wrote in W\\R');
   assert.equal(await readFile(join(worksite,outsideFile),'utf8'),'scripted disposable tooling\n','the W\\R effect is physical');
-  assert.ok(nativeValue.task.writeRoots.includes(outsideRoot),'the admitted task grants the root');
-  assert.equal(nativeValue.task.context.readRoots.some(r=>r==='.'||outsideFile===r||outsideFile.startsWith(r+'/')),false,'the root lies outside observed R');
+  assert.ok(nativeTask.writeRoots.includes(outsideRoot),'the admitted task grants the root');
+  assert.equal(nativeTask.context.readRoots.some(r=>r==='.'||outsideFile===r||outsideFile.startsWith(r+'/')),false,'the root lies outside observed R');
   assert.deepEqual(nativeValue.changedPaths,['generated/hello-world.mjs'],'W\\R writes are unobserved, never changedPaths');
   assert.equal(nativeValue.after.entries.some(e=>e.relativePath.startsWith(outsideRoot+'/')),false);
-  const effectOwner=await load('abg/native_work_effect'),currentness=await load('abg/native_worksite_execution');
-  const impact=effectOwner.nativeWorkImpact(nativeValue.task,nativeValue.changedPaths),unchangedR='source/witness-contract.md';
+  const impact=effectOwner.nativeWorkImpact(nativeTask,nativeValue.changedPaths),unchangedR='source/witness-contract.md';
   assert.deepEqual([outsideFile,outsideRoot,'generated/hello-world.mjs',unchangedR].map(path=>effectOwner.nativeWorkImpactOverlaps(impact,path)),[true,true,true,false]);
   assert.deepEqual([[outsideFile],['generated/hello-world.mjs'],[unchangedR]].map(paths=>currentness.worksiteCommandSourcesInvalidatedAfter(prefix,constructionResults[0].admissionOrdinal-1,
-    nativeValue.task.workspaceAuthorityBasis.canonicalRoot,paths)),[true,true,false],'currentness retires W\\R and the changed candidate, never unchanged R');
+    nativeTask.workspaceAuthorityBasis.canonicalRoot,paths)),[true,true,false],'currentness retires W\\R and the changed candidate, never unchanged R');
   // 3. Cold pending-execution projection over the interrupted Run.
   const [p,...extra]=cc.projectPendingExecutionContinuations(prefix,runId);
   assert.equal(extra.length,0);assert.ok(p,'one pending execution');assert.deepEqual(p.chain.map(c=>c.relation),['root','recursion','workflow']);
@@ -1917,8 +2279,8 @@ test('default-library Run interrupted at the durable entered Testing cursor resu
 // gap; B is a separately authorized Public start over A's eligible retained
 // state. B is killed at its durable Testing entry and continued cold through
 // the unchanged pending_execution arm. B's post-Testing selector reads the
-// declared source bodies A holds only as A's selected native Result's task
-// context declares them. The model is the scripted stand-in above.
+// declared source bodies A holds only as the admitted task context of A's
+// selected native Result declares them. The model is the scripted stand-in above.
 test('retained-source B continued cold after its Testing entry reads A-held declared source bodies only through its admitted source use',async t=>{
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
   const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
@@ -1945,7 +2307,7 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
   const publicApi=await load('public/index'),readContracts=await load('abg/project_read_operation_contracts'),storeOwner=await load('abg/event_store'),cc=await load('abg/construction_continuation');
   const installed=await load('product/index'),effectful=await load('abg/effectful_invocation_truth'),fh=await load('abg/fh_continuation_projection');
-  const bodies=await load('abg/event_prefix'),truth=await load('abg/invocation_execution_truth'),admissions=await load('abg/invocation_admission');
+  const bodies=await load('abg/event_prefix'),truth=await load('abg/invocation_execution_truth'),admissions=await load('abg/invocation_admission'),nativeOwner=await load('abg/native_worksite_execution');
   let handoff=env.store.projectReopenAuthorityAndClose();const before=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix).length;
   const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
   const cli=async(identity,call,environment)=>{
@@ -2056,7 +2418,7 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   const prepared=results(finalB).find(e=>e.payload.value?.kind!==undefined&&Object.hasOwn(e.payload.value,'sourceNativeWork'));
   assert.deepEqual(prepared?.payload.value.sourceNativeWork,N.payload.value,'B\'s Testing task retains A\'s exact native producer');
   assert.deepEqual((await roles(logB)).map(r=>r.role.split(':')[0]),['select','c2','select','assess'],'B never reinvokes native work');
-  // 6. Lineage: B admission -> A's retained state -> A's native Result -> its task context -> A holder.
+  // 6. Lineage: B admission -> A's retained state -> A's native Result -> its admitted task context -> A holder.
   const admissionB=truth.projectExactInvocationAdmissionAtPrefix(finalPrefix,rootB.payload.invocationAdmissionRef);
   assert.deepEqual(admissionB.sourceResultBasis,S,'B\'s immutable admission carries A\'s retained state');
   // B's selectors present B's Run, root and admission; A appears only as the separate retained predecessor.
@@ -2071,10 +2433,19 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
   assert.ok(useB.sourceResults.some(x=>x.resultRef===N.payload.resultRef&&x.resultDigest===N.payload.resultDigest&&x.cCallRef===N.aggregateId));
   const postTesting=results(finalB).filter(e=>e.payload.value?.kind==='framed_synthesis_task'&&e.admissionOrdinal>commands[0].admissionOrdinal);
   assert.equal(postTesting.length,1,'one post-Testing selector preparation');
-  const ctx=postTesting[0].payload.value.context,taskContext=N.payload.value.task.context,declared=inputB.original.sources.map(x=>x.path);
+  // A's native task is the one the native owner joins: a retained original Result's own task, otherwise the raw input of N's own admitted basis.
+  const original=Object.hasOwn(N.payload.value,'task'),taskN=nativeOwner.projectNativeWorkspaceWorkResultTaskAtPrefix(finalPrefix,N);
+  const basisN=original?null:all.find(x=>x.kind==='basis_admitted'&&x.basisId===N.basisId&&x.payload.basisRef===N.basisId);
+  assert.ok(taskN,'A\'s native Result joins its admitted task');
+  if(!original){assert.equal(basisN?.runId,A,'N\'s basis is admitted in A');assert.deepEqual(taskN,basisN.payload.rawInputValue,'the task is the raw input of N\'s own admitted basis');}
+  const ctx=postTesting[0].payload.value.context,taskContext=taskN.context,declared=inputB.original.sources.map(x=>x.path);
+  // An inline task-context body is held by the task's admitted holder: the original Result, or N's basis input.
   const declaredBy=e=>{const i=taskContext.entries.findIndex(x=>x.state==='file'&&x.relativePath===e.relativePath&&x.digest===e.digest&&x.byteLength===e.byteLength);
-    return i<0?null:taskContext.entries[i].encoding==='base64'?{resultRef:N.payload.resultRef,resultDigest:N.payload.resultDigest,path:['task','context','entries',i]}:taskContext.entries[i].member;};
-  const holderOf=e=>all.find(x=>x.kind==='c_call_result_admitted'&&x.payload.resultRef===e.member.resultRef);
+    return i<0?null:taskContext.entries[i].encoding!=='base64'?taskContext.entries[i].member:original?{resultRef:N.payload.resultRef,resultDigest:N.payload.resultDigest,path:['task','context','entries',i]}
+      :{basisRef:basisN.payload.basisRef,basisDigest:basisN.payload.basisDigest,path:['context','entries',i]};};
+  // A member names one admitted holder: a basis raw input by basisRef, otherwise a Result value by resultRef.
+  const holderOf=e=>Object.hasOwn(e.member,'basisRef')?all.find(x=>x.kind==='basis_admitted'&&x.basisId===e.member.basisRef&&x.payload.basisRef===e.member.basisRef)
+    :all.find(x=>x.kind==='c_call_result_admitted'&&x.payload.resultRef===e.member.resultRef);
   const heldInA=ctx.entries.filter(e=>e.state==='file'&&e.encoding==='admitted_member'&&holderOf(e)?.runId===A);
   for(const e of heldInA)assert.deepEqual(e.member,declaredBy(e),`${e.relativePath}: an A holder is carried only as A's native task context declares it`);
   const lineage=[];
@@ -2082,7 +2453,7 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
     const e=ctx.entries.find(x=>x.relativePath===path);assert.equal(e?.encoding,'admitted_member',path);assert.equal(holderOf(e).runId,A,`${path} is held in A`);
     const body=bodies.resolveWorksiteContextBodyAtPrefix(finalPrefix,ctx,path,useB);assert.equal(body.kind,'worksite_context_body',JSON.stringify(body));
     assert.deepEqual(body.bytes,await readFile(join(witnessRoot,'seed',path)),`${path}: the authenticated A body is the seed byte stream`);assert.equal(body.holder.eventRef,holderOf(e).eventId);
-    lineage.push({path,digest:e.digest,holderEvent:body.holder.eventRef,holderResult:body.holder.resultRef,holderRun:A,memberPath:e.member.path});
+    lineage.push({path,digest:e.digest,holderEvent:body.holder.eventRef,holderResult:body.holder.resultRef??null,holderBasis:body.holder.basisRef??null,holderRun:A,memberPath:e.member.path});
   }
   // The selector received exactly the admitted prompt, and it presents those bodies.
   const selectsB=(await roles(logB)).filter(x=>x.role.startsWith('select:'));assert.equal(selectsB.length,2);
@@ -2125,4 +2496,351 @@ test('retained-source B continued cold after its Testing entry reads A-held decl
     eventsA:rowsA.length,eventsInterrupted:interrupted.length,eventsFinal:all.length,finalLogSha256:product.sha256Bytes(await readFile(eventLogPath)),resumeWallMs:performance.now()-resumedAt,hostWallMs:resumedAt-hostStarted,
     proofLimit:'Actual installed default-library topology, Public start and run.continue CLI, ABG/HoG/C2/worksite owners and SIGKILL interruption; the model is a scripted stand-in process. Not a live provider and not Root\'s installed witness.'};
   await keep('summary.json',summary);t.diagnostic(JSON.stringify(summary));
+});
+
+// RC7 fixed admission: the genuine installed Public route through the
+// maintained caller (§10.9 R-G, F2-PROGRAM-001). The maintained setup admits
+// the packed candidate; one held session then invokes the registered Testing
+// wrapper directly over the fixed scope with source none, the ABG owner derives
+// that Run's state Result, and direct UAT carries it through actual invocation
+// admission, C2 and native assessment. Invocation, root basis and source
+// derivation are never stubbed; the model is the scripted stand-in process.
+// The installed sandbox consumer owns the inner assessment dependency; the
+// maintained held and fresh readbacks then agree on the completed UAT Run.
+test('RC7 fixed admission: a Public direct Testing state Result admits direct UAT through actual invocation admission',{timeout:540_000},async t=>{
+  const setup=await import('../uat/public-setup.mjs'),{commandRecorder,exclusiveRecord,heldReadbacks,freshReadbacks}=await import('../uat/runner.mjs');
+  const {assessmentSelection,ASSESSMENT}=await import('../uat/consumer.mjs');
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));
+  const scratch=await realpath(await mkdtemp(join(tmpdir(),'abi5-rc7-fixed-')));t.after(()=>rm(scratch,{recursive:true,force:true}));
+  let npm=null;
+  for(const directory of (process.env.PATH??'').split(':').filter(Boolean)){try{await stat(join(directory,'npm'));npm=join(directory,'npm');break;}catch{}}
+  assert.ok(npm,'the maintained setup requires npm on PATH');
+  await mkdir(join(scratch,'artifacts'));
+  const {stdout:packed}=await promisify(execFile)(npm,['pack','--ignore-scripts','--json','--pack-destination',join(scratch,'artifacts')],
+    {cwd:packageRoot,maxBuffer:16*1024*1024,env:{...process.env,npm_config_update_notifier:'false'}});
+  const artifactPath=join(scratch,'artifacts',JSON.parse(packed)[0].filename),setupTmp=join(scratch,'setup-tmp');await mkdir(setupTmp);
+  const inherited=Object.keys(process.env).filter(key=>['HOME','LANG','LC_ALL'].includes(key)||/^npm_config_/iu.test(key));
+  const setupEnvironment={...Object.fromEntries(inherited.map(key=>[key,process.env[key]])),PATH:process.env.PATH,TMPDIR:setupTmp,npm_config_update_notifier:'false'};
+  const root=join(scratch,'caller'),bootstrapRoot=join(root,'bootstrap/node_modules/@abiogenesis/typescript-tenant');await mkdir(bootstrapRoot,{recursive:true});
+  const record=(path,value,raw=false)=>exclusiveRecord(root,path,value,raw),command=commandRecorder(root,{environment:setupEnvironment,timeoutMs:240_000});
+  assert.equal((await command('acquire-bootstrap','/usr/bin/tar',['-xzf',artifactPath,'--strip-components=1','-C',bootstrapRoot])).exitCode,0);
+  const runtime=await setup.installedModules(bootstrapRoot),manifest=JSON.parse(await readFile(join(bootstrapRoot,'product-toolchain-manifest.json'),'utf8'));
+  const native=await setup.verifyArtifact(runtime,{artifactPath,manifest,expectedArtifactDigest:runtime.product.sha256Bytes(await readFile(artifactPath))},record,'abg');
+  const worksiteRoot=join(root,'sandbox/worksite');
+  const caller=setup.publicCaller({root,runtime,native,command,record,config:{runId:'rc7-fixed-admission',bootstrapRoot,worksiteRoot,setupEnvironment,
+    recursionBound:1000,nodePath:process.execPath,toolchains:{npm:{executable:npm}}}});
+  // HS3: one library Program binding chosen before workspace binding drives
+  // productRoot, the Catalog view, conformance and setup identity.
+  const {installations,programBinding}=await setup.populateSandbox(caller,{program:'library'});
+  const {product:installed,abg}=runtime,admissionsOwner=await import(pathToFileURL(join(bootstrapRoot,'build/code/src/abg/invocation_admission.js')).href);
+  {
+    const libraryRef=installed.governanceRef('program','default'),W=caller.state.environment.workspaceBinding;
+    const [abiInstall,consumerInstall]=installations,libraryPublication=caller.state.catalog.boundPublications.find(p=>p.programs?.some(pr=>pr.programRef===libraryRef));
+    const libraryProgram=libraryPublication.programs.find(pr=>pr.programRef===libraryRef);
+    assert.equal(programBinding,caller.state.programBinding);assert.equal(programBinding.selection,'library');assert.equal(programBinding.programRef,libraryRef);
+    assert.equal(abiInstall.productId,libraryPublication.owningProductId,'the library publication owner is the ABI install');
+    assert.equal(programBinding.owner.installId,abiInstall.installId);assert.equal(W.roots.productRoot,abiInstall.installedRoot,'productRoot is the Program owner root');
+    assert.notEqual(W.roots.productRoot,consumerInstall.installedRoot);assert.equal(programBinding.productRoot,W.roots.productRoot);
+    assert.equal(programBinding.catalogProgramDigest,installed.sha256Canonical(libraryProgram));assert.equal(programBinding.publicationSemanticDigest,installed.modulePublicationSemanticDigest(libraryPublication));
+    assert.deepEqual(installed.narrowGraphFunctionCatalog(caller.state.catalog,[...libraryProgram.callableMembership].sort()),caller.state.catalogView,'the setup view is the library membership view');
+    const environment=caller.state.environment;
+    assert.deepEqual(environment.productInstalls.map(i=>i.installId).sort(),installations.map(i=>i.installId).sort(),'both installs stay in the one admitted ProductSet');
+    assert.equal(environment.resolvedProductLock.dependencyEdges.filter(e=>e.kind==='requires'&&e.fromProductId===consumerInstall.productId&&e.toProductId===abiInstall.productId).length,1,
+      'the consumer->ABI requires edge is unchanged');
+    const identity=JSON.parse(await readFile(join(root,'setup-identity.json'),'utf8'));
+    assert.equal(identity.program.programRef,libraryRef);assert.deepEqual(identity.programBinding,JSON.parse(JSON.stringify(programBinding)));
+    assert.deepEqual(identity.workspaceBinding,JSON.parse(JSON.stringify(caller.state.binding)),'setup identity records the admitted coordinate');assert.deepEqual(identity.workspaceBinding,{ref:W.bindingId,digest:W.bindingDigest},'the recorded coordinate names the projected body');
+    const conformance=JSON.parse(await readFile(join(root,'calls/program-conformance.outcome.json'),'utf8'));
+    assert.equal(conformance.receipt?.ownerOutput?.value?.disposition,'passed','the library Program passes the setup conformance');
+  }
+  // A held session's later selectors reuse this binding; the consumer start refuses it.
+  await assert.rejects(setup.constructLifecycleCall(caller,{kind:'crossed-start'}),error=>error.stage==='setup-program-binding');
+  await cp(join(witnessRoot,'seed'),worksiteRoot,{recursive:true});
+  for(const [path,row] of Object.entries(selection.seedFiles))assert.equal(await installed.sha256File(join(worksiteRoot,path)),'sha256:'+row.sha256);
+  const witness=await witnessInput({product:installed,selection,seedRoot:worksiteRoot}),{testing,uat}=witness.original.workOrders;
+  // The fixed route's finite scope: Testing and UAT work orders, no fulfillment,
+  // with the installed sandbox consumer's exact maintained assessment selection.
+  const fixed=installed.constructGovernanceWorkState({...witness.original,workOrders:{testing,uat},
+    assessment:{...witness.original.assessment,...assessmentSelection}});
+  assert.equal(fixed.original.assessment.resultContract.contractRef,ASSESSMENT.contractRef);
+  const proof=join(scratch,'fixed-admission');await mkdir(proof);
+  const actor=join(proof,'scripted-actor.mjs'),log=join(proof,'actor.jsonl');
+  await writeFile(actor,'#!'+process.execPath+'\n'+SCRIPTED_ACTOR);await chmod(actor,0o755);
+  // The in-process actor owner reads its command from process.env at call time.
+  const withActor=async body=>{const keys=['ABG_TS_CLAUDE_COMMAND','ABI5_SCRIPTED_ACTOR_LOG'],prior=keys.map(key=>[key,process.env[key]]);
+    process.env.ABG_TS_CLAUDE_COMMAND=actor;process.env.ABI5_SCRIPTED_ACTOR_LOG=log;
+    try{return await body();}finally{for(const [key,value] of prior)if(value===undefined)delete process.env[key];else process.env[key]=value;}};
+  const actorLog=()=>readFile(log,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error));
+  const roles=async()=>(await actorLog()).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l).role);
+  const read=()=>abg.readRuntimeEventsAtDurablePrefix(caller.prefix()),results=rows=>rows.filter(e=>e.kind==='c_call_result_admitted');
+  const choices=rows=>results(rows).filter(e=>e.payload.value?.kind==='registered_graph_choice');
+  const assessmentRef=installed.NATIVE_WORKSPACE_WORK_IDS.assessmentGraphFunctionRef;
+  // One held session for the fixed route; it closes once below.
+  caller.acquire(caller.reopen());
+  t.after(()=>{const held=caller.state.resource;if(held!==null){try{caller.close(abg.selectHeldEventStoreDurablePrefix(held.store));}catch{abg.abandonAbgEventResource(held);}}});
+  const invoke=(label,call,options)=>withActor(()=>caller.invoke(label,call,options));
+  // Each actual refusal proves at once exit 1, a semantic refusal, the held
+  // selection and held store at their entry prefix, the complete event prefix
+  // and the actor log unchanged. Its exact code/path oracle is retained and
+  // compared only after the positive UAT and held/fresh readbacks below.
+  const durable=()=>abg.selectHeldEventStoreDurablePrefix(caller.state.resource.store),oracles=[];
+  const refused=async(label,constructed,expected)=>{
+    const entry=caller.prefix(),stored=durable(),events=abg.readRuntimeEventsAtDurablePrefix(stored),actorBefore=await actorLog();
+    const {receipt}=await invoke(label,constructed.call,{expectResult:false});
+    const after=durable(),rows=abg.readRuntimeEventsAtDurablePrefix(after),diagnostic=rc7RefusalRecord(label,receipt,rows.slice(events.length));
+    assert.equal(receipt.exitCode,1,diagnostic);assert.equal(receipt.ownerOutput?.outcomeKind,'refusal',diagnostic);
+    assert.deepEqual(caller.prefix(),entry,label+' completes at its entry prefix: '+diagnostic);
+    assert.deepEqual(after,stored,label+' appends nothing to the held store: '+diagnostic);
+    assert.deepEqual(rows,events,label+' leaves the complete event prefix unchanged');
+    assert.equal(await actorLog(),actorBefore,label+' leaves the actor log unchanged');
+    oracles.push({label,expected,actual:{code:receipt.ownerOutput.value?.code,issuePaths:receipt.ownerOutput.value?.issuePaths},diagnostic});
+    return receipt;};
+  const completedRun=(label,{receipt},rows)=>{const value=receipt.ownerOutput?.value;
+    assert.ok(receipt.exitCode===0&&receipt.ownerOutput?.outcomeKind==='result'&&value?.disposition==='completed',rc7RefusalRecord(label,receipt,rows));return value;};
+  // 1. Direct Testing over the library Program: fresh fixed state, source none, the actual C2 child.
+  const before=read().length,testingCall=await setup.constructFixedTestingCall(caller,fixed);
+  const T=await invoke('fixed-testing',testingCall.call,{expectResult:false}),rowsT=read().slice(before);
+  const value=completedRun('fixed-testing',T,rowsT);assert.equal(value.terminalResult?.producer?.graphFunction?.ref,RC7_TESTING);
+  assert.equal(T.receipt.resources.eventResource.kind,'abg_event_resource_completion','the held Testing call completes without closing');
+  assert.equal(choices(rowsT).length,0,'direct Testing admits no selector choice');assert.deepEqual(await roles(),['c2']);
+  // 2. The ABG owner derives the Testing Run's own state Result at its completion.
+  const derived=setup.deriveFixedTestingSource(caller,{call:testingCall.call,receipt:T.receipt}),S=derived.source.basis;
+  assert.equal(S.sourceGraphFunctionRef,RC7_TESTING);assert.equal(S.sourceRunId,value.run.ref);
+  const retained=derived.input;
+  assert.deepEqual(retained.observations.map(o=>[o.purpose,o.synthesisResultRef,o.selectedGraphFunctionRef]),[['testing',null,RC7_TESTING]]);
+  // 3. Over the same current source, invocation admission refuses other
+  // wrappers and Product preparation refuses a crossed input.
+  for(const purpose of ['testing','construction'])await refused('fixed-'+purpose+'-over-state',await setup.constructFixedWrapperCall(caller,purpose,derived),
+    {code:'invalid_intent',issuePaths:['/invocation_admission']});
+  await refused('fixed-crossed-input',await setup.constructFixedWrapperCall(caller,'uat',{input:fixed,source:derived.source}),{code:'invalid_input',issuePaths:['/input']});
+  assert.deepEqual(await roles(),['c2'],'refusals start no actor');
+  // 4. Direct UAT over the exact derived input and source is admitted and assessed.
+  const beforeUat=read().length,uatCall=await setup.constructFixedUatCall(caller,derived);
+  const U=await invoke('fixed-uat',uatCall.call,{expectResult:false}),rowsU=read().slice(beforeUat);
+  assert.equal(completedRun('fixed-uat',U,rowsU).terminalResult?.producer?.graphFunction?.ref,RC7_UAT);
+  const admissionU=admissionsOwner.rehydrateInvocationAdmissionAtPrefix(abg.selectValidatedRuntimeEventPrefix(read()),U.receipt.resources.invocationAdmission.ref);
+  assert.equal(admissionU?.graphFunctionRef,RC7_UAT);assert.equal(choices(rowsU).length,0,'direct UAT admits no selector choice');
+  const assessed=results(rowsU).filter(e=>e.graphFunctionRef===assessmentRef);assert.equal(assessed.length,1);assert.equal(assessed[0].payload.resultClass,'success');
+  assert.equal(assessed[0].payload.value.assessment.kind,ASSESSMENT.valueKind,'the assessor answers the installed consumer schema');
+  const folded=results(rowsU).filter(e=>e.payload.value?.kind==='governance_work_state').at(-1)?.payload.value;
+  assert.deepEqual(folded?.observations.map(o=>[o.purpose,o.synthesisResultRef,o.selectedGraphFunctionRef]),[['testing',null,RC7_TESTING],['uat',null,RC7_UAT]]);
+  assert.equal(folded.terminal,false,'wrapper closure is not parent convergence');assert.deepEqual(await roles(),['c2','assess']);
+  // 5. Currentness: the consumed Testing source is no longer current work;
+  // entry rehydration finds no current source observation.
+  assert.throws(()=>setup.deriveFixedTestingSource(caller,{call:testingCall.call,receipt:U.receipt}),'a UAT Result is not the Testing source');
+  await refused('fixed-stale-source',await setup.constructFixedWrapperCall(caller,'uat',derived),{code:'invalid_input',issuePaths:['/observation']});
+  // Both fixed calls named the same library Program, environment and Catalog view.
+  const supplied=[testingCall,uatCall].map(c=>c.resolution?.program?.programRef??null);
+  assert.deepEqual(supplied,['program://abiogenesis/default-library/default@5','program://abiogenesis/default-library/default@5']);
+  // 6. Maintained readbacks (§10.9 R-G): held reads borrow the session before
+  // its one close; fresh CLI reads reopen that handoff with the same selectors.
+  const held=await heldReadbacks(caller,U);
+  const finalSelection=caller.state.selection,closed=caller.close();
+  assert.equal(closed.closeHandoff.prefix.coordinateDigest,finalSelection.prefix.coordinateDigest,'one close at the final held prefix');
+  const fresh=await freshReadbacks(caller,U),terminalU=U.receipt.ownerOutput.value.terminalResult;
+  assert.deepEqual(held.map(r=>r.memberKey),['run_result','run_replay']);assert.deepEqual(fresh.map(r=>r.memberKey),['run_result','run_replay']);
+  for(const read of fresh){
+    const warm=held.find(row=>row.memberKey===read.memberKey),[a,b]=[warm.projection.terminalResult,read.projection.terminalResult];
+    assert.ok(abg.isAbgTypedTerminalResult(a)&&abg.isAbgTypedTerminalResult(b),read.memberKey+' typed terminal');
+    for(const field of ['result','value','producer','projectionBasis'])assert.deepEqual(b[field],a[field],read.memberKey+' held/fresh '+field);
+    for(const field of ['result','value','producer'])assert.deepEqual(a[field],terminalU[field],read.memberKey+' completed UAT '+field);
+    assert.deepEqual(read.ownerOutput,warm.ownerOutput,read.memberKey+' complete held/fresh owner output');
+  }
+  const summary={programRefs:supplied,testingRun:value.run.ref,sourceResultRef:S.sourceResultRef,uatRun:U.receipt.ownerOutput.value.run?.ref,
+    uatAdmission:U.receipt.resources.invocationAdmission.ref,assessmentResultRef:assessed[0].payload.resultRef,roles:await roles(),eventsTesting:rowsT.length,eventsUat:rowsU.length,
+    calls:caller.state.calls.map(c=>[c.label,c.acquisitionKind,c.outcomeKind]),readbacks:fresh.map(r=>[r.memberKey,r.ownerOutput?.outcomeKind]),
+    refusals:oracles.map(({label,actual})=>({label,...actual})),
+    proofLimit:'Actual maintained caller and readbacks, installed Public invoke, Product population, ABG invocation admission, HoG/C2/native assessment owners; the model is a scripted stand-in process.'};
+  t.diagnostic(JSON.stringify(summary));
+  // 7. The four exact refusal oracles, deferred past the positive route and its
+  // diagnostic; each case names one code and one issue-path array.
+  assert.deepEqual(oracles.map(o=>o.label),['fixed-testing-over-state','fixed-construction-over-state','fixed-crossed-input','fixed-stale-source']);
+  for(const {label,expected,actual,diagnostic} of oracles){
+    assert.equal(actual.code,expected.code,label+' exact refusal code: '+diagnostic);
+    assert.deepEqual(actual.issuePaths,expected.issuePaths,label+' exact refusal issue paths: '+diagnostic);
+  }
+});
+
+// RC7 assessment dependency (native HOW, Declared typed assessment): the
+// canonical assessment's inner consumer response dependency over the existing
+// installed witness-consumer fixture. One actual Public start dispatches the
+// assessor once. The shared relation, the leaf port's pre-dispatch selection,
+// the persisted assembly basis and the raw preimage are then exercised cold over
+// that Run's admitted Catalog, installs, lock and events. Each negative subcase
+// calls an owner that gates dispatch; none starts an actor.
+test('RC7 assessment dependency: exact admitted consumer selection, refusals and cold preimage',{timeout:280_000},async t=>{
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
+  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
+    prepareAdditionalProducts:async setup=>{
+      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
+      const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
+      return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration),
+        fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
+        schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[witnessRef('support','complete-source-outcome')]}]})];
+    }});
+  const subcases=[],subcase=async(name,body)=>{try{await body();}catch(error){error.message=name+': '+error.message;throw error;}subcases.push(name);};
+  const load=async path=>import(pathToFileURL(join(env.installedRoot,`build/code/src/${path}.js`)).href);
+  const publicApi=await load('public/index'),readContracts=await load('abg/project_read_operation_contracts'),storeOwner=await load('abg/event_store');
+  const relation=await load('product/native_workspace_assessment');
+  const ids=env.product.NATIVE_WORKSPACE_WORK_IDS,assessmentRef=ids.assessmentGraphFunctionRef,zero='sha256:'+'0'.repeat(64);
+  const consumerPublication=env.additionalPublications[0],consumerId=consumerPublication.owningProductId,consumerProgram=consumerPublication.programs[0];
+  const contractRef=witnessRef('contract','assessment'),W=env.workspaceBinding;
+  const proof=join(env.scratch,'assessment-dependency');await mkdir(proof);
+  const actor=join(proof,'scripted-actor.mjs'),actorLog=join(proof,'scripted-actor.jsonl');
+  await writeFile(actor,'#!'+process.execPath+'\n'+SCRIPTED_ACTOR);await chmod(actor,0o755);
+  const actorEnvironment={...process.env,ABG_TS_CLAUDE_COMMAND:actor,ABI5_SCRIPTED_ACTOR_LOG:actorLog};
+  const roles=async()=>(await readFile(actorLog,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error))).trim().split('\n').filter(Boolean).map(l=>JSON.parse(l).role.split(':')[0]);
+  const worksite=W.canonicalRoot??env.workspaceAuthority?.canonicalRoot??join(env.scratch,'workspace');
+  await cp(join(witnessRoot,'seed'),worksite,{recursive:true});
+  const input=await witnessInput({product,selection,seedRoot:worksite});
+  env.catalogView=env.product.narrowGraphFunctionCatalog(env.catalog,consumerProgram.callableMembership);assert.equal(env.catalogView.kind,'graph_function_catalog_view');
+  let handoff=env.store.projectReopenAuthorityAndClose();
+  const resource=()=>({kind:'reopen_abg_event_resource',schemaVersion:'5.0.0',closeHandoff:handoff,handoffDigest:product.sha256Canonical(handoff)});
+  const cli=async(identity,call)=>{
+    const execution=await runInstalledCliRequest({scratch:proof,installedRoot:env.installedRoot,identity,acquisition:{kind:'reopen',closeHandoff:handoff},call,expectedExitCode:null,environment:actorEnvironment});
+    const receipt=execution.output?.receipt;assert.ok(receipt,JSON.stringify(execution).slice(0,4000));assert.equal(receipt.failure,null,JSON.stringify(receipt).slice(0,4000));
+    if(receipt.resources?.eventResource?.closeHandoff)handoff=receipt.resources.eventResource.closeHandoff;return receipt;};
+  // 1. One actual Public start: the installed consumer's own selection reaches one assessor dispatch.
+  const start=await constructInstalledStartCall({environment:env,publicApi,eventResource:resource(),input,identity:'assessment-dependency',runEnvironmentResourceFactory:selectedEnvironment.resources});
+  const started=await cli('assessment-dependency-start',start.call),value=started.ownerOutput.value;
+  const events=storeOwner.readRuntimeEventsAtDurablePrefix(handoff.prefix);
+  assert.ok(started.ownerOutput.outcomeKind==='result'&&value?.disposition==='completed',rc7RefusalRecord('assessment-dependency-start',started,events));
+  assert.deepEqual(await roles(),['select','native','select','c2','select','assess'],'one actual assessor dispatch');
+  const prefix=env.abg.selectValidatedRuntimeEventPrefix(events);
+  const opened=events.filter(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===assessmentRef);assert.equal(opened.length,1);
+  const assessed=events.find(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===assessmentRef);
+  assert.equal(assessed?.payload.resultClass,'success');assert.equal(assessed.payload.value.assessment.kind,assessmentSchema.properties.kind.const);
+  const artifact=events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===opened[0].aggregateId),warm=artifact?.payload.nativeResultAssessment;
+  assert.equal(warm?.disposition,'admitted');assert.ok(warm.verification,'the warm raw preimage verification is retained');
+  const binding=events.find(e=>e.kind==='actor_transport_binding_admitted'&&e.aggregateId===artifact.payload.transportBindingRef),stored=binding?.payload.instructionAssembly;
+  assert.equal(stored?.kind,'native_instruction_assembly');
+  const childBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,opened[0].basisId),task=childBasis.rawInputValue,admitted=task.assessment;
+  assert.equal(admitted.resultContract.contractRef,contractRef);assert.equal(admitted.schemaAsset.productId,consumerId);
+  // Cold owners over the closed Run: its admitted environment, Catalog resolution and leaf port.
+  const environment=env.abg.projectExactPrefixWorkspaceEnvironment(handoff.prefix,{ref:W.bindingId,digest:W.bindingDigest});
+  assert.equal(environment.kind,'exact_prefix_workspace_environment');
+  const verifyInstallAdmission=install=>env.abg.hasAdmittedProductInstall(environment.artifactTruth,install);
+  const loaded=await env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView:env.catalogView,admittedInstalls:env.admittedInstalls,verifyInstallAdmission,
+    programRef:consumerProgram.programRef,selection:{kind:'start',scope:'program',target:'next',until:'converged',rootMode:'direct'}});
+  assert.equal(loaded.kind,'loaded_product_execution_resolution',JSON.stringify(loaded).slice(0,2000));
+  assert.equal(loaded.admittedCatalog.basisDigest,env.catalog.basisDigest,'typed carriage of the authenticated Catalog');assert.deepEqual(loaded.admittedInstalls,env.admittedInstalls);
+  const implementationSet=env.abg.rehydrateAdmittedImplementationSetAtPrefix(prefix,warm.verification.contractCapabilityBasis.implementationSetRef);assert.ok(implementationSet);
+  const port=await env.implementationLeafPort.constructAdmittedLeafInvocationPort({prefix,artifactTruth:environment.artifactTruth,implementationSet,executionResolution:loaded,
+    semanticsProjection:env.product.projectInstalledLeafSemantics(loaded.productSemantics)});
+  const assessor=await port.forGraphFunction(assessmentRef);assert.ok(assessor,'the assessment callable port');
+  const row=implementationSet.rows.find(r=>r.graphFunctionRef===assessmentRef&&r.implementationRef===ids.implementationRef);assert.ok(row);
+  const constructorRow=implementationSet.rows.find(r=>r.graphFunctionRef===ids.graphFunctionRef),commandRow=implementationSet.rows.find(r=>r.graphFunctionRef===env.product.WORKSITE_COMMAND_EXECUTION_IDS.graphFunctionRef);
+  assert.ok(constructorRow&&commandRow);
+  const dependencyBasis=over=>({publications:loaded.admittedCatalog.boundPublications,installs:loaded.admittedInstalls,
+    resolvedLock:loaded.admittedCatalog.readinessBasis.resolvedLock,assessorOwnerProductId:row.graphFunctionOwnerProductId,...over});
+  const dependencyOf=(sel,over={})=>relation.resolveNativeWorkspaceAssessmentDependency(sel,dependencyBasis(over));
+  const lock=dependencyBasis({}).resolvedLock,others=dependencyBasis({}).publications.filter(p=>p.moduleRef!==consumerPublication.moduleRef);
+  const withBytes=(sel,bytes)=>({...sel,schemaAsset:{...sel.schemaAsset,bytesBase64:Buffer.from(bytes).toString('base64')}});
+  const exact=assessor.nativeAssessmentDependency(admitted,row);
+  assert.ok(exact,'the admitted consumer selection resolves through the leaf port');
+  assert.deepEqual([exact.publication.moduleRef,exact.publication.owningProductId,exact.install.productId],[consumerPublication.moduleRef,consumerId,consumerId]);
+  assert.deepEqual(exact.schema,stored.request.responseJsonSchema,'the dispatched request schema is the relation schema');
+  assert.deepEqual(dependencyOf(admitted)?.publication,exact.publication,'the port and the shared relation agree over the same carriage');
+  await subcase('crossed consumer owner refuses before assessment dispatch',()=>{
+    const crossed={...admitted,schemaAsset:{...admitted.schemaAsset,productId:row.graphFunctionOwnerProductId}};
+    assert.ok(relation.nativeWorkspaceAssessmentSchema(crossed),'the crossed selection is itself well formed');
+    assert.equal(assessor.nativeAssessmentDependency(crossed,row),null);assert.equal(dependencyOf(crossed),null);
+    const unbound=loaded.admittedInstalls.map(i=>i.productId!==consumerId?i:{...i,contributionManifest:{...i.contributionManifest,publicationBindings:[]}});
+    assert.equal(dependencyOf(admitted,{installs:unbound}),null,'installation without the exact publication binding grants nothing');
+  });
+  await subcase('crossed resolved lock refuses before assessment dispatch',()=>{
+    const edge=lock.dependencyEdges.find(e=>e.fromProductId===consumerId&&e.toProductId===row.graphFunctionOwnerProductId);assert.ok(edge,'the consumer requires the assessment owner');
+    const without=lock.dependencyEdges.filter(e=>e!==edge);
+    for(const [name,crossedLock] of [['lock digest',{...lock,lockDigest:zero}],['lock row',{...lock,rows:lock.rows.map(r=>r.productId===consumerId?{...r,manifestDigest:zero}:r)}],
+      ['missing dependency edge',{...lock,dependencyEdges:without}],
+      ['reverse library-to-consumer edge',{...lock,dependencyEdges:[...without,{...edge,fromProductId:edge.toProductId,toProductId:edge.fromProductId}]}]])
+      assert.equal(dependencyOf(admitted,{resolvedLock:crossedLock}),null,name);
+  });
+  await subcase('crossed schema bytes refuse before assessment dispatch',()=>{
+    const reformatted=withBytes(admitted,JSON.stringify(JSON.parse(Buffer.from(admitted.schemaAsset.bytesBase64,'base64')),null,1)+'\n');
+    assert.ok(relation.nativeWorkspaceAssessmentSchema(reformatted),'same schema, different supplied bytes');
+    assert.equal(assessor.nativeAssessmentDependency(reformatted,row),null);assert.equal(dependencyOf(reformatted),null);
+  });
+  await subcase('missing or ambiguous exact consumer declaration refuses before assessment dispatch',()=>{
+    const undeclaredRef=witnessRef('contract','undeclared');
+    const undeclared={...withBytes({...admitted,schemaAsset:{...admitted.schemaAsset,contractId:undeclaredRef}},JSON.stringify({...assessmentSchema,$id:undeclaredRef})+'\n'),resultContract:{...admitted.resultContract,contractRef:undeclaredRef}};
+    assert.ok(relation.nativeWorkspaceAssessmentSchema(undeclared));assert.equal(assessor.nativeAssessmentDependency(undeclared,row),null,'undeclared contract');
+    assert.equal(dependencyOf(admitted,{publications:others}),null,'no consumer publication');
+    assert.equal(dependencyOf(admitted,{publications:[...dependencyBasis({}).publications,{...consumerPublication,moduleRef:consumerPublication.moduleRef+'/twin'}]}),null,'two declarations');
+    const nonMember={...consumerPublication,graphFunctions:consumerPublication.graphFunctions.map(g=>{const {'abg.raw_result_contract':_declared,...declarations}=g.declarations;return {...g,declarations};})};
+    assert.equal(dependencyOf(admitted,{publications:[...others,nonMember]}),null,'no Program-member consumer callable declares the contract');
+  });
+  // The persisted assembly basis carries the selected consumer publication; cold assembly is the dispatch gate.
+  const captured=env.abg.constructNativeInstructionAssemblyBasis(stored.envelope.nativeBasis);assert.ok(captured,'the persisted basis reconstructs cold');
+  assert.equal(captured.assessmentPublication?.moduleRef,consumerPublication.moduleRef);
+  const coldAssembly=env.abg.constructWorksiteNativeInstructionAssembly(captured,task);
+  assert.equal(coldAssembly?.kind,'native_instruction_assembly');assert.deepEqual(coldAssembly.request,stored.request,'cold assembly reproduces the dispatched request');
+  await subcase('stale task input and unrelated callable refuse before assessment dispatch',()=>{
+    assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(captured,{...task,outcome:task.outcome+' (stale)'}),null,'stale task input');
+    const {assessmentPublication:_carried,...uncarried}=stored.envelope.nativeBasis,uncarriedBasis=env.abg.constructNativeInstructionAssemblyBasis(uncarried);
+    assert.ok(uncarriedBasis);assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(uncarriedBasis,task),null,'no carried dependency and no Program-closure fallback');
+    const libraryPublication=dependencyBasis({}).publications.find(p=>p.programs.some(pr=>pr.programRef===env.product.governanceRef('program','default')));assert.ok(libraryPublication);
+    const crossedBasis=env.abg.constructNativeInstructionAssemblyBasis({...stored.envelope.nativeBasis,assessmentPublication:libraryPublication});
+    assert.ok(crossedBasis);assert.equal(env.abg.constructWorksiteNativeInstructionAssembly(crossedBasis,task),null,'an unrelated carried publication');
+    assert.equal(assessor.nativeAssessmentDependency(admitted,constructorRow),null,'the constructor callable receives no inner selection');
+    assert.equal(assessor.nativeAssessmentDependency(admitted,commandRow),null,'the command executor receives no inner selection');
+  });
+  await subcase('omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards',async()=>{
+    const libraryRef=env.product.governanceRef('program','default'),libraryProgram=dependencyBasis({}).publications.flatMap(p=>p.programs).find(p=>p.programRef===libraryRef);
+    const libraryView=env.product.narrowGraphFunctionCatalog(env.catalog,[...libraryProgram.callableMembership].sort());
+    const testing=await env.product.ProductExecutionResolutionPort.resolve({catalog:env.catalog,catalogView:libraryView,admittedInstalls:env.admittedInstalls,verifyInstallAdmission,
+      programRef:libraryRef,selection:{kind:'direct',catalogHandle:env.product.governanceRef('graph-function','testing')}});
+    assert.equal(testing.kind,'loaded_product_execution_resolution',JSON.stringify(testing).slice(0,2000));
+    const authority={authorityRef:'authority://abi5-tests/rc7-assessment-dependency',authorityDigest:zero,actorRef:W.authorizedActorRef};
+    const observe=(graphFunctions,over={})=>env.product.observeRunEnvironment({publication:testing.programPublication,program:testing.program,graphFunctions,authority,archiveRoot:W.roots.archiveRoot,...over});
+    const outcome=o=>[o.kind,o.cause??null,o.issuePath??null],whole=testing.programDeclarationClosure.publications.flatMap(p=>p.graphFunctions);
+    assert.deepEqual(outcome(await observe(whole)),['run_environment_refusal','missing_binding','/runEnvironmentResources'],'whole-Program roles validate; the binding guard remains');
+    assert.deepEqual(outcome(await observe(testing.declarationPublications.flatMap(p=>p.graphFunctions))),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],
+      'the selected callable scope omits Program F_P roles');
+    assert.deepEqual(outcome(await observe(whole.filter(g=>g.name!==assessmentRef))),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'an omitted Program F_P leaf');
+    const declared=testing.program.policies['abg.run_environment'],mismatched={...testing.programPublication,runEnvironments:testing.programPublication.runEnvironments.map(d=>
+      d.declarationRef!==declared?d:{...d,roles:d.roles.map(r=>r.role==='assessor'?{...r,role:'constructor'}:r)})};
+    assert.deepEqual(outcome(await observe(whole,{publication:mismatched})),['run_environment_refusal','unsupported_declaration','/program/runEnvironment'],'a mismatched role');
+    const crossedPermission=await observe(whole,{resources:await selectedEnvironment.resources({authority,program:consumerProgram,workspaceBinding:W,product:env.product})});
+    assert.deepEqual(outcome(crossedPermission).slice(0,2),['run_environment_refusal','access_not_permitted'],'a permission for another Program and declaration');
+    assert.equal(testing.declarationClosure.contractOwners.some(o=>o.declarationRef===contractRef),false,'the library execution closure declares no consumer contract');
+  });
+  await subcase('ordinary static raw-result contract lookup stays closed',async()=>{
+    const inside=new Set(loaded.declarationClosure.publications.flatMap(p=>p.contracts.map(c=>c.contractRef)));
+    const outside=dependencyBasis({}).publications.flatMap(p=>p.contracts).filter(c=>!inside.has(c.contractRef));
+    assert.ok(outside.length>0,'the admitted Catalog holds contracts outside the selected closure');
+    for(const contract of outside){assert.equal(assessor.contractByRef(contract.contractRef),null,contract.contractRef);assert.equal(assessor.contractPublicationByRef(contract.contractRef),null,contract.contractRef);}
+    // The ordinary native constructor's raw result keeps its static contract lookup, warm and cold.
+    const constructorPort=await port.forGraphFunction(ids.graphFunctionRef),built=events.find(e=>e.kind==='c_call_opened'&&e.graphFunctionRef===ids.graphFunctionRef);
+    assert.ok(constructorPort&&built);
+    const builtArtifact=events.find(e=>e.kind==='actor_result_artifact_observed'&&e.parentAggregateId===built.aggregateId),builtWarm=builtArtifact?.payload.nativeResultAssessment?.verification;
+    const builtBasis=env.abg.rehydrateExecutionBasisAtPrefix(prefix,built.basisId);assert.ok(builtWarm&&builtBasis);
+    assert.ok(constructorPort.contractByRef(builtWarm.rawResultContractRef),'the constructor report contract is statically owned');
+    assert.deepEqual(constructorPort.verifyProbabilisticResultContractPreimage({resolution:constructorRow,input:builtBasis.rawInputValue,inputDigest:builtBasis.rawInputDigest,
+      instructionContractRef:builtWarm.instructionContractRef,rawResultContractRef:builtWarm.rawResultContractRef,rawResult:JSON.parse(builtArtifact.payload.finalOutput)}),builtWarm);
+  });
+  await subcase('warm/cold assessment raw-preimage and complete same-boundary read agreement',async()=>{
+    const contractInput={resolution:row,input:task,inputDigest:childBasis.rawInputDigest,instructionContractRef:stored.request.instructionContractRef,
+      rawResultContractRef:stored.request.resultContractRef,rawResult:JSON.parse(artifact.payload.finalOutput)};
+    assert.deepEqual(assessor.verifyProbabilisticResultContractPreimage(contractInput),warm.verification,'cold raw preimage equals the warm admitted verification');
+    assert.deepEqual(assessor.revalidateProbabilisticResultContractPreimage(contractInput,warm.verification),warm.verification);
+    assert.equal(assessor.verifyProbabilisticResultContractPreimage({...contractInput,inputDigest:zero}).code,'input_contract_refused','a stale input digest');
+    const reads={};
+    for(const memberKey of ['run_result','run_replay']){
+      const {call}=constructInstalledRunReadCall({environment:env,publicApi,projectReadContracts:readContracts,memberKey,selector:memberKey==='run_result'?{kind:'none'}:{kind:'ordinal_page',fromOrdinal:0,limit:2048},
+        source:started.resources.run,eventResource:resource(),identity:`assessment-dependency-${memberKey}`});
+      const out=await cli(`assessment-dependency-${memberKey}`,call);assert.equal(out.ownerOutput.outcomeKind,'result');reads[memberKey]=out.ownerOutput.value;
+    }
+    assert.deepEqual(reads.run_result.projection.terminalResult,value.terminalResult,'cold run_result equals the completed start terminal at its close boundary');
+    assert.deepEqual(reads.run_replay.projection.replay,started.resources.replay,'cold replay equals the completed start replay');
+  });
+  assert.deepEqual(await roles(),['select','native','select','c2','select','assess'],'refusals dispatched no assessor');
+  const predicates=['crossed consumer owner refuses before assessment dispatch','crossed resolved lock refuses before assessment dispatch','crossed schema bytes refuse before assessment dispatch',
+    'missing or ambiguous exact consumer declaration refuses before assessment dispatch','stale task input and unrelated callable refuse before assessment dispatch',
+    'omitted or mismatched whole-Program F_P role refuses without weakening role/permission guards','ordinary static raw-result contract lookup stays closed',
+    'warm/cold assessment raw-preimage and complete same-boundary read agreement'];
+  assert.deepEqual(subcases,predicates,'every selected predicate ran');
+  t.diagnostic(JSON.stringify({subcases,run:value.run?.ref,assessmentResultRef:assessed.payload.resultRef,consumerModuleRef:consumerPublication.moduleRef,
+    proofLimit:'Actual installed witness-consumer fixture, one Public start with the scripted stand-in actor, cold ABG/Product/leaf owners over its events; not a live provider or the maintained sandbox caller.'}));
 });

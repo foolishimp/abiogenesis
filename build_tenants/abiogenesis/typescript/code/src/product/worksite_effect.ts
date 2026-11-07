@@ -1881,10 +1881,14 @@ export function isWorksiteFileParentsFailure(value: unknown): value is WorksiteF
 }
 
 type WorksiteContextFileFacts = { relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest };
-/** One exact earlier inline entry of an admitted Result value: the same path
- * and digest at `path` from that Result's `value`. It locates bytes only; it
- * grants no read, currentness or attribution. */
-export type WorksiteContextBodyMember = Readonly<{ resultRef: string; resultDigest: Sha256Digest; path: readonly (string | number)[] }>;
+/** One exact earlier inline entry of an admitted holder: the same path and
+ * digest at `path` from an admitted Result's `value`, or from an admitted
+ * execution basis's raw input (`basisRef`/`basisDigest`). It locates bytes
+ * only; it grants no read, currentness or attribution. */
+export type WorksiteContextBodyMember = Readonly<{ resultRef: string; resultDigest: Sha256Digest; path: readonly (string | number)[] }> |
+  Readonly<{ basisRef: string; basisDigest: Sha256Digest; path: readonly (string | number)[] }>;
+/** The admitted execution basis whose raw input holds a predecessor context at `context`. */
+export type WorksiteContextBasisInputHolder = Readonly<{ basisRef: string; basisDigest: Sha256Digest }>;
 /** File bytes are born inline once; later contexts carry an admitted member
  * reference. Storage location is not part of the observed identity. */
 export type WorksiteContextFileEntry = Readonly<WorksiteContextFileFacts & { encoding: "base64"; bytes: string }> |
@@ -1936,17 +1940,23 @@ export const inlineWorksiteContextBody: WorksiteContextBodyReader = entry => {
   return bytes === null ? null : Buffer.from(bytes, "base64");
 };
 /** Unchanged physical members keep the predecessor's established carriage; a
- * changed or new member keeps its own inline birth. Identity is unchanged. */
-export function carryWorksiteContextBodies(context: WorksiteContextObservation, predecessor: WorksiteContextObservation): WorksiteContextObservation {
-  const prior = new Map(predecessor.entries.flatMap(e => e.state === "file" ? [[e.relativePath, e] as const] : []));
+ * changed or new member keeps its own inline birth. When the predecessor is
+ * the `context` of an admitted basis input, its inline body is held there and
+ * the member references it. Identity is unchanged. */
+export function carryWorksiteContextBodies(context: WorksiteContextObservation, predecessor: WorksiteContextObservation,
+  basisInput?: WorksiteContextBasisInputHolder): WorksiteContextObservation {
+  const prior = new Map(predecessor.entries.flatMap((e, index) => e.state === "file" ? [[e.relativePath, { e, index }] as const] : []));
   let carried = false;
   const entries = context.entries.map(entry => {
-    const held = prior.get(entry.relativePath);
-    // An inline predecessor is not an admitted holder: the member keeps its own bytes.
-    if (entry.state !== "file" || held === undefined || held.digest !== entry.digest || held.byteLength !== entry.byteLength ||
-      held.encoding !== "admitted_member" || (entry.encoding === "admitted_member" && canonicalEquals(entry.member, held.member))) return entry;
+    const found = prior.get(entry.relativePath), held = found?.e;
+    if (entry.state !== "file" || held === undefined || held.digest !== entry.digest || held.byteLength !== entry.byteLength) return entry;
+    // Without an admitted holder, an inline predecessor leaves the member its own bytes.
+    const member: WorksiteContextBodyMember | undefined = held.encoding === "admitted_member" ? held.member
+      : basisInput === undefined ? undefined
+      : { basisRef: basisInput.basisRef, basisDigest: basisInput.basisDigest, path: ["context", "entries", found!.index] };
+    if (member === undefined || (entry.encoding === "admitted_member" && canonicalEquals(entry.member, member))) return entry;
     carried = true;
-    return { ...worksiteContextIdentityEntry(entry) as WorksiteContextFileFacts, encoding: "admitted_member" as const, member: held.member };
+    return { ...worksiteContextIdentityEntry(entry) as WorksiteContextFileFacts, encoding: "admitted_member" as const, member };
   });
   return carried ? deepFreeze({ ...context, entries }) : context;
 }
@@ -2006,7 +2016,8 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
         } else if (entry.encoding === "admitted_member") {
           const member = entry.member as unknown;
           if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "member"]) || !isRecord(member) ||
-            !hasExactKeys(member, ["resultRef", "resultDigest", "path"]) || !nonEmptyString(member.resultRef) || !isSha256Digest(member.resultDigest) ||
+            !(hasExactKeys(member, ["resultRef", "resultDigest", "path"]) ? nonEmptyString(member.resultRef) && isSha256Digest(member.resultDigest)
+              : hasExactKeys(member, ["basisRef", "basisDigest", "path"]) && nonEmptyString(member.basisRef) && isSha256Digest(member.basisDigest)) ||
             !memberPathValid(member.path)) return false;
         } else return false;
         bytes += entry.byteLength;

@@ -19,7 +19,7 @@ import { indexedRuntimeEvents, runtimeEventPrefixDigest, runtimeEventEnvelopesAt
   runtimeEventAtPrefix, indexedRuntimeEventEnvelopes, runtimePrefixComputation, runtimeEventBodiesAtPrefix, unscopedRuntimeEventPrefix,
   runtimeEventValidationBase, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent,
   validatedRuntimeEventPrefixBeforeEvent } from "../event_prefix.js";
-import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
+import { runtimeEventProfile, type RuntimeEvent } from "../event_store.js";
 import {
   constructRuntimeSystemProbeContract, isRuntimeLivenessBinding, isRuntimeProbeObservation,
   isRuntimeInvocationScope, actorRuntimeProbeSources,
@@ -67,7 +67,7 @@ function deriveActorLivenessContext(prefix: RuntimeEventPrefix, actorInvocationR
       e.aggregateId === p.transportBindingRef && e.admissionOrdinal < started.admissionOrdinal));
     const b = bindingEvent?.payload;
     if (bindingEvent === null || !record(b) || !isRuntimeLivenessBinding(b.livenessBinding) ||
-        bindingEvent.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || b.livenessBinding.policy === null ||
+        runtimeEventProfile(bindingEvent)?.nativeLiveness !== true || b.livenessBinding.policy === null ||
         !started.causationEventRefs.includes(bindingEvent.eventId) ||
         b.cCallRef !== p.cCallRef || b.actorRef !== p.actorRef || b.workerBindingRef !== p.workerBindingRef ||
         b.transportBindingDigest !== p.transportBindingDigest || b.implementationRef !== p.implementationRef ||
@@ -135,7 +135,7 @@ function deriveCCallLivenessContext(prefix: RuntimeEventPrefix, cCallRef: string
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_opened" && e.aggregateId === cCallRef));
     const selected = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + cCallRef), e => e.kind === "c_call_fibre_selected" && e.aggregateId === cCallRef));
     if (opened === null || selected === null || !record(opened.payload) || !record(selected.payload) ||
-        selected.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || selected.payload.regime === "F_P" ||
+        runtimeEventProfile(selected)?.nativeLiveness !== true || selected.payload.regime === "F_P" ||
         selected.admissionOrdinal <= opened.admissionOrdinal || !selected.causationEventRefs.includes(opened.eventId) ||
         opened.basisId !== selected.basisId || opened.runId !== selected.runId ||
         opened.graphCallId !== selected.graphCallId || opened.frameId !== selected.frameId ||
@@ -170,7 +170,7 @@ export const FRAME_PRODUCERS: ReadonlySet<string> = new Set([
 function deriveFrameLivenessContext(prefix: RuntimeEventPrefix, frameId: string): RuntimeLivenessContext | null {
   try {
     const opened = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + frameId), e => e.kind === "frame_opened" && e.aggregateId === frameId));
-    if (opened === null || !record(opened.payload) || opened.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
+    if (opened === null || !record(opened.payload) || runtimeEventProfile(opened)?.nativeLiveness !== true) return null;
     const p = opened.payload;
     const graph = exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + String(opened.graphCallId)), e => e.kind === "graph_call_opened" && e.aggregateId === opened.graphCallId));
     const basis = rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
@@ -597,7 +597,7 @@ export function decideRuntimeLivenessEvent(prefix: RuntimeEventPrefix, event: Ru
   reconstruction: RuntimeLivenessReconstruction, processLive: ProcessLiveRead, obligations: NativeLivenessRouteObligation[]): boolean {
   try {
     const p = event.payload, ordinal = event.admissionOrdinal - 1;
-    if (!record(p) || event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
+    if (!record(p) || runtimeEventProfile(event)?.nativeLiveness !== true ||
         event.admissionOrdinal !== ordinal + 1) return false;
     const actor = typeof p.actorInvocationRef === "string" ? p.actorInvocationRef : null;
     const probe = isRuntimeSystemProbeContract(p.probeContract) ? p.probeContract : null;

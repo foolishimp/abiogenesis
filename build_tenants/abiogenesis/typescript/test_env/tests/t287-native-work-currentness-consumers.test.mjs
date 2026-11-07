@@ -277,7 +277,9 @@ async function governanceConsumers(t) {
     './semantic_job.js': { ...projection },
     './execution_basis.js': { authenticateOwnedNativeInstructionAssemblyBasis: () => owned },
     './native_worksite_execution.js': { worksiteCommandSourcesInvalidatedAfter: trace.worksiteCommandSourcesInvalidatedAfter,
-      projectNativeWorkspaceWorkSourceAtPrefix: (prefix, value) => nativeOwner.projectNativeWorkspaceWorkSourceAtPrefix(prefix, value) ?? assessedSources.get(value.observationRef) ?? null },
+      projectNativeWorkspaceWorkSourceAtPrefix: (prefix, value) => nativeOwner.projectNativeWorkspaceWorkSourceAtPrefix(prefix, value) ?? assessedSources.get(value.observationRef) ?? null,
+      projectNativeWorkspaceWorkResultTaskAtPrefix: (prefix, event) => nativeOwner.projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, event) ??
+        assessedSources.get(event.payload?.value?.observationRef)?.sourceTask ?? null },
   });
   const environment = { kind: 'exact_prefix_workspace_environment', workspaceAuthorityBasis: f.workspaceAuthorityBasis,
     workspaceBinding: f.workspaceBinding, productInstalls: [] };
@@ -339,7 +341,7 @@ async function governanceConsumers(t) {
     // Only the independent assessment producer's prior-source provenance is a
     // supplied lower premise. Its immutable Product observation and actual
     // admitted Result remain exact; no assessment actor or verifier ran here.
-    assessedSources.set(assessed.observationRef, { sourceBasis: native.basis });
+    assessedSources.set(assessed.observationRef, { sourceBasis: native.basis, sourceTask: uat });
     const parentInput = { ...stateWithSource, observations: [...stateWithSource.observations, { purpose: 'uat', resultRef: a.result.resultRef,
       resultDigest: a.result.resultDigest, cCallRef: a.event.aggregateId, actorInvocationRef: provenance.actorInvocationRef,
       synthesisResultRef: 'result://u1/selection', selectedGraphFunctionRef: p.governanceRef('graph-function', 'uat'), value: assessment }] };
@@ -541,7 +543,7 @@ async function revisionEvidenceConsumer(t) {
     await fs.writeFile(join(f.canonicalRoot, 'app/main.mjs'), 'export const controlled = true;\n');
     await fs.writeFile(join(f.canonicalRoot, 'app/check.mjs'), '/* supplied command premise; no command launched */\n');
     const construction = await admitNativeSource(f, task, 'construction-' + label, { after: await env.observe() });
-    const commandTask = semantic.constructNativeSemanticExecutionTask(design, construction.source);
+    const commandTask = semantic.constructNativeSemanticExecutionTask(design, construction.source, task);
     const command = observationFor(commandTask, 0).observation;
     assert.equal(p.isNativeWorksiteCommandExecutionObservation(command), true);
     const commandState = h.admit(command, p.WORKSITE_COMMAND_EXECUTION_IDS.implementationRef, 'c-call://u1/command-result');

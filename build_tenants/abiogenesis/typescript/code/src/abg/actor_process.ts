@@ -1,5 +1,6 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { QUALIFICATION_IDS } from "../gtl/self_conformance.js";
 import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
@@ -37,6 +38,8 @@ import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   admitRuntimeEvent,
+  bindNativeStdoutWindow,
+  isRuntimeEventTransactionActive,
   ROOT_EVENT_CONTRACT_DIGEST,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -56,21 +59,27 @@ import {
   classifyWorkerTransportFailure,
   constructKnownWorkerTransportContract,
   isNativeWorkerResultAssessment,
+  projectDurableActorObservation,
+  type ConfiguredActorSelection,
   type NativeWorkerResultAssessment,
 } from "./transport_contracts.js";
 import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
   createWorkerTransportOutputObserver,
+  type WorkerStdoutChunkClass,
+  type WorkerStdoutWindow,
   type WorkerTransportRequest,
   type WorkerTransportResult,
   type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
-import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessContext, runtimeAssetRevisionDigest } from "./runtime_liveness.js";
+import { admitRuntimeActivityProbe, admitRuntimeThreshold, nextNativeProcessStreamOrdinal, projectActorLivenessContext, runtimeAssetRevisionDigest,
+  stageNativeStdoutWindow } from "./runtime_liveness.js";
 import { sha256Bytes } from "../shared/digests.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import { isQualificationAssessorEligibility } from "./qualification_proof.js";
 import type { WorksiteCommandAmbientEnvironment, WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -748,14 +757,30 @@ function outputDigest(output: string): Sha256Digest {
   }
 }
 
+/** The call-bound qualification owner's decision over one actual prepared
+ * selection, before its binding or any start. Only the invoking leaf owner
+ * binds it to its admitted call and input; no caller supplies a decision. */
+export type ActorDispatchEligibilityDecision = Readonly<
+  | { disposition: "eligible" | "not_required" }
+  | { disposition: "ineligible" | "unknown"; reason: string }>;
+export type ActorDispatchEligibility = (request: Readonly<{
+  cCallRef: string;
+  inputDigest: Sha256Digest;
+  predecessorPrefix: DurablePrefixCoordinate;
+  actorRef: string;
+  selection: ConfiguredActorSelection;
+}>) => ActorDispatchEligibilityDecision;
+
 /** One preparation and dispatch composition. The implementation may request
  * the assembly, but cannot supply or replace the value retained by this owner.
  * Only the existing immutable native basis permits reuse; raw/copy callers
- * retain the standalone cold dispatch authentication path. */
+ * retain the standalone cold dispatch authentication path. A qualification
+ * assessment dispatches only through its owner's call-bound eligibility. */
 export function prepareActorProcessInvocation(
   value: Readonly<Record<string, JsonValue>>,
   occurrence: ActorProcessInvocationInput["occurrence"],
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>,
+  dispatchEligibility?: ActorDispatchEligibility,
 ) {
   const { semanticStageBasis, nativeInstructionAssemblyBasis } = occurrence;
   const coordinates = { cCallRef: occurrence.cCallRef, runId: occurrence.runId,
@@ -792,7 +817,7 @@ export function prepareActorProcessInvocation(
         (Object.keys(coordinates) as (keyof typeof coordinates)[]).some(key => input.occurrence[key] !== coordinates[key]))
         return refuseActorProcessEffect("actor_process_invocation_refused",
           "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix, null);
-      return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef);
+      return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef, dispatchEligibility);
     },
   });
 }
@@ -808,6 +833,7 @@ async function invokeActorProcessWithAssembly(
   input: ActorProcessInvocationInput,
   preparedAssembly?: Readonly<NativeInstructionAssembly>,
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>,
+  dispatchEligibility?: ActorDispatchEligibility,
 ): Promise<Readonly<ActorProcessEffectResult>> {
   const predecessorPrefix = input.predecessorPrefix;
   let successorPrefix = predecessorPrefix;
@@ -826,6 +852,7 @@ async function invokeActorProcessWithAssembly(
   let governedOccurrence: GovernedContextOwnerAuthority["occurrence"] | null = null;
   let governedClose: "completed" | "failed" | "interrupted" = "failed";
   const governedStdout: string[] = [];
+  let unbindStdoutWindow = (): void => {};
   try {
   if (
     input.request.implementationRef !== input.cCall.implementationRef ||
@@ -1047,6 +1074,20 @@ async function invokeActorProcessWithAssembly(
   });
   if (governedEndpoint !== null && plan.parser !== "claude_stream_json")
     throw new TypeError("governed context correspondence is selected only for the Claude stream-json profile");
+  // The binding records the plan's identity once; a legacy-profile binding
+  // records none. A qualification assessment's owner decides over exactly that
+  // recorded selection before its binding or any start. Without the call-bound
+  // owner, or with any decision but eligible/not_required, nothing is admitted.
+  const configuredIdentity = successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? null : plan.configuredIdentity;
+  if (input.request.implementationRef === QUALIFICATION_IDS.assessImplementation) {
+    const decision = dispatchEligibility === undefined || !isQualificationAssessorEligibility(dispatchEligibility)
+      ? { disposition: "unknown" as const, reason: "owner_connection_missing" }
+      : dispatchEligibility(deepFreeze({ cCallRef: input.cCall.cCallRef, inputDigest: input.request.inputDigest,
+        predecessorPrefix, actorRef: input.request.actorRef,
+        selection: { agentKey: plan.agentKey, identity: configuredIdentity } }));
+    if (decision.disposition !== "eligible" && decision.disposition !== "not_required")
+      throw new TypeError(`qualification dispatch refused: ${String(decision.disposition)}: ${"reason" in decision ? String(decision.reason) : "unspecified"}`);
+  }
   const transportBindingBody = {
     ...(successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? {} : {
       livenessBinding: {
@@ -1074,6 +1115,7 @@ async function invokeActorProcessWithAssembly(
     dispatchOrdinal: input.dispatchOrdinal,
     command: plan.command,
     args: plan.args,
+    ...(configuredIdentity === null ? {} : { configuredIdentity }),
     cwd: plan.cwd,
     archiveRoot: plan.archiveRoot,
     timeoutMs: plan.timeoutMs,
@@ -1263,7 +1305,7 @@ async function invokeActorProcessWithAssembly(
         elapsedMs, underlyingObservationRef: event.eventId, underlyingEventRef: event.eventId, sourceDigest: event.payloadDigest, sourceRevisionDigest: null,
         evidenceRefs: [event.eventId], coverage, signal },
     });
-    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId; flushedWindowTailRef = null;
   };
   const observePendingAsset = () => {
     const context = nativeContext();
@@ -1291,8 +1333,41 @@ async function invokeActorProcessWithAssembly(
         elapsedMs: elapsed(), underlyingObservationRef, underlyingEventRef: null, sourceDigest, sourceRevisionDigest,
         evidenceRefs: [context.declarationEventRef], coverage: "observed", signal: "artifact_pending" },
     });
-    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId; flushedWindowTailRef = null;
   };
+  // E-E: current-profile stdout is classified per captured chunk and admitted
+  // once per closed window, staged by the scope flush or in its own transaction.
+  let flushedWindowTailRef: string | null = null;
+  const classifyStdoutChunk = (chunk: string): WorkerStdoutChunkClass => {
+    const elapsedMs = elapsed();
+    if (governedEndpoint !== null) governedStdout.push(chunk);
+    if (plan.parser !== "claude_stream_json") return { elapsedMs, progress: chunk.length > 0, result: false, turnBoundary: false };
+    // Segments end at the chunk's completed turn boundaries, each classified
+    // by its own records: a noise-only tail after a boundary is not activity.
+    const segments = stdoutObserver.classifyChunk(chunk);
+    return { elapsedMs, progress: segments.some(row => row.progress), result: segments.some(row => row.result),
+      turnBoundary: segments.some(row => row.turnBoundary), segments };
+  };
+  const admitStdoutWindow = (text: string, window: WorkerStdoutWindow): void => {
+    const interrupted = supervisionInterrupted;
+    // The witness keeps the transport's range and capture clocks; after an
+    // absolute interruption the window still records its captured qualifying
+    // time while no probe renews activity.
+    const stage = () => stageNativeStdoutWindow({ store: input.store, envelope: { ...common, eventTime: sampleNativeEventTime(),
+      causationEventRefs: [previousEventRef] }, actorInvocationRef, processRef, text,
+      window: { archiveOffset: window.archiveOffset, firstCaptureElapsedMs: window.firstCaptureElapsedMs,
+        lastCaptureElapsedMs: window.lastCaptureElapsedMs, capturedQualifyingElapsedMs: window.lastQualifyingElapsedMs },
+      lastQualifyingElapsedMs: interrupted ? null : window.lastQualifyingElapsedMs, resultElapsedMs: interrupted ? null : window.resultElapsedMs });
+    const tail = (staged: ReturnType<typeof stage>) => staged.probes.at(-1)?.eventId ?? staged.row.eventId;
+    // The flush path: the enclosing transaction owns the predecessor and the commit.
+    if (isRuntimeEventTransactionActive(input.store)) { flushedWindowTailRef = tail(stage()); return; }
+    assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+    const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, successorPrefix, stage);
+    successorPrefix = admission.successorPrefix; previousEventRef = tail(admission.value); flushedWindowTailRef = null;
+  };
+  // Committed stdout rows of this process at the current cut.
+  const committedStdoutRows = () => indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "aggregate:process:" + processRef)
+    .filter(event => event.kind === "actor_process_stdout_observed");
 
   const admitTransportArtifact = (transport: WorkerTransportResult) => {
     if (admittedArtifact !== null) throw new TypeError("actor result artifact was already admitted");
@@ -1353,7 +1428,9 @@ async function invokeActorProcessWithAssembly(
       toolCallCount: transport.toolCallCount,
       toolInvocations: transport.toolInvocations,
       apiRetryCount: transport.apiRetryCount,
-      stdoutByteLength,
+      stdoutByteLength: currentProfile
+        ? committedStdoutRows().reduce((total, event) => total + Number((event.payload as Record<string, JsonValue>).byteLength), 0)
+        : stdoutByteLength,
       stderrByteLength,
       artifactDigests,
     };
@@ -1366,7 +1443,9 @@ async function invokeActorProcessWithAssembly(
         cCallRef: input.cCall.cCallRef,
         requestRef,
         requestDigest,
-        ...observationBody,
+        // D5: the current profile persists the shared durable projection; L
+        // keeps its original full body. The live observation stays full.
+        ...(currentProfile ? projectDurableActorObservation(observationBody) : observationBody),
       },
     );
     // Retain the actual committed witness before a subsequent probe can fail.
@@ -1384,8 +1463,11 @@ async function invokeActorProcessWithAssembly(
         const sampled = elapsed();
         const decision = admitRuntimeThreshold({ store: input.store, predecessorPrefix: successorPrefix,
           actorInvocationRef, processRef, elapsedMs: sampled, eventTime: sampleNativeEventTime(), correlationId: common.correlationId });
+        // Both branches adopt the actual durable successor, including a flushed window.
+        successorPrefix = decision.successorPrefix;
+        if (flushedWindowTailRef !== null) { previousEventRef = flushedWindowTailRef; flushedWindowTailRef = null; }
         if (decision.kind === "runtime_threshold_admitted") {
-          successorPrefix = decision.successorPrefix; previousEventRef = decision.value.eventId;
+          previousEventRef = decision.value.eventId;
           if (decision.timeoutClass === "absolute") {
             probe("process_lifecycle", decision.value, "external_interruption", sampled);
             supervisionInterrupted = true;
@@ -1418,7 +1500,11 @@ async function invokeActorProcessWithAssembly(
             source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
         }
       },
-      onStdoutObserved: (chunk) => {
+      ...(currentProfile ? { classifyStdoutChunk, bindStdoutWindow: (flush: () => (() => void) | null) => {
+        unbindStdoutWindow = bindNativeStdoutWindow(input.store, actorInvocationRef, flush);
+      } } : {}),
+      onStdoutObserved: (chunk, window) => {
+        if (window !== undefined) { admitStdoutWindow(chunk, window); return true; }
         const sampled = elapsed();
         const byteLength = Buffer.byteLength(chunk);
         stdoutByteLength += byteLength;
@@ -1465,7 +1551,8 @@ async function invokeActorProcessWithAssembly(
           {
             actorInvocationRef,
             processRef,
-            streamOrdinal: ++streamOrdinal,
+            // Windowed stdout rows take their ordinals from the admitted stream rows.
+            streamOrdinal: currentProfile ? nextNativeProcessStreamOrdinal(selectRuntimeEventPrefixFromStore(input.store), processRef) : ++streamOrdinal,
             byteLength,
             chunkDigest: sha256Canonical(chunk),
           },
@@ -1555,7 +1642,7 @@ async function invokeActorProcessWithAssembly(
           transportBindingDigest,
           transportDigest: transport.artifacts.transport.digest,
           consumedTransportBindingRef: transportBindingRef,
-          consumedStdoutEventRefs: Object.freeze([...stdoutEventRefs]),
+          consumedStdoutEventRefs: Object.freeze(currentProfile ? committedStdoutRows().map(event => event.eventId) : [...stdoutEventRefs]),
           consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),
           consumedArtifactEventRef: artifactEvent.eventId,
         },
@@ -1616,6 +1703,7 @@ async function invokeActorProcessWithAssembly(
       encodedFinalProcessFacts(),
     );
   } finally {
+    unbindStdoutWindow();
     if (governedEndpoint !== null) await governedEndpoint.close(governedClose);
   }
 }

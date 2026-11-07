@@ -37,7 +37,7 @@ import {
   type AbgEventResourceOutcome,
 } from "./definition_event_resource.js";
 import { authenticateRuntimePrefixAncestry,
-  LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST, type DurablePrefixCoordinate } from "./event_store.js";
+  LEGACY_ROOT_EVENT_CONTRACT_DIGEST, rootEventContractProfile, type DurablePrefixCoordinate } from "./event_store.js";
 import { ROOT_EVENT_PROFILE_DECLARATION_REF } from "./event_contract_profiles.js";
 import { indexedRuntimeEvents, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent,
   runtimeEventProfileScheduleFromValidatedPrefix } from "./event_prefix.js";
@@ -160,7 +160,7 @@ function witnessPrefixTransitionCorrespond(
     const boundary = runtimeEventAtPrefixIndex(prefix, runtimeEventPrefixExtent(prefix).count - 1),
       p = boundary?.payload as Record<string, unknown> | undefined;
     return entry.storeIdentity.eventContractDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST &&
-      next.storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+      rootEventContractProfile(next.storeIdentity.eventContractDigest)?.stamped === true &&
       schedule.boundaryEventRef === boundaryEventRef && boundary?.eventId === boundaryEventRef &&
       p?.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF && sameJson(p?.contentValue, content);
   } catch { return false; }

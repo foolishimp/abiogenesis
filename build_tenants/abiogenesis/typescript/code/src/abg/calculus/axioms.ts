@@ -14,17 +14,18 @@ import {
   type WorksiteFileReplaceRequest,
 } from "../../product/worksite_effect.js";
 import {
+  indexedRuntimeEvents,
   runtimeEventAtPrefix,
   validatedRuntimeEventPrefixBeforeEvent,
   type RuntimeEventPrefix,
 } from "../event_prefix.js";
 import type { RootEventKind, RuntimeEvent } from "../event_store.js";
-import { ROOT_EVENT_CONTRACT_DIGEST } from "../event_store.js";
+import { runtimeEventProfile } from "../event_store.js";
 import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
   type RuntimeInvocationScope } from "../runtime_liveness_contracts.js";
 import { projectWorksiteBasisObservation, projectWorksiteSelectedOccurrence, projectWorksiteFailureResultRequest } from "../c_call_outcome.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkObservation,
-  isNativeWorkspaceWorkFailure } from "../../product/native_workspace_work.js";
+  isNativeWorkspaceWorkFailure, isNativeWorkspaceWorkTask, nativeWorkspaceWorkResultInputDigest } from "../../product/native_workspace_work.js";
 import { nativeWorkImpact, nativeWorkImpactOverlaps, projectNativeWorkUnknownEffectTask,
   type NativeWorkImpact } from "../native_work_effect.js";
 
@@ -409,7 +410,7 @@ export function frameProbeScopeKey(scope: Pick<RuntimeInvocationScope, "frameId"
 }
 
 function observedFrameRuntimeFluents(event: RuntimeEvent, priorEvents: readonly RuntimeEvent[], history?: RuntimeEffectHistory): readonly string[] {
-  if (event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || event.frameId === undefined) return [];
+  if (runtimeEventProfile(event)?.nativeLiveness !== true || event.frameId === undefined) return [];
   if (history !== undefined) return [...(history.frameProbeScopes.get(frameProbeScopeKey({
     frameId: event.frameId, runId: event.runId!, graphCallId: event.graphCallId!,
     basisRef: event.basisId, graphFunctionRef: event.graphFunctionRef!,
@@ -531,7 +532,15 @@ function nativeWorkPhysicalScope(event: RuntimeEvent, priorEvents: readonly Runt
     evidenceRefs.includes(row.payload.evidenceRef as string) && row.payload.evidenceClass === "probabilistic_transport" &&
     row.payload.implementationRef === nativeIds.implementationRef && row.payload.transportDigest === value.provenance.transportDigest &&
     row.payload.outputDigest === valueDigest)) return null;
-  return scope(nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths));
+  // The Result's task is its own admitted basis input, bound by the Result's input digest.
+  // A retained Result keeps its original task and owner interpretation.
+  const retained = (value as unknown as { readonly task?: unknown }).task;
+  const basisRows = retained !== undefined ? [] : ownedPrefix === undefined ? priorEvents : indexedRuntimeEvents(ownedPrefix, "basis:" + event.basisId);
+  const basis = basisRows.filter(row => row.kind === "basis_admitted" && row.basisId === event.basisId && isRecord(row.payload) &&
+    row.payload.basisRef === event.basisId);
+  const task = retained !== undefined ? retained : basis.length === 1 && isRecord(basis[0]!.payload) ? basis[0]!.payload.rawInputValue : undefined;
+  if (!isNativeWorkspaceWorkTask(task) || sha256Canonical(task) !== nativeWorkspaceWorkResultInputDigest(value)) return null;
+  return scope(nativeWorkImpact(task, value.after === null ? null : value.changedPaths));
 }
 
 /** One worksite cause as the support pass read it. */
@@ -562,6 +571,8 @@ function worksiteCauseSupport(priorEvents: readonly RuntimeEvent[], canonicalRoo
   const joins = new Map<string, Map<unknown, number[]>>(), ordinals: number[] = [];
   const basisLinks = new Map<number, readonly unknown[]>(), fibreBases = new Map<number, unknown>();
   const causes: WorksiteCause[] = [], subjectBases = new Set<unknown>(), subjectCalls = new Set<unknown>();
+  const basisInputs = new Map<unknown, unknown>(), nativeBasisCauses: number[] = [];
+  const nativeRootOf = (task: unknown) => supportObject(task) && supportObject(task.workspaceAuthorityBasis) ? task.workspaceAuthorityBasis.canonicalRoot : undefined;
   const join = (selector: string, value: unknown, position: number) => {
     let values = joins.get(selector);
     if (values === undefined) joins.set(selector, values = new Map());
@@ -579,6 +590,7 @@ function worksiteCauseSupport(priorEvents: readonly RuntimeEvent[], canonicalRoo
       if (payload !== null) {
         join("basis_admitted:payload.basisRef", payload.basisRef, position);
         const raw = payload.rawInputValue;
+        if (row.basisId === payload.basisRef) basisInputs.set(row.basisId, raw);
         basisLinks.set(position, [payload.invocationAdmissionRef, payload.implementationSetRef, payload.parentExecutionBasisRef,
           supportObject(raw) ? raw.workspaceBindingIdentity : undefined]);
         if (namesSubject(raw)) subjectBases.add(row.basisId);
@@ -602,12 +614,16 @@ function worksiteCauseSupport(priorEvents: readonly RuntimeEvent[], canonicalRoo
     }
     if (kind === "c_call_result_admitted" || kind === "c_call_fibre_selected" ||
       kind === "actor_invocation_failed" || kind === "actor_process_termination_unconfirmed") {
-      const value = payload?.value, task = supportObject(value) ? value.task : undefined;
+      const value = payload?.value;
+      const task = supportObject(value) ? value.task : undefined;
+      if (task === undefined && kind === "c_call_result_admitted" && supportObject(value) &&
+        (value.kind === "native_workspace_work_observation" || value.kind === "native_workspace_work_failure")) nativeBasisCauses.push(causes.length);
       causes.push({ position, kind, eventId: row.eventId, admissionOrdinal: row.admissionOrdinal, basisId: row.basisId,
-        aggregateId: row.aggregateId, failure: payload?.resultClass === "failure",
-        nativeRoot: supportObject(task) && supportObject(task.workspaceAuthorityBasis) ? task.workspaceAuthorityBasis.canonicalRoot : undefined });
+        aggregateId: row.aggregateId, failure: payload?.resultClass === "failure", nativeRoot: nativeRootOf(task) });
     }
   }
+  // A prospective native Result's task is its basis's admitted raw input, in any list order.
+  for (const index of nativeBasisCauses) causes[index] = { ...causes[index]!, nativeRoot: nativeRootOf(basisInputs.get(causes[index]!.basisId)) };
   // A C0 failure Result's request is its fibre's basis request (c_call_outcome.ts:331-333).
   for (const cause of causes)
     if (cause.kind === "c_call_fibre_selected" && subjectBases.has(cause.basisId)) subjectCalls.add(cause.aggregateId);
@@ -635,6 +651,8 @@ function worksiteCauseSupport(priorEvents: readonly RuntimeEvent[], canonicalRoo
     if (cause.kind === "c_call_fibre_selected") fibreSupport(cause.basisId, cause.aggregateId);
     if (cause.kind === "c_call_result_admitted") {
       take("c_call_evidenced:aggregateId", cause.aggregateId);
+      // A prospective native Result's physical scope reads its own basis input.
+      if (cause.nativeRoot !== undefined) take("basis_admitted:basisId", cause.basisId);
       if (cause.failure) for (const position of selected("c_call_fibre_selected:aggregateId", cause.aggregateId))
         if (ordinals[position]! < cause.admissionOrdinal) fibreSupport(fibreBases.get(position), cause.aggregateId);
     }
@@ -1084,7 +1102,7 @@ function eventCalculusEffectRefs(
           : [fluent("c_call_judgment_available", judgmentRef)],
         terminates: [
           fluent("c_call_active", event.aggregateId),
-          ...(event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ? history !== undefined
+          ...(runtimeEventProfile(event)?.nativeLiveness === true ? history !== undefined
             ? [...(history.cCallProbeScopes.get(event.aggregateId) ?? [])].map(scope => fluent("runtime_invocation_active", scope))
             : [...new Set(priorEvents.flatMap(row => {
             if (row.kind !== "runtime_activity_probe_observed" || !isRecord(row.payload) ||

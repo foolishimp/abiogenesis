@@ -8,6 +8,7 @@ import { constructSelfConformanceModulePublication, QUALIFICATION_IDS as ids } f
 import { materializeGraph } from '../../build/code/src/gtl/materialize.js';
 import { modulePublicationSemanticDigest } from '../../build/code/src/product/publication.js';
 import { qualificationHash as hash, constructQualificationIdentity as identity } from '../../build/code/src/validator/qualification_contracts.js';
+import { projectTransportBindingSelection } from '../../build/code/src/abg/c_call.js';
 export { hash, identity, ids };
 export const coverage = JSON.parse(fs.readFileSync(new URL('../../contracts/qualification/coverage.json', import.meta.url)));
 export const publication = constructSelfConformanceModulePublication({ productId: 'product://mechanical/qualification', artifactDigest: hash('artifact'),
@@ -36,7 +37,7 @@ export function inputFixture() {
   ] } };
 }
 export async function nativeJoinFixture({ changeInput, runtime = false, configureHello, consumerPublication, consumerIds,
-  declarationProof, sameRealm = false, rootGraphFunctionRef, origin, sourceFixtures = [], nativeSourceOwners = [] } = {}) {
+  declarationProof, sameRealm = false, rootGraphFunctionRef, origin, sourceFixtures = [], nativeSourceOwners = [], ownerPremises = {} } = {}) {
   const f = inputFixture();
   if (origin) {
     f.install.installId = 'install://' + origin;
@@ -45,7 +46,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   }
   if (changeInput) f.input = changeInput(structuredClone(f.input));
   if (declarationProof) f.input.declarations = [declarationProof];
-  const counts = { catalog: 0, execution: 0, state: 0, assessment: 0, verdict: 0, terminal: 0, replay: 0, sourceRead: 0, environment: 0 };
+  const counts = { catalog: 0, execution: 0, state: 0, assessment: 0, verdict: 0, terminal: 0, replay: 0, sourceRead: 0, environment: 0, transport: 0 };
   const acquisitions = [], computations = new Map();
   const input = f.input, declaration = input.declarations[0], pd = modulePublicationSemanticDigest(publication);
   const selectedProgram = rootGraphFunctionRef ? publication.programs.find(p => p.starts[0].graphFunctionRef === rootGraphFunctionRef) : runtime ? publication.programs.find(p => p.starts[0].graphFunctionRef === ids.runtimeAssessGraph) : program;
@@ -85,7 +86,7 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
     catalogBasisDigest: declaration.catalog.basisDigest, catalogViewDigest: declaration.catalogView.viewDigest,
     resultContractRef: rootOutput, rawInputAdmissionRef: 'input://root', rawInputDigest: hash(input), rawInputValue: input };
   executions.set(root.basisRef, root); invocations.set(invocation.invocationAdmissionRef, invocation);
-  function open(graphRef, value, suffix, { termIndex = 0, prior = null, invocationRef = 'invocation://hello' } = {}) {
+  function open(graphRef, value, suffix, { termIndex = 0, prior = null, invocationRef = 'invocation://hello', regime = 'F_D' } = {}) {
     const pub = publications.find(p => p.graphFunctions.some(g => g.name === graphRef));
     const gf = pub.graphFunctions.find(g => g.name === graphRef), nodeTerm = gf.template.nodes[0].term;
     const terms = nodeTerm.kind === 'c_compose' ? nodeTerm.terms : nodeTerm.kind === 'c_edge'
@@ -114,16 +115,19 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
     execution.graphDigest = graph.materializationDigest; execution.graphRef = graph.materializationRef; executions.set(basisRef, execution);
     const call = { cCallRef: callRef, cCallDigest: hash(callRef), basisId: basisRef, runId: pub === hello ? 'run://hello' : 'run://mechanical', graphCallId: prior?.call.graphCallId ?? 'graph-call://' + suffix, frameId: prior?.call.frameId ?? 'frame://' + suffix,
       graphFunctionRef: gf.name, programLocusRef: locus, implementationRef: binding.implementationRef, implementationBindingRef: binding.bindingRef,
-      inputContractRef: binding.inputContractRef, outputContractRef: binding.outputContractRef, regime: 'F_D', callClass: 'leaf' };
+      inputContractRef: binding.inputContractRef, outputContractRef: binding.outputContractRef, regime, callClass: 'leaf' };
     calls.set(callRef, call); event('c_call_opened', callRef, call, { basisId: basisRef, runId: call.runId, graphFunctionRef: gf.name });
     event('c_call_fibre_selected', callRef, {implementationRef: call.implementationRef}, {basisId:basisRef,runId:call.runId,graphFunctionRef:gf.name});
+    // Only executable leaf terms resolve an implementation row; a nested compose has none.
     resolutions.set(execution.implementationSetRef, { implementationSetDigest: execution.implementationSetDigest,
-      rows: terms.map(t => { const b = pub.implementationBindings.find(b => b.bindingRef === t.requirement.implementationBindingRef); return { ...b, graphFunctionRef: gf.name, programLocusRef: t.programLocusRef, implementationBindingRef: b.bindingRef, implementationOwnerProductId: f.install.productId }; }) });
+      rows: terms.filter(t => t.requirement !== undefined).map(t => { const b = pub.implementationBindings.find(b => b.bindingRef === t.requirement.implementationBindingRef); return { ...b, graphFunctionRef: gf.name, programLocusRef: t.programLocusRef, implementationBindingRef: b.bindingRef, implementationOwnerProductId: f.install.productId }; }) });
     return { call, execution, basis: { cCallRef: callRef, predecessorPrefix: coordinate(events.length) } };
   }
-  function complete(opened, value, { deterministic = false, inputDigest = opened.execution.rawInputDigest } = {}) {
+  function complete(opened, value, { deterministic = false, inputDigest = opened.execution.rawInputDigest, evidence = [] } = {}) {
     const call = opened.call, suffix = call.cCallRef.slice(9), result = { resultRef: 'result://' + suffix, resultDigest: hash(value), valueDigest: hash(value), value,
       resultClass: 'success', contractRef: call.outputContractRef, valueKind: value.kind, evidenceRefs: [] };
+    // Supplied admitted evidence rows (for example actorTransport below).
+    for (const row of evidence) { event('c_call_evidenced', call.cCallRef, row); result.evidenceRefs.push(row.evidenceRef); }
     if (deterministic) {
       const evidence = { evidenceRef: 'evidence://' + suffix, evidenceDigest: hash(['evidence', suffix]), evidenceClass: 'deterministic',
         implementationRef: call.implementationRef, inputDigest, outputDigest: hash(value) };
@@ -132,6 +136,29 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
     const judgment = { judgment: 'advance', judgmentRef: 'judgment://' + suffix };
     event('c_call_result_admitted', call.cCallRef, result, { graphCallId: call.graphCallId }); event('c_call_judged', call.cCallRef, judgment);
     states.set(call.cCallRef, { cCall: call, result, judgment, evidence: [] }); return result;
+  }
+  // One synthetic actor transport for an opened call: binding and start rows
+  // with the binding's real body digest/ref form, and the transport evidence
+  // row citing them. The process, artifact and terminal facts are premises.
+  // `tamper` edits the admitted binding payload after its digest is fixed;
+  // `bindingExtra` replaces binding event coordinates (for crossed negatives).
+  function actorTransport(opened, { args, agentKey = 'claude', promptTransport = 'stdin', identity, actorRef, workerBindingRef,
+    ordinal = 1, evidence: extra = {}, started: startedExtra = {}, tamper = payload => payload, bindingExtra = {} } = {}) {
+    const call = opened.call, suffix = call.cCallRef.slice(9) + '/' + ordinal, inputDigest = opened.execution.rawInputDigest;
+    const body = { cCallRef: call.cCallRef, actorRef, workerBindingRef, implementationBindingRef: call.implementationBindingRef,
+      implementationRef: call.implementationRef, inputDigest, transportPlanDigest: hash(['synthetic plan', suffix]), agentKey, promptTransport,
+      dispatchOrdinal: ordinal, args, ...(identity === undefined ? {} : { configuredIdentity: identity }) };
+    const transportBindingDigest = hash(body), transportBindingRef = 'transport-binding://abiogenesis/' + transportBindingDigest.slice(7);
+    const actorInvocationRef = 'actor-invocation://' + suffix;
+    const binding = event('actor_transport_binding_admitted', transportBindingRef, tamper({ transportBindingRef, transportBindingDigest, ...body }),
+      { aggregateType: 'transport_binding', parentAggregateId: call.cCallRef, causationEventRefs: [], basisId: call.basisId, runId: call.runId, ...bindingExtra });
+    event('actor_invocation_started', actorInvocationRef, { actorInvocationRef, actorRef, workerBindingRef, cCallRef: call.cCallRef,
+      implementationRef: call.implementationRef, inputDigest, transportBindingRef, transportBindingDigest, ...startedExtra },
+      { aggregateType: 'actor_invocation', parentAggregateId: call.cCallRef, causationEventRefs: [binding.eventId], basisId: call.basisId, runId: call.runId });
+    const row = { evidenceClass: 'probabilistic_transport', cCallRef: call.cCallRef, actorInvocationRef, actorRef, workerBindingRef,
+      implementationRef: call.implementationRef, inputDigest, transportBindingRef, transportBindingDigest, transportDisposition: 'success',
+      transportFailureClass: null, ...extra };
+    return { ...row, evidenceRef: 'evidence://' + suffix + '/transport', evidenceDigest: hash(['evidence', suffix, row]) };
   }
   const realDeclarations = await import('../../build/code/src/product/declaration_closure.js');
   const qualification = await import('../../build/code/src/validator/qualification.js');
@@ -181,12 +208,24 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
     'abg/c_call.js': { projectOpenedCCallCarrierAtPrefix: (_p, graph, ref) => { const c = calls.get(ref), e = c && executions.get(c.basisId); return e && e.graphDigest === graph.materializationDigest ? c : null; },
       projectCCallCarrierPhaseAtPrefix: (p, c) => ({ phase: p.some(e => e.kind === 'c_call_result_admitted' && e.aggregateId === c.cCallRef) ? 'after_result' : 'selected_no_evidence' }),
       projectAdmittedCCallStateAtPrefix: (_p, c, r, j) => { counts.state++; const s = states.get(c.cCallRef); return s && s.result.resultRef === r.resultRef &&
-        s.result.resultDigest === r.resultDigest && hash(s.result.value) === hash(r.value) && s.judgment.judgmentRef === j.judgmentRef ? s : null; } },
+        s.result.resultDigest === r.resultDigest && hash(s.result.value) === hash(r.value) && s.judgment.judgmentRef === j.judgmentRef ? s : null; },
+      // Premise: the process lifecycle, artifact and terminal joins of the cited
+      // transport are admitted. The binding and start rows are selected from the
+      // admitted array and the actual c_call owner decides their identity join.
+      projectAdmittedTransportEvidenceSelection: (p, cCallRef, evidence) => { counts.transport++;
+        const binding = p.filter(e => e.kind === 'actor_transport_binding_admitted' && e.aggregateId === evidence.transportBindingRef);
+        const started = p.filter(e => e.kind === 'actor_invocation_started' && e.aggregateId === evidence.actorInvocationRef);
+        return binding.length !== 1 || started.length !== 1 ? null : projectTransportBindingSelection(binding[0], started[0], { cCallRef,
+          actorInvocationRef: evidence.actorInvocationRef, transportBindingRef: evidence.transportBindingRef, transportBindingDigest: evidence.transportBindingDigest }); } },
   };
+  // Explicitly labelled lower-owner premises a caller supplies over real modules.
+  for (const [module, premise] of Object.entries(ownerPremises))
+    stubs[module] = { ...(stubs[module] ?? await import(new URL('../../build/code/src/' + module, import.meta.url).href)), ...premise };
   // Each original resource has its own admitted lower-owner fixture. Route by
   // genuine fixture-prefix identity, never concatenate or transplant events.
   for (const module of ['abg/event_store.js','abg/artifact_truth.js','abg/invocation_execution_truth.js','abg/environment_admission.js','abg/execution_basis.js','abg/c_call.js']) {
     for (const [name, local] of Object.entries(stubs[module])) {
+      if (typeof local !== 'function') continue;
       stubs[module][name] = (...args) => {
         const p = args[0], source = sourceFixtures.find(f => Array.isArray(p) ? p[0] === f.events[0] :
           (p?.eventLogRef ?? p?.prefix?.eventLogRef) === f.proof().prefix.eventLogRef);
@@ -198,6 +237,8 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   // Consumer admission remains this fixture's explicitly supplied premise.
   for (const [module, functions] of Object.entries(stubs)) {
     for (const [name, local] of Object.entries(functions)) {
+      // Constants of a merged real module stay values.
+      if (typeof local !== 'function') continue;
       functions[name] = (...args) => {
         const source = nativeSourceOwners.find(s => s.owns(args[0]));
         return (source?.modules[module]?.[name] ?? local)(...args);
@@ -230,6 +271,6 @@ export async function nativeJoinFixture({ changeInput, runtime = false, configur
   const implementation = (await load('implementation/qualification.js', true)).namespace;
   const semantics = (await load('validator/self_conformance_semantics.js', true)).namespace;
   const proof = () => ({ kind: 'qualification_proof_resource', schemaVersion: '5.0.0', prefix: coordinate(events.length), declarations: [declaration], selections: [] });
-  return { input, owner, implementation, semantics, open, complete, proof, coordinate, events, states, environment, invocation, root,
+  return { input, owner, implementation, semantics, open, complete, actorTransport, proof, coordinate, events, states, environment, invocation, root,
     hello, helloIds: testIds, consumerPublication: hello, consumerIds: testIds, counts, event, nativeStubs: stubs, executions, acquisitions, cold: () => computations.clear() };
 }

@@ -508,6 +508,28 @@ test('Archive paths are unique and failed subprocess streams survive before any 
   assert.equal(await readFile(join(first.path,'commands/actual-failure.stdout'),'utf8'),'retained-out');
   assert.equal(await readFile(join(first.path,'commands/actual-failure.stderr'),'utf8'),'retained-error');
 });
+test('RC7 original stream bytes: retained command files are the referenced original bytes; decoded text is a view',async()=>{
+  const archive=await newArchive(archives,'original-stream-bytes');
+  const command=commandRecorder(archive.path,{environment:{PATH:process.env.PATH},timeoutMs:10000});
+  const cases=[
+    {label:'valid-utf8',out:Buffer.from('caf\u00e9 \u2713\n','utf8'),err:Buffer.from('warn \u00fc\n','utf8'),exit:0},
+    {label:'non-utf8',out:Buffer.from([0x61,0xff,0xfe,0x0a,0xc3]),err:Buffer.from([0x80,0x62]),exit:3},
+  ];
+  for(const row of cases) {
+    const script=`process.stdout.write(Buffer.from(${JSON.stringify(row.out.toString('hex'))},'hex'));process.stderr.write(Buffer.from(${JSON.stringify(row.err.toString('hex'))},'hex'));process.exit(${row.exit});`;
+    const result=await command(row.label,process.execPath,['-e',script]);
+    assert.equal(result.exitCode,row.exit);assert.equal(result.timedOut,false);assert.equal(result.truncated,false);
+    assert.equal(result.stdout,row.out.toString('utf8'));assert.equal(result.stderr,row.err.toString('utf8'));
+    const record=JSON.parse(await readFile(join(archive.path,'commands',row.label+'.result.json'),'utf8'));
+    for(const [stream,expected] of [['stdout',row.out],['stderr',row.err]]) {
+      const retained=await readFile(join(archive.path,record[stream].path));
+      assert.deepEqual(retained,expected);
+      assert.equal(record[stream].byteCount,retained.length);assert.equal(record[stream].digest,digest(retained));
+      assert.equal(record[stream].digest,digest(expected));
+    }
+    if(row.label==='non-utf8') assert.notEqual(Buffer.byteLength(result.stdout,'utf8'),row.out.length);
+  }
+});
 test('Archived judgment conserves acquired module, manifest and rubric despite later ambient edits; tampering refuses',async()=>{
   const original=await loadScenarios(fixtures),row=selectScenarios(original.rows,{caseKey:'basic-cli'})[0];
   const acquired=await acquireScenario(original.root,row);

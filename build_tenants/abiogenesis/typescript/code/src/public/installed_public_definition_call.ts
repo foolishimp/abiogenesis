@@ -640,7 +640,7 @@ export async function constructInstalledPendingCall<
 /**
  * Construct one installed run read (`run_status`, `run_result`,
  * `run_replay`, `run_gaps`, `graph_call_result` or `graph_call_replay`) at
- * the reopened event resource's exact durable prefix. ABG populates the
+ * the reopened or held event resource's exact durable prefix. ABG populates the
  * source coordinate and the same authority the read kernel admits.
  */
 export function constructInstalledRunReadCall<K extends abg.AbgRunReadMemberKey>(input: Readonly<{
@@ -648,7 +648,7 @@ export function constructInstalledRunReadCall<K extends abg.AbgRunReadMemberKey>
   workspaceBinding: Readonly<{ ref: string; digest: Sha256Digest }>;
   sourceRef: string;
   selector: JsonValue;
-  eventResource: Extract<abg.AbgEventResourceInput, { readonly kind: "reopen_abg_event_resource" }>;
+  eventResource: abg.ReopenedAbgEventResourceInput;
   declarationProof?: abg.AbgHistoricalDeclarationProof;
   envelope: InstalledCallEnvelopeIdentity;
 }>):

@@ -61,11 +61,16 @@ export function commandRecorder(root,{environment={},timeoutMs=300000,maxOutputB
     child.on('error',error=>{failure=String(error);});
     const closed=await new Promise(resolveClose=>child.on('close',(exitCode,signal)=>resolveClose({exitCode,signal})));
     clearTimeout(timer);
+    const out=Buffer.concat(stdout),err=Buffer.concat(stderr);
     const result={...observation,...closed,wallMs:performance.now()-startedMs,timedOut,truncated,failure,
-      stdout:Buffer.concat(stdout).toString('utf8'),stderr:Buffer.concat(stderr).toString('utf8')};
-    await exclusiveRecord(root,'commands/'+label+'.stdout',result.stdout,true);
-    await exclusiveRecord(root,'commands/'+label+'.stderr',result.stderr,true);
-    await exclusiveRecord(root,'commands/'+label+'.result.json',result);
+      stdout:out.toString('utf8'),stderr:err.toString('utf8')};
+    // The original stream bytes have custody in their own files; the record
+    // references those same bytes. The returned decoded text is a parser view.
+    await exclusiveRecord(root,'commands/'+label+'.stdout',out,true);
+    await exclusiveRecord(root,'commands/'+label+'.stderr',err,true);
+    const retained=(suffix,bytes)=>({path:'commands/'+label+suffix,byteCount:bytes.length,digest:digest(bytes)});
+    const {stdout:_out,stderr:_err,...metadata}=result;
+    await exclusiveRecord(root,'commands/'+label+'.result.json',{...metadata,stdout:retained('.stdout',out),stderr:retained('.stderr',err)});
     return result;
   };
 }
@@ -258,28 +263,43 @@ export async function invokeColdInstalledEntry(caller,label,call,{runtimeRoot,en
   return {call,outcome,receipt,execution};
 }
 
+// The same two run reads (§10.9 R-B): `freshReadbacks` reopens the close
+// handoff in fresh CLI processes; `heldReadbacks` borrows the session's current
+// selection in this module instance and completes at the unchanged prefix.
 export async function freshReadbacks(caller,execution) {
+  return runReadbacks(caller,execution,false);
+}
+export async function heldReadbacks(caller,execution) {
+  return runReadbacks(caller,execution,true);
+}
+async function runReadbacks(caller,execution,held) {
   const receipt=execution.receipt,run=receipt.resources.run,terminal=receipt.ownerOutput.value?.terminalResult;
   if(!run) {
     if(receipt.ownerOutput.outcomeKind==='refusal')throw new BoundaryFailure('lifecycle-start',receipt.ownerOutput);
     throw new BoundaryFailure('readback-source','No admitted Run coordinate');
   }
-  const {product,abg,api}=caller.runtime,hash=product.sha256Canonical;caller.refresh();
-  const prefix=caller.state.closeHandoff.prefix,identityBefore=await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),reads=[];
+  const {product,api,abg}=caller.runtime,hash=product.sha256Canonical;
+  if(held&&caller.state.selection==null)throw new BoundaryFailure('held-readback','No held session selection');
+  const prefix=held?caller.state.selection.prefix:caller.state.closeHandoff.prefix;
+  const identityBefore=await eventResourceIdentity(fileURLToPath(prefix.eventLogRef)),reads=[];
   for(const memberKey of ['run_result','run_replay']) {
-    // ABG populates the read request and authority at the reopened prefix.
+    // ABG populates the read request and authority at the entry prefix.
+    const eventResource=held?caller.state.selection:caller.reopen(),label=held?memberKey+'-held':memberKey;
     const constructed=api.constructInstalledRunReadCall({memberKey,workspaceBinding:caller.state.binding,sourceRef:run.ref,
-      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource:caller.reopen(),
+      selector:memberKey==='run_replay'?{kind:'ordinal_page',fromOrdinal:0,limit:4096}:{kind:'none'},eventResource,
       envelope:{definitionContractCoordinates:caller.native.verified.definitionContractCoordinates,
-        requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+memberKey,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
+        requestRef:'request://abi5-tests/sandbox-uat/'+caller.config.runId+'/'+label,correlationRef:'correlation://abi5-tests/sandbox-uat/'+caller.config.runId,
         eventTime:new Date().toISOString(),provenanceRefs:[pathToFileURL(join(caller.root,'run.json')).href]}});
     if(constructed.kind!=='installed_run_read_call')throw new BoundaryFailure(memberKey+'-read-population',constructed);
     if(constructed.population.source.ref!==run.ref||constructed.population.source.digest!==run.digest)throw new BoundaryFailure(memberKey+'-read-source',{run,source:constructed.population.source});
     const call=constructed.call;
-    const observed=await invokeColdInstalledEntry(caller,memberKey,call,{runtimeRoot:caller.installedRoot});
+    const observed=held?await caller.invoke(label,call,{expectResult:false})
+      :await invokeColdInstalledEntry(caller,memberKey,call,{runtimeRoot:caller.installedRoot});
     const projection=observed.receipt.ownerOutput.value?.projection;
-    if(hash(caller.state.closeHandoff.prefix)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');
-    reads.push({memberKey,projection,source:observed.receipt.ownerOutput.value?.source,ownerOutput:observed.receipt.ownerOutput});
+    const after=held?observed.receipt.resources?.eventResource?.successor?.prefix:caller.state.closeHandoff.prefix;
+    if(!after||hash(after)!==hash(prefix)||!isDeepStrictEqual(identityBefore,await eventResourceIdentity(fileURLToPath(prefix.eventLogRef))))throw new BoundaryFailure(memberKey+'-read-only','Read changed event resource');
+    reads.push({memberKey,projection,source:observed.receipt.ownerOutput.value?.source,ownerOutput:observed.receipt.ownerOutput,
+      outcomePath:'calls/'+label+'.outcome.json'});
   }
   // Retain both independently observed read outcomes before checking terminal
   // agreement, including truthful absent-result refusals after incomplete work.
@@ -292,6 +312,19 @@ export async function freshReadbacks(caller,execution) {
     }else if(readTerminal!==null&&readTerminal!==undefined)throw new BoundaryFailure(memberKey+'-absent-terminal',{readTerminal});
   }
   return reads;
+}
+
+// The complete read outcome keeps custody in calls/<member>.outcome.json and the
+// command's .stdout; this record references it once and carries the existing
+// terminal selection (no value or projection basis) for the summary.
+export function freshReadbackRecord(reads,hash) {
+  return reads.map(({memberKey,projection,source,ownerOutput,outcomePath})=>{
+    const terminal=projection?.terminalResult;
+    const {value:_value,projectionBasis:_basis,...selection}=terminal??{};
+    return {memberKey,outcomeKind:ownerOutput?.outcomeKind??null,outcome:outcomePath,outcomeDigest:hash(ownerOutput??null),
+      source:source??null,status:projection?.status??null,
+      terminal:terminal===null||terminal===undefined?null:{...selection,valueDigest:hash(terminal.value)}};
+  });
 }
 
 export function commandObservationOwner(installedOwner,execution) {
@@ -329,7 +362,7 @@ export function commandObservationSourceUse(runtime,prefix,events,owner) {
   return event=>selected.has(event);
 }
 
-async function checkInstalledIdentity(caller,installations,phase) {
+export async function checkInstalledIdentity(caller,installations,phase) {
   const observations=[];
   for(const install of installations) {
     let contentMatches=false,error=null;
@@ -344,12 +377,27 @@ async function checkInstalledIdentity(caller,installations,phase) {
   if(observations.length!==2||observations.some(row=>!row.contentMatches))throw new BoundaryFailure('installed-content-'+phase,observations);
 }
 
+// The in-process actor and worker owners read the process environment at call
+// time: a held lifecycle runs under exactly the declared worker environment,
+// and the ambient environment returns in finally.
+async function withWorkerEnvironment(environment,body) {
+  if(environment===null||typeof environment!=='object')throw new BoundaryFailure('worker-environment','Explicit worker environment required');
+  const ambient={...process.env};
+  const assign=values=>{for(const key of Object.keys(process.env))delete process.env[key];Object.assign(process.env,values);};
+  try{assign(environment);return await body();}
+  finally{assign(ambient);}
+}
+
 // The trusted bootstrap owns this check; a changed installed package must not
 // supply its own checker or execute a fresh reader before the check succeeds.
+// A held session borrows its current selection in this module instance; a
+// caller without one keeps the one cold CLI entry.
 export async function invokeLifecycle(caller,installations,call,environment) {
   await checkInstalledIdentity(caller,installations,'before-run');
   try {
-    return await invokeColdInstalledEntry(caller,'lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment});
+    return caller.state.selection!=null
+      ?await withWorkerEnvironment(environment,()=>caller.invoke('lifecycle-start',call,{expectResult:false}))
+      :await invokeColdInstalledEntry(caller,'lifecycle-start',call,{runtimeRoot:caller.installedRoot,environment});
   }finally {
     await checkInstalledIdentity(caller,installations,'after-run');
   }
@@ -384,7 +432,8 @@ export async function runScenario(config,fixtures,row,mode) {
     const runtime=await installedModules(effective.bootstrapRoot),manifest=await readJson(join(effective.bootstrapRoot,'product-toolchain-manifest.json'));
     const native=await verifyArtifact(runtime,{artifactPath:config.package.archivePath,manifest,expectedArtifactDigest:config.package.sha256},record,'abg');
     caller=publicCaller({root,runtime,native,command,record,config:effective});
-    const {installations}=await populateSandbox(caller);
+    // One held session: setup's acquisition stays held until the qualification boundary.
+    const {installations}=await populateSandbox(caller,{retain:true});
     // Protected originals and independent rubrics are baseline input, before
     // runtime dispatch. No source solution or claimed result is seeded.
     for(const source of selected.sources){const path=fixturePath(effective.worksiteRoot,source.path);await mkdir(dirname(path),{recursive:true});await writeFile(path,source.bytes,{flag:'wx'});}
@@ -392,10 +441,21 @@ export async function runScenario(config,fixtures,row,mode) {
     await record('workload-source.json',{sourceMembers:selected.sources.map(({bytes,...source})=>({...source,byteCount:bytes.length})),request:selected.request,legacyInterpretation:row.legacyInterpretation});
     const input=constructWorkloadInput(runtime.product,{...selected,request:effectiveRequest},assessmentSelection,config.toolchains);
     const prepared=await constructLifecycleCall(caller,input);await record('prepared-definition-call.json',prepared.call);
-    if(mode==='prepare')return summary={...summary,status:'prepared',reason:'Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result'};
+    if(mode==='prepare'){await record('session-close.json',caller.close());return summary={...summary,status:'prepared',reason:'Clean Public install and generic lifecycle request resolved; no provider dispatch or UAT result'};}
     const execution=await invokeLifecycle(caller,installations,prepared.call,workerEnvironment(config));
-    const events=await readOracleEvents(runtime.abg,caller.state.closeHandoff.prefix,record,source=>caller.refresh(source));
-    const reads=await freshReadbacks(caller,execution);await record('fresh-readback.json',reads);
+    const events=await readOracleEvents(runtime.abg,caller.prefix(),record);
+    const installedOwner=(await installedModules(caller.installedRoot)).product;
+    const observationOwner=commandObservationOwner(installedOwner,execution);
+    const validateSourceObservation=commandObservationSourceUse(runtime,caller.prefix(),events,observationOwner);
+    const heldReads=await heldReadbacks(caller,execution);await record('held-readback.json',freshReadbackRecord(heldReads,runtime.product.sha256Canonical));
+    // Qualification boundary: the one outer resource closes once; the genuine
+    // cold reads reopen its handoff with the same selectors.
+    await record('session-close.json',caller.close());
+    const reads=await freshReadbacks(caller,execution);await record('fresh-readback.json',freshReadbackRecord(reads,runtime.product.sha256Canonical));
+    for(const read of reads) {
+      const warm=heldReads.find(row=>row.memberKey===read.memberKey);
+      if(!isDeepStrictEqual(warm?.ownerOutput,read.ownerOutput))throw new BoundaryFailure(read.memberKey+'-held-cold-equality',{held:warm?.outcomePath??null,cold:read.outcomePath});
+    }
     const sourceChecks=[];
     for(const source of selected.sources)sourceChecks.push({path:source.path,expected:source.digest,observed:digest(await readFile(fixturePath(effective.worksiteRoot,source.path)))});
     await record('source-conservation.json',sourceChecks);
@@ -403,9 +463,6 @@ export async function runScenario(config,fixtures,row,mode) {
     const terminal=execution.receipt.ownerOutput.value?.terminalResult,terminalState=terminal?.value;
     const archivedSelection=await acquireArchivedScenario(oracleSnapshot);
     const oraclePath=fixturePath(oracleSnapshot.root,archivedSelection.row.oracleModule),oracle=await import(pathToFileURL(oraclePath).href);
-    const installedOwner=(await installedModules(caller.installedRoot)).product;
-    const observationOwner=commandObservationOwner(installedOwner,execution);
-    const validateSourceObservation=commandObservationSourceUse(runtime,caller.state.environment.prefix,events,observationOwner);
     const observationRelation=installedOwner.resolveWorksiteCommandExecutionJudgmentRelation(installedOwner.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
     const judged=await oracle.evaluate({worksiteRoot:effective.worksiteRoot,runArchive:root,commands:caller.state.calls,events,source:archivedSelection.row,
       request:{...selected.request,testing:input.original.testing},observationOwner,validateSourceObservation,
@@ -422,6 +479,13 @@ export async function runScenario(config,fixtures,row,mode) {
       boundary:error.stage??null,observation:error.observation??null,stop:'First failing composition returned for Product/Design/interface/identity/effects/proof triage; no retry'};
     await record('failure.json',summary);return summary;
   }finally{
+    // Session failure cleanup: close the held resource at its durable prefix,
+    // or release the outer lock when that close refuses.
+    const held=caller?.state.resource??null;
+    if(held!==null) {
+      try{await record('session-close.json',caller.close(caller.runtime.abg.selectHeldEventStoreDurablePrefix(held.store)));}
+      catch(error){caller.runtime.abg.abandonAbgEventResource(held);caller.state.resource=null;caller.state.selection=null;await record('session-abandon.json',{reason:String(error)});}
+    }
     if(caller?.state.closeHandoff)await record('final-close-handoff.json',caller.state.closeHandoff);
     // The archive itself owns the worksite, event file, toolchain observations
     // and actual output. Nothing is removed at teardown, on success or failure.

@@ -104,6 +104,9 @@ export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: Run
         for (const row of worksiteSelectedOccurrenceDependencies(before(), cause)) selected.set(row.eventId, row);
       if (cause.kind === "c_call_result_admitted") {
         add("aggregate:c_call:" + cause.aggregateId);
+        // A prospective native Result's scope reads its task from its own basis.
+        if (isRecord(cause.payload) && (isNativeWorkspaceWorkObservation(cause.payload.value) || isNativeWorkspaceWorkFailure(cause.payload.value)))
+          add("basis:" + cause.basisId);
         for (const row of worksiteFailureResultDependencies(before(), cause)) selected.set(row.eventId, row);
       }
       if (cause.kind === "actor_invocation_failed" || cause.kind === "actor_process_termination_unconfirmed")
@@ -127,8 +130,10 @@ export function eventCalculusDependencies(prefix: RuntimeEventPrefix, event: Run
       for (const row of worksiteFailureResultDependencies(prefix, event)) selected.set(row.eventId, row);
       add("worksite-observation-dependency");
     }
-    if (isNativeWorkspaceWorkObservation(payload?.value) || isNativeWorkspaceWorkFailure(payload?.value))
+    if (isNativeWorkspaceWorkObservation(payload?.value) || isNativeWorkspaceWorkFailure(payload?.value)) {
+      add("basis:" + event.basisId);
       add("worksite-observation-dependency");
+    }
   } else if (unknownEffect) {
     for (const row of unknownDependencies) selected.set(row.eventId, row);
     add("worksite-observation-dependency");

@@ -831,7 +831,8 @@ export type WorksiteContextBodyUse = Readonly<{ runId: string; readable?: (relat
   sourceResults?: readonly WorksiteContextBodySourceResult[] }>;
 export type WorksiteContextBodySourceResult = Readonly<{ resultRef: string; resultDigest: string; cCallRef: string }>;
 export type WorksiteContextBodyResolution = Readonly<{ kind: "worksite_context_body"; relativePath: string; digest: Sha256Digest;
-  byteLength: number; bytes: Buffer; holder: Readonly<{ eventRef: string; resultRef: string; resultDigest: Sha256Digest }> | null }> |
+  byteLength: number; bytes: Buffer; holder: Readonly<{ eventRef: string; resultRef: string; resultDigest: Sha256Digest }> |
+    Readonly<{ eventRef: string; basisRef: string; basisDigest: Sha256Digest }> | null }> |
   Readonly<{ kind: "worksite_context_body_refusal"; code: WorksiteContextBodyRefusalCode; relativePath: string; reason: string }>;
 
 const HELD_CONTEXT_BODIES = Symbol("held_native_context_bodies");
@@ -853,12 +854,16 @@ function heldResultEvent(prefix: RuntimeEventPrefix, held: HeldContextBodies, ev
   held.acquisitions++; held.events.set(eventRef, event);
   return event;
 }
+/** The held value of one admitted holder: a Result's `value` or a basis's raw input. */
+const heldValue = (event: RuntimeEvent): unknown => {
+  const payload = event.payload as Readonly<Record<string, JsonValue>> | undefined;
+  return event.kind === "basis_admitted" ? payload?.rawInputValue : payload?.value;
+};
 function heldMembers(event: RuntimeEvent, held: HeldContextBodies): Map<string, readonly (string | number)[]> {
   let members = held.members.get(event.eventId);
   if (members !== undefined) return members;
   members = new Map();
-  const payload = event.payload as Readonly<Record<string, JsonValue>>;
-  for (const holder of nativeContextBodyHolders(payload.value)) {
+  for (const holder of nativeContextBodyHolders(heldValue(event))) {
     const scope = contextScope(holder.context as unknown as WorksiteContextObservation);
     holder.entries.forEach((entry, index) => {
       const e = entry as unknown as WorksiteContextEntry;
@@ -874,12 +879,21 @@ function heldMembers(event: RuntimeEvent, held: HeldContextBodies): Map<string, 
 function admittedHolderEnvelopes(prefix: RuntimeEventPrefix, key: string) {
   return indexedRuntimeEventEnvelopes(prefix, key).filter(row => row.kind === "c_call_result_admitted");
 }
+function admittedBasisEnvelopes(prefix: RuntimeEventPrefix, basisRef: string) {
+  return indexedRuntimeEventEnvelopes(prefix, "payload:basisRef:" + basisRef).filter(row => row.kind === "basis_admitted" && row.basisId === basisRef);
+}
+const sameMember = (a: Readonly<Record<string, unknown>>, b: WorksiteContextBodyMember) =>
+  Object.keys(a).length === Object.keys(b).length && Object.entries(b).every(([k, x]) => k === "path"
+    ? Array.isArray(a.path) && a.path.length === (x as readonly unknown[]).length && a.path.every((step, i) => step === (x as readonly unknown[])[i])
+    : a[k] === x);
 /** Admitted retained-source use -> selected native work Result -> its task
  * context -> exact member for this path and version. The selected Result is one
  * exact successful admission of its source identity whose task context shares
- * the consumer's authority basis and binding; an inline task-context body names
- * that Result itself. Holder admission, digest, coordinate, bytes and read scope
- * remain the resolver's. No other Result of the source Run is selected. */
+ * the consumer's authority basis and binding. A prospective Result's task is
+ * the raw input of its own admitted basis, and an inline task-context body
+ * names that basis input; a retained original Result carries its task and an
+ * inline body names that Result. Holder admission, digest, coordinate, bytes
+ * and read scope remain the resolver's. No other Result of the source Run is selected. */
 function sourceUseDeclaresMember(prefix: RuntimeEventPrefix, held: HeldContextBodies, use: WorksiteContextBodyUse, scope: string,
   entry: Readonly<{ relativePath: string; digest: string; byteLength: number }>, member: WorksiteContextBodyMember): boolean {
   const record = (x: unknown): x is Readonly<Record<string, JsonValue>> => typeof x === "object" && x !== null && !Array.isArray(x);
@@ -889,16 +903,26 @@ function sourceUseDeclaresMember(prefix: RuntimeEventPrefix, held: HeldContextBo
     const event = heldResultEvent(prefix, held, rows[0]!.eventId), payload = event?.payload;
     if (!record(payload) || payload.resultClass !== "success" || payload.resultRef !== selected.resultRef ||
       payload.resultDigest !== selected.resultDigest || !record(payload.value) || payload.value.kind !== "native_workspace_work_observation" ||
-      !record(payload.value.task) || payload.value.task.assessment !== undefined) continue;
-    const task = nativeContextBodyHolders(payload.value).find(h => h.path.length === 2 && h.path[0] === "task" && h.path[1] === "context");
-    if (task === undefined || contextScope(task.context as unknown as WorksiteContextObservation) !== scope) continue;
+      Object.hasOwn(payload.value, "assessment")) continue;
+    const original = record(payload.value.task);
+    // The task's admitted holder: the retained Result itself, or the Result's own basis input.
+    const basis = original || typeof event?.basisId !== "string" ? undefined
+      : admittedBasisEnvelopes(prefix, event.basisId).map(row => heldResultEvent(prefix, held, row.eventId));
+    const basisEvent = basis?.length === 1 ? basis[0] ?? null : null;
+    const basisPayload = basisEvent?.payload;
+    const taskValue = original ? payload.value : record(basisPayload) && basisEvent!.runId === event!.runId &&
+      sha256Canonical(basisPayload.rawInputValue ?? null) === payload.value.inputDigest ? basisPayload.rawInputValue : undefined;
+    const task = nativeContextBodyHolders(taskValue).find(h => original
+      ? h.path.length === 2 && h.path[0] === "task" && h.path[1] === "context" : h.path.length === 1 && h.path[0] === "context");
+    if (task === undefined || (record(taskValue) && "assessment" in (original ? taskValue.task as Record<string, unknown> : taskValue)) ||
+      contextScope(task.context as unknown as WorksiteContextObservation) !== scope) continue;
     for (const [index, raw] of task.entries.entries()) {
       const e = raw as unknown as WorksiteContextEntry;
       if (!record(raw) || e.state !== "file" || e.relativePath !== entry.relativePath || e.digest !== entry.digest || e.byteLength !== entry.byteLength) continue;
-      const declared = e.encoding === "base64" ? { resultRef: selected.resultRef, resultDigest: selected.resultDigest, path: [...task.path, "entries", index] }
-        : e.encoding === "admitted_member" ? e.member : undefined;
-      if (record(declared) && declared.resultRef === member.resultRef && declared.resultDigest === member.resultDigest &&
-        Array.isArray(declared.path) && declared.path.length === member.path.length && declared.path.every((step, i) => step === member.path[i])) return true;
+      const declared = e.encoding === "admitted_member" ? e.member : e.encoding !== "base64" ? undefined : original
+        ? { resultRef: selected.resultRef, resultDigest: selected.resultDigest, path: [...task.path, "entries", index] }
+        : { basisRef: (basisPayload as Readonly<Record<string, JsonValue>>).basisRef, basisDigest: (basisPayload as Readonly<Record<string, JsonValue>>).basisDigest, path: [...task.path, "entries", index] };
+      if (record(declared) && sameMember(declared, member)) return true;
     }
   }
   return false;
@@ -925,15 +949,20 @@ function reuseHeldContextBodies<T extends WorksiteContextObservation>(prefix: Ru
   const entries = context.entries.map(entry => {
     if (entry.state !== "file" || entry.encoding !== "base64") return entry;
     let selected: WorksiteContextBodyMember | undefined;
-    for (const row of admittedHolderEnvelopes(prefix, NATIVE_CONTEXT_BODY_KEY + entry.digest)) {
+    for (const row of indexedRuntimeEventEnvelopes(prefix, NATIVE_CONTEXT_BODY_KEY + entry.digest)) {
+      if (row.kind !== "c_call_result_admitted" && row.kind !== "basis_admitted") continue;
       const own = row.runId === use.runId;
       if (!own && (use.sourceResults === undefined || selected !== undefined)) continue;
       const event = heldResultEvent(prefix, held, row.eventId), payload = event?.payload as Readonly<Record<string, JsonValue>> | undefined;
-      if (event === null || payload === undefined || typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string" ||
-        (payload.resultClass !== "success" && payload.resultClass !== "failure")) continue;
+      if (event === null || payload === undefined) continue;
+      const basis = event.kind === "basis_admitted";
+      if (basis ? typeof payload.basisRef !== "string" || typeof payload.basisDigest !== "string" || event.basisId !== payload.basisRef
+        : typeof payload.resultRef !== "string" || typeof payload.resultDigest !== "string" ||
+          (payload.resultClass !== "success" && payload.resultClass !== "failure")) continue;
       const path = heldMembers(event, held).get([scope, entry.relativePath, entry.digest].join("\0"));
       if (path === undefined) continue;
-      const member: WorksiteContextBodyMember = { resultRef: payload.resultRef, resultDigest: payload.resultDigest as Sha256Digest, path };
+      const member: WorksiteContextBodyMember = basis ? { basisRef: payload.basisRef as string, basisDigest: payload.basisDigest as Sha256Digest, path }
+        : { resultRef: payload.resultRef as string, resultDigest: payload.resultDigest as Sha256Digest, path };
       if (own) { selected = member; break; }
       if (sourceUseDeclaresMember(prefix, held, use, scope, entry, member)) selected = member;
     }
@@ -971,24 +1000,27 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
       return bytes === null ? refuse("tampered", "inline body differs from its observed digest or length")
         : Object.freeze({ kind: "worksite_context_body", relativePath, digest: entry.digest, byteLength: entry.byteLength, bytes, holder: null });
     }
-    const member = (entry as { member?: unknown }).member as WorksiteContextBodyMember | undefined;
-    if (entry.encoding !== "admitted_member" || typeof member !== "object" || member === null || typeof member.resultRef !== "string" ||
-      typeof member.resultDigest !== "string" || !Array.isArray(member.path)) return refuse("malformed", "admitted member reference is malformed");
+    const member = (entry as { member?: unknown }).member as Readonly<Record<string, unknown>> | undefined;
+    const basisMember = typeof member === "object" && member !== null && Object.hasOwn(member, "basisRef");
+    const [holderRef, holderDigest] = basisMember ? [member!.basisRef, member!.basisDigest] : [member?.resultRef, member?.resultDigest];
+    if (entry.encoding !== "admitted_member" || typeof member !== "object" || member === null || typeof holderRef !== "string" ||
+      typeof holderDigest !== "string" || !Array.isArray(member.path)) return refuse("malformed", "admitted member reference is malformed");
+    const memberPath = member.path as readonly (string | number)[];
     const committed = committedBodyPrefix(prefix);
     if (committed === undefined) return refuse("pending", "no committed predecessor prefix");
-    const rows = admittedHolderEnvelopes(committed, "payload:resultRef:" + member.resultRef);
-    if (rows.length === 0) return refuse("pending", "referenced Result is not admitted at this prefix");
-    if (rows.length !== 1) return refuse("tampered", "referenced Result is not one exact admission");
+    const rows = basisMember ? admittedBasisEnvelopes(committed, holderRef) : admittedHolderEnvelopes(committed, "payload:resultRef:" + holderRef);
+    if (rows.length === 0) return refuse("pending", "referenced holder is not admitted at this prefix");
+    if (rows.length !== 1) return refuse("tampered", "referenced holder is not one exact admission");
     const otherRun = rows[0]!.runId !== use.runId;
-    if (otherRun && use.sourceResults === undefined) return refuse("foreign", "referenced Result belongs to another Run");
+    if (otherRun && use.sourceResults === undefined) return refuse("foreign", "referenced holder belongs to another Run");
     const held = heldContextBodies(committed), event = heldResultEvent(committed, held, rows[0]!.eventId);
     const payload = event?.payload as Readonly<Record<string, JsonValue>> | undefined;
-    if (event === null || payload === undefined) return refuse("pending", "referenced Result body is unavailable");
-    if (payload.resultDigest !== member.resultDigest) return refuse("tampered", "referenced Result digest differs from its admission");
-    if (payload.resultClass !== "success" && payload.resultClass !== "failure") return refuse("pending", "referenced Result is not a committed body");
-    const holder = nativeContextBodyHolders(payload.value).find(h => member.path.length === h.path.length + 2 &&
-      h.path.every((step, i) => member.path[i] === step) && member.path[h.path.length] === "entries");
-    const index = member.path.at(-1);
+    if (event === null || payload === undefined) return refuse("pending", "referenced holder body is unavailable");
+    if ((basisMember ? payload.basisDigest : payload.resultDigest) !== holderDigest) return refuse("tampered", "referenced holder digest differs from its admission");
+    if (!basisMember && payload.resultClass !== "success" && payload.resultClass !== "failure") return refuse("pending", "referenced Result is not a committed body");
+    const holder = nativeContextBodyHolders(heldValue(event)).find(h => memberPath.length === h.path.length + 2 &&
+      h.path.every((step, i) => memberPath[i] === step) && memberPath[h.path.length] === "entries");
+    const index = memberPath.at(-1);
     if (holder === undefined || !Number.isSafeInteger(index)) return refuse("tampered", "reference names no declared native context member");
     if (contextScope(holder.context as unknown as WorksiteContextObservation) !== contextScope(context))
       return refuse("foreign", "holder context belongs to another authority basis or binding");
@@ -998,10 +1030,11 @@ export function resolveWorksiteContextBodyAtPrefix(prefix: RuntimeEventPrefix, c
     if (source.digest !== entry.digest || source.byteLength !== entry.byteLength) return refuse("stale", "referenced member holds another version of this path");
     const bytes = verify(entry, source.bytes);
     if (bytes === null) return refuse("tampered", "held body differs from its digest or length");
-    if (otherRun && !sourceUseDeclaresMember(committed, held, use, contextScope(context), entry, member))
+    if (otherRun && !sourceUseDeclaresMember(committed, held, use, contextScope(context), entry, member as WorksiteContextBodyMember))
       return refuse("foreign", "another Run's member is not declared by a selected native Result of the consumer's admitted source use");
     return Object.freeze({ kind: "worksite_context_body", relativePath, digest: entry.digest, byteLength: entry.byteLength, bytes,
-      holder: Object.freeze({ eventRef: event.eventId, resultRef: member.resultRef, resultDigest: member.resultDigest }) });
+      holder: Object.freeze(basisMember ? { eventRef: event.eventId, basisRef: holderRef, basisDigest: holderDigest as Sha256Digest }
+        : { eventRef: event.eventId, resultRef: holderRef, resultDigest: holderDigest as Sha256Digest }) });
   } catch (error) { return refuse("malformed", `native context body read failed: ${String(error)}`); }
 }
 /** @internal One consumer's selected-body reader over one context at this prefix. */

@@ -19,11 +19,14 @@ import {
   acquireAbgEventResource,
   abandonAbgEventResource,
   closeAbgEventResource,
-  validateAbgEventResourceAssertion,
+  completeAbgEventResource,
+  validateAbgEventResourceOutcome,
   validateAbgEventResourceReceipt,
-  type AbgEventResourceAssertion,
+  validateReopenedAbgEventResourceInput,
+  type AbgEventResourceCompletion,
   type AbgEventResourceReceipt,
   type AcquiredAbgEventResource,
+  type ReopenedAbgEventResourceInput,
 } from "./definition_event_resource.js";
 import {
   projectExactPrefixWorkspaceEnvironment,
@@ -54,26 +57,23 @@ import {
 } from "./exact_prefix_bindings.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
-type ReopenAbgEventResourceAssertion = Extract<
-  AbgEventResourceAssertion,
-  { readonly kind: "reopen_abg_event_resource" }
->;
-
 type ReopenAbgEventResourceReceipt = AbgEventResourceReceipt & Readonly<{
   readonly acquisitionKind: "reopen";
 }>;
 
+/** Run reads admit a reopened cold entry or a current held selection; the
+ * legacy reads stay reopen-only (§10.9 R-B). */
 export interface AbgProjectReadResourceAssertion {
   readonly kind: "abg_project_read_resource_assertion";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: ReopenAbgEventResourceAssertion;
+  readonly eventResource: ReopenedAbgEventResourceInput;
   readonly declarationProof?: AbgHistoricalDeclarationProof;
 }
 
 export interface AbgProjectReadResourceReceipt {
   readonly kind: "abg_project_read_resource_receipt";
   readonly schemaVersion: "5.0.0";
-  readonly eventResource: ReopenAbgEventResourceReceipt;
+  readonly eventResource: ReopenAbgEventResourceReceipt | AbgEventResourceCompletion;
 }
 
 type AnyReadPacket = (typeof ABG_PROJECT_READ_CONTRACTS)[keyof typeof ABG_PROJECT_READ_CONTRACTS];
@@ -111,19 +111,19 @@ const RUN_READ_MEMBER_KEYS = Object.freeze([
 ] as const);
 
 const EVENT_RESOURCE_ASSERTION_SCHEMA = v.custom<
-  ReopenAbgEventResourceAssertion
+  ReopenedAbgEventResourceInput
 >(
-  (value) => validateAbgEventResourceAssertion(value) &&
-    value.kind === "reopen_abg_event_resource",
-  "reopened_abg_event_resource_assertion",
+  (value) => validateReopenedAbgEventResourceInput(value),
+  "reopened_or_held_abg_event_resource_input",
 );
 
 const EVENT_RESOURCE_RECEIPT_SCHEMA = v.custom<
-  ReopenAbgEventResourceReceipt
+  ReopenAbgEventResourceReceipt | AbgEventResourceCompletion
 >(
-  (value) => validateAbgEventResourceReceipt(value) &&
-    value.acquisitionKind === "reopen",
-  "reopened_abg_event_resource_receipt",
+  (value) => validateAbgEventResourceOutcome(value) &&
+    (value.kind === "abg_event_resource_completion" ||
+      (validateAbgEventResourceReceipt(value) && value.acquisitionKind === "reopen")),
+  "reopened_abg_event_resource_receipt_or_held_completion",
 );
 
 const PROJECT_READ_RESOURCE_ASSERTION_SCHEMA = v.strictObject({
@@ -257,7 +257,20 @@ function closeReadEventResource(
   return receipt as ReopenAbgEventResourceReceipt;
 }
 
-function finishRead(
+/** A run read completes at its unchanged entry prefix: a reopened resource
+ * closes; a borrowed held one returns its completion and keeps its owner. */
+function completeRunReadEventResource(
+  resource: AcquiredAbgEventResource,
+): ReopenAbgEventResourceReceipt | AbgEventResourceCompletion {
+  const outcome = completeAbgEventResource(resource, resource.entryPrefix);
+  if (outcome.kind === "abg_event_resource_completion") return outcome;
+  if (outcome.acquisitionKind !== "reopen") {
+    throw new TypeError("project reads must close one reopened ABG resource");
+  }
+  return outcome as ReopenAbgEventResourceReceipt;
+}
+
+function finishRunRead(
   resource: AcquiredAbgEventResource,
   ownerOutput: OwnerSemanticOutput<AnyReadPacket>,
 ): DefinitionReturn<AnyReadPacket, AbgProjectReadResourceReceipt> {
@@ -266,7 +279,7 @@ function finishRead(
     resources: {
       kind: "abg_project_read_resource_receipt" as const,
       schemaVersion: "5.0.0" as const,
-      eventResource: closeReadEventResource(resource),
+      eventResource: completeRunReadEventResource(resource),
     },
   });
 }
@@ -689,7 +702,11 @@ export function populateRunReadAtDurablePrefix<K extends RunReadMemberKey>(input
   if (environment.kind !== "exact_prefix_workspace_environment") {
     return refusal("projection_basis_mismatch", "/invocationAuthority/slots/workspace_binding");
   }
-  const truth = prepareRunReadAtDurablePrefix(input.prefix, input.memberKey, input.sourceRef, environment.artifactTruth);
+  // Preparation reads the coordinate this owner just acquired, so it borrows
+  // the artifact truth's owned prefix; the raw input would be captured and
+  // decoded a second time at the same unchanged prefix.
+  const truth = prepareRunReadAtDurablePrefix(environment.artifactTruth.prefix, input.memberKey, input.sourceRef,
+    environment.artifactTruth);
   if (truth === null) return refusal("unknown_source", "/source/sourceRef");
   const expected = expectedRunReadAuthority(packet, environment);
   return Object.freeze({
@@ -742,7 +759,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
           basis.ref !== resource.entryPrefix.eventLogRef ||
           basis.digest !== resource.entryPrefix.coordinateDigest
         ) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(packet, "projection_basis_mismatch", "/projectionBasis"),
           );
@@ -752,7 +769,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
           workspaceBinding,
         );
         if (environment.kind !== "exact_prefix_workspace_environment") {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(
               packet,
@@ -773,7 +790,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
         if (executingContract === null) throw new TypeError("executing read owner has invalid Product operation metadata");
         if (!canonicalEquals(executingContract.contractCatalog, call.invocation.contractCatalog) ||
             !canonicalEquals(executingContract.flatRow, call.invocation.requestContract.flatRow)) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(packet, "projection_basis_mismatch", "/contractCatalog"),
           );
@@ -798,7 +815,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
             )
           )
         ) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(
               packet,
@@ -815,13 +832,13 @@ function runReadKernel<TPacket extends AnyReadPacket>(
           environment.artifactTruth,
         );
         if (truth === null) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(packet, "unknown_source", "/source/sourceRef"),
           );
         }
         if (source.ref !== truth.source.ref || source.digest !== truth.source.digest) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(packet, "source_digest_mismatch", "/source/sourceDigest"),
           );
@@ -831,7 +848,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
           truth.workspaceBinding.digest !==
             environment.workspaceBinding.bindingDigest
         ) {
-          return finishRead(
+          return finishRunRead(
             resource,
             refusalOutput(
               packet,
@@ -841,7 +858,7 @@ function runReadKernel<TPacket extends AnyReadPacket>(
           );
         }
         const native = truth.project(graphRead ? call.resources.declarationProof : undefined);
-        return finishRead(
+        return finishRunRead(
           resource,
           projectAbgReadOutput(packet, request, packet.definitionKey.memberKey, native),
         );

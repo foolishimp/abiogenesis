@@ -34,7 +34,7 @@ import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, pr
 import { rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { projectNativeWorkCommandSourceAtPrefix, projectNativeWorkspaceWorkSourceAtPrefix } from "./native_worksite_execution.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
-import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
+import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import { constructAbgHistoricalDeclarationReference, hasUniqueHistoricalDeclarationDependencies,
   type AbgHistoricalDeclarationProof, type AbgHistoricalGraphCallSourceResource } from "./terminal_result_contracts.js";
 import { canonicalEquals } from "../shared/value/index.js";
@@ -82,7 +82,9 @@ function deriveNativeWorkReacquisitionTask(current: DurablePrefixCoordinate,
   if (sourceBasis === null || environment.kind !== "exact_prefix_workspace_environment" ||
     !same(environment.workspaceAuthorityBasis, request.workspaceAuthorityBasis) || !same(environment.workspaceBinding, request.workspaceBinding)) return refused(refusal, stage, "source_basis_binding", { sourceBasisRef: terminal.producer.executionBasis.ref });
   stage = "native_binding_cover";
-  const covers = projectWorksiteRevisionBindingCover(prefix, request.sourceNativeWork.task.workspaceBinding, request.workspaceBinding, [sourceBasis]);
+  // The source native Result's task is its own basis's admitted raw input.
+  if (sourceBasis === null || !isNativeWorkspaceWorkTask(sourceBasis.rawInputValue)) return refused(refusal, stage, "source_basis_binding", { sourceBasisRef: terminal.producer.executionBasis.ref });
+  const covers = projectWorksiteRevisionBindingCover(prefix, sourceBasis.rawInputValue.workspaceBinding, request.workspaceBinding, [sourceBasis]);
   if (covers === null) return refused(refusal, stage, "binding_cover", { workspaceBindingRef: request.workspaceBinding.bindingId });
   stage = "native_task_construction";
   const task = constructNativeWorksiteCommandExecutionTask({ ...request,
@@ -228,7 +230,7 @@ export function prepareGovernanceNativeWorkReacquisition(basis: NativeInstructio
       e.payload.resultRef === selected && e.payload.resultClass === "success");
     if (rows.length !== 1 || !record(rows[0]!.payload)) return refused(refusal, stage, "successful_result_population", { resultRef: selected ?? null });
     const value = rows[0]!.payload.value;
-    if (!isNativeWorkspaceWorkObservation(value) || value.task.assessment !== undefined) return refused(refusal, stage, "native_work_value", { resultRef: selected ?? null });
+    if (!isNativeWorkspaceWorkObservation(value) || value.assessment !== undefined) return refused(refusal, stage, "native_work_value", { resultRef: selected ?? null });
     stage = "native_preparation_source";
     const source = projectNativeWorkspaceWorkSourceAtPrefix(owned.prefix, value);
     const invocation = projectExactInvocationAdmissionAtPrefix(owned.prefix, owned.execution.invocationAdmissionRef);
@@ -270,7 +272,7 @@ export function governanceNativeWorkReacquisitionResultMatches(basis: NativeInst
         projectCCallCarrierPhaseAtPrefix(owned.prefix, occurrence.call)?.phase !== "selected_no_evidence") return false;
     const source = projectNativeWorkCommandSourceAtPrefix(owned.prefix, task);
     if (source === null) return false;
-    const covers = projectWorksiteRevisionBindingCover(owned.prefix, task.sourceNativeWork.task.workspaceBinding, task.workspaceBinding, [source.sourceBasis]);
+    const covers = projectWorksiteRevisionBindingCover(owned.prefix, source.sourceTask.workspaceBinding, task.workspaceBinding, [source.sourceBasis]);
     return covers !== null && same(covers, proof.bindingCoverEventRefs);
   } catch { return false; }
 }
@@ -374,7 +376,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
   const original = historicalPrefix === null ? null : projectNativeWorkCommandSourceAtPrefix(historicalPrefix, input.task);
   if (original === null || original.sourceResult.graphCallId !== proof.request.source.graphCallRef ||
     original.sourceResult.runId === call.runId) return null;
-  const recordedCover = projectWorksiteRevisionBindingCover(preparedPrefix, input.task.sourceNativeWork.task.workspaceBinding,
+  const recordedCover = projectWorksiteRevisionBindingCover(preparedPrefix, original.sourceTask.workspaceBinding,
     input.task.workspaceBinding, [original.sourceBasis]);
   if (recordedCover === null || !same(recordedCover, proof.bindingCoverEventRefs)) return null;
   runtimeEventBodiesAtPrefix(prefix);
@@ -409,7 +411,7 @@ export function projectReacquiredNativeWorkCommandSourceAtPrefix(prefix: Runtime
       { ...judgment.payload, kind: "admitted_c_call_judgment", schemaVersion: "5.0.0", disposition: "admitted", admissionEventRef: judgment.eventId }) === null) return null;
   const source = projectNativeWorkCommandSourceAtPrefix(prefix, input.task);
   if (source === null) return null;
-  const covers = projectWorksiteRevisionBindingCover(prefix, input.task.sourceNativeWork.task.workspaceBinding, input.task.workspaceBinding, [source.sourceBasis]);
+  const covers = projectWorksiteRevisionBindingCover(prefix, source.sourceTask.workspaceBinding, input.task.workspaceBinding, [source.sourceBasis]);
   return covers !== null && proof.bindingCoverEventRefs.every(ref => covers.includes(ref)) ? source : null;
   } catch { return null; }
 }

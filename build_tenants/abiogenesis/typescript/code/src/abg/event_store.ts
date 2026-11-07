@@ -35,14 +35,18 @@ import {
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { isRunEnvironmentEvidence } from "./stdo_environment.js";
-import { WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
+import { archiveRangeMatchesStreamRow, configuredActorIdentityCorresponds, isAdmittedActorArchiveFile, isStdoutArchiveWindowWitness,
+  RETIRED_ACTOR_LIFECYCLE_COPY_KEYS, WORKER_TRANSPORT_FAILURE_CLASS_VALUES } from "./transport_contracts.js";
 import {
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
   ROOT_CURRENT_EVENT_PROFILE_REF,
   ROOT_EVENT_PROFILE_DECLARATION_REF,
   ROOT_EVENT_PROFILE_UPGRADE_REASON,
+  ROOT_WINDOW_EVENT_PROFILE_REF,
   constructRootCurrentEventContractDescriptor,
+  constructRootEventContractProfiles,
   isUndispatchedOwnerObservation,
+  type RootEventContractProfileCapabilities,
 } from "./event_contract_profiles.js";
 import {
   isRuntimeLivenessBinding, isRuntimeProbeObservation, isRuntimeSystemProbeContract,
@@ -1084,10 +1088,23 @@ const CURRENT_PROBE_CONTRACT: RootEventContract = Object.freeze({
   variants: [coupledContractVariant(ACTOR_INVOCATION_EVENT, [0]), coupledContractVariant(GRAPH_CALL_EVENT, [1])],
   payloadVariants: [payloadVariant(ACTOR_PROBE_PAYLOAD), payloadVariant(PROBE_PAYLOAD)],
 });
-const currentBindingVariants = LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted.payloadVariants.map(variant =>
-  payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("livenessBinding")),
+// A current binding may record its configured identity once; absence reads as
+// unknown identity, never as an established one. Legacy bindings are unchanged.
+const bindingVariants = (added: string) => LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted.payloadVariants.map(variant =>
+  payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys(added)),
     combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("livenessBinding"))));
-export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContract>> = Object.freeze({
+const currentBindingVariants = bindingVariants("livenessBinding configuredIdentity");
+// D5: current probabilistic-transport evidence and current actor artifacts omit
+// the lifecycle copies the fold derives from the primary process events; a
+// reinserted copy refuses. L keeps its original keys and the fold's copy check.
+const D5_RETIRED_LIFECYCLE_COPY_KEYS: readonly string[] = RETIRED_ACTOR_LIFECYCLE_COPY_KEYS;
+const withoutPayloadKeys = (keys: readonly string[], retired: readonly string[]): readonly string[] =>
+  Object.freeze(keys.filter(key => !retired.includes(key)));
+/** The stamped table at one retained cut. RC6 keeps the lifecycle copies and
+ * the binding without its configured identity; S2 retires both (D5). */
+function stampedRootEventContracts(lifecycleCopies: boolean): Readonly<Record<RootEventKind, RootEventContract>> {
+  const retired: readonly string[] = lifecycleCopies ? [] : D5_RETIRED_LIFECYCLE_COPY_KEYS;
+  return Object.freeze({
   ...LEGACY_ROOT_EVENT_CONTRACTS,
   construction_continuation_opened: {
     variants: [CONTINUATION_EVENT],
@@ -1146,12 +1163,12 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
   actor_result_artifact_observed: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.actor_result_artifact_observed,
     payloadVariants: LEGACY_ROOT_EVENT_CONTRACTS.actor_result_artifact_observed.payloadVariants.map(variant =>
-      payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("nativeResultAssessment")),
+      payloadVariant(withoutPayloadKeys(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("nativeResultAssessment")), retired),
         combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("nativeResultAssessment")), variant.expectedPayload)),
   },
   actor_transport_binding_admitted: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.actor_transport_binding_admitted,
-    payloadVariants: currentBindingVariants,
+    payloadVariants: lifecycleCopies ? bindingVariants("livenessBinding") : currentBindingVariants,
   },
   actor_process_timeout_observed: {
     ...LEGACY_ROOT_EVENT_CONTRACTS.actor_process_timeout_observed,
@@ -1163,7 +1180,7 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
     ...LEGACY_ROOT_EVENT_CONTRACTS.c_call_evidenced,
     payloadVariants: [
       ...LEGACY_ROOT_EVENT_CONTRACTS.c_call_evidenced.payloadVariants.map(variant => variant.expectedPayload?.evidenceClass === "probabilistic_transport"
-        ? payloadVariant(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("nativeResultAssessment")),
+        ? payloadVariant(withoutPayloadKeys(combinePayloadKeys(variant.allowedPayloadKeys, payloadKeys("nativeResultAssessment")), retired),
             combinePayloadKeys(variant.requiredPayloadKeys, payloadKeys("nativeResultAssessment")), variant.expectedPayload) : variant),
       payloadVariant(combinePayloadKeys(EVIDENCE_IO_PAYLOAD, payloadKeys("ownerObservation failureContractRef failureValue")),
         combinePayloadKeys(EVIDENCE_IO_PAYLOAD, payloadKeys("ownerObservation failureContractRef failureValue")),
@@ -1172,16 +1189,53 @@ export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContr
   },
   runtime_activity_probe_observed: CURRENT_PROBE_CONTRACT,
   runtime_external_interruption_observed: CURRENT_PROBE_CONTRACT,
+  });
+}
+const INSTALLED_RC6_EVENT_CONTRACTS = stampedRootEventContracts(true);
+const FROZEN_S2_EVENT_CONTRACTS = stampedRootEventContracts(false);
+// W: each stdout row is one archive window and carries its explicit witness
+// (§10.10 E-C); every other kind keeps the S2 table.
+export const ROOT_EVENT_CONTRACTS: Readonly<Record<RootEventKind, RootEventContract>> = Object.freeze({
+  ...FROZEN_S2_EVENT_CONTRACTS,
+  actor_process_stdout_observed: {
+    ...FROZEN_S2_EVENT_CONTRACTS.actor_process_stdout_observed,
+    // The per-chunk variant stays for direct stream owners; an actor window
+    // row carries exactly one witness, validated again at cold adoption.
+    payloadVariants: [...FROZEN_S2_EVENT_CONTRACTS.actor_process_stdout_observed.payloadVariants,
+      payloadVariant(combinePayloadKeys(PROCESS_STREAM_PAYLOAD, payloadKeys("stdoutWindow")))],
+  },
 });
-const currentProfile = constructRootCurrentEventContractDescriptor({
-  aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES,
-  eventKinds: ROOT_EVENT_KIND_VALUES,
-  eventContracts: ROOT_EVENT_CONTRACTS,
-});
+const stampedDescriptor = (eventContracts: Readonly<Record<RootEventKind, RootEventContract>>, profileRef?: string) =>
+  constructRootCurrentEventContractDescriptor({ aggregateTypes: ROOT_EVENT_AGGREGATE_TYPE_VALUES, eventKinds: ROOT_EVENT_KIND_VALUES,
+    eventContracts, ...(profileRef === undefined ? {} : { profileRef }) });
+const currentProfile = stampedDescriptor(ROOT_EVENT_CONTRACTS, ROOT_WINDOW_EVENT_PROFILE_REF);
 export const ROOT_EVENT_CONTRACT_DESCRIPTOR = currentProfile.descriptor;
 export const ROOT_EVENT_CONTRACT_DIGEST = currentProfile.digest;
+const ROOT_EVENT_CONTRACT_PROFILES = constructRootEventContractProfiles<Readonly<Partial<Record<RootEventKind, RootEventContract>>>>({
+  legacy: { digest: legacyDescriptorDigest, contracts: LEGACY_ROOT_EVENT_CONTRACTS },
+  installed_rc6: { digest: stampedDescriptor(INSTALLED_RC6_EVENT_CONTRACTS).digest, contracts: INSTALLED_RC6_EVENT_CONTRACTS },
+  frozen_s2: { digest: stampedDescriptor(FROZEN_S2_EVENT_CONTRACTS).digest, contracts: FROZEN_S2_EVENT_CONTRACTS },
+  window: { digest: ROOT_EVENT_CONTRACT_DIGEST, contracts: ROOT_EVENT_CONTRACTS },
+});
 export function isKnownRootEventContractDigest(value: unknown): value is Sha256Digest {
-  return value === LEGACY_ROOT_EVENT_CONTRACT_DIGEST || value === ROOT_EVENT_CONTRACT_DIGEST;
+  return ROOT_EVENT_CONTRACT_PROFILES.select(value) !== null;
+}
+/** The exact profile's independent capabilities, or null for an undeclared digest. */
+export function rootEventContractProfile(value: unknown): RootEventContractProfileCapabilities | null {
+  return ROOT_EVENT_CONTRACT_PROFILES.select(value)?.capabilities ?? null;
+}
+/** A row's own stamp selects its profile; an absent stamp is L. */
+export function runtimeEventProfile(event: Readonly<{ eventContractDigest?: Sha256Digest }>): RootEventContractProfileCapabilities | null {
+  return rootEventContractProfile(event.eventContractDigest ?? LEGACY_ROOT_EVENT_CONTRACT_DIGEST);
+}
+/** The next exact profile of one cold schedule: the first row fixes it, a
+ * later row repeats it, and an undeclared stamp refuses. */
+function nextRootEventProfile(profile: Sha256Digest | null, eventContractDigest: unknown): Sha256Digest {
+  const selected = profile ?? (eventContractDigest === undefined ? LEGACY_ROOT_EVENT_CONTRACT_DIGEST
+    : rootEventContractProfile(eventContractDigest)?.stamped === true ? eventContractDigest as Sha256Digest : null);
+  if (selected === null || (selected === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? eventContractDigest !== undefined : eventContractDigest !== selected))
+    throw new TypeError("event stamp differs from the exact native profile schedule");
+  return selected;
 }
 
 export type RuntimeEventCandidate = {
@@ -1375,6 +1429,8 @@ interface EventStoreState {
   durableAppendClosed: boolean;
   transactionStartIndex: number | null;
   transactionDurablePrefixDigest: Sha256Digest | null;
+  /** Restores of stdout windows taken by this transaction (§10.10 E-B). */
+  transactionWindowRestores: (() => void)[];
 }
 
 const eventState = new WeakMap<AbgEventStore, EventStoreState>();
@@ -2112,8 +2168,10 @@ export function readRuntimeEventsAtDurablePrefix(
   if (owned !== undefined) return owned;
   const bytes = readAuthenticatedRuntimePrefixBytes(prefix, options);
   try {
-    return DurableHistoryDerivation.bindRead(prefix,
-      validateHistoricalEvents(bytes, prefix.storeIdentity.eventContractDigest));
+    const events = validateHistoricalEvents(bytes, prefix.storeIdentity.eventContractDigest);
+    const archive = coldStdoutWindowArchive();
+    try { for (const event of events) archive.observe(event); } finally { archive.close(); }
+    return DurableHistoryDerivation.bindRead(prefix, events);
   } catch (error) {
     if (error instanceof DurablePrefixReadError) throw error;
     throw new DurablePrefixReadError("event_envelope_invalid", String(error));
@@ -2529,6 +2587,7 @@ export class AbgEventStore {
       durableAppendClosed: false,
       transactionStartIndex: null,
       transactionDurablePrefixDigest: null,
+      transactionWindowRestores: [],
     });
   }
 
@@ -2682,7 +2741,7 @@ export function createNewEmptyAppendSink(
       durableHistory: Object.freeze({ prefix, selection }), activeEventContractDigest: ROOT_EVENT_CONTRACT_DIGEST,
       durableLogPath: path, durableDescriptor: owned.descriptor, durableFileIdentity: owned.identity,
       durableAppendLock: owned.lock, durableByteLength: 0, durableHash, inlineBodies: new Map(), physicalSource: history,
-      durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null,
+      durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null, transactionWindowRestores: [],
     };
     eventState.set(store, state); DurableHistoryDerivation.bindSelection(prefix, selection, derivation, state);
     return Object.freeze({ store, prefix });
@@ -2746,10 +2805,10 @@ function assertRuntimeEventContract(
   candidate: RuntimeEventCandidate,
   profileDigest: Sha256Digest,
 ): void {
-  if (!isKnownRootEventContractDigest(profileDigest)) throw new TypeError("unknown native event-contract profile");
-  const contract: RootEventContract | undefined = profileDigest === LEGACY_ROOT_EVENT_CONTRACT_DIGEST
-    ? (LEGACY_ROOT_EVENT_CONTRACTS as Readonly<Partial<Record<RootEventKind, RootEventContract>>>)[candidate.kind]
-    : ROOT_EVENT_CONTRACTS[candidate.kind];
+  const selectedProfile = ROOT_EVENT_CONTRACT_PROFILES.select(profileDigest);
+  if (selectedProfile === null) throw new TypeError("unknown native event-contract profile");
+  const contract: RootEventContract | undefined = selectedProfile.contracts[candidate.kind];
+  const stampedProfile = selectedProfile.capabilities.stamped;
   if (contract === undefined) throw new TypeError("event kind is not in the selected exact profile");
   const envelope = candidate as unknown as Readonly<Record<string, unknown>>;
   const envelopeVariants = contract.variants.filter(
@@ -2951,15 +3010,23 @@ function assertRuntimeEventContract(
       "worksite_file_replace",
       "sub_traversal",
       "admission_rejection",
-      ...(profileDigest === ROOT_EVENT_CONTRACT_DIGEST ? ["undispatched_owner_refusal"] : []),
+      ...(stampedProfile ? ["undispatched_owner_refusal"] : []),
     ].includes(String(payload.evidenceClass))
   ) {
     throw new TypeError("C-call evidence event carries an unknown evidence class");
   }
-  if (profileDigest === ROOT_EVENT_CONTRACT_DIGEST) {
+  if (selectedProfile.capabilities.stdoutWindowWitness && candidate.kind === "actor_process_stdout_observed" &&
+      Object.hasOwn(payload, "stdoutWindow") && !isStdoutArchiveWindowWitness(payload.stdoutWindow)) {
+    throw new TypeError("window stdout row requires one exact archive window witness");
+  }
+  if (stampedProfile) {
     if (candidate.kind === "actor_transport_binding_admitted" &&
         (!isRuntimeLivenessBinding(payload.livenessBinding) || payload.livenessBinding.policy === null)) {
       throw new TypeError("current actor binding requires its closed native liveness declaration");
+    }
+    if (candidate.kind === "actor_transport_binding_admitted" && Object.hasOwn(payload, "configuredIdentity") &&
+        !configuredActorIdentityCorresponds(payload.configuredIdentity, payload)) {
+      throw new TypeError("current actor binding identity differs from its own agent and final arguments");
     }
     if (candidate.kind === "actor_process_timeout_observed" && !isRuntimeThresholdObservation(payload.thresholdObservation)) {
       throw new TypeError("current timeout requires one exact native elapsed threshold observation");
@@ -3468,12 +3535,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
     ) {
       throw new TypeError("durable ABG event log contains an invalid envelope");
     }
-    if (profile === null) profile = eventContractDigest === undefined
-      ? LEGACY_ROOT_EVENT_CONTRACT_DIGEST : ROOT_EVENT_CONTRACT_DIGEST;
-    if ((profile === LEGACY_ROOT_EVENT_CONTRACT_DIGEST && eventContractDigest !== undefined) ||
-        (profile === ROOT_EVENT_CONTRACT_DIGEST && eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)) {
-      throw new TypeError("event stamp differs from the exact native profile schedule");
-    }
+    profile = nextRootEventProfile(profile, eventContractDigest);
     const reconstructed = projectRuntimeEventAtContract(
       admitted,
       candidateValue as unknown as RuntimeEventCandidate,
@@ -3508,7 +3570,7 @@ function decodeHistoricalEvents(bytes: Uint8Array, expectedProfileDigest?: Sha25
     if (isRootEventProfileBoundary(reconstructed)) {
       assertRootEventProfileBoundary(admitted.slice(0, -1), reconstructed);
       if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("native profile boundary cannot repeat or reverse");
-      profile = ROOT_EVENT_CONTRACT_DIGEST;
+      profile = rootEventProfileBoundaryAfter(reconstructed);
     }
     eventsById.set(reconstructed.eventId, reconstructed);
   }
@@ -3561,11 +3623,24 @@ export function projectOwnedRuntimeHistoryAtDurablePrefix(prefix: DurablePrefixC
   return readOwnedRuntimeHistoryAtDurablePrefix(prefix);
 }
 
+/** Observation-only whole-history work counts for the §10.9 held-session
+ * proof: decoded histories and rows, physical history and body bytes read,
+ * store reopens and cold owned-history reads. They select, cache and change no
+ * admission, event or projection value, and `abg/index` does not export them. */
+const runtimeHistoryWork = { historyDecodes: 0, decodedRows: 0, historyBytesRead: 0,
+  storeReopens: 0, coldHistoryReads: 0, bodyReads: 0, bodyBytesRead: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeRuntimeHistoryWork(): Readonly<typeof runtimeHistoryWork> {
+  return Object.freeze({ ...runtimeHistoryWork });
+}
+
 /** @internal Explicit freshness never borrows a closed owner or copied proof. */
 export function readOwnedRuntimeHistoryAtDurablePrefix(prefix: DurablePrefixCoordinate,
   options: Readonly<{ requireCurrent?: boolean }> = {}): RuntimeHistorySelection {
   const active = DurableHistoryDerivation.activeSelection(prefix, options.requireCurrent);
   if (active !== undefined) return active;
+  runtimeHistoryWork.coldHistoryReads++;
   if (!validateDurablePrefixCoordinate(prefix)) throw new DurablePrefixReadError("event_envelope_invalid", "ABG durable prefix coordinate is invalid");
   const path = fileURLToPath(prefix.eventLogRef), descriptor = openSync(path, constants.O_RDONLY);
   const physicalSource: RuntimeHistoryPhysicalSource = { eventLogPath: path, identity: prefix.storeIdentity, descriptor };
@@ -3604,10 +3679,11 @@ function readRuntimeHistoryRowBytes(source: RuntimeHistoryPhysicalSource, locati
       throw new DurablePrefixReadError("file_identity_mismatch", "selected body differs from its authenticated resource");
     const bytes = Buffer.alloc(location.byteLength);
     let offset = 0;
+    runtimeHistoryWork.bodyReads++;
     while (offset < bytes.length) {
       const count = readSync(descriptor, bytes, offset, bytes.length - offset, location.offset + offset);
       if (count <= 0) throw new TypeError("selected body read made no progress");
-      offset += count;
+      offset += count; runtimeHistoryWork.bodyBytesRead += count;
     }
     const after = fstatSync(descriptor), afterPath = durableIdentity(source.eventLogPath);
     if (after.dev !== before.dev || after.ino !== before.ino || !sameDurableIdentity(identity, afterPath) ||
@@ -3679,6 +3755,7 @@ function foldRuntimeHistoryDescriptor(descriptor: number, byteLength: number,
   while (position < byteLength) {
     const count = readSync(descriptor, chunk, 0, Math.min(chunk.length, byteLength - position), position);
     if (count <= 0) throw new TypeError("durable history read made no progress");
+    runtimeHistoryWork.historyBytesRead += count;
     const current = chunk.subarray(0, count);
     hash.update(current);
     for (const [row, offset] of lines.read(current, wanted)) {
@@ -3700,10 +3777,14 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
     readonly history: RuntimeHistory; readonly inlineBodies: InlineEventBodies; readonly durableHash: Hash;
   } {
   if (source.descriptor === null) throw new TypeError("cold history requires its actual descriptor");
+  runtimeHistoryWork.historyDecodes++;
   const inlineByEvent: InlineEventBodies = new Map(), inlineBodies: InlineEventBodies = new Map();
   const history = constructRuntimeHistory(source, inlineByEvent), physicalHash = createHash("sha256");
   let profile: Sha256Digest | null = null;
+  const archive = coldStdoutWindowArchive();
+  try {
   const durableHash = foldRuntimeHistoryDescriptor(source.descriptor, byteLength, (bytes, offset) => {
+    runtimeHistoryWork.decodedRows++;
     const line = bytes.toString("utf8", 0, bytes.length - 1);
     // JSON.parse yields only JSON values; the canonical byte check refuses any other row.
     let physical: JsonValue;
@@ -3723,9 +3804,7 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
       throw new DurablePrefixReadError("admission_ordinal_invalid", "durable ABG event log contains an invalid admission ordinal");
     if (typeof eventId !== "string" || !isSha256Digest(payloadDigest) || !isRuntimeEventCandidateShape(candidate))
       throw new TypeError("durable ABG event log contains an invalid envelope");
-    if (profile === null) profile = eventContractDigest === undefined ? LEGACY_ROOT_EVENT_CONTRACT_DIGEST : ROOT_EVENT_CONTRACT_DIGEST;
-    if (profile === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? eventContractDigest !== undefined : eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)
-      throw new TypeError("event stamp differs from the exact native profile schedule");
+    profile = nextRootEventProfile(profile, eventContractDigest);
     const event = projectRuntimeEventAtContract(history.select(), candidate as unknown as RuntimeEventCandidate, profile, undefined, "decoded");
     if (event.eventId !== eventId || event.admissionOrdinal !== admissionOrdinal || event.payloadDigest !== payloadDigest)
       throw new TypeError("durable ABG event log contains restamped or inconsistent history");
@@ -3734,12 +3813,13 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
       // actor/call obligation dependency. Its temporary materialization dies here.
       assertRootEventProfileBoundary(history.select().materialize(), event);
       if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("native profile boundary cannot repeat or reverse");
-      profile = ROOT_EVENT_CONTRACT_DIGEST;
+      profile = rootEventProfileBoundaryAfter(event);
     }
     physicalHash.update(bytes);
     const body: RuntimeEventBodyLocation = { offset, byteLength: bytes.length, physicalDigest: sha256Bytes(bytes),
       prefixByteLength: offset + bytes.length, prefixDigest: `sha256:${physicalHash.copy().digest("hex")}` };
     history.appendValidated(runtimeHistoryRow(event, body, runtimeHistorySelectorKeys(event), profile), event);
+    archive.observe(event);
     if (representation.physicallyInline) {
       const bodyCoordinate = inlineEventBodyCoordinate(event);
       if (bodyCoordinate !== null) {
@@ -3751,6 +3831,58 @@ function decodeRuntimeHistoryDescriptor(source: RuntimeHistoryPhysicalSource, by
   if (expectedProfileDigest !== undefined && (!isKnownRootEventContractDigest(expectedProfileDigest) ||
       profile !== null && profile !== expectedProfileDigest)) throw new TypeError("durable coordinate profile differs from authenticated history");
   return { history, inlineBodies, durableHash };
+  } finally { archive.close(); }
+}
+
+/** E4 at cold adoption (§10.10 E-F): during the one decode of a cold reopen,
+ * recovery or direct read, each W window row's exact archive range is read
+ * once through its actor binding's admitted stdout file and must have the
+ * row's length and chunk digest; one process's stdout ranges are contiguous
+ * from zero. A missing, changed or truncated range refuses the acquisition
+ * before any history is granted. L, RC6 and S2 rows carry no witness and read
+ * no archive. Warm selection and the pure fold never call this. */
+function coldStdoutWindowArchive(): Readonly<{ observe(event: RuntimeEvent): void; close(): void }> {
+  const bindings = new Map<string, Readonly<Record<string, JsonValue>>>(), invocations = new Map<string, string>();
+  const offsets = new Map<string, number>(), descriptors = new Map<string, number>();
+  const refuse = (): never => { throw new TypeError("stdout window archive bytes are missing or differ from their referenced range"); };
+  return Object.freeze({
+    observe(event: RuntimeEvent): void {
+      if (runtimeEventProfile(event)?.stdoutWindowWitness !== true || !isRecord(event.payload)) return;
+      const p = event.payload;
+      if (event.kind === "actor_transport_binding_admitted") { bindings.set(event.aggregateId, p); return; }
+      if (event.kind === "actor_invocation_started" && typeof p.transportBindingRef === "string") {
+        invocations.set(event.aggregateId, p.transportBindingRef); return;
+      }
+      if (event.kind !== "actor_process_stdout_observed") return;
+      // One process's stdout ranges are contiguous from zero in admission order.
+      const offset = offsets.get(event.aggregateId) ?? 0;
+      offsets.set(event.aggregateId, offset + Number(p.byteLength));
+      if (!Object.hasOwn(p, "stdoutWindow")) return;
+      const window = p.stdoutWindow, bindingRef = typeof p.actorInvocationRef === "string" ? invocations.get(p.actorInvocationRef) : undefined;
+      const binding = bindingRef === undefined ? undefined : bindings.get(bindingRef);
+      const path = binding !== undefined && isRecord(binding.paths) ? binding.paths.stdout : undefined;
+      if (binding === undefined || typeof path !== "string" || !isStdoutArchiveWindowWitness(window) ||
+          window.archiveOffset !== offset || !Number.isSafeInteger(p.byteLength)) return refuse();
+      let descriptor = descriptors.get(path);
+      if (descriptor === undefined) {
+        if (!isAdmittedActorArchiveFile(binding.archiveRoot, path)) return refuse();
+        try { descriptor = openSync(path, constants.O_RDONLY); } catch { return refuse(); }
+        descriptors.set(path, descriptor);
+      }
+      const bytes = Buffer.alloc(Number(p.byteLength));
+      let read = 0;
+      while (read < bytes.length) {
+        const count = readSync(descriptor, bytes, read, bytes.length - read, offset + read);
+        if (count <= 0) break;
+        read += count;
+      }
+      if (!archiveRangeMatchesStreamRow(bytes.subarray(0, read), p.byteLength, p.chunkDigest)) refuse();
+    },
+    close(): void {
+      for (const descriptor of descriptors.values()) closeSync(descriptor);
+      descriptors.clear();
+    },
+  });
 }
 
 export type RootEventProfileSchedule = {
@@ -3764,6 +3896,13 @@ function isRootEventProfileBoundary(event: RuntimeEventCandidate): boolean {
   return event.kind === "declaration_reprice_admitted" && isRecord(event.payload) &&
     event.payload.declarationRef === ROOT_EVENT_PROFILE_DECLARATION_REF;
 }
+/** The exact stamped profile a witnessed L boundary names. A retained boundary
+ * keeps its original RC6 or S2 target; a new one targets the current profile. */
+function rootEventProfileBoundaryAfter(event: RuntimeEventCandidate): Sha256Digest {
+  const after = isRecord(event.payload) ? rootEventContractProfile(event.payload.afterDigest) : null;
+  if (after === null || !after.stamped) throw new TypeError("profile boundary names no exact stamped profile");
+  return after.digest;
+}
 function assertRootEventProfileBoundary(events: readonly RuntimeEvent[], candidate: RuntimeEventCandidate): void {
   const p = candidate.payload;
   const previous = events.at(-1);
@@ -3773,14 +3912,14 @@ function assertRootEventProfileBoundary(events: readonly RuntimeEvent[], candida
       prior.operationId !== "abg.operation.witness.admit" || prior.memberKey !== "reprice" ||
       candidate.parentAggregateId !== prior.invocationRef || candidate.correlationId !== previous.correlationId ||
       !candidate.causationEventRefs.includes(previous.eventId) ||
-      p.beforeDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST || p.afterDigest !== ROOT_EVENT_CONTRACT_DIGEST ||
+      p.beforeDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST || rootEventContractProfile(p.afterDigest)?.stamped !== true ||
       p.changeClass !== "design_reframe" || p.reason !== ROOT_EVENT_PROFILE_UPGRADE_REASON ||
       p.operatorActorRef !== p.actorRef || p.act !== "reprice" ||
       !isRecord(p.contentValue) ||
       sha256Canonical(p.contentValue) !== p.contentValueDigest ||
       !["declarationRef", "beforeDigest", "afterDigest", "changeClass", "owningTicketRef", "reason"].every(key => (p.contentValue as Record<string, unknown>)[key] === p[key]) ||
       !Array.isArray(p.evidence) || !p.evidence.some(value => isRecord(value) &&
-        value.ref === ROOT_CURRENT_EVENT_PROFILE_REF && value.digest === ROOT_EVENT_CONTRACT_DIGEST) ||
+        value.ref === rootEventContractProfile(p.afterDigest)?.profileRef && value.digest === p.afterDigest) ||
       events.some(isRootEventProfileBoundary)) {
     throw new TypeError("profile transition is not the one exact native witnessed L-to-P boundary");
   }
@@ -3810,7 +3949,8 @@ export function admitRootEventProfileUpgrade(
   assertHeldEventStoreAtDurablePrefix(store, entryPrefix);
   const state = eventState.get(store)!;
   if (state.activeEventContractDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST ||
-      entryPrefix.prefixLength === 0 || !isRootEventProfileBoundary(repriceCandidate)) {
+      entryPrefix.prefixLength === 0 || !isRootEventProfileBoundary(repriceCandidate) ||
+      !isRecord(repriceCandidate.payload) || repriceCandidate.payload.afterDigest !== ROOT_EVENT_CONTRACT_DIGEST) {
     throw new TypeError("profile upgrade requires an authentic nonempty exact-L acquired predecessor");
   }
   const projectedPublic = projectRuntimeEventAtContract(state.history?.select() ?? state.events, publicCandidate, state.activeEventContractDigest, state.eventsById);
@@ -3829,8 +3969,7 @@ export function admitRootEventProfileUpgrade(
 }
 /** Complete history only; a scoped view retains this schedule through its nominal prefix. */
 export function projectRootEventProfileSchedule(events: readonly RuntimeEvent[], emptyProfileDigest: Sha256Digest = ROOT_EVENT_CONTRACT_DIGEST): RootEventProfileSchedule {
-  let profile = events[0]?.eventContractDigest === undefined && events.length !== 0
-    ? LEGACY_ROOT_EVENT_CONTRACT_DIGEST : emptyProfileDigest;
+  const profile = events.length === 0 ? emptyProfileDigest : events[0]!.eventContractDigest ?? LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
   if (!isKnownRootEventContractDigest(profile)) throw new TypeError("unknown native profile");
   return extendRootEventProfileProjection(events, 0, {
     kind: "root_event_profile_schedule", schemaVersion: "5.0.0", spans: [],
@@ -3848,7 +3987,7 @@ export function extendRootEventProfileProjection(
   for (let index = start; index < events.length; index += 1) {
     const event = events[index]!;
     if (event.admissionOrdinal !== index + 1 ||
-        (profile === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? event.eventContractDigest !== undefined : event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST)) {
+        (profile === LEGACY_ROOT_EVENT_CONTRACT_DIGEST ? event.eventContractDigest !== undefined : event.eventContractDigest !== profile)) {
       throw new TypeError("profile schedule requires the original gap-free stamped history");
     }
     const last = spans.at(-1);
@@ -3858,7 +3997,7 @@ export function extendRootEventProfileProjection(
       assertRootEventProfileBoundary(events.slice(0, index), event);
       if (profile !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST || boundaryEventRef !== null) throw new TypeError("repeated native profile boundary");
       boundaryEventRef = event.eventId;
-      profile = ROOT_EVENT_CONTRACT_DIGEST;
+      profile = rootEventProfileBoundaryAfter(event);
     }
   }
   return deepFreeze({ kind: "root_event_profile_schedule", schemaVersion: "5.0.0", spans, boundaryEventRef, currentEventContractDigest: profile });
@@ -3866,8 +4005,8 @@ export function extendRootEventProfileProjection(
 function runtimeEventProfileAfter(events: readonly RuntimeEvent[]): Sha256Digest {
   const last = events.at(-1);
   if (last === undefined) return ROOT_EVENT_CONTRACT_DIGEST;
-  return isRootEventProfileBoundary(last) || last.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST
-    ? ROOT_EVENT_CONTRACT_DIGEST : LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
+  return isRootEventProfileBoundary(last) ? rootEventProfileBoundaryAfter(last)
+    : last.eventContractDigest ?? LEGACY_ROOT_EVENT_CONTRACT_DIGEST;
 }
 
 /** Read-only ancestry, never append authority. Active ownership supplies known cuts; otherwise reconstruct cold. */
@@ -3885,7 +4024,7 @@ export function authenticateRuntimePrefixAncestry(historical: DurablePrefixCoord
     if (runtimeEventPhysicalPrefix(currentEvents.slice(0, oldEvents.length)).digest !== historical.prefixDigest) return false;
     if (historical.storeIdentity.eventContractDigest === current.storeIdentity.eventContractDigest) return true;
     if (historical.prefixLength === 0 || historical.storeIdentity.eventContractDigest !== LEGACY_ROOT_EVENT_CONTRACT_DIGEST ||
-        current.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return false;
+        rootEventContractProfile(current.storeIdentity.eventContractDigest)?.stamped !== true) return false;
     const schedule = projectRootEventProfileSchedule(currentEvents);
     const boundary = currentEvents.find(event => event.eventId === schedule.boundaryEventRef);
     return boundary !== undefined && boundary.admissionOrdinal > oldEvents.length;
@@ -3918,7 +4057,8 @@ function seedValidatedDurableHistory(exactPath: string,
     durableHistory: Object.freeze({ prefix, selection }), activeEventContractDigest: profile,
     durableLogPath: exactPath, durableDescriptor: owned.descriptor, durableFileIdentity: owned.identity,
     durableAppendLock: owned.lock, durableByteLength: byteLength, durableHash, inlineBodies: decoded.inlineBodies,
-    physicalSource: history, durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null };
+    physicalSource: history, durableAppendClosed: false, transactionStartIndex: null, transactionDurablePrefixDigest: null,
+    transactionWindowRestores: [] };
   eventState.set(store, state); DurableHistoryDerivation.bindSelection(prefix, selection, derivation, state);
   return Object.freeze({ kind: "reopened_event_store_context" as const, schemaVersion: "5.0.0" as const,
     eventLogPath: exactPath, eventLogDigest: prefixDigest, eventContractDigest: profile,
@@ -4061,6 +4201,7 @@ export function recoverInterruptedEventStore(selection: InterruptedEventStoreSel
 export function reopenEventStore(
   authority: unknown,
 ): EventStoreReopenResult {
+  runtimeHistoryWork.storeReopens++;
   if (
     isRecord(authority) &&
     isSha256Digest(authority.eventContractDigest) &&
@@ -4125,6 +4266,38 @@ export function reopenEventStore(
   }
 }
 
+/** Closes one actor scope's pending stdout window; null when nothing is pending. */
+export type NativeStdoutWindowFlush = () => (() => void) | null;
+const nativeStdoutWindows = new WeakMap<AbgEventStore, Map<string, NativeStdoutWindowFlush>>();
+
+/** Binds one actor scope's transport flush; returns its unbind. */
+export function bindNativeStdoutWindow(
+  store: AbgEventStore, actorInvocationRef: string, flush: NativeStdoutWindowFlush,
+): () => void {
+  if (typeof actorInvocationRef !== "string" || actorInvocationRef.length === 0 || typeof flush !== "function") {
+    throw new TypeError("stdout window binding requires one actor scope and one flush");
+  }
+  const bindings = nativeStdoutWindows.get(store) ?? new Map<string, NativeStdoutWindowFlush>();
+  if (bindings.has(actorInvocationRef)) throw new TypeError("actor scope already binds one stdout window flush");
+  bindings.set(actorInvocationRef, flush);
+  nativeStdoutWindows.set(store, bindings);
+  return () => { if (bindings.get(actorInvocationRef) === flush) bindings.delete(actorInvocationRef); };
+}
+
+/**
+ * Stages the scope's pending window inside the active transaction and keeps
+ * its restore until the transaction ends. Returns whether a window was staged.
+ */
+export function flushNativeStdoutWindow(store: AbgEventStore, actorInvocationRef: string): boolean {
+  assertRuntimeEventTransactionActive(store);
+  const flush = nativeStdoutWindows.get(store)?.get(actorInvocationRef);
+  if (flush === undefined) return false;
+  const restore = flush();
+  if (restore === null) return false;
+  eventState.get(store)!.transactionWindowRestores.push(restore);
+  return true;
+}
+
 export function admitRuntimeEvent(
   store: AbgEventStore,
   candidate: RuntimeEventCandidate,
@@ -4148,6 +4321,9 @@ export function admitNativeRuntimeLivenessEvent(store: AbgEventStore, candidate:
   if (state === undefined || state.activeEventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST || !isLivenessCandidate(candidate)) {
     throw new TypeError("liveness admission requires one held current-profile owner context");
   }
+  // Common ingress: the candidate's own actor scope stages its pending window first.
+  const scopeRef = isRecord(candidate.payload) ? candidate.payload.actorInvocationRef : undefined;
+  if (typeof scopeRef === "string" && state.transactionStartIndex !== null) flushNativeStdoutWindow(store, scopeRef);
   const prefix = selectRuntimeEventPrefixFromStore(store);
   const event = projectRuntimeEventAtContract(state.history?.select() ?? state.events, candidate, state.activeEventContractDigest, state.eventsById);
   if (!validateRuntimeLivenessEventAtPrefix(prefix, event)) {
@@ -4287,6 +4463,7 @@ function runRuntimeEventTransaction<T>(
   const priorProfile = state.activeEventContractDigest;
   state.transactionStartIndex = startIndex;
   state.transactionDurablePrefixDigest = authenticatedPredecessor?.coordinateDigest ?? null;
+  state.transactionWindowRestores = [];
   try {
     const value = action();
     const admitted = state.history === null ? state.events.slice(startIndex) : state.events.slice(priorEvents.length);
@@ -4321,6 +4498,12 @@ function runRuntimeEventTransaction<T>(
       DurableHistoryDerivation.bindSelection(state.durableHistory.prefix, selection, state.derivation, state);
     }
     state.activeEventContractDigest = priorProfile;
+    // Rolled-back windows return to their scopes, newest first.
+    const restoreErrors: unknown[] = [];
+    for (const restore of state.transactionWindowRestores.splice(0).reverse()) {
+      try { restore(); } catch (restoreError) { restoreErrors.push(restoreError); }
+    }
+    if (restoreErrors.length !== 0) throw new AggregateError([error, ...restoreErrors], "runtime transaction could not restore its taken stdout windows");
     if (authenticatedPredecessor !== null) {
       try { assertHeldEventStoreAtDurablePrefix(store, authenticatedPredecessor); }
       catch (drift) { throw new AggregateError([error, drift], "runtime transaction refused with a changed durable predecessor"); }
@@ -4329,6 +4512,7 @@ function runRuntimeEventTransaction<T>(
   } finally {
     state.transactionStartIndex = null;
     state.transactionDurablePrefixDigest = null;
+    state.transactionWindowRestores = [];
   }
 }
 

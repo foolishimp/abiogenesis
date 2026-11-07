@@ -12,11 +12,12 @@ import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calc
 import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix, admitNativeRuntimeLivenessEvent,
-  admitRuntimeEventTransactionAtDurablePrefix, selectActiveRuntimeTransactionHistoryAtDurablePrefix, ROOT_EVENT_CONTRACT_DIGEST,
-  assertRuntimeEventTransactionActive,
+  admitRuntimeEventTransactionAtDurablePrefix, selectActiveRuntimeTransactionHistoryAtDurablePrefix, ROOT_EVENT_CONTRACT_DIGEST, rootEventContractProfile,
+  assertRuntimeEventTransactionActive, admitRuntimeEvent, flushNativeStdoutWindow, selectHeldEventStoreDurablePrefix,
   type AbgEventStore, type DurablePrefixCoordinate, type RuntimeEvent, type RuntimeEventCandidate,
 } from "./event_store.js";
 import { hasStructuralIdentityCompletedRouteCausation } from "./retry_progress.js";
+import { isStdoutArchiveWindowWitness, type StdoutArchiveWindowWitness } from "./transport_contracts.js";
 import {
   runtimeLivenessDigest as digest,
   type RuntimeLivenessObserverProjection, type RuntimeLivenessBudgetFacts,
@@ -291,67 +292,148 @@ export function projectNativeLivenessRead(prefix: ValidatedRuntimeEventPrefix, r
 export function projectNativeLivenessRead(prefix: RuntimeEventPrefix, runId: string | null, graphCallId?: string): RuntimeLivenessReadProjection | null;
 export function projectNativeLivenessRead(prefix: RuntimeEventPrefix, runId: string | null, graphCallId?: string): RuntimeLivenessReadProjection | null {
   const profileSchedule = runtimeEventProfileScheduleFromValidatedPrefix(prefix);
-  if (profileSchedule.currentEventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return null;
+  if (rootEventContractProfile(profileSchedule.currentEventContractDigest)?.nativeLiveness !== true) return null;
   return deepFreeze({ kind: "native_liveness_read_projection", schemaVersion: "5.0.0", profileSchedule,
     invocations: projectRuntimeLivenessForScope(unscopedRuntimeEventPrefix(prefix), runId, graphCallId) });
 }
 
-/** Owner observes one declared source, joins its actual native producer, and admits at the exact prefix. */
-export function admitRuntimeActivityProbe(input: Readonly<{
-  store: AbgEventStore; predecessorPrefix: DurablePrefixCoordinate; actorInvocationRef?: string; cCallRef?: string;
+type RuntimeActivityProbeInput = Readonly<{
+  store: AbgEventStore; actorInvocationRef?: string; cCallRef?: string;
   source: RuntimeProbeSource; observation: RuntimeProbeObservation; eventTime: string; correlationId: string;
-}>) {
+}>;
+
+/** Owner observes one declared source, joins its actual native producer, and admits at the exact prefix. */
+export function admitRuntimeActivityProbe(input: RuntimeActivityProbeInput & Readonly<{ predecessorPrefix: DurablePrefixCoordinate }>) {
   assertHeldEventStoreAtDurablePrefix(input.store, input.predecessorPrefix);
-  return admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
-    if (input.predecessorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("P probes cannot append to an L acquisition");
-    const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true })),
-      extent = runtimeEventPrefixExtent(prefix);
-    if ((input.actorInvocationRef === undefined) === (input.cCallRef === undefined)) throw new TypeError("one native occurrence is required");
-    const reconstruction = livenessReconstruction(prefix);
-    const context = reconstruction.context(extent.lastOrdinal, input.actorInvocationRef ?? input.cCallRef!);
-    const probe = context?.probes.find(p => p.source === input.source);
-    const obligations: NativeLivenessRouteObligation[] = [];
-    if (context === null || probe === undefined ||
-        !probeObservationMatches(context, probe, input.observation, extent.count + 1, obligations, reconstruction) ||
-        !structuralRoutesHold(obligations)) throw new TypeError("probe source differs from the native declared occurrence");
-    if (indexedRuntimeEvents(prefix, "related:" + input.actorInvocationRef).some(e => (e.kind === "actor_invocation_closed" || e.kind === "actor_invocation_failed") &&
-        e.aggregateId === input.actorInvocationRef)) throw new TypeError("terminal invocation cannot be revived by a probe");
-    if (context.scope.actorInvocationRef === null && indexedRuntimeEvents(prefix, "related:" + context.scope.cCallRef).some(e => e.kind === "c_call_judged" &&
-        e.aggregateId === context.scope.cCallRef && e.eventId !== input.observation.underlyingEventRef)) {
-      throw new TypeError("terminal CCall cannot be revived by a probe");
+  return admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => stageProbe(input, true));
+}
+
+/** The same probe relation staged in the active transaction over its staged cut,
+ * so a producer staged earlier in that transaction can be its underlying event. */
+export function stageRuntimeActivityProbe(input: RuntimeActivityProbeInput): RuntimeEvent {
+  return stageProbe(input, false);
+}
+
+function stageProbe(input: RuntimeActivityProbeInput, durableOnly: boolean): RuntimeEvent {
+  assertRuntimeEventTransactionActive(input.store);
+  const predecessorPrefix = selectHeldEventStoreDurablePrefix(input.store);
+  if (predecessorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) throw new TypeError("P probes cannot append to an L acquisition");
+  const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, predecessorPrefix, { durableOnly })),
+    extent = runtimeEventPrefixExtent(prefix);
+  if ((input.actorInvocationRef === undefined) === (input.cCallRef === undefined)) throw new TypeError("one native occurrence is required");
+  const reconstruction = livenessReconstruction(prefix);
+  const context = reconstruction.context(extent.lastOrdinal, input.actorInvocationRef ?? input.cCallRef!);
+  const probe = context?.probes.find(p => p.source === input.source);
+  const obligations: NativeLivenessRouteObligation[] = [];
+  if (context === null || probe === undefined ||
+      !probeObservationMatches(context, probe, input.observation, extent.count + 1, obligations, reconstruction) ||
+      !structuralRoutesHold(obligations)) throw new TypeError("probe source differs from the native declared occurrence");
+  if (indexedRuntimeEvents(prefix, "related:" + input.actorInvocationRef).some(e => (e.kind === "actor_invocation_closed" || e.kind === "actor_invocation_failed") &&
+      e.aggregateId === input.actorInvocationRef)) throw new TypeError("terminal invocation cannot be revived by a probe");
+  if (context.scope.actorInvocationRef === null && indexedRuntimeEvents(prefix, "related:" + context.scope.cCallRef).some(e => e.kind === "c_call_judged" &&
+      e.aggregateId === context.scope.cCallRef && e.eventId !== input.observation.underlyingEventRef)) {
+    throw new TypeError("terminal CCall cannot be revived by a probe");
+  }
+  if (input.observation.underlyingEventRef === null) {
+    let bytes: Buffer;
+    let sourceRevisionDigest: Sha256Digest | null = null;
+    try {
+      const node = lstatSync(probe.sourceRef, { bigint: true });
+      if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n || realpathSync(dirname(probe.sourceRef)) !== dirname(probe.sourceRef)) throw new TypeError("bound native asset is not one canonical file");
+      bytes = readFileSync(probe.sourceRef);
+      const after = lstatSync(probe.sourceRef, { bigint: true });
+      sourceRevisionDigest = runtimeAssetRevisionDigest(node);
+      if (runtimeAssetRevisionDigest(after) !== sourceRevisionDigest || after.size !== BigInt(bytes.length)) throw new TypeError("native asset changed while observed");
     }
-    if (input.observation.underlyingEventRef === null) {
-      let bytes: Buffer;
-      let sourceRevisionDigest: Sha256Digest | null = null;
-      try {
-        const node = lstatSync(probe.sourceRef, { bigint: true });
-        if (!node.isFile() || node.isSymbolicLink() || node.nlink !== 1n || realpathSync(dirname(probe.sourceRef)) !== dirname(probe.sourceRef)) throw new TypeError("bound native asset is not one canonical file");
-        bytes = readFileSync(probe.sourceRef);
-        const after = lstatSync(probe.sourceRef, { bigint: true });
-        sourceRevisionDigest = runtimeAssetRevisionDigest(node);
-        if (runtimeAssetRevisionDigest(after) !== sourceRevisionDigest || after.size !== BigInt(bytes.length)) throw new TypeError("native asset changed while observed");
-      }
-      catch (error) {
-        if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
-        bytes = Buffer.alloc(0);
-      }
-      if (sha256Bytes(bytes) !== input.observation.sourceDigest || sourceRevisionDigest !== input.observation.sourceRevisionDigest ||
-          (bytes.length > 0) !== (input.observation.signal === "artifact_pending")) throw new TypeError("asset observation differs from the actual bound source");
+    catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+      bytes = Buffer.alloc(0);
     }
-    const candidate: RuntimeEventCandidate = {
-      kind: input.observation.signal === "external_interruption" ? "runtime_external_interruption_observed" : "runtime_activity_probe_observed",
-      eventTime: input.eventTime, aggregateType: context.scope.actorInvocationRef === null ? "graph_call" : "actor_invocation",
-      aggregateId: context.scope.actorInvocationRef ?? context.scope.graphCallId,
-      parentAggregateId: context.scope.actorInvocationRef === null ? context.scope.runId : context.scope.cCallRef,
-      causationEventRefs: [...new Set([context.declarationEventRef, ...input.observation.evidenceRefs])],
-      correlationId: input.correlationId, workflowVersion: "5.0.0", scopeClass: "run",
-      basisId: context.scope.basisRef, runId: context.scope.runId, graphFunctionRef: context.scope.graphFunctionRef,
-      graphCallId: context.scope.graphCallId, frameId: context.scope.frameId,
-      payload: { ...(context.scope.actorInvocationRef === null ? {} : { actorInvocationRef: context.scope.actorInvocationRef }),
-        probeContract: probe, observation: input.observation },
-    };
-    return admitNativeRuntimeLivenessEvent(input.store, candidate);
-  });
+    if (sha256Bytes(bytes) !== input.observation.sourceDigest || sourceRevisionDigest !== input.observation.sourceRevisionDigest ||
+        (bytes.length > 0) !== (input.observation.signal === "artifact_pending")) throw new TypeError("asset observation differs from the actual bound source");
+  }
+  const candidate: RuntimeEventCandidate = {
+    kind: input.observation.signal === "external_interruption" ? "runtime_external_interruption_observed" : "runtime_activity_probe_observed",
+    eventTime: input.eventTime, aggregateType: context.scope.actorInvocationRef === null ? "graph_call" : "actor_invocation",
+    aggregateId: context.scope.actorInvocationRef ?? context.scope.graphCallId,
+    parentAggregateId: context.scope.actorInvocationRef === null ? context.scope.runId : context.scope.cCallRef,
+    causationEventRefs: [...new Set([context.declarationEventRef, ...input.observation.evidenceRefs])],
+    correlationId: input.correlationId, workflowVersion: "5.0.0", scopeClass: "run",
+    basisId: context.scope.basisRef, runId: context.scope.runId, graphFunctionRef: context.scope.graphFunctionRef,
+    graphCallId: context.scope.graphCallId, frameId: context.scope.frameId,
+    payload: { ...(context.scope.actorInvocationRef === null ? {} : { actorInvocationRef: context.scope.actorInvocationRef }),
+      probeContract: probe, observation: input.observation },
+  };
+  return admitNativeRuntimeLivenessEvent(input.store, candidate);
+}
+
+/** The envelope a window row shares with its actor's other process rows. */
+export type NativeStdoutWindowEnvelope = Omit<RuntimeEventCandidate, "kind" | "aggregateType" | "aggregateId" | "parentAggregateId" | "payload">;
+
+/** @internal Actor-internal: one plus the process's admitted stdout and
+ * stderr rows at the staged cut. */
+export function nextNativeProcessStreamOrdinal(prefix: RuntimeEventPrefix, processRef: string): number {
+  return 1 + indexedRuntimeEvents(prefix, "aggregate:process:" + processRef)
+    .filter(e => e.kind === "actor_process_stdout_observed" || e.kind === "actor_process_stderr_observed").length;
+}
+/** @internal Actor-internal: the archive offset after the process's admitted
+ * stdout rows, the sum of their byte lengths. */
+export function nextNativeStdoutArchiveOffset(prefix: RuntimeEventPrefix, processRef: string): number {
+  return indexedRuntimeEvents(prefix, "aggregate:process:" + processRef).filter(e => e.kind === "actor_process_stdout_observed")
+    .reduce((sum, e) => sum + (record(e.payload) && Number.isSafeInteger(e.payload.byteLength) ? Number(e.payload.byteLength) : Number.NaN), 0);
+}
+
+/**
+ * E-C: one closed stdout window staged in the active transaction as one row
+ * under the unchanged current contract, then its E1 probes through the probe
+ * relation. A noise-only window has no probe.
+ */
+export function stageNativeStdoutWindow(input: Readonly<{
+  store: AbgEventStore; envelope: NativeStdoutWindowEnvelope; actorInvocationRef: string; processRef: string; text: string;
+  /** The transport's archive range start and actor-clock capture times. */
+  window: Readonly<{ archiveOffset: number; firstCaptureElapsedMs: number; lastCaptureElapsedMs: number; capturedQualifyingElapsedMs: number | null }>;
+  /** The probe sample: the captured qualifying time, or null after an absolute interruption. */
+  lastQualifyingElapsedMs: number | null; resultElapsedMs: number | null;
+}>): Readonly<{ row: RuntimeEvent; probes: readonly RuntimeEvent[] }> {
+  assertRuntimeEventTransactionActive(input.store);
+  const byteLength = Buffer.byteLength(input.text);
+  if (byteLength === 0) throw new TypeError("stdout window has no archive bytes");
+  // A result qualifies, so a window holding one has a last qualifying instant at or after it.
+  if (input.resultElapsedMs !== null && (input.lastQualifyingElapsedMs === null || input.resultElapsedMs > input.lastQualifyingElapsedMs)) {
+    throw new TypeError("stdout window result lies outside its qualifying activity");
+  }
+  const witness: StdoutArchiveWindowWitness = { kind: "stdout_archive_window", archiveOffset: input.window.archiveOffset,
+    firstCaptureElapsedMs: input.window.firstCaptureElapsedMs, lastCaptureElapsedMs: input.window.lastCaptureElapsedMs,
+    lastQualifyingElapsedMs: input.window.capturedQualifyingElapsedMs };
+  const staged = selectRuntimeEventPrefixFromStore(input.store);
+  // The probe samples the captured qualifying instant itself; the range starts
+  // where the process's earlier stdout rows end.
+  if (!isStdoutArchiveWindowWitness(witness) || input.lastQualifyingElapsedMs !== null && input.lastQualifyingElapsedMs !== witness.lastQualifyingElapsedMs ||
+      witness.archiveOffset !== nextNativeStdoutArchiveOffset(staged, input.processRef)) {
+    throw new TypeError("stdout window witness differs from its archive range or capture clocks");
+  }
+  const row = admitRuntimeEvent(input.store, { ...input.envelope, kind: "actor_process_stdout_observed", aggregateType: "process",
+    aggregateId: input.processRef, parentAggregateId: input.actorInvocationRef, payload: { actorInvocationRef: input.actorInvocationRef,
+      processRef: input.processRef, streamOrdinal: nextNativeProcessStreamOrdinal(staged, input.processRef),
+      byteLength, chunkDigest: digest(input.text), stdoutWindow: witness } });
+  // Both probes observe the one row, so both carry its last qualifying instant.
+  const elapsedMs = input.lastQualifyingElapsedMs;
+  const signals: { source: RuntimeProbeSource; signal: RuntimeProbeObservation["signal"] }[] = [];
+  if (elapsedMs !== null) signals.push({ source: "stdout", signal: "activity" });
+  if (elapsedMs !== null && input.resultElapsedMs !== null) signals.push({ source: "structured_output", signal: "artifact_pending" });
+  const probes: RuntimeEvent[] = [];
+  for (const { source, signal } of signals) {
+    const context = projectActorLivenessContext(selectRuntimeEventPrefixFromStore(input.store), input.actorInvocationRef);
+    const declaration = context?.probes.find(row => row.source === source);
+    if (context === null || declaration === undefined) throw new TypeError("stdout window probe lacks its admitted declaration");
+    probes.push(stageRuntimeActivityProbe({ store: input.store, actorInvocationRef: input.actorInvocationRef, source,
+      eventTime: row.eventTime, correlationId: row.correlationId,
+      observation: { kind: "runtime_probe_observation", schemaVersion: "5.0.0", probeRef: declaration.probeRef,
+        scopeDigest: digest(context.scope), clockOriginRef: context.binding.clockOriginRef, elapsedMs: elapsedMs!,
+        underlyingObservationRef: row.eventId, underlyingEventRef: row.eventId, sourceDigest: row.payloadDigest, sourceRevisionDigest: null,
+        evidenceRefs: [row.eventId], coverage: "observed", signal } }));
+  }
+  return Object.freeze({ row, probes: Object.freeze(probes) });
 }
 
 /** Timers request this relation; only a current native threshold admits containment evidence. */
@@ -359,8 +441,13 @@ export function admitRuntimeThreshold(input: Readonly<{
   store: AbgEventStore; predecessorPrefix: DurablePrefixCoordinate; actorInvocationRef: string;
   processRef: string; elapsedMs: number; eventTime: string; correlationId: string;
 }>) {
-  const committed = admitRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix, () => {
-    const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, input.predecessorPrefix, { durableOnly: true }));
+  // E-D: the scope's pending window commits before the decision, which reads
+  // only durable history at that successor.
+  const flushed = admitRuntimeEventTransactionAtDurablePrefix(input.store, input.predecessorPrefix,
+    () => flushNativeStdoutWindow(input.store, input.actorInvocationRef));
+  const decisionPrefix = flushed.successorPrefix ?? input.predecessorPrefix;
+  const committed = admitRuntimeEventTransactionAtDurablePrefix(input.store, decisionPrefix, () => {
+    const prefix = selectOwnedRuntimeEventPrefix(selectActiveRuntimeTransactionHistoryAtDurablePrefix(input.store, decisionPrefix, { durableOnly: true }));
     const context = projectActorLivenessContext(prefix, input.actorInvocationRef);
     if (context === null || context.binding.policy === null) throw new TypeError("threshold has no native declared actor context");
     const policy = context.binding.policy;
@@ -390,7 +477,7 @@ export function admitRuntimeThreshold(input: Readonly<{
     });
     return { kind: "runtime_threshold_staged" as const, event, timeoutClass };
   });
-  if (committed.value.kind === "runtime_threshold_not_reached") return committed.value;
+  if (committed.value.kind === "runtime_threshold_not_reached") return { ...committed.value, successorPrefix: decisionPrefix };
   if (committed.successorPrefix === null) throw new TypeError("admitted threshold has no durable successor");
   const admitted = projectRuntimeLivenessAtPrefix(selectRuntimeEventPrefixFromStore(input.store), input.actorInvocationRef);
   if (admitted?.disposition.disposition !== "controlled_terminate") throw new TypeError("admitted threshold no longer derives containment");

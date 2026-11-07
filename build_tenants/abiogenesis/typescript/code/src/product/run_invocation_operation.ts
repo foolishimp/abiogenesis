@@ -769,7 +769,7 @@ export async function prepareProductRunInvocation<
   }
   const environmentObservation = await observeRunEnvironment({
     publication: resolution.programPublication, program: resolution.program,
-    graphFunctions: resolution.declarationPublications.flatMap(p => p.graphFunctions),
+    graphFunctions: resolution.programDeclarationClosure.publications.flatMap(p => p.graphFunctions),
     authority: { authorityRef: authority.authorityRef, authorityDigest: authority.authorityDigest, actorRef: authority.actorRef },
     archiveRoot: input.workspaceBinding.roots.archiveRoot,
     ...(resources.runEnvironmentResources === undefined ? {} : { resources: resources.runEnvironmentResources }),

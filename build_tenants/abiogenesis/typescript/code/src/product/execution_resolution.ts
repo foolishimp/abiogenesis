@@ -161,6 +161,10 @@ export interface LoadedProductExecutionResolution {
   readonly packagedImplementations:
     readonly Readonly<PackagedLeafImplementationDescriptor>[];
   readonly productSemantics: ProductSemanticsProvider;
+  /** Typed carriage of the authenticated ready Catalog and its one-to-one
+   * admitted installs checked above. It adds no resolution or authority. */
+  readonly admittedCatalog: ReadyGraphFunctionCatalog;
+  readonly admittedInstalls: readonly ProductInstall[];
 }
 
 export type ProductExecutionResolutionResult =
@@ -1122,6 +1126,8 @@ async function resolveProductExecution(
     )),
     packagedImplementations: Object.freeze([...packagedImplementations]),
     productSemantics,
+    admittedCatalog: reconstructedCatalog,
+    admittedInstalls: Object.freeze([...input.admittedInstalls]),
   });
 }
 

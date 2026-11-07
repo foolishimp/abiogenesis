@@ -1,5 +1,5 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { appendFileSync } from "node:fs";
+import { appendFileSync, closeSync, fstatSync, fsyncSync, openSync, writeSync } from "node:fs";
 import { mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { resolve } from "node:path";
 
@@ -18,7 +18,9 @@ import type { RuntimeLivenessObserverProjection } from "./runtime_liveness_contr
 import {
   classifyWorkerTransportFailure,
   composeWorkerTransportArgs,
+  deriveConfiguredActorIdentity,
   sanitizeWorkerTransportEnvironment,
+  type ConfiguredActorIdentity,
   type TransportCapabilityLane,
   type WorkerTransportContract,
   type WorkerTransportFailureClass,
@@ -29,6 +31,41 @@ import { canonicalEquals } from "../shared/value/index.js";
 export type { WorkerTransportFailureClass } from "./transport_contracts.js";
 
 export type WorkerTransportTimeoutClass = "absolute" | "inactivity";
+
+/** A window closes at most this much actor clock after its first capture (§10.10). */
+export const STDOUT_WINDOW_MAX_MS = 30_000;
+/** One part of a captured chunk ending at chunk-relative character `end`,
+ * classified only by the records it completes. */
+export type WorkerStdoutChunkSegment = Readonly<{
+  end: number;
+  progress: boolean;
+  result: boolean;
+  turnBoundary: boolean;
+}>;
+/** One captured stdout chunk as its observer classifies it at capture. When
+ * present, `segments` partitions the chunk at its completed turn boundaries
+ * in order; absent, the whole chunk is one segment of the aggregate class. */
+export type WorkerStdoutChunkClass = Readonly<{
+  elapsedMs: number;
+  progress: boolean;
+  result: boolean;
+  turnBoundary: boolean;
+  segments?: readonly WorkerStdoutChunkSegment[];
+}>;
+export type WorkerStdoutWindowClosure = "turn_boundary" | "interval" | "flush" | "drain";
+/** One closed window: an exact fsynced archive range and its capture instants. */
+export type WorkerStdoutWindow = Readonly<{
+  archiveOffset: number;
+  byteLength: number;
+  firstCaptureElapsedMs: number;
+  lastCaptureElapsedMs: number;
+  lastQualifyingElapsedMs: number | null;
+  resultElapsedMs: number | null;
+  closure: WorkerStdoutWindowClosure;
+}>;
+/** Closes the pending window now. Returns the restore of the taken window,
+ * or null when nothing was pending. */
+export type WorkerStdoutWindowFlush = () => (() => void) | null;
 
 export type WorkerTransportArtifact = {
   readonly path: string;
@@ -64,7 +101,13 @@ export interface WorkerProcessObserver {
     nextWakeDelayMs: number;
   }>;
   readonly onProcessStarted?: (pid: number) => void;
-  readonly onStdoutObserved?: (chunk: string) => boolean;
+  /** Declares window mode: each captured chunk is classified at capture and
+   * referenced once per closed window. Without it every chunk is referenced. */
+  readonly classifyStdoutChunk?: (chunk: string) => WorkerStdoutChunkClass;
+  /** Window mode: receives the scope flush capability before launch. */
+  readonly bindStdoutWindow?: (flush: WorkerStdoutWindowFlush) => void;
+  /** One captured chunk, or in window mode one closed window. */
+  readonly onStdoutObserved?: (chunk: string, window?: WorkerStdoutWindow) => boolean;
   readonly onStderrObserved?: (chunk: string) => boolean;
   readonly onTimeoutObserved?: (
     timeoutClass: WorkerTransportTimeoutClass,
@@ -277,6 +320,13 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
   let conflictingToolUseRef = false;
   let frozenToolInvocations: readonly WorkerToolInvocationEvidence[] = Object.freeze([]);
   let apiRetryCount = 0;
+  let turnBoundaryCount = 0;
+  // Turn boundaries completed by the last observed chunk: each chunk-relative
+  // end (after its newline) with the progress and final output standing there.
+  let chunkTurnBoundaries: Readonly<{ end: number; progressEventCount: number; finalOutput: string }>[] = [];
+  // The standing at the end of the last classified window segment.
+  let classifiedProgressEventCount = 0;
+  let classifiedFinalOutput = "";
   const observeLine = (line: string): void => {
     if (line.trim().length === 0) return;
     let value: JsonValue;
@@ -284,6 +334,8 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
     structuredEventCount += 1;
     if (typeof value !== "object" || value === null || Array.isArray(value)) return;
     const record = value as Readonly<Record<string, unknown>>;
+    // A complete assistant, user or result record ends one structured turn.
+    if (record.type === "assistant" || record.type === "user" || record.type === "result") turnBoundaryCount += 1;
     const retry = record.type === "api_retry" ||
       record.type === "system" && record.subtype === "api_retry";
     if (retry) { apiRetryCount += 1; return; }
@@ -348,19 +400,46 @@ export function createWorkerTransportOutputObserver(structuredOutputExpected: bo
       finalOutput,
     };
   };
+  const observe = (chunk: string): StructuredObservation => {
+    // The held incomplete line precedes this chunk; ends are chunk-relative.
+    let consumed = -pending.length;
+    chunkTurnBoundaries = [];
+    pending += chunk;
+    let newline: number;
+    while ((newline = pending.indexOf("\n")) !== -1) {
+      const turns = turnBoundaryCount;
+      observeLine(pending.slice(0, newline));
+      consumed += newline + 1;
+      pending = pending.slice(newline + 1);
+      if (turnBoundaryCount > turns) chunkTurnBoundaries.push({ end: consumed, progressEventCount, finalOutput });
+    }
+    return snapshot();
+  };
+  const classifySegment = (end: number, progressCount: number, output: string, turnBoundary: boolean): WorkerStdoutChunkSegment => {
+    const segment = Object.freeze({ end, progress: progressCount > classifiedProgressEventCount,
+      result: output.length > 0 && output !== classifiedFinalOutput, turnBoundary });
+    classifiedProgressEventCount = progressCount; classifiedFinalOutput = output;
+    return segment;
+  };
   return {
-    observe(chunk: string): StructuredObservation {
-      pending += chunk;
-      let newline: number;
-      while ((newline = pending.indexOf("\n")) !== -1) {
-        observeLine(pending.slice(0, newline));
-        pending = pending.slice(newline + 1);
-      }
-      return snapshot();
-    },
+    observe,
     finish(): StructuredObservation {
       observeLine(pending); pending = "";
       return snapshot();
+    },
+    /** Complete structured turn records observed so far. */
+    turnBoundaryCount(): number { return turnBoundaryCount; },
+    /** Window classification (§10.10): observes one captured chunk and
+     * partitions it at the turn boundaries it completes. Each segment is
+     * classified only by the records it completes, so a noise-only tail
+     * after a boundary is not activity. */
+    classifyChunk(chunk: string): readonly WorkerStdoutChunkSegment[] {
+      const output = observe(chunk);
+      const segments = chunkTurnBoundaries.map(row => classifySegment(row.end, row.progressEventCount, row.finalOutput, true));
+      if (segments.length === 0 || segments.at(-1)!.end !== chunk.length) {
+        segments.push(classifySegment(chunk.length, output.progressEventCount, output.finalOutput, false));
+      }
+      return Object.freeze(segments);
     },
   };
 }
@@ -393,15 +472,34 @@ async function runProcess(input: {
   let captureOpen = true;
   const inactivityTimer = createMonotonicDeadline();
   const absoluteTimer = createMonotonicDeadline();
-  const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); };
+  const windowTimer = createMonotonicDeadline();
+  const clearLeaseTimers = (): void => { inactivityTimer.cancel(); absoluteTimer.cancel(); windowTimer.cancel(); };
   const snapshotResultBearingStdout = (): void => { resultBearingStdout ??= stdout; };
+  const classifyStdoutChunk = input.observer?.classifyStdoutChunk;
+  // E-A: one archive descriptor; each chunk is written at the running length,
+  // which is its archive offset. A write or fsync failure is sticky.
+  let archiveDescriptor: number;
+  let archiveLength: number;
+  try {
+    archiveDescriptor = openSync(input.stdoutPath, "r+");
+    archiveLength = fstatSync(archiveDescriptor).size;
+  } catch (error) { return refuseBeforeLaunch(error, input.observer); }
+  let archiveFailure: { readonly error: unknown } | null = null;
+  let archiveOpen = true;
+  const closeArchive = (): void => { if (archiveOpen) { archiveOpen = false; closeSync(archiveDescriptor); } };
+  let pendingWindow: PendingStdoutWindow | null = null;
+  let windowsDrained = false;
   let child: ChildProcessWithoutNullStreams;
   try {
+    if (classifyStdoutChunk !== undefined) input.observer?.bindStdoutWindow?.(() => flushStdoutWindow());
     child = spawn(input.command, input.args, {
       cwd: input.cwd, env: input.env, detached: process.platform !== "win32",
       stdio: ["pipe", "pipe", "pipe"],
     });
-  } catch (error) { return refuseBeforeLaunch(error, input.observer); }
+  } catch (error) {
+    closeArchive();
+    return refuseBeforeLaunch(error, input.observer);
+  }
   const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: input.terminationGraceMs }, {
     onSpawn: (pid) => input.observer?.onProcessStarted?.(pid),
     onError: (error) => {
@@ -446,11 +544,112 @@ async function runProcess(input: {
     if (timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
     inactivityTimer.after(input.timeoutMs, () => beginTimeout("inactivity"));
   };
+  const archiveFailed = (error: unknown): never => {
+    archiveFailure ??= { error };
+    lifetime.fail(archiveFailure.error);
+    throw archiveFailure.error;
+  };
+  const archiveWrite = (bytes: Buffer): void => {
+    if (archiveFailure !== null) throw archiveFailure.error;
+    try {
+      for (let written = 0; written < bytes.length;) {
+        const count = writeSync(archiveDescriptor, bytes, written, bytes.length - written, archiveLength + written);
+        if (!Number.isSafeInteger(count) || count < 1) throw new TypeError("worker stdout archive write made no progress");
+        written += count;
+      }
+    } catch (error) { archiveFailed(error); }
+    archiveLength += bytes.length;
+  };
+  const archiveSync = (): void => {
+    if (archiveFailure !== null) throw archiveFailure.error;
+    try { fsyncSync(archiveDescriptor); }
+    catch (error) { archiveFailed(error); }
+  };
+  const takeWindow = (): PendingStdoutWindow | null => {
+    const taken = pendingWindow;
+    pendingWindow = null; windowTimer.cancel();
+    return taken;
+  };
+  // The taken window's bytes are durable before its one reference.
+  const emitWindow = (taken: PendingStdoutWindow, closure: WorkerStdoutWindowClosure): void => {
+    archiveSync();
+    input.observer?.onStdoutObserved?.(taken.parts.join(""), Object.freeze({
+      archiveOffset: taken.archiveOffset, byteLength: taken.byteLength,
+      firstCaptureElapsedMs: taken.firstCaptureElapsedMs, lastCaptureElapsedMs: taken.lastCaptureElapsedMs,
+      lastQualifyingElapsedMs: taken.lastQualifyingElapsedMs, resultElapsedMs: taken.resultElapsedMs, closure,
+    }));
+  };
+  const closeWindow = (closure: WorkerStdoutWindowClosure): void => {
+    const taken = takeWindow();
+    if (taken !== null) emitWindow(taken, closure);
+  };
+  const armWindowTimer = (): void => {
+    if (pendingWindow === null || timedOut || lifetime.snapshot().cleanupDeadlineNs !== null) return;
+    const remainingMs = Number(pendingWindow.closeAtNs - process.hrtime.bigint()) / 1_000_000;
+    windowTimer.after(Math.max(1, Math.ceil(remainingMs)), () => lifetime.observe(() => closeWindow("interval")));
+  };
+  // A rolled-back flush returns its window ahead of any newer pending bytes.
+  const restoreWindow = (taken: PendingStdoutWindow): void => {
+    const newer = pendingWindow;
+    pendingWindow = newer === null ? taken : {
+      ...taken, byteLength: taken.byteLength + newer.byteLength, parts: [...taken.parts, ...newer.parts],
+      lastCaptureElapsedMs: newer.lastCaptureElapsedMs,
+      lastQualifyingElapsedMs: newer.lastQualifyingElapsedMs ?? taken.lastQualifyingElapsedMs,
+      resultElapsedMs: newer.resultElapsedMs ?? taken.resultElapsedMs,
+    };
+    if (!windowsDrained) armWindowTimer();
+  };
+  const flushStdoutWindow = (): (() => void) | null => {
+    const taken = takeWindow();
+    if (taken === null) return null;
+    try { emitWindow(taken, "flush"); }
+    catch (error) { restoreWindow(taken); throw error; }
+    return () => restoreWindow(taken);
+  };
+  const observeStdoutWindow = (chunk: string, byteLength: number, archiveOffset: number): void => {
+    const selected = classifyStdoutChunk!(chunk);
+    if (!Number.isFinite(selected.elapsedMs) || selected.elapsedMs < 0) {
+      throw new TypeError("worker stdout capture requires one finite actor-clock instant");
+    }
+    // Each completed turn boundary closes the window holding it at its exact
+    // position; a later segment of the same capture keeps its own class.
+    const segments = selected.segments ?? [{ end: chunk.length, progress: selected.progress, result: selected.result, turnBoundary: selected.turnBoundary }];
+    const parts: { readonly text: string; readonly byteLength: number; readonly segment: WorkerStdoutChunkSegment }[] = [];
+    let start = 0, partitioned = 0;
+    for (const segment of segments) {
+      if (!Number.isSafeInteger(segment.end) || segment.end < start || segment.end === start && start > 0 || segment.end > chunk.length) {
+        throw new TypeError("worker stdout segments must partition the captured chunk in order");
+      }
+      const text = chunk.slice(start, segment.end), length = Buffer.byteLength(text, "utf8");
+      parts.push({ text, byteLength: length, segment }); partitioned += length; start = segment.end;
+    }
+    if (start !== chunk.length || partitioned !== byteLength) throw new TypeError("worker stdout segments must partition the captured bytes");
+    if (pendingWindow !== null && selected.elapsedMs - pendingWindow.firstCaptureElapsedMs >= STDOUT_WINDOW_MAX_MS) closeWindow("interval");
+    let offset = archiveOffset, renew = false;
+    for (const { text, byteLength: length, segment } of parts) {
+      const qualifying = segment.progress || segment.result;
+      if (pendingWindow === null) {
+        pendingWindow = { archiveOffset: offset, byteLength: 0, parts: [], firstCaptureElapsedMs: selected.elapsedMs,
+          lastCaptureElapsedMs: selected.elapsedMs, lastQualifyingElapsedMs: null, resultElapsedMs: null,
+          closeAtNs: process.hrtime.bigint() + BigInt(STDOUT_WINDOW_MAX_MS) * 1_000_000n };
+        armWindowTimer();
+      }
+      pendingWindow.byteLength += length; pendingWindow.parts.push(text);
+      pendingWindow.lastCaptureElapsedMs = selected.elapsedMs;
+      if (qualifying) pendingWindow.lastQualifyingElapsedMs = selected.elapsedMs;
+      if (segment.result) pendingWindow.resultElapsedMs = selected.elapsedMs;
+      if (segment.turnBoundary) closeWindow("turn_boundary");
+      offset += length; renew ||= qualifying;
+    }
+    if (renew) renewInactivityLease();
+  };
   const onStdout = (chunk: string): void => {
     if (!captureOpen) return;
     lifetime.observe(() => {
-      appendFileSync(input.stdoutPath, chunk, "utf8"); stdout += chunk;
-      if (input.observer?.onStdoutObserved?.(chunk) === true) renewInactivityLease();
+      const bytes = Buffer.from(chunk, "utf8"), archiveOffset = archiveLength;
+      archiveWrite(bytes); stdout += chunk;
+      if (classifyStdoutChunk !== undefined) observeStdoutWindow(chunk, bytes.length, archiveOffset);
+      else if (input.observer?.onStdoutObserved?.(chunk) === true) renewInactivityLease();
     });
   };
   const onStderr = (chunk: string): void => {
@@ -470,8 +669,14 @@ async function runProcess(input: {
   try {
     const facts = await lifetime.completion;
     let finalization: Pick<ProcessObservation, "finalizationError"> = {};
-    try { input.observer?.onProcessFinalized?.(facts); }
+    // Every stdout row precedes finalization. A drain failure is the
+    // finalization error, and finalization still runs.
+    try { windowsDrained = true; closeWindow("drain"); }
     catch (error) { finalization = { finalizationError: error }; }
+    try { input.observer?.onProcessFinalized?.(facts); }
+    catch (error) { if (!Object.hasOwn(finalization, "finalizationError")) finalization = { finalizationError: error }; }
+    try { closeArchive(); }
+    catch (error) { if (!Object.hasOwn(finalization, "finalizationError")) finalization = { finalizationError: error }; }
     return {
       facts, ...finalization,
       status: facts.directExit?.status ?? null, signal: facts.directExit?.signal ?? null,
@@ -481,10 +686,22 @@ async function runProcess(input: {
       resultBearingStdout: resultBearingStdout ?? stdout, stdout, stderr,
     };
   } finally {
-    clearLeaseTimers(); captureOpen = false;
+    clearLeaseTimers(); captureOpen = false; windowsDrained = true; pendingWindow = null;
     child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
+    try { closeArchive(); } catch { /* Only an abandoned completion reaches here; it already carries its own failure. */ }
   }
 }
+
+type PendingStdoutWindow = {
+  readonly archiveOffset: number;
+  byteLength: number;
+  readonly parts: string[];
+  readonly firstCaptureElapsedMs: number;
+  lastCaptureElapsedMs: number;
+  lastQualifyingElapsedMs: number | null;
+  resultElapsedMs: number | null;
+  readonly closeAtNs: bigint;
+};
 
 function refuseBeforeLaunch(error: unknown, observer?: WorkerProcessObserver): never {
   try { observer?.onSpawnFailed?.(error instanceof Error ? error.message : String(error)); }
@@ -641,10 +858,7 @@ async function executeWorkerTransport(
       signal: processObservation.signal,
       timeoutMs: input.timeoutMs,
       absoluteTimeoutMs,
-      timedOut: processObservation.timedOut,
       timeoutClass: processObservation.timeoutClass,
-      exitObserved: processObservation.exitObserved,
-      terminationConfirmed: processObservation.terminationConfirmed,
       failureClass,
       structuredEventCount: observation.structuredEventCount,
       progressEventCount: observation.progressEventCount,
@@ -664,8 +878,13 @@ async function executeWorkerTransport(
     };
     const transportBytes = Buffer.from(`${canonicalJson(body)}\n`, "utf8");
     await writeFile(paths.transport, transportBytes);
+    // D5: the archive omits the lifecycle copies its status, signal, timeoutClass
+    // and processFacts already determine; the live result still carries them.
     const result = deepFreeze({
       ...body,
+      timedOut: processObservation.timedOut,
+      exitObserved: processObservation.exitObserved,
+      terminationConfirmed: processObservation.terminationConfirmed,
       artifacts: {
         ...body.artifacts,
         transport: artifact(paths.transport, transportBytes),
@@ -695,6 +914,9 @@ export interface PreparedWorkerTransport {
   readonly lane: TransportCapabilityLane;
   readonly command: string;
   readonly args: readonly string[];
+  /** Derived from exactly these final args and the sanitized environment the
+   * process receives; the frozen request re-executes the same selection. */
+  readonly configuredIdentity: ConfiguredActorIdentity;
   readonly cwd: string;
   readonly archiveRoot: string;
   readonly label: string;
@@ -747,7 +969,12 @@ export async function prepareWorkerTransport(
   const archiveRoot = resolve(input.archiveRoot);
   const cwd = await realpath(input.cwd);
   const sourceEnvironment = exactEnvironment(input.environment ?? process.env);
-  const contract = input.contract;
+  // The plan owns frozen copies: a later change to the caller's contract,
+  // schema or appended arguments cannot alter the executed command, arguments
+  // or identity.
+  const contract: WorkerTransportContract = deepFreeze(structuredClone(input.contract));
+  const responseJsonSchema = input.responseJsonSchema === undefined ? undefined : deepFreeze(structuredClone(input.responseJsonSchema));
+  const explicitAppendArgs = input.explicitAppendArgs === undefined ? undefined : Object.freeze([...input.explicitAppendArgs]);
   const paths = deepFreeze({
     prompt: resolve(archiveRoot, `${input.label}-prompt.txt`),
     output: resolve(archiveRoot, `${input.label}-output.txt`),
@@ -761,13 +988,13 @@ export async function prepareWorkerTransport(
     outputPath: paths.output,
     lane: input.lane,
     environment: sourceEnvironment,
-    ...(input.responseJsonSchema === undefined
+    ...(responseJsonSchema === undefined
       ? {}
-      : { responseJsonSchema: input.responseJsonSchema }),
+      : { responseJsonSchema }),
     ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
-    ...(input.explicitAppendArgs === undefined
+    ...(explicitAppendArgs === undefined
       ? {}
-      : { explicitAppendArgs: input.explicitAppendArgs }),
+      : { explicitAppendArgs }),
   });
   const sanitizedEnvironment = exactEnvironment(
     sanitizeWorkerTransportEnvironment(contract, sourceEnvironment) ?? {},
@@ -780,6 +1007,7 @@ export async function prepareWorkerTransport(
     lane: input.lane,
     command: contract.command,
     args,
+    configuredIdentity: deriveConfiguredActorIdentity(contract, args, sanitizedEnvironment),
     cwd,
     archiveRoot,
     label: input.label,
@@ -787,9 +1015,9 @@ export async function prepareWorkerTransport(
     absoluteTimeoutMs,
     terminationGraceMs,
     promptDigest: sha256Canonical(input.prompt),
-    responseJsonSchemaDigest: input.responseJsonSchema === undefined
+    responseJsonSchemaDigest: responseJsonSchema === undefined
       ? null
-      : sha256Canonical(input.responseJsonSchema),
+      : sha256Canonical(responseJsonSchema),
     environmentPolicyDigest: sha256Canonical({
       agentKey: contract.agentKey,
       sanitizedEnvironmentPrefixes: contract.sanitizedEnvironmentPrefixes,
@@ -813,14 +1041,14 @@ export async function prepareWorkerTransport(
     timeoutMs: input.timeoutMs,
     absoluteTimeoutMs,
     terminationGraceMs,
-    ...(input.responseJsonSchema === undefined
+    ...(responseJsonSchema === undefined
       ? {}
-      : { responseJsonSchema: input.responseJsonSchema }),
+      : { responseJsonSchema }),
     ...(input.responsePresentation === undefined ? {} : { responsePresentation: input.responsePresentation }),
     environment: sourceEnvironment,
-    ...(input.explicitAppendArgs === undefined
+    ...(explicitAppendArgs === undefined
       ? {}
-      : { explicitAppendArgs: input.explicitAppendArgs }),
+      : { explicitAppendArgs }),
   };
   preparedTransportState.set(plan, request);
   return plan;

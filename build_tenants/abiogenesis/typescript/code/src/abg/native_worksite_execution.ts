@@ -8,7 +8,8 @@ import { projectReacquiredNativeWorkCommandSourceAtPrefix } from "./native_work_
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
 import { isNativeWorksiteCommandExecutionTask, type NativeWorksiteCommandExecutionTask } from "../product/worksite_command_execution.js";
-import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin } from "../product/native_workspace_work.js";
+import { NATIVE_WORKSPACE_WORK_IDS as native, isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkFailure, nativeWorkspacePathWithin,
+  isNativeWorkspaceWorkTask, nativeWorkspaceWorkObservationMatchesTask, nativeWorkspaceWorkFailureMatchesTask, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS as c2 } from "../product/worksite_command_execution_identity.js";
 import { isWorksiteFileReplaceRequest } from "../product/worksite_effect.js";
 import { runtimePrefixComputation, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
@@ -34,8 +35,28 @@ const bodies = (prefix: RuntimeEventPrefix, key: string, kind: string): readonly
 
 const NATIVE_TASK_PROOF = Symbol("native_command_task_proof");
 const NATIVE_SOURCE_PROOF = Symbol("native_command_source_proof");
-type NativeSource = Readonly<{ sourceBasis: ExecutionBasis; sourceResult: RuntimeEvent;
+type NativeSource = Readonly<{ sourceBasis: ExecutionBasis; sourceTask: NativeWorkspaceWorkTask; sourceResult: RuntimeEvent;
   sourceJudgment: RuntimeEvent; sourceClosedEvent: RuntimeEvent }>;
+/** @internal The exact admitted input of one admitted native Result: the raw
+ * input of the Result's own execution basis, whose native authority binds the
+ * CCall input to it. The Result binds that input by digest; a task is never
+ * inferred from an equal body, the root input or a caller copy. */
+export function projectNativeWorkspaceWorkResultTaskAtPrefix(prefix: RuntimeEventPrefix, event: RuntimeEvent): NativeWorkspaceWorkTask | null {
+  try {
+    if (event.kind !== "c_call_result_admitted" || typeof event.basisId !== "string" || !record(event.payload)) return null;
+    const value = event.payload.value;
+    if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) || value.provenance.cCallRef !== event.aggregateId) return null;
+    // A retained Result keeps its original task under its original contract.
+    const retained = (value as unknown as { readonly task?: unknown }).task;
+    const basis = retained === undefined ? projectExactExecutionBasisAtPrefix(prefix, event.basisId) : null;
+    const task = retained ?? basis?.rawInputValue;
+    if (!isNativeWorkspaceWorkTask(task) || (retained === undefined && (basis === null || basis.rawInputDigest !== sha256Canonical(task) ||
+      basis.graphFunctionRef !== event.graphFunctionRef))) return null;
+    const { failureSignalRef: _s, failureSourceRef: _r, failureCandidateDigest: _d, failureClass: _c, ...candidate } = value as Readonly<Record<string, JsonValue>>;
+    return value.kind === "native_workspace_work_observation" ? nativeWorkspaceWorkObservationMatchesTask(task, value) ? task : null
+      : nativeWorkspaceWorkFailureMatchesTask(task, { ...candidate, failureClass: (value as { failureClass: string }).failureClass }) ? task : null;
+  } catch { return null; }
+}
 type NativeTaskFact = Readonly<{ eventRef: string; payloadDigest: string; admissionOrdinal: number;
   field: "rawInputValue" | "value"; taskDigest: string }>;
 type NativeSourceFact = Readonly<{ workspaceId: string; sourceDigest: string; sourceResultRef: string; sourceBasisRef: string;
@@ -81,7 +102,7 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
 export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPrefix,
   source: NativeWorksiteCommandExecutionTask["sourceNativeWork"]): Readonly<NativeSource> | null {
   if (!isNativeWorkspaceWorkObservation(source)) return null;
-  const graphFunctionRef = source.task.assessment === undefined ? native.graphFunctionRef : native.assessmentGraphFunctionRef;
+  const graphFunctionRef = source.assessment === undefined ? native.graphFunctionRef : native.assessmentGraphFunctionRef;
   const implementationRef = native.implementationRef;
   const implementationBindingRef = native.implementationBindingRef;
   const facts = isOwnedRuntimeEventPrefix(prefix)
@@ -103,17 +124,20 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
     result.payload.valueDigest !== sha256Canonical(source) || !Array.isArray(result.payload.evidenceRefs)) return null;
   const payload = result.payload;
   const basis = projectExactExecutionBasisAtPrefix(prefix, result.basisId);
-  if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !same(basis.rawInputValue, source.task) ||
-    basis.workspaceBindingId !== source.task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest) return null;
-  if (unchanged && known.workspaceId === source.task.workspaceAuthorityBasis.workspaceId &&
+  // The Result's task is its own basis's admitted raw input.
+  const task = basis?.rawInputValue;
+  if (basis === null || basis.graphFunctionRef !== graphFunctionRef || !isNativeWorkspaceWorkTask(task) ||
+    !nativeWorkspaceWorkObservationMatchesTask(task, source) ||
+    basis.workspaceBindingId !== task.workspaceBinding.bindingId || basis.workspaceBindingDigest !== task.workspaceBinding.bindingDigest) return null;
+  if (unchanged && known.workspaceId === task.workspaceAuthorityBasis.workspaceId &&
       known.sourceDigest === payload.valueDigest && known.sourceBasisRef === result.basisId) {
     const judgment = runtimeEventAtPrefix(prefix, known.sourceJudgmentRef), closed = runtimeEventAtPrefix(prefix, known.sourceClosedEventRef);
     if (judgment !== undefined && closed !== undefined)
-      return Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
+      return Object.freeze({ sourceBasis: basis, sourceTask: task, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
   }
   const invocation = projectExactInvocationAdmissionAtPrefix(prefix, basis.invocationAdmissionRef);
-  if (invocation === null || invocation.workspaceBindingId !== source.task.workspaceBinding.bindingId ||
-    invocation.workspaceBindingDigest !== source.task.workspaceBinding.bindingDigest || invocation.workspaceId !== source.task.workspaceAuthorityBasis.workspaceId) return null;
+  if (invocation === null || invocation.workspaceBindingId !== task.workspaceBinding.bindingId ||
+    invocation.workspaceBindingDigest !== task.workspaceBinding.bindingDigest || invocation.workspaceId !== task.workspaceAuthorityBasis.workspaceId) return null;
   const fibre = exactOrNull(resolveExactMatch(bodies(prefix, "related:" + result.aggregateId, "c_call_fibre_selected"), e => e.aggregateId === result.aggregateId &&
     e.basisId === result.basisId && e.runId === result.runId && e.graphCallId === result.graphCallId && record(e.payload) &&
     e.payload.regime === "F_P" && e.payload.implementationRef === implementationRef && e.payload.implementationBindingRef === implementationBindingRef));
@@ -132,10 +156,10 @@ export function projectNativeWorkspaceWorkSourceAtPrefix(prefix: RuntimeEventPre
   if (fibre === null || evidence === null || judgment === null || closed === null ||
     fibre.admissionOrdinal >= evidence.admissionOrdinal || evidence.admissionOrdinal >= result.admissionOrdinal ||
     closed.admissionOrdinal <= judgment.admissionOrdinal) return null;
-  const value = Object.freeze({ sourceBasis: basis, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
+  const value = Object.freeze({ sourceBasis: basis, sourceTask: task, sourceResult: result, sourceJudgment: judgment, sourceClosedEvent: closed });
   if (facts !== null && related !== null) {
     const basisExtent = runtimeEventSelectorExtent(prefix, "basis:" + result.basisId);
-    facts.set(source.provenance.cCallRef, { workspaceId: source.task.workspaceAuthorityBasis.workspaceId,
+    facts.set(source.provenance.cCallRef, { workspaceId: task.workspaceAuthorityBasis.workspaceId,
       sourceDigest: payload.valueDigest as string, sourceResultRef: result.eventId, sourceBasisRef: result.basisId,
       relatedCount: related.count, relatedLastOrdinal: related.lastOrdinal,
       basisCount: basisExtent.count, basisLastOrdinal: basisExtent.lastOrdinal,
@@ -153,7 +177,7 @@ export function projectNativeWorkCommandSourceAtPrefix(prefix: RuntimeEventPrefi
 export function projectNativeWorkCommandSourceAtPrefix(prefix: RuntimeEventPrefix,
   task: NativeWorksiteCommandExecutionTask): Readonly<NativeSource> | null {
   const admittedTask = admittedNativeTask(prefix, task);
-  if (admittedTask === null || admittedTask.sourceNativeWork.task.assessment !== undefined) return null;
+  if (admittedTask === null || admittedTask.sourceNativeWork.assessment !== undefined) return null;
   const source = projectNativeWorkspaceWorkSourceAtPrefix(prefix, admittedTask.sourceNativeWork);
   return source === null || worksiteCommandSourcesInvalidatedAfter(prefix, source.sourceResult.admissionOrdinal,
     admittedTask.workspaceAuthorityBasis.canonicalRoot, admittedTask.protectedObservations.map(row => row.subject.relativePath),
@@ -251,9 +275,10 @@ export function worksiteCommandSourcesInvalidatedAfter(prefix: RuntimeEventPrefi
     const value = e.kind === "c_call_result_admitted" ? e.payload.value : null;
     if (!(isNativeWorkspaceWorkObservation(value) || isNativeWorkspaceWorkFailure(value)) ||
       e.aggregateId !== value.provenance.cCallRef ||
-      (e.graphFunctionRef !== native.graphFunctionRef && e.graphFunctionRef !== native.assessmentGraphFunctionRef) ||
-      value.task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
-    const impact = nativeWorkImpact(value.task, value.after === null ? null : value.changedPaths);
+      (e.graphFunctionRef !== native.graphFunctionRef && e.graphFunctionRef !== native.assessmentGraphFunctionRef)) return false;
+    const task = projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, e);
+    if (task === null || task.workspaceAuthorityBasis.canonicalRoot !== canonicalRoot) return false;
+    const impact = nativeWorkImpact(task, value.after === null ? null : value.changedPaths);
     return queried.some(path => nativeWorkImpactOverlaps(impact, path));
   });
 }

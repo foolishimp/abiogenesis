@@ -5,7 +5,7 @@
 import { isRecord } from "../../shared/admit/index.js";
 import { compareUnicodeCodeUnits } from "../../shared/canonical_json.js";
 import type { RuntimeEventPrefix, ValidatedRuntimeEventPrefix } from "../event_prefix.js";
-import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
+import { runtimeEventProfile, type RuntimeEvent } from "../event_store.js";
 import { isRuntimeProbeObservation, isRuntimeSystemProbeContract,
   type RuntimeProbeObservation, type RuntimeSystemProbeContract } from "../runtime_liveness_contracts.js";
 import {
@@ -218,7 +218,7 @@ export function applyStep(working: WorkingFoldState, event: RuntimeEvent, depend
   // exported effect helper. Later closures consume only these scoped facts.
   let probe: FoldProbeFact | null = null;
   if (event.kind === "runtime_activity_probe_observed" && isRecord(event.payload) &&
-      (event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ||
+      (runtimeEventProfile(event)?.nativeLiveness === true ||
         isRuntimeSystemProbeContract(event.payload.probeContract) && isRuntimeProbeObservation(event.payload.observation))) {
     const contract = event.payload.probeContract as unknown as RuntimeSystemProbeContract;
     const observation = event.payload.observation as unknown as RuntimeProbeObservation;

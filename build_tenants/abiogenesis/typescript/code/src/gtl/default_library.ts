@@ -307,6 +307,8 @@ export function constructDefaultGovernanceLibraryModulePublication(artifact: Roo
     programs: [{ kind: "gtl_program", programRef: ref("program", "default"), version: "5.0.0", moduleRef: ref("module", "default"),
       starts: [{ startRef: ref("start", "default"), graphFunctionRef: graphs[0]!.name }], callableMembership: [...graphs.map(g => g.name), native.graphFunctionRef, native.assessmentGraphFunctionRef, c2.graphFunctionRef],
       closureContractRef: contract("closure-run"), policies: { "abg.root_mode": "direct", "abg.compute_regime": "mixed", "abg.default_start_ref": ref("start", "default"), "abg.run_environment": environment.declarationRef } }],
-    contributions: graphs.filter(g => g.name !== ref("graph-function", "executive-step")).map(g => ({ handle: g.name, kind: "graph_function", declarationOrContractRef: g.name,
+    // One Catalog row per published GraphFunction, including the local
+    // executive-step, closes the library Program's own scope (F2-PROGRAM-001).
+    contributions: graphs.map(g => ({ handle: g.name, kind: "graph_function", declarationOrContractRef: g.name,
       owningProductId: artifact.productId, programMembershipRefs: [ref("program", "default")], readinessPrerequisiteRefs: [ref("program", "default")], compatibilityRefs: ["compatibility://abiogenesis/major/5"], provenanceRefs: [artifact.artifactDigest, artifact.productManifestDigest] })) });
 }

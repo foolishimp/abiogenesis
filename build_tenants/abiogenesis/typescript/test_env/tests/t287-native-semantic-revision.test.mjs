@@ -129,7 +129,7 @@ async function harness(env, options={}){
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
- function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
+ function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceTask:bases.get(state.cCall.basisId)?.rawInputValue,sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
  function event(kind,payload,scope={}){const value={kind,payload,eventId:'component:event:'+(++ordinal),admissionOrdinal:ordinal,causationEventRefs:[],...scope};events.push(value);return value;}
  return {events,states,bases,original,intake,publicRun,prefix,basis,owner,implementation,jobOwner,invocation,call,admit,source,event,coordinate,get current(){return current;},set ancestry(v){ancestry=v;}};
 }
@@ -224,7 +224,7 @@ test('native D2 serialized public request chooses among eligible stages and comp
  assert.equal(semantics.ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS.resolveJudgmentRelation(R.stepPredicateRef).evaluate(finished,finished),true);
  assert.deepEqual(finished.current.job,env.job);assert.deepEqual(finished.current.assets.slice(0,1),parent.assets.slice(0,1));
  assert.equal(m.nativeSemanticCommandExecutionLimits(finished.current),null,'new limits did not rewrite the old job');
- const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
+ const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,task,coordinate(nativeState),coordinate(nativeState)),null);
  t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
 });
 
