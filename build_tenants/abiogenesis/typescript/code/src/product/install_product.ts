@@ -92,14 +92,27 @@ function installedPackageRoot(targetRoot: string, packageName: string): string |
   return join(targetRoot, "node_modules", ...packageName.split("/"));
 }
 
+/** Observation-only physical verification work for the §10.12 same-resolution
+ * install proof: content verifications, payload lstat and directory-list calls,
+ * hashed payload files and graph-carrier reads actually performed. They
+ * select, cache and change no install, verification or refusal value. */
+const installedContentWork = { contentVerifications: 0, lstats: 0, lists: 0, fileHashes: 0, graphCarrierReads: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeInstalledContentWork(): Readonly<typeof installedContentWork> {
+  return Object.freeze({ ...installedContentWork });
+}
+
 async function listInstalledPayloadFiles(installedRoot: string): Promise<readonly string[]> {
   const files: string[] = [];
   const visit = async (absolute: string): Promise<void> => {
+    installedContentWork.lstats++;
     const stat = await lstat(absolute);
     if (stat.isSymbolicLink()) {
       throw new Error(`installed payload contains a symbolic link: ${absolute}`);
     }
     if (stat.isDirectory()) {
+      installedContentWork.lists++;
       for (const entry of (await readdir(absolute)).sort()) {
         await visit(join(absolute, entry));
       }
@@ -135,6 +148,7 @@ async function installedPayloadMatchesGraphCarrier(
       graphAsset.path,
     ].sort();
     if (!canonicalEquals(actualFiles, expectedFiles)) return false;
+    installedContentWork.graphCarrierReads++;
     const graphBytes = await readFile(join(installedRoot, graphAsset.path));
     const graph = JSON.parse(graphBytes.toString("utf8")) as unknown;
     if (
@@ -152,6 +166,7 @@ async function installedPayloadMatchesGraphCarrier(
     }
     const inventory: PayloadInventoryRow[] = [];
     for (const path of [...installedManifest.productRelativeLocators].sort()) {
+      installedContentWork.fileHashes++;
       inventory.push({
         path,
         sha256: await sha256File(join(installedRoot, path)),
@@ -166,6 +181,7 @@ async function installedPayloadMatchesGraphCarrier(
 export async function installedProductContentMatches(
   install: ProductInstallCandidate | ProductInstall,
 ): Promise<boolean> {
+  installedContentWork.contentVerifications++;
   try {
     const installedPackage = JSON.parse(
       await readFile(join(install.installedRoot, "package.json"), "utf8"),

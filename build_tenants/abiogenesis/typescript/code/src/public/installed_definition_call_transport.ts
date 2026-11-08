@@ -421,7 +421,8 @@ async function transportInstalledDefinitionCall(
   return invokeInstalledDefinitionCall(detachedAcquisition.kind, detachedCandidate);
 }
 
-/** Thin native carrier: semantic data is detached, while the exact owner-issued
+/** Thin native carrier: an established call is carried by reference (§10.11
+ * X3); any other call's semantic data is detached, while the exact owner-issued
  * physical selection survives. The same installed callable admits and executes it. */
 export function runInstalledDefinitionCallWithResource<C = unknown>(
   resource: abg.AcquiredAbgEventResourceSelection,

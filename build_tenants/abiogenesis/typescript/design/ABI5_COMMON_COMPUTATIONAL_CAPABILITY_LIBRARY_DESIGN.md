@@ -1042,6 +1042,72 @@ regressions; the M5 Q23 prepared-plan case is the mutable-input falsifier
 for X6. Matched installed measurements and the CPU profile belong to the
 separate operator assignment.
 
+### 10.12 Owner-held immutable folds (RC9 OWN-01)
+
+§10.9–§10.11 hold the call, the session and the plan; RC9 applies the same
+rule to two owner folds over immutable rows or bytes and to the final worker
+contract. Each fact is an owner-local derived value, never persisted, never
+admission, and never outliving its territory. No cache framework, registry,
+lifetime or Public value is added.
+
+**O1 Execution-basis row fact.** `execution_basis_record.ts` checks one
+admitted `basis_admitted` row (raw input `admitJson`, raw digest, body digest)
+once and retains the checked record in the prefix's derivation territory
+(`runtimePrefixComputation`, one ordered lineage) under the row's event id and
+admission ordinal. Exact-prefix membership and match cardinality stay outside
+the fact: each call resolves its own match at its own cut, so a later
+duplicate is `many` and an earlier cut lacking the row is `absent`. Only a
+`one` outcome is retained; a refused or malformed row is checked again. A
+validation view, a foreign history and a raw or copied prefix have no shared
+territory and check cold; a rolled-back row is never in a selected cut.
+
+**O2 Workspace environment body.** `environment_admission.ts` retains the
+invariant environment body (authority basis, binding candidate and binding,
+installs, lock, ProductSet) or its refusal in the owner artifact projection's
+lineage territory, keyed by the exact binding coordinate and the artifact
+dependency extent: the ordered admission digests of the artifact rows the
+derivation reads. The cut is not in the key. Each call returns a fresh frozen
+wrapper with the requested `prefix` and `artifactTruth`. An unrelated append
+keeps the extent and borrows the body; an admitted binding, install, lock or
+other artifact row changes it and derives again. Artifact truth still checks
+availability at every requested cut. A copied or raw artifact projection is
+fully validated and derives cold.
+
+**O3 Installed verification (open).** No installed content fact is carried.
+Physical installed verification (`installedProductContentMatches`) remains a
+dependency at every consumer and effect boundary that performed it before RC9:
+each resolution's module acquisition (`prepareInstalledProductModules`), every
+leaf semantics runtime content check (leaf port construction and each leaf
+authorization), each nested semantics load of the leaf port, and each Public
+`product.verify`. A content change in the install is refused at the next of
+those boundaries. Reuse of a verification result is OPEN as a separate T287
+performance follow-up because no valid reuse lifetime is resolved; this
+section makes no zero-read or once-per-resolution claim.
+
+**O4 Final worker contract.** `actor_process.ts` deep-freezes the final native
+transport contract and its argument template where it is produced, so the
+plan owner's X6 borrows it. Command, environment, governed endpoint and prompt,
+model, cwd, limits and archive coordinates remain per-occurrence inputs; no
+runtime-constant plan is retained, and a mutable contract is still copied.
+
+**Observation.** Observation-only counters, exported from no barrel, count
+actual work: `observeExecutionBasisRowWork` (row admissions, body digests),
+`observeWorkspaceEnvironmentWork` (body derivations),
+`observeInstalledContentWork` (verifications, `lstat`, directory lists, file
+hashes, graph-carrier reads). They select, cache and change nothing.
+
+**Proof.** `t287-held-owner-fold-reuse.test.mjs` drives the real owners for
+O1, O2 and O4: first validation once, later-cut reuse, duplicate, earlier cut,
+copied and malformed rows, rollback-free cold equality, unrelated append and
+binding change, copied projection, configuration variation and owner output
+equivalence. Its held installed Runs carry each returned successor selection.
+For O3 it observes physical verification in every Run and every Public check,
+and, after a disposable install content change, the first content check of an
+actual resolution's retained leaf semantics verifies physically and refuses, as
+does a new resolution.
+The W2 owner-chain oracle admits exactly `selectedDefinitions`,
+`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.
+
 ## 11. Source-to-library-to-outcome paths
 
 These are reconstructible design paths, not executed traces. Route labels:

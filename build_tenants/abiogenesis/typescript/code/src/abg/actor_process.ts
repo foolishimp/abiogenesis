@@ -1051,10 +1051,13 @@ async function invokeActorProcessWithAssembly(
       command: command ?? "claude",
       environment: governedEndpoint === null ? environment : Object.freeze({ ...environment, ...governedEndpoint.environment }),
     });
+  // §10.12: the final native contract and its args are frozen where they are
+  // produced, so the plan owner borrows them instead of copying. Command,
+  // environment, endpoint and governed prompt stay per-occurrence inputs.
   const plan = await prepareWorkerTransport({
-    contract: nativeTask === null ? transportContract : { ...transportContract,
+    contract: nativeTask === null ? transportContract : deepFreeze({ ...transportContract,
       argsTemplate: [...transportContract.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash",
-        ...(governedPrompt === null ? [] : ["--append-system-prompt", governedPrompt])] },
+        ...(governedPrompt === null ? [] : ["--append-system-prompt", governedPrompt])] }),
     prompt: input.request.prompt,
     lane: input.request.transportLane,
     cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
