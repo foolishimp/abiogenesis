@@ -9,6 +9,7 @@ import { pathToFileURL } from 'node:url';
 import { Readable, Writable } from 'node:stream';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import test from 'node:test';
+import { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';
 
 // Explicit package selection also lets later proof consume exact packaged bytes.
 // Private function exposure below is component evidence, never installed Public proof.
@@ -552,31 +553,16 @@ const HTTP_TEST_CAP_MS = testCapMs(PHYSICAL_HTTP_MODES.map(() => HTTP_MODE_CEILI
 const CAPTURE_TEST_CAP_MS = testCapMs(Object.values(CAPTURE_CEILING_MS));
 
 // Observation-only physical evidence in parent monotonic milliseconds from the
-// case start; child clocks are never compared with it. Polling reads only files
-// the fixtures publish, runs only while the owner operation is active, stops at
-// owner return and never passes its explicit setup deadline. It touches no
-// owner clock, ChildProcess, callback or capture.
+// case start; child clocks are never compared with it. The test-owned observer
+// (support/t287-publication-observer.mjs) reads only files the fixtures
+// publish, credits a read only when it settles unsealed and strictly before the
+// explicit setup cutoff, seals once at owner return or that cutoff without
+// awaiting a pending read, and touches no owner clock, ChildProcess, callback
+// or capture. The owner's settle instant and original result/error are taken
+// before the observation stops.
 const sinceMs = (start, at = performance.now()) => Math.round((at - start) * 1000) / 1000;
 const publishedText = path => readFile(path, 'utf8').then(bytes => bytes === '' ? null : bytes);
 const publishedJson = path => publishedText(path).then(bytes => bytes === null ? null : JSON.parse(bytes));
-function observePublication(start, setupMs, probes) {
-  const observed = {}, pending = new Map(Object.entries(probes));
-  let stopped = false, wake = () => {};
-  const done = (async () => {
-    while (!stopped && pending.size > 0 && performance.now() - start < setupMs) {
-      for (const [name, probe] of pending) {
-        const value = await probe().catch(() => null);
-        if (value !== null) { observed[name] = { atMs: sinceMs(start), value }; pending.delete(name); }
-      }
-      if (!stopped && pending.size > 0) await new Promise(resolveWait => {
-        const timer = setTimeout(resolveWait, 10); wake = () => { clearTimeout(timer); resolveWait(); };
-      });
-    }
-    return { observed, unobserved: [...pending.keys()],
-      end: pending.size === 0 ? 'complete' : stopped ? 'owner_returned' : 'setup_deadline' };
-  })();
-  return () => { stopped = true; wake(); return done; };
-}
 // Returns the original ChildProcess unchanged; records only the parent
 // monotonic time at which spawn returned and the actual child PID.
 function spawnObserver() {
@@ -609,13 +595,12 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
     const declaration = await httpInput(file, `${mode}.port`, { timeoutMs: PHYSICAL_HTTP.launchMs, terminationGraceMs: PHYSICAL_HTTP.graceMs },
       { timeoutMs: PHYSICAL_HTTP.requestMs });
     if (mode === 'owner-error') declaration.request.method = 'bad\nmethod';
-    let result = null, failure = null, identityFailure = null;
+    let identityFailure = null;
     spawns.last = null; const start = performance.now();
-    const stopObserving = observePublication(start, SETUP_MS,
-      { identity: () => publishedJson(pidFile), port: () => publishedText(join(root, `${mode}.port`)) });
-    try { result = await helper.runHttpProbe({ taskRef: `task://physical-http/${mode}`, taskDigest: 'sha256:' + '3'.repeat(64) },
-      root, declaration); } catch (error) { failure = error; }
-    const ownerReturnMs = sinceMs(start), readiness = await stopObserving();
+    const owned = await observeOwnerCall(start, SETUP_MS,
+      { identity: () => publishedJson(pidFile), port: () => publishedText(join(root, `${mode}.port`)) },
+      () => helper.runHttpProbe({ taskRef: `task://physical-http/${mode}`, taskDigest: 'sha256:' + '3'.repeat(64) }, root, declaration));
+    const { result, failure, ownerReturnMs, readiness } = owned;
     // A missing PID observation must not erase the owner's caught result or error.
     try { identity = JSON.parse(await readFile(pidFile, 'utf8')); } catch (error) { identityFailure = error; }
     const scope = identity === null ? null : process.platform === 'win32' ? identity.pid : -identity.pgid;
@@ -626,6 +611,8 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
       identityFailure: identityFailure === null ? null : { name: identityFailure.name, code: identityFailure.code ?? null, message: identityFailure.message },
       stdout: result?.process ? decode(result.process.stdout) : null, stderr: result?.process ? decode(result.process.stderr) : null,
       observation: result, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
+    retainEvidence(t, 't287-owned-process-lifetime', `physical-http-${mode}`, { owner: 'http', mode, identity, scopeAbsent, physical,
+      threw: owned.threw, failure: failureFact(failure), observation: result, identityFailure: failureFact(identityFailure) });
     if (identityFailure !== null) throw identityFailure;
     assert.equal(scopeAbsent, true, 'owned scope absent before next case');
     assert.equal(physical.spawn?.pid, identity.pid, 'published PID is the spawned owned child');
@@ -657,27 +644,27 @@ test('physical owner capture: finite inherited-pipe late output stays HTTP diagn
     await writeFile(descendant, `import {writeFileSync} from 'node:fs'; import {execFileSync} from 'node:child_process'; process.on('SIGTERM',()=>setTimeout(()=>process.stdout.write('late-diagnostic\\n',()=>process.exit(0)),35)); writeFileSync(${JSON.stringify(identityFile)},JSON.stringify({pid:process.pid,pgid:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())})); writeFileSync(${JSON.stringify(ready)},String(process.pid)); setInterval(()=>{},1000);`);
     await writeFile(leader, `import {spawn} from 'node:child_process';import {existsSync} from 'node:fs'; const c=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:['ignore','inherit','inherit']});c.unref(); const t=setInterval(()=>{if(existsSync(${JSON.stringify(ready)})){clearInterval(t);process.stdout.write('leader-output\\n',()=>process.exit(0));}},5);`);
     t.after(async () => { try { const pid = Number(await readFile(ready, 'utf8')); if (alive(pid)) process.kill(pid, 'SIGKILL'); } catch (error) { if (!['ESRCH', 'ENOENT'].includes(error.code)) throw error; } });
-    let observed = null, failure = null, result, text;
     spawns.last = null; const start = performance.now();
-    const stopObserving = observePublication(start, CAPTURE_SETUP_MS, { identity: () => publishedJson(identityFile),
-      ready: () => publishedText(ready).then(bytes => bytes === null ? null : Number(bytes)) });
-    try {
+    const owned = await observeOwnerCall(start, CAPTURE_SETUP_MS, { identity: () => publishedJson(identityFile),
+      ready: () => publishedText(ready).then(bytes => bytes === null ? null : Number(bytes)) }, async () => {
       if (owner === 'worker') {
-        observed = result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [leader], environment: {} }),
+        const result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [leader], environment: {} }),
           prompt: 'capture boundary', lane: 'worker_executes', cwd: root, archiveRoot: join(root, 'archive'), label: owner,
           timeoutMs: PHYSICAL_CAPTURE.inactivityMs, absoluteTimeoutMs: PHYSICAL_CAPTURE.absoluteMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs, environment: {},
           // The owner's declared process-start observation; it records spawn evidence only.
-          observer: { onProcessStarted: pid => { spawns.last = { at: performance.now(), pid }; } } }); text = result.stdout;
+          observer: { onProcessStarted: pid => { spawns.last = { at: performance.now(), pid }; } } });
+        return { observed: result, result, text: result.stdout };
       } else if (owner === 'command') {
-        observed = result = await helper.runCommand({ commands: [{ commandId: 'command://capture', executable: process.execPath, args: [leader],
-          relativeCwd: '.', environment: [], timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs, expectedReports: [] }] }, root, 0); text = decode(result.stdout);
-      } else {
-        observed = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`,
-          { timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs }, { timeoutMs: PHYSICAL_CAPTURE.requestMs }));
-        result = observed.process; text = decode(result.stdout);
+        const result = await helper.runCommand({ commands: [{ commandId: 'command://capture', executable: process.execPath, args: [leader],
+          relativeCwd: '.', environment: [], timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs, expectedReports: [] }] }, root, 0);
+        return { observed: result, result, text: decode(result.stdout) };
       }
-    } catch (error) { failure = error; }
-    const ownerReturnMs = sinceMs(start), readiness = await stopObserving();
+      const observed = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`,
+        { timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs }, { timeoutMs: PHYSICAL_CAPTURE.requestMs }));
+      return { observed, result: observed.process, text: decode(observed.process.stdout) };
+    });
+    const { failure, ownerReturnMs, readiness } = owned;
+    const { observed = null, result, text } = owned.result ?? {};
     // Retain the owner's result or error, readiness and worker archive before assertions or scratch cleanup.
     const readyPid = await readFile(ready, 'utf8').then(Number, error => ({ code: error.code ?? null }));
     const archived = owner !== 'worker' ? null : Object.fromEntries(await Promise.all(['stdout', 'stderr'].map(async name =>
@@ -690,7 +677,9 @@ test('physical owner capture: finite inherited-pipe late output stays HTTP diagn
     t.diagnostic(JSON.stringify({ owner, fixtureRoot: root, readyPid, descendantAlive: Number.isSafeInteger(readyPid) ? alive(readyPid) : null,
       identity, groupAbsent, physical, stdout: text ?? null, stderr: result === undefined ? null : owner === 'worker' ? result.stderr : decode(result.stderr), archived,
       observation: observed, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
-    if (failure !== null) throw failure;
+    retainEvidence(t, 't287-owned-process-lifetime', `physical-capture-${owner}`, { owner, readyPid, identity, groupAbsent, physical,
+      stdout: text ?? null, archived, threw: owned.threw, failure: failureFact(failure), observation: observed });
+    if (owned.threw) throw failure;
     if (owner === 'worker') assert.doesNotMatch(result.finalOutput, /late-diagnostic/u);
     else if (owner === 'http') assert.equal(observed.response, null);
     assert.equal(result.terminationConfirmed, true, `${owner} owned scope absence`);
