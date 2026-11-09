@@ -1,6 +1,6 @@
 {
-  "status": "RC9_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
-  "recordedAt": "2026-11-09T00:18:12.581Z",
+  "status": "RC9_LOCAL_MAIN_INTEGRATED_UNQUALIFIED",
+  "recordedAt": "2026-11-09T00:51:09.916Z",
   "operatorReturn": {
     "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
     "bytes": 18459,
@@ -25,30 +25,35 @@
     "todo": 0
   },
   "freshReadbacks": "READBACKS_RECORDED_UNCHANGED_PREFIX_RUNTIME_FAILED",
-  "next": "No new work selected. Future authorized work must acquire genuine RC9 owners/resources through the installed Public route; never restamp RC8 Runs/catalogs/resources. GOAL-035/T-287 remain Active and residual/full5.0 qualification remain OPEN.",
+  "next": "Authorized local-main integration complete; no next Product/runtime/release/qualification work selected. RC9 remains the operational builder; GOAL-035/T-287 and full5.0/residual gates stay open.",
   "O3": "OPEN separate performance follow-up",
   "qualified": false,
   "previousSelection": {
-    "status": "RC9_LOCAL_DELIVERED_UNQUALIFIED",
-    "recordedAt": "2026-11-08T21:57:08.000Z",
-    "next": "Selected local RC9 delivery is complete. GOAL-035/T-287 remain Active and full5.0/qualification remain OPEN. No next RC, S7 work, runtime or execution selected.",
+    "status": "RC9_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+    "recordedAt": "2026-11-09T00:18:12.581Z",
+    "next": "No new work selected. Future authorized work must acquire genuine RC9 owners/resources through the installed Public route; never restamp RC8 Runs/catalogs/resources. GOAL-035/T-287 remain Active and residual/full5.0 qualification remain OPEN.",
     "previousSelection": {
-      "status": "RC9_BROAD008_ACTIVE_RETAINED62",
-      "recordedAt": "2026-11-08T20:22:34.218Z",
-      "next": "Complete already admitted broad008 and return actual results to Root; retain62 same-RC9 whole credits, execute139 whole files,8held. No broad/cut/install acceptance from tracking.",
+      "status": "RC9_LOCAL_DELIVERED_UNQUALIFIED",
+      "recordedAt": "2026-11-08T21:57:08.000Z",
+      "next": "Selected local RC9 delivery is complete. GOAL-035/T-287 remain Active and full5.0/qualification remain OPEN. No next RC, S7 work, runtime or execution selected.",
       "previousSelection": {
-        "status": "RC9_BROAD_STOPPED_C0_TIMEOUT_TRIAGE",
-        "recordedAt": "2026-11-08T20:10:58.368Z",
-        "next": "Complete bounded triage/ownership observation and return to Root. No broad acceptance, retry, extension, cut or install selected; source/claim/cut templates held."
-      },
-      "broad008Population": {
-        "retainedSameRC9WholeFiles": 62,
-        "retainedPasses": 329,
-        "retainedSkips": 82,
-        "wholeFilesExecuting": 139,
-        "held": 8,
-        "partial063Credit": 0,
-        "RC8Credit": 0
+        "status": "RC9_BROAD008_ACTIVE_RETAINED62",
+        "recordedAt": "2026-11-08T20:22:34.218Z",
+        "next": "Complete already admitted broad008 and return actual results to Root; retain62 same-RC9 whole credits, execute139 whole files,8held. No broad/cut/install acceptance from tracking.",
+        "previousSelection": {
+          "status": "RC9_BROAD_STOPPED_C0_TIMEOUT_TRIAGE",
+          "recordedAt": "2026-11-08T20:10:58.368Z",
+          "next": "Complete bounded triage/ownership observation and return to Root. No broad acceptance, retry, extension, cut or install selected; source/claim/cut templates held."
+        },
+        "broad008Population": {
+          "retainedSameRC9WholeFiles": 62,
+          "retainedPasses": 329,
+          "retainedSkips": 82,
+          "wholeFilesExecuting": 139,
+          "held": 8,
+          "partial063Credit": 0,
+          "RC8Credit": 0
+        }
       }
     }
   },
@@ -129,7 +134,7 @@
     "full15/full5.0 qualification",
     "human gates"
   ],
-  "trackingAuthority": "Explicit owner request to pin RC9 and Root operational-builder selection; bookkeeping and fresh read-only identity comparison only.",
+  "trackingAuthority": "Explicit owner instruction do that now and Root bounded source-checkpoint/integration Writer grant.",
   "priorCurrentEvidence": {
     "sourceReview": {
       "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
@@ -366,5 +371,21 @@
   },
   "builderQualified": false,
   "builderPublished": false,
-  "rc9BuildBuilderStanding": "Immutable RC8 built RC9; original P9/BUILDER_PIN.json remains unchanged. Current operational builder is now RC9."
+  "rc9BuildBuilderStanding": "Immutable RC8 built RC9; original P9/BUILDER_PIN.json remains unchanged. Current operational builder is now RC9.",
+  "mainIntegration": {
+    "status": "ORDINARY_TWO_PARENT_MERGE_COMPLETE",
+    "originalMain": "1344547c94dc0684af0cd83260438c41245a6f8a",
+    "preservationCheckpoint": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+    "mergeCommit": "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7",
+    "parents": [
+      "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+      "e30ac16b4a9406c43d054f45bad864746352dad6"
+    ],
+    "exactProductSource": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "productEntries": 1842,
+    "physicalMismatches": 0,
+    "resultPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/RESULT.json",
+    "published": false,
+    "pushed": false
+  }
 }

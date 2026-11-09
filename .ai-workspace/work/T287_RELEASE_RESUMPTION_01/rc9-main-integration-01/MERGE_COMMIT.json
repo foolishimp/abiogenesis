@@ -1,0 +1,10 @@
+{
+  "status": "ORDINARY_TWO_PARENT_MERGE_COMMITTED",
+  "commit": "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7",
+  "parents": [
+    "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+    "e30ac16b4a9406c43d054f45bad864746352dad6"
+  ],
+  "tree": "28ce7274462d126deaa91506ec7d7be23155394a",
+  "resolutionSha256": "45d4e5ef3c9512a727278883ea044c18e3e6e4a75ec987df23295cbb7f0ce55f"
+}

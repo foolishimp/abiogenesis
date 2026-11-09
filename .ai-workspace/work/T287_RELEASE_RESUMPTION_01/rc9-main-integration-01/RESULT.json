@@ -1,0 +1,142 @@
+{
+  "status": "RC9_LOCAL_MAIN_INTEGRATED_UNQUALIFIED",
+  "recordedAt": "2026-11-09T00:51:09.916Z",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "grant": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/GRANT.json",
+    "bytes": 7236,
+    "sha256": "7bb9bffc05ba4a250519245af30b83a513558c1ad85f8a66fbd123e0430c976e"
+  },
+  "preservationManifest": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/PRESERVATION_MANIFEST.json",
+    "bytes": 36010,
+    "sha256": "6fd5c4e411823e03ed8cfc0a11246671240aa01b6ecd2a57eeb407e10efff4f4"
+  },
+  "checkpoint": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/CHECKPOINT.json",
+    "bytes": 7790,
+    "sha256": "ef7507a1360f655074bb6a0fb42f7c90282521e5f9a30c0aba3dc7f7dc23df7c"
+  },
+  "merge": {
+    "status": "ORDINARY_TWO_PARENT_MERGE_COMMITTED",
+    "commit": "3e050ecf24819bb5d5d9f067b8f2b88dcefb76f7",
+    "parents": [
+      "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+      "e30ac16b4a9406c43d054f45bad864746352dad6"
+    ],
+    "tree": "28ce7274462d126deaa91506ec7d7be23155394a",
+    "resolutionSha256": "45d4e5ef3c9512a727278883ea044c18e3e6e4a75ec987df23295cbb7f0ce55f"
+  },
+  "mergeResolution": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/MERGE_RESOLUTION.json",
+    "bytes": 1463,
+    "sha256": "45d4e5ef3c9512a727278883ea044c18e3e6e4a75ec987df23295cbb7f0ce55f"
+  },
+  "source": {
+    "originalMain": "1344547c94dc0684af0cd83260438c41245a6f8a",
+    "rc9Commit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "rc9Tree": "ff9a852c6670884c35f67934e9f49443199b723f",
+    "nonRecordEntries": 1842,
+    "physicalBytes": 98874144,
+    "treeEntryMismatches": 0,
+    "physicalBlobOrModeMismatches": 0,
+    "comparison": "All tracked paths except .ai-workspace/** and specification/GOALS.md compare exact Git modes/blob IDs to RC9; raw physical file/symlink bytes and modes independently match.",
+    "pathDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/PRODUCT_PATH_DELTA.json",
+      "bytes": 105501,
+      "sha256": "134c86f598046f972c5331bd13cb22ee5eec6d192982da3f9f72ce064fabb1d5"
+    },
+    "originalMainAndRC9AreAncestors": true,
+    "rc9BranchUnchanged": true
+  },
+  "records": {
+    "allCheckpointRecordEntriesRetainedInMerge": true,
+    "donorOnlyEntriesRetained": 39,
+    "historicalTrackedPreimagesCommit": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+    "selectedExistingPathCount": 68,
+    "checkpointTotalPaths": 71,
+    "checkpointBytes": 2081804,
+    "currentTrackerPreimages": {
+      "/Users/jim/src/apps/abiogenesis/specification/GOALS.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 159749,
+        "sha256": "ceab3a10edd2fe2738d6882178bfc9653c998cae72f0d7235642249cc7eef1a7"
+      },
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 808581,
+        "sha256": "5e8b630efa06af931f73ace9dfb2b729241bcf85e1d31cabbf10c17c9b300a28"
+      },
+      "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json",
+        "bytes": 17232,
+        "sha256": "ae52fe83813893e2d6a6536fe070e617a764e5ceeec43b99864cf7acc84d7557"
+      }
+    },
+    "currentTrackers": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+        "bytes": 161038,
+        "sha256": "3a2f6e6f6c54e3baadffcf32b40114692d0004259a75ce149f472ac75684b4d8"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+        "bytes": 809837,
+        "sha256": "b8be48d3ec2be5074d857a5c2f62b4882e992dc3aa7d2b4fb51a54a7fc5ba1f2"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json",
+        "bytes": 18298,
+        "sha256": "313fade187fa1cf4e1088bb0bd335dd9abc73416e3adf01dd4632e523e43476c"
+      }
+    ],
+    "history": "Existing Markdown bodies retained exactly apart from changing the former Current selection label to Historical. Existing status history retained. Two HOW preimages are in checkpoint; final Product HOW equals RC9.",
+    "recordOnlyBookkeeping": "This result, merge receipt and current trackers are recorded together in the final local bookkeeping checkpoint; its hash and post-commit checks belong to FINAL_CHECKPOINT_RECEIPT.json."
+  },
+  "untrackedPreservation": {
+    "originalFiles": 35836,
+    "originalBytes": 38642360530,
+    "originalSnapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/UNTRACKED_BEFORE.jsonl",
+      "bytes": 11108604,
+      "sha256": "5c8d276b8bdc6bdbe1f71f19aaaed5f0a98a51d908a3e1be29bc91fff61141e3"
+    },
+    "missingFiles": 0,
+    "unselectedStatDrift": 0,
+    "selectedStatChanges": [],
+    "selectedStatChangesContentRechecked": 0,
+    "exclusions": "Raw evidence/archive/dependency/scratch and unrelated untracked files are not added. Stat snapshot remains local and untracked; compact manifest pins it. Git tracked donor records already in RC9 history enter through ordinary merge, including previously tracked donor archives. This is not a blanket add of current untracked evidence."
+  },
+  "protectedPins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 6302,
+      "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+      "bytes": 3608,
+      "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 8644,
+      "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+    }
+  ],
+  "rootIndependentPhysicalObservation": {
+    "at": "2026-11-09T00:49:52.120342Z",
+    "entries": 1842,
+    "bytes": 98874144,
+    "errors": 0,
+    "scope": "Root independent read-only raw Git blob/mode comparison; RC9 operational pin, shipped archive, installed manifest and historical RC8 pin also matched. Final ancestry/tree review remains Root-owned."
+  },
+  "limits": [
+    "Local source/history integration only; no new Product behavior, test/build/runtime/native/provider run or qualification.",
+    "RC9 delivery and operational pin remain local, unqualified and unpublished; no push, tag, remote change, installed/release mutation or global selector update.",
+    "GOAL-035/T-287 remain Active; full5.0 and all retained residual/qualification obligations remain open.",
+    "The exact-source restore command returned exit1 with unavailable stderr; no retry occurred. Exact committed/index and physical post-state checks support the resulting source identity without inferring that command exit cause."
+  ],
+  "closedResult": "satisfied for the bounded preservation/ordinary-merge/source-identity operation; Root consumes this result and determines further work."
+}
