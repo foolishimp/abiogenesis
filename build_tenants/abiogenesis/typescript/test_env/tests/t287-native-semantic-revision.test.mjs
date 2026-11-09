@@ -12,7 +12,7 @@ const root = process.env.ABI5_GENERIC_JOB_BUILD_ROOT ?? resolve(import.meta.dirn
 const load = name => import(pathToFileURL(join(root, 'build/code/src', name + '.js')).href);
 const [p,g,m,n,ops,effects,owners,prefixes,immutable] = await Promise.all(['product/index','gtl/index','product/semantic_job',
  'product/native_workspace_work','product/worksite_operations','product/worksite_effect','abg/native_worksite_execution','abg/event_prefix','shared/immutable'].map(load));
-const {RuntimeEventBodyView}=await load('abg/runtime_history');
+const {RuntimeEventBodyView,runtimeHistorySelectorKeys}=await load('abg/runtime_history');
 const hash=p.sha256Canonical, zero='sha256:'+'0'.repeat(64);
 const publication=g.constructSemanticStageModulePublication({productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
  artifactDigest:zero,productContentDigest:zero,productManifestDigest:zero});
@@ -106,22 +106,30 @@ async function harness(env, options={}){
  const executionOverrides={authenticateNativeInstructionAssemblyBasis:()=>current,authenticateOwnedNativeInstructionAssemblyBasis:()=>current,rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>bases.get(ref)??null};
  const invocationOverrides={rehydrateInvocationAdmissionAtPrefix:()=>({capabilityGrants:[options.current?.capabilityGrant??env.capabilityGrant]})};
  // The job and revision owners read the component prefix through the same
- // prefix premises.
+ // prefix premises; a historical cut selects that same component prefix.
+ // The revision intake reads its cut through the event-prefix owner's
+ // `readOwnedRuntimeEventPrefixAtDurablePrefix`: a lookup premise, not a read
+ // or admission. Only the declared intake coordinate denotes this component
+ // prefix; no journal is opened and any other coordinate has no cut. Its
+ // Run and related-CCall selectors are the history owner's own selector keys
+ // over these component events.
  // An invocation key reads the admission events of the root bases this
  // harness admits (the original and each invocation's root), the index premise
  // of the one governance-root projection; `bases` stays the rehydration premise.
  const rootAdmissions=key=>admittedRoots.filter(b=>'invocation:'+b.invocationRef===key).map(b=>({kind:'basis_admitted',eventId:b.admissionEventRef,
   payload:{basisClass:'root',basisRef:b.basisRef,invocationAdmissionRef:b.invocationAdmissionRef,implementationSetRef:b.rootImplementationSetRef,rawInputValue:b.rawInputValue}}));
- const prefixOverrides={selectValidatedRuntimeEventPrefix:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>key.startsWith('invocation:')?rootAdmissions(key):p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId)};
+ const prefixOverrides={validatedRuntimeEventPrefixBeforeEvent:()=>prefix,runtimeEventsFromValidatedPrefix:p=>p.events,runtimeEventBodiesAtPrefix:p=>new RuntimeEventBodyView(p.events),indexedRuntimeEvents:(p,key)=>key.startsWith('invocation:')?rootAdmissions(key):p.events.filter(e=>key==='aggregate:c_call:'+e.aggregateId||key==='id:'+e.eventId||
+  /^(run|related):/.test(key)&&runtimeHistorySelectorKeys(e).includes(key)),
+  readOwnedRuntimeEventPrefixAtDurablePrefix:c=>{if(hash(c)!==hash(intake.sourcePrefix))throw new Error('component: no durable cut at '+c?.eventLogRef);return prefix;}};
  const jobOwner=await component('abg/semantic_job',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./event_prefix.js':prefixOverrides,
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup}});
  const owner=await component('abg/semantic_revision',{'./execution_basis.js':executionOverrides,'./invocation_admission.js':invocationOverrides,'./semantic_job.js':{...jobOwner,...options.contextPremises},
-  '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h,readRuntimeEventsAtDurablePrefix:()=>events},
+  '../product/worksite_operations.js':options.observation===undefined?{}:{observeWorksiteContext:async()=>options.observation},'./semantic_stage.js':{selectedSemanticPredecessor:selected},'./event_store.js':{authenticateRuntimePrefixAncestry:()=>ancestry,reidentifyHistoricalDurablePrefixCoordinate:(_c,h)=>h},
   './event_prefix.js':prefixOverrides,'./replay.js':{projectRunIdentityAtPrefix:(_p,ref)=>runs.get(ref)??null},
   './environment_admission.js':{projectExactPrefixWorkspaceEnvironment:options.historicalEnvironment??(()=>oldEnvironment)},'./worksite_revision.js':{projectWorksiteRevisionNativeResult:lookup,projectWorksiteRevisionBindingCover:options.cover??(()=>[])},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>nativeSources.get(value.observationRef)??null,worksiteCommandSourcesInvalidatedAfter:options.invalidated??(()=>false)}});
  const implementation=await component('implementation/semantic_revision',{'../abg/semantic_revision.js':owner,'../implementation/worksite_command_execution.js':{}});
- function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
+ function source(value,state){nativeSources.set(value.observationRef,{sourceBasis:bases.get(state.cCall.basisId),sourceTask:bases.get(state.cCall.basisId)?.rawInputValue,sourceResult:{...events.find(e=>e.eventId===state.result.admissionEventRef),runId:state.cCall.runId},sourceClosedEvent:{admissionOrdinal:++ordinal}});}
  function event(kind,payload,scope={}){const value={kind,payload,eventId:'component:event:'+(++ordinal),admissionOrdinal:ordinal,causationEventRefs:[],...scope};events.push(value);return value;}
  return {events,states,bases,original,intake,publicRun,prefix,basis,owner,implementation,jobOwner,invocation,call,admit,source,event,coordinate,get current(){return current;},set ancestry(v){ancestry=v;}};
 }
@@ -157,7 +165,7 @@ test('native D2 serialized public request chooses among eligible stages and comp
  h.admit(prepared,R.nativeIntakeImplementationRef);
  h.basis.graphFunction={name:'component:selection-graph',declarations:{'abg.semantic_revision_selection':declaration.declarationRef}};
  h.call(R.selectionImplementationRef,prepared,prepared,{graphFunctionRef:'component:selection-graph'});
- assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'selection recovers the actual original root');
+ assert.equal(h.jobOwner.authenticateOwnedSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'selection recovers the actual original root');
  const selection={kind:'semantic_revision_selection',schemaVersion:'5.0.0',parent:prepared.parent,causes:prepared.causes,mode:'stage_revision',selectedStageRef:declaration.stages[1].declarationRef,
   selectedObligationRefs:[],selectedTargetRefs:[],reasonRef:'component:requirements-falsified',nativePhase:'preconstruction'};
  assert.equal(h.owner.jobRevisionSelectionMatchesBasis(h.basis,prepared,selection),true);
@@ -181,7 +189,7 @@ test('native D2 serialized public request chooses among eligible stages and comp
  h.invocation('tampered-correction',tampered);h.basis.graphFunction=declaredCorrection(tampered).projection;h.call(R.projectionImplementationRef,tampered);
  assert.equal(h.owner.projectSemanticJobRevision(h.basis,tampered),null,'even the suffix matching a modified returned choice cannot create authority');
  h.invocation('correction',terminalValue);h.basis.graphFunction=next.projection;h.call(R.projectionImplementationRef,terminalValue);
- assert.equal(h.jobOwner.authenticateSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'successor Run does not replace original root');
+ assert.equal(h.jobOwner.authenticateOwnedSemanticJobBasis(h.basis).root.basisRef,h.original.basisRef,'successor Run does not replace original root');
  let current=h.owner.projectSemanticJobRevision(h.basis,terminalValue);assert(current);assert.deepEqual(current.current.job,env.job);assert.deepEqual(current.current.assets,parent.assets.slice(0,1));
  assert(current.revisionBasis.historicalAssets.some(a=>a.assetRef===rejected.assets.at(-1).assetRef));assert(!current.current.assets.some(a=>a.assessment?.disposition==='falsified'));
  h.basis.graphFunction=declaredCorrection(tampered).projection;assert.equal(h.owner.projectSemanticJobRevision(h.basis,terminalValue),null);h.basis.graphFunction=next.projection;
@@ -216,7 +224,7 @@ test('native D2 serialized public request chooses among eligible stages and comp
  assert.equal(semantics.ABI5_SEMANTIC_REVISION_PRODUCT_SEMANTICS.resolveJudgmentRelation(R.stepPredicateRef).evaluate(finished,finished),true);
  assert.deepEqual(finished.current.job,env.job);assert.deepEqual(finished.current.assets.slice(0,1),parent.assets.slice(0,1));
  assert.equal(m.nativeSemanticCommandExecutionLimits(finished.current),null,'new limits did not rewrite the old job');
- const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,coordinate(nativeState),coordinate(nativeState)),null);
+ const crossed=structuredClone(observed);crossed.snapshotMembers.pop();assert.equal(revision.deriveNativeRevisionEvidence(current,crossed,task,coordinate(nativeState),coordinate(nativeState)),null);
  t.diagnostic('Native candidate/assessment and current files are component fixtures; historical admission, prefix ancestry, leaf lookup and command/actor receipts are supplied doubles. No actor, helper, journal, installed Run or S06 qualification.');
 });
 

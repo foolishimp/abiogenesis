@@ -5,7 +5,7 @@ import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import * as p from '../../build/code/src/product/index.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
-import {authenticateNativeWorkReacquisition,nativeWorkReacquisitionContextCurrent} from '../../build/code/src/abg/native_work_reacquisition.js';
+import {authenticateOwnedNativeWorkReacquisition,nativeWorkReacquisitionContextCurrent} from '../../build/code/src/abg/native_work_reacquisition.js';
 const h=p.sha256Canonical;
 const artifact={productId:p.ABI5_PRODUCT_ID,packageName:p.ABI5_PACKAGE_NAME,packageVersion:p.ABI5_PACKAGE_VERSION,
  artifactDigest:h('uninstalled-component'),productContentDigest:h('uninstalled-component-content'),productManifestDigest:h('uninstalled-component-manifest')};
@@ -30,7 +30,7 @@ test('actual historical pre-result occurrence authenticates with unchanged sourc
  const started=performance.now();
  // Historical discrimination only: requireCurrent is explicitly false. The
  // live Run has already failed; this call cannot change or reopen that history.
- const authenticated=authenticateNativeWorkReacquisition(basis,input,false);
+ const authenticated=authenticateOwnedNativeWorkReacquisition(basis,input,false);
  assert.ok(authenticated,'all actual native owner joins at the genuine historical pre-result prefix');
  assert.equal(p.isNativeWorksiteCommandExecutionTask(authenticated.task),true);
  assert.deepEqual(authenticated.task.sourceNativeWork,input.sourceNativeWork);

@@ -425,6 +425,52 @@ test("C2 finite host timer schema and constructor share bounds without changing 
   }
 });
 
+test("C2 RC2 diagnostic duplicate command identity is refused with an identity cause", async (t) => {
+  const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
+  const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
+  const env = await worksiteFixture(await loadWorksiteOwner());
+  t.after(() => rm(env.scratch, { recursive: true, force: true }));
+  const command = { commandId: "command://c2/rc2-diagnostic/duplicate", executable: process.execPath, args: ["--version"],
+    relativeCwd: ".", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };
+  const input = { ...env, commands: [command], outcomePredicates: [], protectedSubjects: [], allowedWriteTerritories: [] };
+  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration(input));
+  assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, commands: [command, { ...command, args: ["--help"] }] }),
+    (error) => {
+      assert.ok(error instanceof TypeError, String(error));
+      assert.match(error.message, /command identities must be unique/u);
+      assert.ok(error.message.includes(JSON.stringify(command.commandId)), error.message);
+      assert.doesNotMatch(error.message, /protected|territory/u);
+      return true;
+    });
+});
+
+test("C2 RC2 diagnostic protected subject inside an allowed write territory is refused with an overlap cause", async (t) => {
+  const c2 = await import("../../build/code/src/product/worksite_command_execution.js");
+  const { loadWorksiteOwner, worksiteFixture } = await import("../support/t287-generic-job-worksite.mjs");
+  const env = await worksiteFixture(await loadWorksiteOwner());
+  t.after(() => rm(env.scratch, { recursive: true, force: true }));
+  const relativePath = "evidence/protected.mjs";
+  const subject = env.product.constructWorksiteSubject({ workspaceAuthorityBasis: env.workspaceAuthorityBasis,
+    workspaceBinding: env.workspaceBinding, subjectUri: pathToFileURL(join(env.canonicalRoot, relativePath)).href, relativePath });
+  assert.equal(subject.kind, "worksite_subject");
+  const command = { commandId: "command://c2/rc2-diagnostic/overlap", executable: process.execPath, args: ["--version"],
+    relativeCwd: ".", environment: {}, timeoutMs: 1000, terminationGraceMs: 100, expectedReports: [] };
+  const input = { ...env, commands: [command], outcomePredicates: [], protectedSubjects: [subject],
+    allowedWriteTerritories: [{ pathKind: "subtree", relativePath: "outputs" }] };
+  assert.doesNotThrow(() => c2.constructWorksiteCommandConfiguration(input));
+  for (const territory of [{ pathKind: "subtree", relativePath: "evidence" }, { pathKind: "file", relativePath }]) {
+    assert.throws(() => c2.constructWorksiteCommandConfiguration({ ...input, allowedWriteTerritories: [territory] }),
+      (error) => {
+        assert.ok(error instanceof TypeError, String(error));
+        assert.match(error.message, /protected subject .* overlaps allowed write territory/u);
+        assert.ok(error.message.includes(JSON.stringify(relativePath)), error.message);
+        assert.ok(error.message.includes(`${territory.pathKind} ${JSON.stringify(territory.relativePath)}`), error.message);
+        assert.doesNotMatch(error.message, /unique|identit/u);
+        return true;
+      }, territory.pathKind);
+  }
+});
+
 async function installConstructionTransport(scratch, proof = null) {
   const command = join(scratch, "c2-bin", "claude-construction");
   await mkdir(dirname(command), { recursive: true });
@@ -980,7 +1026,7 @@ async function installedC2Case(context, helperFailure = null) {
   const freshProof = await proveFreshProcessRuntimeProjectionEquality({
     abg, product, installedPackageRoot: environment.installedRoot, store: reopened.store,
     ...(proof === null ? {} : { ownedProcessProof: { evidenceRoot: join(proof.root, "fresh-replay") } }),
-    requests: [{ rowId: "c2-compact-ack-runtime", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
+    requests: [{ rowId: "c2-compact-ack-runtime", owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [c2RunId] }],
   });
   if (proof !== null) await proof.write("fresh-proof.json", freshProof);
   const replay = freshProof.retainedRows[0].projection.replayState;

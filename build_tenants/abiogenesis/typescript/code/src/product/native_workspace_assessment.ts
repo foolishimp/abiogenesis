@@ -6,7 +6,8 @@ import type { ContractDeclaration, ModulePublication } from "../gtl/contracts.js
 import { type JsonValue } from "../shared/canonical_json.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import type { Sha256Digest } from "../shared/digests.js";
-import type { ProductInstall } from "./environment.js";
+import type { ProductInstall, ResolvedProductLock } from "./environment.js";
+import { modulePublicationSemanticDigest } from "./publication.js";
 import { normalizeWorksiteRelativePath, type WorksiteContextObservation } from "./worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { admitInstalledSchemaAsset } from "./declaration_application.js";
@@ -100,6 +101,56 @@ export function resolveNativeWorkspaceAssessmentSchema(selection: NativeWorkspac
     if (schema === null) return null;
     validator(schema); // Refuse invalid/unresolved schemas before any native dispatch.
     return schema;
+  } catch { return null; }
+}
+/** Admitted-environment evidence for the canonical assessment's inner response
+ * dependency: candidate publications, admitted installs, the resolved lock and
+ * the assessment callable's owner. */
+export type NativeWorkspaceAssessmentDependencyBasis = {
+  readonly publications: readonly Readonly<ModulePublication>[];
+  readonly installs: readonly Readonly<ProductInstall>[];
+  readonly resolvedLock: Readonly<ResolvedProductLock>;
+  readonly assessorOwnerProductId: string;
+};
+export type NativeWorkspaceAssessmentDependency = {
+  readonly publication: Readonly<ModulePublication>;
+  readonly install: Readonly<ProductInstall>;
+  readonly schema: Readonly<Record<string, JsonValue>>;
+};
+/** One relation for assembly, raw preimage and cold reconstruction. The
+ * consumer's own Program member declares the contract and the lock carries the
+ * consumer's dependency on the assessment owner; installation or supplied
+ * schema bytes alone grant nothing. No reverse edge or fallback is consulted. */
+export function resolveNativeWorkspaceAssessmentDependency(selection: NativeWorkspaceAssessmentSelection,
+  basis: NativeWorkspaceAssessmentDependencyBasis): Readonly<NativeWorkspaceAssessmentDependency> | null {
+  try {
+    if (!isNativeWorkspaceAssessmentSelection(selection)) return null;
+    const contractRef = selection.resultContract.contractRef, ownerId = selection.schemaAsset.productId;
+    const declarations = basis.publications.flatMap(publication => publication.contracts.filter(contract =>
+      contract.contractRef === contractRef).map(contract => ({ publication, contract })));
+    if (declarations.length !== 1) return null;
+    const { publication, contract } = declarations[0]!;
+    if (publication.owningProductId !== ownerId || !canonicalEquals(contract, selection.resultContract) ||
+      !publication.graphFunctions.some(graph => graph.declarations["abg.raw_result_contract"] === contractRef &&
+        publication.programs.some(program => program.callableMembership.includes(graph.name)))) return null;
+    const publicationDigest = modulePublicationSemanticDigest(publication);
+    const owners = basis.installs.filter(install => install.productId === ownerId);
+    const install = owners.length === 1 ? owners[0]! : null;
+    if (install === null || install.artifactDigest !== publication.artifactDigest ||
+      install.productContentDigest !== publication.productContentDigest || install.manifestDigest !== publication.productManifestDigest ||
+      install.contributionManifest.publicationBindings.filter(row => row.moduleRef === publication.moduleRef &&
+        row.publicationDigest === publicationDigest).length !== 1) return null;
+    const lock = basis.resolvedLock;
+    if (install.resolvedLockId !== lock.lockId || install.resolvedLockDigest !== lock.lockDigest ||
+      lock.rows.filter(row => row.productId === ownerId && row.artifactDigest === install.artifactDigest &&
+        row.productContentDigest === install.productContentDigest && row.manifestDigest === install.manifestDigest).length !== 1 ||
+      lock.rows.filter(row => row.productId === basis.assessorOwnerProductId).length !== 1 ||
+      ownerId !== basis.assessorOwnerProductId && lock.dependencyEdges.filter(edge => edge.kind === "requires" &&
+        edge.fromProductId === ownerId && edge.toProductId === basis.assessorOwnerProductId).length !== 1) return null;
+    if (basis.installs.filter(candidate => candidate.publicContracts.some(row => row.contractKind === "schema_asset" &&
+      row.contractId === selection.schemaAsset.contractId)).length !== 1) return null;
+    const schema = resolveNativeWorkspaceAssessmentSchema(selection, [publication], [install]);
+    return schema === null ? null : Object.freeze({ publication, install, schema });
   } catch { return null; }
 }
 export function parseNativeWorkspaceAssessmentResult(schema: Readonly<Record<string, JsonValue>>, text: string): Readonly<Record<string, JsonValue>> | null {

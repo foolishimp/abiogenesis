@@ -1,12 +1,18 @@
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
+import { QUALIFICATION_IDS } from "../gtl/self_conformance.js";
 import { constructNativeInstructionAssembly, constructDeclaredNativeInstructionAssembly, requireNativeInstructionAssembly, requireDeclaredNativeInstructionAssembly, type NativeInstructionAssembly } from "./instruction_assembly.js";
 import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
+import { constructOwnedContextLookup, deriveGc03HostLookup, encodeGovernedContextTranscript, gateGovernedContextExecution, GOVERNED_CONTEXT_POLICY_KEY, governedContextPrompt, pinnedGc03HostReader,
+  reserveGovernedContextEndpoint, resolveGc03RetainedArtifact, selectOwnedGovernedContext, verifyGovernedContextCorrespondence, type GovernedContextEndpoint,
+  type GovernedContextOwnerAuthority, type OwnedContextLookup } from "./governed_context.js";
+import { projectGovernedContextTestingAtPrefix } from "./default_library.js";
+import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
 import { isNativeWorkspaceWorkTask, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { semanticInputValueAtBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import { constants as osConstants } from "node:os";
-import { lstatSync, readFileSync } from "node:fs";
+import { lstatSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import type { WorkspaceBinding } from "../product/environment.js";
@@ -32,6 +38,8 @@ import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   assertHeldEventStoreAtDurablePrefix,
   admitRuntimeEvent,
+  bindNativeStdoutWindow,
+  isRuntimeEventTransactionActive,
   ROOT_EVENT_CONTRACT_DIGEST,
   type AbgEventStore,
   type DurablePrefixCoordinate,
@@ -44,26 +52,34 @@ import {
   type RuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
+import { runtimeEventPrefixDigest, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import type { OpenedTraversalScope } from "./open_call.js";
 import {
   classifyWorkerTransportFailure,
   constructKnownWorkerTransportContract,
   isNativeWorkerResultAssessment,
+  projectDurableActorObservation,
+  type ConfiguredActorSelection,
   type NativeWorkerResultAssessment,
 } from "./transport_contracts.js";
 import {
   prepareWorkerTransport,
   runPreparedWorkerTransport,
   createWorkerTransportOutputObserver,
+  type WorkerStdoutChunkClass,
+  type WorkerStdoutWindow,
   type WorkerTransportRequest,
   type WorkerTransportResult,
   type WorkerToolInvocationEvidence,
 } from "./worker_transport.js";
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy, type RuntimeProbeObservation, type RuntimeProbeSource } from "./runtime_liveness_contracts.js";
-import { admitRuntimeActivityProbe, admitRuntimeThreshold, projectActorLivenessContext, runtimeAssetRevisionDigest } from "./runtime_liveness.js";
+import { admitRuntimeActivityProbe, admitRuntimeThreshold, nextNativeProcessStreamOrdinal, projectActorLivenessContext, runtimeAssetRevisionDigest,
+  stageNativeStdoutWindow } from "./runtime_liveness.js";
 import { sha256Bytes } from "../shared/digests.js";
 import type { LeafInvocationPort, LeafInvocationResolution } from "../implementation/contracts.js";
 import { isAdmittedLeafInvocationPort } from "../implementation/leaf_invocation_port.js";
+import { isQualificationAssessorEligibility } from "./qualification_proof.js";
 import type { WorksiteCommandAmbientEnvironment, WorksiteCommandExecutionLimits } from "../product/worksite_command_execution.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -741,14 +757,30 @@ function outputDigest(output: string): Sha256Digest {
   }
 }
 
+/** The call-bound qualification owner's decision over one actual prepared
+ * selection, before its binding or any start. Only the invoking leaf owner
+ * binds it to its admitted call and input; no caller supplies a decision. */
+export type ActorDispatchEligibilityDecision = Readonly<
+  | { disposition: "eligible" | "not_required" }
+  | { disposition: "ineligible" | "unknown"; reason: string }>;
+export type ActorDispatchEligibility = (request: Readonly<{
+  cCallRef: string;
+  inputDigest: Sha256Digest;
+  predecessorPrefix: DurablePrefixCoordinate;
+  actorRef: string;
+  selection: ConfiguredActorSelection;
+}>) => ActorDispatchEligibilityDecision;
+
 /** One preparation and dispatch composition. The implementation may request
  * the assembly, but cannot supply or replace the value retained by this owner.
  * Only the existing immutable native basis permits reuse; raw/copy callers
- * retain the standalone cold dispatch authentication path. */
+ * retain the standalone cold dispatch authentication path. A qualification
+ * assessment dispatches only through its owner's call-bound eligibility. */
 export function prepareActorProcessInvocation(
   value: Readonly<Record<string, JsonValue>>,
   occurrence: ActorProcessInvocationInput["occurrence"],
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>,
+  dispatchEligibility?: ActorDispatchEligibility,
 ) {
   const { semanticStageBasis, nativeInstructionAssemblyBasis } = occurrence;
   const coordinates = { cCallRef: occurrence.cCallRef, runId: occurrence.runId,
@@ -785,7 +817,7 @@ export function prepareActorProcessInvocation(
         (Object.keys(coordinates) as (keyof typeof coordinates)[]).some(key => input.occurrence[key] !== coordinates[key]))
         return refuseActorProcessEffect("actor_process_invocation_refused",
           "prepared native assembly crosses actor coordinates", input.predecessorPrefix, input.predecessorPrefix, null);
-      return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef);
+      return invokeActorProcessWithAssembly(input, ownedBasis ? assembly : undefined, contractByRef, dispatchEligibility);
     },
   });
 }
@@ -801,6 +833,7 @@ async function invokeActorProcessWithAssembly(
   input: ActorProcessInvocationInput,
   preparedAssembly?: Readonly<NativeInstructionAssembly>,
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>,
+  dispatchEligibility?: ActorDispatchEligibility,
 ): Promise<Readonly<ActorProcessEffectResult>> {
   const predecessorPrefix = input.predecessorPrefix;
   let successorPrefix = predecessorPrefix;
@@ -809,6 +842,17 @@ async function invokeActorProcessWithAssembly(
   let finalProcessFacts: OwnedProcessFacts | null = null;
   const encodedFinalProcessFacts = (): JsonValue | null =>
     finalProcessFacts === null ? null : encodeOwnedProcessFacts(finalProcessFacts);
+  // The governed endpoint belongs to this actor lifecycle only; the owner
+  // derives its selection and lookup, and it closes on completion, failure and
+  // interruption in the finally below. No caller supplies a lookup.
+  let governedEndpoint: GovernedContextEndpoint | null = null;
+  let governedLookup: OwnedContextLookup | null = null;
+  let governedAuthorityFor: ((occurrence: GovernedContextOwnerAuthority["occurrence"]) => GovernedContextOwnerAuthority) | null = null;
+  let governedKeys: string | null = null, governedPrompt: string | null = null, governedOccurrenceOpen = true;
+  let governedOccurrence: GovernedContextOwnerAuthority["occurrence"] | null = null;
+  let governedClose: "completed" | "failed" | "interrupted" = "failed";
+  const governedStdout: string[] = [];
+  let unbindStdoutWindow = (): void => {};
   try {
   if (
     input.request.implementationRef !== input.cCall.implementationRef ||
@@ -890,13 +934,130 @@ async function invokeActorProcessWithAssembly(
     isNativeWorkspaceWorkTask(worksiteOwner.inputValue) ? worksiteOwner.inputValue : null;
   if (input.request.implementationRef === nativeIds.implementationRef && nativeTask === null)
     throw new TypeError("native workspace dispatch lacks its authenticated worksite task");
+  // Native Construction only. One private Program policy reference selects
+  // the governed lookup through the authenticated RunEnvironment member; the
+  // owner gate verifies the pinned Python/adapter invocation against the live
+  // role, capability and grant; the Testing field is the unique same-Run
+  // admitted Result of the wrapper Construction state. Unconfigured Programs
+  // keep the unchanged path; configured but unprovable facts refuse dispatch.
+  if (nativeTask !== null && nativeTask.assessment === undefined && worksiteOwner !== null && worksiteBasis !== undefined) {
+    const publication = worksiteBasis.publication, execution = worksiteOwner.execution, call = worksiteOwner.call, task = nativeTask;
+    const programs = (publication as Partial<typeof publication> | undefined)?.programs?.filter(p => p.programRef === execution.programRef) ?? [];
+    const program = programs.length === 1 ? programs[0] : undefined;
+    // Role evidence is projected only for a Program that carries the private key.
+    const select = (prefix: RuntimeEventPrefix) => selectOwnedGovernedContext({ constructionTask: true, publication, program,
+      roleEvidence: program?.policies[GOVERNED_CONTEXT_POLICY_KEY] === undefined ? null : projectRunEnvironmentRoleEvidenceAtPrefix(prefix,
+        execution.invocationAdmissionRef, publication, execution.programRef, call.graphFunctionRef, call.programLocusRef, "constructor") });
+    const selection = select(worksiteOwner.prefix);
+    if (selection.kind === "governed_context_refused") throw new TypeError(`governed context refused: ${selection.code}: ${selection.reason}`);
+    if (selection.kind === "governed_context_selected") {
+      const policy = selection.policy, runId = input.cCall.runId;
+      const testingAt = (prefix: RuntimeEventPrefix) => projectGovernedContextTestingAtPrefix(prefix, execution, task, runId, policy.sources.testing.fieldPath);
+      const testing = testingAt(worksiteOwner.prefix);
+      if (testing === null) throw new TypeError("governed context refused: binding_stale: no unique current same-Run admitted Testing Result field");
+      const files = new Map(task.context.entries.flatMap(e => e.state === "file" ? [[e.relativePath, e.digest] as const] : []));
+      // The native capability grant names the authenticated invoking actor of
+      // this execution (native work law), never the F_P worker actor; the
+      // worker actor is bound by the GC03 principal and activation template.
+      const permit = gateGovernedContextExecution(selection, { role: "constructor", graphFunctionRef: call.graphFunctionRef,
+        implementationRef: input.request.implementationRef, actorRef: execution.actorRef, capabilityGrantActorRef: task.capabilityGrant.actorRef,
+        occurrenceCurrent: call.cCallRef === input.cCall.cCallRef && governedOccurrenceOpen, readableFiles: new Set(files.keys()) });
+      const testingKey = `${testing.resultRef}#${JSON.stringify(testing.fieldPath)}`;
+      const sourceKeys = Object.freeze([policy.sources.task, policy.sources.rubric, ...policy.sources.worksite, testingKey]);
+      const grantOf = (s: typeof selection) => sha256Canonical({ policyRef: s.policyRef, policyDigest: s.policyDigest, principal: s.policy.principal, sourceKeys });
+      const grantDigest = grantOf(selection);
+      const currentGrant = () => { const again = select(readOwnedRuntimeEventPrefixAtDurablePrefix(successorPrefix)); return again.kind === "governed_context_selected" ? grantOf(again) : null; };
+      const root = task.workspaceAuthorityBasis.canonicalRoot;
+      const readWorksite = (path: string): Uint8Array | null => {
+        const full = resolve(root, path);
+        if (!full.startsWith(root.endsWith("/") ? root : root + "/")) return null;
+        try { return lstatSync(full).isFile() ? readFileSync(full) : null; } catch { return null; }
+      };
+      const heldPrefix = () => {
+        const t = testingAt(readOwnedRuntimeEventPrefixAtDurablePrefix(successorPrefix));
+        return t === null ? null : { runId, prefixDigest: sha256Canonical({ runId, testingEventRef: t.eventRef, resultDigest: t.resultDigest }),
+          admittedResult: (ref: string) => ref !== t.resultRef ? null : { resultDigest: t.resultDigest as Sha256Digest, cCallRef: t.cCallRef,
+            actorInvocationRef: t.actorInvocationRef, field: (path: readonly (string | number)[]) => JSON.stringify(path) === JSON.stringify(t.fieldPath) ? t.bytes : null } };
+      };
+      const digestOf = (path: string) => files.get(path) as Sha256Digest;
+      const ordered = [...policy.sources.worksite].sort();
+      const promptSources = [
+        { key: "late/0", role: "original_task" as const, sourceKey: policy.sources.task, digest: digestOf(policy.sources.task) },
+        { key: "late/1", role: "original_rubric" as const, sourceKey: policy.sources.rubric, digest: digestOf(policy.sources.rubric) },
+        { key: "late/2", role: "testing_result_field" as const, sourceKey: testingKey, digest: sha256Bytes(testing.bytes) },
+        ...ordered.map((path, i) => ({ key: `late/${i + 3}`, role: "worksite_source" as const, sourceKey: path, digest: digestOf(path) }))];
+      // GC03 resolves each late source as retained evidence by exact {id,sha256};
+      // only bytes the owner currently holds for a selected id can answer.
+      const heldSource = (id: string): Uint8Array | null => id === testingKey
+        ? heldPrefix()?.admittedResult(testing.resultRef)?.field(testing.fieldPath) ?? null
+        : sourceKeys.includes(id) ? readWorksite(id) : null;
+      // The published admission identity: its actual digest, never a derived hash.
+      const admission = projectExactInvocationAdmissionAtPrefix(worksiteOwner.prefix, execution.invocationAdmissionRef);
+      if (admission === null) throw new TypeError("governed context refused: binding_stale: invocation admission is not current");
+      const subject = { id: call.cCallRef, digest: sha256Canonical(task) };
+      // Full released context.assemble request and owner selection members from
+      // current owner facts, rederived on every adapter start and reacquisition.
+      const bridgeOf = () => {
+        const current = readOwnedRuntimeEventPrefixAtDurablePrefix(successorPrefix), held = heldPrefix(), occurrence = governedOccurrence;
+        const again = projectExactInvocationAdmissionAtPrefix(current, execution.invocationAdmissionRef);
+        if (held === null || occurrence === null || again?.invocationAdmissionDigest !== admission.invocationAdmissionDigest) return null;
+        return deriveGc03HostLookup({
+          owner: { id: selection.policyRef, digest: selection.policyDigest },
+          admission: { id: execution.invocationAdmissionRef, digest: admission.invocationAdmissionDigest },
+          epoch: { id: runId, digest: held.prefixDigest },
+          ownerCoordinates: { runId, cCallRef: occurrence.cCallRef, actorInvocationRef: occurrence.actorInvocationRef, actorRef: occurrence.actorRef,
+            attempt: occurrence.attempt, programRef: execution.programRef, graphFunctionRef: call.graphFunctionRef, programLocusRef: call.programLocusRef,
+            invocationAdmissionRef: execution.invocationAdmissionRef,
+            testing: { resultRef: testing.resultRef, resultDigest: testing.resultDigest, fieldPath: testing.fieldPath, eventRef: testing.eventRef,
+              producer: { cCallRef: testing.cCallRef, actorInvocationRef: testing.actorInvocationRef } },
+            currentPrefix: { digest: runtimeEventPrefixDigest(current), ...runtimeEventPrefixExtent(current) },
+            bindingProjection: { label: "abg.governed_context.grant_binding_projection", digest: grantDigest } },
+          principalId: policy.principal.principalId, actorId: input.request.actorRef, grantId: policy.principal.grantId,
+          executorId: "gc03-python-host-adapter", policyDigest: policy.release.policyDigest, sources: promptSources,
+          template: selection.activationTemplate,
+          activation: { requestId: `${occurrence.actorInvocationRef}#context.assemble`, activationId: occurrence.actorInvocationRef,
+            frameId: `${call.graphFunctionRef}#${call.programLocusRef}`, subject } });
+      };
+      // Configured dispatch with an unprovable template, actor or source join refuses before transport.
+      const probe = deriveGc03HostLookup({ owner: { id: selection.policyRef, digest: selection.policyDigest },
+        admission: { id: execution.invocationAdmissionRef, digest: admission.invocationAdmissionDigest }, epoch: { id: runId, digest: selection.policyDigest },
+        ownerCoordinates: { runId }, principalId: policy.principal.principalId, actorId: input.request.actorRef, grantId: policy.principal.grantId,
+        executorId: "gc03-python-host-adapter", policyDigest: policy.release.policyDigest, sources: promptSources, template: selection.activationTemplate,
+        activation: { requestId: "probe", activationId: "probe", frameId: "probe", subject } });
+      if (probe.kind !== "gc03_host_lookup_derived") throw new TypeError(`governed context refused: ${probe.code}: ${probe.reason}`);
+      const host = pinnedGc03HostReader({ permit, current: () => governedOccurrenceOpen && currentGrant() === grantDigest,
+        installedRoot: policy.release.installedRoot, policyPath: policy.release.policyPath, policyDigest: policy.release.policyDigest,
+        principalId: policy.principal.principalId, derivation: bridgeOf,
+        callbacks: { resolveArtifact: ref => resolveGc03RetainedArtifact(ref, heldSource), queryArtifacts: () => null } });
+      governedKeys = JSON.stringify([[policy.sources.task, "original_task"], [policy.sources.rubric, "original_rubric"], [testingKey, "testing_result_field"],
+        ...ordered.map(path => [path, "worksite_source"])]);
+      governedEndpoint = await reserveGovernedContextEndpoint();
+      governedPrompt = governedContextPrompt(governedEndpoint.invocation, promptSources, permit.pageBound);
+      governedAuthorityFor = occurrence => ({ occurrence, role: selection.role,
+        context: { observationRef: task.context.observationRef, readRoots: task.context.readRoots,
+          entries: task.context.entries.map(e => ({ relativePath: e.relativePath, state: e.state })) },
+        original: { task: { path: policy.sources.task, digest: digestOf(policy.sources.task) }, rubric: { path: policy.sources.rubric, digest: digestOf(policy.sources.rubric) } },
+        worksiteSources: ordered.map(path => ({ path, digest: digestOf(path) })),
+        testing: { resultRef: testing.resultRef, resultDigest: testing.resultDigest as Sha256Digest, fieldPath: testing.fieldPath,
+          producer: { cCallRef: testing.cCallRef, actorInvocationRef: testing.actorInvocationRef }, provenance: [testing.eventRef] },
+        grant: { principalId: policy.principal.principalId, grantId: policy.principal.grantId, grantDigest, sourceKeys }, pageBound: permit.pageBound,
+        release: { identity: policy.release.identity, inventorySha256: policy.release.inventorySha256, pythonDigest: policy.python.digest,
+          pythonVersion: policy.python.version, adapterDigest: policy.adapter.digest, policyDigest: policy.release.policyDigest },
+        reacquire: { prefix: heldPrefix, occurrenceActive: () => governedOccurrenceOpen, grantDigest: currentGrant, worksiteSource: readWorksite },
+        host });
+    }
+  }
   const transportContract = constructKnownWorkerTransportContract("claude", {
       command: command ?? "claude",
-      environment,
+      environment: governedEndpoint === null ? environment : Object.freeze({ ...environment, ...governedEndpoint.environment }),
     });
+  // §10.12: the final native contract and its args are frozen where they are
+  // produced, so the plan owner borrows them instead of copying. Command,
+  // environment, endpoint and governed prompt stay per-occurrence inputs.
   const plan = await prepareWorkerTransport({
-    contract: nativeTask === null ? transportContract : { ...transportContract,
-      argsTemplate: [...transportContract.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash"] },
+    contract: nativeTask === null ? transportContract : deepFreeze({ ...transportContract,
+      argsTemplate: [...transportContract.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash",
+        ...(governedPrompt === null ? [] : ["--append-system-prompt", governedPrompt])] }),
     prompt: input.request.prompt,
     lane: input.request.transportLane,
     cwd: nativeTask?.workspaceAuthorityBasis.canonicalRoot ?? resolve(input.runtime.workspaceBinding.roots.archiveRoot, "..", ".."),
@@ -912,8 +1073,24 @@ async function invokeActorProcessWithAssembly(
     ),
     responseJsonSchema: input.request.responseJsonSchema,
     ...(input.request.responsePresentation === undefined ? {} : { responsePresentation: input.request.responsePresentation }),
-    environment,
+    environment: governedEndpoint === null ? environment : Object.freeze({ ...environment, ...governedEndpoint.environment }),
   });
+  if (governedEndpoint !== null && plan.parser !== "claude_stream_json")
+    throw new TypeError("governed context correspondence is selected only for the Claude stream-json profile");
+  // The binding records the plan's identity once; a legacy-profile binding
+  // records none. A qualification assessment's owner decides over exactly that
+  // recorded selection before its binding or any start. Without the call-bound
+  // owner, or with any decision but eligible/not_required, nothing is admitted.
+  const configuredIdentity = successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? null : plan.configuredIdentity;
+  if (input.request.implementationRef === QUALIFICATION_IDS.assessImplementation) {
+    const decision = dispatchEligibility === undefined || !isQualificationAssessorEligibility(dispatchEligibility)
+      ? { disposition: "unknown" as const, reason: "owner_connection_missing" }
+      : dispatchEligibility(deepFreeze({ cCallRef: input.cCall.cCallRef, inputDigest: input.request.inputDigest,
+        predecessorPrefix, actorRef: input.request.actorRef,
+        selection: { agentKey: plan.agentKey, identity: configuredIdentity } }));
+    if (decision.disposition !== "eligible" && decision.disposition !== "not_required")
+      throw new TypeError(`qualification dispatch refused: ${String(decision.disposition)}: ${"reason" in decision ? String(decision.reason) : "unspecified"}`);
+  }
   const transportBindingBody = {
     ...(successorPrefix.storeIdentity.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST ? {} : {
       livenessBinding: {
@@ -941,6 +1118,7 @@ async function invokeActorProcessWithAssembly(
     dispatchOrdinal: input.dispatchOrdinal,
     command: plan.command,
     args: plan.args,
+    ...(configuredIdentity === null ? {} : { configuredIdentity }),
     cwd: plan.cwd,
     archiveRoot: plan.archiveRoot,
     timeoutMs: plan.timeoutMs,
@@ -1026,6 +1204,20 @@ async function invokeActorProcessWithAssembly(
   );
   const { startedEvent } = intentAdmission.value;
   successorPrefix = intentAdmission.successorPrefix;
+  // After native intent/actor admission the owner constructs the lookup from
+  // the actual occurrence and its own held facts; activation waits for the
+  // admitted process start.
+  if (governedEndpoint !== null && governedAuthorityFor !== null) {
+    governedOccurrence = Object.freeze({ runId: input.cCall.runId, cCallRef: input.cCall.cCallRef,
+      actorInvocationRef, actorRef: input.request.actorRef, attempt: input.cCall.attempt });
+    governedLookup = constructOwnedContextLookup(governedAuthorityFor(governedOccurrence));
+    // The prompt named these keys before transport identity; the owner lookup must derive the same ones.
+    if (JSON.stringify(governedLookup.keys.map(k => [k.sourceKey, k.role])) !== governedKeys) {
+      governedLookup.close("failed");
+      throw new TypeError("governed context refused: key_denied: owner lookup keys differ from the prompted keys");
+    }
+    governedEndpoint.bind(governedLookup, { runId: input.cCall.runId, cCallRef: input.cCall.cCallRef, actorInvocationRef });
+  }
   let previousEventRef = startedEvent.eventId;
   let streamOrdinal = 0;
   let stdoutByteLength = 0;
@@ -1116,7 +1308,7 @@ async function invokeActorProcessWithAssembly(
         elapsedMs, underlyingObservationRef: event.eventId, underlyingEventRef: event.eventId, sourceDigest: event.payloadDigest, sourceRevisionDigest: null,
         evidenceRefs: [event.eventId], coverage, signal },
     });
-    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId; flushedWindowTailRef = null;
   };
   const observePendingAsset = () => {
     const context = nativeContext();
@@ -1144,13 +1336,59 @@ async function invokeActorProcessWithAssembly(
         elapsedMs: elapsed(), underlyingObservationRef, underlyingEventRef: null, sourceDigest, sourceRevisionDigest,
         evidenceRefs: [context.declarationEventRef], coverage: "observed", signal: "artifact_pending" },
     });
-    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId;
+    successorPrefix = result.successorPrefix; previousEventRef = result.value.eventId; flushedWindowTailRef = null;
   };
+  // E-E: current-profile stdout is classified per captured chunk and admitted
+  // once per closed window, staged by the scope flush or in its own transaction.
+  let flushedWindowTailRef: string | null = null;
+  const classifyStdoutChunk = (chunk: string): WorkerStdoutChunkClass => {
+    const elapsedMs = elapsed();
+    if (governedEndpoint !== null) governedStdout.push(chunk);
+    if (plan.parser !== "claude_stream_json") return { elapsedMs, progress: chunk.length > 0, result: false, turnBoundary: false };
+    // Segments end at the chunk's completed turn boundaries, each classified
+    // by its own records: a noise-only tail after a boundary is not activity.
+    const segments = stdoutObserver.classifyChunk(chunk);
+    return { elapsedMs, progress: segments.some(row => row.progress), result: segments.some(row => row.result),
+      turnBoundary: segments.some(row => row.turnBoundary), segments };
+  };
+  const admitStdoutWindow = (text: string, window: WorkerStdoutWindow): void => {
+    const interrupted = supervisionInterrupted;
+    // The witness keeps the transport's range and capture clocks; after an
+    // absolute interruption the window still records its captured qualifying
+    // time while no probe renews activity.
+    const stage = () => stageNativeStdoutWindow({ store: input.store, envelope: { ...common, eventTime: sampleNativeEventTime(),
+      causationEventRefs: [previousEventRef] }, actorInvocationRef, processRef, text,
+      window: { archiveOffset: window.archiveOffset, firstCaptureElapsedMs: window.firstCaptureElapsedMs,
+        lastCaptureElapsedMs: window.lastCaptureElapsedMs, capturedQualifyingElapsedMs: window.lastQualifyingElapsedMs },
+      lastQualifyingElapsedMs: interrupted ? null : window.lastQualifyingElapsedMs, resultElapsedMs: interrupted ? null : window.resultElapsedMs });
+    const tail = (staged: ReturnType<typeof stage>) => staged.probes.at(-1)?.eventId ?? staged.row.eventId;
+    // The flush path: the enclosing transaction owns the predecessor and the commit.
+    if (isRuntimeEventTransactionActive(input.store)) { flushedWindowTailRef = tail(stage()); return; }
+    assertHeldEventStoreAtDurablePrefix(input.store, successorPrefix);
+    const admission = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(input.store, successorPrefix, stage);
+    successorPrefix = admission.successorPrefix; previousEventRef = tail(admission.value); flushedWindowTailRef = null;
+  };
+  // Committed stdout rows of this process at the current cut.
+  const committedStdoutRows = () => indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(input.store), "aggregate:process:" + processRef)
+    .filter(event => event.kind === "actor_process_stdout_observed");
 
   const admitTransportArtifact = (transport: WorkerTransportResult) => {
     if (admittedArtifact !== null) throw new TypeError("actor result artifact was already admitted");
     if (finalProcessFacts === null || classifyOwnedProcessTerminal(finalProcessFacts) === "unconfirmed") {
       throw new TypeError("actor result artifact lacks final confirmed physical facts");
+    }
+    if (governedEndpoint !== null && governedLookup !== null) {
+      // The actor has finished: no further request is served. Every retained
+      // exchange, served or refused, must rejoin its exact fixed-client call
+      // and complete tool_result bytes in raw stdout before Result admission.
+      governedOccurrenceOpen = false;
+      governedLookup.close(supervisionInterrupted ? "interrupted" : transport.disposition === "success" ? "completed" : "failed");
+      const transcript = governedEndpoint.transcript();
+      writeFileSync(plan.paths.stdout.replace(/-stdout\.log$/u, "-governed-context.json"), encodeGovernedContextTranscript({
+        occurrence: governedLookup.occurrence, bindingDigest: governedLookup.bindingDigest, invocation: governedEndpoint.invocation, exchanges: transcript }));
+      const correspondence = verifyGovernedContextCorrespondence(governedStdout.join(""), transcript, governedEndpoint.invocation);
+      if (correspondence.kind !== "governed_context_correspondence")
+        throw new TypeError(`governed context correspondence refused: ${correspondence.code}: ${correspondence.message}`);
     }
     const observedOutputDigest = outputDigest(transport.finalOutput);
     const artifactDigests = {
@@ -1193,7 +1431,9 @@ async function invokeActorProcessWithAssembly(
       toolCallCount: transport.toolCallCount,
       toolInvocations: transport.toolInvocations,
       apiRetryCount: transport.apiRetryCount,
-      stdoutByteLength,
+      stdoutByteLength: currentProfile
+        ? committedStdoutRows().reduce((total, event) => total + Number((event.payload as Record<string, JsonValue>).byteLength), 0)
+        : stdoutByteLength,
       stderrByteLength,
       artifactDigests,
     };
@@ -1206,7 +1446,9 @@ async function invokeActorProcessWithAssembly(
         cCallRef: input.cCall.cCallRef,
         requestRef,
         requestDigest,
-        ...observationBody,
+        // D5: the current profile persists the shared durable projection; L
+        // keeps its original full body. The live observation stays full.
+        ...(currentProfile ? projectDurableActorObservation(observationBody) : observationBody),
       },
     );
     // Retain the actual committed witness before a subsequent probe can fail.
@@ -1224,11 +1466,16 @@ async function invokeActorProcessWithAssembly(
         const sampled = elapsed();
         const decision = admitRuntimeThreshold({ store: input.store, predecessorPrefix: successorPrefix,
           actorInvocationRef, processRef, elapsedMs: sampled, eventTime: sampleNativeEventTime(), correlationId: common.correlationId });
+        // Both branches adopt the actual durable successor, including a flushed window.
+        successorPrefix = decision.successorPrefix;
+        if (flushedWindowTailRef !== null) { previousEventRef = flushedWindowTailRef; flushedWindowTailRef = null; }
         if (decision.kind === "runtime_threshold_admitted") {
-          successorPrefix = decision.successorPrefix; previousEventRef = decision.value.eventId;
+          previousEventRef = decision.value.eventId;
           if (decision.timeoutClass === "absolute") {
             probe("process_lifecycle", decision.value, "external_interruption", sampled);
             supervisionInterrupted = true;
+            governedOccurrenceOpen = false;
+            void governedEndpoint?.close("interrupted");
           }
           return { projection: decision.projection, admittedThresholdEventRef: decision.value.eventId,
             timeoutClass: decision.timeoutClass, nextWakeDelayMs: plan.timeoutMs };
@@ -1249,13 +1496,18 @@ async function invokeActorProcessWithAssembly(
           { actorInvocationRef, processRef, processId: pid, cCallRef: input.cCall.cCallRef },
         );
         processStarted = true;
+        if (governedLookup !== null) governedEndpoint!.activate(event.eventId);
         if (currentProfile) {
           for (const source of actorRuntimeProbeSources(plan.parser)) probe(source, event,
             source === "process_lifecycle" ? "activity" : "coverage", sampled,
             source === "process_lifecycle" || source === "stdout" || source === "stderr" ? "observed" : "unavailable");
         }
       },
-      onStdoutObserved: (chunk) => {
+      ...(currentProfile ? { classifyStdoutChunk, bindStdoutWindow: (flush: () => (() => void) | null) => {
+        unbindStdoutWindow = bindNativeStdoutWindow(input.store, actorInvocationRef, flush);
+      } } : {}),
+      onStdoutObserved: (chunk, window) => {
+        if (window !== undefined) { admitStdoutWindow(chunk, window); return true; }
         const sampled = elapsed();
         const byteLength = Buffer.byteLength(chunk);
         stdoutByteLength += byteLength;
@@ -1273,6 +1525,7 @@ async function invokeActorProcessWithAssembly(
           },
         );
         stdoutEventRefs.push(event.eventId);
+        if (governedEndpoint !== null) governedStdout.push(chunk);
         if (plan.parser !== "claude_stream_json") {
           probe("stdout", event, "activity", sampled);
           return true;
@@ -1301,7 +1554,8 @@ async function invokeActorProcessWithAssembly(
           {
             actorInvocationRef,
             processRef,
-            streamOrdinal: ++streamOrdinal,
+            // Windowed stdout rows take their ordinals from the admitted stream rows.
+            streamOrdinal: currentProfile ? nextNativeProcessStreamOrdinal(selectRuntimeEventPrefixFromStore(input.store), processRef) : ++streamOrdinal,
             byteLength,
             chunkDigest: sha256Canonical(chunk),
           },
@@ -1391,7 +1645,7 @@ async function invokeActorProcessWithAssembly(
           transportBindingDigest,
           transportDigest: transport.artifacts.transport.digest,
           consumedTransportBindingRef: transportBindingRef,
-          consumedStdoutEventRefs: Object.freeze([...stdoutEventRefs]),
+          consumedStdoutEventRefs: Object.freeze(currentProfile ? committedStdoutRows().map(event => event.eventId) : [...stdoutEventRefs]),
           consumedStderrEventRefs: Object.freeze([...stderrEventRefs]),
           consumedArtifactEventRef: artifactEvent.eventId,
         },
@@ -1408,6 +1662,7 @@ async function invokeActorProcessWithAssembly(
         encodedFinalProcessFacts(),
       );
     }
+    governedClose = transport.disposition === "success" ? "completed" : "failed";
     return deepFreeze({
       kind: "actor_process_effect_receipt" as const,
       schemaVersion: "5.0.0" as const,
@@ -1450,5 +1705,8 @@ async function invokeActorProcessWithAssembly(
       successorPrefix,
       encodedFinalProcessFacts(),
     );
+  } finally {
+    unbindStdoutWindow();
+    if (governedEndpoint !== null) await governedEndpoint.close(governedClose);
   }
 }

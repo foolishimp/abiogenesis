@@ -43,18 +43,32 @@ Let L be the retained legacy profile:
   eventKinds,eventContracts}`. Do not insert a new field and call the result L.
 
 Let P be the one current profile, named
-`abg.event-contract.root/p3-undispatched-owner-refusal@1`. Its immutable
-descriptor binds L, the unchanged aggregate census, the exact current event-kind
-census including those two liveness kinds, the exact current payload table and
-the current envelope stamp declaration. Compute
+`abg.event-contract.root/p5-run-environment-role-context@1`
+(`abg/event_contract_profiles.ts`, `ROOT_CURRENT_EVENT_PROFILE_REF`). Its
+immutable descriptor, built only by `constructRootCurrentEventContractDescriptor`
+in that owner, binds the profile ref, L, the unchanged aggregate census, the
+exact current event-kind census including those two liveness kinds, the exact
+current payload table and the current envelope stamp declaration. Compute
 its digest D from the exact implemented canonical descriptor; D must differ
 from L. D is not allocated by this prose and is never a placeholder runtime
 value. Source/package freeze must publish the computed full D, exact
 descriptor and native typed locator before installed preparation.
 
-P conserves every old payload arm and introduces the closed
-`undispatched_owner_refusal` arm, the two liveness kinds and the envelope stamp
-described below. The exact current payload table binds the native probe/policy
+P conserves the old payload arms apart from the lifecycle copies below and
+introduces the closed `undispatched_owner_refusal` arm, the two liveness kinds
+and the envelope stamp described below; other current arm extensions belong to
+their owning designs. Two P arms omit the lifecycle copies
+`terminationConfirmed`, `exitObserved`, `timedOut` and `signalSequence`, which
+the fold derives from the primary process events: the `probabilistic_transport`
+arm of `c_call_evidenced` and `actor_result_artifact_observed`. A reinserted
+copy refuses (D5, [common library
+design](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md)). The L arms keep
+them. The omission changes the exact P table and so D; a store stamped with a
+predecessor D is not a known profile for this cut, stays with its original owner
+and is not restamped. A fresh successor store carries the current D. D, not the
+ref, identifies the profile. Acceptance of this descriptor as a released
+successor profile, and any successor ref, belong to the release cut, not to
+this source change. The exact current payload table binds the native probe/policy
 declaration coordinates and the closed actor_process_timeout_observed
 threshold-coordinate extension governed by [native liveness conservation](T287_NATIVE_LIVENESS_CONSERVATION_DESIGN.md#3-one-replay-derived-relation-and-one-elapsed-basis).
 Existing actor/process binding payloads use their strict P forms for these

@@ -29,7 +29,7 @@ import {
   type ExactOperationInvocationCoordinate,
 } from "../shared/operation_definition_coordinate.js";
 import {
-  projectExactPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
   runtimePrefixFromOwnedArtifactTruth,
   prepareArtifactTruthCandidate,
   validateArtifactTruthProjectionValue,
@@ -53,7 +53,9 @@ import {
   type RuntimeEventCandidate,
 } from "./event_store.js";
 import {
+  runtimeEventBodiesAtPrefix,
   runtimePrefixComputation,
+  selectRuntimeEventPrefixFromStore,
 } from "./event_prefix.js";
 import { canonicalEquals } from "../shared/value/index.js";
 import { onlyExactMatch } from "../shared/select/index.js";
@@ -486,7 +488,7 @@ export function projectExactPrefixWorkspaceEnvironment(
   prefix: DurablePrefixCoordinate,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
 ): ExactPrefixWorkspaceEnvironmentProjectionResult {
-  const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+  const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
   if (artifactTruth.kind !== "exact_prefix_artifact_truth_projection") {
     return exactPrefixEnvironmentRefusal(
       "artifact_truth_invalid",
@@ -516,23 +518,68 @@ export function projectWorkspaceEnvironmentFromArtifactTruth(
       "workspace environment projection requires one exact WorkspaceBinding ref and digest",
     );
   }
+  // Only the exact owner projection names its lineage territory; a copied or
+  // raw projection was fully validated above and derives cold.
   const ownerPrefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
-  const key = `${artifactTruth.projectionDigest}:${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}`;
   const facts = ownerPrefix === null ? null : runtimePrefixComputation(ownerPrefix,
-    WORKSPACE_ENVIRONMENTS, () => new Map<string, ExactPrefixWorkspaceEnvironmentProjectionResult>());
-  const retained = facts?.get(key);
-  if (retained !== undefined) return retained;
-  const result = deriveWorkspaceEnvironment(artifactTruth, workspaceBindingCoordinate);
-  facts?.set(key, result);
-  return result;
+    WORKSPACE_ENVIRONMENTS, () => new Map<string, WorkspaceEnvironmentBody>());
+  // The derivation reads only the admitted artifact rows, so their ordered
+  // admission identities are its dependency extent; the cut is not.
+  const key = `${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}:` +
+    artifactTruth.rows.map(row => row.admissionEventDigest).join(",");
+  let body = facts?.get(key);
+  if (body === undefined) {
+    body = deriveWorkspaceEnvironment(artifactTruth, workspaceBindingCoordinate);
+    facts?.set(key, body);
+  }
+  if (body.kind === "exact_prefix_workspace_environment_refusal") return body;
+  // One wrapper per requested owner projection carries that cut; every member
+  // is already frozen. A copied projection has no owner and gets its own.
+  const coordinateKey = `${workspaceBindingCoordinate.ref}:${workspaceBindingCoordinate.digest}`;
+  let wrappers = ownerPrefix === null ? undefined : ENVIRONMENT_WRAPPERS.get(artifactTruth);
+  if (ownerPrefix !== null && wrappers === undefined) ENVIRONMENT_WRAPPERS.set(artifactTruth, wrappers = new Map());
+  const existing = wrappers?.get(coordinateKey);
+  if (existing !== undefined && existing.workspaceBinding === body.body.workspaceBinding) return existing;
+  const wrapper: ExactPrefixWorkspaceEnvironment = Object.freeze({
+    kind: "exact_prefix_workspace_environment" as const,
+    schemaVersion: "5.0.0" as const,
+    prefix: artifactTruth.prefix,
+    artifactTruth,
+    ...body.body,
+  });
+  wrappers?.set(coordinateKey, wrapper);
+  return wrapper;
+}
+const ENVIRONMENT_WRAPPERS = new WeakMap<ExactPrefixArtifactTruthProjection, Map<string, ExactPrefixWorkspaceEnvironment>>();
+
+/** Observation-only environment work counts for the §10.12 body-reuse proof:
+ * invariant environment bodies actually derived. They select, cache and change
+ * no binding, install, lock, ProductSet or refusal value. */
+const workspaceEnvironmentWork = { environmentDerivations: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeWorkspaceEnvironmentWork(): Readonly<typeof workspaceEnvironmentWork> {
+  return Object.freeze({ ...workspaceEnvironmentWork });
 }
 
-const WORKSPACE_ENVIRONMENTS = Symbol("exact_workspace_environment_derivations");
+type WorkspaceEnvironmentBody =
+  | ExactPrefixWorkspaceEnvironmentRefusal
+  | Readonly<{
+    kind: "workspace_environment_body";
+    body: Omit<ExactPrefixWorkspaceEnvironment, "kind" | "schemaVersion" | "prefix" | "artifactTruth">;
+  }>;
+
+/** The invariant environment body of one lineage territory, keyed by the exact
+ * binding coordinate and the artifact dependency extent. An unrelated append
+ * keeps the extent and borrows the body; an admitted binding, install, lock or
+ * artifact row changes it and derives again. Availability is checked by the
+ * artifact truth owner at every requested cut before this relation runs. */
+const WORKSPACE_ENVIRONMENTS = Symbol("exact_workspace_environment_bodies");
 function deriveWorkspaceEnvironment(
   artifactTruth: ExactPrefixArtifactTruthProjection,
   workspaceBindingCoordinate: ReferenceDigest<WorkspaceBinding>,
-): ExactPrefixWorkspaceEnvironmentProjectionResult {
-  const prefix = artifactTruth.prefix;
+): WorkspaceEnvironmentBody {
+  workspaceEnvironmentWork.environmentDerivations++;
   const bindingRow = selectArtifactTruthRow(artifactTruth.rows, {
     operationId: "abg.operation.workspace.bind",
     authorityScopeRef: workspaceBindingCoordinate.ref,
@@ -627,16 +674,15 @@ function deriveWorkspaceEnvironment(
     );
   }
   return deepFreeze({
-    kind: "exact_prefix_workspace_environment" as const,
-    schemaVersion: "5.0.0" as const,
-    prefix,
-    artifactTruth,
+    kind: "workspace_environment_body" as const,
+    body: {
     workspaceAuthorityBasis: bindingRow.workspaceAuthorityBasis,
     workspaceBindingCandidate: bindingTruth.candidate,
     workspaceBinding: bindingTruth.binding,
     productInstalls,
     resolvedProductLock,
     productSet,
+    },
   });
 }
 
@@ -784,12 +830,6 @@ type ArtifactAdmissionResult =
           }>;
     }>;
 
-function projectArtifactTruthAtPrefix(
-  prefix: DurablePrefixCoordinate,
-): ExactPrefixArtifactTruthProjectionResult {
-  return projectExactPrefixArtifactTruth(prefix);
-}
-
 function predecessorCoordinateRefusal(error: unknown): EventStoreAppendRefusal {
   return deepFreeze({
     kind: "event_store_append_refusal" as const,
@@ -859,7 +899,7 @@ function admitArtifactFromOwner(
       refusal: invalidBasis,
     };
   }
-  const predecessorProjection = projectArtifactTruthAtPrefix(
+  const predecessorProjection = projectOwnedPrefixArtifactTruth(
     basis.predecessorPrefix,
   );
   if (
@@ -1014,7 +1054,8 @@ function admitArtifactFromOwner(
       refusal: predecessorCoordinateRefusal(error),
     };
   }
-  const predecessorEvents = store.readAll();
+  // The prospective event reads the held cut's owned bodies; nothing is copied.
+  const predecessorEvents = runtimeEventBodiesAtPrefix(selectRuntimeEventPrefixFromStore(store));
   let preparedEvent: ReturnType<typeof projectRuntimeEventFromValidatedHistory>;
   let acceptPrepared: ReturnType<typeof prepareArtifactTruthCandidate>;
   try {
@@ -1235,7 +1276,7 @@ export function admitWorkspaceBinding(
       refusal: invalidBasis,
     };
   }
-  const predecessorProjection = projectExactPrefixArtifactTruth(
+  const predecessorProjection = projectOwnedPrefixArtifactTruth(
     basis.predecessorPrefix,
   );
   if (

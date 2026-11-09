@@ -25,6 +25,25 @@ async function countHistory(path,action){
   try{return {value:await action(),work};}finally{Object.assign(fs,original);JSON.parse=parse;syncBuiltinESMExports();}
 }
 
+// design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md:64/:66 (T-290 C-10, C-18a item 1): one complete cold
+// authentication of the entry extent in bounded 64 KiB chunks, then authenticated reads of required bodies only; complete
+// historical populations are not compulsory at later internal handoffs. Classify each counted read by its owner reader.
+function historyReads(work){
+  const by=name=>work.reads.filter(r=>r.stack.some(frame=>frame.includes(name)));
+  const acquisition=by('foldRuntimeHistoryDescriptor'),selected=by('readRuntimeHistoryRowBytes');
+  const sum=rows=>rows.reduce((n,r)=>n+r.bytes,0);
+  return {acquisition:acquisition.length,acquisitionBytes:sum(acquisition),selected:selected.length,selectedBytes:sum(selected),
+    unclassified:work.reads.length-acquisition.length-selected.length};
+}
+function assertAcquisitionThenSelectedBodies(work,entrySize,closedRows,label){
+  const reads=historyReads(work);
+  assert.equal(reads.unclassified,0,`${label}: every physical read is acquisition decoding or one selected body`);
+  assert.equal(reads.acquisition,Math.ceil(entrySize/65536),`${label}: the entry extent is decoded once in bounded chunks`);
+  assert.equal(reads.acquisitionBytes,entrySize,`${label}: acquisition authenticates exactly the complete entry extent`);
+  assert.ok(reads.selected<closedRows,`${label}: no later handoff re-reads the complete closed population (${reads.selected}/${closedRows})`);
+  return reads;
+}
+
 test('declared ABG constructors remain unchanged and source binding exposes only selected callables',async()=>{
   const a=await import('../../build/code/src/abg/index.js');
   const h=await witnessMechanics();
@@ -131,14 +150,7 @@ test('raw Public witness with material history decodes only on acquisition and r
   const h=await witnessMechanics({seedPayloadBytes:20*1024*1024}),beforeSize=statSync(h.eventLogPath).size,call=JSON.parse(JSON.stringify(await h.call()));
   const measured=await countHistory(h.eventLogPath,()=>h.run(call)),result=measured.value;
   assert.equal(result.exitCode,0,JSON.stringify(result));assert.equal(h.nativeCalls,1);
-  console.log(JSON.stringify({kind:'witness_owned_history_boundaries',historyBytes:beforeSize,...measured.work,lowerPremises:'Product verification and environment injected; raw call, native store/admission/append/close/receipt real',installedProof:false}));
-  // design/T287_INTERRUPTED_EVENT_RESOURCE_RECOVERY_DESIGN.md, Operational history representation (:64; T-290 C-10,
-  // C-18a item 1): the cold acquisition decodes the entry extent once in bounded 64 KiB chunks, and the held owner
-  // reads each body of its closed prefix once by its row location; the rows tile the closed log.
-  const closedRows=events.readRuntimeEventsAtDurablePrefix(result.resources.eventResource.closeHandoff.prefix).length,afterSize=statSync(h.eventLogPath).size;
-  assert.equal(measured.work.reads.length,Math.ceil(beforeSize/65536)+closedRows,'cold acquisition only: copied packet and successful close/return retain the held proof');
-  assert.equal(measured.work.reads.reduce((n,r)=>n+r.bytes,0),beforeSize+afterSize);
-  assert.equal(measured.work.decoderParseCalls,1,'one seed record parse in the acquisition decoder; the canonical candidate capture is the native admission\'s');
+  // Semantic, cold and negative controls run before any work-shape assertion can abort them.
   const cold=await countHistory(h.eventLogPath,()=>h.binding.witnessRepriceResourcesCorrespond(structuredClone(call.resources),structuredClone(result.resources),call.invocation.request.content.value));
   assert.equal(cold.value,true);assert.equal(cold.work.reads.length,2,'standalone closed/raw correspondence still authenticates both cuts');
   const forged=structuredClone(result.resources);forged.eventResource.entryPrefix=result.resources.eventResource.closeHandoff.prefix;
@@ -147,6 +159,13 @@ test('raw Public witness with material history decodes only on acquisition and r
   const valid=bytes(h),changed=Buffer.from(valid);changed[0]=91;writeFileSync(h.eventLogPath,changed);
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,result.resources,call.invocation.request.content.value),false,'closed owner fact cannot lend current byte authentication');
   writeFileSync(h.eventLogPath,valid);
+  assert.equal(h.binding.witnessRepriceResourcesCorrespond(structuredClone(call.resources),structuredClone(result.resources),call.invocation.request.content.value),true,'restored bytes authenticate cold again');
+  const closedRows=events.readRuntimeEventsAtDurablePrefix(result.resources.eventResource.closeHandoff.prefix).length;
+  const reads=assertAcquisitionThenSelectedBodies(measured.work,beforeSize,closedRows,'material witness');
+  // The material seed is the basis_admitted body; the exact-basis member check requires it as one selected body.
+  assert.equal(measured.work.decoderParseCalls,1,'one seed record parse in the acquisition decoder; the canonical candidate capture is the native admission\'s');
+  console.log(JSON.stringify({kind:'witness_owned_history_boundaries',historyBytes:beforeSize,closedRows,...reads,decoderParseCalls:measured.work.decoderParseCalls,
+    lowerPremises:'Product verification and environment injected; raw call, native store/admission/append/close/receipt real',installedProof:false}));
 });
 
 test('copied witness packets keep I-JSON, wrong-prefix and foreign-store refusals',async()=>{
@@ -204,7 +223,7 @@ test('all six native witness members consume the admitted held history after raw
 function profileRequest(h){
   const request=h.request();request.content.value={declarationRef:profiles.ROOT_EVENT_PROFILE_DECLARATION_REF,beforeDigest:events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
     afterDigest:events.ROOT_EVENT_CONTRACT_DIGEST,changeClass:'design_reframe',owningTicketRef:'ticket://T-287',reason:profiles.ROOT_EVENT_PROFILE_UPGRADE_REASON};
-  request.evidence=[...request.evidence,{ref:profiles.ROOT_CURRENT_EVENT_PROFILE_REF,digest:events.ROOT_EVENT_CONTRACT_DIGEST}];return request;
+  request.evidence=[...request.evidence,{ref:profiles.ROOT_WINDOW_EVENT_PROFILE_REF,digest:events.ROOT_EVENT_CONTRACT_DIGEST}];return request;
 }
 
 test('Public profile reprice retains the exact L-to-P boundary and standalone cold content checks',async()=>{
@@ -215,18 +234,19 @@ test('Public profile reprice retains the exact L-to-P boundary and standalone co
   assert.equal(result.resources.eventResource.closeHandoff.prefix.storeIdentity.eventContractDigest,events.ROOT_EVENT_CONTRACT_DIGEST);
   const rows=events.readRuntimeEventsAtDurablePrefix(result.resources.eventResource.closeHandoff.prefix);
   assert.equal(events.projectRootEventProfileSchedule(rows).boundaryEventRef,result.resources.boundaryEventRef);assert.equal(rows.length,3);
-  // The same design figure (:64): one bounded decoding of the entry extent, then each closed row's body once by location.
-  assert.equal(measured.work.reads.length,Math.ceil(entrySize/65536)+rows.length,'live native profile boundary also retains predecessor correspondence');
+  assert.equal(rows.at(-1).eventId,result.resources.boundaryEventRef,'the L-to-P boundary is the final admitted reprice event');
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,structuredClone(result.resources),request.content.value),true);
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,result.resources,{...request.content.value,reason:'changed'}),false);
   assert.equal(h.binding.witnessRepriceResourcesCorrespond(call.resources,{...result.resources,boundaryEventRef:h.seed.eventId},request.content.value),false);
-  console.log(JSON.stringify({kind:'witness_profile_boundary',...measured.work,rawColdContentAndBoundaryControls:true}));
-  for(const change of [r=>{r.content.value.reason='wrong profile reason';},r=>{r.evidence=r.evidence.filter(e=>e.ref!==profiles.ROOT_CURRENT_EVENT_PROFILE_REF);}]){
+  for(const change of [r=>{r.content.value.reason='wrong profile reason';},r=>{r.evidence=r.evidence.filter(e=>e.ref!==profiles.ROOT_WINDOW_EVENT_PROFILE_REF);}]){
     const other=await witnessMechanics({legacyProfile:true}),bad=profileRequest(other),before=bytes(other);change(bad);
     const refused=await other.run(await other.call({request:bad}));assert.equal(refused.exitCode,70);assert.equal(refused.failure.fault.code,'sink_unavailable');assertClosedUnchanged(other,before);
   }
   h.advance(result);const current=bytes(h),repeated=await h.run(await h.call({request:profileRequest(h),serial:'repeated-profile'}));
   assert.equal(repeated.exitCode,70);assertClosedUnchanged(h,current);
+  // Live profile boundary: acquisition of the entry extent, then the boundary and admitted bodies only.
+  const reads=assertAcquisitionThenSelectedBodies(measured.work,entrySize,rows.length,'live profile boundary');
+  console.log(JSON.stringify({kind:'witness_profile_boundary',entrySize,closedRows:rows.length,...reads,decoderParseCalls:measured.work.decoderParseCalls,rawColdContentAndBoundaryControls:true}));
 });
 
 test('successful append still requires successful physical close before any receipt',async()=>{

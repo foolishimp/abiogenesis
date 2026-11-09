@@ -5,8 +5,8 @@ import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { pathToFileURL } from 'node:url';
 import { readRuntimeEventsAtDurablePrefix } from '../../build/code/src/abg/event_store.js';
-import { selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent } from '../../build/code/src/abg/event_prefix.js';
-import { replayValidatedRuntimeEventPrefix, projectRuntimePrefixesAtDurablePrefix } from '../../build/code/src/abg/replay.js';
+import { projectOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventBodiesAtPrefix, runtimeEventPrefixDigest, selectRuntimeEventPrefixFromAuthority, selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixThroughEvent } from '../../build/code/src/abg/event_prefix.js';
+import { replayValidatedRuntimeEventPrefix } from '../../build/code/src/abg/replay.js';
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { sha256Bytes, sha256Canonical } from '../../build/code/src/shared/digests.js';
 import { projectExactPrefixArtifactTruth, validateExactPrefixArtifactTruthProjection } from '../../build/code/src/abg/artifact_truth.js';
@@ -45,9 +45,10 @@ test('owner derivation is exact-value bound, disposable, and cannot be copied or
   assert.notEqual(later, state, 'changed admitted truth invalidates the earlier derivation');
   assert.deepEqual(later, replayValidatedRuntimeEventPrefix(laterRun, laterAuthority));
   assert.notEqual(replayValidatedRuntimeEventPrefix(run, laterAuthority, state), state, 'authority scope cannot borrow an earlier derivation');
-  const selected = projectRuntimePrefixesAtDurablePrefix(observation.observedPrefix, observation.runId);
-  assert.deepEqual(Object.keys(selected).sort(), ['authorityPrefix', 'runtimePrefix']);
-  assert.deepEqual(selected.authorityPrefix.events, rows);
+  const owned = projectOwnedRuntimeEventPrefixAtDurablePrefix(observation.observedPrefix);
+  assert.equal(runtimeEventPrefixDigest(owned), runtimeEventPrefixDigest(full));
+  assert.deepEqual([...runtimeEventBodiesAtPrefix(owned)], rows);
+  assert.deepEqual([...runtimeEventBodiesAtPrefix(selectRuntimeEventPrefixFromAuthority(owned, { runId: observation.runId }))], run.events);
 });
 
 test('artifact derivation removes repeated history reconstruction while every physical byte check remains operative', retainedBasis, async () => {

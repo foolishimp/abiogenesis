@@ -2,7 +2,7 @@ import { isDeepStrictEqual } from "node:util";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
 import { isAbgHistoricalDeclarationProof, isAbgHistoricalDeclarationReference,
   type AbgHistoricalDeclarationProof, type AbgHistoricalDeclarationReference } from "../abg/terminal_result_contracts.js";
-import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { isWorksiteContextObservation, worksiteContextIdentityEntry, type WorksiteContextObservation } from "./worksite_effect.js";
 import { isRecord, hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
 import {
   delimiter as pathDelimiter,
@@ -369,13 +369,14 @@ function nativeReacquisitionBody(input: Omit<NativeWorksiteCommandReacquisitionR
         ? isAbgHistoricalDeclarationProof(source.declarationProof)
         : source.declarationProof === undefined && exactKeys(source, ["prefix", "graphCallRef", "declarationReference"]) &&
           isAbgHistoricalDeclarationReference(source.declarationReference)) ||
-      !isNativeWorkspaceWorkObservation(original) || original.task.assessment !== undefined ||
+      !isNativeWorkspaceWorkObservation(original) || original.assessment !== undefined ||
       !exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) || !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) ||
-      !same(original.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) || !isWorksiteContextObservation(currentContext) ||
+      original.after.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
+      original.after.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest || !isWorksiteContextObservation(currentContext) ||
       currentContext.workspaceBindingIdentity !== input.workspaceBinding.bindingId || currentContext.workspaceBindingDigest !== input.workspaceBinding.bindingDigest ||
       currentContext.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
       currentContext.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
-      !same(currentContext.entries, original.after.entries) || !same(currentContext.readRoots, original.after.readRoots) ||
+      !same(currentContext.entries.map(worksiteContextIdentityEntry), original.after.entries.map(worksiteContextIdentityEntry)) || !same(currentContext.readRoots, original.after.readRoots) ||
       currentContext.maxFiles !== original.after.maxFiles || currentContext.maxBytes !== original.after.maxBytes ||
       !Array.isArray(input.selectedSources) || input.selectedSources.length === 0 ||
       new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length ||
@@ -425,8 +426,11 @@ function nativeCommandTaskBody(input: NativeWorksiteCommandExecutionTaskInput, a
   const source = input.sourceNativeWork;
   if (!exactWorkspaceAuthorityJoin(input.workspaceAuthorityBasis, input.workspaceBinding) ||
     !isExactDirectGrant(input.capabilityGrant, input.workspaceBinding) || !isNativeWorkspaceWorkObservation(source) ||
-    source.task.assessment !== undefined || !same(source.task.workspaceAuthorityBasis, input.workspaceAuthorityBasis) ||
-    (input.sourceReacquisition === undefined ? !same(source.task.workspaceBinding, input.workspaceBinding) : !reacquisitionTaskMatches(input)) || !Array.isArray(input.selectedSources) ||
+    // The source task is its admitted basis input; the Result's observed context names its authority basis and binding.
+    source.assessment !== undefined || source.after.workspaceAuthorityBasisRef !== input.workspaceAuthorityBasis.authorityBasisId ||
+    source.after.workspaceAuthorityBasisDigest !== input.workspaceAuthorityBasis.authorityBasisDigest ||
+    (input.sourceReacquisition === undefined ? source.after.workspaceBindingIdentity !== input.workspaceBinding.bindingId ||
+      source.after.workspaceBindingDigest !== input.workspaceBinding.bindingDigest : !reacquisitionTaskMatches(input)) || !Array.isArray(input.selectedSources) ||
     input.selectedSources.length === 0 || new Set(input.selectedSources.map(row => row.relativePath)).size !== input.selectedSources.length) {
     throw new TypeError("native C2 requires exact A/W/grant, native work result and a complete unique source selection");
   }
@@ -1575,8 +1579,23 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     input.workspaceAuthorityBasis,
     input.workspaceBinding,
   ));
-  if (new Set(commands.map((row) => row.commandId)).size !== commands.length ||
-    new Set(predicates.map((row) => row.predicateId)).size !== predicates.length ||
+  const duplicateCommand = commands.find((row, ordinal) =>
+    commands.findIndex((other) => other.commandId === row.commandId) !== ordinal);
+  if (duplicateCommand !== undefined) {
+    throw new TypeError(
+      `worksite command identities must be unique; commandId ${JSON.stringify(duplicateCommand.commandId)} is declared more than once`,
+    );
+  }
+  const writableProtectedSubject = protectedSubjects.find((row) =>
+    worksitePathIsAllowed(row.relativePath, allowedWriteTerritories));
+  if (writableProtectedSubject !== undefined) {
+    const territory = allowedWriteTerritories.find((row) =>
+      worksitePathIsAllowed(writableProtectedSubject.relativePath, [row]))!;
+    throw new TypeError(
+      `worksite command protected subject ${JSON.stringify(writableProtectedSubject.relativePath)} overlaps allowed write territory ${territory.pathKind} ${JSON.stringify(territory.relativePath)}; protected subjects cannot be command write targets`,
+    );
+  }
+  if (new Set(predicates.map((row) => row.predicateId)).size !== predicates.length ||
     new Set(protectedSubjects.map((row) => row.subjectRef)).size !== protectedSubjects.length ||
     new Set(allowedWriteTerritories.map((row) => `${row.pathKind}:${row.relativePath}`)).size !== allowedWriteTerritories.length ||
     territoriesOverlap ||
@@ -1585,7 +1604,6 @@ export function constructWorksiteCommandConfiguration(input: WorksiteCommandConf
     !referencedCommandsAreExact || !reportCountsHaveOneBase || !declaredReportPathsAreObserved ||
     !modulePredicatesAreProtected || childInputsExposeWorkspace ||
     declaredPathsEnterProtectedRoots || !httpPortFilesAreAuthorized ||
-    protectedSubjects.some((row) => worksitePathIsAllowed(row.relativePath, allowedWriteTerritories)) ||
     commands.some((command) => command.expectedReports.some((report) =>
       !worksitePathIsAllowed(report.relativePath, allowedWriteTerritories)
     ))) {

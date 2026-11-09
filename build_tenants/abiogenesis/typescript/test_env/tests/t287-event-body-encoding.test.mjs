@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { mkdtemp, readFile, writeFile, stat, rm } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, writeFile, stat, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { syncBuiltinESMExports } from "node:module";
@@ -8,16 +8,24 @@ import { execFileSync } from "node:child_process";
 import test from "node:test";
 import * as storeOwner from "../../build/code/src/abg/event_store.js";
 import { persistEventLog } from "../../build/code/src/abg/event_log.js";
-import { selectValidatedRuntimeEventPrefix } from "../../build/code/src/abg/event_prefix.js";
+import { selectValidatedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, resolveWorksiteContextBodyAtPrefix,
+  reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyAcquisitionsAtPrefix, validatedRuntimeEventPrefixBeforeEvent, indexedRuntimeEvents } from "../../build/code/src/abg/event_prefix.js";
 import { replayValidatedRuntimeEventPrefix } from "../../build/code/src/abg/replay.js";
-import { projectExactExecutionBasisAtPrefix } from "../../build/code/src/abg/invocation_execution_truth.js";
+import { projectExactExecutionBasisAtPrefix, governanceContextBodyUse } from "../../build/code/src/abg/invocation_execution_truth.js";
+import { governanceContract } from "../../build/code/src/product/default_library_identity.js";
 import { canonicalJson, writeCanonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Canonical, sha256Bytes } from "../../build/code/src/shared/digests.js";
 import { isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 import { constructWorksiteCommandExecutionModulePublication } from '../../build/code/src/gtl/worksite_command_execution.js';
-import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from '../../build/code/src/product/index.js';
-import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey } from '../../build/code/src/abg/event_body_encoding.js';
+import { WORKSITE_COMMAND_EXECUTION_IDS, ABI5_PRODUCT_ID, ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION, RETAINED_GRAPH_INPUT_CONTRACT,
+  constructRetainedGraphInput } from '../../build/code/src/product/index.js';
+import { rawAdmitValue } from '../../build/code/src/validator/index.js';
+import { inlineEventBody, inlineEventBodyValue, inlineEventBodyKey, encodeEventBody, decodeEventBody } from '../../build/code/src/abg/event_body_encoding.js';
 import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from '../../build/code/src/abg/runtime_liveness_contracts.js';
+import { loadWorksiteOwner, worksiteFixture } from "../support/t287-generic-job-worksite.mjs";
+import * as nativeWork from "../../build/code/src/product/native_workspace_work.js";
+import { carryWorksiteContextBodies } from "../../build/code/src/product/worksite_effect.js";
+import { projectNativeWorkspaceWorkResultTaskAtPrefix } from "../../build/code/src/abg/native_worksite_execution.js";
 
 test("shared canonical bytes preserve UTF-16 keys, escaping, numbers and sparse arrays", () => {
   const value = { "\ufffd": "last", "\ud834\udd1e": "first", "2": -0, "10": 1e21,
@@ -118,10 +126,10 @@ async function resource(t) {
 }
 // Real event-store stamping/admission and CCall phase projection; fixture supplies
 // lower callable/evidence semantics. This is not an installed Program qualification.
-function result(store, label, value) {
+function result(store, label, value, runId = "run://body-fixture") {
   const cCallRef = "c-call://body-fixture/" + label;
   const extra = { aggregateType: "c_call", aggregateId: cCallRef, parentAggregateId: "frame://" + label,
-    scopeClass: "run", runId: "run://body-fixture", graphCallId: "graph-call://" + label, frameId: "frame://" + label };
+    scopeClass: "run", runId, graphCallId: "graph-call://" + label, frameId: "frame://" + label };
   const pair = storeOwner.admitRuntimeEventBatch(store, [
     () => envelope("c_call_opened", { cCallRef, cCallDigest: sha256Canonical(label), callClass: "leaf",
       batchRef: null, taskOrdinal: null, attempt: 1, programLocusRef: "locus://" + label, retryPath: [] }, extra),
@@ -525,4 +533,773 @@ test("large duplicate Result bodies and complete replay hashing fit a constraine
   assert.ok(observed.logicalBodyBytes > 97000000);
   assert.ok(observed.physicalBytes < observed.logicalBodyBytes / 4);
   t.diagnostic(JSON.stringify(observed));
+});
+
+// Real worksite observation, EventStore Result admission and held-prefix
+// carriage. Task/observation values are controlled lower premises at the
+// declared native context coordinates; this is not native Work qualification.
+async function contextFixture(t, files) {
+  const product = await loadWorksiteOwner(), w = await worksiteFixture(product);
+  t.after(() => rm(w.scratch, { force: true, recursive: true }));
+  const write = async (path, text) => { await mkdir(join(w.canonicalRoot, path, ".."), { recursive: true }); await writeFile(join(w.canonicalRoot, path), text); };
+  for (const [path, text] of Object.entries(files)) await write(path, text);
+  const observe = async () => {
+    const context = await product.observeWorksiteContext({ ...w, readRoots: ["src"], maxFiles: 4096, maxBytes: 64 * 1024 * 1024 });
+    assert.equal(context.kind, "worksite_context_observation", JSON.stringify(context)); return context;
+  };
+  return { product, w, write, observe };
+}
+const nativeTask = (label, context) => ({ kind: "native_workspace_work_task", schemaVersion: "5.0.0", handoff: label, context });
+const fileEntries = context => context.entries.filter(entry => entry.state === "file");
+const carriage = context => Object.fromEntries(fileEntries(context).map(e => [e.relativePath, e.encoding === "base64" ? "inline" : e.member.resultRef]));
+function inlineOccurrences(events) {
+  const counts = new Map();
+  const visit = value => {
+    if (typeof value !== "object" || value === null) return;
+    if (value.kind === "worksite_context_observation") for (const e of value.entries)
+      if (e.state === "file" && e.encoding === "base64") counts.set(e.digest, (counts.get(e.digest) ?? 0) + 1);
+    for (const child of Object.values(value)) visit(child);
+  };
+  for (const event of events) if (event.kind === "c_call_result_admitted") visit(event.payload.value);
+  return counts;
+}
+
+test("native context bodies are born inline once, referenced by unchanged handoffs and refused unless exactly held", async t => {
+  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(4000), "src/b.txt": "beta ".repeat(4000), "src/c.txt": "gamma ".repeat(4000) };
+  const { product, w, write, observe } = await contextFixture(t, text), use = { runId: "run://body-fixture" }, original = { ...text };
+  const handoff = async label => {
+    const observed = await observe(), context = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), observed, use);
+    assert.ok(product.sameWorksiteContextIdentity(context, observed), "carriage never changes the observed identity");
+    assert.ok(product.isWorksiteContextObservation(context) && isDeeplyFrozen(context));
+    return { context, event: result(f.store, label, nativeTask(label, context)) };
+  };
+  const birth = await handoff("birth"), first = await handoff("unchanged-one"), second = await handoff("unchanged-two");
+  const R = h => h.event.payload.resultRef, all = r => ({ "src/a.txt": r, "src/b.txt": r, "src/c.txt": r });
+  assert.deepEqual(carriage(birth.context), all("inline"), "first bodies are born inline in the admitted Result");
+  assert.deepEqual(carriage(first.context), all(R(birth))); assert.deepEqual(carriage(second.context), all(R(birth)));
+  text["src/b.txt"] = "changed beta ".repeat(4000); await write("src/b.txt", text["src/b.txt"]);
+  const changed = await handoff("changed"), after = await handoff("after-change");
+  assert.deepEqual(carriage(changed.context), { ...all(R(birth)), "src/b.txt": "inline" }, "a changed member is first written inline once");
+  assert.deepEqual(carriage(after.context), { ...all(R(birth)), "src/b.txt": R(changed) }, "then it becomes referenceable");
+  assert.equal(after.context.entries.find(e => e.relativePath === "src/b.txt").member.path.join("/"), "context/entries/" +
+    changed.context.entries.findIndex(e => e.relativePath === "src/b.txt"));
+
+  const events = f.store.readAll(), log = await readFile(f.eventLogPath), occurrences = inlineOccurrences(events);
+  assert.equal(occurrences.size, 4); assert.ok([...occurrences.values()].every(count => count === 1), "each body version has one semantic occurrence");
+  const versions = [...Object.values(text), original["src/b.txt"]].map(body => Buffer.from(body).toString("base64"));
+  for (const base64 of versions) assert.equal(log.toString().split(base64).length - 1, 1, "each body version is physically written once");
+  const prefix = selectRuntimeEventPrefixFromStore(f.store), acquired = worksiteContextBodyAcquisitionsAtPrefix(prefix);
+  assert.equal(acquired, 2, "producer carriage acquires each holder Result once in this prefix lineage");
+  for (const h of [first, second, changed, after]) for (const e of fileEntries(h.context)) {
+    const read = resolveWorksiteContextBodyAtPrefix(prefix, h.context, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
+    assert.equal(read.bytes.toString(), (h === first || h === second ? original : text)[e.relativePath]);
+  }
+  assert.equal(worksiteContextBodyAcquisitionsAtPrefix(prefix), acquired, "selected reads reuse the established holder acquisitions");
+
+  const causes = new Set(), refuse = (context, path, expected, at = prefix, consumer = use) => {
+    const read = resolveWorksiteContextBodyAtPrefix(at, context, path, consumer);
+    assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason);
+    causes.add(read.code);
+  };
+  const withEntry = (context, path, change) => ({ ...context, entries: context.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+  const member = (path, change) => withEntry(after.context, path, e => { change(e.member); return e; });
+  refuse(member("src/a.txt", m => { delete m.resultDigest; }), "src/a.txt", "malformed");
+  refuse(withEntry(after.context, "src/a.txt", e => ({ ...e, member: "result://unstructured" })), "src/a.txt", "malformed");
+  refuse(member("src/a.txt", m => { m.resultRef = "result://body-fixture/never-admitted"; }), "src/a.txt", "pending");
+  // The owned immutable cut just before the changed holder's admission.
+  const earlier = validatedRuntimeEventPrefixBeforeEvent(prefix, changed.event.eventId);
+  assert.equal(typeof changed.event.eventId, "string");
+  refuse(after.context, "src/b.txt", "pending", earlier);
+  const held = resolveWorksiteContextBodyAtPrefix(earlier, after.context, "src/a.txt", use);
+  assert.equal(held.kind, "worksite_context_body", "the earlier cut still holds the birth Result");
+  assert.equal(held.bytes.toString(), text["src/a.txt"]);
+  refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
+  refuse(member("src/a.txt", m => { m.path = ["context", "entries", 0]; }), "src/a.txt", "tampered");
+  refuse(member("src/a.txt", m => { m.path = ["after", "entries", 1]; }), "src/a.txt", "tampered");
+  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: after.context.entries.find(x => x.relativePath === "src/a.txt").member })), "src/b.txt", "tampered");
+  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: first.context.entries.find(x => x.relativePath === "src/b.txt").member })), "src/b.txt", "stale");
+  refuse({ ...after.context, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
+  refuse(after.context, "src/a.txt", "foreign", prefix, { runId: "run://foreign" });
+  refuse(after.context, "src/a.txt", "denied", prefix, { ...use, readable: path => path !== "src/a.txt" });
+  refuse(after.context, "outside/a.txt", "denied");
+  refuse(after.context, "src/none.txt", "missing");
+  refuse(withEntry(birth.context, "src/a.txt", e => ({ ...e, bytes: Buffer.from("forged").toString("base64") })), "src/a.txt", "tampered");
+
+  const foreign = result(f.store, "foreign-holder", nativeTask("foreign", await observe()), "run://foreign");
+  const foreignRef = withEntry(after.context, "src/a.txt", e => ({ ...e, member: { resultRef: foreign.payload.resultRef,
+    resultDigest: foreign.payload.resultDigest, path: ["context", "entries", e.member.path[2]] } }));
+  refuse(foreignRef, "src/a.txt", "foreign", selectRuntimeEventPrefixFromStore(f.store));
+  assert.deepEqual([...causes].sort(), ["denied", "foreign", "malformed", "missing", "pending", "stale", "tampered"],
+    "every existing resolver refusal cause is executed");
+  const unchanged = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), use);
+  assert.deepEqual(carriage(unchanged), carriage(after.context), "another Run's holder never becomes this Run's producer");
+
+  // Cold reconstruction from retained log bytes only; the mutable worksite is gone.
+  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
+  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
+  for (const e of fileEntries(after.context)) {
+    const read = resolveWorksiteContextBodyAtPrefix(cold, after.context, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body"); assert.equal(read.bytes.toString(), text[e.relativePath]);
+  }
+  const logical = events.filter(e => e.kind === "c_call_result_admitted").reduce((n, e) => n + Buffer.byteLength(canonicalJson(e.payload.value)), 0);
+  t.diagnostic(JSON.stringify({ kind: "native_context_body_carriage_discriminator", handoffs: 5, bodyVersions: occurrences.size,
+    semanticInlineOccurrences: [...occurrences.values()].reduce((a, b) => a + b, 0), holderAcquisitions: acquired,
+    logicalResultValueBytes: logical, physicalLogBytes: log.length, nativeAdmission: false }));
+});
+
+// Model-free same-Run pending-input discriminator. Real EventStore admission,
+// worksite observation and held-prefix carriage. The progressed input is a
+// governance-state-shaped Result: it carries no native context body position.
+// Its selected native Result (subjectEvidenceRef -> observation row -> admitted
+// Result) carries the context whose members name an earlier preparation-shaped
+// holder. A pending-execution use stays in this Run, so the unchanged resolver
+// authenticates context -> member -> committed holder; no cross-Run relation exists.
+test("a pending execution reads its selected native context through the unchanged same-Run resolver only", async t => {
+  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  const { w, write, observe } = await contextFixture(t, text), run = "run://body-fixture", other = "run://body-fixture/other";
+  const handoff = async (label, runId = run) => {
+    const context = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), { runId });
+    return { context, event: result(f.store, label, nativeTask(label, context), runId) };
+  };
+  const prepare = await handoff("prepare-native"), selected = await handoff("selected-native-work");
+  assert.deepEqual(carriage(prepare.context), { "src/a.txt": "inline", "src/b.txt": "inline" }, "the preparation Result is the inline birth");
+  assert.deepEqual(carriage(selected.context), { "src/a.txt": prepare.event.payload.resultRef, "src/b.txt": prepare.event.payload.resultRef });
+  const sp = selected.event.payload;
+  const state = { kind: "governance_work_state", schemaVersion: "5.0.0",
+    observations: [{ purpose: "construction", resultRef: sp.resultRef, resultDigest: sp.resultDigest, cCallRef: selected.event.aggregateId }],
+    synthesis: { judgment: { subjectEvidenceRef: sp.resultRef } } };
+  const progressed = result(f.store, "progressed-state", state);
+  const before = f.store.readAll().length;
+  // Follow the authenticated selection: state -> observation row -> exact same-Run admitted Result -> its declared context.
+  const selectedContext = at => {
+    const ref = progressed.payload.value.synthesis.judgment.subjectEvidenceRef;
+    const rows = progressed.payload.value.observations.filter(o => o.resultRef === ref);
+    assert.equal(rows.length, 1, "one selected observation row");
+    const admitted = at.events.filter(e => e.kind === "c_call_result_admitted" && e.runId === progressed.runId &&
+      e.payload.resultRef === rows[0].resultRef && e.payload.resultDigest === rows[0].resultDigest && e.aggregateId === rows[0].cCallRef);
+    assert.equal(admitted.length, 1, "the selected native Result is admitted in the same Run");
+    return admitted[0].payload.value.context;
+  };
+  const prefix = selectRuntimeEventPrefixFromStore(f.store), context = selectedContext({ events: f.store.readAll() });
+  assert.equal(Object.hasOwn(progressed.payload.value, "context"), false, "the progressed state is not a native task");
+  const use = { runId: run };
+  for (const e of fileEntries(context)) {
+    const read = resolveWorksiteContextBodyAtPrefix(prefix, context, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
+    assert.equal(read.bytes.toString(), text[e.relativePath]);
+    assert.equal(read.holder.eventRef, prepare.event.eventId, "the earlier preparation Result is the committed holder");
+  }
+  const causes = new Set(), refuse = (ctx, path, expected, consumer = use, at = prefix) => {
+    const read = resolveWorksiteContextBodyAtPrefix(at, ctx, path, consumer);
+    assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason);
+    causes.add(read.code);
+  };
+  const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+  const member = (path, change) => withEntry(context, path, e => { change(e.member); return e; });
+  // Another Run has no permission, whatever extra carrier it presents.
+  refuse(context, "src/a.txt", "foreign", { runId: other });
+  refuse(context, "src/a.txt", "foreign", { runId: other, continuedHolders: { kind: "continued_context_holders", sourceRunId: run, targetRunId: other,
+    inputEventRef: progressed.eventId, members: fileEntries(context).map(e => e.member.resultRef) } });
+  refuse(member("src/a.txt", m => { delete m.resultDigest; }), "src/a.txt", "malformed");
+  refuse(member("src/a.txt", m => { m.resultRef = "result://body-fixture/never-admitted"; }), "src/a.txt", "pending");
+  refuse(context, "src/a.txt", "pending", use, validatedRuntimeEventPrefixBeforeEvent(prefix, prepare.event.eventId));
+  refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
+  refuse({ ...context, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
+  refuse(context, "src/a.txt", "denied", { ...use, readable: path => path !== "src/a.txt" });
+  refuse(context, "src/none.txt", "missing");
+  assert.equal(f.store.readAll().length, before, "resolution and refusals admit no events");
+  // A later version of b is held by another Result; the selected context keeps the earlier member.
+  text["src/b.txt"] = "changed beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const changed = await handoff("changed"), after = await handoff("after-change"), now = selectRuntimeEventPrefixFromStore(f.store);
+  assert.equal(after.context.entries.find(e => e.relativePath === "src/b.txt").member.resultRef, changed.event.payload.resultRef);
+  refuse(withEntry(after.context, "src/b.txt", e => ({ ...e, member: context.entries.find(x => x.relativePath === "src/b.txt").member })),
+    "src/b.txt", "stale", use, now);
+  assert.equal(resolveWorksiteContextBodyAtPrefix(now, context, "src/b.txt", use).bytes.toString(), "beta ".repeat(3000),
+    "the selected member stays readable after a later change");
+  assert.deepEqual([...causes].sort(), ["denied", "foreign", "malformed", "missing", "pending", "stale", "tampered"],
+    "every existing resolver refusal cause survives");
+  // Producer carriage never shares across Runs: another Run births its own bodies.
+  assert.deepEqual(carriage(reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), { runId: other })),
+    { "src/a.txt": "inline", "src/b.txt": "inline" });
+  // Cold: the same relation is rederived from retained log bytes; the worksite is gone.
+  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
+  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
+  const coldContext = selectedContext({ events: storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)) });
+  assert.deepEqual(coldContext, context);
+  for (const e of fileEntries(coldContext)) assert.equal(resolveWorksiteContextBodyAtPrefix(cold, coldContext, e.relativePath, use).bytes.toString(),
+    e.relativePath === "src/a.txt" ? text["src/a.txt"] : "beta ".repeat(3000));
+});
+
+// Model-free component discriminator for retained-source context bodies. Real
+// EventStore admission, worksite observation and held-prefix carriage; the
+// native Result is a declared-coordinate fixture shape, not installed native
+// work. Run A holds the bodies; a consumer in Run B carries the source use that
+// its invocation admission would transport. Only A's selected native Result's
+// task context declares which A members B may read. The installed A -> B
+// integration with real owners is in t287-default-library.test.mjs.
+test("an admitted retained-source use reads exactly the selected native Result's task-context members across Runs", async t => {
+  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  const { w, write, observe } = await contextFixture(t, text), A = "run://body-fixture/a", B = "run://body-fixture/b";
+  const carry = async (use, ctx) => reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), ctx ?? await observe(), use);
+  // A: preparation birth, then one native work Result whose task context carries members of it and births d inline.
+  const prepare = result(f.store, "a-prepare", nativeTask("a-prepare", await carry({ runId: A })), A);
+  text["src/d.txt"] = "delta ".repeat(3000); await write("src/d.txt", text["src/d.txt"]);
+  const raw = await observe(), nativeContext = await carry({ runId: A }, raw);
+  const native = result(f.store, "a-native-work", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+    task: nativeTask("a-native-work", nativeContext), after: nativeContext }, A);
+  // Undeclared A holders: one holds the same a bytes inline, one holds an unselected version of b.
+  const duplicate = result(f.store, "a-duplicate", nativeTask("a-duplicate", raw), A);
+  text["src/b.txt"] = "unselected beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const sibling = result(f.store, "a-sibling", nativeTask("a-sibling", await carry({ runId: A })), A);
+  text["src/b.txt"] = "beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const P = e => e.payload.resultRef, row = { resultRef: P(native), resultDigest: native.payload.resultDigest, cCallRef: native.aggregateId };
+  const at = (event, path) => event.payload.value.context.entries.findIndex(x => x.relativePath === path);
+  assert.deepEqual(carriage(nativeContext), { "src/a.txt": P(prepare), "src/b.txt": P(prepare), "src/d.txt": "inline" });
+  assert.equal(sibling.payload.value.context.entries[at(sibling, "src/b.txt")].encoding, "base64", "the sibling holds its version inline");
+  // The owner transports the source state's observation rows from the admitted invocation; nothing else selects.
+  const state = { kind: "governance_work_state", observations: [{ purpose: "construction", ...row }] };
+  const invocation = { invocationAdmissionRef: "invocation-admission://b", sourceResultBasis: { sourceResultContractRef: governanceContract("state"), sourceResultValue: state } };
+  const use = governanceContextBodyUse(invocation, B);
+  assert.deepEqual(use, { runId: B, sourceResults: [row] });
+  assert.deepEqual(governanceContextBodyUse({ ...invocation, sourceResultBasis: null }, B), { runId: B }, "fresh input has no source use");
+  assert.deepEqual(governanceContextBodyUse(null, B), { runId: B });
+  assert.deepEqual(governanceContextBodyUse({ ...invocation, sourceResultBasis: { ...invocation.sourceResultBasis, sourceResultContractRef: "contract://other" } }, B), { runId: B });
+  // B carriage: A members exactly as the selected native task context declares them; d's holder is that native Result.
+  const consumer = await carry(use), dIndex = nativeContext.entries.findIndex(e => e.relativePath === "src/d.txt");
+  assert.deepEqual(carriage(consumer), { "src/a.txt": P(prepare), "src/b.txt": P(prepare), "src/d.txt": P(native) });
+  assert.deepEqual(consumer.entries.find(e => e.relativePath === "src/d.txt").member.path, ["task", "context", "entries", dIndex]);
+  assert.deepEqual(carriage(await carry({ runId: B })), { "src/a.txt": "inline", "src/b.txt": "inline", "src/d.txt": "inline" },
+    "without source use another Run's holder is never carried");
+  const consumerEvent = result(f.store, "b-selection", nativeTask("b-selection", consumer), B), prefix = selectRuntimeEventPrefixFromStore(f.store);
+  const before = f.store.readAll().length;
+  for (const e of fileEntries(consumer)) {
+    const read = resolveWorksiteContextBodyAtPrefix(prefix, consumer, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read)); assert.equal(read.bytes.toString(), text[e.relativePath]);
+    assert.equal(read.holder.eventRef, (e.relativePath === "src/d.txt" ? native : prepare).eventId);
+  }
+  const causes = new Set(), refuse = (ctx, path, expected, consumerUse = use, atPrefix = prefix) => {
+    const read = resolveWorksiteContextBodyAtPrefix(atPrefix, ctx, path, consumerUse);
+    assert.equal(read.kind, "worksite_context_body_refusal", expected); assert.equal(read.code, expected, read.reason); causes.add(read.code);
+  };
+  const withEntry = (ctx, path, change) => ({ ...ctx, entries: ctx.entries.map(e => e.relativePath === path ? change(structuredClone(e)) : e) });
+  const member = (path, change) => withEntry(consumer, path, e => { change(e.member); return e; });
+  const selection = source => ({ runId: B, sourceResults: [{ resultRef: P(source), resultDigest: source.payload.resultDigest, cCallRef: source.aggregateId }] });
+  // No source use, an empty or inexact one, or a holder named directly is no permission.
+  refuse(consumer, "src/a.txt", "foreign", { runId: B });
+  refuse(consumer, "src/a.txt", "foreign", { runId: B, sourceResults: [] });
+  refuse(consumer, "src/a.txt", "foreign", selection(prepare));
+  for (const patch of [{ resultDigest: sha256Canonical("other") }, { cCallRef: "c-call://foreign" }, { resultRef: "result://body-fixture/never-admitted" }])
+    refuse(consumer, "src/a.txt", "foreign", { runId: B, sourceResults: [{ ...row, ...patch }] });
+  // The same bytes or another version from an A holder the selected task context does not declare.
+  refuse(member("src/a.txt", m => { Object.assign(m, { resultRef: P(duplicate), resultDigest: duplicate.payload.resultDigest, path: ["context", "entries", at(duplicate, "src/a.txt")] }); }),
+    "src/a.txt", "foreign");
+  const unselected = sibling.payload.value.context.entries[at(sibling, "src/b.txt")];
+  refuse(withEntry(consumer, "src/b.txt", e => ({ ...e, digest: unselected.digest, byteLength: unselected.byteLength,
+    member: { resultRef: P(sibling), resultDigest: sibling.payload.resultDigest, path: ["context", "entries", at(sibling, "src/b.txt")] } })), "src/b.txt", "foreign");
+  // Every existing resolver guard stays ahead of the relation.
+  refuse(member("src/a.txt", m => { m.resultDigest = sha256Canonical("tampered"); }), "src/a.txt", "tampered");
+  refuse(member("src/a.txt", m => { m.path = ["context", "entries", 99]; }), "src/a.txt", "tampered");
+  refuse(withEntry(consumer, "src/a.txt", e => ({ ...e, digest: sha256Canonical("other version") })), "src/a.txt", "stale");
+  refuse({ ...consumer, workspaceBindingDigest: sha256Canonical("foreign-binding") }, "src/a.txt", "foreign");
+  refuse(consumer, "src/a.txt", "denied", { ...use, readable: path => path !== "src/a.txt" });
+  refuse(consumer, "outside/a.txt", "denied");
+  refuse(consumer, "src/none.txt", "missing");
+  refuse(consumer, "src/d.txt", "pending", use, validatedRuntimeEventPrefixBeforeEvent(prefix, native.eventId));
+  assert.equal(f.store.readAll().length, before, "resolution and refusals admit no events");
+  const assessed = result(f.store, "a-assessment", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+    task: { ...nativeTask("a-assessment", nativeContext), assessment: { resultContract: "contract://assessment" } }, after: nativeContext }, A);
+  refuse(consumer, "src/d.txt", "foreign", selection(assessed), selectRuntimeEventPrefixFromStore(f.store));
+  assert.deepEqual([...causes].sort(), ["denied", "foreign", "missing", "pending", "stale", "tampered"]);
+  assert.equal(consumerEvent.runId, B);
+  // A later B state keeps the immutable permission; once B holds a changed body, B's own holder is carried.
+  assert.deepEqual(carriage(await carry(use)), carriage(consumer), "B holds only members, so its later context keeps the A holders");
+  text["src/a.txt"] = "changed alpha ".repeat(3000); await write("src/a.txt", text["src/a.txt"]);
+  const bBirth = result(f.store, "b-change", nativeTask("b-change", await carry(use)), B);
+  assert.deepEqual(carriage(await carry(use)), { "src/a.txt": P(bBirth), "src/b.txt": P(prepare), "src/d.txt": P(native) },
+    "changed bytes are born in B and then carried from B");
+  // Cold: retained log bytes only; the mutable worksite is gone.
+  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
+  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(f.eventLogPath)));
+  for (const e of fileEntries(consumer)) {
+    const read = resolveWorksiteContextBodyAtPrefix(cold, consumer, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body"); assert.equal(read.holder.resultRef, e.member.resultRef);
+    assert.equal(read.bytes.toString(), e.relativePath === "src/a.txt" ? "alpha ".repeat(3000) : text[e.relativePath]);
+  }
+});
+
+// Fixed model-free workload: 965 context entries (src, 4 directories, 960 files)
+// and three changed members across a selector -> native task -> observation ->
+// two unchanged handoffs chain at the declared native context coordinates. The
+// old side is a structural/serialization projection of the B11 shapes (every
+// entry inline; observation.before = task.context), not an executed old runtime.
+test("965-member native context carriage is byte-equivalent to the expanded structural baseline without body multiplication", async t => {
+  const files = {};
+  for (let i = 0; i < 960; i++) files[`src/m${i % 4}/f${String(i).padStart(3, "0")}.txt`] = `member ${i} exact retained source line;\n`.repeat(40 + (i % 50));
+  const f = await resource(t), { w, write, observe } = await contextFixture(t, files), use = { runId: "run://body-fixture" };
+  const prefix = () => selectRuntimeEventPrefixFromStore(f.store), carry = context => reuseWorksiteContextBodiesAtPrefix(prefix(), context, use);
+  const c0 = await observe();
+  assert.equal(c0.entries.length, 965); assert.equal(fileEntries(c0).length, 960);
+  const selector = result(f.store, "selector", { kind: "framed_synthesis_task", schemaVersion: "5.0.0", context: carry(c0) });
+  const task = nativeTask("construction", carry(await observe()));
+  const taskResult = result(f.store, "native-task", task);
+  const changedPaths = ["src/m0/f000.txt", "src/m1/f481.txt", "src/m3/f959.txt"];
+  for (const path of changedPaths) { files[path] = "changed " + files[path]; await write(path, files[path]); }
+  const observation = result(f.store, "native-observation", { kind: "native_workspace_work_observation", schemaVersion: "5.0.0",
+    task, before: task.context, after: carry(await observe()) });
+  const handoffs = [result(f.store, "testing-one", nativeTask("testing-one", carry(await observe()))),
+    result(f.store, "testing-two", nativeTask("testing-two", carry(await observe())))];
+  const admitted = [selector, taskResult, observation, ...handoffs], values = admitted.map(e => e.payload.value);
+  assert.deepEqual(fileEntries(task.context).filter(e => e.encoding === "base64"), [], "the native task carries only selector members");
+  assert.deepEqual(fileEntries(observation.payload.value.after).filter(e => e.encoding === "base64").map(e => e.relativePath), changedPaths);
+  for (const h of handoffs) {
+    const members = fileEntries(h.payload.value.context).map(e => e.member?.resultRef);
+    assert.equal(members.filter(r => r === observation.payload.resultRef).length, 3);
+    assert.equal(members.filter(r => r === selector.payload.resultRef).length, 957);
+  }
+
+  // Exact reconstruction: each compact value expands to its structural baseline.
+  const held = prefix(), resolveAll = (at, context) => ({ ...context, entries: context.entries.map(e => {
+    if (e.state !== "file" || e.encoding === "base64") return e;
+    const read = resolveWorksiteContextBodyAtPrefix(at, context, e.relativePath, use);
+    assert.equal(read.kind, "worksite_context_body", JSON.stringify(read));
+    const { member: _member, ...facts } = e; return { ...facts, encoding: "base64", bytes: read.bytes.toString("base64") };
+  }) });
+  const expand = (at, value) => value.kind === "native_workspace_work_observation"
+    ? { ...value, task: expand(at, value.task), before: resolveAll(at, value.before), after: resolveAll(at, value.after) }
+    : { ...value, context: resolveAll(at, value.context) };
+  const baseline = values.map(value => expand(held, value));
+  for (const value of baseline) for (const context of value.kind === "native_workspace_work_observation" ? [value.task.context, value.before, value.after] : [value.context])
+    assert.ok(fileEntries(context).every(e => e.encoding === "base64"));
+  assert.equal(baseline[2].after.entries.find(e => e.relativePath === "src/m1/f481.txt").bytes, Buffer.from(files["src/m1/f481.txt"]).toString("base64"));
+  assert.deepEqual(baseline[4].context.entries, baseline[2].after.entries, "unchanged handoff reconstructs the exact after context");
+  const bytesOf = list => list.reduce((n, value) => n + Buffer.byteLength(canonicalJson(value)), 0);
+  const occurrencesOf = list => [...inlineOccurrences(list.map(value => ({ kind: "c_call_result_admitted", payload: { value } }))).values()].reduce((a, b) => a + b, 0);
+  const log = await readFile(f.eventLogPath), acquisitions = worksiteContextBodyAcquisitionsAtPrefix(held);
+  const measured = { compact: { serializedValueBytes: bytesOf(values), semanticBodyOccurrences: occurrencesOf(values), physicalLogBytes: log.length },
+    baseline: { serializedValueBytes: bytesOf(baseline), semanticBodyOccurrences: occurrencesOf(baseline) } };
+  assert.equal(measured.compact.semanticBodyOccurrences, 963, "960 births and 3 changed births");
+  assert.equal(measured.baseline.semanticBodyOccurrences, 960 * 7, "B11 shapes carry one full body set per context role");
+  assert.ok(measured.compact.serializedValueBytes * 3 < measured.baseline.serializedValueBytes, "metadata repeats; bodies do not");
+  assert.equal(acquisitions, 2, "selector and observation holders are each acquired once");
+
+  // Warm: second complete selected read in the same prefix territory.
+  const warm = (() => {
+    const cpu = process.cpuUsage(), start = performance.now();
+    const final = handoffs.at(-1).payload.value.context;
+    for (const e of fileEntries(final)) assert.equal(resolveWorksiteContextBodyAtPrefix(held, final, e.relativePath, use).kind, "worksite_context_body");
+    const spent = process.cpuUsage(cpu);
+    return { wallMs: performance.now() - start, cpuUserUs: spent.user, cpuSystemUs: spent.system, rss: process.memoryUsage().rss,
+      acquisitionsAdded: worksiteContextBodyAcquisitionsAtPrefix(held) - acquisitions };
+  })();
+  assert.equal(warm.acquisitionsAdded, 0);
+  // Cold: a fresh Node process reconstructs from retained log bytes only; the mutable worksite is gone.
+  await rm(join(w.canonicalRoot, "src"), { force: true, recursive: true });
+  const script = `
+    import assert from 'node:assert/strict';
+    import {readFileSync} from 'node:fs';
+    import * as storeOwner from './build/code/src/abg/event_store.js';
+    import {selectValidatedRuntimeEventPrefix,resolveWorksiteContextBodyAtPrefix,worksiteContextBodyAcquisitionsAtPrefix} from './build/code/src/abg/event_prefix.js';
+    const cpu=process.cpuUsage(),start=performance.now();
+    const events=storeOwner.validateHistoricalEvents(readFileSync(process.argv[1])),prefix=selectValidatedRuntimeEventPrefix(events);
+    const context=events.at(-1).payload.value.context;let bytes=0;
+    for(const e of context.entries)if(e.state==='file'){const read=resolveWorksiteContextBodyAtPrefix(prefix,context,e.relativePath,{runId:'run://body-fixture'});
+      assert.equal(read.kind,'worksite_context_body');bytes+=read.bytes.length;}
+    const spent=process.cpuUsage(cpu);
+    console.log(JSON.stringify({wallMs:performance.now()-start,cpuUserUs:spent.user,cpuSystemUs:spent.system,rss:process.memoryUsage().rss,
+      maxRSSKiB:process.resourceUsage().maxRSS,resolvedBytes:bytes,acquisitions:worksiteContextBodyAcquisitionsAtPrefix(prefix)}));`;
+  const cold = JSON.parse(execFileSync(process.execPath, ["--input-type=module", "-e", script, f.eventLogPath],
+    { cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000, maxBuffer: 1048576 }));
+  assert.equal(cold.resolvedBytes, Object.values(files).reduce((n, text) => n + Buffer.byteLength(text), 0));
+  assert.equal(cold.acquisitions, 2);
+  t.diagnostic(JSON.stringify({ kind: "native_context_965_member_carriage", entries: 965, files: 960, changed: 3, handoffs: values.length,
+    ...measured, holderAcquisitions: acquisitions, warm, cold,
+    baselineLabel: "structural/serialization projection of B11 shapes; not an executed old runtime and no old CPU/RSS/wall",
+    methodLimits: "single unrepeated local run; OS page cache holds the just-written log for the cold process; cold/warm cover the owner decode/resolve path only, not native Work or C2; no end-to-end speedup claim" }));
+});
+
+// RC5 retained-route carriage. Real EventStore stamping, admission, durable
+// encoding, rollback and cold decode. Result and route envelopes are controlled
+// lower premises in the traversal owner's retained shape (owner constructor and
+// raw admission for the bound input); this is not traversal admission authority,
+// which m5-installed-graph-edge exercises through an installed candidate.
+const retainedContractRef = RETAINED_GRAPH_INPUT_CONTRACT.contractRef;
+const retainedEntry = { kind: "data_input", schemaVersion: "5.0.0", subject: "retained entry; ".repeat(64) };
+const retainedSource = { kind: "body_fixture_output", schemaVersion: "5.0.0", text: "consumed retained source; ".repeat(2000) };
+function route(store, label, source, { runId = "run://body-fixture", causes = [] } = {}) {
+  const boundInput = rawAdmitValue(constructRetainedGraphInput(retainedEntry, source), "invocation_input", retainedContractRef);
+  assert.equal(boundInput.kind, "raw_admitted_value", JSON.stringify(boundInput));
+  const body = { routeKind: "advance", cCallRef: "c-call://body-fixture/" + label, boundInput,
+    sourceCursorRef: "traversal-cursor://body-fixture/" + label, targetCursorRef: "traversal-cursor://body-fixture/" + label + "/next" };
+  const routeDigest = sha256Canonical(body);
+  return storeOwner.admitRuntimeEvent(store, envelope("traversal_route_admitted",
+    { routeRef: "traversal-route://body-fixture/" + routeDigest.slice(7), routeDigest, ...body },
+    { aggregateType: "frame", aggregateId: "frame://" + label, parentAggregateId: "graph-call://" + label, scopeClass: "run",
+      runId, graphCallId: "graph-call://" + label, frameId: "frame://" + label, causationEventRefs: causes }));
+}
+// The consumed Result is itself already physically referenced (v1 to the child).
+function retainedHistory(store, source = retainedSource) {
+  const child = result(store, "child", source), parent = result(store, "parent", source);
+  return { child, parent, used: route(store, "parent", source, { causes: [parent.eventId] }) };
+}
+const physicalId = row => (row.kind === "abg_admitted_body_reference_record" ? row.event : row).eventId;
+const rowIndex = (rows, event) => rows.findIndex(row => physicalId(row) === event.eventId);
+const withoutSource = event => {
+  const { source: _source, ...value } = event.payload.boundInput.value;
+  return { ...event, payload: { ...event.payload, boundInput: { ...event.payload.boundInput, value } } };
+};
+function assertRouteNamesResult(rows, used, consumed) {
+  const row = rows[rowIndex(rows, used)];
+  assert.equal(row.kind, "abg_admitted_body_reference_record"); assert.equal(row.codecVersion, 3);
+  assert.deepEqual(row.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(used.payload.boundInput.value.source) });
+  assert.deepEqual(row.event, withoutSource(used), "only the nested retained source is omitted");
+  assert.deepEqual(Object.keys(row.event.payload.boundInput.value).sort(), ["entry", "kind", "schemaVersion"]);
+}
+// The same workload without the v3 form: the route row written inline.
+function routeInlineBytes(bytes, rows, used) {
+  const row = rows[rowIndex(rows, used)];
+  return bytes.length - Buffer.byteLength(canonicalJson(row) + "\n") + Buffer.byteLength(canonicalJson(used) + "\n");
+}
+async function reopenBytes(t, dir, name, bytes, authority) {
+  const eventLogPath = join(dir, name);
+  await writeFile(eventLogPath, bytes);
+  const info = await stat(eventLogPath), { authorityDigest: _old, ...body } = authority;
+  Object.assign(body, { eventLogPath, device: info.dev, inode: info.ino, durableByteLength: bytes.length, eventLogDigest: sha256Bytes(bytes) });
+  const reopened = storeOwner.reopenEventStore({ ...body, authorityDigest: sha256Canonical(body) });
+  if (reopened.kind === "reopened_event_store_context") t.after(() => reopened.store.closeDurableLog());
+  return reopened;
+}
+
+test("RC5 retained route names its exact already-referenced Result and reconstructs full, selected and descriptor reads", async t => {
+  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(rows[rowIndex(rows, child)].kind, "c_call_result_admitted");
+  assert.equal(rows[rowIndex(rows, parent)].codecVersion, 1, "the consumed Result is already physically referenced");
+  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, child.eventId);
+  assertRouteNamesResult(rows, used, parent);
+  assert.deepEqual(used.payload.boundInput.value.source, retainedSource);
+  assert.deepEqual(used.causationEventRefs, [parent.eventId]);
+  assert.ok(isDeeplyFrozen(events));
+  const cold = storeOwner.validateHistoricalEvents(bytes);
+  assert.deepEqual(cold, events); assert.deepEqual(storeOwner.validateHistoricalEvents(encode(events)), events);
+  // Synthetic routes are storage premises without traversal replay facts; the
+  // installed m5 case checks fresh run result/replay over a real retained route.
+  assert.equal(sha256Canonical(cold), sha256Canonical(events));
+  const coldRoute = cold.find(e => e.eventId === used.eventId), coldParent = cold.find(e => e.eventId === parent.eventId);
+  assert.equal(coldRoute.payload.boundInput.value.source, coldParent.payload.value, "full decode restores the acquired Result body");
+  const current = storeOwner.selectHeldEventStoreDurablePrefix(f.store);
+  const cut = storeOwner.durableRuntimeEventPrefixThroughEvent(current, used.eventId);
+  assert.equal(cut.prefixDigest, sha256Bytes(bytes.subarray(0, cut.prefixLength)));
+  assert.equal(storeOwner.runtimeEventPhysicalPrefix(events).digest, sha256Bytes(bytes));
+  const closed = f.store.projectReopenAuthorityAndClose();
+  assert.deepEqual(storeOwner.readRuntimeEventsAtDurablePrefix(JSON.parse(JSON.stringify(cut))), events.slice(0, used.admissionOrdinal));
+  const reopened = storeOwner.reopenEventStore(JSON.parse(JSON.stringify(closed.reopenAuthority)));
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  t.after(() => reopened.store.closeDurableLog());
+  // Selected read of the route row alone acquires its Result, then that Result's v1 source.
+  assert.deepEqual(indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(reopened.store), "id:" + used.eventId), [used]);
+  assert.deepEqual(reopened.store.readAll(), events);
+  // The reopened owner encodes against a committed Result it must reacquire from bytes.
+  const later = result(reopened.store, "after-reopen", retainedSource);
+  const laterRoute = route(reopened.store, "after-reopen", retainedSource, { causes: [later.eventId] });
+  const after = await readFile(f.eventLogPath), afterRows = decodeRows(after), all = reopened.store.readAll();
+  assert.equal(afterRows[rowIndex(afterRows, later)].codecVersion, 1);
+  assertRouteNamesResult(afterRows, laterRoute, later);
+  assert.deepEqual(storeOwner.validateHistoricalEvents(after), all);
+  const fresh = execFileSync(process.execPath, ["--input-type=module", "-e", `
+    import {readFileSync} from 'node:fs';
+    import {validateHistoricalEvents} from './build/code/src/abg/event_store.js';
+    import {sha256Canonical} from './build/code/src/shared/digests.js';
+    const events=validateHistoricalEvents(readFileSync(process.argv[1])), route=events.find(e=>e.eventId===process.argv[2]);
+    console.log(JSON.stringify({events:sha256Canonical(events),source:sha256Canonical(route.payload.boundInput.value.source)}));
+  `, f.eventLogPath, laterRoute.eventId], { cwd: new URL("../..", import.meta.url), encoding: "utf8", timeout: 90000 });
+  assert.deepEqual(JSON.parse(fresh), { events: sha256Canonical(all), source: sha256Canonical(retainedSource) });
+  const beforeBytes = routeInlineBytes(bytes, rows, used);
+  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "component-retained-history", beforeBytes,
+    afterBytes: bytes.length, netSavedBytes: beforeBytes - bytes.length, logicalUnchanged: true, logicalEvents: events.length,
+    sourceBytes: Buffer.byteLength(canonicalJson(retainedSource)), consumedResultPhysicalForm: "v1_reference" }));
+});
+
+test("RC5 retained route distinguishes exact consumed Result membership from same-valued basis and foreign occurrences", async t => {
+  const f = await resource(t);
+  const sameValuedBasis = storeOwner.admitRuntimeEvent(f.store, basis(retainedSource, "same-valued-basis"));
+  const foreignCall = result(f.store, "foreign-call", retainedSource);
+  const foreignRun = result(f.store, "parent", retainedSource, "run://foreign-occurrence");
+  const parent = result(f.store, "parent", retainedSource);
+  const unbacked = route(f.store, "unbacked", retainedSource);
+  const used = route(f.store, "parent", retainedSource, { causes: [parent.eventId] });
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(foreignRun.aggregateId, parent.aggregateId, "the foreign occurrence carries the same CCall reference");
+  assert.equal(rows[rowIndex(rows, parent)].bodyReference.sourceEventRef, sameValuedBasis.eventId,
+    "the Result body dependency may be an equal basis through v1");
+  assertRouteNamesResult(rows, used, parent);
+  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "equal bodies without the route's own Result stay inline");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  const closed = f.store.projectReopenAuthorityAndClose(), target = rowIndex(rows, used);
+  for (const [name, decoy] of Object.entries({ sameValuedBasis, foreignCall, foreignRun, unbackedRoute: unbacked })) {
+    const changed = structuredClone(rows);
+    changed[target].bodyReference = { ...changed[target].bodyReference, sourceEventRef: decoy.eventId, sourcePayloadDigest: decoy.payloadDigest };
+    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), /exact earlier consumed Result/, name);
+    const refused = await reopenBytes(t, f.dir, `decoy-${name}.jsonl`, encode(changed), closed.reopenAuthority);
+    assert.equal(refused.code, "invalid_event_history", name); assert.match(refused.message, /exact earlier consumed Result/, name);
+  }
+});
+
+test("RC5 retained route refuses missing, forward, tampered, mixed and uncommitted sources before exposing history", async t => {
+  const f = await resource(t), { child, parent, used } = retainedHistory(f.store);
+  const later = storeOwner.admitRuntimeEvent(f.store, basis(input, "after-route"));
+  // Storage probe only: the CCall phase owner refuses a second Result for one CCall.
+  const laterResult = result(f.store, "parent", retainedSource);
+  const committed = await readFile(f.eventLogPath);
+  let rolledBack;
+  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    rolledBack = result(f.store, "uncommitted", retainedSource);
+    route(f.store, "uncommitted", retainedSource, { causes: [rolledBack.eventId] });
+    throw Error("selected rollback");
+  }), /selected rollback/);
+  assert.deepEqual(await readFile(f.eventLogPath), committed, "rollback publishes neither Result nor route");
+  const unbacked = route(f.store, "uncommitted", retainedSource);
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assert.equal(rows[rowIndex(rows, unbacked)].kind, "traversal_route_admitted", "a rolled-back Result supplies no source");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  const target = rowIndex(rows, used), resultRow = rowIndex(rows, parent), childRow = rowIndex(rows, child), unbackedRow = rowIndex(rows, unbacked);
+  const reference = (sourceEventRef, sourcePayloadDigest) => ({ sourceEventRef, sourcePayloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: sha256Canonical(retainedSource) });
+  const mutations = {
+    missing: [r => { r[target].bodyReference.sourceEventRef = "event://missing"; }, /exact earlier consumed Result/],
+    self: [r => { r[target].bodyReference = reference(used.eventId, used.payloadDigest); }, /exact earlier consumed Result/],
+    forwardResult: [r => { r[target].bodyReference = reference(laterResult.eventId, laterResult.payloadDigest); }, /exact earlier consumed Result/],
+    forwardOther: [r => { r[target].bodyReference = reference(later.eventId, later.payloadDigest); }, /exact earlier consumed Result/],
+    deletedResult: [r => { r.splice(resultRow, 1); }, /exact earlier consumed Result/],
+    childOccurrence: [r => { r[target].bodyReference = reference(child.eventId, child.payloadDigest); }, /exact earlier consumed Result/],
+    wrongPayload: [r => { r[target].bodyReference.sourcePayloadDigest = child.payloadDigest; }, /exact earlier consumed Result/],
+    wrongSlot: [r => { r[target].bodyReference.sourceSlot = "basis_input"; }, /exact earlier consumed Result/],
+    wrongBody: [r => { r[target].bodyReference.bodyDigest = sha256Canonical("changed"); }, /differs from its exact consumed Result/],
+    tamperedRouteCall: [r => { r[target].event.payload.cCallRef = child.aggregateId; }, /exact earlier consumed Result/],
+    tamperedRouteRun: [r => { r[target].event.runId = "run://foreign-occurrence"; }, /exact earlier consumed Result/],
+    tamperedEntry: [r => { r[target].event.payload.boundInput.value.entry.subject = "changed"; }, /inconsistent history/],
+    tamperedResultReference: [r => { r[resultRow].bodyReference.bodyDigest = sha256Canonical("changed"); }, /body reference/],
+    tamperedSourceBody: [r => { r[childRow].payload.value.text = "changed"; }, /inconsistent history/],
+    mixed: [r => { r[target].event.payload.boundInput.value.source = retainedSource; }, /exact earlier consumed Result/],
+    v1Route: [r => { r[target].codecVersion = 1; }, /body reference/],
+    v3Result: [r => { r[resultRow].codecVersion = 3; }, /exact earlier consumed Result/],
+    malformed: [r => { r[target].bodyReference.extra = true; }, /malformed/],
+    uncommitted: [r => { r[unbackedRow] = { kind: "abg_admitted_body_reference_record", codecVersion: 3, event: withoutSource(unbacked),
+      bodyReference: reference(rolledBack.eventId, rolledBack.payloadDigest) }; }, /exact earlier consumed Result/],
+  };
+  const closed = f.store.projectReopenAuthorityAndClose();
+  for (const [name, [mutate, refusal]] of Object.entries(mutations)) {
+    const changed = structuredClone(rows); mutate(changed);
+    assert.throws(() => storeOwner.validateHistoricalEvents(encode(changed)), refusal, name);
+    const refused = await reopenBytes(t, f.dir, `negative-${name}.jsonl`, encode(changed), closed.reopenAuthority);
+    assert.equal(refused.kind, "event_store_reopen_refusal", name); assert.match(refused.message, refusal, name);
+  }
+});
+
+test("RC5 retained route mixes inline, v1 and v3 rows and keeps small, unequal or unavailable sources inline", async t => {
+  const f = await resource(t), { parent, used } = retainedHistory(f.store);
+  const small = { kind: "small_source", schemaVersion: "5.0.0", n: 1 };
+  const smallResult = result(f.store, "small", small), smallRoute = route(f.store, "small", small, { causes: [smallResult.eventId] });
+  const unequalResult = result(f.store, "unequal", retainedSource);
+  const unequalRoute = route(f.store, "unequal", { ...retainedSource, text: "unequal retained source; ".repeat(2000) }, { causes: [unequalResult.eventId] });
+  const events = f.store.readAll(), bytes = await readFile(f.eventLogPath), rows = decodeRows(bytes);
+  assertRouteNamesResult(rows, used, parent);
+  assert.equal(rows[rowIndex(rows, smallRoute)].kind, "traversal_route_admitted", "a reference larger than its source stays inline");
+  assert.equal(rows[rowIndex(rows, unequalRoute)].kind, "traversal_route_admitted", "a source unequal to the consumed Result stays inline");
+  assert.deepEqual(new Set(rows.map(row => row.kind === "abg_admitted_body_reference_record" ? "v" + row.codecVersion : "inline")),
+    new Set(["inline", "v1", "v3"]));
+  assert.deepEqual(storeOwner.validateHistoricalEvents(bytes), events);
+  // A pre-RC5 all-inline history stays readable; a new route may name its physically inline Result.
+  const closed = f.store.projectReopenAuthorityAndClose();
+  const historical = await openInlineCopy(t, f.dir, events, closed.reopenAuthority);
+  assert.deepEqual(historical.store.readAll(), events);
+  const appended = route(historical.store, "parent", retainedSource, { causes: [parent.eventId] });
+  const after = await readFile(historical.eventLogPath), afterRows = decodeRows(after);
+  assert.equal(afterRows[rowIndex(afterRows, parent)].kind, "c_call_result_admitted");
+  assertRouteNamesResult(afterRows, appended, parent);
+  assert.deepEqual(storeOwner.validateHistoricalEvents(after), historical.store.readAll());
+  assert.equal(sha256Canonical(historical.store.readAll().slice(0, events.length)), sha256Canonical(events));
+});
+
+test("RC5 retained route publishes nothing on rollback or failed fsync, poisons on failed restoration and keeps committed same-batch sources", async t => {
+  const f = await resource(t), child = result(f.store, "child", retainedSource);
+  const committed = storeOwner.selectHeldEventStoreDurablePrefix(f.store), before = await readFile(f.eventLogPath), prior = f.store.readAll();
+  const pair = label => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    const consumed = result(f.store, label, retainedSource);
+    return { consumed, used: route(f.store, label, retainedSource, { causes: [consumed.eventId] }) };
+  });
+  assert.throws(() => storeOwner.admitRuntimeEventTransaction(f.store, () => {
+    const consumed = result(f.store, "rolled-back", retainedSource);
+    route(f.store, "rolled-back", retainedSource, { causes: [consumed.eventId] });
+    throw Error("selected rollback");
+  }), /selected rollback/);
+  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
+  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
+  const original = fs.fsyncSync; let calls = 0;
+  fs.fsyncSync = descriptor => { if (++calls === 1) throw Error("injected retained-route fsync failure"); return original(descriptor); };
+  syncBuiltinESMExports();
+  try { assert.throws(() => pair("failed-fsync"), /injected retained-route fsync failure/); }
+  finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
+  assert.equal(storeOwner.selectHeldEventStoreDurablePrefix(f.store), committed);
+  assert.deepEqual(await readFile(f.eventLogPath), before); assert.deepEqual(f.store.readAll(), prior);
+  // One committed transaction: the Result and its route share one durable batch.
+  const { consumed, used } = pair("committed");
+  const rows = decodeRows(await readFile(f.eventLogPath)), events = f.store.readAll();
+  assert.equal(rows[rowIndex(rows, consumed)].bodyReference.sourceEventRef, child.eventId);
+  assertRouteNamesResult(rows, used, consumed);
+  const closed = f.store.projectReopenAuthorityAndClose(), reopened = storeOwner.reopenEventStore(closed.reopenAuthority);
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  assert.deepEqual(reopened.store.readAll(), events);
+  // Failed write fsync and failed restoration poison ownership; no later effect proceeds.
+  const good = await readFile(f.eventLogPath);
+  fs.fsyncSync = () => { throw Error("injected retained-route restoration failure"); }; syncBuiltinESMExports();
+  try {
+    assert.throws(() => storeOwner.admitRuntimeEventTransaction(reopened.store, () => {
+      const poisoned = result(reopened.store, "poisoned", retainedSource);
+      route(reopened.store, "poisoned", retainedSource, { causes: [poisoned.eventId] });
+    }), /could not be restored/);
+  } finally { fs.fsyncSync = original; syncBuiltinESMExports(); }
+  assert.throws(() => route(reopened.store, "after-poison", retainedSource));
+  try { reopened.store.closeDurableLog(); } catch { /* poisoned ownership is already released */ }
+  assert.deepEqual(await readFile(f.eventLogPath), good, "restored extent holds no partial Result or route");
+  assert.deepEqual(storeOwner.validateHistoricalEvents(good), events);
+});
+
+test("RC5 retained route measures the captured-route-37961 sample with exact logical reconstruction", async t => {
+  const samplePath = process.env.ABG_RC5_ROUTE_SAMPLE_FILE;
+  if (samplePath === undefined) { t.skip("ABG_RC5_ROUTE_SAMPLE_FILE names the pinned captured sample"); return; }
+  const sample = JSON.parse(await readFile(samplePath, "utf8"));
+  assert.equal(sample.kind, "rc5_retained_route_captured_codec_sample");
+  const physical = sample.rows.map(row => {
+    const line = canonicalJson(row.physical) + "\n";
+    assert.equal(Buffer.byteLength(line), row.bytes, "captured row keeps its exact physical length");
+    assert.equal(sha256Bytes(line).slice(7), row.physicalLineSha256, "captured row keeps its exact physical bytes");
+    return { row, line };
+  });
+  const [inlineRow, resultRow, routeRow] = physical;
+  // Existing v1 decode of the captured inline body and its already-referenced Result.
+  const inlineByEvent = new Map(), byId = new Map();
+  for (const { row } of [inlineRow, resultRow]) {
+    const { event: decoded, physicallyInline } = decodeEventBody(row.physical, inlineByEvent);
+    assert.equal(sha256Canonical(decoded.payload), decoded.payloadDigest, "captured logical payload digest");
+    if (physicallyInline) inlineByEvent.set(decoded.eventId, inlineEventBody(decoded));
+    byId.set(decoded.eventId, decoded);
+  }
+  const consumed = byId.get(resultRow.row.eventRef), used = routeRow.row.physical;
+  assert.equal(resultRow.row.physical.codecVersion, 1, "the sample Result is already physically referenced");
+  assert.equal(consumed.payload.resultRef, sample.resultRef); assert.equal(used.payload.cCallRef, consumed.aggregateId);
+  // Three-row custody, not an admitted history: the codec sees only these earlier rows.
+  const earlier = { envelope: ref => byId.get(ref), event: ref => byId.get(ref),
+    cCallEvents: ref => [...byId.values()].filter(e => e.aggregateType === "c_call" && e.aggregateId === ref).map(e => e.eventId) };
+  const encoded = encodeEventBody(used, new Map(), new Map(), undefined, earlier), record = JSON.parse(encoded);
+  assert.equal(record.codecVersion, 3);
+  assert.deepEqual(record.bodyReference, { sourceEventRef: consumed.eventId, sourcePayloadDigest: consumed.payloadDigest,
+    sourceSlot: "c_call_result_value", bodyDigest: consumed.payload.valueDigest });
+  assert.equal(encoded, canonicalJson(record) + "\n", "encoded record is canonical under the same newline convention");
+  const restored = decodeEventBody(record, inlineByEvent, undefined, { envelope: earlier.envelope, event: earlier.event }).event;
+  assert.equal(canonicalJson(restored) + "\n", routeRow.line, "restored route equals the captured logical route");
+  assert.equal(sha256Canonical(restored.payload), used.payloadDigest);
+  assert.equal(sha256Canonical(restored.payload.boundInput.value.source), consumed.payload.valueDigest);
+  const beforeBytes = physical.reduce((total, { line }) => total + Buffer.byteLength(line), 0);
+  const afterBytes = Buffer.byteLength(inlineRow.line) + Buffer.byteLength(resultRow.line) + Buffer.byteLength(encoded);
+  t.diagnostic("RC5_RETAINED_ROUTE_MEASURE " + JSON.stringify({ sample: "captured-route-37961", beforeBytes, afterBytes,
+    netSavedBytes: beforeBytes - afterBytes, logicalUnchanged: true, rows: physical.length,
+    routeBeforeBytes: Buffer.byteLength(routeRow.line), routeAfterBytes: Buffer.byteLength(encoded),
+    grossSourceBytes: sample.grossSourceBytes, sourceStoreRowOrdinals: [37940, 37953, 37961],
+    limits: "three captured physical rows only; no complete admitted history, campaign saving or latency claim" }));
+});
+
+// Real EventStore admission, worksite observation, owner Result construction and
+// cold log reopen. The admitted child basis is the one native task holder; the
+// prospective Result names it through its CCall basis and inputDigest only.
+async function nativeInputFixture(t) {
+  const f = await resource(t), text = { "src/a.txt": "alpha ".repeat(3000), "src/b.txt": "beta ".repeat(3000) };
+  const { w, write, observe } = await contextFixture(t, text), runId = "run://body-fixture", use = { runId };
+  const taskFor = (context, outcome) => nativeWork.constructNativeWorkspaceWorkTask({ workspaceAuthorityBasis: w.workspaceAuthorityBasis,
+    workspaceBinding: w.workspaceBinding, capabilityGrant: w.capabilityGrant, context, outcome, instructions: ["Read the selected input."],
+    readFirst: ["src/a.txt"], writeRoots: ["src/b.txt"], checks: [] });
+  const task = taskFor(reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(f.store), await observe(), use), "Change b only");
+  const held = storeOwner.admitRuntimeEvent(f.store, basis(task, "native-work", true));
+  text["src/b.txt"] = "changed beta ".repeat(3000); await write("src/b.txt", text["src/b.txt"]);
+  const after = carryWorksiteContextBodies(await observe(), task.context, { basisRef: held.payload.basisRef, basisDigest: held.payload.basisDigest });
+  const provenance = label => ({ cCallRef: "c-call://body-fixture/" + label, executionAuthorityRef: "execution-authority://body-fixture/" + label,
+    executionAuthorityDigest: sha256Canonical(label + "-authority"), actorInvocationRef: "actor-invocation://body-fixture/" + label,
+    transportBindingRef: "transport-binding://body-fixture/" + label, transportBindingDigest: sha256Canonical(label + "-binding"),
+    promptDigest: sha256Canonical(label + "-prompt"), transportDigest: sha256Canonical(label + "-transport") });
+  const observation = label => nativeWork.constructNativeWorkspaceWorkObservation(task, after, { summary: "changed b", gaps: [] }, provenance(label));
+  // The ordinary Result admission shape, with the Result's own CCall basis.
+  const admit = (label, value, basisRef) => {
+    const cCallRef = "c-call://body-fixture/" + label, extra = { aggregateType: "c_call", aggregateId: cCallRef, parentAggregateId: "frame://child",
+      scopeClass: "run", runId, graphCallId: "graph-call://child", frameId: "frame://child", basisId: basisRef };
+    const pair = storeOwner.admitRuntimeEventBatch(f.store, [
+      () => envelope("c_call_opened", { cCallRef, cCallDigest: sha256Canonical(label), callClass: "leaf", batchRef: null, taskOrdinal: null,
+        attempt: 1, programLocusRef: "locus://" + label, retryPath: [] }, extra),
+      prior => envelope("c_call_fibre_selected", { cCallRef, callClass: "leaf", armId: "arm://fixture", regime: "F_P" },
+        { ...extra, causationEventRefs: [prior.at(-1).eventId] }),
+    ]);
+    const body = { cCallRef, resultClass: "success", contractRef: nativeWork.NATIVE_WORKSPACE_WORK_IDS.observationContractRef, valueKind: value.kind,
+      evidenceRefs: [], value, valueDigest: sha256Canonical(value) };
+    const resultDigest = sha256Canonical(body);
+    return storeOwner.admitRuntimeEvent(f.store, envelope("c_call_result_admitted", { ...body, resultRef: "result://body-fixture/" + resultDigest.slice(7), resultDigest },
+      { ...extra, causationEventRefs: [pair.at(-1).eventId] }));
+  };
+  const value = observation("native-work"), event = admit("native-work", value, held.payload.basisRef);
+  return { f, w, text, observe, use, task, taskFor, held, after, value, event, observation, admit };
+}
+
+test("RC7 complete carriage: the admitted basis is the only task and unchanged-body holder; the Result births only changed bytes", async t => {
+  const x = await nativeInputFixture(t), events = x.f.store.readAll(), log = (await readFile(x.f.eventLogPath)).toString();
+  const occurrences = (haystack, needle) => canonicalJson(haystack).split(canonicalJson(needle)).length - 1;
+  assert.equal(Object.hasOwn(x.value, "task"), false); assert.equal(Object.hasOwn(x.value, "before"), false);
+  assert.equal(occurrences(x.event.payload, x.task), 0, "no Result task copy"); assert.equal(occurrences(x.event.payload, x.task.context), 0, "no derived before");
+  assert.equal(x.value.inputDigest, x.held.payload.rawInputDigest, "the Result names its basis input by digest");
+  const entry = path => x.value.after.entries.find(e => e.relativePath === path), index = path => x.task.context.entries.findIndex(e => e.relativePath === path);
+  assert.deepEqual(entry("src/a.txt").member, { basisRef: x.held.payload.basisRef, basisDigest: x.held.payload.basisDigest, path: ["context", "entries", index("src/a.txt")] });
+  assert.equal(entry("src/b.txt").encoding, "base64", "the changed body is born inline once in the Result");
+  assert.equal(occurrences(x.event.payload, x.task.context.entries[index("src/a.txt")].bytes), 0, "no unchanged-after copy");
+  for (const body of [x.text["src/a.txt"], x.text["src/b.txt"]]) assert.equal(log.split(Buffer.from(body).toString("base64")).length - 1, 1, "each body version is physically written once");
+  // Producer carriage reuses both holders through the existing index.
+  const next = reuseWorksiteContextBodiesAtPrefix(selectRuntimeEventPrefixFromStore(x.f.store), await x.observe(), x.use);
+  const holder = e => e.member?.basisRef ?? e.member?.resultRef ?? "inline";
+  assert.deepEqual(Object.fromEntries(fileEntries(next).map(e => [e.relativePath, holder(e)])),
+    { "src/a.txt": x.held.payload.basisRef, "src/b.txt": x.event.payload.resultRef });
+  t.diagnostic(JSON.stringify({ kind: "rc7_complete_carriage_store", events: events.length, resultValueBytes: Buffer.byteLength(canonicalJson(x.value)),
+    basisBytes: Buffer.byteLength(canonicalJson(x.held.payload)), physicalLogBytes: Buffer.byteLength(log) }));
+});
+
+test("RC7 actual current input: the Result task is its own admitted basis input, held and cold; crossed coordinates refuse", async t => {
+  const x = await nativeInputFixture(t), prefix = selectRuntimeEventPrefixFromStore(x.f.store);
+  assert.deepEqual(projectNativeWorkspaceWorkResultTaskAtPrefix(prefix, x.event), x.task, "held prefix joins the actual basis input");
+  x.other = storeOwner.admitRuntimeEvent(x.f.store, basis(x.taskFor(x.task.context, "A different admitted task"), "other-native-work", true));
+  x.plain = storeOwner.admitRuntimeEvent(x.f.store, basis(input, "plain-input", true));
+  assert.deepEqual(projectExactExecutionBasisAtPrefix(prefix, x.event.basisId).rawInputValue, x.task);
+  // Crossed coordinates: another admitted native task, a non-task input, a foreign CCall and an absent basis.
+  const crossed = x.admit("crossed-basis", x.observation("crossed-basis"), x.other.payload.basisRef);
+  const plain = x.admit("plain-basis", x.observation("plain-basis"), x.plain.payload.basisRef);
+  const foreign = x.admit("foreign-call", x.observation("native-work"), x.held.payload.basisRef);
+  const absent = x.admit("absent-basis", x.observation("absent-basis"), "execution-basis://abiogenesis/" + "0".repeat(64));
+  const at = selectRuntimeEventPrefixFromStore(x.f.store);
+  for (const [label, event] of [["crossed basis", crossed], ["non-task basis", plain], ["foreign CCall", foreign], ["absent basis", absent]])
+    assert.equal(projectNativeWorkspaceWorkResultTaskAtPrefix(at, event), null, label);
+  assert.equal(projectNativeWorkspaceWorkResultTaskAtPrefix(at, { ...x.event, basisId: x.other.payload.basisRef }), null, "a crossed event basis refuses");
+  // Basis-held unchanged bytes resolve through the existing resolver; crossed members refuse.
+  const read = path => resolveWorksiteContextBodyAtPrefix(at, x.after, path, x.use);
+  assert.equal(read("src/a.txt").kind, "worksite_context_body"); assert.equal(read("src/a.txt").bytes.toString(), x.text["src/a.txt"]);
+  assert.equal(read("src/a.txt").holder.eventRef, x.held.eventId);
+  const withMember = change => ({ ...x.after, entries: x.after.entries.map(e => e.relativePath === "src/a.txt" ? { ...e, member: change(e.member) } : e) });
+  const refusal = (context, use = x.use) => resolveWorksiteContextBodyAtPrefix(at, context, "src/a.txt", use).code;
+  assert.equal(refusal(withMember(m => ({ ...m, basisDigest: sha256Canonical("tampered") }))), "tampered");
+  assert.equal(refusal(withMember(m => ({ ...m, basisRef: "execution-basis://abiogenesis/" + "1".repeat(64) }))), "pending");
+  assert.equal(refusal(withMember(m => ({ ...m, basisRef: x.other.payload.basisRef, basisDigest: x.other.payload.basisDigest, path: ["context", "entries", 99] }))), "tampered");
+  assert.equal(refusal(x.after, { runId: "run://foreign" }), "foreign");
+  // Cold reconstruction from the retained log bytes only; the mutable worksite is gone.
+  await rm(join(x.w.canonicalRoot, "src"), { force: true, recursive: true });
+  const cold = selectValidatedRuntimeEventPrefix(storeOwner.validateHistoricalEvents(await readFile(x.f.eventLogPath)));
+  const coldEvent = cold.events.find(e => e.eventId === x.event.eventId);
+  assert.deepEqual(projectNativeWorkspaceWorkResultTaskAtPrefix(cold, coldEvent), x.task, "cold replay joins the same actual input");
+  assert.equal(projectNativeWorkspaceWorkResultTaskAtPrefix(cold, cold.events.find(e => e.eventId === crossed.eventId)), null);
+  const coldRead = resolveWorksiteContextBodyAtPrefix(cold, coldEvent.payload.value.after, "src/a.txt", x.use);
+  assert.equal(coldRead.kind, "worksite_context_body"); assert.equal(coldRead.bytes.toString(), x.text["src/a.txt"]);
+  assert.equal(nativeWork.nativeWorkspaceWorkObservationMatchesTask(x.task, coldEvent.payload.value), true);
 });

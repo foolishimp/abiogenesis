@@ -10,6 +10,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
+import type { JsonValue } from "../shared/canonical_json.js";
 import type { CCall } from "../abg/c_call.js";
 import type {
   AdmittedImplementationResolutionRow,
@@ -511,6 +512,19 @@ function protectedWorksitePath(
   return Object.values(workspace.roots).some((root) =>
     containsPath(root, candidate)
   );
+}
+
+/** A planned write root meets a declared binding root when either path
+ * contains the other: exact, enclosing or inside. Territory and subject
+ * construction keep containment only, so a read territory may enclose one. */
+export function protectedWorksiteWriteRoot(
+  authority: WorkspaceAuthorityBasis,
+  workspace: WorkspaceBinding,
+  relativeRoot: string,
+): boolean {
+  const candidate = resolve(authority.canonicalRoot, ...relativeRoot.split("/"));
+  return protectedWorksitePath(authority, workspace, relativeRoot) ||
+    Object.values(workspace.roots).some((root) => containsPath(candidate, root));
 }
 
 function exactExecutionBasis(value: ExecutionBasis): boolean {
@@ -1866,9 +1880,21 @@ export function isWorksiteFileParentsFailure(value: unknown): value is WorksiteF
     Array.isArray(physical.diagnostics) && physical.diagnostics.every(validRefusal);
 }
 
+type WorksiteContextFileFacts = { relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest };
+/** One exact earlier inline entry of an admitted holder: the same path and
+ * digest at `path` from an admitted Result's `value`, or from an admitted
+ * execution basis's raw input (`basisRef`/`basisDigest`). It locates bytes
+ * only; it grants no read, currentness or attribution. */
+export type WorksiteContextBodyMember = Readonly<{ resultRef: string; resultDigest: Sha256Digest; path: readonly (string | number)[] }> |
+  Readonly<{ basisRef: string; basisDigest: Sha256Digest; path: readonly (string | number)[] }>;
+/** The admitted execution basis whose raw input holds a predecessor context at `context`. */
+export type WorksiteContextBasisInputHolder = Readonly<{ basisRef: string; basisDigest: Sha256Digest }>;
+/** File bytes are born inline once; later contexts carry an admitted member
+ * reference. Storage location is not part of the observed identity. */
+export type WorksiteContextFileEntry = Readonly<WorksiteContextFileFacts & { encoding: "base64"; bytes: string }> |
+  Readonly<WorksiteContextFileFacts & { encoding: "admitted_member"; member: WorksiteContextBodyMember }>;
 export type WorksiteContextEntry = Readonly<{ relativePath: string; state: "directory"; fileIdentity: string; members: readonly string[] }> |
-  Readonly<{ relativePath: string; state: "file"; fileIdentity: string; byteLength: number; digest: Sha256Digest; encoding: "base64"; bytes: string }> |
-  Readonly<{ relativePath: string; state: "absent" }>;
+  WorksiteContextFileEntry | Readonly<{ relativePath: string; state: "absent" }>;
 export type WorksiteContextObservation = {
   readonly kind: "worksite_context_observation";
   readonly schemaVersion: "5.0.0";
@@ -1883,8 +1909,74 @@ export type WorksiteContextObservation = {
   readonly maxBytes: number;
   readonly entries: readonly WorksiteContextEntry[];
 };
+type WorksiteContextBody = Omit<WorksiteContextObservation, "kind" | "schemaVersion" | "observationRef" | "observationDigest">;
 
-/** Saved-context validation is pure; it neither refreshes nor reconstructs I/O. */
+/** Observed physical facts only: path, state, file identity, length and digest. */
+export function worksiteContextIdentityEntry(entry: WorksiteContextEntry): JsonValue {
+  if (entry.state !== "file") return entry as unknown as JsonValue;
+  return { relativePath: entry.relativePath, state: entry.state, fileIdentity: entry.fileIdentity, byteLength: entry.byteLength, digest: entry.digest };
+}
+/** The one context identity relation; the body carriage of each file is excluded. */
+export function worksiteContextIdentityDigest(body: WorksiteContextBody): Sha256Digest {
+  return sha256Canonical({ ...body, entries: body.entries.map(worksiteContextIdentityEntry) } as unknown as JsonValue);
+}
+export function worksiteContextObservationRef(digest: Sha256Digest): string {
+  return identity("worksite-context-observation://abiogenesis", digest);
+}
+/** Exact identity equality of two validated contexts, independent of body carriage. */
+export function sameWorksiteContextIdentity(a: WorksiteContextObservation, b: WorksiteContextObservation): boolean {
+  return a.observationRef === b.observationRef && a.observationDigest === b.observationDigest;
+}
+/** Inline base64 bytes of one entry; `null` for an admitted member or non-file. */
+export function inlineWorksiteContextBytes(entry: WorksiteContextEntry | undefined): string | null {
+  return entry?.state === "file" && entry.encoding === "base64" ? entry.bytes : null;
+}
+/** Selected-body read for one context. An admitted member is read only through
+ * the held-prefix owner's reader for the consumer's Run and grant; `null` refuses. */
+export type WorksiteContextBodyReader = (entry: WorksiteContextFileEntry) => Buffer | null;
+/** The pure default: inline bodies only; every admitted member refuses. */
+export const inlineWorksiteContextBody: WorksiteContextBodyReader = entry => {
+  const bytes = inlineWorksiteContextBytes(entry);
+  return bytes === null ? null : Buffer.from(bytes, "base64");
+};
+/** Unchanged physical members keep the predecessor's established carriage; a
+ * changed or new member keeps its own inline birth. When the predecessor is
+ * the `context` of an admitted basis input, its inline body is held there and
+ * the member references it. Identity is unchanged. */
+export function carryWorksiteContextBodies(context: WorksiteContextObservation, predecessor: WorksiteContextObservation,
+  basisInput?: WorksiteContextBasisInputHolder): WorksiteContextObservation {
+  const prior = new Map(predecessor.entries.flatMap((e, index) => e.state === "file" ? [[e.relativePath, { e, index }] as const] : []));
+  let carried = false;
+  const entries = context.entries.map(entry => {
+    const found = prior.get(entry.relativePath), held = found?.e;
+    if (entry.state !== "file" || held === undefined || held.digest !== entry.digest || held.byteLength !== entry.byteLength) return entry;
+    // Without an admitted holder, an inline predecessor leaves the member its own bytes.
+    const member: WorksiteContextBodyMember | undefined = held.encoding === "admitted_member" ? held.member
+      : basisInput === undefined ? undefined
+      : { basisRef: basisInput.basisRef, basisDigest: basisInput.basisDigest, path: ["context", "entries", found!.index] };
+    if (member === undefined || (entry.encoding === "admitted_member" && canonicalEquals(entry.member, member))) return entry;
+    carried = true;
+    return { ...worksiteContextIdentityEntry(entry) as WorksiteContextFileFacts, encoding: "admitted_member" as const, member };
+  });
+  return carried ? deepFreeze({ ...context, entries }) : context;
+}
+
+function memberPathValid(path: unknown): path is readonly (string | number)[] {
+  return Array.isArray(path) && path.length > 0 && path.length <= 16 &&
+    path.every(step => (typeof step === "string" && step.length > 0) || (Number.isSafeInteger(step) && (step as number) >= 0));
+}
+function contextDeeplyFrozen(value: Record<string, unknown>): boolean {
+  return Object.isFrozen(value) && Object.isFrozen(value.readRoots) && Object.isFrozen(value.entries) &&
+    (value.entries as readonly Record<string, unknown>[]).every(entry => Object.isFrozen(entry) &&
+      (entry.members === undefined || Object.isFrozen(entry.members)) &&
+      (!isRecord(entry.member) || (Object.isFrozen(entry.member) && Object.isFrozen(entry.member.path))));
+}
+/** Inline bodies of one immutable context object are decoded and hashed once. */
+const verifiedImmutableContexts = new WeakSet<object>();
+
+/** Saved-context validation is pure; it neither refreshes nor reconstructs I/O.
+ * An inline body is checked against its digest; an admitted member reference is
+ * checked for shape only and is resolved by the held-prefix owner at use. */
 export function isWorksiteContextObservation(value: unknown): value is WorksiteContextObservation {
   try {
     if (!isRecord(value) || !hasExactKeys(value, ["kind", "schemaVersion", "observationRef", "observationDigest",
@@ -1897,6 +1989,7 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
       value.readRoots.some(root => normalizeWorksiteRelativePath(root, true) !== root) ||
       !Array.isArray(value.entries) || value.entries.length > (value.maxFiles as number)) return false;
     const observation = value as unknown as WorksiteContextObservation;
+    const verified = verifiedImmutableContexts.has(value);
     const paths = new Set<string>();
     let bytes = 0;
     let previous: string | null = null;
@@ -1913,11 +2006,21 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
           entry.members.some((member, index) => !nonEmptyString(member) || member.includes("/") || member.includes("\\") || member === "." || member === ".." ||
             (index > 0 && entry.members[index - 1]! >= member))) return false;
       } else if (entry.state === "file") {
-        if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "bytes"]) || !nonEmptyString(entry.fileIdentity) ||
-          !Number.isSafeInteger(entry.byteLength) || entry.byteLength < 0 || !isSha256Digest(entry.digest) || entry.encoding !== "base64" || typeof entry.bytes !== "string") return false;
-        const actual = Buffer.from(entry.bytes, "base64");
-        if (actual.toString("base64") !== entry.bytes || actual.length !== entry.byteLength || sha256Bytes(actual) !== entry.digest) return false;
-        bytes += actual.length;
+        if (!nonEmptyString(entry.fileIdentity) || !Number.isSafeInteger(entry.byteLength) || entry.byteLength < 0 || !isSha256Digest(entry.digest)) return false;
+        if (entry.encoding === "base64") {
+          if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "bytes"]) || typeof entry.bytes !== "string") return false;
+          if (!verified) {
+            const actual = Buffer.from(entry.bytes, "base64");
+            if (actual.toString("base64") !== entry.bytes || actual.length !== entry.byteLength || sha256Bytes(actual) !== entry.digest) return false;
+          }
+        } else if (entry.encoding === "admitted_member") {
+          const member = entry.member as unknown;
+          if (!hasExactKeys(entry, ["relativePath", "state", "fileIdentity", "byteLength", "digest", "encoding", "member"]) || !isRecord(member) ||
+            !(hasExactKeys(member, ["resultRef", "resultDigest", "path"]) ? nonEmptyString(member.resultRef) && isSha256Digest(member.resultDigest)
+              : hasExactKeys(member, ["basisRef", "basisDigest", "path"]) && nonEmptyString(member.basisRef) && isSha256Digest(member.basisDigest)) ||
+            !memberPathValid(member.path)) return false;
+        } else return false;
+        bytes += entry.byteLength;
         if (bytes > observation.maxBytes) return false;
       } else return false;
     }
@@ -1930,7 +2033,9 @@ export function isWorksiteContextObservation(value: unknown): value is WorksiteC
       }
     }
     const { kind: _k, schemaVersion: _s, observationRef: _r, observationDigest: _d, ...body } = observation;
-    const digest = sha256Canonical(body);
-    return observation.observationDigest === digest && observation.observationRef === identity("worksite-context-observation://abiogenesis", digest);
+    const digest = worksiteContextIdentityDigest(body);
+    const valid = observation.observationDigest === digest && observation.observationRef === worksiteContextObservationRef(digest);
+    if (valid && !verified && contextDeeplyFrozen(value)) verifiedImmutableContexts.add(value);
+    return valid;
   } catch { return false; }
 }

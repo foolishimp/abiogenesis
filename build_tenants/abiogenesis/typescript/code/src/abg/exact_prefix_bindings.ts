@@ -4,21 +4,25 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import {
-  validateAbgEventResourceAssertion,
   validateAbgEventResourceInput,
+  validateReopenedAbgEventResourceInput,
   validateAbgEventResourceOutcome,
   abgEventResourceOutcomePrefix,
   acquiredAbgEventResourceCompletionCorresponds,
   validateAbgEventResourceReceipt,
-  type AbgEventResourceAssertion,
   type AbgEventResourceReceipt,
+  type AbgEventResourceCompletion,
   type AbgEventResourceInput,
   type AbgEventResourceOutcome,
+  type ReopenedAbgEventResourceInput,
 } from "./definition_event_resource.js";
 import type { DurablePrefixCoordinate } from "./event_store.js";
 import { definitionFault } from "../public/binding/definition_binding_mechanics.js";
 import { bindStaticOwner } from "../public/binding/static_definition_bindings.js";
-import type { ExactDefinitionCallable } from "../shared/effect_definition.js";
+import type {
+  EstablishedResourceMembers,
+  ExactDefinitionCallable,
+} from "../shared/effect_definition.js";
 import { sha256Bytes } from "../shared/digests.js";
 import type { OwnerContractSourceDeclaration } from
   "../shared/public_function_contracts.js";
@@ -41,31 +45,34 @@ function sameStore(
       right.storeIdentity.eventContractDigest;
 }
 
-type ReopenAbgEventResourceAssertion = Extract<
-  AbgEventResourceAssertion,
-  { readonly kind: "reopen_abg_event_resource" }
->;
-
 type ReopenAbgEventResourceReceipt = AbgEventResourceReceipt & Readonly<{
   readonly acquisitionKind: "reopen";
 }>;
 
 const EMPTY_PREFIX_DIGEST = sha256Bytes(new Uint8Array());
 
-function admittedEventReceipt(value: unknown): AbgEventResourceReceipt | null {
+function admittedEventReceipt(value: unknown): AbgEventResourceOutcome | null {
   if (typeof value !== "object" || value === null || Array.isArray(value)) {
     return null;
   }
   const eventResource = (value as Readonly<Record<string, unknown>>).eventResource;
-  return validateAbgEventResourceReceipt(eventResource) ? eventResource : null;
+  return validateAbgEventResourceOutcome(eventResource) ? eventResource : null;
 }
 
+/** A read returns its unchanged entry prefix: a reopened entry closes there;
+ * a held selection completes there and keeps its outer owner (§10.9 R-B). */
 function exactReadReceipt(
-  assertion: AbgEventResourceAssertion,
-  receipt: AbgEventResourceReceipt,
+  assertion: ReopenedAbgEventResourceInput,
+  receipt: AbgEventResourceOutcome,
 ): boolean {
-  return assertion.kind === "reopen_abg_event_resource" &&
-    validateAbgEventResourceAssertion(assertion) &&
+  if (!validateReopenedAbgEventResourceInput(assertion)) return false;
+  if (assertion.kind === "acquired_abg_event_resource_selection") {
+    return receipt.kind === "abg_event_resource_completion" &&
+      acquiredAbgEventResourceCompletionCorresponds(assertion, receipt) &&
+      samePrefix(receipt.entryPrefix, assertion.prefix) &&
+      samePrefix(receipt.successor.prefix, receipt.entryPrefix);
+  }
+  return receipt.kind === "abg_event_resource_receipt" &&
     validateAbgEventResourceReceipt(receipt) &&
     receipt.acquisitionKind === "reopen" &&
     samePrefix(receipt.entryPrefix, assertion.closeHandoff.prefix) &&
@@ -98,31 +105,29 @@ function exactTransitionReceipt(
 export function bindExactPrefixRead<
   TPacket extends OwnerContractSourceDeclaration,
   TResources extends Readonly<{
-    readonly eventResource: ReopenAbgEventResourceAssertion;
+    readonly eventResource: ReopenedAbgEventResourceInput;
   }>,
   TResourceReceipt extends Readonly<{
-    readonly eventResource: ReopenAbgEventResourceReceipt;
+    readonly eventResource: ReopenAbgEventResourceReceipt | AbgEventResourceCompletion;
   }>,
 >(
   packet: TPacket,
   owner: ExactDefinitionCallable<TPacket, TResources, TResourceReceipt>,
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
+  establishedResourceMembers?: EstablishedResourceMembers<TResources>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
   const readOwner: ExactDefinitionCallable<
     TPacket,
     TResources,
     TResourceReceipt
   > = (call) => {
-    if (
-      call.resources.eventResource.kind !== "reopen_abg_event_resource" ||
-      !validateAbgEventResourceAssertion(call.resources.eventResource)
-    ) {
+    if (!validateReopenedAbgEventResourceInput(call.resources.eventResource)) {
       return Effect.fail(definitionFault(
         packet.definitionKey,
         "resource_admission",
         "invalid_resource_assertion",
-        "exact-prefix reads require one exact reopened ABG entry prefix",
+        "exact-prefix reads require one exact reopened entry or current held ABG selection",
       ));
     }
     return Effect.suspend(() => owner(call)).pipe(
@@ -147,10 +152,12 @@ export function bindExactPrefixRead<
     readOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
+    establishedResourceMembers,
   );
 }
 
-/** Module-static specialization for an owner-admitted prefix transition. */
+/** Module-static specialization for an owner-admitted prefix transition. Both
+ * prefix binders forward the owner's established-member table (§10.11 X4). */
 export function bindExactPrefixTransition<
   TPacket extends OwnerContractSourceDeclaration,
   TResources extends Readonly<{
@@ -164,6 +171,7 @@ export function bindExactPrefixTransition<
   owner: ExactDefinitionCallable<TPacket, TResources, TResourceReceipt>,
   resourceAssertionSchema: v.GenericSchema<TResources, TResources>,
   resourceReceiptSchema: v.GenericSchema<TResourceReceipt, TResourceReceipt>,
+  establishedResourceMembers?: EstablishedResourceMembers<TResources>,
 ): ExactDefinitionCallable<TPacket, TResources, TResourceReceipt> {
   const transitionOwner: ExactDefinitionCallable<
     TPacket,
@@ -200,5 +208,6 @@ export function bindExactPrefixTransition<
     transitionOwner,
     resourceAssertionSchema,
     resourceReceiptSchema,
+    establishedResourceMembers,
   );
 }

@@ -495,19 +495,28 @@ export async function setupInstalledRootCatalog(
     selectedProgramRefs.has(program.programRef) &&
     (program.policies["abg.semantic_lifecycle"] ?? publication.semanticLifecycle?.declarationRef ??
       publication.semanticJobLifecycle?.declarationRef) !== undefined);
-  const programValidations = publication.programs
-    .filter((program) => selectedProgramRefs.has(program.programRef) && !semanticPrograms.includes(program))
-    .map((program) =>
-      validator.validateProgram(
-        rawProgramInput(validator, publicationAdmission, program),
-      ));
-  const programValidation = programValidations.find(
-    (value) => value.programRef === rootProgramRef,
+  // A caller-declared cross-publication root Program references declarations
+  // owned by other admitted publications (for example canonical ABI contracts).
+  // It validates below over its Catalog-resolved declaration closure, never
+  // over its own publication alone.
+  const crossPublicationProgram = options.crossPublicationProgram === true;
+  const locallyValidatedPrograms = publication.programs.filter((program) =>
+    selectedProgramRefs.has(program.programRef) && !semanticPrograms.includes(program) &&
+    !(crossPublicationProgram && program.programRef === rootProgramRef));
+  const programValidations = locallyValidatedPrograms.map((program) =>
+    validator.validateProgram(
+      rawProgramInput(validator, publicationAdmission, program),
+    ));
+  // Pair by Program: a typed refusal carries no programRef.
+  const rootValidationIndex = locallyValidatedPrograms.findIndex(
+    (program) => program.programRef === rootProgramRef,
   );
+  let programValidation = rootValidationIndex === -1 ? undefined : programValidations[rootValidationIndex];
   assert.equal(publicationValidation.kind, "publication_validation", JSON.stringify(publicationValidation));
-  if (!semanticPrograms.some((program) => program.programRef === rootProgramRef))
-    assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
-  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true);
+  if (!semanticPrograms.some((program) => program.programRef === rootProgramRef) && !crossPublicationProgram)
+    assert.equal(programValidation?.kind, "program_validation", JSON.stringify(programValidation));
+  assert.equal(programValidations.every((value) => value.kind === "program_validation"), true,
+    JSON.stringify(programValidations.filter((value) => value.kind !== "program_validation")));
   const catalogInstalledProducts = admittedInstalls.map((install, index) => {
     const {
       kind: _kind,
@@ -561,6 +570,22 @@ export async function setupInstalledRootCatalog(
     ],
   );
   assert.equal(catalogView.kind, "graph_function_catalog_view", JSON.stringify(catalogView));
+  if (crossPublicationProgram) {
+    // The Product closure owner resolves the Program over the genuine Catalog;
+    // the validator then proves that whole declaration inventory.
+    const declarationClosure = product.resolveProgramDeclarationClosure(catalog, catalogView, rootProgramRef);
+    assert.equal(declarationClosure.kind, "resolved_program_declaration_closure", JSON.stringify(declarationClosure));
+    const closureProgram = declarationClosure.programPublication.programs.find(
+      (program) => program.programRef === rootProgramRef,
+    );
+    const validationInput = product.constructCatalogProgramValidationInput(
+      catalog, catalogView, declarationClosure, closureProgram,
+    );
+    assert.notEqual(validationInput.kind, "raw_admission_refusal", JSON.stringify(validationInput));
+    programValidation = validator.validateProgram(validationInput);
+    assert.equal(programValidation.kind, "program_validation", JSON.stringify(programValidation));
+    programValidations.push(programValidation);
+  }
   accountSetupPhase(options, "execution_preparation_publication_program_and_catalog", phaseStarted);
 
   return {

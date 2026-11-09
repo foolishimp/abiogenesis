@@ -13,8 +13,14 @@ import {parseNativeWorkspaceAssessmentResult} from '../../build/code/src/product
 import {loadWorksiteOwner,worksiteFixture} from '../support/t287-generic-job-worksite.mjs';
 import {libraryEnvironment,witnessRef} from '../support/default-library.mjs';
 import {prepareFulfillmentSeed,fulfillmentWitnessInput,fulfillmentAssessmentSchema,fulfillmentConsumerDeclaration,freshLifecyclePaths} from '../support/default-library-fulfillment.mjs';
+// Controlled basis-owner premise for these component seams: a native Result's
+// task is the admitted input of its own CCall basis, named by inputDigest. The
+// genuine join runs over real admission in t287-event-body-encoding (RC7 actual current input).
+const admittedNativeTasks=new Map();
+const heldNativeObservation=(owner,task,...rest)=>{admittedNativeTasks.set(product.sha256Canonical(task),task);return owner.constructNativeWorkspaceWorkObservation(task,...rest);};
+const nativeResultTaskPremise={projectNativeWorkspaceWorkResultTaskAtPrefix:(_p,event)=>admittedNativeTasks.get(event?.payload?.value?.inputDigest)??null};
 const packageRoot=new URL('../..',import.meta.url).pathname,records=process.env.ABI5_FULFILLMENT_RECORDS_ROOT??new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/',import.meta.url).pathname;
-const hash=product.sha256Canonical,basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:'5.0.0-rc.1',artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
+const hash=product.sha256Canonical,basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
 async function fixture(t){const physical=await loadWorksiteOwner(),f=await worksiteFixture(physical);t.after(()=>rm(f.scratch,{recursive:true,force:true}));
   const files=await prepareFulfillmentSeed({seedRoot:join(records,'default-library-witness/seed'),caseContractPath:join(records,'s6-witness-contract.md'),destination:f.canonicalRoot});
   const state=fulfillmentWitnessInput({product,files}),observe=()=>physical.observeWorksiteContext({...f,readRoots:state.original.readRoots,maxFiles:128,maxBytes:131072});
@@ -124,23 +130,25 @@ async function controlledOwner(f, invalidated=()=>false){
   const rows=[],invocation={invocationRef:'invocation:fulfillment',invocationAdmissionRef:'admission:fulfillment',capabilityGrants:[f.capabilityGrant]},execution={basisRef:'basis:wrapper',invocationRef:invocation.invocationRef,parentExecutionBasisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,rootImplementationSetRef:'set:fulfillment',workspaceBindingId:f.workspaceBinding.bindingId,workspaceBindingDigest:f.workspaceBinding.bindingDigest};
   const sourceExecution={...execution};
   const root={kind:'basis_admitted',payload:{basisClass:'root',basisRef:'basis:root',invocationAdmissionRef:invocation.invocationAdmissionRef,implementationSetRef:execution.rootImplementationSetRef,rawInputValue:f.state}};
+  // Root-class identity of the rehydrated root basis; empty unless a case binds it.
+  const rootIdentity={};
   const owned={program,prefix:{},events:rows,execution,environment:{kind:'exact_prefix_workspace_environment',workspaceAuthorityBasis:f.workspaceAuthorityBasis,workspaceBinding:f.workspaceBinding,productInstalls:[]},call:{runId:'run:fulfillment'},inputValue:null,inputRef:'input:fulfillment',inputOrigin:{}};
   const index=(_p,key)=>key==='invocation:'+invocation.invocationRef?[root]:rows.filter(e=>key==='payload:resultRef:'+e.payload.resultRef||key==='related:'+e.aggregateId);
   // The one governance-root projection as built, over the same index and the
   // root basis the indexed root event admits: both relations are supplied.
   const projectionFile=resolve(packageRoot,'build/code/src/abg/semantic_job.js'),projectionModule=new SourceTextModule(await readFile(projectionFile,'utf8'),{identifier:projectionFile});
   await projectionModule.link(async s=>{const actual=await import(s.startsWith('node:')||!s.startsWith('.')?s:pathToFileURL(resolve(dirname(projectionFile),s)).href);
-    const values={...actual,...(s==='./event_prefix.js'?{indexedRuntimeEvents:index}:s==='./execution_basis.js'?{rehydrateExecutionBasisAtPrefix:(_p,ref)=>ref===root.payload.basisRef?{...execution,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null}:{})};
+    const values={...actual,...(s==='./event_prefix.js'?{indexedRuntimeEvents:index}:s==='./execution_basis.js'?{rehydrateExecutionBasisAtPrefix:(_p,ref)=>ref===root.payload.basisRef?{...execution,...rootIdentity,basisRef:ref,parentExecutionBasisRef:null,rawInputValue:root.payload.rawInputValue}:null}:{})};
     return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await projectionModule.evaluate();
   const file=resolve(packageRoot,'build/code/src/abg/default_library.js'),m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});
   // Exact ingress/closed occurrence is the controlled premise. Real child,
   // task, observation, retained input and owner projectors run below. No live
   // model, installed traversal or semantic adequacy is claimed by these tests.
   await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href);
-    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceExecution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?{...projectionModule.namespace}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:()=>({sourceBasis:sourceExecution})}:{};
+    const replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>owned}:specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:()=>invocation,projectExactExecutionBasisAtPrefix:()=>sourceExecution}:specifier==='./event_prefix.js'?{indexedRuntimeEvents:index}:specifier==='./semantic_job.js'?{...projectionModule.namespace}:specifier==='./native_worksite_execution.js'?{worksiteCommandSourcesInvalidatedAfter:invalidated,projectNativeWorkspaceWorkSourceAtPrefix:(_p,value)=>({sourceBasis:sourceExecution,sourceTask:admittedNativeTasks.get(value?.inputDigest)}),...nativeResultTaskPremise}:{};
     const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();
   const at=(purpose,operation,input)=>{owned.inputValue=input;owned.call.implementationRef=product.governanceRef('implementation',operation);return {graphFunction:library.graphFunctions.find(g=>g.declarations['abg.default_library_purpose']===purpose)};};
-  return {m,owned,rows,execution,sourceExecution,invocation,root,library,at};
+  return {m,owned,rows,execution,sourceExecution,invocation,root,rootIdentity,projection:projectionModule.namespace,library,at};
 }
 function synthesis(state,purpose,context,subjectEvidenceRef=null){return {...state,synthesis:{resultRef:'result:synthesis:'+purpose,resultDigest:hash(purpose),basis:{inputRef:'input:synthesis',inputDigest:hash(state),taskRef:state.original.taskRef,environmentRef:'environment:test',environmentDigest:hash('environment'),frameEvidenceDigest:hash('frame'),frameRefs:['frame:test'],contextRef:context.observationRef,previousResultRef:state.synthesis?.resultRef??null},judgment:{interpretation:'Controlled semantic premise',contributions:[{graphFunctionRef:product.governanceRef('graph-function',purpose),contribution:'Selected work',reason:'Actual evidence',supportRefs:state.unresolvedSupportRefs,evidenceRefs:[],dependsOn:[]}],gaps:[],nextGraphFunctionRef:product.governanceRef('graph-function',purpose),nextReason:'Chosen work',nextEvidenceRefs:[],subjectEvidenceRef,revisionReason:'Current evidence',revisionEvidenceRefs:[],requirementProposals:[]}}};}
 const provenance=name=>({cCallRef:'call:'+name,executionAuthorityRef:'authority:test',executionAuthorityDigest:hash('authority'),actorInvocationRef:'actor:'+name,transportBindingRef:'transport:test',transportBindingDigest:hash('transport'),promptDigest:hash('prompt'),transportDigest:hash('transport')});
@@ -162,18 +170,18 @@ test('real task/child carriers and retained fold attach assessment provenance be
   // Physical asset bytes here are a disclosed component fixture, not the S6 run.
   const designed=synthesis(red,'design',first),nativeTask=await o.m.namespace.projectGovernanceNativeTask(o.at('design','prepare-native',designed),designed);
   for(const path of freshLifecyclePaths.slice(1)){await mkdir(dirname(join(f.canonicalRoot,path)),{recursive:true});await writeFile(join(f.canonicalRoot,path),'controlled asset '+path+'\n');}
-  let state=fold(designed,'design',native.constructNativeWorkspaceWorkObservation(nativeTask,await f.observe(),{summary:'Component asset author',gaps:[]},provenance('design')));
+  let state=fold(designed,'design',heldNativeObservation(native,nativeTask,await f.observe(),{summary:'Component asset author',gaps:[]},provenance('design')));
   const specified=synthesis(state,'specification',await f.observe()),specTask=await o.m.namespace.projectGovernanceNativeTask(o.at('specification','prepare-native',specified),specified);await mkdir(join(f.canonicalRoot,'specification'),{recursive:true});await writeFile(join(f.canonicalRoot,freshLifecyclePaths[0]),'controlled conformance\n');
-  state=fold(specified,'specification',native.constructNativeWorkspaceWorkObservation(specTask,await f.observe(),{summary:'Component conformance',gaps:[]},provenance('specification')));
+  state=fold(specified,'specification',heldNativeObservation(native,specTask,await f.observe(),{summary:'Component conformance',gaps:[]},provenance('specification')));
   const greenState=synthesis(state,'testing',await f.observe()),greenTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',greenState),greenState);state=fold(greenState,'testing',observedCommand(greenTask,0));
   const uat=synthesis(state,'uat',await f.observe(),state.observations.at(-1).resultRef),assessmentTask=await o.m.namespace.projectGovernanceNativeTask(o.at('uat','prepare-native',uat),uat);assert.ok(assessmentTask);
   assert.equal(assessmentTask.assessment.producer.cCallRef,state.observations.at(-1).cCallRef);assert.ok(assessmentTask.instructions.some(s=>s.includes('Do not emit digests')));
   const evidence=uat.observations.map(o=>o.fulfillmentEvidence),raw={kind:'consumer_outcome_assessment',disposition:'satisfied',reason:'Controlled semantic premise only',unresolvedCriteria:[],fulfillment:positive(uat.original.fulfillment,uat.fulfillment,evidence)};
-  const source=native.constructNativeWorkspaceWorkObservation(assessmentTask,await f.observe(),null,provenance('independent-assessor'),raw);
+  const source=heldNativeObservation(native,assessmentTask,await f.observe(),null,provenance('independent-assessor'),raw);
   assert.ok(native.isNativeWorkspaceWorkObservation(source));const assessed=fold(uat,'uat',source),actual=assessed.observations.at(-1);
   assert.ok(assessed.fulfillment.coverage.every(r=>r.assessmentResultRef===actual.resultRef));assert.ok(!JSON.stringify(raw).includes(actual.resultRef));
   o.at('uat','evaluate-parent',assessed);assert.equal(o.m.namespace.projectGovernanceParent({},assessed).terminal,true);
-  const bad=structuredClone(raw);bad.fulfillment.obligations[0].judgment='indeterminate';const negative=native.constructNativeWorkspaceWorkObservation(assessmentTask,await f.observe(),null,provenance('another-assessor'),bad),unmet=fold(uat,'uat',negative);o.at('uat','evaluate-parent',unmet);assert.equal(o.m.namespace.projectGovernanceParent({},unmet).terminal,false);
+  const bad=structuredClone(raw);bad.fulfillment.obligations[0].judgment='indeterminate';const negative=heldNativeObservation(native,assessmentTask,await f.observe(),null,provenance('another-assessor'),bad),unmet=fold(uat,'uat',negative);o.at('uat','evaluate-parent',unmet);assert.equal(o.m.namespace.projectGovernanceParent({},unmet).terminal,false);
   assert.ok(unmet.unresolvedSupportRefs.includes(uat.original.fulfillment.bindings[0].obligationRef));
 });
 
@@ -181,15 +189,32 @@ test('selected-profile hook and persisted assembly conserve admitted additions t
   const f=await fixture(t),o=await controlledOwner(f),context=await f.observe(),graph=o.library.graphFunctions.find(g=>g.name===product.governanceRef('graph-function','executive-step'));
   const node=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_locus']),projection=graph.template.nodes.find(n=>n.nodeRef===graph.declarations['abg.framed_synthesis_projection']),role=o.library.runEnvironments[0].roles.find(r=>r.role==='selector');
   const targets=o.library.graphFunctions.filter(g=>g.declarations['abg.default_library_purpose']),task={kind:'framed_synthesis_task',schemaVersion:'5.0.0',state:f.state,context};
-  Object.assign(o.execution,{programRef:o.owned.program.programRef,basisDigest:hash('basis'),registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,hash(g)]))});
+  Object.assign(o.execution,{programRef:o.owned.program.programRef,basisDigest:hash('basis'),graphFunctionRef:graph.name,registeredSelectionDefinitionDigests:Object.fromEntries(targets.map(g=>[g.name,hash(g)]))});
   Object.assign(o.owned,{graph:{template:graph.template},inputValue:task,inputRef:'result:prepared',inputDigest:hash(task)});
+  // Current-binding premises the selector guard requires, from this fixture's
+  // one invocation admission, its one Run and its indexed governance root,
+  // whose definition recurses into the executing step.
+  const executive=o.library.graphFunctions.find(g=>g.template.applications.some(a=>a.relationKind==='recurse'&&a.graphFunctionRef===graph.name));
+  Object.assign(o.invocation,{programRef:o.owned.program.programRef,graphFunctionRef:executive.name,graphFunctionDigest:hash(executive),invocationVariant:'direct',publicStart:null,sourceResultBasis:null});
+  Object.assign(o.rootIdentity,{basisClass:'root',graphFunctionRef:executive.name,graphFunctionDigest:hash(executive)});
+  let currentRun=o.owned.call.runId;
   Object.assign(o.owned.call,{regime:'F_P',cCallRef:'call:selector',cCallDigest:hash('call'),graphCallId:'graph-call:fulfillment',graphFunctionRef:graph.name,programLocusRef:node.nodeRef,inputContractRef:node.term.inputCarrierRef,outputContractRef:node.term.outputCarrierRef,implementationRef:product.governanceRef('implementation','select')});
   const publication={...o.library,programs:[o.owned.program]},candidate={publication,graphFunction:graph,declarationGraphFunctions:o.library.graphFunctions,executionBasis:o.execution,cCall:o.owned.call,cursor:{currentNodeRef:node.nodeRef,termPath:gtl.rootCSourcePath(node.nodeRef)},predecessorPrefix:{}};
   const file=resolve(packageRoot,'build/code/src/abg/instruction_assembly.js');
-  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
+  const load=async()=>{const m=new SourceTextModule(await readFile(file,'utf8'),{identifier:file});await m.link(async specifier=>{const actual=await import(specifier.startsWith('node:')?specifier:pathToFileURL(resolve(dirname(file),specifier)).href),replacements=specifier==='./execution_basis.js'?{authenticateOwnedNativeInstructionAssemblyBasis:()=>o.owned}:specifier==='./stdo_environment.js'?{projectRunEnvironmentRoleEvidenceAtPrefix:()=>({...role,invocationAdmissionRef:o.execution.invocationAdmissionRef,environmentRef:'environment:fulfillment',environmentDigest:hash('environment'),evidenceDigest:hash('evidence'),contextPolicyDigest:hash(role.contextPolicy),sourceContent:[],accessContent:[]})}:
+    specifier==='./invocation_execution_truth.js'?{projectExactInvocationAdmissionAtPrefix:(_p,ref)=>ref===o.invocation.invocationAdmissionRef?o.invocation:null,
+      hasExactInvocationRunBindingAtPrefix:(_p,admission,runId)=>admission===o.invocation&&runId===currentRun}:
+    specifier==='./semantic_job.js'?{...o.projection}:{};const values={...actual,...replacements};return new SyntheticModule(Object.keys(values),function(){for(const[k,v]of Object.entries(values))this.setExport(k,v);});});await m.evaluate();return m;};
   const pubs=[publication,gtl.constructNativeWorkspaceWorkModulePublication(basis),gtl.constructWorksiteCommandExecutionModulePublication(basis)];
   const lookup=ref=>pubs.flatMap(p=>p.contracts).find(c=>c.contractRef===ref)??(ref===f.state.original.assessment.resultContract.contractRef?f.state.original.assessment.resultContract:null);
   const assemblyOwner=await load(),assembly=assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup);assert.equal(assembly.kind,'native_instruction_assembly',JSON.stringify(assembly));
+  const shown=assembly.envelope.sections.binding;
+  assert.deepEqual([shown.runId,shown.invocation.invocationAdmissionRef,shown.root.basisRef,shown.root.graphFunctionRef,shown.executing.graphFunctionRef,shown.predecessor],
+    [o.owned.call.runId,o.invocation.invocationAdmissionRef,o.root.payload.basisRef,executive.name,graph.name,null],'current facts come from the indexed root and the admitted Run');
+  // The guard stays live: a foreign Run or a non-root ancestry refuses with the existing typed cause.
+  const refusal={kind:'native_instruction_assembly_refusal',cause:'unknown_dependency',policy:null,role:'selector',unresolvedRefs:[o.execution.invocationAdmissionRef]};
+  currentRun='run:foreign';assert.deepEqual(assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup),refusal,'foreign Run');currentRun=o.owned.call.runId;
+  o.rootIdentity.basisClass='child';assert.deepEqual(assemblyOwner.namespace.evaluateFramedSynthesisInstructionAssembly(candidate,task,lookup),refusal,'non-root ancestry');o.rootIdentity.basisClass='root';
   assert.ok(assembly.request.responseJsonSchema.required.includes('requirementProposals'));
   assert.ok(assembly.request.prompt.includes(f.state.original.fulfillment.bindings[0].obligationRef));
   const target=targets.find(g=>g.declarations['abg.default_library_purpose']==='testing'),d=f.state.original.fulfillment;
@@ -220,7 +245,7 @@ for(const retainedUse of [false,true]) test((retainedUse?'Retained prior-Run sou
   const fold=(state,purpose,source)=>{const retained=product.constructRetainedGraphInput(state,source),b=o.at(purpose,'fold',retained),n=o.rows.length,event={kind:'c_call_result_admitted',runId:'run:fulfillment',basisId:'basis:child',aggregateId:'call:actual:'+n,admissionOrdinal:n+10,payload:{resultRef:'result:actual:'+n,resultDigest:hash({n,source}),valueDigest:hash(source),contractRef:purpose==='testing'?product.WORKSITE_COMMAND_EXECUTION_IDS.observationContractRef:product.NATIVE_WORKSPACE_WORK_IDS.observationContractRef,resultClass:'success',value:source}};
     o.rows.push(event);o.owned.inputOrigin={retainedProjection:{entryBasis:o.execution,input:{admissionRef:o.owned.inputRef,value:retained},sourceResult:event}};const result=o.m.namespace.projectGovernanceFold(b,retained);assert.ok(result,purpose);return result;};
   const work=synthesis(f.state,'construction',initial),workTask=await o.m.namespace.projectGovernanceNativeTask(o.at('construction','prepare-native',work),work);
-  const nativeState=fold(work,'construction',native.constructNativeWorkspaceWorkObservation(workTask,initial,{summary:'Controlled existing-subject observation',gaps:[]},provenance('native-subject')));
+  const nativeState=fold(work,'construction',heldNativeObservation(native,workTask,initial,{summary:'Controlled existing-subject observation',gaps:[]},provenance('native-subject')));
   const observedState=synthesis(f.state,'testing',initial),observedTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',observedState),observedState);assert.ok(observedTask.sourceObservedInput);
   const observed=fold(observedState,'testing',observedCommand(observedTask,1));
   const nativeTest=synthesis(nativeState,'testing',initial,nativeState.observations.at(-1).resultRef),nativeCommandTask=await o.m.namespace.projectGovernanceTestingTask(o.at('testing','prepare-testing',nativeTest),nativeTest);assert.ok(nativeCommandTask.sourceNativeWork);
@@ -236,9 +261,9 @@ for(const retainedUse of [false,true]) test((retainedUse?'Retained prior-Run sou
     assert.equal(o.m.namespace.governanceResultMatches(b,uat,task),true,arm+' preparation admission guard');
     // Downstream native observation/ABG matching consumes measurement provenance
     // unchanged; no author-only prerequisite or invented successful judgment.
-    const raw={kind:'consumer_outcome_assessment',disposition:'indeterminate',reason:'Controlled carrier check only',unresolvedCriteria:['unproved'],fulfillment:{obligations:[],discoveries:[]}},p=provenance('fresh-assessor-'+arm),candidate=native.constructNativeWorkspaceWorkObservation(task,current,null,p,raw),transport={...p,implementationRef:product.NATIVE_WORKSPACE_WORK_IDS.implementationRef,inputDigest:hash(task),transportLane:'worker_executes',disposition:'success',finalOutput:JSON.stringify(raw)};
+    const raw={kind:'consumer_outcome_assessment',disposition:'indeterminate',reason:'Controlled carrier check only',unresolvedCriteria:['unproved'],fulfillment:{obligations:[],discoveries:[]}},p=provenance('fresh-assessor-'+arm),candidate=heldNativeObservation(native,task,current,null,p,raw),transport={...p,implementationRef:product.NATIVE_WORKSPACE_WORK_IDS.implementationRef,inputDigest:hash(task),transportLane:'worker_executes',disposition:'success',finalOutput:JSON.stringify(raw)};
     assert.ok(native.isNativeWorkspaceWorkObservation(candidate));assert.equal(native.nativeWorkspaceWorkResultMatches(task,candidate,p.cCallRef,transport),true,arm+' actual result matching guard');
-    const self=native.constructNativeWorkspaceWorkObservation(task,current,null,{...p,actorInvocationRef:task.assessment.producer.actorInvocationRef},raw);assert.equal(native.isNativeWorkspaceWorkObservation(self),false,arm+' independent actor required');
+    const self=heldNativeObservation(native,task,current,null,{...p,actorInvocationRef:task.assessment.producer.actorInvocationRef},raw);assert.equal(native.nativeWorkspaceWorkObservationMatchesTask(task,self),false,arm+' independent actor required');
     for(const path of ['generated/hello-world.mjs','test/component/hello-cli.test.mjs']){changed.add(path);assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' admitted dependency mutation');changed.delete(path);}
     changed.add('*unknown*');assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' unknown affectedness refuses current use');changed.delete('*unknown*');
     const original=await readFile(join(f.canonicalRoot,'generated/hello-world.mjs'));await writeFile(join(f.canonicalRoot,'generated/hello-world.mjs'),'changed current subject\n');assert.equal(await o.m.namespace.projectGovernanceNativeTask(b,uat),null,arm+' physical digest change');await writeFile(join(f.canonicalRoot,'generated/hello-world.mjs'),original);

@@ -1,7 +1,7 @@
 import type { RuntimeEventScan } from "./runtime_history.js";
 import { createHash } from "node:crypto";
 import { writeCanonicalJson } from "../shared/canonical_json.js";
-import { checkedRecordAtPrefix, indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixExtent, runtimeEventPrefixLastEnvelope } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord, isNonEmptyJsonString as nonEmptyString } from "../shared/admission_predicates.js";
 import type {
@@ -67,11 +67,10 @@ import {
   assertRuntimeEventTransactionActive,
   compareAndAppendExpectedPrefix,
   projectRuntimeEventFromValidatedHistory,
-  readRuntimeEventsAtDurablePrefix,
   projectRuntimeEventsAtDurablePrefix,
   readActiveRuntimeTransactionAtDurablePrefix,
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
-  ROOT_EVENT_CONTRACT_DIGEST,
+  runtimeEventProfile,
   validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
@@ -84,6 +83,10 @@ import {
 } from "./event_calculus.js";
 import { runtimeEventPrefixDigest,
   projectOwnedRuntimeEventPrefixAtDurablePrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  runtimeEventAtPrefixIndex,
+  runtimeEventEnvelopesAtPrefix,
+  indexedRuntimeEventEnvelopes,
   selectOwnedRuntimeEventPrefix,
   extendRuntimeEventPlanPrefixForValidation,
   writeRuntimeEventPrefixValue,
@@ -635,11 +638,13 @@ export function projectRetryResumeAtDurablePrefix(
 ): RehydratedProjectedRetryResume | null {
   try {
     if (!isProjectedRetryResumeCarrier(carrier)) return null;
-    const durableEvents = readRuntimeEventsAtDurablePrefix(
+    // HoG resume needs the cursor/execution basis: the exact attempt tail, its
+    // route and the bounded interval between them, not the history vector.
+    const authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
       carrier.successorPrefix,
     );
-    const attemptEvent = durableEvents.at(-1);
-    const routeEvents = durableEvents.filter((event) =>
+    const attemptEvent = runtimeEventPrefixLastEnvelope(authorityPrefix);
+    const routeEvents = indexedRuntimeEventEnvelopes(authorityPrefix, "id:" + carrier.routeAdmissionEventRef).filter((event) =>
       event.eventId === carrier.routeAdmissionEventRef
     );
     const routeEvent = exactOrUndefined(onlyExactMatch(routeEvents));
@@ -650,14 +655,17 @@ export function projectRetryResumeAtDurablePrefix(
       routeEvent.admissionOrdinal >= attemptEvent.admissionOrdinal ||
       !canonicalEquals(attemptEvent.causationEventRefs, [routeEvent.eventId])
     ) return null;
-    const authorityPrefix = selectValidatedRuntimeEventPrefix(durableEvents);
     // The route owner observes its frame progress before opening the dependent
     // attempt in the same transaction. Preserve that exact producer relation;
     // arbitrary observations or semantic transitions are not transparent.
+    // Unscoped admission ordinals are index + 1, so the interval starts at the route.
     const validateObservation = createRuntimeLivenessEventValidator(authorityPrefix);
-    for (const event of durableEvents) {
-      if (event.admissionOrdinal <= routeEvent.admissionOrdinal ||
-          event.admissionOrdinal >= attemptEvent.admissionOrdinal) continue;
+    let index = routeEvent.admissionOrdinal;
+    for (const envelope of runtimeEventEnvelopesAtPrefix(authorityPrefix, index)) {
+      if (envelope.admissionOrdinal >= attemptEvent.admissionOrdinal) break;
+      const event = envelope.kind === "runtime_activity_probe_observed" ? runtimeEventAtPrefixIndex(authorityPrefix, index) : undefined;
+      index++;
+      if (event === undefined || event.admissionOrdinal <= routeEvent.admissionOrdinal) return null;
       if (event.kind !== "runtime_activity_probe_observed" ||
           !isRecord(event.payload) || !isRecord(event.payload.probeContract) ||
           !isRecord(event.payload.observation) ||
@@ -669,7 +677,7 @@ export function projectRetryResumeAtDurablePrefix(
           event.graphFunctionRef !== routeEvent.graphFunctionRef ||
           !validateObservation(event)) return null;
     }
-    const runPrefix = selectValidatedRuntimeEventPrefix(durableEvents, {
+    const runPrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
       runId: carrier.nextCursor.runId,
     });
     const executionBasis = rehydrateExecutionBasisAtPrefix(
@@ -3571,7 +3579,7 @@ export function projectExecutableRetryInput(
   return projectExecutableRetryInputUsing(request, true);
 }
 
-/** @internal The same complete selected frontier at its actual owned cut. */
+/** @internal The same complete selected frontier, borrowing the owned cut. */
 export function projectOwnedExecutableRetryInput(
   request: ProjectExecutableRetryInputRequest,
 ): ProjectExecutableRetryInputResult {
@@ -3580,7 +3588,7 @@ export function projectOwnedExecutableRetryInput(
 
 function projectExecutableRetryInputUsing(
   request: ProjectExecutableRetryInputRequest,
-  completePrefix: boolean,
+  explicitRead: boolean,
 ): ProjectExecutableRetryInputResult {
   if (!isRetryFrontierSelector(request.selector)) {
     return executableRetryInputRefusal(
@@ -3593,8 +3601,10 @@ function projectExecutableRetryInputUsing(
   let authorityPrefix: RuntimeEventPrefix;
   let lastAdmissionOrdinal: number;
   try {
-    authorityPrefix = completePrefix
-      ? selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(request.prefix))
+    // Both variants return the same selected retry frontier/input. The public
+    // entry keeps explicit-read acquisition; HoG borrows the owned cut.
+    authorityPrefix = explicitRead
+      ? readOwnedRuntimeEventPrefixAtDurablePrefix(request.prefix)
       : projectOwnedRuntimeEventPrefixAtDurablePrefix(request.prefix);
     lastAdmissionOrdinal = runtimeEventPrefixLastEnvelope(authorityPrefix)?.admissionOrdinal ?? -1;
     prefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, { runId: request.selector.runId });
@@ -4113,7 +4123,7 @@ export function admitRetryAttempt(
   // reads the previous attempt's admitted as-of projection; it samples no clock.
   if (frontier.latestFailure !== null) {
     const actors = indexedRuntimeEvents(prefix, "basis:" + executionBasis.basisRef).filter(event => event.kind === "actor_invocation_started" &&
-      event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST && isRecord(event.payload) &&
+      runtimeEventProfile(event)?.nativeLiveness === true && isRecord(event.payload) &&
       event.payload.cCallRef === frontier.latestFailure!.cCallRef && event.basisId === executionBasis.basisRef &&
       event.runId === cursor.runId && event.graphCallId === cursor.graphCallId && event.frameId === cursor.frameId);
     for (const actor of actors) {
@@ -4457,7 +4467,7 @@ export function planRetryRuntimeFailureTransition(
     );
   }
   const currentActors = indexedRuntimeEvents(prefix, "basis:" + executionBasis.basisRef).filter(event => event.kind === "actor_invocation_started" &&
-    event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST && isRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef &&
+    runtimeEventProfile(event)?.nativeLiveness === true && isRecord(event.payload) && event.payload.cCallRef === cCall.cCallRef &&
     event.basisId === executionBasis.basisRef && event.runId === cursor.runId && event.graphCallId === cursor.graphCallId && event.frameId === cursor.frameId);
   for (const actor of currentActors) {
     // Exact native frontier facts are established above, independently of the

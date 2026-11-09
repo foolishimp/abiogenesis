@@ -14,6 +14,59 @@ export const ROOT_EVENT_PROFILE_DECLARATION_REF =
   "declaration://abiogenesis/runtime/root-event-contract-profile@1" as const;
 export const ROOT_EVENT_PROFILE_UPGRADE_REASON =
   "admit-current-native-event-contract-profile" as const;
+/** Exact retained stamped profiles, hard-pinned at their original cuts. */
+export const INSTALLED_RC6_EVENT_CONTRACT_DIGEST =
+  "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537" as const;
+export const FROZEN_S2_EVENT_CONTRACT_DIGEST =
+  "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0" as const;
+/** The successor descriptor W: S2 plus the explicit durable stdout window witness. */
+export const ROOT_WINDOW_EVENT_PROFILE_REF =
+  "abg.event-contract.root/p6-stdout-window-witness@1" as const;
+
+export type RootEventContractProfileName = "legacy" | "installed_rc6" | "frozen_s2" | "window";
+/** Independent semantics of one exact table. A digest selects exactly one
+ * profile or none; no digest falls back to L or to the latest profile. */
+export type RootEventContractProfileCapabilities = Readonly<{
+  name: RootEventContractProfileName;
+  digest: Sha256Digest;
+  /** Rows carry `eventContractDigest`; L rows carry none. */
+  stamped: boolean;
+  /** The profile ref a witnessed L-to-profile boundary names, or null for L. */
+  profileRef: string | null;
+  /** Actor artifacts and transport evidence carry the lifecycle copies. */
+  lifecycleCopies: boolean;
+  /** Native liveness declarations, probes and threshold observations. */
+  nativeLiveness: boolean;
+  /** Stdout rows carry one archive window witness validated at cold adoption. */
+  stdoutWindowWitness: boolean;
+  /** New stores and new native truth use this profile. */
+  current: boolean;
+}>;
+export type RootEventContractProfileTable<T> = Readonly<{ digest: Sha256Digest; contracts: T }>;
+export type RootEventContractProfiles<T> = Readonly<{
+  current: RootEventContractProfileCapabilities;
+  /** The exact table and capabilities a digest selects, or null. */
+  select(digest: unknown): Readonly<{ capabilities: RootEventContractProfileCapabilities; contracts: T }> | null;
+}>;
+/** The one exact-table and capability classifier. The three retained digests
+ * are pins: a table that no longer reproduces its pin refuses at load. */
+export function constructRootEventContractProfiles<T>(tables: Readonly<Record<RootEventContractProfileName, RootEventContractProfileTable<T>>>): RootEventContractProfiles<T> {
+  const pins: Readonly<Record<Exclude<RootEventContractProfileName, "window">, Sha256Digest>> = {
+    legacy: LEGACY_ROOT_EVENT_CONTRACT_DIGEST, installed_rc6: INSTALLED_RC6_EVENT_CONTRACT_DIGEST, frozen_s2: FROZEN_S2_EVENT_CONTRACT_DIGEST };
+  for (const [name, digest] of Object.entries(pins)) {
+    if (tables[name as RootEventContractProfileName].digest !== digest) throw new TypeError(`the immutable ${name} event-contract table changed`);
+  }
+  if (Object.values(pins).includes(tables.window.digest)) throw new TypeError("the window event-contract profile must have its own identity");
+  const capabilities = (name: RootEventContractProfileName): RootEventContractProfileCapabilities => Object.freeze({
+    name, digest: tables[name].digest, stamped: name !== "legacy",
+    profileRef: name === "legacy" ? null : name === "window" ? ROOT_WINDOW_EVENT_PROFILE_REF : ROOT_CURRENT_EVENT_PROFILE_REF,
+    lifecycleCopies: name === "legacy" || name === "installed_rc6", nativeLiveness: name !== "legacy",
+    stdoutWindowWitness: name === "window", current: name === "window" });
+  const entries = new Map((["legacy", "installed_rc6", "frozen_s2", "window"] as const).map(name =>
+    [tables[name].digest as string, Object.freeze({ capabilities: capabilities(name), contracts: tables[name].contracts })]));
+  return Object.freeze({ current: entries.get(tables.window.digest)!.capabilities,
+    select: (digest: unknown) => typeof digest === "string" ? entries.get(digest) ?? null : null });
+}
 
 export const UNDISPATCHED_OWNER_STAGE_VALUES = Object.freeze([
   "authority_verification", "worker_contract_resolution",
@@ -161,11 +214,12 @@ export function constructRootCurrentEventContractDescriptor(input: Readonly<{
   aggregateTypes: readonly string[];
   eventKinds: readonly string[];
   eventContracts: JsonValue;
+  profileRef?: string;
 }>): Readonly<{ descriptor: JsonValue; digest: Sha256Digest }> {
   const descriptor = deepFreeze({
     kind: "root_event_contract_profile",
     schemaVersion: "5.0.0",
-    profileRef: ROOT_CURRENT_EVENT_PROFILE_REF,
+    profileRef: input.profileRef ?? ROOT_CURRENT_EVENT_PROFILE_REF,
     legacyProfileDigest: LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
     aggregateTypes: input.aggregateTypes,
     eventKinds: input.eventKinds,

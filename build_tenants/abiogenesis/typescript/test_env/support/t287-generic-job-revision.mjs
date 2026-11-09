@@ -55,7 +55,7 @@ export async function readRetainedGenericRevisionBridge({ scratch, packageRoot, 
   assert.equal(cursor.cursorDigest, opened.payload.cursorDigest);
   const basis = { publication, lifecyclePublication: publication, sourcePublication: publication, graph, graphFunction,
     declarationGraphFunctions, executionBasis, cCall, cursor, predecessorPrefix: cut };
-  const owner = jobs.authenticateSemanticJobBasis(basis); assert.ok(owner);
+  const owner = jobs.authenticateOwnedSemanticJobBasis(basis); assert.ok(owner);
   return { basis, input: owner.inputValue, owner, events, cut, durable, selected, originalBytes,
     eventLogPath: fileURLToPath(durable.eventLogRef), installedRoot: join(scratch, "consumer/node_modules/@abiogenesis/typescript-tenant") };
 }

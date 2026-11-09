@@ -15,6 +15,7 @@ import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from '../../bui
 import { sha256Bytes, sha256Canonical as hash } from '../../build/code/src/shared/digests.js';
 import { deepFreeze } from '../../build/code/src/shared/immutable.js';
 import { acquireNewEmptyAppendSinkFixture } from '../support/new-empty-append-sink.mjs';
+import { projectAdmittedTransportEvidenceLifecycle, projectAdmittedTransportEvidenceSelection } from '../../build/code/src/abg/c_call.js';
 
 // Component harness of t287-f04a-probabilistic-result-candidate (finalized
 // artifact cases) over this tenant's build, without the installed environment:
@@ -186,6 +187,15 @@ test('worker no-child launch failure: spawn_failed admitted; the bound transport
   assert.equal(body.processFacts.launchFailure.code, 'ENOENT');
   assert.equal(body.processFacts.launchFailure.errno, '-2');
   assert.equal(Object.hasOwn(body.processFacts.launchFailure, 'stack'), false);
+  // D5: the archive omits the lifecycle copies; its own timeoutClass and
+  // encoded facts determine them. This drive holds an L prefix, so its
+  // artifact event keeps the L copies (a current artifact omits them).
+  for (const key of ['timedOut', 'exitObserved', 'terminationConfirmed'])
+    assert.equal(Object.hasOwn(body, key), false, `the archive omits ${key}`);
+  assert.equal(body.timeoutClass, null);
+  assert.equal(observed[0].payload.timedOut, body.timeoutClass !== null);
+  assert.equal(classifyOwnedProcessTerminal(body.processFacts), 'spawn_failed');
+  assert.equal(observed[0].payload.exitObserved, false);
   assert.equal(observed[0].payload.terminationConfirmed, false);
   assert.equal(rows.some(row => row.kind === 'actor_invocation_failed'), true);
   assert.equal(effect.kind, 'actor_process_effect_receipt');
@@ -400,6 +410,13 @@ test('D5: a terminationConfirmed copy that disagrees with the fold initiates the
   artifact(agreeing, true, [exited.eventId]);
   evidenced('process://t287/carrier/transport', 'probabilistic_transport', true);
   evidenced('process://t287/carrier/other-class', 'deterministic_value', true);
+  // D5 current evidence: no copy, so nothing is checked and the fluent answers.
+  append({ ...common, kind: 'c_call_evidenced', aggregateType: 'c_call', aggregateId: 'c-call://t287/carrier',
+    parentAggregateId: scope.frameId, causationEventRefs: [],
+    payload: { cCallRef: 'c-call://t287/carrier', evidenceClass: 'probabilistic_transport', processRef: 'process://t287/carrier/copy-free' } });
+  assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', 'process://t287/carrier/copy-free'), false,
+    'copy-free evidence derives no diagnostic');
+  assert.equal(holds(rows, 'actor_process_terminated', 'process://t287/carrier/copy-free'), false);
   assert.equal(holds(rows, 'actor_process_terminated', agreeing), true);
   assert.equal(holds(rows, 'actor_process_terminated', disagreeing), false);
   assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', disagreeing), true);
@@ -407,4 +424,274 @@ test('D5: a terminationConfirmed copy that disagrees with the fold initiates the
   assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', 'process://t287/carrier/transport'), true);
   assert.equal(holds(rows, 'terminationConfirmed_copy_disagrees', 'process://t287/carrier/other-class'), false,
     'only probabilistic_transport evidence carries the checked copy');
+});
+
+// D5 cold evidence projection, component premise: one synthetic immutable
+// prefix holds the binding, actor start, process, signal, artifact and actor
+// terminal rows the real projection joins. It is not an owner-created store,
+// Run or archive, and holds no timeout row: a current timeout needs its native
+// liveness relation, which this premise does not construct. `terminal` selects
+// the process terminal: an exit, a no-child spawn failure, or an exit whose
+// scope stays unresolved (no actor terminal follows).
+const RETIRED_COPIES = ['exitObserved', 'signalSequence', 'terminationConfirmed', 'timedOut'];
+function evidenceProjectionFixture({ profile, signalled = false, terminal = 'exited', artifactOverrides = {}, artifactOmit = [] }) {
+  const rows = [];
+  const add = (kind, aggregateType, aggregateId, parentAggregateId, payload, causationEventRefs = []) => {
+    const ordinal = rows.length + 1;
+    const row = deepFreeze({ ...common, kind, aggregateType, aggregateId, parentAggregateId, causationEventRefs, payload,
+      ...(profile === undefined ? {} : { eventContractDigest: profile }),
+      eventId: `event://t287/carrier/d5-evidence/${ordinal}`, admissionOrdinal: ordinal, payloadDigest: hash(payload) });
+    rows.push(row);
+    return row;
+  };
+  const current = profile !== undefined;
+  const cCallRef = 'c-call://t287/carrier/d5-evidence', actorInvocationRef = 'actor-invocation://t287/carrier/d5-evidence';
+  const processRef = 'process://t287/carrier/d5-evidence';
+  const ids = { actorRef: 'actor://t287/carrier', workerBindingRef: 'worker-binding://t287/carrier',
+    implementationRef: 'implementation://t287/carrier', inputDigest: hash('d5-input'), promptDigest: hash('d5-prompt') };
+  const requestDigest = hash('d5-request'), requestRef = `probabilistic-request://abiogenesis/${requestDigest.slice(7)}`;
+  const bindingBody = { cCallRef, agentKey: 'claude', parser: 'plain_text', workerBindingRef: ids.workerBindingRef,
+    implementationBindingRef: 'implementation-binding://t287/carrier', implementationRef: ids.implementationRef,
+    timeoutMs: 1000, absoluteTimeoutMs: 5000 };
+  const transportBindingDigest = hash(bindingBody);
+  const transportBindingRef = `transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`;
+  const bindingRefs = { transportBindingRef, transportBindingDigest };
+  add('c_call_fibre_selected', 'c_call', cCallRef, scope.frameId,
+    { cCallRef, implementationBindingRef: bindingBody.implementationBindingRef });
+  const binding = add('actor_transport_binding_admitted', 'transport_binding', transportBindingRef, cCallRef,
+    { ...bindingBody, ...bindingRefs });
+  add('actor_invocation_started', 'actor_invocation', actorInvocationRef, cCallRef,
+    { cCallRef, actorInvocationRef, ...ids, requestRef, requestDigest, ...bindingRefs }, [binding.eventId]);
+  if (terminal !== 'spawn_failed') add('actor_process_started', 'process', processRef, actorInvocationRef, { actorInvocationRef, processRef, processId: 4244 });
+  if (signalled) add('actor_process_signal_requested', 'process', processRef, actorInvocationRef, { actorInvocationRef, processRef, signal: 'SIGTERM' });
+  // A direct exit reports one status or signal; a spawn failure reports none.
+  const status = terminal === 'spawn_failed' || signalled ? null : 0, signal = signalled ? 'SIGTERM' : null;
+  if (terminal === 'exited') add('actor_process_exited', 'process', processRef, actorInvocationRef, { actorInvocationRef, processRef, status, signal });
+  if (terminal === 'spawn_failed') add('actor_process_spawn_failed', 'process', processRef, actorInvocationRef,
+    { actorInvocationRef, processRef, diagnosticDigest: hash('spawn ENOENT') });
+  if (terminal === 'unconfirmed') add('actor_process_termination_unconfirmed', 'process', processRef, actorInvocationRef, { actorInvocationRef, processRef });
+  const finalOutput = '{"kind":"d5_fixture_output"}';
+  // An admitted native result decides the current class of a confirmed exit;
+  // L classifies the signalled exit; no other boundary succeeds.
+  const failureClass = terminal !== 'exited' || (signalled && !current) ? 'transport_failure' : null;
+  const disposition = failureClass === null ? 'success' : 'failure';
+  const evidence = {
+    cCallRef, evidenceClass: 'probabilistic_transport', ...ids, requestRef, requestDigest,
+    rawOutputDigest: sha256Bytes(finalOutput), observedOutputDigest: hash(finalOutput), actorInvocationRef, processRef,
+    ...bindingRefs, materializationPlanRef: 'materialization-plan://t287/carrier', rendererRef: 'renderer://t287/carrier',
+    instructionContractRef: 'contract://t287/carrier/instruction', resultContractRef: 'contract://t287/carrier/result',
+    transportDigest: hash('d5-transport'), transportLane: 'closed_prompt_proof', transportDisposition: disposition,
+    transportFailureClass: failureClass, processStatus: status, processSignal: signal, timeoutClass: null,
+    structuredEventCount: 0, progressEventCount: 0, toolCallCount: 0, apiRetryCount: 0, stdoutByteLength: 0, stderrByteLength: 0,
+    artifactDigests: { output: sha256Bytes(finalOutput), stdout: sha256Bytes(''), stderr: sha256Bytes('') },
+    ...(current ? { nativeResultAssessment: { disposition: 'admitted' } } : {}),
+  };
+  // The live physical values: a direct exit is observed unless no child was
+  // established; termination is confirmed only for the exit terminal.
+  const copies = { timedOut: false, exitObserved: terminal !== 'spawn_failed', terminationConfirmed: terminal === 'exited',
+    signalSequence: signalled ? ['SIGTERM'] : [] };
+  const { cCallRef: _c, evidenceClass: _e, rawOutputDigest: _r, transportDisposition: _d, transportFailureClass: _f,
+    ...artifactBody } = evidence;
+  // The writer's profile representation: L records the copies, current none.
+  const artifactPayload = { cCallRef, ...artifactBody, finalOutput, disposition, failureClass, ...(current ? {} : copies), ...artifactOverrides };
+  const artifact = add('actor_result_artifact_observed', 'actor_invocation', actorInvocationRef, cCallRef,
+    Object.fromEntries(Object.entries(artifactPayload).filter(([key]) => !artifactOmit.includes(key))));
+  const actorTerminal = terminal === 'unconfirmed' ? null : add(failureClass === null ? 'actor_invocation_closed' : 'actor_invocation_failed',
+    'actor_invocation', actorInvocationRef, cCallRef,
+    { cCallRef, actorInvocationRef, processRef, ...bindingRefs, disposition, failureClass, consumedArtifactEventRef: artifact.eventId },
+    [artifact.eventId]);
+  return { cCallRef, rows, processRef, artifact, actorTerminalEventRef: actorTerminal?.eventId ?? null, copies: deepFreeze(copies),
+    prefix: prefixes.selectValidatedRuntimeEventPrefix(deepFreeze([...rows])),
+    evidence: deepFreeze(evidence), withCopies: deepFreeze({ ...evidence, ...copies }) };
+}
+
+test('D5 cold evidence projection: current evidence and artifacts without copies read them from the owner lifecycle; partial, reinserted, crossed and L-without-copies refuse', () => {
+  const P = events.ROOT_EVENT_CONTRACT_DIGEST, selection = { agentKey: 'claude', identity: null };
+  const selected = (fixture, evidence) => projectAdmittedTransportEvidenceSelection(fixture.prefix, fixture.cCallRef, evidence);
+  const lifecycle = (fixture, evidence) => projectAdmittedTransportEvidenceLifecycle(fixture.prefix, fixture.cCallRef, evidence);
+  for (const signalled of [false, true]) {
+    const label = signalled ? 'signalled' : 'ordinary';
+    const current = evidenceProjectionFixture({ profile: P, signalled });
+    assert.equal(holds(current.rows, 'actor_process_terminated', current.processRef), true);
+    assert.deepEqual(RETIRED_COPIES.filter(key => Object.hasOwn(current.artifact.payload, key)), [], `${label}: the current artifact records no copy`);
+    assert.deepEqual(selected(current, current.evidence), selection, `${label}: copy-free current evidence`);
+    assert.deepEqual(selected(current, current.withCopies), selection, `${label}: live copies agreeing with the owner lifecycle`);
+    assert.deepEqual(lifecycle(current, current.evidence), { actorTerminalEventRef: current.actorTerminalEventRef, ...current.copies },
+      `${label}: the owner lifecycle values`);
+    for (const key of RETIRED_COPIES)
+      assert.equal(selected(current, { ...current.evidence, [key]: current.withCopies[key] }), null, `${label}: partial copy ${key} refuses`);
+    assert.equal(selected(current, { ...current.withCopies, signalSequence: signalled ? [] : ['SIGTERM'] }), null,
+      `${label}: a signal copy against the signal rows refuses`);
+    // Direct exit and confirmed termination each meet their own owner fact.
+    for (const key of ['exitObserved', 'terminationConfirmed'])
+      assert.equal(selected(current, { ...current.withCopies, [key]: false }), null, `${label}: a live ${key} copy against the owner lifecycle refuses`);
+    // A current artifact records no copy: a reinserted copy refuses even when it agrees.
+    for (const key of RETIRED_COPIES) {
+      const reinserted = evidenceProjectionFixture({ profile: P, signalled, artifactOverrides: { [key]: current.copies[key] } });
+      assert.equal(selected(reinserted, reinserted.evidence), null, `${label}: a reinserted current artifact ${key} refuses`);
+      assert.equal(selected(reinserted, reinserted.withCopies), null, `${label}: a reinserted current artifact ${key} refuses the live candidate`);
+    }
+    const legacy = evidenceProjectionFixture({ signalled });
+    assert.deepEqual(RETIRED_COPIES.filter(key => Object.hasOwn(legacy.artifact.payload, key)), RETIRED_COPIES, `${label}: the L artifact keeps its copies`);
+    assert.deepEqual(selected(legacy, legacy.withCopies), selection, `${label}: L evidence with its copies`);
+    assert.equal(selected(legacy, legacy.evidence), null, `${label}: copy-free evidence over an L artifact refuses`);
+    // An L artifact keeps its original agreement with its evidence copies.
+    for (const [key, value] of [['timedOut', true], ['exitObserved', false], ['terminationConfirmed', false],
+      ['signalSequence', signalled ? [] : ['SIGKILL']]]) {
+      const crossed = evidenceProjectionFixture({ signalled, artifactOverrides: { [key]: value } });
+      assert.equal(selected(crossed, crossed.withCopies), null, `${label}: L artifact ${key} against its evidence refuses`);
+    }
+    for (const key of RETIRED_COPIES) {
+      const partial = evidenceProjectionFixture({ signalled, artifactOmit: [key] });
+      assert.equal(selected(partial, partial.withCopies), null, `${label}: an L artifact missing ${key} refuses`);
+    }
+  }
+  // A spawn failure records no direct exit and the fold confirms no termination.
+  const spawnFailed = evidenceProjectionFixture({ profile: P, terminal: 'spawn_failed' });
+  assert.equal(holds(spawnFailed.rows, 'actor_process_terminated', spawnFailed.processRef), false);
+  assert.deepEqual(lifecycle(spawnFailed, spawnFailed.evidence), { actorTerminalEventRef: spawnFailed.actorTerminalEventRef,
+    timedOut: false, exitObserved: false, terminationConfirmed: false, signalSequence: [] }, 'spawn failure: no direct exit, no confirmed termination');
+  assert.deepEqual(selected(spawnFailed, spawnFailed.withCopies), selection, 'spawn failure: agreeing live copies');
+  assert.equal(selected(spawnFailed, { ...spawnFailed.withCopies, exitObserved: true }), null, 'spawn failure: a direct-exit copy refuses');
+  assert.equal(selected(spawnFailed, { ...spawnFailed.withCopies, terminationConfirmed: true }), null, 'spawn failure: a confirmed-termination copy refuses');
+  // An observed exit with unresolved scope has no actor terminal, so it is
+  // outside the admitted lifecycle domain: no values, no default.
+  const unconfirmed = evidenceProjectionFixture({ profile: P, terminal: 'unconfirmed' });
+  assert.equal(holds(unconfirmed.rows, 'actor_process_terminated', unconfirmed.processRef), false);
+  assert.equal(unconfirmed.copies.exitObserved && !unconfirmed.copies.terminationConfirmed, true, 'the live premise: exit observed, termination unconfirmed');
+  assert.equal(lifecycle(unconfirmed, unconfirmed.evidence), null, 'unconfirmed: copy-free evidence has no lifecycle values');
+  assert.equal(lifecycle(unconfirmed, unconfirmed.withCopies), null, 'unconfirmed: live copies have no lifecycle values');
+  assert.equal(selected(unconfirmed, unconfirmed.withCopies), null, 'unconfirmed: no configured selection');
+});
+
+// RC7 HS03 (design §10.10 E-D/E-E): the actual invokeActorProcessWithAssembly
+// over a real W store, real event prefixes and the real runtime_liveness
+// threshold relation. Premises replaced in the VM: the invocation admission
+// (none), the workspace-binding admission (accepted) and the transport run,
+// which captures the actual observer the actor passes and drives it: one
+// pending qualifying window, one supervision wakeup, then one turn-boundary
+// window referenced outside any transaction. The deciding store, prefix,
+// flush, threshold and window staging owners are not replaced.
+import * as hs03Liveness from '../../build/code/src/abg/runtime_liveness.js';
+import { canonicalRecordDigest as hs03RecordDigest } from '../../build/code/src/shared/value/index.js';
+import { appendFileSync as hs03Append, writeFileSync as hs03Write } from 'node:fs';
+
+test('RC7 HS03 actor successor: a not_reached decision that commits the pending window returns its durable successor, and the actor admits its next window there', async t => {
+  const scratch = await realpath(await mkdtemp(join(tmpdir(), 'abi5-hs03-actor-')));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const archiveRoot = join(scratch, 'workspace', '.abg', 'archives');
+  await mkdir(archiveRoot, { recursive: true });
+  const { store } = await acquireNewEmptyAppendSinkFixture(t, events.createNewEmptyAppendSink, 'abi5-hs03-actor-store-');
+  assert.equal(events.selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest, events.ROOT_EVENT_CONTRACT_DIGEST, 'a fresh store is W');
+  const time = '2026-11-07T00:00:00.000Z', correlationId = 'correlation://rc7-hs03/actor';
+  const admit = candidate => events.admitRuntimeEvent(store, { eventTime: time, correlationId, workflowVersion: '5.0.0', causationEventRefs: [], ...candidate });
+  const atDurable = action => events.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, events.selectHeldEventStoreDurablePrefix(store), action);
+  // The admitted scope the actor's liveness context authenticates.
+  const rawInputValue = { kind: 'rc7_hs03_actor_input' };
+  const basisBody = { basisClass: 'root', programRef: 'program://rc7-hs03/actor', graphFunctionRef: 'graph-function://rc7-hs03/actor',
+    invocationRef: 'invocation://rc7-hs03/actor', rawInputValue, rawInputDigest: hs03RecordDigest(rawInputValue) };
+  const basisDigest = hash(basisBody), basisRef = `execution-basis://abiogenesis/${basisDigest.slice(7)}`;
+  atDurable(() => admit({ kind: 'basis_admitted', scopeClass: 'workspace', basisId: basisRef, aggregateType: 'workspace',
+    aggregateId: 'workspace-binding://rc7-hs03/actor', parentAggregateId: basisBody.invocationRef, payload: { basisRef, basisDigest, ...basisBody } }));
+  const runId = 'run://rc7-hs03/actor', graphCallId = 'graph-call://rc7-hs03/actor';
+  const run = { scopeClass: 'run', basisId: basisRef, runId, graphFunctionRef: basisBody.graphFunctionRef };
+  const graph = atDurable(() => admit({ ...run, graphCallId, kind: 'graph_call_opened', aggregateType: 'graph_call', aggregateId: graphCallId,
+    parentAggregateId: runId, payload: { graphCallId, graphCallDigest: hash({ graphCallId }) } })).value;
+  const frameBody = { frameLineageId: 'frame-lineage://rc7-hs03/actor', attempt: 1, parentFrameId: null, runId, graphCallId,
+    executionBasisRef: basisRef, invocationRef: basisBody.invocationRef, admittedInputRef: 'input://rc7-hs03/actor', admittedInputDigest: hash(rawInputValue) };
+  const frameDigest = hash(frameBody), frameId = `frame://abiogenesis/${frameDigest.slice(7)}`;
+  const actorScope = { ...run, graphCallId, frameId };
+  const frameOrigin = hs03Liveness.captureNativeFrameBoundary(store);
+  const frameOpened = atDurable(() => {
+    const event = admit({ ...actorScope, frameLineageId: frameBody.frameLineageId, kind: 'frame_opened', aggregateType: 'frame', aggregateId: frameId,
+      parentAggregateId: graphCallId, causationEventRefs: [graph.eventId], payload: { frameId, frameDigest, ...frameBody } });
+    hs03Liveness.observeNativeFrameLiveness(store, event, frameOrigin, frameOrigin);
+    return event;
+  }).value;
+  hs03Liveness.retainNativeFrameClock(store, frameOpened, frameOrigin);
+  const cCallRef = 'c-call://rc7-hs03/actor', implementationRef = 'implementation://rc7-hs03/actor',
+    implementationBindingRef = 'implementation-binding://rc7-hs03/actor';
+  const opened = atDurable(() => admit({ ...actorScope, kind: 'c_call_opened', aggregateType: 'c_call', aggregateId: cCallRef, parentAggregateId: frameId,
+    payload: { cCallRef, cCallDigest: hash({ cCallRef }), callClass: 'leaf', attempt: 1, programLocusRef: 'locus://rc7-hs03/actor',
+      taskOrdinal: null, vectorIndex: null, edgeRef: null } })).value;
+  const fibre = atDurable(() => admit({ ...actorScope, kind: 'c_call_fibre_selected', aggregateType: 'c_call', aggregateId: cCallRef, parentAggregateId: frameId,
+    causationEventRefs: [opened.eventId], payload: { cCallRef, callClass: 'leaf', armId: 'arm://rc7-hs03/actor', regime: 'F_P',
+      implementationRef, implementationBindingRef } })).value;
+
+  // The transport premise: the captured actual observer is driven in order.
+  const DELTA = `${JSON.stringify({ type: 'stream_event', event: { type: 'content_block_delta' } })}\n`;
+  const ASSISTANT = `${JSON.stringify({ type: 'assistant', message: { content: [{ type: 'text', text: 'a' }] } })}\n`;
+  const sentinel = new Error('rc7 hs03 actor successor fixture stop');
+  const observed = { flushed: 0, decision: null, beforeWakeup: null, afterWakeup: null, nextRow: null, nextPredecessor: null };
+  const worker = await component('abg/worker_transport');
+  const actor = await component('abg/actor_process', {
+    './invocation_admission.js': { rehydrateInvocationAdmissionAtPrefix: () => null },
+    './environment_admission.js': { hasAdmittedWorkspaceBinding: () => true },
+    './worker_transport.js': {
+      prepareWorkerTransport: input => worker.prepareWorkerTransport(input),
+      runPreparedWorkerTransport: async (prepared, observer) => {
+        assert.equal(typeof observer.classifyStdoutChunk, 'function', 'a W actor declares window mode');
+        let pending = null;
+        observer.bindStdoutWindow(() => {
+          if (pending === null) return null;
+          const taken = pending; pending = null; observed.flushed++;
+          observer.onStdoutObserved(taken.text, taken.window);
+          return () => { pending = taken; };
+        });
+        observer.onProcessStarted(4242);
+        const first = observer.classifyStdoutChunk(DELTA);
+        assert.deepEqual([first.progress, first.turnBoundary], [true, false], 'a content record is qualifying and completes no turn');
+        hs03Write(prepared.paths.stdout, DELTA);
+        pending = { text: DELTA, window: { archiveOffset: 0, byteLength: Buffer.byteLength(DELTA), firstCaptureElapsedMs: first.elapsedMs,
+          lastCaptureElapsedMs: first.elapsedMs, lastQualifyingElapsedMs: first.elapsedMs, resultElapsedMs: null, closure: 'flush' } };
+        observed.beforeWakeup = events.selectHeldEventStoreDurablePrefix(store);
+        observed.decision = observer.onNativeSupervisionWakeup();
+        observed.afterWakeup = events.selectHeldEventStoreDurablePrefix(store);
+        // The next actual admission: a closed turn window outside any transaction,
+        // which the actor admits at its own local successor.
+        const second = observer.classifyStdoutChunk(ASSISTANT);
+        hs03Append(prepared.paths.stdout, ASSISTANT);
+        observed.nextPredecessor = events.selectHeldEventStoreDurablePrefix(store);
+        observer.onStdoutObserved(ASSISTANT, { archiveOffset: Buffer.byteLength(DELTA), byteLength: Buffer.byteLength(ASSISTANT),
+          firstCaptureElapsedMs: second.elapsedMs, lastCaptureElapsedMs: second.elapsedMs, lastQualifyingElapsedMs: second.elapsedMs,
+          resultElapsedMs: null, closure: 'turn_boundary' });
+        observed.nextRow = store.readAll().findLast(e => e.kind === 'actor_process_stdout_observed');
+        throw sentinel;
+      },
+    },
+  }, '\nexport { invokeActorProcessWithAssembly };');
+  const request = { actorRef: 'actor://rc7-hs03/actor', workerBindingRef: 'worker-binding://rc7-hs03/actor', implementationRef,
+    inputDigest: hash({ subject: 'rc7-hs03-actor' }), materializationPlanRef: 'materialization-plan://rc7-hs03/actor', rendererRef: 'renderer://rc7-hs03/actor',
+    instructionContractRef: 'contract://rc7-hs03/actor/instruction', resultContractRef: 'contract://rc7-hs03/actor/result',
+    transportLane: 'closed_prompt_proof', prompt: 'Return the fixed fixture payload.', responseJsonSchema: { type: 'object' } };
+  const occurrence = { cCallRef, runId, graphCallId, frameId, programLocusRef: 'locus://rc7-hs03/actor', taskOrdinal: null, attempt: 1 };
+  const workspaceBinding = { bindingId: 'workspace-binding://rc7-hs03/actor', bindingDigest: hash('rc7-hs03-binding'), roots: { archiveRoot } };
+  // The stopped transport ends the actor through its ordinary failure carrier;
+  // that outcome is not the subject here.
+  await actor.invokeActorProcessWithAssembly({
+    store, predecessorPrefix: events.selectHeldEventStoreDurablePrefix(store), scope: { runId, graphCallId, frameId }, occurrence, request, dispatchOrdinal: 1,
+    executionBasis: { basisRef, workspaceBindingId: workspaceBinding.bindingId, workspaceBindingDigest: workspaceBinding.bindingDigest,
+      invocationAdmissionRef: 'invocation-admission://rc7-hs03/actor', graphFunctionRef: basisBody.graphFunctionRef, graphRef: 'graph://rc7-hs03/actor' },
+    cCall: { ...occurrence, implementationRef, outputContractRef: request.resultContractRef, implementationBindingRef, fibreSelectedEventRef: fibre.eventId },
+    expectedInputDigest: request.inputDigest,
+    workerContracts: { instructionContractRef: request.instructionContractRef, resultContractRef: request.resultContractRef },
+    runtime: { workspaceBinding, artifactTruth: {} }, basis: { correlationId },
+  }).catch(error => error);
+  assert.notEqual(observed.nextRow, null, 'the driven observer reached the next admission');
+  // The real threshold relation flushed the pending window once, committed it and decided not_reached.
+  assert.equal(observed.flushed, 1, 'the wakeup drained the pending window exactly once');
+  assert.equal(observed.decision?.admittedThresholdEventRef, null, 'no threshold was admitted');
+  assert.equal(observed.decision?.timeoutClass, null);
+  assert.notEqual(observed.afterWakeup.coordinateDigest, observed.beforeWakeup.coordinateDigest, 'the flush advanced the durable successor');
+  const rows = store.readAll();
+  const windows = rows.filter(e => e.kind === 'actor_process_stdout_observed');
+  assert.equal(windows.length, 2, 'the flushed window and the next window');
+  assert.deepEqual(windows.map(e => [e.payload.byteLength, e.payload.chunkDigest, e.payload.stdoutWindow.archiveOffset]),
+    [[Buffer.byteLength(DELTA), hash(DELTA), 0], [Buffer.byteLength(ASSISTANT), hash(ASSISTANT), Buffer.byteLength(DELTA)]]);
+  assert.equal(rows.some(e => e.kind === 'actor_process_timeout_observed'), false, 'not_reached admitted no timeout');
+  // The decisive relation: the next admission's predecessor is the not_reached
+  // successor; a stale local successor would refuse it.
+  assert.deepEqual(observed.nextPredecessor, observed.afterWakeup, 'nothing else was admitted between the decision and the next window');
+  assert.equal(observed.nextRow?.eventId, windows[1].eventId, 'the actor admitted its next window at the adopted successor');
+  assert.equal(windows[1].admissionOrdinal > windows[0].admissionOrdinal, true);
 });

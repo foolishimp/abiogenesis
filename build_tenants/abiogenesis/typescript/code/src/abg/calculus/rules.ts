@@ -2,7 +2,7 @@
 // the fold state before the event and the event; none reads its dependencies.
 // The table is a module constant; no caller supplies a rule.
 import { isRecord } from "../../shared/admit/index.js";
-import { ROOT_EVENT_CONTRACT_DIGEST, type RuntimeEvent } from "../event_store.js";
+import { runtimeEventProfile, type RuntimeEvent } from "../event_store.js";
 import { nativeLivenessRelationHolds } from "./liveness.js";
 import {
   constructRuntimeFluent,
@@ -87,7 +87,7 @@ function deriveProcessCleanup(state: FoldState, event: RuntimeEvent): EventCalcu
   if (processRef === null) return NO_EFFECT;
   const actorTerminal = event.kind === "actor_invocation_closed" || event.kind === "actor_invocation_failed";
   return effect([], [
-    ...(event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST && actorTerminal
+    ...(runtimeEventProfile(event)?.nativeLiveness === true && actorTerminal
       ? [...state.holds.values()].filter((fluent) => fluent.name === "runtime_invocation_active" &&
           (state.actorProbeScopes.get(event.aggregateId)?.has(fluent.identity ?? "") ?? false))
       : []),
@@ -100,7 +100,7 @@ function deriveProcessCleanup(state: FoldState, event: RuntimeEvent): EventCalcu
  * adds the structural-identity route join). It derives no fluent; a missing
  * relation is a defect. Process liveness is this state's actor_process_live. */
 function deriveLiveness(state: FoldState, event: RuntimeEvent): EventCalculusEffect {
-  if (event.eventContractDigest !== ROOT_EVENT_CONTRACT_DIGEST) return NO_EFFECT;
+  if (runtimeEventProfile(event)?.nativeLiveness !== true) return NO_EFFECT;
   if (state.source === null ||
       !nativeLivenessRelationHolds(state.source, processRef => held(state, "actor_process_live", processRef), event)) {
     throw new TypeError("native liveness effect has no exact admitted source/threshold relation");

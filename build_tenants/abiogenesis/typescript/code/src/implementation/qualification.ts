@@ -1,5 +1,6 @@
 import type { ActorProcessCarrierValidation } from "../abg/actor_process.js";
 import { projectQualificationConsumer, projectExactCandidateQualification, projectQualificationRulingForConsumer, projectNativeRuntimeAssessment } from "../abg/qualification_proof.js";
+import { projectDurableActorObservation } from "../abg/transport_contracts.js";
 import { QUALIFICATION_IDS as q, SELF_CONFORMANCE_IDS as ids } from "../gtl/self_conformance.js";
 import { ABI5_PACKAGE_NAME, ABI5_PACKAGE_VERSION } from "../product/contracts.js";
 import type { PackagedLeafImplementationDescriptor } from "../product/implementation_resolution.js";
@@ -59,7 +60,10 @@ export function realizeQualificationAssessment(input: Readonly<Record<string, Js
           actorRef: exchange.observation.actorRef, workerBindingRef: exchange.observation.workerBindingRef,
           actorInvocationRef: exchange.observation.actorInvocationRef, transportBindingRef: exchange.observation.transportBindingRef,
           transportBindingDigest: exchange.observation.transportBindingDigest, requestDigest: hash(workerRequest),
-          observationDigest: hash(exchange.observation), promptDigest: hash(workerRequest.prompt), rawValueDigest: hash(raw) };
+          // An authenticated assessment completion follows a current-profile
+          // dispatch, so its source digests the current durable artifact body.
+          observationDigest: hash(projectDurableActorObservation(exchange.observation)),
+          promptDigest: hash(workerRequest.prompt), rawValueDigest: hash(raw) };
         const value = preparation.complete(raw, nativeBasis, source);
         return deepFreeze({ kind: "leaf_realization_candidate", schemaVersion: "5.0.0", disposition: "success",
           evidenceCandidates: [], resultCandidate: value as unknown as Record<string, JsonValue> });

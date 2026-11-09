@@ -1,5 +1,328 @@
 # T-287 Default Governance Library
 
+## RC7 fixed Testing/UAT direct wrapper route — 2026-11-06
+
+Root selection `RC7-LAUNCH-02`, grant `rc7-fixed-proof-author-01`,
+`design_reframe` of this library HOW/contract under unchanged Product and
+requirements. Fixed explicit Testing and UAT work needs no open-choice selector;
+Product makes the Executive optional. Open work and subject choice remain actual
+F_P judgment.
+
+**Route.** A caller invokes the existing Testing wrapper, then the existing UAT
+wrapper, through the Public `run.invoke` member `invoke` in the existing consumer
+Program. No Program, start target, selector, controller or bare native ingress is
+added. Product resolution of that invoke is an open dependency; see the F2
+subsection below.
+
+1. Testing input is the exact fresh `governance_work_state` (null synthesis, no
+   observation) with source `none`. The unchanged prepare-testing, C2 child and
+   fold run.
+2. `deriveInvocationSourceResultBasisAtPrefix` over the Testing invocation's own
+   admission, Run and returned state Result yields the existing
+   `ProductInvocationSourceResultBasis`. UAT input is
+   `retainedGovernanceWorkInput(basis.sourceResultValue)`, unchanged, under source
+   `admitted_source_result` and its existing rehydration.
+3. The unchanged UAT prepare-native, native assessment child and fold run.
+
+**Direct-route authentication.** The route applies only when the invoked wrapper
+is its invocation's root: `invocationRootAtPrefix` equals the leaf's execution
+basis, that basis has no parent, its GraphFunction is exactly the registered
+Testing or UAT wrapper, and the root state's synthesis is null. Null synthesis
+records that no selector occurred; nothing manufactures one. A selected state, at
+any basis position, keeps the selected-child relation and synthesis target guard.
+Other wrappers invoked at the root keep their existing relation; their
+selector-free fold still refuses.
+
+The shared owner checks one finite state relation before every preparation,
+preparation admission and fold of the route:
+
+- no fulfillment declaration and only `testing`/`uat` work orders; other
+  declared work is open choice and refuses as unsupported scope;
+- Testing: source `none` and no observation;
+- UAT: an admitted state source whose `sourceGraphFunctionRef` is the Testing
+  wrapper, holding exactly one observation: `purpose: testing`, null
+  `synthesisResultRef`, the Testing wrapper as `selectedGraphFunctionRef`.
+
+Zero, multiple, selected or foreign rows refuse. There is no latest or eligible
+search.
+
+**Single producer.** Direct UAT's subject is that one Testing observation. The
+existing subject-evidence owner still requires its exact admitted Result, digest,
+CCall, actor, source use and WorkspaceBinding or cover. The route adds that the C2
+Result is the actual child of the source direct Testing root: the source Run and
+invocation admission, and a C2 basis whose parent is that invocation's root
+Testing wrapper basis. The existing binding cover compares one GraphFunction
+across both invocations, so this route runs Testing and UAT on one
+WorkspaceBinding; a crossed binding refuses. Current dependency bytes, later invalidating effects,
+source/candidate/rubric digests, installed schema, STDO assessor role, a fresh
+independent actor and the declared prompt bound stay with their existing owners.
+
+**UAT instructions.** For UAT the governing full-original outcome and the
+full-original assessment instruction are unconditional. A selected UAT
+contribution stays separately labelled advisory context between them, so
+selected UAT tasks keep their existing bytes.
+
+**Fold and contract.** `observation.synthesisResultRef` is nullable. The fold
+writes null only on the authenticated direct route; selected folds keep their
+actual synthesis Result. Product typing admits a null row only for the Testing or
+UAT wrapper of its own purpose. The fold stays non-terminal: wrapper closure is
+not parent convergence, and red C2, unmet or indeterminate UAT remain open.
+Parent evaluation is unchanged.
+
+```mermaid
+sequenceDiagram
+  participant C as Caller (public-setup)
+  participant T as Testing wrapper (root)
+  participant S as Source-result owner
+  participant U as UAT wrapper (root)
+  participant A as Native assessor
+  C->>T: invoke(fresh state, source none)
+  T->>T: prepare-testing, C2 child, fold (synthesisResultRef null)
+  C->>S: derive basis (Testing admission, Run, state Result)
+  S-->>C: ProductInvocationSourceResultBasis
+  C->>U: invoke(retained state, admitted_source_result)
+  U->>U: one Testing producer: Result/CCall/actor/child/currentness
+  U->>A: full-original assessment task
+  A-->>U: actual assessment, unmet/indeterminate kept
+  U->>U: fold (synthesisResultRef null, terminal false)
+```
+
+**Owners.** `abg/default_library.ts` (`owner`, `subjectEvidence`, `nativeTask`,
+`projectGovernanceFold`); `product/default_library.ts` (observation schema and the
+shared direct relation); `abg/invocation_admission.ts` (the retained-state
+declared-entry clause below); the maintained caller `test_env/uat/public-setup.mjs`
+(`constructFixedTestingCall`, `deriveFixedTestingSource`, `constructFixedUatCall`).
+GTL wrappers, `consumer.mjs`, the Public SDK, Product execution resolution and
+native C2/assessment identities are unchanged.
+
+**Proof.** Author checks use the existing owner harness for direct-route
+positives and refusals, unchanged selected behavior and the caller. The installed
+fixed Testing → admitted state Result → native UAT run with zero selectors, its
+replay, cold readback and timing remain Root proof. No time saving is claimed.
+
+### Direct-UAT admission handshake — F2
+
+Root selection `rc7-fixed-proof-author-02`, `realization_refactor` with this
+bounded HOW amendment under unchanged Product and requirements.
+
+**Shared relation.** `product/default_library.ts` owns the finite relation above
+as `governanceDirectFixedState`, with `GOVERNANCE_DIRECT_PURPOSES` and
+`GOVERNANCE_DIRECT_WRAPPERS` naming the registered Testing and UAT wrappers. The
+ABG library owner and invocation admission import it; neither clones it. The
+Product module imports no ABG module.
+
+**Declared entry.** Retained-state source admission (source contract
+`governanceContract("state")`) keeps every existing check: the ABG-derived basis
+equals the supplied basis under its durable Public authority, the raw input is
+the complete retained source value, the rehydrated source invocation names the
+same Program and digest, and CatalogView/WorkspaceBinding are exact or the
+current covered source use matches. Its declared-entry clause admits exactly one
+of:
+
+- Executive: the invoked GraphFunction declares the governance fulfillment
+  profile. Unchanged.
+- Fixed UAT: the invoked GraphFunction is the registered UAT wrapper, the
+  rehydrated source invocation's GraphFunction is the registered Testing wrapper,
+  and `governanceDirectFixedState(retained, "uat", basis)` holds over the
+  ABG-derived basis.
+
+Identities come from the catalog-authenticated invoked GraphFunction, the
+rehydrated source admission and the derived basis; caller-supplied refs are only
+compared against them. Other wrappers over a retained state, a non-Testing source
+invocation, selected or multiple observations, other declared work and open
+fulfillment refuse `authority_mismatch`. Root-basis authentication, the single
+producer and the fold stay with the ABG library owner.
+
+```mermaid
+flowchart LR
+  B[derived basis = supplied basis] --> V[retained value = raw input]
+  V --> P[source Program, digest, view/binding or current use]
+  P --> E{declared entry}
+  E -->|fulfillment profile| X[Executive]
+  E -->|UAT wrapper, Testing source, direct relation| U[fixed UAT]
+  E -->|otherwise| R[authority_mismatch]
+```
+
+**Fixed-route Program (F2-PROGRAM-001).** A direct `invoke` or a GraphFunction
+`start` resolves one CatalogView row by handle. The row's `programMembershipRefs`
+and the Program's `callableMembership` must both name the invoked Program
+(`product/execution_resolution.ts`), and admission repeats the row check.
+Catalog law keeps a contributor's rows on its own Programs. The library wrapper
+rows therefore name only `program://abiogenesis/default-library/default@5`. A
+consumer Program cannot host the direct wrapper route: population refuses
+`wrong_owner` at the catalog stage, which Public reports as `invalid_target` at
+`/program`. The library publication contributes one Catalog row for every
+GraphFunction it publishes, including its local `executive-step`. That
+completes the library Program's Program-scope closure. The membership law,
+closure law and canonical handles do not change. Both fixed calls select this
+existing Program: direct Testing with source `none`, then UAT over that Run's
+admitted Testing state Result. Both use its current digest, its declared
+`abg.run_environment` declaration `environment://abiogenesis/default-library/default@5`,
+a run-environment permission over that Program and declaration, the session's
+workspace binding, and the Catalog view narrowed to that Program's
+`callableMembership`. The maintained caller reads the Program and declaration
+from the admitted Catalog's library publication. No alias, new Program,
+invented environment or fulfillment flag is added. The assessment, C2, source,
+root, capability and resolver guards stay in force. The consumer Program keeps
+the lifecycle `start`.
+
+**Fixed-route environment and assessment scope (HS2).** Run-environment
+acquisition (`observeRunEnvironment`) checks every Program F_P leaf against the
+declared roles. Its GraphFunction input is therefore the authenticated
+whole-Program declaration closure, `programDeclarationClosure.publications`.
+Direct Testing selects a callable whose execution closure omits the native-work
+publication, while the library Program still declares selector, constructor,
+assessor and command-executor roles. Execution and implementation resolution,
+the selected declaration closure and publications, owner installs and every
+role, permission and physical-binding guard keep the selected callable's scope.
+The UAT assessor's inner consumer response contract is not in the library
+Program's closure. The native assessment dependency relation
+(`T287_NATIVE_WORKSPACE_WORK_DESIGN.md`, Declared typed assessment) admits it
+over the admitted Catalog, installs and lock. The library declares no reverse
+dependency on a consumer. The maintained fixed test selects the installed
+sandbox consumer's `assessmentSelection`, and its scripted assessor answers that
+consumer's declared schema.
+
+**Setup Program binding (HS3).** Root selection `rc7-held-session-author-03`,
+`realization_refactor` of the maintained caller under unchanged Product,
+requirements and owner guards. The installed run owner requires
+`W.roots.productRoot == I_P.installedRoot` for the Program owner and for every
+child (`T287_W2_R3_SINGLE_START_CONSTRUCTION_EXECUTION_DESIGN.md` §3;
+`exactProgramOwnerInstall`, `exactChildOwnerInstallations`). A setup that binds
+the consumer root and then invokes library wrappers crosses that relation, and
+child preparation refuses at `basis_admission`. The caller therefore chooses its
+Program once, before workspace binding:
+
+| Selection | Program and publication | Use |
+|---|---|---|
+| `consumer` (default) | the sandbox consumer publication's Program | lifecycle `start` |
+| `library` | `program://abiogenesis/default-library/default@5` in the core library publication | fixed Testing and UAT |
+
+`populateSandbox(caller, {program})` takes the selection. Setup constructs the
+candidate publications, takes the unique publication holding the chosen Program,
+and takes the unique admitted install from `product-install` whose Product,
+artifact, content and manifest digests are the publication's and whose
+contribution manifest binds that publication's semantic digest exactly once.
+That install's `installedRoot` is `productRoot` in `workspace-bind`. The same
+Program and publication then drive the `catalog-view` allowlist (its
+`callableMembership`), the `program-conformance` packet and the `setup-identity`
+record. Setup checks that the admitted Catalog binds that exact publication.
+`state.programBinding` records the selection, Program, publication and owner
+install coordinates. The ProductSet, lock, both installs, the toolchain root and
+the run-environment dependency root (`caller.installedRoot`, the ABI install) do
+not change with the selection.
+
+Each call selector checks that binding before population. The library selector
+requires a `library` binding and returns the setup Catalog view. The consumer
+selector refuses a binding to another Program. An absent binding is the ordinary
+consumer default. A refusal raises `BoundaryFailure('setup-program-binding')`
+before any task, grant or invocation exists. Testing and UAT share the one
+library binding for the whole held session. Neither call rebinds, and neither
+rewrites a retained input, task or grant. A new binding needs a new setup and
+fresh work.
+
+Ownership stays separate. Program ownership moves `productRoot` only. The UAT
+assessment schema stays owned by the consumer, and the lock keeps its
+consumer→ABI `requires` edge, so the native assessment dependency relation is
+unchanged. Both installed roots stay in the ProductSet and stay protected.
+`exactProgramOwnerInstall`, `exactChildOwnerInstallations` and every
+authority, currentness, role and capability guard are unchanged. The caller adds
+no owner edge, schema fallback, controller or second Program.
+
+```mermaid
+sequenceDiagram
+  participant C as populateSandbox(program)
+  participant I as product-install x2
+  participant B as workspace-bind
+  participant K as catalog-admit / catalog-view
+  participant V as program-conformance
+  participant F as fixed Testing / UAT
+  C->>C: choose Program + publication
+  I-->>C: admitted installs (ABI, consumer)
+  C->>C: unique owner install of that publication
+  C->>B: productRoot = owner.installedRoot
+  C->>K: allowlist = Program.callableMembership
+  C->>V: same Program + publication
+  C->>C: setup-identity + programBinding
+  F->>C: check binding = library, reuse setup view
+```
+
+## RC5 STDO 3.0.4 successor source and skill selection — 2026-11-03
+
+Owner-approved RC5 scope, grant `T287_RC5_METHOD_01`, `realization_refactor`
+under unchanged Product and requirements. This section supersedes the 3.0.2
+member, span and role-source coordinates below for the successor declaration.
+Installed RC4, its generated contracts and every prior Run keep their exact
+`stdo://releases/v3.0.2/` identities; Root adopts regenerated contracts only
+through the existing source-correspondence procedure.
+
+**Source.** `DEFAULT_LIBRARY_STDO_SOURCE` declares `stdo://releases/v3.0.4/`
+with original manifest SHA-256
+`102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b`
+(18,022 bytes) and six released members. Each member and the manifest are
+packed byte-for-byte at `contracts/default-library/stdo/<release path>`, the
+root of the generated `member_inventory@1` record:
+
+| Member key | Release path | Bytes |
+|---|---|---|
+| `executive` | `standards/EXECUTIVE_BASELINE.md` | 165,730 |
+| `assurance` | `standards/ASSURANCE.md` (unchanged from 3.0.2) | 87,324 |
+| `work-skill` | `plugins/spec/skills/stdo-work/SKILL.md` | 13,369 |
+| `review-skill` | `plugins/spec/skills/stdo-review/SKILL.md` | 8,074 |
+| `handoff` | `plugins/spec/references/COORDINATED_HANDOFF.md` | 22,028 |
+| `product-basis` | `plugins/spec/references/PRODUCT_BASIS.md` | 3,947 |
+
+**Span rule.** A span starts at the heading line whose GitHub slug is its first
+anchor and ends at the next heading of the same or higher level outside fenced
+code, or at end of file. Consecutive same-level anchors may share one span.
+Recomputed on 3.0.4, the Executive §8–§11 spans keep their 3.0.2 bytes at
+offsets shifted by 4,880; the ASSURANCE §7–§12 span is unchanged. A skill span
+starts at its H1 and excludes the YAML front matter, which is host-registration
+metadata.
+
+**Finite role-to-source selection.** The four existing run-environment roles
+keep their Executive, Worker, Reviewer and Assurance frame spans. Each adds one
+native skill and only the reference sections that skill's procedure enters for
+that role. Bindings appear in this order:
+
+| Role (existing leaf) | Retained frame spans | Native skill | Reference closure |
+|---|---|---|---|
+| `selector` (Executive step `select`) | EXECUTIVE_BASELINE §8 | `stdo-work` as selector and issuer | COORDINATED_HANDOFF Control Intake, Issue, Evaluate The Return, Review Flow From The Selected Basis; PRODUCT_BASIS |
+| `constructor` (native work) | EXECUTIVE_BASELINE §9, §11 | `stdo-work` as receiving constructor | COORDINATED_HANDOFF Control Intake, Receive; PRODUCT_BASIS |
+| `command_executor` (C2) | EXECUTIVE_BASELINE §9; ASSURANCE §7–§12 | `stdo-work` as receiving command executor | COORDINATED_HANDOFF Control Intake, Receive; PRODUCT_BASIS |
+| `assessor` (native assessment) | EXECUTIVE_BASELINE §10; ASSURANCE §7–§12 | `stdo-review` | COORDINATED_HANDOFF Control Intake, Receive, Review Flow From The Selected Basis; PRODUCT_BASIS |
+
+Not selected: `stdo-help`, `stdo-status`, `stdo-ticket`, `claude-skills/refresh`,
+GETTING_STARTED, REFRESH, HOST_BINDING, the COORDINATED_HANDOFF sections Host
+Binding, Compact Source Acquisition and Invocation Examples, plugin scripts,
+plugin manifests and LICENSE. No role holds ticket mutation or refresh
+authority. The native host and the pinned GC03 supplement own host binding, and
+the run-environment acquisition owner already supplies the exact selected
+source; COORDINATED_HANDOFF names these as the already-declared equivalents.
+
+Skills are role-context source under the governing STDO basis. They confer no
+Product meaning, grant, actor, operation, host registration or acceptance, and
+cannot widen a role's policy, capability grant or contract. `DEFAULT_LIBRARY_POLICY`
+remains the separate capability instruction.
+
+**Owners and checks.** The successor reuses the existing declaration
+(`defaultLibraryRunEnvironment` through `constructRunEnvironmentDeclaration`),
+inventory record, Product acquisition (`observeRunEnvironment`) and role
+evidence assembly. `constructStdoRunEnvironmentDeclaration` still refuses this
+generic subset, so specialized full-source validation is unchanged. The product
+generator checks, for every declared member including plugin members: membership
+and digest in the original manifest, `assetPath` equal to the inventory root plus
+release path, byte count and digest, span digest, and complete-heading span
+anchors. Missing or mismatched selected bytes refuse. Acquisition refuses
+altered bytes (`identity_mismatch`), a missing member (`access_unavailable`) and
+crossed permission (`access_not_permitted`).
+
+**Cost.** Role source grows from 5,557/15,474/32,184/33,836 bytes to
+35,598/37,054/53,764/53,233 bytes for selector/constructor/command executor/
+assessor. The selector's 131,072-byte Run bound is unchanged; overflow remains
+an explicit refusal. Invocation environment evidence carries the six member
+bodies.
+
 ## Later accepted STDO 3 source and role amendment — 2026-10-21
 
 Root accepts D1–D3 of the [source/role HOW](../../../../.ai-workspace/work/T287_COMMON_LIBRARY_DELIVERY_01/realization/stdo3-role-source-reentry-01/HOW-proposal.md)
@@ -170,20 +493,24 @@ projection needs no new retained edge across consumer/library semantics owners.
 The projection discards that wrapper. Older complete mappings remain their
 ordinary admitted C-call Results. Folded observations identify their synthesis
 Result and selected registered GraphFunction, conserving revision attribution
-without a second event ledger.
+without a second event ledger. Only the RC7 direct route folds a null synthesis
+Result.
 
-**Selected native-work handoff (T287 Run02 repair12/13):** the existing wrapper
-projects the exact selected contribution into `NativeWorkspaceWorkTask.outcome`
-and its current admitted interpretation, contribution/reason and
-`nextReason`/evidence into that task's instructions. For authoring, the caller's
-original purpose outcome/task and unresolved outcomes remain conserved parent
-context; a bounded work unit may return useful partial work and gaps. For UAT,
-the full original outcome, complete sources, exact consumer rubric and all
-current criteria remain the governing assessment basis. The selected outcome
-identifies the assessment work, never permission for selected-only satisfaction;
-the return is the exact declared consumer assessment, preserving unmet and
-indeterminate criteria. The same task adaptation owns preparation and later
-observation correspondence.
+**Selected native-work handoff (T287 Run02 repair12/13):** for authoring, the
+existing wrapper projects the exact selected contribution into
+`NativeWorkspaceWorkTask.outcome` and its current admitted interpretation,
+contribution/reason and `nextReason`/evidence into that task's instructions; the
+caller's original purpose outcome/task and unresolved outcomes remain conserved
+parent context; a bounded work unit may return useful partial work and gaps.
+For UAT, `NativeWorkspaceWorkTask.outcome` is the exact original declared
+`workOrders.uat.outcome` whether or not a selection exists. The full original
+outcome, complete sources, exact consumer rubric and all current criteria remain
+the governing assessment basis. A selected UAT contribution and its reason are
+carried only as separately labelled advisory planner context: they cannot add,
+narrow, replace or reword a governing criterion, outcome or subject, and they
+never permit selected-only satisfaction. The return is the exact declared
+consumer assessment, preserving unmet and indeterminate original criteria. The
+same task adaptation owns preparation and later observation correspondence.
 Selected meaning does not widen the supplied order, write roots or typed grant.
 Direct calls without a current selection retain their original outcome/order. Native
 assessment independence/currentness and Testing's actual-file prerequisites
@@ -259,7 +586,8 @@ their existing native/C2 owners. Any author purpose may supply a native report;
 no construction-stage prerequisite or reduced Testing plan is introduced.
 
 `subjectEvidenceRef` explicitly selects an actual folded observation Result.
-Native evidence may come from any selected non-assessment native capability;
+Selector-free UAT on the RC7 direct route instead takes its declared single
+Testing producer; that is a fixed input relation, not a search. Native evidence may come from any selected non-assessment native capability;
 its purpose label does not restrict eligibility. Reuse the existing native
 source projection, same-invocation/binding facts and current candidate after
 observation. Testing with null subject evidence observes existing files; a
@@ -307,6 +635,16 @@ Result/fold and parent evaluation; no caller loop or prescribed schedule exists.
 ### Covered current-use correspondence and native Testing reacquisition
 
 The invoking leaf owner supplies the existing private proof-operation handoff only to the exact declared library `prepare-testing` implementation. It binds the admitted input object, occurrence object and native owner prefix, and resolves the already declared historical source resource. This is a nonserialized owner operation; a copied input/occurrence or a foreign implementation receives no such operation. Handler argument order and all other namespaces remain unchanged. Preparation runs at `selected_no_evidence`; result matching checks the same prepared task before admission; subsequent C2 consumption reconstructs the actual deterministic evidence, Result and advancing judgment. No pre-result operation can substitute for that later admitted lineage.
+
+The F_D port verifies `sha256Canonical(value) === inputDigest` before it calls
+a realization and passes that checked digest as the fourth argument of the call
+contract. Each default-library F_D realization (`prepare-selection`,
+`prepare-native`, `prepare-testing`, `fold`, `evaluate-parent`,
+`project-choice`) uses it for its deterministic evidence `inputDigest` and the
+Testing refusal diagnostic; it does not re-hash the same admitted input. A
+caller outside the port computes the digest. The F_P selector contract supplies
+no checked digest, so its observation check still hashes its input. Ingress,
+observer, effect and output-digest checks are unchanged.
 
 The ordinary retained-work arm in
 `T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md` owns source ingress. Its same-app
@@ -716,8 +1054,8 @@ remain admitted and leave obligations open. Malformed/crossed references refuse.
 The native-work after-context and C2 protected snapshots supply artifact facts;
 C2 command observations supply execution facts. Supplied files need no invented
 author. Pairing checks compatible actual **outer** native/C2 output contracts;
-the inner consumer assessment contract is separately checked by the existing
-native assessment/schema owner. Meaning and sufficiency of realization/verifier
+the inner consumer assessment contract is separately admitted by the native
+assessment dependency relation over the admitted environment. Meaning and sufficiency of realization/verifier
 roles belong to the independent F_P judgment; total checks enforce exact separate
 selected subjects, current dependency bytes and actor independence. A native
 report is never admitted verifier execution.
@@ -796,9 +1134,24 @@ resource, lookup authority or automatic external read. Assessment still consumes
 the complete authenticated producer through its existing owner.
 
 Literal display excerpts retain exact UTF-8 byte ranges against the cited stream
-digest. Display selects lines containing the literal rendering cue `***`, then
-`[error]` lines, then boundary lines, within 8192 bytes and 32 excerpts per stream;
-omission is explicit. These are verbatim diagnostics, not parsed failure names,
+digest. A cited stream whose bytes decode as strict UTF-8 and number at most the
+8192-byte per-stream allowance is delivered whole: one excerpt `[0, byteLength)`
+whose text re-encodes to exactly the cited bytes, `complete: true`,
+`displayedByteCount` equal to the byte length, `omittedByteCount` and
+`omittedCandidates` zero, and its `rawBody` citation marked not omitted. Line
+endings, a leading BOM and every Unicode scalar are kept; no cue selection
+applies. A larger strict UTF-8 stream keeps cue display: lines containing the
+literal rendering cue `***`, then `[error]` lines, then boundary lines, within
+8192 bytes and 32 excerpts per stream; a clipped range never splits an encoded
+character. It reports `complete: false`, `omittedByteCount` (byte length minus
+displayed bytes) and `omittedCandidates`, and its `rawBody` citation is marked
+omitted. A stream that is not strict UTF-8 shows no excerpt,
+`displayUnavailable: "not_utf8"`, `complete: false` and its whole byte length
+as omitted. Every form keeps the stream's own digest and byte length and the
+cited Result, Result digest and field path. `complete` states only that the
+cited admitted stream body is wholly present in this view; it is not a
+producer-capture, relevance or adequacy claim, and a partial display never
+claims it. These are verbatim diagnostics, not parsed failure names,
 derived verdicts or adequacy judgments. Actual retained failure-name lines and
 citations must survive the focused discriminator, including mid-stream lines.
 C2 process success never implies application success. Canonical input, fold,
@@ -827,6 +1180,18 @@ observation/sixteen-mutant history discriminate fact correspondence and complete
 prompt fit. They are mechanical readiness, not native mutation detection or UAT.
 Writer29's lossless-sharing counterexample remains frozen; genuine excess still
 refuses.
+
+Whole short streams count against the unchanged per-stream allowance and the
+unchanged complete-assembly prompt bound; a history that no longer fits refuses
+as `declared_bound_overflow` rather than shortening a stream or claiming a
+partial body complete. The focused discriminator for the whole-short-stream
+rule is the retained RC2 4,616-byte strict UTF-8 stdout whose ENOENT for the
+omitted `t287-native-semantic-revision.test.mjs` input the earlier cue display
+dropped, plus BOM, CRLF and multi-byte cases, the 8,192/8,193-byte boundary
+with a four-byte scalar at the clip, longer streams, invalid UTF-8 and a body
+that does not match its declared digest. Its fixtures carry no Product
+judgment; the retained witness stays a snapshot-omission observation, not
+Product behaviour failure.
 
 ### Native parent-context observation correspondence (Run02 repair138)
 
@@ -883,3 +1248,169 @@ refusal. Verification includes the actual post-Design fold, parent, expanded
 context and owned selector assembly, plus prospective assessment preparation
 over those retained assets. Controlled preparation is not an admitted UAT
 selection or semantic assessment.
+
+### Verified short-stream completeness and owner-bound governed lookup (RC3 Increment B)
+
+Selector planning marks a strict UTF-8 stream of at most 8192 bytes
+`complete: true` only when the carried observation declares a valid
+nonnegative safe-integer `byteLength` and a valid `sha256:<64 hex>` `digest`,
+and both equal the carried bytes. A missing, malformed or mismatched length or
+digest keeps the bounded cue display, `complete: false`, `omittedByteCount`
+and the cited `rawBody` with `omittedFromPlanningView: true`. The default
+library test embeds the authentic 4,616-byte retained RC2 stdout with SHA-256
+`bee000fc220e14f318f5b37558dc96d113ef3428ad7d9d0a0043b7aa4a9787b6` and its
+historical producer citation (Testing Result
+`result://abiogenesis/3607433aa2790c7a2e0bdd0b49f7a3b1bc54687844c3d5bcc2c9dfad931a1968`,
+command observation `worksite-command-observation://abiogenesis/10718e7b…`);
+it does not read an operator path. A1–A5 and the native A02 blocked/UAT
+indeterminate standing are unchanged.
+
+Native Construction may use a private governed lookup owned by
+`abg/governed_context.ts`. `OwnedContextLookup` is module-owned and
+nonserializable: ES private state, a module brand, and `toJSON` refusal. Only
+the native actor-process owner constructs it, from the authenticated native
+assembly basis, its held event store and the occurrence. The owner binds exact
+Run, CCall, actor, constructor role and policy/context-policy, the original
+task and rubric paths, and one admitted same-Run Testing Result with its exact
+field path, producer CCall/actor invocation and provenance. It derives a
+finite ordered key list `late/<n>` as the intersection of the role selectors
+(`current_worksite`, `admitted_execution_evidence`), Context `readRoots`, the
+declared sources and the GC03 principal grant; it never widens any of them.
+Task and rubric must lie inside the actual Context `readRoots`; the Testing
+source must have a current admitted producer and field relation.
+
+Every request and the later publication point reacquire the held prefix, the
+active occurrence, the grant and each selected source digest. Missing,
+unsupported, stale or foreign joins refuse; no partial value is returned.
+The released GC03 `HostLookupBinding.read`, reached through the pinned
+adapter, must independently permit the same page with the same bytes; a
+disagreement refuses, so GC03 can only narrow. GC03 output keeps
+`publication: not_performed` until the native owner records delivery.
+
+Only the actor-process owner derives the selection. The actor-process input
+has no lookup member, so a caller cannot supply an `OwnedContextLookup` as
+authority. For a native Construction occurrence the owner reads the admitted
+Program from the authenticated assembly publication. Without the private key
+`abg.governed_context` in `Program.policies`, selection returns
+`governed_context_not_selected`, no role evidence is projected, no endpoint is
+reserved and the unconfigured RC2 path is unchanged.
+
+With the key, `selectOwnedGovernedContext` treats its value as one Context
+member reference. It requires constructor role evidence from
+`projectRunEnvironmentRoleEvidenceAtPrefix` with both Context selectors, the
+Program's single verified RunEnvironment declaration (`runEnvironmentForProgram`)
+equal to the evidence environment, exactly one role source binding of that
+member, exactly one Context member and one backing dependency inventory row
+with the same digest, and a bound span equal to the complete member bytes
+(start 0, end = byteCount, span digest = member digest). The bytes must decode
+as the strict private policy (`parseGovernedContextPolicy`): the selected GC03
+release and installed root, GC03 policy path/digest, pinned Python path,
+digest and version, adapter path and digest, the one fixed invocation
+`[-I, -S, -B, adapter]` with an empty environment and bounded timeout, one
+principal and grant id, the permitted role, graph function and native
+implementation, and the task, rubric, worksite and Testing field sources. Any
+missing, ambiguous, foreign, partial, altered or unsupported fact returns
+`governed_context_refused`, and the actor owner refuses dispatch before intent
+admission. The policy restricts the native capability; it is not a registry,
+mode selector, grant source or Public operation.
+
+`gateGovernedContextExecution` is the owner execution gate. It re-verifies the
+pinned Python and adapter bytes at their canonical paths, then intersects the
+policy permission with the live actor role, graph function, native
+implementation, the native task capability grant's actor, occurrence
+currentness and the native task's admitted Context files. It returns a
+module-owned permit; `pinnedGc03HostReader` accepts only that permit, rechecks
+currentness and the pinned bytes before every start, and spawns exactly the
+permitted executable and argv with an empty environment. A `read_context`
+permission, dependency membership or a permit-shaped copy grants nothing. The
+no-corpus route keeps `corpusAccess: null`, empty axiom accesses and
+`pythonPath: null`; axiom-indexer operations are not relabelled.
+
+`projectGovernedContextTestingAtPrefix` (ABG default library) recovers the
+governance work state from the native leaf's execution-basis ancestry within
+the same invocation and its parent CCall, requires the native task to be that
+state's Construction work order conserving its original task, and joins the
+unique Testing observation to one successful admitted Result of the same Run
+with its CCall, digest and producer actor. The policy field must be one
+admitted stream whose decoded bytes match its `byteLength` and digest. A
+missing or ambiguous join refuses dispatch. Request-time reacquisition re-runs
+this join and the policy selection at the current held prefix.
+
+Before transport identity the owner reserves the inert endpoint and appends
+`--append-system-prompt` to the native Construction transport arguments with
+`governedContextPrompt`: the exact fixed-client command form from the endpoint
+invocation and the finite permitted keys (`late/0` task, `late/1` rubric,
+`late/2` Testing field, then sorted worksite sources) with their digests; every
+other key is denied. After intent admission the owner constructs the lookup
+for the actual occurrence and refuses if its derived keys differ from the
+prompted keys.
+
+Cold proof (`coldVerifyGovernedContext`) requires owner facts: a lookup from
+`reacquireOwnedContextLookupCold` over freshly reacquired authority (closed, so
+it cannot serve), the occurrence, and the invocation the owner reconstructs
+from admitted transport, package and source evidence. The transcript is only
+an index; its occurrence, binding and invocation must equal the owner's. Page
+versus refusal is derived from the exact response bytes
+(`governedContextDisposition`); a relabelled disposition refuses as `altered`.
+Every page passes the owner cold join and every refusal must name the same
+occurrence and request.
+
+Released GC03 bridge (B04). `deriveGc03HostLookup` is the only source of
+the selection, Context and Recheck the owner sends to `HostLookupBinding`.
+It follows the released shapes (`_host_selection`, `read_source`, `digest`),
+which are shapes only. Native owner facts supply `owner` (the private policy
+member reference and digest), `admission` (the invocation admission joined to
+its CCall and grant digest), `epoch` (the held Testing prefix digest),
+`owner_coordinates` (Run, CCall, Program, graph function, locus, admission
+and the Testing Result join), principal, grant, the GC03 policy digest and the
+ordered late-acquisition SourceRefs. Each SourceRef is GC03
+`retained-evidence` under the `evidence` alias, with the owner source key as
+`path` and its hex digest. `resolveGc03RetainedArtifact` answers GC03's exact
+`{id,sha256}` request only with bytes the owner currently holds for a selected
+id at that digest. The Testing field comes from the held prefix and worksite
+files are read under the canonical root. Any other shape, a foreign id or
+stale bytes resolve nothing. `query_artifacts` returns no history, so GC03
+refuses wherever composition needs provider-form evidence. With a supplied
+GC03 Context, the derivation forms the complete fourteen-member selection
+with `operation: context.read`. It refuses when the Context's late acquisition
+differs from the owner-derived SourceRefs, or the Recheck names another schema
+or policy. The owner never forms an abbreviated selection.
+
+Route (B05): GC03's host route consumes the raw complete assembled Context
+and Recheck. It needs no GC03 Executive and no provider preflight, and the
+`context.assemble` result is not persisted. A second private
+`Program.policies` key, `abg.governed_context.activation`, names the declared
+activation-request template as a member of the same verified RunEnvironment
+Context; the owner authenticates it exactly as it authenticates the policy
+member. `deriveGc03HostLookup` fills the template's null positions only from
+current owner facts: request, activation (actor invocation) and frame
+identities, the subject (the native CCall and the digest of its authenticated
+task, also the Worker mutation subject), an explicit empty list of a_c
+Observation ArtifactRefs and the ordered late SourceRefs. `admission` carries
+the actual `invocationAdmissionDigest` from
+`projectExactInvocationAdmissionAtPrefix`. The grant-binding hash appears only
+as the labelled `owner_coordinates.bindingProjection`. `owner_coordinates`
+carry the Run, actor occurrence, CCall, Testing Result/producer/event and the
+current prefix digest and extent. The short-lived adapter runs the released
+`execute_read(context.assemble)`, keeps the complete returned Context payload,
+derives the Recheck with the released `_recheck` from the packet, Context
+material, grant, Product owner record and the policy executor dependencies,
+requires `_host_recheck_coverage` and empty `check_preconditions`, and passes
+the raw Context and Recheck to `HostLookupBinding`. Every reacquisition
+rederives from current owner facts and must reproduce the per-request
+derivation apart from the advancing prefix coordinate. The owner then checks
+that the returned selection, Context and Recheck agree with its derivation.
+The native owner keeps actual permission and publication. The live page bound
+is the intersection of the pinned GC03 policy `limits.max_bytes` (8,192) and
+the native 65,536. The prompt renders it, and a larger `maxBytes` is refused,
+never clamped. A configured Program without an authenticated template, or
+with a template naming another policy, actor, grant or late source, refuses
+dispatch.
+
+Not implemented in this cut: an allowed GC03 read through the production
+chain, which no test yet demonstrates; the model-free integration test
+through real HoG, prepared leaf and actor process from a held store; and the
+installed-RC3 native witness, which has not run.
+
+The seam adds no Public operation, outcome, event schema, store, registry,
+service or OS confinement claim, and the selector stays zero-tool.

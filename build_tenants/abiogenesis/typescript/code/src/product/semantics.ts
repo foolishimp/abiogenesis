@@ -496,22 +496,86 @@ async function loadProductSemantics(
   return provider;
 }
 
-export function admitInstalledProductInput(
+/** Observation-only §10.11 counts of Product input `admitJson` copies and
+ * reuses of an admitted input by identity; no barrel exports them. */
+const productInputWork = { inputCopies: 0, inputReuses: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeProductInputWork(): Readonly<typeof productInputWork> {
+  return Object.freeze({ ...productInputWork });
+}
+
+// §10.11 X2: the detached, deep-frozen values this owner's I-JSON admission
+// produced. Identity carries the admission; any other value is admitted again.
+const admittedProductInputs = new WeakSet<object>();
+
+function detachedProductInput(value: unknown): Readonly<{ value: JsonValue }> | null {
+  if (typeof value === "object" && value !== null && admittedProductInputs.has(value)) {
+    productInputWork.inputReuses++;
+    return { value: value as JsonValue };
+  }
+  const admitted = admitJson(value);
+  if (admitted.kind !== "ok") return null;
+  productInputWork.inputCopies++;
+  // `admitJson` returns fresh unfrozen containers, so this freezes all of them.
+  const detached = deepFreeze(admitted.value);
+  if (typeof detached === "object" && detached !== null) admittedProductInputs.add(detached);
+  return { value: detached as JsonValue };
+}
+
+/**
+ * @internal §10.11 X2 constructor handoff. `constructInstalledStartCall` is
+ * the only caller. It passes the payload population placed in its request
+ * (`admitted`) and the payload at the same path of the canonical invocation
+ * that `establishExactDefinitionCall` admitted, recorded and deep-froze for
+ * that call (`canonical`). That admission rebuilt `admitted` into `canonical`
+ * and checked the request against its digest, so this owner records the
+ * exact output as its own: no `admitJson`, walk or content comparison here.
+ * Preconditions: `admitted` is recorded by this owner and `canonical` is a
+ * distinct frozen object. A failed precondition records nothing, and the
+ * consumer then admits the payload as any other value.
+ */
+export function establishCanonicalProductInput(admitted: JsonValue, canonical: JsonValue): boolean {
+  if (
+    typeof admitted !== "object" || admitted === null || !admittedProductInputs.has(admitted) ||
+    typeof canonical !== "object" || canonical === null || canonical === admitted ||
+    !Object.isFrozen(canonical)
+  ) return false;
+  admittedProductInputs.add(canonical);
+  return true;
+}
+
+/**
+ * @internal §10.11 X2. The detached admitted input and the Product guard's
+ * result for it; `null` when the raw value is not I-JSON.
+ */
+export function admitInstalledProductInputValue(
   semantics: ProductSemanticsProvider,
   contractRef: string,
   value: unknown,
-): Readonly<Record<string, JsonValue>> | null {
+): Readonly<{ value: JsonValue; admitted: Readonly<Record<string, JsonValue>> | null }> | null {
   if (!loadedProductSemantics.has(semantics)) {
     throw new TypeError(
       "Product input admission requires the exact loaded Product semantics provider",
     );
   }
+  const detached = detachedProductInput(value);
+  return detached === null ? null : Object.freeze({
+    value: detached.value,
+    admitted: semantics.admitInput(contractRef, detached.value),
+  });
+}
+
+export function admitInstalledProductInput(
+  semantics: ProductSemanticsProvider,
+  contractRef: string,
+  value: unknown,
+): Readonly<Record<string, JsonValue>> | null {
   // O-SCHEMA: the raw owner boundary admits the value to I-JSON before the
   // Product's guard, which receives the detached admitted value; a refused
-  // value takes the method's refusal, null.
-  const admitted = admitJson(value);
-  if (admitted.kind !== "ok") return null;
-  return semantics.admitInput(contractRef, admitted.value);
+  // value takes the method's refusal, null. A value this owner already
+  // admitted is that detached value (§10.11 X2).
+  return admitInstalledProductInputValue(semantics, contractRef, value)?.admitted ?? null;
 }
 
 export function evaluateInstalledInteractionResponse(

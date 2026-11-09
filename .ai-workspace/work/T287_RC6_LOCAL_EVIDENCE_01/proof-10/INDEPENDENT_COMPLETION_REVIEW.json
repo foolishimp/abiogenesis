@@ -1,0 +1,318 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5; fixed fifteen families",
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "frameUri": "repo://abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "method": "Previously verified immutable STDO3.0.4; empty composition",
+    "methodManifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "authority": [
+      {
+        "path": "ROOT_TARGETED_REFACTOR_09.md",
+        "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+      },
+      {
+        "path": "ROOT_PROOF_ONLY_DISPOSITION_10.md",
+        "sha256": "61f7c62838c3dabfdf9ed6d0a747d253dcdb78015e8c0a44d97b57a71a82af45"
+      }
+    ],
+    "selectedScope": "Complete only the omitted-baseline whole-path evidence gap for the accepted targeted IR01/IR02 native09 source. No functionality or source change; accepted source conformance and old lanes remain closed."
+  },
+  "kind": "independent_targeted_completion_evidence_review",
+  "recordedUtc": "2026-11-04T15:11:30.574Z",
+  "result": {
+    "status": "SATISFIED_FOR_SELECTED_WHOLE_PATH_GAP",
+    "findings": [],
+    "severityScale": "1 highest to 5 lowest; no finding assigned",
+    "triage": "not_applicable_no_material_finding",
+    "conclusion": "The actual12/0/0 observed-C2 evidence closes N9-EVIDENCE-01's omitted-baseline whole-path gap for the exact accepted source. It does not erase actual09 failures, resolve the preserved D2 fixture suffix, or establish UAT/fresh-close/final Root conjunction."
+  },
+  "subject": {
+    "relativePath": "completion-review-001/SUBJECT.json",
+    "bytes": 8180,
+    "sha256": "6fc762bee30c073807d7d7d9b726b6ec80e87a6750b86a94735e0ccb96c9cc52",
+    "exactPins": 25,
+    "allPinsVerified": true
+  },
+  "acceptedSourceReused": {
+    "subjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+    "independentSourceReviewSha256": "f37b4572adc78ba8a8543cd3b846c789be163f07a6788d168faf449027d07e36",
+    "RootDispositionSha256": "7b0abbf652915973c95682da42327baf2a477cb895372fad933e07df31476311",
+    "sourceReopened": false
+  },
+  "actualProducer": {
+    "ResultRef": "result://abiogenesis/5074a8ccb9b633f4dc138949082d54fcdce82ba543e17d5f1fc50cdcf640b616",
+    "admissionOrdinal": 63690,
+    "eventTime": "2026-11-04T15:03:59.473Z",
+    "runId": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+    "cCallRef": "c-call:sha256:d9c8ee5b4a54dfd55bfca00c631f518e2b31dfba1750dcbd0b2dffd4401ae5c0",
+    "physicalRow": {
+      "relativePath": "actual-c2-001/ADMITTED_C2_RESULT_PHYSICAL.json",
+      "bytes": 6539253,
+      "sha256": "c12c262f7847940cbaff6deb5f2fa47d59866d11db6e81c619b56d9133af21bd"
+    },
+    "taskRef": "worksite-command-execution-task://abiogenesis/9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a",
+    "taskDigest": "sha256:9bce7daaaf49b6ee1634de121584ae6b6bc72474856472aa3d54ff93adf1b54a",
+    "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/99cc82f5c159c83a76cc9d6a6bf2ab43277d02af03091ddffc547dc40cfaf033",
+    "helperArtifactDigest": "sha256:99cc82f5c159c83a76cc9d6a6bf2ab43277d02af03091ddffc547dc40cfaf033",
+    "observationRef": "worksite-command-execution-observation://abiogenesis/783d3aadfb3e68f36a4c68c728473f69ca067a004b9700398b03a95aac3ebb1b",
+    "observationDigest": "sha256:783d3aadfb3e68f36a4c68c728473f69ca067a004b9700398b03a95aac3ebb1b",
+    "correspondence": "Actual actor and helper coordinates, physical Result row and helper copy agree on Run, CCall, transport binding and tool-use identity. Canonical helper/observation/value digests and every command/predicate/product/worksite delta/snapshot vector agree. Exact producer task, launch, helper result, returned report/proof and measured-baseline files were independently rehashed via their declared coordinates.",
+    "ownerBasis": "Existing installed product/worksite_command_execution.js:1352-1375,1410-1416,1524-1544,1612-1631,1775-1776; immutable owner SHA256 89dbe9ba7eddef35b195746272d6af544133aab3eccde924401621972b5d7f3c. Owner admission is reused; no new runtime/schema admission was executed."
+  },
+  "actualC2": {
+    "summary": {
+      "relativePath": "ACTUAL_C2_SUMMARY.json",
+      "bytes": 7160,
+      "sha256": "b1bf6690ece5551e93c10ad3007b7114fb65f10c9d725b5d2fbb82fa01a51e16"
+    },
+    "closedResult": {
+      "relativePath": "NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2206,
+      "sha256": "7448146e09be6e80db9684c2e0ed23b57f3407a4392f9364ff4008d417c4b0a6"
+    },
+    "commands": {
+      "count": 7,
+      "exitStatuses": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "timedOut": false,
+      "terminationConfirmed": true
+    },
+    "sourceCorrespondence": {
+      "count": 160,
+      "allEqual": true,
+      "reference": "Accepted157 source files plus3 original09 handoffs, not a new source acceptance",
+      "record": {
+        "relativePath": "actual-c2-001/SOURCE_CORRESPONDENCE.json",
+        "bytes": 81744,
+        "sha256": "d2eb450420230a2c0f3cae69c45f2f959da6305f38fab366f6df16777f84d8f9"
+      }
+    },
+    "protectedInputCount": 986,
+    "protectedBeforeEqualsAfter": true,
+    "productDelta": [],
+    "lane": {
+      "id": "single-address-space-whole-path",
+      "pass": 12,
+      "fail": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "unmet": [],
+      "wallMs": 497369.56016700005
+    },
+    "rawReport": {
+      "relativePath": "actual-c2-001/single-address-space-c2.json",
+      "bytes": 2934,
+      "sha256": "a4ef4d6b6ff9b0802feaa727337426dab683be2fbaeadbfe5b1c802c988c8a1c"
+    },
+    "stdout": {
+      "relativePath": "actual-c2-001/single-address-space-whole-path.stdout.log",
+      "bytes": 78241,
+      "sha256": "0fa8977f18b50611b120ca5b1b8458ca6e346703d82af1267758f8c044c66a6a"
+    },
+    "proof": {
+      "relativePath": "actual-c2-001/single-address-space-proof.json",
+      "bytes": 195681,
+      "sha256": "d9d38825be09fc49ed1cc21b71658248cf265102d877bf9bf910320ce5b4b59b"
+    }
+  },
+  "baselineClosure": {
+    "priorCause": "Actual09 selected input root omitted the dynamically required MEASURED_BASELINE.json; six cases failed ENOENT and the final proof-record assertion depended on those missing cases.",
+    "actualCorrection": "The genuine proof10 producer sandbox contains and protects the byte-identical5575B measured baseline at consolidation-inputs/proof-10/MEASURED_BASELINE.json; the proof records that exact path/hash and equal retained context. All12 original cases now complete.",
+    "baselineSha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06",
+    "retainedLog": {
+      "bytes": 586361364,
+      "sha256Before": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+      "sha256After": "532079454749d20def4aa6c02bac7bf591a369ef01cb5152462eaf07fa1cf20c",
+      "identityUnchanged": true,
+      "appends": 0,
+      "storeAcquisitions": 0
+    },
+    "findingDisposition": "Omitted-baseline whole-path gap closed by this actual execution. Historical09 failure and earlier control-review miss remain preserved."
+  },
+  "boundedWorkEvidence": {
+    "standing": "Passing actual cases10 and11 execute the already-reviewed same-input exclusive-cut and stage-authentication equivalence assertions. Counts describe these measured retained-history/component calls; no whole-workflow CPU, wall, memory or generalized speedup claim follows.",
+    "rows": [
+      {
+        "case": "historicalCut",
+        "premise": "Existing retained-history before-event exclusive-cut discriminator",
+        "ownerExtent": {
+          "count": 25016,
+          "lastOrdinal": 25016
+        },
+        "measurements": [
+          {
+            "name": "owner_before_event_cut",
+            "bodyRows": 0,
+            "bodyDecodes": 0,
+            "readBytes": 0,
+            "snapshot": 0,
+            "materialize": 0,
+            "immutabilityVisits": 0
+          },
+          {
+            "name": "replaced_full_history_filter",
+            "bodyRows": 25047,
+            "bodyDecodes": 24902,
+            "readBytes": 170460531,
+            "snapshot": 1,
+            "materialize": 0,
+            "immutabilityVisits": 4134611
+          }
+        ]
+      },
+      {
+        "case": "semanticAdapter",
+        "premise": "component lower owned assembly authentication and program/publication validity; actual stage authenticator and prefix owners",
+        "ownerExtent": {
+          "count": 25016,
+          "lastOrdinal": 25016
+        },
+        "measurements": [
+          {
+            "name": "owned_semantic_stage_authentication",
+            "bodyRows": 0,
+            "bodyDecodes": 0,
+            "readBytes": 0,
+            "snapshot": 0,
+            "materialize": 0,
+            "immutabilityVisits": 0
+          },
+          {
+            "name": "retired_materializing_adapter",
+            "bodyRows": 25079,
+            "bodyDecodes": 24979,
+            "readBytes": 506533666,
+            "snapshot": 1,
+            "materialize": 2,
+            "immutabilityVisits": 4138113
+          }
+        ]
+      }
+    ],
+    "coldAuthenticationRetained": {
+      "name": "cold_readonly_authentication",
+      "readBytes": 666189062,
+      "bodyDecodes": 25053,
+      "standing": "Real initial cold authentication remains separately measured and is excluded from the warmed owner-comparison savings; it is not zero-cost."
+    },
+    "retainedContext": {
+      "equalContext": true,
+      "ownedReadBytes": 50997937,
+      "expandedPrefixReadBytes": 425933033,
+      "standing": "The retained-context case supports the previously bounded work comparison; it does not establish universal no-expansion behavior."
+    },
+    "componentLimit": "Semantic adapter discriminator explicitly assumes lower owned assembly authentication and program/publication validity. Passing it is not a new complete D2 positive or qualification result.",
+    "proofQualified": false,
+    "proofPublished": false
+  },
+  "priorEvidenceAndT2": {
+    "rawReportField": "single-address-space-c2.json.priorActualEvidence",
+    "priorSummarySha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef",
+    "priorClosedResultSha256": "5f93c6b93c5dc966519842450455de0ab4522130bf77cb5083d0d2471cf649be",
+    "standing": "Actual09 independent executions and failure/skips retained; final Root disposition required. No prior rows count as new10 execution.",
+    "genericSummaryRetainedPriorEvidence": [],
+    "interpretation": "The generic empty retainedPriorEvidence array neither replaces nor negates the raw producer report's pinned priorActualEvidence and Root disposition. No prior row is added to the new12-case tally.",
+    "preservedActual09": {
+      "total": {
+        "pass": 77,
+        "fail": 8,
+        "skipped": 75
+      },
+      "nativeProof": null,
+      "job": {
+        "pass": 9,
+        "fail": 0,
+        "skipped": 0
+      },
+      "revision": {
+        "pass": 4,
+        "fail": 1,
+        "skipped": 2
+      },
+      "consumer": {
+        "pass": 59,
+        "fail": 0,
+        "skipped": 73
+      },
+      "wholePath": {
+        "pass": 5,
+        "fail": 7,
+        "skipped": 0
+      }
+    },
+    "T2": "Preserved available behavior/equivalence only, with the real pre-existing revision failure, its unexecuted suffix and historical skips retained. N9-RETAINED-FIXTURE-01 is not closed or relabelled passing.",
+    "N9Evidence02": "Historical floor mismatch remains an actual09 failed predicate under Root's bounded disposition; this execution does not lower floors or rerun those lanes."
+  },
+  "packageCustody": {
+    "identity": {
+      "relativePath": "actual-c2-001/CANDIDATE_PACKAGE_IDENTITY.json",
+      "bytes": 1207,
+      "sha256": "521a7abe3bd9d36f6b48933701766faf67de334fe15a62f7385d33569070c991"
+    },
+    "archive": {
+      "relativePath": "actual-c2-001/candidate-package.tgz",
+      "bytes": 10988328,
+      "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66"
+    },
+    "packOrdinal": 5,
+    "packExitStatus": 0,
+    "filename": "abiogenesis-typescript-tenant-5.0.0-rc.5.tgz",
+    "sha512Integrity": "sha512-x94GJ6eVkYMYl1NcNFVcfTqZ1C9c2PPndjSdF7+5oyEejHBGse/kegi+1rmClzVVrJNmqIQosZsk588tO8m0aQ==",
+    "sha512IndependentlyVerified": true,
+    "standing": "New actual package is retained and matches command5 filename/helper-observed identity. No installed successor, cut, publication or release claim."
+  },
+  "independentChecks": {
+    "subjectPins25": true,
+    "admittedCoordinates": true,
+    "sameRunAndCcall": true,
+    "sameTransport": true,
+    "sameToolUse": true,
+    "helperCanonicalDigest": true,
+    "observationCanonicalDigest": true,
+    "payloadValueDigest": true,
+    "observationHelperIdentity": true,
+    "commandVectorsExact": true,
+    "predicateVectorsExact": true,
+    "productDeltaExactAndEmpty": true,
+    "worksiteDeltaExact": true,
+    "sameSnapshot": true,
+    "allProducerReadsMatch": true,
+    "exactProducerTask": true,
+    "sevenCleanCommands": true,
+    "protected986": true,
+    "source160": true,
+    "sourceCommand0Rows160": true,
+    "actualBaselineProtected": true,
+    "lane12": true,
+    "rawPriorKept": true,
+    "proofExact": true,
+    "actualPackageIntegrity": true,
+    "all14CommandStreamsMatch": true,
+    "tapExact12": true
+  },
+  "limits": [
+    "Source conformance and old lane semantics are reused from the closed exact review/Root disposition, not rereviewed or newly accepted.",
+    "Evidence completion is satisfied for the selected omitted-baseline12-case gap only. Actual native UAT, genuine final close/fresh reads, final source conservation and Root conjunction remain later Root obligations and are not future gates on this evidence review.",
+    "No whole-product qualification, full D2, wider R1-R7/C1-C5, whole-workflow speedup, source install or release follows.",
+    "Reviewer independently checked custody, canonical identity and vector equality; existing actual owner validation/admission remains the runtime authority. No tests, builds, providers or runtime calls were repeated.",
+    "Same model family and prior reviewer/triage roles apply; no clean-family or enforced host-isolation claim."
+  ],
+  "invalidators": [
+    "Any changed exact source/handoff or completion subject/evidence pin",
+    "Result/task/helper/producer mismatch, missing or corrupted retained proof/report/package",
+    "Treating prior09 reds/skips or the component lower premises as broader passing functionality",
+    "A later final source conservation failure would invalidate a final Root conjunction, not retroactively fabricate a different actual C2"
+  ],
+  "permittedWrites": [
+    "proof-10/INDEPENDENT_COMPLETION_REVIEW.json",
+    "proof-10/INDEPENDENT_COMPLETION_REVIEW.md"
+  ]
+}

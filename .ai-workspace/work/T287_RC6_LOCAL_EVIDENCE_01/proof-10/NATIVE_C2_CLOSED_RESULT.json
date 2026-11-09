@@ -1,0 +1,38 @@
+{
+  "recordedUtc": "2026-11-04T15:04:41.173Z",
+  "status": "ACTUAL_ADMITTED_C2_RESULT_CAPTURED",
+  "coordinates": {
+    "kind": "c_call_result_admitted",
+    "admissionOrdinal": 63690,
+    "eventId": "event://abiogenesis/06ed8fa060dbd30263742dc7dc607c62510bbe8a4c85ebaa5a0646fbf6ca5db5",
+    "eventTime": "2026-11-04T15:03:59.473Z",
+    "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+    "runId": "run://abiogenesis/5c4bc7882ac58cb455efc4ec16451884b278c7e4052da91c208ba27096fd5806",
+    "offset": 879373057,
+    "rowBytes": 6539253,
+    "rowSha256": "c12c262f7847940cbaff6deb5f2fa47d59866d11db6e81c619b56d9133af21bd",
+    "resultRef": "result://abiogenesis/5074a8ccb9b633f4dc138949082d54fcdce82ba543e17d5f1fc50cdcf640b616",
+    "resultDigest": "sha256:5074a8ccb9b633f4dc138949082d54fcdce82ba543e17d5f1fc50cdcf640b616",
+    "valueKind": "worksite_command_execution_observation"
+  },
+  "observationRef": "worksite-command-execution-observation://abiogenesis/783d3aadfb3e68f36a4c68c728473f69ca067a004b9700398b03a95aac3ebb1b",
+  "observationDigest": "sha256:783d3aadfb3e68f36a4c68c728473f69ca067a004b9700398b03a95aac3ebb1b",
+  "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/99cc82f5c159c83a76cc9d6a6bf2ab43277d02af03091ddffc547dc40cfaf033",
+  "exactHelperComparisons": {
+    "commandResults": true,
+    "predicateObservations": true,
+    "productDelta": true,
+    "worksiteDelta": true
+  },
+  "actualSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ACTUAL_C2_SUMMARY.json",
+    "bytes": 7160,
+    "sha256": "b1bf6690ece5551e93c10ad3007b7114fb65f10c9d725b5d2fbb82fa01a51e16"
+  },
+  "actualSourceCorrespondence": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+    "bytes": 81744,
+    "sha256": "d2eb450420230a2c0f3cae69c45f2f959da6305f38fab366f6df16777f84d8f9"
+  },
+  "standing": "Actual admitted result conjoined with actual helper and source correspondence; failures and skips remain, no Root acceptance inferred."
+}

@@ -103,11 +103,22 @@ for (const memberKey of ['run_status', 'run_result', 'run_replay', 'run_gaps', '
     const packet = ABG_PROJECT_READ_CONTRACTS[memberKey];
     const grants = packet.metadata.capabilityRefs.map(ref => ({ grantRef: `fixture://read-grant/${ref}`, grantDigest: hash(ref) }));
     const contractCatalog = coordinate('fixture://current-reader-catalog'), flatRow = { fixture: 'current-reader-row' };
-    let sourceLookups = 0, closes = 0;
+    let sourceLookups = 0, completions = 0, abandonments = 0;
+    // Lower-owner premise: the supplied resource is a reopened one, and its
+    // completion at the unchanged entry prefix returns the reopened receipt.
+    // This observes the kernel's completion seam; it is not physical close.
+    const resource = { entryPrefix: prefix };
     const owner = await privateOwner('abg/project_read_definition_bindings.js', ['runReadKernel'], {
       './definition_event_resource.js': {
-        acquireAbgEventResource: () => ({ kind: 'acquired_abg_event_resource', resource: { entryPrefix: prefix } }),
-        closeAbgEventResource: () => { closes += 1; return { acquisitionKind: 'reopen' }; },
+        acquireAbgEventResource: () => ({ kind: 'acquired_abg_event_resource', resource }),
+        completeAbgEventResource: (completed, finalPrefix) => {
+          assert.equal(completed, resource, 'the supplied acquired resource completes');
+          assert.equal(finalPrefix, completed.entryPrefix, 'a read completes at its unchanged entry prefix');
+          assert.equal(finalPrefix, prefix);
+          completions += 1; return { acquisitionKind: 'reopen' };
+        },
+        // The kernel still rethrows its original cause; any abandonment fails the case.
+        abandonAbgEventResource: abandoned => { assert.equal(abandoned, resource); abandonments += 1; },
       },
       './environment_admission.js': { projectExactPrefixWorkspaceEnvironment: () => environment },
       '../product/invocation.js': {
@@ -133,7 +144,8 @@ for (const memberKey of ['run_status', 'run_result', 'run_replay', 'run_gaps', '
       assert.deepEqual(refused.ownerOutput.value.issuePaths, ['/invocationAuthority'], name);
     }
     assert.equal(sourceLookups, 1, 'refused coordinates never reach the source owner');
-    assert.equal(closes, 6, 'every supplied read resource is closed');
+    assert.equal(completions, 6, 'each of the six reads completes its supplied reopened resource once');
+    assert.equal(abandonments, 0, 'no supplied read resource is abandoned');
   });
 }
 

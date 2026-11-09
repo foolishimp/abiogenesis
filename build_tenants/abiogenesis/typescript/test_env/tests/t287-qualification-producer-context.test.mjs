@@ -27,7 +27,10 @@ test('same candidate in distinct original install/workspace/resource authenticat
  assert.deepEqual(value.origin.prefix,f.source.proof().prefix);assert.deepEqual(value.origin.input,f.source.input);assert.deepEqual(value.result.value,f.result.value);assert.equal(value.judgment.judgment,'advance');
  const reads=f.source.counts.sourceRead-before.sourceRead,environments=f.source.counts.environment-before.environment;
  assert.deepEqual(f.resolve(),actual);assert.equal(f.source.acquisitions.filter(p=>p.prefixDigest===f.proof.executionSources[0].prefix.prefixDigest).length,1,'selected original source frontier authenticated once; original assessment preparation frontier remains separately owned');
- assert(environments<=1);assert.equal(actual.verification,null,'general execution is not QUAL056 root C2');
+ // One workspace projection per owner-decided cut: the selected source frontier
+ // and the producer's predecessor cut. A repeated resolution projects none.
+ assert(environments<=2);assert.equal(f.source.counts.environment-before.environment,environments,'each decided cut is reused');
+ assert.equal(actual.verification,null,'general execution is not QUAL056 root C2');
  t.diagnostic(JSON.stringify({sourceAcquisitions:reads,workspaceProjections:environments,materialBytes:actual.evidence[0].byteCount,scope:'explicit lower admission premises; actual owner relation'}));
 });
 test('candidate law source and genuine runtime coordinates cannot be crossed or replaced by a read wrapper',async()=>{

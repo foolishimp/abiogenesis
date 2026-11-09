@@ -4,20 +4,22 @@ import { isFramedSynthesisTask, isFramedSynthesisResult, type FramedSynthesisTas
 import { isDeepStrictEqual as same } from "node:util";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
-import { authenticateOwnedNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, rehydrateExecutionBasisAtPrefix, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { reuseWorksiteContextBodiesAtPrefix, worksiteContextBodyReaderAtPrefix, type RuntimeEventPrefix } from "./event_prefix.js";
+import { sha256Bytes } from "../shared/digests.js";
 import { projectExactInvocationAdmissionAtPrefix, projectExactExecutionBasisAtPrefix, hasAdmittedGovernanceSourceUse,
-  hasAdmittedGovernanceCoveredSourceUse } from "./invocation_execution_truth.js";
+  hasAdmittedGovernanceCoveredSourceUse, governanceContextBodyUse } from "./invocation_execution_truth.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
 import { invocationRootAtPrefix } from "./semantic_job.js";
-import { worksiteCommandSourcesInvalidatedAfter, projectNativeWorkspaceWorkSourceAtPrefix } from "./native_worksite_execution.js";
+import { worksiteCommandSourcesInvalidatedAfter, projectNativeWorkspaceWorkSourceAtPrefix, projectNativeWorkspaceWorkResultTaskAtPrefix } from "./native_worksite_execution.js";
 import { isGovernanceWorkState, governanceTestingConfiguration, governanceAssessmentContract, governanceVerdict, GOVERNANCE_POLICIES,
   GOVERNANCE_IMPLEMENTATION_REFS, governanceRef as ref, governanceContract as contract, type GovernanceWorkState, type GovernancePurpose } from "../product/default_library.js";
 import { isRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
-import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation } from "../product/native_workspace_work.js";
+import { constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask, isNativeWorkspaceWorkObservation, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import { constructObservedWorksiteCommandExecutionTask, constructNativeWorksiteCommandExecutionTask, worksiteCommandConfigurationMatches, boundWorksiteCommandDeclarations,
   isObservedWorksiteCommandExecutionTask, isNativeWorksiteCommandExecutionTask, isObservedWorksiteCommandExecutionObservation,
   isNativeWorksiteCommandExecutionObservation, type ObservedWorksiteCommandExecutionTaskInput, type WorksiteObservedStream } from "../product/worksite_command_execution.js";
-import { constructWorksiteSubject, isWorksiteContextObservation, type WorksiteContextObservation } from "../product/worksite_effect.js";
+import { constructWorksiteSubject, isWorksiteContextObservation, sameWorksiteContextIdentity, type WorksiteContextObservation } from "../product/worksite_effect.js";
 import { observeWorksiteContext, observeWorksiteSubject } from "../product/worksite_operations.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import type { RuntimeEvent } from "./event_store.js";
@@ -26,7 +28,8 @@ import type { NativeWorksiteCommandExecutionTask, WorksiteCommandAmbientEnvironm
 import { governanceFulfillmentSelection, initialGovernanceFulfillment, governanceFulfillmentSourceMatches, deriveGovernanceObligations,
   bindGovernanceFulfillmentAssessment, projectGovernanceFulfillment, invalidateGovernanceFulfillment, governanceFulfillmentActive,
   type GovernanceFulfillmentEvidence } from "../product/default_library_fulfillment.js";
-import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts } from "../product/default_library.js";
+import { framedSynthesisEvidenceRefs, governanceSubjectEvidenceRefs, projectGovernanceObservationFacts, governanceDirectFixedState as directFixedState,
+  GOVERNANCE_DIRECT_PURPOSES as DIRECT_PURPOSES, GOVERNANCE_DIRECT_WRAPPERS as DIRECT_WRAPPERS } from "../product/default_library.js";
 import { onlyExactMatch, type ExactMatch } from "../shared/select/index.js";
 /** Owner boundary: `absent` and `many` map to `null`. */
 const exactOrNull = <T>(match: ExactMatch<T>): T | null => match.kind === "one" ? match.value : null;
@@ -57,7 +60,13 @@ function owner(basis: NativeInstructionAssemblyBasis, input: unknown, refusal?: 
     !retained && !same(initial.fulfillment, initialGovernanceFulfillment(initial.original.fulfillment))) return testingRefused(refusal, "testing_owner", "fulfillment_selection");
   const state = isRetainedGraphInput(input) ? input.entry : isFramedSynthesisTask(input) || isFramedSynthesisResult(input) ? input.state : input;
   if (isGovernanceWorkState(state) && !same(state.original, initial.original)) return testingRefused(refusal, "testing_owner", "original_task");
-  return { ...owned, environment: owned.environment, invocation, grant: invocation.capabilityGrants[0]! };
+  // RC7 fixed route: the invoked Testing or UAT wrapper is itself the invocation
+  // root over a selector-free state. A selected state keeps the relation above.
+  // The Product library owns the finite direct relation shared with admission.
+  const direct = root !== null && root.basisRef === owned.execution.basisRef && owned.execution.parentExecutionBasisRef === null &&
+    initial.synthesis === null ? DIRECT_PURPOSES.find(p => owned.execution.graphFunctionRef === DIRECT_WRAPPERS[p]) ?? null : null;
+  if (direct !== null && !directFixedState(initial, direct, invocation.sourceResultBasis)) return testingRefused(refusal, "testing_owner", "direct_fixed_route", { invocationAdmissionRef: invocation.invocationAdmissionRef, retainedInput: retained });
+  return { ...owned, environment: owned.environment, invocation, grant: invocation.capabilityGrants[0]!, direct };
 }
 type Owner = NonNullable<ReturnType<typeof owner>>;
 function operating(o: Owner) { return { workspaceAuthorityBasis: o.environment.workspaceAuthorityBasis, workspaceBinding: o.environment.workspaceBinding,
@@ -89,8 +98,12 @@ type GovernanceWorksiteObservation = Readonly<{
  */
 async function observeGovernanceWorksite(o: Owner, state: GovernanceWorkState, observedPaths: readonly string[],
   refusal?: GovernanceTestingRefusal): Promise<GovernanceWorksiteObservation | null> {
-  const context = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
-  if (!isWorksiteContextObservation(context)) return testingRefused(refusal, "testing_context", "context_observation");
+  const observed = await observeWorksiteContext({ ...operating(o), protectedInstallRoots: o.environment.productInstalls.map(i => i.installedRoot), readRoots: state.original.readRoots, maxFiles: state.original.maxContextFiles, maxBytes: state.original.maxContextBytes });
+  if (!isWorksiteContextObservation(observed)) return testingRefused(refusal, "testing_context", "context_observation");
+  // Current W is reobserved above; unchanged bodies already held by this Run's
+  // admitted Results, or declared by its admitted retained source's native
+  // task context, are carried by member reference, changed bytes inline.
+  const context = reuseWorksiteContextBodiesAtPrefix(o.prefix, observed, governanceContextBodyUse(o.invocation, o.call.runId));
   if (!contextMatches(o, state, context)) return testingRefused(refusal, "testing_context", "authority_binding_sources", { contextRef: context.observationRef, workspaceBindingRef: o.execution.workspaceBindingId });
   const current = operating(o), observedFiles: ObservedWorksiteCommandExecutionTaskInput["observedFiles"][number][] = [];
   for (const relativePath of observedPaths) {
@@ -115,10 +128,14 @@ function sourceResult(o: Owner, input: unknown) {
   return retained !== undefined && retained.entryBasis.basisRef === o.execution.basisRef &&
     retained.input.admissionRef === o.inputRef && same(retained.input.value, input) ? retained.sourceResult : null;
 }
+/** One consumer's selected-body reader for an admitted context at this owner's prefix. */
+function bodies(o: Owner, context: WorksiteContextObservation) {
+  return worksiteContextBodyReaderAtPrefix(o.prefix, context, governanceContextBodyUse(o.invocation, o.call.runId));
+}
 /** Selection task construction over the admitted context; reads no worksite. */
-function selectionTask(state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
+function selectionTask(o: Owner, state: GovernanceWorkState, context: WorksiteContextObservation): FramedSynthesisTask | null {
   if (state.original.fulfillment !== undefined && state.synthesis === null &&
-    !governanceFulfillmentSourceMatches(state.original.fulfillment, context)) return null;
+    !governanceFulfillmentSourceMatches(state.original.fulfillment, context, bodies(o, context))) return null;
   if (state.terminal) throw new TypeError("completed parent cannot select work");
   return { kind: "framed_synthesis_task", schemaVersion: "5.0.0", state, context };
 }
@@ -144,7 +161,7 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
     const task = record(inputEvent?.payload) && isFramedSynthesisTask(inputEvent.payload.value) ? inputEvent.payload.value : null;
     if (task === null || j.requirementProposals === undefined || !same(task.state, input.state)) return null;
     const fulfillment = deriveGovernanceObligations(input.state.original.fulfillment, input.state.fulfillment!, j.requirementProposals,
-      input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task));
+      input.state.original.taskRef, o.inputRef, task.context, framedSynthesisEvidenceRefs(task), bodies(o, task.context));
     if (fulfillment === null) return null;
     projected = { ...input.state, fulfillment, unresolvedSupportRefs: fulfillment.coverage.filter(r => r.disposition !== "eligible").map(r => r.obligationRef) };
   }
@@ -163,10 +180,13 @@ export function projectGovernanceChoice(basis: NativeInstructionAssemblyBasis, i
 export async function projectGovernanceSelection(basis: NativeInstructionAssemblyBasis, input: unknown) {
   const o = owner(basis, input); if (o === null || !isGovernanceWorkState(input)) return null;
   const observation = await observeGovernanceWorksite(o, input, []);
-  return observation === null ? null : selectionTask(input, observation.context);
+  return observation === null ? null : selectionTask(o, input, observation.context);
 }
 function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: GovernancePurpose, refusal?: GovernanceTestingRefusal) {
-  const ref = state.synthesis?.judgment.subjectEvidenceRef;
+  // Selector-free direct UAT: the owner admitted exactly one Testing row as its
+  // declared single producer. Every Result/source/actor check below still applies.
+  const direct = o.direct === "uat" && purpose === "uat" && state.synthesis === null;
+  const ref = direct ? state.observations[0]?.resultRef : state.synthesis?.judgment.subjectEvidenceRef;
   if (ref === null || ref === undefined || !governanceSubjectEvidenceRefs(state, purpose).includes(ref)) return testingRefused(refusal, "testing_subject", "selected_evidence_ref", { resultRef: ref ?? null });
   const selected = state.observations.filter(r => r.resultRef === ref);
   if (selected.length !== 1) return testingRefused(refusal, "testing_subject", "observation_population", { resultRef: ref });
@@ -180,9 +200,19 @@ function subjectEvidence(o: Owner, state: GovernanceWorkState, purpose: Governan
   if ((sourceBasis.workspaceBindingId !== o.execution.workspaceBindingId || sourceBasis.workspaceBindingDigest !== o.execution.workspaceBindingDigest) &&
       (!retainedUse || !hasAdmittedGovernanceCoveredSourceUse(o.prefix, o.invocation, sourceBasis))) return testingRefused(refusal, "testing_subject", "covered_current_use", { sourceBasisRef: sourceBasis.basisRef, workspaceBindingRef: o.execution.workspaceBindingId });
   const value = event.payload.value;
-  if (!(isNativeWorkspaceWorkObservation(value) && value.task.assessment === undefined) &&
+  if (!(isNativeWorkspaceWorkObservation(value) && value.assessment === undefined) &&
     !isObservedWorksiteCommandExecutionObservation(value) && !isNativeWorksiteCommandExecutionObservation(value)) return testingRefused(refusal, "testing_subject", "work_observation", { resultRef: ref });
   if (value.provenance.actorInvocationRef !== selected[0]!.actorInvocationRef) return testingRefused(refusal, "testing_subject", "producer_actor", { resultRef: ref });
+  if (direct) {
+    // Its one actual C2 child: the source Run and invocation, under that
+    // invocation's root Testing wrapper basis.
+    const source = o.invocation.sourceResultBasis;
+    const parent = sourceBasis.parentExecutionBasisRef === null ? null : projectExactExecutionBasisAtPrefix(o.prefix, sourceBasis.parentExecutionBasisRef);
+    if (source === null || (!isObservedWorksiteCommandExecutionObservation(value) && !isNativeWorksiteCommandExecutionObservation(value)) ||
+      event.runId !== source.sourceRunId || sourceBasis.invocationAdmissionRef !== source.sourceInvocationAdmissionRef || parent === null ||
+      parent.parentExecutionBasisRef !== null || parent.graphFunctionRef !== DIRECT_WRAPPERS.testing ||
+      parent.invocationAdmissionRef !== source.sourceInvocationAdmissionRef) return testingRefused(refusal, "testing_subject", "direct_testing_child", { resultRef: ref });
+  }
   return { event, value };
 }
 /** A `uat` producer stream whole: UTF-8 text when its admitted bytes decode as
@@ -198,19 +228,22 @@ function nativeTask(o: Owner, state: GovernanceWorkState, purpose: GovernancePur
   const instructions = [GOVERNANCE_POLICIES[purpose], ...order.instructions,
     `Conserved original task: ${state.original.task}`, `Unresolved parent outcomes: ${JSON.stringify(state.unresolvedSupportRefs)}`,
     `Actual admitted observations: ${JSON.stringify(projectGovernanceObservationFacts(state, context))}`,
-    "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. Complete raw stream and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
+    "This parent-context view retains admitted causal coordinates, command/report/predicate facts and bounded literal diagnostics. A strict UTF-8 stream of at most 8192 bytes appears whole as one exact excerpt marked complete; longer or non-UTF-8 stream bodies and predicate bodies remain in the cited admitted Result; field paths are relative to its value and confer no additional access. Excerpts are exact byte-range diagnostics, not interpreted verdicts. Reacquire all mandatory selected source and assessment material through the declared reads."];
   const synthesis = state.synthesis, judgment = synthesis?.judgment;
   const selectedContribution = judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)
     ? judgment.contributions.find(c => c.graphFunctionRef === judgment.nextGraphFunctionRef) : undefined;
-  const outcome = selectedContribution?.contribution ?? order.outcome;
-  if (synthesis !== null && judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)) instructions.push(
-    purpose === "uat" ? `Governing full-original assessment outcome: ${order.outcome}` : `Supplied purpose outcome (parent context): ${order.outcome}`,
-    `Current admitted selection for this work unit: ${JSON.stringify({ resultRef: synthesis.resultRef, resultDigest: synthesis.resultDigest,
+  // UAT keeps its original declared outcome; a selected UAT contribution is
+  // advisory planner context and cannot add, narrow or replace its criteria.
+  const outcome = purpose === "uat" ? order.outcome : selectedContribution?.contribution ?? order.outcome;
+  const advisory = synthesis !== null && judgment !== undefined && judgment.nextGraphFunctionRef === ref("graph-function", purpose)
+    ? `${purpose === "uat" ? "Advisory planner selection (non-governing context; it cannot add, narrow, replace or reword any original outcome, criterion, rubric or subject)" : "Current admitted selection for this work unit"}: ${JSON.stringify({ resultRef: synthesis.resultRef, resultDigest: synthesis.resultDigest,
       interpretation: judgment.interpretation, contributions: judgment.contributions.filter(c => c.graphFunctionRef === judgment.nextGraphFunctionRef),
-      nextReason: judgment.nextReason, nextEvidenceRefs: judgment.nextEvidenceRefs })}`,
-    purpose === "uat"
-      ? "The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment, including unmet and unresolved outcomes. Assess the exact declared subject against all of them. Return one consumer assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. A judgment about only the selected contribution cannot establish full-original satisfaction."
-      : "This native task's outcome is the selected bounded contribution. The supplied purpose outcome, conserved original task and unresolved outcomes are parent context. Work within the supplied order and write roots; return a truthful partial report with remaining gaps for parent reassessment when this work unit does not complete the parent obligations.");
+      nextReason: judgment.nextReason, nextEvidenceRefs: judgment.nextEvidenceRefs })}` : null;
+  // The full-original UAT instructions govern with or without advisory synthesis.
+  if (purpose === "uat") instructions.push(`Governing full-original assessment outcome: ${order.outcome}`, ...(advisory === null ? [] : [advisory]),
+    "The full original outcome, complete original sources, exact consumer rubric and all current criteria govern this independent assessment, including unmet and unresolved outcomes. Assess the exact declared subject against all of them. Return one consumer assessment object matching the exact declared JSON schema, preserving every unmet or indeterminate criterion. A judgment about only the selected contribution cannot establish full-original satisfaction. The advisory planner selection adds no governing criterion: a condition that appears only there is not an assessment criterion.");
+  else if (advisory !== null) instructions.push(`Supplied purpose outcome (parent context): ${order.outcome}`, advisory,
+    "This native task's outcome is the selected bounded contribution. The supplied purpose outcome, conserved original task and unresolved outcomes are parent context. Work within the supplied order and write roots; return a truthful partial report with remaining gaps for parent reassessment when this work unit does not complete the parent obligations.");
   if (state.original.fulfillment !== undefined) instructions.push(`Active source-grounded paired obligations: ${JSON.stringify(governanceFulfillmentActive(state.original.fulfillment, state.fulfillment!))}`);
   if (purpose !== "uat") return constructNativeWorkspaceWorkTask({ ...operating(o), context, ...order, outcome, instructions });
   const p = subjectEvidence(o, state, purpose), selection = governanceAssessmentContract(state);
@@ -292,8 +325,8 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
   if (selectedSource === null || selectedSource === undefined)
     return constructObservedWorksiteCommandExecutionTask({ ...current, observedFiles: observation.observedFiles, ...governanceTestingConfiguration(input) }, ambient ?? null);
   const p = subjectEvidence(o, input, "testing", refusal);
-  if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.task.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
-  if (!same(p.value.after, context)) {
+  if (p === null || !isNativeWorkspaceWorkObservation(p.value) || p.value.assessment !== undefined) return testingRefused(refusal, "testing_subject", "native_work_required", { resultRef: selectedSource });
+  if (!sameWorksiteContextIdentity(p.value.after, context)) {
     if (reacquire === undefined) return testingRefused(refusal, "testing_reacquisition", "callback_absent", { resultRef: selectedSource, contextRef: context.observationRef });
     const task = refusal === undefined ? reacquire(context) : reacquire(context, refusal);
     return task ?? testingRefused(refusal, "testing_reacquisition", "callback_entered_refused", { resultRef: selectedSource, contextRef: context.observationRef });
@@ -304,11 +337,14 @@ function testingTask(o: Owner, input: GovernanceWorkState, observation: Governan
 }
 export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, input: unknown): GovernanceWorkState | null {
   const o = owner(basis, input), purpose = basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose;
-  if (o === null || !isRetainedGraphInput(input) || !isGovernanceWorkState(input.entry) || !Object.hasOwn(GOVERNANCE_POLICIES, purpose) ||
-    input.entry.synthesis === null || input.entry.synthesis.judgment.nextGraphFunctionRef !== basis.graphFunction.name) return null;
+  if (o === null || !isRetainedGraphInput(input) || !isGovernanceWorkState(input.entry) || !Object.hasOwn(GOVERNANCE_POLICIES, purpose)) return null;
+  // A selected child keeps its synthesis target guard; a selector-free fold is
+  // only the owner-authenticated fixed direct route of this exact wrapper.
+  const synthesis = input.entry.synthesis;
+  if (synthesis === null ? o.direct !== purpose : synthesis.judgment.nextGraphFunctionRef !== basis.graphFunction.name) return null;
   const event = sourceResult(o, input); if (event === null || !record(event.payload) || typeof event.payload.resultRef !== "string" || typeof event.payload.resultDigest !== "string") return null;
   const source = input.source;
-  let value: Readonly<Record<string, JsonValue>>, actorInvocationRef: string | null;
+  let value: Readonly<Record<string, JsonValue>>, actorInvocationRef: string | null, sourceTask: NativeWorkspaceWorkTask | null = null;
   if (purpose === "testing") {
     if (!isObservedWorksiteCommandExecutionObservation(source) && !isNativeWorksiteCommandExecutionObservation(source)) return null;
     const stream = (row: typeof source.commandResults[number]["stdout"]) => {
@@ -318,13 +354,17 @@ export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, inp
     };
     value = { commandResults: source.commandResults.map(r => ({ ...r, stdout: stream(r.stdout), stderr: stream(r.stderr) })), predicateObservations: source.predicateObservations }; actorInvocationRef = source.provenance.actorInvocationRef;
   } else {
-    if (!isNativeWorkspaceWorkObservation(source) || !same(source.task, nativeTask(o, input.entry, purpose, source.before))) return null;
+    // The source's task is its admitted basis input, resolved through its Result's own basis.
+    if (!isNativeWorkspaceWorkObservation(source)) return null;
+    const task = projectNativeWorkspaceWorkResultTaskAtPrefix(o.prefix, event);
+    if (task === null || !same(task, nativeTask(o, input.entry, purpose, task.context))) return null;
+    sourceTask = task;
     const candidate: JsonValue = purpose === "uat" ? source.assessment ?? null : { report: source.report, changedPaths: source.changedPaths };
     if (!record(candidate)) return null; value = candidate; actorInvocationRef = source.provenance.actorInvocationRef;
   }
   const observation = { purpose, resultRef: event.payload.resultRef,
     resultDigest: event.payload.resultDigest as `sha256:${string}`, cCallRef: event.aggregateId, actorInvocationRef,
-    synthesisResultRef: input.entry.synthesis.resultRef, selectedGraphFunctionRef: basis.graphFunction.name, value };
+    synthesisResultRef: synthesis?.resultRef ?? null, selectedGraphFunctionRef: basis.graphFunction.name, value };
   if (input.entry.original.fulfillment === undefined) return { ...input.entry, observations: [...input.entry.observations, observation],
     terminal: false, unresolvedSupportRefs: [...input.entry.original.requiredSupportRefs] };
   if (typeof event.payload.contractRef !== "string" || actorInvocationRef === null) return null;
@@ -332,11 +372,11 @@ export function projectGovernanceFold(basis: NativeInstructionAssemblyBasis, inp
   if (!native && !execution) return null;
   const files = native ? source.after.entries.flatMap(e => e.state === "file" ? [{ path: e.relativePath, digest: e.digest }] : [])
     : source.snapshotMembers.map(e => ({ path: e.relativePath, digest: e.digest }));
-  const producer = native ? source.task.assessment?.producer : undefined;
+  const producer = native ? sourceTask?.assessment?.producer : undefined;
   const fact: GovernanceFulfillmentEvidence = { resultRef: observation.resultRef, resultDigest: observation.resultDigest,
     contractRef: event.payload.contractRef, cCallRef: event.aggregateId, actorInvocationRef, kind: purpose === "uat" ? "assessment" : native ? "native" : "execution",
     files, dependencies: files, commands: native ? [] : source.commandResults.map(c => ({ commandId: c.commandId, exitStatus: c.exitStatus, timedOut: c.timedOut })),
-    assessmentContractRef: native ? source.task.assessment?.resultContract.contractRef ?? null : null,
+    assessmentContractRef: native ? sourceTask?.assessment?.resultContract.contractRef ?? null : null,
     producerResultRef: producer?.resultRef ?? null, producerActorRef: producer?.actorInvocationRef ?? null };
   let fulfillment = input.entry.fulfillment!;
   if (purpose === "uat") {
@@ -360,7 +400,7 @@ export function projectGovernanceParent(basis: NativeInstructionAssemblyBasis, i
     // Retained assessment/coverage is attributed history. A fresh invocation
     // must acquire its current context and obtain its own parent outcome.
     if (event.runId !== o.call.runId) return { ...input, terminal: false };
-    terminal = !worksiteCommandSourcesInvalidatedAfter(o.prefix, event.admissionOrdinal, event.payload.value.task.workspaceAuthorityBasis.canonicalRoot,
+    terminal = !worksiteCommandSourcesInvalidatedAfter(o.prefix, event.admissionOrdinal, source.sourceTask.workspaceAuthorityBasis.canonicalRoot,
       [], event.payload.value.after.readRoots);
   }
   if (input.fulfillment !== undefined) {
@@ -379,7 +419,7 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
     if (implementation === ref("implementation", "project-choice")) return same(output, projectGovernanceChoice(basis, input));
     if (!isGovernanceWorkState(input)) return false;
     if (implementation === ref("implementation", "prepare-selection")) return isFramedSynthesisTask(output) &&
-      contextMatches(o, input, output.context) && same(output, selectionTask(input, output.context));
+      contextMatches(o, input, output.context) && same(output, selectionTask(o, input, output.context));
     if (implementation === ref("implementation", "prepare-native")) return isNativeWorkspaceWorkTask(output) && same(output,
       nativeTask(o, input, basis.graphFunction.declarations["abg.default_library_purpose"] as GovernancePurpose, output.context));
     if (implementation === ref("implementation", "prepare-testing")) {
@@ -395,4 +435,51 @@ export function governanceResultMatches(basis: NativeInstructionAssemblyBasis, i
     }
     return false;
   } catch { return false; }
+}
+
+/**
+ * Governed-context support (RC3 B): the governance state behind one native
+ * Construction leaf and its unique same-Run Testing field. The current wrapper
+ * Construction state is recovered from the leaf's execution-basis ancestry in
+ * the same invocation and its parent CCall; the native task must be that
+ * state's Construction work order and conserve its original task. Exactly one
+ * Testing observation of that state must join one successful admitted Result
+ * of this Run with its CCall, digest and producer actor; the selected field
+ * must be one admitted stream whose decoded bytes match its byteLength and
+ * digest. Any missing or ambiguous join returns null; nothing is reconstructed
+ * from prompt text and no historical Result stands in for this Run's producer.
+ */
+export function projectGovernedContextTestingAtPrefix(prefix: RuntimeEventPrefix, execution: {
+  readonly invocationAdmissionRef: string; readonly parentExecutionBasisRef: string | null; readonly parentCCallRef: string | null;
+}, task: unknown, runId: string, fieldPath: readonly (string | number)[]) {
+  if (!isNativeWorkspaceWorkTask(task) || task.assessment !== undefined) return null;
+  let current = execution, state: GovernanceWorkState | null = null, parentCCallRef: string | null = null;
+  for (let depth = 0; depth < 4 && state === null && current.parentExecutionBasisRef !== null; depth++) {
+    const parent = rehydrateExecutionBasisAtPrefix(prefix, current.parentExecutionBasisRef);
+    if (parent === null || parent.invocationAdmissionRef !== execution.invocationAdmissionRef) return null;
+    const raw: unknown = parent.rawInputValue;
+    const candidate = isRetainedGraphInput(raw) ? raw.entry : isFramedSynthesisTask(raw) || isFramedSynthesisResult(raw) ? raw.state : raw;
+    if (isGovernanceWorkState(candidate)) { state = candidate; parentCCallRef = current.parentCCallRef; }
+    current = parent;
+  }
+  const order = state?.original.workOrders.construction;
+  if (state === null || parentCCallRef === null || state.terminal || order === undefined || !same(task.writeRoots, order.writeRoots) ||
+    !task.instructions.includes(`Conserved original task: ${state.original.task}`)) return null;
+  const joined = state.observations.filter(o => o.purpose === "testing").flatMap(o => {
+    const rows = indexedRuntimeEvents(prefix, "payload:resultRef:" + o.resultRef).filter(e => e.kind === "c_call_result_admitted" && e.runId === runId &&
+      e.aggregateId === o.cCallRef && record(e.payload) && e.payload.resultClass === "success" && e.payload.resultDigest === o.resultDigest);
+    return rows.length === 1 ? [{ observation: o, event: rows[0]! }] : [];
+  });
+  if (joined.length !== 1) return null;
+  const { observation, event } = joined[0]!, value = record(event.payload) ? event.payload.value : undefined;
+  if (!(isObservedWorksiteCommandExecutionObservation(value) || isNativeWorksiteCommandExecutionObservation(value)) ||
+    observation.actorInvocationRef === null || value.provenance.actorInvocationRef !== observation.actorInvocationRef) return null;
+  let field: unknown = value;
+  for (const step of fieldPath) field = field !== null && typeof field === "object" ? (field as Record<string | number, unknown>)[step] : undefined;
+  const stream = field as Record<string, unknown> | undefined;
+  if (stream === undefined || stream === null || typeof stream.payload !== "string" || !Number.isSafeInteger(stream.byteLength) || typeof stream.digest !== "string") return null;
+  const bytes = Buffer.from(stream.payload, "base64");
+  if (bytes.toString("base64") !== stream.payload || bytes.length !== stream.byteLength || sha256Bytes(bytes) !== stream.digest) return null;
+  return Object.freeze({ parentCCallRef, resultRef: observation.resultRef, resultDigest: observation.resultDigest, cCallRef: observation.cCallRef,
+    actorInvocationRef: observation.actorInvocationRef, eventRef: event.eventId, fieldPath: Object.freeze([...fieldPath]), bytes });
 }

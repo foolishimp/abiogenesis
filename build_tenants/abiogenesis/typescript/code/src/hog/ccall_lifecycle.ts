@@ -487,7 +487,7 @@ export function evaluateOwnedExecutableCCall(
         runEnvironmentForProgram(input.programPublication, input.program) !== null &&
         selectedContextFamily.length === 1 && ["constructor", "command_executor"].includes(selectedContextFamily[0] ?? ""));
     const assessmentPublication = isNativeWorkspaceWorkTask(input.input) && input.input.assessment !== undefined
-      ? input.leafPort.contractPublicationByRef?.(input.input.assessment.resultContract.contractRef) ?? null : null;
+      ? input.leafPort.nativeAssessmentDependency?.(input.input.assessment, resolution)?.publication ?? null : null;
     const nativeInstructionAssemblyBasis = nativeAssemblyRequired && input.programPublication !== undefined
       ? Abg.constructNativeInstructionAssemblyBasis({ publication: input.programPublication, graph: input.graph,
           ...(assessmentPublication === null ? {} : { assessmentPublication }),

@@ -15,6 +15,10 @@ export async function runInstalledLanguageTest(context, packageRoot, options = {
     prepareAdditionalProducts: async basis => [await prepareFixture(basis)],
     ...(options.programRef === undefined ? {} : { programRef: options.programRef }),
     ...(options.catalogHandle === undefined ? {} : { graphFunctionRef: options.catalogHandle }),
+    // Canonical ABI publications the selected Program borrows declarations from.
+    ...(options.additionalCorePublicationConstructors === undefined ? {}
+      : { additionalCorePublicationConstructors: options.additionalCorePublicationConstructors }),
+    ...(options.crossPublicationProgram === undefined ? {} : { crossPublicationProgram: options.crossPublicationProgram }),
   });
   if (options.allowlist !== undefined) {
     environment.catalogView = environment.product.narrowGraphFunctionCatalog(environment.catalog, options.allowlist);

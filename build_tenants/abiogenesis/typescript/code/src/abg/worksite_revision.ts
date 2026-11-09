@@ -20,7 +20,7 @@ import { WORKSITE_REVISION_IDS, worksiteExecutionSources, type WorksiteExecution
 import { isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { isWorksitePreparationInput } from "../product/worksite_preparation.js";
 import { WORKSITE_C0_IDS } from "../gtl/worksite_c0.js";
-import { runtimeEventBodiesAtPrefix, selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventBodiesAtPrefix, validatedRuntimeEventPrefixBeforeEvent, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { projectExactExecutionBasisAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
 import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js";
 import { projectAdmittedCCallStateAtPrefix, type RehydratedAdmittedCCallState } from "./c_call.js";
@@ -394,7 +394,7 @@ function projectionFacts(prefix:RuntimeEventPrefix,result:RuntimeEvent,work:Proj
       !isRevisionEnvelope(state.result.value)||!isSemanticRevisionRequest(basis.rawInputValue))return null;
     const request=basis.rawInputValue,envelope=state.result.value;
     if(!canonicalEquals(envelope.revisionBasis.request, request)||envelope.current.worksite===null)return null;
-    const before=selectValidatedRuntimeEventPrefix(Object.freeze(events.filter(e=>e.admissionOrdinal<result.admissionOrdinal)));
+    const before=validatedRuntimeEventPrefixBeforeEvent(prefix,result.eventId);
     const history=nativeHistory(before,request.parent,request.causes);
     const parent=projectWorksiteRevisionNativeResult(before,request.parent),selection=projectWorksiteRevisionNativeResult(before,request.selection);
     if(history===null||parent===null||selection===null||(!isSemanticStageEnvelope(parent.result.value)&&!isSemanticJobEnvelope(parent.result.value)&&!isRevisionEnvelope(parent.result.value))||!isSemanticRevisionSelection(selection.result.value)||
@@ -632,10 +632,17 @@ function currentReplacement(prefix: RuntimeEventPrefix, observation: WorksiteObs
   return candidates.at(-1) ?? null;
 }
 
+type ClosedConstructionRetainedVector=Readonly<{snapshotSources:WorksiteCommandForwardSnapshotSource[];
+  bindingCoverEventRefs:NonNullable<ReturnType<typeof projectWorksiteRevisionBindingCover>>}>|null;
 /** Closed construction seed, separate from D2's semantic-stage seed. Reuses
  * the same native C0 currentness, physical-alias invalidation and cover owners. */
 export function projectClosedConstructionRetainedVector(prefix:ValidatedRuntimeEventPrefix,
-  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]) {
+  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
+/** @internal The same owner relation over the owner-selected prefix. */
+export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
+  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector;
+export function projectClosedConstructionRetainedVector(prefix:RuntimeEventPrefix,
+  task:WorksiteCommandExecutionTask,request:WorksiteCommandForwardRequest,bases:readonly ExecutionBasis[]):ClosedConstructionRetainedVector {
   try {
     const current=nativeBinding(prefix,request.workspaceBinding);
     if(current===null||!canonicalEquals(current.authority, request.workspaceAuthorityBasis)||

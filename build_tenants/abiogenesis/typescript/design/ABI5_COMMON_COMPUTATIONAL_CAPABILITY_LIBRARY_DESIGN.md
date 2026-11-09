@@ -192,7 +192,7 @@ function holdsAt(state: FoldState, pattern: RuntimeFluentPattern): readonly Runt
 
 The axiom table declares the effects indexed by event kind: an entry reads the event, its declared dependencies and the fold's own facts that `axiomEffectOf` receives as `AxiomFoldContext` (`abg/calculus/axioms.ts:1857`, `:1866`), the admitted source cut and the probe and interruption scopes that earlier fold steps recorded. The rule table declares every contextual effect; each rule reads the fold state before the event. Both are module constants; no caller supplies an axiom or a rule. `effectOf` and `foldStep` read both tables from their own module, so their exported signatures take no axiom or rule parameter. Each rule's `derive` is a module-owned function fixed when the table is declared, not a runtime-supplied callback ([FS-17](ABI5_REALIZATION_CONSTITUTION.md#55-axioms)); the constitution's typed Event Calculus projection admits closed module law and prohibits caller axioms ([§10](ABI5_REALIZATION_CONSTITUTION.md#10-common-library-catalog)). The law is the two tables. The published native runtime observation contract (`contracts/schemas/native-runtime-observation.json`) embeds the axiom table alone, as member `eventCalculus` (`scripts/generate-product-manifest.mjs:145`), so the rule-owned fluents are not in it; no runtime consumer reads that contract.
 
-The liveness rule evaluates the liveness relation, `nativeLivenessRelationHolds` (`abg/calculus/liveness.ts:496-504`). The relation decides whether a native probe, interruption or threshold observation has its exact admitted source and threshold relation (P0-P5, T1-T3, O1-O4, S1-S5, M1-M4, M6, M7). Its declared dependency is the fold state before the event, the event and the cut before it. It reads `actor_process_live` of the started process through the caller's read: the fold passes its own `holds` (`rules.ts:105`) and the liveness owner passes `runtimeFluentHoldsAtPrefix` at the relation's cut (`runtime_liveness.ts:49-50`). It reads the cut through the calculus's memoized index of that cut (`RuntimeLivenessReconstruction`, `liveness.ts:336-482`), as `axiomEffectOf` reads the admitted source cut: the occurrence's declarations, the scope's earlier observations and samples, and for a threshold the whole cut its `evaluatedPrefixDigest` names. Two derivations it reads are calculus functions over admitted events. The execution basis record law (`abg/calculus/execution_basis_record.ts`, `projectExactExecutionBasisRecordAtPrefix`) checks one `basis_admitted` record against its recorded raw-input and basis digests; the invocation truth owner's `projectExactExecutionBasisAtPrefix` delegates to it. The retry budget facts (`projectRuntimeRetryBudgetFacts`, `liveness.ts:805-840`) derive from `c_call_opened`'s `retryPath`, one digest-checked `retry_attempt_opened` and one digest-checked `retry_progress_recorded`. The budget shape check (S2, `liveness.ts:603-609`) has two roles: it checks the derived budget, and it is the only check on a budget a caller supplies (the CCall closure, `retry.ts:5334-5338`, and the public `deriveRuntimeLiveness` and `projectRuntimeLivenessAtPrefix`). The relation is boolean; it returns the structural-identity route joins it needs (M5) as obligations and decides none of them. The rule refuses the step with its one message when the relation is false (`rules.ts:104-107`). The liveness owner's admission validator is the relation composed with the owner's structural-identity join (`structuralRoutesHold`, `runtime_liveness.ts:53-55`), at `validateRuntimeLivenessEventAtPrefix` (`event_store.ts:4091`) and at the retry frame join (`retry.ts:705`). Admission refuses everything the fold refuses and, in addition, a frame observation whose structural route causation fails, so an admitted log never holds one.
+The liveness rule evaluates the liveness relation, `nativeLivenessRelationHolds` (`abg/calculus/liveness.ts:496-504`). The relation decides whether a native probe, interruption or threshold observation has its exact admitted source and threshold relation (P0-P5, T1-T3, O1-O4, S1-S5, M1-M4, M6, M7). Its declared dependency is the fold state before the event, the event and the cut before it. It reads `actor_process_live` of the started process through the caller's read: the fold passes its own `holds` (`rules.ts:105`) and the liveness owner passes `runtimeFluentHoldsAtPrefix` at the relation's cut (`runtime_liveness.ts:49-50`). It reads the cut through the calculus's memoized index of that cut (`RuntimeLivenessReconstruction`, `liveness.ts:347-584`), as `axiomEffectOf` reads the admitted source cut: the occurrence's declarations, the scope's earlier observations and samples, and for a threshold the whole cut its `evaluatedPrefixDigest` names. A prospective candidate's validation prefix names its admitted predecessor (`runtimeEventValidationBase`); `livenessReconstruction` forks the predecessor's reconstruction at that cut (`forkAt`), as `eventCalculusDerivation` forks the Event Calculus derivation. The fork indexes only the candidate's own rows and reads every row, declaration, sample and fold through the base cut from the base; it copies a base fold before extending it and never advances or writes the base, so a refused sibling or a rolled-back transaction leaves the admitted reconstruction unchanged. Terminal and process-start queries read identity buckets of the cut (the occurrence's actor, Run, graph call, frame or CCall), and context declarations read the `related:` bucket of the compared aggregate, so another Run's rows are not read for an occurrence; each query keeps its predicate. Two derivations it reads are calculus functions over admitted events. The execution basis record law (`abg/calculus/execution_basis_record.ts`, `projectExactExecutionBasisRecordAtPrefix`) checks one `basis_admitted` record against its recorded raw-input and basis digests; the invocation truth owner's `projectExactExecutionBasisAtPrefix` delegates to it. The retry budget facts (`projectRuntimeRetryBudgetFacts`, `liveness.ts:805-840`) derive from `c_call_opened`'s `retryPath`, one digest-checked `retry_attempt_opened` and one digest-checked `retry_progress_recorded`. The budget shape check (S2, `liveness.ts:603-609`) has two roles: it checks the derived budget, and it is the only check on a budget a caller supplies (the CCall closure, `retry.ts:5334-5338`, and the public `deriveRuntimeLiveness` and `projectRuntimeLivenessAtPrefix`). The relation is boolean; it returns the structural-identity route joins it needs (M5) as obligations and decides none of them. The rule refuses the step with its one message when the relation is false (`rules.ts:104-107`). The liveness owner's admission validator is the relation composed with the owner's structural-identity join (`structuralRoutesHold`, `runtime_liveness.ts:53-55`), at `validateRuntimeLivenessEventAtPrefix` (`event_store.ts:4091`) and at the retry frame join (`retry.ts:705`). Admission refuses everything the fold refuses and, in addition, a frame observation whose structural route causation fails, so an admitted log never holds one.
 
 `RuntimeEventCalculusDerivation` is the memoized realization of `foldStep`, with `forkAt`. Its `advance` (`abg/event_calculus.ts:243`) applies each new event in place with `applyStep` (`abg/calculus/fold.ts:213`), the in-place form of `foldStep` (`:275`), to the one working state the derivation owns, and copies no fold state; each step reads its dependencies from the cut before the event by the exact selection (`eventCalculusDependencies`, `abg/event_calculus.ts:92`), for every prefix kind, and the derivation carries nothing beside the prefix, so a fork advanced from a cut folds as its base did; `forkAt` copies once for the fork (`workingFoldState`, `:155`); readers read the owned state, with the class caching transitions; `applyStep`, `workingFoldState` and `frozenFoldState` are internal exports of `fold.ts`. `applyStep` applies each clip pattern with `applyClip` (`:194`), also an internal export: an exact pattern, `name` and `identity` both set, reads the one held fluent keyed by its ref (`ownedExactRuntimeFluentPatternRef`, `abg/calculus/axioms.ts:1731`), and a wildcard enumerates `holds`; the visit counter in `t287-calculus-fold` (`:299`, `:316`) holds the exact clip at one visit for 8 and for 2048 unrelated held fluents, while the wildcard's visits grow with them. The exact point query is `runtimeFluentHoldsAtPrefix` (`abg/event_calculus.ts:334`), which answers whether one fluent holds at a prefix from `fluentAt` without building a projection; a list consumer reads the held projection (`held`, `:281`) and asks `holdsAt` over it; an exact point query, including every reader of one §4.4 lifecycle fluent of one process, reads `runtimeFluentHoldsAtPrefix`; `t287-calculus-fold` (`:395`, and `:462` for the lifecycle names) holds the exact read equal to the projection's point query at every cut. Agreement between the class and the pure fold is proof obligation P-FOLD, which is PROJECTION-002's live and cold agreement stated as a test.
 
@@ -210,7 +210,7 @@ cleanupPending         = not A and (T or U or (R and formerlyActiveActor))
 
 The lifecycle fluents are closed: `actor_process_spawn_failed`, from the axiom table, and `actor_process_live`, `actor_process_terminated`, `actor_process_termination_unconfirmed` and `actor_cleanup_pending`, from this rule. A lifecycle question asks whether one of these fluents holds for one process or actor invocation.
 
-The rule also checks the copied `terminationConfirmed` against `actor_process_terminated` at the same cut. The copy is in `actor_result_artifact_observed` and in `c_call_evidenced` with evidence class `probabilistic_transport` (`abg/event_store.ts:301`, `:732`); these events are checked inputs, not decision inputs. The fluent wins. A disagreement initiates the diagnostic fluent `terminationConfirmed_copy_disagrees(processRef)`. No prefix is refused for it, so existing history reopens unchanged.
+The rule also checks the copied `terminationConfirmed` against `actor_process_terminated` at the same cut. Under L the copy is in `actor_result_artifact_observed` and in `c_call_evidenced` with evidence class `probabilistic_transport` (`abg/event_store.ts`, the L table); these events are checked inputs, not decision inputs. P artifacts and P evidence carry no copy, so the check derives nothing for them (D5). The fluent wins. A disagreement initiates the diagnostic fluent `terminationConfirmed_copy_disagrees(processRef)`. No prefix is refused for it, so existing history reopens unchanged.
 
 The rule produces fluents inside the one fold. `actor_process.ts`, `replay.ts`, `runtime_liveness.ts` and every other reader of a lifecycle fact read them from the fold: a point query through `runtimeFluentHoldsAtPrefix` with the exact fluent `constructRuntimeFluent({ name, identity })`, a pattern query through `holdsAt` with `{ kind: "runtime_fluent_pattern", name, identity }`. Four consumers that had to agree become one producer and its readers, as PROJECTION-013 requires.
 
@@ -566,9 +566,9 @@ The realization holds the fact in four forms:
 3. Read through `runtimeFluentHoldsAtPrefix` with the exact fluent `actor_process_terminated(processRef)`: `abg/c_call.ts:2025` and `:6629`, `abg/replay.ts:2458`, `abg/invocation_admission.ts:521-522`, and `abg/worksite_construction_recovery.ts:55-57`, used at `:248` and `:283`.
 4. Checked inside a candidate by the copy-consistency validators, which read the candidate's own fields, take no prefix and decide no lifecycle fluent: `abg/actor_process.ts:495-536`, `abg/transport_contracts.ts:72` and `:77`, and `validator/qualification.ts:53`. On the helper route the helper's `main` guards on its own command and HTTP results (`implementation/worksite_command_helper.ts:1501`, `command.terminationConfirmed`, and `:1514`, the HTTP probe's `process.terminationConfirmed`), whose field the classifier of form 1 sets.
 
-The field of form 2 stays where it is recorded, as the copy the rule checks, until its retirement (D5).
+Under P, the `probabilistic_transport` evidence payload, `actor_result_artifact_observed` and the worker transport archive omit the field of form 2; the live transport result and the live actor observation keep it (D5). `abg/transport_contracts.ts` `projectDurableActorObservation` is the one durable projection of the live actor observation; the artifact producer, the qualification `observationDigest` producer and the cold J join share it.
 
-`exitObserved`, `timedOut` and `signalSequence` sit beside `terminationConfirmed` in the same payloads; each follows `terminationConfirmed` where the fold derives it (D5).
+`exitObserved`, `timedOut` and `signalSequence` sit beside `terminationConfirmed` in the same payloads and follow it: where the copy is absent, the owner's lifecycle computation over the primary process events derives each (D5).
 
 ### 9.3 Process failure facts
 
@@ -618,7 +618,12 @@ Rows 1 to 4 and 6 are each one `realization_refactor` under this design. Row 5 m
 - **D2, digest order.** The digest leg of `checkExactRecord` runs after projection: `expected(event, value)` and `actual(value)` consume the projected value.
 - **D3, composite comparisons.** The two native composite comparisons are ingress questions, not equality variants: no equality variant or encoder parameter exists for them. Each is decided at its own ingress site when row 2 or row 3 of §10.1 realizes that site: its owner admits each side to `JsonValue` through `admitContract` or `admitJson`, or refuses. The decision is recorded with that site's change; D3 does not close O-TYPE as a whole.
 - **D4, throwing I-JSON entry.** The throwing entry of `i_json.ts` is a lift over `admitJson` (admit, then throw on refusal). It remains for the callers whose contract is the throw (nine sites after TD-16: `validator/raw_admission.ts`, `product/worksite_command_execution.ts` four times, `abg/event_store.ts` twice, `abg/project_read_ports.ts`, `implementation/worksite_command_execution.ts`) and inside `admitIJsonText`; a caller that consumed only the refusal reads `admitJson`'s outcome, which is total (a cycle, nesting past 512 containers and a proxy-trap throw are refused `non_ijson_value`; C-3, 2026-10-24), and keeps no `catch` for it; a guard that remains at such a site encloses other work and names it. New callers use `admitJson`.
-- **D5, payload copies.** `terminationConfirmed` stays in `actor_*` event payloads and in the result artifacts that record it. The `actor_process_lifecycle` rule derives `actor_process_terminated` and checks the copied field against it at fold time; the fluent wins, a disagreement initiates `terminationConfirmed_copy_disagrees(processRef)`, and no prefix is refused. Every reader uses `holdsAt`. Retiring the field is an obligation of the next root event contract profile change, because the store recognizes exactly two contract digests, the legacy and the current (`abg/event_store.ts`, `isKnownRootEventContractDigest`), and reopening rejects any stamp other than the current digest (the same module's reopen stamp check, the refusal "event stamp differs from the exact native profile schedule"). `exitObserved`, `timedOut` and `signalSequence` follow `terminationConfirmed` where the fold derives them.
+- **D5, payload copies.** The `actor_process_lifecycle` rule derives `actor_process_terminated` and checks a recorded `terminationConfirmed` copy against it at fold time; the fluent wins, a disagreement initiates `terminationConfirmed_copy_disagrees(processRef)`, and no prefix is refused. Every reader uses `holdsAt`. The store recognizes exactly two contract digests, L and the current P (`abg/event_store.ts`, `isKnownRootEventContractDigest`); the copies leave only P.
+  - P `c_call_evidenced` with evidence class `probabilistic_transport` omits `terminationConfirmed`, `exitObserved`, `timedOut` and `signalSequence`; a reinserted member matches no contract variant. Its cold projection (`abg/c_call.ts`, `projectAdmittedActorTransportLifecycle`) reads `timedOut` from the one `actor_process_timeout_observed` row, `signalSequence` from the ordered `actor_process_signal_requested` rows, `exitObserved` from the recorded process terminal `actor_process_exited` and `terminationConfirmed` from `actor_process_terminated`; a partial set refuses, and an absent set requires a P artifact. Direct exit and confirmed owned termination stay separate values: a spawn failure yields neither, and an unconfirmed boundary records no actor terminal, so the projection has no value for it. The stable failure source keeps its members, with these derived values. `projectAdmittedTransportEvidenceLifecycle` exposes the four values and the actor terminal of one admitted evidence row through the same projection.
+  - The worker transport archive omits `timedOut`, `exitObserved` and `terminationConfirmed`; its `timeoutClass` and encoded `processFacts` determine them. The live transport result carries them. Construction recovery (`abg/worksite_construction_recovery.ts`) accepts an archive with all three copies or with none, the latter only with `timeoutClass: null` and encoded facts.
+  - P `actor_result_artifact_observed` omits the four copies; a reinserted member matches no contract variant. `abg/transport_contracts.ts` owns the one typed pure projection: `projectDurableActorObservation` removes exactly `RETIRED_ACTOR_LIFECYCLE_COPY_KEYS` from the full live observation, and `durableActorObservationOfArtifact` reads an artifact's durable body under that event's own profile, with no copy under P and all four, the exact L preimage, under L. The artifact producer (`abg/actor_process.ts`) persists the projection under P. `implementation/qualification.ts` digests the same projection as the J source `observationDigest`, because an authenticated assessment completion follows current-profile dispatch; the cold J join (`abg/qualification_proof.ts`) digests `durableActorObservationOfArtifact` of the persisted artifact. The live observation, `implementation/contracts.ts` `ProbabilisticWorkerObservation`, the live carrier validator `validateActorProcessCarrierPair` and the full probabilistic candidate digest (`abg/probabilistic_result.ts`, matched in `abg/c_call.ts`) keep all four members.
+  - The CCall projection reads a P artifact through `durableActorObservationOfArtifact` and compares a live candidate's `exitObserved` and `terminationConfirmed` with the owner values; L artifact copies keep their original agreement. Construction recovery rebuilds its live carrier from the durable artifact body and `projectAdmittedTransportEvidenceLifecycle` over the Result's exact transport evidence, whose actor terminal is the selected failure terminal; it supplies no default value.
+  - L keeps its exact table, its artifact copies, its optional evidence copies and their fold check. The changed P descriptor changes the P digest ([event-contract compatibility](T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md#2-exact-immutable-profiles)): a store stamped with a predecessor P digest stays with its original owner and does not reopen under this cut. New current-profile proof uses a fresh successor store.
 
 ### 10.3 Owner obligations
 
@@ -640,6 +645,7 @@ Rows 1 to 4 and 6 are each one `realization_refactor` under this design. Row 5 m
 | Definition bindings and installed run entry | Consume the three binders where their exact domain fits; keep irreducible Product and ABG composition. A custom body is removed only after its physical effects, receipt and currentness and refusal branches have an exact binder correspondence. |
 | Event body storage and native instruction assembly | Distinct codec and context-selection contracts. Codec reconstruction restores every logical field; context projection conserves required sources, role qualifications, actual current input and readable content. Body savings cannot justify semantic omission. |
 | `deepFreeze`, I-JSON capture, event capture and immutable closure | Distinct alias, admission and lifetime relations, composed explicitly. No universal `immutable<T>` brand or cache. Detached value, recursively frozen inspection, owner-authenticated value and current observation remain separate predicates. |
+| Runtime history prefixes and held event resources | An owned prefix (`selectRuntimeEventPrefixFromStore`, `selectOwnedRuntimeEventPrefix`, `projectOwnedRuntimeEventPrefixAtDurablePrefix`, `readOwnedRuntimeEventPrefixAtDurablePrefix`, `selectActiveRuntimeTransactionHistoryAtDurablePrefix`), a complete validated output and a raw or copied coordinate are distinct inputs. These callers borrow the owned prefix, its extent (`runtimeEventPrefixExtent`), its `run:`/`related:`/`id:`/`kind:` indexes, envelope selection (`indexedRuntimeEventEnvelopes`) and `runtimeEventPrefixDigest`: traversal cursor admission over the held transaction's durable predecessor; the per-successor construction-intent continuation, its re-entry and the selected-action and pending-execution operations; parent-return rehydration; the liveness, route, open-call, C_Call, continuation and execution-basis projections; native work reacquisition (`authenticateOwnedNativeWorkReacquisition`) and instruction assembly (`authenticateOwnedNativeInstructionAssemblyBasis`); invocation admission and its source-result rehydration; effectful invocation truth, which selects its construction-continuation operations and their bases through the shared public-operation classification and keeps the global malformed-pair, duplicate and complete-pair checks over those facts; the invocation execution truth, which reads the `abg.operation.run.invoke` class for its global Run pair check; frame-scope liveness retry facts, which select through `basis:` envelopes and answer a null C_Call scope with the absent budget after the prefix extent check; the F_H continuation projection, which reads the `abg.operation.interaction.respond` and `abg.operation.run.continue` classes, selects the owner response and resume kinds and checks the physical predecessor over the owned cut. The shared public-operation classification is one selector vocabulary, `public-operation:<operationId>` and `public-continuation:<continuationKind>` on `public_operation_admitted` and `construction-operation:<operation event>` on a construction-continuation `basis_admitted`, assigned by `runtimeHistorySelectorKeys` for live append and cold decode alike; each consumer keeps its own Run, F_H or construction join predicate, the global refusals stay history-wide rather than Run-local, a missing operation has an empty class, and orphan or mixed-arm construction uses remain keyed by their referenced operation; project-read preparation; the semantic-revision, requirement-handoff, result-assessment and self-conformance readers; the worksite file-replace pre-effect read under `requireCurrent`; the witness run-stopped Run-identity read; worksite command forwarding, whose historical source is a pure projection and whose current relation checks ancestry as the current cut through the source's last event by extent and owned-cut identity or `runtimeEventPrefixDigest`, and selects unique producers through `basis:` envelopes and dispatch, failed-successor and consumption facts through `kind:`, `related:` and `payload:` indexes, and reads the closed-construction retained vector through the worksite revision owner's internal `RuntimeEventPrefix` overload of `projectClosedConstructionRetainedVector`; worksite construction recovery, which selects CCall, process, chunk and result facts through `related:`, `id:`, `kind:` and `payload:` indexes and keeps chunk order, foreign-parent refusal, archived bytes and current cursor and binding checks; witness admission, which asserts the held store at the packet coordinate and borrows that store's owned cut for its duplicate, basis, Run and member facts; the witness profile-transition read, which takes the profile schedule and boundary event from the successor's owned cut, and the successor-event read through `id:`; the retry resume, which reads the route-to-attempt ordinal interval of the successor's owned cut, and the retry input, whose explicit entry reads its prefix fresh; the runtime-failure Run prefix and receipt replay; the materialization and result post-effect tail checks, which require the successor extent to equal the predecessor extent plus one and read the tail by index; and the catalog-application logical-prefix relation, which compares the current prefix cut through the earlier last event with the earlier prefix by extent and `runtimeEventPrefixDigest`. `projectOwnedPrefixArtifactTruth` is the exact artifact-truth reader at the environment projection and at the invocation, materialization, release-snapshot and Product read consumers; `projectExactPrefixArtifactTruth` remains the copied-projection cold reconstruction; qualification proof acquires each execution source through `projectOwnedPrefixArtifactTruth` and borrows its owner prefix (`runtimePrefixFromOwnedArtifactTruth`), and the materializing adapter `runtimePrefixFromArtifactTruth` is retired. Semantic stage and job instruction assembly, the semantic stage and revision actors, revision selection and the leaf semantic-authority check borrow `authenticateOwnedSemanticStageBasis` and `authenticateOwnedSemanticJobBasis`; the materializing adapters `authenticateSemanticStageBasis` and `authenticateSemanticJobBasis` and the complete-subject wrappers `projectJobRevisionSubject` and `projectRevisionSelectionSubject` are retired. The historical revision-bridge origin and preparation cuts and the worksite binding-projection cut select the exclusive predecessor of their admitted boundary event through `validatedRuntimeEventPrefixBeforeEvent`. Selected-Run replay tests full-prefix membership through the `id:` envelope index; The complete-history runtime-truth wrapper is retired: the fresh-process retained-projection proof and its tests select the direct replay owner `projectOwnedRuntimeTruthAtDurablePrefix`, each fresh child consumes its reopened owner's authenticated prefix, and complete values exist only at that proof boundary through `writeRuntimeEventPrefixValue` and `materializeRuntimeReplayGuard`; no per-call prefix-pair adapter remains. `readOwnedRuntimeEventPrefixAtDurablePrefix` is the explicit fresh read: it borrows only an actively owned selection, and a copied or closed-owner coordinate is authenticated cold. `projectOwnedRuntimeEventPrefixAtDurablePrefix` and `projectOwnedPrefixArtifactTruth` are pure historical projections: the exact coordinate's retained immutable authenticated selection serves them after its owner closes, and an unbound or copied coordinate is authenticated cold. The construction-intent continuation reads the Run-open envelope before any Run body. A complete validated prefix remains only where a named export publishes it (`commitFhInteractionResponseAtExpectedPrefix`, the complete-mode `admitTraversalTransition`, `admitCompletedRetryTraversalTransition` and `admitBlockedRetryTraversalTransition`) or where a pure-memory store has no durable history. The witness attestation hashes the complete canonical event chain as its declared output. Qualification proof carries the owned source prefix and selects its CCall, result, judgment, evidence, Run, response and actor joins through `related:`, `id:`, `kind:`, `run:` and `payload:resultRef:` indexes with unchanged predicates; the exported consumer projection returns its owner without the prefix. Its derivation scope outlives one cut of the lineage, so a decided graph owner and admitted CCall state are retained only under the exact cut that decided them; a cut not yet asked delegates current truth and refusal to the indexed execution-basis, opened-carrier and admitted-CCall owners, and immutable declaration reconstruction is reused across cuts. Borrowing reduces repeated history passes and does not make a call materialization-free. Candidate liveness validation forks the admitted reconstruction rather than rebuilding it per candidate, and the public-operation consumers read only their classified bodies; the fork's measured work is index additions (`add`) plus inherited filter predicate visits of its layered reads (`RuntimeLivenessReconstruction.layered`), compared with the rebuild's index additions, and is not total row work. For one flat owned admitted base and one probe candidate per validation fork, with V filter predicate visits, at most one fork-own member per queried key and at most V merges, the layered filter and merge outputs write at most 3V references and the candidates add at most two index memberships each; the proof records V, the fork count and the bound computed from them (V = 14 and four forks give at most 42 reference writes, at most 50 with the memberships, against 699 rebuild index additions). Array objects are a separate unit with a separate source-expression bound (at most two per one-base layered call plus V, and two own buckets per fork: 620 and 8 for 607 layered calls); warmed base arrays, bytes, CPU and whole allocation are not bounded or claimed; the global pair checks still read every classified operation of the history, which is the information they require. Raw/copied coordinates, genuine cold reopen and stale, foreign or rolled-back selections keep their authentication and refusals. The maintained SDK setup acquires one event resource, borrows its current selection for every history-dependent call through `runInstalledDefinitionCallWithResource`, closes once, and closes at the held durable prefix on failure; lifecycle and fresh reads reopen the close handoff cold. |
 | Installation and artifact admission | Reuse the ordered composition [install_definition_bindings.ts](../code/src/product/install_definition_bindings.ts) → `installProductInResolvedLock` → [admitProductInstallInResolvedLock](../code/src/abg/environment_admission.ts) → exact artifact projection and receipt. Physical success may precede admission refusal. A previously admitted install is reused only under its original identity and support. |
 
 ### 10.5 Proofs
@@ -653,6 +659,7 @@ ASSURANCE §13 whole-path proofs are marked.
 - **P-RECORD (whole path):** both malformed null-digest partitions yield `invalid`; the execution-basis adapter maps `invalid` to its existing refusal, by reading: `projectExactExecutionBasisAtPrefix` maps every result other than `one` to `null` (`abg/calculus/execution_basis_record.ts`, the owner boundary where `absent`, `many` and `invalid` are the existing `null`), and no lane reaches its negative.
 - **P-FOLD:** for every admitted prefix in the T120 and replay fixtures, `advance` and `foldStep*` yield identical `holds`, `clippedFluentRefs` and `declippedPatternRefs`; the cold fold equals the warm projection at every cut, and a fork at any cut, advanced to any later cut, equals the warm projection there in `holds`, `clippedFluentRefs`, `declippedPatternRefs` and effect rows, for validated, streaming and owned sources; the exact dependency selection gives the same transitions as every prior event. Streaming advancement no longer copies the fold state per `advance` call: N single-event advances keep one owned state and agree with one batched advance and the cold fold at every cut, and `forkAt` is the one copy of it.
 - **P-LIFECYCLE (whole path):** counterexamples A and B as tests over the rule, with their expected-effect tables. Two negatives on the worker route. A no-child launch failure yields `actor_process_spawn_failed` in `L` and the admitted `actor_result_artifact_observed` whose bound transport artifact carries the encoded facts as `processFacts`; `holdsAt` reports `actor_process_spawn_failed` and no `actor_process_terminated`. An error after launch with unresolved cleanup (`scopeAbsence` not `"absent"`, `firstError` set) yields `actor_process_termination_unconfirmed`, the refusal carrying `processFacts`, and, at `failCCall`, the admitted failure whose retained diagnostic subject is that refusal; `holdsAt` reports `actor_process_termination_unconfirmed` and no `actor_process_terminated`. Neither reads a file other than the digest-bound transport artifact. Helper-run processes have no `actor_process_*` events. On the command and HTTP routes the no-child launch failure yields the admitted leaf result whose existing members (`exitStatus` 127, `terminationConfirmed` true) carry the outcome, and the error after launch with unresolved cleanup yields the failure subject with the encoded facts; the encoded facts travel on the failure subject only, and the lifecycle answer is a projection of that admitted result or failure. The no-child launch failure is the same whether Node reports it asynchronously, as the child's `error` event the lifetime records as `launchFailure`, or synchronously: for every errno but `EACCES`, `EAGAIN`, `EMFILE`, `ENFILE` and `ENOENT`, `spawn` throws its errno exception before any child or lifetime exists. At the command launch (`implementation/worksite_command_helper.ts:827-835`) and the HTTP launch (`:1155-1168`) one producer, `noChildLaunchObservation` (`:754`), turns that throw into the observation the asynchronous launch failure gives: `exitStatus` 127, `terminationConfirmed` true, `timedOut` false, no signal, no cleanup signal, empty stdout and the error's message in stderr; the command result then observes its declared reports as any other (`commandResult`, `:789`), and the HTTP probe carries the port file `absent` with issue `process_exited_before_port`, `request` and `response` null (`httpProbeObservation`, `:1093`). Any other throw from `spawn` is rethrown. Two installed cases in `t287-worksite-command-execution` declare a mode-755 file of bytes in no executable format and with no shebang, so `spawn` throws `ENOEXEC` (the modes in `launchFailureMode` at `:1427`, the checks in `assertLaunchFailureAdmitted` at `:1470`): the declared command (`:1590`), whose `process_exit` predicate observes 127 against its declared 0, and the launch of an `http_response_exact` predicate after a completed command (`:1594`), whose probe observes no response against its declared 201. In each the helper exits 0 with its acknowledgment, the artifact's disposition is `success`, the stderr is `spawn ENOEXEC`, the hook records no lifetime for the launch, and the parent binds the acknowledgment to the artifact and admits the observation through `c_call_result_admitted`. Before this repair the throw escaped the helper's `main`: the helper exited 1 with no artifact and no acknowledgment, and the parent answered `transport_identity_mismatch`. The command route's second negative is `t287-lifecycle-failure-carrier` (`:337`); the HTTP route's is `t287-owned-process-lifetime` (`:500-501`, `:547`). The helper route's whole path is proved on the installed path for three of the four helper failure classes, each induced by its declared task, in `t287-worksite-command-execution` (`installedC2Case`, `assertHelperFailureAdmitted` at `:239`, the per-class checks in `assertHelperFailureMode` at `:1340`, the modes in `helperFailureMode` at `:1305`): `command_cleanup_unresolved` (`:1151`), whose one command exits 0 with its scope unresolved; `http_probe_failed` (`:1405`), whose declared request method is no HTTP token, so the probe's request raises an owner error after the port that the probe hands to the launch's lifetime as its first error; and `http_cleanup_unresolved` (`:1409`), whose launch answers once and exits 0 with its scope unresolved. A module hook in the helper process records each process's facts beside its spawn arguments and leaves only the named process's scope unresolved. In each case the installed helper prints its acknowledgment and exits non-zero with its class's message; the controlled worker relays that one stdout line unchanged; the parent binds it to the published artifact and reaches `c_call_result_admitted` with result class `failure` and class `helper_failure`; and its `diagnosticRef`, read cold, is the artifact's subject of that class, bound to the next undone operation of the completed prefix (the command at `(0, 0)`; the `http_response_exact` predicate at `(1, 1)`), whose `processFacts` equal the failed process's own facts and, in the two HTTP cases, which run a second process, differ from the validation command's. `command_failed` is not driven: no declaration makes a command's lifetime record a first error. A spawn error establishes no child and is the lifetime's `launchFailure` (`shared/owned_process_lifetime.ts:273-278`), the no-child launch failure above, and the helper reads only `firstError` (`implementation/worksite_command_helper.ts:865`); §9.3 item 4 lists the channels that no declaration reaches. The class reaches an artifact only in the synthetic subject case (`:1187`). Over a second failed artifact from the same installed helper, `assertHelperFailureExchanges` (`:308`) admits the relayed acknowledgment as `helper_failure`, refuses a coherent acknowledgment that names another artifact with `result_contract_failure`, and refuses an exchange whose transport did not succeed with `transport_identity_mismatch`. A copied `terminationConfirmed` that disagrees with `actor_process_terminated` yields `terminationConfirmed_copy_disagrees` and refuses no prefix. No module outside `abg/calculus/` decides a lifecycle fluent except through `holdsAt` or `runtimeFluentHoldsAtPrefix`, the two readers of the one fold.
+- **P-FH-PAIR:** one fresh immutable RAW vector, each row stamped by `projectRuntimeEventFromValidatedHistory` and selected by `selectValidatedRuntimeEventPrefix`, carries a root invocation record whose one capability grant is an explicit `interaction.respond.approve` grant that passes `isCapabilityGrantValue` and binds the record's actor, workspace binding and policy. The invocation, execution-basis, Run-binding, pending-carrier, held-fluent and open-continuation readers each fail one row before their cut and hold at it, in that order, with no construction intent. `prepareContinuationPublicOperation` and then `prepareFhInteractionResponse` yield one six-field F_H fact, and `projectEffectfulPublicInvocationTruthAtPrefix` returns that fact as the response ref's prior admission; an unused ref stays available. The operation alone is `invocation_pair_invalid` for every requested ref. A crossed grant source, response operation ref, invocation digest or causation order is refused with its exact event refs. Repeated reads, historical cuts, a fresh frozen clone and unrelated RAW growth keep the values. The seed is conditional reader data: current root admission accepts only the direct-invoke grant, so the seed and its grant are not current root admission, Event Store admission, held or owned authority, Public commit, dispatch or resume, a physical cold reopen or installed F_H qualification.
 - **P-BIND:** the three binders typecheck after the `admitContract` substitution and keep their fault surface: a refused resource assertion or receipt yields the same `DefinitionExecutionFault` code as before. Exactly one `Effect.run*` site remains.
 - **P-LAYER:** `npm run lint:imports` finds no upward import from `shared/`; `abg/calculus/` departs from the order of §2 as §2 states. `npm run lint:lifecycle` (`scripts/check-lifecycle-boundary.mjs`) checks the last sentence of P-LIFECYCLE: outside `abg/calculus/` a lifecycle fluent name appears only as the `name` of a pattern passed to `holdsAt` or of an exact fluent passed to `runtimeFluentHoldsAtPrefix`, each constructor only under its own reader, and only the process owners read `scopeAbsence` or `directExit`. The lint's name set is the four fluents the rule produces and `terminationConfirmed_copy_disagrees`; `actor_process_spawn_failed` shares its name with the owner's process terminal event kind, which eleven event-kind sites outside `abg/calculus/` name, so the lint does not guard it (C-2, 2026-10-24) and the axiom table stays its only producer. Its allow-list names exact lines in two classes: the Run quiescence name table (`abg/replay.ts`) and the check of the digest-bound transport artifact's encoded facts (`abg/worksite_construction_recovery.ts`).
 
@@ -690,6 +697,416 @@ Each function this design adds or moves declares one disposition under [constitu
 The two addition proposals state the recurrence they replace and their law and contract in §3 to §6, their substrate, owner seams and authority-neutral role in §2 and §5, the deletion of equivalent helpers in §10.1 and their proof in §10.5. No catalog relation holds a failure carrier or a process-fact function, so neither extends one. The candidate and total-lifecycle-cost ledger of constitution §10.1 accompanies each with the coding plan of its row, and neither is coded before its acceptance.
 
 Move 2 is a `realization_refactor` ([constitution §16](ABI5_REALIZATION_CONSTITUTION.md#16-amendment-rule)): it changes the location column of the §10 exact-match row and of `N06` from `product/exact_match.ts` to `shared/select/exact_match.ts`, and its amendment record lands in the constitution when row 1 realizes the move. Catalog extensions and additions are catalog law, a `design_reframe` under the same rule; their amendment records land with the rows that realize them.
+
+### 10.8 Retained-owner carriage for prospective native work (RC7)
+
+Root selection `rc7-overhead-author-01` admits this `design_reframe` of the
+native carrier realization. Product WHAT is unchanged: CCALL-018 requires the
+exact task/current input, causal producer and authority, not a copy of the task
+inside each output; INSTRUCTION-ASSEMBLY-019/020/022 require exact accessible
+material and reject repeated bodies without a declared need; EVENTS-002/003/030
+and PROJECTION-001/002/004/025/026 require replay reconstruction, distinct
+observations, exact provenance and reuse of established facts. Each admitted
+task, input and body has one owner. Consumers reach it through that owner.
+
+| Relation | Owner | Realization |
+|---|---|---|
+| R1 Result before copy | `product/native_workspace_work.ts` | A prospective `native_workspace_work_observation` or `native_workspace_work_failure` carries no `before` field. The pre-work context is `task.context`; consumers read it there. `changedPaths`, scope, binding, authority-basis and bound checks compare `after` with `task.context`. A retained value that carries `before` stays valid under its original contract only when `before` equals `task.context` and its digest covers that original body; it is never restamped as a new-contract value. |
+| R1 Result task copy | `product/native_workspace_work.ts`, `abg/native_worksite_execution.ts` and the consumers in the native cone | A prospective observation or failure carries `inputDigest`, the digest of its CCall's admitted input, and no `task`. `projectNativeWorkspaceWorkResultTaskAtPrefix` and `projectNativeWorkspaceWorkSourceAtPrefix` resolve the task as the `rawInputValue` of the Result event's own execution basis (`projectExactExecutionBasisAtPrefix(event.basisId)`), require `rawInputDigest` and `inputDigest` to equal the task digest, and then apply `nativeWorkspaceWorkObservationMatchesTask` or `nativeWorkspaceWorkFailureMatchesTask`. A crossed basis or digest refuses. Pure relations that receive only the Result bind its exact identity; the ABG owner supplies the resolved task to every task-dependent derivation (`sourceTask`). A retained value that carries `task` keeps its original contract and digest. Downstream `sourceNativeWork` embeds the Result, so it also carries no task. |
+| R2 Unchanged after bytes | `product/worksite_effect.ts` `WorksiteContextBodyMember`, `abg/event_prefix.ts` | An unchanged after entry is an `admitted_member` that references either the predecessor member it already held or the admitted basis-input holder `{basisRef, basisDigest, path: ["context","entries",i]}` of its own CCall. Changed and new bytes are born inline once in the Result. `basis_admitted` rows index their inline task-context bodies under the existing native-context-body key. `resolveWorksiteContextBodyAtPrefix` resolves a basis member through the held `basis_admitted` row, checks `basisDigest`, and applies the existing malformed/missing/pending/foreign/tampered/stale/denied refusals. A cross-Run source use declares the basis-held members of its selected Result. |
+| R3 Binding raw input | `abg/instruction_assembly.ts`, `abg/execution_basis.ts` | The persisted `envelope.nativeBasis.executionBasis` is the execution-basis coordinate without `rawInputValue`. `rawInputAdmissionRef`, `rawInputDigest`, `basisRef` and `basisDigest` remain. Authentication rehydrates the complete basis through `rehydrateExecutionBasisAtPrefix` at the bound predecessor prefix and requires coordinate equality; a supplied complete basis still requires complete equality. Current or progressed input remains the `projectTraversalInputAtPrefix` result. |
+| R4 Contracts and history | owning HOW, generated contracts | Prospective shapes are generated from canonical source. Retained RC6/N2/N3 rows keep their original values, digests and physical codec versions. A mixed join between a retained value and a prospective one is explicit at its owner. |
+| R5 Read population | `abg/project_read_definition_bindings.ts` | `populateRunReadAtDurablePrefix` passes the coordinate its `projectOwnedPrefixArtifactTruth` call acquired to `prepareRunReadAtDurablePrefix`, so `prepareRead` borrows that artifact truth's owned prefix instead of capturing and decoding the same raw prefix again. Raw, copied and deserialized coordinates still acquire once; the acquired identity lives only in its owner. |
+| R6 Successor caller | maintained `test_env/uat/runner.mjs` | Fresh reads construct both run-read calls over `caller.state.environment.prefix` while it is coordinate-equal to the current close handoff, through the existing `refresh` relation; otherwise they refresh from the current handoff. Each read crosses its own fresh CLI process. The retained command record references its `.stdout`/`.stderr` files by size and digest instead of embedding them, and `fresh-readback.json` references each complete retained outcome instead of serializing the projection twice. The trusted bootstrap's `checkInstalledIdentity` is exported unchanged: `invokeLifecycle` calls it before and after its cold run, and an ordinary acquired-resource SDK caller uses the same checker. No second checker, transport mode or controller is added. Operator campaign controls are outside this owner. |
+
+No compact Public mode, v4 codec, reference-patch grammar, store, cache,
+serializer or compatibility layer is added. The C2 command task embeds the
+prospective native Result, so the renderer member pin in
+`gtl/worksite_command_execution.ts` names the compiled
+`build/code/src/product/worksite_command_execution.js` of the changed
+`product/worksite_command_execution.ts`: 119249 bytes,
+`sha256:b43945f5d9d0dd383bc502ad37974eb8ab50582247af0c93df8149c3193e8790`,
+renderer span bytes 109164 to 111596. The renderer text and its span digest
+`sha256:1fcd71846ed7a57571a96bf3bb6475aeaba3d4f89eafb121969c157904a896bf` are
+unchanged; only the member length, digest and span offsets move. The generator
+compares the packaged member and span bytes with this declaration before
+publication and refuses any difference.
+
+Test consumers in the native cone reach the task the same way: the two
+default-library cold cases read it through
+`projectNativeWorkspaceWorkResultTaskAtPrefix` and check it against the
+`rawInputValue` of the Result's own `basis_admitted` row. They locate a body
+holder by its member: `basisRef` selects the admitted basis, `resultRef` the
+admitted Result. A retained original Result keeps its task and Result holder.
+
+Affected proof for R1, R2, R6 and this pin is one finite set over a real
+compile, generation and lifecycle guard of the exact source: native publication
+against the generated manifest (one case), the C1 consumers (three), the two
+default-library cold cases and the maintained runner setup (one). The cold
+cases decide the actual parent/child/cursor composition, W outside R,
+currentness, pending-execution resume and cross-Run retained-source body
+lineage; the C1 cases are regressions. Unchanged relations reuse their prior
+passing observations. Whole installed R1/R2 composition, matched performance
+and qualification are not claimed by this design.
+
+### 10.9 Held session over one acquired event resource (RC7 HS01)
+
+Root selection `rc7-held-session-author-01` admits this `realization_refactor`.
+Product WHAT is unchanged. EVENTS-002/003/030 and PROJECTION-001/002/004/025/026
+require reuse of established facts at one exact prefix. A durable prefix
+coordinate is identity at a process boundary. It is not an in-process access
+handle. Inside one process the held `AcquiredAbgEventResource` is that handle.
+§10.8 R5 and R6 stay current until the final held-session proof below closes.
+This section supersedes them only at that point.
+
+| Relation | Owner | Realization |
+|---|---|---|
+| R-A Held acquisition | `abg/definition_event_resource.ts` | One caller session acquires one outer resource: `new_abg_event_resource` at setup, or `reopen_abg_event_resource` over a close handoff. `selectAcquiredAbgEventResource(resource, prefix)` publishes the current selection. Every borrowed call names that exact selection object. A copy, a stale predecessor selection, a selection of another resource and a selection of a closed resource refuse through `assertAcquiredAbgEventResourceSelectionCurrent` before any owner runs. `acquireAbgEventResource(selection)` marks the borrowed copy. `completeAbgEventResource(borrowed, prefix)` returns `abg_event_resource_completion` and its successor selection. It never closes the outer owner. Only the session owner calls `closeAbgEventResource` on the outer resource, once, at the session's end or failure. If that close refuses, the owner calls `abandonAbgEventResource`. `recoverInterruptedAbgEventResource` remains the interruption path. |
+| R-B Borrowed read | `abg/project_read_definition_bindings.ts`, `abg/exact_prefix_bindings.ts`, `public/installed_public_definition_call.ts` | The run-read `run_result` and `run_replay` resource assertion admits `ReopenedAbgEventResourceInput`: a reopen assertion or a current held selection. `bindExactPrefixRead` validates either form with `validateAbgEventResourceInput`. The kernel acquires the resource, reads at `resource.entryPrefix` and completes it through `completeAbgEventResource(resource, resource.entryPrefix)`. That call closes a reopened resource and returns its reopen receipt. A borrowed resource receives a completion whose successor prefix equals the entry prefix. A read never appends. The receipt schema admits the reopen receipt or that completion. `exactReadReceipt` checks the completion against the selection with `acquiredAbgEventResourceCompletionCorresponds` and requires the same prefix. `constructInstalledRunReadCall` accepts the same input. Population projects artifact truth through `abgEventResourceInputPrefix`. A held selection's prefix is owner-bound, so its population decodes no history. Result and replay value, producer, projection basis, source identity, request, selectors and historical declarations are unchanged. The legacy non-run read binding stays reopen-only, because acquired-mode transport skips its call admission. |
+| R-G Held caller | maintained `test_env/uat/{public-setup,runner}.mjs` | The session holds the setup resource past setup. It invokes the lifecycle start and its ordinary `run_result` and `run_replay` in the same process through `runInstalledDefinitionCallWithResource(selection, call)`. The worker environment is scoped into `process.env` for the call and restored afterward. Non-result calls keep `expectResult:false`. Each completion successor becomes the current selection. A call completion is not a close handoff. Populations read the held selection's prefix. Oracle reads, the fixed Testing source derivation and warm reads use the held prefix. The session closes the outer resource once at the qualification boundary. The genuine cold `run_result` and `run_replay` then cross fresh CLI processes over that close handoff with the same selectors. The caller compares the warm and cold value, producer and projection basis. CLI metadata is recorded only for these cold operations. Failure closes at the held durable prefix or abandons. A refused repeat setup acquires and closes nothing. The R6 hash-equal object splice and the exact-object `refresh(readSource)` argument are removed. `refresh()` projects the current prefix. |
+
+**Responsibilities.** Stale, foreign, copied and closed selections refuse at the
+transport identity check or owner currentness assertion. They append nothing.
+Interrupted and closed outer resources keep their existing recovery and
+reopen paths. A cold reopen still acquires, decodes once and closes.
+
+**Measurement before retirement.** Test-mode observation counters in
+`abg/event_store.ts` count `decodeRuntimeHistoryDescriptor` calls and folded
+rows, `reopenEventStore` calls, cold-branch entries of
+`readOwnedRuntimeHistoryAtDurablePrefix`, and physical history bytes read. They
+are internal snapshots. They change no admission, event or projection authority
+and are not exported from `abg/index.ts`. The `RC7 HS02:` cases in
+`t287-exact-prefix-projection-reuse.test.mjs` cover the smallest installed
+fixture. They measure the counters and RSS in four phases: acquisition, warm
+calls, warm reads and selected cold proof.
+
+**Deletion predicate.** Capture, borrow or refresh plumbing may be deleted only
+when no cold, interrupted-recovery, body-holder, historical-cut or provenance
+consumer remains. A zero warm counter does not prove that predicate. The only
+plumbing this section displaces is the R6 splice and the `refresh(readSource)`
+argument. `DurableHistoryDerivation.capture`, `selection` and
+`activeSelection`, and §10.8 R5's artifact-truth prefix pass, keep their cold
+consumers: raw or deserialized handoffs, reopen, recovery, body holders and
+historical cuts. They are retained unless the measured lane shows otherwise.
+
+**Held coverage and cold residuals.** R-B holds six reads: `run_status`,
+`run_result`, `run_replay`, `run_gaps`, `graph_call_result` and
+`graph_call_replay`. Twelve reads stay cold, reopen-only: `graph_call_status`,
+the five `*_evidence` reads, `workspace_replay`, `interaction_replay`,
+`continuation_replay`, `c_call_replay`, `workspace_gaps` and
+`run_lawful_actions`. A held session reaches them only across a close
+handoff. This section claims no held coverage for them, and no migration of
+them is selected.
+
+**Proof.** The proof is one held session over the installed fixture. It covers
+multiple warm calls and held `run_result` and `run_replay`. It shows one
+initial acquisition, zero added decodes and reopens during warm calls and
+reads, no append and an unchanged prefix during reads. It also covers stale,
+copied, foreign and closed refusals, outer close, abandonment and recovery, and
+complete warm/cold equality at one committed boundary. The `RC7 fixed
+admission:` case runs through the maintained caller. Its six direct `RC7 fixed
+proof:` cases are regressions.
+
+**Maintained readback binding (HS2).** R-G's `runReadbacks` in
+`test_env/uat/runner.mjs` binds the runtime's `abg` owner with `product` and
+`api`. The typed terminal check is `abg.isAbgTypedTerminalResult`. The `RC7
+fixed admission:` case calls that helper through `heldReadbacks` before the
+outer close and `freshReadbacks` after it. It compares the typed terminal,
+value, producer and projection basis of the two reads. A hand-built read or
+mock does not count for this relation. The S4 installed byte-growth gate stays open.
+No performance or acceptance claim is made.
+
+**Setup Program binding, refusal diagnostics and fixture migration (HS3).**
+Root selection `rc7-held-session-author-03`, `realization_refactor`. R-G's held
+session opens with one setup Program binding. The binding is chosen before
+`workspace-bind`, so `productRoot` is the chosen Program owner's install root
+(`T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md`, Setup Program binding). The
+`RC7 fixed admission:` case selects `library`. `runner.mjs`, the lifecycle
+start and the maintained harness keep the `consumer` default. Fixed Testing,
+the derived source, UAT and both readbacks run on that one binding and one held
+resource.
+
+A blocked integration Run must be diagnosable from its retained test output
+alone. Before cleanup, each affected integration assertion reports one bounded
+record: the receipt's `exitCode`, `outcomeKind`, `disposition` or refusal `code`
+and `issuePaths`, and the `failure` stage and code. The record also lists each
+admitted refusal or failure event in the call's own event rows
+(`child_preparation_refused`, `runtime_failure_observed`,
+`actor_invocation_failed`, `run_stopped`). Each listed event gives its kind,
+ordinal, event id and GraphFunction, plus the payload's `stage`, `code`,
+`failureClass`, `disposition`, `childGraphFunctionRef` and a truncated owner
+`message`. Raw task, context, provider output, credentials and CLI metadata are
+not copied. The record is read through the ABG event owner at the call's prefix.
+It adds no event or authority.
+
+The native-workspace-work component fixture uses the carried dependency
+relation (`T287_NATIVE_WORKSPACE_WORK_DESIGN.md`, Declared typed assessment).
+The relation is unchanged. The assembly basis keeps the native Program
+publication as `publication`. It carries the contract-declaring publication as
+`assessmentPublication`. Its owner supplies the call's admitted resolution row
+as `resolution`, the declaring install with its lock coordinates, and a
+resolved lock. The lock holds one row for the declaring owner, one row for the
+resolution's GraphFunction owner and the declaring owner's `requires` edge when
+the two owners differ. Positive cases assemble through that carriage. Omitted,
+crossed-owner, crossed-lock and unselected-contract carriages refuse before
+dispatch. Ordinary constructor tasks keep their original fixture. The installed
+same-Run relation stays with the `RC7 assessment dependency:` case. The
+controlled lock is component evidence only.
+
+### 10.10 Bounded stdout windows and pre-decision flush (RC7 HS03)
+
+Root selection `rc7-stdout-window-author-01` admits this `design_reframe` with
+Q2/Q3 defaults; `rc7-stdout-window-author-03` adds the explicit window witness,
+its cold archive check and exact profile compatibility (E-F, E-G). Product
+liveness, timeout and effect meanings are unchanged
+(REQ-R-ABG3-PROJECTION-016/017). Only the admission cadence and witness of
+window-profile stdout observations change. One `actor_process_stdout_observed`
+row and at most one activity probe are admitted per bounded window instead of
+per chunk.
+
+| Relation | Owner | Realization |
+|---|---|---|
+| E-A Archive bytes and window boundary | `abg/worker_transport.ts` `runProcess` | The stdout archive created by `executeWorkerTransport` is opened once. Each captured chunk's UTF-8 bytes are written with `writeSync` at the running archive length, which is the chunk's archive offset. Stderr is unchanged. An observer selects window mode by declaring `classifyStdoutChunk`. Without it, as for the legacy profile and raw transport callers, every chunk still reaches `onStdoutObserved(chunk)`. In window mode, `classifyStdoutChunk(chunk)` returns the actor-clock capture `elapsedMs`, `progress`, `result` and `turnBoundary`, and may return `segments`: the chunk partitioned in order at the turn boundaries it completes, each segment carrying its chunk-relative end and its own `progress`, `result` and `turnBoundary`. Without `segments` the chunk is one segment of the aggregate class. The transport refuses segments that do not partition the captured characters and bytes in order. Each segment is appended to the pending window at its own archive offset; a segment ending at a turn boundary closes that window at that exact byte position, and the next segment of the same capture opens the next window. One captured string coalescing two complete records therefore yields two windows, and a noise-only tail after a boundary carries no qualifying time. The inactivity lease is renewed only when some segment's `progress` or `result` holds, as before. The pending window records its archive offset, byte length, first and last capture time, last qualifying capture time and result capture time. It closes on whichever comes first: a chunk that completes a structured turn boundary (a complete `assistant`, `user` or `result` record, counted by the shared incremental classifier), or 30000 ms of actor clock after the window's first capture. A chunk arriving at or after that bound first closes the older window. A transport monotonic deadline, cancelled with the lease timers, closes a quiet window. Closing takes the window before emission, then `fsyncSync` the archive descriptor, then calls `onStdoutObserved(text, window)` once. A write or fsync failure fails the owner permanently, so no later close delivers a reference. |
+| E-B Scope-owned flush | `abg/event_store.ts` | At start, the transport hands the observer one `flush` capability. The actor binds it to its actor scope with `bindNativeStdoutWindow(store, actorInvocationRef, flush)` and unbinds it on completion. `flushNativeStdoutWindow(store, actorInvocationRef)` requires an active transaction. It stages the scope's pending window through `flush` and records the returned restore function in that transaction. `admitNativeRuntimeLivenessEvent` calls it for the candidate's `payload.actorInvocationRef` before reading the prefix and validating the candidate. Frame and CCall candidates carry no actor scope, and another actor's window has another key, so no scope flushes another scope's window. A rolled-back transaction runs its restore functions in reverse, returning each taken window ahead of newer pending bytes. A committed transaction discards them. Archive fsync happens inside the enclosing transaction, before the staged row. The event log keeps one fsync per transaction. |
+| E-C Window observation | `abg/runtime_liveness.ts` `stageNativeStdoutWindow` | Inside the active transaction at the actor's durable predecessor, the window admits one row under the W contract (E-G): `streamOrdinal` is one plus the process's admitted stream rows at the staged cut, `byteLength` is the window's archive byte length, `chunkDigest` is `sha256Canonical` of the exact archive range, and `stdoutWindow` is the witness `{ kind: "stdout_archive_window", archiveOffset, firstCaptureElapsedMs, lastCaptureElapsedMs, lastQualifyingElapsedMs }` copied from the transport's `WorkerStdoutWindow`. The witness keeps the captured last qualifying time even after an absolute interruption; the probe input is null then. Staging refuses a witness whose `archiveOffset` is not the sum of the process's earlier stdout row lengths at the staged cut, whose clocks are not ordered first ≤ qualifying ≤ last, or whose probe sample differs from its captured qualifying time. E1 probes then pass through the existing probe relation, staged as `stageRuntimeActivityProbe`: `stdout` `activity` at the last qualifying capture time, and, when the window holds a result, `structured_output` `artifact_pending`. Both probes observe the one row, and the probe relation gives one underlying observation one time, so both carry the last qualifying capture time. A result qualifies, so it is captured at or before that time; a window whose result lies after it is refused. A noise-only window admits no probe and renews no lease. After an absolute threshold interrupts supervision, rows are still admitted and activity probes are not. |
+| E-D Threshold entry | `abg/runtime_liveness.ts` `admitRuntimeThreshold` | Before the decision transaction, one transaction at the old predecessor calls `flushNativeStdoutWindow` and commits. Its durable successor, or the old predecessor when nothing was pending, opens the decision transaction. The decision still reads `selectActiveRuntimeTransactionHistoryAtDurablePrefix(..., { durableOnly: true })`, so it sees committed window activity and never transaction-local staging. `runtime_threshold_not_reached` returns that successor. `actor_process` adopts the returned successor on both branches. The threshold candidate's own common-ingress flush then finds nothing pending. |
+| E-F Cold window adoption (E4) | `abg/event_store.ts` `coldStdoutWindowArchive`; range/path relations in `abg/transport_contracts.ts` | The one shared decode of a cold acquisition (`decodeRuntimeHistoryDescriptor`, used by `reopenEventStore`, `recoverInterruptedEventStore` and `readOwnedRuntimeHistoryAtDurablePrefix`) and the byte-array sibling `readRuntimeEventsAtDurablePrefix` observe each decoded row. For a W row only, `actor_transport_binding_admitted` supplies `archiveRoot` and `paths.stdout`, `actor_process_started` joins the process to its binding, and each witnessed stdout row's range is read once: the file must satisfy `isAdmittedActorArchiveFile` (canonical, in-root, regular, single-link), the witness offset must equal the process's running stdout length, and the bytes at that range must satisfy `archiveRangeMatchesStreamRow` (exact length, fatal UTF-8, `chunkDigest`). Any miss throws inside the decode, so the acquisition refuses before history is granted; the caller's existing cleanup closes descriptors and leaves the log unchanged. Worksite construction recovery reuses the same two relations and keeps its specialized authorization. Warm active selection, held owners and the pure fold never read an archive; L, RC6 and S2 rows carry no witness and read none. |
+| E-G Exact profiles | `abg/event_contract_profiles.ts` `constructRootEventContractProfiles`; tables in `abg/event_store.ts` | One classifier maps an exact digest to its exact table and independent capabilities, and refuses any other digest; no digest falls back to L or to the latest profile. L `sha256:fc3a…` (unstamped, lifecycle copies, no native liveness); RC6 `sha256:5b35…` (stamped, lifecycle copies, binding without `configuredIdentity`, native liveness); S2 `sha256:3bcc…` (stamped, copy-free, `configuredIdentity`, native liveness); W (S2 plus the witnessed stdout variant, `profileRef` `abg.event-contract.root/p6-stdout-window-witness@1`, identity bound by canonical regeneration). RC6 and S2 tables are rebuilt from the same constructors and must reproduce their pins at load. Readers ask capabilities of the row's own stamp: `lifecycleCopies` for D5 representation, `nativeLiveness` for probe, threshold and frame/CCall liveness folds, `stamped` for undispatched evidence and witnessed boundaries, `stdoutWindowWitness` for E-F. A cold schedule fixes its profile at the first row; a retained witnessed L boundary keeps its original RC6 or S2 target and profile ref; a new boundary, a new store and new native liveness admission use W only. Old RC6/S2 stores read cold and fold with their original rows, event identities and payloads; no restamp, P-to-W migration or old-P native continuation exists. |
+| E-E Actor glue | `abg/actor_process.ts` | A current profile declares `classifyStdoutChunk` through the existing stream observer and samples `elapsed()`. For Claude structured output it returns the observer's `classifyChunk(chunk)` segments: the shared incremental decoder records each completed boundary's chunk-relative end with the progress count and final output standing there, and classifies each segment against the standing at the previous segment end. No second parser is used. For `plain_text`, any bytes are progress and there is one segment. It binds the flush. `onStdoutObserved(text, window)` stages the window in the active transaction (the flush path) or in its own transaction at `successorPrefix` (turn boundary, interval, drain). `consumedStdoutEventRefs` are the actor process's admitted stdout rows at the terminal's cut. The governed-context transcript still joins the per-chunk captured text. The legacy profile keeps one row per chunk. |
+
+**Clock.** Capture times are `actor_process` actor-clock samples taken at
+classification. The probe carries the last qualifying capture time, never the
+last byte, flush or admission time. The witness persists the window's first
+and last capture times and its last qualifying capture time separately; the
+transport's own monotonic deadline clock closes quiet windows and is not
+persisted. Adding the witness changes the current contract digest, so W is a
+new exact profile (E-G) and the S2 profile stays readable at its pin.
+
+**Lifetime.** Window state lives inside `runProcess`. The pending window drains
+with closure `drain` after process completion and before `onProcessFinalized`,
+so every stdout row precedes `actor_process_exited`. A drain failure becomes
+the finalization error, and finalization still runs. The descriptor closes
+after finalization. The existing archive-equals-observed digest check still
+runs afterwards.
+
+**Reentrancy.** Emission re-enters the common ingress through the window's own
+probe. The window was taken before emission, so the nested flush is a no-op. A
+flush never opens a transaction. Only E-D and the transport-initiated closes
+open one, and neither runs inside another.
+
+**Cold refusal (E4).** E-F refuses a W window whose archive range is absent,
+different or truncated at every cold acquisition path. Archive bytes are
+fsynced before their row is staged (E-A), so a referenced range exists when
+its row commits; a failed archive write or fsync references nothing.
+Historical per-chunk rows keep their identities and contract at their cuts.
+Nothing is migrated.
+
+**Deletion.** Nothing is deleted. The per-chunk path remains for the legacy
+profile and raw transport callers, and W keeps the unwitnessed per-chunk
+stdout variant for direct stream owners; an actor window row always carries its
+witness.
+
+**Internal declarations.** `nextNativeProcessStreamOrdinal` and
+`nextNativeStdoutArchiveOffset` are actor-internal and `@internal`, like the
+`RuntimeEventPrefix` they take, so the stripped declaration closure references
+no stripped type.
+
+**Proof.** The selected cases are authored in their existing owners:
+`RC7 HS03 actual-stream:`, `scopes:` and `historical:` in
+`t287-calculus-fold.test.mjs`, `timeout:` and live `archive:` in
+`m5-worker-transport.test.mjs`, cold `archive:` and the RC6/S2 `historical:`
+cases in `m5-event-store-reopen.test.mjs`, and `actor successor:` in
+`t287-lifecycle-failure-carrier.test.mjs`, which drives the actual
+`invokeActorProcessWithAssembly` with a real store and real liveness owners,
+forces `runtime_threshold_not_reached` with a pending window and requires the
+next actual admission at the returned durable successor. The actual-stream case replays a bounded
+recorded chunk sequence through the real transport. Recorded
+qualifying-activity and decision chronology is replayed through the real store
+under the current owners. Metadata limits stay explicit: no turn boundaries,
+noise capture times or archive bytes are reconstructed. The `archive:` cases
+drive the real transport and the shared observer's `classifyChunk` over
+controlled coalesced, mixed, noise and turn-boundary captures; they check each
+window's archive range, length and digest at its one reference, a failed
+archive write or fsync, and the final partial-window drain. The `timeout:`
+case drives a real worker past its inactivity deadline and checks that the
+pending partial window drains before finalization with its last qualifying
+capture time. Missing, changed and truncated archive bytes are refused by the
+existing cold owners (E4). Each case is proof only when its selected lane passes
+on the final frozen source. No timing, release or qualification claim follows.
+
+### 10.11 Constructed-call reference preservation (RC8 REF-01)
+
+Root selection `rc8-reference-preservation-01` admits this
+`realization_refactor`. Product WHAT is unchanged: [Live State, Recovery And
+Valid Reuse](../../../../specification/PRODUCT.md#live-state-recovery-and-valid-reuse)
+requires owners to consume established facts with their exact subject and
+basis, and internal call boundaries create no new semantic proof obligation.
+PUBLIC-CONTRACTS-009/010 fix the declared defaults, the invocation identity
+and the owning semantic function; CATALOG-014/017/029/030 fix coherent owner
+readiness, exact idempotence, eventless construction and separate ABG runtime
+truth. An established object here is one exact in-process value whose owner
+produced it as its own admission output and established its deep immutability
+once. Its identity carries that fact. A copy, a different object of equal
+content, a mutable object or a serialized form is new data and takes the
+owner's full admission. A frozen input proves immutability only; it is not
+evidence that the input equals any schema's output. No relation adds a store,
+trust registry, wrapper library, event or runtime authority, and none skips a
+currentness, effect or semantic check.
+
+```mermaid
+sequenceDiagram
+  participant C as checkedInstalledCall
+  participant M as definition_binding_mechanics
+  participant T as native transport
+  participant B as bindStaticOwner
+  participant K as Catalog owner
+  participant R as run owner / Product prepare
+  C->>M: establishExactDefinitionCall(call, declaration)
+  M-->>C: canonical admitted invocation, deep immutability once, recorded
+  C->>R: establishCanonicalProductInput(population payload, canonical payload)
+  C-->>T: frozen call carrying that canonical invocation
+  T->>B: established call by reference (no detach, no reattachment)
+  B->>M: admitExactDefinitionCall: recorded canonical invocation returns itself
+  B->>K: catalog / catalogView member: owner fact by identity, before any gate
+  B->>B: remaining members: admitContract, canonical outputs and defaults
+  B->>R: invocation, request, Catalog and view are the constructed and setup objects
+  R->>R: readyCatalogs and view hit; canonical request payload is the recorded Product input; guard runs on it
+```
+
+| Relation | Owner | Realization |
+|---|---|---|
+| X1 Construction establishes the canonical invocation | `public/installed_public_definition_call.ts` `checkedInstalledCall`; `public/binding/definition_binding_mechanics.ts` `establishExactDefinitionCall` | The constructor builds the call exactly as before and hands it to `establishExactDefinitionCall` with the selected member's declaration. That runs the existing full `admitExactDefinitionCall` once and keeps its output: the canonical invocation with every schema default applied (a raw start without `fhMode` admits to `fhMode: "direct"`), whose request is the value its `requestDigest` names. One walk establishes that output's deep immutability: it freezes every own data container and descends through containers that are already frozen, which `deepFreeze` does not. An accessor, a symbol key or a non-plain prototype refuses establishment, and the constructor returns its original call on the ordinary path. Otherwise it returns a frozen call carrying the canonical invocation and the original resources, and the owner records that invocation against the selected definition and the declaration's request schema. The recorded object is the admission output; the raw input is never recorded. The walk runs at construction only. The canonical request schema rebuilds every container of the input payload (`jsonValueSchema` array and record branches), so the canonical request's input payload is a new object, not the value population admitted; X2 hands that exact nested payload to the Product input owner at this constructor. |
+| X2 Population detaches new input once | `product/run_invocation_operation.ts` `populateProductRunInvocation`; `product/semantics.ts` `admitInstalledProductInput` | Population admits the caller's input value through `admitInstalledProductInput` before it builds the request. That admission's `admitJson` output is a detached tree of fresh containers; the owner deep-freezes it and records it. The request and the `input_contract` slot carry that admitted value, so a caller's later mutation, including a mutable member under a frozen shell, cannot reach the call. Digests are canonical and unchanged. A later `admitInstalledProductInput` of a recorded value skips `admitJson` and still calls the Product's own `admitInput` guard. Any other value takes `admitJson` as before. **Constructor handoff.** `constructInstalledStartCall` is the only call site of the internal `establishCanonicalProductInput(admitted, canonical)` in `product/semantics.ts`. It calls it once after `checkedInstalledCall` returns an established call (`isEstablishedDefinitionCall`), passing the input payload population placed in its request (`request.input.value` for `start`, `request.input` for `invoke`) and the payload at the same path of the established canonical request. Preconditions, each checked by identity or one shallow test: `admitted` is a value this owner recorded; `canonical` is the payload of an invocation that `establishExactDefinitionCall` recorded and deep-froze (the call site passes it from that call), so it is the canonical schema's output for a request whose payload was `admitted`; `admitted` and `canonical` are distinct frozen objects (a primitive payload is never recorded; its admission is constant-size). On those preconditions the owner records `canonical`; it performs no `admitJson`, no walk and no digest or content comparison. A failed precondition records nothing, and the real consumer then admits the payload as any other value. The real consumer's `admitInstalledProductInput` of the canonical request payload is then a reuse, and the Product guard still runs on that exact object. A call established outside this constructor, including a raw, deserialized, copied or test-built call passed directly to `establishExactDefinitionCall`, is not handed off: its canonical payload is new data to this owner and takes one `admitJson`. No raw, frozen, digest-equal or structurally equal object is recorded. Construction work is unchanged and remains: one population `admitJson` copy of new caller input, the one canonical call admission that rebuilds the payload containers, and the one establishment walk. |
+| X3 Native transport carries established calls | `public/installed_definition_call_transport.ts` | A candidate whose invocation is recorded (X1) and whose call and resources shells are frozen is carried by reference: no `structuredClone`, no retained-verifier reattachment. The held path keeps its selection identity, currentness and bound-prefix checks first; an eventless bound call whose bound prefix is not the selection's own prefix object keeps the detaching path. Every other candidate, including every raw, deserialized, copied, stale, foreign or shell-mutable call, is detached exactly as before. Owner admission runs synchronously inside the callable before the first await, so the owner never observes a later caller change. The fact belongs to the invocation object, not to the shell: a frozen rebox that keeps the recorded invocation is carried by reference, and its resources still meet X4 member by member. |
+| X4 Static binder consumes owner member facts | `public/binding/static_definition_bindings.ts` `bindStaticOwner`; `abg/exact_prefix_bindings.ts`; `owner_bindings/run_invocation.ts` | `admitExactDefinitionCall` returns a recorded canonical invocation itself. A binder may receive, at module construction, a static table naming for some members of its strict-object resource schema the existing owner predicate that recognizes that owner's established values (`EstablishedResourceMembers`, a type declared beside the binder ABI). The prefix binders forward the table unchanged. The run binders name `isAdmittedReadyGraphFunctionCatalog` for `catalog` and `isAdmittedGraphFunctionCatalogView` for `catalogView`, both from `product/catalog.ts`. The binder reads the plain, non-Proxy resources shell by own data descriptors and asks each named predicate before any JSON copy, schema run or frozen walk. A member that the predicate accepts is passed by identity. When no member is accepted, or the shell has an accessor, a non-enumerable or symbol key, an unknown key, a Proxy or another prototype, the whole shell takes `admitContract` unchanged. Otherwise the remaining members are admitted together through `admitContract` with the same strict key law and I-JSON gate, and the output is assembled in the schema's entry order from the accepted members and that admission's output, so transforms and schema-created defaults are the canonical ones. Every refusal maps to the existing `invalid_resource_assertion` fault. No member value, frozen state or member-schema identity is retained or inferred by the binder; a binder without a table admits exactly as before X4. Receipt and owner-output admission are unchanged. |
+| X5 Product consumers hit by identity | `product/catalog.ts`, `product/execution_resolution.ts` | `admitGraphFunctionCatalog` records a ready Catalog under its canonical readiness basis only after `isDeeplyFrozen` holds at construction; `isAdmittedReadyGraphFunctionCatalog(value)` holds exactly for such a Catalog (`ownedCatalogs` membership, then `readyCatalogs.get(value.readinessBasis) === value`). `narrowGraphFunctionCatalog` records a view it constructs over such a Catalog, once deeply frozen at construction; `isAdmittedGraphFunctionCatalogView` holds exactly for those views. Each owner-built value is the I-JSON canonical value of the run binder's structural member contract. Unchanged relations: `admitGraphFunctionCatalog(catalog.readinessBasis)` hits `readyCatalogs`, the reconstructed Catalog is the input Catalog, and `narrowGraphFunctionCatalog` returns the retained view, so neither canonical comparison runs. Catalog/view coherence and installed module content verification per resolution remain owner checks. |
+| X6 Worker plan copies | `abg/worker_transport.ts` `prepareWorkerTransport` | The plan reuses a contract or response schema it already owns, or a supplied one that is frozen and deeply frozen when first seen, by identity. A mutable caller contract, schema or argument list is still copied and frozen, so the M5 Q23 prepared-plan stability is unchanged. |
+
+**Retired inference.** The RC8 stage-02 binder retained any deeply frozen
+member it had admitted under a member schema and later returned that raw
+member, or a raw member found deeply frozen, in place of the schema's output.
+Arbitrary member-schema identity is not an input-only or identity-preserving
+law: a transform, a schema-created default or a non-enumerable raw member
+changes the canonical outcome. That inference and its member and partial-schema
+memo are removed. Only the owner predicates of X4 and the recorded canonical
+invocation of X1 carry reuse.
+
+**Counters.** Observation-only test-mode counters, `@internal` and not
+exported from any barrel, count work at its actual site:
+`observeDefinitionCallWork` (full call admissions, invocation establishments
+and their deep-immutability walks, recorded-invocation reuses, binder resource
+gate runs, members passed through that gate, members accepted by an owner
+predicate, and per member key the gate passes as `gated.<key>`),
+`observeDefinitionTransportWork` (transport detaches, which `structuredClone`
+the whole call, retained-verifier reattachments into a detached clone, and
+established carries), `observeCatalogWork` (full Catalog admissions on a
+`readyCatalogs` miss and view constructions on a view miss),
+`observeExecutionResolutionWork` (full-Catalog and view canonical
+comparisons), `observeProductInputWork` (Product input `admitJson` copies) and
+`observeWorkerTransportCopyWork` (plan contract and schema copies and first
+deep-frozen checks). `observeRunPreparationSubjects` holds weak references to
+the last prepared invocation, request, Catalog and view so a test can compare
+identities. None selects, caches or changes an admission. A retained-verifier
+reattachment is a reference assignment into a clone; it is not native module
+or declaration loading or linking, which these counters do not observe.
+`admitJson` and `admitContract` calls by owners other than the binder are not
+counted; the binder count is the only gate site on this path that receives the
+resources.
+
+**Retained work.** Raw and CLI cold ingress, I-JSON and contract admission of
+new or changed data, owner currentness, prefix and effect checks, Product
+semantic guards, Catalog/view coherence and installed content verification
+keep their full paths. Setup establishes the Catalog and view once; the first
+and every later binder call over them reuses them through the X4 owner facts,
+with no binder JSON copy, schema run or frozen walk of either. §10.9's held
+reads and twelve cold residuals are unchanged.
+
+**Proof.** `t287-owned-call-reference.test.mjs` drives the real
+constructor, native transport, static binder and run owner over one held
+installed session. From the first post-setup call, the prepared invocation
+and its request are the constructed canonical objects, the Catalog and view
+are the setup objects, and there are zero transport detaches and
+reattachments, full call admissions, binder gate passes of `catalog` or
+`catalogView`, Catalog admissions, view constructions, canonical Catalog
+comparisons and Product input copies. A raw start without `fhMode` establishes
+to the canonical `direct` request whose digest its invocation names, and the
+real run owner receives that request. Against canonical `admitContract`, the
+binder keeps a member transform and a schema default with and without an
+owner-accepted member, and refuses a non-enumerable member. A frozen rebox
+reuses its recorded invocation and owned Catalog; a frozen structural copy of
+the Catalog earns no fact and takes the gate and full Catalog admission. A
+shallow-frozen input shell with a mutable member is detached at population and
+cannot change the call. Copied and mutable calls still detach and admit. The
+`binding`, `catalog`, `invocation`, `worker` and `held` lanes are
+regressions; the M5 Q23 prepared-plan case is the mutable-input falsifier
+for X6. Matched installed measurements and the CPU profile belong to the
+separate operator assignment.
+
+### 10.12 Owner-held immutable folds (RC9 OWN-01)
+
+§10.9–§10.11 hold the call, the session and the plan; RC9 applies the same
+rule to two owner folds over immutable rows or bytes and to the final worker
+contract. Each fact is an owner-local derived value, never persisted, never
+admission, and never outliving its territory. No cache framework, registry,
+lifetime or Public value is added.
+
+**O1 Execution-basis row fact.** `execution_basis_record.ts` checks one
+admitted `basis_admitted` row (raw input `admitJson`, raw digest, body digest)
+once and retains the checked record in the prefix's derivation territory
+(`runtimePrefixComputation`, one ordered lineage) under the row's event id and
+admission ordinal. Exact-prefix membership and match cardinality stay outside
+the fact: each call resolves its own match at its own cut, so a later
+duplicate is `many` and an earlier cut lacking the row is `absent`. Only a
+`one` outcome is retained; a refused or malformed row is checked again. A
+validation view, a foreign history and a raw or copied prefix have no shared
+territory and check cold; a rolled-back row is never in a selected cut.
+
+**O2 Workspace environment body.** `environment_admission.ts` retains the
+invariant environment body (authority basis, binding candidate and binding,
+installs, lock, ProductSet) or its refusal in the owner artifact projection's
+lineage territory, keyed by the exact binding coordinate and the artifact
+dependency extent: the ordered admission digests of the artifact rows the
+derivation reads. The cut is not in the key. Each call returns a fresh frozen
+wrapper with the requested `prefix` and `artifactTruth`. An unrelated append
+keeps the extent and borrows the body; an admitted binding, install, lock or
+other artifact row changes it and derives again. Artifact truth still checks
+availability at every requested cut. A copied or raw artifact projection is
+fully validated and derives cold.
+
+**O3 Installed verification (open).** No installed content fact is carried.
+Physical installed verification (`installedProductContentMatches`) remains a
+dependency at every consumer and effect boundary that performed it before RC9:
+each resolution's module acquisition (`prepareInstalledProductModules`), every
+leaf semantics runtime content check (leaf port construction and each leaf
+authorization), each nested semantics load of the leaf port, and each Public
+`product.verify`. A content change in the install is refused at the next of
+those boundaries. Reuse of a verification result is OPEN as a separate T287
+performance follow-up because no valid reuse lifetime is resolved; this
+section makes no zero-read or once-per-resolution claim.
+
+**O4 Final worker contract.** `actor_process.ts` deep-freezes the final native
+transport contract and its argument template where it is produced, so the
+plan owner's X6 borrows it. Command, environment, governed endpoint and prompt,
+model, cwd, limits and archive coordinates remain per-occurrence inputs; no
+runtime-constant plan is retained, and a mutable contract is still copied.
+
+**Observation.** Observation-only counters, exported from no barrel, count
+actual work: `observeExecutionBasisRowWork` (row admissions, body digests),
+`observeWorkspaceEnvironmentWork` (body derivations),
+`observeInstalledContentWork` (verifications, `lstat`, directory lists, file
+hashes, graph-carrier reads). They select, cache and change nothing.
+
+**Proof.** `t287-held-owner-fold-reuse.test.mjs` drives the real owners for
+O1, O2 and O4: first validation once, later-cut reuse, duplicate, earlier cut,
+copied and malformed rows, rollback-free cold equality, unrelated append and
+binding change, copied projection, configuration variation and owner output
+equivalence. Its held installed Runs carry each returned successor selection.
+For O3 it observes physical verification in every Run and every Public check,
+and, after a disposable install content change, the first content check of an
+actual resolution's retained leaf semantics verifies physically and refuses, as
+does a new resolution.
+The W2 owner-chain oracle admits exactly `selectedDefinitions`,
+`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.
 
 ## 11. Source-to-library-to-outcome paths
 
@@ -771,6 +1188,7 @@ stateDiagram-v2
   ClosedHandoff --> PostAdmissionFailure: later receipt or output validation fails
   PostAdmissionFailure --> RecoveryRequired: conserve admitted successor and physical facts
   ClosedHandoff --> FreshRead: exact reopen and reconstruction
+  ClosedHandoff --> RecoveryRequired: cold W window archive range missing, changed or truncated (E4)
   RecoveryRequired --> Prepared: lawful re-entry on authenticated actual prefix and new evidence
 ```
 

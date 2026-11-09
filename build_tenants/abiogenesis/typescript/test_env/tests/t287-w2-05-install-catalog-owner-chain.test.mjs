@@ -299,6 +299,60 @@ async function installedCallableCensus(harness, publicApi, product) {
   });
 }
 
+const MECHANICS_PATH = "build/code/src/public/binding/definition_binding_mechanics.js";
+const OWNER_CHAIN_PATHS = Object.freeze([
+  "build/code/src/product/install_definition_bindings.js",
+  "build/code/src/product/catalog_definition_bindings.js",
+  "build/code/src/product/project_read_definition_bindings.js",
+  "build/code/src/validator/conformance_definition_bindings.js",
+  MECHANICS_PATH,
+]);
+// §10.11 owner-local derived facts: exactly these three declarations, once
+// each, and only in the binding mechanics. Every other Map is hidden state.
+const MECHANICS_OWNER_FACTS = Object.freeze({
+  selectedDefinitions: "WeakMap",
+  establishedInvocations: "WeakMap",
+  gatedResourceMembers: "Map",
+});
+
+function assertOwnerChainSource(path, source) {
+  assert.doesNotMatch(source, /applyRootPublicInvocation|createRootOperationContext|legacyRequest/u, path);
+  let residual = source;
+  if (path === MECHANICS_PATH) {
+    for (const [name, kind] of Object.entries(MECHANICS_OWNER_FACTS)) {
+      const declaration = new RegExp(`\\bconst ${name} = new ${kind}\\(\\);`, "gu");
+      assert.equal(residual.match(declaration)?.length ?? 0, 1, `${path}: ${name} is declared once as ${kind}`);
+      residual = residual.replace(declaration, "");
+    }
+  }
+  assert.doesNotMatch(residual, /WeakMap|new Map/u, path);
+}
+
+test("W2-05 owner-chain static oracle admits exactly the three mechanics facts", () => {
+  const allowed = [
+    "const selectedDefinitions = new WeakMap();",
+    "const gatedResourceMembers = new Map();",
+    "const establishedInvocations = new WeakMap();",
+  ].join("\n");
+  assertOwnerChainSource(MECHANICS_PATH, allowed);
+  for (const path of OWNER_CHAIN_PATHS.filter(path => path !== MECHANICS_PATH)) {
+    assertOwnerChainSource(path, "export const value = 1;");
+    assert.throws(() => assertOwnerChainSource(path, "const selectedDefinitions = new WeakMap();"),
+      assert.AssertionError, `${path} admits no Map`);
+    assert.throws(() => assertOwnerChainSource(path, "const rows = new Map();"), assert.AssertionError, path);
+  }
+  for (const [label, source] of [
+    ["additional Map", allowed + "\nconst retained = new Map();"],
+    ["additional WeakMap", allowed + "\nconst retained = new WeakMap();"],
+    ["duplicate allowed declaration", allowed + "\nconst selectedDefinitions = new WeakMap();"],
+    ["allowed name with another kind", allowed.replace("gatedResourceMembers = new Map", "gatedResourceMembers = new WeakMap")],
+    ["missing allowed declaration", allowed.replace("const establishedInvocations = new WeakMap();", "")],
+    ["legacy request", allowed + "\nlegacyRequest();"],
+    ["legacy root invocation", allowed + "\napplyRootPublicInvocation();"],
+    ["legacy root context", allowed + "\ncreateRootOperationContext();"],
+  ]) assert.throws(() => assertOwnerChainSource(MECHANICS_PATH, source), assert.AssertionError, label);
+});
+
 test("W2-05 installed Product install and catalog owners compose without catalog runtime truth", async (context) => {
   const harness = await setupInstalledCliHarness(context, packageRoot, {
     candidateBasisSource: "packed_artifact",
@@ -1571,19 +1625,8 @@ test("W2-05 installed Product install and catalog owners compose without catalog
     ],
   );
 
-  for (const path of [
-    "build/code/src/product/install_definition_bindings.js",
-    "build/code/src/product/catalog_definition_bindings.js",
-    "build/code/src/product/project_read_definition_bindings.js",
-    "build/code/src/validator/conformance_definition_bindings.js",
-    "build/code/src/public/binding/definition_binding_mechanics.js",
-  ]) {
-    const source = await readFile(join(harness.installedPackageRoot, path), "utf8");
-    assert.doesNotMatch(
-      source,
-      /applyRootPublicInvocation|createRootOperationContext|WeakMap|new Map|legacyRequest/u,
-      path,
-    );
+  for (const path of OWNER_CHAIN_PATHS) {
+    assertOwnerChainSource(path, await readFile(join(harness.installedPackageRoot, path), "utf8"));
   }
   assert.equal("PUBLIC_DEFINITION_BINDINGS" in publicApi, false);
   assert.equal("LEGACY_DEFINITION_BINDINGS" in publicApi, false);

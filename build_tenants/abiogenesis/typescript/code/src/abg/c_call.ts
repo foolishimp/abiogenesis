@@ -1,5 +1,6 @@
 import { createHash } from "node:crypto";
-import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, projectOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromStore, selectOwnedRuntimeEventPrefix, runtimeEventPrefixExtent, projectOwnedRuntimeEventPrefixAtDurablePrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix } from "./event_prefix.js";
 import { selectActiveRuntimeTransactionHistoryAtDurablePrefix } from "./event_store.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
@@ -63,9 +64,9 @@ import {
   assertRuntimeEventTransactionActive,
   isRuntimeEventTransactionActive,
   projectRuntimeEventFromValidatedHistory,
-  readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
-  ROOT_EVENT_CONTRACT_DIGEST,
+  rootEventContractProfile,
+  runtimeEventProfile,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidate,
@@ -85,7 +86,7 @@ import {
 } from "./event_calculus.js";
 import {
   type ReplayState,
-  type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, materializeRuntimeReplayGuard, writeRuntimeReplayGuardValue,
+  type RuntimeReplayGuard, projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix, writeRuntimeReplayGuardValue,
 } from "./replay.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
@@ -112,7 +113,13 @@ import {
 } from "./child_lifecycle.js";
 import {
   WORKER_TRANSPORT_FAILURE_CLASS_VALUES,
+  TRANSPORT_PROTOCOL_OWNED_FLAGS,
   classifyWorkerTransportFailure,
+  configuredActorIdentityCorresponds,
+  durableActorObservationOfArtifact,
+  type ActorLifecycleCopies,
+  type ConfiguredActorSelection,
+  type KnownTransportAgentKey,
   type NativeWorkerResultAssessment,
   type WorkerTransportFailureClass,
 } from "./transport_contracts.js";
@@ -1760,6 +1767,73 @@ export interface AdmittedActorTransportProjection {
   readonly actorTerminalEventRef: string;
   readonly failureClass: WorkerTransportFailureClass | null;
   readonly nativeResultAssessment: NativeWorkerResultAssessment | null;
+  /** The binding's own configured selection, read only after its joins. */
+  readonly configuredSelection: ConfiguredActorSelection;
+}
+
+/** The one binding/identity join: the exact binding body digest and ref, its
+ * CCall, and the actor start it alone causes. A recorded identity must
+ * correspond to the binding's own agent and final arguments; absence is the
+ * legacy `identity: null`. A substituted, crossed or edited binding has no
+ * selection. Pure over the two admitted rows; the caller selects them. */
+export function projectTransportBindingSelection(
+  binding: Readonly<RuntimeEvent>,
+  actorStarted: Readonly<RuntimeEvent>,
+  source: Readonly<{ cCallRef: string; actorInvocationRef: string; transportBindingRef: string; transportBindingDigest: string }>,
+): ConfiguredActorSelection | null {
+  if (binding.kind !== "actor_transport_binding_admitted" || actorStarted.kind !== "actor_invocation_started" ||
+      !isRecord(binding.payload) || !isRecord(actorStarted.payload)) return null;
+  const { transportBindingRef, transportBindingDigest, ...body } = binding.payload;
+  const agentKey = body.agentKey;
+  if (transportBindingDigest !== sha256Canonical(body) || transportBindingDigest !== source.transportBindingDigest ||
+      transportBindingRef !== source.transportBindingRef || binding.aggregateId !== source.transportBindingRef ||
+      source.transportBindingRef !== `transport-binding://abiogenesis/${source.transportBindingDigest.slice("sha256:".length)}` ||
+      binding.parentAggregateId !== source.cCallRef || body.cCallRef !== source.cCallRef ||
+      actorStarted.aggregateId !== source.actorInvocationRef || actorStarted.parentAggregateId !== source.cCallRef ||
+      actorStarted.payload.actorInvocationRef !== source.actorInvocationRef || actorStarted.payload.cCallRef !== source.cCallRef ||
+      actorStarted.payload.transportBindingRef !== source.transportBindingRef ||
+      actorStarted.payload.transportBindingDigest !== source.transportBindingDigest ||
+      actorStarted.causationEventRefs.length !== 1 || actorStarted.causationEventRefs[0] !== binding.eventId ||
+      typeof agentKey !== "string" || !Object.hasOwn(TRANSPORT_PROTOCOL_OWNED_FLAGS, agentKey)) return null;
+  if (!Object.hasOwn(body, "configuredIdentity")) return deepFreeze({ agentKey: agentKey as KnownTransportAgentKey, identity: null });
+  return configuredActorIdentityCorresponds(body.configuredIdentity, body)
+    ? deepFreeze({ agentKey: agentKey as KnownTransportAgentKey, identity: body.configuredIdentity }) : null;
+}
+
+/** @internal The configured selection of one admitted probabilistic transport
+ * evidence row through the complete actor/binding/artifact/terminal projection. */
+export function projectAdmittedTransportEvidenceSelection(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+  evidence: Readonly<Record<string, JsonValue>>,
+): ConfiguredActorSelection | null {
+  try {
+    return projectAdmittedActorTransport(prefix, cCallRef, evidence)?.configuredSelection ?? null;
+  } catch {
+    return null;
+  }
+}
+
+/** @internal The four lifecycle values of one admitted probabilistic transport
+ * evidence row, with its actor terminal, through the same complete projection.
+ * A durable reader rebuilds its live carrier from these, never by default. */
+export function projectAdmittedTransportEvidenceLifecycle(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+  evidence: Readonly<Record<string, JsonValue>>,
+): Readonly<ActorLifecycleCopies & { actorTerminalEventRef: string }> | null {
+  try {
+    const lifecycle = projectAdmittedActorTransportLifecycle(prefix, cCallRef, evidence);
+    return lifecycle === null ? null : deepFreeze({
+      actorTerminalEventRef: lifecycle.projection.actorTerminalEventRef,
+      timedOut: lifecycle.timedOut,
+      exitObserved: lifecycle.exitObserved,
+      terminationConfirmed: lifecycle.terminationConfirmed,
+      signalSequence: lifecycle.signalSequence,
+    });
+  } catch {
+    return null;
+  }
 }
 
 function actorTransportSourceDigest(source: Readonly<Record<string, JsonValue>>): Sha256Digest {
@@ -1773,6 +1847,32 @@ function projectAdmittedActorTransport(
   cCallRef: string,
   source: Readonly<Record<string, JsonValue>>,
 ): AdmittedActorTransportProjection | null {
+  return projectAdmittedActorTransportLifecycle(prefix, cCallRef, source)?.projection ?? null;
+}
+
+/** The four D5 lifecycle values over the primary process events. A live
+ * candidate and L evidence carry them as copies that must agree; current
+ * evidence and current artifacts omit all four and the projection reads them
+ * from the owner's lifecycle: a direct exit from the recorded exit terminal,
+ * confirmed termination from the fold. */
+interface AdmittedActorTransportLifecycle {
+  readonly projection: AdmittedActorTransportProjection;
+  readonly timedOut: boolean;
+  readonly exitObserved: boolean;
+  readonly terminationConfirmed: boolean;
+  readonly signalSequence: readonly string[];
+}
+
+const D5_LIFECYCLE_COPY_KEYS = ["timedOut", "exitObserved", "terminationConfirmed", "signalSequence"] as const;
+
+function projectAdmittedActorTransportLifecycle(
+  prefix: RuntimeEventPrefix,
+  cCallRef: string,
+  source: Readonly<Record<string, JsonValue>>,
+): AdmittedActorTransportLifecycle | null {
+  const copyCount = D5_LIFECYCLE_COPY_KEYS.filter((key) => Object.hasOwn(source, key)).length;
+  if (copyCount !== 0 && copyCount !== D5_LIFECYCLE_COPY_KEYS.length) return null;
+  const copied = copyCount !== 0;
   if (
     typeof source.requestRef !== "string" ||
     typeof source.requestDigest !== "string" ||
@@ -1803,11 +1903,12 @@ function projectAdmittedActorTransport(
     (source.timeoutClass !== null &&
       source.timeoutClass !== "absolute" &&
       source.timeoutClass !== "inactivity") ||
-    typeof source.timedOut !== "boolean" ||
-    typeof source.exitObserved !== "boolean" ||
-    typeof source.terminationConfirmed !== "boolean" ||
-    !Array.isArray(source.signalSequence) ||
-    !source.signalSequence.every((value) => typeof value === "string") ||
+    (copied && (
+      typeof source.timedOut !== "boolean" ||
+      typeof source.exitObserved !== "boolean" ||
+      typeof source.terminationConfirmed !== "boolean" ||
+      !Array.isArray(source.signalSequence) ||
+      !source.signalSequence.every((value) => typeof value === "string"))) ||
     !Number.isSafeInteger(source.structuredEventCount) ||
     !Number.isSafeInteger(source.progressEventCount) ||
     !Number.isSafeInteger(source.toolCallCount) ||
@@ -1820,7 +1921,7 @@ function projectAdmittedActorTransport(
     typeof source.artifactDigests.stderr !== "string"
   ) return null;
   if (
-    source.timedOut !== (source.timeoutClass !== null) ||
+    (copied && source.timedOut !== (source.timeoutClass !== null)) ||
     !isSha256Digest(source.requestDigest) ||
     source.requestRef !==
       `probabilistic-request://abiogenesis/${source.requestDigest.slice("sha256:".length)}` ||
@@ -1878,16 +1979,17 @@ function projectAdmittedActorTransport(
     artifact?.kind !== "actor_result_artifact_observed" ||
     !isRecord(binding.payload) || !isRecord(actorStarted.payload) ||
     !isRecord(fibre.payload) || !isRecord(terminal.payload) ||
-    !isRecord(processTerminal.payload) || !isRecord(artifact.payload)
+    !isRecord(processTerminal.payload) || !isRecord(artifact.payload) ||
+    (!copied && runtimeEventProfile(artifact)?.lifecycleCopies !== false) ||
+    durableActorObservationOfArtifact(artifact.payload, runtimeEventProfile(artifact)?.lifecycleCopies === false) === null
   ) return null;
-  const { transportBindingRef: _bindingRef, transportBindingDigest, ...bindingBody } =
-    binding.payload;
-  const bindingIdentityValid = transportBindingDigest ===
-      sha256Canonical(bindingBody) &&
-    source.transportBindingDigest === transportBindingDigest &&
-    source.transportBindingRef ===
-      `transport-binding://abiogenesis/${String(transportBindingDigest).slice("sha256:".length)}`;
-  const joined = bindingIdentityValid &&
+  // The artifact's own profile selects its representation: L records the four
+  // copies, a current artifact records none.
+  const artifactCopied = runtimeEventProfile(artifact)?.lifecycleCopies !== false;
+  const configuredSelection = projectTransportBindingSelection(binding, actorStarted, {
+    cCallRef, actorInvocationRef: source.actorInvocationRef,
+    transportBindingRef: source.transportBindingRef, transportBindingDigest: source.transportBindingDigest });
+  const joined = configuredSelection !== null &&
     binding.parentAggregateId === cCallRef &&
     binding.payload.cCallRef === cCallRef &&
     binding.payload.workerBindingRef === source.workerBindingRef &&
@@ -1934,7 +2036,7 @@ function projectAdmittedActorTransport(
     artifact.payload.rendererRef === source.rendererRef &&
     artifact.payload.instructionContractRef === source.instructionContractRef &&
     artifact.payload.resultContractRef === source.resultContractRef &&
-    (artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST
+    (runtimeEventProfile(artifact)?.stamped === true
       ? artifact.payload.nativeResultAssessment !== undefined && source.nativeResultAssessment !== undefined &&
         canonicalEquals(artifact.payload.nativeResultAssessment, source.nativeResultAssessment)
       : source.nativeResultAssessment === undefined && artifact.payload.nativeResultAssessment === undefined) &&
@@ -1953,20 +2055,12 @@ function projectAdmittedActorTransport(
     artifact.payload.processStatus === source.processStatus &&
     artifact.payload.processSignal === source.processSignal &&
     artifact.payload.timeoutClass === source.timeoutClass &&
-    artifact.payload.timedOut === source.timedOut &&
-    artifact.payload.exitObserved === source.exitObserved &&
-    artifact.payload.terminationConfirmed === source.terminationConfirmed &&
     artifact.payload.structuredEventCount === source.structuredEventCount &&
     artifact.payload.progressEventCount === source.progressEventCount &&
     artifact.payload.toolCallCount === source.toolCallCount &&
     artifact.payload.apiRetryCount === source.apiRetryCount &&
     artifact.payload.stdoutByteLength === source.stdoutByteLength &&
     artifact.payload.stderrByteLength === source.stderrByteLength &&
-    artifact.payload.signalSequence !== undefined &&
-    canonicalEquals(
-      artifact.payload.signalSequence,
-      source.signalSequence,
-    ) &&
     artifact.payload.artifactDigests !== undefined &&
     canonicalEquals(
       artifact.payload.artifactDigests,
@@ -2002,18 +2096,48 @@ function projectAdmittedActorTransport(
   const streamBytes = (kind: RuntimeEvent["kind"]): number =>
     actorRows.flatMap((event) => event.kind === kind && isRecord(event.payload) ? [event.payload] : [])
       .reduce((sum, payload) => sum + Number(payload.byteLength), 0);
+  // The lifecycle fluent at this prefix, not a recorded copy (D5).
+  const terminated = runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
+    name: "actor_process_terminated", identity: source.processRef }));
+  const derivedSignals = signals.map(presentMember);
+  if (!derivedSignals.every((signal): signal is string => typeof signal === "string")) return null;
+  // A direct exit is the recorded exit terminal; confirmed termination is the
+  // fold. The admitted domain has an actor terminal, so an unconfirmed
+  // boundary (exit without absent scope) never reaches this projection.
+  const derived = {
+    timedOut: timeoutRows.length === 1,
+    exitObserved: lifecycle.processTerminalKind === "actor_process_exited",
+    terminationConfirmed: terminated,
+    signalSequence: derivedSignals,
+  };
+  // Copies, where recorded, keep their original agreement with the fold.
+  const lifecycleValues = copied ? {
+    timedOut: source.timedOut as boolean,
+    exitObserved: source.exitObserved as boolean,
+    terminationConfirmed: source.terminationConfirmed as boolean,
+    signalSequence: source.signalSequence as string[],
+  } : derived;
+  if (artifactCopied ? (
+    artifact.payload.timedOut !== lifecycleValues.timedOut ||
+    artifact.payload.exitObserved !== lifecycleValues.exitObserved ||
+    artifact.payload.terminationConfirmed !== lifecycleValues.terminationConfirmed ||
+    artifact.payload.signalSequence === undefined ||
+    !canonicalEquals(artifact.payload.signalSequence, lifecycleValues.signalSequence)
+  ) : (
+    // Without artifact copies, a live candidate's copies meet the owner values.
+    lifecycleValues.exitObserved !== derived.exitObserved ||
+    lifecycleValues.terminationConfirmed !== derived.terminationConfirmed
+  )) return null;
   const classified = classifyWorkerTransportFailure({
     // The artifact/profile join above authenticates this native disposition.
-    ...(artifact.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST ? {
+    ...(runtimeEventProfile(artifact)?.stamped === true ? {
       nativeResultDisposition: (artifact.payload.nativeResultAssessment as unknown as NativeWorkerResultAssessment).disposition,
     } : {}),
     parser: binding.payload.parser as "claude_stream_json" | "plain_text",
     lane: source.transportLane,
     processStatus: source.processStatus as number | null,
-    timedOut: source.timedOut,
-    // The lifecycle fluent at this prefix, not the recorded copy (D5).
-    terminationConfirmed: runtimeFluentHoldsAtPrefix(prefix, constructRuntimeFluent({
-      name: "actor_process_terminated", identity: source.processRef })),
+    timedOut: lifecycleValues.timedOut,
+    terminationConfirmed: terminated,
     processSpawnFailed:
       lifecycle.processTerminalKind === "actor_process_spawn_failed",
     structuredEventCount: Number(source.structuredEventCount),
@@ -2024,10 +2148,10 @@ function projectAdmittedActorTransport(
   if (
     classified !== source.transportFailureClass ||
     source.transportDisposition !== (classified === null ? "success" : "failure") ||
-    source.timedOut !== (timeoutRows.length === 1) ||
+    lifecycleValues.timedOut !== derived.timedOut ||
     source.timeoutClass !== timeoutClass ||
     !timeoutLimitMatchesBinding ||
-    !canonicalEquals(signals.map(presentMember), source.signalSequence) ||
+    !canonicalEquals(derived.signalSequence, lifecycleValues.signalSequence) ||
     streamBytes("actor_process_stdout_observed") !== source.stdoutByteLength ||
     streamBytes("actor_process_stderr_observed") !== source.stderrByteLength ||
     (lifecycle.processTerminalKind === "actor_process_exited" &&
@@ -2038,14 +2162,18 @@ function projectAdmittedActorTransport(
       processStartedRows.length !== 0)
   ) return null;
   return deepFreeze({
-    kind: "admitted_actor_transport_projection" as const,
-    prefixDigest: runtimeEventPrefixDigest(prefix),
-    cCallRef,
-    sourceDigest: actorTransportSourceDigest(source),
-    actorTerminalEventRef: terminal.eventId,
-    failureClass: classified,
-    nativeResultAssessment: source.nativeResultAssessment === undefined ? null
-      : source.nativeResultAssessment as unknown as NativeWorkerResultAssessment,
+    projection: {
+      kind: "admitted_actor_transport_projection" as const,
+      prefixDigest: runtimeEventPrefixDigest(prefix),
+      cCallRef,
+      sourceDigest: actorTransportSourceDigest(source),
+      actorTerminalEventRef: terminal.eventId,
+      failureClass: classified,
+      nativeResultAssessment: source.nativeResultAssessment === undefined ? null
+        : source.nativeResultAssessment as unknown as NativeWorkerResultAssessment,
+      configuredSelection,
+    },
+    ...lifecycleValues,
   });
 }
 function projectAdmittedProbabilisticTransport(
@@ -2059,8 +2187,9 @@ function projectAdmittedProbabilisticTransport(
       (source.candidateDigest !== null && (!isSha256Digest(source.candidateDigest) ||
         source.candidateRef !== `probabilistic-result-candidate://abiogenesis/${source.candidateDigest.slice(7)}`)) ||
       typeof source.outputDigest !== "string") return null;
-  const transport = projectAdmittedActorTransport(prefix, cCallRef, source);
-  if (transport === null) return null;
+  const lifecycle = projectAdmittedActorTransportLifecycle(prefix, cCallRef, source);
+  if (lifecycle === null) return null;
+  const transport = lifecycle.projection;
   const artifactDigests = source.artifactDigests;
   if (!isRecord(artifactDigests)) return null;
   const classified = transport.failureClass;
@@ -2078,10 +2207,11 @@ function projectAdmittedProbabilisticTransport(
     status: source.processStatus,
     signal: source.processSignal,
     timeoutClass: source.timeoutClass,
-    timedOut: source.timedOut,
-    exitObserved: source.exitObserved,
-    terminationConfirmed: source.terminationConfirmed,
-    signalSequence: source.signalSequence,
+    // The same stable source on either profile: agreed copies or fold values.
+    timedOut: lifecycle.timedOut,
+    exitObserved: lifecycle.exitObserved,
+    terminationConfirmed: lifecycle.terminationConfirmed,
+    signalSequence: [...lifecycle.signalSequence],
     structuredEventCount: source.structuredEventCount,
     progressEventCount: source.progressEventCount,
     toolCallCount: source.toolCallCount,
@@ -2307,7 +2437,7 @@ const UNDISPATCHED_EVIDENCE_RECORD: RecordCheck<RuntimeEvent, Readonly<Record<st
     project: (event: RuntimeEvent, context: UndispatchedEvidenceContext): Outcome<Readonly<Record<string, JsonValue>>> => {
       const p = event.payload;
       return isRecord(p) && p.evidenceClass === "undispatched_owner_refusal" &&
-          exactCCallEvidenceIdentity(event) && event.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+          exactCCallEvidenceIdentity(event) && runtimeEventProfile(event)?.stamped === true &&
           context.resultClass === "failure" && context.resultContractRef === context.failureContractRef &&
           p.contractRef === context.evidenceContractRef && p.outputDigest === context.valueDigest
         ? ok(p) : UNDISPATCHED_EVIDENCE_MISMATCH;
@@ -4670,8 +4800,8 @@ export function projectAdmittedLeafCCallOutcomeAtPrefix(
   predecessorPrefix: DurablePrefixCoordinate,
   input: AdmittedLeafCCallOutcomeProjectionInput,
 ): RehydratedAdmittedCCallState | null {
-  const authorityPrefix = selectValidatedRuntimeEventPrefix(readRuntimeEventsAtDurablePrefix(predecessorPrefix));
-  return projectAdmittedLeafCCallOutcomeFromPrefix(authorityPrefix, input);
+  // The physical-reader meaning stays; the authenticated cut is not copied.
+  return projectAdmittedLeafCCallOutcomeFromPrefix(readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix), input);
 }
 
 /** @internal Reuse the current owned cut; the selected outcome keeps all leaf guards. */
@@ -6529,7 +6659,7 @@ function admitEvidenceUsingTransport(
   const undispatchedOpened = owner?.rows[0];
   const undispatchedValid = candidate.kind === "undispatched_owner_refusal_evidence_candidate" &&
     owner?.phase.phase === "selected_no_evidence" &&
-    selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest === ROOT_EVENT_CONTRACT_DIGEST &&
+    rootEventContractProfile(selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest)?.stamped === true &&
     cursor.inputDigest === expectedInputDigest && cursor.runId === cCall.runId &&
     cursor.graphCallId === cCall.graphCallId && cursor.frameId === cCall.frameId &&
     cursor.executionBasisRef === cCall.basisId &&
@@ -6799,10 +6929,14 @@ function admitEvidenceUsingTransport(
     processStatus: candidate.processStatus,
     processSignal: candidate.processSignal,
     timeoutClass: candidate.timeoutClass,
-    timedOut: candidate.timedOut,
-    exitObserved: candidate.exitObserved,
-    terminationConfirmed: candidate.terminationConfirmed,
-    signalSequence: candidate.signalSequence,
+    // D5: only an L store records the lifecycle copies; current evidence
+    // leaves them to the fold over the primary process events.
+    ...(rootEventContractProfile(selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest)?.lifecycleCopies === false ? {} : {
+      timedOut: candidate.timedOut,
+      exitObserved: candidate.exitObserved,
+      terminationConfirmed: candidate.terminationConfirmed,
+      signalSequence: candidate.signalSequence,
+    }),
     structuredEventCount: candidate.structuredEventCount,
     progressEventCount: candidate.progressEventCount,
     toolCallCount: candidate.toolCallCount,
@@ -7341,7 +7475,7 @@ export function completeRejectedCCall(
     resultEventRef = resultEvent.eventId;
   }
 
-  const rejectionAuthority = selectValidatedRuntimeEventPrefix(store.readAll());
+  const rejectionAuthority = selectRuntimeEventPrefixFromStore(store);
   const rejectionReplay = projectRuntimeReplayGuard(
     selectRuntimeEventPrefixFromAuthority(rejectionAuthority, { runId: cCall.runId }), rejectionAuthority);
   const retryAttemptRef = activeRetryAttemptRef;
@@ -7422,13 +7556,6 @@ function pendingInteractionBodyDigest(
     else writeCanonicalJson(member!,write);
   }, (part) => { hash.update(part); });
   return `sha256:${hash.digest("hex")}`;
-}
-export function planPendingInteractionAdmission(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
-  cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,
-  basis: RuntimeAdmissionBasis): PendingInteractionAdmissionPlan {
-  const plan=planOwnedPendingInteractionAdmission(store,graph,graphFunction,cursor,cCall,request,expectedInputDigest,basis);
-  return deepFreeze({...plan,projectedPrefix:selectValidatedRuntimeEventPrefix(Object.freeze([...runtimeEventBodiesAtPrefix(plan.projectedPrefix)])),
-    replayState:materializeRuntimeReplayGuard(plan.replayState)});
 }
 export function admitPlannedPendingInteraction(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
   cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,

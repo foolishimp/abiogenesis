@@ -1,6 +1,5 @@
-import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { checkedRecordAtPrefix, indexedRuntimeEvents, indexedRuntimeEventEnvelopes, runtimeEventEnvelopesAtPrefix, runtimeEventPrefixLastEnvelope, validatedRuntimeEventPrefixBeforeEvent, selectRuntimeEventPrefixFromAuthority, readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixExtent } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
-import type { RuntimeEventScan } from "./runtime_history.js";
 import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
@@ -31,11 +30,9 @@ import {
   runtimePrefixComputation,
   isImmutableRuntimeValue,
   runtimeEventBodiesAtPrefix, runtimeEventsFromValidatedPrefix,
-  selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "./event_prefix.js";
 import {
-  readRuntimeEventsAtDurablePrefix,
   captureDurablePrefixCoordinate,
   runtimeEventPhysicalPrefix,
   validateDurablePrefixCoordinate,
@@ -136,7 +133,6 @@ export type AbgProjectReadResult<
 
 interface PreparedRead<K extends AbgProjectReadMemberKey> {
   readonly packet: AbgProjectReadPacket<K>;
-  readonly events: RuntimeEventScan;
   readonly fullPrefix: RuntimeEventPrefix;
   /** The read owner's artifact truth over its acquired prefix, when the
    * owner supplied it: the one materialization the preparation reads. */
@@ -699,19 +695,17 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
         throw new TypeError("retained prefix differs from admitted read packet");
       packet = deepFreeze({ ...admitted, prefix: retainedPrefix });
     }
-    // The read owner materialized its acquired coordinate once for the
-    // environment; the preparation reads that validated prefix, never a copy.
+    // The read owner acquired its coordinate once for the environment; the
+    // preparation reads that same owned or validated prefix, never a copy.
     const acquiredPrefix = acquired !== undefined && acquired.prefix === packet.prefix
       ? runtimePrefixFromOwnedArtifactTruth(acquired) : null;
-    if (acquiredPrefix !== null && acquiredPrefix.kind === "validated_runtime_event_prefix") {
-      return deepFreeze({ packet, events: runtimeEventsFromValidatedPrefix(acquiredPrefix), fullPrefix: acquiredPrefix,
-        artifactTruth: acquired! });
+    if (acquiredPrefix !== null && acquiredPrefix.kind !== "runtime_validation_event_prefix") {
+      return deepFreeze({ packet, fullPrefix: acquiredPrefix, artifactTruth: acquired! });
     }
-    const events = readRuntimeEventsAtDurablePrefix(packet.prefix);
-    const fullPrefix = selectValidatedRuntimeEventPrefix(events);
+    // Borrows only an active owner; a raw or copied coordinate is cold.
+    const fullPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(packet.prefix);
     return deepFreeze({
       packet,
-      events,
       fullPrefix,
     });
   } catch {
@@ -725,13 +719,12 @@ function prepareRead<K extends AbgProjectReadMemberKey>(
 }
 
 function runIds(prepared: PreparedRead<AbgProjectReadMemberKey>): readonly string[] {
-  return Object.freeze([
-    ...new Set(
-      runtimeEventBodiesAtPrefix(prepared.fullPrefix).flatMap((event) =>
-        event.runId === undefined ? [] : [event.runId]
-      ),
-    ),
-  ].sort());
+  // Run identity is an envelope field; no body is read to enumerate it.
+  const ids = new Set<string>();
+  for (const envelope of runtimeEventEnvelopesAtPrefix(prepared.fullPrefix)) {
+    if (envelope.runId !== undefined) ids.add(envelope.runId);
+  }
+  return Object.freeze([...ids].sort());
 }
 
 function runContext(
@@ -1224,7 +1217,7 @@ function projectWorkspaceReplay(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const workspaceEvents = runtimeEventBodiesAtPrefix(prepared.fullPrefix).filter(
+  const workspaceEvents = indexedRuntimeEventEnvelopes(prepared.fullPrefix, "related:" + targetRef).filter(
     (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
   );
   if (workspaceEvents.length === 0) return ABSENT;
@@ -1482,7 +1475,7 @@ function projectWorkspaceGaps(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   targetRef: string,
 ): ProjectedValue {
-  const workspaceEvents = runtimeEventBodiesAtPrefix(prepared.fullPrefix).filter(
+  const workspaceEvents = indexedRuntimeEventEnvelopes(prepared.fullPrefix, "related:" + targetRef).filter(
     (event) => event.scopeClass === "workspace" && event.aggregateId === targetRef,
   );
   if (workspaceEvents.length === 0) return ABSENT;
@@ -1517,7 +1510,7 @@ export function projectGapReadAtValidatedPrefix<K extends "run_gaps" | "workspac
     const events = runtimeEventsFromValidatedPrefix(fullPrefix), physical = runtimeEventPhysicalPrefix(events);
     if (!validateDurablePrefixCoordinate(admitted.prefix) || physical.byteLength !== admitted.prefix.prefixLength ||
         physical.digest !== admitted.prefix.prefixDigest) throw new TypeError("gap prefix differs from decoded physical history");
-    const prepared = { packet: admitted, events, fullPrefix };
+    const prepared = { packet: admitted, fullPrefix };
     return projectPreparedRead(prepared, () => projectValue(prepared, packet.memberKey, packet.targetRef));
   } catch {
     return refusal(packet.memberKey, packet.targetRef, "invalid_history", "gap read requires its exact decoded prefix");
@@ -1631,7 +1624,7 @@ function projectPreparedRead<K extends AbgProjectReadMemberKey>(
     expectedMemberKey.endsWith("_gaps") || expectedMemberKey === "run_lawful_actions";
   const nativeLiveness = livenessMember ? projectNativeLivenessRead(prepared.fullPrefix,
     expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
-      expectedMemberKey.startsWith("graph_call_") ? runtimeEventBodiesAtPrefix(prepared.fullPrefix)
+      expectedMemberKey.startsWith("graph_call_") ? indexedRuntimeEventEnvelopes(prepared.fullPrefix, "kind:graph_call_opened")
         .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null,
     expectedMemberKey.startsWith("graph_call_") ? prepared.packet.targetRef : undefined) : null;
   let projectedValue: JsonValue = projected;

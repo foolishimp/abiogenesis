@@ -174,8 +174,10 @@ test('controlled lifetime: every owned stdio error keeps the first error and fin
   }
 });
 
-test('controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure', async () => {
+test('controlled worker handback: final facts survive exit/error order, uncertainty and final-observer failure', async t => {
   const path = join(packageRoot, 'build/code/src/abg/worker_transport.js');
+  // The enclosing transport creates both empty archives before runProcess opens stdout.
+  const archives = await scratch(t);
   for (const order of ['exit-error', 'error-exit']) for (const scope of ['absent', 'present', 'unknown'])
     for (const observerFails of [false, true]) {
       const clock = controlledClock(), child = new ControlledChild();
@@ -206,12 +208,16 @@ test('controlled worker handback: final facts survive exit/error order, uncertai
         });
       });
       await module.evaluate();
+      const stdoutPath = join(archives, `${order}-${scope}-${observerFails}-stdout.log`);
+      const stderrPath = join(archives, `${order}-${scope}-${observerFails}-stderr.log`);
+      await writeFile(stdoutPath, '', { flag: 'wx' }); await writeFile(stderrPath, '', { flag: 'wx' });
       const pending = module.namespace.runProcess({ command: '/controlled/no-launch', args: [], cwd: '/controlled', env: {},
         stdin: '', timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 100,
-        stdoutPath: '/controlled/no-output', stderrPath: '/controlled/no-output', observer: {
+        stdoutPath, stderrPath, observer: {
           onProcessFinalized: facts => { finalized++; handedBack = facts; if (observerFails) throw observerError; },
           onSpawnFailed: () => assert.fail('an established child cannot become a no-child failure'),
         } });
+      assert(lifetime, 'owned lifetime guards installed before synthetic child events');
       child.emit('spawn');
       if (order === 'error-exit') child.stderr.emit('error', first);
       child.emit('exit', 0, null);
@@ -533,13 +539,18 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
     } });
     const declaration = await httpInput(file, `${mode}.port`);
     if (mode === 'owner-error') declaration.request.method = 'bad\nmethod';
-    let result = null, failure = null;
+    let result = null, failure = null, identityFailure = null;
     try { result = await helper.runHttpProbe({ taskRef: `task://physical-http/${mode}`, taskDigest: 'sha256:' + '3'.repeat(64) },
       root, declaration); } catch (error) { failure = error; }
-    identity = JSON.parse(await readFile(pidFile, 'utf8'));
-    const scope = process.platform === 'win32' ? identity.pid : -identity.pgid, scopeAbsent = !alive(scope);
+    // A missing PID observation must not erase the owner's caught result or error.
+    try { identity = JSON.parse(await readFile(pidFile, 'utf8')); } catch (error) { identityFailure = error; }
+    const scope = identity === null ? null : process.platform === 'win32' ? identity.pid : -identity.pgid;
+    const scopeAbsent = scope === null ? null : !alive(scope);
     t.diagnostic(JSON.stringify({ owner: 'http', mode, fixtureRoot: root, ...identity, scopeAbsent,
-      observation: result, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message } }));
+      identityFailure: identityFailure === null ? null : { name: identityFailure.name, code: identityFailure.code ?? null, message: identityFailure.message },
+      stdout: result?.process ? decode(result.process.stdout) : null, stderr: result?.process ? decode(result.process.stderr) : null,
+      observation: result, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
+    if (identityFailure !== null) throw identityFailure;
     assert.equal(scopeAbsent, true, 'owned scope absent before next case');
     if (process.platform !== 'win32') assert.equal(identity.pgid, identity.pid, 'actual detached owned process group');
     if (mode === 'owner-error') {
@@ -566,19 +577,30 @@ test('physical owner capture: finite inherited-pipe late output stays HTTP diagn
     await writeFile(descendant, `import {writeFileSync} from 'node:fs'; process.on('SIGTERM',()=>setTimeout(()=>process.stdout.write('late-diagnostic\\n',()=>process.exit(0)),35)); writeFileSync(${JSON.stringify(ready)},String(process.pid)); setInterval(()=>{},1000);`);
     await writeFile(leader, `import {spawn} from 'node:child_process';import {existsSync} from 'node:fs'; const c=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:['ignore','inherit','inherit']});c.unref(); const t=setInterval(()=>{if(existsSync(${JSON.stringify(ready)})){clearInterval(t);process.stdout.write('leader-output\\n',()=>process.exit(0));}},5);`);
     t.after(async () => { try { const pid = Number(await readFile(ready, 'utf8')); if (alive(pid)) process.kill(pid, 'SIGKILL'); } catch (error) { if (!['ESRCH', 'ENOENT'].includes(error.code)) throw error; } });
-    let result, text;
-    if (owner === 'worker') {
-      result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [leader], environment: {} }),
-        prompt: 'capture boundary', lane: 'worker_executes', cwd: root, archiveRoot: join(root, 'archive'), label: owner,
-        timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 150, environment: {} }); text = result.stdout;
-      assert.doesNotMatch(result.finalOutput, /late-diagnostic/u);
-    } else if (owner === 'command') {
-      result = await helper.runCommand({ commands: [{ commandId: 'command://capture', executable: process.execPath, args: [leader],
-        relativeCwd: '.', environment: [], timeoutMs: 1000, terminationGraceMs: 150, expectedReports: [] }] }, root, 0); text = decode(result.stdout);
-    } else {
-      const probe = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`, { timeoutMs: 1000, terminationGraceMs: 150 }));
-      result = probe.process; text = decode(result.stdout); assert.equal(probe.response, null);
-    }
+    let observed = null, failure = null, result, text;
+    try {
+      if (owner === 'worker') {
+        observed = result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [leader], environment: {} }),
+          prompt: 'capture boundary', lane: 'worker_executes', cwd: root, archiveRoot: join(root, 'archive'), label: owner,
+          timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 150, environment: {} }); text = result.stdout;
+      } else if (owner === 'command') {
+        observed = result = await helper.runCommand({ commands: [{ commandId: 'command://capture', executable: process.execPath, args: [leader],
+          relativeCwd: '.', environment: [], timeoutMs: 1000, terminationGraceMs: 150, expectedReports: [] }] }, root, 0); text = decode(result.stdout);
+      } else {
+        observed = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`, { timeoutMs: 1000, terminationGraceMs: 150 }));
+        result = observed.process; text = decode(result.stdout);
+      }
+    } catch (error) { failure = error; }
+    // Retain the owner's result or error, readiness and worker archive before assertions or scratch cleanup.
+    const readyPid = await readFile(ready, 'utf8').then(Number, error => ({ code: error.code ?? null }));
+    const archived = owner !== 'worker' ? null : Object.fromEntries(await Promise.all(['stdout', 'stderr'].map(async name =>
+      [name, await readFile(join(root, 'archive', `${owner}-${name}.log`), 'utf8').catch(error => ({ code: error.code ?? null }))])));
+    t.diagnostic(JSON.stringify({ owner, fixtureRoot: root, readyPid, descendantAlive: Number.isSafeInteger(readyPid) ? alive(readyPid) : null,
+      stdout: text ?? null, stderr: result === undefined ? null : owner === 'worker' ? result.stderr : decode(result.stderr), archived,
+      observation: observed, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
+    if (failure !== null) throw failure;
+    if (owner === 'worker') assert.doesNotMatch(result.finalOutput, /late-diagnostic/u);
+    else if (owner === 'http') assert.equal(observed.response, null);
     assert.equal(result.terminationConfirmed, true, `${owner} owned scope absence`);
     assert.match(text, /leader-output/u);
     if (owner === 'http') assert.match(text, /late-diagnostic/u); else assert.doesNotMatch(text, /late-diagnostic/u);

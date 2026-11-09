@@ -109,8 +109,12 @@ test('AF22 shares its exact owner through separate installed realization, succes
  assert.equal(f.owner.projectExactCandidateQualification(consumer.basis,verdictInput,true),null,'stale dispatch remains refused even with a retained value');
  const wrong=plain(actual);wrong.nativeBasis.predecessorPrefix.prefixDigest=hash('wrong');assert.equal(check(wrong),false);
  const warm={...f.counts};f.cold();assert(check(plain(actual)));assert.equal(f.counts.verdict,warm.verdict+1);assert(f.counts.catalog>warm.catalog);
+ // The current cut is newer than the verdict's predecessor cut, so the CCall
+ // owner decides the selected producer once more there; the peer never.
  const knownState=f.counts.state;assert(f.owner.projectQualificationSelfConformance({...f.proof(),selections:[selected]},selected,input.basis));
- assert.equal(f.counts.state,knownState,'impossible invocation peer never reconstructs a Result');
+ assert.equal(f.counts.state,knownState+1,'impossible invocation peer never reconstructs a Result');
+ assert(f.owner.projectQualificationSelfConformance({...f.proof(),selections:[selected]},selected,input.basis));
+ assert.equal(f.counts.state,knownState+1,'the deciding cut reuses its owner state');
  const peer=f.open(self.graphFunctionRef,input,'eligible-peer');f.complete(peer,value);
  assert.equal(f.owner.projectQualificationSelfConformance({...f.proof(),selections:[selected]},selected,input.basis),null);
  t.diagnostic(JSON.stringify({warm,cold:f.counts,premises:'Existing nativeJoinFixture supplies lower admission/environment facts; invoking boundary, separate installed URLs, raw Result clone and proof construction are real. Genuine cold ownership is covered by held-prefix tests and the installed composition.'}));

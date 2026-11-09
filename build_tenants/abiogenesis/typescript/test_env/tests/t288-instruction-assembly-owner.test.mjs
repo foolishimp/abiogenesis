@@ -111,7 +111,7 @@ test('native revision decision view conserves retained selector material without
     parent: old.evidence[0], causes: old.evidence };
   const assemblyOwner = await component('abg/instruction_assembly', {
     './execution_basis.js': { constructNativeInstructionAssemblyBasis: value => value },
-    './semantic_revision.js': { projectJobRevisionSubject: () => subject },
+    './semantic_revision.js': { projectOwnedJobRevisionSubject: () => subject },
     './stdo_environment.js': { projectRunEnvironmentRoleEvidenceAtPrefix: () => old.task.runEnvironment },
     '../gtl/c_algebra.js': { cLeafTerms: () => [{ programLocusRef: call.programLocusRef }] },
     '../gtl/stdo_run_environment.js': { nativeContextLeafFamily: () => 'assessor' },
@@ -321,7 +321,7 @@ test('actor owner retains its own assembly, authenticates raw dispatch, and reje
   requiredFailure = undefined;
   const leaf = await component('implementation/leaf_invocation_port', {
     '../abg/actor_process.js': { prepareActorProcessInvocation: actor.prepareActorProcessInvocation },
-    '../abg/semantic_stage.js': { authenticateSemanticStageBasis: () => ({ admitted: true }) },
+    '../abg/semantic_stage.js': { authenticateOwnedSemanticStageBasis: () => ({ admitted: true }) },
   });
   const invokeLeaf = loadImplementation => leaf.invokeLeafOwnerBoundary({
     resolution: { computeRegime: 'F_P', implementationRef: request.implementationRef,
@@ -354,7 +354,7 @@ test('semantic stage, revision and selection implementations preserve the comple
     '../abg/instruction_assembly.js': { requireNativeInstructionAssembly: () => { cold++; return assembly; },
       requireWorksiteNativeInstructionAssembly: () => { cold++; return assembly; } },
     '../product/worksite_construction.js': { isWorksiteConstructionTask: () => true },
-    '../abg/semantic_stage.js': { authenticateSemanticStageBasis: () => owner },
+    '../abg/semantic_stage.js': { authenticateOwnedSemanticStageBasis: () => owner },
     '../product/semantic_stage.js': { isSemanticStageEnvelope: () => true },
     '../product/semantic_revision.js': { isSemanticRevisionEnvelope: () => true },
   };
@@ -428,7 +428,7 @@ test('retained native assemblies conserve every canonical part and required-cont
         declarationGraphFunctions: declarations, executionBasis, cCall, cursor, predecessorPrefix: cut };
     }
     const basis = executions.constructNativeInstructionAssemblyBasis(rawBasis); assert.ok(basis);
-    const owner = executions.authenticateNativeInstructionAssemblyBasis(basis); assert.ok(owner);
+    const owner = executions.authenticateOwnedNativeInstructionAssemblyBasis(basis); assert.ok(owner);
     const input = owner.inputValue;
     const exact = worksite ? instructions.constructWorksiteNativeInstructionAssembly(basis, input) : instructions.constructNativeInstructionAssembly(basis, input);
     assert.deepEqual(exact, saved, 'plan/envelope/manifest/request match exact admitted native bytes');

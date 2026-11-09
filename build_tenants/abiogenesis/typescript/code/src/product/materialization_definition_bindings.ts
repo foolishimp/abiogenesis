@@ -21,7 +21,7 @@ import addFormats from "ajv-formats";
 import * as Effect from "effect/Effect";
 import * as v from "valibot";
 
-import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import {
   abandonAbgEventResource,
   abgEventResourceInputPrefix,
@@ -38,10 +38,10 @@ import { projectEffectfulPublicInvocationTruthAtPrefix } from "../abg/effectful_
 import { admitArtifact, type ExactPrefixWorkspaceEnvironment } from "../abg/environment_admission.js";
 import {
   authenticateRuntimePrefixAncestry,
-  readRuntimeEventsAtDurablePrefix,
   selectHeldEventStoreDurablePrefix,
   type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefixIndex, runtimeEventPrefixExtent } from "../abg/event_prefix.js";
 import {
   definitionFault,
   isDefinitionFault,
@@ -300,11 +300,13 @@ function materializeTransitionCorresponds(
     if (admitted === null) return successor.coordinateDigest === entry.coordinateDigest;
     if (!sameJson(entry.storeIdentity, successor.storeIdentity) ||
         !authenticateRuntimePrefixAncestry(entry, successor)) return false;
-    const before = readRuntimeEventsAtDurablePrefix(entry).length;
-    const after = readRuntimeEventsAtDurablePrefix(successor);
-    const last = after.at(-1);
+    // One-event increment over owned extents, then the exact final event.
+    const before = runtimeEventPrefixExtent(readOwnedRuntimeEventPrefixAtDurablePrefix(entry)).count;
+    const afterPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(successor);
+    const afterCount = runtimeEventPrefixExtent(afterPrefix).count;
+    const last = runtimeEventAtPrefixIndex(afterPrefix, afterCount - 1);
     const payload = last?.payload as Record<string, unknown> | undefined;
-    return after.length === before + 1 && last?.kind === "public_operation_artifact_admitted" &&
+    return afterCount === before + 1 && last?.kind === "public_operation_artifact_admitted" &&
       payload?.operationId === "abg.operation.product.materialize" && payload.memberKey === member &&
       payload.authorityScopeRef === admitted.scope.ref && payload.authorityScopeDigest === admitted.scope.digest &&
       payload.artifactRef === admitted.artifact.ref && payload.artifactDigest === admitted.artifact.digest;
@@ -379,7 +381,7 @@ function materializeOwner<M extends Member>(
         if (native !== null) {
           const scope = reference(native.manifest.manifestRef, native.manifest.manifestDigest);
           const artifact = reference(native.content.contentRef, native.content.contentDigest);
-          const truth = projectExactPrefixArtifactTruth(resource.entryPrefix);
+          const truth = projectOwnedPrefixArtifactTruth(resource.entryPrefix);
           if (truth.kind !== "exact_prefix_artifact_truth_projection") {
             throw fault("abg_admission", "artifact_truth_invalid", JSON.stringify(truth));
           }

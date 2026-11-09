@@ -145,7 +145,7 @@ test('native Design command budget retains exact capacity through both roles, re
  await mkdir(join(env.canonicalRoot,'app'));await writeFile(join(env.canonicalRoot,'app/main.mjs'),'component implementation');
  await writeFile(join(env.canonicalRoot,'app/check.mjs'),'component verifier');
  const built=n.constructNativeWorkspaceWorkObservation(construction,await env.observe(),{summary:'component files',gaps:[]},provenance('budget-construction'));
- const executionTask=m.constructNativeSemanticExecutionTask(v.assessed,built);
+ const executionTask=m.constructNativeSemanticExecutionTask(v.assessed,built,construction);
  const c2Occurrence={cCallRef:'component:budget-c2',runId:'component:run',graphCallId:'component:graph',frameId:'component:frame',
   programLocusRef:p.WORKSITE_COMMAND_EXECUTION_IDS.nodeRef,taskOrdinal:null,attempt:1,executionAuthority:null};
  process.env.ABG_TS_FP_TIMEOUT_MS='299999';
@@ -286,7 +286,7 @@ test('native author fold preserves exact contract issues for same-response requi
   '../gtl/semantic_job.js':{validSemanticJobProgramOwners:()=>true},
   './semantic_stage.js':{projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>predecessors.get(ref)??null},
   './native_worksite_execution.js':{projectNativeWorkspaceWorkSourceAtPrefix:()=>nativeSourceAvailable?{
-   sourceResult:{runId:native.call.runId,admissionOrdinal:1},sourceBasis:execution,sourceClosedEvent:{admissionOrdinal:2}}:null,
+   sourceResult:{runId:native.call.runId,admissionOrdinal:1},sourceBasis:execution,sourceTask:task,sourceClosedEvent:{admissionOrdinal:2}}:null,
    worksiteCommandSourcesInvalidatedAfter:()=>false},
   '../product/semantic_job.js':{deriveNativeSemanticAsset:(...args)=>{productDerivations++;const observe=args[4];
    return m.deriveNativeSemanticAsset(...args.slice(0,4),issues=>{computedIssues=issues;observe?.(issues);});}},
@@ -319,7 +319,7 @@ test('four assessed stages conserve requirement bindings and restrict constructi
  const task=m.constructNativeSemanticConstructionTask(current,env,await env.observe());assert.deepEqual(task.writeRoots,['app/main.mjs','app/check.mjs']);
  await mkdir(join(env.canonicalRoot,'app'));await writeFile(join(env.canonicalRoot,'app/main.mjs'),'component implementation');await writeFile(join(env.canonicalRoot,'app/check.mjs'),'component verifier');
  const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'controlled component files',gaps:[]},provenance('construction'));
- const c2=m.constructNativeSemanticExecutionTask(current,observation);assert.equal(p.isNativeWorksiteCommandExecutionTask(c2),true);assert.deepEqual(c2.sourceNativeWork,observation);
+ const c2=m.constructNativeSemanticExecutionTask(current,observation,task);assert.equal(p.isNativeWorksiteCommandExecutionTask(c2),true);assert.deepEqual(c2.sourceNativeWork,observation);
  assert.deepEqual(c2.protectedObservations.map(x=>x.subject.relativePath),task.writeRoots);assert.equal('sourceConstructionResult' in c2,false);
  const initialBytes=await readFile(join(env.canonicalRoot,env.job.members[0].path));assert.deepEqual(initialBytes,Buffer.from(env.job.members[0].base64,'base64'));
  await writeFile(join(env.canonicalRoot,'assets/3.json'),'changed Design');const stale=await env.observe();assert.throws(()=>m.constructNativeSemanticConstructionTask(current,env,stale));
@@ -353,7 +353,7 @@ test('native C2 retains assessed non-target dependencies without granting realiz
  await writeFile(join(env.canonicalRoot,'app/check.mjs'),
   "import {actual} from './main.mjs'; if (actual !== 7) throw Error('dependency unavailable');\n");
  const observation=n.constructNativeWorkspaceWorkObservation(task,await env.observe(),{summary:'component dependency fixture',gaps:[]},provenance('construction-dependency'));
- const c2=m.constructNativeSemanticExecutionTask(current,observation), expected=['app/main.mjs','app/check.mjs',dependency];
+ const c2=m.constructNativeSemanticExecutionTask(current,observation,task), expected=['app/main.mjs','app/check.mjs',dependency];
  assert.deepEqual(c2.protectedObservations.map(row=>row.subject.relativePath),expected);
  const protectedDependency=c2.protectedObservations[2];assert.equal(protectedDependency.observation.fileDigest,p.sha256Bytes(await readFile(join(env.canonicalRoot,dependency))));
  assert.equal(current.assets.at(-1).candidate.design.targets.some(row=>row.relativePath===dependency),false,

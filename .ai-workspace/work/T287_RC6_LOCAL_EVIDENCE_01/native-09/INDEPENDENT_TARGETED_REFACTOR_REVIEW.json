@@ -1,0 +1,1471 @@
+{
+  "productFrame": {
+    "product": "ABIogenesis5, fixed fifteen families / GOAL-035 / T-287",
+    "method": "STDO3.0.4",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "builder": "Immutable installed RC5/f49e7533ebedff0946383cb0c5380a6ecac7889d, not the uncommitted consolidation successor",
+    "currentAuthority": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+      "bytes": 6177,
+      "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+    },
+    "selectedOutcome": "T1-T5 targeted IR-01/IR-02 only; wider R1-R7/C1-C5, new F_H/retry/SDK/qualification/features, whole-workflow speedup and cut/install are outside this activation",
+    "methodVerification": {
+      "command": "stdo status --definition /Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json --verify",
+      "exitCode": 0,
+      "definitionId": "urn:stdo:product-definition:abiogenesis",
+      "installed": true,
+      "valid": true,
+      "failures": []
+    },
+    "severityScale": "Installed STDO3.0.4 selected convention:1 highest to5 lowest. Historical other scales are not translated."
+  },
+  "kind": "independent_native09_targeted_frozen_source_and_proof_review",
+  "result": "indeterminate",
+  "conclusion": "No material targeted-source finding. The exact source increment conforms to the selected existing-owner migrations/retirements and its bounded focused proof is meaningful. Full targeted verification/acceptance is not established: actual09 C2 is red with verified input/floor gaps and a matching preimage fixture red; UAT/fresh/Root conjunction remains separate.",
+  "triage": {
+    "payloadClass": "indeterminate",
+    "unresolved": "Actual successful selected whole-path proof and Root disposition of inherited revision/floor evidence are absent; no new Product defect or wider gate is inferred."
+  },
+  "sourceAssessment": {
+    "result": "satisfied",
+    "claim": "Conformance of the frozen targeted source increment, complete finite caller/fixture retirement, no added functionality, and the bounded behavior/work support actually supplied",
+    "findings": [],
+    "triage": {
+      "payloadClass": "not_applicable"
+    },
+    "notClaimed": "Successful overall C2/UAT, complete later assertion coverage, whole programme or release acceptance"
+  },
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+    "nativeResultRef": "result://abiogenesis/69e2fb9c36419a12ca2ec0871d2738b2a4cb3430b2b9be33393c815ee579c7d5",
+    "nativeResultDigest": "sha256:69e2fb9c36419a12ca2ec0871d2738b2a4cb3430b2b9be33393c815ee579c7d5",
+    "ordinal": 62721,
+    "time": "2026-11-04T13:04:51.491Z",
+    "eventOffset": 804897179,
+    "eventRowBytes": 3339060,
+    "eventRowSha256": "33eb9bfb4bd2260aa89b5cfc7b417ef9fca58c0205bd8e0dd9b493cc27cd697b",
+    "afterObservationRef": "worksite-context-observation://abiogenesis/cc31692ac2218d405ab2d14c2cc01cd1921a17cee7de98a568d00d9cef62ee9b",
+    "afterObservationDigest": "sha256:cc31692ac2218d405ab2d14c2cc01cd1921a17cee7de98a568d00d9cef62ee9b",
+    "sourceBefore": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/SOURCE_BEFORE.json",
+      "bytes": 71946,
+      "sha256": "6e2f16c51ecf043a1f15b35895b863b911ec9951f90d58596d296bb92e02c00b"
+    },
+    "sourcePopulation": 157,
+    "incrementPaths": 26,
+    "incrementClassification": {
+      "implementation": 8,
+      "how": 1,
+      "support": 7,
+      "tests": 10
+    },
+    "unchangedFromHeld": 131,
+    "intakeCountCorrection": "Root corrected prose27 to manifest26; manifest is authoritative"
+  },
+  "artifactClassification": {
+    "authority": "Current owner narrowing, T1-T5 task/rubric and grant decide scope; predecessor broad controls/evidence remain history, not current gates.",
+    "owningHOW": "Native08 frozen common-library HOW, SHA3c412df13f7647ba7c770177b31347f65788680b5e668f9c82cea5a847674312, acquired before candidate. Sections10.3/10.4/11/13 preserve owner reuse, distinct owned/RAW/cold inputs, effect/currentness/refusal law and bounded claims.",
+    "candidate": "Eight implementation files, one owning HOW, seven existing supports and ten existing tests; custody is not extra write permission.",
+    "evidence": "Frozen author TAP/proof/source census, independently verified pinned bytes; actual admitted C2 separately pinned. Author summaries/coverage/diagnostic attributions are not substituted for observations."
+  },
+  "independentChecks": {
+    "frozen157HashesAndLengthsMatchSubject": true,
+    "subjectAdmittedAfterEntriesMatchFrozenFiles": true,
+    "computedChanged26MatchManifest": true,
+    "allChangedPathsWithin43Grant": true,
+    "baseline": "Each changed path matched SOURCE_BEFORE through native08 snapshot or exact f49 git object/frozen preimage. All eight IR_PREIMAGES files match their held-before hashes; mixed f49/native08 origins retained.",
+    "incrementDiff": "Read-only per-file diffs against held native08/f49 bytes,115878 bytes total including path headers. Whole f49-to-successor source.diff was not treated as09 delta.",
+    "actual160SourceHandoffRowsIndependentlyMatchFrozen": true,
+    "retiredNameCensus": {
+      "symbols": [
+        "authenticateSemanticStageBasis",
+        "authenticateSemanticJobBasis",
+        "projectJobRevisionSubject",
+        "projectRevisionSelectionSubject"
+      ],
+      "f49ExactCodeAndTestMatches": 47,
+      "f49Files": 23,
+      "allPreimageConsumerFilesInFrozenAndGrantedCone": true,
+      "remainingRetiredProductionReferences": 0,
+      "limit": "Intentional retired-name strings in proof assertions are not live consumers; all unrelated consolidation work reused, not rereviewed."
+    }
+  },
+  "expectationsAndSourceEvidence": [
+    {
+      "property": "Three historical cuts preserve exact exclusive admitted-event boundary, values/order/profile and refusal channel through the existing owner.",
+      "routes": [
+        {
+          "path": "code/src/abg/semantic_revision.ts",
+          "lines": "402-456,986-1021",
+          "sites": [
+            447,
+            1005
+          ]
+        },
+        {
+          "path": "code/src/abg/worksite_revision.ts",
+          "lines": "382-410",
+          "sites": [
+            397
+          ]
+        },
+        {
+          "path": "code/src/abg/event_prefix.ts",
+          "lines": "420-449"
+        }
+      ],
+      "assessment": "The two semantic boundaries are selected bridge events from the same authenticated owner; candidate collection binds eventId/ordinal and source invocation. Worksite projection authenticates the selected result before cutting. validatedRuntimeEventPrefixBeforeEvent uses the indexed exact row and exclusive ordinal; existing catches retain null on refusal. Only two private cut parameter types widen to RuntimeEventPrefix. Source/causation/physical guards and result order remain unchanged."
+    },
+    {
+      "property": "Seven ordinary call expressions consume unchanged owned semantic facts without complete-array output.",
+      "routes": [
+        {
+          "path": "code/src/abg/instruction_assembly.ts",
+          "lines": "666,792,1212"
+        },
+        {
+          "path": "code/src/implementation/leaf_invocation_port.ts",
+          "lines": "683"
+        },
+        {
+          "path": "code/src/implementation/semantic_revision.ts",
+          "lines": "60,99"
+        },
+        {
+          "path": "code/src/implementation/semantic_stage.ts",
+          "lines": "63"
+        }
+      ],
+      "assessment": "Imports/calls change to existing owned stage/job authenticators. The consumer relations retain role/stage/input/digest/assembly/output/authority checks; no caller needs the removed complete owner.events array. Existing owned authenticators and lower native-basis authentication are otherwise unchanged."
+    },
+    {
+      "property": "Retiring old adapters does not remove a reachable validation-prefix refusal.",
+      "routes": [
+        {
+          "path": "code/src/abg/execution_basis.ts",
+          "lines": "162-209,229-245"
+        },
+        {
+          "path": "code/src/abg/artifact_truth.ts",
+          "lines": "841-856"
+        },
+        {
+          "path": "code/src/abg/event_prefix.ts",
+          "lines": "66-87"
+        }
+      ],
+      "assessment": "Genuine native-basis acquisition obtains artifact truth from a DurablePrefixCoordinate and its retained prefix through projectOwnedRuntimeEventPrefixAtDurablePrefix, whose result is OwnedRuntimeEventPrefix. Copied/raw basis inputs retain real acquisition. A runtime_validation_event_prefix returned by a synthetic lower stub is not this supported production domain. The old adapter's extra kind check is unreachable on the genuine owner route; currentness/effect checks are not supplied by the removed array copy and remain with unchanged owners."
+    },
+    {
+      "property": "Four obsolete wrapper interfaces and their complete consumer population are retired.",
+      "routes": [
+        {
+          "path": "code/src/abg/semantic_stage.ts",
+          "lines": "103-141 and removed tail adapter"
+        },
+        {
+          "path": "code/src/abg/semantic_job.ts",
+          "lines": "95 onward and removed tail adapter"
+        },
+        {
+          "path": "code/src/abg/semantic_revision.ts",
+          "lines": "392-400,1024 onward"
+        }
+      ],
+      "assessment": "authenticateSemanticStageBasis, authenticateSemanticJobBasis, projectJobRevisionSubject and projectRevisionSelectionSubject are deleted, without alias/fallback. Every finite preimage symbol consumer is within the frozen/granted cone. Direct/harness consumers use existing owned interfaces; current production symbol search is empty. The compiled-module absence assertions were reached in author proof, not in the failed actual new cases."
+    },
+    {
+      "property": "Only necessary existing fixture/HOW changes accompany the refactor.",
+      "assessment": "Seven supports and nine of the ten changed tests perform interface/cut-premise migration, preserving their assertions and explicit lookup-only/component/historical scopes. Historical cut stubs select before an exact row and refuse missing rows where their fixture models that relation. The SAS suite adds two focused cases and requires both proof records. HOW643 adds only factual migration/retirement/cut routes. No Product schema, library mechanism, feature, cache/store or authority was added."
+    }
+  ],
+  "focusedProof": {
+    "source": {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "lines": "1176-1348"
+    },
+    "artifact": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/w/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json",
+      "bytes": 195106,
+      "sha256": "44ab560e6e4d2fd371ab4c8c9229a96cb13eff0351ee6fa503e84cfa5fb45e27"
+    },
+    "authorOnly": true,
+    "cut": {
+      "input": "Same real owned retained25016-event prefix; genuine interior result boundary25002; cut extent25001",
+      "checks": "Canonical event digest, order/index ids, extent and profile equal the replaced filter; boundary absent, missing/excluded boundaries refuse; owned source identity retained; early validated/cold arm agrees.",
+      "work": {
+        "owner": {
+          "bodyRows": 0,
+          "bodyDecodes": 0,
+          "watchedReadBytes": 0,
+          "coldSelectCalls": 0
+        },
+        "replaced": {
+          "bodyRows": 25047,
+          "bodyDecodes": 24902,
+          "watchedReadBytes": 170460531,
+          "coldSelectCalls": 1,
+          "immutabilityCalls": 4134611
+        }
+      },
+      "limit": "A common cut-owner discriminator, not an end-to-end invocation of each of the three syntax sites."
+    },
+    "adapter": {
+      "premise": "Actual candidate semantic-stage authenticator/prefix owners; lower native authentication and program/publication validity explicitly supplied as component premises. Same real owned retained prefix; no admission/effect claim.",
+      "checks": "Twelve owner fact fields equal the retired short adapter body; exact owned prefix borrowed versus equal cold copy; foreign author locus refuses in both; compiled retired exports absent.",
+      "work": {
+        "owner": {
+          "bodyRows": 0,
+          "bodyDecodes": 0,
+          "watchedReadBytes": 0,
+          "materializeCalls": 0,
+          "coldSelectCalls": 0
+        },
+        "retired": {
+          "bodyRows": 25079,
+          "bodyDecodes": 24979,
+          "watchedReadBytes": 506533666,
+          "materializeCalls": 2,
+          "coldSelectCalls": 1,
+          "immutabilityCalls": 4138113
+        }
+      },
+      "limit": "Only the stage adapter body is measured. Job body is identical and existing job fixtures exercise its separate semantics. Lower authentication premises are not actual current installed/native authority proof."
+    },
+    "interpretation": "Meaningful bounded same-input/work evidence for T3 under the selected shared-owner proof rule. Acquisition remains common; complete function work, arbitrary CPU/allocation savings and whole-workflow speedup are not claimed. Actual09 C2 did not execute either new case because input loading failed first."
+  },
+  "authorEvidence": {
+    "standing": "Feedback, not actual C2 or independent execution",
+    "custody": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/CUSTODY.json",
+      "bytes": 46222,
+      "sha256": "d37c956f07602ac9a42ecf1ae7e85ed732349d8adbc859ffc9adf436afa03ef5",
+      "filesIndependentlyVerified": 20,
+      "captureIssues": []
+    },
+    "taps": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/single-address-space-whole-path.tap",
+        "bytes": 78247,
+        "sha256": "14dd7ff774722dfc01ff64fab460c8ede3e939181f98581228449457e3a74e11",
+        "tally": {
+          "tests": 12,
+          "suites": 0,
+          "pass": 12,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/native-semantic-job.tap",
+        "bytes": 3026,
+        "sha256": "47abb464fbfaa4ac76d70a5f1ff8b3d88bf8ac359f993f6cefcd2c2a126ba9a6",
+        "tally": {
+          "tests": 9,
+          "suites": 0,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/pre/runs/native-semantic-job.tap",
+        "bytes": 3027,
+        "sha256": "dffe355e33c6c2d296ec1b39a88107bec685c524e3b8956ee705cd9d9f478f87",
+        "tally": {
+          "tests": 9,
+          "suites": 0,
+          "pass": 9,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/native-semantic-revision.tap",
+        "bytes": 4088,
+        "sha256": "97d1fcc2eef622b86bd2efc72a7a5b3520da5ec6db5a90452066e5d96902648b",
+        "tally": {
+          "tests": 7,
+          "suites": 0,
+          "pass": 4,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 2,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/pre/runs/native-semantic-revision.tap",
+        "bytes": 4098,
+        "sha256": "ce38ada85c770e8489f836820082f4a5a23c8805d2a9d7b3a7ec8853ccd7e4a4",
+        "tally": {
+          "tests": 7,
+          "suites": 0,
+          "pass": 4,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 2,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/semantic-interface-and-fixture-consumers.tap",
+        "bytes": 52675,
+        "sha256": "40b359d06d7c76aa6431ec4aa30a86562aaf46a6381064e620f4d2f166eb33bc",
+        "tally": {
+          "tests": 132,
+          "suites": 0,
+          "pass": 59,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 73,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/pre/runs/semantic-interface-and-fixture-consumers.tap",
+        "bytes": 52655,
+        "sha256": "1e153b493c78ac31e92a84b5426b7ade39abf5f03f522fc1dc6470edce4cccbe",
+        "tally": {
+          "tests": 132,
+          "suites": 0,
+          "pass": 59,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 73,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/sas-focused-probe.tap",
+        "bytes": 7386,
+        "sha256": "09c049359c91977870597859360b59a507c4a97a3688687aa95ceebbb0e65ff6",
+        "tally": {
+          "tests": 2,
+          "suites": 0,
+          "pass": 2,
+          "fail": 0,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0
+        }
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/files/tmp09/runs/coverage-regression-lanes.tap",
+        "bytes": 59593,
+        "sha256": "970cbb78261d260f19ea4ad81f7cc9f137f3f5b0c55590d03611f3141ff9b296",
+        "tally": {
+          "tests": 148,
+          "suites": 0,
+          "pass": 72,
+          "fail": 1,
+          "cancelled": 0,
+          "skipped": 75,
+          "todo": 0
+        }
+      }
+    ],
+    "handoffs": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/return.json",
+        "bytes": 44419,
+        "sha256": "363dcc99427517a4c9f3fcf5209176783ad8b107a972507402d7e5f37746518c"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/readiness.json",
+        "bytes": 5584,
+        "sha256": "f745c9fb00c75b24fd9a52678cfe95ae3825885cce05a0e1ff389fb37a5d7233"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/progress.json",
+        "bytes": 946,
+        "sha256": "8e9bb0f2592c246c67b03631094d6a5bdfef099139e7a00756520137022911fe"
+      }
+    ],
+    "exactPreimageTestOutcomeCorrespondence": [
+      {
+        "lane": "native-semantic-job",
+        "equalIncludingSkipReason": true
+      },
+      {
+        "lane": "native-semantic-revision",
+        "equalIncludingSkipReason": true
+      },
+      {
+        "lane": "semantic-interface-and-fixture-consumers",
+        "equalIncludingSkipReason": true
+      }
+    ],
+    "sourceCensusReuse": {
+      "custody": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/author-feedback/declared-return-custody-001/CUSTODY.json",
+      "summary": {
+        "rows": 43,
+        "heldPinMatches": 43,
+        "candidateScratchMatches": 43,
+        "preimageScratchMatches": 43
+      },
+      "meaning": "Reusable file comparison:43 before-map/held,43 preimage source and43 candidate source matches. All157 frozen files were also independently checked here. This is not a claim of execution-time compiled-byte custody."
+    },
+    "preimageLimits": "The reported preimage build/diagnostic patch-and-restore chronology has no pinned diagnostic output/compiled execution-time attestation. Matching source/TAP outcomes are verified; exact ENOENT runtime trace and restoration timing are not independently established. Raw V8 coverage JSON was not captured, so exact author-reported site counts are not independently credited.",
+    "skipReasons": [
+      {
+        "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+        "count": 42
+      },
+      {
+        "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-07/installed-frame-01/events-01/runtime.events.jsonl (sha256:25dd49061c90)",
+        "count": 5
+      },
+      {
+        "reason": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260911_D2_BOUNDED_REPAIR/installed-continuation-04/installed-frame-01/events-01/runtime.events.jsonl (sha256:42c1bfd29619)",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_D1_NATIVE_PROJECTION_EVIDENCE unset; requires an explicit closed native proof observation record",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_D1_ASSESSOR_DOMAIN_EVIDENCE or ABI5_D1_ASSESSOR_PREDECESSOR_ROOT unset; requires explicit closed native observations and predecessor package",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_RETAINED_PROOF unset; requires the retained two-job native intake proof",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_FULL_NATIVE is not '1'; selects the installed full native job traversal",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_FAILED_PARENT_ROOT unset; requires the saved native Design-to-plan scratch root",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_FAILED_FULL_ROOT unset; requires the saved native full-outcome scratch root",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_COMPLETED_ROOT unset; requires the completed native Evidence scratch root",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_REVISION_PREFIX_ROOT unset; requires the saved native revision bridge prefix root",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_REVISION_EVIDENCE_PREFIX_ROOT unset; requires the saved revision Evidence prefix root",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_GENERIC_JOB_CORRECTION_NATIVE is not '1'; selects the native correction run over an actual failed verifier",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_CONTEXT_PUBLIC_PROOF is not '1'; selects the installed Public-start proof",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_CONTEXT_STDO_CONFIGURATION unset; requires the released a_c run-environment configuration directory",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_NATIVE_RETAINED_JOB unset; requires the explicit closed retained native job selection",
+        "count": 1
+      },
+      {
+        "reason": "ABG_NATIVE_REACQUISITION_RETAINED_ROOT unset; requires the retained actual reacquisition root",
+        "count": 3
+      },
+      {
+        "reason": "ABI5_PREDECESSOR_PRIOR_ROOT, ABI5_PREDECESSOR_PROOF_ROOT or ABI5_PREDECESSOR_OLD_PACKAGE_ROOT unset; requires the exact preserved original1B evidence, its proof root and the predecessor package",
+        "count": 3
+      },
+      {
+        "reason": "ABI5_ENV_PROOF_ROOT unset; requires the proof root and the input root holding stdo-installs.json",
+        "count": 2
+      },
+      {
+        "reason": "ABI5_ENV_PRIOR_EVENTS unset; requires preserved failed pilot history",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_DESIGN_CONTEXT_OBSERVATIONS or ABI5_DESIGN_CONTEXT_PREDECESSOR unset; requires explicit closed observations and frozen predecessor package",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_NATIVE_D2_SELECTOR_PROMPT unset; requires the retained native D2 selector prompt",
+        "count": 1
+      },
+      {
+        "reason": "ABI5_D07_PREDECESSOR_SCRATCH unset; requires the retained D07 predecessor scratch",
+        "count": 1
+      }
+    ]
+  },
+  "preexistingFixtureAnalysis": {
+    "question": "Does the revision first refusal red demonstrate a native09 source regression?",
+    "conclusion": "No new-regression inference is supported. Candidate, held-preimage and actual09 C2 fail the same first assertion before later assertions; nativeIntakeFacts and its reader call are unchanged by09. It remains a real red and a coverage limitation.",
+    "routes": [
+      {
+        "path": "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "lines": "70-72,85-86,103-122,130-143"
+      },
+      {
+        "path": "code/src/abg/semantic_revision.ts",
+        "lines": "187-215,306"
+      },
+      {
+        "path": "code/src/abg/event_prefix.ts",
+        "lines": "85-87"
+      }
+    ],
+    "verified": "Pinned TAPs require cause_absent but observe native_revision_intake_projection_exception at137. The component coordinate is file:///component/no-journal. Its SyntheticModule spreads real exports; it stubs Event Store readRuntimeEventsAtDurablePrefix but omits the real event_prefix readOwnedRuntimeEventPrefixAtDurablePrefix now called at196. The exception is caught and mapped before cause selection.",
+    "causalConfidence": "High confidence in the static missing-reader-premise path; exact ENOENT at the historical author diagnostic is attributed, not proven by retained TAP. No runtime replay was performed.",
+    "limits": "Later cause ambiguity, ancestry, selection/correction and historical-cut assertions in that first test are not reached in these executions. Same first failure does not prove those later behaviors. The73 consumer and2 revision skips retain their exact baseline reasons; no new skip was introduced.",
+    "finiteReentry": "No Product repair or new functionality follows. If Root separately requires this existing component lane green, its owner is the test's declared lower reader/index premises, not native intake semantics; reconcile those against existing canonical prefix contracts and rerun only the affected component. Simply lowering revision minimum5 to4 still leaves fail1/exit1. This review selects no fixture repair or failure waiver."
+  },
+  "actualC2": {
+    "result": "falsified",
+    "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_C2_SUMMARY.json",
+      "bytes": 10624,
+      "sha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef",
+      "value": {
+        "recordedUtc": "2026-11-04T13:33:10.738Z",
+        "status": "ACTUAL_C2_COMPLETED_WITH_UNMET_PREDICATES",
+        "standing": "Actual helper and admitted C2 Result conjoined; Root acceptance remains separate.",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/ee4fd033349bb12023907fac3964688332d486da9afc40c944cd17670a8c6fa1",
+        "helperArtifactDigest": "sha256:ee4fd033349bb12023907fac3964688332d486da9afc40c944cd17670a8c6fa1",
+        "helperPhysicalSha256": "b4099dfb5e2039ad96d67c1b24b24c1623a085ce56413ce14a4b727457edf43c",
+        "helperProducer": {
+          "attemptRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4",
+          "taskRef": "worksite-command-execution-task://abiogenesis/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d",
+          "taskDigest": "sha256:174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d",
+          "coordinates": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/C2_HELPER_COORDINATES.json",
+            "bytes": 3729,
+            "sha256": "df4c5cdc1a1c0d0ae78f210751e4cff848abf9bf9f72e242d3d833cfee9e63bf"
+          }
+        },
+        "commands": [
+          {
+            "ordinal": 0,
+            "commandId": "command://abiogenesis/single-address-space/native-09/source-correspondence",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 29321,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 1,
+            "commandId": "command://abiogenesis/single-address-space/native-09/offline-toolchain",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 0,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 2,
+            "commandId": "command://abiogenesis/single-address-space/native-09/contract-seeds",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 0,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 3,
+            "commandId": "command://abiogenesis/single-address-space/native-09/compile",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 0,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 4,
+            "commandId": "command://abiogenesis/single-address-space/native-09/generate",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 0,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 5,
+            "commandId": "command://abiogenesis/single-address-space/native-09/pack",
+            "exitStatus": 0,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 45,
+            "stderrBytes": 0
+          },
+          {
+            "ordinal": 6,
+            "commandId": "command://abiogenesis/single-address-space/native-09/affected-proof",
+            "exitStatus": 1,
+            "timedOut": false,
+            "processSignal": null,
+            "terminationConfirmed": true,
+            "stdoutBytes": 8244,
+            "stderrBytes": 1976
+          }
+        ],
+        "predicateObservedValues": [
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/source-correspondence/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/offline-toolchain/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/contract-seeds/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/compile/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/generate/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/pack/exit",
+            "observedValue": 0
+          },
+          {
+            "predicateId": "command://abiogenesis/single-address-space/native-09/affected-proof/exit",
+            "observedValue": 1
+          }
+        ],
+        "sourceCorrespondence": {
+          "count": 160,
+          "allEqualFrozenSourceAndHandoff": true,
+          "subjectSha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13",
+          "record": {
+            "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+            "bytes": 81744,
+            "sha256": "c86d92f047f63e19ad6b51fcf057244a4b1b064a835db91376d035d44043391f"
+          }
+        },
+        "protectedInputCount": 969,
+        "protectedBeforeEqualsAfter": true,
+        "productDelta": [],
+        "lanes": [
+          {
+            "id": "single-address-space-whole-path",
+            "files": [
+              "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+            ],
+            "exitCode": 1,
+            "signal": null,
+            "error": null,
+            "pass": 5,
+            "fail": 7,
+            "skipped": 0,
+            "wallMs": 338433.621708,
+            "stdoutSha256": "a518b164f36472026f0cf6d9df51d5cf852f6d1b64af2f14bfb321d7b8567e7f",
+            "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "unmet": [
+              "process did not complete successfully",
+              "failed or absent test tally",
+              "required cases did not execute"
+            ]
+          },
+          {
+            "id": "native-semantic-job",
+            "files": [
+              "test_env/tests/t287-native-semantic-job.test.mjs"
+            ],
+            "exitCode": 0,
+            "signal": null,
+            "error": null,
+            "pass": 9,
+            "fail": 0,
+            "skipped": 0,
+            "wallMs": 1054.7461250000051,
+            "stdoutSha256": "89ad80bfdf68fef6892bae0e596af1a1d6dd4ca4f4210c9387912b9b214269de",
+            "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "unmet": []
+          },
+          {
+            "id": "native-semantic-revision",
+            "files": [
+              "test_env/tests/t287-native-semantic-revision.test.mjs"
+            ],
+            "exitCode": 1,
+            "signal": null,
+            "error": null,
+            "pass": 4,
+            "fail": 1,
+            "skipped": 2,
+            "wallMs": 754.3289590000059,
+            "stdoutSha256": "6c94afcb0f13f505192c9ffb639874db7d55deb1afe05a2a984bf72abaf094d1",
+            "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "unmet": [
+              "process did not complete successfully",
+              "failed or absent test tally",
+              "required cases did not execute"
+            ]
+          },
+          {
+            "id": "semantic-interface-and-fixture-consumers",
+            "files": [
+              "test_env/tests/d2-acknowledgment.test.mjs",
+              "test_env/tests/d2-binding-query-reuse.test.mjs",
+              "test_env/tests/d2-binding-transition.test.mjs",
+              "test_env/tests/d2-bounded-repair.test.mjs",
+              "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+              "test_env/tests/d2-historical-design.test.mjs",
+              "test_env/tests/d2-workflow-step.test.mjs",
+              "test_env/tests/t287-c2-child-program.test.mjs",
+              "test_env/tests/t287-d1-semantic-stage.test.mjs",
+              "test_env/tests/t287-generic-job-intake.test.mjs",
+              "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+              "test_env/tests/t287-generic-job-meaning.test.mjs",
+              "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+              "test_env/tests/t287-generic-job-revision.test.mjs",
+              "test_env/tests/t287-management-context.test.mjs",
+              "test_env/tests/t287-management-supervision.test.mjs",
+              "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+              "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+              "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+              "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+              "test_env/tests/t287-native-work-reacquisition.test.mjs",
+              "test_env/tests/t287-predecessor-context.test.mjs",
+              "test_env/tests/t287-stdo-environment-citation.test.mjs",
+              "test_env/tests/t287-stdo-run-environment.test.mjs",
+              "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+            ],
+            "exitCode": 0,
+            "signal": null,
+            "error": null,
+            "pass": 59,
+            "fail": 0,
+            "skipped": 73,
+            "wallMs": 194386.76029199996,
+            "stdoutSha256": "fce94ec203cc0d16f92770525cfc84ed8758795cc741bfab11f40ad6f056171a",
+            "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "unmet": [
+              "required cases did not execute"
+            ]
+          }
+        ],
+        "tally": {
+          "pass": 77,
+          "fail": 8,
+          "skipped": 75
+        },
+        "retainedEvidenceVerification": null,
+        "retainedPriorEvidence": [],
+        "retainedEvidenceStanding": "Prior rows are not included in newly executed tally and receive credit only if exact correspondence succeeded.",
+        "nativeProof": null,
+        "failure": [
+          {
+            "lane": "single-address-space-whole-path",
+            "reason": "process did not complete successfully"
+          },
+          {
+            "lane": "single-address-space-whole-path",
+            "reason": "failed or absent test tally"
+          },
+          {
+            "lane": "single-address-space-whole-path",
+            "reason": "required cases did not execute"
+          },
+          {
+            "lane": "single-address-space-whole-path",
+            "reason": "native producer proof unavailable or invalid",
+            "detail": "ENOENT: no such file or directory, open '/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/artifacts/single-address-space-proof.json'"
+          },
+          {
+            "lane": "native-semantic-revision",
+            "reason": "process did not complete successfully"
+          },
+          {
+            "lane": "native-semantic-revision",
+            "reason": "failed or absent test tally"
+          },
+          {
+            "lane": "native-semantic-revision",
+            "reason": "required cases did not execute"
+          },
+          {
+            "lane": "semantic-interface-and-fixture-consumers",
+            "reason": "required cases did not execute"
+          },
+          {
+            "lane": "single-address-space-whole-path",
+            "reason": "no retained whole-path producer proof"
+          }
+        ],
+        "unrunLanes": [],
+        "priorEvidencePreserved": true
+      }
+    },
+    "closedResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_C2_CLOSED_RESULT.json",
+      "bytes": 2209,
+      "sha256": "5f93c6b93c5dc966519842450455de0ab4522130bf77cb5083d0d2471cf649be",
+      "value": {
+        "recordedUtc": "2026-11-04T13:33:10.742Z",
+        "status": "ACTUAL_ADMITTED_C2_RESULT_CAPTURED",
+        "coordinates": {
+          "kind": "c_call_result_admitted",
+          "admissionOrdinal": 63097,
+          "eventId": "event://abiogenesis/3517d3a9a62036a979151969ed9a0e82c74515b7d4d2d4041add21e2c64c2a87",
+          "eventTime": "2026-11-04T13:32:20.105Z",
+          "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+          "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+          "offset": 823188285,
+          "rowBytes": 9841994,
+          "rowSha256": "3be7ed0ea0eecd81d8a978cc925da72440420a1a6d79b53d9f718289f99c1006",
+          "resultRef": "result://abiogenesis/b362feed31460282e47b00cd04b1e0eb647c3baae60022b9990257ac777a5d98",
+          "resultDigest": "sha256:b362feed31460282e47b00cd04b1e0eb647c3baae60022b9990257ac777a5d98",
+          "valueKind": "worksite_command_execution_observation"
+        },
+        "observationRef": "worksite-command-execution-observation://abiogenesis/2b5b5adc08d04daa4acc6d91f21317726be392bbbb11331f5e5138d9bd9ab363",
+        "observationDigest": "sha256:2b5b5adc08d04daa4acc6d91f21317726be392bbbb11331f5e5138d9bd9ab363",
+        "helperArtifactRef": "worksite-command-helper-artifact://abiogenesis/ee4fd033349bb12023907fac3964688332d486da9afc40c944cd17670a8c6fa1",
+        "exactHelperComparisons": {
+          "commandResults": true,
+          "predicateObservations": true,
+          "productDelta": true,
+          "worksiteDelta": true
+        },
+        "actualSummary": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_C2_SUMMARY.json",
+          "bytes": 10624,
+          "sha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef"
+        },
+        "actualSourceCorrespondence": {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+          "bytes": 81744,
+          "sha256": "c86d92f047f63e19ad6b51fcf057244a4b1b064a835db91376d035d44043391f"
+        },
+        "standing": "Actual admitted result conjoined with actual helper and source correspondence; failures and skips remain, no Root acceptance inferred."
+      }
+    },
+    "coordinates": {
+      "kind": "c_call_result_admitted",
+      "admissionOrdinal": 63097,
+      "eventId": "event://abiogenesis/3517d3a9a62036a979151969ed9a0e82c74515b7d4d2d4041add21e2c64c2a87",
+      "eventTime": "2026-11-04T13:32:20.105Z",
+      "graphFunctionRef": "graph-function://abiogenesis/worksite/command-execution@5",
+      "runId": "run://abiogenesis/8151fe0a681158cbe0edc14139cee1dc877e592f278a5e78509364457a968c88",
+      "offset": 823188285,
+      "rowBytes": 9841994,
+      "rowSha256": "3be7ed0ea0eecd81d8a978cc925da72440420a1a6d79b53d9f718289f99c1006",
+      "resultRef": "result://abiogenesis/b362feed31460282e47b00cd04b1e0eb647c3baae60022b9990257ac777a5d98",
+      "resultDigest": "sha256:b362feed31460282e47b00cd04b1e0eb647c3baae60022b9990257ac777a5d98",
+      "valueKind": "worksite_command_execution_observation"
+    },
+    "sourceCorrespondence": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/SOURCE_CORRESPONDENCE.json",
+      "bytes": 81744,
+      "sha256": "c86d92f047f63e19ad6b51fcf057244a4b1b064a835db91376d035d44043391f",
+      "count": 160,
+      "allRowsIndependentlyMatchFrozenSourceHandoffs": true
+    },
+    "protectedInputs": 969,
+    "protectedBeforeEqualsAfter": true,
+    "productDelta": [],
+    "commands": [
+      {
+        "ordinal": 0,
+        "commandId": "command://abiogenesis/single-address-space/native-09/source-correspondence",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 29321,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 1,
+        "commandId": "command://abiogenesis/single-address-space/native-09/offline-toolchain",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 0,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 2,
+        "commandId": "command://abiogenesis/single-address-space/native-09/contract-seeds",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 0,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 3,
+        "commandId": "command://abiogenesis/single-address-space/native-09/compile",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 0,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 4,
+        "commandId": "command://abiogenesis/single-address-space/native-09/generate",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 0,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 5,
+        "commandId": "command://abiogenesis/single-address-space/native-09/pack",
+        "exitStatus": 0,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 45,
+        "stderrBytes": 0
+      },
+      {
+        "ordinal": 6,
+        "commandId": "command://abiogenesis/single-address-space/native-09/affected-proof",
+        "exitStatus": 1,
+        "timedOut": false,
+        "processSignal": null,
+        "terminationConfirmed": true,
+        "stdoutBytes": 8244,
+        "stderrBytes": 1976
+      }
+    ],
+    "lanes": [
+      {
+        "id": "single-address-space-whole-path",
+        "files": [
+          "test_env/tests/t287-single-address-space-consolidation.test.mjs"
+        ],
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "pass": 5,
+        "fail": 7,
+        "skipped": 0,
+        "wallMs": 338433.621708,
+        "stdoutSha256": "a518b164f36472026f0cf6d9df51d5cf852f6d1b64af2f14bfb321d7b8567e7f",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unmet": [
+          "process did not complete successfully",
+          "failed or absent test tally",
+          "required cases did not execute"
+        ]
+      },
+      {
+        "id": "native-semantic-job",
+        "files": [
+          "test_env/tests/t287-native-semantic-job.test.mjs"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "pass": 9,
+        "fail": 0,
+        "skipped": 0,
+        "wallMs": 1054.7461250000051,
+        "stdoutSha256": "89ad80bfdf68fef6892bae0e596af1a1d6dd4ca4f4210c9387912b9b214269de",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unmet": []
+      },
+      {
+        "id": "native-semantic-revision",
+        "files": [
+          "test_env/tests/t287-native-semantic-revision.test.mjs"
+        ],
+        "exitCode": 1,
+        "signal": null,
+        "error": null,
+        "pass": 4,
+        "fail": 1,
+        "skipped": 2,
+        "wallMs": 754.3289590000059,
+        "stdoutSha256": "6c94afcb0f13f505192c9ffb639874db7d55deb1afe05a2a984bf72abaf094d1",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unmet": [
+          "process did not complete successfully",
+          "failed or absent test tally",
+          "required cases did not execute"
+        ]
+      },
+      {
+        "id": "semantic-interface-and-fixture-consumers",
+        "files": [
+          "test_env/tests/d2-acknowledgment.test.mjs",
+          "test_env/tests/d2-binding-query-reuse.test.mjs",
+          "test_env/tests/d2-binding-transition.test.mjs",
+          "test_env/tests/d2-bounded-repair.test.mjs",
+          "test_env/tests/d2-evidence-owner-lookup.test.mjs",
+          "test_env/tests/d2-historical-design.test.mjs",
+          "test_env/tests/d2-workflow-step.test.mjs",
+          "test_env/tests/t287-c2-child-program.test.mjs",
+          "test_env/tests/t287-d1-semantic-stage.test.mjs",
+          "test_env/tests/t287-generic-job-intake.test.mjs",
+          "test_env/tests/t287-generic-job-lifecycle.test.mjs",
+          "test_env/tests/t287-generic-job-meaning.test.mjs",
+          "test_env/tests/t287-generic-job-read-dependency.test.mjs",
+          "test_env/tests/t287-generic-job-revision.test.mjs",
+          "test_env/tests/t287-management-context.test.mjs",
+          "test_env/tests/t287-management-supervision.test.mjs",
+          "test_env/tests/t287-native-assembly-retained-input.test.mjs",
+          "test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+          "test_env/tests/t287-native-selection-profile-scope.test.mjs",
+          "test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+          "test_env/tests/t287-native-work-reacquisition.test.mjs",
+          "test_env/tests/t287-predecessor-context.test.mjs",
+          "test_env/tests/t287-stdo-environment-citation.test.mjs",
+          "test_env/tests/t287-stdo-run-environment.test.mjs",
+          "test_env/tests/t288-instruction-assembly-owner.test.mjs"
+        ],
+        "exitCode": 0,
+        "signal": null,
+        "error": null,
+        "pass": 59,
+        "fail": 0,
+        "skipped": 73,
+        "wallMs": 194386.76029199996,
+        "stdoutSha256": "fce94ec203cc0d16f92770525cfc84ed8758795cc741bfab11f40ad6f056171a",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "unmet": [
+          "required cases did not execute"
+        ]
+      }
+    ],
+    "tally": {
+      "pass": 77,
+      "fail": 8,
+      "skipped": 75
+    },
+    "nativeProof": null,
+    "package": {
+      "identityRecord": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/CANDIDATE_PACKAGE_IDENTITY.json",
+        "bytes": 1209,
+        "sha256": "ac2979c5611538ce84ea71d3496d7b8720b43e69e216ce522bd9da35ea5b6989"
+      },
+      "archive": {
+        "producerPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-09/candidate-package.tgz",
+        "custodyPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/actual-c2-001/candidate-package.tgz",
+        "bytes": 10988328,
+        "sha256": "e0a84d336073fffb59696ebdedf0f5bd9224d4857d8124cd1400646819dfdf66",
+        "byteEqualProducerAndCustody": true
+      }
+    },
+    "interpretation": "Commands0-5 exit0; affected-proof exits1. Whole-path5/7/0 has six exact baseline-file ENOENTs at1,2,3,4,10,11 and final proof-record assertion at12; job9/0/0; revision4/1/2; consumers59/0/73. Actual C2 is not relabelled successful. Source/build/unaffected behavioral facts can be retained only with their exact source/package/evidence support.",
+    "actualLaneStreams": [
+      {
+        "id": "single-address-space-whole-path",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-09/single-address-space-whole-path.stdout.log",
+        "bytes": 78766,
+        "sha256": "a518b164f36472026f0cf6d9df51d5cf852f6d1b64af2f14bfb321d7b8567e7f"
+      },
+      {
+        "id": "native-semantic-job",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-09/native-semantic-job.stdout.log",
+        "bytes": 3023,
+        "sha256": "89ad80bfdf68fef6892bae0e596af1a1d6dd4ca4f4210c9387912b9b214269de"
+      },
+      {
+        "id": "native-semantic-revision",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-09/native-semantic-revision.stdout.log",
+        "bytes": 4591,
+        "sha256": "6c94afcb0f13f505192c9ffb639874db7d55deb1afe05a2a984bf72abaf094d1"
+      },
+      {
+        "id": "semantic-interface-and-fixture-consumers",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/runtime-001/resources/archives/worksite-command-execution/174f21f9543ab7a178ef86e76482388b35dc44b96f261d3704e420e6f189e27d/387b7d84a2111e7b0f02625056dff5b0193ce2a42a771b6bef316a40ce5043c4/sandbox/build_tenants/abiogenesis/typescript/test_env/test_runs/single-address-space-native-09/semantic-interface-and-fixture-consumers.stdout.log",
+        "bytes": 52669,
+        "sha256": "fce94ec203cc0d16f92770525cfc84ed8758795cc741bfab11f40ad6f056171a"
+      }
+    ]
+  },
+  "operatorEvidenceFindings": [
+    {
+      "id": "N9-EVIDENCE-01",
+      "result": "falsified",
+      "severity": 4,
+      "scale": "1 highest-5 lowest",
+      "sourceFinding": false,
+      "property": "The actual selected Testing input must contain each dynamically required proof input at its selected ABI5_CONSOLIDATION_INPUTS root.",
+      "counterexample": "C2 wrapper12/15 sets that root to consolidation-inputs/native-09; unchanged support single-address-space-consolidation.mjs30-36 unconditionally reads MEASURED_BASELINE.json there. The969-input inventory carries only native-08/MEASURED_BASELINE.json. Actual C2 has six ENOENTs and no final proof.",
+      "causalPath": "Root input selection -> C2 helper sandbox -> wrapper environment -> consolidationInputs -> new and retained whole-path cases -> missing proof record -> affected-proof exit1 -> available UAT evidence incomplete.",
+      "triage": {
+        "payloadClass": "complete",
+        "confidence": "confirmed by exact selected inventory, source and actual lane streams",
+        "blastRadius": "Selected whole-path proof cases1-4/10/11 and proof-record12; downstream C2/UAT evidence. No Product runtime/source malfunction shown.",
+        "containment": "Fail-closed C2; existing immutable5575-byte baseline is available under native08.",
+        "repairComplexity": "Small operator-only staging/selection/pin correction; no Product/test function change.",
+        "regressionRisk": "Low if the exact byte-identical baseline and frozen source/package remain bound; changing inputs under the active Run is not permitted.",
+        "uncertainty": "A successful later whole-path execution and close remain unobserved."
+      },
+      "existingInput": {
+        "bytes": 5575,
+        "sha256": "774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06"
+      },
+      "ownerReentry": "Root existing input carrier and immediate Testing owner. The announced proof-only10 preparation is compatible in scope; no dispatch or success inferred.",
+      "minimumCorrectionAndCoverage": "Stage/select the byte-identical baseline at the next selected input root, bind source/package identities, then run the existing12-case whole-path lane once under its actual Testing contract. Reuse valid actual09 build/unaffected lanes only after exact support checks. Preserve actual09 red; no coding stage/new framework/whole qualification is indicated.",
+      "priorReviewLimit": "My prior control review checked declared files/field routes/capacity but missed this dynamic filename dependency; its no-blocker result did not establish runtime fixture-data completeness."
+    },
+    {
+      "id": "N9-EVIDENCE-02",
+      "result": "falsified",
+      "severity": 4,
+      "scale": "1 highest-5 lowest",
+      "sourceFinding": false,
+      "property": "Executable count predicates and permitted historical gates must be reconciled to the actual selected evidence population without inventing feature work or hiding a real red.",
+      "counterexample": "Consumer floor62 exceeds59 passes with73 identical declared historical skips in both candidate/preimage and actual C2. Revision minimum5 compares against4/1/2 in both candidate/preimage and actual C2; its real failure/exit1 remains independent of the floor.",
+      "causalPath": "Source-derived uncalibrated minima -> correct strict wrapper failure -> unresolved targeted verification despite conserved observable regression outcomes.",
+      "triage": {
+        "payloadClass": "complete",
+        "confidence": "confirmed exact TAP per-test names/statuses/skip reasons and actual C2 rows",
+        "blastRadius": "Two selected regression-lane verification predicates and dependent current C2/UAT disposition; no newly introduced source behavior is demonstrated.",
+        "containment": "Failures/skips are preserved and cannot earn current pass credit. Shared focused proof/source tracing does not claim the unexecuted first-test suffix.",
+        "repairComplexity": "Bounded Root evidence/oracle disposition; a current-contract test-premise migration, if separately selected, belongs only to that existing test.",
+        "regressionRisk": "High if a floor reduction is used to mask fail1 or activate missing historical functionality; bounded if exact preserved gates/claims are explicitly selected.",
+        "uncertainty": "Post-first-failure assertions and historical gated branches remain unverified; no floor waiver or baseline-failure semantic disposition exists."
+      },
+      "ownerReentry": "Root targeted verification contract/evidence disposition. Current running controls remain unchanged.",
+      "minimumCorrectionAndCoverage": "Conserve exact preimage/actual statuses and their scope. Root may calibrate future executable-population predicates only with an explicit evidence-grounded disposition. Do not lower revision to4 and call it green; do not raise passes by implementing unrelated fixture functionality. No correction or waiver is enacted by this review."
+    }
+  ],
+  "claimCoverage": {
+    "T1": "Satisfied source tracing:3 cuts,7 ordinary expressions,4 wrappers and finite consumer migration.",
+    "T2": "Actual build and available current regressions preserve their tested predicates; historical/first-failure suffix coverage remains explicitly bounded. No new source counterexample found.",
+    "T3": "Meaningful focused author same-input/work proof verified; actual09 new cases blocked by operator input omission, so actual successful selected proof remains open.",
+    "T4": "Actual160 source/handoff match and969 protected-input equality verified; affected C2 failed, UAT/fresh/Root conjunction pending. No unavailable future receipt is made a native gate.",
+    "T5": "26 source changes remain in permitted targeted cone with no added Product functionality. Author scratch/diagnostic/cache effect uncertainties remain disclosed, not clean-host proof."
+  },
+  "residuals": [
+    "No actual successful whole-path C2 proof for this source yet; actual09 remains77/8/75, nativeProof null.",
+    "Uncaptured diagnostic output and compiled preimage patch/restoration timing prevent independent exact runtime-cause/compiled execution-time attestation.",
+    "Raw V8 coverage is not captured. Author-reported unexecuted three cut expressions, instruction_assembly666/1212 and job arms at leaf683/revision60/99/stage63 are not promoted to executed coverage; complete tracing/shared-owner proof is the explicitly permitted support.",
+    "Historical fixture gates/first-test later assertions remain unverified; no unrelated functionality or qualification is selected.",
+    "UAT/fresh close/Root bounded acceptance is pending and remains separate; wider programme/release claims are outside this report."
+  ],
+  "invalidation": [
+    "A change to any reviewed source/support/test/HOW hash or relevant owner domain invalidates affected source conclusions.",
+    "A change to fixture/lower-premise selection or proof input bytes invalidates the corresponding proof judgment, not automatically unrelated source review.",
+    "Actual C2 source/package correspondence must remain exact for any reused lane/build evidence.",
+    "A later concrete source counterexample, diagnostic/compiled-byte custody or actual current execution can revise its specifically affected judgment. No automatic complete rereview or extra qualification gate is created."
+  ],
+  "evidencePins": {
+    "intake": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+        "bytes": 6177,
+        "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis-single-address-space/AGENTS.md",
+        "bytes": 12932,
+        "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-review/SKILL.md",
+        "bytes": 8074,
+        "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+      }
+    ],
+    "methodMembers": [
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EVALUATION.md",
+        "bytes": 91301,
+        "sha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/TICKETS.md",
+        "bytes": 100401,
+        "sha256": "86fefd277ab513b3f22d8e827967d18c4a7ee41558a6daf896c9ad60c9240e67"
+      },
+      {
+        "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+        "bytes": 165730,
+        "sha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff"
+      }
+    ],
+    "changedSources": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "bytes": 126341,
+        "sha256": "da1228f3876aca87ba065863bc990e216214f329ddb1e3d773466af08d18ee21",
+        "beforeSha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "bytes": 56288,
+        "sha256": "d70db3d73cd08a20e1a40b6ecb3483b43d025d449c7a7fba9d53fc9f8f7776ea",
+        "beforeSha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "bytes": 95835,
+        "sha256": "716b424b0a404f3e968f8e338f275afc84d57f9d6e7febfe23728a7e4238e205",
+        "beforeSha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "bytes": 30545,
+        "sha256": "f1985ef058a3a4ef1109df8fb048d98ca420a6863cc8c605fea624feda6e16f4",
+        "beforeSha256": "469c69af61e267864423683454ae40a5f0b2879323f1e6d82d23e32acf0f7ef2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "bytes": 74064,
+        "sha256": "2dd3e1754453b211c8650fda8eab469ce8d9ae3bdb0dc989fbd3d7677f06d16f",
+        "beforeSha256": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 82841,
+        "sha256": "91dc54b4ddd40b002b30d11bdea0495148205a1c27e0c0ed0f8f4b028ac1cf11",
+        "beforeSha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+        "bytes": 14571,
+        "sha256": "3dbb44016a2825bb341ad3d553b2b068a27e0a14a3e8321c36d5ea805ee858b4",
+        "beforeSha256": "09b95472d1bb0e135d158396d36c8de31397713101f89ffb6da077c2b8b2359d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+        "bytes": 17186,
+        "sha256": "1098ab420c054169f3b723010e9a69a045826332a0ecadd67063f3b737dd10b4",
+        "beforeSha256": "83d689cf1ef8495dc814bf42b8c310e14246cdae24ab79c56477196991a7205c"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 145655,
+        "sha256": "a9a69cdf6657e90581d3cfe5482668872bb7bc7b572a4b3ac97d628c414248f9",
+        "beforeSha256": "3c412df13f7647ba7c770177b31347f65788680b5e668f9c82cea5a847674312"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+        "bytes": 25759,
+        "sha256": "b633d1f69ef4f24d521e056206f0fb6f7b6467444d06dc64a9f9a23f69f98627",
+        "beforeSha256": "a2418e6bc0f7eedb4c209d1e9eecefa056b13378e38178ed2264cfae9af9b1eb"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+        "bytes": 9459,
+        "sha256": "3fa8fa8ffea19a187f727d64f6da3940e8def6ab3dadad0e055c0c45848ec0b3",
+        "beforeSha256": "38a31ced9807ad9c4c70c977b13851eac922774120ba6f3372b9b51e8ea1cf74"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+        "bytes": 9181,
+        "sha256": "36c984cc22806467e7c2f8e7c349ed320eb641bf99f677a3be4769431f9e5f71",
+        "beforeSha256": "f8cc208e73274660d9471eca3c7e4cedc36f362f0b78b64a818183488d566851"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+        "bytes": 8846,
+        "sha256": "e7b0d6615f749765dc1a1f36c2c6e4532f9a96d6db69e1c0576784c6634ceb74",
+        "beforeSha256": "bcd181ec820ab5946a96f59b3eabd92262ec4089a0e1b7378a85149d8c2a6318"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+        "bytes": 22133,
+        "sha256": "d56f24818f0dcf41469f643534f914b460fa7df096dcfe7ff3896861092fe814",
+        "beforeSha256": "e4198842253a06c015f3d398a4417d9341ad0276be29e5f0195ecde059ec092d"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+        "bytes": 15906,
+        "sha256": "66ae4ab0e86a8027fdc2af04fdf0cd041969924a3f0a0b616b8da795134a37ee",
+        "beforeSha256": "9b853f8e230f29c51bf26c11dc48ce3766f747c334fe2a2cedd4e83428dacca0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+        "bytes": 7237,
+        "sha256": "1cdca8f351b403f27692916414090c9d07f4f8446b03056c411d9c4214b8bf45",
+        "beforeSha256": "ca324b2294c8447cc6053b3438ad5ce9f6c30955496f41a302a4036bb5d1e4b8"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+        "bytes": 23199,
+        "sha256": "208787a16a81dc51f5aa676e129bdd462710952c68a1652ab383bf4a58420fcf",
+        "beforeSha256": "59bbdde5c69e70768136754d9889c2595ae31a31abd4ac4ba9d7437acce23eac"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+        "bytes": 27339,
+        "sha256": "70eff7397c922af818841ce76053ff9308df4fe3a52ebb6dc2d882d666b1ec28",
+        "beforeSha256": "605ac3183b0b80a39937199510dcd241edf4c5000754671cabe1673689418d3c"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+        "bytes": 31330,
+        "sha256": "b095f4a838898fcefca99a5c1881eb70844327c51e9b787d4b1b104e82bb99b2",
+        "beforeSha256": "794039a82fa815e7bb238cf03549a3946b4d2cfcd2ddd69a4cbb911ded91db49"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+        "bytes": 43300,
+        "sha256": "50f1cf9a0956da96eef82d06f19e1a3ad4030d26216537a449fa07d1e8cb58e3",
+        "beforeSha256": "a81ca08ec14f036336ed27a11138e8539f1b75808f2c491787f077110fd71ed4"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+        "bytes": 14930,
+        "sha256": "3f872da9d31e01ff088ff5ef328a3aaaa4fd6f1476bf57dec65300874eb81e17",
+        "beforeSha256": "b5ab9c0faad5048fd8e9e3e7a39ec08c540a568a56e0b16baaa846dd5aea5686"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+        "bytes": 66912,
+        "sha256": "2d575b9b889b5463fc90e4d1d9db9b377c3f718f86a81773253eddc252ed5c19",
+        "beforeSha256": "1decb0f01f9eefec7cf2ea4ce955217ea240da01d7c497d3f87117eec0582f1a"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+        "bytes": 123504,
+        "sha256": "87b241a825aa1a4c9050e89e9f1f05a44d603baf542daacfb58243faef07f2ae",
+        "beforeSha256": "f514341d76b7fea6bed87394f96ccfb30c56517d16c04642fc2f912058a8d113"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+        "bytes": 12648,
+        "sha256": "8a6b05b9c1b33a961d1b65b107bae4314613a7b795d4e3580c774efa1dea51cf",
+        "beforeSha256": "c175f52a5f1804ccb376da57b9eedd732192b9a86b4076706331bed83f742c94"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+        "bytes": 13701,
+        "sha256": "715c7fade431fa3e49ca42f025b8e0afb4a45a8458e8d054329edd1884d65f20",
+        "beforeSha256": "5a715742bfc9b15f87f009af0b415f0f74ebe6e31ad340d8fb867b530737b0b4"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "snapshot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/files/build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+        "bytes": 42228,
+        "sha256": "f8b5f1bc6524865cece43bc53fe9684431edd1390bb30f5c18b3e974e2ffd85a",
+        "beforeSha256": "f4cbf1fed4b4d671c7c7f7e6fc4e378ec1abf22965384d1fc73c385786ada6ef"
+      }
+    ],
+    "IRPreimages": [
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/instruction_assembly.ts",
+        "bytes": 126311,
+        "sha256": "85607f0b6a7f69bcf431c89907e17c7302702679a5d655ee72d16cf95e71dd61",
+        "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_stage.ts",
+        "bytes": 30974,
+        "sha256": "469c69af61e267864423683454ae40a5f0b2879323f1e6d82d23e32acf0f7ef2",
+        "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_job.ts",
+        "bytes": 56749,
+        "sha256": "9f31ae048962ea6f84fcea7e661e9dc01f4a0f5f2e07d4a4736226c00d2be79d",
+        "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/semantic_revision.ts",
+        "bytes": 96776,
+        "sha256": "e657a900c12f7ceee1152711845518a96cf48ac0b67a5566ec47fa516824190d",
+        "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/abg/worksite_revision.ts",
+        "bytes": 74108,
+        "sha256": "ab53666bd5c40d2a8de5f20c925462be9bba9353c39325589f35c771ab1f1f3a",
+        "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/leaf_invocation_port.ts",
+        "bytes": 82821,
+        "sha256": "3ad3fba807e2a22ec31403048ed02a652a4de3fa1b0434a3f531fafbb72f0aa6",
+        "origin": "e2e638a8e78ea3b5f4fa853bde0209e34e4947cd828010c7d59cd3c643479bb0",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/semantic_revision.ts",
+        "bytes": 14541,
+        "sha256": "09b95472d1bb0e135d158396d36c8de31397713101f89ffb6da077c2b8b2359d",
+        "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "matchesHeldBefore": true
+      },
+      {
+        "sourcePath": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/preimages/implementation/semantic_stage.ts",
+        "bytes": 17166,
+        "sha256": "83d689cf1ef8495dc814bf42b8c310e14246cdae24ab79c56477196991a7205c",
+        "origin": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+        "matchesHeldBefore": true
+      }
+    ]
+  },
+  "independenceAndEffects": "Nonauthor of native09 source; preceding architectural triage and control review authorship disclosed. Same family/unrestricted host, no clean-room/enforced-exclusion claim. Frozen source/explicit exact-object/evidence reads only; no moving Product assessment, tests/builds, provider/runtime call, actor contact/feedback, retry, new scope or agents. stdo status was read-only method verification. Only these two review records are written. Root alone chooses repair/disposition/acceptance."
+}

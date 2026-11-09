@@ -143,7 +143,6 @@ export {
   type ImplementationResolutionSelection,
   type InteractionContractSelection,
   type RuntimeAdmissionBasis,
-  authenticateNativeInstructionAssemblyBasis,
   constructNativeInstructionAssemblyBasis,
   type NativeInstructionAssemblyBasis,
 } from "./execution_basis.js";
@@ -256,7 +255,6 @@ export {
   isCCall,
   constructCCallLocusCandidate,
   openCCall,
-  planPendingInteractionAdmission,
   projectAdmittedCCallOutcomeAtPrefix,
   projectAdmittedCCallResultAtPrefix,
   projectCCallCarrierPhaseAtPrefix,
@@ -329,8 +327,6 @@ export {
   type ReplayContinuationState,
 } from "./continuation.js";
 export {
-  projectRuntimeTruthAtDurablePrefix,
-  projectRuntimePrefixesAtDurablePrefix,
   projectRunQuiescence,
   projectRunSemanticReplayProjection,
   replay,
@@ -530,7 +526,14 @@ export {
   type WorkerTransportRequest,
   type WorkerTransportResult,
 } from "./worker_transport.js";
-export { ABG_PROJECT_READ_DEFINITION_BINDINGS } from "./project_read_definition_bindings.js";
+export {
+  ABG_PROJECT_READ_DEFINITION_BINDINGS,
+  ABG_RUN_READ_MEMBER_KEYS,
+  expectedRunReadAuthority,
+  populateRunReadAtDurablePrefix,
+  type AbgRunReadMemberKey,
+} from "./project_read_definition_bindings.js";
+export { projectPendingExecutionUseRequest } from "./construction_continuation.js";
 export { ABG_PROJECT_READ_CONTRACTS } from "./project_read_operation_contracts.js";
 
 export { deriveRetainedCCallInputAtPrefix } from "./traversal_route.js";
@@ -564,7 +567,7 @@ export { projectQualificationConsumer, projectQualificationJudgment, projectQual
   projectQualificationSelfConformance, resolveQualificationExecutionEvidence, qualificationHasNativeSelfConformance, projectQualificationVerdict, resolveQualificationAssessments,
   malformedGtlAssessmentHasNativeOwner } from "./qualification_proof.js";
 
-export { projectNativeWorkReacquisitionTask, authenticateNativeWorkReacquisition, nativeWorkReacquisitionContextCurrent,
+export { projectNativeWorkReacquisitionTask, nativeWorkReacquisitionContextCurrent,
   nativeWorkReacquisitionResultMatches } from "./native_work_reacquisition.js";
 export type { NativeWorkReacquisitionBasis } from "./native_work_reacquisition.js";
 

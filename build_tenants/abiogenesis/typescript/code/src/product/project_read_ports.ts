@@ -1,4 +1,4 @@
-import { projectExactPrefixArtifactTruth } from "../abg/artifact_truth.js";
+import { projectOwnedPrefixArtifactTruth } from "../abg/artifact_truth.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import { sameJson } from "../public/binding/definition_binding_mechanics.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -783,7 +783,7 @@ export function projectReleaseEvidence(packet:ReleaseEvidenceProjectReadPacket):
         !sameJson(packet.selector.artifact,packet.artifact) || !sameJson(packet.projectionBasis.value,packet.prefix)) {
       return refusal("release_evidence","projection_basis_mismatch","release read requires its exact current prefix and observation selector",packet);
     }
-    const truth=projectExactPrefixArtifactTruth(packet.prefix),artifact=readReleaseArtifactBytes(packet.artifactPath,packet.artifact);
+    const truth=projectOwnedPrefixArtifactTruth(packet.prefix),artifact=readReleaseArtifactBytes(packet.artifactPath,packet.artifact);
     if(truth.kind!=="exact_prefix_artifact_truth_projection"||artifact===null)return refusal("release_evidence","not_ready","release observation bytes or native prefix are unavailable",packet);
     const rows=truth.rows.filter(row=>row.operationId==="abg.operation.release.snapshot"&&row.memberKey===artifact.memberKey&&row.artifactRef===packet.artifact.ref&&row.artifactDigest===packet.artifact.digest);
     const row=rows[0];

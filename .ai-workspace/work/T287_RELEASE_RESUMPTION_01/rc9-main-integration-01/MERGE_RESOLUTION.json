@@ -1,0 +1,27 @@
+{
+  "status": "RESOLVED_EXACT_RC9_PRODUCT_AND_CURRENT_RECORD_UNION",
+  "at": "2026-11-09T00:49:31.205671+00:00",
+  "checkpoint": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+  "rc9": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "recordConflicts": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "specification/GOALS.md"
+  ],
+  "restoredCurrentRecords": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "specification/GOALS.md"
+  ],
+  "restoredDonorOnlyRecords": [],
+  "productResolution": "Every non-record entry equals RC9 in index and physical file bytes/modes. Auto-merged HOW content not retained.",
+  "recordResolution": "Union of record path sets; every checkpoint record entry retained exactly, with donor-only entries retained.",
+  "productEntries": 1842,
+  "currentRecordEntries": 128507,
+  "donorOnlyRecordEntries": 39,
+  "unresolvedIndexEntries": 0,
+  "controlAnomaly": {
+    "command": "git restore --source=RC9 --staged --worktree -- . :(exclude).ai-workspace :(exclude)specification/GOALS.md",
+    "exit": 1,
+    "stderr": "Unavailable: original wrapper did not retain it.",
+    "followup": "No retry. All1842 non-record index entries and physical bytes/modes verified equal to RC9 before proceeding. Only2 expected record conflicts remained and were restored from exact checkpoint. This records the observed postcondition without inferring the command exit cause."
+  }
+}

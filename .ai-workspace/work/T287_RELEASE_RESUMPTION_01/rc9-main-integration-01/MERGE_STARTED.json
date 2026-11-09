@@ -1,0 +1,13 @@
+{
+  "status": "MERGE_STARTED_WITH_EXPECTED_RESOLUTION",
+  "at": "2026-11-09T00:47:25.481950+00:00",
+  "exitCode": 1,
+  "stdout": "Auto-merging .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md\nCONFLICT (content): Merge conflict in .ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md\nAuto-merging build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md\nAuto-merging build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md\nAuto-merging specification/GOALS.md\nCONFLICT (content): Merge conflict in specification/GOALS.md\nAutomatic merge failed; fix conflicts and then commit the result.\n",
+  "stderr": "",
+  "conflicts": [
+    ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "specification/GOALS.md"
+  ],
+  "head": "e1bcb6ee27f7098692e78c2d7f12becbc307906e",
+  "mergeHead": "e30ac16b4a9406c43d054f45bad864746352dad6"
+}

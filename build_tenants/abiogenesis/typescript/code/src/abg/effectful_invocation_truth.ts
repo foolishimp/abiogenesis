@@ -1,20 +1,23 @@
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { onlyExactMatch } from "../shared/select/index.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { projectSelectedActionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
+import { isConstructionContinuationKind, projectSelectedActionOperation, projectPendingExecutionOperation, continuationOperationWorkspaceCorresponds } from "./construction_continuation.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   projectArtifactTruth,
-  projectExactPrefixArtifactTruth,
+  projectOwnedPrefixArtifactTruth,
+  runtimePrefixFromOwnedArtifactTruth,
   type ExactPrefixArtifactTruthProjectionRefusalCode,
 } from "./artifact_truth.js";
 import {
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
+  type RuntimeEvent,
 } from "./event_store.js";
 import {
+  indexedRuntimeEvents,
+  projectOwnedRuntimeEventPrefixAtDurablePrefix,
   runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -139,16 +142,15 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       );
     }
   } else {
+    // One owned acquisition: an established coordinate borrows its receipt;
+    // a raw or copied coordinate authenticates its bytes cold. The artifact
+    // derivation then reads the same owned prefix.
     try {
-      events = runtimeEventBodiesAtPrefix(
-        selectValidatedRuntimeEventPrefix(
-          readRuntimeEventsAtDurablePrefix(prefix),
-        ),
-      );
+      projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
     } catch {
       return invalidHistory(prefix, invocationRef, "prefix_invalid");
     }
-    const artifactTruth = projectExactPrefixArtifactTruth(prefix);
+    const artifactTruth = projectOwnedPrefixArtifactTruth(prefix);
     if (
       artifactTruth.kind ===
         "exact_prefix_artifact_truth_projection_refusal"
@@ -161,6 +163,9 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
         artifactTruth.code,
       );
     }
+    const artifactPrefix = runtimePrefixFromOwnedArtifactTruth(artifactTruth);
+    if (artifactPrefix === null) return invalidHistory(prefix, invocationRef, "prefix_invalid");
+    events = runtimeEventBodiesAtPrefix(artifactPrefix);
     artifactRows = artifactTruth.rows;
   }
   const facts: EffectfulPublicInvocationPriorAdmission[] =
@@ -203,13 +208,12 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
     );
   }
   facts.push(...continuationFacts.facts);
-  const constructionOperations = events.filter(e => e.kind === "public_operation_admitted" &&
-    typeof e.payload === "object" && e.payload !== null && !Array.isArray(e.payload) &&
-    (e.payload as Record<string, unknown>).continuationKind === "construction_intent");
-  for (const operation of constructionOperations) {
+  // F_H claims every other run.continue operation; the construction-continuation
+  // owner validates each of its closed kinds. A kind-crossed (mixed-arm) payload
+  // fails its owner's projection and refuses the whole history.
+  const constructionIntentFact = (operation: RuntimeEvent): EffectfulPublicInvocationPriorAdmission | null => {
     const p = operation.payload;
-    const bases = events.filter(e => e.kind === "basis_admitted" && typeof e.payload === "object" &&
-      e.payload !== null && !Array.isArray(e.payload) &&
+    const bases = indexedRuntimeEvents(validatedPrefix, "construction-operation:" + operation.eventId).filter(e => e.kind === "basis_admitted" &&
       isRecord(e.payload) && isRecord(e.payload.constructionContinuationUse) &&
       e.payload.constructionContinuationUse.operationAdmissionEventRef === operation.eventId);
     const basisMatch = onlyExactMatch(bases);
@@ -223,15 +227,20 @@ export function projectEffectfulPublicInvocationTruthAtPrefix(
       p.memberKey !== "current_intent" || p.continuationRef !== use.continuationRef || p.continuationDigest !== use.continuationDigest ||
       p.currentIntentRef !== use.constructionIntentRef || p.currentIntentDigest !== use.constructionIntentDigest ||
       p.authorityRef !== invocation.authorityRef || p.authorityDigest !== invocation.authorityDigest ||
-      typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string")
-      return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
-    facts.push({ operationId: "abg.operation.run.continue", publicInvocationRef: p.invocationRef,
+      typeof p.invocationRef !== "string" || typeof p.invocationDigest !== "string") return null;
+    return { operationId: "abg.operation.run.continue", publicInvocationRef: p.invocationRef,
       ownerInvocationRef: p.invocationRef, ownerInvocationDigest: p.invocationDigest as Sha256Digest,
-      publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef });
-  }
-  for (const operation of events.filter(e => e.kind === "public_operation_admitted" &&
-    isRecord(e.payload) && e.payload.continuationKind === "selected_action")) {
-    const fact = projectSelectedActionOperation(validatedPrefix, operation);
+      publicOperationEventRef: operation.eventId, admissionEventRef: basis.admissionEventRef };
+  };
+  const constructionOperations = (["construction_intent", "selected_action", "pending_execution"] as const)
+    .flatMap(kind => indexedRuntimeEvents(validatedPrefix, "public-continuation:" + kind))
+    .sort((left, right) => left.admissionOrdinal - right.admissionOrdinal);
+  for (const operation of constructionOperations.filter(e => e.kind === "public_operation_admitted" &&
+    isRecord(e.payload) && isConstructionContinuationKind(e.payload.continuationKind))) {
+    const kind = (operation.payload as Record<string, unknown>).continuationKind;
+    const fact = kind === "construction_intent" ? constructionIntentFact(operation)
+      : kind === "selected_action" ? projectSelectedActionOperation(validatedPrefix, operation)
+      : projectPendingExecutionOperation(validatedPrefix, operation);
     if (fact === null) return invalidHistory(prefix, invocationRef, "invocation_pair_invalid", [operation.eventId]);
     facts.push(fact);
   }

@@ -1,6 +1,7 @@
 import { projectFhContinuations } from "./fh_continuation_projection.js";
 import type { RuntimeEventScan } from "./runtime_history.js";
-import { runtimeEventPrefixLastEnvelope, indexedRuntimeEvents, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, runtimeEventPrefixExtent } from "./event_prefix.js";
+import { runtimeEventPrefixLastEnvelope, indexedRuntimeEvents, selectOwnedRuntimeEventPrefix, selectRuntimeEventPrefixFromStore, runtimeEventPrefixExtent,
+  readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventAtPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { resolveRegisteredSelection } from "../gtl/registered_selection.js";
 import { RETAINED_GRAPH_INPUT_CONTRACT, constructRetainedGraphInput } from "../product/worksite_preparation_contracts.js";
@@ -67,7 +68,6 @@ import {
   selectActiveRuntimeTransactionHistoryAtDurablePrefix,
   assertRuntimeEventTransactionActive,
   isRuntimeEventTransactionActive,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
   type RuntimeEventCandidateFactory,
@@ -2029,9 +2029,7 @@ export function rehydrateConstructionIntentForCursorAtDurablePrefix(
   cursor: TraversalCursorCandidate,
 ): ConstructionIntentAdmission | null {
   return rehydrateConstructionIntentForCursorAtPrefix(
-    selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(predecessorPrefix),
-    ),
+    readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix),
     cursor,
   );
 }
@@ -2156,11 +2154,8 @@ export function deriveGraphFunctionActionEvaluationBasis(
     childClosureRef: string;
   }>,
 ): Readonly<Record<string, JsonValue>> | null {
-  const events = readRuntimeEventsAtDurablePrefix(predecessorPrefix);
-  const intent = rehydrateConstructionIntentForCursorAtPrefix(
-    selectValidatedRuntimeEventPrefix(events),
-    cursor,
-  );
+  const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(predecessorPrefix);
+  const intent = rehydrateConstructionIntentForCursorAtPrefix(prefix, cursor);
   const composition = admittedBasisConstructionComposition(executionBasis);
   if (
     intent === null ||
@@ -2173,16 +2168,16 @@ export function deriveGraphFunctionActionEvaluationBasis(
   ) {
     return null;
   }
-  const intentEvent = events.find(
-    (event) => event.eventId === intent.admissionEventRef,
-  );
+  const intentEvent = runtimeEventAtPrefix(prefix, intent.admissionEventRef);
+  // Every remaining relation is Run-bound; its indexed rows keep admission order.
+  const runEvents = indexedRuntimeEvents(prefix, "run:" + cursor.runId);
   const selectedNextActionBasis =
     intentEvent !== undefined &&
       isRecord(intentEvent.payload) &&
       isRecord(intentEvent.payload.nextActionBasis)
       ? nextActionBasis(intentEvent.payload.nextActionBasis)
       : null;
-  const resultEvent = events.find(
+  const resultEvent = runEvents.find(
     (event) =>
       event.kind === "c_call_result_admitted" &&
       event.runId === cursor.runId &&
@@ -2190,7 +2185,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       isRecord(event.payload) &&
       event.payload.resultRef === input.childResultRef,
   );
-  const judgmentEvent = events.find(
+  const judgmentEvent = runEvents.find(
     (event) =>
       event.kind === "c_call_judged" &&
       event.runId === cursor.runId &&
@@ -2199,7 +2194,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       event.payload.judgmentRef === input.childJudgmentRef &&
       event.payload.resultRef === input.childResultRef,
   );
-  const terminalEvent = events.find(
+  const terminalEvent = runEvents.find(
     (event) =>
       event.kind === "terminal_reached" &&
       event.runId === cursor.runId &&
@@ -2207,7 +2202,7 @@ export function deriveGraphFunctionActionEvaluationBasis(
       isRecord(event.payload) &&
       event.payload.closureRef === input.childClosureRef,
   );
-  const graphClosedEvent = events.find(
+  const graphClosedEvent = runEvents.find(
     (event) =>
       terminalEvent !== undefined &&
       event.kind === "graph_call_closed" &&

@@ -106,8 +106,15 @@ export const QUALIFICATION_ROLE_SCHEMA = v.strictObject({
   actorRef: ref, workerBindingRef: ref, rendererRef: ref, materializationPlanRef: ref,
   independence: v.picklist(["author_distinct", "author_and_peer_distinct", "not_required"]),
 });
-/** Immutable published role policy. Tasks select it; they cannot mint roles. */
-export const QUALIFICATION_ROLE_POLICY = Object.freeze({
+/** Immutable published role policy. Tasks select it; they cannot mint roles.
+ * `actorProfiles` is the exact closed declaration of actual actor profiles for
+ * required independence: a recorded profile label and actor identity, bound to
+ * one transport agent's effective configured model and its declared model
+ * family. It is not a family taxonomy; every other identity is unlisted.
+ * `familyRelation` is the default relation between two declared profiles: the
+ * same declared family is non-independent, and a different declared family
+ * only permits the remaining author, evidence and peer conditions. */
+export const QUALIFICATION_ROLE_POLICY = deepFreeze({
   roleRefs: ["qualification-role://abiogenesis/catalog@5", "qualification-role://abiogenesis/inventory@5",
     "qualification-role://abiogenesis/tenant@5", "qualification-role://abiogenesis/rule@5", "qualification-role://abiogenesis/coverage@5"],
   actorRefs: ["actor://abiogenesis/qualification/assessor-primary@5", "actor://abiogenesis/qualification/assessor-peer@5"],
@@ -117,7 +124,15 @@ export const QUALIFICATION_ROLE_POLICY = Object.freeze({
   authorityRef: "actor-capability://abiogenesis/qualification/product-owner@5",
   authoritySourceRefs: ["repo://abiogenesis/specification/requirements/product/REQ-P-SELF-CONFORMANCE.md",
     "repo://abiogenesis/specification/requirements/product/REQ-P-QUAL.md"],
+  actorProfiles: [
+    { profileLabel: "Claude Opus 5.5", actorIdentityRef: "actor-identity://anthropic/claude-opus-5.5",
+      transportAgentKey: "claude" as const, effectiveConfiguredModel: "claude-opus-5-5", declaredModelFamily: "Anthropic Claude" },
+    { profileLabel: "Codex gpt-6-astra", actorIdentityRef: "actor-identity://openai/gpt-6-astra",
+      transportAgentKey: "codex" as const, effectiveConfiguredModel: "gpt-6-astra", declaredModelFamily: "OpenAI GPT" },
+  ],
+  familyRelation: { sameDeclaredFamily: "non_independent" as const, differentDeclaredFamily: "permits_remaining_conditions" as const },
 });
+export type QualificationActorProfile = (typeof QUALIFICATION_ROLE_POLICY.actorProfiles)[number];
 /** Same SemanticAssetSurface shape; no lifecycle/worksite declaration is invented. */
 export const QUALIFICATION_ASSET_SURFACE_SCHEMA = v.strictObject({
   kind: v.literal("qualification_assessment"), requiredContexts: v.array(ref), standardsRefs: v.array(ref),

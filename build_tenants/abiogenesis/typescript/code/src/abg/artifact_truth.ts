@@ -42,7 +42,6 @@ import {
 } from "./event_store.js";
 import {
   runtimeEventPrefixExtent,
-  isOwnedRuntimeEventPrefix,
   projectOwnedRuntimeEventPrefixAtDurablePrefix,
   type RuntimeEventPrefix,
   runtimePrefixComputation,
@@ -837,11 +836,6 @@ class ArtifactTruthDerivation {
  * Explicit fresh validation below remains the acquisition/effect check. */
 export function validateArtifactTruthProjectionValue(value: unknown): value is ExactPrefixArtifactTruthProjection {
   return ArtifactTruthDerivation.isFor(value) || validateExactPrefixArtifactTruthProjection(value);
-}
-export function runtimePrefixFromArtifactTruth(value: ExactPrefixArtifactTruthProjection): ValidatedRuntimeEventPrefix | null {
-  const prefix = ArtifactTruthDerivation.prefix(value);
-  if (prefix === null || prefix.kind === "runtime_validation_event_prefix") return null;
-  return isOwnedRuntimeEventPrefix(prefix) ? selectValidatedRuntimeEventPrefix(prefix.selection.materialize()) : prefix;
 }
 /** @internal Borrow the actual owner representation; copies have no binding. */
 export function runtimePrefixFromOwnedArtifactTruth(value: ExactPrefixArtifactTruthProjection): RuntimeEventPrefix | null {

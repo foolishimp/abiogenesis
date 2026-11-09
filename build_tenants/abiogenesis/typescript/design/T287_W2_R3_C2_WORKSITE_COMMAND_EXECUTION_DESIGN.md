@@ -173,6 +173,12 @@ same-Run composition, a consumer pure leaf may construct this task; C2 child
 admission requires the exact earlier closed native producer in the same
 invocation and Run, the actual declared C2 workflow call and original grant.
 No fixed consumer preparation implementation or cumulative envelope is added.
+
+Protected observations use only the selected `after` entries' path, file
+identity, length and digest. A selected entry may be inline or an admitted
+member ([context body carriage](./T287_NATIVE_WORKSPACE_WORK_DESIGN.md#context-body-carriage-p1));
+C2 resolves no context body. The helper reads its snapshot bytes from W at its
+process boundary and checks them against these facts.
 Ordinary HoG input routing and graph membership still govern that call.
 
 The private native task/source projection retains successful applicability
@@ -335,7 +341,20 @@ A and actor remain the original authority. A changed W requires the existing
 exact `witness.admit#reprice` binding cover for the source child's execution
 basis; equal file bytes alone never cover changed binding authority. The current
 context has the original complete after-observation entries, read roots and
-limits with current A/W coordinates, not only the C2 snapshot subset.
+limits with current A/W coordinates, not only the C2 snapshot subset. The
+request owner (`product/worksite_command_execution.ts`) compares the physical
+identity entries (path, state, file identity, length and digest) of the freshly
+observed current context with the original `after` entries. Body carriage is
+excluded on both sides, so an inline fresh entry joins an admitted-member source
+entry with the same facts. Any changed, new or absent entry refuses. The request
+keeps the fresh observation unchanged; the governance preparation owner passes
+it through and adopts no source carriage. Body carriage never changes context
+identity. The pre-effect currentness gate reobserves W and compares context
+identity. That owner's source is the packaged C2 renderer, a pinned
+run-environment member: `gtl/worksite_command_execution.ts` pins its full
+emitted digest and length and the renderer span, and the manifest generator
+verifies both before publication. A change to the source reconciles those pins
+with the actually emitted member.
 
 The ABI-owned F_D preparation authenticates its actual admitted occurrence,
 implementation, invocation and current grant. It checks historical native

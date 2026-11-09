@@ -2,7 +2,6 @@ import { projectOwnedRuntimeTruthAtDurablePrefix, type RuntimeReplayGuard } from
 import { projectOwnedRuntimeEventPrefixAtDurablePrefix, selectRuntimeEventPrefixFromAuthority, type RuntimeEventPrefix } from "../abg/event_prefix.js";
 import { sampleNativeEventTime } from "../abg/native_event_time.js";
 import {
-  projectRuntimePrefixesAtDurablePrefix,
   type ExecutionBasis,
   type OpenedTraversalScope,
   type RuntimeAdmissionBasis,
@@ -33,11 +32,13 @@ export function canonicalDigest(
   }
 }
 
+/** @internal The owned Run prefix at one established coordinate; an unbound
+ * or copied coordinate authenticates cold. */
 export function runtimePrefixAtDurable(
   prefix: DurablePrefixCoordinate,
   runId: string,
-) {
-  return projectRuntimePrefixesAtDurablePrefix(prefix, runId).runtimePrefix;
+): RuntimeEventPrefix {
+  return selectRuntimeEventPrefixFromAuthority(projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix), { runId });
 }
 
 export function admissionBasis(

@@ -1,12 +1,12 @@
 {
   "kind": "native_runtime_observation_contract",
   "schemaVersion": "5.0.0",
-  "currentEventContractDigest": "sha256:6c8a985284f6976b9a41ad70791c119c7f05cfa75808c0820e162a587441ae64",
+  "currentEventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf",
   "historicalEventContractDigest": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
   "currentDescriptor": {
     "kind": "root_event_contract_profile",
     "schemaVersion": "5.0.0",
-    "profileRef": "abg.event-contract.root/p5-run-environment-role-context@1",
+    "profileRef": "abg.event-contract.root/p6-stdout-window-witness@1",
     "legacyProfileDigest": "sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c",
     "aggregateTypes": [
       "actor_invocation",
@@ -510,6 +510,89 @@
               "operationId": "abg.operation.run.continue",
               "memberKey": "selected_action",
               "continuationKind": "selected_action"
+            }
+          },
+          {
+            "allowedPayloadKeys": [
+              "actorRef",
+              "authorityDigest",
+              "authorityRef",
+              "capabilityGrant",
+              "capabilityGrantRefs",
+              "capabilityRef",
+              "catalogBasisDigest",
+              "catalogBasisRef",
+              "catalogViewDigest",
+              "catalogViewId",
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "sourceRunId",
+              "sourceRunDigest",
+              "pendingCursorRef",
+              "pendingCursorDigest",
+              "continuationInputRef",
+              "continuationInputDigest",
+              "executionBasisRef",
+              "executionBasisDigest",
+              "definitionDigest",
+              "graphFunctionDigest",
+              "graphFunctionRef",
+              "invocationDigest",
+              "invocationPayloadDigest",
+              "invocationRef",
+              "memberKey",
+              "operationId",
+              "policyDigest",
+              "policyRef",
+              "programDigest",
+              "programRef",
+              "variant",
+              "workspaceBindingDigest",
+              "workspaceBindingId"
+            ],
+            "requiredPayloadKeys": [
+              "actorRef",
+              "authorityDigest",
+              "authorityRef",
+              "capabilityGrant",
+              "capabilityGrantRefs",
+              "capabilityRef",
+              "catalogBasisDigest",
+              "catalogBasisRef",
+              "catalogViewDigest",
+              "catalogViewId",
+              "continuationKind",
+              "continuationRef",
+              "continuationDigest",
+              "sourceRunId",
+              "sourceRunDigest",
+              "pendingCursorRef",
+              "pendingCursorDigest",
+              "continuationInputRef",
+              "continuationInputDigest",
+              "executionBasisRef",
+              "executionBasisDigest",
+              "definitionDigest",
+              "graphFunctionDigest",
+              "graphFunctionRef",
+              "invocationDigest",
+              "invocationPayloadDigest",
+              "invocationRef",
+              "memberKey",
+              "operationId",
+              "policyDigest",
+              "policyRef",
+              "programDigest",
+              "programRef",
+              "variant",
+              "workspaceBindingDigest",
+              "workspaceBindingId"
+            ],
+            "expectedPayload": {
+              "operationId": "abg.operation.run.continue",
+              "memberKey": "current_intent",
+              "continuationKind": "pending_execution"
             }
           }
         ]
@@ -1751,7 +1834,8 @@
               "transportContractDigest",
               "transportPlanDigest",
               "workerBindingRef",
-              "livenessBinding"
+              "livenessBinding",
+              "configuredIdentity"
             ],
             "requiredPayloadKeys": [
               "transportBindingRef",
@@ -1790,7 +1874,8 @@
               "transportPlanDigest",
               "workerBindingRef",
               "instructionAssembly",
-              "livenessBinding"
+              "livenessBinding",
+              "configuredIdentity"
             ],
             "requiredPayloadKeys": [
               "transportBindingRef",
@@ -1919,6 +2004,24 @@
               "processRef",
               "streamOrdinal",
               "chunkDigest"
+            ]
+          },
+          {
+            "allowedPayloadKeys": [
+              "actorInvocationRef",
+              "byteLength",
+              "chunkDigest",
+              "processRef",
+              "streamOrdinal",
+              "stdoutWindow"
+            ],
+            "requiredPayloadKeys": [
+              "actorInvocationRef",
+              "byteLength",
+              "chunkDigest",
+              "processRef",
+              "streamOrdinal",
+              "stdoutWindow"
             ]
           }
         ]
@@ -2107,7 +2210,6 @@
               "artifactDigests",
               "cCallRef",
               "disposition",
-              "exitObserved",
               "failureClass",
               "finalOutput",
               "implementationRef",
@@ -2124,12 +2226,9 @@
               "requestDigest",
               "requestRef",
               "resultContractRef",
-              "signalSequence",
               "stderrByteLength",
               "stdoutByteLength",
               "structuredEventCount",
-              "terminationConfirmed",
-              "timedOut",
               "timeoutClass",
               "toolCallCount",
               "toolInvocations",
@@ -2336,7 +2435,6 @@
               "artifactDigests",
               "candidateDigest",
               "candidateRef",
-              "exitObserved",
               "instructionContractRef",
               "materializationPlanRef",
               "observedOutputDigest",
@@ -2350,12 +2448,9 @@
               "requestDigest",
               "requestRef",
               "resultContractRef",
-              "signalSequence",
               "stderrByteLength",
               "stdoutByteLength",
               "structuredEventCount",
-              "terminationConfirmed",
-              "timedOut",
               "timeoutClass",
               "toolCallCount",
               "transportBindingDigest",

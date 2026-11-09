@@ -11,11 +11,18 @@ import {
 } from "../shared/effect_definition.js";
 import {
   OWNER_CONTRACT_SOURCES,
+  type OwnerCallableDefinitionMember,
+  type OwnerDefinitionMemberOf,
 } from "./binding/owner_contract_source_set.js";
 import type {
   OwnerContractSourceDeclaration,
+  OwnerRequestOf,
 } from "../shared/public_function_contracts.js";
-import { admitExactDefinitionCall } from "./binding/definition_binding_mechanics.js";
+import type { PublicDefinitionKeyLike } from "../shared/public_invocation.js";
+import {
+  admitExactDefinitionCall,
+  isEstablishedDefinitionCall,
+} from "./binding/definition_binding_mechanics.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import * as validator from "../validator/index.js";
 
@@ -42,16 +49,66 @@ export type InstalledDefinitionCallTransportRefusal = {
   readonly message: string;
 };
 
-export type InstalledDefinitionCallTransportResult = {
+export type InstalledDefinitionCallTransportResult<
+  TPacket extends OwnerContractSourceDeclaration =
+    OwnerContractSourceDeclaration,
+  TResourceReceipt = unknown,
+> = {
   readonly kind: "installed_definition_call_transport_result";
   readonly schemaVersion: "5.0.0";
   readonly acquisitionKind: "eventless" | "new" | "reopen" | "acquired";
-  readonly receipt: DefinitionHostReceipt;
+  readonly receipt: DefinitionHostReceipt<TPacket, TResourceReceipt>;
 };
 
-export type InstalledDefinitionCallTransportOutcome =
-  | InstalledDefinitionCallTransportResult
+export type InstalledDefinitionCallTransportOutcome<
+  TPacket extends OwnerContractSourceDeclaration =
+    OwnerContractSourceDeclaration,
+  TResourceReceipt = unknown,
+> =
+  | InstalledDefinitionCallTransportResult<TPacket, TResourceReceipt>
   | InstalledDefinitionCallTransportRefusal;
+
+type CandidateDefinitionMember<C> = C extends Readonly<{
+  invocation: Readonly<{ definitionKey: infer K extends PublicDefinitionKeyLike }>;
+}> ? OwnerDefinitionMemberOf<K>
+  : never;
+
+/** One candidate alternative against its own declared member: `true` when it
+ * is raw/undeclared, unavailable (refused at runtime), or carries every
+ * selectable member's own request and callable resources. */
+type CandidateAlternativeHolds<C> = C extends unknown
+  ? [CandidateDefinitionMember<C>] extends [never] ? true
+    : CandidateDefinitionMember<C> extends infer M
+      ? M extends OwnerCallableDefinitionMember
+        ? C extends Readonly<{
+          invocation: Readonly<{ request: OwnerRequestOf<M["packet"]> }>;
+          resources: M["binding"]["resources"];
+        }> ? true
+        : false
+      : true
+    : false
+  : never;
+
+/** A typed candidate of one declared member must carry that member's own
+ * request and installed callable resources; raw input stays unconstrained.
+ * Every alternative of a candidate union is checked against its own member;
+ * one crossed alternative refuses the whole union. */
+export type InstalledDefinitionCallCandidateCheck<C> =
+  false extends CandidateAlternativeHolds<C> ? never : unknown;
+
+/** A typed callable member keeps its owner output and resource receipt; an
+ * unavailable member can only be refused; raw input keeps the raw outcome. */
+export type InstalledDefinitionCallTransportOutcomeOf<C> =
+  [CandidateDefinitionMember<C>] extends [never]
+    ? InstalledDefinitionCallTransportOutcome
+    : CandidateDefinitionMember<C> extends infer M
+      ? M extends OwnerCallableDefinitionMember
+        ? InstalledDefinitionCallTransportOutcome<
+          M["packet"],
+          M["binding"]["resourceReceipt"]
+        >
+      : InstalledDefinitionCallTransportRefusal
+    : never;
 
 type InstalledModulePath = "./product" | "./abg" | "./validator";
 type InstalledModule = Readonly<Record<string, unknown>>;
@@ -242,10 +299,23 @@ function selectedCallable(
     );
 }
 
+/** Observation-only §10.11 counts: detached candidates (one `structuredClone`
+ * of the whole call each), retained-verifier values reattached by reference into
+ * that clone, and established calls carried by reference. A reattachment is not
+ * native module or declaration loading or linking, which is not counted here.
+ * They change no admission; no barrel exports them. */
+const definitionTransportWork = { detaches: 0, verifierReattachments: 0, establishedCarries: 0 };
+
+/** @internal A frozen snapshot of the observation-only counts. */
+export function observeDefinitionTransportWork(): Readonly<typeof definitionTransportWork> {
+  return Object.freeze({ ...definitionTransportWork });
+}
+
 /** Detach mutable/raw input without copying an immutable verifier result first.
  * Only the verifier's existing exact request/result relation retains a body;
  * every receiving owner still admits the call and its additional relations. */
 function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
+  definitionTransportWork.detaches++;
   const resources = { ...original.resources as Readonly<Record<string, unknown>> };
   const retained: { readonly path: readonly (string | number)[]; readonly value: unknown }[] = [];
   const keep = (record: Record<string, unknown>, key: string, path: readonly (string | number)[], value: unknown): void => {
@@ -284,6 +354,7 @@ function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
     });
   }
   const detached = structuredClone({ invocation: original.invocation, resources });
+  definitionTransportWork.verifierReattachments += retained.length;
   for (const { path, value } of retained) {
     let parent: unknown = detached;
     for (const key of path.slice(0, -1)) parent = (parent as Record<string | number, unknown>)[key];
@@ -292,15 +363,31 @@ function detachDefinitionCall(original: AnyDefinitionCall): AnyDefinitionCall {
   return detached;
 }
 
-export async function runInstalledDefinitionCallTransport(
+/** The selected installed owner and its exact receipt follow the candidate's
+ * own definition key; the raw transport admits every candidate unchanged. */
+export function runInstalledDefinitionCallTransport<C = unknown>(
+  acquisition: InstalledDefinitionCallAcquisition,
+  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
+): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
+  return transportInstalledDefinitionCall(acquisition, candidate) as Promise<
+    InstalledDefinitionCallTransportOutcomeOf<C>
+  >;
+}
+
+async function transportInstalledDefinitionCall(
   acquisition: InstalledDefinitionCallAcquisition,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
   let detachedEnvelope: unknown;
   try {
+    // §10.11 X3: an established call is carried by reference; owner admission
+    // runs synchronously inside the callable before the first await.
+    const established = isInstalledDefinitionCallCandidate(candidate) &&
+      isEstablishedDefinitionCall(candidate);
+    if (established) definitionTransportWork.establishedCarries++;
     detachedEnvelope = {
       acquisition: structuredClone(acquisition),
-      candidate: isInstalledDefinitionCallCandidate(candidate)
+      candidate: established ? candidate : isInstalledDefinitionCallCandidate(candidate)
         ? detachDefinitionCall(candidate) : structuredClone(candidate),
     };
   } catch {
@@ -334,9 +421,20 @@ export async function runInstalledDefinitionCallTransport(
   return invokeInstalledDefinitionCall(detachedAcquisition.kind, detachedCandidate);
 }
 
-/** Thin native carrier: semantic data is detached, while the exact owner-issued
+/** Thin native carrier: an established call is carried by reference (§10.11
+ * X3); any other call's semantic data is detached, while the exact owner-issued
  * physical selection survives. The same installed callable admits and executes it. */
-export async function runInstalledDefinitionCallWithResource(
+export function runInstalledDefinitionCallWithResource<C = unknown>(
+  resource: abg.AcquiredAbgEventResourceSelection,
+  candidate: C & InstalledDefinitionCallCandidateCheck<C>,
+): Promise<InstalledDefinitionCallTransportOutcomeOf<C>> {
+  return transportInstalledDefinitionCallWithResource(
+    resource,
+    candidate,
+  ) as Promise<InstalledDefinitionCallTransportOutcomeOf<C>>;
+}
+
+async function transportInstalledDefinitionCallWithResource(
   resource: abg.AcquiredAbgEventResourceSelection,
   candidate: unknown,
 ): Promise<InstalledDefinitionCallTransportOutcome> {
@@ -354,6 +452,13 @@ export async function runInstalledDefinitionCallWithResource(
   }
   try { abg.assertAcquiredAbgEventResourceSelectionCurrent(resource); }
   catch (cause) { return refusal("acquisition_mismatch", String(cause)); }
+  // §10.11 X3: an established call already names this exact selection, or its
+  // bound environment names the selection's own prefix object.
+  if (isEstablishedDefinitionCall(candidate) && (hasEventResource ||
+      isRecord(environment) && environment.prefix === resource.prefix)) {
+    definitionTransportWork.establishedCarries++;
+    return invokeInstalledDefinitionCall("acquired", candidate);
+  }
   let detached: AnyDefinitionCall;
   try {
     const { eventResource: _resource, ...resources } = candidate.resources;

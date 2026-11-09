@@ -13,13 +13,14 @@ import { governanceRef } from "../product/default_library.js";
 import { QUALIFICATION_IDS as qualificationIds } from "../gtl/self_conformance.js";
 import type { QualificationNativeBasis } from "../validator/qualification_contracts.js";
 import { NATIVE_WORK_REACQUISITION_IDS as reacquireIds } from "../product/worksite_command_execution.js";
-import { resolveNativeWorkspaceAssessmentSchema, parseNativeWorkspaceAssessmentResult } from "../product/native_workspace_assessment.js";
+import { resolveNativeWorkspaceAssessmentDependency, parseNativeWorkspaceAssessmentResult,
+  type NativeWorkspaceAssessmentSelection } from "../product/native_workspace_assessment.js";
 import { types } from "node:util";
 import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
 import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkAuthorityMatches, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
-import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification } from "../abg/qualification_proof.js";
+import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification, qualificationAssessorEligibility } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
 import { evaluateSelfConformance } from "../validator/self_conformance.js";
 import { resolveSelfConformanceOwner } from "../validator/self_conformance_basis.js";
@@ -28,8 +29,8 @@ import { SEMANTIC_IMPLEMENTATION_REFS } from "../gtl/semantic_stage_identity.js"
 import { WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS } from "../product/worksite_construction_recovery.js";
 import { authenticateWorksitePreservedResultBasis } from "../abg/worksite_construction_recovery.js";
 import type { GraphFunction } from "../gtl/contracts.js";
-import { authenticateSemanticStageBasis } from "../abg/semantic_stage.js";
-import { authenticateSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from "../abg/semantic_job.js";
+import { authenticateOwnedSemanticStageBasis } from "../abg/semantic_stage.js";
+import { authenticateOwnedSemanticJobBasis, validateWorksiteFileParentsPlanAtPrefix } from "../abg/semantic_job.js";
 import { isWorksiteFileParentsRequest, constructWorksiteFileParentsAuthorization,
   WORKSITE_FILE_PARENTS_EFFECT_URI, WORKSITE_FILE_PARENTS_HANDLER_REF, WORKSITE_FILE_PARENTS_HANDLER_DIGEST } from "../product/worksite_effect.js";
 import { REQUIREMENT_HANDOFF_IDS } from "../gtl/requirement_handoff.js";
@@ -55,11 +56,13 @@ import {
   type AdmittedImplementationSet,
 } from "../abg/execution_basis.js";
 import {
-  selectValidatedRuntimeEventPrefix,
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
+  selectRuntimeEventPrefixFromAuthority,
+  type RuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
 } from "../abg/event_prefix.js";
 import {
-  readRuntimeEventsAtDurablePrefix, reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate,
+  reidentifyHistoricalDurablePrefixCoordinate, type DurablePrefixCoordinate,
 } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
 import type {
@@ -128,6 +131,8 @@ type LoadedLeafExecutionAuthority = Pick<
   | "declarationClosure"
   | "declarationPublications"
   | "ownerInstalls"
+  | "admittedCatalog"
+  | "admittedInstalls"
 >;
 
 export function isClosedProbabilisticLeafInvocation(
@@ -553,6 +558,8 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   historicalSource?: AbgHistoricalGraphCallSourceResource;
   qualificationResources?: QualificationResources;
   qualificationPreparation?: PreparedQualificationAssessment;
+  /** The qualification owner's eligibility, bound by the invoking port to this call. */
+  dispatchEligibility?: import("../abg/actor_process.js").ActorDispatchEligibility;
   /** A refusal the invoking owner's admission decided for this stage. */
   authorityRefusal?: Readonly<{ at: string; reason: string }>;
   contractByRef?: NonNullable<LeafInvocationPort["contractByRef"]>;
@@ -678,7 +685,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
       (!SEMANTIC_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
         (input.occurrence.semanticStageBasis !== undefined &&
           ((input.occurrence.semanticStageBasis.lifecyclePublication ?? input.occurrence.semanticStageBasis.publication).semanticJobLifecycle !== undefined
-            ? authenticateSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&
+            ? authenticateOwnedSemanticJobBasis(input.occurrence.semanticStageBasis) : authenticateOwnedSemanticStageBasis(input.occurrence.semanticStageBasis)) !== null)) &&
       (!WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(resolution.implementationRef) ||
         (input.occurrence.worksitePreservedResultBasis !== undefined &&
           input.occurrence.worksitePreservedResultBasis.cCall.cCallRef === input.occurrence.cCallRef &&
@@ -756,7 +763,7 @@ export async function invokeLeafOwnerBoundary(input: Readonly<{
   if (typeof implementation !== "function") {
     return undispatched("implementation_exception", "implementation_load", "missing_export");
   }
-  const actorPreparation = prepareActorProcessInvocation(input.value, input.occurrence, input.contractByRef);
+  const actorPreparation = prepareActorProcessInvocation(input.value, input.occurrence, input.contractByRef, input.dispatchEligibility);
   let preparedOutput: unknown;
   try {
     preparedOutput = await implementation(
@@ -925,16 +932,20 @@ export function hasOwnedDeclarationLookups(
   return declarationLookupPairs.get(graphFunctionByRef) === closureContractByRef;
 }
 
-export async function constructAdmittedLeafInvocationPort(authority: {
+type AdmittedLeafPortAuthority<P> = {
   readonly historicalSource?: AbgHistoricalGraphCallSourceResource;
   readonly qualificationResources?: QualificationResources;
-  readonly prefix: ValidatedRuntimeEventPrefix;
+  readonly prefix: P;
   readonly artifactTruth: ExactPrefixArtifactTruthProjection;
   readonly implementationSet: AdmittedImplementationSet;
   readonly executionResolution: LoadedLeafExecutionAuthority;
   readonly semanticsProjection: InstalledLeafSemanticsProjection;
   readonly graphFunctionRef?: string;
-}): Promise<LeafInvocationPort> {
+};
+export function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<ValidatedRuntimeEventPrefix>): Promise<LeafInvocationPort>;
+/** @internal The owner's own prefix, owned or validated. */
+export function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<RuntimeEventPrefix>): Promise<LeafInvocationPort>;
+export async function constructAdmittedLeafInvocationPort(authority: AdmittedLeafPortAuthority<RuntimeEventPrefix>): Promise<LeafInvocationPort> {
   const inspected = inspectProductLeafSemanticsProjection(
     authority.semanticsProjection,
   );
@@ -1120,6 +1131,24 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     return matches.length === 1 ? matches[0]! : null;
   }
 
+  // Only the canonical assessment's inner response dependency, through the one
+  // shared relation over this resolution's authenticated Catalog, admitted
+  // installs and Catalog lock. Static contract lookup stays closure-scoped.
+  function nativeAssessmentDependency(
+    selection: NativeWorkspaceAssessmentSelection,
+    resolution: Readonly<LeafInvocationResolution>,
+  ) {
+    try {
+      const admitted = exactAdmittedResolution(resolution);
+      const { admittedCatalog: catalog, admittedInstalls: installs } = authority.executionResolution;
+      if (admitted === null || admitted.computeRegime !== "F_P" || admitted.implementationRef !== nativeIds.implementationRef ||
+        admitted.graphFunctionRef !== nativeIds.assessmentGraphFunctionRef) return null;
+      const dependency = resolveNativeWorkspaceAssessmentDependency(selection, { publications: catalog.boundPublications,
+        installs, resolvedLock: catalog.readinessBasis.resolvedLock, assessorOwnerProductId: admitted.graphFunctionOwnerProductId });
+      return dependency !== null && hasAdmittedProductInstall(authority.artifactTruth, dependency.install) ? dependency : null;
+    } catch { return null; }
+  }
+
   function hasExactWorksiteLeafExecutionAuthority(
     call: Parameters<LeafInvocationPort["invoke"]>[0],
     resolution: AdmittedImplementationSet["rows"][number],
@@ -1138,15 +1167,16 @@ export async function constructAdmittedLeafInvocationPort(authority: {
     const graphFunction = graphFunctionByRef(resolution.graphFunctionRef);
     if (owner === null || graphFunction === null) return false;
 
-    let authorityPrefix: ValidatedRuntimeEventPrefix;
-    let runtimePrefix: ValidatedRuntimeEventPrefix;
+    let authorityPrefix: RuntimeEventPrefix;
+    let runtimePrefix: RuntimeEventPrefix;
     try {
-      const events = readRuntimeEventsAtDurablePrefix(
+      // Pre-effect currentness stays explicit; the owned reader borrows only
+      // the active owner and authenticates any other coordinate cold.
+      authorityPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(
         executionAuthority.predecessorPrefix,
         { requireCurrent: true },
       );
-      authorityPrefix = selectValidatedRuntimeEventPrefix(events);
-      runtimePrefix = selectValidatedRuntimeEventPrefix(events, {
+      runtimePrefix = selectRuntimeEventPrefixFromAuthority(authorityPrefix, {
         runId: executionAuthority.cCall.runId,
       });
     } catch {
@@ -1364,9 +1394,8 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       }
       const assessment = admittedResolution.implementationRef === nativeIds.implementationRef && isNativeWorkspaceWorkTask(input.input)
         ? input.input.assessment : undefined;
-      const assessmentOwner = assessment === undefined ? null : uniqueContractByRef(workerContracts.resultContractRef);
-      const assessmentSchema = assessment === undefined || assessmentOwner === null ? null : resolveNativeWorkspaceAssessmentSchema(
-        assessment, authority.executionResolution.declarationPublications, authority.executionResolution.ownerInstalls);
+      const assessmentSchema = assessment === undefined || workerContracts.resultContractRef !== assessment.resultContract.contractRef
+        ? null : nativeAssessmentDependency(assessment, input.resolution)?.schema ?? null;
       const rawValid = assessment === undefined
         ? verified !== null || port.validateContractValueByRef(workerContracts.resultContractRef, input.rawResult)
         : admittedResolution.implementationRef === nativeIds.implementationRef && assessmentSchema !== null &&
@@ -1500,6 +1529,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
       const rows = authority.executionResolution.declarationClosure.contractOwners.filter(owner => owner.declarationRef === contractRef);
       return rows.length === 1 ? exactOwnerBinding(authority.executionResolution, rows[0]!)?.publication ?? null : null;
     },
+    nativeAssessmentDependency,
     declarationGraphFunctions() {
       return Object.freeze(authority.executionResolution.declarationClosure.graphFunctionOwners.map(owner => graphFunctionByRef(owner.declarationRef))
         .filter((g): g is Readonly<GraphFunction> => g !== null));
@@ -1602,6 +1632,11 @@ export async function constructAdmittedLeafInvocationPort(authority: {
             qualificationCatalogs !== undefined && isQualificationAssessmentInput(call.input, qualificationCatalogs)
           ? prepareQualificationAssessment(call.input, authority.qualificationResources, qualificationCatalogs) : undefined;
         if (qualificationPreparation !== undefined) qualificationPreparations.set(call.occurrence.cCallRef, qualificationPreparation);
+        // The assessment's dispatch eligibility is bound here to this exact
+        // authenticated call; actor_process applies it to the prepared selection.
+        const dispatchEligibility = admittedResolution.implementationRef === qualificationIds.assessImplementation &&
+            qualificationOwnerBasis !== null && qualificationOwner !== null && qualificationCatalogs !== undefined
+          ? qualificationAssessorEligibility(qualificationOwnerBasis, call.input, authority.qualificationResources, qualificationCatalogs) : undefined;
         const qualifiedOccurrence = qualificationOwnerBasis === null ? call.occurrence : deepFreeze({ ...call.occurrence, qualificationOwnerBasis,
           ...(qualificationCatalogs === undefined ? {} : { qualificationCatalogs }) });
         const occurrence = admittedResolution.implementationRef !== reacquireIds.implementationRef || call.predecessorPrefix === undefined ? qualifiedOccurrence
@@ -1614,6 +1649,7 @@ export async function constructAdmittedLeafInvocationPort(authority: {
           ...(authority.historicalSource === undefined ? {} : { historicalSource: authority.historicalSource }),
           ...(authority.qualificationResources === undefined ? {} : { qualificationResources: authority.qualificationResources }),
           ...(qualificationPreparation === undefined ? {} : { qualificationPreparation }),
+          ...(dispatchEligibility === undefined ? {} : { dispatchEligibility }),
           ...(authorityRefusal === undefined ? {} : { authorityRefusal }),
           resolution: admittedResolution,
           value: call.input,

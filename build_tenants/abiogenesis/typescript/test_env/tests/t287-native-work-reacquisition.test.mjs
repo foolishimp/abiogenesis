@@ -14,6 +14,7 @@ import { deriveInvocationSourceResultBasisAtPrefix } from '../../build/code/src/
 import { projectExactInvocationAdmissionAtPrefix } from '../../build/code/src/abg/invocation_execution_truth.js';
 import { projectNativeWorkCommandSourceAtPrefix } from '../../build/code/src/abg/native_worksite_execution.js';
 import { constructNativeWorkspaceWorkObservation } from '../../build/code/src/product/native_workspace_work.js';
+import { worksiteContextIdentityEntry } from '../../build/code/src/product/worksite_effect.js';
 import { ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS as semantics } from '../../build/code/src/product/builtin_semantics.js';
 import { constructAbgHistoricalDeclarationReference } from '../../build/code/src/abg/terminal_result_contracts.js';
 import { runtimeEventPhysicalPrefix, ROOT_EVENT_CONTRACT_DIGEST } from '../../build/code/src/abg/event_store.js';
@@ -29,14 +30,18 @@ const storeOwner=await import(pathToFileURL(path.join(ownerBuildRoot,'abg/event_
 // Bounded owner controls: exact Product values, physical cuts and CCall
 // phase/Result/J reconstruction. Environment/declaration/native producer and
 // occurrence lookups are explicit premises; no installed or Run claim follows.
-async function declarationFixture(t, inline=false, library=false) {
+async function declarationFixture(t, inline=false, library=false, compact=false) {
   const product=await loadWorksiteOwner(),env=await worksiteFixture(product);
   t.after(()=>fs.rmSync(env.scratch,{recursive:true,force:true}));
   fs.writeFileSync(path.join(env.canonicalRoot,'source.txt'),'retained source');
   let context=await product.observeWorksiteContext({...env,readRoots:['source.txt'],maxFiles:1,maxBytes:100});
   const nativeTask=p.constructNativeWorkspaceWorkTask({workspaceAuthorityBasis:env.workspaceAuthorityBasis,workspaceBinding:env.workspaceBinding,capabilityGrant:env.capabilityGrant,
     context,outcome:'retain source',instructions:['Read source.'],readFirst:['source.txt'],writeRoots:['source.txt'],checks:[]});
-  const observation=constructNativeWorkspaceWorkObservation(nativeTask,context,{summary:'retained',gaps:[]},{cCallRef:'c-call://source',executionAuthorityRef:'authority://source',
+  // compact: the source after carries its unchanged body by an admitted member
+  // (a controlled lower premise for a held-prefix holder); fresh contexts stay inline.
+  const sourceAfter=!compact?context:deepFreeze({...context,entries:context.entries.map((e,i)=>{if(e.state!=='file')return e;const {bytes:_b,encoding:_e,...facts}=e;
+    return {...facts,encoding:'admitted_member',member:{resultRef:'result://reacquisition/holder',resultDigest:hash('holder'),path:['context','entries',i]}};})});
+  const observation=constructNativeWorkspaceWorkObservation(nativeTask,sourceAfter,{summary:'retained',gaps:[]},{cCallRef:'c-call://source',executionAuthorityRef:'authority://source',
     executionAuthorityDigest:hash('source authority'),actorInvocationRef:'actor://source',transportBindingRef:'transport://source',transportBindingDigest:hash('transport'),promptDigest:hash('prompt'),transportDigest:hash('delivery')});
   if(library){
     const {kind,schemaVersion,bindingId,bindingDigest,admissionEventRef,...body}=env.workspaceBinding;
@@ -46,7 +51,8 @@ async function declarationFixture(t, inline=false, library=false) {
     grantBody.scopeRef=env.workspaceBinding.bindingId;grantBody.scopeDigest=digest;
     env.capabilityGrant={kind:gKind,schemaVersion:gVersion,...grantBody,grantDigest:hash(grantBody),grantRef:'capability-grant://abiogenesis/'+hash(grantBody).slice(7)};
     context=await product.observeWorksiteContext({...env,readRoots:['source.txt'],maxFiles:1,maxBytes:100});
-    assert.deepEqual(context.entries,observation.after.entries);
+    if(compact)assert.deepEqual(context.entries.map(worksiteContextIdentityEntry),observation.after.entries.map(worksiteContextIdentityEntry));
+    else assert.deepEqual(context.entries,observation.after.entries);
     assert.notEqual(context.workspaceBindingIdentity,observation.after.workspaceBindingIdentity);
   }
   const declaration=deepFreeze({kind:'abg_historical_declaration_proof',schemaVersion:'5.0.0',catalog:{basisDigest:hash('constructor'),readinessBasisDigest:hash('constructor ready'),readinessBasis:{retained:'complete proof body'}},
@@ -79,10 +85,11 @@ async function declarationFixture(t, inline=false, library=false) {
   const predicateRef=library?p.governanceRef('predicate','prepare-testing'):ids.predicateRef;
   let raw=request;
   if(library){
+    // Disjoint assessment roles for intake; the Testing owners read none of them.
     const original={taskRef:'task://covered-testing',task:'Preserve this exact source and execute the original plan.',sources:[{path:'source.txt',digest:context.entries[0].digest}],requiredSupportRefs:['support://independent-acceptance'],authorityRefs:[],readRoots:['source.txt'],maxContextFiles:1,maxContextBytes:100,maxPromptBytes:10000,
       workOrders:{testing:{outcome:'Measure the original source.',instructions:[],readFirst:['source.txt'],writeRoots:[],checks:[]}},
       testing:{selectedPaths:['source.txt'],commands:request.commands,outcomePredicates:request.outcomePredicates,allowedWriteTerritories:request.allowedWriteTerritories},
-      assessment:{sources:['source.txt'],candidatePath:'source.txt',rubricPath:'source.txt',resultContract:{contractRef:'contract://assessment',contractVersion:'5',contractKind:'output',valueKind:'assessment'},schemaAsset:{},verdictField:'disposition',satisfiedValue:'satisfied'}};
+      assessment:{sources:['source.txt'],candidatePath:'candidate.txt',rubricPath:'rubric.json',resultContract:{contractRef:'contract://assessment',contractVersion:'5',contractKind:'output',valueKind:'assessment'},schemaAsset:{},verdictField:'disposition',satisfiedValue:'satisfied'}};
     const initial=p.constructGovernanceWorkState(original),synthesis={resultRef:'result://selected-testing',resultDigest:hash('selector'),basis:{inputRef:'input://selector',inputDigest:hash(initial),taskRef:original.taskRef,environmentRef:'environment://selector',environmentDigest:hash('environment'),frameEvidenceDigest:hash('frame'),frameRefs:[],contextRef:context.observationRef,previousResultRef:null},
       judgment:{interpretation:'Original testing is selected.',contributions:[{graphFunctionRef:gf.name,contribution:'Execute the original unchanged plan.',reason:'Existing files are current.',supportRefs:[],evidenceRefs:[sourceResult.payload.resultRef],dependsOn:[]}],gaps:[],nextGraphFunctionRef:gf.name,nextReason:'Measure current files.',nextEvidenceRefs:[sourceResult.payload.resultRef],subjectEvidenceRef:sourceResult.payload.resultRef,revisionReason:'Reuse the exact retained native source.',revisionEvidenceRefs:[]}};
     raw={...initial,observations:[{purpose:'construction',resultRef:sourceResult.payload.resultRef,resultDigest:sourceResult.payload.resultDigest,cCallRef:sourceResult.aggregateId,actorInvocationRef:observation.provenance.actorInvocationRef,synthesisResultRef:'result://old-selector',selectedGraphFunctionRef:p.governanceRef('graph-function','construction'),value:{report:observation.report,changedPaths:observation.changedPaths}}],synthesis};assert.ok(p.isGovernanceWorkState(raw));
@@ -102,7 +109,7 @@ async function declarationFixture(t, inline=false, library=false) {
     rootImplementationSetRef:call.implementationSetRef,rootImplementationSetDigest:hash('set'),graphFunctionRef:gf.name,graphFunctionDigest:hash(gf),rawInputValue:raw,rawInputDigest:hash(raw),rawInputAdmissionRef:'raw://prepare'};
   const graph=gtl.materializeGraph(gf,{invocationAdmissionRef:basis.invocationAdmissionRef,admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:raw});
   Object.assign(basis,{graphRef:graph.materializationRef,graphDigest:graph.materializationDigest});
-  const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source'},sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
+  const source={sourceBasis:{...env.executionBasis,basisRef:'basis://source',rawInputValue:nativeTask,rawInputDigest:hash(nativeTask)},sourceTask:nativeTask,sourceResult:library?sourceResult:{eventId:'source-result',runId:'run://source',graphCallId:old.graphCallId},sourceJudgment:{eventId:'source-judgment'},sourceClosedEvent:old};
   const state={source:true,cover:true,current:true,eligible:true,impl:implementationRef,binding:implementationBindingRef,declarationReads:0,reads:0,terminalError:null};
   const assemblyBasis={predecessorPrefix:nativeBasis.predecessorPrefix,cCall:call};
   const owned={prefix:heldPrefix,inputValue:raw,call,execution:basis,graphFunction:gf,program:libraryPublication.programs[0],
@@ -160,7 +167,7 @@ async function declarationFixture(t, inline=false, library=false) {
 
 test('reference preparation resolves exact dependencies in leaf and builtin fallbacks',async t=>{
   const f=await declarationFixture(t),occurrence={cCallRef:f.call.cCallRef,nativeWorkReacquisitionBasis:f.nativeBasis};
-  assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request),null);
+  assert.equal(f.owner.authenticateOwnedNativeWorkReacquisition(f.nativeBasis,f.request),null);
   const candidate=await f.implementation.prepareNativeWorksiteCommandReacquisition(f.request,occurrence,undefined,undefined,undefined,f.resource);
   assert.deepEqual(candidate.resultCandidate,f.task);assert.equal(f.state.declarationReads,1);
   const relation=f.builtin.ABI5_WORKSITE_COMMAND_EXECUTION_PRODUCT_SEMANTICS.resolveJudgmentRelation(ids.predicateRef);
@@ -171,7 +178,7 @@ test('reference preparation resolves exact dependencies in leaf and builtin fall
   assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,f.resource).nativeWorkReacquisition(),true);
   for(const resource of [undefined,{...f.resource,declarationDependencies:[]},{...f.resource,declarationDependencies:[f.declaration,f.declaration]},
     {...f.resource,declarationDependencies:[{...f.declaration,catalogView:{...f.declaration.catalogView,viewDigest:hash('crossed')}}]}]) {
-    assert.equal(f.owner.authenticateNativeWorkReacquisition(f.nativeBasis,f.request,false,resource),null);
+    assert.equal(f.owner.authenticateOwnedNativeWorkReacquisition(f.nativeBasis,f.request,false,resource),null);
     assert.equal(relation.evaluate(f.request,f.task,undefined,undefined,resource),false);
     assert.equal(f.leaf.nativeLeafProofOperations(ids.implementationRef,f.request,occurrence,resource).nativeOwnedWorkReacquisition(f.request,occurrence),null);
     assert.equal(f.leaf.nativeJudgmentProofOperations(ids.predicateRef,f.request,f.task,undefined,resource).nativeWorkReacquisition(),false);
@@ -318,6 +325,33 @@ test('library Testing first-refusal diagnostics distinguish actual nullable owne
   diagnostic(await prepare(),'testing_context','authority_binding_sources');
   t.diagnostic('Actual library/task/native occurrence/declaration/closed-source code and physical context checks. Synthetic invocation-root plus source/environment/cover/CCall/set/terminal premises are controlled; the entered-refused callback case tests only its handoff contract. No installed Testing/C2, actual first-null or no-effects claim.');
 });
+test('fresh inline context joins a member-carried source after by physical identity, with no inherited carriage',async t=>{
+  const f=await declarationFixture(t,false,true,true),occurrence={cCallRef:f.call.cCallRef,nativeInstructionAssemblyBasis:f.assemblyBasis};
+  const files=e=>e.state==='file',after=f.request.sourceNativeWork.after;
+  assert.ok(after.entries.filter(files).length>0&&after.entries.filter(files).every(e=>e.encoding==='admitted_member'),'source after carries members only');
+  assert.ok(f.context.entries.filter(files).every(e=>e.encoding==='base64'),'fresh observation carries its own inline bodies');
+  assert.deepEqual(f.request.currentContext,f.context,'the Product request owner keeps the fresh observation');
+  const proof=f.leaf.nativeLeafProofOperations(f.call.implementationRef,f.raw,occurrence,f.resource);
+  const prepared=proof.governanceTestingReacquisition(f.raw,occurrence,f.context);
+  assert.deepEqual(prepared,f.task,'the ABG preparation owner passes the fresh observation unchanged');
+  assert.deepEqual(prepared.sourceReacquisition.request.currentContext,f.context);
+  assert.equal(prepared.sourceReacquisition.request.currentContext.entries.some(e=>e.encoding==='admitted_member'),false,'no source carriage is adopted');
+  assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request),true);
+  // Physical facts decide, not carriage: same bytes under a new file identity, then changed bytes, refuse.
+  const root=f.request.workspaceAuthorityBasis.canonicalRoot,observe=()=>p.observeWorksiteContext({workspaceAuthorityBasis:f.request.workspaceAuthorityBasis,
+    workspaceBinding:f.request.workspaceBinding,readRoots:f.context.readRoots,maxFiles:f.context.maxFiles,maxBytes:f.context.maxBytes});
+  const refuses=async label=>{
+    const changed=await observe();assert.equal(changed.kind,'worksite_context_observation',label);
+    assert.throws(()=>p.constructNativeWorksiteCommandReacquisitionRequest({...f.request,currentContext:changed}),/exact retained context/,label);
+    assert.equal(proof.governanceTestingReacquisition(f.raw,occurrence,changed),null,label);
+    assert.equal(await f.owner.nativeWorkReacquisitionContextCurrent(prepared.sourceReacquisition.request),false,label);
+  };
+  fs.writeFileSync(path.join(root,'source.next'),'retained source');fs.renameSync(path.join(root,'source.next'),path.join(root,'source.txt'));
+  await refuses('replaced file identity');
+  fs.writeFileSync(path.join(root,'source.txt'),'changed bytes');
+  await refuses('changed bytes');
+  t.diagnostic('Product request owner and actual ABG library preparation over a controlled member-carried source after; the member is a lower premise and is never resolved here. Fresh physical observation and identity relations are real; no installed C2 or native admission claim.');
+});
 let loaded;
 function actual(){
   if(loaded)return loaded;
@@ -366,7 +400,7 @@ test('actual closed child survives blocked parent without acquiring closed-Run s
   assert.equal(deriveInvocationSourceResultBasisAtPrefix(a.prefix,{publicAuthorityDigest:invocation.publicRequestDigest,
     invocationAdmissionRef:invocation.invocationAdmissionRef,runtimeInvocationRef:invocation.invocationRef,runId:a.result.runId,resultRef:a.result.payload.resultRef}),null,
     'legacy Public terminal-Run source law remains closed');
-  assert.equal(reacquire.authenticateNativeWorkReacquisition(a.nativeBasis,a.request),null,'caller-created task supplies no admitted F_D occurrence');
+  assert.equal(reacquire.authenticateOwnedNativeWorkReacquisition(a.nativeBasis,a.request),null,'caller-created task supplies no admitted F_D occurrence');
   assert.equal(reacquire.nativeWorkReacquisitionResultMatches(a.request,task),false);
   t.diagnostic(JSON.stringify({readParseMs:a.readMs,sourceJoinAnd35FileObservationMs:performance.now()-begin,eventCount:a.events.length,
     originalResult:a.result.eventId,originalValueDigest:a.result.payload.valueDigest,sourceGraphCall:a.result.graphCallId,

@@ -224,6 +224,7 @@ export {
   admissionAuthorityScope,
   admissionAuthoritySlots,
   admissionEnvironmentSelection,
+  constructAdmissionCapabilityData,
   type AdmissionEnvironmentSelection,
   type AdmissionCapabilityData,
   type AdmissionCapabilityGrantConstructionBasis,
@@ -379,6 +380,15 @@ export {
   constructRunInvocationOutcome,
   constructRunInvocationOwnerRefusal,
   prepareProductRunInvocation,
+  populateProductRunInvocation,
+  constructRunOperationPolicy,
+  expectedRunOperationAuthoritySlots,
+  type PopulatedProductRunInvocation,
+  type ProductRunInvocationInputIntent,
+  type ProductRunInvocationPopulation,
+  type ProductRunInvocationPopulationInput,
+  type ProductRunInvocationSelectionIntent,
+  type ProductRunInvocationSourceIntent,
   type PreparedProductRunInvocation,
   type ProductRunInvocationOwnerRefusal,
   type ProductRunInvocationPreparation,
@@ -390,6 +400,10 @@ export {
 export {
   RUN_DEFINITION_BINDINGS,
   isRunInvocationResourceAssertion,
+  populateRunContinuationAtDurablePrefix,
+  type PopulatedRunContinuation,
+  type RunContinuationPopulationRefusal,
+  type RunContinuationSelectionIntent,
   type RunInvocationResourceAssertion,
   type RunInvocationResourceReceipt,
 } from "../owner_bindings/run_invocation.js";
@@ -562,7 +576,8 @@ export * from "./worksite_command_forward.js";
 export { isWorksiteCommandForwardObservation } from "./worksite_command_execution.js";
 
 export { NATIVE_WORKSPACE_WORK_IDS, constructNativeWorkspaceWorkTask, isNativeWorkspaceWorkTask,
-  isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure,
+  isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkReport, isNativeWorkspaceWorkFailure, nativeWorkspaceWorkObservationMatchesTask,
+  nativeWorkspaceWorkFailureMatchesTask, nativeWorkspaceWorkResultInputDigest,
   type NativeWorkspaceWorkTask, type NativeWorkspaceWorkObservation, type NativeWorkspaceWorkFailure, type NativeWorkspaceWorkReport } from "./native_workspace_work.js";
 export { observeWorksiteContext, type WorksiteContextInput } from "./worksite_operations.js";
 export { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";

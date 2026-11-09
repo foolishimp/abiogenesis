@@ -22,6 +22,7 @@ import type {
 } from "../abg/execution_basis.js";
 import type { DurablePrefixCoordinate } from "../abg/event_store.js";
 import type { WorkspaceBinding } from "../product/environment.js";
+import type { NativeWorkspaceAssessmentDependency, NativeWorkspaceAssessmentSelection } from "../product/native_workspace_assessment.js";
 import type { WorkerTransportRequest } from "../abg/worker_transport.js";
 
 export interface DeterministicEvidenceCandidate {
@@ -134,8 +135,6 @@ export interface NativeLeafProofOperations {
     ReturnType<typeof import("../abg/qualification_proof.js").projectExactCandidateQualification>;
   readonly qualificationAssessment?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/qualification_proof.js").projectNativeRuntimeAssessment>;
-  readonly nativeWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
-    ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateNativeWorkReacquisition>;
   /** @internal Selected-body operation of the same invoking owner. */
   readonly nativeOwnedWorkReacquisition?: (input: unknown, occurrence: LeafExecutionOccurrence) =>
     ReturnType<typeof import("../abg/native_work_reacquisition.js").authenticateOwnedNativeWorkReacquisition>;
@@ -372,6 +371,10 @@ export interface LeafInvocationPort {
   readonly semanticPublicationByDeclarationRef?: (declarationRef: string) => Readonly<ModulePublication> | null;
   readonly contractByRef?: (contractRef: string) => Readonly<ContractDeclaration> | null;
   readonly contractPublicationByRef?: (contractRef: string) => Readonly<ModulePublication> | null;
+  /** The canonical native assessment's admitted inner response dependency;
+   * null for every other callable, implementation or unproven environment. */
+  readonly nativeAssessmentDependency?: (selection: NativeWorkspaceAssessmentSelection,
+    resolution: Readonly<LeafInvocationResolution>) => Readonly<NativeWorkspaceAssessmentDependency> | null;
   readonly declarationGraphFunctions?: () => readonly Readonly<GraphFunction>[];
   readonly graphFunctionByRef: (
     graphFunctionRef: string,

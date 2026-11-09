@@ -30,14 +30,17 @@ import {
   createNewEmptyAppendSink,
   DurablePrefixReadError,
   LEGACY_ROOT_EVENT_CONTRACT_DIGEST,
+  LEGACY_ROOT_EVENT_CONTRACTS,
   projectRuntimeEventFromValidatedHistory,
   readRuntimeEventsAtDurablePrefix,
   reopenEventStore,
   ROOT_EVENT_CONTRACT_DIGEST,
+  ROOT_EVENT_CONTRACTS,
   selectHeldEventStoreDurablePrefix,
   validateDurablePrefixCoordinate,
   validateHistoricalEvents,
 } from "../../build/code/src/abg/event_store.js";
+import { RETIRED_ACTOR_LIFECYCLE_COPY_KEYS } from "../../build/code/src/abg/transport_contracts.js";
 import {
   projectExactPrefixArtifactTruth,
 } from "../../build/code/src/abg/artifact_truth.js";
@@ -390,17 +393,19 @@ test("owned causation lookup conserves batch and transaction rollback, reappend 
 test("owned causation lookup grows with causal references in live admission and cold reconstruction", async context => {
   // Attribute event-reference Maps to their source-owned computations. Live
   // admission and history-location insertion each check a causal edge; cold
-  // decoding checks it once. Three live maps are not one cold decoded index.
+  // decoding checks it once. Four live maps are not one cold decoded index.
   const measure = (lane, action) => {
     const originalGet = Map.prototype.get, originalSet = Map.prototype.set;
     const originalRow = RuntimeHistory.prototype.rowById;
     const originalSelectionRow = RuntimeHistorySelection.prototype.rowById;
     const originalAppend = RuntimeHistory.prototype.appendValidated;
     const counts = { admissionCauseLookups: 0, locationCauseLookups: 0,
-      historyOrdinalEntries: 0, stagedBodyEntries: 0, stagedEventEntries: 0,
+      historyOrdinalEntries: 0, stagedBodyEntries: 0, stagedEventEntries: 0, durableBatchEntries: 0,
       coldCauseLookups: 0, coldEventEntries: 0, unattributed: 0 };
     let inserting = false, lookupOwner = null;
-    const stagingMaps = [];
+    const stagingMaps = [], batchMaps = [], batchKeys = [];
+    // Set by the measured callback as it returns: only the durable commit follows.
+    const phase = { committing: false };
     RuntimeHistory.prototype.appendValidated = function(...args) {
       const prior = inserting; inserting = true;
       try { return originalAppend.apply(this, args); } finally { inserting = prior; }
@@ -422,7 +427,14 @@ test("owned causation lookup grows with causal references in live admission and 
       if (typeof key === "string" && key.startsWith("event://abiogenesis/")) {
         if (lane === "cold") counts.coldEventEntries++;
         else if (inserting && typeof value === "number") counts.historyOrdinalEntries++;
-        else {
+        else if (phase.committing) {
+          // event_store.appendDurablyBatch encodes each admitted event of the
+          // committed batch and then retains it once in its batch-local map for
+          // later in-batch references. Any other commit-phase entry is unknown.
+          if (!batchMaps.includes(this)) batchMaps.push(this);
+          if (batchMaps.indexOf(this) === 0 && value?.eventId === key) { counts.durableBatchEntries++; batchKeys.push(key); }
+          else counts.unattributed++;
+        } else {
           // event_store.stageRuntimeEvent inserts into the tentative-body map
           // and then its staged-event lookup map, in this exact order.
           if (!stagingMaps.includes(this)) stagingMaps.push(this);
@@ -431,7 +443,7 @@ test("owned causation lookup grows with causal references in live admission and 
       }
       return originalSet.call(this, key, value);
     };
-    try { return { value: action(), counts, stagingMapCount: stagingMaps.length }; }
+    try { return { value: action(phase), counts, stagingMapCount: stagingMaps.length, batchMapCount: batchMaps.length, batchKeys }; }
     finally {
       Map.prototype.get = originalGet; Map.prototype.set = originalSet;
       RuntimeHistory.prototype.rowById = originalRow;
@@ -443,7 +455,7 @@ test("owned causation lookup grows with causal references in live admission and 
   for (const count of [128, 256]) {
     const { store } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-cause-growth-");
     const candidates = [];
-    const live = measure("live", () => admitRuntimeEventTransaction(store, () => {
+    const live = measure("live", phase => admitRuntimeEventTransaction(store, () => {
       let previous;
       for (let index = 0; index < count; index++) {
         const candidate = workspaceEvent({ correlationId: `correlation://growth/${index}`,
@@ -451,18 +463,23 @@ test("owned causation lookup grows with causal references in live admission and 
           causationEventRefs: previous === undefined ? [] : [previous.eventId] });
         candidates.push(candidate); previous = admitRuntimeEvent(store, candidate);
       }
+      phase.committing = true;
     }));
     const events = store.readAll(), bytes = await readFile(store.configuredDurableLogPath());
     const cold = measure("cold", () => validateHistoricalEvents(bytes));
     assert.deepEqual(live.counts, { admissionCauseLookups: count - 1,
       locationCauseLookups: count - 1, historyOrdinalEntries: count,
-      stagedBodyEntries: count, stagedEventEntries: count,
+      stagedBodyEntries: count, stagedEventEntries: count, durableBatchEntries: count,
       coldCauseLookups: 0, coldEventEntries: 0, unattributed: 0 });
     assert.equal(live.stagingMapCount, 2);
+    // One batch-local map holds exactly the committed batch, in admission order.
+    assert.equal(live.batchMapCount, 1);
+    assert.deepEqual(live.batchKeys, events.map(event => event.eventId));
     assert.deepEqual(cold.counts, { admissionCauseLookups: 0,
       locationCauseLookups: 0, historyOrdinalEntries: 0,
-      stagedBodyEntries: 0, stagedEventEntries: 0,
+      stagedBodyEntries: 0, stagedEventEntries: 0, durableBatchEntries: 0,
       coldCauseLookups: count - 1, coldEventEntries: count, unattributed: 0 });
+    assert.equal(cold.batchMapCount, 0);
     assert.deepEqual(cold.value, events);
     assert.equal(bytes.toString(), events.map(row => canonicalJson(row) + "\n").join(""));
     for (let index = 0; index < count; index++) {
@@ -470,7 +487,7 @@ test("owned causation lookup grows with causal references in live admission and 
     }
     measurements.push({ events: count, causalReferences: count - 1, live: live.counts, cold: cold.counts });
   }
-  for (const key of ["admissionCauseLookups", "locationCauseLookups"])
+  for (const key of ["admissionCauseLookups", "locationCauseLookups", "durableBatchEntries"])
     assert.equal(measurements[1].live[key] - measurements[0].live[key], 128);
   assert.equal(measurements[1].cold.coldCauseLookups - measurements[0].cold.coldCauseLookups, 128);
   console.log(JSON.stringify({ kind: "owned_causation_lookup_growth", measurements,
@@ -1343,6 +1360,111 @@ test("M5 event contract refuses blank history and malformed kind/scope/payload v
   );
 });
 
+test("D5 current probabilistic evidence and actor artifacts omit the four lifecycle copies; L keeps them", async (context) => {
+  const retired = ["exitObserved", "signalSequence", "terminationConfirmed", "timedOut"];
+  // The store takes the one shared owner definition of the retired copies.
+  assert.deepEqual([...RETIRED_ACTOR_LIFECYCLE_COPY_KEYS], retired);
+  const probabilisticArms = contracts => contracts.c_call_evidenced.payloadVariants
+    .filter(variant => variant.expectedPayload?.evidenceClass === "probabilistic_transport");
+  const [currentArm, ...extraCurrent] = probabilisticArms(ROOT_EVENT_CONTRACTS);
+  const [legacyArm, ...extraLegacy] = probabilisticArms(LEGACY_ROOT_EVENT_CONTRACTS);
+  assert.deepEqual([extraCurrent.length, extraLegacy.length], [0, 0]);
+  assert.notEqual(ROOT_EVENT_CONTRACT_DIGEST, LEGACY_ROOT_EVENT_CONTRACT_DIGEST);
+  const [currentArtifactArm, ...extraCurrentArtifact] = ROOT_EVENT_CONTRACTS.actor_result_artifact_observed.payloadVariants;
+  const [legacyArtifactArm, ...extraLegacyArtifact] = LEGACY_ROOT_EVENT_CONTRACTS.actor_result_artifact_observed.payloadVariants;
+  assert.deepEqual([extraCurrentArtifact.length, extraLegacyArtifact.length], [0, 0]);
+  for (const key of retired) {
+    assert.equal(currentArm.allowedPayloadKeys.includes(key), false, key);
+    assert.equal(legacyArm.allowedPayloadKeys.includes(key), true, key);
+    assert.equal(currentArtifactArm.allowedPayloadKeys.includes(key), false, `current artifact copy ${key} retired`);
+    assert.equal(legacyArtifactArm.allowedPayloadKeys.includes(key), true, `L artifact copy ${key} retained`);
+  }
+  // Every other L member survives; P adds only the native assessment.
+  for (const [legacy, current] of [[legacyArm, currentArm], [legacyArtifactArm, currentArtifactArm]]) {
+    assert.deepEqual(
+      legacy.allowedPayloadKeys.filter(key => !retired.includes(key)).sort(),
+      current.allowedPayloadKeys.filter(key => key !== "nativeResultAssessment").sort(),
+    );
+  }
+  assert.deepEqual([...currentArtifactArm.requiredPayloadKeys].sort(),
+    [...legacyArtifactArm.requiredPayloadKeys, "nativeResultAssessment"].sort());
+
+  const { store, prefix: emptyPrefix } = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-d5-evidence-");
+  assert.equal(selectHeldEventStoreDurablePrefix(store).storeIdentity.eventContractDigest, ROOT_EVENT_CONTRACT_DIGEST);
+  const digest = sha256Canonical({ kind: "d5-evidence" });
+  const copyFree = {
+    cCallRef: "c-call://m5/d5/evidence",
+    contractRef: "contract://m5/d5/evidence",
+    evidenceClass: "probabilistic_transport",
+    evidenceDigest: digest,
+    evidenceRef: `evidence://abiogenesis/${digest.slice(7)}`,
+    implementationRef: "implementation://m5/d5/evidence",
+    inputDigest: digest,
+    outputDigest: digest,
+    nativeResultAssessment: { disposition: "accepted" },
+    timeoutClass: null,
+  };
+  const evidence = payload => ({
+    ...runScopedEvent("c_call_evidenced", "c_call", "c-call://m5/d5/evidence", payload),
+    correlationId: "correlation://m5/d5/evidence",
+  });
+  const copies = { exitObserved: true, signalSequence: [], terminationConfirmed: true, timedOut: false };
+  for (const key of retired) {
+    assert.throws(
+      () => admitRuntimeEvent(store, evidence({ ...copyFree, [key]: copies[key] })),
+      /payload matches no admitted event-contract variant/u,
+      `reinserted ${key} refuses`,
+    );
+  }
+  assert.equal(selectHeldEventStoreDurablePrefix(store).prefixLength, 0);
+  const admitted = admitRuntimeEvent(store, evidence(copyFree));
+  assert.equal(admitted.kind, "c_call_evidenced");
+  assert.equal(admitted.eventContractDigest, ROOT_EVENT_CONTRACT_DIGEST);
+  for (const key of retired) assert.equal(Object.hasOwn(admitted.payload, key), false, key);
+
+  // A current artifact with a reinserted copy refuses at its payload variant;
+  // the copy-free body passes that variant and meets the native assessment check.
+  const artifactRef = "actor-invocation://m5/d5/artifact";
+  const artifactBody = {
+    actorInvocationRef: artifactRef,
+    processRef: "process://m5/d5/artifact",
+    artifactDigests: { output: digest, prompt: digest, stderr: digest, stdout: digest, transport: digest },
+    disposition: "failure",
+    nativeResultAssessment: { disposition: "absent" },
+  };
+  const artifact = payload => ({
+    ...runScopedEvent("actor_result_artifact_observed", "actor_invocation", artifactRef, payload),
+    correlationId: "correlation://m5/d5/artifact",
+  });
+  for (const key of retired) {
+    assert.throws(
+      () => admitRuntimeEvent(store, artifact({ ...artifactBody, [key]: copies[key] })),
+      /payload matches no admitted event-contract variant/u,
+      `reinserted artifact ${key} refuses`,
+    );
+  }
+  assert.throws(() => admitRuntimeEvent(store, artifact(artifactBody)),
+    /current actor artifact lacks its exact native raw-contract assessment/u);
+  assert.deepEqual(store.readAll().map(event => event.eventId), [admitted.eventId], "no refused artifact is admitted");
+
+  // The fresh successor store closes and reopens under the exact new profile.
+  // A log stamped with the predecessor current digest (this cut's baseline
+  // descriptor) is not a known profile and stays refused, never restamped.
+  const handoff = store.projectReopenAuthorityAndClose();
+  const reopened = reopenEventStore(JSON.parse(JSON.stringify(handoff.reopenAuthority)));
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  assert.equal(selectHeldEventStoreDurablePrefix(reopened.store).storeIdentity.eventContractDigest, ROOT_EVENT_CONTRACT_DIGEST);
+  assert.deepEqual(reopened.store.readAll(), [admitted]);
+  reopened.store.closeDurableLog();
+  const bytes = await readFile(fileURLToPath(emptyPrefix.eventLogRef));
+  assert.deepEqual(validateHistoricalEvents(bytes, ROOT_EVENT_CONTRACT_DIGEST), [admitted]);
+  const predecessorCurrent = "sha256:c4799f157883b5bb1439585ff65dbfdeaea4edcac34818817a7815878432fa02";
+  assert.notEqual(predecessorCurrent, ROOT_EVENT_CONTRACT_DIGEST);
+  assert.throws(() => validateHistoricalEvents(bytes, predecessorCurrent), /durable coordinate profile differs/u);
+  assert.throws(() => validateHistoricalEvents(Buffer.from(canonicalJson({ ...admitted, eventContractDigest: predecessorCurrent }) + "\n")),
+    /exact native profile schedule/u);
+});
+
 test("trusted owned history conserves currentness, callback publication, rollback and cold reconstruction", async context => {
   const acquired = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-trusted-history-");
   const foreign = await acquireNewEmptyAppendSinkFixture(context, createNewEmptyAppendSink, "abi5-trusted-foreign-");
@@ -1802,4 +1924,190 @@ test("TD-23 (c) the retained S01 store keeps its historical prefix through rows 
   assert.equal(reopened.prefix.prefixDigest, s01Historical.prefix.prefixDigest);
   assert.equal(reopened.prefix.prefixLength, s01Historical.prefix.prefixLength);
   assert.equal(readRuntimeEventsAtDurablePrefix(reopened.prefix).length, whole.length);
+});
+
+// RC7 HS03 (design §10.10 E-F, E-G): cold adoption of W window witnesses and
+// exact retained profiles. A W window row references an exact range of its
+// actor binding's admitted stdout archive; every cold acquisition reads that
+// range once. Warm owners are not exercised here.
+import { observeRuntimeHistoryWork as hs03Work, readOwnedRuntimeHistoryAtDurablePrefix as hs03ReadOwned,
+  recoverInterruptedEventStore as hs03Recover, rootEventContractProfile as hs03Profile } from "../../build/code/src/abg/event_store.js";
+import { actorRuntimeProbeSources as hs03Sources, constructRuntimeWatchdogPolicy as hs03Policy } from "../../build/code/src/abg/runtime_liveness_contracts.js";
+import { spawnSync as hs03SpawnSync } from "node:child_process";
+
+const HS03_ENVELOPE = Object.freeze({ eventTime: "2026-11-07T00:00:00.000Z", correlationId: "correlation://rc7-hs03/cold", workflowVersion: "5.0.0",
+  causationEventRefs: [], scopeClass: "run", basisId: "basis://rc7-hs03/cold", runId: "run://rc7-hs03/cold",
+  graphFunctionRef: "graph-function://rc7-hs03/cold", graphCallId: "graph-call://rc7-hs03/cold", frameId: "frame://rc7-hs03/cold" });
+const HS03_TEXTS = Object.freeze([`${JSON.stringify({ type: "assistant" })}\n`, `noise\n${JSON.stringify({ type: "user" })}\n`]);
+
+// One closed W store: a binding with its archive, an invocation and two window
+// rows whose ranges partition the archive file.
+async function hs03WitnessedStore(t, label) {
+  const scratch = fs.realpathSync(await mkdtemp(join(tmpdir(), `abi5-hs03-cold-${label}-`)));
+  t.after(() => rm(scratch, { recursive: true, force: true }));
+  const archiveRoot = join(scratch, "archives"), stdoutPath = join(archiveRoot, "hs03-stdout.log");
+  fs.mkdirSync(archiveRoot);
+  const { store } = await acquireNewEmptyAppendSinkFixture(t, createNewEmptyAppendSink, `abi5-hs03-cold-${label}-store-`);
+  const cCallRef = "c-call://rc7-hs03/cold", actorInvocationRef = "actor-invocation://rc7-hs03/cold", processRef = "process://rc7-hs03/cold";
+  const body = { cCallRef, archiveRoot, paths: { stdout: stdoutPath }, livenessBinding: { kind: "runtime_liveness_binding", schemaVersion: "5.0.0",
+    clockKind: "native_monotonic_elapsed", clockOriginRef: "runtime-clock://rc7-hs03/cold",
+    policy: hs03Policy({ startupMs: 10_000, inactivityMs: 10_000, hardCapMs: 600_000, terminationGraceMs: 1_000 }), sources: [...hs03Sources("claude_stream_json")] } };
+  const transportBindingDigest = sha256Canonical(body), transportBindingRef = `transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`;
+  let prefix = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, selectHeldEventStoreDurablePrefix(store), () => {
+    admitRuntimeEvent(store, { ...HS03_ENVELOPE, kind: "actor_transport_binding_admitted", aggregateType: "transport_binding",
+      aggregateId: transportBindingRef, parentAggregateId: cCallRef, payload: { transportBindingRef, transportBindingDigest, ...body } });
+    return admitRuntimeEvent(store, { ...HS03_ENVELOPE, kind: "actor_invocation_started", aggregateType: "actor_invocation",
+      aggregateId: actorInvocationRef, parentAggregateId: cCallRef, payload: { actorInvocationRef, transportBindingRef, cCallRef } });
+  }).successorPrefix;
+  let offset = 0;
+  for (const [index, text] of HS03_TEXTS.entries()) {
+    fs.appendFileSync(stdoutPath, text); // The archive range is durable before its row.
+    prefix = admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, prefix, () => admitRuntimeEvent(store, { ...HS03_ENVELOPE,
+      kind: "actor_process_stdout_observed", aggregateType: "process", aggregateId: processRef, parentAggregateId: actorInvocationRef,
+      payload: { actorInvocationRef, processRef, streamOrdinal: index + 1, byteLength: Buffer.byteLength(text), chunkDigest: sha256Canonical(text),
+        stdoutWindow: { kind: "stdout_archive_window", archiveOffset: offset, firstCaptureElapsedMs: 100 * index,
+          lastCaptureElapsedMs: 100 * index + 50, lastQualifyingElapsedMs: 100 * index + 40 } } })).successorPrefix;
+    offset += Buffer.byteLength(text);
+  }
+  const rows = store.readAll(), handoff = store.projectReopenAuthorityAndClose();
+  const eventLogPath = handoff.reopenAuthority.eventLogPath;
+  return { rows, handoff, prefix, stdoutPath, eventLogPath, logBytes: fs.readFileSync(eventLogPath), archiveBytes: fs.readFileSync(stdoutPath) };
+}
+const HS03_DAMAGE = Object.freeze({
+  missing: path => fs.unlinkSync(path),
+  changed: path => { const descriptor = fs.openSync(path, "r+"); try { fs.writeSync(descriptor, Buffer.from("X"), 0, 1, 0); } finally { fs.closeSync(descriptor); } },
+  truncated: path => fs.truncateSync(path, fs.statSync(path).size - 1),
+});
+const hs03Restore = f => fs.writeFileSync(f.stdoutPath, f.archiveBytes);
+const hs03Lock = eventLogPath => { const s = fs.statSync(eventLogPath); return join(tmpdir(), "abiogenesis-event-store-locks-v5", `${s.dev}-${s.ino}.lock`); };
+// A former owner PID that is no longer live.
+const hs03DeadPid = () => { const child = hs03SpawnSync(process.execPath, ["-e", ""]); assert.equal(child.status, 0); return child.pid; };
+
+test("RC7 HS03 archive: cold reopen adopts exact W window ranges and refuses missing, changed or truncated archive bytes before any history, with the log unchanged", async (t) => {
+  const f = await hs03WitnessedStore(t, "reopen");
+  assert.equal(f.rows[0].eventContractDigest, ROOT_EVENT_CONTRACT_DIGEST);
+  assert.equal(hs03Profile(ROOT_EVENT_CONTRACT_DIGEST)?.stdoutWindowWitness, true, "a fresh store is W");
+  const decodes = hs03Work().historyDecodes;
+  const reopened = reopenEventStore(JSON.parse(JSON.stringify(f.handoff.reopenAuthority)));
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  assert.deepEqual(reopened.store.readAll(), f.rows, "exact rows, identities and witnesses");
+  assert.equal(hs03Work().historyDecodes, decodes + 1, "one cold decode");
+  const handoff = reopened.store.projectReopenAuthorityAndClose();
+  for (const [damage, apply] of Object.entries(HS03_DAMAGE)) {
+    apply(f.stdoutPath);
+    const refused = reopenEventStore(JSON.parse(JSON.stringify(handoff.reopenAuthority)));
+    assert.notEqual(refused.kind, "reopened_event_store_context", `${damage} archive bytes refuse reopen`);
+    assert.match(JSON.stringify(refused), /stdout window archive bytes are missing or differ/u, damage);
+    assert.equal(fs.existsSync(hs03Lock(f.eventLogPath)), false, `${damage}: the refused reopen leaves no lock`);
+    assert.deepEqual(fs.readFileSync(f.eventLogPath), f.logBytes, `${damage}: the event log is unchanged`);
+    hs03Restore(f);
+  }
+  const again = reopenEventStore(handoff.reopenAuthority);
+  assert.equal(again.kind, "reopened_event_store_context", "restored bytes reopen again");
+  again.store.closeDurableLog();
+});
+
+test("RC7 HS03 archive: cold recover validates W window ranges inside its one decode and refuses missing, changed or truncated archive bytes with cleanup", async (t) => {
+  const f = await hs03WitnessedStore(t, "recover");
+  const selection = () => ({ lastCloseHandoff: JSON.parse(JSON.stringify(f.handoff)), expectedCurrent: { byteLength: f.logBytes.length,
+    digest: `sha256:${createHash("sha256").update(f.logBytes).digest("hex")}` }, recoveryCase: "lock_absent", lockPath: hs03Lock(f.eventLogPath), ownerPid: hs03DeadPid() });
+  for (const [damage, apply] of Object.entries(HS03_DAMAGE)) {
+    apply(f.stdoutPath);
+    const refused = hs03Recover(selection());
+    assert.equal(refused.kind, "refused_no_recovery", `${damage} archive bytes refuse recovery: ${JSON.stringify(refused)}`);
+    assert.match(refused.message, /stdout window archive bytes are missing or differ/u, damage);
+    assert.equal(fs.existsSync(hs03Lock(f.eventLogPath)), false, `${damage}: recovery released only its own lock`);
+    assert.deepEqual(fs.readFileSync(f.eventLogPath), f.logBytes, `${damage}: the event log is unchanged`);
+    hs03Restore(f);
+  }
+  const recovered = hs03Recover(selection());
+  assert.equal(recovered.kind, "recovered", JSON.stringify(recovered));
+  assert.equal(recovered.validatedEventCount, f.rows.length);
+  const reopened = reopenEventStore(recovered.closeHandoff.reopenAuthority);
+  assert.deepEqual(reopened.store.readAll(), f.rows);
+  reopened.store.closeDurableLog();
+});
+
+test("RC7 HS03 archive: cold read through both direct readers, descriptor and byte-array, validates W window ranges once and refuses missing, changed or truncated bytes", async (t) => {
+  const f = await hs03WitnessedStore(t, "read");
+  const before = hs03Work();
+  assert.deepEqual(hs03ReadOwned(f.prefix).materialize(), f.rows, "the descriptor reader adopts the exact witnessed history");
+  assert.equal(hs03Work().coldHistoryReads, before.coldHistoryReads + 1, "a closed prefix is read cold");
+  assert.deepEqual(readRuntimeEventsAtDurablePrefix(f.prefix), f.rows, "the byte-array reader adopts the exact witnessed history");
+  for (const [damage, apply] of Object.entries(HS03_DAMAGE)) {
+    apply(f.stdoutPath);
+    assert.throws(() => hs03ReadOwned(f.prefix), /stdout window archive bytes are missing or differ/u, `descriptor reader: ${damage}`);
+    assert.throws(() => readRuntimeEventsAtDurablePrefix(f.prefix), /stdout window archive bytes are missing or differ/u, `byte-array reader: ${damage}`);
+    assert.deepEqual(fs.readFileSync(f.eventLogPath), f.logBytes, `${damage}: the event log is unchanged`);
+    hs03Restore(f);
+  }
+  assert.deepEqual(readRuntimeEventsAtDurablePrefix(f.prefix), f.rows);
+});
+
+// RC6 and S2 rows are retained histories under their own exact tables. The
+// installed RC6 owner is the actual packaged compiled event store, read only.
+import { projectRootEventProfileSchedule as hs03Schedule } from "../../build/code/src/abg/event_store.js";
+import { selectOwnedRuntimeEventPrefix as hs03OwnedPrefix } from "../../build/code/src/abg/event_prefix.js";
+const HS03_RC6_OWNER = "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_store.js";
+const HS03_RC6 = "sha256:5b35ab536188aea5b822c4cdf8e962bbaf0fb609fc6da9e6b554187e8a7e0537";
+const HS03_S2 = "sha256:3bcc8488bcfb9396cbc53c85b944df6973bf99200ab93728949853df62cecac0";
+const hs03Rc6Skip = fs.existsSync(HS03_RC6_OWNER) ? false : "the installed RC6 packaged owner is not present";
+// The stream rows of one actor: invocation start, then retained per-chunk stdout.
+const hs03StreamCandidates = tag => {
+  const actorInvocationRef = `actor-invocation://rc7-hs03/${tag}`, processRef = `process://rc7-hs03/${tag}`, cCallRef = `c-call://rc7-hs03/${tag}`;
+  return [
+    { ...HS03_ENVELOPE, kind: "actor_invocation_started", aggregateType: "actor_invocation", aggregateId: actorInvocationRef, parentAggregateId: cCallRef,
+      payload: { actorInvocationRef, transportBindingRef: `transport-binding://rc7-hs03/${tag}`, cCallRef } },
+    ...HS03_TEXTS.map((text, index) => ({ ...HS03_ENVELOPE, kind: "actor_process_stdout_observed", aggregateType: "process", aggregateId: processRef,
+      parentAggregateId: actorInvocationRef, payload: { actorInvocationRef, processRef, streamOrdinal: index + 1, byteLength: Buffer.byteLength(text),
+        chunkDigest: sha256Canonical(text) } })),
+  ];
+};
+const hs03Witness = { kind: "stdout_archive_window", archiveOffset: 0, firstCaptureElapsedMs: 0, lastCaptureElapsedMs: 10, lastQualifyingElapsedMs: 5 };
+
+test("RC7 HS03 historical: RC6 rows authored by the installed RC6 owner keep their exact 5b35 stamp, eventIds and payloads across current cold reopen, read and fold, and refuse a W window row", { skip: hs03Rc6Skip }, async (t) => {
+  const rc6 = await import(pathToFileURL(HS03_RC6_OWNER).href);
+  assert.equal(rc6.ROOT_EVENT_CONTRACT_DIGEST, HS03_RC6, "the packaged owner is the installed RC6 profile");
+  const { store } = await acquireNewEmptyAppendSinkFixture(t, rc6.createNewEmptyAppendSink, "abi5-hs03-rc6-");
+  for (const candidate of hs03StreamCandidates("rc6"))
+    rc6.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(store, rc6.selectHeldEventStoreDurablePrefix(store), () => rc6.admitRuntimeEvent(store, candidate));
+  const rows = store.readAll(), handoff = store.projectReopenAuthorityAndClose();
+  const logBytes = fs.readFileSync(handoff.reopenAuthority.eventLogPath);
+  assert.deepEqual(rows.map(row => row.eventContractDigest), rows.map(() => HS03_RC6));
+  assert.deepEqual([hs03Profile(HS03_RC6)?.name, hs03Profile(HS03_RC6)?.lifecycleCopies, hs03Profile(HS03_RC6)?.stdoutWindowWitness], ["installed_rc6", true, false]);
+  assert.deepEqual(validateHistoricalEvents(logBytes), rows, "the current byte decoder keeps every RC6 row");
+  const reopened = reopenEventStore(JSON.parse(JSON.stringify(handoff.reopenAuthority)));
+  assert.equal(reopened.kind, "reopened_event_store_context", JSON.stringify(reopened));
+  t.after(() => reopened.store.closeDurableLog());
+  assert.deepEqual(reopened.store.readAll(), rows, "cold reopen keeps exact RC6 rows, eventIds and payloads");
+  assert.deepEqual(hs03Schedule(reopened.store.readAll()).spans.map(span => span.eventContractDigest), [HS03_RC6], "one RC6 span; no restamp");
+  assert.notEqual(hs03OwnedPrefix(reopened.store), null, "the RC6 history folds cold under its own profile");
+  assert.throws(() => admitNonEmptyRuntimeEventTransactionAtDurablePrefix(reopened.store, selectHeldEventStoreDurablePrefix(reopened.store),
+    () => admitRuntimeEvent(reopened.store, { ...hs03StreamCandidates("rc6")[1], payload: { ...hs03StreamCandidates("rc6")[1].payload, streamOrdinal: 3,
+      stdoutWindow: hs03Witness } })), /contract|payload/u, "an RC6 store takes no W window row");
+  assert.deepEqual(fs.readFileSync(handoff.reopenAuthority.eventLogPath), logBytes, "the refused W row leaves the RC6 log unchanged");
+});
+
+// No packaged S2 owner is selected. These S2 rows are authored by the declared
+// row identity (a test stand-in for the frozen S2 writer): the exact S2 stamp,
+// the canonical payload digest and the eventId over the stamped envelope.
+const hs03S2Rows = (candidates, stamps = candidates.map(() => HS03_S2)) => candidates.map((candidate, index) => {
+  const stamped = { ...candidate, eventContractDigest: stamps[index], payloadDigest: sha256Canonical(candidate.payload), admissionOrdinal: index + 1 };
+  return { ...stamped, eventId: `event://abiogenesis/${sha256Canonical(stamped).slice(7)}` };
+});
+const hs03Bytes = rows => Buffer.from(rows.map(row => canonicalJson(row) + "\n").join(""));
+
+test("RC7 HS03 historical: S2 rows keep their exact 3bcc stamp, eventIds and payloads through the current cold decoder and fold, and an S2 window witness or W stamp is refused", () => {
+  const rows = hs03S2Rows(hs03StreamCandidates("s2"));
+  assert.deepEqual([hs03Profile(HS03_S2)?.name, hs03Profile(HS03_S2)?.lifecycleCopies, hs03Profile(HS03_S2)?.nativeLiveness,
+    hs03Profile(HS03_S2)?.stdoutWindowWitness, hs03Profile(HS03_S2)?.current], ["frozen_s2", false, true, false, false]);
+  const decoded = validateHistoricalEvents(hs03Bytes(rows));
+  assert.deepEqual(decoded, rows, "the current byte decoder keeps every S2 row, eventId and payload");
+  assert.deepEqual(hs03Schedule(decoded).spans.map(span => span.eventContractDigest), [HS03_S2], "one S2 span; no restamp and no latest-digest fallback");
+  assert.notEqual(selectValidatedRuntimeEventPrefix(decoded), null, "the S2 history folds under its own profile");
+  const witnessed = hs03StreamCandidates("s2");
+  witnessed[1] = { ...witnessed[1], payload: { ...witnessed[1].payload, stdoutWindow: hs03Witness } };
+  assert.throws(() => validateHistoricalEvents(hs03Bytes(hs03S2Rows(witnessed))), "an S2 row carries no W window witness");
+  assert.throws(() => validateHistoricalEvents(hs03Bytes(hs03S2Rows(hs03StreamCandidates("s2"), [HS03_S2, ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST]))),
+    /exact native profile schedule/u, "an S2 history is not continued under W");
 });

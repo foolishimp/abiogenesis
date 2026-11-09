@@ -113,6 +113,80 @@ function bodyValue(source: InlineBody, read?: InlineBodyReader): JsonValue {
   return read(source);
 }
 
+/** v3 retained-route form: the nested pair source names the route's consumed Result. */
+const ROUTE_SOURCE_CODEC = 3;
+const ROUTE_PAIR = ["entry", "kind", "schemaVersion", "source"] as const;
+/** @internal The durable owner's admitted events before the row being encoded or
+ * decoded. Envelope membership is checked before the owner acquires any body. */
+export interface EarlierAdmittedEvents {
+  readonly envelope: (eventRef: string) => Omit<RuntimeEvent, "payload"> | undefined;
+  readonly event: (eventRef: string) => RuntimeEvent;
+  /** Encoding only: earlier event refs under the owner's existing CCall aggregate index. */
+  readonly cCallEvents?: (cCallRef: string) => readonly string[];
+}
+
+// Shape checks only over a JSON route; the store validates restored events.
+function retainedRoute(event: Readonly<Record<string, unknown>>, sourcePresent: boolean) {
+  const payload = event.payload, bound = isRecord(payload) ? payload.boundInput : undefined;
+  if (event.kind !== "traversal_route_admitted" || typeof event.admissionOrdinal !== "number" ||
+      !["runId", "basisId", "graphCallId", "frameId"].every(key => typeof event[key] === "string") || !isRecord(payload) ||
+      typeof payload.cCallRef !== "string" || !isRecord(bound) || bound.kind !== "raw_admitted_value" || !isRecord(bound.value) ||
+      !hasExactKeys(bound.value, sourcePresent ? ROUTE_PAIR : ROUTE_PAIR.slice(0, 3)) || bound.value.kind !== "retained_graph_input" ||
+      !isRecord(bound.value.entry) || sourcePresent && !isRecord(bound.value.source)) return null;
+  return { payload, bound, value: bound.value, cCallRef: payload.cCallRef };
+}
+
+/** The route's consumed Result: an earlier event of its own CCall in its exact
+ * Run, basis, graph call and frame. An equal body elsewhere, a basis, another
+ * occurrence or the route itself never qualifies; no cause edge is required. */
+function isConsumedResultEnvelope(route: Readonly<Record<string, unknown>>, cCallRef: string,
+  source: Omit<RuntimeEvent, "payload">): boolean {
+  return source.kind === "c_call_result_admitted" && source.aggregateType === "c_call" && source.aggregateId === cCallRef &&
+    source.runId === route.runId && source.basisId === route.basisId && source.graphCallId === route.graphCallId &&
+    source.frameId === route.frameId && source.admissionOrdinal < (route.admissionOrdinal as number);
+}
+
+function consumedResultValue(result: RuntimeEvent, cCallRef: string): JsonValue | undefined {
+  const payload = result.payload;
+  return isRecord(payload) && payload.cCallRef === cCallRef && payload.resultClass === "success" &&
+    Object.hasOwn(payload, "value") ? payload.value : undefined;
+}
+
+function encodeRetainedRouteSource(event: RuntimeEvent, inline: string, earlier: EarlierAdmittedEvents): string | null {
+  const route = retainedRoute(event as unknown as Readonly<Record<string, unknown>>, true);
+  if (route === null || earlier.cCallEvents === undefined) return null;
+  // Producer policy: name a Result only when exactly one earlier member exists.
+  const sources = earlier.cCallEvents(route.cCallRef).flatMap(ref => {
+    const source = earlier.envelope(ref);
+    return source !== undefined && source.eventId === ref &&
+      isConsumedResultEnvelope(event as unknown as Readonly<Record<string, unknown>>, route.cCallRef, source) ? [source] : [];
+  });
+  if (sources.length !== 1) return null;
+  const source = sources[0]!, { source: body, ...value } = route.value;
+  const encoded = canonicalJson({ kind: REFERENCE_RECORD, codecVersion: ROUTE_SOURCE_CODEC,
+    event: { ...event, payload: { ...route.payload, boundInput: { ...route.bound, value } } } as JsonValue,
+    bodyReference: { sourceEventRef: source.eventId, sourcePayloadDigest: source.payloadDigest, sourceSlot: "c_call_result_value",
+      bodyDigest: sha256Canonical(body as JsonValue) } });
+  // Ordinary small sources remain inline; only then is the Result body acquired.
+  if (Buffer.byteLength(encoded) >= Buffer.byteLength(inline)) return null;
+  const shared = consumedResultValue(earlier.event(source.eventId), route.cCallRef);
+  return shared !== undefined && canonicalEquals(shared, body as JsonValue) ? encoded + "\n" : null;
+}
+
+function decodeRetainedRouteSource(event: Readonly<Record<string, unknown>>, reference: Readonly<Record<string, unknown>>,
+  earlier?: EarlierAdmittedEvents): JsonValue {
+  const route = retainedRoute(event, false), sourceRef = reference.sourceEventRef as string;
+  const source = route === null || earlier === undefined ? undefined : earlier.envelope(sourceRef);
+  if (route === null || source === undefined || source.eventId !== sourceRef || !isConsumedResultEnvelope(event, route.cCallRef, source) ||
+      reference.sourceSlot !== "c_call_result_value" || reference.sourcePayloadDigest !== source.payloadDigest)
+    throw new TypeError("durable body reference lacks its exact earlier consumed Result");
+  // The Result's own physical form, inline or v1, resolves through its owner.
+  const body = consumedResultValue(earlier!.event(sourceRef), route.cCallRef);
+  if (body === undefined || sha256Canonical(body) !== reference.bodyDigest)
+    throw new TypeError("durable body reference differs from its exact consumed Result");
+  return { ...event, payload: { ...route.payload, boundInput: { ...route.bound, value: { ...route.value, source: body } } } } as JsonValue;
+}
+
 /** Detach caller data first; only this store's committed inline body may be
  * shared. Source eligibility and physical encoding remain the durable owner's. */
 export function captureRuntimeEventCandidate(
@@ -136,9 +210,9 @@ export function captureRuntimeEventCandidate(
 
 /** The caller stages additions and publishes them only with the durable batch. */
 export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodies, staged: InlineEventBodies,
-  read?: InlineBodyReader): string {
+  read?: InlineBodyReader, earlier?: EarlierAdmittedEvents): string {
   const inline = canonicalJson(event), body = inlineEventBody(event);
-  if (body === null) return inline + "\n";
+  if (body === null) return (earlier === undefined ? null : encodeRetainedRouteSource(event, inline, earlier)) ?? inline + "\n";
   const key = inlineEventBodyKey(body), source = staged.get(key) ?? committed.get(key);
   if (source !== undefined && compatibleSlots(source.slot, body.slot) && canonicalEquals(bodyValue(source, read), body.value!)) {
     const payload = omitValue(event.payload as Record<string, JsonValue>, body.slot);
@@ -152,19 +226,22 @@ export function encodeEventBody(event: RuntimeEvent, committed: InlineEventBodie
   return inline + "\n";
 }
 
-/** Resolves only already validated, physically inline sources from this stream.
+/** Resolves only already validated, physically inline sources from this stream,
+ * or a retained route's exact earlier consumed Result through its owner.
  * The event store still validates the complete restored envelope and all stamps. */
 export function decodeEventBody(record: JsonValue, inlineByEvent: InlineEventBodies,
-  read?: InlineBodyReader): {
+  read?: InlineBodyReader, earlier?: EarlierAdmittedEvents): {
   readonly event: JsonValue; readonly physicallyInline: boolean;
 } {
   if (!isRecord(record) || record.kind !== REFERENCE_RECORD) return { event: record, physicallyInline: true };
   const reference = record.bodyReference, event = record.event;
-  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) || (record.codecVersion !== 1 && record.codecVersion !== 2) ||
+  if (!hasExactKeys(record, ["kind", "codecVersion", "event", "bodyReference"]) ||
+      (record.codecVersion !== 1 && record.codecVersion !== 2 && record.codecVersion !== ROUTE_SOURCE_CODEC) ||
       !isRecord(reference) || !hasExactKeys(reference, ["sourceEventRef", "sourcePayloadDigest", "sourceSlot", "bodyDigest"]) ||
       typeof reference.sourceEventRef !== "string" || !isRecord(event) || !isRecord(event.payload)) {
     throw new TypeError("durable body reference record is malformed");
   }
+  if (record.codecVersion === ROUTE_SOURCE_CODEC) return { event: decodeRetainedRouteSource(event, reference, earlier), physicallyInline: false };
   const target = slotFor(event.kind), source = inlineByEvent.get(reference.sourceEventRef);
   if (target === null || (record.codecVersion === 2) !== (target === "native_definition_material") ||
       !targetIsAbsent(event.payload, target) || source === undefined || !compatibleSlots(source.slot, target) ||

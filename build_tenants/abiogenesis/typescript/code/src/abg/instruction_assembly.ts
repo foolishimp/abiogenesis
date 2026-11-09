@@ -3,12 +3,11 @@ import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisRespon
   governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { modulePublicationSemanticDigest } from "../product/publication.js";
-import { resolveNativeWorkspaceAssessmentSchema } from "../product/native_workspace_assessment.js";
+import { resolveNativeWorkspaceAssessmentDependency } from "../product/native_workspace_assessment.js";
 import { SEMANTIC_REVISION_IDS } from "../gtl/semantic_revision_identity.js";
 import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, renderNativeWorkspaceWorkOrder,
   nativeWorkspaceWorkReportSchema, nativeWorkspaceWorkGraphFunctionRef, nativeWorkspaceWorkResultContractRef } from "../product/native_workspace_work.js";
-import { authenticateSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from "./semantic_job.js";
+import { authenticateOwnedSemanticJobBasis, semanticJobInputMatchesBasis, semanticJobContextCurrent, semanticJobRootAtPrefix } from "./semantic_job.js";
 import { isSemanticJobEnvelope, semanticJobWorkerResultSchema, semanticJobUsesDesignResponse, materializeSemanticJobDesignResponse, semanticJobSourceText, projectSemanticJobActorMaterial, projectSemanticJobPromptContext, projectSemanticJobBindings, semanticJobMissingBindingRequirementRefs } from "../product/semantic_job.js";
 import { isSemanticRevisionEnvelope, isSemanticJobRevisionEnvelope, isSemanticRevisionSelection, semanticRevisionSelectionSchema, type SemanticJobRevisionEnvelope } from "../product/semantic_revision.js";
 import { semanticRevisionInputMatchesBasis, projectOwnedRevisionSelectionSubject, projectRevisionHistoricalContext,
@@ -18,15 +17,18 @@ import { sha256Bytes, sha256Canonical, type Sha256Digest } from "../shared/diges
 import { deepFreeze } from "../shared/immutable.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { reidentifyHistoricalDurablePrefixCoordinate } from "./event_store.js";
-import { indexedRuntimeEvents } from "./event_prefix.js";
+import { indexedRuntimeEvents, worksiteContextBodyReaderAtPrefix } from "./event_prefix.js";
+import { governanceContextBodyUse, hasExactInvocationRunBindingAtPrefix, projectExactInvocationAdmissionAtPrefix } from "./invocation_execution_truth.js";
+import type { RecurseApplication } from "../gtl/contracts.js";
 import { SEMANTIC_STAGE_IDS } from "../gtl/semantic_stage_identity.js";
 import { isSemanticStageDeclaration } from "../gtl/semantic_stage.js";
 import { semanticSourceText, semanticWorkerResultSchema, semanticPredecessorStatementRefs, semanticAssessmentStatementDomain, isSemanticStageEnvelope, type SemanticEvidenceInput } from "../product/semantic_stage.js";
 import { isWorksiteCommandExecutionObservation, isWorksiteRevisionCommandExecutionObservation } from "../product/worksite_command_execution.js";
-import { authenticateSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
+import { isWorksiteContextObservation } from "../product/worksite_effect.js";
+import { authenticateOwnedSemanticStageBasis, semanticInputMatchesBasis, semanticWorksiteContextMatchesBasis, type SemanticStageNativeBasis } from "./semantic_stage.js";
 import type { ProbabilisticWorkerRequest, LeafInvocationPort } from "../implementation/contracts.js";
 import { projectRunEnvironmentRoleEvidenceAtPrefix } from "./stdo_environment.js";
-import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
+import { authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, nativeExecutionBasisCoordinate, type NativeInstructionAssemblyBasis } from "./execution_basis.js";
 import { nativeContextLeafFamily, registeredSelectionNativeRole, framedSynthesisAtLocus, framedSynthesisNativeRole } from "../gtl/stdo_run_environment.js";
 import { registeredSelectionTargets } from "../gtl/registered_selection.js";
 import { isNativeRegisteredSelectionTask, nativeRegisteredSelectionResponseSchema, materializeNativeRegisteredChoice,
@@ -76,6 +78,14 @@ function assemblyIdentity(domain: string, plan: Readonly<Record<string, JsonValu
   return { planRef, planDigest, plan, envelope, envelopeDigest: sha256Canonical(envelope) };
 }
 
+/** The binding's read model of its basis: the selected graph, not an ambient
+ * all-catalog snapshot, and the execution-basis coordinate, whose admitted basis
+ * owns the raw input. Authentication rehydrates the complete basis. */
+function persistedNativeBasis(basis: NativeInstructionAssemblyBasis) {
+  return { ...basis, declarationGraphFunctions: [basis.graphFunction],
+    ...(basis.executionBasis === undefined ? {} : { executionBasis: nativeExecutionBasisCoordinate(basis.executionBasis) }) };
+}
+
 function renderInstructionSections(order: readonly string[], sections: Readonly<Record<string, JsonValue>>): string {
   return order.map(name => `## ${name}\n${canonicalJson(sections[name]!)}`).join("\n\n");
 }
@@ -94,6 +104,18 @@ function finishInstructionAssembly(identity: AssemblyIdentity, fields: Readonly<
 function assemblyRefusal(cause: NativeInstructionAssemblyRefusal["cause"], policy: string | null,
   role: string | null, unresolvedRefs: readonly string[]): Readonly<NativeInstructionAssemblyRefusal> {
   return deepFreeze({ kind: "native_instruction_assembly_refusal", cause, policy, role, unresolvedRefs });
+}
+/** Pre-P1 Context value-use boundary of the native work input. An admitted
+ * native task presenting a Context that fails the current validator, such as a
+ * pre-P1 observation identified over its inline bytes, is not a supported
+ * selection and refuses before any actor. No format is decoded or migrated;
+ * generic history reads and other carriers are unaffected. */
+function unsupportedNativeContextSelection(call: AssemblyOwner["call"], supplied: unknown): Readonly<NativeInstructionAssemblyRefusal> | null {
+  if (call.implementationRef !== nativeIds.implementationRef || !isRecord(supplied) || supplied.kind !== "native_workspace_work_task") return null;
+  const context = supplied.context;
+  if (!isRecord(context) || context.kind !== "worksite_context_observation" || isWorksiteContextObservation(context)) return null;
+  return assemblyRefusal("unsupported_selection", null, supplied.assessment === undefined ? "constructor" : "assessor",
+    [typeof context.observationRef === "string" ? context.observationRef : nativeIds.taskContractRef]);
 }
 function selectedNativeContextRole(basis: SemanticStageNativeBasis, locus: string) {
   const leaves = basis.graphFunction.template.nodes.flatMap(node => cLeafTerms(node.term)).filter(leaf => leaf.programLocusRef === locus);
@@ -130,10 +152,11 @@ export function constructWorksiteNativeInstructionAssembly(basis: NativeInstruct
   const result = evaluateWorksiteNativeInstructionAssembly(basis, supplied);
   return result?.kind === "native_instruction_assembly" ? result : null;
 }
-/** The worksite assembly with its typed refusal: a native-work, constructor or
+/** The worksite assembly with its typed refusals: a native-work, constructor or
  * command-executor prompt over the Run's declared bound refuses
- * `declared_bound_overflow` naming its role; `null` is every other refusal of
- * this owner. */
+ * `declared_bound_overflow` naming its role; an admitted native task whose
+ * Context is not a current validated observation refuses `unsupported_selection`;
+ * `null` is every other refusal of this owner. */
 function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssemblyBasis,
   supplied: unknown): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
   try {
@@ -142,6 +165,8 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
     if (owner === null || owner.call.regime !== "F_P" || admittedSupplied.kind !== "ok" ||
       sha256Canonical(admittedSupplied.value) !== owner.inputDigest ||
       !canonicalEquals(owner.inputValue, admittedSupplied.value)) return null;
+    const unsupported = unsupportedNativeContextSelection(owner.call, supplied);
+    if (unsupported !== null) return unsupported;
     if (isNativeWorkspaceWorkTask(supplied)) {
       if (owner.call.implementationRef !== nativeIds.implementationRef || owner.call.graphFunctionRef !== nativeWorkspaceWorkGraphFunctionRef(supplied) ||
         owner.call.inputContractRef !== nativeIds.taskContractRef || owner.call.outputContractRef !== nativeIds.observationContractRef ||
@@ -153,18 +178,16 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
       if (stdo === false || (assessment !== undefined && stdo === null) ||
         stdo !== null && !(stdo.contextPolicy.selectors as readonly string[]).includes("current_worksite")) return null;
       const resultContractRef = nativeWorkspaceWorkResultContractRef(supplied);
-      const declaredResult = assessment === undefined || basis.publication.graphFunctions.some(graph =>
-        owner.program.callableMembership.includes(graph.name) && graph.declarations["abg.raw_result_contract"] === resultContractRef);
-      const assessmentOwner = basis.assessmentPublication ?? basis.publication;
-      const exactSchemaOwner = assessment === undefined || owner.environment.kind === "exact_prefix_workspace_environment" &&
-        owner.environment.productInstalls.filter(install => install.productId === assessmentOwner.owningProductId &&
-          install.artifactDigest === assessmentOwner.artifactDigest && install.productContentDigest === assessmentOwner.productContentDigest &&
-          install.manifestDigest === assessmentOwner.productManifestDigest && install.contributionManifest.publicationBindings.filter(row =>
-            row.moduleRef === assessmentOwner.moduleRef && row.publicationDigest === modulePublicationSemanticDigest(assessmentOwner)).length === 1).length === 1;
-      const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema :
-        owner.environment.kind !== "exact_prefix_workspace_environment" || !exactSchemaOwner ? null :
-          resolveNativeWorkspaceAssessmentSchema(assessment, [assessmentOwner], owner.environment.productInstalls);
-      if (!declaredResult || schema === null || assessment?.producer.cCallRef === owner.call.cCallRef) return null;
+      // The inner consumer dependency is the carried selected publication under
+      // the shared admitted-environment relation; the Program closure is not consulted.
+      const dependency = assessment === undefined || basis.assessmentPublication === undefined ||
+        owner.environment.kind !== "exact_prefix_workspace_environment" ? null :
+        resolveNativeWorkspaceAssessmentDependency(assessment, { publications: [basis.assessmentPublication],
+          installs: owner.environment.productInstalls, resolvedLock: owner.environment.resolvedProductLock,
+          assessorOwnerProductId: owner.resolution.graphFunctionOwnerProductId });
+      const schema = assessment === undefined ? nativeWorkspaceWorkReportSchema : dependency?.schema ?? null;
+      if (schema === null || assessment !== undefined && resultContractRef !== assessment.resultContract.contractRef ||
+        assessment?.producer.cCallRef === owner.call.cCallRef) return null;
       const role = stdo === null ? null : { frameRefs: stdo.frameRefs, policy: stdo.policy, contextPolicy: stdo.contextPolicy,
         sourceContent: stdo.sourceContent, accessContent: stdo.accessContent };
       const presentation = assessment === undefined ? {} : { responsePresentation: "result_text" as const };
@@ -173,8 +196,10 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
         programLocusRef: owner.call.programLocusRef, contextRef: supplied.context.observationRef,
         contextDigest: supplied.context.observationDigest, worksiteRoot: supplied.workspaceAuthorityBasis.canonicalRoot,
         readRoots: supplied.context.readRoots, writeRoots: supplied.writeRoots, role, ...presentation };
+      // The admitted input binds the task by inputRef/inputDigest; the envelope
+      // carries no second whole task, context body or basis raw input.
       const identity = assemblyIdentity("native-work", plan, owner,
-        basis.predecessorPrefix, { nativeBasis: { ...basis, declarationGraphFunctions: [basis.graphFunction] }, task: supplied });
+        basis.predecessorPrefix, { nativeBasis: persistedNativeBasis(basis) });
       const prompt = (role === null ? "" : `Declared role context:\n${canonicalJson(role)}\n\n`) + renderNativeWorkspaceWorkOrder(supplied);
       const promptBytes = Buffer.from(prompt, "utf8"), bound = declaredRunPromptBound(owner);
       if (bound !== null && promptBytes.length > bound) return assemblyRefusal("declared_bound_overflow", null, selectedRole, ["maxPromptBytes"]);
@@ -233,7 +258,7 @@ function evaluateWorksiteNativeInstructionAssembly(basis: NativeInstructionAssem
       sectionOrder: ["role", "evidence", "task", "response"], selectedContext: requiredSelectors };
     // Retain only the selected graph, not an ambient all-catalog snapshot. The
     // shared owner reauthenticates this read model against the saved prefix.
-    const nativeBasis = { ...basis, declarationGraphFunctions: [basis.graphFunction] };
+    const nativeBasis = persistedNativeBasis(basis);
     const identity = assemblyIdentity("worksite-native", plan, owner,
       basis.predecessorPrefix, { nativeBasis, sections });
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
@@ -381,6 +406,45 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
   }
   return { owner, role, profile, bindings, choices, rawContractRef, input };
 }
+/** Current execution facts for the selector, projected from the exact
+ * invocation admission, its Run segment, the governance root ancestry and the
+ * root definition named by the admitted digest. The retained-source
+ * predecessor stays a separate fact. A bound is shown only where the root
+ * declares one recursion to the executing GraphFunction. Null fails closed. */
+function currentExecutionBinding(owner: NonNullable<ReturnType<typeof synthesisContext>>["owner"],
+  basis: NativeInstructionAssemblyBasis): Readonly<Record<string, JsonValue>> | null {
+  const execution = owner.execution, runId = owner.call.runId;
+  const admission = projectExactInvocationAdmissionAtPrefix(owner.prefix, execution.invocationAdmissionRef);
+  const root = semanticJobRootAtPrefix(owner.prefix, execution);
+  if (admission === null || root === null || typeof runId !== "string" ||
+    !hasExactInvocationRunBindingAtPrefix(owner.prefix, admission, runId) ||
+    execution.invocationRef !== admission.invocationRef || execution.programRef !== admission.programRef ||
+    root.basisClass !== "root" || root.invocationAdmissionRef !== admission.invocationAdmissionRef ||
+    root.programRef !== admission.programRef || root.graphFunctionRef !== admission.graphFunctionRef ||
+    root.graphFunctionDigest !== admission.graphFunctionDigest) return null;
+  const start = admission.publicStart, source = admission.sourceResultBasis;
+  if (start !== null && (start.programRef !== admission.programRef || start.graphFunctionRef !== admission.graphFunctionRef)) return null;
+  const definitions = basis.declarationGraphFunctions.filter(g => g.name === root.graphFunctionRef && sha256Canonical(g) === root.graphFunctionDigest);
+  const recursions = definitions.length !== 1 || execution.basisRef === root.basisRef ? [] : definitions[0]!.template.applications
+    .filter((a): a is RecurseApplication => a.relationKind === "recurse" && a.graphFunctionRef === execution.graphFunctionRef);
+  const recursion = recursions.length === 1 ? recursions[0]! : null;
+  return {
+    meaning: "Current admitted execution facts. They identify the Run, invocation, root, start and executing GraphFunction now; they carry no task meaning and select no next member. The predecessor, when present, is a retained earlier source, not the current root or Run.",
+    runId,
+    invocation: { invocationAdmissionRef: admission.invocationAdmissionRef, invocationRef: admission.invocationRef,
+      invocationVariant: admission.invocationVariant },
+    programRef: admission.programRef,
+    root: { basisRef: root.basisRef, graphFunctionRef: root.graphFunctionRef, graphFunctionDigest: root.graphFunctionDigest },
+    start: start === null ? null : { startRef: start.startRef, target: start.target, until: start.until, rootMode: start.rootMode },
+    executing: { basisRef: execution.basisRef, graphFunctionRef: execution.graphFunctionRef },
+    declaredRecursion: recursion === null ? null : { applicationRef: recursion.applicationRef,
+      graphFunctionRef: recursion.graphFunctionRef, bound: recursion.bound },
+    predecessor: source === null ? null : { sourceRunId: source.sourceRunId,
+      sourceInvocationAdmissionRef: source.sourceInvocationAdmissionRef, sourceInvocationRef: source.sourceInvocationRef,
+      sourceGraphFunctionRef: source.sourceGraphFunctionRef, sourceResultRef: source.sourceResultRef,
+      sourceResultDigest: source.sourceResultDigest },
+  };
+}
 function synthesisBoundBasis(context: NonNullable<ReturnType<typeof synthesisContext>>): FramedSynthesisBasis {
   const { owner, role, input } = context;
   return { inputRef: owner.inputRef, inputDigest: owner.inputDigest, taskRef: input.state.original.taskRef,
@@ -393,6 +457,14 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
     const context = synthesisContext(basis, input, contractByRef);
     if (context === null) return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]);
     const { owner, role, bindings, choices, rawContractRef } = context, task = context.input;
+    // active_binding_semantics: unknown, foreign or inconsistent current facts refuse before dispatch.
+    const binding = currentExecutionBinding(owner, basis);
+    if (binding === null) return assemblyRefusal("unknown_dependency", null, "selector", [owner.execution.invocationAdmissionRef]);
+    // Inline bodies need no permission; member reads use this Run and the
+    // invocation's admitted retained-source use (`governanceContextBodyUse`).
+    const bodyUse = task.context.entries.some(e => e.state === "file" && e.encoding === "admitted_member")
+      ? governanceContextBodyUse(projectExactInvocationAdmissionAtPrefix(owner.prefix, owner.execution.invocationAdmissionRef), owner.call.runId)
+      : { runId: owner.call.runId };
     const boundBasis = synthesisBoundBasis(context), response = framedSynthesisResponseSchema(task, bindings);
     const runEnvironment = selectorRunEnvironmentIdentity(role);
     const carrier = { type: response.type!, properties: response.properties!, required: response.required!,
@@ -401,15 +473,16 @@ export function evaluateFramedSynthesisInstructionAssembly(basis: NativeInstruct
       carrierResponseSchemaDigest: sha256Canonical(carrier) };
     const sections = { role: { role: "selector", frameRefs: role.frameRefs, policy: role.policy, sourceContent: role.sourceContent,
       instruction: "Apply this declared Executive frame to the conserved problem. Return a compact interpretation and selected registered contributions, their reasons, support and dependencies, remaining gaps, and one explicitly chosen next member. Preserve valid supplied work. Judge the next contribution against actual observations and previous judgment; dependencies are your semantic judgment, never an automatic schedule. Include at most one contribution row per graphFunctionRef. Every dependsOn reference must name a different contribution row in THIS response; no self-dependency. Cite prior completed work outside this current mapping through admitted evidenceRefs, not dependsOn. nextGraphFunctionRef must name a current contribution row, or be null with nonempty gaps and null subjectEvidenceRef. Including a contribution never requires it to run; only your explicit next member executes. Purpose/membership confers no permission or success. For UAT, subjectEvidenceRef must select the exact current native-work or C2 measurement Result to assess; a C2 measurement is observation provenance, not authorship. For Testing, optionally select a current native-work Result, or use null to observe supplied files. For other work or a gap, subjectEvidenceRef must be null. Do not execute tools, rewrite original task/authority, or invent observed success. The task section is an owned judgment projection: originalTask contains the complete original task. File contentIn originalTask and sourceRanges locate exact text already presented in this prompt; no external read is needed. Other file content is supplied directly. Each work order also applies the original task; only exact repeated source text is omitted from its instructions. currentAtContext and staleDependencies describe byte correspondence only, never semantic adequacy. Return only the closed response JSON." },
-      choices, task: projectFramedSynthesisPromptTask(task), evidence: { declaredAccess: role.accessContent }, response };
+      choices, task: projectFramedSynthesisPromptTask(task, worksiteContextBodyReaderAtPrefix(owner.prefix, task.context, bodyUse)),
+      binding, evidence: { declaredAccess: role.accessContent }, response };
     const plan = { variant: "framed-synthesis", projectionLocus: context.profile.projection.nodeRef, runEnvironment, ...responseSchemas,
       rendererRef: governanceRef("renderer", "synthesis"), instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef,
-      sectionOrder: ["role", "choices", "task", "evidence", "response"] };
+      sectionOrder: ["role", "choices", "task", "binding", "evidence", "response"] };
     const prompt = renderInstructionSections(plan.sectionOrder, sections);
     if (Buffer.byteLength(prompt) > task.state.original.maxPromptBytes) return assemblyRefusal("declared_bound_overflow", null, "selector", [owner.inputRef]);
     const identity = assemblyIdentity("framed-synthesis", plan, owner, basis.predecessorPrefix,
       { sections, targetBindings: bindings, boundBasis });
-    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
+    return finishInstructionAssembly(identity, { runEnvironment, ...responseSchemas, bindingDigest: sha256Canonical(binding) }, { actorRef: governanceRef("actor", "executive"), workerBindingRef: governanceRef("worker", "selector"),
       implementationRef: owner.call.implementationRef!, inputDigest: owner.inputDigest, rendererRef: plan.rendererRef,
       instructionContractRef: owner.call.inputContractRef, resultContractRef: rawContractRef, transportLane: "closed_prompt_proof", prompt, responseJsonSchema: carrier });
   } catch { return assemblyRefusal("unknown_dependency", null, "selector", [basis.cCall.programLocusRef]); }
@@ -534,14 +607,16 @@ function exactEvidenceText(base64: string, expectedDigest?: Sha256Digest, expect
  * constructor's input carrier. The admitted envelope remains complete; these
  * exact identities preserve the qualification of the selected observations. */
 function nativeEvidenceWorkView(value: import("../product/native_workspace_work.js").NativeWorkspaceWorkObservation) {
-  const inventory = (context: typeof value.before) => ({ kind: context.kind, schemaVersion: context.schemaVersion,
+  const inventory = (context: typeof value.after) => ({ kind: context.kind, schemaVersion: context.schemaVersion,
     observationRef: context.observationRef, observationDigest: context.observationDigest,
     workspaceAuthorityBasisRef: context.workspaceAuthorityBasisRef, workspaceAuthorityBasisDigest: context.workspaceAuthorityBasisDigest,
     workspaceBindingIdentity: context.workspaceBindingIdentity, workspaceBindingDigest: context.workspaceBindingDigest,
     bodyDisposition: "historical_inventory_not_selected" });
-  return { ...value, task: { kind: value.task.kind, schemaVersion: value.task.schemaVersion,
-    taskDigest: sha256Canonical(value.task), bodyDisposition: "historical_constructor_input_not_selected" },
-    before: inventory(value.before), after: inventory(value.after) };
+  // Prospective Results carry only inputDigest; retained Results keep their original task.
+  const task = (value as { readonly task?: import("../product/native_workspace_work.js").NativeWorkspaceWorkTask }).task;
+  return { ...value, ...(task === undefined ? {} : { task: { kind: task.kind, schemaVersion: task.schemaVersion,
+    taskDigest: sha256Canonical(task), bodyDisposition: "historical_constructor_input_not_selected" }, before: inventory(task.context) }),
+    after: inventory(value.after) };
 }
 
 /** Deterministic projection of required admitted evidence. Artifact/log bytes
@@ -595,7 +670,7 @@ export function evaluateNativeInstructionAssembly(basis: SemanticStageNativeBasi
     if ((basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined)
       return (basis.cCall.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef
         ? constructRevisionSelectionAssembly(basis, supplied, readPhysical) : constructJobInstructionAssembly(basis, supplied, readPhysical)) ?? assemblyRefusal("stale_basis", null, null, []);
-    const owner = authenticateSemanticStageBasis(basis);
+    const owner = authenticateOwnedSemanticStageBasis(basis);
     if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef)
       return constructRevisionSelectionAssembly(basis, supplied, readPhysical) ??
         assemblyRefusal("stale_basis", "current_inventory", "selection", [owner.inputRef]);
@@ -721,7 +796,7 @@ export function evaluateNativeInstructionAssembly(basis: SemanticStageNativeBasi
 
 /** Closed job arm of this same authenticated assembly owner. */
 function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, supplied: unknown, readPhysical: boolean): Readonly<NativeInstructionAssembly | NativeInstructionAssemblyRefusal> | null {
-  const owner = authenticateSemanticJobBasis(basis);
+  const owner = authenticateOwnedSemanticJobBasis(basis);
   const revision = isSemanticJobRevisionEnvelope(supplied) ? supplied : null;
   if (owner === null || owner.role === null || owner.stage === undefined ||
     (revision === null ? !semanticJobInputMatchesBasis(basis, supplied) : !semanticJobRevisionInputMatchesBasis(basis, revision))) return null;
@@ -862,6 +937,7 @@ function constructJobInstructionAssembly(basis: SemanticStageNativeBasis, suppli
       observation: content === "not_required" ? input.context === null ? null : { observationRef: input.context.observationRef, observationDigest: input.context.observationDigest, bodyDisposition: "omitted_not_required" } :
         input.context === null ? null : { ...input.context, entries: input.context.entries.map(e => {
           if (e.state !== "file") return e;
+          if (e.encoding !== "base64") throw new TypeError("semantic worksite view requires its inline observed body");
           const { bytes, encoding, ...identity } = e;
           return { ...identity, sourceEncoding: encoding, textView: observedText(bytes, e.digest, e.byteLength) };
         }) } },
@@ -967,6 +1043,8 @@ export function renderNativeRevisionSelectionDecisionView(
   const contextView = (context: Row): Row => ({ ...context,
     entries: (context.entries as readonly Row[]).map(entry => {
       if (entry.state !== "file") return entry;
+      // Semantic evidence contexts are inline births; a member reference refuses this view.
+      if (entry.encoding !== "base64" || typeof entry.bytes !== "string") throw new TypeError("semantic evidence view requires inline context bodies");
       const { bytes, encoding, ...identity } = entry;
       return { ...identity, sourceEncoding: encoding!, textView: bytesView(bytes as string, entry.digest as Sha256Digest, entry.byteLength as number) };
     }) });
@@ -983,8 +1061,8 @@ export function renderNativeRevisionSelectionDecisionView(
   const nativeWorkView = (value: Row): Row => isCompleted(value) ? {
     observationRef: value.observationRef!, observationDigest: value.observationDigest!,
     presentationRef: "#/worksite/construction/result/value", disposition: "same_admitted_construction_evidence" } : ({ ...value,
-      task: { ...row(value.task!), context: contextView(row(row(value.task!).context!)) },
-      before: contextView(row(value.before!)),
+      ...(Object.hasOwn(value, "task") ? { task: { ...row(value.task!), context: contextView(row(row(value.task!).context!)) } } : {}),
+      ...(Object.hasOwn(value, "before") ? { before: contextView(row(value.before!)) } : {}),
       after: value.after === null ? null : contextView(row(value.after!)) });
   const commandTaskView = (task: Row): Row => ({ ...task,
     ...(task.sourceNativeWork === undefined ? {} : { sourceNativeWork: nativeWorkView(row(task.sourceNativeWork)) }),
@@ -1138,7 +1216,7 @@ export function nativeInstructionRequestMatches(basis: SemanticStageNativeBasis,
 export function semanticInstructionResultMatches(basis: SemanticStageNativeBasis, input: unknown, output: unknown): boolean {
   try {
     const owner = (basis.lifecyclePublication ?? basis.publication).semanticJobLifecycle !== undefined
-      ? authenticateSemanticJobBasis(basis) : authenticateSemanticStageBasis(basis);
+      ? authenticateOwnedSemanticJobBasis(basis) : authenticateOwnedSemanticStageBasis(basis);
     if (owner?.call.implementationRef === SEMANTIC_REVISION_IDS.selectionImplementationRef) {
       if (!isSemanticRevisionSelection(output)) return false;
       const rows = indexedRuntimeEvents(owner.prefix, "related:" + owner.call.cCallRef).filter(e => e.kind === "actor_result_artifact_observed" && e.parentAggregateId === owner.call.cCallRef);

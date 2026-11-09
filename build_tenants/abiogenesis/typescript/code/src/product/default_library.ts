@@ -2,11 +2,12 @@ import * as v from "valibot";
 import { isDeepStrictEqual } from "node:util";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { deepFreeze } from "../shared/immutable.js";
+import { sha256Bytes } from "../shared/digests.js";
 import { admitJson, hasExactKeys, isRecord } from "../shared/admit/index.js";
 import type { WorksiteDeclaredCommandInput, WorksiteOutcomePredicateInput, WorksiteCommandWriteTerritoryInput } from "./worksite_command_execution.js";
 import type { NativeWorkspaceAssessmentSelection } from "./native_workspace_assessment.js";
 import { isNativeWorkspaceWorkReport } from "./native_workspace_work.js";
-import { isWorksiteContextObservation, type WorksiteContextObservation } from "./worksite_effect.js";
+import { inlineWorksiteContextBody, isWorksiteContextObservation, type WorksiteContextBodyReader, type WorksiteContextObservation } from "./worksite_effect.js";
 import { GOVERNANCE_REQUIREMENT_PROPOSAL_SCHEMA, GOVERNANCE_FULFILLMENT_STATE_SCHEMA, GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA,
   isGovernanceFulfillmentDeclaration, type GovernanceFulfillmentDeclaration, initialGovernanceFulfillment, governanceFulfillmentStateMatches,
   deriveGovernanceObligations, governanceFulfillmentActive } from "./default_library_fulfillment.js";
@@ -54,18 +55,31 @@ const originalSchema = v.strictObject({ taskRef: text, task: text, sources: v.pi
   assessment: v.strictObject({ sources: v.pipe(texts, v.minLength(1)), candidatePath: text, rubricPath: text,
     resultContract: jsonRecord, schemaAsset: jsonRecord, verdictField: text, satisfiedValue: text }),
   fulfillment: v.exactOptional(v.custom<GovernanceFulfillmentDeclaration>(isGovernanceFulfillmentDeclaration)) });
+// A null synthesisResultRef records the RC7 fixed direct Testing/UAT route: no
+// selector occurred. The ABG owner alone authenticates that route at fold.
 const observationSchema = v.strictObject({ purpose: v.picklist(GOVERNANCE_PURPOSES), resultRef: text, resultDigest: digest,
-  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: text, selectedGraphFunctionRef: text, value: jsonRecord,
+  cCallRef: text, actorInvocationRef: v.nullable(text), synthesisResultRef: v.nullable(text), selectedGraphFunctionRef: text, value: jsonRecord,
   fulfillmentEvidence: v.exactOptional(GOVERNANCE_FULFILLMENT_EVIDENCE_SCHEMA) });
+/** A selector-free row belongs only to the Testing or UAT wrapper of its own purpose. */
+const directObservationTyped = (row: v.InferOutput<typeof observationSchema>) => row.synthesisResultRef !== null ||
+  (row.purpose === "testing" || row.purpose === "uat") && row.selectedGraphFunctionRef === governanceRef("graph-function", row.purpose);
 const stateSchema = v.strictObject({ kind: v.literal("governance_work_state"), schemaVersion: v.literal("5.0.0"),
   original: originalSchema, synthesis: v.nullable(currentSynthesisSchema), observations: v.array(observationSchema), unresolvedSupportRefs: texts, terminal: v.boolean(),
   fulfillment: v.exactOptional(GOVERNANCE_FULFILLMENT_STATE_SCHEMA) });
 export type GovernanceWorkState = v.InferOutput<typeof stateSchema>;
 export type GovernanceObservation = GovernanceWorkState["observations"][number];
 export type GovernanceOriginal = GovernanceWorkState["original"];
+/** The native assessment selection's existing role rule (isNativeWorkspaceAssessmentSelection)
+ * over the same path strings, held at intake before any graph work or provider call. */
+function governanceAssessmentRolesDistinct(assessment: GovernanceOriginal["assessment"]): boolean {
+  const { sources, candidatePath, rubricPath } = assessment;
+  return new Set(sources).size === sources.length && !sources.some(path => path === candidatePath || path === rubricPath) &&
+    candidatePath !== rubricPath;
+}
 export function isGovernanceWorkState(value: unknown): value is GovernanceWorkState {
   return v.is(stateSchema, value) && new Set(value.original.requiredSupportRefs).size === value.original.requiredSupportRefs.length &&
-    new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length &&
+    new Set(value.original.sources.map(s => s.path)).size === value.original.sources.length && value.observations.every(directObservationTyped) &&
+    governanceAssessmentRolesDistinct(value.original.assessment) &&
     (value.original.fulfillment === undefined ? value.fulfillment === undefined && value.observations.every(o => o.fulfillmentEvidence === undefined) &&
       (value.terminal ? value.unresolvedSupportRefs.length === 0 : isDeepStrictEqual(value.unresolvedSupportRefs, value.original.requiredSupportRefs)) :
       value.fulfillment !== undefined && governanceFulfillmentStateMatches(value.original.fulfillment, value.fulfillment) &&
@@ -85,6 +99,24 @@ export function retainedGovernanceWorkInput(value: unknown): Readonly<Governance
   if (!isGovernanceWorkState(value) || value.terminal || value.observations.length === 0 ||
     value.unresolvedSupportRefs.length === 0) return null;
   return value;
+}
+export const GOVERNANCE_DIRECT_PURPOSES = ["testing", "uat"] as const;
+export type GovernanceDirectPurpose = typeof GOVERNANCE_DIRECT_PURPOSES[number];
+export const GOVERNANCE_DIRECT_WRAPPERS: Readonly<Record<GovernanceDirectPurpose, string>> = deepFreeze({
+  testing: governanceRef("graph-function", "testing"), uat: governanceRef("graph-function", "uat") });
+/** The fixed direct route's finite state relation. Fresh Testing has source none
+ * and no observation. UAT has the admitted direct-Testing state Result as source:
+ * exactly its one selector-free Testing observation (its owners separately bind
+ * that source to the raw input). Open fulfillment or other declared work is open
+ * choice and refuses; there is no latest/eligible search. */
+export function governanceDirectFixedState(state: GovernanceWorkState, purpose: GovernanceDirectPurpose,
+  source: { readonly sourceGraphFunctionRef: string } | null): boolean {
+  const rows = state.observations;
+  if (state.synthesis !== null || state.original.fulfillment !== undefined ||
+    !Object.keys(state.original.workOrders).every(p => p === "testing" || p === "uat")) return false;
+  if (purpose === "testing") return source === null && rows.length === 0;
+  return source !== null && source.sourceGraphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing && rows.length === 1 &&
+    rows[0]!.purpose === "testing" && rows[0]!.synthesisResultRef === null && rows[0]!.selectedGraphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing;
 }
 export function governanceTestingConfiguration(state: GovernanceWorkState) {
   const t = state.original.testing;
@@ -167,7 +199,7 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   const record = (item: JsonValue | undefined): item is Readonly<Record<string, JsonValue>> =>
     item !== null && typeof item === "object" && !Array.isArray(item);
   if (!record(value)) return value;
-  let bytes: Buffer, text: string;
+  let bytes = Buffer.alloc(0), text: string;
   try {
     if (value.encoding === "utf8" && typeof value.text === "string") bytes = Buffer.from(value.text, "utf8");
     else if (value.encoding === "base64" && typeof value.payload === "string") bytes = Buffer.from(value.payload, "base64");
@@ -176,8 +208,21 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   } catch {
     return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
       rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
-      displayOnly: true, excerpts: [], displayUnavailable: "not_utf8" };
+      displayOnly: true, excerpts: [], displayUnavailable: "not_utf8", complete: false, omittedByteCount: bytes.length };
   }
+  // A short strict UTF-8 stream is its own whole display: one exact range over
+  // the cited bytes, BOM and line endings included. Completeness is claimed
+  // only when the carried body has a valid declared length and digest and
+  // both match it; missing or malformed metadata keeps the bounded display.
+  const declaredLength = typeof value.byteLength === "number" && Number.isSafeInteger(value.byteLength) && value.byteLength >= 0;
+  const declaredDigest = typeof value.digest === "string" && /^sha256:[0-9a-f]{64}$/u.test(value.digest);
+  if (bytes.length <= 8192 && declaredLength && value.byteLength === bytes.length &&
+      declaredDigest && value.digest === sha256Bytes(bytes))
+    return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
+      rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: false },
+      displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 },
+      excerpts: bytes.length === 0 ? [] : [{ startByte: 0, endByte: bytes.length, text }],
+      displayedByteCount: bytes.length, omittedCandidates: 0, complete: true, omittedByteCount: 0 };
   let offset = 0;
   const lines = text.split("\n").map((line, index, all) => {
     const startByte = offset; offset += Buffer.byteLength(line + (index < all.length - 1 ? "\n" : ""));
@@ -205,7 +250,8 @@ function planningStream(observation: GovernanceObservation, fieldPath: (string |
   }
   return { ...Object.fromEntries(Object.entries(value).filter(([key]) => key !== "text" && key !== "payload")),
     rawBody: { resultRef: observation.resultRef, resultDigest: observation.resultDigest, fieldPath, omittedFromPlanningView: true },
-    displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates };
+    displayOnly: true, displayBound: { maxBytes: 8192, maxExcerpts: 32 }, excerpts, displayedByteCount, omittedCandidates,
+    complete: false, omittedByteCount: bytes.length - displayedByteCount };
 }
 /** Parent-context presentation; full admitted bodies and authority stay in their owners. */
 export function projectGovernanceObservationFacts(state: GovernanceWorkState, context: WorksiteContextObservation) {
@@ -241,17 +287,21 @@ export function projectGovernanceObservationFacts(state: GovernanceWorkState, co
         producerActorRef: fact.producerActorRef } }) };
   }));
 }
-/** Presentation over the already-bound task; canonical proof stays in its owner. */
-export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Readonly<Record<string, JsonValue>> {
+/** Presentation over the already-bound task; canonical proof stays in its owner.
+ * Declared source bodies are read through the task context's reader; an
+ * unavailable body refuses the presentation rather than omitting the source. */
+export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask,
+  read: WorksiteContextBodyReader = inlineWorksiteContextBody): Readonly<Record<string, JsonValue>> {
   const { state, context } = task, original = state.original;
   const declaredSourcePaths = new Set([...original.sources.map(source => source.path),
     ...(original.fulfillment?.context.members.map(member => member.path) ?? [])]);
   const sourceTextsInTask = new Set<string>();
   const sourceText = (entry: Extract<WorksiteContextObservation["entries"][number], { state: "file" }>) => {
-    const bytes = Buffer.from(entry.bytes, "base64");
+    const bytes = read(entry);
+    if (bytes === null) throw new TypeError("declared source body is unavailable to this presentation");
     let text: string;
     try { text = new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes); }
-    catch { return { encoding: "base64", content: entry.bytes }; }
+    catch { return { encoding: "base64", content: bytes.toString("base64") }; }
     // Exact containment only. The actor receives the complete text in this
     // same prompt, not a locator that would require a forbidden file read.
     const start = text.length === 0 ? -1 : original.task.indexOf(text);
@@ -301,7 +351,7 @@ export function projectFramedSynthesisPromptTask(task: FramedSynthesisTask): Rea
     assessment: { sources: original.assessment.sources, candidatePath: original.assessment.candidatePath,
       rubricPath: original.assessment.rubricPath, resultContract: original.assessment.resultContract,
       verdictField: original.assessment.verdictField, satisfiedValue: original.assessment.satisfiedValue },
-    fulfillment, observations: evidence, planningEvidenceMeaning: "Full raw streams and detailed predicate proof are explicitly omitted from this selector view and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
+    fulfillment, observations: evidence, planningEvidenceMeaning: "A strict UTF-8 stream of at most 8192 bytes is shown whole as one exact excerpt marked complete. Longer or non-UTF-8 streams and detailed predicate proof are explicitly omitted from this selector view, with byte counts, and remain in the cited admitted Result. Field paths are relative to that Result value; metadata grants no lookup authority or automatic external read. Excerpts are bounded literal diagnostics at exact UTF-8 byte ranges, not interpreted failure names or verdicts. All original criteria and unresolved outcomes remain governing. C2 success is a measurement observation, never application acceptance.", unresolvedSupportRefs: state.unresolvedSupportRefs,
     priorJudgment: state.synthesis === null ? null : { resultRef: state.synthesis.resultRef, judgment: state.synthesis.judgment },
   });
   if (view.kind !== "ok" || !isRecord(view.value)) throw new TypeError("framed synthesis selector view is not I-JSON");

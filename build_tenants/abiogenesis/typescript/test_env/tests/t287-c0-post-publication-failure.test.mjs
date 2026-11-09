@@ -670,7 +670,10 @@ async function runCase(context, label, options = {}) {
     potentialFacts.push({ ...after, retainedOriginViews: originViews(env, prefixes, retained, false) });
     if (prepublication) potentialFacts.push({ label: "five deep semantic negatives", coordinate: after.coordinate,
       negatives: deepOccurrenceNegatives(admission, product, store.readAll(), capturedCall.occurrence.executionAuthority.cCall.fibreSelectedEventRef) });
-    const aliasReplay = abg.projectRuntimeTruthAtDurablePrefix(abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState;
+    // The existing direct replay owner; its guard materializes the complete value.
+    const installedReplay = await import(pathToFileURL(join(env.installedRoot, "build/code/src/abg/replay.js")).href);
+    const aliasReplay = installedReplay.materializeRuntimeReplayGuard(installedReplay.projectOwnedRuntimeTruthAtDurablePrefix(
+      abg.selectHeldEventStoreDurablePrefix(store), aliasOpened.scope.runId).replayState);
     assert.deepEqual(aliasReplay.currentWorksiteObservations, []);
     assert.equal(aliasReplay.activeFluents.some(key => key.includes(alias.input.predecessorObservation.observationRef)), false);
     if (failure || unadmitted || prepublication) {
@@ -688,8 +691,8 @@ async function runCase(context, label, options = {}) {
   const logPath = store.configuredDurableLogPath();
   const fresh = await proveFreshProcessRuntimeProjectionEquality({
     abg, product, installedPackageRoot: env.installedRoot, store,
-    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] },
-      ...(aliasOpened === null ? [] : [{ rowId: label + "-alias", owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [aliasOpened.scope.runId] }])],
+    requests: [{ rowId: label, owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] },
+      ...(aliasOpened === null ? [] : [{ rowId: label + "-alias", owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [aliasOpened.scope.runId] }])],
     ...(potentialProof ? { ownedProcessProof: { evidenceRoot: join(proofRoot, label + "-fresh-children") } } : {}),
   });
   const replay = fresh.retainedRows[0].projection.replayState;

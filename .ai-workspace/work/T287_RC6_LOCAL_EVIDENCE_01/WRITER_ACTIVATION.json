@@ -1,0 +1,68 @@
+{
+  "kind": "bounded_local_cut_writer_activation",
+  "at": "2026-11-05T01:53:23.867370+00:00",
+  "roleTransition": "Executive -> bounded operator Writer",
+  "ownerInstruction": "lets move to RC6",
+  "admission": "Reuse exact owner instruction selecting local RC6 delivery after bounded targeted refactor acceptance. No second approval required.",
+  "frame": "repo://abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+  "method": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "changeClass": "Mechanical successor identity, evidence custody, reproducible packaging and local installation",
+  "source": {
+    "base": "f49e7533ebedff0946383cb0c5380a6ecac7889d",
+    "snapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+      "bytes": 225298,
+      "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+    },
+    "acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/proof-10/ROOT_CONJUNCTION.json",
+      "bytes": 13939,
+      "sha256": "4d74f116ae022fae56d517ebda3bda4b3032a62bf7e7d992ad7f53c1c7122313"
+    }
+  },
+  "writeTerritory": [
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/local-cut-rc6-01",
+    "/Users/jim/src/apps/abiogenesis-rc6-local-cut",
+    "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.6",
+    "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.6",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/STATUS.json",
+    "/Users/jim/src/apps/abiogenesis/specification/GOALS.md",
+    "/Users/jim/src/apps/abiogenesis/.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md"
+  ],
+  "permittedEffects": [
+    "Create isolated worktree and local source checkpoint from exact frozen source plus identity metadata",
+    "Record source bridge and copy bounded accepted evidence and preserved failure dispositions",
+    "Compile and generate through existing tenant scripts; package and clean reproduce",
+    "Independent max review of exact packaging subject alongside build",
+    "Existing Product verify, lock, install and all-member byte correspondence",
+    "Update current coordination status with preimages and final handoff"
+  ],
+  "metadataPaths": [
+    "build_tenants/abiogenesis/typescript/package.json",
+    "build_tenants/abiogenesis/typescript/package-lock.json",
+    "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+    "build_tenants/abiogenesis/typescript/release-claim.md",
+    "Existing generated manifest/contracts through their generators"
+  ],
+  "exclusions": [
+    "No substantive source/test/HOW edits",
+    "No qualification rerun or new native/provider actor",
+    "No old-cut mutation, deletion of dirty/untracked work, push, merge, tag, publication, global selector or stable-release claim"
+  ],
+  "closureLaw": [
+    "Exact reviewed source conserved except admitted version metadata",
+    "Source checkpoint and build reproducibly correspond to single archive",
+    "Product-owner verified/installed exact archive and every installed member equal",
+    "Bounded claims and preserved residuals independently reviewed",
+    "Durable local cut and status receipts"
+  ],
+  "stops": [
+    "Source mismatch",
+    "Unexpected non-metadata Product delta",
+    "Existing release/install target",
+    "Required owner refusal",
+    "Build reproduction mismatch"
+  ],
+  "return": "Root Executive evaluates exact local cut receipts; bounded development candidate only"
+}

@@ -35,7 +35,9 @@ import {
   admitRuntimeContract,
   publicContractCoordinateSchema,
   type OwnerContractSourceDeclaration,
+  type OwnerRequestOf,
 } from "../shared/public_function_contracts.js";
+import type { RUN_OPERATION_CONTRACTS } from "./run_operation_contracts.js";
 import {
   selectIntrinsicPublicFunctionDefinition,
   type IntrinsicPublicFunctionDefinition,
@@ -194,22 +196,10 @@ export interface InvocationConstructionRefusal {
   readonly message: string;
 }
 
-export interface ExactDirectRunInvocationRequest
-  extends Readonly<Record<string, JsonValue>> {
-  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
-  readonly catalogHandle: string;
-  readonly inputContract: Readonly<{
-    readonly ref: string;
-    readonly digest: Sha256Digest;
-  }>;
-  readonly input: JsonValue;
-  readonly catalogView: Readonly<{
-    readonly ref: string;
-    readonly digest: Sha256Digest;
-  }>;
-  readonly allowlist: readonly string[];
-  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
-}
+/** The owner request of the direct GraphFunction member. */
+export type ExactDirectRunInvocationRequest =
+  & OwnerRequestOf<typeof RUN_OPERATION_CONTRACTS.invoke.invoke>
+  & Readonly<Record<string, JsonValue>>;
 
 export type ExactDirectRunInvocation = AdmittedPublicInvocation<
   Readonly<{
@@ -219,30 +209,10 @@ export type ExactDirectRunInvocation = AdmittedPublicInvocation<
   ExactDirectRunInvocationRequest
 >;
 
-export interface ExactStartRunInvocationRequest
-  extends Readonly<Record<string, JsonValue>> {
-  readonly program: Readonly<{ readonly ref: string; readonly digest: Sha256Digest }>;
-  readonly scope: "program";
-  readonly target: Readonly<Record<string, JsonValue>>;
-  readonly until: "converged";
-  readonly catalogView: Readonly<{
-    readonly ref: string;
-    readonly digest: Sha256Digest;
-  }>;
-  readonly allowlist: readonly string[];
-  readonly input: Readonly<{
-    readonly contract: Readonly<{
-      readonly ref: string;
-      readonly digest: Sha256Digest;
-    }>;
-    readonly valueRef: string;
-    readonly valueDigest: Sha256Digest;
-    readonly value: JsonValue;
-  }>;
-  readonly fhMode: "direct" | "human-proxy";
-  readonly rootMode: "direct" | "supervised";
-  readonly sourceBasis: Readonly<Record<string, JsonValue>>;
-}
+/** The owner request of the Program start member, defaults applied. */
+export type ExactStartRunInvocationRequest =
+  & OwnerRequestOf<typeof RUN_OPERATION_CONTRACTS.invoke.start>
+  & Readonly<Record<string, JsonValue>>;
 
 export type ExactStartRunInvocation = AdmittedPublicInvocation<
   Readonly<{

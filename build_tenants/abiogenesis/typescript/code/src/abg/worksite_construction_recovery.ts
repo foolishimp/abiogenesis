@@ -22,10 +22,12 @@ import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
 import { admitIJsonText } from "../shared/i_json.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectActorProcessLifecycle, validateActorProcessCarrierPair } from "./actor_process.js";
-import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, type CCall } from "./c_call.js";
+import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix, projectAdmittedCCallStateAtPrefix, projectAdmittedTransportEvidenceLifecycle,
+  type CCall } from "./c_call.js";
 import { projectExactPrefixWorkspaceEnvironment } from "./environment_admission.js";
-import { authenticateRuntimePrefixAncestry, readRuntimeEventsAtDurablePrefix, validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "./event_store.js";
-import { indexedRuntimeEvents, runtimeEventsFromValidatedPrefix, selectValidatedRuntimeEventPrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { runtimeEventProfile, authenticateRuntimePrefixAncestry, validateDurablePrefixCoordinate, type DurablePrefixCoordinate,
+  type RuntimeEvent } from "./event_store.js";
+import { indexedRuntimeEvents, indexedRuntimeEventEnvelopes, readOwnedRuntimeEventPrefixAtDurablePrefix, type RuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPrefix, type ExecutionBasis } from "./execution_basis.js";
 import { rehydrateInvocationAdmissionAtPrefix } from "./invocation_admission.js";
 import { hasAdmittedTraversalCursorAtPrefix, type TraversalCursorCandidate } from "./traversal_cursor.js";
@@ -35,6 +37,7 @@ import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import { classifyOwnedProcessTerminal, type OwnedProcessFacts } from "../shared/process/index.js";
 import { OWNED_PROCESS_FACT_MEMBERS } from "../shared/process/facts.js";
 import { constructRuntimeFluent, runtimeFluentHoldsAtPrefix } from "./event_calculus.js";
+import { archiveRangeMatchesStreamRow, durableActorObservationOfArtifact, isAdmittedActorArchiveFile } from "./transport_contracts.js";
 
 export interface WorksitePreservedResultNativeBasis {
   readonly publication: Readonly<ModulePublication>;
@@ -67,6 +70,14 @@ function transportProcessFactsMatchExit(transport: Readonly<Record<string, JsonV
     classifyOwnedProcessTerminal(facts as unknown as OwnedProcessFacts) === "exited" &&
     facts.directExit.status === transport.status && facts.directExit.signal === transport.signal;
 }
+/** A retained archive keeps all three lifecycle copies; a D5 archive omits all
+ * three and its own timeoutClass and encoded facts carry the completed exit. A
+ * partial set refuses. */
+function transportArchiveCompleted(transport: Readonly<Record<string, JsonValue>>): boolean {
+  const copies = ["timedOut", "exitObserved", "terminationConfirmed"].filter(key => Object.hasOwn(transport, key)).length;
+  return copies === 3 ? transport.timedOut === false && transport.exitObserved === true
+    : copies === 0 && transport.timeoutClass === null && transport.processFacts !== undefined;
+}
 function materialized(execution: ExecutionBasis, graphFunction: GraphFunction) {
   if (graphFunction.name !== execution.graphFunctionRef || hash(graphFunction) !== execution.graphFunctionDigest) return null;
   const graph = materializeGraph(graphFunction, { invocationAdmissionRef: execution.invocationAdmissionRef,
@@ -97,16 +108,18 @@ function sameInvocation(a: ExecutionBasis, b: ExecutionBasis) {
 
 /** Reconstruct the published closed bridge/assessor arms from native coordinates,
  * not from today's callable closure or a caller-supplied historical definition. */
-function taskBridge(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBasis, task: WorksiteConstructionTask) {
-  const events = runtimeEventsFromValidatedPrefix(prefix);
+function taskBridge(prefix: RuntimeEventPrefix, execution: ExecutionBasis, task: WorksiteConstructionTask) {
+  const opening = (ref: string) => exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + ref), e => e.kind === "c_call_opened" && e.aggregateId === ref));
   if (execution.parentExecutionBasisRef === null || execution.parentCCallRef === null) return null;
   const entry = rehydrateExecutionBasisAtPrefix(prefix, execution.parentExecutionBasisRef);
   if (entry === null || !sameInvocation(entry, execution) || !isWorksitePreparationInput(entry.rawInputValue) ||
     entry.rawInputValue.kind !== "worksite_command_preparation_input" || !canonicalEquals(entry.rawInputValue.constructionTask, task)) return null;
   const entryValue = entry.rawInputValue;
-  const sources = events.filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && canonicalEquals(presentMember(e.payload.value), entryValue))
+  // Result multiplicity is the value relation itself, so every admitted result body remains in scope.
+  const entryOrdinal = indexedRuntimeEventEnvelopes(prefix, "id:" + entry.admissionEventRef)[0]!.admissionOrdinal;
+  const sources = indexedRuntimeEvents(prefix, "kind:c_call_result_admitted").filter(e => e.kind === "c_call_result_admitted" && record(e.payload) && canonicalEquals(presentMember(e.payload.value), entryValue))
     .map(event => {
-      const opened = exactOrNull(resolveExactMatch(events, e => e.kind === "c_call_opened" && e.aggregateId === event.aggregateId));
+      const opened = opening(event.aggregateId);
       const owner = opened?.basisId === undefined ? null : rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
       if (owner === null || !sameInvocation(owner, entry) || !record(opened?.payload) || typeof opened.payload.programLocusRef !== "string" ||
         !isSemanticStageEnvelope(owner.rawInputValue) || owner.rawInputValue.worksite === null) return null;
@@ -119,7 +132,7 @@ function taskBridge(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBas
       const envelope = owner.rawInputValue;
       const last = envelope.assets.at(-1);
       if (last?.assessment === null || last?.assessment === undefined || last.candidate.worksiteDesign === null) return null;
-      const assessmentOpen = exactOrNull(resolveExactMatch(events, e => e.kind === "c_call_opened" && e.aggregateId === last.assessment!.source.cCallRef));
+      const assessmentOpen = opening(last.assessment.source.cCallRef);
       const assessmentExecution = assessmentOpen?.basisId === undefined ? null : rehydrateExecutionBasisAtPrefix(prefix, assessmentOpen.basisId);
       const stage = envelope.lifecycle.stages.find(s => s.declarationRef === last.stageRef);
       if (assessmentExecution === null || stage === undefined) return null;
@@ -127,8 +140,7 @@ function taskBridge(prefix: ValidatedRuntimeEventPrefix, execution: ExecutionBas
         constructSemanticStageGraphFunction(stage, assessmentExecution.closureContractRef));
       if (assessment === null || assessment.cCall.implementationRef !== SEMANTIC_STAGE_IDS.assessorImplementationRef ||
         assessment.result.resultClass !== "success" || assessment.judgment.judgment !== "advance" || !canonicalEquals(assessment.result.value, envelope) ||
-        assessment.resultEvent.admissionOrdinal >= event.admissionOrdinal || event.admissionOrdinal >=
-          events.find(e => e.eventId === entry.admissionEventRef)!.admissionOrdinal) return null;
+        assessment.resultEvent.admissionOrdinal >= event.admissionOrdinal || event.admissionOrdinal >= entryOrdinal) return null;
       return { envelope, bridge };
     }).filter((x): x is NonNullable<typeof x> => x !== null);
   return exactOrNull(onlyExactMatch(sources));
@@ -212,8 +224,9 @@ function originalRequest(task: WorksiteConstructionTask) {
 export function projectPreservedWorksiteProposal(selector: WorksitePreservedResultSource) {
   try {
     const source = constructWorksitePreservedResultSource(selector);
-    const events = readRuntimeEventsAtDurablePrefix(source.historicalPrefix), prefix = selectValidatedRuntimeEventPrefix(events);
-    const opened = exactOrNull(resolveExactMatch(events, e => e.kind === "c_call_opened" && e.aggregateId === source.sourceCCallRef));
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(source.historicalPrefix);
+    const selected = (ref: string, match: (e: RuntimeEvent) => boolean) => exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "related:" + ref), match));
+    const opened = selected(source.sourceCCallRef, e => e.kind === "c_call_opened" && e.aggregateId === source.sourceCCallRef);
     const execution = opened?.basisId === undefined ? null : rehydrateExecutionBasisAtPrefix(prefix, opened.basisId);
     if (execution === null || execution.graphFunctionRef !== WORKSITE_CONSTRUCTION_IDS.graphFunctionRef || !isWorksiteConstructionTask(execution.rawInputValue)) return null;
     const environment = projectExactPrefixWorkspaceEnvironment(source.historicalPrefix,
@@ -230,19 +243,27 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       old.result.resultClass !== "failure" || old.judgment.judgment !== "blocked") return null;
     const bridge = taskBridge(prefix, execution, task);
     if (bridge === null) return null;
-    const started = exactOrNull(resolveExactMatch(events, e => e.kind === "actor_invocation_started" && e.aggregateId === source.actorInvocationRef && e.parentAggregateId === source.sourceCCallRef));
-    const artifact = exactOrNull(resolveExactMatch(events, e => e.kind === "actor_result_artifact_observed" && e.aggregateId === source.actorInvocationRef && e.parentAggregateId === source.sourceCCallRef));
-    const failed = exactOrNull(resolveExactMatch(events, e => e.kind === "actor_invocation_failed" && e.aggregateId === source.actorInvocationRef && e.parentAggregateId === source.sourceCCallRef));
+    const actor = (kind: string) => selected(source.actorInvocationRef, e => e.kind === kind && e.aggregateId === source.actorInvocationRef && e.parentAggregateId === source.sourceCCallRef);
+    const started = actor("actor_invocation_started"), artifact = actor("actor_result_artifact_observed"), failed = actor("actor_invocation_failed");
     if (!record(started?.payload) || !record(artifact?.payload) || !record(failed?.payload)) return null;
     const startedPayload = started.payload;
-    const binding = exactOrNull(resolveExactMatch(events, e => e.kind === "actor_transport_binding_admitted" && e.aggregateId === startedPayload.transportBindingRef &&
-      e.parentAggregateId === source.sourceCCallRef && e.basisId === execution.basisRef));
+    const binding = typeof startedPayload.transportBindingRef !== "string" ? null : selected(startedPayload.transportBindingRef, e => e.kind === "actor_transport_binding_admitted" &&
+      e.aggregateId === startedPayload.transportBindingRef && e.parentAggregateId === source.sourceCCallRef && e.basisId === execution.basisRef);
     if (!record(binding?.payload)) return null;
     const b = binding.payload, a = artifact.payload;
     const request = originalRequest(task), requestDigest = hash(request);
     const { transportBindingRef, transportBindingDigest, ...bindingBody } = b;
-    const observation = Object.fromEntries(Object.entries(a).filter(([k]) => k !== "cCallRef" && k !== "requestRef" && k !== "requestDigest"));
-    const pair = validateActorProcessCarrierPair(request, observation);
+    // The durable body under the artifact's own profile, completed by the CCall
+    // owner's lifecycle values for the Result's exact transport evidence (D5).
+    const evidence = selected(source.sourceCCallRef, e => e.kind === "c_call_evidenced" && e.aggregateId === source.sourceCCallRef &&
+      record(e.payload) && e.payload.evidenceClass === "probabilistic_transport" && e.payload.actorInvocationRef === source.actorInvocationRef);
+    const durable = durableActorObservationOfArtifact(a, runtimeEventProfile(artifact)?.lifecycleCopies === false);
+    const lifecycleValues = !record(evidence?.payload) || typeof evidence.payload.evidenceRef !== "string" ||
+      !old.result.evidenceRefs.includes(evidence.payload.evidenceRef) ? null
+      : projectAdmittedTransportEvidenceLifecycle(prefix, source.sourceCCallRef, evidence.payload);
+    if (durable === null || lifecycleValues === null || lifecycleValues.actorTerminalEventRef !== failed.eventId) return null;
+    const { actorTerminalEventRef: _actorTerminal, ...lifecycleCopies } = lifecycleValues;
+    const pair = validateActorProcessCarrierPair(request, { ...durable, ...lifecycleCopies });
     if (pair.kind !== "actor_process_carrier_validation" || pair.observation.disposition !== "failure" || pair.observation.failureClass !== "no_output" ||
       pair.observation.finalOutput !== "" || pair.observation.processStatus !== 0 || pair.observation.processSignal !== null ||
       pair.observation.timedOut || !actorProcessTerminated(prefix, pair.observation.processRef) || !pair.observation.exitObserved || pair.observation.toolCallCount !== 0 ||
@@ -259,7 +280,8 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
     if (source.actorInvocationRef !== `actor-invocation://abiogenesis/${hash({ attemptDigest, transportBindingRef, transportBindingDigest }).slice(7)}` ||
       a.processRef !== `process://abiogenesis/${hash({ actorInvocationRef: source.actorInvocationRef }).slice(7)}`) return null;
     const lifecycle = projectActorProcessLifecycle(prefix, source.actorInvocationRef);
-    const exit = exactOrNull(resolveExactMatch(events, e => e.eventId === lifecycle.processTerminalEventRef));
+    const exit = lifecycle.processTerminalEventRef === null ? null :
+      exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + lifecycle.processTerminalEventRef), e => e.eventId === lifecycle.processTerminalEventRef));
     if (lifecycle.processLive || lifecycle.cleanupDisposition !== "complete" || lifecycle.processTerminalKind !== "actor_process_exited" ||
       lifecycle.actorTerminalEventRef !== failed.eventId || !record(exit?.payload) || exit.payload.status !== 0 || exit.payload.signal !== null ||
       !(binding.admissionOrdinal < started.admissionOrdinal && started.admissionOrdinal < exit.admissionOrdinal && exit.admissionOrdinal < artifact.admissionOrdinal &&
@@ -267,10 +289,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
     const artifacts = {} as Record<"output" | "prompt" | "stderr" | "stdout" | "transport", Buffer>;
     for (const key of ["output", "prompt", "stderr", "stdout", "transport"] as const) {
       const path = b.paths[key];
-      if (typeof path !== "string" || resolve(path) !== path || realpathSync(path) !== path || relative(b.archiveRoot, path).startsWith("..") ||
-        isAbsolute(relative(b.archiveRoot, path))) return null;
-      const stat = lstatSync(path);
-      if (!stat.isFile() || stat.isSymbolicLink() || stat.nlink !== 1) return null;
+      if (!isAdmittedActorArchiveFile(b.archiveRoot, path)) return null;
       artifacts[key] = readFileSync(path);
       if (sha256Bytes(artifacts[key]) !== pair.observation.artifactDigests[key]) return null;
     }
@@ -279,10 +298,13 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       artifacts.stdout.length !== pair.observation.stdoutByteLength || artifacts.stderr.length !== pair.observation.stderrByteLength ||
       transport.stdout !== artifacts.stdout.toString("utf8") || transport.stderr !== artifacts.stderr.toString("utf8") || transport.finalOutput !== "" ||
       transport.disposition !== "failure" || transport.failureClass !== "no_output" || transport.status !== 0 || transport.signal !== null ||
-      transport.toolCallCount !== 0 || transport.toolInvocations === undefined || !canonicalEquals(transport.toolInvocations, []) || transport.timedOut !== false || transport.exitObserved !== true ||
+      transport.toolCallCount !== 0 || transport.toolInvocations === undefined || !canonicalEquals(transport.toolInvocations, []) || !transportArchiveCompleted(transport) ||
       !actorProcessTerminated(prefix, pair.observation.processRef) || !transportProcessFactsMatchExit(transport)) return null;
-    const chunks = events.filter(e => e.kind === "actor_process_stdout_observed" || e.kind === "actor_process_stderr_observed")
-      .filter(e => record(e.payload) && e.payload.actorInvocationRef === source.actorInvocationRef);
+    // Stream rows are selected by their payload claim, so a foreign process or
+    // parent claiming this invocation still refuses; both kinds keep log order.
+    const chunks = [...indexedRuntimeEvents(prefix, "kind:actor_process_stdout_observed"), ...indexedRuntimeEvents(prefix, "kind:actor_process_stderr_observed")]
+      .filter(e => record(e.payload) && e.payload.actorInvocationRef === source.actorInvocationRef)
+      .sort((a, b) => a.admissionOrdinal - b.admissionOrdinal);
     let stdoutOffset = 0, stderrOffset = 0;
     for (const [index, event] of chunks.entries()) {
       if (!record(event.payload) || event.payload.streamOrdinal !== index + 1 || event.aggregateId !== a.processRef ||
@@ -292,7 +314,7 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
       const stream = event.kind === "actor_process_stdout_observed" ? "stdout" : "stderr";
       const offset = stream === "stdout" ? stdoutOffset : stderrOffset;
       const bytes = artifacts[stream].subarray(offset, offset + Number(event.payload.byteLength));
-      if (bytes.length !== event.payload.byteLength || hash(new TextDecoder("utf-8", { fatal: true }).decode(bytes)) !== event.payload.chunkDigest) return null;
+      if (!archiveRangeMatchesStreamRow(bytes, event.payload.byteLength, event.payload.chunkDigest)) return null;
       if (stream === "stdout") stdoutOffset += bytes.length; else stderrOffset += bytes.length;
     }
     const stdoutChunkEventRefs = chunks.filter(e => e.kind === "actor_process_stdout_observed").map(e => e.eventId);
@@ -315,17 +337,24 @@ export function projectPreservedWorksiteProposal(selector: WorksitePreservedResu
 }
 
 export function authenticateWorksitePreservedResultBasis(basis: WorksitePreservedResultNativeBasis) {
+  const owner = preservedResultOwner(basis);
+  if (owner === null) return null;
+  const { prefix: _prefix, ...authenticated } = owner;
+  return authenticated;
+}
+/** The owner-selected predecessor prefix stays private to this owner's relations. */
+function preservedResultOwner(basis: WorksitePreservedResultNativeBasis) {
   try {
     const source = worksitePreservedResultSourceOfGraphFunction(basis.graphFunction);
     if (source === null || !validateDurablePrefixCoordinate(basis.predecessorPrefix) ||
       !authenticateRuntimePrefixAncestry(source.historicalPrefix, basis.predecessorPrefix)) return null;
-    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix), prefix = selectValidatedRuntimeEventPrefix(events);
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix);
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
     if (execution === null || !canonicalEquals(execution, basis.executionBasis) || !isWorksiteConstructionTask(execution.rawInputValue)) return null;
     const graph = materialized(execution, basis.graphFunction);
     if (graph === null || !canonicalEquals(graph, basis.graph)) return null;
     const call = projectOpenedCCallCarrierAtPrefix(prefix, graph, basis.cCall.cCallRef);
-    const opened = exactOrNull(resolveExactMatch(events, e => e.eventId === call?.openedEventRef));
+    const opened = call === null ? null : exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "id:" + call.openedEventRef), e => e.eventId === call.openedEventRef));
     if (call === null || !canonicalEquals(call, basis.cCall) || call.callClass !== "leaf" || call.regime !== "F_D" ||
       !WORKSITE_PRESERVED_RESULT_IMPLEMENTATION_REFS.includes(call.implementationRef ?? "") ||
       !hasAdmittedTraversalCursorAtPrefix(prefix, basis.cursor) || !record(opened?.payload) ||
@@ -348,11 +377,11 @@ export function authenticateWorksitePreservedResultBasis(basis: WorksitePreserve
       invocation.capabilityGrants[0] === undefined || !canonicalEquals(invocation.capabilityGrants[0], task.capabilityGrant)) return null;
     const bridge = taskBridge(prefix, execution, task);
     if (bridge === null) return null;
-    const inputValue = basis.cursor.inputRef === execution.rawInputAdmissionRef ? task : exactOrNull(resolveExactMatch(events, e => e.kind === "c_call_result_admitted" &&
+    const inputValue = basis.cursor.inputRef === execution.rawInputAdmissionRef ? task : exactOrNull(resolveExactMatch(indexedRuntimeEvents(prefix, "payload:resultRef:" + basis.cursor.inputRef), e => e.kind === "c_call_result_admitted" &&
       record(e.payload) && e.payload.resultRef === basis.cursor.inputRef))?.payload;
     const input = record(inputValue) && "value" in inputValue ? inputValue.value : inputValue;
     if (input === undefined || hash(input) !== basis.cursor.inputDigest) return null;
-    return { source, events, prefix, execution, call, task, input, bridge };
+    return { source, prefix, execution, call, task, input, bridge };
   } catch { return null; }
 }
 export function constructWorksitePreservedResultNativeBasis(basis: WorksitePreservedResultNativeBasis) {
@@ -374,7 +403,7 @@ export function projectWorksitePreservedResultArtifact(basis: WorksitePreservedR
 }
 export function projectWorksitePreservedCandidateBundle(basis: WorksitePreservedResultNativeBasis, input: unknown) {
   try {
-    const owner = authenticateWorksitePreservedResultBasis(basis);
+    const owner = preservedResultOwner(basis);
     if (owner === null || owner.call.implementationRef !== ids.deriveImplementationRef || !isWorksitePreservedResultArtifact(input) ||
       !canonicalEquals(owner.input, input) || !canonicalEquals(input.currentTask, owner.task) || !currentTaskPhysical(owner.task)) return null;
     const admitted = admittedLeaf(owner.prefix, input.owner.cCallRef, basis.graphFunction);

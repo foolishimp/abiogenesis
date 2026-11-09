@@ -182,17 +182,40 @@ const continueRefusalSchema = refusalSchema([
   "reprice_mismatch",
 ]);
 
-function continueContract<const TMember extends
-  "current_intent" | "selected_action">(member: TMember) {
-  const request = member === "current_intent"
-    ? v.strictObject({
-      run: refDigestSchema,
-      continuation: refDigestSchema,
-      currentIntent: refDigestSchema,
-      continuationInput: refDigestSchema,
-      expectedBasis: refDigestSchema,
-    })
-    : v.strictObject({
+// The current-execution member's contract domain has two explicit, exclusive
+// alternatives: the current construction intent, and a replay-derived pending
+// execution (registered selection/recursion) with no intent or action field.
+const CURRENT_EXECUTION_KINDS = ["current_intent", "pending_execution"] as const;
+
+// Each continuation member constructs only its own variant, so the packet type
+// of each member is exactly its runtime schema.
+const continueVariantFactories = {
+  current_intent: () => ({
+    kinds: CURRENT_EXECUTION_KINDS,
+    kindSchema: v.picklist(CURRENT_EXECUTION_KINDS),
+    request: v.union([
+      v.strictObject({
+        run: refDigestSchema,
+        continuation: refDigestSchema,
+        currentIntent: refDigestSchema,
+        continuationInput: refDigestSchema,
+        expectedBasis: refDigestSchema,
+      }),
+      v.strictObject({
+        run: refDigestSchema,
+        continuation: refDigestSchema,
+        pendingCursor: refDigestSchema,
+        continuationInput: refDigestSchema,
+        expectedBasis: refDigestSchema,
+      }),
+    ]),
+    admittedIntent: v.null(),
+  }),
+  // The unchanged selected_action member keeps its exact single-literal serialization.
+  selected_action: () => ({
+    kinds: ["selected_action"] as const,
+    kindSchema: v.literal("selected_action"),
+    request: v.strictObject({
       run: refDigestSchema,
       continuation: refDigestSchema,
       selectedAction: refDigestSchema,
@@ -203,21 +226,40 @@ function continueContract<const TMember extends
           coveringReprice: refDigestSchema,
         }),
       ]),
-    });
+    }),
+    admittedIntent: refDigestSchema,
+  }),
+};
+type ContinueVariant = {
+  readonly [M in keyof typeof continueVariantFactories]: ReturnType<
+    (typeof continueVariantFactories)[M]
+  >;
+};
+const CONTINUE_VARIANTS: {
+  readonly [M in keyof ContinueVariant]: () => ContinueVariant[M];
+} = continueVariantFactories;
+
+function continueContract<const TMember extends
+  "current_intent" | "selected_action">(member: TMember) {
+  const variant = CONTINUE_VARIANTS[member]();
+  // Indexed annotations keep each member's own variant instead of the union.
+  const kinds: ContinueVariant[TMember]["kinds"] = variant.kinds;
+  const kindSchema: ContinueVariant[TMember]["kindSchema"] = variant.kindSchema;
+  const request: ContinueVariant[TMember]["request"] = variant.request;
+  const admittedIntent: ContinueVariant[TMember]["admittedIntent"] =
+    variant.admittedIntent;
   const result = v.strictObject({
-    continuationKind: v.literal(member),
+    continuationKind: kindSchema,
     run: refDigestSchema,
     graphCall: v.nullable(refDigestSchema),
-    admittedIntent: member === "selected_action"
-      ? refDigestSchema
-      : v.null(),
+    admittedIntent,
     successor: refDigestSchema,
     disposition: v.picklist(["completed", "blocked", "runtime_failed"]),
     evidence: nonemptyRefDigestSetSchema,
     replay: refDigestSchema,
   });
   const nonTerminal = v.strictObject({
-    continuationKind: v.literal(member),
+    continuationKind: kindSchema,
     disposition: v.picklist(["held", "gap_stop"]),
     run: refDigestSchema,
     continuation: refDigestSchema,
@@ -259,7 +301,7 @@ function continueContract<const TMember extends
       ],
       capabilityRefs: capabilityRefsForDefinition({ operationId: "abg.operation.run.continue", memberKey: member }),
       defaults: {},
-      closedDomains: { continuationKind: [member] },
+      closedDomains: { continuationKind: [...kinds] },
       sdkCoordinate: "sdk.run.continue",
       cliCoordinate: `run continue --mode ${member}`,
       adapterExitMap: RUNTIME_NONTERMINAL_ADAPTER_EXIT_MAP,

@@ -86,11 +86,18 @@ export async function collectorHarness() {
       // The collector authenticates through the owned stage authenticator
       // (`authenticateOwnedSemanticStageBasis`, 67c333799) and compares the
       // basis input by the owner's input-equality reader.
-      authenticateSemanticStageBasis:()=>owner,authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:()=>input,
+      authenticateOwnedSemanticStageBasis:()=>owner,semanticInputValueAtBasis:()=>input,
       semanticInputAtBasisEquals:(_basis,value)=>hash(value)===hash(input),
       projectSemanticPredecessorAtPrefix:(_prefix,_events,_publication,ref)=>states.get(ref)??null,
       rehydrateExecutionBasisAtPrefix:(_prefix,ref)=>executions.get(ref)??null,
-      selectValidatedRuntimeEventPrefix:events=>{prefixCalls.push(events);return prefixes.selectValidatedRuntimeEventPrefix(events);},
+      // The owner prefix is a lookup assumption, so the shared historical cut
+      // keeps the owner rows before the exact bridge row; the strict selector
+      // validates those retained rows.
+      validatedRuntimeEventPrefixBeforeEvent:(prefix,eventId)=>{
+        assert.equal(prefix,owner.prefix);const boundary=owner.events.find(e=>e.eventId===eventId);
+        if(boundary===undefined)throw new TypeError('historical event-prefix boundary requires one exact admitted event');
+        const rows=Object.freeze(owner.events.filter(e=>e.admissionOrdinal<boundary.admissionOrdinal));
+        prefixCalls.push(rows);return prefixes.selectValidatedRuntimeEventPrefix(rows);},
       revisionPreparationAtBasis:(_basis,value,readPhysical,cut)=>{
         assert.equal(hash(value),hash(original));assert.equal(readPhysical,false);
         const rows=prefixes.runtimeEventsFromValidatedPrefix(cut);assert.equal(rows.length,10);

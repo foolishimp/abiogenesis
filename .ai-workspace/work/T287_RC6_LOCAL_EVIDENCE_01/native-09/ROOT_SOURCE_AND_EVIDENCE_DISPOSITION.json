@@ -1,0 +1,105 @@
+{
+  "kind": "Root_bounded_source_and_evidence_disposition",
+  "recordedUtc": "2026-11-04T13:45:15.454583+00:00",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/ROOT_TARGETED_REFACTOR_09.md",
+    "bytes": 6177,
+    "sha256": "0f6a39b2f2a4c76c9929ed68baa1625ab397de5f26221aae8fbed2d671a61b05"
+  },
+  "productFrame": "ABIogenesis5/GOAL-035/T-287; immutable STDO3.0.4; empty composition; immutable installed RC5 builder",
+  "subject": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/review-subject-001/SUBJECT.json",
+    "bytes": 225298,
+    "sha256": "38933d61515b3a4b07d7b86bf5b2a731ab35f86e43cdae8bd25ddace4e4c0a13"
+  },
+  "independentReview": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/INDEPENDENT_TARGETED_REFACTOR_REVIEW.json",
+    "bytes": 83767,
+    "sha256": "f37b4572adc78ba8a8543cd3b846c789be163f07a6788d168faf449027d07e36"
+  },
+  "actualC2": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/ACTUAL_C2_SUMMARY.json",
+    "bytes": 10624,
+    "sha256": "796a3c82eef44ceb32425ed2a636187622d589ca6b4f3d0b88bfb638654efbef"
+  },
+  "actualC2Result": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/single-address-space-consolidation-01/native-09/NATIVE_C2_CLOSED_RESULT.json",
+    "bytes": 2209,
+    "sha256": "5f93c6b93c5dc966519842450455de0ab4522130bf77cb5083d0d2471cf649be"
+  },
+  "sourceDisposition": {
+    "status": "BOUNDED_SOURCE_CONFORMANCE_ACCEPTED",
+    "basis": "Independent sourceAssessment satisfied with no findings; three historical cuts/seven ordinary expressions/four wrappers and the complete finite affected caller/fixture population conform. No added functionality.",
+    "scope": "The frozen26-path increment only. No successful current whole-path C2, terminal UAT, whole programme, installed successor or release acceptance.",
+    "furtherCodingSelected": false
+  },
+  "actual09Standing": {
+    "status": "ACTUAL_C2_FAILED_PRESERVED",
+    "tally": {
+      "pass": 77,
+      "fail": 8,
+      "skipped": 75
+    },
+    "nativeProof": null,
+    "sourceCorrespondence": 160,
+    "protectedInputCount": 969,
+    "protectedInputsPreserved": true,
+    "productDelta": [],
+    "UATAndFinalClose": "Pending actual owner return; no native verdict rewritten."
+  },
+  "dispositions": [
+    {
+      "finding": "N9-EVIDENCE-01",
+      "reviewSeverity": 4,
+      "decision": "Resolve through a new verification-only packet after actual09 closes.",
+      "originatingRelation": "Operator selected input root lacks the baseline required by the unchanged test reader.",
+      "downstreamSymptoms": "Six ENOENT cases and one dependent proof-record assertion; missing current native proof; affected-proof exit1.",
+      "whyPriorChecksMissedIt": "Declared selected-file/capacity checks did not establish the dynamic filename dependency. Author scratch used the retained baseline, which was absent at the selected C2 root.",
+      "correction": "Stage/select the byte-identical5575B baseline774df7457d5c10945f6d58ea144747bc051bca36e88624680f6f17c056ec5a06 at proof10; run only the existing12-case whole-path lane with unchanged source.",
+      "actual09Changed": false
+    },
+    {
+      "finding": "N9-EVIDENCE-02",
+      "reviewSeverity": 4,
+      "decision": "Retain actual09 per-test outcomes as bounded regression/equivalence evidence; do not rerun them solely to change count predicates.",
+      "consumerLane": "59 passes and73 identical historical skips in candidate/preimage/actual C2. Floor62 was mismatched. The original unmet predicate remains; no73 skipped cases acquire execution credit.",
+      "revisionLane": "4 passes,1 real failure,2 historical skips reproduce candidate/preimage/actual C2. The first failure prevents its later assertions. No floor reduction, expected-failure green, or semantic repair is selected.",
+      "targetedClaim": "T2 supports preserved available behavior and no newly introduced source counterexample within the selected refactor; it does not assert complete D2 functionality or qualification."
+    }
+  ],
+  "retainedEvidenceCredit": {
+    "buildAndPackage": "Actual09 commands0..5 completed successfully and are retained with their original producer/candidate identity. Fresh sandbox compilation needed to execute proof10 may repeat preparation without creating a release/qualification claim.",
+    "jobLane": "Actual9/0/0; current frozen source correspondence established.",
+    "consumerLane": "Actual59/0/73 with original unmet floor preserved.",
+    "revisionLane": "Actual4/1/2 is a retained failure/equivalence observation, never a passing lane.",
+    "wholePath": "Actual5/7/0 preserved; no successful whole-path claim. New execution is limited to the existing12-case lane."
+  },
+  "deferredAssurance": {
+    "id": "N9-RETAINED-FIXTURE-01",
+    "classification": "Registered technical debt outside the current targeted refactor",
+    "owner": "T-287 native semantic revision component-test owner",
+    "referenceFrame": "Proof/test-premise alignment with the current runtime prefix reader",
+    "evidence": "Captured preimage and candidate native-semantic-revision TAPs and actual09 C2 all show the same first-test intake_projection_exception versus expected native_revision_cause_absent. Review statically confirms real readOwnedRuntimeEventPrefixAtDurablePrefix while the component fixture supplies only the older Event Store reader stub.",
+    "diagnosticLimit": "Exact ENOENT execution/restoration timing is author attribution; no retained diagnostic trace establishes it.",
+    "noBlockRationale": "The failure predates this increment and occurs before the affected later assertions; no new supported source-behavior counterexample was found. It remains a block to claims requiring that later D2 proof, not silently a pass.",
+    "lawfulReentry": "Separately select the existing test premise against the canonical owned reader; no Product feature or expected-error weakening.",
+    "activationTrigger": "Before the next selected native-D2 component/positive proof or qualification claim that depends on the failed test suffix.",
+    "dependentBoundary": "D2 functionality/whole-product qualification remains unproved by this fixture.",
+    "closureFalsifier": "A current targeted source regression or changed before/after failure invalidates this bounded disposition immediately.",
+    "closureEvidence": "Meaningful existing first-test assertions execute with a current-contract premise and a retained successful result; historical gated branches keep separate standing.",
+    "status": "DEFERRED_REGISTERED"
+  },
+  "proof10AdmissionConditions": [
+    "Same157 source and3 original09 handoffs remain byte-identical.",
+    "Exact baseline is selected and read at the current test input root before execution.",
+    "Existing immediate Testing/observed-C2 and read-only UAT only; no author/coding stage or fabricated previous state.",
+    "Actual09 outcome, fresh reads and genuine after-run-resume must be available before new preflight/dispatch.",
+    "Proportional exact control review and installed-owner preflight; final Root dispatch is separate."
+  ],
+  "unresolved": [
+    "Actual successful whole-path proof for the frozen source",
+    "Actual native09 UAT/fresh close",
+    "Proof10 final controls, actual execution/assessment/fresh close and Root bounded conjunction"
+  ],
+  "broaderScope": "R1-R7/C1-C5, workflow performance, extra functionality, successor install/cut, release and qualification remain outside this activation."
+}

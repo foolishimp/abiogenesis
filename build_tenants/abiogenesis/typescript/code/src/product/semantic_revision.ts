@@ -11,7 +11,7 @@ import { deriveSemanticAsset, deriveSemanticAssessment, isSemanticStageEnvelope,
 import { isSemanticJobEnvelope, projectSemanticJobBindings, deriveSemanticJobAsset, deriveSemanticJobAssessment,
   constructNativeSemanticConstructionTask, constructNativeSemanticExecutionTask, rederiveNativeSemanticExecutionTask, nativeSemanticEvidenceArtifacts,
   type SemanticJobEnvelope, type SemanticJobAsset, type NativeSemanticOperating, type NativeSemanticRevisionConstruction } from "./semantic_job.js";
-import { isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask, resolveNativeWorkspaceWorkJudgmentRelation, NATIVE_WORKSPACE_WORK_IDS, type NativeWorkspaceWorkObservation } from "./native_workspace_work.js";
+import { isNativeWorkspaceWorkObservation, isNativeWorkspaceWorkTask, nativeWorkspaceWorkObservationMatchesTask, resolveNativeWorkspaceWorkJudgmentRelation, NATIVE_WORKSPACE_WORK_IDS, type NativeWorkspaceWorkObservation, type NativeWorkspaceWorkTask } from "./native_workspace_work.js";
 import { isNativeWorksiteCommandExecutionObservation, isNativeWorksiteCommandExecutionTask, resolveWorksiteCommandExecutionJudgmentRelation, WORKSITE_COMMAND_EXECUTION_IDS, type WorksiteCommandExecutionLimits,
   type WorksiteCommandAmbientEnvironment } from "./worksite_command_execution.js";
 import { validateDurablePrefixCoordinate, type DurablePrefixCoordinate } from "../abg/event_store.js";
@@ -345,30 +345,33 @@ export function constructNativeRevisionConstructionTask(input: SemanticJobRevisi
   if (native === undefined || operating === undefined || input.current.context === null || input.current.evidence !== null) throw new TypeError("native revision construction basis required");
   return constructNativeSemanticConstructionTask(input.current, operating, input.current.context, nativeSemanticRevisionConstruction(input));
 }
-function selectedNativeRevisionConstruction(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation) {
-  if (!isNativeWorkspaceWorkObservation(source) || !canonicalEquals(source.task, constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...source.task})))
+/** `sourceTask` is the source Result's admitted basis input, resolved by the ABG owner. */
+function selectedNativeRevisionConstruction(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation, sourceTask: NativeWorkspaceWorkTask) {
+  if (!isNativeWorkspaceWorkObservation(source) || !isNativeWorkspaceWorkTask(sourceTask) || !nativeWorkspaceWorkObservationMatchesTask(sourceTask, source) ||
+    !canonicalEquals(sourceTask, constructNativeRevisionConstructionTask(input, {...input.revisionBasis.request.nativeWorksite!, ...sourceTask})))
     throw new TypeError("actual selected native revision construction required");
   return nativeSemanticRevisionConstruction(input);
 }
 /** The live construction: the rows are the operation boundary's capture on the
  * semantic stage basis (`null` captures nothing). */
 export function constructNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation,
-  ambient: WorksiteCommandAmbientEnvironment | null) {
-  return constructNativeSemanticExecutionTask(input.current, source, ambient, selectedNativeRevisionConstruction(input, source));
+  sourceTask: NativeWorkspaceWorkTask, ambient: WorksiteCommandAmbientEnvironment | null) {
+  return constructNativeSemanticExecutionTask(input.current, source, sourceTask, ambient, selectedNativeRevisionConstruction(input, source, sourceTask));
 }
 /** A recorded native revision execution task re-derived under the bound law
  * (`rederiveNativeSemanticExecutionTask`): its bound rows, ambient `null`. */
-export function rederiveNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation, recorded: unknown) {
-  return rederiveNativeSemanticExecutionTask(input.current, source, recorded, selectedNativeRevisionConstruction(input, source));
+export function rederiveNativeRevisionExecutionTask(input: SemanticJobRevisionEnvelope, source: NativeWorkspaceWorkObservation,
+  sourceTask: NativeWorkspaceWorkTask, recorded: unknown) {
+  return rederiveNativeSemanticExecutionTask(input.current, source, sourceTask, recorded, selectedNativeRevisionConstruction(input, source, sourceTask));
 }
 /** Coordinates supplied here are admitted by the ABG source join, never by this pure constructor. */
-export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope, execution: unknown,
+export function deriveNativeRevisionEvidence(input: SemanticJobRevisionEnvelope, execution: unknown, sourceTask: NativeWorkspaceWorkTask,
   construction: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">,
   command: Pick<SemanticRevisionCoordinate, "resultRef" | "resultDigest">): SemanticJobRevisionEnvelope | null {
   try {
     if (!isSemanticJobRevisionEnvelope(input) || !isNativeWorksiteCommandExecutionObservation(execution) ||
-      !canonicalEquals(execution.task, rederiveNativeRevisionExecutionTask(input, execution.task.sourceNativeWork, execution.task))) return null;
-    const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, nativeSemanticRevisionConstruction(input));
+      !canonicalEquals(execution.task, rederiveNativeRevisionExecutionTask(input, execution.task.sourceNativeWork, sourceTask, execution.task))) return null;
+    const artifacts = nativeSemanticEvidenceArtifacts(input.current, execution, sourceTask, nativeSemanticRevisionConstruction(input));
     if (artifacts === null) return null;
     return deepFreeze({ ...input, current: { ...input.current, context: execution.task.sourceNativeWork.after, worksite: null,
       evidence: { kind: "semantic_worksite_evidence", constructionResultRef: construction.resultRef, constructionResultDigest: construction.resultDigest,
@@ -411,20 +414,21 @@ export function evaluateNativeSemanticRevisionRelation(predicate: string, input:
         canonicalEquals(constructNativeRevisionConstructionTask(input,{...input.revisionBasis.request.nativeWorksite!,...output}), output);
     if (predicate === ids.nativeExecutionPredicateRef || step && isRetainedGraphInput(input) && isNativeWorksiteCommandExecutionTask(output)) {
       if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isNativeWorkspaceWorkObservation(input.source)) return false;
+      // The source task is the ABG execution owner's basis-input join; this consequence binds the exact source Result.
       const admittedOutput = admitJson(output);
-      return admittedOutput.kind === "ok" && canonicalEquals(rederiveNativeRevisionExecutionTask(input.entry,input.source,admittedOutput.value), admittedOutput.value);
+      return admittedOutput.kind === "ok" && isNativeWorksiteCommandExecutionTask(admittedOutput.value) &&
+        canonicalEquals(admittedOutput.value.sourceNativeWork, input.source);
     }
     if (predicate === ids.nativeEvidencePredicateRef || step && isRetainedGraphInput(input) && isSemanticJobRevisionEnvelope(output)) {
       if (isSemanticJobRevisionEnvelope(input) && isSemanticJobRevisionEnvelope(output) && output.current.evidence !== null)
         input = constructRetainedGraphInput(input,output.current.evidence.executionObservation);
       if (!isRetainedGraphInput(input) || !isSemanticJobRevisionEnvelope(input.entry) || !isSemanticJobRevisionEnvelope(output) || output.current.evidence === null) return false;
-      const evidence = output.current.evidence;
-      return canonicalEquals(
-        deriveNativeRevisionEvidence(input.entry,input.source,
-          {resultRef:evidence.constructionResultRef,resultDigest:evidence.constructionResultDigest},
-          {resultRef:evidence.executionResultRef,resultDigest:evidence.executionResultDigest}),
-        output,
-      );
+      // Artifact derivation needs the source task; ABG's evidence projection owns that join.
+      const evidence = output.current.evidence, execution = input.source;
+      return isNativeWorksiteCommandExecutionObservation(execution) && canonicalEquals(evidence.executionObservation, execution) &&
+        canonicalEquals(evidence.constructionResult, execution.task.sourceNativeWork) && canonicalEquals(output.current.context, execution.task.sourceNativeWork.after) &&
+        canonicalEquals(output.revisionBasis, input.entry.revisionBasis) && canonicalEquals(output.current.assets, input.entry.current.assets) &&
+        canonicalEquals(output.current.job, input.entry.current.job);
     }
     if (step && isNativeWorkspaceWorkTask(input)) return resolveNativeWorkspaceWorkJudgmentRelation(NATIVE_WORKSPACE_WORK_IDS.judgmentPredicateRef)?.evaluate(input,output) === true;
     if (step && isNativeWorksiteCommandExecutionTask(input)) return resolveWorksiteCommandExecutionJudgmentRelation(WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef)?.evaluate(input,output) === true;

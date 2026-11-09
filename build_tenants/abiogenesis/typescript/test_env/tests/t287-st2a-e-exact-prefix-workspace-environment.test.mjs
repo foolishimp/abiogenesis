@@ -6,6 +6,8 @@ import test from "node:test";
 
 import { prepareLanguageSmokeFixture } from
   "../support/language-smoke-fixture.mjs";
+import { countedOwnerCalls } from
+  "../support/t287-exact-prefix-projection-reuse.mjs";
 import {
   publicOperationBasis,
   setupInstalledRootCatalog,
@@ -180,4 +182,55 @@ test("ST-2A-E projects one exact immutable workspace environment without append"
     "workspace_binding_missing",
   );
   assert.deepEqual(await readFile(durablePath), bytesAfterSiblingAdmission);
+});
+
+// RC7-LATENCY-01: run-read population acquires an ordinary deserialized close
+// prefix once. The baseline captured the raw prefix again for preparation and
+// decoded the same unchanged history a second time.
+test("RC7 prefix reuse: run-read population decodes a deserialized prefix once and keeps refusals", async (context) => {
+  const environment = await setupInstalledRootCatalog(context, packageRoot, {
+    candidateBasisSource: "packed_artifact",
+  });
+  const { abg, product, durablePrefix, workspaceBinding } = environment;
+  const durablePath = fileURLToPath(durablePrefix.eventLogRef);
+  const bytes = await readFile(durablePath);
+  const coordinate = bindingCoordinate(workspaceBinding);
+  const decoder = [["/abg/event_store.js", "decodeRuntimeHistoryDescriptor"]];
+  const populate = (prefix, binding = coordinate, sourceRef = "run://abiogenesis/rc7-absent") =>
+    abg.populateRunReadAtDurablePrefix({ memberKey: "run_result", prefix, workspaceBinding: binding,
+      sourceRef, selector: { kind: "none" } });
+  const absentSource = { kind: "run_read_population_refusal", code: "unknown_source", issuePath: "/source/sourceRef" };
+
+  // An ordinary deserialized handoff prefix has no owner: one cold acquisition.
+  const deserialized = JSON.parse(JSON.stringify(durablePrefix));
+  const cold = await countedOwnerCalls(() => populate(deserialized), decoder);
+  assert.deepEqual(cold.result, absentSource);
+  assert.equal(cold.counts.decodeRuntimeHistoryDescriptor, 1, "one cold history decode for one raw prefix");
+
+  // A separately deserialized equal coordinate cannot assert the first one's
+  // acquired identity: it acquires its own once, with the same relation.
+  const second = await countedOwnerCalls(() => populate(structuredClone(durablePrefix)), decoder);
+  assert.deepEqual(second.result, cold.result);
+  assert.equal(second.counts.decodeRuntimeHistoryDescriptor, 1);
+
+  // The coordinate acquired by the owner is reused without another decode.
+  const truth = abg.projectOwnedPrefixArtifactTruth(JSON.parse(JSON.stringify(durablePrefix)));
+  assert.equal(truth.kind, "exact_prefix_artifact_truth_projection");
+  const acquired = await countedOwnerCalls(() => populate(truth.prefix), decoder);
+  assert.deepEqual(acquired.result, cold.result);
+  assert.equal(acquired.counts.decodeRuntimeHistoryDescriptor, 0, "acquired identity reused within its owner lifetime");
+
+  // Refusals keep their owner causes over a raw prefix.
+  const foreign = await countedOwnerCalls(() => populate(JSON.parse(JSON.stringify(durablePrefix)),
+    Object.freeze({ ref: coordinate.ref, digest: "sha256:" + "0".repeat(64) })), decoder);
+  assert.deepEqual(foreign.result, { kind: "run_read_population_refusal", code: "projection_basis_mismatch",
+    issuePath: "/invocationAuthority/slots/workspace_binding" });
+  assert.equal(foreign.counts.decodeRuntimeHistoryDescriptor, 1);
+  const { coordinateDigest: _digest, ...body } = JSON.parse(JSON.stringify(durablePrefix));
+  const changedBody = { ...body, prefixDigest: "sha256:" + "1".repeat(64) };
+  const changed = { ...changedBody, coordinateDigest: product.sha256Canonical(changedBody) };
+  assert.deepEqual(populate(changed), { kind: "run_read_population_refusal", code: "artifact_truth_invalid", issuePath: "/projectionBasis" });
+  const unsigned = { ...JSON.parse(JSON.stringify(durablePrefix)), prefixLength: durablePrefix.prefixLength - 1 };
+  assert.equal(populate(unsigned).code, "artifact_truth_invalid");
+  assert.deepEqual(await readFile(durablePath), bytes, "population appends nothing");
 });

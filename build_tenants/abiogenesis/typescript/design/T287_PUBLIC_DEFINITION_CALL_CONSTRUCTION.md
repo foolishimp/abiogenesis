@@ -53,7 +53,33 @@ the current reader's catalog; neither catalog substitutes for the other.
 Current exact ingress, supported event/profile/language admission, source
 digest/currentness, typed absence/refusal and no-append closure remain binding.
 
+## Owner-derived native call typing (HC1)
+
+Root accepted this HOW re-entry on 2026-11-03 under the owner's explicit implementation authorization and operative STDO3.0.2. Source6027d03 is preserved custody, not accepted014. HC1, HC2 and the later practical proof are sequential increments of the existing RC4 goal; HC1 alone does not close the authorized consolidation.
+
+The native type family is derived from `OWNER_CONTRACT_MODULE_SOURCES`, its existing package export, binding export and recursively corresponding member paths. Owner packet schemas supply request, result, refusal and nonterminal types. Actual callable binding leaves supply resource assertions and resource receipts. No second operation, request or resource catalog is introduced. The inspected6027 checkpoint declares18 operations/56 members and exports47 callable leaves. The five `interaction.respond` members and `witness.admit` attest, hygiene-stamp, intake and run-resumed currently lack callable bindings; they remain explicit unavailable members under the existing `installed_binding_unavailable` transport refusal. They receive no fabricated resource contract or callable type. This inventory does not allocate them as reserved5.1 work.
+
+`constructInstalledPublicDefinitionCall` couples operation/member selection, owner-derived request, `InvocationAuthoritySlotsOf` and the selected callable resource type. Native receipt typing preserves the selected owner output and resource receipt. Request variants distribute before conditional authority-slot computation. `ExactStartRunInvocationRequest` and `ExactDirectRunInvocationRequest` retain their exported names and derive their shapes from `RUN_OPERATION_CONTRACTS`. Binding and schema helpers preserve concrete member types. No broad overload may silently restore independent request/resources. Type projections remain under Public; shared machinery stays owner-independent.
+
+This is structural native caller law. Raw/dynamic/serialized input retains exact existing owner admission, permissions, currentness, execution faults and refusal precedence. Construction, TypeScript assignability and equal digests establish no new admission or Run-instance authority. Missing callable selection keeps the existing transport refusal. MJS clients may consume the constructor at runtime; that does not establish their static checking or complete the canonical client population work.
+
+HC1 also replaces the selected controlled worker fixture's partial request with the existing `NativeInstructionAssembly.request` producer. It does not add a worker-request constructor or reopen014 write/currentness guards. HC2 owns canonical operation population and caller retirement described below.
+
+## Canonical operation population (HC2)
+
+Existing Product and ABG owners populate framework handoffs from explicit bound context and caller intent or reference keys. Public constructs the installed envelope and remains a thin shell. Rehome `constructInstalledStartCall`, `constructInstalledPendingCall` and `constructInstalledRunReadCall` from test support; support direct invoke and the existing next, graph_function, asset and declared_start variants, and current-intent, pending-execution and selected-action continuation variants. Reuse `prepareProductRunInvocation` and existing continuation/read owners by factoring shared population, not copying it. Product resolves selected declarations, input contracts, policy, grants and authority; ABG projects authenticated continuation input, historical source and exact prefix. Current B authority is distinct from retained A source. Cold recovery reconstructs through existing owners; a remembered start object is not recovery authority.
+
+The admission-authority owner constructs `AdmissionCapabilityData` from the exact packet, verified owner artifact, request/resources, slots and optional bound-environment selection; `constructAdmissionCapabilityGrants` remains the grant producer. `ResolvedAdmissionAuthority` and its approval are explicit supplied authority, never an automatic allow decision. Worker request population remains `NativeInstructionAssembly.request`. Event-resource assertions may be populated from actual owner handoffs; acquired selections, held completion, physical close and interrupted recovery retain their distinct existing owners. No general receipt constructor is added.
+
+Every call identity, selected mode, resource, dependency and permission is explicit; test Program/date/ref defaults, raw mutation hooks and private-import fallbacks stay out of the shipped functions. The SDK exports the canonical functions through existing package paths. The existing CLI accepts their constructed envelope through its unchanged JSONL transport. No separately callable tool service or friendly CLI subcommand is claimed without an actual exported/installed implementation. MJS operator/test wrappers consume the installed functions and retain scenario data and assertions. Superseded framework population bodies are removed after migration; historical evidence remains unchanged.
+
+## Finite completion evidence
+
+HC1 proves56 declared packet types,47 actual callable/resource/receipt relations and nine explicit unavailable leaves; positive packed-TypeScript consumption and negative wrong member/request/resource/target/selector/required-slot cases; runtime raw refusal and host fault/null/nonterminal preservation; the controlled native-work fixture consumes the existing complete instruction assembly. HC1 does not claim canonical LLM-facing population complete. HC2 proves installed start next/declared/asset and direct GraphFunction construction, B current authority with retained A source, pending continuation and cold read chaining; unknown effect, wrong Run, stale prefix, consumed continuation and missing historical dependency preserve actual owner causes. The subsequent fresh005 A-to-B interruption/recovery witness uses only these installed paths. Existing014 guard evidence is reused where unaffected. Whole5.0 qualification and the nine absent callables remain separate obligations.
+
 ## Admission boundary and established internal values
+
+Reuse actual owner-established resolution, policy, grant, input, assembly and authenticated-source values within their owner scope. One unchanged owned value is not re-resolved merely because another helper is called. Cold/serialized ingress retains admission; fresh permission and physical currentness remain operation-owned. No new store, snapshot, registry, authority token or process hop is introduced.
 
 T287/LIFE-01 selects this `design_reframe` with contained
 `realization_refactor` increments under unchanged Product
@@ -97,6 +123,40 @@ derivation; append advances the same owner state. Rollback, truncation,
 reappend, immutable prior prefixes and refusal isolation remain binding.
 Recovery reconstructs; a handoff or query within the live lifetime is not itself
 a reason to reconstruct history. No competing persistent state is introduced.
+
+### Maintained setup owner reuse (RC4 setup020)
+
+Maintained setup composes the canonical installed calls in one installed module
+instance. `publicCaller.invoke` hands the actual constructed DefinitionCall to
+that instance's `runInstalledDefinitionCallTransport`, which retains the actual
+owner-verified artifact and its exact request relation through authorization,
+verification, resolution and installation and detaches every other caller
+value. Setup records compact request/resource coordinates, the actual SDK
+outcome, close handoff and timing as evidence; it never re-ingests a persisted
+projection. Cold/raw ingress and new target Products still verify,
+installations keep their physical checks and locks, and owners retain
+permissions, currentness, close and reopen. There is no alternate legacy mode,
+cache, service or receipt authority.
+
+Installation runs npm in the ambient process environment and the event-resource
+lock namespace follows `TMPDIR`, so the caller scopes the configured setup
+`PATH` and `TMPDIR` over the complete serial setup and authorization and
+restores the ambient values in `finally`. Lifecycle supervision and fresh Run
+reads keep one explicitly named cold entry: one canonical JSONL request to a
+fresh installed CLI process under its declared environment. Setup adds no
+timeout race that could abandon an active owner.
+
+```mermaid
+sequenceDiagram
+  participant Setup as populateSandbox
+  participant SDK as installed module instance
+  participant Owner as fixed Product/ABG owner
+  Setup->>SDK: authorize(packet, request, owned verified values)
+  SDK-->>Setup: constructed DefinitionCall
+  Setup->>SDK: runInstalledDefinitionCallTransport(acquisition, call)
+  SDK->>Owner: detached call with retained verifier bodies
+  Owner-->>Setup: receipt and close handoff (recorded as evidence only)
+```
 
 ### Authenticated read-source handoff (T287/Writer51)
 

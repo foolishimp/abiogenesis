@@ -6,8 +6,8 @@ import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { admittedNativeTask } from "./native_worksite_execution.js";
 import { projectSameRunNativeWorkCommandSourceAtPrefix } from "./native_worksite_execution.js";
 import { hasExactKeys, isRecord } from "../shared/admit/index.js";
-import { retainedGovernanceWorkInput, isGovernanceWorkState, isFramedSynthesisResult,
-  governanceRef, governanceContract, type GovernanceWorkState } from "../product/default_library.js";
+import { retainedGovernanceWorkInput, isGovernanceWorkState, isFramedSynthesisResult, governanceDirectFixedState,
+  GOVERNANCE_DIRECT_WRAPPERS, governanceRef, governanceContract, type GovernanceWorkState } from "../product/default_library.js";
 import { GOVERNANCE_FULFILLMENT_PROFILE } from "../product/default_library_fulfillment.js";
 import { NATIVE_WORKSPACE_WORK_IDS } from "../product/native_workspace_work_identity.js";
 import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_execution_identity.js";
@@ -91,10 +91,10 @@ import {
   admitNonEmptyRuntimeEventTransactionAtDurablePrefix,
   admitRuntimeEvent,
   assertHeldEventStoreAtDurablePrefix,
-  readRuntimeEventsAtDurablePrefix,
   type DurablePrefixCoordinate,
 } from "./event_store.js";
 import {
+  readOwnedRuntimeEventPrefixAtDurablePrefix,
   runtimeEventBodiesAtPrefix,
   selectValidatedRuntimeEventPrefix,
   type ValidatedRuntimeEventPrefix,
@@ -618,8 +618,10 @@ export function deriveInvocationSourceResultBasisAtPrefix(
   return deriveSourceResultBasisAtPrefix(prefix, input, true);
 }
 
-/** @internal A current preparation route proves either a same-Run source or
- * explicit reacquisition of a historical closed child. Public closed-Run law is unchanged. */
+/** @internal A current preparation route proves a same-Run source, explicit
+ * reacquisition of a historical closed child, or the invocation's admitted
+ * retained-source use; the basis names the producer's own coordinates.
+ * Public closed-Run law is unchanged. */
 export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   prefix: ValidatedRuntimeEventPrefix,
   input: Parameters<typeof projectSameRunWorksiteCommandSourceAtPrefix>[1],
@@ -640,16 +642,22 @@ export function deriveSameRunWorksiteCommandSourceBasisAtPrefix(
   const source = nativeTask !== null
     ? projectSameRunNativeWorkCommandSourceAtPrefix(prefix, { ...input, task: nativeTask }, currentOwnerPrefix)
     : projectSameRunWorksiteCommandSourceAtPrefix(prefix, input);
-  const reacquired = nativeTask !== null && nativeTask.sourceReacquisition !== undefined;
-  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, reacquired && source !== null
+  if (source === null) return null;
+  // A native source Result is basis-bound to its own producer invocation and
+  // Run. The owner above has joined that producer to this consumer's parent
+  // call, grant and currentness through one arm: same Run, explicit
+  // reacquisition, or the invocation's admitted retained-source use. A source
+  // retained from another Run is never relabelled with consumer coordinates.
+  const producerRunId = nativeTask !== null ? source.sourceResult.runId : input.runId;
+  const invocation = rehydrateInvocationAdmissionAtPrefix(prefix, nativeTask !== null
     ? source.sourceBasis.invocationAdmissionRef : input.parentBasis.invocationAdmissionRef);
-  if (source === null || invocation === null || !isRecord(source.sourceResult.payload) ||
+  if (invocation === null || typeof producerRunId !== "string" || !isRecord(source.sourceResult.payload) ||
     typeof source.sourceResult.payload.resultRef !== "string") return null;
   const result = deriveSourceResultBasisAtPrefix(prefix, {
     publicAuthorityDigest: invocation.publicRequestDigest,
     invocationAdmissionRef: invocation.invocationAdmissionRef,
     runtimeInvocationRef: invocation.invocationRef,
-    runId: reacquired ? source.sourceResult.runId! : input.runId, resultRef: source.sourceResult.payload.resultRef,
+    runId: producerRunId, resultRef: source.sourceResult.payload.resultRef,
   }, false);
   return result !== null && result.sourceResultAdmissionEventRef === source.sourceResult.eventId &&
     result.sourceResultJudgmentEventRef === source.sourceJudgment.eventId &&
@@ -662,11 +670,10 @@ export function rehydrateInvocationSourceResultBasisAtDurablePrefix(
   asserted: ProductInvocationSourceResultBasis,
 ): ProductInvocationSourceResultBasis | null {
   if (!isInvocationSourceResultBasis(asserted)) return null;
-  let validatedPrefix: ValidatedRuntimeEventPrefix;
+  let validatedPrefix: RuntimeEventPrefix;
   try {
-    validatedPrefix = selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(prefix),
-    );
+    // Borrows only an active owner; a raw or copied coordinate is cold.
+    validatedPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(prefix);
   } catch {
     return null;
   }
@@ -909,12 +916,10 @@ function admitInvocationWithRequest(
       "invocation workspace and artifact truth differ from the exact ABG-owned prefix environment",
     );
   }
-  let predecessorPrefix: ValidatedRuntimeEventPrefix;
+  let predecessorPrefix: RuntimeEventPrefix;
   try {
     assertHeldEventStoreAtDurablePrefix(store, input.artifactTruth.prefix);
-    predecessorPrefix = selectValidatedRuntimeEventPrefix(
-      readRuntimeEventsAtDurablePrefix(input.artifactTruth.prefix),
-    );
+    predecessorPrefix = readOwnedRuntimeEventPrefixAtDurablePrefix(input.artifactTruth.prefix);
   } catch {
     return refusal(
       "authority_mismatch",
@@ -1510,8 +1515,15 @@ function admitInvocationWithRequest(
         predecessorPrefix: input.artifactTruth.prefix, source: suppliedBasis, workspaceBinding: input.workspaceBinding,
         program: input.program, graphFunction: input.graphFunction, currentDeclaration: input.sourceUseDeclarations.current,
         historicalDeclarations: input.sourceUseDeclarations.historical });
+      // Declared entry: the Executive's fulfillment profile, or the fixed UAT
+      // wrapper over its direct Testing invocation's state Result. Identities are
+      // the authenticated invoked GraphFunction, rehydrated source and derived basis.
+      const fixedUat = retained !== null && sourceInvocation !== null &&
+        input.graphFunction.name === GOVERNANCE_DIRECT_WRAPPERS.uat &&
+        sourceInvocation.graphFunctionRef === GOVERNANCE_DIRECT_WRAPPERS.testing &&
+        governanceDirectFixedState(retained, "uat", suppliedBasis);
       if (retained === null || sourceInvocation === null ||
-        input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE ||
+        (input.graphFunction.declarations["abg.supported_fulfillment_profile"] !== GOVERNANCE_FULFILLMENT_PROFILE && !fixedUat) ||
         input.rawInput.contractRef !== governanceContract("state") ||
         !canonicalEquals(input.rawInput.value, retained) ||
         sourceInvocation.programRef !== input.program.programRef || sourceInvocation.programDigest !== sha256Canonical(input.program) ||

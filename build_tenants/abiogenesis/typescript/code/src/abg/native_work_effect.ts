@@ -2,7 +2,7 @@ import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical } from "../shared/digests.js";
-import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask,
+import { NATIVE_WORKSPACE_WORK_IDS as nativeIds, isNativeWorkspaceWorkTask, nativeWorkspacePathWithin,
   nativeWorkspaceWorkGraphFunctionRef, type NativeWorkspaceWorkTask } from "../product/native_workspace_work.js";
 import { indexedRuntimeEvents, runtimeEventAtPrefix, runtimeEventPrefixExtent,
   selectValidatedRuntimeEventPrefix, validatedRuntimeEventPrefixBeforeEvent,
@@ -13,6 +13,30 @@ import { rehydrateAdmittedImplementationSetAtPrefix } from "./execution_basis.js
 import { canonicalEquals } from "../shared/value/index.js";
 import { ok, type StructuralRefusal } from "../shared/refusal.js";
 import { checkExactRecord, resolveExactMatch, type CheckedRecord, type RecordCheck } from "../shared/select/index.js";
+
+/** @internal The one conservative physical impact of an authenticated native
+ * cause: observed changed paths ∪ (W \ R). R is the task's observed context
+ * scope; W\R is unobserved and impacted whole. Unknown after-state and unknown
+ * process/transport effects (`changedPaths === null`) impact all of W. EC and
+ * the currentness gate both read it; it never invents a changed path. */
+export type NativeWorkImpact = Readonly<{ canonicalRoot: string; changedPaths: readonly string[] | null;
+  writeRoots: readonly string[]; readRoots: readonly string[] }>;
+export function nativeWorkImpact(task: NativeWorkspaceWorkTask, changedPaths: readonly string[] | null): NativeWorkImpact {
+  return Object.freeze({ canonicalRoot: task.workspaceAuthorityBasis.canonicalRoot, changedPaths,
+    writeRoots: task.writeRoots, readRoots: task.context.readRoots });
+}
+/** @internal Exact path/subtree overlap: `path` is one fact path or one
+ * selected subtree root. Presence and absence facts are treated alike. */
+export function nativeWorkImpactOverlaps(impact: NativeWorkImpact, path: string): boolean {
+  const within = (inner: string, outer: string) => nativeWorkspacePathWithin(inner, [outer]);
+  if (impact.changedPaths === null) return impact.writeRoots.some(root => within(path, root) || within(root, path));
+  if (impact.changedPaths.some(changed => within(changed, path))) return true;
+  // The deeper of path and root is their common subtree; it meets W\R unless R covers it.
+  return impact.writeRoots.some(root => {
+    const common = within(path, root) ? path : within(root, path) ? root : null;
+    return common !== null && !nativeWorkspacePathWithin(common, impact.readRoots);
+  });
+}
 
 function causeActor(event: RuntimeEvent): string | null {
   if (!isRecord(event.payload) || typeof event.payload.actorInvocationRef !== "string" ||

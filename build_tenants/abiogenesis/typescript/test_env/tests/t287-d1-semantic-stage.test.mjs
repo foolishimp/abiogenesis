@@ -210,7 +210,7 @@ test("D1 assessor statement domain matches native assembly and preserves strict 
     assert.equal(cursor?.cursorDigest, opened.payload.cursorDigest, "existing HoG derivation recreates the exact admitted cursor");
     const basis = { publication, lifecyclePublication, sourcePublication, graph, graphFunction, declarationGraphFunctions: declarations,
       executionBasis: execution, cCall, cursor, predecessorPrefix: durable };
-    assert.ok(native.authenticateSemanticStageBasis(basis));
+    assert.ok(native.authenticateOwnedSemanticStageBasis(basis));
     const exactInput = native.semanticInputValueAtBasis(basis);
     assert.equal(native.semanticInputMatchesBasis(basis, exactInput), true);
     return { basis, exactInput };

@@ -42,7 +42,7 @@ test('pure artifact values do not reacquire; cold ingress still refuses byte, ex
  try{
   const committed=store.admitNonEmptyRuntimeEventTransactionAtDurablePrefix(acquired.store,acquired.prefix,()=>store.admitRuntimeEvent(acquired.store,candidate('one')));
   const coordinate=committed.successorPrefix;const value=artifact.projectExactPrefixArtifactTruth(coordinate);assert.equal(value.kind,'exact_prefix_artifact_truth_projection');
-  const warm=artifact.runtimePrefixFromArtifactTruth(value);
+  const warm=artifact.runtimePrefixFromOwnedArtifactTruth(value);
   const expectedEc=deriveRuntimeEventCalculusProjection(warm);
   assert.equal(projectActorLivenessContext(warm,'actor://read05/absent'),null);
   const deriveSameLineage=events=>{
@@ -62,11 +62,12 @@ test('pure artifact values do not reacquire; cold ingress still refuses byte, ex
 
   const before=counts();for(let i=0;i<5;i++)assert.equal(artifact.validateArtifactTruthProjectionValue(value),true);const after=counts();
   if(globalThis.p0Work)assert.equal(difference(before,after,'physicalReads'),0);
-  assert.deepEqual(artifact.runtimePrefixFromArtifactTruth(value).events,acquired.store.readAll());
-  assert.equal(artifact.runtimePrefixFromArtifactTruth(structuredClone(value)),null);
+  let complete='';prefix.writeRuntimeEventPrefixValue(artifact.runtimePrefixFromOwnedArtifactTruth(value),part=>{complete+=part;});
+  assert.deepEqual(JSON.parse(complete).events,acquired.store.readAll(),'the canonical writer emits the complete owner value');
+  assert.equal(artifact.runtimePrefixFromOwnedArtifactTruth(structuredClone(value)),null);
   assert.equal(artifact.validateArtifactTruthProjectionValue(structuredClone(value)),true);
   const stolen={...value,prefixEventCount:99};for(const symbol of Object.getOwnPropertySymbols(value))Object.defineProperty(stolen,symbol,Object.getOwnPropertyDescriptor(value,symbol));deepFreeze(stolen);
-  assert.equal(artifact.validateArtifactTruthProjectionValue(stolen),false);assert.equal(artifact.runtimePrefixFromArtifactTruth(stolen),null);
+  assert.equal(artifact.validateArtifactTruthProjectionValue(stolen),false);assert.equal(artifact.runtimePrefixFromOwnedArtifactTruth(stolen),null);
   const pureBefore=counts();assert.equal(store.projectRuntimeEventsAtDurablePrefix(coordinate)[0],acquired.store.readAll()[0]);
   if(globalThis.p0Work)assert.equal(difference(pureBefore,counts(),'physicalReads'),0);
   assert.deepEqual(store.projectRuntimeEventsAtDurablePrefix(structuredClone(coordinate)),acquired.store.readAll());
@@ -126,9 +127,14 @@ test('native basis retains one immutable derivation; copied, changed and physica
   const before=counts();const selected=native.authenticateOwnedNativeInstructionAssemblyBasis(value);assert.ok(selected);
   for(let i=0;i<5;i++)assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
   if(globalThis.p0Work)assert.equal(difference(before,counts(),'physicalReads'),0);
-  const { environment,...actual }=native.authenticateNativeInstructionAssemblyBasis(value);assert.equal(sha256Canonical(actual),sha256Canonical(expected),'exact explicit public owner result across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
+  // The predecessor expanded its prefix into complete events; the owned value
+  // borrows that prefix, so history compares through its incremental digest.
+  const { environment,prefix:ownedPrefix,...actual }=selected,{ events:expectedEvents,prefix:_expectedPrefix,...expectedFacts }=expected;
+  assert.equal(sha256Canonical(actual),sha256Canonical(expectedFacts),'exact explicit owner facts across independent module brands');assert.equal(environment.kind,'exact_prefix_workspace_environment');
+  assert.equal(prefix.runtimeEventPrefixDigest(ownedPrefix),sha256Canonical(expectedEvents),'borrowed prefix names the predecessor history');
+  const ownerFacts=({prefix:selectedPrefix,...facts})=>sha256Canonical({...facts,prefixDigest:prefix.runtimeEventPrefixDigest(selectedPrefix)});
   assert.equal(native.constructNativeInstructionAssemblyBasis(value),value);
-  const copied=structuredClone(value);const freshBefore=counts();assert.equal(sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(copied)),sha256Canonical(native.authenticateNativeInstructionAssemblyBasis(value)));
+  const copied=structuredClone(value);const freshBefore=counts();assert.equal(ownerFacts(native.authenticateOwnedNativeInstructionAssemblyBasis(copied)),ownerFacts(selected));
   if(globalThis.p0Work)assert.ok(difference(freshBefore,counts(),'physicalReads')>0);
   sample.cCall.cCallRef='c-call://read05/foreign';assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(sample),null);assert.equal(native.authenticateOwnedNativeInstructionAssemblyBasis(value),selected);
   const stolen={...value,cCall:{...value.cCall,cCallRef:'c-call://read05/foreign'}};

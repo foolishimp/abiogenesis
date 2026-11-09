@@ -13,18 +13,45 @@ import {
   composeWorkerTransportArgs,
   constructKnownWorkerTransportContract,
   prepareWorkerTransport,
+  runPreparedWorkerTransport,
   runWorkerTransport,
   validateActorProcessCarrierPair,
 } from "../../build/code/src/abg/index.js";
 import { canonicalJson } from "../../build/code/src/shared/canonical_json.js";
 import { sha256Bytes, sha256Canonical } from "../../build/code/src/shared/digests.js";
-import { isNativeWorkerResultAssessment } from "../../build/code/src/abg/transport_contracts.js";
+import {
+  configuredActorIdentityCorresponds,
+  deriveConfiguredActorIdentity,
+  isConfiguredActorIdentity,
+  isNativeWorkerResultAssessment,
+} from "../../build/code/src/abg/transport_contracts.js";
 import { nativeWorkspaceWorkReportSchema } from "../../build/code/src/product/native_workspace_work.js";
 import { parseNativeWorkspaceAssessmentResult } from "../../build/code/src/product/native_workspace_assessment.js";
 import { createWorkerTransportOutputObserver } from "../../build/code/src/abg/worker_transport.js";
 import { deepFreeze, isDeeplyFrozen } from "../../build/code/src/shared/immutable.js";
 import { admitIJsonText } from "../../build/code/src/shared/i_json.js";
 import { isRecord } from "../../build/code/src/shared/admit/index.js";
+import { LEGACY_ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DIGEST } from "../../build/code/src/abg/event_store.js";
+import { actorRuntimeProbeSources, constructRuntimeWatchdogPolicy } from "../../build/code/src/abg/runtime_liveness_contracts.js";
+import { privateOwner } from "../support/r10-private-owner-harness.mjs";
+import { hasConfirmedOwnedProcessBoundary } from "../../build/code/src/shared/process/index.js";
+import { closeSync as hs03CloseSync, fsyncSync as hs03FsyncSync, openSync as hs03OpenSync, readSync as hs03ReadSync,
+  truncateSync as hs03TruncateSync, unlinkSync as hs03UnlinkSync, writeSync as hs03WriteSync } from "node:fs";
+
+// D5: the archive omits the three lifecycle copies the live result carries;
+// its own timeoutClass and encoded processFacts determine each of them.
+async function assertArchiveDeterminesLifecycleCopies(result) {
+  const archive = JSON.parse(await readFile(result.artifacts.transport.path, "utf8"));
+  for (const key of ["timedOut", "exitObserved", "terminationConfirmed"]) {
+    assert.equal(Object.hasOwn(archive, key), false, `the archive omits ${key}`);
+  }
+  const { timedOut: _timedOut, exitObserved: _exitObserved, terminationConfirmed: _terminationConfirmed,
+    artifacts: { transport: _transport, ...artifacts }, ...body } = result;
+  assert.deepEqual(archive, JSON.parse(JSON.stringify({ ...body, artifacts })), "every other archive member is unchanged");
+  assert.equal(result.timedOut, archive.timeoutClass !== null);
+  assert.equal(result.exitObserved, archive.processFacts.directExit !== null);
+  assert.equal(result.terminationConfirmed, hasConfirmedOwnedProcessBoundary(archive.processFacts));
+}
 
 function assertClaudeProtocol(args) {
   for (const [flag, value] of [
@@ -285,6 +312,7 @@ test("M5 B-001 crosses a real worker process, parser, tool event, and archive", 
     assert.match(row.digest, /^sha256:[a-f0-9]{64}$/u);
     assert.equal((await readFile(row.path)).byteLength, row.byteLength);
   }
+  await assertArchiveDeterminesLifecycleCopies(result);
 });
 
 test("M5 Bash tool identity ignores only optional string description metadata", async (context) => {
@@ -715,6 +743,7 @@ test("M5 ABG transport force-terminates a worker that ignores SIGTERM", async (c
   assert.equal(result.timeoutClass, "absolute");
   assert.equal(result.exitObserved, true);
   assert.equal(result.terminationConfirmed, true);
+  await assertArchiveDeterminesLifecycleCopies(result);
   assert.deepEqual(observedExits, [{ status: null, signal: "SIGKILL" }]);
   assert.equal(unconfirmedTerminations, 0);
   assert.notEqual(processId, null);
@@ -1420,4 +1449,472 @@ test("TD-11: old tool rows are not revisited per chunk; visits per observe are i
   finally { disarm(); }
   assert.equal(visits, 0); assert.equal(progress.toolInvocations.length, 64);
   t.diagnostic(`TD-11 visit counts ${JSON.stringify(counts)}`);
+});
+
+// Q23 configured actor identity. The transport owner derives it from one exact
+// prepared selection; it is configured selection under the trusted desktop,
+// never remote provider attestation.
+function q23Selection(agentKey, environment = {}, explicitAppendArgs, prompt = "assess") {
+  const contract = constructKnownWorkerTransportContract(agentKey, { environment });
+  const args = composeWorkerTransportArgs({ contract, prompt, outputPath: "/synthetic/output", lane: "worker_executes", environment,
+    ...(explicitAppendArgs === undefined ? {} : { explicitAppendArgs }) });
+  return { contract, args, binding: { agentKey, promptTransport: contract.promptTransport, args },
+    identity: deriveConfiguredActorIdentity(contract, args, environment) };
+}
+const q23Unknown = identity => [identity.disposition, identity.reason];
+
+test("M5 Q23 configured identity is the one exact model selection of the final arguments and captured environment; anything else stays unknown", () => {
+  const opus = q23Selection("claude", { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--model", "claude-opus-5-5", "--effort", "xhigh"]) });
+  assertClaudeProtocol(opus.args);
+  const index = opus.args.indexOf("--model") + 1;
+  assert.deepEqual(opus.identity, { kind: "configured_actor_identity", schemaVersion: "5.0.0", disposition: "established",
+    model: "claude-opus-5-5", source: { kind: "transport_argument", argumentIndex: index } });
+  assert.equal(opus.args[index], "claude-opus-5-5", "the source coordinate names the final argument itself");
+  assert.equal(isDeeplyFrozen(opus.identity), true);
+  const inline = q23Selection("claude", {}, ["--model=claude-opus-5-5"]);
+  assert.equal(inline.identity.model, "claude-opus-5-5");
+  assert.equal(inline.args[inline.identity.source.argumentIndex], "--model=claude-opus-5-5");
+  // Codex selects through its own protocol template; an argv prompt is data, never an option.
+  const astra = q23Selection("codex", { ABG_TS_CODEX_MODEL: "gpt-6-astra" }, undefined, "--model=claude-opus-5-5");
+  assert.equal(astra.identity.model, "gpt-6-astra");
+  assert.equal(astra.args[astra.identity.source.argumentIndex], "gpt-6-astra");
+  assert.equal(astra.args.at(-1), "--model=claude-opus-5-5");
+  // The same captured value agrees; an empty value is no selection.
+  const plain = q23Selection("claude", {}, ["--model", "claude-opus-5-5"]).identity;
+  assert.equal(plain.disposition, "established");
+  for (const ANTHROPIC_MODEL of ["claude-opus-5-5", ""])
+    assert.deepEqual(q23Selection("claude", { ANTHROPIC_MODEL }, ["--model", "claude-opus-5-5"]).identity, plain, `captured ANTHROPIC_MODEL=${JSON.stringify(ANTHROPIC_MODEL)}`);
+  for (const [name, selection, expected] of [
+    ["no selector leaves the provider default unresolved", q23Selection("claude"), "model_selection_absent"],
+    ["two selectors", q23Selection("claude", { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--model", "claude-opus-5-5"]) }, ["--model", "claude-opus-5-5"]), "model_selection_ambiguous"],
+    ["a selector without a value", q23Selection("claude", {}, ["--model"]), "model_selection_ambiguous"],
+    ["a selector whose value is an option", q23Selection("claude", {}, ["--model", "--verbose"]), "model_selection_ambiguous"],
+    ["a fallback model can replace it", q23Selection("claude", {}, ["--model", "claude-opus-5-5", "--fallback-model", "claude-sonnet-5-5"]), "model_selection_ambiguous"],
+    ["settings can remap it", q23Selection("claude", {}, ["--model", "claude-opus-5-5", "--settings", "/synthetic/settings.json"]), "model_selection_ambiguous"],
+    ["an agent can replace it", q23Selection("claude", {}, ["--model", "claude-opus-5-5", "--agent", "reviewer"]), "model_selection_ambiguous"],
+    ["a differing captured environment", q23Selection("claude", { ANTHROPIC_MODEL: "claude-sonnet-5-5" }, ["--model", "claude-opus-5-5"]), "model_environment_conflict"],
+    ["a second codex selector", q23Selection("codex", { ABG_TS_CODEX_MODEL: "gpt-6-astra", ABG_TS_CODEX_APPEND_ARGS: JSON.stringify(["-m", "gpt-6-astra"]) }), "model_selection_ambiguous"],
+    ["a codex profile", q23Selection("codex", { ABG_TS_CODEX_MODEL: "gpt-6-astra", ABG_TS_CODEX_APPEND_ARGS: JSON.stringify(["--profile", "other"]) }), "model_selection_ambiguous"],
+    ["a codex configuration override", q23Selection("codex", { ABG_TS_CODEX_MODEL: "gpt-6-astra", ABG_TS_CODEX_APPEND_ARGS: JSON.stringify(["-c", "model=other"]) }), "model_selection_ambiguous"],
+    ["gemini has no declared selection grammar", q23Selection("gemini"), "agent_model_selection_unsupported"],
+    ["generic has no declared selection grammar", q23Selection("generic"), "agent_model_selection_unsupported"],
+  ]) {
+    assert.deepEqual(q23Unknown(selection.identity), ["unknown", expected], name);
+    assert.equal(isConfiguredActorIdentity(selection.identity), true, name);
+    assert.equal(configuredActorIdentityCorresponds(selection.identity, selection.binding), true, `${name}: corresponds to its own binding`);
+  }
+  // The closed guard: no extra member, empty model or non-index coordinate.
+  for (const forged of [{ ...opus.identity, provider: "anthropic" }, { ...opus.identity, model: "" },
+    { ...opus.identity, source: { kind: "transport_argument", argumentIndex: -1 } }, { ...opus.identity, source: { kind: "transport_argument", argumentIndex: 1.5 } },
+    { ...opus.identity, source: { kind: "environment", argumentIndex: index } }, { kind: "configured_actor_identity", schemaVersion: "5.0.0", disposition: "unknown", reason: "renamed_role" },
+    { kind: "configured_actor_identity", schemaVersion: "5.0.0", disposition: "established", reason: "model_selection_absent" }])
+    assert.equal(isConfiguredActorIdentity(forged), false, JSON.stringify(forged));
+  // Correspondence re-derives from the binding's own agent, delivery and final arguments.
+  assert.equal(configuredActorIdentityCorresponds(opus.identity, opus.binding), true);
+  for (const [name, identity, binding] of [
+    ["a renamed model", { ...opus.identity, model: "claude-fable-5-1" }, opus.binding],
+    ["a moved coordinate", { ...opus.identity, source: { kind: "transport_argument", argumentIndex: index - 1 } }, opus.binding],
+    ["another agent's arguments", opus.identity, { ...opus.binding, agentKey: "codex" }],
+    // Relabelling argv delivery as stdin turns the prompt "--model=..." into a second selector.
+    ["another prompt delivery", astra.identity, { ...astra.binding, promptTransport: "stdin" }],
+    ["changed final arguments", opus.identity, { ...opus.binding, args: [...opus.args, "--model", "claude-opus-5-5"] }],
+    ["an unknown identity over a selecting binding", q23Selection("claude").identity, opus.binding],
+    ["an established identity over a non-selecting binding", opus.identity, q23Selection("claude").binding],
+    ["an environment conflict over a non-selecting binding", { kind: "configured_actor_identity", schemaVersion: "5.0.0", disposition: "unknown", reason: "model_environment_conflict" }, q23Selection("claude").binding],
+    ["non-string arguments", opus.identity, { ...opus.binding, args: [...opus.args.slice(0, -1), 7] }],
+  ]) assert.equal(configuredActorIdentityCorresponds(identity, binding), false, name);
+  // Only the captured environment is not replayable from a binding: a
+  // recorded conflict corresponds wherever the arguments themselves select.
+  assert.equal(configuredActorIdentityCorresponds(q23Selection("claude", { ANTHROPIC_MODEL: "claude-sonnet-5-5" }, ["--model", "claude-opus-5-5"]).identity,
+    q23Selection("claude", {}, ["--model", "claude-opus-5-5"]).binding), true);
+});
+
+test("M5 Q23 selector-shaped data in a declared option operand selects no model; an option of unknown arity leaves the selection unknown", () => {
+  // Closed review Q23-SR-02: the only selector-shaped argument is the operand of
+  // --append-system-prompt, the option actor_process itself uses for prompt data.
+  for (const [name, append] of [
+    ["inline selector text as the prompt operand", ["--append-system-prompt", "--model=claude-opus-5-5"]],
+    ["separate selector text as the prompt operand", ["--append-system-prompt", "--model", "claude-opus-5-5"]],
+  ]) {
+    const selection = q23Selection("claude", {}, append);
+    assert.deepEqual(q23Unknown(selection.identity), ["unknown", "model_selection_absent"], name);
+    assert.equal(configuredActorIdentityCorresponds(selection.identity, selection.binding), true, `${name}: corresponds to its own binding`);
+    // The identity read from the operand no longer corresponds to these arguments.
+    const fromOperand = { kind: "configured_actor_identity", schemaVersion: "5.0.0", disposition: "established", model: "claude-opus-5-5",
+      source: { kind: "transport_argument", argumentIndex: selection.args.lastIndexOf(append.at(-1)) } };
+    assert.equal(isConfiguredActorIdentity(fromOperand), true);
+    assert.equal(configuredActorIdentityCorresponds(fromOperand, selection.binding), false, `${name}: an identity read from the operand`);
+  }
+  // The actor owner's own composition: prompt data that looks like a selector, then one real selector.
+  const environment = { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--model", "claude-opus-5-5"]) };
+  const base = constructKnownWorkerTransportContract("claude", { environment });
+  const contract = { ...base, argsTemplate: [...base.argsTemplate, "--tools", "Read,Edit,Write,Glob,Grep,Bash", "--append-system-prompt", "--model=claude-fable-5-1"] };
+  const args = composeWorkerTransportArgs({ contract, prompt: "assess", outputPath: "/synthetic/output", lane: "worker_executes", environment,
+    responseJsonSchema: { type: "object" } });
+  const owned = deriveConfiguredActorIdentity(contract, args, environment);
+  assert.deepEqual([owned.disposition, owned.model], ["established", "claude-opus-5-5"], "the operand is data; the real selector selects");
+  assert.deepEqual(args.slice(owned.source.argumentIndex - 1, owned.source.argumentIndex + 1), ["--model", "claude-opus-5-5"]);
+  assert.equal(configuredActorIdentityCorresponds(owned, { agentKey: "claude", promptTransport: contract.promptTransport, args }), true);
+  // Ordinary unknown options keep an established selection when their role is clear.
+  for (const [name, append] of [
+    ["an unknown option with its value before the selector", ["--effort", "xhigh", "--model", "claude-opus-5-5"]],
+    ["an unknown option with an inline value before the selector", ["--effort=xhigh", "--model", "claude-opus-5-5"]],
+    ["a declared operand given inline before the selector", ["--append-system-prompt=--model=claude-fable-5-1", "--model", "claude-opus-5-5"]],
+  ]) assert.equal(q23Selection("claude", {}, append).identity.model, "claude-opus-5-5", name);
+  // Unsupported grammar: a selector-shaped argument whose role the closed grammar cannot decide.
+  for (const [name, selection] of [
+    ["an option outside the grammar directly before inline selector text", q23Selection("claude", {}, ["--system-prompt", "--model=claude-opus-5-5"])],
+    ["an option outside the grammar directly before a selector", q23Selection("claude", {}, ["--effort", "--model", "claude-opus-5-5"])],
+    ["selector text after the end of options", q23Selection("claude", {}, ["--", "assess", "--model", "claude-opus-5-5"])],
+  ]) {
+    assert.deepEqual(q23Unknown(selection.identity), ["unknown", "model_selection_ambiguous"], name);
+    assert.equal(configuredActorIdentityCorresponds(selection.identity, selection.binding), true, `${name}: corresponds to its own binding`);
+  }
+});
+
+test("M5 Q23 a prepared plan executes its own bound selection; later caller or ambient changes cannot change it", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-q23-owned-plan-"));
+  const ambient = process.env.ANTHROPIC_MODEL;
+  context.after(async () => {
+    if (ambient === undefined) delete process.env.ANTHROPIC_MODEL; else process.env.ANTHROPIC_MODEL = ambient;
+    await rm(scratch, { force: true, recursive: true });
+  });
+  const workerPath = join(scratch, "claude-selection-fixture.mjs");
+  await writeFile(workerPath, [
+    "process.stdin.resume();",
+    "process.stdin.on('end', () => {",
+    "  console.log(JSON.stringify({type:'system', subtype:'init'}));",
+    "  console.log(JSON.stringify({type:'result', subtype:'success', result:JSON.stringify({argv:process.argv.slice(2), anthropicModel:process.env.ANTHROPIC_MODEL ?? null})}));",
+    "});",
+    "",
+  ].join("\n"), "utf8");
+  const environment = { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--model", "claude-opus-5-5"]) };
+  // Mutable caller copies: the plan must own frozen ones.
+  const contract = structuredClone(constructKnownWorkerTransportContract("claude", { command: process.execPath, prefixArgs: [workerPath], environment }));
+  const explicitAppendArgs = ["--effort", "xhigh"];
+  const request = { contract, prompt: "assess", lane: "worker_executes", cwd: scratch, archiveRoot: join(scratch, "archive"),
+    label: "q23-owned-plan", timeoutMs: 10_000, environment, explicitAppendArgs };
+  const plan = await prepareWorkerTransport(request);
+  const bound = structuredClone(plan.configuredIdentity);
+  assert.equal(bound.disposition, "established");
+  assert.equal(bound.model, "claude-opus-5-5");
+  assert.equal(plan.args[bound.source.argumentIndex], "claude-opus-5-5");
+  assert.equal(configuredActorIdentityCorresponds(plan.configuredIdentity, plan), true, "the plan's own agent, delivery and arguments");
+  // Every caller-held input and the ambient process environment now change.
+  contract.argsTemplate.push("--model", "claude-fable-5-1");
+  explicitAppendArgs.push("--fallback-model", "claude-sonnet-5-5");
+  environment.ABG_TS_CLAUDE_APPEND_ARGS = JSON.stringify(["--model", "claude-fable-5-1"]);
+  environment.ANTHROPIC_MODEL = "claude-sonnet-5-5";
+  process.env.ANTHROPIC_MODEL = "claude-sonnet-5-5";
+  const result = await runPreparedWorkerTransport(plan);
+  assert.equal(result.disposition, "success");
+  assert.deepEqual(result.args, plan.args);
+  const observed = JSON.parse(result.finalOutput);
+  assert.deepEqual(observed.argv, plan.args.slice(1), "the process received exactly the bound arguments");
+  assert.equal(observed.anthropicModel, null, "the process received the captured environment, not the changed one");
+  assert.deepEqual(plan.configuredIdentity, bound);
+  // The same changed caller inputs prepared now select differently; the bound plan did not.
+  const again = await prepareWorkerTransport({ ...request, label: "q23-owned-plan-again" });
+  assert.notEqual(again.planDigest, plan.planDigest);
+  assert.deepEqual(q23Unknown(again.configuredIdentity), ["unknown", "model_selection_ambiguous"]);
+});
+
+test("M5 Q23 the current binding contract records one corresponding identity; a mismatch is refused and the legacy profile cannot carry it", async () => {
+  // The exact emitted private contract guard of the event store; no store is opened.
+  const { assertRuntimeEventContract } = await privateOwner("abg/event_store.js", ["assertRuntimeEventContract"]);
+  const digest = sha256Canonical("q23 synthetic binding member");
+  const opus = q23Selection("claude", { ABG_TS_CLAUDE_APPEND_ARGS: JSON.stringify(["--model", "claude-opus-5-5"]) });
+  const body = (overrides = {}) => ({
+    livenessBinding: { kind: "runtime_liveness_binding", schemaVersion: "5.0.0", clockOriginRef: "runtime-clock://abiogenesis/q23", clockKind: "native_monotonic_elapsed",
+      policy: constructRuntimeWatchdogPolicy({ startupMs: 1_000, inactivityMs: 1_000, hardCapMs: 4_000, terminationGraceMs: 1_000 }), sources: actorRuntimeProbeSources("claude_stream_json") },
+    cCallRef: "c-call://q23", actorRef: "actor://q23", workerBindingRef: "worker-binding://q23", implementationBindingRef: "implementation-binding://q23",
+    implementationRef: "implementation://q23", inputDigest: digest, transportPlanDigest: digest, transportContractDigest: digest, agentKey: "claude",
+    parser: "claude_stream_json", promptTransport: "stdin", lane: "worker_executes", dispatchOrdinal: 1, command: "claude", args: opus.args,
+    cwd: "/synthetic", archiveRoot: "/synthetic/archive", timeoutMs: 1_000, absoluteTimeoutMs: 4_000, terminationGraceMs: 1_000, promptDigest: digest,
+    responseJsonSchemaDigest: null, environmentPolicyDigest: digest, environmentDigest: digest,
+    paths: { prompt: "/p", output: "/o", stdout: "/s", stderr: "/e", transport: "/t" }, ...overrides });
+  const candidate = payloadBody => {
+    const transportBindingDigest = sha256Canonical(payloadBody);
+    return { kind: "actor_transport_binding_admitted", eventTime: "2026-11-06T00:00:00.000Z", aggregateType: "transport_binding",
+      aggregateId: `transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`, parentAggregateId: "c-call://q23", causationEventRefs: [],
+      correlationId: "correlation://q23", workflowVersion: "5.0.0", scopeClass: "run", basisId: "basis://q23", runId: "run://q23",
+      graphCallId: "graph-call://q23", frameId: "frame://q23",
+      payload: { transportBindingRef: `transport-binding://abiogenesis/${transportBindingDigest.slice(7)}`, transportBindingDigest, ...payloadBody } };
+  };
+  // Positive: the derived identity of its own arguments, and a binding without one.
+  assert.doesNotThrow(() => assertRuntimeEventContract(candidate(body({ configuredIdentity: opus.identity })), ROOT_EVENT_CONTRACT_DIGEST));
+  assert.doesNotThrow(() => assertRuntimeEventContract(candidate(body()), ROOT_EVENT_CONTRACT_DIGEST), "absence is admitted and reads as unknown");
+  assert.doesNotThrow(() => assertRuntimeEventContract(candidate(body({ configuredIdentity: q23Selection("claude", { ANTHROPIC_MODEL: "claude-sonnet-5-5" }, ["--model", "claude-opus-5-5"]).identity })),
+    ROOT_EVENT_CONTRACT_DIGEST), "a recorded environment conflict over selecting arguments");
+  for (const [name, identity] of [
+    ["another model", { ...opus.identity, model: "claude-fable-5-1" }],
+    ["another argument coordinate", { ...opus.identity, source: { kind: "transport_argument", argumentIndex: 0 } }],
+    ["an unknown reason the arguments do not give", q23Selection("claude").identity],
+    ["an unclosed identity", { ...opus.identity, family: "Anthropic Claude" }],
+  ]) assert.throws(() => assertRuntimeEventContract(candidate(body({ configuredIdentity: identity })), ROOT_EVENT_CONTRACT_DIGEST),
+    /current actor binding identity differs from its own agent and final arguments/u, name);
+  assert.throws(() => assertRuntimeEventContract(candidate(body({ configuredIdentity: opus.identity, args: [...opus.args, "--model", "claude-opus-5-5"] })), ROOT_EVENT_CONTRACT_DIGEST),
+    /current actor binding identity differs/u, "arguments changed under an unchanged identity");
+  // Selector-shaped prompt-option data: its own unknown identity is admitted; one read from the operand is refused.
+  const operand = q23Selection("claude", {}, ["--append-system-prompt", "--model=claude-opus-5-5"]);
+  assert.doesNotThrow(() => assertRuntimeEventContract(candidate(body({ args: operand.args, configuredIdentity: operand.identity })), ROOT_EVENT_CONTRACT_DIGEST));
+  assert.throws(() => assertRuntimeEventContract(candidate(body({ args: operand.args,
+    configuredIdentity: { ...opus.identity, source: { kind: "transport_argument", argumentIndex: operand.args.length - 1 } } })), ROOT_EVENT_CONTRACT_DIGEST),
+  /current actor binding identity differs from its own agent and final arguments/u, "an identity read from prompt-option data");
+  // The historical profile keeps its exact contract: no identity member, and absence remains unknown.
+  const { livenessBinding: _liveness, ...legacyBody } = body();
+  assert.doesNotThrow(() => assertRuntimeEventContract(candidate(legacyBody), LEGACY_ROOT_EVENT_CONTRACT_DIGEST));
+  assert.throws(() => assertRuntimeEventContract(candidate({ ...legacyBody, configuredIdentity: opus.identity }), LEGACY_ROOT_EVENT_CONTRACT_DIGEST),
+    /matches no admitted event-contract variant/u);
+});
+
+// RC7 HS03 (design §10.10): the real transport over controlled structured
+// captures. Noise rows complete no turn and are not progress.
+const HS03_ASSISTANT = `${JSON.stringify({ type: "assistant", message: { content: [{ type: "text", text: "a" }] } })}\n`;
+const HS03_USER = `${JSON.stringify({ type: "user", message: { content: [{ type: "text", text: "u" }] } })}\n`;
+const HS03_RESULT = `${JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "done" })}\n`;
+const HS03_DELTA = `${JSON.stringify({ type: "stream_event", event: { type: "content_block_delta" } })}\n`;
+const hs03Noise = n => `${JSON.stringify({ type: "system", subtype: "status", n })}\n`;
+// One atomic pipe write (below PIPE_BUF) holding two complete turn records
+// and a noise-only tail, then a result turn, then a noise-only final tail.
+const HS03_PARTS = Object.freeze([HS03_ASSISTANT + hs03Noise(1) + HS03_USER + hs03Noise(2), HS03_RESULT, hs03Noise(3)]);
+const hs03Bytes = text => Buffer.byteLength(text, "utf8");
+
+function hs03ReadRange(path, offset, length) {
+  const descriptor = hs03OpenSync(path, "r");
+  try {
+    const bytes = Buffer.alloc(length);
+    assert.equal(hs03ReadSync(descriptor, bytes, 0, length, offset), length, "the referenced archive range is complete");
+    return bytes.toString("utf8");
+  } finally { hs03CloseSync(descriptor); }
+}
+
+// A worker that writes each planned part once, waiting for its write callback
+// and a short pause; with `forever` it then repeats the last part until killed.
+async function hs03Worker(scratch, parts, { pauseMs = 40, forever = false } = {}) {
+  const planPath = join(scratch, "plan.json"), workerPath = join(scratch, "hs03-worker.mjs");
+  await writeFile(planPath, JSON.stringify(parts), "utf8");
+  await writeFile(workerPath, [
+    "import { readFileSync } from 'node:fs';",
+    "const parts = JSON.parse(readFileSync(process.argv[2], 'utf8'));",
+    "const write = part => new Promise(done => process.stdout.write(part, done));",
+    `const pause = () => new Promise(done => setTimeout(done, ${pauseMs}));`,
+    "for (const part of parts) { await write(part); await pause(); }",
+    `if (${forever}) for (;;) { await write(parts.at(-1)); await pause(); }`,
+    "",
+  ].join("\n"), "utf8");
+  return constructKnownWorkerTransportContract("generic", { command: process.execPath, prefixArgs: [workerPath, planPath], environment: {} });
+}
+
+// The window-mode observer as the actor declares it: the shared incremental
+// decoder partitions each capture at its completed turn boundaries.
+function hs03WindowObserver(archivePath, log) {
+  const started = performance.now(), decoder = createWorkerTransportOutputObserver(false);
+  const captures = [], windows = [], flushes = [];
+  const observer = {
+    classifyStdoutChunk: chunk => {
+      const elapsedMs = Math.floor(performance.now() - started);
+      const segments = decoder.classifyChunk(chunk);
+      captures.push({ chunk, elapsedMs, segments });
+      return { elapsedMs, progress: segments.some(s => s.progress), result: segments.some(s => s.result),
+        turnBoundary: segments.some(s => s.turnBoundary), segments };
+    },
+    bindStdoutWindow: flush => { flushes.push(flush); },
+    onStdoutObserved: (text, window) => {
+      assert.notEqual(window, undefined, "window mode references closed windows only");
+      log.push("ref");
+      windows.push({ text, window, archived: hs03ReadRange(archivePath, window.archiveOffset, window.byteLength) });
+      return true;
+    },
+    onTimeoutObserved: timeoutClass => { log.push(`timeout:${timeoutClass}`); },
+    onProcessFinalized: () => { log.push("finalized"); },
+  };
+  const captureOf = text => {
+    const found = captures.find(c => c.chunk.includes(text));
+    assert.notEqual(found, undefined, "the planned text was captured");
+    return found.elapsedMs;
+  };
+  return { observer, captures, windows, flushes, captureOf };
+}
+
+// The emitted transport module with its archive descriptor operations logged
+// or failed in place; every other import is the actual module.
+async function hs03Transport(log, { failWrite = null, failFsync = null } = {}) {
+  return privateOwner("abg/worker_transport.js", [], { "node:fs": {
+    writeSync: (descriptor, buffer, ...rest) => {
+      if (failWrite !== null && Buffer.isBuffer(buffer) && buffer.includes(failWrite.marker)) throw failWrite.error;
+      log.push("write"); return hs03WriteSync(descriptor, buffer, ...rest);
+    },
+    fsyncSync: descriptor => {
+      if (failFsync !== null) throw failFsync;
+      log.push("fsync"); return hs03FsyncSync(descriptor);
+    },
+  } });
+}
+
+const hs03Request = (contract, scratch, label, observer, timeouts = {}) => ({
+  contract, prompt: "hs03", lane: "worker_executes", cwd: scratch, archiveRoot: join(scratch, "archive"), label,
+  timeoutMs: timeouts.timeoutMs ?? 10_000, absoluteTimeoutMs: timeouts.absoluteTimeoutMs ?? 20_000,
+  terminationGraceMs: timeouts.terminationGraceMs ?? 500, environment: {}, observer,
+});
+
+test("RC7 HS03 archive: one coalesced capture closes a window at each completed turn boundary, each exact range is written and fsynced before its one reference, and a noise-only tail is not activity", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-hs03-archive-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const log = [], archivePath = join(scratch, "archive", "hs03-archive-stdout.log");
+  const { runWorkerTransport: run } = await hs03Transport(log);
+  const live = hs03WindowObserver(archivePath, log);
+  const result = await run(hs03Request(await hs03Worker(scratch, HS03_PARTS), scratch, "hs03-archive", live.observer));
+  assert.equal(result.disposition, "success");
+  // The first capture coalesces two complete turn records and a noise tail;
+  // the shared decoder keeps each boundary position and segment class.
+  const [first] = HS03_PARTS;
+  assert.equal(live.captures[0].chunk, first, "one atomic write is one captured string");
+  assert.deepEqual(live.captures[0].segments.map(s => ({ ...s })), [
+    { end: HS03_ASSISTANT.length, progress: true, result: false, turnBoundary: true },
+    { end: HS03_ASSISTANT.length + hs03Noise(1).length + HS03_USER.length, progress: true, result: false, turnBoundary: true },
+    { end: first.length, progress: false, result: false, turnBoundary: false },
+  ]);
+  const c0 = live.captures[0].elapsedMs, cResult = live.captureOf(HS03_RESULT), cTail = live.captureOf(hs03Noise(3));
+  const texts = [HS03_ASSISTANT, hs03Noise(1) + HS03_USER, hs03Noise(2) + HS03_RESULT, hs03Noise(3)];
+  const expected = [
+    { firstCaptureElapsedMs: c0, lastCaptureElapsedMs: c0, lastQualifyingElapsedMs: c0, resultElapsedMs: null, closure: "turn_boundary" },
+    { firstCaptureElapsedMs: c0, lastCaptureElapsedMs: c0, lastQualifyingElapsedMs: c0, resultElapsedMs: null, closure: "turn_boundary" },
+    { firstCaptureElapsedMs: c0, lastCaptureElapsedMs: cResult, lastQualifyingElapsedMs: cResult, resultElapsedMs: cResult, closure: "turn_boundary" },
+    { firstCaptureElapsedMs: cTail, lastCaptureElapsedMs: cTail, lastQualifyingElapsedMs: null, resultElapsedMs: null, closure: "drain" },
+  ];
+  // Before this repair the first capture closed one window holding all four
+  // rows, and its noise tail inherited the capture's qualifying class.
+  assert.equal(live.windows.length, 4, "one reference per completed turn plus the final partial window");
+  let offset = 0;
+  for (const [index, observed] of live.windows.entries()) {
+    assert.deepEqual(observed.window, { archiveOffset: offset, byteLength: hs03Bytes(texts[index]), ...expected[index] }, `window ${index + 1}`);
+    assert.equal(observed.text, texts[index], `window ${index + 1} carries its exact segment text`);
+    assert.equal(observed.archived, texts[index], `window ${index + 1}: its archive range holds its bytes at its reference`);
+    assert.equal(sha256Canonical(observed.archived), sha256Canonical(texts[index]), `window ${index + 1}: its range digest is the reference digest`);
+    offset += observed.window.byteLength;
+  }
+  // Every reference follows the fsync of its range; one fsync per window and
+  // one write per capture; the final partial window drains before finalization.
+  for (const [index, entry] of log.entries()) if (entry === "ref") assert.equal(log[index - 1], "fsync", `reference at log ${index} follows its fsync`);
+  assert.deepEqual([log.filter(e => e === "ref").length, log.filter(e => e === "fsync").length, log.filter(e => e === "write").length],
+    [4, 4, live.captures.length]);
+  assert.equal(log.indexOf("finalized") > log.lastIndexOf("ref"), true, "the drained window precedes finalization");
+  assert.equal(live.flushes.length, 1);
+  assert.equal(live.flushes[0](), null, "after the drain nothing is pending");
+  // A restarted reader recovers each referenced range from the closed archive.
+  const archived = await readFile(archivePath, "utf8");
+  assert.equal(archived, HS03_PARTS.join(""));
+  assert.equal(archived, result.stdout);
+  assert.equal(offset, hs03Bytes(archived), "the windows partition the archive");
+  assert.deepEqual(live.windows.map(w => hs03ReadRange(archivePath, w.window.archiveOffset, w.window.byteLength)), texts);
+});
+
+test("RC7 HS03 archive: a failed archive write or fsync fails the transport with its original error and no unavailable window is referenced", async (context) => {
+  for (const failing of ["fsync", "write"]) {
+    const scratch = await mkdtemp(join(tmpdir(), `abi5-hs03-${failing}-`));
+    context.after(async () => rm(scratch, { force: true, recursive: true }));
+    const log = [], archivePath = join(scratch, "archive", `hs03-${failing}-stdout.log`);
+    const injected = Object.assign(new Error(`injected archive ${failing} failure`), { code: "EIO" });
+    const { runWorkerTransport: run } = await hs03Transport(log, failing === "fsync"
+      ? { failFsync: injected } : { failWrite: { marker: '"type":"result"', error: injected } });
+    const live = hs03WindowObserver(archivePath, log);
+    let processId = null;
+    const observer = { ...live.observer, onProcessStarted: pid => { processId = pid; } };
+    await assert.rejects(run(hs03Request(await hs03Worker(scratch, HS03_PARTS), scratch, `hs03-${failing}`, observer)),
+      error => error === injected, `the ${failing} failure is the transport failure`);
+    if (failing === "fsync") {
+      assert.deepEqual(live.windows, [], "no window is referenced without its fsync");
+      assert.equal(log.includes("fsync"), false);
+    } else {
+      // The windows closed before the failed write were durable; the pending
+      // noise tail and the unwritten result are never referenced.
+      assert.deepEqual(live.windows.map(w => w.text), [HS03_ASSISTANT, hs03Noise(1) + HS03_USER]);
+      assert.deepEqual(live.windows.map(w => w.archived), [HS03_ASSISTANT, hs03Noise(1) + HS03_USER]);
+      assert.equal(log.filter(e => e === "ref").length, 2);
+      assert.equal((await readFile(archivePath, "utf8")), HS03_PARTS[0], "the archive holds only the written capture");
+    }
+    assert.equal(log.includes("finalized"), true, "finalization still runs");
+    assert.notEqual(processId, null);
+    assert.throws(() => process.kill(processId, 0), error => error?.code === "ESRCH", "the failed owner leaves no live worker");
+  }
+});
+
+test("RC7 HS03 archive: missing, changed or truncated archive bytes after the window references are refused by the existing archive comparison", async (context) => {
+  for (const damage of ["missing", "changed", "truncated"]) {
+    const scratch = await mkdtemp(join(tmpdir(), `abi5-hs03-${damage}-`));
+    context.after(async () => rm(scratch, { force: true, recursive: true }));
+    const log = [], archivePath = join(scratch, "archive", `hs03-${damage}-stdout.log`);
+    const live = hs03WindowObserver(archivePath, log);
+    const observer = { ...live.observer, onProcessFinalized: () => {
+      log.push("finalized");
+      if (damage === "missing") hs03UnlinkSync(archivePath);
+      else if (damage === "truncated") hs03TruncateSync(archivePath, hs03Bytes(HS03_PARTS.join("")) - 1);
+      else {
+        const descriptor = hs03OpenSync(archivePath, "r+");
+        try { hs03WriteSync(descriptor, Buffer.from("X"), 0, 1, 0); } finally { hs03CloseSync(descriptor); }
+      }
+    } };
+    await assert.rejects(runWorkerTransport(hs03Request(await hs03Worker(scratch, HS03_PARTS), scratch, `hs03-${damage}`, observer)),
+      damage === "missing" ? error => error?.code === "ENOENT" : /worker stream archive differs from observed bytes/u, `${damage} archive bytes refuse`);
+    assert.deepEqual(live.windows.map(w => w.archived), [HS03_ASSISTANT, hs03Noise(1) + HS03_USER, hs03Noise(2) + HS03_RESULT, hs03Noise(3)],
+      `${damage}: every window was exact at its reference`);
+  }
+});
+
+test("RC7 HS03 timeout: an inactivity timeout drains the pending partial window before finalization with its last qualifying capture, and noise renews no lease", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-hs03-inactivity-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const log = [], archivePath = join(scratch, "archive", "hs03-inactivity-stdout.log");
+  const live = hs03WindowObserver(archivePath, log);
+  const started = Date.now();
+  const result = await runWorkerTransport(hs03Request(await hs03Worker(scratch, [HS03_ASSISTANT, HS03_DELTA, hs03Noise(1)], { forever: true }),
+    scratch, "hs03-inactivity", live.observer, { timeoutMs: 400, absoluteTimeoutMs: 15_000, terminationGraceMs: 200 }));
+  assert.equal(Date.now() - started < 8_000, true, "repeated noise did not renew the inactivity lease");
+  assert.deepEqual([result.disposition, result.timedOut, result.timeoutClass], ["failure", true, "inactivity"]);
+  const cAssistant = live.captureOf(HS03_ASSISTANT), cDelta = live.captureOf(HS03_DELTA);
+  const noiseCaptures = live.captures.filter(c => !c.chunk.includes(HS03_DELTA) && !c.chunk.includes(HS03_ASSISTANT));
+  assert.equal(noiseCaptures.length > 0, true, "noise arrived after the last qualifying row");
+  assert.equal(noiseCaptures.every(c => c.segments.every(s => !s.progress && !s.result && !s.turnBoundary)), true, "noise is not activity");
+  assert.equal(live.windows.length, 2, "the completed turn and one drained partial window");
+  const [turn, partial] = live.windows;
+  assert.deepEqual({ ...turn.window }, { archiveOffset: 0, byteLength: hs03Bytes(HS03_ASSISTANT), firstCaptureElapsedMs: cAssistant,
+    lastCaptureElapsedMs: cAssistant, lastQualifyingElapsedMs: cAssistant, resultElapsedMs: null, closure: "turn_boundary" });
+  assert.deepEqual([partial.window.archiveOffset, partial.window.closure, partial.window.firstCaptureElapsedMs, partial.window.lastQualifyingElapsedMs,
+    partial.window.resultElapsedMs], [hs03Bytes(HS03_ASSISTANT), "drain", cDelta, cDelta, null],
+    "the partial window keeps its last qualifying capture, not its last noise capture");
+  assert.equal(partial.window.lastCaptureElapsedMs, Math.max(...live.captures.map(c => c.elapsedMs)));
+  assert.equal(partial.window.lastCaptureElapsedMs > cDelta, true);
+  assert.equal(partial.text.startsWith(HS03_DELTA), true);
+  assert.equal(partial.archived, partial.text, "the drained range is durable at its reference");
+  assert.equal(turn.text + partial.text, result.stdout, "the two windows partition the captured stdout");
+  assert.deepEqual(log, ["ref", "timeout:inactivity", "ref", "finalized"], "the partial window drains after the timeout and before finalization");
+  assert.equal(live.flushes[0](), null);
+});
+
+test("RC7 HS03 timeout: an absolute interruption under steady qualifying progress drains its open window once after the timeout and before finalization", async (context) => {
+  const scratch = await mkdtemp(join(tmpdir(), "abi5-hs03-absolute-"));
+  context.after(async () => rm(scratch, { force: true, recursive: true }));
+  const log = [], archivePath = join(scratch, "archive", "hs03-absolute-stdout.log");
+  const live = hs03WindowObserver(archivePath, log);
+  // The transport admits only an absolute bound above the inactivity bound.
+  // The S2 fixture supplied inactivity 5000 ms with absolute 500 ms and was
+  // refused before transport; that receipt stays historical. Qualifying
+  // content records every 30 ms keep renewing a 400 ms lease until the
+  // 1500 ms absolute bound interrupts.
+  const started = Date.now();
+  const result = await runWorkerTransport(hs03Request(await hs03Worker(scratch, [HS03_DELTA], { pauseMs: 30, forever: true }),
+    scratch, "hs03-absolute", live.observer, { timeoutMs: 400, absoluteTimeoutMs: 1_500, terminationGraceMs: 200 }));
+  assert.deepEqual([result.disposition, result.timedOut, result.timeoutClass], ["failure", true, "absolute"]);
+  assert.equal(Date.now() - started >= 1_500, true, "steady qualifying progress outlived several inactivity leases");
+  assert.equal(live.captures.length > 1, true);
+  const qualifying = live.captures.filter(c => c.segments.some(s => s.progress || s.result));
+  assert.equal(live.windows.length, 1, "no turn boundary and no 30000 ms bound: one window");
+  assert.deepEqual({ ...live.windows[0].window }, { archiveOffset: 0, byteLength: hs03Bytes(result.stdout),
+    firstCaptureElapsedMs: live.captures[0].elapsedMs, lastCaptureElapsedMs: live.captures.at(-1).elapsedMs,
+    lastQualifyingElapsedMs: qualifying.at(-1).elapsedMs, resultElapsedMs: null, closure: "drain" });
+  assert.equal(live.windows[0].archived, result.stdout);
+  assert.equal(live.captures.at(-1).elapsedMs - qualifying.at(-1).elapsedMs < 400, true, "progress was steady up to the interruption");
+  assert.deepEqual(log, ["timeout:absolute", "ref", "finalized"], "the open window drains exactly once, after the timeout and before finalization");
+  assert.equal(live.flushes[0](), null);
 });

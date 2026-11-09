@@ -48,6 +48,20 @@ test("R1 verifies exact packed bytes without a source import", async (context) =
   assert.equal(verified.disposition, "verified", JSON.stringify(verified));
   assert.equal(verified.kind, "verified_product_artifact");
   assert.equal(verified.checkedPayloadFiles > 0, true);
+  // RC3 Increment B: the packed cut carries the fixed governed-context client,
+  // the pinned adapter and the exact selected released GC03/Python contract.
+  const packedManifest = JSON.parse(await readFile(join(productRoot, "product-toolchain-manifest.json"), "utf8"));
+  const governedMembers = ["build/code/src/abg/governed_context_client.js", "contracts/governed-context/host_adapter.py", "contracts/governed-context/selection.json"];
+  for (const path of governedMembers) assert.ok(packedManifest.productRelativeLocators.includes(path), path);
+  const governedSelection = JSON.parse(await readFile(join(productRoot, "contracts/governed-context/selection.json"), "utf8"));
+  assert.equal(governedSelection.gc03.identity, "urn:a-c:development-supplement:governed-context:gc03-adb3d8ee:1");
+  assert.equal(governedSelection.gc03.inventorySha256, "fc6befa45d62acd902665d545fc20f65dc3d435fa242a72aaa4e8986c080c003");
+  assert.equal(governedSelection.sourceCheckoutFallback, false);
+  assert.deepEqual(governedSelection.python.invocation, ["-I", "-S", "-B"]);
+  assert.equal(product.sha256Bytes(await readFile(join(productRoot, governedSelection.adapter.path))), governedSelection.adapter.sha256);
+  assert.equal(product.sha256Bytes(await readFile(join(productRoot, governedSelection.client.path))), governedSelection.client.sha256);
+  assert.ok((await readFile(join(root, "code/support/governed-context/host_adapter.py"))).equals(await readFile(join(productRoot, governedSelection.adapter.path))),
+    "the packaged adapter is the tracked adapter byte for byte");
 
   const tamperedPath = join(productRoot, "build/code/src/index.js");
   const original = await readFile(tamperedPath, "utf8");

@@ -6,8 +6,7 @@ import { rehydrateExecutionBasisAtPrefix, rehydrateAdmittedImplementationSetAtPr
 import type { CCall } from "./c_call.js";
 import { projectOpenedCCallCarrierAtPrefix, projectCCallCarrierPhaseAtPrefix } from "./c_call.js";
 import type { DurablePrefixCoordinate } from "./event_store.js";
-import { readRuntimeEventsAtDurablePrefix } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import { readOwnedRuntimeEventPrefixAtDurablePrefix, runtimeEventPrefixDigest, runtimeEventPrefixExtent } from "./event_prefix.js";
 import { sha256Canonical } from "../shared/digests.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { admitJson } from "../shared/admit/index.js";
@@ -26,8 +25,8 @@ export interface RequirementHandoffDeclarationBasis {
 /** Reconstructs the read-only basis from exact durable ABG facts, not a local brand. */
 export function authenticateRequirementHandoffBasis(basis: RequirementHandoffDeclarationBasis) {
   try {
-    const events = readRuntimeEventsAtDurablePrefix(basis.predecessorPrefix);
-    const prefix = selectValidatedRuntimeEventPrefix(events);
+    // The active owner is borrowed; any other coordinate authenticates cold.
+    const prefix = readOwnedRuntimeEventPrefixAtDurablePrefix(basis.predecessorPrefix);
     const execution = rehydrateExecutionBasisAtPrefix(prefix, basis.executionBasis.basisRef);
     if (execution === null || execution.basisClass !== "root" ||
       hash(basis.graphFunction) !== execution.graphFunctionDigest) return null;
@@ -69,7 +68,7 @@ export function authenticateRequirementHandoffBasis(basis: RequirementHandoffDec
       cCallRef: call.cCallRef, cCallDigest: call.cCallDigest,
       implementationResolutionRef: rows[0]!.leafResolutionCandidateRef,
       implementationResolutionDigest: rows[0]!.leafResolutionCandidateDigest,
-      predecessorPrefixDigest: hash(events), predecessorEventCount: events.length,
+      predecessorPrefixDigest: runtimeEventPrefixDigest(prefix), predecessorEventCount: runtimeEventPrefixExtent(prefix).count,
       inputDigest: execution.rawInputDigest,
     } });
   } catch { return null; }

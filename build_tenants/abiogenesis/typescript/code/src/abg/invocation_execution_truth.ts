@@ -1,6 +1,6 @@
 import { isOwnedRuntimeEventPrefix, runtimeEventsFromValidatedPrefix } from "./event_prefix.js";
 import { checkedRecordAtPrefix, indexedRuntimeEvents } from "./event_prefix.js";
-import type { RuntimeEventPrefix } from "./event_prefix.js";
+import type { RuntimeEventPrefix, WorksiteContextBodyUse } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
 import type { JsonValue } from "../shared/canonical_json.js";
 import { ok, type Outcome, type StructuralRefusal } from "../shared/refusal.js";
@@ -265,15 +265,30 @@ export function hasAdmittedGovernanceCoveredSourceUse(prefix: RuntimeEventPrefix
  * Internal consumers transport exact Result identity, without cold derivation
  * or a new grant. This does not establish mutable currentness/independence. */
 export function hasAdmittedGovernanceSourceUse(invocation: InvocationAdmission, event: RuntimeEvent): boolean {
-  const basis = invocation.sourceResultBasis;
-  if (basis === null || basis === undefined || basis.sourceResultContractRef !== governanceContract("state") ||
-    !isRecord(basis.sourceResultValue) || basis.sourceResultValue.kind !== "governance_work_state" ||
-    event.kind !== "c_call_result_admitted" || !isRecord(event.payload) || event.payload.resultClass !== "success") return false;
-  const state = basis.sourceResultValue as unknown as GovernanceWorkState;
+  const state = admittedGovernanceSourceState(invocation);
+  if (state === null || event.kind !== "c_call_result_admitted" || !isRecord(event.payload) || event.payload.resultClass !== "success") return false;
   const payload = event.payload, synthesis = state.synthesis;
   return state.observations.some(row => row.resultRef === payload.resultRef && row.resultDigest === payload.resultDigest &&
     row.cCallRef === event.aggregateId) || synthesis !== null && synthesis.resultRef === payload.resultRef &&
     synthesis.resultDigest === payload.resultDigest;
+}
+
+/** @internal One governance consumer's context-body use: its own Run and, when
+ * its invocation admitted retained-source use, the exact observation Results of
+ * that source state as `hasAdmittedGovernanceSourceUse` names them. The
+ * immutable admission is the permission, so it persists while the consumer's
+ * current state advances; A is not reacquired or reinvoked per read. */
+export function governanceContextBodyUse(invocation: InvocationAdmission | null, runId: string): WorksiteContextBodyUse {
+  const state = admittedGovernanceSourceState(invocation);
+  return state === null ? { runId }
+    : { runId, sourceResults: state.observations.map(row => ({ resultRef: row.resultRef, resultDigest: row.resultDigest, cCallRef: row.cCallRef })) };
+}
+/** The retained library state an invocation admitted as its source, if any. */
+function admittedGovernanceSourceState(invocation: InvocationAdmission | null): GovernanceWorkState | null {
+  const basis = invocation?.sourceResultBasis;
+  return basis === null || basis === undefined || basis.sourceResultContractRef !== governanceContract("state") ||
+    !isRecord(basis.sourceResultValue) || basis.sourceResultValue.kind !== "governance_work_state" ? null
+    : basis.sourceResultValue as unknown as GovernanceWorkState;
 }
 
 function sameStringArray(
@@ -580,7 +595,7 @@ export function projectExactRunInvocationFactsAtPrefix(
       admissionEventRef: admission.admissionEventRef,
     }));
   }
-  const publicRunEventRefs = indexedRuntimeEvents(prefix, "kind:" + "public_operation_admitted")
+  const publicRunEventRefs = indexedRuntimeEvents(prefix, "public-operation:" + "abg.operation.run.invoke")
     .filter((event) =>
       event.kind === "public_operation_admitted" &&
       isRecord(event.payload) &&

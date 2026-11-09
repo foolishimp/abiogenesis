@@ -113,9 +113,10 @@ limit S2's broader admitted typed-input relation.
 
 ## Assembly and admission
 
-Reuse `authenticateNativeInstructionAssemblyBasis` in `abg/execution_basis.ts`:
+Reuse `authenticateOwnedNativeInstructionAssemblyBasis` in `abg/execution_basis.ts`:
 it already authenticates publication, Program, materialization, CCall, selected
-implementation, input and prefix. Reuse `projectRunEnvironmentRoleEvidence` in
+implementation, input and prefix, and returns the borrowed owned prefix rather
+than a complete-history copy. Reuse `projectRunEnvironmentRoleEvidence` in
 `abg/stdo_environment.ts:284` for exact frame source slices, policy, context
 selectors and actual corpus access evidence. Do not revive the historical RC7
 pilot's declaration or Public call shape.
@@ -144,6 +145,43 @@ must be supplied when needed or resolvable through admitted access; bare
 inaccessible locators are insufficient. Unknown required content, stale basis,
 unsupported context or a declared bound overflow retains the existing typed
 assembly refusal. Semantic insufficiency remains F_P's explicit gap.
+
+### Current active binding (framed synthesis)
+
+For the framed-synthesis selector, `active_binding_semantics` also presents
+the current execution facts in one `binding` section. `abg/instruction_assembly.ts`
+projects it from existing exact owners only:
+
+- the execution's admitted invocation (`projectExactInvocationAdmissionAtPrefix`);
+- its unique Run segment (`hasExactInvocationRunBindingAtPrefix`);
+- the governance root ancestry (`semanticJobRootAtPrefix`);
+- the root definition, selected from `declarationGraphFunctions` by the admitted
+  root name and digest.
+
+The section shows:
+
+- the current Run;
+- the invocation admission, invocation and variant;
+- the Program;
+- the root GraphFunction and its digest;
+- the admitted Public start, target and root mode;
+- the executing GraphFunction.
+
+The declared recursion bound appears only when the root template declares
+exactly one recurse application to the executing GraphFunction. Otherwise it is
+`null`. A retained-source predecessor comes from the admission's
+`sourceResultBasis`. It is shown separately and never as the current root or
+Run.
+
+These facts identify which admitted root, start and Run is executing now. They
+carry no task meaning and select no next member. They do not replace the
+original task, history or judgments, and historical first-root commentary does
+not override them.
+
+The section enters the existing section order, envelope and manifest, so
+transport and replay bind it. A missing, foreign or inconsistent owner relation
+refuses `unknown_dependency` before dispatch (REQ-R-ABG3-INSTRUCTION-ASSEMBLY-008).
+This refinement does not project the reentry basis.
 
 Public acquisition data is excluded. In particular, Root measured a
 16,374,018-byte installed request containing 15,985,959 bytes of catalogue
@@ -236,3 +274,33 @@ PC05-11 closure or whole-Product qualification. No further Product decision is
 required by this proposal; realization and live authorization remain Executive's
 next disposition.
 
+## Canonical installed test support
+
+`test_env/support/registered-graph-selection.mjs` is the one canonical helper
+for installed starts. It is unshipped test code and adds no Product, Public or
+runtime authority.
+
+`constructInstalledStartCall` resolves one selection through
+`ProductExecutionResolutionPort`:
+
+- next;
+- a declared start;
+- a published asset handle.
+
+A declared start and an asset handle are mutually exclusive. The typed Public
+start target follows the selection. Policy, grant, authority and slot resources
+come from the selected root's actual resolution.
+
+`constructInstalledPendingCall` assembles one pending-execution
+`continue.current_intent` call through the existing owners:
+
+1. the prefix continuation projection;
+2. `selectPendingExecutionUse`;
+3. `projectPendingExecutionInputAtPrefix`;
+4. the declared input contract;
+5. the existing capability-grant constructor.
+
+It requires the pending root admission's authority to equal the supplied
+start's authority. The default-library same-Run and retained-A/B cold tests
+reuse it, and their semantic and negative assertions stay in those tests.
+Historical operator forks remain immutable evidence, not support.

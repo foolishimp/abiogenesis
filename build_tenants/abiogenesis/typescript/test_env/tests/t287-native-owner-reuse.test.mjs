@@ -29,16 +29,16 @@ test('actual historical reacquisition contracts owner work without changing task
    './event_store.js':{readRuntimeEventsAtDurablePrefix:(...args)=>{reads++;return store.readRuntimeEventsAtDurablePrefix(...args);}},
    './native_worksite_execution.js':{projectNativeWorkCommandSourceAtPrefix:(...args)=>{sourceProjections++;return source.projectNativeWorkCommandSourceAtPrefix(...args);}}
   });
-  const begin=performance.now(), result=owner.authenticateNativeWorkReacquisition(basis,request,false),elapsedMs=performance.now()-begin;
+  const begin=performance.now(), result=owner.authenticateOwnedNativeWorkReacquisition(basis,request,false),elapsedMs=performance.now()-begin;
   assert(result);assert.deepEqual(result.task,task);
   const valueDigest=digest.sha256Canonical(result.task);
   if(expected===undefined)expected=valueDigest;else assert.equal(valueDigest,expected);
   assert.equal(sourceProjections,variant==='predecessor'?2:1);
   assert.equal(reads,variant==='predecessor'?2:1,'same-call current prefix is acquired only once in successor');
   measures.push({variant,condition:'cold serialized historical coordinate; no original store acquisition',elapsedMs,directCurrentPrefixReads:reads,nativeSourceProjections:sourceProjections,taskDigest:valueDigest});
-  assert.equal(owner.authenticateNativeWorkReacquisition(basis,{...request,requestDigest:digest.sha256Canonical('malformed')},false),null);
-  assert.equal(owner.authenticateNativeWorkReacquisition({...basis,cCallRef:'c-call://foreign'},request,false),null);
-  assert.equal(owner.authenticateNativeWorkReacquisition(basis,request,true),null,'historical occurrence cannot claim latest prefix');
+  assert.equal(owner.authenticateOwnedNativeWorkReacquisition(basis,{...request,requestDigest:digest.sha256Canonical('malformed')},false),null);
+  assert.equal(owner.authenticateOwnedNativeWorkReacquisition({...basis,cCallRef:'c-call://foreign'},request,false),null);
+  assert.equal(owner.authenticateOwnedNativeWorkReacquisition(basis,request,true),null,'historical occurrence cannot claim latest prefix');
   assert.equal(await owner.nativeWorkReacquisitionContextCurrent(request),true,'all selected physical context remains exact');
   // Measure the execution-basis owner's duplicate input hashing independently.
   const digests=await load(root,'shared/digests');let rawHashes=0;

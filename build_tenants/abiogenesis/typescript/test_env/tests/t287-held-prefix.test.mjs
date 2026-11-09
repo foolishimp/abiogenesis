@@ -183,7 +183,7 @@ function judgmentOwnerFixture(t,name){
  const graph=gtl.materializeGraph(graphFunction,{invocationAdmissionRef:basis.invocationAdmissionRef,
   admittedInputRef:basis.rawInputAdmissionRef,admittedInputDigest:basis.rawInputDigest,admittedInput:basis.rawInputValue});
  assert.equal(graph.materializationDigest,basis.graphDigest);
- const truth=replay.projectRuntimeTruthAtDurablePrefix(acquired.prefix,events.find(e=>e.kind==='run_segment_opened').runId);
+ const truth=replay.projectOwnedRuntimeTruthAtDurablePrefix(acquired.prefix,events.find(e=>e.kind==='run_segment_opened').runId);
  const resultEvent=events.find(e=>e.kind==='c_call_result_admitted');
  const cCall=ccall.projectOpenedCCallCarrierAtPrefix(truth.authorityPrefix,graph,resultEvent.payload.cCallRef);assert(cCall);
  const result=ccall.projectAdmittedCCallResultAtPrefix(truth.authorityPrefix,cCall,deepFreeze({
@@ -243,7 +243,12 @@ test('owned result-to-judgment conserves semantic digests without canonicalizing
  assert.equal(old.reads,0);assert.equal(current.reads,0);
  for(const [f,result]of [[a,old.value],[b,current.value]]){
   assert.equal(prefixes.runtimeEventPrefixDigest(result.runtimePrefix),sha256Canonical(result.runtimePrefix.events));
-  assert.equal(replay.projectRuntimeTruthAtDurablePrefix(result.successorPrefix,result.admitted.cCall.runId).replayState.replayDigest,result.replayState.replayDigest);
+  // Complete values come from the replay owner's materializer; the judged cut
+  // and its authentic predecessor cut remain unequal.
+  const complete=replay.materializeRuntimeReplayGuard(replay.projectOwnedRuntimeTruthAtDurablePrefix(result.successorPrefix,result.admitted.cCall.runId).replayState);
+  assert.equal(complete.replayDigest,result.replayState.replayDigest);
+  const predecessor=replay.materializeRuntimeReplayGuard(replay.projectOwnedRuntimeTruthAtDurablePrefix(f.prefix,result.admitted.cCall.runId).replayState);
+  assert.notDeepEqual(predecessor,complete);assert(predecessor.lastAdmissionOrdinal<complete.lastAdmissionOrdinal);
   assert.equal(f.store.readAll().filter(e=>e.kind==='c_call_judged').length,1);
   const bytes=fs.readFileSync(new URL(result.successorPrefix.eventLogRef));
   assert.throws(()=>after.admitCCallJudgment(f),/current|prefix|predecessor/i);

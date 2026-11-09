@@ -56,22 +56,20 @@ const runContextSchema = v.strictObject({
   basis: refDigestSchema,
 });
 
-function witnessContextSchema(act: WitnessAct) {
-  if (act === "hygiene-stamp") return workspaceContextSchema;
-  if (act === "intake") return segmentContextSchema;
-  if (act === "run-resumed" || act === "run-stopped") {
-    return runContextSchema;
-  }
-  return basisContextSchema;
-}
-
-function witnessSubjectKind(act: WitnessAct) {
-  if (act === "reprice") return "authority_basis" as const;
-  if (act === "attest") return "evidence_claim" as const;
-  if (act === "hygiene-stamp") return "workspace" as const;
-  if (act === "intake") return "intake_item" as const;
-  return "run" as const;
-}
+// Each act owns one subject kind and one context schema, so each packet type
+// carries exactly its own act domain.
+const WITNESS_ACT_DOMAINS = Object.freeze({
+  reprice: { subjectKind: "authority_basis", context: basisContextSchema },
+  attest: { subjectKind: "evidence_claim", context: basisContextSchema },
+  "hygiene-stamp": { subjectKind: "workspace", context: workspaceContextSchema },
+  intake: { subjectKind: "intake_item", context: segmentContextSchema },
+  "run-resumed": { subjectKind: "run", context: runContextSchema },
+  "run-stopped": { subjectKind: "run", context: runContextSchema },
+} as const) satisfies Readonly<Record<WitnessAct, Readonly<{
+  subjectKind: string;
+  context: v.GenericSchema;
+}>>>;
+type WitnessActDomain = typeof WITNESS_ACT_DOMAINS;
 
 const witnessRefusalSchema = refusalSchema([
   "actor_mismatch",
@@ -85,7 +83,10 @@ const witnessRefusalSchema = refusalSchema([
 ]);
 
 function witnessContract<const TAct extends WitnessAct>(act: TAct) {
-  const subjectKind = witnessSubjectKind(act);
+  const subjectKind: WitnessActDomain[TAct]["subjectKind"] =
+    WITNESS_ACT_DOMAINS[act].subjectKind;
+  const context: WitnessActDomain[TAct]["context"] =
+    WITNESS_ACT_DOMAINS[act].context;
   const executionScoped =
     act === "intake" || act === "run-resumed" || act === "run-stopped";
   return ownerContractPacket(
@@ -95,7 +96,7 @@ function witnessContract<const TAct extends WitnessAct>(act: TAct) {
       subject: refDigestSchema,
       act: v.literal(act),
       content: witnessContentSchema,
-      context: witnessContextSchema(act),
+      context,
       evidence: nonemptyRefDigestSetSchema,
       provenance: nonemptyRefDigestSetSchema,
     }),

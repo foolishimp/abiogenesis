@@ -103,7 +103,7 @@ for (const withPhase of [false, true]) test(`correction: generic owner-boundary 
   assert.equal(product.canonicalJson({ A: env.workspaceAuthority, W: env.workspaceBinding, B: executionBasis }), coordinates);
   const logPath = store.configuredDurableLogPath();
   const fresh = await proveFreshProcessRuntimeProjectionEquality({ abg, product, installedPackageRoot: env.installedRoot, store,
-    requests: [{ rowId: label, owner: "abg", exportName: "projectRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] }],
+    requests: [{ rowId: label, owner: "replay", exportName: "projectOwnedRuntimeTruthAtDurablePrefix", input: "durable_prefix", args: [opened.scope.runId] }],
   });
   const replay = fresh.retainedRows[0].projection.replayState;
   assert.deepEqual(replay.cCalls.find(row => row.cCallRef === callRef).resultValue, candidate.resultCandidate);

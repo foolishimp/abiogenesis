@@ -15,7 +15,7 @@ import { sha256Canonical } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { rehydrateExecutionBasisAtPrefix, authenticateOwnedNativeInstructionAssemblyBasis, constructNativeInstructionAssemblyBasis, type ExecutionBasis } from "./execution_basis.js";
 import { type DurablePrefixCoordinate, type RuntimeEvent } from "./event_store.js";
-import { selectValidatedRuntimeEventPrefix, type ValidatedRuntimeEventPrefix } from "./event_prefix.js";
+import type { ValidatedRuntimeEventPrefix } from "./event_prefix.js";
 import { type TraversalCursorCandidate } from "./traversal_cursor.js";
 import { projectOpenedCCallCarrierAtPrefix, projectAdmittedCCallStateAtPrefix,
   type CCall, type RehydratedAdmittedCCallState } from "./c_call.js";
@@ -396,11 +396,4 @@ export function projectSemanticEvidenceInput(basis: SemanticStageNativeBasis, in
       executionResultDigest: execution.previous.result.resultDigest, constructionResult: input.task.sourceConstructionResult,
       executionObservation: input, artifacts } });
   } catch { return null; }
-}
-
-export function authenticateSemanticStageBasis(basis: SemanticStageNativeBasis) {
-  const owner = authenticateOwnedSemanticStageBasis(basis);
-  if (owner === null || owner.prefix.kind === "runtime_validation_event_prefix") return null;
-  const events = runtimeEventBodiesAtPrefix(owner.prefix).materialize();
-  return { ...owner, events, prefix: selectValidatedRuntimeEventPrefix(events) };
 }

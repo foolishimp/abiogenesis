@@ -10,6 +10,9 @@ import { isRunEnvironmentEvidence } from '../../build/code/src/abg/stdo_environm
 import { declarations, NATIVE_SELECTION_STDO3_ROLE } from '../fixtures/registered-selection-product/native.mjs';
 import { STDO3_SOURCE, stdo3RunEnvironment } from '../support/stdo3-run-environment.mjs';
 
+// Retained STDO 3.0.2 controls for the generic and specialized run-environment
+// owners. They are not proof of the selected 3.0.4 default-library source, which
+// t287-default-library.test.mjs exercises under the "RC5 STDO 3.0.4" cases.
 let root, sourceRoot, environment;
 before(async () => {
   // The method manager selects only the exact pinned release. Tests mutate its

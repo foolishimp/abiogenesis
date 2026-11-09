@@ -4,7 +4,7 @@ import {access,lstat,mkdir,readFile,stat,writeFile} from 'node:fs/promises';
 import {dirname,isAbsolute,join,resolve} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
 import {authorizeInstalledOperation,BoundaryFailure,cliTransportJsonl,corePublications,
-  emptyAuthoritySlots,installedModules,publicCaller,requireKind} from './public-setup.mjs';
+  installedModules,publicCaller,requireKind} from './public-setup.mjs';
 import {freshReadbacks} from './runner.mjs';
 
 const version='5.0.0';
@@ -356,45 +356,32 @@ export async function prepareInstalledContinuation(instance) {
     if(!use)throw new BoundaryFailure('current-source-use',null);
     await checkpoint('current-source-use-complete',{useDigest:use.useDigest,sourceBasisRef:source.basisRef});
 
-    const packet=p.RUN_OPERATION_CONTRACTS.invoke.start;
-    const regimes=new Set([...resolution.programValidation.executableLeafRows,...resolution.programValidation.interactionLeafRows].map(row=>row.fibre));
-    const applications=sourceCall.resources.applications;
-    const policy=p.constructRootInvocationPolicy(binding,resolution.program,
-      resolution.programValidation.interactionLeafRows.map(row=>({requirementKey:row.requirementKey,requirementKeyDigest:row.requirementKeyDigest,actorCapabilityRef:row.requirement.actorCapabilityRef})),
-      ['F_D','F_P','F_H'].filter(fibre=>regimes.has(fibre)),applications);
-    const grants=[p.constructCapabilityGrant(policy,actorRef,packet.definitionKey.operationId,p.DIRECT_INVOKE_CAPABILITY,
-      {admittedInstalls:installs,workspaceBinding:binding,fixedPacket:packet})];
-    const authority=p.constructInvocationAuthority(actorRef,binding,view,programRef,resolution.selectedCatalogEntry,policy,grants,
-      {admittedInstalls:installs,workspaceBinding:binding,fixedPacket:packet});
-    const previous=sourceCall.resources.runEnvironmentResources;
-    const runEnvironmentResources=p.constructRunEnvironmentResources({...previous,permission:{...previous.permission,
-      authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,
-      dependencies:previous.dependencies,pythonPath:previous.pythonPath,temporaryRoot:previous.temporaryRoot}});
+    const applications=sourceCall.resources.applications,previous=sourceCall.resources.runEnvironmentResources;
     const finalPrefix=selection.prefix,finalOwnedPrefix=prefixAt();
     await checkpoint('resource-close-start');
     close=a.closeAbgEventResource(resource,finalPrefix);resource=null;
     await record('final-resource-receipt.json',close);await record('final-close-handoff.json',close.closeHandoff);
     await checkpoint('resource-close-complete',{prefixLength:close.closeHandoff.prefix.prefixLength});
     const eventResource={kind:'reopen_abg_event_resource',schemaVersion:version,closeHandoff:close.closeHandoff,handoffDigest:hash(close.closeHandoff)};
-    const program={ref:resolution.resolution.programRef,digest:resolution.resolution.programDigest};
-    const viewRef={ref:'graph-function-catalog-view://abiogenesis/'+view.viewDigest.slice(7),digest:view.viewDigest};
-    const boundInput={contract:{ref:resolution.resolution.inputContract.contractRef,digest:resolution.resolution.inputContractDigest},
-      valueRef:namespace+'/input',valueDigest:hash(input),value:input};
-    const request={...sourceCall.invocation.request,catalogView:viewRef,input:boundInput,sourceBasis:{kind:'admitted_source_result',
-      projectionAuthority:{ref:sourceCall.invocation.invocationRef,digest:source.publicAuthorityDigest},sourceResult:{ref:source.sourceResultRef,digest:source.sourceResultDigest}}};
-    const steering=hash(eventResource);
-    const slots={...emptyAuthoritySlots(),workspace_binding:selectedBinding,product_set:installs.map(p.productInstallCoordinate),dependency_lock:lockCoordinate(lock),
-      catalog_scope:{catalog:{ref:'graph-function-catalog://abiogenesis/'+catalog.basisDigest.slice(7),digest:catalog.basisDigest},view:viewRef,allowlist:request.allowlist},
-      execution_program:program,input_contract:boundInput,session_policy:{ref:policy.policyRef,digest:policy.policyDigest},
-      capability_grants:{requiredCapabilityRefs:[...packet.metadata.capabilityRefs],grants:grants.map(grant=>({ref:grant.grantRef,digest:grant.grantDigest}))},
-      actor:{actor:{ref:actorRef,digest:hash({actorRef})},attribution:{ref:authority.authorityRef,digest:authority.authorityDigest}},
-      transport_steering:{ref:'transport-steering://abiogenesis/'+steering.slice(7),digest:steering}};
-    const resources={catalog,catalogView:view,applications,source:{kind:'admitted_source_result',basis:source},historicalSource,runEnvironmentResources};
-    const contract= native.verified.definitionContractCoordinates.operations.find(row=>row.operationId===packet.definitionKey.operationId).members.find(row=>row.memberKey===packet.definitionKey.memberKey);
-    const call=api.constructInstalledPublicDefinitionCall({product:p,installedPublic:api,
-      definitionContractCoordinates:native.verified.definitionContractCoordinates,contractCatalog:contract.slots.request.contractCatalog,
-      ...packet.definitionKey,request,slots,resources:{...resources,kind:'run_invocation_resource_assertion',schemaVersion:version,eventResource},
-      requestRef:namespace+'/start',correlationRef:namespace,eventTime:new Date().toISOString(),provenanceRefs:instance.provenanceRefs??[]});
+    // The shipped SDK constructor populates B from B's own start intent (the
+    // lifecycle start: next, direct) over A's admitted source; A's request is
+    // not reused and A's run-environment coordinates are rebound to B's authority.
+    const constructed=await api.constructInstalledStartCall({
+      selection:{memberKey:'start',target:{kind:'next'},rootMode:'direct',fhMode:'direct'},
+      programRef,catalog,catalogView:view,applications,admittedInstalls:installs,workspaceBinding:binding,
+      verifyInstallAdmission:install=>a.hasAdmittedProductInstall(environment.artifactTruth,install),actorRef,
+      input:{value:input},inputValueRef:namespace+'/input',
+      source:{kind:'admitted_source_result',basis:source,projectionAuthority:{ref:sourceCall.invocation.invocationRef,digest:source.publicAuthorityDigest}},
+      historicalSource,
+      runEnvironmentResources:({authority})=>p.constructRunEnvironmentResources({...previous,permission:{...previous.permission,
+        authorityRef:authority.authorityRef,authorityDigest:authority.authorityDigest,
+        dependencies:previous.dependencies,pythonPath:previous.pythonPath,temporaryRoot:previous.temporaryRoot}}),
+      eventResource,
+      envelope:{definitionContractCoordinates:native.verified.definitionContractCoordinates,requestRef:namespace+'/start',correlationRef:namespace,
+        eventTime:new Date().toISOString(),provenanceRefs:instance.provenanceRefs??[]}});
+    if(constructed.kind!=='installed_start_call')throw new BoundaryFailure('continuation-start-population',constructed.ownerOutput.value);
+    const call=constructed.call,program=call.invocation.request.program,viewRef=call.invocation.request.catalogView;
+    const {kind:_kind,schemaVersion:_schemaVersion,eventResource:_eventResource,...resources}=call.resources;
     assert.ok(p.isRunInvocationResourceAssertion(call.resources),'Actual native resource headers refused');
     await checkpoint('private-preparation-start');
     const prepared=await p.ProductRunInvocationPort.prepare({memberKey:'start',invocation:call.invocation,resources,

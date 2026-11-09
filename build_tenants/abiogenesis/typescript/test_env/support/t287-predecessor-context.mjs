@@ -45,7 +45,7 @@ export async function retainedBasis(){
   if(route){const traversal=await load('hog/traversal');cursor=traversal.deriveStructuralTargetCursor(graph,cursor,graph.template.nodes[0].term);}
   assert.equal(cursor.cursorDigest,opened.payload.cursorDigest);
   const basis={publication,lifecyclePublication,sourcePublication,graph,graphFunction:gf,declarationGraphFunctions:declarations,executionBasis:execution,cCall,cursor,predecessorPrefix:durable};
-  const authenticated=owner.authenticateSemanticStageBasis(basis);assert.ok(authenticated,'actual unchanged authentication at retained prefix');
+  const authenticated=owner.authenticateOwnedSemanticStageBasis(basis);assert.ok(authenticated,'actual unchanged authentication at retained prefix');
   assert.equal(owner.semanticInputMatchesBasis(basis,input),true);
   return {basis,authenticated,count};
 }
@@ -54,7 +54,7 @@ export async function retainedBasis(){
 export async function componentAssembly(owner,basis,value){
   const p=join(root,'build/code/src/abg/instruction_assembly.js');
   const module=new SourceTextModule(fs.readFileSync(p,'utf8'),{identifier:p});
-  await module.link(async s=>{const native=await import(pathToFileURL(resolve(dirname(p),s)).href);const values={...native,...(s==='./semantic_stage.js'?{authenticateSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}:{})};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});
+  await module.link(async s=>{const native=await import(pathToFileURL(resolve(dirname(p),s)).href);const values={...native,...(s==='./semantic_stage.js'?{authenticateOwnedSemanticStageBasis:()=>owner,semanticInputMatchesBasis:()=>true}:{})};return new SyntheticModule(Object.keys(values),function(){for(const [k,v]of Object.entries(values))this.setExport(k,v);});});
   await module.evaluate();return module.namespace.evaluateNativeInstructionAssembly(basis,value);
 }
 export function assertIdentities(assembly){

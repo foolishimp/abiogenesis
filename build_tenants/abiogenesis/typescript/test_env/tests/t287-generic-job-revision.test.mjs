@@ -59,7 +59,7 @@ test("saved native revision bridge preserves revision discriminants and selected
   const old = await import(pathToFileURL(join(saved.installedRoot, "build/code/src/abg/semantic_revision.js")).href);
   assert.equal(old.projectJobRevisionPreparation(basis, input), null, "actual installed owner retains the original bridge refusal");
   assert.equal(revision.semanticJobRevisionInputMatchesBasis(basis, input), true);
-  const subject = revision.projectJobRevisionSubject(basis, input, true); assert.ok(subject, "all source, authority, origin and physical checks pass");
+  const subject = revision.projectOwnedJobRevisionSubject(basis, input, true); assert.ok(subject, "all source, authority, origin and physical checks pass");
   const entry = revision.projectJobRevisionPreparation(basis, input); assert.ok(entry);
   assert.equal(entry.kind, "worksite_revision_command_preparation_input"); assert.equal(entry.schemaVersion, "5.0.0");
   assert.equal(Object.hasOwn(entry, "readDependencyBasis"), false, "initial-job read basis becomes authenticated retained origins, not a revision field");
@@ -125,7 +125,7 @@ test("saved revision Evidence separates historical origins from checked successo
   const old = await import(pathToFileURL(join(saved.installedRoot, "build/code/src/abg/instruction_assembly.js")).href);
   assert.equal(old.evaluateNativeInstructionAssembly(basis, input).cause, "stale_basis", "the actual frozen owner retains its historical refusal");
   assert.equal(revision.semanticJobRevisionInputMatchesBasis(basis, input), true);
-  const subject = revision.projectJobRevisionSubject(basis, input, true); assert.ok(subject);
+  const subject = revision.projectOwnedJobRevisionSubject(basis, input, true); assert.ok(subject);
   const observation = input.current.evidence.executionObservation;
   assert.deepEqual(subject.currentWorksite.targets.map(row => row.target.subject.relativePath), ["app/main.mjs", "app/check.mjs"]);
   assert.notDeepEqual(subject.currentWorksite.targets[0].target.predecessorObservation, input.current.worksite.targets[0].target.predecessorObservation);
@@ -172,7 +172,7 @@ test("saved revision Evidence separates historical origins from checked successo
   for (const mutate of [v => { v.current.evidence.executionResultDigest = hash("crossed-execution"); },
     v => { v.current.evidence.artifacts[0].base64 = Buffer.from("unadmitted successor").toString("base64"); }]) {
     const changed = structuredClone(input); mutate(changed);
-    assert.equal(revision.projectJobRevisionSubject(basis, changed, false), null);
+    assert.equal(revision.projectOwnedJobRevisionSubject(basis, changed, false), null);
   }
   // There is no admitted post-repair actor exchange in this saved prefix.
   // Exercise the existing preparation/completion and Product suffix without

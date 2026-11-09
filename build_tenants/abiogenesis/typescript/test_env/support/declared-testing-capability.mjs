@@ -4,7 +4,7 @@ import { chmod, mkdir, readFile, realpath, writeFile } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { promisify } from "node:util";
-import { prepareStdoNoteProduct, pilotResources, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
+import { prepareStdoNoteProduct, stdoInstallsSkip } from "./stdo-environment-pilot.mjs";
 export { stdoInstallsSkip };
 import { constructInstalledPublicDefinitionCall } from "./installed-public-definition-call.mjs";
 import { expectedVerificationIdentity } from "./candidate-basis.mjs";
@@ -349,12 +349,9 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
     const definition = installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d =>
       d.definitionKey.operationId === packet.definitionKey.operationId && d.definitionKey.memberKey === packet.definitionKey.memberKey);
     const slots = slotsFor(definition, supplied);
-    const basis = { kind: "admission_capability_data", schemaVersion,
-      definition: { definitionKey: definition.definitionKey, definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest,
-        owner: { ref: packet.owner.authorityRef, digest: packet.owner.authorityDigest } },
-      ownerArtifact: { request: ownerRequest, verified: abiArtifact }, request,
-      resourceScope: { resourcesDigest: hash(resources), authoritySlots: product.admissionAuthoritySlots(slots) },
-      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) };
+    const basis = product.constructAdmissionCapabilityData({ fixedPacket: packet, ownerArtifact: { request: ownerRequest, verified: abiArtifact },
+      request, resources, authoritySlots: slots,
+      boundEnvironment: packet.metadata.workspaceBindingRequirement === "forbidden" ? null : product.admissionEnvironmentSelection(closeHandoff.prefix, slots.workspace_binding) });
     const authorityValue = { actorRef, authorityMode: "trusted_developer" }, approvalValue = { decision: "allow", actorRef,
       definitionRef: definition.definitionRef, definitionDigest: definition.definitionDigest, requestDigest: hash(request), scopeDigest: product.admissionAuthorityScope(basis).digest };
     const authority = { kind: "resolved_admission_authority", schemaVersion, actorRef, authorityMode: "trusted_developer",
@@ -469,7 +466,6 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
   const viewReceipt = await invoke(await authorized(product.CATALOG_OPERATION_SOURCE_DECLARATIONS.view.allowlist,
     { catalog: catalogReceipt.ownerOutput.value.catalog, allowlist }, { kind: "catalog_view_resource_assertion", schemaVersion, catalog }, boundSlots));
   const catalogView = product.narrowGraphFunctionCatalog(catalog, allowlist);
-  const catalogScope = { catalog: catalogReceipt.ownerOutput.value.catalog, view: viewReceipt.ownerOutput.value.view, allowlist };
   const binding = environment.workspaceBinding;
   async function runProgram(programRef, makeInput, { transport, missingEnvironment = false } = {}) {
     const publication = consumerPublications.find(p => p.programs.some(x => x.programRef === programRef)), program = publication.programs.find(p => p.programRef === programRef);
@@ -479,33 +475,23 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
       { kind: "conformance_evaluation_resource_assertion", schemaVersion, packet: { kind: "conformance_evaluate_packet", schemaVersion, memberKey: "gtl_program", publication, program },
         conformanceLaw: law, declaredInventory: catalog.boundPublications, declarationCatalog: { catalog, catalogView } }, boundSlots));
     assert.equal(checked.ownerOutput.value.disposition, "passed");
-    const resolution = await product.ProductExecutionResolutionPort.resolve({ catalog, catalogView, admittedInstalls: environment.productInstalls,
-      verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), programRef,
-      selection: { kind: "start", scope: "program", target: "next", until: "converged", rootMode: "direct" } });
-    assert.equal(resolution.kind, "loaded_product_execution_resolution", JSON.stringify(resolution));
-    const packet = product.RUN_OPERATION_CONTRACTS.invoke.start;
-    const regimes = new Set([...resolution.programValidation.executableLeafRows, ...resolution.programValidation.interactionLeafRows].map(r => r.fibre));
-    const policy = product.constructRootInvocationPolicy(binding, program, [], ["F_D", "F_P", "F_H"].filter(r => regimes.has(r)), []);
-    const grantBasis = { admittedInstalls: environment.productInstalls, workspaceBinding: binding, fixedPacket: packet };
-    const grants = [product.constructCapabilityGrant(policy, actorRef, "abg.operation.run.invoke", product.DIRECT_INVOKE_CAPABILITY, grantBasis)];
-    const authority = product.constructInvocationAuthority(actorRef, binding, catalogView, programRef, resolution.selectedCatalogEntry, policy, grants, grantBasis);
-    const input = await makeInput({ grants, resolution });
-    const inputContract = { ref: resolution.resolution.inputContract.contractRef, digest: resolution.resolution.inputContractDigest };
-    const carrier = { contract: inputContract, valueRef: "value://declared-testing.example/" + ordinal, valueDigest: hash(input), value: input };
-    const eventResource = reopen(), steeringDigest = hash(eventResource);
-    const slots = { graph_function: null, verification_references: null, execution_basis: null,
-      workspace_binding: boundSlots.workspace_binding, product_set: environment.productInstalls.map(product.productInstallCoordinate),
-      dependency_lock: lock, catalog_scope: catalogScope, execution_program: { ref: programRef, digest: resolution.resolution.programDigest }, input_contract: carrier,
-      session_policy: { ref: policy.policyRef, digest: policy.policyDigest }, capability_grants: { requiredCapabilityRefs: [...packet.metadata.capabilityRefs], grants: grants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) },
-      actor: { actor: { ref: actorRef, digest: hash({ actorRef }) }, attribution: { ref: authority.authorityRef, digest: authority.authorityDigest } },
-      transport_steering: { ref: "transport-steering://abiogenesis/" + steeringDigest.slice(7), digest: steeringDigest } };
-    let resources = { kind: "run_invocation_resource_assertion", schemaVersion, eventResource, catalog, catalogView, applications: [], applicationResources: [], source: { kind: "none" } };
-    if (program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment) {
-      const temporaryRoot = join(binding.roots.archiveRoot, "stdo-access-support"); await mkdir(temporaryRoot, { recursive: true });
-      resources.stdoEnvironmentResources = pilotResources(product, fixture.env, authority, program, await realpath(temporaryRoot));
-    }
-    const call = definitionCall(packet, { program: slots.execution_program, scope: "program", target: { kind: "next" }, until: "converged", catalogView: catalogScope.view,
-      allowlist, input: carrier, fhMode: "direct", rootMode: "direct", sourceBasis: { kind: "none" } }, slots, resources);
+    // The shipped SDK constructor populates request and authority; the input
+    // factory names the populated grant.
+    const valueRef = "value://declared-testing.example/" + ordinal, requestRef = "request://declared-testing.example/" + (++ordinal);
+    const constructed = await installedPublic.constructInstalledStartCall({
+      selection: { memberKey: "start", target: { kind: "next" }, rootMode: "direct", fhMode: "direct" },
+      programRef, catalog, catalogView, applications: [], admittedInstalls: environment.productInstalls, workspaceBinding: binding,
+      verifyInstallAdmission: install => abg.hasAdmittedProductInstall(environment.artifactTruth, install), actorRef,
+      input: { factory: ({ grants, resolution }) => makeInput({ grants, resolution }) }, inputValueRef: valueRef,
+      source: { kind: "none" }, applicationResources: [], eventResource: reopen(),
+      envelope: { definitionContractCoordinates: abiArtifact.definitionContractCoordinates, requestRef,
+        correlationRef: "correlation://declared-testing.example/" + executionConfig.mode, eventTime: "2026-09-16T19:00:00.000Z",
+        provenanceRefs: ["provenance://declared-testing.example/proof"] } });
+    assert.equal(constructed.kind, "installed_start_call", constructed.kind === "installed_start_call" ? "" : JSON.stringify(constructed));
+    const input = constructed.call.invocation.request.input.value;
+    // The canonical constructed call is dispatched unchanged; the legacy RC7
+    // pilot environment population is deferred (T287-HC2-LEGACY-STDO-PILOT-01).
+    const call = constructed.call;
     const native = program.policies["abg.stdo_run_environment"] !== undefined && !missingEnvironment;
     if (native) assert.equal(typeof transport, executionConfig.live ? "undefined" : "string",
       "mechanical mode requires a disclosed double; live mode forbids one");
@@ -522,20 +508,15 @@ export async function setupTestingInvocation({ packageRoot, scratch, inputRoot, 
     if (native) {
       const savedPrefix = closeHandoff.prefix;
       for (const memberKey of ["run_result", "run_replay"]) {
-        const readPacket = abg.ABG_PROJECT_READ_CONTRACTS[memberKey];
-        const readGrants = readPacket.metadata.capabilityRefs.map(cap => product.constructCapabilityGrant(
-          environment.workspaceAuthorityBasis, actorRef, readPacket.definitionKey.operationId, cap,
-          { admittedInstalls: environment.productInstalls, workspaceBinding: binding, fixedPacket: readPacket }));
-        const readDefinition = installedPublic.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions.find(d =>
-          d.definitionKey.operationId === readPacket.definitionKey.operationId && d.definitionKey.memberKey === memberKey);
-        const readSlots = slotsFor(readDefinition, { workspace_binding: boundSlots.workspace_binding,
-          product_set: slots.product_set, dependency_lock: lock,
-          capability_grants: { requiredCapabilityRefs: [...readPacket.metadata.capabilityRefs], grants: readGrants.map(g => ({ ref: g.grantRef, digest: g.grantDigest })) } });
-        reads[memberKey] = await invoke(definitionCall(readPacket, { caseKey: memberKey,
-          source: { sourceKind: "run", sourceRef: receipt.ownerOutput.value.run.ref, sourceDigest: receipt.ownerOutput.value.run.digest },
-          projectionBasis: { projectionBasisRef: savedPrefix.eventLogRef, projectionBasisDigest: savedPrefix.coordinateDigest },
-          selector: memberKey === "run_replay" ? { kind: "ordinal_page", fromOrdinal: 0, limit: 10000 } : { kind: "none" } },
-        readSlots, { kind: "abg_project_read_resource_assertion", schemaVersion, eventResource: reopen() }));
+        const read = installedPublic.constructInstalledRunReadCall({ memberKey, workspaceBinding: boundSlots.workspace_binding,
+          sourceRef: receipt.ownerOutput.value.run.ref,
+          selector: memberKey === "run_replay" ? { kind: "ordinal_page", fromOrdinal: 0, limit: 10000 } : { kind: "none" },
+          eventResource: reopen(),
+          envelope: { definitionContractCoordinates: abiArtifact.definitionContractCoordinates, requestRef: "request://declared-testing.example/" + (++ordinal),
+            correlationRef: "correlation://declared-testing.example/" + executionConfig.mode, eventTime: "2026-09-16T19:00:00.000Z",
+            provenanceRefs: ["provenance://declared-testing.example/proof"] } });
+        assert.equal(read.kind, "installed_run_read_call", read.code);
+        reads[memberKey] = await invoke(read.call);
         assert.deepEqual(closeHandoff.prefix, savedPrefix, "supported reads preserve the exact durable prefix");
       }
       assert.deepEqual(reads.run_result.ownerOutput.value.projection.result, receipt.ownerOutput.value.result);

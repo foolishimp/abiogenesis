@@ -10,10 +10,23 @@ export {
   runInstalledDefinitionCallTransport,
   runInstalledDefinitionCallWithResource,
   type InstalledDefinitionCallAcquisition,
+  type InstalledDefinitionCallCandidateCheck,
   type InstalledDefinitionCallTransportOutcome,
+  type InstalledDefinitionCallTransportOutcomeOf,
   type InstalledDefinitionCallTransportRefusal,
   type InstalledDefinitionCallTransportResult,
 } from "./installed_definition_call_transport.js";
+export type {
+  OwnerCallableDefinitionBinding,
+  OwnerCallableDefinitionMember,
+  OwnerDefinitionCompositeKey,
+  OwnerDefinitionKey,
+  OwnerDefinitionMember,
+  OwnerDefinitionMemberOf,
+  OwnerDefinitionRequestOf,
+  OwnerUnavailableDefinitionBinding,
+  OwnerUnavailableDefinitionMember,
+} from "./binding/owner_contract_source_set.js";
 export {
   PUBLIC_FUNCTION_DEFINITION_FAMILY,
   PUBLIC_OPERATION_CONTRACT_PROJECTIONS,
@@ -39,6 +52,17 @@ export {
   type PublicSdkMemberProjection,
 } from "./binding/public_function_projections.js";
 export {
+  constructInstalledPendingCall,
   constructInstalledPublicDefinitionCall,
+  constructInstalledRunReadCall,
+  constructInstalledStartCall,
+  type InstalledCallEnvelopeIdentity,
+  type InstalledPendingCallSelection,
+  type InstalledRunCallResourceIntent,
+  type InstalledRunReadCallSelection,
+  type InstalledStartCallSelection,
+  type InstalledPublicDefinitionCall,
+  type InstalledPublicDefinitionCallEnvironment,
   type InstalledPublicDefinitionCallInput,
+  type InstalledPublicDefinitionCallSelection,
 } from "./installed_public_definition_call.js";
