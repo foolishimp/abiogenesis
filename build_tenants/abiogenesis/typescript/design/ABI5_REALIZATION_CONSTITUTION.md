@@ -1966,9 +1966,11 @@ exact imported owner composition for its definition.
 A native caller may enclose preparation and execution in one actual physical
 acquisition. An ABG-issued resource selection carries its explicit current
 entry prefix and opaque correspondence to that acquisition through the same
-installed definition binding. This is physical possession, not a session,
-Run, binding mode, semantic authority or Context/Layer value. A copied selection
-does not acquire its owner. Each operation returns the owner's explicit durable
+installed definition binding. Physical possession requires that actual
+acquisition; neither a session, Run, binding mode nor a Context/Layer carrier
+establishes it. Carrying an owner-issued immutable selection in Context/Layer
+neither acquires the physical resource nor grants semantic authority. A copied
+selection does not acquire its owner. Each operation returns the owner's explicit durable
 successor; completion carries no close handoff while the acquisition remains
 held. The enclosing physical finalizer alone issues the existing real
 close/reopen receipt. Standalone serialized calls retain complete acquisition,
@@ -2485,9 +2487,9 @@ carrier construction; strict schema/I-JSON admission; exact-match cardinality;
 safe path normalization and containment; filesystem inspection/read;
 exclusive or content-addressed write and collision handling; archive
 enumeration/read; subprocess and installed-module loading; and deterministic
-range/filter/pagination; plus Effect `3.22.1` typed sequential composition,
-stack-safe suspension, stateless capability provision, typed failure/Cause
-separation, and physical resource scoping. None selects a semantic preimage,
+range/filter/pagination; plus Effect `3.22.1` composition and implementation
+mechanics under Section 9, including typed failure, capability provision and
+resource lifetime. None selects a semantic preimage,
 owner, history, topology, event, or result.
 
 ##### Table 5.6.3-A - exact external-expression equivalence classes
@@ -2599,7 +2601,7 @@ The neutral mechanic identifiers used in the ordered traces are exact:
 | `N10` | archive enumeration and read | current Product verification archive reader |
 | `N11` | subprocess and installed-module loading | current installed Product loader/transport mechanics |
 | `N12` | deterministic range, filter, and pagination | native array operations after owner selection |
-| `N13` | typed sequential execution composition, stack-safe suspension, stateless Context/Layer provision, typed failure/Cause separation, and physical resource scoping | exact-pinned Effect `3.22.1`; target installed definition family and HoG execution shell; `H/effect_direct_scalar.ts` is temporary equivalence evidence only |
+| `N13` | typed composition, suspension, capability provision, failure/Cause, resource lifetime and other core execution mechanics under Section 9; owner contracts retain sequence and policy | exact-pinned Effect `3.22.1`; installed definition family and HoG execution shell; no independent topology, admission, currentness or replay authority |
 
 | Leaf | Kind | Exact typed relation | Owner / frame / effect | Current locus and status | Why irreducible here |
 |---|---|---|---|---|---|
@@ -3476,28 +3478,44 @@ Every technology has one bounded role.
 | immutable 4.6 typed Event Calculus kernel | pure fold of an explicit immutable validated event prefix | store access, prefix/current-tail selection, append, actors, or caller-configurable Product axioms |
 | native frozen records, arrays, `Map`, and `Set` | bounded internal immutable values and indexes with explicit canonical ordering | object identity as truth or implicit iteration order as semantic identity |
 | exact-pinned Valibot `1.4.2` | owner-selected strict native schema definition and raw admission, with canonical schema projection from the same source | semantic selection, independent schema meaning, traversal, event admission, or Effect Schema as a second contract authority |
-| exact-pinned Effect `3.22.1` | selected common execution-composition foundation for the complete installed definition family and the one HoG execution shell: typed sequential bind, stack-safe suspension, typed failure/Cause separation, stateless Context/Layer provision, and physical resource scoping | Product/GTL/HoG/ABG meaning; topology or selection; semantic retry, workflow, Saga, lifecycle, event admission, transaction/currentness, replay, schema, catalog, clock, scheduling, concurrency, or state authority |
+| exact-pinned Effect `3.22.1` | common implementation foundation for the installed definition family and one HoG execution shell: typed composition, failure/Cause, resource scope, fibers, streams, queues, clocks, schedules, references and STM as needed by declared owner contracts | independent Product/GTL/HoG/ABG meaning; rival topology or selection; hidden retry, workflow, lifecycle or scheduling policy; event admission, semantic transaction/currentness, replay, schema or catalog authority |
 | typed Product/GTL/HoG/ABG adapters | domain identity, contract, transition, admission, lifecycle, refusal, event, and projection meaning at declared owner seams | rebuilding common algorithms or delegating semantic ownership to generic code |
 
 No SQLite, LevelDB, EventStoreDB/Kurrent, XState, Immutable.js, Ajv, new event
 framework, or new generic registry, ledger, or store enters the active Product cut without a
 demonstrated requirement counterexample and lawful re-entry.
 
-Effect subpath imports are required in production (`effect/Effect`,
-`effect/Context`, `effect/Layer`, `effect/Exit`, `effect/Cause`, and
-`effect/Scope` only where selected) so the used capability surface remains
-explicit. `@effect/platform` was evaluated for the exact resource capability
-in Section 10.1.3 and is not selected; it can re-enter only on that ledger's
-exact falsifier and a fresh FS-19 comparison. Effect Schema is not
-selected because Valibot remains the singular schema owner.
+Effect subpath imports are required in production so the used capability
+surface remains explicit; the former list was not a complete lawful API set.
+Core Effect `3.22.1` fibers, streams, queues, clocks, schedules, references,
+STM, scopes and composition operators may implement an authorized contract.
+No API name, helper or use of immutable application data requires a separate
+approval gate. Section 10.1 compares actual foundations and semantic boundaries;
+it does not repeat foundation selection for each ordinary library operation.
+`@effect/platform` remains unselected under Section 10.1.3. Valibot remains the
+singular schema owner; no second schema authority or dependency upgrade is selected.
 
-Effect `retry`, `Schedule`, `Clock`, `Fiber`, `Queue`, `Ref`, `FiberRef`,
-`Stream`, and `STM` are prohibited in the active cut. Sequential `Effect.gen`,
-`flatMap`, `map`, `reduce`, `forEach`, `suspend`, `sync`, `try`, and
-`tryPromise` may compose the fixed owner order. `Context` and `Layer` carry
-only exact stateless physical/callable capabilities. `Scope` closes physical
-resources only. ABG expected-prefix transactions retain runtime atomicity, and
-owner-declared Saga relations retain physical recovery meaning.
+ABG is the application, not a substitute implementation library. Product and
+its exact owners select meaning, policy, topology, sequence, admission,
+idempotence, resource duties and physical absence criteria. Effect implements
+those contracts. Context/Layer may provide exact capabilities and immutable
+inputs; local Ref/Queue/Stream/STM state may manage computation but cannot
+establish runtime truth, currentness or replay authority. ABG expected-prefix
+transactions retain semantic atomicity, and owner-declared Saga relations retain
+recovery meaning. Library retries, scheduling or concurrency cannot invent an
+application policy or bypass admitted order. No new such behavior is selected.
+
+The canonical production host runner remains the sole production execution
+membrane. Interrupting a fiber or closing a Scope is not evidence that a child
+process or process group is absent. Clock observations are distinct from
+admitted event time; elapsed-time reasoning must use one declared monotonic
+domain. Cleanup and handback bounds require evidence for the actual waits and
+finalizers, not an assumption that interruption cancels underlying I/O.
+
+Section 16.15 supersedes the former mechanism exclusions, including the blanket
+ban on Effect retry, Schedule, Clock, Fiber, Queue, Ref, FiberRef, Stream and STM,
+and the exclusion of immutable semantic data from library carriers. The semantic
+authority prohibitions above remain operative.
 
 A lawful technology used outside its registered role is a design defect.
 
@@ -3516,7 +3534,7 @@ seams.
 | validated immutable event-prefix selection | `selectValidatedRuntimeEventPrefix` in selected ABG prefix module | explicit immutable snapshot/scope to validated ordered causal prefix | store access, current-tail selection, append, or semantic fold | accepted first-slice addition |
 | typed Event Calculus projection | `deriveRuntimeEventCalculusProjection`, `holdsAt`, typed fluent/pattern helpers | validated immutable prefix plus closed module law to immutable projection/query | store access, prefix selection, admission, actors, or caller axioms | accepted first-slice addition |
 | replay projection composition | `abg/replay.ts` | compose typed reconstructive read models from one selected prefix | events, effects, identity, or rival fluent folds | retained and incrementally tightened |
-| common execution composition | exact-pinned Effect `3.22.1`, through subpath imports | singular installed definition and HoG-shell substrate for typed sequential composition, stack-safe suspension, stateless dependencies, typed failure/Cause separation, and physical resource scoping | GTL topology, owner semantics, retry/workflow/Saga policy, ABG events/lifecycle/transactions/currentness/persistence, clocks/schedulers/concurrency/state, replay meaning, schema, another traversal, or an executable factorization plan | selected for the complete internal definition family and HoG execution shell. Direct-scalar and installed E29 prototypes remain conservation evidence and must be reconciled or deleted under active W2-05. Event Calculus/replay remain pure folds. |
+| common execution composition | exact-pinned Effect `3.22.1`, through subpath imports | singular installed definition and HoG-shell foundation, including resource, concurrency, stream, queue, clock, schedule and state mechanics under Section 9 | independent GTL topology, owner policy, ABG admission/currentness/lifecycle or replay truth; another traversal, schema authority or executable factorization plan | selected foundation; ordinary library capability use realizes existing owner contracts without a per-API gate. Event Calculus/replay remain pure folds. Historical prototypes confer no parallel production authority. |
 | static exact definition-binding algebra | Section 5.6.2C: `bindStaticOwner`, `bindExactPrefixRead`, and `bindExactPrefixTransition` over exact manifest/lock-resolved typed owner imports and owner-authored strict static resource/receipt contracts | construct the exact 18/56 static exports as `ExactDefinitionCallable<TPacket,TResources,TResourceReceipt>` values; structurally admit exact resources/receipts; preserve owner semantics, exact prefix durability, and one installed call | semantic policy/currentness in the shell, erased/universal resource types, runtime callbacks, semantic string dispatch, ambient lookup, invocation-selected handlers, registries/controllers, modes/topology engines, per-key wrappers, or enclosing child transactions | active W2-05 design; banked behavior 37/56, 5.6.2C conformance 0/56 pending reconciliation/proof, non-callable 19/56 |
 | canonical rooted-topology partition | `shared/rooted_topology_partition.ts` | owner-derived same-basis canonical topology witnesses to one deterministic preserved/exited/entered partition or closed structural refusal | carried domain values, evidence transformation, candidate/refusal construction, topology selection, Product meaning, GTL interpretation, HoG route choice, ABG admission/events/currentness/replay, causal-DAG search, effects, callbacks, registries, controllers, or universal frame carriers | implemented and interface-accepted through TV5; integrated qualification pending |
 
@@ -3562,7 +3580,10 @@ Every credible candidate row records:
 | exit and replacement | coupling surface, data or ABI lock-in, and cost to remove or upgrade the candidate |
 | disposition | selected, composed, rejected, or indeterminate, with the exact falsifier and evidence |
 
-The selection is the lowest-total-cost lawful construction. A richer lawful
+The selection is the lowest-total-cost lawful construction, considering
+correctness, maintainability and performance as well as integration and proof.
+Within an already selected foundation, ordinary implementation choices proceed
+under the admitted contract; this ledger is not a per-API or per-helper gate. A richer lawful
 existing foundation that covers the generic mechanics at lower total cost
 makes local reproduction inadmissible. If two materially different lawful
 architectures remain after the ledger, the frame is indeterminate and returns
@@ -3598,7 +3619,7 @@ decision-driving` rather than invented.
 | `neverthrow` `8.2.0` | **Verified official scope:** `Result<T,E>` and Promise-wrapping `ResultAsync<T,E>`. It has no typed requirements environment, Layer, Scope, stack-safe effect runtime, or Cause distinction. It is authority-neutral but covers only the expected-error slice. | Adds a second result vocabulary and wrappers around owner atoms while ABIogenesis still constructs dependency, scope, recursion, cancellation, and outer-runner mechanics. It avoids some error-union plumbing only; the richer future code is not avoided. | **Verified:** MIT, official main package `8.2.0`. Upgrade cadence and material runtime transitive risk are **unknown**; package/startup footprint is **unknown**. These costs are not decision-driving because the hard coverage gap already rejects the candidate. | `ResultAsync` inherits Promise ordering and cancellation behavior. Expected failure is typed; defects, cleanup, structured cancellation/concurrency, and replay equality remain manual. | Requires result-bridge, exception, resource, concurrency, restart, and package proof in addition to the missing mechanics implementation. Exit is localized only if use stays shallow; otherwise every binding carries another result ABI. | **Rejected.** Falsifier: `Result`/`ResultAsync` would need to cover `R`, Scope, Cause, suspension, and the singular runner without supplementary framework code; the official API scope does not. |
 | RxJS stable `7.8.2` / upstream `8` alpha | **Verified official scope:** Observable sequences, subscriptions, operators, cancellation/finalization, and explicit schedulers. Its multi-value temporal/subscription calculus is not the finite `Effect<A,E,R>` owner relation and would introduce a second reactive execution vocabulary beside ABG event/replay truth. | Requires translating finite owner calls into Observable/subscription lifecycles, choosing scheduler/operator policy, and adapting every binding. It could avoid some cancellation/finalization code, but adds stream machinery and does not avoid typed-requirement, semantic-error, or owner-output plumbing. | **Verified:** Apache-2.0; official docs name stable `7.8.2`, while the official repository is working on `8.0.0-alpha`. That creates a material major-upgrade boundary. Package/runtime/startup footprint is **unknown** and not decision-driving after semantic/capability rejection. | Determinism requires fixed schedulers, single subscription, finite cardinality, and prohibited operator restrictions. Error notification is not the exact typed owner/defect split; merge/switch/concat choices introduce concurrency and ordering proof not needed by the Product. | Requires scheduler, cardinality, ordering, finalization, fresh-process, replay, installed, and no-second-runtime proof. Exit cost is high after Observable types/subscriptions cross owner seams. | **Rejected.** Falsifier: a constrained RxJS composition would need to implement the exact finite typed ABI at lower total proof and migration cost without a second temporal authority; its official Observable semantics and required adapters do not. |
 | XState `5.32.5` | **Verified official scope:** state machines/statecharts and actors with interpreter-owned state, transitions, event queues, and actor lifecycle. That directly overlaps GTL topology, HoG traversal/control, and ABG lifecycle/currentness, so semantic-authority leakage is fatal. | Would require machine definitions, actor/interpreter adapters, persistence/replay reconciliation, and replacement of existing owner transitions. Deletion/avoidance, package/runtime/startup, and migration economics are **not incurred / not decision-driving** after the hard authority rejection. | **Verified:** MIT, official v5 docs and official main package `5.32.5`. Upgrade posture beyond v5 and package/startup footprint are **unknown** and not decision-driving. | Actor execution has its own ordered mailbox and state snapshots. Using those for ABIogenesis would create rival process-local currentness and lifecycle semantics; failure/concurrency comparison cannot cure that constitutional conflict. | A no-rival-authority proof is impossible if XState interprets these transitions. Exit/replacement economics are not decision-driving; adoption would first require changing Product ownership. | **Rejected at the authority boundary.** Falsifier: it would have to supply mechanics without interpreting topology, transition, actor, lifecycle, or currentness; removing those capabilities removes the reason to select it. |
-| exact-pinned Effect `3.22.1` | **Verified official/local scope:** `Effect<Success, Error, Requirements>`, typed sequential composition, stack-safe suspension, typed error/Cause distinction, Context/Layer, and Scope. It covers the generic gap while the closed exclusions keep topology, owner meaning, retry/workflow/Saga, events, lifecycle, currentness, and replay outside Effect. | Already pinned in the source manifest and lock; the source-blind installed E29 prototype demonstrated packed dependency closure and the selected boundary. Migration retains one common definition ABI, one HoG shell, and one outer host runner while Section 5.6.2C constructs bindings from module-static typed owner imports and exact owner-authored contracts. **Estimate:** `0.4-0.8k` common production lines plus proof avoids/deletes `2.3-4.1k` Effect-specific wrappers and deletes the prototype scaffolding. The separately mandatory approximately `4.47k` Public deletion is excluded from benefit. | **Verified:** MIT; local manifest/lock pin `3.22.1`; official upstream is active and publishes a v4 beta, so any v3-to-v4 move is a separate equivalence/package re-entry. **Measured prototype evidence:** installed transitive footprint `38.1 MiB`, compressed package `5.08 MiB`; import/startup optimization remains unmeasured. Footprint is optimization evidence only. | Sequential composition is selected; Effect clocks, schedulers, concurrency, retry, Ref/Fiber/Queue/Stream/STM state are excluded. ABG effect order and replay remain unchanged. Expected failures stay typed, defects remain Cause, and Scope closes physical resources where an owner uses it. Active W2-05 reconciliation under 5.6.2C must conserve those exact relations without adding a provider runtime. | Section 10.1.2 records the demonstrated prototype boundary. Every banked closure and new binding must prove exact behavioral conservation under 5.6.2C; the prototypes and displaced coordinators must be deleted or unreachable. Exit is bounded to the internal `Effect<A,E,R>` definition/HoG seams; Product contracts, owner atoms, events, Event Calculus, replay, and serialized outcomes remain library-independent. | **Selected as lowest-total-cost lawful foundation.** Falsifiers: semantic state in Context; Effect-owned retry/currentness/concurrency; nested/internal runner; changed ABG effects/replay; second schema; package failure; or exact conservation failure. Package-size optimization cannot reopen the selection. |
+| exact-pinned Effect `3.22.1` | **Verified official/local scope:** `Effect<Success, Error, Requirements>`, typed sequential composition, stack-safe suspension, typed error/Cause distinction, Context/Layer, and Scope. It covers the generic gap while application ownership keeps topology, policy, admission, lifecycle, currentness and replay meaning with their exact owners; Section 9 permits core library mechanisms to implement those contracts. | Already pinned in the source manifest and lock; the source-blind installed E29 prototype demonstrated packed dependency closure and the selected boundary. Migration retains one common definition ABI, one HoG shell, and one outer host runner while Section 5.6.2C constructs bindings from module-static typed owner imports and exact owner-authored contracts. **Estimate:** `0.4-0.8k` common production lines plus proof avoids/deletes `2.3-4.1k` Effect-specific wrappers and deletes the prototype scaffolding. The separately mandatory approximately `4.47k` Public deletion is excluded from benefit. | **Verified:** MIT; local manifest/lock pin `3.22.1`; official upstream is active and publishes a v4 beta, so any v3-to-v4 move is a separate equivalence/package re-entry. **Measured prototype evidence:** installed transitive footprint `38.1 MiB`, compressed package `5.08 MiB`; import/startup optimization remains unmeasured. Footprint is optimization evidence only. | Owner-declared sequencing remains selected. Core clocks, scheduling, concurrency, retry and Ref/Fiber/Queue/Stream/STM mechanics are available under Section 9 without selecting new application behavior. ABG effect order and replay remain unchanged. Expected failures stay typed, defects remain Cause, and Scope implements declared cleanup without proving physical absence by itself. Active W2-05 reconciliation under 5.6.2C must conserve those exact relations without adding a provider runtime. | Section 10.1.2 records the demonstrated prototype boundary. Every banked closure and new binding must prove exact behavioral conservation under 5.6.2C; the prototypes and displaced coordinators must be deleted or unreachable. Exit is bounded to the internal `Effect<A,E,R>` definition/HoG seams; Product contracts, owner atoms, events, Event Calculus, replay, and serialized outcomes remain library-independent. | **Selected as lowest-total-cost lawful foundation.** Falsifiers: library state or policy promoted to semantic authority; bypassed owner admission/order/currentness; a rival production runner; changed ABG effects/replay; second schema authority; package failure; or exact conservation failure. Package-size optimization cannot reopen the selection. |
 
 Official external facts in the ledger were read on `2026-08-13` from:
 
@@ -3684,7 +3705,7 @@ resource framework.
 | Candidate or composition | Exact supplied capability and local evidence | Authority and lifecycle cost | Integration, package, maintenance, and proof cost | Disposition |
 |---|---|---|---|---|
 | current Product Node filesystem owner functions and current ABG Event Store owner functions carried by the exact Effect ABI | `node:fs/promises` is already used by `product/workspace_operations.ts`, `product/verify_product.ts`, `product/install_product.ts`, and `product/materialization_operations.ts`; `node:fs` is already used by `abg/event_store.ts`. `AbgEventStore` already supplies expected-prefix transactions, durable reopen, `DurablePrefixCoordinate`, and `EventStoreCloseHandoff`. Exact-pinned Effect `3.22.1` supplies the unchanged outer typed execution carrier and owner-local Scope where an exact owner function requires physical cleanup. System Git is credible mechanics evidence, but no current Product owner type selects it as workspace truth. | Node and owner-local Effect Scope own mechanics only; Product retains filesystem meaning and ABG retains event/prefix meaning. Git cannot enter as a default. Scope cannot persist currentness or merge child ABG transactions. No common Layer or provider owns resources. | Lowest migration: directly import the existing typed owner functions and pair each fixed packet with owner-authored strict exact resource/receipt contracts under 5.6.2C. No new runtime package, Layer/provider framework, or shared resource carrier. Proof is exact result/refusal, physical receipt, expected-prefix, release, pack, and restart conservation. | **Selected owner-local composition**, excluding Git unless an exact later Product contract selects it. |
-| Effect `Resource` from installed `effect@3.22.1` | Local primary source `node_modules/effect/src/Resource.ts` exposes refreshable `Resource.auto`, `Resource.manual`, `Resource.get`, and `Resource.refresh` over `ScopedRef`; it can scope an in-memory refreshable value. | A `Resource` value is process-local and refreshable. Treating it as the current artifact, worksite, store prefix, or successor would create a second authority and fail restart. It adds nothing to explicit per-call binding/receipt threading. | No added package, but it adds a cache lifecycle and proof surface while the required durable/current truth remains Product/ABG-owned. It is lawful only as a disposable cache proven irrelevant to behavior; this cut needs no such cache. | **Not selected.** Falsifier for adoption: a measured repeated acquisition cost must require a non-authoritative cache and show lower total cost without changing any receipt or restart result. |
+| Effect `Resource` from installed `effect@3.22.1` | Local primary source `node_modules/effect/src/Resource.ts` exposes refreshable `Resource.auto`, `Resource.manual`, `Resource.get`, and `Resource.refresh` over `ScopedRef`; it can scope an in-memory refreshable value. | A `Resource` value is process-local and refreshable. Treating it as the current artifact, worksite, store prefix, or successor would create a second authority and fail restart. It adds nothing to explicit per-call binding/receipt threading. | For this exact 18/56 durable resource identity/receipt role, a refreshable cache adds lifecycle and proof cost without replacing Product/ABG-owned durable/current truth; this composition needs no such cache. | **Not selected for the exact 18/56 durable resource identity/receipt composition.** Falsifier for reselecting that composition: measured repeated acquisition cost requires a non-authoritative cache with lower total cost and unchanged receipt/restart results. This is not a general core API gate under Section 9; current dependency selection is unchanged. |
 | `@effect/platform` `0.97.1` plus `@effect/platform-node` `0.108.1` | Official package/API metadata inspected `2026-08-14`: `@effect/platform/FileSystem` supplies typed access, copy, chmod/chown, exists, link, mkdir/temp, scoped open, read, realPath, remove, rename, stat, streams, symlink, truncate, utimes, watch, and write; the Node adapter supplies the platform service. Peer ranges accept Effect `^3.22.1`. Both are MIT. Published unpacked sizes are approximately `19,891,689` and `403,202` bytes respectively; the platform package also brings `msgpackr`, `multipasta`, and `find-my-way-ts`. | The service is authority-neutral when restricted to filesystem mechanics, but supplies no Git comparison/CAS law, ABG expected-prefix admission, canonical ABIogenesis identity/version, capability-grant law, owner result/refusal, or durable receipt. It cannot replace the exact typed owner functions and contracts. | Adds two packages and transitive closure, converts already-thin owner calls, and expands pack/license/upgrade proof. Its richer filesystem surface is mostly unused by the exact 18/56 rows. The current owner functions already satisfy the selected mechanics through the pinned outer Effect ABI. | **Not selected for 5.0.** Exact falsifier: an implemented 18/56 row must need a platform capability absent from current Node/ABG mechanics, and measured adoption plus deletion must be cheaper than direct owner composition. |
 | Section 5.6.2C module-static typed owner import plus owner-authored exact resource/receipt contracts | Each binding fixes one packet, imports one typed owner function closed over owner-local dependencies, and supplies its strict Valibot resource assertion schema/admitter and receipt schema/validator or equivalent typed static contract object. Exact-prefix specializations supply their fixed ABG event-resource and receipt contracts. | This is structural binding, not a resource runtime. The owner retains identity, semantic validity, authorization, currentness, refusal, transition, and receipt meaning. Exact `TResources` and `TResourceReceipt` generics are not erased or unified. | Reuses existing owner types and Valibot. There is no shared carrier/schema generator, provider tag/adapter, Layer runtime, topology arm, ambient lookup, or invocation-selected handler. All 56 load probes prove exact static coordinate resolution and callable construction, not one universal resource ABI. | **Selected exact binding seam**, composed with the owner-local mechanics in the first row. |
 
@@ -3727,19 +3748,20 @@ pure GTL topology and source-path derivation
 
 GTL still owns structure. HoG still owns traversal and successor selection.
 ABG still owns every admitted runtime fact, atomic transaction, currentness,
-retry, continuation, and closure. Event Calculus and replay remain ordinary
-deterministic functions and do not become Effect state, Stream, Ref, Schedule,
-or service-managed truth. The shell carries current immutable values through
-its typed success values; it does not store them in Context.
+retry, continuation, and closure. Event Calculus and replay remain ordinary deterministic functions. Effect
+carriers may transport their immutable inputs or derived results, but neither
+Context, Ref, Stream, Schedule nor any service state becomes runtime truth or
+selects the current prefix. Typed owner values retain their exact authority.
 
 Existing pure atoms are lifted with `succeed`, `sync`, or `try` as appropriate.
 Existing Promise/physical APIs may be lifted with `tryPromise` while they remain
 the sole semantic implementation. This is incremental reuse of an owner atom,
 not a legacy-carrier adapter. The target rejects a second Promise traversal,
 one Effect wrapper per traversal form, a generic workflow DSL, executable
-factor traces, and any Effect-owned retry, fork, race, clock, queue, reference,
-or scheduler. The complete public family and all HoG structural forms share the
-one calculus and one outer runner.
+factor traces, and any library-selected retry, ordering, topology or runtime truth. Core
+Effect fork, race, clock, queue, reference and scheduling mechanisms may realize
+the owner's declared relation under Section 9. The complete public family and
+all HoG structural forms share one calculus and one production outer runner.
 
 ### 10.2 New algorithm rule
 
@@ -3887,9 +3909,9 @@ The design is falsified if implementation introduces any of the following:
 - any `runPromise`, `runSync`, `runFork`, or equivalent execution inside a
   definition binding, HoG interior, owner module, Public, CLI-specific path, or
   Codex-specific path rather than the singular canonical host runner;
-- Program, input, prefix, event time, actor, Run, catalog, cursor, retry,
-  currentness, or other semantic value stored in Effect Context, Layer, Ref,
-  FiberRef, Queue, Stream, or STM; or
+- Effect Context, Layer, Ref, FiberRef, Queue, Stream or STM state promoted to
+  authority over Program, input, prefix, event time, actor, Run, catalog, cursor,
+  retry or currentness; carrying immutable owner values is lawful; or
 - Effect retry, Schedule, Clock, Fiber, race, concurrency, or cancellation
   behavior selecting semantic retry, ordering, timeout, liveness, topology,
   transition, or ABG truth.
@@ -4177,8 +4199,10 @@ rationale remains classification evidence only.
 ### 16.3 T-287 Recursive Foundation And Effect-Composition Amendment Record
 
 **HISTORICAL IMPLEMENTATION RECORD.** Section 16.7 supersedes this amendment's
-binding, prototype-deletion, and migration-stage instructions. Its selection of
-Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
+binding, prototype-deletion, and migration-stage instructions. Section 16.15
+also supersedes this record's API/mechanism exclusions and "Scope only" profile.
+The original record below is retained as history. Effect `3.22.1` selection and
+semantic authority boundaries remain operative through Sections 9 and 5.6.2C.
 
 | Field | Record |
 |---|---|
@@ -4199,6 +4223,10 @@ Effect `3.22.1` and its authority prohibitions remain operative through 5.6.2C.
 | **promotion status** | ABIogenesis-local constitutional law only. Later promotion to STDO `2.4` requires a separate methodology re-entry, representative cross-product evidence, compression, independent review, and release authority. This amendment does not update or select STDO. |
 
 ### 16.4 T-287 C1F Resource-State Binding Correction Record
+
+**HISTORICAL RECORD.** Section 16.7 supersedes its implementation relation;
+Section 16.15 supersedes any derivative API-only or immutable-carrier exclusion.
+The original semantic ownership, admission and durability evidence is retained.
 
 | Field | Record |
 |---|---|
@@ -4390,3 +4418,39 @@ operation follows from this reconciliation.
 | **affected catalog/entity rows** | (a) Table 5.6.3-B `N06`; Section 10 exact-match cardinality. (b) Per design §10.7, each with the design §10.1 row that realizes it: `canonicalJson`, `writeCanonicalJson`, `sha256Canonical`, `sha256Bytes`, `deepFreeze`, `isDeeplyFrozen`: `catalog_reuse` of `N01`, `N02`, `N04`, existing, no row; `canonicalEquals`, `writeCanonicalRecord`: `catalog_extension` of `N01`, row 3; `canonicalRecordDigest`: `catalog_extension` of `N02`, row 3; `admitJson`, `admitContract`, `admitRef`, `isRecord`, `hasExactKeys`: `catalog_extension` of `N05`, row 2; `resolveExactMatch`: `catalog_reuse` of `N06`, moved at row 1; `exactMatchCardinality`, `onlyExactMatch`, `exactMatchOutcome`, `checkExactRecord`: `catalog_extension` of `N06`, row 4; `effectOf`, `foldStep`, `holdsAt`, `ROOT_DERIVED_RULES`: `catalog_extension` of typed Event Calculus projection, row 5; `bindStaticOwner`, `bindExactPrefixRead`, `bindExactPrefixTransition`: `catalog_reuse` of static exact definition-binding algebra, the last two moved at row 1; `deriveCanonicalRootedTopologyPartition`: `catalog_reuse` of canonical rooted-topology partition, existing, no row; `StructuralRefusal`, `Outcome`, `ok`, `refused`, `andThen`: `catalog_addition_proposal`, no relation, row 1; `hasConfirmedOwnedProcessBoundary`, `encodeOwnedProcessFacts`, `classifyOwnedProcessTerminal`: `catalog_addition_proposal`, no relation (`N11` stays with its owners), row 6, realized at step 7. |
 | **migration consequence** | (a) Importers of the callable use `shared/select/exact_match.ts`; `product/exact_match.ts` is a one-line re-export until its last consumer migrates. Under the same design, the `binding` family's modules (`owner_contract_source_set.ts`, `public_function_family.ts`, `public_function_projections.ts`, `definition_binding_mechanics.ts`, `static_definition_bindings.ts`) moved from `shared/` to `public/binding/`, and `bindExactPrefixRead` and `bindExactPrefixTransition` to `abg/exact_prefix_bindings.ts`; no catalog relation names those locations. (b) Each extension lands with its design §10.1 row and that row's proofs (design §10.5). Each `catalog_addition_proposal` carries the Section 10.1 candidate and total-lifecycle-cost ledger with the coding plan of its row (design §10.7). |
 | **promotion status** | ABIogenesis-local realization and catalog law. Shared-method promotion requires separate methodology re-entry. |
+
+
+### 16.15 T-287 Application Ownership And Foundation Correction
+
+The owner's explicit correction is that ABIogenesis is the application sitting
+on the best implementation of its design. Root FOUNDATION-BASIS-01 reconciles
+the Product realization profile and reframes this HOW under the exact STDO basis
+selected by `stdo_abiogenesis.json`. Product text and its realization constraint
+change; the fixed fifteen outcomes, behavioral requirements and serialized Public
+contract do not. `REQ-R-ABG3-SAGA-FRONTIER-008/-009` clarify implementation versus
+semantic ownership without relaxing their frontier/policy laws.
+
+Sections 9, 10, 10.1.1, 10.1.4 and 10.7 now distinguish foundation mechanisms
+from semantic authority. This supersedes the prior D2 API blacklist, restricted
+"physical Scope only" interpretation and prohibition on carrying immutable
+semantic values in core Effect structures, including derivative readings of
+Sections 5.6.2C, 5.6.3 and 16.2-16.7. Their original historical decision records
+remain evidence; they do not reimpose those mechanism exclusions. Existing
+stateless binding contracts, structural admission and the singular production
+host runner remain; no runtime callback policy or hidden selection is admitted.
+
+Correctness, maintainability, performance and total lifecycle cost select the
+best lawful foundation. Core Effect `3.22.1` is available without a per-API or
+per-helper approval gate. No dependency upgrade, automatic concurrency/retry,
+new semantic authority or wholesale production transport rewrite is selected.
+The next separately admitted increment is a test-owned observer pilot, followed
+by targeted causal proof and affected populations; current code is not changed
+by this amendment. Fiber interruption and Scope finalization require separate
+physical-absence evidence. Monotonic observation and admitted event time remain
+distinct. A race that waits for loser termination or an unbounded finalizer
+cannot establish bounded handback merely by naming a deadline.
+
+The active D2 exclusion is evidenced. It is not established as the cause of any
+specific later failed native author run. The original diagnosis and red runs
+remain preserved; current repair planning links and supersedes the earlier plan
+without rewriting it. Qualification debts and delivery standing are unchanged.

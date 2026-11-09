@@ -23,8 +23,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
-      "byteCount": 100324
+      "digest": "sha256:c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6",
+      "byteCount": 101285
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -209,8 +209,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
-      "digest": "sha256:70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
-      "byteCount": 7453
+      "digest": "sha256:f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d",
+      "byteCount": 8046
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",

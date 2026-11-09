@@ -152,6 +152,18 @@ compiled plan, hidden default, adapter selector, Public controller, feature
 controller, second runtime, rival catalog, private event writer, or required
 process-local runtime authority is prohibited.
 
+ABIogenesis is the application; implementation foundations do not become
+semantic owners. Select the best lawful foundation by correctness,
+maintainability, performance and total lifecycle cost. Under Product and
+realization constitution Section 9, core Effect `3.22.1` fibers, streams,
+queues, clocks, schedules, references, STM and scopes may realize declared
+contracts and carry immutable application values. No capability-name blacklist
+or per-API/helper approval gate applies. Preserve owner policy, admission,
+sequence, idempotence, currentness and replay law, the canonical production
+runner and physical-absence proof. Library interruption is not process absence;
+observed clock time is not admitted event time. This selects no automatic
+concurrency/retry behavior, dependency upgrade or second semantic runtime.
+
 ## Method
 
 Use the immutable STDO release selected by `stdo_abiogenesis.json`; resolve its

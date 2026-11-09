@@ -6,7 +6,7 @@
   "memberSetDigest": "sha256:20e9d378f261992e62dd473ef8572b11eb9bec281149ac0ccc754b91c9073466",
   "catalog": {
     "ref": "catalog://abiogenesis/qualification/self-conformance@2",
-    "digest": "sha256:785d9194baca2817e65b7f9f333716d0f8bd1c8e7b7d1da134be94f6bc179583",
+    "digest": "sha256:33dd421084fd678f87098265c418f29f8b25e409c6bbfb7b4515c57fe792579f",
     "ownerRef": "authority://abiogenesis/validator/conformance@5",
     "version": "2",
     "assetPath": "contracts/qualification/rule-catalog.json"
@@ -27,8 +27,8 @@
     {
       "ref": "repo://abiogenesis/specification/PRODUCT.md",
       "path": "contracts/qualification/sources/PRODUCT.md",
-      "digest": "sha256:979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
-      "byteCount": 100324
+      "digest": "sha256:c098127bcd2aed5024532e8a2bf6f6a76cb39046135127fe5b37b43697016ab6",
+      "byteCount": 101285
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/00-starter.md",
@@ -213,8 +213,8 @@
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SAGA-FRONTIER.md",
       "path": "contracts/qualification/sources/REQ-R-ABG3-SAGA-FRONTIER.md",
-      "digest": "sha256:70a601490542b36b7e474bfd14f7dfd510a4cbe72fb37f16b49cd35d2f240eed",
-      "byteCount": 7453
+      "digest": "sha256:f3b05d8b98c769f595ef8379edac09d1a9d579c6823b4d3e89f813e48c58df0d",
+      "byteCount": 8046
     },
     {
       "ref": "repo://abiogenesis/specification/requirements/abg/REQ-R-ABG3-SELECTION-APPLICATION.md",
@@ -583,6 +583,6 @@
       "byteCount": 94520
     }
   ],
-  "lawBasisRef": "qualification-law://abiogenesis/a8246cd14a26c7ff7746172b91bfeb4fefe3b37d0a208931fcd354eb8d4955b8",
-  "lawBasisDigest": "sha256:a8246cd14a26c7ff7746172b91bfeb4fefe3b37d0a208931fcd354eb8d4955b8"
+  "lawBasisRef": "qualification-law://abiogenesis/2a23bcafc66f85b64fbcce4b72f754ff9d7ef57ecf6c3b341419109cd880771f",
+  "lawBasisDigest": "sha256:2a23bcafc66f85b64fbcce4b72f754ff9d7ef57ecf6c3b341419109cd880771f"
 }

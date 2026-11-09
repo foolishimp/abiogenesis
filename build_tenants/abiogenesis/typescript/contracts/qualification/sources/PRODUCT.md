@@ -78,9 +78,10 @@ It is an LLM-first programming system in which:
    and implementation bindings into one admitted catalog;
 4. HoG evaluates the admitted GTL program directly through a small algebraic
    fold;
-5. exact-pinned Effect `3.22.1` supplies only the internal typed composition,
-   suspension, failure/Cause, stateless-capability, and physical-resource-scope
-   calculus for that fold and installed owner bindings;
+5. exact-pinned Effect `3.22.1` supplies the internal implementation foundation
+   for that fold and installed owner bindings, including typed composition,
+   failure/Cause, resource lifetime, concurrency, streams, queues, clocks,
+   schedules and references where they realize the authorized owner contracts;
 6. exact Product, GTL, HoG, ABG, Validator, and implementation owners supply
    meaning, including declared `F_D`, `F_P`, and `F_H` work, without
    exchanging authority;
@@ -91,6 +92,18 @@ It is an LLM-first programming system in which:
    `GraphFunction`, start a published program, observe its state, and follow
    automatic admitted progression or a truthful blocked handoff. Native human
    response and response-driven same-run resumption are reserved for 5.1.
+
+ABIogenesis is the application and retains semantic ownership. Its realization
+selects the best lawful foundation by correctness, maintainability, performance
+and total lifecycle cost. Core Effect `3.22.1` capabilities, including fibers,
+streams, queues, clocks, schedules, references and STM, may implement declared
+contracts and carry immutable application data. Capability names and data
+carriage confer no authority to choose GTL topology, admit events, establish
+currentness, define replay truth or introduce hidden policy. Owner-declared
+sequence, admission, idempotence and resource laws remain binding. This profile
+selects neither new application concurrency/retry behavior nor a library upgrade.
+Physical interruption is not proof of process absence; observed clock time is
+not admitted event time. The canonical production host runner remains singular.
 
 The product can be compressed to this path:
 
