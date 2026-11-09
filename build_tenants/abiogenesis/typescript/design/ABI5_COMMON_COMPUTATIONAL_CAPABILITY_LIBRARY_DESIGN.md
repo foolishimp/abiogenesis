@@ -1169,8 +1169,8 @@ close (`closeAbgEventResource`) disposes every handle and retained root, and a
 closed coordinate opens nothing. Actual rollback disposal
 (`RuntimeHistory.truncate` after a failed append) is not driven, so it is
 unproved by this test. A fifty-call workload mode is separately selected.
-The W2 owner-chain oracle admits exactly `selectedDefinitions`,
-`establishedInvocations` and `gatedResourceMembers` in the binding mechanics.
+The W2 owner-chain source check rejects only the removed legacy root seams and
+judges no call-local collection; owner facts rest on behavioral owner proof.
 
 ## 11. Source-to-library-to-outcome paths
 
