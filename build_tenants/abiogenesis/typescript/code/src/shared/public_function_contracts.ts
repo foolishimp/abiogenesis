@@ -410,16 +410,6 @@ export function refusalSchema<const TCodes extends readonly [
   });
 }
 
-/** @internal */
-export function resultWithEvidence<
-  const TEntries extends Readonly<Record<string, v.GenericSchema>>,
->(entries: TEntries) {
-  return v.strictObject({
-    ...entries,
-    evidence: refDigestSetSchema,
-  });
-}
-
 export interface OwnerContractSourceDeclaration<
   TDefinitionKey extends PublicDefinitionKeyLike = PublicDefinitionKeyLike,
   TRequestSchema extends RuntimeContractSchema = RuntimeContractSchema,
@@ -664,20 +654,6 @@ export function ownerMetadata(
     )),
     adapterExitMap: Object.freeze({ ...input.adapterExitMap }),
   });
-}
-
-export function contractSchemaEntries(
-  schema: RuntimeContractSchema,
-): Readonly<Record<string, RuntimeContractSchema>> {
-  const entries = (
-    schema as RuntimeContractSchema & Readonly<{
-      readonly entries?: Readonly<Record<string, RuntimeContractSchema>>;
-    }>
-  ).entries;
-  if (entries === undefined) {
-    throw new TypeError("runtime contract schema has no object entries");
-  }
-  return entries;
 }
 
 export type RuntimeContractAdmission =

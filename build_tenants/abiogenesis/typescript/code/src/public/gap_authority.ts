@@ -1,8 +1,6 @@
-import { isRecord, hasExactKeys, isNonEmptyString as nonEmptyString } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,
-  type EventStoreCloseHandoff,
   type EventStoreReopenAuthority,
 } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/contracts.js";
@@ -15,20 +13,14 @@ import type {
   WorkspaceBinding,
 } from "../product/index.js";
 import {
-  isProductSet,
-  isResolvedProductLock,
-} from "../product/index.js";
-import {
   canonicalJson,
   type JsonValue,
 } from "../shared/canonical_json.js";
 import {
-  isSha256Digest,
   sha256Canonical,
   type Sha256Digest,
 } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
-import { admitJson } from "../shared/admit/index.js";
 
 export type PublicGapSource = {
   readonly sourceInvocationRef: string;
@@ -149,106 +141,4 @@ export function constructPublicGapAuthority(
       authorityDigest: sha256Canonical(body),
     })),
   ) as PublicGapAuthority;
-}
-
-export function updatePublicGapAuthority(
-  authority: PublicGapAuthority,
-  handoff: EventStoreCloseHandoff,
-): PublicGapAuthority {
-  const {
-    authorityDigest: _authorityDigest,
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    ...input
-  } = authority;
-  return constructPublicGapAuthority({
-    ...input,
-    ...handoff,
-  });
-}
-
-export function parsePublicGapAuthority(
-  value: unknown,
-  expectedGapRef?: string,
-): PublicGapAuthority | null {
-  if (
-    !isRecord(value) ||
-    !hasExactKeys(value, AUTHORITY_KEYS) ||
-    value.kind !== "public_gap_authority" ||
-    value.schemaVersion !== "5.0.0" ||
-    !isRecord(value.reopenAuthority) ||
-    value.reopenAuthority.kind !== "event_store_reopen_authority" ||
-    !validateEventStoreCloseHandoff({
-      prefix: value.prefix,
-      reopenAuthority: value.reopenAuthority,
-    }) ||
-    !nonEmptyString(value.installInvocationRef) ||
-    !nonEmptyString(value.workspaceBindingInvocationRef) ||
-    !isRecord(value.install) ||
-    value.install.kind !== "product_install" ||
-    !isResolvedProductLock(value.resolvedProductLock) ||
-    !isProductSet(value.productSet, value.resolvedProductLock) ||
-    !isRecord(value.workspaceBinding) ||
-    value.workspaceBinding.kind !== "workspace_binding" ||
-    !isRecord(value.catalog) ||
-    value.catalog.kind !== "graph_function_catalog" ||
-    !isRecord(value.catalogView) ||
-    value.catalogView.kind !== "graph_function_catalog_view" ||
-    !Array.isArray(value.publications) ||
-    value.publications.length === 0 ||
-    !value.publications.every(
-      (publication) => isRecord(publication) && publication.kind === "module_publication",
-    ) ||
-    !isRecord(value.publicStart) ||
-    !hasExactKeys(value.publicStart, PUBLIC_START_KEYS) ||
-    value.publicStart.kind !== "public_start_identity" ||
-    value.publicStart.schemaVersion !== "5.0.0" ||
-    !nonEmptyString(value.publicStart.programRef) ||
-    !nonEmptyString(value.publicStart.graphFunctionRef) ||
-    !nonEmptyString(value.publicStart.startRef) ||
-    value.publicStart.scope !== "program" ||
-    value.publicStart.target !== value.publicStart.startRef ||
-    value.publicStart.until !== "converged" ||
-    value.publicStart.rootMode !== "supervised" ||
-    !isRecord(value.source) ||
-    !hasExactKeys(value.source, SOURCE_KEYS) ||
-    !nonEmptyString(value.source.sourceInvocationRef) ||
-    !nonEmptyString(value.source.sourceInvocationAdmissionRef) ||
-    !nonEmptyString(value.source.sourceRunId) ||
-    !nonEmptyString(value.source.sourceRouteRef) ||
-    !isSha256Digest(value.source.sourceRouteDigest) ||
-    !nonEmptyString(value.source.sourceRouteEventRef) ||
-    !nonEmptyString(value.source.sourceRunStoppedEventRef) ||
-    !nonEmptyString(value.source.gapRef) ||
-    (
-      expectedGapRef !== undefined &&
-      value.source.gapRef !== expectedGapRef
-    ) ||
-    !nonEmptyString(value.source.nextActionProjectionRef) ||
-    !isSha256Digest(value.source.nextActionProjectionDigest) ||
-    !isRecord(value.source.nextActionProjection) ||
-    !isSha256Digest(value.authorityDigest)
-  ) {
-    return null;
-  }
-  const {
-    authorityDigest,
-    ...body
-  } = value;
-  try {
-    // The authority arrives unchecked: it is admitted as I-JSON before its
-    // digest and copy, and a refusal is null.
-    const admittedBody = admitJson(body), admittedValue = admitJson(value);
-    if (
-      admittedBody.kind !== "ok" || admittedValue.kind !== "ok" ||
-      sha256Canonical(admittedBody.value) !== authorityDigest
-    ) {
-      return null;
-    }
-    return deepFreeze(
-      JSON.parse(canonicalJson(admittedValue.value)),
-    ) as PublicGapAuthority;
-  } catch {
-    return null;
-  }
 }

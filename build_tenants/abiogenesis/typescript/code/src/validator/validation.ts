@@ -553,10 +553,6 @@ function validationAtBasis(facts: ProgramValidation, declarationBasisDigest: Sha
   return validation;
 }
 
-export function isPublicationValidation(value: object): boolean {
-  return publicationValidations.has(value);
-}
-
 export function isProgramValidation(value: object): boolean {
   return programValidations.has(value);
 }

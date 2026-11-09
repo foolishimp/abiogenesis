@@ -29,13 +29,10 @@ import {
 import {
   runtimePrefixComputation,
   isImmutableRuntimeValue,
-  runtimeEventBodiesAtPrefix, runtimeEventsFromValidatedPrefix,
-  type ValidatedRuntimeEventPrefix,
+  runtimeEventBodiesAtPrefix,
 } from "./event_prefix.js";
 import {
   captureDurablePrefixCoordinate,
-  runtimeEventPhysicalPrefix,
-  validateDurablePrefixCoordinate,
   type DurablePrefixCoordinate,
   type RuntimeEvent,
 } from "./event_store.js";
@@ -957,20 +954,6 @@ export function projectRunTruthAtDurablePrefix(
   }
 }
 
-/** Source identity for the two GraphCall companions of the existing Run read
- * kernel. This does not evaluate or trust the optional child declaration proof. */
-export function projectGraphCallSourceAtDurablePrefix(prefix: DurablePrefixCoordinate, graphCallId: string):
-  Readonly<{ source: AbgRunTruthCoordinate; workspaceBinding: AbgRunTruthCoordinate }> | null {
-  const prepared = prepareRead("graph_call_replay", { kind: "abg_project_read_packet", schemaVersion: "5.0.0",
-    memberKey: "graph_call_replay", prefix, targetRef: graphCallId });
-  if ("code" in prepared) return null;
-  try {
-    const context = graphCallContext(prepared, graphCallId);
-    if (context === null) return null;
-    return graphCallSource(prepared, context);
-  } catch { return null; }
-}
-
 function graphCallSource(
   prepared: PreparedRead<AbgProjectReadMemberKey>,
   context: GraphCallReadContext,
@@ -1497,24 +1480,6 @@ function projectRunGaps(
     ? ABSENT
     : { runId: targetRef, frontiers: gapRows(prepared, context),
         replayRef: context.replay.replayRef, replayDigest: context.replay.replayDigest };
-}
-
-/** Pure owner entry over already decoded history. This checks physical byte
- * correspondence, not resource acquisition/currentness or Public authority. */
-export function projectGapReadAtValidatedPrefix<K extends "run_gaps" | "workspace_gaps">(
-  packet: AbgProjectReadPacket<K>, fullPrefix: ValidatedRuntimeEventPrefix,
-): AbgProjectReadResult<K> {
-  const admitted = admitReadPacket(packet.memberKey, packet);
-  if ("code" in admitted) return admitted;
-  try {
-    const events = runtimeEventsFromValidatedPrefix(fullPrefix), physical = runtimeEventPhysicalPrefix(events);
-    if (!validateDurablePrefixCoordinate(admitted.prefix) || physical.byteLength !== admitted.prefix.prefixLength ||
-        physical.digest !== admitted.prefix.prefixDigest) throw new TypeError("gap prefix differs from decoded physical history");
-    const prepared = { packet: admitted, fullPrefix };
-    return projectPreparedRead(prepared, () => projectValue(prepared, packet.memberKey, packet.targetRef));
-  } catch {
-    return refusal(packet.memberKey, packet.targetRef, "invalid_history", "gap read requires its exact decoded prefix");
-  }
 }
 
 function projectRunLawfulActions(

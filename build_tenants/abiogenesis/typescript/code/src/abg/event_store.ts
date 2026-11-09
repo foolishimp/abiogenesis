@@ -1736,6 +1736,8 @@ function releaseDurableOwnership(state: EventStoreState): void {
   }
   state.durableAppendLock = null;
   state.durableAppendClosed = true;
+  // §10.12 O1: physical close disposes every basis retention handle and root.
+  if (state.history !== null) state.history.disposeBasisRetention();
   if (closeError !== undefined) throw closeError;
 }
 
@@ -2323,12 +2325,6 @@ function heldRuntimePrefixState(store: AbgEventStore, prefix: DurablePrefixCoord
   return state;
 }
 
-export function projectHeldRuntimeEventsAtDurablePrefix(
-  store: AbgEventStore, prefix: DurablePrefixCoordinate,
-): readonly RuntimeEvent[] {
-  return readHeldRuntimeEventsAtDurablePrefix(store, prefix);
-}
-
 export function readHeldRuntimeEventsAtDurablePrefix(
   store: AbgEventStore, prefix: DurablePrefixCoordinate,
 ): readonly RuntimeEvent[] {
@@ -2426,7 +2422,7 @@ function appendDurablyBatch(state: EventStoreState, events: readonly RuntimeEven
     state.events = Object.freeze([]); state.eventsById.clear(); return prefix;
   } catch (error) {
     state.derivation.invalidate(); state.derivation = new RuntimeDerivationSource();
-    runtimeHistoryDerivationSources.set(history, state.derivation);
+    runtimeHistoryDerivationSources.set(history, state.derivation); history.disposeBasisRetention();
     try { ftruncateSync(descriptor, priorByteLength); fsyncSync(descriptor); }
     catch (rollbackError) {
       try { releaseDurableOwnership(state); } catch { /* Preserve both I/O failures. */ }
@@ -2768,11 +2764,6 @@ export function createNewEmptyAppendSink(
       `new-empty append acquisition failed: ${String(error)}`,
     );
   }
-}
-
-export function isEventStoreAdmissionOpen(store: AbgEventStore): boolean {
-  const state = eventState.get(store);
-  return state !== undefined && !state.durableAppendClosed;
 }
 
 function isExactReferenceDigestSet(value: unknown): boolean {
@@ -3633,6 +3624,13 @@ const runtimeHistoryWork = { historyDecodes: 0, decodedRows: 0, historyBytesRead
 /** @internal A frozen snapshot of the observation-only counts. */
 export function observeRuntimeHistoryWork(): Readonly<typeof runtimeHistoryWork> {
   return Object.freeze({ ...runtimeHistoryWork });
+}
+
+/** @internal §10.12 O1: the active held history of an acquired coordinate.
+ * A cold, closed or copied coordinate has none and is never read for it. */
+export function activeRuntimeHistoryAtDurablePrefix(prefix: DurablePrefixCoordinate): RuntimeHistory | undefined {
+  const active = DurableHistoryDerivation.activeSelection(prefix);
+  return active === undefined ? undefined : RuntimeHistorySelection.owner(active);
 }
 
 /** @internal Explicit freshness never borrows a closed owner or copied proof. */

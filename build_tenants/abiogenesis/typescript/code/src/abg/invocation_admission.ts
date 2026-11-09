@@ -1,4 +1,4 @@
-import { selectRuntimeEventPrefixFromStore, selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
+import { selectRuntimeEventPrefixFromAuthority, runtimeEventAtPrefix, indexedRuntimeEventEnvelopes } from "./event_prefix.js";
 import { admitJson } from "../shared/admit/index.js";
 import { projectRuntimeReplayGuard, projectRuntimeReplayStatus, projectReplayCCallGuardAtPrefix, projectRuntimeActorProcessFactsAtPrefix, projectValidatedReplayRouteAtPrefix } from "./replay.js";
 import { indexedRuntimeEvents } from "./event_prefix.js";
@@ -801,16 +801,6 @@ export function validateInvocationCapabilityBasis(input: Readonly<{
     );
   }
   return null;
-}
-
-export function hasAdmittedInvocation(
-  store: AbgEventStore,
-  admission: InvocationAdmission,
-): boolean {
-  return hasAdmittedInvocationAtPrefix(
-    selectRuntimeEventPrefixFromStore(store),
-    admission,
-  );
 }
 
 export function hasAdmittedInvocationAtPrefix(

@@ -13,14 +13,6 @@ import type {
   GraphTraversalFailureResult,
 } from "./traversal_contract.js";
 
-export function isGraphTraversalEntryRefusal(
-  value: unknown,
-): value is GraphTraversalEntryRefusal {
-  return typeof value === "object" && value !== null &&
-    (value as { readonly kind?: unknown }).kind ===
-      "graph_traversal_entry_refusal";
-}
-
 export function refuseTraversalEntry(input: Readonly<{
   code: GraphTraversalEntryRefusal["code"];
   message: string;

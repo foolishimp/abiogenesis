@@ -77,10 +77,6 @@ export function isStdoRunEnvironmentDeclaration(value: unknown): value is StdoRu
         return m !== undefined && m.digest === b.memberDigest && b.startByte < b.endByte && b.endByte <= m.byteCount;
       }));
 }
-export function constructHistoricalStdoRunEnvironmentDeclaration(value: StdoRunEnvironmentDeclaration): Readonly<StdoRunEnvironmentDeclaration> {
-  if (!isStdoRunEnvironmentDeclaration(value)) throw new TypeError("invalid exact STDO run-environment declaration");
-  return deepFreeze(value);
-}
 export function stdoEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
   const ref = program.policies[STDO_ENVIRONMENT_POLICY];
   if (ref === undefined) return null;

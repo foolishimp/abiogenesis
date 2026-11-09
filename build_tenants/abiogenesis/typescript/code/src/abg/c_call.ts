@@ -3518,74 +3518,6 @@ export function isCCallRuntimeFailureCloseError(error: unknown): boolean {
     error.message.startsWith("CCall runtime failure close refusal: ");
 }
 
-export function admitPlannedCCallRuntimeFailureClose(
-  store: AbgEventStore,
-  graph: Readonly<GtlGraph>,
-  graphFunction: Readonly<GraphFunction>,
-  cursor: TraversalCursorCandidate,
-  cCall: CCall,
-  source: CCallRuntimeFailureSource,
-  failureCandidate: JsonValue,
-  plan: CCallRuntimeFailureClosePlan,
-  disposition: "blocked" | "retry",
-  basis: RuntimeAdmissionBasis,
-): AdmittedCCallRuntimeFailureClose {
-  assertRuntimeEventTransactionActive(store);
-  if (
-    plan.kind !== "c_call_runtime_failure_close_plan" ||
-    plan.schemaVersion !== "5.0.0" || plan.cCallRef !== cCall.cCallRef ||
-    plan.planDigest !== sha256Canonical(runtimeFailurePlanBody(plan)) ||
-    plan.planRef !==
-      `c-call-runtime-failure-plan://abiogenesis/${plan.planDigest.slice("sha256:".length)}` ||
-    store.digest() !== plan.expectedPrefixDigest ||
-    plan.disposition !== disposition ||
-    plan.admissionBasisDigest !==
-      sha256Canonical(basis)
-  ) throw runtimeFailureCloseError("plan identity or expected prefix differs");
-  const prefix = selectRuntimeEventPrefixFromStore(store);
-  const rederived = planCCallRuntimeFailureClose(
-    store,
-    prefix,
-    graph,
-    graphFunction,
-    cursor,
-    cCall,
-    source,
-    failureCandidate,
-    plan.failureValueKind,
-    disposition,
-    basis,
-  );
-  if (
-    rederived.kind !== "c_call_runtime_failure_close_plan" ||
-    !canonicalEquals(
-      rederived,
-      plan,
-    )
-  ) throw runtimeFailureCloseError("source or plan no longer reprojects exactly");
-  if (
-    plan.eventCandidates.length !== plan.projectedEvents.length ||
-    plan.projectedEvents.at(-1)?.eventId !==
-      plan.close.judgment.admissionEventRef
-  ) throw runtimeFailureCloseError("planned event closure is incomplete");
-  const sampledEvents = plan.eventCandidates.map((candidate) => {
-    const sample = captureNativeFrameBoundary(store);
-    return { event: admitRuntimeEvent(store, candidate), sample };
-  });
-  const admittedEvents = sampledEvents.map(({ event }) => event);
-  if (admittedEvents.some((event, index) =>
-    !canonicalEquals(event, plan.projectedEvents[index] ?? null)
-  )) {
-    throw runtimeFailureCloseError(
-      "admitted close differs from its pre-effect plan",
-    );
-  }
-  // Preserve planned producer identities; publish their actual boundary samples
-  // in this same atomic transaction before the next dependent owner operation.
-  for (const { event, sample } of sampledEvents) observeNativeFrameLiveness(store, event, sample);
-  return plan.close;
-}
-
 export function projectCCallRuntimeFailureSignal(
   prefix: ValidatedRuntimeEventPrefix,
   cCallRef: string,
@@ -5131,52 +5063,6 @@ export function projectPendingInteractionCarrier(
   return requestRef === null || requestDigest === null
     ? null
     : deepFreeze({ cCall, result, judgment, requestRef, requestDigest });
-}
-
-export function rehydratePendingInteraction(
-  store: AbgEventStore,
-  cCallValue: Readonly<Record<string, JsonValue>>,
-  resultValue: Readonly<Record<string, JsonValue>>,
-  judgmentValue: Readonly<Record<string, JsonValue>>,
-): RehydratedPendingInteraction | null {
-  const cCallRef = typeof cCallValue.cCallRef === "string"
-    ? cCallValue.cCallRef
-    : null;
-  const openedCCall = cCallRef === null
-    ? undefined
-    : indexedRuntimeEvents(selectRuntimeEventPrefixFromStore(store), "aggregate:c_call:" + cCallRef).find(event => event.kind === "c_call_opened");
-  const prefix = openedCCall?.runId === undefined
-    ? null
-    : selectRuntimeEventPrefixFromStore(store, {runId: openedCCall.runId});
-  const projected = prefix === null
-    ? null
-    : projectPendingInteractionCarrier(
-        prefix,
-        cCallValue,
-        resultValue,
-        judgmentValue,
-      );
-  if (projected === null) return null;
-  runtimeEventBodiesAtPrefix(prefix!);
-  const continuationEvent = indexedRuntimeEvents(prefix!, "kind:" + "fh_interaction_opened").find(
-    (event) =>
-      event.kind === "fh_interaction_opened" &&
-      isRecord(event.payload) &&
-      event.payload.cCallRef === projected.cCall.cCallRef,
-  );
-  if (
-    continuationEvent === undefined ||
-    !runtimeFluentHoldsAtPrefix(
-      prefix!,
-      constructRuntimeFluent({
-        name: "interaction_pending",
-        identity: continuationEvent.aggregateId,
-      }),
-    )
-  ) {
-    return null;
-  }
-  return projected;
 }
 
 type CCallOpeningBody = Omit<
@@ -7556,9 +7442,4 @@ function pendingInteractionBodyDigest(
     else writeCanonicalJson(member!,write);
   }, (part) => { hash.update(part); });
   return `sha256:${hash.digest("hex")}`;
-}
-export function admitPlannedPendingInteraction(store: AbgEventStore, graph: Readonly<GtlGraph>, graphFunction: Readonly<GraphFunction>,
-  cursor: TraversalCursorCandidate, cCall: CCall, request: Readonly<Record<string,JsonValue>>, expectedInputDigest: Sha256Digest,
-  plan: PendingInteractionAdmissionPlan, basis: RuntimeAdmissionBasis): PendingInteractionAdmission {
-  return admitOwnedPlannedPendingInteraction(store,graph,graphFunction,cursor,cCall,request,expectedInputDigest,plan,basis);
 }

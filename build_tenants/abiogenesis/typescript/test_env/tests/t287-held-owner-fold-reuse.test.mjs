@@ -99,7 +99,10 @@ test('RC9 OWN-01: owner folds over immutable rows and bytes are reused within th
     selection=successor;
   }
 
-  // O1 over the held lineage: one row check per basis row, retained across cuts.
+  // O1 over the held lineage after all three Runs completed (§10.12 O1
+  // lifetime): no run operation scope is open, so each historical cut checks
+  // the row cold with an equal record; completed historical identity is
+  // intentionally not retained. Active-scope identity is LIFE-01's subject.
   // The Run returns a durable coordinate, not a calculus prefix: the prefix
   // owner issues the nominal owned prefix for it. The coordinate stays the
   // close coordinate.
@@ -115,9 +118,10 @@ test('RC9 OWN-01: owner folds over immutable rows and bytes are reused within th
   const atRow=basisOwner.projectExactExecutionBasisRecordAtPrefix(through,basisRef),b1=snapshot();
   const atLater=basisOwner.projectExactExecutionBasisRecordAtPrefix(owned,basisRef),b2=snapshot();
   assert.notEqual(atRow,null);assert.equal(atRow.basisRef,basisRef);assert.equal(atRow.admissionEventRef,row.eventId);
-  assert.ok(delta(b0,b1).basis.rowAdmissions<=1,'the row is checked at most once');
-  assert.deepEqual(delta(b1,b2).basis,{rowAdmissions:0,bodyDigests:0},'a later cut of the lineage borrows the checked row');
-  assert.strictEqual(atLater,atRow,'the retained record is the owner value');
+  assert.deepEqual(delta(b0,b1).basis,{rowAdmissions:1,bodyDigests:1},'the completed row is checked once at its cut');
+  assert.deepEqual(delta(b1,b2).basis,{rowAdmissions:1,bodyDigests:1},'a later historical cut checks the completed row cold');
+  assert.deepEqual(atLater,atRow,'cold equality holds');
+  assert.notStrictEqual(atLater,atRow,'completed historical identity is not retained');
   // The earlier-cut interval ends after the projection it measures.
   const before=prefixOwner.validatedRuntimeEventPrefixBeforeEvent(owned,row.eventId);
   assert.equal(prefixOwner.runtimeEventPrefixExtent(before).count,row.admissionOrdinal-1,'the earlier cut ends just before the row');

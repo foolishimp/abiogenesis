@@ -41,16 +41,6 @@ export function isExactOperationDefinitionCoordinate(
     isSha256Digest(candidate.definitionDigest);
 }
 
-export function matchesExactOperationDefinitionCoordinate(
-  value: unknown,
-  expected: ExactOperationDefinitionCoordinate,
-): value is ExactOperationDefinitionCoordinate {
-  return isExactOperationDefinitionCoordinate(value) &&
-    value.operationId === expected.operationId &&
-    value.memberKey === expected.memberKey &&
-    value.definitionDigest === expected.definitionDigest;
-}
-
 /**
  * Binds one invocation to the complete selected definition coordinate. This
  * digest cannot make a definition authoritative; it only preserves the

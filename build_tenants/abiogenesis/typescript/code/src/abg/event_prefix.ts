@@ -15,13 +15,14 @@ import {
   selectEventStoreRuntimeHistory,
   projectOwnedRuntimeHistoryAtDurablePrefix,
   readOwnedRuntimeHistoryAtDurablePrefix,
+  activeRuntimeHistoryAtDurablePrefix,
   type AbgEventStore,
   type DurablePrefixCoordinate,
   type RootEventProfileSchedule,
   type RuntimeEvent,
   type RuntimeEventScope,
 } from "./event_store.js";
-import { RuntimeHistorySelection, RuntimeEventBodyView, runtimeHistorySelectorKeys, nativeContextBodyHolders,
+import { RuntimeHistorySelection, type RuntimeHistory, RuntimeEventBodyView, runtimeHistorySelectorKeys, nativeContextBodyHolders,
   NATIVE_CONTEXT_BODY_KEY } from "./runtime_history.js";
 import { canonicalEquals } from "../shared/value/index.js";
 
@@ -80,6 +81,19 @@ export function selectRuntimeEventPrefixFromStore(store: AbgEventStore, scope?: 
 /** @internal Borrow established history; an unbound/copied coordinate is cold. */
 export function projectOwnedRuntimeEventPrefixAtDurablePrefix(prefix: DurablePrefixCoordinate): OwnedRuntimeEventPrefix {
   return selectOwnedRuntimeEventPrefix(projectOwnedRuntimeHistoryAtDurablePrefix(prefix));
+}
+/** @internal §10.12 O1 lifetime: one run operation scope's basis retention
+ * handle on the active held history of its acquired coordinate. The returned
+ * release is that scope's finalizer. A cold, closed or copied coordinate opens
+ * nothing, and no read path calls this. */
+export function retainExecutionBasisLifetime(coordinate: DurablePrefixCoordinate, invocationRef: string): () => void {
+  const history = activeRuntimeHistoryAtDurablePrefix(coordinate);
+  return history === undefined ? () => {} : history.retainBasis(invocationRef);
+}
+/** @internal §10.12 O1: the store history whose open scopes may retain a basis
+ * row of this owned cut; an array, copied or validation prefix has none. */
+export function runtimePrefixBasisRetention(prefix: RuntimeEventPrefix): RuntimeHistory | undefined {
+  return isOwnedRuntimeEventPrefix(prefix) ? RuntimeHistorySelection.owner(prefix.selection) : undefined;
 }
 /** @internal Explicit freshness retains its physical-reader meaning. */
 export function readOwnedRuntimeEventPrefixAtDurablePrefix(prefix: DurablePrefixCoordinate,
@@ -375,12 +389,6 @@ export function runtimePrefixComputation<T>(prefix: RuntimeEventPrefix, owner: s
     return receipt.source.selectionScope(receipt.scopeKey, receipt.selection).owner(owner, construct);
   }
   return computationReceipt(prefix).computation.owner(owner, construct);
-}
-
-/** Exact profile-source value for owner derivation authentication. */
-export function runtimeEventProfileSourceFromValidatedPrefix(prefix: ValidatedRuntimeEventPrefix): readonly RuntimeEvent[] {
-  runtimeEventsFromValidatedPrefix(prefix);
-  return prefix[PROFILE_SOURCE];
 }
 
 export function runtimeEventProfileScheduleFromValidatedPrefix(prefix: ValidatedRuntimeEventPrefix): RootEventProfileSchedule;

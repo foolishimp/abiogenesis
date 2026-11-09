@@ -2,7 +2,6 @@ import { isRecord, hasExactKeys } from "../shared/admission_predicates.js";
 import {
   validateEventStoreCloseHandoff,
   type DurablePrefixCoordinate,
-  type EventStoreCloseHandoff,
   type EventStoreReopenAuthority,
 } from "../abg/event_store.js";
 import type { ModulePublication } from "../gtl/index.js";
@@ -112,22 +111,6 @@ export function constructPublicRunProjectionAuthority(
       authorityDigest: sha256Canonical(body),
     })),
   ) as PublicRunProjectionAuthority;
-}
-
-export function updatePublicRunProjectionAuthority(
-  authority: PublicRunProjectionAuthority,
-  handoff: EventStoreCloseHandoff,
-): PublicRunProjectionAuthority {
-  const {
-    authorityDigest: _authorityDigest,
-    kind: _kind,
-    schemaVersion: _schemaVersion,
-    ...input
-  } = authority;
-  return constructPublicRunProjectionAuthority({
-    ...input,
-    ...handoff,
-  });
 }
 
 export function parsePublicRunProjectionAuthority(
