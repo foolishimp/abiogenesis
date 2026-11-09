@@ -1,0 +1,240 @@
+{
+  "ProductFrame": "ABIogenesis fixed Product requirements and existing STDO3.0.4 basis; external proof evidence only. Root owns source, proof, broad and cut acceptance. O3 physical checks preserved and reuse follow-up remains OPEN.",
+  "recordedAt": "2026-11-08T18:10:20.596135+00:00",
+  "status": "OWN_PROOF_INCOMPLETE_REMAINDER_HELD",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "actualOutcome": {
+    "counts": {
+      "tests": 1,
+      "failed": 0,
+      "passed": 0,
+      "cancelled": 1,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 1,
+      "suites": 0
+    },
+    "reporterComplete": true,
+    "parseFailure": null,
+    "caseError": {
+      "name": "Error",
+      "message": "test timed out after 500000ms",
+      "stack": "Error [ERR_TEST_FAILURE]: test timed out after 500000ms",
+      "code": "ERR_TEST_FAILURE",
+      "failureType": "testTimeoutFailure",
+      "cause": {
+        "name": "Error",
+        "message": "test timed out after 500000ms",
+        "stack": null,
+        "code": null,
+        "failureType": null,
+        "cause": null
+      }
+    },
+    "commandStarted": "2026-11-08T17:56:23.923Z",
+    "commandWallMs": 528427.6741249999,
+    "commandExitCode": 1,
+    "commandTimedOut": false,
+    "commandTruncated": false,
+    "commandFailure": null,
+    "innerLimitMs": 500000,
+    "outerLimitMs": 600000,
+    "visibleCaseDurationMs": 502242.455833,
+    "fileSummaryDurationMs": 521585.066167,
+    "globalSummaryDurationMs": 526707.048833,
+    "causeStanding": "Actual Node test cancellation at unchanged 500000ms inner limit. Outer600000ms command limit did not fire. The cause of failure to complete within the inner limit and the last reached semantic phase are unresolved."
+  },
+  "ownerAssertions": {
+    "finalDiagnosticPresent": false,
+    "observations": null,
+    "counterRefusalCloseAssertionsProved": false,
+    "standing": "No final RC9_OWN01_OBSERVATIONS diagnostic. No counters, refusal equivalence, close success or complete owner assertion population can be credited from this run."
+  },
+  "conservation": {
+    "failure": null,
+    "standing": "The selected material source, built owner and helper pins remained equal across execution."
+  },
+  "closure": {
+    "resources": {
+      "status": "CHILD_CLOSED",
+      "maxOwnedBytes": 167157656,
+      "minFreeBytes": 337844862976,
+      "monitorFailure": null,
+      "overshootPossible": true,
+      "quotaEnforced": false,
+      "detachedDescendantAbsenceProven": false
+    },
+    "resourceSampleCount": 38,
+    "ancestryFailure": null,
+    "postAncestryFailure": null,
+    "lastAncestryAt": "2026-11-08T18:05:12.565Z",
+    "observedChildPidsBeforeClose": [
+      80977,
+      80984
+    ],
+    "lastAncestryRows": "Host80958, its ancestors and observation ps88711 only; previously observed children80977/80984 absent from host-related rows.",
+    "standing": "Child close and point-in-time host ancestry are observed. No detached-descendant absence or comprehensive current ownership claim; no cleanup or remediation performed."
+  },
+  "hostContext": {
+    "sampleCount": 524,
+    "logicalCPUs": 16,
+    "oneMinuteLoadMin": 9.1376953125,
+    "oneMinuteLoadMax": 34.13671875,
+    "nodeFreeMemoryMinBytes": 7052492800,
+    "nodeFreeMemoryMaxBytes": 9961750528,
+    "quietHostClaim": false,
+    "standing": "Observed load is context, not a causal diagnosis. Node free memory is not available-memory percentage."
+  },
+  "phaseObservation": {
+    "receipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/PHASE_OBSERVATION_BEFORE_CLOSE.json",
+      "bytes": 449,
+      "sha256": "eccd34bc4cddb0cad36aa16461537718940b95c792260f9b764dcdad7db8187e"
+    },
+    "observedAt": "2026-11-08T18:06:28.197326+00:00",
+    "result": "ENOENT",
+    "standing": "Despite historical filename, this single attempted read occurred after actual command closure. No kind/time/ordinal or run-state evidence acquired; it cannot locate the last phase or distinguish not-created from removed fixture data. No repeated scan/read."
+  },
+  "remainder": {
+    "status": "HELD_NOT_EXECUTED",
+    "preparation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_PREPARATION.json",
+      "bytes": 4620,
+      "sha256": "db7fa51d412db7962ed2fb13c8a49d520d13459eaa2bf9c8c88090acc9f5c0e5"
+    },
+    "selectedFiles": [
+      "test_env/tests/t287-owned-call-reference.test.mjs",
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/t287-native-structural-gates.test.mjs",
+      "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/t287-native-semantic-revision.test.mjs"
+    ],
+    "expectedCases": 62,
+    "expectedNonSkipPasses": 56,
+    "expectedSkips": 6,
+    "outerLimitMs": 900000,
+    "outputRoot": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/unit-remainder-005",
+    "ownedTemporaryRoot": "/private/tmp/abg-r9-unit-remainder-005",
+    "actualFieldsStillNeeded": [
+      "Root selection and actual admission",
+      "actual OWN result pin and stopped/ownership receipt in new bound remainder binding"
+    ],
+    "effectStanding": "REF-01 uses the same root-installed/language disposable fixture pack/install route as OWN with unchanged500s test timeout; other selected files use component/pure or disposable workspace fixtures. Optional external-proof selectors stay unset, retaining six skips. No Product rebuild or provider selected.",
+    "standing": "No new execution selected. Original nine-file unit remains incomplete; M5 and OWN evidence remain non-green. Bootstrap strict gate and201 broad selection unchanged."
+  },
+  "preservation": "Original native unit incomplete and both M5 reds remain immutable. No retry, extension, source mutation, build, independent pack, native/provider call or cleanup performed.",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_BINDING.BOUND.004.json",
+      "bytes": 18308,
+      "sha256": "6ad2325368b23d11b06b8c7e0b4130822f7885cf70002beb3479388dbc33a68f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_OWN_PROOF_004_ADMISSION.json",
+      "bytes": 2839,
+      "sha256": "b2eca922a615b3c01aa5c6b1b658685c340bf26b5da38573ceb71b41531d3850"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_ACTUAL_BINDING.json",
+      "bytes": 1325,
+      "sha256": "7fabb017f2c34f40008036c25e32c3955d0d58585d84603810ae0ba7d049c5a4"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-owner-proof-004.mjs",
+      "bytes": 11645,
+      "sha256": "36d9aefd720728908bc8d37e2d9403b875b75e3cde326ea592e43e0c76bbfefa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/REQUEST.json",
+      "bytes": 3594,
+      "sha256": "3dffcaa0e3b4517350b3a7784755a3f6e4c908df1a531d4e5ebaca58cc1a4139"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.request.json",
+      "bytes": 922,
+      "sha256": "90478f6e293d14d219defaf349c371897183eb1f0726c3844fd4156d42e0e1e0"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.result.json",
+      "bytes": 1380,
+      "sha256": "22f0dee43916df170b34c7cd6402e3439a02cee15c2ad8ab1da25ce761ca01fc"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.stdout",
+      "bytes": 603,
+      "sha256": "366d12ab4bd58883fba9d607d146d10fd0a68416eb596ebcfe24c5e46dd05408"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/commands/own01.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/RESULT.json",
+      "bytes": 1632,
+      "sha256": "9bb38d8500f38114a93c6e7001767bf91d0c82984ab5f299bd2d89a435ebd009"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/events.jsonl",
+      "bytes": 1198,
+      "sha256": "827ad04fcdd046af8f96df1a6696acfcc984d73762150c3b374d7916da053b27"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/OWN01_OBSERVATIONS.json",
+      "bytes": 285,
+      "sha256": "a1416da5a5a8f54a31b13f4764f8a26c3003ded7bda73d159a9c26bb3e4df38d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/RESOURCES.json",
+      "bytes": 4602,
+      "sha256": "269e95afc10fe24d041ab3885b81f03e2081bcbff7c93bcbfd0ed1c30a5ab5a5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/HOST_OBSERVATIONS.json",
+      "bytes": 167757,
+      "sha256": "13cb4ad1cfce9f38748bffceec315967dc02b2fc89a75873b46f64e2e40455ff"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-before.json",
+      "bytes": 1137,
+      "sha256": "7cb83716ca4ff4f06129843255ef60ff93c4468c3425484ae7a4ee611aa05bfa"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-during.json",
+      "bytes": 1502,
+      "sha256": "3846fc7a042a80ec46e4eba969296eb36444438814c8e7f8a742b7d0986c1d09"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/ancestry-after.json",
+      "bytes": 1137,
+      "sha256": "14d7252b5a84ac7b51eef0d77d45d796e0801b8187b01a74e31a74aba8e843ac"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/owner-proof-004/PHASE_OBSERVATION_BEFORE_CLOSE.json",
+      "bytes": 449,
+      "sha256": "eccd34bc4cddb0cad36aa16461537718940b95c792260f9b764dcdad7db8187e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_PREPARATION.json",
+      "bytes": 4620,
+      "sha256": "db7fa51d412db7962ed2fb13c8a49d520d13459eaa2bf9c8c88090acc9f5c0e5"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/run-unit-remainder-005.mjs",
+      "bytes": 11550,
+      "sha256": "2f94b42678e72fc749a8c5d0abbe429927a66bda3509aa3abb3864bf7062f29f"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_BINDING.HELD.005.json",
+      "bytes": 23126,
+      "sha256": "3edfbe7085c3a3fe8b24730f15eb45a3e954045775b4572506958ce749a08ff6"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/UNIT_REMAINDER_005_DIFF.patch",
+      "bytes": 14119,
+      "sha256": "66edf558bd75407a80fa83e6a8a47c6ed78f06372a08ae7cd4d2810a2df16d1c"
+    }
+  ]
+}

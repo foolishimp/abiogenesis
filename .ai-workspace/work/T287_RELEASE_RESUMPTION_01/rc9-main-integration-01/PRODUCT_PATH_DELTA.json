@@ -1,0 +1,3607 @@
+{
+  "preMain": "1344547c94dc0684af0cd83260438c41245a6f8a",
+  "rc9": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "count": 284,
+  "entries": [
+    {
+      "path": "AGENTS.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "766ae37f79de146cd51195cffc12f01ecc056ce8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1f811c8935cde38ff7f051624a9eff9917bda2ed"
+      }
+    },
+    {
+      "path": "CLAUDE.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c591b56aa518c8cae370b3707827ecf0a179716b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "df640cce8851775c6a6b2d52fb6b7814d5737db5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6bb5682e99d202a905aca77bd76b0ac95981fd7b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5b84f45e5b5111473074c7e2841603e069053e17"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/artifact_truth.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "86c5ef7a468cbbb6357836fa844312f7ba6857b4"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d06577c5b0033cf8c841017ee200d97bbe5c6af1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/c_call.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c94b338886c1946fed90359c6f38f25fb50af0a9"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "01e224d66e129d14180cb0987d5f4e584d059ec1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/axioms.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c9588e629ceeb05aa4d637b9cb3b3888ee376720"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8f20b40cdaa86bbebf9c2012dbbb5cc9824deb1d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e8252c0d9b3ddc07ebc380e5cecd53b9f2970074"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4f20fc1701147a88928e1b6f49f8deb5101ff66f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/fold.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f42dc743e0fac64ad2384111fc4dd33a951dea91"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5d5fb21e5d1dd264df7034262f9117112d7e8109"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/liveness.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9600dd5ad0a49e241f063409ea390a38dac90c1c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6af5bfb4562953d4f6103b9da6831bf65a9bfaf0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/rules.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f9841b11a6340769576cf90d14384ac8539c9e5c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3fd50e05e2903fb69240d39bea22a019bba05b08"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/construction_continuation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "62df2b594871c75c5beefc7b90a08c9d9fe02779"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "723648087d6a4ad3fd0c475fb9638542fb41c3e6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/continuation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8e4e87a51b4ccddcefff5f786b5283bfe6308062"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3516937405c815c3dd49ba8f3f0d6fab0fa5adce"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/default_library.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3a56804377d58b6cce16d2f0e002b4062a72ea92"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d82314edc3e90d924e44f86ad0cedb2d7fb0a01d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/effectful_invocation_truth.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1b1a86f46cfe83eb63141fe6a4085ed31a7f23b7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9eb1f8f3c623a76ca0f8ded515e92685e3dacc0f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9ab46be7d27f46e7389a9eceaf6c7eadff5e5fcc"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1273100b455bf51a0d5d224d76109fe61cef18f1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_body_encoding.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e1ac5bbde96908bf5177373f21b5be8f0ba43878"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8d1bb138e230ca6138f3d0227b0451fb06c8af54"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_calculus.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2e6ff4e0c988d90707bb16dbb1848afa1e0d5e7f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "75ef0b39a4efbeee695ac4f1407b0f519a0b6d88"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_contract_profiles.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "03de71ce4c10606268c99ff92686c23a57134727"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d82a9411cfb15896a46cb9c66fc3bb8aa17bed1b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_prefix.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "37c57b5600dfe0d52dd791def90a6dee36aa2174"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "395b40ad00da5d532a1b64f8c0a52940955c19a4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/event_store.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "128029fd28fc2dec50b3249d9bd3587d239039b4"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "66b347a5903b3ef608aac553f0bb8e5d1276d9cd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/exact_prefix_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bb5fb934a04796e3004de055833e4b665159d8ef"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "075bb0e19fa020bd60e5b7f042bd66e19a78f5cc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/execution_basis.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b69009630379ac910eb92027ceb837343638f76e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e705b35a6c4606612fd4524fbf237e1856668556"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/fh_continuation_projection.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c34d5a4842d8403359f905628aba4a6c107c487f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d5c93a7137105aff3d7b928fe6b7a1fe70eff20e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context.ts",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e706b15e5b78122db3922bebfbda597b5b290c43"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/governed_context_client.ts",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "35a1bca714476f7fe87e163751e802e945317ecb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/graph_application.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "480f121053bc8d308bbc07577251f29ce48ecc32"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0bd51a3c3745a549e6b5a0ba823231b2d81a5aef"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/index.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c9198d69d11fbd48fbd1cb8f44fffe63cf19278e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "53a4e6a5dc18263b353159bc8b80eb464b7035e8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/instruction_assembly.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2298cc9e63ce69d32912a7e4938295b78773d433"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "163e01b49373e9941eb128587a518eae3ae208f5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_admission.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5a85c997cc5591335f84e7f08329f8b4e171cc98"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "43c75ed2762e57724e10add3da5536a200be4325"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/invocation_execution_truth.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2e8de60507e3af01dbabcca03d1264822d8e6ccb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "06ea595a28d6bd150c6d3983d716392aec4ff30f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_effect.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "89e7435f7c413d7feb996749347bdb0f9e7695ec"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2dc3ac5ef4025f7b3841e3a2919276ce1ecbf8da"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_work_reacquisition.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "179ba2da4f46bc09001cd60850b877d485c36aeb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "de3001d93518b6720fb1794c296cb004a15d763c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/native_worksite_execution.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8d3ab02b57c951159333eba36497ce0f70564904"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "de54d4860dafa36c962a84c4d2f4a49643e703cc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/open_call.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e09899a2aed340f95a82b48d0fc374dc2670d1d7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fd0929c10ce8e860e8a3ae293192a428328318bd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ac2526422c172a0d945c26c330448f6a63374081"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f4856525df950694dd1d9c11a74a27d3fa1a13d1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_operation_contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0d629257ce2952e055c01c58526503750b3d927d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e5cbc63e894d5522d100b108dc0e54fce47b077c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/project_read_ports.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "402adec1fe6aa884820acfdda63b5cce7537e174"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a955db65c595f810d16b98c22f9705d3a1fcf02f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/qualification_proof.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7e8b347b476d02d66afecab7ca3c8ca2f968f654"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ef64d4ffbbe87fd8c40d32b85aaa5ad36ce66c8a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/replay.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4656f9f7b74b8a2e550067233e7aec06ac75635e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e9ba10132a0d79c82adb3e39ffc466b39176a344"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/requirement_handoff.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f94ece70eabd50ba002189741c8cfcb61fc3e54e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "80a11c9c6dfba0e752879fb5920624abf0c692aa"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/retry.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a1355a3ca173531eaf4bad465c0d7efdb787fe4e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0e3da556caf56b27ded630d337dd61a7bd458c1c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_failure.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aa617b0168934c36a4aaf17bca596f7bff98c757"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9a0e8d1c84e5f668ad401e076ec64574d02eb124"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_history.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "69a5fa774e4a5977b07024432127c1ce5721ee69"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f8c9eb01aeb664e02a181fbaf4a4ee90dab97e33"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/runtime_liveness.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8541e6d40b90ff71da0a8904a9b633e37505d7b0"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d476982aa8864d7edd566e9a420c606bd2c97942"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_job.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e20052ccab7333f64981f46602de306fd8f91999"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6fffb0db620898276f34fbd2cd948a11e8b8efc3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_revision.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "06b879edaeb7e833c42da5512eec1da0230546b6"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4f9cd30627e0e45b1618d7c212d48921e4b8d2c8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/semantic_stage.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1fd8ccd1269f99fc530fdd90e2f6262cb0738a99"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d79ff7f73736e91dc5d5dcd69a15313263ff731f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "30e98d1291e40d922a2e81666b23f38dd4cd7050"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3110bf97d11ec3f633970a10351b2b9a3cbfaf4f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_cursor.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4028d81f1e5d642e3a0176b98e13b3f5d7796fad"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "425a7a8f3276fa457bbdc8402ab493ee335aeeb4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/traversal_route.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a785d36acb619c2837d2ebdd7a462636f250b1c8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "924f8ebd09c631d37f9cc0429de0aa9cf7bd8d4f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_admission_operation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c6ee3dd505bfbe76e8f894ea4f63a56acb054dda"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "241be674c686d89c4b0b493ededaf1944f0650bb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d0f606e0816422b9355f125a5ab486fe74bb70e3"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5fb7c565d2fd6b54c93c53d0ca1a51dad6baa5ab"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/witness_operation_contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8e5b017ed5624950e4f9646e5172936c8dca6767"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e300de812742f7d7e19265a25e4abf04ec79049f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4b3646b063f35dbee2cb3958a9cb0c44905495d8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "880c1300e023418b65bbae351c44a0dbdd10ec77"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_command_forward.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aac9419f1e79f224871835b9fcc46f7a8134cd08"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fec3dfd547d66138e8b6df92d674a08b5493de22"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_construction_recovery.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bfbc08b9ad038b76af12f440118311c24fece1ee"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3f2a72efe161ce72e92192d74e6b37d849150f32"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/abg/worksite_revision.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a5babeb0d625ad2e50573560588922f9c0e2e4c5"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9eae4779becb981131bc1efc65f049af0a164218"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/default_library.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "835721445b0907916c97e0a57391545454686b49"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ea7d71a7adaaeda50e52ee6046b7746359ac30d5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/gtl/worksite_command_execution.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1a0b0898bbd9d747243ad81dd5b9c611f1d4536c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2ca1279b48346d298aad97e4c91bdba44d22a85b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/ccall_lifecycle.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f7361290f1c66261b3b03b48cd2a2178af7d8aeb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5f437c345be8274a8df15d51c1b382e3109f7bf3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e753c150c997a20ad8cf999c97ca24359e1d8a23"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d1d42e71d8ecfba0d34710857ae8630aeae1d732"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/operator_support.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1f310a5c44cf59c2d5569bb35b73f3996bb24562"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "125a182b3df8ce80f679ef1da724fc9787cfd705"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/parent_rehydration.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0be02fd6967258b97cfdf4dc0e4644de6d434177"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1879be4c5b5527cff9b8d3752a572141d1755355"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/recursion_lifecycle.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "cdddae92c8d0b08548408ff6fb8705b82d4ab9a3"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b87ab4c832dec356b5ceef8269182e0f13a530cf"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/hog/traversal_contract.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9230e4c70e7e3c8193e600e8e5714ea15ec7b067"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e4a0d211ea3aa2e53bda12320d9f91aad193f260"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d9e5db386a4a5e16106df2c6137a1fe27e1fbd73"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "80ddcc723d1f99aa8c1437dab1485681941e8dea"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/default_library.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "02da68366e8862cee0b5d05544114d68d5501aa1"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4d52befd0eaa6109c2083f915bbdb369730451a5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ecc7eb575237eabd621f5380133af993aa27fc01"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "83830f48bd8a74993ac06c828392524c6397cc48"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_work_reacquisition.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0a9272f9cb2285fe792ca306cd242ed50b8b82ea"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b527a89794cab62c3aec93fa1589502fc4622efb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/native_workspace_work.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "965989834a14c95b4663501fb5bd3f46d8a2f22c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5ee7176490ee8411860d63c5630398096400a77c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/qualification.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "39f8164e875b9ca7520d555f0c36dc223a0637cb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b1fca6cea0013d5b62bec8d4d10095558ab41184"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_revision.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "390680b46ed9a79b071d67919aa6f4a0dd52f6e7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dc2141c97bcd70368b129a06d6741a05b2745952"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/semantic_stage.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dac4dfd1460f219b7cb7e88e404e46ebbf9833df"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "56ad4c62cbb03de90753a21b0f2cb17f5516d161"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/implementation/worksite_file_replace.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8fdc351bb402a9dcccfbb43d66389c7ea0983459"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "20a5589784c1171a42fcb54709a754a6bb8e7649"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/owner_bindings/run_invocation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3cc22acabe607d9a576c9fa8ce0830e0a33dd175"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dfef0587e902652f39f9a558fdc5cbabaf8c754b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/admission_authority.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "acf9c6ed9fce60cb127721f5271d9a60105e7c99"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b47e0d332036439c48a5272e66a8f05e83807486"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/catalog.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "955f19eabf3ec8ef7a5a2ac5f516d4799e724f0d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2204141a4822b1c0b690035ec2d7b0975d7f778d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c3810a4ec0e6ae63fe13876492e2bbab6ac71f17"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "197bfee10d8f700cb69e3b129d462827230a4feb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/declaration_application.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a53b53d59bae133198ee03b2717f877dfe2b4c34"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "134da18b27a0e99e41297257da10f4541c67c2f0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e21623ed4f6d04e92dea0d1386b328b7d2bcdfdd"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "513b8a7a74944a25475cff6f165b07ce43dc97f8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/default_library_fulfillment.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c59b05eec47a1801707b90455a5d3f602648db2a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c1d99b3d09dc3a2d9f47a5c0bc31588b6419dc00"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/execution_resolution.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d65dd90d70a9dfc4504c566a608a0ae4127cd9e4"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1dec3c3603e4378c1c660ff26136cb98227eb234"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/index.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fc4400b9575b05aa7827189e5e32053539c301ee"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f904d4b7c6f864e3d09c9cb2a48d39f727e1e5ad"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "322391a257c6b6770dc8befac84f92df9f1f3b44"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1b8b0bfaffa201b0c9496a64b7b2befb66b64680"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/invocation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9bfb27baa391fc5ba2a85ad5cd9ea76199308468"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1b4d283d464dd94c94a1ab8a3fc46b9eca9af4cf"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/materialization_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "df5ac1bd49dcb145613a8268a5f511e3660ee635"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ac9934757c238f79bcc87720264eef79b7c245ed"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_assessment.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bbe62c067f637bdd42dd8a0f0d66b67c51f7b666"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "74252d483d2598b339f02f7fc57988ad8cdc98f1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/native_workspace_work.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e730e5e3e7d773796060571dba599e12727d166c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "af4786e1bae0de280837ab966fb094ec0eaadb50"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/project_read_ports.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5933faf3b07cade25829f37a01c00dd98e3cfed8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2d92363ac6fe5f04d73c63f24bc93287f300fc9c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/release_snapshot_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "be33ef0525366c9d276d15534db02254a4d0bef1"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6f625c4718bf19e1c54e0d9a62cfd6dfcdc6c895"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/result_assessment_operation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3d6b97350244d16ef5f8e8ddb5430a7d783195a7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "15b6429c3641c5818edf5e2f90b7fb37218268ed"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/result_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0b3f2ee2f1851a2a64d24a2292bd0f2ca4de3dcf"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "61d34f9977c7763034bdb0088acbbf2f6a5d8de6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_invocation_operation.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "69e9d0468c7be74ecfe888ef857ede037e538396"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4611e01b07c8402ea27d67e6fcc59e4d52292348"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/run_operation_contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a098a1514f8d2024560b0ea35369e6ce39973761"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d01d7ebb36c42a8fe1a6eee2592b260328af1098"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_job.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "359ef8784c281b2c4e6099295ddce17777e8a092"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3447ccbaf0905587d7beaaea39e1e1e80621a927"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantic_revision.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "80abd71bb1518138645988a84008f5c83a120cc9"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ee830eec71831ed74708f165970683c7fb9a10ae"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "32ed355325a7ee0c8b210c34542067a8ecb96047"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c857abf764d7bd1b52e125778f824663bed4f441"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_command_execution.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "45a5ee1503e7137d9909bf9d20c85e268d6fec27"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2b9e9f33771961536fc2f96c9def636e7d78cf9e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_effect.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d73882fe86a7583655c68ca5525388194d308642"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "954b909e8049fe600398babab0a8854f0d70d2a8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/product/worksite_operations.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f083231333c22ce6bc4b4352ef0ab845d7b5c284"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "72b5201f0497de6dde3eabb2040a615c2d7917b3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/definition_binding_mechanics.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2a34d83d5ab186f23c3cf1cdb288e89f41f6d704"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2581489045a8d784156a6be1735c3997590a857e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/owner_contract_source_set.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e21302cbd106c7bf215e679f8278b2255908ca00"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f8abc4bb1f830cc25590c624cf40212976fb6d49"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/binding/static_definition_bindings.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9d50b18ded0c0481ee3d1b15188c230c925e22f5"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0968c18341a77cdc1ebb7bf9139a319cc0a48374"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/index.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "40b84cc2645b46d65f4ef93ae8f9b9340ed91356"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dc54c1460c2538e0c45078273761c01b14866b85"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e53573e3c92bdce911fc8266d11c43d53dc7a795"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ba3bde38d5a1e1f3ce8af53d0dfd8b7aea2acb41"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_public_definition_call.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8c0a6a1f95200dd949dfbd85297c225e55e7d039"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "27b0703b9b68afc8b66079f21f338e33a49bd7ce"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/shared/effect_definition.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ffc54f4ce07f0b672c87657e4699093c187f74d0"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8809fd675b17487f11fb90209f7c9efc6a34fc1f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e6c5c8194a2ee82e5145bad5af79f89c42bfd46e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b2d9501037b4ccbc9cb7935fc9389a7d7f94e0af"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/qualification_contracts.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "69dd56ed08a8ec7eae8f3ba862b0d9c8e2fb3431"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a9ab52f6d2b877d7ca94393cebea39b5aae4cb15"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/src/validator/self_conformance_basis.ts",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8be07487801aa314959500747284f589f2d415be"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b0072c88a4db4477011c656d65018e3190619811"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/code/support/governed-context/host_adapter.py",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e02e53ea5c707837b6800ef8fab51510ecc60d19"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ebb5942c5322bc19346ff2384010af259318a606"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c89880f66e91ff7511a8537ac7cc4df4dc1d333b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/context.inventory.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1ac6922f46134a1788b0df77c9f0907130e1ea06"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "02163ce243a1aa14c171b7d4d3f56cf1f025808c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/manifest.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4f22ee93638c01ffaf8f6290f45190351af6d2be"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "892742f1e70108a3073add62c8b8d0ea102785dc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/plugins/spec/references/COORDINATED_HANDOFF.md",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9916edac37b49f676ab233eb8c91f1105f349175"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/plugins/spec/references/PRODUCT_BASIS.md",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2051fac5989d069ef63edf73b769b6df4e8e8246"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/plugins/spec/skills/stdo-review/SKILL.md",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e12af01e44d9e4502bf1a9d4b6a6e0a4dc96867d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/plugins/spec/skills/stdo-work/SKILL.md",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d018b1c49c16821b40e742e628154dc60f7f3882"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/default-library/stdo/standards/EXECUTIVE_BASELINE.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "674d1922156e1eaa02181923226cd9087db3f787"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c3db6798e4dd98ebd442c80ba4f959fb5526e673"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/governed-context/host_adapter.py",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e02e53ea5c707837b6800ef8fab51510ecc60d19"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/governed-context/selection.json",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "43ee91816854c61b44d3687263a57d31204dd7d8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-functions/adapter-projection.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fdbafb3ef9d31515e5f002d19830d00f533d9d59"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3ec3defacd0dfade4a5553a0dd31889b3d97c310"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/admit/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "cedba64fe2e76541aa07b8ef079b2bacef8c02a9"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "65bdf5ce7f1e1f98a1792b8019ce2232663a3432"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/apply/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "19e5af001fa1872a8a2427e5523380f0f9b7f91d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4e8f752633f3a4a838fde53f961bc7d61fed9065"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/catalog/view/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4637d369180a41c5a8d7b6169f45e72bf29650eb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "559d281caab9fdbf40829e4989f0ed7b318dc277"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/conformance/evaluate/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "527041d164e1fcf06f90bd50a9566538c2c33483"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9e733acdfb927e49b090009d6e9517531191132f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/interaction/respond/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "13f85a79e681aa43e12256f789eb1f4873fb6c47"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1336ae71b620fd1013227d0ff0fa09c16f6e4fd9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/product/install/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e81fdbc0f1ea3a67e65be93080d5b9f7424ee6d7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3b8b0946551cced3c659484ed72f56f5c8ac5f3d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/product/materialize/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0e24b3488758f10d16f67f17db775b7be63f49ef"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "96a53dc822c1aa45270424ae14318601c1c20d2a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/product/resolve/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dcbc8b275c512543f84e19f4815e7af70a2af12d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "347a3678221617ad34f16309b9efbb3d3cbc58d6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/product/verify/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2dfc6a3c7d6d659fdfbb3c348d7f179a5a78b970"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7bf21de244b4750ef7063c31b918db1a5c0a758c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/project/read/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "764dc9f7e6b95f89f70de12c3410f7ca74a87231"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "120fa99663f0e8a8935f6636c9a99e92908d5bec"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/release/snapshot/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1a073a9c4da71b0bd888b76ac275a6a3f5c1a24d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "21c5220a8748be38c0a3bf239f51a4dcbb297bcd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/result/assess/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5c947bcab1282fd3b0064863926a5eca476b5be6"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f921300e30592e4c82d41337f1ec30949775fed5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/run/continue/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8427a39ed016286f0d742f8c35f42b169efc95e6"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dacd98429ac87a6b995a7c57e63deda57060edc6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/run/invoke/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b9e8200ef8e61aee4dbd13d9e114bc75871595fc"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "014d7cb0103dd5c97ffdbd864a72fd59916e7e30"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/witness/admit/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bbf5603a1976bec5083bdd1e4863ff09e66ff9f9"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6abd64a4f9d8bb6b9c4f3582940a4bc51a15e601"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/bind/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5ce9ab4e84a6b2614cf60bb35638393272039022"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f95aa18729ce40c7b4e38d53e77c570212cc3a10"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/create/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ff6fb6e710fae93070ab70fe71644a3ade9f933a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "45068e886ca46c1930a180a8d519200c9f15e594"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/public-operations/workspace/open/operation-contract.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3ce082274f52303218a2169117ca0d3ab05e9af4"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e259882c987688a67c60d5486fbfb15efb1b8b7f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/authority-inputs.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f153cdebb4b37e51c38a247c31ec21fc0f97b8ea"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "154e76fd86c6c6bd20222d72a0d21fb9cacf78be"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/coverage.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "045729b49cb4da5cfc105c92dd460033b0d7d872"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5b3f7ff56c283ec48b55cb61b7240a364698ad43"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/law-basis.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2c64607ccdf6f9911fce15d9d8200c8fadefa13d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "47d7591efd060071b0e852e7d43e5615e02481e1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/rule-catalog.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "49acdf0585fab698df7048038f75c987425d6491"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e5e742957b40325c05bfb507902acc4a83d670a2"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/EXECUTIVE_BASELINE.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "674d1922156e1eaa02181923226cd9087db3f787"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c3db6798e4dd98ebd442c80ba4f959fb5526e673"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/PRODUCT.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5348c5af59105a22c0210d282a033c92ec091115"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e1d064a0b1aee8b69e6d6ed2d083d5f42eb9378e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/specification__requirements__README.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "62a0bc2f2c8be89e9ad3df047e51595b1ffefc08"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5fadc304fc9706d1098eb730f1db00b0a3c4fc67"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/qualification/sources/stdo_abiogenesis.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "626639c0c66ae99a57e12d20074f53ccdffd01cb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1febdf3f1318a8da821b2ceea09fc8bff6ea88ec"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/native-runtime-observation.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7bc5d6025d734b1652a9348f1686df4480e9b372"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e1c4c0dad8bc0adb2555583d0369bbcc5e73a728"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/non-terminal.schema.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d540d749c19558bc5fa62d1493f9496c65e7760b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aa934e1dc2d1ada2822bc8178c12f29340a61e53"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/request.schema.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "34b745748eeb761bb3e5059e91791b13da1858ac"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "54e3645514f927ae68aeb48cc42359825bf154ed"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/operations/run/continue/result.schema.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "dace5cd71645430b69dc436d84820837d8eb48d6"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6e178921942a619f0e0c7bbb37a61747326beeeb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/schemas/public-operation.schema.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5cec74dc7d1c9a3d8504ad1b3eed8f4ed6b135d2"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8233b5c7b9dbd71bc169b7d395ffabe735e5d07f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/contracts/worksite/command-execution-context.inventory.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d83090dffe90b12e6fc50e5d503cfc1f0b7cbd04"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e55bf98e64b0bbb3a1fae5d0d054d35494a63880"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABG_EVENT_CALCULUS_RUNTIME_LAW_DERIVATION.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0ab0b8377c52188a8e79ee58f41061504f85594f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e62582fb5abab660b3e9fee9080957dd1d92827b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aff23427fd878c936df6a88593c4adbb7dfd4b40"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b1f12a7dffe0fd55b5655b7d3bae7f27b96731dd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2a61f73a0dca5f7a179a848eec77e4173b300500"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0a5f806c711ca4054e319e2fe8c12c1e11f45e73"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "48705208d75707fc3f1b60c1227a58e2dd0fbf4d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f436d25570a4d69d693afa65eb4940181f78f983"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M03_INSTRUCTION_ASSEMBLY_DERIVATION.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b6e325a4bd885aeda77c2c55839885680b259e4c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a775ef7e085cd7b80754ad5ec26ac3f66a8cd8ee"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M04_PUBLIC_OPERATION_DEFINITION_FAMILY_BEHAVIOR_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ee00d0493e4d7a1cac2ac3e89c32fcc1b3c42464"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6116cb93be76622dba0b23cdd72d84d783afbe8b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fedc99f47041ea2e78ea3e8cff500ed37c252a5d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0d42a7e5140cd7ecad57ac329ea4eed18fa919fc"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D1_REQUIREMENT_LIFECYCLE_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a97d24cf7847c15e6cf1fcc1734bf2b66d4c57e6"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5c253cb39f7b22b00c6ae2b72335d8cb05f69f5b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_D4_D5_NATIVE_QUALIFICATION_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "db35fb981ab870409e507888176a47707a6d015a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "03f4514319a1785e883ad8d61452d542fc7890db"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "13fd5092fee82f1c78f66c30df3c565c1e3fc711"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5d70cfca5453f3073216c6c39c659b55064feb0f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_EVENT_CONTRACT_COMPATIBILITY_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e850094eeda3dff467f564b92e95ca6f05ee09ae"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1099ab8b77321cdbfe0e4eced46ee498577781ae"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_NATIVE_WORKSPACE_WORK_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a86198852864ce29a9afff9290a18228059a85c0"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b13bd16f6049d550e64dff59145315ab49e84763"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PENDING_CONSUMER_CONTINUATION_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8643e7fb3dc58057e0e4591cb3683251541a1602"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a5d5a891b2dfea3bb8561600c3d4fbcd4a050ce6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7b667a7f27a292880e65c323e4dbaebd16d5a043"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "52bb6545b801054dadfd05564b9efaefe01fb74e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_REGISTERED_GRAPH_SELECTION_NATIVE_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "26563aa426bcc63b149d5402873169ea927f21bb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3320ff0f72794f025169493b8fed7a0b10abb84a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_STDO_RUN_ENVIRONMENT_PILOT_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b1192340d215bcc27edc8395c77e0a5c24b02859"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a57c671fc0d0b9651360b8eab9134d85f3659375"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T287_W2_R3_C2_WORKSITE_COMMAND_EXECUTION_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "627d7648979544ce885c2640c900ed09d0148b95"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0c0b0cff714f8b80410e4beb614215604b801163"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/T289_IMMUTABLE_INSTALL_EVENT_BODIES_DESIGN.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f8e41ccade717d395d6625c552160a8510f2e1da"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "04ed1354398617361b210e210815dd585ea74064"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a458de0f27d1c01ebe9b0e07dd504953af095d21"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1a6d50da0d5855add35479d63254e3fb7e48026b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/package.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "504b210aa784a99b6861d5fb9d60e5ef5e0f3b7c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "cc4a39a4fd8d9695e14a4fd4456ad07909f03891"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fc047ba3efe557548104b1736c37147b6433b601"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2439e9beb399d3354b6dff2fcea371894a9229c4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/release-claim.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1bda3cffeeaabb2a0ed2bbc49cd89990b211d4f7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ec3e6b10c550d2bc9340ade7ad3190d0e78de0ab"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/scripts/generate-product-manifest.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fe281c5369c28cac0eec6882c94b2da34e9e356e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "95091cd6bfa22d17f269a33726f2183af142df9b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-f09-worker.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e84415f8085b345a6104d19e6e52ce7dcf6482bc"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c398a4c9f0576170ff87425ce5b00ba556323337"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/falsifiers/runtime-retained-projections-worker.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "df24f0ef052c7c02f0540da84fc893770c12bd21"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "608ed524592534cdb417e295c8f6722b2420bac8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/abi5-root-candidate-basis.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "644a5e466e63645a2a8c1104803004431fd074de"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9c568747c99ab34efabeb7baee742e322cda08cd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/fixtures/t287-management-supervision/fresh-public-read.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7c916d78e0fe9dcb7ceb00e1dffe64b2e3617841"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "67c5f6760aeb92809257df9fe2a1a6e74108f4c0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/qualification/dispatch.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "850a87eab1cc0d9ccbf3211fde0f723bc59009bb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6ae92b03d2603751d18dbc49af2d4145b1815b6e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-binding-harness.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b367fc18795792117e504cb4b1229c4da0d220b7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d8e5449540eec9a534ccca68755f1272385da020"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-bounded-harness.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "888c3b385a1367e928b16157dc554288d839d42e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e4eb549d59401dabfef1930173520cab3389b2b0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-evidence-owner-harness.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d1f4354a3a7e34126007437ca10e1848bd080430"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1436663605150816cd79a4357cc05288d06b4da4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d2-historical-design-harness.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "039e1c88b1df89b81475865c3bf3d98e0822a03c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "11ed9e00d6a244dd266f7ea3e9a9fcfa0fc218e1"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/d5-authentic-preserved-result-fixture.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ad782f57ffbb70837b7d613ba0d49c44e94876a8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/declared-testing-capability.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d98682354f6e82653261a5da5f8890d2dfbf5815"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8d6a3faefe61c897b19943992a2b66bec9cb20e7"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/fresh-process-runtime-proof.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1745c060b535c1f84f54cccb2568f0a585779c84"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5afa8899e6d6e91550fd0ce37bd48c14a49ac66a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-language-test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4a72e6a7598c69d4e22868dce3104254e97205ae"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "26e5626d0fea0e9dfeac38ec764a885dde947ab4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/installed-qualification-conservation.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "25c1f9fb047ab710e9da249f27844b384e662551"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3e40b32c9c3ce9067122a1e41cadc7ef148b38bd"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/malformed-gtl-native-fixture.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "67185e0e16a2f72086b4e29cd6e03a50d5127c2c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2b4d656fd4dc68a3fe41964afe55d53bcafbf406"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/owned-call-reference.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "de92d3152c40b682effc43604b79d8d0c6fd624f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/registered-graph-selection.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0eb006c3ced3eab1952189ca67a6787c9b1fcf07"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ce95f0992c133328c4294f060e74d082be731552"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/retained-installed-consumer.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8e289ea4d3f4c1e6f8e445bb5101ab330e398a6e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3d6b487cb210abd1b880bcf49bcec017dde28686"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/root-installed-environment.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9bd653f6d629a9f43cae332e67439c0d71b2a460"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5c91232f0a6e72cbd7837d3a37087aa413e774b8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/single-address-space-consolidation.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f57c1c96bd4ae5e55fc31dd77b21253aba195ea4"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/stdout-component-fixture.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d8a44b6c022f49b47db752c5be102c3b9b643183"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-exact-prefix-projection-reuse.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "11f238ff6cdf17c246f9729fdf2199430e7a339a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3a5c93f6fff90864696b1b133e1dbbad6beec6b0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-intake.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7ad2c3e995e151649c1b16c7903143c2d7cfd82c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "83f061f4e1b2e8d2c0c9bbfa57cf7d8f147f6e79"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-readback.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4ea77fac84d5014c300a012ea0c81e0204f87628"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "19a5e83d16ed5cab827e2f663be4acc8cba62a80"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-generic-job-revision.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "37e38223c44ef309ccfa78ffe8d45645c379fb34"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "32c563effebfa2e1b5496212d44dbe636f9ae8ab"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-governed-context.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b671867468dad004897c18c03558616789bedb01"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/support/t287-predecessor-context.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1e5ab4f6143c6036ecf09db9efd56a8f72b6a16c"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0ba2d95cfbb18645a26a34e7d5db6e241959b080"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-event-store-reopen.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3917376a338caeda66bc2fe1d65841733e1c2f7e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ff8200e3afa3553c11853fa9b02ad5b84e0e2701"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-installed-graph-edge.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a1c746871b7f26ba37ccf6f101518dff1befaaaa"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "235a14016082cdf92928d108ef766331474a44a8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f3080df20b5018cba7e00bca65c9090cdbaa2050"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3f1e6fa4ef963933c414f07ab3315b7e3c434ba8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r1-packed-artifact.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c3626b8bba0c21066e874df193b9707f36e35d1d"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b2d767d92e2824f2305f23d04fa2a11dbd4cffab"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/r4-catalog-admission.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5b6fbc7f1f4bb577223a0e67a5d0e64e56efcc48"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "33dd83d11e6ec4ecb152cef15df69243e9c84b95"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/rc2-assessment-intake.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "077703ee4b2530f7f04245a77dfd9f40fb50309c"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-authenticated-owner-values.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bbfa80d82001a6bbaf2c25c10b1e940aed8ee7ff"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1f622205861638baa11209c9c8d04312c39bad4f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-correction-regressions.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f5e285a185c0213cd7edb5f39ab1c3cdddb0cba2"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a2bcb495e5d086c5ee6caa295cbe2be6cbcc99e5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-c0-post-publication-failure.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7c395b082a4efa6a4228ccc4396c1b629e7ab32b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "49ad011cf5c55d34a9ce7ce4eb34c2aa12196dd7"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-calculus-fold.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bc4bee7637d7a0990c709829febba8dff3c7a490"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "95e9c798d37882cc38f86465a3dc3a252462abed"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d1-semantic-stage.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5e45babf9110459df915f6907d37a1a528e1ad4e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "301c00cc886eff034b81747e7922d24da7a89d40"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-d5-authentic-preserved-result.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "317752b4e95ce0da72370de44905882b2e079217"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-declared-testing-capability.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "07c24425b4ee25a1c5c740c179f46cca2238ee38"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "275870b4f7dd0a20e3fc212401b1c560da59f455"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library-fulfillment.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4baf4f5d85bbc284fce48cc0a2a3fa56b584a4a7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4ba97ec8b1109d30a6c6771ae1773f7e9768c556"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-default-library.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8e87993fe9c3cdb82056a432813bd492ffcf9de3"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3e14798a48ccf347259b59b2317bdb80d031a9a6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-deferred-application-restoration.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "33f98cea9d84bad11f06bdd9a0e71f2f1e14892e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "957d5cfd83f4006aac2da6a5afb417a7330a6c79"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-event-body-encoding.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "10c330fa0c50ec9a04842b2b34dcf4e975155717"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6a69be70d017c4179019c284d1f92edd4482db87"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-construction-intent.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1fe4e6a8e3b62c32724ae23a01ba455e82e6a349"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9486956b7ee031abe42e1434d856e4ff55dbbc8f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-exact-prefix-projection-reuse.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "677035225799802ada7ca44d96bcac2ec2c28f2f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e6f352db568c28548b6cfc34071a28b09db8841e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-f04a-probabilistic-result-candidate.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "166f96e689c2ef799bfbee1a26cac6f71a4175d8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6ee4d7803dd99ed5a499106b005c79b7021247f6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-framework-handoff-types.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ff00a3fe801fbcd3ae853bed9729a0ddd5a94714"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-meaning.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "42e8a4bf59c9db5d5551f07bb4e392afd3e64ba7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ec8067bb7e9fa7a3a9aefd87425c8c17fbd20871"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-generic-job-revision.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0c2d88f832663863d45a09a45f962eb4a0cdc3fb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aad135dd6582940cc79f3c94a6598280c2fa8e7b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-governed-context.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6ef9b556adc1d6492a7d3ebf9d506a6c54524acb"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d1f91ed1b5d48f53f2cdeb6e2d2b45422483f60f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-prefix.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "856d61ed07e8a7fd57a2dd1422fb760f5a6a0e77"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3f33156f559a66f2fe9fe01765140378c3927f39"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-installed-product-coordinate.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aece01fb0059e6476b8e7641c6f574e1f38d1c46"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1b8513cae49b60293d03aca10d41117f59632f64"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-lifecycle-failure-carrier.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4c6eb80cc7eb468b21b155d2b20d40db7d30ca76"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6e7e38e0efa9fdcd178b2c5356233dcef6b24af3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-live-worksite-construction.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e0c26ddc6aaf8b7eded250753e0241147a4b8de3"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b070a5d5e4e60f19af6f9475807f0bb91f7f92f3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-management-context.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "71cb56acd9790a80ae718e24e326304282954391"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1564613316e577f49faff5508c0deda77fee735f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-assembly-retained-input.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8b9fb9857276bcd7b705aa1ffc95a21646a67a8e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c65a85512bd2733270711e1acbb85feef1ad75f3"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-c2-instruction-assembly.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3306daa5f6931282c7c375a3e387e0792a0ff92b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ecf535e8234ba1c9311f185d3c2a425d97ce0d5f"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-owner-reuse.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6ecb924d7871101f0dfe3c6a97ff1ef10f219878"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "48272467a78b70d3055845244dfbae718cfe6c71"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-evidence.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "59d48e5fcd88f8856b8c393a6f61fe1036ecb6ee"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7df4408a63a8b80e0dc628f3568b426974104876"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-job.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "554f7c101a8c7cff722ea94c863a5063663dff97"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ca85d03a95a8e8c978b66056a94f8beeeba2dab6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-semantic-revision.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "007e0053fbfe6e8aae42c1ac65bf6439ee386988"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "48c56904d5041a0d1483bbd775cce12c0b7355c0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-currentness-consumers.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "131f5e2593cabb0b2f079eeb52120d20b77514cf"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0e624798fc453f32eefc5fa87e1961b140a5f589"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition-normalization.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "784ddd702329f2e07e4ba7111479ecaf5c0684f1"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f5c7ac650de29443bf13c46fb5b33f63ccd8cef5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-work-reacquisition.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e7ede1f9afc865b83fc02c242e979754e7bb575a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "610eaddb4ad04bdb7331868ad12498685ceb16c6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-worksite-execution.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "89f3d0a5430f148e71e5a3b5795f72bd1eaf4a9b"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3daa7cb18933791f657a9779110540c7a5b4cc81"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-workspace-work.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "58284fc2529b95cf96ce7d7e5de45d24f0158d79"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d23542f732a133ddc205bd656199d40ae5baa697"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-ordered-reconstruction.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b641d36d10aba0f7a589b7ec7cf80631f47af346"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c02e4c6ab49491ea029b9448b73df83344d0952a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7ee4106b5563e7c74b1e5f22fd7eb9a4c8e2bc2a"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-native-proof.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e4ade46129f46fcad62a1dc2205bfaae3cb56952"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fbd28586277975f0a59f1b2cd8908d9e58514f10"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-process-lifetime.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6651e37c2ff3524e6883a5019d8f58854023216f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "7436961c6408837920a4b01cdbc384436863a734"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-post-binding-worksite-write.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "45492ae5ceec1a0da1369d9280dec3da92c129ef"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a6b76da888ec2083b3263e2d3009edff5b56ff3e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-contraction.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0122492653c719bcf3952ad5a6de9fae3a517c68"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "57eb0afff6982c8470dfcea30105c7cf02dc6f08"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-law.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "285d81499a00c158940fafba4e67bad89ee53b3e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9daa8480f8fe230b369c0a2b311e7449771bf736"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-acquisition-reuse.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "164cffeba189b6caeab6aec07aad8e32448320ef"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0503d1b7fcc46c3d585bb1375ffdb110ca8f87d8"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-producer-context.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c879a5d0b00217588515c16f6a745ebbcbfdc0fd"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "91633cb706433e0965e996944ec9b1f0ed51bbea"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-qualification-scopes.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4ff24c455414a1e0171016e07b282ab7020d4072"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "db116b9a8c7418be9101233458fa61c6c2f230c0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-reconstruction-conservation.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "65f8037e5c7332a2e6410552ae1360f91904044f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "28b0c2b4f7c03e15851886cc306c0a7da221ba28"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-recursive-registered-selection.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ccc11dfb5bf7b5dbde33cec13f00d963e854d8e0"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9f40a4207831ed550a4302bacddb2863813fa2e5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-release-acceptance.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "044f4c8ac779de335dd5f04151e7fd297991ad73"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1fb42163c98b30410311a619347b7fd27c4f9ce6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-required-operation-bindings.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "75da72c4d769b79bb90f68e0dce317fa2baede0e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b5c1d50b682c560e0d5724f72590d1d214531680"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-retry-run-prefix.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "39e6f826c18dc683638e307c52fa1827c470560a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ae423c898ebfb4109147ba5324c6d114adce4d06"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-selected-action.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "20323c8233ad92a79ebbb22e88c5039b0af023aa"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ad9984ac41e26b33855af007e6fc9694a4073407"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-single-address-space-consolidation.test.mjs",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "764edcbd5100101177e6109e104441428c86d19e"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st1-installed-cross-owner-hello.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1f7a35b027bc83972ffbc2028dd306ba76e706c4"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0a404f8fe017bb24c3f36d44993f819f06a5e2b5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-st2a-e-exact-prefix-workspace-environment.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c80165a342f4cf1a426a87c0084c79ffc8f4f7ff"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "146908296f7e3d892648d57752639f7fdc4abe52"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-environment-citation.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "459c43b2db60b60c5141288f866b9c5cee46b30e"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ab9d80f860b37b1a57790a9df8788ea7cb31faa5"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo-run-environment.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "86774f61964c5f1b6feee059f6b179e00aa98510"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6fca441ab6ff73eb9e72060f8e95367d10ef9b66"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-stdo3-run-environment.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c5e3fa827e18228f3fcdc15828a2b0d803661dba"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2b6ae009b4a6b5b21649a38c85e8f978b484c3df"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "9375f5ebb7c0703ee1485035575a2fce8f041726"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "93a22b663e2eb88a28909573442f2209a1a71ac7"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-static-binding-algebra.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6ee7af878d52fb1951cc1881c72465593df2da64"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c2bbe52442a5918785973522718576835ba02937"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-branch-construction.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "fb8b4196c6b66275b06835362223e0144555cdf7"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c5c20a57398da7de2eb75068acbc3092980b3ca0"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-command-execution.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "12423ba1d51554941b43199e4a3ac3674557a791"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5de6e7c1fd7c6fc146e961a7b7ebf402b2a4cce9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-worksite-construction.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "889115cf19f5b221657fa417cfde7e8320e24e65"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f3570f38473453d1c7cf5c8ddf00fb930fcc71e2"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t288-instruction-assembly-owner.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "967caf5fce8bc6ab7725956266f5dc0260a2f480"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "53c313073ac1306235b4ae05dc2d0db2986b56fe"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/t289-install-event-bodies.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "08383edb7246a6d1937db82f064df46fd09a9fa8"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e024d615de9044fc0aa1822b32d8047b17a772a9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tests/witness-reprice-definition-binding.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "178d2b1a6f032b6a8bf9f9d9cab10240c22c768a"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a831557de798e9f9b25e3b07ce47bb0c70c50ba6"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/tsconfig.framework-handoff.json",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "967675ca240e41ef731ab4c9b3199a7da4aaa20b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/types/framework-handoff.compile.ts",
+      "preMain": null,
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "da7cc88d052e3cd8d5d20083eda75f9929ef966b"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/continuation.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6a90fddcd98d141b7e9f1cbbfd6ad7001903cbe1"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5ba2f7a88adf3e40895acfe549f41d30b56a1253"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/harness.test.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f058bd88fe70394f792cfbf05c171d3606ddca87"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "873aa4798ba3ae80c3c8c46718f3825ea6280ca9"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/public-setup.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f773a49242fc8177dac7627db2c9a7d52e488429"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c0ee2d59ec7a5eed507026f46b65f17e7323f92d"
+      }
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/test_env/uat/runner.mjs",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f9050652286b148e67a79011ad033d19a1c6867f"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "3e63918e8488c471a5771a3d543caeeb401b97e0"
+      }
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5348c5af59105a22c0210d282a033c92ec091115"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e1d064a0b1aee8b69e6d6ed2d083d5f42eb9378e"
+      }
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "62a0bc2f2c8be89e9ad3df047e51595b1ffefc08"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5fadc304fc9706d1098eb730f1db00b0a3c4fc67"
+      }
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "preMain": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "626639c0c66ae99a57e12d20074f53ccdffd01cb"
+      },
+      "rc9": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1febdf3f1318a8da821b2ceea09fc8bff6ea88ec"
+      }
+    }
+  ]
+}

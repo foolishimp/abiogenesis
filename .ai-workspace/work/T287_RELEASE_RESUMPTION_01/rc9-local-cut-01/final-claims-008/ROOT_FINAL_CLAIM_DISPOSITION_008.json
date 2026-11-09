@@ -1,0 +1,95 @@
+{
+  "status": "ROOT_ADOPTED_FINAL_BOUNDED_SOURCE_PROOF_CLAIM",
+  "at": "2026-11-08T21:34:54.698Z",
+  "authority": "Explicit Root Executive conjunction; /root/rc9_operator records decision only. Same exact STDO3.0.4/fixed ABI5/GOAL-035/T287 frame. No build/install activation.",
+  "decision": "Root ADOPTS the closed residual-scope review conditional limited-no-block judgment now that its required broad closure is actual and accepted. Applicability is only the exact local-unqualified installed current-profile scripted F_P path, with unchanged witnessed configuration/source/archive.",
+  "subject": {
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baseTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceRows": 1340,
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    }
+  },
+  "acceptedEvidence": {
+    "sourceBuildUnit": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "reference": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    },
+    "W2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    },
+    "broad": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857"
+    },
+    "independentResidualScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/residual-scope-007/REVIEW.json",
+      "bytes": 19581,
+      "sha256": "fc32421715b3fd91c535af1160a2bcbcdead077e7f09b9af68fc29d89c0119a4"
+    }
+  },
+  "conditionDischarge": "The review required actual broad continuation/close and Root acceptance. Broad008 completed exit0 and ROOT_BROAD_ACCEPTANCE_008 supplies that bounded acceptance. Other conditions and exclusions persist; this is no RC8 acceptance transfer.",
+  "perCapsuleAdoption": "For each of the eight OPEN capsuleAssessments in the pinned independent review, Root adopts its actualRC9CausalRelation and recommendation for the selected path only. RESIDUALS.md renders each rationale with original evidence/triggers retained; no capsule closes.",
+  "openCapsules": [
+    "RC8-GC03-METHOD-304",
+    "RC8-NATIVE-ASSESSMENT-PROFILE",
+    "RC8-SAS-WHOLE-PROOF",
+    "RC8-PHYSICAL-LIFETIME-013",
+    "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+    "RC8-SELECTED-ACTION-PROFILE",
+    "RC8-C3-COMPOSITION-PROOF-BUDGET",
+    "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET"
+  ],
+  "historicalResidualSource": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+    "bytes": 12832,
+    "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+  },
+  "boundedClaim": "Local unqualified RC9 candidate for the exact installed current-profile scripted F_P path demonstrated by accepted source/build/ordinary unit, exact-archive reference/readback/counter/close evidence, W2 and bounded201-file broad conjunction. This does not qualify unsupported or unexecuted paths or assert final immutable delivery.",
+  "excluded": [
+    "Configured GC03 using unsupported current3.0.4 foreign-basis composition",
+    "Complete historical-profile/SAS/recursion/HTTP/C2/C3 assurance",
+    "Undelivered duplicate/foreign/rollback probes; zero credit",
+    "O3 retained physical-verification reuse; shortcut withdrawn, physical checks retained, performance follow-up OPEN",
+    "Actual producer construction total is uninstrumented; no inference from plan counters",
+    "Real-provider operation, general reliability/speed bounds, full15/S7/human qualification"
+  ],
+  "preservation": "All historical native/M5/OWN/007 failures remain.007 missing final resource and escaped/changed-cwd uncertainty are not relabelled. W2 closes only for this exact RC9 successor.12cold/S7/full15/human stay OPEN.",
+  "remainingDependencies": [
+    "Root actual build activation",
+    "Actual selected source checkpoint and byte/member-equal clean reproduction",
+    "Existing independent packaging review of actual checkpoint/tree/archive/reproduction/final claims",
+    "Separate Root install activation and actual immutable-install/smoke receipt"
+  ],
+  "sourceAccepted": true,
+  "boundedBroadAccepted": true,
+  "limitedNoBlockAdopted": true,
+  "capsulesClosed": 0,
+  "qualified": false,
+  "published": false,
+  "selectorChanged": false,
+  "executionEnabled": false
+}

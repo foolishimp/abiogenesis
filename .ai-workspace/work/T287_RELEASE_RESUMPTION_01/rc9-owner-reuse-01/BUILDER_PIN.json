@@ -1,0 +1,68 @@
+{
+  "status": "RC8_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "startedUtc": "2026-11-08T06:12:38.815642+00:00",
+  "completedUtc": "2026-11-08T06:12:39.163520+00:00",
+  "verificationWallMs": 347.89391700178385,
+  "sourceCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+  "sourceTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.8",
+  "version": "5.0.0-rc.8",
+  "productContentDigest": "sha256:5dd1e8165ec9fb25dceec68c6f81e79afd8b94debddbce77a15f02ab2928d6cb",
+  "contributionManifestDigest": "sha256:ec1f7a77362a3e46d7cb2a11ef53c41a67ce9b53b4b7ddc8db996253b093f125",
+  "productToolchainManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "f74390de60cc59dd3770bc85ab8d2461296c5258a259c223cd2deeab03458102"
+  },
+  "package": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.8/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 10003,
+    "sha256": "a0f72d262f00eabc74f6aaa963972888c3bb15cf703c30f7ad1bec8413e7fd17"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/abiogenesis-typescript-tenant-5.0.0-rc.8.tgz",
+    "bytes": 11027562,
+    "sha256": "a178e960a04d29175e5488e58b9975bab1f0026828e5a85e40c7f4f9752796b9"
+  },
+  "archiveToInstalledPayload": {
+    "members": 5325,
+    "mismatches": [],
+    "algorithm": "Each regular tar package payload compared byte-for-byte with the same installed relative path. No extraction or runtime owner allocation."
+  },
+  "retainedOwnerVerification": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/verification.json",
+    "bytes": 15797718,
+    "sha256": "2f43799a54a358551e461cf4c778ac6d207394100afa5ee2d1fff9c640c77bc0"
+  },
+  "retainedResolvedLock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/resolved-lock.json",
+    "bytes": 4562973,
+    "sha256": "d68a668892bb81cfc05d3494698cfe299a5bd957a6fcc914fc72a47126bd5763"
+  },
+  "retainedInstallation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/installation.json",
+    "bytes": 4231702,
+    "sha256": "e691e380799a28a36000da28ea97596cb038b0e2d9bbdc0a91ed93ab442c1e87"
+  },
+  "retainedPayloadCorrespondence": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/payload-correspondence.json",
+    "bytes": 1035176,
+    "sha256": "175b8aa08a60a0842bf7350793e46bc34f4bbe2015a77afc8f27a8093a02cf2a"
+  },
+  "retainedCutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.8/LOCAL_CUT_RECORD.json",
+    "bytes": 4040,
+    "sha256": "d3d7cf0ead6c3d40d2aa524efc08e9b387c07efcbbc56158c353d5dc46032519"
+  },
+  "qualified": false,
+  "published": false,
+  "operationalPinOnly": true,
+  "globalSelectorChanged": false,
+  "installedBytesChanged": false,
+  "historicalRc7Changed": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "limits": "Read-only byte identity and retained owner receipts establish exact selected builder identity. RC9 fresh ProductSet/lock/catalog/Program/resource setup remains unallocated; no native workflow qualification or performance claim."
+}

@@ -1,0 +1,797 @@
+{
+  "ProductFrame": "Same ABIogenesis Product/STDO3.0.4 and exact frozen BUILT003. Actual external ordinary unit evidence only; Root retains source, broad, artifact and cut acceptance. O3 physical verification remains and performance reuse follow-up is OPEN.",
+  "status": "FRESH_NORMAL_NINE_FILE_UNIT_PASSED",
+  "recordedAt": "2026-11-08T18:52:43.827023+00:00",
+  "execution": {
+    "started": "2026-11-08T18:48:48.420Z",
+    "hostPid": 21294,
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "buildBindingSha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1",
+    "executionBindingSha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3",
+    "executionAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_FULL_UNIT_007_EXECUTION_ADMISSION.json",
+      "sha256": "ebb84fb83f5008d7e880ba905bba3142de4553d4aa0f5d9bc66b19c8667d9942"
+    },
+    "profiling": false,
+    "command": {
+      "exitCode": 0,
+      "signal": null,
+      "timedOut": false,
+      "truncated": false,
+      "failure": null,
+      "wallMs": 97732.113208,
+      "receipt": "commands/unit.result.json"
+    },
+    "wrapperExitCode": 0,
+    "standing": "New external Root grant; historical native build grant remains provenance only."
+  },
+  "counts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "completeEvidence": {
+    "caseIdentities": 95,
+    "fileSummaries": 9,
+    "reporterRows": 107,
+    "reporterComplete": true,
+    "summarySuccess": true,
+    "skipMatches": true,
+    "filePopulationMatches": true,
+    "casePopulationMatches": true,
+    "fileSummariesComplete": true,
+    "ordinalsComplete": true,
+    "parseFailure": null,
+    "diagnosticFailure": null,
+    "missingFiles": [],
+    "requiredCases": [
+      {
+        "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "passed": true
+      },
+      {
+        "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+        "passed": true
+      }
+    ]
+  },
+  "fileOutcomes": [
+    {
+      "ordinal": 11,
+      "type": "summary",
+      "file": "test_env/tests/forward-command-contracts.test.mjs",
+      "counts": {
+        "tests": 10,
+        "failed": 0,
+        "passed": 10,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 10,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 252.213167
+    },
+    {
+      "ordinal": 18,
+      "type": "summary",
+      "file": "test_env/tests/forward-command-owners.test.mjs",
+      "counts": {
+        "tests": 6,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 6,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 49.163125
+    },
+    {
+      "ordinal": 41,
+      "type": "summary",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "counts": {
+        "tests": 22,
+        "failed": 0,
+        "passed": 19,
+        "cancelled": 0,
+        "skipped": 3,
+        "todo": 0,
+        "topLevel": 22,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 393.219125
+    },
+    {
+      "ordinal": 74,
+      "type": "summary",
+      "file": "test_env/tests/m5-worker-transport.test.mjs",
+      "counts": {
+        "tests": 32,
+        "failed": 0,
+        "passed": 32,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 32,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 11441.666625
+    },
+    {
+      "ordinal": 76,
+      "type": "summary",
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 37568.971667
+    },
+    {
+      "ordinal": 84,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 6,
+        "cancelled": 0,
+        "skipped": 1,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 962.876708
+    },
+    {
+      "ordinal": 92,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "counts": {
+        "tests": 7,
+        "failed": 0,
+        "passed": 5,
+        "cancelled": 0,
+        "skipped": 2,
+        "todo": 0,
+        "topLevel": 7,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 784.800125
+    },
+    {
+      "ordinal": 102,
+      "type": "summary",
+      "file": "test_env/tests/t287-native-structural-gates.test.mjs",
+      "counts": {
+        "tests": 9,
+        "failed": 0,
+        "passed": 9,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 9,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 2932.179334
+    },
+    {
+      "ordinal": 104,
+      "type": "summary",
+      "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+      "counts": {
+        "tests": 1,
+        "failed": 0,
+        "passed": 1,
+        "cancelled": 0,
+        "skipped": 0,
+        "todo": 0,
+        "topLevel": 1,
+        "suites": 0
+      },
+      "success": true,
+      "durationMs": 40099.860542
+    }
+  ],
+  "globalSummary": {
+    "ordinal": 105,
+    "type": "summary",
+    "file": null,
+    "counts": {
+      "tests": 95,
+      "failed": 0,
+      "passed": 89,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0,
+      "topLevel": 95,
+      "suites": 0
+    },
+    "success": true,
+    "durationMs": 97530.749834
+  },
+  "skipDispositions": [
+    {
+      "ordinal": 37,
+      "type": "case",
+      "passed": true,
+      "name": "M5 resolves and independently validates the complete executable root set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 35,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 38,
+      "type": "case",
+      "passed": true,
+      "name": "M5 complete resolution refuses missing, ambiguous, forged, and mismatched bases",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 36,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 39,
+      "type": "case",
+      "passed": true,
+      "name": "M5 F_H-only roots produce one valid empty executable-resolution set",
+      "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "nesting": 0,
+      "testNumber": 37,
+      "suite": false,
+      "skip": "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 82,
+      "type": "case",
+      "passed": true,
+      "name": "material native proof survives Result clone, successor foldback and next consumer without irrelevant owner reconstruction",
+      "file": "test_env/tests/t287-native-runtime-gate.test.mjs",
+      "nesting": 0,
+      "testNumber": 77,
+      "suite": false,
+      "skip": "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 88,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 root-backed binding cover authenticates source ancestry and preserves first refusals",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 82,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    },
+    {
+      "ordinal": 89,
+      "type": "case",
+      "passed": true,
+      "name": "native D2 rejected assessor-only correction follows exact conserved requests across Runs and bindings",
+      "file": "test_env/tests/t287-native-semantic-revision.test.mjs",
+      "nesting": 0,
+      "testNumber": 83,
+      "suite": false,
+      "skip": "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+      "todo": false,
+      "error": null
+    }
+  ],
+  "requiredDiagnostics": {
+    "fullActualReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUIRED_DIAGNOSTICS.json",
+      "bytes": 19922,
+      "sha256": "8b588fabb7851d6f5b4edddb8322be2e267e8fed91fbbf0d7e2ce0877706ee5d"
+    },
+    "OWN": {
+      "heldEnvironmentDerivations": [
+        1,
+        0,
+        0
+      ],
+      "heldPhysicalVerifications": [
+        4,
+        4,
+        4
+      ],
+      "heldFileHashes": [
+        16,
+        16,
+        16
+      ],
+      "basis": {
+        "first": {
+          "rowAdmissions": 0,
+          "bodyDigests": 0
+        },
+        "later": {
+          "rowAdmissions": 0,
+          "bodyDigests": 0
+        },
+        "earlier": {
+          "rowAdmissions": 0,
+          "bodyDigests": 0
+        },
+        "copied": {
+          "rowAdmissions": 1,
+          "bodyDigests": 1
+        },
+        "changedRawInput": {
+          "path": "cold_prefix_admitted_row_law_refused",
+          "first": {
+            "rowAdmissions": 1,
+            "bodyDigests": 0
+          },
+          "again": {
+            "rowAdmissions": 1,
+            "bodyDigests": 0
+          }
+        },
+        "changedBasisDigest": {
+          "path": "cold_prefix_admitted_row_law_refused",
+          "first": {
+            "rowAdmissions": 1,
+            "bodyDigests": 1
+          },
+          "again": {
+            "rowAdmissions": 1,
+            "bodyDigests": 1
+          }
+        }
+      },
+      "firstConsumer": {
+        "acquisition": {
+          "contentVerifications": 1,
+          "lstats": 8,
+          "lists": 3,
+          "fileHashes": 4,
+          "graphCarrierReads": 1
+        },
+        "firstUse": {
+          "contentVerifications": 1,
+          "lstats": 8,
+          "lists": 3,
+          "fileHashes": 4,
+          "graphCarrierReads": 1
+        },
+        "refusedResolution": {
+          "code": "wrong_owner",
+          "stage": "implementation"
+        }
+      },
+      "close": {
+        "kind": "abg_event_resource_receipt",
+        "closePrefixLength": 3504471
+      },
+      "worker": {
+        "frozen": {
+          "contractCopies": 0,
+          "schemaCopies": 0,
+          "reuses": 2,
+          "deepFrozenChecks": 1
+        },
+        "mutable": {
+          "contractCopies": 1,
+          "schemaCopies": 0,
+          "reuses": 0,
+          "deepFrozenChecks": 0
+        },
+        "command": [
+          "command",
+          "contractDigest",
+          "planDigest"
+        ],
+        "environment": [
+          "environmentDigest",
+          "planDigest"
+        ]
+      },
+      "prefix": {
+        "source": "projectOwnedRuntimeEventPrefixAtDurablePrefix",
+        "kind": "owned_runtime_event_prefix",
+        "coordinateLength": 3504471,
+        "events": 97,
+        "basisRows": 3,
+        "row": 8
+      },
+      "standing": "All unchanged OWN assertions completed. Counter/refusal observations match006; only actual durable coordinateLength/closePrefixLength differ3504569 to3504471. No equivalence of raw log bytes is claimed.",
+      "unproved": [
+        "duplicate, foreign and rollback rows",
+        "the actual actor producer (the worker plan probe is synthetic)",
+        "O3 retained verification reuse: physical verification stays at every consumer/effect boundary; no zero/once-per-resolution claim"
+      ]
+    },
+    "REF": {
+      "setupAbsolute": {
+        "catalogFullAdmissions": 1,
+        "catalogViewConstructions": 1,
+        "productInputCopies": 0
+      },
+      "canonicalCarries": [
+        {
+          "identity": "rc8-ref01-0",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-1",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        },
+        {
+          "identity": "rc8-ref01-2",
+          "carried": {
+            "call": {
+              "callAdmissions": 0,
+              "establishedInvocations": 0,
+              "establishmentWalks": 0,
+              "invocationReuses": 1,
+              "resourceGates": 1,
+              "resourceMemberAdmissions": 5,
+              "resourceMemberReuses": 2,
+              "gated.kind": 1,
+              "gated.schemaVersion": 1,
+              "gated.eventResource": 1,
+              "gated.applications": 1,
+              "gated.source": 1
+            },
+            "transport": {
+              "detaches": 0,
+              "verifierReattachments": 0,
+              "establishedCarries": 1
+            },
+            "catalog": {
+              "fullAdmissions": 0,
+              "viewConstructions": 0
+            },
+            "resolution": {
+              "catalogComparisons": 0,
+              "viewComparisons": 0
+            },
+            "input": {
+              "inputCopies": 0,
+              "inputReuses": 1
+            },
+            "worker": {
+              "contractCopies": 0,
+              "schemaCopies": 0,
+              "reuses": 0,
+              "deepFrozenChecks": 0
+            }
+          }
+        }
+      ],
+      "copiedCarry": {
+        "identity": "rc8-ref01-copied",
+        "carried": {
+          "call": {
+            "callAdmissions": 1,
+            "establishedInvocations": 0,
+            "establishmentWalks": 0,
+            "invocationReuses": 0,
+            "resourceGates": 1,
+            "resourceMemberAdmissions": 7,
+            "resourceMemberReuses": 0,
+            "gated.kind": 1,
+            "gated.schemaVersion": 1,
+            "gated.eventResource": 1,
+            "gated.applications": 1,
+            "gated.source": 1,
+            "gated.catalog": 1,
+            "gated.catalogView": 1
+          },
+          "transport": {
+            "detaches": 1,
+            "verifierReattachments": 0,
+            "establishedCarries": 0
+          },
+          "catalog": {
+            "fullAdmissions": 1,
+            "viewConstructions": 1
+          },
+          "resolution": {
+            "catalogComparisons": 1,
+            "viewComparisons": 1
+          },
+          "input": {
+            "inputCopies": 1,
+            "inputReuses": 0
+          },
+          "worker": {
+            "contractCopies": 0,
+            "schemaCopies": 0,
+            "reuses": 0,
+            "deepFrozenChecks": 0
+          }
+        }
+      },
+      "binderProbe": {
+        "callAdmissions": 0,
+        "establishedInvocations": 0,
+        "establishmentWalks": 0,
+        "invocationReuses": 1,
+        "resourceGates": 1,
+        "resourceMemberAdmissions": 2,
+        "resourceMemberReuses": 1,
+        "gated.kind": 1,
+        "gated.schemaVersion": 0,
+        "gated.eventResource": 0,
+        "gated.applications": 0,
+        "gated.source": 0,
+        "gated.catalog": 0,
+        "gated.catalogView": 0,
+        "gated.t": 1
+      },
+      "shell": {
+        "contractCopies": 1,
+        "schemaCopies": 0,
+        "reuses": 0,
+        "deepFrozenChecks": 1
+      },
+      "deep": {
+        "contractCopies": 0,
+        "schemaCopies": 0,
+        "reuses": 2,
+        "deepFrozenChecks": 1
+      },
+      "standing": "Complete unchanged REF case, including canonical outputs/refusals/copies, finished and emitted its full diagnostic. Counters are process-local fixture observations, not speedup qualification."
+    }
+  },
+  "conservation": {
+    "failure": null,
+    "stage": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "stageManifest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "buildInputs": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+      "bytes": 658,
+      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+    }
+  },
+  "closure": {
+    "resources": {
+      "status": "CHILD_CLOSED",
+      "maxOwnedBytes": 242385073,
+      "minFreeBytes": 337564606464,
+      "monitorFailure": null,
+      "overshootPossible": true,
+      "quotaEnforced": false,
+      "detachedDescendantAbsenceProven": false
+    },
+    "ancestryFailure": null,
+    "postAncestryFailure": null,
+    "lastAncestryAt": "2026-11-08T18:50:26.191Z",
+    "afterRows": "Host21294, its ancestors and observation ps22490 only; no observed proof child remains in the host-related rows.",
+    "standing": "Actual child close and point-in-time ancestry. No universal unknown detached-descendant absence assertion; no cleanup occurred."
+  },
+  "hostContext": {
+    "samples": 99,
+    "logicalCPUs": 16,
+    "oneMinuteLoadMin": 3.716796875,
+    "oneMinuteLoadMax": 7.0302734375,
+    "nodeFreeMemoryMinBytes": 15229501440,
+    "nodeFreeMemoryMaxBytes": 19795214336,
+    "quietHostClaim": false,
+    "standing": "Current measured context only; earlier M5/OWN timeout mechanisms remain unestablished."
+  },
+  "preservation": "Every prior failed/incomplete unit, M5 red, OWN004 timeout,006 missing-runner-profile limitation and historical residual remains preserved.005 stays unexecuted. No retry/source/native/provider/rebuild/Git/releasepack/cleanup occurred.",
+  "nextStanding": "Bootstrap external-unit gate proposal remains a proposal; no bootstrap mutation or packaging activated. FullW2, matched RC8/RC9 measurement and201-file broad obligations are not satisfied by this unit result. Root conjunction required.",
+  "pins": [
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_BINDING.BOUND.json",
+      "bytes": 53314,
+      "sha256": "249994d0e730c41e39e2a606874e1660d67ff8ee98449cc14ff1f05326f5b7f3"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_FULL_UNIT_007_EXECUTION_ADMISSION.json",
+      "bytes": 4537,
+      "sha256": "ebb84fb83f5008d7e880ba905bba3142de4553d4aa0f5d9bc66b19c8667d9942"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_PREPARATION.json",
+      "bytes": 6199,
+      "sha256": "92659089aeb508e2d3793e10b967a2097abeb9adeb6cc669a2015204e8252a60"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUEST.json",
+      "bytes": 3832,
+      "sha256": "8ed7d2dfadb6e2d93bf3211f6f380805ecd06fd013b45e42b2f624d2edd0cd11"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REPORTER_CONFIGURATION.json",
+      "bytes": 2400,
+      "sha256": "2cb400e1906e5def82359b4abc9c2f861ab62c5b2ca3f7b5b14da8abc3f05c57"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/FILE_HOST_BINDING.json",
+      "bytes": 811,
+      "sha256": "e09d3d7e9b395fbef7823886d1d3e98761340216b3c5d3c6c3b85d7cef7bf490"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/commands/unit.request.json",
+      "bytes": 920,
+      "sha256": "a557477f7ead64c8deb55fdf131d1cbecef624237a539bdc2d436451a401792e"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/commands/unit.result.json",
+      "bytes": 1373,
+      "sha256": "3668c2b033a8fe65d1cd7ebffa53d7d6442c4fe9798c4e9265ee0ea87236ccfb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/commands/unit.stdout",
+      "bytes": 25315,
+      "sha256": "6e6d8df291f55d9fdbe011d1fa6f26ad9936ff2210dd32cd61685dac818f25d1"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/commands/unit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+      "bytes": 9382,
+      "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/events.jsonl",
+      "bytes": 30097,
+      "sha256": "cda6e50dfa8cf576bba04eb751eaa2b62f303edfdb3fb15a7423ac6d8df7bdbd"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/CASE_COVERAGE.json",
+      "bytes": 61496,
+      "sha256": "b8cb4b6e977418d0b3787c52ca99ec00746c5a47ea1f68031f4108cedeafbcdb"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUIRED_DIAGNOSTICS.json",
+      "bytes": 19922,
+      "sha256": "8b588fabb7851d6f5b4edddb8322be2e267e8fed91fbbf0d7e2ce0877706ee5d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESOURCES.json",
+      "bytes": 1498,
+      "sha256": "a3cd3fc83402efcbc9dfe1deec716e2ed8b777e72e43fc882d954cdeed440260"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/HOST_OBSERVATIONS.json",
+      "bytes": 31635,
+      "sha256": "3e1e52c40ddd1383dc97721c8001d792713982663022ed1d99fe2335fc345d81"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/ancestry-before.json",
+      "bytes": 1137,
+      "sha256": "5eb0cb8e985cc69e9483dd59ac62a78edb88b676d972f69568e44a211f155791"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/ancestry-during.json",
+      "bytes": 1805,
+      "sha256": "5b8670f7ac15dc9680e8b3c8f953322d57fc98ced20a17f0c4f3a994bd7c487d"
+    },
+    {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/ancestry-after.json",
+      "bytes": 1137,
+      "sha256": "a54ed54130ef675d0ac852bc9b17020413fb8a6d2c07ea93444a22b429d8d4e2"
+    }
+  ]
+}

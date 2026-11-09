@@ -1,0 +1,409 @@
+{
+  "status": "AUTHOR03_TIMEOUT_CLOSED_PARTIAL_PROOF_HELD",
+  "recordedAt": "2026-11-08T17:46:37.955022+00:00",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "result": "One-test repair and successful frozen build preserved. Actual1800s native owner timeout ended incomplete unit proof; five failures in unchanged worker-transport tests are retained. No successful native terminal result or whole-unit acceptance.",
+  "source": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "changedPaths": [
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+    ],
+    "testSha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627",
+    "testBytes": 21920,
+    "unchangedAuthor02Rows": 1339,
+    "productionHowMetadataUnitScriptUnchanged": true,
+    "allLiveRowsEqualFreezeAfterActualClose": true,
+    "nativePostWorkObservation": "Absent due runtime_failed and null terminal; exact physical frozen correspondence is separate evidence.",
+    "sourceAccepted": false,
+    "rootReviewStanding": "Root reported provisional satisfied exact003 source review with no new finding; proof remains incomplete, final source conjunction owned by Root."
+  },
+  "runtime": {
+    "run": {
+      "ref": "run://abiogenesis/dec8023c2046a90269b15f9d78a3a691c0020db028de6a3cfc2d9c7f0a0691b0",
+      "digest": "sha256:bd042f6d2030dce39c31533dc58b6dbaecb1dabbd1c30436b5d0709185d2b52c"
+    },
+    "sdkDisposition": "runtime_failed",
+    "sdkResult": null,
+    "sdkTerminalResult": null,
+    "sdkStop": {
+      "ref": "event://abiogenesis/c0c9ad0b275fda325240ec6cb6083054493e8a43af69cce3a29cf08e4415650b",
+      "digest": "sha256:f998e7f9fecb5c734d0fbd8525a526bbddfcdc541fee1e2dd2551a09cb8e268d"
+    },
+    "ownerOutcomeKind": "result",
+    "actualEnforcement": [
+      {
+        "kind": "actor_process_timeout_observed",
+        "eventId": "event://abiogenesis/ef0059b8e566610a0c3f91dc29f87e04aab1f5bb3bb2a5503c19e9797d57ef07",
+        "eventTime": "2026-11-08T17:36:22.302Z",
+        "admissionOrdinal": 1611,
+        "payloadDigest": "sha256:e4ca598379bb930ab2ccaf6958251e19bf03117fc8a7758be4debbb3e606023a",
+        "selectedPayload": {
+          "timeoutMs": 1800000
+        }
+      },
+      {
+        "kind": "actor_process_signal_requested",
+        "eventId": "event://abiogenesis/d9fdf8673de52668f3e90ae9974660bed088016a3dadd64a21da6d7906af88c7",
+        "eventTime": "2026-11-08T17:36:22.400Z",
+        "admissionOrdinal": 1613,
+        "payloadDigest": "sha256:15f9ac3a3feafd6c8b53de3d63466c90b389406862f55b62e7e9c6fa0521bd75",
+        "selectedPayload": {
+          "signal": "SIGTERM"
+        }
+      },
+      {
+        "kind": "actor_process_exited",
+        "eventId": "event://abiogenesis/7851529fd47d2721779fd84704c020eeb2715fb28d1cf1d056aa732f5b8c6447",
+        "eventTime": "2026-11-08T17:36:23.589Z",
+        "admissionOrdinal": 1616,
+        "payloadDigest": "sha256:d9ddddc6adf8f3e9f5b0472a655db0e67a97b71abdf932cef32017b4181b32a9",
+        "selectedPayload": {
+          "signal": null,
+          "status": 143
+        }
+      },
+      {
+        "kind": "actor_invocation_failed",
+        "eventId": "event://abiogenesis/ac0f545a28b330bc16e8cf546ff9122063c7d591d1ea64212d13ea9212836bcf",
+        "eventTime": "2026-11-08T17:36:24.396Z",
+        "admissionOrdinal": 1618,
+        "payloadDigest": "sha256:825da24880fde7f97b3752e6357eae5437db0e9204db8f4b2e2860e671bfe043",
+        "selectedPayload": {
+          "disposition": "failure",
+          "failureClass": "transport_failure"
+        }
+      }
+    ],
+    "hostSession": 52841,
+    "hostExitCode": 0,
+    "closedAt": "2026-11-08T17:36:40.216Z",
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 56629020,
+      "prefixDigest": "sha256:23fc255354358a24c9b02ef298904912e9afe8c3f94b28a108a25fb28523af98",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 714208439,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:1876b83b7fb1b5b31af933c1ece4b67db097ec6f012d738ad6353dc29ff87895"
+    },
+    "liveFormerProofProcessObserved": false,
+    "processCheckStanding": "Observational process ownership check; not a claim of technical isolation. Both exact source/proof namespace and known process groups checked.",
+    "freshReadbacks": {
+      "status": "READBACKS_RECORDED_UNCHANGED_PREFIX_RUNTIME_FAILED",
+      "observations": [
+        {
+          "memberKey": "run_result",
+          "outcomeKind": "refusal",
+          "outcome": "calls/run_result.outcome.json",
+          "outcomeDigest": "sha256:1675125e46b13e959ed736b03ae2f776eab5269c4527abf17a3ff599d045d9f0",
+          "source": null,
+          "status": null,
+          "terminal": null
+        },
+        {
+          "memberKey": "run_replay",
+          "outcomeKind": "result",
+          "outcome": "calls/run_replay.outcome.json",
+          "outcomeDigest": "sha256:30bd5c7989431268eb8b96ca590fd962d6d42168f95314c09f05f9426bfe7c2a",
+          "source": {
+            "digest": "sha256:bd042f6d2030dce39c31533dc58b6dbaecb1dabbd1c30436b5d0709185d2b52c",
+            "ref": "run://abiogenesis/dec8023c2046a90269b15f9d78a3a691c0020db028de6a3cfc2d9c7f0a0691b0"
+          },
+          "status": "failed",
+          "terminal": null
+        }
+      ],
+      "prefixUnchanged": true,
+      "terminalAbsenceAgreesWithActualSdk": true,
+      "runResultActualRefusal": {
+        "code": "not_found",
+        "evidenceRefs": [],
+        "issuePaths": []
+      }
+    }
+  },
+  "proof": {
+    "stageStatus": "BUILT",
+    "stageResults": [
+      {
+        "id": "compile",
+        "exitCode": 0,
+        "wallMs": 136956.70962500002,
+        "timedOut": false
+      },
+      {
+        "id": "generate",
+        "exitCode": 0,
+        "wallMs": 353006.26095799997,
+        "timedOut": false
+      },
+      {
+        "id": "imports",
+        "exitCode": 0,
+        "wallMs": 154.8941670000786,
+        "timedOut": false
+      },
+      {
+        "id": "lifecycle",
+        "exitCode": 0,
+        "wallMs": 9104.212083999999,
+        "timedOut": false
+      },
+      {
+        "id": "calculus",
+        "exitCode": 0,
+        "wallMs": 1558.2629169999855,
+        "timedOut": false
+      }
+    ],
+    "unitStatus": "INCOMPLETE_NATIVE_CEILING",
+    "completedFileCountsOnly": {
+      "tests": 70,
+      "passed": 62,
+      "failed": 5,
+      "skipped": 3,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "completedFileSummaries": [
+      {
+        "ordinal": 11,
+        "type": "summary",
+        "file": "test_env/tests/forward-command-contracts.test.mjs",
+        "counts": {
+          "tests": 10,
+          "failed": 0,
+          "passed": 10,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 10,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 7051.361291
+      },
+      {
+        "ordinal": 18,
+        "type": "summary",
+        "file": "test_env/tests/forward-command-owners.test.mjs",
+        "counts": {
+          "tests": 6,
+          "failed": 0,
+          "passed": 6,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 6,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 889.107167
+      },
+      {
+        "ordinal": 41,
+        "type": "summary",
+        "file": "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "counts": {
+          "tests": 22,
+          "failed": 0,
+          "passed": 19,
+          "cancelled": 0,
+          "skipped": 3,
+          "todo": 0,
+          "topLevel": 22,
+          "suites": 0
+        },
+        "success": true,
+        "durationMs": 4541.688208
+      },
+      {
+        "ordinal": 74,
+        "type": "summary",
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "counts": {
+          "tests": 32,
+          "failed": 5,
+          "passed": 27,
+          "cancelled": 0,
+          "skipped": 0,
+          "todo": 0,
+          "topLevel": 32,
+          "suites": 0
+        },
+        "success": false,
+        "durationMs": 66862.626041
+      }
+    ],
+    "fiveObservedFailures": "Unchanged m5-worker-transport: observed-progress lease, unacknowledged-output lease, missing late_worker_output, descendant cleanup124vs0, descendant-output nullvs47. Full cases preserved.",
+    "wholeUnitCounts": null,
+    "finalUnitCommandReceiptPresent": false,
+    "finalUnitResultPresent": false,
+    "reporterEndPresent": false,
+    "OWNCaseReported": false,
+    "unproved": "OWN-01 began but has no reported case/result/final diagnostic; its executed assertions are unknown. Later unit files, including owned-call-reference, have no completion for this run. Missing duplicate/foreign/rollback/actual actor-producer coverage remains explicit; no synthetic-probe credit invented.",
+    "sourceMutationRetryOrExtensionAfterFreeze": false,
+    "priorFailedProofsPreserved": true,
+    "classification": "Actual native absolute-timeout failure plus partial unit failures. Elevated host load is retained context, not definitive source/environment attribution; Root owns disposition."
+  },
+  "processDepartures": [
+    "Initial in-memory host adaptation and SHA-prefix reading assertions were corrected before any runtime effect; final33-pins preflight passed and Root independently reviewed37 references.",
+    "Worker progress initially used a future estimated clock stamp; worker corrected it explicitly. Actual host/event/filesystem timestamps govern timings.",
+    "One test syntax check was performed before the single final proof; no Product compiler-feedback loop or dev test run was reported.",
+    "Readback control was adapted before its first execution from success-only terminal assertions to maintained runner support for actual absent-result/refusal and failed replay; exactly one pair executed."
+  ],
+  "measuredIntervals": {
+    "durableScopeRecordToHostStartSeconds": 447.432596,
+    "hostToPreparedSeconds": 44.085982333,
+    "functionalPreparationSeconds": 35.107656958,
+    "preparedToDispatchSeconds": 50.280018,
+    "dispatchToActorSeconds": 41.858,
+    "actorStartToActualTimeoutSeconds": 1800.033,
+    "actorStartToActualExitSeconds": 1801.32,
+    "dispatchToSdkReturnSeconds": 1859.7711681249998,
+    "stageCommandSeconds": {
+      "compile": 136.95670962500003,
+      "generate": 353.006260958,
+      "imports": 0.1548941670000786,
+      "lifecycle": 9.104212083999998,
+      "calculus": 1.5582629169999855
+    },
+    "unitFinalWallSeconds": null,
+    "freshReadbacksSeconds": 142.522816375
+  },
+  "timingStanding": "Observed task/preparation/build/read intervals under recorded host conditions. No matched benchmark or exact slowdown attribution. Missing unit final receipt means no final unit wall duration is inferred.",
+  "providerFinalCostUsd": null,
+  "providerFinalTurns": null,
+  "providerFinalTotalsStanding": "Unavailable: actor terminated at absolute limit before a final CLI result; unknown, not zero.",
+  "providerUsageScope": "Any lastAssistantUsage is one reported message, not an aggregate. No total cost/token/turn inference or independent billing verification; excludes process actors.",
+  "nativeHandoffPresent": false,
+  "nativeHandoffReason": "Actor terminated at configured absolute limit before final CLI result/handoff. Native progress/diff and actual partial proof retained.",
+  "evidence": {
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_SCOPE.json",
+      "bytes": 2607,
+      "sha256": "b71b1be56c1a8c2e7c30b16d61cce9a5f370895efc9e9a99c083099cbff725ae"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/BINDING.json",
+      "bytes": 9996,
+      "sha256": "6e47b6ad4d772080bde671e3a171a2156cac10cfe13ed1cdd037d152daad2721"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_ADMISSION.json",
+      "bytes": 4659,
+      "sha256": "40637bc1696b82f47a4890c1673bd12b847cdf0f7409261f6201f788f64eec6e"
+    },
+    "prepared": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/PREPARED.json",
+      "bytes": 6268,
+      "sha256": "187ca805a16848aae7f677550853692999c0d88796d6a9223bd12d4f055aad3f"
+    },
+    "actualStart": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/NATIVE_STARTED.json",
+      "bytes": 6914,
+      "sha256": "dabac2f8b60fb822e7e48e52f84fc7421ac3dd846b063b7eda56613fdb994a53"
+    },
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "sourceComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FROZEN_SOURCE_COMPARISON.json",
+      "bytes": 1205,
+      "sha256": "2dbd7ad20751d15ee8740d5d44cbae814b96609e314beee461592d5819108075"
+    },
+    "postCloseSourceAndPartialProof": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/POST_CLOSE_SOURCE_AND_PARTIAL_PROOF.json",
+      "bytes": 4897,
+      "sha256": "7c84252bdea6119c8b07db171262e1ef4bd9eae18fb97781912290ea64ef298c"
+    },
+    "stage": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "unitStructuredPartial": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/events.jsonl",
+      "bytes": 25010,
+      "sha256": "f478816a617fe96d4e5c7275e3f5e915881553cd3e3c9707bd5d16da62640086"
+    },
+    "unitReporterConfiguration": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/REPORTER_CONFIGURATION.json",
+      "bytes": 2248,
+      "sha256": "b43cc6ad38e1fb3c53c75f5970e4859fc8e5c9434bda91510aecdf37a245ae15"
+    },
+    "unitRequest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/commands/unit.request.json",
+      "bytes": 674,
+      "sha256": "a916f6bda4d0d88487fd24d5b2710d893ca5983cdda6fd9493742121526891ad"
+    },
+    "unitFailuresObserved": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/UNIT_FAILURE_OBSERVATION.json",
+      "bytes": 7213,
+      "sha256": "0371ce87d9e76f0281907c8894e39975d6fda7b75f7663c55c80736ff5e1944f"
+    },
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 140344,
+      "sha256": "f0d49b8a3740af4972fa21378e202f3a2628d0de9340d8801f9df792904190a4"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/resource-close.json",
+      "bytes": 2302,
+      "sha256": "3ed579e927f7f53bdda1edf449fc23b3a009136352eb1c267832be50050367c0"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/readbacks-001/RESULT.json",
+      "bytes": 1877,
+      "sha256": "b2c339d67d9d5e614446ff7722104d19c81b315b59cead8bcdbd0880b679b4d2"
+    },
+    "readbackBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/READBACK_BINDING.json",
+      "bytes": 2184,
+      "sha256": "3f12a41f81ce6f5b914d262ff2e707f3b4807a45b7f2b0bee535ca6f9c578800"
+    },
+    "readbackControl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/readbacks.mjs",
+      "bytes": 4958,
+      "sha256": "7b9a1c5c6ba2b4acd7d3178e7c7c5bb50446c89ab097a5205fd8ba8435b39921"
+    },
+    "processOwnership": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROOF_PROCESS_OWNERSHIP_FINAL.json",
+      "bytes": 494,
+      "sha256": "351ede55b8353d3f29fa6b39d524ed9ad58eedffca3e07092ad90f64b13240dd"
+    },
+    "hostConditions": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/HOST_CONDITIONS.jsonl",
+      "bytes": 1183,
+      "sha256": "07ffc1aa023f9e86b1d7537e7824fa0daecb0c969e95dc21f85bbbf4d7d11d54"
+    },
+    "providerUsage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/PROVIDER_USAGE.json",
+      "bytes": 1255,
+      "sha256": "4791c83545cc340bdd5371b9a5cdf33380216f30bdbb49d50acce81b25e8bef2"
+    },
+    "nativeProgress": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/qualification-scratch/rc9-owner-reuse-01/author-03/PROGRESS.md",
+      "bytes": 2954,
+      "sha256": "5985433832b00826318c87726a0e948503598c329442944975d67698e97d77c5"
+    },
+    "nativeDelta": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/qualification-scratch/rc9-owner-reuse-01/author-03/DELTA.diff",
+      "bytes": 11038,
+      "sha256": "890593337412f00420b5dfe6778c2b4a055def2350a68c385ffe0eafd3b6818a"
+    }
+  },
+  "next": "Root owns separately selected bounded external M5 diagnosis and smallest remaining proof path over valid frozen subject; this Operator did not launch a retry, another author, source repair, cut or install.",
+  "O3Residual": "Retained installed verification optimization OPEN separate T287 performance follow-up. Existing physical checks retained; no zero/once-per-resolution or speedup claim.",
+  "allNineRc8ResidualsRemainOpen": true,
+  "qualified": false
+}

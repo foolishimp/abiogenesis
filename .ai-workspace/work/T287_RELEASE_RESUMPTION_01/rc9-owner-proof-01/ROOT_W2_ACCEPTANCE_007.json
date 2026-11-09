@@ -1,0 +1,106 @@
+{
+  "status": "ROOT_W2_F4_ACCEPTED_SUCCESSOR_ONLY",
+  "at": "2026-11-08T19:26:25.376Z",
+  "authority": "Root Executive decision recorded by activated /root/rc9_operator Writer; exact STDO3.0.4/ABI5 delivery frame, GOAL-035/T-287. Root read milestone, raw reporter/stdout and whole-file result. Writer checked actual pins/outcome; no new review or test.",
+  "decision": "Close RC8-W2-05-TOKEN-ORACLE only for exact RC9 source25121e78/archivec01e6cfe. Historical RC8 red and old residual record stay immutable; no retroactive RC8 qualification.",
+  "subject": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "archiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "manifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5"
+  },
+  "evidence": {
+    "milestone": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_W2_MILESTONE.json",
+      "bytes": 3443,
+      "sha256": "6a8b4993289d4fe604b215e716d3e4e4d4decb0bd5ddd02d6ecaca41f9b7f8d5"
+    },
+    "wholeFile": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/files/001-t287-w2-05-install-catalog-owner-chain.json",
+      "bytes": 1189,
+      "sha256": "f303cf91fb41adf89e8f6a749686215aeb92863e19d227840c24d6c7f745cf40"
+    },
+    "rawReporter": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/001-t287-w2-05-install-catalog-owner-chain.jsonl",
+      "bytes": 1116,
+      "sha256": "a30ddc2e900082b9375636d7c78baa453a84cd970bb365d4a78c3a11b98d080d"
+    },
+    "rawStdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/001-t287-w2-05-install-catalog-owner-chain.stdout",
+      "bytes": 2125,
+      "sha256": "8a0abc7d1c61f2bed185e081f45409140094584bc7e4a278a198bdda5d51640e"
+    },
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "source002Reuse": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/REVIEW.json",
+      "bytes": 30834,
+      "sha256": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786"
+    },
+    "source003Conservation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
+      "bytes": 27681,
+      "sha256": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c"
+    }
+  },
+  "sourceConjunction": "Source001 accepted bounded F3/F4 assessment carries through source002.unaffectedAssessmentReuse: exact selectedDefinitions/establishedInvocations/gatedResourceMembers allowlist, other-file Map bans, all legacy bans and additional-declaration guard preserved, with every dynamic assertion, both exports and final diagnostic. Source003 conserves everything except OWN test. No new independent review required.",
+  "observed": {
+    "counts": {
+      "tests": 2,
+      "failed": 0,
+      "passed": 2,
+      "cancelled": 0,
+      "skipped": 0,
+      "todo": 0,
+      "topLevel": 2,
+      "suites": 0
+    },
+    "reporterRecords": 6,
+    "commandWallMs": 76056.099084,
+    "exitCode": 0,
+    "signal": null,
+    "failure": null,
+    "timedOut": false,
+    "truncated": false,
+    "sourceEffects": [],
+    "W2_05_PROOF": {
+      "count": 1,
+      "eventCountBeforeCatalog": 2,
+      "eventCountAfterCatalog": 2,
+      "allDynamicAssertionsReached": true,
+      "bothExportAssertionsReached": true
+    },
+    "transport": "Raw stdout unchanged; only TAP hash escaping decoded to read the diagnostic JSON."
+  },
+  "broadStanding": {
+    "state": "BROAD_ACTIVE_W2_ACCEPTED",
+    "startedAt": "2026-11-08T19:21:14.812Z",
+    "startedReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/EXECUTION_STARTED.json",
+      "bytes": 2614,
+      "sha256": "ff5a18ae40722fd9e8aa415bf1f1bf70c0d4041a6356035cd1b287093a1be155"
+    },
+    "configSha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee",
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+      "bytes": 1701389,
+      "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+    },
+    "admissionSha256": "051fcf4bf6a445d2dd7b00c6892572baab6a2cdf1b6bb75b75ee88427df0e138",
+    "accepted": false,
+    "standing": "Already admitted broad campaign active; no restart or expansion. Source/build/unit and reference measurement remain accepted."
+  },
+  "preservation": [
+    "Original rc8-local-cut-01/install-claims-001/RESIDUALS.md and T287 RC8-W2-05-TOKEN-ORACLE historical section remain unchanged.",
+    "Other eight historical RC8 capsules, O3 performance reuse,12cold,S7/full15/human remain OPEN. Earlier M5/OWN failures unresolved; no reliability or timing-cause claim.",
+    "RC9 not cut/final-installed; pinned RC8 unchanged. No broad/release/qualification acceptance."
+  ],
+  "w2Accepted": true,
+  "broadAccepted": false,
+  "qualified": false,
+  "executionEnabled": false,
+  "effects": "Only this new Q9 file and authorized current GOALS/T287/STATUS tracking; no Product/source/Git/cleanup/new execution."
+}

@@ -1,0 +1,106 @@
+{
+  "status": "RC9_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "startedUtc": "2026-11-09T00:18:11.834Z",
+  "completedUtc": "2026-11-09T00:18:12.581Z",
+  "verificationWallMs": 746.6352079063654,
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "ownerInstruction": "can we pin RC9 now",
+  "selection": "RC9 is the current project/work operational builder. This updates the operational selection only; it does not select another release, runtime or source task.",
+  "sourceCommit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "sourceTree": "ff9a852c6670884c35f67934e9f49443199b723f",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+  "productId": "product://abiogenesis/typescript-tenant@5.0.0-rc.9",
+  "version": "5.0.0-rc.9",
+  "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+  "canonicalManifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+  "contributionManifestDigest": "sha256:16dbc9e5452942546da84c1e51fcba5bca6344dba6ff4a541a4e1d835b517e98",
+  "productToolchainManifest": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+  },
+  "package": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant/package.json",
+    "bytes": 10104,
+    "sha256": "b512d5c008500dcf8d2cbc70f174b1ed6186259aece7af982fc1427cf492d61a"
+  },
+  "archive": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "archiveToInstalledPayload": {
+    "members": 5325,
+    "payloadBytes": 71772472,
+    "mismatches": [],
+    "algorithm": "Fresh read-only comparison of every regular tar package member with the same installed relative file, with duplicate/path/symlink refusal. No extraction, execution or owner acquisition.",
+    "retainedPayloadCorrespondence": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/payload-correspondence.json",
+      "bytes": 1035176,
+      "sha256": "242a817a4662d6f5845acc93d29349acb553cb8f3f733c5e9aee934ee681a824"
+    }
+  },
+  "retainedOwnerVerification": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/verification.json",
+    "bytes": 15797898,
+    "sha256": "7921353202f40073fb2aa190a484fab180b18d6b44e189b0cc9b9456a8a72763"
+  },
+  "retainedResolvedLock": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/resolved-lock.json",
+    "bytes": 4562973,
+    "sha256": "7b31aa8b82fd19c349000672479aefbf59b8b10a19127c77dad5219a7388e6c2"
+  },
+  "retainedInstallation": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/installation.json",
+    "bytes": 4231702,
+    "sha256": "bae2afbb74b66cd3d2a6db187be15e4f09537c00a3eecdefa7515cccf2d9cdf1"
+  },
+  "retainedCutRecord": {
+    "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/LOCAL_CUT_RECORD.json",
+    "bytes": 4192,
+    "sha256": "83693ab907b1a27050062f364ca3ef84500165dd512292bb8e82a5e6f22e5254"
+  },
+  "acceptedDeliveryEvidence": {
+    "finalDelivery": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 8644,
+      "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+    },
+    "finalInstallVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9093,
+      "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340"
+    },
+    "independentPackagingReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+      "bytes": 23288,
+      "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+    }
+  },
+  "rc9BuildBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "historicalBuilderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "historicalBuilderStanding": "RC9 was built using the immutable RC8 operational builder. Its original pin is preserved byte-for-byte; this successor selection does not claim RC9 built itself.",
+  "qualified": false,
+  "published": false,
+  "operationalPinOnly": true,
+  "globalSelectorChanged": false,
+  "installedBytesChanged": false,
+  "releaseBytesChanged": false,
+  "nativeCalls": 0,
+  "providerCalls": 0,
+  "runtimeAcquired": false,
+  "futureOwnerRule": "Future selected work must acquire genuine RC9 owners/resources through the installed Public route; no RC8 Run/catalog/resource restamping. No Runtime or next work is acquired or selected now.",
+  "deliveryStanding": "RC9 local delivery remains complete, unqualified and unpublished. GOAL-035/T-287 remain Active; full5.0 and all retained residual/qualification limits remain open under the pinned final disposition.",
+  "limits": "Fresh byte identity plus retained accepted owner receipts establish this exact operational builder. No rebuild, tests, new native/provider proof, independent review or qualification. No Git commit/merge/push/tag, global selector, source/design/release or installed-byte changes."
+}

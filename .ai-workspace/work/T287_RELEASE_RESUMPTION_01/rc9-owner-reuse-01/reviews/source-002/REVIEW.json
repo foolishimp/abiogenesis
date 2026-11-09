@@ -1,0 +1,455 @@
+{
+  "kind": "independent_affected_source_review",
+  "activation": "RC9-REVIEW-02",
+  "reviewId": "rc9-owner-reuse-01/source-002",
+  "status": "CLOSED_RETURNED_TO_ROOT",
+  "closedAt": "2026-11-08T07:23:33.409835+00:00",
+  "result": "falsified",
+  "productFrame": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/ProductFrame.md",
+    "bytes": 2434,
+    "sha256": "4916fb7b3d277a59afaf3abd7aa2b94c5544ca3bc1d64f44620b77ed740aa631"
+  },
+  "actor": {
+    "identity": "/root/rc9_source_review",
+    "role": "Reviewer with report-write grant only",
+    "modelBinding": "gpt-6-astra xhigh as assigned by Root",
+    "authorFamily": "native Claude Opus 5.5 xhigh",
+    "authorship": "No authorship or repair of reviewed source",
+    "hostBoundary": "Fresh assigned context; unrestricted shared filesystem and tools. Acquisition restrictions are instructions, not technical isolation. No isolation claim.",
+    "actualEffects": "Read-only source, authority, proof and exact Git-object acquisition; writes only new source-002 reports. No test/provider/native/install/Git/runtime operation."
+  },
+  "control": {
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+      "bytes": 3663,
+      "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+    },
+    "task": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/TASK.json",
+      "bytes": 11863,
+      "sha256": "1253168b96f8c40a63e25dd0f26c4ef791c9c5e41d781e8ce57f3e3563f3ba9e"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+      "bytes": 10156,
+      "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+    },
+    "proofScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/PROOF_SCOPE_002.json",
+      "bytes": 9982,
+      "sha256": "26ab250198e3e2973113688d580d0443f23c82a9910d7eace6352db646e17ffc"
+    },
+    "focusedBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/FOCUSED_BINDING.json",
+      "bytes": 6639,
+      "sha256": "27017b25dd79a2ed40d8f59166db0d8d2d2afceca071e1ac00ac45859acb6830"
+    },
+    "proofController": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof-002.mjs",
+      "bytes": 13305,
+      "sha256": "93187b4943f22cb4d601341962faa617a3b8a551b7b733187784f594c39c9170"
+    },
+    "returnTo": "/root",
+    "grant": "Root RC9-REVIEW-02: affected read-only independent review and reports only in reviews/source-002; no repair, test/native/provider execution, Git/runtime mutation or disposition."
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "stdoUri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "Installed exact read_basis.py check returned installed=true, valid=true. Current Definition/Intent/Product/frame/requirements selected 88 files equal frozen subject. Prior governing Product assessment retained after dependency verification.",
+    "frame": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "rules": [
+      "Fixed A5-F01–07/F09–11/F13–17; GOAL-035/T-287",
+      "Product Valid Reuse, Proportionality, Installed Product, Definition/Tool/Runtime separation",
+      "PROJECTION-025/026; INSTALL-043–051"
+    ],
+    "severityScale": "Product project frame S0 catastrophic/non-waivable; S1 mandatory outcome/hard stop without workaround; S2 material semantic/authority/causal/proportionality/proof with bounded workaround; S3 minor; S4 editorial"
+  },
+  "subject": {
+    "freeze": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+    },
+    "sourceRoot": "/private/tmp/abg-r9-owner-native-002/stage-01/source",
+    "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+    "rows": 1340,
+    "verification": "Every frozen row byte length/hash and compact JSON row digest independently verified, including final reread. Same row set as source-001; exactly eight granted changes. Moving candidate is not this review subject.",
+    "baselineCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baselineTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "priorReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-001/REVIEW.json",
+      "bytes": 28710,
+      "sha256": "36240ead5af285ec9009154e2f91f70f1958fd565b4e7ab00464235a0a1a7119"
+    },
+    "changedPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 84866,
+        "sha256": "e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+        "bytes": 13080,
+        "sha256": "24d667f6da7b243f9bab0141f9781cf14035185e5fada4aa203b1f853e78051c"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 29474,
+        "sha256": "bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 198567,
+        "sha256": "ab07a3f3f233060c0f31cf87a8b763d5f69508581167a26457eba0a7424d9126"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "bytes": 103916,
+        "sha256": "d87010497ea89dbe09ec1bb2129884a89cda0aebb7e2e8c2343f0aa7c6e7b42a"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package-lock.json",
+        "bytes": 8001,
+        "sha256": "516f0180ef41bb88e7b95eaf14cd045bc7d8f51f5fc2a0b8ddc7c3b801764e89"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10104,
+        "sha256": "b512d5c008500dcf8d2cbc70f174b1ed6186259aece7af982fc1427cf492d61a"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "bytes": 18044,
+        "sha256": "13f550627da9b42a344f09a228d30c5f575a54f70306bb17fd48dcad8b2987e2"
+      }
+    ]
+  },
+  "closureAssessments": [
+    {
+      "finding": "RC9-SOURCE-001",
+      "status": "source counterexample removed; requested runtime regression still unexecuted",
+      "evidence": [
+        "semantics.ts and leaf_invocation_port.ts independently equal exact RC8 Git blobs, respectively bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe and e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846.",
+        "Shared-provider acquisition carrier, per-projection unchangedInstallPremise and port-carriage weakset/hooks are absent. semantics.ts:714 always calls installedProductContentMatches(install). leaf_invocation_port.ts:984 checks at port creation and :1660 at each invocation authority boundary; nested forGraphFunction follows the original loader/port path.",
+        "HOW 10.12 now selects two owner folds and declares install verification OPEN; same-resolution/zero-read/carriage claims removed in both HOWs. Existing baseline resolution-local module preparation remains; no new lifetime or registry was introduced."
+      ],
+      "limit": "This closes the introduced production shortcut by exact accepted-source restoration, not by a newly passing first-use or nested-effect test. No once-per-resolution performance acceptance; O3 remains open."
+    },
+    {
+      "finding": "RC9-SOURCE-002",
+      "status": "successor defect closed in source and reached execution",
+      "evidence": [
+        "OWN-01:81 makes selection mutable; :90 checks borrowed completion; :96–98 carries the actual receipt.resources.eventResource.successor into the next Run.",
+        "Actual failed case reaches line 102 after all three Runs, result/completion/successor assertions, per-Run physical verification and new-basis checks have completed."
+      ],
+      "limit": "This proves the formerly failing three-Run successor handoff, not the rest of OWN-01. No final OWN diagnostic was emitted."
+    }
+  ],
+  "findings": [
+    {
+      "id": "RC9-SOURCE-003",
+      "severity": "S2",
+      "title": "OWN-01 passes a durable coordinate to nominal RuntimeEventPrefix consumers",
+      "status": "confirmed by source and actual unit failure",
+      "location": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs:102",
+      "counterexample": "After three successful held Runs, selection.prefix is DurablePrefixCoordinate (definition_event_resource.ts:64–68,98–106), not a nominal RuntimeEventPrefix. runtimeEventBodiesAtPrefix dispatches it to runtimeEventsFromValidatedPrefix; its owner receipt/brand check throws. This is the observed unit failure, not a production owner-cache refusal. All subsequent row/worker/content-drift checks are unreachable.",
+      "causalRoute": [
+        "Held Run receipt.resources.eventResource.successor -> acquired selection.prefix durable coordinate",
+        "OWN-01:102 -> event_prefix.ts:182–185 runtimeEventBodiesAtPrefix -> :346–363 nominal validated-prefix guard",
+        "Observed installed stack event_prefix.js:295/134 -> test:102:56"
+      ],
+      "boundedRepair": "Within this test, obtain the calculus prefix through prefixOwner.projectOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix). event_prefix.ts:81–82 delegates to event_store.ts:3620–3624, which retrieves the authentic held DurableHistoryDerivation selection and mints the nominal owned prefix. This exact selection is unscoped; selectScope(undefined) preserves it. Keep selection.prefix as the durable coordinate for closeAbgEventResource at test:131. No cast, clone, materialized-array substitution or fabricated brand.",
+      "riskAndCost": "Low implementation cost: one fixture acquisition through an existing owner route. Rerun of the whole affected OWN-01/unit proof is necessary because all later assertions are unexecuted. No production boundary change is needed.",
+      "necessaryProof": "Actual complete OWN-01 pass including owned cuts, cold copied/changed row checks, worker assertions and retained-semantics first-use refusal; whole unchanged nine-file unit population with honest skips and complete reporter. Source reading cannot substitute for these observations."
+    },
+    {
+      "id": "RC9-SOURCE-004",
+      "severity": "S3",
+      "title": "Command dependency assertion also changes a hashed label",
+      "status": "source-confirmed oracle weakness; assertion unreached",
+      "location": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs:152",
+      "counterexample": "The baseline plan uses label rc9-own01-one; the changed-command plan uses rc9-own01-command. worker_transport.ts:1035–1063 hashes label and label-derived paths as well as command. A hypothetical regression ignoring the changed command would still satisfy the planDigest inequality because label/paths differ.",
+      "boundedRepair": "Hold label and every other request dependency fixed for the command comparison, and check the prepared command/contract identity directly as appropriate. No worker production change.",
+      "riskAndCost": "Small local oracle correction; no claim that production command handling is wrong.",
+      "necessaryProof": "Execute the corrected assertion and distinguish command dependence from unrelated label/path changes."
+    },
+    {
+      "id": "RC9-SOURCE-005",
+      "severity": "S3",
+      "title": "Earlier-cut work assertion snapshots before the operation it purports to measure",
+      "status": "source-confirmed oracle weakness; assertion unreached",
+      "location": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs:113",
+      "counterexample": "b3 is captured on line 113 before projectExactExecutionBasisRecordAtPrefix(before,basisRef) at line 114. delta(b2,b3) on line 115 therefore excludes that projection. A projection that needlessly validates/hashes the missing row but correctly returns null would still pass. The null assertion itself remains meaningful.",
+      "boundedRepair": "Measure the snapshot interval around the earlier-cut basis projection itself. No basis-owner production change.",
+      "riskAndCost": "Small local oracle correction; no evidence of current extra production work.",
+      "necessaryProof": "Execute the corrected interval assertion together with the semantic null check."
+    }
+  ],
+  "entireRemainingFixtureAudit": [
+    {
+      "range": "OWN-01:101–116 owned row and historical cuts",
+      "assessment": "After the existing-owner conversion, body materialization is explicit test work, and through/before helpers accept the nominal owned prefix. historicalRuntimeEventPrefix cuts by the actual row ordinal; selectLocatedSubset preserves source/scope. runtime_derivation.ts:17–29,73–79 allows earlier/later cuts of the same ordered owner to share computation. Basis membership and cardinality are resolved before row facts. Same basis object at row/later and zero later row/digest work are meaningful assertions. The earlier-cut measurement defect is finding 005.",
+      "execution": "Not reached."
+    },
+    {
+      "range": "OWN-01:118–130 copied/raw/changed rows",
+      "assessment": "structuredClone plus deepFreeze creates explicit immutable arrays. selectValidatedRuntimeEventPrefix uses the ordinary cold route when the array lacks the owner receipt, checks full gap-free ordinals, stamped profile and causes, then creates its own computation territory. The materialized unscoped held history supplies those fields. Copy row/body counts of one each and equal basis output match the callee contract. Changing rawInputDigest leaves ordinals/profile/causes unchanged and is rejected by execution_basis_record.ts:63–69 before body digest; invalid rows are not retained, so a repeat rechecks. The broad catch/conditional permits the changed-row branch to be skipped if prefix construction throws; its actual execution must be recorded before claiming row-refusal coverage.",
+      "execution": "Not reached. No explicit duplicate, foreign owner, rollback or validation-view fixture is constructed here; these remain source-assessed only."
+    },
+    {
+      "range": "OWN-01:131–133 held-resource close",
+      "assessment": "closeAbgEventResource requires the current DurablePrefixCoordinate, correctly supplied as selection.prefix; changing it to the nominal calculus prefix would introduce another mismatch. All body reads occur before close. The later env.artifactTruth is an immutable owner projection; hasAdmittedProductInstall selects its historical install row through validateArtifactTruthProjectionValue without requiring a live event descriptor.",
+      "execution": "Not reached; after-hook abandons resource on the current failure."
+    },
+    {
+      "range": "OWN-01:135–155 worker plans",
+      "assessment": "prepareWorkerTransport accepts these positive timeouts/labels and real scratch cwd. It prepares without executing a provider process. Two references to a deeply frozen contract produce zero copies/two reuses; mutable top-level clone is copied and detached. Claude stdin template has no output-path placeholder, so different labels do not alter args. Contract digest separates changed argument contract; same-label environment change isolates environment dependence. Command proof is confounded as finding 004.",
+      "execution": "Not reached. contractFor explicitly freezes its own constructed contract; this is not a regression oracle for the changed actor_process producer. Reverting the actual actor freeze would leave this synthetic test unchanged. No runtime-constant plan claim."
+    },
+    {
+      "range": "OWN-01:157–164 physical public verifier",
+      "assessment": "Both calls invoke the exact installed module shared with counters. Each content verification performs package/manifest reads, lstat/list, one graph-carrier read and file hashes for unchanged fixture content. Two verifications/two graph reads are consistent. Counters are incremented at real work sites, not estimated savings.",
+      "execution": "Not reached."
+    },
+    {
+      "range": "OWN-01:169–190 retained semantics first consumer and new resolution",
+      "assessment": "The fixture publishes one default start and compatible catalog membership. Its start selection is accepted by execution_resolution.ts:577–614. It resolves via the actual catalog/admitted installs and historical artifact install evidence. Per-resolution modulesFor at :875–881 calls prepareInstalledProductModules; installed_module.ts:28–39 performs the physical check. productSemanticsFromModules binds the exact admitted provider, and projectInstalledLeafSemantics/inspect retrieve its actual private runtime. The mutation selects that projection installId under disposable scratch and appends a real newline to package.json (valid JSON, changed payload bytes). The first runtime verify invokes the same consumer checker used at port creation/per-leaf authority and must physically hash/refuse under restored semantics.ts:714; a fresh resolution prepares and refuses changed content. Source-001 shortcut would return true with zero work on this first use (source-derived counterfactual, not executed A/B).",
+      "execution": "Not reached. It is a genuine retained semantics checker path, beyond public verify alone, but does not instantiate a new leaf port or execute nested HoG effects after mutation. Exact restored production consumers support the source closure; no nested-effect runtime proof claimed."
+    },
+    {
+      "range": "OWN-01:191–195 final public refusal and diagnostic",
+      "assessment": "A further newline to the final admitted install is safe within disposable fixture setup even if it is the already changed semantics install; physical public verification then returns false. Diagnostic would establish which optional row branch and observations actually ran.",
+      "execution": "Not reached; diagnostic absent."
+    }
+  ],
+  "unaffectedAssessmentReuse": {
+    "basis": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-001/REVIEW.json",
+      "bytes": 28710,
+      "sha256": "36240ead5af285ec9009154e2f91f70f1958fd565b4e7ab00464235a0a1a7119"
+    },
+    "rule": "Reuse only valid prior bounded source judgments whose source and authority dependencies are unchanged; this is not a repeated full-project review.",
+    "conserved": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+        "bytes": 7284,
+        "sha256": "0130a31cf8e0da88259d80b484c9c4ae5cfc89521f3c34cb5fa73dc60990604b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "bytes": 49151,
+        "sha256": "378f72177dbe490aa45c28ea8e333cc99e2755b39ce210ff0ddbd6c75bdd6ac1"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86820,
+        "sha256": "4c27e56ad14e6851ce906856e32ac76d4b9ad26103ccd784969c9a963f45247b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "bytes": 19437,
+        "sha256": "b9b51170e5b835d48f2fcf786858979f8ce4c9b69bdc86be4945cb0ab8003768"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21602,
+        "sha256": "7a33a60db10abb325f115e572a546a642653a1c665874137f87dac6c046011b0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-native-structural-gates.test.mjs",
+        "bytes": 12666,
+        "sha256": "4f92919b9dbd537eaefc9899a56caf3edffb4ce4d9783aa315ddcbb71c3ee8f6"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+        "bytes": 21885,
+        "sha256": "ebfa1e20e50a42a1359808eb0fc4a5ef0f44d0240fd607790c84368a760838c1"
+      }
+    ],
+    "limits": [
+      "O2 new test checks repeat/copy/relevant artifact extent and historical availability before its failure, but the Run loop records without asserting zero environment derivations on unrelated appends. Binding/lock/availability edge cases remain prior source assessment, not newly executed OWN coverage.",
+      "O1 per-row checked fact still resolves prefix membership/cardinality independently. New/foreign/copied/rollback paths retain distinct validity relations; this review adds no absent fixture coverage.",
+      "O4 actual final actor contract producer remains source-reviewed and byte-conserved, while this test supplies a separately frozen contract.",
+      "F3 comment and F4 exact three-Map allowlist with other bans/export/diagnostic assertions are byte-conserved; broader qualification is not inferred."
+    ]
+  },
+  "sourceVersionIdentity": {
+    "version": "5.0.0-rc.9",
+    "verification": "Exact deltas from source-001: package.json version only; package-lock root version and packages[empty].version only; contracts.ts ABI5_PRODUCT_ID and ABI5_PACKAGE_VERSION only. Other package/lock fields and code are unchanged.",
+    "unitScriptSha256": "8c19e51ab6428ca149558e00bb4bab778953d6681a72a5db1abad6147b1fe0df",
+    "unitScript": "Identical nine-file unit script/population to source-001; no assertion removed through script changes.",
+    "limit": "Source identity only. Archive/manifest/source commit/reproduction/install qualification belong to later packaging/Operator conjunction."
+  },
+  "proof": {
+    "stageReceipt": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/RESULT.json",
+      "bytes": 919,
+      "sha256": "1c0838a658da7148318f3e2da063b4df8601c61c01336af78cc8532f8316320f"
+    },
+    "stage": {
+      "status": "BUILT",
+      "stage": "stage-01",
+      "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+      "tenant": "/private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript",
+      "results": [
+        {
+          "id": "compile",
+          "exitCode": 0,
+          "wallMs": 8191.888875000001,
+          "timedOut": false
+        },
+        {
+          "id": "generate",
+          "exitCode": 0,
+          "wallMs": 53993.7725,
+          "timedOut": false
+        },
+        {
+          "id": "imports",
+          "exitCode": 0,
+          "wallMs": 41.85349999999744,
+          "timedOut": false
+        },
+        {
+          "id": "lifecycle",
+          "exitCode": 0,
+          "wallMs": 641.5931659999915,
+          "timedOut": false
+        },
+        {
+          "id": "calculus",
+          "exitCode": 0,
+          "wallMs": 252.8291670000035,
+          "timedOut": false
+        }
+      ],
+      "bindingSha256": "27017b25dd79a2ed40d8f59166db0d8d2d2afceca071e1ac00ac45859acb6830"
+    },
+    "unitReceipt": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/RESULT.json",
+      "bytes": 5566,
+      "sha256": "34fb4c3b6328f0e5efd0d337f23eb6c667fd35444598e00ce24fd5ab47098c57"
+    },
+    "unit": {
+      "status": "FAILED",
+      "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+      "bindingSha256": "27017b25dd79a2ed40d8f59166db0d8d2d2afceca071e1ac00ac45859acb6830",
+      "counts": {
+        "tests": 95,
+        "failed": 1,
+        "passed": 88,
+        "cancelled": 0,
+        "skipped": 6,
+        "todo": 0,
+        "topLevel": 95,
+        "suites": 0
+      },
+      "reporterComplete": true,
+      "parseFailure": null,
+      "summarySuccess": false,
+      "observedFiles": [
+        "test_env/tests/forward-command-contracts.test.mjs",
+        "test_env/tests/forward-command-owners.test.mjs",
+        "test_env/tests/m5-c-algebra-validation.test.mjs",
+        "test_env/tests/m5-worker-transport.test.mjs",
+        "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "test_env/tests/t287-native-runtime-gate.test.mjs",
+        "test_env/tests/t287-native-semantic-revision.test.mjs",
+        "test_env/tests/t287-native-structural-gates.test.mjs",
+        "test_env/tests/t287-owned-call-reference.test.mjs"
+      ],
+      "missingFiles": [],
+      "requiredCases": [
+        {
+          "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+          "passed": false
+        },
+        {
+          "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+          "passed": true
+        }
+      ],
+      "command": {
+        "exitCode": 1,
+        "signal": null,
+        "failure": null,
+        "timedOut": false,
+        "truncated": false,
+        "wallMs": 213512.67704100002,
+        "receipt": "commands/unit.result.json"
+      },
+      "resourceFailure": null,
+      "skipReasons": [
+        "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+        "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+        "ABI5_STEEL02_RESOLVER_PROOF_PATH unset; requires retained Thread 2 installed consumer proof",
+        "ABI5_OWNED_PROOF_DECLARATION unset; requires the retained full declaration proof body",
+        "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)",
+        "ABI5_EVIDENCE_ROOT unset; requires comments/codex/20260909_D1_LIFECYCLE/native-stage-implementation-01/live-04/bridge-first-cause-01/bridge-input.json (sha256:6cde4824e591)"
+      ]
+    },
+    "reporter": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl",
+      "bytes": 31338,
+      "sha256": "5e1b0f36649f89192dc76bf14206f5d06a587a8408777a3d6aecc954e965037a"
+    },
+    "reporterConfiguration": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/REPORTER_CONFIGURATION.json",
+      "bytes": 2248,
+      "sha256": "84a5c42a0425a28240513ee3c6f9481ba68a2b7f7cab28d661245ee83c80fcd4"
+    },
+    "commandReceipt": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/commands/unit.result.json",
+      "bytes": 1133,
+      "sha256": "e26a861333b721ea7b2a5850ae3f9e38c4c51b2c4291815d251440ec8808778c"
+    },
+    "actualOwnFailure": {
+      "ordinal": 75,
+      "type": "case",
+      "passed": false,
+      "name": "RC9 OWN-01: owner folds over immutable rows and bytes are reused within their territory; changed, copied, earlier and cold inputs keep their checks and refusals",
+      "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "nesting": 0,
+      "testNumber": 71,
+      "suite": false,
+      "skip": false,
+      "todo": false,
+      "error": {
+        "name": "Error",
+        "message": "Event Calculus requires a nominal validated immutable event prefix",
+        "stack": "Error [ERR_TEST_FAILURE]: Event Calculus requires a nominal validated immutable event prefix",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "TypeError",
+          "message": "Event Calculus requires a nominal validated immutable event prefix",
+          "stack": "TypeError: Event Calculus requires a nominal validated immutable event prefix\n    at runtimeEventsFromValidatedPrefix (file:///private/tmp/abg-r9-owner-native-002/tmp/abi5-root-env-SlxVhr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js:295:15)\n    at Module.runtimeEventBodiesAtPrefix (file:///private/tmp/abg-r9-owner-native-002/tmp/abi5-root-env-SlxVhr/consumer/node_modules/@abiogenesis/typescript-tenant/build/code/src/abg/event_prefix.js:134:88)\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-002/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs:102:56)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3)",
+          "code": null,
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    "reporterVerification": "Independently read 107 records: ordinal 0 begin, ordinal 105 file-null global summary with 95/88/1/6 counts, ordinal 106 end. All nine unit files observed; OWN fails, REF passes. Source digest and binding match frozen subject. No OWN final observation diagnostic. Corrected JSONL parsing no longer hides the failure behind a spec/TAP parser mismatch.",
+    "meaning": "Build plus three boundary checks passed. Full unit failed honestly. Skips remain skips. No final OWN-01 completion or first-use runtime evidence exists."
+  },
+  "remainingUnknowns": [
+    "Actual native author close, fresh terminal/replay/readback and actual changedPaths conjunction are Root/Operator work; this report binds frozen bytes and receipts only.",
+    "Full affected OWN-01 after an existing-owner fixture repair; row, worker, first-use drift assertions and final diagnostic remain unexecuted.",
+    "O3 optimization remains OPEN; no carried physical fact/once-per-resolution/zero-read claim is accepted.",
+    "All nine historical residuals, twelve cold residuals, S7, full-five and human gates remain open. No new qualification, release or package-cut disposition."
+  ],
+  "return": "Closed affected review to Root. One S2 confirmed fixture blocker, two S3 oracle weaknesses. Production shortcut source counterexample removed and original successor defect reached execution successfully. No repair or additional test/provider/native operation performed. Root owns finding priority and disposition."
+}

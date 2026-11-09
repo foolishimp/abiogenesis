@@ -1,0 +1,205 @@
+{
+  "id": "RC9-RESIDUAL-SCOPE-007",
+  "recordedAt": "2026-11-08T20:22:01.828594+00:00",
+  "status": "CLOSED",
+  "ProductFrame": "ProductFrame.md",
+  "scope": "Successor applicability of eight historical capsules and missing duplicate/foreign/rollback probes to the proposed exact local-unqualified installed/scripted RC9 claim. No new source inventory, test or broad acceptance.",
+  "subject": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceFreezeSha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a",
+    "BUILT003Sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105",
+    "archiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "identityCheck": "Reacquired proposal/archive/Root source/reference/W2/historical-residual pins: all match. Reused prior exact-source inventories and judgments."
+  },
+  "verdict": {
+    "recommendation": "CONDITIONAL_LIMITED_NO_BLOCK",
+    "concreteBlockerEstablishedWithinSelectedPath": false,
+    "findings": [],
+    "reason": "No acquired capsule evidence demonstrates wrong current Product authority or makes the exact installed current-profile scripted path already witnessed on this archive unconstructable. This is a causal applicability judgment using actual RC9 evidence, not automatic inheritance of RC8 no-block acceptance or a claim that missing tests pass. GC03 remains concretely unsupported for its configured foreign-basis composition, which is outside the witnessed path.",
+    "conditions": [
+      "Required actual broad continuation/close must be completed and accepted by Root; current partial broad evidence is not that result.",
+      "The final subject must conserve the exact source/build/archive and the witnessed endpoint/input/current-profile configuration. Any relevant source or artifact change reopens affected judgments.",
+      "Retain all eight capsules and missing probes OPEN, exclusions explicit, earlier failures immutable, and final checkpoint/reproduction/packaging/immutable installation gates separate. Root alone selects final disposition/cut."
+    ],
+    "notGranted": [
+      "Capsule closure",
+      "RC8 acceptance transfer",
+      "Real-provider operation",
+      "Whole 5.0/full fifteen-family qualification",
+      "General reliability or performance bounds",
+      "Unexecuted negative/probe credit",
+      "Final local cut/install acceptance"
+    ]
+  },
+  "capsuleAssessments": [
+    {
+      "capsule": "RC8-GC03-METHOD-304",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "gc03-method-fixture-001/REVIEW.json",
+        "sha256": "93291ad19d2d2ee01cd9c6e762047b47372a3208312701385ece3822c4d35502"
+      },
+      "historicalMeaning": "Current 3.0.4 custody does not match the released exact 3.0.2 GC03 binding; the configured GC03 composition remains unsupported and fail-closed. This is a real configured-path limitation, not merely a slow test.",
+      "actualRC9CausalRelation": "O4 finalizes the selected native contract after endpoint/environment/argument configuration; it does not add a supported foreign GC03 basis, relax custody or select that private policy. Accepted exact-archive scripted F_P reference witnesses its own selected configuration.",
+      "recommendation": "Conditional limited no-block only for the demonstrated path without the unsupported GC03 configuration. No current GC03 enablement, native witness, allowed/denied or tamper/cold claim. A wrong endpoint/environment or an enabled GC03 claim reopens its owner.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-NATIVE-ASSESSMENT-PROFILE",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "native-assessment-011-plan/REVIEW.json",
+        "sha256": "6041d3abf85dbe8e51c7214f40b65e8abcadd347f45d334665dac371e32eecb6"
+      },
+      "historicalMeaning": "Four historical golden cases retain incompatible lifecycle copies after discarding unsupported 4196 coordinates. The current profile/admission guards reject the mismatch; no malformed current result accepted is established.",
+      "actualRC9CausalRelation": "O1 retains a checked immutable row only after exact current selection; neither O1 nor O2 changes the L/RC6/S2/W classifier or result lifecycle law. Actual OWN changed-raw/body refusals and current native unit cases plus the accepted current-profile scripted reference support their own paths.",
+      "recommendation": "Conditional limited no-block for demonstrated current-profile inputs. No four-golden or 4196 compatibility credit, no general malformed/crossed/preterminal coverage. Such an observed accepted invalid result would block and require Product triage.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-SAS-WHOLE-PROOF",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "sas-timeout-002/REVIEW.json",
+        "sha256": "aa795159f828488487fd02bdc82392718cbfa2203d270fa8e705537ff8c75930"
+      },
+      "historicalMeaning": "SAS directly intersects recurring basis/environment projections. Prior cases 7/8/9 and full-file completion remain unproved after timeout; neither a semantic counterexample nor a unique cost cause was established.",
+      "actualRC9CausalRelation": "OWN006/007 executes held earlier/later prefix reuse, copied/cold and changed-row refusals. Exact-archive reference observes environment derivations 1 then 0 and two new basis row admissions/digests per new SDK call; new basis work is legitimate. Held unchanged-row 0/0 is a separate OWN observation. These facts do not establish the full two-Run/six-CLI SAS pair.",
+      "recommendation": "Conditional limited no-block for the witnessed operations and counter facts. Exclude complete SAS, maintained setup/RAW-pair, all warm/copied/cold conjunctions and global cost containment. No total construction-cost or asymptotic claim.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-PHYSICAL-LIFETIME-013",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "owned-lifetime-010/REVIEW.json",
+        "sha256": "d911366f66a792dfa24981021d0e430ad7e34b8c74e3fd2ca5a8181abef2b067"
+      },
+      "historicalMeaning": "Historical response/HTTP readiness failures and missing independent HTTP PID/group evidence remain. Twelve controlled order/scope combinations passed historically; later HTTP modes remain unexecuted.",
+      "actualRC9CausalRelation": "O4 changes final value freezing/plan reuse after configuration, not process/HTTP lifetime policy. Current ordinary unit007 executes all 32 worker-transport cases; the accepted scripted native reference includes actual return/readbacks and close. Those successor witnesses are neither HTTP-specific assurance nor universal detached-descendant absence.",
+      "recommendation": "Conditional limited no-block for the exact scripted reference configuration and observed closure. Exclude real-provider operation, HTTP readiness/cleanup completeness and general reliability. Any current ordinary-path unresolved physical ownership cannot be relabelled success.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-RECURSIVE-REGISTERED-SELECTION-PROOF",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "recursive-timeout-014/REVIEW.json",
+        "sha256": "7b1b63bcc12f7e91a5803714881de362f1026e063f2a2ffd012d5ad4c302496a"
+      },
+      "historicalMeaning": "Historical file has partial progress and outer timeout; current full recursion/resume, pending/cold selectors and duplicate-use cases remain unproved. No infinite recursion or semantic failure was established.",
+      "actualRC9CausalRelation": "O1/O2 share basis/environment owners but do not change registered choice or recursion/resume topology. Exact membership/cardinality remains before retained row lookup; actual owned successor/cold/reference evidence supports bounded reuse, not the four-fixture recursive proof or its later cases.",
+      "recommendation": "Conditional limited no-block for the demonstrated non-recursive ordinary path. No complete recursion/resume or bounded-latency claim. Wrong lineage, duplicate child use, lost prior work or false closure would be a concrete blocker.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-SELECTED-ACTION-PROFILE",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "selected-action-profile-019/REVIEW.json",
+        "sha256": "0850c260b3942a5fdd13cf7de10ac4e8d85845ba03e2aa6f63c039590f4ec5e2"
+      },
+      "historicalMeaning": "The preserved 216-row 6c8a history is rejected by the current exact profile classifier before the two selector discriminator bodies; it supplies no current-selector coverage and no valid-current-profile rejection counterexample.",
+      "actualRC9CausalRelation": "The O1 cache is behind prefix authentication and exact row selection; it does not admit new historical profiles or replace current cardinality. O2 validates artifact truth and exact binding/dependency extent before borrowing a body, with a fresh cut wrapper. Missing duplicate/foreign/rollback probes are explicitly unproved, not replaced by these source facts.",
+      "recommendation": "Conditional limited no-block for the witnessed current-profile path. Exclude 6c8a compatibility and the two undelivered selector discriminators. No fallback, restamp, foreign occurrence or ambiguous basis acceptance is authorized.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-C3-COMPOSITION-PROOF-BUDGET",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "worksite-branch-timeout-022/REVIEW.json",
+        "sha256": "926dd0590b21991a8760a7e3f65e0aa58e31f8b79c9a3a24a58933c848f57e04"
+      },
+      "historicalMeaning": "Two original C3 cases hit 240-second inner deadlines, with no terminal/fresh replay and incomplete physical absence; this does not establish a Product 240-second SLA or semantic failure.",
+      "actualRC9CausalRelation": "The prospective same-resolution install-verification shortcut was removed. Source002 restores semantics/leaf-port physical checks byte-for-byte to RC8; OWN first-use changed-content refusal and reference physical reads corroborate the retained boundary. O2 body reuse does not amend C3 fan-out/fan-in, ordered C1 children or C0 effect admission.",
+      "recommendation": "Conditional limited no-block for the demonstrated ordinary reference path, excluding complete positive/partial-stop C3 and whole branch composition. Reference F_P success is not a C3 proof. No timer/repair/retry proposal is made.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    },
+    {
+      "capsule": "RC8-C2-INSTALLED-NEGATIVE-PROOF-BUDGET",
+      "status": "OPEN",
+      "historicalReview": {
+        "relativeTo": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/reviews",
+        "path": "worksite-command-timeout-023/REVIEW.json",
+        "sha256": "0bb7370df3d3ded95c34059e4ff32873c7bfdbf09315c6836819977cee8c5907"
+      },
+      "historicalMeaning": "Five exceptional installed variants remain open: one observed command-cleanup timeout and four without outcomes in the stopped attempt. The separate RC8 configured positive stays RC8-scoped.",
+      "actualRC9CausalRelation": "No RC9 command/HTTP first-error, helper acknowledgment, artifact-currentness or physical lifetime law change is selected. O3 shortcut removal preserves consumer/effect checks. Current component/unit and exact-archive scripted F_P evidence witness only their own paths; they do not establish an RC9 configured C2 positive or any of the five installed negatives.",
+      "recommendation": "Conditional limited no-block for the demonstrated reference path, excluding whole-C2/exceptional-current-outcome claims. Lost first error, crossed helper artifact, false cleanup or unresolved ownership on the selected path would require Product triage.",
+      "capsuleClosed": false,
+      "RC8AcceptanceTransferred": false
+    }
+  ],
+  "missingRowProbes": {
+    "coverage": "New duplicate/foreign/rollback tests were not delivered. Zero executed credit; the prospective boundedSuccessorEvidenceRequired lists must not be marked wholly satisfied.",
+    "sourceRelation": "execution_basis_record.ts105\u2013153 resolves exact membership/cardinality before checkExecutionBasisRow; absent/many is checked/refused before the retained-one lookup. Only checked one-row facts are stored under event id/admission ordinal in authenticated prefix derivation territory. event_prefix.ts369\u2013377 obtains that territory from the owned selection or immutable receipt, not an unauthenticated process-global row authority. environment_admission.ts487\u2013552 validates artifact truth/binding, keys the body by admitted artifact dependency identities, and wraps the requested cut; raw/copied projections derive cold.",
+    "actualEvidence": "OWN whole006 and007 executed owned earlier/later cuts, copied cold work and first/repeated changed raw-input/body-digest refusals. The actual exact-archive reference observes current successor calls and bounded fresh/held same-operation/terminal equalities. Neither executes the missing adversarial population or whole-history replay qualification.",
+    "judgment": "A missing probe is a material assurance limit, not itself a witnessed Product defect. Reused source review plus actual scoped witnesses supports only the narrow no-block recommendation. Any actual duplicate/cross-history/rollback misuse or claim of complete adversarial coverage would reopen the owner."
+  },
+  "finalEvidenceAndStaleCorrections": [
+    "Source002 removed O3 stale physical observation reuse and restored the original physical consumers; the prospective C3 same-resolution-verification statement is obsolete. O3 performance reuse remains OPEN, not a pending safety shortcut in the final candidate.",
+    "Accepted source003/OWN006/unit007 distinguish source fixes, executed whole OWN suffix and ordinary nine-file result. Earlier failed native/unit/M5/OWN attempts remain failures; a later pass establishes no timing cause or reliability.",
+    "Accepted exact-archive reference is actual scripted F_P native-path evidence, beyond OWN synthetic worker-plan probes. Per SDK call RC9 worker plan contractCopies/reuses=0/2; this does not measure total actual native contract producer construction. Environment derivations are1 then0; each new SDK call has2/2 new basis work. Baseline unavailable counters are not zero.",
+    "Reference retains physical checks:3 content verifications/15969 file hashes per SDK call and1/5323 during construction. No zero-read or once-per-resolution install claim. Four held and four fresh same-operation/terminal equalities per subject are bounded witnesses, not general cold/whole-history proof.",
+    "W2 now has exact RC9 Root acceptance13f89286: both cases, dynamic assertions, both exports and final diagnostic completed. Original RC8 red remains immutable; this leaves eight historical capsules OPEN. Earlier source/reference records saying W2 pending are historical, not current final claim state.",
+    "Historical12 cold residuals, S7, full5.0/full15/human gates remain unchanged. Earlier configured C2 positive and other RC8 bounded conjunctions are not silently reissued as RC9 proof."
+  ],
+  "recommendedClaimBoundary": "Local unqualified RC9 candidate for the exact installed current-profile scripted F_P path demonstrated by accepted RC9 source/build/ordinary unit, exact-archive reference/readback/counter/close evidence and W2, conditional on required actual broad closure and unchanged archive. No configured GC03, historical-profile compatibility, complete SAS/recursion/HTTP/C2/C3, real-provider, general construction-total/performance or whole-product qualification inference.",
+  "reusedIndependentReviews": {
+    "root": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews",
+    "sha256ByReview": {
+      "source-002": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786",
+      "source-003": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c",
+      "source-003-execution-006": "7531d63429221cff43f96064da863b22d67550ee6b37347b2cf6357e8ca555e2",
+      "full-unit-007": "f2479d74ab1593e7bdc41d6741527fad4ff181f0056bb6d0b548cde26cca288b"
+    }
+  },
+  "pins": {
+    "historicalResiduals": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-local-cut-01/install-claims-001/RESIDUALS.md",
+      "bytes": 12832,
+      "sha256": "396b1c7c0ae1f7ac39b9a7d53d54aae7c0e9317997055207d5b8254198a13e00"
+    },
+    "prospectiveReassessment": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/RESIDUAL_REASSESSMENT.json",
+      "bytes": 7606,
+      "sha256": "bbe78df2e0e986c2dc0d120859ca0ac098344e7cc98465f7cd275cdad71289c8"
+    },
+    "proposedFinalClaims": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/FINAL_CLAIMS.PROPOSAL.007.json",
+      "bytes": 6406,
+      "sha256": "9f0ac566f7fde398d7443a24281f483c7a5085d077e1cda54cc7e99f61b2ca14"
+    },
+    "RootSource": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "RootReference": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    },
+    "RootW2": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    }
+  },
+  "effects": "Only ProductFrame.md, REVIEW.json and README.md in this review territory. Read-only acquisition otherwise; no source/Git/tests/process/build/provider/native/acceptance or retry effect."
+}

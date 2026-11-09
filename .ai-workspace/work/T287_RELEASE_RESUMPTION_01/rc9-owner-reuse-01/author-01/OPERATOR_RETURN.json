@@ -1,0 +1,204 @@
+{
+  "status": "AUTHOR01_CLOSED_UNIT_FAILED_SOURCE_HELD",
+  "result": "closed native result with retained failed proof; source/proof acceptance withheld for Root triage",
+  "recordedAt": "2026-11-08T06:52:03.025853+00:00",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "source": {
+    "worktree": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+    "rows": 1340,
+    "frozenSource": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+    },
+    "liveMatchesFreeze": true,
+    "modifiedTrackedPaths": 11,
+    "newPaths": 1,
+    "nativeObservedChangedPaths": [
+      "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+      "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs"
+    ],
+    "newRegressionCoverage": "t287-held-owner-fold-reuse.test.mjs is exact in physical frozen source/proof but absent from original native readRoots/after observation. No native byte-coverage claim for that new file."
+  },
+  "runtime": {
+    "sessionId": 6081,
+    "exitCode": 0,
+    "hostPid": 45470,
+    "actorPid": 47322,
+    "run": {
+      "ref": "run://abiogenesis/f7b6fac18ceb4d4fa52502680b99bb7b8799cbc1e94721243b52576b19b78a51",
+      "digest": "sha256:1a3a5a4184beb934980e0663d948decbb4561205f614c970bb6f6ec4c1fbcbe5"
+    },
+    "ownerOutcomeKind": "result",
+    "disposition": "completed",
+    "typedTerminalResult": {
+      "ref": "result://abiogenesis/28856c01db5c287806080007f0803119a14000ca6ad6c3021166a333b5055d3b",
+      "digest": "sha256:28856c01db5c287806080007f0803119a14000ca6ad6c3021166a333b5055d3b"
+    },
+    "terminalValueKind": "native_workspace_work_observation",
+    "actualOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 1499927,
+      "sha256": "11a9dc9b38eb79c60176518d675200bcc2f85dd91e66fb527e37281e1e13f0f6"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resource-close.json",
+      "bytes": 2292,
+      "sha256": "dd6ddd472a0ff3ab606ceab4c1a6512dd1f5c1fa7e8ac1bcb095fee93803088a"
+    },
+    "actualFinal": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/FINAL.json",
+      "bytes": 2315,
+      "sha256": "c6cf1e49b211aecb8823913ee72074303b27696876b69afe6657c98a6ffde305"
+    },
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 21938126,
+      "prefixDigest": "sha256:4cb10e505bba8cfd750ffb477857a124ab8a9ffe66b9f94953ba24651f6381ea",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 714208439,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:6867daf05cd6b080460a762288c5fda3e295da368de53766034bae918eb6dcfb"
+    },
+    "freshResultsEqualActualSdk": true,
+    "freshPrefixUnchanged": true
+  },
+  "proof": {
+    "build": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/RESULT.json",
+      "bytes": 916,
+      "sha256": "9a28f23a723030ae2f4ffbb21bf3e97b15b858495ce652e8433bd7844490fcc3"
+    },
+    "buildStatus": "BUILT",
+    "unitStatus": "FAILED",
+    "counts": {
+      "tests": 95,
+      "pass": 88,
+      "fail": 1,
+      "skipped": 6,
+      "cancelled": 0,
+      "todo": 0
+    },
+    "failedLocation": "test_env/tests/t287-held-owner-fold-reuse.test.mjs:86",
+    "actualRefusal": "acquisition_mismatch: ABG held store differs from the selected durable prefix",
+    "laterCounterAndRefusalChecks": "Unexecuted after first failing new-case assertion; no full owner-regression credit.",
+    "reporterControlMismatch": "Proof recipe expected TAP # totals; actual npm command emitted Node spec \u2139 totals. Genuine exit1 is separate. Root/proof owner re-entry before successor."
+  },
+  "authorReportedConcerns": [
+    "The new test fails at line 86 (held Run refused with acquisition_mismatch, because the test added the sibling binding before reopening the held session). Fixing it needs Root re-entry; no retry against the current freeze.",
+    "The checks after line 86 never ran: the execution-basis counters (rowAdmissions/bodyDigests), the install counters (verifications, lstat, directory lists, file hashes, graph reads, carried checks), the worker contract copy/reuse counters, and the content-change refusal. None of these counter values have been observed.",
+    "Install residual: provider objects are shared process-wide, so two resolutions that interleave between load and projection could hand one resolution's verified load to the other's leaf runtime. Install identity is still checked and everything after the first leaf verifies physically. Root should review this.",
+    "The F4 falsifier case is in the W2 test, which is not part of test:unit, so it has not run. It was only checked against compiled mechanics in my pre-freeze scratch build.",
+    "Still open with Root: reuse of physical verification across resolutions or event sessions (not implemented, and no zero-install-reads claim); full W2 on the exact archive; matched RC8-before/RC9-after measurements; the affected broad tests; the nine RC8 residuals, twelve cold residuals, S7 and the 5.0/human gates."
+  ],
+  "procedureDepartures": [
+    "HOW source edits followed initial code edits; Root retained as process deviation because structural relations had been admitted beforehand; both HOW files reconciled before freeze, semantic sufficiency not yet accepted.",
+    "Author reports an unavailable timeout command before actual compiler start, then two permitted compiler invocations (first TS2391; corrected second clean).",
+    "Author reports read-only git status/shasum and nohup unit invocation; actual unit211.550s complete exit1/no timeout/truncation retained; no automatic retry."
+  ],
+  "evidence": {
+    "ROOT_ADMISSION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/ROOT_ADMISSION.json",
+      "bytes": 2853,
+      "sha256": "201e8f3bdc8ee371f03cf8228d01cb7fd961f47311ac97ec03d80a173149f283"
+    },
+    "SETUP_RETURN.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/SETUP_RETURN.json",
+      "bytes": 13540,
+      "sha256": "d2a274c3bb6d01a4db928e75d3ae2d0118c6bc1c5f0f157868be612a7889062b"
+    },
+    "NATIVE_STARTED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/NATIVE_STARTED.json",
+      "bytes": 1940,
+      "sha256": "b950e4d17cd4308fcd882b90a93e1b45431f02be88a0ce20498bd1238ae489d4"
+    },
+    "ACTOR_CONFIGURATION_OBSERVATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/ACTOR_CONFIGURATION_OBSERVATION.json",
+      "bytes": 382,
+      "sha256": "91b71fdde2f6458f54b7070e3ba7bfb9050dcc715f68ed01d3637d5acc7e7e02"
+    },
+    "UNIT_FAILURE_OBSERVATION.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/UNIT_FAILURE_OBSERVATION.json",
+      "bytes": 2414,
+      "sha256": "e21d897b0be8be270eae5af4838364d58061d64701c5acc5a6fde23771397c12"
+    },
+    "PROVIDER_USAGE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/PROVIDER_USAGE.json",
+      "bytes": 1951,
+      "sha256": "dd90df2c41896bb040faf80a82b474a929f17f54329d6469b75d4a410c855a2b"
+    },
+    "READBACK_BINDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/READBACK_BINDING.json",
+      "bytes": 1840,
+      "sha256": "4fa456359d92ccd9a1a89ad3482f7b57d583439799123c098f88892a33b102b6"
+    },
+    "readbacks-001/RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/readbacks-001/RESULT.json",
+      "bytes": 6634,
+      "sha256": "e3a9426cac4c3ade38664c2d7f3b22a389601247c27abedcb4cfc4cbbc166141"
+    }
+  },
+  "measuredIntervals": {
+    "setupSeconds": 82.914864666,
+    "preparedToDispatchSeconds": 79.513,
+    "dispatchToActorSeconds": 5.938,
+    "sdkCallSeconds": 1232.310695791,
+    "freshReadbackSeconds": 7.978342583000001,
+    "finalUnitSeconds": 211.549967583
+  },
+  "timingLimit": "Separate actual intervals; unit and provider runtime overlap SDK. No speedup or full-cycle qualification claim.",
+  "reportedProviderCostUsd": 5.5274728,
+  "reportedNativeTurns": 102,
+  "usageLimit": "Actual Claude CLI result telemetry only; excludes Operator/Executive and external review costs, and is not independent provider billing assurance.",
+  "nextContinuation": {
+    "status": "HELD_PENDING_ROOT_REPAIR_CONJUNCTION",
+    "rootProspectiveMetadataSelection": "RC9-METADATA-01: only package.json version, package-lock root and packages empty-name version, contracts.ts ABI5_PRODUCT_ID/PACKAGE_VERSION to5.0.0-rc.9; combine with selected repair if Root admits, never expand author01 retrospectively.",
+    "actualPrepared": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/PREPARED.json",
+      "bytes": 5403,
+      "sha256": "335b96de0f7be0633ddb35aa8500c336a4ef9cb75cc765abe0620e97f76af59e"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resource-close.json",
+      "bytes": 2292,
+      "sha256": "dd6ddd472a0ff3ab606ceab4c1a6512dd1f5c1fa7e8ac1bcb095fee93803088a"
+    },
+    "consumerAcquisition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/consumer-acquisition.json",
+      "bytes": 10156,
+      "sha256": "bb9e47b3fa7390a9db00e8391166e18b30888bd40e20560e5b1a15283a65af71"
+    },
+    "setupIdentity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/setup-identity.json",
+      "bytes": 9493429,
+      "sha256": "63779e064c6cce78c1fec7bd920e29d264dfcc001f6b71a3a7b7e40c1cdf1caf"
+    },
+    "readback": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/readbacks-001/RESULT.json",
+      "bytes": 6634,
+      "sha256": "e3a9426cac4c3ade38664c2d7f3b22a389601247c27abedcb4cfc4cbbc166141"
+    },
+    "maintainedRoute": "Actual-close successor owner route from author12 host/readbacks, re-bound to this RC8-created runtime and actual closed subject; never reuse RC7 coordinates. Root must settle repair scope and proof-control correction first.",
+    "requiredReadScopeCorrection": "Include now-existing new owner-regression file in successor readRoots.",
+    "providerOrRuntimeAllocated": false
+  },
+  "qualified": false,
+  "sourceAccepted": false,
+  "allNineRc8ResidualsRemainOpen": true
+}

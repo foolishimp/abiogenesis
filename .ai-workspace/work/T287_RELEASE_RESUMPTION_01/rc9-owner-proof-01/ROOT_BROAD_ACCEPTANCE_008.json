@@ -1,0 +1,104 @@
+{
+  "status": "ROOT_ACCEPTED_BOUNDED_BROAD_CONTINUATION",
+  "at": "2026-11-08T21:34:54.698Z",
+  "authority": "Root Executive decision, recorded by separately activated /root/rc9_operator Writer under unchanged STDO3.0.4/fixed ABI5/GOAL-035/T287. Root independently checked all139 new commands, complete raw reporters/pins, contiguous ordinals/counts and CHILD_CLOSED/no-monitor-failure resources with0mismatch. Writer records the decision and principal pins; no repeated assurance round.",
+  "decision": "Accept broad008 bounded continuation and62 disjoint exact same-RC9 whole-file credits.201 whole files are covered, not all209; eight held receive no coverage. Original007 failure and15 partial cases receive no credit.",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "archiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+  "evidence": {
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_008_RETURN.json",
+      "bytes": 21073,
+      "sha256": "3b1e8bd01b0c6799fcc878862c8038555ab8026d51418cf6d49730cf65854cad"
+    },
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/SUMMARY.json",
+      "bytes": 8563967,
+      "sha256": "e1074d17db4b307e29eaa70fa7e3af75266776bb4e79509ac4831f2b07069798"
+    },
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+      "bytes": 214131,
+      "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-002/BOUND_INVENTORY.json",
+      "bytes": 1867635,
+      "sha256": "b6011697d340324e18654ec91f0fc24cb9b6d01b035469273c806f88338f7b95"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_RUN_ADMISSION.json",
+      "bytes": 4438,
+      "sha256": "8ac8605bbe66512b07428704fb236651055de73b493cd2afec9930e0d6ffe956"
+    },
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/EXECUTION_STARTED.json",
+      "bytes": 2615,
+      "sha256": "9e200934204079e5c66a2dbd6cae52dbc15d040c720de110bd076f0a7e3b0f39"
+    },
+    "candidateRefresh": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3166,
+      "sha256": "4c1f3ef88b90de77dbf9356b722533470ceac850ec12bc82c22ca4223774c442"
+    },
+    "packageLayout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 649,
+      "sha256": "1cd2928c47bc697c10540a2b9acc3208e82b065f84a6b5e5562ac6fe213bd4cd"
+    },
+    "isolatedBuildCustody": [
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/build-effects/208-t287-w2-05-generator-package-reproducibility/CUSTODY.json",
+        "bytes": 1048,
+        "sha256": "c9b9dd3e006ecca5c3c9bb0c0d561231fc9ced867dad2e519d6f3b52967c5429"
+      },
+      {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/build-effects/209-t287-w2-05-release-snapshot-definition-bindings/CUSTODY.json",
+        "bytes": 569,
+        "sha256": "d124390aca3056ded0c27dcd445ca51546914d5b9457c9e790f9c0de45d0b0be"
+      }
+    ],
+    "retainedWholeCredits": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_CREDITS_008.json",
+      "bytes": 101187,
+      "sha256": "6b11a066c720b89d267dde4a427e8612f0b5d737c910716fd548e36ff7240f87"
+    }
+  },
+  "counts": {
+    "files": 201,
+    "tests": 1263,
+    "passed": 1033,
+    "skipped": 230,
+    "failed": 0,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "countRelation": "139 new whole files:704 passes/148 skips;62 retained same-RC9 whole files:329 passes/82 skips. No RC8, partial063 or focused-unit credit. Skips are excluded coverage.",
+  "pendingExactly": [
+    "test_env/tests/t287-governed-context.test.mjs",
+    "test_env/tests/t287-native-assessment-evidence.test.mjs",
+    "test_env/tests/t287-owned-process-lifetime.test.mjs",
+    "test_env/tests/t287-recursive-registered-selection.test.mjs",
+    "test_env/tests/t287-selected-action-authority.test.mjs",
+    "test_env/tests/t287-single-address-space-consolidation.test.mjs",
+    "test_env/tests/t287-worksite-branch-construction.test.mjs",
+    "test_env/tests/t287-worksite-command-execution.test.mjs"
+  ],
+  "closure": {
+    "exitCode": 0,
+    "wallMs": 4133145,
+    "wall": "68m53.145s",
+    "newFileResourcesClosed": 139,
+    "monitorFailures": 0,
+    "primaryDependencyExternalConserved": true,
+    "sourceEffects": [],
+    "isolatedBuildChecksCompleted": 2,
+    "standing": "Observed ordinary file-host closure and sampled bounds, not hard quotas or universal detached-descendant absence.007 missing final resource/escaped or changed-cwd uncertainty remains."
+  },
+  "preservation": "Historical native/M5/OWN/007 and RC8 failures stay failed. No timing-cause, general reliability/speed or real-provider claim. Source/unit/reference/W2 acceptances retain their existing scopes.",
+  "limits": "Eight historical capsules and O3 performance/12cold/S7/full15/human remain OPEN. This accepts bounded broad evidence only; Root final limited-claim disposition, checkpoint/equal reproduction, packaging review and install remain distinct.",
+  "broadAccepted": true,
+  "whole209Accepted": false,
+  "qualified": false,
+  "executionEnabled": false
+}

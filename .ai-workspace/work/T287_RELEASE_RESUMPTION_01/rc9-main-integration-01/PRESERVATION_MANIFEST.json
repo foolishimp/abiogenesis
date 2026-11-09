@@ -1,0 +1,953 @@
+{
+  "status": "FROZEN_EXPLICIT_CHECKPOINT_SELECTION",
+  "main": "1344547c94dc0684af0cd83260438c41245a6f8a",
+  "rc9": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "trackedDirtyCount": 12,
+  "untrackedBefore": {
+    "count": 35836,
+    "bytes": 38642360530,
+    "snapshot": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/UNTRACKED_BEFORE.jsonl",
+      "bytes": 11108604,
+      "sha256": "5c8d276b8bdc6bdbe1f71f19aaaed5f0a98a51d908a3e1be29bc91fff61141e3"
+    },
+    "outsideWorkspace": []
+  },
+  "collisions": {
+    "count": 20,
+    "bytes": 84140,
+    "prefixCollisions": [],
+    "allExplicitlyCheckpointed": true
+  },
+  "checkpointPaths": [
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/README.md",
+      "bytes": 6084,
+      "sha256": "e16054896add3393fb1f2780c757fb45b8fca295af54136300fa72ac8418ebc0",
+      "gitOid": "de1b06f4f1838b076b4cda72544f955d66738486",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "de1b06f4f1838b076b4cda72544f955d66738486"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/RECEIPT.json",
+      "bytes": 3298,
+      "sha256": "be59cbb815674ab0f3b557ebce36226f7792fc4f1d9f4cb7a23366ca6dd41e7e",
+      "gitOid": "6d46092f0cba5f63b25916bdd3db5d8ceb557148",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "6d46092f0cba5f63b25916bdd3db5d8ceb557148"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/adoption-plan.json",
+      "bytes": 1066,
+      "sha256": "3754974a753aa1d34c727a30cff9cea816534ca3192f9d085894f984b93562fc",
+      "gitOid": "c6c7c2211a8a00715924258230ffee41b5202dc5",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c6c7c2211a8a00715924258230ffee41b5202dc5"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/adoption-plan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/adoption-result.json",
+      "bytes": 1152,
+      "sha256": "8c859fb240523fd462d26c34317c79e2246f67af5b3c2d0cdf3708e9ddd6b090",
+      "gitOid": "ac7287439e5fa9dd62c063adb0f41bc685f92c20",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "ac7287439e5fa9dd62c063adb0f41bc685f92c20"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/adoption-result.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/bootstrap-final-plan.json",
+      "bytes": 318,
+      "sha256": "2a148cb03cd82e3d61859820d0993790a4e5c45e062b7e53fc2de2992c544bd7",
+      "gitOid": "56b226603fd7be2ce156d629a64b98482ce6e92c",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "56b226603fd7be2ce156d629a64b98482ce6e92c"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/bootstrap-plan.json",
+      "bytes": 318,
+      "sha256": "2a148cb03cd82e3d61859820d0993790a4e5c45e062b7e53fc2de2992c544bd7",
+      "gitOid": "56b226603fd7be2ce156d629a64b98482ce6e92c",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "56b226603fd7be2ce156d629a64b98482ce6e92c"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/bootstrap-plan.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/install.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/install.stdout.json",
+      "bytes": 954,
+      "sha256": "bb91d599e92778b6b88ef95e72ed59623177165ac8adc0b8f6214892aa806f70",
+      "gitOid": "bbc9d54a140c4ffabd91db28b897408cbcd3baeb",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "bbc9d54a140c4ffabd91db28b897408cbcd3baeb"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/preimages.json",
+      "bytes": 3504,
+      "sha256": "5ed6f5d5c15e4d6b92cc6f7f7c3ec7eaa228c3f8189a8269ff124c5e2421ba27",
+      "gitOid": "d17f6b3467173ed6f450d2540cbfd470d560fa74",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "d17f6b3467173ed6f450d2540cbfd470d560fa74"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/published-release.json",
+      "bytes": 1676,
+      "sha256": "39b1fbe035dfad028325faa8b264019dc56d6d16fb113095e195fa8f807754f9",
+      "gitOid": "1e65f1990607d079eef4a0c24b5beea9a7c9b4ff",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1e65f1990607d079eef4a0c24b5beea9a7c9b4ff"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/source-route-edits.json",
+      "bytes": 2225,
+      "sha256": "9941e344660dbb0adb1e3b283d0f49ba71ddaab08b87ce1f95487dd04e5da831",
+      "gitOid": "451994e2ce483eb6b15a4e3841defbb8bcfdcd36",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "451994e2ce483eb6b15a4e3841defbb8bcfdcd36"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/status-after-adoption.json",
+      "bytes": 14702,
+      "sha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+      "gitOid": "a0e46356b9c280344dbe9d4e33188800df7b7eec",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a0e46356b9c280344dbe9d4e33188800df7b7eec"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/status-after-adoption.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "gitOid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/stdo-status.json",
+      "bytes": 14702,
+      "sha256": "f94aae03c758745017448b790f9c783eaf10430db45c3c96c320290443e07d4c",
+      "gitOid": "a0e46356b9c280344dbe9d4e33188800df7b7eec",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a0e46356b9c280344dbe9d4e33188800df7b7eec"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/stdo-v3.0.4-manifest.json",
+      "bytes": 18022,
+      "sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+      "gitOid": "892742f1e70108a3073add62c8b8d0ea102785dc",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "892742f1e70108a3073add62c8b8d0ea102785dc"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/stdo-v3.0.4-manifest.json.sha256",
+      "bytes": 92,
+      "sha256": "42f8f699faef0cc8b754c1a260cbfe4ae739eb599797e8f5d325c8356ea9a300",
+      "gitOid": "54a0e0a8daee47493ef00e0a92b415d85bb6d3b9",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "54a0e0a8daee47493ef00e0a92b415d85bb6d3b9"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/comments/codex/20261103T073017Z_STDO_304_ADOPTION/verification.json",
+      "bytes": 16027,
+      "sha256": "74b5506742f9158daca3e9616fd2cba7154821b09563e5ed1ef9c39cbd0b9c67",
+      "gitOid": "70fe0fbe13b106708ac4c4621178abb6cd8f95d7",
+      "mode": "100644",
+      "role": "preexisting untracked collision preservation",
+      "preMainEntry": null,
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "70fe0fbe13b106708ac4c4621178abb6cd8f95d7"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+      "bytes": 808581,
+      "sha256": "5e8b630efa06af931f73ace9dfb2b729241bcf85e1d31cabbf10c17c9b300a28",
+      "gitOid": "8cc144637824662bfe3b49c8b3be6a1eb3c87024",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "963cd347c6a281235da4bd002e9eb12976574375"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "426597788215e3ef225f3bdf6d6419493b1a63bf"
+      },
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+      "bytes": 2333,
+      "sha256": "50b1f502f2bd3a9fe4922391915e37e07ab472fc76b3e292219173cf0e266fbd",
+      "gitOid": "b163279a19cac412d7f7b60575021281c6181368",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2f23a9fbfa7e8d3a9567673fcd0ae60ec35539c2"
+      },
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md",
+      "bytes": 4031,
+      "sha256": "d67161759a997b1471691a19dccc33c8ee6b10bf916ee075532086c0ca35d96c",
+      "gitOid": "2c1ce7a14d759497914f39dae334e0d938ff6b53",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "a56d9b3bb504fa49c249033f72ebed26cc399022"
+      },
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 8644,
+      "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25",
+      "gitOid": "033106aee68d0a772f2e6ac619c999224316cd2c",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 831,
+      "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef",
+      "gitOid": "85c2e1c8117255b4b9374524496d1d5a972f9418",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9093,
+      "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340",
+      "gitOid": "b0187fb712008656be7eb529764188e2f453804a",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1187,
+      "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610",
+      "gitOid": "95ad55d3cc25cedf7f70f2a5e6a09977fe69bd50",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 782,
+      "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05",
+      "gitOid": "dbccdedd430aa24eabfa9feb0fc56946c02a80be",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+      "bytes": 3075,
+      "sha256": "94b49eeaab32e39df80cc2a3f8bbbd7ed41d555943acaaba3b0b1cf06eabb691",
+      "gitOid": "8cf34f6ea3268c88bb3e9bb4dae31c95a16f0bd7",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/RESULT.json",
+      "bytes": 770,
+      "sha256": "da83ab92d187ef47536dea26e224e8e266bec638570d238be9fa866a1ec0da53",
+      "gitOid": "08c1b8fc3e39e0af55552c0ff5d375237f04e856",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1274,
+      "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3",
+      "gitOid": "e0b9e765dd5a31b9f9097600422f555fbdecc546",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/OPERATOR_RETURN.json",
+      "bytes": 7733,
+      "sha256": "3881f100db3f57d81e84e75bd6f6e7c933ed58316f68cc2662a42c9786e9af01",
+      "gitOid": "e4b3adfb87adc2ab34802bf9fb8c468bf7db7262",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 3505,
+      "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf",
+      "gitOid": "b9a2cb663b82fc63460954e3d706d96260218383",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a",
+      "gitOid": "dbee69693b13db22bf0713bed05ddf707dc493e8",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_AUTHORITY.md",
+      "bytes": 2171,
+      "sha256": "26906fa93fe72c9ce595663d688ee35c2e96c0bd9e9f10ea13e575856b4cbdb3",
+      "gitOid": "f42395c660f6a6d8c932a1afcc01ebccac510678",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_FINAL_CLAIM_DISPOSITION_008.json",
+      "bytes": 5907,
+      "sha256": "6f0a162eba375fce79c37df58b9602fb5f45067eb6c84c4ee5a96199c608a1a8",
+      "gitOid": "57801523c750a0c275ccf0ecec13cff9c7763928",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-008/OPERATOR_RETURN.json",
+      "bytes": 16869,
+      "sha256": "36f77932c65580bfe04c1b1cf6885fd4eb85bd44e58e02c986a66552b207e714",
+      "gitOid": "04007cf3b5cf6e53e1453d23bca5d4297acfb35b",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+      "bytes": 23288,
+      "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978",
+      "gitOid": "5fdccec8a2906488fff9a9bc4e2e5ba0de6bb69f",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 6302,
+      "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb",
+      "gitOid": "514035b5388494fa249e30b37e26b834b83670dd",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_RETURN.json",
+      "bytes": 10385,
+      "sha256": "7a4468717984da45e21d03de99903f58ab1da7f0fae794169c16a67ed5516d09",
+      "gitOid": "f884973d1d7da76fd39b7546eff08ffb17593232",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_008_RETURN.json",
+      "bytes": 21073,
+      "sha256": "3b1e8bd01b0c6799fcc878862c8038555ab8026d51418cf6d49730cf65854cad",
+      "gitOid": "176a871d636538e27be16317eab66b266b53810c",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_RETURN.json",
+      "bytes": 26007,
+      "sha256": "9fe606951d0a15376699a43ecd50eba13db2a8cde1d79a8c56d971558c40c3f0",
+      "gitOid": "f18c4159f3a25b04cf47c51a24fdbb0ad43e0e69",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/MATCHED_MEASUREMENT_007_RETURN.json",
+      "bytes": 60663,
+      "sha256": "b0939a1e97b3bbb333c477cc7ec31b33d6c8c4cf78326d645411eba4743e2ff3",
+      "gitOid": "efe246bec1bf8f298ef2e4bbb792a69d2246e0df",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_RETURN.json",
+      "bytes": 11991,
+      "sha256": "f4630184f802ff77935ea61d54f2398aecbfcbbce689f3f69743813ceb6c15ff",
+      "gitOid": "2cc2b05351c86bda2c89dc0c7a5be5e2a758416a",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857",
+      "gitOid": "41125de4b06ea70895f41378c14b18985a1cb27e",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68",
+      "gitOid": "df190ab027a0df3a390fd95f8c55b29282ad6c82",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310",
+      "gitOid": "46d0553765859a7971f3f7c1b81f085c23b731a5",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/DIAGNOSTIC_001_RETURN.json",
+      "bytes": 17371,
+      "sha256": "097042ba30a1c7d905f5f607e36d4f4a51631a979dcd3d0e73b1c1cb451ac84a",
+      "gitOid": "ec354910c767525da2a97f322130144558ff322e",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+      "bytes": 3608,
+      "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf",
+      "gitOid": "c00d27d42951090b15d5f031e73aac73d5a98962",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f",
+      "gitOid": "792bd47277001e2ad034c6c42c8ac4718eed2a53",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/STATUS.json",
+      "bytes": 17232,
+      "sha256": "ae52fe83813893e2d6a6536fe070e617a764e5ceeec43b99864cf7acc84d7557",
+      "gitOid": "52d2af5014fda9d727c593d6451c6ef2e5249f39",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/OPERATOR_RETURN.json",
+      "bytes": 12600,
+      "sha256": "93ac35d59595375ed1d214c77301d9a6873e6681045713a8a5fe987b29aab6a6",
+      "gitOid": "20d37fc733cb44d610d2437bbebd2d2c4d07e47a",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/OPERATOR_RETURN.json",
+      "bytes": 14755,
+      "sha256": "271d80b325249f671194b57f852d4269247c7deb8e2ebb6091a3599e1059ac27",
+      "gitOid": "4059d40a1effaa3768dd4e5e6c1861423a325ac7",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
+      "bytes": 18459,
+      "sha256": "8ff0ea154dea162edce372007c739ca4e8c3e3fae40c4b3978ba39ae3fa531ca",
+      "gitOid": "bfdf5647a8fdf876f5b019a7f66653163fe91e96",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/full-unit-007/REVIEW.json",
+      "bytes": 21839,
+      "sha256": "f2479d74ab1593e7bdc41d6741527fad4ff181f0056bb6d0b548cde26cca288b",
+      "gitOid": "86a9ba7123aa36971b6bb455f1cfd2c484facf88",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/residual-scope-007/REVIEW.json",
+      "bytes": 19581,
+      "sha256": "fc32421715b3fd91c535af1160a2bcbcdead077e7f09b9af68fc29d89c0119a4",
+      "gitOid": "e80b059fedb0a7751635c147be29bfd379aca5a3",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-001/REVIEW.json",
+      "bytes": 28710,
+      "sha256": "36240ead5af285ec9009154e2f91f70f1958fd565b4e7ab00464235a0a1a7119",
+      "gitOid": "f51a341ac7f3e4966584118a653a2f0e5d1d7cfd",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/REVIEW.json",
+      "bytes": 30834,
+      "sha256": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786",
+      "gitOid": "cd2bc33b3c2c9e622f1bdeb49216bf36753a6280",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
+      "bytes": 27681,
+      "sha256": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c",
+      "gitOid": "d163ae39800e17eff00e7e7e698b4405ffc04563",
+      "mode": "100644",
+      "role": "compact RC9 principal record",
+      "preMainEntry": null,
+      "rc9Entry": null,
+      "equalsRC9": false
+    },
+    {
+      "path": "AGENTS.md",
+      "bytes": 12932,
+      "sha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84",
+      "gitOid": "1f811c8935cde38ff7f051624a9eff9917bda2ed",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "766ae37f79de146cd51195cffc12f01ecc056ce8"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1f811c8935cde38ff7f051624a9eff9917bda2ed"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": "CLAUDE.md",
+      "bytes": 6306,
+      "sha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940",
+      "gitOid": "df640cce8851775c6a6b2d52fb6b7814d5737db5",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "c591b56aa518c8cae370b3707827ecf0a179716b"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "df640cce8851775c6a6b2d52fb6b7814d5737db5"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "bytes": 133955,
+      "sha256": "8475ebb342ae80164a7fd7056a8988456780102254858736c2c3d92e52e997db",
+      "gitOid": "9cc724d7801c9d802f55a9d633487f4e8ac2e4f1",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "aff23427fd878c936df6a88593c4adbb7dfd4b40"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "b1f12a7dffe0fd55b5655b7d3bae7f27b96731dd"
+      },
+      "equalsRC9": false
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10",
+      "gitOid": "0a5f806c711ca4054e319e2fe8c12c1e11f45e73",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "2a61f73a0dca5f7a179a848eec77e4173b300500"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "0a5f806c711ca4054e319e2fe8c12c1e11f45e73"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "bytes": 101600,
+      "sha256": "62048c056d4f92c0b32852956408a2ccd76d3bc6cbf59370e6adfe618fa06f45",
+      "gitOid": "7d9613768440bab63d75c82e97031c3bc3f1f5c1",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "48705208d75707fc3f1b60c1227a58e2dd0fbf4d"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "f436d25570a4d69d693afa65eb4940181f78f983"
+      },
+      "equalsRC9": false
+    },
+    {
+      "path": "specification/GOALS.md",
+      "bytes": 159749,
+      "sha256": "ceab3a10edd2fe2738d6882178bfc9653c998cae72f0d7235642249cc7eef1a7",
+      "gitOid": "383d52438c00a7867aa5925c47b802576632d65c",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "4bdcdb48477cf2473a85d10e821ad509e985f69c"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "8d6fea477c88488c907f28aceed3cf200d7381b0"
+      },
+      "equalsRC9": false
+    },
+    {
+      "path": "specification/PRODUCT.md",
+      "bytes": 100324,
+      "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888",
+      "gitOid": "e1d064a0b1aee8b69e6d6ed2d083d5f42eb9378e",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5348c5af59105a22c0210d282a033c92ec091115"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "e1d064a0b1aee8b69e6d6ed2d083d5f42eb9378e"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": "specification/requirements/README.md",
+      "bytes": 9076,
+      "sha256": "a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c",
+      "gitOid": "5fadc304fc9706d1098eb730f1db00b0a3c4fc67",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "62a0bc2f2c8be89e9ad3df047e51595b1ffefc08"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "5fadc304fc9706d1098eb730f1db00b0a3c4fc67"
+      },
+      "equalsRC9": true
+    },
+    {
+      "path": "stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44",
+      "gitOid": "1febdf3f1318a8da821b2ceea09fc8bff6ea88ec",
+      "mode": "100644",
+      "role": "tracked dirty preimage",
+      "preMainEntry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "626639c0c66ae99a57e12d20074f53ccdffd01cb"
+      },
+      "rc9Entry": {
+        "mode": "100644",
+        "kind": "blob",
+        "oid": "1febdf3f1318a8da821b2ceea09fc8bff6ea88ec"
+      },
+      "equalsRC9": true
+    }
+  ],
+  "selectedCount": 68,
+  "selectedBytes": 1933057,
+  "exclusions": "All other untracked files remain in place and are not staged: raw runtime streams, reporter dumps, archives, dependencies, generated/sandbox scratch and unrelated history. The large stat snapshot remains local and is pinned by this compact manifest, not committed. Existing tracked evidence is retained through ancestry and current record union.",
+  "expectedFinalProductCount": 1842,
+  "productDelta": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-main-integration-01/PRODUCT_PATH_DELTA.json",
+    "bytes": 105501,
+    "sha256": "134c86f598046f972c5331bd13cb22ee5eec6d192982da3f9f72ce064fabb1d5"
+  },
+  "recordResolution": "Preserve checkpoint record entries on every preexisting record path; retain RC9-only record paths. GOALS/T287/STATUS get only a new current integration selection preserving historical bodies.",
+  "noStagedInput": true,
+  "noActiveGitOperation": true,
+  "review": "Writer inspected explicit path/category/size inventory; no raw run evidence or archive/dependency/scratch selected.20 STDO adoption collision records are only84,140 bytes and are already tracked by RC9."
+}

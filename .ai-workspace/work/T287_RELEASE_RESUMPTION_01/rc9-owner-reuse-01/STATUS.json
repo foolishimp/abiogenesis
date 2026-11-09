@@ -1,0 +1,370 @@
+{
+  "status": "RC9_OPERATIONAL_BUILDER_PINNED_UNQUALIFIED",
+  "recordedAt": "2026-11-09T00:18:12.581Z",
+  "operatorReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
+    "bytes": 18459,
+    "sha256": "8ff0ea154dea162edce372007c739ca4e8c3e3fae40c4b3978ba39ae3fa531ca"
+  },
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "sourceAccepted": true,
+  "run": {
+    "ref": "run://abiogenesis/dec8023c2046a90269b15f9d78a3a691c0020db028de6a3cfc2d9c7f0a0691b0",
+    "digest": "sha256:bd042f6d2030dce39c31533dc58b6dbaecb1dabbd1c30436b5d0709185d2b52c"
+  },
+  "sdkDisposition": "runtime_failed",
+  "closedAt": "2026-11-08T17:36:40.216Z",
+  "buildStatus": "BUILT",
+  "unitStatus": "INCOMPLETE_NATIVE_CEILING",
+  "completedFileCountsOnly": {
+    "tests": 70,
+    "passed": 62,
+    "failed": 5,
+    "skipped": 3,
+    "cancelled": 0,
+    "todo": 0
+  },
+  "freshReadbacks": "READBACKS_RECORDED_UNCHANGED_PREFIX_RUNTIME_FAILED",
+  "next": "No new work selected. Future authorized work must acquire genuine RC9 owners/resources through the installed Public route; never restamp RC8 Runs/catalogs/resources. GOAL-035/T-287 remain Active and residual/full5.0 qualification remain OPEN.",
+  "O3": "OPEN separate performance follow-up",
+  "qualified": false,
+  "previousSelection": {
+    "status": "RC9_LOCAL_DELIVERED_UNQUALIFIED",
+    "recordedAt": "2026-11-08T21:57:08.000Z",
+    "next": "Selected local RC9 delivery is complete. GOAL-035/T-287 remain Active and full5.0/qualification remain OPEN. No next RC, S7 work, runtime or execution selected.",
+    "previousSelection": {
+      "status": "RC9_BROAD008_ACTIVE_RETAINED62",
+      "recordedAt": "2026-11-08T20:22:34.218Z",
+      "next": "Complete already admitted broad008 and return actual results to Root; retain62 same-RC9 whole credits, execute139 whole files,8held. No broad/cut/install acceptance from tracking.",
+      "previousSelection": {
+        "status": "RC9_BROAD_STOPPED_C0_TIMEOUT_TRIAGE",
+        "recordedAt": "2026-11-08T20:10:58.368Z",
+        "next": "Complete bounded triage/ownership observation and return to Root. No broad acceptance, retry, extension, cut or install selected; source/claim/cut templates held."
+      },
+      "broad008Population": {
+        "retainedSameRC9WholeFiles": 62,
+        "retainedPasses": 329,
+        "retainedSkips": 82,
+        "wholeFilesExecuting": 139,
+        "held": 8,
+        "partial063Credit": 0,
+        "RC8Credit": 0
+      }
+    }
+  },
+  "sourceRows": 1340,
+  "sourceAssessment": "satisfied_no_new_findings",
+  "overallReview": "ROOT_ACCEPTED_BOUNDED_LOCAL_UNQUALIFIED_DELIVERY",
+  "verificationStatus": "LOCAL_RC9_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "currentEvidence": {
+    "ordinaryUnit": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+      "bytes": 9382,
+      "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+    },
+    "independentUnitReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/full-unit-007/REVIEW.json",
+      "bytes": 21839,
+      "sha256": "f2479d74ab1593e7bdc41d6741527fad4ff181f0056bb6d0b548cde26cca288b"
+    },
+    "unitReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_RETURN.json",
+      "bytes": 26007,
+      "sha256": "9fe606951d0a15376699a43ecd50eba13db2a8cde1d79a8c56d971558c40c3f0"
+    },
+    "finalDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+      "bytes": 8644,
+      "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+    },
+    "finalInstallVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9093,
+      "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340"
+    },
+    "packagingReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+      "bytes": 23288,
+      "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+    },
+    "broadAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857"
+    },
+    "operationalBuilderPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+      "bytes": 6302,
+      "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+    }
+  },
+  "m5Diagnostic": {
+    "tests": 32,
+    "passed": 26,
+    "failed": 6,
+    "findingsDisposition": "UNADJUDICATED"
+  },
+  "own004": {
+    "innerTestTimeoutSeconds": 500,
+    "passed": 0,
+    "failed": 0,
+    "cancelled": 1,
+    "commandWallSeconds": 528.428,
+    "finalDiagnostic": false,
+    "byteConservation": true,
+    "resourceStatus": "CHILD_CLOSED"
+  },
+  "nativeCallActive": false,
+  "runtimeRetryActive": false,
+  "rc9Cut": true,
+  "rc9Installed": true,
+  "builder": "RC9 immutable operational builder pinned; local candidate unqualified and unpublished",
+  "hostLoadCausation": "NOT_ESTABLISHED",
+  "openResiduals": [
+    "eight historical RC8 capsules",
+    "O3 performance reuse",
+    "undelivered duplicate/foreign/rollback probes",
+    "twelve cold residuals",
+    "S7",
+    "full15/full5.0 qualification",
+    "human gates"
+  ],
+  "trackingAuthority": "Explicit owner request to pin RC9 and Root operational-builder selection; bookkeeping and fresh read-only identity comparison only.",
+  "priorCurrentEvidence": {
+    "sourceReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
+      "bytes": 27681,
+      "sha256": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c"
+    },
+    "nativeFailedClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
+      "bytes": 18459,
+      "sha256": "8ff0ea154dea162edce372007c739ca4e8c3e3fae40c4b3978ba39ae3fa531ca"
+    },
+    "m5Diagnostic": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/DIAGNOSTIC_001_RETURN.json",
+      "bytes": 17371,
+      "sha256": "097042ba30a1c7d905f5f607e36d4f4a51631a979dcd3d0e73b1c1cb451ac84a"
+    },
+    "own004": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/OWN_PROOF_004_RETURN.json",
+      "bytes": 11991,
+      "sha256": "f4630184f802ff77935ea61d54f2398aecbfcbbce689f3f69743813ceb6c15ff"
+    }
+  },
+  "buildAccepted": true,
+  "ordinaryUnitAccepted": true,
+  "currentAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 8644,
+    "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+  },
+  "currentUnitStatus": "PASSED_FRESH_EXTERNAL_NORMAL_NINE_FILE_UNIT",
+  "currentUnitCounts": {
+    "tests": 95,
+    "failed": 0,
+    "passed": 89,
+    "cancelled": 0,
+    "skipped": 6,
+    "todo": 0,
+    "topLevel": 95,
+    "suites": 0
+  },
+  "nativeRunStanding": "Historical native03 runtime_failed/actual close retained; external unit success does not change it.",
+  "m5FindingsStanding": "Historical failures preserved; fresh ordinary007 M5 32 passes accepted within unit only. Timing cause/reliability unresolved; no invented deferral.",
+  "artifactAccepted": true,
+  "broadAccepted": true,
+  "releaseAccepted": true,
+  "currentW2Acceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+    "bytes": 5841,
+    "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+  },
+  "referenceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+    "bytes": 6336,
+    "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+  },
+  "referenceMeasurementAccepted": true,
+  "w2Accepted": true,
+  "broadActive": false,
+  "broadStarted": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/EXECUTION_STARTED.json",
+    "bytes": 2614,
+    "sha256": "ff5a18ae40722fd9e8aa415bf1f1bf70c0d4041a6356035cd1b287093a1be155"
+  },
+  "successorResidualClosure": {
+    "id": "RC8-W2-05-TOKEN-ORACLE",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "archiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    },
+    "historicalRC8RecordUnchanged": true
+  },
+  "broadReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_RETURN.json",
+    "bytes": 10385,
+    "sha256": "7a4468717984da45e21d03de99903f58ab1da7f0fae794169c16a67ed5516d09"
+  },
+  "broadSummary": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/SUMMARY.json",
+    "bytes": 240335,
+    "sha256": "54515e229b659bc25127cb042d6375745c5dff1b06d346cd1d6dd380dae9f27f"
+  },
+  "broadPopulation": {
+    "total": 209,
+    "selected": 201,
+    "attempted": 63,
+    "wholeFilePassed": 62,
+    "incomplete": 1,
+    "selectedUnattempted": 138,
+    "selectedRemainingIncludingIncomplete": 139,
+    "held": 8,
+    "heldRecordedBeforeStop": 0,
+    "focusedCredits": 0
+  },
+  "broadWholeFileCounts": {
+    "tests": 411,
+    "failed": 0,
+    "passed": 329,
+    "cancelled": 0,
+    "skipped": 82,
+    "todo": 0,
+    "topLevel": 372,
+    "suites": 0
+  },
+  "incompleteC0": {
+    "outerTimeoutMs": 600000,
+    "commandWallMs": 600005.9967080001,
+    "signal": "SIGTERM",
+    "partialPassedCases": 15,
+    "wholeSummary": false,
+    "reporterEnd": false,
+    "resourceReceipt": null,
+    "descendantClosure": "UNKNOWN_PENDING_READ_ONLY_OPERATIONAL_PROBE"
+  },
+  "conservation": {
+    "primaryStageAndDependencies": true,
+    "externalInputs": true,
+    "failedFileFinalDerivedConservation": "Not established beyond actual receipts"
+  },
+  "triage": "Root conjunction: prior proof limits were lost; no source/assertion defect established. Eight applicable limits restored, checks unchanged. Historical source/host cost causation is not inferred.",
+  "broad008Started": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-002/EXECUTION_STARTED.json",
+    "bytes": 2615,
+    "sha256": "9e200934204079e5c66a2dbd6cae52dbc15d040c720de110bd076f0a7e3b0f39"
+  },
+  "broad008Admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_008_RUN_ADMISSION.json",
+    "bytes": 4438,
+    "sha256": "8ac8605bbe66512b07428704fb236651055de73b493cd2afec9930e0d6ffe956"
+  },
+  "broad008Session": 65569,
+  "broad008Config": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-008.json",
+    "bytes": 214131,
+    "sha256": "ec04f94a9eca98ad9a932b12853bbbb74917867a1e5655a9f178463b36a76750"
+  },
+  "broad008Inventory": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-002/BOUND_INVENTORY.json",
+    "bytes": 1867635,
+    "sha256": "b6011697d340324e18654ec91f0fc24cb9b6d01b035469273c806f88338f7b95"
+  },
+  "broad008Population": {
+    "retainedSameRC9WholeFiles": 62,
+    "retainedPasses": 329,
+    "retainedSkips": 82,
+    "wholeFilesExecuting": 0,
+    "held": 8,
+    "partial063Credit": 0,
+    "RC8Credit": 0,
+    "wholeFilesCompleted": 139,
+    "newPasses": 704,
+    "newSkips": 148
+  },
+  "broad008OverallRemainingMs": 11695489,
+  "broad008RestoredApplicableLimits": 8,
+  "triageRecords": {
+    "operational": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-broad-007/OPERATIONAL_TRIAGE.json",
+      "bytes": 11461,
+      "sha256": "ab5bf84a04acb29670f7df0016ea002be97c1cfa7475bebed8ccf85d4a15ad6c"
+    },
+    "independent": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/broad-007-c0-timeout/REVIEW.json",
+      "bytes": 28551,
+      "sha256": "b4dbfe08116bfef69c51ae05ac2196e73c4a2d903864adaf7594f25a468e613a"
+    }
+  },
+  "historicalBroad007CustodyLimit": "Missing007failedresource receipt and escaped/changed-cwd uncertainty remain explicit; current ordinary successfulclosure resources required. No universal descendant absence claim.",
+  "published": false,
+  "globalSelectorChanged": false,
+  "sourceCommit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "sourceTree": "ff9a852c6670884c35f67934e9f49443199b723f",
+  "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant",
+  "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+  "finalDisposition": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/ROOT_FINAL_DISPOSITION.json",
+    "bytes": 8644,
+    "sha256": "f89bfbaf4bff5f7248258a4fa011b4096d7dc6a7589b5b8f93c0ee46e47fed25"
+  },
+  "finalInstallVerification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 9093,
+    "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340"
+  },
+  "finalInstallReturn": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-008/OPERATOR_RETURN.json",
+    "bytes": 16869,
+    "sha256": "36f77932c65580bfe04c1b1cf6885fd4eb85bd44e58e02c986a66552b207e714"
+  },
+  "builderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "goal035": "Active",
+  "ticketT287": "Active",
+  "full5_0": "OPEN",
+  "nextWorkSelected": false,
+  "sourceAcceptance": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+    "bytes": 11455,
+    "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+  },
+  "releaseAcceptanceScope": "Local unqualified delivery only; unpublished, no global selector or full qualification.",
+  "currentBroadCounts": {
+    "wholeFiles": 201,
+    "cases": 1263,
+    "passed": 1033,
+    "skipped": 230,
+    "failed": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "heldFiles": 8
+  },
+  "historicalFieldStanding": "Unprefixed operatorReturn/run/sdkDisposition/unitStatus/completedFileCountsOnly/freshReadbacks remain native03 historical failure evidence. broadStarted/broadReturn/broadSummary/broadPopulation/broadWholeFileCounts/incompleteC0 remain broad007 historical evidence. They are not relabelled by current delivery acceptance.",
+  "rc9BuildBuilder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "historicalBuilderPin": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "operationalPinOnly": true,
+  "runtimeAcquired": false,
+  "builderSelection": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-operational-pin-01/BUILDER_PIN.json",
+    "bytes": 6302,
+    "sha256": "cf78adcc3b44737b813c721704470e2ad4674c7dde9631dd7168ff0b724932bb"
+  },
+  "builderQualified": false,
+  "builderPublished": false,
+  "rc9BuildBuilderStanding": "Immutable RC8 built RC9; original P9/BUILDER_PIN.json remains unchanged. Current operational builder is now RC9."
+}

@@ -1,0 +1,270 @@
+{
+  "status": "AUTHOR02_CLOSED_UNIT_FAILED_SOURCE_HELD",
+  "recordedAt": "2026-11-08T07:19:58.408291+00:00",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "result": "Exact eight-path physical-check restoration, HOW and RC9 metadata frozen; unit failed on retained nominal-prefix fixture construction. No source acceptance/qualification.",
+  "source": {
+    "root": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse",
+    "freeze": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+    },
+    "sourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+    "rows": 1340,
+    "changedFromAuthor01": [
+      "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/contracts.ts",
+      "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+      "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "build_tenants/abiogenesis/typescript/package-lock.json",
+      "build_tenants/abiogenesis/typescript/package.json",
+      "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs"
+    ],
+    "allLiveRowsEqualFreezeAfterClose": true,
+    "nativeObservedChangedPathsEqualEightScope": true,
+    "allEightNativeObservedFileBytesMatchFreeze": true,
+    "restoredConsumersExactRc8": true,
+    "metadataAgreement": "package/lock two version fields/contracts two constants5.0.0-rc.9; unit script unchanged; see exact comparison",
+    "sourceAccepted": false
+  },
+  "runtime": {
+    "run": {
+      "ref": "run://abiogenesis/fb1276451a54687192a1a6251bb9fa995d75a2e844cfa107cf6b4ac256e99e25",
+      "digest": "sha256:5adde845bcdf841295e08b9621fbedea7c6a255789862509422e196871148319"
+    },
+    "result": {
+      "ref": "result://abiogenesis/b8a62d2743899d1d3218cfaaeb107c2252fbdb3f1d4d275237e95be1c6667077",
+      "digest": "sha256:b8a62d2743899d1d3218cfaaeb107c2252fbdb3f1d4d275237e95be1c6667077"
+    },
+    "valueKind": "native_workspace_work_observation",
+    "ownerOutcomeKind": "result",
+    "nativeProcessExited0": true,
+    "sessionId": 23154,
+    "hostExitCode": 0,
+    "closedAt": "2026-11-08T07:17:22.988Z",
+    "closedPrefix": {
+      "kind": "durable_prefix_coordinate",
+      "schemaVersion": "5.0.0",
+      "eventLogRef": "file:///Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/resources/events/runtime.events.jsonl",
+      "prefixLength": 39712384,
+      "prefixDigest": "sha256:406419ed9a4cc9663f7bb10af74933bff1eb83aa89b04dded4b604840df8b04a",
+      "storeIdentity": {
+        "device": 16777231,
+        "inode": 714208439,
+        "eventContractDigest": "sha256:51299706fecc4485b039a4169e7b50b30dc04c447fb5cbf3f7366c9caef782cf"
+      },
+      "coordinateDigest": "sha256:72f501d1e8b0d32e549c982209c048a73026c4b6d2f637f4e3d970f5971bcdd6"
+    },
+    "freshReadbacks": {
+      "status": "READBACKS_PASSED_UNCHANGED_PREFIX",
+      "fullTypedTerminalsEqualActualSdk": true,
+      "prefixUnchanged": true
+    },
+    "openLiveOwner": false
+  },
+  "proof": {
+    "buildStatus": "BUILT",
+    "unitStatus": "FAILED",
+    "counts": {
+      "tests": 95,
+      "failed": 1,
+      "passed": 88,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0,
+      "topLevel": 95,
+      "suites": 0
+    },
+    "unitCommand": {
+      "exitCode": 1,
+      "signal": null,
+      "failure": null,
+      "timedOut": false,
+      "truncated": false,
+      "wallMs": 213512.67704100002,
+      "receipt": "commands/unit.result.json"
+    },
+    "reporterComplete": true,
+    "parseFailure": null,
+    "allNineFilesObserved": true,
+    "requiredCases": [
+      {
+        "file": "test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "passed": false
+      },
+      {
+        "file": "test_env/tests/t287-owned-call-reference.test.mjs",
+        "passed": true
+      }
+    ],
+    "failure": "OWN-01 line102 passes selection.prefix DurablePrefixCoordinate to runtimeEventBodiesAtPrefix requiring nominal ValidatedRuntimeEventPrefix. Final proof halted.",
+    "executedPassed": "All O2 assertions and three held installed Runs with successor carriage and physical install/basis counter thresholds. Exact counters not emitted. Existing owned-call-reference passed.",
+    "unexecutedUnknown": "O1 lineage/cold/refusal checks, test held-resource close, O4, Public changed-content refusal and complete O3 first-consumer falsifier.",
+    "sourceMutationOrRetryAfterFreeze": false
+  },
+  "nativeReportedGaps": [
+    "The final unit proof failed: RC9 OWN-01 hit a TypeError at frozen test line 102, because the O1 block passes the held selection's prefix (a durable prefix coordinate) where a validated runtime event prefix is required. Root must rule on this and a new freeze is needed. Whether O1 can work from the held final selection without a production change is unknown.",
+    "Never executed, so unknown: the O1 row and lineage checks, the held-resource close, the O4 worker-contract checks, the O3 Public verifications and changed-content refusal, and the whole new first-consumer regression. That regression is the test meant to disprove the rejected shortcut, so the shortcut is still not disproved. The only supporting evidence is that semantics.ts and leaf_invocation_port.ts match RC8 byte for byte.",
+    "OWN-01's counter observations were never written out, because the diagnostic is at the end of the test. The held Runs only showed the counters met their thresholds (at least one install check and file hash, at least one basis row check per Run).",
+    "One construction-feedback attempt was spent without starting the compiler (no `timeout` command on this host). The second attempt type-checked the source but did not run any tests.",
+    "Still open: O3 installed-verification reuse (T287 performance follow-up), all nine RC8 residuals, the twelve cold residuals, S7, and the full 5.0 and human gates. Root still owns independent review, exact-archive W2, matched measurement, broad proof, and packaging review, cut and install."
+  ],
+  "procedureDepartures": [
+    "Production exact-RC8 restoration preceded HOW edits; Root retained ordering deviation because structural restoration was selected before effect. HOW completed before freeze.",
+    "First local compiler attempt used unavailable timeout command and did not start compiler; one actual subsequent tsc succeeded. Node syntax check also passed. Native counted failed attempt within two-check limit."
+  ],
+  "measuredIntervals": {
+    "durableScopeRecordToHostStartSeconds": 318.432152,
+    "actualHostToPreparedSeconds": 23.6441955,
+    "functionalPreparationSeconds": 22.972856375,
+    "preparedToDispatchSeconds": 61.684805,
+    "priorAuthor01ActualCloseToDispatchSeconds": 932.229,
+    "dispatchToActorSeconds": 6.566,
+    "dispatchToSdkReturnSeconds": 797.638334667,
+    "buildCommandSeconds": {
+      "compile": 8.191888875,
+      "generate": 53.9937725,
+      "imports": 0.04185349999999744,
+      "lifecycle": 0.6415931659999915,
+      "calculus": 0.2528291670000035
+    },
+    "unitSeconds": 213.51267704100002,
+    "freshReadbacksSeconds": 10.0183855
+  },
+  "timingLimit": "Wall-clock intervals for this task; preparation anchor is first durable scope record, and prior-close-to-dispatch includes review/coordination. No per-call/full-workflow speedup inference.",
+  "reportedProviderCostUsd": 3.3636786000000014,
+  "reportedNativeTurns": 61,
+  "usageLimit": "Actual Claude CLI reported telemetry, not independently verified billing. Native author02 only; excludes Root/operator/review/control cost. No speedup claim.",
+  "evidence": {
+    "scope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_SCOPE.json",
+      "bytes": 3663,
+      "sha256": "5d0f6f010854447821bc28d65d6bf98f62872fb1511d03bca96f7e927599bb9d"
+    },
+    "binding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/BINDING.json",
+      "bytes": 10156,
+      "sha256": "294d0d53881ba9e924382fffd911d2c646d204edb8190e9d94fc140b27b0faae"
+    },
+    "admission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/ROOT_ADMISSION.json",
+      "bytes": 4512,
+      "sha256": "144dcad775baaeda18f821b50bac788015905f0d037c53560b1c3e30d906be1f"
+    },
+    "prepared": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+      "bytes": 6254,
+      "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+    },
+    "nativeStarted": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/NATIVE_STARTED.json",
+      "bytes": 6919,
+      "sha256": "ce2a5d106fb9cf2412877f5b6728927c9cff1bf28442f113dad5a425ece6fe92"
+    },
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+    },
+    "sourceComparison": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/FROZEN_SOURCE_COMPARISON.json",
+      "bytes": 2991,
+      "sha256": "04d037b9ad58542c12f67834dbcd7a831391772ad97de74a0f77eae7d0b911e2"
+    },
+    "stage": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/RESULT.json",
+      "bytes": 919,
+      "sha256": "1c0838a658da7148318f3e2da063b4df8601c61c01336af78cc8532f8316320f"
+    },
+    "unit": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/RESULT.json",
+      "bytes": 5566,
+      "sha256": "34fb4c3b6328f0e5efd0d337f23eb6c667fd35444598e00ce24fd5ab47098c57"
+    },
+    "unitEvents": {
+      "path": "/private/tmp/abg-r9-owner-native-002/unit-01/events.jsonl",
+      "bytes": 31338,
+      "sha256": "5e1b0f36649f89192dc76bf14206f5d06a587a8408777a3d6aecc954e965037a"
+    },
+    "halt": {
+      "path": "/private/tmp/abg-r9-owner-native-002/HALT.json",
+      "bytes": 222,
+      "sha256": "ea2a7d5ca6abdee68ab1db8122211b8488738c539de8f8c2e788cb997c36142f"
+    },
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 1172327,
+      "sha256": "ceb59fe8c16d8d24606a3e0cbe02d6677acd37baa2a1e1a3b9af41d25bb0e7b5"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/resource-close.json",
+      "bytes": 2302,
+      "sha256": "3bc16115da46e7e0e5976edb00b7b5c60d26462f665f14030122823d63aaf738"
+    },
+    "readbackBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/READBACK_BINDING.json",
+      "bytes": 1841,
+      "sha256": "87812129142485554bd4eece6aea33a04044e67d2529da25dc54da74be32be53"
+    },
+    "readbackControl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/readbacks.mjs",
+      "bytes": 4535,
+      "sha256": "f7ecd83e4d706b2d7487d446c9298cdfc73dd49a2e2e0963ad27bcc6b384edce"
+    },
+    "freshReadbacks": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/readbacks-001/RESULT.json",
+      "bytes": 6627,
+      "sha256": "0b88955d155d80754c6ea4e800c13b34aec34e13bbaf95ed49025e181d32e841"
+    },
+    "providerUsage": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/PROVIDER_USAGE.json",
+      "bytes": 2027,
+      "sha256": "62e3aab22aba8583cf2793126c036d6764ea5315de0dc33a0503fbec3a096ffd"
+    },
+    "nativeHandoff": {
+      "path": "/Users/jim/src/apps/abiogenesis-rc9-owner-reuse/qualification-scratch/rc9-owner-reuse-01/author-02/HANDOFF.md",
+      "bytes": 9949,
+      "sha256": "2815e395ac127aebbd19f452bee67df2acb0dd961f53dfa7affd311b059b08ca"
+    }
+  },
+  "nextContinuation": {
+    "status": "HELD_PENDING_ROOT_NEW_COUNTEREXAMPLE_DISPOSITION",
+    "actualPrepared": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/PREPARED.json",
+      "bytes": 6254,
+      "sha256": "f00e9382436ba0e44dbb2037865175d4ef03b11e8ecb4839741e1cf3cbc6699c"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/runtime-001/resource-close.json",
+      "bytes": 2302,
+      "sha256": "3bc16115da46e7e0e5976edb00b7b5c60d26462f665f14030122823d63aaf738"
+    },
+    "consumerAcquisition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/consumer-acquisition.json",
+      "bytes": 10156,
+      "sha256": "bb9e47b3fa7390a9db00e8391166e18b30888bd40e20560e5b1a15283a65af71"
+    },
+    "setupIdentity": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/runtime-001/setup-identity.json",
+      "bytes": 9493429,
+      "sha256": "63779e064c6cce78c1fec7bd920e29d264dfcc001f6b71a3a7b7e40c1cdf1caf"
+    },
+    "readback": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-02/readbacks-001/RESULT.json",
+      "bytes": 6627,
+      "sha256": "0b88955d155d80754c6ea4e800c13b34aec34e13bbaf95ed49025e181d32e841"
+    },
+    "sourceFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+    },
+    "note": "Use actual author02 closed prefix only; never replay original setup. No successor runtime/provider/control scope is selected by this return."
+  },
+  "O3Residual": "Retained installed verification optimization OPEN separate T287 performance follow-up; prior physical verification required, no zero/once-per-resolution or O3 speedup claim.",
+  "allNineRc8ResidualsRemainOpen": true,
+  "qualified": false
+}

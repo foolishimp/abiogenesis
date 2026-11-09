@@ -1,0 +1,190 @@
+{
+  "status": "ROOT_SOURCE_ACCEPTED_BOUNDED_RC9_SOURCE_BUILD_UNIT",
+  "at": "2026-11-08T19:01:50.308Z",
+  "authority": {
+    "decisionOwner": "/root Executive",
+    "recordedBy": "/root/rc9_operator",
+    "writerRole": "Separately activated Writer recording explicit Root decision after closed independent007 review; not independent adjudication.",
+    "ownerInstruction": "use RC8, pin to RC8 and use it to build RC9",
+    "rootDecision": "Root decision now: accept exact frozen source25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864/1340rows, BUILT003fb46c8fd, and fresh ordinary007 RESULT3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934 for the already-selected bounded RC9 artifact-proof continuation. Conjoin source002 production/restoration/metadata assessment; source003 no-new-findings and source corrections; independent006 scoped closure7531d634; independent007 message confirms107 contiguous records,95 exact cases,89passes,6exact existing skips,nine successful files,OWN+REF full diagnostics,M532pass/no new blocker. Preserve actual failed/closed native03 and physical freeze; no invented successful native return. This is bounded source/build/unit acceptance, not artifact/broad/release/qualification. All prior failures remain historical, timing cause unresolved, no reliability claim or invented M5 deferral. O3 performance reuse remains OPEN and original physical checks retained. All nine historical RC8 capsules,12cold,S7/full15/human remain open; W2 requires exact archive broad result. No source/native/Git edits.",
+    "recordingCondition": "Independent007 REVIEW.json closed and actual bytes pinned; satisfied.",
+    "bookkeepingGrant": "New P9/ROOT_SOURCE_ACCEPTANCE_007.json and current leading GOALS/T287/actual STATUS.json only; no execution."
+  },
+  "frame": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "method": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "goal": "GOAL-035",
+    "ticket": "T-287",
+    "fixedFamilies": 15
+  },
+  "decision": "Accept exact frozen RC9 source, existing BUILT003 and fresh ordinary nine-file unit007 for the selected bounded artifact-proof continuation.",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "sourceRows": 1340,
+  "sourceFreeze": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+    "bytes": 294773,
+    "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+  },
+  "builder": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+    "bytes": 3608,
+    "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+  },
+  "sourceAcceptanceConjunction": [
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/REVIEW.json",
+        "bytes": 30834,
+        "sha256": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786"
+      },
+      "acceptedRelation": "Bounded production, physical-check restoration, owning HOW and exact RC9 metadata assessment. Its falsified fixture findings and failed proof remain historical; no blanket satisfied reclassification."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/REVIEW.json",
+        "bytes": 27681,
+        "sha256": "2cf53adc40d567eec2d43e728df8a67717d5dd9c0500a3e6182d26bf813ac37c"
+      },
+      "acceptedRelation": "One-test source correction assessment satisfied/no new finding. Original overall indeterminate execution standing retained historically; now conjoined with006 and fresh ordinary007."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003-execution-006/REVIEW.json",
+        "bytes": 22303,
+        "sha256": "7531d63429221cff43f96064da863b22d67550ee6b37347b2cf6357e8ca555e2"
+      },
+      "acceptedRelation": "Satisfied scoped execution006; no ordinary-unit substitution."
+    },
+    {
+      "evidence": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/full-unit-007/REVIEW.json",
+        "bytes": 21839,
+        "sha256": "f2479d74ab1593e7bdc41d6741527fad4ff181f0056bb6d0b548cde26cca288b"
+      },
+      "acceptedRelation": "Satisfied actual ordinary nine-file unit007 execution closure; no findings or concrete blocker to Root selecting prepared artifact-proof path."
+    }
+  ],
+  "build": {
+    "result": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "inputs": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/BUILD_INPUTS.json",
+      "bytes": 658,
+      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+    },
+    "status": "BUILT",
+    "identity": "package/lock/ABI5 constants/generated manifest5.0.0-rc.9"
+  },
+  "focusedProof": {
+    "result": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/RESULT.json",
+      "bytes": 9382,
+      "sha256": "3a500ece3a4e8331ce1d33242f4a56658c0355dace659516a22629a5eb93a934"
+    },
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/FULL_UNIT_007_RETURN.json",
+      "bytes": 26007,
+      "sha256": "9fe606951d0a15376699a43ecd50eba13db2a8cde1d79a8c56d971558c40c3f0"
+    },
+    "independentReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/full-unit-007/REVIEW.json",
+      "bytes": 21839,
+      "sha256": "f2479d74ab1593e7bdc41d6741527fad4ff181f0056bb6d0b548cde26cca288b"
+    },
+    "counts": {
+      "tests": 95,
+      "failed": 0,
+      "passed": 89,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0,
+      "topLevel": 95,
+      "suites": 0
+    },
+    "reporterRecords": 107,
+    "fileCount": 9,
+    "ordinaryUnitScriptUnchanged": true,
+    "requiredDiagnostics": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/full-unit-007/REQUIRED_DIAGNOSTICS.json",
+      "bytes": 19922,
+      "sha256": "8b588fabb7851d6f5b4edddb8322be2e267e8fed91fbbf0d7e2ce0877706ee5d"
+    },
+    "ownAndReferencePassed": true,
+    "m5": {
+      "cases": 32,
+      "passed": 32,
+      "failed": 0
+    },
+    "historicalFailureInterpretation": "Earlier native03 partial unit, M5 diagnostic and OWN004 cancellation remain actual immutable failures; single fresh pass does not establish cause or general reliability."
+  },
+  "actualNativeCustody": {
+    "operatorReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/OPERATOR_RETURN.json",
+      "bytes": 18459,
+      "sha256": "8ff0ea154dea162edce372007c739ca4e8c3e3fae40c4b3978ba39ae3fa531ca"
+    },
+    "sdkOutcome": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/calls/lifecycle-start.outcome.json",
+      "bytes": 140344,
+      "sha256": "f0d49b8a3740af4972fa21378e202f3a2628d0de9340d8801f9df792904190a4"
+    },
+    "actualClose": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/resource-close.json",
+      "bytes": 2302,
+      "sha256": "3ed579e927f7f53bdda1edf449fc23b3a009136352eb1c267832be50050367c0"
+    },
+    "freshReadResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/readbacks-001/RESULT.json",
+      "bytes": 1877,
+      "sha256": "b2c339d67d9d5e614446ff7722104d19c81b315b59cead8bcdbd0880b679b4d2"
+    },
+    "disposition": "runtime_failed",
+    "terminalResult": null,
+    "relation": "Actual native03 timeout/failed close and absent-result refusal/failed replay preserved. Later external unit acceptance does not invent a successful native return."
+  },
+  "scope": {
+    "selected": "O1/O2/O4 and bounded F3/F4/F6 source/test changes with RC9 metadata; source002/003/006/007 limits carried forward.",
+    "O3": "OPEN separate performance follow-up. Original physical verification at consumer/effect boundaries retained; no same-resolution/zero-read/once-per-resolution reuse claim."
+  },
+  "limits": [
+    "Six retained skips are excluded coverage, not passes. Full W2, matched RC8/RC9 measurement, 201-file broad suite and remaining historical/cold/S7/full-five/human gates are not discharged.",
+    "OWN synthetic worker-contract probe does not establish the actual actor producer path; duplicate/foreign/rollback row cases remain unproved. No new source semantic judgment beyond reused003/006.",
+    "O3 physical-verification reuse remains OPEN; actual consumers retain physical checks. No zero-read or once-per-resolution install claim. Per-Run environment counters are observed, not newly asserted guarantees.",
+    "Single ordinary run, instrumented reporter and fixed environment/8GiB heap. No performance acceptance, timing-cause inference, general reliability, artifact qualification, native/public installation or release acceptance.",
+    "Resource monitoring is sampled, not a quota or universal detached-descendant absence proof.",
+    "All nine historical RC8 residual capsules,12cold,S7,full15 and human gates remain OPEN.",
+    "W2 requires complete exact-archive proof and Root disposition; ordinary unit does not grant archive/broad/release/qualification acceptance.",
+    "No timing-cause inference, speedup or reliability claim; no invented M5 deferral or historical failure closure.",
+    "RC9 is not cut or installed; immutable RC8 builder remains pinned and unchanged."
+  ],
+  "nextEffect": "Prepared minimal bootstrap gate007 and existing artifact-proof continuation require their own actual bindings/admission. This record supplies sourceAcceptance; it activates no execution.",
+  "currentState": "SOURCE_BUILD_UNIT_ACCEPTED_ARTIFACT_PROOF_PREPARING",
+  "sourceAccepted": true,
+  "buildAccepted": true,
+  "ordinaryUnitAccepted": true,
+  "artifactAccepted": false,
+  "broadAccepted": false,
+  "releaseAccepted": false,
+  "qualified": false,
+  "bookkeepingExecutionEnabled": false
+}

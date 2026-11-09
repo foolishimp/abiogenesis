@@ -1,0 +1,94 @@
+{
+  "status": "ROOT_REFERENCE_ACCEPTED_BOUNDED_EXACT_ARCHIVE",
+  "at": "2026-11-08T19:17:23.804Z",
+  "authority": "Root Executive decision; /root/rc9_operator records as separately activated Writer. Exact STDO3.0.4/ABI5 delivery frame, GOAL-035/T-287. Root reports independent verification of all91 actual return pins,0mismatches and raw before/after MEASUREMENT+HOST_SUMMARY acquisition. Writer verified the principal pins below; no new execution.",
+  "decision": "Accept bounded exact-RC9-archive reference/counter/close measurement for later cut conjunction. Source acceptance007 remains. Broad/W2, final cut/install and qualification are not accepted or activated.",
+  "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+  "evidence": {
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "bootstrapReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BOOTSTRAP_007_RETURN.json",
+      "bytes": 13582,
+      "sha256": "3314ead967b444b723e922318777e6edb9d98268b09541c35281830a931ed311"
+    },
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "verification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/verification.json",
+      "bytes": 15797948,
+      "sha256": "898c979cef4d0ff63f2cb02db22b665b911e3570ee4f95f4eff47d4c77eb5611"
+    },
+    "installation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/installation.json",
+      "bytes": 4231675,
+      "sha256": "327cebf91c092b13c77cf5ae3b409d9c41a20938f5193f16807c84bc2c0adc5e"
+    },
+    "physicalContentCheck": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/OWNER_CONTENT_CHECK.json",
+      "bytes": 529,
+      "sha256": "94ac9cb36b0831748b1b205383edb556f00dfe946f38160b4ed0651f0ee067be"
+    },
+    "sourceArtifactRelation": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/SOURCE_ARTIFACT_RELATION.json",
+      "bytes": 4087,
+      "sha256": "50697a33ab3761d513cd5363e99a049bb6424d58114cf0fcbc7c90c92e7e7cc8"
+    },
+    "matchedReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/MATCHED_MEASUREMENT_007_RETURN.json",
+      "bytes": 60663,
+      "sha256": "b0939a1e97b3bbb333c477cc7ec31b33d6c8c4cf78326d645411eba4743e2ff3"
+    }
+  },
+  "acceptedObservations": [
+    "Both subjects complete exit0: two unprofiled matched calls each, four held and four fresh complete same-operation/terminal equalities per subject, actual close, unchanged final prefix and successful resource checks. Full raw reports/command/prefix/profile pins are retained in matchedReturn.",
+    "Per SDK call worker contractCopies/reuses: RC8 1/1; RC9 0/2. These plan counters do not measure total actual native contract producer construction.",
+    "RC9 environmentDerivations1 then0; each new SDK call admits/digests two new basis rows (2/2). Held unchanged-row reuse0/0 is separately evidenced by OWN in sourceAcceptance; these are distinct observations.",
+    "RC9 retains physical checks:3 content verifications/15969 file hashes per SDK call, plus1/5323 during construction. O3 verification reuse remains OPEN; no zero-read or once-per-resolution claim.",
+    "Baseline row/environment/install role counters are unavailable, never inferred zero. RC8 reference zero-work observations and warm history decode/reopen/coldHistoryReads0 remain preserved."
+  ],
+  "timing": {
+    "unit": "ms",
+    "matchedUnprofiledSdkCalls": {
+      "1MiB": {
+        "RC8": 2932.315,
+        "RC9": 2679.91
+      },
+      "4MiB": {
+        "RC8": 3551.122,
+        "RC9": 2815.679
+      }
+    },
+    "standing": "n=1 per size/subject; descriptive observations only. No causal speedup, general bound, reliability or provider qualification. Setup/construction/work/read/close intervals remain separate in matchedReturn."
+  },
+  "separateAfterOnlyProfile": {
+    "sdkCallMs": 2834.384,
+    "weightedSelfPercent": {
+      "canonicalWrite": 20.57,
+      "crypto": 6.13,
+      "nativeUpdateUnclassified": 11.49,
+      "idle": 27.06
+    },
+    "standing": "Separate third4MiB parent-process profile; matched pair unprofiled. Child CPU excluded; self-time is not wall-time attribution and blank-URL native update remains unclassified. Actual profile pin in matchedReturn.afterOnlyProfile."
+  },
+  "limits": [
+    "Scripted F_P native-path observation only; no real-provider operational proof or actual producer construction-total claim.",
+    "Fresh result and bounded ordinal-page replay equality do not establish whole-history replay qualification. Sampled resource checks are not hard quotas or universal detached-process absence.",
+    "All prior failures remain historical; no timing-cause inference, general reliability claim or invented M5 deferral.",
+    "All nine historical RC8 residuals,12cold,S7/full15/human gates remain OPEN. Broad/W2 remain pending; W2 requires exact-archive broad result and Root disposition.",
+    "RC9 bootstrap is a disposable proof installation, not the final immutable local cut/install. Pinned RC8 and prior source acceptance remain unchanged."
+  ],
+  "nextEffect": "Supply this acceptance to existing later cut/proof conjunction. No broad, cut, install or other execution activation.",
+  "sourceAcceptancePreserved": true,
+  "referenceMeasurementAccepted": true,
+  "broadAccepted": false,
+  "qualified": false,
+  "executionEnabled": false,
+  "effects": "Only this new Q9 acceptance record written; no tracker, Product/source/Git/native/test/build/cleanup changes."
+}

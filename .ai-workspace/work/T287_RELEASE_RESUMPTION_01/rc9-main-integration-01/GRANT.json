@@ -1,0 +1,43 @@
+{
+  "status": "ROOT_ADMITTED_RC9_MAIN_INTEGRATION_WRITER",
+  "at": "2026-11-09T00:46:04.087006+00:00",
+  "actor": "/root/rc9_operator",
+  "consumer": "/root Executive",
+  "rootGrantVerbatim": "New explicit owner instruction: \u201cdo that now\u201d, accepting Root recommendation to make RC9 authoritative on local main through a merge preserving main history and current records, with final product source exactly RC9. Activate as separate Writer under existing ABI5 frame and STDO3.0.4 (no root Executive mutation). This is a bounded source-checkpoint/integration operation, no new Product behavior, runtime, qualification or publication. Read exact installed stdo-work and references as applicable; reuse current owner instruction as exact grant, no additional user approval.\n\nSubject: R=/Users/jim/src/apps/abiogenesis, main=1344547c94dc0684af0cd83260438c41245a6f8a, RC9=e30ac16b4a9406c43d054f45bad864746352dad6/tree ff9a852c6670884c35f67934e9f49443199b723f. RC9 contains every RC1\u20138 cut. Main-only51 commits touch only .ai-workspace and specification/GOALS.md. Final committed tracked tree outside .ai-workspace and specification/GOALS.md MUST equal RC9 exactly (paths, modes, contents), with installed artifacts/pins/history untouched. Preserve all main ancestors through an ordinary two-parent merge, no history rewrite.\n\nCurrent main has12 dirty tracked paths, no staged state observed (recheck). 8 non-record dirty paths: AGENTS.md, CLAUDE.md, PRODUCT.md, requirements/README.md, stdo_abiogenesis.json and ABI5_PROJECT_REFERENCE_FRAME_BASIS.md exactly match RC9; the dirty ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md and ABI5_STDO3_COMPUTATIONAL_BINDING.md differ from RC9. Preserve current tracked preimages in a local checkpoint commit before resolving final product territory to RC9. Other4 tracked dirty paths are GOALS, T287, rc3-dogfood/NEXT_ACTIVATION_LIMITS.md and OVERNIGHT_STATUS.md; preserve current content (except explicitly prepended integration selection/status).\n\nThere are35,836 untracked .ai-workspace files totaling38,642,360,530 B. Do NOT blanket git add or commit raw run evidence; preserve all in place. Retain prior current RC9 delivery/pin/principal acceptance/status records in Git with a reviewed explicit inventory; use compact manifests/receipts and bounded summaries rather than raw execution dumps, archives, dependencies or generated scratch. You may checkpoint prior top-level relevant rc7/8/9 compact delivery records if needed for coherent provenance; no broad unrelated historical sweep. Record exclusions truthfully. Inventory prospective untracked-path collisions with RC9 before merge and preserve current variants; never discard an untracked file. Existing tracked evidence must remain in history and desired current records remain in final tree.\n\nPermitted territory/effects: local Git objects/index/refs for preservation checkpoint + ordinary merge into main; main worktree product paths changed solely to exact RC9 entries; current .ai-workspace evidence/records preservation; new W/rc9-main-integration-01 grant/manifest/result; concise GOALS/T287/current STATUS integration selection update preserving historical bodies and RC9 operational pin. Safety refs and temporary isolated worktree are allowed if useful. Source commit ancestry from existing RC9 branch must be preserved, no cherry-pick/squash. No push, remote branch writes, force operations, deletes/cleanup of evidence, changes to installed/release bytes, tests/build/native/provider runs. Do not change RC9 branch/worktree or older dirty worktrees. No new review cycle required for a byte-preserving Git operation; Root independently verifies final ancestry/trees/record pins.\n\nPreflight: exact main/RC9 guards; inspect active Git operation/index; retain source+tracked dirty preimages and untracked inventory/stat snapshot; inspect scoped AGENTS for record territory; freeze admitted operation and actual preservation intent. Choose a safe implementation using normal Git; resolve product conflicts to exact RC9 by grant and record conflicts to preserved current records/union where possible. If unexpected concurrent writer/source drift or evidence loss risk cannot be handled without scope enlargement, stop and return exact issue; no destructive workaround.\n\nExit: local main includes both pre-main and RC9 ancestry, final non-record tracked tree exactly RC9, every preexisting tracked record retained current or with exact preserved historical identity, untracked evidence conserved, current RC9 pin preserved, no unresolved merge/index state. Return checkpoint and merge hashes, parents, actual path inventory, proof and residual dirty/untracked counts; record durable result in W/rc9-main-integration-01. Complete the authorized integration and stop. Keep progress compact.",
+  "grantSha256": "3a3e147946cbb3f2fd3627b8e484affbb79abc421b5544d7c7832097dad90e1b",
+  "additionalRootGrant": "Final bookkeeping checkpoint is authorized if needed; preserve merge ancestry and exact RC9 non-record tree. Final proof includes physical main-worktree byte/mode comparison.",
+  "changeClass": "goal_reprice",
+  "reentry": "Authorized source checkpoint/integration of already accepted RC9; no new Product semantic/design choice",
+  "targetTruth": "Local main has both histories, exact RC9 non-record entries, preserved current record union, unchanged local unqualified RC9 operational pin",
+  "supersededTruth": "Local main source lags the already delivered and operationally pinned RC9 source",
+  "closureLaw": "Exact ancestry/tree/physical/index and preservation comparisons; no new tests, build or qualification",
+  "basis": {
+    "definition": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+    "definition_id": "urn:stdo:product-definition:abiogenesis",
+    "basis": "stdo://releases/v3.0.4/",
+    "manifest_sha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "installed": true,
+    "valid": true,
+    "failures": []
+  },
+  "frame": {
+    "path": "/Users/jim/src/apps/abiogenesis/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "bytes": 27131,
+    "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  "product": {
+    "path": "/Users/jim/src/apps/abiogenesis/specification/PRODUCT.md",
+    "bytes": 100324,
+    "sha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+  },
+  "skill": {
+    "path": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec/skills/stdo-work/SKILL.md",
+    "bytes": 13369,
+    "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+  },
+  "host": "Separate Writer actor, inherited permitted context, shared unrestricted filesystem; no technical context isolation or independent review claim",
+  "main": "1344547c94dc0684af0cd83260438c41245a6f8a",
+  "rc9": "e30ac16b4a9406c43d054f45bad864746352dad6",
+  "sourceTree": "ff9a852c6670884c35f67934e9f49443199b723f",
+  "operation": "Checkpoint explicit dirty and compact record paths; ordinary two-parent merge; resolve Product entries exactly to RC9 and record entries to current-record union; commit final bookkeeping separately if required; stop."
+}

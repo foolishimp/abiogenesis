@@ -1,0 +1,196 @@
+{
+  "ProductFrame": "Fixed fifteen-family ABI5 Product/T287, STDO3.0.4; separate external Proof Writer executing Root RC9-BROAD-007. Root owns source/proof/artifact/residual/release conjunction.",
+  "status": "BROAD_CLOSE_STOPPED_INCOMPLETE",
+  "recordedAt": "2026-11-08T20:07:50.446147+00:00",
+  "execution": {
+    "bindAttempts": 1,
+    "runAttempts": 1,
+    "ownedSession": 75765,
+    "mainHostExitCode": 1,
+    "startedAt": "2026-11-08T19:21:14.812Z",
+    "stoppedAt": "2026-11-08T20:06:17.964Z",
+    "campaignWallMs": 2704511,
+    "retry": false,
+    "extension": false
+  },
+  "controls": {
+    "config": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_BINDINGS.actual003.bound-007.json",
+      "bytes": 47083,
+      "sha256": "a2ba7d6fd3f757329cdcdb95002e684d91dce89ec17e1f9288ee375e456828ee"
+    },
+    "bindAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_007_BIND_ADMISSION.json",
+      "bytes": 3436,
+      "sha256": "d23c47842615c03cf79e70b372bb7a3e5d5d4958ab5aeb5199695e6358d7f9d6"
+    },
+    "runAdmission": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_007_RUN_ADMISSION.json",
+      "bytes": 4089,
+      "sha256": "051fcf4bf6a445d2dd7b00c6892572baab6a2cdf1b6bb75b75ee88427df0e138"
+    },
+    "inventory": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-binding-001/BOUND_INVENTORY.json",
+      "bytes": 1701389,
+      "sha256": "e75c167187c939e5c54e5de207d978697829ba953e7fea944dae28ed05d2966d"
+    },
+    "started": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/EXECUTION_STARTED.json",
+      "bytes": 2614,
+      "sha256": "ff5a18ae40722fd9e8aa415bf1f1bf70c0d4041a6356035cd1b287093a1be155"
+    },
+    "owner": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/close-proof.mjs",
+      "bytes": 32816,
+      "sha256": "2e8e4155be73606d1009b629019b9966470225890a785c78105c6b6a80ba383e"
+    },
+    "fileHost": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/file-host.mjs",
+      "bytes": 2803,
+      "sha256": "872048f0f0349460c310398d5b138130d5be593cee01c611501711a5a8e39787"
+    }
+  },
+  "population": {
+    "total": 209,
+    "selected": 201,
+    "attempted": 63,
+    "wholeFilePassed": 62,
+    "incomplete": 1,
+    "selectedUnattempted": 138,
+    "selectedRemainingIncludingIncomplete": 139,
+    "held": 8,
+    "heldRecordedBeforeStop": 0,
+    "focusedCredits": 0
+  },
+  "wholeFileSummaryCounts": {
+    "tests": 411,
+    "failed": 0,
+    "passed": 329,
+    "cancelled": 0,
+    "skipped": 82,
+    "todo": 0,
+    "topLevel": 372,
+    "suites": 0
+  },
+  "countsStanding": "411tests/329passes/82skips come from completed file summaries. The15passed cases in incomplete063 are retained partial observations and are excluded from those whole-file counts; no whole-file credit. Eight held files remain zero coverage.",
+  "stoppedFile": {
+    "file": "test_env/tests/t287-c0-post-publication-failure.test.mjs",
+    "commandWallMs": 600005.9967080001,
+    "outerTimeoutMs": 600000,
+    "signal": "SIGTERM",
+    "exitCode": null,
+    "timedOut": true,
+    "truncated": false,
+    "commandFailure": null,
+    "reporter": {
+      "rows": 16,
+      "completePassedCases": 15,
+      "failedCases": 0,
+      "skippedCases": 0,
+      "globalOrFileSummary": false,
+      "end": false,
+      "lastCompleteCase": "B04-03 inventory-mismatch: installed owner, ABG admission and fresh replay",
+      "parseFailure": null,
+      "wholeCounts": null
+    },
+    "fileReceipt": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/files/063-t287-c0-post-publication-failure.json",
+      "bytes": 3103,
+      "sha256": "93e896bdef5cb7eae994079bebec7f015a125cb71d80135aeb67f40cc54c7a6d"
+    },
+    "commandRequest": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.request.json",
+      "bytes": 987,
+      "sha256": "f53e2fc48e713a565cbf219310316905232f302dba4e91f3d17e9640fed48293"
+    },
+    "commandResult": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.result.json",
+      "bytes": 1515,
+      "sha256": "bd12469b00cecf943f02aabbcda657205da8b2d967f2c19ac53c22578a1a02b0"
+    },
+    "stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.stdout",
+      "bytes": 3309,
+      "sha256": "6d90dbd0ac1175cd82e268e7f16436039a45e17a7992356b1f8d88c5ff036b69"
+    },
+    "stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands/063-t287-c0-post-publication-failure.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "events": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events/063-t287-c0-post-publication-failure.jsonl",
+      "bytes": 4157,
+      "sha256": "899a9b5288eca4647b9738e27bff0bfc325212299a1a22e526f4472460399700"
+    },
+    "fileHostBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/file-bindings/063-t287-c0-post-publication-failure.json",
+      "bytes": 1268,
+      "sha256": "acfe325f0a74b7aa6c7c96fd34c17356858d59dfc78a8df831a667141dec67b2"
+    },
+    "resourceReceipt": null,
+    "resourceReceiptExpectedPath": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/resources/063-t287-c0-post-publication-failure.json"
+  },
+  "custody": {
+    "primaryStageAndDependencyInventoryPreserved": true,
+    "externalInputsPreserved": true,
+    "externalTestInputDigest": "04c98f99415488f1b18605899b2789fe4d3ba6f2adf4c8b5803f63e6daa1ecd9",
+    "knownCampaignBoundarySamples": 127,
+    "lastBoundarySample": {
+      "at": "2026-11-08T19:56:17.276Z",
+      "freeBytes": 337344126976,
+      "ownedBytes": 254986303
+    },
+    "maximumBoundaryOwnedBytes": 254986303,
+    "minimumBoundaryFreeBytes": 337340719104,
+    "terminalFileResourceObservation": "Missing. The outer command ended bySIGTERM at600s and file-host emitted no final CHILD_CLOSED/resource record; final descendant closure and terminal resource sample are not established by this result. No ownership scan or cleanup added.",
+    "derivedInputLimitation": "Earlier successful ordinary files passed the driver conservation checks. Failed063 is not assigned whole-file or final derived-input conservation beyond actual receipts. Original primary stage/dependencies and historical external inputs were reverified by final driver checks."
+  },
+  "artifactRelation": {
+    "candidateRefresh": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/CANDIDATE_BASIS_REFRESH.json",
+      "bytes": 3166,
+      "sha256": "a5af0ab2b0e6c5920fdbf82dd118f522a4c98af2511dc1d1d97bebda57de974e"
+    },
+    "packageLayout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/PACKAGE_LAYOUT_READBACK.json",
+      "bytes": 649,
+      "sha256": "6bf89b30a02013ad4c620ebd5b1b25399a5a79bfc89aa1d671fc16e7c32a79ed"
+    },
+    "exactArchiveSha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd",
+    "sixVerifiedFieldsMatched": true
+  },
+  "wholeW2": {
+    "milestone": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/BROAD_007_W2_MILESTONE.json",
+      "bytes": 3443,
+      "sha256": "6a8b4993289d4fe604b215e716d3e4e4d4decb0bd5ddd02d6ecaca41f9b7f8d5"
+    },
+    "rootAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    },
+    "standing": "Full2caseW2 passed and Rootclosed only RC9 successorF4. OriginalRC8red and eight other historical capsules preserved."
+  },
+  "evidence": {
+    "summary": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/SUMMARY.json",
+      "bytes": 240335,
+      "sha256": "54515e229b659bc25127cb042d6375745c5dff1b06d346cd1d6dd380dae9f27f"
+    },
+    "failure": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/FAILURE.json",
+      "bytes": 591,
+      "sha256": "4add17759a6fa981b7f2c8466a56044546b639f98fe3b3c9a9f97009e7744a0c"
+    },
+    "allWholeFileReceiptsDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/files",
+    "eventsDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/events",
+    "commandsDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/commands",
+    "resourcesDirectory": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/broad-001/resources",
+    "retainedScratch": "/private/tmp/abg-r9c-broad-001"
+  },
+  "disposition": "Return to Root for triangulation. Actual failure is outer allocation expiration with partial green cases; no failed assertion or precise execution-cost cause is established here. No source repair, further test, rerun, budget change or cleanup selected. Broad incomplete; source/reference acceptances and exact-success receipts remain bounded evidence.",
+  "providerCallsSelected": 0,
+  "qualified": false
+}

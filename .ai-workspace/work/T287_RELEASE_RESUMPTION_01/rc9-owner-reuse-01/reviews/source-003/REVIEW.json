@@ -1,0 +1,422 @@
+{
+  "kind": "independent_narrow_affected_source_review",
+  "activation": "RC9-SOURCE-003",
+  "reviewId": "rc9-owner-reuse-01/source-003",
+  "status": "CLOSED_RETURNED_TO_ROOT",
+  "result": "indeterminate",
+  "recordedAt": "2026-11-08T17:26:57.370148+00:00",
+  "productFrame": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-003/ProductFrame.md",
+    "bytes": 2774,
+    "sha256": "bb342aa241f8d98ce28ee8a5e8e680276131658d63dc54248e12b0f32db43147"
+  },
+  "actor": {
+    "identity": "/root/rc9_source_review",
+    "role": "Independent Reviewer, report-write grant only",
+    "modelBinding": "gpt-6-astra xhigh as assigned by Root; distinct from native Claude Opus 5.5 xhigh author",
+    "independence": "No authorship/repair of subject. Prior independent reviews reused after checking dependencies. Shared unrestricted filesystem is not technical isolation.",
+    "effects": "Read-only control/authority/source/proof acquisition; write only reviews/source-003. No source repair, test/provider/native execution, Git/runtime mutation or disposition. One read-only exact Node --help documentation acquisition, local manual read and exact-version official Node documentation lookup support isolation; no tests executed."
+  },
+  "control": {
+    "rootActivation": "Root message Activate RC9-SOURCE-003 independent narrow assurance; only source-003 report effects; close against actual result if available and return Root.",
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_SCOPE.json",
+      "bytes": 2607,
+      "sha256": "b71b1be56c1a8c2e7c30b16d61cce9a5f370895efc9e9a99c083099cbff725ae"
+    },
+    "rootPacket": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/ROOT_PACKET.txt",
+      "bytes": 3418,
+      "sha256": "76ede7c8dbba002e8b7c6283585046cb872199a6f4553381e7f4801d0e9772cc"
+    },
+    "focusedBinding": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/FOCUSED_BINDING.json",
+      "bytes": 6099,
+      "sha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+    },
+    "returnTo": "/root"
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "Exact installed read_basis.py check returned installed=true and valid=true; current selected 88 Definition/Intent/Product/requirement/frame files equal frozen source. Current GOALS selects author03 one-test repair.",
+    "frame": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "severityScale": "Product S0 catastrophic/nonwaivable, S1 mandatory outcome without workaround, S2 material semantic/authority/causal/proportionality/proof defect with bounded workaround, S3 minor, S4 editorial."
+  },
+  "subject": {
+    "freeze": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a"
+    },
+    "sourceRoot": "/private/tmp/abg-r9-owner-native-003/stage-01/source",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "verification": "All 1340 frozen file sizes/hashes and compact JSON row digest independently reproduced. Same population as source-002; exactly one changed row.",
+    "changedFile": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+      "bytes": 21920,
+      "sha256": "e38f745670d43f4c5d7170de1ee4ecc1fcf9949de64972d570cb5f14ebcb4627"
+    },
+    "baselineFreeze": {
+      "path": "/private/tmp/abg-r9-owner-native-002/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "9f5736f5b895fc7732eecb34c792cfeb9e5c8c1928bec61669391287d3d5e808"
+    },
+    "baselineSourceDigest": "41060a774e0891617a944beae8ec3426d5c4110f2db94d91ba917ffdabe72fb3",
+    "finalVerification": {
+      "at": "2026-11-08T17:41:02.785616+00:00",
+      "rowsVerified": 1340,
+      "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+      "freezeSha256": "32d86a52176637a052d4b559f54a4f40ba2f9f4e34f655152a0a1121b43eb42a",
+      "unchanged": true
+    }
+  },
+  "sourceAssessment": {
+    "result": "satisfied",
+    "findings": [],
+    "triage": "not_applicable",
+    "claim": "The three scoped fixture defects are corrected using existing owners; changed-row refusal coverage is unconditional and the remainder retains compatible callee contracts. Execution closure is a separate pending dependency.",
+    "corrections": [
+      {
+        "priorFinding": "RC9-SOURCE-003",
+        "sourceConclusion": "Corrected",
+        "evidence": "Test:106 invokes projectOwnedRuntimeEventPrefixAtDurablePrefix(selection.prefix), checks isOwnedRuntimeEventPrefix, and uses owned for body/cut/row calculus. event_prefix.ts:81\u201382 follows event_store.ts:3620\u20133624 to the authentic held DurableHistoryDerivation selection; undefined scope preserves this unscoped current cut. No cast/copy/forged brand. Close continues to receive selection.prefix and checks the returned coordinate digest."
+      },
+      {
+        "priorFinding": "RC9-SOURCE-004",
+        "sourceConclusion": "Corrected",
+        "evidence": "The changed-command plan uses the same rc9-own01-one label and all other request inputs. It checks both actual commands, equal output-key sets and exactly [command, contractDigest, planDigest] changed fields. The same-label environment comparison permits only environmentDigest and planDigest changes. The canonical plan fields in worker_transport.ts:1035\u20131063 and configured identity derivation in transport_contracts.ts:243\u2013253 agree."
+      },
+      {
+        "priorFinding": "RC9-SOURCE-005",
+        "sourceConclusion": "Corrected",
+        "evidence": "b3 is now captured after the earlier-cut basis projection; delta(b2,b3) includes that projection and cut/extent access. The semantic null assertion and zero rowAdmissions/bodyDigests assertions remain. The explicit unscoped cut extent equals row.admissionOrdinal minus one."
+      }
+    ],
+    "changedRowRefusals": "Both rawInputDigest and basisDigest mutations independently deep-freeze a cloned complete history and invoke the existing cold selector without catch, optional branch, skip or todo. Raw-input mismatch must return null with rowAdmissions/bodyDigests 1/0 twice. Basis-digest mismatch must return null with 1/1 twice. The cold selector checks gap-free order, profile and causes, so the changed row reaches the row law; its digest leg excludes basisDigest from the computed body. A construction/refusal mismatch fails the test. Both paths are included in the final diagnostic.",
+    "remainingCausalCone": "Reused source-002 entireRemainingFixtureAudit after verifying every callee/support/production source unchanged. New extent, close-coordinate and field-difference calls were checked against canonical contracts. No further deterministic callee mismatch identified. Actual semantic projection first-use checks remain after real disposable package-byte mutation; no public-verifier-only substitution. Final diagnostic is unconditional after row, close, worker and physical-drift assertions.",
+    "invalidation": "Any source/authority change, altered test population, mismatched proof source/binding, hidden skip or actual failing assertion reopens the affected judgment.",
+    "executionClosure": "Not established. All three prior defects are corrected in source, but this run provides no completed OWN-01 case or final diagnostic. No asserted suffix coverage is inferred from intended control flow."
+  },
+  "retainedAssessments": {
+    "source002": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-002/REVIEW.json",
+      "bytes": 30834,
+      "sha256": "ff2b2b53e606d8315fa8605c1cba30d5861284512cc4b710a66f06257a3d3786"
+    },
+    "reuse": "All source except the one fixture is byte-identical. Preserve closed source-002 findings and failed evidence; do not rewrite them as passes.",
+    "productionShortcut": "Prior RC9-SOURCE-001 introduced shortcut remains removed. semantics.ts SHA bdd9b8f8802f5cf56d2021b03f0530bf9e7e0d51e77628d16494c9d2472888fe and leaf_invocation_port.ts SHA e5a6448c5896225d47645a8458ffc25f2ea1d6fccdffa182163363eb6ad34846 retain exact accepted RC8 restoration. Previous consumer/effect physical checks remain; O3 verification reuse is OPEN.",
+    "successor": "Prior RC9-SOURCE-002 successor handoff remains source-identical to source-002, where all three held Runs reached execution.",
+    "coreAndMetadata": "Prior bounded O1/O2/O4/F3/F4 source judgments, corrected HOW scope and exact minimal 5.0.0-rc.9 source metadata remain unchanged. This is no package-cut/reproduction acceptance.",
+    "unitPopulation": "Nine-file test:unit script unchanged, SHA 8c19e51ab6428ca149558e00bb4bab778953d6681a72a5db1abad6147b1fe0df."
+  },
+  "proof": {
+    "standing": "FAILED/INCOMPLETE evidence; no whole-unit success and no completed OWN/REF result. This is not a fabricated unit receipt.",
+    "stageReceipt": {
+      "path": "/private/tmp/abg-r9-owner-native-003/stage-01/RESULT.json",
+      "bytes": 929,
+      "sha256": "fb46c8fddb5584914b35aee85b71cbb863824a94c0c340d4c5edd27c68ff0105"
+    },
+    "stage": {
+      "status": "BUILT",
+      "stage": "stage-01",
+      "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+      "tenant": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript",
+      "results": [
+        {
+          "id": "compile",
+          "exitCode": 0,
+          "wallMs": 136956.70962500002,
+          "timedOut": false
+        },
+        {
+          "id": "generate",
+          "exitCode": 0,
+          "wallMs": 353006.26095799997,
+          "timedOut": false
+        },
+        {
+          "id": "imports",
+          "exitCode": 0,
+          "wallMs": 154.8941670000786,
+          "timedOut": false
+        },
+        {
+          "id": "lifecycle",
+          "exitCode": 0,
+          "wallMs": 9104.212083999999,
+          "timedOut": false
+        },
+        {
+          "id": "calculus",
+          "exitCode": 0,
+          "wallMs": 1558.2629169999855,
+          "timedOut": false
+        }
+      ],
+      "bindingSha256": "41a940ec27dea02e987abec26545379f440c399a91a5a1055c62738ea5d453b1"
+    },
+    "partialReporter": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/events.jsonl",
+      "bytes": 25010,
+      "sha256": "f478816a617fe96d4e5c7275e3f5e915881553cd3e3c9707bd5d16da62640086"
+    },
+    "observedAt": "2026-11-08T17:41:02.785616+00:00",
+    "reporterRows": 75,
+    "reporterLastOrdinal": 74,
+    "globalSummaryPresent": false,
+    "endPresent": false,
+    "partialCounts": {
+      "completedCases": 70,
+      "passedExcludingSkips": 62,
+      "failed": 5,
+      "skipped": 3,
+      "todo": 0
+    },
+    "observedFiles": [
+      "test_env/tests/forward-command-contracts.test.mjs",
+      "test_env/tests/forward-command-owners.test.mjs",
+      "test_env/tests/m5-c-algebra-validation.test.mjs",
+      "test_env/tests/m5-worker-transport.test.mjs"
+    ],
+    "actualAdjacentFailures": [
+      {
+        "ordinal": 55,
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      },
+      {
+        "ordinal": 56,
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "name": "M5 ABG transport does not renew from unacknowledged output",
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      },
+      {
+        "ordinal": 57,
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+        "error": {
+          "name": "Error",
+          "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+          "stack": "Error [ERR_TEST_FAILURE]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+            "stack": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:888:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      },
+      {
+        "ordinal": 58,
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\n124 !== 0\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n\n124 !== 0\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n124 !== 0\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:944:14)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      },
+      {
+        "ordinal": 59,
+        "file": "test_env/tests/m5-worker-transport.test.mjs",
+        "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+        "error": {
+          "name": "Error",
+          "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+          "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nnull !== 47\n",
+          "code": "ERR_TEST_FAILURE",
+          "failureType": "testCodeFailure",
+          "cause": {
+            "name": "AssertionError",
+            "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+            "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 47\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1023:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+            "code": "ERR_ASSERTION",
+            "failureType": null,
+            "cause": null
+          }
+        }
+      }
+    ],
+    "ownExecutionLimit": "No OWN-01 or REF-01 case result is present. No final RC9_OWN01_OBSERVATIONS diagnostic or unit stdout artifact is available. Execution may have begun, but the completed assertion extent cannot be established. This run supplies no completed proof of nominal-prefix cuts, changed-row legs, exact close, corrected worker comparisons or retained-semantics first-use refusal. The source assessment is not a pass substitute.",
+    "missingArtifacts": [
+      "unit-01/RESULT.json",
+      "unit-01/commands/unit.result.json",
+      "unit-01/commands/unit.stdout",
+      "unit-01/commands/unit.stderr",
+      "HALT.json"
+    ],
+    "reporterConfiguration": {
+      "path": "/private/tmp/abg-r9-owner-native-003/unit-01/REPORTER_CONFIGURATION.json",
+      "bytes": 2248,
+      "sha256": "b43cc6ad38e1fb3c53c75f5970e4859fc8e5c9434bda91510aecdf37a245ae15"
+    },
+    "nativeStopEvidence": {
+      "operatorObservation": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/TIMEOUT_CLOSE_OBSERVATION.json",
+        "bytes": 1297,
+        "sha256": "3d923057d4f8eb82605fc862838577cfbb82528a292b1c400083046393fa2abb"
+      },
+      "final": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/FINAL.json",
+        "bytes": 3218,
+        "sha256": "876188bb65a096941f6fb103e87952e75e0e28315d1a85ab543d54ddc4c113df"
+      },
+      "resourceClose": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/resource-close.json",
+        "bytes": 2302,
+        "sha256": "3ed579e927f7f53bdda1edf449fc23b3a009136352eb1c267832be50050367c0"
+      },
+      "nativeReturn": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/NATIVE_RETURN.json",
+        "bytes": 3081,
+        "sha256": "5c7763b8d5581a943d299df0fc47f4d1bd205a87a5e9eb6d23482a92d4224ceb"
+      },
+      "actualOutcome": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-03/runtime-001/calls/lifecycle-start.outcome.json",
+        "bytes": 140344,
+        "sha256": "f0d49b8a3740af4972fa21378e202f3a2628d0de9340d8801f9df792904190a4"
+      },
+      "actualOutcomeDisposition": "runtime_failed",
+      "actualTerminalResult": null,
+      "actualStopCoordinate": {
+        "ref": "event://abiogenesis/c0c9ad0b275fda325240ec6cb6083054493e8a43af69cce3a29cf08e4415650b",
+        "digest": "sha256:f998e7f9fecb5c734d0fbd8525a526bbddfcdc541fee1e2dd2551a09cb8e268d"
+      },
+      "closedAt": "2026-11-08T17:36:40.216Z",
+      "closedEventPrefixLength": 56629020,
+      "closedEventPrefixDigest": "sha256:23fc255354358a24c9b02ef298904912e9afe8c3f94b28a108a25fb28523af98",
+      "operatorObservedLiveSelectedProcesses": [],
+      "rootReportedTransportTiming": {
+        "authority": "Root message relaying Operator-confirmed actual actor observations; precise per-event timings not independently replayed by this Reviewer",
+        "timeout": "2026-11-08T17:36:22.302Z",
+        "sigterm": "2026-11-08T17:36:22.400Z",
+        "actorExit": "2026-11-08T17:36:23.589Z",
+        "actorExitStatus": 143,
+        "actorInvocationFailed": "2026-11-08T17:36:24.396Z"
+      },
+      "scope": "Actual return/resource-close/outcome records inspected independently; runtime_failed is distinct from host failure=null and host closure. Root/Operator own fresh terminal/replay and full process conjunction."
+    }
+  },
+  "limits": [
+    "Synthetic frozen-contract worker probe does not test the actual actor_process producer. The final diagnostic explicitly names this.",
+    "No explicit duplicate/foreign/rollback row cases are added. Their source-only assessment remains bounded.",
+    "The Run loop records environment derivation work but does not isolate/assert zero derivations across unrelated appends; no new claim added.",
+    "The first-use case invokes the actual retained semantics runtime verifier used by the restored leaf consumers. It does not execute nested HoG effects or a newly created leaf port after drift.",
+    "No cross-resolution install cache, runtime-constant plan, once-per-resolution or zero-read performance acceptance. O3 optimization remains OPEN.",
+    "All nine historical residuals, twelve cold residuals, S7, full-five and human gates remain open.",
+    "Actual native close/fresh terminal/replay/readback, changedPaths conjunction, archive/manifest/source-commit/reproduction and release acceptance belong to Root/Operator and later reviews."
+  ],
+  "disposition": "Root owns priority, acceptance and disposition. Reviewer neither repairs nor activates a successor.",
+  "integrationRelation": {
+    "question": "Can the one-file source003 fixture change or a changed actor producer reach the earlier m5 worker cases?",
+    "facts": {
+      "m5Test": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs",
+        "bytes": 114763,
+        "sha256": "5ed4fea4b2cc53d27cd913c307a54371b391a6fcab7d2dd2e8320a772f2121f8"
+      },
+      "actorProducer": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86820,
+        "sha256": "4c27e56ad14e6851ce906856e32ac76d4b9ad26103ccd784969c9a963f45247b"
+      },
+      "workerTransport": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/worker_transport.ts",
+        "bytes": 50429,
+        "sha256": "c6c0bddf101a0b89184e7eec75a53e1c54494df8f3dc42296c185a4a3316b067"
+      },
+      "transportContract": {
+        "path": "/private/tmp/abg-r9-owner-native-003/stage-01/source/build_tenants/abiogenesis/typescript/code/src/abg/transport_contracts.ts",
+        "bytes": 29112,
+        "sha256": "a550c3c8d0e595f5c2020841018c6842f76df8e5f85a2874c96b688c43c32f5b"
+      },
+      "actualReporterConfiguration": {
+        "path": "/private/tmp/abg-r9-owner-native-003/unit-01/REPORTER_CONFIGURATION.json",
+        "bytes": 2248,
+        "sha256": "b43cc6ad38e1fb3c53c75f5970e4859fc8e5c9434bda91510aecdf37a245ae15"
+      },
+      "conservation": "All these and every one of the other 1339 frozen files equal source002. M5 imports production/support, not OWN-01. No actual actor-producer edit exists.",
+      "command": "Unchanged nine-file script, --test-concurrency=1; actual NODE_OPTIONS adds heap/reporter settings only. No isolation/preload/global-setup override.",
+      "observedOrder": "JSONL ordinal74 completes all 32 m5-worker-transport cases with 27 passes/5 failures, before an OWN-01 case result."
+    },
+    "runnerEvidence": {
+      "binary": "/opt/homebrew/Cellar/node/24.7.0/bin/node",
+      "command": "node --help",
+      "executedOnce": true,
+      "exitCode": 0,
+      "toolChunkId": "0bf156",
+      "helpObservation": "Actual help lists --test-concurrency and --experimental-test-isolation, --test-isolation; it does not state the default. No test or Product runtime executed.",
+      "localManual": "/opt/homebrew/Cellar/node/24.7.0/share/man/man1/node.1:454\u2013456 defines test-concurrency as the maximum concurrent test files.",
+      "primaryVersionSpecificDocumentation": "https://nodejs.org/download/release/v24.7.0/docs/api/test.html#test-runner-execution-model",
+      "documentationObservation": "Node 24.7.0 documents process isolation as the default, separate child processes per test file, and file-process concurrency controlled by --test-concurrency."
+    },
+    "conclusion": "The edited OWN test has no production-import or shared-process-memory route into the earlier m5 file under this actual command. No actor-producer change can be attributed to source003. This is a source/configuration integration conclusion; it is not a diagnosis or exclusion of external scheduling/resource interactions, nor a direct historical child-PID trace.",
+    "adjacentFailures": "Five actual unchanged-M5 failures remain failures and prevent a green whole-unit result. Root assigned separate Proof triage for timing/environment/deadlines; no host-load/flakiness cause or repair/retry is inferred here."
+  },
+  "closedAt": "2026-11-08T17:41:02.785616+00:00",
+  "findings": [],
+  "triage": {
+    "status": "unresolved_proof_dependency",
+    "cause": "The native owner returned runtime_failed and closed while the unit lane had only partial evidence. Five unchanged-M5 test failures are observed, but OWN-01/global completion are absent. Their environmental/timing cause belongs to separate Root-assigned Proof triage.",
+    "severity": "not assigned to a new source defect",
+    "scope": "Source003 one-file corrections satisfied by independent source assessment; execution reproof/conjunction remains incomplete.",
+    "repairAuthority": "None; Root selects any subsequent proof or work."
+  },
+  "return": "Closed to Root on actual native return/close and fixed partial unit evidence. No new source finding; scoped corrections are source-satisfied. Proof is failed/incomplete and exact OWN completion remains unknown. Preserve source002 failure/core/restoration/metadata assessments and all residuals. Later proof conjunction is separate; no repair, rerun or acceptance selected."
+}

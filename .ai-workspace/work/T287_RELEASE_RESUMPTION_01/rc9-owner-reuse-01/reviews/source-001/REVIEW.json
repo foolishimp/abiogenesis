@@ -1,0 +1,460 @@
+{
+  "kind": "independent_affected_source_review",
+  "activation": "RC9-REVIEW-01",
+  "reviewId": "rc9-owner-reuse-01/source-001",
+  "status": "CLOSED_RETURNED_TO_ROOT",
+  "closedAt": "2026-11-08T06:52:32.898560+00:00",
+  "result": "falsified",
+  "productFrame": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/reviews/source-001/ProductFrame.md",
+    "sha256": "d776184a3a393c988ccf147785780a48f4545ee1d06371f0c21676584ea154aa"
+  },
+  "actor": {
+    "identity": "/root/rc9_source_review",
+    "role": "Reviewer with report-write grant only",
+    "modelBinding": "gpt-6-astra xhigh as assigned by Root",
+    "authorFamily": "native Claude Opus 5.5 xhigh",
+    "authorship": "No authorship or repair of reviewed source",
+    "hostBoundary": "Fresh assigned context; unrestricted shared filesystem and tools. Acquisition restrictions are instructions, not technical isolation. No isolation claim.",
+    "actualEffects": "Read-only source, authority, proof and Git-object acquisition; writes only these review artifacts. No test, provider, native, install, Git mutation or runtime operation."
+  },
+  "control": {
+    "rootScope": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SCOPE.json",
+      "bytes": 11953,
+      "sha256": "0af265d93d50fc2fb6f63d33ca8405f731685fa0525df00138ca69dc98845af6"
+    },
+    "authorTask": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/author-01/TASK.json",
+      "bytes": 13263,
+      "sha256": "f4f6905a6d858dfff8c92b757204979ad2581f2fb1e05bbc53c1483be45b6ce3"
+    },
+    "returnTo": "/root",
+    "grant": "Root RC9-REVIEW-01 under owner use RC8, pin to RC8 and use it to build RC9; adopted independent review law",
+    "reviewTimeBoundary": "Exact immutable core snapshot only; author actual close/fresh-readback is Operator work."
+  },
+  "basis": {
+    "definition": {
+      "path": "/Users/jim/src/apps/abiogenesis/stdo_abiogenesis.json",
+      "bytes": 3136,
+      "sha256": "b5720642ff00ebcb47f77ae68df3a960ab70f82cd1227c0712edda9d40745f44"
+    },
+    "definitionId": "urn:stdo:product-definition:abiogenesis",
+    "uri": "stdo://releases/v3.0.4/",
+    "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+    "composition": [],
+    "verification": "Installed read_basis.py check via /Users/jim/.local/bin/stdo and /Users/jim/Library/Application Support/STDO returned checked, installed=true, valid=true; exact identity and manifest matched. EVALUATION sections 3/4/When a finding blocks promotion and ACTIVATION section 7 were resolved/verified via that reader.",
+    "evaluationMemberSha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485",
+    "activationMemberSha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+    "frame": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source/build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "bytes": 27131,
+      "sha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+    },
+    "liveAuthorityComparison": {
+      "files": 88,
+      "equal": true,
+      "scope": "Definition, Intent, Product, frame and every frozen specification/requirements file"
+    },
+    "acceptedRc8HowRuling": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc8-reference-preservation-01/author-12/ROOT_SOURCE_ACCEPTANCE.json",
+      "bytes": 26861,
+      "sha256": "17dcbe89e79fa638a9792e86d8e3242a90e6125c451cb04b35317de8e2a590c6"
+    },
+    "severityScale": "Product project frame S0 catastrophic/non-waivable; S1 mandatory outcome/hard stop without workaround; S2 material semantic/authority/causal/proportionality/proof with bounded workaround; S3 minor; S4 editorial"
+  },
+  "subject": {
+    "freeze": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/source-freeze.json",
+      "bytes": 294773,
+      "sha256": "528a04c0c171c56affaa1a2f9ba2b66413b7d6007d92bbbe092143a726938c49"
+    },
+    "sourceRoot": "/private/tmp/abg-r9-owner-native-001/stage-01/source",
+    "sourceDigest": "6aacc0e5b7bda528bac527e16551789bb5da43e7aeb7d3408ebde994a9e822ff",
+    "rows": 1340,
+    "rowVerification": "Every frozen file byte length and SHA-256 verified; SHA-256 of compact JSON rows independently reproduces sourceDigest.",
+    "baselineCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "baselineTree": "4c8a9240aba29eb2858ddfd719a92337a033128c",
+    "comparison": "Exact baseline Git objects for every selected frozen row and independently the admitted 1,339-row preimage; same 12-path delta, no omitted selected preimage, one new row. Historical files outside the selected source inventory are not deletion claims.",
+    "changedPaths": [
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/actor_process.ts",
+        "bytes": 86820,
+        "sha256": "4c27e56ad14e6851ce906856e32ac76d4b9ad26103ccd784969c9a963f45247b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/calculus/execution_basis_record.ts",
+        "bytes": 7284,
+        "sha256": "0130a31cf8e0da88259d80b484c9c4ae5cfc89521f3c34cb5fa73dc60990604b"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/abg/environment_admission.ts",
+        "bytes": 49151,
+        "sha256": "378f72177dbe490aa45c28ea8e333cc99e2755b39ce210ff0ddbd6c75bdd6ac1"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+        "bytes": 85378,
+        "sha256": "e18b067aa06dde78e5b95da10c5bd5e6f806248e7f86662f819adcc8d10ce9fc"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/install_product.ts",
+        "bytes": 19437,
+        "sha256": "b9b51170e5b835d48f2fcf786858979f8ce4c9b69bdc86be4945cb0ab8003768"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+        "bytes": 31353,
+        "sha256": "5b25b1a4ebcb87934346dde4e6929cb233ccf39a99d1c1bcfda133d702137af2"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/code/src/public/installed_definition_call_transport.ts",
+        "bytes": 21602,
+        "sha256": "7a33a60db10abb325f115e572a546a642653a1c665874137f87dac6c046011b0"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+        "bytes": 198479,
+        "sha256": "af894c0d00fb9b790cd2e1d8c61e3b0461e55023deeaaef07195e43cb367fbd8"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+        "bytes": 103860,
+        "sha256": "b1f00bdc92aebec7729e51141f668625ca7c2ec8b0ddab805fdfe6d8023257cd"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/package.json",
+        "bytes": 10104,
+        "sha256": "1546b1f02df9db9d17bed446a26f8ff884618dfba880ef8c00785e691765c161"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+        "bytes": 15090,
+        "sha256": "0f6d6ad41b4f1f94740261a502e6a845990bda279be0cbeb82d32944f6943b94"
+      },
+      {
+        "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-w2-05-install-catalog-owner-chain.test.mjs",
+        "bytes": 60790,
+        "sha256": "cec88a1d0f39784b6a981f6ebd720fc5e8ca744dea810d95e757cb4e97f82b84"
+      }
+    ]
+  },
+  "claim": "The frozen 12-path core realizes the admitted owner-local reuse while retaining selection, physical-content/currentness, effect and refusal behavior, and supplies the selected meaningful owner regression; no final artifact qualification claim.",
+  "findings": [
+    {
+      "id": "RC9-SOURCE-001",
+      "severity": "S2",
+      "result": "falsified",
+      "title": "A retained first leaf projection can accept stale installed content after another owner effect",
+      "violatedProperty": "Physical verification may be reused only while its material installed-content dependencies remain valid, within the same prepared resolution; known or uncertain install-affecting effects must invalidate before reliance.",
+      "authority": [
+        "specification/PRODUCT.md:811-849",
+        "specification/PRODUCT.md:900-927",
+        "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md:72-85",
+        "specification/requirements/product/REQ-P-INSTALL.md:263-277",
+        "RC9-SCOPE-01 install-carriage clause",
+        "ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md section 10.12 O3"
+      ],
+      "evidence": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/installed_module.ts",
+          "lines": [
+            28,
+            40
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "lines": [
+            314,
+            320
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "lines": [
+            508,
+            516
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "lines": [
+            687,
+            701
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/product/semantics.ts",
+          "lines": [
+            738,
+            744
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "lines": [
+            951,
+            991
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "lines": [
+            1492,
+            1505
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/implementation/leaf_invocation_port.ts",
+          "lines": [
+            1665,
+            1684
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+          "lines": [
+            604,
+            610
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/code/src/hog/graph_execute.ts",
+          "lines": [
+            669,
+            683
+          ]
+        }
+      ],
+      "producerToConsumer": "prepareInstalledProductModules physically checks install -> productSemanticsFromModules/loadProductSemantics saves the acquisition in a WeakMap keyed by the imported provider -> projectInstalledLeafSemantics removes that entry and creates a private boolean -> constructAdmittedLeafInvocationPort and its first verifyAuthority both consume true without a physical read -> the latter releases only its own closure -> invokeLeafOwnerBoundary can load/invoke a leaf.",
+      "counterexample": [
+        "Acquire an exact admitted install and create a genuine first semantics projection P. P retains unchangedInstallPremise=true; no live unchanged-content relation is carried with it.",
+        "Before P authorizes its first leaf, perform an install-affecting owner effect through a distinct projection Q, or observe an ordinary trusted-desktop content change. A second load/project creates a separate closure; releasing Q does not alter P. A subsequent failed physical verifier also does not revoke P.",
+        "Construct P's first port, or invoke its first leaf if its port was already constructed. All immutable install/publication/binding and admitted implementation coordinates can remain equal. P.verifyInstalledContent still resolves true, so the physical mismatch is not refused at the previously existing check.",
+        "The real single-traversal composition has this gap without concurrent calls: a parent beginning with C.workflow obtains a different child port through forGraphFunction; HoG uses that child port; the child's leaf releases only its own premise; child return restores the original parent runtime/port. If the child effect changes or may affect the shared install, the parent's first later leaf still borrows its old observation."
+      ],
+      "causalAssessment": "Historical acquisition success is promoted to an unchanged-install assertion solely from acquisition.install === install. The provider is a shared module export, not a resolution identity; each projection then owns independent invalidation. The second-port WeakSet observes only reuse of the identical runtime, so it does not cover sibling/child projections. This is a source-established missing dependency/invalidation relation, independent of the OWN-01 fixture failure.",
+      "proofStatus": "Source-conclusive control/data-flow counterexample; no extra runtime discriminator executed. This report does not claim to have observed an actual changed-install leaf execution in this run.",
+      "blastRadius": "First port/first leaf using any retained projection whose physical premise became invalid in a different consumer/effect interval; includes nested GraphFunctions sharing an install. Later checks on the same released runtime still verify physically, and each new resolution still initially verifies. No claim of a cross-resolution content cache implementation.",
+      "containment": "Retain the physical check at any consumer/effect boundary for which the unchanged-install premise cannot actually be established. Do not infer unchanged bytes from a matching immutable install object.",
+      "boundedRepairScope": "Existing installed-module/execution-resolution -> semantics -> leaf-port owner handoff and compact O3 HOW. Carry reuse only with an exact same-resolution validity relation that closes all relevant effect paths, or fall back to the existing verifier when it cannot. No new Product requirement, global cache or runtime authority is needed. Restoring the existing physical checks is an immediately bounded conformance repair. If retaining a shortcut requires a previously undeclared multi-consumer lifetime/ownership relation, that HOW relation must be returned for Root admission before implementation; this review supplies no such lifetime, cross-resolution invalidator or framework.",
+      "repairComplexity": "moderate if preserving reuse across multiple leaf runtimes; low for conservative verification fallback",
+      "regressionRisk": "medium: nested/recursive/continuation consumers and first-use/refusal order must preserve their existing contracts",
+      "necessaryProof": [
+        "Use actual physical acquisition and actual leaf-port consumers; mutate a disposable installed payload after acquisition but before first port/first leaf, and require the supported refusal.",
+        "Exercise parent -> child leaf -> parent first leaf with known or uncertain install-affecting child effect; invalidate the parent premise before its next reliance.",
+        "Preserve unchanged same-resolution reuse counters and output equivalence, each new-resolution physical acquisition, second-port checks, cold/public verification and fresh-root refusal. A call to installedProductContentMatches alone does not exercise the shortcut."
+      ],
+      "confidence": "high for missing invalidation; actual occurrence/frequency not measured",
+      "triage": "complete",
+      "priority": "Root-owned",
+      "disposition": "Root-owned",
+      "owningReentry": "realization_refactor under unchanged Product/requirements, after Root conjunction"
+    },
+    {
+      "id": "RC9-SOURCE-002",
+      "severity": "S2",
+      "result": "falsified",
+      "title": "The new owner regression reuses the predecessor event-resource selection after a successful Run",
+      "violatedProperty": "The selected regression must execute real held-owner reuse over each returned committed boundary and preserve the owner-issued successor relation.",
+      "authority": [
+        "RC9-SCOPE-01 proof/F6 clause",
+        "author-01/TASK.json F6 and frozen-unit proof instructions",
+        "specification/PRODUCT.md:850-880",
+        "specification/requirements/abg/REQ-R-ABG3-PROJECTION.md:72-78"
+      ],
+      "evidence": [
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+          "lines": [
+            76,
+            97
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-held-owner-fold-reuse.test.mjs",
+          "lines": [
+            126,
+            164
+          ]
+        },
+        {
+          "path": "build_tenants/abiogenesis/typescript/test_env/tests/t287-owned-call-reference.test.mjs",
+          "lines": [
+            61,
+            90
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stdout",
+          "lines": [
+            118,
+            145
+          ]
+        }
+      ],
+      "counterexample": [
+        "Line 79 binds const selection to the initial acquired prefix. The loop at lines 82-94 passes that same selection to every construction/transport, but a successful Run advances the held store and returns its successor selection. The loop never carries that successor.",
+        "The exact executed unit lane fails at line 86 with installed_definition_call_transport_refusal, acquisition_mismatch, TypeError: ABG held store differs from the selected durable prefix. The existing reference regression demonstrates the supported successor handoff at line 90."
+      ],
+      "causalAssessment": "The fixture loses the producer-to-next-consumer resource relation. This does not establish a Product basis/cache regression. The later basis, worker-contract and content-drift sections never execute; no RC9_OWN01_OBSERVATIONS record is emitted.",
+      "blastRadius": "The new mandatory unit member fails, preventing its selected whole regression proof. Existing REF-01 passes and 88 unit tests pass; six skips remain. No extrapolation to a Product runtime defect from this test failure.",
+      "containment": "Treat OWN-01 as failed and preserve the original stdout/result; do not count later assertions or its absent diagnostic as evidence.",
+      "boundedRepairScope": "The new regression only: carry the actual owner-issued successor selection between Runs, then use the actual final selection for later row assertions and close. No production mutation is implied by this finding.",
+      "repairComplexity": "low",
+      "regressionRisk": "low for fixture change; the repaired assertions may expose currently unobserved owner defects",
+      "necessaryProof": [
+        "A fresh frozen successor executes the unfiltered selected unit lane and completes OWN-01 through row checks, final close, worker configuration and changed-content refusal. Preserve failing-before evidence; report exact counters and all skips."
+      ],
+      "confidence": "high, executed failure plus source relation",
+      "triage": "complete",
+      "priority": "Root-owned",
+      "disposition": "Root-owned",
+      "owningReentry": "realization_refactor/test correction after Root selection"
+    }
+  ],
+  "proof": {
+    "build": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/RESULT.json",
+      "bytes": 916,
+      "sha256": "9a28f23a723030ae2f4ffbb21bf3e97b15b858495ce652e8433bd7844490fcc3"
+    },
+    "buildInputs": {
+      "path": "/private/tmp/abg-r9-owner-native-001/stage-01/BUILD_INPUTS.json",
+      "bytes": 658,
+      "sha256": "c42d1febdcdab91abab2550b6337d63ec17be1310a8d5cb8e37693518224d232"
+    },
+    "buildConclusion": "Compile/generate/import/lifecycle/calculus all exit 0 with no signal, timeout, truncation or failure; referenced stream byte counts/digests independently verified.",
+    "unit": {
+      "path": "/private/tmp/abg-r9-owner-native-001/unit-01/RESULT.json",
+      "bytes": 237,
+      "sha256": "0fa1c03454f55b24bbc66902fdde34aa188ee09299e7c5e4cb4790df69806c3f"
+    },
+    "unitCommand": {
+      "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.result.json",
+      "bytes": 1133,
+      "sha256": "1a58d5f32442f492ea425120a4b7a23fa282173de8aff3b5dc97dd118a25aa17"
+    },
+    "unitRequest": {
+      "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.request.json",
+      "bytes": 674,
+      "sha256": "151d9aa17b53392e071a3df66cb474b4945c7b088f58ee7839d7a29fcecd6e3f"
+    },
+    "unitStdout": {
+      "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stdout",
+      "bytes": 23792,
+      "sha256": "e2abf9ad00bd1137fddded4a942d7258ed77641ef69f3a7d0a41ad201e9d6536"
+    },
+    "unitStderr": {
+      "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "counts": {
+      "tests": 95,
+      "pass": 88,
+      "fail": 1,
+      "cancelled": 0,
+      "skipped": 6,
+      "todo": 0
+    },
+    "countsStanding": "Read from actual spec-reporter stdout, not from failed proof-wrapper result.",
+    "unitWallMs": 211549.96758300002,
+    "exitCode": 1,
+    "timedOut": false,
+    "truncated": false,
+    "halt": {
+      "path": "/private/tmp/abg-r9-owner-native-001/HALT.json",
+      "bytes": 164,
+      "sha256": "fe85eb6e257ac60d3d5ad6667412f928a81b19db08c98f253c16424a24e6de0b"
+    },
+    "referenceRegression": "Existing RC8 REF-01 is an executed pass and emits its counter observations. It does not establish the new O3 invalidation relation.",
+    "newRegression": "Failed; sections after line 86 failure are not exercised, and final RC9_OWN01_OBSERVATIONS is absent.",
+    "noAdditionalExecution": true,
+    "stagedSourceCorrespondence": {
+      "checkedRows": 1340,
+      "unchangedRows": 1338,
+      "generatedOutputDifferences": [
+        "build_tenants/abiogenesis/typescript/contracts/capabilities/capability-definition-graph.json",
+        "build_tenants/abiogenesis/typescript/product-toolchain-manifest.json"
+      ],
+      "standing": "Expected staged generator outputs differ from source preimages; all implementation, HOW, test and package source rows match the frozen source. Raw unit stdout/stderr byte counts and digests independently match the command record."
+    }
+  },
+  "boundedPositiveAssessments": [
+    {
+      "predicate": "O1 row retention source relation",
+      "result": "satisfied",
+      "scope": "Exact match membership/cardinality remains outside cached row check; cache is in authenticated lineage/scope territory and validation views do not retain. Transitive event-prefix/runtime-derivation owners preserve branch and rollback territory. This is source assessment, not executed duplicate/rollback/cold qualification.",
+      "triage": "not_applicable"
+    },
+    {
+      "predicate": "O2 invariant environment source relation",
+      "result": "satisfied",
+      "scope": "Body key binds exact binding coordinate and artifact-row dependency extent; wrapper carries requested prefix and artifactTruth. Owner artifact truth checks availability before new-cut projection; copied/raw projection validates cold. Key work is over artifact rows, not unrelated full event history; no constant-cost claim.",
+      "triage": "not_applicable"
+    },
+    {
+      "predicate": "O4 final worker contract source relation",
+      "result": "satisfied",
+      "scope": "Actual actor producer deep-freezes final native contract/args after per-occurrence endpoint/prompt/environment configuration. Worker plan remains per occurrence. The new helper test is not an actual actor-producer observation.",
+      "triage": "not_applicable"
+    },
+    {
+      "predicate": "F3/F4/F6 static membership",
+      "result": "satisfied",
+      "scope": "Transport comment is corrected. W2 oracle requires exactly three named Map declarations, preserves four other-file bans, legacy identifier bans, dynamic assertions, both export checks and W2_05_PROOF. Normal unit script adds the two required files first and retains all old members. These structural changes do not make the failed F6 execution green.",
+      "triage": "not_applicable"
+    }
+  ],
+  "coverageLimits": [
+    "O1 later duplicates, foreign histories and rollback are assessed through source-owner relations, not newly executed discriminators in this review. OWN-01 does not reach its row section.",
+    "O2 first/copy/changed-artifact assertions precede the observed failure, but the new Run loop does not assert zero environment derivations or invariant-body identity across unrelated appends. Its absent final diagnostics cannot establish that operational claim.",
+    "O4 lines 133-150 construct a frozen contract inside the test and call prepareWorkerTransport. They do not execute actor_process.ts final-contract producer and would not detect removal of that producer freeze. The block is also unexecuted in this failed lane. Actual producer/counter proof remains a separate unproved relation.",
+    "The O3 test at lines 154-161 calls the unchanged physical verifier after mutation. It neither exercises the first-use shortcut nor sibling/nested effect invalidation, even if reached.",
+    "Full exact-archive W2, matched installed RC8/RC9 measurements, CPU profile, broader affected tests, actual native close/fresh replay and final metadata/package review were not performed by this Reviewer.",
+    "Supported source claim only: each resolveProductExecution call creates its own preparedProducts map and modulesFor physically prepares each exact ProductInstall object once for that resolution's module loading. Population and run preparation may be distinct resolutions; no once-per-public-call claim follows. The failed OWN-01 does not establish exact achieved counts or lifetime validity of the new leaf-carriage shortcut."
+  ],
+  "adjacentObservations": [
+    {
+      "id": "RC9-PROOF-CONTROL-OBS-001",
+      "result": "out_of_frame",
+      "triage": "not_applicable to the core claim",
+      "title": "Focused proof wrapper expects TAP while the actual child emits spec reporter text",
+      "evidence": [
+        {
+          "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/focused-proof.mjs",
+          "lines": [
+            71,
+            77
+          ]
+        },
+        {
+          "path": "/private/tmp/abg-r9-owner-native-001/unit-01/commands/unit.stdout",
+          "lines": [
+            118,
+            125
+          ]
+        }
+      ],
+      "assessment": "The parser only matches ^# tests/pass/... but actual output uses the spec-reporter summary. Even a later zero-exit run under the same output form yields NaN counts and fails completeness. The real unit failure remains independent and must not be masked.",
+      "owner": "External proof-control Writer under Root; outside the 12-path Product delta",
+      "repairBoundary": "Bind actual reporter/parser agreement under the exact proof command and preserve raw stream custody; no Product-native fix authorized by this observation."
+    }
+  ],
+  "residuals": [
+    "Cross-resolution/event-session install verification reuse remains excluded and unimplemented.",
+    "Native source still has RC8 metadata; forthcoming three-file RC9 metadata work was not reviewed here.",
+    "All nine historical capsules, twelve cold residuals, S7, fixed-fifteen/full-5.0 qualification and human gates remain open.",
+    "Earlier HOW edit ordering disposition is Root-owned and grants no semantic acceptance; this review evaluated final frozen HOW against Product."
+  ],
+  "invalidation": [
+    "Any changed core byte or materially changed supporting dependency/authority/evidence basis invalidates affected conclusions before reliance.",
+    "A different subject, reviewer capability or severity basis requires applicable re-entry.",
+    "Evidence of an additional install-effect invalidation owner on the demonstrated path would revise RC9-SOURCE-001; provide its actual call relation.",
+    "New proof cannot retroactively turn this frozen failed unit lane into a pass; retain the predecessor and bind the exact successor."
+  ],
+  "recommendation": "Return both S2 findings and proof limits for Root conjunction. Resolve the unchanged-install premise and regression successor handoff under unchanged law before claiming the selected core/proof outcome. Priority, packaging, repair activation and release disposition are not decided here.",
+  "closedResult": "Review activity complete; claimed core/proof conjunction falsified. No further effect or continuation is activated."
+}

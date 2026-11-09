@@ -1,0 +1,18 @@
+{
+  "phase": "install",
+  "startedUtc": "2026-11-08T21:52:55.131Z",
+  "input": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-008/ROOT_INSTALL_BINDINGS.json",
+    "bytes": 6814,
+    "sha256": "9922efd28df41db44b17f07768e4727ec7acfb070167b3e207950f3b068c95de"
+  },
+  "status": "LOCAL_RC9_CUT_AND_INSTALL_COMPLETE_UNQUALIFIED",
+  "qualified": false,
+  "published": false,
+  "verification": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+    "bytes": 9093,
+    "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340"
+  },
+  "endedUtc": "2026-11-08T21:53:41.206Z"
+}

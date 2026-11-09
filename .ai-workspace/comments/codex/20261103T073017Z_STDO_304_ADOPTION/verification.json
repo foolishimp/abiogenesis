@@ -1,0 +1,348 @@
+{
+  "status": "verified",
+  "basis": "stdo://releases/v3.0.4/",
+  "manifestSha256": "102817a3f4bea4dca1d6fa0fc634b94404dd2ba82ba6d8c38b273402dda9f95b",
+  "publishedManifestByteEqual": true,
+  "definitionChangedOnlySchemaSelectorBasis": true,
+  "routes": [
+    {
+      "source": "specification/PRODUCT.md",
+      "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md#1-the-frame-as-the-engagement-unit",
+      "memberSha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "anchorVerified": true
+    },
+    {
+      "source": "specification/PRODUCT.md",
+      "uri": "stdo://releases/v3.0.4/standards/DESIGN_MODULE.md",
+      "memberSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "anchorVerified": false
+    },
+    {
+      "source": "specification/PRODUCT.md",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "memberSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "memberSha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+      "memberSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+      "memberSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#extension-versus-replacement",
+      "memberSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md#11-derived-generic-specialist-frame-set",
+      "memberSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/ASSURANCE.md#integration-frame",
+      "memberSha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/ASSURANCE.md#end-to-end-frame",
+      "memberSha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+      "uri": "stdo://releases/v3.0.4/standards/ASSURANCE.md#user-acceptance-frame",
+      "memberSha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "memberSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/DESIGN_MODULE.md",
+      "memberSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md#accounts-of-a-construction",
+      "memberSha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md#4-algebra",
+      "memberSha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "memberSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/ODD.md#probabilistic-compute",
+      "memberSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md#5-traversals-and-functor-kinds",
+      "memberSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md#ac-015-functor-classification",
+      "memberSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/ODD.md#115d-constructive-evaluation-and-yield-loop",
+      "memberSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/ODD.md#117a-conforming-agentic-development",
+      "memberSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/RELEASE.md#deterministic-kind-migration",
+      "memberSha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/examples/DETERMINISTIC_CONTRACTS.md",
+      "memberSha256": "1ce623ad76a65b62292c842974811e10a5daa6fda672f836181a220205fbcbcb",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/AXIOMATIC_CALCULUS.md#ac-016-typed-composition",
+      "memberSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+      "uri": "stdo://releases/v3.0.4/standards/DESIGN_MODULE.md#computational-realisation-projection-up-019",
+      "memberSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "uri": "stdo://releases/v3.0.4/standards/DESIGN_MODULE.md",
+      "memberSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "anchorVerified": false
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md#11-build-tenant-binding",
+      "memberSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "anchorVerified": true
+    },
+    {
+      "source": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+      "uri": "stdo://releases/v3.0.4/standards/FOUNDATIONS.md",
+      "memberSha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/frames/bootstrap.md",
+      "memberSha256": "9fb337b2c8462e9d6788f52f11ca75199253a3a66a10774bc05a9798a772e502",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/SPEC_METHOD.md",
+      "memberSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/REFERENCE_FRAME.md",
+      "memberSha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/EXECUTIVE_BASELINE.md",
+      "memberSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/ODD.md",
+      "memberSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/IDENTITY.md",
+      "memberSha256": "c70399311010a8835b00d2a887a2451f11f66f631d6217d8df4be41751a59c08",
+      "anchorVerified": false
+    },
+    {
+      "source": "stdo_abiogenesis.json",
+      "uri": "stdo://releases/v3.0.4/standards/RELEASE.md",
+      "memberSha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "anchorVerified": false
+    }
+  ],
+  "routeOccurrences": 35,
+  "uniqueMembers": 12,
+  "pluginRoot": "/Users/jim/Library/Application Support/STDO/releases/v3.0.4/plugins/spec",
+  "pluginMemberCount": 21,
+  "pluginExactInventoryVerified": true,
+  "nativeSkills": [
+    {
+      "path": "skills/stdo-help/SKILL.md",
+      "sha256": "8a488add6bbba99dae6173adfcef4f949df264624620f52adb15e20b5144f931"
+    },
+    {
+      "path": "skills/stdo-review/SKILL.md",
+      "sha256": "b90b3a2014d7891e25b40c11e5f3638accb9f3408cb3f0cf3922d26f17bc57df"
+    },
+    {
+      "path": "skills/stdo-status/SKILL.md",
+      "sha256": "23122f6bf8e78d6167fc0e45d24f17421459172ddc41e8ccb6b35a4873b29407"
+    },
+    {
+      "path": "skills/stdo-ticket/SKILL.md",
+      "sha256": "c37e615dbf280ef5a134f604932f5e709c5012968d73ae9362eb47dbab65719b"
+    },
+    {
+      "path": "skills/stdo-work/SKILL.md",
+      "sha256": "9dc06e03fd6f64483fa485ed55f35e414fefae472bb69aa930ecef9335585b35"
+    }
+  ],
+  "hostMode": "direct exact installed file loading; no host registration or global settings changed",
+  "decidingOwnerComparisons": [
+    {
+      "member": "AXIOMATIC_CALCULUS.md",
+      "unchanged": true,
+      "oldSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5",
+      "newSha256": "b39c45fd86b8f9add7d196b2974a8e5f75bf4a327cf796e362716a6b4f5776d5"
+    },
+    {
+      "member": "ODD.md",
+      "unchanged": true,
+      "oldSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9",
+      "newSha256": "06fe72e2fe11f0b63464a85fefbf29506ee81230ecc7ff4792d930abe574fbb9"
+    },
+    {
+      "member": "ASSURANCE.md",
+      "unchanged": true,
+      "oldSha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca",
+      "newSha256": "5f6740a39355314ea2a9227a8795ea68cdafb2c4c3e9b25e1d9e626eb43f27ca"
+    },
+    {
+      "member": "DESIGN_MODULE.md",
+      "unchanged": true,
+      "oldSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2",
+      "newSha256": "741b798ea2e71797bd884817eb6903ae1a1431c97a989ab5741ffa315a3bd1e2"
+    },
+    {
+      "member": "ACTIVATION.md",
+      "unchanged": true,
+      "oldSha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d",
+      "newSha256": "56109ffa2e8ec6f158e6dbd0b387fededa685abc100a288ea88525854a78441d"
+    },
+    {
+      "member": "RELEASE.md",
+      "unchanged": true,
+      "oldSha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886",
+      "newSha256": "b5aedcbfc68c6a168bc4c220828146f94b181a3c0fc3925405259890f6fe6886"
+    },
+    {
+      "member": "REFERENCE_FRAME.md",
+      "unchanged": true,
+      "oldSha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64",
+      "newSha256": "4bf3bb18f8590b8096f5ff2de6554787d29a164224be697c76640289d2096d64"
+    },
+    {
+      "member": "SPEC_METHOD.md",
+      "unchanged": true,
+      "oldSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e",
+      "newSha256": "06d5e8cbbda67952cd5671a4b01752a1eaaf30be84a790ee7e31b1551a5a787e"
+    },
+    {
+      "member": "FOUNDATIONS.md",
+      "unchanged": true,
+      "oldSha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e",
+      "newSha256": "7fe9ecf257ad9aa725e7ae87ba23e406f6993dbd143c429d53df06284023127e"
+    },
+    {
+      "member": "EXECUTIVE_BASELINE.md",
+      "unchanged": false,
+      "oldSha256": "064eb55ec6b1870da8411da814c0a6c59fd7113bd4cb2631351c141f66a02f2a",
+      "newSha256": "ba089c92bee43891a509788e34b92044b0c8b0c0bb0217271724930a846e24ff"
+    },
+    {
+      "member": "EVALUATION.md",
+      "unchanged": false,
+      "oldSha256": "478fd21feda72d64e62a92f970b37bade3f9aadfb17c73649cdb1a7866581eff",
+      "newSha256": "b856cf04e2cf6ea0ba8b5f9de8b455a3a5f95cdb05fe7337f077f1b7547c7485"
+    }
+  ],
+  "unrelatedDirtyFiles": [
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/NEXT_ACTIVATION_LIMITS.md",
+      "sha256": "50b1f502f2bd3a9fe4922391915e37e07ab472fc76b3e292219173cf0e266fbd",
+      "unchanged": true
+    },
+    {
+      "path": ".ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc3-dogfood-01/OVERNIGHT_STATUS.md",
+      "sha256": "d67161759a997b1471691a19dccc33c8ee6b10bf916ee075532086c0ca35d96c",
+      "unchanged": true
+    }
+  ],
+  "rc4SourceCommit": "3c113133d96d013743c1c1ec77d562abb0b2c05b",
+  "rc4TrackedClean": true,
+  "rc4ReleaseFiles": [
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/abiogenesis-typescript-tenant-5.0.0-rc.4.tgz",
+      "sha256": "f59c8ffe8de1ef04ad0d69f6ac26a796f325936fda0b31d8e6f595c6b56a5f70"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/LOCAL_CUT_RECORD.json",
+      "sha256": "1e93fb578c18d6d936c3384b01b462749888f72504a700b27bce4f4a80ae9038"
+    },
+    {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.4/SHA256SUMS",
+      "sha256": "b447504bb5dcdf25b98c895671ce878a5178e05d47891e1803c693d4e27687e9"
+    }
+  ],
+  "limits": [
+    "Source-development pin only; RC4 runtime library and frozen qualification remain on 3.0.2.",
+    "No Product tests, provider calls, native runs, builds or qualification repeated.",
+    "The existing main worktree changes remain uncommitted; no push, tag, merge or global selector."
+  ]
+}

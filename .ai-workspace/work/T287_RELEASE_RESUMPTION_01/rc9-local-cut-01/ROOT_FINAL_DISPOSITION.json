@@ -1,0 +1,150 @@
+{
+  "status": "RC9_LOCAL_DELIVERED_UNQUALIFIED",
+  "recordedAt": "2026-11-08T21:57:08.000Z",
+  "decisionOwner": "/root Executive",
+  "recordedBy": "/root/rc9_operator",
+  "decision": "Root accepts the completed selected local RC9 delivery, conjoining accepted bounded source/proof/residual disposition, actual checkpoint and byte-equal reproduction, independent packaging readiness, actual immutable Product-owner installation and fresh installed-owner read/close. This closes the selected local delivery only; GOAL-035, T-287 and full5.0 remain active/open. No next RC or S7 work is selected.",
+  "rootDirectChecks": "Root read the complete final verification and cut record, rehashed shipped/installed archive and manifest, verified14 final receipt/artifact/claim/review/reproduction pins with zero mismatches, and confirmed the unchanged RC8 builder pin.",
+  "evidence": {
+    "finalClaimDisposition": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/ROOT_FINAL_CLAIM_DISPOSITION_008.json",
+      "bytes": 5907,
+      "sha256": "6f0a162eba375fce79c37df58b9602fb5f45067eb6c84c4ee5a96199c608a1a8"
+    },
+    "sourceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/ROOT_SOURCE_ACCEPTANCE_007.json",
+      "bytes": 11455,
+      "sha256": "05fe8c945a95bca0b28faa2b4985f84209ea486f312ae635e847f305a820d29f"
+    },
+    "referenceAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_REFERENCE_ACCEPTANCE_007.json",
+      "bytes": 6336,
+      "sha256": "4c8bc5fb42d98e1073a4cedf89dada5faf5fa2e6dcf090b64cc79b60f99c2f68"
+    },
+    "w2Acceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_W2_ACCEPTANCE_007.json",
+      "bytes": 5841,
+      "sha256": "13f892866a4c65dbad43a832c765f72ca9a3faedecfe9ce645c9cebc322ba310"
+    },
+    "broadAcceptance": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/ROOT_BROAD_ACCEPTANCE_008.json",
+      "bytes": 6029,
+      "sha256": "eca7fb55aa0ace53770abb5012a246fcbd71002d2263090f57ba8df8319a5857"
+    },
+    "buildReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/OPERATOR_RETURN.json",
+      "bytes": 7733,
+      "sha256": "3881f100db3f57d81e84e75bd6f6e7c933ed58316f68cc2662a42c9786e9af01"
+    },
+    "independentPackagingReview": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/reviews/packaging-008/REVIEW.json",
+      "bytes": 23288,
+      "sha256": "7c8f6dacb09f328cc837f0963c1abb9539da279466e90f66e114c4d3f5501978"
+    },
+    "installReturn": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/install-binding-008/OPERATOR_RETURN.json",
+      "bytes": 16869,
+      "sha256": "36f77932c65580bfe04c1b1cf6885fd4eb85bd44e58e02c986a66552b207e714"
+    },
+    "finalInstallVerification": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/FINAL_INSTALL_VERIFICATION.json",
+      "bytes": 9093,
+      "sha256": "eb17f830784b9b832b9eea4f619b8e785f35b810a13c152dac753d869dd80340"
+    },
+    "cutRecord": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/LOCAL_CUT_RECORD.json",
+      "bytes": 4192,
+      "sha256": "83693ab907b1a27050062f364ca3ef84500165dd512292bb8e82a5e6f22e5254"
+    },
+    "builderPin": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-reuse-01/BUILDER_PIN.json",
+      "bytes": 3608,
+      "sha256": "1c54a2968927ac0cc699b5e42e7ca07a4eef552319d901d9c1ed2ce617b6a5bf"
+    },
+    "residuals": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/RESIDUALS.md",
+      "bytes": 15882,
+      "sha256": "a17c7d2b8a31e1da9f658a575495617f8862b5c73ad4758a0c9c52d7c5922c4a"
+    },
+    "boundedClaim": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-claims-008/BOUNDED_CANDIDATE_CLAIM.md",
+      "bytes": 3505,
+      "sha256": "e82e74f10d1c764440baef622a7f6857005fd2da72cbdc67636e95d241df6dbf"
+    }
+  },
+  "subject": {
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "sourceRows": 1340,
+    "sourceCommit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "sourceTree": "ff9a852c6670884c35f67934e9f49443199b723f",
+    "archive": {
+      "path": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "manifestSha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65",
+    "manifestDigest": "sha256:780036b1be89caa6e4086c8181111c7c264fa4d7bc1aab033daf886a659351c5",
+    "productContentDigest": "sha256:b3a3df1f7d59d56414c9fea0d025d48e1b8bdbc27f0b84b8b74a5128a6bcc80c",
+    "members": 5325,
+    "installedRoot": "/Users/jim/Library/Application Support/ABIogenesis/installs/5.0.0-rc.9/node_modules/@abiogenesis/typescript-tenant",
+    "releaseRoot": "/Users/jim/Library/Application Support/ABIogenesis/releases/5.0.0-rc.9",
+    "packageVersion": "5.0.0-rc.9",
+    "identityBridge": false,
+    "metadataRewrite": false
+  },
+  "acceptedProof": {
+    "wholeFiles": 201,
+    "cases": 1263,
+    "passed": 1033,
+    "skipped": 230,
+    "failed": 0,
+    "cancelled": 0,
+    "todo": 0,
+    "heldFiles": 8,
+    "coverageLimit": "201 whole files, not209.62 retained same-RC9 complete files plus139 new complete files; no partial063 or RC8 result credit.",
+    "independentPackagingReview": {
+      "verdict": "satisfied",
+      "findings": 0
+    },
+    "installedSmoke": {
+      "exportedDefinitions": 56,
+      "installedContentMatches": true,
+      "ownerRead": [],
+      "actualClose": true,
+      "closedPrefixBytes": 0,
+      "receipt": {
+        "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/install-001/INSTALLED_OWNER_SMOKE.json",
+        "bytes": 3075,
+        "sha256": "94b49eeaab32e39df80cc2a3f8bbbd7ed41d555943acaaba3b0b1cf06eabb691"
+      }
+    },
+    "session": 89907,
+    "installExitCode": 0
+  },
+  "claim": "Completed local unqualified RC9 candidate for the exact installed current-profile scripted F_P path supported by the pinned accepted source/build/ordinary-unit, exact-archive reference/counter/readback/close, W2 and bounded201-file broad evidence, byte/member-equal reproduction and actual immutable installation. Root adopts only the limited no-block claim in the final disposition and per-capsule successor rationale; no RC8 acceptance transfer.",
+  "open": [
+    "Eight historical RC8 capsules retain original triggers/evidence and the exact RC9 limited-no-block rationale in pinned RESIDUALS; configured unsupported GC03 is excluded.",
+    "O3 performance reuse remains OPEN; original physical installed verification remains.",
+    "Undelivered duplicate/foreign/rollback probes remain unproved; actual producer construction total is uninstrumented.",
+    "Twelve cold residuals, S7, full15/full5.0 qualification and human gates remain OPEN.",
+    "Historical native/M5/OWN/broad007 failures remain unchanged, including007missing final resource/escaped uncertainty; timing cause and reliability remain unresolved."
+  ],
+  "w2Standing": "Closed only for the exact RC9 source/archive; historical RC8 failure remains immutable.",
+  "preservation": "C9 local checkpoint only. Source conservation and main/C7/C8 head/index equality passed within the actual driver checks; unrelated source/progress preserved. RC8 remains the unchanged operational builder pin. No universal process-closure or fresh whole RC8 physical inventory is inferred.",
+  "boundaries": {
+    "goal035": "Active",
+    "ticketT287": "Active",
+    "full5_0": "OPEN",
+    "nextWorkSelected": false,
+    "qualified": false,
+    "published": false,
+    "globalSelectorChanged": false,
+    "push": false,
+    "tag": false,
+    "merge": false,
+    "realProviderQualification": false,
+    "fullNativeWorkflowQualification": false,
+    "generalPerformanceClaim": false,
+    "generalReliabilityClaim": false
+  }
+}

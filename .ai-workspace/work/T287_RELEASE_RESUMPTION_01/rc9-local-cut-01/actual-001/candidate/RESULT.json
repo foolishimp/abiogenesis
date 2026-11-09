@@ -1,0 +1,16 @@
+{
+  "phase": "candidate",
+  "status": "BUILT",
+  "root": "/private/tmp/abg-r9-owner-native-003/stage-01/work",
+  "archive": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+    "bytes": 11029525,
+    "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+  },
+  "manifest": {
+    "path": "/private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+    "bytes": 3266103,
+    "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+  },
+  "standing": "Retained exact tested rc.9 archive. No metadata mutation or identity-bridge allowance."
+}

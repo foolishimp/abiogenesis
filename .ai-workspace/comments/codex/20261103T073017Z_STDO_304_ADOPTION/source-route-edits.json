@@ -1,0 +1,47 @@
+[
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_PROJECT_REFERENCE_FRAME_BASIS.md",
+    "beforeSha256": "a5598f28da632275333a0102aa27640ef188265f41ff71f8c8f7a05d71f4b8f6",
+    "afterSha256": "2c2a3295928b4a40cd423623145c029b08f0f79576a086df7506f002627a1f10"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md",
+    "beforeSha256": "2870abc5bf337029c7210854e7bc01042ab6953886876e53afb39fc1846d6e48",
+    "afterSha256": "8475ebb342ae80164a7fd7056a8988456780102254858736c2c3d92e52e997db"
+  },
+  {
+    "path": "build_tenants/abiogenesis/typescript/design/ABI5_STDO3_COMPUTATIONAL_BINDING.md",
+    "beforeSha256": "69da4fb4ad234862ddb52832c44e41ffced669f1e3ac3b64903c0424cb382035",
+    "afterSha256": "62048c056d4f92c0b32852956408a2ccd76d3bc6cbf59370e6adfe618fa06f45"
+  },
+  {
+    "path": "specification/PRODUCT.md",
+    "beforeSha256": "7c8493ed9c025b408737c2bf95ea69af980f3bf1db37cd095b09421af6618d85",
+    "afterSha256": "979681c2fd8309cd1affd1e83817fbc37184f3035b2c77541dd491ded2357888"
+  },
+  {
+    "path": "specification/requirements/README.md",
+    "beforeSha256": "ec05a42c406507cdb9ec081fb0ce165a548e1c93e6aa5f30903e28b48ccab08b",
+    "afterSha256": "a402a3a42606fc389617c800f6578cc1862787f777be986d2f7ed876a7db336c"
+  },
+  {
+    "path": "specification/GOALS.md",
+    "beforeSha256": "6c3e742022a4101bfb0a2bfb73bb198f18b21acf9eaf9b1a13c5c4ddfad486e2",
+    "afterSha256": "51ea6ace5d72f269a362839f43e5bd98278502f41dcc3d622e5db4c10273ee21"
+  },
+  {
+    "path": ".ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md",
+    "beforeSha256": "acbcaefcd5e6a17068fea8095eba6f5f376b615ae5f6a8e4249870ee6d3d6bee",
+    "afterSha256": "c2ba5753f94b3f48913e916b353ff7ae2cd3487137c6e0ef9e81b5c560fd06b0"
+  },
+  {
+    "path": "AGENTS.md",
+    "beforeSha256": "d26ba76b8eea65accab0886534a084a8450dc8e61962602fd0972ebbb2f08971",
+    "afterSha256": "a8cd9db41ef9dd43368c18a49c1d4e07749e061dc89d616d5361fd5578914b84"
+  },
+  {
+    "path": "CLAUDE.md",
+    "beforeSha256": "0653bb4d081d388f98693ba8b1da3b62cc2b2faf58fde792b20dd456cd1989c8",
+    "afterSha256": "6c2f604416499412902f5696953f5a059a88f5a5a348b1b39e58108819ec1940"
+  }
+]

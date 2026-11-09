@@ -1,0 +1,303 @@
+{
+  "status": "ONE_ADMITTED_DIAGNOSTIC_COMPLETED_RED_STOPPED",
+  "at": "2026-11-08T17:48:46.041863+00:00",
+  "binding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/M5_DIAGNOSTIC_BINDING.BOUND.001.json",
+    "bytes": 10521,
+    "sha256": "d5582ae5f0db6dc756263b48a36aa4d88c361e1a0d7212a1851b610425fe819d"
+  },
+  "admission": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/ROOT_M5_DIAGNOSTIC_001_ADMISSION.json",
+    "bytes": 2582,
+    "sha256": "57307c80426fa272ae6798ab65da530abad82e8340f86992419d51bfb7a06bb1"
+  },
+  "script": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/run-m5-diagnostic-001.mjs",
+    "bytes": 9769,
+    "sha256": "04226f8707f113c7fdef85d99fe19fed1ed5ce2465ed6bd527ab42fdd6033fb3"
+  },
+  "start": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/REQUEST.json",
+    "bytes": 3302,
+    "sha256": "05efc8ae4adef024faca7ae596b186b4c3986f312faab6208377662fca0c2597"
+  },
+  "outcome": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/RESULT.json",
+    "bytes": 1213,
+    "sha256": "69c7fe03744262bc6a8281fb9ce55fa7496197ef700e5c32cad69ecb87d12d32"
+  },
+  "evidence": {
+    "REQUEST.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/REQUEST.json",
+      "bytes": 3302,
+      "sha256": "05efc8ae4adef024faca7ae596b186b4c3986f312faab6208377662fca0c2597"
+    },
+    "commands/m5.request.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/commands/m5.request.json",
+      "bytes": 932,
+      "sha256": "2828169c8f5cff5081aefbf1ac99abb3625ccacfe374503904135de70e56ee02"
+    },
+    "commands/m5.result.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/commands/m5.result.json",
+      "bytes": 1380,
+      "sha256": "5393ef5cbd7f000ff4fcf57f383ad1c41bb717466384423fab100ab5a9985287"
+    },
+    "commands/m5.stdout": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/commands/m5.stdout",
+      "bytes": 9732,
+      "sha256": "86789137693bebbae200efbf1939518932a6bded54386966fa271164317ce679"
+    },
+    "commands/m5.stderr": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/commands/m5.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/RESULT.json",
+      "bytes": 1213,
+      "sha256": "69c7fe03744262bc6a8281fb9ce55fa7496197ef700e5c32cad69ecb87d12d32"
+    },
+    "events.jsonl": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/events.jsonl",
+      "bytes": 15014,
+      "sha256": "fcd16fef99d09f16296564933a2fbde154487859c3c4d4563882955e7e031d4c"
+    },
+    "RESOURCES.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/RESOURCES.json",
+      "bytes": 1132,
+      "sha256": "26d334ecd4a9470d9fc33ade93fefbc898dced7f3aa7f851c6691f4ba3143da5"
+    },
+    "HOST_OBSERVATIONS.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/HOST_OBSERVATIONS.json",
+      "bytes": 21936,
+      "sha256": "25a2ba8750a6ac1f0a547c701d2c2dd456cf969d699407c080f7acf86ec4db12"
+    },
+    "ancestry-before.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/ancestry-before.json",
+      "bytes": 1137,
+      "sha256": "7c86bde7c1757a5df479989f234a79e3e95237c601a77ca1954fd138c008ddf9"
+    },
+    "ancestry-during.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/ancestry-during.json",
+      "bytes": 1684,
+      "sha256": "1dbe3fbd079f877fbdcef5b3730bf6ebddbe9c1f1f6fe11580f3eaa2200323b1"
+    },
+    "ancestry-after.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/triage-003/diagnostic-001/ancestry-after.json",
+      "bytes": 129,
+      "sha256": "78e3f080172315e370352adcf01ea01ff9492136b0fab5f1b269389b95f68c8c"
+    }
+  },
+  "counts": {
+    "tests": 32,
+    "failed": 6,
+    "passed": 26,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "topLevel": 32,
+    "suites": 0
+  },
+  "command": {
+    "exitCode": 1,
+    "signal": null,
+    "timedOut": false,
+    "truncated": false,
+    "failure": null,
+    "wallMs": 67568.418459
+  },
+  "reporterComplete": true,
+  "parseFailure": null,
+  "conservationFailure": null,
+  "resourceSummary": {
+    "status": "CHILD_CLOSED",
+    "maxOwnedBytes": 8409796,
+    "minFreeBytes": 338082496512,
+    "monitorFailure": null,
+    "detachedDescendantAbsenceProven": false
+  },
+  "hostSummary": {
+    "samples": 68,
+    "logicalCPUs": 16,
+    "loadAverageRanges": [
+      [
+        11.84912109375,
+        13.39990234375
+      ],
+      [
+        14.1650390625,
+        14.49365234375
+      ],
+      [
+        14.5263671875,
+        14.658203125
+      ]
+    ],
+    "osFreememFractionRange": [
+      0.07433831691741943,
+      0.07934415340423584
+    ],
+    "memoryMeaning": "Raw Node os.freemem/totalmem observations; do not equate these with earlier available-memory/UI percentages or diagnose pressure.",
+    "quietHostClaim": false,
+    "ancestryBeforeAndDuringSucceeded": true,
+    "postAncestryFailure": "Error: Command failed: /bin/ps -axo pid=,ppid=,pgid=,stat=,etime=,comm=\n",
+    "postRunProcessAbsenceProven": false
+  },
+  "failures": [
+    {
+      "name": "M5 ABG transport force-terminates a worker that ignores SIGTERM",
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'inactivity'\n- 'absolute'\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'inactivity'\n- 'absolute'\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n+ actual - expected\n\n+ 'inactivity'\n- 'absolute'\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n+ actual - expected\n\n+ 'inactivity'\n- 'absolute'\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:743:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "name": "M5 ABG transport renews its inactivity lease only from observed progress",
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:802:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "name": "M5 ABG transport does not renew from unacknowledged output",
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nfalse !== true\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nfalse !== true\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nfalse !== true\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:843:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "name": "M5 ABG transport excludes semantic output emitted after its timeout boundary",
+      "error": {
+        "name": "Error",
+        "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "stack": "Error [ERR_TEST_FAILURE]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n",
+          "stack": "AssertionError [ERR_ASSERTION]: The input did not match the regular expression /late_worker_output/u. Input:\n\n''\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:888:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "name": "owned process groups retain descendant cleanup after normal and TERM leader exits",
+      "error": {
+        "name": "Error",
+        "message": "ENOENT: no such file or directory, open '/private/tmp/abg-r9-m5-diagnostic-001/tmp/abi5-owned-group-g7SEVN/http-TERM-leader.json'",
+        "stack": "Error [ERR_TEST_FAILURE]: ENOENT: no such file or directory, open '/private/tmp/abg-r9-m5-diagnostic-001/tmp/abi5-owned-group-g7SEVN/http-TERM-leader.json'",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "Error",
+          "message": "ENOENT: no such file or directory, open '/private/tmp/abg-r9-m5-diagnostic-001/tmp/abi5-owned-group-g7SEVN/http-TERM-leader.json'",
+          "stack": "Error: ENOENT: no such file or directory, open '/private/tmp/abg-r9-m5-diagnostic-001/tmp/abi5-owned-group-g7SEVN/http-TERM-leader.json'\n    at async open (node:internal/fs/promises:642:25)\n    at async readFile (node:internal/fs/promises:1279:14)\n    at async TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:954:30)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ENOENT",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    },
+    {
+      "name": "M5 ABG transport excludes descendant output emitted after direct-process exit",
+      "error": {
+        "name": "Error",
+        "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+        "stack": "Error [ERR_TEST_FAILURE]: Expected values to be strictly equal:\n\nnull !== 47\n",
+        "code": "ERR_TEST_FAILURE",
+        "failureType": "testCodeFailure",
+        "cause": {
+          "name": "AssertionError",
+          "message": "Expected values to be strictly equal:\n\nnull !== 47\n",
+          "stack": "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\nnull !== 47\n\n    at TestContext.<anonymous> (file:///private/tmp/abg-r9-owner-native-003/stage-01/work/build_tenants/abiogenesis/typescript/test_env/tests/m5-worker-transport.test.mjs:1023:10)\n    at async Test.run (node:internal/test_runner/test:1113:7)\n    at async Test.processPendingSubtests (node:internal/test_runner/test:788:7)",
+          "code": "ERR_ASSERTION",
+          "failureType": null,
+          "cause": null
+        }
+      }
+    }
+  ],
+  "comparison": [
+    {
+      "case": "force-terminates a worker",
+      "source002Stdout": "\u2714 M5 ABG transport force-terminates a worker that ignores SIGTERM (437.499459ms)",
+      "diagnosticStdout": "\u2716 M5 ABG transport force-terminates a worker that ignores SIGTERM (289.81025ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    },
+    {
+      "case": "inactivity lease only",
+      "source002Stdout": "\u2714 M5 ABG transport renews its inactivity lease only from observed progress (295.837958ms)",
+      "diagnosticStdout": "\u2716 M5 ABG transport renews its inactivity lease only from observed progress (223.823125ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    },
+    {
+      "case": "unacknowledged output",
+      "source002Stdout": "\u2714 M5 ABG transport does not renew from unacknowledged output (156.4845ms)",
+      "diagnosticStdout": "\u2716 M5 ABG transport does not renew from unacknowledged output (268.449959ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    },
+    {
+      "case": "semantic output emitted",
+      "source002Stdout": "\u2714 M5 ABG transport excludes semantic output emitted after its timeout boundary (162.660625ms)",
+      "diagnosticStdout": "\u2716 M5 ABG transport excludes semantic output emitted after its timeout boundary (249.179875ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    },
+    {
+      "case": "process groups retain",
+      "source002Stdout": "\u2714 owned process groups retain descendant cleanup after normal and TERM leader exits (3324.984792ms)",
+      "diagnosticStdout": "\u2716 owned process groups retain descendant cleanup after normal and TERM leader exits (4283.755042ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    },
+    {
+      "case": "descendant output emitted",
+      "source002Stdout": "\u2714 M5 ABG transport excludes descendant output emitted after direct-process exit (102.691084ms)",
+      "diagnosticStdout": "\u2716 M5 ABG transport excludes descendant output emitted after direct-process exit (357.858792ms)",
+      "native003PerCaseDuration": "unavailable: native owner timeout prevented final unit command stdout receipt"
+    }
+  ],
+  "interpretation": [
+    "Same five native003 M5 failing test names recur without preceding unit files or OWN; those other files are not necessary for reproduction.",
+    "Owned-group failure moved from command-normal timeout atline944 to missing http-TERM-leader.json atline954. Earlier worker/command portions progressed further; this is not the identical failed subcase.",
+    "Additional force-terminate case atline743 reports inactivity rather than expected absolute timeout; existing deadline/fixture preconditions remain material.",
+    "Load was measured and lower than prior Root context, but this was not a quiet-host control. Reproduction does not identify the precise scheduling/startup/stream or owner mechanism, and does not establish a new source003 regression.",
+    "Reporter completion proves all32 cases were observed, not that whole-file proof passed. Original unit/OWN/REF remain incomplete; no source acceptance.",
+    "Post-run ps ancestry observation failed; no detached-descendant absence claim. Root/Operator must resolve ownership before selecting another execution."
+  ],
+  "limits": "One execution only; no retry, timeout change, cleanup, source/build/pack/native/provider action. Existing test hooks executed unchanged in owned temp. All prior controls and unit evidence preserved."
+}

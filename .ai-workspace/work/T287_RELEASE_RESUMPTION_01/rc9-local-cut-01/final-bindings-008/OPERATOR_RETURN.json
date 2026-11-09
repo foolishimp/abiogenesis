@@ -1,0 +1,169 @@
+{
+  "status": "BUILD_AND_BYTE_EQUAL_REPRODUCTION_COMPLETE_INSTALL_UNBOUND",
+  "recordedAt": "2026-11-08T21:39:01.191Z",
+  "actor": "/root/rc9_operator",
+  "authority": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_ADMISSION.json",
+    "bytes": 4831,
+    "sha256": "f79cf4dcdfb651e8568fd10e137bbc856c66a11dba5a43a886f662d590816e73"
+  },
+  "activeBinding": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/final-bindings-008/ROOT_BUILD_BINDINGS.json",
+    "bytes": 26455,
+    "sha256": "fe16d77b2de8a38276ec613fac9d877add9932e5478cf18a2a54b54f7af2528c"
+  },
+  "driver": {
+    "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/run-local-cut.mjs",
+    "bytes": 27954,
+    "sha256": "bac74938257736015dc6c71f26dcd0a40e79115ea8bc82f9e2ff9aa04e5e3425"
+  },
+  "execution": {
+    "sessionId": 39674,
+    "attempts": 1,
+    "exitCode": 0,
+    "startedUtc": "2026-11-08T21:37:25.043Z",
+    "endedUtc": "2026-11-08T21:38:00.679Z",
+    "driverWallMs": 35636.0,
+    "standing": "Driver interval only; excludes earlier proof/claim/admission preparation. No retries or additional tests."
+  },
+  "source": {
+    "commit": "e30ac16b4a9406c43d054f45bad864746352dad6",
+    "tree": "ff9a852c6670884c35f67934e9f49443199b723f",
+    "baseCommit": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "sourceDigest": "25121e782221631e32e8685482f790272c6118b4d7b72ccd61f5666b6bd33864",
+    "rows": 1340,
+    "selectedChangedPaths": 12,
+    "newPaths": 1,
+    "deletedPaths": 0,
+    "identityChanges": [],
+    "frozenSourceMatchesBeforeAndAfter": true,
+    "trackedAndIndexCleanAfterCheckpoint": true,
+    "excludedUntrackedPathsPreserved": 17,
+    "standing": "All source conservation, exact selected staging and tracked/index-clean assertions passed inside the admitted driver. Unselected/progress paths were not staged; no independent Git operated during preservation."
+  },
+  "artifact": {
+    "archive": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-owner-proof-01/bootstrap-rc9-007/archive/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "reproductionArchive": {
+      "path": "/private/tmp/abg-r9c-cut/reproduction/build_tenants/abiogenesis/typescript/artifacts/abiogenesis-typescript-tenant-5.0.0-rc.9.tgz",
+      "bytes": 11029525,
+      "sha256": "c01e6cfe36da0b20daf0b5151e149df96b01395a7e5c333b59fe2f2af9e993dd"
+    },
+    "manifest": {
+      "path": "/private/tmp/abg-r9c-cut/reproduction/build_tenants/abiogenesis/typescript/product-toolchain-manifest.json",
+      "bytes": 3266103,
+      "sha256": "7566bf153d9ddabc777f7d60ceab9c7791b9672f76d18dfb7bbd472bf12b7e65"
+    },
+    "members": 5325,
+    "unchangedMembers": 5325,
+    "changedMembers": [],
+    "identityBridgeAllowance": false,
+    "rewriteIdentity": false,
+    "byteEqual": true
+  },
+  "receipts": {
+    "BUILD_RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/BUILD_RESULT.json",
+      "bytes": 1308,
+      "sha256": "4e0641f1e1529e37c0a9d9ba91674ed7715b2f887fafb8dc62bafa836ebd0e2b"
+    },
+    "SOURCE_PREPARED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_PREPARED.json",
+      "bytes": 4164,
+      "sha256": "3bb71bfe97f7fb6d150cfb700135c92c4036dfbc7330e79011de7b15d1fe90d2"
+    },
+    "SOURCE_CHECKPOINT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/SOURCE_CHECKPOINT.json",
+      "bytes": 1187,
+      "sha256": "f0870b39939c6aa279f4886ff79a20a49c880bbe7ac8a39636e3383ac1c03610"
+    },
+    "candidate/RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/candidate/RESULT.json",
+      "bytes": 782,
+      "sha256": "a0bf12fc4c9d4e8e430c780df3432f620d737962de65fa2c9ad7359c89e24a05"
+    },
+    "REPRODUCTION_INPUTS_VERIFIED.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/REPRODUCTION_INPUTS_VERIFIED.json",
+      "bytes": 27435,
+      "sha256": "58f9c49c1057d53d1ad5988d8fc96b6870858abcfd0b4a3f048bb10dee674763"
+    },
+    "reproduction/RESULT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/reproduction/RESULT.json",
+      "bytes": 1274,
+      "sha256": "a89501cd7f7a8ade2bb50ac29d4af2fa25118858933ba3fffd0abc2ed1ea89e3"
+    },
+    "EXACT_TESTED_ARTIFACT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/EXACT_TESTED_ARTIFACT.json",
+      "bytes": 831,
+      "sha256": "c130049c2da5eca6f70604236ab7463201d8bc3dde275f0f32e229146e3119ef"
+    },
+    "INSTALL_INPUTS_PENDING.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/INSTALL_INPUTS_PENDING.json",
+      "bytes": 2744,
+      "sha256": "afe7f0f945dcc8384b9bf846efa1ccbf4df23adf3a24549b9c44a7aa268ddc49"
+    },
+    "PRESERVED_BEFORE.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/PRESERVED_BEFORE.json",
+      "bytes": 1032,
+      "sha256": "fd5d2bf544b2ae78d5317854a7c037e3df38514c48a867afc65d610256d908cf"
+    },
+    "ENVIRONMENT.json": {
+      "path": "/Users/jim/src/apps/abiogenesis/.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc9-local-cut-01/actual-001/ENVIRONMENT.json",
+      "bytes": 1269,
+      "sha256": "16496b7c7fa45bd5314109d8df6e2ddc4ce8b03366d185c961da412711a8c6db"
+    }
+  },
+  "preservation": {
+    "mainRC7RC8HeadIndexEquality": "Passed driver before/after exact comparison; preserved heads/index pins in PRESERVED_BEFORE and after-command receipts.",
+    "mainHead": "1344547c94dc0684af0cd83260438c41245a6f8a",
+    "RC7Head": "27c08ce597b71c383eb3d032b25fa0791646c6c6",
+    "RC8Head": "2019d62e4bb5d28183cc720b904d7901f19dc44a",
+    "scope": "No writes to preserved main/C7/C8 contents; no exhaustive unrelated dirty/untracked audit claimed.",
+    "releaseAndInstallRootsAbsent": true,
+    "historicalFailuresAndResidualsUnchanged": true
+  },
+  "commandSummary": {
+    "count": 34,
+    "allExit0NoSignalFailureTimeoutTruncation": true,
+    "selectedTimings": [
+      {
+        "command": "exact-tested-artifact-members",
+        "wallMs": 558.9700840000005
+      },
+      {
+        "command": "reproduction-compile",
+        "wallMs": 7208.719249999999
+      },
+      {
+        "command": "reproduction-dependencies",
+        "wallMs": 538.0428750000001
+      },
+      {
+        "command": "reproduction-generate",
+        "wallMs": 21907.628582999998
+      },
+      {
+        "command": "reproduction-pack",
+        "wallMs": 3514.004499999999
+      },
+      {
+        "command": "source-checkpoint",
+        "wallMs": 126.67958399999998
+      },
+      {
+        "command": "source-stage",
+        "wallMs": 116.18329199999994
+      }
+    ]
+  },
+  "pending": "Independent packaging review of actual checkpoint/tree/archive/reproduction and frozen final claims; separate Root install activation. This build selects no installation.",
+  "qualified": false,
+  "published": false,
+  "installed": false,
+  "globalSelectorChanged": false,
+  "providerCalls": 0,
+  "nativeRuns": 0
+}
