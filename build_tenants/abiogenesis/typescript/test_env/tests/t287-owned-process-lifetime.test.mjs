@@ -444,14 +444,14 @@ async function scratch(t) {
 }
 const decode = stream => Buffer.from(stream.payload, 'base64').toString();
 const alive = pid => { try { process.kill(pid, 0); return true; } catch (error) { if (error.code === 'ESRCH') return false; throw error; } };
-function httpDeclaration(file, port = 'port.txt', overrides = {}) {
+function httpDeclaration(file, port = 'port.txt', overrides = {}, request = {}) {
   return { launch: { executable: process.execPath, args: [file, '{port_file}'], environment: [], relativeCwd: '.',
     timeoutMs: 600, terminationGraceMs: 120, portFile: { relativePath: port }, ...overrides },
-    request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: 300 } };
+    request: { hostname: '127.0.0.1', method: 'GET', path: '/', timeoutMs: 300, ...request } };
 }
-async function httpInput(file, port, overrides) {
+async function httpInput(file, port, overrides, request) {
   const { WORKSITE_COMMAND_EXECUTION_IDS } = await load('product/worksite_command_execution');
-  const declaration = httpDeclaration(file, port, overrides);
+  const declaration = httpDeclaration(file, port, overrides, request);
   declaration.launch.args[1] = WORKSITE_COMMAND_EXECUTION_IDS.httpPortFileArgumentPlaceholder;
   return declaration;
 }
@@ -524,9 +524,78 @@ test('physical lifetime: actual direct exit, stdio close, disposal and group abs
     cleanupMs: facts.cleanupElapsedMs, closeObserved: facts.closeObserved, bufferedBytes: Buffer.byteLength(stdout) }));
 });
 
-test('physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize', { timeout: 10000 }, async t => {
-  const root = await scratch(t), helper = await helperModule(t);
-  for (const mode of ['response', 'invalid', 'missing', 'request-failure', 'owner-error']) {
+// Physical populations add one explicit prospective setup allowance to the
+// original behavior margins: finite supported-test provisioning, not an
+// observed startup bound. Owner clocks still start at spawn; nothing is
+// rebased, renewed, retried or skipped. SETUP_MS covers one cold Node with its
+// ps and PID/port publication; CAPTURE_SETUP_MS two cold Nodes and the leader's
+// 5ms ready poll. Controlled cases keep the declaration defaults.
+const SETUP_MS = 5_000, CAPTURE_SETUP_MS = 2 * SETUP_MS + 5, ADMINISTRATIVE_MS = 5_000;
+const cleanupMs = grace => 2 * grace + Math.min(grace, 250);
+// HTTP launch 5600, request 5300, grace 120.
+const PHYSICAL_HTTP = { launchMs: SETUP_MS + 600, requestMs: SETUP_MS + 300, graceMs: 120 };
+// Capture worker inactivity 11005 and absolute 12005, command and HTTP launch
+// 11005, HTTP request 10305, grace 150.
+const PHYSICAL_CAPTURE = { inactivityMs: CAPTURE_SETUP_MS + 1000, absoluteMs: CAPTURE_SETUP_MS + 2000,
+  launchMs: CAPTURE_SETUP_MS + 1000, requestMs: CAPTURE_SETUP_MS + 300, graceMs: 150 };
+const PHYSICAL_HTTP_MODES = ['response', 'invalid', 'missing', 'request-failure', 'owner-error'];
+const HTTP_MODE_CEILING_MS = PHYSICAL_HTTP.launchMs + PHYSICAL_HTTP.requestMs + cleanupMs(PHYSICAL_HTTP.graceMs);
+const CAPTURE_CEILING_MS = {
+  worker: PHYSICAL_CAPTURE.absoluteMs + cleanupMs(PHYSICAL_CAPTURE.graceMs),
+  command: PHYSICAL_CAPTURE.launchMs + cleanupMs(PHYSICAL_CAPTURE.graceMs),
+  http: PHYSICAL_CAPTURE.launchMs + PHYSICAL_CAPTURE.requestMs + cleanupMs(PHYSICAL_CAPTURE.graceMs),
+};
+// Serial population ceilings plus a separate file/setup/diagnostic allowance,
+// rounded up to the second: HTTP 62000, capture 51000.
+const testCapMs = ceilings => Math.ceil((ADMINISTRATIVE_MS + ceilings.reduce((sum, ms) => sum + ms, 0)) / 1000) * 1000;
+const HTTP_TEST_CAP_MS = testCapMs(PHYSICAL_HTTP_MODES.map(() => HTTP_MODE_CEILING_MS));
+const CAPTURE_TEST_CAP_MS = testCapMs(Object.values(CAPTURE_CEILING_MS));
+
+// Observation-only physical evidence in parent monotonic milliseconds from the
+// case start; child clocks are never compared with it. Polling reads only files
+// the fixtures publish, runs only while the owner operation is active, stops at
+// owner return and never passes its explicit setup deadline. It touches no
+// owner clock, ChildProcess, callback or capture.
+const sinceMs = (start, at = performance.now()) => Math.round((at - start) * 1000) / 1000;
+const publishedText = path => readFile(path, 'utf8').then(bytes => bytes === '' ? null : bytes);
+const publishedJson = path => publishedText(path).then(bytes => bytes === null ? null : JSON.parse(bytes));
+function observePublication(start, setupMs, probes) {
+  const observed = {}, pending = new Map(Object.entries(probes));
+  let stopped = false, wake = () => {};
+  const done = (async () => {
+    while (!stopped && pending.size > 0 && performance.now() - start < setupMs) {
+      for (const [name, probe] of pending) {
+        const value = await probe().catch(() => null);
+        if (value !== null) { observed[name] = { atMs: sinceMs(start), value }; pending.delete(name); }
+      }
+      if (!stopped && pending.size > 0) await new Promise(resolveWait => {
+        const timer = setTimeout(resolveWait, 10); wake = () => { clearTimeout(timer); resolveWait(); };
+      });
+    }
+    return { observed, unobserved: [...pending.keys()],
+      end: pending.size === 0 ? 'complete' : stopped ? 'owner_returned' : 'setup_deadline' };
+  })();
+  return () => { stopped = true; wake(); return done; };
+}
+// Returns the original ChildProcess unchanged; records only the parent
+// monotonic time at which spawn returned and the actual child PID.
+function spawnObserver() {
+  const observer = { last: null, spawn: (...args) => {
+    const child = spawn(...args); observer.last = { at: performance.now(), pid: child.pid ?? null }; return child;
+  } };
+  return observer;
+}
+function physicalFacts(start, spawned, readiness, ownerReturnMs, absenceCheckMs, bounds) {
+  const launched = spawned === null ? null : { atMs: sinceMs(start, spawned.at), pid: spawned.pid };
+  return { bounds, spawn: launched, readiness, spawnToPublicationMs: launched === null ? null : Object.fromEntries(
+    Object.entries(readiness.observed).map(([name, row]) => [name, Math.round((row.atMs - launched.atMs) * 1000) / 1000])),
+  ownerReturnMs, absenceCheckMs };
+}
+
+test('physical HTTP owner: response, invalid/missing port, failed request and exceptional owner path finalize', { timeout: HTTP_TEST_CAP_MS }, async t => {
+  const spawns = spawnObserver();
+  const root = await scratch(t), helper = await helperModule(t, false, { 'node:child_process': { spawn: spawns.spawn } });
+  for (const mode of PHYSICAL_HTTP_MODES) {
     const file = join(root, `${mode}.mjs`), pidFile = join(root, `${mode}.pid`);
     await writeFile(file, `import {writeFileSync} from 'node:fs'; import http from 'node:http'; import {execFileSync} from 'node:child_process';
       writeFileSync(${JSON.stringify(pidFile)},JSON.stringify({pid:process.pid,pgid:process.platform==='win32'?null:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())}));
@@ -537,21 +606,29 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
       const scope = process.platform === 'win32' ? identity.pid : -identity.pgid;
       try { if (alive(scope)) process.kill(scope, 'SIGKILL'); } catch (error) { if (error.code !== 'ESRCH') throw error; }
     } });
-    const declaration = await httpInput(file, `${mode}.port`);
+    const declaration = await httpInput(file, `${mode}.port`, { timeoutMs: PHYSICAL_HTTP.launchMs, terminationGraceMs: PHYSICAL_HTTP.graceMs },
+      { timeoutMs: PHYSICAL_HTTP.requestMs });
     if (mode === 'owner-error') declaration.request.method = 'bad\nmethod';
     let result = null, failure = null, identityFailure = null;
+    spawns.last = null; const start = performance.now();
+    const stopObserving = observePublication(start, SETUP_MS,
+      { identity: () => publishedJson(pidFile), port: () => publishedText(join(root, `${mode}.port`)) });
     try { result = await helper.runHttpProbe({ taskRef: `task://physical-http/${mode}`, taskDigest: 'sha256:' + '3'.repeat(64) },
       root, declaration); } catch (error) { failure = error; }
+    const ownerReturnMs = sinceMs(start), readiness = await stopObserving();
     // A missing PID observation must not erase the owner's caught result or error.
     try { identity = JSON.parse(await readFile(pidFile, 'utf8')); } catch (error) { identityFailure = error; }
     const scope = identity === null ? null : process.platform === 'win32' ? identity.pid : -identity.pgid;
     const scopeAbsent = scope === null ? null : !alive(scope);
-    t.diagnostic(JSON.stringify({ owner: 'http', mode, fixtureRoot: root, ...identity, scopeAbsent,
+    const physical = physicalFacts(start, spawns.last, readiness, ownerReturnMs, sinceMs(start),
+      { ...PHYSICAL_HTTP, ceilingMs: HTTP_MODE_CEILING_MS });
+    t.diagnostic(JSON.stringify({ owner: 'http', mode, fixtureRoot: root, ...identity, scopeAbsent, physical,
       identityFailure: identityFailure === null ? null : { name: identityFailure.name, code: identityFailure.code ?? null, message: identityFailure.message },
       stdout: result?.process ? decode(result.process.stdout) : null, stderr: result?.process ? decode(result.process.stderr) : null,
       observation: result, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
     if (identityFailure !== null) throw identityFailure;
     assert.equal(scopeAbsent, true, 'owned scope absent before next case');
+    assert.equal(physical.spawn?.pid, identity.pid, 'published PID is the spawned owned child');
     if (process.platform !== 'win32') assert.equal(identity.pgid, identity.pid, 'actual detached owned process group');
     if (mode === 'owner-error') {
       assert.notEqual(failure, null);
@@ -568,35 +645,50 @@ test('physical HTTP owner: response, invalid/missing port, failed request and ex
   }
 });
 
-test('physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result', { skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and inherited pipes are unavailable', timeout: 10000 }, async t => {
-  const root = await scratch(t), helper = await helperModule(t);
+test('physical owner capture: finite inherited-pipe late output stays HTTP diagnostic and never worker/command result', { skip: process.platform === 'win32' && 'win32 platform: owned POSIX process groups and inherited pipes are unavailable', timeout: CAPTURE_TEST_CAP_MS }, async t => {
+  const spawns = spawnObserver();
+  const root = await scratch(t), helper = await helperModule(t, false, { 'node:child_process': { spawn: spawns.spawn } });
   const { constructKnownWorkerTransportContract } = await load('abg/transport_contracts');
   const { runWorkerTransport } = await load('abg/worker_transport');
   for (const owner of ['worker', 'command', 'http']) {
     const leader = join(root, `${owner}-leader.mjs`), descendant = join(root, `${owner}-descendant.mjs`), ready = join(root, `${owner}.ready`);
-    await writeFile(descendant, `import {writeFileSync} from 'node:fs'; process.on('SIGTERM',()=>setTimeout(()=>process.stdout.write('late-diagnostic\\n',()=>process.exit(0)),35)); writeFileSync(${JSON.stringify(ready)},String(process.pid)); setInterval(()=>{},1000);`);
+    // The descendant publishes its actual ps group identity before readiness.
+    const identityFile = join(root, `${owner}.identity.json`);
+    await writeFile(descendant, `import {writeFileSync} from 'node:fs'; import {execFileSync} from 'node:child_process'; process.on('SIGTERM',()=>setTimeout(()=>process.stdout.write('late-diagnostic\\n',()=>process.exit(0)),35)); writeFileSync(${JSON.stringify(identityFile)},JSON.stringify({pid:process.pid,pgid:Number(execFileSync('/bin/ps',['-o','pgid=','-p',String(process.pid)],{encoding:'utf8'}).trim())})); writeFileSync(${JSON.stringify(ready)},String(process.pid)); setInterval(()=>{},1000);`);
     await writeFile(leader, `import {spawn} from 'node:child_process';import {existsSync} from 'node:fs'; const c=spawn(process.execPath,[${JSON.stringify(descendant)}],{stdio:['ignore','inherit','inherit']});c.unref(); const t=setInterval(()=>{if(existsSync(${JSON.stringify(ready)})){clearInterval(t);process.stdout.write('leader-output\\n',()=>process.exit(0));}},5);`);
     t.after(async () => { try { const pid = Number(await readFile(ready, 'utf8')); if (alive(pid)) process.kill(pid, 'SIGKILL'); } catch (error) { if (!['ESRCH', 'ENOENT'].includes(error.code)) throw error; } });
     let observed = null, failure = null, result, text;
+    spawns.last = null; const start = performance.now();
+    const stopObserving = observePublication(start, CAPTURE_SETUP_MS, { identity: () => publishedJson(identityFile),
+      ready: () => publishedText(ready).then(bytes => bytes === null ? null : Number(bytes)) });
     try {
       if (owner === 'worker') {
         observed = result = await runWorkerTransport({ contract: constructKnownWorkerTransportContract('generic', { command: process.execPath, prefixArgs: [leader], environment: {} }),
           prompt: 'capture boundary', lane: 'worker_executes', cwd: root, archiveRoot: join(root, 'archive'), label: owner,
-          timeoutMs: 1000, absoluteTimeoutMs: 2000, terminationGraceMs: 150, environment: {} }); text = result.stdout;
+          timeoutMs: PHYSICAL_CAPTURE.inactivityMs, absoluteTimeoutMs: PHYSICAL_CAPTURE.absoluteMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs, environment: {},
+          // The owner's declared process-start observation; it records spawn evidence only.
+          observer: { onProcessStarted: pid => { spawns.last = { at: performance.now(), pid }; } } }); text = result.stdout;
       } else if (owner === 'command') {
         observed = result = await helper.runCommand({ commands: [{ commandId: 'command://capture', executable: process.execPath, args: [leader],
-          relativeCwd: '.', environment: [], timeoutMs: 1000, terminationGraceMs: 150, expectedReports: [] }] }, root, 0); text = decode(result.stdout);
+          relativeCwd: '.', environment: [], timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs, expectedReports: [] }] }, root, 0); text = decode(result.stdout);
       } else {
-        observed = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`, { timeoutMs: 1000, terminationGraceMs: 150 }));
+        observed = await helper.runHttpProbe({}, root, await httpInput(leader, `${owner}.port`,
+          { timeoutMs: PHYSICAL_CAPTURE.launchMs, terminationGraceMs: PHYSICAL_CAPTURE.graceMs }, { timeoutMs: PHYSICAL_CAPTURE.requestMs }));
         result = observed.process; text = decode(result.stdout);
       }
     } catch (error) { failure = error; }
+    const ownerReturnMs = sinceMs(start), readiness = await stopObserving();
     // Retain the owner's result or error, readiness and worker archive before assertions or scratch cleanup.
     const readyPid = await readFile(ready, 'utf8').then(Number, error => ({ code: error.code ?? null }));
     const archived = owner !== 'worker' ? null : Object.fromEntries(await Promise.all(['stdout', 'stderr'].map(async name =>
       [name, await readFile(join(root, 'archive', `${owner}-${name}.log`), 'utf8').catch(error => ({ code: error.code ?? null }))])));
+    const identity = await publishedJson(identityFile).catch(error => ({ code: error.code ?? null, message: error.message }));
+    const group = Number.isSafeInteger(identity?.pgid) && identity.pgid > 1 ? identity.pgid : null;
+    const groupAbsent = group === null ? null : !alive(-group);
+    const physical = physicalFacts(start, spawns.last, readiness, ownerReturnMs, sinceMs(start),
+      { ...PHYSICAL_CAPTURE, ceilingMs: CAPTURE_CEILING_MS[owner] });
     t.diagnostic(JSON.stringify({ owner, fixtureRoot: root, readyPid, descendantAlive: Number.isSafeInteger(readyPid) ? alive(readyPid) : null,
-      stdout: text ?? null, stderr: result === undefined ? null : owner === 'worker' ? result.stderr : decode(result.stderr), archived,
+      identity, groupAbsent, physical, stdout: text ?? null, stderr: result === undefined ? null : owner === 'worker' ? result.stderr : decode(result.stderr), archived,
       observation: observed, failure: failure === null ? null : { name: failure.name, code: failure.code ?? null, message: failure.message, stack: failure.stack ?? null } }));
     if (failure !== null) throw failure;
     if (owner === 'worker') assert.doesNotMatch(result.finalOutput, /late-diagnostic/u);
@@ -605,6 +697,9 @@ test('physical owner capture: finite inherited-pipe late output stays HTTP diagn
     assert.match(text, /leader-output/u);
     if (owner === 'http') assert.match(text, /late-diagnostic/u); else assert.doesNotMatch(text, /late-diagnostic/u);
     assert.equal(alive(Number(await readFile(ready, 'utf8'))), false, `${owner} descendant gone before next case`);
+    assert.equal(identity?.pid, readyPid, `${owner} published identity is the ready descendant`);
+    assert.equal(identity.pgid, physical.spawn?.pid, `${owner} descendant is in the actual owned leader group`);
+    assert.equal(groupAbsent, true, `${owner} owned group absent before next case`);
     t.diagnostic(JSON.stringify({ owner, capturedBytes: Buffer.byteLength(text), lateDiagnosticRetained: owner === 'http' }));
   }
 });
