@@ -2,7 +2,7 @@
 
 Writer Return, commentary. Worktree `/private/tmp/abg-rc12-executive-20261111`,
 branch `claude/rc12-executive`, base `b7cf409fc`. Commits: `cb0a3781a` (P1+P2), `bb3d772d7`
-(code and tests), then this Return.
+(code and tests), `d24131b64` (R7 one-sentence meaning), then this Return.
 
 ## Frames used
 
@@ -50,7 +50,7 @@ UAT-only completion (REQ-P-SCENARIOS independent-assessment text is general).
 | T2 | `gtl` wrapper child | `uat` → assessor | `uat or review` → assessor; review conditions_for_use |
 | T2 | direct route (`product` 134, `abg` 189, `invocation_admission` 1514) | Testing/UAT only | unchanged; declared reviews refuse |
 | T3 | old instance | — | b7cf409fc digests equal for witness state, 3-purpose topology, run environment, selector views, response schemas, facts, subject domains; state without `reviewStanding` admitted; binder unchanged when the full catalogue offers the review wrapper |
-| T4 | derived identities | 8 library GraphFunctions | 9: adds `graph-function://abiogenesis/default-library/review@5`; library publication, `callableMembership`, capability graph (`graphDigest` committed `1812869d…`, now `daccf7d2…`) and manifest change; no-review carriers pinned unchanged |
+| T4 | derived identities | 8 library GraphFunctions | 9: adds `graph-function://abiogenesis/default-library/review@5` and its contribution row; full-default step digest `2afc3cf1…`→`e227420d…`, root parent `235f8c59…` unchanged; publication and `callableMembership` change. Committed capability graph (`1812869d…`) is already stale at a base build; now `daccf7d2…`; this package adds only the review rows. No-review carriers pinned unchanged |
 | T5 | imports | `governanceVerdict` in `abg/default_library.ts` | `governanceVerdicts`, `governanceSelectedReview`, types `GovernanceObservation`, `GovernanceReviewStanding`; `abg/instruction_assembly.ts` adds `governanceTargetSelectable`; `rc2-assessment-intake.test.mjs` keeps the one-argument call |
 | T6 | tests | see Evidence | |
 
@@ -76,6 +76,9 @@ UAT-only completion (REQ-P-SCENARIOS independent-assessment text is general).
   `t287-registered-graph-selection` 1 pass;
   `t287-governance-covered-source-use` 3 pass, 6 skip;
   `t287-default-library-reviews` 7 pass (6 unit, 1 end to end, 77.9 s).
+  After `d24131b64`, which only changes the declared-review meaning text
+  (no E4 file declares reviews), the new file reran: 7 pass, 83.5 s. The
+  no-review pins rechecked equal.
 - E3 roles in order: select, native, select, assess B, select, assess A,
   select, native, select, c2, select, assess uat, select, assess A. That is 7
   choices; the assessor graph opened 4 times; B ran once. 8 parent results,
@@ -111,7 +114,9 @@ UAT-only completion (REQ-P-SCENARIOS independent-assessment text is general).
 - A retained state whose `workOrders` carries a `review` key is now refused.
   No fixture has one.
 - Consumers on the full default purpose list gain the review wrapper; their
-  library, program and installed digests change.
+  step, library, program and installed digests change. Their selector prompt
+  bytes do not: choices are filtered and the binding carries the unchanged
+  root parent digest.
 - Review currentness uses native-work changed-path overlap only, as UAT
   acceptance does.
 - E3 uses a scripted stand-in; no provider ran. Readers of this Return share
