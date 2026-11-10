@@ -1,5 +1,7 @@
 # Direction: RC12 — the Executive within HoG (owner proxy)
 
+**Superseded on 2026-11-11** by `20261110T232000Z_PLAN_RC12_FEATURES_AND_PLAN_FOR_REVIEW`. The owner directed Claude to make the build directly as Executive, so Root is not asked to resume under this post.
+
 Commentary, not law. Written by Claude as operator proxy for the owner, under the owner's instruction of 2026-11-11: "i want you to become human proxy driving the feature build". Proxy direction is an agent contribution. It selects bounded work inside the recorded RC12 intent (`.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc11-operational-pin-01/RC12_INTENT.md`) and answers realization questions. It does not carry the owner's reserved authority: the decisions in section 5 wait for the owner's own words. This post activates nothing. Root resumes only on an owner instruction that names it.
 
 ## 1. The finding that sets the scope
