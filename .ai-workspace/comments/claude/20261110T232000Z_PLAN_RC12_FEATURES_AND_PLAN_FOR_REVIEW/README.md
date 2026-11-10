@@ -113,3 +113,28 @@ Each package has one activation, one Return and one status line.
 - Writer's Return: `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/A_RETURN.md` in that worktree. The Executive's one-line dispositions are in `LEDGER.md` beside it.
 - Not verified: any live provider run, and everything in packages B and C. Package A's end-to-end proof uses a scripted stand-in model.
 - Reviewer and Writers share one model family with the Executive unless the review runs elsewhere.
+
+## 8. Review 1 and the Executive's dispositions (2026-11-11)
+
+An independent session reviewed this brief at `bdcae3559` and package A at `6b521afd2`. Verdict: changes requested. Its standard: GTL defines the process over the workspace; the framework enforces that process while agents do the work; the Executive chooses among permitted next steps, and its judgment does not replace declared prerequisites, permissions or completion conditions.
+
+The Executive verified the three source findings by reading the code and accepts all of them.
+
+| Finding | Verified at | Disposition |
+|---|---|---|
+| A review stays current after a mandatory input changes. Preparation binds `order.readFirst`; the parent checks only sources, candidate and rubric. | `nativeTask` and `projectGovernanceParent` in `T/code/src/abg/default_library.ts` | Repair in package A2. Cause: the Executive's ruling 6 named the subject too narrowly. Currentness follows the review's material dependencies; one function owns that set for preparation and parent. |
+| A Testing command that writes inside its permitted territory does not invalidate a retained review. | Index classification in `T/code/src/abg/runtime_history.ts` (about line 700) and `worksiteCommandSourcesInvalidatedAfter` in `T/code/src/abg/native_worksite_execution.ts` | Repair in package A2: both the index and the invalidator. Inherited defect, exposed by review reuse. |
+| The native handoff drops `original.authorityRefs`, which the selector receives. | `nativeTask` instructions | Repair in package A2 through the existing task envelope. Inherited. |
+
+Changes to the plan:
+
+1. **Package A2** (next Writer): the three repairs above; removal of the default argument; Product wording narrowed so that only the completion computation is closed to Executive judgment, while applicability, conflict, dependency and sufficiency remain its judgment; design notes that separate the acceptance rule from dependency-based freshness and state what a frame declaration must identify.
+2. **New feature E8: declared process prerequisites, enforced before effects.** Today the selector's `dependsOn` is advisory and `required` gates only final completion. A rule such as "design review passes before Construction" is declared through the Program's existing constraint relations, the selector is offered only permitted next steps, and an out-of-order choice is refused before any effect. A read-only census of gate and selection-admission semantics precedes the ruling on its route.
+3. **X2 is closed as a ruling:** registered selection does not fold into the consequence route in RC12. The move needs validation and admission changes, so it is not a deletion.
+4. **Package B:** same-Run observation only for explicitly recoverable child outcomes (a confirmed-ended attempt with attributable effects). Integrity failures, uncertain effects and unconfirmed termination keep their blocking meaning. It needs a declared outcome and foldback, not an extra row.
+5. **E7:** the bounded outcome and its unresolved obligations are proved through cold Public readback, and the counting of the bound is defined.
+6. **E6:** the existing kill-and-continue proof stops at a durable cursor before the call opens. The claim is limited to that boundary and the proof is rerun after package B.
+7. **Package C:** full Consensus retirement if its dependency cone closes. Tests that use Consensus as a specimen for a generic law are re-pointed, not deleted.
+8. **Demonstration:** one declared process on one frozen installed candidate: an out-of-order step refused before its effect, a lawful successor selected from admitted evidence, a correction, an unaffected review preserved, completion. The reviews are semantically discriminating (the frame changes the verdict), and the record binds the independence policy and the actual actor identities.
+
+Order: B trace (running) → A2 → census for E8 → rulings on B and E8 → implementation → C → cut → demonstration → broad suites and independent review on the unchanged candidate → merge to local `main`.
