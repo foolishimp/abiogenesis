@@ -1,5 +1,77 @@
 # T-287 Default Governance Library
 
+## Declared framed reviews — 2026-11-11
+
+RC12 package A, `design_reframe` of this library HOW/contract under Product
+[Default Governance And Lifecycle Library](../../../../specification/PRODUCT.md#default-governance-and-lifecycle-library);
+requirements unchanged.
+
+**Path and outcome.** A task declares its reviews. The Executive selects the
+registered `review` wrapper and names one declared review. The wrapper prepares
+a native assessment task from that review's work order and assessment, runs the
+existing native assessor child and folds the verdict. The parent closes only
+when acceptance and every required review verdict are satisfied and current. A
+task without reviews keeps its states, prompts, response schema and digests.
+
+**Typed handoffs.**
+- `original.reviews` (exactOptional, non-empty): strict `{reviewRef, frame,
+  required, order, assessment}`; `order` is the work-order shape with empty
+  `writeRoots`, `assessment` the `original.assessment` shape. `reviewRef` is
+  unique, each assessment keeps the distinct-roles rule and `workOrders` has no
+  `review` key.
+- Selector `reviewRef` (exactOptional): present exactly when reviews are
+  declared; a declared ref when the next member is the review wrapper, else
+  null. The binder and the response schema, including its `anyOf` rows, enforce
+  it. Without declared reviews the review wrapper is no selectable target:
+  assembly choices, schema and binder apply `governanceTargetSelectable`; the
+  registered selection domain stays whole.
+- A `review` observation carries the assessment value and its `reviewRef`,
+  present exactly on `review` rows and naming a declared review.
+- `reviewStanding` (exactOptional, present exactly with declared reviews): one
+  row per declared review in order, `{reviewRef, required, resultRef,
+  satisfied, current}`. Construction emits initial rows, folds carry the rows
+  unchanged and only the parent projection recomputes them.
+
+**Declared computations.**
+- `governanceAssessmentContract(state, purpose)` alone decides which assessment
+  applies: `uat` takes `original.assessment`, `review` the declared review the
+  current selection names. Review subject evidence is the UAT domain; review
+  preparation reuses the UAT producer, candidate, dependency and invalidation
+  checks.
+- `governanceVerdicts(state)`: acceptance is the latest `uat` row that only
+  `review` rows follow; each review takes its latest row.
+- Parent: acceptance and each latest review row pass the existing
+  authentication (admitted success Result, equal assessment value, CCall,
+  actor, admitted source basis); a mismatch refuses the parent outcome.
+  Acceptance is uninvalidated over the read roots after its ordinal in this
+  Run; a review is current when admitted in this Run and uninvalidated over its
+  candidate, rubric and sources. `terminal` is acceptance, every required review
+  satisfied and current, and fulfillment coverage keyed to the acceptance row.
+
+**Preserved invariants and effect.** `terminal` implies every required standing
+row is satisfied and current. Another Run's verdict is not current. A review
+fold writes no fulfillment fact. The fixed direct Testing/UAT route refuses
+declared reviews. Fulfillment response instructions stay UAT-only. No effect
+grant is added: a review has empty `writeRoots` under the read-only assessor.
+
+**Proof.** Unit atoms and b7cf409fc no-review digests, then one installed
+Public start with two required reviews of different frames and a scripted
+stand-in model (`t287-default-library-reviews.test.mjs`).
+
+```mermaid
+sequenceDiagram
+  participant P as Parent
+  participant E as Executive step
+  participant R as Review wrapper
+  participant A as Native assessor
+  P->>P: acceptance and required review standing
+  P->>E: open state with standing
+  E->>R: review wrapper, reviewRef, subject Result
+  R->>A: declared order and assessment, writeRoots []
+  A-->>R: verdict, unmet criteria kept
+  R->>P: fold review row; parent recomputes standing
+```
+
 ## RC7 fixed Testing/UAT direct wrapper route — 2026-11-06
 
 Root selection `RC7-LAUNCH-02`, grant `rc7-fixed-proof-author-01`,

@@ -1106,13 +1106,29 @@ or product feature family.
 ### Default Governance And Lifecycle Library
 
 The default library publishes a recursive Executive overlay and reusable
-GraphFunctions for induction, specification, design, testing and UAT through
-the same module/catalog path as user declarations. They are explicitly selected,
-replaceable compositions. Induction establishes the task model, governing
-context, assumptions and unknowns. Construction uses the declared coding-worker
-capability. Applicable work, depth and repetition follow framed evaluation and
-policy; the library imposes no unconditional lifecycle or mandatory hierarchy
-of Executive, auditor and strategic roles.
+GraphFunctions for induction, specification, design, testing, framed review and
+UAT through the same module/catalog path as user declarations. They are
+explicitly selected, replaceable compositions. Induction establishes the task
+model, governing context, assumptions and unknowns. Construction uses the
+declared coding-worker capability. Applicable work, depth and repetition follow
+framed evaluation and policy; the library imposes no unconditional lifecycle or
+mandatory hierarchy of Executive, auditor and strategic roles.
+
+The library also publishes framed review. A task declares its reviews. Each
+declared review names its reference frame, its exact subject, its governing
+sources and criteria, its result contract and whether it is required. One
+assessor GraphFunction serves every declared review; a review's type is its
+declared frame, not a separate graph, role or runner. The Executive selects a
+declared review as it selects any registered work. A review binds only its
+declared frame: it neither establishes nor replaces acceptance of the full
+original outcome.
+
+Parent completion is a declared computation over admitted verdicts. It requires
+the acceptance verdict and every required review verdict to be satisfied and
+current. A verdict is current while no later admitted effect touches its
+declared subject. An adverse, missing or stale required verdict keeps the parent
+open and remains visible as unresolved. The Executive proposes the next work; it
+never selects completion and never conjoins findings by judgment.
 
 Governance preserves the original task, required outcomes and authority while
 selecting or revising the choice of preregistered graph work in response to
