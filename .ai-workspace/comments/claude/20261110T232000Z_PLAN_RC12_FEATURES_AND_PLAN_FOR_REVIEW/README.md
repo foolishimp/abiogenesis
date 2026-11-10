@@ -35,9 +35,9 @@ Three things already exist in the source and are not rebuilt:
 | Id | Feature | State at the base | Package | Status |
 |---|---|---|---|---|
 | E1 | The Executive drives a real task from one public invocation | Present; last used live in the RC4 round | demonstration | Proved live only at the end |
-| E2 | Reviewer types are reference frames: a task declares its reviews, one assessor graph serves them, the selector names the review | One assessment; only a UAT verdict counts | A | Implemented, evidence running |
-| E3 | Completion requires the acceptance verdict and every required review verdict, satisfied and current | Reads only the last observation | A | Implemented, evidence running |
-| E4 | A verdict lapses when its declared subject changes, so only affected reviews run again | Exists for the single UAT verdict | A | Implemented, evidence running |
+| E2 | Reviewer types are reference frames: a task declares its reviews, one assessor graph serves them, the selector names the review | One assessment; only a UAT verdict counts | A | Accepted at `a82a365cc` |
+| E3 | Completion requires the acceptance verdict and every required review verdict, satisfied and current | Reads only the last observation | A | Accepted at `a82a365cc` |
+| E4 | A verdict lapses when its declared subject changes, so only affected reviews run again | Exists for the single UAT verdict | A | Accepted at `a82a365cc` |
 | E5 | A child failure (time ceiling, refusal, crash) returns to the Executive as an observation; it chooses the successor | Not traced. The RC11 build hit the 900-second ceiling three times and Root chose each successor | B | Not started |
 | E6 | After the host is killed, a fresh process continues the same Run from the event log | Proved model-free on this path | none | No new work unless a proof goes red |
 | E7 | The Executive's step limit yields a typed bounded outcome naming what is unresolved | The limit is a Program declaration (default 12; the build host passed 8). The outcome at the limit is unverified | B | Not started |
@@ -59,7 +59,7 @@ Rulings given to the Writer, each to be verified against the code before use:
 7. The selector sees each declared review with its standing.
 8. Fulfillment and reviews compose: a review never changes fulfillment coverage.
 
-Deviations the Writer reports in its draft Return (not yet reviewed by the Executive):
+Deviations the Writer reports in its Return. The Executive reviewed the diff and accepted them, except the default argument:
 
 - Acceptance is the latest `uat` row that only `review` rows follow, not the latest `uat` row. Reason: a no-review task with a satisfied UAT followed by a no-effect Construction stays open today and must stay open.
 - The review wrapper is unselectable when the task declares no reviews.
@@ -74,8 +74,8 @@ Exit proof: one scripted Run through the Public start with two required reviews.
 
 ## 4. Plan
 
-1. **Package A** (running). The Writer finishes its evidence and commits. The Executive reviews the Return and the diff, then allows one repair round by a fresh Writer if needed.
-2. **Package B.** First a read-only trace of current behaviour when a wrapper's native child fails: the events admitted, the Run's disposition, the lawful actions projected, and what `run.continue` then does. The Executive rules on the smallest lawful route from that trace. Then implementation, with the E7 bound test.
+1. **Package A** (accepted). Commits `b7cf409fc..a82a365cc`. The five library test files plus the new reviews file give 68 tests, 58 pass, 0 fail and the same 10 gated skips. The Executive reran the new file: 7 of 7, including the scripted Public Run with two required reviews.
+2. **Package B** (trace running). First a read-only trace of current behaviour when a wrapper's native child fails: the events admitted, the Run's disposition, the lawful actions projected, and what `run.continue` then does. The Executive rules on the smallest lawful route from that trace. Then implementation, with the E7 bound test.
 3. **X2 census**, read-only. It decides whether registered selection folds into the consequence route in RC12.
 4. **Package C.** Product reprice text for Consensus, then deletion of its code, schema, vocabularies, tests, designs and requirement file.
 5. **Cut.** Version `5.0.0-rc.12`, local and unqualified, installed by the route RC11 used (`rc11-qualification-01/install-01/install-local-rc11.mjs`).
@@ -109,7 +109,7 @@ Each package has one activation, one Return and one status line.
 
 ## 7. Where to look, and what is not verified
 
-- Uncommitted work: `git -C /private/tmp/abg-rc12-executive-20261111 diff` and the new file `T/test_env/tests/t287-default-library-reviews.test.mjs`.
-- Writer's Return: `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/A_RETURN.md` in that worktree. It is a draft until its evidence placeholders are filled.
-- Not verified: package A's evidence (running), the Executive's own review of package A, any live provider run, and everything in packages B and C.
+- Package A: `git -C /private/tmp/abg-rc12-executive-20261111 diff b7cf409fc..a82a365cc`, and the new file `T/test_env/tests/t287-default-library-reviews.test.mjs`.
+- Writer's Return: `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-executive-01/A_RETURN.md` in that worktree. The Executive's one-line dispositions are in `LEDGER.md` beside it.
+- Not verified: any live provider run, and everything in packages B and C. Package A's end-to-end proof uses a scripted stand-in model.
 - Reviewer and Writers share one model family with the Executive unless the review runs elsewhere.
