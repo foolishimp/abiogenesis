@@ -37,7 +37,7 @@ const declarations = { "abg.compute_regime": "mixed", "abg.closure_contract": co
 function wrapper(purpose: GovernancePurpose): GraphFunction {
   const name = ref("graph-function", purpose), testing = purpose === "testing", output = testing ? c2.observationContractRef : native.observationContractRef;
   const nodes = [leaf(testing ? "prepare-testing" : "prepare-native", name + "/prepare"),
-    call(name + "/work", testing ? c2.graphFunctionRef : purpose === "uat" ? native.assessmentGraphFunctionRef : native.graphFunctionRef,
+    call(name + "/work", testing ? c2.graphFunctionRef : purpose === "uat" || purpose === "review" ? native.assessmentGraphFunctionRef : native.graphFunctionRef,
       testing ? c2.taskContractRef : native.taskContractRef, output), leaf("fold", name + "/fold")];
   return { kind: "graph_function", name, version: "5.0.0", inputs: [state], outputs: [state],
     environment: { requires: [state], provides: [state], carries: [...new Set([state, ...nodes.map(n => n.term.outputCarrierRef)])] },
@@ -45,6 +45,7 @@ function wrapper(purpose: GovernancePurpose): GraphFunction {
     declarations: { ...declarations, "abg.judgment_predicate": testing ? c2.judgmentPredicateRef : native.judgmentPredicateRef, "abg.default_library_purpose": purpose, "abg.functional_purpose": GOVERNANCE_POLICIES[purpose],
       "abg.conditions_for_use": testing ? "Every original selected path is an observed file and the unchanged full declared command/predicate plan is available; no author prerequisite. Missing selected files or plan remain gaps. A partial-probe contribution cannot replace the fixed declaration."
         : purpose === "uat" ? "An explicitly selected current native-work or C2 measurement Result, consumer source/rubric and installed assessment contract are available. Measurement provenance is not authorship. Read-only independent assessment."
+        : purpose === "review" ? "A declared review names its reference frame, exact subject, sources, rubric and result contract, and an explicitly selected current native-work or C2 measurement Result is available. Read-only independent assessment under that declared frame only; it neither establishes nor replaces full-original acceptance."
         : "A bounded work order is available for this purpose and existing artifacts do not already suffice. Scope and missing inputs remain explicit." },
     template: { kind: "inline_graph", graphRef: name + "/graph", startNodeRef: nodes[0]!.nodeRef, terminalNodeRefs: [nodes[2]!.nodeRef], nodes,
       edges: [graphEdge({ fromNodeRef: nodes[0]!.nodeRef, toNodeRef: nodes[1]!.nodeRef }), graphEdge({ fromNodeRef: nodes[1]!.nodeRef,

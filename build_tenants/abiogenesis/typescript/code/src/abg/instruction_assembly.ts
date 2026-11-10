@@ -1,6 +1,6 @@
 import { isDeepStrictEqual as sameSynthesis } from "node:util";
 import { isFramedSynthesisTask, bindFramedSynthesisResult, framedSynthesisResponseSchema, GOVERNANCE_PURPOSES, governanceRef, type FramedSynthesisTarget, type FramedSynthesisBasis,
-  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState } from "../product/default_library.js";
+  governanceFulfillmentSelection, governanceFulfillmentContractsMatch, projectFramedSynthesisPromptTask, isGovernanceWorkState, governanceTargetSelectable } from "../product/default_library.js";
 import { rootCSourcePath } from "../gtl/source_path.js";
 import { isNativeWorksiteCommandExecutionObservation } from "../product/worksite_command_execution.js";
 import { resolveNativeWorkspaceAssessmentDependency } from "../product/native_workspace_assessment.js";
@@ -402,7 +402,8 @@ function synthesisContext(basis: NativeInstructionAssemblyBasis, input: unknown,
     const contracts = [...definition.inputs, ...definition.outputs].map(ref => contract(ref));
     if (!GOVERNANCE_PURPOSES.includes(purpose as FramedSynthesisTarget["purpose"]) || !description?.trim() || !conditions?.trim() || contracts.some(c => c === null)) return null;
     bindings.push({ graphFunctionRef: ref, definitionDigest: digest, purpose: purpose as FramedSynthesisTarget["purpose"] });
-    choices.push({ graphFunctionRef: ref, purpose: description, conditionsForUse: conditions, contracts, effects: definition.effects });
+    // The registered domain stays whole; the product binder and schema apply the same selectable rule.
+    if (governanceTargetSelectable(input.state, purpose as FramedSynthesisTarget["purpose"])) choices.push({ graphFunctionRef: ref, purpose: description, conditionsForUse: conditions, contracts, effects: definition.effects });
   }
   return { owner, role, profile, bindings, choices, rawContractRef, input };
 }

@@ -120,7 +120,7 @@ test('default catalogue publishes conditional purposes over fixed native/C2 chil
   const pubs=constructors.map(n=>gtl[n](basis)),library=pubs[0];
   assert.deepEqual(library.runEnvironments[0].roles.find(r=>r.role==='selector').contextPolicy.selectors,['full_source','active_binding_semantics']);
   const contractRefs=pubs.flatMap(p=>p.contracts.map(c=>c.contractRef));assert.equal(new Set(contractRefs).size,contractRefs.length,'shared contracts retain one publication owner');
-  assert.equal(library.contributions.length,8,'one Catalog row per published GraphFunction');assert.equal(library.graphFunctions.length,8);
+  assert.equal(library.contributions.length,9,'one Catalog row per published GraphFunction');assert.equal(library.graphFunctions.length,9);
   const result=validation(library,library.programs[0],pubs);assert.equal(result.kind,'program_validation',JSON.stringify(result));
   assert.equal(result.executableLeafRows.filter(r=>r.fibre==='F_P').length,4);
   const app=library.graphFunctions.find(g=>g.name===product.governanceRef("graph-function","executive")).template.applications[0];assert.equal(app.foldback.requiresParentEvaluation,true);assert.equal(app.bound,12);
@@ -188,7 +188,7 @@ test('declared wrapper judgments advance actual observations, including red C2, 
   assert.equal(wrapper.declarations['abg.judgment_predicate'],product.WORKSITE_COMMAND_EXECUTION_IDS.judgmentPredicateRef);
   assert.equal(semantics.resolveJudgmentRelation(wrapper.declarations['abg.judgment_predicate']).evaluate(commandTask,observed),true);assert.equal(observed.commandResults[0].exitStatus,7);
   const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8')),state=await witnessInput({product,selection,seedRoot:join(witnessRoot,'seed')});
-  assert.equal(product.governanceVerdict(state),false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
+  assert.equal(product.governanceVerdicts(state).acceptance.satisfied,false);assert.equal(semantics.resolveJudgmentRelation(product.governanceRef('predicate','fold')).evaluate(commandTask,observed),false,'observation and state fold remain different contracts');
 });
 
 // Selected RC5 source (T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN, RC5 successor selection):
@@ -713,7 +713,7 @@ test('selector planning preserves provenance, adverse values and bounded Unicode
   const view=product.projectFramedSynthesisPromptTask(task);planningFactCorrespondence(task,view);
   assert.ok(view.observations[0].observed.commandResults[0].stdout.excerpts.some(e=>e.text.includes('controlled Ω😀 named diagnostic')));
   assert.ok(view.observations[0].observed.commandResults[0].stderr.omittedCandidates>0);
-  assert.equal(product.sha256Canonical(task),before);assert.equal(product.governanceVerdict(state),false);
+  assert.equal(product.sha256Canonical(task),before);assert.equal(product.governanceVerdicts(state).acceptance.satisfied,false);
   for(const text of ['\uFEFFa\n','\uFEFF[error] Ω😀 exact\n','[error] plain Ω😀\n'])for(const encoding of ['utf8','base64']){
     const sample=structuredClone(task),bytes=Buffer.from(text),row=sample.state.observations[0].value.commandResults[0];
     row.stdout={encoding,...(encoding==='utf8'?{text}:{payload:bytes.toString('base64')}),digest:product.sha256Bytes(bytes),byteLength:bytes.length};
