@@ -327,6 +327,299 @@ test('controlled lifetime: no launch, close without exit, probe errors and Windo
   assert.equal(probes, 0); assert.equal(facts.closeObserved, true);
 });
 
+test('controlled lifetime: synchronous calls return fresh recomputed snapshots while one sealed completion never changes', async () => {
+  const x = controlledLifetime(); let completions = 0;
+  x.lifetime.completion.then(() => completions++);
+  assert.equal(x.lifetime.requestTermination(), undefined);
+  assert.deepEqual(x.signals, [{ value: 'SIGTERM', time: 0n }], 'TERM is requested before the call returns');
+  assert.equal(x.lifetime.observe(() => 'inline'), 'inline');
+  x.timer.advance(25);
+  const early = x.lifetime.snapshot(), again = x.lifetime.snapshot();
+  assert.notEqual(early, again); assert.deepEqual(early, again);
+  assert.equal(early.cleanupElapsedMs, 25); assert.equal(Object.isFrozen(early), false);
+  x.timer.advance(275); const facts = await x.lifetime.completion;
+  assert(Object.isFrozen(facts)); assert.equal(facts.cleanupElapsedMs, 300); assert.equal(facts.cleanupDeadlineNs, 300_000_000n);
+  x.timer.advance(50); const after = x.lifetime.snapshot();
+  assert.notEqual(after, facts); assert.notEqual(after, x.lifetime.snapshot());
+  assert.equal(after.cleanupElapsedMs, 350); assert.equal(facts.cleanupElapsedMs, 300);
+  const late = new Error('late failure');
+  x.lifetime.fail(late); x.lifetime.requestTermination('immediate');
+  x.child.stdout.emit('error', late); x.child.emit('error', late);
+  assert.equal(x.lifetime.observe(() => 'late'), undefined);
+  assert.equal(facts.firstError, null); assert.equal(x.lifetime.snapshot().firstError, null);
+  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);
+  assert.deepEqual(x.signals.map(row => row.value), ['SIGTERM', 'SIGKILL']); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: re-entrant signal notices strengthen or finish the attempt and no obsolete signal follows', async () => {
+  const notices = [];
+  const strengthened = controlledLifetime({ observations: { onSignalRequested: value => {
+    notices.push(value); if (value === 'SIGTERM') strengthened.lifetime.requestTermination('immediate');
+  } } });
+  strengthened.lifetime.requestTermination();
+  assert.deepEqual(notices, ['SIGTERM', 'SIGKILL']);
+  assert.deepEqual(strengthened.signals, [{ value: 'SIGKILL', time: 0n }], 'no TERM after strengthening');
+  assert.equal(strengthened.lifetime.snapshot().cleanupDeadlineNs, 200_000_000n);
+  strengthened.timer.advance(200); const kept = await strengthened.lifetime.completion;
+  assert.equal(kept.signalAttempts, 1); assert.equal(kept.firstError, null); assert.equal(kept.drainExpired, true);
+  assert.deepEqual(strengthened.signals.map(row => row.value), ['SIGKILL']); assert.equal(strengthened.timer.active(), 0);
+
+  const first = new Error('TERM notice failure');
+  const failed = controlledLifetime({ observations: { onSignalRequested: value => { if (value === 'SIGTERM') throw first; } } });
+  failed.lifetime.requestTermination();
+  assert.deepEqual(failed.signals.map(row => row.value), ['SIGKILL']);
+  assert.equal(failed.lifetime.snapshot().firstError, first);
+  failed.timer.advance(200); assert.equal((await failed.lifetime.completion).firstError, first);
+  assert.equal(failed.timer.active(), 0);
+
+  let absent = false;
+  const finished = controlledLifetime({ probe: () => absent ? 'absent' : 'present', observations: { onSignalRequested: value => {
+    if (value !== 'SIGKILL') return;
+    absent = true; finished.child.emit('exit', 0, null); finished.child.emit('close');
+  } } });
+  finished.lifetime.requestTermination('immediate');
+  const facts = await finished.lifetime.completion;
+  assert.deepEqual(finished.signals, [], 'no KILL after the attempt finished during its own notice');
+  assert.equal(finished.timer.active(), 0, 'no wait armed after completion');
+  assert.equal(facts.signalAttempts, 0); assert.equal(facts.closeObserved, true); assert.equal(facts.scopeAbsence, 'absent');
+  assert.equal(facts.drainExpired, false); assert.equal(facts.cleanupDeadlineNs, 300_000_000n);
+});
+
+test('controlled lifetime: first error and disposal faults are recorded before the one completion publication', async () => {
+  const owner = new Error('owner failure'), stdoutFault = new Error('stdout dispose');
+  for (const origin of ['owner', 'stdout', 'stderr']) {
+    const child = new ControlledChild(), attempts = [];
+    child.stdout.destroy = () => { child.disposals++; attempts.push('stdout'); if (origin !== 'stderr') throw stdoutFault; };
+    child.stderr.destroy = () => { child.disposals++; attempts.push('stderr'); throw 'stderr dispose'; };
+    const x = controlledLifetime({ childOverride: child, probe: () => 'absent' });
+    let published = null; x.lifetime.completion.then(facts => { published = facts; });
+    if (origin === 'owner') x.lifetime.fail(owner);
+    child.emit('exit', 0, null); child.emit('close');
+    assert.deepEqual(attempts, ['stdout', 'stderr']); assert.equal(child.disposals, 3);
+    const facts = await x.lifetime.completion;
+    assert.equal(published, facts); assert(Object.isFrozen(facts)); assert.equal(facts.streamsDisposed, false);
+    if (origin === 'owner') assert.equal(facts.firstError, owner);
+    else if (origin === 'stdout') assert.equal(facts.firstError, stdoutFault);
+    else { assert(facts.firstError instanceof TypeError); assert.equal(facts.firstError.message, 'stderr dispose'); }
+    x.lifetime.fail(new Error('after publication'));
+    assert.equal(x.lifetime.snapshot().firstError, facts.firstError); assert.equal(x.timer.active(), 0);
+  }
+});
+
+// One independent census of every host call; a fixture may re-enter the actual owner from either call.
+function censusLifetime({ probe = () => 'present', signal = () => {}, platform = 'posix', observations = {} } = {}) {
+  const timer = controlledClock(), child = new ControlledChild(), calls = [];
+  const enters = () => calls.filter(row => row[0] === 'enter').length;
+  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: 100, host: {
+    clock: timer.clock, platform,
+    probeGroup: () => {
+      const ordinal = enters() + 1; calls.push(['enter', ordinal]);
+      const absence = probe(ordinal); calls.push(['return', ordinal, absence]); return absence;
+    },
+    signal: (_child, value) => { calls.push(['signal', value]); signal(value); },
+  } }, observations);
+  return { timer, child, calls, enters, lifetime };
+}
+
+test('controlled lifetime: exit and close re-entering a probe seal both entered assessments and drop its stale result', async () => {
+  let completions = 0;
+  const x = censusLifetime({ probe: ordinal => {
+    if (ordinal !== 1) return 'absent';
+    x.calls.push(['exit']); x.child.emit('exit', 0, null);
+    x.calls.push(['close']); x.child.emit('close');
+    return 'present';
+  } });
+  x.lifetime.completion.then(() => completions++);
+  x.lifetime.requestTermination();
+  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['close'], ['return', 1, 'present']]);
+  const immediate = x.lifetime.snapshot(), facts = await x.lifetime.completion;
+  assert(Object.isFrozen(facts)); assert.notEqual(immediate, facts); assert.equal(facts.cleanupElapsedMs, 0);
+  for (const view of [facts, immediate]) {
+    assert.equal(view.scopeAbsence, 'absent'); assert.equal(view.probeCount, 2); assert.equal(view.signalAttempts, 0);
+    assert.deepEqual(view.directExit, { status: 0, signal: null }); assert.equal(view.closeObserved, true);
+    assert.equal(view.streamsDisposed, true); assert.equal(view.drainExpired, false); assert.equal(view.cleanupDeadlineNs, 300_000_000n);
+  }
+  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+  x.timer.advance(25); const later = x.lifetime.snapshot();
+  assert.notEqual(later, immediate); assert.equal(later.cleanupElapsedMs, 25); assert.equal(facts.cleanupElapsedMs, 0);
+  assert.equal(later.scopeAbsence, 'absent'); assert.equal(later.probeCount, 2); assert.equal(later.signalAttempts, 0);
+  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);
+  assert.equal(x.calls.length, 6, 'no later probe or signal'); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: exit re-entering a probe drains its nested absence and rejects the stale result before close', async () => {
+  let published = null;
+  const x = censusLifetime({ probe: ordinal => {
+    if (ordinal !== 1) return 'absent';
+    x.calls.push(['exit']); x.child.emit('exit', 0, null);
+    return 'present';
+  } });
+  x.lifetime.completion.then(facts => { published = facts; });
+  x.lifetime.requestTermination();
+  assert.deepEqual(x.calls, [['enter', 1], ['exit'], ['enter', 2], ['return', 2, 'absent'], ['return', 1, 'present']]);
+  await Promise.resolve();
+  const pending = x.lifetime.snapshot();
+  assert.equal(published, null, 'the drain is still pending');
+  assert.equal(pending.scopeAbsence, 'absent'); assert.equal(pending.probeCount, 2); assert.equal(pending.signalAttempts, 0);
+  assert.equal(pending.closeObserved, false); assert.equal(pending.streamsDisposed, false); assert.equal(pending.drainExpired, false);
+  assert.equal(x.child.disposals, 0); assert.equal(x.timer.active(), 1, 'only the bounded drain wait');
+  x.child.emit('close');
+  const facts = await x.lifetime.completion;
+  assert.equal(published, facts); assert(Object.isFrozen(facts));
+  assert.equal(facts.scopeAbsence, 'absent'); assert.equal(facts.probeCount, 2); assert.equal(facts.signalAttempts, 0);
+  assert.equal(facts.closeObserved, true); assert.equal(facts.streamsDisposed, true); assert.equal(facts.drainExpired, false);
+  assert.equal(x.calls.length, 5); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: immediate strengthening inside a probe keeps its tightened bounds and drops the stale graceful result', async () => {
+  let tightened = null;
+  const x = censusLifetime({ probe: ordinal => {
+    if (ordinal !== 1) return 'present';
+    x.lifetime.requestTermination('immediate'); tightened = x.lifetime.snapshot().cleanupDeadlineNs;
+    return 'absent';
+  } });
+  x.lifetime.requestTermination();
+  assert.deepEqual(x.calls, [['enter', 1], ['enter', 2], ['return', 2, 'present'], ['enter', 3], ['return', 3, 'present'],
+    ['signal', 'SIGKILL'], ['enter', 4], ['return', 4, 'present'], ['return', 1, 'absent']]);
+  const active = x.lifetime.snapshot();
+  assert.equal(active.scopeAbsence, 'present', 'the stale absent result never becomes current');
+  assert.equal(active.probeCount, 4); assert.equal(active.signalAttempts, 1);
+  assert.equal(tightened, 200_000_000n); assert.equal(active.cleanupDeadlineNs, tightened);
+  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');
+  x.timer.advance(200); const facts = await x.lifetime.completion;
+  assert.equal(facts.scopeAbsence, 'present'); assert.equal(facts.drainExpired, true); assert.equal(facts.cleanupDeadlineNs, tightened);
+  assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);
+  assert.deepEqual(x.calls.filter(row => row[0] === 'signal'), [['signal', 'SIGKILL']]);
+  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: a re-check requested inside a kill probe leaves that probe current and its KILL bound intact', async () => {
+  const x = censusLifetime({ probe: ordinal => {
+    if (ordinal === 2) { x.calls.push(['exit']); x.child.emit('exit', 0, null); }
+    return 'present';
+  } });
+  x.lifetime.requestTermination('immediate');
+  assert.deepEqual(x.calls, [['enter', 1], ['return', 1, 'present'], ['enter', 2], ['exit'], ['return', 2, 'present'],
+    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);
+  const active = x.lifetime.snapshot();
+  assert.equal(active.probeCount, 3); assert.equal(active.signalAttempts, 1); assert.equal(active.cleanupDeadlineNs, 200_000_000n);
+  assert.deepEqual(x.timer.arms.map(row => row.delay), [100, 10], 'KILL scope and re-check waits only');
+  x.timer.advance(200); const facts = await x.lifetime.completion;
+  assert.deepEqual(facts.directExit, { status: 0, signal: null }); assert.equal(facts.scopeAbsence, 'present');
+  assert.equal(facts.drainExpired, true); assert.equal(facts.probeCount, x.enters()); assert.equal(facts.signalAttempts, 1);
+  assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: exit inside the first immediate probe keeps KILL and its bound before handback and drops the stale result', async () => {
+  for (const stale of ['present', 'absent']) {
+    const x = censusLifetime({ probe: ordinal => {
+      if (ordinal !== 1) return 'present';
+      x.calls.push(['exit']); x.child.emit('exit', 0, null);
+      return stale;
+    } });
+    x.lifetime.requestTermination('immediate');
+    const handback = x.calls.slice(), active = x.lifetime.snapshot();
+    assert.deepEqual(handback.slice(0, 2), [['enter', 1], ['exit']]);
+    assert(handback.some(row => row[0] === 'signal' && row[1] === 'SIGKILL'), 'KILL requested before the outer immediate call returns');
+    assert(active.cleanupDeadlineNs !== null && active.cleanupDeadlineNs <= 200_000_000n, 'immediate cleanup bound no later than 200ms');
+    assert.equal(active.scopeAbsence, 'present', `the stale ${stale} result never becomes current`);
+    assert.equal(active.probeCount, x.enters());
+    assert.equal(handback.filter(row => row[0] === 'return').length, x.enters(), 'every entered assessment returned');
+    assert.equal(active.signalAttempts, handback.filter(row => row[0] === 'signal').length);
+    x.timer.advance(200); const facts = await x.lifetime.completion;
+    assert(Object.isFrozen(facts)); assert.equal(facts.cleanupDeadlineNs, active.cleanupDeadlineNs); assert(facts.cleanupElapsedMs <= 200);
+    assert.deepEqual(facts.directExit, { status: 0, signal: null }); assert.equal(facts.scopeAbsence, 'present');
+    assert.equal(facts.drainExpired, true); assert.equal(facts.probeCount, x.enters());
+    assert.equal(facts.signalAttempts, x.calls.filter(row => row[0] === 'signal').length);
+    assert.equal(x.calls.filter(row => row[0] === 'signal' && row[1] === 'SIGKILL').length, 1);
+    assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+  }
+});
+
+test('controlled lifetime: an immediate request completed by nested absence, exit and close is not resurrected by its stale result', async () => {
+  let completions = 0;
+  const x = censusLifetime({ probe: ordinal => {
+    if (ordinal !== 1) return 'absent';
+    x.calls.push(['exit']); x.child.emit('exit', 0, null);
+    x.calls.push(['close']); x.child.emit('close');
+    return 'present';
+  } });
+  x.lifetime.completion.then(() => completions++);
+  x.lifetime.requestTermination('immediate');
+  const handback = x.calls.slice(), disposed = x.child.disposals;
+  const immediate = x.lifetime.snapshot(), facts = await x.lifetime.completion;
+  assert.deepEqual(handback.at(-1), ['return', 1, 'present'], 'the stale outer result returns after completion');
+  assert(!handback.some(row => row[0] === 'signal'), 'no signal for an already completed cleanup');
+  assert(Object.isFrozen(facts)); assert.notEqual(immediate, facts); assert.deepEqual(immediate, { ...facts });
+  for (const view of [facts, immediate]) {
+    assert.equal(view.scopeAbsence, 'absent'); assert.equal(view.probeCount, x.enters()); assert.equal(view.signalAttempts, 0);
+    assert.deepEqual(view.directExit, { status: 0, signal: null }); assert.equal(view.closeObserved, true);
+    assert.equal(view.streamsDisposed, true); assert.equal(view.drainExpired, false); assert.equal(view.cleanupDeadlineNs, 300_000_000n);
+  }
+  assert.equal(disposed, 3); assert.equal(x.timer.active(), 0);
+  x.timer.advance(25); x.lifetime.requestTermination('immediate'); const later = x.lifetime.snapshot();
+  assert.notEqual(later, immediate); assert.equal(later.cleanupElapsedMs, 25); assert.equal(facts.cleanupElapsedMs, 0);
+  assert.equal(later.scopeAbsence, 'absent'); assert.equal(later.probeCount, facts.probeCount); assert.equal(later.signalAttempts, 0);
+  assert.equal(await x.lifetime.completion, facts); assert.equal(completions, 1);
+  assert.deepEqual(x.calls, handback, 'no later probe or signal'); assert.equal(x.child.disposals, 3); assert.equal(x.timer.active(), 0);
+});
+
+test('controlled lifetime: ordinary, throwing and fast-path assessments count at entry; a probe cancelled before entry is not counted', async () => {
+  const ordinary = censusLifetime({ probe: () => 'absent' });
+  ordinary.child.emit('exit', 0, null); ordinary.child.emit('close');
+  const done = await ordinary.lifetime.completion;
+  assert.deepEqual(ordinary.calls, [['enter', 1], ['return', 1, 'absent']]);
+  assert.equal(done.probeCount, 1); assert.equal(done.scopeAbsence, 'absent'); assert.equal(done.signalAttempts, 0);
+
+  const throwing = censusLifetime({ probe: () => { throw Object.assign(new Error('EPERM'), { code: 'EPERM' }); } });
+  throwing.child.emit('exit', 0, null);
+  assert.deepEqual(throwing.calls, [['enter', 1], ['signal', 'SIGTERM'], ['enter', 2], ['enter', 3]]);
+  assert.equal(throwing.lifetime.snapshot().probeCount, 3); assert.equal(throwing.lifetime.snapshot().scopeAbsence, 'unknown');
+  throwing.timer.advance(300); const unknown = await throwing.lifetime.completion;
+  assert.equal(unknown.probeCount, throwing.enters()); assert.equal(unknown.scopeAbsence, 'unknown'); assert.equal(unknown.firstError, null);
+
+  const noChild = censusLifetime(); noChild.child.pid = undefined;
+  noChild.child.emit('error', new Error('ENOENT')); noChild.child.emit('close');
+  const missing = await noChild.lifetime.completion;
+  assert.equal(missing.noChildEstablished, true); assert.equal(missing.probeCount, 1); assert.equal(missing.scopeAbsence, 'absent');
+  assert.deepEqual(noChild.calls, []);
+  const windows = censusLifetime({ platform: 'win32' });
+  windows.child.emit('exit', 0, null); windows.child.emit('close');
+  const direct = await windows.lifetime.completion;
+  assert.equal(direct.probeCount, 1); assert.equal(direct.scopeAbsence, 'absent'); assert.deepEqual(windows.calls, []);
+  const unlaunched = censusLifetime(); unlaunched.child.pid = undefined;
+  unlaunched.lifetime.requestTermination();
+  assert.deepEqual(unlaunched.calls, [['signal', 'SIGTERM']]);
+  assert.equal(unlaunched.lifetime.snapshot().probeCount, 2); assert.equal(unlaunched.lifetime.snapshot().scopeAbsence, 'unknown');
+
+  // TERM itself ends the group; the re-check proposed with that signal never enters.
+  let absent = false;
+  const bySignal = censusLifetime({ probe: () => absent ? 'absent' : 'present', signal: value => {
+    if (value !== 'SIGTERM') return;
+    absent = true; bySignal.calls.push(['exit']); bySignal.child.emit('exit', null, 'SIGTERM');
+    bySignal.calls.push(['close']); bySignal.child.emit('close');
+  } });
+  bySignal.lifetime.requestTermination();
+  assert.deepEqual(bySignal.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['exit'],
+    ['enter', 2], ['return', 2, 'absent'], ['close']]);
+  const signalled = await bySignal.lifetime.completion;
+  assert.equal(signalled.probeCount, 2); assert.equal(signalled.signalAttempts, 1); assert.equal(signalled.scopeAbsence, 'absent');
+  assert.equal(bySignal.child.disposals, 3); assert.equal(bySignal.timer.active(), 0);
+
+  // A slow TERM notice makes the grace wait already due; that wait re-enters and the re-check never enters.
+  let slow = true;
+  const byWait = censusLifetime({ observations: { onSignalRequested: value => {
+    if (value === 'SIGTERM' && slow) { slow = false; byWait.timer.advance(150); }
+  } } });
+  byWait.lifetime.requestTermination();
+  assert.deepEqual(byWait.calls, [['enter', 1], ['return', 1, 'present'], ['signal', 'SIGTERM'], ['enter', 2], ['return', 2, 'present'],
+    ['signal', 'SIGKILL'], ['enter', 3], ['return', 3, 'present']]);
+  assert.equal(byWait.lifetime.snapshot().probeCount, 3);
+  byWait.timer.advance(200); const waited = await byWait.lifetime.completion;
+  assert.equal(waited.probeCount, byWait.enters()); assert.equal(waited.signalAttempts, 2); assert.equal(waited.drainExpired, true);
+  assert.equal(byWait.timer.active(), 0);
+});
+
 async function helperModule(t, control = false, overrides = {}) {
   const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');
   let source = (await readFile(path, 'utf8')).replace(/^#!.*\n/u, '');
