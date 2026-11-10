@@ -138,3 +138,18 @@ Changes to the plan:
 8. **Demonstration:** one declared process on one frozen installed candidate: an out-of-order step refused before its effect, a lawful successor selected from admitted evidence, a correction, an unaffected review preserved, completion. The reviews are semantically discriminating (the frame changes the verdict), and the record binds the independence policy and the actual actor identities.
 
 Order: B trace (running) → A2 → census for E8 → rulings on B and E8 → implementation → C → cut → demonstration → broad suites and independent review on the unchanged candidate → merge to local `main`.
+
+## 9. Owner framing and its effect on the build (2026-11-11)
+
+Owner: "i see it as a part of an automation where non technical users can make changes to the specification the automation can then reliably build their amendments to an existing system, abg is moving increasingly to an independent governance framework independent of the native agents".
+
+The feature list keeps its shape. The framing fixes what the features are for: the user cannot inspect the engineering, so review freshness, authority carriage, enforced prerequisites, understandable stops and truthful completion are the product. Effects:
+
+1. **The demonstration witness is an amendment to an existing working system**, not a newly generated file: one business rule changes in the specification; the Run identifies what is affected, implements and verifies the amended rule at its boundary, and preserves an unrelated rule through its write territory, the existing tests and a preservation review.
+2. **The witness input is two parts:** a process definition written once (stages, reviews with frames and criteria, test plan, prerequisites) and the amendment, which is the only per-task input. The function that joins them stays in the witness harness in RC12. Publishing the process definition as a library contract is the lead feature of the next cut.
+3. **Agent independence is a design constraint:** outcome classes in package B are ABG's own typed classes, not provider text; the library gains no provider-specific logic; the demonstration record names the actor and model of every call. Operation across vendors is not claimed.
+4. **Every non-completion outcome is readable** through the Public result with its reason and unresolved obligations: step limit, gap, block and failure. E7 widens to cover them.
+5. **Measures:** human interventions inside the Run, tokens, elapsed time, and one run of a bare model CLI on the same amendment for comparison, reported as a single observation.
+6. **Intent:** `specification/INTENT.md` states the mechanism-level problem and does not state this use or agent independence. The branch carries a short proposed intent amendment for the owner to ratify at merge.
+
+Not added to RC12: the user-facing amendment application, release automation, and the published process-definition contract.
