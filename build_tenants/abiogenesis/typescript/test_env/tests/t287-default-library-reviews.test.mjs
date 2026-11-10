@@ -143,7 +143,7 @@ test('declared reviews: selector view, response schema and binder agree on revie
   const view=product.projectFramedSynthesisPromptTask(task);
   assert.deepEqual(view.subjectEvidenceDomains.review,view.subjectEvidenceDomains.uat);assert.equal(Object.hasOwn(view.workOrders,'review'),false);
   assert.deepEqual(view.reviews.declared.map(r=>[r.reviewRef,r.frame,r.required,r.candidatePath,r.standing]),state.original.reviews.map(r=>[r.reviewRef,r.frame,true,r.assessment.candidatePath,{resultRef:null,satisfied:false,current:false}]));
-  assert.match(view.reviews.meaning,/^Required reviews gate parent completion together with acceptance/);
+  assert.match(view.reviews.meaning,/^Required reviews gate parent completion together with acceptance[^.]*\.$/,'one sentence');
   const targets=targetsOf(gtl.defaultGovernanceGraphFunctions()),schema=product.framedSynthesisResponseSchema(task,targets);
   assert.deepEqual(schema.properties.reviewRef.enum,[REVIEW_B,REVIEW_A,null]);assert.ok(schema.required.includes('reviewRef'));
   const {default:Ajv2020}=await import('ajv/dist/2020.js'),validate=new Ajv2020({strict:false}).compile(schema);
