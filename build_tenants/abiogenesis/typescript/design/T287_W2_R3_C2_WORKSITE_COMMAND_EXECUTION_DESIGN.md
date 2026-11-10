@@ -45,33 +45,32 @@ Error or thrown value through every later finalizer/diagnostic failure; absence
 of a throw is distinct from a thrown null/undefined. Do not rebuild physical
 facts from callbacks or borrow the outer worker’s process-group evidence.
 
-On failure or unresolved physical scope, main may retain internal diagnostic
-evidence by create-only publication of the fixed `process-failure.json` sibling
-at `archiveRoot/worksite-command-execution/<taskDigest hex>/<attemptDigest hex>/`.
-The exact HOW binds canonical identities, format tag/version, full canonical
-facts serialization, raw byte/error descriptions, preflight sibling absence,
-attempted versus verified publication, and partial-residue handling. Retention
-can be unavailable; a failed publication does not prove no file committed.
-Preserve the primary failure. Never overwrite, delete, retry or fabricate a
-complete `result.json`, success acknowledgment or Product result.
+**Current failure route: [Common Library §9.3](ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md#93-process-failure-facts)
+D15.** That HOW's `process-failure.json` sibling and its internal
+`inspectWorksiteCommandExecutionProcessFailure` inspector are superseded and
+not implemented: nothing is written beside `L` and no dedicated inspector
+exists. A command or HTTP failure after launch (`command_failed`,
+`command_cleanup_unresolved`, `http_probe_failed`, `http_cleanup_unresolved`)
+is one `WorksiteHelperFailure` whose subject carries `processFacts`, encoded
+once at its throw site. `main` catches only that class at its command/predicate
+loop, observes protected-after state and inventories, publishes the subject as
+the create-only helper artifact's `failure` disposition, validates the artifact
+path, prints the acknowledgment, waits for that write to drain and only then
+rethrows the identical failure, so the helper still exits non-zero. The parent
+admits the subject inline through the `helper_failure` leaf failure and
+`constructRuntimeFailureDiagnosticRef`; failure inspection is that admitted
+subject (§9.3 items 4 and 6). A later after-observation, inventory,
+publication, path or acknowledgment failure escapes as itself instead of the
+retained failure, and no drained acknowledgment is claimed. Never overwrite,
+delete, retry or fabricate a complete `result.json`, success acknowledgment or
+Product result.
 
-The named internal `inspectWorksiteCommandExecutionProcessFailure` export in
-`implementation/worksite_command_execution.ts` rederives the exact task and
-authority-free occurrence/launch coordinates, verifies the confined canonical
-single-link diagnostic and its joins, and returns verified-present, absent,
-invalid or unavailable evidence. It needs no successful Worker exchange or
-`complete()`. It is an exact-attempt observation, not an admitted event, runtime
-resource, Public/SDK/CLI endpoint or permission to retry/continue/restore
-currentness/close. Existing success and ABG admission gates remain unchanged.
-
-The failure-retention archive checks and attempted diagnostic publication are
-the only selected later effects on that branch. No report read, later command,
-predicate/request, protected-after observation, delta inventory or successful
-helper artifact follows. Unknown scope remains unknown. No budget or cleanup
-algorithm changes. The exact original cause, physical facts and failure-side
-inspection must be proved through the actual helper boundary under a later
-grant. Dependency-ready source can be selected separately; combined candidate,
-affected execution and L5 remain held for complete conjunction.
+No report read, later command or predicate/request follows the failure.
+Unknown scope remains unknown. No budget or cleanup algorithm changes. The
+exact original cause and physical facts must be proved through the actual
+helper boundary under a later grant. Dependency-ready source can be selected
+separately; combined candidate, affected execution and L5 remain held for
+complete conjunction.
 
 ## 1. Claim
 
@@ -819,14 +818,15 @@ a timeout; cleanup does not manufacture `timedOut` or application failure.
 
 Current common-library E03 continuation: if a command or HTTP probe cannot
 confirm its owned physical scope absent within the declared bounds, the helper
-stops before expected-report filesystem observations, any later command or
-predicate, after snapshot or successful helper-artifact publication. The current
-failure-handoff amendment permits only its exact create-only diagnostic archive
-effects on that branch, with publication uncertainty explicit.
-It uses the existing thrown/non-admitted helper failure route, preserving the
-original cause and canonical final facts before fallible finalization. The fixed
-failure sibling and internal inspector retain the exact task/attempt relation
-and observed command/probe, exit/signal/timeout and physical uncertainty. Observed
+stops before expected-report filesystem observations and any later command or
+predicate, and publishes no successful helper artifact. It takes the D15 route
+of the failure-handoff amendment above (Common Library §9.3 item 4): the
+helper artifact's `failure` disposition carries the subject with its encoded
+`processFacts`, the drained acknowledgment follows, the identical failure is
+rethrown, and the parent admits that subject inline. The subject, built from
+the original cause and canonical final facts before fallible finalization,
+retains the exact task/attempt relation and observed command/probe,
+exit/signal/timeout and physical uncertainty. Observed
 callback signal lists are distinct from canonical signal attempts. The complete helper
 artifact contract cannot be replaced by a partial successful artifact. A
 failed but physically confirmed inner command may still be a truthful

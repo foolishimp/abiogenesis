@@ -9,6 +9,10 @@ import { pathToFileURL } from 'node:url';
 import { Readable, Writable } from 'node:stream';
 import { SourceTextModule, SyntheticModule } from 'node:vm';
 import test from 'node:test';
+import * as Cause from 'effect/Cause';
+import * as Effect from 'effect/Effect';
+import * as Exit from 'effect/Exit';
+import * as Fiber from 'effect/Fiber';
 import { failureFact, observeOwnerCall, retainEvidence } from '../support/t287-publication-observer.mjs';
 
 // Explicit package selection also lets later proof consume exact packaged bytes.
@@ -623,21 +627,39 @@ test('controlled lifetime: ordinary, throwing and fast-path assessments count at
 async function helperModule(t, control = false, overrides = {}) {
   const path = join(packageRoot, 'build/code/src/implementation/worksite_command_helper.js');
   let source = (await readFile(path, 'utf8')).replace(/^#!.*\n/u, '');
-  const suffix = control ? `export async function controlledMain(c) {
+  // Promise-facing callers run the actual Effect command through the helper's own host projection.
+  const onHost = 'const runCommandOnHost = (...args) => runHelperProgram(runCommand(...args));';
+  const suffix = control ? `${onHost}
+  const production = { confinedExistingPath, reportObservation, commandScopeClosed, runCommand,
+    canonicalExistingPathWithinRoot, acknowledge };
+  function controlledBindings(c) {
+    confinedExistingPath = c.confinedPath === undefined ? production.confinedExistingPath : c.confinedPath;
+    reportObservation = c.report === undefined ? production.reportObservation : c.report;
+    commandScopeClosed = c.closed === undefined ? production.commandScopeClosed
+      : (used, closed) => { c.closed(used, closed); production.commandScopeClosed(used, closed); };
+  }
+  export async function controlledMain(c) {
     admitLaunchManifest=c.admit; observations=c.observations; filesystemInventory=c.inventory;
-    materializeSnapshot=c.snapshot; runCommand=c.command; predicateObservation=c.predicate;
-    worksiteDelta=c.delta; publishCreateOnly=c.publish; return main();
+    materializeSnapshot=c.snapshot; predicateObservation=c.predicate;
+    worksiteDelta=c.delta; publishCreateOnly=c.publish; controlledBindings(c);
+    runCommand = c.command === undefined ? production.runCommand : (...args) => attempt(() => c.command(...args));
+    canonicalExistingPathWithinRoot = c.path === undefined ? production.canonicalExistingPathWithinRoot : c.path;
+    acknowledge = c.output === undefined ? production.acknowledge : line => production.acknowledge(line, c.output);
+    return main();
   }
-  export async function controlledCommand(c, task) {
-    confinedExistingPath=c.confinedPath; reportObservation=c.report;
-    return runCommand(task, '/controlled', 0, 'attempt://selected');
+  export function controlledCommandEffect(c, task) {
+    controlledBindings(c); return production.runCommand(task, '/controlled', 0, 'attempt://selected');
   }
-  export { runHttpProbe };` : 'export { runCommand, runHttpProbe };';
+  export const controlledCommand = (c, task) => runHelperProgram(controlledCommandEffect(c, task));
+  export const activeCommandOf = () => activeCommand;
+  export { runHttpProbe, runHelperProgram, WorksiteHelperFailure };` : `${onHost}
+  export { runCommandOnHost as runCommand, runHttpProbe };`;
   assert.match(source, /await main\(\);\s*$/u); source = source.replace(/await main\(\);\s*$/u, suffix);
   const previous = new Map(['SIGTERM', 'SIGINT'].map(signal => [signal, process.listeners(signal)]));
   const mod = new SourceTextModule(source, { identifier: path });
   await mod.link(async specifier => {
-    const imported = { ...await import(specifier.startsWith('node:') ? specifier : pathToFileURL(resolve(dirname(path), specifier)).href) };
+    // Relative owners load from the selected package; bare Effect modules resolve as package dependencies.
+    const imported = { ...await import(specifier.startsWith('.') ? pathToFileURL(resolve(dirname(path), specifier)).href : specifier) };
     if (control && specifier.endsWith('/worksite_command_forward.js')) {
       imported.isExecutableWorksiteCommandTask = () => true; imported.executableWorksiteCommandSources = () => [];
     }
@@ -691,9 +713,16 @@ function assertDependentFailure(error, prefix, first) {
   assert.equal(body.processFacts.firstError.message, body.diagnostic.message);
 }
 
+// Explicit acquisition readiness: the helper command reads its lifetime's
+// completion only after its last acquisition. Every other member is the same lifetime.
+function awaitedCompletion(lifetime, notify) {
+  return { ...lifetime, get completion() { notify(); return lifetime.completion; } };
+}
+
 test('controlled command continuation: unresolved cleanup stops before expected-report reads and preserves first error', async t => {
   for (const ownerFailure of [false, true]) {
     const clock = controlledClock(), child = new EventEmitter(), first = new Error('first report-owner failure');
+    let notifyReady; const ready = new Promise(resolveReady => { notifyReady = resolveReady; });
     child.pid = 321;
     for (const name of ['stdin', 'stdout', 'stderr']) {
       child[name] = new EventEmitter(); child[name].destroy = () => {};
@@ -702,9 +731,9 @@ test('controlled command continuation: unresolved cleanup stops before expected-
     const helper = await helperModule(t, true, {
       'node:child_process': { spawn: () => child },
       '../shared/owned_process_lifetime.js': {
-        createOwnedProcessLifetime: (process, bounds, observations) => lifetime = createOwnedProcessLifetime(process, {
+        createOwnedProcessLifetime: (process, bounds, observations) => awaitedCompletion(lifetime = createOwnedProcessLifetime(process, {
           ...bounds, host: { clock: clock.clock, platform: 'posix', probeGroup: () => 'unknown', signal: () => {} },
-        }, observations),
+        }, observations), notifyReady),
       },
     });
     const task = { taskRef: 'task://selected', taskDigest: 'sha256:' + '1'.repeat(64), commands: [{
@@ -714,7 +743,7 @@ test('controlled command continuation: unresolved cleanup stops before expected-
     }] };
     const result = helper.controlledCommand({ confinedPath: async () => '/controlled',
       report: async () => { reports++; throw new Error('unexpected report filesystem access'); } }, task);
-    await Promise.resolve();
+    await ready;
     assert(lifetime);
     child.stdout.emit('data', Buffer.from('original stdout'));
     child.stderr.emit('data', Buffer.from('original inner diagnostic'));
@@ -802,6 +831,267 @@ test('controlled owners: command and HTTP reject the original stream error befor
     assert.equal(reports, 0); assert.equal(requests, 0);
     assert.equal(lifetime.snapshot().scopeAbsence, 'absent'); assert.equal(clock.active(), 0);
     assert.equal(lifetime.snapshot().signalAttempts, 1);
+  }
+});
+
+// B command fixture: the actual helper Effect command over a controlled child,
+// clock and group host. The group ends at its first requested signal; the log
+// orders signals, the canonical completion and capture-listener detachment.
+const bTask = (timeoutMs = 10000) => ({ taskRef: 'task://b-command', taskDigest: 'sha256:' + '5'.repeat(64),
+  outcomePredicates: [], workspaceBinding: { roots: { productRoot: '/controlled' } },
+  commands: [{ ordinal: 0, commandId: 'command://b-command', executable: 'controlled', args: [], environment: [],
+    relativeCwd: '.', timeoutMs, terminationGraceMs: 100, expectedReports: [] }] });
+const bPaths = { confinedPath: async () => '/controlled', report: async () => assert.fail('no expected-report read') };
+const realTimers = () => process.getActiveResourcesInfo().filter(name => name === 'Timeout').length;
+function bRow({ spawned = () => new ControlledChild(), faults = {} } = {}) {
+  const clock = controlledClock(), log = [];
+  let child = null, lifetime = null, absent = false, notifyReady;
+  const ready = new Promise(resolveReady => { notifyReady = resolveReady; });
+  const fault = (name, stage) => { if (Object.hasOwn(faults, `${name}-${stage}`)) throw faults[`${name}-${stage}`]; };
+  return { clock, log, ready, get child() { return child; }, get lifetime() { return lifetime; },
+    end: (status = 0, afterExit = () => {}) => { absent = true; child.emit('exit', status, null); afterExit(); child.emit('close'); },
+    spawn: () => {
+      child = spawned();
+      for (const name of ['stdout', 'stderr']) {
+        const stream = child[name], on = stream.on.bind(stream), off = stream.off.bind(stream);
+        stream.on = (event, listener) => { if (event === 'data') fault(name, 'attach'); return on(event, listener); };
+        stream.off = (event, listener) => {
+          off(event, listener); if (event === 'data') { log.push(['detach', name]); fault(name, 'detach'); } return stream;
+        };
+      }
+      return child;
+    },
+    own: (owned, bounds, observations) => {
+      lifetime = createOwnedProcessLifetime(owned, { ...bounds, host: { clock: clock.clock, platform: 'posix',
+        probeGroup: () => absent ? 'absent' : 'present',
+        signal: (_child, value) => { log.push(['signal', value]); absent = true; owned.emit('exit', null, value); owned.emit('close'); },
+      } }, observations);
+      lifetime.completion.then(() => log.push(['completion']));
+      return awaitedCompletion(lifetime, notifyReady);
+    } };
+}
+async function bHelper(t, overrides = {}) {
+  let row = null;
+  const helper = await helperModule(t, true, {
+    'node:child_process': { spawn: () => row.spawn() },
+    '../shared/owned_process_lifetime.js': {
+      createMonotonicDeadline: () => createMonotonicDeadline(row.clock.clock),
+      createOwnedProcessLifetime: (child, bounds, observations) => row.own(child, bounds, observations),
+    },
+    ...overrides,
+  });
+  return { helper, start: options => (row = bRow(options)) };
+}
+const settledThenDetached = log => {
+  const settled = log.findIndex(([kind]) => kind === 'completion');
+  assert(settled >= 0 && log.slice(settled + 1).every(([kind]) => kind === 'detach'), JSON.stringify(log));
+  assert.deepEqual(log.slice(settled + 1), [['detach', 'stderr'], ['detach', 'stdout']], 'every capture release follows settlement');
+  return log.slice(0, settled);
+};
+const noResidue = (b, row, timers) => {
+  for (const name of ['stdout', 'stderr']) assert.equal(row.child[name].listenerCount('data'), 0, `${name} listener detached`);
+  assert.equal(row.clock.active(), 0, 'no lifetime or command deadline armed');
+  assert.equal(realTimers(), timers, 'heartbeat interval released');
+  assert.equal(b.helper.activeCommandOf(), null, 'emergency target cleared after settlement');
+};
+
+test('controlled B command: partial setup failures settle before disposal', async t => {
+  const b = await bHelper(t), captureFault = new Error('stderr capture attach failure');
+  // A capture attach fault after stdout attached, and the actual deadline refusing 0 after both captures.
+  for (const [setup, faults, timeoutMs] of [['capture', { 'stderr-attach': captureFault }, 10000], ['timeout', {}, 0]]) {
+    const timers = realTimers(), row = b.start({ faults });
+    const outcome = await b.helper.controlledCommand(bPaths, bTask(timeoutMs)).then(value => ({ value }), error => ({ error }));
+    const first = row.lifetime.snapshot().firstError;
+    if (setup === 'capture') assert.equal(first, captureFault, 'the setup failure reaches the existing lifetime.fail');
+    else assert.equal(first.message, 'owned process wait must be positive and finite');
+    assertDependentFailure(outcome.error, 'worksite command failed; dependent work stopped: ', first);
+    assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGKILL']], `${setup}: finite cleanup requested before any wait`);
+    noResidue(b, row, timers);
+  }
+});
+
+test('controlled B command: interruption settles before capture disposal', async t => {
+  const b = await bHelper(t);
+  for (const ending of ['interrupt', 'direct exit']) {
+    const timers = realTimers(), row = b.start();
+    let caught = false, observed;
+    const value = await b.helper.runHelperProgram(Effect.gen(function* () {
+      const fiber = yield* Effect.fork(b.helper.controlledCommandEffect(bPaths, bTask()));
+      yield* Effect.promise(() => row.ready);
+      const chunk = Buffer.from('before-exit');
+      row.child.stdout.emit('data', chunk); chunk.fill(0);
+      if (ending === 'interrupt') yield* Fiber.interrupt(fiber);
+      else row.end(0, () => row.child.stdout.emit('data', Buffer.from('after-exit')));
+      return yield* Fiber.join(fiber);
+    })).catch(error => { caught = true; observed = error; });
+    if (ending === 'interrupt') {
+      assert.equal(caught, true, 'interruption is not success');
+      assert(Cause.isCause(observed) && Cause.isInterruptedOnly(observed), 'the host keeps the actual interruption Cause');
+      assert.deepEqual(settledThenDetached(row.log), [['signal', 'SIGTERM']], 'interruption requests finite cleanup first');
+      assert.deepEqual(row.lifetime.snapshot().directExit, { status: null, signal: 'SIGTERM' });
+    } else {
+      assert.equal(caught, false);
+      assert.equal(decode(value.stdout), 'before-exit', 'copied bytes before the direct-exit capture cut only');
+      assert.equal(value.exitStatus, 0); assert.equal(value.terminationConfirmed, true); assert.deepEqual(value.signalSequence, []);
+      assert.deepEqual(settledThenDetached(row.log), []);
+    }
+    noResidue(b, row, timers);
+  }
+});
+
+test('controlled B command: primary use and cleanup-only failures retain exact outcomes', async t => {
+  const b = await bHelper(t), first = new Error('primary command failure');
+  const stdoutFault = new Error('stdout release fault'), stderrFault = new Error('stderr release fault');
+  for (const [name, primary, faults, releaseOrder] of [
+    ['primary use with a secondary release fault', first, { 'stdout-detach': stdoutFault }, [stdoutFault]],
+    ['cleanup-only Error', null, { 'stdout-detach': stdoutFault }, [stdoutFault]],
+    ['cleanup-only undefined', null, { 'stdout-detach': undefined }, [undefined]],
+    ['two cleanup faults', null, { 'stdout-detach': stdoutFault, 'stderr-detach': stderrFault }, [stderrFault, stdoutFault]],
+  ]) {
+    const row = b.start({ faults }), scopes = [];
+    let caught = false, observed;
+    const pending = b.helper.controlledCommand({ ...bPaths, closed: (used, closed) => scopes.push({ used, closed }) }, bTask())
+      .catch(error => { caught = true; observed = error; });
+    await row.ready;
+    if (primary !== null) row.lifetime.fail(primary); else row.end(0);
+    await pending;
+    assert.equal(caught, true, `${name}: failure present whatever its value`);
+    assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;
+    settledThenDetached(row.log);
+    // The closed Scope keeps every release fault, in release order, as a defect.
+    assert(Exit.isFailure(closed)); assert.equal([...Cause.failures(closed.cause)].length, 0);
+    const defects = [...Cause.defects(closed.cause)];
+    assert.equal(defects.length, releaseOrder.length); defects.forEach((defect, index) => assert(Object.is(defect, releaseOrder[index]), name));
+    if (primary !== null) {
+      assert(Exit.isFailure(used)); assert.equal([...Cause.defects(used.cause)].length, 0);
+      const failures = [...Cause.failures(used.cause)];
+      assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical primary use failure is the outcome');
+      assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);
+    } else {
+      assert(Exit.isSuccess(used));
+      assert(Object.is(observed, releaseOrder[0]), `${name}: the first release fault in release order is the outcome`);
+    }
+    assert.equal(b.helper.activeCommandOf(), null); assert.equal(row.clock.active(), 0);
+  }
+});
+
+test('controlled B helper: raw failures survive actual lifts and host projection', async t => {
+  const b = await bHelper(t);
+  const preflight = (admit, calls) => b.helper.controlledMain({ admit,
+    observations: async () => { calls.push('observations'); return []; }, inventory: async () => { calls.push('inventory'); return []; },
+    snapshot: async () => { calls.push('snapshot'); return {}; }, command: async () => { calls.push('command'); },
+    predicate: async () => { calls.push('predicate'); }, delta: () => { calls.push('delta'); return []; },
+    publish: async () => { calls.push('publication'); } });
+  for (const value of [new Error('raw error'), { raw: 'object' }, 'raw string', null, false, undefined]) {
+    for (const lift of ['promise rejection', 'synchronous invocation throw', 'synchronous spawn throw', 'release defect']) {
+      const calls = [];
+      let pending;
+      if (lift === 'promise rejection') pending = preflight(() => Promise.reject(value), calls);
+      else if (lift === 'synchronous invocation throw') pending = preflight(() => { throw value; }, calls);
+      else if (lift === 'synchronous spawn throw') {
+        b.start({ spawned: () => { throw value; } }); pending = b.helper.controlledCommand(bPaths, bTask());
+      } else {
+        const row = b.start({ faults: { 'stdout-detach': value } });
+        pending = b.helper.controlledCommand(bPaths, bTask()); await row.ready; row.end(0);
+      }
+      let caught = false, observed;
+      try { await pending; } catch (error) { caught = true; observed = error; }
+      assert.equal(caught, true, `${lift}: failure present whatever its value`);
+      assert(Object.is(observed, value), `${lift}: the exact raw value, never a wrapper`);
+      assert.deepEqual(calls, [], 'a preflight failure launches and publishes nothing');
+      assert.equal(b.helper.activeCommandOf(), null);
+    }
+  }
+  // API counterexamples, not observed helper Causes: sequential order, not a
+  // preferred category, selects the raw value; a parallel Cause has none.
+  const primary = new Error('primary defect'), secondary = new Error('secondary failure');
+  for (const [shape, cause] of [['sequential', Cause.sequential(Cause.die(primary), Cause.fail(secondary))],
+    ['parallel', Cause.parallel(Cause.fail(primary), Cause.fail(secondary))]]) {
+    let caught = false, observed;
+    try { await b.helper.runHelperProgram(Effect.failCause(cause)); } catch (error) { caught = true; observed = error; }
+    assert.equal(caught, true, shape);
+    if (shape === 'sequential') assert(Object.is(observed, primary), 'no category-priority squash');
+    else assert(Cause.isCause(observed) && !(observed instanceof Error), 'an ambiguous Cause stays a Cause');
+  }
+});
+
+// D15 through main: the injected constructor stands in for Product artifact
+// construction; every helper step, lift, command and the drain are actual.
+const bArtifact = log => ({ '../product/worksite_command_execution.js': { constructWorksiteExecutionHelperArtifact: input => {
+  log.push(['artifact', input]); return { artifactRef: 'artifact://b-selected', artifactDigest: 'sha256:' + '6'.repeat(64) };
+} } });
+const bMain = (log, overrides) => ({
+  admit: async () => ({ task: bTask(), sandboxRoot: '/controlled-sandbox', artifactPath: '/controlled-artifact',
+    manifest: { attemptRef: 'attempt://selected', archiveRoot: '/controlled-archive' } }),
+  observations: async () => { log.push(['observations']); return []; }, inventory: async () => { log.push(['inventory']); return []; },
+  snapshot: async () => ({ snapshotRef: 'snapshot://b', snapshotDigest: 'sha256:' + '7'.repeat(64), snapshotMembers: [] }),
+  predicate: async () => assert.fail('no predicate after a command failure'), delta: () => [],
+  publish: async (path, bytes) => { log.push(['publication', path, JSON.parse(bytes)]); },
+  path: async (root, path, kind) => { log.push(['path', root, path, kind]); return path; },
+  ...bPaths, ...overrides,
+});
+
+test('controlled B helper: command failure reaches artifact and drained acknowledgment', async t => {
+  const log = [], scopes = [], b = await bHelper(t, bArtifact(log));
+  const first = new Error('primary command failure'), releaseFault = new Error('secondary release fault');
+  const row = b.start({ faults: { 'stdout-detach': releaseFault } });
+  let drain, notifyWritten, caught = false, observed;
+  const written = new Promise(resolveWritten => { notifyWritten = resolveWritten; });
+  const output = { write: (line, callback) => {
+    log.push(['acknowledgment', JSON.parse(line)]); drain = () => { log.push(['drained']); callback(); }; notifyWritten(); return true;
+  } };
+  const outcome = b.helper.controlledMain(bMain(log, { output, closed: (used, closed) => scopes.push({ used, closed }) }))
+    .catch(error => { caught = true; observed = error; log.push(['rejected']); });
+  await row.ready; row.lifetime.fail(first);
+  await Promise.race([written, outcome]);
+  await new Promise(resolveTurn => setImmediate(resolveTurn));
+  assert.equal(caught, false, 'no rethrow before the acknowledgment drains'); assert(drain, 'acknowledgment written');
+  drain(); await outcome;
+  assert.equal(caught, true);
+  assertDependentFailure(observed, 'worksite command failed; dependent work stopped: ', first);
+  assert.equal(scopes.length, 1); const [{ used, closed }] = scopes;
+  const failures = [...Cause.failures(used.cause)], defects = [...Cause.defects(closed.cause)];
+  assert(failures.length === 1 && Object.is(failures[0], observed), 'the identical command failure was retained');
+  assert(defects.length === 1 && Object.is(defects[0], releaseFault), 'the secondary release fault stays in the closed Scope');
+  assert.deepEqual(log.map(([kind]) => kind), ['observations', 'inventory', 'inventory', 'observations', 'inventory', 'inventory',
+    'artifact', 'publication', 'path', 'acknowledgment', 'drained', 'rejected']);
+  const artifact = log.find(([kind]) => kind === 'artifact')[1];
+  assert.equal(artifact.disposition, 'failure'); assert.deepEqual(artifact.commandResults, []);
+  assert.deepEqual(artifact.failure, { ...observed.subject, attemptRef: 'attempt://selected' });
+  assert.equal(artifact.failure.processFacts.firstError.message, first.message);
+  assert.deepEqual(log.find(([kind]) => kind === 'publication').slice(1),
+    ['/controlled-artifact', { artifactDigest: 'sha256:' + '6'.repeat(64), artifactRef: 'artifact://b-selected' }]);
+  assert.deepEqual(log.find(([kind]) => kind === 'path').slice(1), ['/controlled-archive', '/controlled-artifact', 'file']);
+  const acknowledgment = log.find(([kind]) => kind === 'acknowledgment')[1];
+  assert.equal(acknowledgment.helperArtifactRef, 'artifact://b-selected'); assert.equal(acknowledgment.attemptRef, 'attempt://selected');
+});
+
+test('controlled B helper: later publication path and acknowledgment failures retain precedence', async t => {
+  const log = [], b = await bHelper(t, bArtifact(log));
+  const steps = ['observations', 'inventory', 'inventory', 'command', 'observations', 'inventory', 'inventory',
+    'artifact', 'publication', 'path', 'acknowledgment'];
+  for (const [stage, later, through] of [
+    ['after observation', new Error('after observation refused'), 5], ['after inventory', 'after inventory refused', 6],
+    ['publication', null, 9], ['path validation', undefined, 10],
+    ['acknowledgment', Object.assign(new Error('write EPIPE'), { code: 'EPIPE' }), 11], ['none', null, 11],
+  ]) {
+    log.length = 0;
+    const retained = new b.helper.WorksiteHelperFailure('worksite command failed; dependent work stopped', { stage },
+      { failureClass: 'command_failed', taskRef: 'task://b-command', attemptRef: null });
+    const count = kind => log.filter(([logged]) => logged === kind).length;
+    const fail = (at, selected = true) => { if (stage === at && selected) throw later; };
+    let caught = false, observed;
+    await b.helper.controlledMain(bMain(log, {
+      command: async () => { log.push(['command']); throw retained; },
+      observations: async () => { log.push(['observations']); fail('after observation', count('observations') === 2); return []; },
+      inventory: async () => { log.push(['inventory']); fail('after inventory', count('inventory') === 3); return []; },
+      publish: async () => { log.push(['publication']); fail('publication'); },
+      path: async () => { log.push(['path']); fail('path validation'); },
+      output: { write: (_line, callback) => { log.push(['acknowledgment']); callback(stage === 'acknowledgment' ? later : null); return true; } },
+    })).catch(error => { caught = true; observed = error; });
+    assert.equal(caught, true, stage);
+    assert(Object.is(observed, stage === 'none' ? retained : later), `${stage}: the later exact failure supersedes the retained one`);
+    assert.deepEqual(log.map(([kind]) => kind), steps.slice(0, through), `${stage}: nothing later runs`);
   }
 });
 

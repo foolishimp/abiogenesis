@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+import * as Cause from "effect/Cause";
+import * as Effect from "effect/Effect";
+import * as Either from "effect/Either";
+import * as Exit from "effect/Exit";
+import * as Option from "effect/Option";
+import * as Scope from "effect/Scope";
+import { runEffectProgram } from "../shared/effect_definition.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
@@ -811,90 +818,163 @@ async function commandResult(
   return result;
 }
 
-async function runCommand(
-  task: WorksiteExecutionTask,
-  executionRoot: string,
-  ordinal: number,
-  attemptRef: string | null = null,
-): Promise<WorksiteCommandResult> {
-  const command = task.commands[ordinal]!;
-  const cwd = await confinedExistingPath(
-    executionRoot,
-    command.relativeCwd,
-    "directory",
-  );
-  const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
-  let child: ChildProcessByStdio<null, Readable, Readable>;
-  try {
-    child = spawn(command.executable, [...command.args], {
-      cwd, env: environment, detached: process.platform !== "win32",
-      stdio: ["ignore", "pipe", "pipe"],
-    });
-  } catch (error) {
-    return commandResult(executionRoot, command, ordinal, noChildLaunchObservation(error));
-  }
-  activeCommand = child;
-  const stdout: Buffer[] = [], stderr: Buffer[] = [];
-  const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
-  let timedOut = false;
-  let launchFailed = false;
-  let captureOpen = true;
-  const timeoutTimer = createMonotonicDeadline();
-  const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
-    onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); timeoutTimer.cancel(); },
-    onExit: () => {
-      captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();
-    },
-    onSignalRequested: (signal) => {
-      timeoutTimer.cancel(); signalSequence.push(signal);
-      stderr.push(Buffer.from(`${signal === "SIGTERM" ? "\n" : ""}ABI worksite command cleanup: ${signal} requested\n`, "utf8"));
-    },
+/** Lift one fallible Promise operation: its synchronous throw or its rejection
+ * stays the exact failure value, never a library wrapper. */
+function attempt<A>(operation: () => PromiseLike<A>): Effect.Effect<A, unknown> {
+  return Effect.tryPromise({ try: () => operation(), catch: (value) => value });
+}
+
+/** Lift one fallible synchronous operation, keeping its exact thrown value. */
+function attemptSync<A>(operation: () => A): Effect.Effect<A, unknown> {
+  return Effect.try({ try: () => operation(), catch: (value) => value });
+}
+
+/** The barrier every command release crosses before it disposes: request the
+ * lifetime's existing finite cleanup, inert once cleanup began or completed,
+ * then await that lifetime's one canonical completion. */
+function settled(lifetime: ReturnType<typeof createOwnedProcessLifetime>): Effect.Effect<OwnedProcessFacts> {
+  return Effect.suspend(() => {
+    lifetime.requestTermination();
+    return Effect.promise(() => lifetime.completion);
   });
-  const heartbeat = setInterval(() => {
-    lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`); });
-  }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
-  const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
-  const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
+}
+
+/** The bounded diagnostic of one closed command Scope. A failed use stays the
+ * outcome, so release faults behind it are written here, never dropped. */
+function commandScopeClosed(used: Exit.Exit<unknown, unknown>, closed: Exit.Exit<void>): void {
+  if (Exit.isSuccess(used) || Exit.isSuccess(closed)) return;
   try {
-    child.stdout.on("data", onStdout); child.stderr.on("data", onStderr);
-    timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); });
-  } catch (error) { lifetime.fail(error); }
-  let facts: Awaited<typeof lifetime.completion>;
-  try {
-    facts = await lifetime.completion;
+    process.stderr.write(`ABI worksite command release fault: ${Cause.pretty(closed.cause).slice(0, 8192)}\n`);
+  } catch {
+    // A diagnostic never replaces the selected outcome.
+  }
+}
+
+/** One command Scope. Its use runs interruptibly and its Exit is kept before
+ * the Scope closes. A failed use, interruption included, is the outcome;
+ * otherwise the closed Scope is, so a release fault alone still fails. */
+function commandScope<A>(use: Effect.Effect<A, unknown, Scope.Scope>): Effect.Effect<A, unknown> {
+  return Effect.uninterruptibleMask((restore) => Effect.gen(function* () {
+    const scope = yield* Scope.make();
+    const used = yield* Effect.exit(restore(Scope.extend(use, scope)));
+    const closed = yield* Effect.exit(Scope.close(scope, used));
+    commandScopeClosed(used, closed);
+    if (Exit.isFailure(used) || Exit.isSuccess(closed)) return yield* used;
+    return yield* Effect.failCause(closed.cause);
+  }));
+}
+
+/** One command's launch inside its Scope: its owned child's observation, or
+ * the no-child observation of a synchronous spawn error. */
+function launchCommand(
+  task: WorksiteExecutionTask,
+  ordinal: number,
+  cwd: string,
+  attemptRef: string | null,
+): Effect.Effect<LaunchProcessObservation, unknown, Scope.Scope> {
+  return Effect.gen(function* () {
+    const command = task.commands[ordinal]!;
+    const environment = Object.fromEntries(command.environment.map((entry) => [entry.name, entry.value]));
+    const stdout: Buffer[] = [], stderr: Buffer[] = [];
+    const signalSequence: ("SIGTERM" | "SIGKILL")[] = [];
+    let timedOut = false;
+    let launchFailed = false;
+    let captureOpen = true;
+    const timeoutTimer = createMonotonicDeadline();
+    // Spawn and lifetime are one uninterruptible acquisition: once a child
+    // exists, its settling release is registered before anything can fail.
+    const launch = yield* Effect.acquireRelease(
+      attemptSync(() => spawn(command.executable, [...command.args], {
+        cwd, env: environment, detached: process.platform !== "win32",
+        stdio: ["ignore", "pipe", "pipe"],
+      })).pipe(Effect.either, Effect.map(Either.map((child) => {
+        activeCommand = child;
+        const lifetime = createOwnedProcessLifetime(child, { terminationGraceMs: command.terminationGraceMs }, {
+          onError: (error) => { launchFailed = true; stderr.push(Buffer.from(error.message, "utf8")); timeoutTimer.cancel(); },
+          onExit: () => {
+            captureOpen = false; timeoutTimer.cancel(); child.stdout.destroy(); child.stderr.destroy();
+          },
+          onSignalRequested: (signal) => {
+            timeoutTimer.cancel(); signalSequence.push(signal);
+            stderr.push(Buffer.from(`${signal === "SIGTERM" ? "\n" : ""}ABI worksite command cleanup: ${signal} requested\n`, "utf8"));
+          },
+        });
+        return { child, lifetime };
+      }))),
+      (launch) => Either.isLeft(launch) ? Effect.void
+        : Effect.zipRight(settled(launch.right.lifetime), Effect.sync(() => { activeCommand = null; })),
+    );
+    if (Either.isLeft(launch)) return yield* attemptSync(() => noChildLaunchObservation(launch.left));
+    const { child, lifetime } = launch.right;
+    // Each later resource registers its release before its fallible
+    // acquisition; that release disposes only after the settlement barrier.
+    const hold = (acquire: () => unknown, release: () => void) => Effect.zipRight(
+      Effect.addFinalizer(() => Effect.zipRight(settled(lifetime), Effect.sync(release))),
+      attemptSync(acquire),
+    );
+    let heartbeat: ReturnType<typeof setInterval> | undefined;
+    const onStdout = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stdout.push(Buffer.from(chunk))); };
+    const onStderr = (chunk: Buffer): void => { if (captureOpen) lifetime.observe(() => stderr.push(Buffer.from(chunk))); };
+    yield* Effect.all([
+      hold(() => {
+        heartbeat = setInterval(() => {
+          lifetime.observe(() => { process.stderr.write(`ABI_WORKSITE_HEARTBEAT command=${command.commandId}\n`); });
+        }, Math.min(15_000, Math.max(1_000, Math.floor(command.timeoutMs / 4))));
+      }, () => clearInterval(heartbeat)),
+      hold(() => child.stdout.on("data", onStdout), () => child.stdout.off("data", onStdout)),
+      hold(() => child.stderr.on("data", onStderr), () => child.stderr.off("data", onStderr)),
+      hold(() => timeoutTimer.after(command.timeoutMs, () => { timedOut = true; lifetime.requestTermination(); }),
+        () => timeoutTimer.cancel()),
+    ], { discard: true }).pipe(Effect.catchAll((error) => Effect.sync(() => lifetime.fail(error))));
+    const facts = yield* Effect.promise(() => lifetime.completion);
     if (facts.firstError !== null) {
       const detail = {
         taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef, command,
         diagnostic: { name: facts.firstError.name, message: facts.firstError.message },
         processFacts: encodeOwnedProcessFacts(facts),
       };
-      throw new WorksiteHelperFailure("worksite command failed; dependent work stopped", detail,
-        { failureClass: "command_failed", ...detail });
+      return yield* Effect.fail(new WorksiteHelperFailure("worksite command failed; dependent work stopped", detail,
+        { failureClass: "command_failed", ...detail }));
     }
-  } finally {
-    timeoutTimer.cancel(); clearInterval(heartbeat); activeCommand = null; captureOpen = false;
-    child.stdout.off("data", onStdout); child.stderr.off("data", onStderr);
-  }
-  // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
-  const terminal = classifyOwnedProcessTerminal(facts);
-  if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
-  const launched: LaunchProcessObservation = {
-    exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
-    processSignal: facts.directExit?.signal ?? null, timedOut,
-    signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
-    stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),
-  };
-  if (!launched.terminationConfirmed) {
-    const processObservation = commandProcessObservation(command, ordinal, launched);
-    const detail = {
-      taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
-      command: processObservation, diagnostic: decodeStream(processObservation.stderr),
-      processFacts: encodeOwnedProcessFacts(facts),
+    // A spawn failure has no child to clean up; an exit needs a confirmed boundary.
+    const terminal = classifyOwnedProcessTerminal(facts);
+    if (terminal === "unconfirmed") stderr.push(unconfirmedScopeDiagnostic(facts));
+    const launched: LaunchProcessObservation = {
+      exitStatus: timedOut ? 124 : launchFailed ? 127 : (facts.directExit?.status ?? 128),
+      processSignal: facts.directExit?.signal ?? null, timedOut,
+      signalSequence: Object.freeze([...signalSequence]), terminationConfirmed: terminal !== "unconfirmed",
+      stdout: stream(Buffer.concat(stdout)), stderr: stream(Buffer.concat(stderr)),
     };
-    throw new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
-      { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } });
-  }
-  return commandResult(executionRoot, command, ordinal, launched);
+    if (!launched.terminationConfirmed) {
+      const processObservation = commandProcessObservation(command, ordinal, launched);
+      const detail = {
+        taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef,
+        command: processObservation, diagnostic: decodeStream(processObservation.stderr),
+        processFacts: encodeOwnedProcessFacts(facts),
+      };
+      return yield* Effect.fail(new WorksiteHelperFailure("worksite command cleanup unresolved; dependent work stopped", detail,
+        { failureClass: "command_cleanup_unresolved", ...detail, diagnostic: { name: "TypeError", message: detail.diagnostic } }));
+    }
+    return launched;
+  });
+}
+
+function runCommand(
+  task: WorksiteExecutionTask,
+  executionRoot: string,
+  ordinal: number,
+  attemptRef: string | null = null,
+): Effect.Effect<WorksiteCommandResult, unknown> {
+  return Effect.gen(function* () {
+    const command = task.commands[ordinal]!;
+    const cwd = yield* attempt(() => confinedExistingPath(
+      executionRoot,
+      command.relativeCwd,
+      "directory",
+    ));
+    const launched = yield* commandScope(launchCommand(task, ordinal, cwd, attemptRef));
+    return yield* attempt(() => commandResult(executionRoot, command, ordinal, launched));
+  });
 }
 
 function decodeStream(value: WorksiteObservedStream): string {
@@ -1463,127 +1543,155 @@ async function publishCreateOnly(path: string, bytes: Buffer): Promise<void> {
   }
 }
 
+/** The raw value a failed helper Exit selects: the first Fail or Die payload in
+ * sequential (release) order, never a preferred category. An interruption or a
+ * parallel Cause has no one original value and selects none. */
+function selectedFailure(cause: Cause.Cause<unknown>): Option.Option<unknown> {
+  const [ordered, first] = Cause.match<readonly [boolean, Option.Option<unknown>], unknown>(cause, {
+    onEmpty: [true, Option.none()],
+    onFail: (error) => [true, Option.some(error)],
+    onDie: (defect) => [true, Option.some(defect)],
+    onInterrupt: () => [false, Option.none()],
+    onSequential: (left, right) => [left[0] && right[0], Option.orElse(left[1], () => right[1])],
+    onParallel: () => [false, Option.none()],
+  });
+  return ordered ? first : Option.none();
+}
+
+/** The helper's host boundary: run one program once through the package
+ * membrane and return its value or throw its selected raw failure. A failure
+ * with no one original value throws its actual Cause. */
+async function runHelperProgram<A>(program: Effect.Effect<A, unknown>): Promise<A> {
+  const exit = await runEffectProgram(program);
+  if (Exit.isSuccess(exit)) return exit.value;
+  const selected = selectedFailure(exit.cause);
+  throw Option.isSome(selected) ? selected.value : exit.cause;
+}
+
+/** Print one acknowledgment and settle only once its write has drained. */
+function acknowledge(line: string, output: NodeJS.WritableStream = process.stdout): Promise<void> {
+  return new Promise<void>((resolveWrite, rejectWrite) => {
+    output.write(line, (error) => error === null || error === undefined ? resolveWrite() : rejectWrite(error));
+  });
+}
+
 async function main(): Promise<void> {
-  const preflight = await admitLaunchManifest();
-  const { task, artifactPath, sandboxRoot } = preflight;
-  if (!isWorksiteExecutionTask(task)) {
-    throw new TypeError("helper launch manifest does not retain one exact Product task");
-  }
-  const before = await observations(task);
-  const productInventoryBefore = await filesystemInventory(
-    task.workspaceBinding.roots.productRoot,
-  );
-  const beforeMatches = before.every((row, ordinal) => canonicalEquals(
-    row,
-    worksiteExecutionSources(task)[ordinal]!.observation,
-  ));
-  const commandResults: WorksiteCommandResult[] = [];
-  const predicateObservations: WorksitePredicateObservation[] = [];
-  const snapshot = beforeMatches
-    ? await materializeSnapshot(task, sandboxRoot)
-    : await (async () => {
-        await mkdir(sandboxRoot);
-        const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
-        const snapshotDigest = sha256Canonical(snapshotMembers);
-        return Object.freeze({
-          snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
-          snapshotDigest,
-          snapshotMembers,
-        });
-      })();
-  const inventoryBefore = await filesystemInventory(sandboxRoot);
-  // A failure after launch is published as the artifact's `failure`
-  // disposition, then rethrown: the helper still exits non-zero.
-  let failed: WorksiteHelperFailure | null = null;
-  if (beforeMatches) try {
-    for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
-      const command = await runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
-      if (!command.terminationConfirmed) {
-        throw new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
-          taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
-          command, diagnostic: decodeStream(command.stderr),
-        })}`);
-      }
-      commandResults.push(command);
+  return runHelperProgram(Effect.gen(function* () {
+    const preflight = yield* attempt(() => admitLaunchManifest());
+    const { task, artifactPath, sandboxRoot } = preflight;
+    if (!isWorksiteExecutionTask(task)) {
+      return yield* Effect.fail(new TypeError("helper launch manifest does not retain one exact Product task"));
     }
-    for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
-      const observation = await predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef);
-      if (observation.predicateKind === "http_response_exact") {
-        const probe = record(observation.observedValue);
-        const processObservation = record(probe.process);
-        if (processObservation.terminationConfirmed !== true) {
-          throw new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
+    const before = yield* attempt(() => observations(task));
+    const productInventoryBefore = yield* attempt(() => filesystemInventory(
+      task.workspaceBinding.roots.productRoot,
+    ));
+    const beforeMatches = before.every((row, ordinal) => canonicalEquals(
+      row,
+      worksiteExecutionSources(task)[ordinal]!.observation,
+    ));
+    const commandResults: WorksiteCommandResult[] = [];
+    const predicateObservations: WorksitePredicateObservation[] = [];
+    const snapshot = yield* attempt(() => beforeMatches
+      ? materializeSnapshot(task, sandboxRoot)
+      : (async () => {
+          await mkdir(sandboxRoot);
+          const snapshotMembers = Object.freeze([]) as readonly WorksiteExecutionSnapshotMember[];
+          const snapshotDigest = sha256Canonical(snapshotMembers);
+          return Object.freeze({
+            snapshotRef: `${worksiteExecutionIdentityPrefix(task, "snapshot")}/${snapshotDigest.slice("sha256:".length)}`,
+            snapshotDigest,
+            snapshotMembers,
+          });
+        })());
+    const inventoryBefore = yield* attempt(() => filesystemInventory(sandboxRoot));
+    // A failure after launch is published as the artifact's `failure`
+    // disposition, then rethrown: the helper still exits non-zero. Any other
+    // failure, defect or interruption escapes unchanged.
+    const failed = !beforeMatches ? null : yield* Effect.gen(function* () {
+      for (let ordinal = 0; ordinal < task.commands.length; ordinal += 1) {
+        const command = yield* runCommand(task, sandboxRoot, ordinal, preflight.manifest.attemptRef);
+        if (!command.terminationConfirmed) {
+          return yield* Effect.fail(new TypeError(`worksite command cleanup unresolved; dependent work stopped: ${canonicalJson({
             taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
-            observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
-          })}`);
+            command, diagnostic: decodeStream(command.stderr),
+          })}`));
         }
+        commandResults.push(command);
       }
-      predicateObservations.push(observation);
-    }
-  } catch (error) {
-    if (!(error instanceof WorksiteHelperFailure)) throw error;
-    failed = error;
-  }
-  const after = await observations(task);
-  const inventoryAfter = await filesystemInventory(sandboxRoot);
-  const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);
-  const productInventoryAfter = await filesystemInventory(
-    task.workspaceBinding.roots.productRoot,
-  );
-  const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
-  const afterMatches = after.every((row, ordinal) => canonicalEquals(
-    row,
-    worksiteExecutionSources(task)[ordinal]!.observation,
-  ));
-  const artifact = constructWorksiteExecutionHelperArtifact({
-    task,
-    // The adapters ran under this manifest's attempt; the subject names it.
-    ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),
-    disposition: failed !== null
-      ? "failure"
-      : !beforeMatches || !afterMatches
-      ? "protected_mismatch"
-      : productDelta.length > 0
-      ? "product_mismatch"
-      : delta.some((row) => row.matchedTerritoryRef === null)
-      ? "territory_mismatch"
-      : "success",
-    commandResults,
-    predicateObservations,
-    worksiteDelta: delta,
-    productDelta,
-    snapshotRoot: sandboxRoot,
-    snapshotRef: snapshot.snapshotRef,
-    snapshotDigest: snapshot.snapshotDigest,
-    snapshotMembers: snapshot.snapshotMembers,
-    protectedBefore: before,
-    protectedAfter: after,
-  });
-  const bytes = Buffer.from(`${canonicalJson(artifact)}\n`, "utf8");
-  await publishCreateOnly(artifactPath, bytes);
-  await canonicalExistingPathWithinRoot(
-    preflight.manifest.archiveRoot,
-    artifactPath,
-    "file",
-  );
-  // The acknowledgment is printed for every disposition, a failure included,
-  // and drained before the rethrow: a pipe is asynchronous.
-  const workerReturnProjection = Object.freeze({
-    kind: "worksite_command_execution_worker_result" as const,
-    schemaVersion: "5.0.0" as const,
-    taskRef: task.taskRef,
-    taskDigest: task.taskDigest,
-    attemptRef: preflight.manifest.attemptRef,
-    helperArtifactRef: artifact.artifactRef,
-    helperArtifactDigest: artifact.artifactDigest,
-  }) satisfies WorksiteCommandExecutionWorkerResult;
-  await new Promise<void>((resolveWrite, rejectWrite) => {
-    process.stdout.write(
-      `${canonicalJson(workerReturnProjection)}\n`,
-      (error) => error ? rejectWrite(error) : resolveWrite(),
-    );
-  });
-  if (failed !== null) throw failed;
+      for (let ordinal = 0; ordinal < task.outcomePredicates.length; ordinal += 1) {
+        const observation = yield* attempt(() =>
+          predicateObservation(task, sandboxRoot, commandResults, ordinal, preflight.manifest.attemptRef));
+        if (observation.predicateKind === "http_response_exact") {
+          const probe = record(observation.observedValue);
+          const processObservation = record(probe.process);
+          if (processObservation.terminationConfirmed !== true) {
+            return yield* Effect.fail(new TypeError(`worksite HTTP cleanup unresolved; dependent work stopped: ${canonicalJson({
+              taskRef: task.taskRef, taskDigest: task.taskDigest, attemptRef: preflight.manifest.attemptRef,
+              observation, diagnostic: decodeStream(processObservation.stderr as unknown as WorksiteObservedStream),
+            })}`));
+          }
+        }
+        predicateObservations.push(observation);
+      }
+      return null;
+    }).pipe(Effect.catchAll((error) => error instanceof WorksiteHelperFailure ? Effect.succeed(error) : Effect.fail(error)));
+    const after = yield* attempt(() => observations(task));
+    const inventoryAfter = yield* attempt(() => filesystemInventory(sandboxRoot));
+    const delta = worksiteDelta(task, inventoryBefore, inventoryAfter);
+    const productInventoryAfter = yield* attempt(() => filesystemInventory(
+      task.workspaceBinding.roots.productRoot,
+    ));
+    const productDelta = worksiteDelta(task, productInventoryBefore, productInventoryAfter, false);
+    const afterMatches = after.every((row, ordinal) => canonicalEquals(
+      row,
+      worksiteExecutionSources(task)[ordinal]!.observation,
+    ));
+    const artifact = constructWorksiteExecutionHelperArtifact({
+      task,
+      // The adapters ran under this manifest's attempt; the subject names it.
+      ...(failed === null ? {} : { failure: { ...failed.subject, attemptRef: preflight.manifest.attemptRef } }),
+      disposition: failed !== null
+        ? "failure"
+        : !beforeMatches || !afterMatches
+        ? "protected_mismatch"
+        : productDelta.length > 0
+        ? "product_mismatch"
+        : delta.some((row) => row.matchedTerritoryRef === null)
+        ? "territory_mismatch"
+        : "success",
+      commandResults,
+      predicateObservations,
+      worksiteDelta: delta,
+      productDelta,
+      snapshotRoot: sandboxRoot,
+      snapshotRef: snapshot.snapshotRef,
+      snapshotDigest: snapshot.snapshotDigest,
+      snapshotMembers: snapshot.snapshotMembers,
+      protectedBefore: before,
+      protectedAfter: after,
+    });
+    const bytes = Buffer.from(`${canonicalJson(artifact)}\n`, "utf8");
+    yield* attempt(() => publishCreateOnly(artifactPath, bytes));
+    yield* attempt(() => canonicalExistingPathWithinRoot(
+      preflight.manifest.archiveRoot,
+      artifactPath,
+      "file",
+    ));
+    // The acknowledgment is printed for every disposition, a failure included,
+    // and drained before the rethrow: a pipe is asynchronous.
+    const workerReturnProjection = Object.freeze({
+      kind: "worksite_command_execution_worker_result" as const,
+      schemaVersion: "5.0.0" as const,
+      taskRef: task.taskRef,
+      taskDigest: task.taskDigest,
+      attemptRef: preflight.manifest.attemptRef,
+      helperArtifactRef: artifact.artifactRef,
+      helperArtifactDigest: artifact.artifactDigest,
+    }) satisfies WorksiteCommandExecutionWorkerResult;
+    yield* attempt(() => acknowledge(`${canonicalJson(workerReturnProjection)}\n`));
+    if (failed !== null) return yield* Effect.fail(failed);
+  }));
 }
 
 await main();
