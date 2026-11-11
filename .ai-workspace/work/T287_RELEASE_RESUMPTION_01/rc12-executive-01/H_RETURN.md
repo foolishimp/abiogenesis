@@ -54,7 +54,7 @@ Writer Return to the Executive; commentary only. Worktree `/private/tmp/abg-rc12
 | File | Change | On the old build | After |
 |---|---|---|---|
 | `t287-liveness-heartbeat` (new) | 6 cases | 2 pass / 4 fail. Red: the status row is a heartbeat; heartbeats renew a working actor; the window carries the heartbeat instant; the lease runs from the status row, not the retries. Guards pass: silent containment; nothing renews after exit | 6/6 |
-| `t287-management-supervision` | installed case adds a `heartbeat` worker (status row every 1 s for 7 s, lease 3000 ms, cap 30000 ms): no timeout, blocked like `blocked`, each actor's stdout activity ≥ 7000 ms. Three retry cases unedited | 4/5: `timeouts.length` 1 !== 0 | 5/5 |
+| `t287-management-supervision` | installed case adds a `heartbeat` worker (status row every 1 s for 7 s, lease 3000 ms, cap 30000 ms): no timeout, blocked like `blocked`, each actor's stdout activity ≥ 7000 ms. The three retry cases (l.22/33/87) unedited: the diff's first hunk is the l.105 title | 4/5: `timeouts.length` 1 !== 0 | 5/5 |
 | `m5-worker-transport` | HS03 noise row: synthetic `system/status` → `rate_limit_event`; segment literals gain `heartbeat:false`. The one inversion R1 requires: a status row is no longer noise | — | 39/39 |
 
 ## E3 The 24 recorded RC6 actors (HS03 oracle; inactivity was 1,800,000 ms)
@@ -71,6 +71,7 @@ Longest admitted-activity gap per actor in seconds, before → after; bold is 60
 Contained at 60/120/180 s: **before 5/2/0, after 1/0/0** (scope 2's first-request wait). `X/e3.py` reads only the pinned oracle (`X/e3-status-family.txt`).
 - Row identity (D1): the oracle has no row content, so a noise row counts as a status row when its length is in {157, 176, 182, 185, 186}. In 196 tracked archives every row of these lengths is `system/status` (243 rows) and `api_retry` rows are 226–229 bytes (`X/e3-length-overlap.txt`); 182/185/186/176 occur only inside the seven compactions at a 30 s cadence, matching RV1's line-by-line read.
 - Sensitivity: {182,185,186} alone gives 1/0/0; {185,186} alone gives 2/0/0 (scope 9's first heartbeat is 182 bytes). Heartbeat instants map from wall time with an offset spread ≤ 126.6 ms.
+- The 30.0 s before-gaps (scopes 13/15/17/19/23) are not a window-close artifact: each is stdout→stdout between per-row capture instants (29.97–30.00 s), closed by a recorded 298-byte qualifying row at the CLI's ~30 s cadence.
 
 ## Evidence
 
@@ -82,7 +83,7 @@ Contained at 60/120/180 s: **before 5/2/0, after 1/0/0** (scope 2's first-reques
 
 - Old: "`inactivity_timeout` maps to `no_output`; `hard_timeout` and `transport_exit` map to `transport_failure`; …"
 - New: "`inactivity_timeout` maps to `transport_failure` carrying the inactivity timeout class, and `no_output` is classified only when probe coverage establishes it; `hard_timeout` and `transport_exit` map to `transport_failure`; …"
-- Identifier and the rest unchanged. `M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md:73` still maps `inactivity_timeout` to `no_output`; outside the grant.
+- Identifier and the rest unchanged. The code already says this: `classifyWorkerTransportFailure` returns `transport_failure` on `timedOut` (`transport_contracts.ts:124`) before its only `no_output` return (:134), and `WorkerTransportResult` carries `timeoutClass: "inactivity"` (`worker_transport.ts:142`). `M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION.md:73` still maps `inactivity_timeout` to `no_output`; outside the grant.
 
 ## What a host must declare now
 
