@@ -191,3 +191,19 @@ The read-only trace is `.ai-workspace/work/T287_RELEASE_RESUMPTION_01/rc12-execu
 | Liveness reports `continue_waiting` on a failed Run | Fixed with ruling 7 if it falls out of the same projection; otherwise recorded |
 
 Order now: A2 (running) → B recoverable failure → E8 → Public readback and the inactivity defect → Consensus → amendment witness, cut, install, demonstration.
+
+## 11. Owner insight: the default configuration implements STDO 3.x (2026-11-11)
+
+Owner: "i should lean into an ABG configuration that is an out of the box implementation of STDO 3.x".
+
+**What exists.** The Product has a section "STDO-Governed Run Environment". The default library's run environment binds the exact STDO release by member inventory and digest, and gives the selector, constructor, assessor and command executor their STDO role material. Every assessment receives the same reviewer material.
+
+**Effects on RC12:**
+
+1. The process definition of section 9 has a name and a default: the STDO software-amendment configuration. It is the default library, its STDO run environment, its process prerequisites and its review declarations. A project supplies its bindings (paths, build and test commands, acceptance criteria). A task supplies the amendment.
+2. **E8 ruling 3 changes, to keep adaptive judgment.** Every review the Program names is declared by the task, either as required or as not applicable. Prerequisites bind the required ones. A Program-named review missing from the task is refused at intake. Nothing is skipped silently, and a small amendment is not forced through every reviewer.
+3. The witness is an STDO-shaped existing system: a specification with requirement files, an implementation and tests. The amendment edits one requirement. The Run performs intake triage with the change class, impact assessment, implementation, tests, reviews whose frames name exact STDO sources, and acceptance.
+4. The demonstration record carries a coverage statement: the STDO relations the configuration exercises and those it does not. The claim is a tested STDO software-amendment workflow, not an implementation of all of STDO.
+5. The intent and Product draft on the branch names this configuration.
+
+**Not in RC12:** selecting different STDO material per review through the run environment (in RC12 review types differ by their declared frame statement and rubric); applicability decided by an admitted Executive judgment at intake instead of by the task declaration; rebinding to a later STDO release; release bindings.
