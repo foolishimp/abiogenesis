@@ -11,7 +11,7 @@ import {
   unlink,
 } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
-import { basename, dirname, isAbsolute, relative, resolve } from "node:path";
+import { basename, dirname, relative, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { sha256Bytes, sha256Canonical } from "../shared/digests.js";
@@ -73,6 +73,7 @@ import {
   type WorksiteContextObservation,
 } from "./worksite_effect.js";
 import { canonicalEquals } from "../shared/value/index.js";
+import { pathConfined, pathRelation, pathWithin } from "../shared/path_confinement.js";
 
 export interface WorksiteFileReplaceInput {
   /** Admitted owner roots supplied only by the guarded internal writer. */
@@ -134,12 +135,6 @@ function exactTerritoryForBinding(
 function errnoCode(error: unknown): string | null {
   const code = (error as NodeJS.ErrnoException).code;
   return typeof code === "string" ? code : null;
-}
-
-function confined(root: string, path: string): boolean {
-  const fromRoot = relative(root, path);
-  return fromRoot === "" ||
-    (!isAbsolute(fromRoot) && fromRoot !== ".." && !fromRoot.startsWith("../"));
 }
 
 interface ResolvedWorksiteTarget {
@@ -223,7 +218,7 @@ async function resolveWorksiteTarget(
       canonicalRoot,
       ...subject.relativePath.split("/"),
     );
-    if (!confined(canonicalRoot, targetPath) || targetPath === canonicalRoot) {
+    if (!pathConfined(pathRelation(canonicalRoot, targetPath)) || targetPath === canonicalRoot) {
       return worksiteRefusal(
         "invalid_relative_path",
         "worksite subject escapes the WorkspaceAuthorityBasis canonical root",
@@ -232,7 +227,7 @@ async function resolveWorksiteTarget(
     const protectedRoots = await Promise.all(
       [...Object.values(workspaceBinding.roots), ...protectedInstallRoots].map(plannedCanonicalPath),
     );
-    if (protectedRoots.some((root) => confined(root, targetPath))) {
+    if (protectedRoots.some((root) => pathWithin(pathRelation(root, targetPath)))) {
       return worksiteRefusal(
         "binding_mismatch",
         "worksite subject enters a protected WorkspaceBinding root",
@@ -619,9 +614,9 @@ export async function replaceWorksiteFile(
     target.canonicalRoot,
     ...territory.relativeRoot.split("/"),
   );
-  if (!confined(target.canonicalRoot, territoryPath) ||
-    target.protectedRoots.some((root) => confined(root, territoryPath)) ||
-    !confined(territoryPath, target.targetPath)) {
+  if (!pathConfined(pathRelation(target.canonicalRoot, territoryPath)) ||
+    target.protectedRoots.some((root) => pathWithin(pathRelation(root, territoryPath))) ||
+    !pathWithin(pathRelation(territoryPath, target.targetPath))) {
     return worksiteRefusal(
       "subject_outside_territory",
       "worksite subject is outside the authorized write territory",
@@ -964,7 +959,7 @@ async function worksiteReadRoots(input: WorksiteReadBasis): Promise<WorksiteEffe
 function checkedWorksitePath(root: string, protectedRoots: readonly string[], path: string): string | WorksiteEffectRefusal {
   if (normalizeWorksiteRelativePath(path, true) !== path) return worksiteRefusal("invalid_relative_path", "worksite path must be normalized and relative");
   const target = resolve(root, ...path.split("/"));
-  if (!confined(root, target) || protectedRoots.some(protectedRoot => confined(protectedRoot, target))) {
+  if (!pathConfined(pathRelation(root, target)) || protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, target)))) {
     return worksiteRefusal("subject_outside_territory", "worksite path escapes A or enters a protected install/runtime root");
   }
   return target;
@@ -1009,8 +1004,9 @@ export async function checkWorksiteWriteRoots(input: WorksiteWriteRootsInput): P
     } catch (error) {
       return worksiteRefusal("invalid_coordinate", `worksite write root cannot be resolved: ${String(error)}`, null, errnoCode(error));
     }
-    if (!confined(resolved.root, planned) ||
-      resolved.protectedRoots.some(protectedRoot => confined(protectedRoot, planned) || confined(planned, protectedRoot))) return overlap();
+    if (!pathConfined(pathRelation(resolved.root, planned)) ||
+      resolved.protectedRoots.some(protectedRoot => pathWithin(pathRelation(protectedRoot, planned)) ||
+        pathWithin(pathRelation(planned, protectedRoot)))) return overlap();
   }
   return null;
 }

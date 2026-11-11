@@ -11,7 +11,6 @@ import {
   isAbsolute,
   join,
   posix,
-  relative,
   resolve,
   win32,
 } from "node:path";
@@ -30,6 +29,7 @@ import {
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
 import { admitJson } from "../shared/admit/index.js";
+import { pathRelation, pathWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
 import {
   exactWorkspaceAuthorityJoin,
@@ -1298,12 +1298,9 @@ function protectedRelativeWorksitePath(
     authority.canonicalRoot,
     ...path.replaceAll("\\", "/").split("/"),
   );
-  return Object.values(workspace.roots).some((root) => {
-    const relation = relative(resolve(root), candidate);
-    return relation === "" ||
-      (!isAbsolute(relation) && relation !== ".." &&
-        !relation.startsWith("../"));
-  });
+  return Object.values(workspace.roots).some((root) =>
+    pathWithin(pathRelation(root, candidate))
+  );
 }
 
 function predicatePaths(predicate: WorksiteOutcomePredicate): readonly string[] {
