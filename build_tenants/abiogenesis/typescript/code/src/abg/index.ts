@@ -301,7 +301,6 @@ export {
   type AdmitFhInteractionHoldInput,
   type FhInteractionHoldAdmission,
   type FhInteractionContinuation,
-  type FhInteractionResumeAdmission,
   type ReplayContinuationState,
 } from "./continuation.js";
 export {

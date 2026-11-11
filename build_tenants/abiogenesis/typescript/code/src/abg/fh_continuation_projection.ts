@@ -1,7 +1,6 @@
 import { indexedRuntimeEvents, runtimeEventAtPrefix } from "./event_prefix.js";
 import type { RuntimeEventPrefix } from "./event_prefix.js";
 import { isRecord } from "../shared/admission_predicates.js";
-import { type JsonValue } from "../shared/canonical_json.js";
 import { sha256Canonical, type Sha256Digest } from "../shared/digests.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { projectPendingInteractionCarrier } from "./c_call.js";
@@ -49,23 +48,23 @@ export type ReplayContinuationState = {
   readonly heldCursorDigest: Sha256Digest;
   readonly constructionIntentRef: string | null;
   readonly constructionIntentDigest: Sha256Digest | null;
-  readonly responseRef: string | null;
-  readonly responseDigest: Sha256Digest | null;
-  readonly responseValue: JsonValue | null;
-  readonly successorInputRef: string | null;
-  readonly successorInputDigest: Sha256Digest | null;
-  readonly successorInputValue: JsonValue | null;
-  readonly successorInputContractRef: string | null;
-  readonly successorInputValueKind: string | null;
-  readonly successorCursorRef: string | null;
-  readonly successorCursorDigest: Sha256Digest | null;
+  readonly responseRef: null;
+  readonly responseDigest: null;
+  readonly responseValue: null;
+  readonly successorInputRef: null;
+  readonly successorInputDigest: null;
+  readonly successorInputValue: null;
+  readonly successorInputContractRef: null;
+  readonly successorInputValueKind: null;
+  readonly successorCursorRef: null;
+  readonly successorCursorDigest: null;
   readonly openedEventRef: string;
-  readonly respondedEventRef: string | null;
-  readonly respondedPublicOperationEventRef: string | null;
-  readonly resumedEventRef: string | null;
-  readonly resumedPublicOperationEventRef: string | null;
-  readonly terminalEventRef: string | null;
-  readonly status: "abandoned" | "open" | "responded" | "resolved" | "superseded";
+  readonly respondedEventRef: null;
+  readonly respondedPublicOperationEventRef: null;
+  readonly resumedEventRef: null;
+  readonly resumedPublicOperationEventRef: null;
+  readonly terminalEventRef: null;
+  readonly status: "open";
 };
 
 export type FhEffectfulPublicInvocationFactProjection =

@@ -878,7 +878,7 @@ function canonicalRunContext(
     route.nextActionProjectionDigest !== undefined
   );
   const continuation = [...context.replay.continuations].reverse().find((row) =>
-    row.status === "open" || row.status === "responded"
+    row.status === "open"
   );
   const evidence = context.semanticReplay.physicalCoordinates.events.map((event) =>
     truthCoordinate(event.eventId, event.payloadDigest)
@@ -1699,8 +1699,7 @@ function gapRows(prepared: PreparedRead<AbgProjectReadMemberKey>, context: Canon
   });
   const inputDigest = inputDigests[0]!;
   if (inputDigests.some(digest => digest !== inputDigest) ||
-      (origin.kind === "traversal_cursor_entered" && eventRecord(origin).inputDigest !== inputDigest) ||
-      (origin.kind === "fh_interaction_resume_admitted" && eventRecord(origin).successorInputDigest !== inputDigest)) {
+      (origin.kind === "traversal_cursor_entered" && eventRecord(origin).inputDigest !== inputDigest)) {
     throw new TypeError("no-action evidence has conflicting input identities");
   }
   const sources = events.filter(event => event.kind === "c_call_result_admitted" &&

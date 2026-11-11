@@ -101,26 +101,6 @@ export interface FhInteractionContinuation {
   readonly openedEventRef: string;
 }
 
-export type FhInteractionResumeAdmission = {
-  readonly kind: "fh_interaction_resume_admission";
-  readonly schemaVersion: "5.0.0";
-  readonly disposition: "resolved";
-  readonly continuationRef: string;
-  readonly actorRef: string;
-  readonly capabilityRef: string;
-  readonly responseRef: string;
-  readonly responseDigest: Sha256Digest;
-  readonly responseValue: Readonly<Record<string, JsonValue>>;
-  readonly successorInputRef: string;
-  readonly successorInputDigest: Sha256Digest;
-  readonly successorInputValue: Readonly<Record<string, JsonValue>>;
-  readonly successorInputContractRef: string | null;
-  readonly successorInputValueKind: string | null;
-  readonly successorCursorRef: string;
-  readonly successorCursorDigest: Sha256Digest;
-  readonly admissionEventRef: string;
-};
-
 export function admitFhInteractionOpen(
   store: AbgEventStore,
   executionBasis: ExecutionBasis,

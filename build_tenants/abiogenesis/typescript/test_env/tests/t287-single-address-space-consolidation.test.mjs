@@ -1145,6 +1145,51 @@ test('RAW F_H hold seed: an explicit conditional root grant and one exact basis/
   t.diagnostic(JSON.stringify(proof.cases.fhHoldSeed));
 });
 
+test('RAW F_H hold seed: a hand-built response, resume, abandonment or F_H supersession on the open hold is refused by the fold and the F_H fact owner, never folded as if absent', async t => {
+  // The four kinds stay declared for 5.1 and have no 5.0 reader. Each log is
+  // the seed plus one contract-valid row stamped by the actual projector.
+  const load = name => import(pathToFileURL(join(packageRoot, 'build/code/src', name + '.js')).href);
+  const [store, prefixes, digests, fh, calculus, cursors, family, interaction, capabilities, values] = await Promise.all(['abg/event_store',
+    'abg/event_prefix', 'shared/digests', 'abg/fh_continuation_projection', 'abg/event_calculus', 'abg/traversal_cursor',
+    'public/binding/public_function_family', 'product/interaction_operation_contracts', 'shared/capability_contracts', 'shared/value/index'].map(load));
+  const hash = digests.sha256Canonical, seed = rawFhResponseSeed({store, digests, family, interaction, capabilities, values, cursors});
+  const select = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]));
+  const runCut = rows => prefixes.selectValidatedRuntimeEventPrefix(freezeRaw([...rows]), {runId: seed.runId});
+  const {opened} = seed.events;
+  // The seed alone folds, projects its open hold and has no F_H fact.
+  assert.deepEqual(fh.projectFhContinuations(runCut(seed.rows), calculus.deriveRuntimeHeldFluentProjection(runCut(seed.rows))).map(row => row.status), ['open']);
+  assert.deepEqual(fh.projectFhEffectfulPublicInvocationFacts(select(seed.rows)), {disposition: 'valid', facts: []});
+  const envelope = {eventTime: '2026-11-04T00:00:02.000Z', correlationId: opened.correlationId, workflowVersion: opened.workflowVersion,
+    scopeClass: opened.scopeClass, basisId: opened.basisId, runId: opened.runId, graphCallId: opened.graphCallId, frameId: opened.frameId,
+    graphFunctionRef: opened.graphFunctionRef, materializationRef: opened.materializationRef, aggregateType: 'continuation',
+    aggregateId: seed.continuationRef, parentAggregateId: opened.parentAggregateId, causationEventRefs: [opened.eventId]};
+  const responseValue = {responseKind: 'approve', decision: 'approved'}, responseDigest = hash(responseValue);
+  const response = {actorRef: seed.actorRef, capabilityRef: seed.capabilityRef, continuationRef: seed.continuationRef, responseDigest,
+    responseRef: 'interaction-response://abiogenesis/' + responseDigest.slice(7), responseValue};
+  const successorInputValue = {subject: 'resumed'}, terminal = disposition => ({candidateDigest: hash(['candidate', disposition]),
+    candidateRef: 'candidate://single-address-space/raw-fh/' + disposition, causedByEventRef: opened.eventId, continuationDigest: opened.payload.continuationDigest,
+    continuationKind: 'fh_interaction', continuationRef: seed.continuationRef, terminalDisposition: disposition});
+  const kinds = {
+    fh_interaction_responded: {...response, publicOperationEventRef: opened.eventId, responseContractRef: seed.responseContractRef},
+    fh_interaction_resume_admitted: {...response, closureContract: {closureContractRef: 'closure://single-address-space/raw-fh'},
+      durablePrefixDigest: hash('prefix'), openedEventRef: opened.eventId, publicOperationEventRef: opened.eventId, respondedEventRef: opened.eventId,
+      successorCursor: opened.payload.heldCursor, successorCursorRef: opened.payload.heldCursorRef, successorCursorDigest: opened.payload.heldCursorDigest,
+      successorInputContractRef: null, successorInputValueKind: null, successorInputRef: 'input://single-address-space/raw-fh/resumed',
+      successorInputDigest: hash(successorInputValue), successorInputValue},
+    continuation_abandoned: terminal('abandoned'),
+    continuation_superseded: terminal('superseded')};
+  const refused = new RegExp('continuation ' + seed.continuationRef.replace(/[/.]/g, '\\$&') + ' has an invalid event lifecycle');
+  const rows = {};
+  for (const [kind, payload] of Object.entries(kinds)) await t.test(kind, () => {
+    const event = store.projectRuntimeEventFromValidatedHistory(freezeRaw([...seed.rows]), {kind, ...envelope, payload});
+    const log = [...seed.rows, event];
+    assert.throws(() => calculus.deriveRuntimeHeldFluentProjection(runCut(log)), refused, kind + ': the fold refuses it');
+    assert.deepEqual(fh.projectFhEffectfulPublicInvocationFacts(select(log)), {disposition: 'invalid_history', eventRefs: []}, kind);
+    rows[kind] = event.eventId;
+  });
+  t.diagnostic(JSON.stringify({ruling4: {seedLength: seed.rows.length, refused: rows}}));
+});
+
 // The owned prefix of the complete retained history, as the revision and
 // semantic owners hold it, with the history owner's body-work counters.
 async function retainedOwnedPrefix(t) {

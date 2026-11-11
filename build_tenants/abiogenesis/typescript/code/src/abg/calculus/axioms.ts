@@ -1311,67 +1311,37 @@ function eventCalculusEffectRefs(
         declips: [],
       };
     }
-    case "fh_interaction_responded": {
-      const continuationRef = stringField(event, "continuationRef");
-      return {
-        initiates: continuationRef === null
-          ? []
-          : [fluent("continuation_response_available", continuationRef)],
-        terminates: [],
-        clips: [],
-        declips: [],
-      };
-    }
-    case "fh_interaction_resume_admitted": {
-      const continuationRef = stringField(event, "continuationRef");
-      const successorCursorRef = stringField(event, "successorCursorRef");
-      return {
-        initiates: [
-          ...(continuationRef === null
-            ? []
-            : [fluent("continuation_terminated", continuationRef)]),
-          ...(event.frameId === undefined
-            ? []
-            : [fluent("frame_active", event.frameId)]),
-          ...(successorCursorRef === null
-            ? []
-            : [fluent("locus_active", successorCursorRef)]),
-        ],
-        terminates: [
-          ...(continuationRef === null
-            ? []
-            : [
-                fluent("continuation_open", continuationRef),
-                fluent("interaction_pending", continuationRef),
-                fluent("continuation_response_available", continuationRef),
-              ]),
-          ...(event.frameId === undefined
-            ? []
-            : [fluent("frame_held", event.frameId)]),
-        ],
-        clips: [],
-        declips: [],
-      };
-    }
+    case "fh_interaction_responded":
+    case "fh_interaction_resume_admitted":
     case "continuation_abandoned":
     case "continuation_superseded": {
+      // Human response and same-Run resumption are reserved to 5.1. These kinds
+      // stay declared for it and have no 5.0 reader, and neither has an F_H
+      // supersession: a log that carries one is refused here, never folded as
+      // if the event were absent. Construction supersession is live.
+      const continuationKind = stringField(event, "continuationKind");
+      if (
+        event.kind !== "continuation_superseded" ||
+        (continuationKind !== "construction_intent" &&
+          continuationKind !== "selected_action" &&
+          continuationKind !== "pending_execution")
+      ) {
+        throw new TypeError(
+          `continuation ${event.aggregateId} has an invalid event lifecycle`,
+        );
+      }
       const continuationRef = stringField(event, "continuationRef");
       return {
         initiates: continuationRef === null
           ? []
-          : [fluent(
-              event.kind === "continuation_abandoned"
-                ? "continuation_abandoned"
-                : "continuation_superseded",
-              continuationRef,
-            )],
+          : [fluent("continuation_superseded", continuationRef)],
         terminates: continuationRef === null
           ? []
           : [
               fluent("continuation_open", continuationRef),
               fluent("interaction_pending", continuationRef),
               fluent("continuation_response_available", continuationRef),
-              ...(stringField(event, "continuationKind") === "selected_action" && stringField(event, "constructionIntentRef") !== null
+              ...(continuationKind === "selected_action" && stringField(event, "constructionIntentRef") !== null
                 ? [fluent("construction_intent_available", stringField(event, "constructionIntentRef")!)] : []),
             ],
         clips: [], declips: [],
