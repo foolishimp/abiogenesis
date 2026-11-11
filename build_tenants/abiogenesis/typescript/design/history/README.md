@@ -2,7 +2,7 @@
 
 These notes are records. They do not authorize design, code or closure; the current notes are indexed in [../README.md](../README.md).
 
-They moved here unchanged on 2026-11-12 in commit `e1516b5f1` (`git mv`, 100% renames). The `__RETIRED_SECTIONS.md` files hold sections cut verbatim from five kept notes in commit `4e405ff08`; each names its source on its first line.
+They moved here unchanged on 2026-11-12 in commit `e1516b5f1` (`git mv`, 100% renames). The `__RETIRED_SECTIONS.md` files hold sections cut verbatim from kept notes: five notes in commit `4e405ff08`, eighteen more notes in the commits merged at `862c96082`, and five sections of the realization constitution in commit `c1eb397e4`. Each names its source on its first line.
 Relative links inside these notes resolve against the pre-move layout: a link to a sibling note may name a note that now lives here or one that stayed in `design/`, and `../` paths are one level short.
 
 | Note | Class | Reason | Replacing note or ruling |
