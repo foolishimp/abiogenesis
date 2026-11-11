@@ -11,13 +11,15 @@ import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructI
 import {declarations,initialState,ref,contract,hash} from '../fixtures/registered-selection-product/recursive.mjs';
 
 // REQ-P-POLICY-065–068 over a declared child failure foldback. One installed
-// Product, three Public starts through the installed CLI: a handled failure
+// Product, four Public starts through the installed CLI: a handled failure
 // that later closes, a handled failure every time until the recursion bound,
-// and an undeclared failure. The origin is read by the references the events
+// an undeclared failure, and a handled failure followed by an undeclared
+// failure of the next child. The origin is read by the references the events
 // carry; a handled failure is never an origin; a frame ended by a stopped
 // foldback never reads live and its GraphCall never reads closed.
 // The fixture below is the declared-foldback stand-in of
-// t287-recursive-failure-foldback.test.mjs, reproduced exactly.
+// t287-recursive-failure-foldback.test.mjs, reproduced exactly except for the
+// added handled-then-undeclared scenario of A.
 const packageRoot=new URL('../..',import.meta.url).pathname;
 const declared='diagnostic://registered-selection/declared-child-failure@5',undeclared='diagnostic://registered-selection/undeclared-child-failure@5';
 const boundExhausted='reason://abiogenesis/recursion/bound-exhausted@5';
@@ -53,7 +55,7 @@ const failure=(name,input,diagnosticRef)=>{const resultCandidate={kind:'selectio
 export function executeA(input){
  const scenario=input.task.scenario,n=invocation(input);
  if(scenario==='success'||scenario==='fail-once'&&n>1)return success(input);
- return failure('A',input,scenario==='undeclared'?undeclared:declared);
+ return failure('A',input,scenario==='undeclared'||scenario==='handled-then-undeclared'&&n>1?undeclared:declared);
 }
 export function evaluateParent(input){return input.task.scenario==='parent-fails'?failure('parent',input,declared):evaluate(input);}
 const descriptor=name=>{const body={implementationRef:ref('implementation',name),packageName:original.packageName,packageVersion:'5.0.0',modulePath:'build/foldback.mjs',namedSymbol:name==='A'?'executeA':'evaluateParent',computeRegime:'F_D',inputContractRef:contract('recursive-state'),outputContractRef:contract('recursive-state'),failureContractRef:contract('failure'),refusalContractRef:contract('refusal')};return {kind:'packaged_leaf_implementation_descriptor',schemaVersion:'5.0.0',...body,descriptorDigest:hash(body)};};
@@ -172,5 +174,29 @@ test('declared failure foldbacks read back by cause: the bound is the origin, th
     assert.deepEqual(stop.origin,{kind:'failure',...originFields(origin[0]),failureClass:'controlled_child_failure',diagnosticRef:undeclared,timeout:{kind:'not_admitted'}});
     assert.equal(run.owner.value.stopStatement,stop.statement);
     assert.ok(stop.statement.includes(`Originating failure: class controlled_child_failure in ${origin[0].payload.resultRef} from ${ref('graph-function','A')}; timeout class not admitted.`),stop.statement);
+  });
+
+  // The first child failure is handled: folded back, consumed by the advance
+  // route of its own parent C-call, and the parent re-evaluated. The next child
+  // then fails with an undeclared class and the Run fails. The origin is that
+  // later failure; the handled one is named nowhere. The prior positional rule
+  // (descent by parentCCallRef from the stopping C-call) reads the same origin
+  // here, because re-evaluation opens a new C-call and no later stop's route or
+  // descent passes through the C-call that consumed the handled foldback. This
+  // case is a regression guard, not a discriminator between the two rules.
+  await t.test('a handled failure followed by an undeclared failure of the next child reads the later failure as the origin',async()=>{
+    const run=await start('handled-then-undeclared');
+    assert.deepEqual([run.owner.outcomeKind,run.owner.value.disposition],['result','runtime_failed']);
+    const status=await read('run_status',run.run,'handled-then-undeclared-status'),stop=status.stop;
+    const failuresOfA=run.events.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===ref('graph-function','A')&&e.payload.resultClass==='failure');
+    assert.deepEqual(failuresOfA.map(e=>e.payload.value.diagnosticRef),[declared,undeclared]);
+    const [handled,later]=failuresOfA;
+    assert.deepEqual(run.events.filter(e=>e.kind==='child_foldback_admitted'&&e.payload.applicationRef!==undefined).map(e=>e.payload.childDisposition),['failed'],'the handled failure folds back to the parent');
+    assert.deepEqual(run.events.filter(e=>e.kind==='c_call_result_admitted'&&e.graphFunctionRef===parentRef).map(e=>e.payload.resultClass),['success','success'],'the parent is re-evaluated');
+    assert.deepEqual([status.status,stop.eventKind,stop.reasonRef,stop.stage],['failed','runtime_failure_observed',undeclared,'route']);
+    assert.deepEqual(stop.origin,{kind:'failure',...originFields(later),failureClass:'controlled_child_failure',diagnosticRef:undeclared,timeout:{kind:'not_admitted'}});
+    assert.equal(stop.statement.includes(handled.payload.resultRef),false,'the handled failure is not named');
+    assert.ok(stop.statement.includes(`Originating failure: class controlled_child_failure in ${later.payload.resultRef} from ${ref('graph-function','A')}; timeout class not admitted.`),stop.statement);
+    assert.equal(run.owner.value.stopStatement,stop.statement);
   });
 });
