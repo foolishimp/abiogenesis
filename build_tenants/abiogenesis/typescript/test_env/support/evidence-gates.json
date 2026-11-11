@@ -2223,8 +2223,10 @@
   {
    "gate": "governance-covered-fixture-completed-work",
    "class": "C",
-   "status": "failing_with_input_present",
-   "variables": [
+   "status": "runs_with_root",
+   "conversion": "done",
+   "variables": [],
+   "formerVariables": [
     "ABG_GOVERNANCE_COVERED_FIXTURE"
    ],
    "cases": [
@@ -2260,8 +2262,8 @@
      "recordCount": 8
     }
    ],
-   "observed": "pre-check: the unconverted lane, root unset, its variables set to the recorded values, writes under the root refused: fails: TypeError \"CCall c-call://covered-source violates the atomic open/fibre pair or exact phase cardinality\" (replay.js projectCCallPhase)",
-   "note": "same input as governance-covered-fixture; this case keeps its private variable (split per case)"
+   "observed": "converted lane, root set, ABG_GOVERNANCE_COVERED_FIXTURE unset (TD-60T): the case passes, the file 7 pass, 2 skip (7 s); root unset: the case skips with its gate reason",
+   "note": "same input as governance-covered-fixture, read through this row. TD-60T: the case stubbed replayValidatedRuntimeEventPrefix, which the source-result derivation no longer calls (since 67c333799 it reads projectRuntimeReplayGuard and projectReplayCCallGuardAtPrefix; library design §4.4, sourceReplayDigest); the replay premise is now supplied there. Before, the real guard ran over fixture rows with no c_call_opened and refused in projectCCallPhase"
   },
   {
    "gate": "stdo-proof-entry-run-nine",

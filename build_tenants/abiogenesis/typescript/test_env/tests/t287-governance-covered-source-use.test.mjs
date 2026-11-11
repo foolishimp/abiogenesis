@@ -15,12 +15,12 @@ const terminal=await load('abg/terminal_result_contracts'),decl=await load('prod
 const freeze=(await load('shared/immutable')).deepFreeze,hash=p.sha256Canonical;
 // The retained captured34 fixture and the frozen176 declaration pair resolve
 // through their evidence gate catalogue rows under ABI5_EVIDENCE_ROOT. The
-// completed-work case fails over the same fixture bytes (row
-// governance-covered-fixture-completed-work) and keeps its private variable.
+// completed-work case reads the same fixture bytes through its own row
+// (governance-covered-fixture-completed-work).
 const fixtureGate=evidenceGate('governance-covered-fixture');
 const fixtureOptions={skip:fixtureGate.kind==='absent'&&fixtureGate.reason};
-const completedFixturePath=process.env.ABG_GOVERNANCE_COVERED_FIXTURE;
-const completedFixtureOptions={skip:!completedFixturePath&&'ABG_GOVERNANCE_COVERED_FIXTURE unset; requires the frozen bounded captured34 fixture (reader 5 is reached through it)'};
+const completedFixtureGate=evidenceGate('governance-covered-fixture-completed-work');
+const completedFixtureOptions={skip:completedFixtureGate.kind==='absent'&&completedFixtureGate.reason};
 const declarationPair=evidenceGate('governance-declaration-pair');
 const c2MaterialPath=process.env.ABG_GOVERNANCE_COVERED_C2_MATERIAL_SELECTORS;
 const proofRoot=process.env.ABG_GOVERNANCE_COVERED_PROOF_ROOT;
@@ -262,7 +262,7 @@ test('actual installed C2 material correspondence preserves consumed content and
 // following component proof are explicitly controlled premises. They do not
 // establish an installed transition, an admitted DataMapper Run or UAT success.
 function captured(source){
-  if(source==='completed'){assert.ok(completedFixturePath,'select the frozen bounded fixture');return JSON.parse(fs.readFileSync(completedFixturePath,'utf8'));}
+  if(source==='completed'){assert.equal(completedFixtureGate.kind,'present','the frozen bounded fixture resolves through its gate');return JSON.parse(completedFixtureGate.inputs.fixture.bytes.toString('utf8'));}
   assert.equal(fixtureGate.kind,'present','the frozen bounded fixture resolves through its gate');return JSON.parse(fixtureGate.inputs.fixture.bytes.toString('utf8'));
 }
 function eventsFixture(){const rows=[];return {rows,append(kind,payload,extra={}){
@@ -403,7 +403,12 @@ test('later completed work follows actual admitted covered-source ancestry witho
   // Replay is a disclosed lower premise. The production source derivation,
   // existing complete admitted-record guards, ancestry walk and later-progress
   // exclusion run unchanged. This does not authenticate a campaign producer.
-  const admission=await moduleAt('abg/invocation_admission',{'./replay.js':{replayValidatedRuntimeEventPrefix:()=>replay},
+  // The source derivation reads the replay owner's guard and its CCall row
+  // (projectRuntimeReplayGuard, projectReplayCCallGuardAtPrefix; library design
+  // §4.4, the replay state witness as sourceReplayDigest), so the premise is
+  // supplied there.
+  const admission=await moduleAt('abg/invocation_admission',{'./replay.js':{projectRuntimeReplayGuard:()=>replay,
+    projectReplayCCallGuardAtPrefix:(_prefix,cCallRef)=>replay.cCalls.find(row=>row.cCallRef===cCallRef)},
     './invocation_execution_truth.js':{hasAdmittedGovernanceCoveredSourceUse:x.owner.hasAdmittedGovernanceCoveredSourceUse}});
   const selection={publicAuthorityDigest:x.oldInvocation.publicRequestDigest,runtimeInvocationRef:x.oldInvocation.invocationRef,
     invocationAdmissionRef:x.oldInvocation.invocationAdmissionRef,runId:x.result.runId,resultRef:x.result.payload.resultRef};
