@@ -10,7 +10,7 @@ import { admitIJsonValue } from "../shared/i_json.js";
 import * as structure from "../gtl/serialization_contracts.js";
 import { isSemanticLifecycleDeclaration } from "../gtl/semantic_stage.js";
 import { isSemanticJobLifecycleDeclaration } from "../gtl/semantic_job.js";
-import { isRunEnvironmentDeclaration, isStdoRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
+import { isRunEnvironmentDeclaration } from "../gtl/stdo_run_environment.js";
 import { isRequirementHandoffDeclaration } from "../gtl/requirement_handoff.js";
 import type { CProgramNode } from "../gtl/c_algebra.js";
 import type { GraphFunction, ModulePublication } from "../gtl/contracts.js";
@@ -122,7 +122,6 @@ function assertModuleLocalRelations(publication: ModulePublication, path: string
   if (publication.semanticLifecycle !== undefined) check(isSemanticLifecycleDeclaration(publication.semanticLifecycle), "/semanticLifecycle");
   if (publication.semanticJobLifecycle !== undefined) check(isSemanticJobLifecycleDeclaration(publication.semanticJobLifecycle), "/semanticJobLifecycle");
   publication.runEnvironments?.forEach((environment, index) => check(isRunEnvironmentDeclaration(environment), `/runEnvironments/${index}`));
-  publication.stdoRunEnvironments?.forEach((environment, index) => check(isStdoRunEnvironmentDeclaration(environment), `/stdoRunEnvironments/${index}`));
   publication.requirementHandoffs?.forEach((handoff, index) => check(isRequirementHandoffDeclaration(handoff), `/requirementHandoffs/${index}`));
 }
 

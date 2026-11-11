@@ -8,6 +8,7 @@ import { projectSemanticJobPromptContext, semanticJobMissingBindingRequirementRe
   semanticJobUsesDesignResponse, isSemanticJobDesignResponse, isSemanticJobAssetCandidate, materializeSemanticJobDesignResponse } from "../../build/code/src/product/semantic_job.js";
 import { ABI5_SEMANTIC_STAGE_PRODUCT_SEMANTICS } from "../../build/code/src/product/builtin_semantics.js";
 import * as gtl from "../../build/code/src/gtl/index.js";
+import * as m02 from "../../build/code/src/gtl/m02.js";
 import * as relation from "../../build/code/src/gtl/stdo_run_environment.js";
 import * as evidence from "../../build/code/src/abg/stdo_environment.js";
 import { cLeafTerms } from "../../build/code/src/gtl/c_algebra.js";
@@ -397,7 +398,11 @@ test("generic exact-byte ingress, crossed Public coordinates, source mismatch an
   const role = fixture.environment.roles[0], project = () => evidence.projectRunEnvironmentRoleEvidence(events, "invocation:one", fixture.publication, fixture.program.programRef, role.graphFunctionRef, role.programLocusRef, role.role);
   const saved = project(); assert.equal(saved.sourceContent[0].text, fixture.body.toString());
   await rename(fixture.sourceRoot, fixture.sourceRoot + "-unavailable"); assert.deepEqual(project(), saved); assert.equal(evidence.isRunEnvironmentEvidence(observed.evidence), true);
-  assert.equal(relation.runEnvironmentForProgram({ ...fixture.publication, stdoRunEnvironments: [] }, fixture.program), false);
+  const complete = structuredClone({ kind: "module_publication", moduleVersion: "5.0.0", ...fixture.publication, artifactDigest: zeros,
+    productContentDigest: zeros, productManifestDigest: zeros, contributions: fixture.publication.contributions.map(c => ({ ...c, provenanceRefs: [zeros] })) });
+  assert.equal(m02.admitModule(complete).kind, "raw_admitted_value");
+  const retired = m02.admitModule({ ...complete, stdoRunEnvironments: [] });
+  assert.equal(retired.code, "invalid_kind"); assert.match(retired.message, /^\$\/stdoRunEnvironments: /u);
   assert.throws(() => gtl.constructStdoRunEnvironmentDeclaration(fixture.environment), /STDO requires/);
   console.log(JSON.stringify({ proof: "generic_environment_exact_bytes", sourceUnavailableReplay: true, nativeRoles: fixture.environment.roles.length, pythonUsed: false }));
 });

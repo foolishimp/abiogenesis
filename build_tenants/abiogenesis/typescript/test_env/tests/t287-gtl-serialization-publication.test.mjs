@@ -119,10 +119,10 @@ test('closed tuple arity and closure-event order agree in native admission and t
 });
 
 test('packaged environment scalar projections preserve the original predicate languages',async t=>{
- const {STDO_RUN_ENVIRONMENT_SCHEMA:stdo,RUN_ENVIRONMENT_SCHEMA:run}=await import(pathToFileURL(path.join(root,'build/code/src/gtl/stdo_run_environment.js')));
+ const {RUN_ENVIRONMENT_SCHEMA:run}=await import(pathToFileURL(path.join(root,'build/code/src/gtl/stdo_run_environment.js')));
  const v=createRequire(path.join(root,'package.json'))('valibot');
  const pathSchemas=[
-  [stdo.entries.axiom.entries.executablePath,publishedModuleField('properties','stdoRunEnvironments','items','properties','axiom','properties','executablePath')],
+  [run.entries.corpusAccess.wrapped.entries.executablePath,publishedModuleField('properties','runEnvironments','items','properties','corpusAccess','anyOf','0','properties','executablePath')],
   [run.entries.dependencies.item.entries.members.item.entries.path,publishedModuleField('properties','runEnvironments','items','properties','dependencies','items','properties','members','items','properties','path')],
  ];
  // The frozen preimage's split predicate is the independent conservation oracle.
@@ -136,9 +136,8 @@ test('packaged environment scalar projections preserve the original predicate la
   assert.equal(published(value),expected,'published path '+label);
  }
  const scalars=[
-  [stdo.entries.declarationRef,publishedModuleField('properties','stdoRunEnvironments','items','properties','declarationRef'),value=>value.length>0,['',' ','\n','ref://valid']],
-  [stdo.entries.source.entries.manifestDigest,publishedModuleField('properties','stdoRunEnvironments','items','properties','source','properties','manifestDigest'),value=>/^sha256:[a-f0-9]{64}$/u.test(value),['sha256:'+'a'.repeat(64),'sha256:'+'A'.repeat(64),'sha256:'+'a'.repeat(63),'sha256:'+'a'.repeat(64)+'\n','not-a-digest']],
-  [stdo.entries.axiom.entries.tagObject,publishedModuleField('properties','stdoRunEnvironments','items','properties','axiom','properties','tagObject'),value=>/^[a-f0-9]{40}$/u.test(value),['a'.repeat(40),'A'.repeat(40),'a'.repeat(39),'a'.repeat(40)+'\n','a'.repeat(40)+'\u2028']],
+  [run.entries.declarationRef,publishedModuleField('properties','runEnvironments','items','properties','declarationRef'),value=>value.length>0,['',' ','\n','ref://valid']],
+  [run.entries.dependencies.item.entries.recordDigest,publishedModuleField('properties','runEnvironments','items','properties','dependencies','items','properties','recordDigest'),value=>/^sha256:[a-f0-9]{64}$/u.test(value),['sha256:'+'a'.repeat(64),'sha256:'+'A'.repeat(64),'sha256:'+'a'.repeat(63),'sha256:'+'a'.repeat(64)+'\n','not-a-digest']],
  ];
  for(const [native,published,original,values]of scalars)for(const value of values){
   assert.equal(v.safeParse(native,value).success,original(value),'native scalar '+JSON.stringify(value));
@@ -172,9 +171,9 @@ test('complete optional declarations roundtrip while native relational guards re
   axiom:{...companion(['contract.json','executable.py']),executablePath:'executable.py',outputContractPath:'contract.json',outputContractVersion:'axiom-indexer.frame-projection@1',pythonExecutableDigest:zero},
   contexts:[historicalContext],accesses:[{accessRef:'access://supplied',operation:'project',mode:'materialized',frameIndexRefs:['frame://supplied'],maxOutputBytes:1,timeoutMs:1}],
   roles:[{graphFunctionRef:'graph-function://supplied',programLocusRef:'locus://supplied',role:'author',frameRefs:['frame://supplied'],policy:{policyRef:'policy://supplied',text:' ',digest:hash(Buffer.from(' '))},accessRefs:['access://supplied'],sourceBindings:[binding]}]};
- assert(gtl.isStdoRunEnvironmentDeclaration(historical),'historical component declaration, not current governing basis');
+ // `historical` has the retired STDO declaration shape; it is a refusal subject only (T-292 TD-31).
  const run=gtl.defaultLibraryRunEnvironment();
- const fixtures=[['semanticLifecycle',lifecycle],['semanticJobLifecycle',job],['requirementHandoffs',[handoff]],['stdoRunEnvironments',[historical]],['runEnvironments',[run]]];
+ const fixtures=[['semanticLifecycle',lifecycle],['semanticJobLifecycle',job],['requirementHandoffs',[handoff]],['runEnvironments',[run]]];
  const roundtrip=(publication,label)=>{const first=admitted(m02.admitModule(publication),label),text=m02.serializeModule(first.value),second=admitted(m02.admitModule(admitIJsonText(text)),label+' roundtrip');
   assert.deepEqual(second.value,first.value);assert.equal(second.subjectDigest,first.subjectDigest);assert.equal(schemaCheck('ModulePublication')(second.value),true,label);return first;};
  const stageOwner=await import(pathToFileURL(path.join(root,'build/code/src/gtl/semantic_stage.js')));
@@ -207,6 +206,11 @@ test('complete optional declarations roundtrip while native relational guards re
   const unknown=clone(publication);const declaration=Array.isArray(unknown[field])?unknown[field][0]:unknown[field];declaration.extra=true;
   assert.equal(schemaCheck('ModulePublication')(unknown),false,field+' unknown field');assert.equal(m02.admitModule(unknown).code,'invalid_kind',field+' unknown field');
  }
+ for(const value of [[],[historical]]){const retired={...clone(base),stdoRunEnvironments:clone(value)};
+  assert.equal(schemaCheck('ModulePublication')(retired),false,'retired stdoRunEnvironments published');
+  const refused=m02.admitModule(retired);assert.equal(refused.code,'invalid_kind');assert(refused.message.includes('$/stdoRunEnvironments'),refused.message);
+  assert.throws(()=>m02.serializeModule(retired),TypeError);
+ }
  for(const field of ['semanticLifecycle','semanticJobLifecycle']){
   const value=field==='semanticLifecycle'?lifecycle:job,publication={...clone(base),[field]:clone(value)};
   for(const mutate of [s=>s.assembly.graphFunctionRef='graph-function://crossed',s=>s.rubric.push(clone(s.rubric[0])),s=>s.predecessorStageRefs=['stage://predecessor','stage://predecessor'],s=>s.assembly.worksiteContentByRole.author='not_required']){
@@ -217,7 +221,6 @@ test('complete optional declarations roundtrip while native relational guards re
  }
  for(const [field,value,mutate]of [
   ['requirementHandoffs',[handoff],d=>d[0].terms[0].sourceBindings[0].endByte=5],
-  ['stdoRunEnvironments',[historical],d=>d[0].roles[0].policy.digest=zero],
   ['runEnvironments',[run],d=>d[0].roles[0].sourceBindings[0].endByte=Number.MAX_SAFE_INTEGER],
  ]){const publication={...clone(base),[field]:clone(value)},changed=clone(publication);mutate(changed[field]);
   assert.equal(schemaCheck('ModulePublication')(changed),true,field+' local relation remains separate');
