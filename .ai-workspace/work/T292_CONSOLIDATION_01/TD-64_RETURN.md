@@ -4,8 +4,25 @@ Writer: Claude Opus 5.5. Branch `claude/td64-design-history` from local `main`
 at `ebeeaf5e0`, worktree `/private/tmp/abg-td64`. Change class:
 design_reframe. No push, no tag.
 
-Status: skeleton. The classification is complete; the moves, cuts, READMEs and
-reference updates follow in later commits.
+Status: done, with deviations. 50 current notes stay in `design/`, indexed by
+a new present-tense `design/README.md`; 268 notes, the 8 ADRs and the old
+README moved unchanged to `design/history/`; five mixed notes lost 1,280 lines
+of stale sections to `history/*__RETIRED_SECTIONS.md`. No file under `code`,
+`contracts`, `package.json` or `product-toolchain-manifest.json` changed, and
+no specification file changed. Live design notes still hold 42 dangling links,
+all present before the move (Section 5); the move caused none.
+
+| Commit | Content |
+| --- | --- |
+| `c2cc24981` | Return skeleton with the classification table |
+| `e1516b5f1` | `git mv` only: 277 renames, all 100% |
+| `4e405ff08` | mixed-note cuts |
+| `8ce7ad97b` | `design/README.md` and `design/history/README.md` |
+| `09d7f03e1` | inbound references: 14 kept notes, `classification.json`, inventory, recipe, one lint comment |
+| this commit | this Return |
+
+No specification commit: no specification file cites a moved note by a
+repository path (Section 5).
 
 ## 1. Method
 
@@ -39,6 +56,11 @@ Helper scripts, all under `/private/tmp/abg-td64-work/`:
 | `classify.py` | applies `overrides.json` (read classes and reasons) to the mechanical classes; writes the table below |
 | `linkcheck.py` | link check by scope and link form |
 | `run-tests.sh` | runs named test files one at a time |
+| `cut.py` | mixed-note cuts by line range, with a dry run that prints each boundary |
+| `readmes.py` | writes both READMEs; asserts the index lists exactly the kept notes and that every named module exists |
+| `repoint.py` | inbound reference edits, each an exact replacement matching once |
+| `qualpaths.py` | inventory and recipe path strings for moved notes |
+| `qualcheck.py` | inventory, recipe and evidence refs against the git index of a revision |
 
 ## 2. Class counts
 
@@ -49,6 +71,16 @@ Helper scripts, all under `/private/tmp/abg-td64-work/`:
 | stale | 189 | 33,890 | 184 | 31,862 |
 | record | 73 | 14,478 | 66 | 12,960 |
 | total | 327 | 102,387 | 327 | 102,387 |
+
+After the change:
+
+| Surface | Files | Lines |
+| --- | --- | --- |
+| `design/*.md` current notes | 50 | 36,943 |
+| `design/README.md` index | 1 | 87 |
+| `design/history/` moved notes, ADRs and `README_BEFORE_2026-11-12.md` (bytes unchanged) | 277 | 64,175 |
+| `design/history/*__RETIRED_SECTIONS.md` | 5 | 1,285 |
+| `design/history/README.md` | 1 | 294 |
 
 Kept: 50 notes, of which 5 are mixed and lose sections (Section 4). The old
 `README.md` (582 lines, record) moves to `history/README_BEFORE_2026-11-12.md`
@@ -91,9 +123,229 @@ they design exists at head.
 
 ## 4. Mixed notes
 
-To be completed with the cuts.
+Five notes mix live and stale sections. Each cut is whole sections, moved
+verbatim to `history/<NAME>__RETIRED_SECTIONS.md`, whose first line names the
+note, commit `e1516b5f1` and the cut line ranges. Each kept note gains one
+pointer line; `M03_INSTRUCTION_ASSEMBLY_DERIVATION` also has its surviving
+`###` heading promoted to `##`. A check by script confirms that each retired
+file holds exactly the original line ranges and that the only added lines are
+the pointer, one blank line and that heading.
 
-## 5. Classification table
+| Note | Lines before -> after | Cut | Kept |
+| --- | --- | --- | --- |
+| `M03_INSTRUCTION_ASSEMBLY_DERIVATION` | 335 -> 85 | Problem through Runtime Shape's opening text, Candidate Design Surfaces through Immediate Next Work: the T-183 compiler (`CompiledPromptPlan`, `InstructionEnvelope`, `PromptManifest`, `InstructionAssemblyRule`, none in `code/src`) | header, Source Authority, Current native binding and material lifetime (`abg/instruction_assembly.ts`) |
+| `M03_TRAVERSAL_NON_PROGRESS_CONTINUATION_DERIVATION` | 217 -> 85 | Problem, Decision, Composition With T-103, Deterministic Flow, Functional Boundary, Closure Law: the T-106 carriers `TraversalNonProgressCarrier` and `TraversalContinuationActionProjection`, absent | header, Source Authority, Timeout And Retry Mapping (matches `classifyWorkerTransportFailure`), Artifact Salvage Rule, Composition With T-129 Runtime Liveness |
+| `M03_PAYLOAD_LEDGER_EVENT_TOPOLOGY_DERIVATION` | 274 -> 61 | STDO Triage and Target Source Fact Families through Non-Goals: the T-095 target topology. Payload Envelope names 9 live field names but no envelope carrier with `payloadClass` or `producerRef` exists, so it went with the rest | header, Source Authority, Position, Native definition material in durable event rows (`abg/event_body_encoding.ts`) |
+| `M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN` | 740 -> 237 | Boundary's opening text (budget carried by the admitted input, contradicted by `bound` in `RECURSE_APPLICATION_SCHEMA`), D1-D5, D10, and the carrier set, domain model, sequence, lifecycle, cross-view, axiom, proof and verdict views of the compiled plan | header, Boundary's Requirements and Explicit Exclusions, D6, D7, D8, D9, D11 |
+| `M05_DIRECT_GTL_TRAVERSAL_EXPANSION_DESIGN` | 3,658 -> 3,487 | §14.3-14.7, observer and tuner, which the note's own 2026-07-28 supersession note retires | all other sections |
+
+Dead text left inside kept sections of `M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN`
+(kept because D11 narrows D6 and D7-D9 state live rules): D6's first half
+(`TypedRecurseChildRequest`), D7's "policy projection", D8's foldback adapter
+fields (`preservedEvidenceRefs`, `budgetSourceFieldRef`) and D9's
+`TypedRecurseParentRebindEvaluation`. The note needs an authored rewrite.
+`ABI5_REALIZATION_CONSTITUTION` stays whole and also needs an authored
+rewrite: it carries historical amendment and migration sections inside the
+operative text.
+
+## 5. Link check
+
+`linkcheck.py` counts links by scope and form: `rel` Markdown links, `repo`
+`repo://abiogenesis/` URIs, `bare` repository paths to design notes, and
+`tdesign` tenant-relative `design/X.md` paths. A target exists when it is on
+disk or in the git index (the worktree is sparse). `contracts/` mirrors are
+excluded. Before = `ebeeaf5e0` with design-live restricted to the 50 kept
+notes; the 277 notes that move are reported as design-moving.
+
+| Scope / form | Before links / dangling | After links / dangling |
+| --- | --- | --- |
+| design-live rel | 419 / 44 | 475 / 42 |
+| design-live repo | 37 / 1 | 37 / 1 |
+| design-live bare | 3 / 0 | 3 / 0 |
+| design-live tdesign | 1 / 0 | 1 / 0 |
+| design-moving (before) or design-hist (after) rel, report only | 583 / 83 | 871 / 181 |
+| design-moving or design-hist bare, report only | 105 / 0 | 110 / 103 |
+| spec rel | 617 / 145 | 617 / 145 (same list) |
+| spec repo | 9 / 0 | 9 / 0 |
+| repository and tenant READMEs rel | 8 / 1 | 8 / 1 |
+| bootstrap rel / bare | 2 / 0, 1 / 0 | 2 / 0, 1 / 0 |
+| `T/test_env` docs and `classification.json` rel / repo | 3 / 0, 27 / 0 | 3 / 0, 27 / 0 |
+| active tickets rel / bare / repo, report only | 874 / 569, 15 / 0, 5 / 0 | 874 / 569, 15 / 1, 5 / 0 |
+
+The 56 added design-live links are the 51 index links and five pointer lines.
+Zero dangling for live design: No. The move left no dangling link, and two
+pre-existing ones were repaired (Section 6). 42 real dangling links remain
+(41 rel, 1 repo), all present before the move:
+
+- 40 `../../../../.ai-workspace/comments/codex/...` targets absent from the
+  index, in 14 T287 notes;
+- `ABI5_COMMON_COMPUTATIONAL_CAPABILITY_LIBRARY_DESIGN.md:60` links
+  `../code/src/product/exact_match.ts` in a sentence that records the file's
+  move to `shared/select/exact_match.ts`; left as written;
+- the repo URI `.ai-workspace/comments/codex/20260906T152118Z_STDO_RC6_MIGRATION/README.md`
+  in `ABI5_REALIZATION_CONSTITUTION.md:4386`, absent from the index.
+
+One more counted link is a false positive: `ownerProjector[key](RuntimeTruth(P))`
+in a code block of `M05_S06_AXIOMATIC_AUTHORITY_AND_EXACT_PUBLIC_CONSTRUCTION_DESIGN.md`.
+The new active-ticket bare dangling path is
+`.ai-workspace/tickets/active/T-287-deliver-abiogenesis-5-feature-waves.md:5576`,
+which names `design/T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN.md`;
+tickets are outside this package's edit list, so it is left. History notes are
+not repaired: their relative links resolve against the pre-move layout, as
+`history/README.md` says.
+
+Specification: the 10 design notes it names by repository path all stay. The
+two `GOALS.md:45,47` links to the refactor plan point at an absolute path in
+another worktree (`/private/tmp/abg-rc11-foundation-20261110-01/...`), not at
+the repository path, so the move does not change them.
+
+## 6. Inbound references
+
+Commit `09d7f03e1`, applied by `repoint.py` (27 exact replacements, each
+matching once):
+
+- 14 kept notes: 9 Markdown link targets and 12 backticked file names or
+  paths of moved notes now name `history/...` (`ADR-042`, `ADR-045`,
+  `ADR-046` under `history/adrs/`). Link text is unchanged.
+- Three pre-existing ticket paths in kept notes (two links, one backticked
+  path) move from `tickets/active` to `tickets/completed`, where T-095, T-106
+  and T-183 now are.
+- `test_env/qualification/classification.json`: the two evidence
+  `sourceRefs` for `A5_COMPLETED_CODE_DESIGN_STAGE_REGISTER` and `ADR-047`.
+- `scripts/check-lifecycle-boundary.mjs:43`: comment path of the refactor plan.
+
+## 7. Inventory and recipe
+
+Readers:
+
+- `test_env/qualification/build-resources.mjs` generates `inventory.json`,
+  `recipe/verification-recipe.json`, `resources.json` and the tenant
+  manifest. It reads `classification.json` and
+  `recipe/expected-output-inventory.json`; its `representativeSources`
+  refuses an evidence `sourceRef` that is not an inventory member.
+- `test_env/support/exact-candidate-qualification.mjs`, run by hand through
+  `run-exact-candidate-qualification.sh`, constructs a fresh inventory from
+  `git ls-files` and compares only `inventoryDigest` and `inventoryRef` with
+  the committed file (unequal already at `ebeeaf5e0`). It refuses a recipe
+  `memberRef` absent from the fresh inventory, then reads each recipe
+  `relativePath` and checks its digest.
+- `t287-rp2-material-selection.test.mjs` reads `classification.json` through
+  `build-resources.mjs`. No suite test reads the committed inventory or recipe.
+
+Changes (`qualpaths.py`): whole quoted strings only, no re-serialization.
+275 moved notes are members; each has exactly two strings per file (`ref` and
+`path` in the inventory, `memberRef` and `relativePath` in the recipe), 550
+per file, +4,400 bytes each. Removing the inserted `history/` segment from the
+new files gives the old bytes exactly. `T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN`
+is not a member. `design/README.md` keeps its path.
+
+`qualcheck.py` (index presence against each revision):
+
+| Revision | Inventory paths absent from index | Recipe paths absent | Recipe refs not inventory members | Evidence refs not members |
+| --- | --- | --- | --- | --- |
+| `ebeeaf5e0` | 0 | 0 | 8 | 0 |
+| `e1516b5f1` (moves only) | 276 | 276 | 8 | 0 |
+| `HEAD` | 0 | 0 | 8 | 0 |
+
+Left for TD-63, which regenerates the inventory:
+
+- digests of the changed members: `design/README.md`, the 14 repointed notes
+  (five of them also cut), `scripts/check-lifecycle-boundary.mjs`,
+  `test_env/qualification/classification.json` and
+  `test_env/qualification/recipe/verification-recipe.json`;
+- `inventoryDigest`, and the recipe digest recorded in `resources.json`;
+- member order: the 275 renamed paths are now out of sort order in both files;
+- new files that are not members: `design/history/README.md`,
+  `README_BEFORE_2026-11-12.md` and the five `__RETIRED_SECTIONS.md` files.
+
+## 8. Build
+
+`cd T && npm run build` once at the end: exit 0, 30 s (baseline at
+`ebeeaf5e0`: exit 0, 29 s). `git status --short` afterwards: empty. No
+generated file changed, so nothing was restored.
+`git diff --stat ebeeaf5e0 -- T/code T/contracts T/package.json T/product-toolchain-manifest.json`:
+empty. `specification/` and `build_tenants/common`: unchanged.
+
+## 9. Tests
+
+One file at a time, with the brief's command (`run-tests.sh`):
+
+| File | Before (`ebeeaf5e0`) | After |
+| --- | --- | --- |
+| `t287-qualification-law.test.mjs` | 11 tests, 7 pass, 0 fail, 4 skipped | 11 tests, 7 pass, 0 fail, 4 skipped |
+| `t287-rp2-material-selection.test.mjs` | 3 tests, 3 pass | 3 tests, 3 pass |
+
+The four skips need `ABG_QUALIFICATION_STAGE_FIXTURES`,
+`ABG_QUALIFICATION_SOURCE_ROOT` or `ABG_QUALIFICATION_RELEASE_ROOT`, which are
+unset in both runs. No test or script reads a design path at run time.
+`node scripts/check-lifecycle-boundary.mjs` after the comment edit: "291
+modules under code/src; 7 allow-listed site(s), no offender". The hand-run
+exact-candidate qualification was not run.
+
+## 10. Source path citations
+
+None of the `T/code` citations of design notes stops resolving.
+`public/binding/owner_contract_source_set.ts:39-41` names
+`design/M05_S06_PUBLIC_FUNCTION_AND_NATIVE_OCCURRENCE_CLOSURE_DESIGN.md#42-definition-shape`
+and `gtl/default_library.ts:272` names `T287_DEFAULT_GOVERNANCE_LIBRARY_DESIGN`;
+both stay. No file name of a moved note occurs in `T/code`, `T/test_env`
+(outside the qualification files above) or `T/scripts` (outside the edited
+comment).
+
+## 11. Deviations
+
+1. The index has a "Tenant-wide" group before the ten owner groups, for
+   `ABI5_REALIZATION_CONSTITUTION` and `ABI5_STDO3_COMPUTATIONAL_BINDING`,
+   which span every owner.
+2. Zero dangling links for live design is not met (Section 5).
+3. Backticked file names of moved notes, not only links, were repointed in
+   kept notes, and three pre-existing ticket paths were repaired.
+4. In `M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN` the Boundary section's
+   opening text is cut while its two subsections stay, and D6-D9 stay with
+   dead text (Section 4).
+5. Notes whose mechanical class is record because their status says
+   completed, closed, retrospective or reserved 5.1 keep that class unless
+   read otherwise. The class does not change their disposition.
+
+## 12. Residual risks and points for a ruling
+
+1. `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN` stays current against the
+   mechanical reason, which cites an Executive ruling ("owner ruled superseded
+   by the Executive"). The keep rests on `10cb10e89`, the later revert that
+   restored Consensus to Product, requirements, design and code.
+2. Eight kept-note links now point into `history/` at notes they cite as
+   authority:
+
+   | Kept note | Cites | As |
+   | --- | --- | --- |
+   | `T287_G2_GTL_SERIALIZATION_PUBLICATION_DESIGN` | `M03_CONSTITUTIONAL_VERSION_BASIS_BEHAVIOR_DESIGN#carrier-contract` | "accepted version-basis HOW" for LAWS028; its carriers are absent |
+   | `T287_PUBLIC_DEFINITION_CALL_CONSTRUCTION` | `M03_FP_OUTPUT_ADMISSION_BEHAVIOR_DESIGN` | "existing F_P admission design" |
+   | `T287_F11_REUSABLE_QUALIFICATION_LIBRARY_TARGET_DESIGN` | `PYTHON_TO_TYPESCRIPT_DESIGN_DERIVATION` | source of the M03/M05 authority split |
+   | `M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN` | `TYPESCRIPT_REALIZATION_GUARDRAILS` | tenant authority |
+   | `T287_W2_R2_CONSUMER_DECLARATION_ADMISSION_DESIGN` | `T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN` | parent with accepted R0/R1 and R2 routing |
+   | `T287_W2_R3_C0_MUTABLE_WORKSITE_CAUSALITY_DESIGN` | `T287_W2_ODD_GLC_TYPED_WORKSPACE_ADMISSION_DESIGN` | parent roadmap |
+   | `M05_S05_CONSENSUS_GLOBAL_TO_LOCAL_DESIGN` | `ADR-045`, `ADR-046` | rationale |
+   | `ABI5_STDO3_COMPUTATIONAL_BINDING` | `ADR-042` | rationale |
+
+   None is cited by source code or a requirement, so no stop condition
+   applies. Each needs either an authored rewrite of the citing sentence or a
+   ruling that the cited note stays current.
+3. `specification/GOALS.md:45,47` names `T287_EFFECT_FUNCTIONAL_REFACTOR_PLAN`
+   as the adopted plan; the plan is now a history record.
+4. `T287_TERMINAL_QUIESCENCE_OWNER_NETWORK_ACCEPTED_DESIGN` names
+   `decideActorProcessLifecycle`, which has never existed in `code/src`; the
+   live owner is `projectActorProcessLifecycle` in `abg/actor_process.ts`.
+   Reading did not establish that they are the same function.
+5. `ABI5_REALIZATION_CONSTITUTION` and `M03_TYPED_RECURSE_RUNTIME_BEHAVIOR_DESIGN`
+   need authored rewrites (Section 4).
+6. Only five notes were checked section by section. The other 45 kept notes
+   were classified whole; some may still contain historical sections.
+7. Inventory and recipe digests and order are stale until TD-63 (Section 7).
+8. Relative links inside history notes resolve against the pre-move layout
+   (design-hist: 181 dangling rel links, 103 dangling bare paths).
+
+
+## 13. Classification table
 
 Columns: class (mechanical -> read, bold when they differ), lines, disposition,
 evidence (live symbols and declaration sites for current notes; reason and
