@@ -9,6 +9,8 @@ import { runEffectProgram } from "../shared/effect_definition.js";
 import { createMonotonicDeadline, createOwnedProcessLifetime, type OwnedProcessFacts } from "../shared/owned_process_lifetime.js";
 import { classifyOwnedProcessTerminal, encodeOwnedProcessFacts } from "../shared/process/index.js";
 import { hasExactKeys as exactKeys } from "../shared/admission_predicates.js";
+import { classifyPathRelation, pathConfined, pathRelation, pathStrictlyConfined, pathWithin,
+  type PathRelation } from "../shared/path_confinement.js";
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS } from "../product/worksite_command_forward_identity.js";
 import { isExecutableWorksiteCommandTask as isWorksiteExecutionTask,
@@ -248,10 +250,13 @@ function record(value: JsonValue | undefined): Readonly<Record<string, JsonValue
   return value;
 }
 
-function contained(root: string, relativePath: string): string {
+/** `admits` is the caller's relation rule: `pathConfined` for a worksite
+ * subject, `pathWithin` for a command locator (cwd, report, port file, module
+ * path), whose dotted first segment Product's command normalizer admits. */
+function contained(root: string, relativePath: string, admits: (relation: PathRelation) => boolean): string {
   const absolute = resolve(root, ...relativePath.replaceAll("\\", "/").split("/"));
   const fromRoot = relative(root, absolute);
-  if (fromRoot === ".." || fromRoot.startsWith(`..${sep}`) || resolve(root, fromRoot) !== absolute) {
+  if (!admits(classifyPathRelation(fromRoot)) || resolve(root, fromRoot) !== absolute) {
     throw new TypeError("relative path escapes its declared root");
   }
   return absolute;
@@ -274,9 +279,10 @@ async function confinedExistingPath(
   root: string,
   relativePath: string,
   finalKind: "directory" | "file",
+  admits: (relation: PathRelation) => boolean,
 ): Promise<string> {
   const canonicalRoot = await canonicalDirectoryRoot(root);
-  const absolute = contained(canonicalRoot, relativePath);
+  const absolute = contained(canonicalRoot, relativePath, admits);
   let cursor = canonicalRoot;
   const segments = relativePath.replaceAll("\\", "/").split("/").filter((row) => row !== ".");
   for (const [ordinal, segment] of segments.entries()) {
@@ -304,8 +310,7 @@ async function canonicalExistingPathWithinRoot(
     throw new TypeError("helper launch path must be absolute and lexical-canonical");
   }
   const fromRoot = relative(declaredRootValue, candidateValue);
-  if (fromRoot === "" || fromRoot === ".." || fromRoot.startsWith(`..${sep}`) ||
-    isAbsolute(fromRoot)) {
+  if (!pathStrictlyConfined(classifyPathRelation(fromRoot))) {
     throw new TypeError("helper launch path escapes its declared root");
   }
   const rootStatus = await lstat(declaredRootValue);
@@ -344,12 +349,6 @@ async function requireAbsent(path: string, label: string): Promise<void> {
     throw error;
   }
   throw new TypeError(`${label} must be absent before helper execution`);
-}
-
-function containsAbsolutePath(root: string, candidate: string): boolean {
-  const relation = relative(root, candidate);
-  return relation === "" || (!relation.startsWith(`..${sep}`) &&
-    relation !== ".." && !isAbsolute(relation));
 }
 
 async function plannedCanonicalDirectoryPath(path: string): Promise<string> {
@@ -391,8 +390,8 @@ async function assertLaunchArchiveBoundary(
     "projectionRoot",
   ]) {
     const otherRoot = canonicalRoots.get(name);
-    if (otherRoot === undefined || containsAbsolutePath(archiveRoot, otherRoot) ||
-      containsAbsolutePath(otherRoot, archiveRoot)) {
+    if (otherRoot === undefined || pathWithin(pathRelation(archiveRoot, otherRoot)) ||
+      pathWithin(pathRelation(otherRoot, archiveRoot))) {
       throw new TypeError("command execution archive root overlaps a protected workspace root");
     }
   }
@@ -615,6 +614,7 @@ async function materializeSnapshot(
       task.workspaceAuthorityBasis.canonicalRoot,
       protectedRow.subject.relativePath,
       "file",
+      pathConfined,
     );
     const bytes = await readFile(sourcePath);
     const digest = sha256Bytes(bytes);
@@ -622,7 +622,7 @@ async function materializeSnapshot(
       bytes.byteLength !== protectedRow.observation.byteLength) {
       throw new TypeError("snapshot source bytes differ from protected O1");
     }
-    const targetPath = contained(snapshotRoot, protectedRow.subject.relativePath);
+    const targetPath = contained(snapshotRoot, protectedRow.subject.relativePath, pathConfined);
     await mkdir(dirname(targetPath), { recursive: true });
     await writeFile(targetPath, bytes, { flag: "wx" });
     const published = await readFile(targetPath);
@@ -703,6 +703,7 @@ async function reportObservation(
       executionRoot,
       report.relativePath,
       "file",
+      pathWithin,
     );
     const info = await lstat(snapshotAbsolute);
     if (!info.isFile()) throw new TypeError("declared report is not a regular file");
@@ -971,6 +972,7 @@ function runCommand(
       executionRoot,
       command.relativeCwd,
       "directory",
+      pathWithin,
     ));
     const launched = yield* commandScope(launchCommand(task, ordinal, cwd, attemptRef));
     return yield* attempt(() => commandResult(executionRoot, command, ordinal, launched));
@@ -1083,7 +1085,7 @@ async function reportSet(
   const suffixes = selector.includeSuffixes as readonly string[];
   let base: string;
   try {
-    base = await confinedExistingPath(executionRoot, baseRelative, "directory");
+    base = await confinedExistingPath(executionRoot, baseRelative, "directory", pathWithin);
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
     return Object.freeze({
@@ -1098,7 +1100,7 @@ async function reportSet(
   for (const relativePath of files.filter((path) =>
     (substrings.length === 0 || substrings.some((substring) => path.includes(substring))) &&
     (suffixes.length === 0 || suffixes.some((suffix) => path.endsWith(suffix))))) {
-    const reportPath = await confinedExistingPath(base, relativePath, "file");
+    const reportPath = await confinedExistingPath(base, relativePath, "file", pathWithin);
     const bytes = await readFile(reportPath);
     const digest = sha256Bytes(bytes);
     const counts = reportCounts(bytes.toString("utf8"));
@@ -1208,8 +1210,8 @@ async function runHttpProbe(
   const portFile = record(launch.portFile);
   const portFileRelativePath = portFile.relativePath as string;
   const portFileParent = dirname(portFileRelativePath);
-  await confinedExistingPath(executionRoot, portFileParent, "directory");
-  const portFilePath = contained(executionRoot, portFileRelativePath);
+  await confinedExistingPath(executionRoot, portFileParent, "directory", pathWithin);
+  const portFilePath = contained(executionRoot, portFileRelativePath, pathWithin);
   try {
     await lstat(portFilePath);
     throw new TypeError("HTTP probe port file must be create-only for this attempt");
@@ -1220,6 +1222,7 @@ async function runHttpProbe(
     executionRoot,
     launch.relativeCwd as string,
     "directory",
+    pathWithin,
   );
   const environment = Object.fromEntries(
     (launch.environment as readonly JsonValue[]).map((value) => {
@@ -1277,7 +1280,7 @@ async function runHttpProbe(
     requestTimer.after(Math.min(launch.timeoutMs as number, request.timeoutMs as number), () => { requestOpen = false; });
     while (observing() && selectedPort === null) {
       try {
-        const observedPath = await confinedExistingPath(executionRoot, portFileRelativePath, "file");
+        const observedPath = await confinedExistingPath(executionRoot, portFileRelativePath, "file", pathWithin);
         const bytes = await readFile(observedPath);
         portFileBytes = bytes;
         const text = bytes.toString("utf8");
@@ -1399,6 +1402,7 @@ async function predicateObservation(
       executionRoot,
       modulePath,
       "file",
+      pathWithin,
     );
     try {
       const namespace = await import(`${pathToFileURL(absolute).href}?abi=${task.taskDigest}&p=${ordinal}`);

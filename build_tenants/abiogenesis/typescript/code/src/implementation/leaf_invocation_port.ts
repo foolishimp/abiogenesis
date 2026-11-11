@@ -19,6 +19,7 @@ import { types } from "node:util";
 import { rehydrateInvocationAdmissionAtPrefix } from "../abg/invocation_admission.js";
 import { isNativeWorkspaceWorkTask, nativeWorkspaceWorkAuthorityMatches, nativeWorkspaceWorkGraphFunctionRef, NATIVE_WORKSPACE_WORK_IDS as nativeIds } from "../product/native_workspace_work.js";
 import { isRecord } from "../shared/admission_predicates.js";
+import { pathRelation, pathStrictlyConfined } from "../shared/path_confinement.js";
 import { SELF_CONFORMANCE_IDS } from "../gtl/self_conformance.js";
 import { QUALIFICATION_IMPLEMENTATION_REFS, projectQualificationConsumer, projectNativeRuntimeAssessment, projectExactCandidateQualification, qualificationAssessorEligibility } from "../abg/qualification_proof.js";
 import { qualificationResultRelation } from "../validator/self_conformance_semantics.js";
@@ -39,7 +40,7 @@ import { WORKSITE_COMMAND_EXECUTION_IDS } from "../product/worksite_command_exec
 import { WORKSITE_REVISION_IDS } from "../product/worksite_revision.js";
 import { WORKSITE_COMMAND_FORWARD_IDS as forwardIds } from "../product/worksite_command_forward_identity.js";
 import { authenticateWorksiteCommandForwardBasis } from "../abg/worksite_command_forward.js";
-import { isAbsolute, relative, resolve } from "node:path";
+import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 import { hasAdmittedProductInstall } from "../abg/environment_admission.js";
@@ -1095,8 +1096,7 @@ export async function constructAdmittedLeafInvocationPort(authority: AdmittedLea
       throw new TypeError("leaf implementation lacks its selected owner");
     }
     const exactPath = resolve(owner.install.installedRoot, resolution.modulePath);
-    const relation = relative(owner.install.installedRoot, exactPath);
-    if (relation.length === 0 || relation.startsWith("..") || isAbsolute(relation)) {
+    if (!pathStrictlyConfined(pathRelation(owner.install.installedRoot, exactPath))) {
       throw new TypeError("leaf implementation module escapes the admitted Product install");
     }
     let loaded = modules.get(exactPath);

@@ -58,6 +58,7 @@ import {
   type Sha256Digest,
 } from "../shared/digests.js";
 import { admitIJsonValue } from "../shared/i_json.js";
+import { classifyPathRelation, pathConfined, pathRelation, pathStrictlyConfined, pathWithin } from "../shared/path_confinement.js";
 import { deepFreeze } from "../shared/immutable.js";
 import { admitJson, hasExactKeys } from "../shared/admit/index.js";
 import type {
@@ -317,11 +318,6 @@ function assertCanonicalArchiveRoot(path: string): void {
   }
 }
 
-function containsPath(root: string, candidate: string): boolean {
-  const relation = relative(root, candidate);
-  return relation === "" || (!relation.startsWith("..") && !isAbsolute(relation));
-}
-
 function observeWorksiteSubjectSync(
   task: WorksiteExecutionTask,
   subject: WorksiteSubject,
@@ -334,12 +330,12 @@ function observeWorksiteSubjectSync(
     throw new TypeError("canonical worksite root changed before Worker dispatch");
   }
   const target = resolve(declaredRoot, ...subject.relativePath.split("/"));
-  if (target === declaredRoot || !containsPath(declaredRoot, target)) {
+  if (target === declaredRoot || !pathConfined(pathRelation(declaredRoot, target))) {
     throw new TypeError("protected subject escapes the canonical worksite root");
   }
   const protectedRoots = Object.values(task.workspaceBinding.roots)
     .map(plannedCanonicalPath);
-  if (protectedRoots.some((root) => containsPath(root, target))) {
+  if (protectedRoots.some((root) => pathWithin(pathRelation(root, target)))) {
     throw new TypeError("protected subject enters a WorkspaceBinding protected root");
   }
   let cursor = declaredRoot;
@@ -446,7 +442,7 @@ function assertArchiveExecutionBoundary(
     task.workspaceBinding.roots.projectionRoot,
   ].map(plannedCanonicalPath);
   if (nonProductRoots.some((root) =>
-    containsPath(root, archiveRoot) || containsPath(archiveRoot, root)
+    pathWithin(pathRelation(root, archiveRoot)) || pathWithin(pathRelation(archiveRoot, root))
   )) {
     throw new TypeError("command execution archive root overlaps a protected workspace root");
   }
@@ -456,7 +452,7 @@ function assertArchiveExecutionBoundary(
     task.workspaceBinding.roots.projectionRoot,
     task.workspaceBinding.roots.toolchainRoot,
   ].map(plannedCanonicalPath);
-  if (otherMutableRoots.some((root) => containsPath(productRoot, root))) {
+  if (otherMutableRoots.some((root) => pathWithin(pathRelation(productRoot, root)))) {
     throw new TypeError("command execution workspace mechanics overlap the Product root");
   }
   for (const path of [
@@ -472,8 +468,8 @@ function assertArchiveExecutionBoundary(
     );
     const canonicalCandidate = plannedCanonicalPath(path);
     const canonicalLexicalCandidate = resolve(archiveRoot, lexicalRelation);
-    if (lexicalRelation === "" || lexicalRelation.startsWith("..") ||
-      isAbsolute(lexicalRelation) || !containsPath(archiveRoot, canonicalCandidate) ||
+    if (!pathStrictlyConfined(classifyPathRelation(lexicalRelation)) ||
+      !pathConfined(pathRelation(archiveRoot, canonicalCandidate)) ||
       canonicalCandidate !== canonicalLexicalCandidate) {
       throw new TypeError("command execution attempt path escapes its archive root");
     }
