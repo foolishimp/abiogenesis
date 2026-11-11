@@ -45,6 +45,7 @@ import type { FanOutCompletionAdmission } from "./fan_out.js";
 import { projectExactFanOutCompletion } from "./fan_out_projection.js";
 import type { FhInteractionResumeAdmission } from "./continuation.js";
 import {
+  declaresFailedChildFoldback,
   isAdmittedApplicationChildFoldbackAtPrefix,
   isAdmittedApplicationChildPreparationRefusalAtPrefix,
   type ApplicationChildFoldbackAdmission,
@@ -4097,6 +4098,10 @@ function recursionRouteCausation(input: Readonly<{
     );
   }
   if (input.candidate.routeKind === "advance") {
+    // A declared failed child re-enters the parent over its prior admitted input.
+    const folded = foldback?.childDisposition === "failed"
+      ? { inputRef: input.source.inputRef, inputDigest: input.source.inputDigest }
+      : { inputRef: foldback?.childResultRef, inputDigest: foldback?.outputDigest };
     if (
       input.target === null ||
       !isTraversalCursorCandidate(input.target) ||
@@ -4108,7 +4113,9 @@ function recursionRouteCausation(input: Readonly<{
       foldback.parentCCallRef !== outcome.cCall.cCallRef ||
       foldback.parentJudgmentRef !== outcome.judgment.judgmentRef ||
       foldback.sourceCursorRef !== input.source.cursorRef ||
-      foldback.childDisposition !== "closed" ||
+      (foldback.childDisposition !== "closed" &&
+        !(foldback.childDisposition === "failed" &&
+          declaresFailedChildFoldback(application, foldback.childReasonRef))) ||
       input.source.attempt >= application.bound ||
       !hasSameCursorLineage(input.source, input.target) ||
       input.target.currentNodeRef !== input.source.currentNodeRef ||
@@ -4119,8 +4126,8 @@ function recursionRouteCausation(input: Readonly<{
         input.target.retryPath.map(String),
         input.source.retryPath.map(String),
       ) ||
-      input.target.inputRef !== foldback.childResultRef ||
-      input.target.inputDigest !== foldback.outputDigest ||
+      input.target.inputRef !== folded.inputRef ||
+      input.target.inputDigest !== folded.inputDigest ||
       input.candidate.targetCursorRef !== input.target.cursorRef ||
       input.candidate.targetCursorDigest !== input.target.cursorDigest ||
       !canonicalEquals(

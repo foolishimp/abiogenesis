@@ -98,6 +98,7 @@ const applicationBase = {
 };
 export const FOLDBACK_DECLARATION_SCHEMA = v.strictObject({
   mode: v.literal("rebind"), binding: ref, requiresParentEvaluation: v.literal(true),
+  failedChildDiagnosticClassRefs: v.optional(v.pipe(refs, v.minLength(1))),
 });
 export const COMPOSE_APPLICATION_SCHEMA = v.strictObject({
   ...applicationBase, relationKind: v.literal("compose"), leftGraphFunctionRef: ref, rightGraphFunctionRef: ref,

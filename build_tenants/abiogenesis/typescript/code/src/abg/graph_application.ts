@@ -37,6 +37,7 @@ import {
   runtimeFluentHoldsAtPrefix,
 } from "./event_calculus.js";
 import { hasExactPartialFanOutStopRouteBridge } from "./fan_out_projection.js";
+import { readRuntimeFailureDiagnosticSubject } from "./runtime_failure.js";
 import {
   hasOpenedTraversalScopeAtPrefix,
   type OpenedTraversalScope,
@@ -81,7 +82,7 @@ export type ApplicationChildFoldbackAdmission = {
   readonly childExecutionBasisDigest: Sha256Digest;
   readonly childGraphCallId: string;
   readonly childFrameId: string;
-  readonly childDisposition: "blocked" | "closed";
+  readonly childDisposition: "blocked" | "closed" | "failed";
   readonly childResultRef: string;
   readonly childResultDigest: Sha256Digest;
   readonly childJudgmentRef: string;
@@ -91,6 +92,8 @@ export type ApplicationChildFoldbackAdmission = {
   readonly outputDigest: Sha256Digest;
   readonly admissionEventRef: string;
 };
+
+export type ApplicationChildRouteKind = "terminal" | "blocked" | "failed";
 
 export type ApplicationChildFoldbackRefusal = {
   readonly kind: "application_child_foldback_refusal";
@@ -275,7 +278,8 @@ function isApplicationChildFoldbackBody(
     isSha256Digest(value.childExecutionBasisDigest) &&
     isNonEmptyString(value.childGraphCallId) &&
     isNonEmptyString(value.childFrameId) &&
-    (value.childDisposition === "blocked" || value.childDisposition === "closed") &&
+    (value.childDisposition === "blocked" || value.childDisposition === "closed" ||
+      value.childDisposition === "failed") &&
     isNonEmptyString(value.childResultRef) &&
     isSha256Digest(value.childResultDigest) &&
     isNonEmptyString(value.childJudgmentRef) &&
@@ -285,6 +289,30 @@ function isApplicationChildFoldbackBody(
       ? isNonEmptyString(value.childClosureRef) &&
         (value.childReasonRef === null || isNonEmptyString(value.childReasonRef))
       : value.childClosureRef === null && isNonEmptyString(value.childReasonRef));
+}
+
+/** The failure class of a failed child's judgment reason: an opaque diagnostic
+ * names itself; a retained diagnostic names its subject's `diagnosticClassRef`. */
+export function failedChildDiagnosticClassRef(reasonRef: string): string | null {
+  let subject: JsonValue | null;
+  try {
+    subject = readRuntimeFailureDiagnosticSubject(reasonRef);
+  } catch {
+    return null;
+  }
+  if (subject === null) return reasonRef;
+  return isRecord(subject) && typeof subject.diagnosticClassRef === "string"
+    ? subject.diagnosticClassRef
+    : null;
+}
+
+export function declaresFailedChildFoldback(
+  application: Readonly<RecurseApplication>,
+  childReasonRef: string | null,
+): boolean {
+  const classRef = childReasonRef === null ? null : failedChildDiagnosticClassRef(childReasonRef);
+  return classRef !== null &&
+    application.foldback.failedChildDiagnosticClassRefs?.includes(classRef) === true;
 }
 
 function refusal(
@@ -554,6 +582,7 @@ export function projectApplicationChildRouteAtPrefix(
     cCallRef: string;
     judgmentRef: string;
   }>,
+  routeKinds?: readonly ApplicationChildRouteKind[],
 ): ReplayRouteState | null;
 /** @internal */
 export function projectApplicationChildRouteAtPrefix(
@@ -566,6 +595,7 @@ export function projectApplicationChildRouteAtPrefix(
     cCallRef: string;
     judgmentRef: string;
   }>,
+  routeKinds?: readonly ApplicationChildRouteKind[],
 ): ReplayRouteState | null;
 export function projectApplicationChildRouteAtPrefix(
   prefix: RuntimeEventPrefix,
@@ -577,11 +607,12 @@ export function projectApplicationChildRouteAtPrefix(
     cCallRef: string;
     judgmentRef: string;
   }>,
+  routeKinds: readonly ApplicationChildRouteKind[] = ["terminal", "blocked"],
 ): ReplayRouteState | null {
   const route = projectValidatedReplayRouteByJudgmentAtPrefix(prefix, {
     cCallRef: coordinates.cCallRef,
     judgmentRef: coordinates.judgmentRef,
-    routeKinds: ["terminal", "blocked"],
+    routeKinds,
   }, authorityPrefix);
   if (route === undefined) return null;
   const routeEvent = indexedRuntimeEvents(prefix, "id:" + route.admissionEventRef).find(
@@ -610,6 +641,15 @@ export function projectApplicationChildRouteAtPrefix(
         constructRuntimeFluent({
           name: "graph_call_closed",
           identity: coordinates.graphCallId,
+        }),
+      )
+    : route.routeKind === "failed"
+    ? matchingRunStopped === undefined &&
+      runtimeFluentHoldsAtPrefix(
+        prefix,
+        constructRuntimeFluent({
+          name: "frame_failed",
+          identity: coordinates.frameId,
         }),
       )
     : matchingRunStopped === undefined
@@ -939,7 +979,7 @@ function admitRecursiveApplicationChildFoldback(
               frameId: childScope.frameId,
               cCallRef: childCCallRef,
               judgmentRef: child.judgmentRef,
-            }) ?? undefined;
+            }, ["terminal", "blocked", "failed"]) ?? undefined;
         const routeEvent = routeProjection === undefined
           ? undefined
           : indexedRuntimeEvents(prefix, "id:" + routeProjection.admissionEventRef).find(
@@ -1021,7 +1061,7 @@ function admitRecursiveApplicationChildFoldback(
           !/^sha256:[a-f0-9]{64}$/u.test(resultDigest) ||
           typeof outputDigest !== "string" ||
           !/^sha256:[a-f0-9]{64}$/u.test(outputDigest) ||
-          (routeKind !== "terminal" && routeKind !== "blocked") ||
+          (routeKind !== "terminal" && routeKind !== "blocked" && routeKind !== "failed") ||
           (routeKind === "terminal" &&
             (
               child.closureRef === null ||
@@ -1030,7 +1070,9 @@ function admitRecursiveApplicationChildFoldback(
               graphCallClosedEvent === undefined
             )) ||
           (routeKind === "blocked" &&
-            (child.closureRef !== null || childReasonRef === null))
+            (child.closureRef !== null || childReasonRef === null)) ||
+          (routeKind === "failed" &&
+            (child.closureRef !== null || !declaresFailedChildFoldback(application, childReasonRef)))
         ) {
           return refusal(
             "child_truth_mismatch",
@@ -1048,7 +1090,9 @@ function admitRecursiveApplicationChildFoldback(
           childExecutionBasisDigest: childExecutionBasis.basisDigest,
           childGraphCallId: childScope.graphCallId,
           childFrameId: childScope.frameId,
-          childDisposition: routeKind === "terminal" ? "closed" as const : "blocked" as const,
+          childDisposition: routeKind === "terminal"
+            ? "closed" as const
+            : routeKind === "blocked" ? "blocked" as const : "failed" as const,
           childResultRef: child.resultRef,
           childResultDigest: resultDigest as Sha256Digest,
           childJudgmentRef: child.judgmentRef,
