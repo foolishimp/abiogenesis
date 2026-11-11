@@ -3238,3 +3238,14 @@ The active D2 exclusion is evidenced. It is not established as the cause of any
 specific later failed native author run. The original diagnosis and red runs
 remain preserved; current repair planning links and supersedes the earlier plan
 without rewriting it. Qualification debts and delivery standing are unchanged.
+
+### 16.16 T-292 Design-History Retirement Record
+
+| Field | Record |
+|---|---|
+| **reason** | Historical and superseded text leaves the operative surface (T-292, register entry TD-64). Sections 5.6.2, 5.6.2A and 5.6.2B are superseded by their own banners and Section 16.7; Section 5.6.4 is classification and proof evidence by Sections 5.6.3 and 5.6.5; Section 15 is non-operative history by its own banner and Section 16.13. |
+| **upstream basis** | The workspace method: active surfaces stay present tense, and historical material belongs in design history. |
+| **superseded clause** | None. No clause changes. |
+| **affected catalog/entity rows** | None. |
+| **migration consequence** | The five sections' headings remain in place, each with a pointer; their text (1,265 lines) is in `history/ABI5_REALIZATION_CONSTITUTION__RETIRED_SECTIONS.md`. References by number and anchor resolve as before. |
+| **change class** | `design_reframe` of this surface's text only. Product, requirements, entities, catalog, stack and method selection are unchanged. |
