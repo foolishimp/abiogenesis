@@ -5,9 +5,12 @@ import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import { gzipSync } from "node:zlib";
 import test from "node:test";
-import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 import { proveFreshProcessRuntimeProjectionEquality } from "../support/fresh-process-runtime-proof.mjs";
 const root = resolve(import.meta.dirname, "../..");
+// The two installed correction cases share one packed, verified and installed
+// Product for this file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root, { candidateBasisSource: "packed_artifact" }));
 const proofRoot = process.env.ABG_C0_PROOF_ROOT;
 const eventTime = "2026-09-07T12:00:00.000Z";
 
@@ -50,7 +53,7 @@ test("correction: raw writer retired", async () => {
 });
 
 for (const withPhase of [false, true]) test(`correction: generic owner-boundary admission ${withPhase ? "with" : "without"} phase`, async context => {
-  const env = await setupInstalledRootExecutionBasis(context, root, { candidateBasisSource: "packed_artifact" });
+  const env = await setupInstalledRootExecutionBasis(context, root, { candidateBasisSource: "packed_artifact", install: await sharedInstall() });
   const { abg, product, store, executionBasis } = env;
   const boundary = await import(pathToFileURL(join(env.installedRoot, "build/code/src/implementation/leaf_invocation_port.js")));
   const freeze = value => { if (value && typeof value === "object") { Object.values(value).forEach(freeze); Object.freeze(value); } return value; };

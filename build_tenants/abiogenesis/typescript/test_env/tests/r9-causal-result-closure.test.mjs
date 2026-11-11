@@ -3,9 +3,12 @@ import { dirname, join, resolve } from "node:path";
 import { pathToFileURL, fileURLToPath } from "node:url";
 import test from "node:test";
 
-import { setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, setupInstalledRootExecutionBasis } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The installed cases share one packed, verified and installed Product for this
+// file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root));
 
 function runtimeBasis(correlationId) {
   return {
@@ -16,7 +19,7 @@ function runtimeBasis(correlationId) {
 }
 
 test("R9 admits the uniform CCall spine, terminal route, and exact closure chain", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const {
     abg,
     hog,
@@ -125,7 +128,7 @@ test("R9 admits the uniform CCall spine, terminal route, and exact closure chain
 // current surface.
 
 test("R9 totalizes a real result-admission rejection on the same CCall spine", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, root);
+  const environment = await setupInstalledRootExecutionBasis(context, root, { install: await sharedInstall() });
   const {
     abg,
     hog,

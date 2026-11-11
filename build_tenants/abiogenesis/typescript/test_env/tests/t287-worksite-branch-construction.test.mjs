@@ -5,9 +5,15 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import test from "node:test";
 
 import { proveFreshProcessRuntimeProjectionEquality } from "../support/fresh-process-runtime-proof.mjs";
-import { setupInstalledRootInvocation } from "../support/root-installed-environment.mjs";
+import { installOncePerFile, installTenantOnce, setupInstalledRootInvocation } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The two installed C3 cases share one packed, verified and installed Product
+// for this file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root, {
+  candidateBasisSource: "packed_artifact",
+  rootPublicationKind: "worksite_construction",
+}));
 const ACTOR_REF = "actor://abiogenesis/worksite/construction-worker@5";
 const REPLACEMENT = Buffer.from("c3 deterministic construction proof\n");
 
@@ -358,6 +364,7 @@ async function setupFixture(context, branches, label) {
   const ids = builtProduct.WORKSITE_BRANCH_CONSTRUCTION_IDS;
   let fixture;
   const environment = await setupCompositeRootExecutionBasis(context, root, {
+    install: await sharedInstall(),
     candidateBasisSource: "packed_artifact",
     rootPublicationKind: "worksite_construction",
     authorizedActorRef: ACTOR_REF,

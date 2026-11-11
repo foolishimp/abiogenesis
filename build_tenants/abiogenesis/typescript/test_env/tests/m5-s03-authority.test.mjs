@@ -12,6 +12,8 @@ import {
   createNewEmptyAppendSink,
 } from "../../build/code/src/abg/event_store.js";
 import {
+  installOncePerFile,
+  installTenantOnce,
   setupInstalledRootExecutionBasis,
 } from "../support/root-installed-environment.mjs";
 import {
@@ -20,6 +22,9 @@ import {
 
 const DIGEST = `sha256:${"1".repeat(64)}`;
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The installed cases share one packed, verified and installed Product for this
+// file; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(packageRoot));
 
 // The operation basis is an exact operation invocation coordinate
 // (shared/operation_definition_coordinate.ts) plus its authority scope.
@@ -60,7 +65,7 @@ function operationBasis(operationId, memberKey, workspace, invocationRef) {
 // projects a developer capability. Both cases are restated over the installed
 // root environment.
 test("S03 invocation capability basis is exact over the admitted Program, actor and direct grant", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, packageRoot);
+  const environment = await setupInstalledRootExecutionBasis(context, packageRoot, { install: await sharedInstall() });
   const { abg: installedAbg, product: installedProduct, policy, actorRef, capabilityGrant, program,
     programValidation, workspaceBinding, admittedInstalls } = environment;
   const memberKey = program.policies["abg.root_mode"] === "supervised" ? "start" : "invoke";
@@ -90,7 +95,7 @@ test("S03 invocation capability basis is exact over the admitted Program, actor 
 });
 
 test("S03 continuation operation authority requires the exact admitted grant and lifecycle state", async (context) => {
-  const environment = await setupInstalledRootExecutionBasis(context, packageRoot);
+  const environment = await setupInstalledRootExecutionBasis(context, packageRoot, { install: await sharedInstall() });
   const { abg: installedAbg, product: installedProduct, policy, actorRef, workspaceBinding, admittedInstalls } = environment;
   const { INTERACTION_OPERATION_CONTRACTS } = await import(pathToFileURL(join(environment.installedRoot,
     "build/code/src/product/interaction_operation_contracts.js")).href);
@@ -150,6 +155,7 @@ test("S03 HoG accepts one Product-sealed projection and rejects its forged twin"
   const environment = await setupInstalledRootExecutionBasis(
     context,
     packageRoot,
+    { install: await sharedInstall() },
   );
   const {
     artifactTruth,

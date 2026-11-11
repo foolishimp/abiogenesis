@@ -5,11 +5,16 @@ import { fileURLToPath } from "node:url";
 import test from "node:test";
 
 import {
+  installOncePerFile,
+  installTenantOnce,
   setupInstalledRootInvocation,
   setupInstalledRootResolution,
 } from "../support/root-installed-environment.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "../..");
+// The four environments of this file share one packed, verified and installed
+// Product; each opens its own store, workspace and scratch root on it.
+const sharedInstall = installOncePerFile(() => installTenantOnce(root, { candidateBasisSource: "packed_artifact" }));
 
 function runtimeBasis(correlationId) {
   return {
@@ -20,7 +25,7 @@ function runtimeBasis(correlationId) {
 }
 
 test("R7 validates the original materialized GTL and admits one ExecutionBasis", async (context) => {
-  const environment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
+  const environment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact", install: await sharedInstall() });
   const {
     gtl,
     validator,
@@ -146,7 +151,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   ]);
   assert.equal(events.at(-1).causationEventRefs[0], events.at(-2).eventId);
 
-  const setOnlyEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
+  const setOnlyEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact", install: await sharedInstall() });
   const setOnlyGraph = setOnlyEnvironment.gtl.materializeGraph(
     setOnlyEnvironment.graphFunction,
     {
@@ -196,7 +201,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
     false,
   );
 
-  const rejectedEnvironment = await setupInstalledRootInvocation(context, root, { candidateBasisSource: "packed_artifact" });
+  const rejectedEnvironment = await setupInstalledRootInvocation(context, root, { candidateBasisSource: "packed_artifact", install: await sharedInstall() });
   const alteredGraphFunction = structuredClone(rejectedEnvironment.graphFunction);
   alteredGraphFunction.template.graphRef = "graph://abiogenesis/conformance/altered@5";
   const alteredGraph = rejectedEnvironment.gtl.materializeGraph(
@@ -236,7 +241,7 @@ test("R7 validates the original materialized GTL and admits one ExecutionBasis",
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "implementation_admitted"), false);
   assert.equal(rejectedEnvironment.store.readAll().some((event) => event.kind === "basis_admitted"), false);
 
-  const forgedBasisEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact" });
+  const forgedBasisEnvironment = await setupInstalledRootResolution(context, root, { candidateBasisSource: "packed_artifact", install: await sharedInstall() });
   const forgedGraph = forgedBasisEnvironment.gtl.materializeGraph(
     forgedBasisEnvironment.graphFunction,
     {

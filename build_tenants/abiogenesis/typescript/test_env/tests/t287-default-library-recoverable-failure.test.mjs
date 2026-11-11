@@ -12,11 +12,16 @@ import {constructRuntimeFailureDiagnosticRef,readRuntimeFailureDiagnosticSubject
 import {deepFreeze} from '../../build/code/src/shared/immutable.js';
 import {worksiteContextIdentityDigest,worksiteContextObservationRef} from '../../build/code/src/product/worksite_effect.js';
 import {amendmentPrerequisites,amendmentRef} from '../support/amendment-witness.mjs';
-import {standIn,json,definitionPath,amendmentPath,standInActor,runWitness,PURPOSES} from '../support/amendment-witness-run.mjs';
+import {standIn,json,definitionPath,amendmentPath,standInActor,runWitness,PURPOSES,installWitnessTenant} from '../support/amendment-witness-run.mjs';
+import {installOncePerFile} from '../support/root-installed-environment.mjs';
 // Recoverable step failure in the default library: the declared classes, the
 // old-instance bytes of an empty list, the typed selector refusal, the parent's
 // re-entry conditions and the failed-attempt fold over one admitted record.
 const h=product.sha256Canonical,ref=p=>product.governanceRef('graph-function',p),IMPACT=amendmentRef('review','impact');
+// The two witness Runs share one packed, verified and installed Product (the
+// tenant and the consumer fixture Product) for this file; each Run opens its own
+// store, workspace and scratch root on it.
+const sharedInstall=installOncePerFile(bound=>installWitnessTenant({bound}));
 const TRANSPORT='diagnostic://abiogenesis/worksite/native-work/transport_failure@5',CONTRACT='diagnostic://abiogenesis/worksite/native-work/contract_failure@5';
 const NO_OUTPUT='diagnostic://abiogenesis/worksite/native-work/no_output@5';
 const SELECT_CLASS='diagnostic://abiogenesis/default-library/missing-owned-select@5',EXCEPTION='diagnostic://abiogenesis/implementation/implementation-exception@5';
@@ -50,7 +55,7 @@ async function recorded(t){
   if(shared)return shared;
   const proof=await mkdtemp(join(tmpdir(),'recoverable-failure-'));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness({after:()=>{}},{amendment:await json(amendmentPath('approval-threshold')),
+  const run=await runWitness({after:()=>{}},{amendment:await json(amendmentPath('approval-threshold')),shared:sharedInstall,
     actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,ABI5_AMENDMENT_ACTOR_FAIL:'select:exit,correction:exit'}});
   const log=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l));
   await rm(proof,{recursive:true,force:true});
@@ -145,7 +150,7 @@ test('the parent continues only over a recoverable origin with attributable effe
 test('a worker that ends normally with an empty final output fails with the native no_output class; the Run continues and the next selection shows the attempt',{timeout:900_000},async t=>{
   const proof=await mkdtemp(join(tmpdir(),'recoverable-no-output-'));
   const actor=await standInActor(proof),actorLog=join(proof,'actor.jsonl');
-  const run=await runWitness({after:()=>{}},{amendment:await json(amendmentPath('approval-threshold')),
+  const run=await runWitness({after:()=>{}},{amendment:await json(amendmentPath('approval-threshold')),shared:sharedInstall,
     actorEnvironment:{ABG_TS_CLAUDE_COMMAND:actor,ABI5_AMENDMENT_ACTOR_LOG:actorLog,ABI5_AMENDMENT_STAND_IN:standIn,ABI5_AMENDMENT_ACTOR_FAIL:'construction:empty'}});
   const log=(await readFile(actorLog,'utf8')).trim().split('\n').map(l=>JSON.parse(l));
   await rm(proof,{recursive:true,force:true});

@@ -8,7 +8,7 @@ import * as product from '../../build/code/src/product/index.js';
 import * as gtl from '../../build/code/src/gtl/index.js';
 import {ABG_RUN_STOP_READING_SCHEMA} from '../../build/code/src/abg/project_read_operation_contracts.js';
 import {witnessMechanics,nativeWitness} from '../support/witness-reprice-mechanics.mjs';
-import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
+import {installOncePerFile,installTenantOnce,openCaseEnvironment} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentContract,assessmentSchema,schemaPath} from '../support/default-library.mjs';
 
@@ -80,18 +80,31 @@ else if('interpretation' in props){
 }
 `;
 
-async function stoppedRun(t,{name,role='',mode='',bound=12,limits={},failedChildDiagnosticClassRefs}){
-  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
-  const env=await setupInstalledRootCatalog(t,packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',workspaceProductIndex:1,additionalCorePublicationConstructors:constructors,
+// The scripted Runs share one packed, verified and installed Product (the tenant
+// and the consumer fixture Product) per install variant, that is per recursion
+// bound and declared failed-child classes; each Run opens its own store,
+// workspace and scratch root on it.
+const stopVariants=new Map();
+const stopsInstall=installOncePerFile(async key=>{
+  const {bound,failedChildDiagnosticClassRefs}=stopVariants.get(key),selected={};
+  const install=await installTenantOnce(packageRoot,{candidateBasisSource:'packed_artifact',rootPublicationKind:'worksite_construction',
     prepareAdditionalProducts:async setup=>{
-      selectedEnvironment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
+      selected.environment=await libraryEnvironment({...setup,packageRoot:setup.bootstrapPackage});
       const library=setup.gtl.constructDefaultGovernanceLibraryModulePublication({...basis,packageName:setup.abiPublication.productSemanticsBinding.packageName,packageVersion:setup.abiPublication.productSemanticsBinding.packageVersion});
       const schema=join(setup.scratch,'assessment.schema.json');await writeFile(schema,JSON.stringify(assessmentSchema)+'\n');
       return [await prepareRegisteredSelectionProduct({...setup,abiPackageArchivePath:setup.abiPackageArchivePath,
-        declarationFactory:g=>libraryConsumerDeclaration(g,library,selectedEnvironment.declaration,{purposes:['construction','testing','review','uat'],bound,failedChildDiagnosticClassRefs}),
+        declarationFactory:g=>libraryConsumerDeclaration(g,library,selected.environment.declaration,{purposes:['construction','testing','review','uat'],bound,failedChildDiagnosticClassRefs}),
         fixtureFiles:[{path:'build/index.mjs',source:new URL('../fixtures/default-library-product/index.mjs',import.meta.url)}],
         schemaAssets:[{path:schemaPath,source:schema,contractId:witnessRef('contract','assessment'),requirementAuthorityRefs:[COMPLETE]}]})];
     }});
+  return {install,selectedEnvironment:selected.environment,dispose:()=>install.dispose()};
+});
+async function stoppedRun(t,{name,role='',mode='',bound=12,limits={},failedChildDiagnosticClassRefs}){
+  const selection=JSON.parse(await readFile(join(witnessRoot,'selection.json'),'utf8'));let selectedEnvironment;
+  const key=`bound ${bound}, failed-child classes ${failedChildDiagnosticClassRefs===undefined?'default':JSON.stringify(failedChildDiagnosticClassRefs)}`;
+  if(!stopVariants.has(key))stopVariants.set(key,{bound,failedChildDiagnosticClassRefs});
+  const shared=await stopsInstall(key);selectedEnvironment=shared.selectedEnvironment;
+  const env=await openCaseEnvironment(t,shared.install,{workspaceProductIndex:1,additionalCorePublicationConstructors:constructors});
   const proof=join(env.scratch,'readable-stops-'+name);await mkdir(proof);
   const actor=join(proof,'stop-actor.mjs'),actorLog=join(proof,'stop-actor.jsonl');
   await writeFile(actor,'#!'+process.execPath+'\n'+ACTOR);await chmod(actor,0o755);
