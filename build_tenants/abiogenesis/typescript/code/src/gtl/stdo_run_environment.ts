@@ -25,85 +25,19 @@ const bound = v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(16_777_2
 const relativePath = v.pipe(ref, v.regex(/^(?!\.{1,2}(?:\/|(?![\s\S])))[^/]+(?:\/(?!\.{1,2}(?:\/|(?![\s\S])))[^/]+)*(?![\s\S])/));
 const member = v.strictObject({ path: relativePath, type: v.picklist(["file", "symlink"]),
   digest, target: v.nullable(ref) });
-const companion = {
-  productRef: ref, releaseRef: ref, tagObject: v.pipe(v.string(), v.regex(/^[a-f0-9]{40}$/)),
-  recordUri: ref, recordDigest: digest, inventoryDigest: digest,
-  members: v.pipe(v.array(member), v.minLength(1)),
-};
 const artifact = v.strictObject({ path: relativePath, uri: ref, byteDigest: digest, canonicalDigest: digest });
-export const STDO_RUN_ENVIRONMENT_SCHEMA = v.strictObject({
-  kind: v.literal("stdo_run_environment_declaration"), schemaVersion: v.literal("5.0.0"), declarationRef: ref,
-  source: v.strictObject({ releaseUri: ref, manifestDigest: digest }),
-  representation: v.strictObject({ ...companion, program: artifact, map: artifact }),
-  axiom: v.strictObject({ ...companion, executablePath: relativePath, outputContractPath: relativePath,
-    outputContractVersion: v.literal("axiom-indexer.frame-projection@1"), pythonExecutableDigest: digest }),
-  contexts: v.pipe(v.array(CONTEXT_DECLARATION_SCHEMA), v.minLength(1)),
-  accesses: v.pipe(v.array(v.strictObject({ accessRef: ref, operation: v.literal("project"), mode: v.literal("materialized"),
-    frameIndexRefs: v.pipe(v.array(ref), v.minLength(1)), maxOutputBytes: bound,
-    timeoutMs: v.pipe(v.number(), v.integer(), v.minValue(1), v.maxValue(60_000)) })), v.minLength(1)),
-  roles: v.pipe(v.array(v.strictObject({ graphFunctionRef: ref, programLocusRef: ref, role: v.picklist(["author", "assessor", "constructor", "command_executor"]),
-    frameRefs: v.pipe(v.array(ref), v.minLength(1)), policy: v.strictObject({ policyRef: ref, text: ref, digest }),
-    accessRefs: v.pipe(v.array(ref), v.minLength(1)),
-    sourceBindings: REQUIREMENT_TERM_SCHEMA.entries.sourceBindings })), v.minLength(1)),
-});
-export type StdoRunEnvironmentDeclaration = v.InferOutput<typeof STDO_RUN_ENVIRONMENT_SCHEMA>;
 export const STDO_ENVIRONMENT_POLICY = "abg.stdo_run_environment";
 const unique = (xs: readonly string[]) => new Set(xs).size === xs.length;
 const sorted = (xs: readonly string[]) => unique(xs) && xs.every((x, i) => i === 0 || xs[i - 1]! < x);
 const hash = (x: JsonValue) => sha256Canonical(x);
-export function stdoInventoryDigest(members: StdoRunEnvironmentDeclaration["axiom"]["members"]) {
+export function stdoInventoryDigest(members: RunEnvironmentDeclaration["dependencies"][number]["members"]) {
   return sha256Bytes(Buffer.from([...members].sort((a,b) => a.path < b.path ? -1 : a.path > b.path ? 1 : 0)
     .map(x => x.digest.slice(7) + "  " + x.type + "  " + x.path + "\n").join(""), "utf8"));
-}
-export function isStdoRunEnvironmentDeclaration(value: unknown): value is StdoRunEnvironmentDeclaration {
-  if (!v.is(STDO_RUN_ENVIRONMENT_SCHEMA, value)) return false;
-  const d = value;
-  return (d.source.releaseUri === "stdo://releases/v2.5.0-rc.6/" || d.source.releaseUri === "stdo://releases/v2.5.0-rc.7/") &&
-    [d.axiom, d.representation].every(c => sorted(c.members.map(m => m.path)) &&
-      c.inventoryDigest === stdoInventoryDigest(c.members) &&
-      c.members.every(m => m.type === "file" ? m.target === null : m.target !== null)) &&
-    [d.representation.program, d.representation.map].every(a => d.representation.members.some(m => m.type === "file" && m.path === a.path && m.digest === a.byteDigest)) &&
-    [d.axiom.executablePath, d.axiom.outputContractPath].every(p => d.axiom.members.some(m => m.type === "file" && m.path === p)) &&
-    unique(d.contexts.map(c => c.contextRef)) && d.contexts.every(c => c.sourceLocator === d.source.releaseUri &&
-      unique(c.members.map(m => m.memberRef)) && unique(c.members.map(m => m.path)) && hash(c.members) === c.inventoryDigest &&
-      c.members.every(m => !m.path.startsWith("/") && !m.path.split("/").includes(".."))) &&
-    unique(d.accesses.map(a => a.accessRef)) && d.accesses.every(a => sorted(a.frameIndexRefs)) &&
-    unique(d.roles.map(r => r.graphFunctionRef + "\0" + r.programLocusRef)) &&
-    d.roles.every(r => sorted(r.frameRefs) && unique(r.accessRefs) &&
-      r.policy.digest === sha256Bytes(Buffer.from(r.policy.text, "utf8")) &&
-      r.accessRefs.every(ref => d.accesses.some(a => a.accessRef === ref)) &&
-      r.sourceBindings.every(b => {
-        const m = d.contexts.find(c => c.contextRef === b.contextRef)?.members.find(m => m.memberRef === b.memberRef);
-        return m !== undefined && m.digest === b.memberDigest && b.startByte < b.endByte && b.endByte <= m.byteCount;
-      }));
-}
-export function stdoEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
-  const ref = program.policies[STDO_ENVIRONMENT_POLICY];
-  if (ref === undefined) return null;
-  const rows = publication.stdoRunEnvironments?.filter(d => d.declarationRef === ref);
-  return rows?.length === 1 && isStdoRunEnvironmentDeclaration(rows[0]) ? rows[0]! : false;
-}
-export function validStdoEnvironmentPublication(publication: Readonly<ModulePublication>): boolean {
-  const rows = publication.stdoRunEnvironments ?? [];
-  return Array.isArray(rows) && unique(rows.map(d => d.declarationRef)) && rows.every(isStdoRunEnvironmentDeclaration) &&
-    publication.programs.every(p => stdoEnvironmentForProgram(publication, p) !== false);
-}
-export function validStdoEnvironmentProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,
-  graphFunctions: readonly Readonly<GraphFunction>[]): boolean {
-  const d = stdoEnvironmentForProgram(publication, program);
-  if (d === null) return true;
-  if (d === false) return false;
-  const functions = graphFunctions.filter(g => program.callableMembership.includes(g.name));
-  const leaves = functions.flatMap(g => g.template.nodes.flatMap(n => cLeafTerms(n.term).filter(c => c.fibre === "F_P")
-    .map(c => ({ graphFunctionRef: g.name, locus: c.programLocusRef, role: stdoRoleForDeclaredLeaf(g, c) }))));
-  return leaves.length > 0 && leaves.length === d.roles.length && leaves.every(l => l.role !== null &&
-    d.roles.filter(r => r.graphFunctionRef === l.graphFunctionRef && r.programLocusRef === l.locus &&
-      l.role === r.role).length === 1);
 }
 
 /** Closed existing leaf classes, not a role interpreter or tool registry. */
 export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: ReturnType<typeof cLeafTerms>[number]):
-  StdoRunEnvironmentDeclaration["roles"][number]["role"] | null {
+  Exclude<RunEnvironmentRole["role"], "selector"> | null {
   if (leaf.fibre !== "F_P") return null;
   const requirement = leaf.requirement;
   if (requirement.kind !== "executable_leaf_requirement") return null;
@@ -138,7 +72,8 @@ export function stdoRoleForDeclaredLeaf(graph: Readonly<GraphFunction>, leaf: Re
 }
 
 /** One declared native family shared by publication validation, HoG and assembly.
- * Historical STDO roles remain confined to their existing declaration profile. */
+ * A framed-synthesis or registered-selection evaluate leaf is a selector; every
+ * other leaf takes its closed class from `stdoRoleForDeclaredLeaf`, or null. */
 export function nativeContextLeafFamily(graph: Readonly<GraphFunction>, leaf: ReturnType<typeof cLeafTerms>[number]):
   RunEnvironmentRole["role"] | null {
   try {
@@ -232,7 +167,7 @@ export function constructStdoRunEnvironmentDeclaration(value: RunEnvironmentDecl
   return d;
 }
 export function runEnvironmentForProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>) {
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined || publication.stdoRunEnvironments !== undefined) return false;
+  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
   const ref = program.policies[RUN_ENVIRONMENT_POLICY];
   if (ref === undefined) return null;
   const rows = publication.runEnvironments?.filter(d => d.declarationRef === ref);
@@ -244,7 +179,7 @@ function selectorRoleFromBoundDeclarations(publication: Readonly<ModulePublicati
   const programs = publication?.programs.filter(p => p.programRef === programRef);
   if (publication === undefined || programs?.length !== 1) return false;
   const program = programs[0]!;
-  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined || publication.stdoRunEnvironments !== undefined) return false;
+  if (program.policies[STDO_ENVIRONMENT_POLICY] !== undefined) return false;
   const environmentRef = program.policies[RUN_ENVIRONMENT_POLICY];
   if (environmentRef === undefined) return null;
   const environments = publication.runEnvironments?.filter(d => d.declarationRef === environmentRef);
@@ -303,7 +238,7 @@ export function framedSynthesisNativeRole(publication: Readonly<ModulePublicatio
 }
 export function validRunEnvironmentPublication(publication: Readonly<ModulePublication>): boolean {
   const rows = publication.runEnvironments ?? [];
-  return publication.stdoRunEnvironments === undefined && unique(rows.map(d => d.declarationRef)) &&
+  return unique(rows.map(d => d.declarationRef)) &&
     rows.every(isRunEnvironmentDeclaration) && publication.programs.every(p => runEnvironmentForProgram(publication, p) !== false);
 }
 export function validRunEnvironmentProgram(publication: Readonly<ModulePublication>, program: Readonly<GtlProgram>,

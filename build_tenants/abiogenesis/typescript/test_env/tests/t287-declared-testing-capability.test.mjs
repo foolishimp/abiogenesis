@@ -1,15 +1,11 @@
 import assert from "node:assert/strict";
-import { execFile } from "node:child_process";
-import { mkdtemp, readFile, realpath, writeFile } from "node:fs/promises";
-import { tmpdir } from "node:os";
+import { realpath } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import { promisify } from "node:util";
 import test from "node:test";
-import { checkerRef, installTestingTransport, isTestingCommandExecutionSchema, LIVE_TESTING_TRANSPORT, liveTransportSkip, observeTestingToolchain, stdoInstallsSkip, prepareTestingProduct, setupTestingInvocation, TESTING_CHECKER_SUCCESS_CRITERION, TESTING_ROLE_POLICY, testingExecutionConfig, testingStageMeaning, testingWorksite } from "../support/declared-testing-capability.mjs";
+import { checkerRef, isTestingCommandExecutionSchema, LIVE_TESTING_TRANSPORT, liveTransportSkip, observeTestingToolchain, TESTING_CHECKER_SUCCESS_CRITERION, TESTING_ROLE_POLICY, testingExecutionConfig, testingStageMeaning, testingWorksite } from "../support/declared-testing-capability.mjs";
 import { setupInstalledRootCatalog } from "../support/root-installed-environment.mjs";
 
-const exec = promisify(execFile);
 const packageRoot = process.env.ABI5_TESTING_BUILD_ROOT ?? resolve(dirname(fileURLToPath(import.meta.url)), "../..");
 
 test("declared testing transport routing uses the current response contract, not historical helper text", () => {
@@ -122,31 +118,7 @@ test("declared testing context records current toolchain facts without checker o
   assert.equal(fact.executionObservation, undefined);
 });
 
-test("declared testing context is bound into the actual consumer lifecycle and shared role policies", { timeout: 180_000 }, async t => {
-  if (!process.env.ABI5_TESTING_INPUT_ROOT) { t.skip("ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory"); return; }
-  const installsSkip = stdoInstallsSkip(process.env.ABI5_TESTING_INPUT_ROOT, "ABI5_TESTING_INPUT_ROOT");
-  if (installsSkip) { t.skip(installsSkip); return; }
-  const [product, gtl] = await Promise.all(["product", "gtl"].map(name => import(pathToFileURL(join(packageRoot, "build/code/src", name, "index.js")).href)));
-  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi-testing-context-")));
-  const manifest = JSON.parse(await readFile(join(packageRoot, "product-toolchain-manifest.json"), "utf8"));
-  const fixture = await prepareTestingProduct({ scratch, product, gtl, inputRoot: process.env.ABI5_TESTING_INPUT_ROOT,
-    abiArtifact: { ...manifest, manifestDigest: product.sha256Canonical(manifest), artifactDigest: "sha256:" + "0".repeat(64) } });
-  const publications = await fixture.loadInstalledPublications({ installedRoot: fixture.sourceRoot });
-  const publication = publications.find(p => p.semanticLifecycle);
-  assert.deepEqual(publication.semanticLifecycle, fixture.lifecycle);
-  assert.equal(fixture.lifecycle.taskDataDigest, product.sha256Canonical(fixture.scenario));
-  assert.equal(fixture.scenario.toolchainAvailability.executable, process.execPath);
-  assert.equal(fixture.scenario.toolchainAvailability.executableDigest, await product.sha256File(process.execPath));
-  assert.deepEqual(fixture.lifecycle.stages.map(s => s.assetSurface.kind), ["declared_testing_design", "declared_testing_evidence_assessment"]);
-  for (const role of publication.stdoRunEnvironments[0].roles) {
-    assert.equal(role.policy.text, TESTING_ROLE_POLICY);
-    assert.equal(role.policy.digest, product.sha256Bytes(Buffer.from(TESTING_ROLE_POLICY)));
-  }
-  assert.deepEqual(gtl.constructSemanticLifecycleDeclaration(fixture.lifecycle), fixture.lifecycle);
-  console.log(JSON.stringify({ kind: "consumer_context_only", scratch, taskDataDigest: fixture.lifecycle.taskDataDigest,
-    policyDigest: publication.stdoRunEnvironments[0].roles[0].policy.digest, toolchain: fixture.scenario.toolchainAvailability,
-    checkerExecuted: false, nativeAdmission: false }));
-});
+// Retired (T-292 TD-31): "declared testing context is bound into the actual consumer lifecycle and shared role policies"; its fixture is the retired STDO pilot declaration under the retired member and policy.
 
 test("declared testing fixture aligns with current authority, observation, construction and command owners", { timeout: 180_000 }, async t => {
   const context = await setupInstalledRootCatalog(t, packageRoot, { candidateBasisSource: "packed_artifact" });
@@ -173,153 +145,4 @@ test("declared testing fixture aligns with current authority, observation, const
   assert.equal(context.store.readAll().length, eventCount, "fixture observation and configuration add no runtime events");
 });
 
-test("declared checker composition uses native owners and independently rederives saved C1/C2 requests", { timeout: testingExecutionConfig().outerBudgetMs }, async t => {
-  const executionConfig = testingExecutionConfig(), live = executionConfig.live;
-  const inputRoot = process.env.ABI5_TESTING_INPUT_ROOT;
-  if (!inputRoot) { t.skip("ABI5_TESTING_INPUT_ROOT unset; requires exact selected RC7 companion release-record directory"); return; }
-  const installsSkip = stdoInstallsSkip(inputRoot, "ABI5_TESTING_INPUT_ROOT");
-  if (installsSkip) { t.skip(installsSkip); return; }
-  const deadline = process.env.ABI5_TESTING_DEADLINE;
-  assert.ok(deadline && Date.parse(deadline) > Date.now(), "bounded proof deadline is required");
-  const scratch = await realpath(await mkdtemp(join(tmpdir(), "abi-testing-reuse-proof-")));
-  console.log(JSON.stringify({ phase: "declared_testing_scratch", scratch }));
-  // Preserve this one isolated proof output, including an actual failed first
-  // cause. The test never writes to a retained native Run or canonical build.
-  const evidence = { kind: live ? "declared_testing_live_observation" : "declared_testing_mechanical_proof", scratch,
-    liveLLM: live, actorMode: live ? "ordinary_claude_transport" : "declared_response_doubles_with_real_C2_helper",
-    executionConfig, component: {}, composed: [], failures: [] };
-  let context;
-  try {
-    context = await setupTestingInvocation({ packageRoot, scratch, inputRoot, deadline, executionConfig });
-    const { product, gtl, abg, fixture, consumerPublications, environment } = context;
-    const environmentDeclarations = await import(pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/gtl/stdo_run_environment.js")).href);
-    const executions = await import(pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/execution_basis.js")).href);
-    const publication = consumerPublications.find(p => p.programs.some(x => x.programRef === fixture.ids.programRef));
-    const program = publication.programs.find(p => p.programRef === fixture.ids.programRef);
-    const graphs = context.catalog.boundPublications.flatMap(p => p.graphFunctions);
-    assert.equal(environmentDeclarations.validStdoEnvironmentProgram(publication, program, graphs), true);
-    const missingRole = structuredClone(publication); missingRole.stdoRunEnvironments[0].roles.pop();
-    assert.equal(environmentDeclarations.validStdoEnvironmentProgram(missingRole, program, graphs), false);
-    const unsupported = structuredClone(publication); unsupported.stdoRunEnvironments[0].roles.at(-1).role = "reviewer";
-    assert.equal(environmentDeclarations.validStdoEnvironmentPublication(unsupported), false);
-    const nonAdopter = structuredClone(publication); delete nonAdopter.programs[0].policies["abg.stdo_run_environment"];
-    nonAdopter.stdoRunEnvironments = [];
-    assert.equal(environmentDeclarations.validStdoEnvironmentProgram(nonAdopter, nonAdopter.programs[0], graphs), true);
-    evidence.component.declarationCoverage = { full: true, missingRoleRefuses: true, unsupportedRoleRefuses: true, nonAdopterImplicitRequirement: false };
-    const source = await context.runProgram(fixture.ids.sourceProgramRef, async () => fixture.source.input);
-    assert.equal(source.events.filter(e => e.kind === "actor_transport_binding_admitted").length, 0);
-    assert.deepEqual(source.resultBasis.sourceResultValue.declaration, fixture.source.declaration);
-    const envelopeFor = selected => async ({ grants }) => product.constructSemanticStageEnvelope({
-      sourceHandoff: source.resultBasis.sourceResultValue, lifecycle: fixture.lifecycle, taskData: fixture.scenario, evaluationData: fixture.oracle,
-      worksite: await testingWorksite({ product, environment, grants, selected }) });
-    const outcomes = [];
-    for (const selected of (live ? [null] : ["A", "B"])) {
-      let transport;
-      if (!live) {
-        const transportRoot = join(scratch, "transport-" + selected);
-        const { mkdir } = await import("node:fs/promises"); await mkdir(transportRoot);
-        transport = await installTestingTransport(transportRoot, selected);
-      }
-      const result = await context.runProgram(fixture.ids.programRef, envelopeFor(selected), { transport });
-      const output = result.resultBasis.sourceResultValue;
-      assert.equal(output.assets.length, 2);
-      const selectedCommands = output.assets[0].candidate.worksiteDesign.commandRefs;
-      assert.equal(selectedCommands.length, 1);
-      assert.ok([checkerRef("A"), checkerRef("B")].includes(selectedCommands[0]));
-      if (!live) assert.deepEqual(selectedCommands, [checkerRef(selected)]);
-      assert.ok(output.assets.every(a => a.assessment?.disposition === "satisfied"));
-      assert.ok(output.evidence, "same-invocation native semantic evidence bridge must supply actual C1/C2 evidence");
-      const observation = output.evidence.executionObservation;
-      assert.equal(observation.kind, "worksite_command_execution_observation");
-      assert.deepEqual(observation.task.commands.map(c => c.commandId), selectedCommands);
-      assert.deepEqual(observation.commandResults.map(c => c.commandId), selectedCommands);
-      assert.equal(observation.commandResults[0].exitStatus, 0);
-      assert.equal(observation.commandResults[0].timedOut, false);
-      const stdout = Buffer.from(observation.commandResults[0].stdout.payload, "base64").toString("utf8");
-      const passed = stdout.match(/^# pass (\d+)$/mu), failed = stdout.match(/^# fail (\d+)$/mu);
-      assert.ok(passed && Number(passed[1]) >= fixture.oracle.requiredCheckerPasses);
-      assert.ok(failed && Number(failed[1]) === 0);
-      assert.equal(observation.predicateObservations.length, live ? 0 : 1);
-      const runId = result.receipt.ownerOutput.value.run.ref;
-      const runEvents = result.events.filter(e => e.runId === runId);
-      const assemblies = runEvents.filter(e => e.kind === "actor_transport_binding_admitted").map(e => e.payload.instructionAssembly);
-      assert.equal(assemblies.length, 6, "Design author/assessor, C1, C2 and evidence author/assessor share one invocation");
-      assert.ok(assemblies.every(a => a?.kind === "native_instruction_assembly"));
-      const worksiteAssemblies = assemblies.filter(a => a.plan.variant === "worksite");
-      assert.deepEqual(worksiteAssemblies.map(a => a.plan.role), ["constructor", "command_executor"]);
-      for (const assembly of worksiteAssemblies) {
-        const basis = assembly.envelope.nativeBasis, owner = executions.authenticateOwnedNativeInstructionAssemblyBasis(basis);
-        assert.ok(owner);
-        assert.deepEqual(abg.constructWorksiteNativeInstructionAssembly(basis, owner.inputValue), assembly);
-        assert.equal(abg.constructWorksiteNativeInstructionAssembly(basis, { ...owner.inputValue, prompt: "stale input" }), null);
-        const badBasis = structuredClone(basis); badBasis.cursor.inputDigest = "sha256:" + "f".repeat(64);
-        assert.equal(abg.constructWorksiteNativeInstructionAssembly(badBasis, owner.inputValue), null);
-        assert.equal(owner.execution.invocationAdmissionRef, result.receipt.resources.invocationAdmission.ref);
-      }
-      const c1 = worksiteAssemblies[0], c2 = worksiteAssemblies[1];
-      assert.notEqual(c1.manifest.promptDigest, c1.manifest.basePromptDigest);
-      assert.match(c2.envelope.sections.task.ownerPrompt, /worksite_command_helper\.js/u);
-      const admitted = runEvents.filter(e => e.kind === "c_call_result_admitted");
-      assert.ok(admitted.some(e => e.payload.value?.kind === "worksite_construction_result"));
-      assert.ok(admitted.some(e => e.payload.value?.kind === "worksite_command_execution_observation"));
-      outcomes.push({ selected, result, assemblies, runId });
-      evidence.composed.push({ requestedSelection: selected, runId, invocationAdmissionRef: result.receipt.resources.invocationAdmission.ref,
-        prefix: result.prefix, selectedCommand: observation.commandResults[0].commandId, exitStatus: observation.commandResults[0].exitStatus,
-        checkerStdout: stdout, assemblyCount: assemblies.length, actualEvidence: product.sha256Canonical(output.evidence),
-        publicReads: Object.fromEntries(Object.entries(result.reads).map(([key, receipt]) => [key, receipt.ownerOutput.value.projection])) });
-      await writeFile(join(scratch, "proof.json"), JSON.stringify(evidence, null, 2) + "\n");
-      console.log(JSON.stringify({ phase: "declared_testing_selection_observed", selected, runId }));
-    }
-    if (!live) {
-      const actorsBeforeRefusal = abg.readRuntimeEventsAtDurablePrefix(context.getPrefix()).filter(e => e.kind === "actor_transport_binding_admitted").length;
-      const missing = await context.runProgram(fixture.ids.programRef, envelopeFor("A"), { missingEnvironment: true });
-      assert.ok(missing.receipt.ownerOutput.value.issuePaths.includes("/stdoEnvironment/cause/missing_binding"));
-      assert.equal(abg.readRuntimeEventsAtDurablePrefix(missing.prefix).filter(e => e.kind === "actor_transport_binding_admitted").length, actorsBeforeRefusal);
-      evidence.component.missingEnvironmentRefusesBeforeActor = true;
-    }
-    // Mechanical A is not retroactively changed by B; live has one free choice.
-    const a = outcomes[0], b = outcomes.at(-1);
-    const aReplay = abg.projectRunSemanticReplayProjection(abg.selectValidatedRuntimeEventPrefix(abg.readRuntimeEventsAtDurablePrefix(a.result.prefix)), a.runId);
-    const packet = { prefix: b.result.prefix, runId: b.runId,
-      expectedReplay: abg.projectRunSemanticReplayProjection(abg.selectValidatedRuntimeEventPrefix(abg.readRuntimeEventsAtDurablePrefix(b.result.prefix)), b.runId),
-      assemblies: b.assemblies.filter(a => a.plan.variant === "worksite"), externalRoots: Object.values(fixture.env.roots).filter(p => typeof p === "string") };
-    const packetPath = join(scratch, "fresh-request-rederivation-input.json"); await writeFile(packetPath, JSON.stringify(packet));
-    const moduleUrl = pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/index.js")).href;
-    const executionUrl = pathToFileURL(join(context.harness.installedPackageRoot, "build/code/src/abg/execution_basis.js")).href;
-    const script = `import assert from 'node:assert/strict'; import {readFile} from 'node:fs/promises';
-const packet=JSON.parse(await readFile(process.argv[1],'utf8')),abg=await import(process.argv[2]),executions=await import(process.argv[3]);
-assert.equal(process.permission.has('child'),false);
-const denied=packet.externalRoots.map(path=>({path,readAllowed:process.permission.has('fs.read',path)}));assert.ok(denied.every(r=>r.readAllowed===false));
-const rows=[];
-for(const saved of packet.assemblies){
- const basis=saved.envelope.nativeBasis,owner=executions.authenticateOwnedNativeInstructionAssemblyBasis(basis);assert.ok(owner);
- const actual=abg.constructWorksiteNativeInstructionAssembly(basis,owner.inputValue);assert.deepEqual(actual,saved);
- const changed=structuredClone(saved);changed.manifest.promptDigest='sha256:'+'f'.repeat(64);assert.notDeepEqual(actual,changed);
- const environment=abg.projectExactPrefixWorkspaceEnvironment(basis.predecessorPrefix,{ref:owner.execution.workspaceBindingId,digest:owner.execution.workspaceBindingDigest});
- assert.equal(environment.kind,'exact_prefix_workspace_environment');
- const request={...saved.request,prompt:saved.request.prompt+' altered saved request'};
- const occurrence={...Object.fromEntries(['cCallRef','runId','graphCallId','frameId','programLocusRef','taskOrdinal','attempt'].map(k=>[k,owner.call[k]])),nativeInstructionAssemblyBasis:basis};
- const refusal=await abg.invokeActorProcess({predecessorPrefix:basis.predecessorPrefix,executionBasis:owner.execution,cCall:owner.call,
- expectedInputDigest:owner.inputDigest,occurrence,workerContracts:{instructionContractRef:request.instructionContractRef,resultContractRef:request.resultContractRef},
- runtime:{artifactTruth:environment.artifactTruth,workspaceBinding:environment.workspaceBinding},request,dispatchOrdinal:1});
- assert.equal(refusal.kind,'actor_process_effect_refusal');
- assert.match(refusal.diagnostic??refusal.message??refusal.diagnosticMessage??JSON.stringify(refusal),/dependent dispatch requires exact native admitted instruction assembly/);
- rows.push({role:saved.plan.role,requestDigest:actual.manifest.promptDigest,independentlyRederived:true,tamperedRequest:'native_pre_effect_refusal',tamperedManifest:'rederivation_disagreement'});
-}
-const events=abg.readRuntimeEventsAtDurablePrefix(packet.prefix),prefix=abg.selectValidatedRuntimeEventPrefix(events);
-assert.deepEqual(abg.projectRunSemanticReplayProjection(prefix,packet.runId),packet.expectedReplay);
-console.log(JSON.stringify({kind:'fresh_request_rederivation_and_replay',rows,externalAccess:denied,childProcessAllowed:false}));`;
-    const fresh = await exec(process.execPath, ["--permission", "--allow-fs-read=" + scratch, "--input-type=module", "-e", script, packetPath, moduleUrl, executionUrl],
-      { cwd: scratch, env: { ...process.env, NODE_OPTIONS: "" }, timeout: Math.min(executionConfig.freshReadbackBudgetMs, Date.parse(deadline) - Date.now()), maxBuffer: 40 * 1024 * 1024 });
-    evidence.freshProcess = JSON.parse(fresh.stdout); evidence.predecessorReplayDigest = product.sha256Canonical(aReplay);
-    evidence.artifactDigest = context.abiArtifact.artifactDigest; evidence.consumerArtifactDigest = fixture.basis.artifactDigest;
-    evidence.calls = context.calls; evidence.disposition = live ? "live_composition_observed" : "mechanical_composition_observed";
-    await writeFile(join(scratch, "proof.json"), JSON.stringify(evidence, null, 2) + "\n");
-    console.log(JSON.stringify({ phase: "declared_testing_completed", scratch, artifactDigest: evidence.artifactDigest, composed: evidence.composed }));
-  } catch (error) {
-    if (context) { evidence.calls = context.calls; evidence.lastPrefix = context.getPrefix(); }
-    evidence.disposition = "incomplete"; evidence.failures.push({ name: error.name, message: error.message, stack: error.stack });
-    await writeFile(join(scratch, "proof.json"), JSON.stringify(evidence, null, 2) + "\n");
-    throw error;
-  }
-});
+// Retired (T-292 TD-31): "declared checker composition uses native owners and independently rederives saved C1/C2 requests"; its fixture is the retired STDO pilot declaration under the retired member and policy.

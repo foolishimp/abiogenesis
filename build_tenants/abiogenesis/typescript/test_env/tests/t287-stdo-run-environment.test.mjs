@@ -1,16 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, readFile, writeFile, realpath } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join, resolve, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import * as product from "../../build/code/src/product/index.js";
-import * as gtl from "../../build/code/src/gtl/index.js";
-import { observeStdoEnvironment } from "../../build/code/src/product/stdo_environment.js";
-import { isStdoEnvironmentEvidence, projectStdoRoleEvidence } from "../../build/code/src/abg/stdo_environment.js";
-import { ROOT_EVENT_CONTRACTS, ROOT_EVENT_CONTRACT_DIGEST, ROOT_EVENT_CONTRACT_DESCRIPTOR, LEGACY_ROOT_EVENT_CONTRACTS,
-  LEGACY_ROOT_EVENT_CONTRACT_DIGEST, isKnownRootEventContractDigest } from "../../build/code/src/abg/event_store.js";
-import { validStdoEnvironmentPublication, validStdoEnvironmentProgram } from "../../build/code/src/gtl/stdo_run_environment.js";
-import { prepareStdoNoteProduct, pilotResources, pilotInputSkip } from "../support/stdo-environment-pilot.mjs";
 const packageRoot=resolve(dirname(fileURLToPath(import.meta.url)),"../..");
 test("construction readiness rederives the exact retained native request and preserves unknown refusal", { timeout: 180_000 }, async t => {
   if (!process.env.ABI5_DESIGN_CONTEXT_OBSERVATIONS || !process.env.ABI5_DESIGN_CONTEXT_PREDECESSOR) {
@@ -84,50 +77,4 @@ test("construction readiness rederives the exact retained native request and pre
     unknownRefused: true, staleInputRefused: true, newNativeExecution: false }));
 });
 
-test("STDO declaration, exact actual access, bounded refusals and immutable profiles",{skip:pilotInputSkip()},async()=>{
-  await mkdir(process.env.ABI5_ENV_PROOF_ROOT,{recursive:true});
-  const scratch=await mkdtemp(join(process.env.ABI5_ENV_PROOF_ROOT,"component-"));
-  const manifest=JSON.parse(await readFile(join(packageRoot,"product-toolchain-manifest.json"),"utf8"));
-  const abiArtifact={...manifest,manifestDigest:product.sha256Canonical(manifest),artifactDigest:"sha256:"+"0".repeat(64)};
-  const fixture=await prepareStdoNoteProduct({scratch,product,gtl,abiArtifact,inputRoot:process.env.ABI5_ENV_INPUT_ROOT});
-  const pubs=await fixture.loadInstalledPublications({installedRoot:fixture.sourceRoot});
-  const publication=pubs.find(p=>p.programs.some(x=>x.programRef===fixture.ids.programRef)),program=publication.programs[0];
-  assert.equal(validStdoEnvironmentPublication(publication),true);
-  assert.equal(validStdoEnvironmentProgram(publication,program,publication.graphFunctions),true);
-  const duplicate=structuredClone(fixture.env.declaration);duplicate.accesses[0].frameIndexRefs.push(duplicate.accesses[0].frameIndexRefs[0]);
-  assert.equal(gtl.isStdoRunEnvironmentDeclaration(duplicate),false);
-  const missingRole=structuredClone(publication);missingRole.stdoRunEnvironments[0].roles.pop();
-  assert.equal(validStdoEnvironmentProgram(missingRole,program,missingRole.graphFunctions),false);
-  const archiveRoot=join(scratch,"archive"),temporaryRoot=join(archiveRoot,"support");await mkdir(temporaryRoot,{recursive:true});
-  const authority={authorityRef:"authority://stdo-note.example/component-only",authorityDigest:product.sha256Canonical({component:true}),actorRef:"actor://stdo-note.example/component-only"};
-  const resources=pilotResources(product,fixture.env,authority,program,await realpath(temporaryRoot));
-  const common={publication,program,graphFunctions:publication.graphFunctions,authority,archiveRoot};
-  const missing=await observeStdoEnvironment(common);assert.equal(missing.cause,"missing_binding");
-  const denied=structuredClone(resources);denied.permission.actorRef+="not-authorized";
-  const permission=await observeStdoEnvironment({...common,resources:denied});assert.equal(permission.cause,"access_not_permitted");
-  const wrong=structuredClone(resources);wrong.roots.pythonPath=wrong.roots.representationRecordPath;wrong.permission.roots=wrong.roots;
-  const mismatch=await observeStdoEnvironment({...common,resources:wrong});assert.equal(mismatch.cause,"identity_mismatch");
-  const positive=await observeStdoEnvironment({...common,resources});
-  await writeFile(join(scratch,"observations.json"),JSON.stringify({missing,permission,mismatch,positive},null,2)+"\n");
-  assert.equal(positive.kind,"stdo_environment_observed",JSON.stringify(positive));
-  assert.equal(isStdoEnvironmentEvidence(positive.evidence),true);
-  const changed=structuredClone(positive.evidence);changed.accesses[0].stdout.base64=Buffer.from("{}").toString("base64");
-  assert.equal(isStdoEnvironmentEvidence(changed),false);
-  const receiptAttempt={...resources,projection:positive.evidence.accesses[0].projection};
-  assert.equal((await observeStdoEnvironment({...common,resources:receiptAttempt})).cause,"access_not_permitted");
-  const nonAdopting=pubs.find(p=>p.programs.some(x=>x.programRef===fixture.ids.sourceProgramRef));
-  assert.deepEqual(await observeStdoEnvironment({publication:nonAdopting,program:nonAdopting.programs[0],graphFunctions:nonAdopting.graphFunctions,authority,archiveRoot}),
-    {kind:"stdo_environment_observed",evidence:null});
-  assert.equal(ROOT_EVENT_CONTRACTS.invocation_admitted.payloadVariants.length,4);
-  assert.deepEqual(ROOT_EVENT_CONTRACTS.invocation_admitted.payloadVariants.slice(0,2),LEGACY_ROOT_EVENT_CONTRACTS.invocation_admitted.payloadVariants);
-  assert.equal(LEGACY_ROOT_EVENT_CONTRACT_DIGEST,"sha256:fc3a635040a6e3d763740ae54b6390944c7ea8cedfa060de110cb36e31ca6e3c");
-  assert.equal(ROOT_EVENT_CONTRACT_DESCRIPTOR.profileRef,"abg.event-contract.root/p4-stdo-run-environment@1");
-  const oldDescriptor={...ROOT_EVENT_CONTRACT_DESCRIPTOR,profileRef:"abg.event-contract.root/p3-undispatched-owner-refusal@1",
-    eventContracts:{...ROOT_EVENT_CONTRACTS,invocation_admitted:LEGACY_ROOT_EVENT_CONTRACTS.invocation_admitted}};
-  const predecessorDigest=product.sha256Canonical(oldDescriptor);
-  assert.notEqual(predecessorDigest,ROOT_EVENT_CONTRACT_DIGEST);assert.equal(isKnownRootEventContractDigest(predecessorDigest),false);
-  await writeFile(join(scratch,"result.json"),JSON.stringify({kind:"stdo_component_check",checks:"passed",nativeSemanticQualification:false,
-    actualAccess:positive.evidence.accesses.map(a=>({accessRef:a.accessRef,projectionDigest:a.projectionDigest,command:a.command,durationMs:a.durationMs})),
-    profiles:{legacy:LEGACY_ROOT_EVENT_CONTRACT_DIGEST,predecessor:predecessorDigest,current:ROOT_EVENT_CONTRACT_DIGEST}},null,2)+"\n");
-  console.log(JSON.stringify({kind:"stdo_component_check",scratch,disposition:"passed"}));
-});
+// Retired (T-292 TD-31): "STDO declaration, exact actual access, bounded refusals and immutable profiles"; its subject is the retired STDO declaration, observation and evidence.

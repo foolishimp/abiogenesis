@@ -138,7 +138,6 @@ function canonicalizeGraphFunction(carrier: MutableJsonRecord): void {
 }
 
 function canonicalizeModulePublication(carrier: MutableJsonRecord): void {
-  if (carrier.stdoRunEnvironments !== undefined) canonicalizeRecordInventory(carrier, "stdoRunEnvironments", ["declarationRef"]);
   if (carrier.runEnvironments !== undefined) canonicalizeRecordInventory(carrier, "runEnvironments", ["declarationRef"]);
   canonicalizeRecordInventory(carrier, "contracts", ["contractRef"]);
   canonicalizeRecordInventory(

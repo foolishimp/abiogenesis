@@ -5,8 +5,7 @@ import type { CProgramNode } from "./c_algebra.js";
 import { REQUIREMENT_HANDOFF_DECLARATION_SCHEMA, type GtlRequirementHandoffDeclaration } from "./requirement_handoff.js";
 import { SEMANTIC_LIFECYCLE_SCHEMA, type SemanticLifecycleDeclaration } from "./semantic_stage.js";
 import { SEMANTIC_JOB_LIFECYCLE_SCHEMA, type SemanticJobLifecycleDeclaration } from "./semantic_job.js";
-import { STDO_RUN_ENVIRONMENT_SCHEMA, RUN_ENVIRONMENT_SCHEMA,
-  type StdoRunEnvironmentDeclaration, type RunEnvironmentDeclaration } from "./stdo_run_environment.js";
+import { RUN_ENVIRONMENT_SCHEMA, type RunEnvironmentDeclaration } from "./stdo_run_environment.js";
 
 // These private type references break recursive inference only. The lazy runtime
 // schemas below always delegate to the complete syntax/JSON definition. They do
@@ -215,7 +214,6 @@ function existingContractSchema<Value>(schema: v.GenericSchema): v.GenericSchema
   return schema as v.GenericSchema<unknown, ExistingContractReference<Value>>;
 }
 export const MODULE_PUBLICATION_SCHEMA = v.strictObject({
-  stdoRunEnvironments: v.optional(v.array(existingContractSchema<Readonly<StdoRunEnvironmentDeclaration>>(STDO_RUN_ENVIRONMENT_SCHEMA))),
   runEnvironments: v.optional(v.array(existingContractSchema<Readonly<RunEnvironmentDeclaration>>(RUN_ENVIRONMENT_SCHEMA))),
   semanticLifecycle: v.optional(existingContractSchema<Readonly<SemanticLifecycleDeclaration>>(SEMANTIC_LIFECYCLE_SCHEMA)),
   semanticJobLifecycle: v.optional(existingContractSchema<Readonly<SemanticJobLifecycleDeclaration>>(semanticJobSchema)),
