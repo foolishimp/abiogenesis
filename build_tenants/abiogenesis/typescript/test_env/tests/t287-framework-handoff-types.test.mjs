@@ -1,14 +1,13 @@
 // T287 HC1 owner-derived native call typing and the HC2 shipped constructor
 // types. Real compiler checks of the canonical and packed package
-// declarations, packed-runtime inventory and raw refusals, and a per-slot
-// schema comparison with the exact014 baseline. Not HC2 runtime population,
+// declarations, packed-runtime inventory and raw refusals, and the projected
+// schema of every packed owner slot contract. Not HC2 runtime population,
 // installed Run proof, qualification or release evidence.
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
 import ts from 'typescript';
@@ -16,7 +15,6 @@ import ts from 'typescript';
 const tenant = path.resolve(process.env.ABG_FRAMEWORK_HANDOFF_TENANT_ROOT ?? path.resolve(import.meta.dirname, '../..'));
 const proofPath = path.join(tenant, 'test_env/types/framework-handoff.compile.ts');
 const proofConfigPath = path.join(tenant, 'test_env/tsconfig.framework-handoff.json');
-const BASELINE_SHA256 = 'b775014c1ef3c2e6f0f027236c3555702b159b673b4baf764b8bfd93f51af1db';
 const PACKAGE_NAME = '@abiogenesis/typescript-tenant';
 const CANONICAL_IMPORTS = /^@abiogenesis\/typescript-tenant\/(public|product|abg|validator)$/;
 const HC1_DECLARATIONS = ['OwnerCallableDefinitionMember', 'OwnerUnavailableDefinitionMember',
@@ -98,31 +96,6 @@ function extract(archive, into) {
   return path.join(into, 'package');
 }
 
-/** Fail closed on the declared C2 baseline input; returns the exact hashed bytes. */
-function baselineArchiveBytes() {
-  const archive = process.env.ABI5_HC1_BASELINE_PACKAGE_PATH;
-  assert.ok(typeof archive === 'string' && archive.length > 0,
-    'ABI5_HC1_BASELINE_PACKAGE_PATH must name the exact014 baseline package (.tgz); schema identity is not assumed');
-  let stat, bytes;
-  try { stat = fs.lstatSync(archive); } catch (error) {
-    assert.fail(`ABI5_HC1_BASELINE_PACKAGE_PATH is unreadable (${error.code}): ${archive}; schema identity is not assumed`);
-  }
-  assert.ok(stat.isFile(), `ABI5_HC1_BASELINE_PACKAGE_PATH is not a regular file: ${archive}; schema identity is not assumed`);
-  try { bytes = fs.readFileSync(archive); } catch (error) {
-    assert.fail(`ABI5_HC1_BASELINE_PACKAGE_PATH is unreadable (${error.code}): ${archive}; schema identity is not assumed`);
-  }
-  assert.equal(createHash('sha256').update(bytes).digest('hex'), BASELINE_SHA256,
-    `ABI5_HC1_BASELINE_PACKAGE_PATH is not the exact014 baseline: ${archive}; schema identity is not assumed`);
-  return bytes;
-}
-
-/** Extracts exactly the verified bytes, not a second read of the path. */
-function extractBytes(bytes, into) {
-  fs.mkdirSync(into, {recursive: true});
-  execFileSync('tar', ['-xzf', '-', '-C', into], {input: bytes, maxBuffer: 1 << 26});
-  return path.join(into, 'package');
-}
-
 /** The candidate is an explicit packed archive, an explicit extracted package
  * root, or a fresh `npm pack --ignore-scripts` of the built tenant. */
 function candidatePackage(t) {
@@ -146,9 +119,6 @@ async function loadPackage(packageRoot) {
 }
 
 const keyOf = definition => `${definition.definitionKey.operationId}#${definition.definitionKey.memberKey}`;
-const sorted = value => Array.isArray(value) ? value.map(sorted) : value !== null && typeof value === 'object'
-  ? Object.fromEntries(Object.keys(value).sort().map(key => [key, sorted(value[key])])) : value;
-const canonical = value => JSON.stringify(sorted(value));
 
 test('HC1 proof source uses only canonical package imports and no proof-erasing construct', () => {
   const imports = [];
@@ -313,53 +283,26 @@ test('packed runtime keeps 56 declared, 47 callable and 9 unavailable members an
     rawUnavailableRefusals: unavailableCalls.map(row => `${row.invocation.definitionKey.operationId}#${row.invocation.definitionKey.memberKey}`)}));
 });
 
-test('per-slot owner schemas equal the exact014 baseline archive', async t => {
-  const baseline = await loadPackage(extractBytes(baselineArchiveBytes(), scratch(t, 'abg-hc1-baseline-')));
+// Retired (T-292 TD-59): 'per-slot owner schemas equal the exact014 baseline archive'; equality with a package cut before RC6 is a superseded-cut claim (the T-290 C-5 class).
+test('every packed owner slot contract has its canonical projected schema', async t => {
   const candidate = await loadPackage(candidatePackage(t));
-  // One row per declared member and slot: the canonical strict JSON projection
-  // of the owner slot schema and the owner contract identity bound to it.
-  const unprojected = [];
-  const slotRows = (pkg, side) => {
-    const rows = new Map();
-    for (const definition of pkg.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions) {
-      const {operationId, memberKey} = definition.definitionKey;
-      for (const slot of SLOTS) {
-        const contract = definition[`${slot}Contract`];
-        const assetSlot = slot === 'nonTerminal' ? 'non_terminal' : slot;
-        const asset = pkg.public.PUBLIC_PROJECTION_PAYLOADS.operationSchemaAssets.find(row =>
-          row.operationId === operationId && row.slot === assetSlot);
-        let fields = null;
-        if (contract !== null) {
-          const {schema: _runtimeSchema, ...identity} = contract;
-          const projected = Object.hasOwn(asset?.content?.$defs ?? {}, memberKey);
-          if (!projected) unprojected.push({side, operationId, memberKey, slot});
-          fields = {...identity, projectedSchema: projected ? asset.content.$defs[memberKey] : null};
-        }
-        rows.set(`${operationId}#${memberKey} ${slot}`, {operationId, memberKey, slot,
-          fields: fields === null ? null : Object.fromEntries(Object.keys(fields).map(key => [key, canonical(fields[key])]))});
-      }
-    }
-    return rows;
-  };
-  const expected = slotRows(baseline, 'baseline'), actual = slotRows(candidate, 'candidate');
-  assert.equal(expected.size, 56 * SLOTS.length);
-  assert.deepEqual(unprojected, [], 'every owner slot contract has its canonical projected schema');
-  const drift = [];
-  for (const key of [...new Set([...expected.keys(), ...actual.keys()])].sort()) {
-    const before = expected.get(key), after = actual.get(key), row = before ?? after;
-    const location = {operationId: row.operationId, memberKey: row.memberKey, slot: row.slot};
-    if (before === undefined || after === undefined) {
-      drift.push({...location, change: before === undefined ? 'slot_added' : 'slot_removed'});
-    } else if ((before.fields === null) !== (after.fields === null)) {
-      drift.push({...location, change: before.fields === null ? 'contract_added' : 'contract_removed'});
-    } else if (before.fields !== null) {
-      const names = [...new Set([...Object.keys(before.fields), ...Object.keys(after.fields)])].sort();
-      const changed = names.filter(name => before.fields[name] !== after.fields[name]);
-      if (changed.length > 0) drift.push({...location, change: 'contract_changed', fields: changed});
+  // One row per declared member and slot; each slot that carries an owner
+  // contract names its member in that slot's projected operation schema asset.
+  const rows = new Set(), unprojected = [];
+  let contracts = 0;
+  for (const definition of candidate.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.definitions) {
+    const {operationId, memberKey} = definition.definitionKey;
+    for (const slot of SLOTS) {
+      rows.add(`${operationId}#${memberKey} ${slot}`);
+      if (definition[`${slot}Contract`] === null) continue;
+      contracts++;
+      const assetSlot = slot === 'nonTerminal' ? 'non_terminal' : slot;
+      const asset = candidate.public.PUBLIC_PROJECTION_PAYLOADS.operationSchemaAssets.find(row =>
+        row.operationId === operationId && row.slot === assetSlot);
+      if (!Object.hasOwn(asset?.content?.$defs ?? {}, memberKey)) unprojected.push({operationId, memberKey, slot});
     }
   }
-  assert.deepEqual(drift, [], `runtime owner slot schemas drift from exact014: ${JSON.stringify(drift)}`);
-  t.diagnostic(JSON.stringify({kind: 'hc1_baseline_schema_identity', slots: expected.size,
-    contracts: [...expected.values()].filter(row => row.fields !== null).length, baselineSha256: BASELINE_SHA256,
-    familyDigestEqual: baseline.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest === candidate.public.PUBLIC_FUNCTION_DEFINITION_FAMILY.familyDigest}));
+  assert.equal(rows.size, 56 * SLOTS.length);
+  assert.deepEqual(unprojected, [], 'every owner slot contract has its canonical projected schema');
+  t.diagnostic(JSON.stringify({kind: 'hc1_projected_slot_schemas', slots: rows.size, contracts}));
 });
