@@ -4,7 +4,7 @@ import {mkdir,mkdtemp,readFile,writeFile,rename,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join,resolve,dirname} from 'node:path';
 import {fileURLToPath,pathToFileURL} from 'node:url';
-import {loadProjectionOwners,filePrefix,sha256} from '../support/t287-exact-prefix-projection-reuse.mjs';
+import {loadProjectionOwners,filePrefix} from '../support/t287-exact-prefix-projection-reuse.mjs';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {constructInstalledRunReadCall,constructInstalledStartCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {prepareLanguageSmokeFixture,constructLanguageTestInput} from '../support/language-smoke-fixture.mjs';
@@ -58,38 +58,7 @@ test('T287 disposable reuse preserves prefix/profile/file checks and rejects mut
   const again=project(files[1]);assert.notStrictEqual(again,one);assert.equal(again.projectionDigest,one.projectionDigest);
 });
 
-test('T287 retained scope and same-inode byte mutation cannot reuse false truth',{skip:!process.env.ABI5_PREFIX_EVENT_PATH&&'ABI5_PREFIX_EVENT_PATH unset; requires the retained event log'},async()=>{
-  const path=process.env.ABI5_PREFIX_EVENT_PATH,bytes=await readFile(path);
-  assert.equal(sha256(bytes),process.env.ABI5_PREFIX_EXPECTED_SHA256);
-  const coordinate=await filePrefix(path,bytes,owners,240),full=project(coordinate);
-  assert.equal(full.kind,'exact_prefix_artifact_truth_projection');
-  const forged=structuredClone(full);forged.rows[0].artifact.packageVersion='forged';
-  const {projectionRef,projectionDigest,...forgedBody}=forged;
-  forged.projectionDigest=owners.digests.sha256Canonical(forgedBody);
-  forged.projectionRef='artifact-truth-projection://abiogenesis/'+forged.projectionDigest.slice(7);
-  assert.equal(owners.artifact.validateExactPrefixArtifactTruthProjection(forged),false,'self-consistent forged artifact is still not event truth');
-  const wrongProfile=resign({...structuredClone(coordinate),storeIdentity:{...coordinate.storeIdentity,eventContractDigest:owners.events.LEGACY_ROOT_EVENT_CONTRACT_DIGEST}});
-  assert.equal(project(wrongProfile).kind,'exact_prefix_artifact_truth_projection_refusal','known but crossed profile refuses actual current history');
-  const records=bytes.toString('utf8').trimEnd().split('\n').map(JSON.parse),binding=records[2].payload;
-  const mismatch=owners.environment.projectExactPrefixWorkspaceEnvironment(coordinate,{ref:binding.artifactRef,digest:'sha256:'+'0'.repeat(64)});
-  assert.equal(mismatch.code,'workspace_binding_mismatch');
-  const missing=owners.environment.projectExactPrefixWorkspaceEnvironment(coordinate,{ref:'workspace-binding://unknown',digest:binding.authorityScopeDigest});
-  assert.equal(missing.code,'workspace_binding_missing');
-  const events=owners.events.readRuntimeEventsAtDurablePrefix(coordinate);
-  const scope=owners.prefix.selectValidatedRuntimeEventPrefix(events,{runId:'run://abiogenesis/2b9cc78738fc8051898018dd68d0d7bd710faeb0b480504f4c01c2fefc392371'});
-  const scoped=owners.artifact.projectValidatedPrefixArtifactTruth(coordinate,scope);
-  assert.equal(scoped.rows.length,0);
-  assert.equal(owners.artifact.validateExactPrefixArtifactTruthProjection(scoped),false);
-  assert.deepStrictEqual(project(coordinate),full,'scoped computation cannot change the unscoped projection');
-  const scratch=await mkdtemp(join(proofRoot,'bytes-')),copy=join(scratch,'events.jsonl');
-  const initial=Buffer.from(bytes.toString('utf8').trimEnd().split('\n').slice(0,27).join('\n')+'\n');
-  await writeFile(copy,initial,{flag:'wx'});const copied=await filePrefix(copy,initial,owners);
-  assert.equal(project(copied).kind,'exact_prefix_artifact_truth_projection');
-  const corrupt=Buffer.from(initial);corrupt[20]^=1;await writeFile(copy,corrupt);
-  assert.equal(project(copied).code,'prefix_digest_mismatch','same inode changed bytes cannot hit');
-  await writeFile(copy,Buffer.alloc(0));assert.equal(project(copied).code,'prefix_length_mismatch');
-  assert.equal(sha256(await readFile(path)),process.env.ABI5_PREFIX_EXPECTED_SHA256);
-});
+// Retired (T-292 TD-60): a retained scoped Run and same-inode byte mutation cannot reuse false truth; input the retained event log not recorded
 
 // RC7 HS02 (§10.9): one held session over the smallest installed language
 // smoke Run. The installed owners run; only the observation-only history
