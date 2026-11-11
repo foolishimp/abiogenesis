@@ -3,7 +3,11 @@ import test from 'node:test';
 import {readFile,writeFile,mkdir,cp,chmod} from 'node:fs/promises';
 import {join} from 'node:path';
 import {pathToFileURL} from 'node:url';
+import * as v from 'valibot';
 import * as product from '../../build/code/src/product/index.js';
+import * as gtl from '../../build/code/src/gtl/index.js';
+import {ABG_RUN_STOP_READING_SCHEMA} from '../../build/code/src/abg/project_read_operation_contracts.js';
+import {witnessMechanics,nativeWitness} from '../support/witness-reprice-mechanics.mjs';
 import {setupInstalledRootCatalog} from '../support/root-installed-environment.mjs';
 import {prepareRegisteredSelectionProduct,constructInstalledStartCall,constructInstalledRunReadCall,runInstalledCliRequest} from '../support/registered-graph-selection.mjs';
 import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,assessmentContract,assessmentSchema,schemaPath} from '../support/default-library.mjs';
@@ -12,6 +16,7 @@ import {libraryConsumerDeclaration,libraryEnvironment,witnessInput,witnessRef,as
 // topology stop without completing through one Public start: a worker exit
 // failure, an absolute time ceiling, recursion bound 2 and a selection gap.
 // Every read is a fresh installed CLI process over the closed event resource.
+// An operator stop reads back its recorded reason through the Public binding.
 const packageRoot=new URL('../..',import.meta.url).pathname;
 const witnessRoot=new URL('../../../../../.ai-workspace/comments/codex/20260928_FRAMED_GOVERNANCE/default-library-witness/',import.meta.url).pathname;
 const basis={productId:product.ABI5_PRODUCT_ID,packageName:'@abiogenesis/typescript-tenant',packageVersion:product.ABI5_PACKAGE_VERSION,artifactDigest:'sha256:'+'1'.repeat(64),productContentDigest:'sha256:'+'2'.repeat(64),productManifestDigest:'sha256:'+'3'.repeat(64)};
@@ -118,9 +123,10 @@ async function stoppedRun(t,{name,role='',mode='',bound=12,limits={}}){
 const resultCoordinate=event=>({ref:event.payload.resultRef,digest:event.payload.resultDigest});
 const originFields=event=>({result:resultCoordinate(event),cCallRef:event.aggregateId,graphFunctionRef:event.graphFunctionRef,contractRef:event.payload.contractRef,valueKind:event.payload.value.kind});
 
-// R4/R6/R7 for every stop: the reading names the admitted stop, carries the
-// last root evaluation uninterpreted, states itself in words in the CLI line,
-// and no Public read presents the Run as completed.
+// R4/R6/R7 for every stop: the reading names the admitted stop, names the
+// last root Result by kind, reference and contract and carries it
+// uninterpreted, states itself in words in the CLI line of the start and of
+// the status read, and no Public read presents the Run as completed.
 function assertStoppedReadback({owner,events,reads,lines},expected){
   const diagnostic=()=>JSON.stringify({owner,status:reads.run_status}).slice(0,6000);
   assert.equal(owner.outcomeKind,'result',diagnostic());assert.equal(owner.value.disposition,expected.ownerDisposition,diagnostic());
@@ -133,19 +139,25 @@ function assertStoppedReadback({owner,events,reads,lines},expected){
   const evaluations=events.filter(e=>e.kind==='c_call_result_admitted'&&e.graphCallId===stopEvent.graphCallId&&e.payload.resultClass==='success'&&e.admissionOrdinal<stopEvent.admissionOrdinal);
   const evaluation=evaluations.at(-1);
   assert.equal(evaluation.graphFunctionRef,witnessRef('graph-function','executive'));assert.equal(product.isGovernanceWorkState(evaluation.payload.value),true);
-  assert.deepEqual(stop.evaluation,{kind:'admitted_result',result:resultCoordinate(evaluation),contractRef:evaluation.payload.contractRef,valueKind:'governance_work_state',
+  assert.deepEqual(stop.lastRootResult,{kind:'admitted_result',result:resultCoordinate(evaluation),contractRef:evaluation.payload.contractRef,valueKind:'governance_work_state',
     valueDigest:product.sha256Canonical(evaluation.payload.value),value:evaluation.payload.value,cCallRef:evaluation.aggregateId,resultAdmissionEventRef:evaluation.eventId});
+  assert.deepEqual([stop.operator,stop.nextActions],[null,[]]);
   // R6: no successful terminal result and no completed status on any read.
   assert.deepEqual([reads.run_result.outcomeKind,reads.run_result.value.code],['refusal','not_found']);
   assert.deepEqual([reads.run_replay.value.projection.status,reads.run_replay.value.projection.terminalResult],[expected.status,null]);
   assert.deepEqual([reads.run_gaps.value.projection.gaps,reads.run_gaps.value.projection.frontiers],[[],[]]);
   for(const line of Object.values(lines))assert.equal(line.includes('"completed"'),false);
   assert.equal(events.some(e=>e.kind==='run_closed'),false);
-  // R7: plain words from the same fold, carried in the one CLI output line.
+  // R7: plain words from the same fold, carried in the one CLI output line of
+  // the status read and of the start that stopped (REQ-P-POLICY-068).
   assert.ok(lines.run_status.includes(JSON.stringify(stop.statement)));
+  assert.equal(owner.value.stopStatement,stop.statement,'the start output states the status read');
   assert.ok(stop.statement.startsWith(`The Run stopped as ${expected.disposition} and did not complete.`),stop.statement);
-  for(const text of [expected.reasonRef,...expected.statementIncludes,`last admitted evaluation governance_work_state ${evaluation.payload.resultRef}`])
+  for(const text of [expected.reasonRef,...expected.statementIncludes,
+    `The last admitted Result of the root GraphCall is governance_work_state ${evaluation.payload.resultRef} under contract ${evaluation.payload.contractRef}.`,
+    'No next lawful action is admitted.'])
     assert.ok(stop.statement.includes(text),`${text} in ${stop.statement}`);
+  assert.equal(/obligation|evaluation/i.test(stop.statement),false,'the statement claims nothing about the root Result content');
   return {stop,stopEvent,evaluations};
 }
 
@@ -159,30 +171,33 @@ function assertFailureOrigin(run,timeoutClass){
   // R1: the first failure Result of the lift chain, not the relabelled lift class.
   assert.equal(origin.graphFunctionRef,product.NATIVE_WORKSPACE_WORK_IDS.graphFunctionRef);
   assert.deepEqual(stop.origin,{kind:'failure',...originFields(origin),failureClass:'transport_failure',diagnosticRef,timeout:{kind:'observed',timeoutClass}});
+  return stop;
 }
 
-test('worker exit failure reads back its originating failure class, reason and last evaluation cold',{timeout:900_000},async t=>{
+test('worker exit failure reads back its originating failure class, reason and last root Result cold',{timeout:900_000},async t=>{
   const run=await stoppedRun(t,{name:'exit',role:'native',mode:'exit'});
   assert.deepEqual(run.roles,['select:construction','native:exit']);
-  assertFailureOrigin(run,null);
+  t.diagnostic(assertFailureOrigin(run,null).statement);
 });
 
 test('absolute time ceiling reads back the originating failure with its timeout class cold',{timeout:900_000},async t=>{
   const run=await stoppedRun(t,{name:'absolute',role:'native',mode:'absolute',limits:TIME_LIMITS});
   assert.deepEqual(run.roles,['select:construction','native:absolute']);
-  assertFailureOrigin(run,'absolute');
+  t.diagnostic(assertFailureOrigin(run,'absolute').statement);
 });
 
-test('recursion bound 2 reads back the bound reason and the last parent evaluation with its unresolved obligations cold',{timeout:900_000},async t=>{
+test('recursion bound 2 reads back the bound reason, the judged Result as origin and the last root Result cold',{timeout:900_000},async t=>{
   const run=await stoppedRun(t,{name:'bound',bound:2});
   const {stop,evaluations}=assertStoppedReadback(run,{ownerDisposition:'blocked',status:'blocked',eventKind:'run_stopped',disposition:'blocked',
-    reasonRef:'reason://abiogenesis/recursion/bound-exhausted@5',stage:null,statementIncludes:['Originating result: governance_work_state']});
+    reasonRef:'reason://abiogenesis/recursion/bound-exhausted@5',stage:null,statementIncludes:['Originating Result: governance_work_state']});
   // Bound N admits N parent evaluations and N-1 child steps.
   assert.equal(evaluations.length,2);
   const steps=run.events.filter(e=>e.kind==='child_foldback_admitted'&&evaluations.some(p=>p.aggregateId===e.payload.parentCCallRef));
   assert.equal(steps.length,1);
   assert.deepEqual(stop.origin,{kind:'result',...originFields(evaluations[1]),resultClass:'success'});
-  assert.equal(stop.evaluation.value.terminal,false);assert.deepEqual(stop.evaluation.value.unresolvedSupportRefs,[COMPLETE]);
+  // The value is carried as admitted; the Executive's own content records its standing.
+  assert.equal(stop.lastRootResult.value.terminal,false);assert.deepEqual(stop.lastRootResult.value.unresolvedSupportRefs,[COMPLETE]);
+  t.diagnostic(stop.statement);
 });
 
 test('selection gap reads back as a blocked stop with its missing support references and reason cold',{timeout:900_000},async t=>{
@@ -194,4 +209,28 @@ test('selection gap reads back as a blocked stop with its missing support refere
   const {stop}=assertStoppedReadback(run,{ownerDisposition:'blocked',status:'blocked',eventKind:'run_stopped',disposition:'blocked',
     reasonRef:'reason://abiogenesis/default-library/gap@5',stage:null,statementIncludes:[`missing support ${choice.payload.value.missingSupportRefs.join(', ')}`,'reason "Scripted ordered policy."']});
   assert.deepEqual(stop.origin,{kind:'gap',...originFields(choice),missingSupportRefs:choice.payload.value.missingSupportRefs,reason:choice.payload.value.reason});
+  // R-6: every gap the language admits is a readable gap. The GTL predicate
+  // admits any non-empty support reference; the reading admits the same set.
+  for(const [refs,admitted] of [[[' '],true],[['\t',COMPLETE],true],[[''],false]]){
+    const value={...choice.payload.value,missingSupportRefs:refs};
+    assert.equal(gtl.isRegisteredGraphChoice(value),admitted,JSON.stringify(refs));
+    assert.equal(v.is(ABG_RUN_STOP_READING_SCHEMA,{...stop,origin:{...stop.origin,missingSupportRefs:refs}}),admitted,JSON.stringify(refs));
+  }
+  t.diagnostic(stop.statement);
+});
+
+test('an operator stop reads back its reason kind, exact detail and operator actor through the Public binding',async()=>{
+  const h=await witnessMechanics({operatorRun:true}),status=h.publicStatus(h.handoff.prefix),contract=nativeWitness.WITNESS_CONTENT_CONTRACTS['run-stopped'];
+  const detail='Selected operator stop component proof';
+  const request={subjectKind:'run',subject:status.source,act:'run-stopped',
+    content:{kind:'typed_reason',contentContract:{ref:contract.ref,digest:contract.digest},value:{reasonKind:'operator_stop',reasonDetail:detail}},
+    context:{kind:'run',run:status.source,basis:status.projection.executionBasis},evidence:[h.operatorRun],provenance:[h.historical]};
+  const result=await h.run(JSON.parse(JSON.stringify(await h.call({member:'run-stopped',request}))));assert.equal(result.exitCode,0,JSON.stringify(result));
+  const stop=h.publicStatus(result.resources.eventResource.closeHandoff.prefix).projection.stop;
+  assert.equal(stop.eventKind,'run_stopped');assert.equal(stop.disposition,'operator_stop');
+  assert.deepEqual(stop.operator,{reasonKind:'operator_stop',reasonDetail:detail,operatorActorRef:h.actor.ref});
+  // No route, judgment or GraphCall Result is admitted for this Run: typed absences.
+  assert.deepEqual([stop.origin,stop.lastRootResult,stop.nextActions],[{kind:'not_admitted',missingLink:'stopping_route'},{kind:'not_admitted'},[]]);
+  assert.equal(stop.statement,`The Run stopped as operator_stop and did not complete. Reason: operator operator_stop by ${h.actor.ref}, detail "${detail}". `+
+    'No originating Result is admitted: the stop names no single admitted route. No Result of the root GraphCall is admitted. No next lawful action is admitted.');
 });

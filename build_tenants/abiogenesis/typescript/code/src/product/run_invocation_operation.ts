@@ -1127,6 +1127,7 @@ export function constructRunInvocationOutcome<
   ) {
     return refusal(memberKey, "invalid_intent", ["/run"]);
   }
+  const stopped = truth.stopStatement === null ? {} : { stopStatement: truth.stopStatement };
   if (truth.runtimeStatus === "held" || truth.runtimeStatus === "gap_stopped") {
     return validatedOutput(memberKey, {
       outcomeKind: "nonterminal",
@@ -1139,6 +1140,7 @@ export function constructRunInvocationOutcome<
         gap: truth.gap,
         evidence: truth.evidence,
         replay: truth.replay,
+        ...stopped,
       },
     } as OwnerSemanticOutput<RunPacket<M>>);
   }
@@ -1170,6 +1172,7 @@ export function constructRunInvocationOutcome<
       interaction: truth.interaction,
       evidence: truth.evidence,
       replay: truth.replay,
+      ...stopped,
     },
   } as OwnerSemanticOutput<RunPacket<M>>);
 }

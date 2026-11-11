@@ -533,38 +533,59 @@ parallel compatibility register shall fail publication and conformance.
 **REQ-P-POLICY-065**: The runtime-status variant of
 `abg.operation.project.read` for an admitted Run that stopped without
 completing shall carry one stop reading. The reading shall identify the
-admitted stop event, its typed disposition and reason reference, the
-originating Result of the stop, and the last admitted evaluation Result of the
-Run's root GraphCall. It shall be folded at read time from the Run's admitted
-events and shall not require a new event kind, a change to a stop event, or a
-stored copy. An item the admitted record does not establish shall read as typed
-absence; the reading shall not infer an item from a matching label or
-reference. The runtime-status value of a Run that has not stopped shall not
-carry a stop reading.
+admitted stop event, its typed disposition and reason reference; for an
+operator stop, the recorded reason kind, reason detail and operator actor; the
+originating Result of the stop; the last admitted success Result of the Run's
+root GraphCall by reference, contract and value kind; and the next lawful
+actions the admitted record establishes. It shall be folded at read time from
+the Run's admitted events and shall not require a new event kind, a change to
+a stop event, or a stored copy. An item the admitted record does not establish
+shall read as typed absence; the reading shall not infer an item from a
+matching label, a reference or a position. The runtime-status value of a Run
+that has not stopped shall not carry a stop reading.
 
-**REQ-P-POLICY-066**: The stopping C-call is the C-call of the route a route
-stop names, or of the one failed route that caused a runtime failure. The
-originating Result shall be found by descending from the stopping C-call's
-Result through each admitted failed or blocked child foldback to the child
-Result it records, until no such foldback exists. When a failure caused the
-stop, the reading shall report the originating Result's reference, its own
-failure class and diagnostic reference, and the timeout class recorded by its
-admitted C-call evidence. A class relabelled by a parent lift shall not replace
-the originating class.
+**REQ-P-POLICY-066**: The originating Result is the Result the stop's own
+failure or block was lifted from, established only by the references the
+admitted events carry. The stopping route is the route a route stop names among
+its causes, or the one failed route among a runtime failure's causes. The first
+Result is the child Result recorded by the failed or blocked child foldback the
+stopping route consumes, or otherwise the Result named by the stopping route's
+judgment. A Result lifted from a child cites sub-traversal evidence naming a
+failed or blocked child foldback; the child Result that foldback records is the
+next link. Each link shall be admitted before the event that cites it, and the
+descent ends at a Result that cites no such foldback. A handled child failure,
+folded back and consumed by a parent re-evaluation, is not the originating
+Result of a later stop. When a link is not established, the origin shall read
+as typed absence naming the missing link. When a failure caused the stop, the
+reading shall report the originating Result's reference, its own failure class
+and diagnostic reference, and the timeout class recorded by its admitted C-call
+evidence. A class relabelled by a parent lift shall not replace the
+originating class.
 
 **REQ-P-POLICY-067**: For a blocked stop, including recursion-bound
 exhaustion, the reading shall report the stop's reason reference and the
-reference and admitted value of the last admitted evaluation Result. The
-generic read shall carry that value without interpreting Product-owned
-obligation fields. When the originating Result is a registered-selection gap
-choice, the reading shall report its missing support references and reason.
+originating Result. The reading shall carry the last admitted Result of the
+root GraphCall with its value digest and admitted value, and the generic read
+shall assert nothing about that value's content. When the originating Result is
+a registered-selection gap choice, the reading shall report its missing support
+references and reason as the language admitted them; the reading shall not
+refuse a value the language admits.
 
 **REQ-P-POLICY-068**: No Public read shall present a stopped Run as completed.
 The result variant for a stopped Run shall not return a successful terminal
 result. The stop reading shall include a plain-words statement of the
-disposition, the reason, the originating failure class, and the unresolved
-items or the evaluation Result that records them, derived from the same fold,
-so that `abg.cli` output states them without adapter-local interpretation.
+disposition; the reason, and for an operator stop its kind, detail and actor;
+the originating Result with its failure class or gap, or the link the record
+does not establish; the last admitted Result of the root GraphCall by kind,
+reference and contract; and the next lawful action, or that none is admitted.
+The statement shall be derived from the same fold and shall state nothing the
+admitted record does not show. The `abg.operation.run.invoke` and
+`abg.operation.run.continue` output of a Run that stops shall carry the same
+statement, so `abg.cli` start, continue and status output state it without
+adapter-local interpretation. No Public read shall present a frame ended by an
+admitted failed or blocked child foldback as a live invocation or that child's
+GraphCall as closed; the reads shall apply the reader rule Run quiescence
+applies to such a frame.
 
 ## Public Operation Acceptance
 

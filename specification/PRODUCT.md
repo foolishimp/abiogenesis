@@ -1026,9 +1026,13 @@ run conformance and installed-product proof
 ```
 
 A Run that stops without completing reads back from the admitted record alone:
-its typed disposition, the reason for the stop, the originating failure class
-where a failure caused it, and the unresolved obligations its last admitted
-evaluation recorded. A stop is never presented as completion.
+its typed disposition, the reason for the stop, the Result the stop originated
+from with its failure class where a failure caused it, the last admitted Result
+of its root, which for an Executive records its unresolved obligations and
+review standing, and the next lawful action where the record establishes one.
+The start and continue output of a stopped Run state the same reading. A stop
+is never presented as completion, and a child ended by a handled failure is
+never presented as live or closed.
 
 The public surface derives from one typed contract and catalog authority. Exact
 operation names, schemas, and capability projections are frozen for the release,

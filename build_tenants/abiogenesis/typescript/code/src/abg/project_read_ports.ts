@@ -4,6 +4,8 @@ import { isDeepStrictEqual } from "node:util";
 import { isRecord } from "../shared/admission_predicates.js";
 import { compareUnicodeCodeUnits, type JsonValue } from "../shared/canonical_json.js";
 import { projectNativeLivenessRead } from "./runtime_liveness.js";
+import { isRuntimeProbeObservation, isRuntimeSystemProbeContract, type RuntimeInvocationScope,
+  type RuntimeLivenessReadProjection } from "./runtime_liveness_contracts.js";
 import { constructRuntimeFailureDiagnosticRef, projectRuntimeFailureEvidenceAtPrefix } from "./runtime_failure.js";
 import { modulePublicationSemanticDigest } from "../product/publication.js";
 import { reconstructHistoricalDeclarationCatalog, resolveExecutionDeclarationClosure, selectExactClosureContract } from "../product/declaration_closure.js";
@@ -151,9 +153,14 @@ export interface AbgRunTruthCoordinate {
 
 /**
  * Canonical typed ABG truth for one Run. Product owners consume this carrier;
- * it contains no Product result/nonterminal/refusal meaning.
+ * it contains no Product result/nonterminal/refusal meaning. A stopped Run's
+ * `stopStatement` is its `run_status` stop reading's statement, from the same fold.
  */
-export interface AbgRunTruthProjection {
+export interface AbgRunTruthProjection extends AbgRunReadTruth {
+  readonly stopStatement: string | null;
+}
+
+interface AbgRunReadTruth {
   readonly kind: "abg_run_truth_projection";
   readonly schemaVersion: "5.0.0";
   readonly prefixCoordinateDigest: Sha256Digest;
@@ -183,7 +190,7 @@ export interface AbgRunTruthRefusal {
 export type AbgRunTruthResult = AbgRunTruthProjection | AbgRunTruthRefusal;
 
 interface CanonicalRunReadContext extends RunReadContext {
-  readonly truth: AbgRunTruthProjection;
+  readonly truth: AbgRunReadTruth;
   readonly terminal: ReturnType<typeof terminalResult>;
 }
 
@@ -949,7 +956,7 @@ export function projectRunTruthAtDurablePrefix(
     const context = canonicalRunContext(prepared as PreparedRead<AbgProjectReadMemberKey>, runId);
     return context === null
       ? runTruthRefusal(prefix, runId, "target_absent", "ABG Run truth is absent from the selected admitted history")
-      : context.truth;
+      : deepFreeze({ ...context.truth, stopStatement: projectRunStopReading(context)?.statement ?? null });
   } catch (cause) {
     return runTruthRefusal(prefix, runId, "invalid_history", "ABG Run truth has no exact joined terminal history", cause);
   }
@@ -1044,10 +1051,58 @@ function prepareRunRead(
   } catch { return null; }
 }
 
+/** Run quiescence's reader rule (`replay.ts` `projectRunQuiescence`): an
+ * admitted blocked or failed child foldback is the fact that its child frame
+ * ended, with that disposition. The derived fluents are unchanged. */
+type StoppedChildFrame = Readonly<{
+  runId: string; frameId: JsonValue | undefined; graphCallId: JsonValue | undefined; disposition: "blocked" | "failed";
+}>;
+
+function stoppedChildFrames(prefix: RuntimeEventPrefix, runId: string | null): readonly StoppedChildFrame[] {
+  return indexedRuntimeEvents(prefix, "kind:child_foldback_admitted").flatMap((event) => {
+    const payload = isRecord(event.payload) ? event.payload : null;
+    const disposition = payload?.childDisposition;
+    return payload !== null && event.runId !== undefined && (runId === null || event.runId === runId) &&
+        (disposition === "blocked" || disposition === "failed")
+      ? [{ runId: event.runId, frameId: payload.childFrameId, graphCallId: payload.childGraphCallId, disposition }]
+      : [];
+  });
+}
+
+const childFrameKey = (runId: string, frameId: JsonValue | undefined, graphCallId: JsonValue | undefined) =>
+  JSON.stringify([runId, frameId, graphCallId]);
+const isFrameScope = (scope: RuntimeInvocationScope) => scope.cCallRef === null && scope.actorInvocationRef === null;
+
+/** The held frame-probe fluents of child frames that ended at a stopped foldback. */
+function endedFrameProbeFluentRefs(prefix: RuntimeEventPrefix, runId: string): ReadonlySet<string> {
+  const ended = new Set(stoppedChildFrames(prefix, runId).map((row) => childFrameKey(row.runId, row.frameId, row.graphCallId)));
+  return new Set(ended.size === 0 ? [] : indexedRuntimeEvents(prefix, "kind:runtime_activity_probe_observed").flatMap((event) => {
+    const contract = isRecord(event.payload) ? event.payload.probeContract : null;
+    const observation = isRecord(event.payload) ? event.payload.observation : null;
+    return event.runId === runId && isRuntimeSystemProbeContract(contract) && isRuntimeProbeObservation(observation) &&
+        isFrameScope(contract.scope) && ended.has(childFrameKey(runId, contract.scope.frameId, contract.scope.graphCallId))
+      ? [constructRuntimeFluent({ name: "runtime_invocation_active", identity: observation.scopeDigest }).fluentRef]
+      : [];
+  }));
+}
+
+/** A frame that ended at its admitted stopped foldback is not a live invocation.
+ * The owner-sealed observer projections are kept or omitted, never rewritten. */
+function withoutEndedFrames(
+  prefix: RuntimeEventPrefix, runId: string | null, liveness: RuntimeLivenessReadProjection,
+): RuntimeLivenessReadProjection {
+  const ended = new Set(stoppedChildFrames(prefix, runId).map((row) => childFrameKey(row.runId, row.frameId, row.graphCallId)));
+  const invocations = liveness.invocations.filter((invocation) => !isFrameScope(invocation.scope) ||
+    !ended.has(childFrameKey(invocation.scope.runId, invocation.scope.frameId, invocation.scope.graphCallId)));
+  return invocations.length === liveness.invocations.length ? liveness : deepFreeze({ ...liveness, invocations });
+}
+
 function graphCallStatus(context: GraphCallReadContext): ReplayState["runtimeStatus"] {
   if (context.eventAtoms.some((event) => event.eventKind === "graph_call_closed" && event.aggregateId === context.graphCallId)) return "closed";
-  return holdsAt(context.calculus, constructRuntimeFluent({ name: "graph_call_active", identity: context.graphCallId }))
-    ? "active" : context.replay.runtimeStatus;
+  if (holdsAt(context.calculus, constructRuntimeFluent({ name: "graph_call_active", identity: context.graphCallId }))) return "active";
+  const ended = context.replay.runId === null ? [] : stoppedChildFrames(context.prefix, context.replay.runId)
+    .filter((row) => row.graphCallId === context.graphCallId);
+  return ended.length === 1 ? ended[0]!.disposition : context.replay.runtimeStatus;
 }
 
 function projectRunStatus(
@@ -1057,6 +1112,7 @@ function projectRunStatus(
 ): ProjectedValue {
   if (context === null) return ABSENT;
   const stop = projectRunStopReading(context);
+  const ended = endedFrameProbeFluentRefs(context.prefix, targetRef);
   return {
     runId: targetRef,
     executionBasis: context.truth.executionBasis,
@@ -1064,7 +1120,8 @@ function projectRunStatus(
     replayRef: context.truth.replay.ref,
     replayDigest: context.truth.replay.digest,
     quiescence: projectRunQuiescence(context.prefix),
-    holdsAt: context.calculus.holds,
+    holdsAt: ended.size === 0 ? context.calculus.holds
+      : context.calculus.holds.filter((fluent) => !ended.has(fluent.fluentRef)),
     ...(stop === null ? {} : { stop }),
   } as unknown as JsonValue;
 }
@@ -1072,6 +1129,8 @@ function projectRunStatus(
 type StopRecord = Readonly<Record<string, JsonValue>>;
 type StopNotAdmitted = Readonly<{ kind: "not_admitted" }>;
 const STOP_NOT_ADMITTED: StopNotAdmitted = Object.freeze({ kind: "not_admitted" });
+/** The causal link the admitted record does not establish. */
+type StopMissingLink = "stopping_route" | "judged_result" | "lifted_foldback" | "child_result";
 type StopResultFields = Readonly<{
   result: AbgRunTruthCoordinate;
   cCallRef: string;
@@ -1084,15 +1143,17 @@ type StopOrigin =
   | (StopResultFields & Readonly<{ kind: "failure"; failureClass: string | null; diagnosticRef: string | null; timeout: StopTimeout }>)
   | (StopResultFields & Readonly<{ kind: "gap"; missingSupportRefs: readonly string[]; reason: string }>)
   | (StopResultFields & Readonly<{ kind: "result"; resultClass: string }>)
-  | StopNotAdmitted;
-type StopEvaluation = Readonly<{
+  | Readonly<{ kind: "not_admitted"; missingLink: StopMissingLink }>;
+type StopRootResult = Readonly<{
   kind: "admitted_result"; result: AbgRunTruthCoordinate; contractRef: string; valueKind: string | null;
   valueDigest: Sha256Digest; value: StopRecord; cCallRef: string; resultAdmissionEventRef: string;
 }> | StopNotAdmitted;
+type StopOperator = Readonly<{ reasonKind: string; reasonDetail: string; operatorActorRef: string }>;
 type StopReading = Readonly<{
   kind: "abg_run_stop_reading"; schemaVersion: "5.0.0"; stop: AbgRunTruthCoordinate;
   eventKind: "run_stopped" | "runtime_failure_observed"; disposition: string; reasonRef: string | null; stage: string | null;
-  origin: StopOrigin; evaluation: StopEvaluation; statement: string;
+  operator: StopOperator | null; origin: StopOrigin; lastRootResult: StopRootResult;
+  nextActions: readonly AbgRunTruthCoordinate[]; statement: string;
 }>;
 
 function stopString(record: StopRecord, field: string): string | null {
@@ -1106,49 +1167,108 @@ function oneStopEvent(prefix: RuntimeEventPrefix, key: string, predicate: (event
   return match.kind === "one" ? match.value : null;
 }
 
-/** The C-call whose Result starts the origin descent: the route a route stop
- * names, or the one failed route among a runtime failure's causes. */
-function stoppingCCallRef(prefix: RuntimeEventPrefix, stop: RuntimeEvent): string | null {
+const stopEventById = (prefix: RuntimeEventPrefix, eventRef: string) =>
+  oneStopEvent(prefix, "id:" + eventRef, (event) => event.eventId === eventRef);
+const isStoppedFoldback = (event: RuntimeEvent | null): event is RuntimeEvent => event?.kind === "child_foldback_admitted" &&
+  (eventRecord(event).childDisposition === "failed" || eventRecord(event).childDisposition === "blocked");
+
+/** The stopping route: the route a route stop names among its causes, or the
+ * one failed route among a runtime failure's causes. */
+function stoppingRoute(prefix: RuntimeEventPrefix, stop: RuntimeEvent): RuntimeEvent | null {
   const routeRef = stopString(eventRecord(stop), "routeRef");
   const routes = stop.kind === "run_stopped"
     ? routeRef === null ? [] : indexedRuntimeEvents(prefix, "payload:routeRef:" + routeRef).filter((event) =>
         event.kind === "traversal_route_admitted" && stop.causationEventRefs.includes(event.eventId) &&
         eventRecord(event).routeRef === routeRef)
     : stop.causationEventRefs.flatMap((eventRef) => {
-        const event = oneStopEvent(prefix, "id:" + eventRef, (row) => row.eventId === eventRef);
+        const event = stopEventById(prefix, eventRef);
         return event !== null && event.kind === "traversal_route_admitted" && eventRecord(event).routeKind === "failed" ? [event] : [];
       });
-  return routes.length === 1 ? stopString(eventRecord(routes[0]!), "cCallRef") : null;
+  return routes.length === 1 ? routes[0]! : null;
 }
 
-/** Descend from the stopping C-call's Result through each admitted failed or
- * blocked child foldback to the child Result it records. */
-function stopOriginEvent(prefix: RuntimeEventPrefix, cCallRef: string): RuntimeEvent | null {
-  let result = oneStopEvent(prefix, "related:" + cCallRef, (event) =>
-    event.kind === "c_call_result_admitted" && event.aggregateId === cCallRef);
-  const visited = new Set<string>();
-  while (result !== null && !visited.has(result.aggregateId)) {
-    const parent = result.aggregateId;
-    visited.add(parent);
-    const foldbacks = indexedRuntimeEvents(prefix, "payload:parentCCallRef:" + parent).filter((event) =>
-      event.kind === "child_foldback_admitted" && isRecord(event.payload) && event.payload.parentCCallRef === parent &&
-      (event.payload.childDisposition === "failed" || event.payload.childDisposition === "blocked"));
-    if (foldbacks.length === 0) return result;
-    if (foldbacks.length !== 1) return null;
-    const foldback = eventRecord(foldbacks[0]!);
-    const childResultRef = stopString(foldback, "childResultRef");
-    result = childResultRef === null ? null : oneStopEvent(prefix, "payload:resultRef:" + childResultRef, (event) =>
-      event.kind === "c_call_result_admitted" && eventRecord(event).resultRef === childResultRef &&
-      eventRecord(event).resultDigest === foldback.childResultDigest);
+/** A Result is a link only with the fields the reading reports. */
+const linkedResult = (event: RuntimeEvent | null, before: number, missing: StopMissingLink) =>
+  event !== null && event.admissionOrdinal < before && stopResultFields(event) !== null ? event : missing;
+
+/** A route lifted from a child consumes that child's stopped foldback: the
+ * route's causes name the foldback event and its consumed refs its foldbackRef. */
+function routeLift(prefix: RuntimeEventPrefix, route: RuntimeEvent): RuntimeEvent | null | StopMissingLink {
+  const foldbacks = route.causationEventRefs.map((eventRef) => stopEventById(prefix, eventRef)).filter(isStoppedFoldback);
+  if (foldbacks.length === 0) return null;
+  const foldback = foldbacks[0]!, consumed = eventRecord(route).consumedAvailabilityRefs;
+  return foldbacks.length === 1 && Array.isArray(consumed) && consumed.includes(eventRecord(foldback).foldbackRef ?? null) &&
+      eventRecord(foldback).parentCCallRef === eventRecord(route).cCallRef && foldback.admissionOrdinal < route.admissionOrdinal
+    ? foldback : "lifted_foldback";
+}
+
+/** The Result the stopping route's judgment names; a route stop's own
+ * judgment reference, when it carries one, must be that judgment. */
+function judgedResult(prefix: RuntimeEventPrefix, stop: RuntimeEvent, route: RuntimeEvent): RuntimeEvent | StopMissingLink {
+  const cCallRef = stopString(eventRecord(route), "cCallRef"), judgmentRef = stopString(eventRecord(route), "judgmentRef");
+  const named = stopString(eventRecord(stop), "judgmentRef");
+  if (cCallRef === null || judgmentRef === null || (named !== null && named !== judgmentRef)) return "judged_result";
+  const judged = oneStopEvent(prefix, "related:" + cCallRef, (event) =>
+    event.kind === "c_call_judged" && event.aggregateId === cCallRef && eventRecord(event).judgmentRef === judgmentRef);
+  const resultRef = judged === null ? null : stopString(eventRecord(judged), "resultRef");
+  return resultRef === null ? "judged_result" : linkedResult(oneStopEvent(prefix, "payload:resultRef:" + resultRef, (event) =>
+    event.kind === "c_call_result_admitted" && event.aggregateId === cCallRef && eventRecord(event).resultRef === resultRef),
+  judged!.admissionOrdinal, "judged_result");
+}
+
+/** A Result lifted from a child cites the sub-traversal evidence that names
+ * that child's foldback. A Result citing no stopped foldback is the origin. */
+function resultLift(prefix: RuntimeEventPrefix, result: RuntimeEvent): RuntimeEvent | null | StopMissingLink {
+  const evidenceRefs = eventRecord(result).evidenceRefs;
+  const cited = Array.isArray(evidenceRefs) ? indexedRuntimeEvents(prefix, "related:" + result.aggregateId).filter((event) =>
+    event.kind === "c_call_evidenced" && event.aggregateId === result.aggregateId && event.admissionOrdinal < result.admissionOrdinal &&
+    eventRecord(event).evidenceClass === "sub_traversal" && evidenceRefs.includes(eventRecord(event).evidenceRef ?? null)) : [];
+  const lifts = cited.flatMap((evidence): { evidence: RuntimeEvent; foldback: RuntimeEvent | null }[] => {
+    const foldbackRef = stopString(eventRecord(evidence), "foldbackEventRef");
+    const foldback = foldbackRef === null ? null : stopEventById(prefix, foldbackRef);
+    return foldback === null ? [{ evidence, foldback: null }]
+      : isStoppedFoldback(foldback) ? [{ evidence, foldback }] : [];
+  });
+  if (lifts.length === 0) return null;
+  const { evidence, foldback } = lifts[0]!;
+  return lifts.length === 1 && foldback !== null && evidence.causationEventRefs.includes(foldback.eventId) &&
+      eventRecord(foldback).parentCCallRef === result.aggregateId && foldback.admissionOrdinal < evidence.admissionOrdinal
+    ? foldback : "lifted_foldback";
+}
+
+/** The child Result a stopped foldback records, by reference and digest. */
+function foldbackChildResult(prefix: RuntimeEventPrefix, foldback: RuntimeEvent): RuntimeEvent | StopMissingLink {
+  const payload = eventRecord(foldback), childResultRef = stopString(payload, "childResultRef");
+  return childResultRef === null ? "child_result" : linkedResult(oneStopEvent(prefix, "payload:resultRef:" + childResultRef, (event) =>
+    event.kind === "c_call_result_admitted" && eventRecord(event).resultRef === childResultRef &&
+    eventRecord(event).resultDigest === payload.childResultDigest), foldback.admissionOrdinal, "child_result");
+}
+
+/** REQ-P-POLICY-066: the origin is the Result the stop's own failure or block
+ * was lifted from, by the references the events carry. Each link is admitted
+ * strictly earlier than the one citing it. A handled failure, folded back and
+ * consumed by a re-evaluation, is cited by no stopping route or lifted Result. */
+function stopOriginEvent(prefix: RuntimeEventPrefix, stop: RuntimeEvent): RuntimeEvent | StopMissingLink {
+  const route = stoppingRoute(prefix, stop);
+  if (route === null) return "stopping_route";
+  const routed = routeLift(prefix, route);
+  if (typeof routed === "string") return routed;
+  let result = routed === null ? judgedResult(prefix, stop, route) : foldbackChildResult(prefix, routed);
+  while (typeof result !== "string") {
+    const lifted = resultLift(prefix, result);
+    if (lifted === null) return result;
+    if (typeof lifted === "string") return lifted;
+    result = foldbackChildResult(prefix, lifted);
   }
-  return null;
+  return result;
 }
 
 function stopResultFields(event: RuntimeEvent): StopResultFields | null {
   const payload = eventRecord(event);
   const resultRef = stopString(payload, "resultRef"), resultDigest = stopString(payload, "resultDigest");
   const contractRef = stopString(payload, "contractRef");
-  if (resultRef === null || resultDigest === null || contractRef === null || !isRecord(payload.value)) return null;
+  if (event.kind !== "c_call_result_admitted" || resultRef === null || resultDigest === null || contractRef === null ||
+      stopString(payload, "resultClass") === null || !isRecord(payload.value)) return null;
   return {
     result: truthCoordinate(resultRef, resultDigest as Sha256Digest),
     cCallRef: event.aggregateId,
@@ -1169,11 +1289,10 @@ function stopTimeout(prefix: RuntimeEventPrefix, result: RuntimeEvent): StopTime
     ? { kind: "observed", timeoutClass } : STOP_NOT_ADMITTED;
 }
 
-function stopOrigin(prefix: RuntimeEventPrefix, cCallRef: string | null): StopOrigin {
-  const event = cCallRef === null ? null : stopOriginEvent(prefix, cCallRef);
-  const fields = event === null ? null : stopResultFields(event);
-  if (event === null || fields === null) return STOP_NOT_ADMITTED;
-  const payload = eventRecord(event), value = payload.value as StopRecord;
+function stopOrigin(prefix: RuntimeEventPrefix, stop: RuntimeEvent): StopOrigin {
+  const event = stopOriginEvent(prefix, stop);
+  if (typeof event === "string") return { kind: "not_admitted", missingLink: event };
+  const fields = stopResultFields(event)!, payload = eventRecord(event), value = payload.value as StopRecord;
   if (payload.resultClass === "failure") {
     return { kind: "failure", ...fields, failureClass: stopString(value, "failureClass"),
       diagnosticRef: stopString(value, "diagnosticRef"), timeout: stopTimeout(prefix, event) };
@@ -1181,14 +1300,13 @@ function stopOrigin(prefix: RuntimeEventPrefix, cCallRef: string | null): StopOr
   if (isRegisteredGraphChoice(value) && value.disposition === "gap") {
     return { kind: "gap", ...fields, missingSupportRefs: value.missingSupportRefs as readonly string[], reason: value.reason as string };
   }
-  const resultClass = stopString(payload, "resultClass");
-  return resultClass === null ? STOP_NOT_ADMITTED : { kind: "result", ...fields, resultClass };
+  return { kind: "result", ...fields, resultClass: stopString(payload, "resultClass")! };
 }
 
 /** The last success Result of the Run's root GraphCall admitted before the
- * stop. Its value is carried, never interpreted: obligation meaning is the
- * owning Product's. */
-function stopEvaluation(prefix: RuntimeEventPrefix, graphCallId: string | null, stop: RuntimeEvent): StopEvaluation {
+ * stop, named by contract, kind and reference. Its value is carried, never
+ * interpreted: what it records is the owning Product's meaning. */
+function stopRootResult(prefix: RuntimeEventPrefix, graphCallId: string | null, stop: RuntimeEvent): StopRootResult {
   const event = graphCallId === null ? undefined : indexedRuntimeEvents(prefix, "graph-call:" + graphCallId).filter((row) =>
     row.kind === "c_call_result_admitted" && row.graphCallId === graphCallId &&
     row.admissionOrdinal < stop.admissionOrdinal && isRecord(row.payload) && row.payload.resultClass === "success").at(-1);
@@ -1201,10 +1319,27 @@ function stopEvaluation(prefix: RuntimeEventPrefix, graphCallId: string | null, 
   };
 }
 
+/** An operator stop's recorded reason: kind, exact detail and operator actor. */
+function stopOperator(payload: StopRecord): StopOperator | null {
+  const reasonKind = stopString(payload, "reasonKind"), reasonDetail = stopString(payload, "reasonDetail");
+  const operatorActorRef = stopString(payload, "operatorActorRef");
+  return reasonKind === null || reasonDetail === null || operatorActorRef === null ? null
+    : { reasonKind, reasonDetail, operatorActorRef };
+}
+
+const MISSING_LINK_WORDS: Readonly<Record<StopMissingLink, string>> = {
+  stopping_route: "the stop names no single admitted route",
+  judged_result: "the stopping route's judged Result is not admitted",
+  lifted_foldback: "the child foldback it was lifted from is not admitted exactly",
+  child_result: "a child foldback's Result is not admitted",
+};
+
 /** Plain words over the typed reading, for the CLI's one output line. */
 function stopStatement(reading: Omit<StopReading, "statement">): string {
-  const { origin, evaluation } = reading;
-  const reason = reading.reasonRef === null ? "No stop reason reference is admitted."
+  const { origin, lastRootResult, operator } = reading;
+  const reason = operator !== null
+    ? `Reason: operator ${operator.reasonKind} by ${operator.operatorActorRef}, detail "${operator.reasonDetail}".`
+    : reading.reasonRef === null ? "No stop reason is admitted."
     : `Reason: ${reading.reasonRef}${reading.stage === null ? "" : ` at stage ${reading.stage}`}.`;
   const source = origin.kind === "not_admitted" ? ""
     : `${origin.result.ref}${origin.graphFunctionRef === null ? "" : ` from ${origin.graphFunctionRef}`}`;
@@ -1214,21 +1349,24 @@ function stopStatement(reading: Omit<StopReading, "statement">): string {
     : origin.kind === "gap"
     ? `Originating gap in ${source}: missing support ${origin.missingSupportRefs.join(", ")}; reason "${origin.reason}".`
     : origin.kind === "result"
-    ? `Originating result: ${origin.valueKind ?? "unkinded value"} ${source}.`
-    : "No originating result is admitted.";
-  const evaluationText = evaluation.kind === "admitted_result"
-    ? `Unresolved obligations are those recorded by the last admitted evaluation ${evaluation.valueKind ?? "result"} ${evaluation.result.ref}.`
-    : "No evaluation result is admitted.";
-  return `The Run stopped as ${reading.disposition} and did not complete. ${reason} ${originText} ${evaluationText}`;
+    ? `Originating Result: ${origin.valueKind ?? "unkinded value"} ${source}.`
+    : `No originating Result is admitted: ${MISSING_LINK_WORDS[origin.missingLink]}.`;
+  const rootText = lastRootResult.kind === "admitted_result"
+    ? `The last admitted Result of the root GraphCall is ${lastRootResult.valueKind ?? "an unkinded value"} ${
+        lastRootResult.result.ref} under contract ${lastRootResult.contractRef}.`
+    : "No Result of the root GraphCall is admitted.";
+  const nextText = reading.nextActions.length === 0 ? "No next lawful action is admitted."
+    : `Next lawful action: ${reading.nextActions.map((action) => action.ref).join(", ")}.`;
+  return `The Run stopped as ${reading.disposition} and did not complete. ${reason} ${originText} ${rootText} ${nextText}`;
 }
 
 /** REQ-P-POLICY-065–068: the stop reading is a read-time fold over the Run's
- * admitted stop, route, foldback, Result and evidence events. A missing or
- * ambiguous link reads `not_admitted`; nothing is chosen by label. */
+ * admitted stop, route, foldback, Result and evidence events. A link the
+ * record does not establish reads as typed absence; nothing is chosen by label. */
 function projectRunStopReading(context: CanonicalRunReadContext): StopReading | null {
   const coordinate = context.truth.stop;
   if (coordinate === null) return null;
-  const stop = oneStopEvent(context.prefix, "id:" + coordinate.ref, (event) => event.eventId === coordinate.ref);
+  const stop = stopEventById(context.prefix, coordinate.ref);
   if (stop === null || (stop.kind !== "run_stopped" && stop.kind !== "runtime_failure_observed")) {
     throw new TypeError("Run stop reading lacks its exact admitted stop event");
   }
@@ -1243,8 +1381,10 @@ function projectRunStopReading(context: CanonicalRunReadContext): StopReading | 
     disposition,
     reasonRef: stopString(payload, failure ? "diagnosticRef" : "reasonRef"),
     stage: failure ? stopString(payload, "stage") : null,
-    origin: stopOrigin(context.prefix, stoppingCCallRef(context.prefix, stop)),
-    evaluation: stopEvaluation(context.prefix, context.replay.graphCallId, stop),
+    operator: failure ? null : stopOperator(payload),
+    origin: stopOrigin(context.prefix, stop),
+    lastRootResult: stopRootResult(context.prefix, context.replay.graphCallId, stop),
+    nextActions: runLawfulActions(context).map((action) => truthCoordinate(action.projectionRef, action.projectionDigest)),
   };
   return deepFreeze({ ...reading, statement: stopStatement(reading) });
 }
@@ -1255,21 +1395,10 @@ function projectGraphCallStatus(
 ): ProjectedValue {
   const context = graphCallContext(prepared, targetRef);
   if (context === null) return ABSENT;
-  const closed = context.eventAtoms.some((event) =>
-    event.eventKind === "graph_call_closed" && event.aggregateId === targetRef
-  );
-  const active = holdsAt(
-    context.calculus,
-    constructRuntimeFluent({ name: "graph_call_active", identity: targetRef }),
-  );
   return {
     graphCallId: targetRef,
     runId: context.replay.runId,
-    status: closed
-      ? "closed"
-      : active
-        ? "active"
-        : context.replay.runtimeStatus,
+    status: graphCallStatus(context),
     replayRef: context.replay.replayRef,
     replayDigest: context.replay.replayDigest,
     eventAtoms: context.eventAtoms,
@@ -1671,19 +1800,22 @@ function projectRunLawfulActions(
 ): ProjectedValue {
   const context = canonicalRunContext(prepared, targetRef);
   if (context === null) return ABSENT;
-  return {
-    runId: targetRef,
-    lawfulActions: context.replay.routes.flatMap((route) =>
-      route.nextActionProjection?.disposition === "selected"
-        ? [{
-            routeRef: route.routeRef,
-            projectionRef: route.nextActionProjectionRef!,
-            projectionDigest: route.nextActionProjectionDigest!,
-            action: route.nextActionProjection,
-          }]
-        : []
-    ),
-  };
+  return { runId: targetRef, lawfulActions: runLawfulActions(context) };
+}
+
+/** The lawful next actions the Run's admitted routes project; the stop
+ * reading names the same set. */
+function runLawfulActions(context: RunReadContext) {
+  return context.replay.routes.flatMap((route) =>
+    route.nextActionProjection?.disposition === "selected"
+      ? [{
+          routeRef: route.routeRef,
+          projectionRef: route.nextActionProjectionRef!,
+          projectionDigest: route.nextActionProjectionDigest!,
+          action: route.nextActionProjection,
+        }]
+      : []
+  );
 }
 
 function projectValue(
@@ -1770,11 +1902,12 @@ function projectPreparedRead<K extends AbgProjectReadMemberKey>(
     "target_not_ready", "selected scope has no terminal result at this prefix");
   const livenessMember = expectedMemberKey.endsWith("_status") || expectedMemberKey.endsWith("_replay") ||
     expectedMemberKey.endsWith("_gaps") || expectedMemberKey === "run_lawful_actions";
-  const nativeLiveness = livenessMember ? projectNativeLivenessRead(prepared.fullPrefix,
-    expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
-      expectedMemberKey.startsWith("graph_call_") ? indexedRuntimeEventEnvelopes(prepared.fullPrefix, "kind:graph_call_opened")
-        .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null,
+  const livenessRunId = expectedMemberKey.startsWith("run_") ? prepared.packet.targetRef :
+    expectedMemberKey.startsWith("graph_call_") ? indexedRuntimeEventEnvelopes(prepared.fullPrefix, "kind:graph_call_opened")
+      .find(event => event.kind === "graph_call_opened" && event.aggregateId === prepared.packet.targetRef)?.runId ?? null : null;
+  const liveness = livenessMember ? projectNativeLivenessRead(prepared.fullPrefix, livenessRunId,
     expectedMemberKey.startsWith("graph_call_") ? prepared.packet.targetRef : undefined) : null;
+  const nativeLiveness = liveness === null ? null : withoutEndedFrames(prepared.fullPrefix, livenessRunId, liveness);
   let projectedValue: JsonValue = projected;
   if (nativeLiveness !== null) {
     if (!isRecord(projected)) throw new TypeError("ABG project read liveness member requires an object projection");

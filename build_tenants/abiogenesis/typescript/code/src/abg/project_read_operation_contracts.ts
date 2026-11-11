@@ -175,9 +175,13 @@ export const ABG_ADMITTED_GAP_SCHEMA = v.strictObject({
 
 // REQ-P-POLICY-065–068: a stopped Run's reading, folded at read time from its
 // admitted stop, route, foldback, Result and evidence events. Each link the
-// record does not establish is `not_admitted`. The evaluation value is carried
-// without interpretation.
+// record does not establish is `not_admitted`. The root Result's value is
+// carried without interpretation.
 const stopNotAdmittedSchema = v.strictObject({ kind: v.literal("not_admitted") });
+// The language's own predicate for a gap's missing support references
+// (`gtl/registered_selection.ts`): non-empty strings. A reading never refuses
+// a value the language admitted.
+const admittedGapSupportRefSchema = v.pipe(v.string(), v.minLength(1));
 const stopResultFields = {
   result: refDigestSchema,
   cCallRef: nonblankSchema,
@@ -194,6 +198,11 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
   disposition: nonblankSchema,
   reasonRef: v.nullable(nonblankSchema),
   stage: v.nullable(nonblankSchema),
+  operator: v.nullable(v.strictObject({
+    reasonKind: nonblankSchema,
+    reasonDetail: nonblankSchema,
+    operatorActorRef: nonblankSchema,
+  })),
   origin: v.variant("kind", [
     v.strictObject({
       kind: v.literal("failure"),
@@ -211,7 +220,7 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
     v.strictObject({
       kind: v.literal("gap"),
       ...stopResultFields,
-      missingSupportRefs: v.array(nonblankSchema),
+      missingSupportRefs: v.array(admittedGapSupportRefSchema),
       reason: nonblankSchema,
     }),
     v.strictObject({
@@ -219,9 +228,12 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
       ...stopResultFields,
       resultClass: nonblankSchema,
     }),
-    stopNotAdmittedSchema,
+    v.strictObject({
+      kind: v.literal("not_admitted"),
+      missingLink: v.picklist(["stopping_route", "judged_result", "lifted_foldback", "child_result"]),
+    }),
   ]),
-  evaluation: v.variant("kind", [
+  lastRootResult: v.variant("kind", [
     v.strictObject({
       kind: v.literal("admitted_result"),
       result: refDigestSchema,
@@ -234,6 +246,7 @@ export const ABG_RUN_STOP_READING_SCHEMA = v.strictObject({
     }),
     stopNotAdmittedSchema,
   ]),
+  nextActions: refDigestSetSchema,
   statement: nonblankSchema,
 });
 
