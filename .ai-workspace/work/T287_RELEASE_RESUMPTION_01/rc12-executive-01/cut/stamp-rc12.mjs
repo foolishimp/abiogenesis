@@ -52,9 +52,10 @@ export function stampTree(root, {write}) {
     rows.push({path: site.path, state, beforeSha256: hex(before), afterSha256: hex(after), bytesBefore: Buffer.byteLength(before), bytesAfter: Buffer.byteLength(after)});
   }
   // No other tenant source may still state the old version; only the two generated
-  // files may, until the build. Ignored outputs (.gitignore of the tenant) are skipped.
+  // files may, until the build. Ignored outputs (the tenant's .gitignore and the
+  // repository's build_tenants/*/*/test_env/test_runs/ rule) are skipped.
   const tenant = join(root, T), needle = Buffer.from(FROM_VERSION);
-  const ignored = p => ['node_modules', 'build', 'artifacts', 'test_env/uat/runs'].includes(p) || /^test_env\/evidence\/[^/]+\.json$/.test(p);
+  const ignored = p => ['node_modules', 'build', 'artifacts', 'test_env/uat/runs', 'test_env/test_runs'].includes(p) || /^test_env\/evidence\/[^/]+\.json$/.test(p);
   const planned = new Set(rows.filter(r => r.state === 'stamped').map(r => r.path));
   const remaining = inventory(tenant, {hash: false, skip: ignored})
     .filter(r => r.kind === 'file' && readFileSync(join(tenant, r.path)).includes(needle)).map(r => r.path);
