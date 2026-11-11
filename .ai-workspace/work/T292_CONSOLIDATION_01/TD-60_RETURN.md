@@ -62,11 +62,13 @@ Which rows pin inputs:
 
 - The 17 `runs_with_root` rows (11 class A, 6 converted class C) pin the
   inputs their lanes read. `evidenceGate` reads only these rows.
-- The 22 failing rows and the declaration-baseline row pin what the traced
-  pre-check (section 3) read under the root. A file value pins itself, so
-  both recorded F11 carrier fixtures and both parent-alias bindings are
-  separate inputs. A directory value pins the regular files the pre-check
-  read under it: 20 files of the qual-raw baseline tenant, 2 of the S02
+- The 3 failing class A rows pin their lanes' own `evidenceInput` pins.
+- The 19 failing class C rows and the declaration-baseline row pin what
+  the traced pre-check (section 3) read under the root. A file value pins
+  itself, so both recorded F11 carrier fixtures and both parent-alias
+  bindings are separate inputs. A directory value pins the regular files
+  the pre-check read under it: 20 files of the qual-raw baseline tenant, 2
+  of the S02 fixture, 1 of the held-prefix fixture, 2 of the owned-judgment
   fixture, and 170 of the declaration-baseline install tree. Output roots
   (`ABI207_PROOF_ROOT`, `ABI5_DECLARATION_PROOF_ROOT`) are not pinned.
   Other root files a lane read beside its value, such as files the value
@@ -449,9 +451,13 @@ To check that the runs left the root unchanged, I ran `find -newermt
 '2026-11-12 08:10'` over the whole root (the package started at 08:10). It
 lists 10 paths: `TECHNICAL_DEBT_REGISTER.md`, the T-292 ticket,
 `work/T292_CONSOLIDATION_01` with three other packages' files in it, and
-`work/TECH_DEBT_REGISTER_02/census/out` with three coverage files. These
-belong to other packages. None is a test output, and none lies in a
-directory that holds a pinned input. A `find -newer` from a stamp taken
+`work/TECH_DEBT_REGISTER_02/census/out` with three coverage files. Six of
+the files are tracked and unmodified in the main checkout, among them the
+register (last committed in `f068d89ef`) and `coverage-summary.json` (last
+committed in `603a84ff6`). The other two coverage files are git-ignored
+census outputs. All three coverage files carry the same time, 08:23:18.
+None of my runs invokes the census. None of the paths lies in a directory
+that holds a pinned input. A `find -newer` from a stamp taken
 before the post-pin rerun of the converted files and `t287-governed-context`
 lists nothing. `verifyEvidenceGateCatalogue()` passes after all runs.
 
@@ -538,7 +544,8 @@ now reads this file.
   An evidence root at another location satisfies the catalogue pins, but
   those lanes would still read the original absolute paths.
 - The catalogue is 230 KB, mostly recorded values with their records,
-  capped at six per variable. A scratch generator produced it; later edits
-  are by hand.
+  capped at six per variable. Every version came from a scratch generator
+  outside the repository (`/private/tmp/abg-td60-work/gen.py`). The
+  repository holds no generator, so later edits must be made by hand.
 - Class A lanes keep calling `evidenceInput` directly (ruling 2). Their
   rows describe them, but their skip reasons do not name the row.
